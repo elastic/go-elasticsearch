@@ -107,20 +107,11 @@ func newMethod(specFilePath string) (*method, error) {
 
 func (m *method) normalizeParams(params *map[string]*param) {
 	for name, p := range *params {
-		var formattedName string
-		if name == "type" {
-			formattedName = "documentType"
-		} else {
-			formattedName = snaker.SnakeToCamel(name)
-			if !p.Required {
-				p.OptionName = "With" + formattedName
-			}
-			formattedName = strings.ToLower(string(formattedName[0])) + formattedName[1:]
+		p.normalize(name)
+		if p.Name != name {
+			delete(*params, name)
+			(*params)[p.Name] = p
 		}
-		delete(*params, name)
-		p.Name = formattedName
-		(*params)[formattedName] = p
-		p.MapType()
 	}
 }
 

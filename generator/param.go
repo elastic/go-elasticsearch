@@ -19,6 +19,12 @@
 
 package generator
 
+import (
+	"strings"
+
+	"github.com/serenize/snaker"
+)
+
 type param struct {
 	Name        string
 	Type        string      `json:"type"`
@@ -29,8 +35,18 @@ type param struct {
 	OptionName  string
 }
 
-func (p *param) MapType() {
-	if p.Type == "list" {
+func (p *param) normalize(name string) {
+	if name == "type" {
+		p.Name = "documentType"
+	} else {
+		p.Name = snaker.SnakeToCamel(name)
+		if !p.Required {
+			p.OptionName = "With" + p.Name
+		}
+		p.Name = strings.ToLower(string(p.Name[0])) + p.Name[1:]
+	}
+	switch p.Type {
+	case "list":
 		p.Type = "[]string"
 	}
 }
