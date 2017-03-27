@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Health - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-health.html for more info.
@@ -34,4 +36,8 @@ func (c *Cat) Health(options ...*Option) (*HealthResponse, error) {
 type HealthResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *HealthResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

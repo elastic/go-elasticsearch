@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // GetSettings - allows to update cluster wide specific settings. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-update-settings.html for more info.
@@ -34,4 +36,8 @@ func (c *Cluster) GetSettings(options ...*Option) (*GetSettingsResponse, error) 
 type GetSettingsResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *GetSettingsResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

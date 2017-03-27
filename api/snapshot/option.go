@@ -58,15 +58,6 @@ func WithIgnoreUnavailable(ignoreUnavailable bool) *Option {
 	}
 }
 
-// WithLocal - return local information, do not retrieve the state from master node (default: false).
-func WithLocal(local bool) *Option {
-	return &Option{
-		name: "WithLocal",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
 // WithMasterTimeout - explicit operation timeout for connection to master node.
 func WithMasterTimeout(masterTimeout time.Time) *Option {
 	return &Option{
@@ -85,10 +76,19 @@ func WithPretty(pretty bool) *Option {
 	}
 }
 
-// WithRepository - a comma-separated list of repository names.
-func WithRepository(repository []string) *Option {
+// WithRepository - a repository name.
+func WithRepository(repository string) *Option {
 	return &Option{
 		name: "WithRepository",
+		apply: func(r *http.Request) {
+		},
+	}
+}
+
+// WithSnapshot - a comma-separated list of snapshot names.
+func WithSnapshot(snapshot []string) *Option {
+	return &Option{
+		name: "WithSnapshot",
 		apply: func(r *http.Request) {
 		},
 	}
@@ -142,16 +142,6 @@ var (
 			"WithPretty":            struct{}{},
 			"WithSourceParam":       struct{}{},
 		},
-		"CreateRepository": map[string]struct{}{
-			"WithMasterTimeout": struct{}{},
-			"WithTimeout":       struct{}{},
-			"WithVerify":        struct{}{},
-			"WithErrorTrace":    struct{}{},
-			"WithFilterPath":    struct{}{},
-			"WithHuman":         struct{}{},
-			"WithPretty":        struct{}{},
-			"WithSourceParam":   struct{}{},
-		},
 		"Delete": map[string]struct{}{
 			"WithMasterTimeout": struct{}{},
 			"WithErrorTrace":    struct{}{},
@@ -160,9 +150,30 @@ var (
 			"WithPretty":        struct{}{},
 			"WithSourceParam":   struct{}{},
 		},
+		"Status": map[string]struct{}{
+			"WithRepository":        struct{}{},
+			"WithSnapshot":          struct{}{},
+			"WithIgnoreUnavailable": struct{}{},
+			"WithMasterTimeout":     struct{}{},
+			"WithErrorTrace":        struct{}{},
+			"WithFilterPath":        struct{}{},
+			"WithHuman":             struct{}{},
+			"WithPretty":            struct{}{},
+			"WithSourceParam":       struct{}{},
+		},
 		"DeleteRepository": map[string]struct{}{
 			"WithMasterTimeout": struct{}{},
 			"WithTimeout":       struct{}{},
+			"WithErrorTrace":    struct{}{},
+			"WithFilterPath":    struct{}{},
+			"WithHuman":         struct{}{},
+			"WithPretty":        struct{}{},
+			"WithSourceParam":   struct{}{},
+		},
+		"CreateRepository": map[string]struct{}{
+			"WithMasterTimeout": struct{}{},
+			"WithTimeout":       struct{}{},
+			"WithVerify":        struct{}{},
 			"WithErrorTrace":    struct{}{},
 			"WithFilterPath":    struct{}{},
 			"WithHuman":         struct{}{},
@@ -188,6 +199,15 @@ var (
 			"WithPretty":        struct{}{},
 			"WithSourceParam":   struct{}{},
 		},
+		"VerifyRepository": map[string]struct{}{
+			"WithMasterTimeout": struct{}{},
+			"WithTimeout":       struct{}{},
+			"WithErrorTrace":    struct{}{},
+			"WithFilterPath":    struct{}{},
+			"WithHuman":         struct{}{},
+			"WithPretty":        struct{}{},
+			"WithSourceParam":   struct{}{},
+		},
 		"Restore": map[string]struct{}{
 			"WithMasterTimeout":     struct{}{},
 			"WithWaitForCompletion": struct{}{},
@@ -197,26 +217,6 @@ var (
 			"WithHuman":             struct{}{},
 			"WithPretty":            struct{}{},
 			"WithSourceParam":       struct{}{},
-		},
-		"Status": map[string]struct{}{
-			"WithRepository":        struct{}{},
-			"WithSnapshot":          struct{}{},
-			"WithIgnoreUnavailable": struct{}{},
-			"WithMasterTimeout":     struct{}{},
-			"WithErrorTrace":        struct{}{},
-			"WithFilterPath":        struct{}{},
-			"WithHuman":             struct{}{},
-			"WithPretty":            struct{}{},
-			"WithSourceParam":       struct{}{},
-		},
-		"VerifyRepository": map[string]struct{}{
-			"WithMasterTimeout": struct{}{},
-			"WithTimeout":       struct{}{},
-			"WithErrorTrace":    struct{}{},
-			"WithFilterPath":    struct{}{},
-			"WithHuman":         struct{}{},
-			"WithPretty":        struct{}{},
-			"WithSourceParam":   struct{}{},
 		},
 	}
 )

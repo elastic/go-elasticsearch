@@ -6,9 +6,11 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
-// Shrink - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-shrink-index.html for more info.
+// Shrink - the shrink index API allows you to shrink an existing index into a new index with fewer primary shards. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-shrink-index.html for more info.
 //
 // index: the name of the source index to shrink.
 //
@@ -38,4 +40,8 @@ func (i *Indices) Shrink(index string, target string, options ...*Option) (*Shri
 type ShrinkResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *ShrinkResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

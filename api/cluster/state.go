@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // State - the cluster state API allows to get a comprehensive state information of the whole cluster. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-state.html for more info.
@@ -34,4 +36,8 @@ func (c *Cluster) State(options ...*Option) (*StateResponse, error) {
 type StateResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *StateResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

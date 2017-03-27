@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Aliases - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-alias.html for more info.
@@ -34,4 +36,8 @@ func (c *Cat) Aliases(options ...*Option) (*AliasesResponse, error) {
 type AliasesResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *AliasesResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

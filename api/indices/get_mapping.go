@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // GetMapping - the get mapping API allows to retrieve mapping definitions for an index or index/type. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-get-mapping.html for more info.
@@ -34,4 +36,8 @@ func (i *Indices) GetMapping(options ...*Option) (*GetMappingResponse, error) {
 type GetMappingResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *GetMappingResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

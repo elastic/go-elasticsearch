@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Indices - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-indices.html for more info.
@@ -34,4 +36,8 @@ func (c *Cat) Indices(options ...*Option) (*IndicesResponse, error) {
 type IndicesResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *IndicesResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

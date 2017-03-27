@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // SearchShards - the search shards api returns the indices and shards that a search request would be executed against. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-shards.html for more info.
@@ -38,4 +40,8 @@ func (a *API) SearchShards(index []string, documentType []string, options ...*Op
 type SearchShardsResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *SearchShardsResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

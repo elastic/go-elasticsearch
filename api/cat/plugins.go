@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Plugins - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-plugins.html for more info.
@@ -34,4 +36,8 @@ func (c *Cat) Plugins(options ...*Option) (*PluginsResponse, error) {
 type PluginsResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *PluginsResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Stats - indices level stats provide statistics on different operations happening on an index. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-stats.html for more info.
@@ -34,4 +36,8 @@ func (i *Indices) Stats(options ...*Option) (*StatsResponse, error) {
 type StatsResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *StatsResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

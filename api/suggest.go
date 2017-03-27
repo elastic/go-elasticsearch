@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Suggest - the suggest feature suggests similar looking terms based on a provided text by using a suggester. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-suggesters.html for more info.
@@ -36,4 +38,8 @@ func (a *API) Suggest(body map[string]interface{}, options ...*Option) (*Suggest
 type SuggestResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *SuggestResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

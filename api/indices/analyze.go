@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Analyze - performs the analysis process on a text and return the tokens breakdown of the text. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-analyze.html for more info.
@@ -34,4 +36,8 @@ func (i *Indices) Analyze(options ...*Option) (*AnalyzeResponse, error) {
 type AnalyzeResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *AnalyzeResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

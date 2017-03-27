@@ -24,7 +24,7 @@ import (
 )
 
 func TestResolve(t *testing.T) {
-	params, err := newCommonParams("testdata/_common.json")
+	params, err := newCommonParams(testSpecDir)
 	if err != nil {
 		t.Fatal(err)
 	}

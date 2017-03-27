@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Allocation - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-allocation.html for more info.
@@ -34,4 +36,8 @@ func (c *Cat) Allocation(options ...*Option) (*AllocationResponse, error) {
 type AllocationResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *AllocationResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

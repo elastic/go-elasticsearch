@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // HotThreads - an API allowing to get the current hot threads on each node in the cluster. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-nodes-hot-threads.html for more info.
@@ -34,4 +36,8 @@ func (n *Nodes) HotThreads(options ...*Option) (*HotThreadsResponse, error) {
 type HotThreadsResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *HotThreadsResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

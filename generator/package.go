@@ -22,22 +22,21 @@ package generator
 import (
 	"fmt"
 	"io"
-	"path/filepath"
 	"text/template"
 )
 
-type apiPackage struct {
+type goPackage struct {
 	Name        string
 	Repo        string
 	TypeName    string
 	Methods     []*method
 	Options     map[string]*param
 	Enums       map[string]*param
-	SubPackages map[string]*apiPackage
+	SubPackages map[string]*goPackage
 }
 
-func newAPIPackage(m *method) (*apiPackage, error) {
-	p := &apiPackage{
+func newGoPackage(m *method) (*goPackage, error) {
+	p := &goPackage{
 		Name:     m.PackageName,
 		Repo:     m.Repo,
 		TypeName: m.TypeName,
@@ -48,7 +47,7 @@ func newAPIPackage(m *method) (*apiPackage, error) {
 	return p, err
 }
 
-func (p *apiPackage) addParam(op *param) error {
+func (p *goPackage) addParam(op *param) error {
 	if existingParam, ok := p.Options[op.Name]; ok {
 		if !existingParam.equals(op) {
 			return fmt.Errorf("found two different versions of %q in %q", op.Name, p.Name)
@@ -68,7 +67,7 @@ func (p *apiPackage) addParam(op *param) error {
 	return nil
 }
 
-func (p *apiPackage) addMethod(m *method) error {
+func (p *goPackage) addMethod(m *method) error {
 	p.Methods = append(p.Methods, m)
 	for _, op := range m.OptionalURLParts {
 		if err := p.addParam(op); err != nil {
@@ -83,50 +82,37 @@ func (p *apiPackage) addMethod(m *method) error {
 	return nil
 }
 
-func (p *apiPackage) addSubpackage(sub *apiPackage) {
+func (p *goPackage) addSubpackage(sub *goPackage) {
 	if p.SubPackages == nil {
-		p.SubPackages = map[string]*apiPackage{}
+		p.SubPackages = map[string]*goPackage{}
 	}
 	p.SubPackages[sub.Methods[0].PackageName] = sub
 }
 
-func (p *apiPackage) newWriter(outputDir, fileName string) (io.Writer, error) {
+func (p *goPackage) newWriter(outputDir, fileName string) (io.Writer, error) {
 	return p.Methods[0].newWriter(outputDir, fileName)
 }
 
-func (p *apiPackage) generateAPI(templatesDir string, w io.Writer) error {
-	templateFilePath := filepath.Join(templatesDir, "package.tmpl")
-	t, err := template.ParseFiles(templateFilePath)
-	if err != nil {
-		return fmt.Errorf("failed to parse template in %q: %s", templateFilePath, err)
+func (p *goPackage) generateAPI(templates *template.Template, w io.Writer) error {
+	if err := templates.Lookup("package.tmpl").Execute(w, p); err != nil {
+		return fmt.Errorf("failed to execute package template: %s", err)
 	}
-	err = t.Execute(w, p)
-	if err != nil {
-		return fmt.Errorf("failed to execute template in %q: %s", templateFilePath, err)
-	}
-	return err
+	return nil
 }
 
-func (p *apiPackage) generateOption(templatesDir string, w io.Writer) error {
-	// TODO: implement options in template
-	templateFilePath := filepath.Join(templatesDir, "option.tmpl")
-	t, err := template.ParseFiles(templateFilePath)
-	if err != nil {
-		return fmt.Errorf("failed to parse template in %q: %s", templateFilePath, err)
+func (p *goPackage) generateOption(templates *template.Template, w io.Writer) error {
+	if err := templates.Lookup("option.tmpl").Execute(w, p); err != nil {
+		return fmt.Errorf("failed to execute option template: %s", err)
 	}
-	err = t.Execute(w, p)
-	if err != nil {
-		return fmt.Errorf("failed to execute template in %q: %s", templateFilePath, err)
-	}
-	return err
+	return nil
 }
 
-func (p *apiPackage) generate(templatesDir, outputDir string) error {
+func (p *goPackage) generate(templates *template.Template, outputDir string) error {
 	w, err := p.newWriter(outputDir, "option.go")
 	if err != nil {
 		return err
 	}
-	err = p.generateOption(templatesDir, w)
+	err = p.generateOption(templates, w)
 	if err != nil {
 		return err
 	}
@@ -138,5 +124,5 @@ func (p *apiPackage) generate(templatesDir, outputDir string) error {
 	if err != nil {
 		return err
 	}
-	return p.generateAPI(templatesDir, w)
+	return p.generateAPI(templates, w)
 }

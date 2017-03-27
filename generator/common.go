@@ -22,10 +22,15 @@ package generator
 import (
 	"encoding/json"
 	"io/ioutil"
+	"path/filepath"
 )
 
-func newCommonParams(specFilePath string) (map[string]*param, error) {
-	bytes, err := ioutil.ReadFile(specFilePath)
+const (
+	commonParamsSpecFile = "_common.json"
+)
+
+func newCommonParams(specDir string) (map[string]*param, error) {
+	bytes, err := ioutil.ReadFile(filepath.Join(specDir, "api", commonParamsSpecFile))
 	if err != nil {
 		return nil, err
 	}

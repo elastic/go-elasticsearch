@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // RenderSearchTemplate - see http://www.elasticsearch.org/guide/en/elasticsearch/reference/5.x/search-template.html for more info.
@@ -34,4 +36,8 @@ func (a *API) RenderSearchTemplate(options ...*Option) (*RenderSearchTemplateRes
 type RenderSearchTemplateResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *RenderSearchTemplateResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

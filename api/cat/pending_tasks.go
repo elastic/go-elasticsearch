@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // PendingTasks - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-pending-tasks.html for more info.
@@ -34,4 +36,8 @@ func (c *Cat) PendingTasks(options ...*Option) (*PendingTasksResponse, error) {
 type PendingTasksResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *PendingTasksResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

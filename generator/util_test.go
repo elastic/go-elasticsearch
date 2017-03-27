@@ -28,6 +28,10 @@ import (
 	"github.com/aryann/difflib"
 )
 
+const (
+	testSpecDir = "testdata"
+)
+
 type dummyCloser struct {
 	io.Reader
 }
@@ -37,7 +41,7 @@ func (d *dummyCloser) Close() error {
 }
 
 func newIndexMethod(t *testing.T) *method {
-	m, err := newMethod("testdata/index.json", nil)
+	m, err := newMethod(testSpecDir, "index.json", nil)
 	if err != nil {
 		t.Fatal(err)
 	}

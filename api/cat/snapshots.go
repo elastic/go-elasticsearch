@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Snapshots - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-snapshots.html for more info.
@@ -34,4 +36,8 @@ func (c *Cat) Snapshots(options ...*Option) (*SnapshotsResponse, error) {
 type SnapshotsResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *SnapshotsResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

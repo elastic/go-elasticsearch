@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Scroll - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-request-scroll.html for more info.
@@ -34,4 +36,8 @@ func (a *API) Scroll(options ...*Option) (*ScrollResponse, error) {
 type ScrollResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *ScrollResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

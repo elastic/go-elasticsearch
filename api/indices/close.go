@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Close - the open and close index APIs allow to close an index, and later on opening it. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-open-close.html for more info.
@@ -36,4 +38,8 @@ func (i *Indices) Close(index []string, options ...*Option) (*CloseResponse, err
 type CloseResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *CloseResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

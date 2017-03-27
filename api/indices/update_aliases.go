@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // UpdateAliases - APIs in Elasticsearch accept an index name when working against a specific index, and several indices when applicable. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-aliases.html for more info.
@@ -36,4 +38,8 @@ func (i *Indices) UpdateAliases(body map[string]interface{}, options ...*Option)
 type UpdateAliasesResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *UpdateAliasesResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

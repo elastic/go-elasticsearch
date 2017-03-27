@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // DeleteTemplate - index templates allow you to define templates that will automatically be applied when new indices are created. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-templates.html for more info.
@@ -36,4 +38,8 @@ func (i *Indices) DeleteTemplate(name string, options ...*Option) (*DeleteTempla
 type DeleteTemplateResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *DeleteTemplateResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

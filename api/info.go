@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Info - see https://www.elastic.co/guide/ for more info.
@@ -34,4 +36,8 @@ func (a *API) Info(options ...*Option) (*InfoResponse, error) {
 type InfoResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *InfoResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

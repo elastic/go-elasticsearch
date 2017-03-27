@@ -6,11 +6,13 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // SearchTemplate - see https://www.elastic.co/guide/en/elasticsearch/reference/current/search-template.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithAllowNoIndices, WithExpandWildcards, WithExplain, WithIgnoreUnavailable, WithPreference, WithProfile, WithRouting, WithScroll, WithSearchType, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithAllowNoIndices, WithExpandWildcards, WithExplain, WithIgnoreUnavailable, WithPreference, WithProfile, WithRouting, WithScroll, WithSearchType, WithTypedKeys, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (a *API) SearchTemplate(options ...*Option) (*SearchTemplateResponse, error) {
 	req := &http.Request{
 		URL: &url.URL{
@@ -34,4 +36,8 @@ func (a *API) SearchTemplate(options ...*Option) (*SearchTemplateResponse, error
 type SearchTemplateResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *SearchTemplateResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

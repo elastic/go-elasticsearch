@@ -24,12 +24,17 @@ import (
 	"fmt"
 	"path/filepath"
 	"testing"
+	"text/template"
 )
 
 func TestGenerate(t *testing.T) {
 	m := newIndexMethod(t)
 	var writer bytes.Buffer
-	err := m.generate(filepath.Join("..", templatesDir), &writer)
+	templates, err := template.ParseFiles(filepath.Join("..", templatesDir, "method.tmpl"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	err = m.generate(templates, &writer)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -71,10 +76,15 @@ func (a *API) Index(index string, documentType string, body map[string]interface
 	return &IndexResponse{resp}, err
 }
 
-// IndexResponse is the response for Index
+// IndexResponse is the response for Index.
 type IndexResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *IndexResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }
 `
 	if d := diff(t, expectedCode, writer.String()); len(d) > 0 {
@@ -83,7 +93,7 @@ type IndexResponse struct {
 }
 
 func TestNormalizeParams(t *testing.T) {
-	m, err := newMethod("testdata/cat.fielddata.json", nil)
+	m, err := newMethod(testSpecDir, "cat.fielddata.json", nil)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -142,6 +152,69 @@ func TestResolveDocumentation(t *testing.T) {
 		expectedDoc := fmt.Sprintf(test.expectedDoc, test.url)
 		if m.Spec.Documentation != expectedDoc {
 			t.Fatalf("expected %q to generate %q, got %q instead", test.url, expectedDoc, m.Spec.Documentation)
+		}
+	}
+}
+
+func TestClone(t *testing.T) {
+	m := newIndexMethod(t)
+	c, err := m.clone()
+	if err != nil {
+		t.Fatal(err)
+	}
+	var tests = []struct {
+		params        []*param
+		clonedParams  []*param
+		expectedNames []string
+	}{
+		{
+			m.RequiredURLParts,
+			c.RequiredURLParts,
+			[]string{
+				"index",
+				"documentType",
+			},
+		},
+		{
+			m.RequiredURLParams,
+			c.RequiredURLParams,
+			[]string{
+				"body",
+			},
+		},
+		{
+			m.OptionalURLParts,
+			c.OptionalURLParts,
+			[]string{
+				"id",
+			},
+		},
+		{
+			m.OptionalURLParams,
+			c.OptionalURLParams,
+			[]string{
+				"opType",
+				"timeout",
+				"version",
+				"waitForActiveShards",
+			},
+		},
+	}
+	for _, test := range tests {
+		if len(test.params) != len(test.expectedNames) {
+			t.Fatalf("expected %s params but got %#v", test.expectedNames, test.params)
+		}
+		if len(test.params) != len(test.clonedParams) {
+			t.Fatalf("expected %d params but got %#v", len(test.params), test.clonedParams)
+		}
+		for i, name := range test.expectedNames {
+			p := test.params[i]
+			if p.Name != name {
+				t.Fatalf("expected %q but got %q", name, p.Name)
+			}
+			if !p.equals(test.clonedParams[i]) {
+				t.Fatalf("cloned param %q differs", p.Name)
+			}
 		}
 	}
 }

@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Get allows to get a typed JSON document from the index based on its id. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-get.html for more info.
@@ -40,4 +42,8 @@ func (a *API) Get(index string, documentType string, id string, options ...*Opti
 type GetResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *GetResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

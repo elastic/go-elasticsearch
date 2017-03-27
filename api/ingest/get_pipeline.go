@@ -6,9 +6,11 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
-// GetPipeline - see https://www.elastic.co/guide/en/elasticsearch/plugins/5.x/ingest.html for more info.
+// GetPipeline - the ingest plugins extend Elasticsearch by providing additional ingest node capabilities. See https://www.elastic.co/guide/en/elasticsearch/plugins/5.x/ingest.html for more info.
 //
 // id: comma separated list of pipeline ids. Wildcards supported.
 //
@@ -36,4 +38,8 @@ func (i *Ingest) GetPipeline(id string, options ...*Option) (*GetPipelineRespons
 type GetPipelineResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *GetPipelineResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

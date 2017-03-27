@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/elastic/go-elasticsearch.svg?branch=master)](https://travis-ci.org/elastic/go-elasticsearch)
 # go-elasticsearch
 
 [![GoDoc](https://godoc.org/github.com/elastic/go-elasticsearch?status.png)](https://godoc.org/github.com/elastic/go-elasticsearch)

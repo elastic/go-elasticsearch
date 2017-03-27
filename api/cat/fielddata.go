@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Fielddata - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-fielddata.html for more info.
@@ -34,4 +36,8 @@ func (c *Cat) Fielddata(options ...*Option) (*FielddataResponse, error) {
 type FielddataResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *FielddataResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

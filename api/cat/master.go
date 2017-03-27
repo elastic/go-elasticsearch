@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Master - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-master.html for more info.
@@ -34,4 +36,8 @@ func (c *Cat) Master(options ...*Option) (*MasterResponse, error) {
 type MasterResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *MasterResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

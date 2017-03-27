@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Info - the cluster nodes info API allows to retrieve one or more (or all) of the cluster nodes information. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-nodes-info.html for more info.
@@ -34,4 +36,8 @@ func (n *Nodes) Info(options ...*Option) (*InfoResponse, error) {
 type InfoResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *InfoResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

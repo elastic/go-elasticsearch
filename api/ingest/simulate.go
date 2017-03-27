@@ -6,9 +6,11 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
-// Simulate - see https://www.elastic.co/guide/en/elasticsearch/plugins/5.x/ingest.html for more info.
+// Simulate - the ingest plugins extend Elasticsearch by providing additional ingest node capabilities. See https://www.elastic.co/guide/en/elasticsearch/plugins/5.x/ingest.html for more info.
 //
 // body: the simulate definition.
 //
@@ -36,4 +38,8 @@ func (i *Ingest) Simulate(body map[string]interface{}, options ...*Option) (*Sim
 type SimulateResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *SimulateResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

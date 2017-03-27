@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Segments - provide low level segments information that a Lucene index (shard level) is built with. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-segments.html for more info.
@@ -34,4 +36,8 @@ func (i *Indices) Segments(options ...*Option) (*SegmentsResponse, error) {
 type SegmentsResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *SegmentsResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

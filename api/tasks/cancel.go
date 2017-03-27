@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Cancel - the task management API allows to retrieve information about the tasks currently executing on one or more nodes in the cluster. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/tasks.html for more info.
@@ -34,4 +36,8 @@ func (t *Tasks) Cancel(options ...*Option) (*CancelResponse, error) {
 type CancelResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *CancelResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

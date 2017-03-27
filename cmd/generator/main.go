@@ -29,7 +29,7 @@ import (
 
 func main() {
 	specDirFlag := flag.String("specdir", generator.DefaultSpecDir,
-		"directory containing the JSON spec for the REST API")
+		"directory containing the specs for the REST API and its tests")
 
 	flag.Parse()
 	g, err := generator.New(*specDirFlag)

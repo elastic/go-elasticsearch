@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // PutMapping - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-put-mapping.html for more info.
@@ -40,4 +42,8 @@ func (i *Indices) PutMapping(index []string, documentType string, body map[strin
 type PutMappingResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *PutMappingResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

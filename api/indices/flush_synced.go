@@ -6,9 +6,11 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
-// FlushSynced - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-synced-flush.html for more info.
+// FlushSynced - elasticsearch tracks the indexing activity of each shard. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-synced-flush.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) FlushSynced(options ...*Option) (*FlushSyncedResponse, error) {
@@ -34,4 +36,8 @@ func (i *Indices) FlushSynced(options ...*Option) (*FlushSyncedResponse, error) 
 type FlushSyncedResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *FlushSyncedResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

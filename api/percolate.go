@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Percolate - for indices created on or after version 5.0.0-alpha1 the percolator automatically indexes the query terms with the percolator queries. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-percolate.html for more info.
@@ -38,4 +40,8 @@ func (a *API) Percolate(index string, documentType string, options ...*Option) (
 type PercolateResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *PercolateResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

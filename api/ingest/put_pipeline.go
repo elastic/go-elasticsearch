@@ -6,9 +6,11 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
-// PutPipeline - see https://www.elastic.co/guide/en/elasticsearch/plugins/5.x/ingest.html for more info.
+// PutPipeline - the ingest plugins extend Elasticsearch by providing additional ingest node capabilities. See https://www.elastic.co/guide/en/elasticsearch/plugins/5.x/ingest.html for more info.
 //
 // id: pipeline ID.
 //
@@ -38,4 +40,8 @@ func (i *Ingest) PutPipeline(id string, body map[string]interface{}, options ...
 type PutPipelineResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *PutPipelineResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

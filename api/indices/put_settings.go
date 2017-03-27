@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // PutSettings - change specific index level settings in real time. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-update-settings.html for more info.
@@ -36,4 +38,8 @@ func (i *Indices) PutSettings(body map[string]interface{}, options ...*Option) (
 type PutSettingsResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *PutSettingsResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

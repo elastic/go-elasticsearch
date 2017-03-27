@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Mtermvectors - multi termvectors API allows to get multiple termvectors at once. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-multi-termvectors.html for more info.
@@ -34,4 +36,8 @@ func (a *API) Mtermvectors(options ...*Option) (*MtermvectorsResponse, error) {
 type MtermvectorsResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *MtermvectorsResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

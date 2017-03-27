@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Mget - multi GET API allows to get multiple documents based on an index, type (optional) and id (and possibly routing). See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-multi-get.html for more info.
@@ -36,4 +38,8 @@ func (a *API) Mget(body map[string]interface{}, options ...*Option) (*MgetRespon
 type MgetResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *MgetResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

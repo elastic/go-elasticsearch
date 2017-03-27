@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Flush allows to flush one or more indices through an API. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-flush.html for more info.
@@ -34,4 +36,8 @@ func (i *Indices) Flush(options ...*Option) (*FlushResponse, error) {
 type FlushResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *FlushResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

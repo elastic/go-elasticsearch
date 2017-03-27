@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // GetFieldMapping - the get field mapping API allows you to retrieve mapping definitions for one or more fields. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-get-field-mapping.html for more info.
@@ -36,4 +38,8 @@ func (i *Indices) GetFieldMapping(fields []string, options ...*Option) (*GetFiel
 type GetFieldMappingResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *GetFieldMappingResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

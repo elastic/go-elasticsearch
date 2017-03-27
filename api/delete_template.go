@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // DeleteTemplate - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-template.html for more info.
@@ -36,4 +38,8 @@ func (a *API) DeleteTemplate(id string, options ...*Option) (*DeleteTemplateResp
 type DeleteTemplateResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *DeleteTemplateResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

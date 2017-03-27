@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Exists - the get API allows to get a typed JSON document from the index based on its id. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-get.html for more info.
@@ -16,7 +18,7 @@ import (
 //
 // id: the document ID.
 //
-// options: optional parameters. Supports the following functional options: WithParent, WithPreference, WithRealtime, WithRefresh, WithRouting, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithSource, WithSourceExclude, WithSourceInclude, WithParent, WithPreference, WithRealtime, WithRefresh, WithRouting, WithStoredFields, WithVersion, WithVersionType, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (a *API) Exists(index string, documentType string, id string, options ...*Option) (*ExistsResponse, error) {
 	req := &http.Request{
 		URL: &url.URL{
@@ -40,4 +42,8 @@ func (a *API) Exists(index string, documentType string, id string, options ...*O
 type ExistsResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *ExistsResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

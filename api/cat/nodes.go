@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Nodes - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-nodes.html for more info.
@@ -34,4 +36,8 @@ func (c *Cat) Nodes(options ...*Option) (*NodesResponse, error) {
 type NodesResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *NodesResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

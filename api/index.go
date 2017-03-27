@@ -6,9 +6,11 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
-// Index adds or updates a typed JSON document in a specific index, making it searchable. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-index_.html for more info.
+// Index - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-index_.html for more info.
 //
 // index: the name of the index.
 //
@@ -40,4 +42,8 @@ func (a *API) Index(index string, documentType string, body map[string]interface
 type IndexResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *IndexResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

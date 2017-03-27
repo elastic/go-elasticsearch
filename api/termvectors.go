@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Termvectors - returns information and statistics on terms in the fields of a particular document. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-termvectors.html for more info.
@@ -38,4 +40,8 @@ func (a *API) Termvectors(index string, documentType string, options ...*Option)
 type TermvectorsResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *TermvectorsResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

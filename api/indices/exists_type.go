@@ -6,9 +6,11 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
-// ExistsType - used to check if a type/types exists in an index/indices. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-types-exists.html for more info.
+// ExistsType - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-types-exists.html for more info.
 //
 // index: a comma-separated list of index names; use "_all" to check the types across all indices.
 //
@@ -38,4 +40,8 @@ func (i *Indices) ExistsType(index []string, documentType []string, options ...*
 type ExistsTypeResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *ExistsTypeResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

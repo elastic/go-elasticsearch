@@ -34,8 +34,13 @@ func ({{.ReceiverName}} *{{.TypeName}}) {{.MethodName}}({{range .RequiredURLPart
 	return &{{.MethodName}}Response{resp}, err
 }
 
-// {{.MethodName}}Response is the response for {{.MethodName}}
+// {{.MethodName}}Response is the response for {{.MethodName}}.
 type {{.MethodName}}Response struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *{{.MethodName}}Response) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

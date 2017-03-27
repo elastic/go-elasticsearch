@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // GetUpgrade - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-upgrade.html for more info.
@@ -34,4 +36,8 @@ func (i *Indices) GetUpgrade(options ...*Option) (*GetUpgradeResponse, error) {
 type GetUpgradeResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *GetUpgradeResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

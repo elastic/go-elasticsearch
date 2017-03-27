@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Recovery - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-recovery.html for more info.
@@ -34,4 +36,8 @@ func (c *Cat) Recovery(options ...*Option) (*RecoveryResponse, error) {
 type RecoveryResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *RecoveryResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

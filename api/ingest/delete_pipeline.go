@@ -6,9 +6,11 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
-// DeletePipeline - see https://www.elastic.co/guide/en/elasticsearch/plugins/5.x/ingest.html for more info.
+// DeletePipeline - the ingest plugins extend Elasticsearch by providing additional ingest node capabilities. See https://www.elastic.co/guide/en/elasticsearch/plugins/5.x/ingest.html for more info.
 //
 // id: pipeline ID.
 //
@@ -36,4 +38,8 @@ func (i *Ingest) DeletePipeline(id string, options ...*Option) (*DeletePipelineR
 type DeletePipelineResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *DeletePipelineResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

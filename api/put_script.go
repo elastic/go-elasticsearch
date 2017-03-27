@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // PutScript - the scripting module enables you to use scripts to evaluate custom expressions. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/modules-scripting.html for more info.
@@ -38,4 +40,8 @@ func (a *API) PutScript(lang string, body map[string]interface{}, options ...*Op
 type PutScriptResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *PutScriptResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

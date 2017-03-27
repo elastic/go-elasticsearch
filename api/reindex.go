@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Reindex - reindex does not attempt to set up the destination index. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-reindex.html for more info.
@@ -36,4 +38,8 @@ func (a *API) Reindex(body map[string]interface{}, options ...*Option) (*Reindex
 type ReindexResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *ReindexResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

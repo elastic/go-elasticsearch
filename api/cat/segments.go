@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Segments - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-segments.html for more info.
@@ -34,4 +36,8 @@ func (c *Cat) Segments(options ...*Option) (*SegmentsResponse, error) {
 type SegmentsResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *SegmentsResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

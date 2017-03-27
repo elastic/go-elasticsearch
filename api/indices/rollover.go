@@ -6,9 +6,11 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
-// Rollover - the rollover index API rolls an alias over to a new index when the existing index is considered to be too large or too old. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-rollover-index.html for more info.
+// Rollover - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-rollover-index.html for more info.
 //
 // alias: the name of the alias to rollover.
 //
@@ -36,4 +38,8 @@ func (i *Indices) Rollover(alias string, options ...*Option) (*RolloverResponse,
 type RolloverResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *RolloverResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

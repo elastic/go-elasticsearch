@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Update allows to update a document based on a script provided. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-update.html for more info.
@@ -40,4 +42,8 @@ func (a *API) Update(index string, documentType string, id string, options ...*O
 type UpdateResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *UpdateResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

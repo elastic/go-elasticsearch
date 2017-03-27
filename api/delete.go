@@ -6,9 +6,11 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
-// Delete allows to delete a typed JSON document from a specific index based on its id. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-delete.html for more info.
+// Delete - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-delete.html for more info.
 //
 // index: the name of the index.
 //
@@ -40,4 +42,8 @@ func (a *API) Delete(index string, documentType string, id string, options ...*O
 type DeleteResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *DeleteResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

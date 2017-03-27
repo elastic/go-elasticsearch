@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // DeleteByQuery - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-delete-by-query.html for more info.
@@ -38,4 +40,8 @@ func (a *API) DeleteByQuery(index []string, body map[string]interface{}, options
 type DeleteByQueryResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *DeleteByQueryResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

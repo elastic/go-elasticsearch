@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Refresh allows to explicitly refresh one or more index, making all operations performed since the last refresh available for search. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-refresh.html for more info.
@@ -34,4 +36,8 @@ func (i *Indices) Refresh(options ...*Option) (*RefreshResponse, error) {
 type RefreshResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *RefreshResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // UpdateByQuery - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-update-by-query.html for more info.
@@ -36,4 +38,8 @@ func (a *API) UpdateByQuery(index []string, options ...*Option) (*UpdateByQueryR
 type UpdateByQueryResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *UpdateByQueryResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

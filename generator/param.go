@@ -22,8 +22,20 @@ package generator
 import (
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/serenize/snaker"
+)
+
+const (
+	// TODO: make type its own struct
+	specTypeDict    = "dict"
+	specTypeBoolean = "boolean"
+	specTypeEnum    = "enum"
+	specTypeList    = "list"
+	specTypeNumber  = "number"
+	specTypeString  = "string"
+	specTypeTime    = "time"
 )
 
 type enum struct {
@@ -32,8 +44,17 @@ type enum struct {
 	SpecName string
 }
 
+func (e *enum) clone() *enum {
+	return &enum{
+		Name:     e.Name,
+		Type:     e.Type,
+		SpecName: e.SpecName,
+	}
+}
+
 type param struct {
 	Name        string
+	rawName     string
 	SpecType    string `json:"type"`
 	Type        string
 	Description string      `json:"description"`
@@ -42,6 +63,30 @@ type param struct {
 	Options     []string    `json:"options"`
 	OptionName  string
 	EnumValues  []*enum
+	// Value is used by the tester to temporarily assign values to the parameter for the purpose of generating tests.
+	Value interface{}
+}
+
+func formatName(name string, required bool) (string, string) {
+	// Make sure we don't mix _source and source
+	if name == "source" {
+		name = "source_param"
+	}
+	if strings.HasPrefix(name, "_") {
+		name = name[1:]
+	}
+	var paramName string
+	var optionName string
+	switch name {
+	case "type":
+		paramName = "documentType"
+	default:
+		paramName = snaker.SnakeToCamelLower(name)
+	}
+	if !required {
+		optionName = "With" + snaker.SnakeToCamel(name)
+	}
+	return paramName, optionName
 }
 
 func formatToken(index int, token string) string {
@@ -72,26 +117,12 @@ func formatDescription(description string) string {
 }
 
 func (p *param) resolve(name string) error {
-	// Make sure we don't mix _source and source
-	if name == "source" {
-		name = "source_param"
-	}
-	if strings.HasPrefix(name, "_") {
-		name = name[1:]
-	}
-	switch name {
-	case "type":
-		p.Name = "documentType"
-	default:
-		p.Name = snaker.SnakeToCamelLower(name)
-	}
-	if !p.Required {
-		p.OptionName = "With" + snaker.SnakeToCamel(name)
-	}
+	p.rawName = name
+	p.Name, p.OptionName = formatName(name, p.Required)
 	switch p.SpecType {
-	case "boolean":
+	case specTypeBoolean:
 		p.Type = "bool"
-	case "enum":
+	case specTypeEnum:
 		p.Type = snaker.SnakeToCamel(p.Name)
 		p.EnumValues = []*enum{}
 		for _, o := range p.Options {
@@ -105,13 +136,15 @@ func (p *param) resolve(name string) error {
 			}
 			p.EnumValues = append(p.EnumValues, e)
 		}
-	case "list":
+	case specTypeDict:
+		p.Type = "map[string]interface{}"
+	case specTypeList:
 		p.Type = "[]string"
-	case "number":
+	case specTypeNumber:
 		p.Type = "int"
-	case "string":
+	case specTypeString:
 		p.Type = "string"
-	case "time":
+	case specTypeTime:
 		p.Type = "time.Time"
 	case "":
 		// TODO: we should remove this param
@@ -138,4 +171,94 @@ func (p *param) equals(other *param) bool {
 func (p *param) addSuffix(suffix string) {
 	p.Name += suffix
 	p.OptionName += suffix
+}
+
+func (p *param) clone() *param {
+	c := &param{
+		Name:        p.Name,
+		SpecType:    p.SpecType,
+		Type:        p.Type,
+		Description: p.Description,
+		Required:    p.Required,
+		Default:     p.Default,
+		Options:     []string{},
+		OptionName:  p.OptionName,
+		EnumValues:  []*enum{},
+	}
+	for _, o := range p.Options {
+		c.Options = append(c.Options, o)
+	}
+	for _, e := range p.EnumValues {
+		c.EnumValues = append(c.EnumValues, e.clone())
+	}
+	return c
+}
+
+type invalidTypeError struct {
+	p *param
+}
+
+func (i *invalidTypeError) Error() string {
+	return fmt.Sprintf("invalid type for %s: %T (expected %s)", i.p.Name, i.p.Value, i.p.Type)
+}
+
+func (p *param) String() (string, error) {
+	if p.Value == nil {
+		return "", nil
+	}
+	switch p.SpecType {
+	case specTypeBoolean:
+		v, ok := p.Value.(bool)
+		if !ok {
+			return "", &invalidTypeError{p}
+		}
+		return fmt.Sprint(v), nil
+	case specTypeEnum:
+		v, ok := p.Value.(enum)
+		if !ok {
+			return "", &invalidTypeError{p}
+		}
+		return fmt.Sprint(v), nil
+	case specTypeNumber:
+		v, ok := p.Value.(int)
+		if !ok {
+			return "", &invalidTypeError{p}
+		}
+		return fmt.Sprint(v), nil
+	case specTypeDict:
+		v, ok := p.Value.(map[interface{}]interface{})
+		if !ok {
+			return "", &invalidTypeError{p}
+		}
+		code := "map[string]interface{}{"
+		for name, value := range v {
+			// TODO: format value
+			code += fmt.Sprintf("\n\"%s\" : \"%s\",", name.(string), value)
+		}
+		code += "\n}"
+		return code, nil
+	case specTypeString:
+		v, ok := p.Value.(string)
+		if !ok {
+			i, ok := p.Value.(int)
+			if !ok {
+				return "", &invalidTypeError{p}
+			}
+			return fmt.Sprintf("\"%d\"", i), nil
+		}
+		return "\"" + v + "\"", nil
+	case specTypeList:
+		v, ok := p.Value.([]string)
+		if !ok {
+			return "", &invalidTypeError{p}
+		}
+		return fmt.Sprint(v), nil
+	case specTypeTime:
+		v, ok := p.Value.(time.Time)
+		if !ok {
+			return "", &invalidTypeError{p}
+		}
+		return fmt.Sprint(v), nil
+	}
+	return "", nil
 }

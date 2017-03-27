@@ -32,7 +32,7 @@ func TestOptionValidation(t *testing.T) {
 	}
 	// TODO: maybe this should be an error type in some shared subpackage of api
 	unsupportedOptionError := "unsupported option: WithIndex"
-	_, err = c.Index("index", "good", nil, api.WithIndex("index again?"))
+	_, err = c.Index("index", "good", nil, api.WithIndex([]string{"index again?"}))
 	if err.Error() != unsupportedOptionError {
 		t.Fatalf("expected WithIndex() to return %q but got %q", unsupportedOptionError, err)
 	}

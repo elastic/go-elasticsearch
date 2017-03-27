@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Count - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-count.html for more info.
@@ -34,4 +36,8 @@ func (c *Cat) Count(options ...*Option) (*CountResponse, error) {
 type CountResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *CountResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

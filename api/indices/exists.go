@@ -6,13 +6,15 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
-// Exists - used to check if the index (indices) exists or not. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-exists.html for more info.
+// Exists - used to check if the index (indices) exists or not. See http://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-exists.html for more info.
 //
-// index: a comma-separated list of indices to check.
+// index: a comma-separated list of index names.
 //
-// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithLocal, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithExpandWildcards, WithFlatSettings, WithIgnoreUnavailable, WithIncludeDefaults, WithLocal, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) Exists(index []string, options ...*Option) (*ExistsResponse, error) {
 	req := &http.Request{
 		URL: &url.URL{
@@ -36,4 +38,8 @@ func (i *Indices) Exists(index []string, options ...*Option) (*ExistsResponse, e
 type ExistsResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *ExistsResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

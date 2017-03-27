@@ -6,11 +6,13 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
-// ClearCache - the clear cache API allows to clear either all caches or specific cached associated with one or more indices. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-clearcache.html for more info.
+// ClearCache - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-clearcache.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithFieldData, WithFielddata, WithFields, WithIgnoreUnavailable, WithIndexParam, WithQuery, WithRecycler, WithRequest, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithFieldData, WithFielddata, WithFields, WithIgnoreUnavailable, WithIndexParam, WithQuery, WithRecycler, WithRequest, WithRequestCache, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) ClearCache(options ...*Option) (*ClearCacheResponse, error) {
 	req := &http.Request{
 		URL: &url.URL{
@@ -34,4 +36,8 @@ func (i *Indices) ClearCache(options ...*Option) (*ClearCacheResponse, error) {
 type ClearCacheResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *ClearCacheResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

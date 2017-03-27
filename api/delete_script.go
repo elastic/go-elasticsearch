@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // DeleteScript - the scripting module enables you to use scripts to evaluate custom expressions. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/modules-scripting.html for more info.
@@ -36,4 +38,8 @@ func (a *API) DeleteScript(lang string, options ...*Option) (*DeleteScriptRespon
 type DeleteScriptResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *DeleteScriptResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

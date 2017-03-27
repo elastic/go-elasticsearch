@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Create - the create index API allows to instantiate an index. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-create-index.html for more info.
@@ -36,4 +38,8 @@ func (i *Indices) Create(index string, options ...*Option) (*CreateResponse, err
 type CreateResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *CreateResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

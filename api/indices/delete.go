@@ -6,9 +6,11 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
-// Delete - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-delete-index.html for more info.
+// Delete - the delete index API allows to delete an existing index. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-delete-index.html for more info.
 //
 // index: a comma-separated list of indices to delete; use "_all" or "*" string to delete all indices.
 //
@@ -36,4 +38,8 @@ func (i *Indices) Delete(index []string, options ...*Option) (*DeleteResponse, e
 type DeleteResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *DeleteResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

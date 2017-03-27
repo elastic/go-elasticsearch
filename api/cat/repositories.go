@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Repositories - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-repositories.html for more info.
@@ -34,4 +36,8 @@ func (c *Cat) Repositories(options ...*Option) (*RepositoriesResponse, error) {
 type RepositoriesResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *RepositoriesResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

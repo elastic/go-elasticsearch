@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // PutSettings - allows to update cluster wide specific settings. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-update-settings.html for more info.
@@ -34,4 +36,8 @@ func (c *Cluster) PutSettings(options ...*Option) (*PutSettingsResponse, error) 
 type PutSettingsResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *PutSettingsResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // ShardStores - provides store information for shard copies of indices. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-shards-stores.html for more info.
@@ -34,4 +36,8 @@ func (i *Indices) ShardStores(options ...*Option) (*ShardStoresResponse, error) 
 type ShardStoresResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *ShardStoresResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

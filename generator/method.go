@@ -39,7 +39,7 @@ import (
 )
 
 const (
-	// DefaultSpecDir is the dir holding the specs for the APIs and their tests
+	// DefaultSpecDir is the dir holding the specs for the APIs and their tests.
 	DefaultSpecDir = "rest-api-spec"
 )
 
@@ -50,16 +50,50 @@ type specURL struct {
 	Params map[string]*param `json:"params"`
 }
 
+func (u *specURL) clone() *specURL {
+	c := &specURL{
+		Path:   u.Path,
+		Paths:  []string{},
+		Parts:  map[string]*param{},
+		Params: map[string]*param{},
+	}
+	for _, p := range u.Paths {
+		c.Paths = append(c.Paths, p)
+	}
+	for name, p := range u.Parts {
+		c.Parts[name] = p.clone()
+	}
+	for name, p := range u.Params {
+		c.Params[name] = p.clone()
+	}
+	return c
+}
+
 type spec struct {
 	Documentation string   `json:"documentation"`
 	Methods       []string `json:"methods"`
-	URL           specURL  `json:"url"`
+	URL           *specURL `json:"url"`
 	Body          *param   `json:"body"`
+}
+
+func (s *spec) clone() *spec {
+	c := &spec{
+		Documentation: s.Documentation,
+		Methods:       []string{},
+		URL:           s.URL.clone(),
+	}
+	if s.Body != nil {
+		c.Body = s.Body.clone()
+	}
+	for _, m := range s.Methods {
+		c.Methods = append(c.Methods, m)
+	}
+	return c
 }
 
 type method struct {
 	rawName           string
-	Spec              spec
+	Spec              *spec
 	Repo              string
 	PackageName       string
 	FileName          string
@@ -72,11 +106,12 @@ type method struct {
 	RequiredURLParams []*param
 	OptionalURLParams []*param
 	allParams         map[string]*param
+	ParamsWithValues  []*param
 	HTTPCache         map[string]io.ReadCloser
 }
 
-func newMethod(specFilePath string, commonParams map[string]*param) (*method, error) {
-	bytes, err := ioutil.ReadFile(specFilePath)
+func newMethod(specDir, specFileName string, commonParams map[string]*param) (*method, error) {
+	bytes, err := ioutil.ReadFile(filepath.Join(specDir, "api", specFileName))
 	if err != nil {
 		return nil, err
 	}
@@ -88,13 +123,13 @@ func newMethod(specFilePath string, commonParams map[string]*param) (*method, er
 		allParams:         map[string]*param{},
 		HTTPCache:         map[string]io.ReadCloser{},
 	}
-	var spec map[string]spec
+	var spec map[string]*spec
 	err = json.Unmarshal(bytes, &spec)
 	if err != nil {
-		return nil, fmt.Errorf("failed to parse %s: %s", specFilePath, err)
+		return nil, fmt.Errorf("failed to parse %s: %s", specFileName, err)
 	}
 	if len(spec) > 1 {
-		return nil, fmt.Errorf("too many methods in %s", specFilePath)
+		return nil, fmt.Errorf("too many methods in %s", specFileName)
 	}
 	for k := range spec {
 		m.rawName = k
@@ -114,10 +149,12 @@ func newMethod(specFilePath string, commonParams map[string]*param) (*method, er
 		return nil, err
 	}
 	if m.Spec.Body != nil {
+		if m.Spec.Body.SpecType == "" {
+			m.Spec.Body.SpecType = specTypeDict
+		}
 		if err = m.Spec.Body.resolve("body"); err != nil {
 			return nil, err
 		}
-		m.Spec.Body.Type = "map[string]interface{}"
 	}
 	apiParts := strings.Split(m.rawName, ".")
 	m.PackageName = defaultPackage
@@ -198,7 +235,7 @@ func (m *method) resolveDocumentation() error {
 				}
 				period := -1
 				for i, word := range strings.Split(text, " ") {
-					// Skip "The <method> API"
+					// Skip "The <method> API".
 					if i < offset {
 						continue
 					}
@@ -212,7 +249,7 @@ func (m *method) resolveDocumentation() error {
 				if period > 0 {
 					m.Spec.Documentation += " See "
 				} else {
-					// Overwrite everything, means we we're able un parse a full paragraph
+					// Overwrite everything, means we we're able un parse a full paragraph.
 					m.Spec.Documentation = " - see "
 				}
 				m.Spec.Documentation += docURL + " for more info."
@@ -228,7 +265,7 @@ func (m *method) sortParams(common map[string]*param) error {
 	if len(parts) < 2 {
 		return fmt.Errorf("unexpected URL format: %s", m.Spec.URL.Path)
 	}
-	// Sort required URL parts looking at the URL format
+	// Sort required URL parts looking at the URL format.
 	for _, partName := range parts {
 		// Strip the {}
 		if !strings.HasPrefix(partName, "{") || !strings.HasSuffix(partName, "}") {
@@ -236,12 +273,12 @@ func (m *method) sortParams(common map[string]*param) error {
 		}
 		name := strings.Trim(partName, "{}")
 		p, ok := m.Spec.URL.Parts[name]
-		if !ok {
+		if p == nil || !ok {
 			return fmt.Errorf("cannot find URL part %q (from %q) in %#v", name, m.Spec.URL.Path, m.Spec.URL.Parts)
 		}
 		m.RequiredURLParts = append(m.RequiredURLParts, p)
 	}
-	// Sort optional URL parts by name
+	// Sort optional URL parts by name.
 	names := []string{}
 	for name, p := range m.Spec.URL.Parts {
 		if !p.Required {
@@ -250,10 +287,14 @@ func (m *method) sortParams(common map[string]*param) error {
 	}
 	sort.Strings(names)
 	for _, name := range names {
-		m.OptionalURLParts = append(m.OptionalURLParts, m.Spec.URL.Parts[name])
+		p, ok := m.Spec.URL.Parts[name]
+		if p == nil || !ok {
+			return fmt.Errorf("cannot find URL part %q (from %q) in %#v", name, m.Spec.URL.Path, m.Spec.URL.Parts)
+		}
+		m.OptionalURLParts = append(m.OptionalURLParts, p)
 	}
 
-	// Handle params, body and common params
+	// Handle params, body and common params.
 	names = []string{}
 	for name := range m.Spec.URL.Params {
 		names = append(names, name)
@@ -265,28 +306,28 @@ func (m *method) sortParams(common map[string]*param) error {
 		names = append(names, name)
 	}
 	sort.Strings(names)
-	// Sort required params by name
+	// Sort required params by name.
 	for _, name := range names {
 		if p, ok := m.Spec.URL.Params[name]; ok && p.Required {
 			m.RequiredURLParams = append(m.RequiredURLParams, p)
 		}
 	}
-	// Add body at the end of required params if applicable
+	// Add body at the end of required params if applicable.
 	if m.Spec.Body != nil && m.Spec.Body.Required {
 		m.RequiredURLParams = append(m.RequiredURLParams, m.Spec.Body)
 	}
-	// Sort optional params by name
+	// Sort optional params by name.
 	for _, name := range names {
 		if p, ok := m.Spec.URL.Params[name]; ok && !p.Required {
 			m.OptionalURLParams = append(m.OptionalURLParams, p)
 		}
 	}
-	// Add body after optional params if applicable
+	// Add body after optional params if applicable.
 	if m.Spec.Body != nil && !m.Spec.Body.Required {
 		m.OptionalURLParams = append(m.OptionalURLParams, m.Spec.Body)
 	}
-	// Sort common params by name and add them at the end
-	// TODO: we should sort these once and pass a list around
+	// Sort common params by name and add them at the end.
+	// TODO: we should sort these once and pass a list around.
 	for _, name := range names {
 		if p, ok := common[name]; ok {
 			m.OptionalURLParams = append(m.OptionalURLParams, p)
@@ -313,18 +354,108 @@ func (m *method) newWriter(outputDir, fileName string) (io.Writer, error) {
 	return goFile, nil
 }
 
-func (m *method) generate(templatesDir string, w io.Writer) error {
+func (m *method) generate(templates *template.Template, w io.Writer) error {
 	if err := m.resolveDocumentation(); err != nil {
 		return err
 	}
-	templateFilePath := filepath.Join(templatesDir, "method.tmpl")
-	t, err := template.New("method.tmpl").ParseFiles(templateFilePath)
-	if err != nil {
-		return fmt.Errorf("failed to parse template in %q: %s", templateFilePath, err)
-	}
-	err = t.Execute(w, m)
-	if err != nil {
-		return fmt.Errorf("failed to execute template in %q: %s", templateFilePath, err)
+	if err := templates.Lookup("method.tmpl").Execute(w, m); err != nil {
+		return fmt.Errorf("failed to execute method template: %s", err)
 	}
 	return nil
+}
+
+// clone clones the given method and most of its fields.
+func (m *method) clone() (*method, error) {
+	c := &method{
+		rawName:           m.rawName,
+		Spec:              m.Spec.clone(),
+		Repo:              m.Repo,
+		PackageName:       m.PackageName,
+		FileName:          m.FileName,
+		MethodName:        m.MethodName,
+		TypeName:          m.TypeName,
+		ReceiverName:      m.ReceiverName,
+		HTTPMethod:        m.HTTPMethod,
+		RequiredURLParts:  []*param{},
+		OptionalURLParts:  []*param{},
+		RequiredURLParams: []*param{},
+		OptionalURLParams: []*param{},
+		HTTPCache:         map[string]io.ReadCloser{},
+	}
+	for _, p := range m.RequiredURLParts {
+		up, ok := c.Spec.URL.Parts[p.rawName]
+		if !ok {
+			return nil, fmt.Errorf("invalid required part name: %s", p.Name)
+		}
+		c.RequiredURLParts = append(c.RequiredURLParts, up)
+	}
+	for _, p := range m.RequiredURLParams {
+		if p.Name == "body" {
+			c.RequiredURLParams = append(c.RequiredURLParams, c.Spec.Body)
+			continue
+		}
+		up, ok := c.Spec.URL.Params[p.rawName]
+		if !ok {
+			return nil, fmt.Errorf("invalid required parameter name: %s", p.Name)
+		}
+		c.RequiredURLParams = append(c.RequiredURLParams, up)
+	}
+	for _, p := range m.OptionalURLParts {
+		up, ok := c.Spec.URL.Parts[p.rawName]
+		if !ok {
+			return nil, fmt.Errorf("invalid optional part name: %s", p.Name)
+		}
+		c.OptionalURLParts = append(c.OptionalURLParts, up)
+	}
+	for _, p := range m.OptionalURLParams {
+		up, ok := c.Spec.URL.Params[p.rawName]
+		if !ok {
+			return nil, fmt.Errorf("invalid optional parameter name: %s", p.Name)
+		}
+		c.OptionalURLParams = append(c.OptionalURLParams, up)
+	}
+	return c, nil
+}
+
+// call returns a clone of the method with its parameters set to the specified values.
+func (m *method) call(args map[string]interface{}) (*method, error) {
+	c, err := m.clone()
+	if err != nil {
+		return nil, err
+	}
+	for name, value := range args {
+		var p *param
+		var ok bool
+		if name == "body" && c.Spec.Body != nil {
+			p = c.Spec.Body
+		} else if p, ok = c.Spec.URL.Parts[name]; !ok {
+			p, ok = c.Spec.URL.Params[name]
+			if !ok {
+				return nil, fmt.Errorf("invalid param name: %s", name)
+			}
+		}
+		p.Value = value
+	}
+	c.ParamsWithValues = []*param{}
+	for _, p := range c.RequiredURLParts {
+		if p.Value != nil {
+			c.ParamsWithValues = append(c.ParamsWithValues, p)
+		}
+	}
+	for _, p := range c.RequiredURLParams {
+		if p.Value != nil {
+			c.ParamsWithValues = append(c.ParamsWithValues, p)
+		}
+	}
+	for _, p := range c.OptionalURLParts {
+		if p.Value != nil {
+			c.ParamsWithValues = append(c.ParamsWithValues, p)
+		}
+	}
+	for _, p := range c.OptionalURLParams {
+		if p.Value != nil {
+			c.ParamsWithValues = append(c.ParamsWithValues, p)
+		}
+	}
+	return c, nil
 }

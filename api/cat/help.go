@@ -6,9 +6,11 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
-// Help - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat.html for more info.
+// Help - JSON is great… for computers. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithHelp, WithS, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (c *Cat) Help(options ...*Option) (*HelpResponse, error) {
@@ -34,4 +36,8 @@ func (c *Cat) Help(options ...*Option) (*HelpResponse, error) {
 type HelpResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+func (r *HelpResponse) DecodeBody() (map[string]interface{}, error) {
+	return transport.DecodeResponseBody(r.Response)
 }
