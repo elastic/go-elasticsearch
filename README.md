@@ -1,1 +1,1 @@
-# go-elasticsearch
+# elasticsearch-go
