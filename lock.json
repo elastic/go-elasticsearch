@@ -1,0 +1,13 @@
+{
+    "memo": "60f3c4db84ff3d70c6c2ff319222f513704d1512e8f68f6986fc6e2b5e24a1eb",
+    "projects": [
+        {
+            "name": "github.com/golang/glog",
+            "branch": "master",
+            "revision": "23def4e6c14b4da8ac2ed8007337bc5eb5007998",
+            "packages": [
+                "."
+            ]
+        }
+    ]
+}

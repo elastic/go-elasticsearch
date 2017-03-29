@@ -17,22 +17,19 @@
 # under the License.
 #
 
-GO = go
-SPEC_DIR = spec
+GIT = git
+ELASTICSEARCH_REPO = https://github.com/elasticsearch/elasticsearch.git
+ELASTICSEARCH_API_PATH = rest-api-spec/src/main/resources/rest-api-spec/api
+ELASTICSEARCH_DIR = elasticsearch
 
-.PHONY: build
-build:
-	$(GO) build
+.PHONY: checkout
+checkout:
+	if [ ! -d $(ELASTICSEARCH_DIR) ]; then $(GIT) clone $(ELASTICSEARCH_REPO) $(ELASTICSEARCH_DIR); fi
 
-.PHONY: spec
-spec:
-	make -C $(SPEC_DIR) checkout
-
-.PHONY: check
-check: spec
-	$(GO) test
+.PHONY: pull
+pull:
+	cd $(ELASTICSEARCH_DIR) && $(GIT) pull origin
 
 .PHONY: clean
 clean:
-	$(GO) clean
-	make -C $(SPEC_DIR) clean
+	rm -rf $(ELASTICSEARCH_DIR)
