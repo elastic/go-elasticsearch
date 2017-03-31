@@ -17,25 +17,18 @@
  * under the License.
  */
 
-package main
+package generator
 
 import (
-	"encoding/json"
-	"flag"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
 	"text/template"
-
-	"github.com/golang/glog"
 )
 
 const (
-	specDir         = "spec/elasticsearch/rest-api-spec/src/main/resources/rest-api-spec/api"
 	specExt         = ".json"
-	apiDir          = "api"
 	templatesDir    = "templates"
 	templateFile    = "method.tmpl"
 	defaultTypeName = "client"
@@ -85,34 +78,4 @@ func executeTemplate(spec map[string]interface{}, outputDir string) error {
 		return fmt.Errorf("Failed to execute template in %q: %s", templateFile, err)
 	}
 	return err
-}
-
-func unmarshalSpec(filename string) (map[string]interface{}, error) {
-	bytes, err := ioutil.ReadFile(filename)
-	if err != nil {
-		return nil, err
-	}
-	var spec map[string]interface{}
-	err = json.Unmarshal(bytes, &spec)
-	return spec, err
-}
-
-func main() {
-	flag.Parse()
-	files, err := ioutil.ReadDir(specDir)
-	if err != nil {
-		glog.Fatal(err)
-	}
-	for _, file := range files {
-		spec, err := unmarshalSpec(filepath.Join(specDir, file.Name()))
-		if err != nil {
-			glog.Error(err)
-			continue
-		}
-		err = executeTemplate(spec, apiDir)
-		if err != nil {
-			glog.Error(err)
-			continue
-		}
-	}
 }

@@ -18,11 +18,12 @@
 #
 
 GO = go
+GO_PACKAGES=./...
 SPEC_DIR = spec
 
 .PHONY: build
 build:
-	$(GO) build
+	$(GO) build $(GO_PACKAGES)
 
 .PHONY: spec
 spec:
@@ -30,9 +31,9 @@ spec:
 
 .PHONY: check
 check: spec
-	$(GO) test
+	$(GO) test $(GO_PACKAGES)
 
 .PHONY: clean
 clean:
-	$(GO) clean
+	$(GO) clean $(GO_PACKAGES)
 	make -C $(SPEC_DIR) clean
