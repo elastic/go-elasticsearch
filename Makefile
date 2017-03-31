@@ -18,7 +18,9 @@
 #
 
 GO = go
-GO_PACKAGES=./...
+GO_PACKAGES=$(shell go list ./... | grep -v /vendor/)
+GOLINT = golint
+GOLINT_REPO = github.com/golang/lint/$(GOLINT)
 SPEC_DIR = spec
 
 .PHONY: build
@@ -32,6 +34,11 @@ spec:
 .PHONY: check
 check: spec
 	$(GO) test $(GO_PACKAGES)
+
+.PHONY: lint
+lint:
+	$(GO) get $(GOLINT_REPO)
+	$(GOLINT) $(GO_PACKAGES)
 
 .PHONY: clean
 clean:

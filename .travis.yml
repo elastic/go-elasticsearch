@@ -2,7 +2,7 @@ language: go
 
 go_import_path: github.com/elastic/elasticsearch-go
 
-script: make check
+script: make check lint
 
 notifications:
   email: false
