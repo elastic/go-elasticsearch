@@ -32,7 +32,7 @@ func TestExecuteTemplate(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = executeTemplate(spec, apiDir)
+	err = executeTemplate(spec, filepath.Join("..", templatesDir), apiDir)
 	if err != nil {
 		t.Fatal(err)
 	}

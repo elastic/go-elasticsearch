@@ -29,7 +29,7 @@ import (
 
 const (
 	specExt         = ".json"
-	templatesDir    = "templates"
+	templatesDir    = "generator/templates"
 	templateFile    = "method.tmpl"
 	defaultTypeName = "client"
 )
@@ -40,7 +40,7 @@ type method struct {
 	MethodName string
 }
 
-func executeTemplate(spec map[string]interface{}, outputDir string) error {
+func executeTemplate(spec map[string]interface{}, templatesDir, outputDir string) error {
 	if len(spec) > 1 {
 		return fmt.Errorf("Each API spec is expected to contain a single API (found %d)", len(spec))
 	}

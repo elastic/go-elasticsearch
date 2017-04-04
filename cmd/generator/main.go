@@ -29,7 +29,7 @@ import (
 )
 
 func main() {
-	specDir := flag.String("specdir", "../../../spec/elasticsearch/rest-api-spec/src/main/resources/rest-api-spec/api",
+	specDir := flag.String("specdir", "spec/elasticsearch/rest-api-spec/src/main/resources/rest-api-spec/api",
 		"directory containing the JSON spec for the REST API")
 	flag.Parse()
 	files, err := ioutil.ReadDir(*specDir)

@@ -19,13 +19,16 @@
 
 package generator
 
+import "fmt"
+
 const (
-	apiDir = "../../api"
+	apiDir = "api"
 )
 
 // Generator is a code generator based on JSON specs and Go template
 type Generator struct {
-	spec map[string]interface{}
+	specFile string
+	spec     map[string]interface{}
 }
 
 // New creates a new generator
@@ -34,10 +37,14 @@ func New(specFile string) (*Generator, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &Generator{spec: spec}, nil
+	return &Generator{specFile: specFile, spec: spec}, nil
 }
 
 // Run runs the generator
 func (g *Generator) Run() error {
-	return executeTemplate(g.spec, apiDir)
+	err := executeTemplate(g.spec, templatesDir, apiDir)
+	if err != nil {
+		err = fmt.Errorf("Failed to execute template for %q: %s", g.specFile, err)
+	}
+	return err
 }
