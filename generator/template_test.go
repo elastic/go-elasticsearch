@@ -20,6 +20,7 @@
 package generator
 
 import (
+	"fmt"
 	"io/ioutil"
 	"path/filepath"
 	"testing"
@@ -27,7 +28,13 @@ import (
 
 func TestExecuteTemplate(t *testing.T) {
 	api := "index"
-	spec := map[string]interface{}{api: map[string]interface{}{}}
+	docURL := "http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-" + api + "_.html"
+	spec := map[string]interface{}{
+		api: map[string]interface{}{
+
+			"documentation": docURL,
+		},
+	}
 	apiDir, err := ioutil.TempDir("", "api")
 	if err != nil {
 		t.Fatal(err)
@@ -36,7 +43,7 @@ func TestExecuteTemplate(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	expectedCode := "func (c *client) index() {}\n"
+	expectedCode := fmt.Sprintf("// %s is documented at %s\nfunc (c *client) %s() {}\n", api, docURL, api)
 	code, err := ioutil.ReadFile(filepath.Join(apiDir, api) + ".go")
 	if err != nil {
 		t.Fatal(err)

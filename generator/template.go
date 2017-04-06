@@ -38,6 +38,7 @@ type method struct {
 	TypeVar    string
 	TypeName   string
 	MethodName string
+	DocURL     string
 }
 
 func executeTemplate(spec map[string]interface{}, templatesDir, outputDir string) error {
@@ -59,10 +60,15 @@ func executeTemplate(spec map[string]interface{}, templatesDir, outputDir string
 	default:
 		return fmt.Errorf("Unexpected API format: %s", api)
 	}
+	apiSpec, ok := spec[api].(map[string]interface{})
+	if !ok {
+		return fmt.Errorf("Unexpected type in spec: %T (expected map[string]interface{})", spec[api])
+	}
 	m := &method{
 		TypeVar:    string(typeName[0]),
 		TypeName:   typeName,
 		MethodName: api,
+		DocURL:     apiSpec["documentation"].(string),
 	}
 	t, err := template.ParseFiles(filepath.Join(templatesDir, templateFile))
 	if err != nil {
