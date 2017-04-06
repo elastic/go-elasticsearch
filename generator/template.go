@@ -28,10 +28,10 @@ import (
 )
 
 const (
-	specExt         = ".json"
-	templatesDir    = "generator/templates"
-	templateFile    = "method.tmpl"
-	defaultTypeName = "client"
+	specExt          = ".json"
+	templatesDir     = "generator/templates"
+	templateFile     = "method.tmpl"
+	defaultNamespace = "client"
 )
 
 type method struct {
@@ -48,7 +48,7 @@ func executeTemplate(spec map[string]interface{}, templatesDir, outputDir string
 	for k := range spec {
 		api = k
 	}
-	typeName := defaultTypeName
+	typeName := defaultNamespace
 	apiParts := strings.Split(api, ".")
 	switch len(apiParts) {
 	case 1:
