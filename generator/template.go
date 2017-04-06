@@ -28,17 +28,22 @@ import (
 )
 
 const (
-	specExt          = ".json"
-	templatesDir     = "generator/templates"
-	templateFile     = "method.tmpl"
-	defaultNamespace = "client"
+	SpecExt        = ".json"
+	templatesDir   = "generator/templates"
+	templateFile   = "method.tmpl"
+	repo           = "github.com/elastic/elasticsearch-go"
+	defaultPackage = "client"
 )
 
 type method struct {
-	TypeVar    string
-	TypeName   string
-	MethodName string
-	DocURL     string
+	PackageRepo string
+	PackageName string
+	MethodName  string
+	DocURL      string
+}
+
+func capitalizeInitial(api string) string {
+	return strings.ToUpper(string(api[0])) + api[1:]
 }
 
 func executeTemplate(spec map[string]interface{}, templatesDir, outputDir string) error {
@@ -49,26 +54,32 @@ func executeTemplate(spec map[string]interface{}, templatesDir, outputDir string
 	for k := range spec {
 		api = k
 	}
-	typeName := defaultNamespace
-	apiParts := strings.Split(api, ".")
-	switch len(apiParts) {
-	case 1:
-		api = apiParts[0]
-	case 2:
-		typeName = apiParts[0]
-		api = apiParts[1]
-	default:
-		return fmt.Errorf("Unexpected API format: %s", api)
+	if api == "" {
+		return fmt.Errorf("Unable to find API in %s", spec)
 	}
 	apiSpec, ok := spec[api].(map[string]interface{})
 	if !ok {
 		return fmt.Errorf("Unexpected type in spec: %T (expected map[string]interface{})", spec[api])
 	}
+	packageName := defaultPackage
+	packageRepo := repo + "/" + defaultPackage
+	apiParts := strings.Split(api, ".")
+	var methodName string
+	switch len(apiParts) {
+	case 1:
+		methodName = capitalizeInitial(apiParts[0])
+	case 2:
+		packageName = apiParts[0]
+		packageRepo += "/" + packageName
+		methodName = capitalizeInitial(apiParts[1])
+	default:
+		return fmt.Errorf("Unexpected API format: %s", api)
+	}
 	m := &method{
-		TypeVar:    string(typeName[0]),
-		TypeName:   typeName,
-		MethodName: api,
-		DocURL:     apiSpec["documentation"].(string),
+		PackageRepo: packageRepo,
+		PackageName: packageName,
+		MethodName:  methodName,
+		DocURL:      apiSpec["documentation"].(string),
 	}
 	t, err := template.ParseFiles(filepath.Join(templatesDir, templateFile))
 	if err != nil {

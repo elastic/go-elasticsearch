@@ -28,6 +28,7 @@ import (
 
 func TestExecuteTemplate(t *testing.T) {
 	api := "index"
+	methodName := "Index"
 	docURL := "http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-" + api + "_.html"
 	spec := map[string]interface{}{
 		api: map[string]interface{}{
@@ -35,7 +36,7 @@ func TestExecuteTemplate(t *testing.T) {
 			"documentation": docURL,
 		},
 	}
-	apiDir, err := ioutil.TempDir("", "api")
+	apiDir, err := ioutil.TempDir("", "client")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -43,12 +44,18 @@ func TestExecuteTemplate(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	expectedCode := fmt.Sprintf("// %s is documented at %s\nfunc (c *client) %s() {}\n", api, docURL, api)
+	expectedCode := fmt.Sprintf(`package client
+
+// %s
+// See: %s
+func (c *Client) %s() {
+}
+`, methodName, docURL, methodName)
 	code, err := ioutil.ReadFile(filepath.Join(apiDir, api) + ".go")
 	if err != nil {
 		t.Fatal(err)
 	}
 	if string(code) != expectedCode {
-		t.Fatalf("Expected the generation of %q, got %q", expectedCode, code)
+		t.Fatalf("Expected the generation of:\n\n%q\n\nbut got:\n\n%q", expectedCode, code)
 	}
 }

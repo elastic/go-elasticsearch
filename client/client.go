@@ -17,34 +17,8 @@
  * under the License.
  */
 
-package generator
+package client
 
-import "fmt"
-
-const (
-	clientDir = "client"
-)
-
-// Generator is a code generator based on JSON specs and Go template
-type Generator struct {
-	specFile string
-	spec     map[string]interface{}
-}
-
-// New creates a new generator
-func New(specFile string) (*Generator, error) {
-	spec, err := unmarshalSpec(specFile)
-	if err != nil {
-		return nil, err
-	}
-	return &Generator{specFile: specFile, spec: spec}, nil
-}
-
-// Run runs the generator
-func (g *Generator) Run() error {
-	err := executeTemplate(g.spec, templatesDir, clientDir)
-	if err != nil {
-		err = fmt.Errorf("Failed to execute template for %q: %s", g.specFile, err)
-	}
-	return err
+// Client is the top level client
+type Client struct {
 }

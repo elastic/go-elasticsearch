@@ -17,22 +17,28 @@
 # under the License.
 #
 
+MAKE = make
 GO = go
 GO_PACKAGES=$(shell go list ./... | grep -v /vendor/)
 GOLINT = golint
 GOLINT_REPO = github.com/golang/lint/$(GOLINT)
 SPEC_DIR = spec
+WHITELISTED_SPECS = index.json
 
 .PHONY: build
-build:
+build: gen
 	$(GO) build $(GO_PACKAGES)
+
+.PHONY: gen
+gen: spec
+	$(GO) run ./cmd/generator/main.go -specfile $(WHITELISTED_SPECS)
 
 .PHONY: spec
 spec:
-	make -C $(SPEC_DIR) checkout
+	$(MAKE) -C $(SPEC_DIR) checkout
 
 .PHONY: check
-check: spec
+check: build
 	$(GO) test $(GO_PACKAGES)
 
 .PHONY: lint

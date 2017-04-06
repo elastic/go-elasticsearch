@@ -31,12 +31,17 @@ import (
 func main() {
 	specDir := flag.String("specdir", "spec/elasticsearch/rest-api-spec/src/main/resources/rest-api-spec/api",
 		"directory containing the JSON spec for the REST API")
+	specFile := flag.String("specfile", "",
+		"limit the generation to this JSON spec file")
 	flag.Parse()
 	files, err := ioutil.ReadDir(*specDir)
 	if err != nil {
 		glog.Fatal(err)
 	}
 	for _, file := range files {
+		if *specFile != "" && file.Name() != *specFile {
+			continue
+		}
 		g, err := generator.New(filepath.Join(*specDir, file.Name()))
 		if err != nil {
 			glog.Error(err)
