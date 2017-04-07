@@ -64,17 +64,18 @@ func executeTemplate(spec map[string]interface{}, templatesDir, outputDir string
 	packageName := defaultPackage
 	packageRepo := repo + "/" + defaultPackage
 	apiParts := strings.Split(api, ".")
-	var methodName string
+	var methodName, fileName string
 	switch len(apiParts) {
 	case 1:
-		methodName = capitalizeInitial(apiParts[0])
+		fileName = apiParts[0]
 	case 2:
 		packageName = apiParts[0]
 		packageRepo += "/" + packageName
-		methodName = capitalizeInitial(apiParts[1])
+		fileName = apiParts[1]
 	default:
 		return fmt.Errorf("Unexpected API format: %s", api)
 	}
+	methodName = capitalizeInitial(fileName)
 	m := &method{
 		PackageRepo: packageRepo,
 		PackageName: packageName,
@@ -85,7 +86,12 @@ func executeTemplate(spec map[string]interface{}, templatesDir, outputDir string
 	if err != nil {
 		return fmt.Errorf("Failed to parse template in %q: %s", templateFile, err)
 	}
-	goFile, err := os.Create(filepath.Join(outputDir, api) + ".go")
+	goFileDir := outputDir
+	if packageName != defaultPackage {
+		goFileDir = filepath.Join(goFileDir, packageName)
+		os.Mkdir(goFileDir, 0755)
+	}
+	goFile, err := os.Create(filepath.Join(goFileDir, api) + ".go")
 	if err != nil {
 		return err
 	}
