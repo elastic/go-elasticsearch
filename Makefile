@@ -23,7 +23,7 @@ GO_PACKAGES=$(shell go list ./... | grep -v /vendor/)
 GOLINT = golint
 GOLINT_REPO = github.com/golang/lint/$(GOLINT)
 SPEC_DIR = spec
-WHITELISTED_SPECS = index.json
+BLACKLISTED_SPECS = _common.json
 
 .PHONY: build
 build: gen
@@ -31,7 +31,7 @@ build: gen
 
 .PHONY: gen
 gen: spec
-	$(GO) run ./cmd/generator/main.go -specfile $(WHITELISTED_SPECS)
+	$(GO) run ./cmd/generator/main.go -skip $(BLACKLISTED_SPECS)
 
 .PHONY: spec
 spec:

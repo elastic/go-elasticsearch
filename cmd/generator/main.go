@@ -21,28 +21,45 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"io/ioutil"
 	"path/filepath"
+	"strings"
 
 	"github.com/elastic/elasticsearch-go/generator"
 	"github.com/golang/glog"
 )
 
+type fileMap map[string]struct{}
+
+func (f *fileMap) String() string {
+	return fmt.Sprint(*f)
+}
+
+func (f *fileMap) Set(value string) error {
+	for _, v := range strings.Split(value, ",") {
+		(*f)[v] = struct{}{}
+	}
+	return nil
+}
+
 func main() {
-	specDir := flag.String("specdir", "spec/elasticsearch/rest-api-spec/src/main/resources/rest-api-spec/api",
+	specDirFlag := flag.String("specdir", "spec/elasticsearch/rest-api-spec/src/main/resources/rest-api-spec/api",
 		"directory containing the JSON spec for the REST API")
-	specFile := flag.String("specfile", "",
-		"limit the generation to this JSON spec file")
+	skipFlag := fileMap{}
+	flag.Var(&skipFlag, "skip",
+		"comma-separated list of spec files to skip")
+
 	flag.Parse()
-	files, err := ioutil.ReadDir(*specDir)
+	files, err := ioutil.ReadDir(*specDirFlag)
 	if err != nil {
 		glog.Fatal(err)
 	}
 	for _, file := range files {
-		if *specFile != "" && file.Name() != *specFile {
+		if _, ok := skipFlag[file.Name()]; ok {
 			continue
 		}
-		g, err := generator.New(filepath.Join(*specDir, file.Name()))
+		g, err := generator.New(filepath.Join(*specDirFlag, file.Name()))
 		if err != nil {
 			glog.Error(err)
 			continue
