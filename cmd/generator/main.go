@@ -49,6 +49,8 @@ func main() {
 	skipFlag := fileMap{}
 	flag.Var(&skipFlag, "skip",
 		"comma-separated list of spec files to skip")
+	cleanFlag := flag.Bool("clean", false,
+		"delete the generated code")
 
 	flag.Parse()
 	files, err := ioutil.ReadDir(*specDirFlag)
@@ -64,7 +66,11 @@ func main() {
 			glog.Error(err)
 			continue
 		}
-		err = g.Run()
+		if *cleanFlag {
+			err = g.Clean()
+		} else {
+			err = g.Run()
+		}
 		if err != nil {
 			glog.Error(err)
 			continue

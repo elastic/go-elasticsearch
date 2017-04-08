@@ -28,38 +28,42 @@ import (
 )
 
 const (
-	SpecExt        = ".json"
-	templatesDir   = "generator/templates"
-	templateFile   = "method.tmpl"
-	repo           = "github.com/elastic/elasticsearch-go"
-	defaultPackage = "client"
+	// SpecExt is the extension for spec files for the REST API
+	SpecExt            = ".json"
+	templatesDir       = "generator/templates"
+	methodTemplateFile = "method.tmpl"
+	clientTemplateFile = "client.tmpl"
+	repo               = "github.com/elastic/elasticsearch-go"
+	defaultPackage     = "client"
 )
 
 type method struct {
-	PackageRepo string
-	PackageName string
-	MethodName  string
-	DocURL      string
+	PackageRepo    string
+	PackageName    string
+	MethodName     string
+	DocURL         string
+	filePath       string
+	clientFilePath string
 }
 
 func capitalizeInitial(api string) string {
 	return strings.ToUpper(string(api[0])) + api[1:]
 }
 
-func executeTemplate(spec map[string]interface{}, templatesDir, outputDir string) error {
+func newMethod(spec map[string]interface{}, outputDir string) (*method, error) {
 	if len(spec) > 1 {
-		return fmt.Errorf("Each API spec is expected to contain a single API (found %d)", len(spec))
+		return nil, fmt.Errorf("Each API spec is expected to contain a single API (found %d)", len(spec))
 	}
 	var api string
 	for k := range spec {
 		api = k
 	}
 	if api == "" {
-		return fmt.Errorf("Unable to find API in %s", spec)
+		return nil, fmt.Errorf("Unable to find API in %s", spec)
 	}
 	apiSpec, ok := spec[api].(map[string]interface{})
 	if !ok {
-		return fmt.Errorf("Unexpected type in spec: %T (expected map[string]interface{})", spec[api])
+		return nil, fmt.Errorf("Unexpected type in spec: %T (expected map[string]interface{})", spec[api])
 	}
 	packageName := defaultPackage
 	packageRepo := repo + "/" + defaultPackage
@@ -73,7 +77,7 @@ func executeTemplate(spec map[string]interface{}, templatesDir, outputDir string
 		packageRepo += "/" + packageName
 		fileName = apiParts[1]
 	default:
-		return fmt.Errorf("Unexpected API format: %s", api)
+		return nil, fmt.Errorf("Unexpected API format: %s", api)
 	}
 	methodName = capitalizeInitial(fileName)
 	m := &method{
@@ -82,23 +86,63 @@ func executeTemplate(spec map[string]interface{}, templatesDir, outputDir string
 		MethodName:  methodName,
 		DocURL:      apiSpec["documentation"].(string),
 	}
-	t, err := template.ParseFiles(filepath.Join(templatesDir, templateFile))
-	if err != nil {
-		return fmt.Errorf("Failed to parse template in %q: %s", templateFile, err)
-	}
 	goFileDir := outputDir
 	if packageName != defaultPackage {
 		goFileDir = filepath.Join(goFileDir, packageName)
-		os.Mkdir(goFileDir, 0755)
+		m.clientFilePath = filepath.Join(goFileDir, "client.go")
 	}
-	goFile, err := os.Create(filepath.Join(goFileDir, api) + ".go")
+	m.filePath = filepath.Join(goFileDir, api) + ".go"
+	return m, nil
+}
+
+func (m *method) generateClient() error {
+	if m.clientFilePath == "" {
+		return nil
+	}
+	err := os.Mkdir(filepath.Dir(m.filePath), 0755)
+	// If the dir exists assume that so does the client
+	if err != nil {
+		return nil
+	}
+	return m.executeTemplate(filepath.Join(templatesDir, clientTemplateFile), m.clientFilePath)
+}
+
+func (m *method) executeTemplate(templateFilePath, outputFilePath string) error {
+	t, err := template.ParseFiles(templateFilePath)
+	if err != nil {
+		return fmt.Errorf("Failed to parse template in %q: %s", templateFilePath, err)
+	}
+	outputFile, err := os.Create(outputFilePath)
 	if err != nil {
 		return err
 	}
-	defer goFile.Close()
-	err = t.Execute(goFile, m)
+	defer outputFile.Close()
+	err = t.Execute(outputFile, m)
 	if err != nil {
-		return fmt.Errorf("Failed to execute template in %q: %s", templateFile, err)
+		return fmt.Errorf("Failed to execute template in %q: %s", templateFilePath, err)
 	}
 	return err
+}
+
+func generate(spec map[string]interface{}, templatesDir, outputDir string) error {
+	m, err := newMethod(spec, outputDir)
+	if err != nil {
+		return err
+	}
+	if err = m.generateClient(); err != nil {
+		return err
+	}
+	return m.executeTemplate(filepath.Join(templatesDir, methodTemplateFile), m.filePath)
+}
+
+func clean(spec map[string]interface{}, outputDir string) error {
+	m, err := newMethod(spec, outputDir)
+	if err != nil {
+		return err
+	}
+	os.Remove(m.filePath)
+	if m.clientFilePath != "" {
+		os.RemoveAll(filepath.Dir(m.clientFilePath))
+	}
+	return nil
 }

@@ -19,8 +19,6 @@
 
 package generator
 
-import "fmt"
-
 const (
 	clientDir = "client"
 )
@@ -42,9 +40,10 @@ func New(specFile string) (*Generator, error) {
 
 // Run runs the generator
 func (g *Generator) Run() error {
-	err := executeTemplate(g.spec, templatesDir, clientDir)
-	if err != nil {
-		err = fmt.Errorf("Failed to execute template for %q: %s", g.specFile, err)
-	}
-	return err
+	return generate(g.spec, templatesDir, clientDir)
+}
+
+// Clean deletes the generated code
+func (g *Generator) Clean() error {
+	return clean(g.spec, clientDir)
 }

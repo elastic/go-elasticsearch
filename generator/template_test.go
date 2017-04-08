@@ -40,7 +40,12 @@ func TestExecuteTemplate(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = executeTemplate(spec, filepath.Join("..", templatesDir), apiDir)
+	m, err := newMethod(spec, apiDir)
+	if err != nil {
+		t.Fatal(err)
+	}
+	apiFile := filepath.Join(apiDir, api) + ".go"
+	err = m.executeTemplate(filepath.Join("..", templatesDir, "method.tmpl"), apiFile)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -51,7 +56,7 @@ func TestExecuteTemplate(t *testing.T) {
 func (c *Client) %s() {
 }
 `, methodName, docURL, methodName)
-	code, err := ioutil.ReadFile(filepath.Join(apiDir, api) + ".go")
+	code, err := ioutil.ReadFile(apiFile)
 	if err != nil {
 		t.Fatal(err)
 	}
