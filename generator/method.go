@@ -122,12 +122,8 @@ func (m *method) executeTemplate(templateFilePath, outputFilePath string) error 
 	return err
 }
 
-func generate(spec map[string]interface{}, templatesDir, outputDir string) error {
-	m, err := newMethod(spec, outputDir)
-	if err != nil {
-		return err
-	}
-	if err = m.generateClient(); err != nil {
+func (m *method) generate(templatesDir string) error {
+	if err := m.generateClient(); err != nil {
 		return err
 	}
 	return m.executeTemplate(filepath.Join(templatesDir, methodTemplateFile), m.filePath)

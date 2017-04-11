@@ -40,7 +40,11 @@ func New(specFile string) (*Generator, error) {
 
 // Run runs the generator
 func (g *Generator) Run() error {
-	return generate(g.spec, templatesDir, clientDir)
+	m, err := newMethod(g.spec, clientDir)
+	if err != nil {
+		return err
+	}
+	return m.generate(templatesDir)
 }
 
 // Clean deletes the generated code
