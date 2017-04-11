@@ -1,10 +1,18 @@
 {
-    "memo": "60f3c4db84ff3d70c6c2ff319222f513704d1512e8f68f6986fc6e2b5e24a1eb",
+    "memo": "05a9af45d75b162c8277c5c359b0691f7e65a52d677fff5820685e3bbb66ba55",
     "projects": [
         {
             "name": "github.com/golang/glog",
             "branch": "master",
             "revision": "23def4e6c14b4da8ac2ed8007337bc5eb5007998",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/serenize/snaker",
+            "branch": "master",
+            "revision": "543781d2b79bd95c51ffe70e70a55c946ca211ff",
             "packages": [
                 "."
             ]

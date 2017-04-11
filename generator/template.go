@@ -25,6 +25,8 @@ import (
 	"path/filepath"
 	"strings"
 	"text/template"
+
+	"github.com/serenize/snaker"
 )
 
 const (
@@ -44,10 +46,6 @@ type method struct {
 	DocURL         string
 	filePath       string
 	clientFilePath string
-}
-
-func capitalizeInitial(api string) string {
-	return strings.ToUpper(string(api[0])) + api[1:]
 }
 
 func newMethod(spec map[string]interface{}, outputDir string) (*method, error) {
@@ -79,7 +77,7 @@ func newMethod(spec map[string]interface{}, outputDir string) (*method, error) {
 	default:
 		return nil, fmt.Errorf("Unexpected API format: %s", api)
 	}
-	methodName = capitalizeInitial(fileName)
+	methodName = snaker.SnakeToCamel(fileName)
 	m := &method{
 		PackageRepo: packageRepo,
 		PackageName: packageName,
