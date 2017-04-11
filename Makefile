@@ -36,7 +36,7 @@ gen: spec
 
 .PHONY: gen-clean
 gen-clean:
-	$(GO) run ./cmd/generator/main.go -clean -skip $(BLACKLISTED_SPECS)
+	rm -rf api
 
 .PHONY: spec
 spec:

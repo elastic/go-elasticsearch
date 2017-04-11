@@ -1,7 +1,0 @@
-package client
-
-import (
-  {{range .Accessors}}"{{.PackageRepo}}"{{end}}
-)
-
-{{range .Accessors}}func (c *Client) {{.Name}}() {{.Package}}.Client{{end}}

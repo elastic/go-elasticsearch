@@ -49,11 +49,11 @@ func TestExecuteTemplate(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	expectedCode := fmt.Sprintf(`package client
+	expectedCode := fmt.Sprintf(`package api
 
 // %s
 // See: %s
-func (c *Client) %s() {
+func (a *Api) %s() {
 }
 `, methodName, docURL, methodName)
 	code, err := ioutil.ReadFile(apiFile)

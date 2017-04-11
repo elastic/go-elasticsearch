@@ -34,18 +34,20 @@ const (
 	SpecExt            = ".json"
 	templatesDir       = "generator/templates"
 	methodTemplateFile = "method.tmpl"
-	clientTemplateFile = "client.tmpl"
+	apiTemplateFile    = "api.tmpl"
 	repo               = "github.com/elastic/elasticsearch-go"
-	defaultPackage     = "client"
+	defaultPackage     = "api"
 )
 
 type method struct {
-	PackageRepo    string
-	PackageName    string
-	MethodName     string
-	DocURL         string
-	filePath       string
-	clientFilePath string
+	PackageRepo  string
+	PackageName  string
+	ReceiverName string
+	TypeName     string
+	MethodName   string
+	DocURL       string
+	filePath     string
+	apiFilePath  string
 }
 
 func newMethod(spec map[string]interface{}, outputDir string) (*method, error) {
@@ -67,6 +69,8 @@ func newMethod(spec map[string]interface{}, outputDir string) (*method, error) {
 	packageRepo := repo + "/" + defaultPackage
 	apiParts := strings.Split(api, ".")
 	var methodName, fileName string
+	receiverName := "a"
+	typeName := "Api"
 	switch len(apiParts) {
 	case 1:
 		fileName = apiParts[0]
@@ -74,35 +78,31 @@ func newMethod(spec map[string]interface{}, outputDir string) (*method, error) {
 		packageName = apiParts[0]
 		packageRepo += "/" + packageName
 		fileName = apiParts[1]
+		receiverName = string(packageName[0])
+		typeName = snaker.SnakeToCamel(packageName)
 	default:
 		return nil, fmt.Errorf("Unexpected API format: %s", api)
 	}
 	methodName = snaker.SnakeToCamel(fileName)
 	m := &method{
-		PackageRepo: packageRepo,
-		PackageName: packageName,
-		MethodName:  methodName,
-		DocURL:      apiSpec["documentation"].(string),
+		PackageRepo:  packageRepo,
+		PackageName:  packageName,
+		ReceiverName: receiverName,
+		TypeName:     typeName,
+		MethodName:   methodName,
+		DocURL:       apiSpec["documentation"].(string),
 	}
 	goFileDir := outputDir
 	if packageName != defaultPackage {
 		goFileDir = filepath.Join(goFileDir, packageName)
-		m.clientFilePath = filepath.Join(goFileDir, "client.go")
 	}
+	m.apiFilePath = filepath.Join(goFileDir, packageName+".go")
 	m.filePath = filepath.Join(goFileDir, fileName) + ".go"
 	return m, nil
 }
 
 func (m *method) generateClient() error {
-	if m.clientFilePath == "" {
-		return nil
-	}
-	err := os.Mkdir(filepath.Dir(m.filePath), 0755)
-	// If the dir exists assume that so does the client
-	if err != nil {
-		return nil
-	}
-	return m.executeTemplate(filepath.Join(templatesDir, clientTemplateFile), m.clientFilePath)
+	return m.executeTemplate(filepath.Join(templatesDir, apiTemplateFile), m.apiFilePath)
 }
 
 func (m *method) executeTemplate(templateFilePath, outputFilePath string) error {
@@ -110,6 +110,7 @@ func (m *method) executeTemplate(templateFilePath, outputFilePath string) error 
 	if err != nil {
 		return fmt.Errorf("Failed to parse template in %q: %s", templateFilePath, err)
 	}
+	os.MkdirAll(filepath.Dir(outputFilePath), 0755)
 	outputFile, err := os.Create(outputFilePath)
 	if err != nil {
 		return err
@@ -123,16 +124,5 @@ func (m *method) executeTemplate(templateFilePath, outputFilePath string) error 
 }
 
 func (m *method) generate(templatesDir string) error {
-	if err := m.generateClient(); err != nil {
-		return err
-	}
 	return m.executeTemplate(filepath.Join(templatesDir, methodTemplateFile), m.filePath)
-}
-
-func (m *method) clean() error {
-	os.Remove(m.filePath)
-	if m.clientFilePath != "" {
-		os.RemoveAll(filepath.Dir(m.clientFilePath))
-	}
-	return nil
 }

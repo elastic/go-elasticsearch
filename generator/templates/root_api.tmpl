@@ -1,0 +1,14 @@
+package api
+
+import (
+
+  {{range .Apis}}"{{.PackageRepo}}"
+  {{end}}
+)
+
+type Api struct {
+{{range .Apis}}
+  // {{.APIName}} is the {{.PackageName}} client
+  {{.APIName}} *{{.PackageName}}.{{.TypeName}}
+{{end}}
+}

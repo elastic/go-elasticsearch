@@ -24,42 +24,63 @@ import (
 	"html/template"
 	"os"
 	"path/filepath"
+	"sort"
 
 	"github.com/serenize/snaker"
 )
 
 const (
-	accessorsTemplateFile = "accessors.tmpl"
+	rootAPITemplateFile = "root_api.tmpl"
 )
 
-type accessor struct {
+type api struct {
 	PackageRepo string
-	Name        string
+	PackageName string
+	APIName     string
+	TypeName    string
 }
 
-type accessors struct {
-	Accessors map[string]*accessor
-	filePath  string
+type apis struct {
+	Apis     []*api
+	filePath string
 }
 
-func newAccessor(method *method) *accessor {
-	return &accessor{
+func newAPI(method *method) *api {
+	// Refuse to generate accessors for the top level package
+	if method.PackageName == defaultPackage {
+		return nil
+	}
+	name := snaker.SnakeToCamel(method.PackageName)
+	return &api{
 		PackageRepo: method.PackageRepo,
-		Name:        snaker.SnakeToCamel(method.PackageName),
+		PackageName: method.PackageName,
+		TypeName:    method.TypeName,
+		APIName:     name,
 	}
 }
 
-func newAccessors(methods []*method, outputDir string) *accessors {
-	a := map[string]*accessor{}
+func newApis(methods []*method, outputDir string) *apis {
+	aMap := map[string]*api{}
+	var repos []string
 	for _, method := range methods {
-		if _, ok := a[method.PackageName]; !ok {
-			a[method.PackageName] = newAccessor(method)
+		if _, ok := aMap[method.PackageRepo]; !ok {
+			a := newAPI(method)
+			if a == nil {
+				continue
+			}
+			aMap[method.PackageRepo] = a
+			repos = append(repos, method.PackageRepo)
 		}
 	}
-	return &accessors{Accessors: a, filePath: filepath.Join(outputDir, "accessors.go")}
+	sort.Strings(repos)
+	var a []*api
+	for _, r := range repos {
+		a = append(a, aMap[r])
+	}
+	return &apis{Apis: a, filePath: filepath.Join(outputDir, "api.go")}
 }
 
-func (a accessors) executeTemplate(templateFilePath, outputFilePath string) error {
+func (a *apis) executeTemplate(templateFilePath, outputFilePath string) error {
 	t, err := template.ParseFiles(templateFilePath)
 	if err != nil {
 		return fmt.Errorf("Failed to parse template in %q: %s", templateFilePath, err)
@@ -76,11 +97,6 @@ func (a accessors) executeTemplate(templateFilePath, outputFilePath string) erro
 	return err
 }
 
-func (a *accessors) generate(templatesDir string) error {
-	return a.executeTemplate(filepath.Join(templatesDir, accessorsTemplateFile), a.filePath)
-}
-
-func (a *accessors) clean() error {
-	os.Remove(a.filePath)
-	return nil
+func (a *apis) generate(templatesDir string) error {
+	return a.executeTemplate(filepath.Join(templatesDir, rootAPITemplateFile), a.filePath)
 }
