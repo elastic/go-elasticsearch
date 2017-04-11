@@ -25,29 +25,42 @@ const (
 
 // Generator is a code generator based on JSON specs and Go template
 type Generator struct {
-	specFile string
-	spec     map[string]interface{}
+	methods []*method
 }
 
 // New creates a new generator
-func New(specFile string) (*Generator, error) {
-	spec, err := unmarshalSpec(specFile)
-	if err != nil {
-		return nil, err
+func New(specFiles []string) (*Generator, error) {
+	var methods []*method
+	for _, specFile := range specFiles {
+		spec, err := unmarshalSpec(specFile)
+		if err != nil {
+			return nil, err
+		}
+		m, err := newMethod(spec, clientDir)
+		if err != nil {
+			return nil, err
+		}
+		methods = append(methods, m)
 	}
-	return &Generator{specFile: specFile, spec: spec}, nil
+	return &Generator{methods: methods}, nil
 }
 
 // Run runs the generator
 func (g *Generator) Run() error {
-	m, err := newMethod(g.spec, clientDir)
-	if err != nil {
-		return err
+	for _, m := range g.methods {
+		if err := m.generate(templatesDir); err != nil {
+			return err
+		}
 	}
-	return m.generate(templatesDir)
+	return nil
 }
 
 // Clean deletes the generated code
 func (g *Generator) Clean() error {
-	return clean(g.spec, clientDir)
+	for _, m := range g.methods {
+		if err := m.clean(); err != nil {
+			return err
+		}
+	}
+	return nil
 }

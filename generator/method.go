@@ -129,11 +129,7 @@ func (m *method) generate(templatesDir string) error {
 	return m.executeTemplate(filepath.Join(templatesDir, methodTemplateFile), m.filePath)
 }
 
-func clean(spec map[string]interface{}, outputDir string) error {
-	m, err := newMethod(spec, outputDir)
-	if err != nil {
-		return err
-	}
+func (m *method) clean() error {
 	os.Remove(m.filePath)
 	if m.clientFilePath != "" {
 		os.RemoveAll(filepath.Dir(m.clientFilePath))

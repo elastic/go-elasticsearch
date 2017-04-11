@@ -23,6 +23,7 @@ import (
 	"flag"
 	"fmt"
 	"io/ioutil"
+	"os"
 	"path/filepath"
 	"strings"
 
@@ -57,23 +58,24 @@ func main() {
 	if err != nil {
 		glog.Fatal(err)
 	}
+	var whitelistedFiles []string
 	for _, file := range files {
-		if _, ok := skipFlag[file.Name()]; ok {
-			continue
+		if _, ok := skipFlag[file.Name()]; !ok {
+			whitelistedFiles = append(whitelistedFiles, filepath.Join(*specDirFlag, file.Name()))
 		}
-		g, err := generator.New(filepath.Join(*specDirFlag, file.Name()))
-		if err != nil {
-			glog.Error(err)
-			continue
-		}
-		if *cleanFlag {
-			err = g.Clean()
-		} else {
-			err = g.Run()
-		}
-		if err != nil {
-			glog.Error(err)
-			continue
-		}
+	}
+	g, err := generator.New(whitelistedFiles)
+	if err != nil {
+		glog.Error(err)
+		os.Exit(1)
+	}
+	if *cleanFlag {
+		err = g.Clean()
+	} else {
+		err = g.Run()
+	}
+	if err != nil {
+		glog.Error(err)
+		os.Exit(1)
 	}
 }
