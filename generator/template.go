@@ -89,7 +89,7 @@ func newMethod(spec map[string]interface{}, outputDir string) (*method, error) {
 		goFileDir = filepath.Join(goFileDir, packageName)
 		m.clientFilePath = filepath.Join(goFileDir, "client.go")
 	}
-	m.filePath = filepath.Join(goFileDir, api) + ".go"
+	m.filePath = filepath.Join(goFileDir, fileName) + ".go"
 	return m, nil
 }
 
