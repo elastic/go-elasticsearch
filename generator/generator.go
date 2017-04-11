@@ -25,7 +25,8 @@ const (
 
 // Generator is a code generator based on JSON specs and Go template
 type Generator struct {
-	methods []*method
+	methods   []*method
+	accessors *accessors
 }
 
 // New creates a new generator
@@ -42,7 +43,10 @@ func New(specFiles []string) (*Generator, error) {
 		}
 		methods = append(methods, m)
 	}
-	return &Generator{methods: methods}, nil
+	return &Generator{
+		methods:   methods,
+		accessors: newAccessors(methods, clientDir),
+	}, nil
 }
 
 // Run runs the generator
@@ -52,11 +56,15 @@ func (g *Generator) Run() error {
 			return err
 		}
 	}
+	g.accessors.generate(templatesDir)
 	return nil
 }
 
 // Clean deletes the generated code
 func (g *Generator) Clean() error {
+	if err := g.accessors.clean(); err != nil {
+		return err
+	}
 	for _, m := range g.methods {
 		if err := m.clean(); err != nil {
 			return err
