@@ -53,8 +53,7 @@ func TestExecuteTemplate(t *testing.T) {
 
 package api
 
-// %s
-// See: %s
+// %s is documented at %s
 func (a *API) %s() {
 }
 `, methodName, docURL, methodName)
