@@ -35,7 +35,7 @@ build: gen
 .PHONY: gen
 gen: spec
 	$(GO) run ./cmd/generator/main.go -skip $(BLACKLISTED_SPECS)
-	$(GO) get $(GOIMPORTS_REPO)
+	@$(GO) get $(GOIMPORTS_REPO)
 	$(GOIMPORTS) -w api
 
 .PHONY: gen-clean
@@ -56,17 +56,17 @@ check: test
 
 .PHONY: check-imports
 check-imports:
-	$(GO) get $(GOIMPORTS_REPO)
-	$(GOIMPORTS) -l || echo "goimports check failed, please run 'make imports'" & exit 1
+	@$(GO) get $(GOIMPORTS_REPO)
+	@if [[ -n `${GOIMPORTS} -l .` ]]; then echo "goimports failed, please run make imports" && exit 1; fi
 
 .PHONY: imports
 imports:
-	$(GO) get $(GOIMPORTS_REPO)
-	$(GOIMPORTS) .
+	@$(GO) get $(GOIMPORTS_REPO)
+	$(GOIMPORTS) -w .
 
 .PHONY: lint
 lint:
-	$(GO) get $(GOLINT_REPO)
+	@$(GO) get $(GOLINT_REPO)
 	$(GOLINT) $(GO_PACKAGES)
 
 .PHONY: clean
