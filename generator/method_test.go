@@ -36,16 +36,16 @@ func TestExecuteTemplate(t *testing.T) {
 			"documentation": docURL,
 		},
 	}
-	apiDir, err := ioutil.TempDir("", "client")
+	rootDir, err := ioutil.TempDir("", "root")
 	if err != nil {
 		t.Fatal(err)
 	}
-	m, err := newMethod(spec, apiDir)
+	m, err := newMethod(spec)
 	if err != nil {
 		t.Fatal(err)
 	}
-	apiFile := filepath.Join(apiDir, api) + ".go"
-	err = m.executeTemplate(filepath.Join("..", templatesDir, "method.tmpl"), apiFile)
+	apiFile := filepath.Join(rootDir, "api", "index") + ".go"
+	err = m.generate(filepath.Join("..", templatesDir), rootDir)
 	if err != nil {
 		t.Fatal(err)
 	}

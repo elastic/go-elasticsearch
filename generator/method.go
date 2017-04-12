@@ -30,103 +30,113 @@ import (
 )
 
 const (
-	// SpecExt is the extension for spec files for the REST API
-	SpecExt            = ".json"
-	templatesDir       = "generator/templates"
-	methodTemplateFile = "method.tmpl"
-	apiTemplateFile    = "api.tmpl"
-	repo               = "github.com/elastic/elasticsearch-go"
-	defaultPackage     = "api"
+	methodNameKey = "method"
 )
 
 type method struct {
-	PackageRepo  string
-	PackageName  string
-	ReceiverName string
-	TypeName     string
-	MethodName   string
-	DocURL       string
-	filePath     string
-	apiFilePath  string
+	spec        map[string]interface{}
+	packageName string
 }
 
-func newMethod(spec map[string]interface{}, outputDir string) (*method, error) {
+func newMethod(spec map[string]interface{}) (*method, error) {
 	if len(spec) > 1 {
-		return nil, fmt.Errorf("Each API spec is expected to contain a single API (found %d)", len(spec))
+		return nil, fmt.Errorf("Unexpected format in API: %s", spec)
 	}
-	var api string
+	var methodName string
 	for k := range spec {
-		api = k
+		methodName = k
+		break
 	}
-	if api == "" {
-		return nil, fmt.Errorf("Unable to find API in %s", spec)
-	}
-	apiSpec, ok := spec[api].(map[string]interface{})
-	if !ok {
-		return nil, fmt.Errorf("Unexpected type in spec: %T (expected map[string]interface{})", spec[api])
-	}
-	packageName := defaultPackage
-	packageRepo := repo + "/" + defaultPackage
+	return &method{
+		spec: map[string]interface{}{
+			"method": methodName,
+			"spec":   spec[methodName],
+		},
+	}, nil
+}
+
+func packageAndMethod(api string) (string, string, error) {
 	apiParts := strings.Split(api, ".")
-	var methodName, fileName string
-	receiverName := "a"
-	typeName := "API"
+	packageName := defaultPackage
+	var methodName string
 	switch len(apiParts) {
 	case 1:
-		fileName = apiParts[0]
+		methodName = apiParts[0]
 	case 2:
 		packageName = apiParts[0]
-		packageRepo += "/" + packageName
-		fileName = apiParts[1]
-		receiverName = string(packageName[0])
-		typeName = snaker.SnakeToCamel(packageName)
+		methodName = apiParts[1]
 	default:
-		return nil, fmt.Errorf("Unexpected API format: %s", api)
+		return "", "", fmt.Errorf("Unexpected API name format: %s", api)
 	}
-	methodName = snaker.SnakeToCamel(fileName)
-	m := &method{
-		PackageRepo:  packageRepo,
-		PackageName:  packageName,
-		ReceiverName: receiverName,
-		TypeName:     typeName,
-		MethodName:   methodName,
-		DocURL:       apiSpec["documentation"].(string),
+	return packageName, methodName, nil
+}
+
+func packageName(spec map[string]interface{}) (string, error) {
+	p, _, err := packageAndMethod(spec[methodNameKey].(string))
+	return p, err
+}
+
+func methodName(spec map[string]interface{}) (string, error) {
+	_, m, err := packageAndMethod(spec[methodNameKey].(string))
+	return snaker.SnakeToCamel(m), err
+}
+
+func typeName(spec map[string]interface{}) (string, error) {
+	p, _, err := packageAndMethod(spec[methodNameKey].(string))
+	if err != nil {
+		return "", err
 	}
-	goFileDir := outputDir
+	return snaker.SnakeToCamel(p), nil
+}
+
+func receiverName(spec map[string]interface{}) (string, error) {
+	t, err := typeName(spec)
+	if err != nil {
+		return "", err
+	}
+	return strings.ToLower(string(t[0])), nil
+}
+
+func mkOutputDir(outputRootDir, packageName string) string {
+	goFileDir := outputRootDir
 	if packageName != defaultPackage {
-		goFileDir = filepath.Join(goFileDir, packageName)
+		goFileDir = filepath.Join(goFileDir, defaultPackage)
 	}
-	m.apiFilePath = filepath.Join(goFileDir, packageName+".go")
-	m.filePath = filepath.Join(goFileDir, fileName) + ".go"
-	return m, nil
+	goFileDir = filepath.Join(goFileDir, packageName)
+	os.MkdirAll(goFileDir, 0755)
+	return goFileDir
 }
 
-func (m *method) generateAPI() error {
-	// The default package is treated specially via apis.generate()
-	if m.PackageName == defaultPackage {
-		return nil
+func (m *method) generate(templatesDir, outputDir string) error {
+	templateFilePath := filepath.Join(templatesDir, "method.tmpl")
+	funcMap := template.FuncMap{
+		"packageName":  packageName,
+		"methodName":   methodName,
+		"typeName":     typeName,
+		"receiverName": receiverName,
 	}
-	return m.executeTemplate(filepath.Join(templatesDir, apiTemplateFile), m.apiFilePath)
-}
-
-func (m *method) executeTemplate(templateFilePath, outputFilePath string) error {
-	t, err := template.ParseFiles(templateFilePath)
+	t, err := template.New("method.tmpl").Funcs(funcMap).ParseFiles(templateFilePath)
 	if err != nil {
 		return fmt.Errorf("Failed to parse template in %q: %s", templateFilePath, err)
 	}
-	os.MkdirAll(filepath.Dir(outputFilePath), 0755)
-	outputFile, err := os.Create(outputFilePath)
+	m.packageName, err = packageName(m.spec)
 	if err != nil {
 		return err
 	}
-	defer outputFile.Close()
-	err = t.Execute(outputFile, m)
+	_, methodNameRaw, err := packageAndMethod(m.spec[methodNameKey].(string))
+	if err != nil {
+		return err
+	}
+	goFileDir := mkOutputDir(outputDir, m.packageName)
+	goFilePath := filepath.Join(goFileDir, methodNameRaw) + ".go"
+	goFile, err := os.Create(goFilePath)
+	if err != nil {
+		return err
+	}
+	defer goFile.Close()
+	err = t.Execute(goFile, m.spec)
 	if err != nil {
 		return fmt.Errorf("Failed to execute template in %q: %s", templateFilePath, err)
 	}
 	return err
-}
-
-func (m *method) generate(templatesDir string) error {
-	return m.executeTemplate(filepath.Join(templatesDir, methodTemplateFile), m.filePath)
 }

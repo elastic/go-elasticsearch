@@ -20,13 +20,13 @@
 package generator
 
 const (
-	apiDir = "api"
+	outputDir    = "."
+	templatesDir = "generator/templates"
 )
 
 // Generator is a code generator based on JSON specs and Go template
 type Generator struct {
 	methods []*method
-	apis    *apis
 }
 
 // New creates a new generator
@@ -37,7 +37,7 @@ func New(specFiles []string) (*Generator, error) {
 		if err != nil {
 			return nil, err
 		}
-		m, err := newMethod(spec, apiDir)
+		m, err := newMethod(spec)
 		if err != nil {
 			return nil, err
 		}
@@ -45,26 +45,15 @@ func New(specFiles []string) (*Generator, error) {
 	}
 	return &Generator{
 		methods: methods,
-		apis:    newApis(methods, apiDir),
 	}, nil
 }
 
 // Run runs the generator
 func (g *Generator) Run() error {
 	for _, m := range g.methods {
-		if err := m.generate(templatesDir); err != nil {
+		if err := m.generate(templatesDir, outputDir); err != nil {
 			return err
 		}
 	}
-	packages := map[string]struct{}{}
-	for _, m := range g.methods {
-		if _, ok := packages[m.PackageName]; ok {
-			continue
-		}
-		if err := m.generateAPI(); err != nil {
-			return err
-		}
-		packages[m.PackageName] = struct{}{}
-	}
-	return g.apis.generate(templatesDir)
+	return newAPIPackages(g.methods).generate(templatesDir, outputDir)
 }
