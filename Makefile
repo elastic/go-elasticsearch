@@ -46,9 +46,12 @@ gen-clean:
 spec:
 	$(MAKE) -C $(SPEC_DIR) checkout
 
-.PHONY: check
-check: build
+.PHONY: test
+test: build
 	$(GO) test $(GO_PACKAGES)
+
+.PHONY: check
+check: test
 	$(MAKE) lint check-imports
 
 .PHONY: check-imports
