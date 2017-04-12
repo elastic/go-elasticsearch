@@ -12,3 +12,11 @@ type Api struct {
   {{.APIName}} *{{.PackageName}}.{{.TypeName}}
 {{end}}
 }
+
+// New is the constructor for Api
+func New() *Api {
+  return &Api{
+    {{range .Apis}}{{.APIName}}: {{.PackageName}}.New(),
+    {{end}}
+  }
+}

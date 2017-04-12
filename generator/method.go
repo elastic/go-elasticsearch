@@ -101,7 +101,11 @@ func newMethod(spec map[string]interface{}, outputDir string) (*method, error) {
 	return m, nil
 }
 
-func (m *method) generateClient() error {
+func (m *method) generateAPI() error {
+	// The default package is treated specially via apis.generate()
+	if m.PackageName == defaultPackage {
+		return nil
+	}
 	return m.executeTemplate(filepath.Join(templatesDir, apiTemplateFile), m.apiFilePath)
 }
 

@@ -61,7 +61,7 @@ func (g *Generator) Run() error {
 		if _, ok := packages[m.PackageName]; ok {
 			continue
 		}
-		if err := m.generateClient(); err != nil {
+		if err := m.generateAPI(); err != nil {
 			return err
 		}
 		packages[m.PackageName] = struct{}{}
