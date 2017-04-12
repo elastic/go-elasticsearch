@@ -20,6 +20,8 @@
 MAKE = make
 GO = go
 GO_PACKAGES=$(shell go list ./... | grep -v /vendor/)
+GOIMPORTS = goimports
+GOIMPORTS_REPO = golang.org/x/tools/cmd/goimports
 GOLINT = golint
 GOLINT_REPO = github.com/golang/lint/$(GOLINT)
 SPEC_DIR = spec
@@ -33,6 +35,8 @@ build: gen
 .PHONY: gen
 gen: spec
 	$(GO) run ./cmd/generator/main.go -skip $(BLACKLISTED_SPECS)
+	$(GO) get $(GOIMPORTS_REPO)
+	$(GOIMPORTS) -w api
 
 .PHONY: gen-clean
 gen-clean:
@@ -45,6 +49,17 @@ spec:
 .PHONY: check
 check: build
 	$(GO) test $(GO_PACKAGES)
+	$(MAKE) lint check-imports
+
+.PHONY: check-imports
+check-imports:
+	$(GO) get $(GOIMPORTS_REPO)
+	$(GOIMPORTS) -l || echo "goimports check failed, please run 'make imports'" & exit 1
+
+.PHONY: imports
+imports:
+	$(GO) get $(GOIMPORTS_REPO)
+	$(GOIMPORTS) .
 
 .PHONY: lint
 lint:

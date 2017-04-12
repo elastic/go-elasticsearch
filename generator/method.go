@@ -70,7 +70,7 @@ func newMethod(spec map[string]interface{}, outputDir string) (*method, error) {
 	apiParts := strings.Split(api, ".")
 	var methodName, fileName string
 	receiverName := "a"
-	typeName := "Api"
+	typeName := "API"
 	switch len(apiParts) {
 	case 1:
 		fileName = apiParts[0]
