@@ -30,7 +30,12 @@ import (
 )
 
 const (
-	methodNameKey = "method"
+	transportPackageRepo = "github.com/elastic/elasticsearch-go/client/http"
+	transportFieldName   = "client"
+)
+
+var (
+	toCamel = snaker.SnakeToCamel
 )
 
 type method struct {
@@ -49,13 +54,19 @@ func newMethod(spec map[string]interface{}) (*method, error) {
 	}
 	return &method{
 		spec: map[string]interface{}{
-			"method": methodName,
-			"spec":   spec[methodName],
+			"method":               methodName,
+			"spec":                 spec[methodName],
+			"transportPackageRepo": transportPackageRepo,
+			"transportFieldName":   transportFieldName,
 		},
 	}, nil
 }
 
-func packageAndMethod(api string) (string, string, error) {
+func packageAndMethod(spec map[string]interface{}) (string, string, error) {
+	api, ok := spec["method"].(string)
+	if !ok {
+		return "", "", fmt.Errorf("Unexpected type for method: %T (expected string)", spec["method"])
+	}
 	apiParts := strings.Split(api, ".")
 	packageName := defaultPackage
 	var methodName string
@@ -72,21 +83,21 @@ func packageAndMethod(api string) (string, string, error) {
 }
 
 func packageName(spec map[string]interface{}) (string, error) {
-	p, _, err := packageAndMethod(spec[methodNameKey].(string))
+	p, _, err := packageAndMethod(spec)
 	return p, err
 }
 
 func methodName(spec map[string]interface{}) (string, error) {
-	_, m, err := packageAndMethod(spec[methodNameKey].(string))
-	return snaker.SnakeToCamel(m), err
+	_, m, err := packageAndMethod(spec)
+	return toCamel(m), err
 }
 
 func typeName(spec map[string]interface{}) (string, error) {
-	p, _, err := packageAndMethod(spec[methodNameKey].(string))
+	p, _, err := packageAndMethod(spec)
 	if err != nil {
 		return "", err
 	}
-	return snaker.SnakeToCamel(p), nil
+	return toCamel(p), nil
 }
 
 func receiverName(spec map[string]interface{}) (string, error) {
@@ -95,6 +106,25 @@ func receiverName(spec map[string]interface{}) (string, error) {
 		return "", err
 	}
 	return strings.ToLower(string(t[0])), nil
+}
+
+func httpMethod(spec map[string]interface{}) (string, error) {
+	m, ok := spec["spec"].(map[string]interface{})
+	if !ok {
+		return "", fmt.Errorf("Unexpected type for method: %T (expected map[string]interface {})", spec["spec"])
+	}
+	methods, ok := m["methods"].([]interface{})
+	if !ok {
+		return "", fmt.Errorf("Unexpected type for methods: %T (expected []interface{})", m["methods"])
+	}
+	for _, m := range methods {
+		methodName, ok := m.(string)
+		if !ok {
+			return "", fmt.Errorf("Unexpected type for method: %T (expected string)", m)
+		}
+		return methodName, nil
+	}
+	return "", fmt.Errorf("No HTTP methods in %q", spec)
 }
 
 func mkOutputDir(outputRootDir, packageName string) string {
@@ -114,6 +144,7 @@ func (m *method) generate(templatesDir, outputDir string) error {
 		"methodName":   methodName,
 		"typeName":     typeName,
 		"receiverName": receiverName,
+		"httpMethod":   httpMethod,
 	}
 	t, err := template.New("method.tmpl").Funcs(funcMap).ParseFiles(templateFilePath)
 	if err != nil {
@@ -123,7 +154,7 @@ func (m *method) generate(templatesDir, outputDir string) error {
 	if err != nil {
 		return err
 	}
-	_, methodNameRaw, err := packageAndMethod(m.spec[methodNameKey].(string))
+	_, methodNameRaw, err := packageAndMethod(m.spec)
 	if err != nil {
 		return err
 	}

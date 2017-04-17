@@ -25,11 +25,9 @@ const (
 	defaultPackage        = "api"
 	templateFileName      = "method.tmpl"
 	defaultPackageRepo    = "github.com/elastic/elasticsearch-go/api"
-	transportPackageRepo  = "github.com/elastic/elasticsearch-go/client/http"
 	transportPackageName  = "http"
 	transportTypeName     = "Client"
 	transportReceiverName = "c"
-	transportFieldName    = "client"
 )
 
 type apiPackages struct {

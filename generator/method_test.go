@@ -32,8 +32,8 @@ func TestExecuteTemplate(t *testing.T) {
 	docURL := "http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-" + api + "_.html"
 	spec := map[string]interface{}{
 		api: map[string]interface{}{
-
 			"documentation": docURL,
+			"methods":       []interface{}{"POST", "PUT"},
 		},
 	}
 	rootDir, err := ioutil.TempDir("", "root")
@@ -54,7 +54,11 @@ func TestExecuteTemplate(t *testing.T) {
 package api
 
 // %s is documented at %s
-func (a *API) %s() {
+func (a *API) %s() (*http.Response, error){
+	req := &http.Request{
+		Method: "POST",
+	}
+	return a.client.Do(req)
 }
 `, methodName, docURL, methodName)
 	code, err := ioutil.ReadFile(apiFile)
