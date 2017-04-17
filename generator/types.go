@@ -17,43 +17,17 @@
  * under the License.
  */
 
-package main
+package generator
 
-import (
-	"flag"
-	"fmt"
-	"os"
-	"strings"
-
-	"github.com/elastic/elasticsearch-go/generator"
-	"github.com/golang/glog"
-)
-
-type fileMap map[string]struct{}
-
-func (f *fileMap) String() string {
-	return fmt.Sprint(*f)
+type types struct {
+	spec map[string]interface{}
 }
 
-func (f *fileMap) Set(value string) error {
-	for _, v := range strings.Split(value, ",") {
-		(*f)[v] = struct{}{}
-	}
+func newTypes(spec map[string]interface{}) *types {
+	return &types{spec: spec}
+}
+
+func (t *types) generate(templatesDir, outputDir string) error {
+	// TODO: implement
 	return nil
-}
-
-func main() {
-	specDirFlag := flag.String("specdir", "spec/elasticsearch/rest-api-spec/src/main/resources/rest-api-spec/api",
-		"directory containing the JSON spec for the REST API")
-
-	flag.Parse()
-	g, err := generator.New(*specDirFlag)
-	if err != nil {
-		glog.Error(err)
-		os.Exit(1)
-	}
-	if err := g.Run(); err != nil {
-		glog.Error(err)
-		os.Exit(1)
-	}
 }

@@ -25,8 +25,6 @@ GOIMPORTS_REPO = golang.org/x/tools/cmd/goimports
 GOLINT = golint
 GOLINT_REPO = github.com/golang/lint/$(GOLINT)
 SPEC_DIR = spec
-# TODO: remove
-BLACKLISTED_SPECS = _common.json
 
 .PHONY: build
 build: gen
@@ -34,7 +32,7 @@ build: gen
 
 .PHONY: gen
 gen: spec
-	$(GO) run ./cmd/generator/main.go -skip $(BLACKLISTED_SPECS)
+	$(GO) run ./cmd/generator/main.go
 	@$(GO) get $(GOIMPORTS_REPO)
 	$(GOIMPORTS) -w api
 

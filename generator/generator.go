@@ -19,33 +19,48 @@
 
 package generator
 
+import (
+	"io/ioutil"
+	"path/filepath"
+)
+
 const (
 	outputDir    = "."
 	templatesDir = "generator/templates"
+	typesSpec    = "_common.json"
 )
 
 // Generator is a code generator based on JSON specs and Go template
 type Generator struct {
 	methods []*method
+	types   *types
 }
 
 // New creates a new generator
-func New(specFiles []string) (*Generator, error) {
-	var methods []*method
-	for _, specFile := range specFiles {
-		spec, err := unmarshalSpec(specFile)
-		if err != nil {
-			return nil, err
-		}
-		m, err := newMethod(spec)
-		if err != nil {
-			return nil, err
-		}
-		methods = append(methods, m)
+func New(specDir string) (*Generator, error) {
+	g := &Generator{
+		methods: []*method{},
 	}
-	return &Generator{
-		methods: methods,
-	}, nil
+	files, err := ioutil.ReadDir(specDir)
+	if err != nil {
+		return nil, err
+	}
+	for _, specFile := range files {
+		spec, err := unmarshalSpec(filepath.Join(specDir, specFile.Name()))
+		if err != nil {
+			return nil, err
+		}
+		if specFile.Name() == typesSpec {
+			g.types = newTypes(spec)
+		} else {
+			m, err := newMethod(spec)
+			if err != nil {
+				return nil, err
+			}
+			g.methods = append(g.methods, m)
+		}
+	}
+	return g, nil
 }
 
 // Run runs the generator
@@ -54,6 +69,9 @@ func (g *Generator) Run() error {
 		if err := m.generate(templatesDir, outputDir); err != nil {
 			return err
 		}
+	}
+	if err := g.types.generate(templatesDir, outputDir); err != nil {
+		return err
 	}
 	return newAPIPackages(g.methods).generate(templatesDir, outputDir)
 }
