@@ -19,6 +19,10 @@
 
 package generator
 
+var typesMap = map[string]string{
+	"string": "string",
+}
+
 type types struct {
 	spec map[string]interface{}
 }

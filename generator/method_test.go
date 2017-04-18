@@ -34,6 +34,21 @@ func TestExecuteTemplate(t *testing.T) {
 		api: map[string]interface{}{
 			"documentation": docURL,
 			"methods":       []interface{}{"POST", "PUT"},
+			"url": map[string]interface{}{
+				"parts": map[string]interface{}{
+					"id": map[string]interface{}{
+						"type": "string",
+					},
+					"index": map[string]interface{}{
+						"type":     "string",
+						"required": true,
+					},
+					"type": map[string]interface{}{
+						"type":     "string",
+						"required": true,
+					},
+				},
+			},
 		},
 	}
 	rootDir, err := ioutil.TempDir("", "root")

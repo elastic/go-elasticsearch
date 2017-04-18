@@ -31,6 +31,8 @@ var funcMap = template.FuncMap{
 	"typeName":     typeName,
 	"receiverName": receiverName,
 	"httpMethod":   httpMethod,
+	"paramName":    paramName,
+	"paramType":    paramType,
 }
 
 // packageAndMethod is a helper for other methods obtaining the package and/or method from the <api>.<method> format
@@ -97,4 +99,38 @@ func httpMethod(spec map[string]interface{}) (string, error) {
 		return methodName, nil
 	}
 	return "", fmt.Errorf("No HTTP methods in %q", spec)
+}
+
+func paramName(param map[string]interface{}) (string, error) {
+	if len(param) > 1 {
+		return "", fmt.Errorf("Expected a single parameter but got %q", len(param))
+	}
+	for name := range param {
+		return name, nil
+	}
+	return "", fmt.Errorf("Expected a single parameter but got none")
+}
+
+func paramType(param map[string]interface{}) (string, error) {
+	name, err := paramName(param)
+	if err != nil {
+		return "", err
+	}
+	p, ok := param[name].(map[string]interface{})
+	if !ok {
+		return "", fmt.Errorf("unexpected type for parameter: %T (expected map[string]interface{})", param[name])
+	}
+	t, ok := p["type"]
+	if !ok {
+		return "", fmt.Errorf("Cannot determine type of %q", param)
+	}
+	specType, ok := t.(string)
+	if !ok {
+		return "", fmt.Errorf("Unexpected type for type: %T (expected string)", t)
+	}
+	goType, ok := typesMap[specType]
+	if !ok {
+		return "", fmt.Errorf("Invalid type: %s", specType)
+	}
+	return goType, nil
 }
