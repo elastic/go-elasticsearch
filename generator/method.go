@@ -23,7 +23,6 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"strings"
 	"text/template"
 
 	"github.com/serenize/snaker"
@@ -62,71 +61,6 @@ func newMethod(spec map[string]interface{}) (*method, error) {
 	}, nil
 }
 
-func packageAndMethod(spec map[string]interface{}) (string, string, error) {
-	api, ok := spec["method"].(string)
-	if !ok {
-		return "", "", fmt.Errorf("Unexpected type for method: %T (expected string)", spec["method"])
-	}
-	apiParts := strings.Split(api, ".")
-	packageName := defaultPackage
-	var methodName string
-	switch len(apiParts) {
-	case 1:
-		methodName = apiParts[0]
-	case 2:
-		packageName = apiParts[0]
-		methodName = apiParts[1]
-	default:
-		return "", "", fmt.Errorf("Unexpected API name format: %s", api)
-	}
-	return packageName, methodName, nil
-}
-
-func packageName(spec map[string]interface{}) (string, error) {
-	p, _, err := packageAndMethod(spec)
-	return p, err
-}
-
-func methodName(spec map[string]interface{}) (string, error) {
-	_, m, err := packageAndMethod(spec)
-	return toCamel(m), err
-}
-
-func typeName(spec map[string]interface{}) (string, error) {
-	p, _, err := packageAndMethod(spec)
-	if err != nil {
-		return "", err
-	}
-	return toCamel(p), nil
-}
-
-func receiverName(spec map[string]interface{}) (string, error) {
-	t, err := typeName(spec)
-	if err != nil {
-		return "", err
-	}
-	return strings.ToLower(string(t[0])), nil
-}
-
-func httpMethod(spec map[string]interface{}) (string, error) {
-	m, ok := spec["spec"].(map[string]interface{})
-	if !ok {
-		return "", fmt.Errorf("Unexpected type for method: %T (expected map[string]interface {})", spec["spec"])
-	}
-	methods, ok := m["methods"].([]interface{})
-	if !ok {
-		return "", fmt.Errorf("Unexpected type for methods: %T (expected []interface{})", m["methods"])
-	}
-	for _, m := range methods {
-		methodName, ok := m.(string)
-		if !ok {
-			return "", fmt.Errorf("Unexpected type for method: %T (expected string)", m)
-		}
-		return methodName, nil
-	}
-	return "", fmt.Errorf("No HTTP methods in %q", spec)
-}
-
 func mkOutputDir(outputRootDir, packageName string) string {
 	goFileDir := outputRootDir
 	if packageName != defaultPackage {
@@ -139,13 +73,6 @@ func mkOutputDir(outputRootDir, packageName string) string {
 
 func (m *method) generate(templatesDir, outputDir string) error {
 	templateFilePath := filepath.Join(templatesDir, "method.tmpl")
-	funcMap := template.FuncMap{
-		"packageName":  packageName,
-		"methodName":   methodName,
-		"typeName":     typeName,
-		"receiverName": receiverName,
-		"httpMethod":   httpMethod,
-	}
 	t, err := template.New("method.tmpl").Funcs(funcMap).ParseFiles(templateFilePath)
 	if err != nil {
 		return fmt.Errorf("Failed to parse template in %q: %s", templateFilePath, err)
