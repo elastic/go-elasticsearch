@@ -19,8 +19,6 @@
 
 package generator
 
-import "sort"
-
 const (
 	defaultPackage        = "api"
 	templateFileName      = "method.tmpl"
@@ -31,7 +29,7 @@ const (
 )
 
 type apiPackages struct {
-	packages []*apiPackage
+	packages map[string]*apiPackage
 }
 
 func newAPIPackages(methods []*method) *apiPackages {
@@ -42,29 +40,22 @@ func newAPIPackages(methods []*method) *apiPackages {
 		ReceiverName: transportReceiverName,
 		FieldName:    transportFieldName,
 	}
-	a := &apiPackages{}
-	packages := map[string]*apiPackage{}
-	packageNames := []string{}
-	var rootPackage *apiPackage
+	a := &apiPackages{
+		packages: map[string]*apiPackage{},
+	}
 	for _, m := range methods {
-		if _, ok := packages[m.packageName]; ok {
+		if _, ok := a.packages[m.packageName]; ok {
 			continue
 		}
 		p := newAPIPackage(m, transportPackage)
-		if p.PackageName == defaultPackage {
-			rootPackage = p
-		} else {
-			packageNames = append(packageNames, p.PackageName)
-			packages[p.PackageName] = p
+		a.packages[p.PackageName] = p
+	}
+	rootPackage := a.packages[defaultPackage]
+	for _, p := range a.packages {
+		if p.PackageName != rootPackage.PackageName {
+			rootPackage.addSubpackage(p)
 		}
 	}
-	sort.Strings(packageNames)
-	for _, packageName := range packageNames {
-		p := packages[packageName]
-		a.packages = append(a.packages, p)
-		rootPackage.SubPackages = append(rootPackage.SubPackages, p)
-	}
-	a.packages = append(a.packages, rootPackage)
 	return a
 }
 

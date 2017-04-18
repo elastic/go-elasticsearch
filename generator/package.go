@@ -33,7 +33,7 @@ type apiPackage struct {
 	ReceiverName     string
 	FieldName        string
 	TransportPackage *apiPackage
-	SubPackages      []*apiPackage
+	SubPackages      map[string]*apiPackage
 }
 
 func newAPIPackage(m *method, transport *apiPackage) *apiPackage {
@@ -50,6 +50,13 @@ func newAPIPackage(m *method, transport *apiPackage) *apiPackage {
 		ReceiverName:     receiver,
 		TransportPackage: transport,
 	}
+}
+
+func (p *apiPackage) addSubpackage(sub *apiPackage) {
+	if p.SubPackages == nil {
+		p.SubPackages = map[string]*apiPackage{}
+	}
+	p.SubPackages[sub.PackageName] = sub
 }
 
 func (p *apiPackage) generate(templatesDir, outputDir string) error {
