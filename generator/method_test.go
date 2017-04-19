@@ -69,7 +69,7 @@ func TestExecuteTemplate(t *testing.T) {
 package api
 
 // %s is documented at %s
-func (a *API) %s() (*http.Response, error){
+func (a *API) %s(index string, docType string, opt ...Option) (*http.Response, error){
 	req := &http.Request{
 		Method: "POST",
 	}

@@ -3,7 +3,7 @@
 package {{packageName .}}
 
 // {{$methodName}} is documented at {{.spec.documentation}}
-func ({{$receiverName}} *{{typeName .}}) {{$methodName}}({{range .spec.url}}{{end}}) (*http.Response, error){
+func ({{$receiverName}} *{{typeName .}}) {{$methodName}}({{range $name, $value := .spec.url.parts}}{{if $value.required}}{{if eq $name "type"}}docType{{else}}{{$name}}{{end}} {{paramType $value}}, {{end}}{{end}}opt ...Option) (*http.Response, error){
 	req := &http.Request{
 		Method: "{{httpMethod .}}",
 	}

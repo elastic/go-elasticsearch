@@ -21,6 +21,7 @@ package generator
 
 var typesMap = map[string]string{
 	"string": "string",
+	"list":   "[]string",
 }
 
 type types struct {

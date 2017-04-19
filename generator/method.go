@@ -98,3 +98,21 @@ func (m *method) generate(templatesDir, outputDir string) error {
 	}
 	return err
 }
+
+func (m *method) params() (map[string]interface{}, error) {
+	p := map[string]interface{}{}
+	url, err := methodUrl(m.spec)
+	if err != nil {
+		return nil, err
+	}
+	for k, v := range url["parts"].(map[string]interface{}) {
+		spec := v.(map[string]interface{})
+		if !spec["required"].(bool) {
+			p[k] = spec
+		}
+	}
+	for k, v := range url["params"].(map[string]interface{}) {
+		p[k] = v
+	}
+	return p, nil
+}

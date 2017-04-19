@@ -31,7 +31,6 @@ var funcMap = template.FuncMap{
 	"typeName":     typeName,
 	"receiverName": receiverName,
 	"httpMethod":   httpMethod,
-	"paramName":    paramName,
 	"paramType":    paramType,
 }
 
@@ -82,14 +81,22 @@ func receiverName(spec map[string]interface{}) (string, error) {
 	return strings.ToLower(string(t[0])), nil
 }
 
-func httpMethod(spec map[string]interface{}) (string, error) {
-	m, ok := spec["spec"].(map[string]interface{})
+func methodSpec(spec map[string]interface{}) (map[string]interface{}, error) {
+	s, ok := spec["spec"].(map[string]interface{})
 	if !ok {
-		return "", fmt.Errorf("Unexpected type for method: %T (expected map[string]interface {})", spec["spec"])
+		return nil, fmt.Errorf("Unexpected type for method: %T (expected map[string]interface {})", spec["spec"])
 	}
-	methods, ok := m["methods"].([]interface{})
+	return s, nil
+}
+
+func httpMethod(spec map[string]interface{}) (string, error) {
+	s, err := methodSpec(spec)
+	if err != nil {
+		return "", err
+	}
+	methods, ok := s["methods"].([]interface{})
 	if !ok {
-		return "", fmt.Errorf("Unexpected type for methods: %T (expected []interface{})", m["methods"])
+		return "", fmt.Errorf("Unexpected type for methods: %T (expected []interface{})", s["methods"])
 	}
 	for _, m := range methods {
 		methodName, ok := m.(string)
@@ -101,26 +108,20 @@ func httpMethod(spec map[string]interface{}) (string, error) {
 	return "", fmt.Errorf("No HTTP methods in %q", spec)
 }
 
-func paramName(param map[string]interface{}) (string, error) {
-	if len(param) > 1 {
-		return "", fmt.Errorf("Expected a single parameter but got %q", len(param))
+func methodUrl(spec map[string]interface{}) (map[string]interface{}, error) {
+	s, err := methodSpec(spec)
+	if err != nil {
+		return nil, err
 	}
-	for name := range param {
-		return name, nil
+	url, ok := s["url"].(map[string]interface{})
+	if !ok {
+		return nil, fmt.Errorf("Unexpected type %T for url (expected map[string]interface{})", url)
 	}
-	return "", fmt.Errorf("Expected a single parameter but got none")
+	return url, nil
 }
 
 func paramType(param map[string]interface{}) (string, error) {
-	name, err := paramName(param)
-	if err != nil {
-		return "", err
-	}
-	p, ok := param[name].(map[string]interface{})
-	if !ok {
-		return "", fmt.Errorf("unexpected type for parameter: %T (expected map[string]interface{})", param[name])
-	}
-	t, ok := p["type"]
+	t, ok := param["type"]
 	if !ok {
 		return "", fmt.Errorf("Cannot determine type of %q", param)
 	}
