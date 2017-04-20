@@ -3,26 +3,25 @@
 package {{.Name}}
 
 import (
-
-  {{range .SubPackages}}"{{.Repo}}"
-  {{end}}"net/http"
-
+	{{range .SubPackages}}"{{.Repo}}"
+	{{end}}"net/http"
 )
 
 // {{.TypeName}} is the {{.Name}} API.
 type {{.TypeName}} struct {
 {{range .SubPackages}}// {{.TypeName}} is the {{.Name}} client
-  {{.TypeName}} *{{.Name}}.{{.TypeName}}
-  {{end}}// client is the transport client
-  client *http.Client
+	{{.TypeName}} *{{.Name}}.{{.TypeName}}
+	{{end}}
+	// client is the transport client
+	client *http.Client
 }
 
 // New is the constructor for {{.TypeName}}
 func New(client *http.Client) *{{.TypeName}} {
-  return &{{.TypeName}}{
-    {{range .SubPackages}}{{.TypeName}}: {{.Name}}.New(client),
-    {{end}}client: client,
-  }
+	return &{{.TypeName}}{
+		{{range .SubPackages}}{{.TypeName}}: {{.Name}}.New(client),
+		{{end}}client: client,
+	}
 }
 
 type Option struct{}

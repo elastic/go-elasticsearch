@@ -67,7 +67,7 @@ func (p *apiPackage) newWriter(outputDir string) (io.Writer, error) {
 }
 
 func (p *apiPackage) generateAPI(templatesDir string, w io.Writer) error {
-	templateFilePath := filepath.Join(templatesDir, "api.tmpl")
+	templateFilePath := filepath.Join(templatesDir, "package.tmpl")
 	t, err := template.ParseFiles(templateFilePath)
 	if err != nil {
 		return fmt.Errorf("Failed to parse template in %q: %s", templateFilePath, err)
