@@ -121,14 +121,17 @@ func normalizeParams(params *map[string]*param) {
 	}
 }
 
-func (m *method) newWriter(outputRootDir string) (io.Writer, error) {
-	goFileDir := outputRootDir
+func (m *method) newWriter(outputDir, fileName string) (io.Writer, error) {
+	if fileName == "" {
+		fileName = m.FileName
+	}
+	goFileDir := outputDir
 	if m.PackageName != defaultPackage {
 		goFileDir = filepath.Join(goFileDir, defaultPackage)
 	}
 	goFileDir = filepath.Join(goFileDir, m.PackageName)
 	os.MkdirAll(goFileDir, 0755)
-	goFilePath := filepath.Join(goFileDir, m.FileName)
+	goFilePath := filepath.Join(goFileDir, fileName)
 	goFile, err := os.Create(goFilePath)
 	if err != nil {
 		return nil, err

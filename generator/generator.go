@@ -63,7 +63,7 @@ func New(specDir string) (*Generator, error) {
 // Run runs the generator
 func (g *Generator) Run() error {
 	for _, m := range g.methods {
-		w, err := m.newWriter(outputDir)
+		w, err := m.newWriter(outputDir, "")
 		if err != nil {
 			return err
 		}

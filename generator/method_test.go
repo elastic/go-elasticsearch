@@ -26,7 +26,7 @@ import (
 	"testing"
 )
 
-func TestMethodGenerate(t *testing.T) {
+func TestGenerate(t *testing.T) {
 	api := "index"
 	methodName := "Index"
 	docURL := "http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-" + api + "_.html"

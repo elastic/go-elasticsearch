@@ -23,7 +23,6 @@ import (
 	"fmt"
 	"html/template"
 	"io"
-	"os"
 	"path/filepath"
 )
 
@@ -55,15 +54,8 @@ func (p *apiPackage) addSubpackage(sub *apiPackage) {
 	p.SubPackages[sub.Methods[0].PackageName] = sub
 }
 
-func (p *apiPackage) newWriter(outputDir string) (io.Writer, error) {
-	goFileDir := filepath.Join(outputDir, p.Methods[0].PackageName)
-	os.MkdirAll(goFileDir, 0755)
-	goFilePath := filepath.Join(goFileDir, p.Methods[0].PackageName+".go")
-	goFile, err := os.Create(goFilePath)
-	if err != nil {
-		return nil, err
-	}
-	return goFile, nil
+func (p *apiPackage) newWriter(outputDir, fileName string) (io.Writer, error) {
+	return p.Methods[0].newWriter(outputDir, fileName)
 }
 
 func (p *apiPackage) generateAPI(templatesDir string, w io.Writer) error {
@@ -80,11 +72,28 @@ func (p *apiPackage) generateAPI(templatesDir string, w io.Writer) error {
 }
 
 func (p *apiPackage) generateOption(templatesDir string, w io.Writer) error {
-	return nil
+	templateFilePath := filepath.Join(templatesDir, "option.tmpl")
+	t, err := template.ParseFiles(templateFilePath)
+	if err != nil {
+		return fmt.Errorf("Failed to parse template in %q: %s", templateFilePath, err)
+	}
+	err = t.Execute(w, p)
+	if err != nil {
+		return fmt.Errorf("Failed to execute template in %q: %s", templateFilePath, err)
+	}
+	return err
 }
 
-func (p *apiPackage) generate(templatesDir string, w io.Writer) error {
-	err := p.generateOption(templatesDir, w)
+func (p *apiPackage) generate(templatesDir, outputDir string) error {
+	w, err := p.newWriter(outputDir, "option.go")
+	if err != nil {
+		return err
+	}
+	err = p.generateOption(templatesDir, w)
+	if err != nil {
+		return err
+	}
+	w, err = p.newWriter(outputDir, p.Methods[0].PackageName+".go")
 	if err != nil {
 		return err
 	}
