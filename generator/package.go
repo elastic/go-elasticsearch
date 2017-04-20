@@ -27,32 +27,41 @@ import (
 )
 
 type apiPackage struct {
-	Method      *method
+	Name        string
 	Repo        string
+	TypeName    string
+	Methods     []*method
 	SubPackages map[string]*apiPackage
 }
 
 func newAPIPackage(m *method) *apiPackage {
 	return &apiPackage{
-		Method: m,
+		Name:     m.PackageName,
+		Repo:     m.Repo,
+		TypeName: m.TypeName,
+		Methods:  []*method{m},
 	}
+}
+
+func (p *apiPackage) addMethod(m *method) {
+	p.Methods = append(p.Methods, m)
 }
 
 func (p *apiPackage) addSubpackage(sub *apiPackage) {
 	if p.SubPackages == nil {
 		p.SubPackages = map[string]*apiPackage{}
 	}
-	p.SubPackages[sub.Method.PackageName] = sub
+	p.SubPackages[sub.Methods[0].PackageName] = sub
 }
 
-func (p *apiPackage) generate(templatesDir, outputDir string) error {
+func (p *apiPackage) generateAPI(templatesDir, outputDir string) error {
 	templateFilePath := filepath.Join(templatesDir, "api.tmpl")
 	t, err := template.ParseFiles(templateFilePath)
 	if err != nil {
 		return fmt.Errorf("Failed to parse template in %q: %s", templateFilePath, err)
 	}
-	goFileDir := mkOutputDir(outputDir, p.Method.PackageName)
-	goFilePath := filepath.Join(goFileDir, p.Method.PackageName+".go")
+	goFileDir := mkOutputDir(outputDir, p.Methods[0].PackageName)
+	goFilePath := filepath.Join(goFileDir, p.Methods[0].PackageName+".go")
 	goFile, err := os.Create(goFilePath)
 	if err != nil {
 		return err
@@ -63,4 +72,16 @@ func (p *apiPackage) generate(templatesDir, outputDir string) error {
 		return fmt.Errorf("Failed to execute template in %q: %s", templateFilePath, err)
 	}
 	return err
+}
+
+func (p *apiPackage) generateOption(templatesDir, outputDir string) error {
+	return nil
+}
+
+func (p *apiPackage) generate(templatesDir, outputDir string) error {
+	err := p.generateOption(templatesDir, outputDir)
+	if err != nil {
+		return err
+	}
+	return p.generateAPI(templatesDir, outputDir)
 }

@@ -1,8 +1,9 @@
 package api
 
 import (
+	"net/http"
+
 	"github.com/elastic/elasticsearch-go/api"
-	"github.com/elastic/elasticsearch-go/client/http"
 )
 
 // Client is the elasticsearch client. It implements the transport for it and embeds all the APIs.
@@ -15,13 +16,15 @@ type Client struct {
 	// API embeds the API objects
 	*api.API
 
-	// httpClient is the underlying transport client
-	httpClient *http.Client
+	// client is the underlying transport client
+	client *http.Client
 }
 
 // New is the constructor for the Client
 func New() *Client {
-	c := &Client{httpClient: http.NewClient()}
-	c.API = api.New(c.httpClient)
-	return c
+	httpClient := &http.Client{}
+	return &Client{
+		API:    api.New(httpClient),
+		client: httpClient,
+	}
 }

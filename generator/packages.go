@@ -37,13 +37,15 @@ func newAPIPackages(methods []*method) *apiPackages {
 		packages: map[string]*apiPackage{},
 	}
 	for _, m := range methods {
-		if _, ok := a.packages[m.PackageName]; ok {
-			continue
+		if p, ok := a.packages[m.PackageName]; ok {
+			p.addMethod(m)
+		} else {
+			a.packages[m.PackageName] = newAPIPackage(m)
 		}
 	}
 	rootPackage := a.packages[defaultPackage]
 	for _, p := range a.packages {
-		if p.Method.PackageName != rootPackage.Method.PackageName {
+		if p.Methods[0].PackageName != rootPackage.Methods[0].PackageName {
 			rootPackage.addSubpackage(p)
 		}
 	}
