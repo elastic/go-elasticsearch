@@ -28,8 +28,9 @@ type types struct {
 	spec map[string]interface{}
 }
 
-func newTypes(spec map[string]interface{}) *types {
-	return &types{spec: spec}
+func newTypes(specFilePath string) *types {
+	// TODO: implement
+	return nil
 }
 
 func (t *types) generate(templatesDir, outputDir string) error {

@@ -20,45 +20,104 @@
 package generator
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"os"
 	"path/filepath"
+	"strings"
 	"text/template"
 
 	"github.com/serenize/snaker"
 )
 
 const (
-	transportPackageRepo = "github.com/elastic/elasticsearch-go/client/http"
-	transportFieldName   = "client"
+	// DefaultSpecDir is the dir holding the JSON specs for the APIs
+	DefaultSpecDir = "spec/elasticsearch/rest-api-spec/src/main/resources/rest-api-spec/api"
 )
 
-var (
-	toCamel = snaker.SnakeToCamel
-)
-
-type method struct {
-	spec        map[string]interface{}
-	packageName string
+type url struct {
+	Parts  map[string]*param `json:"parts"`
+	Params map[string]*param `json:"params"`
 }
 
-func newMethod(spec map[string]interface{}) (*method, error) {
-	if len(spec) > 1 {
-		return nil, fmt.Errorf("Unexpected format in API: %s", spec)
+type spec struct {
+	Documentation string   `json:"documentation"`
+	Methods       []string `json:"methods"`
+	URL           url      `json:"url"`
+	Body          param    `json:"body"`
+}
+
+type method struct {
+	Name         string
+	Spec         spec
+	Repo         string
+	PackageName  string
+	FileName     string
+	MethodName   string
+	TypeName     string
+	ReceiverName string
+	HTTPMethod   string
+}
+
+func newMethod(specFilePath string) (*method, error) {
+	bytes, err := ioutil.ReadFile(specFilePath)
+	if err != nil {
+		return nil, err
 	}
-	var methodName string
+	var m method
+	var spec map[string]spec
+	err = json.Unmarshal(bytes, &spec)
+	if err != nil {
+		return nil, err
+	}
+	if len(spec) > 1 {
+		return nil, fmt.Errorf("Too many methods in %s", specFilePath)
+	}
 	for k := range spec {
-		methodName = k
+		m.Name = k
+		m.Spec = spec[k]
 		break
 	}
-	return &method{
-		spec: map[string]interface{}{
-			"method":               methodName,
-			"spec":                 spec[methodName],
-			"transportPackageRepo": transportPackageRepo,
-			"transportFieldName":   transportFieldName,
-		},
-	}, nil
+	normalizeParams(&m.Spec.URL.Parts)
+	normalizeParams(&m.Spec.URL.Params)
+	if docType, ok := m.Spec.URL.Parts["type"]; ok {
+		m.Spec.URL.Parts["documentType"] = docType
+		delete(m.Spec.URL.Parts, "type")
+	}
+	apiParts := strings.Split(m.Name, ".")
+	m.PackageName = defaultPackage
+	switch len(apiParts) {
+	case 1:
+		m.FileName = apiParts[0]
+	case 2:
+		m.PackageName = apiParts[0]
+		m.FileName = apiParts[1]
+	default:
+		return nil, fmt.Errorf("Unexpected API name format: %s", m.Name)
+	}
+	m.Repo = defaultPackageRepo
+	if m.PackageName != defaultPackage {
+		m.Repo += "/" + m.PackageName
+	}
+	m.MethodName = snaker.SnakeToCamel(m.FileName)
+	m.FileName += ".go"
+	m.TypeName = snaker.SnakeToCamel(m.PackageName)
+	m.ReceiverName = strings.ToLower(string(m.TypeName[0]))
+	m.HTTPMethod = m.Spec.Methods[0]
+	return &m, nil
+}
+
+func normalizeParams(params *map[string]*param) {
+	for name, p := range *params {
+		if name == "type" {
+			name = "documentType"
+			(*params)[name] = p
+			delete(*params, "type")
+		}
+		p.Name = name
+		p.MapType()
+	}
 }
 
 func mkOutputDir(outputRootDir, packageName string) string {
@@ -73,46 +132,20 @@ func mkOutputDir(outputRootDir, packageName string) string {
 
 func (m *method) generate(templatesDir, outputDir string) error {
 	templateFilePath := filepath.Join(templatesDir, "method.tmpl")
-	t, err := template.New("method.tmpl").Funcs(funcMap).ParseFiles(templateFilePath)
+	t, err := template.New("method.tmpl").ParseFiles(templateFilePath)
 	if err != nil {
 		return fmt.Errorf("Failed to parse template in %q: %s", templateFilePath, err)
 	}
-	m.packageName, err = packageName(m.spec)
-	if err != nil {
-		return err
-	}
-	_, methodNameRaw, err := packageAndMethod(m.spec)
-	if err != nil {
-		return err
-	}
-	goFileDir := mkOutputDir(outputDir, m.packageName)
-	goFilePath := filepath.Join(goFileDir, methodNameRaw) + ".go"
+	goFileDir := mkOutputDir(outputDir, m.PackageName)
+	goFilePath := filepath.Join(goFileDir, m.FileName)
 	goFile, err := os.Create(goFilePath)
 	if err != nil {
 		return err
 	}
 	defer goFile.Close()
-	err = t.Execute(goFile, m.spec)
+	err = t.Execute(goFile, m)
 	if err != nil {
 		return fmt.Errorf("Failed to execute template in %q: %s", templateFilePath, err)
 	}
 	return err
-}
-
-func (m *method) params() (map[string]interface{}, error) {
-	p := map[string]interface{}{}
-	url, err := methodUrl(m.spec)
-	if err != nil {
-		return nil, err
-	}
-	for k, v := range url["parts"].(map[string]interface{}) {
-		spec := v.(map[string]interface{})
-		if !spec["required"].(bool) {
-			p[k] = spec
-		}
-	}
-	for k, v := range url["params"].(map[string]interface{}) {
-		p[k] = v
-	}
-	return p, nil
 }

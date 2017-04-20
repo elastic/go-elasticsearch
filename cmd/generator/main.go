@@ -43,7 +43,7 @@ func (f *fileMap) Set(value string) error {
 }
 
 func main() {
-	specDirFlag := flag.String("specdir", "spec/elasticsearch/rest-api-spec/src/main/resources/rest-api-spec/api",
+	specDirFlag := flag.String("specdir", generator.DefaultSpecDir,
 		"directory containing the JSON spec for the REST API")
 
 	flag.Parse()

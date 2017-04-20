@@ -27,28 +27,14 @@ import (
 )
 
 type apiPackage struct {
-	PackageRepo      string
-	PackageName      string
-	TypeName         string
-	ReceiverName     string
-	FieldName        string
-	TransportPackage *apiPackage
-	SubPackages      map[string]*apiPackage
+	Method      *method
+	Repo        string
+	SubPackages map[string]*apiPackage
 }
 
-func newAPIPackage(m *method, transport *apiPackage) *apiPackage {
-	repo := defaultPackageRepo
-	if m.packageName != defaultPackage {
-		repo += "/" + m.packageName
-	}
-	t, _ := typeName(m.spec)
-	receiver, _ := receiverName(m.spec)
+func newAPIPackage(m *method) *apiPackage {
 	return &apiPackage{
-		PackageRepo:      repo,
-		PackageName:      m.packageName,
-		TypeName:         t,
-		ReceiverName:     receiver,
-		TransportPackage: transport,
+		Method: m,
 	}
 }
 
@@ -56,7 +42,7 @@ func (p *apiPackage) addSubpackage(sub *apiPackage) {
 	if p.SubPackages == nil {
 		p.SubPackages = map[string]*apiPackage{}
 	}
-	p.SubPackages[sub.PackageName] = sub
+	p.SubPackages[sub.Method.PackageName] = sub
 }
 
 func (p *apiPackage) generate(templatesDir, outputDir string) error {
@@ -65,8 +51,8 @@ func (p *apiPackage) generate(templatesDir, outputDir string) error {
 	if err != nil {
 		return fmt.Errorf("Failed to parse template in %q: %s", templateFilePath, err)
 	}
-	goFileDir := mkOutputDir(outputDir, p.PackageName)
-	goFilePath := filepath.Join(goFileDir, p.PackageName+".go")
+	goFileDir := mkOutputDir(outputDir, p.Method.PackageName)
+	goFilePath := filepath.Join(goFileDir, p.Method.PackageName+".go")
 	goFile, err := os.Create(goFilePath)
 	if err != nil {
 		return err

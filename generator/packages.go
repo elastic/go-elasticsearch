@@ -33,26 +33,17 @@ type apiPackages struct {
 }
 
 func newAPIPackages(methods []*method) *apiPackages {
-	transportPackage := &apiPackage{
-		PackageRepo:  transportPackageRepo,
-		PackageName:  transportPackageName,
-		TypeName:     transportTypeName,
-		ReceiverName: transportReceiverName,
-		FieldName:    transportFieldName,
-	}
 	a := &apiPackages{
 		packages: map[string]*apiPackage{},
 	}
 	for _, m := range methods {
-		if _, ok := a.packages[m.packageName]; ok {
+		if _, ok := a.packages[m.PackageName]; ok {
 			continue
 		}
-		p := newAPIPackage(m, transportPackage)
-		a.packages[p.PackageName] = p
 	}
 	rootPackage := a.packages[defaultPackage]
 	for _, p := range a.packages {
-		if p.PackageName != rootPackage.PackageName {
+		if p.Method.PackageName != rootPackage.Method.PackageName {
 			rootPackage.addSubpackage(p)
 		}
 	}

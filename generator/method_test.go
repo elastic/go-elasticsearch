@@ -30,32 +30,11 @@ func TestExecuteTemplate(t *testing.T) {
 	api := "index"
 	methodName := "Index"
 	docURL := "http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-" + api + "_.html"
-	spec := map[string]interface{}{
-		api: map[string]interface{}{
-			"documentation": docURL,
-			"methods":       []interface{}{"POST", "PUT"},
-			"url": map[string]interface{}{
-				"parts": map[string]interface{}{
-					"id": map[string]interface{}{
-						"type": "string",
-					},
-					"index": map[string]interface{}{
-						"type":     "string",
-						"required": true,
-					},
-					"type": map[string]interface{}{
-						"type":     "string",
-						"required": true,
-					},
-				},
-			},
-		},
-	}
 	rootDir, err := ioutil.TempDir("", "root")
 	if err != nil {
 		t.Fatal(err)
 	}
-	m, err := newMethod(spec)
+	m, err := newMethod(filepath.Join("..", DefaultSpecDir, "index.json"))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -69,7 +48,7 @@ func TestExecuteTemplate(t *testing.T) {
 package api
 
 // %s is documented at %s
-func (a *API) %s(index string, docType string, opt ...Option) (*http.Response, error){
+func (a *API) %s(documentType string, index string, opt ...Option) (*http.Response, error){
 	req := &http.Request{
 		Method: "POST",
 	}

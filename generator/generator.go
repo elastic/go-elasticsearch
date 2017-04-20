@@ -46,14 +46,11 @@ func New(specDir string) (*Generator, error) {
 		return nil, err
 	}
 	for _, specFile := range files {
-		spec, err := unmarshalSpec(filepath.Join(specDir, specFile.Name()))
-		if err != nil {
-			return nil, err
-		}
+		specFilePath := filepath.Join(specDir, specFile.Name())
 		if specFile.Name() == typesSpec {
-			g.types = newTypes(spec)
+			g.types = newTypes(specFilePath)
 		} else {
-			m, err := newMethod(spec)
+			m, err := newMethod(specFilePath)
 			if err != nil {
 				return nil, err
 			}
