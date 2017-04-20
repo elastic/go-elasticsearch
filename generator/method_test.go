@@ -20,26 +20,22 @@
 package generator
 
 import (
+	"bytes"
 	"fmt"
-	"io/ioutil"
 	"path/filepath"
 	"testing"
 )
 
-func TestExecuteTemplate(t *testing.T) {
+func TestGenerate(t *testing.T) {
 	api := "index"
 	methodName := "Index"
 	docURL := "http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-" + api + "_.html"
-	rootDir, err := ioutil.TempDir("", "root")
-	if err != nil {
-		t.Fatal(err)
-	}
 	m, err := newMethod(filepath.Join("..", DefaultSpecDir, "index.json"))
 	if err != nil {
 		t.Fatal(err)
 	}
-	apiFile := filepath.Join(rootDir, "api", "index") + ".go"
-	err = m.generate(filepath.Join("..", templatesDir), rootDir)
+	var writer bytes.Buffer
+	err = m.generate(filepath.Join("..", templatesDir), &writer)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -55,11 +51,7 @@ func (a *API) %s(documentType string, index string, opt ...Option) (*http.Respon
 	return a.client.Do(req)
 }
 `, methodName, docURL, methodName)
-	code, err := ioutil.ReadFile(apiFile)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if string(code) != expectedCode {
-		t.Fatalf("Expected the generation of:\n\n%q\n\nbut got:\n\n%q", expectedCode, code)
+	if writer.String() != expectedCode {
+		t.Fatalf("Expected the generation of:\n\n%q\n\nbut got:\n\n%q", expectedCode, writer.String())
 	}
 }

@@ -54,7 +54,11 @@ func newAPIPackages(methods []*method) *apiPackages {
 
 func (a *apiPackages) generate(templatesDir, outputDir string) error {
 	for _, p := range a.packages {
-		if err := p.generate(templatesDir, outputDir); err != nil {
+		w, err := p.newWriter(outputDir)
+		if err != nil {
+			return err
+		}
+		if err := p.generate(templatesDir, w); err != nil {
 			return err
 		}
 	}

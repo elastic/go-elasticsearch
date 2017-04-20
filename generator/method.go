@@ -22,6 +22,7 @@ package generator
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -120,32 +121,30 @@ func normalizeParams(params *map[string]*param) {
 	}
 }
 
-func mkOutputDir(outputRootDir, packageName string) string {
+func (m *method) newWriter(outputRootDir string) (io.Writer, error) {
 	goFileDir := outputRootDir
-	if packageName != defaultPackage {
+	if m.PackageName != defaultPackage {
 		goFileDir = filepath.Join(goFileDir, defaultPackage)
 	}
-	goFileDir = filepath.Join(goFileDir, packageName)
+	goFileDir = filepath.Join(goFileDir, m.PackageName)
 	os.MkdirAll(goFileDir, 0755)
-	return goFileDir
+	goFilePath := filepath.Join(goFileDir, m.FileName)
+	goFile, err := os.Create(goFilePath)
+	if err != nil {
+		return nil, err
+	}
+	return goFile, nil
 }
 
-func (m *method) generate(templatesDir, outputDir string) error {
+func (m *method) generate(templatesDir string, w io.Writer) error {
 	templateFilePath := filepath.Join(templatesDir, "method.tmpl")
 	t, err := template.New("method.tmpl").ParseFiles(templateFilePath)
 	if err != nil {
 		return fmt.Errorf("Failed to parse template in %q: %s", templateFilePath, err)
 	}
-	goFileDir := mkOutputDir(outputDir, m.PackageName)
-	goFilePath := filepath.Join(goFileDir, m.FileName)
-	goFile, err := os.Create(goFilePath)
-	if err != nil {
-		return err
-	}
-	defer goFile.Close()
-	err = t.Execute(goFile, m)
+	err = t.Execute(w, m)
 	if err != nil {
 		return fmt.Errorf("Failed to execute template in %q: %s", templateFilePath, err)
 	}
-	return err
+	return nil
 }
