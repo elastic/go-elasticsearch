@@ -20,6 +20,7 @@
 package generator
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/serenize/snaker"
@@ -27,7 +28,8 @@ import (
 
 type param struct {
 	Name        string
-	Type        string      `json:"type"`
+	SpecType    string `json:"type"`
+	Type        string
 	Description string      `json:"description"`
 	Required    bool        `json:"required"`
 	Default     interface{} `json:"default"`
@@ -35,18 +37,32 @@ type param struct {
 	OptionName  string
 }
 
-func (p *param) normalize(name string) {
-	if name == "type" {
-		p.Name = "documentType"
-	} else {
+func (p *param) resolve(name string) error {
+	switch name {
+	case "type":
+		p.Name = "DocumentType"
+	default:
 		p.Name = snaker.SnakeToCamel(name)
-		if !p.Required {
-			p.OptionName = "With" + p.Name
-		}
-		p.Name = strings.ToLower(string(p.Name[0])) + p.Name[1:]
 	}
-	switch p.Type {
+	if !p.Required {
+		p.OptionName = "With" + p.Name
+	}
+	p.Name = strings.ToLower(string(p.Name[0])) + p.Name[1:]
+	switch p.SpecType {
+	case "boolean":
+		p.Type = "bool"
+	case "enum":
+		// TODO: implement
 	case "list":
 		p.Type = "[]string"
+	case "number":
+		p.Type = "int"
+	case "string":
+		p.Type = "string"
+	case "time":
+		p.Type = "time.Time"
+	default:
+		return fmt.Errorf("Invalid type for %s: %s", name, p.Type)
 	}
+	return nil
 }

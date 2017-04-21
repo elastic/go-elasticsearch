@@ -40,10 +40,10 @@ func TestGenerate(t *testing.T) {
 package client
 
 // Index is documented at http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html
-func (c *Client) Index(documentType string, index string, opt ...Option) (*http.Response, error){
+func (c *Client) Index(index string, documentType string, opt ...Option) (*http.Response, error){
 	_ = []Option{
-
 //WithID,
+
 
 
 //WithOpType,
@@ -51,9 +51,9 @@ func (c *Client) Index(documentType string, index string, opt ...Option) (*http.
 //WithPipeline,
 //WithRefresh,
 //WithRouting,
-//WithTTL,
 //WithTimeout,
 //WithTimestamp,
+//WithTTL,
 //WithVersion,
 //WithVersionType,
 //WithWaitForActiveShards,

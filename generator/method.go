@@ -80,8 +80,12 @@ func newMethod(specFilePath string) (*method, error) {
 		m.Spec = spec[k]
 		break
 	}
-	m.normalizeParams(&m.Spec.URL.Parts)
-	m.normalizeParams(&m.Spec.URL.Params)
+	if err = m.normalizeParams(m.Spec.URL.Parts); err != nil {
+		return nil, err
+	}
+	if err = m.normalizeParams(m.Spec.URL.Params); err != nil {
+		return nil, err
+	}
 	apiParts := strings.Split(m.Name, ".")
 	m.PackageName = defaultPackage
 	switch len(apiParts) {
@@ -105,14 +109,14 @@ func newMethod(specFilePath string) (*method, error) {
 	return &m, nil
 }
 
-func (m *method) normalizeParams(params *map[string]*param) {
-	for name, p := range *params {
-		p.normalize(name)
-		if p.Name != name {
-			delete(*params, name)
-			(*params)[p.Name] = p
+func (m *method) normalizeParams(params map[string]*param) error {
+	for name, p := range params {
+		err := p.resolve(name)
+		if err != nil {
+			return fmt.Errorf("Failed to normalize params in %q: %s", m.Name, err)
 		}
 	}
+	return nil
 }
 
 func (m *method) newWriter(outputDir, fileName string) (io.Writer, error) {
