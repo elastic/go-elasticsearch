@@ -47,7 +47,7 @@ import (
 	"net/http"
 )
 
-// Option is non-required an API option that gets applied to an HTTP request
+// Option is a non-required API option that gets applied to an HTTP request
 type Option func(r *http.Request)
 
 // WithID document ID
