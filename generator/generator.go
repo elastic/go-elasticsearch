@@ -74,5 +74,9 @@ func (g *Generator) Run() error {
 	if err := g.types.generate(templatesDir, outputDir); err != nil {
 		return err
 	}
-	return newAPIPackages(g.methods).generate(templatesDir, outputDir)
+	a, err := newAPIPackages(g.methods)
+	if err != nil {
+		return err
+	}
+	return a.generate(templatesDir, outputDir)
 }

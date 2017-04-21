@@ -29,7 +29,7 @@ type apiPackages struct {
 	packages map[string]*apiPackage
 }
 
-func newAPIPackages(methods []*method) *apiPackages {
+func newAPIPackages(methods []*method) (*apiPackages, error) {
 	a := &apiPackages{
 		packages: map[string]*apiPackage{},
 	}
@@ -37,7 +37,11 @@ func newAPIPackages(methods []*method) *apiPackages {
 		if p, ok := a.packages[m.PackageName]; ok {
 			p.addMethod(m)
 		} else {
-			a.packages[m.PackageName] = newAPIPackage(m)
+			var err error
+			a.packages[m.PackageName], err = newAPIPackage(m)
+			if err != nil {
+				return nil, err
+			}
 		}
 	}
 	rootPackage := a.packages[defaultPackage]
@@ -46,7 +50,7 @@ func newAPIPackages(methods []*method) *apiPackages {
 			rootPackage.addSubpackage(p)
 		}
 	}
-	return a
+	return a, nil
 }
 
 func (a *apiPackages) generate(templatesDir, outputDir string) error {

@@ -3,13 +3,7 @@
 package {{.PackageName}}
 
 // {{.MethodName}} is documented at {{.Spec.Documentation}}
-func ({{.ReceiverName}} *{{.TypeName}}) {{.MethodName}}({{range .Spec.URL.Parts}}{{if .Required}}{{.Name}} {{.Type}}, {{end}}{{end}}opt ...Option) (*http.Response, error){
-	_ = []Option{
-{{range .Spec.URL.Parts}}{{if .OptionName}}//{{.OptionName}},{{end}}
-{{end}}
-{{range .Spec.URL.Params}}{{if .OptionName}}//{{.OptionName}},{{end}}
-{{end}}
-	}
+func ({{.ReceiverName}} *{{.TypeName}}) {{.MethodName}}({{range .RequiredParams}}{{.Name}} {{.Type}}, {{end}}opt ...Option) (*http.Response, error) {
 	req := &http.Request{
 		Method: "{{.HTTPMethod}}",
 	}

@@ -23,6 +23,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/golang/glog"
 	"github.com/serenize/snaker"
 )
 
@@ -40,19 +41,21 @@ type param struct {
 func (p *param) resolve(name string) error {
 	switch name {
 	case "type":
-		p.Name = "DocumentType"
+		p.Name = "documentType"
 	default:
-		p.Name = snaker.SnakeToCamel(name)
+		p.Name = snaker.SnakeToCamelLower(name)
 	}
 	if !p.Required {
-		p.OptionName = "With" + p.Name
+		p.OptionName = "With" + snaker.SnakeToCamel(name)
 	}
-	p.Name = strings.ToLower(string(p.Name[0])) + p.Name[1:]
 	switch p.SpecType {
+	case "":
+		glog.Warningf("%s has no type", name)
 	case "boolean":
 		p.Type = "bool"
 	case "enum":
 		// TODO: implement
+		p.Type = "struct{}"
 	case "list":
 		p.Type = "[]string"
 	case "number":
@@ -62,7 +65,27 @@ func (p *param) resolve(name string) error {
 	case "time":
 		p.Type = "time.Time"
 	default:
-		return fmt.Errorf("Invalid type for %s: %s", name, p.Type)
+		return fmt.Errorf("Invalid type for %s: %s", name, p.SpecType)
 	}
+	description := strings.Split(p.Description, " ")
+	firstWord := description[0]
+	// If the first word is all upper case let it be, otherwise convert to lower
+	if strings.ToUpper(firstWord) != firstWord {
+		firstWord = strings.ToLower(string(firstWord[0])) + firstWord[1:]
+	}
+	p.Description = firstWord + " " + strings.Replace(strings.Join(description[1:], " "), "`", "", -1)
 	return nil
+}
+
+func (p *param) equals(other *param) bool {
+	if !(p.Name == other.Name && p.SpecType == other.SpecType && p.Description == other.Description &&
+		p.Required == other.Required && p.Default == other.Default && len(p.Options) == len(other.Options)) {
+		return false
+	}
+	for i, o := range p.Options {
+		if other.Options[i] != o {
+			return false
+		}
+	}
+	return true
 }

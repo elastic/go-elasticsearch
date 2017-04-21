@@ -8,3 +8,11 @@ import (
 
 // Option is non-required an API option that gets applied to an HTTP request
 type Option func(r *http.Request)
+
+{{range .Options}}// {{.OptionName}} {{.Description}}
+func {{.OptionName}}({{.Name}} {{.Type}}) Option {
+  return func(r *http.Request) {
+  }
+}
+
+{{end}}

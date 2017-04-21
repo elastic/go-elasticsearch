@@ -31,20 +31,33 @@ type apiPackage struct {
 	Repo        string
 	TypeName    string
 	Methods     []*method
+	Options     map[string]*param
 	SubPackages map[string]*apiPackage
 }
 
-func newAPIPackage(m *method) *apiPackage {
-	return &apiPackage{
+func newAPIPackage(m *method) (*apiPackage, error) {
+	p := &apiPackage{
 		Name:     m.PackageName,
 		Repo:     m.Repo,
 		TypeName: m.TypeName,
-		Methods:  []*method{m},
+		Options:  map[string]*param{},
 	}
+	err := p.addMethod(m)
+	return p, err
 }
 
-func (p *apiPackage) addMethod(m *method) {
+func (p *apiPackage) addMethod(m *method) error {
 	p.Methods = append(p.Methods, m)
+	for _, op := range m.OptionalParams {
+		if existingParam, ok := p.Options[op.Name]; ok {
+			if !existingParam.equals(op) {
+				return fmt.Errorf("Found two different versions of %q in %q", op.Name, p.Name)
+			}
+		} else {
+			p.Options[op.Name] = op
+		}
+	}
+	return nil
 }
 
 func (p *apiPackage) addSubpackage(sub *apiPackage) {

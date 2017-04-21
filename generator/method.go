@@ -26,6 +26,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 	"text/template"
 
@@ -50,15 +51,17 @@ type spec struct {
 }
 
 type method struct {
-	Name         string
-	Spec         spec
-	Repo         string
-	PackageName  string
-	FileName     string
-	MethodName   string
-	TypeName     string
-	ReceiverName string
-	HTTPMethod   string
+	Name           string
+	Spec           spec
+	Repo           string
+	PackageName    string
+	FileName       string
+	MethodName     string
+	TypeName       string
+	ReceiverName   string
+	HTTPMethod     string
+	RequiredParams []*param
+	OptionalParams []*param
 }
 
 func newMethod(specFilePath string) (*method, error) {
@@ -66,7 +69,10 @@ func newMethod(specFilePath string) (*method, error) {
 	if err != nil {
 		return nil, err
 	}
-	var m method
+	m := &method{
+		RequiredParams: []*param{},
+		OptionalParams: []*param{},
+	}
 	var spec map[string]spec
 	err = json.Unmarshal(bytes, &spec)
 	if err != nil {
@@ -106,14 +112,25 @@ func newMethod(specFilePath string) (*method, error) {
 	m.TypeName = snaker.SnakeToCamel(m.PackageName)
 	m.ReceiverName = strings.ToLower(string(m.TypeName[0]))
 	m.HTTPMethod = m.Spec.Methods[0]
-	return &m, nil
+	return m, nil
 }
 
 func (m *method) normalizeParams(params map[string]*param) error {
-	for name, p := range params {
+	names := []string{}
+	for name := range params {
+		names = append(names, name)
+	}
+	sort.Strings(names)
+	for _, name := range names {
+		p := params[name]
 		err := p.resolve(name)
 		if err != nil {
 			return fmt.Errorf("Failed to normalize params in %q: %s", m.Name, err)
+		}
+		if p.Required {
+			m.RequiredParams = append(m.RequiredParams, p)
+		} else {
+			m.OptionalParams = append(m.OptionalParams, p)
 		}
 	}
 	return nil

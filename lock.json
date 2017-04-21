@@ -1,6 +1,14 @@
 {
-    "memo": "05a9af45d75b162c8277c5c359b0691f7e65a52d677fff5820685e3bbb66ba55",
+    "memo": "ab4e9066aa77d337743311298e20774d38520ba25ef51671c6f9d7c549e3f6d9",
     "projects": [
+        {
+            "name": "github.com/aryann/difflib",
+            "branch": "master",
+            "revision": "a1a4dd44eb11820695fbe83e00fb2301ee6eb54c",
+            "packages": [
+                "."
+            ]
+        },
         {
             "name": "github.com/golang/glog",
             "branch": "master",
@@ -12,7 +20,7 @@
         {
             "name": "github.com/serenize/snaker",
             "branch": "master",
-            "revision": "543781d2b79bd95c51ffe70e70a55c946ca211ff",
+            "revision": "fbc3d0dfdb6fa3b5256ca37fb02042323c4ebe8b",
             "packages": [
                 "."
             ]

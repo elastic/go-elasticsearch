@@ -30,7 +30,10 @@ func TestGenerateOption(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	p := newAPIPackage(m)
+	p, err := newAPIPackage(m)
+	if err != nil {
+		t.Fatal(err)
+	}
 	var writer bytes.Buffer
 	err = p.generateOption(filepath.Join("..", templatesDir), &writer)
 	if err != nil {
@@ -46,9 +49,83 @@ import (
 
 // Option is non-required an API option that gets applied to an HTTP request
 type Option func(r *http.Request)
+
+// WithID document ID
+func WithID(id string) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithOpType explicit operation type
+func WithOpType(opType struct{}) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithParent ID of the parent document
+func WithParent(parent string) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithPipeline the pipeline id to preprocess incoming documents with
+func WithPipeline(pipeline string) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithRefresh if true then refresh the affected shards to make this operation visible to search, if wait_for then wait for a refresh to make this operation visible to search, if false (the default) then do nothing with refreshes.
+func WithRefresh(refresh struct{}) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithRouting specific routing value
+func WithRouting(routing string) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithTimeout explicit operation timeout
+func WithTimeout(timeout time.Time) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithTimestamp explicit timestamp for the document
+func WithTimestamp(timestamp time.Time) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithTTL expiration time for the document
+func WithTTL(ttl time.Time) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithVersion explicit version number for concurrency control
+func WithVersion(version int) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithVersionType specific version type
+func WithVersionType(versionType struct{}) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithWaitForActiveShards sets the number of shard copies that must be active before proceeding with the index operation. Defaults to 1, meaning the primary shard only. Set to all for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas &#43; 1)
+func WithWaitForActiveShards(waitForActiveShards string) Option {
+	return func(r *http.Request) {
+	}
+}
+
+
 `
-	if writer.String() != expectedCode {
-		t.Fatalf("Expected the generation of:\n\n%q\n\nbut got:\n\n%q", expectedCode, writer.String())
+	if d := diff(t, expectedCode, writer.String()); len(d) > 0 {
+		t.Fail()
 	}
 }
 
@@ -57,7 +134,10 @@ func TestGenerateAPI(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	p := newAPIPackage(m)
+	p, err := newAPIPackage(m)
+	if err != nil {
+		t.Fatal(err)
+	}
 	var writer bytes.Buffer
 	err = p.generateAPI(filepath.Join("..", templatesDir), &writer)
 	if err != nil {
@@ -80,10 +160,10 @@ type Client struct {
 
 // addClients adds the subclients
 func (c *Client)addClients() {
-	
+
 }
 `
-	if writer.String() != expectedCode {
-		t.Fatalf("Expected the generation of:\n\n%q\n\nbut got:\n\n%q", expectedCode, writer.String())
+	if d := diff(t, expectedCode, writer.String()); len(d) > 0 {
+		t.Fail()
 	}
 }
