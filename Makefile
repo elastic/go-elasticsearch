@@ -34,11 +34,7 @@ build: gen
 gen: spec
 	$(GO) run ./cmd/generator/main.go
 	@$(GO) get $(GOIMPORTS_REPO)
-	$(GOIMPORTS) -w api
-
-.PHONY: gen-clean
-gen-clean:
-	rm -rf api
+	$(GOIMPORTS) -w client
 
 .PHONY: spec
 spec:

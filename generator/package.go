@@ -93,7 +93,11 @@ func (p *apiPackage) generate(templatesDir, outputDir string) error {
 	if err != nil {
 		return err
 	}
-	w, err = p.newWriter(outputDir, p.Methods[0].PackageName+".go")
+	fileName := p.Methods[0].PackageName
+	if fileName == defaultPackage {
+		fileName = "api"
+	}
+	w, err = p.newWriter(outputDir, fileName+".go")
 	if err != nil {
 		return err
 	}

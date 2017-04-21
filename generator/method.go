@@ -80,12 +80,8 @@ func newMethod(specFilePath string) (*method, error) {
 		m.Spec = spec[k]
 		break
 	}
-	normalizeParams(&m.Spec.URL.Parts)
-	normalizeParams(&m.Spec.URL.Params)
-	if docType, ok := m.Spec.URL.Parts["type"]; ok {
-		m.Spec.URL.Parts["documentType"] = docType
-		delete(m.Spec.URL.Parts, "type")
-	}
+	m.normalizeParams(&m.Spec.URL.Parts)
+	m.normalizeParams(&m.Spec.URL.Params)
 	apiParts := strings.Split(m.Name, ".")
 	m.PackageName = defaultPackage
 	switch len(apiParts) {
@@ -109,14 +105,21 @@ func newMethod(specFilePath string) (*method, error) {
 	return &m, nil
 }
 
-func normalizeParams(params *map[string]*param) {
+func (m *method) normalizeParams(params *map[string]*param) {
 	for name, p := range *params {
+		var formattedName string
 		if name == "type" {
-			name = "documentType"
-			(*params)[name] = p
-			delete(*params, "type")
+			formattedName = "documentType"
+		} else {
+			formattedName = snaker.SnakeToCamel(name)
+			if !p.Required {
+				p.OptionName = "With" + formattedName
+			}
+			formattedName = strings.ToLower(string(formattedName[0])) + formattedName[1:]
 		}
-		p.Name = name
+		delete(*params, name)
+		p.Name = formattedName
+		(*params)[formattedName] = p
 		p.MapType()
 	}
 }

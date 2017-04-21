@@ -7,7 +7,7 @@ import (
 	{{end}}"net/http"
 )
 
-// {{.TypeName}} is the {{.Name}} API.
+// {{.TypeName}} is the {{if eq .Name "client"}}transport{{else}}{{.Name}}{{end}} client.
 type {{.TypeName}} struct {
 {{range .SubPackages}}// {{.TypeName}} is the {{.Name}} client
 	{{.TypeName}} *{{.Name}}.{{.TypeName}}
@@ -16,10 +16,13 @@ type {{.TypeName}} struct {
 	client *http.Client
 }
 
-// New is the constructor for {{.TypeName}}
+{{if eq .Name "client"}}// addClients adds the subclients
+func (c *Client)addClients() {
+	{{range .SubPackages}}c.{{.TypeName}} = {{.Name}}.New(c.client)
+			{{end}}
+}{{else}}// New is the constructor for {{.TypeName}}
 func New(client *http.Client) *{{.TypeName}} {
 	return &{{.TypeName}}{
-		{{range .SubPackages}}{{.TypeName}}: {{.Name}}.New(client),
-		{{end}}client: client,
+		client: client,
 	}
-}
+}{{end}}

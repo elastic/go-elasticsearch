@@ -26,6 +26,7 @@ type param struct {
 	Required    bool        `json:"required"`
 	Default     interface{} `json:"default"`
 	Options     []string    `json:"options"`
+	OptionName  string
 }
 
 func (p *param) MapType() {
