@@ -50,8 +50,8 @@ import (
 //
 // documentType: the type of the document.
 //
-// opt: optional parameters. Supports the following functional options: WithID, WithOpType, WithParent, WithPipeline, WithRefresh, WithRouting, WithTimeout, WithTimestamp, WithTTL, WithVersion, WithVersionType, WithWaitForActiveShards, see the Option type in this package for more info.
-func (c *Client) Index(index string, documentType string, opt ...Option) (*http.Response, error) {
+// options: optional parameters. Supports the following functional options: WithID, WithOpType, WithParent, WithPipeline, WithRefresh, WithRouting, WithTimeout, WithTimestamp, WithTTL, WithVersion, WithVersionType, WithWaitForActiveShards, see the Option type in this package for more info.
+func (c *Client) Index(index string, documentType string, options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 "WithID": struct{}{},
 "WithOpType": struct{}{},
@@ -66,7 +66,7 @@ func (c *Client) Index(index string, documentType string, opt ...Option) (*http.
 "WithVersionType": struct{}{},
 "WithWaitForActiveShards": struct{}{},
 }
-	for _, option := range opt{
+	for _, option := range options{
 		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()
 		if _, ok := supportedOptions[name]; !ok {
 			return nil, fmt.Errorf("unsupported option: %s", name)

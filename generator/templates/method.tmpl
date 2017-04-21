@@ -11,12 +11,12 @@ import (
 //
 // {{.Name}}: {{.Description}}{{end}}{{if .OptionalParams}}
 //
-// opt: optional parameters. Supports the following functional options: {{range .OptionalParams}}{{.OptionName}}, {{end}}see the Option type in this package for more info.{{end}}
-func ({{.ReceiverName}} *{{.TypeName}}) {{.MethodName}}({{range .RequiredParams}}{{.Name}} {{.Type}}, {{end}}opt ...Option) (*http.Response, error) {
+// options: optional parameters. Supports the following functional options: {{range .OptionalParams}}{{.OptionName}}, {{end}}see the Option type in this package for more info.{{end}}
+func ({{.ReceiverName}} *{{.TypeName}}) {{.MethodName}}({{range .RequiredParams}}{{.Name}} {{.Type}}, {{end}}options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		{{range .OptionalParams}}"{{.OptionName}}": struct{}{},
 	{{end}}}
-	for _, option := range opt{
+	for _, option := range options{
 		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()
 		if _, ok := supportedOptions[name]; !ok {
 			return nil, fmt.Errorf("unsupported option: %s", name)
