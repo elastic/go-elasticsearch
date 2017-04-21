@@ -40,6 +40,21 @@ func TestGenerate(t *testing.T) {
 package client
 
 // Index is documented at http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html
+// index the name of the index
+// documentType the type of the document
+// Optional arguments:
+// - WithID() document ID
+// - WithOpType() explicit operation type
+// - WithParent() ID of the parent document
+// - WithPipeline() the pipeline id to preprocess incoming documents with
+// - WithRefresh() if true then refresh the affected shards to make this operation visible to search, if wait_for then wait for a refresh to make this operation visible to search, if false (the default) then do nothing with refreshes.
+// - WithRouting() specific routing value
+// - WithTimeout() explicit operation timeout
+// - WithTimestamp() explicit timestamp for the document
+// - WithTTL() expiration time for the document
+// - WithVersion() explicit version number for concurrency control
+// - WithVersionType() specific version type
+// - WithWaitForActiveShards() sets the number of shard copies that must be active before proceeding with the index operation. Defaults to 1, meaning the primary shard only. Set to all for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
 func (c *Client) Index(index string, documentType string, opt ...Option) (*http.Response, error) {
 	req := &http.Request{
 		Method: "POST",
