@@ -160,7 +160,6 @@ type Client struct {
 
 // addClients adds the subclients
 func (c *Client)addClients() {
-
 }
 `
 	if d := diff(t, expectedCode, writer.String()); len(d) > 0 {

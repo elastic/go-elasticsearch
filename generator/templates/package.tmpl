@@ -19,8 +19,7 @@ type {{.TypeName}} struct {
 {{if eq .Name "client"}}// addClients adds the subclients
 func (c *Client)addClients() {
 	{{range .SubPackages}}c.{{.TypeName}} = {{.Name}}.New(c.client)
-		{{end}}
-}{{else}}// New is the constructor for {{.TypeName}}
+		{{end}}}{{else}}// New is the constructor for {{.TypeName}}
 func New(client *http.Client) *{{.TypeName}} {
 	return &{{.TypeName}}{
 		client: client,
