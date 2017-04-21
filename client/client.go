@@ -1,3 +1,5 @@
+// Package client is the starting point to establish a connection to Elasticsearch, as well as to invoke any of the
+// available APIs.
 package client
 
 import (

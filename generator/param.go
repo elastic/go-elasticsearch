@@ -39,6 +39,9 @@ type param struct {
 }
 
 func (p *param) resolve(name string) error {
+	if strings.HasPrefix(name, "_") {
+		name = name[1:]
+	}
 	switch name {
 	case "type":
 		p.Name = "documentType"
