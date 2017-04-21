@@ -62,6 +62,7 @@ type method struct {
 	HTTPMethod     string
 	RequiredParams []*param
 	OptionalParams []*param
+	ParamNames     map[string]struct{}
 }
 
 func newMethod(specFilePath string) (*method, error) {
@@ -72,6 +73,7 @@ func newMethod(specFilePath string) (*method, error) {
 	m := &method{
 		RequiredParams: []*param{},
 		OptionalParams: []*param{},
+		ParamNames:     map[string]struct{}{},
 	}
 	var spec map[string]spec
 	err = json.Unmarshal(bytes, &spec)
@@ -127,6 +129,13 @@ func (m *method) normalizeParams(params map[string]*param) error {
 		if err != nil {
 			return fmt.Errorf("Failed to normalize params in %q: %s", m.Name, err)
 		}
+		if _, ok := m.ParamNames[p.Name]; ok {
+			p.addSuffix("Param")
+			if _, ok := m.ParamNames[p.Name]; ok {
+				return fmt.Errorf("Param %q specified more than twice in %s", name, m.Name)
+			}
+		}
+		m.ParamNames[p.Name] = struct{}{}
 		if p.Required {
 			m.RequiredParams = append(m.RequiredParams, p)
 		} else {

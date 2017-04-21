@@ -39,6 +39,11 @@ func TestGenerate(t *testing.T) {
 
 package client
 
+import (
+	"net/http"
+	"runtime"
+)
+
 // Index is documented at http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html
 //
 // index: the name of the index
@@ -47,6 +52,26 @@ package client
 //
 // opt: optional parameters. Supports the following functional options: WithID, WithOpType, WithParent, WithPipeline, WithRefresh, WithRouting, WithTimeout, WithTimestamp, WithTTL, WithVersion, WithVersionType, WithWaitForActiveShards, see the Option type in this package for more info.
 func (c *Client) Index(index string, documentType string, opt ...Option) (*http.Response, error) {
+	supportedOptions := map[string]struct{}{
+"WithID": struct{}{},
+"WithOpType": struct{}{},
+"WithParent": struct{}{},
+"WithPipeline": struct{}{},
+"WithRefresh": struct{}{},
+"WithRouting": struct{}{},
+"WithTimeout": struct{}{},
+"WithTimestamp": struct{}{},
+"WithTTL": struct{}{},
+"WithVersion": struct{}{},
+"WithVersionType": struct{}{},
+"WithWaitForActiveShards": struct{}{},
+}
+	for _, option := range opt{
+		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()
+		if _, ok := supportedOptions[name]; !ok {
+			return nil, fmt.Errorf("unsupported option: %s", name)
+		}
+	}
 	req := &http.Request{
 		Method: "POST",
 	}

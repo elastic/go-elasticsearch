@@ -2,12 +2,26 @@
 
 package {{.PackageName}}
 
-// {{.MethodName}} is documented at {{.Spec.Documentation}}
+import (
+	"net/http"
+	"runtime"
+)
+
+// {{.MethodName}} is documented at {{.Spec.Documentation}}{{range .RequiredParams}}
 //
-{{range .RequiredParams}}// {{.Name}}: {{.Description}}
+// {{.Name}}: {{.Description}}{{end}}{{if .OptionalParams}}
 //
-{{end}}// opt: optional parameters. Supports the following functional options: {{range .OptionalParams}}{{.OptionName}}, {{end}}see the Option type in this package for more info.
+// opt: optional parameters. Supports the following functional options: {{range .OptionalParams}}{{.OptionName}}, {{end}}see the Option type in this package for more info.{{end}}
 func ({{.ReceiverName}} *{{.TypeName}}) {{.MethodName}}({{range .RequiredParams}}{{.Name}} {{.Type}}, {{end}}opt ...Option) (*http.Response, error) {
+	supportedOptions := map[string]struct{}{
+		{{range .OptionalParams}}"{{.OptionName}}": struct{}{},
+	{{end}}}
+	for _, option := range opt{
+		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()
+		if _, ok := supportedOptions[name]; !ok {
+			return nil, fmt.Errorf("unsupported option: %s", name)
+		}
+	}
 	req := &http.Request{
 		Method: "{{.HTTPMethod}}",
 	}

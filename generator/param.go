@@ -92,3 +92,8 @@ func (p *param) equals(other *param) bool {
 	}
 	return true
 }
+
+func (p *param) addSuffix(suffix string) {
+	p.Name += suffix
+	p.OptionName += suffix
+}
