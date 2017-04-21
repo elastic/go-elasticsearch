@@ -9,17 +9,17 @@ import (
 
 // {{.TypeName}} is the {{if eq .Name "client"}}transport{{else}}{{.Name}}{{end}} client.
 type {{.TypeName}} struct {
-{{range .SubPackages}}// {{.TypeName}} is the {{.Name}} client
+{{range .SubPackages}}// {{.TypeName}} is the {{.Name}} client.
 	{{.TypeName}} *{{.Name}}.{{.TypeName}}
 	{{end}}
-	// client is the transport client
+	// client is the transport client.
 	client *http.Client
 }
 
-{{if eq .Name "client"}}// addClients adds the subclients
+{{if eq .Name "client"}}// addClients adds the subclients.
 func (c *Client)addClients() {
 	{{range .SubPackages}}c.{{.TypeName}} = {{.Name}}.New(c.client)
-		{{end}}}{{else}}// New is the constructor for {{.TypeName}}
+		{{end}}}{{else}}// New is the constructor for {{.TypeName}}.
 func New(client *http.Client) *{{.TypeName}} {
 	return &{{.TypeName}}{
 		client: client,

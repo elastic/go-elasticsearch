@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-// Option is a non-required API option that gets applied to an HTTP request
+// Option is a non-required API option that gets applied to an HTTP request.
 type Option func(r *http.Request)
 
 {{range .Options}}// {{.OptionName}} {{.Description}}

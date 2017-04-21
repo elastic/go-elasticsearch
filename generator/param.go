@@ -77,6 +77,9 @@ func (p *param) resolve(name string) error {
 		firstWord = strings.ToLower(string(firstWord[0])) + firstWord[1:]
 	}
 	p.Description = firstWord + " " + strings.Replace(strings.Join(description[1:], " "), "`", "", -1)
+	if p.Description[len(p.Description)-1] != '.' {
+		p.Description += "."
+	}
 	return nil
 }
 

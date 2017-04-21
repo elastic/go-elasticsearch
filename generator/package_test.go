@@ -47,28 +47,28 @@ import (
 	"net/http"
 )
 
-// Option is a non-required API option that gets applied to an HTTP request
+// Option is a non-required API option that gets applied to an HTTP request.
 type Option func(r *http.Request)
 
-// WithID document ID
+// WithID document ID.
 func WithID(id string) Option {
 	return func(r *http.Request) {
 	}
 }
 
-// WithOpType explicit operation type
+// WithOpType explicit operation type.
 func WithOpType(opType struct{}) Option {
 	return func(r *http.Request) {
 	}
 }
 
-// WithParent ID of the parent document
+// WithParent ID of the parent document.
 func WithParent(parent string) Option {
 	return func(r *http.Request) {
 	}
 }
 
-// WithPipeline the pipeline id to preprocess incoming documents with
+// WithPipeline the pipeline id to preprocess incoming documents with.
 func WithPipeline(pipeline string) Option {
 	return func(r *http.Request) {
 	}
@@ -80,43 +80,43 @@ func WithRefresh(refresh struct{}) Option {
 	}
 }
 
-// WithRouting specific routing value
+// WithRouting specific routing value.
 func WithRouting(routing string) Option {
 	return func(r *http.Request) {
 	}
 }
 
-// WithTimeout explicit operation timeout
+// WithTimeout explicit operation timeout.
 func WithTimeout(timeout time.Time) Option {
 	return func(r *http.Request) {
 	}
 }
 
-// WithTimestamp explicit timestamp for the document
+// WithTimestamp explicit timestamp for the document.
 func WithTimestamp(timestamp time.Time) Option {
 	return func(r *http.Request) {
 	}
 }
 
-// WithTTL expiration time for the document
+// WithTTL expiration time for the document.
 func WithTTL(ttl time.Time) Option {
 	return func(r *http.Request) {
 	}
 }
 
-// WithVersion explicit version number for concurrency control
+// WithVersion explicit version number for concurrency control.
 func WithVersion(version int) Option {
 	return func(r *http.Request) {
 	}
 }
 
-// WithVersionType specific version type
+// WithVersionType specific version type.
 func WithVersionType(versionType struct{}) Option {
 	return func(r *http.Request) {
 	}
 }
 
-// WithWaitForActiveShards sets the number of shard copies that must be active before proceeding with the index operation. Defaults to 1, meaning the primary shard only. Set to all for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas &#43; 1)
+// WithWaitForActiveShards sets the number of shard copies that must be active before proceeding with the index operation. Defaults to 1, meaning the primary shard only. Set to all for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas &#43; 1).
 func WithWaitForActiveShards(waitForActiveShards string) Option {
 	return func(r *http.Request) {
 	}
@@ -154,11 +154,11 @@ import (
 // Client is the transport client.
 type Client struct {
 
-	// client is the transport client
+	// client is the transport client.
 	client *http.Client
 }
 
-// addClients adds the subclients
+// addClients adds the subclients.
 func (c *Client)addClients() {
 }
 `

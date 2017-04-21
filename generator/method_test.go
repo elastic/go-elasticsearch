@@ -44,11 +44,11 @@ import (
 	"runtime"
 )
 
-// Index is documented at http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html
+// Index is documented at http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html.
 //
-// index: the name of the index
+// index: the name of the index.
 //
-// documentType: the type of the document
+// documentType: the type of the document.
 //
 // opt: optional parameters. Supports the following functional options: WithID, WithOpType, WithParent, WithPipeline, WithRefresh, WithRouting, WithTimeout, WithTimestamp, WithTTL, WithVersion, WithVersionType, WithWaitForActiveShards, see the Option type in this package for more info.
 func (c *Client) Index(index string, documentType string, opt ...Option) (*http.Response, error) {
