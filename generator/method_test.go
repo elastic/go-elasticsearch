@@ -45,7 +45,7 @@ package client
 //
 // documentType: the type of the document
 //
-// opt contains optional arguments. Supported arguments are: WithID, WithOpType, WithParent, WithPipeline, WithRefresh, WithRouting, WithTimeout, WithTimestamp, WithTTL, WithVersion, WithVersionType, WithWaitForActiveShards, see the Option type in this package for more info.
+// opt: optional parameters. Supports the following functional options: WithID, WithOpType, WithParent, WithPipeline, WithRefresh, WithRouting, WithTimeout, WithTimestamp, WithTTL, WithVersion, WithVersionType, WithWaitForActiveShards, see the Option type in this package for more info.
 func (c *Client) Index(index string, documentType string, opt ...Option) (*http.Response, error) {
 	req := &http.Request{
 		Method: "POST",
