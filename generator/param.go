@@ -73,7 +73,7 @@ func (p *param) resolve(name string) error {
 	description := strings.Split(p.Description, " ")
 	firstWord := description[0]
 	// If the first word is all upper case let it be, otherwise convert to lower
-	if strings.ToUpper(firstWord) != firstWord {
+	if len(firstWord) == 1 || strings.ToUpper(firstWord) != firstWord {
 		firstWord = strings.ToLower(string(firstWord[0])) + firstWord[1:]
 	}
 	p.Description = firstWord + " " + strings.Replace(strings.Join(description[1:], " "), "`", "", -1)

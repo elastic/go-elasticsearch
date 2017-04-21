@@ -3,10 +3,11 @@
 package {{.PackageName}}
 
 // {{.MethodName}} is documented at {{.Spec.Documentation}}
-{{range .RequiredParams}}// {{.Name}} {{.Description}}
-{{end}}// Optional arguments:
-{{range .OptionalParams}}// - {{.OptionName}}() {{.Description}}
-{{end}}func ({{.ReceiverName}} *{{.TypeName}}) {{.MethodName}}({{range .RequiredParams}}{{.Name}} {{.Type}}, {{end}}opt ...Option) (*http.Response, error) {
+//
+{{range .RequiredParams}}// {{.Name}}: {{.Description}}
+//
+{{end}}// opt contains optional arguments. Supported arguments are: {{range .OptionalParams}}{{.OptionName}}, {{end}}see the Option type in this package for more info.
+func ({{.ReceiverName}} *{{.TypeName}}) {{.MethodName}}({{range .RequiredParams}}{{.Name}} {{.Type}}, {{end}}opt ...Option) (*http.Response, error) {
 	req := &http.Request{
 		Method: "{{.HTTPMethod}}",
 	}
