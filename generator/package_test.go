@@ -153,7 +153,6 @@ import (
 
 // Client is the transport client.
 type Client struct {
-
 	// client is the transport client.
 	client *http.Client
 }

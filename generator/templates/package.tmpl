@@ -11,8 +11,8 @@ import (
 type {{.TypeName}} struct {
 {{range .SubPackages}}// {{.TypeName}} is the {{.Name}} client.
 	{{.TypeName}} *{{.Name}}.{{.TypeName}}
-	{{end}}
-	// client is the transport client.
+
+{{end}}// client is the transport client.
 	client *http.Client
 }
 
