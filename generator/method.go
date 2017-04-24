@@ -130,6 +130,10 @@ func newMethod(specFilePath string) (*method, error) {
 
 func (m *method) resolveDocumentation() error {
 	url := m.Spec.Documentation
+	if url == "http://www.elastic.co/guide/" {
+		m.Spec.Documentation = " - see " + url + "."
+		return nil
+	}
 	resp, err := http.Get(url)
 	if err != nil {
 		return err
@@ -145,20 +149,19 @@ func (m *method) resolveDocumentation() error {
 				tokenizer.Next()
 				text := strings.Replace(string(tokenizer.Text()), "\n", " ", -1)
 				m.Spec.Documentation = ""
-				skipPrefix := strings.HasPrefix(text, "The "+strings.ToLower(m.MethodName)+" API")
-				if !skipPrefix {
+				var offset int
+				if strings.HasPrefix(text, "The "+strings.ToLower(m.MethodName)+" API") {
+					offset = 3
+				} else {
 					m.Spec.Documentation = " -"
 				}
 				period := -1
 				for i, word := range strings.Split(text, " ") {
 					// Skip "The <method> API"
-					if skipPrefix {
-						if i < 3 {
-							continue
-						}
-					} else if i == 0 {
-						word = strings.ToLower(word)
+					if i < offset {
+						continue
 					}
+					word = formatToken(i-offset, word)
 					m.Spec.Documentation += " " + word
 					if strings.HasSuffix(word, ".") {
 						period = i

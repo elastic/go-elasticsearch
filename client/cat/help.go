@@ -9,7 +9,7 @@ import (
 	"runtime"
 )
 
-// Help - json is great… for computers. See http://www.elastic.co/guide/en/elasticsearch/reference/master/cat.html for more info.
+// Help - JSON is great… for computers. See http://www.elastic.co/guide/en/elasticsearch/reference/master/cat.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithHelp, WithS, see the Option type in this package for more info.
 func (c *Cat) Help(options ...Option) (*http.Response, error) {

@@ -116,7 +116,7 @@ func WithVersionType(versionType struct{}) Option {
 	}
 }
 
-// WithWaitForActiveShards sets the number of shard copies that must be active before proceeding with the index operation. Defaults to 1, meaning the primary shard only. Set to all for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas &#43; 1).
+// WithWaitForActiveShards sets the number of shard copies that must be active before proceeding with the index operation. Defaults to 1, meaning the primary shard only. Set to all for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1).
 func WithWaitForActiveShards(waitForActiveShards string) Option {
 	return func(r *http.Request) {
 	}

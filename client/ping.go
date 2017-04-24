@@ -9,7 +9,7 @@ import (
 	"runtime"
 )
 
-// Ping - thanks for subscribing! We'll keep you updated with new releases. See http://www.elastic.co/guide/ for more info.
+// Ping - see http://www.elastic.co/guide/.
 func (c *Client) Ping(options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{}
 	for _, option := range options {

@@ -22,13 +22,13 @@ func WithFlatSettings(flatSettings bool) Option {
 	}
 }
 
-// WithIgnoreIdleThreads don&#39;t show threads that are in known-idle places, such as waiting on a socket select or pulling from an empty task queue (default: true).
+// WithIgnoreIdleThreads don't show threads that are in known-idle places, such as waiting on a socket select or pulling from an empty task queue (default: true).
 func WithIgnoreIdleThreads(ignoreIdleThreads bool) Option {
 	return func(r *http.Request) {
 	}
 }
 
-// WithIndexMetric limit the information returned for indices metric to the specific index metrics. Isn&#39;t used if indices (or all) metric isn&#39;t specified.
+// WithIndexMetric limit the information returned for indices metric to the specific index metrics. Isn't used if indices (or all) metric isn't specified.
 func WithIndexMetric(indexMetric []string) Option {
 	return func(r *http.Request) {
 	}
@@ -46,7 +46,7 @@ func WithMetric(metric []string) Option {
 	}
 }
 
-// WithNodeID a comma-separated list of node IDs or names to limit the returned information; use _local to return information from the node you&#39;re connecting to, leave empty to get information from all nodes.
+// WithNodeID a comma-separated list of node IDs or names to limit the returned information; use _local to return information from the node you're connecting to, leave empty to get information from all nodes.
 func WithNodeID(nodeID []string) Option {
 	return func(r *http.Request) {
 	}

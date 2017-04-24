@@ -15,7 +15,7 @@ func WithActions(actions []string) Option {
 	}
 }
 
-// WithNodeID a comma-separated list of node IDs or names to limit the returned information; use _local to return information from the node you&#39;re connecting to, leave empty to get information from all nodes.
+// WithNodeID a comma-separated list of node IDs or names to limit the returned information; use _local to return information from the node you're connecting to, leave empty to get information from all nodes.
 func WithNodeID(nodeID []string) Option {
 	return func(r *http.Request) {
 	}

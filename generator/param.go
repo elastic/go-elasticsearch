@@ -38,6 +38,29 @@ type param struct {
 	OptionName  string
 }
 
+func formatToken(index int, token string) string {
+	// If the first word is all upper case let it be, otherwise convert to lower
+	if index == 0 && (len(token) == 1 || strings.ToUpper(token) != token) {
+		token = strings.ToLower(string(token[0])) + token[1:]
+	}
+	return strings.Replace(token, "`", "", -1)
+}
+
+func formatDescription(description string) string {
+	formatted := ""
+	for i, word := range strings.Split(description, " ") {
+		token := formatToken(i, word)
+		if i > 0 {
+			formatted += " "
+		}
+		formatted += token
+	}
+	if !strings.HasSuffix(formatted, ".") {
+		formatted += "."
+	}
+	return formatted
+}
+
 func (p *param) resolve(name string) error {
 	if strings.HasPrefix(name, "_") {
 		name = name[1:]
@@ -70,16 +93,7 @@ func (p *param) resolve(name string) error {
 	default:
 		return fmt.Errorf("Invalid type for %s: %s", name, p.SpecType)
 	}
-	description := strings.Split(p.Description, " ")
-	firstWord := description[0]
-	// If the first word is all upper case let it be, otherwise convert to lower
-	if len(firstWord) == 1 || strings.ToUpper(firstWord) != firstWord {
-		firstWord = strings.ToLower(string(firstWord[0])) + firstWord[1:]
-	}
-	p.Description = firstWord + " " + strings.Replace(strings.Join(description[1:], " "), "`", "", -1)
-	if p.Description[len(p.Description)-1] != '.' {
-		p.Description += "."
-	}
+	p.Description = formatDescription(p.Description)
 	return nil
 }
 

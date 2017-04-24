@@ -9,7 +9,7 @@ import (
 	"runtime"
 )
 
-// DeleteAlias - apis in Elasticsearch accept an index name when working against a specific index, and several indices when applicable. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html for more info.
+// DeleteAlias - aPIs in Elasticsearch accept an index name when working against a specific index, and several indices when applicable. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html for more info.
 //
 // index: a comma-separated list of index names (supports wildcards); use _all for all indices.
 //

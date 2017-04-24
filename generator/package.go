@@ -21,9 +21,9 @@ package generator
 
 import (
 	"fmt"
-	"html/template"
 	"io"
 	"path/filepath"
+	"text/template"
 )
 
 type apiPackage struct {
@@ -85,6 +85,8 @@ func (p *apiPackage) generateAPI(templatesDir string, w io.Writer) error {
 }
 
 func (p *apiPackage) generateOption(templatesDir string, w io.Writer) error {
+	// TODO: handle enums
+	// TODO: common options
 	templateFilePath := filepath.Join(templatesDir, "option.tmpl")
 	t, err := template.ParseFiles(templateFilePath)
 	if err != nil {

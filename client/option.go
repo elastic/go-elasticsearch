@@ -10,13 +10,13 @@ import (
 // Option is a non-required API option that gets applied to an HTTP request.
 type Option func(r *http.Request)
 
-// WithType default document type for items which don&#39;t provide one.
+// WithType default document type for items which don't provide one.
 func WithType(documentType string) Option {
 	return func(r *http.Request) {
 	}
 }
 
-// WithTypeParam default document type for items which don&#39;t provide one.
+// WithTypeParam default document type for items which don't provide one.
 func WithTypeParam(documentTypeParam string) Option {
 	return func(r *http.Request) {
 	}
@@ -34,7 +34,7 @@ func WithID(id string) Option {
 	}
 }
 
-// WithIndex default index for items which don&#39;t provide one.
+// WithIndex default index for items which don't provide one.
 func WithIndex(index string) Option {
 	return func(r *http.Request) {
 	}
@@ -106,7 +106,7 @@ func WithTimeout(timeout time.Time) Option {
 	}
 }
 
-// WithWaitForActiveShards sets the number of shard copies that must be active before proceeding with the bulk operation. Defaults to 1, meaning the primary shard only. Set to all for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas &#43; 1).
+// WithWaitForActiveShards sets the number of shard copies that must be active before proceeding with the bulk operation. Defaults to 1, meaning the primary shard only. Set to all for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1).
 func WithWaitForActiveShards(waitForActiveShards string) Option {
 	return func(r *http.Request) {
 	}

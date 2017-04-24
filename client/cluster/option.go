@@ -40,7 +40,7 @@ func WithIncludeDiskInfo(includeDiskInfo bool) Option {
 	}
 }
 
-// WithIncludeYesDecisions return &#39;YES&#39; decisions in explanation (default: false).
+// WithIncludeYesDecisions return 'YES' decisions in explanation (default: false).
 func WithIncludeYesDecisions(includeYesDecisions bool) Option {
 	return func(r *http.Request) {
 	}
@@ -76,7 +76,7 @@ func WithMetric(metric []string) Option {
 	}
 }
 
-// WithNodeID a comma-separated list of node IDs or names to limit the returned information; use _local to return information from the node you&#39;re connecting to, leave empty to get information from all nodes.
+// WithNodeID a comma-separated list of node IDs or names to limit the returned information; use _local to return information from the node you're connecting to, leave empty to get information from all nodes.
 func WithNodeID(nodeID []string) Option {
 	return func(r *http.Request) {
 	}
