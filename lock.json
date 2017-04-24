@@ -1,5 +1,5 @@
 {
-    "memo": "ab4e9066aa77d337743311298e20774d38520ba25ef51671c6f9d7c549e3f6d9",
+    "memo": "3fe7fb81da159241e54fbc54a3ed82ceaa9db42b5d36d5d92b138e6587552a4a",
     "projects": [
         {
             "name": "github.com/aryann/difflib",
@@ -23,6 +23,15 @@
             "revision": "fbc3d0dfdb6fa3b5256ca37fb02042323c4ebe8b",
             "packages": [
                 "."
+            ]
+        },
+        {
+            "name": "golang.org/x/net",
+            "branch": "master",
+            "revision": "d212a1ef2de2f5d441c327b8f26cf3ea3ea9f265",
+            "packages": [
+                "html",
+                "html/atom"
             ]
         }
     ]
