@@ -94,6 +94,7 @@ func newMethod(specFilePath string) (*method, error) {
 	if err = m.normalizeParams(m.Spec.URL.Params); err != nil {
 		return nil, err
 	}
+	// TODO: handle body
 	apiParts := strings.Split(m.Name, ".")
 	m.PackageName = defaultPackage
 	switch len(apiParts) {

@@ -1,22 +1,22 @@
-# elasticsearch-go
+# goelasticsearch
 
 This repository contains the Go client library for [Elasticsearch](https://www.elastic.co/products/elasticsearch).
 
 ## Installation
 
-Install the `client` package from [GitHub](https://github.com/elastic/elasticsearch-go):
+Install the `client` package from [GitHub](https://github.com/elastic/goelasticsearch):
 
-    go get github.com/elastic/elasticsearch-go/client
+    go get github.com/elastic/goelasticsearch/client
 
 or install it from a source code checkout:
 
-    git clone https://github.com/elastic/elasticsearch-go.git
+    git clone https://github.com/elastic/goelasticsearch.git
     go install ./client
 
 ## Usage
 
 ```go
-import "github.com/elastic/elasticsearch-go/client"
+import "github.com/elastic/goelasticsearch/client"
 
 c := client.New()
 ```

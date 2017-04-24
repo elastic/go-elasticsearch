@@ -17,43 +17,8 @@
  * under the License.
  */
 
-package main
-
-import (
-	"flag"
-	"fmt"
-	"os"
-	"strings"
-
-	"github.com/elastic/goelasticsearch/generator"
-	"github.com/golang/glog"
-)
-
-type fileMap map[string]struct{}
-
-func (f *fileMap) String() string {
-	return fmt.Sprint(*f)
-}
-
-func (f *fileMap) Set(value string) error {
-	for _, v := range strings.Split(value, ",") {
-		(*f)[v] = struct{}{}
-	}
-	return nil
-}
-
-func main() {
-	specDirFlag := flag.String("specdir", generator.DefaultSpecDir,
-		"directory containing the JSON spec for the REST API")
-
-	flag.Parse()
-	g, err := generator.New(*specDirFlag)
-	if err != nil {
-		glog.Error(err)
-		os.Exit(1)
-	}
-	if err := g.Run(); err != nil {
-		glog.Error(err)
-		os.Exit(1)
-	}
-}
+/*
+Package goelasticsearch allows to generate the client code to access Elasticsearch's REST API, and contains the client
+code itself (see the client subpackage for usage).
+*/
+package goelasticsearch

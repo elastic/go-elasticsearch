@@ -22,7 +22,7 @@ package generator
 const (
 	defaultPackage     = "client"
 	templateFileName   = "method.tmpl"
-	defaultPackageRepo = "github.com/elastic/elasticsearch-go/client"
+	defaultPackageRepo = "github.com/elastic/goelasticsearch/client"
 )
 
 type apiPackages struct {

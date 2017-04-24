@@ -1,5 +1,5 @@
 language: go
-go_import_path: github.com/elastic/elasticsearch-go
+go_import_path: github.com/elastic/goelasticsearch
 script: make check lint
 notifications:
   email: false
