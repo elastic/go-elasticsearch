@@ -44,7 +44,7 @@ import (
 	"runtime"
 )
 
-// Index is documented at http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html.
+// Index adds or updates a typed JSON document in a specific index, making it searchable. See http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html for more info.
 //
 // index: the name of the index.
 //

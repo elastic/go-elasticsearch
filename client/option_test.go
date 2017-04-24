@@ -25,7 +25,7 @@ import (
 
 func TestOptionValidation(t *testing.T) {
 	c := New()
-	_, err := c.Index("index", "good", WithIndex("index again?"))
+	_, err := c.Index("index", "good", nil, WithIndex("index again?"))
 	if err == nil {
 		t.Fatalf("WithIndex was accepted as an argument to Index")
 	}

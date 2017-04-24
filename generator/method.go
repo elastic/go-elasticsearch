@@ -24,11 +24,14 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"net/http"
 	"os"
 	"path/filepath"
 	"sort"
 	"strings"
 	"text/template"
+
+	"golang.org/x/net/html"
 
 	"github.com/serenize/snaker"
 )
@@ -99,7 +102,6 @@ func newMethod(specFilePath string) (*method, error) {
 			return nil, err
 		}
 	}
-	// TODO: handle body
 	apiParts := strings.Split(m.Name, ".")
 	m.PackageName = defaultPackage
 	switch len(apiParts) {
@@ -120,7 +122,60 @@ func newMethod(specFilePath string) (*method, error) {
 	m.TypeName = snaker.SnakeToCamel(m.PackageName)
 	m.ReceiverName = strings.ToLower(string(m.TypeName[0]))
 	m.HTTPMethod = m.Spec.Methods[0]
+	if err = m.resolveDocumentation(); err != nil {
+		return nil, err
+	}
 	return m, nil
+}
+
+func (m *method) resolveDocumentation() error {
+	url := m.Spec.Documentation
+	resp, err := http.Get(url)
+	if err != nil {
+		return err
+	}
+	body := resp.Body
+	defer body.Close()
+	tokenizer := html.NewTokenizer(body)
+	for {
+		token := tokenizer.Next()
+		if token == html.StartTagToken {
+			t := tokenizer.Token()
+			if t.Data == "p" {
+				tokenizer.Next()
+				text := strings.Replace(string(tokenizer.Text()), "\n", " ", -1)
+				m.Spec.Documentation = ""
+				skipPrefix := strings.HasPrefix(text, "The "+strings.ToLower(m.MethodName)+" API")
+				if !skipPrefix {
+					m.Spec.Documentation = " -"
+				}
+				period := -1
+				for i, word := range strings.Split(text, " ") {
+					// Skip "The <method> API"
+					if skipPrefix {
+						if i < 3 {
+							continue
+						}
+					} else if i == 0 {
+						word = strings.ToLower(word)
+					}
+					m.Spec.Documentation += " " + word
+					if strings.HasSuffix(word, ".") {
+						period = i
+						break
+					}
+				}
+				if period > 0 {
+					m.Spec.Documentation += " See "
+				} else {
+					// Overwrite everything, means we we're able un parse a full paragraph
+					m.Spec.Documentation = " - see "
+				}
+				m.Spec.Documentation += url + " for more info."
+				return nil
+			}
+		}
+	}
 }
 
 func (m *method) normalizeParams(params map[string]*param) error {
