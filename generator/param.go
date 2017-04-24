@@ -40,7 +40,7 @@ type param struct {
 
 func formatToken(index int, token string) string {
 	// If the first word is all upper case let it be, otherwise convert to lower
-	if index == 0 && (len(token) == 1 || strings.ToUpper(token) != token) {
+	if index == 0 && token != "APIs" && (len(token) == 1 || strings.ToUpper(token) != token) {
 		token = strings.ToLower(string(token[0])) + token[1:]
 	}
 	return strings.Replace(token, "`", "", -1)
