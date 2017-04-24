@@ -9,7 +9,9 @@ import (
 
 // {{.MethodName}} is documented at {{.Spec.Documentation}}.{{range .RequiredParams}}
 //
-// {{.Name}}: {{.Description}}{{end}}{{if .OptionalParams}}
+// {{.Name}}: {{.Description}}{{end}}{{if .Spec.Body}}
+//
+// body: {{.Spec.Body.Description}}{{end}}{{if .OptionalParams}}
 //
 // options: optional parameters. Supports the following functional options: {{range .OptionalParams}}{{.OptionName}}, {{end}}see the Option type in this package for more info.{{end}}
 func ({{.ReceiverName}} *{{.TypeName}}) {{.MethodName}}({{range .RequiredParams}}{{.Name}} {{.Type}}, {{end}}{{if .Spec.Body}}body map[string]interface{}, {{end}}options ...Option) (*http.Response, error) {

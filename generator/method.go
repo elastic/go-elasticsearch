@@ -47,7 +47,7 @@ type spec struct {
 	Documentation string   `json:"documentation"`
 	Methods       []string `json:"methods"`
 	URL           url      `json:"url"`
-	Body          param    `json:"body"`
+	Body          *param   `json:"body"`
 }
 
 type method struct {
@@ -93,6 +93,11 @@ func newMethod(specFilePath string) (*method, error) {
 	}
 	if err = m.normalizeParams(m.Spec.URL.Params); err != nil {
 		return nil, err
+	}
+	if m.Spec.Body != nil {
+		if err = m.Spec.Body.resolve("body"); err != nil {
+			return nil, err
+		}
 	}
 	// TODO: handle body
 	apiParts := strings.Split(m.Name, ".")

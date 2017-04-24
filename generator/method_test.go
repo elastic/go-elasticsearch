@@ -50,6 +50,8 @@ import (
 //
 // documentType: the type of the document.
 //
+// body: the document.
+//
 // options: optional parameters. Supports the following functional options: WithID, WithOpType, WithParent, WithPipeline, WithRefresh, WithRouting, WithTimeout, WithTimestamp, WithTTL, WithVersion, WithVersionType, WithWaitForActiveShards, see the Option type in this package for more info.
 func (c *Client) Index(index string, documentType string, body map[string]interface{}, options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
