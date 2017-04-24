@@ -78,7 +78,7 @@ func newMethod(specFilePath string) (*method, error) {
 	var spec map[string]spec
 	err = json.Unmarshal(bytes, &spec)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("Failed to parse %s: err", specFilePath)
 	}
 	if len(spec) > 1 {
 		return nil, fmt.Errorf("Too many methods in %s", specFilePath)
