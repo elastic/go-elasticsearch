@@ -12,7 +12,7 @@ import (
 // {{.Name}}: {{.Description}}{{end}}{{if .OptionalParams}}
 //
 // options: optional parameters. Supports the following functional options: {{range .OptionalParams}}{{.OptionName}}, {{end}}see the Option type in this package for more info.{{end}}
-func ({{.ReceiverName}} *{{.TypeName}}) {{.MethodName}}({{range .RequiredParams}}{{.Name}} {{.Type}}, {{end}}options ...Option) (*http.Response, error) {
+func ({{.ReceiverName}} *{{.TypeName}}) {{.MethodName}}({{range .RequiredParams}}{{.Name}} {{.Type}}, {{end}}{{if .Spec.Body}}body map[string]interface{}, {{end}}options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		{{range .OptionalParams}}"{{.OptionName}}": struct{}{},
 	{{end}}}
