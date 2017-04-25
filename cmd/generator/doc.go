@@ -19,7 +19,7 @@
 
 /*
 
-Generator generates the api package based on the specs from the elastic/elasticsearch repo.
+Generator generates the api package based on the specs from https://github.com/elastic/elasticsearch/tree/master/rest-api-spec.
   go run cmd/generator/main.go
 
 Available options:
