@@ -23,7 +23,6 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/golang/glog"
 	"github.com/serenize/snaker"
 )
 
@@ -86,8 +85,6 @@ func (p *param) resolve(name string) error {
 		p.OptionName = "With" + snaker.SnakeToCamel(name)
 	}
 	switch p.SpecType {
-	case "":
-		glog.Warningf("%s has no type", name)
 	case "boolean":
 		p.Type = "bool"
 	case "enum":
@@ -112,8 +109,10 @@ func (p *param) resolve(name string) error {
 		p.Type = "string"
 	case "time":
 		p.Type = "time.Time"
+	case "":
+		// TODO: we should remove this param
 	default:
-		return fmt.Errorf("Invalid type for %s: %s", name, p.SpecType)
+		return fmt.Errorf("invalid type for %s: %s", name, p.SpecType)
 	}
 	p.Description = formatDescription(p.Description)
 	return nil

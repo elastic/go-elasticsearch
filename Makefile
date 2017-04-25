@@ -32,7 +32,7 @@ build:
 
 .PHONY: gen
 gen: spec
-	$(GO) run ./cmd/generator/main.go
+	$(GO) run ./cmd/generator/main.go -alsologtostderr
 	@$(GO) get $(GOIMPORTS_REPO)
 	$(GOIMPORTS) -w client
 	$(MAKE) build

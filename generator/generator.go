@@ -24,6 +24,8 @@ package generator
 import (
 	"io/ioutil"
 	"path/filepath"
+
+	"github.com/golang/glog"
 )
 
 const (
@@ -45,6 +47,7 @@ func New(specDir string) (*Generator, error) {
 	}
 	commonParamsSpecFilePath := filepath.Join(specDir, commonParamsSpecFile)
 	var err error
+	glog.Infof("parsing %s", commonParamsSpecFile)
 	g.commonParams, err = newCommonParams(commonParamsSpecFilePath)
 	if err != nil {
 		return nil, err
@@ -53,6 +56,7 @@ func New(specDir string) (*Generator, error) {
 	if err != nil {
 		return nil, err
 	}
+	glog.Info("parsing specs")
 	for _, specFile := range files {
 		if specFile.Name() == commonParamsSpecFile {
 			continue
@@ -68,6 +72,7 @@ func New(specDir string) (*Generator, error) {
 
 // Run runs the generator
 func (g *Generator) Run() error {
+	glog.Info("generating methods")
 	for _, m := range g.methods {
 		w, err := m.newWriter(outputDir, "")
 		if err != nil {
@@ -81,5 +86,6 @@ func (g *Generator) Run() error {
 	if err != nil {
 		return err
 	}
+	glog.Info("generating types, constructors and options")
 	return a.generate(templatesDir, outputDir)
 }

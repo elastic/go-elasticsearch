@@ -53,7 +53,7 @@ func (p *apiPackage) addMethod(m *method) error {
 	for _, op := range m.OptionalParams {
 		if existingParam, ok := p.Options[op.Name]; ok {
 			if !existingParam.equals(op) {
-				return fmt.Errorf("Found two different versions of %q in %q", op.Name, p.Name)
+				return fmt.Errorf("found two different versions of %q in %q", op.Name, p.Name)
 			}
 		} else {
 			p.Options[op.Name] = op
@@ -61,7 +61,7 @@ func (p *apiPackage) addMethod(m *method) error {
 		if op.SpecType == "enum" {
 			if existingEnum, ok := p.Enums[op.Name]; ok {
 				if !existingEnum.equals(op) {
-					return fmt.Errorf("Found two different versions of %q in %q", op.Name, p.Name)
+					return fmt.Errorf("found two different versions of %q in %q", op.Name, p.Name)
 				}
 			} else {
 				p.Enums[op.Name] = op
@@ -86,11 +86,11 @@ func (p *apiPackage) generateAPI(templatesDir string, w io.Writer) error {
 	templateFilePath := filepath.Join(templatesDir, "package.tmpl")
 	t, err := template.ParseFiles(templateFilePath)
 	if err != nil {
-		return fmt.Errorf("Failed to parse template in %q: %s", templateFilePath, err)
+		return fmt.Errorf("failed to parse template in %q: %s", templateFilePath, err)
 	}
 	err = t.Execute(w, p)
 	if err != nil {
-		return fmt.Errorf("Failed to execute template in %q: %s", templateFilePath, err)
+		return fmt.Errorf("failed to execute template in %q: %s", templateFilePath, err)
 	}
 	return err
 }
@@ -99,11 +99,11 @@ func (p *apiPackage) generateOption(templatesDir string, w io.Writer) error {
 	templateFilePath := filepath.Join(templatesDir, "option.tmpl")
 	t, err := template.ParseFiles(templateFilePath)
 	if err != nil {
-		return fmt.Errorf("Failed to parse template in %q: %s", templateFilePath, err)
+		return fmt.Errorf("failed to parse template in %q: %s", templateFilePath, err)
 	}
 	err = t.Execute(w, p)
 	if err != nil {
-		return fmt.Errorf("Failed to execute template in %q: %s", templateFilePath, err)
+		return fmt.Errorf("failed to execute template in %q: %s", templateFilePath, err)
 	}
 	return err
 }

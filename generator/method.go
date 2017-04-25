@@ -84,10 +84,10 @@ func newMethod(specFilePath string, commonParams map[string]*param) (*method, er
 	var spec map[string]spec
 	err = json.Unmarshal(bytes, &spec)
 	if err != nil {
-		return nil, fmt.Errorf("Failed to parse %s: %s", specFilePath, err)
+		return nil, fmt.Errorf("failed to parse %s: %s", specFilePath, err)
 	}
 	if len(spec) > 1 {
-		return nil, fmt.Errorf("Too many methods in %s", specFilePath)
+		return nil, fmt.Errorf("too many methods in %s", specFilePath)
 	}
 	for k := range spec {
 		m.Name = k
@@ -118,7 +118,7 @@ func newMethod(specFilePath string, commonParams map[string]*param) (*method, er
 		m.PackageName = apiParts[0]
 		m.FileName = apiParts[1]
 	default:
-		return nil, fmt.Errorf("Unexpected API name format: %s", m.Name)
+		return nil, fmt.Errorf("unexpected API name format: %s", m.Name)
 	}
 	m.Repo = defaultPackageRepo
 	if m.PackageName != defaultPackage {
@@ -130,6 +130,25 @@ func newMethod(specFilePath string, commonParams map[string]*param) (*method, er
 	m.ReceiverName = strings.ToLower(string(m.TypeName[0]))
 	m.HTTPMethod = m.Spec.Methods[0]
 	return m, nil
+}
+
+func (m *method) normalizeParams(params map[string]*param, resolve bool) error {
+	for name, p := range params {
+		if resolve {
+			err := p.resolve(name)
+			if err != nil {
+				return fmt.Errorf("failed to normalize params in %q: %s", m.Name, err)
+			}
+		}
+		if _, ok := m.ParamNames[p.Name]; ok {
+			p.addSuffix("Param")
+			if _, ok := m.ParamNames[p.Name]; ok {
+				return fmt.Errorf("param %q specified more than twice in %s", name, m.Name)
+			}
+		}
+		m.ParamNames[p.Name] = struct{}{}
+	}
+	return nil
 }
 
 func (m *method) resolveDocumentation() error {
@@ -187,25 +206,6 @@ func (m *method) resolveDocumentation() error {
 			}
 		}
 	}
-}
-
-func (m *method) normalizeParams(params map[string]*param, resolve bool) error {
-	for name, p := range params {
-		if resolve {
-			err := p.resolve(name)
-			if err != nil {
-				return fmt.Errorf("Failed to normalize params in %q: %s", m.Name, err)
-			}
-		}
-		if _, ok := m.ParamNames[p.Name]; ok {
-			p.addSuffix("Param")
-			if _, ok := m.ParamNames[p.Name]; ok {
-				return fmt.Errorf("Param %q specified more than twice in %s", name, m.Name)
-			}
-		}
-		m.ParamNames[p.Name] = struct{}{}
-	}
-	return nil
 }
 
 func (m *method) sortParams(common map[string]*param) {
@@ -271,11 +271,11 @@ func (m *method) generate(templatesDir string, w io.Writer) error {
 	templateFilePath := filepath.Join(templatesDir, "method.tmpl")
 	t, err := template.New("method.tmpl").ParseFiles(templateFilePath)
 	if err != nil {
-		return fmt.Errorf("Failed to parse template in %q: %s", templateFilePath, err)
+		return fmt.Errorf("failed to parse template in %q: %s", templateFilePath, err)
 	}
 	err = t.Execute(w, m)
 	if err != nil {
-		return fmt.Errorf("Failed to execute template in %q: %s", templateFilePath, err)
+		return fmt.Errorf("failed to execute template in %q: %s", templateFilePath, err)
 	}
 	return nil
 }
