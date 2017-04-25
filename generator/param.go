@@ -62,7 +62,8 @@ func formatDescription(description string) string {
 		}
 		formatted += token
 	}
-	if !strings.HasSuffix(formatted, ".") {
+	// TODO: investigate the "?" case
+	if !strings.HasSuffix(formatted, ".") && !strings.HasSuffix(formatted, "?") {
 		formatted += "."
 	}
 	return formatted
