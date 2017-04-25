@@ -18,18 +18,11 @@ import "github.com/elastic/goelasticsearch/client/transport"
 
 // New is the constructor for the Client
 func New(options ...TransportOption) *Client {
-	transport := transport.New()
-	for _, option := range options {
-		option(transport)
-	}
-	if transport.Scheme == "" {
-		transport.Scheme = "https"
-	}
-	if transport.Host == "" {
-		transport.Host = "localhost"
-	}
 	c := &Client{
-		transport: transport,
+		transport: transport.New(),
+	}
+	for _, option := range options {
+		option(c)
 	}
 	c.addClients()
 	return c

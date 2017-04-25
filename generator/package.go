@@ -96,6 +96,7 @@ func (p *apiPackage) generateAPI(templatesDir string, w io.Writer) error {
 }
 
 func (p *apiPackage) generateOption(templatesDir string, w io.Writer) error {
+	// TODO: implement options in template
 	templateFilePath := filepath.Join(templatesDir, "option.tmpl")
 	t, err := template.ParseFiles(templateFilePath)
 	if err != nil {
