@@ -27,6 +27,12 @@ import (
 	"github.com/serenize/snaker"
 )
 
+type enum struct {
+	Name     string
+	Type     string
+	SpecName string
+}
+
 type param struct {
 	Name        string
 	SpecType    string `json:"type"`
@@ -36,6 +42,7 @@ type param struct {
 	Default     interface{} `json:"default"`
 	Options     []string    `json:"options"`
 	OptionName  string
+	EnumValues  []*enum
 }
 
 func formatToken(index int, token string) string {
@@ -80,8 +87,19 @@ func (p *param) resolve(name string) error {
 	case "boolean":
 		p.Type = "bool"
 	case "enum":
-		// TODO: implement
-		p.Type = "struct{}"
+		p.Type = snaker.SnakeToCamel(p.Name)
+		p.EnumValues = []*enum{}
+		for _, o := range p.Options {
+			if o == "" {
+				o = "zero"
+			}
+			e := &enum{
+				Name:     p.Type + snaker.SnakeToCamel(o),
+				Type:     p.Type,
+				SpecName: o,
+			}
+			p.EnumValues = append(p.EnumValues, e)
+		}
 	case "list":
 		p.Type = "[]string"
 	case "number":

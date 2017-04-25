@@ -32,6 +32,7 @@ type apiPackage struct {
 	TypeName    string
 	Methods     []*method
 	Options     map[string]*param
+	Enums       map[string]*param
 	SubPackages map[string]*apiPackage
 }
 
@@ -41,6 +42,7 @@ func newAPIPackage(m *method) (*apiPackage, error) {
 		Repo:     m.Repo,
 		TypeName: m.TypeName,
 		Options:  map[string]*param{},
+		Enums:    map[string]*param{},
 	}
 	err := p.addMethod(m)
 	return p, err
@@ -55,6 +57,15 @@ func (p *apiPackage) addMethod(m *method) error {
 			}
 		} else {
 			p.Options[op.Name] = op
+		}
+		if op.SpecType == "enum" {
+			if existingEnum, ok := p.Enums[op.Name]; ok {
+				if !existingEnum.equals(op) {
+					return fmt.Errorf("Found two different versions of %q in %q", op.Name, p.Name)
+				}
+			} else {
+				p.Enums[op.Name] = op
+			}
 		}
 	}
 	return nil
@@ -85,7 +96,6 @@ func (p *apiPackage) generateAPI(templatesDir string, w io.Writer) error {
 }
 
 func (p *apiPackage) generateOption(templatesDir string, w io.Writer) error {
-	// TODO: handle enums
 	templateFilePath := filepath.Join(templatesDir, "option.tmpl")
 	t, err := template.ParseFiles(templateFilePath)
 	if err != nil {

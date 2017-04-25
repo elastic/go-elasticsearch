@@ -7,6 +7,52 @@ import (
 	"time"
 )
 
+// Bytes - the unit in which to display byte values.
+type Bytes int
+
+const (
+	// BytesB can be used to set Bytes to "b"
+	BytesB = iota
+	// BytesK can be used to set Bytes to "k"
+	BytesK = iota
+	// BytesKb can be used to set Bytes to "kb"
+	BytesKb = iota
+	// BytesM can be used to set Bytes to "m"
+	BytesM = iota
+	// BytesMb can be used to set Bytes to "mb"
+	BytesMb = iota
+	// BytesG can be used to set Bytes to "g"
+	BytesG = iota
+	// BytesGb can be used to set Bytes to "gb"
+	BytesGb = iota
+	// BytesT can be used to set Bytes to "t"
+	BytesT = iota
+	// BytesTb can be used to set Bytes to "tb"
+	BytesTb = iota
+	// BytesP can be used to set Bytes to "p"
+	BytesP = iota
+	// BytesPb can be used to set Bytes to "pb"
+	BytesPb = iota
+)
+
+// Size - the multiplier in which to display values.
+type Size int
+
+const (
+	// SizeZero can be used to set Size to "zero"
+	SizeZero = iota
+	// SizeK can be used to set Size to "k"
+	SizeK = iota
+	// SizeM can be used to set Size to "m"
+	SizeM = iota
+	// SizeG can be used to set Size to "g"
+	SizeG = iota
+	// SizeT can be used to set Size to "t"
+	SizeT = iota
+	// SizeP can be used to set Size to "p"
+	SizeP = iota
+)
+
 // Option is a non-required API option that gets applied to an HTTP request.
 type Option func(r *http.Request)
 
@@ -17,7 +63,7 @@ func WithActions(actions []string) Option {
 }
 
 // WithBytes the unit in which to display byte values.
-func WithBytes(bytes struct{}) Option {
+func WithBytes(bytes Bytes) Option {
 	return func(r *http.Request) {
 	}
 }
@@ -131,7 +177,7 @@ func WithS(s []string) Option {
 }
 
 // WithSize the multiplier in which to display values.
-func WithSize(size struct{}) Option {
+func WithSize(size Size) Option {
 	return func(r *http.Request) {
 	}
 }

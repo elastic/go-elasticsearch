@@ -7,6 +7,40 @@ import (
 	"time"
 )
 
+// DefaultOperator - the default operator for query string query (AND or OR).
+type DefaultOperator int
+
+const (
+	// DefaultOperatorAND can be used to set DefaultOperator to "AND"
+	DefaultOperatorAND = iota
+	// DefaultOperatorOR can be used to set DefaultOperator to "OR"
+	DefaultOperatorOR = iota
+)
+
+// ExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+type ExpandWildcards int
+
+const (
+	// ExpandWildcardsOpen can be used to set ExpandWildcards to "open"
+	ExpandWildcardsOpen = iota
+	// ExpandWildcardsClosed can be used to set ExpandWildcards to "closed"
+	ExpandWildcardsClosed = iota
+	// ExpandWildcardsNone can be used to set ExpandWildcards to "none"
+	ExpandWildcardsNone = iota
+	// ExpandWildcardsAll can be used to set ExpandWildcards to "all"
+	ExpandWildcardsAll = iota
+)
+
+// Format - format of the output.
+type Format int
+
+const (
+	// FormatDetailed can be used to set Format to "detailed"
+	FormatDetailed = iota
+	// FormatText can be used to set Format to "text"
+	FormatText = iota
+)
+
 // Option is a non-required API option that gets applied to an HTTP request.
 type Option func(r *http.Request)
 
@@ -53,7 +87,7 @@ func WithCreate(create bool) Option {
 }
 
 // WithDefaultOperator the default operator for query string query (AND or OR).
-func WithDefaultOperator(defaultOperator struct{}) Option {
+func WithDefaultOperator(defaultOperator DefaultOperator) Option {
 	return func(r *http.Request) {
 	}
 }
@@ -89,7 +123,7 @@ func WithErrorTrace(errorTrace bool) Option {
 }
 
 // WithExpandWildcards whether to expand wildcard expression to concrete indices that are open, closed or both.
-func WithExpandWildcards(expandWildcards struct{}) Option {
+func WithExpandWildcards(expandWildcards ExpandWildcards) Option {
 	return func(r *http.Request) {
 	}
 }
@@ -143,7 +177,7 @@ func WithForce(force bool) Option {
 }
 
 // WithFormat format of the output.
-func WithFormat(format struct{}) Option {
+func WithFormat(format Format) Option {
 	return func(r *http.Request) {
 	}
 }

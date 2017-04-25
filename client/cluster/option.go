@@ -7,6 +7,62 @@ import (
 	"time"
 )
 
+// ExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+type ExpandWildcards int
+
+const (
+	// ExpandWildcardsOpen can be used to set ExpandWildcards to "open"
+	ExpandWildcardsOpen = iota
+	// ExpandWildcardsClosed can be used to set ExpandWildcards to "closed"
+	ExpandWildcardsClosed = iota
+	// ExpandWildcardsNone can be used to set ExpandWildcards to "none"
+	ExpandWildcardsNone = iota
+	// ExpandWildcardsAll can be used to set ExpandWildcards to "all"
+	ExpandWildcardsAll = iota
+)
+
+// Level - specify the level of detail for returned information.
+type Level int
+
+const (
+	// LevelCluster can be used to set Level to "cluster"
+	LevelCluster = iota
+	// LevelIndices can be used to set Level to "indices"
+	LevelIndices = iota
+	// LevelShards can be used to set Level to "shards"
+	LevelShards = iota
+)
+
+// WaitForEvents - wait until all currently queued events with the given priority are processed.
+type WaitForEvents int
+
+const (
+	// WaitForEventsImmediate can be used to set WaitForEvents to "immediate"
+	WaitForEventsImmediate = iota
+	// WaitForEventsUrgent can be used to set WaitForEvents to "urgent"
+	WaitForEventsUrgent = iota
+	// WaitForEventsHigh can be used to set WaitForEvents to "high"
+	WaitForEventsHigh = iota
+	// WaitForEventsNormal can be used to set WaitForEvents to "normal"
+	WaitForEventsNormal = iota
+	// WaitForEventsLow can be used to set WaitForEvents to "low"
+	WaitForEventsLow = iota
+	// WaitForEventsLanguid can be used to set WaitForEvents to "languid"
+	WaitForEventsLanguid = iota
+)
+
+// WaitForStatus - wait until cluster is in a specific state.
+type WaitForStatus int
+
+const (
+	// WaitForStatusGreen can be used to set WaitForStatus to "green"
+	WaitForStatusGreen = iota
+	// WaitForStatusYellow can be used to set WaitForStatus to "yellow"
+	WaitForStatusYellow = iota
+	// WaitForStatusRed can be used to set WaitForStatus to "red"
+	WaitForStatusRed = iota
+)
+
 // Option is a non-required API option that gets applied to an HTTP request.
 type Option func(r *http.Request)
 
@@ -29,7 +85,7 @@ func WithErrorTrace(errorTrace bool) Option {
 }
 
 // WithExpandWildcards whether to expand wildcard expression to concrete indices that are open, closed or both.
-func WithExpandWildcards(expandWildcards struct{}) Option {
+func WithExpandWildcards(expandWildcards ExpandWildcards) Option {
 	return func(r *http.Request) {
 	}
 }
@@ -89,7 +145,7 @@ func WithIndex(index []string) Option {
 }
 
 // WithLevel specify the level of detail for returned information.
-func WithLevel(level struct{}) Option {
+func WithLevel(level Level) Option {
 	return func(r *http.Request) {
 	}
 }
@@ -149,7 +205,7 @@ func WithWaitForActiveShards(waitForActiveShards string) Option {
 }
 
 // WithWaitForEvents wait until all currently queued events with the given priority are processed.
-func WithWaitForEvents(waitForEvents struct{}) Option {
+func WithWaitForEvents(waitForEvents WaitForEvents) Option {
 	return func(r *http.Request) {
 	}
 }
@@ -167,7 +223,7 @@ func WithWaitForNodes(waitForNodes string) Option {
 }
 
 // WithWaitForStatus wait until cluster is in a specific state.
-func WithWaitForStatus(waitForStatus struct{}) Option {
+func WithWaitForStatus(waitForStatus WaitForStatus) Option {
 	return func(r *http.Request) {
 	}
 }

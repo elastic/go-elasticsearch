@@ -7,6 +7,62 @@ import (
 	"time"
 )
 
+// Conflicts - what to do when the delete-by-query hits version conflicts?.
+type Conflicts int
+
+const (
+	// ConflictsAbort can be used to set Conflicts to "abort"
+	ConflictsAbort = iota
+	// ConflictsProceed can be used to set Conflicts to "proceed"
+	ConflictsProceed = iota
+)
+
+// DefaultOperator - the default operator for query string query (AND or OR).
+type DefaultOperator int
+
+const (
+	// DefaultOperatorAND can be used to set DefaultOperator to "AND"
+	DefaultOperatorAND = iota
+	// DefaultOperatorOR can be used to set DefaultOperator to "OR"
+	DefaultOperatorOR = iota
+)
+
+// ExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+type ExpandWildcards int
+
+const (
+	// ExpandWildcardsOpen can be used to set ExpandWildcards to "open"
+	ExpandWildcardsOpen = iota
+	// ExpandWildcardsClosed can be used to set ExpandWildcards to "closed"
+	ExpandWildcardsClosed = iota
+	// ExpandWildcardsNone can be used to set ExpandWildcards to "none"
+	ExpandWildcardsNone = iota
+	// ExpandWildcardsAll can be used to set ExpandWildcards to "all"
+	ExpandWildcardsAll = iota
+)
+
+// OpType - explicit operation type.
+type OpType int
+
+const (
+	// OpTypeIndex can be used to set OpType to "index"
+	OpTypeIndex = iota
+	// OpTypeCreate can be used to set OpType to "create"
+	OpTypeCreate = iota
+)
+
+// Refresh - if true then refresh the effected shards to make this operation visible to search, if wait_for then wait for a refresh to make this operation visible to search, if false (the default) then do nothing with refreshes.
+type Refresh int
+
+const (
+	// RefreshTrue can be used to set Refresh to "true"
+	RefreshTrue = iota
+	// RefreshFalse can be used to set Refresh to "false"
+	RefreshFalse = iota
+	// RefreshWaitFor can be used to set Refresh to "wait_for"
+	RefreshWaitFor = iota
+)
+
 // Option is a non-required API option that gets applied to an HTTP request.
 type Option func(r *http.Request)
 
@@ -35,13 +91,13 @@ func WithBatchedReduceSize(batchedReduceSize int) Option {
 }
 
 // WithConflicts what to do when the delete-by-query hits version conflicts?.
-func WithConflicts(conflicts struct{}) Option {
+func WithConflicts(conflicts Conflicts) Option {
 	return func(r *http.Request) {
 	}
 }
 
 // WithDefaultOperator the default operator for query string query (AND or OR).
-func WithDefaultOperator(defaultOperator struct{}) Option {
+func WithDefaultOperator(defaultOperator DefaultOperator) Option {
 	return func(r *http.Request) {
 	}
 }
@@ -71,7 +127,7 @@ func WithErrorTrace(errorTrace bool) Option {
 }
 
 // WithExpandWildcards whether to expand wildcard expression to concrete indices that are open, closed or both.
-func WithExpandWildcards(expandWildcards struct{}) Option {
+func WithExpandWildcards(expandWildcards ExpandWildcards) Option {
 	return func(r *http.Request) {
 	}
 }
@@ -119,7 +175,7 @@ func WithIndex(index string) Option {
 }
 
 // WithOpType explicit operation type.
-func WithOpType(opType struct{}) Option {
+func WithOpType(opType OpType) Option {
 	return func(r *http.Request) {
 	}
 }
@@ -143,7 +199,7 @@ func WithPretty(pretty bool) Option {
 }
 
 // WithRefresh if true then refresh the effected shards to make this operation visible to search, if wait_for then wait for a refresh to make this operation visible to search, if false (the default) then do nothing with refreshes.
-func WithRefresh(refresh struct{}) Option {
+func WithRefresh(refresh Refresh) Option {
 	return func(r *http.Request) {
 	}
 }

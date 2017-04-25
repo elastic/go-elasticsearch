@@ -7,6 +7,30 @@ import (
 	"time"
 )
 
+// DocumentType - the type to sample (default: cpu).
+type DocumentType int
+
+const (
+	// DocumentTypeCPU can be used to set DocumentType to "cpu"
+	DocumentTypeCPU = iota
+	// DocumentTypeWait can be used to set DocumentType to "wait"
+	DocumentTypeWait = iota
+	// DocumentTypeBlock can be used to set DocumentType to "block"
+	DocumentTypeBlock = iota
+)
+
+// Level - return indices stats aggregated at index, node or shard level.
+type Level int
+
+const (
+	// LevelIndices can be used to set Level to "indices"
+	LevelIndices = iota
+	// LevelNode can be used to set Level to "node"
+	LevelNode = iota
+	// LevelShards can be used to set Level to "shards"
+	LevelShards = iota
+)
+
 // Option is a non-required API option that gets applied to an HTTP request.
 type Option func(r *http.Request)
 
@@ -17,7 +41,7 @@ func WithCompletionFields(completionFields []string) Option {
 }
 
 // WithType the type to sample (default: cpu).
-func WithType(documentType struct{}) Option {
+func WithType(documentType DocumentType) Option {
 	return func(r *http.Request) {
 	}
 }
@@ -89,7 +113,7 @@ func WithInterval(interval time.Time) Option {
 }
 
 // WithLevel return indices stats aggregated at index, node or shard level.
-func WithLevel(level struct{}) Option {
+func WithLevel(level Level) Option {
 	return func(r *http.Request) {
 	}
 }

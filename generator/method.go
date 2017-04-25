@@ -33,6 +33,7 @@ import (
 
 	"golang.org/x/net/html"
 
+	"github.com/golang/glog"
 	"github.com/serenize/snaker"
 )
 
@@ -139,6 +140,7 @@ func (m *method) resolveDocumentation() error {
 	}
 	body, ok := m.HTTPCache[url]
 	if !ok {
+		glog.Infof("Fetching %s", url)
 		resp, err := http.Get(url)
 		if err != nil {
 			return err

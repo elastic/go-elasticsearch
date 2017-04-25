@@ -6,7 +6,14 @@ import (
 	"net/http"
 )
 
-// Option is a non-required API option that gets applied to an HTTP request.
+{{range .Enums}}// {{.Type}} - {{.Description}}
+type {{.Type}} int
+const (
+	{{range .EnumValues}}// {{.Name}} can be used to set {{.Type}} to "{{.SpecName}}"
+	{{.Name}} = iota
+{{end}})
+
+{{end}}// Option is a non-required API option that gets applied to an HTTP request.
 type Option func(r *http.Request)
 
 {{range .Options}}// {{.OptionName}} {{.Description}}

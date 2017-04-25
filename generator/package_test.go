@@ -44,6 +44,39 @@ import (
 	"net/http"
 )
 
+// OpType - explicit operation type.
+type OpType int
+const (
+	// OpTypeIndex can be used to set OpType to "index"
+	OpTypeIndex = iota
+	// OpTypeCreate can be used to set OpType to "create"
+	OpTypeCreate = iota
+)
+
+// Refresh - if true then refresh the affected shards to make this operation visible to search, if wait_for then wait for a refresh to make this operation visible to search, if false (the default) then do nothing with refreshes.
+type Refresh int
+const (
+	// RefreshTrue can be used to set Refresh to "true"
+	RefreshTrue = iota
+	// RefreshFalse can be used to set Refresh to "false"
+	RefreshFalse = iota
+	// RefreshWaitFor can be used to set Refresh to "wait_for"
+	RefreshWaitFor = iota
+)
+
+// VersionType - specific version type.
+type VersionType int
+const (
+	// VersionTypeInternal can be used to set VersionType to "internal"
+	VersionTypeInternal = iota
+	// VersionTypeExternal can be used to set VersionType to "external"
+	VersionTypeExternal = iota
+	// VersionTypeExternalGte can be used to set VersionType to "external_gte"
+	VersionTypeExternalGte = iota
+	// VersionTypeForce can be used to set VersionType to "force"
+	VersionTypeForce = iota
+)
+
 // Option is a non-required API option that gets applied to an HTTP request.
 type Option func(r *http.Request)
 
@@ -54,7 +87,7 @@ func WithID(id string) Option {
 }
 
 // WithOpType explicit operation type.
-func WithOpType(opType struct{}) Option {
+func WithOpType(opType OpType) Option {
 	return func(r *http.Request) {
 	}
 }
@@ -72,7 +105,7 @@ func WithPipeline(pipeline string) Option {
 }
 
 // WithRefresh if true then refresh the affected shards to make this operation visible to search, if wait_for then wait for a refresh to make this operation visible to search, if false (the default) then do nothing with refreshes.
-func WithRefresh(refresh struct{}) Option {
+func WithRefresh(refresh Refresh) Option {
 	return func(r *http.Request) {
 	}
 }
@@ -108,7 +141,7 @@ func WithVersion(version int) Option {
 }
 
 // WithVersionType specific version type.
-func WithVersionType(versionType struct{}) Option {
+func WithVersionType(versionType VersionType) Option {
 	return func(r *http.Request) {
 	}
 }
