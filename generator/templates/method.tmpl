@@ -5,8 +5,7 @@ package {{.PackageName}}
 import (
 	"fmt"
 	"net/http"
-
-	"github.com/elastic/goelasticsearch/client/transport"
+	"net/url"
 )
 
 // {{.MethodName}}{{.Spec.Documentation}}{{range .RequiredParams}}

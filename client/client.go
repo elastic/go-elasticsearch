@@ -12,18 +12,34 @@
 //	}
 //	resp, err := c.Search(body)
 //	// ...
+// See the api package for all available methods and options.
 package client
 
-import "github.com/elastic/goelasticsearch/client/transport"
+import (
+	"github.com/elastic/goelasticsearch/api"
+	"github.com/elastic/goelasticsearch/transport"
+)
 
-// New is the constructor for the Client
-func New(options ...TransportOption) *Client {
+// Client is the top-level client.
+type Client struct {
+	// API is the root of the API. Since it's embedded, it allows to call APIs directly on the client.
+	//	client := client.New()
+	//	resp, error := client.Search(...)
+	//	...
+	*api.API
+
+	transport *transport.Transport
+}
+
+// New is the constructor for the Client.
+func New(options ...Option) *Client {
+	t := transport.New()
 	c := &Client{
-		transport: transport.New(),
+		API:       api.New(t),
+		transport: t,
 	}
 	for _, option := range options {
 		option(c)
 	}
-	c.addClients()
 	return c
 }

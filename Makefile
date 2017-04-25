@@ -25,6 +25,7 @@ GOIMPORTS_REPO = golang.org/x/tools/cmd/goimports
 GOLINT = golint
 GOLINT_REPO = github.com/golang/lint/$(GOLINT)
 SPEC_DIR = spec
+GEN_DIR = api
 
 .PHONY: build
 build:
@@ -32,9 +33,10 @@ build:
 
 .PHONY: gen
 gen: spec
+	rm -rf $(GEN_DIR)
 	$(GO) run ./cmd/generator/main.go -alsologtostderr
 	@$(GO) get $(GOIMPORTS_REPO)
-	$(GOIMPORTS) -w client
+	$(GOIMPORTS) -w $(GEN_DIR)
 	$(MAKE) build
 
 .PHONY: spec
@@ -61,7 +63,7 @@ check-imports:
 .PHONY: imports
 imports:
 	@$(GO) get $(GOIMPORTS_REPO)
-	$(GOIMPORTS) -w .
+	$(GOIMPORTS) -w $(GEN_DIR)
 
 .PHONY: lint
 lint:
