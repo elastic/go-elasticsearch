@@ -59,7 +59,7 @@ type Option struct {
 	apply func(r *http.Request)
 }
 
-// WithActions a comma-separated list of actions that should be returned. Leave empty to return all.
+// WithActions - a comma-separated list of actions that should be returned. Leave empty to return all.
 func WithActions(actions []string) *Option {
 	return &Option{
 		name: "WithActions",
@@ -68,7 +68,7 @@ func WithActions(actions []string) *Option {
 	}
 }
 
-// WithBytes the unit in which to display byte values.
+// WithBytes - the unit in which to display byte values.
 func WithBytes(bytes Bytes) *Option {
 	return &Option{
 		name: "WithBytes",
@@ -77,7 +77,7 @@ func WithBytes(bytes Bytes) *Option {
 	}
 }
 
-// WithDetailed return detailed task information (default: false).
+// WithDetailed - return detailed task information (default: false).
 func WithDetailed(detailed bool) *Option {
 	return &Option{
 		name: "WithDetailed",
@@ -86,7 +86,7 @@ func WithDetailed(detailed bool) *Option {
 	}
 }
 
-// WithErrorTrace include the stack trace of returned errors.
+// WithErrorTrace - include the stack trace of returned errors.
 func WithErrorTrace(errorTrace bool) *Option {
 	return &Option{
 		name: "WithErrorTrace",
@@ -95,7 +95,7 @@ func WithErrorTrace(errorTrace bool) *Option {
 	}
 }
 
-// WithFields a comma-separated list of fields to return the fielddata size.
+// WithFields - a comma-separated list of fields to return the fielddata size.
 func WithFields(fields []string) *Option {
 	return &Option{
 		name: "WithFields",
@@ -104,7 +104,7 @@ func WithFields(fields []string) *Option {
 	}
 }
 
-// WithFieldsParam a comma-separated list of fields to return in the output.
+// WithFieldsParam - a comma-separated list of fields to return in the output.
 func WithFieldsParam(fieldsParam []string) *Option {
 	return &Option{
 		name: "WithFieldsParam",
@@ -113,7 +113,7 @@ func WithFieldsParam(fieldsParam []string) *Option {
 	}
 }
 
-// WithFilterPath a comma-separated list of filters used to reduce the respone.
+// WithFilterPath - a comma-separated list of filters used to reduce the respone.
 func WithFilterPath(filterPath []string) *Option {
 	return &Option{
 		name: "WithFilterPath",
@@ -122,7 +122,7 @@ func WithFilterPath(filterPath []string) *Option {
 	}
 }
 
-// WithFormat a short version of the Accept header, e.g. json, yaml.
+// WithFormat - a short version of the Accept header, e.g. json, yaml.
 func WithFormat(format string) *Option {
 	return &Option{
 		name: "WithFormat",
@@ -131,7 +131,7 @@ func WithFormat(format string) *Option {
 	}
 }
 
-// WithFullID return the full node ID instead of the shortened version (default: false).
+// WithFullID - return the full node ID instead of the shortened version (default: false).
 func WithFullID(fullID bool) *Option {
 	return &Option{
 		name: "WithFullID",
@@ -140,7 +140,7 @@ func WithFullID(fullID bool) *Option {
 	}
 }
 
-// WithH comma-separated list of column names to display.
+// WithH - comma-separated list of column names to display.
 func WithH(h []string) *Option {
 	return &Option{
 		name: "WithH",
@@ -149,7 +149,7 @@ func WithH(h []string) *Option {
 	}
 }
 
-// WithHelp return help information.
+// WithHelp - return help information.
 func WithHelp(help bool) *Option {
 	return &Option{
 		name: "WithHelp",
@@ -158,7 +158,7 @@ func WithHelp(help bool) *Option {
 	}
 }
 
-// WithHuman return human readable values for statistics.
+// WithHuman - return human readable values for statistics.
 func WithHuman(human bool) *Option {
 	return &Option{
 		name: "WithHuman",
@@ -167,7 +167,7 @@ func WithHuman(human bool) *Option {
 	}
 }
 
-// WithIgnoreUnavailable set to true to ignore unavailable snapshots.
+// WithIgnoreUnavailable - set to true to ignore unavailable snapshots.
 func WithIgnoreUnavailable(ignoreUnavailable bool) *Option {
 	return &Option{
 		name: "WithIgnoreUnavailable",
@@ -176,7 +176,7 @@ func WithIgnoreUnavailable(ignoreUnavailable bool) *Option {
 	}
 }
 
-// WithIndex a comma-separated list of index names to limit the returned information.
+// WithIndex - a comma-separated list of index names to limit the returned information.
 func WithIndex(index []string) *Option {
 	return &Option{
 		name: "WithIndex",
@@ -185,7 +185,7 @@ func WithIndex(index []string) *Option {
 	}
 }
 
-// WithLocal return local information, do not retrieve the state from master node (default: false).
+// WithLocal - return local information, do not retrieve the state from master node (default: false).
 func WithLocal(local bool) *Option {
 	return &Option{
 		name: "WithLocal",
@@ -194,7 +194,7 @@ func WithLocal(local bool) *Option {
 	}
 }
 
-// WithMasterTimeout explicit operation timeout for connection to master node.
+// WithMasterTimeout - explicit operation timeout for connection to master node.
 func WithMasterTimeout(masterTimeout time.Time) *Option {
 	return &Option{
 		name: "WithMasterTimeout",
@@ -203,7 +203,7 @@ func WithMasterTimeout(masterTimeout time.Time) *Option {
 	}
 }
 
-// WithName a comma-separated list of alias names to return.
+// WithName - a comma-separated list of alias names to return.
 func WithName(name []string) *Option {
 	return &Option{
 		name: "WithName",
@@ -212,7 +212,7 @@ func WithName(name []string) *Option {
 	}
 }
 
-// WithNodeID a comma-separated list of node IDs or names to limit the returned information.
+// WithNodeID - a comma-separated list of node IDs or names to limit the returned information.
 func WithNodeID(nodeID []string) *Option {
 	return &Option{
 		name: "WithNodeID",
@@ -221,7 +221,7 @@ func WithNodeID(nodeID []string) *Option {
 	}
 }
 
-// WithPretty pretty format the returned JSON response.
+// WithPretty - pretty format the returned JSON response.
 func WithPretty(pretty bool) *Option {
 	return &Option{
 		name: "WithPretty",
@@ -230,7 +230,7 @@ func WithPretty(pretty bool) *Option {
 	}
 }
 
-// WithS comma-separated list of column names or column aliases to sort by.
+// WithS - comma-separated list of column names or column aliases to sort by.
 func WithS(s []string) *Option {
 	return &Option{
 		name: "WithS",
@@ -239,7 +239,7 @@ func WithS(s []string) *Option {
 	}
 }
 
-// WithSize the multiplier in which to display values.
+// WithSize - the multiplier in which to display values.
 func WithSize(size Size) *Option {
 	return &Option{
 		name: "WithSize",
@@ -248,7 +248,7 @@ func WithSize(size Size) *Option {
 	}
 }
 
-// WithSourceParam the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+// WithSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 func WithSourceParam(sourceParam string) *Option {
 	return &Option{
 		name: "WithSourceParam",
@@ -257,7 +257,7 @@ func WithSourceParam(sourceParam string) *Option {
 	}
 }
 
-// WithThreadPoolPatterns a comma-separated list of regular-expressions to filter the thread pools in the output.
+// WithThreadPoolPatterns - a comma-separated list of regular-expressions to filter the thread pools in the output.
 func WithThreadPoolPatterns(threadPoolPatterns []string) *Option {
 	return &Option{
 		name: "WithThreadPoolPatterns",
@@ -266,7 +266,7 @@ func WithThreadPoolPatterns(threadPoolPatterns []string) *Option {
 	}
 }
 
-// WithTs set to false to disable timestamping.
+// WithTs - set to false to disable timestamping.
 func WithTs(ts bool) *Option {
 	return &Option{
 		name: "WithTs",
@@ -275,7 +275,7 @@ func WithTs(ts bool) *Option {
 	}
 }
 
-// WithV verbose mode. Display column headers.
+// WithV - verbose mode. Display column headers.
 func WithV(v bool) *Option {
 	return &Option{
 		name: "WithV",

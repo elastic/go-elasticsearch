@@ -12,7 +12,7 @@ type Option struct {
 	apply func(r *http.Request)
 }
 
-// WithActions a comma-separated list of actions that should be cancelled. Leave empty to cancel all.
+// WithActions - a comma-separated list of actions that should be cancelled. Leave empty to cancel all.
 func WithActions(actions []string) *Option {
 	return &Option{
 		name: "WithActions",
@@ -21,7 +21,7 @@ func WithActions(actions []string) *Option {
 	}
 }
 
-// WithErrorTrace include the stack trace of returned errors.
+// WithErrorTrace - include the stack trace of returned errors.
 func WithErrorTrace(errorTrace bool) *Option {
 	return &Option{
 		name: "WithErrorTrace",
@@ -30,7 +30,7 @@ func WithErrorTrace(errorTrace bool) *Option {
 	}
 }
 
-// WithFilterPath a comma-separated list of filters used to reduce the respone.
+// WithFilterPath - a comma-separated list of filters used to reduce the respone.
 func WithFilterPath(filterPath []string) *Option {
 	return &Option{
 		name: "WithFilterPath",
@@ -39,7 +39,7 @@ func WithFilterPath(filterPath []string) *Option {
 	}
 }
 
-// WithHuman return human readable values for statistics.
+// WithHuman - return human readable values for statistics.
 func WithHuman(human bool) *Option {
 	return &Option{
 		name: "WithHuman",
@@ -48,7 +48,7 @@ func WithHuman(human bool) *Option {
 	}
 }
 
-// WithNodeID a comma-separated list of node IDs or names to limit the returned information; use "_local" to return information from the node you're connecting to, leave empty to get information from all nodes.
+// WithNodeID - a comma-separated list of node IDs or names to limit the returned information; use "_local" to return information from the node you're connecting to, leave empty to get information from all nodes.
 func WithNodeID(nodeID []string) *Option {
 	return &Option{
 		name: "WithNodeID",
@@ -57,7 +57,7 @@ func WithNodeID(nodeID []string) *Option {
 	}
 }
 
-// WithParentNode cancel tasks with specified parent node.
+// WithParentNode - cancel tasks with specified parent node.
 func WithParentNode(parentNode string) *Option {
 	return &Option{
 		name: "WithParentNode",
@@ -66,7 +66,7 @@ func WithParentNode(parentNode string) *Option {
 	}
 }
 
-// WithParentTask cancel tasks with specified parent task id (node_id:task_number). Set to -1 to cancel all.
+// WithParentTask - cancel tasks with specified parent task id (node_id:task_number). Set to -1 to cancel all.
 func WithParentTask(parentTask string) *Option {
 	return &Option{
 		name: "WithParentTask",
@@ -75,7 +75,7 @@ func WithParentTask(parentTask string) *Option {
 	}
 }
 
-// WithPretty pretty format the returned JSON response.
+// WithPretty - pretty format the returned JSON response.
 func WithPretty(pretty bool) *Option {
 	return &Option{
 		name: "WithPretty",
@@ -84,7 +84,7 @@ func WithPretty(pretty bool) *Option {
 	}
 }
 
-// WithSourceParam the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+// WithSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 func WithSourceParam(sourceParam string) *Option {
 	return &Option{
 		name: "WithSourceParam",
@@ -93,7 +93,7 @@ func WithSourceParam(sourceParam string) *Option {
 	}
 }
 
-// WithTaskID cancel the task with specified task id (node_id:task_number).
+// WithTaskID - cancel the task with specified task id (node_id:task_number).
 func WithTaskID(taskID string) *Option {
 	return &Option{
 		name: "WithTaskID",

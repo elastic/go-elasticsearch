@@ -13,7 +13,7 @@ type Option struct {
 	apply func(r *http.Request)
 }
 
-// WithErrorTrace include the stack trace of returned errors.
+// WithErrorTrace - include the stack trace of returned errors.
 func WithErrorTrace(errorTrace bool) *Option {
 	return &Option{
 		name: "WithErrorTrace",
@@ -22,7 +22,7 @@ func WithErrorTrace(errorTrace bool) *Option {
 	}
 }
 
-// WithFilterPath a comma-separated list of filters used to reduce the respone.
+// WithFilterPath - a comma-separated list of filters used to reduce the respone.
 func WithFilterPath(filterPath []string) *Option {
 	return &Option{
 		name: "WithFilterPath",
@@ -31,7 +31,7 @@ func WithFilterPath(filterPath []string) *Option {
 	}
 }
 
-// WithHuman return human readable values for statistics.
+// WithHuman - return human readable values for statistics.
 func WithHuman(human bool) *Option {
 	return &Option{
 		name: "WithHuman",
@@ -40,7 +40,7 @@ func WithHuman(human bool) *Option {
 	}
 }
 
-// WithID comma separated list of pipeline ids. Wildcards supported.
+// WithID - comma separated list of pipeline ids. Wildcards supported.
 func WithID(id string) *Option {
 	return &Option{
 		name: "WithID",
@@ -49,7 +49,7 @@ func WithID(id string) *Option {
 	}
 }
 
-// WithMasterTimeout explicit operation timeout for connection to master node.
+// WithMasterTimeout - explicit operation timeout for connection to master node.
 func WithMasterTimeout(masterTimeout time.Time) *Option {
 	return &Option{
 		name: "WithMasterTimeout",
@@ -58,7 +58,7 @@ func WithMasterTimeout(masterTimeout time.Time) *Option {
 	}
 }
 
-// WithPretty pretty format the returned JSON response.
+// WithPretty - pretty format the returned JSON response.
 func WithPretty(pretty bool) *Option {
 	return &Option{
 		name: "WithPretty",
@@ -67,7 +67,7 @@ func WithPretty(pretty bool) *Option {
 	}
 }
 
-// WithSourceParam the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+// WithSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 func WithSourceParam(sourceParam string) *Option {
 	return &Option{
 		name: "WithSourceParam",
@@ -76,7 +76,7 @@ func WithSourceParam(sourceParam string) *Option {
 	}
 }
 
-// WithTimeout explicit operation timeout.
+// WithTimeout - explicit operation timeout.
 func WithTimeout(timeout time.Time) *Option {
 	return &Option{
 		name: "WithTimeout",

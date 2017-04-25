@@ -69,7 +69,7 @@ type Option struct {
 	apply func(r *http.Request)
 }
 
-// WithAllowNoIndices whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
+// WithAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
 func WithAllowNoIndices(allowNoIndices bool) *Option {
 	return &Option{
 		name: "WithAllowNoIndices",
@@ -78,7 +78,7 @@ func WithAllowNoIndices(allowNoIndices bool) *Option {
 	}
 }
 
-// WithAnalyzeWildcard specify whether wildcard and prefix queries should be analyzed (default: false).
+// WithAnalyzeWildcard - specify whether wildcard and prefix queries should be analyzed (default: false).
 func WithAnalyzeWildcard(analyzeWildcard bool) *Option {
 	return &Option{
 		name: "WithAnalyzeWildcard",
@@ -87,7 +87,7 @@ func WithAnalyzeWildcard(analyzeWildcard bool) *Option {
 	}
 }
 
-// WithAnalyzer the analyzer to use for the query string.
+// WithAnalyzer - the analyzer to use for the query string.
 func WithAnalyzer(analyzer string) *Option {
 	return &Option{
 		name: "WithAnalyzer",
@@ -96,7 +96,7 @@ func WithAnalyzer(analyzer string) *Option {
 	}
 }
 
-// WithBatchedReduceSize the number of shard results that should be reduced at once on the coordinating node. This value should be used as a protection mechanism to reduce the memory overhead per search request if the potential number of shards in the request can be large.
+// WithBatchedReduceSize - the number of shard results that should be reduced at once on the coordinating node. This value should be used as a protection mechanism to reduce the memory overhead per search request if the potential number of shards in the request can be large.
 func WithBatchedReduceSize(batchedReduceSize int) *Option {
 	return &Option{
 		name: "WithBatchedReduceSize",
@@ -105,7 +105,7 @@ func WithBatchedReduceSize(batchedReduceSize int) *Option {
 	}
 }
 
-// WithConflicts what to do when the delete-by-query hits version conflicts?
+// WithConflicts - what to do when the delete-by-query hits version conflicts?
 func WithConflicts(conflicts Conflicts) *Option {
 	return &Option{
 		name: "WithConflicts",
@@ -114,7 +114,7 @@ func WithConflicts(conflicts Conflicts) *Option {
 	}
 }
 
-// WithDefaultOperator the default operator for query string query (AND or OR).
+// WithDefaultOperator - the default operator for query string query (AND or OR).
 func WithDefaultOperator(defaultOperator DefaultOperator) *Option {
 	return &Option{
 		name: "WithDefaultOperator",
@@ -123,7 +123,7 @@ func WithDefaultOperator(defaultOperator DefaultOperator) *Option {
 	}
 }
 
-// WithDf the field to use as default where no field prefix is given in the query string.
+// WithDf - the field to use as default where no field prefix is given in the query string.
 func WithDf(df string) *Option {
 	return &Option{
 		name: "WithDf",
@@ -132,7 +132,7 @@ func WithDf(df string) *Option {
 	}
 }
 
-// WithType default document type for items which don't provide one.
+// WithType - default document type for items which don't provide one.
 func WithType(documentType string) *Option {
 	return &Option{
 		name: "WithType",
@@ -141,7 +141,7 @@ func WithType(documentType string) *Option {
 	}
 }
 
-// WithTypeParam default document type for items which don't provide one.
+// WithTypeParam - default document type for items which don't provide one.
 func WithTypeParam(documentTypeParam string) *Option {
 	return &Option{
 		name: "WithTypeParam",
@@ -150,7 +150,7 @@ func WithTypeParam(documentTypeParam string) *Option {
 	}
 }
 
-// WithErrorTrace include the stack trace of returned errors.
+// WithErrorTrace - include the stack trace of returned errors.
 func WithErrorTrace(errorTrace bool) *Option {
 	return &Option{
 		name: "WithErrorTrace",
@@ -159,7 +159,7 @@ func WithErrorTrace(errorTrace bool) *Option {
 	}
 }
 
-// WithExpandWildcards whether to expand wildcard expression to concrete indices that are open, closed or both.
+// WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
 func WithExpandWildcards(expandWildcards ExpandWildcards) *Option {
 	return &Option{
 		name: "WithExpandWildcards",
@@ -168,7 +168,7 @@ func WithExpandWildcards(expandWildcards ExpandWildcards) *Option {
 	}
 }
 
-// WithFieldStatistics specifies if document count, sum of document frequencies and sum of total term frequencies should be returned.
+// WithFieldStatistics - specifies if document count, sum of document frequencies and sum of total term frequencies should be returned.
 func WithFieldStatistics(fieldStatistics bool) *Option {
 	return &Option{
 		name: "WithFieldStatistics",
@@ -177,7 +177,7 @@ func WithFieldStatistics(fieldStatistics bool) *Option {
 	}
 }
 
-// WithFields default comma-separated list of fields to return in the response for updates, can be overridden on each sub-request.
+// WithFields - default comma-separated list of fields to return in the response for updates, can be overridden on each sub-request.
 func WithFields(fields []string) *Option {
 	return &Option{
 		name: "WithFields",
@@ -186,7 +186,7 @@ func WithFields(fields []string) *Option {
 	}
 }
 
-// WithFilterPath a comma-separated list of filters used to reduce the respone.
+// WithFilterPath - a comma-separated list of filters used to reduce the respone.
 func WithFilterPath(filterPath []string) *Option {
 	return &Option{
 		name: "WithFilterPath",
@@ -195,7 +195,7 @@ func WithFilterPath(filterPath []string) *Option {
 	}
 }
 
-// WithHuman return human readable values for statistics.
+// WithHuman - return human readable values for statistics.
 func WithHuman(human bool) *Option {
 	return &Option{
 		name: "WithHuman",
@@ -204,7 +204,7 @@ func WithHuman(human bool) *Option {
 	}
 }
 
-// WithID document ID.
+// WithID - document ID.
 func WithID(id string) *Option {
 	return &Option{
 		name: "WithID",
@@ -213,7 +213,7 @@ func WithID(id string) *Option {
 	}
 }
 
-// WithIgnoreUnavailable whether specified concrete indices should be ignored when unavailable (missing or closed).
+// WithIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
 func WithIgnoreUnavailable(ignoreUnavailable bool) *Option {
 	return &Option{
 		name: "WithIgnoreUnavailable",
@@ -222,7 +222,7 @@ func WithIgnoreUnavailable(ignoreUnavailable bool) *Option {
 	}
 }
 
-// WithIndex default index for items which don't provide one.
+// WithIndex - default index for items which don't provide one.
 func WithIndex(index string) *Option {
 	return &Option{
 		name: "WithIndex",
@@ -231,7 +231,7 @@ func WithIndex(index string) *Option {
 	}
 }
 
-// WithOpType explicit operation type.
+// WithOpType - explicit operation type.
 func WithOpType(opType OpType) *Option {
 	return &Option{
 		name: "WithOpType",
@@ -240,7 +240,7 @@ func WithOpType(opType OpType) *Option {
 	}
 }
 
-// WithParent ID of the parent document.
+// WithParent - ID of the parent document.
 func WithParent(parent string) *Option {
 	return &Option{
 		name: "WithParent",
@@ -249,7 +249,7 @@ func WithParent(parent string) *Option {
 	}
 }
 
-// WithPipeline the pipeline id to preprocess incoming documents with.
+// WithPipeline - the pipeline id to preprocess incoming documents with.
 func WithPipeline(pipeline string) *Option {
 	return &Option{
 		name: "WithPipeline",
@@ -258,7 +258,7 @@ func WithPipeline(pipeline string) *Option {
 	}
 }
 
-// WithPretty pretty format the returned JSON response.
+// WithPretty - pretty format the returned JSON response.
 func WithPretty(pretty bool) *Option {
 	return &Option{
 		name: "WithPretty",
@@ -267,7 +267,7 @@ func WithPretty(pretty bool) *Option {
 	}
 }
 
-// WithRefresh if "true" then refresh the effected shards to make this operation visible to search, if "wait_for" then wait for a refresh to make this operation visible to search, if "false" (the default) then do nothing with refreshes.
+// WithRefresh - if "true" then refresh the effected shards to make this operation visible to search, if "wait_for" then wait for a refresh to make this operation visible to search, if "false" (the default) then do nothing with refreshes.
 func WithRefresh(refresh Refresh) *Option {
 	return &Option{
 		name: "WithRefresh",
@@ -276,7 +276,7 @@ func WithRefresh(refresh Refresh) *Option {
 	}
 }
 
-// WithRouting specific routing value.
+// WithRouting - specific routing value.
 func WithRouting(routing string) *Option {
 	return &Option{
 		name: "WithRouting",
@@ -285,7 +285,7 @@ func WithRouting(routing string) *Option {
 	}
 }
 
-// WithScroll specify how long a consistent view of the index should be maintained for scrolled search.
+// WithScroll - specify how long a consistent view of the index should be maintained for scrolled search.
 func WithScroll(scroll time.Time) *Option {
 	return &Option{
 		name: "WithScroll",
@@ -294,7 +294,7 @@ func WithScroll(scroll time.Time) *Option {
 	}
 }
 
-// WithScrollID a comma-separated list of scroll IDs to clear.
+// WithScrollID - a comma-separated list of scroll IDs to clear.
 func WithScrollID(scrollID []string) *Option {
 	return &Option{
 		name: "WithScrollID",
@@ -303,7 +303,7 @@ func WithScrollID(scrollID []string) *Option {
 	}
 }
 
-// WithSource true or false to return the _source field or not, or default list of fields to return, can be overridden on each sub-request.
+// WithSource - true or false to return the _source field or not, or default list of fields to return, can be overridden on each sub-request.
 func WithSource(source []string) *Option {
 	return &Option{
 		name: "WithSource",
@@ -312,7 +312,7 @@ func WithSource(source []string) *Option {
 	}
 }
 
-// WithSourceExclude default list of fields to exclude from the returned _source field, can be overridden on each sub-request.
+// WithSourceExclude - default list of fields to exclude from the returned _source field, can be overridden on each sub-request.
 func WithSourceExclude(sourceExclude []string) *Option {
 	return &Option{
 		name: "WithSourceExclude",
@@ -321,7 +321,7 @@ func WithSourceExclude(sourceExclude []string) *Option {
 	}
 }
 
-// WithSourceInclude default list of fields to extract and return from the _source field, can be overridden on each sub-request.
+// WithSourceInclude - default list of fields to extract and return from the _source field, can be overridden on each sub-request.
 func WithSourceInclude(sourceInclude []string) *Option {
 	return &Option{
 		name: "WithSourceInclude",
@@ -330,7 +330,7 @@ func WithSourceInclude(sourceInclude []string) *Option {
 	}
 }
 
-// WithSourceParam the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+// WithSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 func WithSourceParam(sourceParam string) *Option {
 	return &Option{
 		name: "WithSourceParam",
@@ -339,7 +339,7 @@ func WithSourceParam(sourceParam string) *Option {
 	}
 }
 
-// WithTaskID the task id to rethrottle.
+// WithTaskID - the task id to rethrottle.
 func WithTaskID(taskID string) *Option {
 	return &Option{
 		name: "WithTaskID",
@@ -348,7 +348,7 @@ func WithTaskID(taskID string) *Option {
 	}
 }
 
-// WithTimeout explicit operation timeout.
+// WithTimeout - explicit operation timeout.
 func WithTimeout(timeout time.Time) *Option {
 	return &Option{
 		name: "WithTimeout",
@@ -357,7 +357,7 @@ func WithTimeout(timeout time.Time) *Option {
 	}
 }
 
-// WithWaitForActiveShards sets the number of shard copies that must be active before proceeding with the bulk operation. Defaults to 1, meaning the primary shard only. Set to "all" for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1).
+// WithWaitForActiveShards - sets the number of shard copies that must be active before proceeding with the bulk operation. Defaults to 1, meaning the primary shard only. Set to "all" for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1).
 func WithWaitForActiveShards(waitForActiveShards string) *Option {
 	return &Option{
 		name: "WithWaitForActiveShards",

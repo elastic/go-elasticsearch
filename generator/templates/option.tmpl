@@ -19,7 +19,7 @@ type Option struct {
 	apply func(r *http.Request)
 }
 
-{{range .Options}}// {{.OptionName}} {{.Description}}
+{{range .Options}}// {{.OptionName}} - {{.Description}}
 func {{.OptionName}}({{.Name}} {{.Type}}) *Option {
   return &Option{
 		name: "{{.OptionName}}",

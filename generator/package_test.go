@@ -59,7 +59,7 @@ type Option struct {
 	apply func(r *http.Request)
 }
 
-// WithID document ID.
+// WithID - document ID.
 func WithID(id string) *Option {
 	return &Option{
 		name: "WithID",
@@ -68,7 +68,7 @@ func WithID(id string) *Option {
 	}
 }
 
-// WithOpType explicit operation type.
+// WithOpType - explicit operation type.
 func WithOpType(opType OpType) *Option {
 	return &Option{
 		name: "WithOpType",
@@ -77,7 +77,7 @@ func WithOpType(opType OpType) *Option {
 	}
 }
 
-// WithTimeout explicit operation timeout.
+// WithTimeout - explicit operation timeout.
 func WithTimeout(timeout time.Time) *Option {
 	return &Option{
 		name: "WithTimeout",
@@ -86,7 +86,7 @@ func WithTimeout(timeout time.Time) *Option {
 	}
 }
 
-// WithVersion explicit version number for concurrency control.
+// WithVersion - explicit version number for concurrency control.
 func WithVersion(version int) *Option {
 	return &Option{
 		name: "WithVersion",
@@ -95,7 +95,7 @@ func WithVersion(version int) *Option {
 	}
 }
 
-// WithWaitForActiveShards sets the number of shard copies that must be active before proceeding with the index operation. Defaults to 1, meaning the primary shard only. Set to "all" for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1).
+// WithWaitForActiveShards - sets the number of shard copies that must be active before proceeding with the index operation. Defaults to 1, meaning the primary shard only. Set to "all" for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1).
 func WithWaitForActiveShards(waitForActiveShards string) *Option {
 	return &Option{
 		name: "WithWaitForActiveShards",

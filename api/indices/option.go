@@ -47,7 +47,7 @@ type Option struct {
 	apply func(r *http.Request)
 }
 
-// WithActiveOnly display only those recoveries that are currently on-going.
+// WithActiveOnly - display only those recoveries that are currently on-going.
 func WithActiveOnly(activeOnly bool) *Option {
 	return &Option{
 		name: "WithActiveOnly",
@@ -56,7 +56,7 @@ func WithActiveOnly(activeOnly bool) *Option {
 	}
 }
 
-// WithAllShards execute validation on all shards instead of one random shard per index.
+// WithAllShards - execute validation on all shards instead of one random shard per index.
 func WithAllShards(allShards bool) *Option {
 	return &Option{
 		name: "WithAllShards",
@@ -65,7 +65,7 @@ func WithAllShards(allShards bool) *Option {
 	}
 }
 
-// WithAllowNoIndices whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
+// WithAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
 func WithAllowNoIndices(allowNoIndices bool) *Option {
 	return &Option{
 		name: "WithAllowNoIndices",
@@ -74,7 +74,7 @@ func WithAllowNoIndices(allowNoIndices bool) *Option {
 	}
 }
 
-// WithAnalyzeWildcard specify whether wildcard and prefix queries should be analyzed (default: false).
+// WithAnalyzeWildcard - specify whether wildcard and prefix queries should be analyzed (default: false).
 func WithAnalyzeWildcard(analyzeWildcard bool) *Option {
 	return &Option{
 		name: "WithAnalyzeWildcard",
@@ -83,7 +83,7 @@ func WithAnalyzeWildcard(analyzeWildcard bool) *Option {
 	}
 }
 
-// WithAnalyzer the analyzer to use for the query string.
+// WithAnalyzer - the analyzer to use for the query string.
 func WithAnalyzer(analyzer string) *Option {
 	return &Option{
 		name: "WithAnalyzer",
@@ -92,7 +92,7 @@ func WithAnalyzer(analyzer string) *Option {
 	}
 }
 
-// WithCompletionFields a comma-separated list of fields for "fielddata" and "suggest" index metric (supports wildcards).
+// WithCompletionFields - a comma-separated list of fields for "fielddata" and "suggest" index metric (supports wildcards).
 func WithCompletionFields(completionFields []string) *Option {
 	return &Option{
 		name: "WithCompletionFields",
@@ -101,7 +101,7 @@ func WithCompletionFields(completionFields []string) *Option {
 	}
 }
 
-// WithCreate whether the index template should only be added if new or can also replace an existing one.
+// WithCreate - whether the index template should only be added if new or can also replace an existing one.
 func WithCreate(create bool) *Option {
 	return &Option{
 		name: "WithCreate",
@@ -110,7 +110,7 @@ func WithCreate(create bool) *Option {
 	}
 }
 
-// WithDefaultOperator the default operator for query string query (AND or OR).
+// WithDefaultOperator - the default operator for query string query (AND or OR).
 func WithDefaultOperator(defaultOperator DefaultOperator) *Option {
 	return &Option{
 		name: "WithDefaultOperator",
@@ -119,7 +119,7 @@ func WithDefaultOperator(defaultOperator DefaultOperator) *Option {
 	}
 }
 
-// WithDetailed whether to display detailed information about shard recovery.
+// WithDetailed - whether to display detailed information about shard recovery.
 func WithDetailed(detailed bool) *Option {
 	return &Option{
 		name: "WithDetailed",
@@ -128,7 +128,7 @@ func WithDetailed(detailed bool) *Option {
 	}
 }
 
-// WithDf the field to use as default where no field prefix is given in the query string.
+// WithDf - the field to use as default where no field prefix is given in the query string.
 func WithDf(df string) *Option {
 	return &Option{
 		name: "WithDf",
@@ -137,7 +137,7 @@ func WithDf(df string) *Option {
 	}
 }
 
-// WithType a comma-separated list of document types.
+// WithType - a comma-separated list of document types.
 func WithType(documentType []string) *Option {
 	return &Option{
 		name: "WithType",
@@ -146,7 +146,7 @@ func WithType(documentType []string) *Option {
 	}
 }
 
-// WithDryRun if set to true the rollover action will only be validated but not actually performed even if a condition matches. The default is false.
+// WithDryRun - if set to true the rollover action will only be validated but not actually performed even if a condition matches. The default is false.
 func WithDryRun(dryRun bool) *Option {
 	return &Option{
 		name: "WithDryRun",
@@ -155,7 +155,7 @@ func WithDryRun(dryRun bool) *Option {
 	}
 }
 
-// WithErrorTrace include the stack trace of returned errors.
+// WithErrorTrace - include the stack trace of returned errors.
 func WithErrorTrace(errorTrace bool) *Option {
 	return &Option{
 		name: "WithErrorTrace",
@@ -164,7 +164,7 @@ func WithErrorTrace(errorTrace bool) *Option {
 	}
 }
 
-// WithExpandWildcards whether to expand wildcard expression to concrete indices that are open, closed or both.
+// WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
 func WithExpandWildcards(expandWildcards ExpandWildcards) *Option {
 	return &Option{
 		name: "WithExpandWildcards",
@@ -173,7 +173,7 @@ func WithExpandWildcards(expandWildcards ExpandWildcards) *Option {
 	}
 }
 
-// WithFieldData clear field data.
+// WithFieldData - clear field data.
 func WithFieldData(fieldData bool) *Option {
 	return &Option{
 		name: "WithFieldData",
@@ -182,7 +182,7 @@ func WithFieldData(fieldData bool) *Option {
 	}
 }
 
-// WithFielddata clear field data.
+// WithFielddata - clear field data.
 func WithFielddata(fielddata bool) *Option {
 	return &Option{
 		name: "WithFielddata",
@@ -191,7 +191,7 @@ func WithFielddata(fielddata bool) *Option {
 	}
 }
 
-// WithFielddataFields a comma-separated list of fields for "fielddata" index metric (supports wildcards).
+// WithFielddataFields - a comma-separated list of fields for "fielddata" index metric (supports wildcards).
 func WithFielddataFields(fielddataFields []string) *Option {
 	return &Option{
 		name: "WithFielddataFields",
@@ -200,7 +200,7 @@ func WithFielddataFields(fielddataFields []string) *Option {
 	}
 }
 
-// WithFields a comma-separated list of fields to clear when using the "field_data" parameter (default: all).
+// WithFields - a comma-separated list of fields to clear when using the "field_data" parameter (default: all).
 func WithFields(fields []string) *Option {
 	return &Option{
 		name: "WithFields",
@@ -209,7 +209,7 @@ func WithFields(fields []string) *Option {
 	}
 }
 
-// WithFilterPath a comma-separated list of filters used to reduce the respone.
+// WithFilterPath - a comma-separated list of filters used to reduce the respone.
 func WithFilterPath(filterPath []string) *Option {
 	return &Option{
 		name: "WithFilterPath",
@@ -218,7 +218,7 @@ func WithFilterPath(filterPath []string) *Option {
 	}
 }
 
-// WithFlatSettings return settings in flat format (default: false).
+// WithFlatSettings - return settings in flat format (default: false).
 func WithFlatSettings(flatSettings bool) *Option {
 	return &Option{
 		name: "WithFlatSettings",
@@ -227,7 +227,7 @@ func WithFlatSettings(flatSettings bool) *Option {
 	}
 }
 
-// WithFlush specify whether the index should be flushed after performing the operation (default: true).
+// WithFlush - specify whether the index should be flushed after performing the operation (default: true).
 func WithFlush(flush bool) *Option {
 	return &Option{
 		name: "WithFlush",
@@ -236,7 +236,7 @@ func WithFlush(flush bool) *Option {
 	}
 }
 
-// WithForce whether a flush should be forced even if it is not necessarily needed ie. if no changes will be committed to the index. This is useful if transaction log IDs should be incremented even if no uncommitted changes are present. (This setting can be considered as internal).
+// WithForce - whether a flush should be forced even if it is not necessarily needed ie. if no changes will be committed to the index. This is useful if transaction log IDs should be incremented even if no uncommitted changes are present. (This setting can be considered as internal).
 func WithForce(force bool) *Option {
 	return &Option{
 		name: "WithForce",
@@ -245,7 +245,7 @@ func WithForce(force bool) *Option {
 	}
 }
 
-// WithFormat format of the output.
+// WithFormat - format of the output.
 func WithFormat(format Format) *Option {
 	return &Option{
 		name: "WithFormat",
@@ -254,7 +254,7 @@ func WithFormat(format Format) *Option {
 	}
 }
 
-// WithHuman return human readable values for statistics.
+// WithHuman - return human readable values for statistics.
 func WithHuman(human bool) *Option {
 	return &Option{
 		name: "WithHuman",
@@ -263,7 +263,7 @@ func WithHuman(human bool) *Option {
 	}
 }
 
-// WithIgnoreUnavailable whether specified concrete indices should be ignored when unavailable (missing or closed).
+// WithIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
 func WithIgnoreUnavailable(ignoreUnavailable bool) *Option {
 	return &Option{
 		name: "WithIgnoreUnavailable",
@@ -272,7 +272,7 @@ func WithIgnoreUnavailable(ignoreUnavailable bool) *Option {
 	}
 }
 
-// WithIncludeDefaults whether the default mapping values should be returned as well.
+// WithIncludeDefaults - whether the default mapping values should be returned as well.
 func WithIncludeDefaults(includeDefaults bool) *Option {
 	return &Option{
 		name: "WithIncludeDefaults",
@@ -281,7 +281,7 @@ func WithIncludeDefaults(includeDefaults bool) *Option {
 	}
 }
 
-// WithIndex the name of the index to scope the operation.
+// WithIndex - the name of the index to scope the operation.
 func WithIndex(index string) *Option {
 	return &Option{
 		name: "WithIndex",
@@ -290,7 +290,7 @@ func WithIndex(index string) *Option {
 	}
 }
 
-// WithIndexParam the name of the index to scope the operation.
+// WithIndexParam - the name of the index to scope the operation.
 func WithIndexParam(indexParam string) *Option {
 	return &Option{
 		name: "WithIndexParam",
@@ -299,7 +299,7 @@ func WithIndexParam(indexParam string) *Option {
 	}
 }
 
-// WithLocal return local information, do not retrieve the state from master node (default: false).
+// WithLocal - return local information, do not retrieve the state from master node (default: false).
 func WithLocal(local bool) *Option {
 	return &Option{
 		name: "WithLocal",
@@ -308,7 +308,7 @@ func WithLocal(local bool) *Option {
 	}
 }
 
-// WithMasterTimeout specify timeout for connection to master.
+// WithMasterTimeout - specify timeout for connection to master.
 func WithMasterTimeout(masterTimeout time.Time) *Option {
 	return &Option{
 		name: "WithMasterTimeout",
@@ -317,7 +317,7 @@ func WithMasterTimeout(masterTimeout time.Time) *Option {
 	}
 }
 
-// WithNewIndex the name of the rollover index.
+// WithNewIndex - the name of the rollover index.
 func WithNewIndex(newIndex string) *Option {
 	return &Option{
 		name: "WithNewIndex",
@@ -326,7 +326,7 @@ func WithNewIndex(newIndex string) *Option {
 	}
 }
 
-// WithOrder the order for this template when merging multiple matching ones (higher numbers are merged later, overriding the lower numbers).
+// WithOrder - the order for this template when merging multiple matching ones (higher numbers are merged later, overriding the lower numbers).
 func WithOrder(order int) *Option {
 	return &Option{
 		name: "WithOrder",
@@ -335,7 +335,7 @@ func WithOrder(order int) *Option {
 	}
 }
 
-// WithPreferLocal with "true", specify that a local shard should be used if available, with "false", use a random shard (default: true).
+// WithPreferLocal - with "true", specify that a local shard should be used if available, with "false", use a random shard (default: true).
 func WithPreferLocal(preferLocal bool) *Option {
 	return &Option{
 		name: "WithPreferLocal",
@@ -344,7 +344,7 @@ func WithPreferLocal(preferLocal bool) *Option {
 	}
 }
 
-// WithPretty pretty format the returned JSON response.
+// WithPretty - pretty format the returned JSON response.
 func WithPretty(pretty bool) *Option {
 	return &Option{
 		name: "WithPretty",
@@ -353,7 +353,7 @@ func WithPretty(pretty bool) *Option {
 	}
 }
 
-// WithSourceParam the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+// WithSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 func WithSourceParam(sourceParam string) *Option {
 	return &Option{
 		name: "WithSourceParam",
@@ -362,7 +362,7 @@ func WithSourceParam(sourceParam string) *Option {
 	}
 }
 
-// WithTimeout explicit operation timeout.
+// WithTimeout - explicit operation timeout.
 func WithTimeout(timeout time.Time) *Option {
 	return &Option{
 		name: "WithTimeout",
@@ -371,7 +371,7 @@ func WithTimeout(timeout time.Time) *Option {
 	}
 }
 
-// WithUpdateAllTypes whether to update the mapping for all fields with the same name across all types or not.
+// WithUpdateAllTypes - whether to update the mapping for all fields with the same name across all types or not.
 func WithUpdateAllTypes(updateAllTypes bool) *Option {
 	return &Option{
 		name: "WithUpdateAllTypes",
@@ -380,7 +380,7 @@ func WithUpdateAllTypes(updateAllTypes bool) *Option {
 	}
 }
 
-// WithWaitForActiveShards set the number of active shards to wait for before the operation returns.
+// WithWaitForActiveShards - set the number of active shards to wait for before the operation returns.
 func WithWaitForActiveShards(waitForActiveShards string) *Option {
 	return &Option{
 		name: "WithWaitForActiveShards",

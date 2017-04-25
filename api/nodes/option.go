@@ -37,7 +37,7 @@ type Option struct {
 	apply func(r *http.Request)
 }
 
-// WithCompletionFields a comma-separated list of fields for "fielddata" and "suggest" index metric (supports wildcards).
+// WithCompletionFields - a comma-separated list of fields for "fielddata" and "suggest" index metric (supports wildcards).
 func WithCompletionFields(completionFields []string) *Option {
 	return &Option{
 		name: "WithCompletionFields",
@@ -46,7 +46,7 @@ func WithCompletionFields(completionFields []string) *Option {
 	}
 }
 
-// WithType the type to sample (default: cpu).
+// WithType - the type to sample (default: cpu).
 func WithType(documentType DocumentType) *Option {
 	return &Option{
 		name: "WithType",
@@ -55,7 +55,7 @@ func WithType(documentType DocumentType) *Option {
 	}
 }
 
-// WithErrorTrace include the stack trace of returned errors.
+// WithErrorTrace - include the stack trace of returned errors.
 func WithErrorTrace(errorTrace bool) *Option {
 	return &Option{
 		name: "WithErrorTrace",
@@ -64,7 +64,7 @@ func WithErrorTrace(errorTrace bool) *Option {
 	}
 }
 
-// WithFielddataFields a comma-separated list of fields for "fielddata" index metric (supports wildcards).
+// WithFielddataFields - a comma-separated list of fields for "fielddata" index metric (supports wildcards).
 func WithFielddataFields(fielddataFields []string) *Option {
 	return &Option{
 		name: "WithFielddataFields",
@@ -73,7 +73,7 @@ func WithFielddataFields(fielddataFields []string) *Option {
 	}
 }
 
-// WithFields a comma-separated list of fields for "fielddata" and "completion" index metric (supports wildcards).
+// WithFields - a comma-separated list of fields for "fielddata" and "completion" index metric (supports wildcards).
 func WithFields(fields []string) *Option {
 	return &Option{
 		name: "WithFields",
@@ -82,7 +82,7 @@ func WithFields(fields []string) *Option {
 	}
 }
 
-// WithFilterPath a comma-separated list of filters used to reduce the respone.
+// WithFilterPath - a comma-separated list of filters used to reduce the respone.
 func WithFilterPath(filterPath []string) *Option {
 	return &Option{
 		name: "WithFilterPath",
@@ -91,7 +91,7 @@ func WithFilterPath(filterPath []string) *Option {
 	}
 }
 
-// WithFlatSettings return settings in flat format (default: false).
+// WithFlatSettings - return settings in flat format (default: false).
 func WithFlatSettings(flatSettings bool) *Option {
 	return &Option{
 		name: "WithFlatSettings",
@@ -100,7 +100,7 @@ func WithFlatSettings(flatSettings bool) *Option {
 	}
 }
 
-// WithGroups a comma-separated list of search groups for "search" index metric.
+// WithGroups - a comma-separated list of search groups for "search" index metric.
 func WithGroups(groups bool) *Option {
 	return &Option{
 		name: "WithGroups",
@@ -109,7 +109,7 @@ func WithGroups(groups bool) *Option {
 	}
 }
 
-// WithHuman return human readable values for statistics.
+// WithHuman - return human readable values for statistics.
 func WithHuman(human bool) *Option {
 	return &Option{
 		name: "WithHuman",
@@ -118,7 +118,7 @@ func WithHuman(human bool) *Option {
 	}
 }
 
-// WithIgnoreIdleThreads don't show threads that are in known-idle places, such as waiting on a socket select or pulling from an empty task queue (default: true).
+// WithIgnoreIdleThreads - don't show threads that are in known-idle places, such as waiting on a socket select or pulling from an empty task queue (default: true).
 func WithIgnoreIdleThreads(ignoreIdleThreads bool) *Option {
 	return &Option{
 		name: "WithIgnoreIdleThreads",
@@ -127,7 +127,7 @@ func WithIgnoreIdleThreads(ignoreIdleThreads bool) *Option {
 	}
 }
 
-// WithIncludeSegmentFileSizes whether to report the aggregated disk usage of each one of the Lucene index files (only applies if segment stats are requested).
+// WithIncludeSegmentFileSizes - whether to report the aggregated disk usage of each one of the Lucene index files (only applies if segment stats are requested).
 func WithIncludeSegmentFileSizes(includeSegmentFileSizes bool) *Option {
 	return &Option{
 		name: "WithIncludeSegmentFileSizes",
@@ -136,7 +136,7 @@ func WithIncludeSegmentFileSizes(includeSegmentFileSizes bool) *Option {
 	}
 }
 
-// WithIndexMetric limit the information returned for "indices" metric to the specific index metrics. Isn't used if "indices" (or "all") metric isn't specified.
+// WithIndexMetric - limit the information returned for "indices" metric to the specific index metrics. Isn't used if "indices" (or "all") metric isn't specified.
 func WithIndexMetric(indexMetric []string) *Option {
 	return &Option{
 		name: "WithIndexMetric",
@@ -145,7 +145,7 @@ func WithIndexMetric(indexMetric []string) *Option {
 	}
 }
 
-// WithInterval the interval for the second sampling of threads.
+// WithInterval - the interval for the second sampling of threads.
 func WithInterval(interval time.Time) *Option {
 	return &Option{
 		name: "WithInterval",
@@ -154,7 +154,7 @@ func WithInterval(interval time.Time) *Option {
 	}
 }
 
-// WithLevel return indices stats aggregated at index, node or shard level.
+// WithLevel - return indices stats aggregated at index, node or shard level.
 func WithLevel(level Level) *Option {
 	return &Option{
 		name: "WithLevel",
@@ -163,7 +163,7 @@ func WithLevel(level Level) *Option {
 	}
 }
 
-// WithMetric a comma-separated list of metrics you wish returned. Leave empty to return all.
+// WithMetric - a comma-separated list of metrics you wish returned. Leave empty to return all.
 func WithMetric(metric []string) *Option {
 	return &Option{
 		name: "WithMetric",
@@ -172,7 +172,7 @@ func WithMetric(metric []string) *Option {
 	}
 }
 
-// WithNodeID a comma-separated list of node IDs or names to limit the returned information; use "_local" to return information from the node you're connecting to, leave empty to get information from all nodes.
+// WithNodeID - a comma-separated list of node IDs or names to limit the returned information; use "_local" to return information from the node you're connecting to, leave empty to get information from all nodes.
 func WithNodeID(nodeID []string) *Option {
 	return &Option{
 		name: "WithNodeID",
@@ -181,7 +181,7 @@ func WithNodeID(nodeID []string) *Option {
 	}
 }
 
-// WithPretty pretty format the returned JSON response.
+// WithPretty - pretty format the returned JSON response.
 func WithPretty(pretty bool) *Option {
 	return &Option{
 		name: "WithPretty",
@@ -190,7 +190,7 @@ func WithPretty(pretty bool) *Option {
 	}
 }
 
-// WithSnapshots number of samples of thread stacktrace (default: 10).
+// WithSnapshots - number of samples of thread stacktrace (default: 10).
 func WithSnapshots(snapshots int) *Option {
 	return &Option{
 		name: "WithSnapshots",
@@ -199,7 +199,7 @@ func WithSnapshots(snapshots int) *Option {
 	}
 }
 
-// WithSourceParam the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+// WithSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 func WithSourceParam(sourceParam string) *Option {
 	return &Option{
 		name: "WithSourceParam",
@@ -208,7 +208,7 @@ func WithSourceParam(sourceParam string) *Option {
 	}
 }
 
-// WithThreads specify the number of threads to provide information for (default: 3).
+// WithThreads - specify the number of threads to provide information for (default: 3).
 func WithThreads(threads int) *Option {
 	return &Option{
 		name: "WithThreads",
@@ -217,7 +217,7 @@ func WithThreads(threads int) *Option {
 	}
 }
 
-// WithTimeout explicit operation timeout.
+// WithTimeout - explicit operation timeout.
 func WithTimeout(timeout time.Time) *Option {
 	return &Option{
 		name: "WithTimeout",

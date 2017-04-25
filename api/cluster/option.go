@@ -69,7 +69,7 @@ type Option struct {
 	apply func(r *http.Request)
 }
 
-// WithAllowNoIndices whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
+// WithAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
 func WithAllowNoIndices(allowNoIndices bool) *Option {
 	return &Option{
 		name: "WithAllowNoIndices",
@@ -78,7 +78,7 @@ func WithAllowNoIndices(allowNoIndices bool) *Option {
 	}
 }
 
-// WithDryRun simulate the operation only and return the resulting state.
+// WithDryRun - simulate the operation only and return the resulting state.
 func WithDryRun(dryRun bool) *Option {
 	return &Option{
 		name: "WithDryRun",
@@ -87,7 +87,7 @@ func WithDryRun(dryRun bool) *Option {
 	}
 }
 
-// WithErrorTrace include the stack trace of returned errors.
+// WithErrorTrace - include the stack trace of returned errors.
 func WithErrorTrace(errorTrace bool) *Option {
 	return &Option{
 		name: "WithErrorTrace",
@@ -96,7 +96,7 @@ func WithErrorTrace(errorTrace bool) *Option {
 	}
 }
 
-// WithExpandWildcards whether to expand wildcard expression to concrete indices that are open, closed or both.
+// WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
 func WithExpandWildcards(expandWildcards ExpandWildcards) *Option {
 	return &Option{
 		name: "WithExpandWildcards",
@@ -105,7 +105,7 @@ func WithExpandWildcards(expandWildcards ExpandWildcards) *Option {
 	}
 }
 
-// WithExplain return an explanation of why the commands can or cannot be executed.
+// WithExplain - return an explanation of why the commands can or cannot be executed.
 func WithExplain(explain bool) *Option {
 	return &Option{
 		name: "WithExplain",
@@ -114,7 +114,7 @@ func WithExplain(explain bool) *Option {
 	}
 }
 
-// WithFilterPath a comma-separated list of filters used to reduce the respone.
+// WithFilterPath - a comma-separated list of filters used to reduce the respone.
 func WithFilterPath(filterPath []string) *Option {
 	return &Option{
 		name: "WithFilterPath",
@@ -123,7 +123,7 @@ func WithFilterPath(filterPath []string) *Option {
 	}
 }
 
-// WithFlatSettings return settings in flat format (default: false).
+// WithFlatSettings - return settings in flat format (default: false).
 func WithFlatSettings(flatSettings bool) *Option {
 	return &Option{
 		name: "WithFlatSettings",
@@ -132,7 +132,7 @@ func WithFlatSettings(flatSettings bool) *Option {
 	}
 }
 
-// WithHuman return human readable values for statistics.
+// WithHuman - return human readable values for statistics.
 func WithHuman(human bool) *Option {
 	return &Option{
 		name: "WithHuman",
@@ -141,7 +141,7 @@ func WithHuman(human bool) *Option {
 	}
 }
 
-// WithIgnoreUnavailable whether specified concrete indices should be ignored when unavailable (missing or closed).
+// WithIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
 func WithIgnoreUnavailable(ignoreUnavailable bool) *Option {
 	return &Option{
 		name: "WithIgnoreUnavailable",
@@ -150,7 +150,7 @@ func WithIgnoreUnavailable(ignoreUnavailable bool) *Option {
 	}
 }
 
-// WithIncludeDefaults whether to return all default clusters setting.
+// WithIncludeDefaults - whether to return all default clusters setting.
 func WithIncludeDefaults(includeDefaults bool) *Option {
 	return &Option{
 		name: "WithIncludeDefaults",
@@ -159,7 +159,7 @@ func WithIncludeDefaults(includeDefaults bool) *Option {
 	}
 }
 
-// WithIncludeDiskInfo return information about disk usage and shard sizes (default: false).
+// WithIncludeDiskInfo - return information about disk usage and shard sizes (default: false).
 func WithIncludeDiskInfo(includeDiskInfo bool) *Option {
 	return &Option{
 		name: "WithIncludeDiskInfo",
@@ -168,7 +168,7 @@ func WithIncludeDiskInfo(includeDiskInfo bool) *Option {
 	}
 }
 
-// WithIncludeYesDecisions return 'YES' decisions in explanation (default: false).
+// WithIncludeYesDecisions - return 'YES' decisions in explanation (default: false).
 func WithIncludeYesDecisions(includeYesDecisions bool) *Option {
 	return &Option{
 		name: "WithIncludeYesDecisions",
@@ -177,7 +177,7 @@ func WithIncludeYesDecisions(includeYesDecisions bool) *Option {
 	}
 }
 
-// WithIndex limit the information returned to a specific index.
+// WithIndex - limit the information returned to a specific index.
 func WithIndex(index []string) *Option {
 	return &Option{
 		name: "WithIndex",
@@ -186,7 +186,7 @@ func WithIndex(index []string) *Option {
 	}
 }
 
-// WithLevel specify the level of detail for returned information.
+// WithLevel - specify the level of detail for returned information.
 func WithLevel(level Level) *Option {
 	return &Option{
 		name: "WithLevel",
@@ -195,7 +195,7 @@ func WithLevel(level Level) *Option {
 	}
 }
 
-// WithLocal return local information, do not retrieve the state from master node (default: false).
+// WithLocal - return local information, do not retrieve the state from master node (default: false).
 func WithLocal(local bool) *Option {
 	return &Option{
 		name: "WithLocal",
@@ -204,7 +204,7 @@ func WithLocal(local bool) *Option {
 	}
 }
 
-// WithMasterTimeout explicit operation timeout for connection to master node.
+// WithMasterTimeout - explicit operation timeout for connection to master node.
 func WithMasterTimeout(masterTimeout time.Time) *Option {
 	return &Option{
 		name: "WithMasterTimeout",
@@ -213,7 +213,7 @@ func WithMasterTimeout(masterTimeout time.Time) *Option {
 	}
 }
 
-// WithMetric limit the information returned to the specified metrics. Defaults to all but metadata.
+// WithMetric - limit the information returned to the specified metrics. Defaults to all but metadata.
 func WithMetric(metric []string) *Option {
 	return &Option{
 		name: "WithMetric",
@@ -222,7 +222,7 @@ func WithMetric(metric []string) *Option {
 	}
 }
 
-// WithNodeID a comma-separated list of node IDs or names to limit the returned information; use "_local" to return information from the node you're connecting to, leave empty to get information from all nodes.
+// WithNodeID - a comma-separated list of node IDs or names to limit the returned information; use "_local" to return information from the node you're connecting to, leave empty to get information from all nodes.
 func WithNodeID(nodeID []string) *Option {
 	return &Option{
 		name: "WithNodeID",
@@ -231,7 +231,7 @@ func WithNodeID(nodeID []string) *Option {
 	}
 }
 
-// WithPretty pretty format the returned JSON response.
+// WithPretty - pretty format the returned JSON response.
 func WithPretty(pretty bool) *Option {
 	return &Option{
 		name: "WithPretty",
@@ -240,7 +240,7 @@ func WithPretty(pretty bool) *Option {
 	}
 }
 
-// WithRetryFailed retries allocation of shards that are blocked due to too many subsequent allocation failures.
+// WithRetryFailed - retries allocation of shards that are blocked due to too many subsequent allocation failures.
 func WithRetryFailed(retryFailed bool) *Option {
 	return &Option{
 		name: "WithRetryFailed",
@@ -249,7 +249,7 @@ func WithRetryFailed(retryFailed bool) *Option {
 	}
 }
 
-// WithSourceParam the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+// WithSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 func WithSourceParam(sourceParam string) *Option {
 	return &Option{
 		name: "WithSourceParam",
@@ -258,7 +258,7 @@ func WithSourceParam(sourceParam string) *Option {
 	}
 }
 
-// WithTimeout explicit operation timeout.
+// WithTimeout - explicit operation timeout.
 func WithTimeout(timeout time.Time) *Option {
 	return &Option{
 		name: "WithTimeout",
@@ -267,7 +267,7 @@ func WithTimeout(timeout time.Time) *Option {
 	}
 }
 
-// WithWaitForActiveShards wait until the specified number of shards is active.
+// WithWaitForActiveShards - wait until the specified number of shards is active.
 func WithWaitForActiveShards(waitForActiveShards string) *Option {
 	return &Option{
 		name: "WithWaitForActiveShards",
@@ -276,7 +276,7 @@ func WithWaitForActiveShards(waitForActiveShards string) *Option {
 	}
 }
 
-// WithWaitForEvents wait until all currently queued events with the given priority are processed.
+// WithWaitForEvents - wait until all currently queued events with the given priority are processed.
 func WithWaitForEvents(waitForEvents WaitForEvents) *Option {
 	return &Option{
 		name: "WithWaitForEvents",
@@ -285,7 +285,7 @@ func WithWaitForEvents(waitForEvents WaitForEvents) *Option {
 	}
 }
 
-// WithWaitForNoRelocatingShards whether to wait until there are no relocating shards in the cluster.
+// WithWaitForNoRelocatingShards - whether to wait until there are no relocating shards in the cluster.
 func WithWaitForNoRelocatingShards(waitForNoRelocatingShards bool) *Option {
 	return &Option{
 		name: "WithWaitForNoRelocatingShards",
@@ -294,7 +294,7 @@ func WithWaitForNoRelocatingShards(waitForNoRelocatingShards bool) *Option {
 	}
 }
 
-// WithWaitForNodes wait until the specified number of nodes is available.
+// WithWaitForNodes - wait until the specified number of nodes is available.
 func WithWaitForNodes(waitForNodes string) *Option {
 	return &Option{
 		name: "WithWaitForNodes",
@@ -303,7 +303,7 @@ func WithWaitForNodes(waitForNodes string) *Option {
 	}
 }
 
-// WithWaitForStatus wait until cluster is in a specific state.
+// WithWaitForStatus - wait until cluster is in a specific state.
 func WithWaitForStatus(waitForStatus WaitForStatus) *Option {
 	return &Option{
 		name: "WithWaitForStatus",

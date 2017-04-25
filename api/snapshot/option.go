@@ -13,7 +13,7 @@ type Option struct {
 	apply func(r *http.Request)
 }
 
-// WithErrorTrace include the stack trace of returned errors.
+// WithErrorTrace - include the stack trace of returned errors.
 func WithErrorTrace(errorTrace bool) *Option {
 	return &Option{
 		name: "WithErrorTrace",
@@ -22,7 +22,7 @@ func WithErrorTrace(errorTrace bool) *Option {
 	}
 }
 
-// WithFilterPath a comma-separated list of filters used to reduce the respone.
+// WithFilterPath - a comma-separated list of filters used to reduce the respone.
 func WithFilterPath(filterPath []string) *Option {
 	return &Option{
 		name: "WithFilterPath",
@@ -31,7 +31,7 @@ func WithFilterPath(filterPath []string) *Option {
 	}
 }
 
-// WithHuman return human readable values for statistics.
+// WithHuman - return human readable values for statistics.
 func WithHuman(human bool) *Option {
 	return &Option{
 		name: "WithHuman",
@@ -40,7 +40,7 @@ func WithHuman(human bool) *Option {
 	}
 }
 
-// WithIgnoreUnavailable whether to ignore unavailable snapshots, defaults to false which means a SnapshotMissingException is thrown.
+// WithIgnoreUnavailable - whether to ignore unavailable snapshots, defaults to false which means a SnapshotMissingException is thrown.
 func WithIgnoreUnavailable(ignoreUnavailable bool) *Option {
 	return &Option{
 		name: "WithIgnoreUnavailable",
@@ -49,7 +49,7 @@ func WithIgnoreUnavailable(ignoreUnavailable bool) *Option {
 	}
 }
 
-// WithLocal return local information, do not retrieve the state from master node (default: false).
+// WithLocal - return local information, do not retrieve the state from master node (default: false).
 func WithLocal(local bool) *Option {
 	return &Option{
 		name: "WithLocal",
@@ -58,7 +58,7 @@ func WithLocal(local bool) *Option {
 	}
 }
 
-// WithMasterTimeout explicit operation timeout for connection to master node.
+// WithMasterTimeout - explicit operation timeout for connection to master node.
 func WithMasterTimeout(masterTimeout time.Time) *Option {
 	return &Option{
 		name: "WithMasterTimeout",
@@ -67,7 +67,7 @@ func WithMasterTimeout(masterTimeout time.Time) *Option {
 	}
 }
 
-// WithPretty pretty format the returned JSON response.
+// WithPretty - pretty format the returned JSON response.
 func WithPretty(pretty bool) *Option {
 	return &Option{
 		name: "WithPretty",
@@ -76,7 +76,7 @@ func WithPretty(pretty bool) *Option {
 	}
 }
 
-// WithRepository a comma-separated list of repository names.
+// WithRepository - a comma-separated list of repository names.
 func WithRepository(repository []string) *Option {
 	return &Option{
 		name: "WithRepository",
@@ -85,7 +85,7 @@ func WithRepository(repository []string) *Option {
 	}
 }
 
-// WithSourceParam the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+// WithSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 func WithSourceParam(sourceParam string) *Option {
 	return &Option{
 		name: "WithSourceParam",
@@ -94,7 +94,7 @@ func WithSourceParam(sourceParam string) *Option {
 	}
 }
 
-// WithTimeout explicit operation timeout.
+// WithTimeout - explicit operation timeout.
 func WithTimeout(timeout time.Time) *Option {
 	return &Option{
 		name: "WithTimeout",
@@ -103,7 +103,7 @@ func WithTimeout(timeout time.Time) *Option {
 	}
 }
 
-// WithVerify whether to verify the repository after creation.
+// WithVerify - whether to verify the repository after creation.
 func WithVerify(verify bool) *Option {
 	return &Option{
 		name: "WithVerify",
@@ -112,7 +112,7 @@ func WithVerify(verify bool) *Option {
 	}
 }
 
-// WithWaitForCompletion should this request wait until the operation has completed before returning.
+// WithWaitForCompletion - should this request wait until the operation has completed before returning.
 func WithWaitForCompletion(waitForCompletion bool) *Option {
 	return &Option{
 		name: "WithWaitForCompletion",
