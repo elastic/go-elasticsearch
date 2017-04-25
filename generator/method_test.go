@@ -94,4 +94,12 @@ func TestNormalizeParams(t *testing.T) {
 		}
 		names[p.Name] = struct{}{}
 	}
+	if len(names) != len(m.OptionalParams) {
+		t.Fatalf("Not all params had unique names")
+	}
+	for _, name := range []string{"fields", "fieldsParam"} {
+		if _, ok := names[name]; !ok {
+			t.Fatalf("Could not find %q in %s", name, names)
+		}
+	}
 }
