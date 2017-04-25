@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-// Conflicts - what to do when the delete-by-query hits version conflicts?.
+// Conflicts - what to do when the delete-by-query hits version conflicts?
 type Conflicts int
 
 const (
@@ -90,7 +90,7 @@ func WithBatchedReduceSize(batchedReduceSize int) Option {
 	}
 }
 
-// WithConflicts what to do when the delete-by-query hits version conflicts?.
+// WithConflicts what to do when the delete-by-query hits version conflicts?
 func WithConflicts(conflicts Conflicts) Option {
 	return func(r *http.Request) {
 	}

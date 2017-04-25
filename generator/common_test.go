@@ -20,12 +20,11 @@
 package generator
 
 import (
-	"path/filepath"
 	"testing"
 )
 
 func TestResolve(t *testing.T) {
-	params, err := newCommonParams(filepath.Join("..", DefaultSpecDir, commonParamsSpecFile))
+	params, err := newCommonParams("testdata/_common.json")
 	if err != nil {
 		t.Fatal(err)
 	}

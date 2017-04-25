@@ -22,7 +22,6 @@ package generator
 import (
 	"bytes"
 	"io"
-	"path/filepath"
 	"strings"
 	"testing"
 
@@ -38,7 +37,7 @@ func (d *dummyCloser) Close() error {
 }
 
 func newIndexMethod(t *testing.T) *method {
-	m, err := newMethod(filepath.Join("..", DefaultSpecDir, "index.json"), nil)
+	m, err := newMethod("testdata/index.json", nil)
 	if err != nil {
 		t.Fatal(err)
 	}

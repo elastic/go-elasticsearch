@@ -27,7 +27,7 @@ GOLINT_REPO = github.com/golang/lint/$(GOLINT)
 SPEC_DIR = spec
 
 .PHONY: build
-build: gen
+build:
 	$(GO) build $(GO_PACKAGES)
 
 .PHONY: gen

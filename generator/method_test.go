@@ -83,7 +83,7 @@ func (c *Client) Index(documentType string, index string, body map[string]interf
 }
 
 func TestNormalizeParams(t *testing.T) {
-	m, err := newMethod(filepath.Join("..", DefaultSpecDir, "cat.fielddata.json"), nil)
+	m, err := newMethod("testdata/cat.fielddata.json", nil)
 	if err != nil {
 		t.Fatal(err)
 	}
