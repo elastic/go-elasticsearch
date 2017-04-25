@@ -13,7 +13,7 @@ import (
 //
 // index: the name of the index.
 //
-// body: the configuration for the index (settings and mappings).
+// body: the configuration for the index ("settings" and "mappings").
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithMasterTimeout, WithPretty, WithSourceParam, WithTimeout, WithUpdateAllTypes, WithWaitForActiveShards, see the Option type in this package for more info.
 func (i *Indices) Create(index string, body map[string]interface{}, options ...Option) (*http.Response, error) {

@@ -11,11 +11,11 @@ import (
 
 // PutAlias - APIs in Elasticsearch accept an index name when working against a specific index, and several indices when applicable. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html for more info.
 //
-// index: a comma-separated list of index names the alias should point to (supports wildcards); use _all to perform the operation on all indices.
+// index: a comma-separated list of index names the alias should point to (supports wildcards); use "_all" to perform the operation on all indices.
 //
 // name: the name of the alias to be created or updated.
 //
-// body: the settings for the alias, such as routing or filter.
+// body: the settings for the alias, such as "routing" or "filter".
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithMasterTimeout, WithPretty, WithSourceParam, WithTimeout, see the Option type in this package for more info.
 func (i *Indices) PutAlias(index []string, name string, body map[string]interface{}, options ...Option) (*http.Response, error) {

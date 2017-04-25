@@ -11,7 +11,7 @@ import (
 
 // UpdateAliases - APIs in Elasticsearch accept an index name when working against a specific index, and several indices when applicable. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html for more info.
 //
-// body: the definition of actions to perform.
+// body: the definition of "actions" to perform.
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithMasterTimeout, WithPretty, WithSourceParam, WithTimeout, see the Option type in this package for more info.
 func (i *Indices) UpdateAliases(body map[string]interface{}, options ...Option) (*http.Response, error) {

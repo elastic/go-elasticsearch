@@ -56,7 +56,7 @@ func WithAllShards(allShards bool) Option {
 	}
 }
 
-// WithAllowNoIndices whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes _all string or when no indices have been specified).
+// WithAllowNoIndices whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
 func WithAllowNoIndices(allowNoIndices bool) Option {
 	return func(r *http.Request) {
 	}
@@ -74,7 +74,7 @@ func WithAnalyzer(analyzer string) Option {
 	}
 }
 
-// WithCompletionFields a comma-separated list of fields for fielddata and suggest index metric (supports wildcards).
+// WithCompletionFields a comma-separated list of fields for "fielddata" and "suggest" index metric (supports wildcards).
 func WithCompletionFields(completionFields []string) Option {
 	return func(r *http.Request) {
 	}
@@ -140,13 +140,13 @@ func WithFielddata(fielddata bool) Option {
 	}
 }
 
-// WithFielddataFields a comma-separated list of fields for fielddata index metric (supports wildcards).
+// WithFielddataFields a comma-separated list of fields for "fielddata" index metric (supports wildcards).
 func WithFielddataFields(fielddataFields []string) Option {
 	return func(r *http.Request) {
 	}
 }
 
-// WithFields a comma-separated list of fields to clear when using the field_data parameter (default: all).
+// WithFields a comma-separated list of fields to clear when using the "field_data" parameter (default: all).
 func WithFields(fields []string) Option {
 	return func(r *http.Request) {
 	}
@@ -236,7 +236,7 @@ func WithOrder(order int) Option {
 	}
 }
 
-// WithPreferLocal with true, specify that a local shard should be used if available, with false, use a random shard (default: true).
+// WithPreferLocal with "true", specify that a local shard should be used if available, with "false", use a random shard (default: true).
 func WithPreferLocal(preferLocal bool) Option {
 	return func(r *http.Request) {
 	}

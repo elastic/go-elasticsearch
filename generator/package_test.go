@@ -53,7 +53,7 @@ const (
 	OpTypeCreate = iota
 )
 
-// Refresh - if true then refresh the affected shards to make this operation visible to search, if wait_for then wait for a refresh to make this operation visible to search, if false (the default) then do nothing with refreshes.
+// Refresh - if "true" then refresh the affected shards to make this operation visible to search, if "wait_for" then wait for a refresh to make this operation visible to search, if "false" (the default) then do nothing with refreshes.
 type Refresh int
 const (
 	// RefreshTrue can be used to set Refresh to "true"
@@ -104,7 +104,7 @@ func WithPipeline(pipeline string) Option {
 	}
 }
 
-// WithRefresh if true then refresh the affected shards to make this operation visible to search, if wait_for then wait for a refresh to make this operation visible to search, if false (the default) then do nothing with refreshes.
+// WithRefresh if "true" then refresh the affected shards to make this operation visible to search, if "wait_for" then wait for a refresh to make this operation visible to search, if "false" (the default) then do nothing with refreshes.
 func WithRefresh(refresh Refresh) Option {
 	return func(r *http.Request) {
 	}
@@ -146,7 +146,7 @@ func WithVersionType(versionType VersionType) Option {
 	}
 }
 
-// WithWaitForActiveShards sets the number of shard copies that must be active before proceeding with the index operation. Defaults to 1, meaning the primary shard only. Set to all for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1).
+// WithWaitForActiveShards sets the number of shard copies that must be active before proceeding with the index operation. Defaults to 1, meaning the primary shard only. Set to "all" for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1).
 func WithWaitForActiveShards(waitForActiveShards string) Option {
 	return func(r *http.Request) {
 	}

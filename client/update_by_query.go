@@ -11,7 +11,7 @@ import (
 
 // UpdateByQuery - see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-update-by-query.html for more info.
 //
-// index: a comma-separated list of index names to search; use _all or empty string to perform the operation on all indices.
+// index: a comma-separated list of index names to search; use "_all" or empty string to perform the operation on all indices.
 //
 // body: the search definition using the Query DSL.
 //

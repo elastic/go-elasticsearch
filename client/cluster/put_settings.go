@@ -11,7 +11,7 @@ import (
 
 // PutSettings - allows to update cluster wide specific settings. See http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-update-settings.html for more info.
 //
-// body: the settings to be updated. Can be either transient or persistent (survives cluster restart).
+// body: the settings to be updated. Can be either "transient" or "persistent" (survives cluster restart).
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithFlatSettings, WithHuman, WithMasterTimeout, WithPretty, WithSourceParam, WithTimeout, see the Option type in this package for more info.
 func (c *Cluster) PutSettings(body map[string]interface{}, options ...Option) (*http.Response, error) {

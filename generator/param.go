@@ -50,7 +50,7 @@ func formatToken(index int, token string) string {
 	if index == 0 && token != "APIs" && (len(token) == 1 || strings.ToUpper(token) != token) {
 		token = strings.ToLower(string(token[0])) + token[1:]
 	}
-	return strings.Replace(token, "`", "", -1)
+	return strings.Replace(token, "`", "\"", -1)
 }
 
 func formatDescription(description string) string {
@@ -62,8 +62,11 @@ func formatDescription(description string) string {
 		}
 		formatted += token
 	}
-	// TODO: investigate the "?" case
-	if !strings.HasSuffix(formatted, ".") && !strings.HasSuffix(formatted, "?") {
+	switch formatted[len(formatted)-1] {
+	case '.':
+		// TODO: investigate the "?" case
+	case '?':
+	default:
 		formatted += "."
 	}
 	return formatted

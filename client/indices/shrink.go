@@ -15,7 +15,7 @@ import (
 //
 // target: the name of the target index to shrink into.
 //
-// body: the configuration for the target index (settings and aliases).
+// body: the configuration for the target index ("settings" and "aliases").
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithMasterTimeout, WithPretty, WithSourceParam, WithTimeout, WithWaitForActiveShards, see the Option type in this package for more info.
 func (i *Indices) Shrink(index string, target string, body map[string]interface{}, options ...Option) (*http.Response, error) {

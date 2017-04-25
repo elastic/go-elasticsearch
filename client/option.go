@@ -51,7 +51,7 @@ const (
 	OpTypeCreate = iota
 )
 
-// Refresh - if true then refresh the effected shards to make this operation visible to search, if wait_for then wait for a refresh to make this operation visible to search, if false (the default) then do nothing with refreshes.
+// Refresh - if "true" then refresh the effected shards to make this operation visible to search, if "wait_for" then wait for a refresh to make this operation visible to search, if "false" (the default) then do nothing with refreshes.
 type Refresh int
 
 const (
@@ -66,7 +66,7 @@ const (
 // Option is a non-required API option that gets applied to an HTTP request.
 type Option func(r *http.Request)
 
-// WithAllowNoIndices whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes _all string or when no indices have been specified).
+// WithAllowNoIndices whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
 func WithAllowNoIndices(allowNoIndices bool) Option {
 	return func(r *http.Request) {
 	}
@@ -198,7 +198,7 @@ func WithPretty(pretty bool) Option {
 	}
 }
 
-// WithRefresh if true then refresh the effected shards to make this operation visible to search, if wait_for then wait for a refresh to make this operation visible to search, if false (the default) then do nothing with refreshes.
+// WithRefresh if "true" then refresh the effected shards to make this operation visible to search, if "wait_for" then wait for a refresh to make this operation visible to search, if "false" (the default) then do nothing with refreshes.
 func WithRefresh(refresh Refresh) Option {
 	return func(r *http.Request) {
 	}
@@ -258,7 +258,7 @@ func WithTimeout(timeout time.Time) Option {
 	}
 }
 
-// WithWaitForActiveShards sets the number of shard copies that must be active before proceeding with the bulk operation. Defaults to 1, meaning the primary shard only. Set to all for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1).
+// WithWaitForActiveShards sets the number of shard copies that must be active before proceeding with the bulk operation. Defaults to 1, meaning the primary shard only. Set to "all" for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1).
 func WithWaitForActiveShards(waitForActiveShards string) Option {
 	return func(r *http.Request) {
 	}

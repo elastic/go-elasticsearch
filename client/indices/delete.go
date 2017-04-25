@@ -11,7 +11,7 @@ import (
 
 // Delete - the delete index API allows to delete an existing index. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-delete-index.html for more info.
 //
-// index: a comma-separated list of indices to delete; use _all or * string to delete all indices.
+// index: a comma-separated list of indices to delete; use "_all" or "*" string to delete all indices.
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithMasterTimeout, WithPretty, WithSourceParam, WithTimeout, see the Option type in this package for more info.
 func (i *Indices) Delete(index []string, options ...Option) (*http.Response, error) {

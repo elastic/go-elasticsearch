@@ -11,7 +11,7 @@ import (
 
 // Mget - multi GET API allows to get multiple documents based on an index, type (optional) and id (and possibly routing). See http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-multi-get.html for more info.
 //
-// body: document identifiers; can be either docs (containing full document information) or ids (when index and type is provided in the URL.
+// body: document identifiers; can be either "docs" (containing full document information) or "ids" (when index and type is provided in the URL.
 //
 // options: optional parameters. Supports the following functional options: WithType, WithErrorTrace, WithFilterPath, WithHuman, WithIndex, WithPreference, WithPretty, WithRealtime, WithRefresh, WithRouting, WithSource, WithSourceExclude, WithSourceInclude, WithSourceParam, WithStoredFields, see the Option type in this package for more info.
 func (c *Client) Mget(body map[string]interface{}, options ...Option) (*http.Response, error) {

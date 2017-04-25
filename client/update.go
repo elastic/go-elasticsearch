@@ -17,7 +17,7 @@ import (
 //
 // index: the name of the index.
 //
-// body: the request definition using either script or partial doc.
+// body: the request definition using either "script" or partial "doc".
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFields, WithFilterPath, WithHuman, WithLang, WithParent, WithPretty, WithRefresh, WithRetryOnConflict, WithRouting, WithSource, WithSourceExclude, WithSourceInclude, WithSourceParam, WithTimeout, WithTimestamp, WithTTL, WithVersion, WithVersionType, WithWaitForActiveShards, see the Option type in this package for more info.
 func (c *Client) Update(documentType string, id string, index string, body map[string]interface{}, options ...Option) (*http.Response, error) {

@@ -66,7 +66,7 @@ const (
 // Option is a non-required API option that gets applied to an HTTP request.
 type Option func(r *http.Request)
 
-// WithAllowNoIndices whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes _all string or when no indices have been specified).
+// WithAllowNoIndices whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
 func WithAllowNoIndices(allowNoIndices bool) Option {
 	return func(r *http.Request) {
 	}
@@ -168,7 +168,7 @@ func WithMetric(metric []string) Option {
 	}
 }
 
-// WithNodeID a comma-separated list of node IDs or names to limit the returned information; use _local to return information from the node you're connecting to, leave empty to get information from all nodes.
+// WithNodeID a comma-separated list of node IDs or names to limit the returned information; use "_local" to return information from the node you're connecting to, leave empty to get information from all nodes.
 func WithNodeID(nodeID []string) Option {
 	return func(r *http.Request) {
 	}

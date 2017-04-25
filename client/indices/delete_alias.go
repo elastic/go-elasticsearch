@@ -11,9 +11,9 @@ import (
 
 // DeleteAlias - APIs in Elasticsearch accept an index name when working against a specific index, and several indices when applicable. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html for more info.
 //
-// index: a comma-separated list of index names (supports wildcards); use _all for all indices.
+// index: a comma-separated list of index names (supports wildcards); use "_all" for all indices.
 //
-// name: a comma-separated list of aliases to delete (supports wildcards); use _all to delete all aliases for the specified indices.
+// name: a comma-separated list of aliases to delete (supports wildcards); use "_all" to delete all aliases for the specified indices.
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithMasterTimeout, WithPretty, WithSourceParam, WithTimeout, see the Option type in this package for more info.
 func (i *Indices) DeleteAlias(index []string, name []string, options ...Option) (*http.Response, error) {

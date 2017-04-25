@@ -13,7 +13,7 @@ import (
 //
 // documentType: a comma-separated list of document types to check.
 //
-// index: a comma-separated list of index names; use _all to check the types across all indices.
+// index: a comma-separated list of index names; use "_all" to check the types across all indices.
 //
 // options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithLocal, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) ExistsType(documentType []string, index []string, options ...Option) (*http.Response, error) {

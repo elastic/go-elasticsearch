@@ -11,7 +11,7 @@ import (
 
 // Reroute - the reroute command allows to explicitly execute a cluster reroute allocation command including specific commands. See http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-reroute.html for more info.
 //
-// body: the definition of commands to perform (move, cancel, allocate).
+// body: the definition of "commands" to perform ("move", "cancel", "allocate").
 //
 // options: optional parameters. Supports the following functional options: WithDryRun, WithErrorTrace, WithExplain, WithFilterPath, WithHuman, WithMasterTimeout, WithMetric, WithPretty, WithRetryFailed, WithSourceParam, WithTimeout, see the Option type in this package for more info.
 func (c *Cluster) Reroute(body map[string]interface{}, options ...Option) (*http.Response, error) {

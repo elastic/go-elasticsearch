@@ -34,7 +34,7 @@ const (
 // Option is a non-required API option that gets applied to an HTTP request.
 type Option func(r *http.Request)
 
-// WithCompletionFields a comma-separated list of fields for fielddata and suggest index metric (supports wildcards).
+// WithCompletionFields a comma-separated list of fields for "fielddata" and "suggest" index metric (supports wildcards).
 func WithCompletionFields(completionFields []string) Option {
 	return func(r *http.Request) {
 	}
@@ -52,13 +52,13 @@ func WithErrorTrace(errorTrace bool) Option {
 	}
 }
 
-// WithFielddataFields a comma-separated list of fields for fielddata index metric (supports wildcards).
+// WithFielddataFields a comma-separated list of fields for "fielddata" index metric (supports wildcards).
 func WithFielddataFields(fielddataFields []string) Option {
 	return func(r *http.Request) {
 	}
 }
 
-// WithFields a comma-separated list of fields for fielddata and completion index metric (supports wildcards).
+// WithFields a comma-separated list of fields for "fielddata" and "completion" index metric (supports wildcards).
 func WithFields(fields []string) Option {
 	return func(r *http.Request) {
 	}
@@ -76,7 +76,7 @@ func WithFlatSettings(flatSettings bool) Option {
 	}
 }
 
-// WithGroups a comma-separated list of search groups for search index metric.
+// WithGroups a comma-separated list of search groups for "search" index metric.
 func WithGroups(groups bool) Option {
 	return func(r *http.Request) {
 	}
@@ -100,7 +100,7 @@ func WithIncludeSegmentFileSizes(includeSegmentFileSizes bool) Option {
 	}
 }
 
-// WithIndexMetric limit the information returned for indices metric to the specific index metrics. Isn't used if indices (or all) metric isn't specified.
+// WithIndexMetric limit the information returned for "indices" metric to the specific index metrics. Isn't used if "indices" (or "all") metric isn't specified.
 func WithIndexMetric(indexMetric []string) Option {
 	return func(r *http.Request) {
 	}
@@ -124,7 +124,7 @@ func WithMetric(metric []string) Option {
 	}
 }
 
-// WithNodeID a comma-separated list of node IDs or names to limit the returned information; use _local to return information from the node you're connecting to, leave empty to get information from all nodes.
+// WithNodeID a comma-separated list of node IDs or names to limit the returned information; use "_local" to return information from the node you're connecting to, leave empty to get information from all nodes.
 func WithNodeID(nodeID []string) Option {
 	return func(r *http.Request) {
 	}
