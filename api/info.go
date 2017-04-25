@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Info - see http://www.elastic.co/guide/.
+// Info - thanks for subscribing! We'll keep you updated with new releases. See https://www.elastic.co/guide/ for more info.
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (a *API) Info(options ...*Option) (*http.Response, error) {

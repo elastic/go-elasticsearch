@@ -8,28 +8,22 @@ import (
 	"net/url"
 )
 
-// SearchTemplate - see https://www.elastic.co/guide/en/elasticsearch/reference/current/search-template.html for more info.
+// Mpercolate - for indices created on or after version 5.0.0-alpha1 the percolator automatically indexes the query terms with the percolator queries. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-percolate.html for more info.
 //
-// body: the search definition template and its params.
+// body: the percolate request definitions (header & body pair), separated by newlines.
 //
-// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithType, WithErrorTrace, WithExpandWildcards, WithExplain, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithPreference, WithPretty, WithProfile, WithRouting, WithScroll, WithSearchType, WithSourceParam, see the Option type in this package for more info.
-func (a *API) SearchTemplate(body map[string]interface{}, options ...*Option) (*http.Response, error) {
+// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithType, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (a *API) Mpercolate(body map[string]interface{}, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithAllowNoIndices":    struct{}{},
 		"WithType":              struct{}{},
 		"WithErrorTrace":        struct{}{},
 		"WithExpandWildcards":   struct{}{},
-		"WithExplain":           struct{}{},
 		"WithFilterPath":        struct{}{},
 		"WithHuman":             struct{}{},
 		"WithIgnoreUnavailable": struct{}{},
 		"WithIndex":             struct{}{},
-		"WithPreference":        struct{}{},
 		"WithPretty":            struct{}{},
-		"WithProfile":           struct{}{},
-		"WithRouting":           struct{}{},
-		"WithScroll":            struct{}{},
-		"WithSearchType":        struct{}{},
 		"WithSourceParam":       struct{}{},
 	}
 	req := &http.Request{

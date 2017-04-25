@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Ping - see http://www.elastic.co/guide/.
+// Ping - thanks for subscribing! We'll keep you updated with new releases. See https://www.elastic.co/guide/ for more info.
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (a *API) Ping(options ...*Option) (*http.Response, error) {

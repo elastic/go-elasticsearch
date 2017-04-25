@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// GetFieldMapping - the get field mapping API allows you to retrieve mapping definitions for one or more fields. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-field-mapping.html for more info.
+// GetFieldMapping - the get field mapping API allows you to retrieve mapping definitions for one or more fields. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-get-field-mapping.html for more info.
 //
 // fields: a comma-separated list of fields.
 //

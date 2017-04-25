@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Health - see http://www.elastic.co/guide/en/elasticsearch/reference/master/cat-health.html for more info.
+// Health - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-health.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithFormat, WithH, WithHelp, WithHuman, WithLocal, WithMasterTimeout, WithPretty, WithS, WithSourceParam, WithTs, WithV, see the Option type in this package for more info.
 func (c *Cat) Health(options ...*Option) (*http.Response, error) {

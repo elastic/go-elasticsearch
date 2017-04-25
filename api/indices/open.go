@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Open - the open and close index APIs allow to close an index, and later on opening it. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-open-close.html for more info.
+// Open - the open and close index APIs allow to close an index, and later on opening it. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-open-close.html for more info.
 //
 // index: a comma separated list of indices to open.
 //

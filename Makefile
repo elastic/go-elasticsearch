@@ -26,6 +26,10 @@ GOLINT = golint
 GOLINT_REPO = github.com/golang/lint/$(GOLINT)
 SPEC_DIR = spec
 GEN_DIR = api
+VERSION_FILE = $(GEN_DIR)/VERSION
+DOCKER = docker
+DOCKER_IMAGE = docker.elastic.co/elasticsearch/elasticsearch
+DOCKER_CONTAINER = goelasticsearch-elasticsearch
 
 .PHONY: build
 build:
@@ -37,6 +41,8 @@ gen: spec
 	$(GO) run ./cmd/generator/main.go -alsologtostderr
 	@$(GO) get $(GOIMPORTS_REPO)
 	$(GOIMPORTS) -w $(GEN_DIR)
+	(cd $(SPEC_DIR)/elasticsearch && git describe --tags) > $(VERSION_FILE)
+	git add $(GEN_DIR)
 	$(MAKE) build
 
 .PHONY: spec
@@ -47,12 +53,25 @@ spec:
 spec-update: spec
 	$(MAKE) -C $(SPEC_DIR) pull
 
+# TODO: wait for warmup
+.PHONY: docker-start
+docker-start:
+	$(DOCKER) run --name $(DOCKER_CONTAINER) -d -p 9200:9200 -e "http.host=0.0.0.0" -e "transport.host=127.0.0.1" -e "xpack.security.enabled=false" $(DOCKER_IMAGE):$(shell cat ${VERSION_FILE} | cut -c2-)
+
+.PHONY: docker-stop
+docker-stop:
+	$(DOCKER) stop $(DOCKER_CONTAINER)
+	$(DOCKER) rm $(DOCKER_CONTAINER)
+
 .PHONY: test
 test: build
 	$(GO) test $(GO_PACKAGES)
 
 .PHONY: check
-check: test
+check:
+	$(MAKE) docker-start
+	$(MAKE) test
+	$(MAKE) docker-stop
 	$(MAKE) lint check-imports
 
 .PHONY: check-imports

@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Indices - see http://www.elastic.co/guide/en/elasticsearch/reference/master/cat-indices.html for more info.
+// Indices - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-indices.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithBytes, WithErrorTrace, WithFilterPath, WithFormat, WithH, WithHealth, WithHelp, WithHuman, WithIndex, WithLocal, WithMasterTimeout, WithPretty, WithPri, WithS, WithSourceParam, WithV, see the Option type in this package for more info.
 func (c *Cat) Indices(options ...*Option) (*http.Response, error) {

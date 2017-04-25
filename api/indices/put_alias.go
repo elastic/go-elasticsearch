@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// PutAlias - APIs in Elasticsearch accept an index name when working against a specific index, and several indices when applicable. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html for more info.
+// PutAlias - APIs in Elasticsearch accept an index name when working against a specific index, and several indices when applicable. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-aliases.html for more info.
 //
 // index: a comma-separated list of index names the alias should point to (supports wildcards); use "_all" to perform the operation on all indices.
 //

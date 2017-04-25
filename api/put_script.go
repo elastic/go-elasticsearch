@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// PutScript - the scripting module enables you to use scripts to evaluate custom expressions. See http://www.elastic.co/guide/en/elasticsearch/reference/master/modules-scripting.html for more info.
+// PutScript - the scripting module enables you to use scripts to evaluate custom expressions. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/modules-scripting.html for more info.
 //
 // id: script ID.
 //

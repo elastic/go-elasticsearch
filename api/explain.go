@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Explain - the explain api computes a score explanation for a query and a specific document. See http://www.elastic.co/guide/en/elasticsearch/reference/master/search-explain.html for more info.
+// Explain - the explain api computes a score explanation for a query and a specific document. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-explain.html for more info.
 //
 // documentType: the type of the document.
 //

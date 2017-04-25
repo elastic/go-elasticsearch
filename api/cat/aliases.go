@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Aliases - see http://www.elastic.co/guide/en/elasticsearch/reference/master/cat-alias.html for more info.
+// Aliases - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-alias.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithFormat, WithH, WithHelp, WithHuman, WithLocal, WithMasterTimeout, WithName, WithPretty, WithS, WithSourceParam, WithV, see the Option type in this package for more info.
 func (c *Cat) Aliases(options ...*Option) (*http.Response, error) {

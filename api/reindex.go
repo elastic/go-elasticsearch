@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Reindex - reindex does not attempt to set up the destination index. See https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-reindex.html for more info.
+// Reindex - reindex does not attempt to set up the destination index. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-reindex.html for more info.
 //
 // body: the search definition using the Query DSL and the prototype for the index request.
 //

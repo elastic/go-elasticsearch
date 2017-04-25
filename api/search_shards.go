@@ -8,12 +8,13 @@ import (
 	"net/url"
 )
 
-// SearchShards - the search shards api returns the indices and shards that a search request would be executed against. See http://www.elastic.co/guide/en/elasticsearch/reference/master/search-shards.html for more info.
+// SearchShards - the search shards api returns the indices and shards that a search request would be executed against. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-shards.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithLocal, WithPreference, WithPretty, WithRouting, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithType, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithLocal, WithPreference, WithPretty, WithRouting, WithSourceParam, see the Option type in this package for more info.
 func (a *API) SearchShards(options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithAllowNoIndices":    struct{}{},
+		"WithType":              struct{}{},
 		"WithErrorTrace":        struct{}{},
 		"WithExpandWildcards":   struct{}{},
 		"WithFilterPath":        struct{}{},

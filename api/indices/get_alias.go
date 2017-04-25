@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// GetAlias - APIs in Elasticsearch accept an index name when working against a specific index, and several indices when applicable. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html for more info.
+// GetAlias - APIs in Elasticsearch accept an index name when working against a specific index, and several indices when applicable. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-aliases.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithLocal, WithName, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) GetAlias(options ...*Option) (*http.Response, error) {

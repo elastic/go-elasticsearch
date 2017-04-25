@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Cancel - the task management API allows to retrieve information about the tasks currently executing on one or more nodes in the cluster. See http://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html for more info.
+// Cancel - the task management API allows to retrieve information about the tasks currently executing on one or more nodes in the cluster. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/tasks.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithActions, WithErrorTrace, WithFilterPath, WithHuman, WithNodeID, WithParentNode, WithParentTask, WithPretty, WithSourceParam, WithTaskID, see the Option type in this package for more info.
 func (t *Tasks) Cancel(options ...*Option) (*http.Response, error) {

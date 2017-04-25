@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// ExistsType - used to check if a type/types exists in an index/indices. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-types-exists.html for more info.
+// ExistsType - used to check if a type/types exists in an index/indices. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-types-exists.html for more info.
 //
 // documentType: a comma-separated list of document types to check.
 //

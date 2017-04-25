@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// FieldStats - this functionality is experimental and may be changed or removed completely in a future release. See http://www.elastic.co/guide/en/elasticsearch/reference/master/search-field-stats.html for more info.
+// FieldStats - this functionality is experimental and may be changed or removed completely in a future release. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-field-stats.html for more info.
 //
 // body: field json objects containing the name and optionally a range to filter out indices result, that have results outside the defined bounds.
 //

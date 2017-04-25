@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Repositories - see http://www.elastic.co/guide/en/elasticsearch/reference/master/cat-repositories.html for more info.
+// Repositories - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-repositories.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithFormat, WithH, WithHelp, WithHuman, WithLocal, WithMasterTimeout, WithPretty, WithS, WithSourceParam, WithV, see the Option type in this package for more info.
 func (c *Cat) Repositories(options ...*Option) (*http.Response, error) {

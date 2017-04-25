@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Create - the index API adds or updates a typed JSON document in a specific index, making it searchable. See http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html for more info.
+// Create - the index API adds or updates a typed JSON document in a specific index, making it searchable. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-index_.html for more info.
 //
 // documentType: the type of the document.
 //

@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// GetTemplate - see http://www.elastic.co/guide/en/elasticsearch/reference/master/search-template.html for more info.
+// GetTemplate - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-template.html for more info.
 //
 // id: template ID.
 //

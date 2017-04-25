@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// HotThreads - an API allowing to get the current hot threads on each node in the cluster. See http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-hot-threads.html for more info.
+// HotThreads - an API allowing to get the current hot threads on each node in the cluster. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-nodes-hot-threads.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithType, WithErrorTrace, WithFilterPath, WithHuman, WithIgnoreIdleThreads, WithInterval, WithNodeID, WithPretty, WithSnapshots, WithSourceParam, WithThreads, WithTimeout, see the Option type in this package for more info.
 func (n *Nodes) HotThreads(options ...*Option) (*http.Response, error) {

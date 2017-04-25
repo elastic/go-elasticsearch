@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// State - the cluster state API allows to get a comprehensive state information of the whole cluster. See http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-state.html for more info.
+// State - the cluster state API allows to get a comprehensive state information of the whole cluster. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-state.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithFlatSettings, WithHuman, WithIgnoreUnavailable, WithIndex, WithLocal, WithMasterTimeout, WithMetric, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (c *Cluster) State(options ...*Option) (*http.Response, error) {

@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// ShardStores - provides store information for shard copies of indices. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-shards-stores.html for more info.
+// ShardStores - provides store information for shard copies of indices. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-shards-stores.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithOperationThreading, WithPretty, WithSourceParam, WithStatus, see the Option type in this package for more info.
 func (i *Indices) ShardStores(options ...*Option) (*http.Response, error) {

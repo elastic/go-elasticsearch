@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Scroll - see http://www.elastic.co/guide/en/elasticsearch/reference/master/search-request-scroll.html for more info.
+// Scroll - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-request-scroll.html for more info.
 //
 // body: the scroll ID if not passed by URL or query parameter.
 //

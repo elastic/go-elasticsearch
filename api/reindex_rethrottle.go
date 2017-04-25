@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// ReindexRethrottle - reindex does not attempt to set up the destination index. See https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-reindex.html for more info.
+// ReindexRethrottle - reindex does not attempt to set up the destination index. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-reindex.html for more info.
 //
 // requestsPerSecond: the throttle to set on this request in floating sub-requests per second. -1 means set no throttle.
 //

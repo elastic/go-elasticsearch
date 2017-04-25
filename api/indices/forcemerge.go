@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Forcemerge - the force merge API allows to force merging of one or more indices through an API. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-forcemerge.html for more info.
+// Forcemerge - the force merge API allows to force merging of one or more indices through an API. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-forcemerge.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithFlush, WithHuman, WithIgnoreUnavailable, WithIndex, WithMaxNumSegments, WithOnlyExpungeDeletes, WithOperationThreading, WithPretty, WithSourceParam, WithWaitForMerge, see the Option type in this package for more info.
 func (i *Indices) Forcemerge(options ...*Option) (*http.Response, error) {

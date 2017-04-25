@@ -8,21 +8,19 @@ import (
 	"net/url"
 )
 
-// Exists - used to check if the index (indices) exists or not. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-exists.html for more info.
+// Exists - used to check if the index (indices) exists or not. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-exists.html for more info.
 //
-// index: a comma-separated list of index names.
+// index: a comma-separated list of indices to check.
 //
-// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithFlatSettings, WithHuman, WithIgnoreUnavailable, WithIncludeDefaults, WithLocal, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithLocal, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) Exists(index []string, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithAllowNoIndices":    struct{}{},
 		"WithErrorTrace":        struct{}{},
 		"WithExpandWildcards":   struct{}{},
 		"WithFilterPath":        struct{}{},
-		"WithFlatSettings":      struct{}{},
 		"WithHuman":             struct{}{},
 		"WithIgnoreUnavailable": struct{}{},
-		"WithIncludeDefaults":   struct{}{},
 		"WithLocal":             struct{}{},
 		"WithPretty":            struct{}{},
 		"WithSourceParam":       struct{}{},

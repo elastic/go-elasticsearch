@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Snapshots - see http://www.elastic.co/guide/en/elasticsearch/reference/master/cat-snapshots.html for more info.
+// Snapshots - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-snapshots.html for more info.
 //
 // repository: name of repository from which to fetch the snapshot information.
 //

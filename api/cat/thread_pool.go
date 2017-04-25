@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// ThreadPool - see http://www.elastic.co/guide/en/elasticsearch/reference/master/cat-thread-pool.html for more info.
+// ThreadPool - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-thread-pool.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithFormat, WithH, WithHelp, WithHuman, WithLocal, WithMasterTimeout, WithPretty, WithS, WithSize, WithSourceParam, WithThreadPoolPatterns, WithV, see the Option type in this package for more info.
 func (c *Cat) ThreadPool(options ...*Option) (*http.Response, error) {

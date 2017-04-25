@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Stats - indices level stats provide statistics on different operations happening on an index. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-stats.html for more info.
+// Stats - indices level stats provide statistics on different operations happening on an index. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-stats.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithCompletionFields, WithErrorTrace, WithFielddataFields, WithFields, WithFilterPath, WithGroups, WithHuman, WithIncludeSegmentFileSizes, WithIndex, WithLevel, WithMetric, WithPretty, WithSourceParam, WithTypes, see the Option type in this package for more info.
 func (i *Indices) Stats(options ...*Option) (*http.Response, error) {

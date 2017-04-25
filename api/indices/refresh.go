@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Refresh allows to explicitly refresh one or more index, making all operations performed since the last refresh available for search. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-refresh.html for more info.
+// Refresh allows to explicitly refresh one or more index, making all operations performed since the last refresh available for search. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-refresh.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithForce, WithHuman, WithIgnoreUnavailable, WithIndex, WithOperationThreading, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) Refresh(options ...*Option) (*http.Response, error) {

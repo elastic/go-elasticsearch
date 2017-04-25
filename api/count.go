@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Count allows to easily execute a query and get the number of matches for that query. See http://www.elastic.co/guide/en/elasticsearch/reference/master/search-count.html for more info.
+// Count allows to easily execute a query and get the number of matches for that query. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-count.html for more info.
 //
 // body: a query to restrict the results specified with the Query DSL (optional).
 //

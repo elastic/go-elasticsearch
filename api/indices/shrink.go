@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Shrink - the shrink index API allows you to shrink an existing index into a new index with fewer primary shards. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-shrink-index.html for more info.
+// Shrink - the shrink index API allows you to shrink an existing index into a new index with fewer primary shards. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-shrink-index.html for more info.
 //
 // index: the name of the source index to shrink.
 //

@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Segments - provide low level segments information that a Lucene index (shard level) is built with. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-segments.html for more info.
+// Segments - provide low level segments information that a Lucene index (shard level) is built with. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-segments.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithOperationThreading, WithPretty, WithSourceParam, WithVerbose, see the Option type in this package for more info.
 func (i *Indices) Segments(options ...*Option) (*http.Response, error) {

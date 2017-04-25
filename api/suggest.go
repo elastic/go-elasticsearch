@@ -8,22 +8,23 @@ import (
 	"net/url"
 )
 
-// FieldCaps - this functionality is experimental and may be changed or removed completely in a future release. See http://www.elastic.co/guide/en/elasticsearch/reference/master/search-field-caps.html for more info.
+// Suggest - the suggest feature suggests similar looking terms based on a provided text by using a suggester. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-suggesters.html for more info.
 //
-// body: field json objects containing an array of field names.
+// body: the request definition.
 //
-// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFields, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) FieldCaps(body map[string]interface{}, options ...*Option) (*http.Response, error) {
+// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithPreference, WithPretty, WithRouting, WithSourceParam, see the Option type in this package for more info.
+func (a *API) Suggest(body map[string]interface{}, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithAllowNoIndices":    struct{}{},
 		"WithErrorTrace":        struct{}{},
 		"WithExpandWildcards":   struct{}{},
-		"WithFields":            struct{}{},
 		"WithFilterPath":        struct{}{},
 		"WithHuman":             struct{}{},
 		"WithIgnoreUnavailable": struct{}{},
 		"WithIndex":             struct{}{},
+		"WithPreference":        struct{}{},
 		"WithPretty":            struct{}{},
+		"WithRouting":           struct{}{},
 		"WithSourceParam":       struct{}{},
 	}
 	req := &http.Request{
@@ -31,7 +32,7 @@ func (a *API) FieldCaps(body map[string]interface{}, options ...*Option) (*http.
 			Scheme: a.transport.Scheme,
 			Host:   a.transport.Host,
 		},
-		Method: "GET",
+		Method: "POST",
 	}
 	for _, option := range options {
 		if _, ok := supportedOptions[option.name]; !ok {

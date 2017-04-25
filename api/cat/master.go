@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Master - see http://www.elastic.co/guide/en/elasticsearch/reference/master/cat-master.html for more info.
+// Master - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-master.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithFormat, WithH, WithHelp, WithHuman, WithLocal, WithMasterTimeout, WithPretty, WithS, WithSourceParam, WithV, see the Option type in this package for more info.
 func (c *Cat) Master(options ...*Option) (*http.Response, error) {

@@ -19,27 +19,15 @@
 
 package client
 
-import (
-	"strings"
-	"testing"
+import "testing"
 
-	"github.com/elastic/goelasticsearch/api"
-)
-
-func TestOptionValidation(t *testing.T) {
+func TestConnect(t *testing.T) {
 	c := New()
-	// TODO: do something less hacky here
-	postError := "Post http://localhost:9200: EOF"
-	_, err := c.Index("index", "good", nil, api.WithIndex("index again?"))
-	if err == nil || strings.HasSuffix(err.Error(), postError) {
-		t.Fatalf("WithIndex was accepted as an argument to Index")
-	}
-	_, err = c.Index("index", "good", nil, api.WithHuman(true))
-	if err != nil && !strings.HasSuffix(err.Error(), postError) {
+	resp, err := c.Info()
+	if err != nil {
 		t.Fatal(err)
 	}
-	_, err = c.Index("index", "good", nil)
-	if err != nil && !strings.HasSuffix(err.Error(), postError) {
-		t.Fatal(err)
+	if resp.StatusCode != 200 {
+		t.Fatalf("unexpected status code: %d", resp.StatusCode)
 	}
 }

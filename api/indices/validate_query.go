@@ -8,14 +8,13 @@ import (
 	"net/url"
 )
 
-// ValidateQuery - the validate API allows a user to validate a potentially expensive query without executing it. See http://www.elastic.co/guide/en/elasticsearch/reference/master/search-validate.html for more info.
+// ValidateQuery - the validate API allows a user to validate a potentially expensive query without executing it. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-validate.html for more info.
 //
 // body: the query definition specified with the Query DSL.
 //
-// options: optional parameters. Supports the following functional options: WithAllShards, WithAllowNoIndices, WithAnalyzeWildcard, WithAnalyzer, WithDefaultOperator, WithDf, WithType, WithErrorTrace, WithExpandWildcards, WithExplain, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithLenient, WithOperationThreading, WithPretty, WithQ, WithRewrite, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithAnalyzeWildcard, WithAnalyzer, WithDefaultOperator, WithDf, WithType, WithErrorTrace, WithExpandWildcards, WithExplain, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithLenient, WithOperationThreading, WithPretty, WithQ, WithRewrite, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) ValidateQuery(body map[string]interface{}, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithAllShards":          struct{}{},
 		"WithAllowNoIndices":     struct{}{},
 		"WithAnalyzeWildcard":    struct{}{},
 		"WithAnalyzer":           struct{}{},

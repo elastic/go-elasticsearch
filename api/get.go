@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Get allows to get a typed JSON document from the index based on its id. See http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-get.html for more info.
+// Get allows to get a typed JSON document from the index based on its id. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-get.html for more info.
 //
 // documentType: the type of the document (use "_all" to fetch the first document matching the ID across all types).
 //

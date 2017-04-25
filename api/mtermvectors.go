@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Mtermvectors - multi termvectors API allows to get multiple termvectors at once. See http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-multi-termvectors.html for more info.
+// Mtermvectors - multi termvectors API allows to get multiple termvectors at once. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-multi-termvectors.html for more info.
 //
 // body: define ids, documents, parameters or a list of parameters per document here. You must at least provide a list of document ids. See documentation.
 //

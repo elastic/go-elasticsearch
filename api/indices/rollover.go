@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Rollover - the rollover index API rolls an alias over to a new index when the existing index is considered to be too large or too old. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-rollover-index.html for more info.
+// Rollover - the rollover index API rolls an alias over to a new index when the existing index is considered to be too large or too old. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-rollover-index.html for more info.
 //
 // alias: the name of the alias to rollover.
 //

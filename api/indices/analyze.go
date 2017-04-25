@@ -8,14 +8,20 @@ import (
 	"net/url"
 )
 
-// Analyze - performs the analysis process on a text and return the tokens breakdown of the text. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-analyze.html for more info.
+// Analyze - performs the analysis process on a text and return the tokens breakdown of the text. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-analyze.html for more info.
 //
-// body: define analyzer/tokenizer parameters and the text on which the analysis should be performed.
+// body: the text on which the analysis should be performed.
 //
-// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithFormat, WithHuman, WithIndex, WithIndexParam, WithPreferLocal, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithAnalyzer, WithAttributes, WithCharFilter, WithErrorTrace, WithExplain, WithField, WithFilter, WithFilterPath, WithFormat, WithHuman, WithIndex, WithIndexParam, WithPreferLocal, WithPretty, WithSourceParam, WithText, WithTokenizer, see the Option type in this package for more info.
 func (i *Indices) Analyze(body map[string]interface{}, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithAnalyzer":    struct{}{},
+		"WithAttributes":  struct{}{},
+		"WithCharFilter":  struct{}{},
 		"WithErrorTrace":  struct{}{},
+		"WithExplain":     struct{}{},
+		"WithField":       struct{}{},
+		"WithFilter":      struct{}{},
 		"WithFilterPath":  struct{}{},
 		"WithFormat":      struct{}{},
 		"WithHuman":       struct{}{},
@@ -24,6 +30,8 @@ func (i *Indices) Analyze(body map[string]interface{}, options ...*Option) (*htt
 		"WithPreferLocal": struct{}{},
 		"WithPretty":      struct{}{},
 		"WithSourceParam": struct{}{},
+		"WithText":        struct{}{},
+		"WithTokenizer":   struct{}{},
 	}
 	req := &http.Request{
 		URL: &url.URL{

@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// ClearScroll - see http://www.elastic.co/guide/en/elasticsearch/reference/master/search-request-scroll.html for more info.
+// ClearScroll - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-request-scroll.html for more info.
 //
 // body: a comma-separated list of scroll IDs to clear if none was specified via the scroll_id parameter.
 //

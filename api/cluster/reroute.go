@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Reroute - the reroute command allows to explicitly execute a cluster reroute allocation command including specific commands. See http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-reroute.html for more info.
+// Reroute - the reroute command allows to explicitly execute a cluster reroute allocation command including specific commands. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-reroute.html for more info.
 //
 // body: the definition of "commands" to perform ("move", "cancel", "allocate").
 //

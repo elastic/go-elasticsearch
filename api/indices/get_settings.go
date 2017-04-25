@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// GetSettings - see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-settings.html for more info.
+// GetSettings - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-get-settings.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithFlatSettings, WithHuman, WithIgnoreUnavailable, WithIncludeDefaults, WithIndex, WithLocal, WithName, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) GetSettings(options ...*Option) (*http.Response, error) {

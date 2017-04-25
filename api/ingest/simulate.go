@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Simulate - the ingest plugins extend Elasticsearch by providing additional ingest node capabilities. See https://www.elastic.co/guide/en/elasticsearch/plugins/master/ingest.html for more info.
+// Simulate - the ingest plugins extend Elasticsearch by providing additional ingest node capabilities. See https://www.elastic.co/guide/en/elasticsearch/plugins/5.x/ingest.html for more info.
 //
 // body: the simulate definition.
 //

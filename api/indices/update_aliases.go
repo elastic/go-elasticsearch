@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// UpdateAliases - APIs in Elasticsearch accept an index name when working against a specific index, and several indices when applicable. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html for more info.
+// UpdateAliases - APIs in Elasticsearch accept an index name when working against a specific index, and several indices when applicable. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-aliases.html for more info.
 //
 // body: the definition of "actions" to perform.
 //

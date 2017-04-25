@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Flush allows to flush one or more indices through an API. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-flush.html for more info.
+// Flush allows to flush one or more indices through an API. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-flush.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithForce, WithHuman, WithIgnoreUnavailable, WithIndex, WithPretty, WithSourceParam, WithWaitIfOngoing, see the Option type in this package for more info.
 func (i *Indices) Flush(options ...*Option) (*http.Response, error) {

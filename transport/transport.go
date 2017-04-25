@@ -9,6 +9,9 @@ const (
 
 	// DefaultHost is the default host if none is configured
 	DefaultHost = "localhost:9200"
+
+	// DefaultPort is the default port if none is configured
+	DefaultPort = 9200
 )
 
 // Transport defines the transport for the connection to Elasticsearch.

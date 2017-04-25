@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Create - the create index API allows to instantiate an index. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-create-index.html for more info.
+// Create - the create index API allows to instantiate an index. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-create-index.html for more info.
 //
 // index: the name of the index.
 //

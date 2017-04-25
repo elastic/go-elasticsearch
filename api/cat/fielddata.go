@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Fielddata - see http://www.elastic.co/guide/en/elasticsearch/reference/master/cat-fielddata.html for more info.
+// Fielddata - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-fielddata.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithBytes, WithErrorTrace, WithFields, WithFieldsParam, WithFilterPath, WithFormat, WithH, WithHelp, WithHuman, WithLocal, WithMasterTimeout, WithPretty, WithS, WithSourceParam, WithV, see the Option type in this package for more info.
 func (c *Cat) Fielddata(options ...*Option) (*http.Response, error) {

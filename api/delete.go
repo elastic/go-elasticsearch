@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Delete allows to delete a typed JSON document from a specific index based on its id. See http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-delete.html for more info.
+// Delete allows to delete a typed JSON document from a specific index based on its id. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-delete.html for more info.
 //
 // documentType: the type of the document.
 //

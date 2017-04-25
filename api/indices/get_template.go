@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// GetTemplate - index templates allow you to define templates that will automatically be applied when new indices are created. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html for more info.
+// GetTemplate - index templates allow you to define templates that will automatically be applied when new indices are created. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-templates.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithFlatSettings, WithHuman, WithLocal, WithMasterTimeout, WithName, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) GetTemplate(options ...*Option) (*http.Response, error) {

@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// PutSettings - allows to update cluster wide specific settings. See http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-update-settings.html for more info.
+// PutSettings - allows to update cluster wide specific settings. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-update-settings.html for more info.
 //
 // body: the settings to be updated. Can be either "transient" or "persistent" (survives cluster restart).
 //

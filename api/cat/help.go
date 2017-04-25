@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Help - JSON is great… for computers. See http://www.elastic.co/guide/en/elasticsearch/reference/master/cat.html for more info.
+// Help - JSON is great… for computers. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHelp, WithHuman, WithPretty, WithS, WithSourceParam, see the Option type in this package for more info.
 func (c *Cat) Help(options ...*Option) (*http.Response, error) {

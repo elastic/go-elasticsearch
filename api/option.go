@@ -41,14 +41,12 @@ const (
 	ExpandWildcardsAll = iota
 )
 
-// OpType - explicit operation type.
-type OpType int
+// PercolateFormat - return an array of matching query IDs instead of objects.
+type PercolateFormat int
 
 const (
-	// OpTypeIndex can be used to set OpType to "index"
-	OpTypeIndex = iota
-	// OpTypeCreate can be used to set OpType to "create"
-	OpTypeCreate = iota
+	// PercolateFormatIds can be used to set PercolateFormat to "ids"
+	PercolateFormatIds = iota
 )
 
 // Refresh - if "true" then refresh the effected shards to make this operation visible to search, if "wait_for" then wait for a refresh to make this operation visible to search, if "false" (the default) then do nothing with refreshes.
@@ -91,15 +89,6 @@ func WithAnalyzeWildcard(analyzeWildcard bool) *Option {
 func WithAnalyzer(analyzer string) *Option {
 	return &Option{
 		name: "WithAnalyzer",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
-// WithBatchedReduceSize - the number of shard results that should be reduced at once on the coordinating node. This value should be used as a protection mechanism to reduce the memory overhead per search request if the potential number of shards in the request can be large.
-func WithBatchedReduceSize(batchedReduceSize int) *Option {
-	return &Option{
-		name: "WithBatchedReduceSize",
 		apply: func(r *http.Request) {
 		},
 	}
@@ -204,7 +193,7 @@ func WithHuman(human bool) *Option {
 	}
 }
 
-// WithID - document ID.
+// WithID - substitute the document in the request body with a document that is known by the specified id. On top of the id, the index and type parameter will be used to retrieve the document from within the cluster.
 func WithID(id string) *Option {
 	return &Option{
 		name: "WithID",
@@ -231,15 +220,6 @@ func WithIndex(index string) *Option {
 	}
 }
 
-// WithOpType - explicit operation type.
-func WithOpType(opType OpType) *Option {
-	return &Option{
-		name: "WithOpType",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
 // WithParent - ID of the parent document.
 func WithParent(parent string) *Option {
 	return &Option{
@@ -249,10 +229,46 @@ func WithParent(parent string) *Option {
 	}
 }
 
+// WithPercolateFormat - return an array of matching query IDs instead of objects.
+func WithPercolateFormat(percolateFormat PercolateFormat) *Option {
+	return &Option{
+		name: "WithPercolateFormat",
+		apply: func(r *http.Request) {
+		},
+	}
+}
+
+// WithPercolateIndex - the index to count percolate the document into. Defaults to index.
+func WithPercolateIndex(percolateIndex string) *Option {
+	return &Option{
+		name: "WithPercolateIndex",
+		apply: func(r *http.Request) {
+		},
+	}
+}
+
+// WithPercolateType - the type to count percolate document into. Defaults to type.
+func WithPercolateType(percolateType string) *Option {
+	return &Option{
+		name: "WithPercolateType",
+		apply: func(r *http.Request) {
+		},
+	}
+}
+
 // WithPipeline - the pipeline id to preprocess incoming documents with.
 func WithPipeline(pipeline string) *Option {
 	return &Option{
 		name: "WithPipeline",
+		apply: func(r *http.Request) {
+		},
+	}
+}
+
+// WithPreference - specify the node or shard the operation should be performed on (default: random).
+func WithPreference(preference string) *Option {
+	return &Option{
+		name: "WithPreference",
 		apply: func(r *http.Request) {
 		},
 	}

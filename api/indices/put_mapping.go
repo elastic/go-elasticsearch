@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// PutMapping - see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-put-mapping.html for more info.
+// PutMapping - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-put-mapping.html for more info.
 //
 // documentType: the name of the document type.
 //

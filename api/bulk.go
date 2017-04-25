@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Bulk makes it possible to perform many index/delete operations in a single API call. See http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-bulk.html for more info.
+// Bulk makes it possible to perform many index/delete operations in a single API call. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-bulk.html for more info.
 //
 // body: the operation definition and data (action-data pairs), separated by newlines.
 //

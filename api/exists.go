@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Exists - the get API allows to get a typed JSON document from the index based on its id. See http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-get.html for more info.
+// Exists - the get API allows to get a typed JSON document from the index based on its id. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-get.html for more info.
 //
 // documentType: the type of the document (use "_all" to fetch the first document matching the ID across all types).
 //
@@ -16,25 +16,19 @@ import (
 //
 // index: the name of the index.
 //
-// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithParent, WithPreference, WithPretty, WithRealtime, WithRefresh, WithRouting, WithSource, WithSourceExclude, WithSourceInclude, WithSourceParam, WithStoredFields, WithVersion, WithVersionType, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithParent, WithPreference, WithPretty, WithRealtime, WithRefresh, WithRouting, WithSourceParam, see the Option type in this package for more info.
 func (a *API) Exists(documentType string, id string, index string, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithErrorTrace":    struct{}{},
-		"WithFilterPath":    struct{}{},
-		"WithHuman":         struct{}{},
-		"WithParent":        struct{}{},
-		"WithPreference":    struct{}{},
-		"WithPretty":        struct{}{},
-		"WithRealtime":      struct{}{},
-		"WithRefresh":       struct{}{},
-		"WithRouting":       struct{}{},
-		"WithSource":        struct{}{},
-		"WithSourceExclude": struct{}{},
-		"WithSourceInclude": struct{}{},
-		"WithSourceParam":   struct{}{},
-		"WithStoredFields":  struct{}{},
-		"WithVersion":       struct{}{},
-		"WithVersionType":   struct{}{},
+		"WithErrorTrace":  struct{}{},
+		"WithFilterPath":  struct{}{},
+		"WithHuman":       struct{}{},
+		"WithParent":      struct{}{},
+		"WithPreference":  struct{}{},
+		"WithPretty":      struct{}{},
+		"WithRealtime":    struct{}{},
+		"WithRefresh":     struct{}{},
+		"WithRouting":     struct{}{},
+		"WithSourceParam": struct{}{},
 	}
 	req := &http.Request{
 		URL: &url.URL{

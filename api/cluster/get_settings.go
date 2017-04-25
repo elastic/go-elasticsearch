@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// GetSettings - allows to update cluster wide specific settings. See http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-update-settings.html for more info.
+// GetSettings - allows to update cluster wide specific settings. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-update-settings.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithFlatSettings, WithHuman, WithIncludeDefaults, WithMasterTimeout, WithPretty, WithSourceParam, WithTimeout, see the Option type in this package for more info.
 func (c *Cluster) GetSettings(options ...*Option) (*http.Response, error) {

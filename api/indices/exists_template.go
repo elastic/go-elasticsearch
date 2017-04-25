@@ -8,18 +8,18 @@ import (
 	"net/url"
 )
 
-// ExistsTemplate - index templates allow you to define templates that will automatically be applied when new indices are created. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html for more info.
+// ExistsTemplate - index templates allow you to define templates that will automatically be applied when new indices are created. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-templates.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithFlatSettings, WithHuman, WithLocal, WithMasterTimeout, WithName, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) ExistsTemplate(options ...*Option) (*http.Response, error) {
+// name: the name of the template.
+//
+// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithLocal, WithMasterTimeout, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (i *Indices) ExistsTemplate(name string, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithErrorTrace":    struct{}{},
 		"WithFilterPath":    struct{}{},
-		"WithFlatSettings":  struct{}{},
 		"WithHuman":         struct{}{},
 		"WithLocal":         struct{}{},
 		"WithMasterTimeout": struct{}{},
-		"WithName":          struct{}{},
 		"WithPretty":        struct{}{},
 		"WithSourceParam":   struct{}{},
 	}

@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Upgrade - see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-upgrade.html for more info.
+// Upgrade - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-upgrade.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithOnlyAncientSegments, WithPretty, WithSourceParam, WithWaitForCompletion, see the Option type in this package for more info.
 func (i *Indices) Upgrade(options ...*Option) (*http.Response, error) {

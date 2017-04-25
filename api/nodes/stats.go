@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Stats - the cluster nodes stats API allows to retrieve one or more (or all) of the cluster nodes statistics. See http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-stats.html for more info.
+// Stats - the cluster nodes stats API allows to retrieve one or more (or all) of the cluster nodes statistics. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-nodes-stats.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithCompletionFields, WithErrorTrace, WithFielddataFields, WithFields, WithFilterPath, WithGroups, WithHuman, WithIncludeSegmentFileSizes, WithIndexMetric, WithLevel, WithMetric, WithNodeID, WithPretty, WithSourceParam, WithTimeout, WithTypes, see the Option type in this package for more info.
 func (n *Nodes) Stats(options ...*Option) (*http.Response, error) {

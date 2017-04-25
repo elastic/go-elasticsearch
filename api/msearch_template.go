@@ -8,11 +8,11 @@ import (
 	"net/url"
 )
 
-// MsearchTemplate - the multi search API allows to execute several search requests within the same API. See http://www.elastic.co/guide/en/elasticsearch/reference/current/search-multi-search.html for more info.
+// MsearchTemplate - see https://www.elastic.co/guide/en/elasticsearch/reference/current/search-template.html for more info.
 //
 // body: the request definitions (metadata-search request definition pairs), separated by newlines.
 //
-// options: optional parameters. Supports the following functional options: WithType, WithErrorTrace, WithFilterPath, WithHuman, WithIndex, WithPretty, WithSearchType, WithSourceParam, WithTypedKeys, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithType, WithErrorTrace, WithFilterPath, WithHuman, WithIndex, WithPretty, WithSearchType, WithSourceParam, see the Option type in this package for more info.
 func (a *API) MsearchTemplate(body map[string]interface{}, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithType":        struct{}{},
@@ -23,7 +23,6 @@ func (a *API) MsearchTemplate(body map[string]interface{}, options ...*Option) (
 		"WithPretty":      struct{}{},
 		"WithSearchType":  struct{}{},
 		"WithSourceParam": struct{}{},
-		"WithTypedKeys":   struct{}{},
 	}
 	req := &http.Request{
 		URL: &url.URL{

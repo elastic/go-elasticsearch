@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Status - the snapshot and restore module allows to create snapshots of individual indices or an entire cluster into a remote repository like shared file system, S3, or HDFS. See http://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html for more info.
+// Status - the snapshot and restore module allows to create snapshots of individual indices or an entire cluster into a remote repository like shared file system, S3, or HDFS. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/modules-snapshots.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithMasterTimeout, WithPretty, WithRepository, WithSnapshot, WithSourceParam, see the Option type in this package for more info.
 func (s *Snapshot) Status(options ...*Option) (*http.Response, error) {

@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Update allows to update a document based on a script provided. See http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-update.html for more info.
+// Update allows to update a document based on a script provided. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-update.html for more info.
 //
 // documentType: the type of the document.
 //

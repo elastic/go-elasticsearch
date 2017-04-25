@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// PutSettings - change specific index level settings in real time. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-update-settings.html for more info.
+// PutSettings - change specific index level settings in real time. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-update-settings.html for more info.
 //
 // body: the index settings to be updated.
 //

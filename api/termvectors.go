@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Termvectors - returns information and statistics on terms in the fields of a particular document. See http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-termvectors.html for more info.
+// Termvectors - returns information and statistics on terms in the fields of a particular document. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-termvectors.html for more info.
 //
 // documentType: the type of the document.
 //

@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// DeleteTemplate - index templates allow you to define templates that will automatically be applied when new indices are created. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html for more info.
+// DeleteTemplate - index templates allow you to define templates that will automatically be applied when new indices are created. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-templates.html for more info.
 //
 // name: the name of the template.
 //

@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// RenderSearchTemplate - see http://www.elasticsearch.org/guide/en/elasticsearch/reference/master/search-template.html for more info.
+// RenderSearchTemplate - see http://www.elasticsearch.org/guide/en/elasticsearch/reference/5.x/search-template.html for more info.
 //
 // body: the search definition template and its params.
 //

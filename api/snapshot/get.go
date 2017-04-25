@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Get - the snapshot and restore module allows to create snapshots of individual indices or an entire cluster into a remote repository like shared file system, S3, or HDFS. See http://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html for more info.
+// Get - the snapshot and restore module allows to create snapshots of individual indices or an entire cluster into a remote repository like shared file system, S3, or HDFS. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/modules-snapshots.html for more info.
 //
 // repository: a repository name.
 //

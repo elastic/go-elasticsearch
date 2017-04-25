@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// AllocationExplain - the purpose of the cluster allocation explain API is to provide explanations for shard allocations in the cluster. See http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-allocation-explain.html for more info.
+// AllocationExplain - the purpose of the cluster allocation explain API is to provide explanations for shard allocations in the cluster. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-allocation-explain.html for more info.
 //
 // body: the index, shard, and primary flag to explain. Empty means 'explain the first unassigned shard'.
 //

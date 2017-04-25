@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Mget - multi GET API allows to get multiple documents based on an index, type (optional) and id (and possibly routing). See http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-multi-get.html for more info.
+// Mget - multi GET API allows to get multiple documents based on an index, type (optional) and id (and possibly routing). See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-multi-get.html for more info.
 //
 // body: document identifiers; can be either "docs" (containing full document information) or "ids" (when index and type is provided in the URL.
 //

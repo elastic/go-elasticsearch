@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// DeleteByQuery - see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-delete-by-query.html for more info.
+// DeleteByQuery - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-delete-by-query.html for more info.
 //
 // index: a comma-separated list of index names to search; use "_all" or empty string to perform the operation on all indices.
 //

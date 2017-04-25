@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Get - the get index API allows to retrieve information about one or more indexes. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-index.html for more info.
+// Get - the get index API allows to retrieve information about one or more indexes. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-get-index.html for more info.
 //
 // index: a comma-separated list of index names.
 //

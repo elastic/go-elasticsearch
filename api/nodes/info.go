@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Info - the cluster nodes info API allows to retrieve one or more (or all) of the cluster nodes information. See http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-info.html for more info.
+// Info - the cluster nodes info API allows to retrieve one or more (or all) of the cluster nodes information. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-nodes-info.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithFlatSettings, WithHuman, WithMetric, WithNodeID, WithPretty, WithSourceParam, WithTimeout, see the Option type in this package for more info.
 func (n *Nodes) Info(options ...*Option) (*http.Response, error) {

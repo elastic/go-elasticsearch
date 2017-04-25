@@ -7,16 +7,6 @@ import (
 	"time"
 )
 
-// DefaultOperator - the default operator for query string query (AND or OR).
-type DefaultOperator int
-
-const (
-	// DefaultOperatorAND can be used to set DefaultOperator to "AND"
-	DefaultOperatorAND = iota
-	// DefaultOperatorOR can be used to set DefaultOperator to "OR"
-	DefaultOperatorOR = iota
-)
-
 // ExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
 type ExpandWildcards int
 
@@ -56,15 +46,6 @@ func WithActiveOnly(activeOnly bool) *Option {
 	}
 }
 
-// WithAllShards - execute validation on all shards instead of one random shard per index.
-func WithAllShards(allShards bool) *Option {
-	return &Option{
-		name: "WithAllShards",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
 // WithAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
 func WithAllowNoIndices(allowNoIndices bool) *Option {
 	return &Option{
@@ -83,10 +64,28 @@ func WithAnalyzeWildcard(analyzeWildcard bool) *Option {
 	}
 }
 
-// WithAnalyzer - the analyzer to use for the query string.
+// WithAnalyzer - the name of the analyzer to use.
 func WithAnalyzer(analyzer string) *Option {
 	return &Option{
 		name: "WithAnalyzer",
+		apply: func(r *http.Request) {
+		},
+	}
+}
+
+// WithAttributes - a comma-separated list of token attributes to output, this parameter works only with "explain=true".
+func WithAttributes(attributes []string) *Option {
+	return &Option{
+		name: "WithAttributes",
+		apply: func(r *http.Request) {
+		},
+	}
+}
+
+// WithCharFilter - a comma-separated list of character filters to use for the analysis.
+func WithCharFilter(charFilter []string) *Option {
+	return &Option{
+		name: "WithCharFilter",
 		apply: func(r *http.Request) {
 		},
 	}
@@ -110,28 +109,10 @@ func WithCreate(create bool) *Option {
 	}
 }
 
-// WithDefaultOperator - the default operator for query string query (AND or OR).
-func WithDefaultOperator(defaultOperator DefaultOperator) *Option {
-	return &Option{
-		name: "WithDefaultOperator",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
 // WithDetailed - whether to display detailed information about shard recovery.
 func WithDetailed(detailed bool) *Option {
 	return &Option{
 		name: "WithDetailed",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
-// WithDf - the field to use as default where no field prefix is given in the query string.
-func WithDf(df string) *Option {
-	return &Option{
-		name: "WithDf",
 		apply: func(r *http.Request) {
 		},
 	}
@@ -173,6 +154,24 @@ func WithExpandWildcards(expandWildcards ExpandWildcards) *Option {
 	}
 }
 
+// WithExplain - with "true", outputs more advanced details. (default: false).
+func WithExplain(explain bool) *Option {
+	return &Option{
+		name: "WithExplain",
+		apply: func(r *http.Request) {
+		},
+	}
+}
+
+// WithField - use the analyzer configured for this field (instead of passing the analyzer name).
+func WithField(field string) *Option {
+	return &Option{
+		name: "WithField",
+		apply: func(r *http.Request) {
+		},
+	}
+}
+
 // WithFieldData - clear field data.
 func WithFieldData(fieldData bool) *Option {
 	return &Option{
@@ -204,6 +203,15 @@ func WithFielddataFields(fielddataFields []string) *Option {
 func WithFields(fields []string) *Option {
 	return &Option{
 		name: "WithFields",
+		apply: func(r *http.Request) {
+		},
+	}
+}
+
+// WithFilter - a comma-separated list of filters to use for the analysis.
+func WithFilter(filter []string) *Option {
+	return &Option{
+		name: "WithFilter",
 		apply: func(r *http.Request) {
 		},
 	}
@@ -362,10 +370,28 @@ func WithSourceParam(sourceParam string) *Option {
 	}
 }
 
+// WithText - the text on which the analysis should be performed (when request body is not used).
+func WithText(text []string) *Option {
+	return &Option{
+		name: "WithText",
+		apply: func(r *http.Request) {
+		},
+	}
+}
+
 // WithTimeout - explicit operation timeout.
 func WithTimeout(timeout time.Time) *Option {
 	return &Option{
 		name: "WithTimeout",
+		apply: func(r *http.Request) {
+		},
+	}
+}
+
+// WithTokenizer - the name of the tokenizer to use for the analysis.
+func WithTokenizer(tokenizer string) *Option {
+	return &Option{
+		name: "WithTokenizer",
 		apply: func(r *http.Request) {
 		},
 	}

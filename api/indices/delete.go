@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Delete - the delete index API allows to delete an existing index. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-delete-index.html for more info.
+// Delete - the delete index API allows to delete an existing index. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-delete-index.html for more info.
 //
 // index: a comma-separated list of indices to delete; use "_all" or "*" string to delete all indices.
 //

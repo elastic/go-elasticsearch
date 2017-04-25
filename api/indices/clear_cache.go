@@ -8,9 +8,9 @@ import (
 	"net/url"
 )
 
-// ClearCache - the clear cache API allows to clear either all caches or specific cached associated with one or more indices. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-clearcache.html for more info.
+// ClearCache - the clear cache API allows to clear either all caches or specific cached associated with one or more indices. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-clearcache.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFieldData, WithFielddata, WithFields, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithIndexParam, WithPretty, WithQuery, WithRecycler, WithRequest, WithRequestCache, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFieldData, WithFielddata, WithFields, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithIndexParam, WithPretty, WithQuery, WithRecycler, WithRequest, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) ClearCache(options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithAllowNoIndices":    struct{}{},
@@ -28,7 +28,6 @@ func (i *Indices) ClearCache(options ...*Option) (*http.Response, error) {
 		"WithQuery":             struct{}{},
 		"WithRecycler":          struct{}{},
 		"WithRequest":           struct{}{},
-		"WithRequestCache":      struct{}{},
 		"WithSourceParam":       struct{}{},
 	}
 	req := &http.Request{

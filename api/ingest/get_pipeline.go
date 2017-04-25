@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// GetPipeline - the ingest plugins extend Elasticsearch by providing additional ingest node capabilities. See https://www.elastic.co/guide/en/elasticsearch/plugins/master/ingest.html for more info.
+// GetPipeline - the ingest plugins extend Elasticsearch by providing additional ingest node capabilities. See https://www.elastic.co/guide/en/elasticsearch/plugins/5.x/ingest.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithID, WithMasterTimeout, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Ingest) GetPipeline(options ...*Option) (*http.Response, error) {

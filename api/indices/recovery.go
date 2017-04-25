@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// Recovery - the indices recovery API provides insight into on-going index shard recoveries. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-recovery.html for more info.
+// Recovery - the indices recovery API provides insight into on-going index shard recoveries. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-recovery.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithActiveOnly, WithDetailed, WithErrorTrace, WithFilterPath, WithHuman, WithIndex, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) Recovery(options ...*Option) (*http.Response, error) {

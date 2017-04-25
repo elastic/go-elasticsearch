@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-// FlushSynced - elasticsearch tracks the indexing activity of each shard. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-synced-flush.html for more info.
+// FlushSynced - elasticsearch tracks the indexing activity of each shard. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-synced-flush.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) FlushSynced(options ...*Option) (*http.Response, error) {
