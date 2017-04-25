@@ -13,16 +13,21 @@ import (
 //
 // fields: a comma-separated list of fields.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithIncludeDefaults, WithLocal, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithType, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIncludeDefaults, WithIndex, WithLocal, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) GetFieldMapping(fields []string, options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithIndex":             struct{}{},
-		"WithType":              struct{}{},
 		"WithAllowNoIndices":    struct{}{},
+		"WithType":              struct{}{},
+		"WithErrorTrace":        struct{}{},
 		"WithExpandWildcards":   struct{}{},
+		"WithFilterPath":        struct{}{},
+		"WithHuman":             struct{}{},
 		"WithIgnoreUnavailable": struct{}{},
 		"WithIncludeDefaults":   struct{}{},
+		"WithIndex":             struct{}{},
 		"WithLocal":             struct{}{},
+		"WithPretty":            struct{}{},
+		"WithSourceParam":       struct{}{},
 	}
 	for _, option := range options {
 		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()

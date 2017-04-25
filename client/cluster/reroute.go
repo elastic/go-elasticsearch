@@ -13,14 +13,19 @@ import (
 //
 // body: the definition of commands to perform (move, cancel, allocate).
 //
-// options: optional parameters. Supports the following functional options: WithDryRun, WithExplain, WithMasterTimeout, WithMetric, WithRetryFailed, WithTimeout, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithDryRun, WithErrorTrace, WithExplain, WithFilterPath, WithHuman, WithMasterTimeout, WithMetric, WithPretty, WithRetryFailed, WithSourceParam, WithTimeout, see the Option type in this package for more info.
 func (c *Cluster) Reroute(body map[string]interface{}, options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithDryRun":        struct{}{},
+		"WithErrorTrace":    struct{}{},
 		"WithExplain":       struct{}{},
+		"WithFilterPath":    struct{}{},
+		"WithHuman":         struct{}{},
 		"WithMasterTimeout": struct{}{},
 		"WithMetric":        struct{}{},
+		"WithPretty":        struct{}{},
 		"WithRetryFailed":   struct{}{},
+		"WithSourceParam":   struct{}{},
 		"WithTimeout":       struct{}{},
 	}
 	for _, option := range options {

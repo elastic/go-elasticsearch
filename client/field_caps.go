@@ -13,14 +13,19 @@ import (
 //
 // body: field json objects containing an array of field names.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithFields, WithIgnoreUnavailable, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFields, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (c *Client) FieldCaps(body map[string]interface{}, options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithIndex":             struct{}{},
 		"WithAllowNoIndices":    struct{}{},
+		"WithErrorTrace":        struct{}{},
 		"WithExpandWildcards":   struct{}{},
 		"WithFields":            struct{}{},
+		"WithFilterPath":        struct{}{},
+		"WithHuman":             struct{}{},
 		"WithIgnoreUnavailable": struct{}{},
+		"WithIndex":             struct{}{},
+		"WithPretty":            struct{}{},
+		"WithSourceParam":       struct{}{},
 	}
 	for _, option := range options {
 		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()

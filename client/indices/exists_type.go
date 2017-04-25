@@ -11,17 +11,22 @@ import (
 
 // ExistsType - used to check if a type/types exists in an index/indices. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-types-exists.html for more info.
 //
-// index: a comma-separated list of index names; use _all to check the types across all indices.
-//
 // documentType: a comma-separated list of document types to check.
 //
-// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithLocal, see the Option type in this package for more info.
-func (i *Indices) ExistsType(index []string, documentType []string, options ...Option) (*http.Response, error) {
+// index: a comma-separated list of index names; use _all to check the types across all indices.
+//
+// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithLocal, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (i *Indices) ExistsType(documentType []string, index []string, options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithAllowNoIndices":    struct{}{},
+		"WithErrorTrace":        struct{}{},
 		"WithExpandWildcards":   struct{}{},
+		"WithFilterPath":        struct{}{},
+		"WithHuman":             struct{}{},
 		"WithIgnoreUnavailable": struct{}{},
 		"WithLocal":             struct{}{},
+		"WithPretty":            struct{}{},
+		"WithSourceParam":       struct{}{},
 	}
 	for _, option := range options {
 		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()

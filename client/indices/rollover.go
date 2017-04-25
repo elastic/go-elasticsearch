@@ -15,12 +15,17 @@ import (
 //
 // body: the conditions that needs to be met for executing rollover.
 //
-// options: optional parameters. Supports the following functional options: WithNewIndex, WithDryRun, WithMasterTimeout, WithTimeout, WithWaitForActiveShards, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithDryRun, WithErrorTrace, WithFilterPath, WithHuman, WithMasterTimeout, WithNewIndex, WithPretty, WithSourceParam, WithTimeout, WithWaitForActiveShards, see the Option type in this package for more info.
 func (i *Indices) Rollover(alias string, body map[string]interface{}, options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithNewIndex":            struct{}{},
 		"WithDryRun":              struct{}{},
+		"WithErrorTrace":          struct{}{},
+		"WithFilterPath":          struct{}{},
+		"WithHuman":               struct{}{},
 		"WithMasterTimeout":       struct{}{},
+		"WithNewIndex":            struct{}{},
+		"WithPretty":              struct{}{},
+		"WithSourceParam":         struct{}{},
 		"WithTimeout":             struct{}{},
 		"WithWaitForActiveShards": struct{}{},
 	}

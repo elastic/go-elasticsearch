@@ -13,11 +13,16 @@ import (
 //
 // body: the index, shard, and primary flag to explain. Empty means 'explain the first unassigned shard'.
 //
-// options: optional parameters. Supports the following functional options: WithIncludeDiskInfo, WithIncludeYesDecisions, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithIncludeDiskInfo, WithIncludeYesDecisions, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (c *Cluster) AllocationExplain(body map[string]interface{}, options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithErrorTrace":          struct{}{},
+		"WithFilterPath":          struct{}{},
+		"WithHuman":               struct{}{},
 		"WithIncludeDiskInfo":     struct{}{},
 		"WithIncludeYesDecisions": struct{}{},
+		"WithPretty":              struct{}{},
+		"WithSourceParam":         struct{}{},
 	}
 	for _, option := range options {
 		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()

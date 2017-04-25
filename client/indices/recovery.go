@@ -11,12 +11,17 @@ import (
 
 // Recovery - the indices recovery API provides insight into on-going index shard recoveries. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-recovery.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithActiveOnly, WithDetailed, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithActiveOnly, WithDetailed, WithErrorTrace, WithFilterPath, WithHuman, WithIndex, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) Recovery(options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithIndex":      struct{}{},
-		"WithActiveOnly": struct{}{},
-		"WithDetailed":   struct{}{},
+		"WithActiveOnly":  struct{}{},
+		"WithDetailed":    struct{}{},
+		"WithErrorTrace":  struct{}{},
+		"WithFilterPath":  struct{}{},
+		"WithHuman":       struct{}{},
+		"WithIndex":       struct{}{},
+		"WithPretty":      struct{}{},
+		"WithSourceParam": struct{}{},
 	}
 	for _, option := range options {
 		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()

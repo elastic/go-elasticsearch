@@ -13,21 +13,26 @@ import (
 //
 // body: define ids, documents, parameters or a list of parameters per document here. You must at least provide a list of document ids. See documentation.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithFieldStatistics, WithFields, WithIds, WithOffsets, WithParent, WithPayloads, WithPositions, WithPreference, WithRealtime, WithRouting, WithTermStatistics, WithVersion, WithVersionType, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithType, WithErrorTrace, WithFieldStatistics, WithFields, WithFilterPath, WithHuman, WithIds, WithIndex, WithOffsets, WithParent, WithPayloads, WithPositions, WithPreference, WithPretty, WithRealtime, WithRouting, WithSourceParam, WithTermStatistics, WithVersion, WithVersionType, see the Option type in this package for more info.
 func (c *Client) Mtermvectors(body map[string]interface{}, options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithIndex":           struct{}{},
 		"WithType":            struct{}{},
+		"WithErrorTrace":      struct{}{},
 		"WithFieldStatistics": struct{}{},
 		"WithFields":          struct{}{},
+		"WithFilterPath":      struct{}{},
+		"WithHuman":           struct{}{},
 		"WithIds":             struct{}{},
+		"WithIndex":           struct{}{},
 		"WithOffsets":         struct{}{},
 		"WithParent":          struct{}{},
 		"WithPayloads":        struct{}{},
 		"WithPositions":       struct{}{},
 		"WithPreference":      struct{}{},
+		"WithPretty":          struct{}{},
 		"WithRealtime":        struct{}{},
 		"WithRouting":         struct{}{},
+		"WithSourceParam":     struct{}{},
 		"WithTermStatistics":  struct{}{},
 		"WithVersion":         struct{}{},
 		"WithVersionType":     struct{}{},

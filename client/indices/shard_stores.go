@@ -11,14 +11,19 @@ import (
 
 // ShardStores - provides store information for shard copies of indices. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-shards-stores.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithOperationThreading, WithStatus, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithOperationThreading, WithPretty, WithSourceParam, WithStatus, see the Option type in this package for more info.
 func (i *Indices) ShardStores(options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithIndex":              struct{}{},
 		"WithAllowNoIndices":     struct{}{},
+		"WithErrorTrace":         struct{}{},
 		"WithExpandWildcards":    struct{}{},
+		"WithFilterPath":         struct{}{},
+		"WithHuman":              struct{}{},
 		"WithIgnoreUnavailable":  struct{}{},
+		"WithIndex":              struct{}{},
 		"WithOperationThreading": struct{}{},
+		"WithPretty":             struct{}{},
+		"WithSourceParam":        struct{}{},
 		"WithStatus":             struct{}{},
 	}
 	for _, option := range options {

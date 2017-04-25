@@ -10,6 +10,48 @@ import (
 // Option is a non-required API option that gets applied to an HTTP request.
 type Option func(r *http.Request)
 
+// WithAllowNoIndices whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes _all string or when no indices have been specified).
+func WithAllowNoIndices(allowNoIndices bool) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithAnalyzeWildcard specify whether wildcard and prefix queries should be analyzed (default: false).
+func WithAnalyzeWildcard(analyzeWildcard bool) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithAnalyzer the analyzer to use for the query string.
+func WithAnalyzer(analyzer string) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithBatchedReduceSize the number of shard results that should be reduced at once on the coordinating node. This value should be used as a protection mechanism to reduce the memory overhead per search request if the potential number of shards in the request can be large.
+func WithBatchedReduceSize(batchedReduceSize int) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithConflicts what to do when the delete-by-query hits version conflicts?.
+func WithConflicts(conflicts struct{}) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithDefaultOperator the default operator for query string query (AND or OR).
+func WithDefaultOperator(defaultOperator struct{}) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithDf the field to use as default where no field prefix is given in the query string.
+func WithDf(df string) Option {
+	return func(r *http.Request) {
+	}
+}
+
 // WithType default document type for items which don't provide one.
 func WithType(documentType string) Option {
 	return func(r *http.Request) {
@@ -22,14 +64,50 @@ func WithTypeParam(documentTypeParam string) Option {
 	}
 }
 
+// WithErrorTrace include the stack trace of returned errors.
+func WithErrorTrace(errorTrace bool) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithExpandWildcards whether to expand wildcard expression to concrete indices that are open, closed or both.
+func WithExpandWildcards(expandWildcards struct{}) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithFieldStatistics specifies if document count, sum of document frequencies and sum of total term frequencies should be returned.
+func WithFieldStatistics(fieldStatistics bool) Option {
+	return func(r *http.Request) {
+	}
+}
+
 // WithFields default comma-separated list of fields to return in the response for updates, can be overridden on each sub-request.
 func WithFields(fields []string) Option {
 	return func(r *http.Request) {
 	}
 }
 
+// WithFilterPath a comma-separated list of filters used to reduce the respone.
+func WithFilterPath(filterPath []string) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithHuman return human readable values for statistics.
+func WithHuman(human bool) Option {
+	return func(r *http.Request) {
+	}
+}
+
 // WithID document ID.
 func WithID(id string) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithIgnoreUnavailable whether specified concrete indices should be ignored when unavailable (missing or closed).
+func WithIgnoreUnavailable(ignoreUnavailable bool) Option {
 	return func(r *http.Request) {
 	}
 }
@@ -58,6 +136,12 @@ func WithPipeline(pipeline string) Option {
 	}
 }
 
+// WithPretty pretty format the returned JSON response.
+func WithPretty(pretty bool) Option {
+	return func(r *http.Request) {
+	}
+}
+
 // WithRefresh if true then refresh the effected shards to make this operation visible to search, if wait_for then wait for a refresh to make this operation visible to search, if false (the default) then do nothing with refreshes.
 func WithRefresh(refresh struct{}) Option {
 	return func(r *http.Request) {
@@ -66,6 +150,12 @@ func WithRefresh(refresh struct{}) Option {
 
 // WithRouting specific routing value.
 func WithRouting(routing string) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithScroll specify how long a consistent view of the index should be maintained for scrolled search.
+func WithScroll(scroll time.Time) Option {
 	return func(r *http.Request) {
 	}
 }
@@ -90,6 +180,12 @@ func WithSourceExclude(sourceExclude []string) Option {
 
 // WithSourceInclude default list of fields to extract and return from the _source field, can be overridden on each sub-request.
 func WithSourceInclude(sourceInclude []string) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithSourceParam the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithSourceParam(sourceParam string) Option {
 	return func(r *http.Request) {
 	}
 }

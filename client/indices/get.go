@@ -13,16 +13,21 @@ import (
 //
 // index: a comma-separated list of index names.
 //
-// options: optional parameters. Supports the following functional options: WithFeature, WithAllowNoIndices, WithExpandWildcards, WithFlatSettings, WithIgnoreUnavailable, WithIncludeDefaults, WithLocal, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFeature, WithFilterPath, WithFlatSettings, WithHuman, WithIgnoreUnavailable, WithIncludeDefaults, WithLocal, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) Get(index []string, options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithFeature":           struct{}{},
 		"WithAllowNoIndices":    struct{}{},
+		"WithErrorTrace":        struct{}{},
 		"WithExpandWildcards":   struct{}{},
+		"WithFeature":           struct{}{},
+		"WithFilterPath":        struct{}{},
 		"WithFlatSettings":      struct{}{},
+		"WithHuman":             struct{}{},
 		"WithIgnoreUnavailable": struct{}{},
 		"WithIncludeDefaults":   struct{}{},
 		"WithLocal":             struct{}{},
+		"WithPretty":            struct{}{},
+		"WithSourceParam":       struct{}{},
 	}
 	for _, option := range options {
 		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()

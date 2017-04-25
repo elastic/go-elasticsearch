@@ -26,7 +26,7 @@ import (
 )
 
 func TestGenerate(t *testing.T) {
-	m, err := newMethod(filepath.Join("..", DefaultSpecDir, "index.json"))
+	m, err := newMethod(filepath.Join("..", DefaultSpecDir, "index.json"), nil)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -46,14 +46,14 @@ import (
 
 // Index adds or updates a typed JSON document in a specific index, making it searchable. See http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html for more info.
 //
-// index: the name of the index.
-//
 // documentType: the type of the document.
+//
+// index: the name of the index.
 //
 // body: the document.
 //
 // options: optional parameters. Supports the following functional options: WithID, WithOpType, WithParent, WithPipeline, WithRefresh, WithRouting, WithTimeout, WithTimestamp, WithTTL, WithVersion, WithVersionType, WithWaitForActiveShards, see the Option type in this package for more info.
-func (c *Client) Index(index string, documentType string, body map[string]interface{}, options ...Option) (*http.Response, error) {
+func (c *Client) Index(documentType string, index string, body map[string]interface{}, options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 "WithID": struct{}{},
 "WithOpType": struct{}{},
@@ -82,5 +82,19 @@ func (c *Client) Index(index string, documentType string, body map[string]interf
 `
 	if d := diff(t, expectedCode, writer.String()); len(d) > 0 {
 		t.Fail()
+	}
+}
+
+func TestNormalizeParams(t *testing.T) {
+	m, err := newMethod(filepath.Join("..", DefaultSpecDir, "cat.fielddata.json"), nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	names := map[string]struct{}{}
+	for _, p := range m.OptionalParams {
+		if _, ok := names[p.Name]; ok {
+			t.Fatalf("Param %s seen twice", p.Name)
+		}
+		names[p.Name] = struct{}{}
 	}
 }

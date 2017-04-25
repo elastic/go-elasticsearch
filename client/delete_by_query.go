@@ -15,24 +15,25 @@ import (
 //
 // body: the search definition using the Query DSL.
 //
-// options: optional parameters. Supports the following functional options: WithType, WithSource, WithSourceExclude, WithSourceInclude, WithAllowNoIndices, WithAnalyzeWildcard, WithAnalyzer, WithConflicts, WithDefaultOperator, WithDf, WithExpandWildcards, WithFrom, WithIgnoreUnavailable, WithLenient, WithPreference, WithQ, WithRefresh, WithRequestCache, WithRequestsPerSecond, WithRouting, WithScroll, WithScrollSize, WithSearchTimeout, WithSearchType, WithSize, WithSlices, WithSort, WithStats, WithTerminateAfter, WithTimeout, WithVersion, WithWaitForActiveShards, WithWaitForCompletion, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithAnalyzeWildcard, WithAnalyzer, WithConflicts, WithDefaultOperator, WithDf, WithType, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithFrom, WithHuman, WithIgnoreUnavailable, WithLenient, WithPreference, WithPretty, WithQ, WithRefresh, WithRequestCache, WithRequestsPerSecond, WithRouting, WithScroll, WithScrollSize, WithSearchTimeout, WithSearchType, WithSize, WithSlices, WithSort, WithSource, WithSourceExclude, WithSourceInclude, WithSourceParam, WithStats, WithTerminateAfter, WithTimeout, WithVersion, WithWaitForActiveShards, WithWaitForCompletion, see the Option type in this package for more info.
 func (c *Client) DeleteByQuery(index []string, body map[string]interface{}, options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithType":                struct{}{},
-		"WithSource":              struct{}{},
-		"WithSourceExclude":       struct{}{},
-		"WithSourceInclude":       struct{}{},
 		"WithAllowNoIndices":      struct{}{},
 		"WithAnalyzeWildcard":     struct{}{},
 		"WithAnalyzer":            struct{}{},
 		"WithConflicts":           struct{}{},
 		"WithDefaultOperator":     struct{}{},
 		"WithDf":                  struct{}{},
+		"WithType":                struct{}{},
+		"WithErrorTrace":          struct{}{},
 		"WithExpandWildcards":     struct{}{},
+		"WithFilterPath":          struct{}{},
 		"WithFrom":                struct{}{},
+		"WithHuman":               struct{}{},
 		"WithIgnoreUnavailable":   struct{}{},
 		"WithLenient":             struct{}{},
 		"WithPreference":          struct{}{},
+		"WithPretty":              struct{}{},
 		"WithQ":                   struct{}{},
 		"WithRefresh":             struct{}{},
 		"WithRequestCache":        struct{}{},
@@ -45,6 +46,10 @@ func (c *Client) DeleteByQuery(index []string, body map[string]interface{}, opti
 		"WithSize":                struct{}{},
 		"WithSlices":              struct{}{},
 		"WithSort":                struct{}{},
+		"WithSource":              struct{}{},
+		"WithSourceExclude":       struct{}{},
+		"WithSourceInclude":       struct{}{},
+		"WithSourceParam":         struct{}{},
 		"WithStats":               struct{}{},
 		"WithTerminateAfter":      struct{}{},
 		"WithTimeout":             struct{}{},

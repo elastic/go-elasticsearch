@@ -68,7 +68,7 @@ type method struct {
 	ParamNames     map[string]struct{}
 }
 
-func newMethod(specFilePath string) (*method, error) {
+func newMethod(specFilePath string, commonParams map[string]*param) (*method, error) {
 	bytes, err := ioutil.ReadFile(specFilePath)
 	if err != nil {
 		return nil, err
@@ -81,7 +81,7 @@ func newMethod(specFilePath string) (*method, error) {
 	var spec map[string]spec
 	err = json.Unmarshal(bytes, &spec)
 	if err != nil {
-		return nil, fmt.Errorf("Failed to parse %s: err", specFilePath)
+		return nil, fmt.Errorf("Failed to parse %s: %s", specFilePath, err)
 	}
 	if len(spec) > 1 {
 		return nil, fmt.Errorf("Too many methods in %s", specFilePath)
@@ -91,12 +91,16 @@ func newMethod(specFilePath string) (*method, error) {
 		m.Spec = spec[k]
 		break
 	}
-	if err = m.normalizeParams(m.Spec.URL.Parts); err != nil {
+	if err = m.normalizeParams(m.Spec.URL.Parts, true); err != nil {
 		return nil, err
 	}
-	if err = m.normalizeParams(m.Spec.URL.Params); err != nil {
+	if err = m.normalizeParams(m.Spec.URL.Params, true); err != nil {
 		return nil, err
 	}
+	if err = m.normalizeParams(commonParams, false); err != nil {
+		return nil, err
+	}
+	m.sortParams(commonParams)
 	if m.Spec.Body != nil {
 		if err = m.Spec.Body.resolve("body"); err != nil {
 			return nil, err
@@ -181,17 +185,13 @@ func (m *method) resolveDocumentation() error {
 	}
 }
 
-func (m *method) normalizeParams(params map[string]*param) error {
-	names := []string{}
-	for name := range params {
-		names = append(names, name)
-	}
-	sort.Strings(names)
-	for _, name := range names {
-		p := params[name]
-		err := p.resolve(name)
-		if err != nil {
-			return fmt.Errorf("Failed to normalize params in %q: %s", m.Name, err)
+func (m *method) normalizeParams(params map[string]*param, resolve bool) error {
+	for name, p := range params {
+		if resolve {
+			err := p.resolve(name)
+			if err != nil {
+				return fmt.Errorf("Failed to normalize params in %q: %s", m.Name, err)
+			}
 		}
 		if _, ok := m.ParamNames[p.Name]; ok {
 			p.addSuffix("Param")
@@ -200,13 +200,46 @@ func (m *method) normalizeParams(params map[string]*param) error {
 			}
 		}
 		m.ParamNames[p.Name] = struct{}{}
-		if p.Required {
-			m.RequiredParams = append(m.RequiredParams, p)
-		} else {
-			m.OptionalParams = append(m.OptionalParams, p)
-		}
 	}
 	return nil
+}
+
+func (m *method) sortParams(common map[string]*param) {
+	requiredNames := []string{}
+	optionalNames := []string{}
+	allParams := map[string]*param{}
+	for _, p := range m.Spec.URL.Parts {
+		if p.Required {
+			requiredNames = append(requiredNames, p.Name)
+		} else {
+			optionalNames = append(optionalNames, p.Name)
+		}
+		allParams[p.Name] = p
+	}
+	for _, p := range m.Spec.URL.Params {
+		if p.Required {
+			requiredNames = append(requiredNames, p.Name)
+		} else {
+			optionalNames = append(optionalNames, p.Name)
+		}
+		allParams[p.Name] = p
+	}
+	for _, p := range common {
+		if p.Required {
+			requiredNames = append(requiredNames, p.Name)
+		} else {
+			optionalNames = append(optionalNames, p.Name)
+		}
+		allParams[p.Name] = p
+	}
+	sort.Strings(requiredNames)
+	for _, name := range requiredNames {
+		m.RequiredParams = append(m.RequiredParams, allParams[name])
+	}
+	sort.Strings(optionalNames)
+	for _, name := range optionalNames {
+		m.OptionalParams = append(m.OptionalParams, allParams[name])
+	}
 }
 
 func (m *method) newWriter(outputDir, fileName string) (io.Writer, error) {

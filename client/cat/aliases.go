@@ -11,16 +11,21 @@ import (
 
 // Aliases - see http://www.elastic.co/guide/en/elasticsearch/reference/master/cat-alias.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithName, WithFormat, WithH, WithHelp, WithLocal, WithMasterTimeout, WithS, WithV, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithFormat, WithH, WithHelp, WithHuman, WithLocal, WithMasterTimeout, WithName, WithPretty, WithS, WithSourceParam, WithV, see the Option type in this package for more info.
 func (c *Cat) Aliases(options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithName":          struct{}{},
+		"WithErrorTrace":    struct{}{},
+		"WithFilterPath":    struct{}{},
 		"WithFormat":        struct{}{},
 		"WithH":             struct{}{},
 		"WithHelp":          struct{}{},
+		"WithHuman":         struct{}{},
 		"WithLocal":         struct{}{},
 		"WithMasterTimeout": struct{}{},
+		"WithName":          struct{}{},
+		"WithPretty":        struct{}{},
 		"WithS":             struct{}{},
+		"WithSourceParam":   struct{}{},
 		"WithV":             struct{}{},
 	}
 	for _, option := range options {

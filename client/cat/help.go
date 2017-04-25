@@ -11,11 +11,16 @@ import (
 
 // Help - JSON is great… for computers. See http://www.elastic.co/guide/en/elasticsearch/reference/master/cat.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithHelp, WithS, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHelp, WithHuman, WithPretty, WithS, WithSourceParam, see the Option type in this package for more info.
 func (c *Cat) Help(options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithHelp": struct{}{},
-		"WithS":    struct{}{},
+		"WithErrorTrace":  struct{}{},
+		"WithFilterPath":  struct{}{},
+		"WithHelp":        struct{}{},
+		"WithHuman":       struct{}{},
+		"WithPretty":      struct{}{},
+		"WithS":           struct{}{},
+		"WithSourceParam": struct{}{},
 	}
 	for _, option := range options {
 		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()

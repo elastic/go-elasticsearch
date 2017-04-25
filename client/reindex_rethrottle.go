@@ -13,10 +13,15 @@ import (
 //
 // requestsPerSecond: the throttle to set on this request in floating sub-requests per second. -1 means set no throttle.
 //
-// options: optional parameters. Supports the following functional options: WithTaskID, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, WithTaskID, see the Option type in this package for more info.
 func (c *Client) ReindexRethrottle(requestsPerSecond int, options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithTaskID": struct{}{},
+		"WithErrorTrace":  struct{}{},
+		"WithFilterPath":  struct{}{},
+		"WithHuman":       struct{}{},
+		"WithPretty":      struct{}{},
+		"WithSourceParam": struct{}{},
+		"WithTaskID":      struct{}{},
 	}
 	for _, option := range options {
 		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()

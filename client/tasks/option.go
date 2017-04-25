@@ -15,6 +15,24 @@ func WithActions(actions []string) Option {
 	}
 }
 
+// WithErrorTrace include the stack trace of returned errors.
+func WithErrorTrace(errorTrace bool) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithFilterPath a comma-separated list of filters used to reduce the respone.
+func WithFilterPath(filterPath []string) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithHuman return human readable values for statistics.
+func WithHuman(human bool) Option {
+	return func(r *http.Request) {
+	}
+}
+
 // WithNodeID a comma-separated list of node IDs or names to limit the returned information; use _local to return information from the node you're connecting to, leave empty to get information from all nodes.
 func WithNodeID(nodeID []string) Option {
 	return func(r *http.Request) {
@@ -29,6 +47,18 @@ func WithParentNode(parentNode string) Option {
 
 // WithParentTask cancel tasks with specified parent task id (node_id:task_number). Set to -1 to cancel all.
 func WithParentTask(parentTask string) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithPretty pretty format the returned JSON response.
+func WithPretty(pretty bool) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithSourceParam the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithSourceParam(sourceParam string) Option {
 	return func(r *http.Request) {
 	}
 }

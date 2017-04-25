@@ -19,21 +19,26 @@
 
 package generator
 
-var typesMap = map[string]string{
-	"string": "string",
-	"list":   "[]string",
-}
+import (
+	"encoding/json"
+	"io/ioutil"
+)
 
-type types struct {
-	spec map[string]interface{}
-}
-
-func newTypes(specFilePath string) *types {
-	// TODO: implement
-	return nil
-}
-
-func (t *types) generate(templatesDir, outputDir string) error {
-	// TODO: implement
-	return nil
+func newCommonParams(specFilePath string) (map[string]*param, error) {
+	bytes, err := ioutil.ReadFile(specFilePath)
+	if err != nil {
+		return nil, err
+	}
+	var spec map[string]*json.RawMessage
+	if err = json.Unmarshal(bytes, &spec); err != nil {
+		return nil, err
+	}
+	var params map[string]*param
+	if err = json.Unmarshal(*spec["params"], &params); err != nil {
+		return nil, err
+	}
+	for name, p := range params {
+		p.resolve(name)
+	}
+	return params, nil
 }

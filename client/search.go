@@ -13,28 +13,29 @@ import (
 //
 // body: the search definition using the Query DSL.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithSource, WithSourceExclude, WithSourceInclude, WithAllowNoIndices, WithAnalyzeWildcard, WithAnalyzer, WithBatchedReduceSize, WithDefaultOperator, WithDf, WithDocvalueFields, WithExpandWildcards, WithExplain, WithFielddataFields, WithFrom, WithIgnoreUnavailable, WithLenient, WithPreference, WithQ, WithRequestCache, WithRouting, WithScroll, WithSearchType, WithSize, WithSort, WithStats, WithStoredFields, WithSuggestField, WithSuggestMode, WithSuggestSize, WithSuggestText, WithTerminateAfter, WithTimeout, WithTrackScores, WithTypedKeys, WithVersion, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithAnalyzeWildcard, WithAnalyzer, WithBatchedReduceSize, WithDefaultOperator, WithDf, WithType, WithDocvalueFields, WithErrorTrace, WithExpandWildcards, WithExplain, WithFielddataFields, WithFilterPath, WithFrom, WithHuman, WithIgnoreUnavailable, WithIndex, WithLenient, WithPreference, WithPretty, WithQ, WithRequestCache, WithRouting, WithScroll, WithSearchType, WithSize, WithSort, WithSource, WithSourceExclude, WithSourceInclude, WithSourceParam, WithStats, WithStoredFields, WithSuggestField, WithSuggestMode, WithSuggestSize, WithSuggestText, WithTerminateAfter, WithTimeout, WithTrackScores, WithTypedKeys, WithVersion, see the Option type in this package for more info.
 func (c *Client) Search(body map[string]interface{}, options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithIndex":             struct{}{},
-		"WithType":              struct{}{},
-		"WithSource":            struct{}{},
-		"WithSourceExclude":     struct{}{},
-		"WithSourceInclude":     struct{}{},
 		"WithAllowNoIndices":    struct{}{},
 		"WithAnalyzeWildcard":   struct{}{},
 		"WithAnalyzer":          struct{}{},
 		"WithBatchedReduceSize": struct{}{},
 		"WithDefaultOperator":   struct{}{},
 		"WithDf":                struct{}{},
+		"WithType":              struct{}{},
 		"WithDocvalueFields":    struct{}{},
+		"WithErrorTrace":        struct{}{},
 		"WithExpandWildcards":   struct{}{},
 		"WithExplain":           struct{}{},
 		"WithFielddataFields":   struct{}{},
+		"WithFilterPath":        struct{}{},
 		"WithFrom":              struct{}{},
+		"WithHuman":             struct{}{},
 		"WithIgnoreUnavailable": struct{}{},
+		"WithIndex":             struct{}{},
 		"WithLenient":           struct{}{},
 		"WithPreference":        struct{}{},
+		"WithPretty":            struct{}{},
 		"WithQ":                 struct{}{},
 		"WithRequestCache":      struct{}{},
 		"WithRouting":           struct{}{},
@@ -42,6 +43,10 @@ func (c *Client) Search(body map[string]interface{}, options ...Option) (*http.R
 		"WithSearchType":        struct{}{},
 		"WithSize":              struct{}{},
 		"WithSort":              struct{}{},
+		"WithSource":            struct{}{},
+		"WithSourceExclude":     struct{}{},
+		"WithSourceInclude":     struct{}{},
+		"WithSourceParam":       struct{}{},
 		"WithStats":             struct{}{},
 		"WithStoredFields":      struct{}{},
 		"WithSuggestField":      struct{}{},

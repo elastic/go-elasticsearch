@@ -11,17 +11,22 @@ import (
 
 // ThreadPool - see http://www.elastic.co/guide/en/elasticsearch/reference/master/cat-thread-pool.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithThreadPoolPatterns, WithFormat, WithH, WithHelp, WithLocal, WithMasterTimeout, WithS, WithSize, WithV, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithFormat, WithH, WithHelp, WithHuman, WithLocal, WithMasterTimeout, WithPretty, WithS, WithSize, WithSourceParam, WithThreadPoolPatterns, WithV, see the Option type in this package for more info.
 func (c *Cat) ThreadPool(options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithThreadPoolPatterns": struct{}{},
+		"WithErrorTrace":         struct{}{},
+		"WithFilterPath":         struct{}{},
 		"WithFormat":             struct{}{},
 		"WithH":                  struct{}{},
 		"WithHelp":               struct{}{},
+		"WithHuman":              struct{}{},
 		"WithLocal":              struct{}{},
 		"WithMasterTimeout":      struct{}{},
+		"WithPretty":             struct{}{},
 		"WithS":                  struct{}{},
 		"WithSize":               struct{}{},
+		"WithSourceParam":        struct{}{},
+		"WithThreadPoolPatterns": struct{}{},
 		"WithV":                  struct{}{},
 	}
 	for _, option := range options {

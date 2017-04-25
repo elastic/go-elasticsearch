@@ -11,14 +11,19 @@ import (
 
 // Flush allows to flush one or more indices through an API. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-flush.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithForce, WithIgnoreUnavailable, WithWaitIfOngoing, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithForce, WithHuman, WithIgnoreUnavailable, WithIndex, WithPretty, WithSourceParam, WithWaitIfOngoing, see the Option type in this package for more info.
 func (i *Indices) Flush(options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithIndex":             struct{}{},
 		"WithAllowNoIndices":    struct{}{},
+		"WithErrorTrace":        struct{}{},
 		"WithExpandWildcards":   struct{}{},
+		"WithFilterPath":        struct{}{},
 		"WithForce":             struct{}{},
+		"WithHuman":             struct{}{},
 		"WithIgnoreUnavailable": struct{}{},
+		"WithIndex":             struct{}{},
+		"WithPretty":            struct{}{},
+		"WithSourceParam":       struct{}{},
 		"WithWaitIfOngoing":     struct{}{},
 	}
 	for _, option := range options {

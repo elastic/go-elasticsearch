@@ -25,15 +25,15 @@ import (
 )
 
 const (
-	outputDir    = "."
-	templatesDir = "generator/templates"
-	typesSpec    = "_common.json"
+	outputDir            = "."
+	templatesDir         = "generator/templates"
+	commonParamsSpecFile = "_common.json"
 )
 
 // Generator is a code generator based on JSON specs and Go template
 type Generator struct {
-	methods []*method
-	types   *types
+	methods      []*method
+	commonParams map[string]*param
 }
 
 // New creates a new generator
@@ -41,21 +41,25 @@ func New(specDir string) (*Generator, error) {
 	g := &Generator{
 		methods: []*method{},
 	}
+	commonParamsSpecFilePath := filepath.Join(specDir, commonParamsSpecFile)
+	var err error
+	g.commonParams, err = newCommonParams(commonParamsSpecFilePath)
+	if err != nil {
+		return nil, err
+	}
 	files, err := ioutil.ReadDir(specDir)
 	if err != nil {
 		return nil, err
 	}
 	for _, specFile := range files {
-		specFilePath := filepath.Join(specDir, specFile.Name())
-		if specFile.Name() == typesSpec {
-			g.types = newTypes(specFilePath)
-		} else {
-			m, err := newMethod(specFilePath)
-			if err != nil {
-				return nil, err
-			}
-			g.methods = append(g.methods, m)
+		if specFile.Name() == commonParamsSpecFile {
+			continue
 		}
+		m, err := newMethod(filepath.Join(specDir, specFile.Name()), g.commonParams)
+		if err != nil {
+			return nil, err
+		}
+		g.methods = append(g.methods, m)
 	}
 	return g, nil
 }
@@ -70,9 +74,6 @@ func (g *Generator) Run() error {
 		if err = m.generate(templatesDir, w); err != nil {
 			return err
 		}
-	}
-	if err := g.types.generate(templatesDir, outputDir); err != nil {
-		return err
 	}
 	a, err := newAPIPackages(g.methods)
 	if err != nil {

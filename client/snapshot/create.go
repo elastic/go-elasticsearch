@@ -17,10 +17,15 @@ import (
 //
 // body: the snapshot definition.
 //
-// options: optional parameters. Supports the following functional options: WithMasterTimeout, WithWaitForCompletion, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithMasterTimeout, WithPretty, WithSourceParam, WithWaitForCompletion, see the Option type in this package for more info.
 func (s *Snapshot) Create(repository string, snapshot string, body map[string]interface{}, options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithErrorTrace":        struct{}{},
+		"WithFilterPath":        struct{}{},
+		"WithHuman":             struct{}{},
 		"WithMasterTimeout":     struct{}{},
+		"WithPretty":            struct{}{},
+		"WithSourceParam":       struct{}{},
 		"WithWaitForCompletion": struct{}{},
 	}
 	for _, option := range options {

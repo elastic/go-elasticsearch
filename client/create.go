@@ -11,21 +11,26 @@ import (
 
 // Create - the index API adds or updates a typed JSON document in a specific index, making it searchable. See http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html for more info.
 //
+// documentType: the type of the document.
+//
 // id: document ID.
 //
 // index: the name of the index.
 //
-// documentType: the type of the document.
-//
 // body: the document.
 //
-// options: optional parameters. Supports the following functional options: WithParent, WithPipeline, WithRefresh, WithRouting, WithTimeout, WithTimestamp, WithTTL, WithVersion, WithVersionType, WithWaitForActiveShards, see the Option type in this package for more info.
-func (c *Client) Create(id string, index string, documentType string, body map[string]interface{}, options ...Option) (*http.Response, error) {
+// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithParent, WithPipeline, WithPretty, WithRefresh, WithRouting, WithSourceParam, WithTimeout, WithTimestamp, WithTTL, WithVersion, WithVersionType, WithWaitForActiveShards, see the Option type in this package for more info.
+func (c *Client) Create(documentType string, id string, index string, body map[string]interface{}, options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithErrorTrace":          struct{}{},
+		"WithFilterPath":          struct{}{},
+		"WithHuman":               struct{}{},
 		"WithParent":              struct{}{},
 		"WithPipeline":            struct{}{},
+		"WithPretty":              struct{}{},
 		"WithRefresh":             struct{}{},
 		"WithRouting":             struct{}{},
+		"WithSourceParam":         struct{}{},
 		"WithTimeout":             struct{}{},
 		"WithTimestamp":           struct{}{},
 		"WithTTL":                 struct{}{},

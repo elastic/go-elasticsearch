@@ -11,16 +11,21 @@ import (
 
 // Shards - see http://www.elastic.co/guide/en/elasticsearch/reference/master/cat-shards.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithFormat, WithH, WithHelp, WithLocal, WithMasterTimeout, WithS, WithV, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithFormat, WithH, WithHelp, WithHuman, WithIndex, WithLocal, WithMasterTimeout, WithPretty, WithS, WithSourceParam, WithV, see the Option type in this package for more info.
 func (c *Cat) Shards(options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithIndex":         struct{}{},
+		"WithErrorTrace":    struct{}{},
+		"WithFilterPath":    struct{}{},
 		"WithFormat":        struct{}{},
 		"WithH":             struct{}{},
 		"WithHelp":          struct{}{},
+		"WithHuman":         struct{}{},
+		"WithIndex":         struct{}{},
 		"WithLocal":         struct{}{},
 		"WithMasterTimeout": struct{}{},
+		"WithPretty":        struct{}{},
 		"WithS":             struct{}{},
+		"WithSourceParam":   struct{}{},
 		"WithV":             struct{}{},
 	}
 	for _, option := range options {

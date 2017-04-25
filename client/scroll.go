@@ -13,12 +13,17 @@ import (
 //
 // body: the scroll ID if not passed by URL or query parameter.
 //
-// options: optional parameters. Supports the following functional options: WithScrollID, WithScroll, WithScrollIDParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithScroll, WithScrollID, WithScrollIDParam, WithSourceParam, see the Option type in this package for more info.
 func (c *Client) Scroll(body map[string]interface{}, options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithScrollID":      struct{}{},
+		"WithErrorTrace":    struct{}{},
+		"WithFilterPath":    struct{}{},
+		"WithHuman":         struct{}{},
+		"WithPretty":        struct{}{},
 		"WithScroll":        struct{}{},
+		"WithScrollID":      struct{}{},
 		"WithScrollIDParam": struct{}{},
+		"WithSourceParam":   struct{}{},
 	}
 	for _, option := range options {
 		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()

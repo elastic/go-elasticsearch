@@ -26,7 +26,7 @@ import (
 )
 
 func TestGenerateOption(t *testing.T) {
-	m, err := newMethod(filepath.Join("..", DefaultSpecDir, "index.json"))
+	m, err := newMethod(filepath.Join("..", DefaultSpecDir, "index.json"), nil)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -130,7 +130,7 @@ func WithWaitForActiveShards(waitForActiveShards string) Option {
 }
 
 func TestGenerateAPI(t *testing.T) {
-	m, err := newMethod(filepath.Join("..", DefaultSpecDir, "index.json"))
+	m, err := newMethod(filepath.Join("..", DefaultSpecDir, "index.json"), nil)
 	if err != nil {
 		t.Fatal(err)
 	}

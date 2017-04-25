@@ -11,12 +11,17 @@ import (
 
 // Info - the cluster nodes info API allows to retrieve one or more (or all) of the cluster nodes information. See http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-info.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithMetric, WithNodeID, WithFlatSettings, WithTimeout, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithFlatSettings, WithHuman, WithMetric, WithNodeID, WithPretty, WithSourceParam, WithTimeout, see the Option type in this package for more info.
 func (n *Nodes) Info(options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithErrorTrace":   struct{}{},
+		"WithFilterPath":   struct{}{},
+		"WithFlatSettings": struct{}{},
+		"WithHuman":        struct{}{},
 		"WithMetric":       struct{}{},
 		"WithNodeID":       struct{}{},
-		"WithFlatSettings": struct{}{},
+		"WithPretty":       struct{}{},
+		"WithSourceParam":  struct{}{},
 		"WithTimeout":      struct{}{},
 	}
 	for _, option := range options {

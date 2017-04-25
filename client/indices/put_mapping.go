@@ -15,14 +15,19 @@ import (
 //
 // body: the mapping definition.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithMasterTimeout, WithTimeout, WithUpdateAllTypes, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithMasterTimeout, WithPretty, WithSourceParam, WithTimeout, WithUpdateAllTypes, see the Option type in this package for more info.
 func (i *Indices) PutMapping(documentType string, body map[string]interface{}, options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithIndex":             struct{}{},
 		"WithAllowNoIndices":    struct{}{},
+		"WithErrorTrace":        struct{}{},
 		"WithExpandWildcards":   struct{}{},
+		"WithFilterPath":        struct{}{},
+		"WithHuman":             struct{}{},
 		"WithIgnoreUnavailable": struct{}{},
+		"WithIndex":             struct{}{},
 		"WithMasterTimeout":     struct{}{},
+		"WithPretty":            struct{}{},
+		"WithSourceParam":       struct{}{},
 		"WithTimeout":           struct{}{},
 		"WithUpdateAllTypes":    struct{}{},
 	}

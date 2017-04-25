@@ -11,13 +11,18 @@ import (
 
 // Status - the snapshot and restore module allows to create snapshots of individual indices or an entire cluster into a remote repository like shared file system, S3, or HDFS. See http://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithRepository, WithSnapshot, WithIgnoreUnavailable, WithMasterTimeout, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithMasterTimeout, WithPretty, WithRepository, WithSnapshot, WithSourceParam, see the Option type in this package for more info.
 func (s *Snapshot) Status(options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithRepository":        struct{}{},
-		"WithSnapshot":          struct{}{},
+		"WithErrorTrace":        struct{}{},
+		"WithFilterPath":        struct{}{},
+		"WithHuman":             struct{}{},
 		"WithIgnoreUnavailable": struct{}{},
 		"WithMasterTimeout":     struct{}{},
+		"WithPretty":            struct{}{},
+		"WithRepository":        struct{}{},
+		"WithSnapshot":          struct{}{},
+		"WithSourceParam":       struct{}{},
 	}
 	for _, option := range options {
 		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()

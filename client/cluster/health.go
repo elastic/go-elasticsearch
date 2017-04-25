@@ -11,13 +11,18 @@ import (
 
 // Health - the cluster health API allows to get a very simple status on the health of the cluster. See http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-health.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithLevel, WithLocal, WithMasterTimeout, WithTimeout, WithWaitForActiveShards, WithWaitForEvents, WithWaitForNoRelocatingShards, WithWaitForNodes, WithWaitForStatus, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithIndex, WithLevel, WithLocal, WithMasterTimeout, WithPretty, WithSourceParam, WithTimeout, WithWaitForActiveShards, WithWaitForEvents, WithWaitForNoRelocatingShards, WithWaitForNodes, WithWaitForStatus, see the Option type in this package for more info.
 func (c *Cluster) Health(options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithErrorTrace":                struct{}{},
+		"WithFilterPath":                struct{}{},
+		"WithHuman":                     struct{}{},
 		"WithIndex":                     struct{}{},
 		"WithLevel":                     struct{}{},
 		"WithLocal":                     struct{}{},
 		"WithMasterTimeout":             struct{}{},
+		"WithPretty":                    struct{}{},
+		"WithSourceParam":               struct{}{},
 		"WithTimeout":                   struct{}{},
 		"WithWaitForActiveShards":       struct{}{},
 		"WithWaitForEvents":             struct{}{},

@@ -11,18 +11,23 @@ import (
 
 // Delete allows to delete a typed JSON document from a specific index based on its id. See http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-delete.html for more info.
 //
+// documentType: the type of the document.
+//
 // id: the document ID.
 //
 // index: the name of the index.
 //
-// documentType: the type of the document.
-//
-// options: optional parameters. Supports the following functional options: WithParent, WithRefresh, WithRouting, WithTimeout, WithVersion, WithVersionType, WithWaitForActiveShards, see the Option type in this package for more info.
-func (c *Client) Delete(id string, index string, documentType string, options ...Option) (*http.Response, error) {
+// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithParent, WithPretty, WithRefresh, WithRouting, WithSourceParam, WithTimeout, WithVersion, WithVersionType, WithWaitForActiveShards, see the Option type in this package for more info.
+func (c *Client) Delete(documentType string, id string, index string, options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithErrorTrace":          struct{}{},
+		"WithFilterPath":          struct{}{},
+		"WithHuman":               struct{}{},
 		"WithParent":              struct{}{},
+		"WithPretty":              struct{}{},
 		"WithRefresh":             struct{}{},
 		"WithRouting":             struct{}{},
+		"WithSourceParam":         struct{}{},
 		"WithTimeout":             struct{}{},
 		"WithVersion":             struct{}{},
 		"WithVersionType":         struct{}{},

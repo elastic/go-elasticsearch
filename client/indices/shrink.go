@@ -17,10 +17,15 @@ import (
 //
 // body: the configuration for the target index (settings and aliases).
 //
-// options: optional parameters. Supports the following functional options: WithMasterTimeout, WithTimeout, WithWaitForActiveShards, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithMasterTimeout, WithPretty, WithSourceParam, WithTimeout, WithWaitForActiveShards, see the Option type in this package for more info.
 func (i *Indices) Shrink(index string, target string, body map[string]interface{}, options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithErrorTrace":          struct{}{},
+		"WithFilterPath":          struct{}{},
+		"WithHuman":               struct{}{},
 		"WithMasterTimeout":       struct{}{},
+		"WithPretty":              struct{}{},
+		"WithSourceParam":         struct{}{},
 		"WithTimeout":             struct{}{},
 		"WithWaitForActiveShards": struct{}{},
 	}

@@ -13,13 +13,18 @@ import (
 //
 // body: define analyzer/tokenizer parameters and the text on which the analysis should be performed.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithFormat, WithIndexParam, WithPreferLocal, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithFormat, WithHuman, WithIndex, WithIndexParam, WithPreferLocal, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) Analyze(body map[string]interface{}, options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithIndex":       struct{}{},
+		"WithErrorTrace":  struct{}{},
+		"WithFilterPath":  struct{}{},
 		"WithFormat":      struct{}{},
+		"WithHuman":       struct{}{},
+		"WithIndex":       struct{}{},
 		"WithIndexParam":  struct{}{},
 		"WithPreferLocal": struct{}{},
+		"WithPretty":      struct{}{},
+		"WithSourceParam": struct{}{},
 	}
 	for _, option := range options {
 		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()

@@ -13,10 +13,15 @@ import (
 //
 // body: a comma-separated list of scroll IDs to clear if none was specified via the scroll_id parameter.
 //
-// options: optional parameters. Supports the following functional options: WithScrollID, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithScrollID, WithSourceParam, see the Option type in this package for more info.
 func (c *Client) ClearScroll(body map[string]interface{}, options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithScrollID": struct{}{},
+		"WithErrorTrace":  struct{}{},
+		"WithFilterPath":  struct{}{},
+		"WithHuman":       struct{}{},
+		"WithPretty":      struct{}{},
+		"WithScrollID":    struct{}{},
+		"WithSourceParam": struct{}{},
 	}
 	for _, option := range options {
 		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()

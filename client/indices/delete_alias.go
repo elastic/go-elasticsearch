@@ -15,10 +15,15 @@ import (
 //
 // name: a comma-separated list of aliases to delete (supports wildcards); use _all to delete all aliases for the specified indices.
 //
-// options: optional parameters. Supports the following functional options: WithMasterTimeout, WithTimeout, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithMasterTimeout, WithPretty, WithSourceParam, WithTimeout, see the Option type in this package for more info.
 func (i *Indices) DeleteAlias(index []string, name []string, options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithErrorTrace":    struct{}{},
+		"WithFilterPath":    struct{}{},
+		"WithHuman":         struct{}{},
 		"WithMasterTimeout": struct{}{},
+		"WithPretty":        struct{}{},
+		"WithSourceParam":   struct{}{},
 		"WithTimeout":       struct{}{},
 	}
 	for _, option := range options {

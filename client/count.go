@@ -13,23 +13,28 @@ import (
 //
 // body: a query to restrict the results specified with the Query DSL (optional).
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithAllowNoIndices, WithAnalyzeWildcard, WithAnalyzer, WithDefaultOperator, WithDf, WithExpandWildcards, WithIgnoreUnavailable, WithLenient, WithMinScore, WithPreference, WithQ, WithRouting, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithAnalyzeWildcard, WithAnalyzer, WithDefaultOperator, WithDf, WithType, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithLenient, WithMinScore, WithPreference, WithPretty, WithQ, WithRouting, WithSourceParam, see the Option type in this package for more info.
 func (c *Client) Count(body map[string]interface{}, options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithIndex":             struct{}{},
-		"WithType":              struct{}{},
 		"WithAllowNoIndices":    struct{}{},
 		"WithAnalyzeWildcard":   struct{}{},
 		"WithAnalyzer":          struct{}{},
 		"WithDefaultOperator":   struct{}{},
 		"WithDf":                struct{}{},
+		"WithType":              struct{}{},
+		"WithErrorTrace":        struct{}{},
 		"WithExpandWildcards":   struct{}{},
+		"WithFilterPath":        struct{}{},
+		"WithHuman":             struct{}{},
 		"WithIgnoreUnavailable": struct{}{},
+		"WithIndex":             struct{}{},
 		"WithLenient":           struct{}{},
 		"WithMinScore":          struct{}{},
 		"WithPreference":        struct{}{},
+		"WithPretty":            struct{}{},
 		"WithQ":                 struct{}{},
 		"WithRouting":           struct{}{},
+		"WithSourceParam":       struct{}{},
 	}
 	for _, option := range options {
 		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()

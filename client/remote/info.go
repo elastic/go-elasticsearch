@@ -10,8 +10,16 @@ import (
 )
 
 // Info - see http://www.elastic.co/guide/en/elasticsearch/reference/master/remote-info.html for more info.
+//
+// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (r *Remote) Info(options ...Option) (*http.Response, error) {
-	supportedOptions := map[string]struct{}{}
+	supportedOptions := map[string]struct{}{
+		"WithErrorTrace":  struct{}{},
+		"WithFilterPath":  struct{}{},
+		"WithHuman":       struct{}{},
+		"WithPretty":      struct{}{},
+		"WithSourceParam": struct{}{},
+	}
 	for _, option := range options {
 		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()
 		if _, ok := supportedOptions[name]; !ok {

@@ -11,17 +11,22 @@ import (
 
 // Forcemerge - the force merge API allows to force merging of one or more indices through an API. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-forcemerge.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithFlush, WithIgnoreUnavailable, WithMaxNumSegments, WithOnlyExpungeDeletes, WithOperationThreading, WithWaitForMerge, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithFlush, WithHuman, WithIgnoreUnavailable, WithIndex, WithMaxNumSegments, WithOnlyExpungeDeletes, WithOperationThreading, WithPretty, WithSourceParam, WithWaitForMerge, see the Option type in this package for more info.
 func (i *Indices) Forcemerge(options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithIndex":              struct{}{},
 		"WithAllowNoIndices":     struct{}{},
+		"WithErrorTrace":         struct{}{},
 		"WithExpandWildcards":    struct{}{},
+		"WithFilterPath":         struct{}{},
 		"WithFlush":              struct{}{},
+		"WithHuman":              struct{}{},
 		"WithIgnoreUnavailable":  struct{}{},
+		"WithIndex":              struct{}{},
 		"WithMaxNumSegments":     struct{}{},
 		"WithOnlyExpungeDeletes": struct{}{},
 		"WithOperationThreading": struct{}{},
+		"WithPretty":             struct{}{},
+		"WithSourceParam":        struct{}{},
 		"WithWaitForMerge":       struct{}{},
 	}
 	for _, option := range options {

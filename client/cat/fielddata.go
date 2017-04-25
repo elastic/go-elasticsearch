@@ -11,18 +11,23 @@ import (
 
 // Fielddata - see http://www.elastic.co/guide/en/elasticsearch/reference/master/cat-fielddata.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithFields, WithBytes, WithFieldsParam, WithFormat, WithH, WithHelp, WithLocal, WithMasterTimeout, WithS, WithV, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithBytes, WithErrorTrace, WithFields, WithFieldsParam, WithFilterPath, WithFormat, WithH, WithHelp, WithHuman, WithLocal, WithMasterTimeout, WithPretty, WithS, WithSourceParam, WithV, see the Option type in this package for more info.
 func (c *Cat) Fielddata(options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithFields":        struct{}{},
 		"WithBytes":         struct{}{},
+		"WithErrorTrace":    struct{}{},
+		"WithFields":        struct{}{},
 		"WithFieldsParam":   struct{}{},
+		"WithFilterPath":    struct{}{},
 		"WithFormat":        struct{}{},
 		"WithH":             struct{}{},
 		"WithHelp":          struct{}{},
+		"WithHuman":         struct{}{},
 		"WithLocal":         struct{}{},
 		"WithMasterTimeout": struct{}{},
+		"WithPretty":        struct{}{},
 		"WithS":             struct{}{},
+		"WithSourceParam":   struct{}{},
 		"WithV":             struct{}{},
 	}
 	for _, option := range options {

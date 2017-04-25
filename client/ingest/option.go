@@ -10,6 +10,24 @@ import (
 // Option is a non-required API option that gets applied to an HTTP request.
 type Option func(r *http.Request)
 
+// WithErrorTrace include the stack trace of returned errors.
+func WithErrorTrace(errorTrace bool) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithFilterPath a comma-separated list of filters used to reduce the respone.
+func WithFilterPath(filterPath []string) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithHuman return human readable values for statistics.
+func WithHuman(human bool) Option {
+	return func(r *http.Request) {
+	}
+}
+
 // WithID comma separated list of pipeline ids. Wildcards supported.
 func WithID(id string) Option {
 	return func(r *http.Request) {
@@ -18,6 +36,18 @@ func WithID(id string) Option {
 
 // WithMasterTimeout explicit operation timeout for connection to master node.
 func WithMasterTimeout(masterTimeout time.Time) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithPretty pretty format the returned JSON response.
+func WithPretty(pretty bool) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithSourceParam the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithSourceParam(sourceParam string) Option {
 	return func(r *http.Request) {
 	}
 }

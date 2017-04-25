@@ -13,11 +13,16 @@ import (
 //
 // body: the settings to be updated. Can be either transient or persistent (survives cluster restart).
 //
-// options: optional parameters. Supports the following functional options: WithFlatSettings, WithMasterTimeout, WithTimeout, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithFlatSettings, WithHuman, WithMasterTimeout, WithPretty, WithSourceParam, WithTimeout, see the Option type in this package for more info.
 func (c *Cluster) PutSettings(body map[string]interface{}, options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithErrorTrace":    struct{}{},
+		"WithFilterPath":    struct{}{},
 		"WithFlatSettings":  struct{}{},
+		"WithHuman":         struct{}{},
 		"WithMasterTimeout": struct{}{},
+		"WithPretty":        struct{}{},
+		"WithSourceParam":   struct{}{},
 		"WithTimeout":       struct{}{},
 	}
 	for _, option := range options {

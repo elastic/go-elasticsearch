@@ -13,10 +13,15 @@ import (
 //
 // body: the search definition template and its params.
 //
-// options: optional parameters. Supports the following functional options: WithID, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithID, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (c *Client) RenderSearchTemplate(body map[string]interface{}, options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithID": struct{}{},
+		"WithErrorTrace":  struct{}{},
+		"WithFilterPath":  struct{}{},
+		"WithHuman":       struct{}{},
+		"WithID":          struct{}{},
+		"WithPretty":      struct{}{},
+		"WithSourceParam": struct{}{},
 	}
 	for _, option := range options {
 		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()

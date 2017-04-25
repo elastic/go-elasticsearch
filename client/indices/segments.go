@@ -11,14 +11,19 @@ import (
 
 // Segments - provide low level segments information that a Lucene index (shard level) is built with. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-segments.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithOperationThreading, WithVerbose, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithOperationThreading, WithPretty, WithSourceParam, WithVerbose, see the Option type in this package for more info.
 func (i *Indices) Segments(options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithIndex":              struct{}{},
 		"WithAllowNoIndices":     struct{}{},
+		"WithErrorTrace":         struct{}{},
 		"WithExpandWildcards":    struct{}{},
+		"WithFilterPath":         struct{}{},
+		"WithHuman":              struct{}{},
 		"WithIgnoreUnavailable":  struct{}{},
+		"WithIndex":              struct{}{},
 		"WithOperationThreading": struct{}{},
+		"WithPretty":             struct{}{},
+		"WithSourceParam":        struct{}{},
 		"WithVerbose":            struct{}{},
 	}
 	for _, option := range options {

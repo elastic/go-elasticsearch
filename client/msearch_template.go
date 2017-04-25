@@ -13,13 +13,18 @@ import (
 //
 // body: the request definitions (metadata-search request definition pairs), separated by newlines.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithSearchType, WithTypedKeys, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithType, WithErrorTrace, WithFilterPath, WithHuman, WithIndex, WithPretty, WithSearchType, WithSourceParam, WithTypedKeys, see the Option type in this package for more info.
 func (c *Client) MsearchTemplate(body map[string]interface{}, options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithIndex":      struct{}{},
-		"WithType":       struct{}{},
-		"WithSearchType": struct{}{},
-		"WithTypedKeys":  struct{}{},
+		"WithType":        struct{}{},
+		"WithErrorTrace":  struct{}{},
+		"WithFilterPath":  struct{}{},
+		"WithHuman":       struct{}{},
+		"WithIndex":       struct{}{},
+		"WithPretty":      struct{}{},
+		"WithSearchType":  struct{}{},
+		"WithSourceParam": struct{}{},
+		"WithTypedKeys":   struct{}{},
 	}
 	for _, option := range options {
 		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()

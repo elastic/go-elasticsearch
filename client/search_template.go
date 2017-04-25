@@ -13,20 +13,25 @@ import (
 //
 // body: the search definition template and its params.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithAllowNoIndices, WithExpandWildcards, WithExplain, WithIgnoreUnavailable, WithPreference, WithProfile, WithRouting, WithScroll, WithSearchType, WithTypedKeys, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithType, WithErrorTrace, WithExpandWildcards, WithExplain, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithPreference, WithPretty, WithProfile, WithRouting, WithScroll, WithSearchType, WithSourceParam, WithTypedKeys, see the Option type in this package for more info.
 func (c *Client) SearchTemplate(body map[string]interface{}, options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithIndex":             struct{}{},
-		"WithType":              struct{}{},
 		"WithAllowNoIndices":    struct{}{},
+		"WithType":              struct{}{},
+		"WithErrorTrace":        struct{}{},
 		"WithExpandWildcards":   struct{}{},
 		"WithExplain":           struct{}{},
+		"WithFilterPath":        struct{}{},
+		"WithHuman":             struct{}{},
 		"WithIgnoreUnavailable": struct{}{},
+		"WithIndex":             struct{}{},
 		"WithPreference":        struct{}{},
+		"WithPretty":            struct{}{},
 		"WithProfile":           struct{}{},
 		"WithRouting":           struct{}{},
 		"WithScroll":            struct{}{},
 		"WithSearchType":        struct{}{},
+		"WithSourceParam":       struct{}{},
 		"WithTypedKeys":         struct{}{},
 	}
 	for _, option := range options {

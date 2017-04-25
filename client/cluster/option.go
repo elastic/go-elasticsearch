@@ -10,8 +10,26 @@ import (
 // Option is a non-required API option that gets applied to an HTTP request.
 type Option func(r *http.Request)
 
+// WithAllowNoIndices whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes _all string or when no indices have been specified).
+func WithAllowNoIndices(allowNoIndices bool) Option {
+	return func(r *http.Request) {
+	}
+}
+
 // WithDryRun simulate the operation only and return the resulting state.
 func WithDryRun(dryRun bool) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithErrorTrace include the stack trace of returned errors.
+func WithErrorTrace(errorTrace bool) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithExpandWildcards whether to expand wildcard expression to concrete indices that are open, closed or both.
+func WithExpandWildcards(expandWildcards struct{}) Option {
 	return func(r *http.Request) {
 	}
 }
@@ -22,8 +40,26 @@ func WithExplain(explain bool) Option {
 	}
 }
 
+// WithFilterPath a comma-separated list of filters used to reduce the respone.
+func WithFilterPath(filterPath []string) Option {
+	return func(r *http.Request) {
+	}
+}
+
 // WithFlatSettings return settings in flat format (default: false).
 func WithFlatSettings(flatSettings bool) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithHuman return human readable values for statistics.
+func WithHuman(human bool) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithIgnoreUnavailable whether specified concrete indices should be ignored when unavailable (missing or closed).
+func WithIgnoreUnavailable(ignoreUnavailable bool) Option {
 	return func(r *http.Request) {
 	}
 }
@@ -82,8 +118,20 @@ func WithNodeID(nodeID []string) Option {
 	}
 }
 
+// WithPretty pretty format the returned JSON response.
+func WithPretty(pretty bool) Option {
+	return func(r *http.Request) {
+	}
+}
+
 // WithRetryFailed retries allocation of shards that are blocked due to too many subsequent allocation failures.
 func WithRetryFailed(retryFailed bool) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithSourceParam the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithSourceParam(sourceParam string) Option {
 	return func(r *http.Request) {
 	}
 }

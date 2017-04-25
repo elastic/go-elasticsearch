@@ -11,16 +11,21 @@ import (
 
 // Recovery - see http://www.elastic.co/guide/en/elasticsearch/reference/master/cat-recovery.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithBytes, WithFormat, WithH, WithHelp, WithMasterTimeout, WithS, WithV, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithBytes, WithErrorTrace, WithFilterPath, WithFormat, WithH, WithHelp, WithHuman, WithIndex, WithMasterTimeout, WithPretty, WithS, WithSourceParam, WithV, see the Option type in this package for more info.
 func (c *Cat) Recovery(options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithIndex":         struct{}{},
 		"WithBytes":         struct{}{},
+		"WithErrorTrace":    struct{}{},
+		"WithFilterPath":    struct{}{},
 		"WithFormat":        struct{}{},
 		"WithH":             struct{}{},
 		"WithHelp":          struct{}{},
+		"WithHuman":         struct{}{},
+		"WithIndex":         struct{}{},
 		"WithMasterTimeout": struct{}{},
+		"WithPretty":        struct{}{},
 		"WithS":             struct{}{},
+		"WithSourceParam":   struct{}{},
 		"WithV":             struct{}{},
 	}
 	for _, option := range options {

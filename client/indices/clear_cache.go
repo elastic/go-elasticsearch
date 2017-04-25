@@ -11,21 +11,26 @@ import (
 
 // ClearCache - the clear cache API allows to clear either all caches or specific cached associated with one or more indices. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-clearcache.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithFieldData, WithFielddata, WithFields, WithIgnoreUnavailable, WithIndexParam, WithQuery, WithRecycler, WithRequest, WithRequestCache, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFieldData, WithFielddata, WithFields, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithIndexParam, WithPretty, WithQuery, WithRecycler, WithRequest, WithRequestCache, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) ClearCache(options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithIndex":             struct{}{},
 		"WithAllowNoIndices":    struct{}{},
+		"WithErrorTrace":        struct{}{},
 		"WithExpandWildcards":   struct{}{},
 		"WithFieldData":         struct{}{},
 		"WithFielddata":         struct{}{},
 		"WithFields":            struct{}{},
+		"WithFilterPath":        struct{}{},
+		"WithHuman":             struct{}{},
 		"WithIgnoreUnavailable": struct{}{},
+		"WithIndex":             struct{}{},
 		"WithIndexParam":        struct{}{},
+		"WithPretty":            struct{}{},
 		"WithQuery":             struct{}{},
 		"WithRecycler":          struct{}{},
 		"WithRequest":           struct{}{},
 		"WithRequestCache":      struct{}{},
+		"WithSourceParam":       struct{}{},
 	}
 	for _, option := range options {
 		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()

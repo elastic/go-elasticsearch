@@ -11,29 +11,34 @@ import (
 
 // Explain - the explain api computes a score explanation for a query and a specific document. See http://www.elastic.co/guide/en/elasticsearch/reference/master/search-explain.html for more info.
 //
+// documentType: the type of the document.
+//
 // id: the document ID.
 //
 // index: the name of the index.
 //
-// documentType: the type of the document.
-//
 // body: the query definition using the Query DSL.
 //
-// options: optional parameters. Supports the following functional options: WithSource, WithSourceExclude, WithSourceInclude, WithAnalyzeWildcard, WithAnalyzer, WithDefaultOperator, WithDf, WithLenient, WithParent, WithPreference, WithQ, WithRouting, WithStoredFields, see the Option type in this package for more info.
-func (c *Client) Explain(id string, index string, documentType string, body map[string]interface{}, options ...Option) (*http.Response, error) {
+// options: optional parameters. Supports the following functional options: WithAnalyzeWildcard, WithAnalyzer, WithDefaultOperator, WithDf, WithErrorTrace, WithFilterPath, WithHuman, WithLenient, WithParent, WithPreference, WithPretty, WithQ, WithRouting, WithSource, WithSourceExclude, WithSourceInclude, WithSourceParam, WithStoredFields, see the Option type in this package for more info.
+func (c *Client) Explain(documentType string, id string, index string, body map[string]interface{}, options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithSource":          struct{}{},
-		"WithSourceExclude":   struct{}{},
-		"WithSourceInclude":   struct{}{},
 		"WithAnalyzeWildcard": struct{}{},
 		"WithAnalyzer":        struct{}{},
 		"WithDefaultOperator": struct{}{},
 		"WithDf":              struct{}{},
+		"WithErrorTrace":      struct{}{},
+		"WithFilterPath":      struct{}{},
+		"WithHuman":           struct{}{},
 		"WithLenient":         struct{}{},
 		"WithParent":          struct{}{},
 		"WithPreference":      struct{}{},
+		"WithPretty":          struct{}{},
 		"WithQ":               struct{}{},
 		"WithRouting":         struct{}{},
+		"WithSource":          struct{}{},
+		"WithSourceExclude":   struct{}{},
+		"WithSourceInclude":   struct{}{},
+		"WithSourceParam":     struct{}{},
 		"WithStoredFields":    struct{}{},
 	}
 	for _, option := range options {

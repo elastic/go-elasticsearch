@@ -11,23 +11,28 @@ import (
 
 // Get allows to get a typed JSON document from the index based on its id. See http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-get.html for more info.
 //
+// documentType: the type of the document (use _all to fetch the first document matching the ID across all types).
+//
 // id: the document ID.
 //
 // index: the name of the index.
 //
-// documentType: the type of the document (use _all to fetch the first document matching the ID across all types).
-//
-// options: optional parameters. Supports the following functional options: WithSource, WithSourceExclude, WithSourceInclude, WithParent, WithPreference, WithRealtime, WithRefresh, WithRouting, WithStoredFields, WithVersion, WithVersionType, see the Option type in this package for more info.
-func (c *Client) Get(id string, index string, documentType string, options ...Option) (*http.Response, error) {
+// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithParent, WithPreference, WithPretty, WithRealtime, WithRefresh, WithRouting, WithSource, WithSourceExclude, WithSourceInclude, WithSourceParam, WithStoredFields, WithVersion, WithVersionType, see the Option type in this package for more info.
+func (c *Client) Get(documentType string, id string, index string, options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithSource":        struct{}{},
-		"WithSourceExclude": struct{}{},
-		"WithSourceInclude": struct{}{},
+		"WithErrorTrace":    struct{}{},
+		"WithFilterPath":    struct{}{},
+		"WithHuman":         struct{}{},
 		"WithParent":        struct{}{},
 		"WithPreference":    struct{}{},
+		"WithPretty":        struct{}{},
 		"WithRealtime":      struct{}{},
 		"WithRefresh":       struct{}{},
 		"WithRouting":       struct{}{},
+		"WithSource":        struct{}{},
+		"WithSourceExclude": struct{}{},
+		"WithSourceInclude": struct{}{},
+		"WithSourceParam":   struct{}{},
 		"WithStoredFields":  struct{}{},
 		"WithVersion":       struct{}{},
 		"WithVersionType":   struct{}{},

@@ -28,6 +28,12 @@ func WithDetailed(detailed bool) Option {
 	}
 }
 
+// WithErrorTrace include the stack trace of returned errors.
+func WithErrorTrace(errorTrace bool) Option {
+	return func(r *http.Request) {
+	}
+}
+
 // WithFields a comma-separated list of fields to return the fielddata size.
 func WithFields(fields []string) Option {
 	return func(r *http.Request) {
@@ -36,6 +42,12 @@ func WithFields(fields []string) Option {
 
 // WithFieldsParam a comma-separated list of fields to return in the output.
 func WithFieldsParam(fieldsParam []string) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithFilterPath a comma-separated list of filters used to reduce the respone.
+func WithFilterPath(filterPath []string) Option {
 	return func(r *http.Request) {
 	}
 }
@@ -60,6 +72,12 @@ func WithH(h []string) Option {
 
 // WithHelp return help information.
 func WithHelp(help bool) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithHuman return human readable values for statistics.
+func WithHuman(human bool) Option {
 	return func(r *http.Request) {
 	}
 }
@@ -100,6 +118,12 @@ func WithNodeID(nodeID []string) Option {
 	}
 }
 
+// WithPretty pretty format the returned JSON response.
+func WithPretty(pretty bool) Option {
+	return func(r *http.Request) {
+	}
+}
+
 // WithS comma-separated list of column names or column aliases to sort by.
 func WithS(s []string) Option {
 	return func(r *http.Request) {
@@ -108,6 +132,12 @@ func WithS(s []string) Option {
 
 // WithSize the multiplier in which to display values.
 func WithSize(size struct{}) Option {
+	return func(r *http.Request) {
+	}
+}
+
+// WithSourceParam the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithSourceParam(sourceParam string) Option {
 	return func(r *http.Request) {
 	}
 }

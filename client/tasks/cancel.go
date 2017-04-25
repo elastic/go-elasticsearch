@@ -11,14 +11,19 @@ import (
 
 // Cancel - the task management API allows to retrieve information about the tasks currently executing on one or more nodes in the cluster. See http://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithTaskID, WithActions, WithNodeID, WithParentNode, WithParentTask, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithActions, WithErrorTrace, WithFilterPath, WithHuman, WithNodeID, WithParentNode, WithParentTask, WithPretty, WithSourceParam, WithTaskID, see the Option type in this package for more info.
 func (t *Tasks) Cancel(options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithTaskID":     struct{}{},
-		"WithActions":    struct{}{},
-		"WithNodeID":     struct{}{},
-		"WithParentNode": struct{}{},
-		"WithParentTask": struct{}{},
+		"WithActions":     struct{}{},
+		"WithErrorTrace":  struct{}{},
+		"WithFilterPath":  struct{}{},
+		"WithHuman":       struct{}{},
+		"WithNodeID":      struct{}{},
+		"WithParentNode":  struct{}{},
+		"WithParentTask":  struct{}{},
+		"WithPretty":      struct{}{},
+		"WithSourceParam": struct{}{},
+		"WithTaskID":      struct{}{},
 	}
 	for _, option := range options {
 		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()

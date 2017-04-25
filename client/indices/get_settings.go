@@ -11,17 +11,22 @@ import (
 
 // GetSettings - see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-settings.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithName, WithAllowNoIndices, WithExpandWildcards, WithFlatSettings, WithIgnoreUnavailable, WithIncludeDefaults, WithLocal, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithFlatSettings, WithHuman, WithIgnoreUnavailable, WithIncludeDefaults, WithIndex, WithLocal, WithName, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) GetSettings(options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithIndex":             struct{}{},
-		"WithName":              struct{}{},
 		"WithAllowNoIndices":    struct{}{},
+		"WithErrorTrace":        struct{}{},
 		"WithExpandWildcards":   struct{}{},
+		"WithFilterPath":        struct{}{},
 		"WithFlatSettings":      struct{}{},
+		"WithHuman":             struct{}{},
 		"WithIgnoreUnavailable": struct{}{},
 		"WithIncludeDefaults":   struct{}{},
+		"WithIndex":             struct{}{},
 		"WithLocal":             struct{}{},
+		"WithName":              struct{}{},
+		"WithPretty":            struct{}{},
+		"WithSourceParam":       struct{}{},
 	}
 	for _, option := range options {
 		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()

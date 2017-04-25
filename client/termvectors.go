@@ -11,25 +11,30 @@ import (
 
 // Termvectors - returns information and statistics on terms in the fields of a particular document. See http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-termvectors.html for more info.
 //
-// index: the index in which the document resides.
-//
 // documentType: the type of the document.
+//
+// index: the index in which the document resides.
 //
 // body: define parameters and or supply a document to get termvectors for. See documentation.
 //
-// options: optional parameters. Supports the following functional options: WithID, WithFieldStatistics, WithFields, WithOffsets, WithParent, WithPayloads, WithPositions, WithPreference, WithRealtime, WithRouting, WithTermStatistics, WithVersion, WithVersionType, see the Option type in this package for more info.
-func (c *Client) Termvectors(index string, documentType string, body map[string]interface{}, options ...Option) (*http.Response, error) {
+// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFieldStatistics, WithFields, WithFilterPath, WithHuman, WithID, WithOffsets, WithParent, WithPayloads, WithPositions, WithPreference, WithPretty, WithRealtime, WithRouting, WithSourceParam, WithTermStatistics, WithVersion, WithVersionType, see the Option type in this package for more info.
+func (c *Client) Termvectors(documentType string, index string, body map[string]interface{}, options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithID":              struct{}{},
+		"WithErrorTrace":      struct{}{},
 		"WithFieldStatistics": struct{}{},
 		"WithFields":          struct{}{},
+		"WithFilterPath":      struct{}{},
+		"WithHuman":           struct{}{},
+		"WithID":              struct{}{},
 		"WithOffsets":         struct{}{},
 		"WithParent":          struct{}{},
 		"WithPayloads":        struct{}{},
 		"WithPositions":       struct{}{},
 		"WithPreference":      struct{}{},
+		"WithPretty":          struct{}{},
 		"WithRealtime":        struct{}{},
 		"WithRouting":         struct{}{},
+		"WithSourceParam":     struct{}{},
 		"WithTermStatistics":  struct{}{},
 		"WithVersion":         struct{}{},
 		"WithVersionType":     struct{}{},

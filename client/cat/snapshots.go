@@ -13,15 +13,20 @@ import (
 //
 // repository: name of repository from which to fetch the snapshot information.
 //
-// options: optional parameters. Supports the following functional options: WithFormat, WithH, WithHelp, WithIgnoreUnavailable, WithMasterTimeout, WithS, WithV, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithFormat, WithH, WithHelp, WithHuman, WithIgnoreUnavailable, WithMasterTimeout, WithPretty, WithS, WithSourceParam, WithV, see the Option type in this package for more info.
 func (c *Cat) Snapshots(repository []string, options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithErrorTrace":        struct{}{},
+		"WithFilterPath":        struct{}{},
 		"WithFormat":            struct{}{},
 		"WithH":                 struct{}{},
 		"WithHelp":              struct{}{},
+		"WithHuman":             struct{}{},
 		"WithIgnoreUnavailable": struct{}{},
 		"WithMasterTimeout":     struct{}{},
+		"WithPretty":            struct{}{},
 		"WithS":                 struct{}{},
+		"WithSourceParam":       struct{}{},
 		"WithV":                 struct{}{},
 	}
 	for _, option := range options {

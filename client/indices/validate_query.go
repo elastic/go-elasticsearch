@@ -13,24 +13,29 @@ import (
 //
 // body: the query definition specified with the Query DSL.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithAllShards, WithAllowNoIndices, WithAnalyzeWildcard, WithAnalyzer, WithDefaultOperator, WithDf, WithExpandWildcards, WithExplain, WithIgnoreUnavailable, WithLenient, WithOperationThreading, WithQ, WithRewrite, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithAllShards, WithAllowNoIndices, WithAnalyzeWildcard, WithAnalyzer, WithDefaultOperator, WithDf, WithType, WithErrorTrace, WithExpandWildcards, WithExplain, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithLenient, WithOperationThreading, WithPretty, WithQ, WithRewrite, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) ValidateQuery(body map[string]interface{}, options ...Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithIndex":              struct{}{},
-		"WithType":               struct{}{},
 		"WithAllShards":          struct{}{},
 		"WithAllowNoIndices":     struct{}{},
 		"WithAnalyzeWildcard":    struct{}{},
 		"WithAnalyzer":           struct{}{},
 		"WithDefaultOperator":    struct{}{},
 		"WithDf":                 struct{}{},
+		"WithType":               struct{}{},
+		"WithErrorTrace":         struct{}{},
 		"WithExpandWildcards":    struct{}{},
 		"WithExplain":            struct{}{},
+		"WithFilterPath":         struct{}{},
+		"WithHuman":              struct{}{},
 		"WithIgnoreUnavailable":  struct{}{},
+		"WithIndex":              struct{}{},
 		"WithLenient":            struct{}{},
 		"WithOperationThreading": struct{}{},
+		"WithPretty":             struct{}{},
 		"WithQ":                  struct{}{},
 		"WithRewrite":            struct{}{},
+		"WithSourceParam":        struct{}{},
 	}
 	for _, option := range options {
 		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()
