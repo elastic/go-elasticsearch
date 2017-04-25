@@ -40,6 +40,10 @@ gen: spec
 spec:
 	$(MAKE) -C $(SPEC_DIR) checkout
 
+.PHONY: spec-update
+spec-update: spec
+	$(MAKE) -C $(SPEC_DIR) pull
+
 .PHONY: test
 test: build
 	$(GO) test $(GO_PACKAGES)
