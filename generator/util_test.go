@@ -20,11 +20,38 @@
 package generator
 
 import (
+	"bytes"
+	"io"
+	"path/filepath"
 	"strings"
 	"testing"
 
 	"github.com/aryann/difflib"
 )
+
+type dummyCloser struct {
+	io.Reader
+}
+
+func (d *dummyCloser) Close() error {
+	return nil
+}
+
+func newIndexMethod(t *testing.T) *method {
+	m, err := newMethod(filepath.Join("..", DefaultSpecDir, "index.json"), nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	body := `<div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="docs-index_"></a>
+	Index API<a href="https://github.com/elastic/elasticsearch/edit/master/docs/reference/docs/index_.asciidoc"
+	class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h2></div></div></div>
+	<p>The index API adds or updates a typed JSON document in a specific index,
+making it searchable. The following example inserts the JSON document
+into the "twitter" index, under a type called "tweet" with an id of 1:</p>`
+	m.HTTPCache["http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html"] =
+		&dummyCloser{bytes.NewBufferString(body)}
+	return m
+}
 
 func splitAndTrim(s string) []string {
 	lines := []string{}

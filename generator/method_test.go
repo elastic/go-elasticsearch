@@ -26,12 +26,9 @@ import (
 )
 
 func TestGenerate(t *testing.T) {
-	m, err := newMethod(filepath.Join("..", DefaultSpecDir, "index.json"), nil)
-	if err != nil {
-		t.Fatal(err)
-	}
+	m := newIndexMethod(t)
 	var writer bytes.Buffer
-	err = m.generate(filepath.Join("..", templatesDir), &writer)
+	err := m.generate(filepath.Join("..", templatesDir), &writer)
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -66,6 +66,7 @@ type method struct {
 	RequiredParams []*param
 	OptionalParams []*param
 	ParamNames     map[string]struct{}
+	HTTPCache      map[string]io.ReadCloser
 }
 
 func newMethod(specFilePath string, commonParams map[string]*param) (*method, error) {
@@ -77,6 +78,7 @@ func newMethod(specFilePath string, commonParams map[string]*param) (*method, er
 		RequiredParams: []*param{},
 		OptionalParams: []*param{},
 		ParamNames:     map[string]struct{}{},
+		HTTPCache:      map[string]io.ReadCloser{},
 	}
 	var spec map[string]spec
 	err = json.Unmarshal(bytes, &spec)
@@ -126,9 +128,6 @@ func newMethod(specFilePath string, commonParams map[string]*param) (*method, er
 	m.TypeName = snaker.SnakeToCamel(m.PackageName)
 	m.ReceiverName = strings.ToLower(string(m.TypeName[0]))
 	m.HTTPMethod = m.Spec.Methods[0]
-	if err = m.resolveDocumentation(); err != nil {
-		return nil, err
-	}
 	return m, nil
 }
 
@@ -138,11 +137,14 @@ func (m *method) resolveDocumentation() error {
 		m.Spec.Documentation = " - see " + url + "."
 		return nil
 	}
-	resp, err := http.Get(url)
-	if err != nil {
-		return err
+	body, ok := m.HTTPCache[url]
+	if !ok {
+		resp, err := http.Get(url)
+		if err != nil {
+			return err
+		}
+		body = resp.Body
 	}
-	body := resp.Body
 	defer body.Close()
 	tokenizer := html.NewTokenizer(body)
 	for {
@@ -261,6 +263,9 @@ func (m *method) newWriter(outputDir, fileName string) (io.Writer, error) {
 }
 
 func (m *method) generate(templatesDir string, w io.Writer) error {
+	if err := m.resolveDocumentation(); err != nil {
+		return err
+	}
 	templateFilePath := filepath.Join(templatesDir, "method.tmpl")
 	t, err := template.New("method.tmpl").ParseFiles(templateFilePath)
 	if err != nil {
