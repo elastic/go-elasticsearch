@@ -5,8 +5,7 @@ package client
 import (
 	"fmt"
 	"net/http"
-	"reflect"
-	"runtime"
+	"net/url"
 )
 
 // Mtermvectors - multi termvectors API allows to get multiple termvectors at once. See http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-multi-termvectors.html for more info.
@@ -14,7 +13,7 @@ import (
 // body: define ids, documents, parameters or a list of parameters per document here. You must at least provide a list of document ids. See documentation.
 //
 // options: optional parameters. Supports the following functional options: WithType, WithErrorTrace, WithFieldStatistics, WithFields, WithFilterPath, WithHuman, WithIds, WithIndex, WithOffsets, WithParent, WithPayloads, WithPositions, WithPreference, WithPretty, WithRealtime, WithRouting, WithSourceParam, WithTermStatistics, WithVersion, WithVersionType, see the Option type in this package for more info.
-func (c *Client) Mtermvectors(body map[string]interface{}, options ...Option) (*http.Response, error) {
+func (c *Client) Mtermvectors(body map[string]interface{}, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithType":            struct{}{},
 		"WithErrorTrace":      struct{}{},
@@ -37,14 +36,18 @@ func (c *Client) Mtermvectors(body map[string]interface{}, options ...Option) (*
 		"WithVersion":         struct{}{},
 		"WithVersionType":     struct{}{},
 	}
-	for _, option := range options {
-		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()
-		if _, ok := supportedOptions[name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", name)
-		}
-	}
 	req := &http.Request{
+		URL: &url.URL{
+			Scheme: c.transport.Scheme,
+			Host:   c.transport.Host,
+		},
 		Method: "GET",
 	}
-	return c.client.Do(req)
+	for _, option := range options {
+		if _, ok := supportedOptions[option.name]; !ok {
+			return nil, fmt.Errorf("unsupported option: %s", option.name)
+		}
+		option.apply(req)
+	}
+	return c.transport.Do(req)
 }

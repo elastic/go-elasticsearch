@@ -5,8 +5,7 @@ package client
 import (
 	"fmt"
 	"net/http"
-	"reflect"
-	"runtime"
+	"net/url"
 )
 
 // Update allows to update a document based on a script provided. See http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-update.html for more info.
@@ -20,7 +19,7 @@ import (
 // body: the request definition using either "script" or partial "doc".
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFields, WithFilterPath, WithHuman, WithLang, WithParent, WithPretty, WithRefresh, WithRetryOnConflict, WithRouting, WithSource, WithSourceExclude, WithSourceInclude, WithSourceParam, WithTimeout, WithTimestamp, WithTTL, WithVersion, WithVersionType, WithWaitForActiveShards, see the Option type in this package for more info.
-func (c *Client) Update(documentType string, id string, index string, body map[string]interface{}, options ...Option) (*http.Response, error) {
+func (c *Client) Update(documentType string, id string, index string, body map[string]interface{}, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithErrorTrace":          struct{}{},
 		"WithFields":              struct{}{},
@@ -43,14 +42,18 @@ func (c *Client) Update(documentType string, id string, index string, body map[s
 		"WithVersionType":         struct{}{},
 		"WithWaitForActiveShards": struct{}{},
 	}
-	for _, option := range options {
-		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()
-		if _, ok := supportedOptions[name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", name)
-		}
-	}
 	req := &http.Request{
+		URL: &url.URL{
+			Scheme: c.transport.Scheme,
+			Host:   c.transport.Host,
+		},
 		Method: "POST",
 	}
-	return c.client.Do(req)
+	for _, option := range options {
+		if _, ok := supportedOptions[option.name]; !ok {
+			return nil, fmt.Errorf("unsupported option: %s", option.name)
+		}
+		option.apply(req)
+	}
+	return c.transport.Do(req)
 }

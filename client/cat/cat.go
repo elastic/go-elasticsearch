@@ -3,18 +3,18 @@
 package cat
 
 import (
-	"net/http"
+	"github.com/elastic/goelasticsearch/client/transport"
 )
 
 // Cat is the cat client.
 type Cat struct {
-	// client is the transport client.
-	client *http.Client
+	// transport is the transport client.
+	transport *transport.Transport
 }
 
 // New is the constructor for Cat.
-func New(client *http.Client) *Cat {
+func New(transport *transport.Transport) *Cat {
 	return &Cat{
-		client: client,
+		transport: transport,
 	}
 }

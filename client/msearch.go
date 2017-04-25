@@ -5,8 +5,7 @@ package client
 import (
 	"fmt"
 	"net/http"
-	"reflect"
-	"runtime"
+	"net/url"
 )
 
 // Msearch - the multi search API allows to execute several search requests within the same API. See http://www.elastic.co/guide/en/elasticsearch/reference/master/search-multi-search.html for more info.
@@ -14,7 +13,7 @@ import (
 // body: the request definitions (metadata-search request definition pairs), separated by newlines.
 //
 // options: optional parameters. Supports the following functional options: WithType, WithErrorTrace, WithFilterPath, WithHuman, WithIndex, WithMaxConcurrentSearches, WithPretty, WithSearchType, WithSourceParam, WithTypedKeys, see the Option type in this package for more info.
-func (c *Client) Msearch(body map[string]interface{}, options ...Option) (*http.Response, error) {
+func (c *Client) Msearch(body map[string]interface{}, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithType":                  struct{}{},
 		"WithErrorTrace":            struct{}{},
@@ -27,14 +26,18 @@ func (c *Client) Msearch(body map[string]interface{}, options ...Option) (*http.
 		"WithSourceParam":           struct{}{},
 		"WithTypedKeys":             struct{}{},
 	}
-	for _, option := range options {
-		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()
-		if _, ok := supportedOptions[name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", name)
-		}
-	}
 	req := &http.Request{
+		URL: &url.URL{
+			Scheme: c.transport.Scheme,
+			Host:   c.transport.Host,
+		},
 		Method: "GET",
 	}
-	return c.client.Do(req)
+	for _, option := range options {
+		if _, ok := supportedOptions[option.name]; !ok {
+			return nil, fmt.Errorf("unsupported option: %s", option.name)
+		}
+		option.apply(req)
+	}
+	return c.transport.Do(req)
 }

@@ -53,102 +53,54 @@ const (
 	OpTypeCreate = iota
 )
 
-// Refresh - if "true" then refresh the affected shards to make this operation visible to search, if "wait_for" then wait for a refresh to make this operation visible to search, if "false" (the default) then do nothing with refreshes.
-type Refresh int
-const (
-	// RefreshTrue can be used to set Refresh to "true"
-	RefreshTrue = iota
-	// RefreshFalse can be used to set Refresh to "false"
-	RefreshFalse = iota
-	// RefreshWaitFor can be used to set Refresh to "wait_for"
-	RefreshWaitFor = iota
-)
-
-// VersionType - specific version type.
-type VersionType int
-const (
-	// VersionTypeInternal can be used to set VersionType to "internal"
-	VersionTypeInternal = iota
-	// VersionTypeExternal can be used to set VersionType to "external"
-	VersionTypeExternal = iota
-	// VersionTypeExternalGte can be used to set VersionType to "external_gte"
-	VersionTypeExternalGte = iota
-	// VersionTypeForce can be used to set VersionType to "force"
-	VersionTypeForce = iota
-)
-
 // Option is a non-required API option that gets applied to an HTTP request.
-type Option func(r *http.Request)
+type Option struct {
+	name string
+	apply func(r *http.Request)
+}
 
 // WithID document ID.
-func WithID(id string) Option {
-	return func(r *http.Request) {
+func WithID(id string) *Option {
+	return &Option{
+		name: "WithID",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithOpType explicit operation type.
-func WithOpType(opType OpType) Option {
-	return func(r *http.Request) {
-	}
-}
-
-// WithParent ID of the parent document.
-func WithParent(parent string) Option {
-	return func(r *http.Request) {
-	}
-}
-
-// WithPipeline the pipeline id to preprocess incoming documents with.
-func WithPipeline(pipeline string) Option {
-	return func(r *http.Request) {
-	}
-}
-
-// WithRefresh if "true" then refresh the affected shards to make this operation visible to search, if "wait_for" then wait for a refresh to make this operation visible to search, if "false" (the default) then do nothing with refreshes.
-func WithRefresh(refresh Refresh) Option {
-	return func(r *http.Request) {
-	}
-}
-
-// WithRouting specific routing value.
-func WithRouting(routing string) Option {
-	return func(r *http.Request) {
+func WithOpType(opType OpType) *Option {
+	return &Option{
+		name: "WithOpType",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithTimeout explicit operation timeout.
-func WithTimeout(timeout time.Time) Option {
-	return func(r *http.Request) {
-	}
-}
-
-// WithTimestamp explicit timestamp for the document.
-func WithTimestamp(timestamp time.Time) Option {
-	return func(r *http.Request) {
-	}
-}
-
-// WithTTL expiration time for the document.
-func WithTTL(ttl time.Time) Option {
-	return func(r *http.Request) {
+func WithTimeout(timeout time.Time) *Option {
+	return &Option{
+		name: "WithTimeout",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithVersion explicit version number for concurrency control.
-func WithVersion(version int) Option {
-	return func(r *http.Request) {
-	}
-}
-
-// WithVersionType specific version type.
-func WithVersionType(versionType VersionType) Option {
-	return func(r *http.Request) {
+func WithVersion(version int) *Option {
+	return &Option{
+		name: "WithVersion",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithWaitForActiveShards sets the number of shard copies that must be active before proceeding with the index operation. Defaults to 1, meaning the primary shard only. Set to "all" for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1).
-func WithWaitForActiveShards(waitForActiveShards string) Option {
-	return func(r *http.Request) {
+func WithWaitForActiveShards(waitForActiveShards string) *Option {
+	return &Option{
+		name: "WithWaitForActiveShards",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
@@ -176,12 +128,13 @@ package client
 
 import (
 	"net/http"
+	"github.com/elastic/goelasticsearch/client/transport"
 )
 
 // Client is the transport client.
 type Client struct {
-	// client is the transport client.
-	client *http.Client
+	// transport is the transport client.
+	transport *transport.Transport
 }
 
 // addClients adds the subclients.

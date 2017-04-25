@@ -5,8 +5,7 @@ package snapshot
 import (
 	"fmt"
 	"net/http"
-	"reflect"
-	"runtime"
+	"net/url"
 )
 
 // CreateRepository - the snapshot and restore module allows to create snapshots of individual indices or an entire cluster into a remote repository like shared file system, S3, or HDFS. See http://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html for more info.
@@ -16,7 +15,7 @@ import (
 // body: the repository definition.
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithMasterTimeout, WithPretty, WithSourceParam, WithTimeout, WithVerify, see the Option type in this package for more info.
-func (s *Snapshot) CreateRepository(repository string, body map[string]interface{}, options ...Option) (*http.Response, error) {
+func (s *Snapshot) CreateRepository(repository string, body map[string]interface{}, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithErrorTrace":    struct{}{},
 		"WithFilterPath":    struct{}{},
@@ -27,14 +26,18 @@ func (s *Snapshot) CreateRepository(repository string, body map[string]interface
 		"WithTimeout":       struct{}{},
 		"WithVerify":        struct{}{},
 	}
-	for _, option := range options {
-		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()
-		if _, ok := supportedOptions[name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", name)
-		}
-	}
 	req := &http.Request{
+		URL: &url.URL{
+			Scheme: s.transport.Scheme,
+			Host:   s.transport.Host,
+		},
 		Method: "PUT",
 	}
-	return s.client.Do(req)
+	for _, option := range options {
+		if _, ok := supportedOptions[option.name]; !ok {
+			return nil, fmt.Errorf("unsupported option: %s", option.name)
+		}
+		option.apply(req)
+	}
+	return s.transport.Do(req)
 }

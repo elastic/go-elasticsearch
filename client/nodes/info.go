@@ -5,14 +5,13 @@ package nodes
 import (
 	"fmt"
 	"net/http"
-	"reflect"
-	"runtime"
+	"net/url"
 )
 
 // Info - the cluster nodes info API allows to retrieve one or more (or all) of the cluster nodes information. See http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-info.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithFlatSettings, WithHuman, WithMetric, WithNodeID, WithPretty, WithSourceParam, WithTimeout, see the Option type in this package for more info.
-func (n *Nodes) Info(options ...Option) (*http.Response, error) {
+func (n *Nodes) Info(options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithErrorTrace":   struct{}{},
 		"WithFilterPath":   struct{}{},
@@ -24,14 +23,18 @@ func (n *Nodes) Info(options ...Option) (*http.Response, error) {
 		"WithSourceParam":  struct{}{},
 		"WithTimeout":      struct{}{},
 	}
-	for _, option := range options {
-		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()
-		if _, ok := supportedOptions[name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", name)
-		}
-	}
 	req := &http.Request{
+		URL: &url.URL{
+			Scheme: n.transport.Scheme,
+			Host:   n.transport.Host,
+		},
 		Method: "GET",
 	}
-	return n.client.Do(req)
+	for _, option := range options {
+		if _, ok := supportedOptions[option.name]; !ok {
+			return nil, fmt.Errorf("unsupported option: %s", option.name)
+		}
+		option.apply(req)
+	}
+	return n.transport.Do(req)
 }

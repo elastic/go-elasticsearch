@@ -5,14 +5,13 @@ package indices
 import (
 	"fmt"
 	"net/http"
-	"reflect"
-	"runtime"
+	"net/url"
 )
 
 // ClearCache - the clear cache API allows to clear either all caches or specific cached associated with one or more indices. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-clearcache.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFieldData, WithFielddata, WithFields, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithIndexParam, WithPretty, WithQuery, WithRecycler, WithRequest, WithRequestCache, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) ClearCache(options ...Option) (*http.Response, error) {
+func (i *Indices) ClearCache(options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithAllowNoIndices":    struct{}{},
 		"WithErrorTrace":        struct{}{},
@@ -32,14 +31,18 @@ func (i *Indices) ClearCache(options ...Option) (*http.Response, error) {
 		"WithRequestCache":      struct{}{},
 		"WithSourceParam":       struct{}{},
 	}
-	for _, option := range options {
-		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()
-		if _, ok := supportedOptions[name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", name)
-		}
-	}
 	req := &http.Request{
+		URL: &url.URL{
+			Scheme: i.transport.Scheme,
+			Host:   i.transport.Host,
+		},
 		Method: "POST",
 	}
-	return i.client.Do(req)
+	for _, option := range options {
+		if _, ok := supportedOptions[option.name]; !ok {
+			return nil, fmt.Errorf("unsupported option: %s", option.name)
+		}
+		option.apply(req)
+	}
+	return i.transport.Do(req)
 }

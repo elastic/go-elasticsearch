@@ -5,8 +5,7 @@ package client
 import (
 	"fmt"
 	"net/http"
-	"reflect"
-	"runtime"
+	"net/url"
 )
 
 // UpdateByQuery - see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-update-by-query.html for more info.
@@ -16,7 +15,7 @@ import (
 // body: the search definition using the Query DSL.
 //
 // options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithAnalyzeWildcard, WithAnalyzer, WithConflicts, WithDefaultOperator, WithDf, WithType, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithFrom, WithHuman, WithIgnoreUnavailable, WithLenient, WithPipeline, WithPreference, WithPretty, WithQ, WithRefresh, WithRequestCache, WithRequestsPerSecond, WithRouting, WithScroll, WithScrollSize, WithSearchTimeout, WithSearchType, WithSize, WithSlices, WithSort, WithSource, WithSourceExclude, WithSourceInclude, WithSourceParam, WithStats, WithTerminateAfter, WithTimeout, WithVersion, WithVersionType, WithWaitForActiveShards, WithWaitForCompletion, see the Option type in this package for more info.
-func (c *Client) UpdateByQuery(index []string, body map[string]interface{}, options ...Option) (*http.Response, error) {
+func (c *Client) UpdateByQuery(index []string, body map[string]interface{}, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithAllowNoIndices":      struct{}{},
 		"WithAnalyzeWildcard":     struct{}{},
@@ -59,14 +58,18 @@ func (c *Client) UpdateByQuery(index []string, body map[string]interface{}, opti
 		"WithWaitForActiveShards": struct{}{},
 		"WithWaitForCompletion":   struct{}{},
 	}
-	for _, option := range options {
-		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()
-		if _, ok := supportedOptions[name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", name)
-		}
-	}
 	req := &http.Request{
+		URL: &url.URL{
+			Scheme: c.transport.Scheme,
+			Host:   c.transport.Host,
+		},
 		Method: "POST",
 	}
-	return c.client.Do(req)
+	for _, option := range options {
+		if _, ok := supportedOptions[option.name]; !ok {
+			return nil, fmt.Errorf("unsupported option: %s", option.name)
+		}
+		option.apply(req)
+	}
+	return c.transport.Do(req)
 }

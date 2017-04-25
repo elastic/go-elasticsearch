@@ -37,8 +37,10 @@ func TestGenerate(t *testing.T) {
 package client
 
 import (
+	"fmt"
 	"net/http"
-	"runtime"
+
+	"github.com/elastic/goelasticsearch/client/transport"
 )
 
 // Index adds or updates a typed JSON document in a specific index, making it searchable. See http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html for more info.
@@ -49,32 +51,29 @@ import (
 //
 // body: the document.
 //
-// options: optional parameters. Supports the following functional options: WithID, WithOpType, WithParent, WithPipeline, WithRefresh, WithRouting, WithTimeout, WithTimestamp, WithTTL, WithVersion, WithVersionType, WithWaitForActiveShards, see the Option type in this package for more info.
-func (c *Client) Index(documentType string, index string, body map[string]interface{}, options ...Option) (*http.Response, error) {
+// options: optional parameters. Supports the following functional options: WithID, WithOpType, WithTimeout, WithVersion, WithWaitForActiveShards, see the Option type in this package for more info.
+func (c *Client) Index(documentType string, index string, body map[string]interface{}, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-"WithID": struct{}{},
-"WithOpType": struct{}{},
-"WithParent": struct{}{},
-"WithPipeline": struct{}{},
-"WithRefresh": struct{}{},
-"WithRouting": struct{}{},
-"WithTimeout": struct{}{},
-"WithTimestamp": struct{}{},
-"WithTTL": struct{}{},
-"WithVersion": struct{}{},
-"WithVersionType": struct{}{},
-"WithWaitForActiveShards": struct{}{},
-}
-	for _, option := range options{
-		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()
-		if _, ok := supportedOptions[name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", name)
-		}
+		"WithID": struct{}{},
+		"WithOpType": struct{}{},
+		"WithTimeout": struct{}{},
+		"WithVersion": struct{}{},
+		"WithWaitForActiveShards": struct{}{},
 	}
 	req := &http.Request{
+		URL: &url.URL{
+			Scheme: c.transport.Scheme,
+			Host:   c.transport.Host,
+		},
 		Method: "POST",
 	}
-	return c.client.Do(req)
+	for _, option := range options{
+		if _, ok := supportedOptions[option.name]; !ok {
+			return nil, fmt.Errorf("unsupported option: %s", option.name)
+		}
+		option.apply(req)
+	}
+	return c.transport.Do(req)
 }
 `
 	if d := diff(t, expectedCode, writer.String()); len(d) > 0 {

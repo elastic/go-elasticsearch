@@ -5,8 +5,7 @@ package indices
 import (
 	"fmt"
 	"net/http"
-	"reflect"
-	"runtime"
+	"net/url"
 )
 
 // ValidateQuery - the validate API allows a user to validate a potentially expensive query without executing it. See http://www.elastic.co/guide/en/elasticsearch/reference/master/search-validate.html for more info.
@@ -14,7 +13,7 @@ import (
 // body: the query definition specified with the Query DSL.
 //
 // options: optional parameters. Supports the following functional options: WithAllShards, WithAllowNoIndices, WithAnalyzeWildcard, WithAnalyzer, WithDefaultOperator, WithDf, WithType, WithErrorTrace, WithExpandWildcards, WithExplain, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithLenient, WithOperationThreading, WithPretty, WithQ, WithRewrite, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) ValidateQuery(body map[string]interface{}, options ...Option) (*http.Response, error) {
+func (i *Indices) ValidateQuery(body map[string]interface{}, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithAllShards":          struct{}{},
 		"WithAllowNoIndices":     struct{}{},
@@ -37,14 +36,18 @@ func (i *Indices) ValidateQuery(body map[string]interface{}, options ...Option) 
 		"WithRewrite":            struct{}{},
 		"WithSourceParam":        struct{}{},
 	}
-	for _, option := range options {
-		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()
-		if _, ok := supportedOptions[name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", name)
-		}
-	}
 	req := &http.Request{
+		URL: &url.URL{
+			Scheme: i.transport.Scheme,
+			Host:   i.transport.Host,
+		},
 		Method: "GET",
 	}
-	return i.client.Do(req)
+	for _, option := range options {
+		if _, ok := supportedOptions[option.name]; !ok {
+			return nil, fmt.Errorf("unsupported option: %s", option.name)
+		}
+		option.apply(req)
+	}
+	return i.transport.Do(req)
 }

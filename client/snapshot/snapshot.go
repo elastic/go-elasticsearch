@@ -3,18 +3,18 @@
 package snapshot
 
 import (
-	"net/http"
+	"github.com/elastic/goelasticsearch/client/transport"
 )
 
 // Snapshot is the snapshot client.
 type Snapshot struct {
-	// client is the transport client.
-	client *http.Client
+	// transport is the transport client.
+	transport *transport.Transport
 }
 
 // New is the constructor for Snapshot.
-func New(client *http.Client) *Snapshot {
+func New(transport *transport.Transport) *Snapshot {
 	return &Snapshot{
-		client: client,
+		transport: transport,
 	}
 }

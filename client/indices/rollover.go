@@ -5,8 +5,7 @@ package indices
 import (
 	"fmt"
 	"net/http"
-	"reflect"
-	"runtime"
+	"net/url"
 )
 
 // Rollover - the rollover index API rolls an alias over to a new index when the existing index is considered to be too large or too old. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-rollover-index.html for more info.
@@ -16,7 +15,7 @@ import (
 // body: the conditions that needs to be met for executing rollover.
 //
 // options: optional parameters. Supports the following functional options: WithDryRun, WithErrorTrace, WithFilterPath, WithHuman, WithMasterTimeout, WithNewIndex, WithPretty, WithSourceParam, WithTimeout, WithWaitForActiveShards, see the Option type in this package for more info.
-func (i *Indices) Rollover(alias string, body map[string]interface{}, options ...Option) (*http.Response, error) {
+func (i *Indices) Rollover(alias string, body map[string]interface{}, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithDryRun":              struct{}{},
 		"WithErrorTrace":          struct{}{},
@@ -29,14 +28,18 @@ func (i *Indices) Rollover(alias string, body map[string]interface{}, options ..
 		"WithTimeout":             struct{}{},
 		"WithWaitForActiveShards": struct{}{},
 	}
-	for _, option := range options {
-		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()
-		if _, ok := supportedOptions[name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", name)
-		}
-	}
 	req := &http.Request{
+		URL: &url.URL{
+			Scheme: i.transport.Scheme,
+			Host:   i.transport.Host,
+		},
 		Method: "POST",
 	}
-	return i.client.Do(req)
+	for _, option := range options {
+		if _, ok := supportedOptions[option.name]; !ok {
+			return nil, fmt.Errorf("unsupported option: %s", option.name)
+		}
+		option.apply(req)
+	}
+	return i.transport.Do(req)
 }

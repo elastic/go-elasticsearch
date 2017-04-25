@@ -14,12 +14,18 @@ const (
 {{end}})
 
 {{end}}// Option is a non-required API option that gets applied to an HTTP request.
-type Option func(r *http.Request)
+type Option struct {
+	name string
+	apply func(r *http.Request)
+}
 
 {{range .Options}}// {{.OptionName}} {{.Description}}
-func {{.OptionName}}({{.Name}} {{.Type}}) Option {
-  return func(r *http.Request) {
-  }
+func {{.OptionName}}({{.Name}} {{.Type}}) *Option {
+  return &Option{
+		name: "{{.OptionName}}",
+		apply: func(r *http.Request) {
+  	},
+	}
 }
 
 {{end}}

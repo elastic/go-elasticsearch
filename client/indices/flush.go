@@ -5,14 +5,13 @@ package indices
 import (
 	"fmt"
 	"net/http"
-	"reflect"
-	"runtime"
+	"net/url"
 )
 
 // Flush allows to flush one or more indices through an API. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-flush.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithForce, WithHuman, WithIgnoreUnavailable, WithIndex, WithPretty, WithSourceParam, WithWaitIfOngoing, see the Option type in this package for more info.
-func (i *Indices) Flush(options ...Option) (*http.Response, error) {
+func (i *Indices) Flush(options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithAllowNoIndices":    struct{}{},
 		"WithErrorTrace":        struct{}{},
@@ -26,14 +25,18 @@ func (i *Indices) Flush(options ...Option) (*http.Response, error) {
 		"WithSourceParam":       struct{}{},
 		"WithWaitIfOngoing":     struct{}{},
 	}
-	for _, option := range options {
-		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()
-		if _, ok := supportedOptions[name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", name)
-		}
-	}
 	req := &http.Request{
+		URL: &url.URL{
+			Scheme: i.transport.Scheme,
+			Host:   i.transport.Host,
+		},
 		Method: "POST",
 	}
-	return i.client.Do(req)
+	for _, option := range options {
+		if _, ok := supportedOptions[option.name]; !ok {
+			return nil, fmt.Errorf("unsupported option: %s", option.name)
+		}
+		option.apply(req)
+	}
+	return i.transport.Do(req)
 }

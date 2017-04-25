@@ -64,166 +64,250 @@ const (
 )
 
 // Option is a non-required API option that gets applied to an HTTP request.
-type Option func(r *http.Request)
+type Option struct {
+	name  string
+	apply func(r *http.Request)
+}
 
 // WithAllowNoIndices whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
-func WithAllowNoIndices(allowNoIndices bool) Option {
-	return func(r *http.Request) {
+func WithAllowNoIndices(allowNoIndices bool) *Option {
+	return &Option{
+		name: "WithAllowNoIndices",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithDryRun simulate the operation only and return the resulting state.
-func WithDryRun(dryRun bool) Option {
-	return func(r *http.Request) {
+func WithDryRun(dryRun bool) *Option {
+	return &Option{
+		name: "WithDryRun",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithErrorTrace include the stack trace of returned errors.
-func WithErrorTrace(errorTrace bool) Option {
-	return func(r *http.Request) {
+func WithErrorTrace(errorTrace bool) *Option {
+	return &Option{
+		name: "WithErrorTrace",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithExpandWildcards whether to expand wildcard expression to concrete indices that are open, closed or both.
-func WithExpandWildcards(expandWildcards ExpandWildcards) Option {
-	return func(r *http.Request) {
+func WithExpandWildcards(expandWildcards ExpandWildcards) *Option {
+	return &Option{
+		name: "WithExpandWildcards",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithExplain return an explanation of why the commands can or cannot be executed.
-func WithExplain(explain bool) Option {
-	return func(r *http.Request) {
+func WithExplain(explain bool) *Option {
+	return &Option{
+		name: "WithExplain",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithFilterPath a comma-separated list of filters used to reduce the respone.
-func WithFilterPath(filterPath []string) Option {
-	return func(r *http.Request) {
+func WithFilterPath(filterPath []string) *Option {
+	return &Option{
+		name: "WithFilterPath",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithFlatSettings return settings in flat format (default: false).
-func WithFlatSettings(flatSettings bool) Option {
-	return func(r *http.Request) {
+func WithFlatSettings(flatSettings bool) *Option {
+	return &Option{
+		name: "WithFlatSettings",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithHuman return human readable values for statistics.
-func WithHuman(human bool) Option {
-	return func(r *http.Request) {
+func WithHuman(human bool) *Option {
+	return &Option{
+		name: "WithHuman",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithIgnoreUnavailable whether specified concrete indices should be ignored when unavailable (missing or closed).
-func WithIgnoreUnavailable(ignoreUnavailable bool) Option {
-	return func(r *http.Request) {
+func WithIgnoreUnavailable(ignoreUnavailable bool) *Option {
+	return &Option{
+		name: "WithIgnoreUnavailable",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithIncludeDefaults whether to return all default clusters setting.
-func WithIncludeDefaults(includeDefaults bool) Option {
-	return func(r *http.Request) {
+func WithIncludeDefaults(includeDefaults bool) *Option {
+	return &Option{
+		name: "WithIncludeDefaults",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithIncludeDiskInfo return information about disk usage and shard sizes (default: false).
-func WithIncludeDiskInfo(includeDiskInfo bool) Option {
-	return func(r *http.Request) {
+func WithIncludeDiskInfo(includeDiskInfo bool) *Option {
+	return &Option{
+		name: "WithIncludeDiskInfo",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithIncludeYesDecisions return 'YES' decisions in explanation (default: false).
-func WithIncludeYesDecisions(includeYesDecisions bool) Option {
-	return func(r *http.Request) {
+func WithIncludeYesDecisions(includeYesDecisions bool) *Option {
+	return &Option{
+		name: "WithIncludeYesDecisions",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithIndex limit the information returned to a specific index.
-func WithIndex(index []string) Option {
-	return func(r *http.Request) {
+func WithIndex(index []string) *Option {
+	return &Option{
+		name: "WithIndex",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithLevel specify the level of detail for returned information.
-func WithLevel(level Level) Option {
-	return func(r *http.Request) {
+func WithLevel(level Level) *Option {
+	return &Option{
+		name: "WithLevel",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithLocal return local information, do not retrieve the state from master node (default: false).
-func WithLocal(local bool) Option {
-	return func(r *http.Request) {
+func WithLocal(local bool) *Option {
+	return &Option{
+		name: "WithLocal",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithMasterTimeout explicit operation timeout for connection to master node.
-func WithMasterTimeout(masterTimeout time.Time) Option {
-	return func(r *http.Request) {
+func WithMasterTimeout(masterTimeout time.Time) *Option {
+	return &Option{
+		name: "WithMasterTimeout",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithMetric limit the information returned to the specified metrics. Defaults to all but metadata.
-func WithMetric(metric []string) Option {
-	return func(r *http.Request) {
+func WithMetric(metric []string) *Option {
+	return &Option{
+		name: "WithMetric",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithNodeID a comma-separated list of node IDs or names to limit the returned information; use "_local" to return information from the node you're connecting to, leave empty to get information from all nodes.
-func WithNodeID(nodeID []string) Option {
-	return func(r *http.Request) {
+func WithNodeID(nodeID []string) *Option {
+	return &Option{
+		name: "WithNodeID",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithPretty pretty format the returned JSON response.
-func WithPretty(pretty bool) Option {
-	return func(r *http.Request) {
+func WithPretty(pretty bool) *Option {
+	return &Option{
+		name: "WithPretty",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithRetryFailed retries allocation of shards that are blocked due to too many subsequent allocation failures.
-func WithRetryFailed(retryFailed bool) Option {
-	return func(r *http.Request) {
+func WithRetryFailed(retryFailed bool) *Option {
+	return &Option{
+		name: "WithRetryFailed",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithSourceParam the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-func WithSourceParam(sourceParam string) Option {
-	return func(r *http.Request) {
+func WithSourceParam(sourceParam string) *Option {
+	return &Option{
+		name: "WithSourceParam",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithTimeout explicit operation timeout.
-func WithTimeout(timeout time.Time) Option {
-	return func(r *http.Request) {
+func WithTimeout(timeout time.Time) *Option {
+	return &Option{
+		name: "WithTimeout",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithWaitForActiveShards wait until the specified number of shards is active.
-func WithWaitForActiveShards(waitForActiveShards string) Option {
-	return func(r *http.Request) {
+func WithWaitForActiveShards(waitForActiveShards string) *Option {
+	return &Option{
+		name: "WithWaitForActiveShards",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithWaitForEvents wait until all currently queued events with the given priority are processed.
-func WithWaitForEvents(waitForEvents WaitForEvents) Option {
-	return func(r *http.Request) {
+func WithWaitForEvents(waitForEvents WaitForEvents) *Option {
+	return &Option{
+		name: "WithWaitForEvents",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithWaitForNoRelocatingShards whether to wait until there are no relocating shards in the cluster.
-func WithWaitForNoRelocatingShards(waitForNoRelocatingShards bool) Option {
-	return func(r *http.Request) {
+func WithWaitForNoRelocatingShards(waitForNoRelocatingShards bool) *Option {
+	return &Option{
+		name: "WithWaitForNoRelocatingShards",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithWaitForNodes wait until the specified number of nodes is available.
-func WithWaitForNodes(waitForNodes string) Option {
-	return func(r *http.Request) {
+func WithWaitForNodes(waitForNodes string) *Option {
+	return &Option{
+		name: "WithWaitForNodes",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithWaitForStatus wait until cluster is in a specific state.
-func WithWaitForStatus(waitForStatus WaitForStatus) Option {
-	return func(r *http.Request) {
+func WithWaitForStatus(waitForStatus WaitForStatus) *Option {
+	return &Option{
+		name: "WithWaitForStatus",
+		apply: func(r *http.Request) {
+		},
 	}
 }

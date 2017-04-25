@@ -5,14 +5,13 @@ package cat
 import (
 	"fmt"
 	"net/http"
-	"reflect"
-	"runtime"
+	"net/url"
 )
 
 // Indices - see http://www.elastic.co/guide/en/elasticsearch/reference/master/cat-indices.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithBytes, WithErrorTrace, WithFilterPath, WithFormat, WithH, WithHealth, WithHelp, WithHuman, WithIndex, WithLocal, WithMasterTimeout, WithPretty, WithPri, WithS, WithSourceParam, WithV, see the Option type in this package for more info.
-func (c *Cat) Indices(options ...Option) (*http.Response, error) {
+func (c *Cat) Indices(options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithBytes":         struct{}{},
 		"WithErrorTrace":    struct{}{},
@@ -31,14 +30,18 @@ func (c *Cat) Indices(options ...Option) (*http.Response, error) {
 		"WithSourceParam":   struct{}{},
 		"WithV":             struct{}{},
 	}
-	for _, option := range options {
-		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()
-		if _, ok := supportedOptions[name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", name)
-		}
-	}
 	req := &http.Request{
+		URL: &url.URL{
+			Scheme: c.transport.Scheme,
+			Host:   c.transport.Host,
+		},
 		Method: "GET",
 	}
-	return c.client.Do(req)
+	for _, option := range options {
+		if _, ok := supportedOptions[option.name]; !ok {
+			return nil, fmt.Errorf("unsupported option: %s", option.name)
+		}
+		option.apply(req)
+	}
+	return c.transport.Do(req)
 }

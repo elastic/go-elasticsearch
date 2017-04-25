@@ -14,15 +14,22 @@
 //	// ...
 package client
 
-import (
-	"net/http"
-)
+import "github.com/elastic/goelasticsearch/client/transport"
 
 // New is the constructor for the Client
 func New(options ...TransportOption) *Client {
-	httpClient := &http.Client{}
+	transport := transport.New()
+	for _, option := range options {
+		option(transport)
+	}
+	if transport.Scheme == "" {
+		transport.Scheme = "https"
+	}
+	if transport.Host == "" {
+		transport.Host = "localhost"
+	}
 	c := &Client{
-		client: httpClient,
+		transport: transport,
 	}
 	c.addClients()
 	return c

@@ -3,18 +3,18 @@
 package nodes
 
 import (
-	"net/http"
+	"github.com/elastic/goelasticsearch/client/transport"
 )
 
 // Nodes is the nodes client.
 type Nodes struct {
-	// client is the transport client.
-	client *http.Client
+	// transport is the transport client.
+	transport *transport.Transport
 }
 
 // New is the constructor for Nodes.
-func New(client *http.Client) *Nodes {
+func New(transport *transport.Transport) *Nodes {
 	return &Nodes{
-		client: client,
+		transport: transport,
 	}
 }

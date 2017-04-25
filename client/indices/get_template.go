@@ -5,14 +5,13 @@ package indices
 import (
 	"fmt"
 	"net/http"
-	"reflect"
-	"runtime"
+	"net/url"
 )
 
 // GetTemplate - index templates allow you to define templates that will automatically be applied when new indices are created. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithFlatSettings, WithHuman, WithLocal, WithMasterTimeout, WithName, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) GetTemplate(options ...Option) (*http.Response, error) {
+func (i *Indices) GetTemplate(options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithErrorTrace":    struct{}{},
 		"WithFilterPath":    struct{}{},
@@ -24,14 +23,18 @@ func (i *Indices) GetTemplate(options ...Option) (*http.Response, error) {
 		"WithPretty":        struct{}{},
 		"WithSourceParam":   struct{}{},
 	}
-	for _, option := range options {
-		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()
-		if _, ok := supportedOptions[name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", name)
-		}
-	}
 	req := &http.Request{
+		URL: &url.URL{
+			Scheme: i.transport.Scheme,
+			Host:   i.transport.Host,
+		},
 		Method: "GET",
 	}
-	return i.client.Do(req)
+	for _, option := range options {
+		if _, ok := supportedOptions[option.name]; !ok {
+			return nil, fmt.Errorf("unsupported option: %s", option.name)
+		}
+		option.apply(req)
+	}
+	return i.transport.Do(req)
 }

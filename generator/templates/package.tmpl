@@ -5,6 +5,7 @@ package {{.Name}}
 import (
 	{{range .SubPackages}}"{{.Repo}}"
 	{{end}}"net/http"
+	"github.com/elastic/goelasticsearch/client/transport"
 )
 
 // {{.TypeName}} is the {{if eq .Name "client"}}transport{{else}}{{.Name}}{{end}} client.
@@ -12,16 +13,16 @@ type {{.TypeName}} struct {
 {{range .SubPackages}}// {{.TypeName}} is the {{.Name}} client.
 	{{.TypeName}} *{{.Name}}.{{.TypeName}}
 
-{{end}}// client is the transport client.
-	client *http.Client
+{{end}}// transport is the transport client.
+	transport *transport.Transport
 }
 
 {{if eq .Name "client"}}// addClients adds the subclients.
 func (c *Client)addClients() {
-	{{range .SubPackages}}c.{{.TypeName}} = {{.Name}}.New(c.client)
+	{{range .SubPackages}}c.{{.TypeName}} = {{.Name}}.New(c.transport)
 		{{end}}}{{else}}// New is the constructor for {{.TypeName}}.
-func New(client *http.Client) *{{.TypeName}} {
+func New(transport *transport.Transport) *{{.TypeName}} {
 	return &{{.TypeName}}{
-		client: client,
+		transport: transport,
 	}
 }{{end}}

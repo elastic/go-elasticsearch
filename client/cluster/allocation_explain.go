@@ -5,8 +5,7 @@ package cluster
 import (
 	"fmt"
 	"net/http"
-	"reflect"
-	"runtime"
+	"net/url"
 )
 
 // AllocationExplain - the purpose of the cluster allocation explain API is to provide explanations for shard allocations in the cluster. See http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-allocation-explain.html for more info.
@@ -14,7 +13,7 @@ import (
 // body: the index, shard, and primary flag to explain. Empty means 'explain the first unassigned shard'.
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithIncludeDiskInfo, WithIncludeYesDecisions, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cluster) AllocationExplain(body map[string]interface{}, options ...Option) (*http.Response, error) {
+func (c *Cluster) AllocationExplain(body map[string]interface{}, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithErrorTrace":          struct{}{},
 		"WithFilterPath":          struct{}{},
@@ -24,14 +23,18 @@ func (c *Cluster) AllocationExplain(body map[string]interface{}, options ...Opti
 		"WithPretty":              struct{}{},
 		"WithSourceParam":         struct{}{},
 	}
-	for _, option := range options {
-		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()
-		if _, ok := supportedOptions[name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", name)
-		}
-	}
 	req := &http.Request{
+		URL: &url.URL{
+			Scheme: c.transport.Scheme,
+			Host:   c.transport.Host,
+		},
 		Method: "GET",
 	}
-	return c.client.Do(req)
+	for _, option := range options {
+		if _, ok := supportedOptions[option.name]; !ok {
+			return nil, fmt.Errorf("unsupported option: %s", option.name)
+		}
+		option.apply(req)
+	}
+	return c.transport.Do(req)
 }

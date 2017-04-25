@@ -3,18 +3,18 @@
 package remote
 
 import (
-	"net/http"
+	"github.com/elastic/goelasticsearch/client/transport"
 )
 
 // Remote is the remote client.
 type Remote struct {
-	// client is the transport client.
-	client *http.Client
+	// transport is the transport client.
+	transport *transport.Transport
 }
 
 // New is the constructor for Remote.
-func New(client *http.Client) *Remote {
+func New(transport *transport.Transport) *Remote {
 	return &Remote{
-		client: client,
+		transport: transport,
 	}
 }

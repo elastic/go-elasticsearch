@@ -54,154 +54,232 @@ const (
 )
 
 // Option is a non-required API option that gets applied to an HTTP request.
-type Option func(r *http.Request)
+type Option struct {
+	name  string
+	apply func(r *http.Request)
+}
 
 // WithActions a comma-separated list of actions that should be returned. Leave empty to return all.
-func WithActions(actions []string) Option {
-	return func(r *http.Request) {
+func WithActions(actions []string) *Option {
+	return &Option{
+		name: "WithActions",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithBytes the unit in which to display byte values.
-func WithBytes(bytes Bytes) Option {
-	return func(r *http.Request) {
+func WithBytes(bytes Bytes) *Option {
+	return &Option{
+		name: "WithBytes",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithDetailed return detailed task information (default: false).
-func WithDetailed(detailed bool) Option {
-	return func(r *http.Request) {
+func WithDetailed(detailed bool) *Option {
+	return &Option{
+		name: "WithDetailed",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithErrorTrace include the stack trace of returned errors.
-func WithErrorTrace(errorTrace bool) Option {
-	return func(r *http.Request) {
+func WithErrorTrace(errorTrace bool) *Option {
+	return &Option{
+		name: "WithErrorTrace",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithFields a comma-separated list of fields to return the fielddata size.
-func WithFields(fields []string) Option {
-	return func(r *http.Request) {
+func WithFields(fields []string) *Option {
+	return &Option{
+		name: "WithFields",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithFieldsParam a comma-separated list of fields to return in the output.
-func WithFieldsParam(fieldsParam []string) Option {
-	return func(r *http.Request) {
+func WithFieldsParam(fieldsParam []string) *Option {
+	return &Option{
+		name: "WithFieldsParam",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithFilterPath a comma-separated list of filters used to reduce the respone.
-func WithFilterPath(filterPath []string) Option {
-	return func(r *http.Request) {
+func WithFilterPath(filterPath []string) *Option {
+	return &Option{
+		name: "WithFilterPath",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithFormat a short version of the Accept header, e.g. json, yaml.
-func WithFormat(format string) Option {
-	return func(r *http.Request) {
+func WithFormat(format string) *Option {
+	return &Option{
+		name: "WithFormat",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithFullID return the full node ID instead of the shortened version (default: false).
-func WithFullID(fullID bool) Option {
-	return func(r *http.Request) {
+func WithFullID(fullID bool) *Option {
+	return &Option{
+		name: "WithFullID",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithH comma-separated list of column names to display.
-func WithH(h []string) Option {
-	return func(r *http.Request) {
+func WithH(h []string) *Option {
+	return &Option{
+		name: "WithH",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithHelp return help information.
-func WithHelp(help bool) Option {
-	return func(r *http.Request) {
+func WithHelp(help bool) *Option {
+	return &Option{
+		name: "WithHelp",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithHuman return human readable values for statistics.
-func WithHuman(human bool) Option {
-	return func(r *http.Request) {
+func WithHuman(human bool) *Option {
+	return &Option{
+		name: "WithHuman",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithIgnoreUnavailable set to true to ignore unavailable snapshots.
-func WithIgnoreUnavailable(ignoreUnavailable bool) Option {
-	return func(r *http.Request) {
+func WithIgnoreUnavailable(ignoreUnavailable bool) *Option {
+	return &Option{
+		name: "WithIgnoreUnavailable",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithIndex a comma-separated list of index names to limit the returned information.
-func WithIndex(index []string) Option {
-	return func(r *http.Request) {
+func WithIndex(index []string) *Option {
+	return &Option{
+		name: "WithIndex",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithLocal return local information, do not retrieve the state from master node (default: false).
-func WithLocal(local bool) Option {
-	return func(r *http.Request) {
+func WithLocal(local bool) *Option {
+	return &Option{
+		name: "WithLocal",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithMasterTimeout explicit operation timeout for connection to master node.
-func WithMasterTimeout(masterTimeout time.Time) Option {
-	return func(r *http.Request) {
+func WithMasterTimeout(masterTimeout time.Time) *Option {
+	return &Option{
+		name: "WithMasterTimeout",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithName a comma-separated list of alias names to return.
-func WithName(name []string) Option {
-	return func(r *http.Request) {
+func WithName(name []string) *Option {
+	return &Option{
+		name: "WithName",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithNodeID a comma-separated list of node IDs or names to limit the returned information.
-func WithNodeID(nodeID []string) Option {
-	return func(r *http.Request) {
+func WithNodeID(nodeID []string) *Option {
+	return &Option{
+		name: "WithNodeID",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithPretty pretty format the returned JSON response.
-func WithPretty(pretty bool) Option {
-	return func(r *http.Request) {
+func WithPretty(pretty bool) *Option {
+	return &Option{
+		name: "WithPretty",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithS comma-separated list of column names or column aliases to sort by.
-func WithS(s []string) Option {
-	return func(r *http.Request) {
+func WithS(s []string) *Option {
+	return &Option{
+		name: "WithS",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithSize the multiplier in which to display values.
-func WithSize(size Size) Option {
-	return func(r *http.Request) {
+func WithSize(size Size) *Option {
+	return &Option{
+		name: "WithSize",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithSourceParam the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-func WithSourceParam(sourceParam string) Option {
-	return func(r *http.Request) {
+func WithSourceParam(sourceParam string) *Option {
+	return &Option{
+		name: "WithSourceParam",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithThreadPoolPatterns a comma-separated list of regular-expressions to filter the thread pools in the output.
-func WithThreadPoolPatterns(threadPoolPatterns []string) Option {
-	return func(r *http.Request) {
+func WithThreadPoolPatterns(threadPoolPatterns []string) *Option {
+	return &Option{
+		name: "WithThreadPoolPatterns",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithTs set to false to disable timestamping.
-func WithTs(ts bool) Option {
-	return func(r *http.Request) {
+func WithTs(ts bool) *Option {
+	return &Option{
+		name: "WithTs",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithV verbose mode. Display column headers.
-func WithV(v bool) Option {
-	return func(r *http.Request) {
+func WithV(v bool) *Option {
+	return &Option{
+		name: "WithV",
+		apply: func(r *http.Request) {
+		},
 	}
 }

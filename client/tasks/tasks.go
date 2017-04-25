@@ -3,18 +3,18 @@
 package tasks
 
 import (
-	"net/http"
+	"github.com/elastic/goelasticsearch/client/transport"
 )
 
 // Tasks is the tasks client.
 type Tasks struct {
-	// client is the transport client.
-	client *http.Client
+	// transport is the transport client.
+	transport *transport.Transport
 }
 
 // New is the constructor for Tasks.
-func New(client *http.Client) *Tasks {
+func New(transport *transport.Transport) *Tasks {
 	return &Tasks{
-		client: client,
+		transport: transport,
 	}
 }

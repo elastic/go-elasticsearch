@@ -5,8 +5,7 @@ package client
 import (
 	"fmt"
 	"net/http"
-	"reflect"
-	"runtime"
+	"net/url"
 )
 
 // Mget - multi GET API allows to get multiple documents based on an index, type (optional) and id (and possibly routing). See http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-multi-get.html for more info.
@@ -14,7 +13,7 @@ import (
 // body: document identifiers; can be either "docs" (containing full document information) or "ids" (when index and type is provided in the URL.
 //
 // options: optional parameters. Supports the following functional options: WithType, WithErrorTrace, WithFilterPath, WithHuman, WithIndex, WithPreference, WithPretty, WithRealtime, WithRefresh, WithRouting, WithSource, WithSourceExclude, WithSourceInclude, WithSourceParam, WithStoredFields, see the Option type in this package for more info.
-func (c *Client) Mget(body map[string]interface{}, options ...Option) (*http.Response, error) {
+func (c *Client) Mget(body map[string]interface{}, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithType":          struct{}{},
 		"WithErrorTrace":    struct{}{},
@@ -32,14 +31,18 @@ func (c *Client) Mget(body map[string]interface{}, options ...Option) (*http.Res
 		"WithSourceParam":   struct{}{},
 		"WithStoredFields":  struct{}{},
 	}
-	for _, option := range options {
-		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()
-		if _, ok := supportedOptions[name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", name)
-		}
-	}
 	req := &http.Request{
+		URL: &url.URL{
+			Scheme: c.transport.Scheme,
+			Host:   c.transport.Host,
+		},
 		Method: "GET",
 	}
-	return c.client.Do(req)
+	for _, option := range options {
+		if _, ok := supportedOptions[option.name]; !ok {
+			return nil, fmt.Errorf("unsupported option: %s", option.name)
+		}
+		option.apply(req)
+	}
+	return c.transport.Do(req)
 }

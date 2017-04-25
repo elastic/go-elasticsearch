@@ -3,8 +3,6 @@
 package client
 
 import (
-	"net/http"
-
 	"github.com/elastic/goelasticsearch/client/cat"
 	"github.com/elastic/goelasticsearch/client/cluster"
 	"github.com/elastic/goelasticsearch/client/indices"
@@ -13,6 +11,7 @@ import (
 	"github.com/elastic/goelasticsearch/client/remote"
 	"github.com/elastic/goelasticsearch/client/snapshot"
 	"github.com/elastic/goelasticsearch/client/tasks"
+	"github.com/elastic/goelasticsearch/client/transport"
 )
 
 // Client is the transport client.
@@ -41,18 +40,18 @@ type Client struct {
 	// Tasks is the tasks client.
 	Tasks *tasks.Tasks
 
-	// client is the transport client.
-	client *http.Client
+	// transport is the transport client.
+	transport *transport.Transport
 }
 
 // addClients adds the subclients.
 func (c *Client) addClients() {
-	c.Cat = cat.New(c.client)
-	c.Cluster = cluster.New(c.client)
-	c.Indices = indices.New(c.client)
-	c.Ingest = ingest.New(c.client)
-	c.Nodes = nodes.New(c.client)
-	c.Remote = remote.New(c.client)
-	c.Snapshot = snapshot.New(c.client)
-	c.Tasks = tasks.New(c.client)
+	c.Cat = cat.New(c.transport)
+	c.Cluster = cluster.New(c.transport)
+	c.Indices = indices.New(c.transport)
+	c.Ingest = ingest.New(c.transport)
+	c.Nodes = nodes.New(c.transport)
+	c.Remote = remote.New(c.transport)
+	c.Snapshot = snapshot.New(c.transport)
+	c.Tasks = tasks.New(c.transport)
 }

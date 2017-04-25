@@ -3,18 +3,18 @@
 package ingest
 
 import (
-	"net/http"
+	"github.com/elastic/goelasticsearch/client/transport"
 )
 
 // Ingest is the ingest client.
 type Ingest struct {
-	// client is the transport client.
-	client *http.Client
+	// transport is the transport client.
+	transport *transport.Transport
 }
 
 // New is the constructor for Ingest.
-func New(client *http.Client) *Ingest {
+func New(transport *transport.Transport) *Ingest {
 	return &Ingest{
-		client: client,
+		transport: transport,
 	}
 }

@@ -159,7 +159,7 @@ func (m *method) resolveDocumentation() error {
 	}
 	body, ok := m.HTTPCache[url]
 	if !ok {
-		glog.Infof("Fetching %s", url)
+		glog.Infof("fetching %s", url)
 		resp, err := http.Get(url)
 		if err != nil {
 			return err

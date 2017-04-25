@@ -20,13 +20,24 @@
 package client
 
 import (
+	"strings"
 	"testing"
 )
 
 func TestOptionValidation(t *testing.T) {
 	c := New()
+	// TODO: do something less hacky here
+	connectionError := "getsockopt: connection refused"
 	_, err := c.Index("index", "good", nil, WithIndex("index again?"))
-	if err == nil {
+	if err == nil || strings.HasSuffix(err.Error(), connectionError) {
 		t.Fatalf("WithIndex was accepted as an argument to Index")
+	}
+	_, err = c.Index("index", "good", nil, WithHuman(true))
+	if !strings.HasSuffix(err.Error(), connectionError) {
+		t.Fatal(err)
+	}
+	_, err = c.Index("index", "good", nil)
+	if !strings.HasSuffix(err.Error(), connectionError) {
+		t.Fatal(err)
 	}
 }

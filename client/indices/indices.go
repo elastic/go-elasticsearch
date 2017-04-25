@@ -3,18 +3,18 @@
 package indices
 
 import (
-	"net/http"
+	"github.com/elastic/goelasticsearch/client/transport"
 )
 
 // Indices is the indices client.
 type Indices struct {
-	// client is the transport client.
-	client *http.Client
+	// transport is the transport client.
+	transport *transport.Transport
 }
 
 // New is the constructor for Indices.
-func New(client *http.Client) *Indices {
+func New(transport *transport.Transport) *Indices {
 	return &Indices{
-		client: client,
+		transport: transport,
 	}
 }

@@ -5,8 +5,7 @@ package client
 import (
 	"fmt"
 	"net/http"
-	"reflect"
-	"runtime"
+	"net/url"
 )
 
 // Explain - the explain api computes a score explanation for a query and a specific document. See http://www.elastic.co/guide/en/elasticsearch/reference/master/search-explain.html for more info.
@@ -20,7 +19,7 @@ import (
 // body: the query definition using the Query DSL.
 //
 // options: optional parameters. Supports the following functional options: WithAnalyzeWildcard, WithAnalyzer, WithDefaultOperator, WithDf, WithErrorTrace, WithFilterPath, WithHuman, WithLenient, WithParent, WithPreference, WithPretty, WithQ, WithRouting, WithSource, WithSourceExclude, WithSourceInclude, WithSourceParam, WithStoredFields, see the Option type in this package for more info.
-func (c *Client) Explain(documentType string, id string, index string, body map[string]interface{}, options ...Option) (*http.Response, error) {
+func (c *Client) Explain(documentType string, id string, index string, body map[string]interface{}, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithAnalyzeWildcard": struct{}{},
 		"WithAnalyzer":        struct{}{},
@@ -41,14 +40,18 @@ func (c *Client) Explain(documentType string, id string, index string, body map[
 		"WithSourceParam":     struct{}{},
 		"WithStoredFields":    struct{}{},
 	}
-	for _, option := range options {
-		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()
-		if _, ok := supportedOptions[name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", name)
-		}
-	}
 	req := &http.Request{
+		URL: &url.URL{
+			Scheme: c.transport.Scheme,
+			Host:   c.transport.Host,
+		},
 		Method: "GET",
 	}
-	return c.client.Do(req)
+	for _, option := range options {
+		if _, ok := supportedOptions[option.name]; !ok {
+			return nil, fmt.Errorf("unsupported option: %s", option.name)
+		}
+		option.apply(req)
+	}
+	return c.transport.Do(req)
 }

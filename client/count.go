@@ -5,8 +5,7 @@ package client
 import (
 	"fmt"
 	"net/http"
-	"reflect"
-	"runtime"
+	"net/url"
 )
 
 // Count allows to easily execute a query and get the number of matches for that query. See http://www.elastic.co/guide/en/elasticsearch/reference/master/search-count.html for more info.
@@ -14,7 +13,7 @@ import (
 // body: a query to restrict the results specified with the Query DSL (optional).
 //
 // options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithAnalyzeWildcard, WithAnalyzer, WithDefaultOperator, WithDf, WithType, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithLenient, WithMinScore, WithPreference, WithPretty, WithQ, WithRouting, WithSourceParam, see the Option type in this package for more info.
-func (c *Client) Count(body map[string]interface{}, options ...Option) (*http.Response, error) {
+func (c *Client) Count(body map[string]interface{}, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithAllowNoIndices":    struct{}{},
 		"WithAnalyzeWildcard":   struct{}{},
@@ -36,14 +35,18 @@ func (c *Client) Count(body map[string]interface{}, options ...Option) (*http.Re
 		"WithRouting":           struct{}{},
 		"WithSourceParam":       struct{}{},
 	}
-	for _, option := range options {
-		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()
-		if _, ok := supportedOptions[name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", name)
-		}
-	}
 	req := &http.Request{
+		URL: &url.URL{
+			Scheme: c.transport.Scheme,
+			Host:   c.transport.Host,
+		},
 		Method: "POST",
 	}
-	return c.client.Do(req)
+	for _, option := range options {
+		if _, ok := supportedOptions[option.name]; !ok {
+			return nil, fmt.Errorf("unsupported option: %s", option.name)
+		}
+		option.apply(req)
+	}
+	return c.transport.Do(req)
 }

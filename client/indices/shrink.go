@@ -5,8 +5,7 @@ package indices
 import (
 	"fmt"
 	"net/http"
-	"reflect"
-	"runtime"
+	"net/url"
 )
 
 // Shrink - the shrink index API allows you to shrink an existing index into a new index with fewer primary shards. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-shrink-index.html for more info.
@@ -18,7 +17,7 @@ import (
 // body: the configuration for the target index ("settings" and "aliases").
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithMasterTimeout, WithPretty, WithSourceParam, WithTimeout, WithWaitForActiveShards, see the Option type in this package for more info.
-func (i *Indices) Shrink(index string, target string, body map[string]interface{}, options ...Option) (*http.Response, error) {
+func (i *Indices) Shrink(index string, target string, body map[string]interface{}, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithErrorTrace":          struct{}{},
 		"WithFilterPath":          struct{}{},
@@ -29,14 +28,18 @@ func (i *Indices) Shrink(index string, target string, body map[string]interface{
 		"WithTimeout":             struct{}{},
 		"WithWaitForActiveShards": struct{}{},
 	}
-	for _, option := range options {
-		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()
-		if _, ok := supportedOptions[name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", name)
-		}
-	}
 	req := &http.Request{
+		URL: &url.URL{
+			Scheme: i.transport.Scheme,
+			Host:   i.transport.Host,
+		},
 		Method: "PUT",
 	}
-	return i.client.Do(req)
+	for _, option := range options {
+		if _, ok := supportedOptions[option.name]; !ok {
+			return nil, fmt.Errorf("unsupported option: %s", option.name)
+		}
+		option.apply(req)
+	}
+	return i.transport.Do(req)
 }

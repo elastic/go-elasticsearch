@@ -64,202 +64,304 @@ const (
 )
 
 // Option is a non-required API option that gets applied to an HTTP request.
-type Option func(r *http.Request)
+type Option struct {
+	name  string
+	apply func(r *http.Request)
+}
 
 // WithAllowNoIndices whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
-func WithAllowNoIndices(allowNoIndices bool) Option {
-	return func(r *http.Request) {
+func WithAllowNoIndices(allowNoIndices bool) *Option {
+	return &Option{
+		name: "WithAllowNoIndices",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithAnalyzeWildcard specify whether wildcard and prefix queries should be analyzed (default: false).
-func WithAnalyzeWildcard(analyzeWildcard bool) Option {
-	return func(r *http.Request) {
+func WithAnalyzeWildcard(analyzeWildcard bool) *Option {
+	return &Option{
+		name: "WithAnalyzeWildcard",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithAnalyzer the analyzer to use for the query string.
-func WithAnalyzer(analyzer string) Option {
-	return func(r *http.Request) {
+func WithAnalyzer(analyzer string) *Option {
+	return &Option{
+		name: "WithAnalyzer",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithBatchedReduceSize the number of shard results that should be reduced at once on the coordinating node. This value should be used as a protection mechanism to reduce the memory overhead per search request if the potential number of shards in the request can be large.
-func WithBatchedReduceSize(batchedReduceSize int) Option {
-	return func(r *http.Request) {
+func WithBatchedReduceSize(batchedReduceSize int) *Option {
+	return &Option{
+		name: "WithBatchedReduceSize",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithConflicts what to do when the delete-by-query hits version conflicts?
-func WithConflicts(conflicts Conflicts) Option {
-	return func(r *http.Request) {
+func WithConflicts(conflicts Conflicts) *Option {
+	return &Option{
+		name: "WithConflicts",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithDefaultOperator the default operator for query string query (AND or OR).
-func WithDefaultOperator(defaultOperator DefaultOperator) Option {
-	return func(r *http.Request) {
+func WithDefaultOperator(defaultOperator DefaultOperator) *Option {
+	return &Option{
+		name: "WithDefaultOperator",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithDf the field to use as default where no field prefix is given in the query string.
-func WithDf(df string) Option {
-	return func(r *http.Request) {
+func WithDf(df string) *Option {
+	return &Option{
+		name: "WithDf",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithType default document type for items which don't provide one.
-func WithType(documentType string) Option {
-	return func(r *http.Request) {
+func WithType(documentType string) *Option {
+	return &Option{
+		name: "WithType",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithTypeParam default document type for items which don't provide one.
-func WithTypeParam(documentTypeParam string) Option {
-	return func(r *http.Request) {
+func WithTypeParam(documentTypeParam string) *Option {
+	return &Option{
+		name: "WithTypeParam",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithErrorTrace include the stack trace of returned errors.
-func WithErrorTrace(errorTrace bool) Option {
-	return func(r *http.Request) {
+func WithErrorTrace(errorTrace bool) *Option {
+	return &Option{
+		name: "WithErrorTrace",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithExpandWildcards whether to expand wildcard expression to concrete indices that are open, closed or both.
-func WithExpandWildcards(expandWildcards ExpandWildcards) Option {
-	return func(r *http.Request) {
+func WithExpandWildcards(expandWildcards ExpandWildcards) *Option {
+	return &Option{
+		name: "WithExpandWildcards",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithFieldStatistics specifies if document count, sum of document frequencies and sum of total term frequencies should be returned.
-func WithFieldStatistics(fieldStatistics bool) Option {
-	return func(r *http.Request) {
+func WithFieldStatistics(fieldStatistics bool) *Option {
+	return &Option{
+		name: "WithFieldStatistics",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithFields default comma-separated list of fields to return in the response for updates, can be overridden on each sub-request.
-func WithFields(fields []string) Option {
-	return func(r *http.Request) {
+func WithFields(fields []string) *Option {
+	return &Option{
+		name: "WithFields",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithFilterPath a comma-separated list of filters used to reduce the respone.
-func WithFilterPath(filterPath []string) Option {
-	return func(r *http.Request) {
+func WithFilterPath(filterPath []string) *Option {
+	return &Option{
+		name: "WithFilterPath",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithHuman return human readable values for statistics.
-func WithHuman(human bool) Option {
-	return func(r *http.Request) {
+func WithHuman(human bool) *Option {
+	return &Option{
+		name: "WithHuman",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithID document ID.
-func WithID(id string) Option {
-	return func(r *http.Request) {
+func WithID(id string) *Option {
+	return &Option{
+		name: "WithID",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithIgnoreUnavailable whether specified concrete indices should be ignored when unavailable (missing or closed).
-func WithIgnoreUnavailable(ignoreUnavailable bool) Option {
-	return func(r *http.Request) {
+func WithIgnoreUnavailable(ignoreUnavailable bool) *Option {
+	return &Option{
+		name: "WithIgnoreUnavailable",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithIndex default index for items which don't provide one.
-func WithIndex(index string) Option {
-	return func(r *http.Request) {
+func WithIndex(index string) *Option {
+	return &Option{
+		name: "WithIndex",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithOpType explicit operation type.
-func WithOpType(opType OpType) Option {
-	return func(r *http.Request) {
+func WithOpType(opType OpType) *Option {
+	return &Option{
+		name: "WithOpType",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithParent ID of the parent document.
-func WithParent(parent string) Option {
-	return func(r *http.Request) {
+func WithParent(parent string) *Option {
+	return &Option{
+		name: "WithParent",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithPipeline the pipeline id to preprocess incoming documents with.
-func WithPipeline(pipeline string) Option {
-	return func(r *http.Request) {
+func WithPipeline(pipeline string) *Option {
+	return &Option{
+		name: "WithPipeline",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithPretty pretty format the returned JSON response.
-func WithPretty(pretty bool) Option {
-	return func(r *http.Request) {
+func WithPretty(pretty bool) *Option {
+	return &Option{
+		name: "WithPretty",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithRefresh if "true" then refresh the effected shards to make this operation visible to search, if "wait_for" then wait for a refresh to make this operation visible to search, if "false" (the default) then do nothing with refreshes.
-func WithRefresh(refresh Refresh) Option {
-	return func(r *http.Request) {
+func WithRefresh(refresh Refresh) *Option {
+	return &Option{
+		name: "WithRefresh",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithRouting specific routing value.
-func WithRouting(routing string) Option {
-	return func(r *http.Request) {
+func WithRouting(routing string) *Option {
+	return &Option{
+		name: "WithRouting",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithScroll specify how long a consistent view of the index should be maintained for scrolled search.
-func WithScroll(scroll time.Time) Option {
-	return func(r *http.Request) {
+func WithScroll(scroll time.Time) *Option {
+	return &Option{
+		name: "WithScroll",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithScrollID a comma-separated list of scroll IDs to clear.
-func WithScrollID(scrollID []string) Option {
-	return func(r *http.Request) {
+func WithScrollID(scrollID []string) *Option {
+	return &Option{
+		name: "WithScrollID",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithSource true or false to return the _source field or not, or default list of fields to return, can be overridden on each sub-request.
-func WithSource(source []string) Option {
-	return func(r *http.Request) {
+func WithSource(source []string) *Option {
+	return &Option{
+		name: "WithSource",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithSourceExclude default list of fields to exclude from the returned _source field, can be overridden on each sub-request.
-func WithSourceExclude(sourceExclude []string) Option {
-	return func(r *http.Request) {
+func WithSourceExclude(sourceExclude []string) *Option {
+	return &Option{
+		name: "WithSourceExclude",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithSourceInclude default list of fields to extract and return from the _source field, can be overridden on each sub-request.
-func WithSourceInclude(sourceInclude []string) Option {
-	return func(r *http.Request) {
+func WithSourceInclude(sourceInclude []string) *Option {
+	return &Option{
+		name: "WithSourceInclude",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithSourceParam the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-func WithSourceParam(sourceParam string) Option {
-	return func(r *http.Request) {
+func WithSourceParam(sourceParam string) *Option {
+	return &Option{
+		name: "WithSourceParam",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithTaskID the task id to rethrottle.
-func WithTaskID(taskID string) Option {
-	return func(r *http.Request) {
+func WithTaskID(taskID string) *Option {
+	return &Option{
+		name: "WithTaskID",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithTimeout explicit operation timeout.
-func WithTimeout(timeout time.Time) Option {
-	return func(r *http.Request) {
+func WithTimeout(timeout time.Time) *Option {
+	return &Option{
+		name: "WithTimeout",
+		apply: func(r *http.Request) {
+		},
 	}
 }
 
 // WithWaitForActiveShards sets the number of shard copies that must be active before proceeding with the bulk operation. Defaults to 1, meaning the primary shard only. Set to "all" for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1).
-func WithWaitForActiveShards(waitForActiveShards string) Option {
-	return func(r *http.Request) {
+func WithWaitForActiveShards(waitForActiveShards string) *Option {
+	return &Option{
+		name: "WithWaitForActiveShards",
+		apply: func(r *http.Request) {
+		},
 	}
 }

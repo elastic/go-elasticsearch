@@ -5,8 +5,7 @@ package client
 import (
 	"fmt"
 	"net/http"
-	"reflect"
-	"runtime"
+	"net/url"
 )
 
 // Reindex - reindex does not attempt to set up the destination index. See https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-reindex.html for more info.
@@ -14,7 +13,7 @@ import (
 // body: the search definition using the Query DSL and the prototype for the index request.
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithRefresh, WithRequestsPerSecond, WithSlices, WithSourceParam, WithTimeout, WithWaitForActiveShards, WithWaitForCompletion, see the Option type in this package for more info.
-func (c *Client) Reindex(body map[string]interface{}, options ...Option) (*http.Response, error) {
+func (c *Client) Reindex(body map[string]interface{}, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithErrorTrace":          struct{}{},
 		"WithFilterPath":          struct{}{},
@@ -28,14 +27,18 @@ func (c *Client) Reindex(body map[string]interface{}, options ...Option) (*http.
 		"WithWaitForActiveShards": struct{}{},
 		"WithWaitForCompletion":   struct{}{},
 	}
-	for _, option := range options {
-		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()
-		if _, ok := supportedOptions[name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", name)
-		}
-	}
 	req := &http.Request{
+		URL: &url.URL{
+			Scheme: c.transport.Scheme,
+			Host:   c.transport.Host,
+		},
 		Method: "POST",
 	}
-	return c.client.Do(req)
+	for _, option := range options {
+		if _, ok := supportedOptions[option.name]; !ok {
+			return nil, fmt.Errorf("unsupported option: %s", option.name)
+		}
+		option.apply(req)
+	}
+	return c.transport.Do(req)
 }

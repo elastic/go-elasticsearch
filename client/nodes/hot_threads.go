@@ -5,14 +5,13 @@ package nodes
 import (
 	"fmt"
 	"net/http"
-	"reflect"
-	"runtime"
+	"net/url"
 )
 
 // HotThreads - an API allowing to get the current hot threads on each node in the cluster. See http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-hot-threads.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithType, WithErrorTrace, WithFilterPath, WithHuman, WithIgnoreIdleThreads, WithInterval, WithNodeID, WithPretty, WithSnapshots, WithSourceParam, WithThreads, WithTimeout, see the Option type in this package for more info.
-func (n *Nodes) HotThreads(options ...Option) (*http.Response, error) {
+func (n *Nodes) HotThreads(options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithType":              struct{}{},
 		"WithErrorTrace":        struct{}{},
@@ -27,14 +26,18 @@ func (n *Nodes) HotThreads(options ...Option) (*http.Response, error) {
 		"WithThreads":           struct{}{},
 		"WithTimeout":           struct{}{},
 	}
-	for _, option := range options {
-		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()
-		if _, ok := supportedOptions[name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", name)
-		}
-	}
 	req := &http.Request{
+		URL: &url.URL{
+			Scheme: n.transport.Scheme,
+			Host:   n.transport.Host,
+		},
 		Method: "GET",
 	}
-	return n.client.Do(req)
+	for _, option := range options {
+		if _, ok := supportedOptions[option.name]; !ok {
+			return nil, fmt.Errorf("unsupported option: %s", option.name)
+		}
+		option.apply(req)
+	}
+	return n.transport.Do(req)
 }

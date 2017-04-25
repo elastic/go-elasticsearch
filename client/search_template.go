@@ -5,8 +5,7 @@ package client
 import (
 	"fmt"
 	"net/http"
-	"reflect"
-	"runtime"
+	"net/url"
 )
 
 // SearchTemplate - see http://www.elastic.co/guide/en/elasticsearch/reference/current/search-template.html for more info.
@@ -14,7 +13,7 @@ import (
 // body: the search definition template and its params.
 //
 // options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithType, WithErrorTrace, WithExpandWildcards, WithExplain, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithPreference, WithPretty, WithProfile, WithRouting, WithScroll, WithSearchType, WithSourceParam, WithTypedKeys, see the Option type in this package for more info.
-func (c *Client) SearchTemplate(body map[string]interface{}, options ...Option) (*http.Response, error) {
+func (c *Client) SearchTemplate(body map[string]interface{}, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithAllowNoIndices":    struct{}{},
 		"WithType":              struct{}{},
@@ -34,14 +33,18 @@ func (c *Client) SearchTemplate(body map[string]interface{}, options ...Option) 
 		"WithSourceParam":       struct{}{},
 		"WithTypedKeys":         struct{}{},
 	}
-	for _, option := range options {
-		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()
-		if _, ok := supportedOptions[name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", name)
-		}
-	}
 	req := &http.Request{
+		URL: &url.URL{
+			Scheme: c.transport.Scheme,
+			Host:   c.transport.Host,
+		},
 		Method: "GET",
 	}
-	return c.client.Do(req)
+	for _, option := range options {
+		if _, ok := supportedOptions[option.name]; !ok {
+			return nil, fmt.Errorf("unsupported option: %s", option.name)
+		}
+		option.apply(req)
+	}
+	return c.transport.Do(req)
 }

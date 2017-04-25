@@ -3,18 +3,18 @@
 package cluster
 
 import (
-	"net/http"
+	"github.com/elastic/goelasticsearch/client/transport"
 )
 
 // Cluster is the cluster client.
 type Cluster struct {
-	// client is the transport client.
-	client *http.Client
+	// transport is the transport client.
+	transport *transport.Transport
 }
 
 // New is the constructor for Cluster.
-func New(client *http.Client) *Cluster {
+func New(transport *transport.Transport) *Cluster {
 	return &Cluster{
-		client: client,
+		transport: transport,
 	}
 }

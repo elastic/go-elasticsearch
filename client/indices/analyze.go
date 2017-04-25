@@ -5,8 +5,7 @@ package indices
 import (
 	"fmt"
 	"net/http"
-	"reflect"
-	"runtime"
+	"net/url"
 )
 
 // Analyze - performs the analysis process on a text and return the tokens breakdown of the text. See http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-analyze.html for more info.
@@ -14,7 +13,7 @@ import (
 // body: define analyzer/tokenizer parameters and the text on which the analysis should be performed.
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithFormat, WithHuman, WithIndex, WithIndexParam, WithPreferLocal, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) Analyze(body map[string]interface{}, options ...Option) (*http.Response, error) {
+func (i *Indices) Analyze(body map[string]interface{}, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithErrorTrace":  struct{}{},
 		"WithFilterPath":  struct{}{},
@@ -26,14 +25,18 @@ func (i *Indices) Analyze(body map[string]interface{}, options ...Option) (*http
 		"WithPretty":      struct{}{},
 		"WithSourceParam": struct{}{},
 	}
-	for _, option := range options {
-		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()
-		if _, ok := supportedOptions[name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", name)
-		}
-	}
 	req := &http.Request{
+		URL: &url.URL{
+			Scheme: i.transport.Scheme,
+			Host:   i.transport.Host,
+		},
 		Method: "GET",
 	}
-	return i.client.Do(req)
+	for _, option := range options {
+		if _, ok := supportedOptions[option.name]; !ok {
+			return nil, fmt.Errorf("unsupported option: %s", option.name)
+		}
+		option.apply(req)
+	}
+	return i.transport.Do(req)
 }

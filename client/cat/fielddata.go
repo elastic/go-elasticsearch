@@ -5,14 +5,13 @@ package cat
 import (
 	"fmt"
 	"net/http"
-	"reflect"
-	"runtime"
+	"net/url"
 )
 
 // Fielddata - see http://www.elastic.co/guide/en/elasticsearch/reference/master/cat-fielddata.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithBytes, WithErrorTrace, WithFields, WithFieldsParam, WithFilterPath, WithFormat, WithH, WithHelp, WithHuman, WithLocal, WithMasterTimeout, WithPretty, WithS, WithSourceParam, WithV, see the Option type in this package for more info.
-func (c *Cat) Fielddata(options ...Option) (*http.Response, error) {
+func (c *Cat) Fielddata(options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithBytes":         struct{}{},
 		"WithErrorTrace":    struct{}{},
@@ -30,14 +29,18 @@ func (c *Cat) Fielddata(options ...Option) (*http.Response, error) {
 		"WithSourceParam":   struct{}{},
 		"WithV":             struct{}{},
 	}
-	for _, option := range options {
-		name := runtime.FuncForPC(reflect.ValueOf(option).Pointer()).Name()
-		if _, ok := supportedOptions[name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", name)
-		}
-	}
 	req := &http.Request{
+		URL: &url.URL{
+			Scheme: c.transport.Scheme,
+			Host:   c.transport.Host,
+		},
 		Method: "GET",
 	}
-	return c.client.Do(req)
+	for _, option := range options {
+		if _, ok := supportedOptions[option.name]; !ok {
+			return nil, fmt.Errorf("unsupported option: %s", option.name)
+		}
+		option.apply(req)
+	}
+	return c.transport.Do(req)
 }
