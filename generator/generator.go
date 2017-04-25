@@ -17,6 +17,8 @@
  * under the License.
  */
 
+// Package generator allows to generate the Elasticsearch APIs by fitting their JSON spec into the templates stored in
+// the templates directory.
 package generator
 
 import (
