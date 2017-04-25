@@ -35,6 +35,7 @@ gen: spec
 	$(GO) run ./cmd/generator/main.go
 	@$(GO) get $(GOIMPORTS_REPO)
 	$(GOIMPORTS) -w client
+	$(MAKE) build
 
 .PHONY: spec
 spec:
