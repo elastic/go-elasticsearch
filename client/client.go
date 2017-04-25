@@ -7,7 +7,7 @@ import (
 )
 
 // New is the constructor for the Client
-func New() *Client {
+func New(options ...TransportOption) *Client {
 	httpClient := &http.Client{}
 	c := &Client{
 		client: httpClient,
