@@ -53,10 +53,11 @@ spec:
 spec-update: spec
 	$(MAKE) -C $(SPEC_DIR) pull
 
-# TODO: wait for warmup
 .PHONY: docker-start
 docker-start:
-	$(DOCKER) run --name $(DOCKER_CONTAINER) -d -p 9200:9200 -e "http.host=0.0.0.0" -e "transport.host=127.0.0.1" -e "xpack.security.enabled=false" $(DOCKER_IMAGE):$(shell cat ${VERSION_FILE} | cut -c2-)
+	@$(MAKE) docker-stop || true
+	$(DOCKER) run --name $(DOCKER_CONTAINER) -d -p 127.0.0.1:9200:9200 -e "http.host=0.0.0.0" -e "transport.host=127.0.0.1" -e "xpack.security.enabled=false" $(DOCKER_IMAGE):$(shell cat ${VERSION_FILE} | cut -c2-)
+	@echo "Waiting for elasticsearch to be reachable..." && until curl -sf http://localhost:9200; do sleep 2; done
 
 .PHONY: docker-stop
 docker-stop:
