@@ -7,20 +7,6 @@ import (
 	"time"
 )
 
-// ExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
-type ExpandWildcards int
-
-const (
-	// ExpandWildcardsOpen can be used to set ExpandWildcards to "open"
-	ExpandWildcardsOpen = iota
-	// ExpandWildcardsClosed can be used to set ExpandWildcards to "closed"
-	ExpandWildcardsClosed = iota
-	// ExpandWildcardsNone can be used to set ExpandWildcards to "none"
-	ExpandWildcardsNone = iota
-	// ExpandWildcardsAll can be used to set ExpandWildcards to "all"
-	ExpandWildcardsAll = iota
-)
-
 // Level - specify the level of detail for returned information.
 type Level int
 
@@ -69,10 +55,10 @@ type Option struct {
 	apply func(r *http.Request)
 }
 
-// WithAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
-func WithAllowNoIndices(allowNoIndices bool) *Option {
+// WithBody - the index, shard, and primary flag to explain. Empty means 'explain the first unassigned shard'.
+func WithBody(body map[string]interface{}) *Option {
 	return &Option{
-		name: "WithAllowNoIndices",
+		name: "WithBody",
 		apply: func(r *http.Request) {
 		},
 	}
@@ -91,15 +77,6 @@ func WithDryRun(dryRun bool) *Option {
 func WithErrorTrace(errorTrace bool) *Option {
 	return &Option{
 		name: "WithErrorTrace",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
-// WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
-func WithExpandWildcards(expandWildcards ExpandWildcards) *Option {
-	return &Option{
-		name: "WithExpandWildcards",
 		apply: func(r *http.Request) {
 		},
 	}
@@ -136,15 +113,6 @@ func WithFlatSettings(flatSettings bool) *Option {
 func WithHuman(human bool) *Option {
 	return &Option{
 		name: "WithHuman",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
-// WithIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
-func WithIgnoreUnavailable(ignoreUnavailable bool) *Option {
-	return &Option{
-		name: "WithIgnoreUnavailable",
 		apply: func(r *http.Request) {
 		},
 	}

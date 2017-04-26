@@ -10,18 +10,18 @@ import (
 
 // Refresh allows to explicitly refresh one or more index, making all operations performed since the last refresh available for search. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-refresh.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithForce, WithHuman, WithIgnoreUnavailable, WithIndex, WithOperationThreading, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithForce, WithIgnoreUnavailable, WithOperationThreading, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) Refresh(options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithAllowNoIndices":     struct{}{},
-		"WithErrorTrace":         struct{}{},
-		"WithExpandWildcards":    struct{}{},
-		"WithFilterPath":         struct{}{},
-		"WithForce":              struct{}{},
-		"WithHuman":              struct{}{},
-		"WithIgnoreUnavailable":  struct{}{},
 		"WithIndex":              struct{}{},
+		"WithAllowNoIndices":     struct{}{},
+		"WithExpandWildcards":    struct{}{},
+		"WithForce":              struct{}{},
+		"WithIgnoreUnavailable":  struct{}{},
 		"WithOperationThreading": struct{}{},
+		"WithErrorTrace":         struct{}{},
+		"WithFilterPath":         struct{}{},
+		"WithHuman":              struct{}{},
 		"WithPretty":             struct{}{},
 		"WithSourceParam":        struct{}{},
 	}

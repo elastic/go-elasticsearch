@@ -10,17 +10,17 @@ import (
 
 // Stats - the Cluster Stats API allows to retrieve statistics from a cluster wide perspective. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-stats.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithFlatSettings, WithHuman, WithNodeID, WithPretty, WithSourceParam, WithTimeout, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithNodeID, WithFlatSettings, WithTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (c *Cluster) Stats(options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithNodeID":       struct{}{},
+		"WithFlatSettings": struct{}{},
+		"WithTimeout":      struct{}{},
 		"WithErrorTrace":   struct{}{},
 		"WithFilterPath":   struct{}{},
-		"WithFlatSettings": struct{}{},
 		"WithHuman":        struct{}{},
-		"WithNodeID":       struct{}{},
 		"WithPretty":       struct{}{},
 		"WithSourceParam":  struct{}{},
-		"WithTimeout":      struct{}{},
 	}
 	req := &http.Request{
 		URL: &url.URL{

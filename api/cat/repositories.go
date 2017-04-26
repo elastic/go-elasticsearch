@@ -10,21 +10,21 @@ import (
 
 // Repositories - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-repositories.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithFormat, WithH, WithHelp, WithHuman, WithLocal, WithMasterTimeout, WithPretty, WithS, WithSourceParam, WithV, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithFormat, WithH, WithHelp, WithLocal, WithMasterTimeout, WithS, WithV, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (c *Cat) Repositories(options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithErrorTrace":    struct{}{},
-		"WithFilterPath":    struct{}{},
 		"WithFormat":        struct{}{},
 		"WithH":             struct{}{},
 		"WithHelp":          struct{}{},
-		"WithHuman":         struct{}{},
 		"WithLocal":         struct{}{},
 		"WithMasterTimeout": struct{}{},
-		"WithPretty":        struct{}{},
 		"WithS":             struct{}{},
-		"WithSourceParam":   struct{}{},
 		"WithV":             struct{}{},
+		"WithErrorTrace":    struct{}{},
+		"WithFilterPath":    struct{}{},
+		"WithHuman":         struct{}{},
+		"WithPretty":        struct{}{},
+		"WithSourceParam":   struct{}{},
 	}
 	req := &http.Request{
 		URL: &url.URL{

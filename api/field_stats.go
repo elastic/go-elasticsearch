@@ -10,20 +10,19 @@ import (
 
 // FieldStats - this functionality is experimental and may be changed or removed completely in a future release. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-field-stats.html for more info.
 //
-// body: field json objects containing the name and optionally a range to filter out indices result, that have results outside the defined bounds.
-//
-// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFields, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithLevel, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) FieldStats(body map[string]interface{}, options ...*Option) (*http.Response, error) {
+// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithFields, WithIgnoreUnavailable, WithLevel, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (a *API) FieldStats(options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithIndex":             struct{}{},
 		"WithAllowNoIndices":    struct{}{},
-		"WithErrorTrace":        struct{}{},
 		"WithExpandWildcards":   struct{}{},
 		"WithFields":            struct{}{},
+		"WithIgnoreUnavailable": struct{}{},
+		"WithLevel":             struct{}{},
+		"WithBody":              struct{}{},
+		"WithErrorTrace":        struct{}{},
 		"WithFilterPath":        struct{}{},
 		"WithHuman":             struct{}{},
-		"WithIgnoreUnavailable": struct{}{},
-		"WithIndex":             struct{}{},
-		"WithLevel":             struct{}{},
 		"WithPretty":            struct{}{},
 		"WithSourceParam":       struct{}{},
 	}

@@ -10,17 +10,19 @@ import (
 
 // ReindexRethrottle - reindex does not attempt to set up the destination index. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-reindex.html for more info.
 //
+// taskID: the task id to rethrottle.
+//
 // requestsPerSecond: the throttle to set on this request in floating sub-requests per second. -1 means set no throttle.
 //
-// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, WithTaskID, see the Option type in this package for more info.
-func (a *API) ReindexRethrottle(requestsPerSecond int, options ...*Option) (*http.Response, error) {
+// options: optional parameters. Supports the following functional options: WithTaskID, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (a *API) ReindexRethrottle(taskID string, requestsPerSecond int, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithTaskID":      struct{}{},
 		"WithErrorTrace":  struct{}{},
 		"WithFilterPath":  struct{}{},
 		"WithHuman":       struct{}{},
 		"WithPretty":      struct{}{},
 		"WithSourceParam": struct{}{},
-		"WithTaskID":      struct{}{},
 	}
 	req := &http.Request{
 		URL: &url.URL{

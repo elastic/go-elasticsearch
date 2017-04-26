@@ -14,19 +14,19 @@ import (
 //
 // body: the template definition.
 //
-// options: optional parameters. Supports the following functional options: WithCreate, WithErrorTrace, WithFilterPath, WithFlatSettings, WithHuman, WithMasterTimeout, WithOrder, WithPretty, WithSourceParam, WithTimeout, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithCreate, WithFlatSettings, WithMasterTimeout, WithOrder, WithTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) PutTemplate(name string, body map[string]interface{}, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithCreate":        struct{}{},
-		"WithErrorTrace":    struct{}{},
-		"WithFilterPath":    struct{}{},
 		"WithFlatSettings":  struct{}{},
-		"WithHuman":         struct{}{},
 		"WithMasterTimeout": struct{}{},
 		"WithOrder":         struct{}{},
+		"WithTimeout":       struct{}{},
+		"WithErrorTrace":    struct{}{},
+		"WithFilterPath":    struct{}{},
+		"WithHuman":         struct{}{},
 		"WithPretty":        struct{}{},
 		"WithSourceParam":   struct{}{},
-		"WithTimeout":       struct{}{},
 	}
 	req := &http.Request{
 		URL: &url.URL{

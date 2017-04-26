@@ -37,28 +37,10 @@ type Option struct {
 	apply func(r *http.Request)
 }
 
-// WithActiveOnly - display only those recoveries that are currently on-going.
-func WithActiveOnly(activeOnly bool) *Option {
-	return &Option{
-		name: "WithActiveOnly",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
 // WithAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
 func WithAllowNoIndices(allowNoIndices bool) *Option {
 	return &Option{
 		name: "WithAllowNoIndices",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
-// WithAnalyzeWildcard - specify whether wildcard and prefix queries should be analyzed (default: false).
-func WithAnalyzeWildcard(analyzeWildcard bool) *Option {
-	return &Option{
-		name: "WithAnalyzeWildcard",
 		apply: func(r *http.Request) {
 		},
 	}
@@ -82,6 +64,15 @@ func WithAttributes(attributes []string) *Option {
 	}
 }
 
+// WithBody - the text on which the analysis should be performed.
+func WithBody(body map[string]interface{}) *Option {
+	return &Option{
+		name: "WithBody",
+		apply: func(r *http.Request) {
+		},
+	}
+}
+
 // WithCharFilter - a comma-separated list of character filters to use for the analysis.
 func WithCharFilter(charFilter []string) *Option {
 	return &Option{
@@ -91,37 +82,10 @@ func WithCharFilter(charFilter []string) *Option {
 	}
 }
 
-// WithCompletionFields - a comma-separated list of fields for "fielddata" and "suggest" index metric (supports wildcards).
-func WithCompletionFields(completionFields []string) *Option {
-	return &Option{
-		name: "WithCompletionFields",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
 // WithCreate - whether the index template should only be added if new or can also replace an existing one.
 func WithCreate(create bool) *Option {
 	return &Option{
 		name: "WithCreate",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
-// WithDetailed - whether to display detailed information about shard recovery.
-func WithDetailed(detailed bool) *Option {
-	return &Option{
-		name: "WithDetailed",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
-// WithType - a comma-separated list of document types.
-func WithType(documentType []string) *Option {
-	return &Option{
-		name: "WithType",
 		apply: func(r *http.Request) {
 		},
 	}
@@ -163,46 +127,19 @@ func WithExplain(explain bool) *Option {
 	}
 }
 
+// WithFeature - a comma-separated list of features.
+func WithFeature(feature []string) *Option {
+	return &Option{
+		name: "WithFeature",
+		apply: func(r *http.Request) {
+		},
+	}
+}
+
 // WithField - use the analyzer configured for this field (instead of passing the analyzer name).
 func WithField(field string) *Option {
 	return &Option{
 		name: "WithField",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
-// WithFieldData - clear field data.
-func WithFieldData(fieldData bool) *Option {
-	return &Option{
-		name: "WithFieldData",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
-// WithFielddata - clear field data.
-func WithFielddata(fielddata bool) *Option {
-	return &Option{
-		name: "WithFielddata",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
-// WithFielddataFields - a comma-separated list of fields for "fielddata" index metric (supports wildcards).
-func WithFielddataFields(fielddataFields []string) *Option {
-	return &Option{
-		name: "WithFielddataFields",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
-// WithFields - a comma-separated list of fields to clear when using the "field_data" parameter (default: all).
-func WithFields(fields []string) *Option {
-	return &Option{
-		name: "WithFields",
 		apply: func(r *http.Request) {
 		},
 	}
@@ -235,24 +172,6 @@ func WithFlatSettings(flatSettings bool) *Option {
 	}
 }
 
-// WithFlush - specify whether the index should be flushed after performing the operation (default: true).
-func WithFlush(flush bool) *Option {
-	return &Option{
-		name: "WithFlush",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
-// WithForce - whether a flush should be forced even if it is not necessarily needed ie. if no changes will be committed to the index. This is useful if transaction log IDs should be incremented even if no uncommitted changes are present. (This setting can be considered as internal).
-func WithForce(force bool) *Option {
-	return &Option{
-		name: "WithForce",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
 // WithFormat - format of the output.
 func WithFormat(format Format) *Option {
 	return &Option{
@@ -275,15 +194,6 @@ func WithHuman(human bool) *Option {
 func WithIgnoreUnavailable(ignoreUnavailable bool) *Option {
 	return &Option{
 		name: "WithIgnoreUnavailable",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
-// WithIncludeDefaults - whether the default mapping values should be returned as well.
-func WithIncludeDefaults(includeDefaults bool) *Option {
-	return &Option{
-		name: "WithIncludeDefaults",
 		apply: func(r *http.Request) {
 		},
 	}
@@ -320,6 +230,15 @@ func WithLocal(local bool) *Option {
 func WithMasterTimeout(masterTimeout time.Time) *Option {
 	return &Option{
 		name: "WithMasterTimeout",
+		apply: func(r *http.Request) {
+		},
+	}
+}
+
+// WithName - the comma separated names of the index templates.
+func WithName(name []string) *Option {
+	return &Option{
+		name: "WithName",
 		apply: func(r *http.Request) {
 		},
 	}

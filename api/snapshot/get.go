@@ -14,14 +14,14 @@ import (
 //
 // snapshot: a comma-separated list of snapshot names.
 //
-// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithMasterTimeout, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithIgnoreUnavailable, WithMasterTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (s *Snapshot) Get(repository string, snapshot []string, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithIgnoreUnavailable": struct{}{},
+		"WithMasterTimeout":     struct{}{},
 		"WithErrorTrace":        struct{}{},
 		"WithFilterPath":        struct{}{},
 		"WithHuman":             struct{}{},
-		"WithIgnoreUnavailable": struct{}{},
-		"WithMasterTimeout":     struct{}{},
 		"WithPretty":            struct{}{},
 		"WithSourceParam":       struct{}{},
 	}

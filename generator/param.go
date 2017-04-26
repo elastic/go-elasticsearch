@@ -72,6 +72,10 @@ func formatDescription(description string) string {
 }
 
 func (p *param) resolve(name string) error {
+	// Make sure we don't mix _source and source
+	if name == "source" {
+		name = "source_param"
+	}
 	if strings.HasPrefix(name, "_") {
 		name = name[1:]
 	}

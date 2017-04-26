@@ -10,16 +10,16 @@ import (
 
 // GetRepository - the snapshot and restore module allows to create snapshots of individual indices or an entire cluster into a remote repository like shared file system, S3, or HDFS. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/modules-snapshots.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithLocal, WithMasterTimeout, WithPretty, WithRepository, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithRepository, WithLocal, WithMasterTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (s *Snapshot) GetRepository(options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithRepository":    struct{}{},
+		"WithLocal":         struct{}{},
+		"WithMasterTimeout": struct{}{},
 		"WithErrorTrace":    struct{}{},
 		"WithFilterPath":    struct{}{},
 		"WithHuman":         struct{}{},
-		"WithLocal":         struct{}{},
-		"WithMasterTimeout": struct{}{},
 		"WithPretty":        struct{}{},
-		"WithRepository":    struct{}{},
 		"WithSourceParam":   struct{}{},
 	}
 	req := &http.Request{

@@ -10,25 +10,27 @@ import (
 
 // PutMapping - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-put-mapping.html for more info.
 //
+// index: a comma-separated list of index names the mapping should be added to (supports wildcards); use "_all" or omit to add the mapping on all indices.
+//
 // documentType: the name of the document type.
 //
 // body: the mapping definition.
 //
-// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithMasterTimeout, WithPretty, WithSourceParam, WithTimeout, WithUpdateAllTypes, see the Option type in this package for more info.
-func (i *Indices) PutMapping(documentType string, body map[string]interface{}, options ...*Option) (*http.Response, error) {
+// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithMasterTimeout, WithTimeout, WithUpdateAllTypes, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (i *Indices) PutMapping(index []string, documentType string, body map[string]interface{}, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithAllowNoIndices":    struct{}{},
-		"WithErrorTrace":        struct{}{},
-		"WithExpandWildcards":   struct{}{},
-		"WithFilterPath":        struct{}{},
-		"WithHuman":             struct{}{},
-		"WithIgnoreUnavailable": struct{}{},
 		"WithIndex":             struct{}{},
+		"WithAllowNoIndices":    struct{}{},
+		"WithExpandWildcards":   struct{}{},
+		"WithIgnoreUnavailable": struct{}{},
 		"WithMasterTimeout":     struct{}{},
-		"WithPretty":            struct{}{},
-		"WithSourceParam":       struct{}{},
 		"WithTimeout":           struct{}{},
 		"WithUpdateAllTypes":    struct{}{},
+		"WithErrorTrace":        struct{}{},
+		"WithFilterPath":        struct{}{},
+		"WithHuman":             struct{}{},
+		"WithPretty":            struct{}{},
+		"WithSourceParam":       struct{}{},
 	}
 	req := &http.Request{
 		URL: &url.URL{

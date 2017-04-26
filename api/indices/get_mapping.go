@@ -10,18 +10,18 @@ import (
 
 // GetMapping - the get mapping API allows to retrieve mapping definitions for an index or index/type. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-get-mapping.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithType, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithLocal, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithLocal, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) GetMapping(options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithAllowNoIndices":    struct{}{},
+		"WithIndex":             struct{}{},
 		"WithType":              struct{}{},
-		"WithErrorTrace":        struct{}{},
+		"WithAllowNoIndices":    struct{}{},
 		"WithExpandWildcards":   struct{}{},
+		"WithIgnoreUnavailable": struct{}{},
+		"WithLocal":             struct{}{},
+		"WithErrorTrace":        struct{}{},
 		"WithFilterPath":        struct{}{},
 		"WithHuman":             struct{}{},
-		"WithIgnoreUnavailable": struct{}{},
-		"WithIndex":             struct{}{},
-		"WithLocal":             struct{}{},
 		"WithPretty":            struct{}{},
 		"WithSourceParam":       struct{}{},
 	}

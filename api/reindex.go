@@ -12,20 +12,20 @@ import (
 //
 // body: the search definition using the Query DSL and the prototype for the index request.
 //
-// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithRefresh, WithRequestsPerSecond, WithSlices, WithSourceParam, WithTimeout, WithWaitForActiveShards, WithWaitForCompletion, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithRefresh, WithRequestsPerSecond, WithSlices, WithTimeout, WithWaitForActiveShards, WithWaitForCompletion, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (a *API) Reindex(body map[string]interface{}, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithRefresh":             struct{}{},
+		"WithRequestsPerSecond":   struct{}{},
+		"WithSlices":              struct{}{},
+		"WithTimeout":             struct{}{},
+		"WithWaitForActiveShards": struct{}{},
+		"WithWaitForCompletion":   struct{}{},
 		"WithErrorTrace":          struct{}{},
 		"WithFilterPath":          struct{}{},
 		"WithHuman":               struct{}{},
 		"WithPretty":              struct{}{},
-		"WithRefresh":             struct{}{},
-		"WithRequestsPerSecond":   struct{}{},
-		"WithSlices":              struct{}{},
 		"WithSourceParam":         struct{}{},
-		"WithTimeout":             struct{}{},
-		"WithWaitForActiveShards": struct{}{},
-		"WithWaitForCompletion":   struct{}{},
 	}
 	req := &http.Request{
 		URL: &url.URL{

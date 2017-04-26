@@ -10,23 +10,23 @@ import (
 
 // Stats - indices level stats provide statistics on different operations happening on an index. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-stats.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithCompletionFields, WithErrorTrace, WithFielddataFields, WithFields, WithFilterPath, WithGroups, WithHuman, WithIncludeSegmentFileSizes, WithIndex, WithLevel, WithMetric, WithPretty, WithSourceParam, WithTypes, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithIndex, WithMetric, WithCompletionFields, WithFielddataFields, WithFields, WithGroups, WithIncludeSegmentFileSizes, WithLevel, WithTypes, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) Stats(options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithIndex":                   struct{}{},
+		"WithMetric":                  struct{}{},
 		"WithCompletionFields":        struct{}{},
-		"WithErrorTrace":              struct{}{},
 		"WithFielddataFields":         struct{}{},
 		"WithFields":                  struct{}{},
-		"WithFilterPath":              struct{}{},
 		"WithGroups":                  struct{}{},
-		"WithHuman":                   struct{}{},
 		"WithIncludeSegmentFileSizes": struct{}{},
-		"WithIndex":                   struct{}{},
 		"WithLevel":                   struct{}{},
-		"WithMetric":                  struct{}{},
+		"WithTypes":                   struct{}{},
+		"WithErrorTrace":              struct{}{},
+		"WithFilterPath":              struct{}{},
+		"WithHuman":                   struct{}{},
 		"WithPretty":                  struct{}{},
 		"WithSourceParam":             struct{}{},
-		"WithTypes":                   struct{}{},
 	}
 	req := &http.Request{
 		URL: &url.URL{

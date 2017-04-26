@@ -10,21 +10,21 @@ import (
 
 // HotThreads - an API allowing to get the current hot threads on each node in the cluster. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-nodes-hot-threads.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithType, WithErrorTrace, WithFilterPath, WithHuman, WithIgnoreIdleThreads, WithInterval, WithNodeID, WithPretty, WithSnapshots, WithSourceParam, WithThreads, WithTimeout, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithNodeID, WithIgnoreIdleThreads, WithInterval, WithSnapshots, WithThreads, WithTimeout, WithType, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (n *Nodes) HotThreads(options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithNodeID":            struct{}{},
+		"WithIgnoreIdleThreads": struct{}{},
+		"WithInterval":          struct{}{},
+		"WithSnapshots":         struct{}{},
+		"WithThreads":           struct{}{},
+		"WithTimeout":           struct{}{},
 		"WithType":              struct{}{},
 		"WithErrorTrace":        struct{}{},
 		"WithFilterPath":        struct{}{},
 		"WithHuman":             struct{}{},
-		"WithIgnoreIdleThreads": struct{}{},
-		"WithInterval":          struct{}{},
-		"WithNodeID":            struct{}{},
 		"WithPretty":            struct{}{},
-		"WithSnapshots":         struct{}{},
 		"WithSourceParam":       struct{}{},
-		"WithThreads":           struct{}{},
-		"WithTimeout":           struct{}{},
 	}
 	req := &http.Request{
 		URL: &url.URL{

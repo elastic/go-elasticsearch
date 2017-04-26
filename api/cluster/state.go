@@ -10,20 +10,20 @@ import (
 
 // State - the cluster state API allows to get a comprehensive state information of the whole cluster. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-state.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithFlatSettings, WithHuman, WithIgnoreUnavailable, WithIndex, WithLocal, WithMasterTimeout, WithMetric, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithIndex, WithMetric, WithAllowNoIndices, WithExpandWildcards, WithFlatSettings, WithIgnoreUnavailable, WithLocal, WithMasterTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (c *Cluster) State(options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithAllowNoIndices":    struct{}{},
-		"WithErrorTrace":        struct{}{},
-		"WithExpandWildcards":   struct{}{},
-		"WithFilterPath":        struct{}{},
-		"WithFlatSettings":      struct{}{},
-		"WithHuman":             struct{}{},
-		"WithIgnoreUnavailable": struct{}{},
 		"WithIndex":             struct{}{},
+		"WithMetric":            struct{}{},
+		"WithAllowNoIndices":    struct{}{},
+		"WithExpandWildcards":   struct{}{},
+		"WithFlatSettings":      struct{}{},
+		"WithIgnoreUnavailable": struct{}{},
 		"WithLocal":             struct{}{},
 		"WithMasterTimeout":     struct{}{},
-		"WithMetric":            struct{}{},
+		"WithErrorTrace":        struct{}{},
+		"WithFilterPath":        struct{}{},
+		"WithHuman":             struct{}{},
 		"WithPretty":            struct{}{},
 		"WithSourceParam":       struct{}{},
 	}

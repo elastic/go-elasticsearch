@@ -10,24 +10,24 @@ import (
 
 // Exists - the get API allows to get a typed JSON document from the index based on its id. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-get.html for more info.
 //
+// index: the name of the index.
+//
 // documentType: the type of the document (use "_all" to fetch the first document matching the ID across all types).
 //
 // id: the document ID.
 //
-// index: the name of the index.
-//
-// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithParent, WithPreference, WithPretty, WithRealtime, WithRefresh, WithRouting, WithSourceParam, see the Option type in this package for more info.
-func (a *API) Exists(documentType string, id string, index string, options ...*Option) (*http.Response, error) {
+// options: optional parameters. Supports the following functional options: WithParent, WithPreference, WithRealtime, WithRefresh, WithRouting, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (a *API) Exists(index string, documentType string, id string, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithErrorTrace":  struct{}{},
-		"WithFilterPath":  struct{}{},
-		"WithHuman":       struct{}{},
 		"WithParent":      struct{}{},
 		"WithPreference":  struct{}{},
-		"WithPretty":      struct{}{},
 		"WithRealtime":    struct{}{},
 		"WithRefresh":     struct{}{},
 		"WithRouting":     struct{}{},
+		"WithErrorTrace":  struct{}{},
+		"WithFilterPath":  struct{}{},
+		"WithHuman":       struct{}{},
+		"WithPretty":      struct{}{},
 		"WithSourceParam": struct{}{},
 	}
 	req := &http.Request{

@@ -13,6 +13,15 @@ type Option struct {
 	apply func(r *http.Request)
 }
 
+// WithBody - the snapshot definition.
+func WithBody(body map[string]interface{}) *Option {
+	return &Option{
+		name: "WithBody",
+		apply: func(r *http.Request) {
+		},
+	}
+}
+
 // WithErrorTrace - include the stack trace of returned errors.
 func WithErrorTrace(errorTrace bool) *Option {
 	return &Option{

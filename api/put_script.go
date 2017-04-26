@@ -10,14 +10,12 @@ import (
 
 // PutScript - the scripting module enables you to use scripts to evaluate custom expressions. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/modules-scripting.html for more info.
 //
-// id: script ID.
-//
 // lang: script language.
 //
 // body: the document.
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) PutScript(id string, lang string, body map[string]interface{}, options ...*Option) (*http.Response, error) {
+func (a *API) PutScript(lang string, body map[string]interface{}, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithErrorTrace":  struct{}{},
 		"WithFilterPath":  struct{}{},

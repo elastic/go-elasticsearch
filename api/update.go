@@ -10,37 +10,36 @@ import (
 
 // Update allows to update a document based on a script provided. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-update.html for more info.
 //
+// index: the name of the index.
+//
 // documentType: the type of the document.
 //
 // id: document ID.
 //
-// index: the name of the index.
-//
-// body: the request definition using either "script" or partial "doc".
-//
-// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFields, WithFilterPath, WithHuman, WithLang, WithParent, WithPretty, WithRefresh, WithRetryOnConflict, WithRouting, WithSource, WithSourceExclude, WithSourceInclude, WithSourceParam, WithTimeout, WithTimestamp, WithTTL, WithVersion, WithVersionType, WithWaitForActiveShards, see the Option type in this package for more info.
-func (a *API) Update(documentType string, id string, index string, body map[string]interface{}, options ...*Option) (*http.Response, error) {
+// options: optional parameters. Supports the following functional options: WithSource, WithSourceExclude, WithSourceInclude, WithFields, WithLang, WithParent, WithRefresh, WithRetryOnConflict, WithRouting, WithTimeout, WithTimestamp, WithTTL, WithVersion, WithVersionType, WithWaitForActiveShards, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (a *API) Update(index string, documentType string, id string, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithErrorTrace":          struct{}{},
-		"WithFields":              struct{}{},
-		"WithFilterPath":          struct{}{},
-		"WithHuman":               struct{}{},
-		"WithLang":                struct{}{},
-		"WithParent":              struct{}{},
-		"WithPretty":              struct{}{},
-		"WithRefresh":             struct{}{},
-		"WithRetryOnConflict":     struct{}{},
-		"WithRouting":             struct{}{},
 		"WithSource":              struct{}{},
 		"WithSourceExclude":       struct{}{},
 		"WithSourceInclude":       struct{}{},
-		"WithSourceParam":         struct{}{},
+		"WithFields":              struct{}{},
+		"WithLang":                struct{}{},
+		"WithParent":              struct{}{},
+		"WithRefresh":             struct{}{},
+		"WithRetryOnConflict":     struct{}{},
+		"WithRouting":             struct{}{},
 		"WithTimeout":             struct{}{},
 		"WithTimestamp":           struct{}{},
 		"WithTTL":                 struct{}{},
 		"WithVersion":             struct{}{},
 		"WithVersionType":         struct{}{},
 		"WithWaitForActiveShards": struct{}{},
+		"WithBody":                struct{}{},
+		"WithErrorTrace":          struct{}{},
+		"WithFilterPath":          struct{}{},
+		"WithHuman":               struct{}{},
+		"WithPretty":              struct{}{},
+		"WithSourceParam":         struct{}{},
 	}
 	req := &http.Request{
 		URL: &url.URL{

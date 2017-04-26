@@ -10,20 +10,20 @@ import (
 
 // Flush allows to flush one or more indices through an API. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-flush.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithForce, WithHuman, WithIgnoreUnavailable, WithIndex, WithPretty, WithSourceParam, WithWaitIfOngoing, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithForce, WithIgnoreUnavailable, WithWaitIfOngoing, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) Flush(options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithAllowNoIndices":    struct{}{},
-		"WithErrorTrace":        struct{}{},
-		"WithExpandWildcards":   struct{}{},
-		"WithFilterPath":        struct{}{},
-		"WithForce":             struct{}{},
-		"WithHuman":             struct{}{},
-		"WithIgnoreUnavailable": struct{}{},
 		"WithIndex":             struct{}{},
+		"WithAllowNoIndices":    struct{}{},
+		"WithExpandWildcards":   struct{}{},
+		"WithForce":             struct{}{},
+		"WithIgnoreUnavailable": struct{}{},
+		"WithWaitIfOngoing":     struct{}{},
+		"WithErrorTrace":        struct{}{},
+		"WithFilterPath":        struct{}{},
+		"WithHuman":             struct{}{},
 		"WithPretty":            struct{}{},
 		"WithSourceParam":       struct{}{},
-		"WithWaitIfOngoing":     struct{}{},
 	}
 	req := &http.Request{
 		URL: &url.URL{

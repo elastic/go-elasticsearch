@@ -14,13 +14,13 @@ import (
 //
 // snapshot: a snapshot name.
 //
-// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithMasterTimeout, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithMasterTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (s *Snapshot) Delete(repository string, snapshot string, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithMasterTimeout": struct{}{},
 		"WithErrorTrace":    struct{}{},
 		"WithFilterPath":    struct{}{},
 		"WithHuman":         struct{}{},
-		"WithMasterTimeout": struct{}{},
 		"WithPretty":        struct{}{},
 		"WithSourceParam":   struct{}{},
 	}

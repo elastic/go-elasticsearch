@@ -10,14 +10,16 @@ import (
 
 // GetPipeline - the ingest plugins extend Elasticsearch by providing additional ingest node capabilities. See https://www.elastic.co/guide/en/elasticsearch/plugins/5.x/ingest.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithID, WithMasterTimeout, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Ingest) GetPipeline(options ...*Option) (*http.Response, error) {
+// id: comma separated list of pipeline ids. Wildcards supported.
+//
+// options: optional parameters. Supports the following functional options: WithID, WithMasterTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (i *Ingest) GetPipeline(id string, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithID":            struct{}{},
+		"WithMasterTimeout": struct{}{},
 		"WithErrorTrace":    struct{}{},
 		"WithFilterPath":    struct{}{},
 		"WithHuman":         struct{}{},
-		"WithID":            struct{}{},
-		"WithMasterTimeout": struct{}{},
 		"WithPretty":        struct{}{},
 		"WithSourceParam":   struct{}{},
 	}

@@ -10,20 +10,20 @@ import (
 
 // Upgrade - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-upgrade.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithOnlyAncientSegments, WithPretty, WithSourceParam, WithWaitForCompletion, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithOnlyAncientSegments, WithWaitForCompletion, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) Upgrade(options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithIndex":               struct{}{},
 		"WithAllowNoIndices":      struct{}{},
-		"WithErrorTrace":          struct{}{},
 		"WithExpandWildcards":     struct{}{},
+		"WithIgnoreUnavailable":   struct{}{},
+		"WithOnlyAncientSegments": struct{}{},
+		"WithWaitForCompletion":   struct{}{},
+		"WithErrorTrace":          struct{}{},
 		"WithFilterPath":          struct{}{},
 		"WithHuman":               struct{}{},
-		"WithIgnoreUnavailable":   struct{}{},
-		"WithIndex":               struct{}{},
-		"WithOnlyAncientSegments": struct{}{},
 		"WithPretty":              struct{}{},
 		"WithSourceParam":         struct{}{},
-		"WithWaitForCompletion":   struct{}{},
 	}
 	req := &http.Request{
 		URL: &url.URL{

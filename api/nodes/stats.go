@@ -10,25 +10,25 @@ import (
 
 // Stats - the cluster nodes stats API allows to retrieve one or more (or all) of the cluster nodes statistics. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-nodes-stats.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithCompletionFields, WithErrorTrace, WithFielddataFields, WithFields, WithFilterPath, WithGroups, WithHuman, WithIncludeSegmentFileSizes, WithIndexMetric, WithLevel, WithMetric, WithNodeID, WithPretty, WithSourceParam, WithTimeout, WithTypes, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithIndexMetric, WithMetric, WithNodeID, WithCompletionFields, WithFielddataFields, WithFields, WithGroups, WithIncludeSegmentFileSizes, WithLevel, WithTimeout, WithTypes, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (n *Nodes) Stats(options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithCompletionFields":        struct{}{},
-		"WithErrorTrace":              struct{}{},
-		"WithFielddataFields":         struct{}{},
-		"WithFields":                  struct{}{},
-		"WithFilterPath":              struct{}{},
-		"WithGroups":                  struct{}{},
-		"WithHuman":                   struct{}{},
-		"WithIncludeSegmentFileSizes": struct{}{},
 		"WithIndexMetric":             struct{}{},
-		"WithLevel":                   struct{}{},
 		"WithMetric":                  struct{}{},
 		"WithNodeID":                  struct{}{},
-		"WithPretty":                  struct{}{},
-		"WithSourceParam":             struct{}{},
+		"WithCompletionFields":        struct{}{},
+		"WithFielddataFields":         struct{}{},
+		"WithFields":                  struct{}{},
+		"WithGroups":                  struct{}{},
+		"WithIncludeSegmentFileSizes": struct{}{},
+		"WithLevel":                   struct{}{},
 		"WithTimeout":                 struct{}{},
 		"WithTypes":                   struct{}{},
+		"WithErrorTrace":              struct{}{},
+		"WithFilterPath":              struct{}{},
+		"WithHuman":                   struct{}{},
+		"WithPretty":                  struct{}{},
+		"WithSourceParam":             struct{}{},
 	}
 	req := &http.Request{
 		URL: &url.URL{

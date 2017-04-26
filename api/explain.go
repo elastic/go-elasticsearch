@@ -10,35 +10,34 @@ import (
 
 // Explain - the explain api computes a score explanation for a query and a specific document. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-explain.html for more info.
 //
+// index: the name of the index.
+//
 // documentType: the type of the document.
 //
 // id: the document ID.
 //
-// index: the name of the index.
-//
-// body: the query definition using the Query DSL.
-//
-// options: optional parameters. Supports the following functional options: WithAnalyzeWildcard, WithAnalyzer, WithDefaultOperator, WithDf, WithErrorTrace, WithFilterPath, WithHuman, WithLenient, WithParent, WithPreference, WithPretty, WithQ, WithRouting, WithSource, WithSourceExclude, WithSourceInclude, WithSourceParam, WithStoredFields, see the Option type in this package for more info.
-func (a *API) Explain(documentType string, id string, index string, body map[string]interface{}, options ...*Option) (*http.Response, error) {
+// options: optional parameters. Supports the following functional options: WithSource, WithSourceExclude, WithSourceInclude, WithAnalyzeWildcard, WithAnalyzer, WithDefaultOperator, WithDf, WithLenient, WithParent, WithPreference, WithQ, WithRouting, WithStoredFields, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (a *API) Explain(index string, documentType string, id string, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithSource":          struct{}{},
+		"WithSourceExclude":   struct{}{},
+		"WithSourceInclude":   struct{}{},
 		"WithAnalyzeWildcard": struct{}{},
 		"WithAnalyzer":        struct{}{},
 		"WithDefaultOperator": struct{}{},
 		"WithDf":              struct{}{},
-		"WithErrorTrace":      struct{}{},
-		"WithFilterPath":      struct{}{},
-		"WithHuman":           struct{}{},
 		"WithLenient":         struct{}{},
 		"WithParent":          struct{}{},
 		"WithPreference":      struct{}{},
-		"WithPretty":          struct{}{},
 		"WithQ":               struct{}{},
 		"WithRouting":         struct{}{},
-		"WithSource":          struct{}{},
-		"WithSourceExclude":   struct{}{},
-		"WithSourceInclude":   struct{}{},
-		"WithSourceParam":     struct{}{},
 		"WithStoredFields":    struct{}{},
+		"WithBody":            struct{}{},
+		"WithErrorTrace":      struct{}{},
+		"WithFilterPath":      struct{}{},
+		"WithHuman":           struct{}{},
+		"WithPretty":          struct{}{},
+		"WithSourceParam":     struct{}{},
 	}
 	req := &http.Request{
 		URL: &url.URL{

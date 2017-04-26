@@ -10,16 +10,17 @@ import (
 
 // ClearScroll - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-request-scroll.html for more info.
 //
-// body: a comma-separated list of scroll IDs to clear if none was specified via the scroll_id parameter.
+// scrollID: a comma-separated list of scroll IDs to clear.
 //
-// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithScrollID, WithSourceParam, see the Option type in this package for more info.
-func (a *API) ClearScroll(body map[string]interface{}, options ...*Option) (*http.Response, error) {
+// options: optional parameters. Supports the following functional options: WithScrollID, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (a *API) ClearScroll(scrollID []string, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithScrollID":    struct{}{},
+		"WithBody":        struct{}{},
 		"WithErrorTrace":  struct{}{},
 		"WithFilterPath":  struct{}{},
 		"WithHuman":       struct{}{},
 		"WithPretty":      struct{}{},
-		"WithScrollID":    struct{}{},
 		"WithSourceParam": struct{}{},
 	}
 	req := &http.Request{

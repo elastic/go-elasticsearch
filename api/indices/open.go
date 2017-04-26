@@ -12,19 +12,19 @@ import (
 //
 // index: a comma separated list of indices to open.
 //
-// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithMasterTimeout, WithPretty, WithSourceParam, WithTimeout, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithMasterTimeout, WithTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) Open(index []string, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithAllowNoIndices":    struct{}{},
-		"WithErrorTrace":        struct{}{},
 		"WithExpandWildcards":   struct{}{},
-		"WithFilterPath":        struct{}{},
-		"WithHuman":             struct{}{},
 		"WithIgnoreUnavailable": struct{}{},
 		"WithMasterTimeout":     struct{}{},
+		"WithTimeout":           struct{}{},
+		"WithErrorTrace":        struct{}{},
+		"WithFilterPath":        struct{}{},
+		"WithHuman":             struct{}{},
 		"WithPretty":            struct{}{},
 		"WithSourceParam":       struct{}{},
-		"WithTimeout":           struct{}{},
 	}
 	req := &http.Request{
 		URL: &url.URL{

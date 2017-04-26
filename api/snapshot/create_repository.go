@@ -14,17 +14,17 @@ import (
 //
 // body: the repository definition.
 //
-// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithMasterTimeout, WithPretty, WithSourceParam, WithTimeout, WithVerify, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithMasterTimeout, WithTimeout, WithVerify, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (s *Snapshot) CreateRepository(repository string, body map[string]interface{}, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithMasterTimeout": struct{}{},
+		"WithTimeout":       struct{}{},
+		"WithVerify":        struct{}{},
 		"WithErrorTrace":    struct{}{},
 		"WithFilterPath":    struct{}{},
 		"WithHuman":         struct{}{},
-		"WithMasterTimeout": struct{}{},
 		"WithPretty":        struct{}{},
 		"WithSourceParam":   struct{}{},
-		"WithTimeout":       struct{}{},
-		"WithVerify":        struct{}{},
 	}
 	req := &http.Request{
 		URL: &url.URL{

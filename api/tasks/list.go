@@ -10,21 +10,21 @@ import (
 
 // List - the task management API allows to retrieve information about the tasks currently executing on one or more nodes in the cluster. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/tasks.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithActions, WithDetailed, WithErrorTrace, WithFilterPath, WithGroupBy, WithHuman, WithNodeID, WithParentNode, WithParentTask, WithPretty, WithSourceParam, WithWaitForCompletion, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithActions, WithDetailed, WithGroupBy, WithNodeID, WithParentNode, WithParentTask, WithWaitForCompletion, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (t *Tasks) List(options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithActions":           struct{}{},
 		"WithDetailed":          struct{}{},
-		"WithErrorTrace":        struct{}{},
-		"WithFilterPath":        struct{}{},
 		"WithGroupBy":           struct{}{},
-		"WithHuman":             struct{}{},
 		"WithNodeID":            struct{}{},
 		"WithParentNode":        struct{}{},
 		"WithParentTask":        struct{}{},
+		"WithWaitForCompletion": struct{}{},
+		"WithErrorTrace":        struct{}{},
+		"WithFilterPath":        struct{}{},
+		"WithHuman":             struct{}{},
 		"WithPretty":            struct{}{},
 		"WithSourceParam":       struct{}{},
-		"WithWaitForCompletion": struct{}{},
 	}
 	req := &http.Request{
 		URL: &url.URL{

@@ -10,22 +10,21 @@ import (
 
 // Reroute - the reroute command allows to explicitly execute a cluster reroute allocation command including specific commands. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-reroute.html for more info.
 //
-// body: the definition of "commands" to perform ("move", "cancel", "allocate").
-//
-// options: optional parameters. Supports the following functional options: WithDryRun, WithErrorTrace, WithExplain, WithFilterPath, WithHuman, WithMasterTimeout, WithMetric, WithPretty, WithRetryFailed, WithSourceParam, WithTimeout, see the Option type in this package for more info.
-func (c *Cluster) Reroute(body map[string]interface{}, options ...*Option) (*http.Response, error) {
+// options: optional parameters. Supports the following functional options: WithDryRun, WithExplain, WithMasterTimeout, WithMetric, WithRetryFailed, WithTimeout, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (c *Cluster) Reroute(options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithDryRun":        struct{}{},
-		"WithErrorTrace":    struct{}{},
 		"WithExplain":       struct{}{},
-		"WithFilterPath":    struct{}{},
-		"WithHuman":         struct{}{},
 		"WithMasterTimeout": struct{}{},
 		"WithMetric":        struct{}{},
-		"WithPretty":        struct{}{},
 		"WithRetryFailed":   struct{}{},
-		"WithSourceParam":   struct{}{},
 		"WithTimeout":       struct{}{},
+		"WithBody":          struct{}{},
+		"WithErrorTrace":    struct{}{},
+		"WithFilterPath":    struct{}{},
+		"WithHuman":         struct{}{},
+		"WithPretty":        struct{}{},
+		"WithSourceParam":   struct{}{},
 	}
 	req := &http.Request{
 		URL: &url.URL{

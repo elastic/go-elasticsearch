@@ -12,17 +12,17 @@ import (
 //
 // body: the percolate request definitions (header & body pair), separated by newlines.
 //
-// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithType, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (a *API) Mpercolate(body map[string]interface{}, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithAllowNoIndices":    struct{}{},
+		"WithIndex":             struct{}{},
 		"WithType":              struct{}{},
-		"WithErrorTrace":        struct{}{},
+		"WithAllowNoIndices":    struct{}{},
 		"WithExpandWildcards":   struct{}{},
+		"WithIgnoreUnavailable": struct{}{},
+		"WithErrorTrace":        struct{}{},
 		"WithFilterPath":        struct{}{},
 		"WithHuman":             struct{}{},
-		"WithIgnoreUnavailable": struct{}{},
-		"WithIndex":             struct{}{},
 		"WithPretty":            struct{}{},
 		"WithSourceParam":       struct{}{},
 	}

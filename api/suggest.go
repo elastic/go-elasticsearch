@@ -12,19 +12,19 @@ import (
 //
 // body: the request definition.
 //
-// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithPreference, WithPretty, WithRouting, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithPreference, WithRouting, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (a *API) Suggest(body map[string]interface{}, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithIndex":             struct{}{},
 		"WithAllowNoIndices":    struct{}{},
-		"WithErrorTrace":        struct{}{},
 		"WithExpandWildcards":   struct{}{},
+		"WithIgnoreUnavailable": struct{}{},
+		"WithPreference":        struct{}{},
+		"WithRouting":           struct{}{},
+		"WithErrorTrace":        struct{}{},
 		"WithFilterPath":        struct{}{},
 		"WithHuman":             struct{}{},
-		"WithIgnoreUnavailable": struct{}{},
-		"WithIndex":             struct{}{},
-		"WithPreference":        struct{}{},
 		"WithPretty":            struct{}{},
-		"WithRouting":           struct{}{},
 		"WithSourceParam":       struct{}{},
 	}
 	req := &http.Request{

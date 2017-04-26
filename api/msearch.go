@@ -12,17 +12,17 @@ import (
 //
 // body: the request definitions (metadata-search request definition pairs), separated by newlines.
 //
-// options: optional parameters. Supports the following functional options: WithType, WithErrorTrace, WithFilterPath, WithHuman, WithIndex, WithMaxConcurrentSearches, WithPretty, WithSearchType, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithMaxConcurrentSearches, WithSearchType, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (a *API) Msearch(body map[string]interface{}, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithIndex":                 struct{}{},
 		"WithType":                  struct{}{},
+		"WithMaxConcurrentSearches": struct{}{},
+		"WithSearchType":            struct{}{},
 		"WithErrorTrace":            struct{}{},
 		"WithFilterPath":            struct{}{},
 		"WithHuman":                 struct{}{},
-		"WithIndex":                 struct{}{},
-		"WithMaxConcurrentSearches": struct{}{},
 		"WithPretty":                struct{}{},
-		"WithSearchType":            struct{}{},
 		"WithSourceParam":           struct{}{},
 	}
 	req := &http.Request{

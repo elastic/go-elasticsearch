@@ -10,26 +10,25 @@ import (
 
 // SearchTemplate - see https://www.elastic.co/guide/en/elasticsearch/reference/current/search-template.html for more info.
 //
-// body: the search definition template and its params.
-//
-// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithType, WithErrorTrace, WithExpandWildcards, WithExplain, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithPreference, WithPretty, WithProfile, WithRouting, WithScroll, WithSearchType, WithSourceParam, see the Option type in this package for more info.
-func (a *API) SearchTemplate(body map[string]interface{}, options ...*Option) (*http.Response, error) {
+// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithAllowNoIndices, WithExpandWildcards, WithExplain, WithIgnoreUnavailable, WithPreference, WithProfile, WithRouting, WithScroll, WithSearchType, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (a *API) SearchTemplate(options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithAllowNoIndices":    struct{}{},
+		"WithIndex":             struct{}{},
 		"WithType":              struct{}{},
-		"WithErrorTrace":        struct{}{},
+		"WithAllowNoIndices":    struct{}{},
 		"WithExpandWildcards":   struct{}{},
 		"WithExplain":           struct{}{},
-		"WithFilterPath":        struct{}{},
-		"WithHuman":             struct{}{},
 		"WithIgnoreUnavailable": struct{}{},
-		"WithIndex":             struct{}{},
 		"WithPreference":        struct{}{},
-		"WithPretty":            struct{}{},
 		"WithProfile":           struct{}{},
 		"WithRouting":           struct{}{},
 		"WithScroll":            struct{}{},
 		"WithSearchType":        struct{}{},
+		"WithBody":              struct{}{},
+		"WithErrorTrace":        struct{}{},
+		"WithFilterPath":        struct{}{},
+		"WithHuman":             struct{}{},
+		"WithPretty":            struct{}{},
 		"WithSourceParam":       struct{}{},
 	}
 	req := &http.Request{

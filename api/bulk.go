@@ -12,26 +12,26 @@ import (
 //
 // body: the operation definition and data (action-data pairs), separated by newlines.
 //
-// options: optional parameters. Supports the following functional options: WithType, WithTypeParam, WithErrorTrace, WithFields, WithFilterPath, WithHuman, WithIndex, WithPipeline, WithPretty, WithRefresh, WithRouting, WithSource, WithSourceExclude, WithSourceInclude, WithSourceParam, WithTimeout, WithWaitForActiveShards, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithSource, WithSourceExclude, WithSourceInclude, WithFields, WithPipeline, WithRefresh, WithRouting, WithTimeout, WithTypeParam, WithWaitForActiveShards, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (a *API) Bulk(body map[string]interface{}, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithType":                struct{}{},
-		"WithTypeParam":           struct{}{},
-		"WithErrorTrace":          struct{}{},
-		"WithFields":              struct{}{},
-		"WithFilterPath":          struct{}{},
-		"WithHuman":               struct{}{},
 		"WithIndex":               struct{}{},
-		"WithPipeline":            struct{}{},
-		"WithPretty":              struct{}{},
-		"WithRefresh":             struct{}{},
-		"WithRouting":             struct{}{},
+		"WithType":                struct{}{},
 		"WithSource":              struct{}{},
 		"WithSourceExclude":       struct{}{},
 		"WithSourceInclude":       struct{}{},
-		"WithSourceParam":         struct{}{},
+		"WithFields":              struct{}{},
+		"WithPipeline":            struct{}{},
+		"WithRefresh":             struct{}{},
+		"WithRouting":             struct{}{},
 		"WithTimeout":             struct{}{},
+		"WithTypeParam":           struct{}{},
 		"WithWaitForActiveShards": struct{}{},
+		"WithErrorTrace":          struct{}{},
+		"WithFilterPath":          struct{}{},
+		"WithHuman":               struct{}{},
+		"WithPretty":              struct{}{},
+		"WithSourceParam":         struct{}{},
 	}
 	req := &http.Request{
 		URL: &url.URL{

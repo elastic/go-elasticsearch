@@ -10,16 +10,18 @@ import (
 
 // Get - the task management API allows to retrieve information about the tasks currently executing on one or more nodes in the cluster. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/tasks.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, WithTaskID, WithWaitForCompletion, see the Option type in this package for more info.
-func (t *Tasks) Get(options ...*Option) (*http.Response, error) {
+// taskID: return the task with specified id (node_id:task_number).
+//
+// options: optional parameters. Supports the following functional options: WithTaskID, WithWaitForCompletion, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (t *Tasks) Get(taskID string, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithTaskID":            struct{}{},
+		"WithWaitForCompletion": struct{}{},
 		"WithErrorTrace":        struct{}{},
 		"WithFilterPath":        struct{}{},
 		"WithHuman":             struct{}{},
 		"WithPretty":            struct{}{},
 		"WithSourceParam":       struct{}{},
-		"WithTaskID":            struct{}{},
-		"WithWaitForCompletion": struct{}{},
 	}
 	req := &http.Request{
 		URL: &url.URL{

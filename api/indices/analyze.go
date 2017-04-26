@@ -10,28 +10,27 @@ import (
 
 // Analyze - performs the analysis process on a text and return the tokens breakdown of the text. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-analyze.html for more info.
 //
-// body: the text on which the analysis should be performed.
-//
-// options: optional parameters. Supports the following functional options: WithAnalyzer, WithAttributes, WithCharFilter, WithErrorTrace, WithExplain, WithField, WithFilter, WithFilterPath, WithFormat, WithHuman, WithIndex, WithIndexParam, WithPreferLocal, WithPretty, WithSourceParam, WithText, WithTokenizer, see the Option type in this package for more info.
-func (i *Indices) Analyze(body map[string]interface{}, options ...*Option) (*http.Response, error) {
+// options: optional parameters. Supports the following functional options: WithIndex, WithAnalyzer, WithAttributes, WithCharFilter, WithExplain, WithField, WithFilter, WithFormat, WithIndexParam, WithPreferLocal, WithText, WithTokenizer, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (i *Indices) Analyze(options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithIndex":       struct{}{},
 		"WithAnalyzer":    struct{}{},
 		"WithAttributes":  struct{}{},
 		"WithCharFilter":  struct{}{},
-		"WithErrorTrace":  struct{}{},
 		"WithExplain":     struct{}{},
 		"WithField":       struct{}{},
 		"WithFilter":      struct{}{},
-		"WithFilterPath":  struct{}{},
 		"WithFormat":      struct{}{},
-		"WithHuman":       struct{}{},
-		"WithIndex":       struct{}{},
 		"WithIndexParam":  struct{}{},
 		"WithPreferLocal": struct{}{},
-		"WithPretty":      struct{}{},
-		"WithSourceParam": struct{}{},
 		"WithText":        struct{}{},
 		"WithTokenizer":   struct{}{},
+		"WithBody":        struct{}{},
+		"WithErrorTrace":  struct{}{},
+		"WithFilterPath":  struct{}{},
+		"WithHuman":       struct{}{},
+		"WithPretty":      struct{}{},
+		"WithSourceParam": struct{}{},
 	}
 	req := &http.Request{
 		URL: &url.URL{

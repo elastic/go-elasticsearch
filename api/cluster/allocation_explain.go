@@ -10,16 +10,15 @@ import (
 
 // AllocationExplain - the purpose of the cluster allocation explain API is to provide explanations for shard allocations in the cluster. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-allocation-explain.html for more info.
 //
-// body: the index, shard, and primary flag to explain. Empty means 'explain the first unassigned shard'.
-//
-// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithIncludeDiskInfo, WithIncludeYesDecisions, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cluster) AllocationExplain(body map[string]interface{}, options ...*Option) (*http.Response, error) {
+// options: optional parameters. Supports the following functional options: WithIncludeDiskInfo, WithIncludeYesDecisions, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (c *Cluster) AllocationExplain(options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithIncludeDiskInfo":     struct{}{},
+		"WithIncludeYesDecisions": struct{}{},
+		"WithBody":                struct{}{},
 		"WithErrorTrace":          struct{}{},
 		"WithFilterPath":          struct{}{},
 		"WithHuman":               struct{}{},
-		"WithIncludeDiskInfo":     struct{}{},
-		"WithIncludeYesDecisions": struct{}{},
 		"WithPretty":              struct{}{},
 		"WithSourceParam":         struct{}{},
 	}

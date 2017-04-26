@@ -10,21 +10,16 @@ import (
 
 // Percolate - for indices created on or after version 5.0.0-alpha1 the percolator automatically indexes the query terms with the percolator queries. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-percolate.html for more info.
 //
-// documentType: the type of the document being percolated.
-//
 // index: the index of the document being percolated.
 //
-// body: the percolator request definition using the percolate DSL.
+// documentType: the type of the document being percolated.
 //
-// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithHuman, WithID, WithIgnoreUnavailable, WithPercolateFormat, WithPercolateIndex, WithPercolatePreference, WithPercolateRouting, WithPercolateType, WithPreference, WithPretty, WithRouting, WithSourceParam, WithVersion, WithVersionType, see the Option type in this package for more info.
-func (a *API) Percolate(documentType string, index string, body map[string]interface{}, options ...*Option) (*http.Response, error) {
+// options: optional parameters. Supports the following functional options: WithID, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithPercolateFormat, WithPercolateIndex, WithPercolatePreference, WithPercolateRouting, WithPercolateType, WithPreference, WithRouting, WithVersion, WithVersionType, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (a *API) Percolate(index string, documentType string, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithAllowNoIndices":      struct{}{},
-		"WithErrorTrace":          struct{}{},
-		"WithExpandWildcards":     struct{}{},
-		"WithFilterPath":          struct{}{},
-		"WithHuman":               struct{}{},
 		"WithID":                  struct{}{},
+		"WithAllowNoIndices":      struct{}{},
+		"WithExpandWildcards":     struct{}{},
 		"WithIgnoreUnavailable":   struct{}{},
 		"WithPercolateFormat":     struct{}{},
 		"WithPercolateIndex":      struct{}{},
@@ -32,11 +27,15 @@ func (a *API) Percolate(documentType string, index string, body map[string]inter
 		"WithPercolateRouting":    struct{}{},
 		"WithPercolateType":       struct{}{},
 		"WithPreference":          struct{}{},
-		"WithPretty":              struct{}{},
 		"WithRouting":             struct{}{},
-		"WithSourceParam":         struct{}{},
 		"WithVersion":             struct{}{},
 		"WithVersionType":         struct{}{},
+		"WithBody":                struct{}{},
+		"WithErrorTrace":          struct{}{},
+		"WithFilterPath":          struct{}{},
+		"WithHuman":               struct{}{},
+		"WithPretty":              struct{}{},
+		"WithSourceParam":         struct{}{},
 	}
 	req := &http.Request{
 		URL: &url.URL{

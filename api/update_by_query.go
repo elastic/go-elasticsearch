@@ -12,28 +12,25 @@ import (
 //
 // index: a comma-separated list of index names to search; use "_all" or empty string to perform the operation on all indices.
 //
-// body: the search definition using the Query DSL.
-//
-// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithAnalyzeWildcard, WithAnalyzer, WithConflicts, WithDefaultOperator, WithDf, WithType, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithFrom, WithHuman, WithIgnoreUnavailable, WithLenient, WithPipeline, WithPreference, WithPretty, WithQ, WithRefresh, WithRequestCache, WithRequestsPerSecond, WithRouting, WithScroll, WithScrollSize, WithSearchTimeout, WithSearchType, WithSize, WithSlices, WithSort, WithSource, WithSourceExclude, WithSourceInclude, WithSourceParam, WithStats, WithTerminateAfter, WithTimeout, WithVersion, WithVersionType, WithWaitForActiveShards, WithWaitForCompletion, see the Option type in this package for more info.
-func (a *API) UpdateByQuery(index []string, body map[string]interface{}, options ...*Option) (*http.Response, error) {
+// options: optional parameters. Supports the following functional options: WithType, WithSource, WithSourceExclude, WithSourceInclude, WithAllowNoIndices, WithAnalyzeWildcard, WithAnalyzer, WithConflicts, WithDefaultOperator, WithDf, WithExpandWildcards, WithFrom, WithIgnoreUnavailable, WithLenient, WithPipeline, WithPreference, WithQ, WithRefresh, WithRequestCache, WithRequestsPerSecond, WithRouting, WithScroll, WithScrollSize, WithSearchTimeout, WithSearchType, WithSize, WithSlices, WithSort, WithStats, WithTerminateAfter, WithTimeout, WithVersion, WithVersionType, WithWaitForActiveShards, WithWaitForCompletion, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (a *API) UpdateByQuery(index []string, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithType":                struct{}{},
+		"WithSource":              struct{}{},
+		"WithSourceExclude":       struct{}{},
+		"WithSourceInclude":       struct{}{},
 		"WithAllowNoIndices":      struct{}{},
 		"WithAnalyzeWildcard":     struct{}{},
 		"WithAnalyzer":            struct{}{},
 		"WithConflicts":           struct{}{},
 		"WithDefaultOperator":     struct{}{},
 		"WithDf":                  struct{}{},
-		"WithType":                struct{}{},
-		"WithErrorTrace":          struct{}{},
 		"WithExpandWildcards":     struct{}{},
-		"WithFilterPath":          struct{}{},
 		"WithFrom":                struct{}{},
-		"WithHuman":               struct{}{},
 		"WithIgnoreUnavailable":   struct{}{},
 		"WithLenient":             struct{}{},
 		"WithPipeline":            struct{}{},
 		"WithPreference":          struct{}{},
-		"WithPretty":              struct{}{},
 		"WithQ":                   struct{}{},
 		"WithRefresh":             struct{}{},
 		"WithRequestCache":        struct{}{},
@@ -46,10 +43,6 @@ func (a *API) UpdateByQuery(index []string, body map[string]interface{}, options
 		"WithSize":                struct{}{},
 		"WithSlices":              struct{}{},
 		"WithSort":                struct{}{},
-		"WithSource":              struct{}{},
-		"WithSourceExclude":       struct{}{},
-		"WithSourceInclude":       struct{}{},
-		"WithSourceParam":         struct{}{},
 		"WithStats":               struct{}{},
 		"WithTerminateAfter":      struct{}{},
 		"WithTimeout":             struct{}{},
@@ -57,6 +50,12 @@ func (a *API) UpdateByQuery(index []string, body map[string]interface{}, options
 		"WithVersionType":         struct{}{},
 		"WithWaitForActiveShards": struct{}{},
 		"WithWaitForCompletion":   struct{}{},
+		"WithBody":                struct{}{},
+		"WithErrorTrace":          struct{}{},
+		"WithFilterPath":          struct{}{},
+		"WithHuman":               struct{}{},
+		"WithPretty":              struct{}{},
+		"WithSourceParam":         struct{}{},
 	}
 	req := &http.Request{
 		URL: &url.URL{

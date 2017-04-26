@@ -45,14 +45,14 @@ import (
 
 // Index adds or updates a typed JSON document in a specific index, making it searchable. See http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html for more info.
 //
-// documentType: the type of the document.
-//
 // index: the name of the index.
+//
+// documentType: the type of the document.
 //
 // body: the document.
 //
 // options: optional parameters. Supports the following functional options: WithID, WithOpType, WithTimeout, WithVersion, WithWaitForActiveShards, see the Option type in this package for more info.
-func (a *API) Index(documentType string, index string, body map[string]interface{}, options ...*Option) (*http.Response, error) {
+func (a *API) Index(index string, documentType string, body map[string]interface{}, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
 		"WithID": struct{}{},
 		"WithOpType": struct{}{},
@@ -86,20 +86,35 @@ func TestNormalizeParams(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
+	// Required params
 	names := map[string]struct{}{}
-	for _, p := range m.OptionalParams {
+	for _, p := range m.RequiredURLParts {
 		if _, ok := names[p.Name]; ok {
 			t.Fatalf("Param %s seen twice", p.Name)
 		}
 		names[p.Name] = struct{}{}
 	}
-	if len(names) != len(m.OptionalParams) {
-		t.Fatalf("Not all params had unique names")
+	if len(names) != len(m.RequiredURLParts) {
+		t.Fatalf("Not all URL parts had unique names")
 	}
-	for _, name := range []string{"fields", "fieldsParam"} {
-		if _, ok := names[name]; !ok {
-			t.Fatalf("Could not find %q in %s", name, names)
+
+	// Optional params
+	names = map[string]struct{}{}
+	for _, p := range m.OptionalURLParts {
+		if _, ok := names[p.Name]; ok {
+			t.Fatalf("Param %s seen twice", p.Name)
 		}
+		names[p.Name] = struct{}{}
+	}
+	for _, p := range m.OptionalURLParams {
+		if _, ok := names[p.Name]; ok {
+			t.Fatalf("Param %s seen twice", p.Name)
+		}
+		names[p.Name] = struct{}{}
+	}
+	if len(names) != len(m.OptionalURLParts)+len(m.OptionalURLParams) {
+		t.Fatalf("Not all URL parts had unique names")
 	}
 }
 

@@ -10,30 +10,27 @@ import (
 
 // Search allows you to execute a search query and get back search hits that match the query. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-search.html for more info.
 //
-// body: the search definition using the Query DSL.
-//
-// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithAnalyzeWildcard, WithAnalyzer, WithDefaultOperator, WithDf, WithType, WithDocvalueFields, WithErrorTrace, WithExpandWildcards, WithExplain, WithFielddataFields, WithFilterPath, WithFrom, WithHuman, WithIgnoreUnavailable, WithIndex, WithLenient, WithPreference, WithPretty, WithQ, WithRequestCache, WithRouting, WithScroll, WithSearchType, WithSize, WithSort, WithSource, WithSourceExclude, WithSourceInclude, WithSourceParam, WithStats, WithStoredFields, WithSuggestField, WithSuggestMode, WithSuggestSize, WithSuggestText, WithTerminateAfter, WithTimeout, WithTrackScores, WithVersion, see the Option type in this package for more info.
-func (a *API) Search(body map[string]interface{}, options ...*Option) (*http.Response, error) {
+// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithSource, WithSourceExclude, WithSourceInclude, WithAllowNoIndices, WithAnalyzeWildcard, WithAnalyzer, WithDefaultOperator, WithDf, WithDocvalueFields, WithExpandWildcards, WithExplain, WithFielddataFields, WithFrom, WithIgnoreUnavailable, WithLenient, WithPreference, WithQ, WithRequestCache, WithRouting, WithScroll, WithSearchType, WithSize, WithSort, WithStats, WithStoredFields, WithSuggestField, WithSuggestMode, WithSuggestSize, WithSuggestText, WithTerminateAfter, WithTimeout, WithTrackScores, WithVersion, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (a *API) Search(options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithIndex":             struct{}{},
+		"WithType":              struct{}{},
+		"WithSource":            struct{}{},
+		"WithSourceExclude":     struct{}{},
+		"WithSourceInclude":     struct{}{},
 		"WithAllowNoIndices":    struct{}{},
 		"WithAnalyzeWildcard":   struct{}{},
 		"WithAnalyzer":          struct{}{},
 		"WithDefaultOperator":   struct{}{},
 		"WithDf":                struct{}{},
-		"WithType":              struct{}{},
 		"WithDocvalueFields":    struct{}{},
-		"WithErrorTrace":        struct{}{},
 		"WithExpandWildcards":   struct{}{},
 		"WithExplain":           struct{}{},
 		"WithFielddataFields":   struct{}{},
-		"WithFilterPath":        struct{}{},
 		"WithFrom":              struct{}{},
-		"WithHuman":             struct{}{},
 		"WithIgnoreUnavailable": struct{}{},
-		"WithIndex":             struct{}{},
 		"WithLenient":           struct{}{},
 		"WithPreference":        struct{}{},
-		"WithPretty":            struct{}{},
 		"WithQ":                 struct{}{},
 		"WithRequestCache":      struct{}{},
 		"WithRouting":           struct{}{},
@@ -41,10 +38,6 @@ func (a *API) Search(body map[string]interface{}, options ...*Option) (*http.Res
 		"WithSearchType":        struct{}{},
 		"WithSize":              struct{}{},
 		"WithSort":              struct{}{},
-		"WithSource":            struct{}{},
-		"WithSourceExclude":     struct{}{},
-		"WithSourceInclude":     struct{}{},
-		"WithSourceParam":       struct{}{},
 		"WithStats":             struct{}{},
 		"WithStoredFields":      struct{}{},
 		"WithSuggestField":      struct{}{},
@@ -55,6 +48,12 @@ func (a *API) Search(body map[string]interface{}, options ...*Option) (*http.Res
 		"WithTimeout":           struct{}{},
 		"WithTrackScores":       struct{}{},
 		"WithVersion":           struct{}{},
+		"WithBody":              struct{}{},
+		"WithErrorTrace":        struct{}{},
+		"WithFilterPath":        struct{}{},
+		"WithHuman":             struct{}{},
+		"WithPretty":            struct{}{},
+		"WithSourceParam":       struct{}{},
 	}
 	req := &http.Request{
 		URL: &url.URL{

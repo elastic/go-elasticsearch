@@ -8,17 +8,18 @@ import (
 	"net/url"
 )
 
-// {{.MethodName}}{{.Spec.Documentation}}{{range .RequiredParams}}
+// {{.MethodName}}{{.Spec.Documentation}}{{range .RequiredURLParts}}
 //
-// {{.Name}}: {{.Description}}{{end}}{{if .Spec.Body}}
+// {{.Name}}: {{.Description}}{{end}}{{range .RequiredURLParams}}
 //
-// body: {{.Spec.Body.Description}}{{end}}{{if .OptionalParams}}
+// {{.Name}}: {{.Description}}{{end}}
 //
-// options: optional parameters. Supports the following functional options: {{range .OptionalParams}}{{.OptionName}}, {{end}}see the Option type in this package for more info.{{end}}
-func ({{.ReceiverName}} *{{.TypeName}}) {{.MethodName}}({{range .RequiredParams}}{{.Name}} {{.Type}}, {{end}}{{if .Spec.Body}}body map[string]interface{}, {{end}}options ...*Option) (*http.Response, error) {
+// options: optional parameters. Supports the following functional options: {{range .OptionalURLParts}}{{.OptionName}}, {{end}}{{range .OptionalURLParams}}{{.OptionName}}, {{end}}see the Option type in this package for more info.
+func ({{.ReceiverName}} *{{.TypeName}}) {{.MethodName}}({{range .RequiredURLParts}}{{.Name}} {{.Type}}, {{end}}{{range .RequiredURLParams}}{{.Name}} {{.Type}}, {{end}}options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		{{range .OptionalParams}}"{{.OptionName}}": struct{}{},
-	{{end}}}
+		{{range .OptionalURLParts}}"{{.OptionName}}": struct{}{},
+	{{end}}{{range .OptionalURLParams}}"{{.OptionName}}": struct{}{},
+{{end}}}
 	req := &http.Request{
 		URL: &url.URL{
 			Scheme: {{.ReceiverName}}.transport.URL.Scheme,

@@ -48,24 +48,36 @@ func newAPIPackage(m *method) (*apiPackage, error) {
 	return p, err
 }
 
-func (p *apiPackage) addMethod(m *method) error {
-	p.Methods = append(p.Methods, m)
-	for _, op := range m.OptionalParams {
-		if existingParam, ok := p.Options[op.Name]; ok {
-			if !existingParam.equals(op) {
+func (p *apiPackage) addParam(op *param) error {
+	if existingParam, ok := p.Options[op.Name]; ok {
+		if !existingParam.equals(op) {
+			return fmt.Errorf("found two different versions of %q in %q", op.Name, p.Name)
+		}
+	} else {
+		p.Options[op.Name] = op
+	}
+	if op.SpecType == "enum" {
+		if existingEnum, ok := p.Enums[op.Name]; ok {
+			if !existingEnum.equals(op) {
 				return fmt.Errorf("found two different versions of %q in %q", op.Name, p.Name)
 			}
 		} else {
-			p.Options[op.Name] = op
+			p.Enums[op.Name] = op
 		}
-		if op.SpecType == "enum" {
-			if existingEnum, ok := p.Enums[op.Name]; ok {
-				if !existingEnum.equals(op) {
-					return fmt.Errorf("found two different versions of %q in %q", op.Name, p.Name)
-				}
-			} else {
-				p.Enums[op.Name] = op
-			}
+	}
+	return nil
+}
+
+func (p *apiPackage) addMethod(m *method) error {
+	p.Methods = append(p.Methods, m)
+	for _, op := range m.OptionalURLParts {
+		if err := p.addParam(op); err != nil {
+			return fmt.Errorf("failed to add method %s to package %s: %s", m.Name, p.Name, err)
+		}
+	}
+	for _, op := range m.OptionalURLParams {
+		if err := p.addParam(op); err != nil {
+			return fmt.Errorf("failed to add method %s to package %s: %s", m.Name, p.Name, err)
 		}
 	}
 	return nil

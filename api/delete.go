@@ -10,27 +10,27 @@ import (
 
 // Delete allows to delete a typed JSON document from a specific index based on its id. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-delete.html for more info.
 //
+// index: the name of the index.
+//
 // documentType: the type of the document.
 //
 // id: the document ID.
 //
-// index: the name of the index.
-//
-// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithParent, WithPretty, WithRefresh, WithRouting, WithSourceParam, WithTimeout, WithVersion, WithVersionType, WithWaitForActiveShards, see the Option type in this package for more info.
-func (a *API) Delete(documentType string, id string, index string, options ...*Option) (*http.Response, error) {
+// options: optional parameters. Supports the following functional options: WithParent, WithRefresh, WithRouting, WithTimeout, WithVersion, WithVersionType, WithWaitForActiveShards, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (a *API) Delete(index string, documentType string, id string, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithErrorTrace":          struct{}{},
-		"WithFilterPath":          struct{}{},
-		"WithHuman":               struct{}{},
 		"WithParent":              struct{}{},
-		"WithPretty":              struct{}{},
 		"WithRefresh":             struct{}{},
 		"WithRouting":             struct{}{},
-		"WithSourceParam":         struct{}{},
 		"WithTimeout":             struct{}{},
 		"WithVersion":             struct{}{},
 		"WithVersionType":         struct{}{},
 		"WithWaitForActiveShards": struct{}{},
+		"WithErrorTrace":          struct{}{},
+		"WithFilterPath":          struct{}{},
+		"WithHuman":               struct{}{},
+		"WithPretty":              struct{}{},
+		"WithSourceParam":         struct{}{},
 	}
 	req := &http.Request{
 		URL: &url.URL{

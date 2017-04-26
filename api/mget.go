@@ -12,24 +12,24 @@ import (
 //
 // body: document identifiers; can be either "docs" (containing full document information) or "ids" (when index and type is provided in the URL.
 //
-// options: optional parameters. Supports the following functional options: WithType, WithErrorTrace, WithFilterPath, WithHuman, WithIndex, WithPreference, WithPretty, WithRealtime, WithRefresh, WithRouting, WithSource, WithSourceExclude, WithSourceInclude, WithSourceParam, WithStoredFields, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithSource, WithSourceExclude, WithSourceInclude, WithPreference, WithRealtime, WithRefresh, WithRouting, WithStoredFields, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (a *API) Mget(body map[string]interface{}, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithType":          struct{}{},
-		"WithErrorTrace":    struct{}{},
-		"WithFilterPath":    struct{}{},
-		"WithHuman":         struct{}{},
 		"WithIndex":         struct{}{},
-		"WithPreference":    struct{}{},
-		"WithPretty":        struct{}{},
-		"WithRealtime":      struct{}{},
-		"WithRefresh":       struct{}{},
-		"WithRouting":       struct{}{},
+		"WithType":          struct{}{},
 		"WithSource":        struct{}{},
 		"WithSourceExclude": struct{}{},
 		"WithSourceInclude": struct{}{},
-		"WithSourceParam":   struct{}{},
+		"WithPreference":    struct{}{},
+		"WithRealtime":      struct{}{},
+		"WithRefresh":       struct{}{},
+		"WithRouting":       struct{}{},
 		"WithStoredFields":  struct{}{},
+		"WithErrorTrace":    struct{}{},
+		"WithFilterPath":    struct{}{},
+		"WithHuman":         struct{}{},
+		"WithPretty":        struct{}{},
+		"WithSourceParam":   struct{}{},
 	}
 	req := &http.Request{
 		URL: &url.URL{

@@ -10,25 +10,25 @@ import (
 
 // Indices - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-indices.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithBytes, WithErrorTrace, WithFilterPath, WithFormat, WithH, WithHealth, WithHelp, WithHuman, WithIndex, WithLocal, WithMasterTimeout, WithPretty, WithPri, WithS, WithSourceParam, WithV, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithIndex, WithBytes, WithFormat, WithH, WithHealth, WithHelp, WithLocal, WithMasterTimeout, WithPri, WithS, WithV, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (c *Cat) Indices(options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithIndex":         struct{}{},
 		"WithBytes":         struct{}{},
-		"WithErrorTrace":    struct{}{},
-		"WithFilterPath":    struct{}{},
 		"WithFormat":        struct{}{},
 		"WithH":             struct{}{},
 		"WithHealth":        struct{}{},
 		"WithHelp":          struct{}{},
-		"WithHuman":         struct{}{},
-		"WithIndex":         struct{}{},
 		"WithLocal":         struct{}{},
 		"WithMasterTimeout": struct{}{},
-		"WithPretty":        struct{}{},
 		"WithPri":           struct{}{},
 		"WithS":             struct{}{},
-		"WithSourceParam":   struct{}{},
 		"WithV":             struct{}{},
+		"WithErrorTrace":    struct{}{},
+		"WithFilterPath":    struct{}{},
+		"WithHuman":         struct{}{},
+		"WithPretty":        struct{}{},
+		"WithSourceParam":   struct{}{},
 	}
 	req := &http.Request{
 		URL: &url.URL{

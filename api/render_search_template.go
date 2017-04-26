@@ -10,15 +10,14 @@ import (
 
 // RenderSearchTemplate - see http://www.elasticsearch.org/guide/en/elasticsearch/reference/5.x/search-template.html for more info.
 //
-// body: the search definition template and its params.
-//
-// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithID, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) RenderSearchTemplate(body map[string]interface{}, options ...*Option) (*http.Response, error) {
+// options: optional parameters. Supports the following functional options: WithID, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (a *API) RenderSearchTemplate(options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithID":          struct{}{},
+		"WithBody":        struct{}{},
 		"WithErrorTrace":  struct{}{},
 		"WithFilterPath":  struct{}{},
 		"WithHuman":       struct{}{},
-		"WithID":          struct{}{},
 		"WithPretty":      struct{}{},
 		"WithSourceParam": struct{}{},
 	}

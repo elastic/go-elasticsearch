@@ -10,20 +10,20 @@ import (
 
 // ShardStores - provides store information for shard copies of indices. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-shards-stores.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithErrorTrace, WithExpandWildcards, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithOperationThreading, WithPretty, WithSourceParam, WithStatus, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithOperationThreading, WithStatus, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) ShardStores(options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithIndex":              struct{}{},
 		"WithAllowNoIndices":     struct{}{},
-		"WithErrorTrace":         struct{}{},
 		"WithExpandWildcards":    struct{}{},
+		"WithIgnoreUnavailable":  struct{}{},
+		"WithOperationThreading": struct{}{},
+		"WithStatus":             struct{}{},
+		"WithErrorTrace":         struct{}{},
 		"WithFilterPath":         struct{}{},
 		"WithHuman":              struct{}{},
-		"WithIgnoreUnavailable":  struct{}{},
-		"WithIndex":              struct{}{},
-		"WithOperationThreading": struct{}{},
 		"WithPretty":             struct{}{},
 		"WithSourceParam":        struct{}{},
-		"WithStatus":             struct{}{},
 	}
 	req := &http.Request{
 		URL: &url.URL{

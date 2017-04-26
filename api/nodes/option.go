@@ -19,31 +19,10 @@ const (
 	DocumentTypeBlock = iota
 )
 
-// Level - return indices stats aggregated at index, node or shard level.
-type Level int
-
-const (
-	// LevelIndices can be used to set Level to "indices"
-	LevelIndices = iota
-	// LevelNode can be used to set Level to "node"
-	LevelNode = iota
-	// LevelShards can be used to set Level to "shards"
-	LevelShards = iota
-)
-
 // Option is a non-required API option that gets applied to an HTTP request.
 type Option struct {
 	name  string
 	apply func(r *http.Request)
-}
-
-// WithCompletionFields - a comma-separated list of fields for "fielddata" and "suggest" index metric (supports wildcards).
-func WithCompletionFields(completionFields []string) *Option {
-	return &Option{
-		name: "WithCompletionFields",
-		apply: func(r *http.Request) {
-		},
-	}
 }
 
 // WithType - the type to sample (default: cpu).
@@ -59,24 +38,6 @@ func WithType(documentType DocumentType) *Option {
 func WithErrorTrace(errorTrace bool) *Option {
 	return &Option{
 		name: "WithErrorTrace",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
-// WithFielddataFields - a comma-separated list of fields for "fielddata" index metric (supports wildcards).
-func WithFielddataFields(fielddataFields []string) *Option {
-	return &Option{
-		name: "WithFielddataFields",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
-// WithFields - a comma-separated list of fields for "fielddata" and "completion" index metric (supports wildcards).
-func WithFields(fields []string) *Option {
-	return &Option{
-		name: "WithFields",
 		apply: func(r *http.Request) {
 		},
 	}
@@ -100,15 +61,6 @@ func WithFlatSettings(flatSettings bool) *Option {
 	}
 }
 
-// WithGroups - a comma-separated list of search groups for "search" index metric.
-func WithGroups(groups bool) *Option {
-	return &Option{
-		name: "WithGroups",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
 // WithHuman - return human readable values for statistics.
 func WithHuman(human bool) *Option {
 	return &Option{
@@ -127,15 +79,6 @@ func WithIgnoreIdleThreads(ignoreIdleThreads bool) *Option {
 	}
 }
 
-// WithIncludeSegmentFileSizes - whether to report the aggregated disk usage of each one of the Lucene index files (only applies if segment stats are requested).
-func WithIncludeSegmentFileSizes(includeSegmentFileSizes bool) *Option {
-	return &Option{
-		name: "WithIncludeSegmentFileSizes",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
 // WithIndexMetric - limit the information returned for "indices" metric to the specific index metrics. Isn't used if "indices" (or "all") metric isn't specified.
 func WithIndexMetric(indexMetric []string) *Option {
 	return &Option{
@@ -149,15 +92,6 @@ func WithIndexMetric(indexMetric []string) *Option {
 func WithInterval(interval time.Time) *Option {
 	return &Option{
 		name: "WithInterval",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
-// WithLevel - return indices stats aggregated at index, node or shard level.
-func WithLevel(level Level) *Option {
-	return &Option{
-		name: "WithLevel",
 		apply: func(r *http.Request) {
 		},
 	}

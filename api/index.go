@@ -10,32 +10,32 @@ import (
 
 // Index adds or updates a typed JSON document in a specific index, making it searchable. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-index_.html for more info.
 //
-// documentType: the type of the document.
-//
 // index: the name of the index.
+//
+// documentType: the type of the document.
 //
 // body: the document.
 //
-// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithID, WithOpType, WithParent, WithPipeline, WithPretty, WithRefresh, WithRouting, WithSourceParam, WithTimeout, WithTimestamp, WithTTL, WithVersion, WithVersionType, WithWaitForActiveShards, see the Option type in this package for more info.
-func (a *API) Index(documentType string, index string, body map[string]interface{}, options ...*Option) (*http.Response, error) {
+// options: optional parameters. Supports the following functional options: WithID, WithOpType, WithParent, WithPipeline, WithRefresh, WithRouting, WithTimeout, WithTimestamp, WithTTL, WithVersion, WithVersionType, WithWaitForActiveShards, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (a *API) Index(index string, documentType string, body map[string]interface{}, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithErrorTrace":          struct{}{},
-		"WithFilterPath":          struct{}{},
-		"WithHuman":               struct{}{},
 		"WithID":                  struct{}{},
 		"WithOpType":              struct{}{},
 		"WithParent":              struct{}{},
 		"WithPipeline":            struct{}{},
-		"WithPretty":              struct{}{},
 		"WithRefresh":             struct{}{},
 		"WithRouting":             struct{}{},
-		"WithSourceParam":         struct{}{},
 		"WithTimeout":             struct{}{},
 		"WithTimestamp":           struct{}{},
 		"WithTTL":                 struct{}{},
 		"WithVersion":             struct{}{},
 		"WithVersionType":         struct{}{},
 		"WithWaitForActiveShards": struct{}{},
+		"WithErrorTrace":          struct{}{},
+		"WithFilterPath":          struct{}{},
+		"WithHuman":               struct{}{},
+		"WithPretty":              struct{}{},
+		"WithSourceParam":         struct{}{},
 	}
 	req := &http.Request{
 		URL: &url.URL{

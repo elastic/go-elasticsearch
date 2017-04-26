@@ -14,19 +14,18 @@ import (
 //
 // target: the name of the target index to shrink into.
 //
-// body: the configuration for the target index ("settings" and "aliases").
-//
-// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithMasterTimeout, WithPretty, WithSourceParam, WithTimeout, WithWaitForActiveShards, see the Option type in this package for more info.
-func (i *Indices) Shrink(index string, target string, body map[string]interface{}, options ...*Option) (*http.Response, error) {
+// options: optional parameters. Supports the following functional options: WithMasterTimeout, WithTimeout, WithWaitForActiveShards, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (i *Indices) Shrink(index string, target string, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithMasterTimeout":       struct{}{},
+		"WithTimeout":             struct{}{},
+		"WithWaitForActiveShards": struct{}{},
+		"WithBody":                struct{}{},
 		"WithErrorTrace":          struct{}{},
 		"WithFilterPath":          struct{}{},
 		"WithHuman":               struct{}{},
-		"WithMasterTimeout":       struct{}{},
 		"WithPretty":              struct{}{},
 		"WithSourceParam":         struct{}{},
-		"WithTimeout":             struct{}{},
-		"WithWaitForActiveShards": struct{}{},
 	}
 	req := &http.Request{
 		URL: &url.URL{

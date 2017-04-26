@@ -44,6 +44,8 @@ const (
 )
 
 type specURL struct {
+	Path   string            `json:"path"`
+	Paths  []string          `json:"paths"`
 	Parts  map[string]*param `json:"parts"`
 	Params map[string]*param `json:"params"`
 }
@@ -56,19 +58,21 @@ type spec struct {
 }
 
 type method struct {
-	Name           string
-	Spec           spec
-	Repo           string
-	PackageName    string
-	FileName       string
-	MethodName     string
-	TypeName       string
-	ReceiverName   string
-	HTTPMethod     string
-	RequiredParams []*param
-	OptionalParams []*param
-	ParamNames     map[string]struct{}
-	HTTPCache      map[string]io.ReadCloser
+	Name              string
+	Spec              spec
+	Repo              string
+	PackageName       string
+	FileName          string
+	MethodName        string
+	TypeName          string
+	ReceiverName      string
+	HTTPMethod        string
+	RequiredURLParts  []*param
+	OptionalURLParts  []*param
+	RequiredURLParams []*param
+	OptionalURLParams []*param
+	allParams         map[string]*param
+	HTTPCache         map[string]io.ReadCloser
 }
 
 func newMethod(specFilePath string, commonParams map[string]*param) (*method, error) {
@@ -77,10 +81,12 @@ func newMethod(specFilePath string, commonParams map[string]*param) (*method, er
 		return nil, err
 	}
 	m := &method{
-		RequiredParams: []*param{},
-		OptionalParams: []*param{},
-		ParamNames:     map[string]struct{}{},
-		HTTPCache:      map[string]io.ReadCloser{},
+		RequiredURLParts:  []*param{},
+		OptionalURLParts:  []*param{},
+		RequiredURLParams: []*param{},
+		OptionalURLParams: []*param{},
+		allParams:         map[string]*param{},
+		HTTPCache:         map[string]io.ReadCloser{},
 	}
 	var spec map[string]spec
 	err = json.Unmarshal(bytes, &spec)
@@ -104,11 +110,14 @@ func newMethod(specFilePath string, commonParams map[string]*param) (*method, er
 	if err = m.normalizeParams(commonParams, false); err != nil {
 		return nil, err
 	}
-	m.sortParams(commonParams)
+	if err = m.sortParams(commonParams); err != nil {
+		return nil, err
+	}
 	if m.Spec.Body != nil {
 		if err = m.Spec.Body.resolve("body"); err != nil {
 			return nil, err
 		}
+		m.Spec.Body.Type = "map[string]interface{}"
 	}
 	apiParts := strings.Split(m.Name, ".")
 	m.PackageName = defaultPackage
@@ -140,14 +149,14 @@ func (m *method) normalizeParams(params map[string]*param, resolve bool) error {
 			if err != nil {
 				return fmt.Errorf("failed to normalize params in %q: %s", m.Name, err)
 			}
-		}
-		if _, ok := m.ParamNames[p.Name]; ok {
-			p.addSuffix("Param")
-			if _, ok := m.ParamNames[p.Name]; ok {
-				return fmt.Errorf("param %q specified more than twice in %s", name, m.Name)
+			if _, ok := m.allParams[p.Name]; ok {
+				p.addSuffix("Param")
+				if _, ok := m.allParams[p.Name]; ok {
+					return fmt.Errorf("param %q seen more than twice", name)
+				}
 			}
+			m.allParams[p.Name] = p
 		}
-		m.ParamNames[p.Name] = struct{}{}
 	}
 	return nil
 }
@@ -213,42 +222,77 @@ func (m *method) resolveDocumentation() error {
 	}
 }
 
-func (m *method) sortParams(common map[string]*param) {
-	requiredNames := []string{}
-	optionalNames := []string{}
-	allParams := map[string]*param{}
-	for _, p := range m.Spec.URL.Parts {
-		if p.Required {
-			requiredNames = append(requiredNames, p.Name)
-		} else {
-			optionalNames = append(optionalNames, p.Name)
+func (m *method) sortParams(common map[string]*param) error {
+	// Handle URL parts
+	parts := strings.Split(m.Spec.URL.Path, "/")
+	if len(parts) < 2 {
+		return fmt.Errorf("unexpected URL format: %s", m.Spec.URL.Path)
+	}
+	// Sort required URL parts looking at the URL format
+	for _, partName := range parts {
+		// Strip the {}
+		if !strings.HasPrefix(partName, "{") || !strings.HasSuffix(partName, "}") {
+			continue
 		}
-		allParams[p.Name] = p
-	}
-	for _, p := range m.Spec.URL.Params {
-		if p.Required {
-			requiredNames = append(requiredNames, p.Name)
-		} else {
-			optionalNames = append(optionalNames, p.Name)
+		name := strings.Trim(partName, "{}")
+		p, ok := m.Spec.URL.Parts[name]
+		if !ok {
+			return fmt.Errorf("cannot find URL part %q (from %q) in %#v", name, m.Spec.URL.Path, m.Spec.URL.Parts)
 		}
-		allParams[p.Name] = p
+		m.RequiredURLParts = append(m.RequiredURLParts, p)
 	}
-	for _, p := range common {
-		if p.Required {
-			requiredNames = append(requiredNames, p.Name)
-		} else {
-			optionalNames = append(optionalNames, p.Name)
+	// Sort optional URL parts by name
+	names := []string{}
+	for name, p := range m.Spec.URL.Parts {
+		if !p.Required {
+			names = append(names, name)
 		}
-		allParams[p.Name] = p
 	}
-	sort.Strings(requiredNames)
-	for _, name := range requiredNames {
-		m.RequiredParams = append(m.RequiredParams, allParams[name])
+	sort.Strings(names)
+	for _, name := range names {
+		m.OptionalURLParts = append(m.OptionalURLParts, m.Spec.URL.Parts[name])
 	}
-	sort.Strings(optionalNames)
-	for _, name := range optionalNames {
-		m.OptionalParams = append(m.OptionalParams, allParams[name])
+
+	// Handle params, body and common params
+	names = []string{}
+	for name := range m.Spec.URL.Params {
+		names = append(names, name)
 	}
+	for name, p := range common {
+		if p.Required {
+			return fmt.Errorf("%q is required but common params are not supposed to be", p.Name)
+		}
+		names = append(names, name)
+	}
+	sort.Strings(names)
+	// Sort required params by name
+	for _, name := range names {
+		if p, ok := m.Spec.URL.Params[name]; ok && p.Required {
+			m.RequiredURLParams = append(m.RequiredURLParams, p)
+		}
+	}
+	// Add body at the end of required params if applicable
+	if m.Spec.Body != nil && m.Spec.Body.Required {
+		m.RequiredURLParams = append(m.RequiredURLParams, m.Spec.Body)
+	}
+	// Sort optional params by name
+	for _, name := range names {
+		if p, ok := m.Spec.URL.Params[name]; ok && !p.Required {
+			m.OptionalURLParams = append(m.OptionalURLParams, p)
+		}
+	}
+	// Add body after optional params if applicable
+	if m.Spec.Body != nil && !m.Spec.Body.Required {
+		m.OptionalURLParams = append(m.OptionalURLParams, m.Spec.Body)
+	}
+	// Sort common params by name and add them at the end
+	// TODO: we should sort these once and pass a list around
+	for _, name := range names {
+		if p, ok := common[name]; ok {
+			m.OptionalURLParams = append(m.OptionalURLParams, p)
+		}
+	}
+	return nil
 }
 
 func (m *method) newWriter(outputDir, fileName string) (io.Writer, error) {

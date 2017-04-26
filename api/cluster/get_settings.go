@@ -10,18 +10,18 @@ import (
 
 // GetSettings - allows to update cluster wide specific settings. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-update-settings.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithFlatSettings, WithHuman, WithIncludeDefaults, WithMasterTimeout, WithPretty, WithSourceParam, WithTimeout, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithFlatSettings, WithIncludeDefaults, WithMasterTimeout, WithTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (c *Cluster) GetSettings(options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithErrorTrace":      struct{}{},
-		"WithFilterPath":      struct{}{},
 		"WithFlatSettings":    struct{}{},
-		"WithHuman":           struct{}{},
 		"WithIncludeDefaults": struct{}{},
 		"WithMasterTimeout":   struct{}{},
+		"WithTimeout":         struct{}{},
+		"WithErrorTrace":      struct{}{},
+		"WithFilterPath":      struct{}{},
+		"WithHuman":           struct{}{},
 		"WithPretty":          struct{}{},
 		"WithSourceParam":     struct{}{},
-		"WithTimeout":         struct{}{},
 	}
 	req := &http.Request{
 		URL: &url.URL{

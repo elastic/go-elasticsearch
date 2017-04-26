@@ -10,29 +10,28 @@ import (
 
 // ValidateQuery - the validate API allows a user to validate a potentially expensive query without executing it. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-validate.html for more info.
 //
-// body: the query definition specified with the Query DSL.
-//
-// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithAnalyzeWildcard, WithAnalyzer, WithDefaultOperator, WithDf, WithType, WithErrorTrace, WithExpandWildcards, WithExplain, WithFilterPath, WithHuman, WithIgnoreUnavailable, WithIndex, WithLenient, WithOperationThreading, WithPretty, WithQ, WithRewrite, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) ValidateQuery(body map[string]interface{}, options ...*Option) (*http.Response, error) {
+// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithAllowNoIndices, WithAnalyzeWildcard, WithAnalyzer, WithDefaultOperator, WithDf, WithExpandWildcards, WithExplain, WithIgnoreUnavailable, WithLenient, WithOperationThreading, WithQ, WithRewrite, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (i *Indices) ValidateQuery(options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithIndex":              struct{}{},
+		"WithType":               struct{}{},
 		"WithAllowNoIndices":     struct{}{},
 		"WithAnalyzeWildcard":    struct{}{},
 		"WithAnalyzer":           struct{}{},
 		"WithDefaultOperator":    struct{}{},
 		"WithDf":                 struct{}{},
-		"WithType":               struct{}{},
-		"WithErrorTrace":         struct{}{},
 		"WithExpandWildcards":    struct{}{},
 		"WithExplain":            struct{}{},
-		"WithFilterPath":         struct{}{},
-		"WithHuman":              struct{}{},
 		"WithIgnoreUnavailable":  struct{}{},
-		"WithIndex":              struct{}{},
 		"WithLenient":            struct{}{},
 		"WithOperationThreading": struct{}{},
-		"WithPretty":             struct{}{},
 		"WithQ":                  struct{}{},
 		"WithRewrite":            struct{}{},
+		"WithBody":               struct{}{},
+		"WithErrorTrace":         struct{}{},
+		"WithFilterPath":         struct{}{},
+		"WithHuman":              struct{}{},
+		"WithPretty":             struct{}{},
 		"WithSourceParam":        struct{}{},
 	}
 	req := &http.Request{

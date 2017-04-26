@@ -12,16 +12,16 @@ import (
 //
 // body: the definition of "actions" to perform.
 //
-// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithMasterTimeout, WithPretty, WithSourceParam, WithTimeout, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithMasterTimeout, WithTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) UpdateAliases(body map[string]interface{}, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithMasterTimeout": struct{}{},
+		"WithTimeout":       struct{}{},
 		"WithErrorTrace":    struct{}{},
 		"WithFilterPath":    struct{}{},
 		"WithHuman":         struct{}{},
-		"WithMasterTimeout": struct{}{},
 		"WithPretty":        struct{}{},
 		"WithSourceParam":   struct{}{},
-		"WithTimeout":       struct{}{},
 	}
 	req := &http.Request{
 		URL: &url.URL{

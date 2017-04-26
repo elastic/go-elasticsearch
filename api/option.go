@@ -7,26 +7,6 @@ import (
 	"time"
 )
 
-// Conflicts - what to do when the delete-by-query hits version conflicts?
-type Conflicts int
-
-const (
-	// ConflictsAbort can be used to set Conflicts to "abort"
-	ConflictsAbort = iota
-	// ConflictsProceed can be used to set Conflicts to "proceed"
-	ConflictsProceed = iota
-)
-
-// DefaultOperator - the default operator for query string query (AND or OR).
-type DefaultOperator int
-
-const (
-	// DefaultOperatorAND can be used to set DefaultOperator to "AND"
-	DefaultOperatorAND = iota
-	// DefaultOperatorOR can be used to set DefaultOperator to "OR"
-	DefaultOperatorOR = iota
-)
-
 // ExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
 type ExpandWildcards int
 
@@ -76,46 +56,10 @@ func WithAllowNoIndices(allowNoIndices bool) *Option {
 	}
 }
 
-// WithAnalyzeWildcard - specify whether wildcard and prefix queries should be analyzed (default: false).
-func WithAnalyzeWildcard(analyzeWildcard bool) *Option {
+// WithBody - a comma-separated list of scroll IDs to clear if none was specified via the scroll_id parameter.
+func WithBody(body map[string]interface{}) *Option {
 	return &Option{
-		name: "WithAnalyzeWildcard",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
-// WithAnalyzer - the analyzer to use for the query string.
-func WithAnalyzer(analyzer string) *Option {
-	return &Option{
-		name: "WithAnalyzer",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
-// WithConflicts - what to do when the delete-by-query hits version conflicts?
-func WithConflicts(conflicts Conflicts) *Option {
-	return &Option{
-		name: "WithConflicts",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
-// WithDefaultOperator - the default operator for query string query (AND or OR).
-func WithDefaultOperator(defaultOperator DefaultOperator) *Option {
-	return &Option{
-		name: "WithDefaultOperator",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
-// WithDf - the field to use as default where no field prefix is given in the query string.
-func WithDf(df string) *Option {
-	return &Option{
-		name: "WithDf",
+		name: "WithBody",
 		apply: func(r *http.Request) {
 		},
 	}
@@ -152,15 +96,6 @@ func WithErrorTrace(errorTrace bool) *Option {
 func WithExpandWildcards(expandWildcards ExpandWildcards) *Option {
 	return &Option{
 		name: "WithExpandWildcards",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
-// WithFieldStatistics - specifies if document count, sum of document frequencies and sum of total term frequencies should be returned.
-func WithFieldStatistics(fieldStatistics bool) *Option {
-	return &Option{
-		name: "WithFieldStatistics",
 		apply: func(r *http.Request) {
 		},
 	}
@@ -296,15 +231,6 @@ func WithRefresh(refresh Refresh) *Option {
 func WithRouting(routing string) *Option {
 	return &Option{
 		name: "WithRouting",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
-// WithScroll - specify how long a consistent view of the index should be maintained for scrolled search.
-func WithScroll(scroll time.Time) *Option {
-	return &Option{
-		name: "WithScroll",
 		apply: func(r *http.Request) {
 		},
 	}

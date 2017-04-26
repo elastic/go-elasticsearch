@@ -10,18 +10,17 @@ import (
 
 // Scroll - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-request-scroll.html for more info.
 //
-// body: the scroll ID if not passed by URL or query parameter.
-//
-// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithScroll, WithScrollID, WithScrollIDParam, WithSourceParam, see the Option type in this package for more info.
-func (a *API) Scroll(body map[string]interface{}, options ...*Option) (*http.Response, error) {
+// options: optional parameters. Supports the following functional options: WithScrollID, WithScroll, WithScrollIDParam, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (a *API) Scroll(options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithScrollID":      struct{}{},
+		"WithScroll":        struct{}{},
+		"WithScrollIDParam": struct{}{},
+		"WithBody":          struct{}{},
 		"WithErrorTrace":    struct{}{},
 		"WithFilterPath":    struct{}{},
 		"WithHuman":         struct{}{},
 		"WithPretty":        struct{}{},
-		"WithScroll":        struct{}{},
-		"WithScrollID":      struct{}{},
-		"WithScrollIDParam": struct{}{},
 		"WithSourceParam":   struct{}{},
 	}
 	req := &http.Request{

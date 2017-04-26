@@ -10,20 +10,20 @@ import (
 
 // Segments - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-segments.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithFormat, WithH, WithHelp, WithHuman, WithIndex, WithPretty, WithS, WithSourceParam, WithV, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithIndex, WithFormat, WithH, WithHelp, WithS, WithV, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (c *Cat) Segments(options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
-		"WithErrorTrace":  struct{}{},
-		"WithFilterPath":  struct{}{},
+		"WithIndex":       struct{}{},
 		"WithFormat":      struct{}{},
 		"WithH":           struct{}{},
 		"WithHelp":        struct{}{},
-		"WithHuman":       struct{}{},
-		"WithIndex":       struct{}{},
-		"WithPretty":      struct{}{},
 		"WithS":           struct{}{},
-		"WithSourceParam": struct{}{},
 		"WithV":           struct{}{},
+		"WithErrorTrace":  struct{}{},
+		"WithFilterPath":  struct{}{},
+		"WithHuman":       struct{}{},
+		"WithPretty":      struct{}{},
+		"WithSourceParam": struct{}{},
 	}
 	req := &http.Request{
 		URL: &url.URL{

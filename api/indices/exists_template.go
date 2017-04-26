@@ -12,14 +12,14 @@ import (
 //
 // name: the name of the template.
 //
-// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithLocal, WithMasterTimeout, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithLocal, WithMasterTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) ExistsTemplate(name string, options ...*Option) (*http.Response, error) {
 	supportedOptions := map[string]struct{}{
+		"WithLocal":         struct{}{},
+		"WithMasterTimeout": struct{}{},
 		"WithErrorTrace":    struct{}{},
 		"WithFilterPath":    struct{}{},
 		"WithHuman":         struct{}{},
-		"WithLocal":         struct{}{},
-		"WithMasterTimeout": struct{}{},
 		"WithPretty":        struct{}{},
 		"WithSourceParam":   struct{}{},
 	}
