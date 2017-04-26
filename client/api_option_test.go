@@ -20,7 +20,6 @@
 package client
 
 import (
-	"strings"
 	"testing"
 
 	"github.com/elastic/goelasticsearch/api"
@@ -28,18 +27,18 @@ import (
 
 func TestOptionValidation(t *testing.T) {
 	c := New()
-	// TODO: do something less hacky here
-	postError := "Post http://localhost:9200: EOF"
+	// TODO: maybe this should be an error type in some shared subpackage of api
+	unsupportedOptionError := "unsupported option: WithIndex"
 	_, err := c.Index("index", "good", nil, api.WithIndex("index again?"))
-	if err == nil || strings.HasSuffix(err.Error(), postError) {
-		t.Fatalf("WithIndex was accepted as an argument to Index")
+	if err.Error() != unsupportedOptionError {
+		t.Fatalf("expected WithIndex() to return %q but got %q", unsupportedOptionError, err)
 	}
 	_, err = c.Index("index", "good", nil, api.WithHuman(true))
-	if err != nil && !strings.HasSuffix(err.Error(), postError) {
+	if err != nil {
 		t.Fatal(err)
 	}
 	_, err = c.Index("index", "good", nil)
-	if err != nil && !strings.HasSuffix(err.Error(), postError) {
+	if err != nil {
 		t.Fatal(err)
 	}
 }
