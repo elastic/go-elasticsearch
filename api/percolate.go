@@ -40,8 +40,8 @@ func (a *API) Percolate(documentType string, index string, body map[string]inter
 	}
 	req := &http.Request{
 		URL: &url.URL{
-			Scheme: a.transport.Scheme,
-			Host:   a.transport.Host,
+			Scheme: a.transport.URL.Scheme,
+			Host:   a.transport.URL.Host,
 		},
 		Method: "GET",
 	}

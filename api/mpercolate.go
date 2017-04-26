@@ -28,8 +28,8 @@ func (a *API) Mpercolate(body map[string]interface{}, options ...*Option) (*http
 	}
 	req := &http.Request{
 		URL: &url.URL{
-			Scheme: a.transport.Scheme,
-			Host:   a.transport.Host,
+			Scheme: a.transport.URL.Scheme,
+			Host:   a.transport.URL.Host,
 		},
 		Method: "GET",
 	}

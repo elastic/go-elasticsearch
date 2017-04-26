@@ -23,8 +23,8 @@ func (t *Tasks) Get(options ...*Option) (*http.Response, error) {
 	}
 	req := &http.Request{
 		URL: &url.URL{
-			Scheme: t.transport.Scheme,
-			Host:   t.transport.Host,
+			Scheme: t.transport.URL.Scheme,
+			Host:   t.transport.URL.Host,
 		},
 		Method: "GET",
 	}

@@ -33,8 +33,8 @@ func (a *API) Mget(body map[string]interface{}, options ...*Option) (*http.Respo
 	}
 	req := &http.Request{
 		URL: &url.URL{
-			Scheme: a.transport.Scheme,
-			Host:   a.transport.Host,
+			Scheme: a.transport.URL.Scheme,
+			Host:   a.transport.URL.Host,
 		},
 		Method: "GET",
 	}

@@ -25,8 +25,8 @@ func (s *Snapshot) VerifyRepository(repository string, options ...*Option) (*htt
 	}
 	req := &http.Request{
 		URL: &url.URL{
-			Scheme: s.transport.Scheme,
-			Host:   s.transport.Host,
+			Scheme: s.transport.URL.Scheme,
+			Host:   s.transport.URL.Host,
 		},
 		Method: "POST",
 	}

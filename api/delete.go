@@ -34,8 +34,8 @@ func (a *API) Delete(documentType string, id string, index string, options ...*O
 	}
 	req := &http.Request{
 		URL: &url.URL{
-			Scheme: a.transport.Scheme,
-			Host:   a.transport.Host,
+			Scheme: a.transport.URL.Scheme,
+			Host:   a.transport.URL.Host,
 		},
 		Method: "DELETE",
 	}

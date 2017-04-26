@@ -21,6 +21,7 @@ package generator
 
 import (
 	"bytes"
+	"fmt"
 	"path/filepath"
 	"testing"
 )
@@ -61,8 +62,8 @@ func (a *API) Index(documentType string, index string, body map[string]interface
 	}
 	req := &http.Request{
 		URL: &url.URL{
-			Scheme: a.transport.Scheme,
-			Host:   a.transport.Host,
+			Scheme: a.transport.URL.Scheme,
+			Host:   a.transport.URL.Host,
 		},
 		Method: "POST",
 	}
@@ -98,6 +99,33 @@ func TestNormalizeParams(t *testing.T) {
 	for _, name := range []string{"fields", "fieldsParam"} {
 		if _, ok := names[name]; !ok {
 			t.Fatalf("Could not find %q in %s", name, names)
+		}
+	}
+}
+
+func TestResolveDocumentation(t *testing.T) {
+	var tests = []struct {
+		url         string
+		expectedDoc string
+	}{
+		{
+			url:         "http://www.elastic.co/guide/",
+			expectedDoc: " - see %s for more info.",
+		},
+		{
+			url:         "https://www.elastic.co/guide/",
+			expectedDoc: " - see %s for more info.",
+		},
+	}
+	m := newIndexMethod(t)
+	for _, test := range tests {
+		m.Spec.Documentation = test.url
+		if err := m.resolveDocumentation(); err != nil {
+			t.Fatal(err)
+		}
+		expectedDoc := fmt.Sprintf(test.expectedDoc, test.url)
+		if m.Spec.Documentation != expectedDoc {
+			t.Fatalf("expected %q to generate %q, got %q instead", test.url, expectedDoc, m.Spec.Documentation)
 		}
 	}
 }

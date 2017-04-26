@@ -25,6 +25,7 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 	"os"
 	"path/filepath"
 	"sort"
@@ -42,7 +43,7 @@ const (
 	DefaultSpecDir = "spec/elasticsearch/rest-api-spec/src/main/resources/rest-api-spec/api"
 )
 
-type url struct {
+type specURL struct {
 	Parts  map[string]*param `json:"parts"`
 	Params map[string]*param `json:"params"`
 }
@@ -50,7 +51,7 @@ type url struct {
 type spec struct {
 	Documentation string   `json:"documentation"`
 	Methods       []string `json:"methods"`
-	URL           url      `json:"url"`
+	URL           specURL  `json:"url"`
 	Body          *param   `json:"body"`
 }
 
@@ -152,15 +153,19 @@ func (m *method) normalizeParams(params map[string]*param, resolve bool) error {
 }
 
 func (m *method) resolveDocumentation() error {
-	url := m.Spec.Documentation
-	if url == "http://www.elastic.co/guide/" {
-		m.Spec.Documentation = " - see " + url + "."
+	docURL := m.Spec.Documentation
+	u, err := url.Parse(docURL)
+	if err != nil {
+		return err
+	}
+	if u.Path == "/guide/" {
+		m.Spec.Documentation = " - see " + docURL + " for more info."
 		return nil
 	}
-	body, ok := m.HTTPCache[url]
+	body, ok := m.HTTPCache[docURL]
 	if !ok {
-		glog.Infof("fetching %s", url)
-		resp, err := http.Get(url)
+		glog.Infof("fetching %s", docURL)
+		resp, err := http.Get(docURL)
 		if err != nil {
 			return err
 		}
@@ -201,7 +206,7 @@ func (m *method) resolveDocumentation() error {
 					// Overwrite everything, means we we're able un parse a full paragraph
 					m.Spec.Documentation = " - see "
 				}
-				m.Spec.Documentation += url + " for more info."
+				m.Spec.Documentation += docURL + " for more info."
 				return nil
 			}
 		}

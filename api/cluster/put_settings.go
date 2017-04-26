@@ -26,8 +26,8 @@ func (c *Cluster) PutSettings(body map[string]interface{}, options ...*Option) (
 	}
 	req := &http.Request{
 		URL: &url.URL{
-			Scheme: c.transport.Scheme,
-			Host:   c.transport.Host,
+			Scheme: c.transport.URL.Scheme,
+			Host:   c.transport.URL.Host,
 		},
 		Method: "PUT",
 	}

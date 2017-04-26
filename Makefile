@@ -25,11 +25,14 @@ GOIMPORTS_REPO = golang.org/x/tools/cmd/goimports
 GOLINT = golint
 GOLINT_REPO = github.com/golang/lint/$(GOLINT)
 SPEC_DIR = spec
+ELASTICSEARCH_DIR = $(SPEC_DIR)/elasticsearch
+ELASTICSEARCH_SPEC_DIR = $(ELASTICSEARCH_DIR)/rest-api-spec/src/main/resources/rest-api-spec/api
 GEN_DIR = api
 VERSION_FILE = $(GEN_DIR)/VERSION
 DOCKER = docker
 DOCKER_IMAGE = docker.elastic.co/elasticsearch/elasticsearch
 DOCKER_CONTAINER = goelasticsearch-elasticsearch
+TESTDATA = generator/testdata
 
 .PHONY: build
 build:
@@ -41,9 +44,13 @@ gen: spec
 	$(GO) run ./cmd/generator/main.go -alsologtostderr
 	@$(GO) get $(GOIMPORTS_REPO)
 	$(GOIMPORTS) -w $(GEN_DIR)
-	(cd $(SPEC_DIR)/elasticsearch && git describe --tags) > $(VERSION_FILE)
+	(cd $(ELASTICSEARCH_DIR) && git describe --tags) > $(VERSION_FILE)
 	git add $(GEN_DIR)
 	$(MAKE) build
+
+.PHONY: gen-testdata
+gen-testdata: spec
+	$(foreach file,$(wildcard $(TESTDATA)/*.json),cp -v $(ELASTICSEARCH_SPEC_DIR)/$(notdir $(file)) $(TESTDATA);)
 
 .PHONY: spec
 spec:

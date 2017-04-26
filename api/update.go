@@ -44,8 +44,8 @@ func (a *API) Update(documentType string, id string, index string, body map[stri
 	}
 	req := &http.Request{
 		URL: &url.URL{
-			Scheme: a.transport.Scheme,
-			Host:   a.transport.Host,
+			Scheme: a.transport.URL.Scheme,
+			Host:   a.transport.URL.Host,
 		},
 		Method: "POST",
 	}

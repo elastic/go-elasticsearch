@@ -28,8 +28,8 @@ func (i *Indices) Close(index []string, options ...*Option) (*http.Response, err
 	}
 	req := &http.Request{
 		URL: &url.URL{
-			Scheme: i.transport.Scheme,
-			Host:   i.transport.Host,
+			Scheme: i.transport.URL.Scheme,
+			Host:   i.transport.URL.Host,
 		},
 		Method: "POST",
 	}

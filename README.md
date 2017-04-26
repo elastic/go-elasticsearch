@@ -18,7 +18,15 @@ or install it from a source code checkout:
 ```go
 import "github.com/elastic/goelasticsearch/client"
 
-c := client.New()
+c, _ := client.New(client.WithHosts([]string{"https://elasticseach:9200"}))
+	body := map[string]interface{}{
+		"query": map[string]interface{}{
+			"term": map[string]interface{}{
+				"user": "kimchy",
+			},
+		},
+	}
+	resp, err := c.Search(body)
 ```
 
 ## License

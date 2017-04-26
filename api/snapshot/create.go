@@ -29,8 +29,8 @@ func (s *Snapshot) Create(repository string, snapshot string, body map[string]in
 	}
 	req := &http.Request{
 		URL: &url.URL{
-			Scheme: s.transport.Scheme,
-			Host:   s.transport.Host,
+			Scheme: s.transport.URL.Scheme,
+			Host:   s.transport.URL.Host,
 		},
 		Method: "PUT",
 	}

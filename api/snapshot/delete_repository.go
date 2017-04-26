@@ -25,8 +25,8 @@ func (s *Snapshot) DeleteRepository(repository []string, options ...*Option) (*h
 	}
 	req := &http.Request{
 		URL: &url.URL{
-			Scheme: s.transport.Scheme,
-			Host:   s.transport.Host,
+			Scheme: s.transport.URL.Scheme,
+			Host:   s.transport.URL.Host,
 		},
 		Method: "DELETE",
 	}

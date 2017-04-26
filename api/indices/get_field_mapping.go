@@ -30,8 +30,8 @@ func (i *Indices) GetFieldMapping(fields []string, options ...*Option) (*http.Re
 	}
 	req := &http.Request{
 		URL: &url.URL{
-			Scheme: i.transport.Scheme,
-			Host:   i.transport.Host,
+			Scheme: i.transport.URL.Scheme,
+			Host:   i.transport.URL.Host,
 		},
 		Method: "GET",
 	}

@@ -30,8 +30,8 @@ func (i *Indices) PutSettings(body map[string]interface{}, options ...*Option) (
 	}
 	req := &http.Request{
 		URL: &url.URL{
-			Scheme: i.transport.Scheme,
-			Host:   i.transport.Host,
+			Scheme: i.transport.URL.Scheme,
+			Host:   i.transport.URL.Host,
 		},
 		Method: "PUT",
 	}

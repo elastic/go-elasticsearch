@@ -21,8 +21,8 @@ func ({{.ReceiverName}} *{{.TypeName}}) {{.MethodName}}({{range .RequiredParams}
 	{{end}}}
 	req := &http.Request{
 		URL: &url.URL{
-			Scheme: {{.ReceiverName}}.transport.Scheme,
-			Host:   {{.ReceiverName}}.transport.Host,
+			Scheme: {{.ReceiverName}}.transport.URL.Scheme,
+			Host:   {{.ReceiverName}}.transport.URL.Host,
 		},
 		Method: "{{.HTTPMethod}}",
 	}

@@ -28,8 +28,8 @@ func (s *Snapshot) CreateRepository(repository string, body map[string]interface
 	}
 	req := &http.Request{
 		URL: &url.URL{
-			Scheme: s.transport.Scheme,
-			Host:   s.transport.Host,
+			Scheme: s.transport.URL.Scheme,
+			Host:   s.transport.URL.Host,
 		},
 		Method: "PUT",
 	}

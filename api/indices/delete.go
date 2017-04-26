@@ -25,8 +25,8 @@ func (i *Indices) Delete(index []string, options ...*Option) (*http.Response, er
 	}
 	req := &http.Request{
 		URL: &url.URL{
-			Scheme: i.transport.Scheme,
-			Host:   i.transport.Host,
+			Scheme: i.transport.URL.Scheme,
+			Host:   i.transport.URL.Host,
 		},
 		Method: "DELETE",
 	}

@@ -25,8 +25,8 @@ func (i *Ingest) DeletePipeline(id string, options ...*Option) (*http.Response, 
 	}
 	req := &http.Request{
 		URL: &url.URL{
-			Scheme: i.transport.Scheme,
-			Host:   i.transport.Host,
+			Scheme: i.transport.URL.Scheme,
+			Host:   i.transport.URL.Host,
 		},
 		Method: "DELETE",
 	}

@@ -25,8 +25,8 @@ func (c *Cluster) AllocationExplain(body map[string]interface{}, options ...*Opt
 	}
 	req := &http.Request{
 		URL: &url.URL{
-			Scheme: c.transport.Scheme,
-			Host:   c.transport.Host,
+			Scheme: c.transport.URL.Scheme,
+			Host:   c.transport.URL.Host,
 		},
 		Method: "GET",
 	}

@@ -27,8 +27,8 @@ func (i *Indices) DeleteAlias(index []string, name []string, options ...*Option)
 	}
 	req := &http.Request{
 		URL: &url.URL{
-			Scheme: i.transport.Scheme,
-			Host:   i.transport.Host,
+			Scheme: i.transport.URL.Scheme,
+			Host:   i.transport.URL.Host,
 		},
 		Method: "DELETE",
 	}

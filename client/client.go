@@ -21,7 +21,7 @@
 // available APIs.
 //
 // Here's a quick example:
-//	c := client.New(client.WithHosts([]string{"https://elasticseach:9200"}))
+//	c, _ := client.New(client.WithHosts([]string{"https://elasticseach:9200"}))
 //	body := map[string]interface{}{
 //		"query": map[string]interface{}{
 //			"term": map[string]interface{}{
@@ -42,8 +42,8 @@ import (
 // Client is the top-level client.
 type Client struct {
 	// API is the root of the API. Since it's embedded, it allows to call APIs directly on the client.
-	//	client := client.New()
-	//	resp, error := client.Search(...)
+	//	client, _ := client.New()
+	//	resp, err := client.Search(...)
 	//	...
 	*api.API
 
@@ -51,14 +51,16 @@ type Client struct {
 }
 
 // New is the constructor for the Client.
-func New(options ...Option) *Client {
+func New(options ...Option) (*Client, error) {
 	t := transport.New()
 	c := &Client{
 		API:       api.New(t),
 		transport: t,
 	}
 	for _, option := range options {
-		option(c)
+		if err := option(c); err != nil {
+			return nil, err
+		}
 	}
-	return c
+	return c, nil
 }

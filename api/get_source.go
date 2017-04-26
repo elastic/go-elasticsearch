@@ -37,8 +37,8 @@ func (a *API) GetSource(documentType string, id string, index string, options ..
 	}
 	req := &http.Request{
 		URL: &url.URL{
-			Scheme: a.transport.Scheme,
-			Host:   a.transport.Host,
+			Scheme: a.transport.URL.Scheme,
+			Host:   a.transport.URL.Host,
 		},
 		Method: "GET",
 	}

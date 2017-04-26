@@ -25,8 +25,8 @@ func (a *API) GetScript(id string, lang string, options ...*Option) (*http.Respo
 	}
 	req := &http.Request{
 		URL: &url.URL{
-			Scheme: a.transport.Scheme,
-			Host:   a.transport.Host,
+			Scheme: a.transport.URL.Scheme,
+			Host:   a.transport.URL.Host,
 		},
 		Method: "GET",
 	}

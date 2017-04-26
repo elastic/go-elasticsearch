@@ -22,7 +22,10 @@ package client
 import "testing"
 
 func TestConnect(t *testing.T) {
-	c := New()
+	c, err := New()
+	if err != nil {
+		t.Fatal(err)
+	}
 	resp, err := c.Info()
 	if err != nil {
 		t.Fatal(err)

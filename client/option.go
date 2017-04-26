@@ -20,67 +20,78 @@
 package client
 
 import (
+	"net/url"
 	"strings"
 
 	"github.com/elastic/goelasticsearch/transport"
 )
 
 // Option is a client-wide option.
-type Option func(c *Client)
+type Option func(c *Client) error
 
 // WithHost connects to a single host. Supports RFC-1738 formatted URLs, valid usages include:
 //	WithHost("localhost")
 //	WithHost("localhost:9200")
 //	WithHost("http://localhost:9200")
 func WithHost(host string) Option {
-	return func(c *Client) {
-		c.transport.Scheme = transport.DefaultScheme
-		c.transport.Host = transport.DefaultHost
-		parts := strings.SplitN(host, "://", 1)
-		if len(parts) > 1 {
-			c.transport.Scheme = parts[0]
-			c.transport.Host = parts[1]
+	return func(c *Client) error {
+		c.transport.URL = transport.DefaultURL
+		URL, err := url.Parse(host)
+		if err != nil {
+			return err
 		}
-		if !strings.Contains(c.transport.Host, ":") {
-			c.transport.Host += ":" + string(transport.DefaultPort)
+		if URL.Scheme != "" {
+			c.transport.URL.Scheme = URL.Scheme
 		}
+		c.transport.URL.Host = URL.Host
+		if !strings.Contains(c.transport.URL.Host, ":") {
+			c.transport.URL.Host += ":" + string(transport.DefaultPort)
+		}
+		return nil
 	}
 }
 
 // WithHosts connects to the specified hosts. As WithHost, it supports RFC-1738 formatted URLs.
 func WithHosts(hosts []string) Option {
-	return func(c *Client) {
+	return func(c *Client) error {
 		for _, host := range hosts {
 			// TODO: use additional hosts
-			WithHost(host)(c)
+			if err := WithHost(host)(c); err != nil {
+				return err
+			}
 		}
+		return nil
 	}
 }
 
 // WithCaFile sets the path to server TLS certificate file.
 func WithCaFile(caFile string) Option {
-	return func(c *Client) {
+	return func(c *Client) error {
 		// TODO: implement
+		return nil
 	}
 }
 
 // WithCertFile sets the path to client TLS certificate file.
 func WithCertFile(certFile string) Option {
-	return func(c *Client) {
-		// TODO: implement
+	return func(c *Client) error {
+		// TODO: implement,
+		return nil
 	}
 }
 
 // WithKeyFile sets the path to client TLS private key file.
 func WithKeyFile(keyFile string) Option {
-	return func(c *Client) {
-		// TODO: implement
+	return func(c *Client) error {
+		// TODO: implement,
+		return nil
 	}
 }
 
 // WithSniffOnStart indicates whether to obtain a list of nodes from the cluser at startup time.
 func WithSniffOnStart(sniffOnStart bool) Option {
-	return func(c *Client) {
-		// TODO: implement
+	return func(c *Client) error {
+		// TODO: implement,
+		return nil
 	}
 }

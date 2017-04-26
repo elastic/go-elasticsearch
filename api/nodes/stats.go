@@ -32,8 +32,8 @@ func (n *Nodes) Stats(options ...*Option) (*http.Response, error) {
 	}
 	req := &http.Request{
 		URL: &url.URL{
-			Scheme: n.transport.Scheme,
-			Host:   n.transport.Host,
+			Scheme: n.transport.URL.Scheme,
+			Host:   n.transport.URL.Host,
 		},
 		Method: "GET",
 	}

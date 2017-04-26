@@ -39,8 +39,8 @@ func (a *API) Index(documentType string, index string, body map[string]interface
 	}
 	req := &http.Request{
 		URL: &url.URL{
-			Scheme: a.transport.Scheme,
-			Host:   a.transport.Host,
+			Scheme: a.transport.URL.Scheme,
+			Host:   a.transport.URL.Host,
 		},
 		Method: "POST",
 	}

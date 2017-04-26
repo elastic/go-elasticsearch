@@ -27,8 +27,8 @@ func (i *Ingest) PutPipeline(id string, body map[string]interface{}, options ...
 	}
 	req := &http.Request{
 		URL: &url.URL{
-			Scheme: i.transport.Scheme,
-			Host:   i.transport.Host,
+			Scheme: i.transport.URL.Scheme,
+			Host:   i.transport.URL.Host,
 		},
 		Method: "PUT",
 	}
