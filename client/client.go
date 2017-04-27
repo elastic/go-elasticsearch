@@ -21,7 +21,7 @@
 // available APIs.
 //
 // Here's a quick example:
-//	c, _ := client.New(client.WithHosts([]string{"https://elasticseach:9200"}))
+//	c, _ := client.New(client.WithHost("https://elasticsearch:9200"))
 //	body := map[string]interface{}{
 //		"query": map[string]interface{}{
 //			"term": map[string]interface{}{
