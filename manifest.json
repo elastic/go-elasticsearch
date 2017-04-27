@@ -1,0 +1,7 @@
+{
+    "dependencies": {
+        "github.com/golang/glog": {
+            "branch": "master"
+        }
+    }
+}
