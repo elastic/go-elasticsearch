@@ -13,7 +13,7 @@ type Ingest struct {
 	transport *transport.Transport
 }
 
-// New is the constructor for Ingest.
+// New is the constructor for Ingest. Note that this is automatically invoked by the client.Client type.
 func New(transport *transport.Transport) *Ingest {
 	return &Ingest{
 

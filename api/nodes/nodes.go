@@ -13,7 +13,7 @@ type Nodes struct {
 	transport *transport.Transport
 }
 
-// New is the constructor for Nodes.
+// New is the constructor for Nodes. Note that this is automatically invoked by the client.Client type.
 func New(transport *transport.Transport) *Nodes {
 	return &Nodes{
 

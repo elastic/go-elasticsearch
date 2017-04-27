@@ -13,7 +13,7 @@ type Cluster struct {
 	transport *transport.Transport
 }
 
-// New is the constructor for Cluster.
+// New is the constructor for Cluster. Note that this is automatically invoked by the client.Client type.
 func New(transport *transport.Transport) *Cluster {
 	return &Cluster{
 

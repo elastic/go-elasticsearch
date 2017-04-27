@@ -137,7 +137,7 @@ type API struct {
 	transport *transport.Transport
 }
 
-// New is the constructor for API.
+// New is the constructor for API. Note that this is automatically invoked by the client.Client type.
 func New(transport *transport.Transport) *API {
 	return &API{
 

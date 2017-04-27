@@ -13,7 +13,7 @@ type Tasks struct {
 	transport *transport.Transport
 }
 
-// New is the constructor for Tasks.
+// New is the constructor for Tasks. Note that this is automatically invoked by the client.Client type.
 func New(transport *transport.Transport) *Tasks {
 	return &Tasks{
 

@@ -13,7 +13,7 @@ type Snapshot struct {
 	transport *transport.Transport
 }
 
-// New is the constructor for Snapshot.
+// New is the constructor for Snapshot. Note that this is automatically invoked by the client.Client type.
 func New(transport *transport.Transport) *Snapshot {
 	return &Snapshot{
 

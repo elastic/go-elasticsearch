@@ -36,14 +36,14 @@ type Option func(c *Client) error
 func WithHost(host string) Option {
 	return func(c *Client) error {
 		c.transport.URL = transport.DefaultURL
-		URL, err := url.Parse(host)
+		u, err := url.Parse(host)
 		if err != nil {
 			return err
 		}
-		if URL.Scheme != "" {
-			c.transport.URL.Scheme = URL.Scheme
+		if u.Scheme != "" {
+			c.transport.URL.Scheme = u.Scheme
 		}
-		c.transport.URL.Host = URL.Host
+		c.transport.URL.Host = u.Host
 		if !strings.Contains(c.transport.URL.Host, ":") {
 			c.transport.URL.Host += ":" + string(transport.DefaultPort)
 		}

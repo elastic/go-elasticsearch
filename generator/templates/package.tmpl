@@ -17,7 +17,7 @@ type {{.TypeName}} struct {
 	transport *transport.Transport
 }
 
-// New is the constructor for {{.TypeName}}.
+// New is the constructor for {{.TypeName}}. Note that this is automatically invoked by the client.Client type.
 func New(transport *transport.Transport) *{{.TypeName}} {
 	return &{{.TypeName}}{
 		{{range .SubPackages}}{{.TypeName}} : {{.Name}}.New(transport),

@@ -13,7 +13,7 @@ type Indices struct {
 	transport *transport.Transport
 }
 
-// New is the constructor for Indices.
+// New is the constructor for Indices. Note that this is automatically invoked by the client.Client type.
 func New(transport *transport.Transport) *Indices {
 	return &Indices{
 

@@ -18,7 +18,8 @@
  */
 
 // Package client is the starting point to establish a connection to Elasticsearch, as well as to invoke any of the
-// available APIs.
+// available APIs. Note that API is an embedded field in Client, hence its documentation can be found in the api
+// package.
 //
 // Here's a quick example:
 //	c, _ := client.New(client.WithHost("https://elasticsearch:9200"))
@@ -31,13 +32,14 @@
 //	}
 //	resp, err := c.Search(body)
 //	// ...
-// See the api package for all available methods and options.
 package client
 
 import (
 	"github.com/elastic/goelasticsearch/api"
 	"github.com/elastic/goelasticsearch/transport"
 )
+
+// TODO: we should find a trick to link to api here
 
 // Client is the top-level client.
 type Client struct {
