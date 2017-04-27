@@ -38,6 +38,10 @@ TESTDATA = generator/testdata
 build:
 	$(GO) build $(GO_PACKAGES)
 
+.PHONY: install
+install:
+	$(GO) install $(GO_PACKAGES)
+
 .PHONY: gen
 gen: spec
 	rm -rf $(GEN_DIR)
@@ -97,7 +101,10 @@ lint:
 	@$(GO) get $(GOLINT_REPO)
 	$(GOLINT) $(GO_PACKAGES)
 
+.PHONY: gen-clean
+gen-clean:
+	make -C $(SPEC_DIR) clean
+
 .PHONY: clean
 clean:
 	$(GO) clean $(GO_PACKAGES)
-	make -C $(SPEC_DIR) clean
