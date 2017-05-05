@@ -33,7 +33,7 @@ func TestGenerateOption(t *testing.T) {
 		t.Fatal(err)
 	}
 	var writer bytes.Buffer
-	templates, err := template.ParseFiles(filepath.Join("..", templatesDir, "option.tmpl"))
+	templates, err := template.ParseFiles(filepath.Join("..", DefaultTemplatesDir, "option.tmpl"))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -134,7 +134,7 @@ func TestGenerateAPI(t *testing.T) {
 		t.Fatal(err)
 	}
 	var writer bytes.Buffer
-	templates, err := template.ParseFiles(filepath.Join("..", templatesDir, "package.tmpl"))
+	templates, err := template.ParseFiles(filepath.Join("..", DefaultTemplatesDir, "package.tmpl"))
 	if err != nil {
 		t.Fatal(err)
 	}

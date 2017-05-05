@@ -17,28 +17,20 @@
  * under the License.
  */
 
-package main
+// Package generator allows to generate the Elasticsearch APIs by fitting their JSON spec into the templates stored in
+// the templates directory.
+package generator
 
 import (
-	"flag"
 	"os"
-
-	"github.com/elastic/go-elasticsearch/generator"
-	"github.com/golang/glog"
+	"path/filepath"
+	"testing"
 )
 
-func main() {
-	specDirFlag := flag.String("specdir", generator.DefaultSpecDir,
-		"directory containing the specs for the REST API and its tests")
-
-	flag.Parse()
-	g, err := generator.New(*specDirFlag, generator.DefaultTemplatesDir)
-	if err != nil {
-		glog.Error(err)
-		os.Exit(1)
-	}
-	if err := g.Run(); err != nil {
-		glog.Error(err)
-		os.Exit(1)
+func TestParse(t *testing.T) {
+	_, err := New(filepath.Join("..", DefaultSpecDir), filepath.Join("..", DefaultTemplatesDir))
+	// Ignore IsNotExist since we don't always have the spec available.
+	if err != nil && !os.IsNotExist(err) {
+		t.Fatal(err)
 	}
 }

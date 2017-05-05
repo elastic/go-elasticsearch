@@ -30,7 +30,7 @@ import (
 func TestGenerate(t *testing.T) {
 	m := newIndexMethod(t)
 	var writer bytes.Buffer
-	templates, err := template.ParseFiles(filepath.Join("..", templatesDir, "method.tmpl"))
+	templates, err := template.ParseFiles(filepath.Join("..", DefaultTemplatesDir, "method.tmpl"))
 	if err != nil {
 		t.Fatal(err)
 	}

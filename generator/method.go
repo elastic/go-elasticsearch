@@ -385,34 +385,32 @@ func (m *method) clone() (*method, error) {
 	for _, p := range m.RequiredURLParts {
 		up, ok := c.Spec.URL.Parts[p.rawName]
 		if !ok {
-			return nil, fmt.Errorf("invalid required part name: %s", p.Name)
+			return nil, fmt.Errorf("invalid required part namewhile cloning %s: %s", m.rawName, p.rawName)
 		}
 		c.RequiredURLParts = append(c.RequiredURLParts, up)
 	}
 	for _, p := range m.RequiredURLParams {
-		if p.Name == "body" {
+		if p.rawName == "body" {
 			c.RequiredURLParams = append(c.RequiredURLParams, c.Spec.Body)
 			continue
 		}
 		up, ok := c.Spec.URL.Params[p.rawName]
 		if !ok {
-			return nil, fmt.Errorf("invalid required parameter name: %s", p.Name)
+			return nil, fmt.Errorf("invalid required parameter name while cloning %s: %s", m.rawName, p.rawName)
 		}
 		c.RequiredURLParams = append(c.RequiredURLParams, up)
 	}
+	// TODO: we're assuming the ones we fail to find are common params, we should either include these or find a more
+	// robust way to verify that's the actual reason the lookup is failing.
 	for _, p := range m.OptionalURLParts {
-		up, ok := c.Spec.URL.Parts[p.rawName]
-		if !ok {
-			return nil, fmt.Errorf("invalid optional part name: %s", p.Name)
+		if up, ok := c.Spec.URL.Parts[p.rawName]; ok {
+			c.OptionalURLParts = append(c.OptionalURLParts, up)
 		}
-		c.OptionalURLParts = append(c.OptionalURLParts, up)
 	}
 	for _, p := range m.OptionalURLParams {
-		up, ok := c.Spec.URL.Params[p.rawName]
-		if !ok {
-			return nil, fmt.Errorf("invalid optional parameter name: %s", p.Name)
+		if up, ok := c.Spec.URL.Params[p.rawName]; ok {
+			c.OptionalURLParams = append(c.OptionalURLParams, up)
 		}
-		c.OptionalURLParams = append(c.OptionalURLParams, up)
 	}
 	return c, nil
 }

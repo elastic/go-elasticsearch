@@ -34,7 +34,11 @@ type do struct {
 func newDo(unmarshal func(interface{}) error) (action, error) {
 	d := &do{}
 	if err := unmarshal(&d.spec); err != nil {
-		return nil, err
+		var spec map[string]string
+		if err := unmarshal(&spec); err != nil {
+			return d, nil
+		}
+		// TODO: implement catch et al.
 	}
 	return d, nil
 }
@@ -42,7 +46,7 @@ func newDo(unmarshal func(interface{}) error) (action, error) {
 func (d *do) resolve(methods map[string]*method, templates *template.Template) error {
 	spec := d.spec["do"]
 	for methodName, args := range spec {
-		if methodName == "catch" || methodName == "warnings" {
+		if methodName == "catch" || methodName == "warnings" || methodName == "headers" {
 			// TODO: implement
 			continue
 		}

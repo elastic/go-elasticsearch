@@ -30,11 +30,12 @@ import (
 )
 
 const (
-	outputDir          = "."
-	templatesDir       = "generator/templates"
-	defaultPackage     = "api"
-	templateFileName   = "method.tmpl"
-	defaultPackageRepo = "github.com/elastic/go-elasticsearch/api"
+	outputDir = "."
+	// DefaultTemplatesDir is the directory containing the templates for the code generation.
+	DefaultTemplatesDir = "generator/templates"
+	defaultPackage      = "api"
+	templateFileName    = "method.tmpl"
+	defaultPackageRepo  = "github.com/elastic/go-elasticsearch/api"
 )
 
 // Generator is a code generator based on JSON and YAML specs and Go template.
@@ -54,7 +55,7 @@ type Generator struct {
 }
 
 // New creates a new generator
-func New(specDir string) (*Generator, error) {
+func New(specDir, templatesDir string) (*Generator, error) {
 	g := &Generator{
 		methods: map[string]*method{},
 		testers: map[string]*tester{},
@@ -105,11 +106,8 @@ func New(specDir string) (*Generator, error) {
 		if !dir.IsDir() {
 			continue
 		}
-		g.testers[dir.Name()], err = newTester(specDir, dir.Name(), g.methods, g.templates)
-		if err != nil {
-			// TODO: fail here
-			glog.Error(err)
-			continue
+		if g.testers[dir.Name()], err = newTester(specDir, dir.Name(), g.methods, g.templates); err != nil {
+			return nil, err
 		}
 	}
 	return g, nil

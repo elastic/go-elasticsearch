@@ -39,7 +39,7 @@ func TestTest(t *testing.T) {
  - match:   { _index:   test-weird-index-中文 }
 `
 	m := newIndexMethod(t)
-	dir := filepath.Join("..", templatesDir)
+	dir := filepath.Join("..", DefaultTemplatesDir)
 	templates, err := template.ParseFiles(filepath.Join(dir, "do.tmpl"), filepath.Join(dir, "match.tmpl"))
 	if err != nil {
 		t.Fatal(err)
