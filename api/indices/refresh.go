@@ -32,12 +32,13 @@ func (i *Indices) Refresh(options ...*Option) (*RefreshResponse, error) {
 	return &RefreshResponse{resp}, err
 }
 
-// RefreshResponse is the response for Refresh
+// RefreshResponse is the response for Refresh.
 type RefreshResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *RefreshResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

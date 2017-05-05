@@ -32,12 +32,13 @@ func (i *Indices) ShardStores(options ...*Option) (*ShardStoresResponse, error) 
 	return &ShardStoresResponse{resp}, err
 }
 
-// ShardStoresResponse is the response for ShardStores
+// ShardStoresResponse is the response for ShardStores.
 type ShardStoresResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *ShardStoresResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

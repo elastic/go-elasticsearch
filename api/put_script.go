@@ -36,12 +36,13 @@ func (a *API) PutScript(lang string, body map[string]interface{}, options ...*Op
 	return &PutScriptResponse{resp}, err
 }
 
-// PutScriptResponse is the response for PutScript
+// PutScriptResponse is the response for PutScript.
 type PutScriptResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *PutScriptResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

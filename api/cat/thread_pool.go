@@ -32,12 +32,13 @@ func (c *Cat) ThreadPool(options ...*Option) (*ThreadPoolResponse, error) {
 	return &ThreadPoolResponse{resp}, err
 }
 
-// ThreadPoolResponse is the response for ThreadPool
+// ThreadPoolResponse is the response for ThreadPool.
 type ThreadPoolResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *ThreadPoolResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

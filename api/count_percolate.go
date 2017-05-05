@@ -36,12 +36,13 @@ func (a *API) CountPercolate(index string, documentType string, options ...*Opti
 	return &CountPercolateResponse{resp}, err
 }
 
-// CountPercolateResponse is the response for CountPercolate
+// CountPercolateResponse is the response for CountPercolate.
 type CountPercolateResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *CountPercolateResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

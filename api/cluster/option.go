@@ -7,46 +7,18 @@ import (
 	"time"
 )
 
-// Level - specify the level of detail for returned information.
-type Level int
+// ExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+type ExpandWildcards int
 
 const (
-	// LevelCluster can be used to set Level to "cluster"
-	LevelCluster = iota
-	// LevelIndices can be used to set Level to "indices"
-	LevelIndices = iota
-	// LevelShards can be used to set Level to "shards"
-	LevelShards = iota
-)
-
-// WaitForEvents - wait until all currently queued events with the given priority are processed.
-type WaitForEvents int
-
-const (
-	// WaitForEventsImmediate can be used to set WaitForEvents to "immediate"
-	WaitForEventsImmediate = iota
-	// WaitForEventsUrgent can be used to set WaitForEvents to "urgent"
-	WaitForEventsUrgent = iota
-	// WaitForEventsHigh can be used to set WaitForEvents to "high"
-	WaitForEventsHigh = iota
-	// WaitForEventsNormal can be used to set WaitForEvents to "normal"
-	WaitForEventsNormal = iota
-	// WaitForEventsLow can be used to set WaitForEvents to "low"
-	WaitForEventsLow = iota
-	// WaitForEventsLanguid can be used to set WaitForEvents to "languid"
-	WaitForEventsLanguid = iota
-)
-
-// WaitForStatus - wait until cluster is in a specific state.
-type WaitForStatus int
-
-const (
-	// WaitForStatusGreen can be used to set WaitForStatus to "green"
-	WaitForStatusGreen = iota
-	// WaitForStatusYellow can be used to set WaitForStatus to "yellow"
-	WaitForStatusYellow = iota
-	// WaitForStatusRed can be used to set WaitForStatus to "red"
-	WaitForStatusRed = iota
+	// ExpandWildcardsOpen can be used to set ExpandWildcards to "open"
+	ExpandWildcardsOpen = iota
+	// ExpandWildcardsClosed can be used to set ExpandWildcards to "closed"
+	ExpandWildcardsClosed = iota
+	// ExpandWildcardsNone can be used to set ExpandWildcards to "none"
+	ExpandWildcardsNone = iota
+	// ExpandWildcardsAll can be used to set ExpandWildcards to "all"
+	ExpandWildcardsAll = iota
 )
 
 // Option is a non-required API option that gets applied to an HTTP request.
@@ -55,7 +27,16 @@ type Option struct {
 	apply func(r *http.Request)
 }
 
-// WithBody - the index, shard, and primary flag to explain. Empty means 'explain the first unassigned shard'.
+// WithAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
+func WithAllowNoIndices(allowNoIndices bool) *Option {
+	return &Option{
+		name: "WithAllowNoIndices",
+		apply: func(r *http.Request) {
+		},
+	}
+}
+
+// WithBody - the settings to be updated. Can be either "transient" or "persistent" (survives cluster restart).
 func WithBody(body map[string]interface{}) *Option {
 	return &Option{
 		name: "WithBody",
@@ -77,6 +58,15 @@ func WithDryRun(dryRun bool) *Option {
 func WithErrorTrace(errorTrace bool) *Option {
 	return &Option{
 		name: "WithErrorTrace",
+		apply: func(r *http.Request) {
+		},
+	}
+}
+
+// WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+func WithExpandWildcards(expandWildcards ExpandWildcards) *Option {
+	return &Option{
+		name: "WithExpandWildcards",
 		apply: func(r *http.Request) {
 		},
 	}
@@ -118,6 +108,15 @@ func WithHuman(human bool) *Option {
 	}
 }
 
+// WithIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
+func WithIgnoreUnavailable(ignoreUnavailable bool) *Option {
+	return &Option{
+		name: "WithIgnoreUnavailable",
+		apply: func(r *http.Request) {
+		},
+	}
+}
+
 // WithIncludeDefaults - whether to return all default clusters setting.
 func WithIncludeDefaults(includeDefaults bool) *Option {
 	return &Option{
@@ -145,19 +144,10 @@ func WithIncludeYesDecisions(includeYesDecisions bool) *Option {
 	}
 }
 
-// WithIndex - limit the information returned to a specific index.
+// WithIndex - a comma-separated list of index names; use "_all" or empty string to perform the operation on all indices.
 func WithIndex(index []string) *Option {
 	return &Option{
 		name: "WithIndex",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
-// WithLevel - specify the level of detail for returned information.
-func WithLevel(level Level) *Option {
-	return &Option{
-		name: "WithLevel",
 		apply: func(r *http.Request) {
 		},
 	}
@@ -181,7 +171,7 @@ func WithMasterTimeout(masterTimeout time.Time) *Option {
 	}
 }
 
-// WithMetric - limit the information returned to the specified metrics. Defaults to all but metadata.
+// WithMetric - limit the information returned to the specified metrics.
 func WithMetric(metric []string) *Option {
 	return &Option{
 		name: "WithMetric",
@@ -208,15 +198,6 @@ func WithPretty(pretty bool) *Option {
 	}
 }
 
-// WithRetryFailed - retries allocation of shards that are blocked due to too many subsequent allocation failures.
-func WithRetryFailed(retryFailed bool) *Option {
-	return &Option{
-		name: "WithRetryFailed",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
 // WithSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 func WithSourceParam(sourceParam string) *Option {
 	return &Option{
@@ -235,90 +216,18 @@ func WithTimeout(timeout time.Time) *Option {
 	}
 }
 
-// WithWaitForActiveShards - wait until the specified number of shards is active.
-func WithWaitForActiveShards(waitForActiveShards string) *Option {
-	return &Option{
-		name: "WithWaitForActiveShards",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
-// WithWaitForEvents - wait until all currently queued events with the given priority are processed.
-func WithWaitForEvents(waitForEvents WaitForEvents) *Option {
-	return &Option{
-		name: "WithWaitForEvents",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
-// WithWaitForNoRelocatingShards - whether to wait until there are no relocating shards in the cluster.
-func WithWaitForNoRelocatingShards(waitForNoRelocatingShards bool) *Option {
-	return &Option{
-		name: "WithWaitForNoRelocatingShards",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
-// WithWaitForNodes - wait until the specified number of nodes is available.
-func WithWaitForNodes(waitForNodes string) *Option {
-	return &Option{
-		name: "WithWaitForNodes",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
-// WithWaitForStatus - wait until cluster is in a specific state.
-func WithWaitForStatus(waitForStatus WaitForStatus) *Option {
-	return &Option{
-		name: "WithWaitForStatus",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
 var (
 	supportedOptions = map[string]map[string]struct{}{
-		"GetSettings": map[string]struct{}{
-			"WithFlatSettings":    struct{}{},
-			"WithIncludeDefaults": struct{}{},
-			"WithMasterTimeout":   struct{}{},
-			"WithTimeout":         struct{}{},
-			"WithErrorTrace":      struct{}{},
-			"WithFilterPath":      struct{}{},
-			"WithHuman":           struct{}{},
-			"WithPretty":          struct{}{},
-			"WithSourceParam":     struct{}{},
-		},
-		"Health": map[string]struct{}{
-			"WithIndex":                     struct{}{},
-			"WithLevel":                     struct{}{},
-			"WithLocal":                     struct{}{},
-			"WithMasterTimeout":             struct{}{},
-			"WithTimeout":                   struct{}{},
-			"WithWaitForActiveShards":       struct{}{},
-			"WithWaitForEvents":             struct{}{},
-			"WithWaitForNoRelocatingShards": struct{}{},
-			"WithWaitForNodes":              struct{}{},
-			"WithWaitForStatus":             struct{}{},
-			"WithErrorTrace":                struct{}{},
-			"WithFilterPath":                struct{}{},
-			"WithHuman":                     struct{}{},
-			"WithPretty":                    struct{}{},
-			"WithSourceParam":               struct{}{},
-		},
-		"Stats": map[string]struct{}{
-			"WithNodeID":       struct{}{},
-			"WithFlatSettings": struct{}{},
-			"WithTimeout":      struct{}{},
-			"WithErrorTrace":   struct{}{},
-			"WithFilterPath":   struct{}{},
-			"WithHuman":        struct{}{},
-			"WithPretty":       struct{}{},
-			"WithSourceParam":  struct{}{},
+		"PutSettings": map[string]struct{}{
+			"WithFlatSettings":  struct{}{},
+			"WithMasterTimeout": struct{}{},
+			"WithTimeout":       struct{}{},
+			"WithBody":          struct{}{},
+			"WithErrorTrace":    struct{}{},
+			"WithFilterPath":    struct{}{},
+			"WithHuman":         struct{}{},
+			"WithPretty":        struct{}{},
+			"WithSourceParam":   struct{}{},
 		},
 		"State": map[string]struct{}{
 			"WithIndex":             struct{}{},
@@ -345,14 +254,22 @@ var (
 			"WithPretty":              struct{}{},
 			"WithSourceParam":         struct{}{},
 		},
-		"PendingTasks": map[string]struct{}{
-			"WithLocal":         struct{}{},
-			"WithMasterTimeout": struct{}{},
-			"WithErrorTrace":    struct{}{},
-			"WithFilterPath":    struct{}{},
-			"WithHuman":         struct{}{},
-			"WithPretty":        struct{}{},
-			"WithSourceParam":   struct{}{},
+		"Health": map[string]struct{}{
+			"WithIndex":                     struct{}{},
+			"WithLevel":                     struct{}{},
+			"WithLocal":                     struct{}{},
+			"WithMasterTimeout":             struct{}{},
+			"WithTimeout":                   struct{}{},
+			"WithWaitForActiveShards":       struct{}{},
+			"WithWaitForEvents":             struct{}{},
+			"WithWaitForNoRelocatingShards": struct{}{},
+			"WithWaitForNodes":              struct{}{},
+			"WithWaitForStatus":             struct{}{},
+			"WithErrorTrace":                struct{}{},
+			"WithFilterPath":                struct{}{},
+			"WithHuman":                     struct{}{},
+			"WithPretty":                    struct{}{},
+			"WithSourceParam":               struct{}{},
 		},
 		"Reroute": map[string]struct{}{
 			"WithDryRun":        struct{}{},
@@ -368,11 +285,30 @@ var (
 			"WithPretty":        struct{}{},
 			"WithSourceParam":   struct{}{},
 		},
-		"PutSettings": map[string]struct{}{
-			"WithFlatSettings":  struct{}{},
+		"Stats": map[string]struct{}{
+			"WithNodeID":       struct{}{},
+			"WithFlatSettings": struct{}{},
+			"WithTimeout":      struct{}{},
+			"WithErrorTrace":   struct{}{},
+			"WithFilterPath":   struct{}{},
+			"WithHuman":        struct{}{},
+			"WithPretty":       struct{}{},
+			"WithSourceParam":  struct{}{},
+		},
+		"GetSettings": map[string]struct{}{
+			"WithFlatSettings":    struct{}{},
+			"WithIncludeDefaults": struct{}{},
+			"WithMasterTimeout":   struct{}{},
+			"WithTimeout":         struct{}{},
+			"WithErrorTrace":      struct{}{},
+			"WithFilterPath":      struct{}{},
+			"WithHuman":           struct{}{},
+			"WithPretty":          struct{}{},
+			"WithSourceParam":     struct{}{},
+		},
+		"PendingTasks": map[string]struct{}{
+			"WithLocal":         struct{}{},
 			"WithMasterTimeout": struct{}{},
-			"WithTimeout":       struct{}{},
-			"WithBody":          struct{}{},
 			"WithErrorTrace":    struct{}{},
 			"WithFilterPath":    struct{}{},
 			"WithHuman":         struct{}{},

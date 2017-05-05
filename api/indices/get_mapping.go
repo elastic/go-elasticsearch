@@ -32,12 +32,13 @@ func (i *Indices) GetMapping(options ...*Option) (*GetMappingResponse, error) {
 	return &GetMappingResponse{resp}, err
 }
 
-// GetMappingResponse is the response for GetMapping
+// GetMappingResponse is the response for GetMapping.
 type GetMappingResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *GetMappingResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

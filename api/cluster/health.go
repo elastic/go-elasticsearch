@@ -32,12 +32,13 @@ func (c *Cluster) Health(options ...*Option) (*HealthResponse, error) {
 	return &HealthResponse{resp}, err
 }
 
-// HealthResponse is the response for Health
+// HealthResponse is the response for Health.
 type HealthResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *HealthResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

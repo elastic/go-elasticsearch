@@ -32,12 +32,13 @@ func (c *Cat) Fielddata(options ...*Option) (*FielddataResponse, error) {
 	return &FielddataResponse{resp}, err
 }
 
-// FielddataResponse is the response for Fielddata
+// FielddataResponse is the response for Fielddata.
 type FielddataResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *FielddataResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

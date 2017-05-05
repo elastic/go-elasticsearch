@@ -34,12 +34,13 @@ func (i *Indices) ExistsTemplate(name []string, options ...*Option) (*ExistsTemp
 	return &ExistsTemplateResponse{resp}, err
 }
 
-// ExistsTemplateResponse is the response for ExistsTemplate
+// ExistsTemplateResponse is the response for ExistsTemplate.
 type ExistsTemplateResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *ExistsTemplateResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

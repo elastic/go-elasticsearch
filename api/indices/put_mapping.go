@@ -38,12 +38,13 @@ func (i *Indices) PutMapping(index []string, documentType string, body map[strin
 	return &PutMappingResponse{resp}, err
 }
 
-// PutMappingResponse is the response for PutMapping
+// PutMappingResponse is the response for PutMapping.
 type PutMappingResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *PutMappingResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

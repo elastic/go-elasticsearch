@@ -32,12 +32,13 @@ func (i *Indices) Segments(options ...*Option) (*SegmentsResponse, error) {
 	return &SegmentsResponse{resp}, err
 }
 
-// SegmentsResponse is the response for Segments
+// SegmentsResponse is the response for Segments.
 type SegmentsResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *SegmentsResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

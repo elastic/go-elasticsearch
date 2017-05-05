@@ -10,7 +10,7 @@ import (
 	"github.com/elastic/go-elasticsearch/transport"
 )
 
-// PendingTasks - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-pending.html for more info.
+// PendingTasks - the pending cluster tasks API returns a list of any cluster-level changes (e.g. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-pending.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithLocal, WithMasterTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (c *Cluster) PendingTasks(options ...*Option) (*PendingTasksResponse, error) {
@@ -32,12 +32,13 @@ func (c *Cluster) PendingTasks(options ...*Option) (*PendingTasksResponse, error
 	return &PendingTasksResponse{resp}, err
 }
 
-// PendingTasksResponse is the response for PendingTasks
+// PendingTasksResponse is the response for PendingTasks.
 type PendingTasksResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *PendingTasksResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

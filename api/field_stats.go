@@ -10,7 +10,7 @@ import (
 	"github.com/elastic/go-elasticsearch/transport"
 )
 
-// FieldStats - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-field-stats.html for more info.
+// FieldStats - this functionality is experimental and may be changed or removed completely in a future release. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-field-stats.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithFields, WithIgnoreUnavailable, WithLevel, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (a *API) FieldStats(options ...*Option) (*FieldStatsResponse, error) {
@@ -32,12 +32,13 @@ func (a *API) FieldStats(options ...*Option) (*FieldStatsResponse, error) {
 	return &FieldStatsResponse{resp}, err
 }
 
-// FieldStatsResponse is the response for FieldStats
+// FieldStatsResponse is the response for FieldStats.
 type FieldStatsResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *FieldStatsResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

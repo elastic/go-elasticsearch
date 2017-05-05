@@ -32,12 +32,13 @@ func (a *API) Count(options ...*Option) (*CountResponse, error) {
 	return &CountResponse{resp}, err
 }
 
-// CountResponse is the response for Count
+// CountResponse is the response for Count.
 type CountResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *CountResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

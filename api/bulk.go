@@ -34,12 +34,13 @@ func (a *API) Bulk(body map[string]interface{}, options ...*Option) (*BulkRespon
 	return &BulkResponse{resp}, err
 }
 
-// BulkResponse is the response for Bulk
+// BulkResponse is the response for Bulk.
 type BulkResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *BulkResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

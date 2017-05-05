@@ -32,12 +32,13 @@ func (c *Cluster) PutSettings(options ...*Option) (*PutSettingsResponse, error) 
 	return &PutSettingsResponse{resp}, err
 }
 
-// PutSettingsResponse is the response for PutSettings
+// PutSettingsResponse is the response for PutSettings.
 type PutSettingsResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *PutSettingsResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

@@ -34,12 +34,13 @@ func (i *Indices) Exists(index []string, options ...*Option) (*ExistsResponse, e
 	return &ExistsResponse{resp}, err
 }
 
-// ExistsResponse is the response for Exists
+// ExistsResponse is the response for Exists.
 type ExistsResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *ExistsResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

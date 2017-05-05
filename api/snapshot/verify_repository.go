@@ -34,12 +34,13 @@ func (s *Snapshot) VerifyRepository(repository string, options ...*Option) (*Ver
 	return &VerifyRepositoryResponse{resp}, err
 }
 
-// VerifyRepositoryResponse is the response for VerifyRepository
+// VerifyRepositoryResponse is the response for VerifyRepository.
 type VerifyRepositoryResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *VerifyRepositoryResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

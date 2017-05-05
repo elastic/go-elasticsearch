@@ -38,12 +38,13 @@ func (a *API) Explain(index string, documentType string, id string, options ...*
 	return &ExplainResponse{resp}, err
 }
 
-// ExplainResponse is the response for Explain
+// ExplainResponse is the response for Explain.
 type ExplainResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *ExplainResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

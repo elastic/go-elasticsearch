@@ -34,12 +34,13 @@ func (i *Indices) ExistsAlias(name []string, options ...*Option) (*ExistsAliasRe
 	return &ExistsAliasResponse{resp}, err
 }
 
-// ExistsAliasResponse is the response for ExistsAlias
+// ExistsAliasResponse is the response for ExistsAlias.
 type ExistsAliasResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *ExistsAliasResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

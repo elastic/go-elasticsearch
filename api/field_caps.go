@@ -32,12 +32,13 @@ func (a *API) FieldCaps(options ...*Option) (*FieldCapsResponse, error) {
 	return &FieldCapsResponse{resp}, err
 }
 
-// FieldCapsResponse is the response for FieldCaps
+// FieldCapsResponse is the response for FieldCaps.
 type FieldCapsResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *FieldCapsResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

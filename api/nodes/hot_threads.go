@@ -32,12 +32,13 @@ func (n *Nodes) HotThreads(options ...*Option) (*HotThreadsResponse, error) {
 	return &HotThreadsResponse{resp}, err
 }
 
-// HotThreadsResponse is the response for HotThreads
+// HotThreadsResponse is the response for HotThreads.
 type HotThreadsResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *HotThreadsResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

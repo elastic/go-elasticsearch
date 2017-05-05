@@ -36,12 +36,13 @@ func (i *Indices) PutAlias(index []string, name string, options ...*Option) (*Pu
 	return &PutAliasResponse{resp}, err
 }
 
-// PutAliasResponse is the response for PutAlias
+// PutAliasResponse is the response for PutAlias.
 type PutAliasResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *PutAliasResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

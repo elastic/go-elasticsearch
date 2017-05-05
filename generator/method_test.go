@@ -46,6 +46,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Index adds or updates a typed JSON document in a specific index, making it searchable. See http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html for more info.

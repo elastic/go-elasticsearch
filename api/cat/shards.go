@@ -32,12 +32,13 @@ func (c *Cat) Shards(options ...*Option) (*ShardsResponse, error) {
 	return &ShardsResponse{resp}, err
 }
 
-// ShardsResponse is the response for Shards
+// ShardsResponse is the response for Shards.
 type ShardsResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *ShardsResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

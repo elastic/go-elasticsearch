@@ -36,12 +36,13 @@ func (a *API) Percolate(index string, documentType string, options ...*Option) (
 	return &PercolateResponse{resp}, err
 }
 
-// PercolateResponse is the response for Percolate
+// PercolateResponse is the response for Percolate.
 type PercolateResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *PercolateResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

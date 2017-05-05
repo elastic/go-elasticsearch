@@ -32,12 +32,13 @@ func (c *Cat) Master(options ...*Option) (*MasterResponse, error) {
 	return &MasterResponse{resp}, err
 }
 
-// MasterResponse is the response for Master
+// MasterResponse is the response for Master.
 type MasterResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *MasterResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

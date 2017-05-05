@@ -34,12 +34,13 @@ func (a *API) UpdateByQuery(index []string, options ...*Option) (*UpdateByQueryR
 	return &UpdateByQueryResponse{resp}, err
 }
 
-// UpdateByQueryResponse is the response for UpdateByQuery
+// UpdateByQueryResponse is the response for UpdateByQuery.
 type UpdateByQueryResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *UpdateByQueryResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

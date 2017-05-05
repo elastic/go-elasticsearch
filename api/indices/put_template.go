@@ -36,12 +36,13 @@ func (i *Indices) PutTemplate(name string, body map[string]interface{}, options 
 	return &PutTemplateResponse{resp}, err
 }
 
-// PutTemplateResponse is the response for PutTemplate
+// PutTemplateResponse is the response for PutTemplate.
 type PutTemplateResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *PutTemplateResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

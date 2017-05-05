@@ -32,12 +32,13 @@ func (i *Indices) Upgrade(options ...*Option) (*UpgradeResponse, error) {
 	return &UpgradeResponse{resp}, err
 }
 
-// UpgradeResponse is the response for Upgrade
+// UpgradeResponse is the response for Upgrade.
 type UpgradeResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *UpgradeResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

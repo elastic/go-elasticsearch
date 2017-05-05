@@ -10,7 +10,7 @@ import (
 	"github.com/elastic/go-elasticsearch/transport"
 )
 
-// Create - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-index_.html for more info.
+// Create - the index API adds or updates a typed JSON document in a specific index, making it searchable. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-index_.html for more info.
 //
 // index: the name of the index.
 //
@@ -40,12 +40,13 @@ func (a *API) Create(index string, documentType string, id string, body map[stri
 	return &CreateResponse{resp}, err
 }
 
-// CreateResponse is the response for Create
+// CreateResponse is the response for Create.
 type CreateResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *CreateResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

@@ -34,12 +34,13 @@ func (i *Indices) Delete(index []string, options ...*Option) (*DeleteResponse, e
 	return &DeleteResponse{resp}, err
 }
 
-// DeleteResponse is the response for Delete
+// DeleteResponse is the response for Delete.
 type DeleteResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *DeleteResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

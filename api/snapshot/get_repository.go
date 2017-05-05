@@ -32,12 +32,13 @@ func (s *Snapshot) GetRepository(options ...*Option) (*GetRepositoryResponse, er
 	return &GetRepositoryResponse{resp}, err
 }
 
-// GetRepositoryResponse is the response for GetRepository
+// GetRepositoryResponse is the response for GetRepository.
 type GetRepositoryResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *GetRepositoryResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

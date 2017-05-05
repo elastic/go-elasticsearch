@@ -34,12 +34,13 @@ func (s *Snapshot) DeleteRepository(repository []string, options ...*Option) (*D
 	return &DeleteRepositoryResponse{resp}, err
 }
 
-// DeleteRepositoryResponse is the response for DeleteRepository
+// DeleteRepositoryResponse is the response for DeleteRepository.
 type DeleteRepositoryResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *DeleteRepositoryResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

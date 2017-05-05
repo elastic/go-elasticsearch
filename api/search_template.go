@@ -32,12 +32,13 @@ func (a *API) SearchTemplate(options ...*Option) (*SearchTemplateResponse, error
 	return &SearchTemplateResponse{resp}, err
 }
 
-// SearchTemplateResponse is the response for SearchTemplate
+// SearchTemplateResponse is the response for SearchTemplate.
 type SearchTemplateResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *SearchTemplateResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

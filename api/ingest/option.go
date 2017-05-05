@@ -40,7 +40,7 @@ func WithHuman(human bool) *Option {
 	}
 }
 
-// WithID - pipeline ID.
+// WithID - comma separated list of pipeline ids. Wildcards supported.
 func WithID(id string) *Option {
 	return &Option{
 		name: "WithID",
@@ -85,29 +85,11 @@ func WithTimeout(timeout time.Time) *Option {
 	}
 }
 
-// WithVerbose - verbose mode. Display data output for each processor in executed pipeline.
-func WithVerbose(verbose bool) *Option {
-	return &Option{
-		name: "WithVerbose",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
 var (
 	supportedOptions = map[string]map[string]struct{}{
-		"Simulate": map[string]struct{}{
-			"WithID":          struct{}{},
-			"WithVerbose":     struct{}{},
-			"WithErrorTrace":  struct{}{},
-			"WithFilterPath":  struct{}{},
-			"WithHuman":       struct{}{},
-			"WithPretty":      struct{}{},
-			"WithSourceParam": struct{}{},
-		},
-		"DeletePipeline": map[string]struct{}{
+		"GetPipeline": map[string]struct{}{
+			"WithID":            struct{}{},
 			"WithMasterTimeout": struct{}{},
-			"WithTimeout":       struct{}{},
 			"WithErrorTrace":    struct{}{},
 			"WithFilterPath":    struct{}{},
 			"WithHuman":         struct{}{},
@@ -123,9 +105,18 @@ var (
 			"WithPretty":        struct{}{},
 			"WithSourceParam":   struct{}{},
 		},
-		"GetPipeline": map[string]struct{}{
-			"WithID":            struct{}{},
+		"Simulate": map[string]struct{}{
+			"WithID":          struct{}{},
+			"WithVerbose":     struct{}{},
+			"WithErrorTrace":  struct{}{},
+			"WithFilterPath":  struct{}{},
+			"WithHuman":       struct{}{},
+			"WithPretty":      struct{}{},
+			"WithSourceParam": struct{}{},
+		},
+		"DeletePipeline": map[string]struct{}{
 			"WithMasterTimeout": struct{}{},
+			"WithTimeout":       struct{}{},
 			"WithErrorTrace":    struct{}{},
 			"WithFilterPath":    struct{}{},
 			"WithHuman":         struct{}{},

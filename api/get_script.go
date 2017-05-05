@@ -34,12 +34,13 @@ func (a *API) GetScript(lang string, options ...*Option) (*GetScriptResponse, er
 	return &GetScriptResponse{resp}, err
 }
 
-// GetScriptResponse is the response for GetScript
+// GetScriptResponse is the response for GetScript.
 type GetScriptResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *GetScriptResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

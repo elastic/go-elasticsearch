@@ -36,12 +36,13 @@ func (a *API) SearchShards(index []string, documentType []string, options ...*Op
 	return &SearchShardsResponse{resp}, err
 }
 
-// SearchShardsResponse is the response for SearchShards
+// SearchShardsResponse is the response for SearchShards.
 type SearchShardsResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *SearchShardsResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

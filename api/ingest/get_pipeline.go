@@ -34,12 +34,13 @@ func (i *Ingest) GetPipeline(id string, options ...*Option) (*GetPipelineRespons
 	return &GetPipelineResponse{resp}, err
 }
 
-// GetPipelineResponse is the response for GetPipeline
+// GetPipelineResponse is the response for GetPipeline.
 type GetPipelineResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *GetPipelineResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

@@ -32,12 +32,13 @@ func (c *Cat) Repositories(options ...*Option) (*RepositoriesResponse, error) {
 	return &RepositoriesResponse{resp}, err
 }
 
-// RepositoriesResponse is the response for Repositories
+// RepositoriesResponse is the response for Repositories.
 type RepositoriesResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *RepositoriesResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

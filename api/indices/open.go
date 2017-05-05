@@ -34,12 +34,13 @@ func (i *Indices) Open(index []string, options ...*Option) (*OpenResponse, error
 	return &OpenResponse{resp}, err
 }
 
-// OpenResponse is the response for Open
+// OpenResponse is the response for Open.
 type OpenResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *OpenResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

@@ -41,6 +41,7 @@ import (
 const (
 	// DefaultSpecDir is the dir holding the specs for the APIs and their tests.
 	DefaultSpecDir = "rest-api-spec"
+	bodyParam      = "body"
 )
 
 type specURL struct {
@@ -105,9 +106,11 @@ type method struct {
 	OptionalURLParts  []*param
 	RequiredURLParams []*param
 	OptionalURLParams []*param
+	commonParams      map[string]*param
 	allParams         map[string]*param
 	ParamsWithValues  []*param
 	HTTPCache         map[string]io.ReadCloser
+	ignore            []int
 }
 
 func newMethod(specDir, specFileName string, commonParams map[string]*param) (*method, error) {
@@ -120,6 +123,7 @@ func newMethod(specDir, specFileName string, commonParams map[string]*param) (*m
 		OptionalURLParts:  []*param{},
 		RequiredURLParams: []*param{},
 		OptionalURLParams: []*param{},
+		commonParams:      commonParams,
 		allParams:         map[string]*param{},
 		HTTPCache:         map[string]io.ReadCloser{},
 	}
@@ -152,7 +156,7 @@ func newMethod(specDir, specFileName string, commonParams map[string]*param) (*m
 		if m.Spec.Body.SpecType == "" {
 			m.Spec.Body.SpecType = specTypeDict
 		}
-		if err = m.Spec.Body.resolve("body"); err != nil {
+		if err = m.Spec.Body.resolve(bodyParam); err != nil {
 			return nil, err
 		}
 	}
@@ -380,7 +384,12 @@ func (m *method) clone() (*method, error) {
 		OptionalURLParts:  []*param{},
 		RequiredURLParams: []*param{},
 		OptionalURLParams: []*param{},
+		commonParams:      map[string]*param{},
 		HTTPCache:         map[string]io.ReadCloser{},
+		ignore:            []int{},
+	}
+	for name, p := range m.commonParams {
+		c.commonParams[name] = p.clone()
 	}
 	for _, p := range m.RequiredURLParts {
 		up, ok := c.Spec.URL.Parts[p.rawName]
@@ -390,7 +399,7 @@ func (m *method) clone() (*method, error) {
 		c.RequiredURLParts = append(c.RequiredURLParts, up)
 	}
 	for _, p := range m.RequiredURLParams {
-		if p.rawName == "body" {
+		if p.rawName == bodyParam {
 			c.RequiredURLParams = append(c.RequiredURLParams, c.Spec.Body)
 			continue
 		}
@@ -400,17 +409,24 @@ func (m *method) clone() (*method, error) {
 		}
 		c.RequiredURLParams = append(c.RequiredURLParams, up)
 	}
-	// TODO: we're assuming the ones we fail to find are common params, we should either include these or find a more
-	// robust way to verify that's the actual reason the lookup is failing.
 	for _, p := range m.OptionalURLParts {
-		if up, ok := c.Spec.URL.Parts[p.rawName]; ok {
-			c.OptionalURLParts = append(c.OptionalURLParts, up)
+		up, ok := c.Spec.URL.Parts[p.rawName]
+		if !ok {
+			return nil, fmt.Errorf("invalid optional part name while cloning %s: %s", m.rawName, p.rawName)
 		}
+		c.OptionalURLParts = append(c.OptionalURLParts, up)
 	}
 	for _, p := range m.OptionalURLParams {
-		if up, ok := c.Spec.URL.Params[p.rawName]; ok {
-			c.OptionalURLParams = append(c.OptionalURLParams, up)
+		var up *param
+		var ok bool
+		if up, ok = c.Spec.URL.Params[p.rawName]; !ok {
+			if p.rawName == bodyParam {
+				up = m.Spec.Body
+			} else if up, ok = c.commonParams[p.rawName]; !ok {
+				return nil, fmt.Errorf("invalid optional parameter name while cloning %s: %s", m.rawName, p.rawName)
+			}
 		}
+		c.OptionalURLParams = append(c.OptionalURLParams, up)
 	}
 	return c, nil
 }
@@ -424,12 +440,30 @@ func (m *method) call(args map[string]interface{}) (*method, error) {
 	for name, value := range args {
 		var p *param
 		var ok bool
-		if name == "body" && c.Spec.Body != nil {
+		if name == bodyParam && c.Spec.Body != nil {
 			p = c.Spec.Body
 		} else if p, ok = c.Spec.URL.Parts[name]; !ok {
-			p, ok = c.Spec.URL.Params[name]
-			if !ok {
-				return nil, fmt.Errorf("invalid param name: %s", name)
+			if p, ok = c.Spec.URL.Params[name]; !ok {
+				if p, ok = c.commonParams[name]; !ok {
+					if name == "ignore" {
+						if values, ok := value.([]interface{}); ok {
+							for _, v := range values {
+								status, ok := v.(int)
+								if !ok {
+									return nil, fmt.Errorf("unexpected type for %q value: %T (expected int)", name, v)
+								}
+								c.ignore = append(c.ignore, status)
+							}
+						} else {
+							status, ok := value.(int)
+							if !ok {
+								return nil, fmt.Errorf("unexpected type for %q value: %T (expected int)", name, value)
+							}
+							c.ignore = append(c.ignore, status)
+						}
+					}
+					continue
+				}
 			}
 		}
 		p.Value = value

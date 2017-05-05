@@ -32,12 +32,13 @@ func (t *Tasks) List(options ...*Option) (*ListResponse, error) {
 	return &ListResponse{resp}, err
 }
 
-// ListResponse is the response for List
+// ListResponse is the response for List.
 type ListResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *ListResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

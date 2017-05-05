@@ -32,12 +32,13 @@ func (c *Cluster) Reroute(options ...*Option) (*RerouteResponse, error) {
 	return &RerouteResponse{resp}, err
 }
 
-// RerouteResponse is the response for Reroute
+// RerouteResponse is the response for Reroute.
 type RerouteResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *RerouteResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

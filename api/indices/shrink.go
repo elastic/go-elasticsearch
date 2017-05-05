@@ -36,12 +36,13 @@ func (i *Indices) Shrink(index string, target string, options ...*Option) (*Shri
 	return &ShrinkResponse{resp}, err
 }
 
-// ShrinkResponse is the response for Shrink
+// ShrinkResponse is the response for Shrink.
 type ShrinkResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *ShrinkResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

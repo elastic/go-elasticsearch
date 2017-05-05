@@ -32,12 +32,13 @@ func (a *API) Mtermvectors(options ...*Option) (*MtermvectorsResponse, error) {
 	return &MtermvectorsResponse{resp}, err
 }
 
-// MtermvectorsResponse is the response for Mtermvectors
+// MtermvectorsResponse is the response for Mtermvectors.
 type MtermvectorsResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *MtermvectorsResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

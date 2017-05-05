@@ -32,12 +32,13 @@ func (i *Indices) Stats(options ...*Option) (*StatsResponse, error) {
 	return &StatsResponse{resp}, err
 }
 
-// StatsResponse is the response for Stats
+// StatsResponse is the response for Stats.
 type StatsResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *StatsResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

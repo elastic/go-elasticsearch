@@ -32,12 +32,13 @@ func (a *API) RenderSearchTemplate(options ...*Option) (*RenderSearchTemplateRes
 	return &RenderSearchTemplateResponse{resp}, err
 }
 
-// RenderSearchTemplateResponse is the response for RenderSearchTemplate
+// RenderSearchTemplateResponse is the response for RenderSearchTemplate.
 type RenderSearchTemplateResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *RenderSearchTemplateResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

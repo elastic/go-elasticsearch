@@ -34,12 +34,13 @@ func (i *Indices) UpdateAliases(body map[string]interface{}, options ...*Option)
 	return &UpdateAliasesResponse{resp}, err
 }
 
-// UpdateAliasesResponse is the response for UpdateAliases
+// UpdateAliasesResponse is the response for UpdateAliases.
 type UpdateAliasesResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *UpdateAliasesResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

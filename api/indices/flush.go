@@ -32,12 +32,13 @@ func (i *Indices) Flush(options ...*Option) (*FlushResponse, error) {
 	return &FlushResponse{resp}, err
 }
 
-// FlushResponse is the response for Flush
+// FlushResponse is the response for Flush.
 type FlushResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *FlushResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

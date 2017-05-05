@@ -34,12 +34,13 @@ func (i *Indices) GetFieldMapping(fields []string, options ...*Option) (*GetFiel
 	return &GetFieldMappingResponse{resp}, err
 }
 
-// GetFieldMappingResponse is the response for GetFieldMapping
+// GetFieldMappingResponse is the response for GetFieldMapping.
 type GetFieldMappingResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *GetFieldMappingResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

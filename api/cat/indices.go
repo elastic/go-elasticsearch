@@ -32,12 +32,13 @@ func (c *Cat) Indices(options ...*Option) (*IndicesResponse, error) {
 	return &IndicesResponse{resp}, err
 }
 
-// IndicesResponse is the response for Indices
+// IndicesResponse is the response for Indices.
 type IndicesResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *IndicesResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

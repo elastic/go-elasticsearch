@@ -34,12 +34,13 @@ func (a *API) Msearch(body map[string]interface{}, options ...*Option) (*Msearch
 	return &MsearchResponse{resp}, err
 }
 
-// MsearchResponse is the response for Msearch
+// MsearchResponse is the response for Msearch.
 type MsearchResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *MsearchResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

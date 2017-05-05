@@ -34,12 +34,13 @@ func (a *API) DeleteTemplate(id string, options ...*Option) (*DeleteTemplateResp
 	return &DeleteTemplateResponse{resp}, err
 }
 
-// DeleteTemplateResponse is the response for DeleteTemplate
+// DeleteTemplateResponse is the response for DeleteTemplate.
 type DeleteTemplateResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *DeleteTemplateResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

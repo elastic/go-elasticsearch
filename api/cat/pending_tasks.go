@@ -32,12 +32,13 @@ func (c *Cat) PendingTasks(options ...*Option) (*PendingTasksResponse, error) {
 	return &PendingTasksResponse{resp}, err
 }
 
-// PendingTasksResponse is the response for PendingTasks
+// PendingTasksResponse is the response for PendingTasks.
 type PendingTasksResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *PendingTasksResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

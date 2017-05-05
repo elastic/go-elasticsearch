@@ -34,12 +34,13 @@ func (a *API) Mget(body map[string]interface{}, options ...*Option) (*MgetRespon
 	return &MgetResponse{resp}, err
 }
 
-// MgetResponse is the response for Mget
+// MgetResponse is the response for Mget.
 type MgetResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *MgetResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

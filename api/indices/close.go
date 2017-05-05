@@ -34,12 +34,13 @@ func (i *Indices) Close(index []string, options ...*Option) (*CloseResponse, err
 	return &CloseResponse{resp}, err
 }
 
-// CloseResponse is the response for Close
+// CloseResponse is the response for Close.
 type CloseResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *CloseResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

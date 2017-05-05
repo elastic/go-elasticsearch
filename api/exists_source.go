@@ -38,12 +38,13 @@ func (a *API) ExistsSource(index string, documentType string, id string, options
 	return &ExistsSourceResponse{resp}, err
 }
 
-// ExistsSourceResponse is the response for ExistsSource
+// ExistsSourceResponse is the response for ExistsSource.
 type ExistsSourceResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *ExistsSourceResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

@@ -34,12 +34,13 @@ func (a *API) DeleteScript(lang string, options ...*Option) (*DeleteScriptRespon
 	return &DeleteScriptResponse{resp}, err
 }
 
-// DeleteScriptResponse is the response for DeleteScript
+// DeleteScriptResponse is the response for DeleteScript.
 type DeleteScriptResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *DeleteScriptResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

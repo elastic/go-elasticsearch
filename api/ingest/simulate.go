@@ -34,12 +34,13 @@ func (i *Ingest) Simulate(body map[string]interface{}, options ...*Option) (*Sim
 	return &SimulateResponse{resp}, err
 }
 
-// SimulateResponse is the response for Simulate
+// SimulateResponse is the response for Simulate.
 type SimulateResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *SimulateResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

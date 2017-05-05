@@ -32,12 +32,13 @@ func (t *Tasks) Cancel(options ...*Option) (*CancelResponse, error) {
 	return &CancelResponse{resp}, err
 }
 
-// CancelResponse is the response for Cancel
+// CancelResponse is the response for Cancel.
 type CancelResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *CancelResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

@@ -32,12 +32,13 @@ func (c *Cluster) AllocationExplain(options ...*Option) (*AllocationExplainRespo
 	return &AllocationExplainResponse{resp}, err
 }
 
-// AllocationExplainResponse is the response for AllocationExplain
+// AllocationExplainResponse is the response for AllocationExplain.
 type AllocationExplainResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *AllocationExplainResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

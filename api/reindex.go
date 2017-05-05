@@ -34,12 +34,13 @@ func (a *API) Reindex(body map[string]interface{}, options ...*Option) (*Reindex
 	return &ReindexResponse{resp}, err
 }
 
-// ReindexResponse is the response for Reindex
+// ReindexResponse is the response for Reindex.
 type ReindexResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *ReindexResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

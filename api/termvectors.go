@@ -36,12 +36,13 @@ func (a *API) Termvectors(index string, documentType string, options ...*Option)
 	return &TermvectorsResponse{resp}, err
 }
 
-// TermvectorsResponse is the response for Termvectors
+// TermvectorsResponse is the response for Termvectors.
 type TermvectorsResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *TermvectorsResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

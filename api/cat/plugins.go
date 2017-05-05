@@ -32,12 +32,13 @@ func (c *Cat) Plugins(options ...*Option) (*PluginsResponse, error) {
 	return &PluginsResponse{resp}, err
 }
 
-// PluginsResponse is the response for Plugins
+// PluginsResponse is the response for Plugins.
 type PluginsResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *PluginsResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

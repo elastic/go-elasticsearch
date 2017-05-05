@@ -32,12 +32,13 @@ func (c *Cat) Templates(options ...*Option) (*TemplatesResponse, error) {
 	return &TemplatesResponse{resp}, err
 }
 
-// TemplatesResponse is the response for Templates
+// TemplatesResponse is the response for Templates.
 type TemplatesResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *TemplatesResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

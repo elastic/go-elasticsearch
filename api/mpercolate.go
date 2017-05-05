@@ -34,12 +34,13 @@ func (a *API) Mpercolate(body map[string]interface{}, options ...*Option) (*Mper
 	return &MpercolateResponse{resp}, err
 }
 
-// MpercolateResponse is the response for Mpercolate
+// MpercolateResponse is the response for Mpercolate.
 type MpercolateResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *MpercolateResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

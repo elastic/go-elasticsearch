@@ -38,12 +38,13 @@ func (a *API) GetSource(index string, documentType string, id string, options ..
 	return &GetSourceResponse{resp}, err
 }
 
-// GetSourceResponse is the response for GetSource
+// GetSourceResponse is the response for GetSource.
 type GetSourceResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *GetSourceResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

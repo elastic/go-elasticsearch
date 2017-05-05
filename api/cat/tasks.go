@@ -32,12 +32,13 @@ func (c *Cat) Tasks(options ...*Option) (*TasksResponse, error) {
 	return &TasksResponse{resp}, err
 }
 
-// TasksResponse is the response for Tasks
+// TasksResponse is the response for Tasks.
 type TasksResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *TasksResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

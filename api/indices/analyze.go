@@ -32,12 +32,13 @@ func (i *Indices) Analyze(options ...*Option) (*AnalyzeResponse, error) {
 	return &AnalyzeResponse{resp}, err
 }
 
-// AnalyzeResponse is the response for Analyze
+// AnalyzeResponse is the response for Analyze.
 type AnalyzeResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *AnalyzeResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

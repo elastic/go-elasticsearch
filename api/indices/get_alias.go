@@ -32,12 +32,13 @@ func (i *Indices) GetAlias(options ...*Option) (*GetAliasResponse, error) {
 	return &GetAliasResponse{resp}, err
 }
 
-// GetAliasResponse is the response for GetAlias
+// GetAliasResponse is the response for GetAlias.
 type GetAliasResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *GetAliasResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

@@ -32,12 +32,13 @@ func (c *Cat) Nodeattrs(options ...*Option) (*NodeattrsResponse, error) {
 	return &NodeattrsResponse{resp}, err
 }
 
-// NodeattrsResponse is the response for Nodeattrs
+// NodeattrsResponse is the response for Nodeattrs.
 type NodeattrsResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *NodeattrsResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

@@ -34,12 +34,13 @@ func (i *Indices) GetTemplate(name []string, options ...*Option) (*GetTemplateRe
 	return &GetTemplateResponse{resp}, err
 }
 
-// GetTemplateResponse is the response for GetTemplate
+// GetTemplateResponse is the response for GetTemplate.
 type GetTemplateResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *GetTemplateResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

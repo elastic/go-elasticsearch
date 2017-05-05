@@ -38,12 +38,13 @@ func (a *API) Update(index string, documentType string, id string, options ...*O
 	return &UpdateResponse{resp}, err
 }
 
-// UpdateResponse is the response for Update
+// UpdateResponse is the response for Update.
 type UpdateResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *UpdateResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

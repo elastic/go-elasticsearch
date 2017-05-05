@@ -36,12 +36,13 @@ func (i *Ingest) PutPipeline(id string, body map[string]interface{}, options ...
 	return &PutPipelineResponse{resp}, err
 }
 
-// PutPipelineResponse is the response for PutPipeline
+// PutPipelineResponse is the response for PutPipeline.
 type PutPipelineResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *PutPipelineResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

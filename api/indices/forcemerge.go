@@ -32,12 +32,13 @@ func (i *Indices) Forcemerge(options ...*Option) (*ForcemergeResponse, error) {
 	return &ForcemergeResponse{resp}, err
 }
 
-// ForcemergeResponse is the response for Forcemerge
+// ForcemergeResponse is the response for Forcemerge.
 type ForcemergeResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *ForcemergeResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

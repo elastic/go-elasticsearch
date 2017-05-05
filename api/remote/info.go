@@ -32,12 +32,13 @@ func (r *Remote) Info(options ...*Option) (*InfoResponse, error) {
 	return &InfoResponse{resp}, err
 }
 
-// InfoResponse is the response for Info
+// InfoResponse is the response for Info.
 type InfoResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *InfoResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

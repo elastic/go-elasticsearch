@@ -36,12 +36,13 @@ func (a *API) DeleteByQuery(index []string, body map[string]interface{}, options
 	return &DeleteByQueryResponse{resp}, err
 }
 
-// DeleteByQueryResponse is the response for DeleteByQuery
+// DeleteByQueryResponse is the response for DeleteByQuery.
 type DeleteByQueryResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *DeleteByQueryResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

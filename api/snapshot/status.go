@@ -32,12 +32,13 @@ func (s *Snapshot) Status(options ...*Option) (*StatusResponse, error) {
 	return &StatusResponse{resp}, err
 }
 
-// StatusResponse is the response for Status
+// StatusResponse is the response for Status.
 type StatusResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *StatusResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

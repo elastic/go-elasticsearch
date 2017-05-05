@@ -19,31 +19,10 @@ const (
 	DocumentTypeBlock = iota
 )
 
-// Level - return indices stats aggregated at index, node or shard level.
-type Level int
-
-const (
-	// LevelIndices can be used to set Level to "indices"
-	LevelIndices = iota
-	// LevelNode can be used to set Level to "node"
-	LevelNode = iota
-	// LevelShards can be used to set Level to "shards"
-	LevelShards = iota
-)
-
 // Option is a non-required API option that gets applied to an HTTP request.
 type Option struct {
 	name  string
 	apply func(r *http.Request)
-}
-
-// WithCompletionFields - a comma-separated list of fields for "fielddata" and "suggest" index metric (supports wildcards).
-func WithCompletionFields(completionFields []string) *Option {
-	return &Option{
-		name: "WithCompletionFields",
-		apply: func(r *http.Request) {
-		},
-	}
 }
 
 // WithType - the type to sample (default: cpu).
@@ -64,24 +43,6 @@ func WithErrorTrace(errorTrace bool) *Option {
 	}
 }
 
-// WithFielddataFields - a comma-separated list of fields for "fielddata" index metric (supports wildcards).
-func WithFielddataFields(fielddataFields []string) *Option {
-	return &Option{
-		name: "WithFielddataFields",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
-// WithFields - a comma-separated list of fields for "fielddata" and "completion" index metric (supports wildcards).
-func WithFields(fields []string) *Option {
-	return &Option{
-		name: "WithFields",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
 // WithFilterPath - a comma-separated list of filters used to reduce the respone.
 func WithFilterPath(filterPath []string) *Option {
 	return &Option{
@@ -91,10 +52,10 @@ func WithFilterPath(filterPath []string) *Option {
 	}
 }
 
-// WithGroups - a comma-separated list of search groups for "search" index metric.
-func WithGroups(groups bool) *Option {
+// WithFlatSettings - return settings in flat format (default: false).
+func WithFlatSettings(flatSettings bool) *Option {
 	return &Option{
-		name: "WithGroups",
+		name: "WithFlatSettings",
 		apply: func(r *http.Request) {
 		},
 	}
@@ -118,15 +79,6 @@ func WithIgnoreIdleThreads(ignoreIdleThreads bool) *Option {
 	}
 }
 
-// WithIncludeSegmentFileSizes - whether to report the aggregated disk usage of each one of the Lucene index files (only applies if segment stats are requested).
-func WithIncludeSegmentFileSizes(includeSegmentFileSizes bool) *Option {
-	return &Option{
-		name: "WithIncludeSegmentFileSizes",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
 // WithIndexMetric - limit the information returned for "indices" metric to the specific index metrics. Isn't used if "indices" (or "all") metric isn't specified.
 func WithIndexMetric(indexMetric []string) *Option {
 	return &Option{
@@ -145,16 +97,7 @@ func WithInterval(interval time.Time) *Option {
 	}
 }
 
-// WithLevel - return indices stats aggregated at index, node or shard level.
-func WithLevel(level Level) *Option {
-	return &Option{
-		name: "WithLevel",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
-// WithMetric - limit the information returned to the specified metrics.
+// WithMetric - a comma-separated list of metrics you wish returned. Leave empty to return all.
 func WithMetric(metric []string) *Option {
 	return &Option{
 		name: "WithMetric",
@@ -217,17 +160,19 @@ func WithTimeout(timeout time.Time) *Option {
 	}
 }
 
-// WithTypes - a comma-separated list of document types for the "indexing" index metric.
-func WithTypes(types []string) *Option {
-	return &Option{
-		name: "WithTypes",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
 var (
 	supportedOptions = map[string]map[string]struct{}{
+		"Info": map[string]struct{}{
+			"WithMetric":       struct{}{},
+			"WithNodeID":       struct{}{},
+			"WithFlatSettings": struct{}{},
+			"WithTimeout":      struct{}{},
+			"WithErrorTrace":   struct{}{},
+			"WithFilterPath":   struct{}{},
+			"WithHuman":        struct{}{},
+			"WithPretty":       struct{}{},
+			"WithSourceParam":  struct{}{},
+		},
 		"Stats": map[string]struct{}{
 			"WithIndexMetric":             struct{}{},
 			"WithMetric":                  struct{}{},
@@ -245,17 +190,6 @@ var (
 			"WithHuman":                   struct{}{},
 			"WithPretty":                  struct{}{},
 			"WithSourceParam":             struct{}{},
-		},
-		"Info": map[string]struct{}{
-			"WithMetric":       struct{}{},
-			"WithNodeID":       struct{}{},
-			"WithFlatSettings": struct{}{},
-			"WithTimeout":      struct{}{},
-			"WithErrorTrace":   struct{}{},
-			"WithFilterPath":   struct{}{},
-			"WithHuman":        struct{}{},
-			"WithPretty":       struct{}{},
-			"WithSourceParam":  struct{}{},
 		},
 		"HotThreads": map[string]struct{}{
 			"WithNodeID":            struct{}{},

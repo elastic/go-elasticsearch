@@ -32,12 +32,13 @@ func (i *Indices) FlushSynced(options ...*Option) (*FlushSyncedResponse, error) 
 	return &FlushSyncedResponse{resp}, err
 }
 
-// FlushSyncedResponse is the response for FlushSynced
+// FlushSyncedResponse is the response for FlushSynced.
 type FlushSyncedResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *FlushSyncedResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

@@ -36,12 +36,13 @@ func (s *Snapshot) Restore(repository string, snapshot string, options ...*Optio
 	return &RestoreResponse{resp}, err
 }
 
-// RestoreResponse is the response for Restore
+// RestoreResponse is the response for Restore.
 type RestoreResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *RestoreResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

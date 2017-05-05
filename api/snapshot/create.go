@@ -36,12 +36,13 @@ func (s *Snapshot) Create(repository string, snapshot string, options ...*Option
 	return &CreateResponse{resp}, err
 }
 
-// CreateResponse is the response for Create
+// CreateResponse is the response for Create.
 type CreateResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *CreateResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

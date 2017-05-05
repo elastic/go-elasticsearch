@@ -36,12 +36,13 @@ func (i *Indices) DeleteAlias(index []string, name []string, options ...*Option)
 	return &DeleteAliasResponse{resp}, err
 }
 
-// DeleteAliasResponse is the response for DeleteAlias
+// DeleteAliasResponse is the response for DeleteAlias.
 type DeleteAliasResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *DeleteAliasResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

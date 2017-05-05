@@ -34,12 +34,13 @@ func (i *Ingest) DeletePipeline(id string, options ...*Option) (*DeletePipelineR
 	return &DeletePipelineResponse{resp}, err
 }
 
-// DeletePipelineResponse is the response for DeletePipeline
+// DeletePipelineResponse is the response for DeletePipeline.
 type DeletePipelineResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *DeletePipelineResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

@@ -32,12 +32,13 @@ func (i *Indices) ValidateQuery(options ...*Option) (*ValidateQueryResponse, err
 	return &ValidateQueryResponse{resp}, err
 }
 
-// ValidateQueryResponse is the response for ValidateQuery
+// ValidateQueryResponse is the response for ValidateQuery.
 type ValidateQueryResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *ValidateQueryResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

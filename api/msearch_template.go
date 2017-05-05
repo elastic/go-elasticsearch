@@ -34,12 +34,13 @@ func (a *API) MsearchTemplate(body map[string]interface{}, options ...*Option) (
 	return &MsearchTemplateResponse{resp}, err
 }
 
-// MsearchTemplateResponse is the response for MsearchTemplate
+// MsearchTemplateResponse is the response for MsearchTemplate.
 type MsearchTemplateResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *MsearchTemplateResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

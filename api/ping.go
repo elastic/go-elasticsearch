@@ -32,12 +32,13 @@ func (a *API) Ping(options ...*Option) (*PingResponse, error) {
 	return &PingResponse{resp}, err
 }
 
-// PingResponse is the response for Ping
+// PingResponse is the response for Ping.
 type PingResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *PingResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

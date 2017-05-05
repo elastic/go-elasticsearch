@@ -34,12 +34,13 @@ func (a *API) ClearScroll(scrollID []string, options ...*Option) (*ClearScrollRe
 	return &ClearScrollResponse{resp}, err
 }
 
-// ClearScrollResponse is the response for ClearScroll
+// ClearScrollResponse is the response for ClearScroll.
 type ClearScrollResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *ClearScrollResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

@@ -32,12 +32,13 @@ func (c *Cluster) GetSettings(options ...*Option) (*GetSettingsResponse, error) 
 	return &GetSettingsResponse{resp}, err
 }
 
-// GetSettingsResponse is the response for GetSettings
+// GetSettingsResponse is the response for GetSettings.
 type GetSettingsResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *GetSettingsResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

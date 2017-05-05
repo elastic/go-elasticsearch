@@ -32,12 +32,13 @@ func (c *Cat) Recovery(options ...*Option) (*RecoveryResponse, error) {
 	return &RecoveryResponse{resp}, err
 }
 
-// RecoveryResponse is the response for Recovery
+// RecoveryResponse is the response for Recovery.
 type RecoveryResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *RecoveryResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

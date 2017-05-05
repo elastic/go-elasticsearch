@@ -32,12 +32,13 @@ func (c *Cat) Allocation(options ...*Option) (*AllocationResponse, error) {
 	return &AllocationResponse{resp}, err
 }
 
-// AllocationResponse is the response for Allocation
+// AllocationResponse is the response for Allocation.
 type AllocationResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *AllocationResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

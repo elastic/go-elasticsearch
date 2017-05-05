@@ -34,12 +34,13 @@ func (a *API) Suggest(body map[string]interface{}, options ...*Option) (*Suggest
 	return &SuggestResponse{resp}, err
 }
 
-// SuggestResponse is the response for Suggest
+// SuggestResponse is the response for Suggest.
 type SuggestResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *SuggestResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

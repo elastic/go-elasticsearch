@@ -32,12 +32,13 @@ func (c *Cat) Help(options ...*Option) (*HelpResponse, error) {
 	return &HelpResponse{resp}, err
 }
 
-// HelpResponse is the response for Help
+// HelpResponse is the response for Help.
 type HelpResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *HelpResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

@@ -32,12 +32,13 @@ func (c *Cat) Aliases(options ...*Option) (*AliasesResponse, error) {
 	return &AliasesResponse{resp}, err
 }
 
-// AliasesResponse is the response for Aliases
+// AliasesResponse is the response for Aliases.
 type AliasesResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *AliasesResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

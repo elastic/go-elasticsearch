@@ -32,12 +32,13 @@ func (c *Cat) Snapshots(options ...*Option) (*SnapshotsResponse, error) {
 	return &SnapshotsResponse{resp}, err
 }
 
-// SnapshotsResponse is the response for Snapshots
+// SnapshotsResponse is the response for Snapshots.
 type SnapshotsResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *SnapshotsResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

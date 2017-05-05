@@ -32,12 +32,13 @@ func (a *API) Scroll(options ...*Option) (*ScrollResponse, error) {
 	return &ScrollResponse{resp}, err
 }
 
-// ScrollResponse is the response for Scroll
+// ScrollResponse is the response for Scroll.
 type ScrollResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *ScrollResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

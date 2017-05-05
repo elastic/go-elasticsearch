@@ -36,12 +36,13 @@ func (a *API) ReindexRethrottle(taskID string, requestsPerSecond int, options ..
 	return &ReindexRethrottleResponse{resp}, err
 }
 
-// ReindexRethrottleResponse is the response for ReindexRethrottle
+// ReindexRethrottleResponse is the response for ReindexRethrottle.
 type ReindexRethrottleResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
+// DecodeBody decodes the JSON body of the HTTP response.
 func (r *ReindexRethrottleResponse) DecodeBody() (map[string]interface{}, error) {
 	return transport.DecodeResponseBody(r.Response)
 }
