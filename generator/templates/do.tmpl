@@ -4,3 +4,7 @@ resp, err = {{.Method.MethodName}}(
 if err != nil {
   t.Fatal(err)
 }
+body, err = resp.DecodeBody()
+if err != nil {
+  t.Fatal(err)
+}

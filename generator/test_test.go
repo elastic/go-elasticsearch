@@ -68,6 +68,10 @@ func TestTest(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	body, err = resp.DecodeBody()
+	if err != nil {
+		t.Fatal(err)
+	}
 `
 	if d := diff(t, expectedCode, s); len(d) > 0 {
 		t.Fail()
@@ -77,11 +81,7 @@ func TestTest(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	expectedCode = `body, err = resp.DecodeBody()
-if err != nil {
-	t.Fatal(err)
-}
-for name, expectedValue := range map[string]string{
+	expectedCode = `for name, expectedValue := range map[string]string{
 	"_index" : "test-weird-index-中文",
 } {
 	value, ok := body[name]

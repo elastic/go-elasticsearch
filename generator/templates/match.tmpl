@@ -1,7 +1,3 @@
-body, err = resp.DecodeBody()
-if err != nil {
-  t.Fatal(err)
-}
 for name, expectedValue := range map[string]string{
   {{range $name, $value := .}}"{{$name}}" : "{{$value}}",
 {{end}} } {
