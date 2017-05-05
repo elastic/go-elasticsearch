@@ -22,8 +22,7 @@ package generator
 import "text/template"
 
 type set struct {
-	Spec map[string]interface{}
-	From *do
+	Spec map[string]map[string]interface{}
 }
 
 func newSet(unmarshal func(interface{}) error) (action, error) {

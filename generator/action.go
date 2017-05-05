@@ -58,19 +58,19 @@ func (a *actionRouter) UnmarshalYAML(unmarshal func(interface{}) error) error {
 		case "set":
 			a.action, err = newSet(unmarshal)
 		case "is_true":
-			a.action, err = newIsTrue(unmarshal)
+			fallthrough
 		case "is_false":
-			a.action, err = newIsFalse(unmarshal)
+			a.action, err = newBoolCompare(unmarshal)
 		case "match":
 			a.action, err = newMatch(unmarshal)
 		case "lt":
-			a.action, err = newLt(unmarshal)
+			fallthrough
 		case "gt":
-			a.action, err = newGt(unmarshal)
+			fallthrough
 		case "lte":
-			a.action, err = newLte(unmarshal)
+			fallthrough
 		case "gte":
-			a.action, err = newGte(unmarshal)
+			a.action, err = newIntCompare(unmarshal)
 		case "length":
 			a.action, err = newLength(unmarshal)
 		default:

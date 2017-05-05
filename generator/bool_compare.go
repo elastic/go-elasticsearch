@@ -21,40 +21,21 @@ package generator
 
 import "text/template"
 
-type isTrue struct {
-	From *do
+type boolCompare struct {
+	Spec map[string]string
 }
 
-func newIsTrue(unmarshal func(interface{}) error) (action, error) {
+func newBoolCompare(unmarshal func(interface{}) error) (action, error) {
 	// TODO: implement
-	return &isTrue{}, nil
+	return &boolCompare{}, nil
 }
 
-func (i *isTrue) resolve(methods map[string]*method, templates *template.Template) error {
-	// TODO: implement
-	return nil
-}
-
-func (i *isTrue) String() (string, error) {
-	// TODO: implement
-	return "", nil
-}
-
-type isFalse struct {
-	From *do
-}
-
-func newIsFalse(unmarshal func(interface{}) error) (action, error) {
-	// TODO: implement
-	return &isFalse{}, nil
-}
-
-func (i *isFalse) resolve(methods map[string]*method, templates *template.Template) error {
+func (b *boolCompare) resolve(methods map[string]*method, templates *template.Template) error {
 	// TODO: implement
 	return nil
 }
 
-func (i *isFalse) String() (string, error) {
+func (b *boolCompare) String() (string, error) {
 	// TODO: implement
 	return "", nil
 }

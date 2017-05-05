@@ -21,78 +21,21 @@ package generator
 
 import "text/template"
 
-type lt struct {
-	Spec map[string]*param
+type intCompare struct {
+	Spec map[string]map[string]int
 }
 
-func newLt(unmarshal func(interface{}) error) (action, error) {
+func newIntCompare(unmarshal func(interface{}) error) (action, error) {
 	// TODO: implement
-	return &lt{}, nil
+	return &intCompare{}, nil
 }
 
-func (l *lt) resolve(methods map[string]*method, templates *template.Template) error {
-	// TODO: implement
-	return nil
-}
-
-func (l *lt) String() (string, error) {
-	// TODO: implement
-	return "", nil
-}
-
-type gt struct {
-	Spec map[string]*param
-}
-
-func newGt(unmarshal func(interface{}) error) (action, error) {
-	// TODO: implement
-	return &gt{}, nil
-}
-
-func (g *gt) resolve(methods map[string]*method, templates *template.Template) error {
+func (i *intCompare) resolve(methods map[string]*method, templates *template.Template) error {
 	// TODO: implement
 	return nil
 }
 
-func (g *gt) String() (string, error) {
-	// TODO: implement
-	return "", nil
-}
-
-type lte struct {
-	Spec map[string]*param
-}
-
-func newLte(unmarshal func(interface{}) error) (action, error) {
-	// TODO: implement
-	return &lte{}, nil
-}
-
-func (l *lte) resolve(methods map[string]*method, templates *template.Template) error {
-	// TODO: implement
-	return nil
-}
-
-func (l *lte) String() (string, error) {
-	// TODO: implement
-	return "", nil
-}
-
-type gte struct {
-	Spec map[string]*param
-}
-
-func newGte(unmarshal func(interface{}) error) (action, error) {
-	// TODO: implement
-	return &gte{}, nil
-}
-
-func (g *gte) resolve(methods map[string]*method, templates *template.Template) error {
-	// TODO: implement
-	return nil
-}
-
-func (g *gte) String() (string, error) {
+func (i *intCompare) String() (string, error) {
 	// TODO: implement
 	return "", nil
 }

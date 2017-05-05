@@ -22,7 +22,7 @@ package generator
 import "text/template"
 
 type length struct {
-	Spec map[string]*param
+	Spec map[string]map[string]int
 }
 
 func newLength(unmarshal func(interface{}) error) (action, error) {
