@@ -1,8 +1,11 @@
 # go-elasticsearch
 
++[![GoDoc](https://godoc.org/github.com/elastic/go-elasticsearch?status.png)](https://godoc.org/github.com/elastic/go-elasticsearch)
++[![Build Status](https://travis-ci.org/elastic/go-elasticsearch.svg?branch=master)](https://travis-ci.org/elastic/go-elasticsearch)
+
 # WORK IN PROGRESS
 
-This is the official Go client for library [Elasticsearch](https://www.elastic.co/products/elasticsearch), it's currently a work in progress so please check back later.
+This is the official Go client library for [Elasticsearch](https://www.elastic.co/products/elasticsearch), it's currently a work in progress so please check back later. For clients in other languages see [this page](https://www.elastic.co/guide/en/elasticsearch/client).
 
 ## Installation
 

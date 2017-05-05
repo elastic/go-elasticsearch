@@ -20,5 +20,6 @@
 /*
 Package elasticsearch allows to generate the client code to access Elasticsearch's REST API, and contains the client
 code itself (see the client subpackage for usage).
+It's currently a work in progress so please check back later. For clients in other languages see https://www.elastic.co/guide/en/elasticsearch/client.
 */
 package elasticsearch
