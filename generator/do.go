@@ -61,6 +61,9 @@ func (d *do) resolve(methods map[string]*method, templates *template.Template) e
 		d.Method = methodCall
 	}
 	d.template = templates.Lookup("do.tmpl")
+	if d.template == nil {
+		return fmt.Errorf("unable to find template for do")
+	}
 	return nil
 }
 

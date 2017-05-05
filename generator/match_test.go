@@ -25,22 +25,15 @@ import (
 	"text/template"
 )
 
-func TestTest(t *testing.T) {
+func TestMatch(t *testing.T) {
 	spec := `
 "Index with ID":
-
- - do:
-      index:
-          index:  test-weird-index-中文
-          type:   weird.type
-          id:     1
-          body:   { foo: bar }
 
  - match:   { _index:   test-weird-index-中文 }
 `
 	m := newIndexMethod(t)
 	dir := filepath.Join("..", DefaultTemplatesDir)
-	templates, err := template.ParseFiles(filepath.Join(dir, "do.tmpl"), filepath.Join(dir, "match.tmpl"))
+	templates, err := template.ParseFiles(filepath.Join(dir, "match.tmpl"))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -52,36 +45,15 @@ func TestTest(t *testing.T) {
 	if yt.Name != expectedName {
 		t.Fatalf("unexpected test name: %s (expected %q)", yt.Name, expectedName)
 	}
-	if len(yt.Spec["Index with ID"]) != 2 {
-		t.Fatalf("expected to see 2 actions, found %d", len(yt.Spec["Index with ID"]))
+	if len(yt.Spec["Index with ID"]) != 1 {
+		t.Fatalf("expected to see 1 action, found %d", len(yt.Spec["Index with ID"]))
 	}
 	action := yt.Spec["Index with ID"][0]
 	s, err := action.String()
 	if err != nil {
 		t.Fatal(err)
 	}
-	expectedCode := `resp, err = Index(
-		"test-weird-index-中文", "weird.type", map[string]interface{}{
-			"foo" : "bar",
-		}, WithID("1")
-	)
-	if err != nil {
-		t.Fatal(err)
-	}
-	body, err = resp.DecodeBody()
-	if err != nil {
-		t.Fatal(err)
-	}
-`
-	if d := diff(t, expectedCode, s); len(d) > 0 {
-		t.Fail()
-	}
-	action = yt.Spec["Index with ID"][1]
-	s, err = action.String()
-	if err != nil {
-		t.Fatal(err)
-	}
-	expectedCode = `for name, expectedValue := range map[string]string{
+	expectedCode := `for name, expectedValue := range map[string]string{
 	"_index" : "test-weird-index-中文",
 } {
 	value, ok := body[name]

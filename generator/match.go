@@ -46,7 +46,7 @@ func newMatch(unmarshal func(interface{}) error) (action, error) {
 func (m *match) resolve(methods map[string]*method, templates *template.Template) error {
 	m.template = templates.Lookup("match.tmpl")
 	if m.template == nil {
-		return fmt.Errorf("cannot find template for match")
+		return fmt.Errorf("unable to find template for match")
 	}
 	return nil
 }

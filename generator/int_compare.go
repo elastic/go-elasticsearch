@@ -19,23 +19,64 @@
 
 package generator
 
-import "text/template"
+import (
+	"bytes"
+	"fmt"
+	"text/template"
+)
 
 type intCompare struct {
-	Spec map[string]map[string]int
+	spec     map[string]map[string]int
+	Key      string
+	Value    int
+	Operator string
+	template *template.Template
 }
 
 func newIntCompare(unmarshal func(interface{}) error) (action, error) {
-	// TODO: implement
-	return &intCompare{}, nil
+	i := &intCompare{}
+	if err := unmarshal(&i.spec); err != nil {
+		return nil, err
+	}
+	if len(i.spec) > 1 {
+		return nil, fmt.Errorf("found more than one operation in %#v", i.spec)
+	}
+	for name, op := range i.spec {
+		switch name {
+		case "lt":
+			i.Operator = "<"
+		case "gt":
+			i.Operator = ">"
+		case "lte":
+			i.Operator = "<="
+		case "gte":
+			i.Operator = ">="
+		default:
+			return nil, fmt.Errorf("unexpected int comparison operation: %s", name)
+		}
+		if len(op) > 1 {
+			return nil, fmt.Errorf("found more than one operation in %#v", i.spec)
+		}
+		for varName, value := range op {
+			i.Key = varName
+			i.Value = value
+		}
+	}
+	return i, nil
 }
 
 func (i *intCompare) resolve(methods map[string]*method, templates *template.Template) error {
-	// TODO: implement
+	i.template = templates.Lookup("int_compare.tmpl")
+	if i.template == nil {
+		return fmt.Errorf("unable to find template for int comparison")
+	}
 	return nil
 }
 
 func (i *intCompare) String() (string, error) {
-	// TODO: implement
-	return "", nil
+	var writer bytes.Buffer
+	if err := i.template.Execute(&writer, i); err != nil {
+		return "", err
+	}
+	return writer.String(), nil
 }
