@@ -33,15 +33,17 @@ type goPackage struct {
 	Options     map[string]*param
 	Enums       map[string]*param
 	SubPackages map[string]*goPackage
+	templates   *template.Template
 }
 
-func newGoPackage(m *method) (*goPackage, error) {
+func newGoPackage(m *method, templates *template.Template) (*goPackage, error) {
 	p := &goPackage{
-		Name:     m.PackageName,
-		Repo:     m.Repo,
-		TypeName: m.TypeName,
-		Options:  map[string]*param{},
-		Enums:    map[string]*param{},
+		Name:      m.PackageName,
+		Repo:      m.Repo,
+		TypeName:  m.TypeName,
+		Options:   map[string]*param{},
+		Enums:     map[string]*param{},
+		templates: templates,
 	}
 	err := p.addMethod(m)
 	return p, err
@@ -93,26 +95,34 @@ func (p *goPackage) newWriter(outputDir, fileName string) (io.Writer, error) {
 	return p.Methods[0].newWriter(outputDir, fileName)
 }
 
-func (p *goPackage) generateAPI(templates *template.Template, w io.Writer) error {
-	if err := templates.Lookup("package.tmpl").Execute(w, p); err != nil {
+func (p *goPackage) generateAPI(w io.Writer) error {
+	t := p.templates.Lookup("package.tmpl")
+	if t == nil {
+		return fmt.Errorf("cannot fine template for package")
+	}
+	if err := t.Execute(w, p); err != nil {
 		return fmt.Errorf("failed to execute package template: %s", err)
 	}
 	return nil
 }
 
-func (p *goPackage) generateOption(templates *template.Template, w io.Writer) error {
-	if err := templates.Lookup("option.tmpl").Execute(w, p); err != nil {
+func (p *goPackage) generateOption(w io.Writer) error {
+	t := p.templates.Lookup("types.tmpl")
+	if t == nil {
+		return fmt.Errorf("cannot fine template for types")
+	}
+	if err := t.Execute(w, p); err != nil {
 		return fmt.Errorf("failed to execute option template: %s", err)
 	}
 	return nil
 }
 
-func (p *goPackage) generate(templates *template.Template, outputDir string) error {
+func (p *goPackage) generate(outputDir string) error {
 	w, err := p.newWriter(outputDir, "option.go")
 	if err != nil {
 		return err
 	}
-	err = p.generateOption(templates, w)
+	err = p.generateOption(w)
 	if err != nil {
 		return err
 	}
@@ -124,5 +134,5 @@ func (p *goPackage) generate(templates *template.Template, outputDir string) err
 	if err != nil {
 		return err
 	}
-	return p.generateAPI(templates, w)
+	return p.generateAPI(w)
 }

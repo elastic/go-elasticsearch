@@ -53,7 +53,7 @@ func newTester(specDir, api string, methods map[string]*method, templates *templ
 	return t, nil
 }
 
-func (t *tester) generate(templates *template.Template, outputDir string) error {
+func (t *tester) generate(outputDir string) error {
 	// TODO: implement
 	return nil
 }

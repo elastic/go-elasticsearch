@@ -41,7 +41,7 @@ func WithHuman(human bool) *Option {
 	}
 }
 
-// WithID - comma separated list of pipeline ids. Wildcards supported.
+// WithID - pipeline ID.
 func WithID(id string) *Option {
 	return &Option{
 		name: "WithID",
@@ -51,10 +51,13 @@ func WithID(id string) *Option {
 }
 
 // WithIgnore - ignores the specified HTTP status codes.
-func WithIgnore(ignore []string) *Option {
+func WithIgnore(ignore []int) *Option {
 	return &Option{
 		name: "WithIgnore",
 		apply: func(r *transport.Request) {
+			for _, status := range ignore {
+				r.IgnoredStatuses[status] = struct{}{}
+			}
 		},
 	}
 }
@@ -95,21 +98,20 @@ func WithTimeout(timeout time.Time) *Option {
 	}
 }
 
+// WithVerbose - verbose mode. Display data output for each processor in executed pipeline.
+func WithVerbose(verbose bool) *Option {
+	return &Option{
+		name: "WithVerbose",
+		apply: func(r *transport.Request) {
+		},
+	}
+}
+
 var (
 	supportedOptions = map[string]map[string]struct{}{
-		"DeletePipeline": map[string]struct{}{
+		"PutPipeline": map[string]struct{}{
 			"WithMasterTimeout": struct{}{},
 			"WithTimeout":       struct{}{},
-			"WithErrorTrace":    struct{}{},
-			"WithFilterPath":    struct{}{},
-			"WithHuman":         struct{}{},
-			"WithIgnore":        struct{}{},
-			"WithPretty":        struct{}{},
-			"WithSourceParam":   struct{}{},
-		},
-		"GetPipeline": map[string]struct{}{
-			"WithID":            struct{}{},
-			"WithMasterTimeout": struct{}{},
 			"WithErrorTrace":    struct{}{},
 			"WithFilterPath":    struct{}{},
 			"WithHuman":         struct{}{},
@@ -127,9 +129,19 @@ var (
 			"WithPretty":      struct{}{},
 			"WithSourceParam": struct{}{},
 		},
-		"PutPipeline": map[string]struct{}{
+		"DeletePipeline": map[string]struct{}{
 			"WithMasterTimeout": struct{}{},
 			"WithTimeout":       struct{}{},
+			"WithErrorTrace":    struct{}{},
+			"WithFilterPath":    struct{}{},
+			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
+			"WithPretty":        struct{}{},
+			"WithSourceParam":   struct{}{},
+		},
+		"GetPipeline": map[string]struct{}{
+			"WithID":            struct{}{},
+			"WithMasterTimeout": struct{}{},
 			"WithErrorTrace":    struct{}{},
 			"WithFilterPath":    struct{}{},
 			"WithHuman":         struct{}{},

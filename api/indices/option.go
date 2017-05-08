@@ -22,6 +22,16 @@ const (
 	ExpandWildcardsAll = iota
 )
 
+// Format - format of the output.
+type Format int
+
+const (
+	// FormatDetailed can be used to set Format to "detailed"
+	FormatDetailed = iota
+	// FormatText can be used to set Format to "text"
+	FormatText = iota
+)
+
 // Option is a non-required API option that gets applied to an HTTP request.
 type Option struct {
 	name  string
@@ -37,10 +47,37 @@ func WithAllowNoIndices(allowNoIndices bool) *Option {
 	}
 }
 
-// WithBody - the settings for the alias, such as "routing" or "filter".
+// WithAnalyzer - the name of the analyzer to use.
+func WithAnalyzer(analyzer string) *Option {
+	return &Option{
+		name: "WithAnalyzer",
+		apply: func(r *transport.Request) {
+		},
+	}
+}
+
+// WithAttributes - a comma-separated list of token attributes to output, this parameter works only with "explain=true".
+func WithAttributes(attributes []string) *Option {
+	return &Option{
+		name: "WithAttributes",
+		apply: func(r *transport.Request) {
+		},
+	}
+}
+
+// WithBody - the text on which the analysis should be performed.
 func WithBody(body map[string]interface{}) *Option {
 	return &Option{
 		name: "WithBody",
+		apply: func(r *transport.Request) {
+		},
+	}
+}
+
+// WithCharFilter - a comma-separated list of character filters to use for the analysis.
+func WithCharFilter(charFilter []string) *Option {
+	return &Option{
+		name: "WithCharFilter",
 		apply: func(r *transport.Request) {
 		},
 	}
@@ -50,15 +87,6 @@ func WithBody(body map[string]interface{}) *Option {
 func WithCreate(create bool) *Option {
 	return &Option{
 		name: "WithCreate",
-		apply: func(r *transport.Request) {
-		},
-	}
-}
-
-// WithType - a comma-separated list of document types.
-func WithType(documentType []string) *Option {
-	return &Option{
-		name: "WithType",
 		apply: func(r *transport.Request) {
 		},
 	}
@@ -91,10 +119,37 @@ func WithExpandWildcards(expandWildcards ExpandWildcards) *Option {
 	}
 }
 
+// WithExplain - with "true", outputs more advanced details. (default: false).
+func WithExplain(explain bool) *Option {
+	return &Option{
+		name: "WithExplain",
+		apply: func(r *transport.Request) {
+		},
+	}
+}
+
 // WithFeature - a comma-separated list of features.
 func WithFeature(feature []string) *Option {
 	return &Option{
 		name: "WithFeature",
+		apply: func(r *transport.Request) {
+		},
+	}
+}
+
+// WithField - use the analyzer configured for this field (instead of passing the analyzer name).
+func WithField(field string) *Option {
+	return &Option{
+		name: "WithField",
+		apply: func(r *transport.Request) {
+		},
+	}
+}
+
+// WithFilter - a comma-separated list of filters to use for the analysis.
+func WithFilter(filter []string) *Option {
+	return &Option{
+		name: "WithFilter",
 		apply: func(r *transport.Request) {
 		},
 	}
@@ -118,6 +173,15 @@ func WithFlatSettings(flatSettings bool) *Option {
 	}
 }
 
+// WithFormat - format of the output.
+func WithFormat(format Format) *Option {
+	return &Option{
+		name: "WithFormat",
+		apply: func(r *transport.Request) {
+		},
+	}
+}
+
 // WithHuman - return human readable values for statistics.
 func WithHuman(human bool) *Option {
 	return &Option{
@@ -128,10 +192,13 @@ func WithHuman(human bool) *Option {
 }
 
 // WithIgnore - ignores the specified HTTP status codes.
-func WithIgnore(ignore []string) *Option {
+func WithIgnore(ignore []int) *Option {
 	return &Option{
 		name: "WithIgnore",
 		apply: func(r *transport.Request) {
+			for _, status := range ignore {
+				r.IgnoredStatuses[status] = struct{}{}
+			}
 		},
 	}
 }
@@ -145,19 +212,19 @@ func WithIgnoreUnavailable(ignoreUnavailable bool) *Option {
 	}
 }
 
-// WithIncludeDefaults - whether the default mapping values should be returned as well.
-func WithIncludeDefaults(includeDefaults bool) *Option {
+// WithIndex - the name of the index to scope the operation.
+func WithIndex(index string) *Option {
 	return &Option{
-		name: "WithIncludeDefaults",
+		name: "WithIndex",
 		apply: func(r *transport.Request) {
 		},
 	}
 }
 
-// WithIndex - a comma-separated list of index names.
-func WithIndex(index []string) *Option {
+// WithIndexParam - the name of the index to scope the operation.
+func WithIndexParam(indexParam string) *Option {
 	return &Option{
-		name: "WithIndex",
+		name: "WithIndexParam",
 		apply: func(r *transport.Request) {
 		},
 	}
@@ -208,6 +275,15 @@ func WithOrder(order int) *Option {
 	}
 }
 
+// WithPreferLocal - with "true", specify that a local shard should be used if available, with "false", use a random shard (default: true).
+func WithPreferLocal(preferLocal bool) *Option {
+	return &Option{
+		name: "WithPreferLocal",
+		apply: func(r *transport.Request) {
+		},
+	}
+}
+
 // WithPretty - pretty format the returned JSON response.
 func WithPretty(pretty bool) *Option {
 	return &Option{
@@ -226,7 +302,16 @@ func WithSourceParam(sourceParam string) *Option {
 	}
 }
 
-// WithTimeout - explicit timestamp for the document.
+// WithText - the text on which the analysis should be performed (when request body is not used).
+func WithText(text []string) *Option {
+	return &Option{
+		name: "WithText",
+		apply: func(r *transport.Request) {
+		},
+	}
+}
+
+// WithTimeout - explicit operation timeout.
 func WithTimeout(timeout time.Time) *Option {
 	return &Option{
 		name: "WithTimeout",
@@ -235,126 +320,35 @@ func WithTimeout(timeout time.Time) *Option {
 	}
 }
 
+// WithTokenizer - the name of the tokenizer to use for the analysis.
+func WithTokenizer(tokenizer string) *Option {
+	return &Option{
+		name: "WithTokenizer",
+		apply: func(r *transport.Request) {
+		},
+	}
+}
+
+// WithUpdateAllTypes - whether to update the mapping for all fields with the same name across all types or not.
+func WithUpdateAllTypes(updateAllTypes bool) *Option {
+	return &Option{
+		name: "WithUpdateAllTypes",
+		apply: func(r *transport.Request) {
+		},
+	}
+}
+
+// WithWaitForActiveShards - set the number of active shards to wait for before the operation returns.
+func WithWaitForActiveShards(waitForActiveShards string) *Option {
+	return &Option{
+		name: "WithWaitForActiveShards",
+		apply: func(r *transport.Request) {
+		},
+	}
+}
+
 var (
 	supportedOptions = map[string]map[string]struct{}{
-		"GetFieldMapping": map[string]struct{}{
-			"WithIndex":             struct{}{},
-			"WithType":              struct{}{},
-			"WithAllowNoIndices":    struct{}{},
-			"WithExpandWildcards":   struct{}{},
-			"WithIgnoreUnavailable": struct{}{},
-			"WithIncludeDefaults":   struct{}{},
-			"WithLocal":             struct{}{},
-			"WithErrorTrace":        struct{}{},
-			"WithFilterPath":        struct{}{},
-			"WithHuman":             struct{}{},
-			"WithIgnore":            struct{}{},
-			"WithPretty":            struct{}{},
-			"WithSourceParam":       struct{}{},
-		},
-		"ExistsType": map[string]struct{}{
-			"WithAllowNoIndices":    struct{}{},
-			"WithExpandWildcards":   struct{}{},
-			"WithIgnoreUnavailable": struct{}{},
-			"WithLocal":             struct{}{},
-			"WithErrorTrace":        struct{}{},
-			"WithFilterPath":        struct{}{},
-			"WithHuman":             struct{}{},
-			"WithIgnore":            struct{}{},
-			"WithPretty":            struct{}{},
-			"WithSourceParam":       struct{}{},
-		},
-		"Open": map[string]struct{}{
-			"WithAllowNoIndices":    struct{}{},
-			"WithExpandWildcards":   struct{}{},
-			"WithIgnoreUnavailable": struct{}{},
-			"WithMasterTimeout":     struct{}{},
-			"WithTimeout":           struct{}{},
-			"WithErrorTrace":        struct{}{},
-			"WithFilterPath":        struct{}{},
-			"WithHuman":             struct{}{},
-			"WithIgnore":            struct{}{},
-			"WithPretty":            struct{}{},
-			"WithSourceParam":       struct{}{},
-		},
-		"ShardStores": map[string]struct{}{
-			"WithIndex":              struct{}{},
-			"WithAllowNoIndices":     struct{}{},
-			"WithExpandWildcards":    struct{}{},
-			"WithIgnoreUnavailable":  struct{}{},
-			"WithOperationThreading": struct{}{},
-			"WithStatus":             struct{}{},
-			"WithErrorTrace":         struct{}{},
-			"WithFilterPath":         struct{}{},
-			"WithHuman":              struct{}{},
-			"WithIgnore":             struct{}{},
-			"WithPretty":             struct{}{},
-			"WithSourceParam":        struct{}{},
-		},
-		"GetSettings": map[string]struct{}{
-			"WithIndex":             struct{}{},
-			"WithName":              struct{}{},
-			"WithAllowNoIndices":    struct{}{},
-			"WithExpandWildcards":   struct{}{},
-			"WithFlatSettings":      struct{}{},
-			"WithIgnoreUnavailable": struct{}{},
-			"WithIncludeDefaults":   struct{}{},
-			"WithLocal":             struct{}{},
-			"WithErrorTrace":        struct{}{},
-			"WithFilterPath":        struct{}{},
-			"WithHuman":             struct{}{},
-			"WithIgnore":            struct{}{},
-			"WithPretty":            struct{}{},
-			"WithSourceParam":       struct{}{},
-		},
-		"ClearCache": map[string]struct{}{
-			"WithIndex":             struct{}{},
-			"WithAllowNoIndices":    struct{}{},
-			"WithExpandWildcards":   struct{}{},
-			"WithFieldData":         struct{}{},
-			"WithFielddata":         struct{}{},
-			"WithFields":            struct{}{},
-			"WithIgnoreUnavailable": struct{}{},
-			"WithIndexParam":        struct{}{},
-			"WithQuery":             struct{}{},
-			"WithRecycler":          struct{}{},
-			"WithRequest":           struct{}{},
-			"WithRequestCache":      struct{}{},
-			"WithErrorTrace":        struct{}{},
-			"WithFilterPath":        struct{}{},
-			"WithHuman":             struct{}{},
-			"WithIgnore":            struct{}{},
-			"WithPretty":            struct{}{},
-			"WithSourceParam":       struct{}{},
-		},
-		"ExistsAlias": map[string]struct{}{
-			"WithIndex":             struct{}{},
-			"WithName":              struct{}{},
-			"WithAllowNoIndices":    struct{}{},
-			"WithExpandWildcards":   struct{}{},
-			"WithIgnoreUnavailable": struct{}{},
-			"WithLocal":             struct{}{},
-			"WithErrorTrace":        struct{}{},
-			"WithFilterPath":        struct{}{},
-			"WithHuman":             struct{}{},
-			"WithIgnore":            struct{}{},
-			"WithPretty":            struct{}{},
-			"WithSourceParam":       struct{}{},
-		},
-		"Segments": map[string]struct{}{
-			"WithIndex":              struct{}{},
-			"WithAllowNoIndices":     struct{}{},
-			"WithExpandWildcards":    struct{}{},
-			"WithIgnoreUnavailable":  struct{}{},
-			"WithOperationThreading": struct{}{},
-			"WithVerbose":            struct{}{},
-			"WithErrorTrace":         struct{}{},
-			"WithFilterPath":         struct{}{},
-			"WithHuman":              struct{}{},
-			"WithIgnore":             struct{}{},
-			"WithPretty":             struct{}{},
-			"WithSourceParam":        struct{}{},
-		},
 		"Analyze": map[string]struct{}{
 			"WithIndex":       struct{}{},
 			"WithAnalyzer":    struct{}{},
@@ -376,7 +370,129 @@ var (
 			"WithPretty":      struct{}{},
 			"WithSourceParam": struct{}{},
 		},
-		"DeleteAlias": map[string]struct{}{
+		"PutMapping": map[string]struct{}{
+			"WithIndex":             struct{}{},
+			"WithAllowNoIndices":    struct{}{},
+			"WithExpandWildcards":   struct{}{},
+			"WithIgnoreUnavailable": struct{}{},
+			"WithMasterTimeout":     struct{}{},
+			"WithTimeout":           struct{}{},
+			"WithUpdateAllTypes":    struct{}{},
+			"WithErrorTrace":        struct{}{},
+			"WithFilterPath":        struct{}{},
+			"WithHuman":             struct{}{},
+			"WithIgnore":            struct{}{},
+			"WithPretty":            struct{}{},
+			"WithSourceParam":       struct{}{},
+		},
+		"PutSettings": map[string]struct{}{
+			"WithIndex":             struct{}{},
+			"WithAllowNoIndices":    struct{}{},
+			"WithExpandWildcards":   struct{}{},
+			"WithFlatSettings":      struct{}{},
+			"WithIgnoreUnavailable": struct{}{},
+			"WithMasterTimeout":     struct{}{},
+			"WithPreserveExisting":  struct{}{},
+			"WithErrorTrace":        struct{}{},
+			"WithFilterPath":        struct{}{},
+			"WithHuman":             struct{}{},
+			"WithIgnore":            struct{}{},
+			"WithPretty":            struct{}{},
+			"WithSourceParam":       struct{}{},
+		},
+		"Create": map[string]struct{}{
+			"WithMasterTimeout":       struct{}{},
+			"WithTimeout":             struct{}{},
+			"WithUpdateAllTypes":      struct{}{},
+			"WithWaitForActiveShards": struct{}{},
+			"WithBody":                struct{}{},
+			"WithErrorTrace":          struct{}{},
+			"WithFilterPath":          struct{}{},
+			"WithHuman":               struct{}{},
+			"WithIgnore":              struct{}{},
+			"WithPretty":              struct{}{},
+			"WithSourceParam":         struct{}{},
+		},
+		"Stats": map[string]struct{}{
+			"WithIndex":                   struct{}{},
+			"WithMetric":                  struct{}{},
+			"WithCompletionFields":        struct{}{},
+			"WithFielddataFields":         struct{}{},
+			"WithFields":                  struct{}{},
+			"WithGroups":                  struct{}{},
+			"WithIncludeSegmentFileSizes": struct{}{},
+			"WithLevel":                   struct{}{},
+			"WithTypes":                   struct{}{},
+			"WithErrorTrace":              struct{}{},
+			"WithFilterPath":              struct{}{},
+			"WithHuman":                   struct{}{},
+			"WithIgnore":                  struct{}{},
+			"WithPretty":                  struct{}{},
+			"WithSourceParam":             struct{}{},
+		},
+		"ClearCache": map[string]struct{}{
+			"WithIndex":             struct{}{},
+			"WithAllowNoIndices":    struct{}{},
+			"WithExpandWildcards":   struct{}{},
+			"WithFieldData":         struct{}{},
+			"WithFielddata":         struct{}{},
+			"WithFields":            struct{}{},
+			"WithIgnoreUnavailable": struct{}{},
+			"WithIndexParam":        struct{}{},
+			"WithQuery":             struct{}{},
+			"WithRecycler":          struct{}{},
+			"WithRequest":           struct{}{},
+			"WithRequestCache":      struct{}{},
+			"WithErrorTrace":        struct{}{},
+			"WithFilterPath":        struct{}{},
+			"WithHuman":             struct{}{},
+			"WithIgnore":            struct{}{},
+			"WithPretty":            struct{}{},
+			"WithSourceParam":       struct{}{},
+		},
+		"GetAlias": map[string]struct{}{
+			"WithIndex":             struct{}{},
+			"WithName":              struct{}{},
+			"WithAllowNoIndices":    struct{}{},
+			"WithExpandWildcards":   struct{}{},
+			"WithIgnoreUnavailable": struct{}{},
+			"WithLocal":             struct{}{},
+			"WithErrorTrace":        struct{}{},
+			"WithFilterPath":        struct{}{},
+			"WithHuman":             struct{}{},
+			"WithIgnore":            struct{}{},
+			"WithPretty":            struct{}{},
+			"WithSourceParam":       struct{}{},
+		},
+		"GetFieldMapping": map[string]struct{}{
+			"WithIndex":             struct{}{},
+			"WithType":              struct{}{},
+			"WithAllowNoIndices":    struct{}{},
+			"WithExpandWildcards":   struct{}{},
+			"WithIgnoreUnavailable": struct{}{},
+			"WithIncludeDefaults":   struct{}{},
+			"WithLocal":             struct{}{},
+			"WithErrorTrace":        struct{}{},
+			"WithFilterPath":        struct{}{},
+			"WithHuman":             struct{}{},
+			"WithIgnore":            struct{}{},
+			"WithPretty":            struct{}{},
+			"WithSourceParam":       struct{}{},
+		},
+		"Open": map[string]struct{}{
+			"WithAllowNoIndices":    struct{}{},
+			"WithExpandWildcards":   struct{}{},
+			"WithIgnoreUnavailable": struct{}{},
+			"WithMasterTimeout":     struct{}{},
+			"WithTimeout":           struct{}{},
+			"WithErrorTrace":        struct{}{},
+			"WithFilterPath":        struct{}{},
+			"WithHuman":             struct{}{},
+			"WithIgnore":            struct{}{},
+			"WithPretty":            struct{}{},
+			"WithSourceParam":       struct{}{},
+		},
+		"DeleteTemplate": map[string]struct{}{
 			"WithMasterTimeout": struct{}{},
 			"WithTimeout":       struct{}{},
 			"WithErrorTrace":    struct{}{},
@@ -386,6 +502,20 @@ var (
 			"WithPretty":        struct{}{},
 			"WithSourceParam":   struct{}{},
 		},
+		"GetMapping": map[string]struct{}{
+			"WithIndex":             struct{}{},
+			"WithType":              struct{}{},
+			"WithAllowNoIndices":    struct{}{},
+			"WithExpandWildcards":   struct{}{},
+			"WithIgnoreUnavailable": struct{}{},
+			"WithLocal":             struct{}{},
+			"WithErrorTrace":        struct{}{},
+			"WithFilterPath":        struct{}{},
+			"WithHuman":             struct{}{},
+			"WithIgnore":            struct{}{},
+			"WithPretty":            struct{}{},
+			"WithSourceParam":       struct{}{},
+		},
 		"Refresh": map[string]struct{}{
 			"WithIndex":              struct{}{},
 			"WithAllowNoIndices":     struct{}{},
@@ -393,6 +523,188 @@ var (
 			"WithForce":              struct{}{},
 			"WithIgnoreUnavailable":  struct{}{},
 			"WithOperationThreading": struct{}{},
+			"WithErrorTrace":         struct{}{},
+			"WithFilterPath":         struct{}{},
+			"WithHuman":              struct{}{},
+			"WithIgnore":             struct{}{},
+			"WithPretty":             struct{}{},
+			"WithSourceParam":        struct{}{},
+		},
+		"ExistsType": map[string]struct{}{
+			"WithAllowNoIndices":    struct{}{},
+			"WithExpandWildcards":   struct{}{},
+			"WithIgnoreUnavailable": struct{}{},
+			"WithLocal":             struct{}{},
+			"WithErrorTrace":        struct{}{},
+			"WithFilterPath":        struct{}{},
+			"WithHuman":             struct{}{},
+			"WithIgnore":            struct{}{},
+			"WithPretty":            struct{}{},
+			"WithSourceParam":       struct{}{},
+		},
+		"ExistsTemplate": map[string]struct{}{
+			"WithName":          struct{}{},
+			"WithFlatSettings":  struct{}{},
+			"WithLocal":         struct{}{},
+			"WithMasterTimeout": struct{}{},
+			"WithErrorTrace":    struct{}{},
+			"WithFilterPath":    struct{}{},
+			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
+			"WithPretty":        struct{}{},
+			"WithSourceParam":   struct{}{},
+		},
+		"GetTemplate": map[string]struct{}{
+			"WithName":          struct{}{},
+			"WithFlatSettings":  struct{}{},
+			"WithLocal":         struct{}{},
+			"WithMasterTimeout": struct{}{},
+			"WithErrorTrace":    struct{}{},
+			"WithFilterPath":    struct{}{},
+			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
+			"WithPretty":        struct{}{},
+			"WithSourceParam":   struct{}{},
+		},
+		"Get": map[string]struct{}{
+			"WithFeature":           struct{}{},
+			"WithAllowNoIndices":    struct{}{},
+			"WithExpandWildcards":   struct{}{},
+			"WithFlatSettings":      struct{}{},
+			"WithIgnoreUnavailable": struct{}{},
+			"WithIncludeDefaults":   struct{}{},
+			"WithLocal":             struct{}{},
+			"WithErrorTrace":        struct{}{},
+			"WithFilterPath":        struct{}{},
+			"WithHuman":             struct{}{},
+			"WithIgnore":            struct{}{},
+			"WithPretty":            struct{}{},
+			"WithSourceParam":       struct{}{},
+		},
+		"GetUpgrade": map[string]struct{}{
+			"WithIndex":             struct{}{},
+			"WithAllowNoIndices":    struct{}{},
+			"WithExpandWildcards":   struct{}{},
+			"WithIgnoreUnavailable": struct{}{},
+			"WithErrorTrace":        struct{}{},
+			"WithFilterPath":        struct{}{},
+			"WithHuman":             struct{}{},
+			"WithIgnore":            struct{}{},
+			"WithPretty":            struct{}{},
+			"WithSourceParam":       struct{}{},
+		},
+		"Segments": map[string]struct{}{
+			"WithIndex":              struct{}{},
+			"WithAllowNoIndices":     struct{}{},
+			"WithExpandWildcards":    struct{}{},
+			"WithIgnoreUnavailable":  struct{}{},
+			"WithOperationThreading": struct{}{},
+			"WithVerbose":            struct{}{},
+			"WithErrorTrace":         struct{}{},
+			"WithFilterPath":         struct{}{},
+			"WithHuman":              struct{}{},
+			"WithIgnore":             struct{}{},
+			"WithPretty":             struct{}{},
+			"WithSourceParam":        struct{}{},
+		},
+		"Exists": map[string]struct{}{
+			"WithAllowNoIndices":    struct{}{},
+			"WithExpandWildcards":   struct{}{},
+			"WithFlatSettings":      struct{}{},
+			"WithIgnoreUnavailable": struct{}{},
+			"WithIncludeDefaults":   struct{}{},
+			"WithLocal":             struct{}{},
+			"WithErrorTrace":        struct{}{},
+			"WithFilterPath":        struct{}{},
+			"WithHuman":             struct{}{},
+			"WithIgnore":            struct{}{},
+			"WithPretty":            struct{}{},
+			"WithSourceParam":       struct{}{},
+		},
+		"FlushSynced": map[string]struct{}{
+			"WithIndex":             struct{}{},
+			"WithAllowNoIndices":    struct{}{},
+			"WithExpandWildcards":   struct{}{},
+			"WithIgnoreUnavailable": struct{}{},
+			"WithErrorTrace":        struct{}{},
+			"WithFilterPath":        struct{}{},
+			"WithHuman":             struct{}{},
+			"WithIgnore":            struct{}{},
+			"WithPretty":            struct{}{},
+			"WithSourceParam":       struct{}{},
+		},
+		"PutTemplate": map[string]struct{}{
+			"WithCreate":        struct{}{},
+			"WithFlatSettings":  struct{}{},
+			"WithMasterTimeout": struct{}{},
+			"WithOrder":         struct{}{},
+			"WithTimeout":       struct{}{},
+			"WithErrorTrace":    struct{}{},
+			"WithFilterPath":    struct{}{},
+			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
+			"WithPretty":        struct{}{},
+			"WithSourceParam":   struct{}{},
+		},
+		"UpdateAliases": map[string]struct{}{
+			"WithMasterTimeout": struct{}{},
+			"WithTimeout":       struct{}{},
+			"WithErrorTrace":    struct{}{},
+			"WithFilterPath":    struct{}{},
+			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
+			"WithPretty":        struct{}{},
+			"WithSourceParam":   struct{}{},
+		},
+		"Flush": map[string]struct{}{
+			"WithIndex":             struct{}{},
+			"WithAllowNoIndices":    struct{}{},
+			"WithExpandWildcards":   struct{}{},
+			"WithForce":             struct{}{},
+			"WithIgnoreUnavailable": struct{}{},
+			"WithWaitIfOngoing":     struct{}{},
+			"WithErrorTrace":        struct{}{},
+			"WithFilterPath":        struct{}{},
+			"WithHuman":             struct{}{},
+			"WithIgnore":            struct{}{},
+			"WithPretty":            struct{}{},
+			"WithSourceParam":       struct{}{},
+		},
+		"Recovery": map[string]struct{}{
+			"WithIndex":       struct{}{},
+			"WithActiveOnly":  struct{}{},
+			"WithDetailed":    struct{}{},
+			"WithErrorTrace":  struct{}{},
+			"WithFilterPath":  struct{}{},
+			"WithHuman":       struct{}{},
+			"WithIgnore":      struct{}{},
+			"WithPretty":      struct{}{},
+			"WithSourceParam": struct{}{},
+		},
+		"ExistsAlias": map[string]struct{}{
+			"WithIndex":             struct{}{},
+			"WithName":              struct{}{},
+			"WithAllowNoIndices":    struct{}{},
+			"WithExpandWildcards":   struct{}{},
+			"WithIgnoreUnavailable": struct{}{},
+			"WithLocal":             struct{}{},
+			"WithErrorTrace":        struct{}{},
+			"WithFilterPath":        struct{}{},
+			"WithHuman":             struct{}{},
+			"WithIgnore":            struct{}{},
+			"WithPretty":            struct{}{},
+			"WithSourceParam":       struct{}{},
+		},
+		"Forcemerge": map[string]struct{}{
+			"WithIndex":              struct{}{},
+			"WithAllowNoIndices":     struct{}{},
+			"WithExpandWildcards":    struct{}{},
+			"WithFlush":              struct{}{},
+			"WithIgnoreUnavailable":  struct{}{},
+			"WithMaxNumSegments":     struct{}{},
+			"WithOnlyExpungeDeletes": struct{}{},
+			"WithOperationThreading": struct{}{},
+			"WithWaitForMerge":       struct{}{},
 			"WithErrorTrace":         struct{}{},
 			"WithFilterPath":         struct{}{},
 			"WithHuman":              struct{}{},
@@ -424,116 +736,7 @@ var (
 			"WithPretty":             struct{}{},
 			"WithSourceParam":        struct{}{},
 		},
-		"Exists": map[string]struct{}{
-			"WithAllowNoIndices":    struct{}{},
-			"WithExpandWildcards":   struct{}{},
-			"WithFlatSettings":      struct{}{},
-			"WithIgnoreUnavailable": struct{}{},
-			"WithIncludeDefaults":   struct{}{},
-			"WithLocal":             struct{}{},
-			"WithErrorTrace":        struct{}{},
-			"WithFilterPath":        struct{}{},
-			"WithHuman":             struct{}{},
-			"WithIgnore":            struct{}{},
-			"WithPretty":            struct{}{},
-			"WithSourceParam":       struct{}{},
-		},
-		"Close": map[string]struct{}{
-			"WithAllowNoIndices":    struct{}{},
-			"WithExpandWildcards":   struct{}{},
-			"WithIgnoreUnavailable": struct{}{},
-			"WithMasterTimeout":     struct{}{},
-			"WithTimeout":           struct{}{},
-			"WithErrorTrace":        struct{}{},
-			"WithFilterPath":        struct{}{},
-			"WithHuman":             struct{}{},
-			"WithIgnore":            struct{}{},
-			"WithPretty":            struct{}{},
-			"WithSourceParam":       struct{}{},
-		},
-		"FlushSynced": map[string]struct{}{
-			"WithIndex":             struct{}{},
-			"WithAllowNoIndices":    struct{}{},
-			"WithExpandWildcards":   struct{}{},
-			"WithIgnoreUnavailable": struct{}{},
-			"WithErrorTrace":        struct{}{},
-			"WithFilterPath":        struct{}{},
-			"WithHuman":             struct{}{},
-			"WithIgnore":            struct{}{},
-			"WithPretty":            struct{}{},
-			"WithSourceParam":       struct{}{},
-		},
-		"GetUpgrade": map[string]struct{}{
-			"WithIndex":             struct{}{},
-			"WithAllowNoIndices":    struct{}{},
-			"WithExpandWildcards":   struct{}{},
-			"WithIgnoreUnavailable": struct{}{},
-			"WithErrorTrace":        struct{}{},
-			"WithFilterPath":        struct{}{},
-			"WithHuman":             struct{}{},
-			"WithIgnore":            struct{}{},
-			"WithPretty":            struct{}{},
-			"WithSourceParam":       struct{}{},
-		},
-		"Flush": map[string]struct{}{
-			"WithIndex":             struct{}{},
-			"WithAllowNoIndices":    struct{}{},
-			"WithExpandWildcards":   struct{}{},
-			"WithForce":             struct{}{},
-			"WithIgnoreUnavailable": struct{}{},
-			"WithWaitIfOngoing":     struct{}{},
-			"WithErrorTrace":        struct{}{},
-			"WithFilterPath":        struct{}{},
-			"WithHuman":             struct{}{},
-			"WithIgnore":            struct{}{},
-			"WithPretty":            struct{}{},
-			"WithSourceParam":       struct{}{},
-		},
-		"GetMapping": map[string]struct{}{
-			"WithIndex":             struct{}{},
-			"WithType":              struct{}{},
-			"WithAllowNoIndices":    struct{}{},
-			"WithExpandWildcards":   struct{}{},
-			"WithIgnoreUnavailable": struct{}{},
-			"WithLocal":             struct{}{},
-			"WithErrorTrace":        struct{}{},
-			"WithFilterPath":        struct{}{},
-			"WithHuman":             struct{}{},
-			"WithIgnore":            struct{}{},
-			"WithPretty":            struct{}{},
-			"WithSourceParam":       struct{}{},
-		},
-		"Create": map[string]struct{}{
-			"WithMasterTimeout":       struct{}{},
-			"WithTimeout":             struct{}{},
-			"WithUpdateAllTypes":      struct{}{},
-			"WithWaitForActiveShards": struct{}{},
-			"WithBody":                struct{}{},
-			"WithErrorTrace":          struct{}{},
-			"WithFilterPath":          struct{}{},
-			"WithHuman":               struct{}{},
-			"WithIgnore":              struct{}{},
-			"WithPretty":              struct{}{},
-			"WithSourceParam":         struct{}{},
-		},
-		"Forcemerge": map[string]struct{}{
-			"WithIndex":              struct{}{},
-			"WithAllowNoIndices":     struct{}{},
-			"WithExpandWildcards":    struct{}{},
-			"WithFlush":              struct{}{},
-			"WithIgnoreUnavailable":  struct{}{},
-			"WithMaxNumSegments":     struct{}{},
-			"WithOnlyExpungeDeletes": struct{}{},
-			"WithOperationThreading": struct{}{},
-			"WithWaitForMerge":       struct{}{},
-			"WithErrorTrace":         struct{}{},
-			"WithFilterPath":         struct{}{},
-			"WithHuman":              struct{}{},
-			"WithIgnore":             struct{}{},
-			"WithPretty":             struct{}{},
-			"WithSourceParam":        struct{}{},
-		},
-		"UpdateAliases": map[string]struct{}{
+		"DeleteAlias": map[string]struct{}{
 			"WithMasterTimeout": struct{}{},
 			"WithTimeout":       struct{}{},
 			"WithErrorTrace":    struct{}{},
@@ -542,34 +745,6 @@ var (
 			"WithIgnore":        struct{}{},
 			"WithPretty":        struct{}{},
 			"WithSourceParam":   struct{}{},
-		},
-		"Upgrade": map[string]struct{}{
-			"WithIndex":               struct{}{},
-			"WithAllowNoIndices":      struct{}{},
-			"WithExpandWildcards":     struct{}{},
-			"WithIgnoreUnavailable":   struct{}{},
-			"WithOnlyAncientSegments": struct{}{},
-			"WithWaitForCompletion":   struct{}{},
-			"WithErrorTrace":          struct{}{},
-			"WithFilterPath":          struct{}{},
-			"WithHuman":               struct{}{},
-			"WithIgnore":              struct{}{},
-			"WithPretty":              struct{}{},
-			"WithSourceParam":         struct{}{},
-		},
-		"GetAlias": map[string]struct{}{
-			"WithIndex":             struct{}{},
-			"WithName":              struct{}{},
-			"WithAllowNoIndices":    struct{}{},
-			"WithExpandWildcards":   struct{}{},
-			"WithIgnoreUnavailable": struct{}{},
-			"WithLocal":             struct{}{},
-			"WithErrorTrace":        struct{}{},
-			"WithFilterPath":        struct{}{},
-			"WithHuman":             struct{}{},
-			"WithIgnore":            struct{}{},
-			"WithPretty":            struct{}{},
-			"WithSourceParam":       struct{}{},
 		},
 		"Shrink": map[string]struct{}{
 			"WithMasterTimeout":       struct{}{},
@@ -583,76 +758,12 @@ var (
 			"WithPretty":              struct{}{},
 			"WithSourceParam":         struct{}{},
 		},
-		"PutTemplate": map[string]struct{}{
-			"WithCreate":        struct{}{},
-			"WithFlatSettings":  struct{}{},
-			"WithMasterTimeout": struct{}{},
-			"WithOrder":         struct{}{},
-			"WithTimeout":       struct{}{},
-			"WithErrorTrace":    struct{}{},
-			"WithFilterPath":    struct{}{},
-			"WithHuman":         struct{}{},
-			"WithIgnore":        struct{}{},
-			"WithPretty":        struct{}{},
-			"WithSourceParam":   struct{}{},
-		},
-		"Delete": map[string]struct{}{
-			"WithMasterTimeout": struct{}{},
-			"WithTimeout":       struct{}{},
-			"WithErrorTrace":    struct{}{},
-			"WithFilterPath":    struct{}{},
-			"WithHuman":         struct{}{},
-			"WithIgnore":        struct{}{},
-			"WithPretty":        struct{}{},
-			"WithSourceParam":   struct{}{},
-		},
-		"DeleteTemplate": map[string]struct{}{
-			"WithMasterTimeout": struct{}{},
-			"WithTimeout":       struct{}{},
-			"WithErrorTrace":    struct{}{},
-			"WithFilterPath":    struct{}{},
-			"WithHuman":         struct{}{},
-			"WithIgnore":        struct{}{},
-			"WithPretty":        struct{}{},
-			"WithSourceParam":   struct{}{},
-		},
-		"Rollover": map[string]struct{}{
-			"WithNewIndex":            struct{}{},
-			"WithDryRun":              struct{}{},
-			"WithMasterTimeout":       struct{}{},
-			"WithTimeout":             struct{}{},
-			"WithWaitForActiveShards": struct{}{},
-			"WithBody":                struct{}{},
-			"WithErrorTrace":          struct{}{},
-			"WithFilterPath":          struct{}{},
-			"WithHuman":               struct{}{},
-			"WithIgnore":              struct{}{},
-			"WithPretty":              struct{}{},
-			"WithSourceParam":         struct{}{},
-		},
-		"Get": map[string]struct{}{
-			"WithFeature":           struct{}{},
+		"Close": map[string]struct{}{
 			"WithAllowNoIndices":    struct{}{},
 			"WithExpandWildcards":   struct{}{},
-			"WithFlatSettings":      struct{}{},
-			"WithIgnoreUnavailable": struct{}{},
-			"WithIncludeDefaults":   struct{}{},
-			"WithLocal":             struct{}{},
-			"WithErrorTrace":        struct{}{},
-			"WithFilterPath":        struct{}{},
-			"WithHuman":             struct{}{},
-			"WithIgnore":            struct{}{},
-			"WithPretty":            struct{}{},
-			"WithSourceParam":       struct{}{},
-		},
-		"PutSettings": map[string]struct{}{
-			"WithIndex":             struct{}{},
-			"WithAllowNoIndices":    struct{}{},
-			"WithExpandWildcards":   struct{}{},
-			"WithFlatSettings":      struct{}{},
 			"WithIgnoreUnavailable": struct{}{},
 			"WithMasterTimeout":     struct{}{},
-			"WithPreserveExisting":  struct{}{},
+			"WithTimeout":           struct{}{},
 			"WithErrorTrace":        struct{}{},
 			"WithFilterPath":        struct{}{},
 			"WithHuman":             struct{}{},
@@ -671,49 +782,15 @@ var (
 			"WithPretty":        struct{}{},
 			"WithSourceParam":   struct{}{},
 		},
-		"ExistsTemplate": map[string]struct{}{
-			"WithName":          struct{}{},
-			"WithFlatSettings":  struct{}{},
-			"WithLocal":         struct{}{},
-			"WithMasterTimeout": struct{}{},
-			"WithErrorTrace":    struct{}{},
-			"WithFilterPath":    struct{}{},
-			"WithHuman":         struct{}{},
-			"WithIgnore":        struct{}{},
-			"WithPretty":        struct{}{},
-			"WithSourceParam":   struct{}{},
-		},
-		"GetTemplate": map[string]struct{}{
-			"WithName":          struct{}{},
-			"WithFlatSettings":  struct{}{},
-			"WithLocal":         struct{}{},
-			"WithMasterTimeout": struct{}{},
-			"WithErrorTrace":    struct{}{},
-			"WithFilterPath":    struct{}{},
-			"WithHuman":         struct{}{},
-			"WithIgnore":        struct{}{},
-			"WithPretty":        struct{}{},
-			"WithSourceParam":   struct{}{},
-		},
-		"Recovery": map[string]struct{}{
-			"WithIndex":       struct{}{},
-			"WithActiveOnly":  struct{}{},
-			"WithDetailed":    struct{}{},
-			"WithErrorTrace":  struct{}{},
-			"WithFilterPath":  struct{}{},
-			"WithHuman":       struct{}{},
-			"WithIgnore":      struct{}{},
-			"WithPretty":      struct{}{},
-			"WithSourceParam": struct{}{},
-		},
-		"PutMapping": map[string]struct{}{
+		"GetSettings": map[string]struct{}{
 			"WithIndex":             struct{}{},
+			"WithName":              struct{}{},
 			"WithAllowNoIndices":    struct{}{},
 			"WithExpandWildcards":   struct{}{},
+			"WithFlatSettings":      struct{}{},
 			"WithIgnoreUnavailable": struct{}{},
-			"WithMasterTimeout":     struct{}{},
-			"WithTimeout":           struct{}{},
-			"WithUpdateAllTypes":    struct{}{},
+			"WithIncludeDefaults":   struct{}{},
+			"WithLocal":             struct{}{},
 			"WithErrorTrace":        struct{}{},
 			"WithFilterPath":        struct{}{},
 			"WithHuman":             struct{}{},
@@ -721,22 +798,57 @@ var (
 			"WithPretty":            struct{}{},
 			"WithSourceParam":       struct{}{},
 		},
-		"Stats": map[string]struct{}{
-			"WithIndex":                   struct{}{},
-			"WithMetric":                  struct{}{},
-			"WithCompletionFields":        struct{}{},
-			"WithFielddataFields":         struct{}{},
-			"WithFields":                  struct{}{},
-			"WithGroups":                  struct{}{},
-			"WithIncludeSegmentFileSizes": struct{}{},
-			"WithLevel":                   struct{}{},
-			"WithTypes":                   struct{}{},
-			"WithErrorTrace":              struct{}{},
-			"WithFilterPath":              struct{}{},
-			"WithHuman":                   struct{}{},
-			"WithIgnore":                  struct{}{},
-			"WithPretty":                  struct{}{},
-			"WithSourceParam":             struct{}{},
+		"Rollover": map[string]struct{}{
+			"WithNewIndex":            struct{}{},
+			"WithDryRun":              struct{}{},
+			"WithMasterTimeout":       struct{}{},
+			"WithTimeout":             struct{}{},
+			"WithWaitForActiveShards": struct{}{},
+			"WithBody":                struct{}{},
+			"WithErrorTrace":          struct{}{},
+			"WithFilterPath":          struct{}{},
+			"WithHuman":               struct{}{},
+			"WithIgnore":              struct{}{},
+			"WithPretty":              struct{}{},
+			"WithSourceParam":         struct{}{},
+		},
+		"Delete": map[string]struct{}{
+			"WithMasterTimeout": struct{}{},
+			"WithTimeout":       struct{}{},
+			"WithErrorTrace":    struct{}{},
+			"WithFilterPath":    struct{}{},
+			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
+			"WithPretty":        struct{}{},
+			"WithSourceParam":   struct{}{},
+		},
+		"ShardStores": map[string]struct{}{
+			"WithIndex":              struct{}{},
+			"WithAllowNoIndices":     struct{}{},
+			"WithExpandWildcards":    struct{}{},
+			"WithIgnoreUnavailable":  struct{}{},
+			"WithOperationThreading": struct{}{},
+			"WithStatus":             struct{}{},
+			"WithErrorTrace":         struct{}{},
+			"WithFilterPath":         struct{}{},
+			"WithHuman":              struct{}{},
+			"WithIgnore":             struct{}{},
+			"WithPretty":             struct{}{},
+			"WithSourceParam":        struct{}{},
+		},
+		"Upgrade": map[string]struct{}{
+			"WithIndex":               struct{}{},
+			"WithAllowNoIndices":      struct{}{},
+			"WithExpandWildcards":     struct{}{},
+			"WithIgnoreUnavailable":   struct{}{},
+			"WithOnlyAncientSegments": struct{}{},
+			"WithWaitForCompletion":   struct{}{},
+			"WithErrorTrace":          struct{}{},
+			"WithFilterPath":          struct{}{},
+			"WithHuman":               struct{}{},
+			"WithIgnore":              struct{}{},
+			"WithPretty":              struct{}{},
+			"WithSourceParam":         struct{}{},
 		},
 	}
 )

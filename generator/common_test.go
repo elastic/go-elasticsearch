@@ -20,11 +20,18 @@
 package generator
 
 import (
+	"path/filepath"
 	"testing"
+	"text/template"
 )
 
 func TestResolve(t *testing.T) {
-	params, err := newCommonParams(testSpecDir)
+	templates, err := template.ParseFiles(filepath.Join("..", DefaultTemplatesDir, "option.tmpl"),
+		filepath.Join("..", DefaultTemplatesDir, "options", "ignore.tmpl"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	params, err := newCommonParams(testSpecDir, templates)
 	if err != nil {
 		t.Fatal(err)
 	}

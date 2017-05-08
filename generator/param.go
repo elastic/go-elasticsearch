@@ -20,8 +20,10 @@
 package generator
 
 import (
+	"bytes"
 	"fmt"
 	"strings"
+	"text/template"
 	"time"
 
 	"github.com/serenize/snaker"
@@ -29,13 +31,14 @@ import (
 
 const (
 	// TODO: make type its own struct
-	specTypeDict    = "dict"
-	specTypeBoolean = "boolean"
-	specTypeEnum    = "enum"
-	specTypeList    = "list"
-	specTypeNumber  = "number"
-	specTypeString  = "string"
-	specTypeTime    = "time"
+	specTypeDict       = "dict"
+	specTypeBoolean    = "boolean"
+	specTypeEnum       = "enum"
+	specTypeList       = "list"
+	specTypeNumber     = "number"
+	specTypeNumberList = "number_list"
+	specTypeString     = "string"
+	specTypeTime       = "time"
 )
 
 type enum struct {
@@ -53,16 +56,18 @@ func (e *enum) clone() *enum {
 }
 
 type param struct {
-	Name        string
-	rawName     string
-	SpecType    string `json:"type"`
-	Type        string
-	Description string      `json:"description"`
-	Required    bool        `json:"required"`
-	Default     interface{} `json:"default"`
-	Options     []string    `json:"options"`
-	OptionName  string
-	EnumValues  []*enum
+	Name               string
+	rawName            string
+	SpecType           string `json:"type"`
+	Type               string
+	Description        string      `json:"description"`
+	Required           bool        `json:"required"`
+	Default            interface{} `json:"default"`
+	Options            []string    `json:"options"`
+	OptionName         string
+	EnumValues         []*enum
+	optionTemplateName string
+	OptionTemplate     *template.Template
 	// Value is used by the tester to temporarily assign values to the parameter for the purpose of generating tests.
 	Value interface{}
 }
@@ -116,9 +121,18 @@ func formatDescription(description string) string {
 	return formatted
 }
 
-func (p *param) resolve(name string) error {
+func (p *param) resolve(name string, templates *template.Template) error {
 	p.rawName = name
 	p.Name, p.OptionName = formatName(name, p.Required)
+	if p.OptionName != "" {
+		if p.optionTemplateName == "" {
+			p.optionTemplateName = "option.tmpl"
+		}
+		p.OptionTemplate = templates.Lookup(p.optionTemplateName)
+		if p.OptionTemplate == nil {
+			return fmt.Errorf("cannot find template for option %q", name)
+		}
+	}
 	switch p.SpecType {
 	case specTypeBoolean:
 		p.Type = "bool"
@@ -142,6 +156,8 @@ func (p *param) resolve(name string) error {
 		p.Type = "[]string"
 	case specTypeNumber:
 		p.Type = "int"
+	case specTypeNumberList:
+		p.Type = "[]int"
 	case specTypeString:
 		p.Type = "string"
 	case specTypeTime:
@@ -200,6 +216,14 @@ type invalidTypeError struct {
 
 func (i *invalidTypeError) Error() string {
 	return fmt.Sprintf("invalid type for %s: %T (expected %s)", i.p.Name, i.p.Value, i.p.Type)
+}
+
+func (p *param) OptionString() (string, error) {
+	var writer bytes.Buffer
+	if err := p.OptionTemplate.Execute(&writer, p); err != nil {
+		return "", err
+	}
+	return writer.String(), nil
 }
 
 func (p *param) String() (string, error) {

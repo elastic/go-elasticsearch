@@ -110,10 +110,11 @@ type method struct {
 	allParams         map[string]*param
 	ParamsWithValues  []*param
 	HTTPCache         map[string]io.ReadCloser
-	ignore            []int
+	templates         *template.Template
 }
 
-func newMethod(specDir, specFileName string, commonParams map[string]*param) (*method, error) {
+func newMethod(specDir, specFileName string, commonParams map[string]*param, templates *template.Template) (*method,
+	error) {
 	bytes, err := ioutil.ReadFile(filepath.Join(specDir, "api", specFileName))
 	if err != nil {
 		return nil, err
@@ -126,6 +127,7 @@ func newMethod(specDir, specFileName string, commonParams map[string]*param) (*m
 		commonParams:      commonParams,
 		allParams:         map[string]*param{},
 		HTTPCache:         map[string]io.ReadCloser{},
+		templates:         templates,
 	}
 	var spec map[string]*spec
 	err = json.Unmarshal(bytes, &spec)
@@ -156,7 +158,7 @@ func newMethod(specDir, specFileName string, commonParams map[string]*param) (*m
 		if m.Spec.Body.SpecType == "" {
 			m.Spec.Body.SpecType = specTypeDict
 		}
-		if err = m.Spec.Body.resolve(bodyParam); err != nil {
+		if err = m.Spec.Body.resolve(bodyParam, m.templates); err != nil {
 			return nil, err
 		}
 	}
@@ -186,7 +188,7 @@ func newMethod(specDir, specFileName string, commonParams map[string]*param) (*m
 func (m *method) normalizeParams(params map[string]*param, resolve bool) error {
 	for name, p := range params {
 		if resolve {
-			err := p.resolve(name)
+			err := p.resolve(name, m.templates)
 			if err != nil {
 				return fmt.Errorf("failed to normalize params in %q: %s", m.rawName, err)
 			}
@@ -358,11 +360,11 @@ func (m *method) newWriter(outputDir, fileName string) (io.Writer, error) {
 	return goFile, nil
 }
 
-func (m *method) generate(templates *template.Template, w io.Writer) error {
+func (m *method) generate(w io.Writer) error {
 	if err := m.resolveDocumentation(); err != nil {
 		return err
 	}
-	if err := templates.Lookup("method.tmpl").Execute(w, m); err != nil {
+	if err := m.templates.Lookup("method.tmpl").Execute(w, m); err != nil {
 		return fmt.Errorf("failed to execute method template: %s", err)
 	}
 	return nil
@@ -386,7 +388,6 @@ func (m *method) clone() (*method, error) {
 		OptionalURLParams: []*param{},
 		commonParams:      map[string]*param{},
 		HTTPCache:         map[string]io.ReadCloser{},
-		ignore:            []int{},
 	}
 	for name, p := range m.commonParams {
 		c.commonParams[name] = p.clone()

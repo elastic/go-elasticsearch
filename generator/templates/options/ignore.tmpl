@@ -3,6 +3,9 @@ func {{.OptionName}}({{.Name}} {{.Type}}) *Option {
   return &Option{
 		name: "{{.OptionName}}",
 		apply: func(r *transport.Request) {
+      for _, status := range {{.Name}} {
+        r.IgnoredStatuses[status] = struct{}{}
+      }
   	},
 	}
 }

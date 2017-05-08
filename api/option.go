@@ -42,14 +42,30 @@ const (
 	ExpandWildcardsAll = iota
 )
 
-// SearchType - search operation type.
-type SearchType int
+// Refresh - if "true" then refresh the affected shards to make this operation visible to search, if "wait_for" then wait for a refresh to make this operation visible to search, if "false" (the default) then do nothing with refreshes.
+type Refresh int
 
 const (
-	// SearchTypeQueryThenFetch can be used to set SearchType to "query_then_fetch"
-	SearchTypeQueryThenFetch = iota
-	// SearchTypeDfsQueryThenFetch can be used to set SearchType to "dfs_query_then_fetch"
-	SearchTypeDfsQueryThenFetch = iota
+	// RefreshTrue can be used to set Refresh to "true"
+	RefreshTrue = iota
+	// RefreshFalse can be used to set Refresh to "false"
+	RefreshFalse = iota
+	// RefreshWaitFor can be used to set Refresh to "wait_for"
+	RefreshWaitFor = iota
+)
+
+// VersionType - specific version type.
+type VersionType int
+
+const (
+	// VersionTypeInternal can be used to set VersionType to "internal"
+	VersionTypeInternal = iota
+	// VersionTypeExternal can be used to set VersionType to "external"
+	VersionTypeExternal = iota
+	// VersionTypeExternalGte can be used to set VersionType to "external_gte"
+	VersionTypeExternalGte = iota
+	// VersionTypeForce can be used to set VersionType to "force"
+	VersionTypeForce = iota
 )
 
 // Option is a non-required API option that gets applied to an HTTP request.
@@ -85,7 +101,16 @@ func WithAnalyzer(analyzer string) *Option {
 	}
 }
 
-// WithBody - the search definition using the Query DSL.
+// WithBatchedReduceSize - the number of shard results that should be reduced at once on the coordinating node. This value should be used as a protection mechanism to reduce the memory overhead per search request if the potential number of shards in the request can be large.
+func WithBatchedReduceSize(batchedReduceSize int) *Option {
+	return &Option{
+		name: "WithBatchedReduceSize",
+		apply: func(r *transport.Request) {
+		},
+	}
+}
+
+// WithBody - the search definition template and its params.
 func WithBody(body map[string]interface{}) *Option {
 	return &Option{
 		name: "WithBody",
@@ -130,6 +155,15 @@ func WithType(documentType []string) *Option {
 	}
 }
 
+// WithDocvalueFields - a comma-separated list of fields to return as the docvalue representation of a field for each hit.
+func WithDocvalueFields(docvalueFields []string) *Option {
+	return &Option{
+		name: "WithDocvalueFields",
+		apply: func(r *transport.Request) {
+		},
+	}
+}
+
 // WithErrorTrace - include the stack trace of returned errors.
 func WithErrorTrace(errorTrace bool) *Option {
 	return &Option{
@@ -148,7 +182,25 @@ func WithExpandWildcards(expandWildcards ExpandWildcards) *Option {
 	}
 }
 
-// WithFields - a comma-separated list of field names.
+// WithExplain - specify whether to return detailed information about score computation as part of a hit.
+func WithExplain(explain bool) *Option {
+	return &Option{
+		name: "WithExplain",
+		apply: func(r *transport.Request) {
+		},
+	}
+}
+
+// WithFielddataFields - a comma-separated list of fields to return as the docvalue representation of a field for each hit.
+func WithFielddataFields(fielddataFields []string) *Option {
+	return &Option{
+		name: "WithFielddataFields",
+		apply: func(r *transport.Request) {
+		},
+	}
+}
+
+// WithFields - a comma-separated list of fields to return in the response.
 func WithFields(fields []string) *Option {
 	return &Option{
 		name: "WithFields",
@@ -194,10 +246,13 @@ func WithID(id string) *Option {
 }
 
 // WithIgnore - ignores the specified HTTP status codes.
-func WithIgnore(ignore []string) *Option {
+func WithIgnore(ignore []int) *Option {
 	return &Option{
 		name: "WithIgnore",
 		apply: func(r *transport.Request) {
+			for _, status := range ignore {
+				r.IgnoredStatuses[status] = struct{}{}
+			}
 		},
 	}
 }
@@ -211,10 +266,19 @@ func WithIgnoreUnavailable(ignoreUnavailable bool) *Option {
 	}
 }
 
-// WithIndex - a comma-separated list of index names; use "_all" or empty string to perform the operation on all indices.
+// WithIndex - a comma-separated list of index names to search; use "_all" or empty string to perform the operation on all indices.
 func WithIndex(index []string) *Option {
 	return &Option{
 		name: "WithIndex",
+		apply: func(r *transport.Request) {
+		},
+	}
+}
+
+// WithLang - the script language (default: painless).
+func WithLang(lang string) *Option {
+	return &Option{
+		name: "WithLang",
 		apply: func(r *transport.Request) {
 		},
 	}
@@ -229,7 +293,16 @@ func WithLenient(lenient bool) *Option {
 	}
 }
 
-// WithParent - the ID of the parent document.
+// WithLocal - return local information, do not retrieve the state from master node (default: false).
+func WithLocal(local bool) *Option {
+	return &Option{
+		name: "WithLocal",
+		apply: func(r *transport.Request) {
+		},
+	}
+}
+
+// WithParent - ID of the parent document.
 func WithParent(parent string) *Option {
 	return &Option{
 		name: "WithParent",
@@ -238,7 +311,7 @@ func WithParent(parent string) *Option {
 	}
 }
 
-// WithPipeline - ingest pipeline to set on index requests made by this action. (default: none).
+// WithPipeline - the pipeline id to preprocess incoming documents with.
 func WithPipeline(pipeline string) *Option {
 	return &Option{
 		name: "WithPipeline",
@@ -265,6 +338,15 @@ func WithPretty(pretty bool) *Option {
 	}
 }
 
+// WithProfile - specify whether to profile the query execution.
+func WithProfile(profile bool) *Option {
+	return &Option{
+		name: "WithProfile",
+		apply: func(r *transport.Request) {
+		},
+	}
+}
+
 // WithQ - query in the Lucene query string syntax.
 func WithQ(q string) *Option {
 	return &Option{
@@ -274,17 +356,8 @@ func WithQ(q string) *Option {
 	}
 }
 
-// WithRealtime - specify whether to perform the operation in realtime or search mode.
-func WithRealtime(realtime bool) *Option {
-	return &Option{
-		name: "WithRealtime",
-		apply: func(r *transport.Request) {
-		},
-	}
-}
-
-// WithRefresh - should the effected indexes be refreshed?
-func WithRefresh(refresh bool) *Option {
+// WithRefresh - if "true" then refresh the affected shards to make this operation visible to search, if "wait_for" then wait for a refresh to make this operation visible to search, if "false" (the default) then do nothing with refreshes.
+func WithRefresh(refresh Refresh) *Option {
 	return &Option{
 		name: "WithRefresh",
 		apply: func(r *transport.Request) {
@@ -301,17 +374,8 @@ func WithRequestCache(requestCache bool) *Option {
 	}
 }
 
-// WithRequestsPerSecond - the throttle to set on this request in sub-requests per second. -1 means no throttle.
-func WithRequestsPerSecond(requestsPerSecond int) *Option {
-	return &Option{
-		name: "WithRequestsPerSecond",
-		apply: func(r *transport.Request) {
-		},
-	}
-}
-
-// WithRouting - a comma-separated list of specific routing values.
-func WithRouting(routing []string) *Option {
+// WithRouting - specific routing value.
+func WithRouting(routing string) *Option {
 	return &Option{
 		name: "WithRouting",
 		apply: func(r *transport.Request) {
@@ -328,8 +392,8 @@ func WithScroll(scroll time.Time) *Option {
 	}
 }
 
-// WithScrollID - a comma-separated list of scroll IDs to clear.
-func WithScrollID(scrollID []string) *Option {
+// WithScrollID - the scroll ID.
+func WithScrollID(scrollID string) *Option {
 	return &Option{
 		name: "WithScrollID",
 		apply: func(r *transport.Request) {
@@ -337,55 +401,10 @@ func WithScrollID(scrollID []string) *Option {
 	}
 }
 
-// WithScrollSize - size on the scroll request powering the update_by_query.
-func WithScrollSize(scrollSize int) *Option {
+// WithScrollIDParam - the scroll ID for scrolled search.
+func WithScrollIDParam(scrollIDParam string) *Option {
 	return &Option{
-		name: "WithScrollSize",
-		apply: func(r *transport.Request) {
-		},
-	}
-}
-
-// WithSearchTimeout - explicit timeout for each search request. Defaults to no timeout.
-func WithSearchTimeout(searchTimeout time.Time) *Option {
-	return &Option{
-		name: "WithSearchTimeout",
-		apply: func(r *transport.Request) {
-		},
-	}
-}
-
-// WithSearchType - search operation type.
-func WithSearchType(searchType SearchType) *Option {
-	return &Option{
-		name: "WithSearchType",
-		apply: func(r *transport.Request) {
-		},
-	}
-}
-
-// WithSize - number of hits to return (default: 10).
-func WithSize(size int) *Option {
-	return &Option{
-		name: "WithSize",
-		apply: func(r *transport.Request) {
-		},
-	}
-}
-
-// WithSlices - the number of slices this task should be divided into. Defaults to 1 meaning the task isn't sliced into subtasks.
-func WithSlices(slices int) *Option {
-	return &Option{
-		name: "WithSlices",
-		apply: func(r *transport.Request) {
-		},
-	}
-}
-
-// WithSort - a comma-separated list of <field>:<direction> pairs.
-func WithSort(sort []string) *Option {
-	return &Option{
-		name: "WithSort",
+		name: "WithScrollIDParam",
 		apply: func(r *transport.Request) {
 		},
 	}
@@ -427,15 +446,6 @@ func WithSourceParam(sourceParam string) *Option {
 	}
 }
 
-// WithStats - specific 'tag' of the request for logging and statistical purposes.
-func WithStats(stats []string) *Option {
-	return &Option{
-		name: "WithStats",
-		apply: func(r *transport.Request) {
-		},
-	}
-}
-
 // WithTaskID - the task id to rethrottle.
 func WithTaskID(taskID string) *Option {
 	return &Option{
@@ -445,16 +455,7 @@ func WithTaskID(taskID string) *Option {
 	}
 }
 
-// WithTerminateAfter - the maximum number of documents to collect for each shard, upon reaching which the query execution will terminate early.
-func WithTerminateAfter(terminateAfter int) *Option {
-	return &Option{
-		name: "WithTerminateAfter",
-		apply: func(r *transport.Request) {
-		},
-	}
-}
-
-// WithTimeout - time each individual bulk request should wait for shards that are unavailable.
+// WithTimeout - explicit operation timeout.
 func WithTimeout(timeout time.Time) *Option {
 	return &Option{
 		name: "WithTimeout",
@@ -463,8 +464,26 @@ func WithTimeout(timeout time.Time) *Option {
 	}
 }
 
-// WithVersion - specify whether to return document version as part of a hit.
-func WithVersion(version bool) *Option {
+// WithTimestamp - explicit timestamp for the document.
+func WithTimestamp(timestamp time.Time) *Option {
+	return &Option{
+		name: "WithTimestamp",
+		apply: func(r *transport.Request) {
+		},
+	}
+}
+
+// WithTTL - expiration time for the document.
+func WithTTL(ttl time.Time) *Option {
+	return &Option{
+		name: "WithTTL",
+		apply: func(r *transport.Request) {
+		},
+	}
+}
+
+// WithVersion - explicit version number for concurrency control.
+func WithVersion(version int) *Option {
 	return &Option{
 		name: "WithVersion",
 		apply: func(r *transport.Request) {
@@ -472,8 +491,8 @@ func WithVersion(version bool) *Option {
 	}
 }
 
-// WithVersionType - should the document increment the version number (internal) on hit or not (reindex).
-func WithVersionType(versionType bool) *Option {
+// WithVersionType - specific version type.
+func WithVersionType(versionType VersionType) *Option {
 	return &Option{
 		name: "WithVersionType",
 		apply: func(r *transport.Request) {
@@ -481,7 +500,7 @@ func WithVersionType(versionType bool) *Option {
 	}
 }
 
-// WithWaitForActiveShards - sets the number of shard copies that must be active before proceeding with the update by query operation. Defaults to 1, meaning the primary shard only. Set to "all" for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1).
+// WithWaitForActiveShards - sets the number of shard copies that must be active before proceeding with the index operation. Defaults to 1, meaning the primary shard only. Set to "all" for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1).
 func WithWaitForActiveShards(waitForActiveShards string) *Option {
 	return &Option{
 		name: "WithWaitForActiveShards",
@@ -490,17 +509,246 @@ func WithWaitForActiveShards(waitForActiveShards string) *Option {
 	}
 }
 
-// WithWaitForCompletion - should the request should block until the update by query operation is complete.
-func WithWaitForCompletion(waitForCompletion bool) *Option {
-	return &Option{
-		name: "WithWaitForCompletion",
-		apply: func(r *transport.Request) {
-		},
-	}
-}
-
 var (
 	supportedOptions = map[string]map[string]struct{}{
+		"RenderSearchTemplate": map[string]struct{}{
+			"WithID":          struct{}{},
+			"WithBody":        struct{}{},
+			"WithErrorTrace":  struct{}{},
+			"WithFilterPath":  struct{}{},
+			"WithHuman":       struct{}{},
+			"WithIgnore":      struct{}{},
+			"WithPretty":      struct{}{},
+			"WithSourceParam": struct{}{},
+		},
+		"PutScript": map[string]struct{}{
+			"WithErrorTrace":  struct{}{},
+			"WithFilterPath":  struct{}{},
+			"WithHuman":       struct{}{},
+			"WithIgnore":      struct{}{},
+			"WithPretty":      struct{}{},
+			"WithSourceParam": struct{}{},
+		},
+		"PutTemplate": map[string]struct{}{
+			"WithErrorTrace":  struct{}{},
+			"WithFilterPath":  struct{}{},
+			"WithHuman":       struct{}{},
+			"WithIgnore":      struct{}{},
+			"WithPretty":      struct{}{},
+			"WithSourceParam": struct{}{},
+		},
+		"SearchShards": map[string]struct{}{
+			"WithIndex":             struct{}{},
+			"WithType":              struct{}{},
+			"WithAllowNoIndices":    struct{}{},
+			"WithExpandWildcards":   struct{}{},
+			"WithIgnoreUnavailable": struct{}{},
+			"WithLocal":             struct{}{},
+			"WithPreference":        struct{}{},
+			"WithRouting":           struct{}{},
+			"WithErrorTrace":        struct{}{},
+			"WithFilterPath":        struct{}{},
+			"WithHuman":             struct{}{},
+			"WithIgnore":            struct{}{},
+			"WithPretty":            struct{}{},
+			"WithSourceParam":       struct{}{},
+		},
+		"Count": map[string]struct{}{
+			"WithIndex":             struct{}{},
+			"WithType":              struct{}{},
+			"WithAllowNoIndices":    struct{}{},
+			"WithAnalyzeWildcard":   struct{}{},
+			"WithAnalyzer":          struct{}{},
+			"WithDefaultOperator":   struct{}{},
+			"WithDf":                struct{}{},
+			"WithExpandWildcards":   struct{}{},
+			"WithIgnoreUnavailable": struct{}{},
+			"WithLenient":           struct{}{},
+			"WithMinScore":          struct{}{},
+			"WithPreference":        struct{}{},
+			"WithQ":                 struct{}{},
+			"WithRouting":           struct{}{},
+			"WithBody":              struct{}{},
+			"WithErrorTrace":        struct{}{},
+			"WithFilterPath":        struct{}{},
+			"WithHuman":             struct{}{},
+			"WithIgnore":            struct{}{},
+			"WithPretty":            struct{}{},
+			"WithSourceParam":       struct{}{},
+		},
+		"CountPercolate": map[string]struct{}{
+			"WithID":                struct{}{},
+			"WithAllowNoIndices":    struct{}{},
+			"WithExpandWildcards":   struct{}{},
+			"WithIgnoreUnavailable": struct{}{},
+			"WithPercolateIndex":    struct{}{},
+			"WithPercolateType":     struct{}{},
+			"WithPreference":        struct{}{},
+			"WithRouting":           struct{}{},
+			"WithVersion":           struct{}{},
+			"WithVersionType":       struct{}{},
+			"WithBody":              struct{}{},
+			"WithErrorTrace":        struct{}{},
+			"WithFilterPath":        struct{}{},
+			"WithHuman":             struct{}{},
+			"WithIgnore":            struct{}{},
+			"WithPretty":            struct{}{},
+			"WithSourceParam":       struct{}{},
+		},
+		"GetTemplate": map[string]struct{}{
+			"WithErrorTrace":  struct{}{},
+			"WithFilterPath":  struct{}{},
+			"WithHuman":       struct{}{},
+			"WithIgnore":      struct{}{},
+			"WithPretty":      struct{}{},
+			"WithSourceParam": struct{}{},
+		},
+		"Suggest": map[string]struct{}{
+			"WithIndex":             struct{}{},
+			"WithAllowNoIndices":    struct{}{},
+			"WithExpandWildcards":   struct{}{},
+			"WithIgnoreUnavailable": struct{}{},
+			"WithPreference":        struct{}{},
+			"WithRouting":           struct{}{},
+			"WithErrorTrace":        struct{}{},
+			"WithFilterPath":        struct{}{},
+			"WithHuman":             struct{}{},
+			"WithIgnore":            struct{}{},
+			"WithPretty":            struct{}{},
+			"WithSourceParam":       struct{}{},
+		},
+		"FieldCaps": map[string]struct{}{
+			"WithIndex":             struct{}{},
+			"WithAllowNoIndices":    struct{}{},
+			"WithExpandWildcards":   struct{}{},
+			"WithFields":            struct{}{},
+			"WithIgnoreUnavailable": struct{}{},
+			"WithBody":              struct{}{},
+			"WithErrorTrace":        struct{}{},
+			"WithFilterPath":        struct{}{},
+			"WithHuman":             struct{}{},
+			"WithIgnore":            struct{}{},
+			"WithPretty":            struct{}{},
+			"WithSourceParam":       struct{}{},
+		},
+		"Create": map[string]struct{}{
+			"WithParent":              struct{}{},
+			"WithPipeline":            struct{}{},
+			"WithRefresh":             struct{}{},
+			"WithRouting":             struct{}{},
+			"WithTimeout":             struct{}{},
+			"WithTimestamp":           struct{}{},
+			"WithTTL":                 struct{}{},
+			"WithVersion":             struct{}{},
+			"WithVersionType":         struct{}{},
+			"WithWaitForActiveShards": struct{}{},
+			"WithErrorTrace":          struct{}{},
+			"WithFilterPath":          struct{}{},
+			"WithHuman":               struct{}{},
+			"WithIgnore":              struct{}{},
+			"WithPretty":              struct{}{},
+			"WithSourceParam":         struct{}{},
+		},
+		"Scroll": map[string]struct{}{
+			"WithScrollID":      struct{}{},
+			"WithScroll":        struct{}{},
+			"WithScrollIDParam": struct{}{},
+			"WithBody":          struct{}{},
+			"WithErrorTrace":    struct{}{},
+			"WithFilterPath":    struct{}{},
+			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
+			"WithPretty":        struct{}{},
+			"WithSourceParam":   struct{}{},
+		},
+		"ReindexRethrottle": map[string]struct{}{
+			"WithTaskID":      struct{}{},
+			"WithErrorTrace":  struct{}{},
+			"WithFilterPath":  struct{}{},
+			"WithHuman":       struct{}{},
+			"WithIgnore":      struct{}{},
+			"WithPretty":      struct{}{},
+			"WithSourceParam": struct{}{},
+		},
+		"Get": map[string]struct{}{
+			"WithSource":        struct{}{},
+			"WithSourceExclude": struct{}{},
+			"WithSourceInclude": struct{}{},
+			"WithParent":        struct{}{},
+			"WithPreference":    struct{}{},
+			"WithRealtime":      struct{}{},
+			"WithRefresh":       struct{}{},
+			"WithRouting":       struct{}{},
+			"WithStoredFields":  struct{}{},
+			"WithVersion":       struct{}{},
+			"WithVersionType":   struct{}{},
+			"WithErrorTrace":    struct{}{},
+			"WithFilterPath":    struct{}{},
+			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
+			"WithPretty":        struct{}{},
+			"WithSourceParam":   struct{}{},
+		},
+		"Percolate": map[string]struct{}{
+			"WithID":                  struct{}{},
+			"WithAllowNoIndices":      struct{}{},
+			"WithExpandWildcards":     struct{}{},
+			"WithIgnoreUnavailable":   struct{}{},
+			"WithPercolateFormat":     struct{}{},
+			"WithPercolateIndex":      struct{}{},
+			"WithPercolatePreference": struct{}{},
+			"WithPercolateRouting":    struct{}{},
+			"WithPercolateType":       struct{}{},
+			"WithPreference":          struct{}{},
+			"WithRouting":             struct{}{},
+			"WithVersion":             struct{}{},
+			"WithVersionType":         struct{}{},
+			"WithBody":                struct{}{},
+			"WithErrorTrace":          struct{}{},
+			"WithFilterPath":          struct{}{},
+			"WithHuman":               struct{}{},
+			"WithIgnore":              struct{}{},
+			"WithPretty":              struct{}{},
+			"WithSourceParam":         struct{}{},
+		},
+		"Bulk": map[string]struct{}{
+			"WithIndex":               struct{}{},
+			"WithType":                struct{}{},
+			"WithSource":              struct{}{},
+			"WithSourceExclude":       struct{}{},
+			"WithSourceInclude":       struct{}{},
+			"WithFields":              struct{}{},
+			"WithPipeline":            struct{}{},
+			"WithRefresh":             struct{}{},
+			"WithRouting":             struct{}{},
+			"WithTimeout":             struct{}{},
+			"WithTypeParam":           struct{}{},
+			"WithWaitForActiveShards": struct{}{},
+			"WithErrorTrace":          struct{}{},
+			"WithFilterPath":          struct{}{},
+			"WithHuman":               struct{}{},
+			"WithIgnore":              struct{}{},
+			"WithPretty":              struct{}{},
+			"WithSourceParam":         struct{}{},
+		},
+		"ExistsSource": map[string]struct{}{
+			"WithSource":        struct{}{},
+			"WithSourceExclude": struct{}{},
+			"WithSourceInclude": struct{}{},
+			"WithParent":        struct{}{},
+			"WithPreference":    struct{}{},
+			"WithRealtime":      struct{}{},
+			"WithRefresh":       struct{}{},
+			"WithRouting":       struct{}{},
+			"WithVersion":       struct{}{},
+			"WithVersionType":   struct{}{},
+			"WithErrorTrace":    struct{}{},
+			"WithFilterPath":    struct{}{},
+			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
+			"WithPretty":        struct{}{},
+			"WithSourceParam":   struct{}{},
+		},
 		"UpdateByQuery": map[string]struct{}{
 			"WithType":                struct{}{},
 			"WithSource":              struct{}{},
@@ -545,9 +793,11 @@ var (
 			"WithPretty":              struct{}{},
 			"WithSourceParam":         struct{}{},
 		},
-		"ClearScroll": map[string]struct{}{
-			"WithScrollID":    struct{}{},
-			"WithBody":        struct{}{},
+		"MsearchTemplate": map[string]struct{}{
+			"WithIndex":       struct{}{},
+			"WithType":        struct{}{},
+			"WithSearchType":  struct{}{},
+			"WithTypedKeys":   struct{}{},
 			"WithErrorTrace":  struct{}{},
 			"WithFilterPath":  struct{}{},
 			"WithHuman":       struct{}{},
@@ -555,7 +805,7 @@ var (
 			"WithPretty":      struct{}{},
 			"WithSourceParam": struct{}{},
 		},
-		"DeleteScript": map[string]struct{}{
+		"Ping": map[string]struct{}{
 			"WithErrorTrace":  struct{}{},
 			"WithFilterPath":  struct{}{},
 			"WithHuman":       struct{}{},
@@ -563,113 +813,12 @@ var (
 			"WithPretty":      struct{}{},
 			"WithSourceParam": struct{}{},
 		},
-		"FieldCaps": map[string]struct{}{
+		"Mpercolate": map[string]struct{}{
 			"WithIndex":             struct{}{},
-			"WithAllowNoIndices":    struct{}{},
-			"WithExpandWildcards":   struct{}{},
-			"WithFields":            struct{}{},
-			"WithIgnoreUnavailable": struct{}{},
-			"WithBody":              struct{}{},
-			"WithErrorTrace":        struct{}{},
-			"WithFilterPath":        struct{}{},
-			"WithHuman":             struct{}{},
-			"WithIgnore":            struct{}{},
-			"WithPretty":            struct{}{},
-			"WithSourceParam":       struct{}{},
-		},
-		"GetSource": map[string]struct{}{
-			"WithSource":        struct{}{},
-			"WithSourceExclude": struct{}{},
-			"WithSourceInclude": struct{}{},
-			"WithParent":        struct{}{},
-			"WithPreference":    struct{}{},
-			"WithRealtime":      struct{}{},
-			"WithRefresh":       struct{}{},
-			"WithRouting":       struct{}{},
-			"WithVersion":       struct{}{},
-			"WithVersionType":   struct{}{},
-			"WithErrorTrace":    struct{}{},
-			"WithFilterPath":    struct{}{},
-			"WithHuman":         struct{}{},
-			"WithIgnore":        struct{}{},
-			"WithPretty":        struct{}{},
-			"WithSourceParam":   struct{}{},
-		},
-		"Mget": map[string]struct{}{
-			"WithIndex":         struct{}{},
-			"WithType":          struct{}{},
-			"WithSource":        struct{}{},
-			"WithSourceExclude": struct{}{},
-			"WithSourceInclude": struct{}{},
-			"WithPreference":    struct{}{},
-			"WithRealtime":      struct{}{},
-			"WithRefresh":       struct{}{},
-			"WithRouting":       struct{}{},
-			"WithStoredFields":  struct{}{},
-			"WithErrorTrace":    struct{}{},
-			"WithFilterPath":    struct{}{},
-			"WithHuman":         struct{}{},
-			"WithIgnore":        struct{}{},
-			"WithPretty":        struct{}{},
-			"WithSourceParam":   struct{}{},
-		},
-		"RenderSearchTemplate": map[string]struct{}{
-			"WithID":          struct{}{},
-			"WithBody":        struct{}{},
-			"WithErrorTrace":  struct{}{},
-			"WithFilterPath":  struct{}{},
-			"WithHuman":       struct{}{},
-			"WithIgnore":      struct{}{},
-			"WithPretty":      struct{}{},
-			"WithSourceParam": struct{}{},
-		},
-		"Index": map[string]struct{}{
-			"WithID":                  struct{}{},
-			"WithOpType":              struct{}{},
-			"WithParent":              struct{}{},
-			"WithPipeline":            struct{}{},
-			"WithRefresh":             struct{}{},
-			"WithRouting":             struct{}{},
-			"WithTimeout":             struct{}{},
-			"WithTimestamp":           struct{}{},
-			"WithTTL":                 struct{}{},
-			"WithVersion":             struct{}{},
-			"WithVersionType":         struct{}{},
-			"WithWaitForActiveShards": struct{}{},
-			"WithErrorTrace":          struct{}{},
-			"WithFilterPath":          struct{}{},
-			"WithHuman":               struct{}{},
-			"WithIgnore":              struct{}{},
-			"WithPretty":              struct{}{},
-			"WithSourceParam":         struct{}{},
-		},
-		"CountPercolate": map[string]struct{}{
-			"WithID":                struct{}{},
+			"WithType":              struct{}{},
 			"WithAllowNoIndices":    struct{}{},
 			"WithExpandWildcards":   struct{}{},
 			"WithIgnoreUnavailable": struct{}{},
-			"WithPercolateIndex":    struct{}{},
-			"WithPercolateType":     struct{}{},
-			"WithPreference":        struct{}{},
-			"WithRouting":           struct{}{},
-			"WithVersion":           struct{}{},
-			"WithVersionType":       struct{}{},
-			"WithBody":              struct{}{},
-			"WithErrorTrace":        struct{}{},
-			"WithFilterPath":        struct{}{},
-			"WithHuman":             struct{}{},
-			"WithIgnore":            struct{}{},
-			"WithPretty":            struct{}{},
-			"WithSourceParam":       struct{}{},
-		},
-		"FieldStats": map[string]struct{}{
-			"WithIndex":             struct{}{},
-			"WithAllowNoIndices":    struct{}{},
-			"WithExpandWildcards":   struct{}{},
-			"WithFields":            struct{}{},
-			"WithIgnoreUnavailable": struct{}{},
-			"WithLevel":             struct{}{},
-			"WithBody":              struct{}{},
 			"WithErrorTrace":        struct{}{},
 			"WithFilterPath":        struct{}{},
 			"WithHuman":             struct{}{},
@@ -699,278 +848,15 @@ var (
 			"WithPretty":          struct{}{},
 			"WithSourceParam":     struct{}{},
 		},
-		"PutTemplate": map[string]struct{}{
+		"DeleteScript": map[string]struct{}{
 			"WithErrorTrace":  struct{}{},
 			"WithFilterPath":  struct{}{},
 			"WithHuman":       struct{}{},
 			"WithIgnore":      struct{}{},
 			"WithPretty":      struct{}{},
 			"WithSourceParam": struct{}{},
-		},
-		"Count": map[string]struct{}{
-			"WithIndex":             struct{}{},
-			"WithType":              struct{}{},
-			"WithAllowNoIndices":    struct{}{},
-			"WithAnalyzeWildcard":   struct{}{},
-			"WithAnalyzer":          struct{}{},
-			"WithDefaultOperator":   struct{}{},
-			"WithDf":                struct{}{},
-			"WithExpandWildcards":   struct{}{},
-			"WithIgnoreUnavailable": struct{}{},
-			"WithLenient":           struct{}{},
-			"WithMinScore":          struct{}{},
-			"WithPreference":        struct{}{},
-			"WithQ":                 struct{}{},
-			"WithRouting":           struct{}{},
-			"WithBody":              struct{}{},
-			"WithErrorTrace":        struct{}{},
-			"WithFilterPath":        struct{}{},
-			"WithHuman":             struct{}{},
-			"WithIgnore":            struct{}{},
-			"WithPretty":            struct{}{},
-			"WithSourceParam":       struct{}{},
-		},
-		"Bulk": map[string]struct{}{
-			"WithIndex":               struct{}{},
-			"WithType":                struct{}{},
-			"WithSource":              struct{}{},
-			"WithSourceExclude":       struct{}{},
-			"WithSourceInclude":       struct{}{},
-			"WithFields":              struct{}{},
-			"WithPipeline":            struct{}{},
-			"WithRefresh":             struct{}{},
-			"WithRouting":             struct{}{},
-			"WithTimeout":             struct{}{},
-			"WithTypeParam":           struct{}{},
-			"WithWaitForActiveShards": struct{}{},
-			"WithErrorTrace":          struct{}{},
-			"WithFilterPath":          struct{}{},
-			"WithHuman":               struct{}{},
-			"WithIgnore":              struct{}{},
-			"WithPretty":              struct{}{},
-			"WithSourceParam":         struct{}{},
-		},
-		"Suggest": map[string]struct{}{
-			"WithIndex":             struct{}{},
-			"WithAllowNoIndices":    struct{}{},
-			"WithExpandWildcards":   struct{}{},
-			"WithIgnoreUnavailable": struct{}{},
-			"WithPreference":        struct{}{},
-			"WithRouting":           struct{}{},
-			"WithErrorTrace":        struct{}{},
-			"WithFilterPath":        struct{}{},
-			"WithHuman":             struct{}{},
-			"WithIgnore":            struct{}{},
-			"WithPretty":            struct{}{},
-			"WithSourceParam":       struct{}{},
-		},
-		"Msearch": map[string]struct{}{
-			"WithIndex":                 struct{}{},
-			"WithType":                  struct{}{},
-			"WithMaxConcurrentSearches": struct{}{},
-			"WithSearchType":            struct{}{},
-			"WithTypedKeys":             struct{}{},
-			"WithErrorTrace":            struct{}{},
-			"WithFilterPath":            struct{}{},
-			"WithHuman":                 struct{}{},
-			"WithIgnore":                struct{}{},
-			"WithPretty":                struct{}{},
-			"WithSourceParam":           struct{}{},
-		},
-		"PutScript": map[string]struct{}{
-			"WithErrorTrace":  struct{}{},
-			"WithFilterPath":  struct{}{},
-			"WithHuman":       struct{}{},
-			"WithIgnore":      struct{}{},
-			"WithPretty":      struct{}{},
-			"WithSourceParam": struct{}{},
-		},
-		"MsearchTemplate": map[string]struct{}{
-			"WithIndex":       struct{}{},
-			"WithType":        struct{}{},
-			"WithSearchType":  struct{}{},
-			"WithTypedKeys":   struct{}{},
-			"WithErrorTrace":  struct{}{},
-			"WithFilterPath":  struct{}{},
-			"WithHuman":       struct{}{},
-			"WithIgnore":      struct{}{},
-			"WithPretty":      struct{}{},
-			"WithSourceParam": struct{}{},
-		},
-		"Get": map[string]struct{}{
-			"WithSource":        struct{}{},
-			"WithSourceExclude": struct{}{},
-			"WithSourceInclude": struct{}{},
-			"WithParent":        struct{}{},
-			"WithPreference":    struct{}{},
-			"WithRealtime":      struct{}{},
-			"WithRefresh":       struct{}{},
-			"WithRouting":       struct{}{},
-			"WithStoredFields":  struct{}{},
-			"WithVersion":       struct{}{},
-			"WithVersionType":   struct{}{},
-			"WithErrorTrace":    struct{}{},
-			"WithFilterPath":    struct{}{},
-			"WithHuman":         struct{}{},
-			"WithIgnore":        struct{}{},
-			"WithPretty":        struct{}{},
-			"WithSourceParam":   struct{}{},
-		},
-		"Reindex": map[string]struct{}{
-			"WithRefresh":             struct{}{},
-			"WithRequestsPerSecond":   struct{}{},
-			"WithSlices":              struct{}{},
-			"WithTimeout":             struct{}{},
-			"WithWaitForActiveShards": struct{}{},
-			"WithWaitForCompletion":   struct{}{},
-			"WithErrorTrace":          struct{}{},
-			"WithFilterPath":          struct{}{},
-			"WithHuman":               struct{}{},
-			"WithIgnore":              struct{}{},
-			"WithPretty":              struct{}{},
-			"WithSourceParam":         struct{}{},
-		},
-		"Mpercolate": map[string]struct{}{
-			"WithIndex":             struct{}{},
-			"WithType":              struct{}{},
-			"WithAllowNoIndices":    struct{}{},
-			"WithExpandWildcards":   struct{}{},
-			"WithIgnoreUnavailable": struct{}{},
-			"WithErrorTrace":        struct{}{},
-			"WithFilterPath":        struct{}{},
-			"WithHuman":             struct{}{},
-			"WithIgnore":            struct{}{},
-			"WithPretty":            struct{}{},
-			"WithSourceParam":       struct{}{},
-		},
-		"Create": map[string]struct{}{
-			"WithParent":              struct{}{},
-			"WithPipeline":            struct{}{},
-			"WithRefresh":             struct{}{},
-			"WithRouting":             struct{}{},
-			"WithTimeout":             struct{}{},
-			"WithTimestamp":           struct{}{},
-			"WithTTL":                 struct{}{},
-			"WithVersion":             struct{}{},
-			"WithVersionType":         struct{}{},
-			"WithWaitForActiveShards": struct{}{},
-			"WithErrorTrace":          struct{}{},
-			"WithFilterPath":          struct{}{},
-			"WithHuman":               struct{}{},
-			"WithIgnore":              struct{}{},
-			"WithPretty":              struct{}{},
-			"WithSourceParam":         struct{}{},
-		},
-		"Delete": map[string]struct{}{
-			"WithParent":              struct{}{},
-			"WithRefresh":             struct{}{},
-			"WithRouting":             struct{}{},
-			"WithTimeout":             struct{}{},
-			"WithVersion":             struct{}{},
-			"WithVersionType":         struct{}{},
-			"WithWaitForActiveShards": struct{}{},
-			"WithErrorTrace":          struct{}{},
-			"WithFilterPath":          struct{}{},
-			"WithHuman":               struct{}{},
-			"WithIgnore":              struct{}{},
-			"WithPretty":              struct{}{},
-			"WithSourceParam":         struct{}{},
-		},
-		"GetTemplate": map[string]struct{}{
-			"WithErrorTrace":  struct{}{},
-			"WithFilterPath":  struct{}{},
-			"WithHuman":       struct{}{},
-			"WithIgnore":      struct{}{},
-			"WithPretty":      struct{}{},
-			"WithSourceParam": struct{}{},
-		},
-		"Mtermvectors": map[string]struct{}{
-			"WithIndex":           struct{}{},
-			"WithType":            struct{}{},
-			"WithFieldStatistics": struct{}{},
-			"WithFields":          struct{}{},
-			"WithIds":             struct{}{},
-			"WithOffsets":         struct{}{},
-			"WithParent":          struct{}{},
-			"WithPayloads":        struct{}{},
-			"WithPositions":       struct{}{},
-			"WithPreference":      struct{}{},
-			"WithRealtime":        struct{}{},
-			"WithRouting":         struct{}{},
-			"WithTermStatistics":  struct{}{},
-			"WithVersion":         struct{}{},
-			"WithVersionType":     struct{}{},
-			"WithBody":            struct{}{},
-			"WithErrorTrace":      struct{}{},
-			"WithFilterPath":      struct{}{},
-			"WithHuman":           struct{}{},
-			"WithIgnore":          struct{}{},
-			"WithPretty":          struct{}{},
-			"WithSourceParam":     struct{}{},
-		},
-		"Scroll": map[string]struct{}{
-			"WithScrollID":      struct{}{},
-			"WithScroll":        struct{}{},
-			"WithScrollIDParam": struct{}{},
-			"WithBody":          struct{}{},
-			"WithErrorTrace":    struct{}{},
-			"WithFilterPath":    struct{}{},
-			"WithHuman":         struct{}{},
-			"WithIgnore":        struct{}{},
-			"WithPretty":        struct{}{},
-			"WithSourceParam":   struct{}{},
-		},
-		"Info": map[string]struct{}{
-			"WithErrorTrace":  struct{}{},
-			"WithFilterPath":  struct{}{},
-			"WithHuman":       struct{}{},
-			"WithIgnore":      struct{}{},
-			"WithPretty":      struct{}{},
-			"WithSourceParam": struct{}{},
-		},
-		"SearchShards": map[string]struct{}{
-			"WithIndex":             struct{}{},
-			"WithType":              struct{}{},
-			"WithAllowNoIndices":    struct{}{},
-			"WithExpandWildcards":   struct{}{},
-			"WithIgnoreUnavailable": struct{}{},
-			"WithLocal":             struct{}{},
-			"WithPreference":        struct{}{},
-			"WithRouting":           struct{}{},
-			"WithErrorTrace":        struct{}{},
-			"WithFilterPath":        struct{}{},
-			"WithHuman":             struct{}{},
-			"WithIgnore":            struct{}{},
-			"WithPretty":            struct{}{},
-			"WithSourceParam":       struct{}{},
-		},
-		"ExistsSource": map[string]struct{}{
-			"WithSource":        struct{}{},
-			"WithSourceExclude": struct{}{},
-			"WithSourceInclude": struct{}{},
-			"WithParent":        struct{}{},
-			"WithPreference":    struct{}{},
-			"WithRealtime":      struct{}{},
-			"WithRefresh":       struct{}{},
-			"WithRouting":       struct{}{},
-			"WithVersion":       struct{}{},
-			"WithVersionType":   struct{}{},
-			"WithErrorTrace":    struct{}{},
-			"WithFilterPath":    struct{}{},
-			"WithHuman":         struct{}{},
-			"WithIgnore":        struct{}{},
-			"WithPretty":        struct{}{},
-			"WithSourceParam":   struct{}{},
 		},
 		"GetScript": map[string]struct{}{
-			"WithErrorTrace":  struct{}{},
-			"WithFilterPath":  struct{}{},
-			"WithHuman":       struct{}{},
-			"WithIgnore":      struct{}{},
-			"WithPretty":      struct{}{},
-			"WithSourceParam": struct{}{},
-		},
-		"Ping": map[string]struct{}{
 			"WithErrorTrace":  struct{}{},
 			"WithFilterPath":  struct{}{},
 			"WithHuman":       struct{}{},
@@ -999,92 +885,12 @@ var (
 			"WithPretty":            struct{}{},
 			"WithSourceParam":       struct{}{},
 		},
-		"DeleteTemplate": map[string]struct{}{
-			"WithErrorTrace":  struct{}{},
-			"WithFilterPath":  struct{}{},
-			"WithHuman":       struct{}{},
-			"WithIgnore":      struct{}{},
-			"WithPretty":      struct{}{},
-			"WithSourceParam": struct{}{},
-		},
-		"ReindexRethrottle": map[string]struct{}{
-			"WithTaskID":      struct{}{},
-			"WithErrorTrace":  struct{}{},
-			"WithFilterPath":  struct{}{},
-			"WithHuman":       struct{}{},
-			"WithIgnore":      struct{}{},
-			"WithPretty":      struct{}{},
-			"WithSourceParam": struct{}{},
-		},
-		"Update": map[string]struct{}{
-			"WithSource":              struct{}{},
-			"WithSourceExclude":       struct{}{},
-			"WithSourceInclude":       struct{}{},
-			"WithFields":              struct{}{},
-			"WithLang":                struct{}{},
-			"WithParent":              struct{}{},
-			"WithRefresh":             struct{}{},
-			"WithRetryOnConflict":     struct{}{},
-			"WithRouting":             struct{}{},
-			"WithTimeout":             struct{}{},
-			"WithTimestamp":           struct{}{},
-			"WithTTL":                 struct{}{},
-			"WithVersion":             struct{}{},
-			"WithVersionType":         struct{}{},
-			"WithWaitForActiveShards": struct{}{},
-			"WithBody":                struct{}{},
-			"WithErrorTrace":          struct{}{},
-			"WithFilterPath":          struct{}{},
-			"WithHuman":               struct{}{},
-			"WithIgnore":              struct{}{},
-			"WithPretty":              struct{}{},
-			"WithSourceParam":         struct{}{},
-		},
-		"Exists": map[string]struct{}{
-			"WithSource":        struct{}{},
-			"WithSourceExclude": struct{}{},
-			"WithSourceInclude": struct{}{},
-			"WithParent":        struct{}{},
-			"WithPreference":    struct{}{},
-			"WithRealtime":      struct{}{},
-			"WithRefresh":       struct{}{},
-			"WithRouting":       struct{}{},
-			"WithStoredFields":  struct{}{},
-			"WithVersion":       struct{}{},
-			"WithVersionType":   struct{}{},
-			"WithErrorTrace":    struct{}{},
-			"WithFilterPath":    struct{}{},
-			"WithHuman":         struct{}{},
-			"WithIgnore":        struct{}{},
-			"WithPretty":        struct{}{},
-			"WithSourceParam":   struct{}{},
-		},
-		"Percolate": map[string]struct{}{
-			"WithID":                  struct{}{},
-			"WithAllowNoIndices":      struct{}{},
-			"WithExpandWildcards":     struct{}{},
-			"WithIgnoreUnavailable":   struct{}{},
-			"WithPercolateFormat":     struct{}{},
-			"WithPercolateIndex":      struct{}{},
-			"WithPercolatePreference": struct{}{},
-			"WithPercolateRouting":    struct{}{},
-			"WithPercolateType":       struct{}{},
-			"WithPreference":          struct{}{},
-			"WithRouting":             struct{}{},
-			"WithVersion":             struct{}{},
-			"WithVersionType":         struct{}{},
-			"WithBody":                struct{}{},
-			"WithErrorTrace":          struct{}{},
-			"WithFilterPath":          struct{}{},
-			"WithHuman":               struct{}{},
-			"WithIgnore":              struct{}{},
-			"WithPretty":              struct{}{},
-			"WithSourceParam":         struct{}{},
-		},
-		"Termvectors": map[string]struct{}{
-			"WithID":              struct{}{},
+		"Mtermvectors": map[string]struct{}{
+			"WithIndex":           struct{}{},
+			"WithType":            struct{}{},
 			"WithFieldStatistics": struct{}{},
 			"WithFields":          struct{}{},
+			"WithIds":             struct{}{},
 			"WithOffsets":         struct{}{},
 			"WithParent":          struct{}{},
 			"WithPayloads":        struct{}{},
@@ -1102,6 +908,76 @@ var (
 			"WithIgnore":          struct{}{},
 			"WithPretty":          struct{}{},
 			"WithSourceParam":     struct{}{},
+		},
+		"Msearch": map[string]struct{}{
+			"WithIndex":                 struct{}{},
+			"WithType":                  struct{}{},
+			"WithMaxConcurrentSearches": struct{}{},
+			"WithSearchType":            struct{}{},
+			"WithTypedKeys":             struct{}{},
+			"WithErrorTrace":            struct{}{},
+			"WithFilterPath":            struct{}{},
+			"WithHuman":                 struct{}{},
+			"WithIgnore":                struct{}{},
+			"WithPretty":                struct{}{},
+			"WithSourceParam":           struct{}{},
+		},
+		"Index": map[string]struct{}{
+			"WithID":                  struct{}{},
+			"WithOpType":              struct{}{},
+			"WithParent":              struct{}{},
+			"WithPipeline":            struct{}{},
+			"WithRefresh":             struct{}{},
+			"WithRouting":             struct{}{},
+			"WithTimeout":             struct{}{},
+			"WithTimestamp":           struct{}{},
+			"WithTTL":                 struct{}{},
+			"WithVersion":             struct{}{},
+			"WithVersionType":         struct{}{},
+			"WithWaitForActiveShards": struct{}{},
+			"WithErrorTrace":          struct{}{},
+			"WithFilterPath":          struct{}{},
+			"WithHuman":               struct{}{},
+			"WithIgnore":              struct{}{},
+			"WithPretty":              struct{}{},
+			"WithSourceParam":         struct{}{},
+		},
+		"Reindex": map[string]struct{}{
+			"WithRefresh":             struct{}{},
+			"WithRequestsPerSecond":   struct{}{},
+			"WithSlices":              struct{}{},
+			"WithTimeout":             struct{}{},
+			"WithWaitForActiveShards": struct{}{},
+			"WithWaitForCompletion":   struct{}{},
+			"WithErrorTrace":          struct{}{},
+			"WithFilterPath":          struct{}{},
+			"WithHuman":               struct{}{},
+			"WithIgnore":              struct{}{},
+			"WithPretty":              struct{}{},
+			"WithSourceParam":         struct{}{},
+		},
+		"Info": map[string]struct{}{
+			"WithErrorTrace":  struct{}{},
+			"WithFilterPath":  struct{}{},
+			"WithHuman":       struct{}{},
+			"WithIgnore":      struct{}{},
+			"WithPretty":      struct{}{},
+			"WithSourceParam": struct{}{},
+		},
+		"Delete": map[string]struct{}{
+			"WithParent":              struct{}{},
+			"WithRefresh":             struct{}{},
+			"WithRouting":             struct{}{},
+			"WithTimeout":             struct{}{},
+			"WithVersion":             struct{}{},
+			"WithVersionType":         struct{}{},
+			"WithWaitForActiveShards": struct{}{},
+			"WithErrorTrace":          struct{}{},
+			"WithFilterPath":          struct{}{},
+			"WithHuman":               struct{}{},
+			"WithIgnore":              struct{}{},
+			"WithPretty":              struct{}{},
+			"WithSourceParam":         struct{}{},
 		},
 		"Search": map[string]struct{}{
 			"WithIndex":             struct{}{},
@@ -1149,6 +1025,62 @@ var (
 			"WithPretty":            struct{}{},
 			"WithSourceParam":       struct{}{},
 		},
+		"FieldStats": map[string]struct{}{
+			"WithIndex":             struct{}{},
+			"WithAllowNoIndices":    struct{}{},
+			"WithExpandWildcards":   struct{}{},
+			"WithFields":            struct{}{},
+			"WithIgnoreUnavailable": struct{}{},
+			"WithLevel":             struct{}{},
+			"WithBody":              struct{}{},
+			"WithErrorTrace":        struct{}{},
+			"WithFilterPath":        struct{}{},
+			"WithHuman":             struct{}{},
+			"WithIgnore":            struct{}{},
+			"WithPretty":            struct{}{},
+			"WithSourceParam":       struct{}{},
+		},
+		"Termvectors": map[string]struct{}{
+			"WithID":              struct{}{},
+			"WithFieldStatistics": struct{}{},
+			"WithFields":          struct{}{},
+			"WithOffsets":         struct{}{},
+			"WithParent":          struct{}{},
+			"WithPayloads":        struct{}{},
+			"WithPositions":       struct{}{},
+			"WithPreference":      struct{}{},
+			"WithRealtime":        struct{}{},
+			"WithRouting":         struct{}{},
+			"WithTermStatistics":  struct{}{},
+			"WithVersion":         struct{}{},
+			"WithVersionType":     struct{}{},
+			"WithBody":            struct{}{},
+			"WithErrorTrace":      struct{}{},
+			"WithFilterPath":      struct{}{},
+			"WithHuman":           struct{}{},
+			"WithIgnore":          struct{}{},
+			"WithPretty":          struct{}{},
+			"WithSourceParam":     struct{}{},
+		},
+		"Exists": map[string]struct{}{
+			"WithSource":        struct{}{},
+			"WithSourceExclude": struct{}{},
+			"WithSourceInclude": struct{}{},
+			"WithParent":        struct{}{},
+			"WithPreference":    struct{}{},
+			"WithRealtime":      struct{}{},
+			"WithRefresh":       struct{}{},
+			"WithRouting":       struct{}{},
+			"WithStoredFields":  struct{}{},
+			"WithVersion":       struct{}{},
+			"WithVersionType":   struct{}{},
+			"WithErrorTrace":    struct{}{},
+			"WithFilterPath":    struct{}{},
+			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
+			"WithPretty":        struct{}{},
+			"WithSourceParam":   struct{}{},
+		},
 		"DeleteByQuery": map[string]struct{}{
 			"WithType":                struct{}{},
 			"WithSource":              struct{}{},
@@ -1189,6 +1121,84 @@ var (
 			"WithIgnore":              struct{}{},
 			"WithPretty":              struct{}{},
 			"WithSourceParam":         struct{}{},
+		},
+		"DeleteTemplate": map[string]struct{}{
+			"WithErrorTrace":  struct{}{},
+			"WithFilterPath":  struct{}{},
+			"WithHuman":       struct{}{},
+			"WithIgnore":      struct{}{},
+			"WithPretty":      struct{}{},
+			"WithSourceParam": struct{}{},
+		},
+		"Mget": map[string]struct{}{
+			"WithIndex":         struct{}{},
+			"WithType":          struct{}{},
+			"WithSource":        struct{}{},
+			"WithSourceExclude": struct{}{},
+			"WithSourceInclude": struct{}{},
+			"WithPreference":    struct{}{},
+			"WithRealtime":      struct{}{},
+			"WithRefresh":       struct{}{},
+			"WithRouting":       struct{}{},
+			"WithStoredFields":  struct{}{},
+			"WithErrorTrace":    struct{}{},
+			"WithFilterPath":    struct{}{},
+			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
+			"WithPretty":        struct{}{},
+			"WithSourceParam":   struct{}{},
+		},
+		"GetSource": map[string]struct{}{
+			"WithSource":        struct{}{},
+			"WithSourceExclude": struct{}{},
+			"WithSourceInclude": struct{}{},
+			"WithParent":        struct{}{},
+			"WithPreference":    struct{}{},
+			"WithRealtime":      struct{}{},
+			"WithRefresh":       struct{}{},
+			"WithRouting":       struct{}{},
+			"WithVersion":       struct{}{},
+			"WithVersionType":   struct{}{},
+			"WithErrorTrace":    struct{}{},
+			"WithFilterPath":    struct{}{},
+			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
+			"WithPretty":        struct{}{},
+			"WithSourceParam":   struct{}{},
+		},
+		"Update": map[string]struct{}{
+			"WithSource":              struct{}{},
+			"WithSourceExclude":       struct{}{},
+			"WithSourceInclude":       struct{}{},
+			"WithFields":              struct{}{},
+			"WithLang":                struct{}{},
+			"WithParent":              struct{}{},
+			"WithRefresh":             struct{}{},
+			"WithRetryOnConflict":     struct{}{},
+			"WithRouting":             struct{}{},
+			"WithTimeout":             struct{}{},
+			"WithTimestamp":           struct{}{},
+			"WithTTL":                 struct{}{},
+			"WithVersion":             struct{}{},
+			"WithVersionType":         struct{}{},
+			"WithWaitForActiveShards": struct{}{},
+			"WithBody":                struct{}{},
+			"WithErrorTrace":          struct{}{},
+			"WithFilterPath":          struct{}{},
+			"WithHuman":               struct{}{},
+			"WithIgnore":              struct{}{},
+			"WithPretty":              struct{}{},
+			"WithSourceParam":         struct{}{},
+		},
+		"ClearScroll": map[string]struct{}{
+			"WithScrollID":    struct{}{},
+			"WithBody":        struct{}{},
+			"WithErrorTrace":  struct{}{},
+			"WithFilterPath":  struct{}{},
+			"WithHuman":       struct{}{},
+			"WithIgnore":      struct{}{},
+			"WithPretty":      struct{}{},
+			"WithSourceParam": struct{}{},
 		},
 	}
 )

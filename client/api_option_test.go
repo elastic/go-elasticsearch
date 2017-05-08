@@ -36,11 +36,11 @@ func TestOptionValidation(t *testing.T) {
 	if err.Error() != unsupportedOptionError {
 		t.Fatalf("expected WithIndex() to return %q but got %q", unsupportedOptionError, err)
 	}
-	_, err = c.Index("index", "good", nil, api.WithHuman(true))
+	_, err = c.Index("index", "good", nil, api.WithHuman(true), api.WithIgnore([]int{400}))
 	if err != nil {
 		t.Fatal(err)
 	}
-	_, err = c.Index("index", "good", nil)
+	_, err = c.Index("index", "good", nil, api.WithIgnore([]int{400}))
 	if err != nil {
 		t.Fatal(err)
 	}

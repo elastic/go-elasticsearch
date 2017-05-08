@@ -22,8 +22,10 @@ package generator
 import (
 	"bytes"
 	"io"
+	"path/filepath"
 	"strings"
 	"testing"
+	"text/template"
 
 	"github.com/aryann/difflib"
 )
@@ -41,7 +43,12 @@ func (d *dummyCloser) Close() error {
 }
 
 func newIndexMethod(t *testing.T) *method {
-	m, err := newMethod(testSpecDir, "index.json", nil)
+	templates, err := template.ParseFiles(filepath.Join("..", DefaultTemplatesDir, "method.tmpl"),
+		filepath.Join("..", DefaultTemplatesDir, "option.tmpl"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	m, err := newMethod(testSpecDir, "index.json", nil, templates)
 	if err != nil {
 		t.Fatal(err)
 	}

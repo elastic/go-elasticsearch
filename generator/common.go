@@ -23,13 +23,14 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"path/filepath"
+	"text/template"
 )
 
 const (
 	commonParamsSpecFile = "_common.json"
 )
 
-func newCommonParams(specDir string) (map[string]*param, error) {
+func newCommonParams(specDir string, templates *template.Template) (map[string]*param, error) {
 	bytes, err := ioutil.ReadFile(filepath.Join(specDir, "api", commonParamsSpecFile))
 	if err != nil {
 		return nil, err
@@ -43,14 +44,14 @@ func newCommonParams(specDir string) (map[string]*param, error) {
 		return nil, err
 	}
 	params["ignore"] = &param{
-		SpecType:    "list",
-		Description: "ignores the specified HTTP status codes",
-		Required:    false,
-		Default:     nil,
-		Options:     nil,
+		SpecType:           "number_list",
+		Description:        "ignores the specified HTTP status codes",
+		optionTemplateName: "ignore.tmpl",
 	}
 	for name, p := range params {
-		p.resolve(name)
+		if err := p.resolve(name, templates); err != nil {
+			return nil, err
+		}
 	}
 	return params, nil
 }

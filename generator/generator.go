@@ -40,8 +40,6 @@ const (
 
 // Generator is a code generator based on JSON and YAML specs and Go template.
 type Generator struct {
-	// templates are the templates to generate all the code.
-	templates *template.Template
 	// methods are API methods populated and map 1:1 with the JSON specs in the rest-api-spec/api dir.
 	methods map[string]*method
 	// commonParams are common options populated based on rest-api-spec/api/_common.json.
@@ -67,14 +65,23 @@ func New(specDir, templatesDir string) (*Generator, error) {
 	}
 	templateFiles := []string{}
 	for _, file := range files {
-		templateFiles = append(templateFiles, filepath.Join(templatesDir, file.Name()))
+		if !file.IsDir() {
+			templateFiles = append(templateFiles, filepath.Join(templatesDir, file.Name()))
+		}
 	}
-	g.templates, err = template.ParseFiles(templateFiles...)
+	files, err = ioutil.ReadDir(filepath.Join(templatesDir, "options"))
+	if err != nil {
+		return nil, err
+	}
+	for _, file := range files {
+		templateFiles = append(templateFiles, filepath.Join(templatesDir, "options", file.Name()))
+	}
+	templates, err := template.ParseFiles(templateFiles...)
 	if err != nil {
 		return nil, err
 	}
 	glog.Info("parsing common params")
-	g.commonParams, err = newCommonParams(specDir)
+	g.commonParams, err = newCommonParams(specDir, templates)
 	if err != nil {
 		return nil, err
 	}
@@ -88,13 +95,13 @@ func New(specDir, templatesDir string) (*Generator, error) {
 			continue
 		}
 		var m *method
-		m, err = newMethod(specDir, specFile.Name(), g.commonParams)
+		m, err = newMethod(specDir, specFile.Name(), g.commonParams, templates)
 		if err != nil {
 			return nil, err
 		}
 		g.methods[m.rawName] = m
 	}
-	g.packages, err = newPackages(g.methods)
+	g.packages, err = newPackages(g.methods, templates)
 	if err != nil {
 		return nil, err
 	}
@@ -106,21 +113,21 @@ func New(specDir, templatesDir string) (*Generator, error) {
 		if !dir.IsDir() {
 			continue
 		}
-		if g.testers[dir.Name()], err = newTester(specDir, dir.Name(), g.methods, g.templates); err != nil {
+		if g.testers[dir.Name()], err = newTester(specDir, dir.Name(), g.methods, templates); err != nil {
 			return nil, err
 		}
 	}
 	return g, nil
 }
 
-func newPackages(methods map[string]*method) (map[string]*goPackage, error) {
+func newPackages(methods map[string]*method, templates *template.Template) (map[string]*goPackage, error) {
 	packages := map[string]*goPackage{}
 	for _, m := range methods {
 		if p, ok := packages[m.PackageName]; ok {
 			p.addMethod(m)
 		} else {
 			var err error
-			packages[m.PackageName], err = newGoPackage(m)
+			packages[m.PackageName], err = newGoPackage(m, templates)
 			if err != nil {
 				return nil, err
 			}
@@ -143,19 +150,19 @@ func (g *Generator) Run() error {
 		if err != nil {
 			return err
 		}
-		if err = m.generate(g.templates, w); err != nil {
+		if err = m.generate(w); err != nil {
 			return err
 		}
 	}
 	glog.Info("generating types, constructors and options")
 	for _, p := range g.packages {
-		if err := p.generate(g.templates, outputDir); err != nil {
+		if err := p.generate(outputDir); err != nil {
 			return err
 		}
 	}
 	glog.Info("generating tests")
 	for _, tester := range g.testers {
-		err := tester.generate(g.templates, outputDir)
+		err := tester.generate(outputDir)
 		if err != nil {
 			return err
 		}
