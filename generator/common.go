@@ -42,6 +42,13 @@ func newCommonParams(specDir string) (map[string]*param, error) {
 	if err = json.Unmarshal(*spec["params"], &params); err != nil {
 		return nil, err
 	}
+	params["ignore"] = &param{
+		SpecType:    "list",
+		Description: "ignores the specified HTTP status codes",
+		Required:    false,
+		Default:     nil,
+		Options:     nil,
+	}
 	for name, p := range params {
 		p.resolve(name)
 	}

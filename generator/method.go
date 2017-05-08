@@ -445,24 +445,7 @@ func (m *method) call(args map[string]interface{}) (*method, error) {
 		} else if p, ok = c.Spec.URL.Parts[name]; !ok {
 			if p, ok = c.Spec.URL.Params[name]; !ok {
 				if p, ok = c.commonParams[name]; !ok {
-					if name == "ignore" {
-						if values, ok := value.([]interface{}); ok {
-							for _, v := range values {
-								status, ok := v.(int)
-								if !ok {
-									return nil, fmt.Errorf("unexpected type for %q value: %T (expected int)", name, v)
-								}
-								c.ignore = append(c.ignore, status)
-							}
-						} else {
-							status, ok := value.(int)
-							if !ok {
-								return nil, fmt.Errorf("unexpected type for %q value: %T (expected int)", name, value)
-							}
-							c.ignore = append(c.ignore, status)
-						}
-					}
-					continue
+					return nil, fmt.Errorf("invalid parameter name: %s", name)
 				}
 			}
 		}
