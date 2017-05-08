@@ -19,19 +19,42 @@
 
 package generator
 
-import "text/template"
+import (
+	"fmt"
+	"text/template"
+)
 
 type boolCompare struct {
-	Spec map[string]string
+	spec     map[string]string
+	key      string
+	Operator string
+	NilValue string
 }
 
 func newBoolCompare(unmarshal func(interface{}) error) (action, error) {
-	// TODO: implement
-	return &boolCompare{}, nil
+	b := &boolCompare{}
+	if err := unmarshal(&b.spec); err != nil {
+		return nil, err
+	}
+	if len(b.spec) > 1 {
+		return nil, fmt.Errorf("found more than one operation in %#v", b.spec)
+	}
+	for name, key := range b.spec {
+		switch name {
+		case "is_true":
+			b.Operator = "!="
+		case "is_false":
+			b.Operator = "=="
+		default:
+			return nil, fmt.Errorf("unexpected bool comparison operation: %s", name)
+		}
+		b.key = key
+	}
+	return b, nil
 }
 
 func (b *boolCompare) resolve(methods map[string]*method, templates *template.Template) error {
-	// TODO: implement
+	// TODO: implement resolution, dotted notation and per-type nil value
 	return nil
 }
 
