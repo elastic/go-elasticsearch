@@ -5,22 +5,15 @@ package cluster
 import (
 	"fmt"
 	"net/http"
-	"net/url"
 
 	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Health - the cluster health API allows to get a very simple status on the health of the cluster. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-health.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithLevel, WithLocal, WithMasterTimeout, WithTimeout, WithWaitForActiveShards, WithWaitForEvents, WithWaitForNoRelocatingShards, WithWaitForNodes, WithWaitForStatus, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithIndex, WithLevel, WithLocal, WithMasterTimeout, WithTimeout, WithWaitForActiveShards, WithWaitForEvents, WithWaitForNoRelocatingShards, WithWaitForNodes, WithWaitForStatus, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (c *Cluster) Health(options ...*Option) (*HealthResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: c.transport.URL.Scheme,
-			Host:   c.transport.URL.Host,
-		},
-		Method: "GET",
-	}
+	req := c.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Health"]
 	for _, option := range options {
 		if _, ok := methodOptions[option.name]; !ok {

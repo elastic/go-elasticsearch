@@ -18,13 +18,7 @@ import (
 //
 // options: optional parameters. Supports the following functional options: {{range .OptionalURLParts}}{{.OptionName}}, {{end}}{{range .OptionalURLParams}}{{.OptionName}}, {{end}}see the Option type in this package for more info.
 func ({{.ReceiverName}} *{{.TypeName}}) {{.MethodName}}({{range .RequiredURLParts}}{{.Name}} {{.Type}}, {{end}}{{range .RequiredURLParams}}{{.Name}} {{.Type}}, {{end}}options ...*Option) (*{{.MethodName}}Response, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: {{.ReceiverName}}.transport.URL.Scheme,
-			Host:   {{.ReceiverName}}.transport.URL.Host,
-		},
-		Method: "{{.HTTPMethod}}",
-	}
+	req := {{.ReceiverName}}.transport.NewRequest("{{.HTTPMethod}}")
 	methodOptions := supportedOptions["{{.MethodName}}"]
 	for _, option := range options{
 		if _, ok := methodOptions[option.name]; !ok {

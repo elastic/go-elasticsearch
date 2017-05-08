@@ -5,7 +5,6 @@ package api
 import (
 	"fmt"
 	"net/http"
-	"net/url"
 
 	"github.com/elastic/go-elasticsearch/transport"
 )
@@ -14,15 +13,9 @@ import (
 //
 // body: the request definitions (metadata-search request definition pairs), separated by newlines.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithSearchType, WithTypedKeys, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithSearchType, WithTypedKeys, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (a *API) MsearchTemplate(body map[string]interface{}, options ...*Option) (*MsearchTemplateResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: a.transport.URL.Scheme,
-			Host:   a.transport.URL.Host,
-		},
-		Method: "GET",
-	}
+	req := a.transport.NewRequest("GET")
 	methodOptions := supportedOptions["MsearchTemplate"]
 	for _, option := range options {
 		if _, ok := methodOptions[option.name]; !ok {

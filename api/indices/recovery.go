@@ -5,22 +5,15 @@ package indices
 import (
 	"fmt"
 	"net/http"
-	"net/url"
 
 	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Recovery - the indices recovery API provides insight into on-going index shard recoveries. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-recovery.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithActiveOnly, WithDetailed, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithIndex, WithActiveOnly, WithDetailed, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) Recovery(options ...*Option) (*RecoveryResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: i.transport.URL.Scheme,
-			Host:   i.transport.URL.Host,
-		},
-		Method: "GET",
-	}
+	req := i.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Recovery"]
 	for _, option := range options {
 		if _, ok := methodOptions[option.name]; !ok {

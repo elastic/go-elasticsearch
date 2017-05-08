@@ -5,22 +5,15 @@ package indices
 import (
 	"fmt"
 	"net/http"
-	"net/url"
 
 	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Analyze - performs the analysis process on a text and return the tokens breakdown of the text. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-analyze.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithAnalyzer, WithAttributes, WithCharFilter, WithExplain, WithField, WithFilter, WithFormat, WithIndexParam, WithPreferLocal, WithText, WithTokenizer, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithIndex, WithAnalyzer, WithAttributes, WithCharFilter, WithExplain, WithField, WithFilter, WithFormat, WithIndexParam, WithPreferLocal, WithText, WithTokenizer, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) Analyze(options ...*Option) (*AnalyzeResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: i.transport.URL.Scheme,
-			Host:   i.transport.URL.Host,
-		},
-		Method: "GET",
-	}
+	req := i.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Analyze"]
 	for _, option := range options {
 		if _, ok := methodOptions[option.name]; !ok {

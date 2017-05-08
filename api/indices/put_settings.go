@@ -5,7 +5,6 @@ package indices
 import (
 	"fmt"
 	"net/http"
-	"net/url"
 
 	"github.com/elastic/go-elasticsearch/transport"
 )
@@ -14,15 +13,9 @@ import (
 //
 // body: the index settings to be updated.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithFlatSettings, WithIgnoreUnavailable, WithMasterTimeout, WithPreserveExisting, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithFlatSettings, WithIgnoreUnavailable, WithMasterTimeout, WithPreserveExisting, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) PutSettings(body map[string]interface{}, options ...*Option) (*PutSettingsResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: i.transport.URL.Scheme,
-			Host:   i.transport.URL.Host,
-		},
-		Method: "PUT",
-	}
+	req := i.transport.NewRequest("PUT")
 	methodOptions := supportedOptions["PutSettings"]
 	for _, option := range options {
 		if _, ok := methodOptions[option.name]; !ok {

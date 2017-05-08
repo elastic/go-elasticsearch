@@ -5,22 +5,15 @@ package cat
 import (
 	"fmt"
 	"net/http"
-	"net/url"
 
 	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Help - JSON is great… for computers. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithHelp, WithS, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithHelp, WithS, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (c *Cat) Help(options ...*Option) (*HelpResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: c.transport.URL.Scheme,
-			Host:   c.transport.URL.Host,
-		},
-		Method: "GET",
-	}
+	req := c.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Help"]
 	for _, option := range options {
 		if _, ok := methodOptions[option.name]; !ok {

@@ -5,22 +5,15 @@ package cluster
 import (
 	"fmt"
 	"net/http"
-	"net/url"
 
 	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // State - the cluster state API allows to get a comprehensive state information of the whole cluster. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-state.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithMetric, WithAllowNoIndices, WithExpandWildcards, WithFlatSettings, WithIgnoreUnavailable, WithLocal, WithMasterTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithIndex, WithMetric, WithAllowNoIndices, WithExpandWildcards, WithFlatSettings, WithIgnoreUnavailable, WithLocal, WithMasterTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (c *Cluster) State(options ...*Option) (*StateResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: c.transport.URL.Scheme,
-			Host:   c.transport.URL.Host,
-		},
-		Method: "GET",
-	}
+	req := c.transport.NewRequest("GET")
 	methodOptions := supportedOptions["State"]
 	for _, option := range options {
 		if _, ok := methodOptions[option.name]; !ok {

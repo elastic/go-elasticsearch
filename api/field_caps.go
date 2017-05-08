@@ -5,22 +5,15 @@ package api
 import (
 	"fmt"
 	"net/http"
-	"net/url"
 
 	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // FieldCaps - this functionality is experimental and may be changed or removed completely in a future release. See http://www.elastic.co/guide/en/elasticsearch/reference/master/search-field-caps.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithFields, WithIgnoreUnavailable, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithFields, WithIgnoreUnavailable, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (a *API) FieldCaps(options ...*Option) (*FieldCapsResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: a.transport.URL.Scheme,
-			Host:   a.transport.URL.Host,
-		},
-		Method: "GET",
-	}
+	req := a.transport.NewRequest("GET")
 	methodOptions := supportedOptions["FieldCaps"]
 	for _, option := range options {
 		if _, ok := methodOptions[option.name]; !ok {

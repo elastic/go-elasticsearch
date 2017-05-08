@@ -5,7 +5,6 @@ package indices
 import (
 	"fmt"
 	"net/http"
-	"net/url"
 
 	"github.com/elastic/go-elasticsearch/transport"
 )
@@ -16,15 +15,9 @@ import (
 //
 // name: a comma-separated list of aliases to delete (supports wildcards); use "_all" to delete all aliases for the specified indices.
 //
-// options: optional parameters. Supports the following functional options: WithMasterTimeout, WithTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithMasterTimeout, WithTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) DeleteAlias(index []string, name []string, options ...*Option) (*DeleteAliasResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: i.transport.URL.Scheme,
-			Host:   i.transport.URL.Host,
-		},
-		Method: "DELETE",
-	}
+	req := i.transport.NewRequest("DELETE")
 	methodOptions := supportedOptions["DeleteAlias"]
 	for _, option := range options {
 		if _, ok := methodOptions[option.name]; !ok {

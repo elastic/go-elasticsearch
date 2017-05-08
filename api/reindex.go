@@ -5,7 +5,6 @@ package api
 import (
 	"fmt"
 	"net/http"
-	"net/url"
 
 	"github.com/elastic/go-elasticsearch/transport"
 )
@@ -14,15 +13,9 @@ import (
 //
 // body: the search definition using the Query DSL and the prototype for the index request.
 //
-// options: optional parameters. Supports the following functional options: WithRefresh, WithRequestsPerSecond, WithSlices, WithTimeout, WithWaitForActiveShards, WithWaitForCompletion, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithRefresh, WithRequestsPerSecond, WithSlices, WithTimeout, WithWaitForActiveShards, WithWaitForCompletion, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (a *API) Reindex(body map[string]interface{}, options ...*Option) (*ReindexResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: a.transport.URL.Scheme,
-			Host:   a.transport.URL.Host,
-		},
-		Method: "POST",
-	}
+	req := a.transport.NewRequest("POST")
 	methodOptions := supportedOptions["Reindex"]
 	for _, option := range options {
 		if _, ok := methodOptions[option.name]; !ok {

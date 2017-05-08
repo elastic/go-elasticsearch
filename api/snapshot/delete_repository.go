@@ -5,7 +5,6 @@ package snapshot
 import (
 	"fmt"
 	"net/http"
-	"net/url"
 
 	"github.com/elastic/go-elasticsearch/transport"
 )
@@ -14,15 +13,9 @@ import (
 //
 // repository: a comma-separated list of repository names.
 //
-// options: optional parameters. Supports the following functional options: WithMasterTimeout, WithTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithMasterTimeout, WithTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (s *Snapshot) DeleteRepository(repository []string, options ...*Option) (*DeleteRepositoryResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: s.transport.URL.Scheme,
-			Host:   s.transport.URL.Host,
-		},
-		Method: "DELETE",
-	}
+	req := s.transport.NewRequest("DELETE")
 	methodOptions := supportedOptions["DeleteRepository"]
 	for _, option := range options {
 		if _, ok := methodOptions[option.name]; !ok {

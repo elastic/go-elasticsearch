@@ -5,7 +5,6 @@ package api
 import (
 	"fmt"
 	"net/http"
-	"net/url"
 
 	"github.com/elastic/go-elasticsearch/transport"
 )
@@ -16,15 +15,9 @@ import (
 //
 // body: the document.
 //
-// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (a *API) PutScript(lang string, body map[string]interface{}, options ...*Option) (*PutScriptResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: a.transport.URL.Scheme,
-			Host:   a.transport.URL.Host,
-		},
-		Method: "PUT",
-	}
+	req := a.transport.NewRequest("PUT")
 	methodOptions := supportedOptions["PutScript"]
 	for _, option := range options {
 		if _, ok := methodOptions[option.name]; !ok {

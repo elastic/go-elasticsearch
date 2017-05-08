@@ -3,8 +3,9 @@
 package cat
 
 import (
-	"net/http"
 	"time"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Bytes - the unit in which to display byte values.
@@ -54,14 +55,14 @@ const (
 // Option is a non-required API option that gets applied to an HTTP request.
 type Option struct {
 	name  string
-	apply func(r *http.Request)
+	apply func(r *transport.Request)
 }
 
 // WithActions - a comma-separated list of actions that should be returned. Leave empty to return all.
 func WithActions(actions []string) *Option {
 	return &Option{
 		name: "WithActions",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -70,7 +71,7 @@ func WithActions(actions []string) *Option {
 func WithBytes(bytes Bytes) *Option {
 	return &Option{
 		name: "WithBytes",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -79,7 +80,7 @@ func WithBytes(bytes Bytes) *Option {
 func WithDetailed(detailed bool) *Option {
 	return &Option{
 		name: "WithDetailed",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -88,7 +89,7 @@ func WithDetailed(detailed bool) *Option {
 func WithErrorTrace(errorTrace bool) *Option {
 	return &Option{
 		name: "WithErrorTrace",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -97,7 +98,7 @@ func WithErrorTrace(errorTrace bool) *Option {
 func WithFields(fields []string) *Option {
 	return &Option{
 		name: "WithFields",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -106,7 +107,7 @@ func WithFields(fields []string) *Option {
 func WithFilterPath(filterPath []string) *Option {
 	return &Option{
 		name: "WithFilterPath",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -115,7 +116,7 @@ func WithFilterPath(filterPath []string) *Option {
 func WithFormat(format string) *Option {
 	return &Option{
 		name: "WithFormat",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -124,7 +125,7 @@ func WithFormat(format string) *Option {
 func WithFullID(fullID bool) *Option {
 	return &Option{
 		name: "WithFullID",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -133,7 +134,7 @@ func WithFullID(fullID bool) *Option {
 func WithH(h []string) *Option {
 	return &Option{
 		name: "WithH",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -142,7 +143,7 @@ func WithH(h []string) *Option {
 func WithHealth(health Health) *Option {
 	return &Option{
 		name: "WithHealth",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -151,7 +152,7 @@ func WithHealth(health Health) *Option {
 func WithHelp(help bool) *Option {
 	return &Option{
 		name: "WithHelp",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -160,7 +161,16 @@ func WithHelp(help bool) *Option {
 func WithHuman(human bool) *Option {
 	return &Option{
 		name: "WithHuman",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
+		},
+	}
+}
+
+// WithIgnore - ignores the specified HTTP status codes.
+func WithIgnore(ignore []string) *Option {
+	return &Option{
+		name: "WithIgnore",
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -169,7 +179,7 @@ func WithHuman(human bool) *Option {
 func WithIgnoreUnavailable(ignoreUnavailable bool) *Option {
 	return &Option{
 		name: "WithIgnoreUnavailable",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -178,7 +188,7 @@ func WithIgnoreUnavailable(ignoreUnavailable bool) *Option {
 func WithIndex(index []string) *Option {
 	return &Option{
 		name: "WithIndex",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -187,7 +197,7 @@ func WithIndex(index []string) *Option {
 func WithLocal(local bool) *Option {
 	return &Option{
 		name: "WithLocal",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -196,7 +206,7 @@ func WithLocal(local bool) *Option {
 func WithMasterTimeout(masterTimeout time.Time) *Option {
 	return &Option{
 		name: "WithMasterTimeout",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -205,34 +215,16 @@ func WithMasterTimeout(masterTimeout time.Time) *Option {
 func WithName(name []string) *Option {
 	return &Option{
 		name: "WithName",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
 
-// WithNodeID - a comma-separated list of node IDs or names to limit the returned information; use "_local" to return information from the node you're connecting to, leave empty to get information from all nodes.
+// WithNodeID - a comma-separated list of node IDs or names to limit the returned information.
 func WithNodeID(nodeID []string) *Option {
 	return &Option{
 		name: "WithNodeID",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
-// WithParentNode - return tasks with specified parent node.
-func WithParentNode(parentNode string) *Option {
-	return &Option{
-		name: "WithParentNode",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
-// WithParentTask - return tasks with specified parent task id. Set to -1 to return all.
-func WithParentTask(parentTask int) *Option {
-	return &Option{
-		name: "WithParentTask",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -241,7 +233,7 @@ func WithParentTask(parentTask int) *Option {
 func WithPretty(pretty bool) *Option {
 	return &Option{
 		name: "WithPretty",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -250,7 +242,7 @@ func WithPretty(pretty bool) *Option {
 func WithPri(pri bool) *Option {
 	return &Option{
 		name: "WithPri",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -259,7 +251,7 @@ func WithPri(pri bool) *Option {
 func WithS(s []string) *Option {
 	return &Option{
 		name: "WithS",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -268,7 +260,7 @@ func WithS(s []string) *Option {
 func WithSize(size Size) *Option {
 	return &Option{
 		name: "WithSize",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -277,7 +269,7 @@ func WithSize(size Size) *Option {
 func WithSourceParam(sourceParam string) *Option {
 	return &Option{
 		name: "WithSourceParam",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -286,7 +278,7 @@ func WithSourceParam(sourceParam string) *Option {
 func WithThreadPoolPatterns(threadPoolPatterns []string) *Option {
 	return &Option{
 		name: "WithThreadPoolPatterns",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -295,7 +287,7 @@ func WithThreadPoolPatterns(threadPoolPatterns []string) *Option {
 func WithTs(ts bool) *Option {
 	return &Option{
 		name: "WithTs",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -304,212 +296,13 @@ func WithTs(ts bool) *Option {
 func WithV(v bool) *Option {
 	return &Option{
 		name: "WithV",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
 
 var (
 	supportedOptions = map[string]map[string]struct{}{
-		"Plugins": map[string]struct{}{
-			"WithFormat":        struct{}{},
-			"WithH":             struct{}{},
-			"WithHelp":          struct{}{},
-			"WithLocal":         struct{}{},
-			"WithMasterTimeout": struct{}{},
-			"WithS":             struct{}{},
-			"WithV":             struct{}{},
-			"WithErrorTrace":    struct{}{},
-			"WithFilterPath":    struct{}{},
-			"WithHuman":         struct{}{},
-			"WithPretty":        struct{}{},
-			"WithSourceParam":   struct{}{},
-		},
-		"Master": map[string]struct{}{
-			"WithFormat":        struct{}{},
-			"WithH":             struct{}{},
-			"WithHelp":          struct{}{},
-			"WithLocal":         struct{}{},
-			"WithMasterTimeout": struct{}{},
-			"WithS":             struct{}{},
-			"WithV":             struct{}{},
-			"WithErrorTrace":    struct{}{},
-			"WithFilterPath":    struct{}{},
-			"WithHuman":         struct{}{},
-			"WithPretty":        struct{}{},
-			"WithSourceParam":   struct{}{},
-		},
-		"Aliases": map[string]struct{}{
-			"WithName":          struct{}{},
-			"WithFormat":        struct{}{},
-			"WithH":             struct{}{},
-			"WithHelp":          struct{}{},
-			"WithLocal":         struct{}{},
-			"WithMasterTimeout": struct{}{},
-			"WithS":             struct{}{},
-			"WithV":             struct{}{},
-			"WithErrorTrace":    struct{}{},
-			"WithFilterPath":    struct{}{},
-			"WithHuman":         struct{}{},
-			"WithPretty":        struct{}{},
-			"WithSourceParam":   struct{}{},
-		},
-		"Templates": map[string]struct{}{
-			"WithName":          struct{}{},
-			"WithFormat":        struct{}{},
-			"WithH":             struct{}{},
-			"WithHelp":          struct{}{},
-			"WithLocal":         struct{}{},
-			"WithMasterTimeout": struct{}{},
-			"WithS":             struct{}{},
-			"WithV":             struct{}{},
-			"WithErrorTrace":    struct{}{},
-			"WithFilterPath":    struct{}{},
-			"WithHuman":         struct{}{},
-			"WithPretty":        struct{}{},
-			"WithSourceParam":   struct{}{},
-		},
-		"ThreadPool": map[string]struct{}{
-			"WithThreadPoolPatterns": struct{}{},
-			"WithFormat":             struct{}{},
-			"WithH":                  struct{}{},
-			"WithHelp":               struct{}{},
-			"WithLocal":              struct{}{},
-			"WithMasterTimeout":      struct{}{},
-			"WithS":                  struct{}{},
-			"WithSize":               struct{}{},
-			"WithV":                  struct{}{},
-			"WithErrorTrace":         struct{}{},
-			"WithFilterPath":         struct{}{},
-			"WithHuman":              struct{}{},
-			"WithPretty":             struct{}{},
-			"WithSourceParam":        struct{}{},
-		},
-		"Nodes": map[string]struct{}{
-			"WithFormat":        struct{}{},
-			"WithFullID":        struct{}{},
-			"WithH":             struct{}{},
-			"WithHelp":          struct{}{},
-			"WithLocal":         struct{}{},
-			"WithMasterTimeout": struct{}{},
-			"WithS":             struct{}{},
-			"WithV":             struct{}{},
-			"WithErrorTrace":    struct{}{},
-			"WithFilterPath":    struct{}{},
-			"WithHuman":         struct{}{},
-			"WithPretty":        struct{}{},
-			"WithSourceParam":   struct{}{},
-		},
-		"Help": map[string]struct{}{
-			"WithHelp":        struct{}{},
-			"WithS":           struct{}{},
-			"WithErrorTrace":  struct{}{},
-			"WithFilterPath":  struct{}{},
-			"WithHuman":       struct{}{},
-			"WithPretty":      struct{}{},
-			"WithSourceParam": struct{}{},
-		},
-		"Nodeattrs": map[string]struct{}{
-			"WithFormat":        struct{}{},
-			"WithH":             struct{}{},
-			"WithHelp":          struct{}{},
-			"WithLocal":         struct{}{},
-			"WithMasterTimeout": struct{}{},
-			"WithS":             struct{}{},
-			"WithV":             struct{}{},
-			"WithErrorTrace":    struct{}{},
-			"WithFilterPath":    struct{}{},
-			"WithHuman":         struct{}{},
-			"WithPretty":        struct{}{},
-			"WithSourceParam":   struct{}{},
-		},
-		"Tasks": map[string]struct{}{
-			"WithActions":     struct{}{},
-			"WithDetailed":    struct{}{},
-			"WithFormat":      struct{}{},
-			"WithH":           struct{}{},
-			"WithHelp":        struct{}{},
-			"WithNodeID":      struct{}{},
-			"WithParentNode":  struct{}{},
-			"WithParentTask":  struct{}{},
-			"WithS":           struct{}{},
-			"WithV":           struct{}{},
-			"WithErrorTrace":  struct{}{},
-			"WithFilterPath":  struct{}{},
-			"WithHuman":       struct{}{},
-			"WithPretty":      struct{}{},
-			"WithSourceParam": struct{}{},
-		},
-		"Repositories": map[string]struct{}{
-			"WithFormat":        struct{}{},
-			"WithH":             struct{}{},
-			"WithHelp":          struct{}{},
-			"WithLocal":         struct{}{},
-			"WithMasterTimeout": struct{}{},
-			"WithS":             struct{}{},
-			"WithV":             struct{}{},
-			"WithErrorTrace":    struct{}{},
-			"WithFilterPath":    struct{}{},
-			"WithHuman":         struct{}{},
-			"WithPretty":        struct{}{},
-			"WithSourceParam":   struct{}{},
-		},
-		"Segments": map[string]struct{}{
-			"WithIndex":       struct{}{},
-			"WithFormat":      struct{}{},
-			"WithH":           struct{}{},
-			"WithHelp":        struct{}{},
-			"WithS":           struct{}{},
-			"WithV":           struct{}{},
-			"WithErrorTrace":  struct{}{},
-			"WithFilterPath":  struct{}{},
-			"WithHuman":       struct{}{},
-			"WithPretty":      struct{}{},
-			"WithSourceParam": struct{}{},
-		},
-		"PendingTasks": map[string]struct{}{
-			"WithFormat":        struct{}{},
-			"WithH":             struct{}{},
-			"WithHelp":          struct{}{},
-			"WithLocal":         struct{}{},
-			"WithMasterTimeout": struct{}{},
-			"WithS":             struct{}{},
-			"WithV":             struct{}{},
-			"WithErrorTrace":    struct{}{},
-			"WithFilterPath":    struct{}{},
-			"WithHuman":         struct{}{},
-			"WithPretty":        struct{}{},
-			"WithSourceParam":   struct{}{},
-		},
-		"Snapshots": map[string]struct{}{
-			"WithFormat":            struct{}{},
-			"WithH":                 struct{}{},
-			"WithHelp":              struct{}{},
-			"WithIgnoreUnavailable": struct{}{},
-			"WithMasterTimeout":     struct{}{},
-			"WithS":                 struct{}{},
-			"WithV":                 struct{}{},
-			"WithErrorTrace":        struct{}{},
-			"WithFilterPath":        struct{}{},
-			"WithHuman":             struct{}{},
-			"WithPretty":            struct{}{},
-			"WithSourceParam":       struct{}{},
-		},
-		"Count": map[string]struct{}{
-			"WithIndex":         struct{}{},
-			"WithFormat":        struct{}{},
-			"WithH":             struct{}{},
-			"WithHelp":          struct{}{},
-			"WithLocal":         struct{}{},
-			"WithMasterTimeout": struct{}{},
-			"WithS":             struct{}{},
-			"WithV":             struct{}{},
-			"WithErrorTrace":    struct{}{},
-			"WithFilterPath":    struct{}{},
-			"WithHuman":         struct{}{},
-			"WithPretty":        struct{}{},
-			"WithSourceParam":   struct{}{},
-		},
 		"Indices": map[string]struct{}{
 			"WithIndex":         struct{}{},
 			"WithBytes":         struct{}{},
@@ -525,11 +318,12 @@ var (
 			"WithErrorTrace":    struct{}{},
 			"WithFilterPath":    struct{}{},
 			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
 			"WithPretty":        struct{}{},
 			"WithSourceParam":   struct{}{},
 		},
-		"Shards": map[string]struct{}{
-			"WithIndex":         struct{}{},
+		"Aliases": map[string]struct{}{
+			"WithName":          struct{}{},
 			"WithFormat":        struct{}{},
 			"WithH":             struct{}{},
 			"WithHelp":          struct{}{},
@@ -540,6 +334,7 @@ var (
 			"WithErrorTrace":    struct{}{},
 			"WithFilterPath":    struct{}{},
 			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
 			"WithPretty":        struct{}{},
 			"WithSourceParam":   struct{}{},
 		},
@@ -556,6 +351,54 @@ var (
 			"WithErrorTrace":    struct{}{},
 			"WithFilterPath":    struct{}{},
 			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
+			"WithPretty":        struct{}{},
+			"WithSourceParam":   struct{}{},
+		},
+		"Snapshots": map[string]struct{}{
+			"WithFormat":            struct{}{},
+			"WithH":                 struct{}{},
+			"WithHelp":              struct{}{},
+			"WithIgnoreUnavailable": struct{}{},
+			"WithMasterTimeout":     struct{}{},
+			"WithS":                 struct{}{},
+			"WithV":                 struct{}{},
+			"WithErrorTrace":        struct{}{},
+			"WithFilterPath":        struct{}{},
+			"WithHuman":             struct{}{},
+			"WithIgnore":            struct{}{},
+			"WithPretty":            struct{}{},
+			"WithSourceParam":       struct{}{},
+		},
+		"Shards": map[string]struct{}{
+			"WithIndex":         struct{}{},
+			"WithFormat":        struct{}{},
+			"WithH":             struct{}{},
+			"WithHelp":          struct{}{},
+			"WithLocal":         struct{}{},
+			"WithMasterTimeout": struct{}{},
+			"WithS":             struct{}{},
+			"WithV":             struct{}{},
+			"WithErrorTrace":    struct{}{},
+			"WithFilterPath":    struct{}{},
+			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
+			"WithPretty":        struct{}{},
+			"WithSourceParam":   struct{}{},
+		},
+		"Nodes": map[string]struct{}{
+			"WithFormat":        struct{}{},
+			"WithFullID":        struct{}{},
+			"WithH":             struct{}{},
+			"WithHelp":          struct{}{},
+			"WithLocal":         struct{}{},
+			"WithMasterTimeout": struct{}{},
+			"WithS":             struct{}{},
+			"WithV":             struct{}{},
+			"WithErrorTrace":    struct{}{},
+			"WithFilterPath":    struct{}{},
+			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
 			"WithPretty":        struct{}{},
 			"WithSourceParam":   struct{}{},
 		},
@@ -573,6 +416,94 @@ var (
 			"WithErrorTrace":    struct{}{},
 			"WithFilterPath":    struct{}{},
 			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
+			"WithPretty":        struct{}{},
+			"WithSourceParam":   struct{}{},
+		},
+		"Segments": map[string]struct{}{
+			"WithIndex":       struct{}{},
+			"WithFormat":      struct{}{},
+			"WithH":           struct{}{},
+			"WithHelp":        struct{}{},
+			"WithS":           struct{}{},
+			"WithV":           struct{}{},
+			"WithErrorTrace":  struct{}{},
+			"WithFilterPath":  struct{}{},
+			"WithHuman":       struct{}{},
+			"WithIgnore":      struct{}{},
+			"WithPretty":      struct{}{},
+			"WithSourceParam": struct{}{},
+		},
+		"Help": map[string]struct{}{
+			"WithHelp":        struct{}{},
+			"WithS":           struct{}{},
+			"WithErrorTrace":  struct{}{},
+			"WithFilterPath":  struct{}{},
+			"WithHuman":       struct{}{},
+			"WithIgnore":      struct{}{},
+			"WithPretty":      struct{}{},
+			"WithSourceParam": struct{}{},
+		},
+		"Templates": map[string]struct{}{
+			"WithName":          struct{}{},
+			"WithFormat":        struct{}{},
+			"WithH":             struct{}{},
+			"WithHelp":          struct{}{},
+			"WithLocal":         struct{}{},
+			"WithMasterTimeout": struct{}{},
+			"WithS":             struct{}{},
+			"WithV":             struct{}{},
+			"WithErrorTrace":    struct{}{},
+			"WithFilterPath":    struct{}{},
+			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
+			"WithPretty":        struct{}{},
+			"WithSourceParam":   struct{}{},
+		},
+		"Repositories": map[string]struct{}{
+			"WithFormat":        struct{}{},
+			"WithH":             struct{}{},
+			"WithHelp":          struct{}{},
+			"WithLocal":         struct{}{},
+			"WithMasterTimeout": struct{}{},
+			"WithS":             struct{}{},
+			"WithV":             struct{}{},
+			"WithErrorTrace":    struct{}{},
+			"WithFilterPath":    struct{}{},
+			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
+			"WithPretty":        struct{}{},
+			"WithSourceParam":   struct{}{},
+		},
+		"ThreadPool": map[string]struct{}{
+			"WithThreadPoolPatterns": struct{}{},
+			"WithFormat":             struct{}{},
+			"WithH":                  struct{}{},
+			"WithHelp":               struct{}{},
+			"WithLocal":              struct{}{},
+			"WithMasterTimeout":      struct{}{},
+			"WithS":                  struct{}{},
+			"WithSize":               struct{}{},
+			"WithV":                  struct{}{},
+			"WithErrorTrace":         struct{}{},
+			"WithFilterPath":         struct{}{},
+			"WithHuman":              struct{}{},
+			"WithIgnore":             struct{}{},
+			"WithPretty":             struct{}{},
+			"WithSourceParam":        struct{}{},
+		},
+		"Plugins": map[string]struct{}{
+			"WithFormat":        struct{}{},
+			"WithH":             struct{}{},
+			"WithHelp":          struct{}{},
+			"WithLocal":         struct{}{},
+			"WithMasterTimeout": struct{}{},
+			"WithS":             struct{}{},
+			"WithV":             struct{}{},
+			"WithErrorTrace":    struct{}{},
+			"WithFilterPath":    struct{}{},
+			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
 			"WithPretty":        struct{}{},
 			"WithSourceParam":   struct{}{},
 		},
@@ -588,6 +519,41 @@ var (
 			"WithErrorTrace":    struct{}{},
 			"WithFilterPath":    struct{}{},
 			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
+			"WithPretty":        struct{}{},
+			"WithSourceParam":   struct{}{},
+		},
+		"Tasks": map[string]struct{}{
+			"WithActions":     struct{}{},
+			"WithDetailed":    struct{}{},
+			"WithFormat":      struct{}{},
+			"WithH":           struct{}{},
+			"WithHelp":        struct{}{},
+			"WithNodeID":      struct{}{},
+			"WithParentNode":  struct{}{},
+			"WithParentTask":  struct{}{},
+			"WithS":           struct{}{},
+			"WithV":           struct{}{},
+			"WithErrorTrace":  struct{}{},
+			"WithFilterPath":  struct{}{},
+			"WithHuman":       struct{}{},
+			"WithIgnore":      struct{}{},
+			"WithPretty":      struct{}{},
+			"WithSourceParam": struct{}{},
+		},
+		"Count": map[string]struct{}{
+			"WithIndex":         struct{}{},
+			"WithFormat":        struct{}{},
+			"WithH":             struct{}{},
+			"WithHelp":          struct{}{},
+			"WithLocal":         struct{}{},
+			"WithMasterTimeout": struct{}{},
+			"WithS":             struct{}{},
+			"WithV":             struct{}{},
+			"WithErrorTrace":    struct{}{},
+			"WithFilterPath":    struct{}{},
+			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
 			"WithPretty":        struct{}{},
 			"WithSourceParam":   struct{}{},
 		},
@@ -603,6 +569,52 @@ var (
 			"WithErrorTrace":    struct{}{},
 			"WithFilterPath":    struct{}{},
 			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
+			"WithPretty":        struct{}{},
+			"WithSourceParam":   struct{}{},
+		},
+		"Nodeattrs": map[string]struct{}{
+			"WithFormat":        struct{}{},
+			"WithH":             struct{}{},
+			"WithHelp":          struct{}{},
+			"WithLocal":         struct{}{},
+			"WithMasterTimeout": struct{}{},
+			"WithS":             struct{}{},
+			"WithV":             struct{}{},
+			"WithErrorTrace":    struct{}{},
+			"WithFilterPath":    struct{}{},
+			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
+			"WithPretty":        struct{}{},
+			"WithSourceParam":   struct{}{},
+		},
+		"Master": map[string]struct{}{
+			"WithFormat":        struct{}{},
+			"WithH":             struct{}{},
+			"WithHelp":          struct{}{},
+			"WithLocal":         struct{}{},
+			"WithMasterTimeout": struct{}{},
+			"WithS":             struct{}{},
+			"WithV":             struct{}{},
+			"WithErrorTrace":    struct{}{},
+			"WithFilterPath":    struct{}{},
+			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
+			"WithPretty":        struct{}{},
+			"WithSourceParam":   struct{}{},
+		},
+		"PendingTasks": map[string]struct{}{
+			"WithFormat":        struct{}{},
+			"WithH":             struct{}{},
+			"WithHelp":          struct{}{},
+			"WithLocal":         struct{}{},
+			"WithMasterTimeout": struct{}{},
+			"WithS":             struct{}{},
+			"WithV":             struct{}{},
+			"WithErrorTrace":    struct{}{},
+			"WithFilterPath":    struct{}{},
+			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
 			"WithPretty":        struct{}{},
 			"WithSourceParam":   struct{}{},
 		},

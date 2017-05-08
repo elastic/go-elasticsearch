@@ -5,22 +5,15 @@ package remote
 import (
 	"fmt"
 	"net/http"
-	"net/url"
 
 	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Info - see http://www.elastic.co/guide/en/elasticsearch/reference/master/remote-info.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (r *Remote) Info(options ...*Option) (*InfoResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: r.transport.URL.Scheme,
-			Host:   r.transport.URL.Host,
-		},
-		Method: "GET",
-	}
+	req := r.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Info"]
 	for _, option := range options {
 		if _, ok := methodOptions[option.name]; !ok {

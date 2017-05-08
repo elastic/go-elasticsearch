@@ -5,7 +5,6 @@ package indices
 import (
 	"fmt"
 	"net/http"
-	"net/url"
 
 	"github.com/elastic/go-elasticsearch/transport"
 )
@@ -14,15 +13,9 @@ import (
 //
 // index: the name of the index.
 //
-// options: optional parameters. Supports the following functional options: WithMasterTimeout, WithTimeout, WithUpdateAllTypes, WithWaitForActiveShards, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithMasterTimeout, WithTimeout, WithUpdateAllTypes, WithWaitForActiveShards, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) Create(index string, options ...*Option) (*CreateResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: i.transport.URL.Scheme,
-			Host:   i.transport.URL.Host,
-		},
-		Method: "PUT",
-	}
+	req := i.transport.NewRequest("PUT")
 	methodOptions := supportedOptions["Create"]
 	for _, option := range options {
 		if _, ok := methodOptions[option.name]; !ok {

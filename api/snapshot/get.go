@@ -5,7 +5,6 @@ package snapshot
 import (
 	"fmt"
 	"net/http"
-	"net/url"
 
 	"github.com/elastic/go-elasticsearch/transport"
 )
@@ -16,15 +15,9 @@ import (
 //
 // snapshot: a comma-separated list of snapshot names.
 //
-// options: optional parameters. Supports the following functional options: WithIgnoreUnavailable, WithMasterTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithIgnoreUnavailable, WithMasterTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (s *Snapshot) Get(repository string, snapshot []string, options ...*Option) (*GetResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: s.transport.URL.Scheme,
-			Host:   s.transport.URL.Host,
-		},
-		Method: "GET",
-	}
+	req := s.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Get"]
 	for _, option := range options {
 		if _, ok := methodOptions[option.name]; !ok {

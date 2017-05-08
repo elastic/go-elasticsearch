@@ -3,20 +3,20 @@
 package remote
 
 import (
-	"net/http"
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Option is a non-required API option that gets applied to an HTTP request.
 type Option struct {
 	name  string
-	apply func(r *http.Request)
+	apply func(r *transport.Request)
 }
 
 // WithErrorTrace - include the stack trace of returned errors.
 func WithErrorTrace(errorTrace bool) *Option {
 	return &Option{
 		name: "WithErrorTrace",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -25,7 +25,7 @@ func WithErrorTrace(errorTrace bool) *Option {
 func WithFilterPath(filterPath []string) *Option {
 	return &Option{
 		name: "WithFilterPath",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -34,7 +34,16 @@ func WithFilterPath(filterPath []string) *Option {
 func WithHuman(human bool) *Option {
 	return &Option{
 		name: "WithHuman",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
+		},
+	}
+}
+
+// WithIgnore - ignores the specified HTTP status codes.
+func WithIgnore(ignore []string) *Option {
+	return &Option{
+		name: "WithIgnore",
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -43,7 +52,7 @@ func WithHuman(human bool) *Option {
 func WithPretty(pretty bool) *Option {
 	return &Option{
 		name: "WithPretty",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -52,7 +61,7 @@ func WithPretty(pretty bool) *Option {
 func WithSourceParam(sourceParam string) *Option {
 	return &Option{
 		name: "WithSourceParam",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -63,6 +72,7 @@ var (
 			"WithErrorTrace":  struct{}{},
 			"WithFilterPath":  struct{}{},
 			"WithHuman":       struct{}{},
+			"WithIgnore":      struct{}{},
 			"WithPretty":      struct{}{},
 			"WithSourceParam": struct{}{},
 		},

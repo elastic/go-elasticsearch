@@ -60,13 +60,7 @@ import (
 //
 // options: optional parameters. Supports the following functional options: WithID, WithOpType, WithTimeout, WithVersion, WithWaitForActiveShards, see the Option type in this package for more info.
 func (a *API) Index(index string, documentType string, body map[string]interface{}, options ...*Option) (*IndexResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: a.transport.URL.Scheme,
-			Host:   a.transport.URL.Host,
-		},
-		Method: "POST",
-	}
+	req := a.transport.NewRequest("POST")
 	methodOptions := supportedOptions["Index"]
 	for _, option := range options{
 		if _, ok := methodOptions[option.name]; !ok {

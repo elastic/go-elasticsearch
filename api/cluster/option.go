@@ -3,44 +3,64 @@
 package cluster
 
 import (
-	"net/http"
 	"time"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
-// ExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
-type ExpandWildcards int
+// Level - specify the level of detail for returned information.
+type Level int
 
 const (
-	// ExpandWildcardsOpen can be used to set ExpandWildcards to "open"
-	ExpandWildcardsOpen = iota
-	// ExpandWildcardsClosed can be used to set ExpandWildcards to "closed"
-	ExpandWildcardsClosed = iota
-	// ExpandWildcardsNone can be used to set ExpandWildcards to "none"
-	ExpandWildcardsNone = iota
-	// ExpandWildcardsAll can be used to set ExpandWildcards to "all"
-	ExpandWildcardsAll = iota
+	// LevelCluster can be used to set Level to "cluster"
+	LevelCluster = iota
+	// LevelIndices can be used to set Level to "indices"
+	LevelIndices = iota
+	// LevelShards can be used to set Level to "shards"
+	LevelShards = iota
+)
+
+// WaitForEvents - wait until all currently queued events with the given priority are processed.
+type WaitForEvents int
+
+const (
+	// WaitForEventsImmediate can be used to set WaitForEvents to "immediate"
+	WaitForEventsImmediate = iota
+	// WaitForEventsUrgent can be used to set WaitForEvents to "urgent"
+	WaitForEventsUrgent = iota
+	// WaitForEventsHigh can be used to set WaitForEvents to "high"
+	WaitForEventsHigh = iota
+	// WaitForEventsNormal can be used to set WaitForEvents to "normal"
+	WaitForEventsNormal = iota
+	// WaitForEventsLow can be used to set WaitForEvents to "low"
+	WaitForEventsLow = iota
+	// WaitForEventsLanguid can be used to set WaitForEvents to "languid"
+	WaitForEventsLanguid = iota
+)
+
+// WaitForStatus - wait until cluster is in a specific state.
+type WaitForStatus int
+
+const (
+	// WaitForStatusGreen can be used to set WaitForStatus to "green"
+	WaitForStatusGreen = iota
+	// WaitForStatusYellow can be used to set WaitForStatus to "yellow"
+	WaitForStatusYellow = iota
+	// WaitForStatusRed can be used to set WaitForStatus to "red"
+	WaitForStatusRed = iota
 )
 
 // Option is a non-required API option that gets applied to an HTTP request.
 type Option struct {
 	name  string
-	apply func(r *http.Request)
-}
-
-// WithAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
-func WithAllowNoIndices(allowNoIndices bool) *Option {
-	return &Option{
-		name: "WithAllowNoIndices",
-		apply: func(r *http.Request) {
-		},
-	}
+	apply func(r *transport.Request)
 }
 
 // WithBody - the settings to be updated. Can be either "transient" or "persistent" (survives cluster restart).
 func WithBody(body map[string]interface{}) *Option {
 	return &Option{
 		name: "WithBody",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -49,7 +69,7 @@ func WithBody(body map[string]interface{}) *Option {
 func WithDryRun(dryRun bool) *Option {
 	return &Option{
 		name: "WithDryRun",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -58,16 +78,7 @@ func WithDryRun(dryRun bool) *Option {
 func WithErrorTrace(errorTrace bool) *Option {
 	return &Option{
 		name: "WithErrorTrace",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
-// WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
-func WithExpandWildcards(expandWildcards ExpandWildcards) *Option {
-	return &Option{
-		name: "WithExpandWildcards",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -76,7 +87,7 @@ func WithExpandWildcards(expandWildcards ExpandWildcards) *Option {
 func WithExplain(explain bool) *Option {
 	return &Option{
 		name: "WithExplain",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -85,7 +96,7 @@ func WithExplain(explain bool) *Option {
 func WithFilterPath(filterPath []string) *Option {
 	return &Option{
 		name: "WithFilterPath",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -94,7 +105,7 @@ func WithFilterPath(filterPath []string) *Option {
 func WithFlatSettings(flatSettings bool) *Option {
 	return &Option{
 		name: "WithFlatSettings",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -103,16 +114,16 @@ func WithFlatSettings(flatSettings bool) *Option {
 func WithHuman(human bool) *Option {
 	return &Option{
 		name: "WithHuman",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
 
-// WithIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
-func WithIgnoreUnavailable(ignoreUnavailable bool) *Option {
+// WithIgnore - ignores the specified HTTP status codes.
+func WithIgnore(ignore []string) *Option {
 	return &Option{
-		name: "WithIgnoreUnavailable",
-		apply: func(r *http.Request) {
+		name: "WithIgnore",
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -121,7 +132,7 @@ func WithIgnoreUnavailable(ignoreUnavailable bool) *Option {
 func WithIncludeDefaults(includeDefaults bool) *Option {
 	return &Option{
 		name: "WithIncludeDefaults",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -130,7 +141,7 @@ func WithIncludeDefaults(includeDefaults bool) *Option {
 func WithIncludeDiskInfo(includeDiskInfo bool) *Option {
 	return &Option{
 		name: "WithIncludeDiskInfo",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -139,16 +150,25 @@ func WithIncludeDiskInfo(includeDiskInfo bool) *Option {
 func WithIncludeYesDecisions(includeYesDecisions bool) *Option {
 	return &Option{
 		name: "WithIncludeYesDecisions",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
 
-// WithIndex - a comma-separated list of index names; use "_all" or empty string to perform the operation on all indices.
+// WithIndex - limit the information returned to a specific index.
 func WithIndex(index []string) *Option {
 	return &Option{
 		name: "WithIndex",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
+		},
+	}
+}
+
+// WithLevel - specify the level of detail for returned information.
+func WithLevel(level Level) *Option {
+	return &Option{
+		name: "WithLevel",
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -157,7 +177,7 @@ func WithIndex(index []string) *Option {
 func WithLocal(local bool) *Option {
 	return &Option{
 		name: "WithLocal",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -166,16 +186,16 @@ func WithLocal(local bool) *Option {
 func WithMasterTimeout(masterTimeout time.Time) *Option {
 	return &Option{
 		name: "WithMasterTimeout",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
 
-// WithMetric - limit the information returned to the specified metrics.
+// WithMetric - limit the information returned to the specified metrics. Defaults to all but metadata.
 func WithMetric(metric []string) *Option {
 	return &Option{
 		name: "WithMetric",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -184,7 +204,7 @@ func WithMetric(metric []string) *Option {
 func WithNodeID(nodeID []string) *Option {
 	return &Option{
 		name: "WithNodeID",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -193,7 +213,16 @@ func WithNodeID(nodeID []string) *Option {
 func WithPretty(pretty bool) *Option {
 	return &Option{
 		name: "WithPretty",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
+		},
+	}
+}
+
+// WithRetryFailed - retries allocation of shards that are blocked due to too many subsequent allocation failures.
+func WithRetryFailed(retryFailed bool) *Option {
+	return &Option{
+		name: "WithRetryFailed",
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -202,7 +231,7 @@ func WithPretty(pretty bool) *Option {
 func WithSourceParam(sourceParam string) *Option {
 	return &Option{
 		name: "WithSourceParam",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -211,49 +240,58 @@ func WithSourceParam(sourceParam string) *Option {
 func WithTimeout(timeout time.Time) *Option {
 	return &Option{
 		name: "WithTimeout",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
+		},
+	}
+}
+
+// WithWaitForActiveShards - wait until the specified number of shards is active.
+func WithWaitForActiveShards(waitForActiveShards string) *Option {
+	return &Option{
+		name: "WithWaitForActiveShards",
+		apply: func(r *transport.Request) {
+		},
+	}
+}
+
+// WithWaitForEvents - wait until all currently queued events with the given priority are processed.
+func WithWaitForEvents(waitForEvents WaitForEvents) *Option {
+	return &Option{
+		name: "WithWaitForEvents",
+		apply: func(r *transport.Request) {
+		},
+	}
+}
+
+// WithWaitForNoRelocatingShards - whether to wait until there are no relocating shards in the cluster.
+func WithWaitForNoRelocatingShards(waitForNoRelocatingShards bool) *Option {
+	return &Option{
+		name: "WithWaitForNoRelocatingShards",
+		apply: func(r *transport.Request) {
+		},
+	}
+}
+
+// WithWaitForNodes - wait until the specified number of nodes is available.
+func WithWaitForNodes(waitForNodes string) *Option {
+	return &Option{
+		name: "WithWaitForNodes",
+		apply: func(r *transport.Request) {
+		},
+	}
+}
+
+// WithWaitForStatus - wait until cluster is in a specific state.
+func WithWaitForStatus(waitForStatus WaitForStatus) *Option {
+	return &Option{
+		name: "WithWaitForStatus",
+		apply: func(r *transport.Request) {
 		},
 	}
 }
 
 var (
 	supportedOptions = map[string]map[string]struct{}{
-		"PutSettings": map[string]struct{}{
-			"WithFlatSettings":  struct{}{},
-			"WithMasterTimeout": struct{}{},
-			"WithTimeout":       struct{}{},
-			"WithBody":          struct{}{},
-			"WithErrorTrace":    struct{}{},
-			"WithFilterPath":    struct{}{},
-			"WithHuman":         struct{}{},
-			"WithPretty":        struct{}{},
-			"WithSourceParam":   struct{}{},
-		},
-		"State": map[string]struct{}{
-			"WithIndex":             struct{}{},
-			"WithMetric":            struct{}{},
-			"WithAllowNoIndices":    struct{}{},
-			"WithExpandWildcards":   struct{}{},
-			"WithFlatSettings":      struct{}{},
-			"WithIgnoreUnavailable": struct{}{},
-			"WithLocal":             struct{}{},
-			"WithMasterTimeout":     struct{}{},
-			"WithErrorTrace":        struct{}{},
-			"WithFilterPath":        struct{}{},
-			"WithHuman":             struct{}{},
-			"WithPretty":            struct{}{},
-			"WithSourceParam":       struct{}{},
-		},
-		"AllocationExplain": map[string]struct{}{
-			"WithIncludeDiskInfo":     struct{}{},
-			"WithIncludeYesDecisions": struct{}{},
-			"WithBody":                struct{}{},
-			"WithErrorTrace":          struct{}{},
-			"WithFilterPath":          struct{}{},
-			"WithHuman":               struct{}{},
-			"WithPretty":              struct{}{},
-			"WithSourceParam":         struct{}{},
-		},
 		"Health": map[string]struct{}{
 			"WithIndex":                     struct{}{},
 			"WithLevel":                     struct{}{},
@@ -268,8 +306,70 @@ var (
 			"WithErrorTrace":                struct{}{},
 			"WithFilterPath":                struct{}{},
 			"WithHuman":                     struct{}{},
+			"WithIgnore":                    struct{}{},
 			"WithPretty":                    struct{}{},
 			"WithSourceParam":               struct{}{},
+		},
+		"Stats": map[string]struct{}{
+			"WithNodeID":       struct{}{},
+			"WithFlatSettings": struct{}{},
+			"WithTimeout":      struct{}{},
+			"WithErrorTrace":   struct{}{},
+			"WithFilterPath":   struct{}{},
+			"WithHuman":        struct{}{},
+			"WithIgnore":       struct{}{},
+			"WithPretty":       struct{}{},
+			"WithSourceParam":  struct{}{},
+		},
+		"PendingTasks": map[string]struct{}{
+			"WithLocal":         struct{}{},
+			"WithMasterTimeout": struct{}{},
+			"WithErrorTrace":    struct{}{},
+			"WithFilterPath":    struct{}{},
+			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
+			"WithPretty":        struct{}{},
+			"WithSourceParam":   struct{}{},
+		},
+		"PutSettings": map[string]struct{}{
+			"WithFlatSettings":  struct{}{},
+			"WithMasterTimeout": struct{}{},
+			"WithTimeout":       struct{}{},
+			"WithBody":          struct{}{},
+			"WithErrorTrace":    struct{}{},
+			"WithFilterPath":    struct{}{},
+			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
+			"WithPretty":        struct{}{},
+			"WithSourceParam":   struct{}{},
+		},
+		"GetSettings": map[string]struct{}{
+			"WithFlatSettings":    struct{}{},
+			"WithIncludeDefaults": struct{}{},
+			"WithMasterTimeout":   struct{}{},
+			"WithTimeout":         struct{}{},
+			"WithErrorTrace":      struct{}{},
+			"WithFilterPath":      struct{}{},
+			"WithHuman":           struct{}{},
+			"WithIgnore":          struct{}{},
+			"WithPretty":          struct{}{},
+			"WithSourceParam":     struct{}{},
+		},
+		"State": map[string]struct{}{
+			"WithIndex":             struct{}{},
+			"WithMetric":            struct{}{},
+			"WithAllowNoIndices":    struct{}{},
+			"WithExpandWildcards":   struct{}{},
+			"WithFlatSettings":      struct{}{},
+			"WithIgnoreUnavailable": struct{}{},
+			"WithLocal":             struct{}{},
+			"WithMasterTimeout":     struct{}{},
+			"WithErrorTrace":        struct{}{},
+			"WithFilterPath":        struct{}{},
+			"WithHuman":             struct{}{},
+			"WithIgnore":            struct{}{},
+			"WithPretty":            struct{}{},
+			"WithSourceParam":       struct{}{},
 		},
 		"Reroute": map[string]struct{}{
 			"WithDryRun":        struct{}{},
@@ -282,38 +382,20 @@ var (
 			"WithErrorTrace":    struct{}{},
 			"WithFilterPath":    struct{}{},
 			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
 			"WithPretty":        struct{}{},
 			"WithSourceParam":   struct{}{},
 		},
-		"Stats": map[string]struct{}{
-			"WithNodeID":       struct{}{},
-			"WithFlatSettings": struct{}{},
-			"WithTimeout":      struct{}{},
-			"WithErrorTrace":   struct{}{},
-			"WithFilterPath":   struct{}{},
-			"WithHuman":        struct{}{},
-			"WithPretty":       struct{}{},
-			"WithSourceParam":  struct{}{},
-		},
-		"GetSettings": map[string]struct{}{
-			"WithFlatSettings":    struct{}{},
-			"WithIncludeDefaults": struct{}{},
-			"WithMasterTimeout":   struct{}{},
-			"WithTimeout":         struct{}{},
-			"WithErrorTrace":      struct{}{},
-			"WithFilterPath":      struct{}{},
-			"WithHuman":           struct{}{},
-			"WithPretty":          struct{}{},
-			"WithSourceParam":     struct{}{},
-		},
-		"PendingTasks": map[string]struct{}{
-			"WithLocal":         struct{}{},
-			"WithMasterTimeout": struct{}{},
-			"WithErrorTrace":    struct{}{},
-			"WithFilterPath":    struct{}{},
-			"WithHuman":         struct{}{},
-			"WithPretty":        struct{}{},
-			"WithSourceParam":   struct{}{},
+		"AllocationExplain": map[string]struct{}{
+			"WithIncludeDiskInfo":     struct{}{},
+			"WithIncludeYesDecisions": struct{}{},
+			"WithBody":                struct{}{},
+			"WithErrorTrace":          struct{}{},
+			"WithFilterPath":          struct{}{},
+			"WithHuman":               struct{}{},
+			"WithIgnore":              struct{}{},
+			"WithPretty":              struct{}{},
+			"WithSourceParam":         struct{}{},
 		},
 	}
 )

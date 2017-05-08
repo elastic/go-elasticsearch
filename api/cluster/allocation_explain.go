@@ -5,22 +5,15 @@ package cluster
 import (
 	"fmt"
 	"net/http"
-	"net/url"
 
 	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // AllocationExplain - the purpose of the cluster allocation explain API is to provide explanations for shard allocations in the cluster. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-allocation-explain.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIncludeDiskInfo, WithIncludeYesDecisions, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithIncludeDiskInfo, WithIncludeYesDecisions, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (c *Cluster) AllocationExplain(options ...*Option) (*AllocationExplainResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: c.transport.URL.Scheme,
-			Host:   c.transport.URL.Host,
-		},
-		Method: "GET",
-	}
+	req := c.transport.NewRequest("GET")
 	methodOptions := supportedOptions["AllocationExplain"]
 	for _, option := range options {
 		if _, ok := methodOptions[option.name]; !ok {

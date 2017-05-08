@@ -5,22 +5,15 @@ package cluster
 import (
 	"fmt"
 	"net/http"
-	"net/url"
 
 	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Reroute - the reroute command allows to explicitly execute a cluster reroute allocation command including specific commands. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-reroute.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithDryRun, WithExplain, WithMasterTimeout, WithMetric, WithRetryFailed, WithTimeout, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithDryRun, WithExplain, WithMasterTimeout, WithMetric, WithRetryFailed, WithTimeout, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (c *Cluster) Reroute(options ...*Option) (*RerouteResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: c.transport.URL.Scheme,
-			Host:   c.transport.URL.Host,
-		},
-		Method: "POST",
-	}
+	req := c.transport.NewRequest("POST")
 	methodOptions := supportedOptions["Reroute"]
 	for _, option := range options {
 		if _, ok := methodOptions[option.name]; !ok {

@@ -5,7 +5,6 @@ package indices
 import (
 	"fmt"
 	"net/http"
-	"net/url"
 
 	"github.com/elastic/go-elasticsearch/transport"
 )
@@ -14,15 +13,9 @@ import (
 //
 // name: the comma separated names of the index templates.
 //
-// options: optional parameters. Supports the following functional options: WithName, WithFlatSettings, WithLocal, WithMasterTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithName, WithFlatSettings, WithLocal, WithMasterTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) ExistsTemplate(name []string, options ...*Option) (*ExistsTemplateResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: i.transport.URL.Scheme,
-			Host:   i.transport.URL.Host,
-		},
-		Method: "HEAD",
-	}
+	req := i.transport.NewRequest("HEAD")
 	methodOptions := supportedOptions["ExistsTemplate"]
 	for _, option := range options {
 		if _, ok := methodOptions[option.name]; !ok {

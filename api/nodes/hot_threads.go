@@ -5,22 +5,15 @@ package nodes
 import (
 	"fmt"
 	"net/http"
-	"net/url"
 
 	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // HotThreads - an API allowing to get the current hot threads on each node in the cluster. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-nodes-hot-threads.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithNodeID, WithIgnoreIdleThreads, WithInterval, WithSnapshots, WithThreads, WithTimeout, WithType, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithNodeID, WithIgnoreIdleThreads, WithInterval, WithSnapshots, WithThreads, WithTimeout, WithType, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (n *Nodes) HotThreads(options ...*Option) (*HotThreadsResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: n.transport.URL.Scheme,
-			Host:   n.transport.URL.Host,
-		},
-		Method: "GET",
-	}
+	req := n.transport.NewRequest("GET")
 	methodOptions := supportedOptions["HotThreads"]
 	for _, option := range options {
 		if _, ok := methodOptions[option.name]; !ok {

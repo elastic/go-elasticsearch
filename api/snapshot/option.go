@@ -3,21 +3,22 @@
 package snapshot
 
 import (
-	"net/http"
 	"time"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Option is a non-required API option that gets applied to an HTTP request.
 type Option struct {
 	name  string
-	apply func(r *http.Request)
+	apply func(r *transport.Request)
 }
 
-// WithBody - details of what to restore.
+// WithBody - the snapshot definition.
 func WithBody(body map[string]interface{}) *Option {
 	return &Option{
 		name: "WithBody",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -26,7 +27,7 @@ func WithBody(body map[string]interface{}) *Option {
 func WithErrorTrace(errorTrace bool) *Option {
 	return &Option{
 		name: "WithErrorTrace",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -35,7 +36,7 @@ func WithErrorTrace(errorTrace bool) *Option {
 func WithFilterPath(filterPath []string) *Option {
 	return &Option{
 		name: "WithFilterPath",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -44,7 +45,16 @@ func WithFilterPath(filterPath []string) *Option {
 func WithHuman(human bool) *Option {
 	return &Option{
 		name: "WithHuman",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
+		},
+	}
+}
+
+// WithIgnore - ignores the specified HTTP status codes.
+func WithIgnore(ignore []string) *Option {
+	return &Option{
+		name: "WithIgnore",
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -53,16 +63,7 @@ func WithHuman(human bool) *Option {
 func WithIgnoreUnavailable(ignoreUnavailable bool) *Option {
 	return &Option{
 		name: "WithIgnoreUnavailable",
-		apply: func(r *http.Request) {
-		},
-	}
-}
-
-// WithLocal - return local information, do not retrieve the state from master node (default: false).
-func WithLocal(local bool) *Option {
-	return &Option{
-		name: "WithLocal",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -71,7 +72,7 @@ func WithLocal(local bool) *Option {
 func WithMasterTimeout(masterTimeout time.Time) *Option {
 	return &Option{
 		name: "WithMasterTimeout",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -80,16 +81,25 @@ func WithMasterTimeout(masterTimeout time.Time) *Option {
 func WithPretty(pretty bool) *Option {
 	return &Option{
 		name: "WithPretty",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
 
-// WithRepository - a comma-separated list of repository names.
-func WithRepository(repository []string) *Option {
+// WithRepository - a repository name.
+func WithRepository(repository string) *Option {
 	return &Option{
 		name: "WithRepository",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
+		},
+	}
+}
+
+// WithSnapshot - a comma-separated list of snapshot names.
+func WithSnapshot(snapshot []string) *Option {
+	return &Option{
+		name: "WithSnapshot",
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -98,7 +108,7 @@ func WithRepository(repository []string) *Option {
 func WithSourceParam(sourceParam string) *Option {
 	return &Option{
 		name: "WithSourceParam",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -107,7 +117,7 @@ func WithSourceParam(sourceParam string) *Option {
 func WithTimeout(timeout time.Time) *Option {
 	return &Option{
 		name: "WithTimeout",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -116,7 +126,7 @@ func WithTimeout(timeout time.Time) *Option {
 func WithVerify(verify bool) *Option {
 	return &Option{
 		name: "WithVerify",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -125,38 +135,32 @@ func WithVerify(verify bool) *Option {
 func WithWaitForCompletion(waitForCompletion bool) *Option {
 	return &Option{
 		name: "WithWaitForCompletion",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
 
 var (
 	supportedOptions = map[string]map[string]struct{}{
-		"GetRepository": map[string]struct{}{
-			"WithRepository":    struct{}{},
-			"WithLocal":         struct{}{},
-			"WithMasterTimeout": struct{}{},
-			"WithErrorTrace":    struct{}{},
-			"WithFilterPath":    struct{}{},
-			"WithHuman":         struct{}{},
-			"WithPretty":        struct{}{},
-			"WithSourceParam":   struct{}{},
-		},
-		"Delete": map[string]struct{}{
-			"WithMasterTimeout": struct{}{},
-			"WithErrorTrace":    struct{}{},
-			"WithFilterPath":    struct{}{},
-			"WithHuman":         struct{}{},
-			"WithPretty":        struct{}{},
-			"WithSourceParam":   struct{}{},
-		},
-		"Restore": map[string]struct{}{
+		"Get": map[string]struct{}{
+			"WithIgnoreUnavailable": struct{}{},
 			"WithMasterTimeout":     struct{}{},
-			"WithWaitForCompletion": struct{}{},
-			"WithBody":              struct{}{},
 			"WithErrorTrace":        struct{}{},
 			"WithFilterPath":        struct{}{},
 			"WithHuman":             struct{}{},
+			"WithIgnore":            struct{}{},
+			"WithPretty":            struct{}{},
+			"WithSourceParam":       struct{}{},
+		},
+		"Status": map[string]struct{}{
+			"WithRepository":        struct{}{},
+			"WithSnapshot":          struct{}{},
+			"WithIgnoreUnavailable": struct{}{},
+			"WithMasterTimeout":     struct{}{},
+			"WithErrorTrace":        struct{}{},
+			"WithFilterPath":        struct{}{},
+			"WithHuman":             struct{}{},
+			"WithIgnore":            struct{}{},
 			"WithPretty":            struct{}{},
 			"WithSourceParam":       struct{}{},
 		},
@@ -166,6 +170,39 @@ var (
 			"WithErrorTrace":    struct{}{},
 			"WithFilterPath":    struct{}{},
 			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
+			"WithPretty":        struct{}{},
+			"WithSourceParam":   struct{}{},
+		},
+		"GetRepository": map[string]struct{}{
+			"WithRepository":    struct{}{},
+			"WithLocal":         struct{}{},
+			"WithMasterTimeout": struct{}{},
+			"WithErrorTrace":    struct{}{},
+			"WithFilterPath":    struct{}{},
+			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
+			"WithPretty":        struct{}{},
+			"WithSourceParam":   struct{}{},
+		},
+		"CreateRepository": map[string]struct{}{
+			"WithMasterTimeout": struct{}{},
+			"WithTimeout":       struct{}{},
+			"WithVerify":        struct{}{},
+			"WithErrorTrace":    struct{}{},
+			"WithFilterPath":    struct{}{},
+			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
+			"WithPretty":        struct{}{},
+			"WithSourceParam":   struct{}{},
+		},
+		"DeleteRepository": map[string]struct{}{
+			"WithMasterTimeout": struct{}{},
+			"WithTimeout":       struct{}{},
+			"WithErrorTrace":    struct{}{},
+			"WithFilterPath":    struct{}{},
+			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
 			"WithPretty":        struct{}{},
 			"WithSourceParam":   struct{}{},
 		},
@@ -176,47 +213,29 @@ var (
 			"WithErrorTrace":        struct{}{},
 			"WithFilterPath":        struct{}{},
 			"WithHuman":             struct{}{},
+			"WithIgnore":            struct{}{},
 			"WithPretty":            struct{}{},
 			"WithSourceParam":       struct{}{},
 		},
-		"Get": map[string]struct{}{
-			"WithIgnoreUnavailable": struct{}{},
-			"WithMasterTimeout":     struct{}{},
-			"WithErrorTrace":        struct{}{},
-			"WithFilterPath":        struct{}{},
-			"WithHuman":             struct{}{},
-			"WithPretty":            struct{}{},
-			"WithSourceParam":       struct{}{},
-		},
-		"DeleteRepository": map[string]struct{}{
+		"Delete": map[string]struct{}{
 			"WithMasterTimeout": struct{}{},
-			"WithTimeout":       struct{}{},
 			"WithErrorTrace":    struct{}{},
 			"WithFilterPath":    struct{}{},
 			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
 			"WithPretty":        struct{}{},
 			"WithSourceParam":   struct{}{},
 		},
-		"Status": map[string]struct{}{
-			"WithRepository":        struct{}{},
-			"WithSnapshot":          struct{}{},
-			"WithIgnoreUnavailable": struct{}{},
+		"Restore": map[string]struct{}{
 			"WithMasterTimeout":     struct{}{},
+			"WithWaitForCompletion": struct{}{},
+			"WithBody":              struct{}{},
 			"WithErrorTrace":        struct{}{},
 			"WithFilterPath":        struct{}{},
 			"WithHuman":             struct{}{},
+			"WithIgnore":            struct{}{},
 			"WithPretty":            struct{}{},
 			"WithSourceParam":       struct{}{},
-		},
-		"CreateRepository": map[string]struct{}{
-			"WithMasterTimeout": struct{}{},
-			"WithTimeout":       struct{}{},
-			"WithVerify":        struct{}{},
-			"WithErrorTrace":    struct{}{},
-			"WithFilterPath":    struct{}{},
-			"WithHuman":         struct{}{},
-			"WithPretty":        struct{}{},
-			"WithSourceParam":   struct{}{},
 		},
 	}
 )

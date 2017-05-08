@@ -5,7 +5,6 @@ package ingest
 import (
 	"fmt"
 	"net/http"
-	"net/url"
 
 	"github.com/elastic/go-elasticsearch/transport"
 )
@@ -14,15 +13,9 @@ import (
 //
 // id: comma separated list of pipeline ids. Wildcards supported.
 //
-// options: optional parameters. Supports the following functional options: WithID, WithMasterTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithID, WithMasterTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Ingest) GetPipeline(id string, options ...*Option) (*GetPipelineResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: i.transport.URL.Scheme,
-			Host:   i.transport.URL.Host,
-		},
-		Method: "GET",
-	}
+	req := i.transport.NewRequest("GET")
 	methodOptions := supportedOptions["GetPipeline"]
 	for _, option := range options {
 		if _, ok := methodOptions[option.name]; !ok {

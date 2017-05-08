@@ -5,22 +5,15 @@ package tasks
 import (
 	"fmt"
 	"net/http"
-	"net/url"
 
 	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Cancel - the task management API allows to retrieve information about the tasks currently executing on one or more nodes in the cluster. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/tasks.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithTaskID, WithActions, WithNodeID, WithParentNode, WithParentTask, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithTaskID, WithActions, WithNodeID, WithParentNode, WithParentTask, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (t *Tasks) Cancel(options ...*Option) (*CancelResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: t.transport.URL.Scheme,
-			Host:   t.transport.URL.Host,
-		},
-		Method: "POST",
-	}
+	req := t.transport.NewRequest("POST")
 	methodOptions := supportedOptions["Cancel"]
 	for _, option := range options {
 		if _, ok := methodOptions[option.name]; !ok {

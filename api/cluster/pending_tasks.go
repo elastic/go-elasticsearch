@@ -5,22 +5,15 @@ package cluster
 import (
 	"fmt"
 	"net/http"
-	"net/url"
 
 	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // PendingTasks - the pending cluster tasks API returns a list of any cluster-level changes (e.g. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-pending.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithLocal, WithMasterTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithLocal, WithMasterTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (c *Cluster) PendingTasks(options ...*Option) (*PendingTasksResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: c.transport.URL.Scheme,
-			Host:   c.transport.URL.Host,
-		},
-		Method: "GET",
-	}
+	req := c.transport.NewRequest("GET")
 	methodOptions := supportedOptions["PendingTasks"]
 	for _, option := range options {
 		if _, ok := methodOptions[option.name]; !ok {

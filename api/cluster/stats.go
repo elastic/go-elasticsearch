@@ -5,22 +5,15 @@ package cluster
 import (
 	"fmt"
 	"net/http"
-	"net/url"
 
 	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // Stats - the Cluster Stats API allows to retrieve statistics from a cluster wide perspective. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-stats.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithNodeID, WithFlatSettings, WithTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithNodeID, WithFlatSettings, WithTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (c *Cluster) Stats(options ...*Option) (*StatsResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: c.transport.URL.Scheme,
-			Host:   c.transport.URL.Host,
-		},
-		Method: "GET",
-	}
+	req := c.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Stats"]
 	for _, option := range options {
 		if _, ok := methodOptions[option.name]; !ok {

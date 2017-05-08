@@ -5,22 +5,15 @@ package api
 import (
 	"fmt"
 	"net/http"
-	"net/url"
 
 	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // RenderSearchTemplate - see http://www.elasticsearch.org/guide/en/elasticsearch/reference/5.x/search-template.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithID, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithID, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (a *API) RenderSearchTemplate(options ...*Option) (*RenderSearchTemplateResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: a.transport.URL.Scheme,
-			Host:   a.transport.URL.Host,
-		},
-		Method: "GET",
-	}
+	req := a.transport.NewRequest("GET")
 	methodOptions := supportedOptions["RenderSearchTemplate"]
 	for _, option := range options {
 		if _, ok := methodOptions[option.name]; !ok {

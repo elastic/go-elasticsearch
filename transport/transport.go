@@ -3,6 +3,7 @@ package transport
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/url"
 	"strings"
@@ -34,8 +35,14 @@ func New() *Transport {
 }
 
 // Do sends an HTTP request.
-func (t *Transport) Do(req *http.Request) (*http.Response, error) {
-	return t.client.Do(req)
+func (t *Transport) Do(req *Request) (*http.Response, error) {
+	resp, err := t.client.Do(req.Request)
+	if err == nil && resp.StatusCode >= 300 {
+		if _, ok := req.IgnoredStatuses[resp.StatusCode]; !ok {
+			err = fmt.Errorf("%d: %s", resp.StatusCode, http.StatusText(resp.StatusCode))
+		}
+	}
+	return resp, err
 }
 
 // DecodeResponseBody is a helper to decode the JSON body of an HTTP response.
@@ -56,4 +63,23 @@ func JSONField(body map[string]interface{}, name string) (interface{}, error) {
 		field = field.(map[string]interface{})[n]
 	}
 	return field, nil
+}
+
+// Request wraps an HTTP request with some options.
+type Request struct {
+	// Request is the HTTP request
+	*http.Request
+	// IgnoredStatuses contains the HTTP status codes to ignore. By default, all codes >= 300 result in an error.
+	IgnoredStatuses map[int]struct{}
+}
+
+// NewRequest instantiates a new requests for a transport.
+func (t *Transport) NewRequest(method string) *Request {
+	return &Request{
+		Request: &http.Request{
+			URL:    t.URL,
+			Method: method,
+		},
+		IgnoredStatuses: map[int]struct{}{},
+	}
 }

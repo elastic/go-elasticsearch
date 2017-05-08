@@ -46,6 +46,8 @@ package api
 
 import (
 	"net/http"
+
+	"github.com/elastic/go-elasticsearch/transport"
 )
 
 // OpType - explicit operation type.
@@ -60,14 +62,14 @@ const (
 // Option is a non-required API option that gets applied to an HTTP request.
 type Option struct {
 	name string
-	apply func(r *http.Request)
+	apply func(r *transport.Request)
 }
 
 // WithID - document ID.
 func WithID(id string) *Option {
 	return &Option{
 		name: "WithID",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -76,7 +78,7 @@ func WithID(id string) *Option {
 func WithOpType(opType OpType) *Option {
 	return &Option{
 		name: "WithOpType",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -85,7 +87,7 @@ func WithOpType(opType OpType) *Option {
 func WithTimeout(timeout time.Time) *Option {
 	return &Option{
 		name: "WithTimeout",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -94,7 +96,7 @@ func WithTimeout(timeout time.Time) *Option {
 func WithVersion(version int) *Option {
 	return &Option{
 		name: "WithVersion",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }
@@ -103,7 +105,7 @@ func WithVersion(version int) *Option {
 func WithWaitForActiveShards(waitForActiveShards string) *Option {
 	return &Option{
 		name: "WithWaitForActiveShards",
-		apply: func(r *http.Request) {
+		apply: func(r *transport.Request) {
 		},
 	}
 }

@@ -5,7 +5,6 @@ package tasks
 import (
 	"fmt"
 	"net/http"
-	"net/url"
 
 	"github.com/elastic/go-elasticsearch/transport"
 )
@@ -14,15 +13,9 @@ import (
 //
 // taskID: return the task with specified id (node_id:task_number).
 //
-// options: optional parameters. Supports the following functional options: WithTaskID, WithWaitForCompletion, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithTaskID, WithWaitForCompletion, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (t *Tasks) Get(taskID string, options ...*Option) (*GetResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: t.transport.URL.Scheme,
-			Host:   t.transport.URL.Host,
-		},
-		Method: "GET",
-	}
+	req := t.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Get"]
 	for _, option := range options {
 		if _, ok := methodOptions[option.name]; !ok {
