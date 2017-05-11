@@ -38,9 +38,10 @@ const (
 )
 
 type test struct {
-	Spec map[string][]*actionRouter
-	Name string
-	Type testType
+	Spec    map[string][]*actionRouter
+	RawName string
+	Name    string
+	Type    testType
 }
 
 func newTest(testSpec string, methods map[string]*method, templates *template.Template) (*test, error) {
@@ -58,6 +59,7 @@ func newTest(testSpec string, methods map[string]*method, templates *template.Te
 		case "teardown":
 			t.Type = testTypeTeardown
 		default:
+			t.RawName = name
 			t.Type = testTypeTest
 			t.Name = "Test" + snaker.SnakeToCamel(strings.Replace(name, " ", "_", -1))
 		}
