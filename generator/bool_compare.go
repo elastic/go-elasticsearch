@@ -20,15 +20,16 @@
 package generator
 
 import (
+	"bytes"
 	"fmt"
 	"text/template"
 )
 
 type boolCompare struct {
 	spec     map[string]string
-	key      string
+	Key      string
 	Operator string
-	NilValue string
+	template *template.Template
 }
 
 func newBoolCompare(unmarshal func(interface{}) error) (action, error) {
@@ -42,23 +43,29 @@ func newBoolCompare(unmarshal func(interface{}) error) (action, error) {
 	for name, key := range b.spec {
 		switch name {
 		case "is_true":
-			b.Operator = "!="
+			b.Operator = "assert.NotZero"
 		case "is_false":
-			b.Operator = "=="
+			b.Operator = "assert.Zero"
 		default:
 			return nil, fmt.Errorf("unexpected bool comparison operation: %s", name)
 		}
-		b.key = key
+		b.Key = key
 	}
 	return b, nil
 }
 
 func (b *boolCompare) resolve(methods map[string]*method, templates *template.Template) error {
-	// TODO: implement resolution and per-type nil value
+	b.template = templates.Lookup("bool_compare.tmpl")
+	if b.template == nil {
+		return fmt.Errorf("unable to find template for bool comparison")
+	}
 	return nil
 }
 
 func (b *boolCompare) String() (string, error) {
-	// TODO: implement
-	return "", nil
+	var writer bytes.Buffer
+	if err := b.template.Execute(&writer, b); err != nil {
+		return "", err
+	}
+	return writer.String(), nil
 }
