@@ -25,35 +25,36 @@ import (
 	"text/template"
 )
 
-// tester is the test generator for an API method
-type tester struct {
-	testers []*methodTester
+// apiTest is the test generator for an API namespace. It contains multiple tests, each of which is exercising one or
+// more methods.
+type apiTester struct {
+	Specs []*testSpec
 }
 
-// New instantiates a tester for a given API
-func newTester(specDir, api string, methods map[string]*method, templates *template.Template) (*tester, error) {
+// newAPITest instantiates a tester for a given API namespace.
+func newAPITester(specDir, api string, methods map[string]*method, templates *template.Template) (*apiTester, error) {
 	testSpecDir := filepath.Join(specDir, "test", api)
 	files, err := ioutil.ReadDir(testSpecDir)
 	if err != nil {
 		return nil, err
 	}
-	t := &tester{
-		testers: []*methodTester{},
+	a := &apiTester{
+		Specs: []*testSpec{},
 	}
 	for _, file := range files {
 		if filepath.Ext(file.Name()) != ".yaml" {
 			continue
 		}
-		mt, err := newMethodTester(filepath.Join(testSpecDir, file.Name()), methods, templates)
+		ts, err := newTestSpec(filepath.Join(testSpecDir, file.Name()), methods, templates)
 		if err != nil {
 			return nil, err
 		}
-		t.testers = append(t.testers, mt)
+		a.Specs = append(a.Specs, ts)
 	}
-	return t, nil
+	return a, nil
 }
 
-func (t *tester) generate(outputDir string) error {
+func (a *apiTester) generate(outputDir string) error {
 	// TODO: implement
 	return nil
 }

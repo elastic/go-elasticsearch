@@ -26,16 +26,16 @@ import (
 	"text/template"
 )
 
-type methodTester struct {
+type testSpec struct {
 	Tests []*test
 }
 
-func newMethodTester(specFilePath string, methods map[string]*method, templates *template.Template) (*methodTester, error) {
+func newTestSpec(specFilePath string, methods map[string]*method, templates *template.Template) (*testSpec, error) {
 	bytes, err := ioutil.ReadFile(specFilePath)
 	if err != nil {
 		return nil, err
 	}
-	mt := &methodTester{
+	mt := &testSpec{
 		Tests: []*test{},
 	}
 	for _, s := range strings.Split(string(bytes), "---") {
