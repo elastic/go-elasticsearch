@@ -1,5 +1,8 @@
 language: go
 go_import_path: github.com/elastic/go-elasticsearch
+install:
+  - go get github.com/pkg/errors
+  - go get github.com/stretchr/testify/assert
 script: make check lint
 notifications:
   email: false
