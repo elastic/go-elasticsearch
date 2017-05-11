@@ -54,7 +54,7 @@ func newBoolCompare(unmarshal func(interface{}) error) (action, error) {
 }
 
 func (b *boolCompare) resolve(methods map[string]*method, templates *template.Template) error {
-	// TODO: implement resolution, dotted notation and per-type nil value
+	// TODO: implement resolution and per-type nil value
 	return nil
 }
 

@@ -58,7 +58,6 @@ func newIntCompare(unmarshal func(interface{}) error) (action, error) {
 			return nil, fmt.Errorf("found more than one operation in %#v", i.spec)
 		}
 		for varName, value := range op {
-			// TODO: handle dotted notation in field name
 			i.Key = varName
 			i.Value = value
 		}

@@ -43,6 +43,7 @@ import (
 	"net/url"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Index adds or updates a typed JSON document in a specific index, making it searchable. See http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html for more info.
@@ -74,7 +75,7 @@ type IndexResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *IndexResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *IndexResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }
 `

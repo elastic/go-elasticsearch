@@ -6,7 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
-	"strings"
+
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // DefaultURL is the default host if none is configured.
@@ -46,23 +47,12 @@ func (t *Transport) Do(req *Request) (*http.Response, error) {
 }
 
 // DecodeResponseBody is a helper to decode the JSON body of an HTTP response.
-func DecodeResponseBody(resp *http.Response) (map[string]interface{}, error) {
+func DecodeResponseBody(resp *http.Response) (util.MapStr, error) {
 	var body map[string]interface{}
 	if err := json.NewDecoder(resp.Body).Decode(body); err != nil {
 		return nil, err
 	}
-	return body, nil
-}
-
-// JSONField is a helper to extract an object from JSON structure. It understands the dotted notation.
-func JSONField(body map[string]interface{}, name string) (interface{}, error) {
-	path := strings.Split(name, ".")
-	var field interface{}
-	field = body
-	for _, n := range path {
-		field = field.(map[string]interface{})[n]
-	}
-	return field, nil
+	return util.MapStr(body), nil
 }
 
 // Request wraps an HTTP request with some options.
