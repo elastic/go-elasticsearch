@@ -36,9 +36,9 @@ func newDo(unmarshal func(interface{}) error) (action, error) {
 	if err := unmarshal(&d.spec); err != nil {
 		var spec map[string]string
 		if err := unmarshal(&spec); err != nil {
+			// TODO: implement catch et al.
 			return d, nil
 		}
-		// TODO: implement catch et al.
 	}
 	return d, nil
 }
