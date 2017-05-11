@@ -19,23 +19,51 @@
 
 package generator
 
-import "text/template"
+import (
+	"bytes"
+	"fmt"
+	"text/template"
+)
 
 type set struct {
-	Spec map[string]map[string]interface{}
+	spec     map[string]map[string]string
+	Key      string
+	VarName  string
+	template *template.Template
 }
 
 func newSet(unmarshal func(interface{}) error) (action, error) {
-	// TODO: implement
-	return &set{}, nil
+	s := &set{}
+	if err := unmarshal(&s.spec); err != nil {
+		return nil, err
+	}
+	if len(s.spec) > 1 {
+		return nil, fmt.Errorf("found more than one operation in %#v", s.spec)
+	}
+	for _, item := range s.spec {
+		if len(item) > 1 {
+			return nil, fmt.Errorf("found more than one field in %#v", s.spec)
+		}
+		for key, name := range item {
+			s.Key = key
+			s.VarName = name
+		}
+	}
+	return s, nil
 }
 
 func (s *set) resolve(methods map[string]*method, templates *template.Template) error {
-	// TODO: implement
+	s.template = templates.Lookup("set.tmpl")
+	if s.template == nil {
+		return fmt.Errorf("unable to find template for set")
+	}
 	return nil
 }
 
 func (s *set) String() (string, error) {
-	// TODO: implement
-	return "", nil
+	var writer bytes.Buffer
+	if err := s.template.Execute(&writer, s); err != nil {
+		return "", err
+	}
+	return writer.String(), nil
 }

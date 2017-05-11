@@ -33,11 +33,9 @@ func newSkip(unmarshal func(interface{}) error) (action, error) {
 }
 
 func (s *skip) resolve(methods map[string]*method, templates *template.Template) error {
-	// TODO: implement
 	return nil
 }
 
 func (s *skip) String() (string, error) {
-	// TODO: implement
 	return "", nil
 }

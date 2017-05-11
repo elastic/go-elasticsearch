@@ -41,6 +41,9 @@ func newLength(unmarshal func(interface{}) error) (action, error) {
 		return nil, fmt.Errorf("found more than one operation in %#v", l.spec)
 	}
 	for _, item := range l.spec {
+		if len(item) > 1 {
+			return nil, fmt.Errorf("found more than one field in %#v", l.spec)
+		}
 		for name, length := range item {
 			l.Key = name
 			l.Length = length

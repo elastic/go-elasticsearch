@@ -54,6 +54,7 @@ func (d *do) resolve(methods map[string]*method, templates *template.Template) e
 		if !ok {
 			return fmt.Errorf("invalid method name %q in %#v", methodName, spec)
 		}
+		// TODO: implement variables in args
 		methodCall, err := m.call(args)
 		if err != nil {
 			return err
