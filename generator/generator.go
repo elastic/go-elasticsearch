@@ -47,16 +47,16 @@ type Generator struct {
 	// packages are Go packages that wrap the namespaces of the APIs. They also generate common objects such as
 	// constructors, functional options and enums.
 	packages map[string]*goPackage
-	// tests are groups of tests for each API, populated with the YAML specs in the rest-api-spec/test dir. They map
+	// testers are groups of tests for each API, populated with the YAML specs in the rest-api-spec/test dir. They map
 	// 1:1 with the directories in rest-api-spec/test.
-	tests map[string]*apiTester
+	testers map[string]*apiTester
 }
 
 // New creates a new generator
 func New(specDir, templatesDir string) (*Generator, error) {
 	g := &Generator{
 		methods: map[string]*method{},
-		tests:   map[string]*apiTester{},
+		testers: map[string]*apiTester{},
 	}
 	glog.Info("parsing templates")
 	files, err := ioutil.ReadDir(templatesDir)
@@ -113,7 +113,7 @@ func New(specDir, templatesDir string) (*Generator, error) {
 		if !dir.IsDir() {
 			continue
 		}
-		if g.tests[dir.Name()], err = newAPITester(specDir, dir.Name(), g.methods, templates); err != nil {
+		if g.testers[dir.Name()], err = newAPITester(specDir, dir.Name(), g.methods, templates); err != nil {
 			return nil, err
 		}
 	}
@@ -160,9 +160,9 @@ func (g *Generator) Run() error {
 			return err
 		}
 	}
-	glog.Info("generating tests")
-	for _, test := range g.tests {
-		err := test.generate(outputDir)
+	glog.Info("generating testers")
+	for _, tester := range g.testers {
+		err := tester.generate(outputDir)
 		if err != nil {
 			return err
 		}

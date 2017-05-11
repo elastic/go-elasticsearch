@@ -20,6 +20,7 @@
 package generator
 
 import (
+	"fmt"
 	"io/ioutil"
 	"path/filepath"
 	"text/template"
@@ -28,7 +29,9 @@ import (
 // apiTest is the test generator for an API namespace. It contains multiple tests, each of which is exercising one or
 // more methods.
 type apiTester struct {
-	Specs []*testSpec
+	Specs       []*testSpec
+	PackageName string
+	template    *template.Template
 }
 
 // newAPITest instantiates a tester for a given API namespace.
@@ -40,6 +43,7 @@ func newAPITester(specDir, api string, methods map[string]*method, templates *te
 	}
 	a := &apiTester{
 		Specs: []*testSpec{},
+		// TODO: resolve package name
 	}
 	for _, file := range files {
 		if filepath.Ext(file.Name()) != ".yaml" {
@@ -51,10 +55,13 @@ func newAPITester(specDir, api string, methods map[string]*method, templates *te
 		}
 		a.Specs = append(a.Specs, ts)
 	}
+	if a.template = templates.Lookup("test.tmpl"); a.template == nil {
+		return nil, fmt.Errorf("cannot find template for tests")
+	}
 	return a, nil
 }
 
 func (a *apiTester) generate(outputDir string) error {
-	// TODO: implement
+	// TODO: add boilerplate code to template (vars etc), implement generation
 	return nil
 }

@@ -42,6 +42,7 @@ type test struct {
 	RawName string
 	Name    string
 	Type    testType
+	Actions []*actionRouter
 }
 
 func newTest(testSpec string, methods map[string]*method, templates *template.Template) (*test, error) {
@@ -62,6 +63,7 @@ func newTest(testSpec string, methods map[string]*method, templates *template.Te
 			t.RawName = name
 			t.Type = testTypeTest
 			t.Name = "Test" + snaker.SnakeToCamel(strings.Replace(name, " ", "_", -1))
+			t.Actions = actions
 		}
 		for _, a := range actions {
 			if err := a.resolve(methods, templates); err != nil {

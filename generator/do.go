@@ -36,7 +36,7 @@ func newDo(unmarshal func(interface{}) error) (action, error) {
 	if err := unmarshal(&d.spec); err != nil {
 		var spec map[string]string
 		if err := unmarshal(&spec); err != nil {
-			// TODO: implement catch et al.
+			// TODO: implement catch et al here and in resolve
 			return d, nil
 		}
 	}
@@ -47,7 +47,6 @@ func (d *do) resolve(methods map[string]*method, templates *template.Template) e
 	spec := d.spec["do"]
 	for methodName, args := range spec {
 		if methodName == "catch" || methodName == "warnings" || methodName == "headers" {
-			// TODO: implement
 			continue
 		}
 		m, ok := methods[methodName]
