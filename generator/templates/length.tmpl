@@ -1,0 +1,5 @@
+if v, err := body.GetValue({{.Key}}); err == nil {
+  assert.Len(t, v, {{.Length}})
+} else {
+  t.Fatalf("unable to find key %q: %s", {{.Key}}, err)
+}

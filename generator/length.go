@@ -19,23 +19,48 @@
 
 package generator
 
-import "text/template"
+import (
+	"bytes"
+	"fmt"
+	"text/template"
+)
 
 type length struct {
-	Spec map[string]map[string]int
+	spec     map[string]map[string]int
+	Key      string
+	Length   int
+	template *template.Template
 }
 
 func newLength(unmarshal func(interface{}) error) (action, error) {
-	// TODO: implement
-	return &length{}, nil
+	l := &length{}
+	if err := unmarshal(&l.spec); err != nil {
+		return nil, err
+	}
+	if len(l.spec) > 1 {
+		return nil, fmt.Errorf("found more than one operation in %#v", l.spec)
+	}
+	for _, item := range l.spec {
+		for name, length := range item {
+			l.Key = name
+			l.Length = length
+		}
+	}
+	return l, nil
 }
 
 func (l *length) resolve(methods map[string]*method, templates *template.Template) error {
-	// TODO: implement
+	l.template = templates.Lookup("length.tmpl")
+	if l.template == nil {
+		return fmt.Errorf("unable to find template for length")
+	}
 	return nil
 }
 
 func (l *length) String() (string, error) {
-	// TODO: implement
-	return "", nil
+	var writer bytes.Buffer
+	if err := l.template.Execute(&writer, l); err != nil {
+		return "", err
+	}
+	return writer.String(), nil
 }
