@@ -58,7 +58,7 @@ func TestDo(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	expectedCode := `resp, err = Index(
+	expectedCode := `indexResp, err := Index(
 		"test-weird-index-中文", "weird.type", map[string]interface{}{
 			"foo" : "bar",
 		}, WithID("1")
@@ -66,7 +66,7 @@ func TestDo(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	body, err = resp.DecodeBody()
+	body, err = indexResp.DecodeBody()
 	if err != nil {
 		t.Fatal(err)
 	}

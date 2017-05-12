@@ -101,6 +101,7 @@ type method struct {
 	MethodName        string
 	TypeName          string
 	ReceiverName      string
+	ResponseName      string
 	HTTPMethod        string
 	RequiredURLParts  []*param
 	OptionalURLParts  []*param
@@ -181,6 +182,7 @@ func newMethod(specDir, specFileName string, commonParams map[string]*param, tem
 	m.FileName += ".go"
 	m.TypeName = snaker.SnakeToCamel(m.PackageName)
 	m.ReceiverName = strings.ToLower(string(m.TypeName[0]))
+	m.ResponseName = snaker.SnakeToCamelLower(strings.ToLower(m.MethodName) + "_resp")
 	m.HTTPMethod = m.Spec.Methods[0]
 	return m, nil
 }
@@ -381,6 +383,7 @@ func (m *method) clone() (*method, error) {
 		MethodName:        m.MethodName,
 		TypeName:          m.TypeName,
 		ReceiverName:      m.ReceiverName,
+		ResponseName:      m.ResponseName,
 		HTTPMethod:        m.HTTPMethod,
 		RequiredURLParts:  []*param{},
 		OptionalURLParts:  []*param{},

@@ -81,6 +81,6 @@ func newMethodTester(specDir, methodName string, methods map[string]*method, tem
 }
 
 func (m *methodTester) generate(outputDir string) error {
-	// TODO: add boilerplate code to template (vars etc), implement generation
+	// TODO: implement generation
 	return nil
 }
