@@ -107,6 +107,7 @@ func (p *goPackage) generateAPI(w io.Writer) error {
 }
 
 func (p *goPackage) generateOption(w io.Writer) error {
+	// TODO: move this to be per method
 	t := p.templates.Lookup("types.tmpl")
 	if t == nil {
 		return fmt.Errorf("cannot fine template for types")
