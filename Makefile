@@ -66,14 +66,13 @@ spec-update: spec
 
 .PHONY: docker-start
 docker-start:
-	@$(MAKE) docker-stop || true
-	$(DOCKER) run --name $(DOCKER_CONTAINER) -d -p 127.0.0.1:9200:9200 -e "http.host=0.0.0.0" -e "transport.host=127.0.0.1" -e "xpack.security.enabled=false" $(DOCKER_IMAGE):$(shell cat ${VERSION_FILE} | cut -c2-)
-	@echo "Waiting for elasticsearch to be reachable..." && until curl -sf http://localhost:9200; do sleep 2; done
+	@$(MAKE) docker-stop
+	$(DOCKER) run --name $(DOCKER_CONTAINER) -d -p 127.0.0.1:9200:9200 -e "node.attr.testattr=test" -e "path.repo=/tmp" -e "http.host=0.0.0.0" -e "transport.host=127.0.0.1" -e "xpack.security.enabled=false" $(DOCKER_IMAGE):$(shell cat ${VERSION_FILE} | cut -c2-)
+	echo "Waiting for elasticsearch to be reachable..." && time sh -c "until curl -sf http://localhost:9200; do sleep 1; done"
 
 .PHONY: docker-stop
 docker-stop:
-	$(DOCKER) stop $(DOCKER_CONTAINER)
-	$(DOCKER) rm $(DOCKER_CONTAINER)
+	$(DOCKER) stop $(DOCKER_CONTAINER) &&	$(DOCKER) rm $(DOCKER_CONTAINER) || true
 
 .PHONY: test
 test: build
