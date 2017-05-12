@@ -49,14 +49,14 @@ type Generator struct {
 	packages map[string]*goPackage
 	// testers are groups of tests for each API, populated with the YAML specs in the rest-api-spec/test dir. They map
 	// 1:1 with the directories in rest-api-spec/test.
-	testers map[string]*apiTester
+	testers map[string]*methodTester
 }
 
 // New creates a new generator
 func New(specDir, templatesDir string) (*Generator, error) {
 	g := &Generator{
 		methods: map[string]*method{},
-		testers: map[string]*apiTester{},
+		testers: map[string]*methodTester{},
 	}
 	glog.Info("parsing templates")
 	files, err := ioutil.ReadDir(templatesDir)
@@ -113,7 +113,7 @@ func New(specDir, templatesDir string) (*Generator, error) {
 		if !dir.IsDir() {
 			continue
 		}
-		if g.testers[dir.Name()], err = newAPITester(specDir, dir.Name(), g.methods, templates); err != nil {
+		if g.testers[dir.Name()], err = newMethodTester(specDir, dir.Name(), g.methods, templates); err != nil {
 			return nil, err
 		}
 	}

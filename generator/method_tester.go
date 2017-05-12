@@ -26,24 +26,43 @@ import (
 	"text/template"
 )
 
-// apiTest is the test generator for an API namespace. It contains multiple tests, each of which is exercising one or
-// more methods.
-type apiTester struct {
-	Specs       []*testSpec
-	PackageName string
-	template    *template.Template
+// methodTest is the test generator for a given method. It contains multiple test specs, each of which contains one or
+// more tests.
+type methodTester struct {
+	Specs    []*testSpec
+	Method   *method
+	template *template.Template
 }
 
-// newAPITest instantiates a tester for a given API namespace.
-func newAPITester(specDir, api string, methods map[string]*method, templates *template.Template) (*apiTester, error) {
-	testSpecDir := filepath.Join(specDir, "test", api)
+// newMethodTester instantiates a tester for a given API namespace.
+func newMethodTester(specDir, methodName string, methods map[string]*method, templates *template.Template) (*methodTester, error) {
+	m := &methodTester{
+		Specs: []*testSpec{},
+	}
+	var ok bool
+	if m.Method, ok = methods[methodName]; !ok {
+		switch methodName {
+		case "ingest":
+			methodName = "ingest.put_pipeline"
+		case "mlt":
+			fallthrough
+		case "search.aggregation":
+			fallthrough
+		case "search.highlight":
+			fallthrough
+		case "search.inner_hits":
+			methodName = "search"
+		default:
+			return nil, fmt.Errorf("invalid method name: %s", methodName)
+		}
+		if m.Method, ok = methods[methodName]; !ok {
+			return nil, fmt.Errorf("invalid method name: %s", methodName)
+		}
+	}
+	testSpecDir := filepath.Join(specDir, "test", methodName)
 	files, err := ioutil.ReadDir(testSpecDir)
 	if err != nil {
 		return nil, err
-	}
-	a := &apiTester{
-		Specs: []*testSpec{},
-		// TODO: resolve package name
 	}
 	for _, file := range files {
 		if filepath.Ext(file.Name()) != ".yaml" {
@@ -53,15 +72,15 @@ func newAPITester(specDir, api string, methods map[string]*method, templates *te
 		if err != nil {
 			return nil, err
 		}
-		a.Specs = append(a.Specs, ts)
+		m.Specs = append(m.Specs, ts)
 	}
-	if a.template = templates.Lookup("test.tmpl"); a.template == nil {
+	if m.template = templates.Lookup("test.tmpl"); m.template == nil {
 		return nil, fmt.Errorf("cannot find template for tests")
 	}
-	return a, nil
+	return m, nil
 }
 
-func (a *apiTester) generate(outputDir string) error {
+func (m *methodTester) generate(outputDir string) error {
 	// TODO: add boilerplate code to template (vars etc), implement generation
 	return nil
 }

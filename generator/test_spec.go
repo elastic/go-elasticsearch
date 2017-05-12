@@ -26,6 +26,7 @@ import (
 	"text/template"
 )
 
+// testSpec maps a spec file for one or more tests.
 type testSpec struct {
 	Tests []*test
 }
