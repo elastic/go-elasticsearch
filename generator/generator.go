@@ -53,7 +53,7 @@ type Generator struct {
 }
 
 // New creates a new generator
-func New(specDir, templatesDir string) (*Generator, error) {
+func New(specDir, templatesDir string, offline bool) (*Generator, error) {
 	g := &Generator{
 		methods: map[string]*method{},
 		testers: map[string]*methodTester{},
@@ -95,7 +95,7 @@ func New(specDir, templatesDir string) (*Generator, error) {
 			continue
 		}
 		var m *method
-		m, err = newMethod(specDir, specFile.Name(), g.commonParams, templates)
+		m, err = newMethod(specDir, specFile.Name(), g.commonParams, templates, offline)
 		if err != nil {
 			return nil, err
 		}

@@ -48,7 +48,7 @@ func newIndexMethod(t *testing.T) *method {
 	if err != nil {
 		t.Fatal(err)
 	}
-	m, err := newMethod(testSpecDir, "index.json", nil, templates)
+	m, err := newMethod(testSpecDir, "index.json", nil, templates, true)
 	if err != nil {
 		t.Fatal(err)
 	}

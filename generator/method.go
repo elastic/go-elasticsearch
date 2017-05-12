@@ -113,9 +113,11 @@ type method struct {
 	ParamsWithValues  []*param
 	HTTPCache         map[string]io.ReadCloser
 	templates         *template.Template
+	offline           bool
 }
 
-func newMethod(specDir, specFileName string, commonParams map[string]*param, templates *template.Template) (*method,
+func newMethod(specDir, specFileName string, commonParams map[string]*param, templates *template.Template,
+	offline bool) (*method,
 	error) {
 	bytes, err := ioutil.ReadFile(filepath.Join(specDir, "api", specFileName))
 	if err != nil {
@@ -130,6 +132,7 @@ func newMethod(specDir, specFileName string, commonParams map[string]*param, tem
 		allParams:         map[string]*param{},
 		HTTPCache:         map[string]io.ReadCloser{},
 		templates:         templates,
+		offline:           offline,
 	}
 	var spec map[string]*spec
 	err = json.Unmarshal(bytes, &spec)
@@ -220,6 +223,9 @@ func (m *method) resolveDocumentation() error {
 	}
 	body, ok := m.HTTPCache[docURL]
 	if !ok {
+		if m.offline {
+			return nil
+		}
 		glog.Infof("fetching %s", docURL)
 		resp, err := http.Get(docURL)
 		if err != nil {

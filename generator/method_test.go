@@ -89,7 +89,7 @@ func TestNormalizeParams(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	m, err := newMethod(testSpecDir, "cat.fielddata.json", nil, templates)
+	m, err := newMethod(testSpecDir, "cat.fielddata.json", nil, templates, true)
 	if err != nil {
 		t.Fatal(err)
 	}

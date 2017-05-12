@@ -49,7 +49,6 @@ gen: spec
 	@$(GO) get $(GOIMPORTS_REPO)
 	$(GOIMPORTS) -w $(GEN_DIR)
 	(cd $(ELASTICSEARCH_DIR) && git describe --tags) > $(VERSION_FILE)
-	git add $(GEN_DIR)
 	$(MAKE) build
 
 .PHONY: gen-testdata
