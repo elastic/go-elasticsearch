@@ -97,7 +97,8 @@ type method struct {
 	Spec              *spec
 	Repo              string
 	PackageName       string
-	FileName          string
+	fileName          string
+	testFileName      string
 	MethodName        string
 	TypeName          string
 	ReceiverName      string
@@ -167,10 +168,10 @@ func newMethod(specDir, specFileName string, commonParams map[string]*param, tem
 	m.PackageName = defaultPackage
 	switch len(apiParts) {
 	case 1:
-		m.FileName = apiParts[0]
+		m.fileName = apiParts[0]
 	case 2:
 		m.PackageName = apiParts[0]
-		m.FileName = apiParts[1]
+		m.fileName = apiParts[1]
 	default:
 		return nil, fmt.Errorf("unexpected API name format: %s", m.rawName)
 	}
@@ -178,8 +179,9 @@ func newMethod(specDir, specFileName string, commonParams map[string]*param, tem
 	if m.PackageName != defaultPackage {
 		m.Repo += "/" + m.PackageName
 	}
-	m.MethodName = snaker.SnakeToCamel(m.FileName)
-	m.FileName += ".go"
+	m.MethodName = snaker.SnakeToCamel(m.fileName)
+	m.testFileName += m.fileName + "_test.go"
+	m.fileName += ".go"
 	m.TypeName = snaker.SnakeToCamel(m.PackageName)
 	m.ReceiverName = strings.ToLower(string(m.TypeName[0]))
 	m.ResponseName = snaker.SnakeToCamelLower(strings.ToLower(m.MethodName) + "_resp")
@@ -346,7 +348,7 @@ func (m *method) sortParams(common map[string]*param) error {
 
 func (m *method) newWriter(outputDir, fileName string) (io.Writer, error) {
 	if fileName == "" {
-		fileName = m.FileName
+		fileName = m.fileName
 	}
 	goFileDir := outputDir
 	if m.PackageName != defaultPackage {
@@ -379,7 +381,8 @@ func (m *method) clone() (*method, error) {
 		Spec:              m.Spec.clone(),
 		Repo:              m.Repo,
 		PackageName:       m.PackageName,
-		FileName:          m.FileName,
+		fileName:          m.fileName,
+		testFileName:      m.testFileName,
 		MethodName:        m.MethodName,
 		TypeName:          m.TypeName,
 		ReceiverName:      m.ReceiverName,
