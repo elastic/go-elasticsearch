@@ -41,9 +41,10 @@ func newMethodTester(specDir, methodName string, methods map[string]*method, tem
 	}
 	var ok bool
 	if m.Method, ok = methods[methodName]; !ok {
+		var name string
 		switch methodName {
 		case "ingest":
-			methodName = "ingest.put_pipeline"
+			name = "ingest.put_pipeline"
 		case "mlt":
 			fallthrough
 		case "search.aggregation":
@@ -51,12 +52,12 @@ func newMethodTester(specDir, methodName string, methods map[string]*method, tem
 		case "search.highlight":
 			fallthrough
 		case "search.inner_hits":
-			methodName = "search"
+			name = "search"
 		default:
 			return nil, fmt.Errorf("invalid method name: %s", methodName)
 		}
-		if m.Method, ok = methods[methodName]; !ok {
-			return nil, fmt.Errorf("invalid method name: %s", methodName)
+		if m.Method, ok = methods[name]; !ok {
+			return nil, fmt.Errorf("invalid method name: %s", name)
 		}
 	}
 	testSpecDir := filepath.Join(specDir, "test", methodName)

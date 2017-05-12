@@ -89,7 +89,7 @@ func New(specDir, templatesDir string) (*Generator, error) {
 	if err != nil {
 		return nil, err
 	}
-	glog.Info("parsing specs")
+	glog.Info("parsing method specs")
 	for _, specFile := range files {
 		if specFile.Name() == commonParamsSpecFile {
 			continue
@@ -101,6 +101,7 @@ func New(specDir, templatesDir string) (*Generator, error) {
 		}
 		g.methods[m.rawName] = m
 	}
+	glog.Info("grouping package info")
 	g.packages, err = newPackages(g.methods, templates)
 	if err != nil {
 		return nil, err
@@ -109,6 +110,7 @@ func New(specDir, templatesDir string) (*Generator, error) {
 	if err != nil {
 		return nil, err
 	}
+	glog.Info("parsing test specs")
 	for _, dir := range testDirs {
 		if !dir.IsDir() {
 			continue
