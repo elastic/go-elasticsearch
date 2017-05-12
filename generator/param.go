@@ -24,7 +24,6 @@ import (
 	"fmt"
 	"strings"
 	"text/template"
-	"time"
 
 	"github.com/serenize/snaker"
 )
@@ -66,6 +65,7 @@ type param struct {
 	Options            []string    `json:"options"`
 	OptionName         string
 	EnumValues         []*enum
+	enumValuesRaw      map[string]*enum
 	optionTemplateName string
 	OptionTemplate     *template.Template
 	// Value is used by the tester to temporarily assign values to the parameter for the purpose of generating tests.
@@ -139,6 +139,7 @@ func (p *param) resolve(name string, templates *template.Template) error {
 	case specTypeEnum:
 		p.Type = snaker.SnakeToCamel(p.Name)
 		p.EnumValues = []*enum{}
+		p.enumValuesRaw = map[string]*enum{}
 		for _, o := range p.Options {
 			if o == "" {
 				o = "zero"
@@ -149,6 +150,7 @@ func (p *param) resolve(name string, templates *template.Template) error {
 				SpecName: o,
 			}
 			p.EnumValues = append(p.EnumValues, e)
+			p.enumValuesRaw[o] = e
 		}
 	case specTypeDict:
 		p.Type = "map[string]interface{}"
@@ -161,7 +163,7 @@ func (p *param) resolve(name string, templates *template.Template) error {
 	case specTypeString:
 		p.Type = "string"
 	case specTypeTime:
-		p.Type = "time.Time"
+		p.Type = "time.Duration"
 	case "":
 		// TODO: we should remove this param
 	default:
@@ -238,11 +240,15 @@ func (p *param) String() (string, error) {
 		}
 		return fmt.Sprint(v), nil
 	case specTypeEnum:
-		v, ok := p.Value.(enum)
+		v, ok := p.Value.(string)
 		if !ok {
 			return "", &invalidTypeError{p}
 		}
-		return fmt.Sprint(v), nil
+		e, ok := p.enumValuesRaw[v]
+		if !ok {
+			return "", fmt.Errorf("invalid value for %q: %s", p.Name, v)
+		}
+		return fmt.Sprint(e.Name), nil
 	case specTypeNumber:
 		v, ok := p.Value.(int)
 		if !ok {
@@ -272,17 +278,25 @@ func (p *param) String() (string, error) {
 		}
 		return "\"" + v + "\"", nil
 	case specTypeList:
-		v, ok := p.Value.([]string)
+		v, ok := p.Value.([]interface{})
 		if !ok {
-			return "", &invalidTypeError{p}
+			stringValue, ok := p.Value.(string)
+			if !ok {
+				return "", &invalidTypeError{p}
+			}
+			return fmt.Sprint(stringValue), nil
 		}
-		return fmt.Sprint(v), nil
+		value := "[]string{\n"
+		for _, item := range v {
+			value += item.(string) + ",\n"
+		}
+		return value + "\n}", nil
 	case specTypeTime:
-		v, ok := p.Value.(time.Time)
+		v, ok := p.Value.(string)
 		if !ok {
 			return "", &invalidTypeError{p}
 		}
-		return fmt.Sprint(v), nil
+		return fmt.Sprintf("time.ParseDuration(\"%s\")", v), nil
 	}
 	return "", nil
 }

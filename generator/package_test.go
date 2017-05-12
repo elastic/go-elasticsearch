@@ -84,7 +84,7 @@ func WithOpType(opType OpType) *Option {
 }
 
 // WithTimeout - explicit operation timeout.
-func WithTimeout(timeout time.Time) *Option {
+func WithTimeout(timeout time.Duration) *Option {
 	return &Option{
 		name: "WithTimeout",
 		apply: func(r *transport.Request) {
