@@ -86,5 +86,8 @@ func (m *methodTester) generate(outputDir string) error {
 	if err != nil {
 		return fmt.Errorf("failed to create test writer for %s: %s", m.Method.rawName, err)
 	}
-	return m.template.Execute(goFile, m)
+	if err = m.template.Execute(goFile, m); err != nil {
+		return fmt.Errorf("failed to execute template for %s: %s", m.Method.rawName, err)
+	}
+	return nil
 }
