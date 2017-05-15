@@ -189,11 +189,8 @@ func (g *Generator) Run() error {
 	}
 	glog.Info("generating testers")
 	for _, tester := range g.testers {
-		err := tester.Generate(outputDir)
-		if err != nil {
-			glog.Error(err)
-			// TODO: fail
-			continue
+		if err := tester.Generate(outputDir); err != nil {
+			return err
 		}
 	}
 	return nil
