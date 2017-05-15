@@ -17,31 +17,29 @@
  * under the License.
  */
 
-package main
+package action
 
 import (
-	"flag"
-	"os"
+	"text/template"
 
-	"github.com/elastic/go-elasticsearch/generator"
-	"github.com/golang/glog"
+	"github.com/elastic/go-elasticsearch/generator/api"
 )
 
-func main() {
-	specDirFlag := flag.String("specdir", generator.DefaultSpecDir,
-		"directory containing the specs for the REST API and its tests")
+type skip struct {
+	Version  string      `yaml:"version"`
+	Reason   string      `yaml:"reason"`
+	Features interface{} `yaml:"features"`
+}
 
-	offlineFlag := flag.Bool("offline", false,
-		"if set, skips fetching the documentation URLs")
+func newSkip(unmarshal func(interface{}) error) (action, error) {
+	// TODO: implement
+	return &skip{}, nil
+}
 
-	flag.Parse()
-	g, err := generator.New(*specDirFlag, "generator", *offlineFlag)
-	if err != nil {
-		glog.Error(err)
-		os.Exit(1)
-	}
-	if err := g.Run(); err != nil {
-		glog.Error(err)
-		os.Exit(1)
-	}
+func (s *skip) Resolve(methods map[string]*api.Method, templates *template.Template) error {
+	return nil
+}
+
+func (s *skip) String() (string, error) {
+	return "", nil
 }

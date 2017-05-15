@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package generator
+package api
 
 import (
 	"bytes"
@@ -54,7 +54,8 @@ func (e *enum) clone() *enum {
 	}
 }
 
-type param struct {
+// Param is a parameter for a method.
+type Param struct {
 	Name               string
 	rawName            string
 	SpecType           string `json:"type"`
@@ -121,7 +122,7 @@ func formatDescription(description string) string {
 	return formatted
 }
 
-func (p *param) resolve(name string, templates *template.Template) error {
+func (p *Param) resolve(name string, templates *template.Template) error {
 	p.rawName = name
 	p.Name, p.OptionName = formatName(name, p.Required)
 	if p.OptionName != "" {
@@ -173,7 +174,7 @@ func (p *param) resolve(name string, templates *template.Template) error {
 	return nil
 }
 
-func (p *param) equals(other *param) bool {
+func (p *Param) equals(other *Param) bool {
 	if !(p.Name == other.Name && p.SpecType == other.SpecType && p.Description == other.Description &&
 		p.Required == other.Required && p.Default == other.Default && len(p.Options) == len(other.Options)) {
 		return false
@@ -186,13 +187,13 @@ func (p *param) equals(other *param) bool {
 	return true
 }
 
-func (p *param) addSuffix(suffix string) {
+func (p *Param) addSuffix(suffix string) {
 	p.Name += suffix
 	p.OptionName += suffix
 }
 
-func (p *param) clone() *param {
-	c := &param{
+func (p *Param) clone() *Param {
+	c := &Param{
 		Name:          p.Name,
 		SpecType:      p.SpecType,
 		Type:          p.Type,
@@ -217,14 +218,15 @@ func (p *param) clone() *param {
 }
 
 type invalidTypeError struct {
-	p *param
+	p *Param
 }
 
 func (i *invalidTypeError) Error() string {
 	return fmt.Sprintf("invalid type for %s: %T (expected %s)", i.p.Name, i.p.Value, i.p.Type)
 }
 
-func (p *param) OptionString() (string, error) {
+// OptionString renders a functional option.
+func (p *Param) OptionString() (string, error) {
 	var writer bytes.Buffer
 	if err := p.OptionTemplate.Execute(&writer, p); err != nil {
 		return "", err
@@ -232,7 +234,7 @@ func (p *param) OptionString() (string, error) {
 	return writer.String(), nil
 }
 
-func (p *param) String() (string, error) {
+func (p *Param) String() (string, error) {
 	if p.Value == nil {
 		return "", nil
 	}

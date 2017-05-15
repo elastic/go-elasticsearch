@@ -17,17 +17,19 @@
  * under the License.
  */
 
-package generator
+package action
 
 import (
 	"bytes"
 	"fmt"
 	"text/template"
+
+	"github.com/elastic/go-elasticsearch/generator/api"
 )
 
 type do struct {
 	spec     map[string]map[string]map[string]interface{}
-	Method   *method
+	Method   *api.Method
 	template *template.Template
 }
 
@@ -43,7 +45,7 @@ func newDo(unmarshal func(interface{}) error) (action, error) {
 	return d, nil
 }
 
-func (d *do) resolve(methods map[string]*method, templates *template.Template) error {
+func (d *do) Resolve(methods map[string]*api.Method, templates *template.Template) error {
 	spec := d.spec["do"]
 	for methodName, args := range spec {
 		if methodName == "catch" || methodName == "warnings" || methodName == "headers" {
@@ -54,7 +56,7 @@ func (d *do) resolve(methods map[string]*method, templates *template.Template) e
 			return fmt.Errorf("invalid method name %q in %#v", methodName, spec)
 		}
 		// TODO: implement variables in args
-		methodCall, err := m.call(args)
+		methodCall, err := m.Call(args)
 		if err != nil {
 			return err
 		}

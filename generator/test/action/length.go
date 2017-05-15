@@ -17,52 +17,54 @@
  * under the License.
  */
 
-package generator
+package action
 
 import (
 	"bytes"
 	"fmt"
 	"text/template"
+
+	"github.com/elastic/go-elasticsearch/generator/api"
 )
 
-type set struct {
-	spec     map[string]map[string]string
+type length struct {
+	spec     map[string]map[string]int
 	Key      string
-	VarName  string
+	Length   int
 	template *template.Template
 }
 
-func newSet(unmarshal func(interface{}) error) (action, error) {
-	s := &set{}
-	if err := unmarshal(&s.spec); err != nil {
+func newLength(unmarshal func(interface{}) error) (action, error) {
+	l := &length{}
+	if err := unmarshal(&l.spec); err != nil {
 		return nil, err
 	}
-	if len(s.spec) > 1 {
-		return nil, fmt.Errorf("found more than one operation in %#v", s.spec)
+	if len(l.spec) > 1 {
+		return nil, fmt.Errorf("found more than one operation in %#v", l.spec)
 	}
-	for _, item := range s.spec {
+	for _, item := range l.spec {
 		if len(item) > 1 {
-			return nil, fmt.Errorf("found more than one field in %#v", s.spec)
+			return nil, fmt.Errorf("found more than one field in %#v", l.spec)
 		}
-		for key, name := range item {
-			s.Key = key
-			s.VarName = name
+		for name, length := range item {
+			l.Key = name
+			l.Length = length
 		}
 	}
-	return s, nil
+	return l, nil
 }
 
-func (s *set) resolve(methods map[string]*method, templates *template.Template) error {
-	s.template = templates.Lookup("set.tmpl")
-	if s.template == nil {
-		return fmt.Errorf("unable to find template for set")
+func (l *length) Resolve(methods map[string]*api.Method, templates *template.Template) error {
+	l.template = templates.Lookup("length.tmpl")
+	if l.template == nil {
+		return fmt.Errorf("unable to find template for length")
 	}
 	return nil
 }
 
-func (s *set) String() (string, error) {
+func (l *length) String() (string, error) {
 	var writer bytes.Buffer
-	if err := s.template.Execute(&writer, s); err != nil {
+	if err := l.template.Execute(&writer, l); err != nil {
 		return "", err
 	}
 	return writer.String(), nil

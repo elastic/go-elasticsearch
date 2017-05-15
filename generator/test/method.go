@@ -17,26 +17,28 @@
  * under the License.
  */
 
-package generator
+package test
 
 import (
 	"fmt"
 	"io/ioutil"
 	"path/filepath"
 	"text/template"
+
+	"github.com/elastic/go-elasticsearch/generator/api"
 )
 
-// methodTest is the test generator for a given method. It contains multiple test specs, each of which contains one or
+// Method is the test generator for a given method. It contains multiple test specs, each of which contains one or
 // more tests.
-type methodTester struct {
+type Method struct {
 	Specs    []*testSpec
-	Method   *method
+	Method   *api.Method
 	template *template.Template
 }
 
-// newMethodTester instantiates a tester for a given API namespace.
-func newMethodTester(specDir, methodName string, methods map[string]*method, templates *template.Template) (*methodTester, error) {
-	m := &methodTester{
+// NewMethod instantiates a tester for a given API namespace.
+func NewMethod(specDir, methodName string, methods map[string]*api.Method, templates *template.Template) (*Method, error) {
+	m := &Method{
 		Specs: []*testSpec{},
 	}
 	var ok bool
@@ -81,13 +83,14 @@ func newMethodTester(specDir, methodName string, methods map[string]*method, tem
 	return m, nil
 }
 
-func (m *methodTester) generate(outputDir string) error {
-	goFile, err := m.Method.newWriter(outputDir, m.Method.testFileName)
+// Generate generates the test file for a method.
+func (m *Method) Generate(outputDir string) error {
+	goFile, err := m.Method.NewWriter(outputDir, m.Method.TestFileName)
 	if err != nil {
-		return fmt.Errorf("failed to create test writer for %s: %s", m.Method.rawName, err)
+		return fmt.Errorf("failed to create test writer for %s: %s", m.Method.MethodName, err)
 	}
 	if err = m.template.Execute(goFile, m); err != nil {
-		return fmt.Errorf("failed to execute template for %s: %s", m.Method.rawName, err)
+		return fmt.Errorf("failed to execute template for %s: %s", m.Method.MethodName, err)
 	}
 	return nil
 }

@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package generator
+package api
 
 import (
 	"fmt"
@@ -25,31 +25,39 @@ import (
 	"text/template"
 )
 
-type goPackage struct {
+const (
+	// RootPackage is the root package, which maps to the default namespace
+	RootPackage     = "api"
+	rootPackageRepo = "github.com/elastic/go-elasticsearch/api"
+)
+
+// Package is a Go package mapping an API namespace.
+type Package struct {
 	Name        string
 	Repo        string
 	TypeName    string
-	Methods     []*method
-	Options     map[string]*param
-	Enums       map[string]*param
-	SubPackages map[string]*goPackage
+	Methods     []*Method
+	Options     map[string]*Param
+	Enums       map[string]*Param
+	SubPackages map[string]*Package
 	templates   *template.Template
 }
 
-func newGoPackage(m *method, templates *template.Template) (*goPackage, error) {
-	p := &goPackage{
+// NewPackage creates a new package based on a method.
+func NewPackage(m *Method, templates *template.Template) (*Package, error) {
+	p := &Package{
 		Name:      m.PackageName,
 		Repo:      m.Repo,
 		TypeName:  m.TypeName,
-		Options:   map[string]*param{},
-		Enums:     map[string]*param{},
+		Options:   map[string]*Param{},
+		Enums:     map[string]*Param{},
 		templates: templates,
 	}
-	err := p.addMethod(m)
+	err := p.AddMethod(m)
 	return p, err
 }
 
-func (p *goPackage) addParam(op *param) error {
+func (p *Package) addParam(op *Param) error {
 	if existingParam, ok := p.Options[op.Name]; ok {
 		if !existingParam.equals(op) {
 			return fmt.Errorf("found two different versions of %q in %q", op.Name, p.Name)
@@ -69,33 +77,35 @@ func (p *goPackage) addParam(op *param) error {
 	return nil
 }
 
-func (p *goPackage) addMethod(m *method) error {
+// AddMethod adds a method to a package.
+func (p *Package) AddMethod(m *Method) error {
 	p.Methods = append(p.Methods, m)
 	for _, op := range m.OptionalURLParts {
 		if err := p.addParam(op); err != nil {
-			return fmt.Errorf("failed to add method %s to package %s: %s", m.rawName, p.Name, err)
+			return fmt.Errorf("failed to add method %s to package %s: %s", m.RawName, p.Name, err)
 		}
 	}
 	for _, op := range m.OptionalURLParams {
 		if err := p.addParam(op); err != nil {
-			return fmt.Errorf("failed to add method %s to package %s: %s", m.rawName, p.Name, err)
+			return fmt.Errorf("failed to add method %s to package %s: %s", m.RawName, p.Name, err)
 		}
 	}
 	return nil
 }
 
-func (p *goPackage) addSubpackage(sub *goPackage) {
+// AddSubpackage adds the given subpackage.
+func (p *Package) AddSubpackage(sub *Package) {
 	if p.SubPackages == nil {
-		p.SubPackages = map[string]*goPackage{}
+		p.SubPackages = map[string]*Package{}
 	}
 	p.SubPackages[sub.Methods[0].PackageName] = sub
 }
 
-func (p *goPackage) newWriter(outputDir, fileName string) (io.Writer, error) {
-	return p.Methods[0].newWriter(outputDir, fileName)
+func (p *Package) newWriter(outputDir, fileName string) (io.Writer, error) {
+	return p.Methods[0].NewWriter(outputDir, fileName)
 }
 
-func (p *goPackage) generateAPI(w io.Writer) error {
+func (p *Package) generateAPI(w io.Writer) error {
 	t := p.templates.Lookup("package.tmpl")
 	if t == nil {
 		return fmt.Errorf("cannot fine template for package")
@@ -106,7 +116,7 @@ func (p *goPackage) generateAPI(w io.Writer) error {
 	return nil
 }
 
-func (p *goPackage) generateOption(w io.Writer) error {
+func (p *Package) generateOption(w io.Writer) error {
 	// TODO: move this to be per method
 	t := p.templates.Lookup("types.tmpl")
 	if t == nil {
@@ -118,7 +128,8 @@ func (p *goPackage) generateOption(w io.Writer) error {
 	return nil
 }
 
-func (p *goPackage) generate(outputDir string) error {
+// Generate generates a Go file with package-level code (constructor etc.).
+func (p *Package) Generate(outputDir string) error {
 	w, err := p.newWriter(outputDir, "option.go")
 	if err != nil {
 		return err
@@ -128,8 +139,8 @@ func (p *goPackage) generate(outputDir string) error {
 		return err
 	}
 	fileName := p.Methods[0].PackageName
-	if fileName == defaultPackage {
-		fileName = "api"
+	if fileName == RootPackage {
+		fileName = RootPackage
 	}
 	w, err = p.newWriter(outputDir, fileName+".go")
 	if err != nil {

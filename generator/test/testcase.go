@@ -17,13 +17,15 @@
  * under the License.
  */
 
-package generator
+package test
 
 import (
 	"fmt"
 	"strings"
 	"text/template"
 
+	"github.com/elastic/go-elasticsearch/generator/api"
+	"github.com/elastic/go-elasticsearch/generator/test/action"
 	"github.com/serenize/snaker"
 
 	yaml "gopkg.in/yaml.v2"
@@ -37,16 +39,16 @@ const (
 	testTypeTeardown
 )
 
-type test struct {
-	Spec    map[string][]*actionRouter
+type testcase struct {
+	Spec    map[string][]*action.Router
 	RawName string
 	Name    string
 	Type    testType
-	Actions []*actionRouter
+	Actions []*action.Router
 }
 
-func newTest(testSpec string, methods map[string]*method, templates *template.Template) (*test, error) {
-	t := &test{}
+func newTestcase(testSpec string, methods map[string]*api.Method, templates *template.Template) (*testcase, error) {
+	t := &testcase{}
 	if err := yaml.Unmarshal([]byte(testSpec), &t.Spec); err != nil {
 		return nil, err
 	}
@@ -66,7 +68,7 @@ func newTest(testSpec string, methods map[string]*method, templates *template.Te
 			t.Actions = actions
 		}
 		for _, a := range actions {
-			if err := a.resolve(methods, templates); err != nil {
+			if err := a.Resolve(methods, templates); err != nil {
 				return nil, err
 			}
 		}

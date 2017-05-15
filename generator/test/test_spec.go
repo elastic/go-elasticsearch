@@ -17,30 +17,32 @@
  * under the License.
  */
 
-package generator
+package test
 
 import (
 	"fmt"
 	"io/ioutil"
 	"strings"
 	"text/template"
+
+	"github.com/elastic/go-elasticsearch/generator/api"
 )
 
 // testSpec maps a spec file for one or more tests.
 type testSpec struct {
-	Tests []*test
+	Tests []*testcase
 }
 
-func newTestSpec(specFilePath string, methods map[string]*method, templates *template.Template) (*testSpec, error) {
+func newTestSpec(specFilePath string, methods map[string]*api.Method, templates *template.Template) (*testSpec, error) {
 	bytes, err := ioutil.ReadFile(specFilePath)
 	if err != nil {
 		return nil, err
 	}
 	mt := &testSpec{
-		Tests: []*test{},
+		Tests: []*testcase{},
 	}
 	for _, s := range strings.Split(string(bytes), "---") {
-		t, err := newTest(s, methods, templates)
+		t, err := newTestcase(s, methods, templates)
 		if err != nil {
 			return nil, fmt.Errorf("failed to parse %q: %s", specFilePath, err)
 		}

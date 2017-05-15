@@ -17,25 +17,42 @@
  * under the License.
  */
 
-package generator
+package common
 
-import "text/template"
+import (
+	"strings"
+	"testing"
 
-type skip struct {
-	Version  string      `yaml:"version"`
-	Reason   string      `yaml:"reason"`
-	Features interface{} `yaml:"features"`
+	"github.com/aryann/difflib"
+)
+
+const (
+	testSpecDir = "testdata"
+)
+
+func splitAndTrim(s string) []string {
+	lines := []string{}
+	for _, l := range strings.Split(s, "\n") {
+		lines = append(lines, strings.Trim(l, " \t"))
+	}
+	return lines
 }
 
-func newSkip(unmarshal func(interface{}) error) (action, error) {
-	// TODO: implement
-	return &skip{}, nil
-}
-
-func (s *skip) resolve(methods map[string]*method, templates *template.Template) error {
-	return nil
-}
-
-func (s *skip) String() (string, error) {
-	return "", nil
+// Diff returns the diff between two snippets, trimming all whitespaces.
+func Diff(t *testing.T, expected, actual string) []difflib.DiffRecord {
+	expectedLines := splitAndTrim(expected)
+	actualLines := splitAndTrim(actual)
+	d := difflib.Diff(expectedLines, actualLines)
+	diffs := []difflib.DiffRecord{}
+	for _, delta := range d {
+		if delta.Delta != difflib.Common {
+			diffs = append(diffs, delta)
+		}
+	}
+	if len(diffs) > 0 {
+		for _, delta := range d {
+			t.Log(delta)
+		}
+	}
+	return diffs
 }

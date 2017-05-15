@@ -17,12 +17,14 @@
  * under the License.
  */
 
-package generator
+package test
 
 import (
-	"path/filepath"
 	"testing"
 	"text/template"
+
+	"github.com/elastic/go-elasticsearch/generator/api"
+	"github.com/elastic/go-elasticsearch/generator/common"
 )
 
 func TestDo(t *testing.T) {
@@ -37,12 +39,11 @@ func TestDo(t *testing.T) {
           body:   { foo: bar }
 `
 	m := newIndexMethod(t)
-	dir := filepath.Join("..", DefaultTemplatesDir)
-	templates, err := template.ParseFiles(filepath.Join(dir, "do.tmpl"))
+	templates, err := template.ParseFiles("action/templates/do.tmpl")
 	if err != nil {
 		t.Fatal(err)
 	}
-	yt, err := newTest(spec, map[string]*method{"index": m}, templates)
+	yt, err := newTestcase(spec, map[string]*api.Method{"index": m}, templates)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -71,7 +72,7 @@ func TestDo(t *testing.T) {
 		t.Fatal(err)
 	}
 `
-	if d := diff(t, expectedCode, s); len(d) > 0 {
+	if d := common.Diff(t, expectedCode, s); len(d) > 0 {
 		t.Fail()
 	}
 }

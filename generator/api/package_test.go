@@ -17,24 +17,23 @@
  * under the License.
  */
 
-package generator
+package api
 
 import (
 	"bytes"
-	"path/filepath"
 	"testing"
 	"text/template"
+
+	"github.com/elastic/go-elasticsearch/generator/common"
 )
 
 func TestGenerateOption(t *testing.T) {
 	m := newIndexMethod(t)
-	templates, err := template.ParseFiles(filepath.Join("..", DefaultTemplatesDir, "package.tmpl"),
-		filepath.Join("..", DefaultTemplatesDir, "types.tmpl"),
-		filepath.Join("..", DefaultTemplatesDir, "option.tmpl"))
+	templates, err := template.ParseFiles("templates/package.tmpl", "templates/types.tmpl", "templates/option.tmpl")
 	if err != nil {
 		t.Fatal(err)
 	}
-	p, err := newGoPackage(m, templates)
+	p, err := NewPackage(m, templates)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -124,18 +123,18 @@ var (
 	}
 )
 `
-	if d := diff(t, expectedCode, writer.String()); len(d) > 0 {
+	if d := common.Diff(t, expectedCode, writer.String()); len(d) > 0 {
 		t.Fail()
 	}
 }
 
 func TestGenerateAPI(t *testing.T) {
 	m := newIndexMethod(t)
-	templates, err := template.ParseFiles(filepath.Join("..", DefaultTemplatesDir, "package.tmpl"))
+	templates, err := template.ParseFiles("templates/package.tmpl")
 	if err != nil {
 		t.Fatal(err)
 	}
-	p, err := newGoPackage(m, templates)
+	p, err := NewPackage(m, templates)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -167,7 +166,7 @@ func New(transport *transport.Transport) *API {
 	}
 }
 `
-	if d := diff(t, expectedCode, writer.String()); len(d) > 0 {
+	if d := common.Diff(t, expectedCode, writer.String()); len(d) > 0 {
 		t.Fail()
 	}
 }

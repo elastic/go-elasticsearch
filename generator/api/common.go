@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package generator
+package api
 
 import (
 	"encoding/json"
@@ -27,11 +27,13 @@ import (
 )
 
 const (
-	commonParamsSpecFile = "_common.json"
+	// CommonParamsSpecFile is the file containing the JSON spec for the common parameters.
+	CommonParamsSpecFile = "_common.json"
 )
 
-func newCommonParams(specDir string, templates *template.Template) (map[string]*param, error) {
-	bytes, err := ioutil.ReadFile(filepath.Join(specDir, "api", commonParamsSpecFile))
+// NewCommonParams instantiates common parameters.
+func NewCommonParams(specDir string, templates *template.Template) (map[string]*Param, error) {
+	bytes, err := ioutil.ReadFile(filepath.Join(specDir, "api", CommonParamsSpecFile))
 	if err != nil {
 		return nil, err
 	}
@@ -39,11 +41,11 @@ func newCommonParams(specDir string, templates *template.Template) (map[string]*
 	if err = json.Unmarshal(bytes, &spec); err != nil {
 		return nil, err
 	}
-	var params map[string]*param
+	var params map[string]*Param
 	if err = json.Unmarshal(*spec["params"], &params); err != nil {
 		return nil, err
 	}
-	params["ignore"] = &param{
+	params["ignore"] = &Param{
 		SpecType:           "number_list",
 		Description:        "ignores the specified HTTP status codes",
 		optionTemplateName: "ignore.tmpl",

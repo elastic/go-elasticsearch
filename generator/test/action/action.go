@@ -17,25 +17,29 @@
  * under the License.
  */
 
-package generator
+package action
 
 import (
 	"fmt"
 	"text/template"
 
+	"github.com/elastic/go-elasticsearch/generator/api"
+
 	yaml "gopkg.in/yaml.v2"
 )
 
 type action interface {
-	resolve(methods map[string]*method, templates *template.Template) error
+	Resolve(methods map[string]*api.Method, templates *template.Template) error
 	String() (string, error)
 }
 
-type actionRouter struct {
+// Router allows to parse actions into the action interface.
+type Router struct {
 	action
 }
 
-func (a *actionRouter) UnmarshalYAML(unmarshal func(interface{}) error) error {
+// UnmarshalYAML instantiates a new Router by parsing its YAML spec.
+func (r *Router) UnmarshalYAML(unmarshal func(interface{}) error) error {
 	var spec yaml.MapSlice
 	err := unmarshal(&spec)
 	if err != nil {
@@ -45,24 +49,24 @@ func (a *actionRouter) UnmarshalYAML(unmarshal func(interface{}) error) error {
 		return fmt.Errorf("action has multiple names: %#v", spec)
 	}
 	for _, item := range spec {
-		*a = actionRouter{}
+		*r = Router{}
 		name, ok := item.Key.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type for action name: %T (expected string)", item.Key)
 		}
 		switch name {
 		case "skip":
-			a.action, err = newSkip(unmarshal)
+			r.action, err = newSkip(unmarshal)
 		case "do":
-			a.action, err = newDo(unmarshal)
+			r.action, err = newDo(unmarshal)
 		case "set":
-			a.action, err = newSet(unmarshal)
+			r.action, err = newSet(unmarshal)
 		case "is_true":
 			fallthrough
 		case "is_false":
-			a.action, err = newBoolCompare(unmarshal)
+			r.action, err = newBoolCompare(unmarshal)
 		case "match":
-			a.action, err = newMatch(unmarshal)
+			r.action, err = newMatch(unmarshal)
 		case "lt":
 			fallthrough
 		case "gt":
@@ -70,9 +74,9 @@ func (a *actionRouter) UnmarshalYAML(unmarshal func(interface{}) error) error {
 		case "lte":
 			fallthrough
 		case "gte":
-			a.action, err = newIntCompare(unmarshal)
+			r.action, err = newIntCompare(unmarshal)
 		case "length":
-			a.action, err = newLength(unmarshal)
+			r.action, err = newLength(unmarshal)
 		default:
 			return fmt.Errorf("unknown action: %s", name)
 		}

@@ -28,7 +28,7 @@ import (
 )
 
 func TestParse(t *testing.T) {
-	_, err := New(filepath.Join("..", DefaultSpecDir), filepath.Join("..", DefaultTemplatesDir), true)
+	_, err := New(filepath.Join("..", DefaultSpecDir), ".", true)
 	// Ignore IsNotExist since we don't always have the spec available.
 	if err != nil && !os.IsNotExist(err) {
 		t.Fatal(err)

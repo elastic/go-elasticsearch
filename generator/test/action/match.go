@@ -17,12 +17,14 @@
  * under the License.
  */
 
-package generator
+package action
 
 import (
 	"bytes"
 	"fmt"
 	"text/template"
+
+	"github.com/elastic/go-elasticsearch/generator/api"
 )
 
 type match struct {
@@ -43,7 +45,7 @@ func newMatch(unmarshal func(interface{}) error) (action, error) {
 	return m, nil
 }
 
-func (m *match) resolve(methods map[string]*method, templates *template.Template) error {
+func (m *match) Resolve(methods map[string]*api.Method, templates *template.Template) error {
 	m.template = templates.Lookup("match.tmpl")
 	if m.template == nil {
 		return fmt.Errorf("unable to find template for match")

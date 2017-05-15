@@ -17,32 +17,30 @@
  * under the License.
  */
 
-package generator
+package api
 
 import (
-	"path/filepath"
 	"testing"
 	"text/template"
 )
 
 func TestResolve(t *testing.T) {
-	templates, err := template.ParseFiles(filepath.Join("..", DefaultTemplatesDir, "option.tmpl"),
-		filepath.Join("..", DefaultTemplatesDir, "options", "ignore.tmpl"))
+	templates, err := template.ParseFiles("templates/option.tmpl", "templates/options/ignore.tmpl")
 	if err != nil {
 		t.Fatal(err)
 	}
-	params, err := newCommonParams(testSpecDir, templates)
+	params, err := NewCommonParams(testSpecDir, templates)
 	if err != nil {
 		t.Fatal(err)
 	}
 	if len(params) == 0 {
-		t.Fatalf("Didn't find any params in %s", commonParamsSpecFile)
+		t.Fatalf("Didn't find any params in the common params spec file")
 	}
 	human, ok := params["human"]
 	if !ok {
 		t.Fatalf("Expected to see 'human' in common params")
 	}
-	expected := &param{
+	expected := &Param{
 		Name:        "human",
 		SpecType:    "boolean",
 		Type:        "bool",

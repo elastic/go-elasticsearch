@@ -17,54 +17,54 @@
  * under the License.
  */
 
-package generator
+package action
 
 import (
 	"bytes"
 	"fmt"
 	"text/template"
+
+	"github.com/elastic/go-elasticsearch/generator/api"
 )
 
-type boolCompare struct {
-	spec     map[string]string
+type set struct {
+	spec     map[string]map[string]string
 	Key      string
-	Operator string
+	VarName  string
 	template *template.Template
 }
 
-func newBoolCompare(unmarshal func(interface{}) error) (action, error) {
-	b := &boolCompare{}
-	if err := unmarshal(&b.spec); err != nil {
+func newSet(unmarshal func(interface{}) error) (action, error) {
+	s := &set{}
+	if err := unmarshal(&s.spec); err != nil {
 		return nil, err
 	}
-	if len(b.spec) > 1 {
-		return nil, fmt.Errorf("found more than one operation in %#v", b.spec)
+	if len(s.spec) > 1 {
+		return nil, fmt.Errorf("found more than one operation in %#v", s.spec)
 	}
-	for name, key := range b.spec {
-		switch name {
-		case "is_true":
-			b.Operator = "assert.NotZero"
-		case "is_false":
-			b.Operator = "assert.Zero"
-		default:
-			return nil, fmt.Errorf("unexpected bool comparison operation: %s", name)
+	for _, item := range s.spec {
+		if len(item) > 1 {
+			return nil, fmt.Errorf("found more than one field in %#v", s.spec)
 		}
-		b.Key = key
+		for key, name := range item {
+			s.Key = key
+			s.VarName = name
+		}
 	}
-	return b, nil
+	return s, nil
 }
 
-func (b *boolCompare) resolve(methods map[string]*method, templates *template.Template) error {
-	b.template = templates.Lookup("bool_compare.tmpl")
-	if b.template == nil {
-		return fmt.Errorf("unable to find template for bool comparison")
+func (s *set) Resolve(methods map[string]*api.Method, templates *template.Template) error {
+	s.template = templates.Lookup("set.tmpl")
+	if s.template == nil {
+		return fmt.Errorf("unable to find template for set")
 	}
 	return nil
 }
 
-func (b *boolCompare) String() (string, error) {
+func (s *set) String() (string, error) {
 	var writer bytes.Buffer
-	if err := b.template.Execute(&writer, b); err != nil {
+	if err := s.template.Execute(&writer, s); err != nil {
 		return "", err
 	}
 	return writer.String(), nil

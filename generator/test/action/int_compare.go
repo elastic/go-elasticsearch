@@ -17,12 +17,14 @@
  * under the License.
  */
 
-package generator
+package action
 
 import (
 	"bytes"
 	"fmt"
 	"text/template"
+
+	"github.com/elastic/go-elasticsearch/generator/api"
 )
 
 type intCompare struct {
@@ -65,7 +67,7 @@ func newIntCompare(unmarshal func(interface{}) error) (action, error) {
 	return i, nil
 }
 
-func (i *intCompare) resolve(methods map[string]*method, templates *template.Template) error {
+func (i *intCompare) Resolve(methods map[string]*api.Method, templates *template.Template) error {
 	i.template = templates.Lookup("int_compare.tmpl")
 	if i.template == nil {
 		return fmt.Errorf("unable to find template for int comparison")

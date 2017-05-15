@@ -17,12 +17,15 @@
  * under the License.
  */
 
-package generator
+package action
 
 import (
-	"path/filepath"
 	"testing"
 	"text/template"
+
+	"github.com/elastic/go-elasticsearch/generator/common"
+
+	yaml "gopkg.in/yaml.v2"
 )
 
 func TestIntCompare(t *testing.T) {
@@ -31,25 +34,22 @@ func TestIntCompare(t *testing.T) {
 
 - lt: { foo: 10000 }
 `
-	m := newIndexMethod(t)
-	dir := filepath.Join("..", DefaultTemplatesDir)
-	templates, err := template.ParseFiles(filepath.Join(dir, "int_compare.tmpl"))
+	var s map[string][]*Router
+	if err := yaml.Unmarshal([]byte(spec), &s); err != nil {
+		t.Fatal(err)
+	}
+	if len(s["Index with made up int comparison"]) != 1 {
+		t.Fatalf("expected to see 1 action, found %d", len(s["Index with made up int comparison"]))
+	}
+	action := s["Index with made up int comparison"][0]
+	templates, err := template.ParseFiles("templates/int_compare.tmpl")
 	if err != nil {
 		t.Fatal(err)
 	}
-	yt, err := newTest(spec, map[string]*method{"index": m}, templates)
-	if err != nil {
+	if err = action.Resolve(nil, templates); err != nil {
 		t.Fatal(err)
 	}
-	expectedName := "TestIndexWithMadeUpIntComparison"
-	if yt.Name != expectedName {
-		t.Fatalf("unexpected test name: %s (expected %q)", yt.Name, expectedName)
-	}
-	if len(yt.Spec["Index with made up int comparison"]) != 1 {
-		t.Fatalf("expected to see 1 action, found %d", len(yt.Spec["Index with made up int comparison"]))
-	}
-	action := yt.Spec["Index with made up int comparison"][0]
-	s, err := action.String()
+	code, err := action.String()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -65,7 +65,7 @@ func TestIntCompare(t *testing.T) {
 	t.Fatalf("unable to find key %q: %s", foo, err)
 }
 `
-	if d := diff(t, expectedCode, s); len(d) > 0 {
+	if d := common.Diff(t, expectedCode, code); len(d) > 0 {
 		t.Fail()
 	}
 }

@@ -26,62 +26,63 @@ import (
 	"path/filepath"
 	"text/template"
 
+	"github.com/elastic/go-elasticsearch/generator/api"
+	"github.com/elastic/go-elasticsearch/generator/test"
 	"github.com/golang/glog"
 )
 
 const (
-	outputDir = "."
-	// DefaultTemplatesDir is the directory containing the templates for the code generation.
-	DefaultTemplatesDir = "generator/templates"
-	defaultPackage      = "api"
-	templateFileName    = "method.tmpl"
-	defaultPackageRepo  = "github.com/elastic/go-elasticsearch/api"
+	// DefaultSpecDir is the dir holding the specs for the APIs and their tests.
+	DefaultSpecDir = "rest-api-spec"
+	outputDir      = "."
 )
 
 // Generator is a code generator based on JSON and YAML specs and Go template.
 type Generator struct {
 	// methods are API methods populated and map 1:1 with the JSON specs in the rest-api-spec/api dir.
-	methods map[string]*method
+	methods map[string]*api.Method
 	// commonParams are common options populated based on rest-api-spec/api/_common.json.
-	commonParams map[string]*param
+	commonParams map[string]*api.Param
 	// packages are Go packages that wrap the namespaces of the APIs. They also generate common objects such as
 	// constructors, functional options and enums.
-	packages map[string]*goPackage
+	packages map[string]*api.Package
 	// testers are groups of tests for each API, populated with the YAML specs in the rest-api-spec/test dir. They map
 	// 1:1 with the directories in rest-api-spec/test.
-	testers map[string]*methodTester
+	testers map[string]*test.Method
 }
 
 // New creates a new generator
-func New(specDir, templatesDir string, offline bool) (*Generator, error) {
+func New(specDir, templatesRoot string, offline bool) (*Generator, error) {
 	g := &Generator{
-		methods: map[string]*method{},
-		testers: map[string]*methodTester{},
+		methods: map[string]*api.Method{},
+		testers: map[string]*test.Method{},
 	}
-	glog.Info("parsing templates")
-	files, err := ioutil.ReadDir(templatesDir)
+	glog.Info("parsing api templates")
+	dir := filepath.Join(templatesRoot, "api/templates")
+	files, err := ioutil.ReadDir(dir)
 	if err != nil {
 		return nil, err
 	}
 	templateFiles := []string{}
 	for _, file := range files {
 		if !file.IsDir() {
-			templateFiles = append(templateFiles, filepath.Join(templatesDir, file.Name()))
+			templateFiles = append(templateFiles, filepath.Join(dir, file.Name()))
 		}
 	}
-	files, err = ioutil.ReadDir(filepath.Join(templatesDir, "options"))
+	dir = filepath.Join(templatesRoot, "api/templates/options")
+	files, err = ioutil.ReadDir(dir)
 	if err != nil {
 		return nil, err
 	}
 	for _, file := range files {
-		templateFiles = append(templateFiles, filepath.Join(templatesDir, "options", file.Name()))
+		templateFiles = append(templateFiles, filepath.Join(dir, file.Name()))
 	}
 	templates, err := template.ParseFiles(templateFiles...)
 	if err != nil {
 		return nil, err
 	}
 	glog.Info("parsing common params")
-	g.commonParams, err = newCommonParams(specDir, templates)
+	g.commonParams, err = api.NewCommonParams(specDir, templates)
 	if err != nil {
 		return nil, err
 	}
@@ -91,15 +92,15 @@ func New(specDir, templatesDir string, offline bool) (*Generator, error) {
 	}
 	glog.Info("parsing method specs")
 	for _, specFile := range files {
-		if specFile.Name() == commonParamsSpecFile {
+		if specFile.Name() == api.CommonParamsSpecFile {
 			continue
 		}
-		var m *method
-		m, err = newMethod(specDir, specFile.Name(), g.commonParams, templates, offline)
+		var m *api.Method
+		m, err = api.NewMethod(specDir, specFile.Name(), g.commonParams, templates, offline)
 		if err != nil {
 			return nil, err
 		}
-		g.methods[m.rawName] = m
+		g.methods[m.RawName] = m
 	}
 	glog.Info("grouping package info")
 	g.packages, err = newPackages(g.methods, templates)
@@ -110,35 +111,59 @@ func New(specDir, templatesDir string, offline bool) (*Generator, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	glog.Info("parsing test templates")
+	dir = filepath.Join(templatesRoot, "test/templates")
+	files, err = ioutil.ReadDir(dir)
+	if err != nil {
+		return nil, err
+	}
+	for _, file := range files {
+		if !file.IsDir() {
+			templateFiles = append(templateFiles, filepath.Join(dir, file.Name()))
+		}
+	}
+	dir = filepath.Join(templatesRoot, "test/action/templates")
+	files, err = ioutil.ReadDir(dir)
+	if err != nil {
+		return nil, err
+	}
+	for _, file := range files {
+		templateFiles = append(templateFiles, filepath.Join(dir, file.Name()))
+	}
+	templates, err = template.ParseFiles(templateFiles...)
+	if err != nil {
+		return nil, err
+	}
 	glog.Info("parsing test specs")
 	for _, dir := range testDirs {
 		if !dir.IsDir() {
 			continue
 		}
-		if g.testers[dir.Name()], err = newMethodTester(specDir, dir.Name(), g.methods, templates); err != nil {
+		if g.testers[dir.Name()], err = test.NewMethod(specDir, dir.Name(), g.methods, templates); err != nil {
 			return nil, err
 		}
 	}
 	return g, nil
 }
 
-func newPackages(methods map[string]*method, templates *template.Template) (map[string]*goPackage, error) {
-	packages := map[string]*goPackage{}
+func newPackages(methods map[string]*api.Method, templates *template.Template) (map[string]*api.Package, error) {
+	packages := map[string]*api.Package{}
 	for _, m := range methods {
 		if p, ok := packages[m.PackageName]; ok {
-			p.addMethod(m)
+			p.AddMethod(m)
 		} else {
 			var err error
-			packages[m.PackageName], err = newGoPackage(m, templates)
+			packages[m.PackageName], err = api.NewPackage(m, templates)
 			if err != nil {
 				return nil, err
 			}
 		}
 	}
-	rootPackage := packages[defaultPackage]
+	rootPackage := packages[api.RootPackage]
 	for _, p := range packages {
 		if p.Methods[0].PackageName != rootPackage.Methods[0].PackageName {
-			rootPackage.addSubpackage(p)
+			rootPackage.AddSubpackage(p)
 		}
 	}
 	return packages, nil
@@ -148,25 +173,27 @@ func newPackages(methods map[string]*method, templates *template.Template) (map[
 func (g *Generator) Run() error {
 	glog.Info("generating methods")
 	for _, m := range g.methods {
-		w, err := m.newWriter(outputDir, "")
+		w, err := m.NewWriter(outputDir, "")
 		if err != nil {
 			return err
 		}
-		if err = m.generate(w); err != nil {
+		if err = m.Generate(w); err != nil {
 			return err
 		}
 	}
 	glog.Info("generating types, constructors and options")
 	for _, p := range g.packages {
-		if err := p.generate(outputDir); err != nil {
+		if err := p.Generate(outputDir); err != nil {
 			return err
 		}
 	}
 	glog.Info("generating testers")
 	for _, tester := range g.testers {
-		err := tester.generate(outputDir)
+		err := tester.Generate(outputDir)
 		if err != nil {
-			return err
+			glog.Error(err)
+			// TODO: fail
+			continue
 		}
 	}
 	return nil

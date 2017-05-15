@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package generator
+package api
 
 import (
 	"encoding/json"
@@ -39,24 +39,22 @@ import (
 )
 
 const (
-	// DefaultSpecDir is the dir holding the specs for the APIs and their tests.
-	DefaultSpecDir = "rest-api-spec"
-	bodyParam      = "body"
+	bodyParam = "body"
 )
 
 type specURL struct {
 	Path   string            `json:"path"`
 	Paths  []string          `json:"paths"`
-	Parts  map[string]*param `json:"parts"`
-	Params map[string]*param `json:"params"`
+	Parts  map[string]*Param `json:"parts"`
+	Params map[string]*Param `json:"params"`
 }
 
 func (u *specURL) clone() *specURL {
 	c := &specURL{
 		Path:   u.Path,
 		Paths:  []string{},
-		Parts:  map[string]*param{},
-		Params: map[string]*param{},
+		Parts:  map[string]*Param{},
+		Params: map[string]*Param{},
 	}
 	for _, p := range u.Paths {
 		c.Paths = append(c.Paths, p)
@@ -74,7 +72,7 @@ type spec struct {
 	Documentation string   `json:"documentation"`
 	Methods       []string `json:"methods"`
 	URL           *specURL `json:"url"`
-	Body          *param   `json:"body"`
+	Body          *Param   `json:"body"`
 }
 
 func (s *spec) clone() *spec {
@@ -92,44 +90,46 @@ func (s *spec) clone() *spec {
 	return c
 }
 
-type method struct {
-	rawName           string
+// Method is a Go method mapping an API endpoint.
+type Method struct {
+	RawName           string
 	Spec              *spec
 	Repo              string
 	PackageName       string
 	fileName          string
-	testFileName      string
+	TestFileName      string
 	MethodName        string
 	TypeName          string
 	ReceiverName      string
 	ResponseName      string
 	HTTPMethod        string
-	RequiredURLParts  []*param
-	OptionalURLParts  []*param
-	RequiredURLParams []*param
-	OptionalURLParams []*param
-	commonParams      map[string]*param
-	allParams         map[string]*param
-	ParamsWithValues  []*param
+	RequiredURLParts  []*Param
+	OptionalURLParts  []*Param
+	RequiredURLParams []*Param
+	OptionalURLParams []*Param
+	commonParams      map[string]*Param
+	allParams         map[string]*Param
+	ParamsWithValues  []*Param
 	HTTPCache         map[string]io.ReadCloser
 	templates         *template.Template
 	offline           bool
 }
 
-func newMethod(specDir, specFileName string, commonParams map[string]*param, templates *template.Template,
-	offline bool) (*method,
+// NewMethod instantiates a new API method reading its spec from JSON.
+func NewMethod(specDir, specFileName string, commonParams map[string]*Param, templates *template.Template,
+	offline bool) (*Method,
 	error) {
 	bytes, err := ioutil.ReadFile(filepath.Join(specDir, "api", specFileName))
 	if err != nil {
 		return nil, err
 	}
-	m := &method{
-		RequiredURLParts:  []*param{},
-		OptionalURLParts:  []*param{},
-		RequiredURLParams: []*param{},
-		OptionalURLParams: []*param{},
+	m := &Method{
+		RequiredURLParts:  []*Param{},
+		OptionalURLParts:  []*Param{},
+		RequiredURLParams: []*Param{},
+		OptionalURLParams: []*Param{},
 		commonParams:      commonParams,
-		allParams:         map[string]*param{},
+		allParams:         map[string]*Param{},
 		HTTPCache:         map[string]io.ReadCloser{},
 		templates:         templates,
 		offline:           offline,
@@ -143,7 +143,7 @@ func newMethod(specDir, specFileName string, commonParams map[string]*param, tem
 		return nil, fmt.Errorf("too many methods in %s", specFileName)
 	}
 	for k := range spec {
-		m.rawName = k
+		m.RawName = k
 		m.Spec = spec[k]
 		break
 	}
@@ -167,8 +167,8 @@ func newMethod(specDir, specFileName string, commonParams map[string]*param, tem
 			return nil, err
 		}
 	}
-	apiParts := strings.Split(m.rawName, ".")
-	m.PackageName = defaultPackage
+	apiParts := strings.Split(m.RawName, ".")
+	m.PackageName = RootPackage
 	switch len(apiParts) {
 	case 1:
 		m.fileName = apiParts[0]
@@ -176,14 +176,14 @@ func newMethod(specDir, specFileName string, commonParams map[string]*param, tem
 		m.PackageName = apiParts[0]
 		m.fileName = apiParts[1]
 	default:
-		return nil, fmt.Errorf("unexpected API name format: %s", m.rawName)
+		return nil, fmt.Errorf("unexpected API name format: %s", m.RawName)
 	}
-	m.Repo = defaultPackageRepo
-	if m.PackageName != defaultPackage {
+	m.Repo = rootPackageRepo
+	if m.PackageName != RootPackage {
 		m.Repo += "/" + m.PackageName
 	}
 	m.MethodName = snaker.SnakeToCamel(m.fileName)
-	m.testFileName += m.fileName + "_test.go"
+	m.TestFileName += m.fileName + "_test.go"
 	m.fileName += ".go"
 	m.TypeName = snaker.SnakeToCamel(m.PackageName)
 	m.ReceiverName = strings.ToLower(string(m.TypeName[0]))
@@ -192,12 +192,12 @@ func newMethod(specDir, specFileName string, commonParams map[string]*param, tem
 	return m, nil
 }
 
-func (m *method) normalizeParams(params map[string]*param, resolve bool) error {
+func (m *Method) normalizeParams(params map[string]*Param, resolve bool) error {
 	for name, p := range params {
 		if resolve {
 			err := p.resolve(name, m.templates)
 			if err != nil {
-				return fmt.Errorf("failed to normalize params in %q: %s", m.rawName, err)
+				return fmt.Errorf("failed to normalize params in %q: %s", m.RawName, err)
 			}
 			if _, ok := m.allParams[p.Name]; ok {
 				p.addSuffix("Param")
@@ -211,7 +211,7 @@ func (m *method) normalizeParams(params map[string]*param, resolve bool) error {
 	return nil
 }
 
-func (m *method) resolveDocumentation() error {
+func (m *Method) resolveDocumentation() error {
 	docURL := m.Spec.Documentation
 	u, err := url.Parse(docURL)
 	if err != nil {
@@ -275,7 +275,7 @@ func (m *method) resolveDocumentation() error {
 	}
 }
 
-func (m *method) sortParams(common map[string]*param) error {
+func (m *Method) sortParams(common map[string]*Param) error {
 	// Handle URL parts
 	parts := strings.Split(m.Spec.URL.Path, "/")
 	if len(parts) < 2 {
@@ -352,13 +352,14 @@ func (m *method) sortParams(common map[string]*param) error {
 	return nil
 }
 
-func (m *method) newWriter(outputDir, fileName string) (io.Writer, error) {
+// NewWriter creates a writer for the given outputDir and file.
+func (m *Method) NewWriter(outputDir, fileName string) (io.Writer, error) {
 	if fileName == "" {
 		fileName = m.fileName
 	}
 	goFileDir := outputDir
-	if m.PackageName != defaultPackage {
-		goFileDir = filepath.Join(goFileDir, defaultPackage)
+	if m.PackageName != RootPackage {
+		goFileDir = filepath.Join(goFileDir, RootPackage)
 	}
 	goFileDir = filepath.Join(goFileDir, m.PackageName)
 	os.MkdirAll(goFileDir, 0755)
@@ -370,7 +371,8 @@ func (m *method) newWriter(outputDir, fileName string) (io.Writer, error) {
 	return goFile, nil
 }
 
-func (m *method) generate(w io.Writer) error {
+// Generate generates a file with the Go code for the method.
+func (m *Method) Generate(w io.Writer) error {
 	if err := m.resolveDocumentation(); err != nil {
 		return err
 	}
@@ -381,24 +383,24 @@ func (m *method) generate(w io.Writer) error {
 }
 
 // clone clones the given method and most of its fields.
-func (m *method) clone() (*method, error) {
-	c := &method{
-		rawName:           m.rawName,
+func (m *Method) clone() (*Method, error) {
+	c := &Method{
+		RawName:           m.RawName,
 		Spec:              m.Spec.clone(),
 		Repo:              m.Repo,
 		PackageName:       m.PackageName,
 		fileName:          m.fileName,
-		testFileName:      m.testFileName,
+		TestFileName:      m.TestFileName,
 		MethodName:        m.MethodName,
 		TypeName:          m.TypeName,
 		ReceiverName:      m.ReceiverName,
 		ResponseName:      m.ResponseName,
 		HTTPMethod:        m.HTTPMethod,
-		RequiredURLParts:  []*param{},
-		OptionalURLParts:  []*param{},
-		RequiredURLParams: []*param{},
-		OptionalURLParams: []*param{},
-		commonParams:      map[string]*param{},
+		RequiredURLParts:  []*Param{},
+		OptionalURLParts:  []*Param{},
+		RequiredURLParams: []*Param{},
+		OptionalURLParams: []*Param{},
+		commonParams:      map[string]*Param{},
 		HTTPCache:         map[string]io.ReadCloser{},
 	}
 	for name, p := range m.commonParams {
@@ -407,7 +409,7 @@ func (m *method) clone() (*method, error) {
 	for _, p := range m.RequiredURLParts {
 		up, ok := c.Spec.URL.Parts[p.rawName]
 		if !ok {
-			return nil, fmt.Errorf("invalid required part namewhile cloning %s: %s", m.rawName, p.rawName)
+			return nil, fmt.Errorf("invalid required part namewhile cloning %s: %s", m.RawName, p.rawName)
 		}
 		c.RequiredURLParts = append(c.RequiredURLParts, up)
 	}
@@ -418,25 +420,25 @@ func (m *method) clone() (*method, error) {
 		}
 		up, ok := c.Spec.URL.Params[p.rawName]
 		if !ok {
-			return nil, fmt.Errorf("invalid required parameter name while cloning %s: %s", m.rawName, p.rawName)
+			return nil, fmt.Errorf("invalid required parameter name while cloning %s: %s", m.RawName, p.rawName)
 		}
 		c.RequiredURLParams = append(c.RequiredURLParams, up)
 	}
 	for _, p := range m.OptionalURLParts {
 		up, ok := c.Spec.URL.Parts[p.rawName]
 		if !ok {
-			return nil, fmt.Errorf("invalid optional part name while cloning %s: %s", m.rawName, p.rawName)
+			return nil, fmt.Errorf("invalid optional part name while cloning %s: %s", m.RawName, p.rawName)
 		}
 		c.OptionalURLParts = append(c.OptionalURLParts, up)
 	}
 	for _, p := range m.OptionalURLParams {
-		var up *param
+		var up *Param
 		var ok bool
 		if up, ok = c.Spec.URL.Params[p.rawName]; !ok {
 			if p.rawName == bodyParam {
 				up = m.Spec.Body
 			} else if up, ok = c.commonParams[p.rawName]; !ok {
-				return nil, fmt.Errorf("invalid optional parameter name while cloning %s: %s", m.rawName, p.rawName)
+				return nil, fmt.Errorf("invalid optional parameter name while cloning %s: %s", m.RawName, p.rawName)
 			}
 		}
 		c.OptionalURLParams = append(c.OptionalURLParams, up)
@@ -444,14 +446,14 @@ func (m *method) clone() (*method, error) {
 	return c, nil
 }
 
-// call returns a clone of the method with its parameters set to the specified values.
-func (m *method) call(args map[string]interface{}) (*method, error) {
+// Call returns a clone of the method with its parameters set to the specified values.
+func (m *Method) Call(args map[string]interface{}) (*Method, error) {
 	c, err := m.clone()
 	if err != nil {
 		return nil, err
 	}
 	for name, value := range args {
-		var p *param
+		var p *Param
 		var ok bool
 		if name == bodyParam && c.Spec.Body != nil {
 			p = c.Spec.Body
@@ -464,7 +466,7 @@ func (m *method) call(args map[string]interface{}) (*method, error) {
 		}
 		p.Value = value
 	}
-	c.ParamsWithValues = []*param{}
+	c.ParamsWithValues = []*Param{}
 	for _, p := range c.RequiredURLParts {
 		if p.Value != nil {
 			c.ParamsWithValues = append(c.ParamsWithValues, p)
