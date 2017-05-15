@@ -32,6 +32,8 @@ Available options:
         If non-empty, write log files in this directory
   -logtostderr
         log to standard error instead of files
+  -offline
+        if set, skips fetching the documentation URLs
   -specdir string
         directory containing the specs for the REST API and it tests (default "rest-api-spec")
   -stderrthreshold value
