@@ -5,7 +5,6 @@ package {{.PackageName}}
 import (
 	"fmt"
 	"net/http"
-	"net/url"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
@@ -18,7 +17,7 @@ import (
 // {{.Name}}: {{.Description}}{{end}}
 //
 // options: optional parameters. Supports the following functional options: {{range .OptionalURLParts}}{{.OptionName}}, {{end}}{{range .OptionalURLParams}}{{.OptionName}}, {{end}}see the Option type in this package for more info.
-func ({{.ReceiverName}} *{{.TypeName}}) {{.MethodName}}({{range .RequiredURLParts}}{{.Name}} {{.Type}}, {{end}}{{range .RequiredURLParams}}{{.Name}} {{.Type}}, {{end}}options ...*Option) (*{{.MethodName}}Response, error) {
+func ({{.ReceiverName}} *{{.TypeName}}) {{.MethodName}}({{range .RequiredURLParts}}{{.Name}} {{.Type}}, {{end}}{{range .RequiredURLParams}}{{.Name}} {{.Type}}, {{end}}options ...Option) (*{{.MethodName}}Response, error) {
 	req := {{.ReceiverName}}.transport.NewRequest("{{.HTTPMethod}}")
 	methodOptions := supportedOptions["{{.MethodName}}"]
 	for _, option := range options{

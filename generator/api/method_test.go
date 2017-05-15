@@ -41,7 +41,6 @@ package api
 import (
 	"fmt"
 	"net/http"
-	"net/url"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
@@ -56,7 +55,7 @@ import (
 // body: the document.
 //
 // options: optional parameters. Supports the following functional options: WithID, WithOpType, WithTimeout, WithVersion, WithWaitForActiveShards, see the Option type in this package for more info.
-func (a *API) Index(index string, documentType string, body map[string]interface{}, options ...*Option) (*IndexResponse, error) {
+func (a *API) Index(index string, documentType string, body map[string]interface{}, options ...Option) (*IndexResponse, error) {
 	req := a.transport.NewRequest("POST")
 	methodOptions := supportedOptions["Index"]
 	for _, option := range options{
