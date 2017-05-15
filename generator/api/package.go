@@ -66,13 +66,10 @@ func (p *Package) addParam(op *Param) error {
 		p.Options[op.Name] = op
 	}
 	if op.SpecType == "enum" {
-		if existingEnum, ok := p.Enums[op.Name]; ok {
-			if !existingEnum.equals(op) {
-				return fmt.Errorf("found two different versions of %q in %q", op.Name, p.Name)
-			}
-		} else {
-			p.Enums[op.Name] = op
+		if _, ok := p.Enums[op.Name]; ok {
+			return fmt.Errorf("found two different versions of %q in %q", op.Name, p.Name)
 		}
+		p.Enums[op.Name] = op
 	}
 	return nil
 }
