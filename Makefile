@@ -45,7 +45,7 @@ install:
 .PHONY: gen
 gen: spec
 	rm -rf $(GEN_DIR)
-	$(GO) run ./cmd/generator/main.go -alsologtostderr
+	$(GO) run ./cmd/generator/main.go -alsologtostderr $(GENERATOR_OPTS)
 	@$(GO) get $(GOIMPORTS_REPO)
 	$(GOIMPORTS) -w $(GEN_DIR)
 	(cd $(ELASTICSEARCH_DIR) && git describe --tags) > $(VERSION_FILE)
