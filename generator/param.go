@@ -193,21 +193,25 @@ func (p *param) addSuffix(suffix string) {
 
 func (p *param) clone() *param {
 	c := &param{
-		Name:        p.Name,
-		SpecType:    p.SpecType,
-		Type:        p.Type,
-		Description: p.Description,
-		Required:    p.Required,
-		Default:     p.Default,
-		Options:     []string{},
-		OptionName:  p.OptionName,
-		EnumValues:  []*enum{},
+		Name:          p.Name,
+		SpecType:      p.SpecType,
+		Type:          p.Type,
+		Description:   p.Description,
+		Required:      p.Required,
+		Default:       p.Default,
+		Options:       []string{},
+		OptionName:    p.OptionName,
+		EnumValues:    []*enum{},
+		enumValuesRaw: map[string]*enum{},
 	}
 	for _, o := range p.Options {
 		c.Options = append(c.Options, o)
 	}
 	for _, e := range p.EnumValues {
 		c.EnumValues = append(c.EnumValues, e.clone())
+	}
+	for name, value := range p.enumValuesRaw {
+		c.enumValuesRaw[name] = value
 	}
 	return c
 }
@@ -246,7 +250,7 @@ func (p *param) String() (string, error) {
 		}
 		e, ok := p.enumValuesRaw[v]
 		if !ok {
-			return "", fmt.Errorf("invalid value for %q: %s", p.Name, v)
+			return "", fmt.Errorf("invalid value for enum %q: %s", p.Name, v)
 		}
 		return fmt.Sprint(e.Name), nil
 	case specTypeNumber:
