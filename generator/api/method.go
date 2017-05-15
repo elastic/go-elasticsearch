@@ -197,6 +197,11 @@ func (m *Method) normalizeParams(params map[string]*Param, resolve bool) error {
 		if resolve {
 			err := p.resolve(name, m.templates)
 			if err != nil {
+				if _, ok := err.(*noTypeError); ok {
+					glog.Error(err)
+					delete(params, name)
+					continue
+				}
 				return fmt.Errorf("failed to normalize params in %q: %s", m.RawName, err)
 			}
 			if _, ok := m.allParams[p.Name]; ok {

@@ -166,9 +166,9 @@ func (p *Param) resolve(name string, templates *template.Template) error {
 	case specTypeTime:
 		p.Type = "time.Duration"
 	case "":
-		// TODO: we should remove this param
+		return &noTypeError{p}
 	default:
-		return fmt.Errorf("invalid type for %s: %s", name, p.SpecType)
+		return &invalidTypeError{p}
 	}
 	p.Description = formatDescription(p.Description)
 	return nil
@@ -215,6 +215,14 @@ func (p *Param) clone() *Param {
 		c.enumValuesRaw[name] = value
 	}
 	return c
+}
+
+type noTypeError struct {
+	p *Param
+}
+
+func (n *noTypeError) Error() string {
+	return fmt.Sprintf("the type for %s is not set", n.p.Name)
 }
 
 type invalidTypeError struct {
