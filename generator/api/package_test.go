@@ -172,23 +172,37 @@ func New(transport *transport.Transport) *API {
 }
 
 func TestParamCollision(t *testing.T) {
+	var tests = []struct {
+		spec1 string
+		spec2 string
+	}{
+		{
+			spec1: "update.json",
+			spec2: "update_by_query.json",
+		}, {
+			spec1: "delete.json",
+			spec2: "delete_by_query.json",
+		},
+	}
 	templates, err := template.ParseFiles("templates/method.tmpl", "templates/option.tmpl", "templates/package.tmpl")
 	if err != nil {
 		t.Fatal(err)
 	}
-	del, err := NewMethod(testSpecDir, "delete.json", nil, templates, true)
-	if err != nil {
-		t.Fatal(err)
-	}
-	delByQuery, err := NewMethod(testSpecDir, "delete_by_query.json", nil, templates, true)
-	if err != nil {
-		t.Fatal(err)
-	}
-	p, err := NewPackage(del, templates)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if err = p.AddMethod(delByQuery); err != nil {
-		t.Fatal(err)
+	for _, test := range tests {
+		m1, err := NewMethod(testSpecDir, test.spec1, nil, templates, true)
+		if err != nil {
+			t.Fatal(err)
+		}
+		p, err := NewPackage(m1, templates)
+		if err != nil {
+			t.Fatal(err)
+		}
+		m2, err := NewMethod(testSpecDir, test.spec2, nil, templates, true)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if err = p.AddMethod(m2); err != nil {
+			t.Fatal(err)
+		}
 	}
 }

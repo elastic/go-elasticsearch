@@ -312,7 +312,15 @@ func (p *Param) String() (string, error) {
 	case specTypeEnum:
 		v, ok := p.Value.(string)
 		if !ok {
-			return "", &invalidTypeError{p}
+			boolValue, isBool := p.Value.(bool)
+			if !isBool {
+				return "", &invalidTypeError{p}
+			}
+			if boolValue {
+				v = "true"
+			} else {
+				v = "false"
+			}
 		}
 		e, ok := p.enumValuesRaw[v]
 		if !ok {
