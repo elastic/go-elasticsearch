@@ -174,22 +174,78 @@ func (p *Param) resolve(name string, templates *template.Template) error {
 	return nil
 }
 
-func (p *Param) equals(other *Param) bool {
-	if !(p.Name == other.Name && p.SpecType == other.SpecType && p.Description == other.Description &&
-		p.Required == other.Required && p.Default == other.Default && len(p.Options) == len(other.Options)) {
-		return false
+func (p *Param) diff(other *Param) map[string]struct{} {
+	diffs := map[string]struct{}{}
+	if p.Name != other.Name {
+		diffs["Name"] = struct{}{}
+	}
+	if p.SpecType != other.SpecType {
+		diffs["SpecType"] = struct{}{}
+	}
+	if p.Required != other.Required {
+		diffs["Required"] = struct{}{}
+	}
+	if p.Default != other.Default {
+		diffs["Default"] = struct{}{}
+	}
+	if len(p.Options) != len(other.Options) {
+		diffs["Options"] = struct{}{}
+		return diffs
 	}
 	for i, o := range p.Options {
 		if other.Options[i] != o {
-			return false
+			diffs["Options"] = struct{}{}
+			return diffs
 		}
 	}
-	return true
+	return diffs
 }
 
-func (p *Param) addSuffix(suffix string) {
+func (p *Param) addSuffix(suffix string) error {
+	if strings.HasSuffix(p.Name, suffix) {
+		return fmt.Errorf("attempting to re-add suffix to %s", p.Name)
+	}
 	p.Name += suffix
 	p.OptionName += suffix
+	return nil
+}
+
+func (p *Param) deduplicate(other *Param, swap bool) error {
+	diffs := p.diff(other)
+	if len(diffs) == 0 {
+		return nil
+	}
+	if _, ok := diffs["SpecType"]; !ok {
+		// If the types are different and only the defaults are different, apply the same the default to both if one of them
+		// is not set.
+		if _, ok = diffs["Default"]; ok && len(diffs) == 1 {
+			if p.Default == nil {
+				p.Default = other.Default
+			} else if other.Default == nil {
+				other.Default = p.Default
+			} else {
+				return fmt.Errorf("found two versions of %q with different defaults", p.Name)
+			}
+		} else {
+			return fmt.Errorf("found two different versions of %q differing in: %s", p.Name, diffs)
+		}
+	}
+	switch p.SpecType {
+	case specTypeBoolean:
+		if other.SpecType != specTypeBoolean {
+			p.addSuffix("Flag")
+		}
+	case specTypeList:
+		if other.SpecType != specTypeList {
+			p.addSuffix("List")
+		}
+	default:
+		if swap {
+			return other.deduplicate(p, false)
+		}
+		return fmt.Errorf("found two different versions of %q (%s and %s)", p.Name, p.SpecType, other.SpecType)
+	}
+	return nil
 }
 
 func (p *Param) clone() *Param {

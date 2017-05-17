@@ -170,3 +170,25 @@ func New(transport *transport.Transport) *API {
 		t.Fail()
 	}
 }
+
+func TestParamCollision(t *testing.T) {
+	templates, err := template.ParseFiles("templates/method.tmpl", "templates/option.tmpl", "templates/package.tmpl")
+	if err != nil {
+		t.Fatal(err)
+	}
+	del, err := NewMethod(testSpecDir, "delete.json", nil, templates, true)
+	if err != nil {
+		t.Fatal(err)
+	}
+	delByQuery, err := NewMethod(testSpecDir, "delete_by_query.json", nil, templates, true)
+	if err != nil {
+		t.Fatal(err)
+	}
+	p, err := NewPackage(del, templates)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = p.AddMethod(delByQuery); err != nil {
+		t.Fatal(err)
+	}
+}

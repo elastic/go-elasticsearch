@@ -59,12 +59,11 @@ func NewPackage(m *Method, templates *template.Template) (*Package, error) {
 
 func (p *Package) addParam(op *Param) error {
 	if existingParam, ok := p.Options[op.Name]; ok {
-		if !existingParam.equals(op) {
-			return fmt.Errorf("found two different versions of %q in %q", op.Name, p.Name)
+		if err := existingParam.deduplicate(op, true); err != nil {
+			return fmt.Errorf("unable to deduplicate param in %q: %s", p.Name, err)
 		}
-	} else {
-		p.Options[op.Name] = op
 	}
+	p.Options[op.Name] = op
 	if op.SpecType == "enum" {
 		if _, ok := p.Enums[op.Name]; ok {
 			return fmt.Errorf("found two different versions of %q in %q", op.Name, p.Name)

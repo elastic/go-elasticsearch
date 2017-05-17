@@ -48,7 +48,7 @@ func TestResolve(t *testing.T) {
 		Description: "return human readable values for statistics.",
 		OptionName:  "WithHuman",
 	}
-	if !human.equals(expected) {
+	if len(human.diff(expected)) > 0 {
 		t.Fatalf("Expected %#v, got %#v", expected, human)
 	}
 }

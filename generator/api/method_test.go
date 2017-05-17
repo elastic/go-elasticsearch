@@ -208,7 +208,7 @@ func TestClone(t *testing.T) {
 			if p.Name != name {
 				t.Fatalf("expected %q but got %q", name, p.Name)
 			}
-			if !p.equals(test.clonedParams[i]) {
+			if len(p.diff(test.clonedParams[i])) > 0 {
 				t.Fatalf("cloned param %q differs", p.Name)
 			}
 		}
