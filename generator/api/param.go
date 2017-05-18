@@ -21,6 +21,7 @@ package api
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"strings"
 	"text/template"
@@ -327,8 +328,11 @@ func (p *Param) String() (string, error) {
 			boolValue, isBool := p.Value.(bool)
 			if !isBool {
 				listValue, isList := p.Value.([]interface{})
-				if !isList || len(listValue) > 1 {
+				if !isList {
 					return "", &invalidTypeError{p}
+				}
+				if len(listValue) > 1 {
+					return "", fmt.Errorf("multiple values for enum %q", p.rawName)
 				}
 				if v, ok = listValue[0].(string); !ok {
 					return "", &invalidTypeError{p}
@@ -339,17 +343,13 @@ func (p *Param) String() (string, error) {
 				v = "false"
 			}
 		}
-		e, ok := p.enumValuesRaw[v]
-		if !ok {
-			if v == "open,closed" {
-				v = "all"
-				e, ok = p.enumValuesRaw[v]
-			}
+		// Use the enum name if we find one, otherwise assume we're testing a negative case.
+		if e, valid := p.enumValuesRaw[v]; valid {
+			v = e.Name
+		} else {
+			v = string(len(p.EnumValues))
 		}
-		if !ok {
-			return "", fmt.Errorf("invalid value for enum %q: %s", p.Name, v)
-		}
-		return fmt.Sprint(e.Name), nil
+		return v, nil
 	case specTypeNumber:
 		v, ok := p.Value.(int)
 		if !ok {
@@ -359,7 +359,13 @@ func (p *Param) String() (string, error) {
 	case specTypeDict:
 		v, ok := p.Value.(map[interface{}]interface{})
 		if !ok {
-			return "", &invalidTypeError{p}
+			stringValue, isString := p.Value.(string)
+			if !isString {
+				return "", &invalidTypeError{p}
+			}
+			if err := json.Unmarshal([]byte(stringValue), &v); err != nil {
+				return "", err
+			}
 		}
 		code := "map[string]interface{}{"
 		for name, value := range v {
@@ -369,9 +375,15 @@ func (p *Param) String() (string, error) {
 		code += "\n}"
 		return code, nil
 	case specTypeBulk:
-		_, ok := p.Value.([]interface{})
+		v, ok := p.Value.([]interface{})
 		if !ok {
-			return "", &invalidTypeError{p}
+			stringValue, isString := p.Value.(string)
+			if !isString {
+				return "", &invalidTypeError{p}
+			}
+			if err := json.Unmarshal([]byte(stringValue), &v); err != nil {
+				return "", fmt.Errorf("invalid bulk value (%s): %s", err, stringValue)
+			}
 		}
 		// TODO: implement
 	case specTypeString:
