@@ -29,6 +29,7 @@ import (
 )
 
 const (
+	bodyParam = "body"
 	// TODO: make type its own struct
 	specTypeDict       = "dict"
 	specTypeBulk       = "bulk"
@@ -136,7 +137,7 @@ func (p *Param) resolve(name string, templates *template.Template) error {
 			return fmt.Errorf("cannot find template for option %q", name)
 		}
 	}
-	if p.SpecType == "" && p.rawName == "body" {
+	if p.SpecType == "" && p.rawName == bodyParam {
 		if p.Serialize == "bulk" {
 			p.SpecType = specTypeBulk
 		} else {
@@ -297,7 +298,7 @@ type invalidTypeError struct {
 }
 
 func (i *invalidTypeError) Error() string {
-	return fmt.Sprintf("invalid type for %s: %T (expected %s)", i.p.Name, i.p.Value, i.p.Type)
+	return fmt.Sprintf("invalid type for %s: %T (expected %s/%s)", i.p.Name, i.p.Value, i.p.SpecType, i.p.Type)
 }
 
 // OptionString renders a functional option.
@@ -325,15 +326,26 @@ func (p *Param) String() (string, error) {
 		if !ok {
 			boolValue, isBool := p.Value.(bool)
 			if !isBool {
-				return "", &invalidTypeError{p}
-			}
-			if boolValue {
+				listValue, isList := p.Value.([]interface{})
+				if !isList || len(listValue) > 1 {
+					return "", &invalidTypeError{p}
+				}
+				if v, ok = listValue[0].(string); !ok {
+					return "", &invalidTypeError{p}
+				}
+			} else if boolValue {
 				v = "true"
 			} else {
 				v = "false"
 			}
 		}
 		e, ok := p.enumValuesRaw[v]
+		if !ok {
+			if v == "open,closed" {
+				v = "all"
+				e, ok = p.enumValuesRaw[v]
+			}
+		}
 		if !ok {
 			return "", fmt.Errorf("invalid value for enum %q: %s", p.Name, v)
 		}
@@ -377,7 +389,15 @@ func (p *Param) String() (string, error) {
 		if !ok {
 			stringValue, ok := p.Value.(string)
 			if !ok {
-				return "", &invalidTypeError{p}
+				boolValue, ok := p.Value.(bool)
+				if !ok {
+					return "", &invalidTypeError{p}
+				}
+				// Translate true to nil and false to an empty list (meaning "no fields")
+				if boolValue {
+					return "nil", nil
+				}
+				return "[]interface{}{}", nil
 			}
 			return fmt.Sprint(stringValue), nil
 		}

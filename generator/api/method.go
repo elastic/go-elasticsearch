@@ -38,10 +38,6 @@ import (
 	"github.com/serenize/snaker"
 )
 
-const (
-	bodyParam = "body"
-)
-
 type specURL struct {
 	Path   string            `json:"path"`
 	Paths  []string          `json:"paths"`
