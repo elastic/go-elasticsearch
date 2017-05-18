@@ -160,9 +160,6 @@ func NewMethod(specDir, specFileName string, commonParams map[string]*Param, tem
 		return nil, err
 	}
 	if m.Spec.Body != nil {
-		if m.Spec.Body.SpecType == "" {
-			m.Spec.Body.SpecType = specTypeDict
-		}
 		if err = m.Spec.Body.resolve(bodyParam, m.templates); err != nil {
 			return nil, err
 		}

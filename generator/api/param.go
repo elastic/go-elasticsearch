@@ -31,6 +31,7 @@ import (
 const (
 	// TODO: make type its own struct
 	specTypeDict       = "dict"
+	specTypeBulk       = "bulk"
 	specTypeBoolean    = "boolean"
 	specTypeEnum       = "enum"
 	specTypeList       = "list"
@@ -62,6 +63,7 @@ type Param struct {
 	Type               string
 	Description        string      `json:"description"`
 	Required           bool        `json:"required"`
+	Serialize          string      `json:"serialize"`
 	Default            interface{} `json:"default"`
 	Options            []string    `json:"options"`
 	OptionName         string
@@ -134,6 +136,13 @@ func (p *Param) resolve(name string, templates *template.Template) error {
 			return fmt.Errorf("cannot find template for option %q", name)
 		}
 	}
+	if p.SpecType == "" && p.rawName == "body" {
+		if p.Serialize == "bulk" {
+			p.SpecType = specTypeBulk
+		} else {
+			p.SpecType = specTypeDict
+		}
+	}
 	switch p.SpecType {
 	case specTypeBoolean:
 		p.Type = "bool"
@@ -155,6 +164,8 @@ func (p *Param) resolve(name string, templates *template.Template) error {
 		}
 	case specTypeDict:
 		p.Type = "map[string]interface{}"
+	case specTypeBulk:
+		p.Type = "[]interface{}"
 	case specTypeList:
 		p.Type = "[]string"
 	case specTypeNumber:
@@ -345,6 +356,12 @@ func (p *Param) String() (string, error) {
 		}
 		code += "\n}"
 		return code, nil
+	case specTypeBulk:
+		_, ok := p.Value.([]interface{})
+		if !ok {
+			return "", &invalidTypeError{p}
+		}
+		// TODO: implement
 	case specTypeString:
 		v, ok := p.Value.(string)
 		if !ok {
