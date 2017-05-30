@@ -332,6 +332,9 @@ func (p *Param) String() (string, error) {
 					return "", &invalidTypeError{p}
 				}
 				if len(listValue) > 1 {
+					if len(listValue) == 2 && listValue[0].(string) == "open" && listValue[1].(string) == "closed" {
+						listValue = []interface{}{"all"}
+					}
 					return "", fmt.Errorf("multiple values for enum %q", p.Name)
 				}
 				if v, ok = listValue[0].(string); !ok {
