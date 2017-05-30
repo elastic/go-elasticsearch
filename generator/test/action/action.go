@@ -29,7 +29,7 @@ import (
 )
 
 type action interface {
-	Resolve(methods map[string]*api.Method, templates *template.Template) error
+	Resolve(testSpecFile string, methods map[string]*api.Method, templates *template.Template) error
 	String() (string, error)
 }
 

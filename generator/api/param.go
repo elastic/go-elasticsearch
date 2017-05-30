@@ -332,7 +332,7 @@ func (p *Param) String() (string, error) {
 					return "", &invalidTypeError{p}
 				}
 				if len(listValue) > 1 {
-					return "", fmt.Errorf("multiple values for enum %q", p.rawName)
+					return "", fmt.Errorf("multiple values for enum %q", p.Name)
 				}
 				if v, ok = listValue[0].(string); !ok {
 					return "", &invalidTypeError{p}

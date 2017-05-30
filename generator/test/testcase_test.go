@@ -43,7 +43,7 @@ func TestDo(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	yt, err := newTestcase(spec, map[string]*api.Method{"index": m}, templates)
+	yt, err := newTestcase("", spec, map[string]*api.Method{"index": m}, templates)
 	if err != nil {
 		t.Fatal(err)
 	}

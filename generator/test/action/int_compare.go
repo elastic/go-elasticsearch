@@ -67,7 +67,7 @@ func newIntCompare(unmarshal func(interface{}) error) (action, error) {
 	return i, nil
 }
 
-func (i *intCompare) Resolve(methods map[string]*api.Method, templates *template.Template) error {
+func (i *intCompare) Resolve(testSpecFile string, methods map[string]*api.Method, templates *template.Template) error {
 	i.template = templates.Lookup("int_compare.tmpl")
 	if i.template == nil {
 		return fmt.Errorf("unable to find template for int comparison")

@@ -54,7 +54,7 @@ func newSet(unmarshal func(interface{}) error) (action, error) {
 	return s, nil
 }
 
-func (s *set) Resolve(methods map[string]*api.Method, templates *template.Template) error {
+func (s *set) Resolve(testSpecFile string, methods map[string]*api.Method, templates *template.Template) error {
 	s.template = templates.Lookup("set.tmpl")
 	if s.template == nil {
 		return fmt.Errorf("unable to find template for set")

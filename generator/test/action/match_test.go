@@ -46,7 +46,7 @@ func TestMatch(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err = action.Resolve(nil, templates); err != nil {
+	if err = action.Resolve("", nil, templates); err != nil {
 		t.Fatal(err)
 	}
 	code, err := action.String()

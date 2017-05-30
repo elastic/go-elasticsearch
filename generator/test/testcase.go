@@ -47,7 +47,7 @@ type testcase struct {
 	Actions []*action.Router
 }
 
-func newTestcase(testSpec string, methods map[string]*api.Method, templates *template.Template) (*testcase, error) {
+func newTestcase(testSpecFile, testSpec string, methods map[string]*api.Method, templates *template.Template) (*testcase, error) {
 	t := &testcase{}
 	if err := yaml.Unmarshal([]byte(testSpec), &t.Spec); err != nil {
 		return nil, err
@@ -68,7 +68,7 @@ func newTestcase(testSpec string, methods map[string]*api.Method, templates *tem
 			t.Actions = actions
 		}
 		for _, a := range actions {
-			if err := a.Resolve(methods, templates); err != nil {
+			if err := a.Resolve(testSpecFile, methods, templates); err != nil {
 				return nil, err
 			}
 		}

@@ -42,7 +42,7 @@ func newTestSpec(specFilePath string, methods map[string]*api.Method, templates 
 		Tests: []*testcase{},
 	}
 	for _, s := range strings.Split(string(bytes), "---") {
-		t, err := newTestcase(s, methods, templates)
+		t, err := newTestcase(specFilePath, s, methods, templates)
 		if err != nil {
 			return nil, fmt.Errorf("failed to parse %q: %s", specFilePath, err)
 		}

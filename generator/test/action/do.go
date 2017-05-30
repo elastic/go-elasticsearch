@@ -28,9 +28,10 @@ import (
 )
 
 type do struct {
-	spec     map[string]map[string]map[string]interface{}
-	Method   *api.Method
-	template *template.Template
+	testSpecFile string
+	spec         map[string]map[string]map[string]interface{}
+	Method       *api.Method
+	template     *template.Template
 }
 
 func newDo(unmarshal func(interface{}) error) (action, error) {
@@ -45,7 +46,7 @@ func newDo(unmarshal func(interface{}) error) (action, error) {
 	return d, nil
 }
 
-func (d *do) Resolve(methods map[string]*api.Method, templates *template.Template) error {
+func (d *do) Resolve(testSpecFile string, methods map[string]*api.Method, templates *template.Template) error {
 	spec := d.spec["do"]
 	for methodName, args := range spec {
 		if methodName == "catch" || methodName == "warnings" || methodName == "headers" {
@@ -66,6 +67,7 @@ func (d *do) Resolve(methods map[string]*api.Method, templates *template.Templat
 	if d.template == nil {
 		return fmt.Errorf("unable to find template for do")
 	}
+	d.testSpecFile = testSpecFile
 	return nil
 }
 
@@ -73,7 +75,7 @@ func (d *do) String() (string, error) {
 	var writer bytes.Buffer
 	err := d.template.Execute(&writer, d)
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("failed to render %s: %s", d.testSpecFile, err)
 	}
 	return writer.String(), err
 }
