@@ -335,6 +335,8 @@ func (p *Param) String() (string, error) {
 					if len(listValue) == 2 && listValue[0].(string) == "open" && listValue[1].(string) == "closed" {
 						listValue = []interface{}{"all"}
 					}
+					// TODO: fix this:
+					// failed to render rest-api-spec/test/cluster.state/30_expand_wildcards.yaml: template: do.tmpl:2:135: executing "do.tmpl" at <.String>: error calling String: multiple values for enum "expandWildcards"
 					return "", fmt.Errorf("multiple values for enum %q", p.Name)
 				}
 				if v, ok = listValue[0].(string); !ok {
@@ -367,7 +369,9 @@ func (p *Param) String() (string, error) {
 				return "", &invalidTypeError{p}
 			}
 			if err := json.Unmarshal([]byte(stringValue), &v); err != nil {
-				return "", err
+				// TODO: fix this:
+				// failed to render rest-api-spec/test/ingest/10_basic.yaml: template: do.tmpl:2:135: executing "do.tmpl" at <.String>: error calling String: invalid dict value: json: cannot unmarshal object into Go value of type map[interface {}]interface {}
+				return "", fmt.Errorf("invalid dict value: %s", err)
 			}
 		}
 		code := "map[string]interface{}{"
@@ -385,7 +389,9 @@ func (p *Param) String() (string, error) {
 				return "", &invalidTypeError{p}
 			}
 			if err := json.Unmarshal([]byte(stringValue), &v); err != nil {
-				return "", fmt.Errorf("invalid bulk value (%s): %s", err, stringValue)
+				// TODO: fix this:
+				// failed to render rest-api-spec/test/mget/14_alias_to_multiple_indices.yaml: template: do.tmpl:2:135: executing "do.tmpl" at <.String>: error calling String: invalid bulk value: invalid character '{' after top-level value
+				return "", fmt.Errorf("invalid bulk value: %s", err)
 			}
 		}
 		// TODO: implement
