@@ -26,6 +26,7 @@ import (
 	"strings"
 	"text/template"
 
+	"github.com/golang/glog"
 	"github.com/serenize/snaker"
 )
 
@@ -286,22 +287,6 @@ func (p *Param) clone() *Param {
 	return c
 }
 
-type noTypeError struct {
-	p *Param
-}
-
-func (n *noTypeError) Error() string {
-	return fmt.Sprintf("the type for %s is not set", n.p.Name)
-}
-
-type invalidTypeError struct {
-	p *Param
-}
-
-func (i *invalidTypeError) Error() string {
-	return fmt.Sprintf("invalid type for %s: %T (expected %s/%s)", i.p.Name, i.p.Value, i.p.SpecType, i.p.Type)
-}
-
 // OptionString renders a functional option.
 func (p *Param) OptionString() (string, error) {
 	var writer bytes.Buffer
@@ -337,7 +322,8 @@ func (p *Param) String() (string, error) {
 					}
 					// TODO: fix this:
 					// failed to render rest-api-spec/test/cluster.state/30_expand_wildcards.yaml: template: do.tmpl:2:135: executing "do.tmpl" at <.String>: error calling String: multiple values for enum "expandWildcards"
-					return "", fmt.Errorf("multiple values for enum %q", p.Name)
+					glog.Error(&multipleEnumValuesError{p})
+					return "", nil
 				}
 				if v, ok = listValue[0].(string); !ok {
 					return "", &invalidTypeError{p}
@@ -371,7 +357,8 @@ func (p *Param) String() (string, error) {
 			if err := json.Unmarshal([]byte(stringValue), &v); err != nil {
 				// TODO: fix this:
 				// failed to render rest-api-spec/test/ingest/10_basic.yaml: template: do.tmpl:2:135: executing "do.tmpl" at <.String>: error calling String: invalid dict value: json: cannot unmarshal object into Go value of type map[interface {}]interface {}
-				return "", fmt.Errorf("invalid dict value: %s", err)
+				glog.Error(&invalidDictValueError{p: p, err: err})
+				return "", nil
 			}
 		}
 		code := "map[string]interface{}{"
@@ -391,7 +378,8 @@ func (p *Param) String() (string, error) {
 			if err := json.Unmarshal([]byte(stringValue), &v); err != nil {
 				// TODO: fix this:
 				// failed to render rest-api-spec/test/mget/14_alias_to_multiple_indices.yaml: template: do.tmpl:2:135: executing "do.tmpl" at <.String>: error calling String: invalid bulk value: invalid character '{' after top-level value
-				return "", fmt.Errorf("invalid bulk value: %s", err)
+				glog.Error(&invalidBulkValueError{p: p, err: err})
+				return "", nil
 			}
 		}
 		// TODO: implement
