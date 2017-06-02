@@ -1,6 +1,4 @@
-{{.Method.ResponseName}}, err := {{.Method.MethodName}}(
-{{range $index, $param := .Method.ParamsWithValues}}{{if .Value}}{{if gt $index 0}}, {{end}}{{if .OptionName}}{{.OptionName}}({{end}}{{.String}}{{if .OptionName}}){{end}}{{end}}{{end}}
-)
+{{.Method.ResponseName}}, err := {{.Method.MethodName}}({{range $index, $param := .Method.ParamsWithValues}}{{if .Value}}{{if gt $index 0}}, {{end}}{{if .OptionName}}{{.OptionName}}({{end}}{{.String}}{{if .OptionName}}){{end}}{{end}}{{end}})
 if err != nil {
   t.Fatal(err)
 }

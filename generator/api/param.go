@@ -362,9 +362,8 @@ func (p *Param) String() (string, error) {
 			}
 		}
 		code := "map[string]interface{}{"
-		for name, value := range v {
-			// TODO: format value
-			code += fmt.Sprintf("\n\"%s\" : \"%s\",", name.(string), value)
+		for _ = range v {
+			// TODO: implement regex matching here
 		}
 		code += "\n}"
 		return code, nil

@@ -8,9 +8,10 @@ import (
   "github.com/elastic/go-elasticsearch/util"
 )
 
-{{range .Specs}}{{range.Tests}}func {{.Name}}(t *testing.T) {
+{{range .Specs}}{{range.Tests}}{{if .Name}}func {{.Name}}(t *testing.T) {
   var body util.MapStr
   {{range .Actions}}{{.String}}
   {{end}}
-}
+}{{end}}
+
 {{end}}{{end}}
