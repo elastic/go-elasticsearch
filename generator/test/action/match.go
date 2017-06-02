@@ -28,7 +28,7 @@ import (
 )
 
 type match struct {
-	spec     map[string]interface{}
+	spec     map[string]map[string]interface{}
 	template *template.Template
 }
 

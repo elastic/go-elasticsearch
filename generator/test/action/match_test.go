@@ -54,7 +54,7 @@ func TestMatch(t *testing.T) {
 		t.Fatal(err)
 	}
 	expectedCode := `for name, expectedValue := range map[string]string{
-	"_index" : "test-weird-index-中文",
+	"_index" : ` + "`test-weird-index-中文`" + `,
 } {
 	value, ok := body[name]
 	if !ok {

@@ -59,11 +59,8 @@ func TestDo(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	expectedCode := `indexResp, err := Index(
-		"test-weird-index-中文", "weird.type", map[string]interface{}{
-			"foo" : "bar",
-		}, WithID("1")
-	)
+	expectedCode := `indexResp, err := Index("test-weird-index-中文", "weird.type", map[string]interface{}{
+}, WithID("1"))
 	if err != nil {
 		t.Fatal(err)
 	}
