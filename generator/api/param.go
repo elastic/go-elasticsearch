@@ -354,11 +354,13 @@ func (p *Param) String() (string, error) {
 			if !isString {
 				return "", &invalidTypeError{p}
 			}
-			if err := json.Unmarshal([]byte(stringValue), &v); err != nil {
-				// TODO: fix this:
-				// failed to render rest-api-spec/test/ingest/10_basic.yaml: template: do.tmpl:2:135: executing "do.tmpl" at <.String>: error calling String: invalid dict value: json: cannot unmarshal object into Go value of type map[interface {}]interface {}
-				glog.Error(&invalidDictValueError{p: p, err: err})
-				return "", nil
+			var value map[string]interface{}
+			if err := json.Unmarshal([]byte(stringValue), &value); err != nil {
+				return "", &invalidDictValueError{p: p, err: err}
+			}
+			v = map[interface{}]interface{}{}
+			for key, item := range value {
+				v[key] = item
 			}
 		}
 		code := "map[string]interface{}{"
