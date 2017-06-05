@@ -374,14 +374,25 @@ func (p *Param) String() (string, error) {
 			if !isString {
 				return "", &invalidTypeError{p}
 			}
-			if err := json.Unmarshal([]byte(stringValue), &v); err != nil {
-				// TODO: fix this:
-				// failed to render rest-api-spec/test/mget/14_alias_to_multiple_indices.yaml: template: do.tmpl:2:135: executing "do.tmpl" at <.String>: error calling String: invalid bulk value: invalid character '{' after top-level value
-				glog.Error(&invalidBulkValueError{p: p, err: err})
-				return "", nil
+			for _, line := range strings.Split(stringValue, "\n") {
+				var value map[string]interface{}
+				line = strings.Trim(line, " ")
+				if line == "" {
+					break
+				}
+				if err := json.Unmarshal([]byte(line), &value); err != nil {
+					return "", &invalidBulkValueError{p: p, err: err}
+				}
+				v = append(v, value)
 			}
 		}
-		// TODO: implement
+		code := "[]map[string]interface{}{"
+		for _ = range v {
+			// TODO: implement
+			code += "{},"
+		}
+		code += "\n}"
+		return code, nil
 	case specTypeString:
 		v, ok := p.Value.(string)
 		if !ok {
