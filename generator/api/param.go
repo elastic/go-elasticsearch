@@ -33,8 +33,6 @@ import (
 const (
 	bodyParam = "body"
 	// TODO: make type its own struct
-	specTypeDict       = "dict"
-	specTypeBulk       = "bulk"
 	specTypeBoolean    = "boolean"
 	specTypeEnum       = "enum"
 	specTypeList       = "list"
@@ -42,6 +40,9 @@ const (
 	specTypeNumberList = "number_list"
 	specTypeString     = "string"
 	specTypeTime       = "time"
+	// These 2 type names are made up to match "body" and the argument to Bulk().
+	specTypeDict = "dict"
+	specTypeBulk = "bulk"
 )
 
 type enum struct {
@@ -408,7 +409,7 @@ func (p *Param) String() (string, error) {
 	case specTypeList:
 		v, ok := p.Value.([]interface{})
 		if !ok {
-			stringValue, ok := p.Value.(string)
+			stringValues, ok := p.Value.(string)
 			if !ok {
 				boolValue, ok := p.Value.(bool)
 				if !ok {
@@ -420,11 +421,15 @@ func (p *Param) String() (string, error) {
 				}
 				return "[]interface{}{}", nil
 			}
-			return fmt.Sprint(stringValue), nil
+			values := strings.Split(stringValues, ",")
+			v = []interface{}{}
+			for _, stringValue := range values {
+				v = append(v, strings.Trim(stringValue, " "))
+			}
 		}
 		value := "[]string{\n"
 		for _, item := range v {
-			value += item.(string) + ",\n"
+			value += "\"" + item.(string) + "\",\n"
 		}
 		return value + "\n}", nil
 	case specTypeTime:

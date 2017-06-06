@@ -1,5 +1,5 @@
 for name, expectedValue := range map[string]string{
-  {{range $name, $value := .}}"{{$name}}" : `{{$value}}`,
+  {{range $name, $value := .}}`{{$name}}` : `{{$value}}`,
 {{end}} } {
   value, ok := body[name]
   if !ok {
