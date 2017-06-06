@@ -64,7 +64,9 @@ func newTestcase(testSpecFile, testSpec string, methods map[string]*api.Method, 
 		default:
 			t.RawName = name
 			t.Type = testTypeTest
-			t.Name = "Test" + snaker.SnakeToCamel(strings.Replace(name, " ", "_", -1))
+			name = strings.Replace(name, " ", "_", -1)
+			name = strings.Replace(name, "=", "_equals_", -1)
+			t.Name = "Test" + snaker.SnakeToCamel(name)
 			t.Actions = actions
 		}
 		for _, a := range actions {
