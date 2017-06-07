@@ -21,7 +21,7 @@ package test
 
 import (
 	"fmt"
-	"strings"
+	"regexp"
 	"text/template"
 
 	"github.com/elastic/go-elasticsearch/generator/api"
@@ -64,10 +64,8 @@ func newTestcase(testSpecFile, testSpec string, methods map[string]*api.Method, 
 		default:
 			t.RawName = name
 			t.Type = testTypeTest
-			// TODO: make these replacements more concise.
-			name = strings.Replace(name, " ", "_", -1)
-			name = strings.Replace(name, ",", "_", -1)
-			name = strings.Replace(name, "=", "_equals_", -1)
+			re := regexp.MustCompile(`[ =,\-&"*./{}']`)
+			name = re.ReplaceAllString(name, "_")
 			t.Name = "Test" + snaker.SnakeToCamel(name)
 			t.Actions = actions
 		}

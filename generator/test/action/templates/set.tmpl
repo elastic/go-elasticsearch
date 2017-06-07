@@ -1,4 +1,4 @@
-{{.VarName}}, err := body.GetValue("{{.Key}}")
+{{.VarName}}, err := body.GetValue(`{{.Key}}`)
 if err != nil {
-  t.Fatalf("unable to find key %q: %s", "{{.Key}}", err)
+  t.Fatalf("unable to find key %q: %s", `{{.Key}}`, err)
 }
