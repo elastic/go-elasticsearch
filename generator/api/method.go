@@ -465,6 +465,7 @@ func (m *Method) Call(args map[string]interface{}) (*Method, error) {
 		p.Value = value
 	}
 	c.ParamsWithValues = []*Param{}
+	// TODO: always include required params?
 	for _, p := range c.RequiredURLParts {
 		if p.Value != nil {
 			c.ParamsWithValues = append(c.ParamsWithValues, p)
