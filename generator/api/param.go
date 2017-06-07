@@ -26,7 +26,6 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/golang/glog"
 	"github.com/serenize/snaker"
 )
 
@@ -320,11 +319,9 @@ func (p *Param) String() (string, error) {
 				if len(listValue) > 1 {
 					if len(listValue) == 2 && listValue[0].(string) == "open" && listValue[1].(string) == "closed" {
 						listValue = []interface{}{"all"}
+					} else {
+						return "", &multipleEnumValuesError{p}
 					}
-					// TODO: fix this:
-					// failed to render rest-api-spec/test/cluster.state/30_expand_wildcards.yaml: template: do.tmpl:2:135: executing "do.tmpl" at <.String>: error calling String: multiple values for enum "expandWildcards"
-					glog.Error(&multipleEnumValuesError{p})
-					return "", nil
 				}
 				if v, ok = listValue[0].(string); !ok {
 					return "", &invalidTypeError{p}
