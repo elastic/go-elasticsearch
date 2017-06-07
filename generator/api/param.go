@@ -23,6 +23,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"strconv"
 	"strings"
 	"text/template"
 
@@ -336,7 +337,7 @@ func (p *Param) String() (string, error) {
 		if e, valid := p.enumValuesRaw[v]; valid {
 			v = e.Name
 		} else {
-			v = string(len(p.EnumValues))
+			v = strconv.Itoa(len(p.EnumValues))
 		}
 		return v, nil
 	case specTypeNumber:
