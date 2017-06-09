@@ -32,6 +32,7 @@ import (
 
 const (
 	bodyParam = "body"
+	nilString = "nil"
 	// TODO: make type its own struct
 	specTypeBoolean    = "boolean"
 	specTypeEnum       = "enum"
@@ -298,17 +299,26 @@ func (p *Param) OptionString() (string, error) {
 }
 
 func (p *Param) String() (string, error) {
-	if p.Value == nil {
-		return "", nil
-	}
 	switch p.SpecType {
 	case specTypeBoolean:
+		if p.Value == nil {
+			if p.Required {
+				return "false", nil
+			}
+			return "", nil
+		}
 		v, ok := p.Value.(bool)
 		if !ok {
 			return "", &invalidTypeError{p}
 		}
 		return fmt.Sprint(v), nil
 	case specTypeEnum:
+		if p.Value == nil {
+			if p.Required {
+				return p.EnumValues[0].Name, nil
+			}
+			return "", nil
+		}
 		v, ok := p.Value.(string)
 		if !ok {
 			boolValue, isBool := p.Value.(bool)
@@ -341,12 +351,24 @@ func (p *Param) String() (string, error) {
 		}
 		return v, nil
 	case specTypeNumber:
+		if p.Value == nil {
+			if p.Required {
+				return "0", nil
+			}
+			return "", nil
+		}
 		v, ok := p.Value.(int)
 		if !ok {
 			return "", &invalidTypeError{p}
 		}
 		return fmt.Sprint(v), nil
 	case specTypeDict:
+		if p.Value == nil {
+			if p.Required {
+				return nilString, nil
+			}
+			return "", nil
+		}
 		v, ok := p.Value.(map[interface{}]interface{})
 		if !ok {
 			stringValue, isString := p.Value.(string)
@@ -369,6 +391,12 @@ func (p *Param) String() (string, error) {
 		code += "\n}"
 		return code, nil
 	case specTypeBulk:
+		if p.Value == nil {
+			if p.Required {
+				return nilString, nil
+			}
+			return "", nil
+		}
 		v, ok := p.Value.([]interface{})
 		if !ok {
 			stringValue, isString := p.Value.(string)
@@ -395,6 +423,9 @@ func (p *Param) String() (string, error) {
 		code += "\n}"
 		return code, nil
 	case specTypeString:
+		if p.Value == nil {
+			return "", nil
+		}
 		v, ok := p.Value.(string)
 		if !ok {
 			i, ok := p.Value.(int)
@@ -405,6 +436,12 @@ func (p *Param) String() (string, error) {
 		}
 		return "\"" + v + "\"", nil
 	case specTypeList:
+		if p.Value == nil {
+			if p.Required {
+				return nilString, nil
+			}
+			return "", nil
+		}
 		v, ok := p.Value.([]interface{})
 		if !ok {
 			stringValues, ok := p.Value.(string)
@@ -415,7 +452,7 @@ func (p *Param) String() (string, error) {
 				}
 				// Translate true to nil and false to an empty list (meaning "no fields")
 				if boolValue {
-					return "nil", nil
+					return nilString, nil
 				}
 				return "[]interface{}{}", nil
 			}
@@ -431,6 +468,12 @@ func (p *Param) String() (string, error) {
 		}
 		return value + "\n}", nil
 	case specTypeTime:
+		if p.Value == nil {
+			if p.Required {
+				return nilString, nil
+			}
+			return "", nil
+		}
 		v, ok := p.Value.(string)
 		if !ok {
 			return "", &invalidTypeError{p}
