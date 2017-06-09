@@ -64,7 +64,7 @@ func newTestcase(testSpecFile, testSpec string, methods map[string]*api.Method, 
 		default:
 			t.RawName = name
 			t.Type = testTypeTest
-			re := regexp.MustCompile(`[ =,\-&"*./{}']`)
+			re := regexp.MustCompile(`[ =,\-&"*./{}':]`)
 			name = re.ReplaceAllString(name, "_")
 			t.Name = "Test" + snaker.SnakeToCamel(name)
 			t.Actions = actions
