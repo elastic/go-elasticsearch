@@ -59,7 +59,7 @@ func TestDo(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	expectedCode := `if indexResp, err := Index("test-weird-index-中文", "weird.type", map[string]interface{}{
+	expectedCode := `if indexResp, err := a.Index("test-weird-index-中文", "weird.type", map[string]interface{}{
 		}, WithID("1")); err != nil {
 		t.Fatal(err)
 	} else {
@@ -98,7 +98,7 @@ func TestDoWithMissingParam(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	expectedCode := `if deleteAliasResp, err := DeleteAlias(nil, []string{
+	expectedCode := `if deleteAliasResp, err := i.DeleteAlias(nil, []string{
 		"alias1",
 	}); err != nil {
 		t.Fatal(err)
