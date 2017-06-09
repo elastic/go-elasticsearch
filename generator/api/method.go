@@ -290,7 +290,9 @@ func (m *Method) sortParams(common map[string]*Param) error {
 		if p == nil || !ok {
 			return fmt.Errorf("cannot find URL part %q (from %q) in %#v", name, m.Spec.URL.Path, m.Spec.URL.Parts)
 		}
-		m.RequiredURLParts = append(m.RequiredURLParts, p)
+		if p.Required {
+			m.RequiredURLParts = append(m.RequiredURLParts, p)
+		}
 	}
 	// Sort optional URL parts by name.
 	names := []string{}
