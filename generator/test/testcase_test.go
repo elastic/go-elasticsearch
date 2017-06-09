@@ -43,28 +43,68 @@ func TestDo(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	yt, err := newTestcase("", spec, map[string]*api.Method{"index": m}, templates)
+	tc, err := newTestcase("", spec, map[string]*api.Method{"index": m}, templates)
 	if err != nil {
 		t.Fatal(err)
 	}
 	expectedName := "TestIndexWithID"
-	if yt.Name != expectedName {
-		t.Fatalf("unexpected test name: %s (expected %q)", yt.Name, expectedName)
+	if tc.Name != expectedName {
+		t.Fatalf("unexpected test name: %s (expected %q)", tc.Name, expectedName)
 	}
-	if len(yt.Spec["Index with ID"]) != 1 {
-		t.Fatalf("expected to see 1 action, found %d", len(yt.Spec["Index with ID"]))
+	if len(tc.Spec["Index with ID"]) != 1 {
+		t.Fatalf("expected to see 1 action, found %d", len(tc.Spec["Index with ID"]))
 	}
-	action := yt.Spec["Index with ID"][0]
+	action := tc.Spec["Index with ID"][0]
 	s, err := action.String()
 	if err != nil {
 		t.Fatal(err)
 	}
 	expectedCode := `indexResp, err := Index("test-weird-index-中文", "weird.type", map[string]interface{}{
-}, WithID("1"))
+		}, WithID("1"))
 	if err != nil {
 		t.Fatal(err)
 	}
 	body, err = indexResp.DecodeBody()
+	if err != nil {
+		t.Fatal(err)
+	}
+`
+	if d := common.Diff(t, expectedCode, s); len(d) > 0 {
+		t.Fail()
+	}
+}
+
+func TestDoWithMissingParam(t *testing.T) {
+	spec := `
+"check delete with blank index and blank alias":
+ - do:
+      catch: param
+      indices.delete_alias:
+          name: "alias1"`
+	templates, err := template.ParseFiles("../api/templates/method.tmpl", "../api/templates/option.tmpl", "action/templates/do.tmpl")
+	if err != nil {
+		t.Fatal(err)
+	}
+	m, err := api.NewMethod("testdata", "indices.delete_alias.json", nil, templates, true)
+	if err != nil {
+		t.Fatal(err)
+	}
+	tc, err := newTestcase("", spec, map[string]*api.Method{"indices.delete_alias": m}, templates)
+	if err != nil {
+		t.Fatal(err)
+	}
+	action := tc.Spec["check delete with blank index and blank alias"][0]
+	s, err := action.String()
+	if err != nil {
+		t.Fatal(err)
+	}
+	expectedCode := `deleteAliasResp, err := DeleteAlias(nil, []string{
+		"alias1",
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	body, err = deleteAliasResp.DecodeBody()
 	if err != nil {
 		t.Fatal(err)
 	}

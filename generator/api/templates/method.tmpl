@@ -10,16 +10,16 @@ import (
 	"github.com/elastic/go-elasticsearch/util"
 )
 
-// {{.MethodName}}{{.Spec.Documentation}}{{range .RequiredURLParts}}
+// {{.Name}}{{.Spec.Documentation}}{{range .RequiredURLParts}}
 //
 // {{.Name}}: {{.Description}}{{end}}{{range .RequiredURLParams}}
 //
 // {{.Name}}: {{.Description}}{{end}}
 //
 // options: optional parameters. Supports the following functional options: {{range .OptionalURLParts}}{{.OptionName}}, {{end}}{{range .OptionalURLParams}}{{.OptionName}}, {{end}}see the Option type in this package for more info.
-func ({{.ReceiverName}} *{{.TypeName}}) {{.MethodName}}({{range .RequiredURLParts}}{{.Name}} {{.Type}}, {{end}}{{range .RequiredURLParams}}{{.Name}} {{.Type}}, {{end}}options ...Option) (*{{.MethodName}}Response, error) {
+func ({{.ReceiverName}} *{{.TypeName}}) {{.Name}}({{range .RequiredURLParts}}{{.Name}} {{.Type}}, {{end}}{{range .RequiredURLParams}}{{.Name}} {{.Type}}, {{end}}options ...Option) (*{{.Name}}Response, error) {
 	req := {{.ReceiverName}}.transport.NewRequest("{{.HTTPMethod}}")
-	methodOptions := supportedOptions["{{.MethodName}}"]
+	methodOptions := supportedOptions["{{.Name}}"]
 	for _, option := range options{
 		if _, ok := methodOptions[option.name]; !ok {
 			return nil, fmt.Errorf("unsupported option: %s", option.name)
@@ -27,16 +27,16 @@ func ({{.ReceiverName}} *{{.TypeName}}) {{.MethodName}}({{range .RequiredURLPart
 		option.apply(req)
 	}
 	resp, err := {{.ReceiverName}}.transport.Do(req)
-	return &{{.MethodName}}Response{resp}, err
+	return &{{.Name}}Response{resp}, err
 }
 
-// {{.MethodName}}Response is the response for {{.MethodName}}.
-type {{.MethodName}}Response struct {
+// {{.Name}}Response is the response for {{.Name}}.
+type {{.Name}}Response struct {
 	Response *http.Response
 	// TODO: fill in structured response
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *{{.MethodName}}Response) DecodeBody() (util.MapStr, error) {
+func (r *{{.Name}}Response) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

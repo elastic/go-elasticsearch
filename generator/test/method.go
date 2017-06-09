@@ -87,7 +87,7 @@ func NewMethod(specDir, methodName string, methods map[string]*api.Method, templ
 func (m *Method) Generate(outputDir string) error {
 	goFile, err := m.Method.NewWriter(outputDir, m.Method.TestFileName)
 	if err != nil {
-		return fmt.Errorf("failed to create test writer for %s: %s", m.Method.MethodName, err)
+		return fmt.Errorf("failed to create test writer for %s: %s", m.Method.Name, err)
 	}
 	if err = m.template.Execute(goFile, m); err != nil {
 		return err

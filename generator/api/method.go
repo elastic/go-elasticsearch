@@ -88,13 +88,13 @@ func (s *spec) clone() *spec {
 
 // Method is a Go method mapping an API endpoint.
 type Method struct {
+	Name              string
 	RawName           string
 	Spec              *spec
 	Repo              string
 	PackageName       string
 	fileName          string
 	TestFileName      string
-	MethodName        string
 	TypeName          string
 	ReceiverName      string
 	ResponseName      string
@@ -175,12 +175,12 @@ func NewMethod(specDir, specFileName string, commonParams map[string]*Param, tem
 	if m.PackageName != RootPackage {
 		m.Repo += "/" + m.PackageName
 	}
-	m.MethodName = snaker.SnakeToCamel(m.fileName)
+	m.Name = snaker.SnakeToCamel(m.fileName)
 	m.TestFileName += m.fileName + "_test.go"
-	m.fileName += ".go"
 	m.TypeName = snaker.SnakeToCamel(m.PackageName)
 	m.ReceiverName = strings.ToLower(string(m.TypeName[0]))
-	m.ResponseName = snaker.SnakeToCamelLower(strings.ToLower(m.MethodName) + "_resp")
+	m.ResponseName = snaker.SnakeToCamelLower(m.fileName + "_resp")
+	m.fileName += ".go"
 	m.HTTPMethod = m.Spec.Methods[0]
 	return m, nil
 }
@@ -242,7 +242,7 @@ func (m *Method) resolveDocumentation() error {
 				text := strings.Replace(string(tokenizer.Text()), "\n", " ", -1)
 				m.Spec.Documentation = ""
 				var offset int
-				if strings.HasPrefix(text, "The "+strings.ToLower(m.MethodName)+" API") {
+				if strings.HasPrefix(text, "The "+strings.ToLower(m.Name)+" API") {
 					offset = 3
 				} else {
 					m.Spec.Documentation = " -"
@@ -389,7 +389,7 @@ func (m *Method) clone() (*Method, error) {
 		PackageName:       m.PackageName,
 		fileName:          m.fileName,
 		TestFileName:      m.TestFileName,
-		MethodName:        m.MethodName,
+		Name:              m.Name,
 		TypeName:          m.TypeName,
 		ReceiverName:      m.ReceiverName,
 		ResponseName:      m.ResponseName,

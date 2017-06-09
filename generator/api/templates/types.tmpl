@@ -22,7 +22,7 @@ type Option struct {
 {{range .Options}}{{.OptionString}}
 {{end}}var (
 supportedOptions = map[string]map[string]struct{}{
-{{range .Methods}}"{{.MethodName}}": map[string]struct{}{
+{{range .Methods}}"{{.Name}}": map[string]struct{}{
 {{range .OptionalURLParts}}"{{.OptionName}}": struct{}{},
 	{{end}}{{range .OptionalURLParams}}"{{.OptionName}}": struct{}{},
 	{{end}}

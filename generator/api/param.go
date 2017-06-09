@@ -424,6 +424,9 @@ func (p *Param) String() (string, error) {
 		return code, nil
 	case specTypeString:
 		if p.Value == nil {
+			if p.Required {
+				return `""`, nil
+			}
 			return "", nil
 		}
 		v, ok := p.Value.(string)
@@ -466,7 +469,7 @@ func (p *Param) String() (string, error) {
 		for _, item := range v {
 			value += "\"" + item.(string) + "\",\n"
 		}
-		return value + "\n}", nil
+		return value + "}", nil
 	case specTypeTime:
 		if p.Value == nil {
 			if p.Required {
