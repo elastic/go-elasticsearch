@@ -1,8 +1,8 @@
-{{.Method.ResponseName}}, err := {{.Method.Name}}({{range $index, $param := .Method.ParamsWithValues}}{{if .String}}{{if gt $index 0}}, {{end}}{{if .OptionName}}{{.OptionName}}({{end}}{{.String}}{{if .OptionName}}){{end}}{{end}}{{end}})
-if err != nil {
+if {{.Method.ResponseName}}, err := {{.Method.Name}}({{range $index, $param := .Method.ParamsWithValues}}{{if .String}}{{if gt $index 0}}, {{end}}{{if .OptionName}}{{.OptionName}}({{end}}{{.String}}{{if .OptionName}}){{end}}{{end}}{{end}}); err != nil {
   t.Fatal(err)
-}
-body, err = {{.Method.ResponseName}}.DecodeBody()
-if err != nil {
-  t.Fatal(err)
+} else {
+  body, err := {{.Method.ResponseName}}.DecodeBody()
+  if err != nil {
+    t.Fatal(err)
+  }
 }

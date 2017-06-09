@@ -9,7 +9,7 @@ import (
 )
 
 {{range .Specs}}{{range.Tests}}{{if .Name}}func {{.Name}}(t *testing.T) {
-  var body util.MapStr
+  t.Skip()
   {{range .Actions}}{{.String}}
   {{end}}
 }{{end}}
