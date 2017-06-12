@@ -54,12 +54,18 @@ func newLength(unmarshal func(interface{}) error) (action, error) {
 	return l, nil
 }
 
-func (l *length) Resolve(testSpecFile string, methods map[string]*api.Method, templates *template.Template) error {
+func (l *length) Resolve(testSpecFile string, methods map[string]*api.Method,
+	templates *template.Template) (*Context, error) {
 	l.template = templates.Lookup("length.tmpl")
 	if l.template == nil {
-		return fmt.Errorf("unable to find template for length")
+		return nil, fmt.Errorf("unable to find template for length")
 	}
-	return nil
+	return &Context{
+		Vars: []*Var{
+			valueVar,
+			errorVar,
+		},
+	}, nil
 }
 
 func (l *length) String() (string, error) {

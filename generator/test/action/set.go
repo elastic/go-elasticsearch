@@ -54,12 +54,21 @@ func newSet(unmarshal func(interface{}) error) (action, error) {
 	return s, nil
 }
 
-func (s *set) Resolve(testSpecFile string, methods map[string]*api.Method, templates *template.Template) error {
+func (s *set) Resolve(testSpecFile string, methods map[string]*api.Method,
+	templates *template.Template) (*Context, error) {
 	s.template = templates.Lookup("set.tmpl")
 	if s.template == nil {
-		return fmt.Errorf("unable to find template for set")
+		return nil, fmt.Errorf("unable to find template for set")
 	}
-	return nil
+	return &Context{
+		Vars: []*Var{
+			&Var{
+				Name: s.VarName,
+				Type: "map[string]interface{}",
+			},
+			errorVar,
+		},
+	}, nil
 }
 
 func (s *set) String() (string, error) {

@@ -46,23 +46,23 @@ func TestIntCompare(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err = action.Resolve("", nil, templates); err != nil {
+	if _, err = action.Resolve("", nil, templates); err != nil {
 		t.Fatal(err)
 	}
 	code, err := action.String()
 	if err != nil {
 		t.Fatal(err)
 	}
-	expectedCode := `if v, err := body.GetValue(` + "`foo`" + `); err == nil {
-		if i, ok := v.(int); ok {
-			if !(i < 10000) {
-				t.Fatalf("unexpected value for %q: %d (expected: %d)", ` + "`foo`" + `, i, 10000)
-			}
-		} else {
-			t.Fatalf("unexpected type for %q: %T (expected int)", ` + "`foo`" + `, v)
-		}
-} else {
+	expectedCode := `v, err = body.GetValue(` + "`foo`" + `)
+if err != nil {
 	t.Fatalf("unable to find key %q: %s", ` + "`foo`" + `, err)
+}
+i, b = v.(int)
+if !b {
+	t.Fatalf("unexpected type for %q: %T (expected int)", ` + "`foo`" + `, v)
+}
+if !(i < 10000) {
+	t.Fatalf("unexpected value for %q: %d (expected: %d)", ` + "`foo`" + `, i, 10000)
 }
 `
 	if d := common.Diff(t, expectedCode, code); len(d) > 0 {

@@ -46,7 +46,7 @@ func TestMatch(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err = action.Resolve("", nil, templates); err != nil {
+	if _, err = action.Resolve("", nil, templates); err != nil {
 		t.Fatal(err)
 	}
 	code, err := action.String()
@@ -56,12 +56,12 @@ func TestMatch(t *testing.T) {
 	expectedCode := `for name, expectedValue := range map[string]string{
 	` + "`_index` : `test-weird-index-中文`" + `,
 } {
-	value, ok := body[name]
-	if !ok {
+	v, b = body.GetValue(name)
+	if !b {
 		t.Fatalf("response does not contain %q", name)
 	}
-	if value != expectedValue {
-		t.Fatalf("expected %q to be %q, got %q", name, expectedValue, value)
+	if v != expectedValue {
+		t.Fatalf("expected %q to be %q, got %q", name, expectedValue, v)
 	}
 }
 `

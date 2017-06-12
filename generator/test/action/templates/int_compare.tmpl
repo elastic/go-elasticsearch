@@ -1,11 +1,11 @@
-if v, err := body.GetValue(`{{.Key}}`); err == nil {
-  if i, ok := v.(int); ok {
-    if !(i {{.Operator}} {{.Value}}) {
-      t.Fatalf("unexpected value for %q: %d (expected: %d)", `{{.Key}}`, i, {{.Value}})
-    }
-  } else {
-    t.Fatalf("unexpected type for %q: %T (expected int)", `{{.Key}}`, v)
-  }
-} else {
+v, err = body.GetValue(`{{.Key}}`)
+if err != nil {
   t.Fatalf("unable to find key %q: %s", `{{.Key}}`, err)
+}
+i, b = v.(int)
+if !b {
+  t.Fatalf("unexpected type for %q: %T (expected int)", `{{.Key}}`, v)
+}
+if !(i {{.Operator}} {{.Value}}) {
+  t.Fatalf("unexpected value for %q: %d (expected: %d)", `{{.Key}}`, i, {{.Value}})
 }

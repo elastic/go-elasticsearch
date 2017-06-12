@@ -56,12 +56,19 @@ func newBoolCompare(unmarshal func(interface{}) error) (action, error) {
 	return b, nil
 }
 
-func (b *boolCompare) Resolve(testSpecFile string, methods map[string]*api.Method, templates *template.Template) error {
+func (b *boolCompare) Resolve(testSpecFile string, methods map[string]*api.Method,
+	templates *template.Template) (*Context, error) {
 	b.template = templates.Lookup("bool_compare.tmpl")
 	if b.template == nil {
-		return fmt.Errorf("unable to find template for bool comparison")
+		return nil, fmt.Errorf("unable to find template for bool comparison")
 	}
-	return nil
+	ctx := &Context{
+		Vars: []*Var{
+			valueVar,
+			errorVar,
+		},
+	}
+	return ctx, nil
 }
 
 func (b *boolCompare) String() (string, error) {

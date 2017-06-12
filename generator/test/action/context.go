@@ -19,28 +19,43 @@
 
 package action
 
-import (
-	"text/template"
+import "github.com/elastic/go-elasticsearch/generator/api"
 
-	"github.com/elastic/go-elasticsearch/generator/api"
-)
-
-type skip struct {
-	Version  string      `yaml:"version"`
-	Reason   string      `yaml:"reason"`
-	Features interface{} `yaml:"features"`
+// Var is a variable instantiated by an action.
+type Var struct {
+	Name string
+	Type string
 }
 
-func newSkip(unmarshal func(interface{}) error) (action, error) {
-	// TODO: implement
-	return &skip{}, nil
+var errorVar = &Var{
+	Name: "err",
+	Type: "error",
 }
 
-func (s *skip) Resolve(testSpecFile string, methods map[string]*api.Method,
-	templates *template.Template) (*Context, error) {
-	return nil, nil
+var valueVar = &Var{
+	Name: "v",
+	Type: "map[string]interface{}",
 }
 
-func (s *skip) String() (string, error) {
-	return "", nil
+var intVar = &Var{
+	Name: "i",
+	Type: "int",
+}
+
+var boolVar = &Var{
+	Name: "b",
+	Type: "bool",
+}
+
+func newResponseVar(m *api.Method) *Var {
+	return &Var{
+		Name: m.ResponseName,
+		Type: m.Name + "Response",
+	}
+}
+
+// Context is the context of an action, it includes the methods invoked and the variables the action instantiates.
+type Context struct {
+	Methods []*api.Method
+	Vars    []*Var
 }

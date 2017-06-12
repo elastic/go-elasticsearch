@@ -70,7 +70,8 @@ func newTestcase(testSpecFile, testSpec string, methods map[string]*api.Method, 
 			t.Actions = actions
 		}
 		for _, a := range actions {
-			if err := a.Resolve(testSpecFile, methods, templates); err != nil {
+			// TODO: use the context
+			if _, err := a.Resolve(testSpecFile, methods, templates); err != nil {
 				return nil, err
 			}
 		}

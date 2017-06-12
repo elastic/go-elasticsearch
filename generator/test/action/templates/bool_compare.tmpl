@@ -1,5 +1,5 @@
-if v, err := body.GetValue(`{{.Key}}`); err == nil {
-  assert.{{.Operator}}(t, v)
-} else {
+v, err = body.GetValue(`{{.Key}}`)
+if err != nil{
   t.Fatalf("unable to find key %q: %s", `{{.Key}}`, err)
 }
+assert.{{.Operator}}(t, v)

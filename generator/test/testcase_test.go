@@ -59,15 +59,15 @@ func TestDo(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	expectedCode := `if indexResp, err := a.Index("test-weird-index-中文", "weird.type", map[string]interface{}{
-		}, WithID("1")); err != nil {
-		t.Fatal(err)
-	} else {
-		body, err := indexResp.DecodeBody()
-		if err != nil {
-			t.Fatal(err)
-		}
-	}
+	expectedCode := `indexResp, err = a.Index("test-weird-index-中文", "weird.type", map[string]interface{}{
+		}, WithID("1"))
+if err != nil {
+	t.Fatal(err)
+}
+body, err = indexResp.DecodeBody()
+if err != nil {
+	t.Fatal(err)
+}
 `
 	if d := common.Diff(t, expectedCode, s); len(d) > 0 {
 		t.Fail()
@@ -98,16 +98,16 @@ func TestDoWithMissingParam(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	expectedCode := `if deleteAliasResp, err := i.DeleteAlias(nil, []string{
+	expectedCode := `deleteAliasResp, err = i.DeleteAlias(nil, []string{
 		"alias1",
-	}); err != nil {
-		t.Fatal(err)
-	} else {
-		body, err := deleteAliasResp.DecodeBody()
-		if err != nil {
-			t.Fatal(err)
-		}
-	}
+})
+if err != nil {
+	t.Fatal(err)
+}
+body, err = deleteAliasResp.DecodeBody()
+if err != nil {
+	t.Fatal(err)
+}
 `
 	if d := common.Diff(t, expectedCode, s); len(d) > 0 {
 		t.Fail()

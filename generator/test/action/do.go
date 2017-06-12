@@ -46,7 +46,8 @@ func newDo(unmarshal func(interface{}) error) (action, error) {
 	return d, nil
 }
 
-func (d *do) Resolve(testSpecFile string, methods map[string]*api.Method, templates *template.Template) error {
+func (d *do) Resolve(testSpecFile string, methods map[string]*api.Method,
+	templates *template.Template) (*Context, error) {
 	spec := d.spec["do"]
 	for methodName, args := range spec {
 		if methodName == "catch" || methodName == "warnings" || methodName == "headers" {
@@ -54,21 +55,27 @@ func (d *do) Resolve(testSpecFile string, methods map[string]*api.Method, templa
 		}
 		m, ok := methods[methodName]
 		if !ok {
-			return fmt.Errorf("invalid method name %q in %#v", methodName, spec)
+			return nil, fmt.Errorf("invalid method name %q in %#v", methodName, spec)
 		}
 		// TODO: implement variables in args
 		methodCall, err := m.Call(args)
 		if err != nil {
-			return err
+			return nil, err
 		}
 		d.Method = methodCall
 	}
 	d.template = templates.Lookup("do.tmpl")
 	if d.template == nil {
-		return fmt.Errorf("unable to find template for do")
+		return nil, fmt.Errorf("unable to find template for do")
 	}
 	d.testSpecFile = testSpecFile
-	return nil
+	return &Context{
+		Methods: []*api.Method{d.Method},
+		Vars: []*Var{
+			newResponseVar(d.Method),
+			errorVar,
+		},
+	}, nil
 }
 
 func (d *do) String() (string, error) {
