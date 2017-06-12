@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Help - JSON is great… for computers. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithHelp, WithS, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cat) Help(options ...*Option) (*HelpResponse, error) {
+func (c *Cat) Help(options ...Option) (*HelpResponse, error) {
 	req := c.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Help"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type HelpResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *HelpResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *HelpResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

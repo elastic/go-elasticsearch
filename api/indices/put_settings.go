@@ -7,14 +7,15 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // PutSettings - change specific index level settings in real time. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-update-settings.html for more info.
 //
 // body: the index settings to be updated.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithFlatSettings, WithIgnoreUnavailable, WithMasterTimeout, WithPreserveExisting, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) PutSettings(body map[string]interface{}, options ...*Option) (*PutSettingsResponse, error) {
+// options: optional parameters. Supports the following functional options: WithIndexList, WithAllowNoIndices, WithExpandWildcards, WithFlatSettings, WithIgnoreUnavailable, WithMasterTimeout, WithPreserveExisting, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (i *Indices) PutSettings(body map[string]interface{}, options ...Option) (*PutSettingsResponse, error) {
 	req := i.transport.NewRequest("PUT")
 	methodOptions := supportedOptions["PutSettings"]
 	for _, option := range options {
@@ -34,6 +35,6 @@ type PutSettingsResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *PutSettingsResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *PutSettingsResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

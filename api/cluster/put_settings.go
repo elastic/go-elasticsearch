@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // PutSettings - allows to update cluster wide specific settings. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-update-settings.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithFlatSettings, WithMasterTimeout, WithTimeout, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cluster) PutSettings(options ...*Option) (*PutSettingsResponse, error) {
+func (c *Cluster) PutSettings(options ...Option) (*PutSettingsResponse, error) {
 	req := c.transport.NewRequest("PUT")
 	methodOptions := supportedOptions["PutSettings"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type PutSettingsResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *PutSettingsResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *PutSettingsResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

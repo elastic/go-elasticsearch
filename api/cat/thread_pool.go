@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // ThreadPool - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-thread-pool.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithThreadPoolPatterns, WithFormat, WithH, WithHelp, WithLocal, WithMasterTimeout, WithS, WithSize, WithV, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cat) ThreadPool(options ...*Option) (*ThreadPoolResponse, error) {
+func (c *Cat) ThreadPool(options ...Option) (*ThreadPoolResponse, error) {
 	req := c.transport.NewRequest("GET")
 	methodOptions := supportedOptions["ThreadPool"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type ThreadPoolResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *ThreadPoolResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *ThreadPoolResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

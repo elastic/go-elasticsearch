@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // FlushSynced - elasticsearch tracks the indexing activity of each shard. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-synced-flush.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) FlushSynced(options ...*Option) (*FlushSyncedResponse, error) {
+// options: optional parameters. Supports the following functional options: WithIndexList, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (i *Indices) FlushSynced(options ...Option) (*FlushSyncedResponse, error) {
 	req := i.transport.NewRequest("POST")
 	methodOptions := supportedOptions["FlushSynced"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type FlushSyncedResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *FlushSyncedResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *FlushSyncedResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

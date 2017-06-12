@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // GetSettings - allows to update cluster wide specific settings. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-update-settings.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithFlatSettings, WithIncludeDefaults, WithMasterTimeout, WithTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cluster) GetSettings(options ...*Option) (*GetSettingsResponse, error) {
+func (c *Cluster) GetSettings(options ...Option) (*GetSettingsResponse, error) {
 	req := c.transport.NewRequest("GET")
 	methodOptions := supportedOptions["GetSettings"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type GetSettingsResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *GetSettingsResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *GetSettingsResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

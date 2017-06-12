@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Templates - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-templates.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithName, WithFormat, WithH, WithHelp, WithLocal, WithMasterTimeout, WithS, WithV, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cat) Templates(options ...*Option) (*TemplatesResponse, error) {
+func (c *Cat) Templates(options ...Option) (*TemplatesResponse, error) {
 	req := c.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Templates"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type TemplatesResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *TemplatesResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *TemplatesResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

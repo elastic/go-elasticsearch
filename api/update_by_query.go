@@ -7,14 +7,15 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // UpdateByQuery - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-update-by-query.html for more info.
 //
 // index: a comma-separated list of index names to search; use "_all" or empty string to perform the operation on all indices.
 //
-// options: optional parameters. Supports the following functional options: WithType, WithSource, WithSourceExclude, WithSourceInclude, WithAllowNoIndices, WithAnalyzeWildcard, WithAnalyzer, WithConflicts, WithDefaultOperator, WithDf, WithExpandWildcards, WithFrom, WithIgnoreUnavailable, WithLenient, WithPipeline, WithPreference, WithQ, WithRefresh, WithRequestCache, WithRequestsPerSecond, WithRouting, WithScroll, WithScrollSize, WithSearchTimeout, WithSearchType, WithSize, WithSlices, WithSort, WithStats, WithTerminateAfter, WithTimeout, WithVersion, WithVersionType, WithWaitForActiveShards, WithWaitForCompletion, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) UpdateByQuery(index []string, options ...*Option) (*UpdateByQueryResponse, error) {
+// options: optional parameters. Supports the following functional options: WithTypeList, WithSource, WithSourceExclude, WithSourceInclude, WithAllowNoIndices, WithAnalyzeWildcard, WithAnalyzer, WithConflicts, WithDefaultOperator, WithDf, WithExpandWildcards, WithFrom, WithIgnoreUnavailable, WithLenient, WithPipeline, WithPreference, WithQ, WithRefresh, WithRequestCache, WithRequestsPerSecond, WithRouting, WithScroll, WithScrollSize, WithSearchTimeout, WithSearchType, WithSize, WithSlices, WithSort, WithStats, WithTerminateAfter, WithTimeout, WithVersion, WithVersionType, WithWaitForActiveShards, WithWaitForCompletion, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (a *API) UpdateByQuery(index []string, options ...Option) (*UpdateByQueryResponse, error) {
 	req := a.transport.NewRequest("POST")
 	methodOptions := supportedOptions["UpdateByQuery"]
 	for _, option := range options {
@@ -34,6 +35,6 @@ type UpdateByQueryResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *UpdateByQueryResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *UpdateByQueryResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

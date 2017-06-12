@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Index adds or updates a typed JSON document in a specific index, making it searchable. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-index_.html for more info.
@@ -18,7 +19,7 @@ import (
 // body: the document.
 //
 // options: optional parameters. Supports the following functional options: WithID, WithOpType, WithParent, WithPipeline, WithRefresh, WithRouting, WithTimeout, WithTimestamp, WithTTL, WithVersion, WithVersionType, WithWaitForActiveShards, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) Index(index string, documentType string, body map[string]interface{}, options ...*Option) (*IndexResponse, error) {
+func (a *API) Index(index string, documentType string, body map[string]interface{}, options ...Option) (*IndexResponse, error) {
 	req := a.transport.NewRequest("POST")
 	methodOptions := supportedOptions["Index"]
 	for _, option := range options {
@@ -38,6 +39,6 @@ type IndexResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *IndexResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *IndexResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

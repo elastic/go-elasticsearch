@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // DeleteScript - the scripting module enables you to use scripts to evaluate custom expressions. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/modules-scripting.html for more info.
@@ -14,7 +15,7 @@ import (
 // lang: script language.
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) DeleteScript(lang string, options ...*Option) (*DeleteScriptResponse, error) {
+func (a *API) DeleteScript(lang string, options ...Option) (*DeleteScriptResponse, error) {
 	req := a.transport.NewRequest("DELETE")
 	methodOptions := supportedOptions["DeleteScript"]
 	for _, option := range options {
@@ -34,6 +35,6 @@ type DeleteScriptResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *DeleteScriptResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *DeleteScriptResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

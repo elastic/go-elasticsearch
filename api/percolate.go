@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Percolate - for indices created on or after version 5.0.0-alpha1 the percolator automatically indexes the query terms with the percolator queries. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-percolate.html for more info.
@@ -16,7 +17,7 @@ import (
 // documentType: the type of the document being percolated.
 //
 // options: optional parameters. Supports the following functional options: WithID, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithPercolateFormat, WithPercolateIndex, WithPercolatePreference, WithPercolateRouting, WithPercolateType, WithPreference, WithRouting, WithVersion, WithVersionType, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) Percolate(index string, documentType string, options ...*Option) (*PercolateResponse, error) {
+func (a *API) Percolate(index string, documentType string, options ...Option) (*PercolateResponse, error) {
 	req := a.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Percolate"]
 	for _, option := range options {
@@ -36,6 +37,6 @@ type PercolateResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *PercolateResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *PercolateResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

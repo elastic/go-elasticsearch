@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // PutPipeline - the ingest plugins extend Elasticsearch by providing additional ingest node capabilities. See https://www.elastic.co/guide/en/elasticsearch/plugins/5.x/ingest.html for more info.
@@ -16,7 +17,7 @@ import (
 // body: the ingest definition.
 //
 // options: optional parameters. Supports the following functional options: WithMasterTimeout, WithTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Ingest) PutPipeline(id string, body map[string]interface{}, options ...*Option) (*PutPipelineResponse, error) {
+func (i *Ingest) PutPipeline(id string, body map[string]interface{}, options ...Option) (*PutPipelineResponse, error) {
 	req := i.transport.NewRequest("PUT")
 	methodOptions := supportedOptions["PutPipeline"]
 	for _, option := range options {
@@ -36,6 +37,6 @@ type PutPipelineResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *PutPipelineResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *PutPipelineResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

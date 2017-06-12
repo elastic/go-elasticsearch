@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Exists - used to check if the index (indices) exists or not. See http://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-exists.html for more info.
@@ -14,7 +15,7 @@ import (
 // index: a comma-separated list of index names.
 //
 // options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithExpandWildcards, WithFlatSettings, WithIgnoreUnavailable, WithIncludeDefaults, WithLocal, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) Exists(index []string, options ...*Option) (*ExistsResponse, error) {
+func (i *Indices) Exists(index []string, options ...Option) (*ExistsResponse, error) {
 	req := i.transport.NewRequest("HEAD")
 	methodOptions := supportedOptions["Exists"]
 	for _, option := range options {
@@ -34,6 +35,6 @@ type ExistsResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *ExistsResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *ExistsResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

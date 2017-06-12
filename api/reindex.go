@@ -7,14 +7,15 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Reindex - reindex does not attempt to set up the destination index. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-reindex.html for more info.
 //
 // body: the search definition using the Query DSL and the prototype for the index request.
 //
-// options: optional parameters. Supports the following functional options: WithRefresh, WithRequestsPerSecond, WithSlices, WithTimeout, WithWaitForActiveShards, WithWaitForCompletion, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) Reindex(body map[string]interface{}, options ...*Option) (*ReindexResponse, error) {
+// options: optional parameters. Supports the following functional options: WithRefreshFlag, WithRequestsPerSecond, WithSlices, WithTimeout, WithWaitForActiveShards, WithWaitForCompletion, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (a *API) Reindex(body map[string]interface{}, options ...Option) (*ReindexResponse, error) {
 	req := a.transport.NewRequest("POST")
 	methodOptions := supportedOptions["Reindex"]
 	for _, option := range options {
@@ -34,6 +35,6 @@ type ReindexResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *ReindexResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *ReindexResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

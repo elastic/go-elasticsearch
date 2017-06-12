@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // PutScript - the scripting module enables you to use scripts to evaluate custom expressions. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/modules-scripting.html for more info.
@@ -16,7 +17,7 @@ import (
 // body: the document.
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) PutScript(lang string, body map[string]interface{}, options ...*Option) (*PutScriptResponse, error) {
+func (a *API) PutScript(lang string, body map[string]interface{}, options ...Option) (*PutScriptResponse, error) {
 	req := a.transport.NewRequest("PUT")
 	methodOptions := supportedOptions["PutScript"]
 	for _, option := range options {
@@ -36,6 +37,6 @@ type PutScriptResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *PutScriptResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *PutScriptResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

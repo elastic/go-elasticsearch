@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // DeleteRepository - the snapshot and restore module allows to create snapshots of individual indices or an entire cluster into a remote repository like shared file system, S3, or HDFS. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/modules-snapshots.html for more info.
@@ -14,7 +15,7 @@ import (
 // repository: a comma-separated list of repository names.
 //
 // options: optional parameters. Supports the following functional options: WithMasterTimeout, WithTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (s *Snapshot) DeleteRepository(repository []string, options ...*Option) (*DeleteRepositoryResponse, error) {
+func (s *Snapshot) DeleteRepository(repository []string, options ...Option) (*DeleteRepositoryResponse, error) {
 	req := s.transport.NewRequest("DELETE")
 	methodOptions := supportedOptions["DeleteRepository"]
 	for _, option := range options {
@@ -34,6 +35,6 @@ type DeleteRepositoryResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *DeleteRepositoryResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *DeleteRepositoryResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

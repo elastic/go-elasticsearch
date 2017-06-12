@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Repositories - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-repositories.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithFormat, WithH, WithHelp, WithLocal, WithMasterTimeout, WithS, WithV, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cat) Repositories(options ...*Option) (*RepositoriesResponse, error) {
+func (c *Cat) Repositories(options ...Option) (*RepositoriesResponse, error) {
 	req := c.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Repositories"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type RepositoriesResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *RepositoriesResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *RepositoriesResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

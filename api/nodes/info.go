@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Info - the cluster nodes info API allows to retrieve one or more (or all) of the cluster nodes information. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-nodes-info.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithMetric, WithNodeID, WithFlatSettings, WithTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (n *Nodes) Info(options ...*Option) (*InfoResponse, error) {
+func (n *Nodes) Info(options ...Option) (*InfoResponse, error) {
 	req := n.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Info"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type InfoResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *InfoResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *InfoResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

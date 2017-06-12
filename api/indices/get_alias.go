@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // GetAlias - APIs in Elasticsearch accept an index name when working against a specific index, and several indices when applicable. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-aliases.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithName, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithLocal, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) GetAlias(options ...*Option) (*GetAliasResponse, error) {
+// options: optional parameters. Supports the following functional options: WithIndexList, WithName, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithLocal, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (i *Indices) GetAlias(options ...Option) (*GetAliasResponse, error) {
 	req := i.transport.NewRequest("GET")
 	methodOptions := supportedOptions["GetAlias"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type GetAliasResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *GetAliasResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *GetAliasResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

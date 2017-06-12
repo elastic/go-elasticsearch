@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // HotThreads - an API allowing to get the current hot threads on each node in the cluster. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-nodes-hot-threads.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithNodeID, WithIgnoreIdleThreads, WithInterval, WithSnapshots, WithThreads, WithTimeout, WithType, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (n *Nodes) HotThreads(options ...*Option) (*HotThreadsResponse, error) {
+func (n *Nodes) HotThreads(options ...Option) (*HotThreadsResponse, error) {
 	req := n.transport.NewRequest("GET")
 	methodOptions := supportedOptions["HotThreads"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type HotThreadsResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *HotThreadsResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *HotThreadsResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

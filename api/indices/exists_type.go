@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // ExistsType - used to check if a type/types exists in an index/indices. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-types-exists.html for more info.
@@ -16,7 +17,7 @@ import (
 // documentType: a comma-separated list of document types to check.
 //
 // options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithLocal, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) ExistsType(index []string, documentType []string, options ...*Option) (*ExistsTypeResponse, error) {
+func (i *Indices) ExistsType(index []string, documentType []string, options ...Option) (*ExistsTypeResponse, error) {
 	req := i.transport.NewRequest("HEAD")
 	methodOptions := supportedOptions["ExistsType"]
 	for _, option := range options {
@@ -36,6 +37,6 @@ type ExistsTypeResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *ExistsTypeResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *ExistsTypeResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

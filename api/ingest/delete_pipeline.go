@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // DeletePipeline - the ingest plugins extend Elasticsearch by providing additional ingest node capabilities. See https://www.elastic.co/guide/en/elasticsearch/plugins/5.x/ingest.html for more info.
@@ -14,7 +15,7 @@ import (
 // id: pipeline ID.
 //
 // options: optional parameters. Supports the following functional options: WithMasterTimeout, WithTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Ingest) DeletePipeline(id string, options ...*Option) (*DeletePipelineResponse, error) {
+func (i *Ingest) DeletePipeline(id string, options ...Option) (*DeletePipelineResponse, error) {
 	req := i.transport.NewRequest("DELETE")
 	methodOptions := supportedOptions["DeletePipeline"]
 	for _, option := range options {
@@ -34,6 +35,6 @@ type DeletePipelineResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *DeletePipelineResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *DeletePipelineResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

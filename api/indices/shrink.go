@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Shrink - the shrink index API allows you to shrink an existing index into a new index with fewer primary shards. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-shrink-index.html for more info.
@@ -16,7 +17,7 @@ import (
 // target: the name of the target index to shrink into.
 //
 // options: optional parameters. Supports the following functional options: WithMasterTimeout, WithTimeout, WithWaitForActiveShards, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) Shrink(index string, target string, options ...*Option) (*ShrinkResponse, error) {
+func (i *Indices) Shrink(index string, target string, options ...Option) (*ShrinkResponse, error) {
 	req := i.transport.NewRequest("PUT")
 	methodOptions := supportedOptions["Shrink"]
 	for _, option := range options {
@@ -36,6 +37,6 @@ type ShrinkResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *ShrinkResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *ShrinkResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // VerifyRepository - the snapshot and restore module allows to create snapshots of individual indices or an entire cluster into a remote repository like shared file system, S3, or HDFS. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/modules-snapshots.html for more info.
@@ -14,7 +15,7 @@ import (
 // repository: a repository name.
 //
 // options: optional parameters. Supports the following functional options: WithMasterTimeout, WithTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (s *Snapshot) VerifyRepository(repository string, options ...*Option) (*VerifyRepositoryResponse, error) {
+func (s *Snapshot) VerifyRepository(repository string, options ...Option) (*VerifyRepositoryResponse, error) {
 	req := s.transport.NewRequest("POST")
 	methodOptions := supportedOptions["VerifyRepository"]
 	for _, option := range options {
@@ -34,6 +35,6 @@ type VerifyRepositoryResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *VerifyRepositoryResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *VerifyRepositoryResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

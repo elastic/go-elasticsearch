@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Delete - the delete index API allows to delete an existing index. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-delete-index.html for more info.
@@ -14,7 +15,7 @@ import (
 // index: a comma-separated list of indices to delete; use "_all" or "*" string to delete all indices.
 //
 // options: optional parameters. Supports the following functional options: WithMasterTimeout, WithTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) Delete(index []string, options ...*Option) (*DeleteResponse, error) {
+func (i *Indices) Delete(index []string, options ...Option) (*DeleteResponse, error) {
 	req := i.transport.NewRequest("DELETE")
 	methodOptions := supportedOptions["Delete"]
 	for _, option := range options {
@@ -34,6 +35,6 @@ type DeleteResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *DeleteResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *DeleteResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Delete allows to delete a typed JSON document from a specific index based on its id. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-delete.html for more info.
@@ -18,7 +19,7 @@ import (
 // id: the document ID.
 //
 // options: optional parameters. Supports the following functional options: WithParent, WithRefresh, WithRouting, WithTimeout, WithVersion, WithVersionType, WithWaitForActiveShards, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) Delete(index string, documentType string, id string, options ...*Option) (*DeleteResponse, error) {
+func (a *API) Delete(index string, documentType string, id string, options ...Option) (*DeleteResponse, error) {
 	req := a.transport.NewRequest("DELETE")
 	methodOptions := supportedOptions["Delete"]
 	for _, option := range options {
@@ -38,6 +39,6 @@ type DeleteResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *DeleteResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *DeleteResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

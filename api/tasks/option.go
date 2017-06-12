@@ -22,9 +22,9 @@ type Option struct {
 	apply func(r *transport.Request)
 }
 
-// WithActions - a comma-separated list of actions that should be returned. Leave empty to return all.
-func WithActions(actions []string) *Option {
-	return &Option{
+// WithActions - a comma-separated list of actions that should be cancelled. Leave empty to cancel all.
+func WithActions(actions []string) Option {
+	return Option{
 		name: "WithActions",
 		apply: func(r *transport.Request) {
 		},
@@ -32,8 +32,8 @@ func WithActions(actions []string) *Option {
 }
 
 // WithDetailed - return detailed task information (default: false).
-func WithDetailed(detailed bool) *Option {
-	return &Option{
+func WithDetailed(detailed bool) Option {
+	return Option{
 		name: "WithDetailed",
 		apply: func(r *transport.Request) {
 		},
@@ -41,8 +41,8 @@ func WithDetailed(detailed bool) *Option {
 }
 
 // WithErrorTrace - include the stack trace of returned errors.
-func WithErrorTrace(errorTrace bool) *Option {
-	return &Option{
+func WithErrorTrace(errorTrace bool) Option {
+	return Option{
 		name: "WithErrorTrace",
 		apply: func(r *transport.Request) {
 		},
@@ -50,8 +50,8 @@ func WithErrorTrace(errorTrace bool) *Option {
 }
 
 // WithFilterPath - a comma-separated list of filters used to reduce the respone.
-func WithFilterPath(filterPath []string) *Option {
-	return &Option{
+func WithFilterPath(filterPath []string) Option {
+	return Option{
 		name: "WithFilterPath",
 		apply: func(r *transport.Request) {
 		},
@@ -59,8 +59,8 @@ func WithFilterPath(filterPath []string) *Option {
 }
 
 // WithGroupBy - group tasks by nodes or parent/child relationships.
-func WithGroupBy(groupBy GroupBy) *Option {
-	return &Option{
+func WithGroupBy(groupBy GroupBy) Option {
+	return Option{
 		name: "WithGroupBy",
 		apply: func(r *transport.Request) {
 		},
@@ -68,8 +68,8 @@ func WithGroupBy(groupBy GroupBy) *Option {
 }
 
 // WithHuman - return human readable values for statistics.
-func WithHuman(human bool) *Option {
-	return &Option{
+func WithHuman(human bool) Option {
+	return Option{
 		name: "WithHuman",
 		apply: func(r *transport.Request) {
 		},
@@ -77,8 +77,8 @@ func WithHuman(human bool) *Option {
 }
 
 // WithIgnore - ignores the specified HTTP status codes.
-func WithIgnore(ignore []int) *Option {
-	return &Option{
+func WithIgnore(ignore []int) Option {
+	return Option{
 		name: "WithIgnore",
 		apply: func(r *transport.Request) {
 			for _, status := range ignore {
@@ -89,26 +89,26 @@ func WithIgnore(ignore []int) *Option {
 }
 
 // WithNodeID - a comma-separated list of node IDs or names to limit the returned information; use "_local" to return information from the node you're connecting to, leave empty to get information from all nodes.
-func WithNodeID(nodeID []string) *Option {
-	return &Option{
+func WithNodeID(nodeID []string) Option {
+	return Option{
 		name: "WithNodeID",
 		apply: func(r *transport.Request) {
 		},
 	}
 }
 
-// WithParentNode - return tasks with specified parent node.
-func WithParentNode(parentNode string) *Option {
-	return &Option{
+// WithParentNode - cancel tasks with specified parent node.
+func WithParentNode(parentNode string) Option {
+	return Option{
 		name: "WithParentNode",
 		apply: func(r *transport.Request) {
 		},
 	}
 }
 
-// WithParentTask - return tasks with specified parent task id (node_id:task_number). Set to -1 to return all.
-func WithParentTask(parentTask string) *Option {
-	return &Option{
+// WithParentTask - cancel tasks with specified parent task id (node_id:task_number). Set to -1 to cancel all.
+func WithParentTask(parentTask string) Option {
+	return Option{
 		name: "WithParentTask",
 		apply: func(r *transport.Request) {
 		},
@@ -116,8 +116,8 @@ func WithParentTask(parentTask string) *Option {
 }
 
 // WithPretty - pretty format the returned JSON response.
-func WithPretty(pretty bool) *Option {
-	return &Option{
+func WithPretty(pretty bool) Option {
+	return Option{
 		name: "WithPretty",
 		apply: func(r *transport.Request) {
 		},
@@ -125,17 +125,17 @@ func WithPretty(pretty bool) *Option {
 }
 
 // WithSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-func WithSourceParam(sourceParam string) *Option {
-	return &Option{
+func WithSourceParam(sourceParam string) Option {
+	return Option{
 		name: "WithSourceParam",
 		apply: func(r *transport.Request) {
 		},
 	}
 }
 
-// WithTaskID - return the task with specified id (node_id:task_number).
-func WithTaskID(taskID string) *Option {
-	return &Option{
+// WithTaskID - cancel the task with specified task id (node_id:task_number).
+func WithTaskID(taskID string) Option {
+	return Option{
 		name: "WithTaskID",
 		apply: func(r *transport.Request) {
 		},
@@ -143,8 +143,8 @@ func WithTaskID(taskID string) *Option {
 }
 
 // WithWaitForCompletion - wait for the matching tasks to complete (default: false).
-func WithWaitForCompletion(waitForCompletion bool) *Option {
-	return &Option{
+func WithWaitForCompletion(waitForCompletion bool) Option {
+	return Option{
 		name: "WithWaitForCompletion",
 		apply: func(r *transport.Request) {
 		},
@@ -153,8 +153,13 @@ func WithWaitForCompletion(waitForCompletion bool) *Option {
 
 var (
 	supportedOptions = map[string]map[string]struct{}{
-		"Get": map[string]struct{}{
-			"WithTaskID":            struct{}{},
+		"List": map[string]struct{}{
+			"WithActions":           struct{}{},
+			"WithDetailed":          struct{}{},
+			"WithGroupBy":           struct{}{},
+			"WithNodeID":            struct{}{},
+			"WithParentNode":        struct{}{},
+			"WithParentTask":        struct{}{},
 			"WithWaitForCompletion": struct{}{},
 			"WithErrorTrace":        struct{}{},
 			"WithFilterPath":        struct{}{},
@@ -163,13 +168,8 @@ var (
 			"WithPretty":            struct{}{},
 			"WithSourceParam":       struct{}{},
 		},
-		"List": map[string]struct{}{
-			"WithActions":           struct{}{},
-			"WithDetailed":          struct{}{},
-			"WithGroupBy":           struct{}{},
-			"WithNodeID":            struct{}{},
-			"WithParentNode":        struct{}{},
-			"WithParentTask":        struct{}{},
+		"Get": map[string]struct{}{
+			"WithTaskID":            struct{}{},
 			"WithWaitForCompletion": struct{}{},
 			"WithErrorTrace":        struct{}{},
 			"WithFilterPath":        struct{}{},

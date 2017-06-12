@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Flush allows to flush one or more indices through an API. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-flush.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithForce, WithIgnoreUnavailable, WithWaitIfOngoing, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) Flush(options ...*Option) (*FlushResponse, error) {
+// options: optional parameters. Supports the following functional options: WithIndexList, WithAllowNoIndices, WithExpandWildcards, WithForce, WithIgnoreUnavailable, WithWaitIfOngoing, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (i *Indices) Flush(options ...Option) (*FlushResponse, error) {
 	req := i.transport.NewRequest("POST")
 	methodOptions := supportedOptions["Flush"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type FlushResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *FlushResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *FlushResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

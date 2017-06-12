@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Scroll - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-request-scroll.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithScrollID, WithScroll, WithScrollIDParam, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) Scroll(options ...*Option) (*ScrollResponse, error) {
+func (a *API) Scroll(options ...Option) (*ScrollResponse, error) {
 	req := a.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Scroll"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type ScrollResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *ScrollResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *ScrollResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

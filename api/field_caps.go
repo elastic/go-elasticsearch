@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // FieldCaps - this functionality is experimental and may be changed or removed completely in a future release. See http://www.elastic.co/guide/en/elasticsearch/reference/master/search-field-caps.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithFields, WithIgnoreUnavailable, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) FieldCaps(options ...*Option) (*FieldCapsResponse, error) {
+// options: optional parameters. Supports the following functional options: WithIndexList, WithAllowNoIndices, WithExpandWildcards, WithFields, WithIgnoreUnavailable, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (a *API) FieldCaps(options ...Option) (*FieldCapsResponse, error) {
 	req := a.transport.NewRequest("GET")
 	methodOptions := supportedOptions["FieldCaps"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type FieldCapsResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *FieldCapsResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *FieldCapsResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

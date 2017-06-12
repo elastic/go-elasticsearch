@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Plugins - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-plugins.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithFormat, WithH, WithHelp, WithLocal, WithMasterTimeout, WithS, WithV, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cat) Plugins(options ...*Option) (*PluginsResponse, error) {
+func (c *Cat) Plugins(options ...Option) (*PluginsResponse, error) {
 	req := c.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Plugins"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type PluginsResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *PluginsResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *PluginsResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

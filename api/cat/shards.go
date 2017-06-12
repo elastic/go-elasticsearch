@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Shards - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-shards.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithIndex, WithFormat, WithH, WithHelp, WithLocal, WithMasterTimeout, WithS, WithV, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cat) Shards(options ...*Option) (*ShardsResponse, error) {
+func (c *Cat) Shards(options ...Option) (*ShardsResponse, error) {
 	req := c.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Shards"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type ShardsResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *ShardsResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *ShardsResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

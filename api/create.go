@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Create - the index API adds or updates a typed JSON document in a specific index, making it searchable. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-index_.html for more info.
@@ -20,7 +21,7 @@ import (
 // body: the document.
 //
 // options: optional parameters. Supports the following functional options: WithParent, WithPipeline, WithRefresh, WithRouting, WithTimeout, WithTimestamp, WithTTL, WithVersion, WithVersionType, WithWaitForActiveShards, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) Create(index string, documentType string, id string, body map[string]interface{}, options ...*Option) (*CreateResponse, error) {
+func (a *API) Create(index string, documentType string, id string, body map[string]interface{}, options ...Option) (*CreateResponse, error) {
 	req := a.transport.NewRequest("PUT")
 	methodOptions := supportedOptions["Create"]
 	for _, option := range options {
@@ -40,6 +41,6 @@ type CreateResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *CreateResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *CreateResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

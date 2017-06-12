@@ -7,14 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // ClearScroll - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-request-scroll.html for more info.
 //
-// scrollID: a comma-separated list of scroll IDs to clear.
-//
-// options: optional parameters. Supports the following functional options: WithScrollID, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) ClearScroll(scrollID []string, options ...*Option) (*ClearScrollResponse, error) {
+// options: optional parameters. Supports the following functional options: WithScrollIDList, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (a *API) ClearScroll(options ...Option) (*ClearScrollResponse, error) {
 	req := a.transport.NewRequest("DELETE")
 	methodOptions := supportedOptions["ClearScroll"]
 	for _, option := range options {
@@ -34,6 +33,6 @@ type ClearScrollResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *ClearScrollResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *ClearScrollResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

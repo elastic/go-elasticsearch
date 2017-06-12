@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Count - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-count.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithIndex, WithFormat, WithH, WithHelp, WithLocal, WithMasterTimeout, WithS, WithV, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cat) Count(options ...*Option) (*CountResponse, error) {
+func (c *Cat) Count(options ...Option) (*CountResponse, error) {
 	req := c.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Count"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type CountResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *CountResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *CountResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

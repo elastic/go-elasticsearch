@@ -7,14 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // GetPipeline - the ingest plugins extend Elasticsearch by providing additional ingest node capabilities. See https://www.elastic.co/guide/en/elasticsearch/plugins/5.x/ingest.html for more info.
 //
-// id: comma separated list of pipeline ids. Wildcards supported.
-//
 // options: optional parameters. Supports the following functional options: WithID, WithMasterTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Ingest) GetPipeline(id string, options ...*Option) (*GetPipelineResponse, error) {
+func (i *Ingest) GetPipeline(options ...Option) (*GetPipelineResponse, error) {
 	req := i.transport.NewRequest("GET")
 	methodOptions := supportedOptions["GetPipeline"]
 	for _, option := range options {
@@ -34,6 +33,6 @@ type GetPipelineResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *GetPipelineResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *GetPipelineResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

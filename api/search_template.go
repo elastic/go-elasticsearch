@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // SearchTemplate - see https://www.elastic.co/guide/en/elasticsearch/reference/current/search-template.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithAllowNoIndices, WithExpandWildcards, WithExplain, WithIgnoreUnavailable, WithPreference, WithProfile, WithRouting, WithScroll, WithSearchType, WithTypedKeys, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) SearchTemplate(options ...*Option) (*SearchTemplateResponse, error) {
+// options: optional parameters. Supports the following functional options: WithIndexList, WithTypeList, WithAllowNoIndices, WithExpandWildcards, WithExplain, WithIgnoreUnavailable, WithPreference, WithProfile, WithRouting, WithScroll, WithSearchType, WithTypedKeys, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (a *API) SearchTemplate(options ...Option) (*SearchTemplateResponse, error) {
 	req := a.transport.NewRequest("GET")
 	methodOptions := supportedOptions["SearchTemplate"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type SearchTemplateResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *SearchTemplateResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *SearchTemplateResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

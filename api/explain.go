@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Explain - the explain api computes a score explanation for a query and a specific document. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-explain.html for more info.
@@ -18,7 +19,7 @@ import (
 // id: the document ID.
 //
 // options: optional parameters. Supports the following functional options: WithSource, WithSourceExclude, WithSourceInclude, WithAnalyzeWildcard, WithAnalyzer, WithDefaultOperator, WithDf, WithLenient, WithParent, WithPreference, WithQ, WithRouting, WithStoredFields, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) Explain(index string, documentType string, id string, options ...*Option) (*ExplainResponse, error) {
+func (a *API) Explain(index string, documentType string, id string, options ...Option) (*ExplainResponse, error) {
 	req := a.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Explain"]
 	for _, option := range options {
@@ -38,6 +39,6 @@ type ExplainResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *ExplainResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *ExplainResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

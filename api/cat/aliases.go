@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Aliases - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-alias.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithName, WithFormat, WithH, WithHelp, WithLocal, WithMasterTimeout, WithS, WithV, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cat) Aliases(options ...*Option) (*AliasesResponse, error) {
+// options: optional parameters. Supports the following functional options: WithNameList, WithFormat, WithH, WithHelp, WithLocal, WithMasterTimeout, WithS, WithV, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (c *Cat) Aliases(options ...Option) (*AliasesResponse, error) {
 	req := c.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Aliases"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type AliasesResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *AliasesResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *AliasesResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

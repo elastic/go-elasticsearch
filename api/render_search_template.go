@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // RenderSearchTemplate - see http://www.elasticsearch.org/guide/en/elasticsearch/reference/5.x/search-template.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithID, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) RenderSearchTemplate(options ...*Option) (*RenderSearchTemplateResponse, error) {
+func (a *API) RenderSearchTemplate(options ...Option) (*RenderSearchTemplateResponse, error) {
 	req := a.transport.NewRequest("GET")
 	methodOptions := supportedOptions["RenderSearchTemplate"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type RenderSearchTemplateResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *RenderSearchTemplateResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *RenderSearchTemplateResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

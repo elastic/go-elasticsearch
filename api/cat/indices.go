@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Indices - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-indices.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithIndex, WithBytes, WithFormat, WithH, WithHealth, WithHelp, WithLocal, WithMasterTimeout, WithPri, WithS, WithV, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cat) Indices(options ...*Option) (*IndicesResponse, error) {
+func (c *Cat) Indices(options ...Option) (*IndicesResponse, error) {
 	req := c.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Indices"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type IndicesResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *IndicesResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *IndicesResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

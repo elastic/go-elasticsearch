@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Analyze - performs the analysis process on a text and return the tokens breakdown of the text. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-analyze.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithIndex, WithAnalyzer, WithAttributes, WithCharFilter, WithExplain, WithField, WithFilter, WithFormat, WithIndexParam, WithPreferLocal, WithText, WithTokenizer, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) Analyze(options ...*Option) (*AnalyzeResponse, error) {
+func (i *Indices) Analyze(options ...Option) (*AnalyzeResponse, error) {
 	req := i.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Analyze"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type AnalyzeResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *AnalyzeResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *AnalyzeResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

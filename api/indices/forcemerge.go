@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Forcemerge - the force merge API allows to force merging of one or more indices through an API. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-forcemerge.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithFlush, WithIgnoreUnavailable, WithMaxNumSegments, WithOnlyExpungeDeletes, WithOperationThreading, WithWaitForMerge, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) Forcemerge(options ...*Option) (*ForcemergeResponse, error) {
+// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithFlush, WithIgnoreUnavailable, WithMaxNumSegments, WithOnlyExpungeDeletes, WithWaitForMerge, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (i *Indices) Forcemerge(options ...Option) (*ForcemergeResponse, error) {
 	req := i.transport.NewRequest("POST")
 	methodOptions := supportedOptions["Forcemerge"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type ForcemergeResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *ForcemergeResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *ForcemergeResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

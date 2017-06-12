@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Snapshots - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-snapshots.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithFormat, WithH, WithHelp, WithIgnoreUnavailable, WithMasterTimeout, WithS, WithV, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cat) Snapshots(options ...*Option) (*SnapshotsResponse, error) {
+func (c *Cat) Snapshots(options ...Option) (*SnapshotsResponse, error) {
 	req := c.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Snapshots"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type SnapshotsResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *SnapshotsResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *SnapshotsResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

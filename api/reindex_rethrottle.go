@@ -7,16 +7,15 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // ReindexRethrottle - reindex does not attempt to set up the destination index. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-reindex.html for more info.
 //
-// taskID: the task id to rethrottle.
-//
 // requestsPerSecond: the throttle to set on this request in floating sub-requests per second. -1 means set no throttle.
 //
 // options: optional parameters. Supports the following functional options: WithTaskID, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) ReindexRethrottle(taskID string, requestsPerSecond int, options ...*Option) (*ReindexRethrottleResponse, error) {
+func (a *API) ReindexRethrottle(requestsPerSecond int, options ...Option) (*ReindexRethrottleResponse, error) {
 	req := a.transport.NewRequest("POST")
 	methodOptions := supportedOptions["ReindexRethrottle"]
 	for _, option := range options {
@@ -36,6 +35,6 @@ type ReindexRethrottleResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *ReindexRethrottleResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *ReindexRethrottleResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

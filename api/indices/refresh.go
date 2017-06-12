@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Refresh allows to explicitly refresh one or more index, making all operations performed since the last refresh available for search. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-refresh.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithForce, WithIgnoreUnavailable, WithOperationThreading, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) Refresh(options ...*Option) (*RefreshResponse, error) {
+// options: optional parameters. Supports the following functional options: WithIndexList, WithAllowNoIndices, WithExpandWildcards, WithForce, WithIgnoreUnavailable, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (i *Indices) Refresh(options ...Option) (*RefreshResponse, error) {
 	req := i.transport.NewRequest("POST")
 	methodOptions := supportedOptions["Refresh"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type RefreshResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *RefreshResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *RefreshResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

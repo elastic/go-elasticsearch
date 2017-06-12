@@ -7,14 +7,15 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Suggest - the suggest feature suggests similar looking terms based on a provided text by using a suggester. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-suggesters.html for more info.
 //
 // body: the request definition.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithPreference, WithRouting, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) Suggest(body map[string]interface{}, options ...*Option) (*SuggestResponse, error) {
+// options: optional parameters. Supports the following functional options: WithIndexList, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithPreference, WithRouting, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (a *API) Suggest(body map[string]interface{}, options ...Option) (*SuggestResponse, error) {
 	req := a.transport.NewRequest("POST")
 	methodOptions := supportedOptions["Suggest"]
 	for _, option := range options {
@@ -34,6 +35,6 @@ type SuggestResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *SuggestResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *SuggestResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

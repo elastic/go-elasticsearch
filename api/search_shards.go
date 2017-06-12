@@ -7,16 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // SearchShards - the search shards api returns the indices and shards that a search request would be executed against. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-shards.html for more info.
 //
-// index: a comma-separated list of index names to search; use "_all" or empty string to perform the operation on all indices.
-//
-// documentType: a comma-separated list of document types to search; leave empty to perform the operation on all types.
-//
-// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithLocal, WithPreference, WithRouting, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) SearchShards(index []string, documentType []string, options ...*Option) (*SearchShardsResponse, error) {
+// options: optional parameters. Supports the following functional options: WithIndexList, WithTypeList, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithLocal, WithPreference, WithRouting, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (a *API) SearchShards(options ...Option) (*SearchShardsResponse, error) {
 	req := a.transport.NewRequest("GET")
 	methodOptions := supportedOptions["SearchShards"]
 	for _, option := range options {
@@ -36,6 +33,6 @@ type SearchShardsResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *SearchShardsResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *SearchShardsResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

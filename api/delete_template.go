@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // DeleteTemplate - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-template.html for more info.
@@ -14,7 +15,7 @@ import (
 // id: template ID.
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) DeleteTemplate(id string, options ...*Option) (*DeleteTemplateResponse, error) {
+func (a *API) DeleteTemplate(id string, options ...Option) (*DeleteTemplateResponse, error) {
 	req := a.transport.NewRequest("DELETE")
 	methodOptions := supportedOptions["DeleteTemplate"]
 	for _, option := range options {
@@ -34,6 +35,6 @@ type DeleteTemplateResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *DeleteTemplateResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *DeleteTemplateResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

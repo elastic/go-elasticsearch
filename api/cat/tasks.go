@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Tasks - the task management API allows to retrieve information about the tasks currently executing on one or more nodes in the cluster. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/tasks.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithActions, WithDetailed, WithFormat, WithH, WithHelp, WithNodeID, WithParentNode, WithParentTask, WithS, WithV, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cat) Tasks(options ...*Option) (*TasksResponse, error) {
+func (c *Cat) Tasks(options ...Option) (*TasksResponse, error) {
 	req := c.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Tasks"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type TasksResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *TasksResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *TasksResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

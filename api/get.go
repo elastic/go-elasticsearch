@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Get allows to get a typed JSON document from the index based on its id. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-get.html for more info.
@@ -17,8 +18,8 @@ import (
 //
 // id: the document ID.
 //
-// options: optional parameters. Supports the following functional options: WithSource, WithSourceExclude, WithSourceInclude, WithParent, WithPreference, WithRealtime, WithRefresh, WithRouting, WithStoredFields, WithVersion, WithVersionType, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) Get(index string, documentType string, id string, options ...*Option) (*GetResponse, error) {
+// options: optional parameters. Supports the following functional options: WithSource, WithSourceExclude, WithSourceInclude, WithParent, WithPreference, WithRealtime, WithRefreshFlag, WithRouting, WithStoredFields, WithVersion, WithVersionType, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (a *API) Get(index string, documentType string, id string, options ...Option) (*GetResponse, error) {
 	req := a.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Get"]
 	for _, option := range options {
@@ -38,6 +39,6 @@ type GetResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *GetResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *GetResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

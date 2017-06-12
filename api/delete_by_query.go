@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // DeleteByQuery - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-delete-by-query.html for more info.
@@ -15,8 +16,8 @@ import (
 //
 // body: the search definition using the Query DSL.
 //
-// options: optional parameters. Supports the following functional options: WithType, WithSource, WithSourceExclude, WithSourceInclude, WithAllowNoIndices, WithAnalyzeWildcard, WithAnalyzer, WithConflicts, WithDefaultOperator, WithDf, WithExpandWildcards, WithFrom, WithIgnoreUnavailable, WithLenient, WithPreference, WithQ, WithRefresh, WithRequestCache, WithRequestsPerSecond, WithRouting, WithScroll, WithScrollSize, WithSearchTimeout, WithSearchType, WithSize, WithSlices, WithSort, WithStats, WithTerminateAfter, WithTimeout, WithVersion, WithWaitForActiveShards, WithWaitForCompletion, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) DeleteByQuery(index []string, body map[string]interface{}, options ...*Option) (*DeleteByQueryResponse, error) {
+// options: optional parameters. Supports the following functional options: WithTypeList, WithSource, WithSourceExclude, WithSourceInclude, WithAllowNoIndices, WithAnalyzeWildcard, WithAnalyzer, WithConflicts, WithDefaultOperator, WithDf, WithExpandWildcards, WithFrom, WithIgnoreUnavailable, WithLenient, WithPreference, WithQ, WithRefresh, WithRequestCache, WithRequestsPerSecond, WithRouting, WithScroll, WithScrollSize, WithSearchTimeout, WithSearchType, WithSize, WithSlices, WithSort, WithStats, WithTerminateAfter, WithTimeout, WithVersion, WithWaitForActiveShards, WithWaitForCompletion, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (a *API) DeleteByQuery(index []string, body map[string]interface{}, options ...Option) (*DeleteByQueryResponse, error) {
 	req := a.transport.NewRequest("POST")
 	methodOptions := supportedOptions["DeleteByQuery"]
 	for _, option := range options {
@@ -36,6 +37,6 @@ type DeleteByQueryResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *DeleteByQueryResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *DeleteByQueryResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

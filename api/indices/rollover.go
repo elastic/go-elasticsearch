@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Rollover - the rollover index API rolls an alias over to a new index when the existing index is considered to be too large or too old. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-rollover-index.html for more info.
@@ -14,7 +15,7 @@ import (
 // alias: the name of the alias to rollover.
 //
 // options: optional parameters. Supports the following functional options: WithNewIndex, WithDryRun, WithMasterTimeout, WithTimeout, WithWaitForActiveShards, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) Rollover(alias string, options ...*Option) (*RolloverResponse, error) {
+func (i *Indices) Rollover(alias string, options ...Option) (*RolloverResponse, error) {
 	req := i.transport.NewRequest("POST")
 	methodOptions := supportedOptions["Rollover"]
 	for _, option := range options {
@@ -34,6 +35,6 @@ type RolloverResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *RolloverResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *RolloverResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Get - the get index API allows to retrieve information about one or more indexes. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-get-index.html for more info.
@@ -14,7 +15,7 @@ import (
 // index: a comma-separated list of index names.
 //
 // options: optional parameters. Supports the following functional options: WithFeature, WithAllowNoIndices, WithExpandWildcards, WithFlatSettings, WithIgnoreUnavailable, WithIncludeDefaults, WithLocal, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) Get(index []string, options ...*Option) (*GetResponse, error) {
+func (i *Indices) Get(index []string, options ...Option) (*GetResponse, error) {
 	req := i.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Get"]
 	for _, option := range options {
@@ -34,6 +35,6 @@ type GetResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *GetResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *GetResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

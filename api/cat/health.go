@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Health - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-health.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithFormat, WithH, WithHelp, WithLocal, WithMasterTimeout, WithS, WithTs, WithV, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cat) Health(options ...*Option) (*HealthResponse, error) {
+func (c *Cat) Health(options ...Option) (*HealthResponse, error) {
 	req := c.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Health"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type HealthResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *HealthResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *HealthResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

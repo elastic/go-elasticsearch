@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Info - see http://www.elastic.co/guide/en/elasticsearch/reference/master/remote-info.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (r *Remote) Info(options ...*Option) (*InfoResponse, error) {
+func (r *Remote) Info(options ...Option) (*InfoResponse, error) {
 	req := r.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Info"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type InfoResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *InfoResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *InfoResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

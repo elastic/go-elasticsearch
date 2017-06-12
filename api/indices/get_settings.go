@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // GetSettings - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-get-settings.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithName, WithAllowNoIndices, WithExpandWildcards, WithFlatSettings, WithIgnoreUnavailable, WithIncludeDefaults, WithLocal, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) GetSettings(options ...*Option) (*GetSettingsResponse, error) {
+// options: optional parameters. Supports the following functional options: WithIndexList, WithName, WithAllowNoIndices, WithExpandWildcards, WithFlatSettings, WithIgnoreUnavailable, WithIncludeDefaults, WithLocal, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (i *Indices) GetSettings(options ...Option) (*GetSettingsResponse, error) {
 	req := i.transport.NewRequest("GET")
 	methodOptions := supportedOptions["GetSettings"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type GetSettingsResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *GetSettingsResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *GetSettingsResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

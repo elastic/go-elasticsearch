@@ -7,14 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // GetTemplate - index templates allow you to define templates that will automatically be applied when new indices are created. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-templates.html for more info.
 //
-// name: the comma separated names of the index templates.
-//
 // options: optional parameters. Supports the following functional options: WithName, WithFlatSettings, WithLocal, WithMasterTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) GetTemplate(name []string, options ...*Option) (*GetTemplateResponse, error) {
+func (i *Indices) GetTemplate(options ...Option) (*GetTemplateResponse, error) {
 	req := i.transport.NewRequest("GET")
 	methodOptions := supportedOptions["GetTemplate"]
 	for _, option := range options {
@@ -34,6 +33,6 @@ type GetTemplateResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *GetTemplateResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *GetTemplateResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

@@ -7,14 +7,15 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Mget - multi GET API allows to get multiple documents based on an index, type (optional) and id (and possibly routing). See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-multi-get.html for more info.
 //
 // body: document identifiers; can be either "docs" (containing full document information) or "ids" (when index and type is provided in the URL.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithSource, WithSourceExclude, WithSourceInclude, WithPreference, WithRealtime, WithRefresh, WithRouting, WithStoredFields, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) Mget(body map[string]interface{}, options ...*Option) (*MgetResponse, error) {
+// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithSource, WithSourceExclude, WithSourceInclude, WithPreference, WithRealtime, WithRefreshFlag, WithRouting, WithStoredFields, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (a *API) Mget(body map[string]interface{}, options ...Option) (*MgetResponse, error) {
 	req := a.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Mget"]
 	for _, option := range options {
@@ -34,6 +35,6 @@ type MgetResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *MgetResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *MgetResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

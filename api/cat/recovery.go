@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Recovery - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-recovery.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithIndex, WithBytes, WithFormat, WithH, WithHelp, WithMasterTimeout, WithS, WithV, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cat) Recovery(options ...*Option) (*RecoveryResponse, error) {
+func (c *Cat) Recovery(options ...Option) (*RecoveryResponse, error) {
 	req := c.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Recovery"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type RecoveryResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *RecoveryResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *RecoveryResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

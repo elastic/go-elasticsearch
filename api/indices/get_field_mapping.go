@@ -7,14 +7,15 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // GetFieldMapping - the get field mapping API allows you to retrieve mapping definitions for one or more fields. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-get-field-mapping.html for more info.
 //
 // fields: a comma-separated list of fields.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithIncludeDefaults, WithLocal, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) GetFieldMapping(fields []string, options ...*Option) (*GetFieldMappingResponse, error) {
+// options: optional parameters. Supports the following functional options: WithIndexList, WithType, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithIncludeDefaults, WithLocal, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (i *Indices) GetFieldMapping(fields []string, options ...Option) (*GetFieldMappingResponse, error) {
 	req := i.transport.NewRequest("GET")
 	methodOptions := supportedOptions["GetFieldMapping"]
 	for _, option := range options {
@@ -34,6 +35,6 @@ type GetFieldMappingResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *GetFieldMappingResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *GetFieldMappingResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

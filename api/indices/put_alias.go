@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // PutAlias - APIs in Elasticsearch accept an index name when working against a specific index, and several indices when applicable. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-aliases.html for more info.
@@ -16,7 +17,7 @@ import (
 // name: the name of the alias to be created or updated.
 //
 // options: optional parameters. Supports the following functional options: WithMasterTimeout, WithTimeout, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) PutAlias(index []string, name string, options ...*Option) (*PutAliasResponse, error) {
+func (i *Indices) PutAlias(index []string, name string, options ...Option) (*PutAliasResponse, error) {
 	req := i.transport.NewRequest("PUT")
 	methodOptions := supportedOptions["PutAlias"]
 	for _, option := range options {
@@ -36,6 +37,6 @@ type PutAliasResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *PutAliasResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *PutAliasResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

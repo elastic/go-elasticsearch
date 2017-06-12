@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // PutTemplate - index templates allow you to define templates that will automatically be applied when new indices are created. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-templates.html for more info.
@@ -16,7 +17,7 @@ import (
 // body: the template definition.
 //
 // options: optional parameters. Supports the following functional options: WithCreate, WithFlatSettings, WithMasterTimeout, WithOrder, WithTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) PutTemplate(name string, body map[string]interface{}, options ...*Option) (*PutTemplateResponse, error) {
+func (i *Indices) PutTemplate(name string, body map[string]interface{}, options ...Option) (*PutTemplateResponse, error) {
 	req := i.transport.NewRequest("PUT")
 	methodOptions := supportedOptions["PutTemplate"]
 	for _, option := range options {
@@ -36,6 +37,6 @@ type PutTemplateResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *PutTemplateResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *PutTemplateResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

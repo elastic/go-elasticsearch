@@ -7,14 +7,15 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Msearch - the multi search API allows to execute several search requests within the same API. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-multi-search.html for more info.
 //
 // body: the request definitions (metadata-search request definition pairs), separated by newlines.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithMaxConcurrentSearches, WithSearchType, WithTypedKeys, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) Msearch(body map[string]interface{}, options ...*Option) (*MsearchResponse, error) {
+// options: optional parameters. Supports the following functional options: WithIndexList, WithTypeList, WithMaxConcurrentSearches, WithSearchType, WithTypedKeys, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (a *API) Msearch(body []interface{}, options ...Option) (*MsearchResponse, error) {
 	req := a.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Msearch"]
 	for _, option := range options {
@@ -34,6 +35,6 @@ type MsearchResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *MsearchResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *MsearchResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

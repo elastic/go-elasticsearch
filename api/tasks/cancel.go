@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Cancel - the task management API allows to retrieve information about the tasks currently executing on one or more nodes in the cluster. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/tasks.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithTaskID, WithActions, WithNodeID, WithParentNode, WithParentTask, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (t *Tasks) Cancel(options ...*Option) (*CancelResponse, error) {
+func (t *Tasks) Cancel(options ...Option) (*CancelResponse, error) {
 	req := t.transport.NewRequest("POST")
 	methodOptions := supportedOptions["Cancel"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type CancelResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *CancelResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *CancelResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

@@ -7,14 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Get - the task management API allows to retrieve information about the tasks currently executing on one or more nodes in the cluster. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/tasks.html for more info.
 //
-// taskID: return the task with specified id (node_id:task_number).
-//
 // options: optional parameters. Supports the following functional options: WithTaskID, WithWaitForCompletion, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (t *Tasks) Get(taskID string, options ...*Option) (*GetResponse, error) {
+func (t *Tasks) Get(options ...Option) (*GetResponse, error) {
 	req := t.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Get"]
 	for _, option := range options {
@@ -34,6 +33,6 @@ type GetResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *GetResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *GetResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

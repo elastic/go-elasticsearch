@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // AllocationExplain - the purpose of the cluster allocation explain API is to provide explanations for shard allocations in the cluster. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-allocation-explain.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithIncludeDiskInfo, WithIncludeYesDecisions, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cluster) AllocationExplain(options ...*Option) (*AllocationExplainResponse, error) {
+func (c *Cluster) AllocationExplain(options ...Option) (*AllocationExplainResponse, error) {
 	req := c.transport.NewRequest("GET")
 	methodOptions := supportedOptions["AllocationExplain"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type AllocationExplainResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *AllocationExplainResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *AllocationExplainResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

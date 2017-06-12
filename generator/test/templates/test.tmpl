@@ -10,9 +10,12 @@ import (
 )
 
 {{range .Specs}}{{range.Tests}}{{if .Name}}func {{.Name}}(t *testing.T) {
-  c := client.New()
   {{range .Vars}}var {{.Name}} {{.Type}}
   {{end}}
+  c, err := client.New()
+  if err != nil {
+    t.Fatal(err)
+  }
   t.Skip()
   {{range .Actions}}{{.String}}
   {{end}}

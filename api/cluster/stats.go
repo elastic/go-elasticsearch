@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Stats - the Cluster Stats API allows to retrieve statistics from a cluster wide perspective. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-stats.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithNodeID, WithFlatSettings, WithTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cluster) Stats(options ...*Option) (*StatsResponse, error) {
+func (c *Cluster) Stats(options ...Option) (*StatsResponse, error) {
 	req := c.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Stats"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type StatsResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *StatsResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *StatsResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

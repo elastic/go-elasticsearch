@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // UpdateAliases - APIs in Elasticsearch accept an index name when working against a specific index, and several indices when applicable. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-aliases.html for more info.
@@ -14,7 +15,7 @@ import (
 // body: the definition of "actions" to perform.
 //
 // options: optional parameters. Supports the following functional options: WithMasterTimeout, WithTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) UpdateAliases(body map[string]interface{}, options ...*Option) (*UpdateAliasesResponse, error) {
+func (i *Indices) UpdateAliases(body map[string]interface{}, options ...Option) (*UpdateAliasesResponse, error) {
 	req := i.transport.NewRequest("POST")
 	methodOptions := supportedOptions["UpdateAliases"]
 	for _, option := range options {
@@ -34,6 +35,6 @@ type UpdateAliasesResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *UpdateAliasesResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *UpdateAliasesResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

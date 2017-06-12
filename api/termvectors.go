@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Termvectors - returns information and statistics on terms in the fields of a particular document. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-termvectors.html for more info.
@@ -16,7 +17,7 @@ import (
 // documentType: the type of the document.
 //
 // options: optional parameters. Supports the following functional options: WithID, WithFieldStatistics, WithFields, WithOffsets, WithParent, WithPayloads, WithPositions, WithPreference, WithRealtime, WithRouting, WithTermStatistics, WithVersion, WithVersionType, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) Termvectors(index string, documentType string, options ...*Option) (*TermvectorsResponse, error) {
+func (a *API) Termvectors(index string, documentType string, options ...Option) (*TermvectorsResponse, error) {
 	req := a.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Termvectors"]
 	for _, option := range options {
@@ -36,6 +37,6 @@ type TermvectorsResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *TermvectorsResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *TermvectorsResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

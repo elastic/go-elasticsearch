@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Search allows you to execute a search query and get back search hits that match the query. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-search.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithSource, WithSourceExclude, WithSourceInclude, WithAllowNoIndices, WithAnalyzeWildcard, WithAnalyzer, WithBatchedReduceSize, WithDefaultOperator, WithDf, WithDocvalueFields, WithExpandWildcards, WithExplain, WithFielddataFields, WithFrom, WithIgnoreUnavailable, WithLenient, WithPreference, WithQ, WithRequestCache, WithRouting, WithScroll, WithSearchType, WithSize, WithSort, WithStats, WithStoredFields, WithSuggestField, WithSuggestMode, WithSuggestSize, WithSuggestText, WithTerminateAfter, WithTimeout, WithTrackScores, WithTypedKeys, WithVersion, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) Search(options ...*Option) (*SearchResponse, error) {
+// options: optional parameters. Supports the following functional options: WithIndexList, WithTypeList, WithSource, WithSourceExclude, WithSourceInclude, WithAllowNoIndices, WithAnalyzeWildcard, WithAnalyzer, WithBatchedReduceSize, WithDefaultOperator, WithDf, WithDocvalueFields, WithExpandWildcards, WithExplain, WithFielddataFields, WithFrom, WithIgnoreUnavailable, WithLenient, WithPreference, WithQ, WithRequestCache, WithRouting, WithScroll, WithSearchType, WithSize, WithSort, WithStats, WithStoredFields, WithSuggestField, WithSuggestMode, WithSuggestSize, WithSuggestText, WithTerminateAfter, WithTimeout, WithTrackScores, WithTypedKeys, WithVersion, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (a *API) Search(options ...Option) (*SearchResponse, error) {
 	req := a.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Search"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type SearchResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *SearchResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *SearchResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

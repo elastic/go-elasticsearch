@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // CreateRepository - the snapshot and restore module allows to create snapshots of individual indices or an entire cluster into a remote repository like shared file system, S3, or HDFS. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/modules-snapshots.html for more info.
@@ -16,7 +17,7 @@ import (
 // body: the repository definition.
 //
 // options: optional parameters. Supports the following functional options: WithMasterTimeout, WithTimeout, WithVerify, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (s *Snapshot) CreateRepository(repository string, body map[string]interface{}, options ...*Option) (*CreateRepositoryResponse, error) {
+func (s *Snapshot) CreateRepository(repository string, body map[string]interface{}, options ...Option) (*CreateRepositoryResponse, error) {
 	req := s.transport.NewRequest("PUT")
 	methodOptions := supportedOptions["CreateRepository"]
 	for _, option := range options {
@@ -36,6 +37,6 @@ type CreateRepositoryResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *CreateRepositoryResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *CreateRepositoryResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

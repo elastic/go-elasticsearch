@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Restore - the snapshot and restore module allows to create snapshots of individual indices or an entire cluster into a remote repository like shared file system, S3, or HDFS. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/modules-snapshots.html for more info.
@@ -16,7 +17,7 @@ import (
 // snapshot: a snapshot name.
 //
 // options: optional parameters. Supports the following functional options: WithMasterTimeout, WithWaitForCompletion, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (s *Snapshot) Restore(repository string, snapshot string, options ...*Option) (*RestoreResponse, error) {
+func (s *Snapshot) Restore(repository string, snapshot string, options ...Option) (*RestoreResponse, error) {
 	req := s.transport.NewRequest("POST")
 	methodOptions := supportedOptions["Restore"]
 	for _, option := range options {
@@ -36,6 +37,6 @@ type RestoreResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *RestoreResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *RestoreResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

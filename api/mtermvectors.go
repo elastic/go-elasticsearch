@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Mtermvectors - multi termvectors API allows to get multiple termvectors at once. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-multi-termvectors.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithIndex, WithType, WithFieldStatistics, WithFields, WithIds, WithOffsets, WithParent, WithPayloads, WithPositions, WithPreference, WithRealtime, WithRouting, WithTermStatistics, WithVersion, WithVersionType, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) Mtermvectors(options ...*Option) (*MtermvectorsResponse, error) {
+func (a *API) Mtermvectors(options ...Option) (*MtermvectorsResponse, error) {
 	req := a.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Mtermvectors"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type MtermvectorsResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *MtermvectorsResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *MtermvectorsResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

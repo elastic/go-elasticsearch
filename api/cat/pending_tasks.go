@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // PendingTasks - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-pending-tasks.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithFormat, WithH, WithHelp, WithLocal, WithMasterTimeout, WithS, WithV, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cat) PendingTasks(options ...*Option) (*PendingTasksResponse, error) {
+func (c *Cat) PendingTasks(options ...Option) (*PendingTasksResponse, error) {
 	req := c.transport.NewRequest("GET")
 	methodOptions := supportedOptions["PendingTasks"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type PendingTasksResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *PendingTasksResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *PendingTasksResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

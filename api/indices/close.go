@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Close - the open and close index APIs allow to close an index, and later on opening it. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-open-close.html for more info.
@@ -14,7 +15,7 @@ import (
 // index: a comma separated list of indices to close.
 //
 // options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithMasterTimeout, WithTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) Close(index []string, options ...*Option) (*CloseResponse, error) {
+func (i *Indices) Close(index []string, options ...Option) (*CloseResponse, error) {
 	req := i.transport.NewRequest("POST")
 	methodOptions := supportedOptions["Close"]
 	for _, option := range options {
@@ -34,6 +35,6 @@ type CloseResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *CloseResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *CloseResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

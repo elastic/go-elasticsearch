@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // PutTemplate - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-template.html for more info.
@@ -16,7 +17,7 @@ import (
 // body: the document.
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) PutTemplate(id string, body map[string]interface{}, options ...*Option) (*PutTemplateResponse, error) {
+func (a *API) PutTemplate(id string, body map[string]interface{}, options ...Option) (*PutTemplateResponse, error) {
 	req := a.transport.NewRequest("PUT")
 	methodOptions := supportedOptions["PutTemplate"]
 	for _, option := range options {
@@ -36,6 +37,6 @@ type PutTemplateResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *PutTemplateResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *PutTemplateResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

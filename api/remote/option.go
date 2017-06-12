@@ -13,8 +13,8 @@ type Option struct {
 }
 
 // WithErrorTrace - include the stack trace of returned errors.
-func WithErrorTrace(errorTrace bool) *Option {
-	return &Option{
+func WithErrorTrace(errorTrace bool) Option {
+	return Option{
 		name: "WithErrorTrace",
 		apply: func(r *transport.Request) {
 		},
@@ -22,8 +22,8 @@ func WithErrorTrace(errorTrace bool) *Option {
 }
 
 // WithFilterPath - a comma-separated list of filters used to reduce the respone.
-func WithFilterPath(filterPath []string) *Option {
-	return &Option{
+func WithFilterPath(filterPath []string) Option {
+	return Option{
 		name: "WithFilterPath",
 		apply: func(r *transport.Request) {
 		},
@@ -31,8 +31,8 @@ func WithFilterPath(filterPath []string) *Option {
 }
 
 // WithHuman - return human readable values for statistics.
-func WithHuman(human bool) *Option {
-	return &Option{
+func WithHuman(human bool) Option {
+	return Option{
 		name: "WithHuman",
 		apply: func(r *transport.Request) {
 		},
@@ -40,8 +40,8 @@ func WithHuman(human bool) *Option {
 }
 
 // WithIgnore - ignores the specified HTTP status codes.
-func WithIgnore(ignore []int) *Option {
-	return &Option{
+func WithIgnore(ignore []int) Option {
+	return Option{
 		name: "WithIgnore",
 		apply: func(r *transport.Request) {
 			for _, status := range ignore {
@@ -52,8 +52,8 @@ func WithIgnore(ignore []int) *Option {
 }
 
 // WithPretty - pretty format the returned JSON response.
-func WithPretty(pretty bool) *Option {
-	return &Option{
+func WithPretty(pretty bool) Option {
+	return Option{
 		name: "WithPretty",
 		apply: func(r *transport.Request) {
 		},
@@ -61,8 +61,8 @@ func WithPretty(pretty bool) *Option {
 }
 
 // WithSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-func WithSourceParam(sourceParam string) *Option {
-	return &Option{
+func WithSourceParam(sourceParam string) Option {
+	return Option{
 		name: "WithSourceParam",
 		apply: func(r *transport.Request) {
 		},

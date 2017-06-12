@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Ping - see https://www.elastic.co/guide/ for more info.
 //
 // options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) Ping(options ...*Option) (*PingResponse, error) {
+func (a *API) Ping(options ...Option) (*PingResponse, error) {
 	req := a.transport.NewRequest("HEAD")
 	methodOptions := supportedOptions["Ping"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type PingResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *PingResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *PingResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

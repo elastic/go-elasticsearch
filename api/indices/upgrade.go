@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Upgrade - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-upgrade.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithOnlyAncientSegments, WithWaitForCompletion, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) Upgrade(options ...*Option) (*UpgradeResponse, error) {
+func (i *Indices) Upgrade(options ...Option) (*UpgradeResponse, error) {
 	req := i.transport.NewRequest("POST")
 	methodOptions := supportedOptions["Upgrade"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type UpgradeResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *UpgradeResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *UpgradeResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Allocation - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-allocation.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithNodeID, WithBytes, WithFormat, WithH, WithHelp, WithLocal, WithMasterTimeout, WithS, WithV, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cat) Allocation(options ...*Option) (*AllocationResponse, error) {
+func (c *Cat) Allocation(options ...Option) (*AllocationResponse, error) {
 	req := c.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Allocation"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type AllocationResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *AllocationResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *AllocationResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

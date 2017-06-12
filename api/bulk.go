@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Bulk makes it possible to perform many index/delete operations in a single API call. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-bulk.html for more info.
@@ -14,7 +15,7 @@ import (
 // body: the operation definition and data (action-data pairs), separated by newlines.
 //
 // options: optional parameters. Supports the following functional options: WithIndex, WithType, WithSource, WithSourceExclude, WithSourceInclude, WithFields, WithPipeline, WithRefresh, WithRouting, WithTimeout, WithTypeParam, WithWaitForActiveShards, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) Bulk(body map[string]interface{}, options ...*Option) (*BulkResponse, error) {
+func (a *API) Bulk(body []interface{}, options ...Option) (*BulkResponse, error) {
 	req := a.transport.NewRequest("POST")
 	methodOptions := supportedOptions["Bulk"]
 	for _, option := range options {
@@ -34,6 +35,6 @@ type BulkResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *BulkResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *BulkResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

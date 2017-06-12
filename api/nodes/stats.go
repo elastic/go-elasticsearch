@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Stats - the cluster nodes stats API allows to retrieve one or more (or all) of the cluster nodes statistics. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-nodes-stats.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithIndexMetric, WithMetric, WithNodeID, WithCompletionFields, WithFielddataFields, WithFields, WithGroups, WithIncludeSegmentFileSizes, WithLevel, WithTimeout, WithTypes, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (n *Nodes) Stats(options ...*Option) (*StatsResponse, error) {
+func (n *Nodes) Stats(options ...Option) (*StatsResponse, error) {
 	req := n.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Stats"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type StatsResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *StatsResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *StatsResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

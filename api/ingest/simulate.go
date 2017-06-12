@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Simulate - the ingest plugins extend Elasticsearch by providing additional ingest node capabilities. See https://www.elastic.co/guide/en/elasticsearch/plugins/5.x/ingest.html for more info.
@@ -14,7 +15,7 @@ import (
 // body: the simulate definition.
 //
 // options: optional parameters. Supports the following functional options: WithID, WithVerbose, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Ingest) Simulate(body map[string]interface{}, options ...*Option) (*SimulateResponse, error) {
+func (i *Ingest) Simulate(body map[string]interface{}, options ...Option) (*SimulateResponse, error) {
 	req := i.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Simulate"]
 	for _, option := range options {
@@ -34,6 +35,6 @@ type SimulateResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *SimulateResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *SimulateResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

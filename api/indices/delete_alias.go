@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // DeleteAlias - APIs in Elasticsearch accept an index name when working against a specific index, and several indices when applicable. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-aliases.html for more info.
@@ -16,7 +17,7 @@ import (
 // name: a comma-separated list of aliases to delete (supports wildcards); use "_all" to delete all aliases for the specified indices.
 //
 // options: optional parameters. Supports the following functional options: WithMasterTimeout, WithTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) DeleteAlias(index []string, name []string, options ...*Option) (*DeleteAliasResponse, error) {
+func (i *Indices) DeleteAlias(index []string, name []string, options ...Option) (*DeleteAliasResponse, error) {
 	req := i.transport.NewRequest("DELETE")
 	methodOptions := supportedOptions["DeleteAlias"]
 	for _, option := range options {
@@ -36,6 +37,6 @@ type DeleteAliasResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *DeleteAliasResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *DeleteAliasResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

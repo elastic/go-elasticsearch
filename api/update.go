@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Update allows to update a document based on a script provided. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-update.html for more info.
@@ -18,7 +19,7 @@ import (
 // id: document ID.
 //
 // options: optional parameters. Supports the following functional options: WithSource, WithSourceExclude, WithSourceInclude, WithFields, WithLang, WithParent, WithRefresh, WithRetryOnConflict, WithRouting, WithTimeout, WithTimestamp, WithTTL, WithVersion, WithVersionType, WithWaitForActiveShards, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) Update(index string, documentType string, id string, options ...*Option) (*UpdateResponse, error) {
+func (a *API) Update(index string, documentType string, id string, options ...Option) (*UpdateResponse, error) {
 	req := a.transport.NewRequest("POST")
 	methodOptions := supportedOptions["Update"]
 	for _, option := range options {
@@ -38,6 +39,6 @@ type UpdateResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *UpdateResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *UpdateResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

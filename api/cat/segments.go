@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Segments - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-segments.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithIndex, WithFormat, WithH, WithHelp, WithS, WithV, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cat) Segments(options ...*Option) (*SegmentsResponse, error) {
+func (c *Cat) Segments(options ...Option) (*SegmentsResponse, error) {
 	req := c.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Segments"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type SegmentsResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *SegmentsResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *SegmentsResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

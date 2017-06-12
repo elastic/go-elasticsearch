@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // Reroute - the reroute command allows to explicitly execute a cluster reroute allocation command including specific commands. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-reroute.html for more info.
 //
 // options: optional parameters. Supports the following functional options: WithDryRun, WithExplain, WithMasterTimeout, WithMetric, WithRetryFailed, WithTimeout, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cluster) Reroute(options ...*Option) (*RerouteResponse, error) {
+func (c *Cluster) Reroute(options ...Option) (*RerouteResponse, error) {
 	req := c.transport.NewRequest("POST")
 	methodOptions := supportedOptions["Reroute"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type RerouteResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *RerouteResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *RerouteResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

@@ -7,14 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // ExistsAlias - APIs in Elasticsearch accept an index name when working against a specific index, and several indices when applicable. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-aliases.html for more info.
 //
-// name: a comma-separated list of alias names to return.
-//
-// options: optional parameters. Supports the following functional options: WithIndex, WithName, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithLocal, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) ExistsAlias(name []string, options ...*Option) (*ExistsAliasResponse, error) {
+// options: optional parameters. Supports the following functional options: WithIndexList, WithName, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithLocal, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (i *Indices) ExistsAlias(options ...Option) (*ExistsAliasResponse, error) {
 	req := i.transport.NewRequest("HEAD")
 	methodOptions := supportedOptions["ExistsAlias"]
 	for _, option := range options {
@@ -34,6 +33,6 @@ type ExistsAliasResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *ExistsAliasResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *ExistsAliasResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }

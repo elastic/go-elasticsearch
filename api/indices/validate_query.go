@@ -7,12 +7,13 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
 // ValidateQuery - the validate API allows a user to validate a potentially expensive query without executing it. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-validate.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithAllShards, WithAllowNoIndices, WithAnalyzeWildcard, WithAnalyzer, WithDefaultOperator, WithDf, WithExpandWildcards, WithExplain, WithIgnoreUnavailable, WithLenient, WithOperationThreading, WithQ, WithRewrite, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) ValidateQuery(options ...*Option) (*ValidateQueryResponse, error) {
+// options: optional parameters. Supports the following functional options: WithIndexList, WithType, WithAllShards, WithAllowNoIndices, WithAnalyzeWildcard, WithAnalyzer, WithDefaultOperator, WithDf, WithExpandWildcards, WithExplain, WithIgnoreUnavailable, WithLenient, WithQ, WithRewrite, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
+func (i *Indices) ValidateQuery(options ...Option) (*ValidateQueryResponse, error) {
 	req := i.transport.NewRequest("GET")
 	methodOptions := supportedOptions["ValidateQuery"]
 	for _, option := range options {
@@ -32,6 +33,6 @@ type ValidateQueryResponse struct {
 }
 
 // DecodeBody decodes the JSON body of the HTTP response.
-func (r *ValidateQueryResponse) DecodeBody() (map[string]interface{}, error) {
+func (r *ValidateQueryResponse) DecodeBody() (util.MapStr, error) {
 	return transport.DecodeResponseBody(r.Response)
 }
