@@ -45,10 +45,13 @@ type testcase struct {
 	Name    string
 	Type    testType
 	Actions []*action.Router
+	Vars    map[string]*action.Var
 }
 
 func newTestcase(testSpecFile, testSpec string, methods map[string]*api.Method, templates *template.Template) (*testcase, error) {
-	t := &testcase{}
+	t := &testcase{
+		Vars: map[string]*action.Var{},
+	}
 	if err := yaml.Unmarshal([]byte(testSpec), &t.Spec); err != nil {
 		return nil, err
 	}
@@ -70,9 +73,18 @@ func newTestcase(testSpecFile, testSpec string, methods map[string]*api.Method, 
 			t.Actions = actions
 		}
 		for _, a := range actions {
-			// TODO: use the context
-			if _, err := a.Resolve(testSpecFile, methods, templates); err != nil {
+			ctx, err := a.Resolve(testSpecFile, methods, templates)
+			if err != nil {
 				return nil, err
+			}
+			for _, v := range ctx.Vars {
+				if existing, ok := t.Vars[v.Name]; !ok {
+					t.Vars[v.Name] = v
+				} else {
+					if existing.Type != v.Type {
+						return nil, fmt.Errorf("colliding vars in contexts from the same test")
+					}
+				}
 			}
 		}
 	}

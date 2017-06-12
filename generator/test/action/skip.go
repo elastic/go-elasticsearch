@@ -38,7 +38,7 @@ func newSkip(unmarshal func(interface{}) error) (action, error) {
 
 func (s *skip) Resolve(testSpecFile string, methods map[string]*api.Method,
 	templates *template.Template) (*Context, error) {
-	return nil, nil
+	return &Context{Vars: []*Var{}}, nil
 }
 
 func (s *skip) String() (string, error) {
