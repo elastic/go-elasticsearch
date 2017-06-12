@@ -12,7 +12,7 @@ import (
 
 // ClearCache - the clear cache API allows to clear either all caches or specific cached associated with one or more indices. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-clearcache.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithFieldData, WithFielddata, WithFields, WithIgnoreUnavailable, WithIndexParam, WithQuery, WithRecycler, WithRequest, WithRequestCache, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithIndexList, WithAllowNoIndices, WithExpandWildcards, WithFieldData, WithFielddata, WithFields, WithIgnoreUnavailable, WithIndexParam, WithQuery, WithRecycler, WithRequest, WithRequestCache, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) ClearCache(options ...Option) (*ClearCacheResponse, error) {
 	req := i.transport.NewRequest("POST")
 	methodOptions := supportedOptions["ClearCache"]

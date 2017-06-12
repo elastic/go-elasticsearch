@@ -14,7 +14,7 @@ import (
 //
 // body: the request definitions (metadata-search request definition pairs), separated by newlines.
 //
-// options: optional parameters. Supports the following functional options: WithIndexList, WithTypeList, WithMaxConcurrentSearches, WithSearchType, WithTypedKeys, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithMaxConcurrentSearches, WithSearchType, WithTypedKeys, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (a *API) Msearch(body []interface{}, options ...Option) (*MsearchResponse, error) {
 	req := a.transport.NewRequest("GET")
 	methodOptions := supportedOptions["Msearch"]

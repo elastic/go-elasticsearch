@@ -260,6 +260,18 @@ var (
 			"WithPretty":                  struct{}{},
 			"WithSourceParam":             struct{}{},
 		},
+		"Info": map[string]struct{}{
+			"WithMetric":       struct{}{},
+			"WithNodeID":       struct{}{},
+			"WithFlatSettings": struct{}{},
+			"WithTimeout":      struct{}{},
+			"WithErrorTrace":   struct{}{},
+			"WithFilterPath":   struct{}{},
+			"WithHuman":        struct{}{},
+			"WithIgnore":       struct{}{},
+			"WithPretty":       struct{}{},
+			"WithSourceParam":  struct{}{},
+		},
 		"HotThreads": map[string]struct{}{
 			"WithNodeID":            struct{}{},
 			"WithIgnoreIdleThreads": struct{}{},
@@ -274,18 +286,6 @@ var (
 			"WithIgnore":            struct{}{},
 			"WithPretty":            struct{}{},
 			"WithSourceParam":       struct{}{},
-		},
-		"Info": map[string]struct{}{
-			"WithMetric":       struct{}{},
-			"WithNodeID":       struct{}{},
-			"WithFlatSettings": struct{}{},
-			"WithTimeout":      struct{}{},
-			"WithErrorTrace":   struct{}{},
-			"WithFilterPath":   struct{}{},
-			"WithHuman":        struct{}{},
-			"WithIgnore":       struct{}{},
-			"WithPretty":       struct{}{},
-			"WithSourceParam":  struct{}{},
 		},
 	}
 )

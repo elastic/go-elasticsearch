@@ -71,7 +71,7 @@ func NewMethod(specDir, methodName string, methods map[string]*api.Method, templ
 		if filepath.Ext(file.Name()) != ".yaml" {
 			continue
 		}
-		ts, err := newTestSpec(filepath.Join(testSpecDir, file.Name()), methods, templates)
+		ts, err := newTestSpec(filepath.Join(testSpecDir, file.Name()), methods, m.Method.Name, templates)
 		if err != nil {
 			return nil, err
 		}

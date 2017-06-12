@@ -33,7 +33,8 @@ type testSpec struct {
 	Tests []*testcase
 }
 
-func newTestSpec(specFilePath string, methods map[string]*api.Method, templates *template.Template) (*testSpec, error) {
+func newTestSpec(specFilePath string, methods map[string]*api.Method, methodName string,
+	templates *template.Template) (*testSpec, error) {
 	bytes, err := ioutil.ReadFile(specFilePath)
 	if err != nil {
 		return nil, err
@@ -42,7 +43,7 @@ func newTestSpec(specFilePath string, methods map[string]*api.Method, templates 
 		Tests: []*testcase{},
 	}
 	for _, s := range strings.Split(string(bytes), "---") {
-		t, err := newTestcase(specFilePath, s, methods, templates)
+		t, err := newTestcase(specFilePath, s, methods, methodName, templates)
 		if err != nil {
 			return nil, fmt.Errorf("failed to parse %q: %s", specFilePath, err)
 		}

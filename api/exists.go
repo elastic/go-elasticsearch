@@ -18,7 +18,7 @@ import (
 //
 // id: the document ID.
 //
-// options: optional parameters. Supports the following functional options: WithSource, WithSourceExclude, WithSourceInclude, WithParent, WithPreference, WithRealtime, WithRefreshFlag, WithRouting, WithStoredFields, WithVersion, WithVersionType, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithSource, WithSourceExclude, WithSourceInclude, WithParent, WithPreference, WithRealtime, WithRefresh, WithRouting, WithStoredFields, WithVersion, WithVersionType, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (a *API) Exists(index string, documentType string, id string, options ...Option) (*ExistsResponse, error) {
 	req := a.transport.NewRequest("HEAD")
 	methodOptions := supportedOptions["Exists"]

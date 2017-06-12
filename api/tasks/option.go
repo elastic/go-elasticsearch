@@ -22,7 +22,7 @@ type Option struct {
 	apply func(r *transport.Request)
 }
 
-// WithActions - a comma-separated list of actions that should be cancelled. Leave empty to cancel all.
+// WithActions - a comma-separated list of actions that should be returned. Leave empty to return all.
 func WithActions(actions []string) Option {
 	return Option{
 		name: "WithActions",
@@ -97,7 +97,7 @@ func WithNodeID(nodeID []string) Option {
 	}
 }
 
-// WithParentNode - cancel tasks with specified parent node.
+// WithParentNode - return tasks with specified parent node.
 func WithParentNode(parentNode string) Option {
 	return Option{
 		name: "WithParentNode",
@@ -106,7 +106,7 @@ func WithParentNode(parentNode string) Option {
 	}
 }
 
-// WithParentTask - cancel tasks with specified parent task id (node_id:task_number). Set to -1 to cancel all.
+// WithParentTask - return tasks with specified parent task id (node_id:task_number). Set to -1 to return all.
 func WithParentTask(parentTask string) Option {
 	return Option{
 		name: "WithParentTask",
@@ -133,7 +133,7 @@ func WithSourceParam(sourceParam string) Option {
 	}
 }
 
-// WithTaskID - cancel the task with specified task id (node_id:task_number).
+// WithTaskID - return the task with specified id (node_id:task_number).
 func WithTaskID(taskID string) Option {
 	return Option{
 		name: "WithTaskID",
@@ -153,6 +153,29 @@ func WithWaitForCompletion(waitForCompletion bool) Option {
 
 var (
 	supportedOptions = map[string]map[string]struct{}{
+		"Cancel": map[string]struct{}{
+			"WithTaskID":      struct{}{},
+			"WithActions":     struct{}{},
+			"WithNodeID":      struct{}{},
+			"WithParentNode":  struct{}{},
+			"WithParentTask":  struct{}{},
+			"WithErrorTrace":  struct{}{},
+			"WithFilterPath":  struct{}{},
+			"WithHuman":       struct{}{},
+			"WithIgnore":      struct{}{},
+			"WithPretty":      struct{}{},
+			"WithSourceParam": struct{}{},
+		},
+		"Get": map[string]struct{}{
+			"WithTaskID":            struct{}{},
+			"WithWaitForCompletion": struct{}{},
+			"WithErrorTrace":        struct{}{},
+			"WithFilterPath":        struct{}{},
+			"WithHuman":             struct{}{},
+			"WithIgnore":            struct{}{},
+			"WithPretty":            struct{}{},
+			"WithSourceParam":       struct{}{},
+		},
 		"List": map[string]struct{}{
 			"WithActions":           struct{}{},
 			"WithDetailed":          struct{}{},
@@ -167,29 +190,6 @@ var (
 			"WithIgnore":            struct{}{},
 			"WithPretty":            struct{}{},
 			"WithSourceParam":       struct{}{},
-		},
-		"Get": map[string]struct{}{
-			"WithTaskID":            struct{}{},
-			"WithWaitForCompletion": struct{}{},
-			"WithErrorTrace":        struct{}{},
-			"WithFilterPath":        struct{}{},
-			"WithHuman":             struct{}{},
-			"WithIgnore":            struct{}{},
-			"WithPretty":            struct{}{},
-			"WithSourceParam":       struct{}{},
-		},
-		"Cancel": map[string]struct{}{
-			"WithTaskID":      struct{}{},
-			"WithActions":     struct{}{},
-			"WithNodeID":      struct{}{},
-			"WithParentNode":  struct{}{},
-			"WithParentTask":  struct{}{},
-			"WithErrorTrace":  struct{}{},
-			"WithFilterPath":  struct{}{},
-			"WithHuman":       struct{}{},
-			"WithIgnore":      struct{}{},
-			"WithPretty":      struct{}{},
-			"WithSourceParam": struct{}{},
 		},
 	}
 )

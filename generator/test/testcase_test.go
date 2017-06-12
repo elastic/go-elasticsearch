@@ -43,11 +43,11 @@ func TestDo(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	tc, err := newTestcase("", spec, map[string]*api.Method{"index": m}, templates)
+	tc, err := newTestcase("", spec, map[string]*api.Method{"index": m}, "Index", templates)
 	if err != nil {
 		t.Fatal(err)
 	}
-	expectedName := "TestIndexWithID"
+	expectedName := "TestIndexIndexWithID"
 	if tc.Name != expectedName {
 		t.Fatalf("unexpected test name: %s (expected %q)", tc.Name, expectedName)
 	}
@@ -89,7 +89,7 @@ func TestDoWithMissingParam(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	tc, err := newTestcase("", spec, map[string]*api.Method{"indices.delete_alias": m}, templates)
+	tc, err := newTestcase("", spec, map[string]*api.Method{"indices.delete_alias": m}, "DeleteAlias", templates)
 	if err != nil {
 		t.Fatal(err)
 	}

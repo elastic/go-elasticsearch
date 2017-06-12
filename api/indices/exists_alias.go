@@ -12,7 +12,7 @@ import (
 
 // ExistsAlias - APIs in Elasticsearch accept an index name when working against a specific index, and several indices when applicable. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-aliases.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndexList, WithName, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithLocal, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithIndex, WithName, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithLocal, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) ExistsAlias(options ...Option) (*ExistsAliasResponse, error) {
 	req := i.transport.NewRequest("HEAD")
 	methodOptions := supportedOptions["ExistsAlias"]

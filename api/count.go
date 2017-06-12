@@ -12,7 +12,7 @@ import (
 
 // Count allows to easily execute a query and get the number of matches for that query. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-count.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndexList, WithTypeList, WithAllowNoIndices, WithAnalyzeWildcard, WithAnalyzer, WithDefaultOperator, WithDf, WithExpandWildcards, WithIgnoreUnavailable, WithLenient, WithMinScore, WithPreference, WithQ, WithRouting, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithAllowNoIndices, WithAnalyzeWildcard, WithAnalyzer, WithDefaultOperator, WithDf, WithExpandWildcards, WithIgnoreUnavailable, WithLenient, WithMinScore, WithPreference, WithQ, WithRouting, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (a *API) Count(options ...Option) (*CountResponse, error) {
 	req := a.transport.NewRequest("POST")
 	methodOptions := supportedOptions["Count"]

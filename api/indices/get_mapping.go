@@ -12,7 +12,7 @@ import (
 
 // GetMapping - the get mapping API allows to retrieve mapping definitions for an index or index/type. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-get-mapping.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithLocal, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithIndexList, WithType, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithLocal, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) GetMapping(options ...Option) (*GetMappingResponse, error) {
 	req := i.transport.NewRequest("GET")
 	methodOptions := supportedOptions["GetMapping"]

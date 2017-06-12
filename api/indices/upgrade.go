@@ -12,7 +12,7 @@ import (
 
 // Upgrade - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-upgrade.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithOnlyAncientSegments, WithWaitForCompletion, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithIndexList, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithOnlyAncientSegments, WithWaitForCompletion, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) Upgrade(options ...Option) (*UpgradeResponse, error) {
 	req := i.transport.NewRequest("POST")
 	methodOptions := supportedOptions["Upgrade"]

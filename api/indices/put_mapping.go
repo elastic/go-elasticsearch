@@ -16,7 +16,7 @@ import (
 //
 // body: the mapping definition.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithMasterTimeout, WithTimeout, WithUpdateAllTypes, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithIndexList, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithMasterTimeout, WithTimeout, WithUpdateAllTypes, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (i *Indices) PutMapping(documentType string, body map[string]interface{}, options ...Option) (*PutMappingResponse, error) {
 	req := i.transport.NewRequest("PUT")
 	methodOptions := supportedOptions["PutMapping"]

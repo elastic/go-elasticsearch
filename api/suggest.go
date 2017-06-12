@@ -14,7 +14,7 @@ import (
 //
 // body: the request definition.
 //
-// options: optional parameters. Supports the following functional options: WithIndexList, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithPreference, WithRouting, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
+// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithPreference, WithRouting, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
 func (a *API) Suggest(body map[string]interface{}, options ...Option) (*SuggestResponse, error) {
 	req := a.transport.NewRequest("POST")
 	methodOptions := supportedOptions["Suggest"]

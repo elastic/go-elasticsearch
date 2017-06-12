@@ -48,7 +48,8 @@ type testcase struct {
 	Vars    map[string]*action.Var
 }
 
-func newTestcase(testSpecFile, testSpec string, methods map[string]*api.Method, templates *template.Template) (*testcase, error) {
+func newTestcase(testSpecFile, testSpec string, methods map[string]*api.Method, methodName string,
+	templates *template.Template) (*testcase, error) {
 	t := &testcase{
 		Vars: map[string]*action.Var{},
 	}
@@ -69,7 +70,7 @@ func newTestcase(testSpecFile, testSpec string, methods map[string]*api.Method, 
 			t.Type = testTypeTest
 			re := regexp.MustCompile(`[ =,\-&"*./{}':]`)
 			name = re.ReplaceAllString(name, "_")
-			t.Name = "Test" + snaker.SnakeToCamel(name)
+			t.Name = "Test" + methodName + snaker.SnakeToCamel(name)
 			t.Actions = actions
 		}
 		for _, a := range actions {

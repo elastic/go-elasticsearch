@@ -41,7 +41,7 @@ func WithHuman(human bool) Option {
 	}
 }
 
-// WithID - comma separated list of pipeline ids. Wildcards supported.
+// WithID - pipeline ID.
 func WithID(id string) Option {
 	return Option{
 		name: "WithID",
@@ -109,15 +109,15 @@ func WithVerbose(verbose bool) Option {
 
 var (
 	supportedOptions = map[string]map[string]struct{}{
-		"Simulate": map[string]struct{}{
-			"WithID":          struct{}{},
-			"WithVerbose":     struct{}{},
-			"WithErrorTrace":  struct{}{},
-			"WithFilterPath":  struct{}{},
-			"WithHuman":       struct{}{},
-			"WithIgnore":      struct{}{},
-			"WithPretty":      struct{}{},
-			"WithSourceParam": struct{}{},
+		"GetPipeline": map[string]struct{}{
+			"WithID":            struct{}{},
+			"WithMasterTimeout": struct{}{},
+			"WithErrorTrace":    struct{}{},
+			"WithFilterPath":    struct{}{},
+			"WithHuman":         struct{}{},
+			"WithIgnore":        struct{}{},
+			"WithPretty":        struct{}{},
+			"WithSourceParam":   struct{}{},
 		},
 		"DeletePipeline": map[string]struct{}{
 			"WithMasterTimeout": struct{}{},
@@ -129,19 +129,19 @@ var (
 			"WithPretty":        struct{}{},
 			"WithSourceParam":   struct{}{},
 		},
+		"Simulate": map[string]struct{}{
+			"WithID":          struct{}{},
+			"WithVerbose":     struct{}{},
+			"WithErrorTrace":  struct{}{},
+			"WithFilterPath":  struct{}{},
+			"WithHuman":       struct{}{},
+			"WithIgnore":      struct{}{},
+			"WithPretty":      struct{}{},
+			"WithSourceParam": struct{}{},
+		},
 		"PutPipeline": map[string]struct{}{
 			"WithMasterTimeout": struct{}{},
 			"WithTimeout":       struct{}{},
-			"WithErrorTrace":    struct{}{},
-			"WithFilterPath":    struct{}{},
-			"WithHuman":         struct{}{},
-			"WithIgnore":        struct{}{},
-			"WithPretty":        struct{}{},
-			"WithSourceParam":   struct{}{},
-		},
-		"GetPipeline": map[string]struct{}{
-			"WithID":            struct{}{},
-			"WithMasterTimeout": struct{}{},
 			"WithErrorTrace":    struct{}{},
 			"WithFilterPath":    struct{}{},
 			"WithHuman":         struct{}{},
