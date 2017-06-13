@@ -348,7 +348,7 @@ func (p *Param) String() (string, error) {
 		}
 		// Use the enum name if we find one, otherwise assume we're testing a negative case.
 		if e, valid := p.enumValuesRaw[v]; valid {
-			v = e.Name
+			v = p.PackageName + "." + e.Name
 		} else {
 			v = strconv.Itoa(len(p.EnumValues))
 		}
