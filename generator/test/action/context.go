@@ -26,6 +26,7 @@ type Var struct {
 	Name    string
 	Package string
 	Type    string
+	Pointer bool
 }
 
 var errorVar = &Var{
@@ -53,6 +54,7 @@ func newResponseVar(m *api.Method) *Var {
 		Name:    m.ResponseName,
 		Package: m.PackageName,
 		Type:    m.Name + "Response",
+		Pointer: true,
 	}
 }
 

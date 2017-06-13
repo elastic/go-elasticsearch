@@ -10,7 +10,7 @@ import (
 )
 
 {{range .Specs}}{{range.Tests}}{{if .Name}}func {{.Name}}(t *testing.T) {
-  {{range .Vars}}var {{.Name}} {{if .Package}}{{.Package}}.{{end}}{{.Type}}
+  {{range .Vars}}var {{.Name}} {{if .Pointer}}*{{end}}{{if .Package}}{{.Package}}.{{end}}{{.Type}}
   {{end}}
   c, err := client.New()
   if err != nil {
