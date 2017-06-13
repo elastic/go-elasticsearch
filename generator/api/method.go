@@ -181,6 +181,7 @@ func NewMethod(specDir, specFileName string, commonParams map[string]*Param, tem
 	m.ReceiverName = strings.ToLower(string(m.TypeName[0]))
 	m.ResponseName = snaker.SnakeToCamelLower(m.fileName + "_resp")
 	m.fileName += ".go"
+	// TODO: handle multiple HTTP methods in index.
 	m.HTTPMethod = m.Spec.Methods[0]
 	return m, nil
 }
