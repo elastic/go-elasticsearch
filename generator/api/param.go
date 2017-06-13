@@ -484,7 +484,7 @@ func (p *Param) String() (string, error) {
 		if !ok {
 			return "", &invalidTypeError{p}
 		}
-		return fmt.Sprintf("time.ParseDuration(\"%s\")", v), nil
+		return fmt.Sprintf("util.ParseDuration(\"%s\")", v), nil
 	}
 	return "", nil
 }
