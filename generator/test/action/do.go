@@ -73,6 +73,7 @@ func (d *do) Resolve(testSpecFile string, methods map[string]*api.Method,
 		Methods: []*api.Method{d.Method},
 		Vars: []*Var{
 			newResponseVar(d.Method),
+			bodyVar,
 			errorVar,
 		},
 	}, nil

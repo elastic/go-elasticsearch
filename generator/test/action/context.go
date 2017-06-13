@@ -36,7 +36,7 @@ var errorVar = &Var{
 
 var valueVar = &Var{
 	Name: "v",
-	Type: "map[string]interface{}",
+	Type: "interface{}",
 }
 
 var intVar = &Var{
@@ -47,6 +47,12 @@ var intVar = &Var{
 var boolVar = &Var{
 	Name: "b",
 	Type: "bool",
+}
+
+var bodyVar = &Var{
+	Name:    "body",
+	Package: "util",
+	Type:    "MapStr",
 }
 
 func newResponseVar(m *api.Method) *Var {
