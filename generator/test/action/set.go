@@ -64,7 +64,7 @@ func (s *set) Resolve(testSpecFile string, methods map[string]*api.Method,
 		Vars: []*Var{
 			&Var{
 				Name: s.VarName,
-				Type: "map[string]interface{}",
+				Type: "interface{}",
 			},
 			errorVar,
 		},
