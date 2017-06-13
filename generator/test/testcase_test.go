@@ -60,7 +60,7 @@ func TestDo(t *testing.T) {
 		t.Fatal(err)
 	}
 	expectedCode := `indexResp, err = c.Index("test-weird-index-中文", "weird.type", map[string]interface{}{
-		}, WithID("1"))
+		}, api.WithID("1"))
 if err != nil {
 	t.Fatal(err)
 }

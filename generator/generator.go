@@ -39,7 +39,7 @@ const (
 
 // Generator is a code generator based on JSON and YAML specs and Go template.
 type Generator struct {
-	// methods are API methods populated and map 1:1 with the JSON specs in the rest-api-spec/api dir.
+	// methods are API methods populated and map 1:1 with the endpoints (JSON specs) in the rest-api-spec/api dir.
 	methods map[string]*api.Method
 	// commonParams are common options populated based on rest-api-spec/api/_common.json.
 	commonParams map[string]*api.Param

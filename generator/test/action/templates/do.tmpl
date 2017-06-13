@@ -1,4 +1,4 @@
-{{.Method.ResponseName}}, err = c.{{if ne .Method.PackageName "api"}}{{.Method.TypeName}}.{{end}}{{.Method.Name}}({{range $index, $param := .Method.ParamsWithValues}}{{if .String}}{{if gt $index 0}}, {{end}}{{if .OptionName}}{{.OptionName}}({{end}}{{.String}}{{if .OptionName}}){{end}}{{end}}{{end}})
+{{.Method.ResponseName}}, err = c.{{if ne .Method.PackageName "api"}}{{.Method.TypeName}}.{{end}}{{.Method.Name}}({{range $index, $param := .Method.ParamsWithValues}}{{if .String}}{{if gt $index 0}}, {{end}}{{if .OptionName}}{{.PackageName}}.{{.OptionName}}({{end}}{{.String}}{{if .OptionName}}){{end}}{{end}}{{end}})
 if err != nil {
   t.Fatal(err)
 }

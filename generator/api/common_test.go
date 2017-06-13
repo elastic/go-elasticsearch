@@ -36,6 +36,12 @@ func TestResolve(t *testing.T) {
 	if len(params) == 0 {
 		t.Fatalf("Didn't find any params in the common params spec file")
 	}
+	for name, p := range params {
+		err = p.resolve(name, "", templates)
+		if err != nil {
+			t.Fatal(err)
+		}
+	}
 	human, ok := params["human"]
 	if !ok {
 		t.Fatalf("Expected to see 'human' in common params")

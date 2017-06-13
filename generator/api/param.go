@@ -71,6 +71,7 @@ type Param struct {
 	Serialize          string      `json:"serialize"`
 	Default            interface{} `json:"default"`
 	Options            []string    `json:"options"`
+	PackageName        string
 	OptionName         string
 	EnumValues         []*enum
 	enumValuesRaw      map[string]*enum
@@ -129,8 +130,9 @@ func formatDescription(description string) string {
 	return formatted
 }
 
-func (p *Param) resolve(name string, templates *template.Template) error {
+func (p *Param) resolve(name, packageName string, templates *template.Template) error {
 	p.rawName = name
+	p.PackageName = packageName
 	p.Name, p.OptionName = formatName(name, p.Required)
 	if p.OptionName != "" {
 		if p.optionTemplateName == "" {
@@ -273,6 +275,7 @@ func (p *Param) clone() *Param {
 		Required:      p.Required,
 		Default:       p.Default,
 		Options:       []string{},
+		PackageName:   p.PackageName,
 		OptionName:    p.OptionName,
 		EnumValues:    []*enum{},
 		enumValuesRaw: map[string]*enum{},

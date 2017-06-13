@@ -23,8 +23,9 @@ import "github.com/elastic/go-elasticsearch/generator/api"
 
 // Var is a variable instantiated by an action.
 type Var struct {
-	Name string
-	Type string
+	Name    string
+	Package string
+	Type    string
 }
 
 var errorVar = &Var{
@@ -49,8 +50,9 @@ var boolVar = &Var{
 
 func newResponseVar(m *api.Method) *Var {
 	return &Var{
-		Name: m.ResponseName,
-		Type: m.Name + "Response",
+		Name:    m.ResponseName,
+		Package: m.PackageName,
+		Type:    m.Name + "Response",
 	}
 }
 

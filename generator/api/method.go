@@ -143,22 +143,8 @@ func NewMethod(specDir, specFileName string, commonParams map[string]*Param, tem
 		m.Spec = spec[k]
 		break
 	}
-	if err = m.normalizeParams(m.Spec.URL.Parts, true); err != nil {
-		return nil, err
-	}
-	if err = m.normalizeParams(m.Spec.URL.Params, true); err != nil {
-		return nil, err
-	}
-	if err = m.normalizeParams(commonParams, false); err != nil {
-		return nil, err
-	}
-	if err = m.sortParams(commonParams); err != nil {
-		return nil, err
-	}
-	if m.Spec.Body != nil {
-		if err = m.Spec.Body.resolve(bodyParam, m.templates); err != nil {
-			return nil, err
-		}
+	for name, value := range commonParams {
+		m.commonParams[name] = value.clone()
 	}
 	apiParts := strings.Split(m.RawName, ".")
 	m.PackageName = RootPackage
@@ -170,6 +156,23 @@ func NewMethod(specDir, specFileName string, commonParams map[string]*Param, tem
 		m.fileName = apiParts[1]
 	default:
 		return nil, fmt.Errorf("unexpected API name format: %s", m.RawName)
+	}
+	if err = m.resolveParams(m.Spec.URL.Parts); err != nil {
+		return nil, err
+	}
+	if err = m.resolveParams(m.Spec.URL.Params); err != nil {
+		return nil, err
+	}
+	if err = m.resolveParams(commonParams); err != nil {
+		return nil, err
+	}
+	if err = m.sortParams(); err != nil {
+		return nil, err
+	}
+	if m.Spec.Body != nil {
+		if err = m.Spec.Body.resolve(bodyParam, m.PackageName, m.templates); err != nil {
+			return nil, err
+		}
 	}
 	m.Repo = rootPackageRepo
 	if m.PackageName != RootPackage {
@@ -186,26 +189,24 @@ func NewMethod(specDir, specFileName string, commonParams map[string]*Param, tem
 	return m, nil
 }
 
-func (m *Method) normalizeParams(params map[string]*Param, resolve bool) error {
+func (m *Method) resolveParams(params map[string]*Param) error {
 	for name, p := range params {
-		if resolve {
-			err := p.resolve(name, m.templates)
-			if err != nil {
-				if _, ok := err.(*noTypeError); ok {
-					glog.Error(err)
-					delete(params, name)
-					continue
-				}
-				return fmt.Errorf("failed to normalize params in %q: %s", m.RawName, err)
+		err := p.resolve(name, m.PackageName, m.templates)
+		if err != nil {
+			if _, ok := err.(*noTypeError); ok {
+				glog.Error(err)
+				delete(params, name)
+				continue
 			}
-			if _, ok := m.allParams[p.Name]; ok {
-				p.addSuffix("Param")
-				if _, ok := m.allParams[p.Name]; ok {
-					return fmt.Errorf("param %q seen more than twice", name)
-				}
-			}
-			m.allParams[p.Name] = p
+			return fmt.Errorf("failed to normalize params in %q: %s", m.RawName, err)
 		}
+		if _, ok := m.allParams[p.Name]; ok {
+			p.addSuffix("Param")
+			if _, ok := m.allParams[p.Name]; ok {
+				return fmt.Errorf("param %q seen more than twice", name)
+			}
+		}
+		m.allParams[p.Name] = p
 	}
 	return nil
 }
@@ -274,7 +275,7 @@ func (m *Method) resolveDocumentation() error {
 	}
 }
 
-func (m *Method) sortParams(common map[string]*Param) error {
+func (m *Method) sortParams() error {
 	// Handle URL parts
 	parts := strings.Split(m.Spec.URL.Path, "/")
 	if len(parts) < 2 {
@@ -316,7 +317,7 @@ func (m *Method) sortParams(common map[string]*Param) error {
 	for name := range m.Spec.URL.Params {
 		names = append(names, name)
 	}
-	for name, p := range common {
+	for name, p := range m.commonParams {
 		if p.Required {
 			return fmt.Errorf("%q is required but common params are not supposed to be", p.Name)
 		}
@@ -346,7 +347,7 @@ func (m *Method) sortParams(common map[string]*Param) error {
 	// Sort common params by name and add them at the end.
 	// TODO: we should sort these once and pass a list around.
 	for _, name := range names {
-		if p, ok := common[name]; ok {
+		if p, ok := m.commonParams[name]; ok {
 			m.OptionalURLParams = append(m.OptionalURLParams, p)
 		}
 	}

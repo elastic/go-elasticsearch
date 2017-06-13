@@ -50,10 +50,5 @@ func NewCommonParams(specDir string, templates *template.Template) (map[string]*
 		Description:        "ignores the specified HTTP status codes",
 		optionTemplateName: "ignore.tmpl",
 	}
-	for name, p := range params {
-		if err := p.resolve(name, templates); err != nil {
-			return nil, err
-		}
-	}
 	return params, nil
 }
