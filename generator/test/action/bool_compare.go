@@ -45,9 +45,9 @@ func newBoolCompare(unmarshal func(interface{}) error) (action, error) {
 	for name, key := range b.spec {
 		switch name {
 		case "is_true":
-			b.Operator = "assert.NotZero"
+			b.Operator = "NotZero"
 		case "is_false":
-			b.Operator = "assert.Zero"
+			b.Operator = "Zero"
 		default:
 			return nil, fmt.Errorf("unexpected bool comparison operation: %s", name)
 		}
