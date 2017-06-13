@@ -54,7 +54,7 @@ func (m *match) Resolve(testSpecFile string, methods map[string]*api.Method,
 	return &Context{
 		Vars: []*Var{
 			valueVar,
-			boolVar,
+			errorVar,
 		},
 	}, nil
 }

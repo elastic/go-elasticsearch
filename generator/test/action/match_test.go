@@ -56,9 +56,9 @@ func TestMatch(t *testing.T) {
 	expectedCode := `for name, expectedValue := range map[string]string{
 	` + "`_index` : `test-weird-index-中文`" + `,
 } {
-	v, b = body.GetValue(name)
-	if !b {
-		t.Fatalf("response does not contain %q", name)
+	v, err = body.GetValue(name)
+	if err != nil {
+		t.Fatal(err)
 	}
 	if v != expectedValue {
 		t.Fatalf("expected %q to be %q, got %q", name, expectedValue, v)
