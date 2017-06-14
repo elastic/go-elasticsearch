@@ -43,11 +43,11 @@ func TestDo(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	tc, err := newTestcase("", spec, map[string]*api.Method{"index": m}, "Index", templates)
+	tc, err := newTestcase("10_with_id.yaml", spec, map[string]*api.Method{"index": m}, "Index", templates)
 	if err != nil {
 		t.Fatal(err)
 	}
-	expectedName := "TestIndexIndexWithID"
+	expectedName := "Test10WithIDIndexIndexWithID"
 	if tc.Name != expectedName {
 		t.Fatalf("unexpected test name: %s (expected %q)", tc.Name, expectedName)
 	}

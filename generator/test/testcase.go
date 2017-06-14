@@ -21,6 +21,7 @@ package test
 
 import (
 	"fmt"
+	"path/filepath"
 	"regexp"
 	"text/template"
 
@@ -59,6 +60,8 @@ func newTestcase(testSpecFile, testSpec string, methods map[string]*api.Method, 
 	if len(t.Spec) > 3 {
 		return nil, fmt.Errorf("document %#v contains more than one test", t.Spec)
 	}
+	testSpecFileExt := filepath.Ext(testSpecFile)
+	specFileBase := filepath.Base(testSpecFile[:len(testSpecFile)-len(testSpecFileExt)])
 	for name, actions := range t.Spec {
 		switch name {
 		case "setup":
@@ -70,7 +73,7 @@ func newTestcase(testSpecFile, testSpec string, methods map[string]*api.Method, 
 			t.Type = testTypeTest
 			re := regexp.MustCompile(`[ =,\-&"*./{}':]`)
 			name = re.ReplaceAllString(name, "_")
-			t.Name = "Test" + methodName + snaker.SnakeToCamel(name)
+			t.Name = "Test" + snaker.SnakeToCamel(specFileBase+"_"+methodName+"_"+name)
 			t.Actions = actions
 		}
 		for _, a := range actions {
