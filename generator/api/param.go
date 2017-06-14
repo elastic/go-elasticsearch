@@ -73,6 +73,7 @@ type Param struct {
 	Options            []string    `json:"options"`
 	PackageName        string
 	OptionName         string
+	OptionType         string
 	EnumValues         []*enum
 	enumValuesRaw      map[string]*enum
 	optionTemplateName string
@@ -81,7 +82,7 @@ type Param struct {
 	Value interface{}
 }
 
-func formatName(name string, required bool) (string, string) {
+func formatName(name, methodName string, required bool) (string, string) {
 	// Make sure we don't mix _source and source
 	if name == "source" {
 		name = "source_param"
@@ -98,7 +99,7 @@ func formatName(name string, required bool) (string, string) {
 		paramName = snaker.SnakeToCamelLower(name)
 	}
 	if !required {
-		optionName = "With" + snaker.SnakeToCamel(name)
+		optionName = "With" + methodName + snaker.SnakeToCamel(name)
 	}
 	return paramName, optionName
 }
@@ -130,11 +131,12 @@ func formatDescription(description string) string {
 	return formatted
 }
 
-func (p *Param) resolve(name, packageName string, templates *template.Template) error {
+func (p *Param) resolve(name, packageName, methodName string, templates *template.Template) error {
 	p.rawName = name
 	p.PackageName = packageName
-	p.Name, p.OptionName = formatName(name, p.Required)
+	p.Name, p.OptionName = formatName(name, methodName, p.Required)
 	if p.OptionName != "" {
+		p.OptionType = methodName + "Option"
 		if p.optionTemplateName == "" {
 			p.optionTemplateName = "option.tmpl"
 		}
@@ -154,7 +156,7 @@ func (p *Param) resolve(name, packageName string, templates *template.Template) 
 	case specTypeBoolean:
 		p.Type = "bool"
 	case specTypeEnum:
-		p.Type = snaker.SnakeToCamel(p.Name)
+		p.Type = methodName + snaker.SnakeToCamel(p.Name)
 		p.EnumValues = []*enum{}
 		p.enumValuesRaw = map[string]*enum{}
 		for _, o := range p.Options {
@@ -228,44 +230,6 @@ func (p *Param) addSuffix(suffix string) error {
 	return nil
 }
 
-func (p *Param) deduplicate(other *Param, swap bool) error {
-	diffs := p.diff(other)
-	if len(diffs) == 0 {
-		return nil
-	}
-	if _, ok := diffs["SpecType"]; !ok {
-		// If the types are different and only the defaults are different, apply the same the default to both if one of them
-		// is not set.
-		if _, ok = diffs["Default"]; ok && len(diffs) == 1 {
-			if p.Default == nil {
-				p.Default = other.Default
-			} else if other.Default == nil {
-				other.Default = p.Default
-			} else {
-				return fmt.Errorf("found two versions of %q with different defaults", p.Name)
-			}
-		} else {
-			return fmt.Errorf("found two different versions of %q differing in: %s", p.Name, diffs)
-		}
-	}
-	switch p.SpecType {
-	case specTypeBoolean:
-		if other.SpecType != specTypeBoolean {
-			p.addSuffix("Flag")
-		}
-	case specTypeList:
-		if other.SpecType != specTypeList {
-			p.addSuffix("List")
-		}
-	default:
-		if swap {
-			return other.deduplicate(p, false)
-		}
-		return fmt.Errorf("found two different versions of %q (%s and %s)", p.Name, p.SpecType, other.SpecType)
-	}
-	return nil
-}
-
 func (p *Param) clone() *Param {
 	c := &Param{
 		Name:          p.Name,
@@ -277,6 +241,7 @@ func (p *Param) clone() *Param {
 		Options:       []string{},
 		PackageName:   p.PackageName,
 		OptionName:    p.OptionName,
+		OptionType:    p.OptionType,
 		EnumValues:    []*enum{},
 		enumValuesRaw: map[string]*enum{},
 	}

@@ -3,24 +3,124 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// FieldStatsOption is a non-required FieldStats option that gets applied to an HTTP request.
+type FieldStatsOption func(r *transport.Request)
+
+// WithFieldStatsIndex - a comma-separated list of index names; use "_all" or empty string to perform the operation on all indices.
+func WithFieldStatsIndex(index []string) FieldStatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFieldStatsAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
+func WithFieldStatsAllowNoIndices(allowNoIndices bool) FieldStatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// FieldStatsExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+type FieldStatsExpandWildcards int
+
+const (
+	// FieldStatsExpandWildcardsOpen can be used to set FieldStatsExpandWildcards to "open"
+	FieldStatsExpandWildcardsOpen = iota
+	// FieldStatsExpandWildcardsClosed can be used to set FieldStatsExpandWildcards to "closed"
+	FieldStatsExpandWildcardsClosed = iota
+	// FieldStatsExpandWildcardsNone can be used to set FieldStatsExpandWildcards to "none"
+	FieldStatsExpandWildcardsNone = iota
+	// FieldStatsExpandWildcardsAll can be used to set FieldStatsExpandWildcards to "all"
+	FieldStatsExpandWildcardsAll = iota
+)
+
+// WithFieldStatsExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+func WithFieldStatsExpandWildcards(expandWildcards FieldStatsExpandWildcards) FieldStatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFieldStatsFields - a comma-separated list of fields for to get field statistics for (min value, max value, and more).
+func WithFieldStatsFields(fields []string) FieldStatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFieldStatsIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
+func WithFieldStatsIgnoreUnavailable(ignoreUnavailable bool) FieldStatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// FieldStatsLevel - defines if field stats should be returned on a per index level or on a cluster wide level.
+type FieldStatsLevel int
+
+const (
+	// FieldStatsLevelIndices can be used to set FieldStatsLevel to "indices"
+	FieldStatsLevelIndices = iota
+	// FieldStatsLevelCluster can be used to set FieldStatsLevel to "cluster"
+	FieldStatsLevelCluster = iota
+)
+
+// WithFieldStatsLevel - defines if field stats should be returned on a per index level or on a cluster wide level.
+func WithFieldStatsLevel(level FieldStatsLevel) FieldStatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFieldStatsBody - field json objects containing the name and optionally a range to filter out indices result, that have results outside the defined bounds.
+func WithFieldStatsBody(body map[string]interface{}) FieldStatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFieldStatsErrorTrace - include the stack trace of returned errors.
+func WithFieldStatsErrorTrace(errorTrace bool) FieldStatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFieldStatsFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithFieldStatsFilterPath(filterPath []string) FieldStatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFieldStatsHuman - return human readable values for statistics.
+func WithFieldStatsHuman(human bool) FieldStatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFieldStatsIgnore - ignores the specified HTTP status codes.
+func WithFieldStatsIgnore(ignore []int) FieldStatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFieldStatsPretty - pretty format the returned JSON response.
+func WithFieldStatsPretty(pretty bool) FieldStatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFieldStatsSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithFieldStatsSourceParam(sourceParam string) FieldStatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // FieldStats - this functionality is experimental and may be changed or removed completely in a future release. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-field-stats.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndexList, WithAllowNoIndices, WithExpandWildcards, WithFields, WithIgnoreUnavailable, WithLevel, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) FieldStats(options ...Option) (*FieldStatsResponse, error) {
+// options: optional parameters.
+func (a *API) FieldStats(options ...FieldStatsOption) (*FieldStatsResponse, error) {
 	req := a.transport.NewRequest("GET")
-	methodOptions := supportedOptions["FieldStats"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := a.transport.Do(req)
 	return &FieldStatsResponse{resp}, err

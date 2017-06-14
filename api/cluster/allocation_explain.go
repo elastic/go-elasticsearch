@@ -3,24 +3,76 @@
 package cluster
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// AllocationExplainOption is a non-required AllocationExplain option that gets applied to an HTTP request.
+type AllocationExplainOption func(r *transport.Request)
+
+// WithAllocationExplainIncludeDiskInfo - return information about disk usage and shard sizes (default: false).
+func WithAllocationExplainIncludeDiskInfo(includeDiskInfo bool) AllocationExplainOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAllocationExplainIncludeYesDecisions - return 'YES' decisions in explanation (default: false).
+func WithAllocationExplainIncludeYesDecisions(includeYesDecisions bool) AllocationExplainOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAllocationExplainBody - the index, shard, and primary flag to explain. Empty means 'explain the first unassigned shard'.
+func WithAllocationExplainBody(body map[string]interface{}) AllocationExplainOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAllocationExplainErrorTrace - include the stack trace of returned errors.
+func WithAllocationExplainErrorTrace(errorTrace bool) AllocationExplainOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAllocationExplainFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithAllocationExplainFilterPath(filterPath []string) AllocationExplainOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAllocationExplainHuman - return human readable values for statistics.
+func WithAllocationExplainHuman(human bool) AllocationExplainOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAllocationExplainIgnore - ignores the specified HTTP status codes.
+func WithAllocationExplainIgnore(ignore []int) AllocationExplainOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAllocationExplainPretty - pretty format the returned JSON response.
+func WithAllocationExplainPretty(pretty bool) AllocationExplainOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAllocationExplainSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithAllocationExplainSourceParam(sourceParam string) AllocationExplainOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // AllocationExplain - the purpose of the cluster allocation explain API is to provide explanations for shard allocations in the cluster. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-allocation-explain.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIncludeDiskInfo, WithIncludeYesDecisions, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cluster) AllocationExplain(options ...Option) (*AllocationExplainResponse, error) {
+// options: optional parameters.
+func (c *Cluster) AllocationExplain(options ...AllocationExplainOption) (*AllocationExplainResponse, error) {
 	req := c.transport.NewRequest("GET")
-	methodOptions := supportedOptions["AllocationExplain"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := c.transport.Do(req)
 	return &AllocationExplainResponse{resp}, err

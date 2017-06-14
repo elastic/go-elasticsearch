@@ -3,24 +3,110 @@
 package tasks
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// ListOption is a non-required List option that gets applied to an HTTP request.
+type ListOption func(r *transport.Request)
+
+// WithListActions - a comma-separated list of actions that should be returned. Leave empty to return all.
+func WithListActions(actions []string) ListOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithListDetailed - return detailed task information (default: false).
+func WithListDetailed(detailed bool) ListOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// ListGroupBy - group tasks by nodes or parent/child relationships.
+type ListGroupBy int
+
+const (
+	// ListGroupByNodes can be used to set ListGroupBy to "nodes"
+	ListGroupByNodes = iota
+	// ListGroupByParents can be used to set ListGroupBy to "parents"
+	ListGroupByParents = iota
+)
+
+// WithListGroupBy - group tasks by nodes or parent/child relationships.
+func WithListGroupBy(groupBy ListGroupBy) ListOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithListNodeID - a comma-separated list of node IDs or names to limit the returned information; use "_local" to return information from the node you're connecting to, leave empty to get information from all nodes.
+func WithListNodeID(nodeID []string) ListOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithListParentNode - return tasks with specified parent node.
+func WithListParentNode(parentNode string) ListOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithListParentTask - return tasks with specified parent task id (node_id:task_number). Set to -1 to return all.
+func WithListParentTask(parentTask string) ListOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithListWaitForCompletion - wait for the matching tasks to complete (default: false).
+func WithListWaitForCompletion(waitForCompletion bool) ListOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithListErrorTrace - include the stack trace of returned errors.
+func WithListErrorTrace(errorTrace bool) ListOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithListFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithListFilterPath(filterPath []string) ListOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithListHuman - return human readable values for statistics.
+func WithListHuman(human bool) ListOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithListIgnore - ignores the specified HTTP status codes.
+func WithListIgnore(ignore []int) ListOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithListPretty - pretty format the returned JSON response.
+func WithListPretty(pretty bool) ListOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithListSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithListSourceParam(sourceParam string) ListOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // List - the task management API allows to retrieve information about the tasks currently executing on one or more nodes in the cluster. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/tasks.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithActions, WithDetailed, WithGroupBy, WithNodeID, WithParentNode, WithParentTask, WithWaitForCompletion, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (t *Tasks) List(options ...Option) (*ListResponse, error) {
+// options: optional parameters.
+func (t *Tasks) List(options ...ListOption) (*ListResponse, error) {
 	req := t.transport.NewRequest("GET")
-	methodOptions := supportedOptions["List"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := t.transport.Do(req)
 	return &ListResponse{resp}, err

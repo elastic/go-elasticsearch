@@ -3,26 +3,73 @@
 package ingest
 
 import (
-	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// DeletePipelineOption is a non-required DeletePipeline option that gets applied to an HTTP request.
+type DeletePipelineOption func(r *transport.Request)
+
+// WithDeletePipelineMasterTimeout - explicit operation timeout for connection to master node.
+func WithDeletePipelineMasterTimeout(masterTimeout time.Duration) DeletePipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeletePipelineTimeout - explicit operation timeout.
+func WithDeletePipelineTimeout(timeout time.Duration) DeletePipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeletePipelineErrorTrace - include the stack trace of returned errors.
+func WithDeletePipelineErrorTrace(errorTrace bool) DeletePipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeletePipelineFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithDeletePipelineFilterPath(filterPath []string) DeletePipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeletePipelineHuman - return human readable values for statistics.
+func WithDeletePipelineHuman(human bool) DeletePipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeletePipelineIgnore - ignores the specified HTTP status codes.
+func WithDeletePipelineIgnore(ignore []int) DeletePipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeletePipelinePretty - pretty format the returned JSON response.
+func WithDeletePipelinePretty(pretty bool) DeletePipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeletePipelineSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithDeletePipelineSourceParam(sourceParam string) DeletePipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // DeletePipeline - the ingest plugins extend Elasticsearch by providing additional ingest node capabilities. See https://www.elastic.co/guide/en/elasticsearch/plugins/5.x/ingest.html for more info.
 //
 // id: pipeline ID.
 //
-// options: optional parameters. Supports the following functional options: WithMasterTimeout, WithTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Ingest) DeletePipeline(id string, options ...Option) (*DeletePipelineResponse, error) {
+// options: optional parameters.
+func (i *Ingest) DeletePipeline(id string, options ...DeletePipelineOption) (*DeletePipelineResponse, error) {
 	req := i.transport.NewRequest("DELETE")
-	methodOptions := supportedOptions["DeletePipeline"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := i.transport.Do(req)
 	return &DeletePipelineResponse{resp}, err

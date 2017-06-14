@@ -3,24 +3,76 @@
 package indices
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// RecoveryOption is a non-required Recovery option that gets applied to an HTTP request.
+type RecoveryOption func(r *transport.Request)
+
+// WithRecoveryIndex - a comma-separated list of index names; use "_all" or empty string to perform the operation on all indices.
+func WithRecoveryIndex(index []string) RecoveryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRecoveryActiveOnly - display only those recoveries that are currently on-going.
+func WithRecoveryActiveOnly(activeOnly bool) RecoveryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRecoveryDetailed - whether to display detailed information about shard recovery.
+func WithRecoveryDetailed(detailed bool) RecoveryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRecoveryErrorTrace - include the stack trace of returned errors.
+func WithRecoveryErrorTrace(errorTrace bool) RecoveryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRecoveryFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithRecoveryFilterPath(filterPath []string) RecoveryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRecoveryHuman - return human readable values for statistics.
+func WithRecoveryHuman(human bool) RecoveryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRecoveryIgnore - ignores the specified HTTP status codes.
+func WithRecoveryIgnore(ignore []int) RecoveryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRecoveryPretty - pretty format the returned JSON response.
+func WithRecoveryPretty(pretty bool) RecoveryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRecoverySourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithRecoverySourceParam(sourceParam string) RecoveryOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // Recovery - the indices recovery API provides insight into on-going index shard recoveries. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-recovery.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndexList, WithActiveOnly, WithDetailed, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) Recovery(options ...Option) (*RecoveryResponse, error) {
+// options: optional parameters.
+func (i *Indices) Recovery(options ...RecoveryOption) (*RecoveryResponse, error) {
 	req := i.transport.NewRequest("GET")
-	methodOptions := supportedOptions["Recovery"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := i.transport.Do(req)
 	return &RecoveryResponse{resp}, err

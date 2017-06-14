@@ -3,12 +3,75 @@
 package indices
 
 import (
-	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
+
+// ShrinkOption is a non-required Shrink option that gets applied to an HTTP request.
+type ShrinkOption func(r *transport.Request)
+
+// WithShrinkMasterTimeout - specify timeout for connection to master.
+func WithShrinkMasterTimeout(masterTimeout time.Duration) ShrinkOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithShrinkTimeout - explicit operation timeout.
+func WithShrinkTimeout(timeout time.Duration) ShrinkOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithShrinkWaitForActiveShards - set the number of active shards to wait for on the shrunken index before the operation returns.
+func WithShrinkWaitForActiveShards(waitForActiveShards string) ShrinkOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithShrinkBody - the configuration for the target index ("settings" and "aliases").
+func WithShrinkBody(body map[string]interface{}) ShrinkOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithShrinkErrorTrace - include the stack trace of returned errors.
+func WithShrinkErrorTrace(errorTrace bool) ShrinkOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithShrinkFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithShrinkFilterPath(filterPath []string) ShrinkOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithShrinkHuman - return human readable values for statistics.
+func WithShrinkHuman(human bool) ShrinkOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithShrinkIgnore - ignores the specified HTTP status codes.
+func WithShrinkIgnore(ignore []int) ShrinkOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithShrinkPretty - pretty format the returned JSON response.
+func WithShrinkPretty(pretty bool) ShrinkOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithShrinkSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithShrinkSourceParam(sourceParam string) ShrinkOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // Shrink - the shrink index API allows you to shrink an existing index into a new index with fewer primary shards. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-shrink-index.html for more info.
 //
@@ -16,15 +79,11 @@ import (
 //
 // target: the name of the target index to shrink into.
 //
-// options: optional parameters. Supports the following functional options: WithMasterTimeout, WithTimeout, WithWaitForActiveShards, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) Shrink(index string, target string, options ...Option) (*ShrinkResponse, error) {
+// options: optional parameters.
+func (i *Indices) Shrink(index string, target string, options ...ShrinkOption) (*ShrinkResponse, error) {
 	req := i.transport.NewRequest("PUT")
-	methodOptions := supportedOptions["Shrink"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := i.transport.Do(req)
 	return &ShrinkResponse{resp}, err

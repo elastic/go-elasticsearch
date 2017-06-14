@@ -3,26 +3,120 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// MgetOption is a non-required Mget option that gets applied to an HTTP request.
+type MgetOption func(r *transport.Request)
+
+// WithMgetIndex - the name of the index.
+func WithMgetIndex(index string) MgetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMgetType - the type of the document.
+func WithMgetType(documentType string) MgetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMgetSource - true or false to return the _source field or not, or a list of fields to return.
+func WithMgetSource(source []string) MgetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMgetSourceExclude - a list of fields to exclude from the returned _source field.
+func WithMgetSourceExclude(sourceExclude []string) MgetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMgetSourceInclude - a list of fields to extract and return from the _source field.
+func WithMgetSourceInclude(sourceInclude []string) MgetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMgetPreference - specify the node or shard the operation should be performed on (default: random).
+func WithMgetPreference(preference string) MgetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMgetRealtime - specify whether to perform the operation in realtime or search mode.
+func WithMgetRealtime(realtime bool) MgetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMgetRefresh - refresh the shard containing the document before performing the operation.
+func WithMgetRefresh(refresh bool) MgetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMgetRouting - specific routing value.
+func WithMgetRouting(routing string) MgetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMgetStoredFields - a comma-separated list of stored fields to return in the response.
+func WithMgetStoredFields(storedFields []string) MgetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMgetErrorTrace - include the stack trace of returned errors.
+func WithMgetErrorTrace(errorTrace bool) MgetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMgetFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithMgetFilterPath(filterPath []string) MgetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMgetHuman - return human readable values for statistics.
+func WithMgetHuman(human bool) MgetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMgetIgnore - ignores the specified HTTP status codes.
+func WithMgetIgnore(ignore []int) MgetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMgetPretty - pretty format the returned JSON response.
+func WithMgetPretty(pretty bool) MgetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMgetSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithMgetSourceParam(sourceParam string) MgetOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // Mget - multi GET API allows to get multiple documents based on an index, type (optional) and id (and possibly routing). See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-multi-get.html for more info.
 //
 // body: document identifiers; can be either "docs" (containing full document information) or "ids" (when index and type is provided in the URL.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithSource, WithSourceExclude, WithSourceInclude, WithPreference, WithRealtime, WithRefreshFlag, WithRouting, WithStoredFields, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) Mget(body map[string]interface{}, options ...Option) (*MgetResponse, error) {
+// options: optional parameters.
+func (a *API) Mget(body map[string]interface{}, options ...MgetOption) (*MgetResponse, error) {
 	req := a.transport.NewRequest("GET")
-	methodOptions := supportedOptions["Mget"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := a.transport.Do(req)
 	return &MgetResponse{resp}, err

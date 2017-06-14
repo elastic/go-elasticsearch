@@ -3,12 +3,69 @@
 package indices
 
 import (
-	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
+
+// PutAliasOption is a non-required PutAlias option that gets applied to an HTTP request.
+type PutAliasOption func(r *transport.Request)
+
+// WithPutAliasMasterTimeout - specify timeout for connection to master.
+func WithPutAliasMasterTimeout(masterTimeout time.Duration) PutAliasOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutAliasTimeout - explicit timestamp for the document.
+func WithPutAliasTimeout(timeout time.Duration) PutAliasOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutAliasBody - the settings for the alias, such as "routing" or "filter".
+func WithPutAliasBody(body map[string]interface{}) PutAliasOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutAliasErrorTrace - include the stack trace of returned errors.
+func WithPutAliasErrorTrace(errorTrace bool) PutAliasOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutAliasFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithPutAliasFilterPath(filterPath []string) PutAliasOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutAliasHuman - return human readable values for statistics.
+func WithPutAliasHuman(human bool) PutAliasOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutAliasIgnore - ignores the specified HTTP status codes.
+func WithPutAliasIgnore(ignore []int) PutAliasOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutAliasPretty - pretty format the returned JSON response.
+func WithPutAliasPretty(pretty bool) PutAliasOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutAliasSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithPutAliasSourceParam(sourceParam string) PutAliasOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // PutAlias - APIs in Elasticsearch accept an index name when working against a specific index, and several indices when applicable. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-aliases.html for more info.
 //
@@ -16,15 +73,11 @@ import (
 //
 // name: the name of the alias to be created or updated.
 //
-// options: optional parameters. Supports the following functional options: WithMasterTimeout, WithTimeout, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) PutAlias(index []string, name string, options ...Option) (*PutAliasResponse, error) {
+// options: optional parameters.
+func (i *Indices) PutAlias(index []string, name string, options ...PutAliasOption) (*PutAliasResponse, error) {
 	req := i.transport.NewRequest("PUT")
-	methodOptions := supportedOptions["PutAlias"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := i.transport.Do(req)
 	return &PutAliasResponse{resp}, err

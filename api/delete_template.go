@@ -3,26 +3,60 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// DeleteTemplateOption is a non-required DeleteTemplate option that gets applied to an HTTP request.
+type DeleteTemplateOption func(r *transport.Request)
+
+// WithDeleteTemplateErrorTrace - include the stack trace of returned errors.
+func WithDeleteTemplateErrorTrace(errorTrace bool) DeleteTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteTemplateFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithDeleteTemplateFilterPath(filterPath []string) DeleteTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteTemplateHuman - return human readable values for statistics.
+func WithDeleteTemplateHuman(human bool) DeleteTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteTemplateIgnore - ignores the specified HTTP status codes.
+func WithDeleteTemplateIgnore(ignore []int) DeleteTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteTemplatePretty - pretty format the returned JSON response.
+func WithDeleteTemplatePretty(pretty bool) DeleteTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteTemplateSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithDeleteTemplateSourceParam(sourceParam string) DeleteTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // DeleteTemplate - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-template.html for more info.
 //
 // id: template ID.
 //
-// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) DeleteTemplate(id string, options ...Option) (*DeleteTemplateResponse, error) {
+// options: optional parameters.
+func (a *API) DeleteTemplate(id string, options ...DeleteTemplateOption) (*DeleteTemplateResponse, error) {
 	req := a.transport.NewRequest("DELETE")
-	methodOptions := supportedOptions["DeleteTemplate"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := a.transport.Do(req)
 	return &DeleteTemplateResponse{resp}, err

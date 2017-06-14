@@ -3,24 +3,77 @@
 package snapshot
 
 import (
-	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// GetRepositoryOption is a non-required GetRepository option that gets applied to an HTTP request.
+type GetRepositoryOption func(r *transport.Request)
+
+// WithGetRepositoryRepository - a comma-separated list of repository names.
+func WithGetRepositoryRepository(repository []string) GetRepositoryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetRepositoryLocal - return local information, do not retrieve the state from master node (default: false).
+func WithGetRepositoryLocal(local bool) GetRepositoryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetRepositoryMasterTimeout - explicit operation timeout for connection to master node.
+func WithGetRepositoryMasterTimeout(masterTimeout time.Duration) GetRepositoryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetRepositoryErrorTrace - include the stack trace of returned errors.
+func WithGetRepositoryErrorTrace(errorTrace bool) GetRepositoryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetRepositoryFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithGetRepositoryFilterPath(filterPath []string) GetRepositoryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetRepositoryHuman - return human readable values for statistics.
+func WithGetRepositoryHuman(human bool) GetRepositoryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetRepositoryIgnore - ignores the specified HTTP status codes.
+func WithGetRepositoryIgnore(ignore []int) GetRepositoryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetRepositoryPretty - pretty format the returned JSON response.
+func WithGetRepositoryPretty(pretty bool) GetRepositoryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetRepositorySourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithGetRepositorySourceParam(sourceParam string) GetRepositoryOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // GetRepository - the snapshot and restore module allows to create snapshots of individual indices or an entire cluster into a remote repository like shared file system, S3, or HDFS. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/modules-snapshots.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithRepositoryList, WithLocal, WithMasterTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (s *Snapshot) GetRepository(options ...Option) (*GetRepositoryResponse, error) {
+// options: optional parameters.
+func (s *Snapshot) GetRepository(options ...GetRepositoryOption) (*GetRepositoryResponse, error) {
 	req := s.transport.NewRequest("GET")
-	methodOptions := supportedOptions["GetRepository"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := s.transport.Do(req)
 	return &GetRepositoryResponse{resp}, err

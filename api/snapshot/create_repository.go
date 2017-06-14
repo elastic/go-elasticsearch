@@ -3,12 +3,69 @@
 package snapshot
 
 import (
-	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
+
+// CreateRepositoryOption is a non-required CreateRepository option that gets applied to an HTTP request.
+type CreateRepositoryOption func(r *transport.Request)
+
+// WithCreateRepositoryMasterTimeout - explicit operation timeout for connection to master node.
+func WithCreateRepositoryMasterTimeout(masterTimeout time.Duration) CreateRepositoryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCreateRepositoryTimeout - explicit operation timeout.
+func WithCreateRepositoryTimeout(timeout time.Duration) CreateRepositoryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCreateRepositoryVerify - whether to verify the repository after creation.
+func WithCreateRepositoryVerify(verify bool) CreateRepositoryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCreateRepositoryErrorTrace - include the stack trace of returned errors.
+func WithCreateRepositoryErrorTrace(errorTrace bool) CreateRepositoryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCreateRepositoryFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithCreateRepositoryFilterPath(filterPath []string) CreateRepositoryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCreateRepositoryHuman - return human readable values for statistics.
+func WithCreateRepositoryHuman(human bool) CreateRepositoryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCreateRepositoryIgnore - ignores the specified HTTP status codes.
+func WithCreateRepositoryIgnore(ignore []int) CreateRepositoryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCreateRepositoryPretty - pretty format the returned JSON response.
+func WithCreateRepositoryPretty(pretty bool) CreateRepositoryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCreateRepositorySourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithCreateRepositorySourceParam(sourceParam string) CreateRepositoryOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // CreateRepository - the snapshot and restore module allows to create snapshots of individual indices or an entire cluster into a remote repository like shared file system, S3, or HDFS. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/modules-snapshots.html for more info.
 //
@@ -16,15 +73,11 @@ import (
 //
 // body: the repository definition.
 //
-// options: optional parameters. Supports the following functional options: WithMasterTimeout, WithTimeout, WithVerify, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (s *Snapshot) CreateRepository(repository string, body map[string]interface{}, options ...Option) (*CreateRepositoryResponse, error) {
+// options: optional parameters.
+func (s *Snapshot) CreateRepository(repository string, body map[string]interface{}, options ...CreateRepositoryOption) (*CreateRepositoryResponse, error) {
 	req := s.transport.NewRequest("PUT")
-	methodOptions := supportedOptions["CreateRepository"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := s.transport.Do(req)
 	return &CreateRepositoryResponse{resp}, err

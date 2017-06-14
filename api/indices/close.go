@@ -3,26 +3,105 @@
 package indices
 
 import (
-	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// CloseOption is a non-required Close option that gets applied to an HTTP request.
+type CloseOption func(r *transport.Request)
+
+// WithCloseAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
+func WithCloseAllowNoIndices(allowNoIndices bool) CloseOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// CloseExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+type CloseExpandWildcards int
+
+const (
+	// CloseExpandWildcardsOpen can be used to set CloseExpandWildcards to "open"
+	CloseExpandWildcardsOpen = iota
+	// CloseExpandWildcardsClosed can be used to set CloseExpandWildcards to "closed"
+	CloseExpandWildcardsClosed = iota
+	// CloseExpandWildcardsNone can be used to set CloseExpandWildcards to "none"
+	CloseExpandWildcardsNone = iota
+	// CloseExpandWildcardsAll can be used to set CloseExpandWildcards to "all"
+	CloseExpandWildcardsAll = iota
+)
+
+// WithCloseExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+func WithCloseExpandWildcards(expandWildcards CloseExpandWildcards) CloseOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCloseIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
+func WithCloseIgnoreUnavailable(ignoreUnavailable bool) CloseOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCloseMasterTimeout - specify timeout for connection to master.
+func WithCloseMasterTimeout(masterTimeout time.Duration) CloseOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCloseTimeout - explicit operation timeout.
+func WithCloseTimeout(timeout time.Duration) CloseOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCloseErrorTrace - include the stack trace of returned errors.
+func WithCloseErrorTrace(errorTrace bool) CloseOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCloseFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithCloseFilterPath(filterPath []string) CloseOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCloseHuman - return human readable values for statistics.
+func WithCloseHuman(human bool) CloseOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCloseIgnore - ignores the specified HTTP status codes.
+func WithCloseIgnore(ignore []int) CloseOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithClosePretty - pretty format the returned JSON response.
+func WithClosePretty(pretty bool) CloseOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCloseSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithCloseSourceParam(sourceParam string) CloseOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // Close - the open and close index APIs allow to close an index, and later on opening it. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-open-close.html for more info.
 //
 // index: a comma separated list of indices to close.
 //
-// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithMasterTimeout, WithTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) Close(index []string, options ...Option) (*CloseResponse, error) {
+// options: optional parameters.
+func (i *Indices) Close(index []string, options ...CloseOption) (*CloseResponse, error) {
 	req := i.transport.NewRequest("POST")
-	methodOptions := supportedOptions["Close"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := i.transport.Do(req)
 	return &CloseResponse{resp}, err

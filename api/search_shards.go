@@ -3,24 +3,120 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// SearchShardsOption is a non-required SearchShards option that gets applied to an HTTP request.
+type SearchShardsOption func(r *transport.Request)
+
+// WithSearchShardsIndex - a comma-separated list of index names to search; use "_all" or empty string to perform the operation on all indices.
+func WithSearchShardsIndex(index []string) SearchShardsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSearchShardsType - a comma-separated list of document types to search; leave empty to perform the operation on all types.
+func WithSearchShardsType(documentType []string) SearchShardsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSearchShardsAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
+func WithSearchShardsAllowNoIndices(allowNoIndices bool) SearchShardsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// SearchShardsExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+type SearchShardsExpandWildcards int
+
+const (
+	// SearchShardsExpandWildcardsOpen can be used to set SearchShardsExpandWildcards to "open"
+	SearchShardsExpandWildcardsOpen = iota
+	// SearchShardsExpandWildcardsClosed can be used to set SearchShardsExpandWildcards to "closed"
+	SearchShardsExpandWildcardsClosed = iota
+	// SearchShardsExpandWildcardsNone can be used to set SearchShardsExpandWildcards to "none"
+	SearchShardsExpandWildcardsNone = iota
+	// SearchShardsExpandWildcardsAll can be used to set SearchShardsExpandWildcards to "all"
+	SearchShardsExpandWildcardsAll = iota
+)
+
+// WithSearchShardsExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+func WithSearchShardsExpandWildcards(expandWildcards SearchShardsExpandWildcards) SearchShardsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSearchShardsIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
+func WithSearchShardsIgnoreUnavailable(ignoreUnavailable bool) SearchShardsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSearchShardsLocal - return local information, do not retrieve the state from master node (default: false).
+func WithSearchShardsLocal(local bool) SearchShardsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSearchShardsPreference - specify the node or shard the operation should be performed on (default: random).
+func WithSearchShardsPreference(preference string) SearchShardsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSearchShardsRouting - specific routing value.
+func WithSearchShardsRouting(routing string) SearchShardsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSearchShardsErrorTrace - include the stack trace of returned errors.
+func WithSearchShardsErrorTrace(errorTrace bool) SearchShardsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSearchShardsFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithSearchShardsFilterPath(filterPath []string) SearchShardsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSearchShardsHuman - return human readable values for statistics.
+func WithSearchShardsHuman(human bool) SearchShardsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSearchShardsIgnore - ignores the specified HTTP status codes.
+func WithSearchShardsIgnore(ignore []int) SearchShardsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSearchShardsPretty - pretty format the returned JSON response.
+func WithSearchShardsPretty(pretty bool) SearchShardsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSearchShardsSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithSearchShardsSourceParam(sourceParam string) SearchShardsOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // SearchShards - the search shards api returns the indices and shards that a search request would be executed against. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-shards.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithLocal, WithPreference, WithRouting, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) SearchShards(options ...Option) (*SearchShardsResponse, error) {
+// options: optional parameters.
+func (a *API) SearchShards(options ...SearchShardsOption) (*SearchShardsResponse, error) {
 	req := a.transport.NewRequest("GET")
-	methodOptions := supportedOptions["SearchShards"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := a.transport.Do(req)
 	return &SearchShardsResponse{resp}, err

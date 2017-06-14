@@ -3,24 +3,70 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// ClearScrollOption is a non-required ClearScroll option that gets applied to an HTTP request.
+type ClearScrollOption func(r *transport.Request)
+
+// WithClearScrollScrollID - a comma-separated list of scroll IDs to clear.
+func WithClearScrollScrollID(scrollID []string) ClearScrollOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithClearScrollBody - a comma-separated list of scroll IDs to clear if none was specified via the scroll_id parameter.
+func WithClearScrollBody(body map[string]interface{}) ClearScrollOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithClearScrollErrorTrace - include the stack trace of returned errors.
+func WithClearScrollErrorTrace(errorTrace bool) ClearScrollOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithClearScrollFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithClearScrollFilterPath(filterPath []string) ClearScrollOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithClearScrollHuman - return human readable values for statistics.
+func WithClearScrollHuman(human bool) ClearScrollOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithClearScrollIgnore - ignores the specified HTTP status codes.
+func WithClearScrollIgnore(ignore []int) ClearScrollOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithClearScrollPretty - pretty format the returned JSON response.
+func WithClearScrollPretty(pretty bool) ClearScrollOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithClearScrollSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithClearScrollSourceParam(sourceParam string) ClearScrollOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // ClearScroll - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-request-scroll.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithScrollIDList, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) ClearScroll(options ...Option) (*ClearScrollResponse, error) {
+// options: optional parameters.
+func (a *API) ClearScroll(options ...ClearScrollOption) (*ClearScrollResponse, error) {
 	req := a.transport.NewRequest("DELETE")
-	methodOptions := supportedOptions["ClearScroll"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := a.transport.Do(req)
 	return &ClearScrollResponse{resp}, err

@@ -3,24 +3,71 @@
 package ingest
 
 import (
-	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// GetPipelineOption is a non-required GetPipeline option that gets applied to an HTTP request.
+type GetPipelineOption func(r *transport.Request)
+
+// WithGetPipelineID - comma separated list of pipeline ids. Wildcards supported.
+func WithGetPipelineID(id string) GetPipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetPipelineMasterTimeout - explicit operation timeout for connection to master node.
+func WithGetPipelineMasterTimeout(masterTimeout time.Duration) GetPipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetPipelineErrorTrace - include the stack trace of returned errors.
+func WithGetPipelineErrorTrace(errorTrace bool) GetPipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetPipelineFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithGetPipelineFilterPath(filterPath []string) GetPipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetPipelineHuman - return human readable values for statistics.
+func WithGetPipelineHuman(human bool) GetPipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetPipelineIgnore - ignores the specified HTTP status codes.
+func WithGetPipelineIgnore(ignore []int) GetPipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetPipelinePretty - pretty format the returned JSON response.
+func WithGetPipelinePretty(pretty bool) GetPipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetPipelineSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithGetPipelineSourceParam(sourceParam string) GetPipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // GetPipeline - the ingest plugins extend Elasticsearch by providing additional ingest node capabilities. See https://www.elastic.co/guide/en/elasticsearch/plugins/5.x/ingest.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithID, WithMasterTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Ingest) GetPipeline(options ...Option) (*GetPipelineResponse, error) {
+// options: optional parameters.
+func (i *Ingest) GetPipeline(options ...GetPipelineOption) (*GetPipelineResponse, error) {
 	req := i.transport.NewRequest("GET")
-	methodOptions := supportedOptions["GetPipeline"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := i.transport.Do(req)
 	return &GetPipelineResponse{resp}, err

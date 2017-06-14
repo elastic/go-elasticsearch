@@ -3,26 +3,110 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// SuggestOption is a non-required Suggest option that gets applied to an HTTP request.
+type SuggestOption func(r *transport.Request)
+
+// WithSuggestIndex - a comma-separated list of index names to restrict the operation; use "_all" or empty string to perform the operation on all indices.
+func WithSuggestIndex(index []string) SuggestOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSuggestAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
+func WithSuggestAllowNoIndices(allowNoIndices bool) SuggestOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// SuggestExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+type SuggestExpandWildcards int
+
+const (
+	// SuggestExpandWildcardsOpen can be used to set SuggestExpandWildcards to "open"
+	SuggestExpandWildcardsOpen = iota
+	// SuggestExpandWildcardsClosed can be used to set SuggestExpandWildcards to "closed"
+	SuggestExpandWildcardsClosed = iota
+	// SuggestExpandWildcardsNone can be used to set SuggestExpandWildcards to "none"
+	SuggestExpandWildcardsNone = iota
+	// SuggestExpandWildcardsAll can be used to set SuggestExpandWildcards to "all"
+	SuggestExpandWildcardsAll = iota
+)
+
+// WithSuggestExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+func WithSuggestExpandWildcards(expandWildcards SuggestExpandWildcards) SuggestOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSuggestIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
+func WithSuggestIgnoreUnavailable(ignoreUnavailable bool) SuggestOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSuggestPreference - specify the node or shard the operation should be performed on (default: random).
+func WithSuggestPreference(preference string) SuggestOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSuggestRouting - specific routing value.
+func WithSuggestRouting(routing string) SuggestOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSuggestErrorTrace - include the stack trace of returned errors.
+func WithSuggestErrorTrace(errorTrace bool) SuggestOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSuggestFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithSuggestFilterPath(filterPath []string) SuggestOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSuggestHuman - return human readable values for statistics.
+func WithSuggestHuman(human bool) SuggestOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSuggestIgnore - ignores the specified HTTP status codes.
+func WithSuggestIgnore(ignore []int) SuggestOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSuggestPretty - pretty format the returned JSON response.
+func WithSuggestPretty(pretty bool) SuggestOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSuggestSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithSuggestSourceParam(sourceParam string) SuggestOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // Suggest - the suggest feature suggests similar looking terms based on a provided text by using a suggester. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-suggesters.html for more info.
 //
 // body: the request definition.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithPreference, WithRouting, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) Suggest(body map[string]interface{}, options ...Option) (*SuggestResponse, error) {
+// options: optional parameters.
+func (a *API) Suggest(body map[string]interface{}, options ...SuggestOption) (*SuggestResponse, error) {
 	req := a.transport.NewRequest("POST")
-	methodOptions := supportedOptions["Suggest"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := a.transport.Do(req)
 	return &SuggestResponse{resp}, err

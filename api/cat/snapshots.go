@@ -3,24 +3,101 @@
 package cat
 
 import (
-	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// SnapshotsOption is a non-required Snapshots option that gets applied to an HTTP request.
+type SnapshotsOption func(r *transport.Request)
+
+// WithSnapshotsFormat - a short version of the Accept header, e.g. json, yaml.
+func WithSnapshotsFormat(format string) SnapshotsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSnapshotsH - comma-separated list of column names to display.
+func WithSnapshotsH(h []string) SnapshotsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSnapshotsHelp - return help information.
+func WithSnapshotsHelp(help bool) SnapshotsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSnapshotsIgnoreUnavailable - set to true to ignore unavailable snapshots.
+func WithSnapshotsIgnoreUnavailable(ignoreUnavailable bool) SnapshotsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSnapshotsMasterTimeout - explicit operation timeout for connection to master node.
+func WithSnapshotsMasterTimeout(masterTimeout time.Duration) SnapshotsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSnapshotsS - comma-separated list of column names or column aliases to sort by.
+func WithSnapshotsS(s []string) SnapshotsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSnapshotsV - verbose mode. Display column headers.
+func WithSnapshotsV(v bool) SnapshotsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSnapshotsErrorTrace - include the stack trace of returned errors.
+func WithSnapshotsErrorTrace(errorTrace bool) SnapshotsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSnapshotsFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithSnapshotsFilterPath(filterPath []string) SnapshotsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSnapshotsHuman - return human readable values for statistics.
+func WithSnapshotsHuman(human bool) SnapshotsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSnapshotsIgnore - ignores the specified HTTP status codes.
+func WithSnapshotsIgnore(ignore []int) SnapshotsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSnapshotsPretty - pretty format the returned JSON response.
+func WithSnapshotsPretty(pretty bool) SnapshotsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSnapshotsSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithSnapshotsSourceParam(sourceParam string) SnapshotsOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // Snapshots - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-snapshots.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithFormat, WithH, WithHelp, WithIgnoreUnavailable, WithMasterTimeout, WithS, WithV, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cat) Snapshots(options ...Option) (*SnapshotsResponse, error) {
+// options: optional parameters.
+func (c *Cat) Snapshots(options ...SnapshotsOption) (*SnapshotsResponse, error) {
 	req := c.transport.NewRequest("GET")
-	methodOptions := supportedOptions["Snapshots"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := c.transport.Do(req)
 	return &SnapshotsResponse{resp}, err

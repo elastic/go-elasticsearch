@@ -3,24 +3,120 @@
 package indices
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// GetSettingsOption is a non-required GetSettings option that gets applied to an HTTP request.
+type GetSettingsOption func(r *transport.Request)
+
+// WithGetSettingsIndex - a comma-separated list of index names; use "_all" or empty string to perform the operation on all indices.
+func WithGetSettingsIndex(index []string) GetSettingsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetSettingsName - the name of the settings that should be included.
+func WithGetSettingsName(name []string) GetSettingsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetSettingsAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
+func WithGetSettingsAllowNoIndices(allowNoIndices bool) GetSettingsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// GetSettingsExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+type GetSettingsExpandWildcards int
+
+const (
+	// GetSettingsExpandWildcardsOpen can be used to set GetSettingsExpandWildcards to "open"
+	GetSettingsExpandWildcardsOpen = iota
+	// GetSettingsExpandWildcardsClosed can be used to set GetSettingsExpandWildcards to "closed"
+	GetSettingsExpandWildcardsClosed = iota
+	// GetSettingsExpandWildcardsNone can be used to set GetSettingsExpandWildcards to "none"
+	GetSettingsExpandWildcardsNone = iota
+	// GetSettingsExpandWildcardsAll can be used to set GetSettingsExpandWildcards to "all"
+	GetSettingsExpandWildcardsAll = iota
+)
+
+// WithGetSettingsExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+func WithGetSettingsExpandWildcards(expandWildcards GetSettingsExpandWildcards) GetSettingsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetSettingsFlatSettings - return settings in flat format (default: false).
+func WithGetSettingsFlatSettings(flatSettings bool) GetSettingsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetSettingsIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
+func WithGetSettingsIgnoreUnavailable(ignoreUnavailable bool) GetSettingsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetSettingsIncludeDefaults - whether to return all default setting for each of the indices.
+func WithGetSettingsIncludeDefaults(includeDefaults bool) GetSettingsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetSettingsLocal - return local information, do not retrieve the state from master node (default: false).
+func WithGetSettingsLocal(local bool) GetSettingsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetSettingsErrorTrace - include the stack trace of returned errors.
+func WithGetSettingsErrorTrace(errorTrace bool) GetSettingsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetSettingsFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithGetSettingsFilterPath(filterPath []string) GetSettingsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetSettingsHuman - return human readable values for statistics.
+func WithGetSettingsHuman(human bool) GetSettingsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetSettingsIgnore - ignores the specified HTTP status codes.
+func WithGetSettingsIgnore(ignore []int) GetSettingsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetSettingsPretty - pretty format the returned JSON response.
+func WithGetSettingsPretty(pretty bool) GetSettingsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetSettingsSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithGetSettingsSourceParam(sourceParam string) GetSettingsOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // GetSettings - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-get-settings.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndexList, WithName, WithAllowNoIndices, WithExpandWildcards, WithFlatSettings, WithIgnoreUnavailable, WithIncludeDefaults, WithLocal, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) GetSettings(options ...Option) (*GetSettingsResponse, error) {
+// options: optional parameters.
+func (i *Indices) GetSettings(options ...GetSettingsOption) (*GetSettingsResponse, error) {
 	req := i.transport.NewRequest("GET")
-	methodOptions := supportedOptions["GetSettings"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := i.transport.Do(req)
 	return &GetSettingsResponse{resp}, err

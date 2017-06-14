@@ -3,24 +3,135 @@
 package cat
 
 import (
-	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// RecoveryOption is a non-required Recovery option that gets applied to an HTTP request.
+type RecoveryOption func(r *transport.Request)
+
+// WithRecoveryIndex - a comma-separated list of index names to limit the returned information.
+func WithRecoveryIndex(index []string) RecoveryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// RecoveryBytes - the unit in which to display byte values.
+type RecoveryBytes int
+
+const (
+	// RecoveryBytesB can be used to set RecoveryBytes to "b"
+	RecoveryBytesB = iota
+	// RecoveryBytesK can be used to set RecoveryBytes to "k"
+	RecoveryBytesK = iota
+	// RecoveryBytesKb can be used to set RecoveryBytes to "kb"
+	RecoveryBytesKb = iota
+	// RecoveryBytesM can be used to set RecoveryBytes to "m"
+	RecoveryBytesM = iota
+	// RecoveryBytesMb can be used to set RecoveryBytes to "mb"
+	RecoveryBytesMb = iota
+	// RecoveryBytesG can be used to set RecoveryBytes to "g"
+	RecoveryBytesG = iota
+	// RecoveryBytesGb can be used to set RecoveryBytes to "gb"
+	RecoveryBytesGb = iota
+	// RecoveryBytesT can be used to set RecoveryBytes to "t"
+	RecoveryBytesT = iota
+	// RecoveryBytesTb can be used to set RecoveryBytes to "tb"
+	RecoveryBytesTb = iota
+	// RecoveryBytesP can be used to set RecoveryBytes to "p"
+	RecoveryBytesP = iota
+	// RecoveryBytesPb can be used to set RecoveryBytes to "pb"
+	RecoveryBytesPb = iota
+)
+
+// WithRecoveryBytes - the unit in which to display byte values.
+func WithRecoveryBytes(bytes RecoveryBytes) RecoveryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRecoveryFormat - a short version of the Accept header, e.g. json, yaml.
+func WithRecoveryFormat(format string) RecoveryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRecoveryH - comma-separated list of column names to display.
+func WithRecoveryH(h []string) RecoveryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRecoveryHelp - return help information.
+func WithRecoveryHelp(help bool) RecoveryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRecoveryMasterTimeout - explicit operation timeout for connection to master node.
+func WithRecoveryMasterTimeout(masterTimeout time.Duration) RecoveryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRecoveryS - comma-separated list of column names or column aliases to sort by.
+func WithRecoveryS(s []string) RecoveryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRecoveryV - verbose mode. Display column headers.
+func WithRecoveryV(v bool) RecoveryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRecoveryErrorTrace - include the stack trace of returned errors.
+func WithRecoveryErrorTrace(errorTrace bool) RecoveryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRecoveryFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithRecoveryFilterPath(filterPath []string) RecoveryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRecoveryHuman - return human readable values for statistics.
+func WithRecoveryHuman(human bool) RecoveryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRecoveryIgnore - ignores the specified HTTP status codes.
+func WithRecoveryIgnore(ignore []int) RecoveryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRecoveryPretty - pretty format the returned JSON response.
+func WithRecoveryPretty(pretty bool) RecoveryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRecoverySourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithRecoverySourceParam(sourceParam string) RecoveryOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // Recovery - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-recovery.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithBytes, WithFormat, WithH, WithHelp, WithMasterTimeout, WithS, WithV, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cat) Recovery(options ...Option) (*RecoveryResponse, error) {
+// options: optional parameters.
+func (c *Cat) Recovery(options ...RecoveryOption) (*RecoveryResponse, error) {
 	req := c.transport.NewRequest("GET")
-	methodOptions := supportedOptions["Recovery"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := c.transport.Do(req)
 	return &RecoveryResponse{resp}, err

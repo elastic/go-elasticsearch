@@ -3,24 +3,108 @@
 package indices
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// GetAliasOption is a non-required GetAlias option that gets applied to an HTTP request.
+type GetAliasOption func(r *transport.Request)
+
+// WithGetAliasIndex - a comma-separated list of index names to filter aliases.
+func WithGetAliasIndex(index []string) GetAliasOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetAliasName - a comma-separated list of alias names to return.
+func WithGetAliasName(name []string) GetAliasOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetAliasAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
+func WithGetAliasAllowNoIndices(allowNoIndices bool) GetAliasOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// GetAliasExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+type GetAliasExpandWildcards int
+
+const (
+	// GetAliasExpandWildcardsOpen can be used to set GetAliasExpandWildcards to "open"
+	GetAliasExpandWildcardsOpen = iota
+	// GetAliasExpandWildcardsClosed can be used to set GetAliasExpandWildcards to "closed"
+	GetAliasExpandWildcardsClosed = iota
+	// GetAliasExpandWildcardsNone can be used to set GetAliasExpandWildcards to "none"
+	GetAliasExpandWildcardsNone = iota
+	// GetAliasExpandWildcardsAll can be used to set GetAliasExpandWildcards to "all"
+	GetAliasExpandWildcardsAll = iota
+)
+
+// WithGetAliasExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+func WithGetAliasExpandWildcards(expandWildcards GetAliasExpandWildcards) GetAliasOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetAliasIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
+func WithGetAliasIgnoreUnavailable(ignoreUnavailable bool) GetAliasOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetAliasLocal - return local information, do not retrieve the state from master node (default: false).
+func WithGetAliasLocal(local bool) GetAliasOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetAliasErrorTrace - include the stack trace of returned errors.
+func WithGetAliasErrorTrace(errorTrace bool) GetAliasOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetAliasFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithGetAliasFilterPath(filterPath []string) GetAliasOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetAliasHuman - return human readable values for statistics.
+func WithGetAliasHuman(human bool) GetAliasOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetAliasIgnore - ignores the specified HTTP status codes.
+func WithGetAliasIgnore(ignore []int) GetAliasOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetAliasPretty - pretty format the returned JSON response.
+func WithGetAliasPretty(pretty bool) GetAliasOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetAliasSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithGetAliasSourceParam(sourceParam string) GetAliasOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // GetAlias - APIs in Elasticsearch accept an index name when working against a specific index, and several indices when applicable. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-aliases.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndexList, WithName, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithLocal, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) GetAlias(options ...Option) (*GetAliasResponse, error) {
+// options: optional parameters.
+func (i *Indices) GetAlias(options ...GetAliasOption) (*GetAliasResponse, error) {
 	req := i.transport.NewRequest("GET")
-	methodOptions := supportedOptions["GetAlias"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := i.transport.Do(req)
 	return &GetAliasResponse{resp}, err

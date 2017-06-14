@@ -103,6 +103,7 @@ type Method struct {
 	OptionalURLParts  []*Param
 	RequiredURLParams []*Param
 	OptionalURLParams []*Param
+	Options           []*Param
 	commonParams      map[string]*Param
 	allParams         map[string]*Param
 	ParamsWithValues  []*Param
@@ -124,6 +125,7 @@ func NewMethod(specDir, specFileName string, commonParams map[string]*Param, tem
 		OptionalURLParts:  []*Param{},
 		RequiredURLParams: []*Param{},
 		OptionalURLParams: []*Param{},
+		Options:           []*Param{},
 		commonParams:      commonParams,
 		allParams:         map[string]*Param{},
 		HTTPCache:         map[string]io.ReadCloser{},
@@ -157,6 +159,18 @@ func NewMethod(specDir, specFileName string, commonParams map[string]*Param, tem
 	default:
 		return nil, fmt.Errorf("unexpected API name format: %s", m.RawName)
 	}
+	m.Repo = rootPackageRepo
+	if m.PackageName != RootPackage {
+		m.Repo += "/" + m.PackageName
+	}
+	m.Name = snaker.SnakeToCamel(m.fileName)
+	m.TestFileName += m.fileName + "_test.go"
+	m.TypeName = snaker.SnakeToCamel(m.PackageName)
+	m.ReceiverName = strings.ToLower(string(m.TypeName[0]))
+	m.ResponseName = snaker.SnakeToCamelLower(m.fileName + "_resp")
+	m.fileName += ".go"
+	// TODO: handle multiple HTTP methods in index.
+	m.HTTPMethod = m.Spec.Methods[0]
 	if err = m.resolveParams(m.Spec.URL.Parts); err != nil {
 		return nil, err
 	}
@@ -170,35 +184,23 @@ func NewMethod(specDir, specFileName string, commonParams map[string]*Param, tem
 		return nil, err
 	}
 	if m.Spec.Body != nil {
-		if err = m.Spec.Body.resolve(bodyParam, m.PackageName, m.templates); err != nil {
+		if err = m.Spec.Body.resolve(bodyParam, m.PackageName, m.Name, m.templates); err != nil {
 			return nil, err
 		}
 	}
-	m.Repo = rootPackageRepo
-	if m.PackageName != RootPackage {
-		m.Repo += "/" + m.PackageName
-	}
-	m.Name = snaker.SnakeToCamel(m.fileName)
-	m.TestFileName += m.fileName + "_test.go"
-	m.TypeName = snaker.SnakeToCamel(m.PackageName)
-	m.ReceiverName = strings.ToLower(string(m.TypeName[0]))
-	m.ResponseName = snaker.SnakeToCamelLower(m.fileName + "_resp")
-	m.fileName += ".go"
-	// TODO: handle multiple HTTP methods in index.
-	m.HTTPMethod = m.Spec.Methods[0]
 	return m, nil
 }
 
 func (m *Method) resolveParams(params map[string]*Param) error {
 	for name, p := range params {
-		err := p.resolve(name, m.PackageName, m.templates)
+		err := p.resolve(name, m.PackageName, m.Name, m.templates)
 		if err != nil {
 			if _, ok := err.(*noTypeError); ok {
 				glog.Error(err)
 				delete(params, name)
 				continue
 			}
-			return fmt.Errorf("failed to normalize params in %q: %s", m.RawName, err)
+			return fmt.Errorf("failed to resolve params in %q: %s", m.RawName, err)
 		}
 		if _, ok := m.allParams[p.Name]; ok {
 			p.addSuffix("Param")
@@ -310,6 +312,7 @@ func (m *Method) sortParams() error {
 			return fmt.Errorf("cannot find URL part %q (from %q) in %#v", name, m.Spec.URL.Path, m.Spec.URL.Parts)
 		}
 		m.OptionalURLParts = append(m.OptionalURLParts, p)
+		m.Options = append(m.Options, p)
 	}
 
 	// Handle params, body and common params.
@@ -338,17 +341,20 @@ func (m *Method) sortParams() error {
 	for _, name := range names {
 		if p, ok := m.Spec.URL.Params[name]; ok && !p.Required {
 			m.OptionalURLParams = append(m.OptionalURLParams, p)
+			m.Options = append(m.Options, p)
 		}
 	}
 	// Add body after optional params if applicable.
 	if m.Spec.Body != nil && !m.Spec.Body.Required {
 		m.OptionalURLParams = append(m.OptionalURLParams, m.Spec.Body)
+		m.Options = append(m.Options, m.Spec.Body)
 	}
 	// Sort common params by name and add them at the end.
 	// TODO: we should sort these once and pass a list around.
 	for _, name := range names {
 		if p, ok := m.commonParams[name]; ok {
 			m.OptionalURLParams = append(m.OptionalURLParams, p)
+			m.Options = append(m.Options, p)
 		}
 	}
 	return nil
@@ -402,6 +408,7 @@ func (m *Method) clone() (*Method, error) {
 		OptionalURLParts:  []*Param{},
 		RequiredURLParams: []*Param{},
 		OptionalURLParams: []*Param{},
+		Options:           []*Param{},
 		commonParams:      map[string]*Param{},
 		HTTPCache:         map[string]io.ReadCloser{},
 	}
@@ -432,6 +439,7 @@ func (m *Method) clone() (*Method, error) {
 			return nil, fmt.Errorf("invalid optional part name while cloning %s: %s", m.RawName, p.rawName)
 		}
 		c.OptionalURLParts = append(c.OptionalURLParts, up)
+		c.Options = append(c.Options, up)
 	}
 	for _, p := range m.OptionalURLParams {
 		var up *Param
@@ -444,6 +452,7 @@ func (m *Method) clone() (*Method, error) {
 			}
 		}
 		c.OptionalURLParams = append(c.OptionalURLParams, up)
+		c.Options = append(c.Options, up)
 	}
 	return c, nil
 }

@@ -3,24 +3,121 @@
 package cluster
 
 import (
-	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// StateOption is a non-required State option that gets applied to an HTTP request.
+type StateOption func(r *transport.Request)
+
+// WithStateIndex - a comma-separated list of index names; use "_all" or empty string to perform the operation on all indices.
+func WithStateIndex(index []string) StateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStateMetric - limit the information returned to the specified metrics.
+func WithStateMetric(metric []string) StateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStateAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
+func WithStateAllowNoIndices(allowNoIndices bool) StateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// StateExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+type StateExpandWildcards int
+
+const (
+	// StateExpandWildcardsOpen can be used to set StateExpandWildcards to "open"
+	StateExpandWildcardsOpen = iota
+	// StateExpandWildcardsClosed can be used to set StateExpandWildcards to "closed"
+	StateExpandWildcardsClosed = iota
+	// StateExpandWildcardsNone can be used to set StateExpandWildcards to "none"
+	StateExpandWildcardsNone = iota
+	// StateExpandWildcardsAll can be used to set StateExpandWildcards to "all"
+	StateExpandWildcardsAll = iota
+)
+
+// WithStateExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+func WithStateExpandWildcards(expandWildcards StateExpandWildcards) StateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStateFlatSettings - return settings in flat format (default: false).
+func WithStateFlatSettings(flatSettings bool) StateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStateIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
+func WithStateIgnoreUnavailable(ignoreUnavailable bool) StateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStateLocal - return local information, do not retrieve the state from master node (default: false).
+func WithStateLocal(local bool) StateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStateMasterTimeout - specify timeout for connection to master.
+func WithStateMasterTimeout(masterTimeout time.Duration) StateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStateErrorTrace - include the stack trace of returned errors.
+func WithStateErrorTrace(errorTrace bool) StateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStateFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithStateFilterPath(filterPath []string) StateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStateHuman - return human readable values for statistics.
+func WithStateHuman(human bool) StateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStateIgnore - ignores the specified HTTP status codes.
+func WithStateIgnore(ignore []int) StateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatePretty - pretty format the returned JSON response.
+func WithStatePretty(pretty bool) StateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStateSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithStateSourceParam(sourceParam string) StateOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // State - the cluster state API allows to get a comprehensive state information of the whole cluster. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-state.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithMetric, WithAllowNoIndices, WithExpandWildcards, WithFlatSettings, WithIgnoreUnavailable, WithLocal, WithMasterTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cluster) State(options ...Option) (*StateResponse, error) {
+// options: optional parameters.
+func (c *Cluster) State(options ...StateOption) (*StateResponse, error) {
 	req := c.transport.NewRequest("GET")
-	methodOptions := supportedOptions["State"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := c.transport.Do(req)
 	return &StateResponse{resp}, err

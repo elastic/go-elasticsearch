@@ -3,26 +3,104 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// MsearchOption is a non-required Msearch option that gets applied to an HTTP request.
+type MsearchOption func(r *transport.Request)
+
+// WithMsearchIndex - a comma-separated list of index names to use as default.
+func WithMsearchIndex(index []string) MsearchOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMsearchType - a comma-separated list of document types to use as default.
+func WithMsearchType(documentType []string) MsearchOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMsearchMaxConcurrentSearches - controls the maximum number of concurrent searches the multi search api will execute.
+func WithMsearchMaxConcurrentSearches(maxConcurrentSearches int) MsearchOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// MsearchSearchType - search operation type.
+type MsearchSearchType int
+
+const (
+	// MsearchSearchTypeQueryThenFetch can be used to set MsearchSearchType to "query_then_fetch"
+	MsearchSearchTypeQueryThenFetch = iota
+	// MsearchSearchTypeQueryAndFetch can be used to set MsearchSearchType to "query_and_fetch"
+	MsearchSearchTypeQueryAndFetch = iota
+	// MsearchSearchTypeDfsQueryThenFetch can be used to set MsearchSearchType to "dfs_query_then_fetch"
+	MsearchSearchTypeDfsQueryThenFetch = iota
+	// MsearchSearchTypeDfsQueryAndFetch can be used to set MsearchSearchType to "dfs_query_and_fetch"
+	MsearchSearchTypeDfsQueryAndFetch = iota
+)
+
+// WithMsearchSearchType - search operation type.
+func WithMsearchSearchType(searchType MsearchSearchType) MsearchOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMsearchTypedKeys - specify whether aggregation and suggester names should be prefixed by their respective types in the response.
+func WithMsearchTypedKeys(typedKeys bool) MsearchOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMsearchErrorTrace - include the stack trace of returned errors.
+func WithMsearchErrorTrace(errorTrace bool) MsearchOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMsearchFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithMsearchFilterPath(filterPath []string) MsearchOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMsearchHuman - return human readable values for statistics.
+func WithMsearchHuman(human bool) MsearchOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMsearchIgnore - ignores the specified HTTP status codes.
+func WithMsearchIgnore(ignore []int) MsearchOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMsearchPretty - pretty format the returned JSON response.
+func WithMsearchPretty(pretty bool) MsearchOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMsearchSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithMsearchSourceParam(sourceParam string) MsearchOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // Msearch - the multi search API allows to execute several search requests within the same API. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-multi-search.html for more info.
 //
 // body: the request definitions (metadata-search request definition pairs), separated by newlines.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithMaxConcurrentSearches, WithSearchType, WithTypedKeys, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) Msearch(body []interface{}, options ...Option) (*MsearchResponse, error) {
+// options: optional parameters.
+func (a *API) Msearch(body []interface{}, options ...MsearchOption) (*MsearchResponse, error) {
 	req := a.transport.NewRequest("GET")
-	methodOptions := supportedOptions["Msearch"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := a.transport.Do(req)
 	return &MsearchResponse{resp}, err

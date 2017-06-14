@@ -3,24 +3,101 @@
 package cluster
 
 import (
-	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// RerouteOption is a non-required Reroute option that gets applied to an HTTP request.
+type RerouteOption func(r *transport.Request)
+
+// WithRerouteDryRun - simulate the operation only and return the resulting state.
+func WithRerouteDryRun(dryRun bool) RerouteOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRerouteExplain - return an explanation of why the commands can or cannot be executed.
+func WithRerouteExplain(explain bool) RerouteOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRerouteMasterTimeout - explicit operation timeout for connection to master node.
+func WithRerouteMasterTimeout(masterTimeout time.Duration) RerouteOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRerouteMetric - limit the information returned to the specified metrics. Defaults to all but metadata.
+func WithRerouteMetric(metric []string) RerouteOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRerouteRetryFailed - retries allocation of shards that are blocked due to too many subsequent allocation failures.
+func WithRerouteRetryFailed(retryFailed bool) RerouteOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRerouteTimeout - explicit operation timeout.
+func WithRerouteTimeout(timeout time.Duration) RerouteOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRerouteBody - the definition of "commands" to perform ("move", "cancel", "allocate").
+func WithRerouteBody(body map[string]interface{}) RerouteOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRerouteErrorTrace - include the stack trace of returned errors.
+func WithRerouteErrorTrace(errorTrace bool) RerouteOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRerouteFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithRerouteFilterPath(filterPath []string) RerouteOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRerouteHuman - return human readable values for statistics.
+func WithRerouteHuman(human bool) RerouteOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRerouteIgnore - ignores the specified HTTP status codes.
+func WithRerouteIgnore(ignore []int) RerouteOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithReroutePretty - pretty format the returned JSON response.
+func WithReroutePretty(pretty bool) RerouteOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRerouteSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithRerouteSourceParam(sourceParam string) RerouteOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // Reroute - the reroute command allows to explicitly execute a cluster reroute allocation command including specific commands. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-reroute.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithDryRun, WithExplain, WithMasterTimeout, WithMetric, WithRetryFailed, WithTimeout, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cluster) Reroute(options ...Option) (*RerouteResponse, error) {
+// options: optional parameters.
+func (c *Cluster) Reroute(options ...RerouteOption) (*RerouteResponse, error) {
 	req := c.transport.NewRequest("POST")
-	methodOptions := supportedOptions["Reroute"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := c.transport.Do(req)
 	return &RerouteResponse{resp}, err

@@ -3,26 +3,105 @@
 package indices
 
 import (
-	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// OpenOption is a non-required Open option that gets applied to an HTTP request.
+type OpenOption func(r *transport.Request)
+
+// WithOpenAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
+func WithOpenAllowNoIndices(allowNoIndices bool) OpenOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// OpenExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+type OpenExpandWildcards int
+
+const (
+	// OpenExpandWildcardsOpen can be used to set OpenExpandWildcards to "open"
+	OpenExpandWildcardsOpen = iota
+	// OpenExpandWildcardsClosed can be used to set OpenExpandWildcards to "closed"
+	OpenExpandWildcardsClosed = iota
+	// OpenExpandWildcardsNone can be used to set OpenExpandWildcards to "none"
+	OpenExpandWildcardsNone = iota
+	// OpenExpandWildcardsAll can be used to set OpenExpandWildcards to "all"
+	OpenExpandWildcardsAll = iota
+)
+
+// WithOpenExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+func WithOpenExpandWildcards(expandWildcards OpenExpandWildcards) OpenOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithOpenIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
+func WithOpenIgnoreUnavailable(ignoreUnavailable bool) OpenOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithOpenMasterTimeout - specify timeout for connection to master.
+func WithOpenMasterTimeout(masterTimeout time.Duration) OpenOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithOpenTimeout - explicit operation timeout.
+func WithOpenTimeout(timeout time.Duration) OpenOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithOpenErrorTrace - include the stack trace of returned errors.
+func WithOpenErrorTrace(errorTrace bool) OpenOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithOpenFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithOpenFilterPath(filterPath []string) OpenOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithOpenHuman - return human readable values for statistics.
+func WithOpenHuman(human bool) OpenOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithOpenIgnore - ignores the specified HTTP status codes.
+func WithOpenIgnore(ignore []int) OpenOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithOpenPretty - pretty format the returned JSON response.
+func WithOpenPretty(pretty bool) OpenOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithOpenSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithOpenSourceParam(sourceParam string) OpenOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // Open - the open and close index APIs allow to close an index, and later on opening it. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-open-close.html for more info.
 //
 // index: a comma separated list of indices to open.
 //
-// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithMasterTimeout, WithTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) Open(index []string, options ...Option) (*OpenResponse, error) {
+// options: optional parameters.
+func (i *Indices) Open(index []string, options ...OpenOption) (*OpenResponse, error) {
 	req := i.transport.NewRequest("POST")
-	methodOptions := supportedOptions["Open"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := i.transport.Do(req)
 	return &OpenResponse{resp}, err

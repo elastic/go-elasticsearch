@@ -3,24 +3,83 @@
 package cluster
 
 import (
-	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// PutSettingsOption is a non-required PutSettings option that gets applied to an HTTP request.
+type PutSettingsOption func(r *transport.Request)
+
+// WithPutSettingsFlatSettings - return settings in flat format (default: false).
+func WithPutSettingsFlatSettings(flatSettings bool) PutSettingsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutSettingsMasterTimeout - explicit operation timeout for connection to master node.
+func WithPutSettingsMasterTimeout(masterTimeout time.Duration) PutSettingsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutSettingsTimeout - explicit operation timeout.
+func WithPutSettingsTimeout(timeout time.Duration) PutSettingsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutSettingsBody - the settings to be updated. Can be either "transient" or "persistent" (survives cluster restart).
+func WithPutSettingsBody(body map[string]interface{}) PutSettingsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutSettingsErrorTrace - include the stack trace of returned errors.
+func WithPutSettingsErrorTrace(errorTrace bool) PutSettingsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutSettingsFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithPutSettingsFilterPath(filterPath []string) PutSettingsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutSettingsHuman - return human readable values for statistics.
+func WithPutSettingsHuman(human bool) PutSettingsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutSettingsIgnore - ignores the specified HTTP status codes.
+func WithPutSettingsIgnore(ignore []int) PutSettingsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutSettingsPretty - pretty format the returned JSON response.
+func WithPutSettingsPretty(pretty bool) PutSettingsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutSettingsSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithPutSettingsSourceParam(sourceParam string) PutSettingsOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // PutSettings - allows to update cluster wide specific settings. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-update-settings.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithFlatSettings, WithMasterTimeout, WithTimeout, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cluster) PutSettings(options ...Option) (*PutSettingsResponse, error) {
+// options: optional parameters.
+func (c *Cluster) PutSettings(options ...PutSettingsOption) (*PutSettingsResponse, error) {
 	req := c.transport.NewRequest("PUT")
-	methodOptions := supportedOptions["PutSettings"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := c.transport.Do(req)
 	return &PutSettingsResponse{resp}, err

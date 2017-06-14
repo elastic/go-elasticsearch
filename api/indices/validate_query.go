@@ -3,24 +3,172 @@
 package indices
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// ValidateQueryOption is a non-required ValidateQuery option that gets applied to an HTTP request.
+type ValidateQueryOption func(r *transport.Request)
+
+// WithValidateQueryIndex - a comma-separated list of index names to restrict the operation; use "_all" or empty string to perform the operation on all indices.
+func WithValidateQueryIndex(index []string) ValidateQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithValidateQueryType - a comma-separated list of document types to restrict the operation; leave empty to perform the operation on all types.
+func WithValidateQueryType(documentType []string) ValidateQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithValidateQueryAllShards - execute validation on all shards instead of one random shard per index.
+func WithValidateQueryAllShards(allShards bool) ValidateQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithValidateQueryAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
+func WithValidateQueryAllowNoIndices(allowNoIndices bool) ValidateQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithValidateQueryAnalyzeWildcard - specify whether wildcard and prefix queries should be analyzed (default: false).
+func WithValidateQueryAnalyzeWildcard(analyzeWildcard bool) ValidateQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithValidateQueryAnalyzer - the analyzer to use for the query string.
+func WithValidateQueryAnalyzer(analyzer string) ValidateQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// ValidateQueryDefaultOperator - the default operator for query string query (AND or OR).
+type ValidateQueryDefaultOperator int
+
+const (
+	// ValidateQueryDefaultOperatorAND can be used to set ValidateQueryDefaultOperator to "AND"
+	ValidateQueryDefaultOperatorAND = iota
+	// ValidateQueryDefaultOperatorOR can be used to set ValidateQueryDefaultOperator to "OR"
+	ValidateQueryDefaultOperatorOR = iota
+)
+
+// WithValidateQueryDefaultOperator - the default operator for query string query (AND or OR).
+func WithValidateQueryDefaultOperator(defaultOperator ValidateQueryDefaultOperator) ValidateQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithValidateQueryDf - the field to use as default where no field prefix is given in the query string.
+func WithValidateQueryDf(df string) ValidateQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// ValidateQueryExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+type ValidateQueryExpandWildcards int
+
+const (
+	// ValidateQueryExpandWildcardsOpen can be used to set ValidateQueryExpandWildcards to "open"
+	ValidateQueryExpandWildcardsOpen = iota
+	// ValidateQueryExpandWildcardsClosed can be used to set ValidateQueryExpandWildcards to "closed"
+	ValidateQueryExpandWildcardsClosed = iota
+	// ValidateQueryExpandWildcardsNone can be used to set ValidateQueryExpandWildcards to "none"
+	ValidateQueryExpandWildcardsNone = iota
+	// ValidateQueryExpandWildcardsAll can be used to set ValidateQueryExpandWildcards to "all"
+	ValidateQueryExpandWildcardsAll = iota
+)
+
+// WithValidateQueryExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+func WithValidateQueryExpandWildcards(expandWildcards ValidateQueryExpandWildcards) ValidateQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithValidateQueryExplain - return detailed information about the error.
+func WithValidateQueryExplain(explain bool) ValidateQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithValidateQueryIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
+func WithValidateQueryIgnoreUnavailable(ignoreUnavailable bool) ValidateQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithValidateQueryLenient - specify whether format-based query failures (such as providing text to a numeric field) should be ignored.
+func WithValidateQueryLenient(lenient bool) ValidateQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithValidateQueryQ - query in the Lucene query string syntax.
+func WithValidateQueryQ(q string) ValidateQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithValidateQueryRewrite - provide a more detailed explanation showing the actual Lucene query that will be executed.
+func WithValidateQueryRewrite(rewrite bool) ValidateQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithValidateQueryBody - the query definition specified with the Query DSL.
+func WithValidateQueryBody(body map[string]interface{}) ValidateQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithValidateQueryErrorTrace - include the stack trace of returned errors.
+func WithValidateQueryErrorTrace(errorTrace bool) ValidateQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithValidateQueryFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithValidateQueryFilterPath(filterPath []string) ValidateQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithValidateQueryHuman - return human readable values for statistics.
+func WithValidateQueryHuman(human bool) ValidateQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithValidateQueryIgnore - ignores the specified HTTP status codes.
+func WithValidateQueryIgnore(ignore []int) ValidateQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithValidateQueryPretty - pretty format the returned JSON response.
+func WithValidateQueryPretty(pretty bool) ValidateQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithValidateQuerySourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithValidateQuerySourceParam(sourceParam string) ValidateQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // ValidateQuery - the validate API allows a user to validate a potentially expensive query without executing it. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-validate.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndexList, WithType, WithAllShards, WithAllowNoIndices, WithAnalyzeWildcard, WithAnalyzer, WithDefaultOperator, WithDf, WithExpandWildcards, WithExplain, WithIgnoreUnavailable, WithLenient, WithQ, WithRewrite, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) ValidateQuery(options ...Option) (*ValidateQueryResponse, error) {
+// options: optional parameters.
+func (i *Indices) ValidateQuery(options ...ValidateQueryOption) (*ValidateQueryResponse, error) {
 	req := i.transport.NewRequest("GET")
-	methodOptions := supportedOptions["ValidateQuery"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := i.transport.Do(req)
 	return &ValidateQueryResponse{resp}, err

@@ -3,24 +3,58 @@
 package remote
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// InfoOption is a non-required Info option that gets applied to an HTTP request.
+type InfoOption func(r *transport.Request)
+
+// WithInfoErrorTrace - include the stack trace of returned errors.
+func WithInfoErrorTrace(errorTrace bool) InfoOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithInfoFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithInfoFilterPath(filterPath []string) InfoOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithInfoHuman - return human readable values for statistics.
+func WithInfoHuman(human bool) InfoOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithInfoIgnore - ignores the specified HTTP status codes.
+func WithInfoIgnore(ignore []int) InfoOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithInfoPretty - pretty format the returned JSON response.
+func WithInfoPretty(pretty bool) InfoOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithInfoSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithInfoSourceParam(sourceParam string) InfoOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // Info - see http://www.elastic.co/guide/en/elasticsearch/reference/master/remote-info.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (r *Remote) Info(options ...Option) (*InfoResponse, error) {
+// options: optional parameters.
+func (r *Remote) Info(options ...InfoOption) (*InfoResponse, error) {
 	req := r.transport.NewRequest("GET")
-	methodOptions := supportedOptions["Info"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := r.transport.Do(req)
 	return &InfoResponse{resp}, err

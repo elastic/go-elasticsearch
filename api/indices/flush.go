@@ -3,24 +3,108 @@
 package indices
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// FlushOption is a non-required Flush option that gets applied to an HTTP request.
+type FlushOption func(r *transport.Request)
+
+// WithFlushIndex - a comma-separated list of index names; use "_all" or empty string for all indices.
+func WithFlushIndex(index []string) FlushOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFlushAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
+func WithFlushAllowNoIndices(allowNoIndices bool) FlushOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// FlushExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+type FlushExpandWildcards int
+
+const (
+	// FlushExpandWildcardsOpen can be used to set FlushExpandWildcards to "open"
+	FlushExpandWildcardsOpen = iota
+	// FlushExpandWildcardsClosed can be used to set FlushExpandWildcards to "closed"
+	FlushExpandWildcardsClosed = iota
+	// FlushExpandWildcardsNone can be used to set FlushExpandWildcards to "none"
+	FlushExpandWildcardsNone = iota
+	// FlushExpandWildcardsAll can be used to set FlushExpandWildcards to "all"
+	FlushExpandWildcardsAll = iota
+)
+
+// WithFlushExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+func WithFlushExpandWildcards(expandWildcards FlushExpandWildcards) FlushOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFlushForce - whether a flush should be forced even if it is not necessarily needed ie. if no changes will be committed to the index. This is useful if transaction log IDs should be incremented even if no uncommitted changes are present. (This setting can be considered as internal).
+func WithFlushForce(force bool) FlushOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFlushIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
+func WithFlushIgnoreUnavailable(ignoreUnavailable bool) FlushOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFlushWaitIfOngoing - if set to true the flush operation will block until the flush can be executed if another flush operation is already executing. The default is true. If set to false the flush will be skipped iff if another flush operation is already running.
+func WithFlushWaitIfOngoing(waitIfOngoing bool) FlushOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFlushErrorTrace - include the stack trace of returned errors.
+func WithFlushErrorTrace(errorTrace bool) FlushOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFlushFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithFlushFilterPath(filterPath []string) FlushOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFlushHuman - return human readable values for statistics.
+func WithFlushHuman(human bool) FlushOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFlushIgnore - ignores the specified HTTP status codes.
+func WithFlushIgnore(ignore []int) FlushOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFlushPretty - pretty format the returned JSON response.
+func WithFlushPretty(pretty bool) FlushOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFlushSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithFlushSourceParam(sourceParam string) FlushOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // Flush allows to flush one or more indices through an API. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-flush.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndexList, WithAllowNoIndices, WithExpandWildcards, WithForce, WithIgnoreUnavailable, WithWaitIfOngoing, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) Flush(options ...Option) (*FlushResponse, error) {
+// options: optional parameters.
+func (i *Indices) Flush(options ...FlushOption) (*FlushResponse, error) {
 	req := i.transport.NewRequest("POST")
-	methodOptions := supportedOptions["Flush"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := i.transport.Do(req)
 	return &FlushResponse{resp}, err

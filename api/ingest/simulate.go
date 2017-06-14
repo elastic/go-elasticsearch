@@ -3,26 +3,72 @@
 package ingest
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// SimulateOption is a non-required Simulate option that gets applied to an HTTP request.
+type SimulateOption func(r *transport.Request)
+
+// WithSimulateID - pipeline ID.
+func WithSimulateID(id string) SimulateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSimulateVerbose - verbose mode. Display data output for each processor in executed pipeline.
+func WithSimulateVerbose(verbose bool) SimulateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSimulateErrorTrace - include the stack trace of returned errors.
+func WithSimulateErrorTrace(errorTrace bool) SimulateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSimulateFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithSimulateFilterPath(filterPath []string) SimulateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSimulateHuman - return human readable values for statistics.
+func WithSimulateHuman(human bool) SimulateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSimulateIgnore - ignores the specified HTTP status codes.
+func WithSimulateIgnore(ignore []int) SimulateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSimulatePretty - pretty format the returned JSON response.
+func WithSimulatePretty(pretty bool) SimulateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSimulateSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithSimulateSourceParam(sourceParam string) SimulateOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // Simulate - the ingest plugins extend Elasticsearch by providing additional ingest node capabilities. See https://www.elastic.co/guide/en/elasticsearch/plugins/5.x/ingest.html for more info.
 //
 // body: the simulate definition.
 //
-// options: optional parameters. Supports the following functional options: WithID, WithVerbose, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Ingest) Simulate(body map[string]interface{}, options ...Option) (*SimulateResponse, error) {
+// options: optional parameters.
+func (i *Ingest) Simulate(body map[string]interface{}, options ...SimulateOption) (*SimulateResponse, error) {
 	req := i.transport.NewRequest("GET")
-	methodOptions := supportedOptions["Simulate"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := i.transport.Do(req)
 	return &SimulateResponse{resp}, err

@@ -46,6 +46,48 @@ import (
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// IndexOption is a non-required Index option that gets applied to an HTTP request.
+type IndexOption func(r *transport.Request)
+
+// WithIndexID - document ID.
+func WithIndexID(id string) IndexOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// IndexOpType - explicit operation type.
+type IndexOpType int
+const (
+	// IndexOpTypeIndex can be used to set IndexOpType to "index"
+	IndexOpTypeIndex = iota
+	// IndexOpTypeCreate can be used to set IndexOpType to "create"
+	IndexOpTypeCreate = iota
+)
+
+// WithIndexOpType - explicit operation type.
+func WithIndexOpType(opType IndexOpType) IndexOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithIndexTimeout - explicit operation timeout.
+func WithIndexTimeout(timeout time.Duration) IndexOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithIndexVersion - explicit version number for concurrency control.
+func WithIndexVersion(version int) IndexOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithIndexWaitForActiveShards - sets the number of shard copies that must be active before proceeding with the index operation. Defaults to 1, meaning the primary shard only. Set to "all" for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1).
+func WithIndexWaitForActiveShards(waitForActiveShards string) IndexOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // Index adds or updates a typed JSON document in a specific index, making it searchable. See http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html for more info.
 //
 // index: the name of the index.
@@ -54,15 +96,11 @@ import (
 //
 // body: the document.
 //
-// options: optional parameters. Supports the following functional options: WithID, WithOpType, WithTimeout, WithVersion, WithWaitForActiveShards, see the Option type in this package for more info.
-func (a *API) Index(index string, documentType string, body map[string]interface{}, options ...Option) (*IndexResponse, error) {
+// options: optional parameters.
+func (a *API) Index(index string, documentType string, body map[string]interface{}, options ...IndexOption) (*IndexResponse, error) {
 	req := a.transport.NewRequest("POST")
-	methodOptions := supportedOptions["Index"]
 	for _, option := range options{
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := a.transport.Do(req)
 	return &IndexResponse{resp}, err

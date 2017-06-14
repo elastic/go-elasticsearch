@@ -3,26 +3,97 @@
 package indices
 
 import (
-	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// RolloverOption is a non-required Rollover option that gets applied to an HTTP request.
+type RolloverOption func(r *transport.Request)
+
+// WithRolloverNewIndex - the name of the rollover index.
+func WithRolloverNewIndex(newIndex string) RolloverOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRolloverDryRun - if set to true the rollover action will only be validated but not actually performed even if a condition matches. The default is false.
+func WithRolloverDryRun(dryRun bool) RolloverOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRolloverMasterTimeout - specify timeout for connection to master.
+func WithRolloverMasterTimeout(masterTimeout time.Duration) RolloverOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRolloverTimeout - explicit operation timeout.
+func WithRolloverTimeout(timeout time.Duration) RolloverOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRolloverWaitForActiveShards - set the number of active shards to wait for on the newly created rollover index before the operation returns.
+func WithRolloverWaitForActiveShards(waitForActiveShards string) RolloverOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRolloverBody - the conditions that needs to be met for executing rollover.
+func WithRolloverBody(body map[string]interface{}) RolloverOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRolloverErrorTrace - include the stack trace of returned errors.
+func WithRolloverErrorTrace(errorTrace bool) RolloverOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRolloverFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithRolloverFilterPath(filterPath []string) RolloverOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRolloverHuman - return human readable values for statistics.
+func WithRolloverHuman(human bool) RolloverOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRolloverIgnore - ignores the specified HTTP status codes.
+func WithRolloverIgnore(ignore []int) RolloverOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRolloverPretty - pretty format the returned JSON response.
+func WithRolloverPretty(pretty bool) RolloverOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRolloverSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithRolloverSourceParam(sourceParam string) RolloverOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // Rollover - the rollover index API rolls an alias over to a new index when the existing index is considered to be too large or too old. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-rollover-index.html for more info.
 //
 // alias: the name of the alias to rollover.
 //
-// options: optional parameters. Supports the following functional options: WithNewIndex, WithDryRun, WithMasterTimeout, WithTimeout, WithWaitForActiveShards, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) Rollover(alias string, options ...Option) (*RolloverResponse, error) {
+// options: optional parameters.
+func (i *Indices) Rollover(alias string, options ...RolloverOption) (*RolloverResponse, error) {
 	req := i.transport.NewRequest("POST")
-	methodOptions := supportedOptions["Rollover"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := i.transport.Do(req)
 	return &RolloverResponse{resp}, err

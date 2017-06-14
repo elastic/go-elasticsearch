@@ -3,24 +3,108 @@
 package indices
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// ExistsAliasOption is a non-required ExistsAlias option that gets applied to an HTTP request.
+type ExistsAliasOption func(r *transport.Request)
+
+// WithExistsAliasIndex - a comma-separated list of index names to filter aliases.
+func WithExistsAliasIndex(index []string) ExistsAliasOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsAliasName - a comma-separated list of alias names to return.
+func WithExistsAliasName(name []string) ExistsAliasOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsAliasAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
+func WithExistsAliasAllowNoIndices(allowNoIndices bool) ExistsAliasOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// ExistsAliasExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+type ExistsAliasExpandWildcards int
+
+const (
+	// ExistsAliasExpandWildcardsOpen can be used to set ExistsAliasExpandWildcards to "open"
+	ExistsAliasExpandWildcardsOpen = iota
+	// ExistsAliasExpandWildcardsClosed can be used to set ExistsAliasExpandWildcards to "closed"
+	ExistsAliasExpandWildcardsClosed = iota
+	// ExistsAliasExpandWildcardsNone can be used to set ExistsAliasExpandWildcards to "none"
+	ExistsAliasExpandWildcardsNone = iota
+	// ExistsAliasExpandWildcardsAll can be used to set ExistsAliasExpandWildcards to "all"
+	ExistsAliasExpandWildcardsAll = iota
+)
+
+// WithExistsAliasExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+func WithExistsAliasExpandWildcards(expandWildcards ExistsAliasExpandWildcards) ExistsAliasOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsAliasIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
+func WithExistsAliasIgnoreUnavailable(ignoreUnavailable bool) ExistsAliasOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsAliasLocal - return local information, do not retrieve the state from master node (default: false).
+func WithExistsAliasLocal(local bool) ExistsAliasOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsAliasErrorTrace - include the stack trace of returned errors.
+func WithExistsAliasErrorTrace(errorTrace bool) ExistsAliasOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsAliasFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithExistsAliasFilterPath(filterPath []string) ExistsAliasOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsAliasHuman - return human readable values for statistics.
+func WithExistsAliasHuman(human bool) ExistsAliasOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsAliasIgnore - ignores the specified HTTP status codes.
+func WithExistsAliasIgnore(ignore []int) ExistsAliasOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsAliasPretty - pretty format the returned JSON response.
+func WithExistsAliasPretty(pretty bool) ExistsAliasOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsAliasSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithExistsAliasSourceParam(sourceParam string) ExistsAliasOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // ExistsAlias - APIs in Elasticsearch accept an index name when working against a specific index, and several indices when applicable. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-aliases.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithName, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithLocal, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) ExistsAlias(options ...Option) (*ExistsAliasResponse, error) {
+// options: optional parameters.
+func (i *Indices) ExistsAlias(options ...ExistsAliasOption) (*ExistsAliasResponse, error) {
 	req := i.transport.NewRequest("HEAD")
-	methodOptions := supportedOptions["ExistsAlias"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := i.transport.Do(req)
 	return &ExistsAliasResponse{resp}, err

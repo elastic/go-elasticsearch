@@ -3,24 +3,141 @@
 package cat
 
 import (
-	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// AllocationOption is a non-required Allocation option that gets applied to an HTTP request.
+type AllocationOption func(r *transport.Request)
+
+// WithAllocationNodeID - a comma-separated list of node IDs or names to limit the returned information.
+func WithAllocationNodeID(nodeID []string) AllocationOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// AllocationBytes - the unit in which to display byte values.
+type AllocationBytes int
+
+const (
+	// AllocationBytesB can be used to set AllocationBytes to "b"
+	AllocationBytesB = iota
+	// AllocationBytesK can be used to set AllocationBytes to "k"
+	AllocationBytesK = iota
+	// AllocationBytesKb can be used to set AllocationBytes to "kb"
+	AllocationBytesKb = iota
+	// AllocationBytesM can be used to set AllocationBytes to "m"
+	AllocationBytesM = iota
+	// AllocationBytesMb can be used to set AllocationBytes to "mb"
+	AllocationBytesMb = iota
+	// AllocationBytesG can be used to set AllocationBytes to "g"
+	AllocationBytesG = iota
+	// AllocationBytesGb can be used to set AllocationBytes to "gb"
+	AllocationBytesGb = iota
+	// AllocationBytesT can be used to set AllocationBytes to "t"
+	AllocationBytesT = iota
+	// AllocationBytesTb can be used to set AllocationBytes to "tb"
+	AllocationBytesTb = iota
+	// AllocationBytesP can be used to set AllocationBytes to "p"
+	AllocationBytesP = iota
+	// AllocationBytesPb can be used to set AllocationBytes to "pb"
+	AllocationBytesPb = iota
+)
+
+// WithAllocationBytes - the unit in which to display byte values.
+func WithAllocationBytes(bytes AllocationBytes) AllocationOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAllocationFormat - a short version of the Accept header, e.g. json, yaml.
+func WithAllocationFormat(format string) AllocationOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAllocationH - comma-separated list of column names to display.
+func WithAllocationH(h []string) AllocationOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAllocationHelp - return help information.
+func WithAllocationHelp(help bool) AllocationOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAllocationLocal - return local information, do not retrieve the state from master node (default: false).
+func WithAllocationLocal(local bool) AllocationOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAllocationMasterTimeout - explicit operation timeout for connection to master node.
+func WithAllocationMasterTimeout(masterTimeout time.Duration) AllocationOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAllocationS - comma-separated list of column names or column aliases to sort by.
+func WithAllocationS(s []string) AllocationOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAllocationV - verbose mode. Display column headers.
+func WithAllocationV(v bool) AllocationOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAllocationErrorTrace - include the stack trace of returned errors.
+func WithAllocationErrorTrace(errorTrace bool) AllocationOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAllocationFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithAllocationFilterPath(filterPath []string) AllocationOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAllocationHuman - return human readable values for statistics.
+func WithAllocationHuman(human bool) AllocationOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAllocationIgnore - ignores the specified HTTP status codes.
+func WithAllocationIgnore(ignore []int) AllocationOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAllocationPretty - pretty format the returned JSON response.
+func WithAllocationPretty(pretty bool) AllocationOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAllocationSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithAllocationSourceParam(sourceParam string) AllocationOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // Allocation - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-allocation.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithNodeID, WithBytes, WithFormat, WithH, WithHelp, WithLocal, WithMasterTimeout, WithS, WithV, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cat) Allocation(options ...Option) (*AllocationResponse, error) {
+// options: optional parameters.
+func (c *Cat) Allocation(options ...AllocationOption) (*AllocationResponse, error) {
 	req := c.transport.NewRequest("GET")
-	methodOptions := supportedOptions["Allocation"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := c.transport.Do(req)
 	return &AllocationResponse{resp}, err

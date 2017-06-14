@@ -3,24 +3,146 @@
 package indices
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// AnalyzeOption is a non-required Analyze option that gets applied to an HTTP request.
+type AnalyzeOption func(r *transport.Request)
+
+// WithAnalyzeIndex - the name of the index to scope the operation.
+func WithAnalyzeIndex(index string) AnalyzeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAnalyzeAnalyzer - the name of the analyzer to use.
+func WithAnalyzeAnalyzer(analyzer string) AnalyzeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAnalyzeAttributes - a comma-separated list of token attributes to output, this parameter works only with "explain=true".
+func WithAnalyzeAttributes(attributes []string) AnalyzeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAnalyzeCharFilter - a comma-separated list of character filters to use for the analysis.
+func WithAnalyzeCharFilter(charFilter []string) AnalyzeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAnalyzeExplain - with "true", outputs more advanced details. (default: false).
+func WithAnalyzeExplain(explain bool) AnalyzeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAnalyzeField - use the analyzer configured for this field (instead of passing the analyzer name).
+func WithAnalyzeField(field string) AnalyzeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAnalyzeFilter - a comma-separated list of filters to use for the analysis.
+func WithAnalyzeFilter(filter []string) AnalyzeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// AnalyzeFormat - format of the output.
+type AnalyzeFormat int
+
+const (
+	// AnalyzeFormatDetailed can be used to set AnalyzeFormat to "detailed"
+	AnalyzeFormatDetailed = iota
+	// AnalyzeFormatText can be used to set AnalyzeFormat to "text"
+	AnalyzeFormatText = iota
+)
+
+// WithAnalyzeFormat - format of the output.
+func WithAnalyzeFormat(format AnalyzeFormat) AnalyzeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAnalyzeIndexParam - the name of the index to scope the operation.
+func WithAnalyzeIndexParam(indexParam string) AnalyzeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAnalyzePreferLocal - with "true", specify that a local shard should be used if available, with "false", use a random shard (default: true).
+func WithAnalyzePreferLocal(preferLocal bool) AnalyzeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAnalyzeText - the text on which the analysis should be performed (when request body is not used).
+func WithAnalyzeText(text []string) AnalyzeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAnalyzeTokenizer - the name of the tokenizer to use for the analysis.
+func WithAnalyzeTokenizer(tokenizer string) AnalyzeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAnalyzeBody - the text on which the analysis should be performed.
+func WithAnalyzeBody(body map[string]interface{}) AnalyzeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAnalyzeErrorTrace - include the stack trace of returned errors.
+func WithAnalyzeErrorTrace(errorTrace bool) AnalyzeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAnalyzeFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithAnalyzeFilterPath(filterPath []string) AnalyzeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAnalyzeHuman - return human readable values for statistics.
+func WithAnalyzeHuman(human bool) AnalyzeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAnalyzeIgnore - ignores the specified HTTP status codes.
+func WithAnalyzeIgnore(ignore []int) AnalyzeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAnalyzePretty - pretty format the returned JSON response.
+func WithAnalyzePretty(pretty bool) AnalyzeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithAnalyzeSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithAnalyzeSourceParam(sourceParam string) AnalyzeOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // Analyze - performs the analysis process on a text and return the tokens breakdown of the text. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-analyze.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithAnalyzer, WithAttributes, WithCharFilter, WithExplain, WithField, WithFilter, WithFormat, WithIndexParam, WithPreferLocal, WithText, WithTokenizer, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) Analyze(options ...Option) (*AnalyzeResponse, error) {
+// options: optional parameters.
+func (i *Indices) Analyze(options ...AnalyzeOption) (*AnalyzeResponse, error) {
 	req := i.transport.NewRequest("GET")
-	methodOptions := supportedOptions["Analyze"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := i.transport.Do(req)
 	return &AnalyzeResponse{resp}, err

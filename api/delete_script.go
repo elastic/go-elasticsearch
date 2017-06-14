@@ -3,26 +3,60 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// DeleteScriptOption is a non-required DeleteScript option that gets applied to an HTTP request.
+type DeleteScriptOption func(r *transport.Request)
+
+// WithDeleteScriptErrorTrace - include the stack trace of returned errors.
+func WithDeleteScriptErrorTrace(errorTrace bool) DeleteScriptOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteScriptFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithDeleteScriptFilterPath(filterPath []string) DeleteScriptOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteScriptHuman - return human readable values for statistics.
+func WithDeleteScriptHuman(human bool) DeleteScriptOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteScriptIgnore - ignores the specified HTTP status codes.
+func WithDeleteScriptIgnore(ignore []int) DeleteScriptOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteScriptPretty - pretty format the returned JSON response.
+func WithDeleteScriptPretty(pretty bool) DeleteScriptOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteScriptSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithDeleteScriptSourceParam(sourceParam string) DeleteScriptOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // DeleteScript - the scripting module enables you to use scripts to evaluate custom expressions. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/modules-scripting.html for more info.
 //
 // lang: script language.
 //
-// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) DeleteScript(lang string, options ...Option) (*DeleteScriptResponse, error) {
+// options: optional parameters.
+func (a *API) DeleteScript(lang string, options ...DeleteScriptOption) (*DeleteScriptResponse, error) {
 	req := a.transport.NewRequest("DELETE")
-	methodOptions := supportedOptions["DeleteScript"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := a.transport.Do(req)
 	return &DeleteScriptResponse{resp}, err

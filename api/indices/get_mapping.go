@@ -3,24 +3,108 @@
 package indices
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// GetMappingOption is a non-required GetMapping option that gets applied to an HTTP request.
+type GetMappingOption func(r *transport.Request)
+
+// WithGetMappingIndex - a comma-separated list of index names.
+func WithGetMappingIndex(index []string) GetMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetMappingType - a comma-separated list of document types.
+func WithGetMappingType(documentType []string) GetMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetMappingAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
+func WithGetMappingAllowNoIndices(allowNoIndices bool) GetMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// GetMappingExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+type GetMappingExpandWildcards int
+
+const (
+	// GetMappingExpandWildcardsOpen can be used to set GetMappingExpandWildcards to "open"
+	GetMappingExpandWildcardsOpen = iota
+	// GetMappingExpandWildcardsClosed can be used to set GetMappingExpandWildcards to "closed"
+	GetMappingExpandWildcardsClosed = iota
+	// GetMappingExpandWildcardsNone can be used to set GetMappingExpandWildcards to "none"
+	GetMappingExpandWildcardsNone = iota
+	// GetMappingExpandWildcardsAll can be used to set GetMappingExpandWildcards to "all"
+	GetMappingExpandWildcardsAll = iota
+)
+
+// WithGetMappingExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+func WithGetMappingExpandWildcards(expandWildcards GetMappingExpandWildcards) GetMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetMappingIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
+func WithGetMappingIgnoreUnavailable(ignoreUnavailable bool) GetMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetMappingLocal - return local information, do not retrieve the state from master node (default: false).
+func WithGetMappingLocal(local bool) GetMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetMappingErrorTrace - include the stack trace of returned errors.
+func WithGetMappingErrorTrace(errorTrace bool) GetMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetMappingFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithGetMappingFilterPath(filterPath []string) GetMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetMappingHuman - return human readable values for statistics.
+func WithGetMappingHuman(human bool) GetMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetMappingIgnore - ignores the specified HTTP status codes.
+func WithGetMappingIgnore(ignore []int) GetMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetMappingPretty - pretty format the returned JSON response.
+func WithGetMappingPretty(pretty bool) GetMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetMappingSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithGetMappingSourceParam(sourceParam string) GetMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // GetMapping - the get mapping API allows to retrieve mapping definitions for an index or index/type. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-get-mapping.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndexList, WithType, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithLocal, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) GetMapping(options ...Option) (*GetMappingResponse, error) {
+// options: optional parameters.
+func (i *Indices) GetMapping(options ...GetMappingOption) (*GetMappingResponse, error) {
 	req := i.transport.NewRequest("GET")
-	methodOptions := supportedOptions["GetMapping"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := i.transport.Do(req)
 	return &GetMappingResponse{resp}, err

@@ -3,24 +3,124 @@
 package indices
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// StatsOption is a non-required Stats option that gets applied to an HTTP request.
+type StatsOption func(r *transport.Request)
+
+// WithStatsIndex - a comma-separated list of index names; use "_all" or empty string to perform the operation on all indices.
+func WithStatsIndex(index []string) StatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatsMetric - limit the information returned the specific metrics.
+func WithStatsMetric(metric []string) StatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatsCompletionFields - a comma-separated list of fields for "fielddata" and "suggest" index metric (supports wildcards).
+func WithStatsCompletionFields(completionFields []string) StatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatsFielddataFields - a comma-separated list of fields for "fielddata" index metric (supports wildcards).
+func WithStatsFielddataFields(fielddataFields []string) StatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatsFields - a comma-separated list of fields for "fielddata" and "completion" index metric (supports wildcards).
+func WithStatsFields(fields []string) StatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatsGroups - a comma-separated list of search groups for "search" index metric.
+func WithStatsGroups(groups []string) StatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatsIncludeSegmentFileSizes - whether to report the aggregated disk usage of each one of the Lucene index files (only applies if segment stats are requested).
+func WithStatsIncludeSegmentFileSizes(includeSegmentFileSizes bool) StatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// StatsLevel - return stats aggregated at cluster, index or shard level.
+type StatsLevel int
+
+const (
+	// StatsLevelCluster can be used to set StatsLevel to "cluster"
+	StatsLevelCluster = iota
+	// StatsLevelIndices can be used to set StatsLevel to "indices"
+	StatsLevelIndices = iota
+	// StatsLevelShards can be used to set StatsLevel to "shards"
+	StatsLevelShards = iota
+)
+
+// WithStatsLevel - return stats aggregated at cluster, index or shard level.
+func WithStatsLevel(level StatsLevel) StatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatsTypes - a comma-separated list of document types for the "indexing" index metric.
+func WithStatsTypes(types []string) StatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatsErrorTrace - include the stack trace of returned errors.
+func WithStatsErrorTrace(errorTrace bool) StatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatsFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithStatsFilterPath(filterPath []string) StatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatsHuman - return human readable values for statistics.
+func WithStatsHuman(human bool) StatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatsIgnore - ignores the specified HTTP status codes.
+func WithStatsIgnore(ignore []int) StatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatsPretty - pretty format the returned JSON response.
+func WithStatsPretty(pretty bool) StatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatsSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithStatsSourceParam(sourceParam string) StatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // Stats - indices level stats provide statistics on different operations happening on an index. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-stats.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithMetric, WithCompletionFields, WithFielddataFields, WithFields, WithGroups, WithIncludeSegmentFileSizes, WithLevel, WithTypes, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) Stats(options ...Option) (*StatsResponse, error) {
+// options: optional parameters.
+func (i *Indices) Stats(options ...StatsOption) (*StatsResponse, error) {
 	req := i.transport.NewRequest("GET")
-	methodOptions := supportedOptions["Stats"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := i.transport.Do(req)
 	return &StatsResponse{resp}, err

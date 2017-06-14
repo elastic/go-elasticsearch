@@ -3,12 +3,144 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
+
+// ExplainOption is a non-required Explain option that gets applied to an HTTP request.
+type ExplainOption func(r *transport.Request)
+
+// WithExplainSource - true or false to return the _source field or not, or a list of fields to return.
+func WithExplainSource(source []string) ExplainOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExplainSourceExclude - a list of fields to exclude from the returned _source field.
+func WithExplainSourceExclude(sourceExclude []string) ExplainOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExplainSourceInclude - a list of fields to extract and return from the _source field.
+func WithExplainSourceInclude(sourceInclude []string) ExplainOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExplainAnalyzeWildcard - specify whether wildcards and prefix queries in the query string query should be analyzed (default: false).
+func WithExplainAnalyzeWildcard(analyzeWildcard bool) ExplainOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExplainAnalyzer - the analyzer for the query string query.
+func WithExplainAnalyzer(analyzer string) ExplainOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// ExplainDefaultOperator - the default operator for query string query (AND or OR).
+type ExplainDefaultOperator int
+
+const (
+	// ExplainDefaultOperatorAND can be used to set ExplainDefaultOperator to "AND"
+	ExplainDefaultOperatorAND = iota
+	// ExplainDefaultOperatorOR can be used to set ExplainDefaultOperator to "OR"
+	ExplainDefaultOperatorOR = iota
+)
+
+// WithExplainDefaultOperator - the default operator for query string query (AND or OR).
+func WithExplainDefaultOperator(defaultOperator ExplainDefaultOperator) ExplainOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExplainDf - the default field for query string query (default: _all).
+func WithExplainDf(df string) ExplainOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExplainLenient - specify whether format-based query failures (such as providing text to a numeric field) should be ignored.
+func WithExplainLenient(lenient bool) ExplainOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExplainParent - the ID of the parent document.
+func WithExplainParent(parent string) ExplainOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExplainPreference - specify the node or shard the operation should be performed on (default: random).
+func WithExplainPreference(preference string) ExplainOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExplainQ - query in the Lucene query string syntax.
+func WithExplainQ(q string) ExplainOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExplainRouting - specific routing value.
+func WithExplainRouting(routing string) ExplainOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExplainStoredFields - a comma-separated list of stored fields to return in the response.
+func WithExplainStoredFields(storedFields []string) ExplainOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExplainBody - the query definition using the Query DSL.
+func WithExplainBody(body map[string]interface{}) ExplainOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExplainErrorTrace - include the stack trace of returned errors.
+func WithExplainErrorTrace(errorTrace bool) ExplainOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExplainFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithExplainFilterPath(filterPath []string) ExplainOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExplainHuman - return human readable values for statistics.
+func WithExplainHuman(human bool) ExplainOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExplainIgnore - ignores the specified HTTP status codes.
+func WithExplainIgnore(ignore []int) ExplainOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExplainPretty - pretty format the returned JSON response.
+func WithExplainPretty(pretty bool) ExplainOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExplainSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithExplainSourceParam(sourceParam string) ExplainOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // Explain - the explain api computes a score explanation for a query and a specific document. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-explain.html for more info.
 //
@@ -18,15 +150,11 @@ import (
 //
 // id: the document ID.
 //
-// options: optional parameters. Supports the following functional options: WithSource, WithSourceExclude, WithSourceInclude, WithAnalyzeWildcard, WithAnalyzer, WithDefaultOperator, WithDf, WithLenient, WithParent, WithPreference, WithQ, WithRouting, WithStoredFields, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) Explain(index string, documentType string, id string, options ...Option) (*ExplainResponse, error) {
+// options: optional parameters.
+func (a *API) Explain(index string, documentType string, id string, options ...ExplainOption) (*ExplainResponse, error) {
 	req := a.transport.NewRequest("GET")
-	methodOptions := supportedOptions["Explain"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := a.transport.Do(req)
 	return &ExplainResponse{resp}, err

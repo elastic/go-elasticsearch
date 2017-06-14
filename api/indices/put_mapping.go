@@ -3,12 +3,107 @@
 package indices
 
 import (
-	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
+
+// PutMappingOption is a non-required PutMapping option that gets applied to an HTTP request.
+type PutMappingOption func(r *transport.Request)
+
+// WithPutMappingIndex - a comma-separated list of index names the mapping should be added to (supports wildcards); use "_all" or omit to add the mapping on all indices.
+func WithPutMappingIndex(index []string) PutMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutMappingAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
+func WithPutMappingAllowNoIndices(allowNoIndices bool) PutMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// PutMappingExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+type PutMappingExpandWildcards int
+
+const (
+	// PutMappingExpandWildcardsOpen can be used to set PutMappingExpandWildcards to "open"
+	PutMappingExpandWildcardsOpen = iota
+	// PutMappingExpandWildcardsClosed can be used to set PutMappingExpandWildcards to "closed"
+	PutMappingExpandWildcardsClosed = iota
+	// PutMappingExpandWildcardsNone can be used to set PutMappingExpandWildcards to "none"
+	PutMappingExpandWildcardsNone = iota
+	// PutMappingExpandWildcardsAll can be used to set PutMappingExpandWildcards to "all"
+	PutMappingExpandWildcardsAll = iota
+)
+
+// WithPutMappingExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+func WithPutMappingExpandWildcards(expandWildcards PutMappingExpandWildcards) PutMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutMappingIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
+func WithPutMappingIgnoreUnavailable(ignoreUnavailable bool) PutMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutMappingMasterTimeout - specify timeout for connection to master.
+func WithPutMappingMasterTimeout(masterTimeout time.Duration) PutMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutMappingTimeout - explicit operation timeout.
+func WithPutMappingTimeout(timeout time.Duration) PutMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutMappingUpdateAllTypes - whether to update the mapping for all fields with the same name across all types or not.
+func WithPutMappingUpdateAllTypes(updateAllTypes bool) PutMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutMappingErrorTrace - include the stack trace of returned errors.
+func WithPutMappingErrorTrace(errorTrace bool) PutMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutMappingFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithPutMappingFilterPath(filterPath []string) PutMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutMappingHuman - return human readable values for statistics.
+func WithPutMappingHuman(human bool) PutMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutMappingIgnore - ignores the specified HTTP status codes.
+func WithPutMappingIgnore(ignore []int) PutMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutMappingPretty - pretty format the returned JSON response.
+func WithPutMappingPretty(pretty bool) PutMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutMappingSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithPutMappingSourceParam(sourceParam string) PutMappingOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // PutMapping - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-put-mapping.html for more info.
 //
@@ -16,15 +111,11 @@ import (
 //
 // body: the mapping definition.
 //
-// options: optional parameters. Supports the following functional options: WithIndexList, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithMasterTimeout, WithTimeout, WithUpdateAllTypes, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) PutMapping(documentType string, body map[string]interface{}, options ...Option) (*PutMappingResponse, error) {
+// options: optional parameters.
+func (i *Indices) PutMapping(documentType string, body map[string]interface{}, options ...PutMappingOption) (*PutMappingResponse, error) {
 	req := i.transport.NewRequest("PUT")
-	methodOptions := supportedOptions["PutMapping"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := i.transport.Do(req)
 	return &PutMappingResponse{resp}, err

@@ -3,26 +3,60 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// GetScriptOption is a non-required GetScript option that gets applied to an HTTP request.
+type GetScriptOption func(r *transport.Request)
+
+// WithGetScriptErrorTrace - include the stack trace of returned errors.
+func WithGetScriptErrorTrace(errorTrace bool) GetScriptOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetScriptFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithGetScriptFilterPath(filterPath []string) GetScriptOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetScriptHuman - return human readable values for statistics.
+func WithGetScriptHuman(human bool) GetScriptOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetScriptIgnore - ignores the specified HTTP status codes.
+func WithGetScriptIgnore(ignore []int) GetScriptOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetScriptPretty - pretty format the returned JSON response.
+func WithGetScriptPretty(pretty bool) GetScriptOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetScriptSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithGetScriptSourceParam(sourceParam string) GetScriptOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // GetScript - the scripting module enables you to use scripts to evaluate custom expressions. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/modules-scripting.html for more info.
 //
 // lang: script language.
 //
-// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) GetScript(lang string, options ...Option) (*GetScriptResponse, error) {
+// options: optional parameters.
+func (a *API) GetScript(lang string, options ...GetScriptOption) (*GetScriptResponse, error) {
 	req := a.transport.NewRequest("GET")
-	methodOptions := supportedOptions["GetScript"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := a.transport.Do(req)
 	return &GetScriptResponse{resp}, err

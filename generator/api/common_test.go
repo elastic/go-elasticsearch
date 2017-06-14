@@ -37,7 +37,7 @@ func TestResolve(t *testing.T) {
 		t.Fatalf("Didn't find any params in the common params spec file")
 	}
 	for name, p := range params {
-		err = p.resolve(name, "", templates)
+		err = p.resolve(name, "", "", templates)
 		if err != nil {
 			t.Fatal(err)
 		}

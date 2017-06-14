@@ -3,26 +3,110 @@
 package indices
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// ExistsOption is a non-required Exists option that gets applied to an HTTP request.
+type ExistsOption func(r *transport.Request)
+
+// WithExistsAllowNoIndices - ignore if a wildcard expression resolves to no concrete indices (default: false).
+func WithExistsAllowNoIndices(allowNoIndices bool) ExistsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// ExistsExpandWildcards - whether wildcard expressions should get expanded to open or closed indices (default: open).
+type ExistsExpandWildcards int
+
+const (
+	// ExistsExpandWildcardsOpen can be used to set ExistsExpandWildcards to "open"
+	ExistsExpandWildcardsOpen = iota
+	// ExistsExpandWildcardsClosed can be used to set ExistsExpandWildcards to "closed"
+	ExistsExpandWildcardsClosed = iota
+	// ExistsExpandWildcardsNone can be used to set ExistsExpandWildcards to "none"
+	ExistsExpandWildcardsNone = iota
+	// ExistsExpandWildcardsAll can be used to set ExistsExpandWildcards to "all"
+	ExistsExpandWildcardsAll = iota
+)
+
+// WithExistsExpandWildcards - whether wildcard expressions should get expanded to open or closed indices (default: open).
+func WithExistsExpandWildcards(expandWildcards ExistsExpandWildcards) ExistsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsFlatSettings - return settings in flat format (default: false).
+func WithExistsFlatSettings(flatSettings bool) ExistsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsIgnoreUnavailable - ignore unavailable indexes (default: false).
+func WithExistsIgnoreUnavailable(ignoreUnavailable bool) ExistsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsIncludeDefaults - whether to return all default setting for each of the indices.
+func WithExistsIncludeDefaults(includeDefaults bool) ExistsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsLocal - return local information, do not retrieve the state from master node (default: false).
+func WithExistsLocal(local bool) ExistsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsErrorTrace - include the stack trace of returned errors.
+func WithExistsErrorTrace(errorTrace bool) ExistsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithExistsFilterPath(filterPath []string) ExistsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsHuman - return human readable values for statistics.
+func WithExistsHuman(human bool) ExistsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsIgnore - ignores the specified HTTP status codes.
+func WithExistsIgnore(ignore []int) ExistsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsPretty - pretty format the returned JSON response.
+func WithExistsPretty(pretty bool) ExistsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithExistsSourceParam(sourceParam string) ExistsOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // Exists - used to check if the index (indices) exists or not. See http://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-exists.html for more info.
 //
 // index: a comma-separated list of index names.
 //
-// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithExpandWildcards, WithFlatSettings, WithIgnoreUnavailable, WithIncludeDefaults, WithLocal, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) Exists(index []string, options ...Option) (*ExistsResponse, error) {
+// options: optional parameters.
+func (i *Indices) Exists(index []string, options ...ExistsOption) (*ExistsResponse, error) {
 	req := i.transport.NewRequest("HEAD")
-	methodOptions := supportedOptions["Exists"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := i.transport.Do(req)
 	return &ExistsResponse{resp}, err

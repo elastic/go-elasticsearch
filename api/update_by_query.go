@@ -3,26 +3,321 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// UpdateByQueryOption is a non-required UpdateByQuery option that gets applied to an HTTP request.
+type UpdateByQueryOption func(r *transport.Request)
+
+// WithUpdateByQueryType - a comma-separated list of document types to search; leave empty to perform the operation on all types.
+func WithUpdateByQueryType(documentType []string) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQuerySource - true or false to return the _source field or not, or a list of fields to return.
+func WithUpdateByQuerySource(source []string) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQuerySourceExclude - a list of fields to exclude from the returned _source field.
+func WithUpdateByQuerySourceExclude(sourceExclude []string) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQuerySourceInclude - a list of fields to extract and return from the _source field.
+func WithUpdateByQuerySourceInclude(sourceInclude []string) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQueryAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
+func WithUpdateByQueryAllowNoIndices(allowNoIndices bool) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQueryAnalyzeWildcard - specify whether wildcard and prefix queries should be analyzed (default: false).
+func WithUpdateByQueryAnalyzeWildcard(analyzeWildcard bool) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQueryAnalyzer - the analyzer to use for the query string.
+func WithUpdateByQueryAnalyzer(analyzer string) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// UpdateByQueryConflicts - what to do when the update by query hits version conflicts?
+type UpdateByQueryConflicts int
+
+const (
+	// UpdateByQueryConflictsAbort can be used to set UpdateByQueryConflicts to "abort"
+	UpdateByQueryConflictsAbort = iota
+	// UpdateByQueryConflictsProceed can be used to set UpdateByQueryConflicts to "proceed"
+	UpdateByQueryConflictsProceed = iota
+)
+
+// WithUpdateByQueryConflicts - what to do when the update by query hits version conflicts?
+func WithUpdateByQueryConflicts(conflicts UpdateByQueryConflicts) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// UpdateByQueryDefaultOperator - the default operator for query string query (AND or OR).
+type UpdateByQueryDefaultOperator int
+
+const (
+	// UpdateByQueryDefaultOperatorAND can be used to set UpdateByQueryDefaultOperator to "AND"
+	UpdateByQueryDefaultOperatorAND = iota
+	// UpdateByQueryDefaultOperatorOR can be used to set UpdateByQueryDefaultOperator to "OR"
+	UpdateByQueryDefaultOperatorOR = iota
+)
+
+// WithUpdateByQueryDefaultOperator - the default operator for query string query (AND or OR).
+func WithUpdateByQueryDefaultOperator(defaultOperator UpdateByQueryDefaultOperator) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQueryDf - the field to use as default where no field prefix is given in the query string.
+func WithUpdateByQueryDf(df string) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// UpdateByQueryExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+type UpdateByQueryExpandWildcards int
+
+const (
+	// UpdateByQueryExpandWildcardsOpen can be used to set UpdateByQueryExpandWildcards to "open"
+	UpdateByQueryExpandWildcardsOpen = iota
+	// UpdateByQueryExpandWildcardsClosed can be used to set UpdateByQueryExpandWildcards to "closed"
+	UpdateByQueryExpandWildcardsClosed = iota
+	// UpdateByQueryExpandWildcardsNone can be used to set UpdateByQueryExpandWildcards to "none"
+	UpdateByQueryExpandWildcardsNone = iota
+	// UpdateByQueryExpandWildcardsAll can be used to set UpdateByQueryExpandWildcards to "all"
+	UpdateByQueryExpandWildcardsAll = iota
+)
+
+// WithUpdateByQueryExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+func WithUpdateByQueryExpandWildcards(expandWildcards UpdateByQueryExpandWildcards) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQueryFrom - starting offset (default: 0).
+func WithUpdateByQueryFrom(from int) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQueryIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
+func WithUpdateByQueryIgnoreUnavailable(ignoreUnavailable bool) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQueryLenient - specify whether format-based query failures (such as providing text to a numeric field) should be ignored.
+func WithUpdateByQueryLenient(lenient bool) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQueryPipeline - ingest pipeline to set on index requests made by this action. (default: none).
+func WithUpdateByQueryPipeline(pipeline string) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQueryPreference - specify the node or shard the operation should be performed on (default: random).
+func WithUpdateByQueryPreference(preference string) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQueryQ - query in the Lucene query string syntax.
+func WithUpdateByQueryQ(q string) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQueryRefresh - should the effected indexes be refreshed?
+func WithUpdateByQueryRefresh(refresh bool) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQueryRequestCache - specify if request cache should be used for this request or not, defaults to index level setting.
+func WithUpdateByQueryRequestCache(requestCache bool) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQueryRequestsPerSecond - the throttle to set on this request in sub-requests per second. -1 means no throttle.
+func WithUpdateByQueryRequestsPerSecond(requestsPerSecond int) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQueryRouting - a comma-separated list of specific routing values.
+func WithUpdateByQueryRouting(routing []string) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQueryScroll - specify how long a consistent view of the index should be maintained for scrolled search.
+func WithUpdateByQueryScroll(scroll time.Duration) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQueryScrollSize - size on the scroll request powering the update_by_query.
+func WithUpdateByQueryScrollSize(scrollSize int) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQuerySearchTimeout - explicit timeout for each search request. Defaults to no timeout.
+func WithUpdateByQuerySearchTimeout(searchTimeout time.Duration) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// UpdateByQuerySearchType - search operation type.
+type UpdateByQuerySearchType int
+
+const (
+	// UpdateByQuerySearchTypeQueryThenFetch can be used to set UpdateByQuerySearchType to "query_then_fetch"
+	UpdateByQuerySearchTypeQueryThenFetch = iota
+	// UpdateByQuerySearchTypeDfsQueryThenFetch can be used to set UpdateByQuerySearchType to "dfs_query_then_fetch"
+	UpdateByQuerySearchTypeDfsQueryThenFetch = iota
+)
+
+// WithUpdateByQuerySearchType - search operation type.
+func WithUpdateByQuerySearchType(searchType UpdateByQuerySearchType) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQuerySize - number of hits to return (default: 10).
+func WithUpdateByQuerySize(size int) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQuerySlices - the number of slices this task should be divided into. Defaults to 1 meaning the task isn't sliced into subtasks.
+func WithUpdateByQuerySlices(slices int) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQuerySort - a comma-separated list of <field>:<direction> pairs.
+func WithUpdateByQuerySort(sort []string) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQueryStats - specific 'tag' of the request for logging and statistical purposes.
+func WithUpdateByQueryStats(stats []string) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQueryTerminateAfter - the maximum number of documents to collect for each shard, upon reaching which the query execution will terminate early.
+func WithUpdateByQueryTerminateAfter(terminateAfter int) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQueryTimeout - time each individual bulk request should wait for shards that are unavailable.
+func WithUpdateByQueryTimeout(timeout time.Duration) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQueryVersion - specify whether to return document version as part of a hit.
+func WithUpdateByQueryVersion(version bool) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQueryVersionType - should the document increment the version number (internal) on hit or not (reindex).
+func WithUpdateByQueryVersionType(versionType bool) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQueryWaitForActiveShards - sets the number of shard copies that must be active before proceeding with the update by query operation. Defaults to 1, meaning the primary shard only. Set to "all" for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1).
+func WithUpdateByQueryWaitForActiveShards(waitForActiveShards string) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQueryWaitForCompletion - should the request should block until the update by query operation is complete.
+func WithUpdateByQueryWaitForCompletion(waitForCompletion bool) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQueryBody - the search definition using the Query DSL.
+func WithUpdateByQueryBody(body map[string]interface{}) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQueryErrorTrace - include the stack trace of returned errors.
+func WithUpdateByQueryErrorTrace(errorTrace bool) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQueryFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithUpdateByQueryFilterPath(filterPath []string) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQueryHuman - return human readable values for statistics.
+func WithUpdateByQueryHuman(human bool) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQueryIgnore - ignores the specified HTTP status codes.
+func WithUpdateByQueryIgnore(ignore []int) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQueryPretty - pretty format the returned JSON response.
+func WithUpdateByQueryPretty(pretty bool) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateByQuerySourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithUpdateByQuerySourceParam(sourceParam string) UpdateByQueryOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // UpdateByQuery - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-update-by-query.html for more info.
 //
 // index: a comma-separated list of index names to search; use "_all" or empty string to perform the operation on all indices.
 //
-// options: optional parameters. Supports the following functional options: WithTypeList, WithSource, WithSourceExclude, WithSourceInclude, WithAllowNoIndices, WithAnalyzeWildcard, WithAnalyzer, WithConflicts, WithDefaultOperator, WithDf, WithExpandWildcards, WithFrom, WithIgnoreUnavailable, WithLenient, WithPipeline, WithPreference, WithQ, WithRefresh, WithRequestCache, WithRequestsPerSecond, WithRouting, WithScroll, WithScrollSize, WithSearchTimeout, WithSearchType, WithSize, WithSlices, WithSort, WithStats, WithTerminateAfter, WithTimeout, WithVersion, WithVersionType, WithWaitForActiveShards, WithWaitForCompletion, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) UpdateByQuery(index []string, options ...Option) (*UpdateByQueryResponse, error) {
+// options: optional parameters.
+func (a *API) UpdateByQuery(index []string, options ...UpdateByQueryOption) (*UpdateByQueryResponse, error) {
 	req := a.transport.NewRequest("POST")
-	methodOptions := supportedOptions["UpdateByQuery"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := a.transport.Do(req)
 	return &UpdateByQueryResponse{resp}, err

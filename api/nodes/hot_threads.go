@@ -3,24 +3,113 @@
 package nodes
 
 import (
-	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// HotThreadsOption is a non-required HotThreads option that gets applied to an HTTP request.
+type HotThreadsOption func(r *transport.Request)
+
+// WithHotThreadsNodeID - a comma-separated list of node IDs or names to limit the returned information; use "_local" to return information from the node you're connecting to, leave empty to get information from all nodes.
+func WithHotThreadsNodeID(nodeID []string) HotThreadsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithHotThreadsIgnoreIdleThreads - don't show threads that are in known-idle places, such as waiting on a socket select or pulling from an empty task queue (default: true).
+func WithHotThreadsIgnoreIdleThreads(ignoreIdleThreads bool) HotThreadsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithHotThreadsInterval - the interval for the second sampling of threads.
+func WithHotThreadsInterval(interval time.Duration) HotThreadsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithHotThreadsSnapshots - number of samples of thread stacktrace (default: 10).
+func WithHotThreadsSnapshots(snapshots int) HotThreadsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithHotThreadsThreads - specify the number of threads to provide information for (default: 3).
+func WithHotThreadsThreads(threads int) HotThreadsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithHotThreadsTimeout - explicit operation timeout.
+func WithHotThreadsTimeout(timeout time.Duration) HotThreadsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// HotThreadsDocumentType - the type to sample (default: cpu).
+type HotThreadsDocumentType int
+
+const (
+	// HotThreadsDocumentTypeCPU can be used to set HotThreadsDocumentType to "cpu"
+	HotThreadsDocumentTypeCPU = iota
+	// HotThreadsDocumentTypeWait can be used to set HotThreadsDocumentType to "wait"
+	HotThreadsDocumentTypeWait = iota
+	// HotThreadsDocumentTypeBlock can be used to set HotThreadsDocumentType to "block"
+	HotThreadsDocumentTypeBlock = iota
+)
+
+// WithHotThreadsType - the type to sample (default: cpu).
+func WithHotThreadsType(documentType HotThreadsDocumentType) HotThreadsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithHotThreadsErrorTrace - include the stack trace of returned errors.
+func WithHotThreadsErrorTrace(errorTrace bool) HotThreadsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithHotThreadsFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithHotThreadsFilterPath(filterPath []string) HotThreadsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithHotThreadsHuman - return human readable values for statistics.
+func WithHotThreadsHuman(human bool) HotThreadsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithHotThreadsIgnore - ignores the specified HTTP status codes.
+func WithHotThreadsIgnore(ignore []int) HotThreadsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithHotThreadsPretty - pretty format the returned JSON response.
+func WithHotThreadsPretty(pretty bool) HotThreadsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithHotThreadsSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithHotThreadsSourceParam(sourceParam string) HotThreadsOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // HotThreads - an API allowing to get the current hot threads on each node in the cluster. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-nodes-hot-threads.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithNodeID, WithIgnoreIdleThreads, WithInterval, WithSnapshots, WithThreads, WithTimeout, WithType, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (n *Nodes) HotThreads(options ...Option) (*HotThreadsResponse, error) {
+// options: optional parameters.
+func (n *Nodes) HotThreads(options ...HotThreadsOption) (*HotThreadsResponse, error) {
 	req := n.transport.NewRequest("GET")
-	methodOptions := supportedOptions["HotThreads"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := n.transport.Do(req)
 	return &HotThreadsResponse{resp}, err

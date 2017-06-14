@@ -3,26 +3,73 @@
 package snapshot
 
 import (
-	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// VerifyRepositoryOption is a non-required VerifyRepository option that gets applied to an HTTP request.
+type VerifyRepositoryOption func(r *transport.Request)
+
+// WithVerifyRepositoryMasterTimeout - explicit operation timeout for connection to master node.
+func WithVerifyRepositoryMasterTimeout(masterTimeout time.Duration) VerifyRepositoryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithVerifyRepositoryTimeout - explicit operation timeout.
+func WithVerifyRepositoryTimeout(timeout time.Duration) VerifyRepositoryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithVerifyRepositoryErrorTrace - include the stack trace of returned errors.
+func WithVerifyRepositoryErrorTrace(errorTrace bool) VerifyRepositoryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithVerifyRepositoryFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithVerifyRepositoryFilterPath(filterPath []string) VerifyRepositoryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithVerifyRepositoryHuman - return human readable values for statistics.
+func WithVerifyRepositoryHuman(human bool) VerifyRepositoryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithVerifyRepositoryIgnore - ignores the specified HTTP status codes.
+func WithVerifyRepositoryIgnore(ignore []int) VerifyRepositoryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithVerifyRepositoryPretty - pretty format the returned JSON response.
+func WithVerifyRepositoryPretty(pretty bool) VerifyRepositoryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithVerifyRepositorySourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithVerifyRepositorySourceParam(sourceParam string) VerifyRepositoryOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // VerifyRepository - the snapshot and restore module allows to create snapshots of individual indices or an entire cluster into a remote repository like shared file system, S3, or HDFS. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/modules-snapshots.html for more info.
 //
 // repository: a repository name.
 //
-// options: optional parameters. Supports the following functional options: WithMasterTimeout, WithTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (s *Snapshot) VerifyRepository(repository string, options ...Option) (*VerifyRepositoryResponse, error) {
+// options: optional parameters.
+func (s *Snapshot) VerifyRepository(repository string, options ...VerifyRepositoryOption) (*VerifyRepositoryResponse, error) {
 	req := s.transport.NewRequest("POST")
-	methodOptions := supportedOptions["VerifyRepository"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := s.transport.Do(req)
 	return &VerifyRepositoryResponse{resp}, err

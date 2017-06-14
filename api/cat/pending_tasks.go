@@ -3,24 +3,101 @@
 package cat
 
 import (
-	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// PendingTasksOption is a non-required PendingTasks option that gets applied to an HTTP request.
+type PendingTasksOption func(r *transport.Request)
+
+// WithPendingTasksFormat - a short version of the Accept header, e.g. json, yaml.
+func WithPendingTasksFormat(format string) PendingTasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPendingTasksH - comma-separated list of column names to display.
+func WithPendingTasksH(h []string) PendingTasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPendingTasksHelp - return help information.
+func WithPendingTasksHelp(help bool) PendingTasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPendingTasksLocal - return local information, do not retrieve the state from master node (default: false).
+func WithPendingTasksLocal(local bool) PendingTasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPendingTasksMasterTimeout - explicit operation timeout for connection to master node.
+func WithPendingTasksMasterTimeout(masterTimeout time.Duration) PendingTasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPendingTasksS - comma-separated list of column names or column aliases to sort by.
+func WithPendingTasksS(s []string) PendingTasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPendingTasksV - verbose mode. Display column headers.
+func WithPendingTasksV(v bool) PendingTasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPendingTasksErrorTrace - include the stack trace of returned errors.
+func WithPendingTasksErrorTrace(errorTrace bool) PendingTasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPendingTasksFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithPendingTasksFilterPath(filterPath []string) PendingTasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPendingTasksHuman - return human readable values for statistics.
+func WithPendingTasksHuman(human bool) PendingTasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPendingTasksIgnore - ignores the specified HTTP status codes.
+func WithPendingTasksIgnore(ignore []int) PendingTasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPendingTasksPretty - pretty format the returned JSON response.
+func WithPendingTasksPretty(pretty bool) PendingTasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPendingTasksSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithPendingTasksSourceParam(sourceParam string) PendingTasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // PendingTasks - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-pending-tasks.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithFormat, WithH, WithHelp, WithLocal, WithMasterTimeout, WithS, WithV, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cat) PendingTasks(options ...Option) (*PendingTasksResponse, error) {
+// options: optional parameters.
+func (c *Cat) PendingTasks(options ...PendingTasksOption) (*PendingTasksResponse, error) {
 	req := c.transport.NewRequest("GET")
-	methodOptions := supportedOptions["PendingTasks"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := c.transport.Do(req)
 	return &PendingTasksResponse{resp}, err

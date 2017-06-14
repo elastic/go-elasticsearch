@@ -3,12 +3,130 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
+
+// ExistsOption is a non-required Exists option that gets applied to an HTTP request.
+type ExistsOption func(r *transport.Request)
+
+// WithExistsSource - true or false to return the _source field or not, or a list of fields to return.
+func WithExistsSource(source []string) ExistsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsSourceExclude - a list of fields to exclude from the returned _source field.
+func WithExistsSourceExclude(sourceExclude []string) ExistsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsSourceInclude - a list of fields to extract and return from the _source field.
+func WithExistsSourceInclude(sourceInclude []string) ExistsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsParent - the ID of the parent document.
+func WithExistsParent(parent string) ExistsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsPreference - specify the node or shard the operation should be performed on (default: random).
+func WithExistsPreference(preference string) ExistsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsRealtime - specify whether to perform the operation in realtime or search mode.
+func WithExistsRealtime(realtime bool) ExistsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsRefresh - refresh the shard containing the document before performing the operation.
+func WithExistsRefresh(refresh bool) ExistsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsRouting - specific routing value.
+func WithExistsRouting(routing string) ExistsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsStoredFields - a comma-separated list of stored fields to return in the response.
+func WithExistsStoredFields(storedFields []string) ExistsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsVersion - explicit version number for concurrency control.
+func WithExistsVersion(version int) ExistsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// ExistsVersionType - specific version type.
+type ExistsVersionType int
+
+const (
+	// ExistsVersionTypeInternal can be used to set ExistsVersionType to "internal"
+	ExistsVersionTypeInternal = iota
+	// ExistsVersionTypeExternal can be used to set ExistsVersionType to "external"
+	ExistsVersionTypeExternal = iota
+	// ExistsVersionTypeExternalGte can be used to set ExistsVersionType to "external_gte"
+	ExistsVersionTypeExternalGte = iota
+	// ExistsVersionTypeForce can be used to set ExistsVersionType to "force"
+	ExistsVersionTypeForce = iota
+)
+
+// WithExistsVersionType - specific version type.
+func WithExistsVersionType(versionType ExistsVersionType) ExistsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsErrorTrace - include the stack trace of returned errors.
+func WithExistsErrorTrace(errorTrace bool) ExistsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithExistsFilterPath(filterPath []string) ExistsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsHuman - return human readable values for statistics.
+func WithExistsHuman(human bool) ExistsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsIgnore - ignores the specified HTTP status codes.
+func WithExistsIgnore(ignore []int) ExistsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsPretty - pretty format the returned JSON response.
+func WithExistsPretty(pretty bool) ExistsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithExistsSourceParam(sourceParam string) ExistsOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // Exists - the get API allows to get a typed JSON document from the index based on its id. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-get.html for more info.
 //
@@ -18,15 +136,11 @@ import (
 //
 // id: the document ID.
 //
-// options: optional parameters. Supports the following functional options: WithSource, WithSourceExclude, WithSourceInclude, WithParent, WithPreference, WithRealtime, WithRefresh, WithRouting, WithStoredFields, WithVersion, WithVersionType, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) Exists(index string, documentType string, id string, options ...Option) (*ExistsResponse, error) {
+// options: optional parameters.
+func (a *API) Exists(index string, documentType string, id string, options ...ExistsOption) (*ExistsResponse, error) {
 	req := a.transport.NewRequest("HEAD")
-	methodOptions := supportedOptions["Exists"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := a.transport.Do(req)
 	return &ExistsResponse{resp}, err

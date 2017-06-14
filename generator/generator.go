@@ -150,14 +150,14 @@ func New(specDir, templatesRoot string, offline bool) (*Generator, error) {
 func newPackages(methods map[string]*api.Method, templates *template.Template) (map[string]*api.Package, error) {
 	packages := map[string]*api.Package{}
 	for _, m := range methods {
-		if p, ok := packages[m.PackageName]; ok {
-			p.AddMethod(m)
-		} else {
+		if p, ok := packages[m.PackageName]; !ok {
 			var err error
-			packages[m.PackageName], err = api.NewPackage(m, templates)
+			packages[m.PackageName] = api.NewPackage(m, templates)
 			if err != nil {
 				return nil, err
 			}
+		} else {
+			p.Methods = append(p.Methods, m)
 		}
 	}
 	rootPackage := packages[api.RootPackage]

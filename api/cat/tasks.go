@@ -3,24 +3,118 @@
 package cat
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// TasksOption is a non-required Tasks option that gets applied to an HTTP request.
+type TasksOption func(r *transport.Request)
+
+// WithTasksActions - a comma-separated list of actions that should be returned. Leave empty to return all.
+func WithTasksActions(actions []string) TasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithTasksDetailed - return detailed task information (default: false).
+func WithTasksDetailed(detailed bool) TasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithTasksFormat - a short version of the Accept header, e.g. json, yaml.
+func WithTasksFormat(format string) TasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithTasksH - comma-separated list of column names to display.
+func WithTasksH(h []string) TasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithTasksHelp - return help information.
+func WithTasksHelp(help bool) TasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithTasksNodeID - a comma-separated list of node IDs or names to limit the returned information; use "_local" to return information from the node you're connecting to, leave empty to get information from all nodes.
+func WithTasksNodeID(nodeID []string) TasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithTasksParentNode - return tasks with specified parent node.
+func WithTasksParentNode(parentNode string) TasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithTasksParentTask - return tasks with specified parent task id. Set to -1 to return all.
+func WithTasksParentTask(parentTask int) TasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithTasksS - comma-separated list of column names or column aliases to sort by.
+func WithTasksS(s []string) TasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithTasksV - verbose mode. Display column headers.
+func WithTasksV(v bool) TasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithTasksErrorTrace - include the stack trace of returned errors.
+func WithTasksErrorTrace(errorTrace bool) TasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithTasksFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithTasksFilterPath(filterPath []string) TasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithTasksHuman - return human readable values for statistics.
+func WithTasksHuman(human bool) TasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithTasksIgnore - ignores the specified HTTP status codes.
+func WithTasksIgnore(ignore []int) TasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithTasksPretty - pretty format the returned JSON response.
+func WithTasksPretty(pretty bool) TasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithTasksSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithTasksSourceParam(sourceParam string) TasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // Tasks - the task management API allows to retrieve information about the tasks currently executing on one or more nodes in the cluster. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/tasks.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithActions, WithDetailed, WithFormat, WithH, WithHelp, WithNodeID, WithParentNode, WithParentTask, WithS, WithV, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cat) Tasks(options ...Option) (*TasksResponse, error) {
+// options: optional parameters.
+func (c *Cat) Tasks(options ...TasksOption) (*TasksResponse, error) {
 	req := c.transport.NewRequest("GET")
-	methodOptions := supportedOptions["Tasks"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := c.transport.Do(req)
 	return &TasksResponse{resp}, err

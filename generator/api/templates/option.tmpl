@@ -1,8 +1,5 @@
 // {{.OptionName}} - {{.Description}}
-func {{.OptionName}}({{.Name}} {{.Type}}) Option {
-  return Option{
-		name: "{{.OptionName}}",
-		apply: func(r *transport.Request) {
-  	},
-	}
+func {{.OptionName}}({{.Name}} {{.Type}}) {{.OptionType}} {
+  return func(r *transport.Request) {
+  }
 }

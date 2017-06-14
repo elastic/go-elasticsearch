@@ -3,12 +3,81 @@
 package indices
 
 import (
-	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
+
+// PutTemplateOption is a non-required PutTemplate option that gets applied to an HTTP request.
+type PutTemplateOption func(r *transport.Request)
+
+// WithPutTemplateCreate - whether the index template should only be added if new or can also replace an existing one.
+func WithPutTemplateCreate(create bool) PutTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutTemplateFlatSettings - return settings in flat format (default: false).
+func WithPutTemplateFlatSettings(flatSettings bool) PutTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutTemplateMasterTimeout - specify timeout for connection to master.
+func WithPutTemplateMasterTimeout(masterTimeout time.Duration) PutTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutTemplateOrder - the order for this template when merging multiple matching ones (higher numbers are merged later, overriding the lower numbers).
+func WithPutTemplateOrder(order int) PutTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutTemplateTimeout - explicit operation timeout.
+func WithPutTemplateTimeout(timeout time.Duration) PutTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutTemplateErrorTrace - include the stack trace of returned errors.
+func WithPutTemplateErrorTrace(errorTrace bool) PutTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutTemplateFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithPutTemplateFilterPath(filterPath []string) PutTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutTemplateHuman - return human readable values for statistics.
+func WithPutTemplateHuman(human bool) PutTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutTemplateIgnore - ignores the specified HTTP status codes.
+func WithPutTemplateIgnore(ignore []int) PutTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutTemplatePretty - pretty format the returned JSON response.
+func WithPutTemplatePretty(pretty bool) PutTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutTemplateSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithPutTemplateSourceParam(sourceParam string) PutTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // PutTemplate - index templates allow you to define templates that will automatically be applied when new indices are created. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-templates.html for more info.
 //
@@ -16,15 +85,11 @@ import (
 //
 // body: the template definition.
 //
-// options: optional parameters. Supports the following functional options: WithCreate, WithFlatSettings, WithMasterTimeout, WithOrder, WithTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) PutTemplate(name string, body map[string]interface{}, options ...Option) (*PutTemplateResponse, error) {
+// options: optional parameters.
+func (i *Indices) PutTemplate(name string, body map[string]interface{}, options ...PutTemplateOption) (*PutTemplateResponse, error) {
 	req := i.transport.NewRequest("PUT")
-	methodOptions := supportedOptions["PutTemplate"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := i.transport.Do(req)
 	return &PutTemplateResponse{resp}, err

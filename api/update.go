@@ -3,12 +3,169 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
+
+// UpdateOption is a non-required Update option that gets applied to an HTTP request.
+type UpdateOption func(r *transport.Request)
+
+// WithUpdateSource - true or false to return the _source field or not, or a list of fields to return.
+func WithUpdateSource(source []string) UpdateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateSourceExclude - a list of fields to exclude from the returned _source field.
+func WithUpdateSourceExclude(sourceExclude []string) UpdateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateSourceInclude - a list of fields to extract and return from the _source field.
+func WithUpdateSourceInclude(sourceInclude []string) UpdateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateFields - a comma-separated list of fields to return in the response.
+func WithUpdateFields(fields []string) UpdateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateLang - the script language (default: painless).
+func WithUpdateLang(lang string) UpdateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateParent - ID of the parent document. Is is only used for routing and when for the upsert request.
+func WithUpdateParent(parent string) UpdateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// UpdateRefresh - if "true" then refresh the effected shards to make this operation visible to search, if "wait_for" then wait for a refresh to make this operation visible to search, if "false" (the default) then do nothing with refreshes.
+type UpdateRefresh int
+
+const (
+	// UpdateRefreshTrue can be used to set UpdateRefresh to "true"
+	UpdateRefreshTrue = iota
+	// UpdateRefreshFalse can be used to set UpdateRefresh to "false"
+	UpdateRefreshFalse = iota
+	// UpdateRefreshWaitFor can be used to set UpdateRefresh to "wait_for"
+	UpdateRefreshWaitFor = iota
+)
+
+// WithUpdateRefresh - if "true" then refresh the effected shards to make this operation visible to search, if "wait_for" then wait for a refresh to make this operation visible to search, if "false" (the default) then do nothing with refreshes.
+func WithUpdateRefresh(refresh UpdateRefresh) UpdateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateRetryOnConflict - specify how many times should the operation be retried when a conflict occurs (default: 0).
+func WithUpdateRetryOnConflict(retryOnConflict int) UpdateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateRouting - specific routing value.
+func WithUpdateRouting(routing string) UpdateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateTimeout - explicit operation timeout.
+func WithUpdateTimeout(timeout time.Duration) UpdateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateTimestamp - explicit timestamp for the document.
+func WithUpdateTimestamp(timestamp time.Duration) UpdateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateTTL - expiration time for the document.
+func WithUpdateTTL(ttl time.Duration) UpdateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateVersion - explicit version number for concurrency control.
+func WithUpdateVersion(version int) UpdateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// UpdateVersionType - specific version type.
+type UpdateVersionType int
+
+const (
+	// UpdateVersionTypeInternal can be used to set UpdateVersionType to "internal"
+	UpdateVersionTypeInternal = iota
+	// UpdateVersionTypeForce can be used to set UpdateVersionType to "force"
+	UpdateVersionTypeForce = iota
+)
+
+// WithUpdateVersionType - specific version type.
+func WithUpdateVersionType(versionType UpdateVersionType) UpdateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateWaitForActiveShards - sets the number of shard copies that must be active before proceeding with the update operation. Defaults to 1, meaning the primary shard only. Set to "all" for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1).
+func WithUpdateWaitForActiveShards(waitForActiveShards string) UpdateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateBody - the request definition using either "script" or partial "doc".
+func WithUpdateBody(body map[string]interface{}) UpdateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateErrorTrace - include the stack trace of returned errors.
+func WithUpdateErrorTrace(errorTrace bool) UpdateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithUpdateFilterPath(filterPath []string) UpdateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateHuman - return human readable values for statistics.
+func WithUpdateHuman(human bool) UpdateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateIgnore - ignores the specified HTTP status codes.
+func WithUpdateIgnore(ignore []int) UpdateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdatePretty - pretty format the returned JSON response.
+func WithUpdatePretty(pretty bool) UpdateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpdateSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithUpdateSourceParam(sourceParam string) UpdateOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // Update allows to update a document based on a script provided. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-update.html for more info.
 //
@@ -18,15 +175,11 @@ import (
 //
 // id: document ID.
 //
-// options: optional parameters. Supports the following functional options: WithSource, WithSourceExclude, WithSourceInclude, WithFields, WithLang, WithParent, WithRefresh, WithRetryOnConflict, WithRouting, WithTimeout, WithTimestamp, WithTTL, WithVersion, WithVersionType, WithWaitForActiveShards, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) Update(index string, documentType string, id string, options ...Option) (*UpdateResponse, error) {
+// options: optional parameters.
+func (a *API) Update(index string, documentType string, id string, options ...UpdateOption) (*UpdateResponse, error) {
 	req := a.transport.NewRequest("POST")
-	methodOptions := supportedOptions["Update"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := a.transport.Do(req)
 	return &UpdateResponse{resp}, err

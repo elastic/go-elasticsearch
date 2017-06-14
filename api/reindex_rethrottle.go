@@ -3,26 +3,66 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// ReindexRethrottleOption is a non-required ReindexRethrottle option that gets applied to an HTTP request.
+type ReindexRethrottleOption func(r *transport.Request)
+
+// WithReindexRethrottleTaskID - the task id to rethrottle.
+func WithReindexRethrottleTaskID(taskID string) ReindexRethrottleOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithReindexRethrottleErrorTrace - include the stack trace of returned errors.
+func WithReindexRethrottleErrorTrace(errorTrace bool) ReindexRethrottleOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithReindexRethrottleFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithReindexRethrottleFilterPath(filterPath []string) ReindexRethrottleOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithReindexRethrottleHuman - return human readable values for statistics.
+func WithReindexRethrottleHuman(human bool) ReindexRethrottleOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithReindexRethrottleIgnore - ignores the specified HTTP status codes.
+func WithReindexRethrottleIgnore(ignore []int) ReindexRethrottleOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithReindexRethrottlePretty - pretty format the returned JSON response.
+func WithReindexRethrottlePretty(pretty bool) ReindexRethrottleOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithReindexRethrottleSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithReindexRethrottleSourceParam(sourceParam string) ReindexRethrottleOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // ReindexRethrottle - reindex does not attempt to set up the destination index. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-reindex.html for more info.
 //
 // requestsPerSecond: the throttle to set on this request in floating sub-requests per second. -1 means set no throttle.
 //
-// options: optional parameters. Supports the following functional options: WithTaskID, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) ReindexRethrottle(requestsPerSecond int, options ...Option) (*ReindexRethrottleResponse, error) {
+// options: optional parameters.
+func (a *API) ReindexRethrottle(requestsPerSecond int, options ...ReindexRethrottleOption) (*ReindexRethrottleResponse, error) {
 	req := a.transport.NewRequest("POST")
-	methodOptions := supportedOptions["ReindexRethrottle"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := a.transport.Do(req)
 	return &ReindexRethrottleResponse{resp}, err

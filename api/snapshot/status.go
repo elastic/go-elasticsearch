@@ -3,24 +3,83 @@
 package snapshot
 
 import (
-	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// StatusOption is a non-required Status option that gets applied to an HTTP request.
+type StatusOption func(r *transport.Request)
+
+// WithStatusRepository - a repository name.
+func WithStatusRepository(repository string) StatusOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatusSnapshot - a comma-separated list of snapshot names.
+func WithStatusSnapshot(snapshot []string) StatusOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatusIgnoreUnavailable - whether to ignore unavailable snapshots, defaults to false which means a SnapshotMissingException is thrown.
+func WithStatusIgnoreUnavailable(ignoreUnavailable bool) StatusOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatusMasterTimeout - explicit operation timeout for connection to master node.
+func WithStatusMasterTimeout(masterTimeout time.Duration) StatusOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatusErrorTrace - include the stack trace of returned errors.
+func WithStatusErrorTrace(errorTrace bool) StatusOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatusFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithStatusFilterPath(filterPath []string) StatusOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatusHuman - return human readable values for statistics.
+func WithStatusHuman(human bool) StatusOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatusIgnore - ignores the specified HTTP status codes.
+func WithStatusIgnore(ignore []int) StatusOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatusPretty - pretty format the returned JSON response.
+func WithStatusPretty(pretty bool) StatusOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatusSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithStatusSourceParam(sourceParam string) StatusOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // Status - the snapshot and restore module allows to create snapshots of individual indices or an entire cluster into a remote repository like shared file system, S3, or HDFS. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/modules-snapshots.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithRepository, WithSnapshot, WithIgnoreUnavailable, WithMasterTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (s *Snapshot) Status(options ...Option) (*StatusResponse, error) {
+// options: optional parameters.
+func (s *Snapshot) Status(options ...StatusOption) (*StatusResponse, error) {
 	req := s.transport.NewRequest("GET")
-	methodOptions := supportedOptions["Status"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := s.transport.Do(req)
 	return &StatusResponse{resp}, err

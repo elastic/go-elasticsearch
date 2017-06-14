@@ -37,56 +37,19 @@ type Package struct {
 	Repo        string
 	TypeName    string
 	Methods     []*Method
-	Options     map[string]*Param
-	Enums       map[string]*Param
 	SubPackages map[string]*Package
 	templates   *template.Template
 }
 
 // NewPackage creates a new package based on a method.
-func NewPackage(m *Method, templates *template.Template) (*Package, error) {
-	p := &Package{
+func NewPackage(m *Method, templates *template.Template) *Package {
+	return &Package{
 		Name:      m.PackageName,
 		Repo:      m.Repo,
 		TypeName:  m.TypeName,
-		Options:   map[string]*Param{},
-		Enums:     map[string]*Param{},
 		templates: templates,
+		Methods:   []*Method{m},
 	}
-	err := p.AddMethod(m)
-	return p, err
-}
-
-func (p *Package) addParam(op *Param) error {
-	if existingParam, ok := p.Options[op.Name]; ok {
-		if err := existingParam.deduplicate(op, true); err != nil {
-			return fmt.Errorf("unable to deduplicate param in %q: %s", p.Name, err)
-		}
-	}
-	p.Options[op.Name] = op
-	if op.SpecType == "enum" {
-		if _, ok := p.Enums[op.Name]; ok {
-			return fmt.Errorf("found two different versions of %q in %q", op.Name, p.Name)
-		}
-		p.Enums[op.Name] = op
-	}
-	return nil
-}
-
-// AddMethod adds a method to a package.
-func (p *Package) AddMethod(m *Method) error {
-	p.Methods = append(p.Methods, m)
-	for _, op := range m.OptionalURLParts {
-		if err := p.addParam(op); err != nil {
-			return fmt.Errorf("failed to add method %s to package %s: %s", m.RawName, p.Name, err)
-		}
-	}
-	for _, op := range m.OptionalURLParams {
-		if err := p.addParam(op); err != nil {
-			return fmt.Errorf("failed to add method %s to package %s: %s", m.RawName, p.Name, err)
-		}
-	}
-	return nil
 }
 
 // AddSubpackage adds the given subpackage.
@@ -112,33 +75,13 @@ func (p *Package) generateAPI(w io.Writer) error {
 	return nil
 }
 
-func (p *Package) generateOption(w io.Writer) error {
-	// TODO: move this to be per method
-	t := p.templates.Lookup("types.tmpl")
-	if t == nil {
-		return fmt.Errorf("cannot fine template for types")
-	}
-	if err := t.Execute(w, p); err != nil {
-		return fmt.Errorf("failed to execute option template: %s", err)
-	}
-	return nil
-}
-
 // Generate generates a Go file with package-level code (constructor etc.).
 func (p *Package) Generate(outputDir string) error {
-	w, err := p.newWriter(outputDir, "option.go")
-	if err != nil {
-		return err
-	}
-	err = p.generateOption(w)
-	if err != nil {
-		return err
-	}
 	fileName := p.Methods[0].PackageName
 	if fileName == RootPackage {
 		fileName = RootPackage
 	}
-	w, err = p.newWriter(outputDir, fileName+".go")
+	w, err := p.newWriter(outputDir, fileName+".go")
 	if err != nil {
 		return err
 	}

@@ -3,24 +3,108 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// FieldCapsOption is a non-required FieldCaps option that gets applied to an HTTP request.
+type FieldCapsOption func(r *transport.Request)
+
+// WithFieldCapsIndex - a comma-separated list of index names; use "_all" or empty string to perform the operation on all indices.
+func WithFieldCapsIndex(index []string) FieldCapsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFieldCapsAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
+func WithFieldCapsAllowNoIndices(allowNoIndices bool) FieldCapsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// FieldCapsExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+type FieldCapsExpandWildcards int
+
+const (
+	// FieldCapsExpandWildcardsOpen can be used to set FieldCapsExpandWildcards to "open"
+	FieldCapsExpandWildcardsOpen = iota
+	// FieldCapsExpandWildcardsClosed can be used to set FieldCapsExpandWildcards to "closed"
+	FieldCapsExpandWildcardsClosed = iota
+	// FieldCapsExpandWildcardsNone can be used to set FieldCapsExpandWildcards to "none"
+	FieldCapsExpandWildcardsNone = iota
+	// FieldCapsExpandWildcardsAll can be used to set FieldCapsExpandWildcards to "all"
+	FieldCapsExpandWildcardsAll = iota
+)
+
+// WithFieldCapsExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+func WithFieldCapsExpandWildcards(expandWildcards FieldCapsExpandWildcards) FieldCapsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFieldCapsFields - a comma-separated list of field names.
+func WithFieldCapsFields(fields []string) FieldCapsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFieldCapsIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
+func WithFieldCapsIgnoreUnavailable(ignoreUnavailable bool) FieldCapsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFieldCapsBody - field json objects containing an array of field names.
+func WithFieldCapsBody(body map[string]interface{}) FieldCapsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFieldCapsErrorTrace - include the stack trace of returned errors.
+func WithFieldCapsErrorTrace(errorTrace bool) FieldCapsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFieldCapsFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithFieldCapsFilterPath(filterPath []string) FieldCapsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFieldCapsHuman - return human readable values for statistics.
+func WithFieldCapsHuman(human bool) FieldCapsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFieldCapsIgnore - ignores the specified HTTP status codes.
+func WithFieldCapsIgnore(ignore []int) FieldCapsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFieldCapsPretty - pretty format the returned JSON response.
+func WithFieldCapsPretty(pretty bool) FieldCapsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFieldCapsSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithFieldCapsSourceParam(sourceParam string) FieldCapsOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // FieldCaps - this functionality is experimental and may be changed or removed completely in a future release. See http://www.elastic.co/guide/en/elasticsearch/reference/master/search-field-caps.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndexList, WithAllowNoIndices, WithExpandWildcards, WithFields, WithIgnoreUnavailable, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) FieldCaps(options ...Option) (*FieldCapsResponse, error) {
+// options: optional parameters.
+func (a *API) FieldCaps(options ...FieldCapsOption) (*FieldCapsResponse, error) {
 	req := a.transport.NewRequest("GET")
-	methodOptions := supportedOptions["FieldCaps"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := a.transport.Do(req)
 	return &FieldCapsResponse{resp}, err

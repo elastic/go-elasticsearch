@@ -3,24 +3,101 @@
 package cat
 
 import (
-	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
 
+// PluginsOption is a non-required Plugins option that gets applied to an HTTP request.
+type PluginsOption func(r *transport.Request)
+
+// WithPluginsFormat - a short version of the Accept header, e.g. json, yaml.
+func WithPluginsFormat(format string) PluginsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPluginsH - comma-separated list of column names to display.
+func WithPluginsH(h []string) PluginsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPluginsHelp - return help information.
+func WithPluginsHelp(help bool) PluginsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPluginsLocal - return local information, do not retrieve the state from master node (default: false).
+func WithPluginsLocal(local bool) PluginsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPluginsMasterTimeout - explicit operation timeout for connection to master node.
+func WithPluginsMasterTimeout(masterTimeout time.Duration) PluginsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPluginsS - comma-separated list of column names or column aliases to sort by.
+func WithPluginsS(s []string) PluginsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPluginsV - verbose mode. Display column headers.
+func WithPluginsV(v bool) PluginsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPluginsErrorTrace - include the stack trace of returned errors.
+func WithPluginsErrorTrace(errorTrace bool) PluginsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPluginsFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithPluginsFilterPath(filterPath []string) PluginsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPluginsHuman - return human readable values for statistics.
+func WithPluginsHuman(human bool) PluginsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPluginsIgnore - ignores the specified HTTP status codes.
+func WithPluginsIgnore(ignore []int) PluginsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPluginsPretty - pretty format the returned JSON response.
+func WithPluginsPretty(pretty bool) PluginsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPluginsSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithPluginsSourceParam(sourceParam string) PluginsOption {
+	return func(r *transport.Request) {
+	}
+}
+
 // Plugins - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-plugins.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithFormat, WithH, WithHelp, WithLocal, WithMasterTimeout, WithS, WithV, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cat) Plugins(options ...Option) (*PluginsResponse, error) {
+// options: optional parameters.
+func (c *Cat) Plugins(options ...PluginsOption) (*PluginsResponse, error) {
 	req := c.transport.NewRequest("GET")
-	methodOptions := supportedOptions["Plugins"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := c.transport.Do(req)
 	return &PluginsResponse{resp}, err

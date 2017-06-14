@@ -3,12 +3,119 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/elastic/go-elasticsearch/transport"
 	"github.com/elastic/go-elasticsearch/util"
 )
+
+// DeleteOption is a non-required Delete option that gets applied to an HTTP request.
+type DeleteOption func(r *transport.Request)
+
+// WithDeleteParent - ID of parent document.
+func WithDeleteParent(parent string) DeleteOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// DeleteRefresh - if "true" then refresh the effected shards to make this operation visible to search, if "wait_for" then wait for a refresh to make this operation visible to search, if "false" (the default) then do nothing with refreshes.
+type DeleteRefresh int
+
+const (
+	// DeleteRefreshTrue can be used to set DeleteRefresh to "true"
+	DeleteRefreshTrue = iota
+	// DeleteRefreshFalse can be used to set DeleteRefresh to "false"
+	DeleteRefreshFalse = iota
+	// DeleteRefreshWaitFor can be used to set DeleteRefresh to "wait_for"
+	DeleteRefreshWaitFor = iota
+)
+
+// WithDeleteRefresh - if "true" then refresh the effected shards to make this operation visible to search, if "wait_for" then wait for a refresh to make this operation visible to search, if "false" (the default) then do nothing with refreshes.
+func WithDeleteRefresh(refresh DeleteRefresh) DeleteOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteRouting - specific routing value.
+func WithDeleteRouting(routing string) DeleteOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteTimeout - explicit operation timeout.
+func WithDeleteTimeout(timeout time.Duration) DeleteOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteVersion - explicit version number for concurrency control.
+func WithDeleteVersion(version int) DeleteOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// DeleteVersionType - specific version type.
+type DeleteVersionType int
+
+const (
+	// DeleteVersionTypeInternal can be used to set DeleteVersionType to "internal"
+	DeleteVersionTypeInternal = iota
+	// DeleteVersionTypeExternal can be used to set DeleteVersionType to "external"
+	DeleteVersionTypeExternal = iota
+	// DeleteVersionTypeExternalGte can be used to set DeleteVersionType to "external_gte"
+	DeleteVersionTypeExternalGte = iota
+	// DeleteVersionTypeForce can be used to set DeleteVersionType to "force"
+	DeleteVersionTypeForce = iota
+)
+
+// WithDeleteVersionType - specific version type.
+func WithDeleteVersionType(versionType DeleteVersionType) DeleteOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteWaitForActiveShards - sets the number of shard copies that must be active before proceeding with the delete operation. Defaults to 1, meaning the primary shard only. Set to "all" for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1).
+func WithDeleteWaitForActiveShards(waitForActiveShards string) DeleteOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteErrorTrace - include the stack trace of returned errors.
+func WithDeleteErrorTrace(errorTrace bool) DeleteOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithDeleteFilterPath(filterPath []string) DeleteOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteHuman - return human readable values for statistics.
+func WithDeleteHuman(human bool) DeleteOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteIgnore - ignores the specified HTTP status codes.
+func WithDeleteIgnore(ignore []int) DeleteOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeletePretty - pretty format the returned JSON response.
+func WithDeletePretty(pretty bool) DeleteOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithDeleteSourceParam(sourceParam string) DeleteOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // Delete allows to delete a typed JSON document from a specific index based on its id. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-delete.html for more info.
 //
@@ -18,15 +125,11 @@ import (
 //
 // id: the document ID.
 //
-// options: optional parameters. Supports the following functional options: WithParent, WithRefresh, WithRouting, WithTimeout, WithVersion, WithVersionType, WithWaitForActiveShards, WithErrorTrace, WithFilterPath, WithHuman, WithIgnore, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) Delete(index string, documentType string, id string, options ...Option) (*DeleteResponse, error) {
+// options: optional parameters.
+func (a *API) Delete(index string, documentType string, id string, options ...DeleteOption) (*DeleteResponse, error) {
 	req := a.transport.NewRequest("DELETE")
-	methodOptions := supportedOptions["Delete"]
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := a.transport.Do(req)
 	return &DeleteResponse{resp}, err
