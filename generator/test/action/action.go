@@ -60,6 +60,7 @@ func (r *Router) UnmarshalYAML(unmarshal func(interface{}) error) error {
 		case "do":
 			r.action, err = newDo(unmarshal)
 		case "set":
+			// TODO: resolve variables set in other actions
 			r.action, err = newSet(unmarshal)
 		case "is_true":
 			fallthrough
