@@ -119,6 +119,7 @@ func newTestcase(testSpecFile, testSpec string, methods map[string]*api.Method, 
 			}
 			for _, v := range ctx.Vars {
 				if existing, ok := t.Vars[v.Name]; !ok {
+					// TODO: handle variables that are declared and not used (maybe it'll go away with the other TODOs?)
 					t.Vars[v.Name] = v
 				} else {
 					if existing.Type != v.Type {

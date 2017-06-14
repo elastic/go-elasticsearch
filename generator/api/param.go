@@ -99,6 +99,8 @@ func formatName(name, methodName string, required bool) (string, string) {
 		paramName = snaker.SnakeToCamelLower(name)
 	}
 	if !required {
+		// TODO: figure out how we end up with the wrong package name in some cases here (do.tmpl), for example:
+		// api/explain_test.go:225: cannot use []interface {} literal (type []interface {}) as type []string in argument to api.WithExplainSource
 		optionName = "With" + methodName + snaker.SnakeToCamel(name)
 	}
 	return paramName, optionName
