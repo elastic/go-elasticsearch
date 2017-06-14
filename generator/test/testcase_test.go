@@ -98,13 +98,13 @@ func TestDoWithMissingParam(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	expectedCode := `deleteAliasResp, err = c.Indices.DeleteAlias(nil, []string{
+	expectedCode := `indicesDeleteAliasResp, err = c.Indices.DeleteAlias(nil, []string{
 		"alias1",
 })
 if err != nil {
 	t.Fatal(err)
 }
-body, err = deleteAliasResp.DecodeBody()
+body, err = indicesDeleteAliasResp.DecodeBody()
 if err != nil {
 	t.Fatal(err)
 }
