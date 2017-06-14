@@ -383,10 +383,9 @@ func (p *Param) String() (string, error) {
 				v = append(v, value)
 			}
 		}
-		code := "[]map[string]interface{}{"
+		code := "[]interface{}{"
 		for _ = range v {
 			// TODO: implement
-			code += "{},"
 		}
 		code += "\n}"
 		return code, nil
