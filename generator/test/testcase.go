@@ -22,7 +22,6 @@ package test
 import (
 	"fmt"
 	"path/filepath"
-	"regexp"
 	"text/template"
 
 	"github.com/elastic/go-elasticsearch/generator/api"
@@ -71,8 +70,45 @@ func newTestcase(testSpecFile, testSpec string, methods map[string]*api.Method, 
 		default:
 			t.RawName = name
 			t.Type = testTypeTest
-			re := regexp.MustCompile(`[ =,\-&"*./{}':]`)
-			name = re.ReplaceAllString(name, "_")
+			name = ""
+			for _, c := range t.RawName {
+				switch c {
+				case '[':
+					continue
+				case ']':
+					continue
+				case '\\':
+					continue
+				case '"':
+					continue
+				case '{':
+					continue
+				case '}':
+					continue
+				case ':':
+					continue
+				case '\'':
+					continue
+				case ' ':
+					name += "_"
+				case ',':
+					name += "_"
+				case '-':
+					name += "_"
+				case '=':
+					name += "_equals"
+				case '&':
+					name += "_and"
+				case '*':
+					name += "_star"
+				case '.':
+					name += "_dot"
+				case '/':
+					name += "_slash"
+				default:
+					name += string(c)
+				}
+			}
 			t.Name = "Test" + snaker.SnakeToCamel(specFileBase+"_"+methodName+"_"+name)
 			t.Actions = actions
 		}
