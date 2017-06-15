@@ -49,6 +49,7 @@ func (r *Router) UnmarshalYAML(unmarshal func(interface{}) error) error {
 		return fmt.Errorf("action has multiple names: %#v", spec)
 	}
 	for _, item := range spec {
+		// Instiantiate the Router, this hasn't happened yet since we got here through unmarshaling.
 		*r = Router{}
 		name, ok := item.Key.(string)
 		if !ok {

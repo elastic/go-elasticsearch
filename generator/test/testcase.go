@@ -110,6 +110,7 @@ func newTestcase(testSpecFile, testSpec string, methods map[string]*api.Method, 
 				}
 			}
 			t.Name = "Test" + snaker.SnakeToCamel(specFileBase+"_"+methodName+"_"+name)
+			// TODO: keep raw name as comment
 			t.Actions = actions
 		}
 		for _, a := range actions {
