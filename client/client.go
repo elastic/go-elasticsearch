@@ -54,15 +54,19 @@ type Client struct {
 
 // New is the constructor for the Client.
 func New(options ...Option) (*Client, error) {
-	t := transport.New()
-	c := &Client{
-		API:       api.New(t),
-		transport: t,
-	}
+	c := NewWithTransport(transport.New())
 	for _, option := range options {
 		if err := option(c); err != nil {
 			return nil, err
 		}
 	}
 	return c, nil
+}
+
+// NewWithTransport creates a new client with the specified transport
+func NewWithTransport(t *transport.Transport) *Client {
+	return &Client{
+		API:       api.New(t),
+		transport: t,
+	}
 }

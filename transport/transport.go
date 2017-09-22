@@ -20,18 +20,18 @@ const (
 // Transport defines the transport for the connection to Elasticsearch.
 type Transport struct {
 	URL    *url.URL
-	client *http.Client
+	Client *http.Client
 }
 
 // New is the constructor for the Transport
 func New() *Transport {
 	return &Transport{
 		URL:    DefaultURL,
-		client: &http.Client{},
+		Client: &http.Client{},
 	}
 }
 
 // Do sends an HTTP request
 func (t *Transport) Do(req *http.Request) (*http.Response, error) {
-	return t.client.Do(req)
+	return t.Client.Do(req)
 }
