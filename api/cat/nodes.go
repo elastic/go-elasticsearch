@@ -3,35 +3,119 @@
 package cat
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+	"time"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
+
+// NodesOption is a non-required Nodes option that gets applied to an HTTP request.
+type NodesOption func(r *transport.Request)
+
+// WithNodesFormat - a short version of the Accept header, e.g. json, yaml.
+func WithNodesFormat(format string) NodesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithNodesFullID - return the full node ID instead of the shortened version (default: false).
+func WithNodesFullID(fullID bool) NodesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithNodesH - comma-separated list of column names to display.
+func WithNodesH(h []string) NodesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithNodesHelp - return help information.
+func WithNodesHelp(help bool) NodesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithNodesLocal - return local information, do not retrieve the state from master node (default: false).
+func WithNodesLocal(local bool) NodesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithNodesMasterTimeout - explicit operation timeout for connection to master node.
+func WithNodesMasterTimeout(masterTimeout time.Duration) NodesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithNodesS - comma-separated list of column names or column aliases to sort by.
+func WithNodesS(s []string) NodesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithNodesV - verbose mode. Display column headers.
+func WithNodesV(v bool) NodesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithNodesErrorTrace - include the stack trace of returned errors.
+func WithNodesErrorTrace(errorTrace bool) NodesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithNodesFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithNodesFilterPath(filterPath []string) NodesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithNodesHuman - return human readable values for statistics.
+func WithNodesHuman(human bool) NodesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithNodesIgnore - ignores the specified HTTP status codes.
+func WithNodesIgnore(ignore []int) NodesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithNodesPretty - pretty format the returned JSON response.
+func WithNodesPretty(pretty bool) NodesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithNodesSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithNodesSourceParam(sourceParam string) NodesOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // Nodes - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-nodes.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithFormat, WithFullID, WithH, WithHelp, WithLocal, WithMasterTimeout, WithS, WithV, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cat) Nodes(options ...*Option) (*NodesResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: c.transport.URL.Scheme,
-			Host:   c.transport.URL.Host,
-		},
-		Method: "GET",
-	}
-	methodOptions := supportedOptions["Nodes"]
+// options: optional parameters.
+func (c *Cat) Nodes(options ...NodesOption) (*NodesResponse, error) {
+	req := c.transport.NewRequest("GET")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := c.transport.Do(req)
 	return &NodesResponse{resp}, err
 }
 
-// NodesResponse is the response for Nodes
+// NodesResponse is the response for Nodes.
 type NodesResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *NodesResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

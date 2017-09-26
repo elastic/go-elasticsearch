@@ -3,35 +3,83 @@
 package cluster
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+	"time"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
-// PendingTasks - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-pending.html for more info.
-//
-// options: optional parameters. Supports the following functional options: WithLocal, WithMasterTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cluster) PendingTasks(options ...*Option) (*PendingTasksResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: c.transport.URL.Scheme,
-			Host:   c.transport.URL.Host,
-		},
-		Method: "GET",
+// PendingTasksOption is a non-required PendingTasks option that gets applied to an HTTP request.
+type PendingTasksOption func(r *transport.Request)
+
+// WithPendingTasksLocal - return local information, do not retrieve the state from master node (default: false).
+func WithPendingTasksLocal(local bool) PendingTasksOption {
+	return func(r *transport.Request) {
 	}
-	methodOptions := supportedOptions["PendingTasks"]
+}
+
+// WithPendingTasksMasterTimeout - specify timeout for connection to master.
+func WithPendingTasksMasterTimeout(masterTimeout time.Duration) PendingTasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPendingTasksErrorTrace - include the stack trace of returned errors.
+func WithPendingTasksErrorTrace(errorTrace bool) PendingTasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPendingTasksFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithPendingTasksFilterPath(filterPath []string) PendingTasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPendingTasksHuman - return human readable values for statistics.
+func WithPendingTasksHuman(human bool) PendingTasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPendingTasksIgnore - ignores the specified HTTP status codes.
+func WithPendingTasksIgnore(ignore []int) PendingTasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPendingTasksPretty - pretty format the returned JSON response.
+func WithPendingTasksPretty(pretty bool) PendingTasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPendingTasksSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithPendingTasksSourceParam(sourceParam string) PendingTasksOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// PendingTasks - the pending cluster tasks API returns a list of any cluster-level changes (e.g. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-pending.html for more info.
+//
+// options: optional parameters.
+func (c *Cluster) PendingTasks(options ...PendingTasksOption) (*PendingTasksResponse, error) {
+	req := c.transport.NewRequest("GET")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := c.transport.Do(req)
 	return &PendingTasksResponse{resp}, err
 }
 
-// PendingTasksResponse is the response for PendingTasks
+// PendingTasksResponse is the response for PendingTasks.
 type PendingTasksResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *PendingTasksResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

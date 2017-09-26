@@ -3,10 +3,159 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+	"time"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
+
+// IndexOption is a non-required Index option that gets applied to an HTTP request.
+type IndexOption func(r *transport.Request)
+
+// WithIndexID - document ID.
+func WithIndexID(id string) IndexOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// IndexOpType - explicit operation type.
+type IndexOpType int
+
+const (
+	// IndexOpTypeIndex can be used to set IndexOpType to "index"
+	IndexOpTypeIndex = iota
+	// IndexOpTypeCreate can be used to set IndexOpType to "create"
+	IndexOpTypeCreate = iota
+)
+
+// WithIndexOpType - explicit operation type.
+func WithIndexOpType(opType IndexOpType) IndexOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithIndexParent - ID of the parent document.
+func WithIndexParent(parent string) IndexOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithIndexPipeline - the pipeline id to preprocess incoming documents with.
+func WithIndexPipeline(pipeline string) IndexOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// IndexRefresh - if "true" then refresh the affected shards to make this operation visible to search, if "wait_for" then wait for a refresh to make this operation visible to search, if "false" (the default) then do nothing with refreshes.
+type IndexRefresh int
+
+const (
+	// IndexRefreshTrue can be used to set IndexRefresh to "true"
+	IndexRefreshTrue = iota
+	// IndexRefreshFalse can be used to set IndexRefresh to "false"
+	IndexRefreshFalse = iota
+	// IndexRefreshWaitFor can be used to set IndexRefresh to "wait_for"
+	IndexRefreshWaitFor = iota
+)
+
+// WithIndexRefresh - if "true" then refresh the affected shards to make this operation visible to search, if "wait_for" then wait for a refresh to make this operation visible to search, if "false" (the default) then do nothing with refreshes.
+func WithIndexRefresh(refresh IndexRefresh) IndexOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithIndexRouting - specific routing value.
+func WithIndexRouting(routing string) IndexOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithIndexTimeout - explicit operation timeout.
+func WithIndexTimeout(timeout time.Duration) IndexOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithIndexTimestamp - explicit timestamp for the document.
+func WithIndexTimestamp(timestamp time.Duration) IndexOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithIndexTTL - expiration time for the document.
+func WithIndexTTL(ttl time.Duration) IndexOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithIndexVersion - explicit version number for concurrency control.
+func WithIndexVersion(version int) IndexOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// IndexVersionType - specific version type.
+type IndexVersionType int
+
+const (
+	// IndexVersionTypeInternal can be used to set IndexVersionType to "internal"
+	IndexVersionTypeInternal = iota
+	// IndexVersionTypeExternal can be used to set IndexVersionType to "external"
+	IndexVersionTypeExternal = iota
+	// IndexVersionTypeExternalGte can be used to set IndexVersionType to "external_gte"
+	IndexVersionTypeExternalGte = iota
+	// IndexVersionTypeForce can be used to set IndexVersionType to "force"
+	IndexVersionTypeForce = iota
+)
+
+// WithIndexVersionType - specific version type.
+func WithIndexVersionType(versionType IndexVersionType) IndexOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithIndexWaitForActiveShards - sets the number of shard copies that must be active before proceeding with the index operation. Defaults to 1, meaning the primary shard only. Set to "all" for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1).
+func WithIndexWaitForActiveShards(waitForActiveShards string) IndexOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithIndexErrorTrace - include the stack trace of returned errors.
+func WithIndexErrorTrace(errorTrace bool) IndexOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithIndexFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithIndexFilterPath(filterPath []string) IndexOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithIndexHuman - return human readable values for statistics.
+func WithIndexHuman(human bool) IndexOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithIndexIgnore - ignores the specified HTTP status codes.
+func WithIndexIgnore(ignore []int) IndexOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithIndexPretty - pretty format the returned JSON response.
+func WithIndexPretty(pretty bool) IndexOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithIndexSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithIndexSourceParam(sourceParam string) IndexOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // Index adds or updates a typed JSON document in a specific index, making it searchable. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-index_.html for more info.
 //
@@ -16,28 +165,23 @@ import (
 //
 // body: the document.
 //
-// options: optional parameters. Supports the following functional options: WithID, WithOpType, WithParent, WithPipeline, WithRefresh, WithRouting, WithTimeout, WithTimestamp, WithTTL, WithVersion, WithVersionType, WithWaitForActiveShards, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) Index(index string, documentType string, body map[string]interface{}, options ...*Option) (*IndexResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: a.transport.URL.Scheme,
-			Host:   a.transport.URL.Host,
-		},
-		Method: "POST",
-	}
-	methodOptions := supportedOptions["Index"]
+// options: optional parameters.
+func (a *API) Index(index string, documentType string, body map[string]interface{}, options ...IndexOption) (*IndexResponse, error) {
+	req := a.transport.NewRequest("POST")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := a.transport.Do(req)
 	return &IndexResponse{resp}, err
 }
 
-// IndexResponse is the response for Index
+// IndexResponse is the response for Index.
 type IndexResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *IndexResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

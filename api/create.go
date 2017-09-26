@@ -3,10 +3,137 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+	"time"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
+
+// CreateOption is a non-required Create option that gets applied to an HTTP request.
+type CreateOption func(r *transport.Request)
+
+// WithCreateParent - ID of the parent document.
+func WithCreateParent(parent string) CreateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCreatePipeline - the pipeline id to preprocess incoming documents with.
+func WithCreatePipeline(pipeline string) CreateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// CreateRefresh - if "true" then refresh the affected shards to make this operation visible to search, if "wait_for" then wait for a refresh to make this operation visible to search, if "false" (the default) then do nothing with refreshes.
+type CreateRefresh int
+
+const (
+	// CreateRefreshTrue can be used to set CreateRefresh to "true"
+	CreateRefreshTrue = iota
+	// CreateRefreshFalse can be used to set CreateRefresh to "false"
+	CreateRefreshFalse = iota
+	// CreateRefreshWaitFor can be used to set CreateRefresh to "wait_for"
+	CreateRefreshWaitFor = iota
+)
+
+// WithCreateRefresh - if "true" then refresh the affected shards to make this operation visible to search, if "wait_for" then wait for a refresh to make this operation visible to search, if "false" (the default) then do nothing with refreshes.
+func WithCreateRefresh(refresh CreateRefresh) CreateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCreateRouting - specific routing value.
+func WithCreateRouting(routing string) CreateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCreateTimeout - explicit operation timeout.
+func WithCreateTimeout(timeout time.Duration) CreateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCreateTimestamp - explicit timestamp for the document.
+func WithCreateTimestamp(timestamp time.Duration) CreateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCreateTTL - expiration time for the document.
+func WithCreateTTL(ttl time.Duration) CreateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCreateVersion - explicit version number for concurrency control.
+func WithCreateVersion(version int) CreateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// CreateVersionType - specific version type.
+type CreateVersionType int
+
+const (
+	// CreateVersionTypeInternal can be used to set CreateVersionType to "internal"
+	CreateVersionTypeInternal = iota
+	// CreateVersionTypeExternal can be used to set CreateVersionType to "external"
+	CreateVersionTypeExternal = iota
+	// CreateVersionTypeExternalGte can be used to set CreateVersionType to "external_gte"
+	CreateVersionTypeExternalGte = iota
+	// CreateVersionTypeForce can be used to set CreateVersionType to "force"
+	CreateVersionTypeForce = iota
+)
+
+// WithCreateVersionType - specific version type.
+func WithCreateVersionType(versionType CreateVersionType) CreateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCreateWaitForActiveShards - sets the number of shard copies that must be active before proceeding with the index operation. Defaults to 1, meaning the primary shard only. Set to "all" for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1).
+func WithCreateWaitForActiveShards(waitForActiveShards string) CreateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCreateErrorTrace - include the stack trace of returned errors.
+func WithCreateErrorTrace(errorTrace bool) CreateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCreateFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithCreateFilterPath(filterPath []string) CreateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCreateHuman - return human readable values for statistics.
+func WithCreateHuman(human bool) CreateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCreateIgnore - ignores the specified HTTP status codes.
+func WithCreateIgnore(ignore []int) CreateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCreatePretty - pretty format the returned JSON response.
+func WithCreatePretty(pretty bool) CreateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCreateSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithCreateSourceParam(sourceParam string) CreateOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // Create - the index API adds or updates a typed JSON document in a specific index, making it searchable. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-index_.html for more info.
 //
@@ -18,28 +145,23 @@ import (
 //
 // body: the document.
 //
-// options: optional parameters. Supports the following functional options: WithParent, WithPipeline, WithRefresh, WithRouting, WithTimeout, WithTimestamp, WithTTL, WithVersion, WithVersionType, WithWaitForActiveShards, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) Create(index string, documentType string, id string, body map[string]interface{}, options ...*Option) (*CreateResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: a.transport.URL.Scheme,
-			Host:   a.transport.URL.Host,
-		},
-		Method: "PUT",
-	}
-	methodOptions := supportedOptions["Create"]
+// options: optional parameters.
+func (a *API) Create(index string, documentType string, id string, body map[string]interface{}, options ...CreateOption) (*CreateResponse, error) {
+	req := a.transport.NewRequest("PUT")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := a.transport.Do(req)
 	return &CreateResponse{resp}, err
 }
 
-// CreateResponse is the response for Create
+// CreateResponse is the response for Create.
 type CreateResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *CreateResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

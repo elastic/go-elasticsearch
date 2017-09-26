@@ -3,10 +3,50 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
+
+// PutTemplateOption is a non-required PutTemplate option that gets applied to an HTTP request.
+type PutTemplateOption func(r *transport.Request)
+
+// WithPutTemplateErrorTrace - include the stack trace of returned errors.
+func WithPutTemplateErrorTrace(errorTrace bool) PutTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutTemplateFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithPutTemplateFilterPath(filterPath []string) PutTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutTemplateHuman - return human readable values for statistics.
+func WithPutTemplateHuman(human bool) PutTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutTemplateIgnore - ignores the specified HTTP status codes.
+func WithPutTemplateIgnore(ignore []int) PutTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutTemplatePretty - pretty format the returned JSON response.
+func WithPutTemplatePretty(pretty bool) PutTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutTemplateSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithPutTemplateSourceParam(sourceParam string) PutTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // PutTemplate - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-template.html for more info.
 //
@@ -14,28 +54,23 @@ import (
 //
 // body: the document.
 //
-// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) PutTemplate(id string, body map[string]interface{}, options ...*Option) (*PutTemplateResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: a.transport.URL.Scheme,
-			Host:   a.transport.URL.Host,
-		},
-		Method: "PUT",
-	}
-	methodOptions := supportedOptions["PutTemplate"]
+// options: optional parameters.
+func (a *API) PutTemplate(id string, body map[string]interface{}, options ...PutTemplateOption) (*PutTemplateResponse, error) {
+	req := a.transport.NewRequest("PUT")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := a.transport.Do(req)
 	return &PutTemplateResponse{resp}, err
 }
 
-// PutTemplateResponse is the response for PutTemplate
+// PutTemplateResponse is the response for PutTemplate.
 type PutTemplateResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *PutTemplateResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

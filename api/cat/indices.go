@@ -3,35 +3,163 @@
 package cat
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+	"time"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
+
+// IndicesOption is a non-required Indices option that gets applied to an HTTP request.
+type IndicesOption func(r *transport.Request)
+
+// WithIndicesIndex - a comma-separated list of index names to limit the returned information.
+func WithIndicesIndex(index []string) IndicesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// IndicesBytes - the unit in which to display byte values.
+type IndicesBytes int
+
+const (
+	// IndicesBytesB can be used to set IndicesBytes to "b"
+	IndicesBytesB = iota
+	// IndicesBytesK can be used to set IndicesBytes to "k"
+	IndicesBytesK = iota
+	// IndicesBytesM can be used to set IndicesBytes to "m"
+	IndicesBytesM = iota
+	// IndicesBytesG can be used to set IndicesBytes to "g"
+	IndicesBytesG = iota
+)
+
+// WithIndicesBytes - the unit in which to display byte values.
+func WithIndicesBytes(bytes IndicesBytes) IndicesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithIndicesFormat - a short version of the Accept header, e.g. json, yaml.
+func WithIndicesFormat(format string) IndicesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithIndicesH - comma-separated list of column names to display.
+func WithIndicesH(h []string) IndicesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// IndicesHealth - a health status ("green", "yellow", or "red" to filter only indices matching the specified health status.
+type IndicesHealth int
+
+const (
+	// IndicesHealthGreen can be used to set IndicesHealth to "green"
+	IndicesHealthGreen = iota
+	// IndicesHealthYellow can be used to set IndicesHealth to "yellow"
+	IndicesHealthYellow = iota
+	// IndicesHealthRed can be used to set IndicesHealth to "red"
+	IndicesHealthRed = iota
+)
+
+// WithIndicesHealth - a health status ("green", "yellow", or "red" to filter only indices matching the specified health status.
+func WithIndicesHealth(health IndicesHealth) IndicesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithIndicesHelp - return help information.
+func WithIndicesHelp(help bool) IndicesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithIndicesLocal - return local information, do not retrieve the state from master node (default: false).
+func WithIndicesLocal(local bool) IndicesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithIndicesMasterTimeout - explicit operation timeout for connection to master node.
+func WithIndicesMasterTimeout(masterTimeout time.Duration) IndicesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithIndicesPri - set to true to return stats only for primary shards.
+func WithIndicesPri(pri bool) IndicesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithIndicesS - comma-separated list of column names or column aliases to sort by.
+func WithIndicesS(s []string) IndicesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithIndicesV - verbose mode. Display column headers.
+func WithIndicesV(v bool) IndicesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithIndicesErrorTrace - include the stack trace of returned errors.
+func WithIndicesErrorTrace(errorTrace bool) IndicesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithIndicesFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithIndicesFilterPath(filterPath []string) IndicesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithIndicesHuman - return human readable values for statistics.
+func WithIndicesHuman(human bool) IndicesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithIndicesIgnore - ignores the specified HTTP status codes.
+func WithIndicesIgnore(ignore []int) IndicesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithIndicesPretty - pretty format the returned JSON response.
+func WithIndicesPretty(pretty bool) IndicesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithIndicesSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithIndicesSourceParam(sourceParam string) IndicesOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // Indices - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-indices.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithBytes, WithFormat, WithH, WithHealth, WithHelp, WithLocal, WithMasterTimeout, WithPri, WithS, WithV, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cat) Indices(options ...*Option) (*IndicesResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: c.transport.URL.Scheme,
-			Host:   c.transport.URL.Host,
-		},
-		Method: "GET",
-	}
-	methodOptions := supportedOptions["Indices"]
+// options: optional parameters.
+func (c *Cat) Indices(options ...IndicesOption) (*IndicesResponse, error) {
+	req := c.transport.NewRequest("GET")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := c.transport.Do(req)
 	return &IndicesResponse{resp}, err
 }
 
-// IndicesResponse is the response for Indices
+// IndicesResponse is the response for Indices.
 type IndicesResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *IndicesResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

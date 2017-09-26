@@ -3,35 +3,119 @@
 package cat
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+	"time"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
+
+// HealthOption is a non-required Health option that gets applied to an HTTP request.
+type HealthOption func(r *transport.Request)
+
+// WithHealthFormat - a short version of the Accept header, e.g. json, yaml.
+func WithHealthFormat(format string) HealthOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithHealthH - comma-separated list of column names to display.
+func WithHealthH(h []string) HealthOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithHealthHelp - return help information.
+func WithHealthHelp(help bool) HealthOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithHealthLocal - return local information, do not retrieve the state from master node (default: false).
+func WithHealthLocal(local bool) HealthOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithHealthMasterTimeout - explicit operation timeout for connection to master node.
+func WithHealthMasterTimeout(masterTimeout time.Duration) HealthOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithHealthS - comma-separated list of column names or column aliases to sort by.
+func WithHealthS(s []string) HealthOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithHealthTs - set to false to disable timestamping.
+func WithHealthTs(ts bool) HealthOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithHealthV - verbose mode. Display column headers.
+func WithHealthV(v bool) HealthOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithHealthErrorTrace - include the stack trace of returned errors.
+func WithHealthErrorTrace(errorTrace bool) HealthOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithHealthFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithHealthFilterPath(filterPath []string) HealthOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithHealthHuman - return human readable values for statistics.
+func WithHealthHuman(human bool) HealthOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithHealthIgnore - ignores the specified HTTP status codes.
+func WithHealthIgnore(ignore []int) HealthOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithHealthPretty - pretty format the returned JSON response.
+func WithHealthPretty(pretty bool) HealthOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithHealthSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithHealthSourceParam(sourceParam string) HealthOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // Health - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-health.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithFormat, WithH, WithHelp, WithLocal, WithMasterTimeout, WithS, WithTs, WithV, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cat) Health(options ...*Option) (*HealthResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: c.transport.URL.Scheme,
-			Host:   c.transport.URL.Host,
-		},
-		Method: "GET",
-	}
-	methodOptions := supportedOptions["Health"]
+// options: optional parameters.
+func (c *Cat) Health(options ...HealthOption) (*HealthResponse, error) {
+	req := c.transport.NewRequest("GET")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := c.transport.Do(req)
 	return &HealthResponse{resp}, err
 }
 
-// HealthResponse is the response for Health
+// HealthResponse is the response for Health.
 type HealthResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *HealthResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

@@ -3,35 +3,143 @@
 package cat
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+	"time"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
+
+// ThreadPoolOption is a non-required ThreadPool option that gets applied to an HTTP request.
+type ThreadPoolOption func(r *transport.Request)
+
+// WithThreadPoolThreadPoolPatterns - a comma-separated list of regular-expressions to filter the thread pools in the output.
+func WithThreadPoolThreadPoolPatterns(threadPoolPatterns []string) ThreadPoolOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithThreadPoolFormat - a short version of the Accept header, e.g. json, yaml.
+func WithThreadPoolFormat(format string) ThreadPoolOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithThreadPoolH - comma-separated list of column names to display.
+func WithThreadPoolH(h []string) ThreadPoolOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithThreadPoolHelp - return help information.
+func WithThreadPoolHelp(help bool) ThreadPoolOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithThreadPoolLocal - return local information, do not retrieve the state from master node (default: false).
+func WithThreadPoolLocal(local bool) ThreadPoolOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithThreadPoolMasterTimeout - explicit operation timeout for connection to master node.
+func WithThreadPoolMasterTimeout(masterTimeout time.Duration) ThreadPoolOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithThreadPoolS - comma-separated list of column names or column aliases to sort by.
+func WithThreadPoolS(s []string) ThreadPoolOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// ThreadPoolSize - the multiplier in which to display values.
+type ThreadPoolSize int
+
+const (
+	// ThreadPoolSizeZero can be used to set ThreadPoolSize to "zero"
+	ThreadPoolSizeZero = iota
+	// ThreadPoolSizeK can be used to set ThreadPoolSize to "k"
+	ThreadPoolSizeK = iota
+	// ThreadPoolSizeM can be used to set ThreadPoolSize to "m"
+	ThreadPoolSizeM = iota
+	// ThreadPoolSizeG can be used to set ThreadPoolSize to "g"
+	ThreadPoolSizeG = iota
+	// ThreadPoolSizeT can be used to set ThreadPoolSize to "t"
+	ThreadPoolSizeT = iota
+	// ThreadPoolSizeP can be used to set ThreadPoolSize to "p"
+	ThreadPoolSizeP = iota
+)
+
+// WithThreadPoolSize - the multiplier in which to display values.
+func WithThreadPoolSize(size ThreadPoolSize) ThreadPoolOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithThreadPoolV - verbose mode. Display column headers.
+func WithThreadPoolV(v bool) ThreadPoolOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithThreadPoolErrorTrace - include the stack trace of returned errors.
+func WithThreadPoolErrorTrace(errorTrace bool) ThreadPoolOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithThreadPoolFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithThreadPoolFilterPath(filterPath []string) ThreadPoolOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithThreadPoolHuman - return human readable values for statistics.
+func WithThreadPoolHuman(human bool) ThreadPoolOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithThreadPoolIgnore - ignores the specified HTTP status codes.
+func WithThreadPoolIgnore(ignore []int) ThreadPoolOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithThreadPoolPretty - pretty format the returned JSON response.
+func WithThreadPoolPretty(pretty bool) ThreadPoolOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithThreadPoolSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithThreadPoolSourceParam(sourceParam string) ThreadPoolOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // ThreadPool - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-thread-pool.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithThreadPoolPatterns, WithFormat, WithH, WithHelp, WithLocal, WithMasterTimeout, WithS, WithSize, WithV, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cat) ThreadPool(options ...*Option) (*ThreadPoolResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: c.transport.URL.Scheme,
-			Host:   c.transport.URL.Host,
-		},
-		Method: "GET",
-	}
-	methodOptions := supportedOptions["ThreadPool"]
+// options: optional parameters.
+func (c *Cat) ThreadPool(options ...ThreadPoolOption) (*ThreadPoolResponse, error) {
+	req := c.transport.NewRequest("GET")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := c.transport.Do(req)
 	return &ThreadPoolResponse{resp}, err
 }
 
-// ThreadPoolResponse is the response for ThreadPool
+// ThreadPoolResponse is the response for ThreadPool.
 type ThreadPoolResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *ThreadPoolResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

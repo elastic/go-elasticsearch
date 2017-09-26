@@ -3,35 +3,106 @@
 package cat
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
+
+// SegmentsOption is a non-required Segments option that gets applied to an HTTP request.
+type SegmentsOption func(r *transport.Request)
+
+// WithSegmentsIndex - a comma-separated list of index names to limit the returned information.
+func WithSegmentsIndex(index []string) SegmentsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSegmentsFormat - a short version of the Accept header, e.g. json, yaml.
+func WithSegmentsFormat(format string) SegmentsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSegmentsH - comma-separated list of column names to display.
+func WithSegmentsH(h []string) SegmentsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSegmentsHelp - return help information.
+func WithSegmentsHelp(help bool) SegmentsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSegmentsS - comma-separated list of column names or column aliases to sort by.
+func WithSegmentsS(s []string) SegmentsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSegmentsV - verbose mode. Display column headers.
+func WithSegmentsV(v bool) SegmentsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSegmentsErrorTrace - include the stack trace of returned errors.
+func WithSegmentsErrorTrace(errorTrace bool) SegmentsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSegmentsFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithSegmentsFilterPath(filterPath []string) SegmentsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSegmentsHuman - return human readable values for statistics.
+func WithSegmentsHuman(human bool) SegmentsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSegmentsIgnore - ignores the specified HTTP status codes.
+func WithSegmentsIgnore(ignore []int) SegmentsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSegmentsPretty - pretty format the returned JSON response.
+func WithSegmentsPretty(pretty bool) SegmentsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithSegmentsSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithSegmentsSourceParam(sourceParam string) SegmentsOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // Segments - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-segments.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithFormat, WithH, WithHelp, WithS, WithV, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cat) Segments(options ...*Option) (*SegmentsResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: c.transport.URL.Scheme,
-			Host:   c.transport.URL.Host,
-		},
-		Method: "GET",
-	}
-	methodOptions := supportedOptions["Segments"]
+// options: optional parameters.
+func (c *Cat) Segments(options ...SegmentsOption) (*SegmentsResponse, error) {
+	req := c.transport.NewRequest("GET")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := c.transport.Do(req)
 	return &SegmentsResponse{resp}, err
 }
 
-// SegmentsResponse is the response for Segments
+// SegmentsResponse is the response for Segments.
 type SegmentsResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *SegmentsResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

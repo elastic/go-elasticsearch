@@ -3,37 +3,109 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+	"time"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
+
+// ReindexOption is a non-required Reindex option that gets applied to an HTTP request.
+type ReindexOption func(r *transport.Request)
+
+// WithReindexRefresh - should the effected indexes be refreshed?
+func WithReindexRefresh(refresh bool) ReindexOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithReindexRequestsPerSecond - the throttle to set on this request in sub-requests per second. -1 means no throttle.
+func WithReindexRequestsPerSecond(requestsPerSecond int) ReindexOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithReindexSlices - the number of slices this task should be divided into. Defaults to 1 meaning the task isn't sliced into subtasks.
+func WithReindexSlices(slices int) ReindexOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithReindexTimeout - time each individual bulk request should wait for shards that are unavailable.
+func WithReindexTimeout(timeout time.Duration) ReindexOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithReindexWaitForActiveShards - sets the number of shard copies that must be active before proceeding with the reindex operation. Defaults to 1, meaning the primary shard only. Set to "all" for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1).
+func WithReindexWaitForActiveShards(waitForActiveShards string) ReindexOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithReindexWaitForCompletion - should the request should block until the reindex is complete.
+func WithReindexWaitForCompletion(waitForCompletion bool) ReindexOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithReindexErrorTrace - include the stack trace of returned errors.
+func WithReindexErrorTrace(errorTrace bool) ReindexOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithReindexFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithReindexFilterPath(filterPath []string) ReindexOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithReindexHuman - return human readable values for statistics.
+func WithReindexHuman(human bool) ReindexOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithReindexIgnore - ignores the specified HTTP status codes.
+func WithReindexIgnore(ignore []int) ReindexOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithReindexPretty - pretty format the returned JSON response.
+func WithReindexPretty(pretty bool) ReindexOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithReindexSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithReindexSourceParam(sourceParam string) ReindexOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // Reindex - reindex does not attempt to set up the destination index. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-reindex.html for more info.
 //
 // body: the search definition using the Query DSL and the prototype for the index request.
 //
-// options: optional parameters. Supports the following functional options: WithRefresh, WithRequestsPerSecond, WithSlices, WithTimeout, WithWaitForActiveShards, WithWaitForCompletion, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) Reindex(body map[string]interface{}, options ...*Option) (*ReindexResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: a.transport.URL.Scheme,
-			Host:   a.transport.URL.Host,
-		},
-		Method: "POST",
-	}
-	methodOptions := supportedOptions["Reindex"]
+// options: optional parameters.
+func (a *API) Reindex(body map[string]interface{}, options ...ReindexOption) (*ReindexResponse, error) {
+	req := a.transport.NewRequest("POST")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := a.transport.Do(req)
 	return &ReindexResponse{resp}, err
 }
 
-// ReindexResponse is the response for Reindex
+// ReindexResponse is the response for Reindex.
 type ReindexResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *ReindexResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

@@ -3,35 +3,113 @@
 package cat
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+	"time"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
+
+// RepositoriesOption is a non-required Repositories option that gets applied to an HTTP request.
+type RepositoriesOption func(r *transport.Request)
+
+// WithRepositoriesFormat - a short version of the Accept header, e.g. json, yaml.
+func WithRepositoriesFormat(format string) RepositoriesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRepositoriesH - comma-separated list of column names to display.
+func WithRepositoriesH(h []string) RepositoriesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRepositoriesHelp - return help information.
+func WithRepositoriesHelp(help bool) RepositoriesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRepositoriesLocal - return local information, do not retrieve the state from master node.
+func WithRepositoriesLocal(local bool) RepositoriesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRepositoriesMasterTimeout - explicit operation timeout for connection to master node.
+func WithRepositoriesMasterTimeout(masterTimeout time.Duration) RepositoriesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRepositoriesS - comma-separated list of column names or column aliases to sort by.
+func WithRepositoriesS(s []string) RepositoriesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRepositoriesV - verbose mode. Display column headers.
+func WithRepositoriesV(v bool) RepositoriesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRepositoriesErrorTrace - include the stack trace of returned errors.
+func WithRepositoriesErrorTrace(errorTrace bool) RepositoriesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRepositoriesFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithRepositoriesFilterPath(filterPath []string) RepositoriesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRepositoriesHuman - return human readable values for statistics.
+func WithRepositoriesHuman(human bool) RepositoriesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRepositoriesIgnore - ignores the specified HTTP status codes.
+func WithRepositoriesIgnore(ignore []int) RepositoriesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRepositoriesPretty - pretty format the returned JSON response.
+func WithRepositoriesPretty(pretty bool) RepositoriesOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRepositoriesSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithRepositoriesSourceParam(sourceParam string) RepositoriesOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // Repositories - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-repositories.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithFormat, WithH, WithHelp, WithLocal, WithMasterTimeout, WithS, WithV, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cat) Repositories(options ...*Option) (*RepositoriesResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: c.transport.URL.Scheme,
-			Host:   c.transport.URL.Host,
-		},
-		Method: "GET",
-	}
-	methodOptions := supportedOptions["Repositories"]
+// options: optional parameters.
+func (c *Cat) Repositories(options ...RepositoriesOption) (*RepositoriesResponse, error) {
+	req := c.transport.NewRequest("GET")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := c.transport.Do(req)
 	return &RepositoriesResponse{resp}, err
 }
 
-// RepositoriesResponse is the response for Repositories
+// RepositoriesResponse is the response for Repositories.
 type RepositoriesResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *RepositoriesResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

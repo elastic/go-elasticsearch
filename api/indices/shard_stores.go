@@ -3,35 +3,114 @@
 package indices
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
+
+// ShardStoresOption is a non-required ShardStores option that gets applied to an HTTP request.
+type ShardStoresOption func(r *transport.Request)
+
+// WithShardStoresIndex - a comma-separated list of index names; use "_all" or empty string to perform the operation on all indices.
+func WithShardStoresIndex(index []string) ShardStoresOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithShardStoresAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
+func WithShardStoresAllowNoIndices(allowNoIndices bool) ShardStoresOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// ShardStoresExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+type ShardStoresExpandWildcards int
+
+const (
+	// ShardStoresExpandWildcardsOpen can be used to set ShardStoresExpandWildcards to "open"
+	ShardStoresExpandWildcardsOpen = iota
+	// ShardStoresExpandWildcardsClosed can be used to set ShardStoresExpandWildcards to "closed"
+	ShardStoresExpandWildcardsClosed = iota
+	// ShardStoresExpandWildcardsNone can be used to set ShardStoresExpandWildcards to "none"
+	ShardStoresExpandWildcardsNone = iota
+	// ShardStoresExpandWildcardsAll can be used to set ShardStoresExpandWildcards to "all"
+	ShardStoresExpandWildcardsAll = iota
+)
+
+// WithShardStoresExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+func WithShardStoresExpandWildcards(expandWildcards ShardStoresExpandWildcards) ShardStoresOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithShardStoresIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
+func WithShardStoresIgnoreUnavailable(ignoreUnavailable bool) ShardStoresOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithShardStoresStatus - a comma-separated list of statuses used to filter on shards to get store information for.
+func WithShardStoresStatus(status []string) ShardStoresOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithShardStoresErrorTrace - include the stack trace of returned errors.
+func WithShardStoresErrorTrace(errorTrace bool) ShardStoresOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithShardStoresFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithShardStoresFilterPath(filterPath []string) ShardStoresOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithShardStoresHuman - return human readable values for statistics.
+func WithShardStoresHuman(human bool) ShardStoresOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithShardStoresIgnore - ignores the specified HTTP status codes.
+func WithShardStoresIgnore(ignore []int) ShardStoresOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithShardStoresPretty - pretty format the returned JSON response.
+func WithShardStoresPretty(pretty bool) ShardStoresOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithShardStoresSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithShardStoresSourceParam(sourceParam string) ShardStoresOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // ShardStores - provides store information for shard copies of indices. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-shards-stores.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithOperationThreading, WithStatus, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) ShardStores(options ...*Option) (*ShardStoresResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: i.transport.URL.Scheme,
-			Host:   i.transport.URL.Host,
-		},
-		Method: "GET",
-	}
-	methodOptions := supportedOptions["ShardStores"]
+// options: optional parameters.
+func (i *Indices) ShardStores(options ...ShardStoresOption) (*ShardStoresResponse, error) {
+	req := i.transport.NewRequest("GET")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := i.transport.Do(req)
 	return &ShardStoresResponse{resp}, err
 }
 
-// ShardStoresResponse is the response for ShardStores
+// ShardStoresResponse is the response for ShardStores.
 type ShardStoresResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *ShardStoresResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

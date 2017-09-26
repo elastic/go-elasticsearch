@@ -1,0 +1,11 @@
+// {{.OptionName}} - {{.Description}}
+func {{.OptionName}}({{.Name}} {{.Type}}) {{.OptionType}} {
+  return Option{
+		name: "{{.OptionName}}",
+		apply: func(r *transport.Request) {
+      for _, status := range {{.Name}} {
+        r.IgnoredStatuses[status] = struct{}{}
+      }
+  	},
+	}
+}

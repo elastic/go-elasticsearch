@@ -3,35 +3,108 @@
 package indices
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
-// FlushSynced - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-synced-flush.html for more info.
-//
-// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) FlushSynced(options ...*Option) (*FlushSyncedResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: i.transport.URL.Scheme,
-			Host:   i.transport.URL.Host,
-		},
-		Method: "POST",
+// FlushSyncedOption is a non-required FlushSynced option that gets applied to an HTTP request.
+type FlushSyncedOption func(r *transport.Request)
+
+// WithFlushSyncedIndex - a comma-separated list of index names; use "_all" or empty string for all indices.
+func WithFlushSyncedIndex(index []string) FlushSyncedOption {
+	return func(r *transport.Request) {
 	}
-	methodOptions := supportedOptions["FlushSynced"]
+}
+
+// WithFlushSyncedAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
+func WithFlushSyncedAllowNoIndices(allowNoIndices bool) FlushSyncedOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// FlushSyncedExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+type FlushSyncedExpandWildcards int
+
+const (
+	// FlushSyncedExpandWildcardsOpen can be used to set FlushSyncedExpandWildcards to "open"
+	FlushSyncedExpandWildcardsOpen = iota
+	// FlushSyncedExpandWildcardsClosed can be used to set FlushSyncedExpandWildcards to "closed"
+	FlushSyncedExpandWildcardsClosed = iota
+	// FlushSyncedExpandWildcardsNone can be used to set FlushSyncedExpandWildcards to "none"
+	FlushSyncedExpandWildcardsNone = iota
+	// FlushSyncedExpandWildcardsAll can be used to set FlushSyncedExpandWildcards to "all"
+	FlushSyncedExpandWildcardsAll = iota
+)
+
+// WithFlushSyncedExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+func WithFlushSyncedExpandWildcards(expandWildcards FlushSyncedExpandWildcards) FlushSyncedOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFlushSyncedIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
+func WithFlushSyncedIgnoreUnavailable(ignoreUnavailable bool) FlushSyncedOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFlushSyncedErrorTrace - include the stack trace of returned errors.
+func WithFlushSyncedErrorTrace(errorTrace bool) FlushSyncedOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFlushSyncedFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithFlushSyncedFilterPath(filterPath []string) FlushSyncedOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFlushSyncedHuman - return human readable values for statistics.
+func WithFlushSyncedHuman(human bool) FlushSyncedOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFlushSyncedIgnore - ignores the specified HTTP status codes.
+func WithFlushSyncedIgnore(ignore []int) FlushSyncedOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFlushSyncedPretty - pretty format the returned JSON response.
+func WithFlushSyncedPretty(pretty bool) FlushSyncedOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithFlushSyncedSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithFlushSyncedSourceParam(sourceParam string) FlushSyncedOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// FlushSynced - elasticsearch tracks the indexing activity of each shard. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-synced-flush.html for more info.
+//
+// options: optional parameters.
+func (i *Indices) FlushSynced(options ...FlushSyncedOption) (*FlushSyncedResponse, error) {
+	req := i.transport.NewRequest("POST")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := i.transport.Do(req)
 	return &FlushSyncedResponse{resp}, err
 }
 
-// FlushSyncedResponse is the response for FlushSynced
+// FlushSyncedResponse is the response for FlushSynced.
 type FlushSyncedResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *FlushSyncedResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

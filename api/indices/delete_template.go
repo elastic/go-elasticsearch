@@ -3,37 +3,85 @@
 package indices
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+	"time"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
+
+// DeleteTemplateOption is a non-required DeleteTemplate option that gets applied to an HTTP request.
+type DeleteTemplateOption func(r *transport.Request)
+
+// WithDeleteTemplateMasterTimeout - specify timeout for connection to master.
+func WithDeleteTemplateMasterTimeout(masterTimeout time.Duration) DeleteTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteTemplateTimeout - explicit operation timeout.
+func WithDeleteTemplateTimeout(timeout time.Duration) DeleteTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteTemplateErrorTrace - include the stack trace of returned errors.
+func WithDeleteTemplateErrorTrace(errorTrace bool) DeleteTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteTemplateFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithDeleteTemplateFilterPath(filterPath []string) DeleteTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteTemplateHuman - return human readable values for statistics.
+func WithDeleteTemplateHuman(human bool) DeleteTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteTemplateIgnore - ignores the specified HTTP status codes.
+func WithDeleteTemplateIgnore(ignore []int) DeleteTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteTemplatePretty - pretty format the returned JSON response.
+func WithDeleteTemplatePretty(pretty bool) DeleteTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteTemplateSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithDeleteTemplateSourceParam(sourceParam string) DeleteTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // DeleteTemplate - index templates allow you to define templates that will automatically be applied when new indices are created. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-templates.html for more info.
 //
 // name: the name of the template.
 //
-// options: optional parameters. Supports the following functional options: WithMasterTimeout, WithTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) DeleteTemplate(name string, options ...*Option) (*DeleteTemplateResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: i.transport.URL.Scheme,
-			Host:   i.transport.URL.Host,
-		},
-		Method: "DELETE",
-	}
-	methodOptions := supportedOptions["DeleteTemplate"]
+// options: optional parameters.
+func (i *Indices) DeleteTemplate(name string, options ...DeleteTemplateOption) (*DeleteTemplateResponse, error) {
+	req := i.transport.NewRequest("DELETE")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := i.transport.Do(req)
 	return &DeleteTemplateResponse{resp}, err
 }
 
-// DeleteTemplateResponse is the response for DeleteTemplate
+// DeleteTemplateResponse is the response for DeleteTemplate.
 type DeleteTemplateResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *DeleteTemplateResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

@@ -3,37 +3,110 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
+
+// MsearchTemplateOption is a non-required MsearchTemplate option that gets applied to an HTTP request.
+type MsearchTemplateOption func(r *transport.Request)
+
+// WithMsearchTemplateIndex - a comma-separated list of index names to use as default.
+func WithMsearchTemplateIndex(index []string) MsearchTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMsearchTemplateType - a comma-separated list of document types to use as default.
+func WithMsearchTemplateType(documentType []string) MsearchTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// MsearchTemplateSearchType - search operation type.
+type MsearchTemplateSearchType int
+
+const (
+	// MsearchTemplateSearchTypeQueryThenFetch can be used to set MsearchTemplateSearchType to "query_then_fetch"
+	MsearchTemplateSearchTypeQueryThenFetch = iota
+	// MsearchTemplateSearchTypeQueryAndFetch can be used to set MsearchTemplateSearchType to "query_and_fetch"
+	MsearchTemplateSearchTypeQueryAndFetch = iota
+	// MsearchTemplateSearchTypeDfsQueryThenFetch can be used to set MsearchTemplateSearchType to "dfs_query_then_fetch"
+	MsearchTemplateSearchTypeDfsQueryThenFetch = iota
+	// MsearchTemplateSearchTypeDfsQueryAndFetch can be used to set MsearchTemplateSearchType to "dfs_query_and_fetch"
+	MsearchTemplateSearchTypeDfsQueryAndFetch = iota
+)
+
+// WithMsearchTemplateSearchType - search operation type.
+func WithMsearchTemplateSearchType(searchType MsearchTemplateSearchType) MsearchTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMsearchTemplateTypedKeys - specify whether aggregation and suggester names should be prefixed by their respective types in the response.
+func WithMsearchTemplateTypedKeys(typedKeys bool) MsearchTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMsearchTemplateErrorTrace - include the stack trace of returned errors.
+func WithMsearchTemplateErrorTrace(errorTrace bool) MsearchTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMsearchTemplateFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithMsearchTemplateFilterPath(filterPath []string) MsearchTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMsearchTemplateHuman - return human readable values for statistics.
+func WithMsearchTemplateHuman(human bool) MsearchTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMsearchTemplateIgnore - ignores the specified HTTP status codes.
+func WithMsearchTemplateIgnore(ignore []int) MsearchTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMsearchTemplatePretty - pretty format the returned JSON response.
+func WithMsearchTemplatePretty(pretty bool) MsearchTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMsearchTemplateSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithMsearchTemplateSourceParam(sourceParam string) MsearchTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // MsearchTemplate - see https://www.elastic.co/guide/en/elasticsearch/reference/current/search-template.html for more info.
 //
 // body: the request definitions (metadata-search request definition pairs), separated by newlines.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithSearchType, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) MsearchTemplate(body map[string]interface{}, options ...*Option) (*MsearchTemplateResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: a.transport.URL.Scheme,
-			Host:   a.transport.URL.Host,
-		},
-		Method: "GET",
-	}
-	methodOptions := supportedOptions["MsearchTemplate"]
+// options: optional parameters.
+func (a *API) MsearchTemplate(body []interface{}, options ...MsearchTemplateOption) (*MsearchTemplateResponse, error) {
+	req := a.transport.NewRequest("GET")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := a.transport.Do(req)
 	return &MsearchTemplateResponse{resp}, err
 }
 
-// MsearchTemplateResponse is the response for MsearchTemplate
+// MsearchTemplateResponse is the response for MsearchTemplate.
 type MsearchTemplateResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *MsearchTemplateResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

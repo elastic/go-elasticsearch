@@ -3,35 +3,120 @@
 package indices
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
+
+// UpgradeOption is a non-required Upgrade option that gets applied to an HTTP request.
+type UpgradeOption func(r *transport.Request)
+
+// WithUpgradeIndex - a comma-separated list of index names; use "_all" or empty string to perform the operation on all indices.
+func WithUpgradeIndex(index []string) UpgradeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpgradeAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
+func WithUpgradeAllowNoIndices(allowNoIndices bool) UpgradeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// UpgradeExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+type UpgradeExpandWildcards int
+
+const (
+	// UpgradeExpandWildcardsOpen can be used to set UpgradeExpandWildcards to "open"
+	UpgradeExpandWildcardsOpen = iota
+	// UpgradeExpandWildcardsClosed can be used to set UpgradeExpandWildcards to "closed"
+	UpgradeExpandWildcardsClosed = iota
+	// UpgradeExpandWildcardsNone can be used to set UpgradeExpandWildcards to "none"
+	UpgradeExpandWildcardsNone = iota
+	// UpgradeExpandWildcardsAll can be used to set UpgradeExpandWildcards to "all"
+	UpgradeExpandWildcardsAll = iota
+)
+
+// WithUpgradeExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+func WithUpgradeExpandWildcards(expandWildcards UpgradeExpandWildcards) UpgradeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpgradeIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
+func WithUpgradeIgnoreUnavailable(ignoreUnavailable bool) UpgradeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpgradeOnlyAncientSegments - if true, only ancient (an older Lucene major release) segments will be upgraded.
+func WithUpgradeOnlyAncientSegments(onlyAncientSegments bool) UpgradeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpgradeWaitForCompletion - specify whether the request should block until the all segments are upgraded (default: false).
+func WithUpgradeWaitForCompletion(waitForCompletion bool) UpgradeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpgradeErrorTrace - include the stack trace of returned errors.
+func WithUpgradeErrorTrace(errorTrace bool) UpgradeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpgradeFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithUpgradeFilterPath(filterPath []string) UpgradeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpgradeHuman - return human readable values for statistics.
+func WithUpgradeHuman(human bool) UpgradeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpgradeIgnore - ignores the specified HTTP status codes.
+func WithUpgradeIgnore(ignore []int) UpgradeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpgradePretty - pretty format the returned JSON response.
+func WithUpgradePretty(pretty bool) UpgradeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithUpgradeSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithUpgradeSourceParam(sourceParam string) UpgradeOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // Upgrade - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-upgrade.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithOnlyAncientSegments, WithWaitForCompletion, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) Upgrade(options ...*Option) (*UpgradeResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: i.transport.URL.Scheme,
-			Host:   i.transport.URL.Host,
-		},
-		Method: "POST",
-	}
-	methodOptions := supportedOptions["Upgrade"]
+// options: optional parameters.
+func (i *Indices) Upgrade(options ...UpgradeOption) (*UpgradeResponse, error) {
+	req := i.transport.NewRequest("POST")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := i.transport.Do(req)
 	return &UpgradeResponse{resp}, err
 }
 
-// UpgradeResponse is the response for Upgrade
+// UpgradeResponse is the response for Upgrade.
 type UpgradeResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *UpgradeResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

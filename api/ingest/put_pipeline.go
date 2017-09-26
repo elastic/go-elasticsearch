@@ -3,39 +3,87 @@
 package ingest
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+	"time"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
-// PutPipeline - see https://www.elastic.co/guide/en/elasticsearch/plugins/5.x/ingest.html for more info.
+// PutPipelineOption is a non-required PutPipeline option that gets applied to an HTTP request.
+type PutPipelineOption func(r *transport.Request)
+
+// WithPutPipelineMasterTimeout - explicit operation timeout for connection to master node.
+func WithPutPipelineMasterTimeout(masterTimeout time.Duration) PutPipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutPipelineTimeout - explicit operation timeout.
+func WithPutPipelineTimeout(timeout time.Duration) PutPipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutPipelineErrorTrace - include the stack trace of returned errors.
+func WithPutPipelineErrorTrace(errorTrace bool) PutPipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutPipelineFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithPutPipelineFilterPath(filterPath []string) PutPipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutPipelineHuman - return human readable values for statistics.
+func WithPutPipelineHuman(human bool) PutPipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutPipelineIgnore - ignores the specified HTTP status codes.
+func WithPutPipelineIgnore(ignore []int) PutPipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutPipelinePretty - pretty format the returned JSON response.
+func WithPutPipelinePretty(pretty bool) PutPipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPutPipelineSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithPutPipelineSourceParam(sourceParam string) PutPipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// PutPipeline - the ingest plugins extend Elasticsearch by providing additional ingest node capabilities. See https://www.elastic.co/guide/en/elasticsearch/plugins/5.x/ingest.html for more info.
 //
 // id: pipeline ID.
 //
 // body: the ingest definition.
 //
-// options: optional parameters. Supports the following functional options: WithMasterTimeout, WithTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Ingest) PutPipeline(id string, body map[string]interface{}, options ...*Option) (*PutPipelineResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: i.transport.URL.Scheme,
-			Host:   i.transport.URL.Host,
-		},
-		Method: "PUT",
-	}
-	methodOptions := supportedOptions["PutPipeline"]
+// options: optional parameters.
+func (i *Ingest) PutPipeline(id string, body map[string]interface{}, options ...PutPipelineOption) (*PutPipelineResponse, error) {
+	req := i.transport.NewRequest("PUT")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := i.transport.Do(req)
 	return &PutPipelineResponse{resp}, err
 }
 
-// PutPipelineResponse is the response for PutPipeline
+// PutPipelineResponse is the response for PutPipeline.
 type PutPipelineResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *PutPipelineResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

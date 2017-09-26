@@ -3,37 +3,83 @@
 package ingest
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+	"time"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
-// GetPipeline - see https://www.elastic.co/guide/en/elasticsearch/plugins/5.x/ingest.html for more info.
-//
-// id: comma separated list of pipeline ids. Wildcards supported.
-//
-// options: optional parameters. Supports the following functional options: WithID, WithMasterTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Ingest) GetPipeline(id string, options ...*Option) (*GetPipelineResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: i.transport.URL.Scheme,
-			Host:   i.transport.URL.Host,
-		},
-		Method: "GET",
+// GetPipelineOption is a non-required GetPipeline option that gets applied to an HTTP request.
+type GetPipelineOption func(r *transport.Request)
+
+// WithGetPipelineID - comma separated list of pipeline ids. Wildcards supported.
+func WithGetPipelineID(id string) GetPipelineOption {
+	return func(r *transport.Request) {
 	}
-	methodOptions := supportedOptions["GetPipeline"]
+}
+
+// WithGetPipelineMasterTimeout - explicit operation timeout for connection to master node.
+func WithGetPipelineMasterTimeout(masterTimeout time.Duration) GetPipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetPipelineErrorTrace - include the stack trace of returned errors.
+func WithGetPipelineErrorTrace(errorTrace bool) GetPipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetPipelineFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithGetPipelineFilterPath(filterPath []string) GetPipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetPipelineHuman - return human readable values for statistics.
+func WithGetPipelineHuman(human bool) GetPipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetPipelineIgnore - ignores the specified HTTP status codes.
+func WithGetPipelineIgnore(ignore []int) GetPipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetPipelinePretty - pretty format the returned JSON response.
+func WithGetPipelinePretty(pretty bool) GetPipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetPipelineSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithGetPipelineSourceParam(sourceParam string) GetPipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// GetPipeline - the ingest plugins extend Elasticsearch by providing additional ingest node capabilities. See https://www.elastic.co/guide/en/elasticsearch/plugins/5.x/ingest.html for more info.
+//
+// options: optional parameters.
+func (i *Ingest) GetPipeline(options ...GetPipelineOption) (*GetPipelineResponse, error) {
+	req := i.transport.NewRequest("GET")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := i.transport.Do(req)
 	return &GetPipelineResponse{resp}, err
 }
 
-// GetPipelineResponse is the response for GetPipeline
+// GetPipelineResponse is the response for GetPipeline.
 type GetPipelineResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *GetPipelineResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

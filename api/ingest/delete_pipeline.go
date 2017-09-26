@@ -3,37 +3,85 @@
 package ingest
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+	"time"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
-// DeletePipeline - see https://www.elastic.co/guide/en/elasticsearch/plugins/5.x/ingest.html for more info.
+// DeletePipelineOption is a non-required DeletePipeline option that gets applied to an HTTP request.
+type DeletePipelineOption func(r *transport.Request)
+
+// WithDeletePipelineMasterTimeout - explicit operation timeout for connection to master node.
+func WithDeletePipelineMasterTimeout(masterTimeout time.Duration) DeletePipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeletePipelineTimeout - explicit operation timeout.
+func WithDeletePipelineTimeout(timeout time.Duration) DeletePipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeletePipelineErrorTrace - include the stack trace of returned errors.
+func WithDeletePipelineErrorTrace(errorTrace bool) DeletePipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeletePipelineFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithDeletePipelineFilterPath(filterPath []string) DeletePipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeletePipelineHuman - return human readable values for statistics.
+func WithDeletePipelineHuman(human bool) DeletePipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeletePipelineIgnore - ignores the specified HTTP status codes.
+func WithDeletePipelineIgnore(ignore []int) DeletePipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeletePipelinePretty - pretty format the returned JSON response.
+func WithDeletePipelinePretty(pretty bool) DeletePipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeletePipelineSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithDeletePipelineSourceParam(sourceParam string) DeletePipelineOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// DeletePipeline - the ingest plugins extend Elasticsearch by providing additional ingest node capabilities. See https://www.elastic.co/guide/en/elasticsearch/plugins/5.x/ingest.html for more info.
 //
 // id: pipeline ID.
 //
-// options: optional parameters. Supports the following functional options: WithMasterTimeout, WithTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Ingest) DeletePipeline(id string, options ...*Option) (*DeletePipelineResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: i.transport.URL.Scheme,
-			Host:   i.transport.URL.Host,
-		},
-		Method: "DELETE",
-	}
-	methodOptions := supportedOptions["DeletePipeline"]
+// options: optional parameters.
+func (i *Ingest) DeletePipeline(id string, options ...DeletePipelineOption) (*DeletePipelineResponse, error) {
+	req := i.transport.NewRequest("DELETE")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := i.transport.Do(req)
 	return &DeletePipelineResponse{resp}, err
 }
 
-// DeletePipelineResponse is the response for DeletePipeline
+// DeletePipelineResponse is the response for DeletePipeline.
 type DeletePipelineResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *DeletePipelineResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

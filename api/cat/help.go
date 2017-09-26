@@ -3,35 +3,82 @@
 package cat
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
-// Help - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat.html for more info.
-//
-// options: optional parameters. Supports the following functional options: WithHelp, WithS, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cat) Help(options ...*Option) (*HelpResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: c.transport.URL.Scheme,
-			Host:   c.transport.URL.Host,
-		},
-		Method: "GET",
+// HelpOption is a non-required Help option that gets applied to an HTTP request.
+type HelpOption func(r *transport.Request)
+
+// WithHelpHelp - return help information.
+func WithHelpHelp(help bool) HelpOption {
+	return func(r *transport.Request) {
 	}
-	methodOptions := supportedOptions["Help"]
+}
+
+// WithHelpS - comma-separated list of column names or column aliases to sort by.
+func WithHelpS(s []string) HelpOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithHelpErrorTrace - include the stack trace of returned errors.
+func WithHelpErrorTrace(errorTrace bool) HelpOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithHelpFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithHelpFilterPath(filterPath []string) HelpOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithHelpHuman - return human readable values for statistics.
+func WithHelpHuman(human bool) HelpOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithHelpIgnore - ignores the specified HTTP status codes.
+func WithHelpIgnore(ignore []int) HelpOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithHelpPretty - pretty format the returned JSON response.
+func WithHelpPretty(pretty bool) HelpOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithHelpSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithHelpSourceParam(sourceParam string) HelpOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// Help - JSON is great… for computers. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat.html for more info.
+//
+// options: optional parameters.
+func (c *Cat) Help(options ...HelpOption) (*HelpResponse, error) {
+	req := c.transport.NewRequest("GET")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := c.transport.Do(req)
 	return &HelpResponse{resp}, err
 }
 
-// HelpResponse is the response for Help
+// HelpResponse is the response for Help.
 type HelpResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *HelpResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

@@ -3,35 +3,100 @@
 package tasks
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
+
+// CancelOption is a non-required Cancel option that gets applied to an HTTP request.
+type CancelOption func(r *transport.Request)
+
+// WithCancelTaskID - cancel the task with specified task id (node_id:task_number).
+func WithCancelTaskID(taskID string) CancelOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCancelActions - a comma-separated list of actions that should be cancelled. Leave empty to cancel all.
+func WithCancelActions(actions []string) CancelOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCancelNodeID - a comma-separated list of node IDs or names to limit the returned information; use "_local" to return information from the node you're connecting to, leave empty to get information from all nodes.
+func WithCancelNodeID(nodeID []string) CancelOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCancelParentNode - cancel tasks with specified parent node.
+func WithCancelParentNode(parentNode string) CancelOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCancelParentTask - cancel tasks with specified parent task id (node_id:task_number). Set to -1 to cancel all.
+func WithCancelParentTask(parentTask string) CancelOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCancelErrorTrace - include the stack trace of returned errors.
+func WithCancelErrorTrace(errorTrace bool) CancelOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCancelFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithCancelFilterPath(filterPath []string) CancelOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCancelHuman - return human readable values for statistics.
+func WithCancelHuman(human bool) CancelOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCancelIgnore - ignores the specified HTTP status codes.
+func WithCancelIgnore(ignore []int) CancelOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCancelPretty - pretty format the returned JSON response.
+func WithCancelPretty(pretty bool) CancelOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCancelSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithCancelSourceParam(sourceParam string) CancelOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // Cancel - the task management API allows to retrieve information about the tasks currently executing on one or more nodes in the cluster. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/tasks.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithTaskID, WithActions, WithNodeID, WithParentNode, WithParentTask, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (t *Tasks) Cancel(options ...*Option) (*CancelResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: t.transport.URL.Scheme,
-			Host:   t.transport.URL.Host,
-		},
-		Method: "POST",
-	}
-	methodOptions := supportedOptions["Cancel"]
+// options: optional parameters.
+func (t *Tasks) Cancel(options ...CancelOption) (*CancelResponse, error) {
+	req := t.transport.NewRequest("POST")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := t.transport.Do(req)
 	return &CancelResponse{resp}, err
 }
 
-// CancelResponse is the response for Cancel
+// CancelResponse is the response for Cancel.
 type CancelResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *CancelResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

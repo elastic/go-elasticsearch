@@ -3,35 +3,70 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
+
+// PingOption is a non-required Ping option that gets applied to an HTTP request.
+type PingOption func(r *transport.Request)
+
+// WithPingErrorTrace - include the stack trace of returned errors.
+func WithPingErrorTrace(errorTrace bool) PingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPingFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithPingFilterPath(filterPath []string) PingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPingHuman - return human readable values for statistics.
+func WithPingHuman(human bool) PingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPingIgnore - ignores the specified HTTP status codes.
+func WithPingIgnore(ignore []int) PingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPingPretty - pretty format the returned JSON response.
+func WithPingPretty(pretty bool) PingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPingSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithPingSourceParam(sourceParam string) PingOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // Ping - see https://www.elastic.co/guide/ for more info.
 //
-// options: optional parameters. Supports the following functional options: WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) Ping(options ...*Option) (*PingResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: a.transport.URL.Scheme,
-			Host:   a.transport.URL.Host,
-		},
-		Method: "HEAD",
-	}
-	methodOptions := supportedOptions["Ping"]
+// options: optional parameters.
+func (a *API) Ping(options ...PingOption) (*PingResponse, error) {
+	req := a.transport.NewRequest("HEAD")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := a.transport.Do(req)
 	return &PingResponse{resp}, err
 }
 
-// PingResponse is the response for Ping
+// PingResponse is the response for Ping.
 type PingResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *PingResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

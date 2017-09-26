@@ -3,35 +3,113 @@
 package cat
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+	"time"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
+
+// MasterOption is a non-required Master option that gets applied to an HTTP request.
+type MasterOption func(r *transport.Request)
+
+// WithMasterFormat - a short version of the Accept header, e.g. json, yaml.
+func WithMasterFormat(format string) MasterOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMasterH - comma-separated list of column names to display.
+func WithMasterH(h []string) MasterOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMasterHelp - return help information.
+func WithMasterHelp(help bool) MasterOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMasterLocal - return local information, do not retrieve the state from master node (default: false).
+func WithMasterLocal(local bool) MasterOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMasterMasterTimeout - explicit operation timeout for connection to master node.
+func WithMasterMasterTimeout(masterTimeout time.Duration) MasterOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMasterS - comma-separated list of column names or column aliases to sort by.
+func WithMasterS(s []string) MasterOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMasterV - verbose mode. Display column headers.
+func WithMasterV(v bool) MasterOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMasterErrorTrace - include the stack trace of returned errors.
+func WithMasterErrorTrace(errorTrace bool) MasterOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMasterFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithMasterFilterPath(filterPath []string) MasterOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMasterHuman - return human readable values for statistics.
+func WithMasterHuman(human bool) MasterOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMasterIgnore - ignores the specified HTTP status codes.
+func WithMasterIgnore(ignore []int) MasterOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMasterPretty - pretty format the returned JSON response.
+func WithMasterPretty(pretty bool) MasterOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithMasterSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithMasterSourceParam(sourceParam string) MasterOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // Master - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-master.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithFormat, WithH, WithHelp, WithLocal, WithMasterTimeout, WithS, WithV, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (c *Cat) Master(options ...*Option) (*MasterResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: c.transport.URL.Scheme,
-			Host:   c.transport.URL.Host,
-		},
-		Method: "GET",
-	}
-	methodOptions := supportedOptions["Master"]
+// options: optional parameters.
+func (c *Cat) Master(options ...MasterOption) (*MasterResponse, error) {
+	req := c.transport.NewRequest("GET")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := c.transport.Do(req)
 	return &MasterResponse{resp}, err
 }
 
-// MasterResponse is the response for Master
+// MasterResponse is the response for Master.
 type MasterResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *MasterResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

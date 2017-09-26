@@ -9,6 +9,7 @@ import (
 	"github.com/elastic/go-elasticsearch/api/indices"
 	"github.com/elastic/go-elasticsearch/api/ingest"
 	"github.com/elastic/go-elasticsearch/api/nodes"
+	"github.com/elastic/go-elasticsearch/api/remote"
 	"github.com/elastic/go-elasticsearch/api/snapshot"
 	"github.com/elastic/go-elasticsearch/api/tasks"
 	"github.com/elastic/go-elasticsearch/transport"
@@ -31,6 +32,9 @@ type API struct {
 	// Nodes is the nodes client.
 	Nodes *nodes.Nodes
 
+	// Remote is the remote client.
+	Remote *remote.Remote
+
 	// Snapshot is the snapshot client.
 	Snapshot *snapshot.Snapshot
 
@@ -49,6 +53,7 @@ func New(transport *transport.Transport) *API {
 		Indices:  indices.New(transport),
 		Ingest:   ingest.New(transport),
 		Nodes:    nodes.New(transport),
+		Remote:   remote.New(transport),
 		Snapshot: snapshot.New(transport),
 		Tasks:    tasks.New(transport),
 

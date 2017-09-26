@@ -3,35 +3,149 @@
 package nodes
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+	"time"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
+
+// StatsOption is a non-required Stats option that gets applied to an HTTP request.
+type StatsOption func(r *transport.Request)
+
+// WithStatsIndexMetric - limit the information returned for "indices" metric to the specific index metrics. Isn't used if "indices" (or "all") metric isn't specified.
+func WithStatsIndexMetric(indexMetric []string) StatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatsMetric - limit the information returned to the specified metrics.
+func WithStatsMetric(metric []string) StatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatsNodeID - a comma-separated list of node IDs or names to limit the returned information; use "_local" to return information from the node you're connecting to, leave empty to get information from all nodes.
+func WithStatsNodeID(nodeID []string) StatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatsCompletionFields - a comma-separated list of fields for "fielddata" and "suggest" index metric (supports wildcards).
+func WithStatsCompletionFields(completionFields []string) StatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatsFielddataFields - a comma-separated list of fields for "fielddata" index metric (supports wildcards).
+func WithStatsFielddataFields(fielddataFields []string) StatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatsFields - a comma-separated list of fields for "fielddata" and "completion" index metric (supports wildcards).
+func WithStatsFields(fields []string) StatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatsGroups - a comma-separated list of search groups for "search" index metric.
+func WithStatsGroups(groups bool) StatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatsIncludeSegmentFileSizes - whether to report the aggregated disk usage of each one of the Lucene index files (only applies if segment stats are requested).
+func WithStatsIncludeSegmentFileSizes(includeSegmentFileSizes bool) StatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// StatsLevel - return indices stats aggregated at index, node or shard level.
+type StatsLevel int
+
+const (
+	// StatsLevelIndices can be used to set StatsLevel to "indices"
+	StatsLevelIndices = iota
+	// StatsLevelNode can be used to set StatsLevel to "node"
+	StatsLevelNode = iota
+	// StatsLevelShards can be used to set StatsLevel to "shards"
+	StatsLevelShards = iota
+)
+
+// WithStatsLevel - return indices stats aggregated at index, node or shard level.
+func WithStatsLevel(level StatsLevel) StatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatsTimeout - explicit operation timeout.
+func WithStatsTimeout(timeout time.Duration) StatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatsTypes - a comma-separated list of document types for the "indexing" index metric.
+func WithStatsTypes(types []string) StatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatsErrorTrace - include the stack trace of returned errors.
+func WithStatsErrorTrace(errorTrace bool) StatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatsFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithStatsFilterPath(filterPath []string) StatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatsHuman - return human readable values for statistics.
+func WithStatsHuman(human bool) StatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatsIgnore - ignores the specified HTTP status codes.
+func WithStatsIgnore(ignore []int) StatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatsPretty - pretty format the returned JSON response.
+func WithStatsPretty(pretty bool) StatsOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithStatsSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithStatsSourceParam(sourceParam string) StatsOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // Stats - the cluster nodes stats API allows to retrieve one or more (or all) of the cluster nodes statistics. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-nodes-stats.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndexMetric, WithMetric, WithNodeID, WithCompletionFields, WithFielddataFields, WithFields, WithGroups, WithIncludeSegmentFileSizes, WithLevel, WithTimeout, WithTypes, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (n *Nodes) Stats(options ...*Option) (*StatsResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: n.transport.URL.Scheme,
-			Host:   n.transport.URL.Host,
-		},
-		Method: "GET",
-	}
-	methodOptions := supportedOptions["Stats"]
+// options: optional parameters.
+func (n *Nodes) Stats(options ...StatsOption) (*StatsResponse, error) {
+	req := n.transport.NewRequest("GET")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := n.transport.Do(req)
 	return &StatsResponse{resp}, err
 }
 
-// StatsResponse is the response for Stats
+// StatsResponse is the response for Stats.
 type StatsResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *StatsResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

@@ -3,10 +3,88 @@
 package indices
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
+
+// ExistsTypeOption is a non-required ExistsType option that gets applied to an HTTP request.
+type ExistsTypeOption func(r *transport.Request)
+
+// WithExistsTypeAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
+func WithExistsTypeAllowNoIndices(allowNoIndices bool) ExistsTypeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// ExistsTypeExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+type ExistsTypeExpandWildcards int
+
+const (
+	// ExistsTypeExpandWildcardsOpen can be used to set ExistsTypeExpandWildcards to "open"
+	ExistsTypeExpandWildcardsOpen = iota
+	// ExistsTypeExpandWildcardsClosed can be used to set ExistsTypeExpandWildcards to "closed"
+	ExistsTypeExpandWildcardsClosed = iota
+	// ExistsTypeExpandWildcardsNone can be used to set ExistsTypeExpandWildcards to "none"
+	ExistsTypeExpandWildcardsNone = iota
+	// ExistsTypeExpandWildcardsAll can be used to set ExistsTypeExpandWildcards to "all"
+	ExistsTypeExpandWildcardsAll = iota
+)
+
+// WithExistsTypeExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+func WithExistsTypeExpandWildcards(expandWildcards ExistsTypeExpandWildcards) ExistsTypeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsTypeIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
+func WithExistsTypeIgnoreUnavailable(ignoreUnavailable bool) ExistsTypeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsTypeLocal - return local information, do not retrieve the state from master node (default: false).
+func WithExistsTypeLocal(local bool) ExistsTypeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsTypeErrorTrace - include the stack trace of returned errors.
+func WithExistsTypeErrorTrace(errorTrace bool) ExistsTypeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsTypeFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithExistsTypeFilterPath(filterPath []string) ExistsTypeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsTypeHuman - return human readable values for statistics.
+func WithExistsTypeHuman(human bool) ExistsTypeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsTypeIgnore - ignores the specified HTTP status codes.
+func WithExistsTypeIgnore(ignore []int) ExistsTypeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsTypePretty - pretty format the returned JSON response.
+func WithExistsTypePretty(pretty bool) ExistsTypeOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsTypeSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithExistsTypeSourceParam(sourceParam string) ExistsTypeOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // ExistsType - used to check if a type/types exists in an index/indices. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-types-exists.html for more info.
 //
@@ -14,28 +92,23 @@ import (
 //
 // documentType: a comma-separated list of document types to check.
 //
-// options: optional parameters. Supports the following functional options: WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithLocal, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) ExistsType(index []string, documentType []string, options ...*Option) (*ExistsTypeResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: i.transport.URL.Scheme,
-			Host:   i.transport.URL.Host,
-		},
-		Method: "HEAD",
-	}
-	methodOptions := supportedOptions["ExistsType"]
+// options: optional parameters.
+func (i *Indices) ExistsType(index []string, documentType []string, options ...ExistsTypeOption) (*ExistsTypeResponse, error) {
+	req := i.transport.NewRequest("HEAD")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := i.transport.Do(req)
 	return &ExistsTypeResponse{resp}, err
 }
 
-// ExistsTypeResponse is the response for ExistsType
+// ExistsTypeResponse is the response for ExistsType.
 type ExistsTypeResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *ExistsTypeResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

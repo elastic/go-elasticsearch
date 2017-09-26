@@ -3,10 +3,69 @@
 package snapshot
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+	"time"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
+
+// RestoreOption is a non-required Restore option that gets applied to an HTTP request.
+type RestoreOption func(r *transport.Request)
+
+// WithRestoreMasterTimeout - explicit operation timeout for connection to master node.
+func WithRestoreMasterTimeout(masterTimeout time.Duration) RestoreOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRestoreWaitForCompletion - should this request wait until the operation has completed before returning.
+func WithRestoreWaitForCompletion(waitForCompletion bool) RestoreOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRestoreBody - details of what to restore.
+func WithRestoreBody(body map[string]interface{}) RestoreOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRestoreErrorTrace - include the stack trace of returned errors.
+func WithRestoreErrorTrace(errorTrace bool) RestoreOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRestoreFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithRestoreFilterPath(filterPath []string) RestoreOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRestoreHuman - return human readable values for statistics.
+func WithRestoreHuman(human bool) RestoreOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRestoreIgnore - ignores the specified HTTP status codes.
+func WithRestoreIgnore(ignore []int) RestoreOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRestorePretty - pretty format the returned JSON response.
+func WithRestorePretty(pretty bool) RestoreOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRestoreSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithRestoreSourceParam(sourceParam string) RestoreOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // Restore - the snapshot and restore module allows to create snapshots of individual indices or an entire cluster into a remote repository like shared file system, S3, or HDFS. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/modules-snapshots.html for more info.
 //
@@ -14,28 +73,23 @@ import (
 //
 // snapshot: a snapshot name.
 //
-// options: optional parameters. Supports the following functional options: WithMasterTimeout, WithWaitForCompletion, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (s *Snapshot) Restore(repository string, snapshot string, options ...*Option) (*RestoreResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: s.transport.URL.Scheme,
-			Host:   s.transport.URL.Host,
-		},
-		Method: "POST",
-	}
-	methodOptions := supportedOptions["Restore"]
+// options: optional parameters.
+func (s *Snapshot) Restore(repository string, snapshot string, options ...RestoreOption) (*RestoreResponse, error) {
+	req := s.transport.NewRequest("POST")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := s.transport.Do(req)
 	return &RestoreResponse{resp}, err
 }
 
-// RestoreResponse is the response for Restore
+// RestoreResponse is the response for Restore.
 type RestoreResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *RestoreResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

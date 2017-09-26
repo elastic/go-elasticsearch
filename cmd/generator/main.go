@@ -29,10 +29,13 @@ import (
 
 func main() {
 	specDirFlag := flag.String("specdir", generator.DefaultSpecDir,
-		"directory containing the JSON spec for the REST API")
+		"directory containing the specs for the REST API and its tests")
+
+	offlineFlag := flag.Bool("offline", false,
+		"if set, skips fetching the documentation URLs")
 
 	flag.Parse()
-	g, err := generator.New(*specDirFlag)
+	g, err := generator.New(*specDirFlag, "generator", *offlineFlag)
 	if err != nil {
 		glog.Error(err)
 		os.Exit(1)

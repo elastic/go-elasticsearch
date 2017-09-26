@@ -3,10 +3,130 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
+
+// GetOption is a non-required Get option that gets applied to an HTTP request.
+type GetOption func(r *transport.Request)
+
+// WithGetSource - true or false to return the _source field or not, or a list of fields to return.
+func WithGetSource(source []string) GetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetSourceExclude - a list of fields to exclude from the returned _source field.
+func WithGetSourceExclude(sourceExclude []string) GetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetSourceInclude - a list of fields to extract and return from the _source field.
+func WithGetSourceInclude(sourceInclude []string) GetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetParent - the ID of the parent document.
+func WithGetParent(parent string) GetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetPreference - specify the node or shard the operation should be performed on (default: random).
+func WithGetPreference(preference string) GetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetRealtime - specify whether to perform the operation in realtime or search mode.
+func WithGetRealtime(realtime bool) GetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetRefresh - refresh the shard containing the document before performing the operation.
+func WithGetRefresh(refresh bool) GetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetRouting - specific routing value.
+func WithGetRouting(routing string) GetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetStoredFields - a comma-separated list of stored fields to return in the response.
+func WithGetStoredFields(storedFields []string) GetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetVersion - explicit version number for concurrency control.
+func WithGetVersion(version int) GetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// GetVersionType - specific version type.
+type GetVersionType int
+
+const (
+	// GetVersionTypeInternal can be used to set GetVersionType to "internal"
+	GetVersionTypeInternal = iota
+	// GetVersionTypeExternal can be used to set GetVersionType to "external"
+	GetVersionTypeExternal = iota
+	// GetVersionTypeExternalGte can be used to set GetVersionType to "external_gte"
+	GetVersionTypeExternalGte = iota
+	// GetVersionTypeForce can be used to set GetVersionType to "force"
+	GetVersionTypeForce = iota
+)
+
+// WithGetVersionType - specific version type.
+func WithGetVersionType(versionType GetVersionType) GetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetErrorTrace - include the stack trace of returned errors.
+func WithGetErrorTrace(errorTrace bool) GetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithGetFilterPath(filterPath []string) GetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetHuman - return human readable values for statistics.
+func WithGetHuman(human bool) GetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetIgnore - ignores the specified HTTP status codes.
+func WithGetIgnore(ignore []int) GetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetPretty - pretty format the returned JSON response.
+func WithGetPretty(pretty bool) GetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithGetSourceParam(sourceParam string) GetOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // Get allows to get a typed JSON document from the index based on its id. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-get.html for more info.
 //
@@ -16,28 +136,23 @@ import (
 //
 // id: the document ID.
 //
-// options: optional parameters. Supports the following functional options: WithSource, WithSourceExclude, WithSourceInclude, WithParent, WithPreference, WithRealtime, WithRefresh, WithRouting, WithStoredFields, WithVersion, WithVersionType, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) Get(index string, documentType string, id string, options ...*Option) (*GetResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: a.transport.URL.Scheme,
-			Host:   a.transport.URL.Host,
-		},
-		Method: "GET",
-	}
-	methodOptions := supportedOptions["Get"]
+// options: optional parameters.
+func (a *API) Get(index string, documentType string, id string, options ...GetOption) (*GetResponse, error) {
+	req := a.transport.NewRequest("GET")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := a.transport.Do(req)
 	return &GetResponse{resp}, err
 }
 
-// GetResponse is the response for Get
+// GetResponse is the response for Get.
 type GetResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *GetResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

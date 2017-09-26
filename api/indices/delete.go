@@ -3,37 +3,85 @@
 package indices
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+	"time"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
 
-// Delete - see https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-delete-index.html for more info.
+// DeleteOption is a non-required Delete option that gets applied to an HTTP request.
+type DeleteOption func(r *transport.Request)
+
+// WithDeleteMasterTimeout - specify timeout for connection to master.
+func WithDeleteMasterTimeout(masterTimeout time.Duration) DeleteOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteTimeout - explicit operation timeout.
+func WithDeleteTimeout(timeout time.Duration) DeleteOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteErrorTrace - include the stack trace of returned errors.
+func WithDeleteErrorTrace(errorTrace bool) DeleteOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithDeleteFilterPath(filterPath []string) DeleteOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteHuman - return human readable values for statistics.
+func WithDeleteHuman(human bool) DeleteOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteIgnore - ignores the specified HTTP status codes.
+func WithDeleteIgnore(ignore []int) DeleteOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeletePretty - pretty format the returned JSON response.
+func WithDeletePretty(pretty bool) DeleteOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithDeleteSourceParam(sourceParam string) DeleteOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// Delete - the delete index API allows to delete an existing index. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-delete-index.html for more info.
 //
 // index: a comma-separated list of indices to delete; use "_all" or "*" string to delete all indices.
 //
-// options: optional parameters. Supports the following functional options: WithMasterTimeout, WithTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) Delete(index []string, options ...*Option) (*DeleteResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: i.transport.URL.Scheme,
-			Host:   i.transport.URL.Host,
-		},
-		Method: "DELETE",
-	}
-	methodOptions := supportedOptions["Delete"]
+// options: optional parameters.
+func (i *Indices) Delete(index []string, options ...DeleteOption) (*DeleteResponse, error) {
+	req := i.transport.NewRequest("DELETE")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := i.transport.Do(req)
 	return &DeleteResponse{resp}, err
 }
 
-// DeleteResponse is the response for Delete
+// DeleteResponse is the response for Delete.
 type DeleteResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *DeleteResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

@@ -3,10 +3,170 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
+
+// PercolateOption is a non-required Percolate option that gets applied to an HTTP request.
+type PercolateOption func(r *transport.Request)
+
+// WithPercolateID - substitute the document in the request body with a document that is known by the specified id. On top of the id, the index and type parameter will be used to retrieve the document from within the cluster.
+func WithPercolateID(id string) PercolateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPercolateAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
+func WithPercolateAllowNoIndices(allowNoIndices bool) PercolateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// PercolateExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+type PercolateExpandWildcards int
+
+const (
+	// PercolateExpandWildcardsOpen can be used to set PercolateExpandWildcards to "open"
+	PercolateExpandWildcardsOpen = iota
+	// PercolateExpandWildcardsClosed can be used to set PercolateExpandWildcards to "closed"
+	PercolateExpandWildcardsClosed = iota
+	// PercolateExpandWildcardsNone can be used to set PercolateExpandWildcards to "none"
+	PercolateExpandWildcardsNone = iota
+	// PercolateExpandWildcardsAll can be used to set PercolateExpandWildcards to "all"
+	PercolateExpandWildcardsAll = iota
+)
+
+// WithPercolateExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+func WithPercolateExpandWildcards(expandWildcards PercolateExpandWildcards) PercolateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPercolateIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
+func WithPercolateIgnoreUnavailable(ignoreUnavailable bool) PercolateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// PercolatePercolateFormat - return an array of matching query IDs instead of objects.
+type PercolatePercolateFormat int
+
+const (
+	// PercolatePercolateFormatIds can be used to set PercolatePercolateFormat to "ids"
+	PercolatePercolateFormatIds = iota
+)
+
+// WithPercolatePercolateFormat - return an array of matching query IDs instead of objects.
+func WithPercolatePercolateFormat(percolateFormat PercolatePercolateFormat) PercolateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPercolatePercolateIndex - the index to percolate the document into. Defaults to index.
+func WithPercolatePercolateIndex(percolateIndex string) PercolateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPercolatePercolatePreference - which shard to prefer when executing the percolate request.
+func WithPercolatePercolatePreference(percolatePreference string) PercolateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPercolatePercolateRouting - the routing value to use when percolating the existing document.
+func WithPercolatePercolateRouting(percolateRouting string) PercolateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPercolatePercolateType - the type to percolate document into. Defaults to type.
+func WithPercolatePercolateType(percolateType string) PercolateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPercolatePreference - specify the node or shard the operation should be performed on (default: random).
+func WithPercolatePreference(preference string) PercolateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPercolateRouting - a comma-separated list of specific routing values.
+func WithPercolateRouting(routing []string) PercolateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPercolateVersion - explicit version number for concurrency control.
+func WithPercolateVersion(version int) PercolateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// PercolateVersionType - specific version type.
+type PercolateVersionType int
+
+const (
+	// PercolateVersionTypeInternal can be used to set PercolateVersionType to "internal"
+	PercolateVersionTypeInternal = iota
+	// PercolateVersionTypeExternal can be used to set PercolateVersionType to "external"
+	PercolateVersionTypeExternal = iota
+	// PercolateVersionTypeExternalGte can be used to set PercolateVersionType to "external_gte"
+	PercolateVersionTypeExternalGte = iota
+	// PercolateVersionTypeForce can be used to set PercolateVersionType to "force"
+	PercolateVersionTypeForce = iota
+)
+
+// WithPercolateVersionType - specific version type.
+func WithPercolateVersionType(versionType PercolateVersionType) PercolateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPercolateBody - the percolator request definition using the percolate DSL.
+func WithPercolateBody(body map[string]interface{}) PercolateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPercolateErrorTrace - include the stack trace of returned errors.
+func WithPercolateErrorTrace(errorTrace bool) PercolateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPercolateFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithPercolateFilterPath(filterPath []string) PercolateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPercolateHuman - return human readable values for statistics.
+func WithPercolateHuman(human bool) PercolateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPercolateIgnore - ignores the specified HTTP status codes.
+func WithPercolateIgnore(ignore []int) PercolateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPercolatePretty - pretty format the returned JSON response.
+func WithPercolatePretty(pretty bool) PercolateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithPercolateSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithPercolateSourceParam(sourceParam string) PercolateOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // Percolate - for indices created on or after version 5.0.0-alpha1 the percolator automatically indexes the query terms with the percolator queries. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-percolate.html for more info.
 //
@@ -14,28 +174,23 @@ import (
 //
 // documentType: the type of the document being percolated.
 //
-// options: optional parameters. Supports the following functional options: WithID, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithPercolateFormat, WithPercolateIndex, WithPercolatePreference, WithPercolateRouting, WithPercolateType, WithPreference, WithRouting, WithVersion, WithVersionType, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) Percolate(index string, documentType string, options ...*Option) (*PercolateResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: a.transport.URL.Scheme,
-			Host:   a.transport.URL.Host,
-		},
-		Method: "GET",
-	}
-	methodOptions := supportedOptions["Percolate"]
+// options: optional parameters.
+func (a *API) Percolate(index string, documentType string, options ...PercolateOption) (*PercolateResponse, error) {
+	req := a.transport.NewRequest("GET")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := a.transport.Do(req)
 	return &PercolateResponse{resp}, err
 }
 
-// PercolateResponse is the response for Percolate
+// PercolateResponse is the response for Percolate.
 type PercolateResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *PercolateResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

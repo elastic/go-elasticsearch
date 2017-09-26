@@ -3,37 +3,103 @@
 package indices
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+	"time"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
+
+// CreateOption is a non-required Create option that gets applied to an HTTP request.
+type CreateOption func(r *transport.Request)
+
+// WithCreateMasterTimeout - specify timeout for connection to master.
+func WithCreateMasterTimeout(masterTimeout time.Duration) CreateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCreateTimeout - explicit operation timeout.
+func WithCreateTimeout(timeout time.Duration) CreateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCreateUpdateAllTypes - whether to update the mapping for all fields with the same name across all types or not.
+func WithCreateUpdateAllTypes(updateAllTypes bool) CreateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCreateWaitForActiveShards - set the number of active shards to wait for before the operation returns.
+func WithCreateWaitForActiveShards(waitForActiveShards string) CreateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCreateBody - the configuration for the index ("settings" and "mappings").
+func WithCreateBody(body map[string]interface{}) CreateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCreateErrorTrace - include the stack trace of returned errors.
+func WithCreateErrorTrace(errorTrace bool) CreateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCreateFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithCreateFilterPath(filterPath []string) CreateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCreateHuman - return human readable values for statistics.
+func WithCreateHuman(human bool) CreateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCreateIgnore - ignores the specified HTTP status codes.
+func WithCreateIgnore(ignore []int) CreateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCreatePretty - pretty format the returned JSON response.
+func WithCreatePretty(pretty bool) CreateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithCreateSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithCreateSourceParam(sourceParam string) CreateOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // Create - the create index API allows to instantiate an index. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-create-index.html for more info.
 //
 // index: the name of the index.
 //
-// options: optional parameters. Supports the following functional options: WithMasterTimeout, WithTimeout, WithUpdateAllTypes, WithWaitForActiveShards, WithBody, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) Create(index string, options ...*Option) (*CreateResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: i.transport.URL.Scheme,
-			Host:   i.transport.URL.Host,
-		},
-		Method: "PUT",
-	}
-	methodOptions := supportedOptions["Create"]
+// options: optional parameters.
+func (i *Indices) Create(index string, options ...CreateOption) (*CreateResponse, error) {
+	req := i.transport.NewRequest("PUT")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := i.transport.Do(req)
 	return &CreateResponse{resp}, err
 }
 
-// CreateResponse is the response for Create
+// CreateResponse is the response for Create.
 type CreateResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *CreateResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

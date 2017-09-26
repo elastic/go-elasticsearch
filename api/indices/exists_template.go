@@ -3,37 +3,95 @@
 package indices
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+	"time"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
+
+// ExistsTemplateOption is a non-required ExistsTemplate option that gets applied to an HTTP request.
+type ExistsTemplateOption func(r *transport.Request)
+
+// WithExistsTemplateName - the comma separated names of the index templates.
+func WithExistsTemplateName(name []string) ExistsTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsTemplateFlatSettings - return settings in flat format (default: false).
+func WithExistsTemplateFlatSettings(flatSettings bool) ExistsTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsTemplateLocal - return local information, do not retrieve the state from master node (default: false).
+func WithExistsTemplateLocal(local bool) ExistsTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsTemplateMasterTimeout - explicit operation timeout for connection to master node.
+func WithExistsTemplateMasterTimeout(masterTimeout time.Duration) ExistsTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsTemplateErrorTrace - include the stack trace of returned errors.
+func WithExistsTemplateErrorTrace(errorTrace bool) ExistsTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsTemplateFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithExistsTemplateFilterPath(filterPath []string) ExistsTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsTemplateHuman - return human readable values for statistics.
+func WithExistsTemplateHuman(human bool) ExistsTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsTemplateIgnore - ignores the specified HTTP status codes.
+func WithExistsTemplateIgnore(ignore []int) ExistsTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsTemplatePretty - pretty format the returned JSON response.
+func WithExistsTemplatePretty(pretty bool) ExistsTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithExistsTemplateSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithExistsTemplateSourceParam(sourceParam string) ExistsTemplateOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // ExistsTemplate - index templates allow you to define templates that will automatically be applied when new indices are created. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-templates.html for more info.
 //
-// name: the name of the template.
-//
-// options: optional parameters. Supports the following functional options: WithLocal, WithMasterTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) ExistsTemplate(name string, options ...*Option) (*ExistsTemplateResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: i.transport.URL.Scheme,
-			Host:   i.transport.URL.Host,
-		},
-		Method: "HEAD",
-	}
-	methodOptions := supportedOptions["ExistsTemplate"]
+// options: optional parameters.
+func (i *Indices) ExistsTemplate(options ...ExistsTemplateOption) (*ExistsTemplateResponse, error) {
+	req := i.transport.NewRequest("HEAD")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := i.transport.Do(req)
 	return &ExistsTemplateResponse{resp}, err
 }
 
-// ExistsTemplateResponse is the response for ExistsTemplate
+// ExistsTemplateResponse is the response for ExistsTemplate.
 type ExistsTemplateResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *ExistsTemplateResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

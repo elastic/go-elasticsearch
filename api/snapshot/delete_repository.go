@@ -3,37 +3,85 @@
 package snapshot
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+	"time"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
+
+// DeleteRepositoryOption is a non-required DeleteRepository option that gets applied to an HTTP request.
+type DeleteRepositoryOption func(r *transport.Request)
+
+// WithDeleteRepositoryMasterTimeout - explicit operation timeout for connection to master node.
+func WithDeleteRepositoryMasterTimeout(masterTimeout time.Duration) DeleteRepositoryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteRepositoryTimeout - explicit operation timeout.
+func WithDeleteRepositoryTimeout(timeout time.Duration) DeleteRepositoryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteRepositoryErrorTrace - include the stack trace of returned errors.
+func WithDeleteRepositoryErrorTrace(errorTrace bool) DeleteRepositoryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteRepositoryFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithDeleteRepositoryFilterPath(filterPath []string) DeleteRepositoryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteRepositoryHuman - return human readable values for statistics.
+func WithDeleteRepositoryHuman(human bool) DeleteRepositoryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteRepositoryIgnore - ignores the specified HTTP status codes.
+func WithDeleteRepositoryIgnore(ignore []int) DeleteRepositoryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteRepositoryPretty - pretty format the returned JSON response.
+func WithDeleteRepositoryPretty(pretty bool) DeleteRepositoryOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithDeleteRepositorySourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithDeleteRepositorySourceParam(sourceParam string) DeleteRepositoryOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // DeleteRepository - the snapshot and restore module allows to create snapshots of individual indices or an entire cluster into a remote repository like shared file system, S3, or HDFS. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/modules-snapshots.html for more info.
 //
 // repository: a comma-separated list of repository names.
 //
-// options: optional parameters. Supports the following functional options: WithMasterTimeout, WithTimeout, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (s *Snapshot) DeleteRepository(repository []string, options ...*Option) (*DeleteRepositoryResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: s.transport.URL.Scheme,
-			Host:   s.transport.URL.Host,
-		},
-		Method: "DELETE",
-	}
-	methodOptions := supportedOptions["DeleteRepository"]
+// options: optional parameters.
+func (s *Snapshot) DeleteRepository(repository []string, options ...DeleteRepositoryOption) (*DeleteRepositoryResponse, error) {
+	req := s.transport.NewRequest("DELETE")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := s.transport.Do(req)
 	return &DeleteRepositoryResponse{resp}, err
 }
 
-// DeleteRepositoryResponse is the response for DeleteRepository
+// DeleteRepositoryResponse is the response for DeleteRepository.
 type DeleteRepositoryResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *DeleteRepositoryResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

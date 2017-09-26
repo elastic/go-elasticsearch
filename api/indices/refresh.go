@@ -3,35 +3,114 @@
 package indices
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
+
+// RefreshOption is a non-required Refresh option that gets applied to an HTTP request.
+type RefreshOption func(r *transport.Request)
+
+// WithRefreshIndex - a comma-separated list of index names; use "_all" or empty string to perform the operation on all indices.
+func WithRefreshIndex(index []string) RefreshOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRefreshAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
+func WithRefreshAllowNoIndices(allowNoIndices bool) RefreshOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// RefreshExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+type RefreshExpandWildcards int
+
+const (
+	// RefreshExpandWildcardsOpen can be used to set RefreshExpandWildcards to "open"
+	RefreshExpandWildcardsOpen = iota
+	// RefreshExpandWildcardsClosed can be used to set RefreshExpandWildcards to "closed"
+	RefreshExpandWildcardsClosed = iota
+	// RefreshExpandWildcardsNone can be used to set RefreshExpandWildcards to "none"
+	RefreshExpandWildcardsNone = iota
+	// RefreshExpandWildcardsAll can be used to set RefreshExpandWildcards to "all"
+	RefreshExpandWildcardsAll = iota
+)
+
+// WithRefreshExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+func WithRefreshExpandWildcards(expandWildcards RefreshExpandWildcards) RefreshOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRefreshForce - force a refresh even if not required.
+func WithRefreshForce(force bool) RefreshOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRefreshIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
+func WithRefreshIgnoreUnavailable(ignoreUnavailable bool) RefreshOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRefreshErrorTrace - include the stack trace of returned errors.
+func WithRefreshErrorTrace(errorTrace bool) RefreshOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRefreshFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithRefreshFilterPath(filterPath []string) RefreshOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRefreshHuman - return human readable values for statistics.
+func WithRefreshHuman(human bool) RefreshOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRefreshIgnore - ignores the specified HTTP status codes.
+func WithRefreshIgnore(ignore []int) RefreshOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRefreshPretty - pretty format the returned JSON response.
+func WithRefreshPretty(pretty bool) RefreshOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithRefreshSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithRefreshSourceParam(sourceParam string) RefreshOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // Refresh allows to explicitly refresh one or more index, making all operations performed since the last refresh available for search. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-refresh.html for more info.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithAllowNoIndices, WithExpandWildcards, WithForce, WithIgnoreUnavailable, WithOperationThreading, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) Refresh(options ...*Option) (*RefreshResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: i.transport.URL.Scheme,
-			Host:   i.transport.URL.Host,
-		},
-		Method: "POST",
-	}
-	methodOptions := supportedOptions["Refresh"]
+// options: optional parameters.
+func (i *Indices) Refresh(options ...RefreshOption) (*RefreshResponse, error) {
+	req := i.transport.NewRequest("POST")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := i.transport.Do(req)
 	return &RefreshResponse{resp}, err
 }
 
-// RefreshResponse is the response for Refresh
+// RefreshResponse is the response for Refresh.
 type RefreshResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *RefreshResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

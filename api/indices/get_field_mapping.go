@@ -3,37 +3,128 @@
 package indices
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
+
+// GetFieldMappingOption is a non-required GetFieldMapping option that gets applied to an HTTP request.
+type GetFieldMappingOption func(r *transport.Request)
+
+// WithGetFieldMappingIndex - a comma-separated list of index names.
+func WithGetFieldMappingIndex(index []string) GetFieldMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetFieldMappingType - a comma-separated list of document types.
+func WithGetFieldMappingType(documentType []string) GetFieldMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetFieldMappingAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes "_all" string or when no indices have been specified).
+func WithGetFieldMappingAllowNoIndices(allowNoIndices bool) GetFieldMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// GetFieldMappingExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+type GetFieldMappingExpandWildcards int
+
+const (
+	// GetFieldMappingExpandWildcardsOpen can be used to set GetFieldMappingExpandWildcards to "open"
+	GetFieldMappingExpandWildcardsOpen = iota
+	// GetFieldMappingExpandWildcardsClosed can be used to set GetFieldMappingExpandWildcards to "closed"
+	GetFieldMappingExpandWildcardsClosed = iota
+	// GetFieldMappingExpandWildcardsNone can be used to set GetFieldMappingExpandWildcards to "none"
+	GetFieldMappingExpandWildcardsNone = iota
+	// GetFieldMappingExpandWildcardsAll can be used to set GetFieldMappingExpandWildcards to "all"
+	GetFieldMappingExpandWildcardsAll = iota
+)
+
+// WithGetFieldMappingExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both.
+func WithGetFieldMappingExpandWildcards(expandWildcards GetFieldMappingExpandWildcards) GetFieldMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetFieldMappingIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
+func WithGetFieldMappingIgnoreUnavailable(ignoreUnavailable bool) GetFieldMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetFieldMappingIncludeDefaults - whether the default mapping values should be returned as well.
+func WithGetFieldMappingIncludeDefaults(includeDefaults bool) GetFieldMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetFieldMappingLocal - return local information, do not retrieve the state from master node (default: false).
+func WithGetFieldMappingLocal(local bool) GetFieldMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetFieldMappingErrorTrace - include the stack trace of returned errors.
+func WithGetFieldMappingErrorTrace(errorTrace bool) GetFieldMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetFieldMappingFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithGetFieldMappingFilterPath(filterPath []string) GetFieldMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetFieldMappingHuman - return human readable values for statistics.
+func WithGetFieldMappingHuman(human bool) GetFieldMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetFieldMappingIgnore - ignores the specified HTTP status codes.
+func WithGetFieldMappingIgnore(ignore []int) GetFieldMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetFieldMappingPretty - pretty format the returned JSON response.
+func WithGetFieldMappingPretty(pretty bool) GetFieldMappingOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetFieldMappingSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithGetFieldMappingSourceParam(sourceParam string) GetFieldMappingOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // GetFieldMapping - the get field mapping API allows you to retrieve mapping definitions for one or more fields. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-get-field-mapping.html for more info.
 //
 // fields: a comma-separated list of fields.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithAllowNoIndices, WithExpandWildcards, WithIgnoreUnavailable, WithIncludeDefaults, WithLocal, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (i *Indices) GetFieldMapping(fields []string, options ...*Option) (*GetFieldMappingResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: i.transport.URL.Scheme,
-			Host:   i.transport.URL.Host,
-		},
-		Method: "GET",
-	}
-	methodOptions := supportedOptions["GetFieldMapping"]
+// options: optional parameters.
+func (i *Indices) GetFieldMapping(fields []string, options ...GetFieldMappingOption) (*GetFieldMappingResponse, error) {
+	req := i.transport.NewRequest("GET")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := i.transport.Do(req)
 	return &GetFieldMappingResponse{resp}, err
 }
 
-// GetFieldMappingResponse is the response for GetFieldMapping
+// GetFieldMappingResponse is the response for GetFieldMapping.
 type GetFieldMappingResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *GetFieldMappingResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

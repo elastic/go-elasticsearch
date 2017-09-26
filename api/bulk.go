@@ -3,37 +3,157 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+	"time"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
+
+// BulkOption is a non-required Bulk option that gets applied to an HTTP request.
+type BulkOption func(r *transport.Request)
+
+// WithBulkIndex - default index for items which don't provide one.
+func WithBulkIndex(index string) BulkOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithBulkType - default document type for items which don't provide one.
+func WithBulkType(documentType string) BulkOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithBulkSource - true or false to return the _source field or not, or default list of fields to return, can be overridden on each sub-request.
+func WithBulkSource(source []string) BulkOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithBulkSourceExclude - default list of fields to exclude from the returned _source field, can be overridden on each sub-request.
+func WithBulkSourceExclude(sourceExclude []string) BulkOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithBulkSourceInclude - default list of fields to extract and return from the _source field, can be overridden on each sub-request.
+func WithBulkSourceInclude(sourceInclude []string) BulkOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithBulkFields - default comma-separated list of fields to return in the response for updates, can be overridden on each sub-request.
+func WithBulkFields(fields []string) BulkOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithBulkPipeline - the pipeline id to preprocess incoming documents with.
+func WithBulkPipeline(pipeline string) BulkOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// BulkRefresh - if "true" then refresh the effected shards to make this operation visible to search, if "wait_for" then wait for a refresh to make this operation visible to search, if "false" (the default) then do nothing with refreshes.
+type BulkRefresh int
+
+const (
+	// BulkRefreshTrue can be used to set BulkRefresh to "true"
+	BulkRefreshTrue = iota
+	// BulkRefreshFalse can be used to set BulkRefresh to "false"
+	BulkRefreshFalse = iota
+	// BulkRefreshWaitFor can be used to set BulkRefresh to "wait_for"
+	BulkRefreshWaitFor = iota
+)
+
+// WithBulkRefresh - if "true" then refresh the effected shards to make this operation visible to search, if "wait_for" then wait for a refresh to make this operation visible to search, if "false" (the default) then do nothing with refreshes.
+func WithBulkRefresh(refresh BulkRefresh) BulkOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithBulkRouting - specific routing value.
+func WithBulkRouting(routing string) BulkOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithBulkTimeout - explicit operation timeout.
+func WithBulkTimeout(timeout time.Duration) BulkOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithBulkTypeParam - default document type for items which don't provide one.
+func WithBulkTypeParam(documentTypeParam string) BulkOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithBulkWaitForActiveShards - sets the number of shard copies that must be active before proceeding with the bulk operation. Defaults to 1, meaning the primary shard only. Set to "all" for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1).
+func WithBulkWaitForActiveShards(waitForActiveShards string) BulkOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithBulkErrorTrace - include the stack trace of returned errors.
+func WithBulkErrorTrace(errorTrace bool) BulkOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithBulkFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithBulkFilterPath(filterPath []string) BulkOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithBulkHuman - return human readable values for statistics.
+func WithBulkHuman(human bool) BulkOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithBulkIgnore - ignores the specified HTTP status codes.
+func WithBulkIgnore(ignore []int) BulkOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithBulkPretty - pretty format the returned JSON response.
+func WithBulkPretty(pretty bool) BulkOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithBulkSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithBulkSourceParam(sourceParam string) BulkOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // Bulk makes it possible to perform many index/delete operations in a single API call. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-bulk.html for more info.
 //
 // body: the operation definition and data (action-data pairs), separated by newlines.
 //
-// options: optional parameters. Supports the following functional options: WithIndex, WithType, WithSource, WithSourceExclude, WithSourceInclude, WithFields, WithPipeline, WithRefresh, WithRouting, WithTimeout, WithTypeParam, WithWaitForActiveShards, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (a *API) Bulk(body map[string]interface{}, options ...*Option) (*BulkResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: a.transport.URL.Scheme,
-			Host:   a.transport.URL.Host,
-		},
-		Method: "POST",
-	}
-	methodOptions := supportedOptions["Bulk"]
+// options: optional parameters.
+func (a *API) Bulk(body []interface{}, options ...BulkOption) (*BulkResponse, error) {
+	req := a.transport.NewRequest("POST")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := a.transport.Do(req)
 	return &BulkResponse{resp}, err
 }
 
-// BulkResponse is the response for Bulk
+// BulkResponse is the response for Bulk.
 type BulkResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *BulkResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }

@@ -3,37 +3,82 @@
 package tasks
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
+
+	"github.com/elastic/go-elasticsearch/transport"
+	"github.com/elastic/go-elasticsearch/util"
 )
+
+// GetOption is a non-required Get option that gets applied to an HTTP request.
+type GetOption func(r *transport.Request)
+
+// WithGetTaskID - return the task with specified id (node_id:task_number).
+func WithGetTaskID(taskID string) GetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetWaitForCompletion - wait for the matching tasks to complete (default: false).
+func WithGetWaitForCompletion(waitForCompletion bool) GetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetErrorTrace - include the stack trace of returned errors.
+func WithGetErrorTrace(errorTrace bool) GetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetFilterPath - a comma-separated list of filters used to reduce the respone.
+func WithGetFilterPath(filterPath []string) GetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetHuman - return human readable values for statistics.
+func WithGetHuman(human bool) GetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetIgnore - ignores the specified HTTP status codes.
+func WithGetIgnore(ignore []int) GetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetPretty - pretty format the returned JSON response.
+func WithGetPretty(pretty bool) GetOption {
+	return func(r *transport.Request) {
+	}
+}
+
+// WithGetSourceParam - the URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+func WithGetSourceParam(sourceParam string) GetOption {
+	return func(r *transport.Request) {
+	}
+}
 
 // Get - the task management API allows to retrieve information about the tasks currently executing on one or more nodes in the cluster. See https://www.elastic.co/guide/en/elasticsearch/reference/5.x/tasks.html for more info.
 //
-// taskID: return the task with specified id (node_id:task_number).
-//
-// options: optional parameters. Supports the following functional options: WithTaskID, WithWaitForCompletion, WithErrorTrace, WithFilterPath, WithHuman, WithPretty, WithSourceParam, see the Option type in this package for more info.
-func (t *Tasks) Get(taskID string, options ...*Option) (*GetResponse, error) {
-	req := &http.Request{
-		URL: &url.URL{
-			Scheme: t.transport.URL.Scheme,
-			Host:   t.transport.URL.Host,
-		},
-		Method: "GET",
-	}
-	methodOptions := supportedOptions["Get"]
+// options: optional parameters.
+func (t *Tasks) Get(options ...GetOption) (*GetResponse, error) {
+	req := t.transport.NewRequest("GET")
 	for _, option := range options {
-		if _, ok := methodOptions[option.name]; !ok {
-			return nil, fmt.Errorf("unsupported option: %s", option.name)
-		}
-		option.apply(req)
+		option(req)
 	}
 	resp, err := t.transport.Do(req)
 	return &GetResponse{resp}, err
 }
 
-// GetResponse is the response for Get
+// GetResponse is the response for Get.
 type GetResponse struct {
 	Response *http.Response
 	// TODO: fill in structured response
+}
+
+// DecodeBody decodes the JSON body of the HTTP response.
+func (r *GetResponse) DecodeBody() (util.MapStr, error) {
+	return transport.DecodeResponseBody(r.Response)
 }
