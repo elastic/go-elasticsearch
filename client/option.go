@@ -20,6 +20,7 @@
 package client
 
 import (
+	"fmt"
 	"net/url"
 	"strings"
 
@@ -45,7 +46,7 @@ func WithHost(host string) Option {
 		}
 		c.transport.URL.Host = u.Host
 		if !strings.Contains(c.transport.URL.Host, ":") {
-			c.transport.URL.Host += ":" + string(transport.DefaultPort)
+			c.transport.URL.Host += fmt.Sprintf(":%d", transport.DefaultPort)
 		}
 		return nil
 	}
