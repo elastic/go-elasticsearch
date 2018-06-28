@@ -97,7 +97,7 @@ func WithMsearchSourceParam(sourceParam string) MsearchOption {
 // body: the request definitions (metadata-search request definition pairs), separated by newlines.
 //
 // options: optional parameters.
-func (a *API) Msearch(body []interface{}, options ...MsearchOption) (*MsearchResponse, error) {
+func (a *API) Msearch(body map[string]interface{}, options ...MsearchOption) (*MsearchResponse, error) {
 	req := a.transport.NewRequest("GET")
 	for _, option := range options {
 		option(req)
