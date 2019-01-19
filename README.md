@@ -23,7 +23,10 @@ or install it from a source code checkout:
 ```go
 import "github.com/elastic/go-elasticsearch/client"
 
-c, _ = client.New(client.WithHost([]string{"https://elasticsearch:9200"}))
+c, err := client.New(client.WithHost("https://elasticsearch:9200"))
+if err != nil {
+  return err // change this by your function definition
+}
 body := map[string]interface{}{
   "query": map[string]interface{}{
     "term": map[string]interface{}{
