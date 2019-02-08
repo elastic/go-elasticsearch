@@ -1,0 +1,9 @@
+---
+- job:
+    name: elastic+go-elasticsearch+master
+    display-name: 'elastic / go-elasticsearch # master'
+    description: Testing the go-elasticsearch master branch.
+    junit_results: "*-junit.xml"
+    triggers:
+      - github
+      - timed: '@daily'

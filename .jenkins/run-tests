@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+function cleanup {
+  docker container rm --force --volumes es1 > /dev/null 2>&1 || true
+  docker container rm --force --volumes go-elasticsearch > /dev/null 2>&1 || true
+}
+
+trap cleanup EXIT
+
+echo -e "\033[1m>>>>> SETUP >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
+
+# Build the go-elasticsearch image
+docker build --file Dockerfile --tag elastic/go-elasticsearch .
+
+# Launch a single Elasticsearch node
+(make cluster detached=true)
+
+# Prepare the container
+docker run \
+  --name go-elasticsearch \
+  --network elasticsearch \
+  --env ELASTICSEARCH_URL=http://es1:9200 \
+  --env WORKSPACE=${WORKSPACE:-/workspace} \
+  --volume ${WORKSPACE:-workspace}:${WORKSPACE:-/workspace} \
+  --rm \
+  --detach \
+  elastic/go-elasticsearch sleep 3600
+docker cp .jenkins/tests.sh go-elasticsearch:/go-elasticsearch/tests.sh
+
+# Run the tests
+cmd="docker exec --tty go-elasticsearch /bin/sh /go-elasticsearch/tests.sh"
+
+if $cmd; then
+  echo -e "\n\033[32;1mSUCCESS\033[0m"
+  exit $?
+else
+  echo -e "\n\033[31;1mFAILURE\033[0m"
+  exit $?
+fi

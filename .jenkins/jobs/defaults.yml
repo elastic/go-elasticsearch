@@ -1,0 +1,74 @@
+---
+
+##### GLOBAL METADATA
+
+- meta:
+    cluster: clients-ci
+
+##### JOB DEFAULTS
+
+- job:
+    project-type: matrix
+    logrotate:
+      daysToKeep: 30
+      numToKeep: 100
+    parameters:
+    - string:
+        name: branch_specifier
+        default: refs/heads/master
+        description: the Git branch specifier to build (&lt;branchName&gt;, &lt;tagName&gt;,
+          &lt;commitId&gt;, etc.)
+    properties:
+    - github:
+        url: https://github.com/elastic/go-elasticsearch/
+    - inject:
+        properties-content: HOME=$JENKINS_HOME
+    concurrent: true
+    node: flyweight
+    scm:
+    - git:
+        name: origin
+        credentials-id: f6c7695a-671e-4f4f-a331-acdce44ff9ba
+        reference-repo: /var/lib/jenkins/.git-references/go-elasticsearch.git
+        branches:
+        - ${branch_specifier}
+        url: git@github.com:elastic/go-elasticsearch.git
+        basedir: ''
+        wipe-workspace: 'True'
+    triggers:
+    - github
+    axes:
+    - axis:
+        type: slave
+        name: label
+        values:
+        - linux
+    - axis:
+        type: yaml
+        filename: .jenkins/test-matrix.yml
+        name: ELASTICSEARCH_VERSION
+    - axis:
+        type: yaml
+        filename: .jenkins/test-matrix.yml
+        name: GO_VERSION
+    yaml-strategy:
+      exclude-key: exclude
+      filename: .jenkins/test-matrix.yml
+    wrappers:
+      - ansicolor
+      - timeout:
+          type: absolute
+          timeout: 120
+          fail: true
+      - timestamps
+      - workspace-cleanup
+    builders:
+      - shell: |-
+          #!/usr/local/bin/runbld
+          .jenkins/run-tests
+    publishers:
+      - email:
+          recipients: infra-root+build@elastic.co
+      - junit:
+          results: "*-junit.xml"
+          allow-empty-results: true

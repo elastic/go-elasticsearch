@@ -1,0 +1,304 @@
+version: 2.1
+
+executors:
+  golang:
+    working_directory: /tmp/github.com/elastic/go-elasticsearch
+    docker:
+      - image: circleci/golang:1.11
+
+commands:
+  # -----------------------------------------------------------------------------------------------
+  # ----- SETUP -----------------------------------------------------------------------------------
+  # -----------------------------------------------------------------------------------------------
+  setup:
+    description: Setup the Repository
+    steps:
+      - run:
+          name: Setup Test Results Directories
+          command: |
+            mkdir -p /tmp/test-results/unit
+            mkdir -p /tmp/test-results/integration
+            mkdir -p /tmp/test-results/integration-api
+            mkdir -p /tmp/test-results/coverage
+
+      - restore_cache:
+          keys:
+            - source-git-{{ .Branch }}-{{ .Revision }}
+
+      - checkout
+
+      - save_cache:
+          key: source-git-{{ .Branch }}-{{ .Revision }}
+          paths: [".git"]
+
+  # -----------------------------------------------------------------------------------------------
+  # ----- INSTALL ---------------------------------------------------------------------------------
+  # -----------------------------------------------------------------------------------------------
+  install:
+    description: Install Dependencies and Tools
+    steps:
+      - run:
+          name: Install Golint
+          command: go get -u golang.org/x/lint/golint
+      - run:
+          name: Install Gotestsum
+          command: curl --silent --show-error --location https://github.com/gotestyourself/gotestsum/releases/download/v0.3.2/gotestsum_0.3.2_linux_amd64.tar.gz | tar --overwrite -xz -C /usr/local/bin gotestsum
+
+  # -----------------------------------------------------------------------------------------------
+  # ----- CLONE ELASTICSEARCH ---------------------------------------------------------------------
+  # -----------------------------------------------------------------------------------------------
+  clone-elasticsearch:
+    description: Clone the Elasticsearch repository
+    steps:
+      - run:
+          name: Clone the Elasticsearch repository
+          command: git clone https://github.com/elastic/elasticsearch.git --branch=master --single-branch --depth=500 /tmp/elasticsearch
+      - run:
+          name: Copy the repository to the 'elasticsearch-repo' container
+          command: |
+            docker create --volume /tmp/elasticsearch --name elasticsearch-repo alpine /bin/true
+            docker cp /tmp/elasticsearch/ elasticsearch-repo:/tmp/
+
+  # -----------------------------------------------------------------------------------------------
+  # ----- LAUNCH ELASTICSEARCH --------------------------------------------------------------------
+  # -----------------------------------------------------------------------------------------------
+  launch-elasticsearch:
+    description: Launch Elasticsearch Cluster via Docker
+    steps:
+      - setup_remote_docker:
+          version: 17.12.1-ce
+          docker_layer_caching: true
+
+      - run:
+          name: Launch Elasticsearch
+          command: |
+            docker pull docker.elastic.co/elasticsearch/elasticsearch-oss:7.0.0-SNAPSHOT && \
+            docker network create elasticsearch && \
+            docker run \
+              --name es01 \
+              --network elasticsearch \
+              --env "node.name=es01" \
+              --env "cluster.name=go-elasticsearch" \
+              --env "discovery.type=single-node" \
+              --env "bootstrap.memory_lock=true" \
+              --env "cluster.routing.allocation.disk.threshold_enabled=false" \
+              --env "node.attr.testattr=test" \
+              --env "path.repo=/tmp" \
+              --env "repositories.url.allowed_urls=http://snapshot.test*" \
+              --env ES_JAVA_OPTS="-Xms1g -Xmx1g" \
+              --volume es01-data:/usr/share/elasticsearch/data \
+              --publish 9200:9200 \
+              --ulimit nofile=65536:65536 \
+              --ulimit memlock=-1:-1 \
+              --detach \
+              --rm \
+              docker.elastic.co/elasticsearch/elasticsearch-oss:7.0.0-SNAPSHOT
+      - run:
+          name: Wait for Elasticsearch
+          command: |
+            docker pull appropriate/curl && \
+            docker run --network elasticsearch --rm appropriate/curl --max-time 120 --retry 120 --retry-delay 1 --retry-connrefused --show-error --progress-bar http://es01:9200
+
+jobs:
+  # -----------------------------------------------------------------------------------------------
+  # ----- BUILD -----------------------------------------------------------------------------------
+  # -----------------------------------------------------------------------------------------------
+  build:
+    executor: golang
+    steps:
+      - setup
+      - install
+
+      - run:
+          name: Build the Package
+          command: |
+            go mod verify
+            go build -v github.com/elastic/go-elasticsearch/...
+
+  # -----------------------------------------------------------------------------------------------
+  # ----- LINT ------------------------------------------------------------------------------------
+  # -----------------------------------------------------------------------------------------------
+  lint:
+    executor: golang
+    steps:
+      - setup
+      - install
+
+      - run:
+          name: Go Vet
+          command: go vet ./...
+      - run:
+          name: Go Lint
+          command: golint -set_exit_status esapi/...
+
+  # -----------------------------------------------------------------------------------------------
+  # ----- TEST UNIT -------------------------------------------------------------------------------
+  # -----------------------------------------------------------------------------------------------
+  test-unit:
+    executor: golang
+    steps:
+      - setup
+      - install
+
+      - run:
+          name: Run Unit Tests
+          command: |
+            gotestsum \
+            --format=short-verbose \
+            --junitfile=/tmp/test-results/unit/junit.xml -- \
+            --race \
+            --timeout=1h \
+            --cover --coverprofile=/tmp/test-results/coverage/unit-coverage.out -v \
+            --tags='unit' \
+            ./...
+      - run:
+          name: Generate Coverage Report
+          command: go tool cover -html=/tmp/test-results/coverage/unit-coverage.out -o /tmp/test-results/coverage/unit-coverage.html
+
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-output
+      - store_test_results:
+          path: /tmp/test-results
+
+  # -----------------------------------------------------------------------------------------------
+  # ----- TEST INTEGRATION ------------------------------------------------------------------------
+  # -----------------------------------------------------------------------------------------------
+  test-integ:
+    executor: golang
+    steps:
+      - setup
+      - install
+      - launch-elasticsearch
+
+      - run:
+          name: Build the Docker Image
+          command: docker build --file Dockerfile --tag elastic/go-elasticsearch .
+      - run:
+          name: Run Package Integration tests
+          command: |
+            docker run \
+              --network elasticsearch \
+              --name go-elasticsearch \
+              --env ELASTICSEARCH_URL=http://es01:9200 \
+              elastic/go-elasticsearch \
+              gotestsum \
+                --format=short-verbose \
+                --junitfile=/tmp/junit.xml \
+                -- --cover --coverprofile=/tmp/integration-coverage.out \
+                --tags='integration' ./...
+      - run:
+          name: Copy Artifacts From Container
+          command: |
+            docker cp go-elasticsearch:/tmp/junit.xml /tmp/test-results/integration/
+            docker cp go-elasticsearch:/tmp/integration-coverage.out /tmp/test-results/integration/
+          when: always
+      - run:
+          name: Generate Coverage Report
+          command: go tool cover -html=/tmp/test-results/integration/integration-coverage.out -o /tmp/test-results/coverage/integration-coverage.html
+          when: always
+
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-output
+      - store_test_results:
+          path: /tmp/test-results
+
+  # -----------------------------------------------------------------------------------------------
+  # ----- TEST API INTEGRATION --------------------------------------------------------------------
+  # -----------------------------------------------------------------------------------------------
+  test-integ-api:
+    executor: golang
+    steps:
+      - setup
+      - install
+      - launch-elasticsearch
+      - clone-elasticsearch
+
+      - run:
+          name: Build the Docker Image
+          command: docker build --file Dockerfile --tag elastic/go-elasticsearch .
+      - run:
+          name: Start the container
+          command: |
+            docker run \
+              --network elasticsearch \
+              --name go-elasticsearch \
+              --env ELASTICSEARCH_URL=http://es01:9200 \
+              --volumes-from elasticsearch-repo \
+              --detach \
+              elastic/go-elasticsearch \
+              sleep 3600
+      - run:
+          name: Get the Elasticsearch version build hash
+          command: |
+            echo ELASTICSEARCH_BUILD_HASH=$(docker run --network elasticsearch --rm appropriate/curl -s http://es01:9200 | jq -r '.version.build_hash') >> $BASH_ENV
+            source $BASH_ENV
+      - run:
+          name: Checkout the Elasticsearch build hash
+          command: |
+            echo "Checking out $ELASTICSEARCH_BUILD_HASH"
+            docker exec \
+              --workdir /tmp/elasticsearch \
+              go-elasticsearch \
+              /bin/sh -c "git checkout $ELASTICSEARCH_BUILD_HASH"
+      - run:
+          name: Generate the API sources
+          command: |
+            docker exec \
+              --workdir /go-elasticsearch/internal/cmd/generate \
+              go-elasticsearch \
+              /bin/sh -c 'go run main.go source --gofmt=true --input "/tmp/elasticsearch/rest-api-spec/src/main/resources/rest-api-spec/api/*.json" --output=/go-elasticsearch/esapi'
+      - run:
+          name: Generate the API registry
+          command: |
+            docker exec \
+              --workdir /go-elasticsearch/internal/cmd/generate \
+              --env PACKAGE_PATH=/go-elasticsearch/esapi \
+              go-elasticsearch \
+              /bin/sh -c 'go generate ./... > /dev/null'
+      - run:
+          name: Generate the API tests from YAML
+          command: |
+            docker exec \
+              --workdir /go-elasticsearch/internal/cmd/generate \
+              go-elasticsearch \
+              /bin/sh -c 'go run main.go tests --input "/tmp/elasticsearch/rest-api-spec/src/main/resources/rest-api-spec/test/**/*.yml" --output=/go-elasticsearch/esapi/test'
+      - run:
+          name: Run the API tests
+          command: |
+            docker exec \
+              --workdir /go-elasticsearch/internal/cmd/generate \
+              go-elasticsearch \
+              /bin/sh -c 'gotestsum --format=short-verbose --junitfile=/tmp/integration-api-junit.xml /go-elasticsearch/esapi/test/*_test.go'
+      - run:
+          name: Copy Artifacts From Container
+          command: docker cp go-elasticsearch:/tmp/integration-api-junit.xml /tmp/test-results/integration/
+          when: always
+
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-output
+      - store_test_results:
+          path: /tmp/test-results
+
+
+workflows:
+  version: 2.1
+  periodic:
+    triggers:
+      - schedule:
+          cron: "0 5 * * *"
+          filters:
+            branches:
+              only: ['master']
+    jobs:
+      - build
+      - lint:
+          requires: ["build"]
+      - test-unit:
+          requires: ["build", "lint"]
+      - test-integ:
+          requires: ["build", "lint", "test-unit"]
+      - test-integ-api:
+          requires: ["build", "lint", "test-unit"]
