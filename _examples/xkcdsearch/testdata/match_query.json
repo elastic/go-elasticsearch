@@ -1,0 +1,52 @@
+{
+  "took" : 123,
+  "timed_out" : false,
+  "hits" : {
+    "total" : {
+      "value" : 47,
+      "relation" : "eq"
+    },
+    "max_score" : null,
+    "hits" : [
+      {
+        "_index" : "xkcd",
+        "_type" : "_doc",
+        "_id" : "715",
+        "_score" : 699.8671,
+        "_source" : {
+          "id" : "715",
+          "image_url" : "https://imgs.xkcd.com/comics/numbers.png",
+          "published" : "2010-03-17",
+          "title" : "Numbers",
+          "alt" : "The typical internet user...",
+          "transcript" : "Google Result for Various Phrases..."
+        },
+        "highlight" : {
+          "title" : [
+            "<em>Numbers</em>"
+          ]
+        },
+        "sort" : [ 699.8671, 258 ]
+      },
+      {
+        "_index" : "xkcd",
+        "_type" : "_doc",
+        "_id" : "2028",
+        "_score" : 503.1431,
+        "_source" : {
+          "id" : "2028",
+          "image_url" : "https://imgs.xkcd.com/comics/complex_numbers.png",
+          "published" : "2018-08-03",
+          "title" : "Complex Numbers",
+          "alt" : "I'm trying to prove that ..."
+        },
+        "highlight" : {
+          "title" : [
+            "Complex <em>Numbers</em>"
+          ]
+        },
+        "sort" : [503.1431,0]
+      }
+    ]
+  }
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>xkcdsearch</title>
+  <link href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAYAAABPYyMiAAAABmJLR0T///////8JWPfcAAAACXBIWXMAAABIAAAASABGyWs+AAAAF0lEQVRIx2NgGAWjYBSMglEwCkbBSAcACBAAAeaR9cIAAAAASUVORK5CYII=" rel="icon" type="image/x-icon">
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <div v-bind:class="{loading:state.loading}" id="app" v-cloak>
+    <div id="search-form">
+      <form v-on:submit.prevent="">
+        <input v-model.lazy="query" type="text" size="50" placeholder="Search...">
+      </form>
+      <p class="total"><span class="label"># results/</span><span class="content">{{ total }}</span></p>
+    </div>
+
+    <div v-if="total < 1 && !state.loading" class="no-results">
+      <p>Sorry, no results for your query&hellip;</p>
+    </div>
+
+    <div v-for="result in results" v-bind:id="result.id" :key="result.id" class="result">
+      <h2>
+        <span v-html="result.title" class="title"></span>
+        <span class="published">/{{ result.published }}/</span>
+      </h2>
+      <div class="highlights">
+        <p v-show="result.alt" class="alt">
+          <span class="label">Alt/</span>
+          <span v-html="result.alt" class="content"></span>
+        </p>
+        <p v-show="result.transcript" class="transcript">
+          <span class="label">Transcript/</span>
+          <span v-html="result.transcript" class="content"></span>
+        </p>
+      </div>
+      <a v-bind:href="result.url" v-bind:title="result.alt">
+        <img v-bind:src="result.image_url" v-bind:alt="result.alt" v-on:mouseover="toggle($event)" v-on:mouseout="toggle($event)">
+      </a>
+    </div>
+    <p v-show="state.fetching" id="loading-results">Loading results...</p>
+
+    <p v-show="state.loading" id="loading-app">Loading the application...</p>
+    <p v-if="state.error" id="app-error">[{{ state.error.status }}] {{ state.error.statusText }}</p>
+  </div>
+
+  <a href="https://github.com/elastic/go-elasticsearch/tree/master/_examples/xkcd" title="See the source code at GitHub" style="position: fixed; top: 0; right: 0; border: 0; display: inline-block;"><img src="/assets/images/github-ribbon.svg" width="50px" height="50px" alt=""></a>
+
+  <a href="https://xkcd.com/license.html" style="position: fixed; bottom: 0; right: 0; border: 0; display: inline-block;"><img src="https://mirrors.creativecommons.org/presskit/buttons/80x15/png/by-nc.png" height="15px"></img></a>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="/application.js"></script>
+</body>
+</html>

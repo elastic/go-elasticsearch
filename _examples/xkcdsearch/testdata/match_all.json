@@ -1,0 +1,41 @@
+{
+  "took" : 123,
+  "timed_out" : false,
+  "hits" : {
+    "total" : {
+      "value" : 42,
+      "relation" : "eq"
+    },
+    "max_score" : null,
+    "hits" : [
+      {
+        "_index" : "xkcd",
+        "_type" : "_doc",
+        "_id" : "2000",
+        "_score" : null,
+        "_source" : {
+          "id" : "2000",
+          "image_url" : "https://imgs.xkcd.com/...",
+          "published" : "2018-11-23",
+          "title" : "Title One",
+          "alt" : "When I was a kid..."
+        },
+        "sort" : [1542931200000,453]
+      },
+      {
+        "_index" : "xkcd",
+        "_type" : "_doc",
+        "_id" : "1999",
+        "_score" : null,
+        "_source" : {
+          "id" : "1999",
+          "image_url" : "https://imgs.xkcd.com/...",
+          "published" : "2018-11-21",
+          "title" : "Title Two",
+          "alt" : "This is my four-digit PIN...."
+        },
+        "sort" : [1542758400000,454]
+      }
+    ]
+  }
+}
