@@ -1,0 +1,44 @@
+---
+setup:
+  - do: { info: {} }
+  - do: { info: {} }
+
+---
+teardown:
+  - do: { info: {} }
+
+---
+"First":
+  - setup:
+      - do: { info: {} }
+      - do: { info: {} }
+  - teardown:
+      - do: { cluster.health: {} }
+
+  - do: { info: {} }
+
+  - is_true: name
+  - is_true: cluster_name
+  - is_true: version
+  - is_true: version.number
+
+  - is_false: foobar
+
+  - match: { cluster_name: "go-elasticsearch" }
+
+  - match:
+      version.lucene_version: /\d\.\d\.\d/
+
+  - match:
+      $body: /.*elasticsearch.*/
+
+# Comment
+---
+"Second":
+  - do: { info: { } }
+  - do:
+      cluster.health:
+        level: "indices"
+        pretty: true
+  - is_true: cluster_name
+  - gte: { number_of_nodes: 1 }
