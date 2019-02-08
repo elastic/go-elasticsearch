@@ -12,4 +12,7 @@ To run the example:
 
 To run the benchmarks:
 
-    make test
+    make bench
+
+    BenchmarkHTTPClient/Info()-4        3000  5504114 ns/op    16232 B/op    130 allocs/op
+    BenchmarkFastHTTPClient/Info()-4   10000  1183802 ns/op     3233 B/op     41 allocs/op
