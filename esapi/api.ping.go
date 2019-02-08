@@ -7,9 +7,9 @@ import (
 	"strings"
 )
 
-func newInfoFunc(t Transport) Info {
-	return func(o ...func(*InfoRequest)) (*Response, error) {
-		var r = InfoRequest{}
+func newPingFunc(t Transport) Ping {
+	return func(o ...func(*PingRequest)) (*Response, error) {
+		var r = PingRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -19,15 +19,15 @@ func newInfoFunc(t Transport) Info {
 
 // ----- API Definition -------------------------------------------------------
 
-// Info returns basic information about the cluster.
+// Ping returns whether the cluster is running.
 //
 // See full documentation at http://www.elastic.co/guide/.
 //
-type Info func(o ...func(*InfoRequest)) (*Response, error)
+type Ping func(o ...func(*PingRequest)) (*Response, error)
 
-// InfoRequest configures the Info API request.
+// PingRequest configures the Ping API request.
 //
-type InfoRequest struct {
+type PingRequest struct {
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -38,14 +38,14 @@ type InfoRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r InfoRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r PingRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "HEAD"
 
 	path.Grow(len("/"))
 	path.WriteString("/")
@@ -98,32 +98,40 @@ func (r InfoRequest) Do(ctx context.Context, transport Transport) (*Response, er
 
 // WithContext sets the request context.
 //
-func (f Info) WithContext(v context.Context) func(*InfoRequest) {
-	return func(r *InfoRequest) {
+func (f Ping) WithContext(v context.Context) func(*PingRequest) {
+	return func(r *PingRequest) {
 		r.ctx = v
+	}
+}
+
+// WithPretty makes the response body pretty-printed.
+//
+func (f Ping) WithPretty() func(*PingRequest) {
+	return func(r *PingRequest) {
+		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f Info) WithHuman() func(*InfoRequest) {
-	return func(r *InfoRequest) {
+func (f Ping) WithHuman() func(*PingRequest) {
+	return func(r *PingRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f Info) WithErrorTrace() func(*InfoRequest) {
-	return func(r *InfoRequest) {
+func (f Ping) WithErrorTrace() func(*PingRequest) {
+	return func(r *PingRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f Info) WithFilterPath(v ...string) func(*InfoRequest) {
-	return func(r *InfoRequest) {
+func (f Ping) WithFilterPath(v ...string) func(*PingRequest) {
+	return func(r *PingRequest) {
 		r.FilterPath = v
 	}
 }

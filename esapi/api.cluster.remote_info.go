@@ -7,9 +7,9 @@ import (
 	"strings"
 )
 
-func newInfoFunc(t Transport) Info {
-	return func(o ...func(*InfoRequest)) (*Response, error) {
-		var r = InfoRequest{}
+func newClusterRemoteInfoFunc(t Transport) ClusterRemoteInfo {
+	return func(o ...func(*ClusterRemoteInfoRequest)) (*Response, error) {
+		var r = ClusterRemoteInfoRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -19,15 +19,15 @@ func newInfoFunc(t Transport) Info {
 
 // ----- API Definition -------------------------------------------------------
 
-// Info returns basic information about the cluster.
+// ClusterRemoteInfo returns the information about configured remote clusters.
 //
-// See full documentation at http://www.elastic.co/guide/.
+// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-remote-info.html.
 //
-type Info func(o ...func(*InfoRequest)) (*Response, error)
+type ClusterRemoteInfo func(o ...func(*ClusterRemoteInfoRequest)) (*Response, error)
 
-// InfoRequest configures the Info API request.
+// ClusterRemoteInfoRequest configures the Cluster  Remote Info API request.
 //
-type InfoRequest struct {
+type ClusterRemoteInfoRequest struct {
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -38,7 +38,7 @@ type InfoRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r InfoRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r ClusterRemoteInfoRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -47,8 +47,8 @@ func (r InfoRequest) Do(ctx context.Context, transport Transport) (*Response, er
 
 	method = "GET"
 
-	path.Grow(len("/"))
-	path.WriteString("/")
+	path.Grow(len("/_remote/info"))
+	path.WriteString("/_remote/info")
 
 	params = make(map[string]string)
 
@@ -98,32 +98,40 @@ func (r InfoRequest) Do(ctx context.Context, transport Transport) (*Response, er
 
 // WithContext sets the request context.
 //
-func (f Info) WithContext(v context.Context) func(*InfoRequest) {
-	return func(r *InfoRequest) {
+func (f ClusterRemoteInfo) WithContext(v context.Context) func(*ClusterRemoteInfoRequest) {
+	return func(r *ClusterRemoteInfoRequest) {
 		r.ctx = v
+	}
+}
+
+// WithPretty makes the response body pretty-printed.
+//
+func (f ClusterRemoteInfo) WithPretty() func(*ClusterRemoteInfoRequest) {
+	return func(r *ClusterRemoteInfoRequest) {
+		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f Info) WithHuman() func(*InfoRequest) {
-	return func(r *InfoRequest) {
+func (f ClusterRemoteInfo) WithHuman() func(*ClusterRemoteInfoRequest) {
+	return func(r *ClusterRemoteInfoRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f Info) WithErrorTrace() func(*InfoRequest) {
-	return func(r *InfoRequest) {
+func (f ClusterRemoteInfo) WithErrorTrace() func(*ClusterRemoteInfoRequest) {
+	return func(r *ClusterRemoteInfoRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f Info) WithFilterPath(v ...string) func(*InfoRequest) {
-	return func(r *InfoRequest) {
+func (f ClusterRemoteInfo) WithFilterPath(v ...string) func(*ClusterRemoteInfoRequest) {
+	return func(r *ClusterRemoteInfoRequest) {
 		r.FilterPath = v
 	}
 }

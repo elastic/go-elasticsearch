@@ -7,9 +7,9 @@ import (
 	"strings"
 )
 
-func newInfoFunc(t Transport) Info {
-	return func(o ...func(*InfoRequest)) (*Response, error) {
-		var r = InfoRequest{}
+func newIngestProcessorGrokFunc(t Transport) IngestProcessorGrok {
+	return func(o ...func(*IngestProcessorGrokRequest)) (*Response, error) {
+		var r = IngestProcessorGrokRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -19,15 +19,15 @@ func newInfoFunc(t Transport) Info {
 
 // ----- API Definition -------------------------------------------------------
 
-// Info returns basic information about the cluster.
+// IngestProcessorGrok returns a list of the built-in patterns.
 //
-// See full documentation at http://www.elastic.co/guide/.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/plugins/master/ingest.html.
 //
-type Info func(o ...func(*InfoRequest)) (*Response, error)
+type IngestProcessorGrok func(o ...func(*IngestProcessorGrokRequest)) (*Response, error)
 
-// InfoRequest configures the Info API request.
+// IngestProcessorGrokRequest configures the Ingest  Processor Grok API request.
 //
-type InfoRequest struct {
+type IngestProcessorGrokRequest struct {
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -38,7 +38,7 @@ type InfoRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r InfoRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r IngestProcessorGrokRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -47,8 +47,8 @@ func (r InfoRequest) Do(ctx context.Context, transport Transport) (*Response, er
 
 	method = "GET"
 
-	path.Grow(len("/"))
-	path.WriteString("/")
+	path.Grow(len("/_ingest/processor/grok"))
+	path.WriteString("/_ingest/processor/grok")
 
 	params = make(map[string]string)
 
@@ -98,32 +98,40 @@ func (r InfoRequest) Do(ctx context.Context, transport Transport) (*Response, er
 
 // WithContext sets the request context.
 //
-func (f Info) WithContext(v context.Context) func(*InfoRequest) {
-	return func(r *InfoRequest) {
+func (f IngestProcessorGrok) WithContext(v context.Context) func(*IngestProcessorGrokRequest) {
+	return func(r *IngestProcessorGrokRequest) {
 		r.ctx = v
+	}
+}
+
+// WithPretty makes the response body pretty-printed.
+//
+func (f IngestProcessorGrok) WithPretty() func(*IngestProcessorGrokRequest) {
+	return func(r *IngestProcessorGrokRequest) {
+		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f Info) WithHuman() func(*InfoRequest) {
-	return func(r *InfoRequest) {
+func (f IngestProcessorGrok) WithHuman() func(*IngestProcessorGrokRequest) {
+	return func(r *IngestProcessorGrokRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f Info) WithErrorTrace() func(*InfoRequest) {
-	return func(r *InfoRequest) {
+func (f IngestProcessorGrok) WithErrorTrace() func(*IngestProcessorGrokRequest) {
+	return func(r *IngestProcessorGrokRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f Info) WithFilterPath(v ...string) func(*InfoRequest) {
-	return func(r *InfoRequest) {
+func (f IngestProcessorGrok) WithFilterPath(v ...string) func(*IngestProcessorGrokRequest) {
+	return func(r *IngestProcessorGrokRequest) {
 		r.FilterPath = v
 	}
 }
