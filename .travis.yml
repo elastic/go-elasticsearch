@@ -7,6 +7,7 @@ services:
 
 branches:
   only:
+    - master
     - travis
 
 install: true
@@ -33,10 +34,6 @@ matrix:
       go: stable
       env: GO111MODULE=off TEST_SUITE=unit
       before_install:
-        ### TEMPORARY #######################################################
-        - mkdir -p ${TRAVIS_HOME}/gopath/src/github.com/elastic
-        - mv ${TRAVIS_HOME}/gopath/src/github.com/karmi/go-elasticsearch ${TRAVIS_HOME}/gopath/src/github.com/elastic/go-elasticsearch
-        #####################################################################
         - go get -u golang.org/x/lint/golint
         - go get -u gotest.tools/gotestsum
       install:
@@ -154,14 +151,14 @@ matrix:
         - echo -en 'travis_fold:end:script.dl_es_src'
         # ------ Generate API registry ------------------------------------------------------------
         - echo -e "\e[33;1mGenerate API registry\e[0m" && echo -en 'travis_fold:start:script.gen_api_reg\\r\n'
-        - cd ${TRAVIS_HOME}/gopath/src/github.com/karmi/go-elasticsearch/internal/cmd/generate && ELASTICSEARCH_BUILD_HASH=$(cat ../../../.elasticsearch_build_hash) PACKAGE_PATH=${TRAVIS_HOME}/gopath/src/github.com/karmi/go-elasticsearch/esapi go generate -v ./...
+        - cd ${TRAVIS_HOME}/gopath/src/github.com/elastic/go-elasticsearch/internal/cmd/generate && ELASTICSEARCH_BUILD_HASH=$(cat ../../../.elasticsearch_build_hash) PACKAGE_PATH=${TRAVIS_HOME}/gopath/src/github.com/elastic/go-elasticsearch/esapi go generate -v ./...
         - echo -en 'travis_fold:end:script.gen_api_reg'
         # ------ Generate Go test files -----------------------------------------------------------
         - echo -e "\e[33;1mGenerate Go test files\e[0m" && echo -en 'travis_fold:start:script.gen_test_files\\r'
-        - cd ${TRAVIS_HOME}/gopath/src/github.com/karmi/go-elasticsearch/internal/cmd/generate && ELASTICSEARCH_BUILD_HASH=$(cat ../../../.elasticsearch_build_hash) go run main.go tests --input '/tmp/elasticsearch/rest-api-spec/src/main/resources/rest-api-spec/test/**/*.yml' --output=../../../esapi/test
+        - cd ${TRAVIS_HOME}/gopath/src/github.com/elastic/go-elasticsearch/internal/cmd/generate && ELASTICSEARCH_BUILD_HASH=$(cat ../../../.elasticsearch_build_hash) go run main.go tests --input '/tmp/elasticsearch/rest-api-spec/src/main/resources/rest-api-spec/test/**/*.yml' --output=../../../esapi/test
         - echo -en 'travis_fold:end:script.gen_test_files'
         # ------ Run tests -----------------------------------------------------------------------
-        - cd ${TRAVIS_HOME}/gopath/src/github.com/karmi/go-elasticsearch/esapi/test && time gotestsum --format=short-verbose --junitfile=/tmp/integration-api-report.xml -- -coverpkg=github.com/elastic/go-elasticsearch/esapi -coverprofile=/tmp/integration-api.cov -tags='integration' -timeout=1h ./...
+        - cd ${TRAVIS_HOME}/gopath/src/github.com/elastic/go-elasticsearch/esapi/test && time gotestsum --format=short-verbose --junitfile=/tmp/integration-api-report.xml -- -coverpkg=github.com/elastic/go-elasticsearch/esapi -coverprofile=/tmp/integration-api.cov -tags='integration' -timeout=1h ./...
       after_script:
         - test -f /tmp/integration-api.cov && bash <(curl -s https://codecov.io/bash) -f /tmp/integration-api.cov
 
