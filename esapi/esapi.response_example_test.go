@@ -24,7 +24,7 @@ func ExampleResponse_IsError() {
 		log.Fatalf("ERROR: %s", res.Status())
 	}
 
-	// Handle successfull response (2xx)
+	// Handle successful response (2xx)
 	//
 	log.Println(res)
 }

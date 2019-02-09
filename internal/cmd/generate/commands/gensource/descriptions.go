@@ -111,7 +111,7 @@ cat.thread_pool:
 clear_scroll:
   # http://www.elastic.co/guide/en/elasticsearch/reference/master/search-request-scroll.html
   description: |-
-    Explicitely clears the search context for a scroll.
+    Explicitly clears the search context for a scroll.
 
 cluster.allocation_explain:
   # http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-allocation-explain.html
