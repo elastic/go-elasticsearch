@@ -25,12 +25,16 @@ func init() {
 	goruncache = make(map[string]string)
 }
 
+// Generator represents the "gentests" generator.
+//
 type Generator struct {
 	b bytes.Buffer
 
 	TestSuite TestSuite
 }
 
+// Output returns the generator output.
+//
 func (g *Generator) Output() (io.Reader, error) {
 	g.genFileHeader()
 	g.w("func Test" + g.TestSuite.Name() + "(t *testing.T) {\n")
@@ -85,6 +89,8 @@ func (g *Generator) Output() (io.Reader, error) {
 	return bytes.NewReader(g.b.Bytes()), nil
 }
 
+// OutputFormatted returns a formatted generator output.
+//
 func (g *Generator) OutputFormatted() (io.Reader, error) {
 	out, err := g.Output()
 	if err != nil {

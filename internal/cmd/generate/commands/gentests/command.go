@@ -70,6 +70,8 @@ var gentestsCmd = &cobra.Command{
 	},
 }
 
+// Command represents the "gentests" command.
+//
 type Command struct {
 	Input          string
 	Output         string
@@ -79,6 +81,8 @@ type Command struct {
 	ColorizeSource bool
 }
 
+// Execute runs the command.
+//
 func (cmd *Command) Execute() error {
 	if len(apiRegistry) < 1 {
 		return fmt.Errorf("API registry in 'api_registry.gen.go' is empty: Did you run go generate?")

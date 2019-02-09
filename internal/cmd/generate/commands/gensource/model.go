@@ -23,6 +23,8 @@ func init() {
 	}
 }
 
+// NewEndpoint creates a new API endpoint.
+//
 func NewEndpoint(f io.Reader) (*Endpoint, error) {
 	var endpoint Endpoint
 	var spec map[string]Endpoint
@@ -76,6 +78,8 @@ func NewEndpoint(f io.Reader) (*Endpoint, error) {
 	return &endpoint, nil
 }
 
+// Endpoint represents an API endpoint.
+//
 type Endpoint struct {
 	Name string `json:"-"`
 
@@ -86,6 +90,8 @@ type Endpoint struct {
 	Body          *Body    `json:"body"`
 }
 
+// URL represents API endpoint URL.
+//
 type URL struct {
 	Endpoint *Endpoint `json:"-"`
 
@@ -98,6 +104,8 @@ type URL struct {
 	ParamNamesSorted []string
 }
 
+// Part represents part of the API endpoint URL.
+//
 type Part struct {
 	Endpoint *Endpoint `json:"-"`
 
@@ -109,6 +117,8 @@ type Part struct {
 	Required    bool   `json:"required"`
 }
 
+// Param represents API endpoint parameter.
+//
 type Param struct {
 	Endpoint *Endpoint `json:"-"`
 
@@ -121,6 +131,8 @@ type Param struct {
 	Required    bool        `json:"required"`
 }
 
+// Body represents API endpoint body.
+//
 type Body struct {
 	Endpoint *Endpoint `json:"-"`
 
@@ -129,6 +141,8 @@ type Body struct {
 	ContentType string `json:"serialize"`
 }
 
+// MethodArgument represents a method argument for API endpoint.
+//
 type MethodArgument struct {
 	Endpoint *Endpoint
 
@@ -140,11 +154,15 @@ type MethodArgument struct {
 	Required    bool
 }
 
+// Namespace returns the API endpoint namespace.
+//
 func (e *Endpoint) Namespace() string {
 	ep := strings.Split(e.Name, ".")
 	return strings.Title(ep[0])
 }
 
+// MethodName returns the API endpoint method name.
+//
 func (e *Endpoint) MethodName() string {
 	ep := strings.Split(e.Name, ".")
 	ep = append(ep[:0], ep[1:]...)
@@ -160,6 +178,8 @@ func (e *Endpoint) MethodName() string {
 	return strings.Join(ns, "")
 }
 
+// MethodWithNamespace returns the API endpoint method name with namespace.
+//
 func (e *Endpoint) MethodWithNamespace() string {
 	ep := strings.Split(e.Name, ".")
 	ns := make([]string, len(ep))
@@ -174,6 +194,8 @@ func (e *Endpoint) MethodWithNamespace() string {
 	return strings.Join(ns, "")
 }
 
+// HumanMethodWithNamespace returns the API endpoint method name in humanized form.
+//
 func (e *Endpoint) HumanMethodWithNamespace() string {
 	ep := strings.Split(e.Name, ".")
 	ns := make([]string, len(ep))
@@ -188,6 +210,8 @@ func (e *Endpoint) HumanMethodWithNamespace() string {
 	return strings.TrimSpace(strings.Join(ns, ""))
 }
 
+// RequiredArguments return the list of required method arguments.
+//
 func (e *Endpoint) RequiredArguments() []MethodArgument {
 	var args = make([]MethodArgument, 0)
 	var prominentArgs = []string{"index", "type", "id", "repository", "snapshot"}
@@ -270,6 +294,8 @@ func (e *Endpoint) RequiredArguments() []MethodArgument {
 	return args
 }
 
+// GoName returns a Go name for part.
+//
 func (p *Part) GoName() string {
 	switch {
 	case p.Name == "context":
@@ -279,10 +305,14 @@ func (p *Part) GoName() string {
 	}
 }
 
+// GoType returns a Go type for part.
+//
 func (p *Part) GoType(comment ...bool) string {
 	return utils.TypeToGo(p.Type)
 }
 
+// GoName returns a Go name for parameter.
+//
 func (p *Param) GoName() string {
 	switch {
 	case p.Name == "context":
@@ -294,6 +324,8 @@ func (p *Param) GoName() string {
 	}
 }
 
+// GoType returns a Go type for parameter.
+//
 func (p *Param) GoType(comment ...bool) string {
 	if f := (&Generator{Endpoint: p.Endpoint}).GetOverride("polymorphic-param", p.Endpoint.Name); f != nil {
 		if out := f(p.Endpoint, p.Name); out != "" {
@@ -303,10 +335,14 @@ func (p *Param) GoType(comment ...bool) string {
 	return utils.TypeToGo(p.Type)
 }
 
+// GoName returns a Go name for method argument.
+//
 func (p *MethodArgument) GoName() string {
 	return utils.NameToGo(p.Name)
 }
 
+// GoType returns a Go type for method argument.
+//
 func (p *MethodArgument) GoType(comment ...bool) string {
 	return utils.TypeToGo(p.Type)
 }

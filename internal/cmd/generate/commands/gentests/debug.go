@@ -7,6 +7,8 @@ import (
 	"github.com/elastic/go-elasticsearch/internal/cmd/generate/utils"
 )
 
+// DebugInfo returns information about the endpoint as a string.
+//
 func (tg TestSuite) DebugInfo() string {
 	var out strings.Builder
 

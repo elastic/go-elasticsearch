@@ -700,6 +700,8 @@ func (a Assertion) Error() string {
 	return `t.Error(` + strconv.Quote(output) + `)`
 }
 
+// Key returns the stash key as a string.
+//
 func (s Stash) Key() string {
 	vals := utils.MapValues(s.payload)
 	if len(vals) < 1 {
@@ -709,6 +711,8 @@ func (s Stash) Key() string {
 	return fmt.Sprintf("$%s", vals[0])
 }
 
+// Value returns the stash value as a string.
+//
 func (s Stash) Value() string {
 	vals := utils.MapKeys(s.payload)
 	if len(vals) < 1 {

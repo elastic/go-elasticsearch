@@ -71,6 +71,8 @@ var gensourceCmd = &cobra.Command{
 	},
 }
 
+// Command represents the "gensource" command.
+//
 type Command struct {
 	Input           string
 	Output          string
@@ -81,6 +83,8 @@ type Command struct {
 	SkipAPIRegistry bool
 }
 
+// Execute runs the command.
+//
 func (cmd *Command) Execute() (err error) {
 	var inputFiles []string
 

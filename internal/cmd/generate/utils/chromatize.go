@@ -10,6 +10,8 @@ import (
 	"github.com/alecthomas/chroma/styles"
 )
 
+// Chromatize returns a syntax highlighted Go code.
+//
 func Chromatize(r io.Reader) (io.Reader, error) {
 	var b bytes.Buffer
 	lexer := lexers.Get("go")

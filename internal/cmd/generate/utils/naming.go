@@ -14,6 +14,8 @@ var (
 	}
 )
 
+// NameToGo returns a Go version of name, eg. node_id => NodeID.
+//
 func NameToGo(s string) string {
 	exceptions := map[string]string{"index": "Index", "id": "DocumentID", "type": "DocumentType"}
 	if value, ok := exceptions[s]; ok {
@@ -31,6 +33,8 @@ func NameToGo(s string) string {
 	return strings.Join(ns, "")
 }
 
+// TypeToGo returns a Go version of type, eg. boolean => *bool.
+//
 func TypeToGo(s string, comment ...bool) string {
 	// If the string contains a pipe character, it's a polymorphic parameter,
 	// ie. it takes heterogeous values, such as "boolean" and "number"

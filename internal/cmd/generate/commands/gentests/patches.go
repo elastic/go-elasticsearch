@@ -14,6 +14,8 @@ var (
 	rePatchBucketKeys      = regexp.MustCompile(`aggregations.(\d+).(\d+).buckets`)
 )
 
+// PatchTestSource performs a regex based patching of the input.
+//
 func PatchTestSource(fpath string, r io.Reader) (io.Reader, error) {
 	c, err := ioutil.ReadAll(r)
 	if err != nil {

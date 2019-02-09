@@ -14,6 +14,8 @@ var (
 	reEsVersion = regexp.MustCompile(`elasticsearch\s+=\s+(\d+\.\d+\.\d+)`)
 )
 
+// EsVersion returns the Elasticsearch from Java property file, or an error.
+//
 func EsVersion(fpath string) (string, error) {
 	basePath, err := basePathFromFilepath(fpath)
 	if err != nil {
@@ -32,6 +34,8 @@ func EsVersion(fpath string) (string, error) {
 	return string(m[1]), nil
 }
 
+// GitCommit returns the Git commit for fpath, or an error.
+//
 func GitCommit(fpath string) (string, error) {
 	if gitCommitEnv := os.Getenv("ELASTICSEARCH_BUILD_HASH"); gitCommitEnv != "" {
 		return gitCommitEnv, nil
@@ -53,6 +57,8 @@ func GitCommit(fpath string) (string, error) {
 	return strings.TrimSpace(string(out)), nil
 }
 
+// GitTag returns the Git tag for fpath if available, or an error.
+//
 func GitTag(fpath string) (string, error) {
 	basePath, err := basePathFromFilepath(fpath)
 	if err != nil {

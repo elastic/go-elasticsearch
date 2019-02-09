@@ -10,6 +10,8 @@ import (
 	"strings"
 )
 
+// PrintSourceWithErr returns source code annotated with location of an error.
+//
 func PrintSourceWithErr(out io.Reader, err error) {
 	if IsTTY() {
 		fmt.Fprint(os.Stderr, "\x1b[2m")
