@@ -18,7 +18,7 @@ var defaultResponse = http.Response{
 	Status:        "200 OK",
 	StatusCode:    200,
 	ContentLength: 2,
-	Header:        http.Header(map[string][]string{"Content-Type": []string{"application/json"}}),
+	Header:        http.Header(map[string][]string{"Content-Type": {"application/json"}}),
 	Body:          ioutil.NopCloser(strings.NewReader(`{}`)),
 }
 

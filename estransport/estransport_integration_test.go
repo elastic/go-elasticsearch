@@ -47,8 +47,8 @@ func TestTransportSelector(t *testing.T) {
 			node string
 		)
 		transport := estransport.New(estransport.Config{URLs: []*url.URL{
-			&url.URL{Scheme: "http", Host: "localhost:9200"},
-			&url.URL{Scheme: "http", Host: "localhost:9201"},
+			{Scheme: "http", Host: "localhost:9200"},
+			{Scheme: "http", Host: "localhost:9201"},
 		}})
 
 		node = NodeName(t, transport)

@@ -39,7 +39,7 @@ func TestTransport(t *testing.T) {
 
 	t.Run("Custom", func(t *testing.T) {
 		tp := New(Config{
-			URLs: []*url.URL{&url.URL{}},
+			URLs: []*url.URL{{}},
 			Transport: &mockTransp{
 				RoundTripFunc: func(req *http.Request) (*http.Response, error) { return &http.Response{Status: "MOCK"}, nil },
 			},
@@ -129,7 +129,7 @@ func TestTransportSelector(t *testing.T) {
 	})
 
 	t.Run("Single URL", func(t *testing.T) {
-		tp := New(Config{URLs: []*url.URL{&url.URL{Scheme: "http", Host: "localhost:9200"}}})
+		tp := New(Config{URLs: []*url.URL{{Scheme: "http", Host: "localhost:9200"}}})
 
 		for i := 0; i < 7; i++ {
 			u, err := tp.selector.Select()
@@ -147,8 +147,8 @@ func TestTransportSelector(t *testing.T) {
 		var u *url.URL
 
 		tp := New(Config{URLs: []*url.URL{
-			&url.URL{Scheme: "http", Host: "localhost:9200"},
-			&url.URL{Scheme: "http", Host: "localhost:9201"},
+			{Scheme: "http", Host: "localhost:9200"},
+			{Scheme: "http", Host: "localhost:9201"},
 		}})
 
 		u, _ = tp.selector.Select()
@@ -169,9 +169,9 @@ func TestTransportSelector(t *testing.T) {
 
 	t.Run("Three URLs", func(t *testing.T) {
 		tp := New(Config{URLs: []*url.URL{
-			&url.URL{Scheme: "http", Host: "localhost:9200"},
-			&url.URL{Scheme: "http", Host: "localhost:9201"},
-			&url.URL{Scheme: "http", Host: "localhost:9202"},
+			{Scheme: "http", Host: "localhost:9200"},
+			{Scheme: "http", Host: "localhost:9201"},
+			{Scheme: "http", Host: "localhost:9202"},
 		}})
 
 		var expected string

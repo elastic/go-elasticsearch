@@ -185,7 +185,7 @@ func TestClientCustomTransport(t *testing.T) {
 	t.Run("Manual", func(t *testing.T) {
 		tr := estransport.New(estransport.Config{
 			URLs: []*url.URL{
-				&url.URL{Scheme: "http", Host: "localhost:9200"},
+				{Scheme: "http", Host: "localhost:9200"},
 			},
 			Transport: http.DefaultTransport,
 		})
