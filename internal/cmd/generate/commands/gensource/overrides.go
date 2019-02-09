@@ -45,7 +45,7 @@ func (r OverrideRule) Match(apiName string) bool {
 func init() {
 	overrideRules = map[string][]OverrideRule{
 
-		"polymorphic-param": []OverrideRule{OverrideRule{
+		"polymorphic-param": {{
 			Matching: []string{"search"},
 			Func: func(e *Endpoint, i ...interface{}) string {
 				if len(i) > 0 {
@@ -58,8 +58,8 @@ func init() {
 			},
 		}},
 
-		"url": []OverrideRule{
-			OverrideRule{
+		"url": {
+			{
 				Matching: []string{"cluster.stats"},
 				Func: func(*Endpoint, ...interface{}) string {
 					return `
@@ -77,7 +77,7 @@ func init() {
 `
 				},
 			},
-			OverrideRule{
+			{
 				Matching: []string{"indices.put_mapping"},
 				Func: func(*Endpoint, ...interface{}) string {
 					return `

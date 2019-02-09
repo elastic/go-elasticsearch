@@ -247,7 +247,7 @@ func (t Test) BaseFilename() string {
 	if len(parts) < 2 {
 		return ""
 	}
-	return strings.Join(parts[len(parts)-2:len(parts)], string(filepath.Separator))
+	return strings.Join(parts[len(parts)-2:], string(filepath.Separator))
 }
 
 // ContainsAssertion returns true when the set of steps
@@ -785,7 +785,7 @@ func catchnil(input string) string {
 	var output string
 
 	parts := strings.Split(strings.Replace(input, `\.`, `_~_|_~_`, -1), ".")
-	for i, _ := range parts {
+	for i := range parts {
 		output += strings.Join(parts[:i+1], ".") + " == nil"
 		if i+1 < len(parts) {
 			output += " ||\n\t\t"

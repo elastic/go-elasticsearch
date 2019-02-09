@@ -4,7 +4,7 @@ package utils
 //
 func MapKeys(s interface{}) (keys []string) {
 	if s, ok := s.(map[interface{}]interface{}); ok {
-		for k, _ := range s {
+		for k := range s {
 			if k, ok := k.(string); ok {
 				keys = append(keys, k)
 			}
