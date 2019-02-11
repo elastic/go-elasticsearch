@@ -15,3 +15,7 @@ The [**`cloudfunction`**](./cloudfunction) directory contains a simple web servi
 ## XKCD Search
 
 The [**`xkcdsearch`**](./xkcdsearch) directory contains a command-line utility for indexing and searching an archive of [xkcd.com](https://xkcd.com) artworks.
+
+## Instrumentation
+
+The [**`instrumentation`**](./instrumentation) directory contains recipes for instrumenting the client.
