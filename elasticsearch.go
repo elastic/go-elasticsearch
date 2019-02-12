@@ -51,24 +51,15 @@ func NewDefaultClient() (*Client, error) {
 // environment variable.
 //
 func NewClient(cfg Config) (*Client, error) {
-	var (
-		urls []*url.URL
-		tran estransport.Interface
-	)
+	var tran estransport.Interface
 
-	addrs := addressesFromEnvironment()
-
-	if len(addrs) > 0 && len(cfg.Addresses) > 0 {
-		return nil, fmt.Errorf("cannot create client: both ELASTICSEARCH_URL and Addresses are set")
+	urls, err := urlsFromEnvironment()
+	if err != nil {
+		return nil, fmt.Errorf("cannot create client: %s", err)
 	}
 
-	for _, addr := range addrs {
-		u, err := url.Parse(strings.TrimRight(addr, "/"))
-		if err != nil {
-			return nil, fmt.Errorf("cannot create client: %s", err)
-		}
-
-		urls = append(urls, u)
+	if len(urls) > 0 && len(cfg.Addresses) > 0 {
+		return nil, fmt.Errorf("cannot create client: both ELASTICSEARCH_URL and Addresses are set")
 	}
 
 	for _, addr := range cfg.Addresses {
@@ -96,18 +87,22 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	return c.Transport.Perform(req)
 }
 
-// addressesFromEnvironment returns a list of addresses by splitting
+// urlsFromEnvironment returns a list of urls by splitting
 // the ELASTICSEARCH_URL environment variable with comma, or an empty list.
 //
-func addressesFromEnvironment() []string {
-	var addrs []string
+func urlsFromEnvironment() ([]*url.URL, error) {
+	var addrs []*url.URL
 
 	if envURLs, ok := os.LookupEnv("ELASTICSEARCH_URL"); ok && envURLs != "" {
 		list := strings.Split(envURLs, ",")
 		for _, u := range list {
-			addrs = append(addrs, strings.TrimSpace(u))
+			ur, err := url.Parse(strings.TrimRight(strings.TrimSpace(u), "/"))
+			if err != nil {
+				return nil, err
+			}
+			addrs = append(addrs, ur)
 		}
 	}
 
-	return addrs
+	return addrs, nil
 }
