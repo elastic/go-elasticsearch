@@ -1,10 +1,15 @@
 package estransport // import "github.com/elastic/go-elasticsearch/estransport"
 
 import (
+	"bytes"
 	"fmt"
+	"io"
+	"io/ioutil"
+	"log"
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 )
 
 // Interface defines the interface for HTTP client.
@@ -18,6 +23,10 @@ type Interface interface {
 type Config struct {
 	URLs      []*url.URL
 	Transport http.RoundTripper
+
+	Logger       io.Writer
+	LoggerFormat string
+	LoggerFunc   func(*http.Request, *http.Response)
 }
 
 // Client represents the HTTP client.
@@ -26,12 +35,15 @@ type Client struct {
 	urls      []*url.URL
 	transport http.RoundTripper
 	selector  Selector
+
+	logger       io.Writer
+	loggerFormat string
+	loggerFunc   func(*http.Request, *http.Response)
 }
 
 // New creates new HTTP client.
 //
-// http.DefaultTransport will be used if no transport
-// is passed in the configuration.
+// http.DefaultTransport will be used if no transport is passed in the configuration.
 //
 func New(cfg Config) *Client {
 	if cfg.Transport == nil {
@@ -42,6 +54,10 @@ func New(cfg Config) *Client {
 		urls:      cfg.URLs,
 		transport: cfg.Transport,
 		selector:  NewRoundRobinSelector(cfg.URLs...),
+
+		logger:       cfg.Logger,
+		loggerFormat: cfg.LoggerFormat,
+		loggerFunc:   cfg.LoggerFunc,
 	}
 }
 
@@ -56,8 +72,42 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	c.setURL(u, req)
 	c.setBasicAuth(u, req)
 
+	s := time.Now().UTC()
+	res, err := c.transport.RoundTrip(req)
+	d := time.Now().UTC().Sub(s)
+
+	if c.logger != nil {
+		fmt.Fprintf(c.logger, "%s %s %s [status:%d request:%s]\n",
+			time.Now().Format(time.RFC3339),
+			req.Method,
+			req.URL.String(),
+			res.StatusCode,
+			d.Truncate(time.Millisecond),
+		)
+		if req.Body != nil {
+			// TODO(karmi): Capture the request body before performing the request
+			fmt.Fprintln(c.logger, "> TODO: Capture and print request body")
+		}
+		if err != nil {
+			fmt.Fprintf(c.logger, "! ERROR: %v", err)
+		} else {
+			if res.Body != nil {
+				body, err := ioutil.ReadAll(res.Body)
+				if err == nil {
+					defer func() { res.Body = ioutil.NopCloser(bytes.NewReader(body)) }()
+					defer func() { res.Body.Close() }()
+					for _, line := range strings.Split(string(body), "\n") {
+						if line != "" {
+							log.Printf("< %s\n", line)
+						}
+					}
+				}
+			}
+		}
+	}
+
 	// TODO(karmi): Wrap error
-	return c.transport.RoundTrip(req)
+	return res, err
 }
 
 // URLs returns a list of transport URLs.

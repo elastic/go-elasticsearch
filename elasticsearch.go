@@ -3,6 +3,7 @@ package elasticsearch // import "github.com/elastic/go-elasticsearch"
 import (
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"os"
@@ -19,8 +20,18 @@ const (
 // Config represents the client configuration.
 //
 type Config struct {
-	Addresses []string          // A list of Elasticsearch nodes to use.
-	Transport http.RoundTripper // The HTTP transport object.
+	// A list of Elasticsearch nodes to use.
+	Addresses []string
+
+	// The HTTP transport object.
+	Transport http.RoundTripper
+
+	// Output for logging, if not nil.
+	Logger io.Writer
+	// One of: text, curl, json.
+	LoggerFormat string
+	// Custom function for logging instead of the default one, if not nil.
+	LoggerFunc func(*http.Request, *http.Response)
 }
 
 // Client represents the Elasticsearch client.
@@ -70,7 +81,10 @@ func NewClient(cfg Config) (*Client, error) {
 		urls = append(urls, u)
 	}
 
-	tran := estransport.New(estransport.Config{URLs: urls, Transport: cfg.Transport})
+	tran := estransport.New(estransport.Config{
+		URLs: urls, Transport: cfg.Transport,
+		Logger: cfg.Logger, LoggerFormat: cfg.LoggerFormat, LoggerFunc: cfg.LoggerFunc,
+	})
 
 	return &Client{Transport: tran, API: esapi.New(tran)}, nil
 }
