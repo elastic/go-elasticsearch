@@ -27,8 +27,7 @@ func main() {
 			ResponseHeaderTimeout: time.Millisecond,
 			DialContext:           (&net.Dialer{Timeout: time.Nanosecond}).DialContext,
 			TLSClientConfig: &tls.Config{
-				MaxVersion:         tls.VersionTLS11,
-				InsecureSkipVerify: true,
+				MinVersion:         tls.VersionTLS11,
 			},
 		},
 	}
