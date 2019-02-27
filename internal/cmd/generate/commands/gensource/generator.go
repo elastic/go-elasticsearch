@@ -625,7 +625,7 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(ctx context.Context,
 				fieldValue = `strings.Join(r.` + fieldName + `, ",")`
 			case "time.Duration":
 				fieldCondition = `r.` + fieldName + ` != 0`
-				fieldValue = `time.Duration(r.` + fieldName + ` * time.Millisecond).String()`
+				fieldValue = `strconv.FormatInt(int64(r.` + fieldName +`), 10) + "nanos"`
 			default: // interface{}
 				fieldCondition = `r.` + fieldName + ` != nil`
 				// TODO: Use type switching instead?
