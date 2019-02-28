@@ -8,9 +8,7 @@ import (
 
 func TestAPIHelpers(t *testing.T) {
 	t.Run("BoolPtr", func(t *testing.T) {
-		var v *bool
-
-		v = BoolPtr(false)
+		v := BoolPtr(false)
 		if v == nil || *v != false {
 			t.Errorf("Expected false, got: %v", v)
 		}
@@ -22,9 +20,7 @@ func TestAPIHelpers(t *testing.T) {
 	})
 
 	t.Run("IntPtr", func(t *testing.T) {
-		var v *int
-
-		v = IntPtr(0)
+		v := IntPtr(0)
 		if v == nil || *v != 0 {
 			t.Errorf("Expected 0, got: %v", v)
 		}
