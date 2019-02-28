@@ -1,6 +1,7 @@
 package elasticsearch // import "github.com/elastic/go-elasticsearch"
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -59,7 +60,7 @@ func NewClient(cfg Config) (*Client, error) {
 	addrs := addressesFromEnvironment()
 
 	if len(addrs) > 0 && len(cfg.Addresses) > 0 {
-		return nil, fmt.Errorf("cannot create client: both ELASTICSEARCH_URL and Addresses are set")
+		return nil, errors.New("cannot create client: both ELASTICSEARCH_URL and Addresses are set")
 	}
 
 	for _, addr := range addrs {
