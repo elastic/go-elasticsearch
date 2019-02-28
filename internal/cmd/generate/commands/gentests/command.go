@@ -4,6 +4,7 @@ package gentests
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -85,7 +86,7 @@ type Command struct {
 //
 func (cmd *Command) Execute() error {
 	if len(apiRegistry) < 1 {
-		return fmt.Errorf("API registry in 'api_registry.gen.go' is empty: Did you run go generate?")
+		return errors.New("API registry in 'api_registry.gen.go' is empty: Did you run go generate?")
 	}
 
 	inputFiles, err := filepath.Glob(cmd.Input)
