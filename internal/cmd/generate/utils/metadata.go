@@ -48,7 +48,6 @@ func GitCommit(fpath string) (string, error) {
 
 	args := strings.Split("git --git-dir="+basePath+".git rev-parse --short HEAD", " ")
 	cmd := exec.Command(args[0:1][0], args[1:]...)
-	// fmt.Printf("> %s\n", strings.Join(cmd.Args, " "))
 
 	out, err := cmd.Output()
 	if err != nil {
@@ -72,7 +71,6 @@ func GitTag(fpath string) (string, error) {
 
 	args := strings.Split("git --git-dir="+basePath+".git tag --points-at "+commit, " ")
 	cmd := exec.Command(args[0:1][0], args[1:]...)
-	// fmt.Printf("> %s\n", strings.Join(cmd.Args, " "))
 
 	out, err := cmd.Output()
 	if err != nil {

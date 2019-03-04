@@ -562,7 +562,6 @@ default:
 				// 2b. Is the value a regular value?
 				// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 			} else {
-				// fmt.Printf("subject: %s, val: %T, %v \n", subject, val, val)
 
 				nilGuard := catchnil(subject)
 				switch val.(type) {

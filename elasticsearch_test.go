@@ -90,13 +90,13 @@ func TestClientInterface(t *testing.T) {
 		}
 
 		if called != false { // megacheck ignore
-			t.Errorf("Unexpected call to transport by client")
+			t.Error("Unexpected call to transport by client")
 		}
 
 		c.Perform(&http.Request{URL: &url.URL{}}) // errcheck ignore
 
 		if called != true { // megacheck ignore
-			t.Errorf("Expected client to call transport")
+			t.Error("Expected client to call transport")
 		}
 	})
 }

@@ -57,7 +57,6 @@ func TestClientTransport(t *testing.T) {
 				curTotal = v.HTTP.TotalOpened
 				break
 			}
-			// log.Printf("total_opened: %d", curTotal)
 
 			if curTotal < 1 {
 				t.Errorf("Unexpected total_opened: %d", curTotal)
@@ -112,7 +111,7 @@ func TestClientTransport(t *testing.T) {
 		res, err := es.Info(es.Info.WithContext(ctx))
 		if err == nil {
 			res.Body.Close()
-			t.Fatalf("Expected 'context deadline exceeded' error")
+			t.Fatal("Expected 'context deadline exceeded' error")
 		}
 
 		log.Printf("Request cancelled with %T", err)
