@@ -52,41 +52,25 @@ func NewDefaultClient() (*Client, error) {
 // environment variable.
 //
 func NewClient(cfg Config) (*Client, error) {
-	var (
-		urls []*url.URL
-		tran estransport.Interface
-	)
+	envAddrs := addressesFromEnvironment()
 
-	addrs := addressesFromEnvironment()
-
-	if len(addrs) > 0 && len(cfg.Addresses) > 0 {
+	if len(envAddrs) > 0 && len(cfg.Addresses) > 0 {
 		return nil, errors.New("cannot create client: both ELASTICSEARCH_URL and Addresses are set")
 	}
 
-	for _, addr := range addrs {
-		u, err := url.Parse(strings.TrimRight(addr, "/"))
-		if err != nil {
-			return nil, fmt.Errorf("cannot create client: %s", err)
-		}
+	addrs := append(envAddrs, cfg.Addresses...)
 
-		urls = append(urls, u)
+	urls, err := addrsToURLs(addrs)
+	if err != nil {
+		return nil, fmt.Errorf("cannot create client: %s", err)
 	}
 
-	for _, addr := range cfg.Addresses {
-		u, err := url.Parse(strings.TrimRight(addr, "/"))
-		if err != nil {
-			return nil, fmt.Errorf("cannot create client: %s", err)
-		}
-
-		urls = append(urls, u)
-	}
-
-	if len(urls) < 1 {
+	if len(urls) == 0 {
 		u, _ := url.Parse(defaultURL) // errcheck exclude
 		urls = append(urls, u)
 	}
 
-	tran = estransport.New(estransport.Config{URLs: urls, Transport: cfg.Transport})
+	tran := estransport.New(estransport.Config{URLs: urls, Transport: cfg.Transport})
 
 	return &Client{Transport: tran, API: esapi.New(tran)}, nil
 }
@@ -111,4 +95,19 @@ func addressesFromEnvironment() []string {
 	}
 
 	return addrs
+}
+
+// addrsToURLs creates a list of url.URL structures from url list.
+//
+func addrsToURLs(addrs []string) ([]*url.URL, error) {
+	var urls []*url.URL
+	for _, addr := range addrs {
+		u, err := url.Parse(strings.TrimRight(addr, "/"))
+		if err != nil {
+			return nil, fmt.Errorf("cannot parse url: %v", err)
+		}
+
+		urls = append(urls, u)
+	}
+	return urls, nil
 }
