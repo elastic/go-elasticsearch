@@ -35,7 +35,7 @@ func TestGenerator(t *testing.T) {
 		// t.Logf("\n%s\n", s)
 
 		if !strings.Contains(string(s), "func newInfoFunc(t Transport) Info {") {
-			t.Errorf("Incorrect output")
+			t.Error("Incorrect output")
 		}
 	})
 }
