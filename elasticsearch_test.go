@@ -53,7 +53,7 @@ func TestClientConfiguration(t *testing.T) {
 		}
 	})
 
-	t.Run("With URL from environment and cfg.Addressess", func(t *testing.T) {
+	t.Run("With URL from environment and cfg.Addresses", func(t *testing.T) {
 		os.Setenv("ELASTICSEARCH_URL", "http://example.com")
 		defer func() { os.Setenv("ELASTICSEARCH_URL", "") }()
 
@@ -112,7 +112,7 @@ func TestClientInterface(t *testing.T) {
 	})
 }
 
-func TestBuildURLStructs(t *testing.T) {
+func TestAddrsToURLs(t *testing.T) {
 	tt := []struct {
 		name          string
 		urls          []string
