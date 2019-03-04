@@ -11,7 +11,6 @@ import (
 	"testing"
 
 	"github.com/elastic/go-elasticsearch/estransport"
-	"github.com/stretchr/testify/assert"
 )
 
 func TestClientConfiguration(t *testing.T) {
@@ -103,7 +102,7 @@ func TestClientInterface(t *testing.T) {
 	})
 }
 
-func TestAddrsToURLs(t *testing.T) {
+func TestBuildURLStructs(t *testing.T) {
 	tt := []struct {
 		name          string
 		urls          []string
@@ -139,8 +138,21 @@ func TestAddrsToURLs(t *testing.T) {
 	for _, tc := range tt {
 		t.Run(tc.name, func(t *testing.T) {
 			res, err := addrsToURLs(tc.urls)
-			assert.Equal(t, tc.expectedError, err)
-			assert.Equal(t, tc.uStructs, res)
+			for i := range tc.uStructs {
+				if res[i].Scheme != tc.uStructs[i].Scheme {
+					t.Errorf("test case name: %s\nexpected Scheme %s\nactual %s", tc.name, tc.uStructs[i].Scheme, res[i].Scheme)
+				}
+			}
+			for i := range tc.uStructs {
+				if res[i].Host != tc.uStructs[i].Host {
+					t.Errorf("test case name: %s\nexpected Host %s\nactual %s", tc.name, tc.uStructs[i].Host, res[i].Host)
+				}
+			}
+			if err != tc.expectedError {
+				if err == nil || err.Error() != tc.expectedError.Error() {
+					t.Errorf("test case name: %s\nexpected error: %v\nactual error: %v", tc.name, tc.expectedError, err)
+				}
+			}
 		})
 	}
 }
