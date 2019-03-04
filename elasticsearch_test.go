@@ -53,6 +53,16 @@ func TestClientConfiguration(t *testing.T) {
 		}
 	})
 
+	t.Run("With URL from environment and cfg.Addressess", func(t *testing.T) {
+		os.Setenv("ELASTICSEARCH_URL", "http://example.com")
+		defer func() { os.Setenv("ELASTICSEARCH_URL", "") }()
+
+		_, err := NewClient(Config{Addresses: []string{"http://localhost:8080//"}})
+		if err.Error() != "cannot create client: both ELASTICSEARCH_URL and Addresses are set" {
+			t.Errorf("Expected error: %v", errors.New("cannot create client: both ELASTICSEARCH_URL and Addresses are set"))
+		}
+	})
+
 	t.Run("With invalid URL", func(t *testing.T) {
 		u := ":foo"
 		_, err := NewClient(Config{Addresses: []string{u}})
