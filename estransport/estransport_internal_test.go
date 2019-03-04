@@ -31,7 +31,7 @@ func TestTransport(t *testing.T) {
 	t.Run("Default", func(t *testing.T) {
 		tp := New(Config{})
 		if tp.transport == nil {
-			t.Errorf("Expected the transport to not be nil")
+			t.Error("Expected the transport to not be nil")
 		}
 		if tp.transport != http.DefaultTransport {
 			t.Errorf("Expected the transport to be http.DefaultTransport, got: %T", tp.transport)
@@ -101,7 +101,7 @@ func TestTransportPerform(t *testing.T) {
 
 		username, password, ok := req.BasicAuth()
 		if !ok {
-			t.Errorf("Expected the request to have Basic Auth set")
+			t.Error("Expected the request to have Basic Auth set")
 		}
 
 		if username != "foo" || password != "bar" {
@@ -222,7 +222,6 @@ func TestTransportSelector(t *testing.T) {
 		var expected string
 		for i := 0; i < 11; i++ {
 			u, err := tp.selector.Select()
-			// fmt.Printf("> %s\n", u)
 
 			if err != nil {
 				t.Errorf("Unexpected error: %s", err)
