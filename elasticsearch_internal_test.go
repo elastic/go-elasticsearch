@@ -4,10 +4,10 @@ package elasticsearch
 
 import (
 	"errors"
-	"fmt"
 	"net/http"
 	"net/url"
 	"os"
+	"regexp"
 	"testing"
 
 	"github.com/elastic/go-elasticsearch/estransport"
@@ -58,8 +58,12 @@ func TestClientConfiguration(t *testing.T) {
 		defer func() { os.Setenv("ELASTICSEARCH_URL", "") }()
 
 		_, err := NewClient(Config{Addresses: []string{"http://localhost:8080//"}})
-		if err.Error() != "cannot create client: both ELASTICSEARCH_URL and Addresses are set" {
-			t.Errorf("Expected error: %v", errors.New("cannot create client: both ELASTICSEARCH_URL and Addresses are set"))
+		if err == nil {
+			t.Fatalf("Expected error, got: %v", err)
+		}
+		match, _ := regexp.MatchString("both .* are set", err.Error())
+		if !match {
+			t.Errorf("Expected error when addresses from environment and configuration are used together, got: %v", err)
 		}
 	})
 
@@ -114,53 +118,74 @@ func TestClientInterface(t *testing.T) {
 
 func TestAddrsToURLs(t *testing.T) {
 	tt := []struct {
-		name          string
-		urls          []string
-		uStructs      []*url.URL
-		expectedError error
+		name  string
+		addrs []string
+		urls  []*url.URL
+		err   error
 	}{
 		{
-			name: "all ok",
-			urls: []string{"http://example.com", "http://192.168.255.255", "https://www.elastic.co/"},
-			uStructs: []*url.URL{
-				{
-					Scheme: "http",
-					Host:   "example.com",
-				},
-				{
-					Scheme: "http",
-					Host:   "192.168.255.255",
-				},
-				{
-					Scheme: "https",
-					Host:   "www.elastic.co",
-				},
+			name: "valid",
+			addrs: []string{
+				"http://example.com",
+				"https://example.com",
+				"http://192.168.255.255",
+				"http://example.com:8080",
 			},
-			expectedError: nil,
+			urls: []*url.URL{
+				{Scheme: "http", Host: "example.com"},
+				{Scheme: "https", Host: "example.com"},
+				{Scheme: "http", Host: "192.168.255.255"},
+				{Scheme: "http", Host: "example.com:8080"},
+			},
+			err: nil,
 		},
 		{
-			name:          "parse error: invalid url",
-			urls:          []string{"://эк?:%;.com"},
-			uStructs:      nil,
-			expectedError: fmt.Errorf("cannot parse url: %v", errors.New("parse ://эк?:%;.com: missing protocol scheme")),
+			name:  "trim trailing slash",
+			addrs: []string{"http://example.com/", "http://example.com//"},
+			urls: []*url.URL{
+				{Scheme: "http", Host: "example.com", Path: ""},
+				{Scheme: "http", Host: "example.com", Path: ""},
+			},
+		},
+		{
+			name:  "keep suffix",
+			addrs: []string{"http://example.com/foo"},
+			urls:  []*url.URL{{Scheme: "http", Host: "example.com", Path: "/foo"}},
+		},
+		{
+			name:  "invalid url",
+			addrs: []string{"://invalid.com"},
+			urls:  nil,
+			err:   errors.New("missing protocol scheme"),
 		},
 	}
 	for _, tc := range tt {
 		t.Run(tc.name, func(t *testing.T) {
-			res, err := addrsToURLs(tc.urls)
-			for i := range tc.uStructs {
-				if res[i].Scheme != tc.uStructs[i].Scheme {
-					t.Errorf("test case name: %s\nexpected Scheme %s\nactual %s", tc.name, tc.uStructs[i].Scheme, res[i].Scheme)
+			res, err := addrsToURLs(tc.addrs)
+
+			if tc.err != nil {
+				if err == nil {
+					t.Errorf("Expected error, got: %v", err)
+				}
+				match, _ := regexp.MatchString(tc.err.Error(), err.Error())
+				if !match {
+					t.Errorf("Expected err [%s] to match: %s", err.Error(), tc.err.Error())
 				}
 			}
-			for i := range tc.uStructs {
-				if res[i].Host != tc.uStructs[i].Host {
-					t.Errorf("test case name: %s\nexpected Host %s\nactual %s", tc.name, tc.uStructs[i].Host, res[i].Host)
+
+			for i := range tc.urls {
+				if res[i].Scheme != tc.urls[i].Scheme {
+					t.Errorf("%s: Unexpected scheme, want=%s, got=%s", tc.name, tc.urls[i].Scheme, res[i].Scheme)
 				}
 			}
-			if err != tc.expectedError {
-				if err == nil || err.Error() != tc.expectedError.Error() {
-					t.Errorf("test case name: %s\nexpected error: %v\nactual error: %v", tc.name, tc.expectedError, err)
+			for i := range tc.urls {
+				if res[i].Host != tc.urls[i].Host {
+					t.Errorf("%s: Unexpected host, want=%s, got=%s", tc.name, tc.urls[i].Host, res[i].Host)
+				}
+			}
+			for i := range tc.urls {
+				if res[i].Path != tc.urls[i].Path {
+					t.Errorf("%s: Unexpected path, want=%s, got=%s", tc.name, tc.urls[i].Path, res[i].Path)
 				}
 			}
 		})
