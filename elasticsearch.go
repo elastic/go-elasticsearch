@@ -52,7 +52,7 @@ func NewDefaultClient() (*Client, error) {
 // environment variable.
 //
 func NewClient(cfg Config) (*Client, error) {
-	envAddrs := addressesFromEnvironment()
+	envAddrs := addrsFromEnvironment()
 
 	if len(envAddrs) > 0 && len(cfg.Addresses) > 0 {
 		return nil, errors.New("cannot create client: both ELASTICSEARCH_URL and Addresses are set")
@@ -81,10 +81,10 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	return c.Transport.Perform(req)
 }
 
-// addressesFromEnvironment returns a list of addresses by splitting
+// addrsFromEnvironment returns a list of addresses by splitting
 // the ELASTICSEARCH_URL environment variable with comma, or an empty list.
 //
-func addressesFromEnvironment() []string {
+func addrsFromEnvironment() []string {
 	var addrs []string
 
 	if envURLs, ok := os.LookupEnv("ELASTICSEARCH_URL"); ok && envURLs != "" {
