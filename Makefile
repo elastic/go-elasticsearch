@@ -154,7 +154,7 @@ endif
 				--env "path.repo=/tmp" \
 				--env "repositories.url.allowed_urls=http://snapshot.test*" \
 				--env ES_JAVA_OPTS="-Xms1g -Xmx1g" \
-				--volume es$$n-data:/usr/share/elasticsearch/data \
+				--volume `echo $(version) | tr -C "[:alnum:]" '-'`-node-$$n-data:/usr/share/elasticsearch/data \
 				--publish $$((9199+$$n)):9200 \
 				--ulimit nofile=65536:65536 \
 				--ulimit memlock=-1:-1 \
