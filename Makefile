@@ -132,6 +132,8 @@ cluster: ## Launch an Elasticsearch cluster with Docker
 ifeq ($(origin nodes), undefined)
 	$(eval nodes = 1)
 endif
+	@echo "\033[2m→ Updating the Docker image...\033[0m"
+	@docker pull docker.elastic.co/elasticsearch/$(version);
 	@echo "\033[2m→ Launching" $(nodes) "node(s) of" $(version) "...\033[0m"
 ifeq ($(shell test $(nodes) && test $(nodes) -gt 1; echo $$?),0)
 	$(eval detached ?= "true")
