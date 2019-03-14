@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 6.7.0 (f77342646af): DO NOT EDIT
 
 package esapi
 
@@ -190,7 +190,7 @@ func (f IndicesGet) WithIncludeDefaults(v bool) func(*IndicesGetRequest) {
 	}
 }
 
-// WithIncludeTypeName - whether to add the type name to the response (default: false).
+// WithIncludeTypeName - whether to add the type name to the response (default: true).
 //
 func (f IndicesGet) WithIncludeTypeName(v bool) func(*IndicesGetRequest) {
 	return func(r *IndicesGetRequest) {

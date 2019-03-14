@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 6.7.0 (f77342646af): DO NOT EDIT
 
 package esapi
 
@@ -34,7 +34,6 @@ type MsearchTemplateRequest struct {
 	DocumentType []string
 	Body         io.Reader
 
-	CcsMinimizeRoundtrips *bool
 	MaxConcurrentSearches *int
 	RestTotalHitsAsInt    *bool
 	SearchType            string
@@ -74,10 +73,6 @@ func (r MsearchTemplateRequest) Do(ctx context.Context, transport Transport) (*R
 	path.WriteString("template")
 
 	params = make(map[string]string)
-
-	if r.CcsMinimizeRoundtrips != nil {
-		params["ccs_minimize_roundtrips"] = strconv.FormatBool(*r.CcsMinimizeRoundtrips)
-	}
 
 	if r.MaxConcurrentSearches != nil {
 		params["max_concurrent_searches"] = strconv.FormatInt(int64(*r.MaxConcurrentSearches), 10)
@@ -167,14 +162,6 @@ func (f MsearchTemplate) WithDocumentType(v ...string) func(*MsearchTemplateRequ
 	}
 }
 
-// WithCcsMinimizeRoundtrips - indicates whether network round-trips should be minimized as part of cross-cluster search requests execution.
-//
-func (f MsearchTemplate) WithCcsMinimizeRoundtrips(v bool) func(*MsearchTemplateRequest) {
-	return func(r *MsearchTemplateRequest) {
-		r.CcsMinimizeRoundtrips = &v
-	}
-}
-
 // WithMaxConcurrentSearches - controls the maximum number of concurrent searches the multi search api will execute.
 //
 func (f MsearchTemplate) WithMaxConcurrentSearches(v int) func(*MsearchTemplateRequest) {
@@ -183,7 +170,7 @@ func (f MsearchTemplate) WithMaxConcurrentSearches(v int) func(*MsearchTemplateR
 	}
 }
 
-// WithRestTotalHitsAsInt - indicates whether hits.total should be rendered as an integer or an object in the rest search response.
+// WithRestTotalHitsAsInt - this parameter is ignored in this version. it is used in the next major version to control whether the rest response should render the total.hits as an object or a number.
 //
 func (f MsearchTemplate) WithRestTotalHitsAsInt(v bool) func(*MsearchTemplateRequest) {
 	return func(r *MsearchTemplateRequest) {

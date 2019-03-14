@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 6.7.0 (f77342646af): DO NOT EDIT
 
 package esapi
 

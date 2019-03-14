@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 6.7.0 (f77342646af): DO NOT EDIT
 
 package esapi
 
@@ -152,7 +152,7 @@ func (f Scroll) WithBody(v io.Reader) func(*ScrollRequest) {
 	}
 }
 
-// WithRestTotalHitsAsInt - indicates whether hits.total should be rendered as an integer or an object in the rest search response.
+// WithRestTotalHitsAsInt - this parameter is ignored in this version. it is used in the next major version to control whether the rest response should render the total.hits as an object or a number.
 //
 func (f Scroll) WithRestTotalHitsAsInt(v bool) func(*ScrollRequest) {
 	return func(r *ScrollRequest) {

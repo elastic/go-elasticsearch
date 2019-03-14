@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 6.7.0 (f77342646af): DO NOT EDIT
 
 package esapi
 
@@ -41,7 +41,6 @@ type SearchRequest struct {
 	Analyzer                   string
 	AnalyzeWildcard            *bool
 	BatchedReduceSize          *int
-	CcsMinimizeRoundtrips      *bool
 	DefaultOperator            string
 	Df                         string
 	DocvalueFields             []string
@@ -130,10 +129,6 @@ func (r SearchRequest) Do(ctx context.Context, transport Transport) (*Response, 
 
 	if r.BatchedReduceSize != nil {
 		params["batched_reduce_size"] = strconv.FormatInt(int64(*r.BatchedReduceSize), 10)
-	}
-
-	if r.CcsMinimizeRoundtrips != nil {
-		params["ccs_minimize_roundtrips"] = strconv.FormatBool(*r.CcsMinimizeRoundtrips)
 	}
 
 	if r.DefaultOperator != "" {
@@ -400,14 +395,6 @@ func (f Search) WithBatchedReduceSize(v int) func(*SearchRequest) {
 	}
 }
 
-// WithCcsMinimizeRoundtrips - indicates whether network round-trips should be minimized as part of cross-cluster search requests execution.
-//
-func (f Search) WithCcsMinimizeRoundtrips(v bool) func(*SearchRequest) {
-	return func(r *SearchRequest) {
-		r.CcsMinimizeRoundtrips = &v
-	}
-}
-
 // WithDefaultOperator - the default operator for query string query (and or or).
 //
 func (f Search) WithDefaultOperator(v string) func(*SearchRequest) {
@@ -480,7 +467,7 @@ func (f Search) WithLenient(v bool) func(*SearchRequest) {
 	}
 }
 
-// WithMaxConcurrentShardRequests - the number of concurrent shard requests per node this search executes concurrently. this value should be used to limit the impact of the search on the cluster in order to limit the number of concurrent shard requests.
+// WithMaxConcurrentShardRequests - the number of concurrent shard requests this search executes concurrently. this value should be used to limit the impact of the search on the cluster in order to limit the number of concurrent shard requests.
 //
 func (f Search) WithMaxConcurrentShardRequests(v int) func(*SearchRequest) {
 	return func(r *SearchRequest) {
@@ -520,7 +507,7 @@ func (f Search) WithRequestCache(v bool) func(*SearchRequest) {
 	}
 }
 
-// WithRestTotalHitsAsInt - indicates whether hits.total should be rendered as an integer or an object in the rest search response.
+// WithRestTotalHitsAsInt - this parameter is ignored in this version. it is used in the next major version to control whether the rest response should render the total.hits as an object or a number.
 //
 func (f Search) WithRestTotalHitsAsInt(v bool) func(*SearchRequest) {
 	return func(r *SearchRequest) {

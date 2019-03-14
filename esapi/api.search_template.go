@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 6.7.0 (f77342646af): DO NOT EDIT
 
 package esapi
 
@@ -35,19 +35,18 @@ type SearchTemplateRequest struct {
 	DocumentType []string
 	Body         io.Reader
 
-	AllowNoIndices        *bool
-	CcsMinimizeRoundtrips *bool
-	ExpandWildcards       string
-	Explain               *bool
-	IgnoreThrottled       *bool
-	IgnoreUnavailable     *bool
-	Preference            string
-	Profile               *bool
-	RestTotalHitsAsInt    *bool
-	Routing               []string
-	Scroll                time.Duration
-	SearchType            string
-	TypedKeys             *bool
+	AllowNoIndices     *bool
+	ExpandWildcards    string
+	Explain            *bool
+	IgnoreThrottled    *bool
+	IgnoreUnavailable  *bool
+	Preference         string
+	Profile            *bool
+	RestTotalHitsAsInt *bool
+	Routing            []string
+	Scroll             time.Duration
+	SearchType         string
+	TypedKeys          *bool
 
 	Pretty     bool
 	Human      bool
@@ -86,10 +85,6 @@ func (r SearchTemplateRequest) Do(ctx context.Context, transport Transport) (*Re
 
 	if r.AllowNoIndices != nil {
 		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
-	}
-
-	if r.CcsMinimizeRoundtrips != nil {
-		params["ccs_minimize_roundtrips"] = strconv.FormatBool(*r.CcsMinimizeRoundtrips)
 	}
 
 	if r.ExpandWildcards != "" {
@@ -216,14 +211,6 @@ func (f SearchTemplate) WithAllowNoIndices(v bool) func(*SearchTemplateRequest) 
 	}
 }
 
-// WithCcsMinimizeRoundtrips - indicates whether network round-trips should be minimized as part of cross-cluster search requests execution.
-//
-func (f SearchTemplate) WithCcsMinimizeRoundtrips(v bool) func(*SearchTemplateRequest) {
-	return func(r *SearchTemplateRequest) {
-		r.CcsMinimizeRoundtrips = &v
-	}
-}
-
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
 //
 func (f SearchTemplate) WithExpandWildcards(v string) func(*SearchTemplateRequest) {
@@ -272,7 +259,7 @@ func (f SearchTemplate) WithProfile(v bool) func(*SearchTemplateRequest) {
 	}
 }
 
-// WithRestTotalHitsAsInt - indicates whether hits.total should be rendered as an integer or an object in the rest search response.
+// WithRestTotalHitsAsInt - this parameter is ignored in this version. it is used in the next major version to control whether the rest response should render the total.hits as an object or a number.
 //
 func (f SearchTemplate) WithRestTotalHitsAsInt(v bool) func(*SearchTemplateRequest) {
 	return func(r *SearchTemplateRequest) {

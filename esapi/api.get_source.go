@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 6.7.0 (f77342646af): DO NOT EDIT
 
 package esapi
 
@@ -70,10 +70,8 @@ func (r GetSourceRequest) Do(ctx context.Context, transport Transport) (*Respons
 	path.Grow(1 + len(r.Index) + 1 + len(r.DocumentType) + 1 + len(r.DocumentID) + 1 + len("_source"))
 	path.WriteString("/")
 	path.WriteString(r.Index)
-	if r.DocumentType != "" {
-		path.WriteString("/")
-		path.WriteString(r.DocumentType)
-	}
+	path.WriteString("/")
+	path.WriteString(r.DocumentType)
 	path.WriteString("/")
 	path.WriteString(r.DocumentID)
 	path.WriteString("/")
@@ -173,7 +171,7 @@ func (f GetSource) WithContext(v context.Context) func(*GetSourceRequest) {
 	}
 }
 
-// WithDocumentType - the type of the document; deprecated and optional starting with 7.0.
+// WithDocumentType - the type of the document; use `_all` to fetch the first document matching the ID across all types.
 //
 func (f GetSource) WithDocumentType(v string) func(*GetSourceRequest) {
 	return func(r *GetSourceRequest) {

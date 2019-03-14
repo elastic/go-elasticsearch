@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 6.7.0 (f77342646af): DO NOT EDIT
 
 package esapi
 
@@ -34,10 +34,12 @@ type IndicesClearCacheRequest struct {
 	AllowNoIndices    *bool
 	ExpandWildcards   string
 	Fielddata         *bool
+	FieldData         *bool
 	Fields            []string
 	IgnoreUnavailable *bool
 	Query             *bool
 	Request           *bool
+	RequestCache      *bool
 
 	Pretty     bool
 	Human      bool
@@ -82,6 +84,10 @@ func (r IndicesClearCacheRequest) Do(ctx context.Context, transport Transport) (
 		params["fielddata"] = strconv.FormatBool(*r.Fielddata)
 	}
 
+	if r.FieldData != nil {
+		params["field_data"] = strconv.FormatBool(*r.FieldData)
+	}
+
 	if len(r.Fields) > 0 {
 		params["fields"] = strings.Join(r.Fields, ",")
 	}
@@ -100,6 +106,10 @@ func (r IndicesClearCacheRequest) Do(ctx context.Context, transport Transport) (
 
 	if r.Request != nil {
 		params["request"] = strconv.FormatBool(*r.Request)
+	}
+
+	if r.RequestCache != nil {
+		params["request_cache"] = strconv.FormatBool(*r.RequestCache)
 	}
 
 	if r.Pretty {
@@ -186,6 +196,14 @@ func (f IndicesClearCache) WithFielddata(v bool) func(*IndicesClearCacheRequest)
 	}
 }
 
+// WithFieldData - clear field data. this is deprecated. prefer `fielddata`..
+//
+func (f IndicesClearCache) WithFieldData(v bool) func(*IndicesClearCacheRequest) {
+	return func(r *IndicesClearCacheRequest) {
+		r.FieldData = &v
+	}
+}
+
 // WithFields - a list of fields to clear when using the `fielddata` parameter (default: all).
 //
 func (f IndicesClearCache) WithFields(v ...string) func(*IndicesClearCacheRequest) {
@@ -215,6 +233,14 @@ func (f IndicesClearCache) WithQuery(v bool) func(*IndicesClearCacheRequest) {
 func (f IndicesClearCache) WithRequest(v bool) func(*IndicesClearCacheRequest) {
 	return func(r *IndicesClearCacheRequest) {
 		r.Request = &v
+	}
+}
+
+// WithRequestCache - clear request cache.
+//
+func (f IndicesClearCache) WithRequestCache(v bool) func(*IndicesClearCacheRequest) {
+	return func(r *IndicesClearCacheRequest) {
+		r.RequestCache = &v
 	}
 }
 

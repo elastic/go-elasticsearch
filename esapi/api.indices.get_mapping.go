@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 6.7.0 (f77342646af): DO NOT EDIT
 
 package esapi
 
@@ -189,7 +189,7 @@ func (f IndicesGetMapping) WithIgnoreUnavailable(v bool) func(*IndicesGetMapping
 	}
 }
 
-// WithIncludeTypeName - whether to add the type name to the response (default: false).
+// WithIncludeTypeName - whether to add the type name to the response..
 //
 func (f IndicesGetMapping) WithIncludeTypeName(v bool) func(*IndicesGetMappingRequest) {
 	return func(r *IndicesGetMappingRequest) {

@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 6.7.0 (f77342646af): DO NOT EDIT
 
 package esapi
 
@@ -36,6 +36,7 @@ type UpdateRequest struct {
 	DocumentID   string
 	Body         io.Reader
 
+	Fields              []string
 	IfPrimaryTerm       *int
 	IfSeqNo             *int
 	Lang                string
@@ -47,6 +48,8 @@ type UpdateRequest struct {
 	SourceExcludes      []string
 	SourceIncludes      []string
 	Timeout             time.Duration
+	Version             *int
+	VersionType         string
 	WaitForActiveShards string
 
 	Pretty     bool
@@ -75,16 +78,18 @@ func (r UpdateRequest) Do(ctx context.Context, transport Transport) (*Response, 
 	path.Grow(1 + len(r.Index) + 1 + len(r.DocumentType) + 1 + len(r.DocumentID) + 1 + len("_update"))
 	path.WriteString("/")
 	path.WriteString(r.Index)
-	if r.DocumentType != "" {
-		path.WriteString("/")
-		path.WriteString(r.DocumentType)
-	}
+	path.WriteString("/")
+	path.WriteString(r.DocumentType)
 	path.WriteString("/")
 	path.WriteString(r.DocumentID)
 	path.WriteString("/")
 	path.WriteString("_update")
 
 	params = make(map[string]string)
+
+	if len(r.Fields) > 0 {
+		params["fields"] = strings.Join(r.Fields, ",")
+	}
 
 	if r.IfPrimaryTerm != nil {
 		params["if_primary_term"] = strconv.FormatInt(int64(*r.IfPrimaryTerm), 10)
@@ -128,6 +133,14 @@ func (r UpdateRequest) Do(ctx context.Context, transport Transport) (*Response, 
 
 	if r.Timeout != 0 {
 		params["timeout"] = time.Duration(r.Timeout * time.Millisecond).String()
+	}
+
+	if r.Version != nil {
+		params["version"] = strconv.FormatInt(int64(*r.Version), 10)
+	}
+
+	if r.VersionType != "" {
+		params["version_type"] = r.VersionType
 	}
 
 	if r.WaitForActiveShards != "" {
@@ -195,6 +208,14 @@ func (f Update) WithContext(v context.Context) func(*UpdateRequest) {
 func (f Update) WithDocumentType(v string) func(*UpdateRequest) {
 	return func(r *UpdateRequest) {
 		r.DocumentType = v
+	}
+}
+
+// WithFields - a list of fields to return in the response.
+//
+func (f Update) WithFields(v ...string) func(*UpdateRequest) {
+	return func(r *UpdateRequest) {
+		r.Fields = v
 	}
 }
 
@@ -283,6 +304,22 @@ func (f Update) WithSourceIncludes(v ...string) func(*UpdateRequest) {
 func (f Update) WithTimeout(v time.Duration) func(*UpdateRequest) {
 	return func(r *UpdateRequest) {
 		r.Timeout = v
+	}
+}
+
+// WithVersion - explicit version number for concurrency control.
+//
+func (f Update) WithVersion(v int) func(*UpdateRequest) {
+	return func(r *UpdateRequest) {
+		r.Version = &v
+	}
+}
+
+// WithVersionType - specific version type.
+//
+func (f Update) WithVersionType(v string) func(*UpdateRequest) {
+	return func(r *UpdateRequest) {
+		r.VersionType = v
 	}
 }
 

@@ -1,9 +1,10 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 6.7.0 (f77342646af): DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"io"
 	"strconv"
 	"strings"
 )
@@ -30,6 +31,7 @@ type FieldCaps func(o ...func(*FieldCapsRequest)) (*Response, error)
 //
 type FieldCapsRequest struct {
 	Index []string
+	Body  io.Reader
 
 	AllowNoIndices    *bool
 	ExpandWildcards   string
@@ -97,7 +99,7 @@ func (r FieldCapsRequest) Do(ctx context.Context, transport Transport) (*Respons
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, _ := newRequest(method, path.String(), nil)
+	req, _ := newRequest(method, path.String(), r.Body)
 
 	if len(params) > 0 {
 		q := req.URL.Query()
@@ -105,6 +107,10 @@ func (r FieldCapsRequest) Do(ctx context.Context, transport Transport) (*Respons
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if r.Body != nil {
+		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if ctx != nil {
@@ -138,6 +144,14 @@ func (f FieldCaps) WithContext(v context.Context) func(*FieldCapsRequest) {
 func (f FieldCaps) WithIndex(v ...string) func(*FieldCapsRequest) {
 	return func(r *FieldCapsRequest) {
 		r.Index = v
+	}
+}
+
+// WithBody - Field json objects containing an array of field names.
+//
+func (f FieldCaps) WithBody(v io.Reader) func(*FieldCapsRequest) {
+	return func(r *FieldCapsRequest) {
+		r.Body = v
 	}
 }
 

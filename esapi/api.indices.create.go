@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 6.7.0 (f77342646af): DO NOT EDIT
 
 package esapi
 
@@ -37,6 +37,7 @@ type IndicesCreateRequest struct {
 	IncludeTypeName     *bool
 	MasterTimeout       time.Duration
 	Timeout             time.Duration
+	UpdateAllTypes      *bool
 	WaitForActiveShards string
 
 	Pretty     bool
@@ -74,6 +75,10 @@ func (r IndicesCreateRequest) Do(ctx context.Context, transport Transport) (*Res
 
 	if r.Timeout != 0 {
 		params["timeout"] = time.Duration(r.Timeout * time.Millisecond).String()
+	}
+
+	if r.UpdateAllTypes != nil {
+		params["update_all_types"] = strconv.FormatBool(*r.UpdateAllTypes)
 	}
 
 	if r.WaitForActiveShards != "" {
@@ -165,6 +170,14 @@ func (f IndicesCreate) WithMasterTimeout(v time.Duration) func(*IndicesCreateReq
 func (f IndicesCreate) WithTimeout(v time.Duration) func(*IndicesCreateRequest) {
 	return func(r *IndicesCreateRequest) {
 		r.Timeout = v
+	}
+}
+
+// WithUpdateAllTypes - whether to update the mapping for all fields with the same name across all types or not.
+//
+func (f IndicesCreate) WithUpdateAllTypes(v bool) func(*IndicesCreateRequest) {
+	return func(r *IndicesCreateRequest) {
+		r.UpdateAllTypes = &v
 	}
 }
 

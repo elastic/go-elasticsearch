@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 6.7.0 (f77342646af): DO NOT EDIT
 
 package esapi
 
@@ -34,7 +34,6 @@ type MsearchRequest struct {
 	DocumentType []string
 	Body         io.Reader
 
-	CcsMinimizeRoundtrips      *bool
 	MaxConcurrentSearches      *int
 	MaxConcurrentShardRequests *int
 	PreFilterShardSize         *int
@@ -74,10 +73,6 @@ func (r MsearchRequest) Do(ctx context.Context, transport Transport) (*Response,
 	path.WriteString("_msearch")
 
 	params = make(map[string]string)
-
-	if r.CcsMinimizeRoundtrips != nil {
-		params["ccs_minimize_roundtrips"] = strconv.FormatBool(*r.CcsMinimizeRoundtrips)
-	}
 
 	if r.MaxConcurrentSearches != nil {
 		params["max_concurrent_searches"] = strconv.FormatInt(int64(*r.MaxConcurrentSearches), 10)
@@ -175,14 +170,6 @@ func (f Msearch) WithDocumentType(v ...string) func(*MsearchRequest) {
 	}
 }
 
-// WithCcsMinimizeRoundtrips - indicates whether network round-trips should be minimized as part of cross-cluster search requests execution.
-//
-func (f Msearch) WithCcsMinimizeRoundtrips(v bool) func(*MsearchRequest) {
-	return func(r *MsearchRequest) {
-		r.CcsMinimizeRoundtrips = &v
-	}
-}
-
 // WithMaxConcurrentSearches - controls the maximum number of concurrent searches the multi search api will execute.
 //
 func (f Msearch) WithMaxConcurrentSearches(v int) func(*MsearchRequest) {
@@ -207,7 +194,7 @@ func (f Msearch) WithPreFilterShardSize(v int) func(*MsearchRequest) {
 	}
 }
 
-// WithRestTotalHitsAsInt - indicates whether hits.total should be rendered as an integer or an object in the rest search response.
+// WithRestTotalHitsAsInt - this parameter is ignored in this version. it is used in the next major version to control whether the rest response should render the total.hits as an object or a number.
 //
 func (f Msearch) WithRestTotalHitsAsInt(v bool) func(*MsearchRequest) {
 	return func(r *MsearchRequest) {
