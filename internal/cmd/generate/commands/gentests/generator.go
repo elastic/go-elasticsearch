@@ -144,6 +144,7 @@ func (g *Generator) gorun(code string) (string, error) {
 		os.RemoveAll(dir)
 	}()
 
+	// fmt.Println(code)
 	if err := ioutil.WriteFile(f.Name(), []byte(code), 0644); err != nil {
 		return "", fmt.Errorf("gorun: %s", err)
 	}

@@ -207,6 +207,7 @@ func (s *Store) buildQuery(query string, after ...string) io.Reader {
 
 	b.WriteString("\n}")
 
+	// fmt.Printf("%s\n", b.String())
 	return strings.NewReader(b.String())
 }
 
