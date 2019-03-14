@@ -2,4 +2,4 @@ module github.com/elastic/go-elasticsearch/_examples/clusterstatus
 
 replace github.com/elastic/go-elasticsearch => ../..
 
-require github.com/elastic/go-elasticsearch master
+require github.com/elastic/go-elasticsearch 6.x
