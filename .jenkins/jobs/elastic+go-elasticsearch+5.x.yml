@@ -1,0 +1,14 @@
+---
+- job:
+    name: elastic+go-elasticsearch+5.x
+    display-name: 'elastic / go-elasticsearch # 5.x'
+    description: Testing the go-elasticsearch 5.x branch.
+    junit_results: "*-junit.xml"
+    parameters:
+      - string:
+          name: branch_specifier
+          default: refs/heads/5.x
+          description: The Git branch specifier to build
+    triggers:
+      - github
+      - timed: '@daily'
