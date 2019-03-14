@@ -32,6 +32,7 @@ func TestGenerator(t *testing.T) {
 		if err != nil {
 			t.Fatalf("Error reading output for %q: %s", f.Name(), err)
 		}
+		// t.Logf("\n%s\n", s)
 
 		if !strings.Contains(string(s), "func newInfoFunc(t Transport) Info {") {
 			t.Error("Incorrect output")
