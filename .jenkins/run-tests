@@ -34,8 +34,8 @@ cmd="docker exec --tty go-elasticsearch /bin/sh /go-elasticsearch/tests.sh"
 
 if $cmd; then
   echo -e "\n\033[32;1mSUCCESS\033[0m"
-  exit $?
+  exit 0
 else
   echo -e "\n\033[31;1mFAILURE\033[0m"
-  exit $?
+  exit 1
 fi
