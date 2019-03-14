@@ -195,7 +195,7 @@ endif
 
 gen-tests:  ## Generate the API tests from the YAML specification
 	@echo "\033[2m→ Generating API tests from specification...\033[0m"
-	$(eval input  ?= tmp/elasticsearch/rest-api-spec/src/main/resources/rest-api-spec/test/**/*.yml)
+	$(eval input  ?= tmp/elasticsearch/rest-api-spec/src/main/resources/rest-api-spec/test/**/*.y*ml)
 	$(eval output ?= esapi/test)
 ifdef debug
 	$(eval args += --debug)
