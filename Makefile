@@ -172,6 +172,10 @@ endif
 		fi \
 	}
 
+cluster-clean: ## Remove unused Docker volumes and networks
+	docker volume prune --force
+	docker network prune --force
+
 docker: ## Build the Docker image and run it
 	docker build --file Dockerfile --tag elastic/go-elasticsearch .
 	docker run -it --network elasticsearch --volume $(PWD)/tmp:/tmp:rw,delegated --rm elastic/go-elasticsearch
@@ -206,4 +210,4 @@ help:  ## Display help
 #------------- <https://suva.sh/posts/well-documented-makefiles> --------------
 
 .DEFAULT_GOAL := help
-.PHONY: help apidiff coverage docker examples gen-api gen-tests godoc lint test test-api test-bench test-integ test-unit
+.PHONY: help apidiff cluster cluster-clean coverage docker examples gen-api gen-tests godoc lint test test-api test-bench test-integ test-unit
