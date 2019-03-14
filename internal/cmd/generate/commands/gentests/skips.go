@@ -16,6 +16,11 @@ func init() {
 	}
 }
 
+var skipFiles = []string{
+	"update/85_fields_meta.yml",            // Uses non-existing API property
+	"update/86_fields_meta_with_types.yml", // --||--
+}
+
 // TODO: Comments into descriptions for `Skip()`
 //
 var skipTestsYAML = `
@@ -47,9 +52,9 @@ cluster.reroute/11_explain.yml:
 nodes.info/30_settings.yml:
 nodes.stats/20_response_filtering.yml:
 nodes.stats/30_discovery.yml:
- - Discovery stats
+  - Discovery stats
 nodes.discovery/30_discovery.yml:
- - Discovery stats
+  - Discovery stats
 
 # Parsed response is YAML: value is map[interface {}]interface {}, not map[string]interface {}
 cat.aliases/20_headers.yml:
