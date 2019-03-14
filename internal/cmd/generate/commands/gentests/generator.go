@@ -493,6 +493,7 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 
 	// Pass the parameters
 	for k, v := range a.Params() {
+		// fmt.Printf("%s.%s: <%T> %v\n", a.Request(), k, v, v)
 
 		if strings.HasPrefix(fmt.Sprintf("%s", v), "$") {
 			v = `stash[` + strconv.Quote(fmt.Sprintf("%s", v)) + `]`
@@ -685,6 +686,8 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 
 		case map[interface{}]interface{}:
 			g.w("\t\t\t" + k + ": ")
+			// vv := unstash(convert(v).(map[string]interface{}))
+			// fmt.Println(vv)
 			j, err := json.Marshal(convert(v))
 			if err != nil {
 				panic(fmt.Sprintf("JSON parse error: %s; %s", err, v))
