@@ -132,6 +132,8 @@ cluster: ## Launch an Elasticsearch cluster with Docker
 ifeq ($(origin nodes), undefined)
 	$(eval nodes = 1)
 endif
+	@echo "\033[2m→ Updating the Docker image...\033[0m"
+	@docker pull docker.elastic.co/elasticsearch/$(version);
 	@echo "\033[2m→ Launching" $(nodes) "node(s) of" $(version) "...\033[0m"
 ifeq ($(shell test $(nodes) && test $(nodes) -gt 1; echo $$?),0)
 	$(eval detached ?= "true")
@@ -154,7 +156,7 @@ endif
 				--env "path.repo=/tmp" \
 				--env "repositories.url.allowed_urls=http://snapshot.test*" \
 				--env ES_JAVA_OPTS="-Xms1g -Xmx1g" \
-				--volume es$$n-data:/usr/share/elasticsearch/data \
+				--volume `echo $(version) | tr -C "[:alnum:]" '-'`-node-$$n-data:/usr/share/elasticsearch/data \
 				--publish $$((9199+$$n)):9200 \
 				--ulimit nofile=65536:65536 \
 				--ulimit memlock=-1:-1 \
@@ -169,6 +171,10 @@ endif
 			docker run --network elasticsearch --rm appropriate/curl --max-time 120 --retry 120 --retry-delay 1 --retry-connrefused --show-error --silent http://es1:9200; \
 		fi \
 	}
+
+cluster-clean: ## Remove unused Docker volumes and networks
+	docker volume prune --force
+	docker network prune --force
 
 docker: ## Build the Docker image and run it
 	docker build --file Dockerfile --tag elastic/go-elasticsearch .
@@ -204,4 +210,4 @@ help:  ## Display help
 #------------- <https://suva.sh/posts/well-documented-makefiles> --------------
 
 .DEFAULT_GOAL := help
-.PHONY: help apidiff coverage docker examples gen-api gen-tests godoc lint test test-api test-bench test-integ test-unit
+.PHONY: help apidiff cluster cluster-clean coverage docker examples gen-api gen-tests godoc lint test test-api test-bench test-integ test-unit

@@ -25,7 +25,7 @@ Install the package with `go get`:
 
 Or, add the package to your `go.mod` file:
 
-    require github.com/elastic/go-elasticsearch v0.0.0
+    require github.com/elastic/go-elasticsearch master
 
 Or, clone the repository:
 
@@ -39,7 +39,7 @@ mkdir my-elasticsearch-app && cd my-elasticsearch-app
 cat > go.mod <<-END
   module my-elasticsearch-app
 
-  require github.com/elastic/go-elasticsearch v0.0.0
+  require github.com/elastic/go-elasticsearch master
 END
 
 cat > main.go <<-END
@@ -88,9 +88,11 @@ log.Println(res)
 // ...
 ```
 
-NOTE: When you export the `ELASTICSEARCH_URL` environment variable, it will be used as the cluster endpoint.
+When you export the `ELASTICSEARCH_URL` environment variable,
+it will be used to set the cluster endpoint(s). Separate multiple adresses by a comma.
 
-To configure the client, use the `elasticsearch.NewClient()` function (the options are for illustrative purposes only).
+To set the cluster endpoint(s) programatically, pass them in the configuration object
+to the `elasticsearch.NewClient()` function.
 
 ```golang
 cfg := elasticsearch.Config{
@@ -98,13 +100,23 @@ cfg := elasticsearch.Config{
     "http://localhost:9200",
     "http://localhost:9201",
   },
+}
+es, err := elasticsearch.NewClient(cfg)
+// ...
+```
+
+To configure the HTTP settings, pass a [`http.Transport`](https://golang.org/pkg/net/http/#Transport)
+object in the configuration object (the values are for illustrative purposes only).
+
+```golang
+cfg := elasticsearch.Config{
   Transport: &http.Transport{
     MaxIdleConnsPerHost:   10,
     ResponseHeaderTimeout: time.Second,
     DialContext:           (&net.Dialer{Timeout: time.Second}).DialContext,
     TLSClientConfig: &tls.Config{
-      MaxVersion:         tls.VersionTLS11,
-      InsecureSkipVerify: true,
+      MinVersion: tls.VersionTLS11,
+      // ...
     },
   },
 }
@@ -112,6 +124,10 @@ cfg := elasticsearch.Config{
 es, err := elasticsearch.NewClient(cfg)
 // ...
 ```
+
+See the [`_examples/configuration.go`](_examples/configuration.go) and
+[`_examples/customization.go`](_examples/customization.go) files for
+more examples of configuration and customization of the client.
 
 The following example demonstrates a more complex usage. It fetches the Elasticsearch version from the cluster, indexes a couple of documents concurrently, and prints the search results, using a light wrapper around the response body.
 
@@ -260,7 +276,8 @@ func main() {
 // =====================================
 ```
 
-As you see in the example above, the `esapi` package allows to call the Elasticsearch APIs in two distinct ways: either by creating a struct, such as `IndexRequest`, and calling its `Do()` method by passing it a context and the client, or by calling the `Search()` function on the client directly, using the option functions such as `WithIndex()`. See more information and examples in the package documentation.
+As you see in the example above, the `esapi` package allows to call the Elasticsearch APIs in two distinct ways: either by creating a struct, such as `IndexRequest`, and calling its `Do()` method by passing it a context and the client, or by calling the `Search()` function on the client directly, using the option functions such as `WithIndex()`. See more information and examples in the
+[package documentation](https://godoc.org/github.com/elastic/go-elasticsearch/esapi).
 
 The `estransport` package handles the transfer of data to and from Elasticsearch. At the moment, the implementation is really minimal: it only round-robins across the configured cluster endpoints. In future, more features — retrying failed requests, ignoring certain status codes, auto-discovering nodes in the cluster, and so on — will be added.
 
