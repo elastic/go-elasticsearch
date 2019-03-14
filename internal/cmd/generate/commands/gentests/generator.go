@@ -301,6 +301,7 @@ func (g *Generator) genLocationYAML(t Test) {
 }
 
 func (g *Generator) genSkip(t Test) {
+	// Check the custom skip list
 	if skips, ok := skipTests[t.BaseFilename()]; ok {
 		if len(skips) < 1 {
 			g.w("\t// Skipping all tests in '" + t.BaseFilename() + "'\n")
@@ -312,6 +313,15 @@ func (g *Generator) genSkip(t Test) {
 			if skip == t.OrigName {
 				g.w("\tt.SkipNow()\n\n")
 			}
+		}
+	}
+
+	// Check the skip property coming from YAML
+	if t.Skip {
+		if t.SkipInfo != "" {
+			g.w("\tt.Skip(" + strconv.Quote(t.SkipInfo) + ")\n\n")
+		} else {
+			g.w("\tt.SkipNow()\n\n")
 		}
 	}
 }

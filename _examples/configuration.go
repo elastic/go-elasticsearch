@@ -27,8 +27,8 @@ func main() {
 			ResponseHeaderTimeout: time.Millisecond,
 			DialContext:           (&net.Dialer{Timeout: time.Nanosecond}).DialContext,
 			TLSClientConfig: &tls.Config{
-				MaxVersion:         tls.VersionTLS11,
-				InsecureSkipVerify: true,
+				MinVersion: tls.VersionTLS11,
+				// ...
 			},
 		},
 	}
@@ -38,5 +38,6 @@ func main() {
 		log.Printf("Error creating the client: %s", err)
 	} else {
 		log.Println(es.Info())
+		// => dial tcp: i/o timeout
 	}
 }

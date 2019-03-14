@@ -42,8 +42,7 @@ func ExampleNewClient() {
 			ResponseHeaderTimeout: time.Second,
 			DialContext:           (&net.Dialer{Timeout: time.Second}).DialContext,
 			TLSClientConfig: &tls.Config{
-				MaxVersion:         tls.VersionTLS11,
-				InsecureSkipVerify: true,
+				MinVersion:         tls.VersionTLS11,
 			},
 		},
 	}

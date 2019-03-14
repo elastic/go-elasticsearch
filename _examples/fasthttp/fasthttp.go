@@ -41,7 +41,7 @@ func (t *Transport) copyRequest(src *http.Request, dst *fasthttp.Request) *fasth
 
 	dst.Header.SetRequestURI(src.URL.String())
 	dst.Header.SetMethod(src.Method)
-	dst.Header.SetUserAgent("go-elasticsearch@v0.0.0")
+	dst.Header.SetUserAgent("go-elasticsearch@master")
 
 	if src.Body != nil {
 		var b bytes.Buffer

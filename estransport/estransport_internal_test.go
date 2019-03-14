@@ -107,11 +107,26 @@ func TestTransportPerform(t *testing.T) {
 			t.Errorf("Unexpected values for username and password: %s:%s", username, password)
 		}
 	})
+
+	t.Run("Error No URL", func(t *testing.T) {
+		tp := New(Config{
+			URLs: []*url.URL{},
+			Transport: &mockTransp{
+				RoundTripFunc: func(req *http.Request) (*http.Response, error) { return &http.Response{Status: "MOCK"}, nil },
+			}})
+
+		req, _ := http.NewRequest("GET", "/abc", nil)
+
+		res, err := tp.Perform(req)
+		if err.Error() != "cannot get URL: No URL available" {
+			t.Fatalf("Expected error `cannot get URL`: but got error %v, response %v", err, res)
+		}
+	})
 }
 
 func TestTransportSelector(t *testing.T) {
-	t.Run("Empty URLs", func(t *testing.T) {
-		tp := New(Config{})
+	t.Run("Nil value", func(t *testing.T) {
+		tp := New(Config{URLs: []*url.URL{nil}})
 
 		u, err := tp.selector.Select()
 		if err == nil {
@@ -119,8 +134,8 @@ func TestTransportSelector(t *testing.T) {
 		}
 	})
 
-	t.Run("Nil value", func(t *testing.T) {
-		tp := New(Config{URLs: []*url.URL{nil}})
+	t.Run("No URL", func(t *testing.T) {
+		tp := New(Config{})
 
 		u, err := tp.selector.Select()
 		if err == nil {
@@ -196,6 +211,22 @@ func TestTransportSelector(t *testing.T) {
 			if u.String() != expected {
 				t.Errorf("Unexpected URL, want=%s, got=%s", expected, u)
 			}
+		}
+	})
+}
+
+func TestURLs(t *testing.T) {
+	t.Run("Returns URLs", func(t *testing.T) {
+		tp := New(Config{URLs: []*url.URL{
+			{Scheme: "http", Host: "localhost:9200"},
+			{Scheme: "http", Host: "localhost:9201"},
+		}})
+		urls := tp.URLs()
+		if len(urls) != 2 {
+			t.Errorf("Expected get 2 urls, but got: %d", len(urls))
+		}
+		if urls[0].Host != "localhost:9200" {
+			t.Errorf("Unexpected URL, want=localhost:9200, got=%s", urls[0].Host)
 		}
 	})
 }
