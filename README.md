@@ -25,7 +25,7 @@ Install the package with `go get`:
 
 Or, add the package to your `go.mod` file:
 
-    require github.com/elastic/go-elasticsearch v0.0.0
+    require github.com/elastic/go-elasticsearch master
 
 Or, clone the repository:
 
@@ -39,7 +39,7 @@ mkdir my-elasticsearch-app && cd my-elasticsearch-app
 cat > go.mod <<-END
   module my-elasticsearch-app
 
-  require github.com/elastic/go-elasticsearch v0.0.0
+  require github.com/elastic/go-elasticsearch master
 END
 
 cat > main.go <<-END
