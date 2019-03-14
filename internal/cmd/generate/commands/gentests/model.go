@@ -28,7 +28,7 @@ type TestSuite struct {
 	Dir      string
 	Filepath string
 	Skip     bool
-	// TODO: SkipInfo
+	SkipInfo string
 
 	Setup    []Action
 	Teardown []Action
@@ -42,6 +42,9 @@ type Test struct {
 	Name     string
 	Filepath string
 	OrigName string
+
+	Skip     bool
+	SkipInfo string
 
 	Setup    []Action
 	Teardown []Action
@@ -119,10 +122,28 @@ func NewTestSuite(fpath string, payloads []TestPayload) TestSuite {
 				for _, vv := range v.([]interface{}) {
 					switch utils.MapKeys(vv)[0] {
 					case "skip":
-						// TODO: SkipInfo
-						skip_v := vv.(map[interface{}]interface{})["skip"].(map[interface{}]interface{})["version"]
-						if skip_v == "all" {
-							ts.Skip = true
+						var (
+							ok     bool
+							skip_v string
+							skip_r string
+						)
+
+						skip := vv.(map[interface{}]interface{})["skip"]
+
+						if skip_v, ok = skip.(map[interface{}]interface{})["version"].(string); ok {
+							if skip_rr, ok := skip.(map[interface{}]interface{})["reason"].(string); ok {
+								skip_r = skip_rr
+							}
+							if skip_v == "all" {
+								t.Skip = true
+								t.SkipInfo = "Skipping all versions"
+								break
+							}
+							if ts.SkipEsVersion(skip_v) {
+								// fmt.Printf("Skip: %q, EsVersion: %s, Skip: %v, Reason: %s\n", skip_v, EsVersion, ts.SkipEsVersion(skip_v), skip_r)
+								t.Skip = true
+								t.SkipInfo = skip_r
+							}
 						}
 					case "setup":
 						for _, vvv := range vv.(map[interface{}]interface{}) {
@@ -240,6 +261,12 @@ func (ts TestSuite) Filename() string {
 	return b.String()
 }
 
+// SkipEsVersion returns true if the test suite should be skipped.
+//
+func (ts TestSuite) SkipEsVersion(minmax string) bool {
+	return skipVersion(minmax)
+}
+
 // BaseFilename returns the original filename in form of `foo/10_bar.yml`.
 //
 func (t Test) BaseFilename() string {
@@ -248,6 +275,12 @@ func (t Test) BaseFilename() string {
 		return ""
 	}
 	return strings.Join(parts[len(parts)-2:], string(filepath.Separator))
+}
+
+// SkipEsVersion returns true if the test should be skipped.
+//
+func (t Test) SkipEsVersion(minmax string) bool {
+	return skipVersion(minmax)
 }
 
 // ContainsAssertion returns true when the set of steps
@@ -806,4 +839,26 @@ func escape(s interface{}) string {
 		return s
 	}
 	return fmt.Sprintf("%s", s)
+}
+
+// skipVersion parses minmax string and returns
+// true when EsVersion is in the range.
+//
+func skipVersion(minmax string) bool {
+	versions := strings.Split(minmax, "-")
+	if len(versions) < 2 {
+		panic(fmt.Sprintf("skipVersion: Unexpected input: %q", minmax))
+	}
+
+	min, max := strings.TrimSpace(versions[0]), strings.TrimSpace(versions[1])
+
+	if max == "" { // Skip when max version is not set
+		return true
+	}
+
+	if EsVersion >= min && EsVersion <= max {
+		return true
+	}
+
+	return false
 }

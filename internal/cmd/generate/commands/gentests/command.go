@@ -4,6 +4,7 @@ package gentests
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -95,6 +96,22 @@ func (cmd *Command) Execute() error {
 
 	if len(inputFiles) < 1 {
 		return fmt.Errorf("No files matching input %q", cmd.Input)
+	}
+
+	EsVersion, err = utils.EsVersion(filepath.Dir(inputFiles[0]))
+	if err != nil {
+		return err
+	}
+	if EsVersion == "" {
+		return errors.New("Elasticsearch version is empty")
+	}
+
+	if utils.IsTTY() {
+		fmt.Fprint(os.Stderr, "\x1b[2;1m")
+	}
+	fmt.Fprintf(os.Stderr, "Elasticsearch %s\n", EsVersion)
+	if utils.IsTTY() {
+		fmt.Fprint(os.Stderr, "\x1b[0m")
 	}
 
 	GitCommit, err = utils.GitCommit(filepath.Dir(inputFiles[0]))
