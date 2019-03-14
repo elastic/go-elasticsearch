@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 7.1.0 (8dc8fc507d9): DO NOT EDIT
 
 package esapi
 
@@ -32,16 +32,17 @@ type CatIndices func(o ...func(*CatIndicesRequest)) (*Response, error)
 type CatIndicesRequest struct {
 	Index []string
 
-	Bytes         string
-	Format        string
-	H             []string
-	Health        string
-	Help          *bool
-	Local         *bool
-	MasterTimeout time.Duration
-	Pri           *bool
-	S             []string
-	V             *bool
+	Bytes                   string
+	Format                  string
+	H                       []string
+	Health                  string
+	Help                    *bool
+	IncludeUnloadedSegments *bool
+	Local                   *bool
+	MasterTimeout           time.Duration
+	Pri                     *bool
+	S                       []string
+	V                       *bool
 
 	Pretty     bool
 	Human      bool
@@ -92,6 +93,10 @@ func (r CatIndicesRequest) Do(ctx context.Context, transport Transport) (*Respon
 
 	if r.Help != nil {
 		params["help"] = strconv.FormatBool(*r.Help)
+	}
+
+	if r.IncludeUnloadedSegments != nil {
+		params["include_unloaded_segments"] = strconv.FormatBool(*r.IncludeUnloadedSegments)
 	}
 
 	if r.Local != nil {
@@ -211,6 +216,14 @@ func (f CatIndices) WithHealth(v string) func(*CatIndicesRequest) {
 func (f CatIndices) WithHelp(v bool) func(*CatIndicesRequest) {
 	return func(r *CatIndicesRequest) {
 		r.Help = &v
+	}
+}
+
+// WithIncludeUnloadedSegments - if set to true segment stats will include stats for segments that are not currently loaded into memory.
+//
+func (f CatIndices) WithIncludeUnloadedSegments(v bool) func(*CatIndicesRequest) {
+	return func(r *CatIndicesRequest) {
+		r.IncludeUnloadedSegments = &v
 	}
 }
 
