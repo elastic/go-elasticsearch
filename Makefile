@@ -128,7 +128,7 @@ godoc: ## Display documentation for the package
 	GOROOT=/tmp/tmpgoroot/ GOPATH=/tmp/tmpgopath/ godoc -http=localhost:6060 -play
 
 cluster: ## Launch an Elasticsearch cluster with Docker
-	$(eval version ?= "elasticsearch-oss:7.0.0-SNAPSHOT")
+	$(eval version ?= "elasticsearch:5.6.15")
 ifeq ($(origin nodes), undefined)
 	$(eval nodes = 1)
 endif
@@ -148,13 +148,15 @@ endif
 				--network elasticsearch \
 				--env "node.name=es$$n" \
 				--env "cluster.name=go-elasticsearch" \
-				--env "cluster.initial_master_nodes=es1" \
 				--env "cluster.routing.allocation.disk.threshold_enabled=false" \
 				--env "discovery.zen.ping.unicast.hosts=es1" \
 				--env "bootstrap.memory_lock=true" \
 				--env "node.attr.testattr=test" \
 				--env "path.repo=/tmp" \
 				--env "repositories.url.allowed_urls=http://snapshot.test*" \
+				--env "xpack.security.enabled=false" \
+				--env "xpack.monitoring.enabled=false" \
+				--env "xpack.ml.enabled=false" \
 				--env ES_JAVA_OPTS="-Xms1g -Xmx1g" \
 				--volume `echo $(version) | tr -C "[:alnum:]" '-'`-node-$$n-data:/usr/share/elasticsearch/data \
 				--publish $$((9199+$$n)):9200 \
