@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -21,7 +21,7 @@ func newTasksCancelFunc(t Transport) TasksCancel {
 
 // TasksCancel cancels a task, if it can be cancelled through an API.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/tasks.html.
 //
 type TasksCancel func(o ...func(*TasksCancelRequest)) (*Response, error)
 
@@ -31,6 +31,7 @@ type TasksCancelRequest struct {
 	TaskID       string
 	Actions      []string
 	Nodes        []string
+	ParentNode   string
 	ParentTaskID string
 
 	Pretty     bool
@@ -70,6 +71,10 @@ func (r TasksCancelRequest) Do(ctx context.Context, transport Transport) (*Respo
 
 	if len(r.Nodes) > 0 {
 		params["nodes"] = strings.Join(r.Nodes, ",")
+	}
+
+	if r.ParentNode != "" {
+		params["parent_node"] = r.ParentNode
 	}
 
 	if r.ParentTaskID != "" {
@@ -149,6 +154,14 @@ func (f TasksCancel) WithActions(v ...string) func(*TasksCancelRequest) {
 func (f TasksCancel) WithNodes(v ...string) func(*TasksCancelRequest) {
 	return func(r *TasksCancelRequest) {
 		r.Nodes = v
+	}
+}
+
+// WithParentNode - cancel tasks with specified parent node..
+//
+func (f TasksCancel) WithParentNode(v string) func(*TasksCancelRequest) {
+	return func(r *TasksCancelRequest) {
+		r.ParentNode = v
 	}
 }
 

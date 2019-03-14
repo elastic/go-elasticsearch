@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -23,7 +23,7 @@ func newExplainFunc(t Transport) Explain {
 
 // Explain returns information about why a specific matches (or doesn't match) a query.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/search-explain.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-explain.html.
 //
 type Explain func(index string, id string, o ...func(*ExplainRequest)) (*Response, error)
 
@@ -45,8 +45,8 @@ type ExplainRequest struct {
 	Query           string
 	Routing         string
 	Source          []string
-	SourceExcludes  []string
-	SourceIncludes  []string
+	SourceExclude   []string
+	SourceInclude   []string
 	StoredFields    []string
 
 	Pretty     bool
@@ -75,10 +75,8 @@ func (r ExplainRequest) Do(ctx context.Context, transport Transport) (*Response,
 	path.Grow(1 + len(r.Index) + 1 + len(r.DocumentType) + 1 + len(r.DocumentID) + 1 + len("_explain"))
 	path.WriteString("/")
 	path.WriteString(r.Index)
-	if r.DocumentType != "" {
-		path.WriteString("/")
-		path.WriteString(r.DocumentType)
-	}
+	path.WriteString("/")
+	path.WriteString(r.DocumentType)
 	path.WriteString("/")
 	path.WriteString(r.DocumentID)
 	path.WriteString("/")
@@ -126,12 +124,12 @@ func (r ExplainRequest) Do(ctx context.Context, transport Transport) (*Response,
 		params["_source"] = strings.Join(r.Source, ",")
 	}
 
-	if len(r.SourceExcludes) > 0 {
-		params["_source_excludes"] = strings.Join(r.SourceExcludes, ",")
+	if len(r.SourceExclude) > 0 {
+		params["_source_exclude"] = strings.Join(r.SourceExclude, ",")
 	}
 
-	if len(r.SourceIncludes) > 0 {
-		params["_source_includes"] = strings.Join(r.SourceIncludes, ",")
+	if len(r.SourceInclude) > 0 {
+		params["_source_include"] = strings.Join(r.SourceInclude, ",")
 	}
 
 	if len(r.StoredFields) > 0 {
@@ -290,19 +288,19 @@ func (f Explain) WithSource(v ...string) func(*ExplainRequest) {
 	}
 }
 
-// WithSourceExcludes - a list of fields to exclude from the returned _source field.
+// WithSourceExclude - a list of fields to exclude from the returned _source field.
 //
-func (f Explain) WithSourceExcludes(v ...string) func(*ExplainRequest) {
+func (f Explain) WithSourceExclude(v ...string) func(*ExplainRequest) {
 	return func(r *ExplainRequest) {
-		r.SourceExcludes = v
+		r.SourceExclude = v
 	}
 }
 
-// WithSourceIncludes - a list of fields to extract and return from the _source field.
+// WithSourceInclude - a list of fields to extract and return from the _source field.
 //
-func (f Explain) WithSourceIncludes(v ...string) func(*ExplainRequest) {
+func (f Explain) WithSourceInclude(v ...string) func(*ExplainRequest) {
 	return func(r *ExplainRequest) {
-		r.SourceIncludes = v
+		r.SourceInclude = v
 	}
 }
 

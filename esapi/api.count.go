@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -23,7 +23,7 @@ func newCountFunc(t Transport) Count {
 
 // Count returns number of documents matching a query.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/search-count.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-count.html.
 //
 type Count func(o ...func(*CountRequest)) (*Response, error)
 
@@ -40,7 +40,6 @@ type CountRequest struct {
 	DefaultOperator   string
 	Df                string
 	ExpandWildcards   string
-	IgnoreThrottled   *bool
 	IgnoreUnavailable *bool
 	Lenient           *bool
 	MinScore          *int
@@ -104,10 +103,6 @@ func (r CountRequest) Do(ctx context.Context, transport Transport) (*Response, e
 
 	if r.ExpandWildcards != "" {
 		params["expand_wildcards"] = r.ExpandWildcards
-	}
-
-	if r.IgnoreThrottled != nil {
-		params["ignore_throttled"] = strconv.FormatBool(*r.IgnoreThrottled)
 	}
 
 	if r.IgnoreUnavailable != nil {
@@ -263,14 +258,6 @@ func (f Count) WithDf(v string) func(*CountRequest) {
 func (f Count) WithExpandWildcards(v string) func(*CountRequest) {
 	return func(r *CountRequest) {
 		r.ExpandWildcards = v
-	}
-}
-
-// WithIgnoreThrottled - whether specified concrete, expanded or aliased indices should be ignored when throttled.
-//
-func (f Count) WithIgnoreThrottled(v bool) func(*CountRequest) {
-	return func(r *CountRequest) {
-		r.IgnoreThrottled = &v
 	}
 }
 

@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -22,7 +22,7 @@ func newIndicesClearCacheFunc(t Transport) IndicesClearCache {
 
 // IndicesClearCache clears all or specific caches for one or more indices.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-clearcache.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-clearcache.html.
 //
 type IndicesClearCache func(o ...func(*IndicesClearCacheRequest)) (*Response, error)
 
@@ -33,11 +33,14 @@ type IndicesClearCacheRequest struct {
 
 	AllowNoIndices    *bool
 	ExpandWildcards   string
+	FieldData         *bool
 	Fielddata         *bool
 	Fields            []string
 	IgnoreUnavailable *bool
 	Query             *bool
+	Recycler          *bool
 	Request           *bool
+	RequestCache      *bool
 
 	Pretty     bool
 	Human      bool
@@ -78,6 +81,10 @@ func (r IndicesClearCacheRequest) Do(ctx context.Context, transport Transport) (
 		params["expand_wildcards"] = r.ExpandWildcards
 	}
 
+	if r.FieldData != nil {
+		params["field_data"] = strconv.FormatBool(*r.FieldData)
+	}
+
 	if r.Fielddata != nil {
 		params["fielddata"] = strconv.FormatBool(*r.Fielddata)
 	}
@@ -98,8 +105,16 @@ func (r IndicesClearCacheRequest) Do(ctx context.Context, transport Transport) (
 		params["query"] = strconv.FormatBool(*r.Query)
 	}
 
+	if r.Recycler != nil {
+		params["recycler"] = strconv.FormatBool(*r.Recycler)
+	}
+
 	if r.Request != nil {
 		params["request"] = strconv.FormatBool(*r.Request)
+	}
+
+	if r.RequestCache != nil {
+		params["request_cache"] = strconv.FormatBool(*r.RequestCache)
 	}
 
 	if r.Pretty {
@@ -178,6 +193,14 @@ func (f IndicesClearCache) WithExpandWildcards(v string) func(*IndicesClearCache
 	}
 }
 
+// WithFieldData - clear field data.
+//
+func (f IndicesClearCache) WithFieldData(v bool) func(*IndicesClearCacheRequest) {
+	return func(r *IndicesClearCacheRequest) {
+		r.FieldData = &v
+	}
+}
+
 // WithFielddata - clear field data.
 //
 func (f IndicesClearCache) WithFielddata(v bool) func(*IndicesClearCacheRequest) {
@@ -186,7 +209,7 @@ func (f IndicesClearCache) WithFielddata(v bool) func(*IndicesClearCacheRequest)
 	}
 }
 
-// WithFields - a list of fields to clear when using the `fielddata` parameter (default: all).
+// WithFields - a list of fields to clear when using the `field_data` parameter (default: all).
 //
 func (f IndicesClearCache) WithFields(v ...string) func(*IndicesClearCacheRequest) {
 	return func(r *IndicesClearCacheRequest) {
@@ -210,11 +233,27 @@ func (f IndicesClearCache) WithQuery(v bool) func(*IndicesClearCacheRequest) {
 	}
 }
 
+// WithRecycler - clear the recycler cache.
+//
+func (f IndicesClearCache) WithRecycler(v bool) func(*IndicesClearCacheRequest) {
+	return func(r *IndicesClearCacheRequest) {
+		r.Recycler = &v
+	}
+}
+
 // WithRequest - clear request cache.
 //
 func (f IndicesClearCache) WithRequest(v bool) func(*IndicesClearCacheRequest) {
 	return func(r *IndicesClearCacheRequest) {
 		r.Request = &v
+	}
+}
+
+// WithRequestCache - clear request cache.
+//
+func (f IndicesClearCache) WithRequestCache(v bool) func(*IndicesClearCacheRequest) {
+	return func(r *IndicesClearCacheRequest) {
+		r.RequestCache = &v
 	}
 }
 

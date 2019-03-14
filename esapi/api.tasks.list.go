@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -6,7 +6,6 @@ import (
 	"context"
 	"strconv"
 	"strings"
-	"time"
 )
 
 func newTasksListFunc(t Transport) TasksList {
@@ -23,7 +22,7 @@ func newTasksListFunc(t Transport) TasksList {
 
 // TasksList returns a list of tasks.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/tasks.html.
 //
 type TasksList func(o ...func(*TasksListRequest)) (*Response, error)
 
@@ -34,8 +33,8 @@ type TasksListRequest struct {
 	Detailed          *bool
 	GroupBy           string
 	Nodes             []string
+	ParentNode        string
 	ParentTaskID      string
-	Timeout           time.Duration
 	WaitForCompletion *bool
 
 	Pretty     bool
@@ -78,12 +77,12 @@ func (r TasksListRequest) Do(ctx context.Context, transport Transport) (*Respons
 		params["nodes"] = strings.Join(r.Nodes, ",")
 	}
 
-	if r.ParentTaskID != "" {
-		params["parent_task_id"] = r.ParentTaskID
+	if r.ParentNode != "" {
+		params["parent_node"] = r.ParentNode
 	}
 
-	if r.Timeout != 0 {
-		params["timeout"] = time.Duration(r.Timeout * time.Millisecond).String()
+	if r.ParentTaskID != "" {
+		params["parent_task_id"] = r.ParentTaskID
 	}
 
 	if r.WaitForCompletion != nil {
@@ -174,19 +173,19 @@ func (f TasksList) WithNodes(v ...string) func(*TasksListRequest) {
 	}
 }
 
+// WithParentNode - return tasks with specified parent node..
+//
+func (f TasksList) WithParentNode(v string) func(*TasksListRequest) {
+	return func(r *TasksListRequest) {
+		r.ParentNode = v
+	}
+}
+
 // WithParentTaskID - return tasks with specified parent task ID (node_id:task_number). set to -1 to return all..
 //
 func (f TasksList) WithParentTaskID(v string) func(*TasksListRequest) {
 	return func(r *TasksListRequest) {
 		r.ParentTaskID = v
-	}
-}
-
-// WithTimeout - explicit operation timeout.
-//
-func (f TasksList) WithTimeout(v time.Duration) func(*TasksListRequest) {
-	return func(r *TasksListRequest) {
-		r.Timeout = v
 	}
 }
 

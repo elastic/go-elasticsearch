@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -6,12 +6,11 @@ import (
 	"context"
 	"strconv"
 	"strings"
-	"time"
 )
 
 func newTasksGetFunc(t Transport) TasksGet {
-	return func(task_id string, o ...func(*TasksGetRequest)) (*Response, error) {
-		var r = TasksGetRequest{TaskID: task_id}
+	return func(o ...func(*TasksGetRequest)) (*Response, error) {
+		var r = TasksGetRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -23,15 +22,14 @@ func newTasksGetFunc(t Transport) TasksGet {
 
 // TasksGet returns information about a task.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/tasks.html.
 //
-type TasksGet func(task_id string, o ...func(*TasksGetRequest)) (*Response, error)
+type TasksGet func(o ...func(*TasksGetRequest)) (*Response, error)
 
 // TasksGetRequest configures the Tasks Get API request.
 //
 type TasksGetRequest struct {
 	TaskID            string
-	Timeout           time.Duration
 	WaitForCompletion *bool
 
 	Pretty     bool
@@ -56,14 +54,12 @@ func (r TasksGetRequest) Do(ctx context.Context, transport Transport) (*Response
 	path.Grow(1 + len("_tasks") + 1 + len(r.TaskID))
 	path.WriteString("/")
 	path.WriteString("_tasks")
-	path.WriteString("/")
-	path.WriteString(r.TaskID)
+	if r.TaskID != "" {
+		path.WriteString("/")
+		path.WriteString(r.TaskID)
+	}
 
 	params = make(map[string]string)
-
-	if r.Timeout != 0 {
-		params["timeout"] = time.Duration(r.Timeout * time.Millisecond).String()
-	}
 
 	if r.WaitForCompletion != nil {
 		params["wait_for_completion"] = strconv.FormatBool(*r.WaitForCompletion)
@@ -121,11 +117,11 @@ func (f TasksGet) WithContext(v context.Context) func(*TasksGetRequest) {
 	}
 }
 
-// WithTimeout - explicit operation timeout.
+// WithTaskID - return the task with specified ID (node_id:task_number).
 //
-func (f TasksGet) WithTimeout(v time.Duration) func(*TasksGetRequest) {
+func (f TasksGet) WithTaskID(v string) func(*TasksGetRequest) {
 	return func(r *TasksGetRequest) {
-		r.Timeout = v
+		r.TaskID = v
 	}
 }
 

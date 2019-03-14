@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -25,7 +25,7 @@ func newUpdateByQueryFunc(t Transport) UpdateByQuery {
 // UpdateByQuery performs an update on every document in the index without changing the source,
 // for example to pick up a mapping change.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-update-by-query.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-update-by-query.html.
 //
 type UpdateByQuery func(index []string, o ...func(*UpdateByQueryRequest)) (*Response, error)
 
@@ -61,8 +61,8 @@ type UpdateByQueryRequest struct {
 	Slices              *int
 	Sort                []string
 	Source              []string
-	SourceExcludes      []string
-	SourceIncludes      []string
+	SourceExclude       []string
+	SourceInclude       []string
 	Stats               []string
 	TerminateAfter      *int
 	Timeout             time.Duration
@@ -202,12 +202,12 @@ func (r UpdateByQueryRequest) Do(ctx context.Context, transport Transport) (*Res
 		params["_source"] = strings.Join(r.Source, ",")
 	}
 
-	if len(r.SourceExcludes) > 0 {
-		params["_source_excludes"] = strings.Join(r.SourceExcludes, ",")
+	if len(r.SourceExclude) > 0 {
+		params["_source_exclude"] = strings.Join(r.SourceExclude, ",")
 	}
 
-	if len(r.SourceIncludes) > 0 {
-		params["_source_includes"] = strings.Join(r.SourceIncludes, ",")
+	if len(r.SourceInclude) > 0 {
+		params["_source_include"] = strings.Join(r.SourceInclude, ",")
 	}
 
 	if len(r.Stats) > 0 {
@@ -454,7 +454,7 @@ func (f UpdateByQuery) WithScroll(v time.Duration) func(*UpdateByQueryRequest) {
 	}
 }
 
-// WithScrollSize - size on the scroll request powering the update by query.
+// WithScrollSize - size on the scroll request powering the update_by_query.
 //
 func (f UpdateByQuery) WithScrollSize(v int) func(*UpdateByQueryRequest) {
 	return func(r *UpdateByQueryRequest) {
@@ -510,19 +510,19 @@ func (f UpdateByQuery) WithSource(v ...string) func(*UpdateByQueryRequest) {
 	}
 }
 
-// WithSourceExcludes - a list of fields to exclude from the returned _source field.
+// WithSourceExclude - a list of fields to exclude from the returned _source field.
 //
-func (f UpdateByQuery) WithSourceExcludes(v ...string) func(*UpdateByQueryRequest) {
+func (f UpdateByQuery) WithSourceExclude(v ...string) func(*UpdateByQueryRequest) {
 	return func(r *UpdateByQueryRequest) {
-		r.SourceExcludes = v
+		r.SourceExclude = v
 	}
 }
 
-// WithSourceIncludes - a list of fields to extract and return from the _source field.
+// WithSourceInclude - a list of fields to extract and return from the _source field.
 //
-func (f UpdateByQuery) WithSourceIncludes(v ...string) func(*UpdateByQueryRequest) {
+func (f UpdateByQuery) WithSourceInclude(v ...string) func(*UpdateByQueryRequest) {
 	return func(r *UpdateByQueryRequest) {
-		r.SourceIncludes = v
+		r.SourceInclude = v
 	}
 }
 

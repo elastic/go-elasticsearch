@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -11,8 +11,8 @@ import (
 )
 
 func newSearchTemplateFunc(t Transport) SearchTemplate {
-	return func(body io.Reader, o ...func(*SearchTemplateRequest)) (*Response, error) {
-		var r = SearchTemplateRequest{Body: body}
+	return func(o ...func(*SearchTemplateRequest)) (*Response, error) {
+		var r = SearchTemplateRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -24,9 +24,9 @@ func newSearchTemplateFunc(t Transport) SearchTemplate {
 
 // SearchTemplate allows to use the Mustache language to pre-render a search definition.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/search-template.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/search-template.html.
 //
-type SearchTemplate func(body io.Reader, o ...func(*SearchTemplateRequest)) (*Response, error)
+type SearchTemplate func(o ...func(*SearchTemplateRequest)) (*Response, error)
 
 // SearchTemplateRequest configures the Search Template API request.
 //
@@ -35,19 +35,16 @@ type SearchTemplateRequest struct {
 	DocumentType []string
 	Body         io.Reader
 
-	AllowNoIndices        *bool
-	CcsMinimizeRoundtrips *bool
-	ExpandWildcards       string
-	Explain               *bool
-	IgnoreThrottled       *bool
-	IgnoreUnavailable     *bool
-	Preference            string
-	Profile               *bool
-	RestTotalHitsAsInt    *bool
-	Routing               []string
-	Scroll                time.Duration
-	SearchType            string
-	TypedKeys             *bool
+	AllowNoIndices    *bool
+	ExpandWildcards   string
+	Explain           *bool
+	IgnoreUnavailable *bool
+	Preference        string
+	Profile           *bool
+	Routing           []string
+	Scroll            time.Duration
+	SearchType        string
+	TypedKeys         *bool
 
 	Pretty     bool
 	Human      bool
@@ -88,20 +85,12 @@ func (r SearchTemplateRequest) Do(ctx context.Context, transport Transport) (*Re
 		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
 	}
 
-	if r.CcsMinimizeRoundtrips != nil {
-		params["ccs_minimize_roundtrips"] = strconv.FormatBool(*r.CcsMinimizeRoundtrips)
-	}
-
 	if r.ExpandWildcards != "" {
 		params["expand_wildcards"] = r.ExpandWildcards
 	}
 
 	if r.Explain != nil {
 		params["explain"] = strconv.FormatBool(*r.Explain)
-	}
-
-	if r.IgnoreThrottled != nil {
-		params["ignore_throttled"] = strconv.FormatBool(*r.IgnoreThrottled)
 	}
 
 	if r.IgnoreUnavailable != nil {
@@ -114,10 +103,6 @@ func (r SearchTemplateRequest) Do(ctx context.Context, transport Transport) (*Re
 
 	if r.Profile != nil {
 		params["profile"] = strconv.FormatBool(*r.Profile)
-	}
-
-	if r.RestTotalHitsAsInt != nil {
-		params["rest_total_hits_as_int"] = strconv.FormatBool(*r.RestTotalHitsAsInt)
 	}
 
 	if len(r.Routing) > 0 {
@@ -208,19 +193,19 @@ func (f SearchTemplate) WithDocumentType(v ...string) func(*SearchTemplateReques
 	}
 }
 
+// WithBody - The search definition template and its params.
+//
+func (f SearchTemplate) WithBody(v io.Reader) func(*SearchTemplateRequest) {
+	return func(r *SearchTemplateRequest) {
+		r.Body = v
+	}
+}
+
 // WithAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (this includes `_all` string or when no indices have been specified).
 //
 func (f SearchTemplate) WithAllowNoIndices(v bool) func(*SearchTemplateRequest) {
 	return func(r *SearchTemplateRequest) {
 		r.AllowNoIndices = &v
-	}
-}
-
-// WithCcsMinimizeRoundtrips - indicates whether network round-trips should be minimized as part of cross-cluster search requests execution.
-//
-func (f SearchTemplate) WithCcsMinimizeRoundtrips(v bool) func(*SearchTemplateRequest) {
-	return func(r *SearchTemplateRequest) {
-		r.CcsMinimizeRoundtrips = &v
 	}
 }
 
@@ -237,14 +222,6 @@ func (f SearchTemplate) WithExpandWildcards(v string) func(*SearchTemplateReques
 func (f SearchTemplate) WithExplain(v bool) func(*SearchTemplateRequest) {
 	return func(r *SearchTemplateRequest) {
 		r.Explain = &v
-	}
-}
-
-// WithIgnoreThrottled - whether specified concrete, expanded or aliased indices should be ignored when throttled.
-//
-func (f SearchTemplate) WithIgnoreThrottled(v bool) func(*SearchTemplateRequest) {
-	return func(r *SearchTemplateRequest) {
-		r.IgnoreThrottled = &v
 	}
 }
 
@@ -269,14 +246,6 @@ func (f SearchTemplate) WithPreference(v string) func(*SearchTemplateRequest) {
 func (f SearchTemplate) WithProfile(v bool) func(*SearchTemplateRequest) {
 	return func(r *SearchTemplateRequest) {
 		r.Profile = &v
-	}
-}
-
-// WithRestTotalHitsAsInt - indicates whether hits.total should be rendered as an integer or an object in the rest search response.
-//
-func (f SearchTemplate) WithRestTotalHitsAsInt(v bool) func(*SearchTemplateRequest) {
-	return func(r *SearchTemplateRequest) {
-		r.RestTotalHitsAsInt = &v
 	}
 }
 

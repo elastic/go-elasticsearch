@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -9,8 +9,8 @@ import (
 )
 
 func newReindexRethrottleFunc(t Transport) ReindexRethrottle {
-	return func(task_id string, requests_per_second *int, o ...func(*ReindexRethrottleRequest)) (*Response, error) {
-		var r = ReindexRethrottleRequest{TaskID: task_id, RequestsPerSecond: requests_per_second}
+	return func(requests_per_second *int, o ...func(*ReindexRethrottleRequest)) (*Response, error) {
+		var r = ReindexRethrottleRequest{RequestsPerSecond: requests_per_second}
 		for _, f := range o {
 			f(&r)
 		}
@@ -22,9 +22,9 @@ func newReindexRethrottleFunc(t Transport) ReindexRethrottle {
 
 // ReindexRethrottle changes the number of requests per second for a particular Reindex operation.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-reindex.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-reindex.html.
 //
-type ReindexRethrottle func(task_id string, requests_per_second *int, o ...func(*ReindexRethrottleRequest)) (*Response, error)
+type ReindexRethrottle func(requests_per_second *int, o ...func(*ReindexRethrottleRequest)) (*Response, error)
 
 // ReindexRethrottleRequest configures the Reindex Rethrottle API request.
 //
@@ -51,11 +51,13 @@ func (r ReindexRethrottleRequest) Do(ctx context.Context, transport Transport) (
 
 	method = "POST"
 
-	path.Grow(1 + len("_reindex") + 1 + len(r.TaskID) + 1 + len("_rethrottle"))
+	path.Grow(1 + len("_update_by_query") + 1 + len(r.TaskID) + 1 + len("_rethrottle"))
 	path.WriteString("/")
-	path.WriteString("_reindex")
-	path.WriteString("/")
-	path.WriteString(r.TaskID)
+	path.WriteString("_update_by_query")
+	if r.TaskID != "" {
+		path.WriteString("/")
+		path.WriteString(r.TaskID)
+	}
 	path.WriteString("/")
 	path.WriteString("_rethrottle")
 
@@ -114,6 +116,14 @@ func (r ReindexRethrottleRequest) Do(ctx context.Context, transport Transport) (
 func (f ReindexRethrottle) WithContext(v context.Context) func(*ReindexRethrottleRequest) {
 	return func(r *ReindexRethrottleRequest) {
 		r.ctx = v
+	}
+}
+
+// WithTaskID - the task ID to rethrottle.
+//
+func (f ReindexRethrottle) WithTaskID(v string) func(*ReindexRethrottleRequest) {
+	return func(r *ReindexRethrottleRequest) {
+		r.TaskID = v
 	}
 }
 

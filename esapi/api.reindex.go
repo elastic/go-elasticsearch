@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -26,7 +26,7 @@ func newReindexFunc(t Transport) Reindex {
 // documents by a query, changing the destination index settings, or fetching the
 // documents from a remote cluster.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-reindex.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-reindex.html.
 //
 type Reindex func(body io.Reader, o ...func(*ReindexRequest)) (*Response, error)
 

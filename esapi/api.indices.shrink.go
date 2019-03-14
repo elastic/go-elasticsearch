@@ -1,11 +1,10 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
 	"io"
-	"strconv"
 	"strings"
 	"time"
 )
@@ -24,7 +23,7 @@ func newIndicesShrinkFunc(t Transport) IndicesShrink {
 
 // IndicesShrink allow to shrink an existing index into a new index with fewer primary shards.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-shrink-index.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-shrink-index.html.
 //
 type IndicesShrink func(index string, target string, o ...func(*IndicesShrinkRequest)) (*Response, error)
 
@@ -35,7 +34,6 @@ type IndicesShrinkRequest struct {
 	Body  io.Reader
 
 	Target              string
-	CopySettings        *bool
 	MasterTimeout       time.Duration
 	Timeout             time.Duration
 	WaitForActiveShards string
@@ -68,10 +66,6 @@ func (r IndicesShrinkRequest) Do(ctx context.Context, transport Transport) (*Res
 	path.WriteString(r.Target)
 
 	params = make(map[string]string)
-
-	if r.CopySettings != nil {
-		params["copy_settings"] = strconv.FormatBool(*r.CopySettings)
-	}
 
 	if r.MasterTimeout != 0 {
 		params["master_timeout"] = time.Duration(r.MasterTimeout * time.Millisecond).String()
@@ -146,14 +140,6 @@ func (f IndicesShrink) WithContext(v context.Context) func(*IndicesShrinkRequest
 func (f IndicesShrink) WithBody(v io.Reader) func(*IndicesShrinkRequest) {
 	return func(r *IndicesShrinkRequest) {
 		r.Body = v
-	}
-}
-
-// WithCopySettings - whether or not to copy settings from the source index (defaults to false).
-//
-func (f IndicesShrink) WithCopySettings(v bool) func(*IndicesShrinkRequest) {
-	return func(r *IndicesShrinkRequest) {
-		r.CopySettings = &v
 	}
 }
 

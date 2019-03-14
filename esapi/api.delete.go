@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -23,7 +23,7 @@ func newDeleteFunc(t Transport) Delete {
 
 // Delete removes a document from the index.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-delete.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-delete.html.
 //
 type Delete func(index string, id string, o ...func(*DeleteRequest)) (*Response, error)
 
@@ -34,8 +34,6 @@ type DeleteRequest struct {
 	DocumentType string
 	DocumentID   string
 
-	IfPrimaryTerm       *int
-	IfSeqNo             *int
 	Parent              string
 	Refresh             string
 	Routing             string
@@ -70,22 +68,12 @@ func (r DeleteRequest) Do(ctx context.Context, transport Transport) (*Response, 
 	path.Grow(1 + len(r.Index) + 1 + len(r.DocumentType) + 1 + len(r.DocumentID))
 	path.WriteString("/")
 	path.WriteString(r.Index)
-	if r.DocumentType != "" {
-		path.WriteString("/")
-		path.WriteString(r.DocumentType)
-	}
+	path.WriteString("/")
+	path.WriteString(r.DocumentType)
 	path.WriteString("/")
 	path.WriteString(r.DocumentID)
 
 	params = make(map[string]string)
-
-	if r.IfPrimaryTerm != nil {
-		params["if_primary_term"] = strconv.FormatInt(int64(*r.IfPrimaryTerm), 10)
-	}
-
-	if r.IfSeqNo != nil {
-		params["if_seq_no"] = strconv.FormatInt(int64(*r.IfSeqNo), 10)
-	}
 
 	if r.Parent != "" {
 		params["parent"] = r.Parent
@@ -172,22 +160,6 @@ func (f Delete) WithContext(v context.Context) func(*DeleteRequest) {
 func (f Delete) WithDocumentType(v string) func(*DeleteRequest) {
 	return func(r *DeleteRequest) {
 		r.DocumentType = v
-	}
-}
-
-// WithIfPrimaryTerm - only perform the delete operation if the last operation that has changed the document has the specified primary term.
-//
-func (f Delete) WithIfPrimaryTerm(v int) func(*DeleteRequest) {
-	return func(r *DeleteRequest) {
-		r.IfPrimaryTerm = &v
-	}
-}
-
-// WithIfSeqNo - only perform the delete operation if the last operation that has changed the document has the specified sequence number.
-//
-func (f Delete) WithIfSeqNo(v int) func(*DeleteRequest) {
-	return func(r *DeleteRequest) {
-		r.IfSeqNo = &v
 	}
 }
 

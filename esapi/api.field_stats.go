@@ -9,9 +9,9 @@ import (
 	"strings"
 )
 
-func newFieldCapsFunc(t Transport) FieldCaps {
-	return func(o ...func(*FieldCapsRequest)) (*Response, error) {
-		var r = FieldCapsRequest{}
+func newFieldStatsFunc(t Transport) FieldStats {
+	return func(o ...func(*FieldStatsRequest)) (*Response, error) {
+		var r = FieldStatsRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -21,15 +21,14 @@ func newFieldCapsFunc(t Transport) FieldCaps {
 
 // ----- API Definition -------------------------------------------------------
 
-// FieldCaps returns the information about the capabilities of fields among multiple indices.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-field-caps.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-field-stats.html.
 //
-type FieldCaps func(o ...func(*FieldCapsRequest)) (*Response, error)
+type FieldStats func(o ...func(*FieldStatsRequest)) (*Response, error)
 
-// FieldCapsRequest configures the Field Caps API request.
+// FieldStatsRequest configures the Field Stats API request.
 //
-type FieldCapsRequest struct {
+type FieldStatsRequest struct {
 	Index []string
 	Body  io.Reader
 
@@ -37,6 +36,7 @@ type FieldCapsRequest struct {
 	ExpandWildcards   string
 	Fields            []string
 	IgnoreUnavailable *bool
+	Level             string
 
 	Pretty     bool
 	Human      bool
@@ -48,7 +48,7 @@ type FieldCapsRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r FieldCapsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r FieldStatsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -57,13 +57,13 @@ func (r FieldCapsRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 	method = "GET"
 
-	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_field_caps"))
+	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_field_stats"))
 	if len(r.Index) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.Index, ","))
 	}
 	path.WriteString("/")
-	path.WriteString("_field_caps")
+	path.WriteString("_field_stats")
 
 	params = make(map[string]string)
 
@@ -81,6 +81,10 @@ func (r FieldCapsRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 	if r.IgnoreUnavailable != nil {
 		params["ignore_unavailable"] = strconv.FormatBool(*r.IgnoreUnavailable)
+	}
+
+	if r.Level != "" {
+		params["level"] = r.Level
 	}
 
 	if r.Pretty {
@@ -133,88 +137,96 @@ func (r FieldCapsRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 // WithContext sets the request context.
 //
-func (f FieldCaps) WithContext(v context.Context) func(*FieldCapsRequest) {
-	return func(r *FieldCapsRequest) {
+func (f FieldStats) WithContext(v context.Context) func(*FieldStatsRequest) {
+	return func(r *FieldStatsRequest) {
 		r.ctx = v
 	}
 }
 
 // WithIndex - a list of index names; use _all to perform the operation on all indices.
 //
-func (f FieldCaps) WithIndex(v ...string) func(*FieldCapsRequest) {
-	return func(r *FieldCapsRequest) {
+func (f FieldStats) WithIndex(v ...string) func(*FieldStatsRequest) {
+	return func(r *FieldStatsRequest) {
 		r.Index = v
 	}
 }
 
-// WithBody - Field json objects containing an array of field names.
+// WithBody - Field json objects containing the name and optionally a range to filter out indices result, that have results outside the defined bounds.
 //
-func (f FieldCaps) WithBody(v io.Reader) func(*FieldCapsRequest) {
-	return func(r *FieldCapsRequest) {
+func (f FieldStats) WithBody(v io.Reader) func(*FieldStatsRequest) {
+	return func(r *FieldStatsRequest) {
 		r.Body = v
 	}
 }
 
 // WithAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (this includes `_all` string or when no indices have been specified).
 //
-func (f FieldCaps) WithAllowNoIndices(v bool) func(*FieldCapsRequest) {
-	return func(r *FieldCapsRequest) {
+func (f FieldStats) WithAllowNoIndices(v bool) func(*FieldStatsRequest) {
+	return func(r *FieldStatsRequest) {
 		r.AllowNoIndices = &v
 	}
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
 //
-func (f FieldCaps) WithExpandWildcards(v string) func(*FieldCapsRequest) {
-	return func(r *FieldCapsRequest) {
+func (f FieldStats) WithExpandWildcards(v string) func(*FieldStatsRequest) {
+	return func(r *FieldStatsRequest) {
 		r.ExpandWildcards = v
 	}
 }
 
-// WithFields - a list of field names.
+// WithFields - a list of fields for to get field statistics for (min value, max value, and more).
 //
-func (f FieldCaps) WithFields(v ...string) func(*FieldCapsRequest) {
-	return func(r *FieldCapsRequest) {
+func (f FieldStats) WithFields(v ...string) func(*FieldStatsRequest) {
+	return func(r *FieldStatsRequest) {
 		r.Fields = v
 	}
 }
 
 // WithIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
 //
-func (f FieldCaps) WithIgnoreUnavailable(v bool) func(*FieldCapsRequest) {
-	return func(r *FieldCapsRequest) {
+func (f FieldStats) WithIgnoreUnavailable(v bool) func(*FieldStatsRequest) {
+	return func(r *FieldStatsRequest) {
 		r.IgnoreUnavailable = &v
+	}
+}
+
+// WithLevel - defines if field stats should be returned on a per index level or on a cluster wide level.
+//
+func (f FieldStats) WithLevel(v string) func(*FieldStatsRequest) {
+	return func(r *FieldStatsRequest) {
+		r.Level = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f FieldCaps) WithPretty() func(*FieldCapsRequest) {
-	return func(r *FieldCapsRequest) {
+func (f FieldStats) WithPretty() func(*FieldStatsRequest) {
+	return func(r *FieldStatsRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f FieldCaps) WithHuman() func(*FieldCapsRequest) {
-	return func(r *FieldCapsRequest) {
+func (f FieldStats) WithHuman() func(*FieldStatsRequest) {
+	return func(r *FieldStatsRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f FieldCaps) WithErrorTrace() func(*FieldCapsRequest) {
-	return func(r *FieldCapsRequest) {
+func (f FieldStats) WithErrorTrace() func(*FieldStatsRequest) {
+	return func(r *FieldStatsRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f FieldCaps) WithFilterPath(v ...string) func(*FieldCapsRequest) {
-	return func(r *FieldCapsRequest) {
+func (f FieldStats) WithFilterPath(v ...string) func(*FieldStatsRequest) {
+	return func(r *FieldStatsRequest) {
 		r.FilterPath = v
 	}
 }

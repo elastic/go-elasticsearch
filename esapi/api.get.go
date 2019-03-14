@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -22,7 +22,7 @@ func newGetFunc(t Transport) Get {
 
 // Get returns a document.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-get.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-get.html.
 //
 type Get func(index string, id string, o ...func(*GetRequest)) (*Response, error)
 
@@ -33,19 +33,17 @@ type GetRequest struct {
 	DocumentType string
 	DocumentID   string
 
-	Parent         string
-	Preference     string
-	Realtime       *bool
-	Refresh        *bool
-	Routing        string
-	Source         []string
-	SourceExclude  []string
-	SourceExcludes []string
-	SourceInclude  []string
-	SourceIncludes []string
-	StoredFields   []string
-	Version        *int
-	VersionType    string
+	Parent        string
+	Preference    string
+	Realtime      *bool
+	Refresh       *bool
+	Routing       string
+	Source        []string
+	SourceExclude []string
+	SourceInclude []string
+	StoredFields  []string
+	Version       *int
+	VersionType   string
 
 	Pretty     bool
 	Human      bool
@@ -73,10 +71,8 @@ func (r GetRequest) Do(ctx context.Context, transport Transport) (*Response, err
 	path.Grow(1 + len(r.Index) + 1 + len(r.DocumentType) + 1 + len(r.DocumentID))
 	path.WriteString("/")
 	path.WriteString(r.Index)
-	if r.DocumentType != "" {
-		path.WriteString("/")
-		path.WriteString(r.DocumentType)
-	}
+	path.WriteString("/")
+	path.WriteString(r.DocumentType)
 	path.WriteString("/")
 	path.WriteString(r.DocumentID)
 
@@ -110,16 +106,8 @@ func (r GetRequest) Do(ctx context.Context, transport Transport) (*Response, err
 		params["_source_exclude"] = strings.Join(r.SourceExclude, ",")
 	}
 
-	if len(r.SourceExcludes) > 0 {
-		params["_source_excludes"] = strings.Join(r.SourceExcludes, ",")
-	}
-
 	if len(r.SourceInclude) > 0 {
 		params["_source_include"] = strings.Join(r.SourceInclude, ",")
-	}
-
-	if len(r.SourceIncludes) > 0 {
-		params["_source_includes"] = strings.Join(r.SourceIncludes, ",")
 	}
 
 	if len(r.StoredFields) > 0 {
@@ -250,27 +238,11 @@ func (f Get) WithSourceExclude(v ...string) func(*GetRequest) {
 	}
 }
 
-// WithSourceExcludes - a list of fields to exclude from the returned _source field.
-//
-func (f Get) WithSourceExcludes(v ...string) func(*GetRequest) {
-	return func(r *GetRequest) {
-		r.SourceExcludes = v
-	}
-}
-
 // WithSourceInclude - a list of fields to extract and return from the _source field.
 //
 func (f Get) WithSourceInclude(v ...string) func(*GetRequest) {
 	return func(r *GetRequest) {
 		r.SourceInclude = v
-	}
-}
-
-// WithSourceIncludes - a list of fields to extract and return from the _source field.
-//
-func (f Get) WithSourceIncludes(v ...string) func(*GetRequest) {
-	return func(r *GetRequest) {
-		r.SourceIncludes = v
 	}
 }
 

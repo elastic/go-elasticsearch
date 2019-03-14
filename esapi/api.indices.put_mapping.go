@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -24,7 +24,7 @@ func newIndicesPutMappingFunc(t Transport) IndicesPutMapping {
 
 // IndicesPutMapping updates the index mappings.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-put-mapping.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-put-mapping.html.
 //
 type IndicesPutMapping func(body io.Reader, o ...func(*IndicesPutMappingRequest)) (*Response, error)
 
@@ -38,9 +38,9 @@ type IndicesPutMappingRequest struct {
 	AllowNoIndices    *bool
 	ExpandWildcards   string
 	IgnoreUnavailable *bool
-	IncludeTypeName   *bool
 	MasterTimeout     time.Duration
 	Timeout           time.Duration
+	UpdateAllTypes    *bool
 
 	Pretty     bool
 	Human      bool
@@ -87,16 +87,16 @@ func (r IndicesPutMappingRequest) Do(ctx context.Context, transport Transport) (
 		params["ignore_unavailable"] = strconv.FormatBool(*r.IgnoreUnavailable)
 	}
 
-	if r.IncludeTypeName != nil {
-		params["include_type_name"] = strconv.FormatBool(*r.IncludeTypeName)
-	}
-
 	if r.MasterTimeout != 0 {
 		params["master_timeout"] = time.Duration(r.MasterTimeout * time.Millisecond).String()
 	}
 
 	if r.Timeout != 0 {
 		params["timeout"] = time.Duration(r.Timeout * time.Millisecond).String()
+	}
+
+	if r.UpdateAllTypes != nil {
+		params["update_all_types"] = strconv.FormatBool(*r.UpdateAllTypes)
 	}
 
 	if r.Pretty {
@@ -195,14 +195,6 @@ func (f IndicesPutMapping) WithIgnoreUnavailable(v bool) func(*IndicesPutMapping
 	}
 }
 
-// WithIncludeTypeName - whether a type should be expected in the body of the mappings..
-//
-func (f IndicesPutMapping) WithIncludeTypeName(v bool) func(*IndicesPutMappingRequest) {
-	return func(r *IndicesPutMappingRequest) {
-		r.IncludeTypeName = &v
-	}
-}
-
 // WithMasterTimeout - specify timeout for connection to master.
 //
 func (f IndicesPutMapping) WithMasterTimeout(v time.Duration) func(*IndicesPutMappingRequest) {
@@ -216,6 +208,14 @@ func (f IndicesPutMapping) WithMasterTimeout(v time.Duration) func(*IndicesPutMa
 func (f IndicesPutMapping) WithTimeout(v time.Duration) func(*IndicesPutMappingRequest) {
 	return func(r *IndicesPutMappingRequest) {
 		r.Timeout = v
+	}
+}
+
+// WithUpdateAllTypes - whether to update the mapping for all fields with the same name across all types or not.
+//
+func (f IndicesPutMapping) WithUpdateAllTypes(v bool) func(*IndicesPutMappingRequest) {
+	return func(r *IndicesPutMappingRequest) {
+		r.UpdateAllTypes = &v
 	}
 }
 

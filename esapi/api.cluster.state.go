@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -23,7 +23,7 @@ func newClusterStateFunc(t Transport) ClusterState {
 
 // ClusterState returns a comprehensive information about the state of the cluster.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-state.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-state.html.
 //
 type ClusterState func(o ...func(*ClusterStateRequest)) (*Response, error)
 
@@ -32,15 +32,13 @@ type ClusterState func(o ...func(*ClusterStateRequest)) (*Response, error)
 type ClusterStateRequest struct {
 	Index []string
 
-	Metric                 []string
-	AllowNoIndices         *bool
-	ExpandWildcards        string
-	FlatSettings           *bool
-	IgnoreUnavailable      *bool
-	Local                  *bool
-	MasterTimeout          time.Duration
-	WaitForMetadataVersion *int
-	WaitForTimeout         time.Duration
+	Metric            []string
+	AllowNoIndices    *bool
+	ExpandWildcards   string
+	FlatSettings      *bool
+	IgnoreUnavailable *bool
+	Local             *bool
+	MasterTimeout     time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -99,14 +97,6 @@ func (r ClusterStateRequest) Do(ctx context.Context, transport Transport) (*Resp
 
 	if r.MasterTimeout != 0 {
 		params["master_timeout"] = time.Duration(r.MasterTimeout * time.Millisecond).String()
-	}
-
-	if r.WaitForMetadataVersion != nil {
-		params["wait_for_metadata_version"] = strconv.FormatInt(int64(*r.WaitForMetadataVersion), 10)
-	}
-
-	if r.WaitForTimeout != 0 {
-		params["wait_for_timeout"] = time.Duration(r.WaitForTimeout * time.Millisecond).String()
 	}
 
 	if r.Pretty {
@@ -222,22 +212,6 @@ func (f ClusterState) WithLocal(v bool) func(*ClusterStateRequest) {
 func (f ClusterState) WithMasterTimeout(v time.Duration) func(*ClusterStateRequest) {
 	return func(r *ClusterStateRequest) {
 		r.MasterTimeout = v
-	}
-}
-
-// WithWaitForMetadataVersion - wait for the metadata version to be equal or greater than the specified metadata version.
-//
-func (f ClusterState) WithWaitForMetadataVersion(v int) func(*ClusterStateRequest) {
-	return func(r *ClusterStateRequest) {
-		r.WaitForMetadataVersion = &v
-	}
-}
-
-// WithWaitForTimeout - the maximum time to wait for wait_for_metadata_version before timing out.
-//
-func (f ClusterState) WithWaitForTimeout(v time.Duration) func(*ClusterStateRequest) {
-	return func(r *ClusterStateRequest) {
-		r.WaitForTimeout = v
 	}
 }
 

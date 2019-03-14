@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -21,7 +21,7 @@ func newInfoFunc(t Transport) Info {
 
 // Info returns basic information about the cluster.
 //
-// See full documentation at http://www.elastic.co/guide/.
+// See full documentation at https://www.elastic.co/guide/.
 //
 type Info func(o ...func(*InfoRequest)) (*Response, error)
 

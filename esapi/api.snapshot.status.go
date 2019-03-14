@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -23,7 +23,7 @@ func newSnapshotStatusFunc(t Transport) SnapshotStatus {
 
 // SnapshotStatus returns information about the status of a snapshot.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/modules-snapshots.html.
 //
 type SnapshotStatus func(o ...func(*SnapshotStatusRequest)) (*Response, error)
 

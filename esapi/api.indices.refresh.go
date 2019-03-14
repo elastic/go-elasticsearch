@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -22,7 +22,7 @@ func newIndicesRefreshFunc(t Transport) IndicesRefresh {
 
 // IndicesRefresh performs the refresh operation in one or more indices.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-refresh.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-refresh.html.
 //
 type IndicesRefresh func(o ...func(*IndicesRefreshRequest)) (*Response, error)
 

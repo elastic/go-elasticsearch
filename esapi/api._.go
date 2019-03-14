@@ -12,42 +12,46 @@ type API struct {
 	Snapshot *Snapshot
 	Tasks    *Tasks
 
-	Bulk                    Bulk
-	ClearScroll             ClearScroll
-	Count                   Count
-	Create                  Create
-	Delete                  Delete
-	DeleteByQuery           DeleteByQuery
-	DeleteByQueryRethrottle DeleteByQueryRethrottle
-	DeleteScript            DeleteScript
-	Exists                  Exists
-	ExistsSource            ExistsSource
-	Explain                 Explain
-	FieldCaps               FieldCaps
-	Get                     Get
-	GetScript               GetScript
-	GetSource               GetSource
-	Index                   Index
-	Info                    Info
-	Mget                    Mget
-	Msearch                 Msearch
-	MsearchTemplate         MsearchTemplate
-	Mtermvectors            Mtermvectors
-	Ping                    Ping
-	PutScript               PutScript
-	RankEval                RankEval
-	Reindex                 Reindex
-	ReindexRethrottle       ReindexRethrottle
-	RenderSearchTemplate    RenderSearchTemplate
-	ScriptsPainlessExecute  ScriptsPainlessExecute
-	Scroll                  Scroll
-	Search                  Search
-	SearchShards            SearchShards
-	SearchTemplate          SearchTemplate
-	Termvectors             Termvectors
-	Update                  Update
-	UpdateByQuery           UpdateByQuery
-	UpdateByQueryRethrottle UpdateByQueryRethrottle
+	Bulk                 Bulk
+	ClearScroll          ClearScroll
+	Count                Count
+	CountPercolate       CountPercolate
+	Create               Create
+	Delete               Delete
+	DeleteByQuery        DeleteByQuery
+	DeleteScript         DeleteScript
+	DeleteTemplate       DeleteTemplate
+	Exists               Exists
+	ExistsSource         ExistsSource
+	Explain              Explain
+	FieldCaps            FieldCaps
+	FieldStats           FieldStats
+	Get                  Get
+	GetScript            GetScript
+	GetSource            GetSource
+	GetTemplate          GetTemplate
+	Index                Index
+	Info                 Info
+	Mget                 Mget
+	Mpercolate           Mpercolate
+	Msearch              Msearch
+	MsearchTemplate      MsearchTemplate
+	Mtermvectors         Mtermvectors
+	Percolate            Percolate
+	Ping                 Ping
+	PutScript            PutScript
+	PutTemplate          PutTemplate
+	Reindex              Reindex
+	ReindexRethrottle    ReindexRethrottle
+	RenderSearchTemplate RenderSearchTemplate
+	Scroll               Scroll
+	Search               Search
+	SearchShards         SearchShards
+	SearchTemplate       SearchTemplate
+	Suggest              Suggest
+	Termvectors          Termvectors
+	Update               Update
+	UpdateByQuery        UpdateByQuery
 }
 
 // Cat contains the Cat APIs
@@ -121,7 +125,6 @@ type Indices struct {
 	Segments        IndicesSegments
 	ShardStores     IndicesShardStores
 	Shrink          IndicesShrink
-	Split           IndicesSplit
 	Stats           IndicesStats
 	UpdateAliases   IndicesUpdateAliases
 	Upgrade         IndicesUpgrade
@@ -139,11 +142,9 @@ type Ingest struct {
 
 // Nodes contains the Nodes APIs
 type Nodes struct {
-	HotThreads           NodesHotThreads
-	Info                 NodesInfo
-	ReloadSecureSettings NodesReloadSecureSettings
-	Stats                NodesStats
-	Usage                NodesUsage
+	HotThreads NodesHotThreads
+	Info       NodesInfo
+	Stats      NodesStats
 }
 
 // Remote contains the Remote APIs
@@ -174,42 +175,46 @@ type Tasks struct {
 //
 func New(t Transport) *API {
 	return &API{
-		Bulk:                    newBulkFunc(t),
-		ClearScroll:             newClearScrollFunc(t),
-		Count:                   newCountFunc(t),
-		Create:                  newCreateFunc(t),
-		Delete:                  newDeleteFunc(t),
-		DeleteByQuery:           newDeleteByQueryFunc(t),
-		DeleteByQueryRethrottle: newDeleteByQueryRethrottleFunc(t),
-		DeleteScript:            newDeleteScriptFunc(t),
-		Exists:                  newExistsFunc(t),
-		ExistsSource:            newExistsSourceFunc(t),
-		Explain:                 newExplainFunc(t),
-		FieldCaps:               newFieldCapsFunc(t),
-		Get:                     newGetFunc(t),
-		GetScript:               newGetScriptFunc(t),
-		GetSource:               newGetSourceFunc(t),
-		Index:                   newIndexFunc(t),
-		Info:                    newInfoFunc(t),
-		Mget:                    newMgetFunc(t),
-		Msearch:                 newMsearchFunc(t),
-		MsearchTemplate:         newMsearchTemplateFunc(t),
-		Mtermvectors:            newMtermvectorsFunc(t),
-		Ping:                    newPingFunc(t),
-		PutScript:               newPutScriptFunc(t),
-		RankEval:                newRankEvalFunc(t),
-		Reindex:                 newReindexFunc(t),
-		ReindexRethrottle:       newReindexRethrottleFunc(t),
-		RenderSearchTemplate:    newRenderSearchTemplateFunc(t),
-		ScriptsPainlessExecute:  newScriptsPainlessExecuteFunc(t),
-		Scroll:                  newScrollFunc(t),
-		Search:                  newSearchFunc(t),
-		SearchShards:            newSearchShardsFunc(t),
-		SearchTemplate:          newSearchTemplateFunc(t),
-		Termvectors:             newTermvectorsFunc(t),
-		Update:                  newUpdateFunc(t),
-		UpdateByQuery:           newUpdateByQueryFunc(t),
-		UpdateByQueryRethrottle: newUpdateByQueryRethrottleFunc(t),
+		Bulk:                 newBulkFunc(t),
+		ClearScroll:          newClearScrollFunc(t),
+		Count:                newCountFunc(t),
+		CountPercolate:       newCountPercolateFunc(t),
+		Create:               newCreateFunc(t),
+		Delete:               newDeleteFunc(t),
+		DeleteByQuery:        newDeleteByQueryFunc(t),
+		DeleteScript:         newDeleteScriptFunc(t),
+		DeleteTemplate:       newDeleteTemplateFunc(t),
+		Exists:               newExistsFunc(t),
+		ExistsSource:         newExistsSourceFunc(t),
+		Explain:              newExplainFunc(t),
+		FieldCaps:            newFieldCapsFunc(t),
+		FieldStats:           newFieldStatsFunc(t),
+		Get:                  newGetFunc(t),
+		GetScript:            newGetScriptFunc(t),
+		GetSource:            newGetSourceFunc(t),
+		GetTemplate:          newGetTemplateFunc(t),
+		Index:                newIndexFunc(t),
+		Info:                 newInfoFunc(t),
+		Mget:                 newMgetFunc(t),
+		Mpercolate:           newMpercolateFunc(t),
+		Msearch:              newMsearchFunc(t),
+		MsearchTemplate:      newMsearchTemplateFunc(t),
+		Mtermvectors:         newMtermvectorsFunc(t),
+		Percolate:            newPercolateFunc(t),
+		Ping:                 newPingFunc(t),
+		PutScript:            newPutScriptFunc(t),
+		PutTemplate:          newPutTemplateFunc(t),
+		Reindex:              newReindexFunc(t),
+		ReindexRethrottle:    newReindexRethrottleFunc(t),
+		RenderSearchTemplate: newRenderSearchTemplateFunc(t),
+		Scroll:               newScrollFunc(t),
+		Search:               newSearchFunc(t),
+		SearchShards:         newSearchShardsFunc(t),
+		SearchTemplate:       newSearchTemplateFunc(t),
+		Suggest:              newSuggestFunc(t),
+		Termvectors:          newTermvectorsFunc(t),
+		Update:               newUpdateFunc(t),
+		UpdateByQuery:        newUpdateByQueryFunc(t),
 		Cat: &Cat{
 			Aliases:      newCatAliasesFunc(t),
 			Allocation:   newCatAllocationFunc(t),
@@ -276,7 +281,6 @@ func New(t Transport) *API {
 			Segments:        newIndicesSegmentsFunc(t),
 			ShardStores:     newIndicesShardStoresFunc(t),
 			Shrink:          newIndicesShrinkFunc(t),
-			Split:           newIndicesSplitFunc(t),
 			Stats:           newIndicesStatsFunc(t),
 			UpdateAliases:   newIndicesUpdateAliasesFunc(t),
 			Upgrade:         newIndicesUpgradeFunc(t),
@@ -290,11 +294,9 @@ func New(t Transport) *API {
 			Simulate:       newIngestSimulateFunc(t),
 		},
 		Nodes: &Nodes{
-			HotThreads:           newNodesHotThreadsFunc(t),
-			Info:                 newNodesInfoFunc(t),
-			ReloadSecureSettings: newNodesReloadSecureSettingsFunc(t),
-			Stats:                newNodesStatsFunc(t),
-			Usage:                newNodesUsageFunc(t),
+			HotThreads: newNodesHotThreadsFunc(t),
+			Info:       newNodesInfoFunc(t),
+			Stats:      newNodesStatsFunc(t),
 		},
 		Remote: &Remote{},
 		Snapshot: &Snapshot{

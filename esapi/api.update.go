@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -11,8 +11,8 @@ import (
 )
 
 func newUpdateFunc(t Transport) Update {
-	return func(index string, id string, body io.Reader, o ...func(*UpdateRequest)) (*Response, error) {
-		var r = UpdateRequest{Index: index, DocumentID: id, Body: body}
+	return func(index string, id string, o ...func(*UpdateRequest)) (*Response, error) {
+		var r = UpdateRequest{Index: index, DocumentID: id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -24,9 +24,9 @@ func newUpdateFunc(t Transport) Update {
 
 // Update updates a document with a script or partial document.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-update.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-update.html.
 //
-type Update func(index string, id string, body io.Reader, o ...func(*UpdateRequest)) (*Response, error)
+type Update func(index string, id string, o ...func(*UpdateRequest)) (*Response, error)
 
 // UpdateRequest configures the Update API request.
 //
@@ -36,17 +36,20 @@ type UpdateRequest struct {
 	DocumentID   string
 	Body         io.Reader
 
-	IfPrimaryTerm       *int
-	IfSeqNo             *int
+	Fields              []string
 	Lang                string
 	Parent              string
 	Refresh             string
 	RetryOnConflict     *int
 	Routing             string
 	Source              []string
-	SourceExcludes      []string
-	SourceIncludes      []string
+	SourceExclude       []string
+	SourceInclude       []string
 	Timeout             time.Duration
+	Timestamp           time.Duration
+	Ttl                 time.Duration
+	Version             *int
+	VersionType         string
 	WaitForActiveShards string
 
 	Pretty     bool
@@ -75,10 +78,8 @@ func (r UpdateRequest) Do(ctx context.Context, transport Transport) (*Response, 
 	path.Grow(1 + len(r.Index) + 1 + len(r.DocumentType) + 1 + len(r.DocumentID) + 1 + len("_update"))
 	path.WriteString("/")
 	path.WriteString(r.Index)
-	if r.DocumentType != "" {
-		path.WriteString("/")
-		path.WriteString(r.DocumentType)
-	}
+	path.WriteString("/")
+	path.WriteString(r.DocumentType)
 	path.WriteString("/")
 	path.WriteString(r.DocumentID)
 	path.WriteString("/")
@@ -86,12 +87,8 @@ func (r UpdateRequest) Do(ctx context.Context, transport Transport) (*Response, 
 
 	params = make(map[string]string)
 
-	if r.IfPrimaryTerm != nil {
-		params["if_primary_term"] = strconv.FormatInt(int64(*r.IfPrimaryTerm), 10)
-	}
-
-	if r.IfSeqNo != nil {
-		params["if_seq_no"] = strconv.FormatInt(int64(*r.IfSeqNo), 10)
+	if len(r.Fields) > 0 {
+		params["fields"] = strings.Join(r.Fields, ",")
 	}
 
 	if r.Lang != "" {
@@ -118,16 +115,32 @@ func (r UpdateRequest) Do(ctx context.Context, transport Transport) (*Response, 
 		params["_source"] = strings.Join(r.Source, ",")
 	}
 
-	if len(r.SourceExcludes) > 0 {
-		params["_source_excludes"] = strings.Join(r.SourceExcludes, ",")
+	if len(r.SourceExclude) > 0 {
+		params["_source_exclude"] = strings.Join(r.SourceExclude, ",")
 	}
 
-	if len(r.SourceIncludes) > 0 {
-		params["_source_includes"] = strings.Join(r.SourceIncludes, ",")
+	if len(r.SourceInclude) > 0 {
+		params["_source_include"] = strings.Join(r.SourceInclude, ",")
 	}
 
 	if r.Timeout != 0 {
 		params["timeout"] = time.Duration(r.Timeout * time.Millisecond).String()
+	}
+
+	if r.Timestamp != 0 {
+		params["timestamp"] = time.Duration(r.Timestamp * time.Millisecond).String()
+	}
+
+	if r.Ttl != 0 {
+		params["ttl"] = time.Duration(r.Ttl * time.Millisecond).String()
+	}
+
+	if r.Version != nil {
+		params["version"] = strconv.FormatInt(int64(*r.Version), 10)
+	}
+
+	if r.VersionType != "" {
+		params["version_type"] = r.VersionType
 	}
 
 	if r.WaitForActiveShards != "" {
@@ -198,19 +211,19 @@ func (f Update) WithDocumentType(v string) func(*UpdateRequest) {
 	}
 }
 
-// WithIfPrimaryTerm - only perform the update operation if the last operation that has changed the document has the specified primary term.
+// WithBody - The request definition using either `script` or partial `doc`.
 //
-func (f Update) WithIfPrimaryTerm(v int) func(*UpdateRequest) {
+func (f Update) WithBody(v io.Reader) func(*UpdateRequest) {
 	return func(r *UpdateRequest) {
-		r.IfPrimaryTerm = &v
+		r.Body = v
 	}
 }
 
-// WithIfSeqNo - only perform the update operation if the last operation that has changed the document has the specified sequence number.
+// WithFields - a list of fields to return in the response.
 //
-func (f Update) WithIfSeqNo(v int) func(*UpdateRequest) {
+func (f Update) WithFields(v ...string) func(*UpdateRequest) {
 	return func(r *UpdateRequest) {
-		r.IfSeqNo = &v
+		r.Fields = v
 	}
 }
 
@@ -262,19 +275,19 @@ func (f Update) WithSource(v ...string) func(*UpdateRequest) {
 	}
 }
 
-// WithSourceExcludes - a list of fields to exclude from the returned _source field.
+// WithSourceExclude - a list of fields to exclude from the returned _source field.
 //
-func (f Update) WithSourceExcludes(v ...string) func(*UpdateRequest) {
+func (f Update) WithSourceExclude(v ...string) func(*UpdateRequest) {
 	return func(r *UpdateRequest) {
-		r.SourceExcludes = v
+		r.SourceExclude = v
 	}
 }
 
-// WithSourceIncludes - a list of fields to extract and return from the _source field.
+// WithSourceInclude - a list of fields to extract and return from the _source field.
 //
-func (f Update) WithSourceIncludes(v ...string) func(*UpdateRequest) {
+func (f Update) WithSourceInclude(v ...string) func(*UpdateRequest) {
 	return func(r *UpdateRequest) {
-		r.SourceIncludes = v
+		r.SourceInclude = v
 	}
 }
 
@@ -283,6 +296,38 @@ func (f Update) WithSourceIncludes(v ...string) func(*UpdateRequest) {
 func (f Update) WithTimeout(v time.Duration) func(*UpdateRequest) {
 	return func(r *UpdateRequest) {
 		r.Timeout = v
+	}
+}
+
+// WithTimestamp - explicit timestamp for the document.
+//
+func (f Update) WithTimestamp(v time.Duration) func(*UpdateRequest) {
+	return func(r *UpdateRequest) {
+		r.Timestamp = v
+	}
+}
+
+// WithTtl - expiration time for the document.
+//
+func (f Update) WithTtl(v time.Duration) func(*UpdateRequest) {
+	return func(r *UpdateRequest) {
+		r.Ttl = v
+	}
+}
+
+// WithVersion - explicit version number for concurrency control.
+//
+func (f Update) WithVersion(v int) func(*UpdateRequest) {
+	return func(r *UpdateRequest) {
+		r.Version = &v
+	}
+}
+
+// WithVersionType - specific version type.
+//
+func (f Update) WithVersionType(v string) func(*UpdateRequest) {
+	return func(r *UpdateRequest) {
+		r.VersionType = v
 	}
 }
 

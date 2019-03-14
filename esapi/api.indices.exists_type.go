@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -22,7 +22,7 @@ func newIndicesExistsTypeFunc(t Transport) IndicesExistsType {
 
 // IndicesExistsType returns information about whether a particular document type exists. (DEPRECATED)
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-types-exists.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-types-exists.html.
 //
 type IndicesExistsType func(index []string, o ...func(*IndicesExistsTypeRequest)) (*Response, error)
 

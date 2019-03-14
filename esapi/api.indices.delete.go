@@ -1,10 +1,9 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
-	"strconv"
 	"strings"
 	"time"
 )
@@ -23,7 +22,7 @@ func newIndicesDeleteFunc(t Transport) IndicesDelete {
 
 // IndicesDelete deletes an index.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-delete-index.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-delete-index.html.
 //
 type IndicesDelete func(index []string, o ...func(*IndicesDeleteRequest)) (*Response, error)
 
@@ -32,11 +31,8 @@ type IndicesDelete func(index []string, o ...func(*IndicesDeleteRequest)) (*Resp
 type IndicesDeleteRequest struct {
 	Index []string
 
-	AllowNoIndices    *bool
-	ExpandWildcards   string
-	IgnoreUnavailable *bool
-	MasterTimeout     time.Duration
-	Timeout           time.Duration
+	MasterTimeout time.Duration
+	Timeout       time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -62,18 +58,6 @@ func (r IndicesDeleteRequest) Do(ctx context.Context, transport Transport) (*Res
 	path.WriteString(strings.Join(r.Index, ","))
 
 	params = make(map[string]string)
-
-	if r.AllowNoIndices != nil {
-		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
-	}
-
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
-	}
-
-	if r.IgnoreUnavailable != nil {
-		params["ignore_unavailable"] = strconv.FormatBool(*r.IgnoreUnavailable)
-	}
 
 	if r.MasterTimeout != 0 {
 		params["master_timeout"] = time.Duration(r.MasterTimeout * time.Millisecond).String()
@@ -132,30 +116,6 @@ func (r IndicesDeleteRequest) Do(ctx context.Context, transport Transport) (*Res
 func (f IndicesDelete) WithContext(v context.Context) func(*IndicesDeleteRequest) {
 	return func(r *IndicesDeleteRequest) {
 		r.ctx = v
-	}
-}
-
-// WithAllowNoIndices - ignore if a wildcard expression resolves to no concrete indices (default: false).
-//
-func (f IndicesDelete) WithAllowNoIndices(v bool) func(*IndicesDeleteRequest) {
-	return func(r *IndicesDeleteRequest) {
-		r.AllowNoIndices = &v
-	}
-}
-
-// WithExpandWildcards - whether wildcard expressions should get expanded to open or closed indices (default: open).
-//
-func (f IndicesDelete) WithExpandWildcards(v string) func(*IndicesDeleteRequest) {
-	return func(r *IndicesDeleteRequest) {
-		r.ExpandWildcards = v
-	}
-}
-
-// WithIgnoreUnavailable - ignore unavailable indexes (default: false).
-//
-func (f IndicesDelete) WithIgnoreUnavailable(v bool) func(*IndicesDeleteRequest) {
-	return func(r *IndicesDeleteRequest) {
-		r.IgnoreUnavailable = &v
 	}
 }
 

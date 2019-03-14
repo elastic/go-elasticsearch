@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -24,7 +24,7 @@ func newIndicesCreateFunc(t Transport) IndicesCreate {
 
 // IndicesCreate creates an index with optional settings and mappings.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-create-index.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-create-index.html.
 //
 type IndicesCreate func(index string, o ...func(*IndicesCreateRequest)) (*Response, error)
 
@@ -34,9 +34,9 @@ type IndicesCreateRequest struct {
 	Index string
 	Body  io.Reader
 
-	IncludeTypeName     *bool
 	MasterTimeout       time.Duration
 	Timeout             time.Duration
+	UpdateAllTypes      *bool
 	WaitForActiveShards string
 
 	Pretty     bool
@@ -64,16 +64,16 @@ func (r IndicesCreateRequest) Do(ctx context.Context, transport Transport) (*Res
 
 	params = make(map[string]string)
 
-	if r.IncludeTypeName != nil {
-		params["include_type_name"] = strconv.FormatBool(*r.IncludeTypeName)
-	}
-
 	if r.MasterTimeout != 0 {
 		params["master_timeout"] = time.Duration(r.MasterTimeout * time.Millisecond).String()
 	}
 
 	if r.Timeout != 0 {
 		params["timeout"] = time.Duration(r.Timeout * time.Millisecond).String()
+	}
+
+	if r.UpdateAllTypes != nil {
+		params["update_all_types"] = strconv.FormatBool(*r.UpdateAllTypes)
 	}
 
 	if r.WaitForActiveShards != "" {
@@ -144,14 +144,6 @@ func (f IndicesCreate) WithBody(v io.Reader) func(*IndicesCreateRequest) {
 	}
 }
 
-// WithIncludeTypeName - whether a type should be expected in the body of the mappings..
-//
-func (f IndicesCreate) WithIncludeTypeName(v bool) func(*IndicesCreateRequest) {
-	return func(r *IndicesCreateRequest) {
-		r.IncludeTypeName = &v
-	}
-}
-
 // WithMasterTimeout - specify timeout for connection to master.
 //
 func (f IndicesCreate) WithMasterTimeout(v time.Duration) func(*IndicesCreateRequest) {
@@ -165,6 +157,14 @@ func (f IndicesCreate) WithMasterTimeout(v time.Duration) func(*IndicesCreateReq
 func (f IndicesCreate) WithTimeout(v time.Duration) func(*IndicesCreateRequest) {
 	return func(r *IndicesCreateRequest) {
 		r.Timeout = v
+	}
+}
+
+// WithUpdateAllTypes - whether to update the mapping for all fields with the same name across all types or not.
+//
+func (f IndicesCreate) WithUpdateAllTypes(v bool) func(*IndicesCreateRequest) {
+	return func(r *IndicesCreateRequest) {
+		r.UpdateAllTypes = &v
 	}
 }
 

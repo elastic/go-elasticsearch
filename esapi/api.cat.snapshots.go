@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -10,8 +10,8 @@ import (
 )
 
 func newCatSnapshotsFunc(t Transport) CatSnapshots {
-	return func(o ...func(*CatSnapshotsRequest)) (*Response, error) {
-		var r = CatSnapshotsRequest{}
+	return func(repository []string, o ...func(*CatSnapshotsRequest)) (*Response, error) {
+		var r = CatSnapshotsRequest{Repository: repository}
 		for _, f := range o {
 			f(&r)
 		}
@@ -23,9 +23,9 @@ func newCatSnapshotsFunc(t Transport) CatSnapshots {
 
 // CatSnapshots returns all snapshots in a specific repository.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/cat-snapshots.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-snapshots.html.
 //
-type CatSnapshots func(o ...func(*CatSnapshotsRequest)) (*Response, error)
+type CatSnapshots func(repository []string, o ...func(*CatSnapshotsRequest)) (*Response, error)
 
 // CatSnapshotsRequest configures the Cat Snapshots API request.
 //
@@ -63,10 +63,8 @@ func (r CatSnapshotsRequest) Do(ctx context.Context, transport Transport) (*Resp
 	path.WriteString("_cat")
 	path.WriteString("/")
 	path.WriteString("snapshots")
-	if len(r.Repository) > 0 {
-		path.WriteString("/")
-		path.WriteString(strings.Join(r.Repository, ","))
-	}
+	path.WriteString("/")
+	path.WriteString(strings.Join(r.Repository, ","))
 
 	params = make(map[string]string)
 
@@ -147,14 +145,6 @@ func (r CatSnapshotsRequest) Do(ctx context.Context, transport Transport) (*Resp
 func (f CatSnapshots) WithContext(v context.Context) func(*CatSnapshotsRequest) {
 	return func(r *CatSnapshotsRequest) {
 		r.ctx = v
-	}
-}
-
-// WithRepository - name of repository from which to fetch the snapshot information.
-//
-func (f CatSnapshots) WithRepository(v ...string) func(*CatSnapshotsRequest) {
-	return func(r *CatSnapshotsRequest) {
-		r.Repository = v
 	}
 }
 

@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -23,7 +23,7 @@ func newTermvectorsFunc(t Transport) Termvectors {
 
 // Termvectors returns information and statistics about terms in the fields of a particular document.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-termvectors.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-termvectors.html.
 //
 type Termvectors func(index string, o ...func(*TermvectorsRequest)) (*Response, error)
 
@@ -74,10 +74,8 @@ func (r TermvectorsRequest) Do(ctx context.Context, transport Transport) (*Respo
 	path.Grow(1 + len(r.Index) + 1 + len(r.DocumentType) + 1 + len(r.DocumentID) + 1 + len("_termvectors"))
 	path.WriteString("/")
 	path.WriteString(r.Index)
-	if r.DocumentType != "" {
-		path.WriteString("/")
-		path.WriteString(r.DocumentType)
-	}
+	path.WriteString("/")
+	path.WriteString(r.DocumentType)
 	if r.DocumentID != "" {
 		path.WriteString("/")
 		path.WriteString(r.DocumentID)

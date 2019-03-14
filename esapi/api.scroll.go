@@ -1,11 +1,10 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
 	"io"
-	"strconv"
 	"strings"
 	"time"
 )
@@ -24,7 +23,7 @@ func newScrollFunc(t Transport) Scroll {
 
 // Scroll allows to retrieve a large numbers of results from a single search request.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/search-request-scroll.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-request-scroll.html.
 //
 type Scroll func(o ...func(*ScrollRequest)) (*Response, error)
 
@@ -33,9 +32,8 @@ type Scroll func(o ...func(*ScrollRequest)) (*Response, error)
 type ScrollRequest struct {
 	Body io.Reader
 
-	ScrollID           string
-	RestTotalHitsAsInt *bool
-	Scroll             time.Duration
+	ScrollID string
+	Scroll   time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -67,10 +65,6 @@ func (r ScrollRequest) Do(ctx context.Context, transport Transport) (*Response, 
 	}
 
 	params = make(map[string]string)
-
-	if r.RestTotalHitsAsInt != nil {
-		params["rest_total_hits_as_int"] = strconv.FormatBool(*r.RestTotalHitsAsInt)
-	}
 
 	if r.Scroll != 0 {
 		params["scroll"] = time.Duration(r.Scroll * time.Millisecond).String()
@@ -149,14 +143,6 @@ func (f Scroll) WithScrollID(v string) func(*ScrollRequest) {
 func (f Scroll) WithBody(v io.Reader) func(*ScrollRequest) {
 	return func(r *ScrollRequest) {
 		r.Body = v
-	}
-}
-
-// WithRestTotalHitsAsInt - indicates whether hits.total should be rendered as an integer or an object in the rest search response.
-//
-func (f Scroll) WithRestTotalHitsAsInt(v bool) func(*ScrollRequest) {
-	return func(r *ScrollRequest) {
-		r.RestTotalHitsAsInt = &v
 	}
 }
 

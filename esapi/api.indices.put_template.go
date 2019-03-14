@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -24,7 +24,7 @@ func newIndicesPutTemplateFunc(t Transport) IndicesPutTemplate {
 
 // IndicesPutTemplate creates or updates an index template.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-templates.html.
 //
 type IndicesPutTemplate func(body io.Reader, name string, o ...func(*IndicesPutTemplateRequest)) (*Response, error)
 
@@ -33,13 +33,12 @@ type IndicesPutTemplate func(body io.Reader, name string, o ...func(*IndicesPutT
 type IndicesPutTemplateRequest struct {
 	Body io.Reader
 
-	Name            string
-	Create          *bool
-	FlatSettings    *bool
-	IncludeTypeName *bool
-	MasterTimeout   time.Duration
-	Order           *int
-	Timeout         time.Duration
+	Name          string
+	Create        *bool
+	FlatSettings  *bool
+	MasterTimeout time.Duration
+	Order         *int
+	Timeout       time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -74,10 +73,6 @@ func (r IndicesPutTemplateRequest) Do(ctx context.Context, transport Transport) 
 
 	if r.FlatSettings != nil {
 		params["flat_settings"] = strconv.FormatBool(*r.FlatSettings)
-	}
-
-	if r.IncludeTypeName != nil {
-		params["include_type_name"] = strconv.FormatBool(*r.IncludeTypeName)
 	}
 
 	if r.MasterTimeout != 0 {
@@ -161,14 +156,6 @@ func (f IndicesPutTemplate) WithCreate(v bool) func(*IndicesPutTemplateRequest) 
 func (f IndicesPutTemplate) WithFlatSettings(v bool) func(*IndicesPutTemplateRequest) {
 	return func(r *IndicesPutTemplateRequest) {
 		r.FlatSettings = &v
-	}
-}
-
-// WithIncludeTypeName - whether a type should be returned in the body of the mappings..
-//
-func (f IndicesPutTemplate) WithIncludeTypeName(v bool) func(*IndicesPutTemplateRequest) {
-	return func(r *IndicesPutTemplateRequest) {
-		r.IncludeTypeName = &v
 	}
 }
 

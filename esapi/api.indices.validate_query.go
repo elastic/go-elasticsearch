@@ -1,9 +1,10 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"fmt"
 	"io"
 	"strconv"
 	"strings"
@@ -23,7 +24,7 @@ func newIndicesValidateQueryFunc(t Transport) IndicesValidateQuery {
 
 // IndicesValidateQuery allows a user to validate a potentially expensive query without executing it.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/search-validate.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-validate.html.
 //
 type IndicesValidateQuery func(o ...func(*IndicesValidateQueryRequest)) (*Response, error)
 
@@ -34,18 +35,19 @@ type IndicesValidateQueryRequest struct {
 	DocumentType []string
 	Body         io.Reader
 
-	AllowNoIndices    *bool
-	AllShards         *bool
-	Analyzer          string
-	AnalyzeWildcard   *bool
-	DefaultOperator   string
-	Df                string
-	ExpandWildcards   string
-	Explain           *bool
-	IgnoreUnavailable *bool
-	Lenient           *bool
-	Query             string
-	Rewrite           *bool
+	AllowNoIndices     *bool
+	AllShards          *bool
+	Analyzer           string
+	AnalyzeWildcard    *bool
+	DefaultOperator    string
+	Df                 string
+	ExpandWildcards    string
+	Explain            *bool
+	IgnoreUnavailable  *bool
+	Lenient            *bool
+	OperationThreading interface{}
+	Query              string
+	Rewrite            *bool
 
 	Pretty     bool
 	Human      bool
@@ -120,6 +122,10 @@ func (r IndicesValidateQueryRequest) Do(ctx context.Context, transport Transport
 
 	if r.Lenient != nil {
 		params["lenient"] = strconv.FormatBool(*r.Lenient)
+	}
+
+	if r.OperationThreading != nil {
+		params["operation_threading"] = fmt.Sprintf("%v", r.OperationThreading)
 	}
 
 	if r.Query != "" {
@@ -287,6 +293,14 @@ func (f IndicesValidateQuery) WithIgnoreUnavailable(v bool) func(*IndicesValidat
 func (f IndicesValidateQuery) WithLenient(v bool) func(*IndicesValidateQueryRequest) {
 	return func(r *IndicesValidateQueryRequest) {
 		r.Lenient = &v
+	}
+}
+
+// WithOperationThreading - todo: ?.
+//
+func (f IndicesValidateQuery) WithOperationThreading(v interface{}) func(*IndicesValidateQueryRequest) {
+	return func(r *IndicesValidateQueryRequest) {
+		r.OperationThreading = v
 	}
 }
 

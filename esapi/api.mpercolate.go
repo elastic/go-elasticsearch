@@ -9,9 +9,9 @@ import (
 	"strings"
 )
 
-func newFieldCapsFunc(t Transport) FieldCaps {
-	return func(o ...func(*FieldCapsRequest)) (*Response, error) {
-		var r = FieldCapsRequest{}
+func newMpercolateFunc(t Transport) Mpercolate {
+	return func(body io.Reader, o ...func(*MpercolateRequest)) (*Response, error) {
+		var r = MpercolateRequest{Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -21,21 +21,20 @@ func newFieldCapsFunc(t Transport) FieldCaps {
 
 // ----- API Definition -------------------------------------------------------
 
-// FieldCaps returns the information about the capabilities of fields among multiple indices.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-field-caps.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-percolate.html.
 //
-type FieldCaps func(o ...func(*FieldCapsRequest)) (*Response, error)
+type Mpercolate func(body io.Reader, o ...func(*MpercolateRequest)) (*Response, error)
 
-// FieldCapsRequest configures the Field Caps API request.
+// MpercolateRequest configures the Mpercolate API request.
 //
-type FieldCapsRequest struct {
-	Index []string
-	Body  io.Reader
+type MpercolateRequest struct {
+	Index        string
+	DocumentType string
+	Body         io.Reader
 
 	AllowNoIndices    *bool
 	ExpandWildcards   string
-	Fields            []string
 	IgnoreUnavailable *bool
 
 	Pretty     bool
@@ -48,7 +47,7 @@ type FieldCapsRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r FieldCapsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r MpercolateRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -57,13 +56,17 @@ func (r FieldCapsRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 	method = "GET"
 
-	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_field_caps"))
-	if len(r.Index) > 0 {
+	path.Grow(1 + len(r.Index) + 1 + len(r.DocumentType) + 1 + len("_mpercolate"))
+	if r.Index != "" {
 		path.WriteString("/")
-		path.WriteString(strings.Join(r.Index, ","))
+		path.WriteString(r.Index)
+	}
+	if r.DocumentType != "" {
+		path.WriteString("/")
+		path.WriteString(r.DocumentType)
 	}
 	path.WriteString("/")
-	path.WriteString("_field_caps")
+	path.WriteString("_mpercolate")
 
 	params = make(map[string]string)
 
@@ -73,10 +76,6 @@ func (r FieldCapsRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 	if r.ExpandWildcards != "" {
 		params["expand_wildcards"] = r.ExpandWildcards
-	}
-
-	if len(r.Fields) > 0 {
-		params["fields"] = strings.Join(r.Fields, ",")
 	}
 
 	if r.IgnoreUnavailable != nil {
@@ -133,88 +132,80 @@ func (r FieldCapsRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 // WithContext sets the request context.
 //
-func (f FieldCaps) WithContext(v context.Context) func(*FieldCapsRequest) {
-	return func(r *FieldCapsRequest) {
+func (f Mpercolate) WithContext(v context.Context) func(*MpercolateRequest) {
+	return func(r *MpercolateRequest) {
 		r.ctx = v
 	}
 }
 
-// WithIndex - a list of index names; use _all to perform the operation on all indices.
+// WithIndex - the index of the document being count percolated to use as default.
 //
-func (f FieldCaps) WithIndex(v ...string) func(*FieldCapsRequest) {
-	return func(r *FieldCapsRequest) {
+func (f Mpercolate) WithIndex(v string) func(*MpercolateRequest) {
+	return func(r *MpercolateRequest) {
 		r.Index = v
 	}
 }
 
-// WithBody - Field json objects containing an array of field names.
+// WithDocumentType - the type of the document being percolated to use as default..
 //
-func (f FieldCaps) WithBody(v io.Reader) func(*FieldCapsRequest) {
-	return func(r *FieldCapsRequest) {
-		r.Body = v
+func (f Mpercolate) WithDocumentType(v string) func(*MpercolateRequest) {
+	return func(r *MpercolateRequest) {
+		r.DocumentType = v
 	}
 }
 
 // WithAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (this includes `_all` string or when no indices have been specified).
 //
-func (f FieldCaps) WithAllowNoIndices(v bool) func(*FieldCapsRequest) {
-	return func(r *FieldCapsRequest) {
+func (f Mpercolate) WithAllowNoIndices(v bool) func(*MpercolateRequest) {
+	return func(r *MpercolateRequest) {
 		r.AllowNoIndices = &v
 	}
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
 //
-func (f FieldCaps) WithExpandWildcards(v string) func(*FieldCapsRequest) {
-	return func(r *FieldCapsRequest) {
+func (f Mpercolate) WithExpandWildcards(v string) func(*MpercolateRequest) {
+	return func(r *MpercolateRequest) {
 		r.ExpandWildcards = v
-	}
-}
-
-// WithFields - a list of field names.
-//
-func (f FieldCaps) WithFields(v ...string) func(*FieldCapsRequest) {
-	return func(r *FieldCapsRequest) {
-		r.Fields = v
 	}
 }
 
 // WithIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
 //
-func (f FieldCaps) WithIgnoreUnavailable(v bool) func(*FieldCapsRequest) {
-	return func(r *FieldCapsRequest) {
+func (f Mpercolate) WithIgnoreUnavailable(v bool) func(*MpercolateRequest) {
+	return func(r *MpercolateRequest) {
 		r.IgnoreUnavailable = &v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f FieldCaps) WithPretty() func(*FieldCapsRequest) {
-	return func(r *FieldCapsRequest) {
+func (f Mpercolate) WithPretty() func(*MpercolateRequest) {
+	return func(r *MpercolateRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f FieldCaps) WithHuman() func(*FieldCapsRequest) {
-	return func(r *FieldCapsRequest) {
+func (f Mpercolate) WithHuman() func(*MpercolateRequest) {
+	return func(r *MpercolateRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f FieldCaps) WithErrorTrace() func(*FieldCapsRequest) {
-	return func(r *FieldCapsRequest) {
+func (f Mpercolate) WithErrorTrace() func(*MpercolateRequest) {
+	return func(r *MpercolateRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f FieldCaps) WithFilterPath(v ...string) func(*FieldCapsRequest) {
-	return func(r *FieldCapsRequest) {
+func (f Mpercolate) WithFilterPath(v ...string) func(*MpercolateRequest) {
+	return func(r *MpercolateRequest) {
 		r.FilterPath = v
 	}
 }

@@ -1,9 +1,10 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"fmt"
 	"strconv"
 	"strings"
 )
@@ -22,7 +23,7 @@ func newIndicesSegmentsFunc(t Transport) IndicesSegments {
 
 // IndicesSegments provides low-level information about segments in a Lucene index.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-segments.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-segments.html.
 //
 type IndicesSegments func(o ...func(*IndicesSegmentsRequest)) (*Response, error)
 
@@ -31,10 +32,11 @@ type IndicesSegments func(o ...func(*IndicesSegmentsRequest)) (*Response, error)
 type IndicesSegmentsRequest struct {
 	Index []string
 
-	AllowNoIndices    *bool
-	ExpandWildcards   string
-	IgnoreUnavailable *bool
-	Verbose           *bool
+	AllowNoIndices     *bool
+	ExpandWildcards    string
+	IgnoreUnavailable  *bool
+	OperationThreading interface{}
+	Verbose            *bool
 
 	Pretty     bool
 	Human      bool
@@ -75,6 +77,10 @@ func (r IndicesSegmentsRequest) Do(ctx context.Context, transport Transport) (*R
 
 	if r.IgnoreUnavailable != nil {
 		params["ignore_unavailable"] = strconv.FormatBool(*r.IgnoreUnavailable)
+	}
+
+	if r.OperationThreading != nil {
+		params["operation_threading"] = fmt.Sprintf("%v", r.OperationThreading)
 	}
 
 	if r.Verbose != nil {
@@ -162,6 +168,14 @@ func (f IndicesSegments) WithExpandWildcards(v string) func(*IndicesSegmentsRequ
 func (f IndicesSegments) WithIgnoreUnavailable(v bool) func(*IndicesSegmentsRequest) {
 	return func(r *IndicesSegmentsRequest) {
 		r.IgnoreUnavailable = &v
+	}
+}
+
+// WithOperationThreading - todo: ?.
+//
+func (f IndicesSegments) WithOperationThreading(v interface{}) func(*IndicesSegmentsRequest) {
+	return func(r *IndicesSegmentsRequest) {
+		r.OperationThreading = v
 	}
 }
 

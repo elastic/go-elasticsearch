@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -23,7 +23,7 @@ func newClusterHealthFunc(t Transport) ClusterHealth {
 
 // ClusterHealth returns basic information about the health of the cluster.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-health.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-health.html.
 //
 type ClusterHealth func(o ...func(*ClusterHealthRequest)) (*Response, error)
 
@@ -32,16 +32,15 @@ type ClusterHealth func(o ...func(*ClusterHealthRequest)) (*Response, error)
 type ClusterHealthRequest struct {
 	Index []string
 
-	Level                       string
-	Local                       *bool
-	MasterTimeout               time.Duration
-	Timeout                     time.Duration
-	WaitForActiveShards         string
-	WaitForEvents               string
-	WaitForNoInitializingShards *bool
-	WaitForNoRelocatingShards   *bool
-	WaitForNodes                string
-	WaitForStatus               string
+	Level                     string
+	Local                     *bool
+	MasterTimeout             time.Duration
+	Timeout                   time.Duration
+	WaitForActiveShards       string
+	WaitForEvents             string
+	WaitForNoRelocatingShards *bool
+	WaitForNodes              string
+	WaitForStatus             string
 
 	Pretty     bool
 	Human      bool
@@ -96,10 +95,6 @@ func (r ClusterHealthRequest) Do(ctx context.Context, transport Transport) (*Res
 
 	if r.WaitForEvents != "" {
 		params["wait_for_events"] = r.WaitForEvents
-	}
-
-	if r.WaitForNoInitializingShards != nil {
-		params["wait_for_no_initializing_shards"] = strconv.FormatBool(*r.WaitForNoInitializingShards)
 	}
 
 	if r.WaitForNoRelocatingShards != nil {
@@ -219,14 +214,6 @@ func (f ClusterHealth) WithWaitForActiveShards(v string) func(*ClusterHealthRequ
 func (f ClusterHealth) WithWaitForEvents(v string) func(*ClusterHealthRequest) {
 	return func(r *ClusterHealthRequest) {
 		r.WaitForEvents = v
-	}
-}
-
-// WithWaitForNoInitializingShards - whether to wait until there are no initializing shards in the cluster.
-//
-func (f ClusterHealth) WithWaitForNoInitializingShards(v bool) func(*ClusterHealthRequest) {
-	return func(r *ClusterHealthRequest) {
-		r.WaitForNoInitializingShards = &v
 	}
 }
 

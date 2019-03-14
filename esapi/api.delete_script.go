@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -9,8 +9,8 @@ import (
 )
 
 func newDeleteScriptFunc(t Transport) DeleteScript {
-	return func(id string, o ...func(*DeleteScriptRequest)) (*Response, error) {
-		var r = DeleteScriptRequest{DocumentID: id}
+	return func(id string, lang string, o ...func(*DeleteScriptRequest)) (*Response, error) {
+		var r = DeleteScriptRequest{DocumentID: id, Lang: lang}
 		for _, f := range o {
 			f(&r)
 		}
@@ -22,15 +22,16 @@ func newDeleteScriptFunc(t Transport) DeleteScript {
 
 // DeleteScript deletes a script.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/modules-scripting.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/modules-scripting.html.
 //
-type DeleteScript func(id string, o ...func(*DeleteScriptRequest)) (*Response, error)
+type DeleteScript func(id string, lang string, o ...func(*DeleteScriptRequest)) (*Response, error)
 
 // DeleteScriptRequest configures the Delete Script API request.
 //
 type DeleteScriptRequest struct {
 	DocumentID string
 
+	Lang          string
 	MasterTimeout time.Duration
 	Timeout       time.Duration
 
@@ -53,9 +54,11 @@ func (r DeleteScriptRequest) Do(ctx context.Context, transport Transport) (*Resp
 
 	method = "DELETE"
 
-	path.Grow(1 + len("_scripts") + 1 + len(r.DocumentID))
+	path.Grow(1 + len("_scripts") + 1 + len(r.Lang) + 1 + len(r.DocumentID))
 	path.WriteString("/")
 	path.WriteString("_scripts")
+	path.WriteString("/")
+	path.WriteString(r.Lang)
 	path.WriteString("/")
 	path.WriteString(r.DocumentID)
 

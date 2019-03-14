@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -23,7 +23,7 @@ func newBulkFunc(t Transport) Bulk {
 
 // Bulk allows to perform multiple index/update/delete operations in a single request.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-bulk.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-bulk.html.
 //
 type Bulk func(body io.Reader, o ...func(*BulkRequest)) (*Response, error)
 
@@ -34,12 +34,13 @@ type BulkRequest struct {
 	DocumentType string
 	Body         io.Reader
 
+	Fields              []string
 	Pipeline            string
 	Refresh             string
 	Routing             string
 	Source              []string
-	SourceExcludes      []string
-	SourceIncludes      []string
+	SourceExclude       []string
+	SourceInclude       []string
 	Timeout             time.Duration
 	WaitForActiveShards string
 
@@ -76,6 +77,10 @@ func (r BulkRequest) Do(ctx context.Context, transport Transport) (*Response, er
 
 	params = make(map[string]string)
 
+	if len(r.Fields) > 0 {
+		params["fields"] = strings.Join(r.Fields, ",")
+	}
+
 	if r.Pipeline != "" {
 		params["pipeline"] = r.Pipeline
 	}
@@ -92,12 +97,12 @@ func (r BulkRequest) Do(ctx context.Context, transport Transport) (*Response, er
 		params["_source"] = strings.Join(r.Source, ",")
 	}
 
-	if len(r.SourceExcludes) > 0 {
-		params["_source_excludes"] = strings.Join(r.SourceExcludes, ",")
+	if len(r.SourceExclude) > 0 {
+		params["_source_exclude"] = strings.Join(r.SourceExclude, ",")
 	}
 
-	if len(r.SourceIncludes) > 0 {
-		params["_source_includes"] = strings.Join(r.SourceIncludes, ",")
+	if len(r.SourceInclude) > 0 {
+		params["_source_include"] = strings.Join(r.SourceInclude, ",")
 	}
 
 	if r.Timeout != 0 {
@@ -184,6 +189,14 @@ func (f Bulk) WithDocumentType(v string) func(*BulkRequest) {
 	}
 }
 
+// WithFields - default comma-separated list of fields to return in the response for updates, can be overridden on each sub-request.
+//
+func (f Bulk) WithFields(v ...string) func(*BulkRequest) {
+	return func(r *BulkRequest) {
+		r.Fields = v
+	}
+}
+
 // WithPipeline - the pipeline ID to preprocess incoming documents with.
 //
 func (f Bulk) WithPipeline(v string) func(*BulkRequest) {
@@ -216,19 +229,19 @@ func (f Bulk) WithSource(v ...string) func(*BulkRequest) {
 	}
 }
 
-// WithSourceExcludes - default list of fields to exclude from the returned _source field, can be overridden on each sub-request.
+// WithSourceExclude - default list of fields to exclude from the returned _source field, can be overridden on each sub-request.
 //
-func (f Bulk) WithSourceExcludes(v ...string) func(*BulkRequest) {
+func (f Bulk) WithSourceExclude(v ...string) func(*BulkRequest) {
 	return func(r *BulkRequest) {
-		r.SourceExcludes = v
+		r.SourceExclude = v
 	}
 }
 
-// WithSourceIncludes - default list of fields to extract and return from the _source field, can be overridden on each sub-request.
+// WithSourceInclude - default list of fields to extract and return from the _source field, can be overridden on each sub-request.
 //
-func (f Bulk) WithSourceIncludes(v ...string) func(*BulkRequest) {
+func (f Bulk) WithSourceInclude(v ...string) func(*BulkRequest) {
 	return func(r *BulkRequest) {
-		r.SourceIncludes = v
+		r.SourceInclude = v
 	}
 }
 

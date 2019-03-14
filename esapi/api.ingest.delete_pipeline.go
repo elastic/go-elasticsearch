@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -22,7 +22,7 @@ func newIngestDeletePipelineFunc(t Transport) IngestDeletePipeline {
 
 // IngestDeletePipeline deletes a pipeline.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/plugins/master/ingest.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/plugins/5.x/ingest.html.
 //
 type IngestDeletePipeline func(id string, o ...func(*IngestDeletePipelineRequest)) (*Response, error)
 

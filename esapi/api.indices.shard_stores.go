@@ -1,9 +1,10 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"fmt"
 	"strconv"
 	"strings"
 )
@@ -22,7 +23,7 @@ func newIndicesShardStoresFunc(t Transport) IndicesShardStores {
 
 // IndicesShardStores provides store information for shard copies of indices.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-shards-stores.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-shards-stores.html.
 //
 type IndicesShardStores func(o ...func(*IndicesShardStoresRequest)) (*Response, error)
 
@@ -31,10 +32,11 @@ type IndicesShardStores func(o ...func(*IndicesShardStoresRequest)) (*Response, 
 type IndicesShardStoresRequest struct {
 	Index []string
 
-	AllowNoIndices    *bool
-	ExpandWildcards   string
-	IgnoreUnavailable *bool
-	Status            []string
+	AllowNoIndices     *bool
+	ExpandWildcards    string
+	IgnoreUnavailable  *bool
+	OperationThreading interface{}
+	Status             []string
 
 	Pretty     bool
 	Human      bool
@@ -75,6 +77,10 @@ func (r IndicesShardStoresRequest) Do(ctx context.Context, transport Transport) 
 
 	if r.IgnoreUnavailable != nil {
 		params["ignore_unavailable"] = strconv.FormatBool(*r.IgnoreUnavailable)
+	}
+
+	if r.OperationThreading != nil {
+		params["operation_threading"] = fmt.Sprintf("%v", r.OperationThreading)
 	}
 
 	if len(r.Status) > 0 {
@@ -162,6 +168,14 @@ func (f IndicesShardStores) WithExpandWildcards(v string) func(*IndicesShardStor
 func (f IndicesShardStores) WithIgnoreUnavailable(v bool) func(*IndicesShardStoresRequest) {
 	return func(r *IndicesShardStoresRequest) {
 		r.IgnoreUnavailable = &v
+	}
+}
+
+// WithOperationThreading - todo: ?.
+//
+func (f IndicesShardStores) WithOperationThreading(v interface{}) func(*IndicesShardStoresRequest) {
+	return func(r *IndicesShardStoresRequest) {
+		r.OperationThreading = v
 	}
 }
 

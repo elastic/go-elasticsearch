@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -23,7 +23,7 @@ func newIndicesOpenFunc(t Transport) IndicesOpen {
 
 // IndicesOpen opens an index.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-open-close.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-open-close.html.
 //
 type IndicesOpen func(index []string, o ...func(*IndicesOpenRequest)) (*Response, error)
 
@@ -32,12 +32,11 @@ type IndicesOpen func(index []string, o ...func(*IndicesOpenRequest)) (*Response
 type IndicesOpenRequest struct {
 	Index []string
 
-	AllowNoIndices      *bool
-	ExpandWildcards     string
-	IgnoreUnavailable   *bool
-	MasterTimeout       time.Duration
-	Timeout             time.Duration
-	WaitForActiveShards string
+	AllowNoIndices    *bool
+	ExpandWildcards   string
+	IgnoreUnavailable *bool
+	MasterTimeout     time.Duration
+	Timeout           time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -84,10 +83,6 @@ func (r IndicesOpenRequest) Do(ctx context.Context, transport Transport) (*Respo
 
 	if r.Timeout != 0 {
 		params["timeout"] = time.Duration(r.Timeout * time.Millisecond).String()
-	}
-
-	if r.WaitForActiveShards != "" {
-		params["wait_for_active_shards"] = r.WaitForActiveShards
 	}
 
 	if r.Pretty {
@@ -179,14 +174,6 @@ func (f IndicesOpen) WithMasterTimeout(v time.Duration) func(*IndicesOpenRequest
 func (f IndicesOpen) WithTimeout(v time.Duration) func(*IndicesOpenRequest) {
 	return func(r *IndicesOpenRequest) {
 		r.Timeout = v
-	}
-}
-
-// WithWaitForActiveShards - sets the number of active shards to wait for before the operation returns..
-//
-func (f IndicesOpen) WithWaitForActiveShards(v string) func(*IndicesOpenRequest) {
-	return func(r *IndicesOpenRequest) {
-		r.WaitForActiveShards = v
 	}
 }
 

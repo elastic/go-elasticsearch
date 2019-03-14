@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -26,7 +26,7 @@ func newCreateFunc(t Transport) Create {
 //
 // Returns a 409 response when a document with a same ID already exists in the index.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-index_.html.
 //
 type Create func(index string, id string, body io.Reader, o ...func(*CreateRequest)) (*Response, error)
 
@@ -43,6 +43,8 @@ type CreateRequest struct {
 	Refresh             string
 	Routing             string
 	Timeout             time.Duration
+	Timestamp           time.Duration
+	Ttl                 time.Duration
 	Version             *int
 	VersionType         string
 	WaitForActiveShards string
@@ -100,6 +102,14 @@ func (r CreateRequest) Do(ctx context.Context, transport Transport) (*Response, 
 
 	if r.Timeout != 0 {
 		params["timeout"] = time.Duration(r.Timeout * time.Millisecond).String()
+	}
+
+	if r.Timestamp != 0 {
+		params["timestamp"] = time.Duration(r.Timestamp * time.Millisecond).String()
+	}
+
+	if r.Ttl != 0 {
+		params["ttl"] = time.Duration(r.Ttl * time.Millisecond).String()
 	}
 
 	if r.Version != nil {
@@ -215,6 +225,22 @@ func (f Create) WithRouting(v string) func(*CreateRequest) {
 func (f Create) WithTimeout(v time.Duration) func(*CreateRequest) {
 	return func(r *CreateRequest) {
 		r.Timeout = v
+	}
+}
+
+// WithTimestamp - explicit timestamp for the document.
+//
+func (f Create) WithTimestamp(v time.Duration) func(*CreateRequest) {
+	return func(r *CreateRequest) {
+		r.Timestamp = v
+	}
+}
+
+// WithTtl - expiration time for the document.
+//
+func (f Create) WithTtl(v time.Duration) func(*CreateRequest) {
+	return func(r *CreateRequest) {
+		r.Ttl = v
 	}
 }
 

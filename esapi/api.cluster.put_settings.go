@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -11,8 +11,8 @@ import (
 )
 
 func newClusterPutSettingsFunc(t Transport) ClusterPutSettings {
-	return func(body io.Reader, o ...func(*ClusterPutSettingsRequest)) (*Response, error) {
-		var r = ClusterPutSettingsRequest{Body: body}
+	return func(o ...func(*ClusterPutSettingsRequest)) (*Response, error) {
+		var r = ClusterPutSettingsRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -24,9 +24,9 @@ func newClusterPutSettingsFunc(t Transport) ClusterPutSettings {
 
 // ClusterPutSettings updates the cluster settings.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-update-settings.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-update-settings.html.
 //
-type ClusterPutSettings func(body io.Reader, o ...func(*ClusterPutSettingsRequest)) (*Response, error)
+type ClusterPutSettings func(o ...func(*ClusterPutSettingsRequest)) (*Response, error)
 
 // ClusterPutSettingsRequest configures the Cluster  Put Settings API request.
 //
@@ -126,6 +126,14 @@ func (r ClusterPutSettingsRequest) Do(ctx context.Context, transport Transport) 
 func (f ClusterPutSettings) WithContext(v context.Context) func(*ClusterPutSettingsRequest) {
 	return func(r *ClusterPutSettingsRequest) {
 		r.ctx = v
+	}
+}
+
+// WithBody - The settings to be updated. Can be either `transient` or `persistent` (survives cluster restart)..
+//
+func (f ClusterPutSettings) WithBody(v io.Reader) func(*ClusterPutSettingsRequest) {
+	return func(r *ClusterPutSettingsRequest) {
+		r.Body = v
 	}
 }
 

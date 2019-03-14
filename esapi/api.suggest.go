@@ -4,14 +4,14 @@ package esapi
 
 import (
 	"context"
+	"io"
 	"strconv"
 	"strings"
-	"time"
 )
 
-func newIndicesCloseFunc(t Transport) IndicesClose {
-	return func(index []string, o ...func(*IndicesCloseRequest)) (*Response, error) {
-		var r = IndicesCloseRequest{Index: index}
+func newSuggestFunc(t Transport) Suggest {
+	return func(body io.Reader, o ...func(*SuggestRequest)) (*Response, error) {
+		var r = SuggestRequest{Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -21,22 +21,22 @@ func newIndicesCloseFunc(t Transport) IndicesClose {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesClose closes an index.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-open-close.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-suggesters.html.
 //
-type IndicesClose func(index []string, o ...func(*IndicesCloseRequest)) (*Response, error)
+type Suggest func(body io.Reader, o ...func(*SuggestRequest)) (*Response, error)
 
-// IndicesCloseRequest configures the Indices Close API request.
+// SuggestRequest configures the Suggest API request.
 //
-type IndicesCloseRequest struct {
+type SuggestRequest struct {
 	Index []string
+	Body  io.Reader
 
 	AllowNoIndices    *bool
 	ExpandWildcards   string
 	IgnoreUnavailable *bool
-	MasterTimeout     time.Duration
-	Timeout           time.Duration
+	Preference        string
+	Routing           string
 
 	Pretty     bool
 	Human      bool
@@ -48,7 +48,7 @@ type IndicesCloseRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r IndicesCloseRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SuggestRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -57,11 +57,13 @@ func (r IndicesCloseRequest) Do(ctx context.Context, transport Transport) (*Resp
 
 	method = "POST"
 
-	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_close"))
+	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_suggest"))
+	if len(r.Index) > 0 {
+		path.WriteString("/")
+		path.WriteString(strings.Join(r.Index, ","))
+	}
 	path.WriteString("/")
-	path.WriteString(strings.Join(r.Index, ","))
-	path.WriteString("/")
-	path.WriteString("_close")
+	path.WriteString("_suggest")
 
 	params = make(map[string]string)
 
@@ -77,12 +79,12 @@ func (r IndicesCloseRequest) Do(ctx context.Context, transport Transport) (*Resp
 		params["ignore_unavailable"] = strconv.FormatBool(*r.IgnoreUnavailable)
 	}
 
-	if r.MasterTimeout != 0 {
-		params["master_timeout"] = time.Duration(r.MasterTimeout * time.Millisecond).String()
+	if r.Preference != "" {
+		params["preference"] = r.Preference
 	}
 
-	if r.Timeout != 0 {
-		params["timeout"] = time.Duration(r.Timeout * time.Millisecond).String()
+	if r.Routing != "" {
+		params["routing"] = r.Routing
 	}
 
 	if r.Pretty {
@@ -101,7 +103,7 @@ func (r IndicesCloseRequest) Do(ctx context.Context, transport Transport) (*Resp
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, _ := newRequest(method, path.String(), nil)
+	req, _ := newRequest(method, path.String(), r.Body)
 
 	if len(params) > 0 {
 		q := req.URL.Query()
@@ -109,6 +111,10 @@ func (r IndicesCloseRequest) Do(ctx context.Context, transport Transport) (*Resp
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if r.Body != nil {
+		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if ctx != nil {
@@ -131,80 +137,88 @@ func (r IndicesCloseRequest) Do(ctx context.Context, transport Transport) (*Resp
 
 // WithContext sets the request context.
 //
-func (f IndicesClose) WithContext(v context.Context) func(*IndicesCloseRequest) {
-	return func(r *IndicesCloseRequest) {
+func (f Suggest) WithContext(v context.Context) func(*SuggestRequest) {
+	return func(r *SuggestRequest) {
 		r.ctx = v
+	}
+}
+
+// WithIndex - a list of index names to restrict the operation; use _all to perform the operation on all indices.
+//
+func (f Suggest) WithIndex(v ...string) func(*SuggestRequest) {
+	return func(r *SuggestRequest) {
+		r.Index = v
 	}
 }
 
 // WithAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (this includes `_all` string or when no indices have been specified).
 //
-func (f IndicesClose) WithAllowNoIndices(v bool) func(*IndicesCloseRequest) {
-	return func(r *IndicesCloseRequest) {
+func (f Suggest) WithAllowNoIndices(v bool) func(*SuggestRequest) {
+	return func(r *SuggestRequest) {
 		r.AllowNoIndices = &v
 	}
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
 //
-func (f IndicesClose) WithExpandWildcards(v string) func(*IndicesCloseRequest) {
-	return func(r *IndicesCloseRequest) {
+func (f Suggest) WithExpandWildcards(v string) func(*SuggestRequest) {
+	return func(r *SuggestRequest) {
 		r.ExpandWildcards = v
 	}
 }
 
 // WithIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
 //
-func (f IndicesClose) WithIgnoreUnavailable(v bool) func(*IndicesCloseRequest) {
-	return func(r *IndicesCloseRequest) {
+func (f Suggest) WithIgnoreUnavailable(v bool) func(*SuggestRequest) {
+	return func(r *SuggestRequest) {
 		r.IgnoreUnavailable = &v
 	}
 }
 
-// WithMasterTimeout - specify timeout for connection to master.
+// WithPreference - specify the node or shard the operation should be performed on (default: random).
 //
-func (f IndicesClose) WithMasterTimeout(v time.Duration) func(*IndicesCloseRequest) {
-	return func(r *IndicesCloseRequest) {
-		r.MasterTimeout = v
+func (f Suggest) WithPreference(v string) func(*SuggestRequest) {
+	return func(r *SuggestRequest) {
+		r.Preference = v
 	}
 }
 
-// WithTimeout - explicit operation timeout.
+// WithRouting - specific routing value.
 //
-func (f IndicesClose) WithTimeout(v time.Duration) func(*IndicesCloseRequest) {
-	return func(r *IndicesCloseRequest) {
-		r.Timeout = v
+func (f Suggest) WithRouting(v string) func(*SuggestRequest) {
+	return func(r *SuggestRequest) {
+		r.Routing = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f IndicesClose) WithPretty() func(*IndicesCloseRequest) {
-	return func(r *IndicesCloseRequest) {
+func (f Suggest) WithPretty() func(*SuggestRequest) {
+	return func(r *SuggestRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f IndicesClose) WithHuman() func(*IndicesCloseRequest) {
-	return func(r *IndicesCloseRequest) {
+func (f Suggest) WithHuman() func(*SuggestRequest) {
+	return func(r *SuggestRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f IndicesClose) WithErrorTrace() func(*IndicesCloseRequest) {
-	return func(r *IndicesCloseRequest) {
+func (f Suggest) WithErrorTrace() func(*SuggestRequest) {
+	return func(r *SuggestRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f IndicesClose) WithFilterPath(v ...string) func(*IndicesCloseRequest) {
-	return func(r *IndicesCloseRequest) {
+func (f Suggest) WithFilterPath(v ...string) func(*SuggestRequest) {
+	return func(r *SuggestRequest) {
 		r.FilterPath = v
 	}
 }

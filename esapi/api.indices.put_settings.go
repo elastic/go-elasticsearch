@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -24,7 +24,7 @@ func newIndicesPutSettingsFunc(t Transport) IndicesPutSettings {
 
 // IndicesPutSettings updates the index settings.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-update-settings.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-update-settings.html.
 //
 type IndicesPutSettings func(body io.Reader, o ...func(*IndicesPutSettingsRequest)) (*Response, error)
 
@@ -40,7 +40,6 @@ type IndicesPutSettingsRequest struct {
 	IgnoreUnavailable *bool
 	MasterTimeout     time.Duration
 	PreserveExisting  *bool
-	Timeout           time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -93,10 +92,6 @@ func (r IndicesPutSettingsRequest) Do(ctx context.Context, transport Transport) 
 
 	if r.PreserveExisting != nil {
 		params["preserve_existing"] = strconv.FormatBool(*r.PreserveExisting)
-	}
-
-	if r.Timeout != 0 {
-		params["timeout"] = time.Duration(r.Timeout * time.Millisecond).String()
 	}
 
 	if r.Pretty {
@@ -208,14 +203,6 @@ func (f IndicesPutSettings) WithMasterTimeout(v time.Duration) func(*IndicesPutS
 func (f IndicesPutSettings) WithPreserveExisting(v bool) func(*IndicesPutSettingsRequest) {
 	return func(r *IndicesPutSettingsRequest) {
 		r.PreserveExisting = &v
-	}
-}
-
-// WithTimeout - explicit operation timeout.
-//
-func (f IndicesPutSettings) WithTimeout(v time.Duration) func(*IndicesPutSettingsRequest) {
-	return func(r *IndicesPutSettingsRequest) {
-		r.Timeout = v
 	}
 }
 

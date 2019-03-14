@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -9,8 +9,8 @@ import (
 )
 
 func newIndicesExistsAliasFunc(t Transport) IndicesExistsAlias {
-	return func(name []string, o ...func(*IndicesExistsAliasRequest)) (*Response, error) {
-		var r = IndicesExistsAliasRequest{Name: name}
+	return func(o ...func(*IndicesExistsAliasRequest)) (*Response, error) {
+		var r = IndicesExistsAliasRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -22,9 +22,9 @@ func newIndicesExistsAliasFunc(t Transport) IndicesExistsAlias {
 
 // IndicesExistsAlias returns information about whether a particular alias exists.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-aliases.html.
 //
-type IndicesExistsAlias func(name []string, o ...func(*IndicesExistsAliasRequest)) (*Response, error)
+type IndicesExistsAlias func(o ...func(*IndicesExistsAliasRequest)) (*Response, error)
 
 // IndicesExistsAliasRequest configures the Indices  Exists Alias API request.
 //
@@ -63,8 +63,10 @@ func (r IndicesExistsAliasRequest) Do(ctx context.Context, transport Transport) 
 	}
 	path.WriteString("/")
 	path.WriteString("_alias")
-	path.WriteString("/")
-	path.WriteString(strings.Join(r.Name, ","))
+	if len(r.Name) > 0 {
+		path.WriteString("/")
+		path.WriteString(strings.Join(r.Name, ","))
+	}
 
 	params = make(map[string]string)
 
@@ -141,6 +143,14 @@ func (f IndicesExistsAlias) WithContext(v context.Context) func(*IndicesExistsAl
 func (f IndicesExistsAlias) WithIndex(v ...string) func(*IndicesExistsAliasRequest) {
 	return func(r *IndicesExistsAliasRequest) {
 		r.Index = v
+	}
+}
+
+// WithName - a list of alias names to return.
+//
+func (f IndicesExistsAlias) WithName(v ...string) func(*IndicesExistsAliasRequest) {
+	return func(r *IndicesExistsAliasRequest) {
+		r.Name = v
 	}
 }
 

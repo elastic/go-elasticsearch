@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -23,7 +23,7 @@ func newMsearchFunc(t Transport) Msearch {
 
 // Msearch allows to execute several search operations in one request.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/search-multi-search.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-multi-search.html.
 //
 type Msearch func(body io.Reader, o ...func(*MsearchRequest)) (*Response, error)
 
@@ -34,13 +34,10 @@ type MsearchRequest struct {
 	DocumentType []string
 	Body         io.Reader
 
-	CcsMinimizeRoundtrips      *bool
-	MaxConcurrentSearches      *int
-	MaxConcurrentShardRequests *int
-	PreFilterShardSize         *int
-	RestTotalHitsAsInt         *bool
-	SearchType                 string
-	TypedKeys                  *bool
+	MaxConcurrentSearches *int
+	PreFilterShardSize    *int
+	SearchType            string
+	TypedKeys             *bool
 
 	Pretty     bool
 	Human      bool
@@ -75,24 +72,12 @@ func (r MsearchRequest) Do(ctx context.Context, transport Transport) (*Response,
 
 	params = make(map[string]string)
 
-	if r.CcsMinimizeRoundtrips != nil {
-		params["ccs_minimize_roundtrips"] = strconv.FormatBool(*r.CcsMinimizeRoundtrips)
-	}
-
 	if r.MaxConcurrentSearches != nil {
 		params["max_concurrent_searches"] = strconv.FormatInt(int64(*r.MaxConcurrentSearches), 10)
 	}
 
-	if r.MaxConcurrentShardRequests != nil {
-		params["max_concurrent_shard_requests"] = strconv.FormatInt(int64(*r.MaxConcurrentShardRequests), 10)
-	}
-
 	if r.PreFilterShardSize != nil {
 		params["pre_filter_shard_size"] = strconv.FormatInt(int64(*r.PreFilterShardSize), 10)
-	}
-
-	if r.RestTotalHitsAsInt != nil {
-		params["rest_total_hits_as_int"] = strconv.FormatBool(*r.RestTotalHitsAsInt)
 	}
 
 	if r.SearchType != "" {
@@ -175,14 +160,6 @@ func (f Msearch) WithDocumentType(v ...string) func(*MsearchRequest) {
 	}
 }
 
-// WithCcsMinimizeRoundtrips - indicates whether network round-trips should be minimized as part of cross-cluster search requests execution.
-//
-func (f Msearch) WithCcsMinimizeRoundtrips(v bool) func(*MsearchRequest) {
-	return func(r *MsearchRequest) {
-		r.CcsMinimizeRoundtrips = &v
-	}
-}
-
 // WithMaxConcurrentSearches - controls the maximum number of concurrent searches the multi search api will execute.
 //
 func (f Msearch) WithMaxConcurrentSearches(v int) func(*MsearchRequest) {
@@ -191,27 +168,11 @@ func (f Msearch) WithMaxConcurrentSearches(v int) func(*MsearchRequest) {
 	}
 }
 
-// WithMaxConcurrentShardRequests - the number of concurrent shard requests each sub search executes concurrently. this value should be used to limit the impact of the search on the cluster in order to limit the number of concurrent shard requests.
-//
-func (f Msearch) WithMaxConcurrentShardRequests(v int) func(*MsearchRequest) {
-	return func(r *MsearchRequest) {
-		r.MaxConcurrentShardRequests = &v
-	}
-}
-
 // WithPreFilterShardSize - a threshold that enforces a pre-filter roundtrip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. this filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on it's rewrite method ie. if date filters are mandatory to match but the shard bounds and the query are disjoint..
 //
 func (f Msearch) WithPreFilterShardSize(v int) func(*MsearchRequest) {
 	return func(r *MsearchRequest) {
 		r.PreFilterShardSize = &v
-	}
-}
-
-// WithRestTotalHitsAsInt - indicates whether hits.total should be rendered as an integer or an object in the rest search response.
-//
-func (f Msearch) WithRestTotalHitsAsInt(v bool) func(*MsearchRequest) {
-	return func(r *MsearchRequest) {
-		r.RestTotalHitsAsInt = &v
 	}
 }
 

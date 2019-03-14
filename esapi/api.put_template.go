@@ -4,12 +4,13 @@ package esapi
 
 import (
 	"context"
+	"io"
 	"strings"
 )
 
-func newClusterRemoteInfoFunc(t Transport) ClusterRemoteInfo {
-	return func(o ...func(*ClusterRemoteInfoRequest)) (*Response, error) {
-		var r = ClusterRemoteInfoRequest{}
+func newPutTemplateFunc(t Transport) PutTemplate {
+	return func(id string, body io.Reader, o ...func(*PutTemplateRequest)) (*Response, error) {
+		var r = PutTemplateRequest{DocumentID: id, Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -19,15 +20,17 @@ func newClusterRemoteInfoFunc(t Transport) ClusterRemoteInfo {
 
 // ----- API Definition -------------------------------------------------------
 
-// ClusterRemoteInfo returns the information about configured remote clusters.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-remote-info.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-template.html.
 //
-type ClusterRemoteInfo func(o ...func(*ClusterRemoteInfoRequest)) (*Response, error)
+type PutTemplate func(id string, body io.Reader, o ...func(*PutTemplateRequest)) (*Response, error)
 
-// ClusterRemoteInfoRequest configures the Cluster  Remote Info API request.
+// PutTemplateRequest configures the Put Template API request.
 //
-type ClusterRemoteInfoRequest struct {
+type PutTemplateRequest struct {
+	DocumentID string
+	Body       io.Reader
+
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -38,17 +41,22 @@ type ClusterRemoteInfoRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r ClusterRemoteInfoRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r PutTemplateRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "PUT"
 
-	path.Grow(len("/_remote/info"))
-	path.WriteString("/_remote/info")
+	path.Grow(1 + len("_search") + 1 + len("template") + 1 + len(r.DocumentID))
+	path.WriteString("/")
+	path.WriteString("_search")
+	path.WriteString("/")
+	path.WriteString("template")
+	path.WriteString("/")
+	path.WriteString(r.DocumentID)
 
 	params = make(map[string]string)
 
@@ -68,7 +76,7 @@ func (r ClusterRemoteInfoRequest) Do(ctx context.Context, transport Transport) (
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, _ := newRequest(method, path.String(), nil)
+	req, _ := newRequest(method, path.String(), r.Body)
 
 	if len(params) > 0 {
 		q := req.URL.Query()
@@ -76,6 +84,10 @@ func (r ClusterRemoteInfoRequest) Do(ctx context.Context, transport Transport) (
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if r.Body != nil {
+		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if ctx != nil {
@@ -98,40 +110,40 @@ func (r ClusterRemoteInfoRequest) Do(ctx context.Context, transport Transport) (
 
 // WithContext sets the request context.
 //
-func (f ClusterRemoteInfo) WithContext(v context.Context) func(*ClusterRemoteInfoRequest) {
-	return func(r *ClusterRemoteInfoRequest) {
+func (f PutTemplate) WithContext(v context.Context) func(*PutTemplateRequest) {
+	return func(r *PutTemplateRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f ClusterRemoteInfo) WithPretty() func(*ClusterRemoteInfoRequest) {
-	return func(r *ClusterRemoteInfoRequest) {
+func (f PutTemplate) WithPretty() func(*PutTemplateRequest) {
+	return func(r *PutTemplateRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f ClusterRemoteInfo) WithHuman() func(*ClusterRemoteInfoRequest) {
-	return func(r *ClusterRemoteInfoRequest) {
+func (f PutTemplate) WithHuman() func(*PutTemplateRequest) {
+	return func(r *PutTemplateRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f ClusterRemoteInfo) WithErrorTrace() func(*ClusterRemoteInfoRequest) {
-	return func(r *ClusterRemoteInfoRequest) {
+func (f PutTemplate) WithErrorTrace() func(*PutTemplateRequest) {
+	return func(r *PutTemplateRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f ClusterRemoteInfo) WithFilterPath(v ...string) func(*ClusterRemoteInfoRequest) {
-	return func(r *ClusterRemoteInfoRequest) {
+func (f PutTemplate) WithFilterPath(v ...string) func(*PutTemplateRequest) {
+	return func(r *PutTemplateRequest) {
 		r.FilterPath = v
 	}
 }

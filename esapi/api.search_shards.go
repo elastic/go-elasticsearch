@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -22,14 +22,15 @@ func newSearchShardsFunc(t Transport) SearchShards {
 
 // SearchShards returns information about the indices and shards that a search request would be executed against.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/search-shards.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-shards.html.
 //
 type SearchShards func(o ...func(*SearchShardsRequest)) (*Response, error)
 
 // SearchShardsRequest configures the Search Shards API request.
 //
 type SearchShardsRequest struct {
-	Index []string
+	Index        []string
+	DocumentType []string
 
 	AllowNoIndices    *bool
 	ExpandWildcards   string
@@ -57,10 +58,14 @@ func (r SearchShardsRequest) Do(ctx context.Context, transport Transport) (*Resp
 
 	method = "GET"
 
-	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_search_shards"))
+	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len(strings.Join(r.DocumentType, ",")) + 1 + len("_search_shards"))
 	if len(r.Index) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.Index, ","))
+	}
+	if len(r.DocumentType) > 0 {
+		path.WriteString("/")
+		path.WriteString(strings.Join(r.DocumentType, ","))
 	}
 	path.WriteString("/")
 	path.WriteString("_search_shards")
@@ -148,6 +153,14 @@ func (f SearchShards) WithContext(v context.Context) func(*SearchShardsRequest) 
 func (f SearchShards) WithIndex(v ...string) func(*SearchShardsRequest) {
 	return func(r *SearchShardsRequest) {
 		r.Index = v
+	}
+}
+
+// WithDocumentType - a list of document types to search; leave empty to perform the operation on all types.
+//
+func (f SearchShards) WithDocumentType(v ...string) func(*SearchShardsRequest) {
+	return func(r *SearchShardsRequest) {
+		r.DocumentType = v
 	}
 }
 

@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -24,7 +24,7 @@ func newDeleteByQueryFunc(t Transport) DeleteByQuery {
 
 // DeleteByQuery deletes documents matching the provided query.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-delete-by-query.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-delete-by-query.html.
 //
 type DeleteByQuery func(index []string, body io.Reader, o ...func(*DeleteByQueryRequest)) (*Response, error)
 
@@ -59,8 +59,8 @@ type DeleteByQueryRequest struct {
 	Slices              *int
 	Sort                []string
 	Source              []string
-	SourceExcludes      []string
-	SourceIncludes      []string
+	SourceExclude       []string
+	SourceInclude       []string
 	Stats               []string
 	TerminateAfter      *int
 	Timeout             time.Duration
@@ -195,12 +195,12 @@ func (r DeleteByQueryRequest) Do(ctx context.Context, transport Transport) (*Res
 		params["_source"] = strings.Join(r.Source, ",")
 	}
 
-	if len(r.SourceExcludes) > 0 {
-		params["_source_excludes"] = strings.Join(r.SourceExcludes, ",")
+	if len(r.SourceExclude) > 0 {
+		params["_source_exclude"] = strings.Join(r.SourceExclude, ",")
 	}
 
-	if len(r.SourceIncludes) > 0 {
-		params["_source_includes"] = strings.Join(r.SourceIncludes, ",")
+	if len(r.SourceInclude) > 0 {
+		params["_source_include"] = strings.Join(r.SourceInclude, ",")
 	}
 
 	if len(r.Stats) > 0 {
@@ -315,7 +315,7 @@ func (f DeleteByQuery) WithAnalyzeWildcard(v bool) func(*DeleteByQueryRequest) {
 	}
 }
 
-// WithConflicts - what to do when the delete by query hits version conflicts?.
+// WithConflicts - what to do when the delete-by-query hits version conflicts?.
 //
 func (f DeleteByQuery) WithConflicts(v string) func(*DeleteByQueryRequest) {
 	return func(r *DeleteByQueryRequest) {
@@ -427,7 +427,7 @@ func (f DeleteByQuery) WithScroll(v time.Duration) func(*DeleteByQueryRequest) {
 	}
 }
 
-// WithScrollSize - size on the scroll request powering the delete by query.
+// WithScrollSize - size on the scroll request powering the update_by_query.
 //
 func (f DeleteByQuery) WithScrollSize(v int) func(*DeleteByQueryRequest) {
 	return func(r *DeleteByQueryRequest) {
@@ -483,19 +483,19 @@ func (f DeleteByQuery) WithSource(v ...string) func(*DeleteByQueryRequest) {
 	}
 }
 
-// WithSourceExcludes - a list of fields to exclude from the returned _source field.
+// WithSourceExclude - a list of fields to exclude from the returned _source field.
 //
-func (f DeleteByQuery) WithSourceExcludes(v ...string) func(*DeleteByQueryRequest) {
+func (f DeleteByQuery) WithSourceExclude(v ...string) func(*DeleteByQueryRequest) {
 	return func(r *DeleteByQueryRequest) {
-		r.SourceExcludes = v
+		r.SourceExclude = v
 	}
 }
 
-// WithSourceIncludes - a list of fields to extract and return from the _source field.
+// WithSourceInclude - a list of fields to extract and return from the _source field.
 //
-func (f DeleteByQuery) WithSourceIncludes(v ...string) func(*DeleteByQueryRequest) {
+func (f DeleteByQuery) WithSourceInclude(v ...string) func(*DeleteByQueryRequest) {
 	return func(r *DeleteByQueryRequest) {
-		r.SourceIncludes = v
+		r.SourceInclude = v
 	}
 }
 
@@ -539,7 +539,7 @@ func (f DeleteByQuery) WithWaitForActiveShards(v string) func(*DeleteByQueryRequ
 	}
 }
 
-// WithWaitForCompletion - should the request should block until the delete by query is complete..
+// WithWaitForCompletion - should the request should block until the delete-by-query is complete..
 //
 func (f DeleteByQuery) WithWaitForCompletion(v bool) func(*DeleteByQueryRequest) {
 	return func(r *DeleteByQueryRequest) {

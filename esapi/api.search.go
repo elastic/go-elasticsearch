@@ -1,10 +1,9 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
-	"fmt"
 	"io"
 	"strconv"
 	"strings"
@@ -25,7 +24,7 @@ func newSearchFunc(t Transport) Search {
 
 // Search returns results matching a query.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/search-search.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-search.html.
 //
 type Search func(o ...func(*SearchRequest)) (*Response, error)
 
@@ -37,18 +36,16 @@ type SearchRequest struct {
 	Body         io.Reader
 
 	AllowNoIndices             *bool
-	AllowPartialSearchResults  *bool
 	Analyzer                   string
 	AnalyzeWildcard            *bool
 	BatchedReduceSize          *int
-	CcsMinimizeRoundtrips      *bool
 	DefaultOperator            string
 	Df                         string
 	DocvalueFields             []string
 	ExpandWildcards            string
 	Explain                    *bool
+	FielddataFields            []string
 	From                       *int
-	IgnoreThrottled            *bool
 	IgnoreUnavailable          *bool
 	Lenient                    *bool
 	MaxConcurrentShardRequests *int
@@ -56,16 +53,14 @@ type SearchRequest struct {
 	PreFilterShardSize         *int
 	Query                      string
 	RequestCache               *bool
-	RestTotalHitsAsInt         *bool
 	Routing                    []string
 	Scroll                     time.Duration
 	SearchType                 string
-	SeqNoPrimaryTerm           *bool
 	Size                       *int
 	Sort                       []string
 	Source                     []string
-	SourceExcludes             []string
-	SourceIncludes             []string
+	SourceExclude              []string
+	SourceInclude              []string
 	Stats                      []string
 	StoredFields               []string
 	SuggestField               string
@@ -75,7 +70,6 @@ type SearchRequest struct {
 	TerminateAfter             *int
 	Timeout                    time.Duration
 	TrackScores                *bool
-	TrackTotalHits             interface{}
 	TypedKeys                  *bool
 	Version                    *bool
 
@@ -116,10 +110,6 @@ func (r SearchRequest) Do(ctx context.Context, transport Transport) (*Response, 
 		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
 	}
 
-	if r.AllowPartialSearchResults != nil {
-		params["allow_partial_search_results"] = strconv.FormatBool(*r.AllowPartialSearchResults)
-	}
-
 	if r.Analyzer != "" {
 		params["analyzer"] = r.Analyzer
 	}
@@ -130,10 +120,6 @@ func (r SearchRequest) Do(ctx context.Context, transport Transport) (*Response, 
 
 	if r.BatchedReduceSize != nil {
 		params["batched_reduce_size"] = strconv.FormatInt(int64(*r.BatchedReduceSize), 10)
-	}
-
-	if r.CcsMinimizeRoundtrips != nil {
-		params["ccs_minimize_roundtrips"] = strconv.FormatBool(*r.CcsMinimizeRoundtrips)
 	}
 
 	if r.DefaultOperator != "" {
@@ -156,12 +142,12 @@ func (r SearchRequest) Do(ctx context.Context, transport Transport) (*Response, 
 		params["explain"] = strconv.FormatBool(*r.Explain)
 	}
 
-	if r.From != nil {
-		params["from"] = strconv.FormatInt(int64(*r.From), 10)
+	if len(r.FielddataFields) > 0 {
+		params["fielddata_fields"] = strings.Join(r.FielddataFields, ",")
 	}
 
-	if r.IgnoreThrottled != nil {
-		params["ignore_throttled"] = strconv.FormatBool(*r.IgnoreThrottled)
+	if r.From != nil {
+		params["from"] = strconv.FormatInt(int64(*r.From), 10)
 	}
 
 	if r.IgnoreUnavailable != nil {
@@ -192,10 +178,6 @@ func (r SearchRequest) Do(ctx context.Context, transport Transport) (*Response, 
 		params["request_cache"] = strconv.FormatBool(*r.RequestCache)
 	}
 
-	if r.RestTotalHitsAsInt != nil {
-		params["rest_total_hits_as_int"] = strconv.FormatBool(*r.RestTotalHitsAsInt)
-	}
-
 	if len(r.Routing) > 0 {
 		params["routing"] = strings.Join(r.Routing, ",")
 	}
@@ -206,10 +188,6 @@ func (r SearchRequest) Do(ctx context.Context, transport Transport) (*Response, 
 
 	if r.SearchType != "" {
 		params["search_type"] = r.SearchType
-	}
-
-	if r.SeqNoPrimaryTerm != nil {
-		params["seq_no_primary_term"] = strconv.FormatBool(*r.SeqNoPrimaryTerm)
 	}
 
 	if r.Size != nil {
@@ -224,12 +202,12 @@ func (r SearchRequest) Do(ctx context.Context, transport Transport) (*Response, 
 		params["_source"] = strings.Join(r.Source, ",")
 	}
 
-	if len(r.SourceExcludes) > 0 {
-		params["_source_excludes"] = strings.Join(r.SourceExcludes, ",")
+	if len(r.SourceExclude) > 0 {
+		params["_source_exclude"] = strings.Join(r.SourceExclude, ",")
 	}
 
-	if len(r.SourceIncludes) > 0 {
-		params["_source_includes"] = strings.Join(r.SourceIncludes, ",")
+	if len(r.SourceInclude) > 0 {
+		params["_source_include"] = strings.Join(r.SourceInclude, ",")
 	}
 
 	if len(r.Stats) > 0 {
@@ -266,10 +244,6 @@ func (r SearchRequest) Do(ctx context.Context, transport Transport) (*Response, 
 
 	if r.TrackScores != nil {
 		params["track_scores"] = strconv.FormatBool(*r.TrackScores)
-	}
-
-	if r.TrackTotalHits != nil {
-		params["track_total_hits"] = fmt.Sprintf("%v", r.TrackTotalHits)
 	}
 
 	if r.TypedKeys != nil {
@@ -368,14 +342,6 @@ func (f Search) WithAllowNoIndices(v bool) func(*SearchRequest) {
 	}
 }
 
-// WithAllowPartialSearchResults - indicate if an error should be returned if there is a partial search failure or timeout.
-//
-func (f Search) WithAllowPartialSearchResults(v bool) func(*SearchRequest) {
-	return func(r *SearchRequest) {
-		r.AllowPartialSearchResults = &v
-	}
-}
-
 // WithAnalyzer - the analyzer to use for the query string.
 //
 func (f Search) WithAnalyzer(v string) func(*SearchRequest) {
@@ -397,14 +363,6 @@ func (f Search) WithAnalyzeWildcard(v bool) func(*SearchRequest) {
 func (f Search) WithBatchedReduceSize(v int) func(*SearchRequest) {
 	return func(r *SearchRequest) {
 		r.BatchedReduceSize = &v
-	}
-}
-
-// WithCcsMinimizeRoundtrips - indicates whether network round-trips should be minimized as part of cross-cluster search requests execution.
-//
-func (f Search) WithCcsMinimizeRoundtrips(v bool) func(*SearchRequest) {
-	return func(r *SearchRequest) {
-		r.CcsMinimizeRoundtrips = &v
 	}
 }
 
@@ -448,19 +406,19 @@ func (f Search) WithExplain(v bool) func(*SearchRequest) {
 	}
 }
 
+// WithFielddataFields - a list of fields to return as the docvalue representation of a field for each hit.
+//
+func (f Search) WithFielddataFields(v ...string) func(*SearchRequest) {
+	return func(r *SearchRequest) {
+		r.FielddataFields = v
+	}
+}
+
 // WithFrom - starting offset (default: 0).
 //
 func (f Search) WithFrom(v int) func(*SearchRequest) {
 	return func(r *SearchRequest) {
 		r.From = &v
-	}
-}
-
-// WithIgnoreThrottled - whether specified concrete, expanded or aliased indices should be ignored when throttled.
-//
-func (f Search) WithIgnoreThrottled(v bool) func(*SearchRequest) {
-	return func(r *SearchRequest) {
-		r.IgnoreThrottled = &v
 	}
 }
 
@@ -480,7 +438,7 @@ func (f Search) WithLenient(v bool) func(*SearchRequest) {
 	}
 }
 
-// WithMaxConcurrentShardRequests - the number of concurrent shard requests per node this search executes concurrently. this value should be used to limit the impact of the search on the cluster in order to limit the number of concurrent shard requests.
+// WithMaxConcurrentShardRequests - the number of concurrent shard requests this search executes concurrently. this value should be used to limit the impact of the search on the cluster in order to limit the number of concurrent shard requests.
 //
 func (f Search) WithMaxConcurrentShardRequests(v int) func(*SearchRequest) {
 	return func(r *SearchRequest) {
@@ -520,14 +478,6 @@ func (f Search) WithRequestCache(v bool) func(*SearchRequest) {
 	}
 }
 
-// WithRestTotalHitsAsInt - indicates whether hits.total should be rendered as an integer or an object in the rest search response.
-//
-func (f Search) WithRestTotalHitsAsInt(v bool) func(*SearchRequest) {
-	return func(r *SearchRequest) {
-		r.RestTotalHitsAsInt = &v
-	}
-}
-
 // WithRouting - a list of specific routing values.
 //
 func (f Search) WithRouting(v ...string) func(*SearchRequest) {
@@ -549,14 +499,6 @@ func (f Search) WithScroll(v time.Duration) func(*SearchRequest) {
 func (f Search) WithSearchType(v string) func(*SearchRequest) {
 	return func(r *SearchRequest) {
 		r.SearchType = v
-	}
-}
-
-// WithSeqNoPrimaryTerm - specify whether to return sequence number and primary term of the last modification of each hit.
-//
-func (f Search) WithSeqNoPrimaryTerm(v bool) func(*SearchRequest) {
-	return func(r *SearchRequest) {
-		r.SeqNoPrimaryTerm = &v
 	}
 }
 
@@ -584,19 +526,19 @@ func (f Search) WithSource(v ...string) func(*SearchRequest) {
 	}
 }
 
-// WithSourceExcludes - a list of fields to exclude from the returned _source field.
+// WithSourceExclude - a list of fields to exclude from the returned _source field.
 //
-func (f Search) WithSourceExcludes(v ...string) func(*SearchRequest) {
+func (f Search) WithSourceExclude(v ...string) func(*SearchRequest) {
 	return func(r *SearchRequest) {
-		r.SourceExcludes = v
+		r.SourceExclude = v
 	}
 }
 
-// WithSourceIncludes - a list of fields to extract and return from the _source field.
+// WithSourceInclude - a list of fields to extract and return from the _source field.
 //
-func (f Search) WithSourceIncludes(v ...string) func(*SearchRequest) {
+func (f Search) WithSourceInclude(v ...string) func(*SearchRequest) {
 	return func(r *SearchRequest) {
-		r.SourceIncludes = v
+		r.SourceInclude = v
 	}
 }
 
@@ -669,14 +611,6 @@ func (f Search) WithTimeout(v time.Duration) func(*SearchRequest) {
 func (f Search) WithTrackScores(v bool) func(*SearchRequest) {
 	return func(r *SearchRequest) {
 		r.TrackScores = &v
-	}
-}
-
-// WithTrackTotalHits - indicate if the number of documents that match the query should be tracked.
-//
-func (f Search) WithTrackTotalHits(v interface{}) func(*SearchRequest) {
-	return func(r *SearchRequest) {
-		r.TrackTotalHits = v
 	}
 }
 

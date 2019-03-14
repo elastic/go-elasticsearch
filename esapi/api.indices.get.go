@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -6,7 +6,6 @@ import (
 	"context"
 	"strconv"
 	"strings"
-	"time"
 )
 
 func newIndicesGetFunc(t Transport) IndicesGet {
@@ -23,7 +22,7 @@ func newIndicesGetFunc(t Transport) IndicesGet {
 
 // IndicesGet returns information about one or more indices.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-index.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-get-index.html.
 //
 type IndicesGet func(index []string, o ...func(*IndicesGetRequest)) (*Response, error)
 
@@ -32,14 +31,13 @@ type IndicesGet func(index []string, o ...func(*IndicesGetRequest)) (*Response, 
 type IndicesGetRequest struct {
 	Index []string
 
+	Feature           []string
 	AllowNoIndices    *bool
 	ExpandWildcards   string
 	FlatSettings      *bool
 	IgnoreUnavailable *bool
 	IncludeDefaults   *bool
-	IncludeTypeName   *bool
 	Local             *bool
-	MasterTimeout     time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -60,9 +58,13 @@ func (r IndicesGetRequest) Do(ctx context.Context, transport Transport) (*Respon
 
 	method = "GET"
 
-	path.Grow(1 + len(strings.Join(r.Index, ",")))
+	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len(strings.Join(r.Feature, ",")))
 	path.WriteString("/")
 	path.WriteString(strings.Join(r.Index, ","))
+	if len(r.Feature) > 0 {
+		path.WriteString("/")
+		path.WriteString(strings.Join(r.Feature, ","))
+	}
 
 	params = make(map[string]string)
 
@@ -86,16 +88,8 @@ func (r IndicesGetRequest) Do(ctx context.Context, transport Transport) (*Respon
 		params["include_defaults"] = strconv.FormatBool(*r.IncludeDefaults)
 	}
 
-	if r.IncludeTypeName != nil {
-		params["include_type_name"] = strconv.FormatBool(*r.IncludeTypeName)
-	}
-
 	if r.Local != nil {
 		params["local"] = strconv.FormatBool(*r.Local)
-	}
-
-	if r.MasterTimeout != 0 {
-		params["master_timeout"] = time.Duration(r.MasterTimeout * time.Millisecond).String()
 	}
 
 	if r.Pretty {
@@ -150,6 +144,14 @@ func (f IndicesGet) WithContext(v context.Context) func(*IndicesGetRequest) {
 	}
 }
 
+// WithFeature - a list of features.
+//
+func (f IndicesGet) WithFeature(v ...string) func(*IndicesGetRequest) {
+	return func(r *IndicesGetRequest) {
+		r.Feature = v
+	}
+}
+
 // WithAllowNoIndices - ignore if a wildcard expression resolves to no concrete indices (default: false).
 //
 func (f IndicesGet) WithAllowNoIndices(v bool) func(*IndicesGetRequest) {
@@ -190,27 +192,11 @@ func (f IndicesGet) WithIncludeDefaults(v bool) func(*IndicesGetRequest) {
 	}
 }
 
-// WithIncludeTypeName - whether to add the type name to the response (default: false).
-//
-func (f IndicesGet) WithIncludeTypeName(v bool) func(*IndicesGetRequest) {
-	return func(r *IndicesGetRequest) {
-		r.IncludeTypeName = &v
-	}
-}
-
 // WithLocal - return local information, do not retrieve the state from master node (default: false).
 //
 func (f IndicesGet) WithLocal(v bool) func(*IndicesGetRequest) {
 	return func(r *IndicesGetRequest) {
 		r.Local = &v
-	}
-}
-
-// WithMasterTimeout - specify timeout for connection to master.
-//
-func (f IndicesGet) WithMasterTimeout(v time.Duration) func(*IndicesGetRequest) {
-	return func(r *IndicesGetRequest) {
-		r.MasterTimeout = v
 	}
 }
 

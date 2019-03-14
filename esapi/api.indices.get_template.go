@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -23,18 +23,17 @@ func newIndicesGetTemplateFunc(t Transport) IndicesGetTemplate {
 
 // IndicesGetTemplate returns an index template.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-templates.html.
 //
 type IndicesGetTemplate func(o ...func(*IndicesGetTemplateRequest)) (*Response, error)
 
 // IndicesGetTemplateRequest configures the Indices  Get Template API request.
 //
 type IndicesGetTemplateRequest struct {
-	Name            []string
-	FlatSettings    *bool
-	IncludeTypeName *bool
-	Local           *bool
-	MasterTimeout   time.Duration
+	Name          []string
+	FlatSettings  *bool
+	Local         *bool
+	MasterTimeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -67,10 +66,6 @@ func (r IndicesGetTemplateRequest) Do(ctx context.Context, transport Transport) 
 
 	if r.FlatSettings != nil {
 		params["flat_settings"] = strconv.FormatBool(*r.FlatSettings)
-	}
-
-	if r.IncludeTypeName != nil {
-		params["include_type_name"] = strconv.FormatBool(*r.IncludeTypeName)
 	}
 
 	if r.Local != nil {
@@ -146,14 +141,6 @@ func (f IndicesGetTemplate) WithName(v ...string) func(*IndicesGetTemplateReques
 func (f IndicesGetTemplate) WithFlatSettings(v bool) func(*IndicesGetTemplateRequest) {
 	return func(r *IndicesGetTemplateRequest) {
 		r.FlatSettings = &v
-	}
-}
-
-// WithIncludeTypeName - whether a type should be returned in the body of the mappings..
-//
-func (f IndicesGetTemplate) WithIncludeTypeName(v bool) func(*IndicesGetTemplateRequest) {
-	return func(r *IndicesGetTemplateRequest) {
-		r.IncludeTypeName = &v
 	}
 }
 

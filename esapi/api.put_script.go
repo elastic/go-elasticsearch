@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -10,8 +10,8 @@ import (
 )
 
 func newPutScriptFunc(t Transport) PutScript {
-	return func(id string, body io.Reader, o ...func(*PutScriptRequest)) (*Response, error) {
-		var r = PutScriptRequest{DocumentID: id, Body: body}
+	return func(id string, body io.Reader, lang string, o ...func(*PutScriptRequest)) (*Response, error) {
+		var r = PutScriptRequest{DocumentID: id, Body: body, Lang: lang}
 		for _, f := range o {
 			f(&r)
 		}
@@ -23,9 +23,9 @@ func newPutScriptFunc(t Transport) PutScript {
 
 // PutScript creates or updates a script.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/modules-scripting.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/modules-scripting.html.
 //
-type PutScript func(id string, body io.Reader, o ...func(*PutScriptRequest)) (*Response, error)
+type PutScript func(id string, body io.Reader, lang string, o ...func(*PutScriptRequest)) (*Response, error)
 
 // PutScriptRequest configures the Put Script API request.
 //
@@ -33,7 +33,7 @@ type PutScriptRequest struct {
 	DocumentID string
 	Body       io.Reader
 
-	ScriptContext string
+	Lang          string
 	MasterTimeout time.Duration
 	Timeout       time.Duration
 
@@ -56,21 +56,15 @@ func (r PutScriptRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 	method = "PUT"
 
-	path.Grow(1 + len("_scripts") + 1 + len(r.DocumentID) + 1 + len(r.ScriptContext))
+	path.Grow(1 + len("_scripts") + 1 + len(r.Lang) + 1 + len(r.DocumentID))
 	path.WriteString("/")
 	path.WriteString("_scripts")
 	path.WriteString("/")
+	path.WriteString(r.Lang)
+	path.WriteString("/")
 	path.WriteString(r.DocumentID)
-	if r.ScriptContext != "" {
-		path.WriteString("/")
-		path.WriteString(r.ScriptContext)
-	}
 
 	params = make(map[string]string)
-
-	if r.ScriptContext != "" {
-		params["context"] = r.ScriptContext
-	}
 
 	if r.MasterTimeout != 0 {
 		params["master_timeout"] = time.Duration(r.MasterTimeout * time.Millisecond).String()
@@ -133,14 +127,6 @@ func (r PutScriptRequest) Do(ctx context.Context, transport Transport) (*Respons
 func (f PutScript) WithContext(v context.Context) func(*PutScriptRequest) {
 	return func(r *PutScriptRequest) {
 		r.ctx = v
-	}
-}
-
-// WithScriptContext - script context.
-//
-func (f PutScript) WithScriptContext(v string) func(*PutScriptRequest) {
-	return func(r *PutScriptRequest) {
-		r.ScriptContext = v
 	}
 }
 

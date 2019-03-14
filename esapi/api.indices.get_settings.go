@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -6,7 +6,6 @@ import (
 	"context"
 	"strconv"
 	"strings"
-	"time"
 )
 
 func newIndicesGetSettingsFunc(t Transport) IndicesGetSettings {
@@ -23,7 +22,7 @@ func newIndicesGetSettingsFunc(t Transport) IndicesGetSettings {
 
 // IndicesGetSettings returns settings for one or more indices.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-settings.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-get-settings.html.
 //
 type IndicesGetSettings func(o ...func(*IndicesGetSettingsRequest)) (*Response, error)
 
@@ -39,7 +38,6 @@ type IndicesGetSettingsRequest struct {
 	IgnoreUnavailable *bool
 	IncludeDefaults   *bool
 	Local             *bool
-	MasterTimeout     time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -96,10 +94,6 @@ func (r IndicesGetSettingsRequest) Do(ctx context.Context, transport Transport) 
 
 	if r.Local != nil {
 		params["local"] = strconv.FormatBool(*r.Local)
-	}
-
-	if r.MasterTimeout != 0 {
-		params["master_timeout"] = time.Duration(r.MasterTimeout * time.Millisecond).String()
 	}
 
 	if r.Pretty {
@@ -215,14 +209,6 @@ func (f IndicesGetSettings) WithIncludeDefaults(v bool) func(*IndicesGetSettings
 func (f IndicesGetSettings) WithLocal(v bool) func(*IndicesGetSettingsRequest) {
 	return func(r *IndicesGetSettingsRequest) {
 		r.Local = &v
-	}
-}
-
-// WithMasterTimeout - specify timeout for connection to master.
-//
-func (f IndicesGetSettings) WithMasterTimeout(v time.Duration) func(*IndicesGetSettingsRequest) {
-	return func(r *IndicesGetSettingsRequest) {
-		r.MasterTimeout = v
 	}
 }
 

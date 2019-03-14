@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -22,7 +22,7 @@ func newCatTasksFunc(t Transport) CatTasks {
 
 // CatTasks returns information about the tasks currently executing on one or more nodes in the cluster.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/tasks.html.
 //
 type CatTasks func(o ...func(*CatTasksRequest)) (*Response, error)
 
@@ -35,6 +35,7 @@ type CatTasksRequest struct {
 	H          []string
 	Help       *bool
 	NodeID     []string
+	ParentNode string
 	ParentTask *int
 	S          []string
 	V          *bool
@@ -85,6 +86,10 @@ func (r CatTasksRequest) Do(ctx context.Context, transport Transport) (*Response
 
 	if len(r.NodeID) > 0 {
 		params["node_id"] = strings.Join(r.NodeID, ",")
+	}
+
+	if r.ParentNode != "" {
+		params["parent_node"] = r.ParentNode
 	}
 
 	if r.ParentTask != nil {
@@ -196,6 +201,14 @@ func (f CatTasks) WithHelp(v bool) func(*CatTasksRequest) {
 func (f CatTasks) WithNodeID(v ...string) func(*CatTasksRequest) {
 	return func(r *CatTasksRequest) {
 		r.NodeID = v
+	}
+}
+
+// WithParentNode - return tasks with specified parent node..
+//
+func (f CatTasks) WithParentNode(v string) func(*CatTasksRequest) {
+	return func(r *CatTasksRequest) {
+		r.ParentNode = v
 	}
 }
 

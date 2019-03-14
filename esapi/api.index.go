@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -24,7 +24,7 @@ func newIndexFunc(t Transport) Index {
 
 // Index creates or updates a document in an index.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-index_.html.
 //
 type Index func(index string, body io.Reader, o ...func(*IndexRequest)) (*Response, error)
 
@@ -36,14 +36,14 @@ type IndexRequest struct {
 	DocumentID   string
 	Body         io.Reader
 
-	IfPrimaryTerm       *int
-	IfSeqNo             *int
 	OpType              string
 	Parent              string
 	Pipeline            string
 	Refresh             string
 	Routing             string
 	Timeout             time.Duration
+	Timestamp           time.Duration
+	Ttl                 time.Duration
 	Version             *int
 	VersionType         string
 	WaitForActiveShards string
@@ -87,14 +87,6 @@ func (r IndexRequest) Do(ctx context.Context, transport Transport) (*Response, e
 
 	params = make(map[string]string)
 
-	if r.IfPrimaryTerm != nil {
-		params["if_primary_term"] = strconv.FormatInt(int64(*r.IfPrimaryTerm), 10)
-	}
-
-	if r.IfSeqNo != nil {
-		params["if_seq_no"] = strconv.FormatInt(int64(*r.IfSeqNo), 10)
-	}
-
 	if r.OpType != "" {
 		params["op_type"] = r.OpType
 	}
@@ -117,6 +109,14 @@ func (r IndexRequest) Do(ctx context.Context, transport Transport) (*Response, e
 
 	if r.Timeout != 0 {
 		params["timeout"] = time.Duration(r.Timeout * time.Millisecond).String()
+	}
+
+	if r.Timestamp != 0 {
+		params["timestamp"] = time.Duration(r.Timestamp * time.Millisecond).String()
+	}
+
+	if r.Ttl != 0 {
+		params["ttl"] = time.Duration(r.Ttl * time.Millisecond).String()
 	}
 
 	if r.Version != nil {
@@ -203,22 +203,6 @@ func (f Index) WithDocumentType(v string) func(*IndexRequest) {
 	}
 }
 
-// WithIfPrimaryTerm - only perform the index operation if the last operation that has changed the document has the specified primary term.
-//
-func (f Index) WithIfPrimaryTerm(v int) func(*IndexRequest) {
-	return func(r *IndexRequest) {
-		r.IfPrimaryTerm = &v
-	}
-}
-
-// WithIfSeqNo - only perform the index operation if the last operation that has changed the document has the specified sequence number.
-//
-func (f Index) WithIfSeqNo(v int) func(*IndexRequest) {
-	return func(r *IndexRequest) {
-		r.IfSeqNo = &v
-	}
-}
-
 // WithOpType - explicit operation type.
 //
 func (f Index) WithOpType(v string) func(*IndexRequest) {
@@ -264,6 +248,22 @@ func (f Index) WithRouting(v string) func(*IndexRequest) {
 func (f Index) WithTimeout(v time.Duration) func(*IndexRequest) {
 	return func(r *IndexRequest) {
 		r.Timeout = v
+	}
+}
+
+// WithTimestamp - explicit timestamp for the document.
+//
+func (f Index) WithTimestamp(v time.Duration) func(*IndexRequest) {
+	return func(r *IndexRequest) {
+		r.Timestamp = v
+	}
+}
+
+// WithTtl - expiration time for the document.
+//
+func (f Index) WithTtl(v time.Duration) func(*IndexRequest) {
+	return func(r *IndexRequest) {
+		r.Ttl = v
 	}
 }
 

@@ -1,10 +1,11 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
 	"io"
+	"strconv"
 	"strings"
 )
 
@@ -22,7 +23,7 @@ func newIndicesAnalyzeFunc(t Transport) IndicesAnalyze {
 
 // IndicesAnalyze performs the analysis process on a text and return the tokens breakdown of the text.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-analyze.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-analyze.html.
 //
 type IndicesAnalyze func(o ...func(*IndicesAnalyzeRequest)) (*Response, error)
 
@@ -31,6 +32,17 @@ type IndicesAnalyze func(o ...func(*IndicesAnalyzeRequest)) (*Response, error)
 type IndicesAnalyzeRequest struct {
 	Index string
 	Body  io.Reader
+
+	Analyzer    string
+	Attributes  []string
+	CharFilter  []string
+	Explain     *bool
+	Field       string
+	Filter      []string
+	Format      string
+	PreferLocal *bool
+	Text        []string
+	Tokenizer   string
 
 	Pretty     bool
 	Human      bool
@@ -61,8 +73,48 @@ func (r IndicesAnalyzeRequest) Do(ctx context.Context, transport Transport) (*Re
 
 	params = make(map[string]string)
 
+	if r.Analyzer != "" {
+		params["analyzer"] = r.Analyzer
+	}
+
+	if len(r.Attributes) > 0 {
+		params["attributes"] = strings.Join(r.Attributes, ",")
+	}
+
+	if len(r.CharFilter) > 0 {
+		params["char_filter"] = strings.Join(r.CharFilter, ",")
+	}
+
+	if r.Explain != nil {
+		params["explain"] = strconv.FormatBool(*r.Explain)
+	}
+
+	if r.Field != "" {
+		params["field"] = r.Field
+	}
+
+	if len(r.Filter) > 0 {
+		params["filter"] = strings.Join(r.Filter, ",")
+	}
+
+	if r.Format != "" {
+		params["format"] = r.Format
+	}
+
 	if r.Index != "" {
 		params["index"] = r.Index
+	}
+
+	if r.PreferLocal != nil {
+		params["prefer_local"] = strconv.FormatBool(*r.PreferLocal)
+	}
+
+	if len(r.Text) > 0 {
+		params["text"] = strings.Join(r.Text, ",")
+	}
+
+	if r.Tokenizer != "" {
+		params["tokenizer"] = r.Tokenizer
 	}
 
 	if r.Pretty {
@@ -129,11 +181,91 @@ func (f IndicesAnalyze) WithIndex(v string) func(*IndicesAnalyzeRequest) {
 	}
 }
 
-// WithBody - Define analyzer/tokenizer parameters and the text on which the analysis should be performed.
+// WithBody - The text on which the analysis should be performed.
 //
 func (f IndicesAnalyze) WithBody(v io.Reader) func(*IndicesAnalyzeRequest) {
 	return func(r *IndicesAnalyzeRequest) {
 		r.Body = v
+	}
+}
+
+// WithAnalyzer - the name of the analyzer to use.
+//
+func (f IndicesAnalyze) WithAnalyzer(v string) func(*IndicesAnalyzeRequest) {
+	return func(r *IndicesAnalyzeRequest) {
+		r.Analyzer = v
+	}
+}
+
+// WithAttributes - a list of token attributes to output, this parameter works only with `explain=true`.
+//
+func (f IndicesAnalyze) WithAttributes(v ...string) func(*IndicesAnalyzeRequest) {
+	return func(r *IndicesAnalyzeRequest) {
+		r.Attributes = v
+	}
+}
+
+// WithCharFilter - a list of character filters to use for the analysis.
+//
+func (f IndicesAnalyze) WithCharFilter(v ...string) func(*IndicesAnalyzeRequest) {
+	return func(r *IndicesAnalyzeRequest) {
+		r.CharFilter = v
+	}
+}
+
+// WithExplain - with `true`, outputs more advanced details. (default: false).
+//
+func (f IndicesAnalyze) WithExplain(v bool) func(*IndicesAnalyzeRequest) {
+	return func(r *IndicesAnalyzeRequest) {
+		r.Explain = &v
+	}
+}
+
+// WithField - use the analyzer configured for this field (instead of passing the analyzer name).
+//
+func (f IndicesAnalyze) WithField(v string) func(*IndicesAnalyzeRequest) {
+	return func(r *IndicesAnalyzeRequest) {
+		r.Field = v
+	}
+}
+
+// WithFilter - a list of filters to use for the analysis.
+//
+func (f IndicesAnalyze) WithFilter(v ...string) func(*IndicesAnalyzeRequest) {
+	return func(r *IndicesAnalyzeRequest) {
+		r.Filter = v
+	}
+}
+
+// WithFormat - format of the output.
+//
+func (f IndicesAnalyze) WithFormat(v string) func(*IndicesAnalyzeRequest) {
+	return func(r *IndicesAnalyzeRequest) {
+		r.Format = v
+	}
+}
+
+// WithPreferLocal - with `true`, specify that a local shard should be used if available, with `false`, use a random shard (default: true).
+//
+func (f IndicesAnalyze) WithPreferLocal(v bool) func(*IndicesAnalyzeRequest) {
+	return func(r *IndicesAnalyzeRequest) {
+		r.PreferLocal = &v
+	}
+}
+
+// WithText - the text on which the analysis should be performed (when request body is not used).
+//
+func (f IndicesAnalyze) WithText(v ...string) func(*IndicesAnalyzeRequest) {
+	return func(r *IndicesAnalyzeRequest) {
+		r.Text = v
+	}
+}
+
+// WithTokenizer - the name of the tokenizer to use for the analysis.
+//
+func (f IndicesAnalyze) WithTokenizer(v string) func(*IndicesAnalyzeRequest) {
+	return func(r *IndicesAnalyzeRequest) {
+		r.Tokenizer = v
 	}
 }
 

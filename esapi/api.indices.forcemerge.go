@@ -1,9 +1,10 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"fmt"
 	"strconv"
 	"strings"
 )
@@ -22,7 +23,7 @@ func newIndicesForcemergeFunc(t Transport) IndicesForcemerge {
 
 // IndicesForcemerge performs the force merge operation on one or more indices.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-forcemerge.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-forcemerge.html.
 //
 type IndicesForcemerge func(o ...func(*IndicesForcemergeRequest)) (*Response, error)
 
@@ -37,6 +38,8 @@ type IndicesForcemergeRequest struct {
 	IgnoreUnavailable  *bool
 	MaxNumSegments     *int
 	OnlyExpungeDeletes *bool
+	OperationThreading interface{}
+	WaitForMerge       *bool
 
 	Pretty     bool
 	Human      bool
@@ -89,6 +92,14 @@ func (r IndicesForcemergeRequest) Do(ctx context.Context, transport Transport) (
 
 	if r.OnlyExpungeDeletes != nil {
 		params["only_expunge_deletes"] = strconv.FormatBool(*r.OnlyExpungeDeletes)
+	}
+
+	if r.OperationThreading != nil {
+		params["operation_threading"] = fmt.Sprintf("%v", r.OperationThreading)
+	}
+
+	if r.WaitForMerge != nil {
+		params["wait_for_merge"] = strconv.FormatBool(*r.WaitForMerge)
 	}
 
 	if r.Pretty {
@@ -196,6 +207,22 @@ func (f IndicesForcemerge) WithMaxNumSegments(v int) func(*IndicesForcemergeRequ
 func (f IndicesForcemerge) WithOnlyExpungeDeletes(v bool) func(*IndicesForcemergeRequest) {
 	return func(r *IndicesForcemergeRequest) {
 		r.OnlyExpungeDeletes = &v
+	}
+}
+
+// WithOperationThreading - todo: ?.
+//
+func (f IndicesForcemerge) WithOperationThreading(v interface{}) func(*IndicesForcemergeRequest) {
+	return func(r *IndicesForcemergeRequest) {
+		r.OperationThreading = v
+	}
+}
+
+// WithWaitForMerge - specify whether the request should block until the merge process is finished (default: true).
+//
+func (f IndicesForcemerge) WithWaitForMerge(v bool) func(*IndicesForcemergeRequest) {
+	return func(r *IndicesForcemergeRequest) {
+		r.WaitForMerge = &v
 	}
 }
 

@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -33,16 +33,16 @@ type ExistsSourceRequest struct {
 	DocumentType string
 	DocumentID   string
 
-	Parent         string
-	Preference     string
-	Realtime       *bool
-	Refresh        *bool
-	Routing        string
-	Source         []string
-	SourceExcludes []string
-	SourceIncludes []string
-	Version        *int
-	VersionType    string
+	Parent        string
+	Preference    string
+	Realtime      *bool
+	Refresh       *bool
+	Routing       string
+	Source        []string
+	SourceExclude []string
+	SourceInclude []string
+	Version       *int
+	VersionType   string
 
 	Pretty     bool
 	Human      bool
@@ -66,10 +66,8 @@ func (r ExistsSourceRequest) Do(ctx context.Context, transport Transport) (*Resp
 	path.Grow(1 + len(r.Index) + 1 + len(r.DocumentType) + 1 + len(r.DocumentID) + 1 + len("_source"))
 	path.WriteString("/")
 	path.WriteString(r.Index)
-	if r.DocumentType != "" {
-		path.WriteString("/")
-		path.WriteString(r.DocumentType)
-	}
+	path.WriteString("/")
+	path.WriteString(r.DocumentType)
 	path.WriteString("/")
 	path.WriteString(r.DocumentID)
 	path.WriteString("/")
@@ -101,12 +99,12 @@ func (r ExistsSourceRequest) Do(ctx context.Context, transport Transport) (*Resp
 		params["_source"] = strings.Join(r.Source, ",")
 	}
 
-	if len(r.SourceExcludes) > 0 {
-		params["_source_excludes"] = strings.Join(r.SourceExcludes, ",")
+	if len(r.SourceExclude) > 0 {
+		params["_source_exclude"] = strings.Join(r.SourceExclude, ",")
 	}
 
-	if len(r.SourceIncludes) > 0 {
-		params["_source_includes"] = strings.Join(r.SourceIncludes, ",")
+	if len(r.SourceInclude) > 0 {
+		params["_source_include"] = strings.Join(r.SourceInclude, ",")
 	}
 
 	if r.Version != nil {
@@ -169,7 +167,7 @@ func (f ExistsSource) WithContext(v context.Context) func(*ExistsSourceRequest) 
 	}
 }
 
-// WithDocumentType - the type of the document; deprecated and optional starting with 7.0.
+// WithDocumentType - the type of the document; use `_all` to fetch the first document matching the ID across all types.
 //
 func (f ExistsSource) WithDocumentType(v string) func(*ExistsSourceRequest) {
 	return func(r *ExistsSourceRequest) {
@@ -225,19 +223,19 @@ func (f ExistsSource) WithSource(v ...string) func(*ExistsSourceRequest) {
 	}
 }
 
-// WithSourceExcludes - a list of fields to exclude from the returned _source field.
+// WithSourceExclude - a list of fields to exclude from the returned _source field.
 //
-func (f ExistsSource) WithSourceExcludes(v ...string) func(*ExistsSourceRequest) {
+func (f ExistsSource) WithSourceExclude(v ...string) func(*ExistsSourceRequest) {
 	return func(r *ExistsSourceRequest) {
-		r.SourceExcludes = v
+		r.SourceExclude = v
 	}
 }
 
-// WithSourceIncludes - a list of fields to extract and return from the _source field.
+// WithSourceInclude - a list of fields to extract and return from the _source field.
 //
-func (f ExistsSource) WithSourceIncludes(v ...string) func(*ExistsSourceRequest) {
+func (f ExistsSource) WithSourceInclude(v ...string) func(*ExistsSourceRequest) {
 	return func(r *ExistsSourceRequest) {
-		r.SourceIncludes = v
+		r.SourceInclude = v
 	}
 }
 

@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -23,7 +23,7 @@ func newCatPluginsFunc(t Transport) CatPlugins {
 
 // CatPlugins returns information about installed plugins across nodes node.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/cat-plugins.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-plugins.html.
 //
 type CatPlugins func(o ...func(*CatPluginsRequest)) (*Response, error)
 

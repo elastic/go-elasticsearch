@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -6,7 +6,6 @@ import (
 	"context"
 	"strconv"
 	"strings"
-	"time"
 )
 
 func newIndicesGetMappingFunc(t Transport) IndicesGetMapping {
@@ -23,7 +22,7 @@ func newIndicesGetMappingFunc(t Transport) IndicesGetMapping {
 
 // IndicesGetMapping returns mappings for one or more indices.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-mapping.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-get-mapping.html.
 //
 type IndicesGetMapping func(o ...func(*IndicesGetMappingRequest)) (*Response, error)
 
@@ -36,9 +35,7 @@ type IndicesGetMappingRequest struct {
 	AllowNoIndices    *bool
 	ExpandWildcards   string
 	IgnoreUnavailable *bool
-	IncludeTypeName   *bool
 	Local             *bool
-	MasterTimeout     time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -85,16 +82,8 @@ func (r IndicesGetMappingRequest) Do(ctx context.Context, transport Transport) (
 		params["ignore_unavailable"] = strconv.FormatBool(*r.IgnoreUnavailable)
 	}
 
-	if r.IncludeTypeName != nil {
-		params["include_type_name"] = strconv.FormatBool(*r.IncludeTypeName)
-	}
-
 	if r.Local != nil {
 		params["local"] = strconv.FormatBool(*r.Local)
-	}
-
-	if r.MasterTimeout != 0 {
-		params["master_timeout"] = time.Duration(r.MasterTimeout * time.Millisecond).String()
 	}
 
 	if r.Pretty {
@@ -189,27 +178,11 @@ func (f IndicesGetMapping) WithIgnoreUnavailable(v bool) func(*IndicesGetMapping
 	}
 }
 
-// WithIncludeTypeName - whether to add the type name to the response (default: false).
-//
-func (f IndicesGetMapping) WithIncludeTypeName(v bool) func(*IndicesGetMappingRequest) {
-	return func(r *IndicesGetMappingRequest) {
-		r.IncludeTypeName = &v
-	}
-}
-
 // WithLocal - return local information, do not retrieve the state from master node (default: false).
 //
 func (f IndicesGetMapping) WithLocal(v bool) func(*IndicesGetMappingRequest) {
 	return func(r *IndicesGetMappingRequest) {
 		r.Local = &v
-	}
-}
-
-// WithMasterTimeout - specify timeout for connection to master.
-//
-func (f IndicesGetMapping) WithMasterTimeout(v time.Duration) func(*IndicesGetMappingRequest) {
-	return func(r *IndicesGetMappingRequest) {
-		r.MasterTimeout = v
 	}
 }
 

@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -23,16 +23,16 @@ func newNodesStatsFunc(t Transport) NodesStats {
 
 // NodesStats returns statistical information about nodes in the cluster.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-stats.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cluster-nodes-stats.html.
 //
 type NodesStats func(o ...func(*NodesStatsRequest)) (*Response, error)
 
 // NodesStatsRequest configures the Nodes Stats API request.
 //
 type NodesStatsRequest struct {
-	NodeID                  []string
 	Metric                  []string
 	IndexMetric             []string
+	NodeID                  []string
 	CompletionFields        []string
 	FielddataFields         []string
 	Fields                  []string

@@ -1,16 +1,15 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
 	"strings"
-	"time"
 )
 
 func newGetScriptFunc(t Transport) GetScript {
-	return func(id string, o ...func(*GetScriptRequest)) (*Response, error) {
-		var r = GetScriptRequest{DocumentID: id}
+	return func(id string, lang string, o ...func(*GetScriptRequest)) (*Response, error) {
+		var r = GetScriptRequest{DocumentID: id, Lang: lang}
 		for _, f := range o {
 			f(&r)
 		}
@@ -22,16 +21,16 @@ func newGetScriptFunc(t Transport) GetScript {
 
 // GetScript returns a script.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/modules-scripting.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/modules-scripting.html.
 //
-type GetScript func(id string, o ...func(*GetScriptRequest)) (*Response, error)
+type GetScript func(id string, lang string, o ...func(*GetScriptRequest)) (*Response, error)
 
 // GetScriptRequest configures the Get Script API request.
 //
 type GetScriptRequest struct {
 	DocumentID string
 
-	MasterTimeout time.Duration
+	Lang string
 
 	Pretty     bool
 	Human      bool
@@ -52,17 +51,15 @@ func (r GetScriptRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 	method = "GET"
 
-	path.Grow(1 + len("_scripts") + 1 + len(r.DocumentID))
+	path.Grow(1 + len("_scripts") + 1 + len(r.Lang) + 1 + len(r.DocumentID))
 	path.WriteString("/")
 	path.WriteString("_scripts")
+	path.WriteString("/")
+	path.WriteString(r.Lang)
 	path.WriteString("/")
 	path.WriteString(r.DocumentID)
 
 	params = make(map[string]string)
-
-	if r.MasterTimeout != 0 {
-		params["master_timeout"] = time.Duration(r.MasterTimeout * time.Millisecond).String()
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -113,14 +110,6 @@ func (r GetScriptRequest) Do(ctx context.Context, transport Transport) (*Respons
 func (f GetScript) WithContext(v context.Context) func(*GetScriptRequest) {
 	return func(r *GetScriptRequest) {
 		r.ctx = v
-	}
-}
-
-// WithMasterTimeout - specify timeout for connection to master.
-//
-func (f GetScript) WithMasterTimeout(v time.Duration) func(*GetScriptRequest) {
-	return func(r *GetScriptRequest) {
-		r.MasterTimeout = v
 	}
 }
 

@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -23,7 +23,7 @@ func newMgetFunc(t Transport) Mget {
 
 // Mget allows to get multiple documents in one request.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-multi-get.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/docs-multi-get.html.
 //
 type Mget func(body io.Reader, o ...func(*MgetRequest)) (*Response, error)
 
@@ -34,14 +34,14 @@ type MgetRequest struct {
 	DocumentType string
 	Body         io.Reader
 
-	Preference     string
-	Realtime       *bool
-	Refresh        *bool
-	Routing        string
-	Source         []string
-	SourceExcludes []string
-	SourceIncludes []string
-	StoredFields   []string
+	Preference    string
+	Realtime      *bool
+	Refresh       *bool
+	Routing       string
+	Source        []string
+	SourceExclude []string
+	SourceInclude []string
+	StoredFields  []string
 
 	Pretty     bool
 	Human      bool
@@ -96,12 +96,12 @@ func (r MgetRequest) Do(ctx context.Context, transport Transport) (*Response, er
 		params["_source"] = strings.Join(r.Source, ",")
 	}
 
-	if len(r.SourceExcludes) > 0 {
-		params["_source_excludes"] = strings.Join(r.SourceExcludes, ",")
+	if len(r.SourceExclude) > 0 {
+		params["_source_exclude"] = strings.Join(r.SourceExclude, ",")
 	}
 
-	if len(r.SourceIncludes) > 0 {
-		params["_source_includes"] = strings.Join(r.SourceIncludes, ",")
+	if len(r.SourceInclude) > 0 {
+		params["_source_include"] = strings.Join(r.SourceInclude, ",")
 	}
 
 	if len(r.StoredFields) > 0 {
@@ -220,19 +220,19 @@ func (f Mget) WithSource(v ...string) func(*MgetRequest) {
 	}
 }
 
-// WithSourceExcludes - a list of fields to exclude from the returned _source field.
+// WithSourceExclude - a list of fields to exclude from the returned _source field.
 //
-func (f Mget) WithSourceExcludes(v ...string) func(*MgetRequest) {
+func (f Mget) WithSourceExclude(v ...string) func(*MgetRequest) {
 	return func(r *MgetRequest) {
-		r.SourceExcludes = v
+		r.SourceExclude = v
 	}
 }
 
-// WithSourceIncludes - a list of fields to extract and return from the _source field.
+// WithSourceInclude - a list of fields to extract and return from the _source field.
 //
-func (f Mget) WithSourceIncludes(v ...string) func(*MgetRequest) {
+func (f Mget) WithSourceInclude(v ...string) func(*MgetRequest) {
 	return func(r *MgetRequest) {
-		r.SourceIncludes = v
+		r.SourceInclude = v
 	}
 }
 

@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -22,7 +22,7 @@ func newIndicesStatsFunc(t Transport) IndicesStats {
 
 // IndicesStats provides statistics on operations happening in an index.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-stats.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/indices-stats.html.
 //
 type IndicesStats func(o ...func(*IndicesStatsRequest)) (*Response, error)
 

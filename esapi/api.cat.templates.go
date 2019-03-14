@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
 
 package esapi
 
@@ -23,7 +23,7 @@ func newCatTemplatesFunc(t Transport) CatTemplates {
 
 // CatTemplates returns information about existing templates.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/cat-templates.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/5.x/cat-templates.html.
 //
 type CatTemplates func(o ...func(*CatTemplatesRequest)) (*Response, error)
 
