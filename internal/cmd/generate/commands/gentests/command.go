@@ -126,7 +126,7 @@ func (cmd *Command) Execute() error {
 	}{start: time.Now()}
 
 	for _, fpath := range inputFiles {
-		if filepath.Ext(fpath) != ".yml" {
+		if filepath.Ext(fpath) != ".yml" && filepath.Ext(fpath) != ".yaml" {
 			continue
 		}
 		if err := cmd.processFile(fpath); err != nil {
