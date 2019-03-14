@@ -128,7 +128,7 @@ godoc: ## Display documentation for the package
 	GOROOT=/tmp/tmpgoroot/ GOPATH=/tmp/tmpgopath/ godoc -http=localhost:6060 -play
 
 cluster: ## Launch an Elasticsearch cluster with Docker
-	$(eval version ?= "elasticsearch-oss:7.0.0-SNAPSHOT")
+	$(eval version ?= "elasticsearch-oss:6.7-SNAPSHOT")
 ifeq ($(origin nodes), undefined)
 	$(eval nodes = 1)
 endif
@@ -148,7 +148,6 @@ endif
 				--network elasticsearch \
 				--env "node.name=es$$n" \
 				--env "cluster.name=go-elasticsearch" \
-				--env "cluster.initial_master_nodes=es1" \
 				--env "cluster.routing.allocation.disk.threshold_enabled=false" \
 				--env "discovery.zen.ping.unicast.hosts=es1" \
 				--env "bootstrap.memory_lock=true" \
