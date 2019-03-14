@@ -146,7 +146,7 @@ matrix:
         - echo https://github.com/elastic/elasticsearch/archive/$(cat .elasticsearch_build_hash).zip
         - |
             curl -sSL --retry 3 -o elasticsearch-$(cat .elasticsearch_build_hash).zip https://github.com/elastic/elasticsearch/archive/$(cat .elasticsearch_build_hash).zip && \
-            unzip -q -o elasticsearch-$(cat .elasticsearch_build_hash).zip '*.json' '*.yml' -d /tmp && \
+            unzip -q -o elasticsearch-$(cat .elasticsearch_build_hash).zip '*.properties' '*.json' '*.yml' -d /tmp && \
             mv /tmp/elasticsearch-$(cat .elasticsearch_build_hash)* /tmp/elasticsearch
         - echo -en 'travis_fold:end:script.dl_es_src'
         # ------ Generate API registry ------------------------------------------------------------
