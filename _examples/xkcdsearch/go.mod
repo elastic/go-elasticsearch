@@ -3,7 +3,7 @@ module github.com/elastic/go-elasticsearch/_examples/xkcdsearch
 replace github.com/elastic/go-elasticsearch => ../..
 
 require (
-	github.com/elastic/go-elasticsearch master
+	github.com/elastic/go-elasticsearch 5.x
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
 	github.com/rs/zerolog v1.11.0
 	github.com/spf13/cobra v0.0.3
