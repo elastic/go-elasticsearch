@@ -25,12 +25,12 @@ func PatchTestSource(fpath string, r io.Reader) (io.Reader, error) {
 	// Patch the path to a shard by adding quotes around the shard number,
 	// which is a map key, not an array index.
 	for _, p := range []string{
-		"indices.flush/10_basic.yml",
-		"indices.put_template/10_basic.yml",
-		"indices.recovery/10_basic.yml",
-		"indices.segments/10_basic.yml",
-		"indices.shard_stores/10_basic.yml",
-		"indices.stats/12_level.yml",
+		"indices.flush/10_basic.yaml",
+		"indices.put_template/10_basic.yaml",
+		"indices.recovery/10_basic.yaml",
+		"indices.segments/10_basic.yaml",
+		"indices.shard_stores/10_basic.yaml",
+		"indices.stats/12_level.yaml",
 	} {
 		if strings.Contains(fpath, p) {
 			c = rePatchShardKeys.ReplaceAll(c, []byte(`shards."$1".$2`))
