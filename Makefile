@@ -150,7 +150,6 @@ endif
 				--env "cluster.name=go-elasticsearch" \
 				--env "cluster.initial_master_nodes=es1" \
 				--env "cluster.routing.allocation.disk.threshold_enabled=false" \
-				--env "discovery.zen.ping.unicast.hosts=es1" \
 				--env "bootstrap.memory_lock=true" \
 				--env "node.attr.testattr=test" \
 				--env "path.repo=/tmp" \
