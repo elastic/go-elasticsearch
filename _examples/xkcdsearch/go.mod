@@ -1,5 +1,7 @@
 module github.com/elastic/go-elasticsearch/_examples/xkcdsearch
 
+go 1.11
+
 replace github.com/elastic/go-elasticsearch => ../..
 
 require (
