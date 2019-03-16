@@ -1,0 +1,176 @@
+{
+  "_nodes" : {
+    "total" : 1,
+    "successful" : 1,
+    "failed" : 0
+  },
+  "cluster_name" : "go-elasticsearch",
+  "cluster_uuid" : "YDbc2l5xRTOIjsXs6mad5w",
+  "timestamp" : 1553438301314,
+  "status" : "yellow",
+  "indices" : {
+    "count" : 2,
+    "shards" : {
+      "total" : 2,
+      "primaries" : 2,
+      "replication" : 0.0,
+      "index" : {
+        "shards" : {
+          "min" : 1,
+          "max" : 1,
+          "avg" : 1.0
+        },
+        "primaries" : {
+          "min" : 1,
+          "max" : 1,
+          "avg" : 1.0
+        },
+        "replication" : {
+          "min" : 0.0,
+          "max" : 0.0,
+          "avg" : 0.0
+        }
+      }
+    },
+    "docs" : {
+      "count" : 7,
+      "deleted" : 9
+    },
+    "store" : {
+      "size" : "19.6kb",
+      "size_in_bytes" : 20138
+    },
+    "fielddata" : {
+      "memory_size" : "0b",
+      "memory_size_in_bytes" : 0,
+      "evictions" : 0
+    },
+    "query_cache" : {
+      "memory_size" : "0b",
+      "memory_size_in_bytes" : 0,
+      "total_count" : 0,
+      "hit_count" : 0,
+      "miss_count" : 0,
+      "cache_size" : 0,
+      "cache_count" : 0,
+      "evictions" : 0
+    },
+    "completion" : {
+      "size" : "0b",
+      "size_in_bytes" : 0
+    },
+    "segments" : {
+      "count" : 3,
+      "memory" : "5.5kb",
+      "memory_in_bytes" : 5733,
+      "terms_memory" : "3.8kb",
+      "terms_memory_in_bytes" : 3955,
+      "stored_fields_memory" : "936b",
+      "stored_fields_memory_in_bytes" : 936,
+      "term_vectors_memory" : "0b",
+      "term_vectors_memory_in_bytes" : 0,
+      "norms_memory" : "384b",
+      "norms_memory_in_bytes" : 384,
+      "points_memory" : "6b",
+      "points_memory_in_bytes" : 6,
+      "doc_values_memory" : "452b",
+      "doc_values_memory_in_bytes" : 452,
+      "index_writer_memory" : "0b",
+      "index_writer_memory_in_bytes" : 0,
+      "version_map_memory" : "0b",
+      "version_map_memory_in_bytes" : 0,
+      "fixed_bit_set" : "0b",
+      "fixed_bit_set_memory_in_bytes" : 0,
+      "max_unsafe_auto_id_timestamp" : -1,
+      "file_sizes" : { }
+    }
+  },
+  "nodes" : {
+    "count" : {
+      "total" : 1,
+      "data" : 1,
+      "coordinating_only" : 0,
+      "master" : 1,
+      "ingest" : 1
+    },
+    "versions" : [
+      "7.0.0"
+    ],
+    "os" : {
+      "available_processors" : 2,
+      "allocated_processors" : 2,
+      "names" : [
+        {
+          "name" : "Linux",
+          "count" : 1
+        }
+      ],
+      "pretty_names" : [
+        {
+          "pretty_name" : "CentOS Linux 7 (Core)",
+          "count" : 1
+        }
+      ],
+      "mem" : {
+        "total" : "3.8gb",
+        "total_in_bytes" : 4139405312,
+        "free" : "333.2mb",
+        "free_in_bytes" : 349401088,
+        "used" : "3.5gb",
+        "used_in_bytes" : 3790004224,
+        "free_percent" : 8,
+        "used_percent" : 92
+      }
+    },
+    "process" : {
+      "cpu" : {
+        "percent" : 0
+      },
+      "open_file_descriptors" : {
+        "min" : 135,
+        "max" : 135,
+        "avg" : 135
+      }
+    },
+    "jvm" : {
+      "max_uptime" : "5.3h",
+      "max_uptime_in_millis" : 19341816,
+      "versions" : [
+        {
+          "version" : "12",
+          "vm_name" : "OpenJDK 64-Bit Server VM",
+          "vm_version" : "12+33",
+          "vm_vendor" : "Oracle Corporation",
+          "count" : 1
+        }
+      ],
+      "mem" : {
+        "heap_used" : "162mb",
+        "heap_used_in_bytes" : 169961520,
+        "heap_max" : "1007.3mb",
+        "heap_max_in_bytes" : 1056309248
+      },
+      "threads" : 32
+    },
+    "fs" : {
+      "total" : "58.4gb",
+      "total_in_bytes" : 62722478080,
+      "free" : "48.1gb",
+      "free_in_bytes" : 51728310272,
+      "available" : "45.1gb",
+      "available_in_bytes" : 48511754240
+    },
+    "plugins" : [ ],
+    "network_types" : {
+      "transport_types" : {
+        "netty4" : 1
+      },
+      "http_types" : {
+        "netty4" : 1
+      }
+    },
+    "discovery_types" : {
+      "zen" : 1
+    }
+  }
+}
