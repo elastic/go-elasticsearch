@@ -1,0 +1,99 @@
+{
+  "took": 3,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 5,
+      "relation": "eq"
+    },
+    "max_score": 1.0,
+    "hits": [
+      {
+        "_index": "articles",
+        "_type": "_doc",
+        "_id": "1",
+        "_score": 1.0,
+        "_source": {
+          "id": 1,
+          "title": "Test One",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipisicing elit",
+          "published": "2019-03-24T15:01:10.871907+01:00",
+          "author": {
+            "first_name": "Alice",
+            "last_name": "Smith"
+          }
+        }
+      },
+      {
+        "_index": "articles",
+        "_type": "_doc",
+        "_id": "2",
+        "_score": 1.0,
+        "_source": {
+          "id": 2,
+          "title": "Test Two",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipisicing elit",
+          "published": "2020-03-24T15:01:10.872015+01:00",
+          "author": {
+            "first_name": "Alice",
+            "last_name": "Smith"
+          }
+        }
+      },
+      {
+        "_index": "articles",
+        "_type": "_doc",
+        "_id": "3",
+        "_score": 1.0,
+        "_source": {
+          "id": 3,
+          "title": "Test Three",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipisicing elit",
+          "published": "2021-03-24T15:01:10.872023+01:00",
+          "author": {
+            "first_name": "Alice",
+            "last_name": "Smith"
+          }
+        }
+      },
+      {
+        "_index": "articles",
+        "_type": "_doc",
+        "_id": "4",
+        "_score": 1.0,
+        "_source": {
+          "id": 4,
+          "title": "Test Four",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipisicing elit",
+          "published": "2022-03-24T15:01:10.872027+01:00",
+          "author": {
+            "first_name": "Alice",
+            "last_name": "Smith"
+          }
+        }
+      },
+      {
+        "_index": "articles",
+        "_type": "_doc",
+        "_id": "5",
+        "_score": 1.0,
+        "_source": {
+          "id": 5,
+          "title": "Test Five",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipisicing elit",
+          "published": "2023-03-24T15:01:10.872028+01:00",
+          "author": {
+            "first_name": "Alice",
+            "last_name": "Smith"
+          }
+        }
+      }
+    ]
+  }
+}
