@@ -239,7 +239,7 @@ func (r SearchRequest) Do(ctx context.Context, transport Transport) (*Response, 
 	}
 
 	if r.Timeout != 0 {
-		params["timeout"] = time.Duration(r.Timeout * time.Millisecond).String()
+		params["timeout"] = formatDuration(r.Timeout)
 	}
 
 	if r.TrackScores != nil {
