@@ -2,6 +2,8 @@ package esapi // import "github.com/elastic/go-elasticsearch/esapi"
 
 import (
 	"net/http"
+	"strconv"
+	"time"
 )
 
 // Transport defines the interface for an API client.
@@ -25,3 +27,13 @@ func BoolPtr(v bool) *bool { return &v }
 // which expects a pointer.
 //
 func IntPtr(v int) *int { return &v }
+
+// formatDuration converts duration to a string in the format
+// accepted by Elasticsearch.
+//
+func formatDuration(d time.Duration) string {
+	if d < time.Millisecond {
+		return strconv.FormatInt(int64(d), 10) + "nanos"
+	}
+	return strconv.FormatInt(int64(d)/int64(time.Millisecond), 10) + "ms"
+}
