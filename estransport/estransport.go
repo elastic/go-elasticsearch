@@ -21,9 +21,9 @@ type Config struct {
 	URLs      []*url.URL
 	Transport http.RoundTripper
 
-	LogOutput io.Writer
-	LogFormat string
-	LogFunc   func(*http.Request, *http.Response)
+	LogOutput  io.Writer
+	LogFormat  string
+	LoggerFunc func(*http.Request, *http.Response)
 }
 
 // Client represents the HTTP client.
@@ -33,9 +33,8 @@ type Client struct {
 	transport http.RoundTripper
 	selector  Selector
 
-	logOutput io.Writer
-	logFormat string
-	logFunc   func(*http.Request, *http.Response)
+	logger     *Logger
+	loggerFunc func(*http.Request, *http.Response)
 }
 
 // New creates new HTTP client.
@@ -52,9 +51,8 @@ func New(cfg Config) *Client {
 		transport: cfg.Transport,
 		selector:  NewRoundRobinSelector(cfg.URLs...),
 
-		logOutput: cfg.LogOutput,
-		logFormat: cfg.LogFormat,
-		logFunc:   cfg.LogFunc,
+		logger:     NewLogger(cfg.LogOutput, cfg.LogFormat),
+		loggerFunc: cfg.LoggerFunc,
 	}
 }
 
@@ -74,12 +72,12 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	res, err := c.transport.RoundTrip(req)
 	dur := time.Now().UTC().Sub(s)
 
-	if c.logOutput != nil {
-		logRoundTrip(c.logOutput, req, res, dur)
+	if c.logger != nil {
+		c.logger.logRoundTrip(req, res, dur)
 		if err != nil {
-			logError(c.logOutput, err)
+			c.logger.logError(err)
 		} else {
-			logResponseBody(c.logOutput, res)
+			c.logger.logResponseBody(res)
 		}
 	}
 
