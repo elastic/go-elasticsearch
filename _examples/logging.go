@@ -15,9 +15,9 @@ import (
 func main() {
 	log.SetFlags(0)
 
-	// Initialize the client with logger set to STDOUT.
+	// Initialize the client with logger output set to STDOUT.
 	//
-	es, err := elasticsearch.NewClient(elasticsearch.Config{Logger: os.Stdout})
+	es, err := elasticsearch.NewClient(elasticsearch.Config{LoggerOutput: os.Stdout})
 	if err != nil {
 		log.Fatalf("Error creating the client: %s", err)
 	}

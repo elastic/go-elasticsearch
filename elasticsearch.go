@@ -26,11 +26,11 @@ type Config struct {
 	// The HTTP transport object.
 	Transport http.RoundTripper
 
-	// Output for logging, if not nil.
-	Logger io.Writer
+	// Output for logging.
+	LoggerOutput io.Writer
 	// One of: text, curl, json.
 	LoggerFormat string
-	// Custom function for logging instead of the default one, if not nil.
+	// Custom function for logging instead of the default one.
 	LoggerFunc func(*http.Request, *http.Response)
 }
 
@@ -83,7 +83,7 @@ func NewClient(cfg Config) (*Client, error) {
 
 	tran := estransport.New(estransport.Config{
 		URLs: urls, Transport: cfg.Transport,
-		Logger: cfg.Logger, LoggerFormat: cfg.LoggerFormat, LoggerFunc: cfg.LoggerFunc,
+		LoggerOutput: cfg.LoggerOutput, LoggerFormat: cfg.LoggerFormat, LoggerFunc: cfg.LoggerFunc,
 	})
 
 	return &Client{Transport: tran, API: esapi.New(tran)}, nil

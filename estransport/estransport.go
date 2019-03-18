@@ -24,7 +24,7 @@ type Config struct {
 	URLs      []*url.URL
 	Transport http.RoundTripper
 
-	Logger       io.Writer
+	LoggerOutput io.Writer
 	LoggerFormat string
 	LoggerFunc   func(*http.Request, *http.Response)
 }
@@ -36,7 +36,7 @@ type Client struct {
 	transport http.RoundTripper
 	selector  Selector
 
-	logger       io.Writer
+	loggerOutput io.Writer
 	loggerFormat string
 	loggerFunc   func(*http.Request, *http.Response)
 }
@@ -55,7 +55,7 @@ func New(cfg Config) *Client {
 		transport: cfg.Transport,
 		selector:  NewRoundRobinSelector(cfg.URLs...),
 
-		logger:       cfg.Logger,
+		loggerOutput: cfg.LoggerOutput,
 		loggerFormat: cfg.LoggerFormat,
 		loggerFunc:   cfg.LoggerFunc,
 	}
@@ -76,8 +76,8 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	res, err := c.transport.RoundTrip(req)
 	d := time.Now().UTC().Sub(s)
 
-	if c.logger != nil {
-		fmt.Fprintf(c.logger, "%s %s %s [status:%d request:%s]\n",
+	if c.loggerOutput != nil {
+		fmt.Fprintf(c.loggerOutput, "%s %s %s [status:%d request:%s]\n",
 			time.Now().Format(time.RFC3339),
 			req.Method,
 			req.URL.String(),
@@ -86,10 +86,10 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		)
 		if req.Body != nil {
 			// TODO(karmi): Capture the request body before performing the request
-			fmt.Fprintln(c.logger, "> TODO: Capture and print request body")
+			fmt.Fprintln(c.loggerOutput, "> TODO: Capture and print request body")
 		}
 		if err != nil {
-			fmt.Fprintf(c.logger, "! ERROR: %v", err)
+			fmt.Fprintf(c.loggerOutput, "! ERROR: %v", err)
 		} else {
 			if res.Body != nil {
 				body, err := ioutil.ReadAll(res.Body)
