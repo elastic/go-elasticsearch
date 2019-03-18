@@ -29,7 +29,7 @@ type Config struct {
 	// Logging output.
 	LogOutput io.Writer
 	// Logging format. One of: text (default), curl, json.
-	LogFormat string
+	LogFormat estransport.LogFormat
 	// Custom logging function.
 	LoggerFunc func(*http.Request, *http.Response)
 }

@@ -24,7 +24,7 @@ type Config struct {
 	Transport http.RoundTripper
 
 	LogOutput  io.Writer
-	LogFormat  string
+	LogFormat  LogFormat
 	LoggerFunc func(*http.Request, *http.Response)
 }
 

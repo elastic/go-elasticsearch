@@ -10,16 +10,29 @@ import (
 	"time"
 )
 
+// LogFormat defines the logger output format.
+//
+type LogFormat int
+
+// Log formats:
+const (
+	_              LogFormat = iota
+	LogFormatText            // Plain text
+	LogFormatColor           // Terminal-optimized plain text
+	LogFormatCurl            // Runnable curl command
+	LogFormatJSON            // Structured output
+)
+
 // Logger represents the default logger.
 //
 type Logger struct {
 	output io.Writer
-	format string
+	format LogFormat
 }
 
 // NewLogger returns new logger, when w is not nil, otherwise it returns nil.
 //
-func NewLogger(w io.Writer, f string) *Logger {
+func NewLogger(w io.Writer, f LogFormat) *Logger {
 	if w == nil {
 		return nil
 	}
@@ -30,6 +43,7 @@ func (l *Logger) logRoundTrip(req *http.Request, res *http.Response, dur time.Du
 	fmt.Fprintf(l.output, "%s %s %s [status:%d request:%s]\n",
 		time.Now().Format(time.RFC3339),
 		req.Method,
+		// TODO(karmi): Unescape raw query
 		req.URL.String(),
 		res.StatusCode,
 		dur.Truncate(time.Millisecond),
@@ -67,4 +81,20 @@ func (l *Logger) logResponseBody(res *http.Response) {
 
 func (l *Logger) logError(err error) {
 	fmt.Fprintf(l.output, "! ERROR: %v", err)
+}
+
+// String returns LogFormat as a string.
+//
+func (f LogFormat) String() string {
+	switch f {
+	case LogFormatText:
+		return "text"
+	case LogFormatColor:
+		return "color"
+	case LogFormatCurl:
+		return "curl"
+	case LogFormatJSON:
+		return "json"
+	}
+	return "unknown"
 }
