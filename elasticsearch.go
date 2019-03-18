@@ -28,7 +28,7 @@ type Config struct {
 
 	// Output for logging.
 	LogOutput io.Writer
-	// One of: text, curl, json.
+	// One of: text (default), curl, json.
 	LogFormat string
 	// Custom function for logging instead of the default one.
 	LogFunc func(*http.Request, *http.Response)

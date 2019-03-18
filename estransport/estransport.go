@@ -1,11 +1,8 @@
 package estransport // import "github.com/elastic/go-elasticsearch/estransport"
 
 import (
-	"bytes"
 	"fmt"
 	"io"
-	"io/ioutil"
-	"log"
 	"net/http"
 	"net/url"
 	"strings"
@@ -66,6 +63,7 @@ func New(cfg Config) *Client {
 func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	u, err := c.getURL()
 	if err != nil {
+		// TODO(karmi): Log error
 		return nil, fmt.Errorf("cannot get URL: %s", err)
 	}
 
@@ -74,35 +72,14 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 
 	s := time.Now().UTC()
 	res, err := c.transport.RoundTrip(req)
-	d := time.Now().UTC().Sub(s)
+	dur := time.Now().UTC().Sub(s)
 
 	if c.logOutput != nil {
-		fmt.Fprintf(c.logOutput, "%s %s %s [status:%d request:%s]\n",
-			time.Now().Format(time.RFC3339),
-			req.Method,
-			req.URL.String(),
-			res.StatusCode,
-			d.Truncate(time.Millisecond),
-		)
-		if req.Body != nil {
-			// TODO(karmi): Capture the request body before performing the request
-			fmt.Fprintln(c.logOutput, "> TODO: Capture and print request body")
-		}
+		logRoundTrip(c.logOutput, req, res, dur)
 		if err != nil {
-			fmt.Fprintf(c.logOutput, "! ERROR: %v", err)
+			logError(c.logOutput, err)
 		} else {
-			if res.Body != nil {
-				body, err := ioutil.ReadAll(res.Body)
-				if err == nil {
-					defer func() { res.Body = ioutil.NopCloser(bytes.NewReader(body)) }()
-					defer func() { res.Body.Close() }()
-					for _, line := range strings.Split(string(body), "\n") {
-						if line != "" {
-							log.Printf("< %s\n", line)
-						}
-					}
-				}
-			}
+			logResponseBody(c.logOutput, res)
 		}
 	}
 
