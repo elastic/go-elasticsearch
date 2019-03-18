@@ -29,6 +29,7 @@ func main() {
 		strings.NewReader(`{"title" : "logging"}`),
 		es.Index.WithRefresh("true"),
 		es.Index.WithPretty(),
+		es.Index.WithFilterPath("result", "_id"),
 	)
 	if err != nil {
 		log.Fatalf("Error getting response: %s", err)
@@ -42,6 +43,7 @@ func main() {
 		es.Search.WithBody(strings.NewReader(`{"query" : {"match" : { "title" : "logging" } } }`)),
 		es.Search.WithSize(1),
 		es.Search.WithPretty(),
+		es.Search.WithFilterPath("took", "hits.hits"),
 	)
 	if err != nil {
 		log.Fatalf("Error getting response: %s", err)
