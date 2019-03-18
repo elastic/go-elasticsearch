@@ -1,8 +1,10 @@
 package estransport // import "github.com/elastic/go-elasticsearch/estransport"
 
 import (
+	"bytes"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
@@ -68,11 +70,22 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	c.setURL(u, req)
 	c.setBasicAuth(u, req)
 
+	var savedBody bytes.Buffer
+	if c.logger != nil {
+		// TODO(karmi): Handle errors
+		// TODO(karmi): Handle closing
+		if req.Body != nil && req.Body != http.NoBody {
+			savedBody.ReadFrom(req.Body)
+			req.Body = ioutil.NopCloser(bytes.NewBuffer(savedBody.Bytes()))
+		}
+	}
+
 	s := time.Now().UTC()
 	res, err := c.transport.RoundTrip(req)
 	dur := time.Now().UTC().Sub(s)
 
 	if c.logger != nil {
+		req.Body = ioutil.NopCloser(&savedBody)
 		c.logger.logRoundTrip(req, res, dur)
 		if err != nil {
 			c.logger.logError(err)

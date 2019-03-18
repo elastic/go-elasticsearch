@@ -34,14 +34,24 @@ func (l *Logger) logRoundTrip(req *http.Request, res *http.Response, dur time.Du
 		res.StatusCode,
 		dur.Truncate(time.Millisecond),
 	)
-	if req.Body != nil {
-		// TODO(karmi): Capture the request body before performing the request
-		fmt.Fprintln(l.output, "> TODO: Capture and print request body")
+	l.logRequestBody(req)
+}
+
+func (l *Logger) logRequestBody(req *http.Request) {
+	if req.Body != nil && req.Body != http.NoBody {
+		body, err := ioutil.ReadAll(req.Body)
+		if err == nil {
+			for _, line := range strings.Split(string(body), "\n") {
+				if line != "" {
+					fmt.Fprintf(l.output, "> %s\n", line)
+				}
+			}
+		}
 	}
 }
 
 func (l *Logger) logResponseBody(res *http.Response) {
-	if res.Body != nil {
+	if res.Body != nil && res.Body != http.NoBody {
 		body, err := ioutil.ReadAll(res.Body)
 		if err == nil {
 			defer func() { res.Body = ioutil.NopCloser(bytes.NewReader(body)) }()

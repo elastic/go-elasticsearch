@@ -26,7 +26,7 @@ func main() {
 	//
 	res, err := es.Index(
 		"test",
-		strings.NewReader(`{"test" : "logging"}`),
+		strings.NewReader(`{"title" : "logging"}`),
 		es.Index.WithRefresh("true"),
 		es.Index.WithPretty(),
 	)
@@ -39,7 +39,7 @@ func main() {
 	//
 	res, err = es.Search(
 		es.Search.WithIndex("test"),
-		es.Search.WithQuery("logging"),
+		es.Search.WithBody(strings.NewReader(`{"query" : {"match" : { "title" : "logging" } } }`)),
 		es.Search.WithSize(1),
 		es.Search.WithPretty(),
 	)
