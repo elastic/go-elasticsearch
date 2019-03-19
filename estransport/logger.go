@@ -46,17 +46,33 @@ func (l *Logger) logRoundTrip(req *http.Request, res *http.Response, dur time.Du
 	switch l.format {
 	case LogFormatText, LogFormatColor:
 		l.writeRoundTripText(req, res, dur)
-		l.logRequestBody(req)
-		l.logResponseBody(res)
+		l.writeRequestBodyText(req)
+		l.writeResponseBodyText(res)
 	case LogFormatCurl:
-		fmt.Fprintln(l.output, "### TODO: Curl ###")
+		l.writeRoundTripCurl(req, res, dur)
 	case LogFormatJSON:
-		fmt.Fprintln(l.output, "### TODO: JSON ###")
+		l.writeRoundTripJSON(req, res, dur)
 	}
 }
 
-func (l *Logger) logRequestBody(req *http.Request) {
+func (l *Logger) logError(err error) {
+	fmt.Fprintf(l.output, "! ERROR: %v", err)
+}
+
+func (l *Logger) writeRoundTripText(req *http.Request, res *http.Response, dur time.Duration) {
+	fmt.Fprintf(l.output, "%s %s %s [status:%d request:%s]\n",
+		time.Now().Format(time.RFC3339),
+		req.Method,
+		// TODO(karmi): Unescape raw query
+		req.URL.String(),
+		res.StatusCode,
+		dur.Truncate(time.Millisecond),
+	)
+}
+
+func (l *Logger) writeRequestBodyText(req *http.Request) {
 	if req.Body != nil && req.Body != http.NoBody {
+		// TODO(karmi): Use bufio.Scan
 		body, err := ioutil.ReadAll(req.Body)
 		if err == nil {
 			for _, line := range strings.Split(string(body), "\n") {
@@ -68,8 +84,9 @@ func (l *Logger) logRequestBody(req *http.Request) {
 	}
 }
 
-func (l *Logger) logResponseBody(res *http.Response) {
+func (l *Logger) writeResponseBodyText(res *http.Response) {
 	if res.Body != nil && res.Body != http.NoBody {
+		// TODO(karmi): Use bufio.Scan
 		body, err := ioutil.ReadAll(res.Body)
 		if err == nil {
 			defer func() { res.Body = ioutil.NopCloser(bytes.NewReader(body)) }()
@@ -83,8 +100,14 @@ func (l *Logger) logResponseBody(res *http.Response) {
 	}
 }
 
-func (l *Logger) logError(err error) {
-	fmt.Fprintf(l.output, "! ERROR: %v", err)
+func (l *Logger) writeRoundTripJSON(req *http.Request, res *http.Response, dur time.Duration) {
+	// https://github.com/elastic/ecs/blob/master/code/go/ecs/http.go
+	// https://github.com/elastic/ecs/blob/master/schemas/http.yml
+	fmt.Fprintln(l.output, "### TODO: JSON ###")
+}
+
+func (l *Logger) writeRoundTripCurl(req *http.Request, res *http.Response, dur time.Duration) {
+	fmt.Fprintln(l.output, "### TODO: Curl ###")
 }
 
 // String returns LogFormat as a string.
@@ -101,15 +124,4 @@ func (f LogFormat) String() string {
 		return "json"
 	}
 	return "unknown"
-}
-
-func (l *Logger) writeRoundTripText(req *http.Request, res *http.Response, dur time.Duration) {
-	fmt.Fprintf(l.output, "%s %s %s [status:%d request:%s]\n",
-		time.Now().Format(time.RFC3339),
-		req.Method,
-		// TODO(karmi): Unescape raw query
-		req.URL.String(),
-		res.StatusCode,
-		dur.Truncate(time.Millisecond),
-	)
 }
