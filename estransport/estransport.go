@@ -89,8 +89,6 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		c.logger.logRoundTrip(req, res, dur)
 		if err != nil {
 			c.logger.logError(err)
-		} else {
-			c.logger.logResponseBody(res)
 		}
 	}
 

@@ -10,14 +10,20 @@ import (
 	"strings"
 
 	"github.com/elastic/go-elasticsearch"
+	"github.com/elastic/go-elasticsearch/estransport"
 )
+
+var _ = estransport.LogFormatText
 
 func main() {
 	log.SetFlags(0)
 
 	// Initialize the client with logger output set to STDOUT.
 	//
-	es, err := elasticsearch.NewClient(elasticsearch.Config{LogOutput: os.Stdout})
+	es, err := elasticsearch.NewClient(elasticsearch.Config{
+		LogOutput: os.Stdout,
+		// LogFormat: estransport.LogFormatJSON,
+	})
 	if err != nil {
 		log.Fatalf("Error creating the client: %s", err)
 	}

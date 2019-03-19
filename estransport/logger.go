@@ -16,7 +16,7 @@ type LogFormat int
 
 // Log formats:
 const (
-	_              LogFormat = iota
+	LogFormatNone  LogFormat = iota
 	LogFormatText            // Plain text
 	LogFormatColor           // Terminal-optimized plain text
 	LogFormatCurl            // Runnable curl command
@@ -36,19 +36,23 @@ func NewLogger(w io.Writer, f LogFormat) *Logger {
 	if w == nil {
 		return nil
 	}
+	if f == LogFormatNone {
+		f = LogFormatText
+	}
 	return &Logger{output: w, format: f}
 }
 
 func (l *Logger) logRoundTrip(req *http.Request, res *http.Response, dur time.Duration) {
-	fmt.Fprintf(l.output, "%s %s %s [status:%d request:%s]\n",
-		time.Now().Format(time.RFC3339),
-		req.Method,
-		// TODO(karmi): Unescape raw query
-		req.URL.String(),
-		res.StatusCode,
-		dur.Truncate(time.Millisecond),
-	)
-	l.logRequestBody(req)
+	switch l.format {
+	case LogFormatText, LogFormatColor:
+		l.writeRoundTripText(req, res, dur)
+		l.logRequestBody(req)
+		l.logResponseBody(res)
+	case LogFormatCurl:
+		fmt.Fprintln(l.output, "### TODO: Curl ###")
+	case LogFormatJSON:
+		fmt.Fprintln(l.output, "### TODO: JSON ###")
+	}
 }
 
 func (l *Logger) logRequestBody(req *http.Request) {
@@ -97,4 +101,15 @@ func (f LogFormat) String() string {
 		return "json"
 	}
 	return "unknown"
+}
+
+func (l *Logger) writeRoundTripText(req *http.Request, res *http.Response, dur time.Duration) {
+	fmt.Fprintf(l.output, "%s %s %s [status:%d request:%s]\n",
+		time.Now().Format(time.RFC3339),
+		req.Method,
+		// TODO(karmi): Unescape raw query
+		req.URL.String(),
+		res.StatusCode,
+		dur.Truncate(time.Millisecond),
+	)
 }
