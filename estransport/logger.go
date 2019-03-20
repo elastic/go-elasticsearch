@@ -145,20 +145,25 @@ func (l *Logger) writeRoundTripJSON(req *http.Request, res *http.Response, dur t
 	b.WriteString(`"duration":`)
 	appendInt(dur.Nanoseconds())
 	b.WriteRune('}')
-	// -- HTTP
-	b.WriteString(`,"http":`)
-	// ---- Request
-	b.WriteString(`{"request":{`)
+	// -- URL
+	b.WriteString(`,"url":{`)
 	b.WriteString(`"scheme":`)
 	appendQuote(req.URL.Scheme)
-	b.WriteString(`,"host":`)
-	appendQuote(req.URL.Host)
-	b.WriteString(`,"method":`)
-	appendQuote(req.Method)
+	b.WriteString(`,"domain":`)
+	appendQuote(req.URL.Hostname())
+	b.WriteString(`,"port":`)
+	b.WriteString(req.URL.Port())
 	b.WriteString(`,"path":`)
 	appendQuote(req.URL.Path)
 	b.WriteString(`,"query":`)
 	appendQuote(req.URL.RawQuery)
+	b.WriteRune('}') // Close "url"
+	// -- HTTP
+	b.WriteString(`,"http":`)
+	// ---- Request
+	b.WriteString(`{"request":{`)
+	b.WriteString(`"method":`)
+	appendQuote(req.Method)
 	if l.logRequestBody && req.Body != nil && req.Body != http.NoBody {
 		var body bytes.Buffer
 		body.ReadFrom(req.Body)
