@@ -29,18 +29,21 @@ const (
 type Logger struct {
 	output io.Writer
 	format LogFormat
+
+	logRequestBody  bool
+	logResponseBody bool
 }
 
 // NewLogger returns new logger, when w is not nil, otherwise it returns nil.
 //
-func NewLogger(w io.Writer, f LogFormat) *Logger {
+func NewLogger(w io.Writer, f LogFormat, reqBody bool, resBody bool) *Logger {
 	if w == nil {
 		return nil
 	}
 	if f == LogFormatNone {
 		f = LogFormatText
 	}
-	return &Logger{output: w, format: f}
+	return &Logger{output: w, format: f, logRequestBody: reqBody, logResponseBody: resBody}
 }
 
 func (l *Logger) logRoundTrip(req *http.Request, res *http.Response, dur time.Duration, err error) {
@@ -76,7 +79,7 @@ func (l *Logger) writeRoundTripText(req *http.Request, res *http.Response, dur t
 }
 
 func (l *Logger) writeRequestBodyText(req *http.Request) {
-	if req.Body != nil && req.Body != http.NoBody {
+	if l.logRequestBody && req.Body != nil && req.Body != http.NoBody {
 		// TODO(karmi): Use bufio.Scan
 		body, err := ioutil.ReadAll(req.Body)
 		if err == nil {
@@ -90,7 +93,7 @@ func (l *Logger) writeRequestBodyText(req *http.Request) {
 }
 
 func (l *Logger) writeResponseBodyText(res *http.Response) {
-	if res.Body != nil && res.Body != http.NoBody {
+	if l.logResponseBody && res.Body != nil && res.Body != http.NoBody {
 		// TODO(karmi): Use bufio.Scan
 		body, err := ioutil.ReadAll(res.Body)
 		if err == nil {
@@ -110,11 +113,15 @@ func (l *Logger) writeRoundTripJSON(req *http.Request, res *http.Response, dur t
 	//
 	// TODO(karmi): Research performance optimization of using sync.Pool
 
-	var bsize int
-	// TODO(karmi): Compute based on LogRequestBody=true|false, LogResponseBody=true|false
-	bsize = 1000
+	bsize := 200
 	var b = bytes.NewBuffer(make([]byte, 0, bsize))
-	var v = make([]byte, 0, 100)
+	var v = make([]byte, 0, bsize)
+
+	appendTime := func(t time.Time) {
+		v = v[:0]
+		v = t.AppendFormat(v, time.RFC3339)
+		b.Write(v)
+	}
 
 	appendQuote := func(s string) {
 		v = v[:0]
@@ -131,7 +138,7 @@ func (l *Logger) writeRoundTripJSON(req *http.Request, res *http.Response, dur t
 	b.WriteRune('{')
 	// -- Timestamp
 	b.WriteString(`"@timestamp":"`)
-	b.WriteString(time.Now().UTC().Format(time.RFC3339))
+	appendTime(time.Now().UTC())
 	b.WriteRune('"')
 	// -- Event
 	b.WriteString(`,"event":{`)
@@ -152,9 +159,10 @@ func (l *Logger) writeRoundTripJSON(req *http.Request, res *http.Response, dur t
 	appendQuote(req.URL.Path)
 	b.WriteString(`,"query":`)
 	appendQuote(req.URL.RawQuery)
-	if req.Body != nil && req.Body != http.NoBody {
+	if l.logRequestBody && req.Body != nil && req.Body != http.NoBody {
 		var body bytes.Buffer
 		body.ReadFrom(req.Body)
+		b.Grow(body.Len())
 		b.WriteString(`,"body":{`)
 		b.WriteString(`"content":`)
 		appendQuote(body.String())
@@ -165,10 +173,11 @@ func (l *Logger) writeRoundTripJSON(req *http.Request, res *http.Response, dur t
 	if res != nil {
 		b.WriteString(`,"response":{`)
 		b.WriteString(`"status_code":`)
-		b.WriteString(strconv.Itoa(res.StatusCode))
-		if res.Body != nil && res.Body != http.NoBody {
+		appendInt(int64(res.StatusCode))
+		if l.logResponseBody && res.Body != nil && res.Body != http.NoBody {
 			var body bytes.Buffer
 			body.ReadFrom(res.Body)
+			b.Grow(body.Len())
 			b.WriteString(`,"body":{`)
 			b.WriteString(`"content":`)
 			appendQuote(body.String())

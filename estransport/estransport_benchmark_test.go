@@ -35,7 +35,7 @@ func newFakeTransport(b *testing.B) *FakeTransport {
 func BenchmarkTransport(b *testing.B) {
 	b.ReportAllocs()
 
-	b.Run("Defaults", func(b *testing.B) {
+	b.Run("Defaults            ", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
 			tp := estransport.New(estransport.Config{
 				URLs:      []*url.URL{&url.URL{Scheme: "http", Host: "foo"}},
@@ -50,12 +50,30 @@ func BenchmarkTransport(b *testing.B) {
 		}
 	})
 
-	b.Run("With Text Logger", func(b *testing.B) {
+	b.Run("With Text Logger     ", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
 			tp := estransport.New(estransport.Config{
 				URLs:      []*url.URL{&url.URL{Scheme: "http", Host: "foo"}},
 				Transport: newFakeTransport(b),
 				LogOutput: ioutil.Discard,
+			})
+
+			req, _ := http.NewRequest("GET", "/abc", nil)
+			_, err := tp.Perform(req)
+			if err != nil {
+				b.Fatalf("Unexpected error: %s", err)
+			}
+		}
+	})
+
+	b.Run("With Text Logger (body)", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			tp := estransport.New(estransport.Config{
+				URLs:            []*url.URL{&url.URL{Scheme: "http", Host: "foo"}},
+				Transport:       newFakeTransport(b),
+				LogOutput:       ioutil.Discard,
+				LogRequestBody:  true,
+				LogResponseBody: true,
 			})
 
 			req, _ := http.NewRequest("GET", "/abc", nil)
@@ -73,6 +91,25 @@ func BenchmarkTransport(b *testing.B) {
 				Transport: newFakeTransport(b),
 				LogOutput: ioutil.Discard,
 				LogFormat: estransport.LogFormatJSON,
+			})
+
+			req, _ := http.NewRequest("GET", "/abc", nil)
+			_, err := tp.Perform(req)
+			if err != nil {
+				b.Fatalf("Unexpected error: %s", err)
+			}
+		}
+	})
+
+	b.Run("With JSON Logger (body)", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			tp := estransport.New(estransport.Config{
+				URLs:            []*url.URL{&url.URL{Scheme: "http", Host: "foo"}},
+				Transport:       newFakeTransport(b),
+				LogOutput:       ioutil.Discard,
+				LogRequestBody:  true,
+				LogResponseBody: true,
+				LogFormat:       estransport.LogFormatJSON,
 			})
 
 			req, _ := http.NewRequest("GET", "/abc", nil)

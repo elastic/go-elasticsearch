@@ -23,9 +23,11 @@ type Config struct {
 	URLs      []*url.URL
 	Transport http.RoundTripper
 
-	LogOutput  io.Writer
-	LogFormat  LogFormat
-	LoggerFunc func(*http.Request, *http.Response)
+	LogOutput       io.Writer
+	LogFormat       LogFormat
+	LogRequestBody  bool
+	LogResponseBody bool
+	LoggerFunc      func(*http.Request, *http.Response)
 }
 
 // Client represents the HTTP client.
@@ -53,7 +55,7 @@ func New(cfg Config) *Client {
 		transport: cfg.Transport,
 		selector:  NewRoundRobinSelector(cfg.URLs...),
 
-		logger:     NewLogger(cfg.LogOutput, cfg.LogFormat),
+		logger:     NewLogger(cfg.LogOutput, cfg.LogFormat, cfg.LogRequestBody, cfg.LogResponseBody),
 		loggerFunc: cfg.LoggerFunc,
 	}
 }

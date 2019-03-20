@@ -26,14 +26,11 @@ type Config struct {
 	// The HTTP transport object.
 	Transport http.RoundTripper
 
-	// Logging output.
-	LogOutput io.Writer
-	// Logging format. One of: text (default), curl, json.
-	LogFormat estransport.LogFormat
-	// TODO(karmi): LogRequestBody bool
-	// TODO(karmi): LogResponseBody bool
-	// Custom logging function.
-	LoggerFunc func(*http.Request, *http.Response)
+	LogOutput       io.Writer                           // Logging output
+	LogFormat       estransport.LogFormat               // Logging format; text (default), curl, json
+	LogRequestBody  bool                                // Log request body when true
+	LogResponseBody bool                                // Log response body when true
+	LoggerFunc      func(*http.Request, *http.Response) // A custom logging function
 }
 
 // Client represents the Elasticsearch client.
@@ -84,8 +81,14 @@ func NewClient(cfg Config) (*Client, error) {
 	}
 
 	tran := estransport.New(estransport.Config{
-		URLs: urls, Transport: cfg.Transport,
-		LogOutput: cfg.LogOutput, LogFormat: cfg.LogFormat, LoggerFunc: cfg.LoggerFunc,
+		URLs:      urls,
+		Transport: cfg.Transport,
+
+		LogOutput:       cfg.LogOutput,
+		LogRequestBody:  cfg.LogRequestBody,
+		LogResponseBody: cfg.LogResponseBody,
+		LogFormat:       cfg.LogFormat,
+		LoggerFunc:      cfg.LoggerFunc,
 	})
 
 	return &Client{Transport: tran, API: esapi.New(tran)}, nil

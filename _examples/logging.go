@@ -21,8 +21,10 @@ func main() {
 	// Initialize the client with logger output set to STDOUT.
 	//
 	es, err := elasticsearch.NewClient(elasticsearch.Config{
-		LogOutput: os.Stdout,
-		LogFormat: estransport.LogFormatJSON,
+		LogOutput:       os.Stdout,
+		LogRequestBody:  true,
+		LogResponseBody: true,
+		// LogFormat:       estransport.LogFormatJSON,
 	})
 	if err != nil {
 		log.Fatalf("Error creating the client: %s", err)
