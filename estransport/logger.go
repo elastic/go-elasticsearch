@@ -109,7 +109,24 @@ func (l *Logger) writeRoundTripJSON(req *http.Request, res *http.Response, dur t
 	// https://github.com/elastic/ecs/blob/master/schemas/http.yml
 	//
 	// TODO(karmi): Research performance optimization of using sync.Pool
-	var b bytes.Buffer
+
+	var bsize int
+	// TODO(karmi): Compute based on LogRequestBody=true|false, LogResponseBody=true|false
+	bsize = 1000
+	var b = bytes.NewBuffer(make([]byte, 0, bsize))
+	var v = make([]byte, 0, 100)
+
+	appendQuote := func(s string) {
+		v = v[:0]
+		v = strconv.AppendQuote(v, s)
+		b.Write(v)
+	}
+
+	appendInt := func(i int64) {
+		v = v[:0]
+		v = strconv.AppendInt(v, i, 10)
+		b.Write(v)
+	}
 
 	b.WriteRune('{')
 	// -- Timestamp
@@ -119,28 +136,28 @@ func (l *Logger) writeRoundTripJSON(req *http.Request, res *http.Response, dur t
 	// -- Event
 	b.WriteString(`,"event":{`)
 	b.WriteString(`"duration":`)
-	b.WriteString(strconv.FormatInt(dur.Nanoseconds(), 10))
+	appendInt(dur.Nanoseconds())
 	b.WriteRune('}')
 	// -- HTTP
 	b.WriteString(`,"http":`)
 	// ---- Request
 	b.WriteString(`{"request":{`)
 	b.WriteString(`"scheme":`)
-	b.WriteString(strconv.Quote(req.URL.Scheme))
+	appendQuote(req.URL.Scheme)
 	b.WriteString(`,"host":`)
-	b.WriteString(strconv.Quote(req.URL.Host))
+	appendQuote(req.URL.Host)
 	b.WriteString(`,"method":`)
-	b.WriteString(strconv.Quote(req.Method))
+	appendQuote(req.Method)
 	b.WriteString(`,"path":`)
-	b.WriteString(strconv.Quote(req.URL.Path))
+	appendQuote(req.URL.Path)
 	b.WriteString(`,"query":`)
-	b.WriteString(strconv.Quote(req.URL.RawQuery))
+	appendQuote(req.URL.RawQuery)
 	if req.Body != nil && req.Body != http.NoBody {
 		var body bytes.Buffer
 		body.ReadFrom(req.Body)
 		b.WriteString(`,"body":{`)
 		b.WriteString(`"content":`)
-		b.WriteString(strconv.Quote(body.String()))
+		appendQuote(body.String())
 		b.WriteRune('}') // Close "http.request.body"
 	}
 	b.WriteRune('}') // Close "http.request"
@@ -154,7 +171,7 @@ func (l *Logger) writeRoundTripJSON(req *http.Request, res *http.Response, dur t
 			body.ReadFrom(res.Body)
 			b.WriteString(`,"body":{`)
 			b.WriteString(`"content":`)
-			b.WriteString(strconv.Quote(body.String()))
+			appendQuote(body.String())
 			b.WriteRune('}') // Close "http.response.body"
 		}
 		b.WriteRune('}') // Close "http.response"
@@ -163,7 +180,7 @@ func (l *Logger) writeRoundTripJSON(req *http.Request, res *http.Response, dur t
 	// -- Error
 	if err != nil {
 		b.WriteString(`,"error":{"message":`)
-		b.WriteString(strconv.Quote(err.Error()))
+		appendQuote(err.Error())
 		b.WriteRune('}') // Close "error"
 	}
 	b.WriteRune('}')
