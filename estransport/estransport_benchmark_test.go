@@ -50,12 +50,29 @@ func BenchmarkTransport(b *testing.B) {
 		}
 	})
 
-	b.Run("With Logger", func(b *testing.B) {
+	b.Run("With Text Logger", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
 			tp := estransport.New(estransport.Config{
 				URLs:      []*url.URL{&url.URL{Scheme: "http", Host: "foo"}},
 				Transport: newFakeTransport(b),
 				LogOutput: ioutil.Discard,
+			})
+
+			req, _ := http.NewRequest("GET", "/abc", nil)
+			_, err := tp.Perform(req)
+			if err != nil {
+				b.Fatalf("Unexpected error: %s", err)
+			}
+		}
+	})
+
+	b.Run("With JSON Logger", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			tp := estransport.New(estransport.Config{
+				URLs:      []*url.URL{&url.URL{Scheme: "http", Host: "foo"}},
+				Transport: newFakeTransport(b),
+				LogOutput: ioutil.Discard,
+				LogFormat: estransport.LogFormatJSON,
 			})
 
 			req, _ := http.NewRequest("GET", "/abc", nil)

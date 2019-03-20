@@ -86,10 +86,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 
 	if c.logger != nil {
 		req.Body = ioutil.NopCloser(&savedBody)
-		c.logger.logRoundTrip(req, res, dur)
-		if err != nil {
-			c.logger.logError(err)
-		}
+		c.logger.logRoundTrip(req, res, dur, err)
 	}
 
 	// TODO(karmi): Wrap error

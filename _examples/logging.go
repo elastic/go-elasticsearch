@@ -22,7 +22,7 @@ func main() {
 	//
 	es, err := elasticsearch.NewClient(elasticsearch.Config{
 		LogOutput: os.Stdout,
-		// LogFormat: estransport.LogFormatJSON,
+		LogFormat: estransport.LogFormatJSON,
 	})
 	if err != nil {
 		log.Fatalf("Error creating the client: %s", err)

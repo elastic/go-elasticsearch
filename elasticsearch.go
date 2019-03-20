@@ -30,6 +30,8 @@ type Config struct {
 	LogOutput io.Writer
 	// Logging format. One of: text (default), curl, json.
 	LogFormat estransport.LogFormat
+	// TODO(karmi): LogRequestBody bool
+	// TODO(karmi): LogResponseBody bool
 	// Custom logging function.
 	LoggerFunc func(*http.Request, *http.Response)
 }
