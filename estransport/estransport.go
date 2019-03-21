@@ -87,7 +87,9 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	dur := time.Now().UTC().Sub(s)
 
 	if c.logger != nil {
-		req.Body = ioutil.NopCloser(&savedBody)
+		if req.Body != nil && req.Body != http.NoBody {
+			req.Body = ioutil.NopCloser(&savedBody)
+		}
 		c.logger.logRoundTrip(req, res, dur, err)
 	}
 
