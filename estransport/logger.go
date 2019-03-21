@@ -1,6 +1,7 @@
 package estransport
 
 import (
+	"bufio"
 	"bytes"
 	"encoding/json"
 	"fmt"
@@ -86,28 +87,30 @@ func (l *Logger) writeRoundTripText(req *http.Request, res *http.Response, dur t
 }
 
 func (l *Logger) writeRequestBodyText(req *http.Request, prefix string) {
-	// TODO(karmi): Use bufio.Scan
-	body, err := ioutil.ReadAll(req.Body)
-	if err == nil {
-		for _, line := range strings.Split(string(body), "\n") {
-			if line != "" {
-				fmt.Fprintf(l.output, "%s %s\n", prefix, line)
-			}
-		}
+	var body bytes.Buffer
+	_, err := body.ReadFrom(req.Body)
+	if err != nil {
+		return
+	}
+
+	scanner := bufio.NewScanner(&body)
+	for scanner.Scan() {
+		fmt.Fprintf(l.output, "%s %s\n", prefix, scanner.Text())
 	}
 }
 
 func (l *Logger) writeResponseBodyText(res *http.Response, prefix string) {
-	// TODO(karmi): Use bufio.Scan
-	body, err := ioutil.ReadAll(res.Body)
-	if err == nil {
-		defer func() { res.Body = ioutil.NopCloser(bytes.NewReader(body)) }()
-		defer func() { res.Body.Close() }()
-		for _, line := range strings.Split(string(body), "\n") {
-			if line != "" {
-				fmt.Fprintf(l.output, "%s %s\n", prefix, line)
-			}
-		}
+	var body bytes.Buffer
+	_, err := body.ReadFrom(res.Body)
+	if err != nil {
+		return
+	}
+	defer func() { res.Body = ioutil.NopCloser(&body) }()
+	defer func() { res.Body.Close() }()
+
+	scanner := bufio.NewScanner(&body)
+	for scanner.Scan() {
+		fmt.Fprintf(l.output, "%s %s\n", prefix, scanner.Text())
 	}
 }
 
