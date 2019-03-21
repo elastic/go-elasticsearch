@@ -6,6 +6,7 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 	"strconv"
 	"strings"
 	"time"
@@ -48,12 +49,10 @@ func NewLogger(w io.Writer, f LogFormat, reqBody bool, resBody bool) *Logger {
 
 func (l *Logger) logRoundTrip(req *http.Request, res *http.Response, dur time.Duration, err error) {
 	switch l.format {
-	case LogFormatText, LogFormatColor:
+	case LogFormatText:
 		l.writeRoundTripText(req, res, dur, err)
-		l.writeRequestBodyText(req)
-		l.writeResponseBodyText(res)
-		l.writeErrorText(err)
-
+	case LogFormatColor:
+		l.writeRoundTripColor(req, res, dur, err)
 	case LogFormatCurl:
 		l.writeRoundTripCurl(req, res, dur, err)
 	case LogFormatJSON:
@@ -76,36 +75,101 @@ func (l *Logger) writeRoundTripText(req *http.Request, res *http.Response, dur t
 		res.StatusCode,
 		dur.Truncate(time.Millisecond),
 	)
+	if l.logRequestBody && req != nil && req.Body != nil && req.Body != http.NoBody {
+		l.writeRequestBodyText(req, ">")
+	}
+	if l.logResponseBody && res != nil && res.Body != nil && res.Body != http.NoBody {
+		l.writeResponseBodyText(res, "<")
+	}
+	l.writeErrorText(err)
 }
 
-func (l *Logger) writeRequestBodyText(req *http.Request) {
-	if l.logRequestBody && req.Body != nil && req.Body != http.NoBody {
-		// TODO(karmi): Use bufio.Scan
-		body, err := ioutil.ReadAll(req.Body)
-		if err == nil {
-			for _, line := range strings.Split(string(body), "\n") {
-				if line != "" {
-					fmt.Fprintf(l.output, "> %s\n", line)
-				}
+func (l *Logger) writeRequestBodyText(req *http.Request, prefix string) {
+	// TODO(karmi): Use bufio.Scan
+	body, err := ioutil.ReadAll(req.Body)
+	if err == nil {
+		for _, line := range strings.Split(string(body), "\n") {
+			if line != "" {
+				fmt.Fprintf(l.output, "%s %s\n", prefix, line)
 			}
 		}
 	}
 }
 
-func (l *Logger) writeResponseBodyText(res *http.Response) {
-	if l.logResponseBody && res.Body != nil && res.Body != http.NoBody {
-		// TODO(karmi): Use bufio.Scan
-		body, err := ioutil.ReadAll(res.Body)
-		if err == nil {
-			defer func() { res.Body = ioutil.NopCloser(bytes.NewReader(body)) }()
-			defer func() { res.Body.Close() }()
-			for _, line := range strings.Split(string(body), "\n") {
-				if line != "" {
-					fmt.Fprintf(l.output, "< %s\n", line)
-				}
+func (l *Logger) writeResponseBodyText(res *http.Response, prefix string) {
+	// TODO(karmi): Use bufio.Scan
+	body, err := ioutil.ReadAll(res.Body)
+	if err == nil {
+		defer func() { res.Body = ioutil.NopCloser(bytes.NewReader(body)) }()
+		defer func() { res.Body.Close() }()
+		for _, line := range strings.Split(string(body), "\n") {
+			if line != "" {
+				fmt.Fprintf(l.output, "%s %s\n", prefix, line)
 			}
 		}
 	}
+}
+
+func (l *Logger) writeRoundTripColor(req *http.Request, res *http.Response, dur time.Duration, err error) {
+	query, _ := url.QueryUnescape(req.URL.RawQuery)
+	if query != "" {
+		query = "?" + query
+	}
+
+	var (
+		status string
+		color  string
+	)
+
+	if res != nil {
+		status = res.Status
+		switch {
+		case res.StatusCode > 0 && res.StatusCode < 300:
+			color = "\x1b[32m"
+		case res.StatusCode > 299 && res.StatusCode < 500:
+			color = "\x1b[33m"
+		case res.StatusCode > 599:
+			color = "\x1b[31m"
+		}
+	} else {
+		status = "ERROR"
+		color = "\x1b[31;4m"
+	}
+
+	fmt.Fprintf(l.output, "%6s \x1b[1;4m%s://%s%s\x1b[0m%s %s%s\x1b[0m \x1b[2m%s\x1b[0m\n",
+		req.Method,
+		req.URL.Scheme,
+		req.URL.Host,
+		req.URL.Path,
+		query,
+		color,
+		status,
+		dur.Truncate(time.Millisecond),
+	)
+
+	if l.logRequestBody && req != nil && req.Body != nil && req.Body != http.NoBody {
+		fmt.Fprint(l.output, "\x1b[2m")
+		l.writeRequestBodyText(req, "       »")
+		fmt.Fprint(l.output, "\x1b[0m")
+	}
+
+	if l.logResponseBody && res != nil && res.Body != nil && res.Body != http.NoBody {
+		fmt.Fprint(l.output, "\x1b[2m")
+		l.writeResponseBodyText(res, "       «")
+		fmt.Fprint(l.output, "\x1b[0m")
+	}
+
+	if err != nil {
+		fmt.Fprintf(l.output, "\x1b[31;1m» ERROR \x1b[31m%v\x1b[0m\n", err)
+	}
+
+	if l.logRequestBody || l.logResponseBody {
+		fmt.Fprintf(l.output, "\x1b[2m%s\x1b[0m\n", strings.Repeat("─", 80))
+	}
+}
+
+func (l *Logger) writeRoundTripCurl(req *http.Request, res *http.Response, dur time.Duration, err error) {
+	fmt.Fprintln(l.output, "### TODO: Curl ###")
 }
 
 func (l *Logger) writeRoundTripJSON(req *http.Request, res *http.Response, dur time.Duration, err error) {
@@ -200,10 +264,6 @@ func (l *Logger) writeRoundTripJSON(req *http.Request, res *http.Response, dur t
 	b.WriteRune('}')
 	b.WriteRune('\n')
 	b.WriteTo(l.output)
-}
-
-func (l *Logger) writeRoundTripCurl(req *http.Request, res *http.Response, dur time.Duration, err error) {
-	fmt.Fprintln(l.output, "### TODO: Curl ###")
 }
 
 // String returns LogFormat as a string.
