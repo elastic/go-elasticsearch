@@ -27,7 +27,7 @@ type Config struct {
 	LogFormat       LogFormat
 	LogRequestBody  bool
 	LogResponseBody bool
-	LoggerFunc      func(*http.Request, *http.Response)
+	LoggerFunc      func(http.Request, http.Response)
 }
 
 // Client represents the HTTP client.
@@ -38,7 +38,7 @@ type Client struct {
 	selector  Selector
 
 	logger     *Logger
-	loggerFunc func(*http.Request, *http.Response)
+	loggerFunc func(http.Request, http.Response)
 }
 
 // New creates new HTTP client.
@@ -72,13 +72,22 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	c.setURL(u, req)
 	c.setBasicAuth(u, req)
 
-	var savedBody bytes.Buffer
+	var (
+		dupReqBody  = bytes.NewBuffer(make([]byte, 0, req.ContentLength))
+		dupReqBodyF = bytes.NewBuffer(make([]byte, 0, req.ContentLength))
+	)
 	if c.logger != nil {
 		// TODO(karmi): Handle errors
 		// TODO(karmi): Handle closing
 		if req.Body != nil && req.Body != http.NoBody {
-			savedBody.ReadFrom(req.Body)
-			req.Body = ioutil.NopCloser(bytes.NewBuffer(savedBody.Bytes()))
+			dupReqBody.ReadFrom(req.Body)
+			req.Body = ioutil.NopCloser(bytes.NewBuffer(dupReqBody.Bytes()))
+		}
+	}
+	if c.loggerFunc != nil {
+		if req.Body != nil && req.Body != http.NoBody {
+			dupReqBodyF.ReadFrom(req.Body)
+			req.Body = ioutil.NopCloser(bytes.NewBuffer(dupReqBodyF.Bytes()))
 		}
 	}
 
@@ -88,9 +97,35 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 
 	if c.logger != nil {
 		if req.Body != nil && req.Body != http.NoBody {
-			req.Body = ioutil.NopCloser(&savedBody)
+			req.Body = ioutil.NopCloser(dupReqBody)
 		}
+		// TODO(karmi): Pass start time as first arg
 		c.logger.logRoundTrip(req, res, dur, err)
+	}
+
+	if c.loggerFunc != nil {
+		reqCopy := *req
+		resCopy := *res
+
+		if req.Body != nil && req.Body != http.NoBody {
+			reqCopy.Body = ioutil.NopCloser(dupReqBodyF)
+		}
+
+		if res.Body != nil && res.Body != http.NoBody {
+			var (
+				b1 = bytes.NewBuffer(make([]byte, 0, 100))
+				b2 = bytes.NewBuffer(make([]byte, 0, 100))
+				tr = io.TeeReader(res.Body, b2)
+			)
+			// TODO(karmi): Handle error
+			b1.ReadFrom(tr)
+
+			defer func() { res.Body = ioutil.NopCloser(b2) }()
+			defer func() { res.Body.Close() }()
+
+			resCopy.Body = ioutil.NopCloser(b1)
+		}
+		c.loggerFunc(reqCopy, resCopy)
 	}
 
 	// TODO(karmi): Wrap error

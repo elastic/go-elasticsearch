@@ -5,7 +5,10 @@
 package main
 
 import (
+	"bytes"
+	"fmt"
 	"log"
+	"net/http"
 	"os"
 	"strings"
 
@@ -13,7 +16,12 @@ import (
 	"github.com/elastic/go-elasticsearch/estransport"
 )
 
-var _ = estransport.LogFormatText
+var (
+	_ = estransport.LogFormatText
+	_ = fmt.Print
+	_ = http.MethodGet
+	_ = bytes.NewBuffer
+)
 
 func main() {
 	log.SetFlags(0)
@@ -24,14 +32,31 @@ func main() {
 		LogOutput:       os.Stdout,
 		LogRequestBody:  true,
 		LogResponseBody: true,
-		// LogFormat:       estransport.LogFormatJSON,
+		LogFormat:       estransport.LogFormatColor,
+		// LogFormat: estransport.LogFormatCurl,
+		// LogFormat: estransport.LogFormatJSON,
+
+		// LoggerFunc: func(req http.Request, res http.Response) {
+		// 	fmt.Println(strings.Repeat("~", 80))
+		// 	fmt.Println("Request:", req.Method, req.URL.String())
+		// 	fmt.Println("Response:", res.Status)
+		// 	if res.Body != nil && res.Body != http.NoBody {
+		// 		var b bytes.Buffer
+		// 		b.ReadFrom(res.Body)
+		// 		fmt.Println(b.String())
+		// 	}
+		// 	fmt.Println(strings.Repeat("~", 80))
+		// },
 	})
 	if err != nil {
 		log.Fatalf("Error creating the client: %s", err)
 	}
 
-	// Index a document
-	//
+	es.Info()
+	es.Delete("test", "1")
+	es.Exists("test", "1")
+	es.Index("test", strings.NewReader(`{"title":"Title"}`), es.Index.WithDocumentID("1"), es.Index.WithPretty())
+
 	res, err := es.Index(
 		"test",
 		strings.NewReader(`{"title" : "logging"}`),
@@ -44,8 +69,12 @@ func main() {
 	}
 	defer res.Body.Close()
 
-	// Search a document
-	//
+	log.Println(strings.Repeat("*", 80))
+	log.Println(res)
+	log.Println(strings.Repeat("*", 80))
+
+	res, err = es.Search(es.Search.WithQuery("[FAIL"))
+
 	res, err = es.Search(
 		es.Search.WithIndex("test"),
 		es.Search.WithBody(strings.NewReader(`{"query" : {"match" : { "title" : "logging" } } }`)),
@@ -57,4 +86,8 @@ func main() {
 		log.Fatalf("Error getting response: %s", err)
 	}
 	defer res.Body.Close()
+
+	log.Println(strings.Repeat("*", 80))
+	log.Println(res)
+	log.Println(strings.Repeat("*", 80))
 }

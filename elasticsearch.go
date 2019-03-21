@@ -26,11 +26,11 @@ type Config struct {
 	// The HTTP transport object.
 	Transport http.RoundTripper
 
-	LogOutput       io.Writer                           // Logging output
-	LogFormat       estransport.LogFormat               // Logging format; text (default), curl, json
-	LogRequestBody  bool                                // Log request body when true
-	LogResponseBody bool                                // Log response body when true
-	LoggerFunc      func(*http.Request, *http.Response) // A custom logging function
+	LogOutput       io.Writer                         // Logging output
+	LogFormat       estransport.LogFormat             // Logging format; text (default), curl, json
+	LogRequestBody  bool                              // Log request body when true
+	LogResponseBody bool                              // Log response body when true
+	LoggerFunc      func(http.Request, http.Response) // A custom logging function
 }
 
 // Client represents the Elasticsearch client.
