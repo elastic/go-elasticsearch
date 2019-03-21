@@ -2,6 +2,7 @@ package estransport
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -169,7 +170,67 @@ func (l *Logger) writeRoundTripColor(req *http.Request, res *http.Response, dur 
 }
 
 func (l *Logger) writeRoundTripCurl(req *http.Request, res *http.Response, dur time.Duration, err error) {
-	fmt.Fprintln(l.output, "### TODO: Curl ###")
+	var b bytes.Buffer
+
+	var query string
+	qvalues := url.Values{}
+	for k, v := range req.URL.Query() {
+		if k == "pretty" {
+			continue
+		}
+		for _, qv := range v {
+			qvalues.Add(k, qv)
+		}
+	}
+	if len(qvalues) > 0 {
+		query = qvalues.Encode()
+	}
+
+	b.WriteString(`curl`)
+	if req.Method == "HEAD" {
+		b.WriteString(" --head")
+	} else {
+		fmt.Fprintf(&b, " -X %s", req.Method)
+	}
+
+	if len(req.Header) > 0 {
+		for k, vv := range req.Header {
+			v := strings.Join(vv, ",")
+			b.WriteString(fmt.Sprintf(" -H '%s: %s'", k, v))
+		}
+	}
+
+	b.WriteString(" 'http://localhost:9200")
+	b.WriteString(req.URL.Path)
+	b.WriteString("?pretty")
+	if query != "" {
+		fmt.Fprintf(&b, "&%s", query)
+	}
+	b.WriteString("'")
+
+	if req.Body != nil && req.Body != http.NoBody {
+		var body bytes.Buffer
+		body.ReadFrom(req.Body)
+		b.Grow(body.Len())
+		b.WriteString(" -d \\\n'")
+		json.Indent(&b, body.Bytes(), "", " ")
+		b.WriteString("'")
+	}
+
+	b.WriteRune('\n')
+
+	fmt.Fprintf(&b, "# => %s [%s] %s\n", time.Now().UTC().Format(time.RFC3339), res.Status, dur.Truncate(time.Millisecond))
+	if l.logResponseBody && res.Body != nil && res.Body != http.NoBody {
+		var body bytes.Buffer
+		body.ReadFrom(res.Body)
+		b.Grow(body.Len())
+		b.WriteString("# ")
+		json.Indent(&b, body.Bytes(), "# ", " ")
+	}
+
+	b.WriteString("\n\n")
+
+	b.WriteTo(l.output)
 }
 
 func (l *Logger) writeRoundTripJSON(req *http.Request, res *http.Response, dur time.Duration, err error) {
