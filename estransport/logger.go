@@ -261,10 +261,6 @@ func (l *Logger) writeRoundTripCurl(req *http.Request, res *http.Response, dur t
 
 		b1.ReadFrom(res.Body)
 		b.Grow(b1.Len())
-		b.WriteString(" -d \\\n'")
-		json.Indent(&b, b1.Bytes(), "", " ")
-		b.WriteString("'")
-		b.Grow(b1.Len())
 		b.WriteString("# ")
 		json.Indent(&b, b1.Bytes(), "# ", " ")
 	}
