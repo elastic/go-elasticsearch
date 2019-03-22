@@ -297,6 +297,8 @@ func (l *Logger) writeRoundTripJSON(req *http.Request, res *http.Response, dur t
 		b.Write(v)
 	}
 
+	port := req.URL.Port()
+
 	b.WriteRune('{')
 	// -- Timestamp
 	b.WriteString(`"@timestamp":"`)
@@ -313,8 +315,10 @@ func (l *Logger) writeRoundTripJSON(req *http.Request, res *http.Response, dur t
 	appendQuote(req.URL.Scheme)
 	b.WriteString(`,"domain":`)
 	appendQuote(req.URL.Hostname())
-	b.WriteString(`,"port":`)
-	b.WriteString(req.URL.Port())
+	if port != "" {
+		b.WriteString(`,"port":`)
+		b.WriteString(port)
+	}
 	b.WriteString(`,"path":`)
 	appendQuote(req.URL.Path)
 	b.WriteString(`,"query":`)
@@ -327,6 +331,7 @@ func (l *Logger) writeRoundTripJSON(req *http.Request, res *http.Response, dur t
 	b.WriteString(`"method":`)
 	appendQuote(req.Method)
 	if l.logRequestBody && req.Body != nil && req.Body != http.NoBody {
+		b.WriteString(`,"body":`)
 		// TODO(karmi): Refactor into `duplicateBody` method
 		var (
 			b1 bytes.Buffer
@@ -342,7 +347,6 @@ func (l *Logger) writeRoundTripJSON(req *http.Request, res *http.Response, dur t
 		b1.ReadFrom(req.Body)
 		b.Grow(b1.Len())
 		appendQuote(b1.String())
-		b.WriteRune('}') // Close "http.request.body"
 	}
 	b.WriteRune('}') // Close "http.request"
 	// ---- Response
@@ -351,6 +355,7 @@ func (l *Logger) writeRoundTripJSON(req *http.Request, res *http.Response, dur t
 		b.WriteString(`"status_code":`)
 		appendInt(int64(res.StatusCode))
 		if l.logResponseBody && res.Body != nil && res.Body != http.NoBody {
+			b.WriteString(`,"body":`)
 			// TODO(karmi): Refactor into `duplicateBody` method
 			var (
 				b1 bytes.Buffer
@@ -367,8 +372,6 @@ func (l *Logger) writeRoundTripJSON(req *http.Request, res *http.Response, dur t
 			b1.ReadFrom(res.Body)
 			b.Grow(b1.Len())
 			appendQuote(b1.String())
-
-			b.WriteRune('}') // Close "http.response.body"
 		}
 		b.WriteRune('}') // Close "http.response"
 	}
