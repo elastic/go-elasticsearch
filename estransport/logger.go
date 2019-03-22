@@ -71,7 +71,6 @@ func (l *Logger) writeRoundTripText(req *http.Request, res *http.Response, err e
 	fmt.Fprintf(l.output, "%s %s %s [status:%d request:%s]\n",
 		start.Format(time.RFC3339),
 		req.Method,
-		// TODO(karmi): Unescape raw query
 		req.URL.String(),
 		res.StatusCode,
 		dur.Truncate(time.Millisecond),
@@ -86,19 +85,13 @@ func (l *Logger) writeRoundTripText(req *http.Request, res *http.Response, err e
 }
 
 func (l *Logger) writeRequestBodyText(req *http.Request, prefix string) {
-	// TODO(karmi): Refactor into `duplicateBody` method
-	var (
-		b1 bytes.Buffer
-		b2 bytes.Buffer
-		tr = io.TeeReader(req.Body, &b2)
-	)
-	_, err := b1.ReadFrom(tr)
+	b1, b2, err := l.duplicateBody(req.Body)
 	if err != nil {
 		return
 	}
-	defer func() { req.Body = ioutil.NopCloser(&b2) }()
+	defer func() { req.Body = ioutil.NopCloser(b2) }()
 
-	scanner := bufio.NewScanner(&b1)
+	scanner := bufio.NewScanner(b1)
 	for scanner.Scan() {
 		s := scanner.Text()
 		if s != "" {
@@ -108,20 +101,14 @@ func (l *Logger) writeRequestBodyText(req *http.Request, prefix string) {
 }
 
 func (l *Logger) writeResponseBodyText(res *http.Response, prefix string) {
-	// TODO(karmi): Refactor into `duplicateBody` method
-	var (
-		b1 bytes.Buffer
-		b2 bytes.Buffer
-		tr = io.TeeReader(res.Body, &b2)
-	)
-	_, err := b1.ReadFrom(tr)
+	b1, b2, err := l.duplicateBody(res.Body)
 	if err != nil {
 		return
 	}
-	defer func() { res.Body = ioutil.NopCloser(&b2) }()
+	defer func() { res.Body = ioutil.NopCloser(b2) }()
 	defer func() { res.Body.Close() }()
 
-	scanner := bufio.NewScanner(&b1)
+	scanner := bufio.NewScanner(b1)
 	for scanner.Scan() {
 		s := scanner.Text()
 		if s != "" {
@@ -234,19 +221,12 @@ func (l *Logger) writeRoundTripCurl(req *http.Request, res *http.Response, err e
 	b.WriteString("'")
 
 	if req.Body != nil && req.Body != http.NoBody {
-		// TODO(karmi): Refactor into `duplicateBody` method
-		var (
-			b1 bytes.Buffer
-			b2 bytes.Buffer
-			tr = io.TeeReader(req.Body, &b2)
-		)
-		_, err := b1.ReadFrom(tr)
+		b1, b2, err := l.duplicateBody(req.Body)
 		if err != nil {
 			return
 		}
-		defer func() { req.Body = ioutil.NopCloser(&b2) }()
+		defer func() { req.Body = ioutil.NopCloser(b2) }()
 
-		b1.ReadFrom(req.Body)
 		b.Grow(b1.Len())
 		b.WriteString(" -d \\\n'")
 		json.Indent(&b, b1.Bytes(), "", " ")
@@ -257,20 +237,13 @@ func (l *Logger) writeRoundTripCurl(req *http.Request, res *http.Response, err e
 
 	fmt.Fprintf(&b, "# => %s [%s] %s\n", start.UTC().Format(time.RFC3339), res.Status, dur.Truncate(time.Millisecond))
 	if l.logResponseBody && res.Body != nil && res.Body != http.NoBody {
-		// TODO(karmi): Refactor into `duplicateBody` method
-		var (
-			b1 bytes.Buffer
-			b2 bytes.Buffer
-			tr = io.TeeReader(res.Body, &b2)
-		)
-		_, err := b1.ReadFrom(tr)
+		b1, b2, err := l.duplicateBody(res.Body)
 		if err != nil {
 			return
 		}
-		defer func() { res.Body = ioutil.NopCloser(&b2) }()
+		defer func() { res.Body = ioutil.NopCloser(b2) }()
 		defer func() { res.Body.Close() }()
 
-		b1.ReadFrom(res.Body)
 		b.Grow(b1.Len())
 		b.WriteString("# ")
 		json.Indent(&b, b1.Bytes(), "# ", " ")
@@ -343,19 +316,12 @@ func (l *Logger) writeRoundTripJSON(req *http.Request, res *http.Response, err e
 	appendQuote(req.Method)
 	if l.logRequestBody && req.Body != nil && req.Body != http.NoBody {
 		b.WriteString(`,"body":`)
-		// TODO(karmi): Refactor into `duplicateBody` method
-		var (
-			b1 bytes.Buffer
-			b2 bytes.Buffer
-			tr = io.TeeReader(req.Body, &b2)
-		)
-		_, err := b1.ReadFrom(tr)
+		b1, b2, err := l.duplicateBody(req.Body)
 		if err != nil {
 			return
 		}
-		defer func() { req.Body = ioutil.NopCloser(&b2) }()
+		defer func() { req.Body = ioutil.NopCloser(b2) }()
 
-		b1.ReadFrom(req.Body)
 		b.Grow(b1.Len())
 		appendQuote(b1.String())
 	}
@@ -367,20 +333,13 @@ func (l *Logger) writeRoundTripJSON(req *http.Request, res *http.Response, err e
 		appendInt(int64(res.StatusCode))
 		if l.logResponseBody && res.Body != nil && res.Body != http.NoBody {
 			b.WriteString(`,"body":`)
-			// TODO(karmi): Refactor into `duplicateBody` method
-			var (
-				b1 bytes.Buffer
-				b2 bytes.Buffer
-				tr = io.TeeReader(res.Body, &b2)
-			)
-			_, err := b1.ReadFrom(tr)
+			b1, b2, err := l.duplicateBody(res.Body)
 			if err != nil {
 				return
 			}
-			defer func() { res.Body = ioutil.NopCloser(&b2) }()
+			defer func() { res.Body = ioutil.NopCloser(b2) }()
 			defer func() { res.Body.Close() }()
 
-			b1.ReadFrom(res.Body)
 			b.Grow(b1.Len())
 			appendQuote(b1.String())
 		}
@@ -396,6 +355,20 @@ func (l *Logger) writeRoundTripJSON(req *http.Request, res *http.Response, err e
 	b.WriteRune('}')
 	b.WriteRune('\n')
 	b.WriteTo(l.output)
+}
+
+func (l *Logger) duplicateBody(body io.ReadCloser) (*bytes.Buffer, *bytes.Buffer, error) {
+	var (
+		b1 bytes.Buffer
+		b2 bytes.Buffer
+		tr = io.TeeReader(body, &b2)
+	)
+	_, err := b1.ReadFrom(tr)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return &b1, &b2, nil
 }
 
 // String returns LogFormat as a string.

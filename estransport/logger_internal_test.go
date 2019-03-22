@@ -76,9 +76,15 @@ func TestTransportLogger(t *testing.T) {
 
 		req, _ := http.NewRequest("GET", "/abc?q=a,b", nil)
 		req.Body = ioutil.NopCloser(strings.NewReader(`{"query":"42"}`))
-		_, err := tp.Perform(req)
+
+		res, err := tp.Perform(req)
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		_, err = ioutil.ReadAll(res.Body)
+		if err != nil {
+			t.Fatalf("Error reading response body: %s", err)
 		}
 
 		output := dst.String()
@@ -118,9 +124,15 @@ func TestTransportLogger(t *testing.T) {
 
 		req, _ := http.NewRequest("GET", "/abc?q=a,b", nil)
 		req.Body = ioutil.NopCloser(strings.NewReader(`{"query":"42"}`))
-		_, err := tp.Perform(req)
+
+		res, err := tp.Perform(req)
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		_, err = ioutil.ReadAll(res.Body)
+		if err != nil {
+			t.Fatalf("Error reading response body: %s", err)
 		}
 
 		var output string
@@ -168,9 +180,15 @@ func TestTransportLogger(t *testing.T) {
 
 		req, _ := http.NewRequest("GET", "/abc?q=a,b", nil)
 		req.Body = ioutil.NopCloser(strings.NewReader(`{"query":"42"}`))
-		_, err := tp.Perform(req)
+
+		res, err := tp.Perform(req)
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		_, err = ioutil.ReadAll(res.Body)
+		if err != nil {
+			t.Fatalf("Error reading response body: %s", err)
 		}
 
 		output := dst.String()
@@ -239,9 +257,15 @@ func TestTransportLogger(t *testing.T) {
 
 		req, _ := http.NewRequest("GET", "/abc?q=a,b", nil)
 		req.Body = ioutil.NopCloser(strings.NewReader(`{"query":"42"}`))
-		_, err := tp.Perform(req)
+
+		res, err := tp.Perform(req)
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		_, err = ioutil.ReadAll(res.Body)
+		if err != nil {
+			t.Fatalf("Error reading response body: %s", err)
 		}
 
 		output := dst.String()
