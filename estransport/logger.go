@@ -49,22 +49,27 @@ func NewLogger(w io.Writer, f LogFormat, reqBody bool, resBody bool) *Logger {
 	return &Logger{output: w, format: f, logRequestBody: reqBody, logResponseBody: resBody}
 }
 
-func (l *Logger) logRoundTrip(req *http.Request, res *http.Response, dur time.Duration, err error) {
+func (l *Logger) logRoundTrip(
+	req *http.Request,
+	res *http.Response,
+	err error,
+	start time.Time,
+	dur time.Duration) {
 	switch l.format {
 	case LogFormatText:
-		l.writeRoundTripText(req, res, dur, err)
+		l.writeRoundTripText(req, res, err, start, dur)
 	case LogFormatColor:
-		l.writeRoundTripColor(req, res, dur, err)
+		l.writeRoundTripColor(req, res, err, start, dur)
 	case LogFormatCurl:
-		l.writeRoundTripCurl(req, res, dur, err)
+		l.writeRoundTripCurl(req, res, err, start, dur)
 	case LogFormatJSON:
-		l.writeRoundTripJSON(req, res, dur, err)
+		l.writeRoundTripJSON(req, res, err, start, dur)
 	}
 }
 
-func (l *Logger) writeRoundTripText(req *http.Request, res *http.Response, dur time.Duration, err error) {
+func (l *Logger) writeRoundTripText(req *http.Request, res *http.Response, err error, start time.Time, dur time.Duration) {
 	fmt.Fprintf(l.output, "%s %s %s [status:%d request:%s]\n",
-		time.Now().Format(time.RFC3339),
+		start.Format(time.RFC3339),
 		req.Method,
 		// TODO(karmi): Unescape raw query
 		req.URL.String(),
@@ -131,7 +136,7 @@ func (l *Logger) writeErrorText(err error) {
 	}
 }
 
-func (l *Logger) writeRoundTripColor(req *http.Request, res *http.Response, dur time.Duration, err error) {
+func (l *Logger) writeRoundTripColor(req *http.Request, res *http.Response, err error, start time.Time, dur time.Duration) {
 	query, _ := url.QueryUnescape(req.URL.RawQuery)
 	if query != "" {
 		query = "?" + query
@@ -189,7 +194,7 @@ func (l *Logger) writeRoundTripColor(req *http.Request, res *http.Response, dur 
 	}
 }
 
-func (l *Logger) writeRoundTripCurl(req *http.Request, res *http.Response, dur time.Duration, err error) {
+func (l *Logger) writeRoundTripCurl(req *http.Request, res *http.Response, err error, start time.Time, dur time.Duration) {
 	var b bytes.Buffer
 
 	var query string
@@ -250,7 +255,7 @@ func (l *Logger) writeRoundTripCurl(req *http.Request, res *http.Response, dur t
 
 	b.WriteRune('\n')
 
-	fmt.Fprintf(&b, "# => %s [%s] %s\n", time.Now().UTC().Format(time.RFC3339), res.Status, dur.Truncate(time.Millisecond))
+	fmt.Fprintf(&b, "# => %s [%s] %s\n", start.UTC().Format(time.RFC3339), res.Status, dur.Truncate(time.Millisecond))
 	if l.logResponseBody && res.Body != nil && res.Body != http.NoBody {
 		// TODO(karmi): Refactor into `duplicateBody` method
 		var (
@@ -276,7 +281,7 @@ func (l *Logger) writeRoundTripCurl(req *http.Request, res *http.Response, dur t
 	b.WriteTo(l.output)
 }
 
-func (l *Logger) writeRoundTripJSON(req *http.Request, res *http.Response, dur time.Duration, err error) {
+func (l *Logger) writeRoundTripJSON(req *http.Request, res *http.Response, err error, start time.Time, dur time.Duration) {
 	// https://github.com/elastic/ecs/blob/master/schemas/http.yml
 	//
 	// TODO(karmi): Research performance optimization of using sync.Pool
@@ -308,7 +313,7 @@ func (l *Logger) writeRoundTripJSON(req *http.Request, res *http.Response, dur t
 	b.WriteRune('{')
 	// -- Timestamp
 	b.WriteString(`"@timestamp":"`)
-	appendTime(time.Now().UTC())
+	appendTime(start.UTC())
 	b.WriteRune('"')
 	// -- Event
 	b.WriteString(`,"event":{`)

@@ -79,16 +79,15 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		}
 	}
 
-	s := time.Now().UTC()
+	start := time.Now().UTC()
 	res, err := c.transport.RoundTrip(req)
-	dur := time.Now().UTC().Sub(s)
+	dur := time.Now().UTC().Sub(start)
 
 	if c.logger != nil {
 		if req.Body != nil && req.Body != http.NoBody {
 			req.Body = ioutil.NopCloser(dupReqBody)
 		}
-		// TODO(karmi): Pass start time as first arg
-		c.logger.logRoundTrip(req, res, dur, err)
+		c.logger.logRoundTrip(req, res, err, start, dur)
 	}
 
 	// TODO(karmi): Wrap error
