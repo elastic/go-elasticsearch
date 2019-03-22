@@ -62,12 +62,6 @@ func (l *Logger) logRoundTrip(req *http.Request, res *http.Response, dur time.Du
 	}
 }
 
-func (l *Logger) writeErrorText(err error) {
-	if err != nil {
-		fmt.Fprintf(l.output, "! ERROR: %v", err)
-	}
-}
-
 func (l *Logger) writeRoundTripText(req *http.Request, res *http.Response, dur time.Duration, err error) {
 	fmt.Fprintf(l.output, "%s %s %s [status:%d request:%s]\n",
 		time.Now().Format(time.RFC3339),
@@ -101,7 +95,10 @@ func (l *Logger) writeRequestBodyText(req *http.Request, prefix string) {
 
 	scanner := bufio.NewScanner(&b1)
 	for scanner.Scan() {
-		fmt.Fprintf(l.output, "%s %s\n", prefix, scanner.Text())
+		s := scanner.Text()
+		if s != "" {
+			fmt.Fprintf(l.output, "%s %s\n", prefix, s)
+		}
 	}
 }
 
@@ -121,7 +118,16 @@ func (l *Logger) writeResponseBodyText(res *http.Response, prefix string) {
 
 	scanner := bufio.NewScanner(&b1)
 	for scanner.Scan() {
-		fmt.Fprintf(l.output, "%s %s\n", prefix, scanner.Text())
+		s := scanner.Text()
+		if s != "" {
+			fmt.Fprintf(l.output, "%s %s\n", prefix, s)
+		}
+	}
+}
+
+func (l *Logger) writeErrorText(err error) {
+	if err != nil {
+		fmt.Fprintf(l.output, "! ERROR: %v\n", err)
 	}
 }
 
