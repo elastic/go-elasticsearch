@@ -3,8 +3,6 @@
 package estransport_test
 
 import (
-	"bytes"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -13,8 +11,6 @@ import (
 
 	"github.com/elastic/go-elasticsearch/estransport"
 )
-
-var _ = fmt.Print
 
 var defaultResponse = http.Response{
 	Status:        "200 OK",
@@ -114,28 +110,6 @@ func BenchmarkTransport(b *testing.B) {
 				LogRequestBody:  true,
 				LogResponseBody: true,
 				LogFormat:       estransport.LogFormatJSON,
-			})
-
-			req, _ := http.NewRequest("GET", "/abc", nil)
-			_, err := tp.Perform(req)
-			if err != nil {
-				b.Fatalf("Unexpected error: %s", err)
-			}
-		}
-	})
-
-	b.Run("With LoggerFunc      ", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			tp := estransport.New(estransport.Config{
-				URLs:      []*url.URL{&url.URL{Scheme: "http", Host: "foo"}},
-				Transport: newFakeTransport(b),
-				LoggerFunc: func(req http.Request, res http.Response) {
-					var b bytes.Buffer
-					b.ReadFrom(res.Body)
-					fmt.Fprintf(ioutil.Discard, "> %s %s", req.Method, req.URL.String())
-					fmt.Fprintf(ioutil.Discard, "< %s", res.Status)
-					fmt.Fprintf(ioutil.Discard, "< %s", b.String())
-				},
 			})
 
 			req, _ := http.NewRequest("GET", "/abc", nil)

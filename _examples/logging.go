@@ -35,18 +35,6 @@ func main() {
 		LogFormat:       estransport.LogFormatColor,
 		// LogFormat: estransport.LogFormatCurl,
 		// LogFormat: estransport.LogFormatJSON,
-
-		// LoggerFunc: func(req http.Request, res http.Response) {
-		// 	fmt.Println(strings.Repeat("~", 80))
-		// 	fmt.Println("Request:", req.Method, req.URL.String())
-		// 	fmt.Println("Response:", res.Status)
-		// 	if res.Body != nil && res.Body != http.NoBody {
-		// 		var b bytes.Buffer
-		// 		b.ReadFrom(res.Body)
-		// 		fmt.Println(b.String())
-		// 	}
-		// 	fmt.Println(strings.Repeat("~", 80))
-		// },
 	})
 	if err != nil {
 		log.Fatalf("Error creating the client: %s", err)
