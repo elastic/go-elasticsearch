@@ -143,10 +143,8 @@ func (s *Store) Search(query string, after ...string) (*SearchResults, error) {
 	type envelopeResponse struct {
 		Took int
 		Hits struct {
-			Total struct {
-				Value int
-			}
-			Hits []struct {
+			Total int
+			Hits  []struct {
 				ID         string          `json:"_id"`
 				Source     json.RawMessage `json:"_source"`
 				Highlights json.RawMessage `json:"highlight"`
@@ -160,7 +158,7 @@ func (s *Store) Search(query string, after ...string) (*SearchResults, error) {
 		return &results, err
 	}
 
-	results.Total = r.Hits.Total.Value
+	results.Total = r.Hits.Total
 
 	if len(r.Hits.Hits) < 1 {
 		results.Hits = []*Hit{}
