@@ -140,7 +140,7 @@ func (l *Logger) writeRoundTripColor(req *http.Request, res *http.Response, err 
 			color = "\x1b[32m"
 		case res.StatusCode > 299 && res.StatusCode < 500:
 			color = "\x1b[33m"
-		case res.StatusCode > 599:
+		case res.StatusCode > 499:
 			color = "\x1b[31m"
 		}
 	} else {
