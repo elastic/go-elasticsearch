@@ -11,6 +11,7 @@ import (
 	"os"
 	"regexp"
 	"strings"
+	"sync"
 	"testing"
 )
 
@@ -35,17 +36,27 @@ func TestTransportLogger(t *testing.T) {
 	}
 
 	t.Run("Defaults", func(t *testing.T) {
+		var wg sync.WaitGroup
+
 		tp := New(Config{
 			URLs:      []*url.URL{&url.URL{Scheme: "http", Host: "foo"}},
 			Transport: newRoundTripper(),
 			LogOutput: ioutil.Discard,
 		})
 
-		req, _ := http.NewRequest("GET", "/abc", nil)
-		_, err := tp.Perform(req)
-		if err != nil {
-			t.Fatalf("Unexpected error: %s", err)
+		for i := 0; i < 100; i++ {
+			wg.Add(1)
+			go func() {
+				defer wg.Done()
+
+				req, _ := http.NewRequest("GET", "/abc", nil)
+				_, err := tp.Perform(req)
+				if err != nil {
+					t.Fatalf("Unexpected error: %s", err)
+				}
+			}()
 		}
+		wg.Wait()
 	})
 
 	t.Run("Nil", func(t *testing.T) {

@@ -3,6 +3,7 @@
 package estransport_test
 
 import (
+	"bytes"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -41,9 +42,18 @@ func BenchmarkTransportLogger(b *testing.B) {
 			})
 
 			req, _ := http.NewRequest("GET", "/abc", nil)
-			_, err := tp.Perform(req)
+			res, err := tp.Perform(req)
 			if err != nil {
 				b.Fatalf("Unexpected error: %s", err)
+			}
+
+			body, err := ioutil.ReadAll(res.Body)
+			if err != nil {
+				b.Fatalf("Error reading response body: %s", err)
+			}
+			res.Body = ioutil.NopCloser(bytes.NewBuffer(body))
+			if len(body) < 13 {
+				b.Errorf("Error reading response body bytes, want=13, got=%d", len(body))
 			}
 		}
 	})
