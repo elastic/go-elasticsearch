@@ -4,6 +4,7 @@ package estransport
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -70,6 +71,24 @@ func TestTransportLogger(t *testing.T) {
 		_, err := tp.Perform(req)
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
+		}
+	})
+
+	t.Run("No HTTP response", func(t *testing.T) {
+		tp := New(Config{
+			URLs: []*url.URL{&url.URL{Scheme: "http", Host: "foo"}},
+			Transport: &mockTransp{
+				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+					return nil, errors.New("Mock error")
+				},
+			},
+			LogOutput: ioutil.Discard,
+		})
+
+		req, _ := http.NewRequest("GET", "/abc", nil)
+		_, err := tp.Perform(req)
+		if err == nil {
+			t.Fatalf("Expected error: %s", err)
 		}
 	})
 
