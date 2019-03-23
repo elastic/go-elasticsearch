@@ -89,7 +89,7 @@ func (l *Logger) writeRequestBodyText(req *http.Request, prefix string) {
 	if err != nil {
 		return
 	}
-	defer func() { req.Body = ioutil.NopCloser(b2) }()
+	req.Body = ioutil.NopCloser(b2)
 
 	scanner := bufio.NewScanner(b1)
 	for scanner.Scan() {
@@ -105,8 +105,7 @@ func (l *Logger) writeResponseBodyText(res *http.Response, prefix string) {
 	if err != nil {
 		return
 	}
-	defer func() { res.Body = ioutil.NopCloser(b2) }()
-	defer func() { res.Body.Close() }()
+	res.Body = ioutil.NopCloser(b2)
 
 	scanner := bufio.NewScanner(b1)
 	for scanner.Scan() {
@@ -225,7 +224,7 @@ func (l *Logger) writeRoundTripCurl(req *http.Request, res *http.Response, err e
 		if err != nil {
 			return
 		}
-		defer func() { req.Body = ioutil.NopCloser(b2) }()
+		req.Body = ioutil.NopCloser(b2)
 
 		b.Grow(b1.Len())
 		b.WriteString(" -d \\\n'")
@@ -241,8 +240,7 @@ func (l *Logger) writeRoundTripCurl(req *http.Request, res *http.Response, err e
 		if err != nil {
 			return
 		}
-		defer func() { res.Body = ioutil.NopCloser(b2) }()
-		defer func() { res.Body.Close() }()
+		res.Body = ioutil.NopCloser(b2)
 
 		b.Grow(b1.Len())
 		b.WriteString("# ")
@@ -320,7 +318,7 @@ func (l *Logger) writeRoundTripJSON(req *http.Request, res *http.Response, err e
 		if err != nil {
 			return
 		}
-		defer func() { req.Body = ioutil.NopCloser(b2) }()
+		req.Body = ioutil.NopCloser(b2)
 
 		b.Grow(b1.Len())
 		appendQuote(b1.String())
@@ -337,8 +335,7 @@ func (l *Logger) writeRoundTripJSON(req *http.Request, res *http.Response, err e
 			if err != nil {
 				return
 			}
-			defer func() { res.Body = ioutil.NopCloser(b2) }()
-			defer func() { res.Body.Close() }()
+			res.Body = ioutil.NopCloser(b2)
 
 			b.Grow(b1.Len())
 			appendQuote(b1.String())
@@ -367,6 +364,7 @@ func (l *Logger) duplicateBody(body io.ReadCloser) (*bytes.Buffer, *bytes.Buffer
 	if err != nil {
 		return nil, nil, err
 	}
+	defer func() { body.Close() }()
 
 	return &b1, &b2, nil
 }
