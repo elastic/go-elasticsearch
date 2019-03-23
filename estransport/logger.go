@@ -381,9 +381,8 @@ func (l *Logger) duplicateBody(body io.ReadCloser) (*bytes.Buffer, *bytes.Buffer
 func (l *Logger) resStatusCode(res *http.Response) int {
 	if res != nil {
 		return res.StatusCode
-	} else {
-		return -1
 	}
+	return -1
 }
 
 // String returns LogFormat as a string.
