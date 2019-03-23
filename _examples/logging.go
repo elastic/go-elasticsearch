@@ -1,14 +1,10 @@
 // +build ignore
 
-// This example demonstrates how to use the logging facility of the Elasticsearch client.
-//
 package main
 
 import (
-	"bytes"
 	"fmt"
 	"log"
-	"net/http"
 	"os"
 	"strings"
 
@@ -16,66 +12,99 @@ import (
 	"github.com/elastic/go-elasticsearch/estransport"
 )
 
-var (
-	_ = estransport.LogFormatText
-	_ = fmt.Print
-	_ = http.MethodGet
-	_ = bytes.NewBuffer
-)
-
 func main() {
 	log.SetFlags(0)
 
-	// Initialize the client with logger output set to STDOUT.
+	var es *elasticsearch.Client
+
+	// This collection of examples demonstrates how to configure the default logger of the client.
 	//
-	es, err := elasticsearch.NewClient(elasticsearch.Config{
+	// To enable logging, pass an io.Writer as the "LogOutput" option in the client configuration.
+	//
+	// ==============================================================================================
+	//
+	// The default logger formatter writes basic information about
+	// the request and response as plain text to the output.
+	//
+	es, _ = elasticsearch.NewClient(elasticsearch.Config{
+		LogOutput: os.Stdout,
+	})
+	run(es, "Text")
+
+	// ==============================================================================================
+	//
+	// The "LogFormatColor" formatter is optimized for displaying
+	// information in the terminal during development.
+	//
+	es, _ = elasticsearch.NewClient(elasticsearch.Config{
+		LogOutput: os.Stdout,
+		LogFormat: estransport.LogFormatColor,
+	})
+	run(es, "Color")
+
+	// ==============================================================================================
+	//
+	// To log the request and response bodies, use the respective configuration options.
+	//
+	es, _ = elasticsearch.NewClient(elasticsearch.Config{
 		LogOutput:       os.Stdout,
+		LogFormat:       estransport.LogFormatColor,
 		LogRequestBody:  true,
 		LogResponseBody: true,
-		LogFormat:       estransport.LogFormatColor,
-		// LogFormat: estransport.LogFormatCurl,
-		// LogFormat: estransport.LogFormatJSON,
 	})
-	if err != nil {
-		log.Fatalf("Error creating the client: %s", err)
-	}
+	run(es, "Request/Response Body")
 
-	es.Info()
+	// ==============================================================================================
+	//
+	// The "LogFormatCurl" formatter writes the information formatted as executable curl commands,
+	// pretty-printing the response (when enabled), useful eg. for sharing or debugging.
+	//
+	es, _ = elasticsearch.NewClient(elasticsearch.Config{
+		LogOutput:       os.Stdout,
+		LogFormat:       estransport.LogFormatCurl,
+		LogResponseBody: true,
+	})
+	run(es, "Curl")
+
+	// ==============================================================================================
+	//
+	// The "LogFormatJSON" formatter writes the information as JSON, suitable for log ingestion.
+	//
+	es, _ = elasticsearch.NewClient(elasticsearch.Config{
+		LogOutput: os.Stdout,
+		LogFormat: estransport.LogFormatJSON,
+	})
+	run(es, "JSON")
+}
+
+// ------------------------------------------------------------------------------------------------
+
+func run(es *elasticsearch.Client, name string) {
+	log.Println("███", fmt.Sprintf("\x1b[1m%s\x1b[0m", name), strings.Repeat("█", 75-len(name)))
+
 	es.Delete("test", "1")
 	es.Exists("test", "1")
-	es.Index("test", strings.NewReader(`{"title":"Title"}`), es.Index.WithDocumentID("1"), es.Index.WithPretty())
 
-	res, err := es.Index(
+	es.Index(
 		"test",
 		strings.NewReader(`{"title" : "logging"}`),
 		es.Index.WithRefresh("true"),
 		es.Index.WithPretty(),
 		es.Index.WithFilterPath("result", "_id"),
 	)
-	if err != nil {
-		log.Fatalf("Error getting response: %s", err)
-	}
-	defer res.Body.Close()
 
-	log.Println(strings.Repeat("*", 80))
-	log.Println(res)
-	log.Println(strings.Repeat("*", 80))
+	es.Search(es.Search.WithQuery("[FAIL"))
 
-	res, err = es.Search(es.Search.WithQuery("[FAIL"))
-
-	res, err = es.Search(
+	res, err := es.Search(
 		es.Search.WithIndex("test"),
 		es.Search.WithBody(strings.NewReader(`{"query" : {"match" : { "title" : "logging" } } }`)),
 		es.Search.WithSize(1),
 		es.Search.WithPretty(),
 		es.Search.WithFilterPath("took", "hits.hits"),
 	)
-	if err != nil {
-		log.Fatalf("Error getting response: %s", err)
-	}
-	defer res.Body.Close()
 
-	log.Println(strings.Repeat("*", 80))
-	log.Println(res)
-	log.Println(strings.Repeat("*", 80))
+	log.Println("\x1b[1mResponse:\x1b[0m", res)
+	if err != nil {
+		log.Println("Error:   ", err)
+	}
 }
