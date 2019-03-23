@@ -241,7 +241,7 @@ func (l *Logger) writeRoundTripCurl(req *http.Request, res *http.Response, err e
 		status = "N/A"
 	}
 	fmt.Fprintf(&b, "# => %s [%s] %s\n", start.UTC().Format(time.RFC3339), status, dur.Truncate(time.Millisecond))
-	if l.logResponseBody && res.Body != nil && res.Body != http.NoBody {
+	if l.logResponseBody && res != nil && res.Body != nil && res.Body != http.NoBody {
 		b1, b2, err := l.duplicateBody(res.Body)
 		if err != nil {
 			return
@@ -254,7 +254,7 @@ func (l *Logger) writeRoundTripCurl(req *http.Request, res *http.Response, err e
 	}
 
 	b.WriteString("\n")
-	if l.logResponseBody && res.Body != nil && res.Body != http.NoBody {
+	if l.logResponseBody && res != nil && res.Body != nil && res.Body != http.NoBody {
 		b.WriteString("\n")
 	}
 
@@ -321,7 +321,7 @@ func (l *Logger) writeRoundTripJSON(req *http.Request, res *http.Response, err e
 	b.WriteString(`{"request":{`)
 	b.WriteString(`"method":`)
 	appendQuote(req.Method)
-	if l.logRequestBody && req.Body != nil && req.Body != http.NoBody {
+	if l.logRequestBody && req != nil && req.Body != nil && req.Body != http.NoBody {
 		b.WriteString(`,"body":`)
 		b1, b2, err := l.duplicateBody(req.Body)
 		if err != nil {
@@ -338,7 +338,7 @@ func (l *Logger) writeRoundTripJSON(req *http.Request, res *http.Response, err e
 		b.WriteString(`,"response":{`)
 		b.WriteString(`"status_code":`)
 		appendInt(int64(l.resStatusCode(res)))
-		if l.logResponseBody && res.Body != nil && res.Body != http.NoBody {
+		if l.logResponseBody && res != nil && res.Body != nil && res.Body != http.NoBody {
 			b.WriteString(`,"body":`)
 			b1, b2, err := l.duplicateBody(res.Body)
 			if err != nil {
