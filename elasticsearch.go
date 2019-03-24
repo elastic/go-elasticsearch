@@ -19,7 +19,10 @@ const (
 // Config represents the client configuration.
 //
 type Config struct {
-	Addresses []string          // A list of Elasticsearch nodes to use.
+	Addresses []string // A list of Elasticsearch nodes to use.
+	Username  string   // Username for HTTP Basic Authentication.
+	Password  string   // Password for HTTP Basic Authentication.
+
 	Transport http.RoundTripper // The HTTP transport object.
 }
 
@@ -70,9 +73,15 @@ func NewClient(cfg Config) (*Client, error) {
 		urls = append(urls, u)
 	}
 
-	tran := estransport.New(estransport.Config{URLs: urls, Transport: cfg.Transport})
+	tp := estransport.New(estransport.Config{
+		URLs:     urls,
+		Username: cfg.Username,
+		Password: cfg.Password,
 
-	return &Client{Transport: tran, API: esapi.New(tran)}, nil
+		Transport: cfg.Transport,
+	})
+
+	return &Client{Transport: tp, API: esapi.New(tp)}, nil
 }
 
 // Perform delegates to Transport to execute a request and return a response.

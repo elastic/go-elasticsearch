@@ -16,14 +16,20 @@ type Interface interface {
 // Config represents the configuration of HTTP client.
 //
 type Config struct {
-	URLs      []*url.URL
+	URLs     []*url.URL
+	Username string
+	Password string
+
 	Transport http.RoundTripper
 }
 
 // Client represents the HTTP client.
 //
 type Client struct {
-	urls      []*url.URL
+	urls     []*url.URL
+	username string
+	password string
+
 	transport http.RoundTripper
 	selector  Selector
 }
@@ -39,7 +45,10 @@ func New(cfg Config) *Client {
 	}
 
 	return &Client{
-		urls:      cfg.URLs,
+		urls:     cfg.URLs,
+		username: cfg.Username,
+		password: cfg.Password,
+
 		transport: cfg.Transport,
 		selector:  NewRoundRobinSelector(cfg.URLs...),
 	}
@@ -89,6 +98,13 @@ func (c *Client) setBasicAuth(u *url.URL, req *http.Request) *http.Request {
 	if u.User != nil {
 		password, _ := u.User.Password()
 		req.SetBasicAuth(u.User.Username(), password)
+		return req
 	}
+
+	if c.username != "" && c.password != "" {
+		req.SetBasicAuth(c.username, c.password)
+		return req
+	}
+
 	return req
 }
