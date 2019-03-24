@@ -50,8 +50,10 @@ func main() {
 	if err := json.NewDecoder(res.Body).Decode(&r); err != nil {
 		log.Fatalf("Error parsing the response body: %s", err)
 	}
-	// Print version number.
-	log.Printf("~~~~~~~> Elasticsearch %s", r["version"].(map[string]interface{})["number"])
+	// Print client and server version numbers.
+	log.Printf("Client: %s", elasticsearch.Version)
+	log.Printf("Server: %s", r["version"].(map[string]interface{})["number"])
+	log.Println(strings.Repeat("~", 37))
 
 	// 2. Index documents concurrently
 	//
