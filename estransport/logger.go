@@ -206,6 +206,9 @@ func (l *Logger) writeRoundTripCurl(req *http.Request, res *http.Response, err e
 
 	if len(req.Header) > 0 {
 		for k, vv := range req.Header {
+			if k == "Authorization" {
+				continue
+			}
 			v := strings.Join(vv, ",")
 			b.WriteString(fmt.Sprintf(" -H '%s: %s'", k, v))
 		}
