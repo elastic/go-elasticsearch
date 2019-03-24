@@ -19,21 +19,21 @@ type Transport struct{}
 func (t *Transport) RoundTrip(req *http.Request) (*http.Response, error) {
 	freq := fasthttp.AcquireRequest()
 	fres := fasthttp.AcquireResponse()
-	t.copyRequest(req, freq)
+	t.copyRequest(freq, req)
 	err := fasthttp.Do(freq, fres)
 	if err != nil {
 		return nil, err
 	}
 
 	res := &http.Response{Header: make(http.Header)}
-	t.copyResponse(fres, res)
+	t.copyResponse(res, fres)
 
 	return res, nil
 }
 
 // copyRequest converts http.Request to fasthttp.Request
 //
-func (t *Transport) copyRequest(src *http.Request, dst *fasthttp.Request) *fasthttp.Request {
+func (t *Transport) copyRequest(dst *fasthttp.Request, src *http.Request) *fasthttp.Request {
 	dst.Reset()
 
 	dst.SetHost(src.Host)
@@ -41,7 +41,12 @@ func (t *Transport) copyRequest(src *http.Request, dst *fasthttp.Request) *fasth
 
 	dst.Header.SetRequestURI(src.URL.String())
 	dst.Header.SetMethod(src.Method)
-	dst.Header.SetUserAgent("go-elasticsearch@master")
+
+	for k, vv := range src.Header {
+		for _, v := range vv {
+			dst.Header.Set(k, v)
+		}
+	}
 
 	if src.Body != nil {
 		var b bytes.Buffer
@@ -55,7 +60,7 @@ func (t *Transport) copyRequest(src *http.Request, dst *fasthttp.Request) *fasth
 
 // copyResponse converts http.Response to fasthttp.Response
 //
-func (t *Transport) copyResponse(src *fasthttp.Response, dst *http.Response) *http.Response {
+func (t *Transport) copyResponse(dst *http.Response, src *fasthttp.Response) *http.Response {
 	dst.StatusCode = src.StatusCode()
 
 	src.Header.VisitAll(func(k, v []byte) {
