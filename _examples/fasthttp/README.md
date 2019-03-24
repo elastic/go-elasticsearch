@@ -9,10 +9,11 @@ request and response object between `net/http` and `fasthttp`.
 To run the example:
 
     go run cmd/main.go
+    # 1000 requests in 1.15 (870.2 req/s) | min: 785.292µs / max: 10.553253ms / mean: 1.052083ms
 
 To run the benchmarks:
 
     make bench
 
-    BenchmarkHTTPClient/Info()-4        3000  5504114 ns/op    16232 B/op    130 allocs/op
-    BenchmarkFastHTTPClient/Info()-4   10000  1183802 ns/op     3233 B/op     41 allocs/op
+    BenchmarkHTTPClient/Info()-4              2000     8721355 ns/op     16279 B/op      131 allocs/op
+    BenchmarkFastHTTPClient/Info()-4         10000     1182717 ns/op      3075 B/op       39 allocs/op
