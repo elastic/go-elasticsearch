@@ -179,8 +179,10 @@ func main() {
   if err := json.NewDecoder(res.Body).Decode(&r); err != nil {
     log.Fatalf("Error parsing the response body: %s", err)
   }
-  // Print version number.
-  log.Printf("~~~~~~~> Elasticsearch %s", r["version"].(map[string]interface{})["number"])
+  // Print client and server version numbers.
+  log.Printf("Client: %s", elasticsearch.Version)
+  log.Printf("Server: %s", r["version"].(map[string]interface{})["number"])
+  log.Println(strings.Repeat("~", 37))
 
   // 2. Index documents concurrently
   //
@@ -270,11 +272,13 @@ func main() {
   log.Println(strings.Repeat("=", 37))
 }
 
-// ~~~~~~~> Elasticsearch 7.0.0-SNAPSHOT
-// [200 OK] updated; version=1
-// [200 OK] updated; version=1
+// Client: 7.0.0-SNAPSHOT
+// Server: 7.0.0-SNAPSHOT
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// [201 Created] updated; version=1
+// [201 Created] updated; version=1
 // -------------------------------------
-// [200 OK] 2 hits; took: 7ms
+// [200 OK] 2 hits; took: 5ms
 //  * ID=1, map[title:Test One]
 //  * ID=2, map[title:Test Two]
 // =====================================
