@@ -4,65 +4,74 @@ package main
 
 import (
 	"bytes"
-	"io/ioutil"
-	"log"
+	"fmt"
 	"net/http"
+	"os"
 	"strings"
+	"sync"
+	"sync/atomic"
 
 	"github.com/elastic/go-elasticsearch"
 )
 
 // This example demonstrates how to provide a custom transport implementation to the client
-
-// LoggingTransport implements the `http.RoundTripper` interface, so it can be passed
+// in order to read or manipulate the requests and responses, eg. for custom logging
+// implementation, passing custom headers to the request, and so on.
+//
+// CountingTransport adds a custom header to the request, logs the information about
+// the request and response, and counts the number of requests to the client.
+//
+// Since it implements the `http.RoundTripper` interface, so it can be passed
 // to the client as a custom HTTP transport implementation.
 //
-type LoggingTransport struct{}
+type CountingTransport struct {
+	count uint64
+}
 
-// RoundTrip executes a request, returning a response, and prints information about the flow.
+// RoundTrip executes a request and returns a response.
 //
-func (t *LoggingTransport) RoundTrip(req *http.Request) (*http.Response, error) {
-	// Print information about the request
-	log.Println(strings.Repeat("=", 80))
-	log.Printf("> %s %s\n", req.Method, req.URL.String())
-	log.Println(strings.Repeat("-", 80))
+func (t *CountingTransport) RoundTrip(req *http.Request) (*http.Response, error) {
+	var b bytes.Buffer
+
+	atomic.AddUint64(&t.count, 1)
+
+	req.Header.Set("Accept", "application/yaml")
+	req.Header.Set("X-Request-ID", "foo-123")
 
 	res, err := http.DefaultTransport.RoundTrip(req)
+
+	b.WriteString(strings.Repeat("-", 80) + "\n")
+	fmt.Fprintf(&b, "%s %s", req.Method, req.URL.String())
+
 	if err == nil {
-		// Print information about the response
-		log.Printf("< [%s] %s", res.Status, res.Header.Get("Content-Type"))
-		body, err := ioutil.ReadAll(res.Body)
-		if err == nil {
-			// Print the body
-			defer func() { res.Body = ioutil.NopCloser(bytes.NewReader(body)) }()
-			defer func() { res.Body.Close() }()
-			for _, line := range strings.Split(string(body), "\n") {
-				if line != "" {
-					log.Printf("< %s\n", line)
-				}
-			}
-		}
-		log.Println(strings.Repeat("=", 80))
+		fmt.Fprintf(&b, " [%s] %s\n", res.Status, res.Header.Get("Content-Type"))
 	} else {
-		// Print the error
-		log.Println("ERROR:", err)
+		fmt.Fprintf(&b, "ERROR: %s\n", err)
 	}
+
+	b.WriteTo(os.Stdout)
 
 	return res, err
 }
 
 func main() {
-	log.SetFlags(0)
+	var wg sync.WaitGroup
+
+	tp := CountingTransport{}
 
 	es, _ := elasticsearch.NewClient(
-		elasticsearch.Config{Transport: &LoggingTransport{}},
+		elasticsearch.Config{Transport: &tp},
 	)
 
-	res, err := es.Info()
-	if err != nil {
-		log.Fatalf("ERROR: %s\n", err)
+	for i := 0; i < 25; i++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			es.Info()
+		}()
 	}
-	defer res.Body.Close()
+	wg.Wait()
 
-	log.Printf("Response: %s", res.Status())
+	fmt.Println(strings.Repeat("=", 80))
+	fmt.Printf("%80s\n", fmt.Sprintf("Total Requests: %d", atomic.LoadUint64(&tp.count)))
 }
