@@ -37,12 +37,14 @@ func ExampleNewClient() {
 		Addresses: []string{
 			"http://localhost:9200",
 		},
+		Username: "foo",
+		Password: "bar",
 		Transport: &http.Transport{
 			MaxIdleConnsPerHost:   10,
 			ResponseHeaderTimeout: time.Second,
 			DialContext:           (&net.Dialer{Timeout: time.Second}).DialContext,
 			TLSClientConfig: &tls.Config{
-				MinVersion:         tls.VersionTLS11,
+				MinVersion: tls.VersionTLS11,
 			},
 		},
 	}
