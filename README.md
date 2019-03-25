@@ -13,7 +13,7 @@ We encourage you to try the package in your projects, just keep these caveats in
 
 * **This is a work in progress.** Not all the planned features, standard in official Elasticsearch clients — retries on failures, auto-discovering nodes, ... — are implemented yet.
 * **There are no guarantees on API stability.** Though the public APIs have been designed very carefully, they can change in a backwards-incompatible way depending on further exploration and user feedback.
-* **The client targets Elasticsearch 7.x.** Support for 6.x and 5.x APIs will be added later.
+* **The `master` branch targets Elasticsearch 7.x.** The [6.x](https://github.com/elastic/go-elasticsearch/tree/6.x) and [5.x](https://github.com/elastic/go-elasticsearch/tree/5.x) branches are compatible with the respective major versions of Elasticsearch; proper compatibility matrix and release tags will be added soon.
 
 <!-- ----------------------------------------------------------------------------------------------- -->
 
