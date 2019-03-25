@@ -81,9 +81,10 @@ func (s *Store) Create(item *Document) error {
 
 	ctx := context.Background()
 	res, err := esapi.CreateRequest{
-		Index:      s.indexName,
-		DocumentID: item.ID,
-		Body:       bytes.NewReader(payload),
+		Index:        s.indexName,
+		DocumentID:   item.ID,
+		DocumentType: "doc",
+		Body:         bytes.NewReader(payload),
 	}.Do(ctx, s.es)
 	if err != nil {
 		return err
@@ -104,7 +105,7 @@ func (s *Store) Create(item *Document) error {
 // Exists returns true when a document with id already exists in the store.
 //
 func (s *Store) Exists(id string) (bool, error) {
-	res, err := s.es.Exists(s.indexName, id)
+	res, err := s.es.Exists(s.indexName, id, s.es.Exists.WithDocumentType("doc"))
 	if err != nil {
 		return false, err
 	}
@@ -125,6 +126,7 @@ func (s *Store) Search(query string, after ...string) (*SearchResults, error) {
 
 	res, err := s.es.Search(
 		s.es.Search.WithIndex(s.indexName),
+		s.es.Search.WithDocumentType("doc"),
 		s.es.Search.WithBody(s.buildQuery(query, after...)),
 	)
 	if err != nil {

@@ -72,6 +72,7 @@ func main() {
 		res, err := es.Index(
 			"articles",
 			bytes.NewReader(b.Bytes()),
+			es.Index.WithDocumentType("article"),
 			es.Index.WithDocumentID(strconv.Itoa(int(a.ID))),
 			// es.Index.WithVersion(-1), // <-- Uncomment to trigger error response
 		)
@@ -128,7 +129,7 @@ func main() {
 		os.Exit(2)
 	}
 
-	faint.Printf("[%s] took=%d total=%d\n", res.Status(), sr.Took, sr.Hits.Total.Value)
+	faint.Printf("[%s] took=%d total=%d\n", res.Status(), sr.Took, sr.Hits.Total)
 	faint.Println(strings.Repeat("─", 80))
 
 	for _, h := range sr.Hits.Hits {

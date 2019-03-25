@@ -65,10 +65,11 @@ func main() {
 
 			// Set up the request object directly.
 			req := esapi.IndexRequest{
-				Index:      "test",
-				DocumentID: strconv.Itoa(i + 1),
-				Body:       strings.NewReader(`{"title" : "` + title + `"}`),
-				Refresh:    "true",
+				Index:        "test",
+				DocumentType: "test",
+				DocumentID:   strconv.Itoa(i + 1),
+				Body:         strings.NewReader(`{"title" : "` + title + `"}`),
+				Refresh:      "true",
 			}
 
 			// Perform the request with the client.
@@ -103,7 +104,6 @@ func main() {
 		es.Search.WithContext(context.Background()),
 		es.Search.WithIndex("test"),
 		es.Search.WithBody(strings.NewReader(`{"query" : { "match" : { "title" : "test" } }}`)),
-		es.Search.WithTrackTotalHits(true),
 		es.Search.WithPretty(),
 	)
 	if err != nil {
