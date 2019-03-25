@@ -1,4 +1,4 @@
-// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
+// Code generated from specification version 5.6.15: DO NOT EDIT
 
 package esapi
 
@@ -65,11 +65,11 @@ func (r IndicesCreateRequest) Do(ctx context.Context, transport Transport) (*Res
 	params = make(map[string]string)
 
 	if r.MasterTimeout != 0 {
-		params["master_timeout"] = time.Duration(r.MasterTimeout * time.Millisecond).String()
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
 	}
 
 	if r.Timeout != 0 {
-		params["timeout"] = time.Duration(r.Timeout * time.Millisecond).String()
+		params["timeout"] = formatDuration(r.Timeout)
 	}
 
 	if r.UpdateAllTypes != nil {

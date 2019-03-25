@@ -1,4 +1,4 @@
-// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
+// Code generated from specification version 5.6.15: DO NOT EDIT
 
 package esapi
 
@@ -29,8 +29,8 @@ type SnapshotDelete func(repository string, snapshot string, o ...func(*Snapshot
 // SnapshotDeleteRequest configures the Snapshot Delete API request.
 //
 type SnapshotDeleteRequest struct {
-	Repository    string
 	Snapshot      string
+	Repository    string
 	MasterTimeout time.Duration
 
 	Pretty     bool
@@ -63,7 +63,7 @@ func (r SnapshotDeleteRequest) Do(ctx context.Context, transport Transport) (*Re
 	params = make(map[string]string)
 
 	if r.MasterTimeout != 0 {
-		params["master_timeout"] = time.Duration(r.MasterTimeout * time.Millisecond).String()
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
 	}
 
 	if r.Pretty {

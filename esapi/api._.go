@@ -1,3 +1,5 @@
+// Code generated from specification version 5.6.15 (fe7575a32e2|v5.6.15): DO NOT EDIT
+
 package esapi
 
 // API contains the Elasticsearch APIs

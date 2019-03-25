@@ -1,4 +1,4 @@
-// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
+// Code generated from specification version 5.6.15: DO NOT EDIT
 
 package esapi
 
@@ -183,7 +183,7 @@ func (r SearchRequest) Do(ctx context.Context, transport Transport) (*Response, 
 	}
 
 	if r.Scroll != 0 {
-		params["scroll"] = time.Duration(r.Scroll * time.Millisecond).String()
+		params["scroll"] = formatDuration(r.Scroll)
 	}
 
 	if r.SearchType != "" {

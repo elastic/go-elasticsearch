@@ -1,4 +1,4 @@
-// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
+// Code generated from specification version 5.6.15: DO NOT EDIT
 
 package esapi
 
@@ -88,7 +88,7 @@ func (r CatRecoveryRequest) Do(ctx context.Context, transport Transport) (*Respo
 	}
 
 	if r.MasterTimeout != 0 {
-		params["master_timeout"] = time.Duration(r.MasterTimeout * time.Millisecond).String()
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
 	}
 
 	if len(r.S) > 0 {

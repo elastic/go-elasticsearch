@@ -1,4 +1,4 @@
-// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
+// Code generated from specification version 5.6.15: DO NOT EDIT
 
 package esapi
 
@@ -171,7 +171,7 @@ func (r UpdateByQueryRequest) Do(ctx context.Context, transport Transport) (*Res
 	}
 
 	if r.Scroll != 0 {
-		params["scroll"] = time.Duration(r.Scroll * time.Millisecond).String()
+		params["scroll"] = formatDuration(r.Scroll)
 	}
 
 	if r.ScrollSize != nil {
@@ -179,7 +179,7 @@ func (r UpdateByQueryRequest) Do(ctx context.Context, transport Transport) (*Res
 	}
 
 	if r.SearchTimeout != 0 {
-		params["search_timeout"] = time.Duration(r.SearchTimeout * time.Millisecond).String()
+		params["search_timeout"] = formatDuration(r.SearchTimeout)
 	}
 
 	if r.SearchType != "" {
@@ -219,7 +219,7 @@ func (r UpdateByQueryRequest) Do(ctx context.Context, transport Transport) (*Res
 	}
 
 	if r.Timeout != 0 {
-		params["timeout"] = time.Duration(r.Timeout * time.Millisecond).String()
+		params["timeout"] = formatDuration(r.Timeout)
 	}
 
 	if r.Version != nil {

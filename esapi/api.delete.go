@@ -1,4 +1,4 @@
-// Code generated from specification version 5.6.16 (052c67e4ebe): DO NOT EDIT
+// Code generated from specification version 5.6.15: DO NOT EDIT
 
 package esapi
 
@@ -88,7 +88,7 @@ func (r DeleteRequest) Do(ctx context.Context, transport Transport) (*Response, 
 	}
 
 	if r.Timeout != 0 {
-		params["timeout"] = time.Duration(r.Timeout * time.Millisecond).String()
+		params["timeout"] = formatDuration(r.Timeout)
 	}
 
 	if r.Version != nil {
