@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"strings"
 	"testing"
 )
 
@@ -122,6 +123,18 @@ func TestTransportPerform(t *testing.T) {
 
 		if username != "foo" || password != "bar" {
 			t.Errorf("Unexpected values for username and password: %s:%s", username, password)
+		}
+	})
+
+	t.Run("Sets UserAgent", func(t *testing.T) {
+		u, _ := url.Parse("http://example.com")
+		tp := New(Config{URLs: []*url.URL{u}})
+
+		req, _ := http.NewRequest("GET", "/abc", nil)
+		tp.setUserAgent(req)
+
+		if !strings.HasPrefix(req.UserAgent(), "go-elasticsearch") {
+			t.Errorf("Unexpected user agent: %s", req.UserAgent())
 		}
 	})
 

@@ -9,6 +9,12 @@ import (
 	"github.com/elastic/go-elasticsearch/esapi"
 )
 
+var userAgent string
+
+func init() {
+	userAgent = strings.Join([]string{"go-elasticsearch", Version}, "/")
+}
+
 // Version returns the package version as a string.
 //
 const Version = esapi.Version
@@ -70,6 +76,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 
 	c.setURL(u, req)
 	c.setBasicAuth(u, req)
+	c.setUserAgent(req)
 
 	// TODO(karmi): Wrap error
 	return c.transport.RoundTrip(req)
@@ -112,5 +119,10 @@ func (c *Client) setBasicAuth(u *url.URL, req *http.Request) *http.Request {
 		return req
 	}
 
+	return req
+}
+
+func (c *Client) setUserAgent(req *http.Request) *http.Request {
+	req.Header.Set("User-Agent", userAgent)
 	return req
 }
