@@ -1,4 +1,4 @@
-// Code generated from specification version 6.7.0 (f77342646af): DO NOT EDIT
+// Code generated from specification version 6.7.0: DO NOT EDIT
 
 package esapi
 
@@ -70,7 +70,7 @@ func (r SnapshotRestoreRequest) Do(ctx context.Context, transport Transport) (*R
 	params = make(map[string]string)
 
 	if r.MasterTimeout != 0 {
-		params["master_timeout"] = time.Duration(r.MasterTimeout * time.Millisecond).String()
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
 	}
 
 	if r.WaitForCompletion != nil {

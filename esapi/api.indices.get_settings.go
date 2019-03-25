@@ -1,4 +1,4 @@
-// Code generated from specification version 6.7.0 (f77342646af): DO NOT EDIT
+// Code generated from specification version 6.7.0: DO NOT EDIT
 
 package esapi
 
@@ -99,7 +99,7 @@ func (r IndicesGetSettingsRequest) Do(ctx context.Context, transport Transport) 
 	}
 
 	if r.MasterTimeout != 0 {
-		params["master_timeout"] = time.Duration(r.MasterTimeout * time.Millisecond).String()
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
 	}
 
 	if r.Pretty {

@@ -1,4 +1,4 @@
-// Code generated from specification version 6.7.0 (f77342646af): DO NOT EDIT
+// Code generated from specification version 6.7.0: DO NOT EDIT
 
 package esapi
 
@@ -73,7 +73,7 @@ func (r ClusterRerouteRequest) Do(ctx context.Context, transport Transport) (*Re
 	}
 
 	if r.MasterTimeout != 0 {
-		params["master_timeout"] = time.Duration(r.MasterTimeout * time.Millisecond).String()
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
 	}
 
 	if len(r.Metric) > 0 {
@@ -85,7 +85,7 @@ func (r ClusterRerouteRequest) Do(ctx context.Context, transport Transport) (*Re
 	}
 
 	if r.Timeout != 0 {
-		params["timeout"] = time.Duration(r.Timeout * time.Millisecond).String()
+		params["timeout"] = formatDuration(r.Timeout)
 	}
 
 	if r.Pretty {

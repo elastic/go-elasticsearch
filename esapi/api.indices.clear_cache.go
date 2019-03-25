@@ -1,4 +1,4 @@
-// Code generated from specification version 6.7.0 (f77342646af): DO NOT EDIT
+// Code generated from specification version 6.7.0: DO NOT EDIT
 
 package esapi
 
@@ -33,8 +33,8 @@ type IndicesClearCacheRequest struct {
 
 	AllowNoIndices    *bool
 	ExpandWildcards   string
-	Fielddata         *bool
 	FieldData         *bool
+	Fielddata         *bool
 	Fields            []string
 	IgnoreUnavailable *bool
 	Query             *bool
@@ -80,12 +80,12 @@ func (r IndicesClearCacheRequest) Do(ctx context.Context, transport Transport) (
 		params["expand_wildcards"] = r.ExpandWildcards
 	}
 
-	if r.Fielddata != nil {
-		params["fielddata"] = strconv.FormatBool(*r.Fielddata)
-	}
-
 	if r.FieldData != nil {
 		params["field_data"] = strconv.FormatBool(*r.FieldData)
+	}
+
+	if r.Fielddata != nil {
+		params["fielddata"] = strconv.FormatBool(*r.Fielddata)
 	}
 
 	if len(r.Fields) > 0 {
@@ -188,19 +188,19 @@ func (f IndicesClearCache) WithExpandWildcards(v string) func(*IndicesClearCache
 	}
 }
 
-// WithFielddata - clear field data.
-//
-func (f IndicesClearCache) WithFielddata(v bool) func(*IndicesClearCacheRequest) {
-	return func(r *IndicesClearCacheRequest) {
-		r.Fielddata = &v
-	}
-}
-
 // WithFieldData - clear field data. this is deprecated. prefer `fielddata`..
 //
 func (f IndicesClearCache) WithFieldData(v bool) func(*IndicesClearCacheRequest) {
 	return func(r *IndicesClearCacheRequest) {
 		r.FieldData = &v
+	}
+}
+
+// WithFielddata - clear field data.
+//
+func (f IndicesClearCache) WithFielddata(v bool) func(*IndicesClearCacheRequest) {
+	return func(r *IndicesClearCacheRequest) {
+		r.Fielddata = &v
 	}
 }
 
