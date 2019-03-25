@@ -248,3 +248,9 @@ func TestURLs(t *testing.T) {
 		}
 	})
 }
+
+func TestVersion(t *testing.T) {
+	if Version == "" {
+		t.Error("Version is empty")
+	}
+}
