@@ -73,15 +73,8 @@ func (g *Generator) w(s string) {
 
 func (g *Generator) genHeader() {
 	g.w("// Code generated")
-	if EsVersion != "" || GitCommit != "" || GitTag != "" {
+	if EsVersion != "" {
 		g.w(fmt.Sprintf(" from specification version %s", EsVersion))
-		if GitCommit != "" {
-			g.w(fmt.Sprintf(" (%s", GitCommit))
-			if GitTag != "" {
-				g.w(fmt.Sprintf("|%s", GitTag))
-			}
-			g.w(")")
-		}
 	}
 	g.w(": DO NOT EDIT\n")
 	g.w("\n")

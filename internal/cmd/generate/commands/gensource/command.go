@@ -287,6 +287,20 @@ func (cmd *Command) processAPIConstructor(endpoints []*Endpoint) (err error) {
 
 	var namespaces = []string{"Cat", "Cluster", "Indices", "Ingest", "Nodes", "Remote", "Snapshot", "Tasks"}
 
+	b.WriteString("// Code generated")
+	if EsVersion != "" || GitCommit != "" || GitTag != "" {
+		b.WriteString(fmt.Sprintf(" from specification version %s", EsVersion))
+		if GitCommit != "" {
+			b.WriteString(fmt.Sprintf(" (%s", GitCommit))
+			if GitTag != "" {
+				b.WriteString(fmt.Sprintf("|%s", GitTag))
+			}
+			b.WriteString(")")
+		}
+	}
+	b.WriteString(": DO NOT EDIT\n")
+	b.WriteString("\n")
+
 	b.WriteString(`package esapi
 
 // API contains the Elasticsearch APIs
