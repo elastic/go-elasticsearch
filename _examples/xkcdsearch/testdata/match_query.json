@@ -2,10 +2,7 @@
   "took" : 123,
   "timed_out" : false,
   "hits" : {
-    "total" : {
-      "value" : 47,
-      "relation" : "eq"
-    },
+    "total" : 47,
     "max_score" : null,
     "hits" : [
       {
