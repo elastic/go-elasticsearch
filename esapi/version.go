@@ -1,4 +1,4 @@
-package elasticsearch
+package esapi
 
 // Version returns the package version as a string.
 //

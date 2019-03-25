@@ -5,7 +5,13 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+
+	"github.com/elastic/go-elasticsearch/esapi"
 )
+
+// Version returns the package version as a string.
+//
+const Version = esapi.Version
 
 // Interface defines the interface for HTTP client.
 //

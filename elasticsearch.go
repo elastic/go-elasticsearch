@@ -16,6 +16,10 @@ const (
 	defaultURL = "http://localhost:9200"
 )
 
+// Version returns the package version as a string.
+//
+const Version = esapi.Version
+
 // Config represents the client configuration.
 //
 type Config struct {
