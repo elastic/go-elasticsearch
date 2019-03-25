@@ -1,4 +1,4 @@
-// Code generated from specification version 7.1.0 (8dc8fc507d9): DO NOT EDIT
+// Code generated from specification version 7.0.0: DO NOT EDIT
 
 package esapi
 
@@ -71,7 +71,7 @@ func (r IndicesExistsTemplateRequest) Do(ctx context.Context, transport Transpor
 	}
 
 	if r.MasterTimeout != 0 {
-		params["master_timeout"] = time.Duration(r.MasterTimeout * time.Millisecond).String()
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
 	}
 
 	if r.Pretty {

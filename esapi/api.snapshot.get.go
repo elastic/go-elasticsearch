@@ -1,4 +1,4 @@
-// Code generated from specification version 7.1.0 (8dc8fc507d9): DO NOT EDIT
+// Code generated from specification version 7.0.0: DO NOT EDIT
 
 package esapi
 
@@ -30,8 +30,8 @@ type SnapshotGet func(repository string, snapshot []string, o ...func(*SnapshotG
 // SnapshotGetRequest configures the Snapshot Get API request.
 //
 type SnapshotGetRequest struct {
-	Snapshot          []string
 	Repository        string
+	Snapshot          []string
 	IgnoreUnavailable *bool
 	MasterTimeout     time.Duration
 	Verbose           *bool
@@ -70,7 +70,7 @@ func (r SnapshotGetRequest) Do(ctx context.Context, transport Transport) (*Respo
 	}
 
 	if r.MasterTimeout != 0 {
-		params["master_timeout"] = time.Duration(r.MasterTimeout * time.Millisecond).String()
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
 	}
 
 	if r.Verbose != nil {

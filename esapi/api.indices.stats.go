@@ -1,4 +1,4 @@
-// Code generated from specification version 7.1.0 (8dc8fc507d9): DO NOT EDIT
+// Code generated from specification version 7.0.0: DO NOT EDIT
 
 package esapi
 
@@ -37,7 +37,6 @@ type IndicesStatsRequest struct {
 	Fields                  []string
 	Groups                  []string
 	IncludeSegmentFileSizes *bool
-	IncludeUnloadedSegments *bool
 	Level                   string
 	Types                   []string
 
@@ -92,10 +91,6 @@ func (r IndicesStatsRequest) Do(ctx context.Context, transport Transport) (*Resp
 
 	if r.IncludeSegmentFileSizes != nil {
 		params["include_segment_file_sizes"] = strconv.FormatBool(*r.IncludeSegmentFileSizes)
-	}
-
-	if r.IncludeUnloadedSegments != nil {
-		params["include_unloaded_segments"] = strconv.FormatBool(*r.IncludeUnloadedSegments)
 	}
 
 	if r.Level != "" {
@@ -211,14 +206,6 @@ func (f IndicesStats) WithGroups(v ...string) func(*IndicesStatsRequest) {
 func (f IndicesStats) WithIncludeSegmentFileSizes(v bool) func(*IndicesStatsRequest) {
 	return func(r *IndicesStatsRequest) {
 		r.IncludeSegmentFileSizes = &v
-	}
-}
-
-// WithIncludeUnloadedSegments - if set to true segment stats will include stats for segments that are not currently loaded into memory.
-//
-func (f IndicesStats) WithIncludeUnloadedSegments(v bool) func(*IndicesStatsRequest) {
-	return func(r *IndicesStatsRequest) {
-		r.IncludeUnloadedSegments = &v
 	}
 }
 

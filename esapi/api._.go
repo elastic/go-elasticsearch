@@ -1,3 +1,5 @@
+// Code generated from specification version 7.0.0 (3171bef1d17): DO NOT EDIT
+
 package esapi
 
 // API contains the Elasticsearch APIs

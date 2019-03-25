@@ -1,4 +1,4 @@
-// Code generated from specification version 7.1.0 (8dc8fc507d9): DO NOT EDIT
+// Code generated from specification version 7.0.0: DO NOT EDIT
 
 package esapi
 
@@ -32,7 +32,6 @@ type ClusterHealth func(o ...func(*ClusterHealthRequest)) (*Response, error)
 type ClusterHealthRequest struct {
 	Index []string
 
-	ExpandWildcards             string
 	Level                       string
 	Local                       *bool
 	MasterTimeout               time.Duration
@@ -75,10 +74,6 @@ func (r ClusterHealthRequest) Do(ctx context.Context, transport Transport) (*Res
 
 	params = make(map[string]string)
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
-	}
-
 	if r.Level != "" {
 		params["level"] = r.Level
 	}
@@ -88,11 +83,11 @@ func (r ClusterHealthRequest) Do(ctx context.Context, transport Transport) (*Res
 	}
 
 	if r.MasterTimeout != 0 {
-		params["master_timeout"] = time.Duration(r.MasterTimeout * time.Millisecond).String()
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
 	}
 
 	if r.Timeout != 0 {
-		params["timeout"] = time.Duration(r.Timeout * time.Millisecond).String()
+		params["timeout"] = formatDuration(r.Timeout)
 	}
 
 	if r.WaitForActiveShards != "" {
@@ -176,14 +171,6 @@ func (f ClusterHealth) WithContext(v context.Context) func(*ClusterHealthRequest
 func (f ClusterHealth) WithIndex(v ...string) func(*ClusterHealthRequest) {
 	return func(r *ClusterHealthRequest) {
 		r.Index = v
-	}
-}
-
-// WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-//
-func (f ClusterHealth) WithExpandWildcards(v string) func(*ClusterHealthRequest) {
-	return func(r *ClusterHealthRequest) {
-		r.ExpandWildcards = v
 	}
 }
 
