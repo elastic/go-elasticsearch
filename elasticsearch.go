@@ -10,6 +10,7 @@ import (
 
 	"github.com/elastic/go-elasticsearch/esapi"
 	"github.com/elastic/go-elasticsearch/estransport"
+	"github.com/elastic/go-elasticsearch/internal/version"
 )
 
 const (
@@ -18,7 +19,7 @@ const (
 
 // Version returns the package version as a string.
 //
-const Version = esapi.Version
+const Version = version.Client
 
 // Config represents the client configuration.
 //

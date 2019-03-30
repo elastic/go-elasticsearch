@@ -4,7 +4,13 @@ import (
 	"net/http"
 	"strconv"
 	"time"
+
+	"github.com/elastic/go-elasticsearch/internal/version"
 )
+
+// Version returns the package version as a string.
+//
+const Version = version.Client
 
 // Transport defines the interface for an API client.
 //
