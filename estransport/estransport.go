@@ -6,18 +6,18 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/elastic/go-elasticsearch/esapi"
+	"github.com/elastic/go-elasticsearch/internal/version"
 )
+
+// Version returns the package version as a string.
+//
+const Version = version.Client
 
 var userAgent string
 
 func init() {
 	userAgent = strings.Join([]string{"go-elasticsearch", Version}, "/")
 }
-
-// Version returns the package version as a string.
-//
-const Version = esapi.Version
 
 // Interface defines the interface for HTTP client.
 //
