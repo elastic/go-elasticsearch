@@ -132,8 +132,6 @@ cluster: ## Launch an Elasticsearch cluster with Docker
 ifeq ($(origin nodes), undefined)
 	$(eval nodes = 1)
 endif
-	@echo "\033[2m→ Updating the Docker image...\033[0m"
-	@docker pull docker.elastic.co/elasticsearch/$(version);
 	@echo "\033[2m→ Launching" $(nodes) "node(s) of" $(version) "...\033[0m"
 ifeq ($(shell test $(nodes) && test $(nodes) -gt 1; echo $$?),0)
 	$(eval detached ?= "true")
@@ -171,7 +169,13 @@ endif
 		fi \
 	}
 
+cluster-update: ## Update the Docker image
+	$(eval version ?= "elasticsearch-oss:6.7-SNAPSHOT")
+	@echo "\033[2m→ Updating the Docker image...\033[0m"
+	@docker pull docker.elastic.co/elasticsearch/$(version);
+
 cluster-clean: ## Remove unused Docker volumes and networks
+	@echo "\033[2m→ Cleaning up Docker assets...\033[0m"
 	docker volume prune --force
 	docker network prune --force
 
@@ -209,4 +213,4 @@ help:  ## Display help
 #------------- <https://suva.sh/posts/well-documented-makefiles> --------------
 
 .DEFAULT_GOAL := help
-.PHONY: help apidiff cluster cluster-clean coverage docker examples gen-api gen-tests godoc lint test test-api test-bench test-integ test-unit
+.PHONY: help apidiff cluster cluster-clean cluster-update coverage docker examples gen-api gen-tests godoc lint test test-api test-bench test-integ test-unit
