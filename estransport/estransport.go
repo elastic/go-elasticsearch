@@ -69,8 +69,9 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	c.setURL(u, req)
 	c.setBasicAuth(u, req)
 
-	var dupReqBody = bytes.NewBuffer(make([]byte, 0, req.ContentLength))
-	if c.logger != nil {
+	var dupReqBody = bytes.NewBuffer(make([]byte, 0, 0))
+	if c.logger != nil && c.logger.logRequestBody {
+		dupReqBody.Grow(int(req.ContentLength))
 		// TODO(karmi): Handle errors
 		// TODO(karmi): Handle closing
 		if req.Body != nil && req.Body != http.NoBody {
@@ -84,8 +85,10 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	dur := time.Now().UTC().Sub(start)
 
 	if c.logger != nil {
-		if req.Body != nil && req.Body != http.NoBody {
-			req.Body = ioutil.NopCloser(dupReqBody)
+		if c.logger.logRequestBody {
+			if req.Body != nil && req.Body != http.NoBody {
+				req.Body = ioutil.NopCloser(dupReqBody)
+			}
 		}
 		c.logger.logRoundTrip(req, res, err, start, dur)
 	}
