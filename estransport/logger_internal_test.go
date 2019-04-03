@@ -359,5 +359,5 @@ func (l *CustomLogger) LogRoundTrip(
 	return nil
 }
 
-func (l *CustomLogger) IsLoggingRequestBody() bool  { return false }
-func (l *CustomLogger) IsLoggingResponseBody() bool { return false }
+func (l *CustomLogger) RequestBodyEnabled() bool  { return false }
+func (l *CustomLogger) ResponseBodyEnabled() bool { return false }
