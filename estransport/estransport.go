@@ -90,7 +90,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 				req.Body = ioutil.NopCloser(dupReqBody)
 			}
 		}
-		c.logger.LogRoundTrip(req, res, err, start, dur)
+		c.logger.LogRoundTrip(req, res, err, start, dur) // errcheck exclude
 	}
 
 	// TODO(karmi): Wrap error

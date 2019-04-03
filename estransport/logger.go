@@ -17,7 +17,7 @@ import (
 // Logger defines a logger.
 //
 type Logger interface {
-	LogRoundTrip(*http.Request, *http.Response, error, time.Time, time.Duration)
+	LogRoundTrip(*http.Request, *http.Response, error, time.Time, time.Duration) error
 	IsLoggingRequestBody() bool
 	IsLoggingResponseBody() bool
 }
@@ -63,7 +63,7 @@ func (l *logger) LogRoundTrip(
 	res *http.Response,
 	err error,
 	start time.Time,
-	dur time.Duration) {
+	dur time.Duration) error {
 	switch l.format {
 	case LogFormatText:
 		l.writeRoundTripText(req, res, err, start, dur)
@@ -74,6 +74,7 @@ func (l *logger) LogRoundTrip(
 	case LogFormatJSON:
 		l.writeRoundTripJSON(req, res, err, start, dur)
 	}
+	return nil
 }
 
 // IsLoggingRequestBody returns true when the request body is logged.

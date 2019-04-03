@@ -354,8 +354,9 @@ func (l *CustomLogger) LogRoundTrip(
 	err error,
 	start time.Time,
 	dur time.Duration,
-) {
+) error {
 	fmt.Fprintln(l.output, req.Method, req.URL, "->", res.Status)
+	return nil
 }
 
 func (l *CustomLogger) IsLoggingRequestBody() bool  { return false }
