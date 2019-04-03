@@ -35,14 +35,14 @@ const (
 	LogFormatJSON            // Structured output
 )
 
-// Logger represents the default logger.
+// logger represents the default logger.
 //
 type logger struct {
 	output io.Writer
 	format LogFormat
 
-	logRequestBody  bool
-	logResponseBody bool
+	isLoggingRequestBody  bool
+	isLoggingResponseBody bool
 }
 
 // newLogger returns new logger, when w is not nil, otherwise it returns nil.
@@ -55,7 +55,7 @@ func newLogger(w io.Writer, f LogFormat, reqBody bool, resBody bool) Logger {
 	if f == LogFormatNone {
 		f = LogFormatText
 	}
-	return &logger{output: w, format: f, logRequestBody: reqBody, logResponseBody: resBody}
+	return &logger{output: w, format: f, isLoggingRequestBody: reqBody, isLoggingResponseBody: resBody}
 }
 
 func (l *logger) LogRoundTrip(
@@ -79,13 +79,13 @@ func (l *logger) LogRoundTrip(
 // IsLoggingRequestBody returns true when the request body is logged.
 //
 func (l *logger) IsLoggingRequestBody() bool {
-	return l.logRequestBody
+	return l.isLoggingRequestBody
 }
 
 // IsLoggingResponseBody returns true when the response body is logged.
 //
 func (l *logger) IsLoggingResponseBody() bool {
-	return l.logResponseBody
+	return l.isLoggingResponseBody
 }
 
 func (l *logger) writeRoundTripText(req *http.Request, res *http.Response, err error, start time.Time, dur time.Duration) {
@@ -96,10 +96,10 @@ func (l *logger) writeRoundTripText(req *http.Request, res *http.Response, err e
 		l.resStatusCode(res),
 		dur.Truncate(time.Millisecond),
 	)
-	if l.logRequestBody && req != nil && req.Body != nil && req.Body != http.NoBody {
+	if l.IsLoggingRequestBody() && req != nil && req.Body != nil && req.Body != http.NoBody {
 		l.writeRequestBodyText(req, ">")
 	}
-	if l.logResponseBody && res != nil && res.Body != nil && res.Body != http.NoBody {
+	if l.IsLoggingResponseBody() && res != nil && res.Body != nil && res.Body != http.NoBody {
 		l.writeResponseBodyText(res, "<")
 	}
 	l.writeErrorText(err)
@@ -180,13 +180,13 @@ func (l *logger) writeRoundTripColor(req *http.Request, res *http.Response, err 
 		dur.Truncate(time.Millisecond),
 	)
 
-	if l.logRequestBody && req != nil && req.Body != nil && req.Body != http.NoBody {
+	if l.IsLoggingRequestBody() && req != nil && req.Body != nil && req.Body != http.NoBody {
 		fmt.Fprint(l.output, "\x1b[2m")
 		l.writeRequestBodyText(req, "       »")
 		fmt.Fprint(l.output, "\x1b[0m")
 	}
 
-	if l.logResponseBody && res != nil && res.Body != nil && res.Body != http.NoBody {
+	if l.IsLoggingResponseBody() && res != nil && res.Body != nil && res.Body != http.NoBody {
 		fmt.Fprint(l.output, "\x1b[2m")
 		l.writeResponseBodyText(res, "       «")
 		fmt.Fprint(l.output, "\x1b[0m")
@@ -196,7 +196,7 @@ func (l *logger) writeRoundTripColor(req *http.Request, res *http.Response, err 
 		fmt.Fprintf(l.output, "\x1b[31;1m» ERROR \x1b[31m%v\x1b[0m\n", err)
 	}
 
-	if l.logRequestBody || l.logResponseBody {
+	if l.IsLoggingRequestBody() || l.IsLoggingResponseBody() {
 		fmt.Fprintf(l.output, "\x1b[2m%s\x1b[0m\n", strings.Repeat("─", 80))
 	}
 }
@@ -265,7 +265,7 @@ func (l *logger) writeRoundTripCurl(req *http.Request, res *http.Response, err e
 		status = "N/A"
 	}
 	fmt.Fprintf(&b, "# => %s [%s] %s\n", start.UTC().Format(time.RFC3339), status, dur.Truncate(time.Millisecond))
-	if l.logResponseBody && res != nil && res.Body != nil && res.Body != http.NoBody {
+	if l.IsLoggingResponseBody() && res != nil && res.Body != nil && res.Body != http.NoBody {
 		b1, b2, err := l.duplicateBody(res.Body)
 		if err != nil {
 			return
@@ -278,7 +278,7 @@ func (l *logger) writeRoundTripCurl(req *http.Request, res *http.Response, err e
 	}
 
 	b.WriteString("\n")
-	if l.logResponseBody && res != nil && res.Body != nil && res.Body != http.NoBody {
+	if l.IsLoggingResponseBody() && res != nil && res.Body != nil && res.Body != http.NoBody {
 		b.WriteString("\n")
 	}
 
@@ -345,7 +345,7 @@ func (l *logger) writeRoundTripJSON(req *http.Request, res *http.Response, err e
 	b.WriteString(`{"request":{`)
 	b.WriteString(`"method":`)
 	appendQuote(req.Method)
-	if l.logRequestBody && req != nil && req.Body != nil && req.Body != http.NoBody {
+	if l.IsLoggingRequestBody() && req != nil && req.Body != nil && req.Body != http.NoBody {
 		b.WriteString(`,"body":`)
 		b1, b2, err := l.duplicateBody(req.Body)
 		if err != nil {
@@ -362,7 +362,7 @@ func (l *logger) writeRoundTripJSON(req *http.Request, res *http.Response, err e
 		b.WriteString(`,"response":{`)
 		b.WriteString(`"status_code":`)
 		appendInt(int64(l.resStatusCode(res)))
-		if l.logResponseBody && res != nil && res.Body != nil && res.Body != http.NoBody {
+		if l.IsLoggingResponseBody() && res != nil && res.Body != nil && res.Body != http.NoBody {
 			b.WriteString(`,"body":`)
 			b1, b2, err := l.duplicateBody(res.Body)
 			if err != nil {

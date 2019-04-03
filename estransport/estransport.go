@@ -82,7 +82,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 
 	start := time.Now().UTC()
 	res, err := c.transport.RoundTrip(req)
-	dur := time.Now().UTC().Sub(start)
+	dur := time.Since(start)
 
 	if c.logger != nil {
 		if c.logger.IsLoggingRequestBody() {
