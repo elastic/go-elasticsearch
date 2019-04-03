@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -14,6 +15,7 @@ import (
 	"strings"
 	"sync"
 	"testing"
+	"time"
 )
 
 var (
@@ -318,4 +320,43 @@ func TestTransportLogger(t *testing.T) {
 			t.Errorf("Unexpected JSON output: %s", body)
 		}
 	})
+
+	t.Run("Custom", func(t *testing.T) {
+		var dst strings.Builder
+
+		tp := New(Config{
+			URLs:      []*url.URL{&url.URL{Scheme: "http", Host: "foo"}},
+			Transport: newRoundTripper(),
+		})
+		tp.logger = &CustomLogger{output: &dst}
+
+		req, _ := http.NewRequest("GET", "/abc?q=a,b", nil)
+		req.Body = ioutil.NopCloser(strings.NewReader(`{"query":"42"}`))
+
+		_, err := tp.Perform(req)
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		if !strings.HasPrefix(dst.String(), "GET http://foo/abc?q=a,b") {
+			t.Errorf("Unexpected output: %s", dst.String())
+		}
+	})
 }
+
+type CustomLogger struct {
+	output io.Writer
+}
+
+func (l *CustomLogger) LogRoundTrip(
+	req *http.Request,
+	res *http.Response,
+	err error,
+	start time.Time,
+	dur time.Duration,
+) {
+	fmt.Fprintln(l.output, req.Method, req.URL, "->", res.Status)
+}
+
+func (l *CustomLogger) IsLoggingRequestBody() bool  { return false }
+func (l *CustomLogger) IsLoggingResponseBody() bool { return false }
