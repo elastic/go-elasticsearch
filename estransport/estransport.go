@@ -36,7 +36,7 @@ type Client struct {
 	transport http.RoundTripper
 	selector  Selector
 
-	logger *Logger
+	logger Logger
 }
 
 // New creates new HTTP client.
@@ -53,7 +53,7 @@ func New(cfg Config) *Client {
 		transport: cfg.Transport,
 		selector:  NewRoundRobinSelector(cfg.URLs...),
 
-		logger: NewLogger(cfg.LogOutput, cfg.LogFormat, cfg.LogRequestBody, cfg.LogResponseBody),
+		logger: newLogger(cfg.LogOutput, cfg.LogFormat, cfg.LogRequestBody, cfg.LogResponseBody),
 	}
 }
 
@@ -70,7 +70,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	c.setBasicAuth(u, req)
 
 	var dupReqBody = bytes.NewBuffer(make([]byte, 0, 0))
-	if c.logger != nil && c.logger.logRequestBody {
+	if c.logger != nil && c.logger.IsLoggingRequestBody() {
 		dupReqBody.Grow(int(req.ContentLength))
 		// TODO(karmi): Handle errors
 		// TODO(karmi): Handle closing
@@ -85,12 +85,12 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	dur := time.Now().UTC().Sub(start)
 
 	if c.logger != nil {
-		if c.logger.logRequestBody {
+		if c.logger.IsLoggingRequestBody() {
 			if req.Body != nil && req.Body != http.NoBody {
 				req.Body = ioutil.NopCloser(dupReqBody)
 			}
 		}
-		c.logger.logRoundTrip(req, res, err, start, dur)
+		c.logger.LogRoundTrip(req, res, err, start, dur)
 	}
 
 	// TODO(karmi): Wrap error

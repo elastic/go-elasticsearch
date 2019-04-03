@@ -14,6 +14,14 @@ import (
 	"time"
 )
 
+// Logger defines a logger.
+//
+type Logger interface {
+	LogRoundTrip(*http.Request, *http.Response, error, time.Time, time.Duration)
+	IsLoggingRequestBody() bool
+	IsLoggingResponseBody() bool
+}
+
 // LogFormat defines the logger output format.
 //
 type LogFormat int
@@ -29,7 +37,7 @@ const (
 
 // Logger represents the default logger.
 //
-type Logger struct {
+type logger struct {
 	output io.Writer
 	format LogFormat
 
@@ -37,19 +45,20 @@ type Logger struct {
 	logResponseBody bool
 }
 
-// NewLogger returns new logger, when w is not nil, otherwise it returns nil.
+// newLogger returns new logger, when w is not nil, otherwise it returns nil.
 //
-func NewLogger(w io.Writer, f LogFormat, reqBody bool, resBody bool) *Logger {
+func newLogger(w io.Writer, f LogFormat, reqBody bool, resBody bool) Logger {
 	if w == nil {
 		return nil
 	}
+
 	if f == LogFormatNone {
 		f = LogFormatText
 	}
-	return &Logger{output: w, format: f, logRequestBody: reqBody, logResponseBody: resBody}
+	return &logger{output: w, format: f, logRequestBody: reqBody, logResponseBody: resBody}
 }
 
-func (l *Logger) logRoundTrip(
+func (l *logger) LogRoundTrip(
 	req *http.Request,
 	res *http.Response,
 	err error,
@@ -67,7 +76,19 @@ func (l *Logger) logRoundTrip(
 	}
 }
 
-func (l *Logger) writeRoundTripText(req *http.Request, res *http.Response, err error, start time.Time, dur time.Duration) {
+// IsLoggingRequestBody returns true when the request body is logged.
+//
+func (l *logger) IsLoggingRequestBody() bool {
+	return l.logRequestBody
+}
+
+// IsLoggingResponseBody returns true when the response body is logged.
+//
+func (l *logger) IsLoggingResponseBody() bool {
+	return l.logResponseBody
+}
+
+func (l *logger) writeRoundTripText(req *http.Request, res *http.Response, err error, start time.Time, dur time.Duration) {
 	fmt.Fprintf(l.output, "%s %s %s [status:%d request:%s]\n",
 		start.Format(time.RFC3339),
 		req.Method,
@@ -84,7 +105,7 @@ func (l *Logger) writeRoundTripText(req *http.Request, res *http.Response, err e
 	l.writeErrorText(err)
 }
 
-func (l *Logger) writeRequestBodyText(req *http.Request, prefix string) {
+func (l *logger) writeRequestBodyText(req *http.Request, prefix string) {
 	b1, b2, err := l.duplicateBody(req.Body)
 	if err != nil {
 		return
@@ -100,7 +121,7 @@ func (l *Logger) writeRequestBodyText(req *http.Request, prefix string) {
 	}
 }
 
-func (l *Logger) writeResponseBodyText(res *http.Response, prefix string) {
+func (l *logger) writeResponseBodyText(res *http.Response, prefix string) {
 	b1, b2, err := l.duplicateBody(res.Body)
 	if err != nil {
 		return
@@ -116,13 +137,13 @@ func (l *Logger) writeResponseBodyText(res *http.Response, prefix string) {
 	}
 }
 
-func (l *Logger) writeErrorText(err error) {
+func (l *logger) writeErrorText(err error) {
 	if err != nil {
 		fmt.Fprintf(l.output, "! ERROR: %v\n", err)
 	}
 }
 
-func (l *Logger) writeRoundTripColor(req *http.Request, res *http.Response, err error, start time.Time, dur time.Duration) {
+func (l *logger) writeRoundTripColor(req *http.Request, res *http.Response, err error, start time.Time, dur time.Duration) {
 	query, _ := url.QueryUnescape(req.URL.RawQuery)
 	if query != "" {
 		query = "?" + query
@@ -180,7 +201,7 @@ func (l *Logger) writeRoundTripColor(req *http.Request, res *http.Response, err 
 	}
 }
 
-func (l *Logger) writeRoundTripCurl(req *http.Request, res *http.Response, err error, start time.Time, dur time.Duration) {
+func (l *logger) writeRoundTripCurl(req *http.Request, res *http.Response, err error, start time.Time, dur time.Duration) {
 	var b bytes.Buffer
 
 	var query string
@@ -264,7 +285,7 @@ func (l *Logger) writeRoundTripCurl(req *http.Request, res *http.Response, err e
 	b.WriteTo(l.output)
 }
 
-func (l *Logger) writeRoundTripJSON(req *http.Request, res *http.Response, err error, start time.Time, dur time.Duration) {
+func (l *logger) writeRoundTripJSON(req *http.Request, res *http.Response, err error, start time.Time, dur time.Duration) {
 	// https://github.com/elastic/ecs/blob/master/schemas/http.yml
 	//
 	// TODO(karmi): Research performance optimization of using sync.Pool
@@ -366,7 +387,7 @@ func (l *Logger) writeRoundTripJSON(req *http.Request, res *http.Response, err e
 	b.WriteTo(l.output)
 }
 
-func (l *Logger) duplicateBody(body io.ReadCloser) (*bytes.Buffer, *bytes.Buffer, error) {
+func (l *logger) duplicateBody(body io.ReadCloser) (*bytes.Buffer, *bytes.Buffer, error) {
 	var (
 		b1 bytes.Buffer
 		b2 bytes.Buffer
@@ -381,7 +402,7 @@ func (l *Logger) duplicateBody(body io.ReadCloser) (*bytes.Buffer, *bytes.Buffer
 	return &b1, &b2, nil
 }
 
-func (l *Logger) resStatusCode(res *http.Response) int {
+func (l *logger) resStatusCode(res *http.Response) int {
 	if res != nil {
 		return res.StatusCode
 	}
