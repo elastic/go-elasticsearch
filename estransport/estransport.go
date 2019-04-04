@@ -53,7 +53,7 @@ func New(cfg Config) *Client {
 		transport: cfg.Transport,
 		selector:  NewRoundRobinSelector(cfg.URLs...),
 
-		logger: NewLogger(cfg.LogOutput, cfg.LogFormat, cfg.LogRequestBody, cfg.LogResponseBody),
+		logger: newLogger(cfg.LogOutput, cfg.LogFormat, cfg.LogRequestBody, cfg.LogResponseBody),
 	}
 }
 
@@ -70,7 +70,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	c.setBasicAuth(u, req)
 
 	var dupReqBody = bytes.NewBuffer(make([]byte, 0, 0))
-	if c.logger != nil && c.logger.RequestBodyEnabled() {
+	if c.logger != nil && c.logger.IsLoggingRequestBody() {
 		dupReqBody.Grow(int(req.ContentLength))
 		// TODO(karmi): Handle errors
 		// TODO(karmi): Handle closing
@@ -85,7 +85,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	dur := time.Since(start)
 
 	if c.logger != nil {
-		if c.logger.RequestBodyEnabled() {
+		if c.logger.IsLoggingRequestBody() {
 			if req.Body != nil && req.Body != http.NoBody {
 				req.Body = ioutil.NopCloser(dupReqBody)
 			}
