@@ -56,7 +56,7 @@ func main() {
 	// pretty-printing the response (when enabled), useful eg. for sharing or debugging.
 	//
 	es, _ = elasticsearch.NewClient(elasticsearch.Config{
-		Logger: &estransport.CurlLogger{Output: os.Stdout, EnableResponseBody: true},
+		Logger: &estransport.CurlLogger{Output: os.Stdout, EnableRequestBody: true, EnableResponseBody: true},
 	})
 	run(es, "Curl")
 

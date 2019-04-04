@@ -199,7 +199,7 @@ func TestTransportLogger(t *testing.T) {
 		tp := New(Config{
 			URLs:      []*url.URL{&url.URL{Scheme: "http", Host: "foo"}},
 			Transport: newRoundTripper(),
-			Logger:    &CurlLogger{Output: &dst, EnableResponseBody: true},
+			Logger:    &CurlLogger{Output: &dst, EnableRequestBody: true, EnableResponseBody: true},
 		})
 
 		req, _ := http.NewRequest("GET", "/abc?q=a,b", nil)
