@@ -355,7 +355,7 @@ func logBodyAsText(dst io.Writer, body io.Reader, prefix string) {
 }
 
 func duplicateBody(body io.ReadCloser) (*bytes.Buffer, *bytes.Buffer, error) {
-	// TODO(karmi): Handle errors during reads
+	// TODO(karmi): Handle errors during reads, change to return io.ReadCloser
 	// https://github.com/elastic/apm-agent-go/blob/289ed4c53df21c66ace2d676e45591973ef97ef9/module/apmelasticsearch/client.go#L167
 	var (
 		b1 bytes.Buffer
@@ -364,7 +364,7 @@ func duplicateBody(body io.ReadCloser) (*bytes.Buffer, *bytes.Buffer, error) {
 	)
 	_, err := b1.ReadFrom(tr)
 	if err != nil {
-		return nil, nil, err
+		return &b1, &b2, err
 	}
 	defer func() { body.Close() }()
 
@@ -374,3 +374,7 @@ func duplicateBody(body io.ReadCloser) (*bytes.Buffer, *bytes.Buffer, error) {
 func resStatusCode(res http.Response) int {
 	return res.StatusCode
 }
+
+type errorReader struct{ err error }
+
+func (r errorReader) Read(p []byte) (int, error) { return 0, r.err }

@@ -92,6 +92,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		}
 		if c.logger.ResponseBodyEnabled() {
 			if res.Body != nil && res.Body != http.NoBody {
+				// TODO(karmi): Handle errors
 				b1, b2, _ := duplicateBody(res.Body)
 				dupRes.Body = ioutil.NopCloser(b1)
 				res.Body = ioutil.NopCloser(b2)

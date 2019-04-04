@@ -94,6 +94,37 @@ func TestTransportLogger(t *testing.T) {
 		}
 	})
 
+	t.Run("Keep response body", func(t *testing.T) {
+		var dst strings.Builder
+
+		tp := New(Config{
+			URLs:      []*url.URL{&url.URL{Scheme: "http", Host: "foo"}},
+			Transport: newRoundTripper(),
+			Logger:    &TextLogger{Output: &dst, EnableRequestBody: true, EnableResponseBody: true},
+		})
+
+		req, _ := http.NewRequest("GET", "/abc?q=a,b", nil)
+		req.Body = ioutil.NopCloser(strings.NewReader(`{"query":"42"}`))
+
+		res, err := tp.Perform(req)
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		body, err := ioutil.ReadAll(res.Body)
+		if err != nil {
+			t.Fatalf("Error reading response body: %s", err)
+		}
+
+		if len(dst.String()) < 1 {
+			t.Errorf("Log is empty: %#v", dst.String())
+		}
+
+		if len(body) < 1 {
+			t.Fatalf("Body is empty: %#v", body)
+		}
+	})
+
 	t.Run("Text with body", func(t *testing.T) {
 		var dst strings.Builder
 
@@ -332,34 +363,55 @@ func TestTransportLogger(t *testing.T) {
 		}
 	})
 
-	t.Run("Keep response body", func(t *testing.T) {
-		var dst strings.Builder
+	t.Run("Duplicate body", func(t *testing.T) {
+		input := ResponseBody{content: strings.NewReader("FOOBAR")}
 
-		tp := New(Config{
-			URLs:      []*url.URL{&url.URL{Scheme: "http", Host: "foo"}},
-			Transport: newRoundTripper(),
-			Logger:    &TextLogger{Output: &dst, EnableRequestBody: true, EnableResponseBody: true},
-		})
-
-		req, _ := http.NewRequest("GET", "/abc?q=a,b", nil)
-		req.Body = ioutil.NopCloser(strings.NewReader(`{"query":"42"}`))
-
-		res, err := tp.Perform(req)
+		b1, b2, err := duplicateBody(&input)
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
-
-		body, err := ioutil.ReadAll(res.Body)
-		if err != nil {
-			t.Fatalf("Error reading response body: %s", err)
+		if !input.closed {
+			t.Errorf("Expected input to be closed: %#v", input)
 		}
 
-		if len(dst.String()) < 1 {
-			t.Errorf("Log is empty: %#v", dst.String())
+		read, _ := ioutil.ReadAll(&input)
+		if len(read) > 0 {
+			t.Errorf("Expected input to be drained: %#v", input.content)
 		}
 
-		if len(body) < 1 {
-			t.Fatalf("Body is empty: %#v", body)
+		if b1.Len() != 6 || b2.Len() != 6 {
+			t.Errorf(
+				"Unexpected duplicate content, b1=%q (%db), b2=%q (%db)",
+				b1.String(), b1.Len(), b2.String(), b2.Len(),
+			)
+		}
+	})
+
+	t.Run("Duplicate body with error", func(t *testing.T) {
+		t.Skip("Not implemented")
+
+		input := ResponseBody{content: &ErrorReader{r: strings.NewReader("FOOBAR")}}
+
+		b1, b2, err := duplicateBody(&input)
+		if err == nil {
+			t.Fatalf("Expected error, got: %v", err)
+		}
+
+		read, _ := ioutil.ReadAll(&input)
+		if string(read) != "BAR" {
+			t.Errorf("Unexpected undrained part: %q", read)
+		}
+
+		if b2.String() != "FOO" {
+			t.Errorf("Unexpected value, b2=%q", b2.String())
+		}
+
+		b1c, err := ioutil.ReadAll(b1)
+		if string(b1c) != "FOO" {
+			t.Errorf("Unexpected value, b1=%q", b1.String())
+		}
+		if err == nil {
+			t.Fatalf("Expected error when reading b1, got: %v", err)
 		}
 	})
 }
@@ -381,3 +433,27 @@ func (l *CustomLogger) LogRoundTrip(
 
 func (l *CustomLogger) RequestBodyEnabled() bool  { return false }
 func (l *CustomLogger) ResponseBodyEnabled() bool { return false }
+
+type ResponseBody struct {
+	content io.Reader
+	closed  bool
+}
+
+func (r *ResponseBody) Read(p []byte) (int, error) {
+	return r.content.Read(p)
+}
+
+func (r *ResponseBody) Close() error {
+	r.closed = true
+	return nil
+}
+
+type ErrorReader struct {
+	r io.Reader
+}
+
+func (r *ErrorReader) Read(p []byte) (int, error) {
+	lr := io.LimitReader(r.r, 3)
+	c, _ := lr.Read(p)
+	return c, errors.New("Mock error")
+}
