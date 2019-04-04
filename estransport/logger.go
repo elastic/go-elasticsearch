@@ -18,8 +18,8 @@ import (
 //
 type Logger interface {
 	LogRoundTrip(*http.Request, *http.Response, error, time.Time, time.Duration) error
-	IsLoggingRequestBody() bool
-	IsLoggingResponseBody() bool
+	RequestBodyEnabled() bool
+	ResponseBodyEnabled() bool
 }
 
 // LogFormat defines the logger output format.
@@ -46,39 +46,39 @@ func newLogger(w io.Writer, f LogFormat, reqBody bool, resBody bool) Logger {
 
 	switch f {
 	case LogFormatText:
-		logger = &TextLogger{Output: w, isLoggingRequestBody: reqBody, isLoggingResponseBody: resBody}
+		logger = &TextLogger{Output: w, enableRequestBody: reqBody, enableResponseBody: resBody}
 	case LogFormatColor:
-		logger = &ColorLogger{Output: w, isLoggingRequestBody: reqBody, isLoggingResponseBody: resBody}
+		logger = &ColorLogger{Output: w, enableRequestBody: reqBody, enableResponseBody: resBody}
 	case LogFormatCurl:
-		logger = &CurlLogger{Output: w, isLoggingRequestBody: reqBody, isLoggingResponseBody: resBody}
+		logger = &CurlLogger{Output: w, enableRequestBody: reqBody, enableResponseBody: resBody}
 	case LogFormatJSON:
-		logger = &JSONLogger{Output: w, isLoggingRequestBody: reqBody, isLoggingResponseBody: resBody}
+		logger = &JSONLogger{Output: w, enableRequestBody: reqBody, enableResponseBody: resBody}
 	default:
-		logger = &TextLogger{Output: w, isLoggingRequestBody: reqBody, isLoggingResponseBody: resBody}
+		logger = &TextLogger{Output: w, enableRequestBody: reqBody, enableResponseBody: resBody}
 	}
 
 	return logger
 }
 
 type TextLogger struct {
-	Output                io.Writer
-	isLoggingRequestBody  bool
-	isLoggingResponseBody bool
+	Output             io.Writer
+	enableRequestBody  bool
+	enableResponseBody bool
 }
 type ColorLogger struct {
-	Output                io.Writer
-	isLoggingRequestBody  bool
-	isLoggingResponseBody bool
+	Output             io.Writer
+	enableRequestBody  bool
+	enableResponseBody bool
 }
 type CurlLogger struct {
-	Output                io.Writer
-	isLoggingRequestBody  bool
-	isLoggingResponseBody bool
+	Output             io.Writer
+	enableRequestBody  bool
+	enableResponseBody bool
 }
 type JSONLogger struct {
-	Output                io.Writer
-	isLoggingRequestBody  bool
-	isLoggingResponseBody bool
+	Output             io.Writer
+	enableRequestBody  bool
+	enableResponseBody bool
 }
 
 // --- TextLogger
@@ -91,7 +91,7 @@ func (l *TextLogger) LogRoundTrip(req *http.Request, res *http.Response, err err
 		resStatusCode(res),
 		dur.Truncate(time.Millisecond),
 	)
-	if l.IsLoggingRequestBody() && req != nil && req.Body != nil && req.Body != http.NoBody {
+	if l.RequestBodyEnabled() && req != nil && req.Body != nil && req.Body != http.NoBody {
 		b1, b2, err := duplicateBody(req.Body)
 		if err != nil {
 			return err
@@ -99,7 +99,7 @@ func (l *TextLogger) LogRoundTrip(req *http.Request, res *http.Response, err err
 		defer func() { req.Body = ioutil.NopCloser(b2) }()
 		logBodyAsText(l.Output, b1, ">")
 	}
-	if l.IsLoggingResponseBody() && res != nil && res.Body != nil && res.Body != http.NoBody {
+	if l.ResponseBodyEnabled() && res != nil && res.Body != nil && res.Body != http.NoBody {
 		b1, b2, err := duplicateBody(res.Body)
 		if err != nil {
 			return err
@@ -113,8 +113,8 @@ func (l *TextLogger) LogRoundTrip(req *http.Request, res *http.Response, err err
 	return nil
 }
 
-func (l *TextLogger) IsLoggingRequestBody() bool  { return l.isLoggingRequestBody }
-func (l *TextLogger) IsLoggingResponseBody() bool { return l.isLoggingResponseBody }
+func (l *TextLogger) RequestBodyEnabled() bool  { return l.enableRequestBody }
+func (l *TextLogger) ResponseBodyEnabled() bool { return l.enableResponseBody }
 
 // --- ColorLogger
 
@@ -155,7 +155,7 @@ func (l *ColorLogger) LogRoundTrip(req *http.Request, res *http.Response, err er
 		dur.Truncate(time.Millisecond),
 	)
 
-	if l.IsLoggingRequestBody() && req != nil && req.Body != nil && req.Body != http.NoBody {
+	if l.RequestBodyEnabled() && req != nil && req.Body != nil && req.Body != http.NoBody {
 		b1, b2, err := duplicateBody(req.Body)
 		if err != nil {
 			return err
@@ -166,7 +166,7 @@ func (l *ColorLogger) LogRoundTrip(req *http.Request, res *http.Response, err er
 		fmt.Fprint(l.Output, "\x1b[0m")
 	}
 
-	if l.IsLoggingResponseBody() && res != nil && res.Body != nil && res.Body != http.NoBody {
+	if l.ResponseBodyEnabled() && res != nil && res.Body != nil && res.Body != http.NoBody {
 		b1, b2, err := duplicateBody(res.Body)
 		if err != nil {
 			return err
@@ -181,14 +181,14 @@ func (l *ColorLogger) LogRoundTrip(req *http.Request, res *http.Response, err er
 		fmt.Fprintf(l.Output, "\x1b[31;1m» ERROR \x1b[31m%v\x1b[0m\n", err)
 	}
 
-	if l.IsLoggingRequestBody() || l.IsLoggingResponseBody() {
+	if l.RequestBodyEnabled() || l.ResponseBodyEnabled() {
 		fmt.Fprintf(l.Output, "\x1b[2m%s\x1b[0m\n", strings.Repeat("─", 80))
 	}
 	return nil
 }
 
-func (l *ColorLogger) IsLoggingRequestBody() bool  { return l.isLoggingRequestBody }
-func (l *ColorLogger) IsLoggingResponseBody() bool { return l.isLoggingResponseBody }
+func (l *ColorLogger) RequestBodyEnabled() bool  { return l.enableRequestBody }
+func (l *ColorLogger) ResponseBodyEnabled() bool { return l.enableResponseBody }
 
 // --- CurlLogger
 
@@ -256,7 +256,7 @@ func (l *CurlLogger) LogRoundTrip(req *http.Request, res *http.Response, err err
 		status = "N/A"
 	}
 	fmt.Fprintf(&b, "# => %s [%s] %s\n", start.UTC().Format(time.RFC3339), status, dur.Truncate(time.Millisecond))
-	if l.IsLoggingResponseBody() && res != nil && res.Body != nil && res.Body != http.NoBody {
+	if l.ResponseBodyEnabled() && res != nil && res.Body != nil && res.Body != http.NoBody {
 		b1, b2, err := duplicateBody(res.Body)
 		if err != nil {
 			return err
@@ -269,7 +269,7 @@ func (l *CurlLogger) LogRoundTrip(req *http.Request, res *http.Response, err err
 	}
 
 	b.WriteString("\n")
-	if l.IsLoggingResponseBody() && res != nil && res.Body != nil && res.Body != http.NoBody {
+	if l.ResponseBodyEnabled() && res != nil && res.Body != nil && res.Body != http.NoBody {
 		b.WriteString("\n")
 	}
 
@@ -278,8 +278,8 @@ func (l *CurlLogger) LogRoundTrip(req *http.Request, res *http.Response, err err
 	return nil
 }
 
-func (l *CurlLogger) IsLoggingRequestBody() bool  { return l.isLoggingRequestBody }
-func (l *CurlLogger) IsLoggingResponseBody() bool { return l.isLoggingResponseBody }
+func (l *CurlLogger) RequestBodyEnabled() bool  { return l.enableRequestBody }
+func (l *CurlLogger) ResponseBodyEnabled() bool { return l.enableResponseBody }
 
 // --- JSONLogger
 
@@ -343,7 +343,7 @@ func (l *JSONLogger) LogRoundTrip(req *http.Request, res *http.Response, err err
 	b.WriteString(`{"request":{`)
 	b.WriteString(`"method":`)
 	appendQuote(req.Method)
-	if l.IsLoggingRequestBody() && req != nil && req.Body != nil && req.Body != http.NoBody {
+	if l.RequestBodyEnabled() && req != nil && req.Body != nil && req.Body != http.NoBody {
 		b.WriteString(`,"body":`)
 		b1, b2, err := duplicateBody(req.Body)
 		if err != nil {
@@ -360,7 +360,7 @@ func (l *JSONLogger) LogRoundTrip(req *http.Request, res *http.Response, err err
 		b.WriteString(`,"response":{`)
 		b.WriteString(`"status_code":`)
 		appendInt(int64(resStatusCode(res)))
-		if l.IsLoggingResponseBody() && res != nil && res.Body != nil && res.Body != http.NoBody {
+		if l.ResponseBodyEnabled() && res != nil && res.Body != nil && res.Body != http.NoBody {
 			b.WriteString(`,"body":`)
 			b1, b2, err := duplicateBody(res.Body)
 			if err != nil {
@@ -387,8 +387,8 @@ func (l *JSONLogger) LogRoundTrip(req *http.Request, res *http.Response, err err
 	return nil
 }
 
-func (l *JSONLogger) IsLoggingRequestBody() bool  { return l.isLoggingRequestBody }
-func (l *JSONLogger) IsLoggingResponseBody() bool { return l.isLoggingResponseBody }
+func (l *JSONLogger) RequestBodyEnabled() bool  { return l.enableRequestBody }
+func (l *JSONLogger) ResponseBodyEnabled() bool { return l.enableResponseBody }
 
 func logBodyAsText(dst io.Writer, body io.Reader, prefix string) {
 	scanner := bufio.NewScanner(body)
