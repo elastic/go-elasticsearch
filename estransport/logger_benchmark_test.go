@@ -20,7 +20,7 @@ func BenchmarkTransportLogger(b *testing.B) {
 			tp := estransport.New(estransport.Config{
 				URLs:      []*url.URL{&url.URL{Scheme: "http", Host: "foo"}},
 				Transport: newFakeTransport(b),
-				LogOutput: ioutil.Discard,
+				Logger:    &estransport.TextLogger{Output: ioutil.Discard},
 			})
 
 			req, _ := http.NewRequest("GET", "/abc", nil)
@@ -34,11 +34,9 @@ func BenchmarkTransportLogger(b *testing.B) {
 	b.Run("Text-Body", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
 			tp := estransport.New(estransport.Config{
-				URLs:            []*url.URL{&url.URL{Scheme: "http", Host: "foo"}},
-				Transport:       newFakeTransport(b),
-				LogOutput:       ioutil.Discard,
-				LogRequestBody:  true,
-				LogResponseBody: true,
+				URLs:      []*url.URL{&url.URL{Scheme: "http", Host: "foo"}},
+				Transport: newFakeTransport(b),
+				Logger:    &estransport.TextLogger{Output: ioutil.Discard, EnableRequestBody: true, EnableResponseBody: true},
 			})
 
 			req, _ := http.NewRequest("GET", "/abc", nil)
@@ -63,8 +61,7 @@ func BenchmarkTransportLogger(b *testing.B) {
 			tp := estransport.New(estransport.Config{
 				URLs:      []*url.URL{&url.URL{Scheme: "http", Host: "foo"}},
 				Transport: newFakeTransport(b),
-				LogOutput: ioutil.Discard,
-				LogFormat: estransport.LogFormatJSON,
+				Logger:    &estransport.JSONLogger{Output: ioutil.Discard},
 			})
 
 			req, _ := http.NewRequest("GET", "/abc", nil)
@@ -78,12 +75,9 @@ func BenchmarkTransportLogger(b *testing.B) {
 	b.Run("JSON-Body", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
 			tp := estransport.New(estransport.Config{
-				URLs:            []*url.URL{&url.URL{Scheme: "http", Host: "foo"}},
-				Transport:       newFakeTransport(b),
-				LogOutput:       ioutil.Discard,
-				LogRequestBody:  true,
-				LogResponseBody: true,
-				LogFormat:       estransport.LogFormatJSON,
+				URLs:      []*url.URL{&url.URL{Scheme: "http", Host: "foo"}},
+				Transport: newFakeTransport(b),
+				Logger:    &estransport.JSONLogger{Output: ioutil.Discard, EnableRequestBody: true, EnableResponseBody: true},
 			})
 
 			req, _ := http.NewRequest("GET", "/abc", nil)

@@ -44,7 +44,7 @@ func TestTransportLogger(t *testing.T) {
 		tp := New(Config{
 			URLs:      []*url.URL{&url.URL{Scheme: "http", Host: "foo"}},
 			Transport: newRoundTripper(),
-			LogOutput: ioutil.Discard,
+			// Logger: ioutil.Discard,
 		})
 
 		for i := 0; i < 100; i++ {
@@ -66,7 +66,7 @@ func TestTransportLogger(t *testing.T) {
 		tp := New(Config{
 			URLs:      []*url.URL{&url.URL{Scheme: "http", Host: "foo"}},
 			Transport: newRoundTripper(),
-			LogOutput: nil,
+			Logger:    nil,
 		})
 
 		req, _ := http.NewRequest("GET", "/abc", nil)
@@ -84,7 +84,7 @@ func TestTransportLogger(t *testing.T) {
 					return nil, errors.New("Mock error")
 				},
 			},
-			LogOutput: ioutil.Discard,
+			Logger: &TextLogger{Output: ioutil.Discard},
 		})
 
 		req, _ := http.NewRequest("GET", "/abc", nil)
@@ -98,12 +98,9 @@ func TestTransportLogger(t *testing.T) {
 		var dst strings.Builder
 
 		tp := New(Config{
-			URLs:            []*url.URL{&url.URL{Scheme: "http", Host: "foo"}},
-			Transport:       newRoundTripper(),
-			LogOutput:       &dst,
-			LogFormat:       LogFormatText,
-			LogRequestBody:  true,
-			LogResponseBody: true,
+			URLs:      []*url.URL{&url.URL{Scheme: "http", Host: "foo"}},
+			Transport: newRoundTripper(),
+			Logger:    &TextLogger{Output: &dst, EnableRequestBody: true, EnableResponseBody: true},
 		})
 
 		req, _ := http.NewRequest("GET", "/abc?q=a,b", nil)
@@ -146,12 +143,9 @@ func TestTransportLogger(t *testing.T) {
 		var dst strings.Builder
 
 		tp := New(Config{
-			URLs:            []*url.URL{&url.URL{Scheme: "http", Host: "foo"}},
-			Transport:       newRoundTripper(),
-			LogOutput:       &dst,
-			LogFormat:       LogFormatColor,
-			LogRequestBody:  true,
-			LogResponseBody: true,
+			URLs:      []*url.URL{&url.URL{Scheme: "http", Host: "foo"}},
+			Transport: newRoundTripper(),
+			Logger:    &ColorLogger{Output: &dst, EnableRequestBody: true, EnableResponseBody: true},
 		})
 
 		req, _ := http.NewRequest("GET", "/abc?q=a,b", nil)
@@ -203,11 +197,9 @@ func TestTransportLogger(t *testing.T) {
 		var dst strings.Builder
 
 		tp := New(Config{
-			URLs:            []*url.URL{&url.URL{Scheme: "http", Host: "foo"}},
-			Transport:       newRoundTripper(),
-			LogOutput:       &dst,
-			LogFormat:       LogFormatCurl,
-			LogResponseBody: true,
+			URLs:      []*url.URL{&url.URL{Scheme: "http", Host: "foo"}},
+			Transport: newRoundTripper(),
+			Logger:    &CurlLogger{Output: &dst, EnableResponseBody: true},
 		})
 
 		req, _ := http.NewRequest("GET", "/abc?q=a,b", nil)
@@ -244,8 +236,7 @@ func TestTransportLogger(t *testing.T) {
 		tp := New(Config{
 			URLs:      []*url.URL{&url.URL{Scheme: "http", Host: "foo"}},
 			Transport: newRoundTripper(),
-			LogOutput: &dst,
-			LogFormat: LogFormatJSON,
+			Logger:    &JSONLogger{Output: &dst},
 		})
 
 		req, _ := http.NewRequest("GET", "/abc?q=a,b", nil)
@@ -280,11 +271,9 @@ func TestTransportLogger(t *testing.T) {
 		var dst strings.Builder
 
 		tp := New(Config{
-			URLs:           []*url.URL{&url.URL{Scheme: "http", Host: "foo"}},
-			Transport:      newRoundTripper(),
-			LogOutput:      &dst,
-			LogFormat:      LogFormatJSON,
-			LogRequestBody: true,
+			URLs:      []*url.URL{&url.URL{Scheme: "http", Host: "foo"}},
+			Transport: newRoundTripper(),
+			Logger:    &JSONLogger{Output: &dst, EnableRequestBody: true},
 		})
 
 		req, _ := http.NewRequest("GET", "/abc?q=a,b", nil)
@@ -327,8 +316,8 @@ func TestTransportLogger(t *testing.T) {
 		tp := New(Config{
 			URLs:      []*url.URL{&url.URL{Scheme: "http", Host: "foo"}},
 			Transport: newRoundTripper(),
+			Logger:    &CustomLogger{Output: &dst},
 		})
-		tp.logger = &CustomLogger{output: &dst}
 
 		req, _ := http.NewRequest("GET", "/abc?q=a,b", nil)
 		req.Body = ioutil.NopCloser(strings.NewReader(`{"query":"42"}`))
@@ -345,7 +334,7 @@ func TestTransportLogger(t *testing.T) {
 }
 
 type CustomLogger struct {
-	output io.Writer
+	Output io.Writer
 }
 
 func (l *CustomLogger) LogRoundTrip(
@@ -355,7 +344,7 @@ func (l *CustomLogger) LogRoundTrip(
 	start time.Time,
 	dur time.Duration,
 ) error {
-	fmt.Fprintln(l.output, req.Method, req.URL, "->", res.Status)
+	fmt.Fprintln(l.Output, req.Method, req.URL, "->", res.Status)
 	return nil
 }
 

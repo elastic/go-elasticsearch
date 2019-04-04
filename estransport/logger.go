@@ -22,67 +22,40 @@ type Logger interface {
 	ResponseBodyEnabled() bool
 }
 
-// LogFormat defines the logger output format.
+// TextLogger prints the log message in plain text.
 //
-type LogFormat int
-
-// Log formats:
-const (
-	LogFormatNone  LogFormat = iota
-	LogFormatText            // Plain text
-	LogFormatColor           // Terminal-optimized plain text
-	LogFormatCurl            // Runnable curl command
-	LogFormatJSON            // Structured output
-)
-
-// newLogger returns new logger, when w is not nil, otherwise it returns nil.
-//
-func newLogger(w io.Writer, f LogFormat, reqBody bool, resBody bool) Logger {
-	if w == nil {
-		return nil
-	}
-
-	var logger Logger
-
-	switch f {
-	case LogFormatText:
-		logger = &TextLogger{Output: w, enableRequestBody: reqBody, enableResponseBody: resBody}
-	case LogFormatColor:
-		logger = &ColorLogger{Output: w, enableRequestBody: reqBody, enableResponseBody: resBody}
-	case LogFormatCurl:
-		logger = &CurlLogger{Output: w, enableRequestBody: reqBody, enableResponseBody: resBody}
-	case LogFormatJSON:
-		logger = &JSONLogger{Output: w, enableRequestBody: reqBody, enableResponseBody: resBody}
-	default:
-		logger = &TextLogger{Output: w, enableRequestBody: reqBody, enableResponseBody: resBody}
-	}
-
-	return logger
-}
-
 type TextLogger struct {
 	Output             io.Writer
-	enableRequestBody  bool
-	enableResponseBody bool
+	EnableRequestBody  bool
+	EnableResponseBody bool
 }
+
+// ColorLogger prints the log message in a terminal-optimized plain text.
+//
 type ColorLogger struct {
 	Output             io.Writer
-	enableRequestBody  bool
-	enableResponseBody bool
+	EnableRequestBody  bool
+	EnableResponseBody bool
 }
+
+// CurlLogger prints the log message as a runnable curl command.
+//
 type CurlLogger struct {
 	Output             io.Writer
-	enableRequestBody  bool
-	enableResponseBody bool
+	EnableRequestBody  bool
+	EnableResponseBody bool
 }
+
+// JSONLogger prints the log message as JSON.
+//
 type JSONLogger struct {
 	Output             io.Writer
-	enableRequestBody  bool
-	enableResponseBody bool
+	EnableRequestBody  bool
+	EnableResponseBody bool
 }
 
-// --- TextLogger
-
+// LogRoundTrip prints the information about request and response.
+//
 func (l *TextLogger) LogRoundTrip(req *http.Request, res *http.Response, err error, start time.Time, dur time.Duration) error {
 	fmt.Fprintf(l.Output, "%s %s %s [status:%d request:%s]\n",
 		start.Format(time.RFC3339),
@@ -113,11 +86,14 @@ func (l *TextLogger) LogRoundTrip(req *http.Request, res *http.Response, err err
 	return nil
 }
 
-func (l *TextLogger) RequestBodyEnabled() bool  { return l.enableRequestBody }
-func (l *TextLogger) ResponseBodyEnabled() bool { return l.enableResponseBody }
+// RequestBodyEnabled returns true when the request body should be logged.
+func (l *TextLogger) RequestBodyEnabled() bool { return l.EnableRequestBody }
 
-// --- ColorLogger
+// ResponseBodyEnabled returns true when the response body should be logged.
+func (l *TextLogger) ResponseBodyEnabled() bool { return l.EnableResponseBody }
 
+// LogRoundTrip prints the information about request and response.
+//
 func (l *ColorLogger) LogRoundTrip(req *http.Request, res *http.Response, err error, start time.Time, dur time.Duration) error {
 	query, _ := url.QueryUnescape(req.URL.RawQuery)
 	if query != "" {
@@ -187,11 +163,14 @@ func (l *ColorLogger) LogRoundTrip(req *http.Request, res *http.Response, err er
 	return nil
 }
 
-func (l *ColorLogger) RequestBodyEnabled() bool  { return l.enableRequestBody }
-func (l *ColorLogger) ResponseBodyEnabled() bool { return l.enableResponseBody }
+// RequestBodyEnabled returns true when the request body should be logged.
+func (l *ColorLogger) RequestBodyEnabled() bool { return l.EnableRequestBody }
 
-// --- CurlLogger
+// ResponseBodyEnabled returns true when the response body should be logged.
+func (l *ColorLogger) ResponseBodyEnabled() bool { return l.EnableResponseBody }
 
+// LogRoundTrip prints the information about request and response.
+//
 func (l *CurlLogger) LogRoundTrip(req *http.Request, res *http.Response, err error, start time.Time, dur time.Duration) error {
 	var b bytes.Buffer
 
@@ -278,11 +257,14 @@ func (l *CurlLogger) LogRoundTrip(req *http.Request, res *http.Response, err err
 	return nil
 }
 
-func (l *CurlLogger) RequestBodyEnabled() bool  { return l.enableRequestBody }
-func (l *CurlLogger) ResponseBodyEnabled() bool { return l.enableResponseBody }
+// RequestBodyEnabled returns true when the request body should be logged.
+func (l *CurlLogger) RequestBodyEnabled() bool { return l.EnableRequestBody }
 
-// --- JSONLogger
+// ResponseBodyEnabled returns true when the response body should be logged.
+func (l *CurlLogger) ResponseBodyEnabled() bool { return l.EnableResponseBody }
 
+// LogRoundTrip prints the information about request and response.
+//
 func (l *JSONLogger) LogRoundTrip(req *http.Request, res *http.Response, err error, start time.Time, dur time.Duration) error {
 	// https://github.com/elastic/ecs/blob/master/schemas/http.yml
 	//
@@ -387,8 +369,11 @@ func (l *JSONLogger) LogRoundTrip(req *http.Request, res *http.Response, err err
 	return nil
 }
 
-func (l *JSONLogger) RequestBodyEnabled() bool  { return l.enableRequestBody }
-func (l *JSONLogger) ResponseBodyEnabled() bool { return l.enableResponseBody }
+// RequestBodyEnabled returns true when the request body should be logged.
+func (l *JSONLogger) RequestBodyEnabled() bool { return l.EnableRequestBody }
+
+// ResponseBodyEnabled returns true when the response body should be logged.
+func (l *JSONLogger) ResponseBodyEnabled() bool { return l.EnableResponseBody }
 
 func logBodyAsText(dst io.Writer, body io.Reader, prefix string) {
 	scanner := bufio.NewScanner(body)
@@ -401,6 +386,8 @@ func logBodyAsText(dst io.Writer, body io.Reader, prefix string) {
 }
 
 func duplicateBody(body io.ReadCloser) (*bytes.Buffer, *bytes.Buffer, error) {
+	// TODO(karmi): Handle errors during reads
+	// https://github.com/elastic/apm-agent-go/blob/289ed4c53df21c66ace2d676e45591973ef97ef9/module/apmelasticsearch/client.go#L167
 	var (
 		b1 bytes.Buffer
 		b2 bytes.Buffer
@@ -420,20 +407,4 @@ func resStatusCode(res *http.Response) int {
 		return res.StatusCode
 	}
 	return -1
-}
-
-// String returns LogFormat as a string.
-//
-func (f LogFormat) String() string {
-	switch f {
-	case LogFormatText:
-		return "text"
-	case LogFormatColor:
-		return "color"
-	case LogFormatCurl:
-		return "curl"
-	case LogFormatJSON:
-		return "json"
-	}
-	return "unknown"
 }

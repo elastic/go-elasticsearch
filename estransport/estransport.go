@@ -3,7 +3,6 @@ package estransport // import "github.com/elastic/go-elasticsearch/estransport"
 import (
 	"bytes"
 	"fmt"
-	"io"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -22,11 +21,7 @@ type Interface interface {
 type Config struct {
 	URLs      []*url.URL
 	Transport http.RoundTripper
-
-	LogOutput       io.Writer
-	LogFormat       LogFormat
-	LogRequestBody  bool
-	LogResponseBody bool
+	Logger    Logger
 }
 
 // Client represents the HTTP client.
@@ -35,8 +30,7 @@ type Client struct {
 	urls      []*url.URL
 	transport http.RoundTripper
 	selector  Selector
-
-	logger Logger
+	logger    Logger
 }
 
 // New creates new HTTP client.
@@ -52,8 +46,7 @@ func New(cfg Config) *Client {
 		urls:      cfg.URLs,
 		transport: cfg.Transport,
 		selector:  NewRoundRobinSelector(cfg.URLs...),
-
-		logger: newLogger(cfg.LogOutput, cfg.LogFormat, cfg.LogRequestBody, cfg.LogResponseBody),
+		logger:    cfg.Logger,
 	}
 }
 

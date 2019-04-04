@@ -27,7 +27,7 @@ func main() {
 	// the request and response as plain text to the output.
 	//
 	es, _ = elasticsearch.NewClient(elasticsearch.Config{
-		LogOutput: os.Stdout,
+		Logger: &estransport.TextLogger{Output: os.Stdout},
 	})
 	run(es, "Text")
 
@@ -37,8 +37,7 @@ func main() {
 	// information in the terminal during development.
 	//
 	es, _ = elasticsearch.NewClient(elasticsearch.Config{
-		LogOutput: os.Stdout,
-		LogFormat: estransport.LogFormatColor,
+		Logger: &estransport.ColorLogger{Output: os.Stdout},
 	})
 	run(es, "Color")
 
@@ -47,10 +46,7 @@ func main() {
 	// To log the request and response bodies, use the respective configuration options.
 	//
 	es, _ = elasticsearch.NewClient(elasticsearch.Config{
-		LogOutput:       os.Stdout,
-		LogFormat:       estransport.LogFormatColor,
-		LogRequestBody:  true,
-		LogResponseBody: true,
+		Logger: &estransport.ColorLogger{Output: os.Stdout, EnableRequestBody: true, EnableResponseBody: true},
 	})
 	run(es, "Request/Response Body")
 
@@ -60,9 +56,7 @@ func main() {
 	// pretty-printing the response (when enabled), useful eg. for sharing or debugging.
 	//
 	es, _ = elasticsearch.NewClient(elasticsearch.Config{
-		LogOutput:       os.Stdout,
-		LogFormat:       estransport.LogFormatCurl,
-		LogResponseBody: true,
+		Logger: &estransport.CurlLogger{Output: os.Stdout, EnableResponseBody: true},
 	})
 	run(es, "Curl")
 
@@ -71,8 +65,7 @@ func main() {
 	// The "LogFormatJSON" formatter writes the information as JSON, suitable for log ingestion.
 	//
 	es, _ = elasticsearch.NewClient(elasticsearch.Config{
-		LogOutput: os.Stdout,
-		LogFormat: estransport.LogFormatJSON,
+		Logger: &estransport.JSONLogger{Output: os.Stdout},
 	})
 	run(es, "JSON")
 }
@@ -103,8 +96,14 @@ func run(es *elasticsearch.Client, name string) {
 		es.Search.WithFilterPath("took", "hits.hits"),
 	)
 
-	log.Println("\x1b[1mResponse:\x1b[0m", res)
-	if err != nil {
-		log.Println("Error:   ", err)
+	resBody := res.String()
+	if resBody == "" {
+		log.Fatal("Response body is empty")
 	}
+
+	if err != nil {
+		log.Fatalf("Error:   %s", err)
+	}
+
+	log.Print("\n")
 }
