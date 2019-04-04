@@ -331,6 +331,37 @@ func TestTransportLogger(t *testing.T) {
 			t.Errorf("Unexpected output: %s", dst.String())
 		}
 	})
+
+	t.Run("Keep response body", func(t *testing.T) {
+		var dst strings.Builder
+
+		tp := New(Config{
+			URLs:      []*url.URL{&url.URL{Scheme: "http", Host: "foo"}},
+			Transport: newRoundTripper(),
+			Logger:    &TextLogger{Output: &dst, EnableRequestBody: true, EnableResponseBody: true},
+		})
+
+		req, _ := http.NewRequest("GET", "/abc?q=a,b", nil)
+		req.Body = ioutil.NopCloser(strings.NewReader(`{"query":"42"}`))
+
+		res, err := tp.Perform(req)
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		body, err := ioutil.ReadAll(res.Body)
+		if err != nil {
+			t.Fatalf("Error reading response body: %s", err)
+		}
+
+		if len(dst.String()) < 1 {
+			t.Errorf("Log is empty: %#v", dst.String())
+		}
+
+		if len(body) < 1 {
+			t.Fatalf("Body is empty: %#v", body)
+		}
+	})
 }
 
 type CustomLogger struct {

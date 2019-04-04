@@ -96,8 +96,9 @@ func run(es *elasticsearch.Client, name string) {
 		es.Search.WithFilterPath("took", "hits.hits"),
 	)
 
-	resBody := res.String()
-	if resBody == "" {
+	s := res.String()
+	// log.Println("\x1b[1mResponse:\x1b[0m", s)
+	if len(s) <= len("[200 OK] ") {
 		log.Fatal("Response body is empty")
 	}
 

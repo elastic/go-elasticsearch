@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -65,20 +64,14 @@ func (l *TextLogger) LogRoundTrip(req *http.Request, res *http.Response, err err
 		dur.Truncate(time.Millisecond),
 	)
 	if l.RequestBodyEnabled() && req != nil && req.Body != nil && req.Body != http.NoBody {
-		b1, b2, err := duplicateBody(req.Body)
-		if err != nil {
-			return err
-		}
-		defer func() { req.Body = ioutil.NopCloser(b2) }()
-		logBodyAsText(l.Output, b1, ">")
+		var buf bytes.Buffer
+		buf.ReadFrom(req.Body)
+		logBodyAsText(l.Output, &buf, ">")
 	}
 	if l.ResponseBodyEnabled() && res != nil && res.Body != nil && res.Body != http.NoBody {
-		b1, b2, err := duplicateBody(res.Body)
-		if err != nil {
-			return err
-		}
-		defer func() { res.Body = ioutil.NopCloser(b2) }()
-		logBodyAsText(l.Output, b1, "<")
+		var buf bytes.Buffer
+		buf.ReadFrom(res.Body)
+		logBodyAsText(l.Output, &buf, "<")
 	}
 	if err != nil {
 		fmt.Fprintf(l.Output, "! ERROR: %v\n", err)
@@ -132,24 +125,19 @@ func (l *ColorLogger) LogRoundTrip(req *http.Request, res *http.Response, err er
 	)
 
 	if l.RequestBodyEnabled() && req != nil && req.Body != nil && req.Body != http.NoBody {
-		b1, b2, err := duplicateBody(req.Body)
-		if err != nil {
-			return err
-		}
-		defer func() { req.Body = ioutil.NopCloser(b2) }()
+		var buf bytes.Buffer
+		buf.ReadFrom(req.Body)
 		fmt.Fprint(l.Output, "\x1b[2m")
-		logBodyAsText(l.Output, b1, "       »")
+		logBodyAsText(l.Output, &buf, "       »")
 		fmt.Fprint(l.Output, "\x1b[0m")
 	}
 
 	if l.ResponseBodyEnabled() && res != nil && res.Body != nil && res.Body != http.NoBody {
-		b1, b2, err := duplicateBody(res.Body)
-		if err != nil {
-			return err
-		}
-		defer func() { res.Body = ioutil.NopCloser(b2) }()
+		defer res.Body.Close()
+		var buf bytes.Buffer
+		buf.ReadFrom(res.Body)
 		fmt.Fprint(l.Output, "\x1b[2m")
-		logBodyAsText(l.Output, b1, "       «")
+		logBodyAsText(l.Output, &buf, "       «")
 		fmt.Fprint(l.Output, "\x1b[0m")
 	}
 
@@ -214,15 +202,12 @@ func (l *CurlLogger) LogRoundTrip(req *http.Request, res *http.Response, err err
 	b.WriteString("'")
 
 	if req.Body != nil && req.Body != http.NoBody {
-		b1, b2, err := duplicateBody(req.Body)
-		if err != nil {
-			return err
-		}
-		req.Body = ioutil.NopCloser(b2)
+		var buf bytes.Buffer
+		buf.ReadFrom(req.Body)
 
-		b.Grow(b1.Len())
+		b.Grow(buf.Len())
 		b.WriteString(" -d \\\n'")
-		json.Indent(&b, b1.Bytes(), "", " ")
+		json.Indent(&b, buf.Bytes(), "", " ")
 		b.WriteString("'")
 	}
 
@@ -236,15 +221,12 @@ func (l *CurlLogger) LogRoundTrip(req *http.Request, res *http.Response, err err
 	}
 	fmt.Fprintf(&b, "# => %s [%s] %s\n", start.UTC().Format(time.RFC3339), status, dur.Truncate(time.Millisecond))
 	if l.ResponseBodyEnabled() && res != nil && res.Body != nil && res.Body != http.NoBody {
-		b1, b2, err := duplicateBody(res.Body)
-		if err != nil {
-			return err
-		}
-		res.Body = ioutil.NopCloser(b2)
+		var buf bytes.Buffer
+		buf.ReadFrom(res.Body)
 
-		b.Grow(b1.Len())
+		b.Grow(buf.Len())
 		b.WriteString("# ")
-		json.Indent(&b, b1.Bytes(), "# ", " ")
+		json.Indent(&b, buf.Bytes(), "# ", " ")
 	}
 
 	b.WriteString("\n")
@@ -326,15 +308,12 @@ func (l *JSONLogger) LogRoundTrip(req *http.Request, res *http.Response, err err
 	b.WriteString(`"method":`)
 	appendQuote(req.Method)
 	if l.RequestBodyEnabled() && req != nil && req.Body != nil && req.Body != http.NoBody {
-		b.WriteString(`,"body":`)
-		b1, b2, err := duplicateBody(req.Body)
-		if err != nil {
-			return err
-		}
-		req.Body = ioutil.NopCloser(b2)
+		var buf bytes.Buffer
+		buf.ReadFrom(req.Body)
 
-		b.Grow(b1.Len())
-		appendQuote(b1.String())
+		b.Grow(buf.Len() + 8)
+		b.WriteString(`,"body":`)
+		appendQuote(buf.String())
 	}
 	b.WriteRune('}') // Close "http.request"
 	// ---- Response
@@ -343,15 +322,12 @@ func (l *JSONLogger) LogRoundTrip(req *http.Request, res *http.Response, err err
 		b.WriteString(`"status_code":`)
 		appendInt(int64(resStatusCode(res)))
 		if l.ResponseBodyEnabled() && res != nil && res.Body != nil && res.Body != http.NoBody {
-			b.WriteString(`,"body":`)
-			b1, b2, err := duplicateBody(res.Body)
-			if err != nil {
-				return err
-			}
-			res.Body = ioutil.NopCloser(b2)
+			var buf bytes.Buffer
+			buf.ReadFrom(res.Body)
 
-			b.Grow(b1.Len())
-			appendQuote(b1.String())
+			b.Grow(buf.Len() + 8)
+			b.WriteString(`,"body":`)
+			appendQuote(buf.String())
 		}
 		b.WriteRune('}') // Close "http.response"
 	}

@@ -65,9 +65,8 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	var dupReqBody = bytes.NewBuffer(make([]byte, 0, 0))
 	if c.logger != nil && c.logger.RequestBodyEnabled() {
 		dupReqBody.Grow(int(req.ContentLength))
-		// TODO(karmi): Handle errors
-		// TODO(karmi): Handle closing
 		if req.Body != nil && req.Body != http.NoBody {
+			// TODO(karmi): Handle errors
 			dupReqBody.ReadFrom(req.Body)
 			req.Body = ioutil.NopCloser(bytes.NewBuffer(dupReqBody.Bytes()))
 		}
@@ -78,12 +77,27 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	dur := time.Since(start)
 
 	if c.logger != nil {
+		var (
+			dupReq http.Request
+			dupRes http.Response
+		)
+		dupReq = *req
+		if res != nil {
+			dupRes = *res
+		}
 		if c.logger.RequestBodyEnabled() {
 			if req.Body != nil && req.Body != http.NoBody {
-				req.Body = ioutil.NopCloser(dupReqBody)
+				dupReq.Body = ioutil.NopCloser(dupReqBody)
 			}
 		}
-		c.logger.LogRoundTrip(req, res, err, start, dur) // errcheck exclude
+		if c.logger.ResponseBodyEnabled() {
+			if res.Body != nil && res.Body != http.NoBody {
+				b1, b2, _ := duplicateBody(res.Body)
+				dupRes.Body = ioutil.NopCloser(b1)
+				res.Body = ioutil.NopCloser(b2)
+			}
+		}
+		c.logger.LogRoundTrip(&dupReq, &dupRes, err, start, dur) // errcheck exclude
 	}
 
 	// TODO(karmi): Wrap error
