@@ -369,8 +369,8 @@ type CustomLogger struct {
 }
 
 func (l *CustomLogger) LogRoundTrip(
-	req *http.Request,
-	res *http.Response,
+	req http.Request,
+	res http.Response,
 	err error,
 	start time.Time,
 	dur time.Duration,

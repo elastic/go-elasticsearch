@@ -97,7 +97,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 				res.Body = ioutil.NopCloser(b2)
 			}
 		}
-		c.logger.LogRoundTrip(&dupReq, &dupRes, err, start, dur) // errcheck exclude
+		c.logger.LogRoundTrip(dupReq, dupRes, err, start, dur) // errcheck exclude
 	}
 
 	// TODO(karmi): Wrap error

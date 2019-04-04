@@ -16,7 +16,7 @@ import (
 // Logger defines an interface for logging request and response.
 //
 type Logger interface {
-	LogRoundTrip(*http.Request, *http.Response, error, time.Time, time.Duration) error
+	LogRoundTrip(http.Request, http.Response, error, time.Time, time.Duration) error
 	RequestBodyEnabled() bool
 	ResponseBodyEnabled() bool
 }
@@ -55,7 +55,7 @@ type JSONLogger struct {
 
 // LogRoundTrip prints the information about request and response.
 //
-func (l *TextLogger) LogRoundTrip(req *http.Request, res *http.Response, err error, start time.Time, dur time.Duration) error {
+func (l *TextLogger) LogRoundTrip(req http.Request, res http.Response, err error, start time.Time, dur time.Duration) error {
 	fmt.Fprintf(l.Output, "%s %s %s [status:%d request:%s]\n",
 		start.Format(time.RFC3339),
 		req.Method,
@@ -63,12 +63,12 @@ func (l *TextLogger) LogRoundTrip(req *http.Request, res *http.Response, err err
 		resStatusCode(res),
 		dur.Truncate(time.Millisecond),
 	)
-	if l.RequestBodyEnabled() && req != nil && req.Body != nil && req.Body != http.NoBody {
+	if l.RequestBodyEnabled() && req.Body != nil && req.Body != http.NoBody {
 		var buf bytes.Buffer
 		buf.ReadFrom(req.Body)
 		logBodyAsText(l.Output, &buf, ">")
 	}
-	if l.ResponseBodyEnabled() && res != nil && res.Body != nil && res.Body != http.NoBody {
+	if l.ResponseBodyEnabled() && res.Body != nil && res.Body != http.NoBody {
 		var buf bytes.Buffer
 		buf.ReadFrom(res.Body)
 		logBodyAsText(l.Output, &buf, "<")
@@ -87,7 +87,7 @@ func (l *TextLogger) ResponseBodyEnabled() bool { return l.EnableResponseBody }
 
 // LogRoundTrip prints the information about request and response.
 //
-func (l *ColorLogger) LogRoundTrip(req *http.Request, res *http.Response, err error, start time.Time, dur time.Duration) error {
+func (l *ColorLogger) LogRoundTrip(req http.Request, res http.Response, err error, start time.Time, dur time.Duration) error {
 	query, _ := url.QueryUnescape(req.URL.RawQuery)
 	if query != "" {
 		query = "?" + query
@@ -98,17 +98,15 @@ func (l *ColorLogger) LogRoundTrip(req *http.Request, res *http.Response, err er
 		color  string
 	)
 
-	if res != nil {
-		status = res.Status
-		switch {
-		case res.StatusCode > 0 && res.StatusCode < 300:
-			color = "\x1b[32m"
-		case res.StatusCode > 299 && res.StatusCode < 500:
-			color = "\x1b[33m"
-		case res.StatusCode > 499:
-			color = "\x1b[31m"
-		}
-	} else {
+	status = res.Status
+	switch {
+	case res.StatusCode > 0 && res.StatusCode < 300:
+		color = "\x1b[32m"
+	case res.StatusCode > 299 && res.StatusCode < 500:
+		color = "\x1b[33m"
+	case res.StatusCode > 499:
+		color = "\x1b[31m"
+	default:
 		status = "ERROR"
 		color = "\x1b[31;4m"
 	}
@@ -124,7 +122,7 @@ func (l *ColorLogger) LogRoundTrip(req *http.Request, res *http.Response, err er
 		dur.Truncate(time.Millisecond),
 	)
 
-	if l.RequestBodyEnabled() && req != nil && req.Body != nil && req.Body != http.NoBody {
+	if l.RequestBodyEnabled() && req.Body != nil && req.Body != http.NoBody {
 		var buf bytes.Buffer
 		buf.ReadFrom(req.Body)
 		fmt.Fprint(l.Output, "\x1b[2m")
@@ -132,7 +130,7 @@ func (l *ColorLogger) LogRoundTrip(req *http.Request, res *http.Response, err er
 		fmt.Fprint(l.Output, "\x1b[0m")
 	}
 
-	if l.ResponseBodyEnabled() && res != nil && res.Body != nil && res.Body != http.NoBody {
+	if l.ResponseBodyEnabled() && res.Body != nil && res.Body != http.NoBody {
 		defer res.Body.Close()
 		var buf bytes.Buffer
 		buf.ReadFrom(res.Body)
@@ -159,7 +157,7 @@ func (l *ColorLogger) ResponseBodyEnabled() bool { return l.EnableResponseBody }
 
 // LogRoundTrip prints the information about request and response.
 //
-func (l *CurlLogger) LogRoundTrip(req *http.Request, res *http.Response, err error, start time.Time, dur time.Duration) error {
+func (l *CurlLogger) LogRoundTrip(req http.Request, res http.Response, err error, start time.Time, dur time.Duration) error {
 	var b bytes.Buffer
 
 	var query string
@@ -214,13 +212,10 @@ func (l *CurlLogger) LogRoundTrip(req *http.Request, res *http.Response, err err
 	b.WriteRune('\n')
 
 	var status string
-	if res != nil {
-		status = res.Status
-	} else {
-		status = "N/A"
-	}
+	status = res.Status
+
 	fmt.Fprintf(&b, "# => %s [%s] %s\n", start.UTC().Format(time.RFC3339), status, dur.Truncate(time.Millisecond))
-	if l.ResponseBodyEnabled() && res != nil && res.Body != nil && res.Body != http.NoBody {
+	if l.ResponseBodyEnabled() && res.Body != nil && res.Body != http.NoBody {
 		var buf bytes.Buffer
 		buf.ReadFrom(res.Body)
 
@@ -230,7 +225,7 @@ func (l *CurlLogger) LogRoundTrip(req *http.Request, res *http.Response, err err
 	}
 
 	b.WriteString("\n")
-	if l.ResponseBodyEnabled() && res != nil && res.Body != nil && res.Body != http.NoBody {
+	if l.ResponseBodyEnabled() && res.Body != nil && res.Body != http.NoBody {
 		b.WriteString("\n")
 	}
 
@@ -247,7 +242,7 @@ func (l *CurlLogger) ResponseBodyEnabled() bool { return l.EnableResponseBody }
 
 // LogRoundTrip prints the information about request and response.
 //
-func (l *JSONLogger) LogRoundTrip(req *http.Request, res *http.Response, err error, start time.Time, dur time.Duration) error {
+func (l *JSONLogger) LogRoundTrip(req http.Request, res http.Response, err error, start time.Time, dur time.Duration) error {
 	// https://github.com/elastic/ecs/blob/master/schemas/http.yml
 	//
 	// TODO(karmi): Research performance optimization of using sync.Pool
@@ -307,7 +302,7 @@ func (l *JSONLogger) LogRoundTrip(req *http.Request, res *http.Response, err err
 	b.WriteString(`{"request":{`)
 	b.WriteString(`"method":`)
 	appendQuote(req.Method)
-	if l.RequestBodyEnabled() && req != nil && req.Body != nil && req.Body != http.NoBody {
+	if l.RequestBodyEnabled() && req.Body != nil && req.Body != http.NoBody {
 		var buf bytes.Buffer
 		buf.ReadFrom(req.Body)
 
@@ -317,20 +312,18 @@ func (l *JSONLogger) LogRoundTrip(req *http.Request, res *http.Response, err err
 	}
 	b.WriteRune('}') // Close "http.request"
 	// ---- Response
-	if res != nil {
-		b.WriteString(`,"response":{`)
-		b.WriteString(`"status_code":`)
-		appendInt(int64(resStatusCode(res)))
-		if l.ResponseBodyEnabled() && res != nil && res.Body != nil && res.Body != http.NoBody {
-			var buf bytes.Buffer
-			buf.ReadFrom(res.Body)
+	b.WriteString(`,"response":{`)
+	b.WriteString(`"status_code":`)
+	appendInt(int64(resStatusCode(res)))
+	if l.ResponseBodyEnabled() && res.Body != nil && res.Body != http.NoBody {
+		var buf bytes.Buffer
+		buf.ReadFrom(res.Body)
 
-			b.Grow(buf.Len() + 8)
-			b.WriteString(`,"body":`)
-			appendQuote(buf.String())
-		}
-		b.WriteRune('}') // Close "http.response"
+		b.Grow(buf.Len() + 8)
+		b.WriteString(`,"body":`)
+		appendQuote(buf.String())
 	}
+	b.WriteRune('}') // Close "http.response"
 	b.WriteRune('}') // Close "http"
 	// -- Error
 	if err != nil {
@@ -378,9 +371,6 @@ func duplicateBody(body io.ReadCloser) (*bytes.Buffer, *bytes.Buffer, error) {
 	return &b1, &b2, nil
 }
 
-func resStatusCode(res *http.Response) int {
-	if res != nil {
-		return res.StatusCode
-	}
-	return -1
+func resStatusCode(res http.Response) int {
+	return res.StatusCode
 }
