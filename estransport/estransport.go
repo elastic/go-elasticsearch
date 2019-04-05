@@ -76,17 +76,13 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	dur := time.Since(start)
 
 	if c.logger != nil {
-		var (
-			dupReq http.Request
-			dupRes http.Response
-		)
-		dupReq = *req
+		var dupRes http.Response
 		if res != nil {
 			dupRes = *res
 		}
 		if c.logger.RequestBodyEnabled() {
 			if req.Body != nil && req.Body != http.NoBody {
-				dupReq.Body = ioutil.NopCloser(dupReqBody)
+				req.Body = ioutil.NopCloser(dupReqBody)
 			}
 		}
 		if c.logger.ResponseBodyEnabled() {
@@ -96,7 +92,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 				res.Body = b2
 			}
 		}
-		c.logger.LogRoundTrip(dupReq, dupRes, err, start, dur) // errcheck exclude
+		c.logger.LogRoundTrip(req, &dupRes, err, start, dur) // errcheck exclude
 	}
 
 	// TODO(karmi): Wrap error
