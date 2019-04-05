@@ -66,7 +66,6 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	if c.logger != nil && c.logger.RequestBodyEnabled() {
 		dupReqBody.Grow(int(req.ContentLength))
 		if req.Body != nil && req.Body != http.NoBody {
-			// TODO(karmi): Handle errors
 			dupReqBody.ReadFrom(req.Body)
 			req.Body = ioutil.NopCloser(bytes.NewBuffer(dupReqBody.Bytes()))
 		}
@@ -92,10 +91,9 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		}
 		if c.logger.ResponseBodyEnabled() {
 			if res.Body != nil && res.Body != http.NoBody {
-				// TODO(karmi): Handle errors
 				b1, b2, _ := duplicateBody(res.Body)
-				dupRes.Body = ioutil.NopCloser(b1)
-				res.Body = ioutil.NopCloser(b2)
+				dupRes.Body = b1
+				res.Body = b2
 			}
 		}
 		c.logger.LogRoundTrip(dupReq, dupRes, err, start, dur) // errcheck exclude

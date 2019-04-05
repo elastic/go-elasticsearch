@@ -379,22 +379,25 @@ func TestTransportLogger(t *testing.T) {
 			t.Errorf("Expected input to be drained: %#v", input.content)
 		}
 
-		if b1.Len() != 6 || b2.Len() != 6 {
+		b1r, _ := ioutil.ReadAll(b1)
+		b2r, _ := ioutil.ReadAll(b2)
+		if len(b1r) != 6 || len(b2r) != 6 {
 			t.Errorf(
 				"Unexpected duplicate content, b1=%q (%db), b2=%q (%db)",
-				b1.String(), b1.Len(), b2.String(), b2.Len(),
+				string(b1r), len(b1r), string(b2r), len(b2r),
 			)
 		}
 	})
 
 	t.Run("Duplicate body with error", func(t *testing.T) {
-		t.Skip("Not implemented")
-
 		input := ResponseBody{content: &ErrorReader{r: strings.NewReader("FOOBAR")}}
 
 		b1, b2, err := duplicateBody(&input)
 		if err == nil {
-			t.Fatalf("Expected error, got: %v", err)
+			t.Errorf("Expected error, got: %v", err)
+		}
+		if err.Error() != "MOCK ERROR" {
+			t.Errorf("Unexpected error value, expected [ERROR MOCK], got [%s]", err.Error())
 		}
 
 		read, _ := ioutil.ReadAll(&input)
@@ -402,16 +405,20 @@ func TestTransportLogger(t *testing.T) {
 			t.Errorf("Unexpected undrained part: %q", read)
 		}
 
-		if b2.String() != "FOO" {
-			t.Errorf("Unexpected value, b2=%q", b2.String())
+		b2r, _ := ioutil.ReadAll(b2)
+		if string(b2r) != "FOO" {
+			t.Errorf("Unexpected value, b2=%q", string(b2r))
 		}
 
 		b1c, err := ioutil.ReadAll(b1)
 		if string(b1c) != "FOO" {
-			t.Errorf("Unexpected value, b1=%q", b1.String())
+			t.Errorf("Unexpected value, b1=%q", string(b1c))
 		}
 		if err == nil {
-			t.Fatalf("Expected error when reading b1, got: %v", err)
+			t.Errorf("Expected error when reading b1, got: %v", err)
+		}
+		if err.Error() != "MOCK ERROR" {
+			t.Errorf("Unexpected error value, expected [ERROR MOCK], got [%s]", err.Error())
 		}
 	})
 }
@@ -455,5 +462,5 @@ type ErrorReader struct {
 func (r *ErrorReader) Read(p []byte) (int, error) {
 	lr := io.LimitReader(r.r, 3)
 	c, _ := lr.Read(p)
-	return c, errors.New("Mock error")
+	return c, errors.New("MOCK ERROR")
 }

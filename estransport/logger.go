@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -354,9 +355,7 @@ func logBodyAsText(dst io.Writer, body io.Reader, prefix string) {
 	}
 }
 
-func duplicateBody(body io.ReadCloser) (*bytes.Buffer, *bytes.Buffer, error) {
-	// TODO(karmi): Handle errors during reads, change to return io.ReadCloser
-	// https://github.com/elastic/apm-agent-go/blob/289ed4c53df21c66ace2d676e45591973ef97ef9/module/apmelasticsearch/client.go#L167
+func duplicateBody(body io.ReadCloser) (io.ReadCloser, io.ReadCloser, error) {
 	var (
 		b1 bytes.Buffer
 		b2 bytes.Buffer
@@ -364,11 +363,11 @@ func duplicateBody(body io.ReadCloser) (*bytes.Buffer, *bytes.Buffer, error) {
 	)
 	_, err := b1.ReadFrom(tr)
 	if err != nil {
-		return &b1, &b2, err
+		return ioutil.NopCloser(io.MultiReader(&b1, errorReader{err: err})), ioutil.NopCloser(io.MultiReader(&b2, errorReader{err: err})), err
 	}
 	defer func() { body.Close() }()
 
-	return &b1, &b2, nil
+	return ioutil.NopCloser(&b1), ioutil.NopCloser(&b2), nil
 }
 
 func resStatusCode(res http.Response) int {
