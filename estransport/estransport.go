@@ -62,10 +62,10 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	c.setURL(u, req)
 	c.setBasicAuth(u, req)
 
-	var dupReqBody = bytes.NewBuffer(make([]byte, 0, 0))
+	var dupReqBody *bytes.Buffer
 	if c.logger != nil && c.logger.RequestBodyEnabled() {
-		dupReqBody.Grow(int(req.ContentLength))
 		if req.Body != nil && req.Body != http.NoBody {
+			dupReqBody = bytes.NewBuffer(make([]byte, 0, int(req.ContentLength)))
 			dupReqBody.ReadFrom(req.Body)
 			req.Body = ioutil.NopCloser(bytes.NewBuffer(dupReqBody.Bytes()))
 		}

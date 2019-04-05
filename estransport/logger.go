@@ -18,6 +18,7 @@ import (
 //
 type Logger interface {
 	// LogRoundTrip should not modify the request or response, except for consuming and closing the body.
+	// Implementations have to check for nil values in request and response.
 	LogRoundTrip(*http.Request, *http.Response, error, time.Time, time.Duration) error
 	RequestBodyEnabled() bool
 	ResponseBodyEnabled() bool
