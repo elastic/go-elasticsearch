@@ -6,7 +6,7 @@ The [**`configuration.go`**](./configuration.go) and [**`customization.go`**](./
 
 ## Logging
 
-The [**`logging.go`**](./logging.go) file contains the example configurations for enabling logging.
+The [**`logging`**](./logging) directory contains examples for using the default loggers.
 
 ## Fast HTTP
 
