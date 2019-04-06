@@ -19,7 +19,9 @@ func main() {
 
 	// This collection of examples demonstrates how to configure the default logger of the client.
 	//
-	// To enable logging, pass an io.Writer as the "LogOutput" option in the client configuration.
+	// To enable logging, pass a logger implementation to the "Logger" option in the client configuration.
+	//
+	// You can use one of the bundled loggers, or a custom "estransport.Logger" interface implementation.
 	//
 	// ==============================================================================================
 	//
