@@ -1,10 +1,11 @@
-module github.com/elastic/go-elasticsearch/_examples/fasthttp
+module github.com/elastic/go-elasticsearch/v5/_examples/fasthttp
 
 go 1.11
 
-replace github.com/elastic/go-elasticsearch => ../..
+replace github.com/elastic/go-elasticsearch/v5 => ../..
 
 require (
-	github.com/elastic/go-elasticsearch 5.x
+	github.com/elastic/go-elasticsearch/v5 5.x
+
 	github.com/valyala/fasthttp v1.1.0
 )

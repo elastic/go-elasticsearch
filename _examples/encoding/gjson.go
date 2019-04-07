@@ -7,7 +7,7 @@ import (
 	"log"
 	"strings"
 
-	"github.com/elastic/go-elasticsearch"
+	"github.com/elastic/go-elasticsearch/v5"
 	"github.com/fatih/color"
 	"github.com/tidwall/gjson"
 )

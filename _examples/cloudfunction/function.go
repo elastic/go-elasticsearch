@@ -14,7 +14,7 @@
 //
 //   $ curl https://...cloudfunctions.net/clusterstatus
 //
-package clusterstatus // import "github.com/elastic/go-elasticsearch/_examples/clusterstatus"
+package clusterstatus // import "github.com/elastic/go-elasticsearch/v5/_examples/clusterstatus"
 
 import (
 	"encoding/json"
@@ -22,7 +22,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/elastic/go-elasticsearch"
+	"github.com/elastic/go-elasticsearch/v5"
 )
 
 // ES holds a reference to the Elasticsearch client

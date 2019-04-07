@@ -7,9 +7,9 @@ import (
 	"github.com/rs/zerolog"
 	"github.com/spf13/cobra"
 
-	"github.com/elastic/go-elasticsearch"
+	"github.com/elastic/go-elasticsearch/v5"
 
-	"github.com/elastic/go-elasticsearch/_examples/xkcdsearch"
+	"github.com/elastic/go-elasticsearch/v5/_examples/xkcdsearch"
 )
 
 var (

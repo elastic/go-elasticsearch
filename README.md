@@ -21,11 +21,11 @@ We encourage you to try the package in your projects, just keep these caveats in
 
 Install the package with `go get`:
 
-    go get -u github.com/elastic/go-elasticsearch
+    go get -u github.com/elastic/go-elasticsearch@5.x
 
 Or, add the package to your `go.mod` file:
 
-    require github.com/elastic/go-elasticsearch 5.x
+    require github.com/elastic/go-elasticsearch/v5 5.x
 
 Or, clone the repository:
 
@@ -39,7 +39,7 @@ mkdir my-elasticsearch-app && cd my-elasticsearch-app
 cat > go.mod <<-END
   module my-elasticsearch-app
 
-  require github.com/elastic/go-elasticsearch 5.x
+  require github.com/elastic/go-elasticsearch/v5 5.x
 END
 
 cat > main.go <<-END
@@ -48,7 +48,7 @@ cat > main.go <<-END
   import (
     "log"
 
-    "github.com/elastic/go-elasticsearch"
+    "github.com/elastic/go-elasticsearch/v5"
   )
 
   func main() {
@@ -144,8 +144,8 @@ import (
   "strings"
   "sync"
 
-  "github.com/elastic/go-elasticsearch"
-  "github.com/elastic/go-elasticsearch/esapi"
+  "github.com/elastic/go-elasticsearch/v5"
+  "github.com/elastic/go-elasticsearch/v5/esapi"
 )
 
 func main() {

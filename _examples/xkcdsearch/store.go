@@ -8,8 +8,8 @@ import (
 	"io"
 	"strings"
 
-	"github.com/elastic/go-elasticsearch"
-	"github.com/elastic/go-elasticsearch/esapi"
+	"github.com/elastic/go-elasticsearch/v5"
+	"github.com/elastic/go-elasticsearch/v5/esapi"
 )
 
 // SearchResults wraps the Elasticsearch search response.

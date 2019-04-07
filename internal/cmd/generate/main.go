@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/elastic/go-elasticsearch/internal/cmd/generate/commands"
-	_ "github.com/elastic/go-elasticsearch/internal/cmd/generate/commands/gensource"
-	_ "github.com/elastic/go-elasticsearch/internal/cmd/generate/commands/gentests"
+	"github.com/elastic/go-elasticsearch/v5/internal/cmd/generate/commands"
+	_ "github.com/elastic/go-elasticsearch/v5/internal/cmd/generate/commands/gensource"
+	_ "github.com/elastic/go-elasticsearch/v5/internal/cmd/generate/commands/gentests"
 )
 
 func main() {

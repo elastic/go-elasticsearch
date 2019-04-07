@@ -1,4 +1,4 @@
-package estransport // import "github.com/elastic/go-elasticsearch/estransport"
+package estransport // import "github.com/elastic/go-elasticsearch/v5/estransport"
 
 import (
 	"bytes"
@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/elastic/go-elasticsearch/internal/version"
+	"github.com/elastic/go-elasticsearch/v5/internal/version"
 )
 
 // Version returns the package version as a string.

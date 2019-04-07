@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/elastic/go-elasticsearch/internal/cmd/generate/commands/gensource"
+	"github.com/elastic/go-elasticsearch/v5/internal/cmd/generate/commands/gensource"
 )
 
 func TestGenerator(t *testing.T) {

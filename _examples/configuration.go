@@ -9,7 +9,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/elastic/go-elasticsearch"
+	"github.com/elastic/go-elasticsearch/v5"
 )
 
 func main() {
