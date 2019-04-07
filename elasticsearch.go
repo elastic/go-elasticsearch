@@ -1,4 +1,4 @@
-package elasticsearch // import "github.com/elastic/go-elasticsearch"
+package elasticsearch // import "github.com/elastic/go-elasticsearch/v8"
 
 import (
 	"errors"
@@ -8,9 +8,9 @@ import (
 	"os"
 	"strings"
 
-	"github.com/elastic/go-elasticsearch/esapi"
-	"github.com/elastic/go-elasticsearch/estransport"
-	"github.com/elastic/go-elasticsearch/internal/version"
+	"github.com/elastic/go-elasticsearch/v8/esapi"
+	"github.com/elastic/go-elasticsearch/v8/estransport"
+	"github.com/elastic/go-elasticsearch/v8/internal/version"
 )
 
 const (

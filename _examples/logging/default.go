@@ -14,8 +14,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/elastic/go-elasticsearch"
-	"github.com/elastic/go-elasticsearch/estransport"
+	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/elastic/go-elasticsearch/v8/estransport"
 )
 
 func main() {
