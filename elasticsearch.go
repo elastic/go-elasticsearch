@@ -28,7 +28,8 @@ type Config struct {
 	Username  string   // Username for HTTP Basic Authentication.
 	Password  string   // Password for HTTP Basic Authentication.
 
-	Transport http.RoundTripper // The HTTP transport object.
+	Transport http.RoundTripper  // The HTTP transport object.
+	Logger    estransport.Logger // The logger object.
 }
 
 // Client represents the Elasticsearch client.
@@ -84,6 +85,7 @@ func NewClient(cfg Config) (*Client, error) {
 		Password: cfg.Password,
 
 		Transport: cfg.Transport,
+		Logger:    cfg.Logger,
 	})
 
 	return &Client{Transport: tp, API: esapi.New(tp)}, nil
