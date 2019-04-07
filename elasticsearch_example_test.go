@@ -7,6 +7,7 @@ import (
 	"log"
 	"net"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/elastic/go-elasticsearch"
@@ -51,4 +52,21 @@ func ExampleNewClient() {
 
 	es, _ := elasticsearch.NewClient(cfg)
 	log.Print(es.Transport.(*estransport.Client).URLs())
+}
+
+func ExampleNewClient_logger() {
+	// import "github.com/elastic/go-elasticsearch/estransport"
+
+	// Use one of the bundled loggers:
+	//
+	// * estransport.TextLogger
+	// * estransport.ColorLogger
+	// * estransport.CurlLogger
+	// * estransport.JSONLogger
+
+	cfg := elasticsearch.Config{
+		Logger: &estransport.ColorLogger{Output: os.Stdout},
+	}
+
+	elasticsearch.NewClient(cfg)
 }
