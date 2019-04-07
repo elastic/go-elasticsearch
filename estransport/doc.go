@@ -11,7 +11,7 @@ the implementation is rather minimal: the client takes a slice of url.URL pointe
 and round-robins across them when performing the request.
 
 The package defines the "Logger" interface for logging information about request and response.
-It comes with several bundled loggers for logging in text or JSON.
+It comes with several bundled loggers for logging in text and JSON.
 
 */
 package estransport

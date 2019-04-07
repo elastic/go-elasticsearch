@@ -1,5 +1,11 @@
 // +build ignore
 
+// This collection of examples demonstrates how to configure the default logger of the client.
+//
+// To enable logging, pass a logger implementation to the "Logger" option in the client configuration.
+//
+// You can use one of the bundled loggers, or a custom "estransport.Logger" interface implementation.
+
 package main
 
 import (
@@ -17,16 +23,9 @@ func main() {
 
 	var es *elasticsearch.Client
 
-	// This collection of examples demonstrates how to configure the default logger of the client.
-	//
-	// To enable logging, pass a logger implementation to the "Logger" option in the client configuration.
-	//
-	// You can use one of the bundled loggers, or a custom "estransport.Logger" interface implementation.
-	//
 	// ==============================================================================================
 	//
-	// The default logger formatter writes basic information about
-	// the request and response as plain text to the output.
+	// "TextLogger" writes basic information about the request and response as plain text to the output.
 	//
 	es, _ = elasticsearch.NewClient(elasticsearch.Config{
 		Logger: &estransport.TextLogger{Output: os.Stdout},
@@ -35,8 +34,7 @@ func main() {
 
 	// ==============================================================================================
 	//
-	// The "LogFormatColor" formatter is optimized for displaying
-	// information in the terminal during development.
+	// "ColorLogger" is optimized for displaying information in the terminal during development.
 	//
 	es, _ = elasticsearch.NewClient(elasticsearch.Config{
 		Logger: &estransport.ColorLogger{Output: os.Stdout},
@@ -48,14 +46,18 @@ func main() {
 	// To log the request and response bodies, use the respective configuration options.
 	//
 	es, _ = elasticsearch.NewClient(elasticsearch.Config{
-		Logger: &estransport.ColorLogger{Output: os.Stdout, EnableRequestBody: true, EnableResponseBody: true},
+		Logger: &estransport.ColorLogger{
+			Output:             os.Stdout,
+			EnableRequestBody:  true,
+			EnableResponseBody: true,
+		},
 	})
 	run(es, "Request/Response Body")
 
 	// ==============================================================================================
 	//
-	// The "LogFormatCurl" formatter writes the information formatted as executable curl commands,
-	// pretty-printing the response (when enabled), useful eg. for sharing or debugging.
+	// "CurlLogger" writes the information formatted as runnable curl commands,
+	// pretty-printing the response body (when enabled), useful eg. for sharing.
 	//
 	es, _ = elasticsearch.NewClient(elasticsearch.Config{
 		Logger: &estransport.CurlLogger{Output: os.Stdout, EnableRequestBody: true, EnableResponseBody: true},
@@ -64,7 +66,7 @@ func main() {
 
 	// ==============================================================================================
 	//
-	// The "LogFormatJSON" formatter writes the information as JSON, suitable for log ingestion.
+	// "JSONLogger" writes the information as JSON and is suitable for production logging.
 	//
 	es, _ = elasticsearch.NewClient(elasticsearch.Config{
 		Logger: &estransport.JSONLogger{Output: os.Stdout},
@@ -88,7 +90,7 @@ func run(es *elasticsearch.Client, name string) {
 		es.Index.WithFilterPath("result", "_id"),
 	)
 
-	es.Search(es.Search.WithQuery("[FAIL"))
+	es.Search(es.Search.WithQuery("{FAIL"))
 
 	res, err := es.Search(
 		es.Search.WithIndex("test"),

@@ -20,7 +20,9 @@ type Logger interface {
 	// LogRoundTrip should not modify the request or response, except for consuming and closing the body.
 	// Implementations have to check for nil values in request and response.
 	LogRoundTrip(*http.Request, *http.Response, error, time.Time, time.Duration) error
+	// RequestBodyEnabled makes the client pass a copy of request body to the logger.
 	RequestBodyEnabled() bool
+	// ResponseBodyEnabled makes the client pass a copy of response body to the logger.
 	ResponseBodyEnabled() bool
 }
 

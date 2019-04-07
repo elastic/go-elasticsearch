@@ -2,7 +2,7 @@
 
 ## Default Loggers
 
-The [`default.go`](default.go) example demonstrates how to use the bundled loggers.
+The [`default.go`](default.go) example demonstrates how to use the loggers included with the package.
 
 * `estransport.TextLogger`
 * `estransport.ColorLogger`
@@ -13,15 +13,17 @@ The [`default.go`](default.go) example demonstrates how to use the bundled logge
 go run default.go
 
 # ...
-# ███ Color ██████████████████████████████████████████████████████████████████████
-# DELETE http://localhost:9200/test/_doc/1 404 Not Found 9ms
-# HEAD http://localhost:9200/test/_doc/1 404 Not Found 9ms
+# DELETE http://localhost:9200/test/_doc/1 404 Not Found 8ms
+#   HEAD http://localhost:9200/test/_doc/1 404 Not Found 16ms
+#   POST http://localhost:9200/test/_doc?filter_path=result,_id&pretty=true&refresh=true 201 Created 45ms
+#    GET http://localhost:9200/_search?q=[FAIL 400 Bad Request 21ms
+#    GET http://localhost:9200/test/_search?filter_path=took,hits.hits&pretty=true&size=1 200 OK 11ms
 # ...
 ```
 
 ## Custom Logger
 
-The [`custom.go`](custom.go) example demonstrates how to implement a custom logger, using the `rs/zerolog` package.
+The [`custom.go`](custom.go) example demonstrates how to implement a custom logger and use it with the client for structured logging.
 
 ```bash
 go run custom.go

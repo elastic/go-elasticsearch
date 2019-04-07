@@ -1,5 +1,8 @@
 // +build ignore
 
+// This examples demonstrates how to implement the "estransport.Logger" interface with a custom type,
+// and use it with the client for structured logging via the "rs/zerolog" package.
+
 package main
 
 import (
@@ -15,10 +18,14 @@ import (
 	"github.com/elastic/go-elasticsearch"
 )
 
+// CustomLogger implements the estransport.Logger interface.
+//
 type CustomLogger struct {
 	zerolog.Logger
 }
 
+// LogRoundTrip prints the information about request and response.
+//
 func (l *CustomLogger) LogRoundTrip(
 	req *http.Request,
 	res *http.Response,
@@ -68,31 +75,46 @@ func (l *CustomLogger) LogRoundTrip(
 	return nil
 }
 
-func (l *CustomLogger) RequestBodyEnabled() bool  { return true }
+// RequestBodyEnabled makes the client pass request body to logger
+func (l *CustomLogger) RequestBodyEnabled() bool { return true }
+
+// RequestBodyEnabled makes the client pass response body to logger
 func (l *CustomLogger) ResponseBodyEnabled() bool { return true }
 
 func main() {
+
+	// ==============================================================================================
+	//
+	// Set up a logger
+	//
 	log := zerolog.New(zerolog.ConsoleWriter{Out: os.Stderr}).
 		Level(zerolog.InfoLevel).
 		With().
 		Timestamp().
 		Logger()
 
+	// ==============================================================================================
+	//
+	// Pass the logger to the client
+	//
 	es, _ := elasticsearch.NewClient(elasticsearch.Config{
 		Logger: &CustomLogger{log},
 	})
 
-	es.Delete("test", "1")
-	es.Exists("test", "1")
-	es.Index("test", strings.NewReader(`{"title" : "logging"}`), es.Index.WithRefresh("true"))
+	// ----------------------------------------------------------------------------------------------
+	{
+		es.Delete("test", "1")
+		es.Exists("test", "1")
+		es.Index("test", strings.NewReader(`{"title" : "logging"}`), es.Index.WithRefresh("true"))
 
-	es.Search(
-		es.Search.WithQuery("{FAIL"),
-	)
+		es.Search(
+			es.Search.WithQuery("{FAIL"),
+		)
 
-	es.Search(
-		es.Search.WithIndex("test"),
-		es.Search.WithBody(strings.NewReader(`{"query" : {"match" : { "title" : "logging" } } }`)),
-		es.Search.WithSize(1),
-	)
+		es.Search(
+			es.Search.WithIndex("test"),
+			es.Search.WithBody(strings.NewReader(`{"query" : {"match" : { "title" : "logging" } } }`)),
+			es.Search.WithSize(1),
+		)
+	}
 }
