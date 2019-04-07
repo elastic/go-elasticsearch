@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0: DO NOT EDIT
+// Code generated from specification version 8.0.0: DO NOT EDIT
 
 package esapi
 
@@ -34,8 +34,8 @@ type IndicesRollover func(alias string, o ...func(*IndicesRolloverRequest)) (*Re
 type IndicesRolloverRequest struct {
 	Body io.Reader
 
-	Alias               string
 	NewIndex            string
+	Alias               string
 	DryRun              *bool
 	IncludeTypeName     *bool
 	MasterTimeout       time.Duration

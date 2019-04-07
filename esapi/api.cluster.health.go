@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0: DO NOT EDIT
+// Code generated from specification version 8.0.0: DO NOT EDIT
 
 package esapi
 
@@ -32,6 +32,7 @@ type ClusterHealth func(o ...func(*ClusterHealthRequest)) (*Response, error)
 type ClusterHealthRequest struct {
 	Index []string
 
+	ExpandWildcards             string
 	Level                       string
 	Local                       *bool
 	MasterTimeout               time.Duration
@@ -73,6 +74,10 @@ func (r ClusterHealthRequest) Do(ctx context.Context, transport Transport) (*Res
 	}
 
 	params = make(map[string]string)
+
+	if r.ExpandWildcards != "" {
+		params["expand_wildcards"] = r.ExpandWildcards
+	}
 
 	if r.Level != "" {
 		params["level"] = r.Level
@@ -171,6 +176,14 @@ func (f ClusterHealth) WithContext(v context.Context) func(*ClusterHealthRequest
 func (f ClusterHealth) WithIndex(v ...string) func(*ClusterHealthRequest) {
 	return func(r *ClusterHealthRequest) {
 		r.Index = v
+	}
+}
+
+// WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
+//
+func (f ClusterHealth) WithExpandWildcards(v string) func(*ClusterHealthRequest) {
+	return func(r *ClusterHealthRequest) {
+		r.ExpandWildcards = v
 	}
 }
 

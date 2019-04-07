@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0: DO NOT EDIT
+// Code generated from specification version 8.0.0: DO NOT EDIT
 
 package esapi
 
@@ -29,8 +29,8 @@ type SnapshotDelete func(repository string, snapshot string, o ...func(*Snapshot
 // SnapshotDeleteRequest configures the Snapshot Delete API request.
 //
 type SnapshotDeleteRequest struct {
-	Snapshot      string
 	Repository    string
+	Snapshot      string
 	MasterTimeout time.Duration
 
 	Pretty     bool

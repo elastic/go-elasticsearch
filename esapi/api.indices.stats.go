@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0: DO NOT EDIT
+// Code generated from specification version 8.0.0: DO NOT EDIT
 
 package esapi
 
@@ -33,10 +33,13 @@ type IndicesStatsRequest struct {
 
 	Metric                  []string
 	CompletionFields        []string
+	ExpandWildcards         string
 	FielddataFields         []string
 	Fields                  []string
+	ForbidClosedIndices     *bool
 	Groups                  []string
 	IncludeSegmentFileSizes *bool
+	IncludeUnloadedSegments *bool
 	Level                   string
 	Types                   []string
 
@@ -77,6 +80,10 @@ func (r IndicesStatsRequest) Do(ctx context.Context, transport Transport) (*Resp
 		params["completion_fields"] = strings.Join(r.CompletionFields, ",")
 	}
 
+	if r.ExpandWildcards != "" {
+		params["expand_wildcards"] = r.ExpandWildcards
+	}
+
 	if len(r.FielddataFields) > 0 {
 		params["fielddata_fields"] = strings.Join(r.FielddataFields, ",")
 	}
@@ -85,12 +92,20 @@ func (r IndicesStatsRequest) Do(ctx context.Context, transport Transport) (*Resp
 		params["fields"] = strings.Join(r.Fields, ",")
 	}
 
+	if r.ForbidClosedIndices != nil {
+		params["forbid_closed_indices"] = strconv.FormatBool(*r.ForbidClosedIndices)
+	}
+
 	if len(r.Groups) > 0 {
 		params["groups"] = strings.Join(r.Groups, ",")
 	}
 
 	if r.IncludeSegmentFileSizes != nil {
 		params["include_segment_file_sizes"] = strconv.FormatBool(*r.IncludeSegmentFileSizes)
+	}
+
+	if r.IncludeUnloadedSegments != nil {
+		params["include_unloaded_segments"] = strconv.FormatBool(*r.IncludeUnloadedSegments)
 	}
 
 	if r.Level != "" {
@@ -177,6 +192,14 @@ func (f IndicesStats) WithCompletionFields(v ...string) func(*IndicesStatsReques
 	}
 }
 
+// WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
+//
+func (f IndicesStats) WithExpandWildcards(v string) func(*IndicesStatsRequest) {
+	return func(r *IndicesStatsRequest) {
+		r.ExpandWildcards = v
+	}
+}
+
 // WithFielddataFields - a list of fields for `fielddata` index metric (supports wildcards).
 //
 func (f IndicesStats) WithFielddataFields(v ...string) func(*IndicesStatsRequest) {
@@ -193,6 +216,14 @@ func (f IndicesStats) WithFields(v ...string) func(*IndicesStatsRequest) {
 	}
 }
 
+// WithForbidClosedIndices - if set to false stats will also collected from closed indices if explicitly specified or if expand_wildcards expands to closed indices.
+//
+func (f IndicesStats) WithForbidClosedIndices(v bool) func(*IndicesStatsRequest) {
+	return func(r *IndicesStatsRequest) {
+		r.ForbidClosedIndices = &v
+	}
+}
+
 // WithGroups - a list of search groups for `search` index metric.
 //
 func (f IndicesStats) WithGroups(v ...string) func(*IndicesStatsRequest) {
@@ -206,6 +237,14 @@ func (f IndicesStats) WithGroups(v ...string) func(*IndicesStatsRequest) {
 func (f IndicesStats) WithIncludeSegmentFileSizes(v bool) func(*IndicesStatsRequest) {
 	return func(r *IndicesStatsRequest) {
 		r.IncludeSegmentFileSizes = &v
+	}
+}
+
+// WithIncludeUnloadedSegments - if set to true segment stats will include stats for segments that are not currently loaded into memory.
+//
+func (f IndicesStats) WithIncludeUnloadedSegments(v bool) func(*IndicesStatsRequest) {
+	return func(r *IndicesStatsRequest) {
+		r.IncludeUnloadedSegments = &v
 	}
 }
 
