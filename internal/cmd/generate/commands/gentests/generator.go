@@ -184,8 +184,8 @@ import (
 	encyaml "gopkg.in/yaml.v2"
 	"testing"
 
-	"github.com/elastic/go-elasticsearch"
-	"github.com/elastic/go-elasticsearch/esapi"
+	"github.com/elastic/go-elasticsearch/v6"
+	"github.com/elastic/go-elasticsearch/v6/esapi"
 )
 
 var (

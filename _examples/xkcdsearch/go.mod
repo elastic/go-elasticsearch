@@ -1,11 +1,12 @@
-module github.com/elastic/go-elasticsearch/_examples/xkcdsearch
+module github.com/elastic/go-elasticsearch/v6/_examples/xkcdsearch
 
 go 1.11
 
-replace github.com/elastic/go-elasticsearch => ../..
+replace github.com/elastic/go-elasticsearch/v6 => ../..
 
 require (
-	github.com/elastic/go-elasticsearch 6.x
+	github.com/elastic/go-elasticsearch/v6 6.x
+
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
 	github.com/rs/zerolog v1.11.0
 	github.com/spf13/cobra v0.0.3

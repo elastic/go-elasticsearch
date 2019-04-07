@@ -1,11 +1,11 @@
-package esapi // import "github.com/elastic/go-elasticsearch/esapi"
+package esapi // import "github.com/elastic/go-elasticsearch/v6/esapi"
 
 import (
 	"net/http"
 	"strconv"
 	"time"
 
-	"github.com/elastic/go-elasticsearch/internal/version"
+	"github.com/elastic/go-elasticsearch/v6/internal/version"
 )
 
 // Version returns the package version as a string.

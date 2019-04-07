@@ -24,7 +24,7 @@ func init() {
 	if pkgNamesEnv := os.Getenv("PACKAGE_NAMES"); pkgNamesEnv != "" {
 		pkgNames = strings.Split(pkgNamesEnv, ",")
 	} else {
-		pkgNames = []string{"github.com/elastic/go-elasticsearch/esapi"}
+		pkgNames = []string{"github.com/elastic/go-elasticsearch/v6/esapi"}
 	}
 
 	if _, ok := os.LookupEnv(""); ok {
