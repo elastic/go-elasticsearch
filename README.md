@@ -272,8 +272,8 @@ func main() {
   log.Println(strings.Repeat("=", 37))
 }
 
-// Client: 7.0.0-SNAPSHOT
-// Server: 7.0.0-SNAPSHOT
+// Client: 8.0.0-SNAPSHOT
+// Server: 8.0.0-SNAPSHOT
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // [201 Created] updated; version=1
 // [201 Created] updated; version=1
