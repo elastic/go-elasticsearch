@@ -13,7 +13,6 @@ The client major versions correspond to the compatible Elasticsearch major versi
 
 When using Go modules, include the version in the import path, and specify either an explicit version or a branch:
 
-    require github.com/elastic/go-elasticsearch/v7 v7.0.0-rc1
     require github.com/elastic/go-elasticsearch/v7 7.x
 
 It's possible to use multiple versions of the client in a single project:
