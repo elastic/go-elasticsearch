@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/elastic/go-elasticsearch/estransport"
+	"github.com/elastic/go-elasticsearch/v7/estransport"
 )
 
 var defaultResponse = http.Response{

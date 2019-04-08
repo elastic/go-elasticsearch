@@ -1,9 +1,11 @@
-module github.com/elastic/go-elasticsearch/_examples/instrumentation/opencensus
+module github.com/elastic/go-elasticsearch/v7/_examples/instrumentation/opencensus
 
 go 1.11
 
+replace github.com/elastic/go-elasticsearch/v7 => ../..
+
 require (
-	github.com/elastic/go-elasticsearch master
+	github.com/elastic/go-elasticsearch/v7 v7.0.0-20190407092644-3fb2a278216b
 
 	github.com/fatih/color v1.7.0
 	github.com/mattn/go-colorable v0.1.0 // indirect
