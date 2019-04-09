@@ -14,7 +14,7 @@
 //
 //   $ curl https://...cloudfunctions.net/clusterstatus
 //
-package clusterstatus // import "github.com/elastic/go-elasticsearch/v5/_examples/clusterstatus"
+package clusterstatus
 
 import (
 	"encoding/json"

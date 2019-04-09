@@ -1,4 +1,4 @@
-package estransport // import "github.com/elastic/go-elasticsearch/v5/estransport"
+package estransport
 
 import (
 	"bytes"

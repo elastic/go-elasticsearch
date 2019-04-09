@@ -1,4 +1,4 @@
-package esapi // import "github.com/elastic/go-elasticsearch/v5/esapi"
+package esapi
 
 import (
 	"net/http"
