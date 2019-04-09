@@ -1,4 +1,4 @@
-package xkcdsearch // import "github.com/elastic/go-elasticsearch/v8/_examples/xkcdsearch"
+package xkcdsearch
 
 import (
 	"strings"
