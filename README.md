@@ -7,13 +7,30 @@ The official Go client for [Elasticsearch](https://www.elastic.co/products/elast
 [![Go Report Card](https://goreportcard.com/badge/github.com/elastic/go-elasticsearch)](https://goreportcard.com/report/github.com/elastic/go-elasticsearch)
 [![codecov.io](https://codecov.io/github/elastic/go-elasticsearch/coverage.svg?branch=master)](https://codecov.io/gh/elastic/go-elasticsearch?branch=master)
 
-## Caveats
+## Compatibility
 
-We encourage you to try the package in your projects, just keep these caveats in mind, please:
+The client major versions correspond to the compatible Elasticsearch major versions: to connect to Elasticsearch `7.x`, use a [`7.x`](https://github.com/elastic/go-elasticsearch/tree/7.x) version of the client, to connect to Elasticsearch `6.x`, use a [`6.x`](https://github.com/elastic/go-elasticsearch/tree/6.x) version of the client.
 
-* **This is a work in progress.** Not all the planned features, standard in official Elasticsearch clients — retries on failures, auto-discovering nodes, ... — are implemented yet.
-* **There are no guarantees on API stability.** Though the public APIs have been designed very carefully, they can change in a backwards-incompatible way depending on further exploration and user feedback.
-* **The client targets Elasticsearch 7.x.** Support for 6.x and 5.x APIs will be added later.
+When using Go modules, include the version in the import path, and specify either an explicit version or a branch:
+
+    require github.com/elastic/go-elasticsearch/v7 7.x
+
+It's possible to use multiple versions of the client in a single project:
+
+    // go.mod
+    github.com/elastic/go-elasticsearch/v6 6.x
+    github.com/elastic/go-elasticsearch/v7 7.x
+
+    // main.go
+    import (
+      elasticsearch6 "github.com/elastic/go-elasticsearch/v6"
+      elasticsearch7 "github.com/elastic/go-elasticsearch/v7"
+    )
+    // ...
+    es6, _ := elasticsearch6.NewDefaultClient()
+    es7, _ := elasticsearch7.NewDefaultClient()
+
+The `master` branch of the client is compatible with the current `master` branch of Elasticsearch.
 
 <!-- ----------------------------------------------------------------------------------------------- -->
 
@@ -21,11 +38,11 @@ We encourage you to try the package in your projects, just keep these caveats in
 
 Install the package with `go get`:
 
-    go get -u github.com/elastic/go-elasticsearch
+    go get -u github.com/elastic/go-elasticsearch@master
 
 Or, add the package to your `go.mod` file:
 
-    require github.com/elastic/go-elasticsearch master
+    require github.com/elastic/go-elasticsearch/v8 master
 
 Or, clone the repository:
 
@@ -39,7 +56,7 @@ mkdir my-elasticsearch-app && cd my-elasticsearch-app
 cat > go.mod <<-END
   module my-elasticsearch-app
 
-  require github.com/elastic/go-elasticsearch master
+  require github.com/elastic/go-elasticsearch/v8 master
 END
 
 cat > main.go <<-END
@@ -48,7 +65,7 @@ cat > main.go <<-END
   import (
     "log"
 
-    "github.com/elastic/go-elasticsearch"
+    "github.com/elastic/go-elasticsearch/v8"
   )
 
   func main() {
@@ -129,7 +146,7 @@ See the [`_examples/configuration.go`](_examples/configuration.go) and
 [`_examples/customization.go`](_examples/customization.go) files for
 more examples of configuration and customization of the client.
 
-The following example demonstrates a more complex usage. It fetches the Elasticsearch version from the cluster, indexes a couple of documents concurrently, and prints the search results, using a light wrapper around the response body.
+The following example demonstrates a more complex usage. It fetches the Elasticsearch version from the cluster, indexes a couple of documents concurrently, and prints the search results, using a lightweight wrapper around the response body.
 
 ```golang
 // $ go run _examples/main.go
@@ -144,8 +161,8 @@ import (
   "strings"
   "sync"
 
-  "github.com/elastic/go-elasticsearch"
-  "github.com/elastic/go-elasticsearch/esapi"
+  "github.com/elastic/go-elasticsearch/v8"
+  "github.com/elastic/go-elasticsearch/v8/esapi"
 )
 
 func main() {
@@ -171,12 +188,18 @@ func main() {
   if err != nil {
     log.Fatalf("Error getting response: %s", err)
   }
+  // Check response status
+  if res.IsError() {
+    log.Fatalf("Error: %s", res.String())
+  }
   // Deserialize the response into a map.
   if err := json.NewDecoder(res.Body).Decode(&r); err != nil {
     log.Fatalf("Error parsing the response body: %s", err)
   }
-  // Print version number.
-  log.Printf("~~~~~~~> Elasticsearch %s", r["version"].(map[string]interface{})["number"])
+  // Print client and server version numbers.
+  log.Printf("Client: %s", elasticsearch.Version)
+  log.Printf("Server: %s", r["version"].(map[string]interface{})["number"])
+  log.Println(strings.Repeat("~", 37))
 
   // 2. Index documents concurrently
   //
@@ -266,11 +289,13 @@ func main() {
   log.Println(strings.Repeat("=", 37))
 }
 
-// ~~~~~~~> Elasticsearch 7.0.0-SNAPSHOT
-// [200 OK] updated; version=1
-// [200 OK] updated; version=1
+// Client: 8.0.0-SNAPSHOT
+// Server: 8.0.0-SNAPSHOT
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// [201 Created] updated; version=1
+// [201 Created] updated; version=1
 // -------------------------------------
-// [200 OK] 2 hits; took: 7ms
+// [200 OK] 2 hits; took: 5ms
 //  * ID=1, map[title:Test One]
 //  * ID=2, map[title:Test Two]
 // =====================================

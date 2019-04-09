@@ -13,8 +13,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/elastic/go-elasticsearch/internal/cmd/generate/commands"
-	"github.com/elastic/go-elasticsearch/internal/cmd/generate/utils"
+	"github.com/elastic/go-elasticsearch/v8/internal/cmd/generate/commands"
+	"github.com/elastic/go-elasticsearch/v8/internal/cmd/generate/utils"
 )
 
 var (
@@ -286,6 +286,20 @@ func (cmd *Command) processAPIConstructor(endpoints []*Endpoint) (err error) {
 	var b bytes.Buffer
 
 	var namespaces = []string{"Cat", "Cluster", "Indices", "Ingest", "Nodes", "Remote", "Snapshot", "Tasks"}
+
+	b.WriteString("// Code generated")
+	if EsVersion != "" || GitCommit != "" || GitTag != "" {
+		b.WriteString(fmt.Sprintf(" from specification version %s", EsVersion))
+		if GitCommit != "" {
+			b.WriteString(fmt.Sprintf(" (%s", GitCommit))
+			if GitTag != "" {
+				b.WriteString(fmt.Sprintf("|%s", GitTag))
+			}
+			b.WriteString(")")
+		}
+	}
+	b.WriteString(": DO NOT EDIT\n")
+	b.WriteString("\n")
 
 	b.WriteString(`package esapi
 

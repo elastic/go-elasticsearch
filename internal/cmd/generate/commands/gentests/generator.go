@@ -13,6 +13,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"time"
 
 	"golang.org/x/tools/imports"
 )
@@ -183,8 +184,8 @@ import (
 	encyaml "gopkg.in/yaml.v2"
 	"testing"
 
-	"github.com/elastic/go-elasticsearch"
-	"github.com/elastic/go-elasticsearch/esapi"
+	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/elastic/go-elasticsearch/v8/esapi"
 )
 
 var (
@@ -600,8 +601,13 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 					case "[]string":
 						value = `[]string{` + fmt.Sprintf("%q", v) + `}`
 					case "time.Duration":
-						re := regexp.MustCompile("^(\\d+).*")
-						value = re.ReplaceAllString(fmt.Sprintf("%s", v), "$1")
+						// re := regexp.MustCompile("^(\\d+).*")
+						// value = re.ReplaceAllString(fmt.Sprintf("%s", v), "$1")
+						dur, err := time.ParseDuration(v.(string))
+						if err != nil {
+							panic(fmt.Sprintf("Cannot parse duration [%s]: %s", v, err))
+						}
+						value = fmt.Sprintf("%d", dur.Nanoseconds())
 					default:
 						value = fmt.Sprintf("%q", v)
 					}

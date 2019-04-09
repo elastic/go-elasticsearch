@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"strings"
 	"testing"
 )
 
@@ -91,7 +92,7 @@ func TestTransportPerform(t *testing.T) {
 		}
 	})
 
-	t.Run("Sets HTTP Basic Auth", func(t *testing.T) {
+	t.Run("Sets HTTP Basic Auth from URL", func(t *testing.T) {
 		u, _ := url.Parse("https://foo:bar@example.com")
 		tp := New(Config{URLs: []*url.URL{u}})
 
@@ -105,6 +106,35 @@ func TestTransportPerform(t *testing.T) {
 
 		if username != "foo" || password != "bar" {
 			t.Errorf("Unexpected values for username and password: %s:%s", username, password)
+		}
+	})
+
+	t.Run("Sets HTTP Basic Auth from configuration", func(t *testing.T) {
+		u, _ := url.Parse("http://example.com")
+		tp := New(Config{URLs: []*url.URL{u}, Username: "foo", Password: "bar"})
+
+		req, _ := http.NewRequest("GET", "/", nil)
+		tp.setBasicAuth(u, req)
+
+		username, password, ok := req.BasicAuth()
+		if !ok {
+			t.Errorf("Expected the request to have Basic Auth set")
+		}
+
+		if username != "foo" || password != "bar" {
+			t.Errorf("Unexpected values for username and password: %s:%s", username, password)
+		}
+	})
+
+	t.Run("Sets UserAgent", func(t *testing.T) {
+		u, _ := url.Parse("http://example.com")
+		tp := New(Config{URLs: []*url.URL{u}})
+
+		req, _ := http.NewRequest("GET", "/abc", nil)
+		tp.setUserAgent(req)
+
+		if !strings.HasPrefix(req.UserAgent(), "go-elasticsearch") {
+			t.Errorf("Unexpected user agent: %s", req.UserAgent())
 		}
 	})
 
@@ -230,4 +260,10 @@ func TestURLs(t *testing.T) {
 			t.Errorf("Unexpected URL, want=localhost:9200, got=%s", urls[0].Host)
 		}
 	})
+}
+
+func TestVersion(t *testing.T) {
+	if Version == "" {
+		t.Error("Version is empty")
+	}
 }

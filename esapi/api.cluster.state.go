@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 8.0.0: DO NOT EDIT
 
 package esapi
 
@@ -98,7 +98,7 @@ func (r ClusterStateRequest) Do(ctx context.Context, transport Transport) (*Resp
 	}
 
 	if r.MasterTimeout != 0 {
-		params["master_timeout"] = time.Duration(r.MasterTimeout * time.Millisecond).String()
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
 	}
 
 	if r.WaitForMetadataVersion != nil {
@@ -106,7 +106,7 @@ func (r ClusterStateRequest) Do(ctx context.Context, transport Transport) (*Resp
 	}
 
 	if r.WaitForTimeout != 0 {
-		params["wait_for_timeout"] = time.Duration(r.WaitForTimeout * time.Millisecond).String()
+		params["wait_for_timeout"] = formatDuration(r.WaitForTimeout)
 	}
 
 	if r.Pretty {

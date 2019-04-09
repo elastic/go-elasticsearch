@@ -10,7 +10,7 @@ import (
 	"regexp"
 	"testing"
 
-	"github.com/elastic/go-elasticsearch/estransport"
+	"github.com/elastic/go-elasticsearch/v8/estransport"
 )
 
 func TestClientConfiguration(t *testing.T) {
@@ -108,7 +108,7 @@ func TestClientInterface(t *testing.T) {
 			t.Errorf("Unexpected call to transport by client")
 		}
 
-		c.Perform(&http.Request{URL: &url.URL{}}) // errcheck ignore
+		c.Perform(&http.Request{URL: &url.URL{}, Header: make(http.Header)}) // errcheck ignore
 
 		if called != true { // megacheck ignore
 			t.Errorf("Expected client to call transport")
@@ -189,5 +189,11 @@ func TestAddrsToURLs(t *testing.T) {
 				}
 			}
 		})
+	}
+}
+
+func TestVersion(t *testing.T) {
+	if Version == "" {
+		t.Error("Version is empty")
 	}
 }

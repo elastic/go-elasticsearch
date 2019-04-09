@@ -11,12 +11,12 @@ echo -e "\033[1m>>>>> Downloading Elasticsearch repository @ $ES_BUILD_HASH...\0
 echo "curl -sSL -o elasticsearch-$ES_BUILD_HASH.zip https://github.com/elastic/elasticsearch/archive/$ES_BUILD_HASH.zip" && \
 (rm -rf tmp/elasticsearch) || true && (mkdir -p tmp || true) && \
 curl --retry 3 -sSL -o elasticsearch-$ES_BUILD_HASH.zip https://github.com/elastic/elasticsearch/archive/$ES_BUILD_HASH.zip && \
-unzip -q -o elasticsearch-$ES_BUILD_HASH.zip '*.json' '*.yml' -d tmp && \
+unzip -q -o elasticsearch-$ES_BUILD_HASH.zip '*.properties' '*.json' '*.y*ml' -d tmp && \
 mv tmp/elasticsearch-$ES_BUILD_HASH* tmp/elasticsearch && \
 echo -e "\033[1m>>>>> Generating the API registry\033[0m" && \
 (cd internal/cmd/generate && ELASTICSEARCH_BUILD_HASH=$ES_BUILD_HASH PACKAGE_PATH=$PWD/../../../esapi go generate -v ./... 2> /dev/null) && \
 echo -e "\033[1m>>>>> Generating the test files\033[0m" && \
-(cd internal/cmd/generate && ELASTICSEARCH_BUILD_HASH=$ES_BUILD_HASH go run main.go tests --input "$PWD/../../../tmp/elasticsearch/rest-api-spec/src/main/resources/rest-api-spec/test/**/*.yml" --output="$PWD/../../../esapi/test") && \
+(cd internal/cmd/generate && ELASTICSEARCH_BUILD_HASH=$ES_BUILD_HASH go run main.go tests --input "$PWD/../../../tmp/elasticsearch/rest-api-spec/src/main/resources/rest-api-spec/test/**/*.y*ml" --output="$PWD/../../../esapi/test") && \
 echo -e "\033[1m>>>>> Running the tests\033[0m" && \
 (cd esapi/test && gotestsum --format=short-verbose --junitfile="$WORKSPACE/TEST-integration-api-junit.xml" -- -tags='integration' -timeout=1h ./...) ; exitstatus=$? ; \
 echo -e "\n\033[1m<<<<< Finished API integration tests for $ES_BUILD_HASH\033[0m" ; \

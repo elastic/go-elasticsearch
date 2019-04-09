@@ -7,8 +7,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/elastic/go-elasticsearch"
-	"github.com/elastic/go-elasticsearch/_examples/fasthttp"
+	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/elastic/go-elasticsearch/v8/_examples/fasthttp"
 )
 
 var (

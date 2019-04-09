@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 8.0.0: DO NOT EDIT
 
 package esapi
 
@@ -37,6 +37,7 @@ type ReindexRequest struct {
 
 	Refresh             *bool
 	RequestsPerSecond   *int
+	Scroll              time.Duration
 	Slices              *int
 	Timeout             time.Duration
 	WaitForActiveShards string
@@ -74,12 +75,16 @@ func (r ReindexRequest) Do(ctx context.Context, transport Transport) (*Response,
 		params["requests_per_second"] = strconv.FormatInt(int64(*r.RequestsPerSecond), 10)
 	}
 
+	if r.Scroll != 0 {
+		params["scroll"] = formatDuration(r.Scroll)
+	}
+
 	if r.Slices != nil {
 		params["slices"] = strconv.FormatInt(int64(*r.Slices), 10)
 	}
 
 	if r.Timeout != 0 {
-		params["timeout"] = time.Duration(r.Timeout * time.Millisecond).String()
+		params["timeout"] = formatDuration(r.Timeout)
 	}
 
 	if r.WaitForActiveShards != "" {
@@ -159,6 +164,14 @@ func (f Reindex) WithRefresh(v bool) func(*ReindexRequest) {
 func (f Reindex) WithRequestsPerSecond(v int) func(*ReindexRequest) {
 	return func(r *ReindexRequest) {
 		r.RequestsPerSecond = &v
+	}
+}
+
+// WithScroll - control how long to keep the search context alive.
+//
+func (f Reindex) WithScroll(v time.Duration) func(*ReindexRequest) {
+	return func(r *ReindexRequest) {
+		r.Scroll = v
 	}
 }
 

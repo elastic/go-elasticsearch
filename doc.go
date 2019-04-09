@@ -15,6 +15,8 @@ To configure the client, pass a Config object to the NewClient function:
 		    "http://localhost:9200",
 		    "http://localhost:9201",
 		  },
+		  Username: "foo",
+		  Password: "bar",
 		  Transport: &http.Transport{
 		    MaxIdleConnsPerHost:   10,
 		    ResponseHeaderTimeout: time.Second,

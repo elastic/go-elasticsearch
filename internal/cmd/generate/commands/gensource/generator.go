@@ -9,7 +9,7 @@ import (
 
 	"golang.org/x/tools/imports"
 
-	"github.com/elastic/go-elasticsearch/internal/cmd/generate/utils"
+	"github.com/elastic/go-elasticsearch/v8/internal/cmd/generate/utils"
 )
 
 // Generator represents the "gensource" generator.
@@ -73,15 +73,8 @@ func (g *Generator) w(s string) {
 
 func (g *Generator) genHeader() {
 	g.w("// Code generated")
-	if EsVersion != "" || GitCommit != "" || GitTag != "" {
+	if EsVersion != "" {
 		g.w(fmt.Sprintf(" from specification version %s", EsVersion))
-		if GitCommit != "" {
-			g.w(fmt.Sprintf(" (%s", GitCommit))
-			if GitTag != "" {
-				g.w(fmt.Sprintf("|%s", GitTag))
-			}
-			g.w(")")
-		}
 	}
 	g.w(": DO NOT EDIT\n")
 	g.w("\n")
@@ -625,7 +618,7 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(ctx context.Context,
 				fieldValue = `strings.Join(r.` + fieldName + `, ",")`
 			case "time.Duration":
 				fieldCondition = `r.` + fieldName + ` != 0`
-				fieldValue = `time.Duration(r.` + fieldName + ` * time.Millisecond).String()`
+				fieldValue = `formatDuration(r.` + fieldName + `)`
 			default: // interface{}
 				fieldCondition = `r.` + fieldName + ` != nil`
 				// TODO: Use type switching instead?
