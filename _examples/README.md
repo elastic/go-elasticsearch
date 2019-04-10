@@ -25,6 +25,11 @@ The [**`fasthttp`**](./fasthttp) directory contains a demonstration of replacing
 
 The [**`instrumentation`**](./instrumentation) directory contains recipes for instrumenting the client with the OpenCensus and Elastic APM packages.
 
+## Extension
+
+The [**`extension`**](./extension) directory contains an example of extending the client APIs, for example
+to support custom endpoints installed by a plugin.
+
 ## Google Cloud Functions
 
 The [**`cloudfunction`**](./cloudfunction) directory contains a simple web service for checking Elasticsearch cluster status.
