@@ -1,4 +1,4 @@
-// Code generated from specification version 6.7.0: DO NOT EDIT
+// Code generated from specification version 6.7.2: DO NOT EDIT
 
 package esapi
 
@@ -33,8 +33,8 @@ type SnapshotRestore func(repository string, snapshot string, o ...func(*Snapsho
 type SnapshotRestoreRequest struct {
 	Body io.Reader
 
-	Repository        string
 	Snapshot          string
+	Repository        string
 	MasterTimeout     time.Duration
 	WaitForCompletion *bool
 
