@@ -1,11 +1,10 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 8.0.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
 	"io"
-	"strconv"
 	"strings"
 	"time"
 )
@@ -35,7 +34,6 @@ type IndicesSplitRequest struct {
 	Body  io.Reader
 
 	Target              string
-	CopySettings        *bool
 	MasterTimeout       time.Duration
 	Timeout             time.Duration
 	WaitForActiveShards string
@@ -69,16 +67,12 @@ func (r IndicesSplitRequest) Do(ctx context.Context, transport Transport) (*Resp
 
 	params = make(map[string]string)
 
-	if r.CopySettings != nil {
-		params["copy_settings"] = strconv.FormatBool(*r.CopySettings)
-	}
-
 	if r.MasterTimeout != 0 {
-		params["master_timeout"] = time.Duration(r.MasterTimeout * time.Millisecond).String()
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
 	}
 
 	if r.Timeout != 0 {
-		params["timeout"] = time.Duration(r.Timeout * time.Millisecond).String()
+		params["timeout"] = formatDuration(r.Timeout)
 	}
 
 	if r.WaitForActiveShards != "" {
@@ -146,14 +140,6 @@ func (f IndicesSplit) WithContext(v context.Context) func(*IndicesSplitRequest) 
 func (f IndicesSplit) WithBody(v io.Reader) func(*IndicesSplitRequest) {
 	return func(r *IndicesSplitRequest) {
 		r.Body = v
-	}
-}
-
-// WithCopySettings - whether or not to copy settings from the source index (defaults to false).
-//
-func (f IndicesSplit) WithCopySettings(v bool) func(*IndicesSplitRequest) {
-	return func(r *IndicesSplitRequest) {
-		r.CopySettings = &v
 	}
 }
 

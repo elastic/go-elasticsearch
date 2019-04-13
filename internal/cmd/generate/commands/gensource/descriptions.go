@@ -529,6 +529,11 @@ scripts_painless_execute:
   description: |-
     Allows an arbitrary script to be executed and a result to be returned
 
+scripts_painless_context:
+  # https://www.elastic.co/guide/en/elasticsearch/painless/master/painless-execute-api.html
+  description: |-
+    Allows to query context information.
+
 scroll:
   # http://www.elastic.co/guide/en/elasticsearch/reference/master/search-request-scroll.html
   description: |-

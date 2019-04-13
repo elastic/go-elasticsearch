@@ -87,7 +87,7 @@ matrix:
       go: stable
       env: GO111MODULE=on TEST_SUITE=integration-client
       before_script:
-        - docker pull docker.elastic.co/elasticsearch/elasticsearch-oss:7.0.0-SNAPSHOT
+        - docker pull docker.elastic.co/elasticsearch/elasticsearch-oss:8.0.0-SNAPSHOT
         - docker network inspect elasticsearch > /dev/null || docker network create elasticsearch;
         - |
             docker run \
@@ -104,7 +104,7 @@ matrix:
               --ulimit memlock=-1:-1 \
               --detach \
               --rm \
-              docker.elastic.co/elasticsearch/elasticsearch-oss:7.0.0-SNAPSHOT
+              docker.elastic.co/elasticsearch/elasticsearch-oss:8.0.0-SNAPSHOT
         - docker run --network elasticsearch --rm appropriate/curl --max-time 120 --retry 120 --retry-delay 1 --retry-connrefused --show-error --silent http://es-integration-client:9200
       script:
         - gotestsum --format=short-verbose --junitfile=/tmp/integration-report.xml -- -race -cover -coverprofile=/tmp/integration-client.cov -tags='integration' -timeout=1h github.com/elastic/go-elasticsearch
@@ -117,7 +117,7 @@ matrix:
       go: stable
       env: GO111MODULE=on TEST_SUITE=integration-api
       before_script:
-        - docker pull docker.elastic.co/elasticsearch/elasticsearch-oss:7.0.0-SNAPSHOT
+        - docker pull docker.elastic.co/elasticsearch/elasticsearch-oss:8.0.0-SNAPSHOT
         - docker network inspect elasticsearch > /dev/null || docker network create elasticsearch;
         - |
             docker run \
@@ -137,7 +137,7 @@ matrix:
               --ulimit memlock=-1:-1 \
               --detach \
               --rm \
-              docker.elastic.co/elasticsearch/elasticsearch-oss:7.0.0-SNAPSHOT
+              docker.elastic.co/elasticsearch/elasticsearch-oss:8.0.0-SNAPSHOT
         - docker run --network elasticsearch --rm appropriate/curl --max-time 120 --retry 120 --retry-delay 1 --retry-connrefused --show-error --silent http://es-integration-api:9200
       script:
         - curl -s http://localhost:9200 | jq -r '.version.build_hash' > .elasticsearch_build_hash && cat .elasticsearch_build_hash
@@ -146,7 +146,7 @@ matrix:
         - echo https://github.com/elastic/elasticsearch/archive/$(cat .elasticsearch_build_hash).zip
         - |
             curl -sSL --retry 3 -o elasticsearch-$(cat .elasticsearch_build_hash).zip https://github.com/elastic/elasticsearch/archive/$(cat .elasticsearch_build_hash).zip && \
-            unzip -q -o elasticsearch-$(cat .elasticsearch_build_hash).zip '*.json' '*.yml' -d /tmp && \
+            unzip -q -o elasticsearch-$(cat .elasticsearch_build_hash).zip '*.properties' '*.json' '*.yml' -d /tmp && \
             mv /tmp/elasticsearch-$(cat .elasticsearch_build_hash)* /tmp/elasticsearch
         - echo -en 'travis_fold:end:script.dl_es_src'
         # ------ Generate API registry ------------------------------------------------------------

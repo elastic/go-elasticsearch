@@ -7,10 +7,11 @@ import (
 	"log"
 	"net"
 	"net/http"
+	"os"
 	"time"
 
-	"github.com/elastic/go-elasticsearch"
-	"github.com/elastic/go-elasticsearch/estransport"
+	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/elastic/go-elasticsearch/v8/estransport"
 )
 
 func init() {
@@ -37,16 +38,35 @@ func ExampleNewClient() {
 		Addresses: []string{
 			"http://localhost:9200",
 		},
+		Username: "foo",
+		Password: "bar",
 		Transport: &http.Transport{
 			MaxIdleConnsPerHost:   10,
 			ResponseHeaderTimeout: time.Second,
 			DialContext:           (&net.Dialer{Timeout: time.Second}).DialContext,
 			TLSClientConfig: &tls.Config{
-				MinVersion:         tls.VersionTLS11,
+				MinVersion: tls.VersionTLS11,
 			},
 		},
 	}
 
 	es, _ := elasticsearch.NewClient(cfg)
 	log.Print(es.Transport.(*estransport.Client).URLs())
+}
+
+func ExampleNewClient_logger() {
+	// import "github.com/elastic/go-elasticsearch/v8/estransport"
+
+	// Use one of the bundled loggers:
+	//
+	// * estransport.TextLogger
+	// * estransport.ColorLogger
+	// * estransport.CurlLogger
+	// * estransport.JSONLogger
+
+	cfg := elasticsearch.Config{
+		Logger: &estransport.ColorLogger{Output: os.Stdout},
+	}
+
+	elasticsearch.NewClient(cfg)
 }

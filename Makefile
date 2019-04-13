@@ -20,7 +20,7 @@ test-integ:  ## Run integration tests
 ifdef race
 	$(eval testintegargs += "-race")
 endif
-	$(eval testintegargs += "-cover" "-coverprofile=tmp/integration-client.cov" "-tags='integration'" "-timeout=1h" "github.com/elastic/go-elasticsearch" "github.com/elastic/go-elasticsearch/estransport")
+	$(eval testintegargs += "-cover" "-coverprofile=tmp/integration-client.cov" "-tags='integration'" "-timeout=1h" "github.com/elastic/go-elasticsearch/v8" "github.com/elastic/go-elasticsearch/v8/estransport")
 	@mkdir -p tmp
 	@if which gotestsum > /dev/null 2>&1 ; then \
 		echo "gotestsum --format=short-verbose --junitfile=tmp/integration-report.xml --" $(testintegargs); \
@@ -35,7 +35,7 @@ test-api:  ## Run generated API integration tests
 ifdef race
 	$(eval testapiargs += "-race")
 endif
-	$(eval testapiargs += "-cover" "-coverpkg=github.com/elastic/go-elasticsearch/esapi" "-coverprofile=$(PWD)/tmp/integration-api.cov" "-tags='integration'" "-timeout=1h" "./...")
+	$(eval testapiargs += "-cover" "-coverpkg=github.com/elastic/go-elasticsearch/v8/esapi" "-coverprofile=$(PWD)/tmp/integration-api.cov" "-tags='integration'" "-timeout=1h" "./...")
 	@mkdir -p tmp
 	@if which gotestsum > /dev/null 2>&1 ; then \
 		echo "cd esapi/test && gotestsum --format=short-verbose --junitfile=$(PWD)/tmp/integration-api-report.xml --" $(testapiargs); \
@@ -128,12 +128,10 @@ godoc: ## Display documentation for the package
 	GOROOT=/tmp/tmpgoroot/ GOPATH=/tmp/tmpgopath/ godoc -http=localhost:6060 -play
 
 cluster: ## Launch an Elasticsearch cluster with Docker
-	$(eval version ?= "elasticsearch-oss:7.0.0-SNAPSHOT")
+	$(eval version ?= "elasticsearch-oss:8.0.0-SNAPSHOT")
 ifeq ($(origin nodes), undefined)
 	$(eval nodes = 1)
 endif
-	@echo "\033[2m→ Updating the Docker image...\033[0m"
-	@docker pull docker.elastic.co/elasticsearch/$(version);
 	@echo "\033[2m→ Launching" $(nodes) "node(s) of" $(version) "...\033[0m"
 ifeq ($(shell test $(nodes) && test $(nodes) -gt 1; echo $$?),0)
 	$(eval detached ?= "true")
@@ -150,7 +148,6 @@ endif
 				--env "cluster.name=go-elasticsearch" \
 				--env "cluster.initial_master_nodes=es1" \
 				--env "cluster.routing.allocation.disk.threshold_enabled=false" \
-				--env "discovery.zen.ping.unicast.hosts=es1" \
 				--env "bootstrap.memory_lock=true" \
 				--env "node.attr.testattr=test" \
 				--env "path.repo=/tmp" \
@@ -172,7 +169,13 @@ endif
 		fi \
 	}
 
+cluster-update: ## Update the Docker image
+	$(eval version ?= "elasticsearch-oss:8.0.0-SNAPSHOT")
+	@echo "\033[2m→ Updating the Docker image...\033[0m"
+	@docker pull docker.elastic.co/elasticsearch/$(version);
+
 cluster-clean: ## Remove unused Docker volumes and networks
+	@echo "\033[2m→ Cleaning up Docker assets...\033[0m"
 	docker volume prune --force
 	docker network prune --force
 
@@ -195,7 +198,7 @@ endif
 
 gen-tests:  ## Generate the API tests from the YAML specification
 	@echo "\033[2m→ Generating API tests from specification...\033[0m"
-	$(eval input  ?= tmp/elasticsearch/rest-api-spec/src/main/resources/rest-api-spec/test/**/*.yml)
+	$(eval input  ?= tmp/elasticsearch/rest-api-spec/src/main/resources/rest-api-spec/test/**/*.y*ml)
 	$(eval output ?= esapi/test)
 ifdef debug
 	$(eval args += --debug)
@@ -210,4 +213,4 @@ help:  ## Display help
 #------------- <https://suva.sh/posts/well-documented-makefiles> --------------
 
 .DEFAULT_GOAL := help
-.PHONY: help apidiff cluster cluster-clean coverage docker examples gen-api gen-tests godoc lint test test-api test-bench test-integ test-unit
+.PHONY: help apidiff cluster cluster-clean cluster-update coverage docker examples gen-api gen-tests godoc lint test test-api test-bench test-integ test-unit

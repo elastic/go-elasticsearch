@@ -15,8 +15,8 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/elastic/go-elasticsearch"
-	"github.com/elastic/go-elasticsearch/esapi"
+	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/elastic/go-elasticsearch/v8/esapi"
 )
 
 func main() {
@@ -42,12 +42,18 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error getting response: %s", err)
 	}
+	// Check response status
+	if res.IsError() {
+		log.Fatalf("Error: %s", res.String())
+	}
 	// Deserialize the response into a map.
 	if err := json.NewDecoder(res.Body).Decode(&r); err != nil {
 		log.Fatalf("Error parsing the response body: %s", err)
 	}
-	// Print version number.
-	log.Printf("~~~~~~~> Elasticsearch %s", r["version"].(map[string]interface{})["number"])
+	// Print client and server version numbers.
+	log.Printf("Client: %s", elasticsearch.Version)
+	log.Printf("Server: %s", r["version"].(map[string]interface{})["number"])
+	log.Println(strings.Repeat("~", 37))
 
 	// 2. Index documents concurrently
 	//

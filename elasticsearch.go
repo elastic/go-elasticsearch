@@ -1,4 +1,4 @@
-package elasticsearch // import "github.com/elastic/go-elasticsearch"
+package elasticsearch
 
 import (
 	"errors"
@@ -8,19 +8,28 @@ import (
 	"os"
 	"strings"
 
-	"github.com/elastic/go-elasticsearch/esapi"
-	"github.com/elastic/go-elasticsearch/estransport"
+	"github.com/elastic/go-elasticsearch/v8/esapi"
+	"github.com/elastic/go-elasticsearch/v8/estransport"
+	"github.com/elastic/go-elasticsearch/v8/internal/version"
 )
 
 const (
 	defaultURL = "http://localhost:9200"
 )
 
+// Version returns the package version as a string.
+//
+const Version = version.Client
+
 // Config represents the client configuration.
 //
 type Config struct {
-	Addresses []string          // A list of Elasticsearch nodes to use.
-	Transport http.RoundTripper // The HTTP transport object.
+	Addresses []string // A list of Elasticsearch nodes to use.
+	Username  string   // Username for HTTP Basic Authentication.
+	Password  string   // Password for HTTP Basic Authentication.
+
+	Transport http.RoundTripper  // The HTTP transport object.
+	Logger    estransport.Logger // The logger object.
 }
 
 // Client represents the Elasticsearch client.
@@ -70,9 +79,16 @@ func NewClient(cfg Config) (*Client, error) {
 		urls = append(urls, u)
 	}
 
-	tran := estransport.New(estransport.Config{URLs: urls, Transport: cfg.Transport})
+	tp := estransport.New(estransport.Config{
+		URLs:     urls,
+		Username: cfg.Username,
+		Password: cfg.Password,
 
-	return &Client{Transport: tran, API: esapi.New(tran)}, nil
+		Transport: cfg.Transport,
+		Logger:    cfg.Logger,
+	})
+
+	return &Client{Transport: tp, API: esapi.New(tp)}, nil
 }
 
 // Perform delegates to Transport to execute a request and return a response.

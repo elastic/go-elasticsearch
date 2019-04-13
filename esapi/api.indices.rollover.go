@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 8.0.0: DO NOT EDIT
 
 package esapi
 
@@ -34,8 +34,8 @@ type IndicesRollover func(alias string, o ...func(*IndicesRolloverRequest)) (*Re
 type IndicesRolloverRequest struct {
 	Body io.Reader
 
-	Alias               string
 	NewIndex            string
+	Alias               string
 	DryRun              *bool
 	IncludeTypeName     *bool
 	MasterTimeout       time.Duration
@@ -82,11 +82,11 @@ func (r IndicesRolloverRequest) Do(ctx context.Context, transport Transport) (*R
 	}
 
 	if r.MasterTimeout != 0 {
-		params["master_timeout"] = time.Duration(r.MasterTimeout * time.Millisecond).String()
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
 	}
 
 	if r.Timeout != 0 {
-		params["timeout"] = time.Duration(r.Timeout * time.Millisecond).String()
+		params["timeout"] = formatDuration(r.Timeout)
 	}
 
 	if r.WaitForActiveShards != "" {

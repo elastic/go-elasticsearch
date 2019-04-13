@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 8.0.0: DO NOT EDIT
 
 package esapi
 
@@ -32,11 +32,12 @@ type IndicesClose func(index []string, o ...func(*IndicesCloseRequest)) (*Respon
 type IndicesCloseRequest struct {
 	Index []string
 
-	AllowNoIndices    *bool
-	ExpandWildcards   string
-	IgnoreUnavailable *bool
-	MasterTimeout     time.Duration
-	Timeout           time.Duration
+	AllowNoIndices      *bool
+	ExpandWildcards     string
+	IgnoreUnavailable   *bool
+	MasterTimeout       time.Duration
+	Timeout             time.Duration
+	WaitForActiveShards string
 
 	Pretty     bool
 	Human      bool
@@ -78,11 +79,15 @@ func (r IndicesCloseRequest) Do(ctx context.Context, transport Transport) (*Resp
 	}
 
 	if r.MasterTimeout != 0 {
-		params["master_timeout"] = time.Duration(r.MasterTimeout * time.Millisecond).String()
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
 	}
 
 	if r.Timeout != 0 {
-		params["timeout"] = time.Duration(r.Timeout * time.Millisecond).String()
+		params["timeout"] = formatDuration(r.Timeout)
+	}
+
+	if r.WaitForActiveShards != "" {
+		params["wait_for_active_shards"] = r.WaitForActiveShards
 	}
 
 	if r.Pretty {
@@ -174,6 +179,14 @@ func (f IndicesClose) WithMasterTimeout(v time.Duration) func(*IndicesCloseReque
 func (f IndicesClose) WithTimeout(v time.Duration) func(*IndicesCloseRequest) {
 	return func(r *IndicesCloseRequest) {
 		r.Timeout = v
+	}
+}
+
+// WithWaitForActiveShards - sets the number of active shards to wait for before the operation returns..
+//
+func (f IndicesClose) WithWaitForActiveShards(v string) func(*IndicesCloseRequest) {
+	return func(r *IndicesCloseRequest) {
+		r.WaitForActiveShards = v
 	}
 }
 

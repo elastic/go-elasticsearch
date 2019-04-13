@@ -1,5 +1,7 @@
-module github.com/elastic/go-elasticsearch/_examples/clusterstatus
+module github.com/elastic/go-elasticsearch/v8/_examples/clusterstatus
 
-replace github.com/elastic/go-elasticsearch => ../..
+go 1.11
 
-require github.com/elastic/go-elasticsearch master
+replace github.com/elastic/go-elasticsearch/v8 => ../..
+
+require github.com/elastic/go-elasticsearch/v8 master

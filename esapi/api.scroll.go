@@ -1,4 +1,4 @@
-// Code generated from specification version 7.0.0 (5e798c1): DO NOT EDIT
+// Code generated from specification version 8.0.0: DO NOT EDIT
 
 package esapi
 
@@ -73,7 +73,7 @@ func (r ScrollRequest) Do(ctx context.Context, transport Transport) (*Response, 
 	}
 
 	if r.Scroll != 0 {
-		params["scroll"] = time.Duration(r.Scroll * time.Millisecond).String()
+		params["scroll"] = formatDuration(r.Scroll)
 	}
 
 	if r.ScrollID != "" {
