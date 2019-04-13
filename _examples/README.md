@@ -10,11 +10,20 @@ The [**`logging`**](./logging) directory contains examples for using the default
 
 ## Bulk
 
-The [**`bulk`**](./bulk) directory contains a comprehensive example for using the _Bulk_ API.
+The [**`bulk`**](./bulk) directory contains a comprehensive example of using the _Bulk_ API.
+
+## Encoding
+
+The [**`encoding`**](./encoding) directory contains examples of using third-party packages
+for a more efficient encoding and decoding of the request and response bodies.
 
 ## Fast HTTP
 
 The [**`fasthttp`**](./fasthttp) directory contains a demonstration of replacing the default client transport with an HTTP client from the [`github.com/valyala/fasthttp`](https://godoc.org/github.com/valyala/fasthttp) package.
+
+## Instrumentation
+
+The [**`instrumentation`**](./instrumentation) directory contains recipes for instrumenting the client with the OpenCensus and Elastic APM packages.
 
 ## Google Cloud Functions
 
@@ -23,12 +32,3 @@ The [**`cloudfunction`**](./cloudfunction) directory contains a simple web servi
 ## XKCD Search
 
 The [**`xkcdsearch`**](./xkcdsearch) directory contains a command-line utility for indexing and searching an archive of [xkcd.com](https://xkcd.com) artworks.
-
-## Encoding
-
-The [**`encoding`**](./encoding) directory contains examples of using third-party packages
-for a more efficient encoding and decoding request/response JSON payloads.
-
-## Instrumentation
-
-The [**`instrumentation`**](./instrumentation) directory contains recipes for instrumenting the client.
