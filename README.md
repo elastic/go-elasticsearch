@@ -37,17 +37,13 @@ The `master` branch of the client is compatible with the current `master` branch
 
 ## Installation
 
-Install the package with `go get`:
+Add the package to your `go.mod` file:
 
-    go get -u github.com/elastic/go-elasticsearch@master
-
-Or, add the package to your `go.mod` file:
-
-    require github.com/elastic/go-elasticsearch/v7 master
+    require github.com/elastic/go-elasticsearch/v7 7.x
 
 Or, clone the repository:
 
-    git clone https://github.com/elastic/go-elasticsearch.git && cd go-elasticsearch
+    git clone --branch 7.x https://github.com/elastic/go-elasticsearch.git $GOPATH/src/github.com/elastic/go-elasticsearch
 
 A complete example:
 
@@ -57,7 +53,7 @@ mkdir my-elasticsearch-app && cd my-elasticsearch-app
 cat > go.mod <<-END
   module my-elasticsearch-app
 
-  require github.com/elastic/go-elasticsearch/v7 master
+  require github.com/elastic/go-elasticsearch/v7 7.x
 END
 
 cat > main.go <<-END
@@ -71,6 +67,7 @@ cat > main.go <<-END
 
   func main() {
     es, _ := elasticsearch.NewDefaultClient()
+    log.Println(elasticsearch.Version)
     log.Println(es.Info())
   }
 END
