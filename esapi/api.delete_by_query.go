@@ -33,7 +33,8 @@ type DeleteByQuery func(index []string, body io.Reader, o ...func(*DeleteByQuery
 type DeleteByQueryRequest struct {
 	Index        []string
 	DocumentType []string
-	Body         io.Reader
+
+	Body io.Reader
 
 	AllowNoIndices      *bool
 	Analyzer            string

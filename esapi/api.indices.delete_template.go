@@ -29,7 +29,8 @@ type IndicesDeleteTemplate func(name string, o ...func(*IndicesDeleteTemplateReq
 // IndicesDeleteTemplateRequest configures the Indices  Delete Template API request.
 //
 type IndicesDeleteTemplateRequest struct {
-	Name          string
+	Name string
+
 	MasterTimeout time.Duration
 	Timeout       time.Duration
 

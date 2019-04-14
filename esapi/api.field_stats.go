@@ -30,7 +30,8 @@ type FieldStats func(o ...func(*FieldStatsRequest)) (*Response, error)
 //
 type FieldStatsRequest struct {
 	Index []string
-	Body  io.Reader
+
+	Body io.Reader
 
 	AllowNoIndices    *bool
 	ExpandWildcards   string
@@ -143,19 +144,19 @@ func (f FieldStats) WithContext(v context.Context) func(*FieldStatsRequest) {
 	}
 }
 
-// WithIndex - a list of index names; use _all to perform the operation on all indices.
-//
-func (f FieldStats) WithIndex(v ...string) func(*FieldStatsRequest) {
-	return func(r *FieldStatsRequest) {
-		r.Index = v
-	}
-}
-
 // WithBody - Field json objects containing the name and optionally a range to filter out indices result, that have results outside the defined bounds.
 //
 func (f FieldStats) WithBody(v io.Reader) func(*FieldStatsRequest) {
 	return func(r *FieldStatsRequest) {
 		r.Body = v
+	}
+}
+
+// WithIndex - a list of index names; use _all to perform the operation on all indices.
+//
+func (f FieldStats) WithIndex(v ...string) func(*FieldStatsRequest) {
+	return func(r *FieldStatsRequest) {
+		r.Index = v
 	}
 }
 

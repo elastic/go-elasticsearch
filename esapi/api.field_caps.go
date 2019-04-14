@@ -31,7 +31,8 @@ type FieldCaps func(o ...func(*FieldCapsRequest)) (*Response, error)
 //
 type FieldCapsRequest struct {
 	Index []string
-	Body  io.Reader
+
+	Body io.Reader
 
 	AllowNoIndices    *bool
 	ExpandWildcards   string
@@ -139,19 +140,19 @@ func (f FieldCaps) WithContext(v context.Context) func(*FieldCapsRequest) {
 	}
 }
 
-// WithIndex - a list of index names; use _all to perform the operation on all indices.
-//
-func (f FieldCaps) WithIndex(v ...string) func(*FieldCapsRequest) {
-	return func(r *FieldCapsRequest) {
-		r.Index = v
-	}
-}
-
 // WithBody - Field json objects containing an array of field names.
 //
 func (f FieldCaps) WithBody(v io.Reader) func(*FieldCapsRequest) {
 	return func(r *FieldCapsRequest) {
 		r.Body = v
+	}
+}
+
+// WithIndex - a list of index names; use _all to perform the operation on all indices.
+//
+func (f FieldCaps) WithIndex(v ...string) func(*FieldCapsRequest) {
+	return func(r *FieldCapsRequest) {
+		r.Index = v
 	}
 }
 

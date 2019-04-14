@@ -29,7 +29,8 @@ type SnapshotVerifyRepository func(repository string, o ...func(*SnapshotVerifyR
 // SnapshotVerifyRepositoryRequest configures the Snapshot  Verify Repository API request.
 //
 type SnapshotVerifyRepositoryRequest struct {
-	Repository    string
+	Repository string
+
 	MasterTimeout time.Duration
 	Timeout       time.Duration
 

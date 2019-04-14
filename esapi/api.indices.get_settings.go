@@ -31,7 +31,8 @@ type IndicesGetSettings func(o ...func(*IndicesGetSettingsRequest)) (*Response, 
 type IndicesGetSettingsRequest struct {
 	Index []string
 
-	Name              []string
+	Name []string
+
 	AllowNoIndices    *bool
 	ExpandWildcards   string
 	FlatSettings      *bool

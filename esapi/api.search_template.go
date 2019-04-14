@@ -33,7 +33,8 @@ type SearchTemplate func(o ...func(*SearchTemplateRequest)) (*Response, error)
 type SearchTemplateRequest struct {
 	Index        []string
 	DocumentType []string
-	Body         io.Reader
+
+	Body io.Reader
 
 	AllowNoIndices    *bool
 	ExpandWildcards   string
@@ -177,6 +178,14 @@ func (f SearchTemplate) WithContext(v context.Context) func(*SearchTemplateReque
 	}
 }
 
+// WithBody - The search definition template and its params.
+//
+func (f SearchTemplate) WithBody(v io.Reader) func(*SearchTemplateRequest) {
+	return func(r *SearchTemplateRequest) {
+		r.Body = v
+	}
+}
+
 // WithIndex - a list of index names to search; use _all to perform the operation on all indices.
 //
 func (f SearchTemplate) WithIndex(v ...string) func(*SearchTemplateRequest) {
@@ -190,14 +199,6 @@ func (f SearchTemplate) WithIndex(v ...string) func(*SearchTemplateRequest) {
 func (f SearchTemplate) WithDocumentType(v ...string) func(*SearchTemplateRequest) {
 	return func(r *SearchTemplateRequest) {
 		r.DocumentType = v
-	}
-}
-
-// WithBody - The search definition template and its params.
-//
-func (f SearchTemplate) WithBody(v io.Reader) func(*SearchTemplateRequest) {
-	return func(r *SearchTemplateRequest) {
-		r.Body = v
 	}
 }
 

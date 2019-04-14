@@ -30,8 +30,9 @@ type SnapshotGet func(repository string, snapshot []string, o ...func(*SnapshotG
 // SnapshotGetRequest configures the Snapshot Get API request.
 //
 type SnapshotGetRequest struct {
-	Repository        string
-	Snapshot          []string
+	Repository string
+	Snapshot   []string
+
 	IgnoreUnavailable *bool
 	MasterTimeout     time.Duration
 	Verbose           *bool

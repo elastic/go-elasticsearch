@@ -31,7 +31,8 @@ type Mpercolate func(body io.Reader, o ...func(*MpercolateRequest)) (*Response, 
 type MpercolateRequest struct {
 	Index        string
 	DocumentType string
-	Body         io.Reader
+
+	Body io.Reader
 
 	AllowNoIndices    *bool
 	ExpandWildcards   string

@@ -30,8 +30,9 @@ type NodesInfo func(o ...func(*NodesInfoRequest)) (*Response, error)
 // NodesInfoRequest configures the Nodes Info API request.
 //
 type NodesInfoRequest struct {
-	NodeID       []string
-	Metric       []string
+	Metric []string
+	NodeID []string
+
 	FlatSettings *bool
 	Timeout      time.Duration
 

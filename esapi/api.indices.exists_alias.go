@@ -31,7 +31,8 @@ type IndicesExistsAlias func(o ...func(*IndicesExistsAliasRequest)) (*Response, 
 type IndicesExistsAliasRequest struct {
 	Index []string
 
-	Name              []string
+	Name []string
+
 	AllowNoIndices    *bool
 	ExpandWildcards   string
 	IgnoreUnavailable *bool

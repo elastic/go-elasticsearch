@@ -32,7 +32,8 @@ type PercolateRequest struct {
 	Index        string
 	DocumentType string
 	DocumentID   string
-	Body         io.Reader
+
+	Body io.Reader
 
 	AllowNoIndices      *bool
 	ExpandWildcards     string
@@ -184,6 +185,14 @@ func (f Percolate) WithContext(v context.Context) func(*PercolateRequest) {
 	}
 }
 
+// WithBody - The percolator request definition using the percolate DSL.
+//
+func (f Percolate) WithBody(v io.Reader) func(*PercolateRequest) {
+	return func(r *PercolateRequest) {
+		r.Body = v
+	}
+}
+
 // WithDocumentID - substitute the document in the request body with a document that is known by the specified ID. on top of the ID, the index and type parameter will be used to retrieve the document from within the cluster..
 //
 func (f Percolate) WithDocumentID(v string) func(*PercolateRequest) {
@@ -197,14 +206,6 @@ func (f Percolate) WithDocumentID(v string) func(*PercolateRequest) {
 func (f Percolate) WithDocumentType(v string) func(*PercolateRequest) {
 	return func(r *PercolateRequest) {
 		r.DocumentType = v
-	}
-}
-
-// WithBody - The percolator request definition using the percolate DSL.
-//
-func (f Percolate) WithBody(v io.Reader) func(*PercolateRequest) {
-	return func(r *PercolateRequest) {
-		r.Body = v
 	}
 }
 

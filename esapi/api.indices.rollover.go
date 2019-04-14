@@ -34,8 +34,9 @@ type IndicesRollover func(alias string, o ...func(*IndicesRolloverRequest)) (*Re
 type IndicesRolloverRequest struct {
 	Body io.Reader
 
-	Alias               string
-	NewIndex            string
+	Alias    string
+	NewIndex string
+
 	DryRun              *bool
 	MasterTimeout       time.Duration
 	Timeout             time.Duration
@@ -144,19 +145,19 @@ func (f IndicesRollover) WithContext(v context.Context) func(*IndicesRolloverReq
 	}
 }
 
-// WithNewIndex - the name of the rollover index.
-//
-func (f IndicesRollover) WithNewIndex(v string) func(*IndicesRolloverRequest) {
-	return func(r *IndicesRolloverRequest) {
-		r.NewIndex = v
-	}
-}
-
 // WithBody - The conditions that needs to be met for executing rollover.
 //
 func (f IndicesRollover) WithBody(v io.Reader) func(*IndicesRolloverRequest) {
 	return func(r *IndicesRolloverRequest) {
 		r.Body = v
+	}
+}
+
+// WithNewIndex - the name of the rollover index.
+//
+func (f IndicesRollover) WithNewIndex(v string) func(*IndicesRolloverRequest) {
+	return func(r *IndicesRolloverRequest) {
+		r.NewIndex = v
 	}
 }
 

@@ -29,8 +29,9 @@ type SnapshotDelete func(repository string, snapshot string, o ...func(*Snapshot
 // SnapshotDeleteRequest configures the Snapshot Delete API request.
 //
 type SnapshotDeleteRequest struct {
-	Snapshot      string
-	Repository    string
+	Repository string
+	Snapshot   string
+
 	MasterTimeout time.Duration
 
 	Pretty     bool

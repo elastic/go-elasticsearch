@@ -29,7 +29,8 @@ type PutTemplate func(id string, body io.Reader, o ...func(*PutTemplateRequest))
 //
 type PutTemplateRequest struct {
 	DocumentID string
-	Body       io.Reader
+
+	Body io.Reader
 
 	Pretty     bool
 	Human      bool

@@ -30,7 +30,8 @@ type NodesHotThreads func(o ...func(*NodesHotThreadsRequest)) (*Response, error)
 // NodesHotThreadsRequest configures the Nodes  Hot Threads API request.
 //
 type NodesHotThreadsRequest struct {
-	NodeID            []string
+	NodeID []string
+
 	IgnoreIdleThreads *bool
 	Interval          time.Duration
 	Snapshots         *int

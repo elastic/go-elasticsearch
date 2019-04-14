@@ -32,7 +32,8 @@ type Msearch func(body io.Reader, o ...func(*MsearchRequest)) (*Response, error)
 type MsearchRequest struct {
 	Index        []string
 	DocumentType []string
-	Body         io.Reader
+
+	Body io.Reader
 
 	MaxConcurrentSearches *int
 	PreFilterShardSize    *int

@@ -31,7 +31,8 @@ type IndicesAnalyze func(o ...func(*IndicesAnalyzeRequest)) (*Response, error)
 //
 type IndicesAnalyzeRequest struct {
 	Index string
-	Body  io.Reader
+
+	Body io.Reader
 
 	Analyzer    string
 	Attributes  []string
@@ -173,19 +174,19 @@ func (f IndicesAnalyze) WithContext(v context.Context) func(*IndicesAnalyzeReque
 	}
 }
 
-// WithIndex - the name of the index to scope the operation.
-//
-func (f IndicesAnalyze) WithIndex(v string) func(*IndicesAnalyzeRequest) {
-	return func(r *IndicesAnalyzeRequest) {
-		r.Index = v
-	}
-}
-
 // WithBody - The text on which the analysis should be performed.
 //
 func (f IndicesAnalyze) WithBody(v io.Reader) func(*IndicesAnalyzeRequest) {
 	return func(r *IndicesAnalyzeRequest) {
 		r.Body = v
+	}
+}
+
+// WithIndex - the name of the index to scope the operation.
+//
+func (f IndicesAnalyze) WithIndex(v string) func(*IndicesAnalyzeRequest) {
+	return func(r *IndicesAnalyzeRequest) {
+		r.Index = v
 	}
 }
 

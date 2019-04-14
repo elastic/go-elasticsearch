@@ -30,7 +30,8 @@ type CatSnapshots func(repository []string, o ...func(*CatSnapshotsRequest)) (*R
 // CatSnapshotsRequest configures the Cat Snapshots API request.
 //
 type CatSnapshotsRequest struct {
-	Repository        []string
+	Repository []string
+
 	Format            string
 	H                 []string
 	Help              *bool

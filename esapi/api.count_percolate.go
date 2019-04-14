@@ -32,7 +32,8 @@ type CountPercolateRequest struct {
 	Index        string
 	DocumentType string
 	DocumentID   string
-	Body         io.Reader
+
+	Body io.Reader
 
 	AllowNoIndices    *bool
 	ExpandWildcards   string
@@ -171,6 +172,14 @@ func (f CountPercolate) WithContext(v context.Context) func(*CountPercolateReque
 	}
 }
 
+// WithBody - The count percolator request definition using the percolate DSL.
+//
+func (f CountPercolate) WithBody(v io.Reader) func(*CountPercolateRequest) {
+	return func(r *CountPercolateRequest) {
+		r.Body = v
+	}
+}
+
 // WithDocumentID - substitute the document in the request body with a document that is known by the specified ID. on top of the ID, the index and type parameter will be used to retrieve the document from within the cluster..
 //
 func (f CountPercolate) WithDocumentID(v string) func(*CountPercolateRequest) {
@@ -184,14 +193,6 @@ func (f CountPercolate) WithDocumentID(v string) func(*CountPercolateRequest) {
 func (f CountPercolate) WithDocumentType(v string) func(*CountPercolateRequest) {
 	return func(r *CountPercolateRequest) {
 		r.DocumentType = v
-	}
-}
-
-// WithBody - The count percolator request definition using the percolate DSL.
-//
-func (f CountPercolate) WithBody(v io.Reader) func(*CountPercolateRequest) {
-	return func(r *CountPercolateRequest) {
-		r.Body = v
 	}
 }
 

@@ -28,7 +28,8 @@ type TasksCancel func(o ...func(*TasksCancelRequest)) (*Response, error)
 // TasksCancelRequest configures the Tasks Cancel API request.
 //
 type TasksCancelRequest struct {
-	TaskID       string
+	TaskID string
+
 	Actions      []string
 	Nodes        []string
 	ParentNode   string

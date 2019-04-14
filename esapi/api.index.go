@@ -34,7 +34,8 @@ type IndexRequest struct {
 	Index        string
 	DocumentType string
 	DocumentID   string
-	Body         io.Reader
+
+	Body io.Reader
 
 	OpType              string
 	Parent              string
@@ -43,7 +44,7 @@ type IndexRequest struct {
 	Routing             string
 	Timeout             time.Duration
 	Timestamp           time.Duration
-	Ttl                 time.Duration
+	TTL                 time.Duration
 	Version             *int
 	VersionType         string
 	WaitForActiveShards string
@@ -115,8 +116,8 @@ func (r IndexRequest) Do(ctx context.Context, transport Transport) (*Response, e
 		params["timestamp"] = formatDuration(r.Timestamp)
 	}
 
-	if r.Ttl != 0 {
-		params["ttl"] = formatDuration(r.Ttl)
+	if r.TTL != 0 {
+		params["ttl"] = formatDuration(r.TTL)
 	}
 
 	if r.Version != nil {
@@ -259,11 +260,11 @@ func (f Index) WithTimestamp(v time.Duration) func(*IndexRequest) {
 	}
 }
 
-// WithTtl - expiration time for the document.
+// WithTTL - expiration time for the document.
 //
-func (f Index) WithTtl(v time.Duration) func(*IndexRequest) {
+func (f Index) WithTTL(v time.Duration) func(*IndexRequest) {
 	return func(r *IndexRequest) {
-		r.Ttl = v
+		r.TTL = v
 	}
 }
 

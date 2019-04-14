@@ -30,7 +30,8 @@ type Suggest func(body io.Reader, o ...func(*SuggestRequest)) (*Response, error)
 //
 type SuggestRequest struct {
 	Index []string
-	Body  io.Reader
+
+	Body io.Reader
 
 	AllowNoIndices    *bool
 	ExpandWildcards   string

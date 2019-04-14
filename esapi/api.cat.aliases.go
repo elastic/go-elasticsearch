@@ -30,7 +30,8 @@ type CatAliases func(o ...func(*CatAliasesRequest)) (*Response, error)
 // CatAliasesRequest configures the Cat Aliases API request.
 //
 type CatAliasesRequest struct {
-	Name          []string
+	Name []string
+
 	Format        string
 	H             []string
 	Help          *bool

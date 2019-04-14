@@ -33,7 +33,8 @@ type IndicesPutTemplate func(body io.Reader, name string, o ...func(*IndicesPutT
 type IndicesPutTemplateRequest struct {
 	Body io.Reader
 
-	Name          string
+	Name string
+
 	Create        *bool
 	FlatSettings  *bool
 	MasterTimeout time.Duration

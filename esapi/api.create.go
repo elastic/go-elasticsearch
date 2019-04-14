@@ -36,7 +36,8 @@ type CreateRequest struct {
 	Index        string
 	DocumentType string
 	DocumentID   string
-	Body         io.Reader
+
+	Body io.Reader
 
 	Parent              string
 	Pipeline            string
@@ -44,7 +45,7 @@ type CreateRequest struct {
 	Routing             string
 	Timeout             time.Duration
 	Timestamp           time.Duration
-	Ttl                 time.Duration
+	TTL                 time.Duration
 	Version             *int
 	VersionType         string
 	WaitForActiveShards string
@@ -108,8 +109,8 @@ func (r CreateRequest) Do(ctx context.Context, transport Transport) (*Response, 
 		params["timestamp"] = formatDuration(r.Timestamp)
 	}
 
-	if r.Ttl != 0 {
-		params["ttl"] = formatDuration(r.Ttl)
+	if r.TTL != 0 {
+		params["ttl"] = formatDuration(r.TTL)
 	}
 
 	if r.Version != nil {
@@ -236,11 +237,11 @@ func (f Create) WithTimestamp(v time.Duration) func(*CreateRequest) {
 	}
 }
 
-// WithTtl - expiration time for the document.
+// WithTTL - expiration time for the document.
 //
-func (f Create) WithTtl(v time.Duration) func(*CreateRequest) {
+func (f Create) WithTTL(v time.Duration) func(*CreateRequest) {
 	return func(r *CreateRequest) {
-		r.Ttl = v
+		r.TTL = v
 	}
 }
 

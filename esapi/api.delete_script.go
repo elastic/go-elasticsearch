@@ -31,7 +31,8 @@ type DeleteScript func(id string, lang string, o ...func(*DeleteScriptRequest)) 
 type DeleteScriptRequest struct {
 	DocumentID string
 
-	Lang          string
+	Lang string
+
 	MasterTimeout time.Duration
 	Timeout       time.Duration
 

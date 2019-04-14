@@ -34,7 +34,8 @@ type UpdateRequest struct {
 	Index        string
 	DocumentType string
 	DocumentID   string
-	Body         io.Reader
+
+	Body io.Reader
 
 	Fields              []string
 	Lang                string
@@ -47,7 +48,7 @@ type UpdateRequest struct {
 	SourceInclude       []string
 	Timeout             time.Duration
 	Timestamp           time.Duration
-	Ttl                 time.Duration
+	TTL                 time.Duration
 	Version             *int
 	VersionType         string
 	WaitForActiveShards string
@@ -131,8 +132,8 @@ func (r UpdateRequest) Do(ctx context.Context, transport Transport) (*Response, 
 		params["timestamp"] = formatDuration(r.Timestamp)
 	}
 
-	if r.Ttl != 0 {
-		params["ttl"] = formatDuration(r.Ttl)
+	if r.TTL != 0 {
+		params["ttl"] = formatDuration(r.TTL)
 	}
 
 	if r.Version != nil {
@@ -203,19 +204,19 @@ func (f Update) WithContext(v context.Context) func(*UpdateRequest) {
 	}
 }
 
-// WithDocumentType - the type of the document.
-//
-func (f Update) WithDocumentType(v string) func(*UpdateRequest) {
-	return func(r *UpdateRequest) {
-		r.DocumentType = v
-	}
-}
-
 // WithBody - The request definition using either `script` or partial `doc`.
 //
 func (f Update) WithBody(v io.Reader) func(*UpdateRequest) {
 	return func(r *UpdateRequest) {
 		r.Body = v
+	}
+}
+
+// WithDocumentType - the type of the document.
+//
+func (f Update) WithDocumentType(v string) func(*UpdateRequest) {
+	return func(r *UpdateRequest) {
+		r.DocumentType = v
 	}
 }
 
@@ -307,11 +308,11 @@ func (f Update) WithTimestamp(v time.Duration) func(*UpdateRequest) {
 	}
 }
 
-// WithTtl - expiration time for the document.
+// WithTTL - expiration time for the document.
 //
-func (f Update) WithTtl(v time.Duration) func(*UpdateRequest) {
+func (f Update) WithTTL(v time.Duration) func(*UpdateRequest) {
 	return func(r *UpdateRequest) {
-		r.Ttl = v
+		r.TTL = v
 	}
 }
 

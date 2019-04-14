@@ -29,7 +29,8 @@ type TasksGet func(o ...func(*TasksGetRequest)) (*Response, error)
 // TasksGetRequest configures the Tasks Get API request.
 //
 type TasksGetRequest struct {
-	TaskID            string
+	TaskID string
+
 	WaitForCompletion *bool
 
 	Pretty     bool

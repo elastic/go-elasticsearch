@@ -30,7 +30,8 @@ type IndicesGetTemplate func(o ...func(*IndicesGetTemplateRequest)) (*Response, 
 // IndicesGetTemplateRequest configures the Indices  Get Template API request.
 //
 type IndicesGetTemplateRequest struct {
-	Name          []string
+	Name []string
+
 	FlatSettings  *bool
 	Local         *bool
 	MasterTimeout time.Duration
