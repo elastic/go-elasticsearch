@@ -17,7 +17,17 @@ var (
 // NameToGo returns a Go version of name, eg. node_id => NodeID.
 //
 func NameToGo(s string) string {
-	exceptions := map[string]string{"index": "Index", "id": "DocumentID", "type": "DocumentType"}
+	exceptions := map[string]string{
+		"index": "Index",
+		"id":    "DocumentID",
+		"type":  "DocumentType",
+	}
+
+	acronyms := map[string]string{
+		"id":  "ID",
+		"ttl": "TTL",
+	}
+
 	if value, ok := exceptions[s]; ok {
 		return value
 	}
@@ -25,8 +35,8 @@ func NameToGo(s string) string {
 	ep := strings.Split(s, "_")
 	ns := make([]string, len(ep))
 	for _, v := range ep {
-		if v == "id" {
-			v = "ID"
+		if value, ok := acronyms[v]; ok {
+			v = value
 		}
 		ns = append(ns, strings.Title(v))
 	}
