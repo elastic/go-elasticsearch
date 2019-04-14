@@ -32,14 +32,15 @@ type CatThreadPool func(o ...func(*CatThreadPoolRequest)) (*Response, error)
 //
 type CatThreadPoolRequest struct {
 	ThreadPoolPatterns []string
-	Format             string
-	H                  []string
-	Help               *bool
-	Local              *bool
-	MasterTimeout      time.Duration
-	S                  []string
-	Size               string
-	V                  *bool
+
+	Format        string
+	H             []string
+	Help          *bool
+	Local         *bool
+	MasterTimeout time.Duration
+	S             []string
+	Size          string
+	V             *bool
 
 	Pretty     bool
 	Human      bool

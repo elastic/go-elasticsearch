@@ -31,9 +31,11 @@ type IndicesShrink func(index string, target string, o ...func(*IndicesShrinkReq
 //
 type IndicesShrinkRequest struct {
 	Index string
-	Body  io.Reader
 
-	Target              string
+	Body io.Reader
+
+	Target string
+
 	MasterTimeout       time.Duration
 	Timeout             time.Duration
 	WaitForActiveShards string

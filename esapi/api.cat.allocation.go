@@ -30,7 +30,8 @@ type CatAllocation func(o ...func(*CatAllocationRequest)) (*Response, error)
 // CatAllocationRequest configures the Cat Allocation API request.
 //
 type CatAllocationRequest struct {
-	NodeID        []string
+	NodeID []string
+
 	Bytes         string
 	Format        string
 	H             []string

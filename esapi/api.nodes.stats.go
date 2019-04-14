@@ -30,9 +30,10 @@ type NodesStats func(o ...func(*NodesStatsRequest)) (*Response, error)
 // NodesStatsRequest configures the Nodes Stats API request.
 //
 type NodesStatsRequest struct {
-	Metric                  []string
-	IndexMetric             []string
-	NodeID                  []string
+	IndexMetric []string
+	Metric      []string
+	NodeID      []string
+
 	CompletionFields        []string
 	FielddataFields         []string
 	Fields                  []string

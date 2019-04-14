@@ -33,7 +33,8 @@ type Scroll func(o ...func(*ScrollRequest)) (*Response, error)
 type ScrollRequest struct {
 	Body io.Reader
 
-	ScrollID           string
+	ScrollID string
+
 	RestTotalHitsAsInt *bool
 	Scroll             time.Duration
 
@@ -136,19 +137,19 @@ func (f Scroll) WithContext(v context.Context) func(*ScrollRequest) {
 	}
 }
 
-// WithScrollID - the scroll ID.
-//
-func (f Scroll) WithScrollID(v string) func(*ScrollRequest) {
-	return func(r *ScrollRequest) {
-		r.ScrollID = v
-	}
-}
-
 // WithBody - The scroll ID if not passed by URL or query parameter..
 //
 func (f Scroll) WithBody(v io.Reader) func(*ScrollRequest) {
 	return func(r *ScrollRequest) {
 		r.Body = v
+	}
+}
+
+// WithScrollID - the scroll ID.
+//
+func (f Scroll) WithScrollID(v string) func(*ScrollRequest) {
+	return func(r *ScrollRequest) {
+		r.ScrollID = v
 	}
 }
 

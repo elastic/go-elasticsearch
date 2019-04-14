@@ -31,9 +31,11 @@ type IndicesPutAlias func(index []string, name string, o ...func(*IndicesPutAlia
 //
 type IndicesPutAliasRequest struct {
 	Index []string
-	Body  io.Reader
 
-	Name          string
+	Body io.Reader
+
+	Name string
+
 	MasterTimeout time.Duration
 	Timeout       time.Duration
 

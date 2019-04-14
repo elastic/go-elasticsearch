@@ -33,7 +33,8 @@ type ExplainRequest struct {
 	Index        string
 	DocumentType string
 	DocumentID   string
-	Body         io.Reader
+
+	Body io.Reader
 
 	Analyzer        string
 	AnalyzeWildcard *bool
@@ -194,19 +195,19 @@ func (f Explain) WithContext(v context.Context) func(*ExplainRequest) {
 	}
 }
 
-// WithDocumentType - the type of the document.
-//
-func (f Explain) WithDocumentType(v string) func(*ExplainRequest) {
-	return func(r *ExplainRequest) {
-		r.DocumentType = v
-	}
-}
-
 // WithBody - The query definition using the Query DSL.
 //
 func (f Explain) WithBody(v io.Reader) func(*ExplainRequest) {
 	return func(r *ExplainRequest) {
 		r.Body = v
+	}
+}
+
+// WithDocumentType - the type of the document.
+//
+func (f Explain) WithDocumentType(v string) func(*ExplainRequest) {
+	return func(r *ExplainRequest) {
+		r.DocumentType = v
 	}
 }
 

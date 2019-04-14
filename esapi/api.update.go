@@ -34,7 +34,8 @@ type UpdateRequest struct {
 	Index        string
 	DocumentType string
 	DocumentID   string
-	Body         io.Reader
+
+	Body io.Reader
 
 	IfPrimaryTerm       *int
 	IfSeqNo             *int

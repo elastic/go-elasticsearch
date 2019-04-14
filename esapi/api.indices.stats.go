@@ -31,7 +31,8 @@ type IndicesStats func(o ...func(*IndicesStatsRequest)) (*Response, error)
 type IndicesStatsRequest struct {
 	Index []string
 
-	Metric                  []string
+	Metric []string
+
 	CompletionFields        []string
 	ExpandWildcards         string
 	FielddataFields         []string

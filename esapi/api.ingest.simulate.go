@@ -31,7 +31,8 @@ type IngestSimulate func(body io.Reader, o ...func(*IngestSimulateRequest)) (*Re
 //
 type IngestSimulateRequest struct {
 	DocumentID string
-	Body       io.Reader
+
+	Body io.Reader
 
 	Verbose *bool
 

@@ -34,7 +34,8 @@ type UpdateByQuery func(index []string, o ...func(*UpdateByQueryRequest)) (*Resp
 type UpdateByQueryRequest struct {
 	Index        []string
 	DocumentType []string
-	Body         io.Reader
+
+	Body io.Reader
 
 	AllowNoIndices      *bool
 	Analyzer            string
@@ -294,19 +295,19 @@ func (f UpdateByQuery) WithContext(v context.Context) func(*UpdateByQueryRequest
 	}
 }
 
-// WithDocumentType - a list of document types to search; leave empty to perform the operation on all types.
-//
-func (f UpdateByQuery) WithDocumentType(v ...string) func(*UpdateByQueryRequest) {
-	return func(r *UpdateByQueryRequest) {
-		r.DocumentType = v
-	}
-}
-
 // WithBody - The search definition using the Query DSL.
 //
 func (f UpdateByQuery) WithBody(v io.Reader) func(*UpdateByQueryRequest) {
 	return func(r *UpdateByQueryRequest) {
 		r.Body = v
+	}
+}
+
+// WithDocumentType - a list of document types to search; leave empty to perform the operation on all types.
+//
+func (f UpdateByQuery) WithDocumentType(v ...string) func(*UpdateByQueryRequest) {
+	return func(r *UpdateByQueryRequest) {
+		r.DocumentType = v
 	}
 }
 

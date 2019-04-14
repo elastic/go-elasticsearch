@@ -32,7 +32,8 @@ type IndicesCreate func(index string, o ...func(*IndicesCreateRequest)) (*Respon
 //
 type IndicesCreateRequest struct {
 	Index string
-	Body  io.Reader
+
+	Body io.Reader
 
 	IncludeTypeName     *bool
 	MasterTimeout       time.Duration

@@ -30,7 +30,8 @@ type RenderSearchTemplate func(o ...func(*RenderSearchTemplateRequest)) (*Respon
 //
 type RenderSearchTemplateRequest struct {
 	DocumentID string
-	Body       io.Reader
+
+	Body io.Reader
 
 	Pretty     bool
 	Human      bool
@@ -119,19 +120,19 @@ func (f RenderSearchTemplate) WithContext(v context.Context) func(*RenderSearchT
 	}
 }
 
-// WithDocumentID - the ID of the stored search template.
-//
-func (f RenderSearchTemplate) WithDocumentID(v string) func(*RenderSearchTemplateRequest) {
-	return func(r *RenderSearchTemplateRequest) {
-		r.DocumentID = v
-	}
-}
-
 // WithBody - The search definition template and its params.
 //
 func (f RenderSearchTemplate) WithBody(v io.Reader) func(*RenderSearchTemplateRequest) {
 	return func(r *RenderSearchTemplateRequest) {
 		r.Body = v
+	}
+}
+
+// WithDocumentID - the ID of the stored search template.
+//
+func (f RenderSearchTemplate) WithDocumentID(v string) func(*RenderSearchTemplateRequest) {
+	return func(r *RenderSearchTemplateRequest) {
+		r.DocumentID = v
 	}
 }
 

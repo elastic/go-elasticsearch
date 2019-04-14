@@ -33,7 +33,8 @@ type SearchTemplate func(body io.Reader, o ...func(*SearchTemplateRequest)) (*Re
 type SearchTemplateRequest struct {
 	Index        []string
 	DocumentType []string
-	Body         io.Reader
+
+	Body io.Reader
 
 	AllowNoIndices        *bool
 	CcsMinimizeRoundtrips *bool

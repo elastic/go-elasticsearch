@@ -120,19 +120,19 @@ func (f ClearScroll) WithContext(v context.Context) func(*ClearScrollRequest) {
 	}
 }
 
-// WithScrollID - a list of scroll ids to clear.
-//
-func (f ClearScroll) WithScrollID(v ...string) func(*ClearScrollRequest) {
-	return func(r *ClearScrollRequest) {
-		r.ScrollID = v
-	}
-}
-
 // WithBody - A comma-separated list of scroll IDs to clear if none was specified via the scroll_id parameter.
 //
 func (f ClearScroll) WithBody(v io.Reader) func(*ClearScrollRequest) {
 	return func(r *ClearScrollRequest) {
 		r.Body = v
+	}
+}
+
+// WithScrollID - a list of scroll ids to clear.
+//
+func (f ClearScroll) WithScrollID(v ...string) func(*ClearScrollRequest) {
+	return func(r *ClearScrollRequest) {
+		r.ScrollID = v
 	}
 }
 

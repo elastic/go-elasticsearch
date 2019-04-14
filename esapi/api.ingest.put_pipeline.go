@@ -31,7 +31,8 @@ type IngestPutPipeline func(id string, body io.Reader, o ...func(*IngestPutPipel
 //
 type IngestPutPipelineRequest struct {
 	DocumentID string
-	Body       io.Reader
+
+	Body io.Reader
 
 	MasterTimeout time.Duration
 	Timeout       time.Duration

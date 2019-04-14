@@ -30,7 +30,8 @@ type CatFielddata func(o ...func(*CatFielddataRequest)) (*Response, error)
 // CatFielddataRequest configures the Cat Fielddata API request.
 //
 type CatFielddataRequest struct {
-	Fields        []string
+	Fields []string
+
 	Bytes         string
 	Format        string
 	H             []string

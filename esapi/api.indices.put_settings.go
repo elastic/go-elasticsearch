@@ -32,7 +32,8 @@ type IndicesPutSettings func(body io.Reader, o ...func(*IndicesPutSettingsReques
 //
 type IndicesPutSettingsRequest struct {
 	Index []string
-	Body  io.Reader
+
+	Body io.Reader
 
 	AllowNoIndices    *bool
 	ExpandWildcards   string

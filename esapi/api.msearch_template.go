@@ -32,7 +32,8 @@ type MsearchTemplate func(body io.Reader, o ...func(*MsearchTemplateRequest)) (*
 type MsearchTemplateRequest struct {
 	Index        []string
 	DocumentType []string
-	Body         io.Reader
+
+	Body io.Reader
 
 	CcsMinimizeRoundtrips *bool
 	MaxConcurrentSearches *int
