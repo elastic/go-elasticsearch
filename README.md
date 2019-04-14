@@ -37,17 +37,13 @@ The `master` branch of the client is compatible with the current `master` branch
 
 ## Installation
 
-Install the package with `go get`:
-
-    go get -u github.com/elastic/go-elasticsearch@5.x
-
-Or, add the package to your `go.mod` file:
+Add the package to your `go.mod` file:
 
     require github.com/elastic/go-elasticsearch/v5 5.x
 
 Or, clone the repository:
 
-    git clone https://github.com/elastic/go-elasticsearch.git && cd go-elasticsearch
+    git clone --branch 5.x https://github.com/elastic/go-elasticsearch.git $GOPATH/src/github.com/elastic/go-elasticsearch
 
 A complete example:
 
@@ -71,6 +67,7 @@ cat > main.go <<-END
 
   func main() {
     es, _ := elasticsearch.NewDefaultClient()
+    log.Println(elasticsearch.Version)
     log.Println(es.Info())
   }
 END
