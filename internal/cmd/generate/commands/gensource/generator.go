@@ -176,6 +176,10 @@ type ` + g.Endpoint.MethodWithNamespace() + `Request struct {`)
 		}
 	}
 
+	if len(g.Endpoint.URL.Parts) > 0 {
+		g.w("\n")
+	}
+
 	if g.Endpoint.Body != nil {
 		g.w("\n\tBody io.Reader")
 	}
@@ -184,7 +188,12 @@ type ` + g.Endpoint.MethodWithNamespace() + `Request struct {`)
 		g.w("\n")
 	}
 
-	for _, p := range g.Endpoint.URL.Parts {
+	for _, name := range g.Endpoint.URL.PartNamesSorted {
+		p, ok := g.Endpoint.URL.Parts[name]
+		if !ok {
+			panic(fmt.Sprintf("Part %q not found", name))
+		}
+
 		skip := false
 		for _, v := range specialFields {
 			if p.Name == v {
@@ -196,9 +205,13 @@ type ` + g.Endpoint.MethodWithNamespace() + `Request struct {`)
 		}
 		g.w("\n\t" + p.GoName())
 		g.w("\t" + p.GoType(true))
+
 	}
 
-	// TODO: Sort params beginning with underscore correctly
+	if len(g.Endpoint.URL.Parts) > 0 {
+		g.w("\n")
+	}
+
 	for _, name := range g.Endpoint.URL.ParamNamesSorted {
 		p, ok := g.Endpoint.URL.Params[name]
 		if !ok {
@@ -311,19 +324,6 @@ func (f ` + g.Endpoint.MethodWithNamespace() + `) WithContext(v context.Context)
 		return b.String()
 	}
 
-	// Generate With... methods for parts
-	for _, pName := range g.Endpoint.URL.PartNamesSorted {
-		if p, ok := g.Endpoint.URL.Parts[pName]; ok {
-			if skipRequiredArgs[p.Name] && p.Name != "type" {
-				continue
-			}
-
-			g.w(methodBody(g.Endpoint, p))
-		} else {
-			g.w(`// TODO: ` + p.Name)
-		}
-	}
-
 	// Generate WithBody method
 	if b := g.Endpoint.Body; b != nil {
 		// Do not add the option when body is part of the method signature
@@ -337,6 +337,19 @@ func (f ` + g.Endpoint.MethodWithNamespace() + `) WithBody(v io.Reader) func(*` 
 	}
 }
 `)
+		}
+	}
+
+	// Generate With... methods for parts
+	for _, pName := range g.Endpoint.URL.PartNamesSorted {
+		if p, ok := g.Endpoint.URL.Parts[pName]; ok {
+			if skipRequiredArgs[p.Name] && p.Name != "type" {
+				continue
+			}
+
+			g.w(methodBody(g.Endpoint, p))
+		} else {
+			g.w(`// TODO: ` + p.Name)
 		}
 	}
 
