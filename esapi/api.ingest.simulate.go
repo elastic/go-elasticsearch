@@ -23,7 +23,7 @@ func newIngestSimulateFunc(t Transport) IngestSimulate {
 
 // IngestSimulate allows to simulate a pipeline with example documents.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/plugins/master/ingest.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/simulate-pipeline-api.html.
 //
 type IngestSimulate func(body io.Reader, o ...func(*IngestSimulateRequest)) (*Response, error)
 
@@ -31,7 +31,8 @@ type IngestSimulate func(body io.Reader, o ...func(*IngestSimulateRequest)) (*Re
 //
 type IngestSimulateRequest struct {
 	DocumentID string
-	Body       io.Reader
+
+	Body io.Reader
 
 	Verbose *bool
 

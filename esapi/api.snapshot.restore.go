@@ -33,8 +33,9 @@ type SnapshotRestore func(repository string, snapshot string, o ...func(*Snapsho
 type SnapshotRestoreRequest struct {
 	Body io.Reader
 
-	Snapshot          string
-	Repository        string
+	Repository string
+	Snapshot   string
+
 	MasterTimeout     time.Duration
 	WaitForCompletion *bool
 

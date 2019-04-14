@@ -30,7 +30,8 @@ type CatTemplates func(o ...func(*CatTemplatesRequest)) (*Response, error)
 // CatTemplatesRequest configures the Cat Templates API request.
 //
 type CatTemplatesRequest struct {
-	Name          string
+	Name string
+
 	Format        string
 	H             []string
 	Help          *bool

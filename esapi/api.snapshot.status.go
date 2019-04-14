@@ -30,8 +30,9 @@ type SnapshotStatus func(o ...func(*SnapshotStatusRequest)) (*Response, error)
 // SnapshotStatusRequest configures the Snapshot Status API request.
 //
 type SnapshotStatusRequest struct {
-	Repository        string
-	Snapshot          []string
+	Repository string
+	Snapshot   []string
+
 	IgnoreUnavailable *bool
 	MasterTimeout     time.Duration
 

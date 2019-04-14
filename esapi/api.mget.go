@@ -32,7 +32,8 @@ type Mget func(body io.Reader, o ...func(*MgetRequest)) (*Response, error)
 type MgetRequest struct {
 	Index        string
 	DocumentType string
-	Body         io.Reader
+
+	Body io.Reader
 
 	Preference     string
 	Realtime       *bool

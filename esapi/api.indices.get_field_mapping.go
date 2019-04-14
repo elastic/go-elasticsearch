@@ -32,7 +32,8 @@ type IndicesGetFieldMappingRequest struct {
 	Index        []string
 	DocumentType []string
 
-	Fields            []string
+	Fields []string
+
 	AllowNoIndices    *bool
 	ExpandWildcards   string
 	IgnoreUnavailable *bool

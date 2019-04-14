@@ -33,7 +33,8 @@ type TermvectorsRequest struct {
 	Index        string
 	DocumentType string
 	DocumentID   string
-	Body         io.Reader
+
+	Body io.Reader
 
 	Fields          []string
 	FieldStatistics *bool
@@ -189,6 +190,14 @@ func (f Termvectors) WithContext(v context.Context) func(*TermvectorsRequest) {
 	}
 }
 
+// WithBody - Define parameters and or supply a document to get termvectors for. See documentation..
+//
+func (f Termvectors) WithBody(v io.Reader) func(*TermvectorsRequest) {
+	return func(r *TermvectorsRequest) {
+		r.Body = v
+	}
+}
+
 // WithDocumentID - the ID of the document, when not specified a doc param should be supplied..
 //
 func (f Termvectors) WithDocumentID(v string) func(*TermvectorsRequest) {
@@ -202,14 +211,6 @@ func (f Termvectors) WithDocumentID(v string) func(*TermvectorsRequest) {
 func (f Termvectors) WithDocumentType(v string) func(*TermvectorsRequest) {
 	return func(r *TermvectorsRequest) {
 		r.DocumentType = v
-	}
-}
-
-// WithBody - Define parameters and or supply a document to get termvectors for. See documentation..
-//
-func (f Termvectors) WithBody(v io.Reader) func(*TermvectorsRequest) {
-	return func(r *TermvectorsRequest) {
-		r.Body = v
 	}
 }
 

@@ -36,7 +36,8 @@ type CreateRequest struct {
 	Index        string
 	DocumentType string
 	DocumentID   string
-	Body         io.Reader
+
+	Body io.Reader
 
 	Parent              string
 	Pipeline            string

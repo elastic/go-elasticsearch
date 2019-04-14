@@ -30,7 +30,8 @@ type SnapshotGetRepository func(o ...func(*SnapshotGetRepositoryRequest)) (*Resp
 // SnapshotGetRepositoryRequest configures the Snapshot  Get Repository API request.
 //
 type SnapshotGetRepositoryRequest struct {
-	Repository    []string
+	Repository []string
+
 	Local         *bool
 	MasterTimeout time.Duration
 

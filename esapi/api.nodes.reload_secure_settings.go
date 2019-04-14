@@ -29,7 +29,8 @@ type NodesReloadSecureSettings func(o ...func(*NodesReloadSecureSettingsRequest)
 // NodesReloadSecureSettingsRequest configures the Nodes   Reload Secure Settings API request.
 //
 type NodesReloadSecureSettingsRequest struct {
-	NodeID  []string
+	NodeID []string
+
 	Timeout time.Duration
 
 	Pretty     bool

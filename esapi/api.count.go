@@ -32,7 +32,8 @@ type Count func(o ...func(*CountRequest)) (*Response, error)
 type CountRequest struct {
 	Index        []string
 	DocumentType []string
-	Body         io.Reader
+
+	Body io.Reader
 
 	AllowNoIndices    *bool
 	Analyzer          string
@@ -194,6 +195,14 @@ func (f Count) WithContext(v context.Context) func(*CountRequest) {
 	}
 }
 
+// WithBody - A query to restrict the results specified with the Query DSL (optional).
+//
+func (f Count) WithBody(v io.Reader) func(*CountRequest) {
+	return func(r *CountRequest) {
+		r.Body = v
+	}
+}
+
 // WithIndex - a list of indices to restrict the results.
 //
 func (f Count) WithIndex(v ...string) func(*CountRequest) {
@@ -207,14 +216,6 @@ func (f Count) WithIndex(v ...string) func(*CountRequest) {
 func (f Count) WithDocumentType(v ...string) func(*CountRequest) {
 	return func(r *CountRequest) {
 		r.DocumentType = v
-	}
-}
-
-// WithBody - A query to restrict the results specified with the Query DSL (optional).
-//
-func (f Count) WithBody(v io.Reader) func(*CountRequest) {
-	return func(r *CountRequest) {
-		r.Body = v
 	}
 }
 

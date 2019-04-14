@@ -32,7 +32,8 @@ type Bulk func(body io.Reader, o ...func(*BulkRequest)) (*Response, error)
 type BulkRequest struct {
 	Index        string
 	DocumentType string
-	Body         io.Reader
+
+	Body io.Reader
 
 	Fields              []string
 	Pipeline            string

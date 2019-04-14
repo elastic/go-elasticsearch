@@ -34,7 +34,8 @@ type Search func(o ...func(*SearchRequest)) (*Response, error)
 type SearchRequest struct {
 	Index        []string
 	DocumentType []string
-	Body         io.Reader
+
+	Body io.Reader
 
 	AllowNoIndices             *bool
 	AllowPartialSearchResults  *bool
@@ -331,6 +332,14 @@ func (f Search) WithContext(v context.Context) func(*SearchRequest) {
 	}
 }
 
+// WithBody - The search definition using the Query DSL.
+//
+func (f Search) WithBody(v io.Reader) func(*SearchRequest) {
+	return func(r *SearchRequest) {
+		r.Body = v
+	}
+}
+
 // WithIndex - a list of index names to search; use _all to perform the operation on all indices.
 //
 func (f Search) WithIndex(v ...string) func(*SearchRequest) {
@@ -344,14 +353,6 @@ func (f Search) WithIndex(v ...string) func(*SearchRequest) {
 func (f Search) WithDocumentType(v ...string) func(*SearchRequest) {
 	return func(r *SearchRequest) {
 		r.DocumentType = v
-	}
-}
-
-// WithBody - The search definition using the Query DSL.
-//
-func (f Search) WithBody(v io.Reader) func(*SearchRequest) {
-	return func(r *SearchRequest) {
-		r.Body = v
 	}
 }
 

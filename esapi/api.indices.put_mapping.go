@@ -33,7 +33,8 @@ type IndicesPutMapping func(body io.Reader, o ...func(*IndicesPutMappingRequest)
 type IndicesPutMappingRequest struct {
 	Index        []string
 	DocumentType string
-	Body         io.Reader
+
+	Body io.Reader
 
 	AllowNoIndices    *bool
 	ExpandWildcards   string

@@ -30,7 +30,8 @@ type IndicesExistsTemplate func(name []string, o ...func(*IndicesExistsTemplateR
 // IndicesExistsTemplateRequest configures the Indices  Exists Template API request.
 //
 type IndicesExistsTemplateRequest struct {
-	Name          []string
+	Name []string
+
 	FlatSettings  *bool
 	Local         *bool
 	MasterTimeout time.Duration
