@@ -31,7 +31,8 @@ type IndicesDeleteAlias func(index []string, name []string, o ...func(*IndicesDe
 type IndicesDeleteAliasRequest struct {
 	Index []string
 
-	Name          []string
+	Name []string
+
 	MasterTimeout time.Duration
 	Timeout       time.Duration
 

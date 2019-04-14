@@ -30,7 +30,8 @@ type CatSnapshots func(o ...func(*CatSnapshotsRequest)) (*Response, error)
 // CatSnapshotsRequest configures the Cat Snapshots API request.
 //
 type CatSnapshotsRequest struct {
-	Repository        []string
+	Repository []string
+
 	Format            string
 	H                 []string
 	Help              *bool

@@ -30,7 +30,8 @@ type ClusterStats func(o ...func(*ClusterStatsRequest)) (*Response, error)
 // ClusterStatsRequest configures the Cluster Stats API request.
 //
 type ClusterStatsRequest struct {
-	NodeID       []string
+	NodeID []string
+
 	FlatSettings *bool
 	Timeout      time.Duration
 

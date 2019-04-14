@@ -33,7 +33,8 @@ type SnapshotCreateRepository func(repository string, body io.Reader, o ...func(
 type SnapshotCreateRepositoryRequest struct {
 	Body io.Reader
 
-	Repository    string
+	Repository string
+
 	MasterTimeout time.Duration
 	Timeout       time.Duration
 	Verify        *bool

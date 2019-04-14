@@ -29,7 +29,8 @@ type ReindexRethrottle func(task_id string, requests_per_second *int, o ...func(
 // ReindexRethrottleRequest configures the Reindex Rethrottle API request.
 //
 type ReindexRethrottleRequest struct {
-	TaskID            string
+	TaskID string
+
 	RequestsPerSecond *int
 
 	Pretty     bool

@@ -29,8 +29,9 @@ type NodesUsage func(o ...func(*NodesUsageRequest)) (*Response, error)
 // NodesUsageRequest configures the Nodes Usage API request.
 //
 type NodesUsageRequest struct {
-	Metric  []string
-	NodeID  []string
+	Metric []string
+	NodeID []string
+
 	Timeout time.Duration
 
 	Pretty     bool

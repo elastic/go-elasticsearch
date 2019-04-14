@@ -29,7 +29,8 @@ type UpdateByQueryRethrottle func(task_id string, requests_per_second *int, o ..
 // UpdateByQueryRethrottleRequest configures the Update By Query Rethrottle API request.
 //
 type UpdateByQueryRethrottleRequest struct {
-	TaskID            string
+	TaskID string
+
 	RequestsPerSecond *int
 
 	Pretty     bool

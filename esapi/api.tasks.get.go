@@ -30,7 +30,8 @@ type TasksGet func(task_id string, o ...func(*TasksGetRequest)) (*Response, erro
 // TasksGetRequest configures the Tasks Get API request.
 //
 type TasksGetRequest struct {
-	TaskID            string
+	TaskID string
+
 	Timeout           time.Duration
 	WaitForCompletion *bool
 

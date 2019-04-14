@@ -31,9 +31,11 @@ type PutScript func(id string, body io.Reader, o ...func(*PutScriptRequest)) (*R
 //
 type PutScriptRequest struct {
 	DocumentID string
-	Body       io.Reader
+
+	Body io.Reader
 
 	ScriptContext string
+
 	MasterTimeout time.Duration
 	Timeout       time.Duration
 

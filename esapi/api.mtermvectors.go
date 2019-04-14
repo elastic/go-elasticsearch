@@ -32,7 +32,8 @@ type Mtermvectors func(o ...func(*MtermvectorsRequest)) (*Response, error)
 type MtermvectorsRequest struct {
 	Index        string
 	DocumentType string
-	Body         io.Reader
+
+	Body io.Reader
 
 	Fields          []string
 	FieldStatistics *bool
@@ -189,6 +190,14 @@ func (f Mtermvectors) WithContext(v context.Context) func(*MtermvectorsRequest) 
 	}
 }
 
+// WithBody - Define ids, documents, parameters or a list of parameters per document here. You must at least provide a list of document ids. See documentation..
+//
+func (f Mtermvectors) WithBody(v io.Reader) func(*MtermvectorsRequest) {
+	return func(r *MtermvectorsRequest) {
+		r.Body = v
+	}
+}
+
 // WithIndex - the index in which the document resides..
 //
 func (f Mtermvectors) WithIndex(v string) func(*MtermvectorsRequest) {
@@ -202,14 +211,6 @@ func (f Mtermvectors) WithIndex(v string) func(*MtermvectorsRequest) {
 func (f Mtermvectors) WithDocumentType(v string) func(*MtermvectorsRequest) {
 	return func(r *MtermvectorsRequest) {
 		r.DocumentType = v
-	}
-}
-
-// WithBody - Define ids, documents, parameters or a list of parameters per document here. You must at least provide a list of document ids. See documentation..
-//
-func (f Mtermvectors) WithBody(v io.Reader) func(*MtermvectorsRequest) {
-	return func(r *MtermvectorsRequest) {
-		r.Body = v
 	}
 }
 

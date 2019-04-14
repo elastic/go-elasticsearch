@@ -29,7 +29,8 @@ type DeleteByQueryRethrottle func(task_id string, requests_per_second *int, o ..
 // DeleteByQueryRethrottleRequest configures the Delete By Query Rethrottle API request.
 //
 type DeleteByQueryRethrottleRequest struct {
-	TaskID            string
+	TaskID string
+
 	RequestsPerSecond *int
 
 	Pretty     bool

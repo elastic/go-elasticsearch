@@ -32,7 +32,8 @@ type ClusterState func(o ...func(*ClusterStateRequest)) (*Response, error)
 type ClusterStateRequest struct {
 	Index []string
 
-	Metric                 []string
+	Metric []string
+
 	AllowNoIndices         *bool
 	ExpandWildcards        string
 	FlatSettings           *bool

@@ -32,7 +32,8 @@ type IndicesValidateQuery func(o ...func(*IndicesValidateQueryRequest)) (*Respon
 type IndicesValidateQueryRequest struct {
 	Index        []string
 	DocumentType []string
-	Body         io.Reader
+
+	Body io.Reader
 
 	AllowNoIndices    *bool
 	AllShards         *bool
@@ -186,6 +187,14 @@ func (f IndicesValidateQuery) WithContext(v context.Context) func(*IndicesValida
 	}
 }
 
+// WithBody - The query definition specified with the Query DSL.
+//
+func (f IndicesValidateQuery) WithBody(v io.Reader) func(*IndicesValidateQueryRequest) {
+	return func(r *IndicesValidateQueryRequest) {
+		r.Body = v
+	}
+}
+
 // WithIndex - a list of index names to restrict the operation; use _all to perform the operation on all indices.
 //
 func (f IndicesValidateQuery) WithIndex(v ...string) func(*IndicesValidateQueryRequest) {
@@ -199,14 +208,6 @@ func (f IndicesValidateQuery) WithIndex(v ...string) func(*IndicesValidateQueryR
 func (f IndicesValidateQuery) WithDocumentType(v ...string) func(*IndicesValidateQueryRequest) {
 	return func(r *IndicesValidateQueryRequest) {
 		r.DocumentType = v
-	}
-}
-
-// WithBody - The query definition specified with the Query DSL.
-//
-func (f IndicesValidateQuery) WithBody(v io.Reader) func(*IndicesValidateQueryRequest) {
-	return func(r *IndicesValidateQueryRequest) {
-		r.Body = v
 	}
 }
 

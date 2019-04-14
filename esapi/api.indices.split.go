@@ -32,9 +32,11 @@ type IndicesSplit func(index string, target string, o ...func(*IndicesSplitReque
 //
 type IndicesSplitRequest struct {
 	Index string
-	Body  io.Reader
 
-	Target              string
+	Body io.Reader
+
+	Target string
+
 	CopySettings        *bool
 	MasterTimeout       time.Duration
 	Timeout             time.Duration

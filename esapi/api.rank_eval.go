@@ -31,7 +31,8 @@ type RankEval func(body io.Reader, o ...func(*RankEvalRequest)) (*Response, erro
 //
 type RankEvalRequest struct {
 	Index []string
-	Body  io.Reader
+
+	Body io.Reader
 
 	AllowNoIndices    *bool
 	ExpandWildcards   string
