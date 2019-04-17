@@ -23,4 +23,4 @@ Invoke your function over HTTP:
 $ curl https://...cloudfunctions.net/clusterstatus
 ```
 
-See the **[`function.go`](./function.go)** file for implementation.
+See the **[`function.go`](./function.go)** file for implementation and the **[`function_test.go`](./function_test.go)** file for the example of implementing a mock transport for testing.

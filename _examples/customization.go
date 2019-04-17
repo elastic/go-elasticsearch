@@ -21,7 +21,7 @@ import (
 // CountingTransport adds a custom header to the request, logs the information about
 // the request and response, and counts the number of requests to the client.
 //
-// Since it implements the `http.RoundTripper` interface, so it can be passed
+// Since it implements the `http.RoundTripper` interface, it can be passed
 // to the client as a custom HTTP transport implementation.
 //
 type CountingTransport struct {
@@ -57,8 +57,12 @@ func (t *CountingTransport) RoundTrip(req *http.Request) (*http.Response, error)
 func main() {
 	var wg sync.WaitGroup
 
+	// Create the custom transport.
+	//
 	tp := CountingTransport{}
 
+	// Pass the custom transport to the client.
+	//
 	es, _ := elasticsearch.NewClient(
 		elasticsearch.Config{Transport: &tp},
 	)

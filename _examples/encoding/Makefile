@@ -4,6 +4,9 @@ test: clean setup ## Run tests
 	go run gjson.go
 	go run easyjson.go
 
+bench: clean setup # Run benchmarks
+	go test -run=none -bench=. -benchmem benchmark_test.go
+
 setup: ## Install & Setup
 	@go get -u github.com/mailru/easyjson/...
 	go generate ./model
@@ -11,7 +14,4 @@ setup: ## Install & Setup
 clean: ## Remove artifacts
 	@rm -f model/*_easyjson.go
 
-bench: # Run benchmarks
-	go test -run=none -bench=. -benchmem benchmark_test.go
-
-.PHONY: clean setup test
+.PHONY: clean bench setup test

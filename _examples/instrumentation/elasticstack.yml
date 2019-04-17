@@ -16,7 +16,7 @@ services:
 
   # --- Elasticsearch ---------------------------------------------------------
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:${VERSION:-7.0.0-beta1}
+    image: docker.elastic.co/elasticsearch/elasticsearch:${VERSION:-7.0.0}
     container_name: elasticsearch
     volumes:
       - es_data:/usr/share/elasticsearch/data:delegated
@@ -39,7 +39,7 @@ services:
 
   # --- Kibana ----------------------------------------------------------------
   kibana:
-    image: docker.elastic.co/kibana/kibana:${VERSION:-7.0.0-beta1}
+    image: docker.elastic.co/kibana/kibana:${VERSION:-7.0.0}
     container_name: kibana
     networks: ['elasticstack']
     environment:
@@ -52,7 +52,7 @@ services:
 
   # --- APM Server ------------------------------------------------------------
   apm-server:
-    image: docker.elastic.co/apm/apm-server:${VERSION:-7.0.0-beta1}
+    image: docker.elastic.co/apm/apm-server:${VERSION:-7.0.0}
     container_name: apm_server
     networks: ['elasticstack']
     command: >
