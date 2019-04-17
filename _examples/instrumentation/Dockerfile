@@ -1,13 +1,13 @@
 # $ docker build --tag elastic/go-elasticsearch-demo-instrumentation .
 # $ docker run -it --network instrumentation_elasticstack --rm elastic/go-elasticsearch-demo-instrumentation
 #
-FROM golang:1.11-alpine
+FROM golang:1-alpine
 
 RUN apk add --no-cache --quiet gcc g++ ca-certificates make curl git jq
 
 WORKDIR /go-elasticsearch-demo-instrumentation
 
-COPY ./go.mod ./
+COPY go.mod .
 RUN go mod download
 
 ENV TERM xterm-256color
@@ -20,6 +20,6 @@ ENV ELASTIC_APM_METRICS_INTERVAL=5s
 ENV ELASTIC_APM_LOG_FILE=stderr
 ENV ELASTIC_APM_LOG_LEVEL=debug
 
-COPY ./apmelasticsearch.go ./opencensus.go ./
+COPY apmelasticsearch.go opencensus.go ./
 
 CMD go run apmelasticsearch.go
