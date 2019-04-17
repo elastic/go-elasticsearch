@@ -114,7 +114,7 @@ func main() {
 	if res.IsError() {
 		var e map[string]interface{}
 		if err := json.NewDecoder(res.Body).Decode(&e); err != nil {
-			log.Fatalf("error parsing the response body: %s", err)
+			log.Fatalf("Error parsing the response body: %s", err)
 		} else {
 			// Print the response status and error information.
 			log.Fatalf("[%s] %s: %s",

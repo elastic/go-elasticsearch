@@ -17,3 +17,7 @@ The [**`apmelasticsearch.go`**](./apmelasticsearch.go) example demonstrates inst
 Run the example interactively with Docker and inspect the UI in <a href="http://localhost:5601/app/apm#/go-elasticsearch-demo-instrumentation/transactions?_g=(time:(from:now-15m,to:now))">Kibana</a>:
 
     docker-compose --file elasticstack.yml up --build
+
+To destroy the Docker assets for the example, run:
+
+    docker-compose --file elasticstack.yml down --remove-orphans --volumes
