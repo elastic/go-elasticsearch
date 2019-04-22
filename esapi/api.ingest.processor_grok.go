@@ -21,7 +21,7 @@ func newIngestProcessorGrokFunc(t Transport) IngestProcessorGrok {
 
 // IngestProcessorGrok returns a list of the built-in patterns.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/plugins/master/ingest.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/grok-processor.html#grok-processor-rest-get.
 //
 type IngestProcessorGrok func(o ...func(*IngestProcessorGrokRequest)) (*Response, error)
 

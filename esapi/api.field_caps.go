@@ -35,6 +35,7 @@ type FieldCapsRequest struct {
 	ExpandWildcards   string
 	Fields            []string
 	IgnoreUnavailable *bool
+	IncludeUnmapped   *bool
 
 	Pretty     bool
 	Human      bool
@@ -79,6 +80,10 @@ func (r FieldCapsRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 	if r.IgnoreUnavailable != nil {
 		params["ignore_unavailable"] = strconv.FormatBool(*r.IgnoreUnavailable)
+	}
+
+	if r.IncludeUnmapped != nil {
+		params["include_unmapped"] = strconv.FormatBool(*r.IncludeUnmapped)
 	}
 
 	if r.Pretty {
@@ -170,6 +175,14 @@ func (f FieldCaps) WithFields(v ...string) func(*FieldCapsRequest) {
 func (f FieldCaps) WithIgnoreUnavailable(v bool) func(*FieldCapsRequest) {
 	return func(r *FieldCapsRequest) {
 		r.IgnoreUnavailable = &v
+	}
+}
+
+// WithIncludeUnmapped - indicates whether unmapped fields should be included in the response..
+//
+func (f FieldCaps) WithIncludeUnmapped(v bool) func(*FieldCapsRequest) {
+	return func(r *FieldCapsRequest) {
+		r.IncludeUnmapped = &v
 	}
 }
 
