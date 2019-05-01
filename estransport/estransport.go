@@ -6,6 +6,8 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"regexp"
+	"runtime"
 	"strings"
 	"time"
 
@@ -16,10 +18,13 @@ import (
 //
 const Version = version.Client
 
-var userAgent string
+var (
+	userAgent   string
+	reGoVersion = regexp.MustCompile(`go(\d+\.\d+\..+)`)
+)
 
 func init() {
-	userAgent = strings.Join([]string{"go-elasticsearch", Version}, "/")
+	userAgent = initUserAgent()
 }
 
 // Interface defines the interface for HTTP client.
@@ -164,4 +169,27 @@ func (c *Client) setBasicAuth(u *url.URL, req *http.Request) *http.Request {
 func (c *Client) setUserAgent(req *http.Request) *http.Request {
 	req.Header.Set("User-Agent", userAgent)
 	return req
+}
+
+func initUserAgent() string {
+	var b strings.Builder
+
+	b.WriteString("go-elasticsearch")
+	b.WriteRune('/')
+	b.WriteString(Version)
+	b.WriteRune(' ')
+	b.WriteRune('(')
+	b.WriteString(runtime.GOOS)
+	b.WriteRune(' ')
+	b.WriteString(runtime.GOARCH)
+	b.WriteString("; ")
+	b.WriteString("Go ")
+	if v := reGoVersion.ReplaceAllString(runtime.Version(), "$1"); v != "" {
+		b.WriteString(v)
+	} else {
+		b.WriteString(runtime.Version())
+	}
+	b.WriteRune(')')
+
+	return b.String()
 }
