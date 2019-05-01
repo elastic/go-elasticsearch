@@ -27,37 +27,45 @@ type jsonReader struct {
 }
 
 func (r *jsonReader) Read(p []byte) (int, error) {
-	if err := r.initialize(); err != nil {
-		return 0, err
+	if r.buf == nil {
+		r.buf = new(bytes.Buffer)
+		if err := r.encode(r.buf); err != nil {
+			return 0, err
+		}
 	}
+
 	return r.buf.Read(p)
 }
 
 func (r *jsonReader) WriteTo(w io.Writer) (int64, error) {
-	if err := r.initialize(); err != nil {
-		return 0, err
-	}
-	return r.buf.WriteTo(w)
+	cw := countingWriter{Writer: w}
+	err := r.encode(&cw)
+	return int64(cw.n), err
 }
 
-func (r *jsonReader) initialize() error {
-	if r.buf == nil {
-		r.buf = new(bytes.Buffer)
-		return r.encode()
-	}
-	return nil
-}
-
-func (r *jsonReader) encode() error {
+func (r *jsonReader) encode(w io.Writer) error {
 	var err error
 
 	if e, ok := r.val.(JSONEncoder); ok {
-		err = e.EncodeJSON(r.buf)
+		err = e.EncodeJSON(w)
 		if err != nil {
 			return err
 		}
 		return nil
 	}
 
-	return json.NewEncoder(r.buf).Encode(r.val)
+	return json.NewEncoder(w).Encode(r.val)
+}
+
+type countingWriter struct {
+	io.Writer
+	n int
+}
+
+func (cw *countingWriter) Write(p []byte) (int, error) {
+	n, err := cw.Writer.Write(p)
+	if n > 0 {
+		cw.n += n
+	}
+	return n, err
 }
