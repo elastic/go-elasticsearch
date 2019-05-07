@@ -326,6 +326,13 @@ The `estransport` package handles the transfer of data to and from Elasticsearch
 
 <!-- ----------------------------------------------------------------------------------------------- -->
 
+## Helpers
+
+The `esutil` package provides convenience helpers for working with the client. At the moment, it provides the
+`esutil.JSONReader()` helper function.
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
 ## Examples
 
 The **[`_examples`](./_examples)** folder contains a number of recipes and comprehensive examples to get you started with the client, including configuration and customization of the client, mocking the transport for unit tests, embedding the client in a custom type, building queries, performing requests, and parsing the responses.

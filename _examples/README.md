@@ -15,7 +15,7 @@ The [**`bulk`**](./bulk) directory contains a comprehensive example of using the
 ## Encoding
 
 The [**`encoding`**](./encoding) directory contains examples of using third-party packages
-for a more efficient encoding and decoding of the request and response bodies.
+and client helper methods for a more efficient encoding and decoding of the request and response bodies.
 
 ## Fast HTTP
 
