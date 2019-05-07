@@ -1,6 +1,6 @@
 # Example: encoding
 
-Examples in this folder demonstrate how to use third-party packages for JSON decoding and encoding.
+Examples in this folder demonstrate how to use helper methods and third-party packages for JSON decoding and encoding.
 
 ## `tidwall/gjson`
 
@@ -36,6 +36,18 @@ make clean setup
 go run easyjson.go
 ```
 
+## `esutil.JSONReader()`
+
+The [`esutil.JSONReader()`](../../esutil/json_reader.go) helper method takes a struct, a map,
+or any other serializable object, and converts it to JSON wrapped in a reader, for convenient
+passing to the `WithBody()` methods:
+
+```golang
+type Document struct{ Title string }
+doc := Document{Title: "Test"}
+es.Search(es.Search.WithBody(esutil.JSONReader(&doc)))
+```
+
 -----
 
 ### Benchmarks
@@ -45,9 +57,15 @@ Both `mailru/easyjson` and `tidwall/gjson` provide significant performance gains
 You can run the included benchmarks by executing the `make bench` command; example output below.
 
 ```
-BenchmarkSearchResults/json           30000	     45679 ns/op	    8456 B/op	      60 allocs/op
-BenchmarkSearchResults/easyjson      100000	     15612 ns/op	    7992 B/op	      52 allocs/op
-BenchmarkClusterStats/json_-_map      20000	     96808 ns/op	   31971 B/op	     391 allocs/op
-BenchmarkClusterStats/json_-_struct   30000	     59046 ns/op	   15048 B/op	      17 allocs/op
-BenchmarkClusterStats/gjson         1000000	      2119 ns/op	     264 B/op	       3 allocs/op
+BenchmarkEncode/Article_-_json         	  500000	      2969 ns/op	     856 B/op	       8 allocs/op
+BenchmarkEncode/Article_-_JSONReader   	  500000	      2957 ns/op	     920 B/op	      10 allocs/op
+BenchmarkEncode/Article_-_easyjson     	 1000000	      1089 ns/op	     736 B/op	       5 allocs/op
+BenchmarkEncode/map_-_json             	 1000000	      2074 ns/op	     720 B/op	      18 allocs/op
+BenchmarkEncode/map_-_JSONReader       	 1000000	      2168 ns/op	     784 B/op	      20 allocs/op
+
+BenchmarkDecode/Search_-_json          	   50000	     38922 ns/op	    8456 B/op	      60 allocs/op
+BenchmarkDecode/Search_-_easyjson      	  100000	     14344 ns/op	    7992 B/op	      52 allocs/op
+BenchmarkDecode/Cluster_-_json_-_map   	   20000	     85742 ns/op	   31972 B/op	     391 allocs/op
+BenchmarkDecode/Cluster_-_json_-_stc   	   30000	     50852 ns/op	   15048 B/op	      17 allocs/op
+BenchmarkDecode/Cluster_-_gjson        	 1000000	      2284 ns/op	     264 B/op	       3 allocs/op
 ```
