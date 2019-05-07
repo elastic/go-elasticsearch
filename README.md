@@ -152,6 +152,7 @@ The following example demonstrates a more complex usage. It fetches the Elastics
 package main
 
 import (
+  "bytes"
   "context"
   "encoding/json"
   "log"
@@ -207,13 +208,19 @@ func main() {
     go func(i int, title string) {
       defer wg.Done()
 
-      // Set up the request object directly.
+      // Build the request body.
+      var b strings.Builder
+      b.WriteString(`{"title" : "`)
+      b.WriteString(title)
+      b.WriteString(`"}`)
+
+      // Set up the request object.
       req := esapi.IndexRequest{
-        Index:        "test",
+        Index:      "test",
         DocumentType: "test",
-        DocumentID:   strconv.Itoa(i + 1),
-        Body:         strings.NewReader(`{"title" : "` + title + `"}`),
-        Refresh:      "true",
+        DocumentID: strconv.Itoa(i + 1),
+        Body:       strings.NewReader(b.String()),
+        Refresh:    "true",
       }
 
       // Perform the request with the client.
@@ -243,22 +250,35 @@ func main() {
 
   // 3. Search for the indexed documents
   //
-  // Use the helper methods of the client.
+  // Build the request body.
+  var buf bytes.Buffer
+  query := map[string]interface{}{
+    "query": map[string]interface{}{
+      "match": map[string]interface{}{
+        "title": "test",
+      },
+    },
+  }
+  if err := json.NewEncoder(&buf).Encode(query); err != nil {
+    log.Fatalf("Error encoding query: %s", err)
+  }
+
+  // Perform the search request.
   res, err = es.Search(
     es.Search.WithContext(context.Background()),
     es.Search.WithIndex("test"),
-    es.Search.WithBody(strings.NewReader(`{"query" : { "match" : { "title" : "test" } }}`)),
+    es.Search.WithBody(&buf),
     es.Search.WithPretty(),
   )
   if err != nil {
-    log.Fatalf("ERROR: %s", err)
+    log.Fatalf("Error getting response: %s", err)
   }
   defer res.Body.Close()
 
   if res.IsError() {
     var e map[string]interface{}
     if err := json.NewDecoder(res.Body).Decode(&e); err != nil {
-      log.Fatalf("error parsing the response body: %s", err)
+      log.Fatalf("Error parsing the response body: %s", err)
     } else {
       // Print the response status and error information.
       log.Fatalf("[%s] %s: %s",
