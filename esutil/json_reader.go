@@ -6,10 +6,10 @@ import (
 	"io"
 )
 
-// JSONReader is an utility function which encodes v into JSON and returns it as a reader.
+// NewJSONReader encodes v into JSON and returns it as an io.Reader.
 //
-func JSONReader(v interface{}) io.Reader {
-	return &jsonReader{val: v, buf: nil}
+func NewJSONReader(v interface{}) io.Reader {
+	return &JSONReader{val: v, buf: nil}
 }
 
 // JSONEncoder defines the interface for custom JSON encoders.
@@ -18,7 +18,10 @@ type JSONEncoder interface {
 	EncodeJSON(io.Writer) error
 }
 
-type jsonReader struct {
+// JSONReader represents a reader which takes an interface value,
+// encodes it into JSON, and wraps it in an io.Reader.
+//
+type JSONReader struct {
 	val interface{}
 	buf interface {
 		io.ReadWriter
@@ -26,7 +29,9 @@ type jsonReader struct {
 	}
 }
 
-func (r *jsonReader) Read(p []byte) (int, error) {
+// Read implements the io.Reader interface.
+//
+func (r *JSONReader) Read(p []byte) (int, error) {
 	if r.buf == nil {
 		r.buf = new(bytes.Buffer)
 		if err := r.encode(r.buf); err != nil {
@@ -37,13 +42,15 @@ func (r *jsonReader) Read(p []byte) (int, error) {
 	return r.buf.Read(p)
 }
 
-func (r *jsonReader) WriteTo(w io.Writer) (int64, error) {
+// WriteTo implements the io.WriterTo interface.
+//
+func (r *JSONReader) WriteTo(w io.Writer) (int64, error) {
 	cw := countingWriter{Writer: w}
 	err := r.encode(&cw)
 	return int64(cw.n), err
 }
 
-func (r *jsonReader) encode(w io.Writer) error {
+func (r *JSONReader) encode(w io.Writer) error {
 	var err error
 
 	if e, ok := r.val.(JSONEncoder); ok {

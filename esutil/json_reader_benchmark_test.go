@@ -53,7 +53,7 @@ func BenchmarkJSONReader(b *testing.B) {
 		b.ResetTimer()
 
 		for i := 0; i < b.N; i++ {
-			out, _ := ioutil.ReadAll(esutil.JSONReader(map[string]string{"foo": "bar"}))
+			out, _ := ioutil.ReadAll(esutil.NewJSONReader(map[string]string{"foo": "bar"}))
 			if string(out) != `{"foo":"bar"}`+"\n" {
 				b.Fatalf("Unexpected output: %q", out)
 			}
@@ -65,7 +65,7 @@ func BenchmarkJSONReader(b *testing.B) {
 
 		var buf bytes.Buffer
 		for i := 0; i < b.N; i++ {
-			io.Copy(&buf, esutil.JSONReader(map[string]string{"foo": "bar"}))
+			io.Copy(&buf, esutil.NewJSONReader(map[string]string{"foo": "bar"}))
 			if buf.String() != `{"foo":"bar"}`+"\n" {
 				b.Fatalf("Unexpected output: %q", buf.String())
 			}
@@ -77,7 +77,7 @@ func BenchmarkJSONReader(b *testing.B) {
 		b.ResetTimer()
 
 		for i := 0; i < b.N; i++ {
-			out, _ := ioutil.ReadAll(esutil.JSONReader(Foo{Bar: "baz"}))
+			out, _ := ioutil.ReadAll(esutil.NewJSONReader(Foo{Bar: "baz"}))
 			if string(out) != `{"bar":"BAZ"}`+"\n" {
 				b.Fatalf("Unexpected output: %q", out)
 			}
