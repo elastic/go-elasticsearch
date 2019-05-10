@@ -141,6 +141,11 @@ endif
 	@docker network inspect elasticsearch > /dev/null || docker network create elasticsearch;
 	@{ \
 		for n in `seq 1 $(nodes)`; do \
+			if [[ -z "$$port" ]]; then \
+				hostport=$$((9199+$$n)); \
+			else \
+				hostport=$$port; \
+			fi; \
 			docker run \
 				--name "es$$n" \
 				--network elasticsearch \
@@ -157,7 +162,7 @@ endif
 				--env "xpack.ml.enabled=false" \
 				--env ES_JAVA_OPTS="-Xms1g -Xmx1g" \
 				--volume `echo $(version) | tr -C "[:alnum:]" '-'`-node-$$n-data:/usr/share/elasticsearch/data \
-				--publish $$((9199+$$n)):9200 \
+				--publish $$hostport:9200 \
 				--ulimit nofile=65536:65536 \
 				--ulimit memlock=-1:-1 \
 				--detach=$(detached) \
@@ -169,6 +174,12 @@ endif
 		if [[ "$(detached)" == "true" ]]; then \
 			echo "\033[2m→ Waiting for the cluster...\033[0m"; \
 			docker run --network elasticsearch --rm appropriate/curl --max-time 120 --retry 120 --retry-delay 1 --retry-connrefused --show-error --silent http://es1:9200; \
+			output="\033[2m→ Cluster ready; to remove containers:"; \
+			output="$$output docker rm -f"; \
+			for n in `seq 1 $(nodes)`; do \
+				output="$$output es$$n"; \
+			done; \
+			echo "$$output\033[0m"; \
 		fi \
 	}
 
