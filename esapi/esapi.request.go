@@ -47,6 +47,8 @@ func newRequest(method, path string, body io.Reader) (*http.Request, error) {
 		case *strings.Reader:
 			r.Body = ioutil.NopCloser(body)
 			r.ContentLength = int64(b.Len())
+		default:
+			r.Body = ioutil.NopCloser(body)
 		}
 	}
 
