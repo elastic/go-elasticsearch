@@ -54,7 +54,7 @@ func BenchmarkEncode(b *testing.B) {
 
 	b.Run("Article - JSONReader", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			_, err := io.Copy(&buf, esutil.JSONReader(article))
+			_, err := io.Copy(&buf, esutil.NewJSONReader(article))
 			if err != nil {
 				b.Error(err)
 			}
@@ -84,7 +84,7 @@ func BenchmarkEncode(b *testing.B) {
 
 	b.Run("map - JSONReader", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			_, err := io.Copy(&buf, esutil.JSONReader(query))
+			_, err := io.Copy(&buf, esutil.NewJSONReader(query))
 			if err != nil {
 				b.Error(err)
 			}
