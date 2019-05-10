@@ -17,17 +17,22 @@ test: test-unit
 
 test-integ:  ## Run integration tests
 	@echo "\033[2m→ Running integration tests...\033[0m"
+	$(eval testintegtags += "integration")
+ifdef multinode
+	$(eval testintegtags += "multinode")
+endif
 ifdef race
 	$(eval testintegargs += "-race")
 endif
-	$(eval testintegargs += "-cover" "-coverprofile=tmp/integration-client.cov" "-tags='integration'" "-timeout=1h" "github.com/elastic/go-elasticsearch/v6" "github.com/elastic/go-elasticsearch/v6/estransport")
+	$(eval testintegargs += "-cover" "-coverprofile=tmp/integration-client.cov" "-tags='$(testintegtags)'" "-timeout=1h")
 	@mkdir -p tmp
 	@if which gotestsum > /dev/null 2>&1 ; then \
 		echo "gotestsum --format=short-verbose --junitfile=tmp/integration-report.xml --" $(testintegargs); \
-		gotestsum --format=short-verbose --junitfile=tmp/integration-report.xml -- $(testintegargs); \
+		gotestsum --format=short-verbose --junitfile=tmp/integration-report.xml -- $(testintegargs) "."; \
+		gotestsum --format=short-verbose --junitfile=tmp/integration-report.xml -- $(testintegargs) "./estransport" "./esapi" "./esutil"; \
 	else \
-		echo "go test -v" $(testintegargs); \
-		go test -v $(testintegargs); \
+		echo "go test -v" $(testintegargs) "."; \
+		go test -v $(testintegargs) "./estransport" "./esapi" "./esutil"; \
 	fi;
 
 test-api:  ## Run generated API integration tests

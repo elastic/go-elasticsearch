@@ -22,8 +22,6 @@ import (
 )
 
 func TestClientTransport(t *testing.T) {
-	t.Parallel()
-
 	t.Run("Persistent", func(t *testing.T) {
 		es, err := elasticsearch.NewDefaultClient()
 		if err != nil {
@@ -62,7 +60,7 @@ func TestClientTransport(t *testing.T) {
 				t.Errorf("Unexpected total_opened: %d", curTotal)
 			}
 
-			if total < 1 {
+			if total == 0 {
 				total = curTotal
 			}
 
