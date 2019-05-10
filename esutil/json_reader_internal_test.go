@@ -31,14 +31,14 @@ func (f Foo) EncodeJSON(w io.Writer) error {
 
 func TestJSONReader(t *testing.T) {
 	t.Run("Default", func(t *testing.T) {
-		out, _ := ioutil.ReadAll(JSONReader(map[string]string{"foo": "bar"}))
+		out, _ := ioutil.ReadAll(NewJSONReader(map[string]string{"foo": "bar"}))
 		if string(out) != `{"foo":"bar"}`+"\n" {
 			t.Fatalf("Unexpected output: %s", out)
 		}
 	})
 
 	t.Run("Custom", func(t *testing.T) {
-		out, _ := ioutil.ReadAll(JSONReader(Foo{Bar: "baz"}))
+		out, _ := ioutil.ReadAll(NewJSONReader(Foo{Bar: "baz"}))
 		if string(out) != `{"bar":"BAZ"}`+"\n" {
 			t.Fatalf("Unexpected output: %s", out)
 		}
@@ -46,7 +46,7 @@ func TestJSONReader(t *testing.T) {
 
 	t.Run("WriteTo", func(t *testing.T) {
 		b := bytes.NewBuffer([]byte{})
-		r := jsonReader{val: map[string]string{"foo": "bar"}}
+		r := JSONReader{val: map[string]string{"foo": "bar"}}
 		r.WriteTo(b)
 		if b.String() != `{"foo":"bar"}`+"\n" {
 			t.Fatalf("Unexpected output: %s", b.String())
@@ -55,7 +55,7 @@ func TestJSONReader(t *testing.T) {
 
 	t.Run("Read error", func(t *testing.T) {
 		b := []byte{}
-		r := jsonReader{val: map[string]string{"foo": "bar"}, buf: errReader{}}
+		r := JSONReader{val: map[string]string{"foo": "bar"}, buf: errReader{}}
 		_, err := r.Read(b)
 		if err == nil {
 			t.Fatalf("Expected error, got: %#v", err)
