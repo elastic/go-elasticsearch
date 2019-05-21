@@ -57,15 +57,8 @@ func (r ScrollRequest) Do(ctx context.Context, transport Transport) (*Response, 
 
 	method = "GET"
 
-	path.Grow(1 + len("_search") + 1 + len("scroll") + 1 + len(r.ScrollID))
-	path.WriteString("/")
-	path.WriteString("_search")
-	path.WriteString("/")
-	path.WriteString("scroll")
-	if r.ScrollID != "" {
-		path.WriteString("/")
-		path.WriteString(r.ScrollID)
-	}
+	path.Grow(len("/_search/scroll"))
+	path.WriteString("/_search/scroll")
 
 	params = make(map[string]string)
 
