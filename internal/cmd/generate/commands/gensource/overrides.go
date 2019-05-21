@@ -95,6 +95,15 @@ func init() {
 `
 				},
 			},
+			{
+				Matching: []string{"scroll"},
+				Func: func(*Endpoint, ...interface{}) string {
+					return `
+	path.Grow(len("/_search/scroll"))
+	path.WriteString("/_search/scroll")
+`
+				},
+			},
 		},
 	}
 }
