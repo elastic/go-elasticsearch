@@ -2,6 +2,7 @@ package gensource
 
 import (
 	"fmt"
+	"math"
 	"strings"
 	"text/tabwriter"
 
@@ -16,23 +17,36 @@ func (e *Endpoint) DebugInfo() string {
 
 	fmt.Fprintln(&out, strings.Repeat("─", utils.TerminalWidth()))
 	fmt.Fprintf(&out, "API: %s (%s:%s)\n", e.MethodWithNamespace(), e.Type, e.Name)
-	// fmt.Fprintf(&out, "<%s>\n", e.Documentation)
+	fmt.Fprintf(&out, "%s\n", e.Documentation.Description[0:int(math.Min(float64(80), float64(len(e.Documentation.Description))))])
 	fmt.Fprintln(&out, strings.Repeat("─", utils.TerminalWidth()))
-
-	fmt.Fprintf(&out, "Methods:\n  %s\n", e.Methods)
 
 	fmt.Fprintln(&out, "Paths:")
 	for _, path := range e.URL.Paths {
-		fmt.Fprintf(&out, "  • %s\n", path)
+		fmt.Fprintf(w, "%6s\t%s", path.Methods[0], path.Path)
+		if path.Deprecated.Version != "" {
+			fmt.Fprintf(w, "\t*deprecated*")
+		}
+		fmt.Fprintf(w, "\n")
+	}
+	w.Flush()
+
+	longestPath := e.URL.Paths[0]
+	for _, v := range e.URL.Paths {
+		if len(v.Path) > len(longestPath.Path) {
+			longestPath = v
+		}
 	}
 
-	if len(e.URL.Parts) > 0 {
+	if len(longestPath.Parts) > 0 {
 		fmt.Fprintln(&out, "Parts:")
-		for _, part := range e.URL.Parts {
+		for _, part := range longestPath.Parts {
 			fmt.Fprintf(w, "  • %s\t", part.Name)
 			fmt.Fprintf(w, "  %s", part.Type)
 			if part.Required {
 				fmt.Fprint(w, ", required")
+			}
+			if part.Default != nil {
+				fmt.Fprintf(w, ", default: %s", part.Default)
 			}
 			fmt.Fprint(w, "\n")
 		}
@@ -49,20 +63,26 @@ func (e *Endpoint) DebugInfo() string {
 			if param.Type == "enum" {
 				fmt.Fprintf(w, ": %s", strings.Join(param.Options, ", "))
 			}
+			if param.Default != nil {
+				fmt.Fprintf(w, ", default: %s", param.Default)
+			}
 			fmt.Fprint(w, "\n")
 		}
 		w.Flush()
 	}
 
 	if e.Body != nil {
-		fmt.Fprint(&out, "Body: ")
+		fmt.Fprintln(&out, "Body:")
+		if e.Body.Description != "" {
+			fmt.Fprintf(&out, "  %s.", e.Body.Description)
+		}
 		if e.Body.Required {
-			fmt.Fprintf(&out, "required")
+			fmt.Fprintf(&out, " *Required*")
 		} else {
-			fmt.Fprintf(&out, "optional")
+			fmt.Fprintf(&out, " Optional")
 		}
 		if e.Body.ContentType != "" {
-			fmt.Fprintf(&out, " (format: %s)", e.Body.ContentType)
+			fmt.Fprintf(&out, ", format: %s", e.Body.ContentType)
 		}
 		fmt.Fprintf(&out, "\n")
 	}

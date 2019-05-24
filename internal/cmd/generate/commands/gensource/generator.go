@@ -115,10 +115,10 @@ func (g *Generator) genMethodDefinition() {
 	g.w("\n// ----- API Definition -------------------------------------------------------\n\n")
 
 	if g.Endpoint.Type == "xpack" {
-		g.w(`// ` + g.Endpoint.MethodWithNamespace() + " - " + g.Endpoint.Documentation)
+		g.w(`// ` + g.Endpoint.MethodWithNamespace() + " - " + g.Endpoint.Documentation.Description)
 	} else {
-		if g.Endpoint.Description != "" {
-			words := strings.Split(g.Endpoint.Description, " ")
+		if g.Endpoint.Documentation.Description != "" {
+			words := strings.Split(g.Endpoint.Documentation.Description, " ")
 			initial := strings.ToLower(words[0:1][0])
 			description := initial + " " + strings.Join(words[1:], " ")
 			lines := strings.Split(description, "\n")
@@ -127,12 +127,11 @@ func (g *Generator) genMethodDefinition() {
 			for _, line := range lines[1:] {
 				g.w("\n// " + line)
 			}
-			g.w("\n")
 		}
+	}
 
-		if g.Endpoint.Documentation != "" {
-			g.w("//\n" + `// See full documentation at ` + g.Endpoint.Documentation + ".")
-		}
+	if g.Endpoint.Documentation.URL != "" {
+		g.w("\n//\n" + `// See full documentation at ` + g.Endpoint.Documentation.URL + ".")
 	}
 
 	g.w(`
@@ -174,13 +173,13 @@ func (g *Generator) genRequestStruct() {
 type ` + g.Endpoint.MethodWithNamespace() + `Request struct {`)
 	specialFields := []string{"index", "type", "id"}
 	for _, n := range specialFields {
-		if param, ok := g.Endpoint.URL.Parts[n]; ok {
+		if param, ok := g.Endpoint.URL.AllParts[n]; ok {
 			g.w("\n\t" + param.GoName())
 			g.w("\t" + param.GoType(true))
 		}
 	}
 
-	if len(g.Endpoint.URL.Parts) > 0 {
+	if len(g.Endpoint.URL.AllParts) > 0 {
 		g.w("\n")
 	}
 
@@ -188,12 +187,12 @@ type ` + g.Endpoint.MethodWithNamespace() + `Request struct {`)
 		g.w("\n\tBody io.Reader")
 	}
 
-	if len(g.Endpoint.URL.Parts) > 0 || g.Endpoint.Body != nil {
+	if len(g.Endpoint.URL.AllParts) > 0 || g.Endpoint.Body != nil {
 		g.w("\n")
 	}
 
 	for _, name := range g.Endpoint.URL.PartNamesSorted {
-		p, ok := g.Endpoint.URL.Parts[name]
+		p, ok := g.Endpoint.URL.AllParts[name]
 		if !ok {
 			panic(fmt.Sprintf("Part %q not found", name))
 		}
@@ -212,7 +211,7 @@ type ` + g.Endpoint.MethodWithNamespace() + `Request struct {`)
 
 	}
 
-	if len(g.Endpoint.URL.Parts) > 0 {
+	if len(g.Endpoint.URL.AllParts) > 0 {
 		g.w("\n")
 	}
 
@@ -222,7 +221,7 @@ type ` + g.Endpoint.MethodWithNamespace() + `Request struct {`)
 			panic(fmt.Sprintf("Parameter %q not found", name))
 		}
 
-		if _, ok := g.Endpoint.URL.Parts[name]; ok {
+		if _, ok := g.Endpoint.URL.AllParts[name]; ok {
 			continue // skip params which are also parts
 		}
 
@@ -348,7 +347,7 @@ func (f ` + g.Endpoint.MethodWithNamespace() + `) WithBody(v io.Reader) func(*` 
 
 	// Generate With... methods for parts
 	for _, pName := range g.Endpoint.URL.PartNamesSorted {
-		if p, ok := g.Endpoint.URL.Parts[pName]; ok {
+		if p, ok := g.Endpoint.URL.AllParts[pName]; ok {
 			if skipRequiredArgs[p.Name] && p.Name != "type" {
 				continue
 			}
@@ -361,7 +360,7 @@ func (f ` + g.Endpoint.MethodWithNamespace() + `) WithBody(v io.Reader) func(*` 
 
 	// Generate With... methods for params
 	for _, pName := range g.Endpoint.URL.ParamNamesSorted {
-		if _, ok := g.Endpoint.URL.Parts[pName]; ok {
+		if _, ok := g.Endpoint.URL.AllParts[pName]; ok {
 			continue // skip params which are also parts
 		}
 		if p, ok := g.Endpoint.URL.Params[pName]; ok {
@@ -452,7 +451,7 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(ctx context.Context,
 	}`)
 		g.w("\n\n")
 	default:
-		g.w("\t" + `method = "` + g.Endpoint.Methods[0] + `"` + "\n\n")
+		g.w("\t" + `method = "` + g.Endpoint.URL.Paths[0].Methods[0] + `"` + "\n\n")
 	}
 
 	// Get default part values for specific APIs
@@ -460,7 +459,7 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(ctx context.Context,
 	var defparts bool
 	switch g.Endpoint.Name {
 	case "index", "create", "delete", "explain", "exists", "get", "get_source", "update", "termvectors":
-		for _, p := range g.Endpoint.URL.Parts {
+		for _, p := range g.Endpoint.URL.AllParts {
 			if p.Default != nil {
 				var fieldName string
 				var fieldValue string
@@ -504,25 +503,25 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(ctx context.Context,
 
 		pathGrow.WriteString(`	path.Grow(`)
 
-		if len(g.Endpoint.URL.Parts) < 1 {
-			if g.Endpoint.URL.Path == "" {
+		// FIXME: Select longest path based on number of template entries, not string length
+		longestPath := g.Endpoint.URL.Paths[0]
+		for _, v := range g.Endpoint.URL.Paths {
+			if len(v.Path) > len(longestPath.Path) {
+				longestPath = v
+			}
+		}
+
+		if len(longestPath.Parts) < 1 {
+			if len(g.Endpoint.URL.Paths) < 1 {
 				panic(fmt.Sprintf("FAIL: %q: empty endpoint\n", g.Endpoint.Name))
 			}
-			pathGrow.WriteString(`len("` + g.Endpoint.URL.Path + `")`)
-			pathContent.WriteString(`	path.WriteString("` + g.Endpoint.URL.Path + `")` + "\n")
+			pathGrow.WriteString(`len("` + longestPath.Path + `")`)
+			pathContent.WriteString(`	path.WriteString("` + longestPath.Path + `")` + "\n")
 
 		} else {
-			// FIXME: Select longest path based on number of template entries, not string length
-			longestPath := g.Endpoint.URL.Paths[0]
-			for _, v := range g.Endpoint.URL.Paths {
-				if len(v) > len(longestPath) {
-					longestPath = v
-				}
-			}
-
 			pathParts := make([]string, 0)
 			apiArgs := g.Endpoint.RequiredArguments()
-			for _, v := range strings.Split(longestPath, "/") {
+			for _, v := range strings.Split(longestPath.Path, "/") {
 				if v != "" {
 					pathParts = append(pathParts, v)
 				}
@@ -555,7 +554,8 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(ctx context.Context,
 
 				// Optional arguments
 				if p == "" {
-					for _, a := range g.Endpoint.URL.Parts {
+					for _, a := range longestPath.Parts {
+						// fmt.Printf("a: %+v\n", a)
 						if strings.HasPrefix(v, "{") && a.Name == r.Replace(v) {
 							p = a.GoName()
 

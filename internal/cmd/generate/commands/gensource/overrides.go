@@ -81,17 +81,13 @@ func init() {
 				Matching: []string{"indices.put_mapping"},
 				Func: func(*Endpoint, ...interface{}) string {
 					return `
-	path.Grow(len(strings.Join(r.Index, ",")) + len("/_mapping") + len(r.DocumentType) + 2)
+	path.Grow(len(strings.Join(r.Index, ",")) + len("/_mapping") + 1)
 	if len(r.Index) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.Index, ","))
 	}
 	path.WriteString("/")
 	path.WriteString("_mapping")
-	if r.DocumentType != "" {
-		path.WriteString("/")
-		path.WriteString(r.DocumentType)
-	}
 `
 				},
 			},

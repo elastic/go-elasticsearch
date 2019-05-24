@@ -82,6 +82,17 @@ search.aggregation/40_range.yml:
 tasks.list/10_basic.yml:
   - tasks_list headers
 
+# Node Selector feature not implemented
+cat.aliases/10_basic.yml:
+  - "Help (pre 7.4.0)"
+  - "Simple alias (pre 7.4.0)"
+  - "Complex alias (pre 7.4.0)"
+  - "Column headers (pre 7.4.0)"
+  - "Alias against closed index (pre 7.4.0)"
+
+indices.put_mapping/10_basic.yml:
+  - "Put mappings with explicit _doc type bwc"
+
 # Not relevant
 search/issue4895.yml:
 search/issue9606.yml:
