@@ -30,8 +30,7 @@ type MsearchTemplate func(body io.Reader, o ...func(*MsearchTemplateRequest)) (*
 // MsearchTemplateRequest configures the Msearch Template API request.
 //
 type MsearchTemplateRequest struct {
-	Index        []string
-	DocumentType []string
+	Index []string
 
 	Body io.Reader
 
@@ -60,14 +59,10 @@ func (r MsearchTemplateRequest) Do(ctx context.Context, transport Transport) (*R
 
 	method = "GET"
 
-	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len(strings.Join(r.DocumentType, ",")) + 1 + len("_msearch") + 1 + len("template"))
+	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_msearch") + 1 + len("template"))
 	if len(r.Index) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.Index, ","))
-	}
-	if len(r.DocumentType) > 0 {
-		path.WriteString("/")
-		path.WriteString(strings.Join(r.DocumentType, ","))
 	}
 	path.WriteString("/")
 	path.WriteString("_msearch")
@@ -157,14 +152,6 @@ func (f MsearchTemplate) WithContext(v context.Context) func(*MsearchTemplateReq
 func (f MsearchTemplate) WithIndex(v ...string) func(*MsearchTemplateRequest) {
 	return func(r *MsearchTemplateRequest) {
 		r.Index = v
-	}
-}
-
-// WithDocumentType - a list of document types to use as default.
-//
-func (f MsearchTemplate) WithDocumentType(v ...string) func(*MsearchTemplateRequest) {
-	return func(r *MsearchTemplateRequest) {
-		r.DocumentType = v
 	}
 }
 

@@ -33,7 +33,6 @@ type ExistsRequest struct {
 	DocumentType string
 	DocumentID   string
 
-	Parent         string
 	Preference     string
 	Realtime       *bool
 	Refresh        *bool
@@ -79,10 +78,6 @@ func (r ExistsRequest) Do(ctx context.Context, transport Transport) (*Response, 
 	path.WriteString(r.DocumentID)
 
 	params = make(map[string]string)
-
-	if r.Parent != "" {
-		params["parent"] = r.Parent
-	}
 
 	if r.Preference != "" {
 		params["preference"] = r.Preference
@@ -181,14 +176,6 @@ func (f Exists) WithContext(v context.Context) func(*ExistsRequest) {
 func (f Exists) WithDocumentType(v string) func(*ExistsRequest) {
 	return func(r *ExistsRequest) {
 		r.DocumentType = v
-	}
-}
-
-// WithParent - the ID of the parent document.
-//
-func (f Exists) WithParent(v string) func(*ExistsRequest) {
-	return func(r *ExistsRequest) {
-		r.Parent = v
 	}
 }
 

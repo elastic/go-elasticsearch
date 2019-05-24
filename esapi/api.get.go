@@ -33,15 +33,12 @@ type GetRequest struct {
 	DocumentType string
 	DocumentID   string
 
-	Parent         string
 	Preference     string
 	Realtime       *bool
 	Refresh        *bool
 	Routing        string
 	Source         []string
-	SourceExclude  []string
 	SourceExcludes []string
-	SourceInclude  []string
 	SourceIncludes []string
 	StoredFields   []string
 	Version        *int
@@ -82,10 +79,6 @@ func (r GetRequest) Do(ctx context.Context, transport Transport) (*Response, err
 
 	params = make(map[string]string)
 
-	if r.Parent != "" {
-		params["parent"] = r.Parent
-	}
-
 	if r.Preference != "" {
 		params["preference"] = r.Preference
 	}
@@ -106,16 +99,8 @@ func (r GetRequest) Do(ctx context.Context, transport Transport) (*Response, err
 		params["_source"] = strings.Join(r.Source, ",")
 	}
 
-	if len(r.SourceExclude) > 0 {
-		params["_source_exclude"] = strings.Join(r.SourceExclude, ",")
-	}
-
 	if len(r.SourceExcludes) > 0 {
 		params["_source_excludes"] = strings.Join(r.SourceExcludes, ",")
-	}
-
-	if len(r.SourceInclude) > 0 {
-		params["_source_include"] = strings.Join(r.SourceInclude, ",")
 	}
 
 	if len(r.SourceIncludes) > 0 {
@@ -194,14 +179,6 @@ func (f Get) WithDocumentType(v string) func(*GetRequest) {
 	}
 }
 
-// WithParent - the ID of the parent document.
-//
-func (f Get) WithParent(v string) func(*GetRequest) {
-	return func(r *GetRequest) {
-		r.Parent = v
-	}
-}
-
 // WithPreference - specify the node or shard the operation should be performed on (default: random).
 //
 func (f Get) WithPreference(v string) func(*GetRequest) {
@@ -242,27 +219,11 @@ func (f Get) WithSource(v ...string) func(*GetRequest) {
 	}
 }
 
-// WithSourceExclude - a list of fields to exclude from the returned _source field.
-//
-func (f Get) WithSourceExclude(v ...string) func(*GetRequest) {
-	return func(r *GetRequest) {
-		r.SourceExclude = v
-	}
-}
-
 // WithSourceExcludes - a list of fields to exclude from the returned _source field.
 //
 func (f Get) WithSourceExcludes(v ...string) func(*GetRequest) {
 	return func(r *GetRequest) {
 		r.SourceExcludes = v
-	}
-}
-
-// WithSourceInclude - a list of fields to extract and return from the _source field.
-//
-func (f Get) WithSourceInclude(v ...string) func(*GetRequest) {
-	return func(r *GetRequest) {
-		r.SourceInclude = v
 	}
 }
 

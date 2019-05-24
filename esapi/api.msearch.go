@@ -30,8 +30,7 @@ type Msearch func(body io.Reader, o ...func(*MsearchRequest)) (*Response, error)
 // MsearchRequest configures the Msearch API request.
 //
 type MsearchRequest struct {
-	Index        []string
-	DocumentType []string
+	Index []string
 
 	Body io.Reader
 
@@ -62,14 +61,10 @@ func (r MsearchRequest) Do(ctx context.Context, transport Transport) (*Response,
 
 	method = "GET"
 
-	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len(strings.Join(r.DocumentType, ",")) + 1 + len("_msearch"))
+	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_msearch"))
 	if len(r.Index) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.Index, ","))
-	}
-	if len(r.DocumentType) > 0 {
-		path.WriteString("/")
-		path.WriteString(strings.Join(r.DocumentType, ","))
 	}
 	path.WriteString("/")
 	path.WriteString("_msearch")
@@ -165,14 +160,6 @@ func (f Msearch) WithContext(v context.Context) func(*MsearchRequest) {
 func (f Msearch) WithIndex(v ...string) func(*MsearchRequest) {
 	return func(r *MsearchRequest) {
 		r.Index = v
-	}
-}
-
-// WithDocumentType - a list of document types to use as default.
-//
-func (f Msearch) WithDocumentType(v ...string) func(*MsearchRequest) {
-	return func(r *MsearchRequest) {
-		r.DocumentType = v
 	}
 }
 

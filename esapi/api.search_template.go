@@ -31,8 +31,7 @@ type SearchTemplate func(body io.Reader, o ...func(*SearchTemplateRequest)) (*Re
 // SearchTemplateRequest configures the Search Template API request.
 //
 type SearchTemplateRequest struct {
-	Index        []string
-	DocumentType []string
+	Index []string
 
 	Body io.Reader
 
@@ -69,14 +68,10 @@ func (r SearchTemplateRequest) Do(ctx context.Context, transport Transport) (*Re
 
 	method = "GET"
 
-	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len(strings.Join(r.DocumentType, ",")) + 1 + len("_search") + 1 + len("template"))
+	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_search") + 1 + len("template"))
 	if len(r.Index) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.Index, ","))
-	}
-	if len(r.DocumentType) > 0 {
-		path.WriteString("/")
-		path.WriteString(strings.Join(r.DocumentType, ","))
 	}
 	path.WriteString("/")
 	path.WriteString("_search")
@@ -198,14 +193,6 @@ func (f SearchTemplate) WithContext(v context.Context) func(*SearchTemplateReque
 func (f SearchTemplate) WithIndex(v ...string) func(*SearchTemplateRequest) {
 	return func(r *SearchTemplateRequest) {
 		r.Index = v
-	}
-}
-
-// WithDocumentType - a list of document types to search; leave empty to perform the operation on all types.
-//
-func (f SearchTemplate) WithDocumentType(v ...string) func(*SearchTemplateRequest) {
-	return func(r *SearchTemplateRequest) {
-		r.DocumentType = v
 	}
 }
 

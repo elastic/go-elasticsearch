@@ -39,7 +39,6 @@ type CreateRequest struct {
 
 	Body io.Reader
 
-	Parent              string
 	Pipeline            string
 	Refresh             string
 	Routing             string
@@ -82,10 +81,6 @@ func (r CreateRequest) Do(ctx context.Context, transport Transport) (*Response, 
 	path.WriteString("_create")
 
 	params = make(map[string]string)
-
-	if r.Parent != "" {
-		params["parent"] = r.Parent
-	}
 
 	if r.Pipeline != "" {
 		params["pipeline"] = r.Pipeline
@@ -176,14 +171,6 @@ func (f Create) WithContext(v context.Context) func(*CreateRequest) {
 func (f Create) WithDocumentType(v string) func(*CreateRequest) {
 	return func(r *CreateRequest) {
 		r.DocumentType = v
-	}
-}
-
-// WithParent - ID of the parent document.
-//
-func (f Create) WithParent(v string) func(*CreateRequest) {
-	return func(r *CreateRequest) {
-		r.Parent = v
 	}
 }
 

@@ -33,7 +33,6 @@ type ExistsSourceRequest struct {
 	DocumentType string
 	DocumentID   string
 
-	Parent         string
 	Preference     string
 	Realtime       *bool
 	Refresh        *bool
@@ -76,10 +75,6 @@ func (r ExistsSourceRequest) Do(ctx context.Context, transport Transport) (*Resp
 	path.WriteString("_source")
 
 	params = make(map[string]string)
-
-	if r.Parent != "" {
-		params["parent"] = r.Parent
-	}
 
 	if r.Preference != "" {
 		params["preference"] = r.Preference
@@ -174,14 +169,6 @@ func (f ExistsSource) WithContext(v context.Context) func(*ExistsSourceRequest) 
 func (f ExistsSource) WithDocumentType(v string) func(*ExistsSourceRequest) {
 	return func(r *ExistsSourceRequest) {
 		r.DocumentType = v
-	}
-}
-
-// WithParent - the ID of the parent document.
-//
-func (f ExistsSource) WithParent(v string) func(*ExistsSourceRequest) {
-	return func(r *ExistsSourceRequest) {
-		r.Parent = v
 	}
 }
 

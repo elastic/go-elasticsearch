@@ -30,16 +30,14 @@ type Termvectors func(index string, o ...func(*TermvectorsRequest)) (*Response, 
 // TermvectorsRequest configures the Termvectors API request.
 //
 type TermvectorsRequest struct {
-	Index        string
-	DocumentType string
-	DocumentID   string
+	Index      string
+	DocumentID string
 
 	Body io.Reader
 
 	Fields          []string
 	FieldStatistics *bool
 	Offsets         *bool
-	Parent          string
 	Payloads        *bool
 	Positions       *bool
 	Preference      string
@@ -68,23 +66,15 @@ func (r TermvectorsRequest) Do(ctx context.Context, transport Transport) (*Respo
 
 	method = "GET"
 
-	if r.DocumentType == "" {
-		r.DocumentType = "_doc"
-	}
-
-	path.Grow(1 + len(r.Index) + 1 + len(r.DocumentType) + 1 + len(r.DocumentID) + 1 + len("_termvectors"))
+	path.Grow(1 + len(r.Index) + 1 + len("_termvectors") + 1 + len(r.DocumentID))
 	path.WriteString("/")
 	path.WriteString(r.Index)
-	if r.DocumentType != "" {
-		path.WriteString("/")
-		path.WriteString(r.DocumentType)
-	}
+	path.WriteString("/")
+	path.WriteString("_termvectors")
 	if r.DocumentID != "" {
 		path.WriteString("/")
 		path.WriteString(r.DocumentID)
 	}
-	path.WriteString("/")
-	path.WriteString("_termvectors")
 
 	params = make(map[string]string)
 
@@ -98,10 +88,6 @@ func (r TermvectorsRequest) Do(ctx context.Context, transport Transport) (*Respo
 
 	if r.Offsets != nil {
 		params["offsets"] = strconv.FormatBool(*r.Offsets)
-	}
-
-	if r.Parent != "" {
-		params["parent"] = r.Parent
 	}
 
 	if r.Payloads != nil {
@@ -208,14 +194,6 @@ func (f Termvectors) WithDocumentID(v string) func(*TermvectorsRequest) {
 	}
 }
 
-// WithDocumentType - the type of the document..
-//
-func (f Termvectors) WithDocumentType(v string) func(*TermvectorsRequest) {
-	return func(r *TermvectorsRequest) {
-		r.DocumentType = v
-	}
-}
-
 // WithFields - a list of fields to return..
 //
 func (f Termvectors) WithFields(v ...string) func(*TermvectorsRequest) {
@@ -237,14 +215,6 @@ func (f Termvectors) WithFieldStatistics(v bool) func(*TermvectorsRequest) {
 func (f Termvectors) WithOffsets(v bool) func(*TermvectorsRequest) {
 	return func(r *TermvectorsRequest) {
 		r.Offsets = &v
-	}
-}
-
-// WithParent - parent ID of documents..
-//
-func (f Termvectors) WithParent(v string) func(*TermvectorsRequest) {
-	return func(r *TermvectorsRequest) {
-		r.Parent = v
 	}
 }
 

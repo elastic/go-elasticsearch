@@ -33,7 +33,6 @@ type GetSourceRequest struct {
 	DocumentType string
 	DocumentID   string
 
-	Parent         string
 	Preference     string
 	Realtime       *bool
 	Refresh        *bool
@@ -80,10 +79,6 @@ func (r GetSourceRequest) Do(ctx context.Context, transport Transport) (*Respons
 	path.WriteString("_source")
 
 	params = make(map[string]string)
-
-	if r.Parent != "" {
-		params["parent"] = r.Parent
-	}
 
 	if r.Preference != "" {
 		params["preference"] = r.Preference
@@ -178,14 +173,6 @@ func (f GetSource) WithContext(v context.Context) func(*GetSourceRequest) {
 func (f GetSource) WithDocumentType(v string) func(*GetSourceRequest) {
 	return func(r *GetSourceRequest) {
 		r.DocumentType = v
-	}
-}
-
-// WithParent - the ID of the parent document.
-//
-func (f GetSource) WithParent(v string) func(*GetSourceRequest) {
-	return func(r *GetSourceRequest) {
-		r.Parent = v
 	}
 }
 

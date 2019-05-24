@@ -40,7 +40,6 @@ type UpdateRequest struct {
 	IfPrimaryTerm       *int
 	IfSeqNo             *int
 	Lang                string
-	Parent              string
 	Refresh             string
 	RetryOnConflict     *int
 	Routing             string
@@ -97,10 +96,6 @@ func (r UpdateRequest) Do(ctx context.Context, transport Transport) (*Response, 
 
 	if r.Lang != "" {
 		params["lang"] = r.Lang
-	}
-
-	if r.Parent != "" {
-		params["parent"] = r.Parent
 	}
 
 	if r.Refresh != "" {
@@ -220,14 +215,6 @@ func (f Update) WithIfSeqNo(v int) func(*UpdateRequest) {
 func (f Update) WithLang(v string) func(*UpdateRequest) {
 	return func(r *UpdateRequest) {
 		r.Lang = v
-	}
-}
-
-// WithParent - ID of the parent document. is is only used for routing and when for the upsert request.
-//
-func (f Update) WithParent(v string) func(*UpdateRequest) {
-	return func(r *UpdateRequest) {
-		r.Parent = v
 	}
 }
 

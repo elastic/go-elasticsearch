@@ -31,8 +31,7 @@ type DeleteByQuery func(index []string, body io.Reader, o ...func(*DeleteByQuery
 // DeleteByQueryRequest configures the Delete By Query API request.
 //
 type DeleteByQueryRequest struct {
-	Index        []string
-	DocumentType []string
+	Index []string
 
 	Body io.Reader
 
@@ -88,13 +87,9 @@ func (r DeleteByQueryRequest) Do(ctx context.Context, transport Transport) (*Res
 
 	method = "POST"
 
-	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len(strings.Join(r.DocumentType, ",")) + 1 + len("_delete_by_query"))
+	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_delete_by_query"))
 	path.WriteString("/")
 	path.WriteString(strings.Join(r.Index, ","))
-	if len(r.DocumentType) > 0 {
-		path.WriteString("/")
-		path.WriteString(strings.Join(r.DocumentType, ","))
-	}
 	path.WriteString("/")
 	path.WriteString("_delete_by_query")
 
@@ -281,14 +276,6 @@ func (r DeleteByQueryRequest) Do(ctx context.Context, transport Transport) (*Res
 func (f DeleteByQuery) WithContext(v context.Context) func(*DeleteByQueryRequest) {
 	return func(r *DeleteByQueryRequest) {
 		r.ctx = v
-	}
-}
-
-// WithDocumentType - a list of document types to search; leave empty to perform the operation on all types.
-//
-func (f DeleteByQuery) WithDocumentType(v ...string) func(*DeleteByQueryRequest) {
-	return func(r *DeleteByQueryRequest) {
-		r.DocumentType = v
 	}
 }
 
