@@ -8,6 +8,8 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+
+	"github.com/elastic/go-elasticsearch/v8/esutil"
 )
 
 const (
@@ -45,6 +47,9 @@ func newRequest(method, path string, body io.Reader) (*http.Request, error) {
 			r.Body = ioutil.NopCloser(body)
 			r.ContentLength = int64(b.Len())
 		case *strings.Reader:
+			r.Body = ioutil.NopCloser(body)
+			r.ContentLength = int64(b.Len())
+		case *esutil.JSONReader:
 			r.Body = ioutil.NopCloser(body)
 			r.ContentLength = int64(b.Len())
 		default:

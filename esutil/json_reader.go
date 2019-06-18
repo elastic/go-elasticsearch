@@ -26,6 +26,7 @@ type JSONReader struct {
 	buf interface {
 		io.ReadWriter
 		io.WriterTo
+		Len() int
 	}
 }
 
@@ -40,6 +41,19 @@ func (r *JSONReader) Read(p []byte) (int, error) {
 	}
 
 	return r.buf.Read(p)
+}
+
+// Len returns the number of bytes of the unread portion of the
+// slice.
+func (r *JSONReader) Len() int {
+	if r.buf == nil {
+		r.buf = new(bytes.Buffer)
+		if err := r.encode(r.buf); err != nil {
+			r.buf = nil
+			return 0
+		}
+	}
+	return r.buf.Len()
 }
 
 // WriteTo implements the io.WriterTo interface.

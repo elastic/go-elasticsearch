@@ -13,6 +13,7 @@ import (
 
 type errReader struct{}
 
+func (errReader) Len() int                           { return 1 }
 func (errReader) Read(p []byte) (int, error)         { return 1, errors.New("MOCK ERROR") }
 func (errReader) Write(p []byte) (int, error)        { return 0, errors.New("MOCK ERROR") }
 func (errReader) WriteTo(w io.Writer) (int64, error) { return 0, errors.New("MOCK ERROR") }
@@ -53,12 +54,22 @@ func TestJSONReader(t *testing.T) {
 		}
 	})
 
+	t.Run("Len", func(t *testing.T) {
+		r := JSONReader{val: map[string]string{"foo": "bar"}}
+		if n := r.Len(); n != 14 {
+			t.Fatalf("Unexpected length: %d", n)
+		}
+	})
+
 	t.Run("Read error", func(t *testing.T) {
 		b := []byte{}
 		r := JSONReader{val: map[string]string{"foo": "bar"}, buf: errReader{}}
-		_, err := r.Read(b)
+		size, err := r.Read(b)
 		if err == nil {
 			t.Fatalf("Expected error, got: %#v", err)
+		}
+		if n := r.Len(); n != size {
+			t.Fatalf("Expected length to be 1, got %d", n)
 		}
 	})
 }

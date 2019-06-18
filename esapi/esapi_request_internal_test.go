@@ -8,6 +8,8 @@ import (
 	"net/http"
 	"strings"
 	"testing"
+
+	"github.com/elastic/go-elasticsearch/v8/esutil"
 )
 
 func TestAPIRequest(t *testing.T) {
@@ -51,6 +53,13 @@ func TestAPIRequest(t *testing.T) {
 			t.Errorf("Unexpected type for req.Body: %T", req.Body)
 		}
 		req, err = newRequest("GET", "/foo", bytes.NewReader([]byte(body)))
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+		if _, ok := req.Body.(io.ReadCloser); !ok {
+			t.Errorf("Unexpected type for req.Body: %T", req.Body)
+		}
+		req, err = newRequest("GET", "/foo", esutil.NewJSONReader(map[string]interface{}{"foo": "bar"}))
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
