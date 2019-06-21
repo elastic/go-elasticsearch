@@ -113,7 +113,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 			}
 		}
 		if c.logger.ResponseBodyEnabled() {
-			if res.Body != nil && res.Body != http.NoBody {
+			if res != nil && res.Body != nil && res.Body != http.NoBody {
 				b1, b2, _ := duplicateBody(res.Body)
 				dupRes.Body = b1
 				res.Body = b2
