@@ -231,6 +231,8 @@ type ` + g.Endpoint.MethodWithNamespace() + `Request struct {`)
 	g.w("\n\tErrorTrace\tbool")
 	g.w("\n\tFilterPath\t[]string\n")
 
+	g.w("\n\n\tHeader\thttp.Header\n")
+
 	g.w("\n\tctx context.Context\n}\n")
 }
 
@@ -404,6 +406,22 @@ func (f ` + g.Endpoint.MethodWithNamespace() + `) WithErrorTrace() func(*` + g.E
 func (f ` + g.Endpoint.MethodWithNamespace() + `) WithFilterPath(v ...string) func(*` + g.Endpoint.MethodWithNamespace() + `Request) {
 	return func(r *` + g.Endpoint.MethodWithNamespace() + `Request) {
 		r.FilterPath = v
+	}
+}
+`)
+
+	// Generate methods for HTTP headers
+	g.w(`
+// WithHeader adds the headers to the HTTP request
+//
+func (f ` + g.Endpoint.MethodWithNamespace() + `) WithHeader(h map[string]string) func(*` + g.Endpoint.MethodWithNamespace() + `Request) {
+	return func(r *` + g.Endpoint.MethodWithNamespace() + `Request) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		for k, v := range h {
+			r.Header.Add(k, v)
+		}
 	}
 }
 `)
@@ -691,6 +709,10 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(ctx context.Context,
 		req.Header[headerContentType] = headerContentTypeJSON
 	}` + "\n\n")
 	}
+
+	g.w(`if len(r.Header) > 0 {
+		req.Header = r.Header
+	}` + "\n\n")
 
 	g.w(`if ctx != nil {
 		req = req.WithContext(ctx)
