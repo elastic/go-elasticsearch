@@ -5,6 +5,7 @@ package esapi
 import (
 	"context"
 	"io"
+	"net/http"
 	"strconv"
 	"strings"
 	"time"
@@ -42,6 +43,8 @@ type ScrollRequest struct {
 	Human      bool
 	ErrorTrace bool
 	FilterPath []string
+
+	Header http.Header
 
 	ctx context.Context
 }
@@ -102,6 +105,10 @@ func (r ScrollRequest) Do(ctx context.Context, transport Transport) (*Response, 
 
 	if r.Body != nil {
 		req.Header[headerContentType] = headerContentTypeJSON
+	}
+
+	if len(r.Header) > 0 {
+		req.Header = r.Header
 	}
 
 	if ctx != nil {
@@ -191,5 +198,18 @@ func (f Scroll) WithErrorTrace() func(*ScrollRequest) {
 func (f Scroll) WithFilterPath(v ...string) func(*ScrollRequest) {
 	return func(r *ScrollRequest) {
 		r.FilterPath = v
+	}
+}
+
+// WithHeader adds the headers to the HTTP request
+//
+func (f Scroll) WithHeader(h map[string]string) func(*ScrollRequest) {
+	return func(r *ScrollRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		for k, v := range h {
+			r.Header.Add(k, v)
+		}
 	}
 }

@@ -4,6 +4,7 @@ package esapi
 
 import (
 	"context"
+	"net/http"
 	"strings"
 	"time"
 )
@@ -37,6 +38,8 @@ type IngestGetPipelineRequest struct {
 	Human      bool
 	ErrorTrace bool
 	FilterPath []string
+
+	Header http.Header
 
 	ctx context.Context
 }
@@ -92,6 +95,10 @@ func (r IngestGetPipelineRequest) Do(ctx context.Context, transport Transport) (
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if len(r.Header) > 0 {
+		req.Header = r.Header
 	}
 
 	if ctx != nil {
@@ -165,5 +172,18 @@ func (f IngestGetPipeline) WithErrorTrace() func(*IngestGetPipelineRequest) {
 func (f IngestGetPipeline) WithFilterPath(v ...string) func(*IngestGetPipelineRequest) {
 	return func(r *IngestGetPipelineRequest) {
 		r.FilterPath = v
+	}
+}
+
+// WithHeader adds the headers to the HTTP request
+//
+func (f IngestGetPipeline) WithHeader(h map[string]string) func(*IngestGetPipelineRequest) {
+	return func(r *IngestGetPipelineRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		for k, v := range h {
+			r.Header.Add(k, v)
+		}
 	}
 }

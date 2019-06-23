@@ -4,6 +4,7 @@ package esapi
 
 import (
 	"context"
+	"net/http"
 	"strconv"
 	"strings"
 	"time"
@@ -44,6 +45,8 @@ type IndicesGetMappingRequest struct {
 	Human      bool
 	ErrorTrace bool
 	FilterPath []string
+
+	Header http.Header
 
 	ctx context.Context
 }
@@ -121,6 +124,10 @@ func (r IndicesGetMappingRequest) Do(ctx context.Context, transport Transport) (
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if len(r.Header) > 0 {
+		req.Header = r.Header
 	}
 
 	if ctx != nil {
@@ -242,5 +249,18 @@ func (f IndicesGetMapping) WithErrorTrace() func(*IndicesGetMappingRequest) {
 func (f IndicesGetMapping) WithFilterPath(v ...string) func(*IndicesGetMappingRequest) {
 	return func(r *IndicesGetMappingRequest) {
 		r.FilterPath = v
+	}
+}
+
+// WithHeader adds the headers to the HTTP request
+//
+func (f IndicesGetMapping) WithHeader(h map[string]string) func(*IndicesGetMappingRequest) {
+	return func(r *IndicesGetMappingRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		for k, v := range h {
+			r.Header.Add(k, v)
+		}
 	}
 }

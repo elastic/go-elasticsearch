@@ -6,6 +6,7 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"net/http"
 	"strconv"
 	"strings"
 	"time"
@@ -83,6 +84,8 @@ type SearchRequest struct {
 	Human      bool
 	ErrorTrace bool
 	FilterPath []string
+
+	Header http.Header
 
 	ctx context.Context
 }
@@ -304,6 +307,10 @@ func (r SearchRequest) Do(ctx context.Context, transport Transport) (*Response, 
 
 	if r.Body != nil {
 		req.Header[headerContentType] = headerContentTypeJSON
+	}
+
+	if len(r.Header) > 0 {
+		req.Header = r.Header
 	}
 
 	if ctx != nil {
@@ -713,5 +720,18 @@ func (f Search) WithErrorTrace() func(*SearchRequest) {
 func (f Search) WithFilterPath(v ...string) func(*SearchRequest) {
 	return func(r *SearchRequest) {
 		r.FilterPath = v
+	}
+}
+
+// WithHeader adds the headers to the HTTP request
+//
+func (f Search) WithHeader(h map[string]string) func(*SearchRequest) {
+	return func(r *SearchRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		for k, v := range h {
+			r.Header.Add(k, v)
+		}
 	}
 }

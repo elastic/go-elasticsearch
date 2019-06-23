@@ -4,6 +4,7 @@ package esapi
 
 import (
 	"context"
+	"net/http"
 	"strconv"
 	"strings"
 	"time"
@@ -39,6 +40,8 @@ type ClusterStatsRequest struct {
 	Human      bool
 	ErrorTrace bool
 	FilterPath []string
+
+	Header http.Header
 
 	ctx context.Context
 }
@@ -100,6 +103,10 @@ func (r ClusterStatsRequest) Do(ctx context.Context, transport Transport) (*Resp
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if len(r.Header) > 0 {
+		req.Header = r.Header
 	}
 
 	if ctx != nil {
@@ -181,5 +188,18 @@ func (f ClusterStats) WithErrorTrace() func(*ClusterStatsRequest) {
 func (f ClusterStats) WithFilterPath(v ...string) func(*ClusterStatsRequest) {
 	return func(r *ClusterStatsRequest) {
 		r.FilterPath = v
+	}
+}
+
+// WithHeader adds the headers to the HTTP request
+//
+func (f ClusterStats) WithHeader(h map[string]string) func(*ClusterStatsRequest) {
+	return func(r *ClusterStatsRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		for k, v := range h {
+			r.Header.Add(k, v)
+		}
 	}
 }

@@ -4,6 +4,7 @@ package esapi
 
 import (
 	"context"
+	"net/http"
 	"strings"
 	"time"
 )
@@ -38,6 +39,8 @@ type DeleteScriptRequest struct {
 	Human      bool
 	ErrorTrace bool
 	FilterPath []string
+
+	Header http.Header
 
 	ctx context.Context
 }
@@ -93,6 +96,10 @@ func (r DeleteScriptRequest) Do(ctx context.Context, transport Transport) (*Resp
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if len(r.Header) > 0 {
+		req.Header = r.Header
 	}
 
 	if ctx != nil {
@@ -166,5 +173,18 @@ func (f DeleteScript) WithErrorTrace() func(*DeleteScriptRequest) {
 func (f DeleteScript) WithFilterPath(v ...string) func(*DeleteScriptRequest) {
 	return func(r *DeleteScriptRequest) {
 		r.FilterPath = v
+	}
+}
+
+// WithHeader adds the headers to the HTTP request
+//
+func (f DeleteScript) WithHeader(h map[string]string) func(*DeleteScriptRequest) {
+	return func(r *DeleteScriptRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		for k, v := range h {
+			r.Header.Add(k, v)
+		}
 	}
 }

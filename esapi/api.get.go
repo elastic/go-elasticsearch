@@ -4,6 +4,7 @@ package esapi
 
 import (
 	"context"
+	"net/http"
 	"strconv"
 	"strings"
 )
@@ -48,6 +49,8 @@ type GetRequest struct {
 	Human      bool
 	ErrorTrace bool
 	FilterPath []string
+
+	Header http.Header
 
 	ctx context.Context
 }
@@ -143,6 +146,10 @@ func (r GetRequest) Do(ctx context.Context, transport Transport) (*Response, err
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if len(r.Header) > 0 {
+		req.Header = r.Header
 	}
 
 	if ctx != nil {
@@ -288,5 +295,18 @@ func (f Get) WithErrorTrace() func(*GetRequest) {
 func (f Get) WithFilterPath(v ...string) func(*GetRequest) {
 	return func(r *GetRequest) {
 		r.FilterPath = v
+	}
+}
+
+// WithHeader adds the headers to the HTTP request
+//
+func (f Get) WithHeader(h map[string]string) func(*GetRequest) {
+	return func(r *GetRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		for k, v := range h {
+			r.Header.Add(k, v)
+		}
 	}
 }

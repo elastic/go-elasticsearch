@@ -4,6 +4,7 @@ package esapi
 
 import (
 	"context"
+	"net/http"
 	"strconv"
 	"strings"
 )
@@ -39,6 +40,8 @@ type IndicesGetUpgradeRequest struct {
 	Human      bool
 	ErrorTrace bool
 	FilterPath []string
+
+	Header http.Header
 
 	ctx context.Context
 }
@@ -100,6 +103,10 @@ func (r IndicesGetUpgradeRequest) Do(ctx context.Context, transport Transport) (
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if len(r.Header) > 0 {
+		req.Header = r.Header
 	}
 
 	if ctx != nil {
@@ -189,5 +196,18 @@ func (f IndicesGetUpgrade) WithErrorTrace() func(*IndicesGetUpgradeRequest) {
 func (f IndicesGetUpgrade) WithFilterPath(v ...string) func(*IndicesGetUpgradeRequest) {
 	return func(r *IndicesGetUpgradeRequest) {
 		r.FilterPath = v
+	}
+}
+
+// WithHeader adds the headers to the HTTP request
+//
+func (f IndicesGetUpgrade) WithHeader(h map[string]string) func(*IndicesGetUpgradeRequest) {
+	return func(r *IndicesGetUpgradeRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		for k, v := range h {
+			r.Header.Add(k, v)
+		}
 	}
 }

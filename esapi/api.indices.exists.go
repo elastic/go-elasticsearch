@@ -4,6 +4,7 @@ package esapi
 
 import (
 	"context"
+	"net/http"
 	"strconv"
 	"strings"
 )
@@ -42,6 +43,8 @@ type IndicesExistsRequest struct {
 	Human      bool
 	ErrorTrace bool
 	FilterPath []string
+
+	Header http.Header
 
 	ctx context.Context
 }
@@ -111,6 +114,10 @@ func (r IndicesExistsRequest) Do(ctx context.Context, transport Transport) (*Res
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if len(r.Header) > 0 {
+		req.Header = r.Header
 	}
 
 	if ctx != nil {
@@ -216,5 +223,18 @@ func (f IndicesExists) WithErrorTrace() func(*IndicesExistsRequest) {
 func (f IndicesExists) WithFilterPath(v ...string) func(*IndicesExistsRequest) {
 	return func(r *IndicesExistsRequest) {
 		r.FilterPath = v
+	}
+}
+
+// WithHeader adds the headers to the HTTP request
+//
+func (f IndicesExists) WithHeader(h map[string]string) func(*IndicesExistsRequest) {
+	return func(r *IndicesExistsRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		for k, v := range h {
+			r.Header.Add(k, v)
+		}
 	}
 }

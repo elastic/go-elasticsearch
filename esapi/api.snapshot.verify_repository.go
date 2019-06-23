@@ -4,6 +4,7 @@ package esapi
 
 import (
 	"context"
+	"net/http"
 	"strings"
 	"time"
 )
@@ -38,6 +39,8 @@ type SnapshotVerifyRepositoryRequest struct {
 	Human      bool
 	ErrorTrace bool
 	FilterPath []string
+
+	Header http.Header
 
 	ctx context.Context
 }
@@ -95,6 +98,10 @@ func (r SnapshotVerifyRepositoryRequest) Do(ctx context.Context, transport Trans
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if len(r.Header) > 0 {
+		req.Header = r.Header
 	}
 
 	if ctx != nil {
@@ -168,5 +175,18 @@ func (f SnapshotVerifyRepository) WithErrorTrace() func(*SnapshotVerifyRepositor
 func (f SnapshotVerifyRepository) WithFilterPath(v ...string) func(*SnapshotVerifyRepositoryRequest) {
 	return func(r *SnapshotVerifyRepositoryRequest) {
 		r.FilterPath = v
+	}
+}
+
+// WithHeader adds the headers to the HTTP request
+//
+func (f SnapshotVerifyRepository) WithHeader(h map[string]string) func(*SnapshotVerifyRepositoryRequest) {
+	return func(r *SnapshotVerifyRepositoryRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		for k, v := range h {
+			r.Header.Add(k, v)
+		}
 	}
 }

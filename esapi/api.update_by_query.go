@@ -5,6 +5,7 @@ package esapi
 import (
 	"context"
 	"io"
+	"net/http"
 	"strconv"
 	"strings"
 	"time"
@@ -75,6 +76,8 @@ type UpdateByQueryRequest struct {
 	Human      bool
 	ErrorTrace bool
 	FilterPath []string
+
+	Header http.Header
 
 	ctx context.Context
 }
@@ -262,6 +265,10 @@ func (r UpdateByQueryRequest) Do(ctx context.Context, transport Transport) (*Res
 
 	if r.Body != nil {
 		req.Header[headerContentType] = headerContentTypeJSON
+	}
+
+	if len(r.Header) > 0 {
+		req.Header = r.Header
 	}
 
 	if ctx != nil {
@@ -599,5 +606,18 @@ func (f UpdateByQuery) WithErrorTrace() func(*UpdateByQueryRequest) {
 func (f UpdateByQuery) WithFilterPath(v ...string) func(*UpdateByQueryRequest) {
 	return func(r *UpdateByQueryRequest) {
 		r.FilterPath = v
+	}
+}
+
+// WithHeader adds the headers to the HTTP request
+//
+func (f UpdateByQuery) WithHeader(h map[string]string) func(*UpdateByQueryRequest) {
+	return func(r *UpdateByQueryRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		for k, v := range h {
+			r.Header.Add(k, v)
+		}
 	}
 }

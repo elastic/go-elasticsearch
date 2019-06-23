@@ -5,6 +5,7 @@ package esapi
 import (
 	"context"
 	"io"
+	"net/http"
 	"strings"
 	"time"
 )
@@ -44,6 +45,8 @@ type IndicesShrinkRequest struct {
 	Human      bool
 	ErrorTrace bool
 	FilterPath []string
+
+	Header http.Header
 
 	ctx context.Context
 }
@@ -109,6 +112,10 @@ func (r IndicesShrinkRequest) Do(ctx context.Context, transport Transport) (*Res
 
 	if r.Body != nil {
 		req.Header[headerContentType] = headerContentTypeJSON
+	}
+
+	if len(r.Header) > 0 {
+		req.Header = r.Header
 	}
 
 	if ctx != nil {
@@ -198,5 +205,18 @@ func (f IndicesShrink) WithErrorTrace() func(*IndicesShrinkRequest) {
 func (f IndicesShrink) WithFilterPath(v ...string) func(*IndicesShrinkRequest) {
 	return func(r *IndicesShrinkRequest) {
 		r.FilterPath = v
+	}
+}
+
+// WithHeader adds the headers to the HTTP request
+//
+func (f IndicesShrink) WithHeader(h map[string]string) func(*IndicesShrinkRequest) {
+	return func(r *IndicesShrinkRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		for k, v := range h {
+			r.Header.Add(k, v)
+		}
 	}
 }

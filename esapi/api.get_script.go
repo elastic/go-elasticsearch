@@ -4,6 +4,7 @@ package esapi
 
 import (
 	"context"
+	"net/http"
 	"strings"
 	"time"
 )
@@ -37,6 +38,8 @@ type GetScriptRequest struct {
 	Human      bool
 	ErrorTrace bool
 	FilterPath []string
+
+	Header http.Header
 
 	ctx context.Context
 }
@@ -88,6 +91,10 @@ func (r GetScriptRequest) Do(ctx context.Context, transport Transport) (*Respons
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if len(r.Header) > 0 {
+		req.Header = r.Header
 	}
 
 	if ctx != nil {
@@ -153,5 +160,18 @@ func (f GetScript) WithErrorTrace() func(*GetScriptRequest) {
 func (f GetScript) WithFilterPath(v ...string) func(*GetScriptRequest) {
 	return func(r *GetScriptRequest) {
 		r.FilterPath = v
+	}
+}
+
+// WithHeader adds the headers to the HTTP request
+//
+func (f GetScript) WithHeader(h map[string]string) func(*GetScriptRequest) {
+	return func(r *GetScriptRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		for k, v := range h {
+			r.Header.Add(k, v)
+		}
 	}
 }
