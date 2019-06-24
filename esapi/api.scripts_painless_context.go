@@ -86,7 +86,11 @@ func (r ScriptsPainlessContextRequest) Do(ctx context.Context, transport Transpo
 	}
 
 	if len(r.Header) > 0 {
-		req.Header = r.Header
+		for k, vv := range r.Header {
+			for _, v := range vv {
+				req.Header.Add(k, v)
+			}
+		}
 	}
 
 	if ctx != nil {
