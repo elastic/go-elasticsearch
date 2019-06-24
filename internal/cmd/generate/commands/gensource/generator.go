@@ -711,7 +711,11 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(ctx context.Context,
 	}
 
 	g.w(`if len(r.Header) > 0 {
-		req.Header = r.Header
+		for k, vv := range r.Header {
+			for _, v := range vv {
+				req.Header.Add(k, v)
+			}
+		}
 	}` + "\n\n")
 
 	g.w(`if ctx != nil {
