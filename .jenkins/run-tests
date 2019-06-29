@@ -2,40 +2,99 @@
 
 set -eo pipefail
 
+if [[ -z $TEST_SUITE ]]; then
+  echo -e "\033[31;1mERROR:\033[0m Required environment variable [TEST_SUITE] not set\033[0m"
+  exit 1
+fi
+
+if [[ $TEST_SUITE != "core" && $TEST_SUITE != "xpack" ]]; then
+  echo -e "\033[31;1mERROR:\033[0m Unknown value [$TEST_SUITE] for [TEST_SUITE]\033[0m"
+  exit 1
+fi
+
+if [[ $TEST_SUITE == "core" ]]; then
+  elasticsearch_image=elasticsearch-oss:8.0.0-SNAPSHOT
+  elasticsearch_url=http://es1:9200
+fi
+
+if [[ $TEST_SUITE == "xpack" ]]; then
+  elasticsearch_image=elasticsearch:8.0.0-SNAPSHOT
+  elasticsearch_url=https://elastic:elastic@es1:9200
+fi
+
 function cleanup {
   docker container rm --force --volumes es1 > /dev/null 2>&1 || true
+  docker container rm --force --volumes elasticsearch-source > /dev/null 2>&1 || true
   docker container rm --force --volumes go-elasticsearch > /dev/null 2>&1 || true
 }
 
 trap cleanup EXIT
 
-echo -e "\033[1m>>>>> SETUP >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
+TIMEFORMAT="(Duration: %0lR)"
+
+echo -e "\033[1m>>>>> SETUP [$TEST_SUITE] >>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
 
 # Build the go-elasticsearch image
 docker build --file Dockerfile --tag elastic/go-elasticsearch .
 
 # Launch a single Elasticsearch node
-(make cluster detached=true)
+(make cluster detached=true version=$elasticsearch_image)
 
-# Prepare the container
+# Store the Elasticsearch version and build hash
+ELASTICSEARCH_VERSION=$(docker run --network elasticsearch --rm appropriate/curl -sSk $elasticsearch_url | docker run -i --rm stedolan/jq -r '.version.number')
+ELASTICSEARCH_BUILD_HASH=$(docker run --network elasticsearch --rm appropriate/curl -sSk $elasticsearch_url | docker run -i --rm stedolan/jq -r '.version.build_hash')
+
+# Download Elasticsearch source code at ELASTICSEARCH_BUILD_HASH and store it in a container
+echo -e ">>>>> Downloading Elasticsearch repository @ $ELASTICSEARCH_BUILD_HASH..."
+time docker run --rm appropriate/curl --retry 3 -sSL https://github.com/elastic/elasticsearch/archive/$ELASTICSEARCH_BUILD_HASH.zip > /tmp/elasticsearch-$ELASTICSEARCH_BUILD_HASH.zip
+echo -e ">>>>> Extracting and storing to [elasticsearch-source:/elasticsearch-source]..."
+time docker run --volume=/tmp:/tmp --workdir=/tmp --rm elastic/go-elasticsearch unzip -q -o elasticsearch-$ELASTICSEARCH_BUILD_HASH.zip '*.properties' '*.json' '*.y*ml'
+rm -rf /tmp/elasticsearch-$ELASTICSEARCH_BUILD_HASH.zip
+rm -rf /tmp/elasticsearch/
+mv /tmp/elasticsearch-$ELASTICSEARCH_BUILD_HASH* /tmp/elasticsearch/
+docker create --name elasticsearch-source --volume /elasticsearch-source --name elasticsearch-source alpine /bin/true
+docker cp /tmp/elasticsearch elasticsearch-source:/elasticsearch-source
+
+# Launch the container; actual commands are called with "docker exec"
 docker run \
   --name go-elasticsearch \
   --network elasticsearch \
-  --env ELASTICSEARCH_URL=http://es1:9200 \
-  --env WORKSPACE=${WORKSPACE:-/workspace} \
-  --volume ${WORKSPACE:-workspace}:${WORKSPACE:-/workspace} \
+  --env "ELASTICSEARCH_URL=$elasticsearch_url" \
+  --env "ELASTICSEARCH_VERSION=$ELASTICSEARCH_VERSION" \
+  --env "ELASTICSEARCH_BUILD_HASH=$ELASTICSEARCH_BUILD_HASH" \
+  --env "WORKSPACE=${WORKSPACE:-/workspace}" \
+  --volume "/go-elasticsearch" \
+  --volume "${WORKSPACE:-workspace}:${WORKSPACE:-/workspace}" \
+  --volumes-from "elasticsearch-source" \
   --rm \
   --detach \
   elastic/go-elasticsearch sleep 3600
-docker cp .jenkins/tests.sh go-elasticsearch:/go-elasticsearch/tests.sh
 
 # Run the tests
-cmd="docker exec --tty go-elasticsearch /bin/sh /go-elasticsearch/tests.sh"
+# NOTE: Conditions needed to prevent early exit due to the 'set -e' option
+status=100
+case $TEST_SUITE in
+  "core" )
+    if docker exec --tty go-elasticsearch /bin/sh /go-elasticsearch/.jenkins/tests.sh; then
+      status=$?
+    else
+      status=$?
+    fi
+    ;;
+  "xpack" )
+    if time bash .jenkins/tests-xpack.sh; then
+      status=$?
+    else
+      status=$?
+    fi
+    ;;
+esac
 
-if $cmd; then
+# Report status and exit
+if [[ $status == "0" ]]; then
   echo -e "\n\033[32;1mSUCCESS\033[0m"
   exit 0
 else
   echo -e "\n\033[31;1mFAILURE\033[0m"
-  exit 1
+  exit $status
 fi
