@@ -51,6 +51,10 @@
         type: yaml
         filename: .jenkins/test-matrix.yml
         name: GO_VERSION
+    - axis:
+        type: yaml
+        filename: .jenkins/test-matrix.yml
+        name: TEST_SUITE
     yaml-strategy:
       exclude-key: exclude
       filename: .jenkins/test-matrix.yml

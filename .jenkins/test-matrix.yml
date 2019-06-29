@@ -1,8 +1,13 @@
 ---
+
 ELASTICSEARCH_VERSION:
-- 8.0.0-SNAPSHOT
+  - 8.0.0-SNAPSHOT
 
 GO_VERSION:
-- 1-alpine
+  - 1-alpine
+
+TEST_SUITE:
+  - core
+  - xpack
 
 exclude: ~
