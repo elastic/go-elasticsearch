@@ -46,12 +46,14 @@ ELASTICSEARCH_BUILD_HASH=$(docker run --network elasticsearch --rm appropriate/c
 
 # Download Elasticsearch source code at ELASTICSEARCH_BUILD_HASH and store it in a container
 echo -e ">>>>> Downloading Elasticsearch repository @ $ELASTICSEARCH_BUILD_HASH..."
-time docker run --rm appropriate/curl --retry 3 -sSL https://github.com/elastic/elasticsearch/archive/$ELASTICSEARCH_BUILD_HASH.zip > /tmp/elasticsearch-$ELASTICSEARCH_BUILD_HASH.zip
-echo -e ">>>>> Extracting and storing to [elasticsearch-source:/elasticsearch-source]..."
-time docker run --volume=/tmp:/tmp --workdir=/tmp --rm elastic/go-elasticsearch unzip -q -o elasticsearch-$ELASTICSEARCH_BUILD_HASH.zip '*.properties' '*.json' '*.y*ml'
-rm -rf /tmp/elasticsearch-$ELASTICSEARCH_BUILD_HASH.zip
-rm -rf /tmp/elasticsearch/
-mv /tmp/elasticsearch-$ELASTICSEARCH_BUILD_HASH* /tmp/elasticsearch/
+time docker run --rm appropriate/curl --retry 3 -sSL "https://github.com/elastic/elasticsearch/archive/$ELASTICSEARCH_BUILD_HASH.zip" > "/tmp/elasticsearch-$ELASTICSEARCH_BUILD_HASH.zip"
+echo -e ">>>>> Extracting and storing to [elasticsearch-source] container..."
+time docker run --volume=/tmp:/tmp --workdir=/tmp --rm elastic/go-elasticsearch unzip -q -o "elasticsearch-$ELASTICSEARCH_BUILD_HASH.zip" '*.properties' '*.json' '*.y*ml'
+docker run --volume=/tmp:/tmp --workdir=/tmp --rm elastic/go-elasticsearch /bin/sh -c "
+  rm -rf /tmp/elasticsearch-$ELASTICSEARCH_BUILD_HASH.zip
+  rm -rf /tmp/elasticsearch/
+  mv /tmp/elasticsearch-$ELASTICSEARCH_BUILD_HASH* /tmp/elasticsearch/
+"
 docker create --name elasticsearch-source --volume /elasticsearch-source --name elasticsearch-source alpine /bin/true
 docker cp /tmp/elasticsearch elasticsearch-source:/elasticsearch-source
 
