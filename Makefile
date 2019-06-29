@@ -195,18 +195,18 @@ endif
 				docker.elastic.co/elasticsearch/$(version); \
 		done \
 	}
+ifdef detached
 	@{ \
-		if [[ "$(detached)" == "true" ]]; then \
-			echo "\033[2m→ Waiting for the cluster...\033[0m"; \
-			docker run --network elasticsearch --rm appropriate/curl --max-time 120 --retry 120 --retry-delay 1 --retry-connrefused --show-error --silent http://es1:9200; \
-			output="\033[2m→ Cluster ready; to remove containers:"; \
-			output="$$output docker rm -f"; \
-			for n in `seq 1 $(nodes)`; do \
-				output="$$output es$$n"; \
-			done; \
-			echo "$$output\033[0m"; \
-		fi \
+		echo "\033[2m→ Waiting for the cluster...\033[0m"; \
+		docker run --network elasticsearch --rm appropriate/curl --max-time 120 --retry 120 --retry-delay 1 --retry-connrefused --show-error --silent http://es1:9200; \
+		output="\033[2m→ Cluster ready; to remove containers:"; \
+		output="$$output docker rm -f"; \
+		for n in `seq 1 $(nodes)`; do \
+			output="$$output es$$n"; \
+		done; \
+		echo "$$output\033[0m"; \
 	}
+endif
 
 cluster-update: ## Update the Docker image
 	$(eval version ?= "elasticsearch-oss:8.0.0-SNAPSHOT")
