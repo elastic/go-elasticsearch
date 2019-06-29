@@ -143,7 +143,27 @@ ifeq ($(shell test $(nodes) && test $(nodes) -gt 1; echo $$?),0)
 else
 	$(eval detached ?= "false")
 endif
-	@docker network inspect elasticsearch > /dev/null || docker network create elasticsearch;
+ifdef version
+ifneq (,$(findstring oss,$(version)))
+else
+	$(eval xpack_env += --env "ELASTIC_PASSWORD=elastic")
+	$(eval xpack_env += --env "xpack.license.self_generated.type=trial")
+	$(eval xpack_env += --env "xpack.security.enabled=true")
+	$(eval xpack_env += --env "xpack.security.http.ssl.enabled=true")
+	$(eval xpack_env += --env "xpack.security.http.ssl.verification_mode=certificate")
+	$(eval xpack_env += --env "xpack.security.http.ssl.key=certs/testnode.key")
+	$(eval xpack_env += --env "xpack.security.http.ssl.certificate=certs/testnode.crt")
+	$(eval xpack_env += --env "xpack.security.http.ssl.certificate_authorities=certs/ca.crt")
+	$(eval xpack_env += --env "xpack.security.transport.ssl.enabled=true")
+	$(eval xpack_env += --env "xpack.security.transport.ssl.key=certs/testnode.key")
+	$(eval xpack_env += --env "xpack.security.transport.ssl.certificate=certs/testnode.crt")
+	$(eval xpack_env += --env "xpack.security.transport.ssl.certificate_authorities=certs/ca.crt")
+	$(eval xpack_volumes += --volume "$(PWD)/.jenkins/certs/testnode.crt:/usr/share/elasticsearch/config/certs/testnode.crt")
+	$(eval xpack_volumes += --volume "$(PWD)/.jenkins/certs/testnode.key:/usr/share/elasticsearch/config/certs/testnode.key")
+	$(eval xpack_volumes += --volume "$(PWD)/.jenkins/certs/ca.crt:/usr/share/elasticsearch/config/certs/ca.crt")
+endif
+endif
+	@docker network inspect elasticsearch > /dev/null 2>&1 || docker network create elasticsearch;
 	@{ \
 		for n in `seq 1 $(nodes)`; do \
 			if [[ -z "$$port" ]]; then \
@@ -166,7 +186,9 @@ endif
 				--env "xpack.monitoring.enabled=false" \
 				--env "xpack.ml.enabled=false" \
 				--env ES_JAVA_OPTS="-Xms1g -Xmx1g" \
+				$(xpack_env) \
 				--volume `echo $(version) | tr -C "[:alnum:]" '-'`-node-$$n-data:/usr/share/elasticsearch/data \
+				$(xpack_volumes) \
 				--publish $$hostport:9200 \
 				--ulimit nofile=65536:65536 \
 				--ulimit memlock=-1:-1 \
