@@ -23,7 +23,7 @@ docker exec go-elasticsearch mv esapi/test/xpack/ml/xpack_ml__jobs_crud_test.go 
 
 echo -e "\033[1m>>>>> XPACK >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
 
-time docker exec --tty --workdir=/go-elasticsearch/esapi/test go-elasticsearch /bin/sh -c "gotestsum --format=short-verbose -- --tags='integration' --timeout=1h -v xpack/*_test.go"
+time docker exec --tty --workdir=/go-elasticsearch/esapi/test go-elasticsearch /bin/sh -c 'gotestsum --format=short-verbose --junitfile=$WORKSPACE/TEST-integration-api-xpack-junit.xml -- --tags=integration --timeout=1h -v xpack/*_test.go'
 status1=$?
 
 docker container rm --force --volumes es1 > /dev/null 2>&1
@@ -31,7 +31,7 @@ make cluster-clean cluster version=elasticsearch:8.0.0-SNAPSHOT detached=true
 
 echo -e "\033[1m>>>>> XPACK ML >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
 
-time docker exec --tty --workdir=/go-elasticsearch/esapi/test go-elasticsearch /bin/sh -c "gotestsum --format=short-verbose -- --tags='integration' --timeout=1h -v ./xpack/ml/*_test.go"
+time docker exec --tty --workdir=/go-elasticsearch/esapi/test go-elasticsearch /bin/sh -c 'gotestsum --format=short-verbose --junitfile=$WORKSPACE/TEST-integration-api-xpack-ml-junit.xml -- --tags=integration --timeout=1h -v ./xpack/ml/*_test.go'
 status2=$?
 
 docker container rm --force --volumes es1 > /dev/null 2>&1
@@ -39,7 +39,7 @@ make cluster-clean cluster version=elasticsearch:8.0.0-SNAPSHOT detached=true
 
 echo -e "\033[1m>>>>> XPACK ML CRUD >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
 
-time docker exec --tty --workdir=/go-elasticsearch/esapi/test go-elasticsearch /bin/sh -c "gotestsum --format=short-verbose -- --tags='integration' --timeout=1h -v ./xpack/ml-crud/*_test.go"
+time docker exec --tty --workdir=/go-elasticsearch/esapi/test go-elasticsearch /bin/sh -c 'gotestsum --format=short-verbose --junitfile=$WORKSPACE/TEST-integration-api-xpack-ml-crud-junit.xml -- --tags=integration --timeout=1h -v ./xpack/ml-crud/*_test.go'
 status3=$?
 
 if [[ $status1 == 0 && $status2 == 0 || $status3 == 0 ]]; then
