@@ -83,14 +83,14 @@ docker run \
 status=100
 case $TEST_SUITE in
   "core" )
-    if docker exec --tty go-elasticsearch /bin/sh /go-elasticsearch/.jenkins/tests.sh; then
+    if bash .jenkins/tests-core.sh; then
       status=$?
     else
       status=$?
     fi
     ;;
   "xpack" )
-    if time bash .jenkins/tests-xpack.sh; then
+    if bash .jenkins/tests-xpack.sh; then
       status=$?
     else
       status=$?
