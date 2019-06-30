@@ -12,6 +12,12 @@ if [[ $TEST_SUITE != "core" && $TEST_SUITE != "xpack" ]]; then
   exit 1
 fi
 
+# Do not run XPack tests on "master" branch, and do not run Core tests on "xpack" branch
+if [[ ($branch_specifier == "refs/heads/master" && $TEST_SUITE == "xpack") || ($branch_specifier == "refs/heads/xpack" && $TEST_SUITE == "core") ]]; then
+  echo -e "\033[33;1mSkipping [$TEST_SUITE] tests on the [$branch_specifier] branch.\033[0m"
+  exit 0
+fi
+
 if [[ $TEST_SUITE == "core" ]]; then
   elasticsearch_image=elasticsearch-oss:8.0.0-SNAPSHOT
   elasticsearch_url=http://es1:9200
