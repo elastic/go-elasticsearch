@@ -36,6 +36,17 @@ func NewEndpoint(f io.Reader) (*Endpoint, error) {
 		endpoint = e
 		endpoint.Name = name
 	}
+
+	// Join "deprecated_paths" with paths
+	for _, p := range endpoint.URL.DeprecatedPaths {
+		endpoint.URL.Paths = append(endpoint.URL.Paths, p.Path)
+	}
+
+	// Add Path when it's empty
+	if endpoint.URL.Path == "" {
+		endpoint.URL.Path = endpoint.URL.Paths[0]
+	}
+
 	for partName, p := range endpoint.URL.Parts {
 		p.Endpoint = &endpoint
 		p.Name = partName
