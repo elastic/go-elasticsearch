@@ -35,6 +35,7 @@ type Reindex func(body io.Reader, o ...func(*ReindexRequest)) (*Response, error)
 type ReindexRequest struct {
 	Body io.Reader
 
+	MaxDocs             *int
 	Refresh             *bool
 	RequestsPerSecond   *int
 	Scroll              time.Duration
@@ -66,6 +67,10 @@ func (r ReindexRequest) Do(ctx context.Context, transport Transport) (*Response,
 	path.WriteString("/_reindex")
 
 	params = make(map[string]string)
+
+	if r.MaxDocs != nil {
+		params["max_docs"] = strconv.FormatInt(int64(*r.MaxDocs), 10)
+	}
 
 	if r.Refresh != nil {
 		params["refresh"] = strconv.FormatBool(*r.Refresh)
@@ -148,6 +153,14 @@ func (r ReindexRequest) Do(ctx context.Context, transport Transport) (*Response,
 func (f Reindex) WithContext(v context.Context) func(*ReindexRequest) {
 	return func(r *ReindexRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMaxDocs - maximum number of documents to process (default: all documents).
+//
+func (f Reindex) WithMaxDocs(v int) func(*ReindexRequest) {
+	return func(r *ReindexRequest) {
+		r.MaxDocs = &v
 	}
 }
 

@@ -1,4 +1,4 @@
-// Code generated from specification version 8.0.0 (e75ff0c748e): DO NOT EDIT
+// Code generated from specification version 8.0.0 (c108b093b5a): DO NOT EDIT
 
 package esapi
 
@@ -41,7 +41,6 @@ type API struct {
 	Reindex                 Reindex
 	ReindexRethrottle       ReindexRethrottle
 	RenderSearchTemplate    RenderSearchTemplate
-	ScriptsPainlessContext  ScriptsPainlessContext
 	ScriptsPainlessExecute  ScriptsPainlessExecute
 	Scroll                  Scroll
 	Search                  Search
@@ -204,7 +203,6 @@ func New(t Transport) *API {
 		Reindex:                 newReindexFunc(t),
 		ReindexRethrottle:       newReindexRethrottleFunc(t),
 		RenderSearchTemplate:    newRenderSearchTemplateFunc(t),
-		ScriptsPainlessContext:  newScriptsPainlessContextFunc(t),
 		ScriptsPainlessExecute:  newScriptsPainlessExecuteFunc(t),
 		Scroll:                  newScrollFunc(t),
 		Search:                  newSearchFunc(t),

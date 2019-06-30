@@ -179,7 +179,7 @@ func (f Msearch) WithMaxConcurrentSearches(v int) func(*MsearchRequest) {
 	}
 }
 
-// WithMaxConcurrentShardRequests - the number of concurrent shard requests each sub search executes concurrently. this value should be used to limit the impact of the search on the cluster in order to limit the number of concurrent shard requests.
+// WithMaxConcurrentShardRequests - the number of concurrent shard requests each sub search executes concurrently per node. this value should be used to limit the impact of the search on the cluster in order to limit the number of concurrent shard requests.
 //
 func (f Msearch) WithMaxConcurrentShardRequests(v int) func(*MsearchRequest) {
 	return func(r *MsearchRequest) {

@@ -45,6 +45,7 @@ type DeleteByQueryRequest struct {
 	From                *int
 	IgnoreUnavailable   *bool
 	Lenient             *bool
+	MaxDocs             *int
 	Preference          string
 	Query               string
 	Refresh             *bool
@@ -55,7 +56,6 @@ type DeleteByQueryRequest struct {
 	ScrollSize          *int
 	SearchTimeout       time.Duration
 	SearchType          string
-	Size                *int
 	Slices              *int
 	Sort                []string
 	Source              []string
@@ -135,6 +135,10 @@ func (r DeleteByQueryRequest) Do(ctx context.Context, transport Transport) (*Res
 		params["lenient"] = strconv.FormatBool(*r.Lenient)
 	}
 
+	if r.MaxDocs != nil {
+		params["max_docs"] = strconv.FormatInt(int64(*r.MaxDocs), 10)
+	}
+
 	if r.Preference != "" {
 		params["preference"] = r.Preference
 	}
@@ -173,10 +177,6 @@ func (r DeleteByQueryRequest) Do(ctx context.Context, transport Transport) (*Res
 
 	if r.SearchType != "" {
 		params["search_type"] = r.SearchType
-	}
-
-	if r.Size != nil {
-		params["size"] = strconv.FormatInt(int64(*r.Size), 10)
 	}
 
 	if r.Slices != nil {
@@ -359,6 +359,14 @@ func (f DeleteByQuery) WithLenient(v bool) func(*DeleteByQueryRequest) {
 	}
 }
 
+// WithMaxDocs - maximum number of documents to process (default: all documents).
+//
+func (f DeleteByQuery) WithMaxDocs(v int) func(*DeleteByQueryRequest) {
+	return func(r *DeleteByQueryRequest) {
+		r.MaxDocs = &v
+	}
+}
+
 // WithPreference - specify the node or shard the operation should be performed on (default: random).
 //
 func (f DeleteByQuery) WithPreference(v string) func(*DeleteByQueryRequest) {
@@ -436,14 +444,6 @@ func (f DeleteByQuery) WithSearchTimeout(v time.Duration) func(*DeleteByQueryReq
 func (f DeleteByQuery) WithSearchType(v string) func(*DeleteByQueryRequest) {
 	return func(r *DeleteByQueryRequest) {
 		r.SearchType = v
-	}
-}
-
-// WithSize - number of hits to return (default: 10).
-//
-func (f DeleteByQuery) WithSize(v int) func(*DeleteByQueryRequest) {
-	return func(r *DeleteByQueryRequest) {
-		r.Size = &v
 	}
 }
 

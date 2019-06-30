@@ -46,6 +46,7 @@ type UpdateByQueryRequest struct {
 	From                *int
 	IgnoreUnavailable   *bool
 	Lenient             *bool
+	MaxDocs             *int
 	Pipeline            string
 	Preference          string
 	Query               string
@@ -57,7 +58,6 @@ type UpdateByQueryRequest struct {
 	ScrollSize          *int
 	SearchTimeout       time.Duration
 	SearchType          string
-	Size                *int
 	Slices              *int
 	Sort                []string
 	Source              []string
@@ -138,6 +138,10 @@ func (r UpdateByQueryRequest) Do(ctx context.Context, transport Transport) (*Res
 		params["lenient"] = strconv.FormatBool(*r.Lenient)
 	}
 
+	if r.MaxDocs != nil {
+		params["max_docs"] = strconv.FormatInt(int64(*r.MaxDocs), 10)
+	}
+
 	if r.Pipeline != "" {
 		params["pipeline"] = r.Pipeline
 	}
@@ -180,10 +184,6 @@ func (r UpdateByQueryRequest) Do(ctx context.Context, transport Transport) (*Res
 
 	if r.SearchType != "" {
 		params["search_type"] = r.SearchType
-	}
-
-	if r.Size != nil {
-		params["size"] = strconv.FormatInt(int64(*r.Size), 10)
 	}
 
 	if r.Slices != nil {
@@ -378,6 +378,14 @@ func (f UpdateByQuery) WithLenient(v bool) func(*UpdateByQueryRequest) {
 	}
 }
 
+// WithMaxDocs - maximum number of documents to process (default: all documents).
+//
+func (f UpdateByQuery) WithMaxDocs(v int) func(*UpdateByQueryRequest) {
+	return func(r *UpdateByQueryRequest) {
+		r.MaxDocs = &v
+	}
+}
+
 // WithPipeline - ingest pipeline to set on index requests made by this action. (default: none).
 //
 func (f UpdateByQuery) WithPipeline(v string) func(*UpdateByQueryRequest) {
@@ -463,14 +471,6 @@ func (f UpdateByQuery) WithSearchTimeout(v time.Duration) func(*UpdateByQueryReq
 func (f UpdateByQuery) WithSearchType(v string) func(*UpdateByQueryRequest) {
 	return func(r *UpdateByQueryRequest) {
 		r.SearchType = v
-	}
-}
-
-// WithSize - number of hits to return (default: 10).
-//
-func (f UpdateByQuery) WithSize(v int) func(*UpdateByQueryRequest) {
-	return func(r *UpdateByQueryRequest) {
-		r.Size = &v
 	}
 }
 
