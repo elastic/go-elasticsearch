@@ -86,8 +86,11 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	}
 
 	c.setURL(u, req)
-	c.setBasicAuth(u, req)
 	c.setUserAgent(req)
+
+	if _, ok := req.Header["Authorization"]; !ok {
+		c.setBasicAuth(u, req)
+	}
 
 	var dupReqBody *bytes.Buffer
 	if c.logger != nil && c.logger.RequestBodyEnabled() {
