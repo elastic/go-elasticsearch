@@ -4,6 +4,7 @@ package esapi
 
 import (
 	"context"
+	"net/http"
 	"strconv"
 	"strings"
 )
@@ -42,6 +43,8 @@ type IndicesForcemergeRequest struct {
 	Human      bool
 	ErrorTrace bool
 	FilterPath []string
+
+	Header http.Header
 
 	ctx context.Context
 }
@@ -115,6 +118,18 @@ func (r IndicesForcemergeRequest) Do(ctx context.Context, transport Transport) (
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if len(r.Header) > 0 {
+		if len(req.Header) == 0 {
+			req.Header = r.Header
+		} else {
+			for k, vv := range r.Header {
+				for _, v := range vv {
+					req.Header.Add(k, v)
+				}
+			}
+		}
 	}
 
 	if ctx != nil {
@@ -228,5 +243,18 @@ func (f IndicesForcemerge) WithErrorTrace() func(*IndicesForcemergeRequest) {
 func (f IndicesForcemerge) WithFilterPath(v ...string) func(*IndicesForcemergeRequest) {
 	return func(r *IndicesForcemergeRequest) {
 		r.FilterPath = v
+	}
+}
+
+// WithHeader adds the headers to the HTTP request.
+//
+func (f IndicesForcemerge) WithHeader(h map[string]string) func(*IndicesForcemergeRequest) {
+	return func(r *IndicesForcemergeRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		for k, v := range h {
+			r.Header.Add(k, v)
+		}
 	}
 }
