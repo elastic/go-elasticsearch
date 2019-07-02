@@ -12,8 +12,8 @@ if [[ $TEST_SUITE != "core" && $TEST_SUITE != "xpack" ]]; then
   exit 1
 fi
 
-# Do not run XPack tests on "master" branch, and do not run Core tests on "xpack" branch
-if [[ ($branch_specifier == "refs/heads/master" && $TEST_SUITE == "xpack") || ($branch_specifier == "refs/heads/xpack" && $TEST_SUITE == "core") ]]; then
+# Run X-Pack tests only on the "xpack" branch, and skip Core tests on the "xpack" branch
+if [[ ($branch_specifier != "refs/heads/xpack" && $TEST_SUITE == "xpack") || ($branch_specifier == "refs/heads/xpack" && $TEST_SUITE == "core") ]]; then
   echo -e "\033[33;1mSkipping [$TEST_SUITE] tests on the [$branch_specifier] branch.\033[0m"
   exit 0
 fi
