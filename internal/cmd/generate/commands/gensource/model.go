@@ -123,8 +123,13 @@ type Endpoint struct {
 type URL struct {
 	Endpoint *Endpoint `json:"-"`
 
-	Path   string            `json:"path"`
-	Paths  []string          `json:"paths"`
+	Path            string   `json:"path"`
+	Paths           []string `json:"paths"`
+	DeprecatedPaths []struct {
+		Path        string `json:"path"`
+		Version     string `json:"version"`
+		Description string `json:"description"`
+	} `json:"deprecated_paths"`
 	Parts  map[string]*Part  `json:"parts"`
 	Params map[string]*Param `json:"params"`
 
