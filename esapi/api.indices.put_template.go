@@ -12,8 +12,8 @@ import (
 )
 
 func newIndicesPutTemplateFunc(t Transport) IndicesPutTemplate {
-	return func(body io.Reader, name string, o ...func(*IndicesPutTemplateRequest)) (*Response, error) {
-		var r = IndicesPutTemplateRequest{Body: body, Name: name}
+	return func(name string, body io.Reader, o ...func(*IndicesPutTemplateRequest)) (*Response, error) {
+		var r = IndicesPutTemplateRequest{Name: name, Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -27,7 +27,7 @@ func newIndicesPutTemplateFunc(t Transport) IndicesPutTemplate {
 //
 // See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html.
 //
-type IndicesPutTemplate func(body io.Reader, name string, o ...func(*IndicesPutTemplateRequest)) (*Response, error)
+type IndicesPutTemplate func(name string, body io.Reader, o ...func(*IndicesPutTemplateRequest)) (*Response, error)
 
 // IndicesPutTemplateRequest configures the Indices  Put Template API request.
 //
