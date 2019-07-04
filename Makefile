@@ -36,19 +36,43 @@ endif
 	fi;
 
 test-api:  ## Run generated API integration tests
-	@echo "\033[2m→ Running API integration tests...\033[0m"
+	@mkdir -p tmp
 ifdef race
 	$(eval testapiargs += "-race")
 endif
-	$(eval testapiargs += "-cover" "-coverpkg=github.com/elastic/go-elasticsearch/v7/esapi" "-coverprofile=$(PWD)/tmp/integration-api.cov" "-tags='integration'" "-timeout=1h" "./...")
-	@mkdir -p tmp
-	@if which gotestsum > /dev/null 2>&1 ; then \
-		echo "cd esapi/test && gotestsum --format=short-verbose --junitfile=$(PWD)/tmp/integration-api-report.xml --" $(testapiargs); \
-		cd esapi/test && gotestsum --format=short-verbose --junitfile=$(PWD)/tmp/integration-api-report.xml -- $(testapiargs); \
-	else \
-		echo "go test -v" $(testapiargs); \
-		cd esapi/test && go test -v $(testapiargs); \
-	fi;
+	$(eval testapiargs += "-cover" "-coverpkg=github.com/elastic/go-elasticsearch/v7/esapi" "-coverprofile=$(PWD)/tmp/integration-api.cov" "-tags='integration'" "-timeout=1h")
+ifdef flavor
+else
+	$(eval flavor='core')
+endif
+	@echo "\033[2m→ Running API integration tests for [$(flavor)]...\033[0m"
+ifeq ($(flavor), xpack)
+	@{ \
+		export ELASTICSEARCH_URL='https://elastic:elastic@localhost:9200' && \
+		if which gotestsum > /dev/null 2>&1 ; then \
+			cd esapi/test && \
+				gotestsum --format=short-verbose --junitfile=$(PWD)/tmp/integration-api-report.xml -- $(testapiargs) $(PWD)/esapi/test/xpack/*_test.go && \
+				gotestsum --format=short-verbose --junitfile=$(PWD)/tmp/integration-api-report.xml -- $(testapiargs) $(PWD)/esapi/test/xpack/ml/*_test.go && \
+				gotestsum --format=short-verbose --junitfile=$(PWD)/tmp/integration-api-report.xml -- $(testapiargs) $(PWD)/esapi/test/xpack/ml-crud/*_test.go; \
+		else \
+			echo "go test -v" $(testapiargs); \
+			cd esapi/test && \
+				go test -v $(testapiargs) $(PWD)/esapi/test/xpack/*_test.go && \
+				go test -v $(testapiargs) $(PWD)/esapi/test/xpack/ml/*_test.go && \
+				go test -v $(testapiargs) $(PWD)/esapi/test/xpack/ml-crud/*_test.go;  \
+		fi; \
+	}
+else
+	$(eval testapiargs += $(PWD)/esapi/test/*_test.go)
+	@{ \
+		if which gotestsum > /dev/null 2>&1 ; then \
+			cd esapi/test && gotestsum --format=short-verbose --junitfile=$(PWD)/tmp/integration-api-report.xml -- $(testapiargs); \
+		else \
+			echo "go test -v" $(testapiargs); \
+			cd esapi/test && go test -v $(testapiargs); \
+		fi; \
+	}
+endif
 
 test-bench:  ## Run benchmarks
 	@echo "\033[2m→ Running benchmarks...\033[0m"
@@ -224,26 +248,63 @@ docker: ## Build the Docker image and run it
 
 ##@ Generator
 gen-api:  ## Generate the API package from the JSON specification
-	@echo "\033[2m→ Generating API package from specification...\033[0m"
-	$(eval input  ?= tmp/elasticsearch/rest-api-spec/src/main/resources/rest-api-spec/api/*.json)
+	$(eval input  ?= tmp/elasticsearch)
 	$(eval output ?= esapi)
 ifdef debug
 	$(eval args += --debug)
 endif
-ifdef skip-registry
-	$(eval args += --skip-registry)
+ifdef ELASTICSEARCH_VERSION
+	$(eval version = $(ELASTICSEARCH_VERSION))
+else
+	$(eval version = $(shell cat "$(input)/buildSrc/version.properties" | grep 'elasticsearch' | cut -d '=' -f 2 | tr -d ' '))
 endif
-	cd internal/cmd/generate && go run main.go source --input '$(PWD)/$(input)' --output '$(PWD)/$(output)' $(args)
+ifdef ELASTICSEARCH_BUILD_HASH
+	$(eval build_hash = $(ELASTICSEARCH_BUILD_HASH))
+else
+	$(eval build_hash = $(shell git --git-dir='$(input)/.git' rev-parse --short HEAD))
+endif
+	@echo "\033[2m→ Generating API package from specification ($(version):$(build_hash))...\033[0m"
+	@{ \
+		export ELASTICSEARCH_VERSION=$(version) && \
+		export ELASTICSEARCH_BUILD_HASH=$(build_hash) && \
+		cd internal/cmd/generate && \
+		go run main.go apisource --input '$(PWD)/$(input)/rest-api-spec/src/main/resources/rest-api-spec/api/*.json' --output '$(PWD)/$(output)' $(args) && \
+		go run main.go apisource --input '$(PWD)/$(input)/x-pack/plugin/src/test/resources/rest-api-spec/api/*.json' --output '$(PWD)/$(output)' $(args) && \
+		go run main.go apistruct --output '$(PWD)/$(output)'; \
+	}
 
 gen-tests:  ## Generate the API tests from the YAML specification
-	@echo "\033[2m→ Generating API tests from specification...\033[0m"
-	$(eval input  ?= tmp/elasticsearch/rest-api-spec/src/main/resources/rest-api-spec/test/**/*.y*ml)
+	$(eval input  ?= tmp/elasticsearch)
 	$(eval output ?= esapi/test)
 ifdef debug
 	$(eval args += --debug)
 endif
-	rm -rf esapi/test/*_test.go
-	cd internal/cmd/generate && go generate ./... && go run main.go tests --input '$(PWD)/$(input)' --output '$(PWD)/$(output)' $(args)
+ifdef ELASTICSEARCH_VERSION
+	$(eval version = $(ELASTICSEARCH_VERSION))
+else
+	$(eval version = $(shell cat "$(input)/buildSrc/version.properties" | grep 'elasticsearch' | cut -d '=' -f 2 | tr -d ' '))
+endif
+ifdef ELASTICSEARCH_BUILD_HASH
+	$(eval build_hash = $(ELASTICSEARCH_BUILD_HASH))
+else
+	$(eval build_hash = $(shell git --git-dir='$(input)/.git' rev-parse --short HEAD))
+endif
+	@echo "\033[2m→ Generating API tests from specification ($(version):$(build_hash))...\033[0m"
+	@{ \
+		export ELASTICSEARCH_VERSION=$(version) && \
+		export ELASTICSEARCH_BUILD_HASH=$(build_hash) && \
+		rm -rf $(output)/*_test.go && \
+		rm -rf $(output)/xpack && \
+		cd internal/cmd/generate && \
+		go generate ./... && \
+		go run main.go apitests --input '$(PWD)/$(input)/rest-api-spec/src/main/resources/rest-api-spec/test/**/*.y*ml' --output '$(PWD)/$(output)' $(args) && \
+		go run main.go apitests --input '$(PWD)/$(input)/x-pack/plugin/src/test/resources/rest-api-spec/test/**/*.yml' --output '$(PWD)/$(output)/xpack' $(args) && \
+		go run main.go apitests --input '$(PWD)/$(input)/x-pack/plugin/src/test/resources/rest-api-spec/test/**/**/*.yml' --output '$(PWD)/$(output)/xpack' $(args) && \
+		mkdir -p '$(PWD)/esapi/test/xpack/ml' && \
+		mkdir -p '$(PWD)/esapi/test/xpack/ml-crud' && \
+		mv $(PWD)/esapi/test/xpack/xpack_ml* $(PWD)/esapi/test/xpack/ml/ && \
+		mv $(PWD)/esapi/test/xpack/ml/xpack_ml__jobs_crud_test.go $(PWD)/esapi/test/xpack/ml-crud/; \
+	}
 
 ##@ Other
 #------------------------------------------------------------------------------
