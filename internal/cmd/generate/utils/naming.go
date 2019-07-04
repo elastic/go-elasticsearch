@@ -9,6 +9,8 @@ var (
 		"enum":    "string", // TODO: Custom "enum" type
 		"list":    "[]string",
 		"number":  "*int",
+		"int":     "*int",
+		"long":    "*int",
 		"string":  "string",
 		"time":    "time.Duration",
 	}
@@ -26,6 +28,14 @@ func NameToGo(s string) string {
 	acronyms := map[string]string{
 		"id":  "ID",
 		"ttl": "TTL",
+
+		"api":   "API",
+		"ccr":   "CCR",
+		"ilm":   "ILM",
+		"ml":    "ML",
+		"sql":   "SQL",
+		"ssl":   "SSL",
+		"xpack": "XPack",
 	}
 
 	if value, ok := exceptions[s]; ok {
