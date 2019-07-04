@@ -9,8 +9,6 @@ import (
 	"strings"
 	"time"
 
-	"golang.org/x/tools/imports"
-
 	"github.com/spf13/cobra"
 
 	"github.com/elastic/go-elasticsearch/v7/internal/cmd/generate/commands"
@@ -24,8 +22,6 @@ var (
 	color  *bool
 	debug  *bool
 	info   *bool
-
-	skipAPIRegistry *bool
 )
 
 var (
@@ -38,7 +34,6 @@ func init() {
 	input = gensourceCmd.Flags().StringP("input", "i", "", "Path to a folder or files with Elasticsearch REST API specification")
 	output = gensourceCmd.Flags().StringP("output", "o", "", "Path to a folder for generated output")
 	gofmt = gensourceCmd.Flags().BoolP("gofmt", "f", true, "Format generated output with 'gofmt'")
-	skipAPIRegistry = gensourceCmd.Flags().BoolP("skip-registry", "s", false, "Skip generating the API registry (api._.go)")
 	color = gensourceCmd.Flags().BoolP("color", "c", true, "Syntax highlight the debug output")
 	debug = gensourceCmd.Flags().BoolP("debug", "d", false, "Print the generated source to terminal")
 	info = gensourceCmd.Flags().Bool("info", false, "Print the API details to terminal")
@@ -51,17 +46,16 @@ func init() {
 }
 
 var gensourceCmd = &cobra.Command{
-	Use:   "source",
-	Short: "Generate Go API from Elasticsearch REST API spec",
+	Use:   "apisource",
+	Short: "Generate the Go APIs from the Elasticsearch REST API specification",
 	Run: func(cmd *cobra.Command, args []string) {
 		command := &Command{
-			Input:           *input,
-			Output:          *output,
-			Gofmt:           *gofmt,
-			DebugInfo:       *info,
-			DebugSource:     *debug,
-			ColorizeSource:  *color,
-			SkipAPIRegistry: *skipAPIRegistry,
+			Input:          *input,
+			Output:         *output,
+			Gofmt:          *gofmt,
+			DebugInfo:      *info,
+			DebugSource:    *debug,
+			ColorizeSource: *color,
 		}
 		err := command.Execute()
 		if err != nil {
@@ -74,13 +68,12 @@ var gensourceCmd = &cobra.Command{
 // Command represents the "gensource" command.
 //
 type Command struct {
-	Input           string
-	Output          string
-	Gofmt           bool
-	DebugInfo       bool
-	DebugSource     bool
-	ColorizeSource  bool
-	SkipAPIRegistry bool
+	Input          string
+	Output         string
+	Gofmt          bool
+	DebugInfo      bool
+	DebugSource    bool
+	ColorizeSource bool
 }
 
 // Execute runs the command.
@@ -158,12 +151,6 @@ func (cmd *Command) Execute() (err error) {
 		}
 		endpoints = append(endpoints, e)
 		stats.n++
-	}
-
-	if cmd.Output != "-" && !cmd.SkipAPIRegistry {
-		if err := cmd.processAPIConstructor(endpoints); err != nil {
-			return fmt.Errorf("error handling API constructor: %s", err)
-		}
 	}
 
 	if utils.IsTTY() {
@@ -265,7 +252,13 @@ func (cmd *Command) processFile(f *os.File) (err error) {
 			return fmt.Errorf("error creating directory: %s", err)
 		}
 
-		fName := filepath.Join(cmd.Output, "api."+gen.Endpoint.Name+".go")
+		var fName string
+		if gen.Endpoint.Type == "core" {
+			fName = filepath.Join(cmd.Output, "api."+gen.Endpoint.Name+".go")
+		} else {
+			fName = filepath.Join(cmd.Output, "api."+gen.Endpoint.Type+"."+gen.Endpoint.Name+".go")
+		}
+
 		f, err := os.OpenFile(fName, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0755)
 		if err != nil {
 			return fmt.Errorf("error creating file: %s", err)
@@ -279,131 +272,5 @@ func (cmd *Command) processFile(f *os.File) (err error) {
 		}
 	}
 
-	return nil
-}
-
-func (cmd *Command) processAPIConstructor(endpoints []*Endpoint) (err error) {
-	var b bytes.Buffer
-
-	var namespaces = []string{"Cat", "Cluster", "Indices", "Ingest", "Nodes", "Remote", "Snapshot", "Tasks"}
-
-	b.WriteString("// Code generated")
-	if EsVersion != "" || GitCommit != "" || GitTag != "" {
-		b.WriteString(fmt.Sprintf(" from specification version %s", EsVersion))
-		if GitCommit != "" {
-			b.WriteString(fmt.Sprintf(" (%s", GitCommit))
-			if GitTag != "" {
-				b.WriteString(fmt.Sprintf("|%s", GitTag))
-			}
-			b.WriteString(")")
-		}
-	}
-	b.WriteString(": DO NOT EDIT\n")
-	b.WriteString("\n")
-
-	b.WriteString(`package esapi
-
-// API contains the Elasticsearch APIs
-//
-type API struct {
-`)
-	for _, n := range namespaces {
-		b.WriteString(fmt.Sprintf("\t%[1]s *%[1]s\n", n))
-	}
-
-	b.WriteString("\n")
-
-	for _, e := range endpoints {
-		skip := false
-		name := e.MethodWithNamespace()
-
-		for _, n := range namespaces {
-			if strings.HasPrefix(name, n) {
-				skip = true
-			}
-		}
-		if !skip {
-			b.WriteString(fmt.Sprintf("\t%[1]s %[1]s\n", name))
-		}
-	}
-
-	b.WriteString(`}` + "\n\n")
-
-	for _, n := range namespaces {
-		b.WriteString(`// ` + n + ` contains the ` + n + ` APIs` + "\n")
-		b.WriteString(`type ` + n + ` struct {` + "\n")
-		for _, e := range endpoints {
-			ns := e.Namespace()
-			if ns == n {
-				b.WriteString(fmt.Sprintf("\t%s %s\n", e.MethodName(), e.MethodWithNamespace()))
-			}
-		}
-		b.WriteString("}\n\n")
-	}
-
-	b.WriteString(`// New creates new API
-//
-func New(t Transport) *API {
-	return &API{
-`)
-
-	for _, e := range endpoints {
-		skip := false
-		name := e.MethodWithNamespace()
-
-		for _, n := range namespaces {
-			if strings.HasPrefix(name, n) {
-				skip = true
-			}
-		}
-		if !skip {
-			b.WriteString(fmt.Sprintf("\t\t%[1]s: new%[1]sFunc(t),\n", name))
-		}
-	}
-
-	for _, n := range namespaces {
-		b.WriteString(fmt.Sprintf("\t\t%[1]s: &%[1]s{\n", n))
-		for _, e := range endpoints {
-			ns := e.Namespace()
-			if ns == n {
-				b.WriteString(fmt.Sprintf("\t\t\t%s: new%sFunc(t),\n", e.MethodName(), e.MethodWithNamespace()))
-			}
-		}
-		b.WriteString("\t\t},\n")
-	}
-
-	b.WriteString(`	}
-}
-`)
-
-	if cmd.Gofmt {
-		out, err := imports.Process(
-			"esapi/api._.go",
-			b.Bytes(),
-			&imports.Options{
-				AllErrors:  true,
-				Comments:   true,
-				FormatOnly: false,
-				TabIndent:  true,
-				TabWidth:   1,
-			})
-		if err != nil {
-			return err
-		}
-		b = *bytes.NewBuffer(out)
-	}
-
-	fname := filepath.Join(cmd.Output, "api._.go")
-	f, err := os.OpenFile(fname, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0755)
-	if err != nil {
-		return fmt.Errorf("error creating file: %s", err)
-	}
-	_, err = io.Copy(f, &b)
-	if err != nil {
-		return fmt.Errorf("error copying output: %s", err)
-	}
-	if err := f.Close(); err != nil {
-		return fmt.Errorf("error closing file: %s", err)
-	}
 	return nil
 }
