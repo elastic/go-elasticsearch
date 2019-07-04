@@ -52,8 +52,8 @@ func init() {
 }
 
 var gentestsCmd = &cobra.Command{
-	Use:   "tests",
-	Short: "Generate Go integration tests from Elasticsearch common test suite",
+	Use:   "apitests",
+	Short: "Generate the Go integration tests from the Elasticsearch common test suite",
 	Run: func(cmd *cobra.Command, args []string) {
 		command := &Command{
 			Input:          *input,
@@ -250,7 +250,7 @@ func (cmd *Command) processFile(fpath string) (err error) {
 			return fmt.Errorf("error creating directory: %s", err)
 		}
 
-		fName := filepath.Join(cmd.Output, gen.TestSuite.Filename()+"__test.go")
+		fName := filepath.Join(cmd.Output, gen.TestSuite.Filename()+"_test.go")
 		f, err := os.OpenFile(fName, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0755)
 		if err != nil {
 			return fmt.Errorf("error creating file: %s", err)

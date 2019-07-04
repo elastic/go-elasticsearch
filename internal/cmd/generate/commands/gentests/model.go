@@ -29,6 +29,7 @@ type TestSuite struct {
 	Filepath string
 	Skip     bool
 	SkipInfo string
+	Type     string
 
 	Setup    []Action
 	Teardown []Action
@@ -90,6 +91,13 @@ func NewTestSuite(fpath string, payloads []TestPayload) TestSuite {
 	ts := TestSuite{
 		Dir:      strings.Title(filepath.Base(filepath.Dir(fpath))),
 		Filepath: fpath,
+	}
+
+	if strings.Contains(fpath, "x-pack") {
+		ts.Type = "xpack"
+	}
+	if ts.Type == "" {
+		ts.Type = "core"
 	}
 
 	for _, payload := range payloads {
@@ -161,6 +169,16 @@ func NewTestSuite(fpath string, payloads []TestPayload) TestSuite {
 						for _, vvv := range vv.(map[interface{}]interface{}) {
 							steps = append(steps, NewStash(vvv))
 						}
+					case "transform_and_set":
+						for _, vvv := range vv.(map[interface{}]interface{}) {
+							// NOTE: `set_and_transform` has flipped ordering of key and value, compared to `set`
+							key := utils.MapValues(vvv)[0]
+							val := utils.MapKeys(vvv)[0]
+							payload := make(map[interface{}]interface{})
+							payload[key] = val
+							// fmt.Println(payload)
+							steps = append(steps, NewStash(payload))
+						}
 					case "do":
 						for _, vvv := range vv.(map[interface{}]interface{}) {
 							steps = append(steps, NewAction(vvv))
@@ -174,7 +192,7 @@ func NewTestSuite(fpath string, payloads []TestPayload) TestSuite {
 				}
 
 				if !ts.Skip {
-					t.Name = strings.Replace(k.(string), `"`, `'`, -1)
+					t.Name = strings.ReplaceAll(k.(string), `"`, `'`)
 					t.Filepath = payload.Filepath
 					t.OrigName = k.(string)
 					t.Steps = steps
@@ -245,13 +263,18 @@ func (ts TestSuite) Name() string {
 	for _, v := range strings.Split(bname, "_") {
 		b.WriteString(strings.Title(v))
 	}
-	return b.String()
+	return strings.ReplaceAll(b.String(), "-", "")
 }
 
 // Filename returns a suitable filename for the test suite.
 //
 func (ts TestSuite) Filename() string {
 	var b strings.Builder
+
+	if ts.Type == "xpack" {
+		b.WriteString("xpack_")
+	}
+
 	b.WriteString(strings.ToLower(strings.Replace(ts.Dir, ".", "_", -1)))
 	b.WriteString("__")
 
@@ -267,14 +290,14 @@ func (ts TestSuite) SkipEsVersion(minmax string) bool {
 	return skipVersion(minmax)
 }
 
-// BaseFilename returns the original filename in form of `foo/10_bar.yml`.
+// BaseFilename extracts and returns the test filename in form of `foo/bar/10_qux.yml`.
 //
 func (t Test) BaseFilename() string {
-	parts := strings.Split(t.Filepath, string(filepath.Separator))
-	if len(parts) < 2 {
-		return ""
+	parts := strings.Split(t.Filepath, "rest-api-spec/test")
+	if len(parts) < 1 {
+		panic(fmt.Sprintf("Unexpected parts for path [%s]: %s", t.Filepath, parts))
 	}
-	return strings.Join(parts[len(parts)-2:], string(filepath.Separator))
+	return strings.TrimPrefix(parts[1], string(filepath.Separator))
 }
 
 // SkipEsVersion returns true if the test should be skipped.
@@ -340,13 +363,18 @@ func (s Steps) ContainsStash(keys ...string) bool {
 // Method returns the API method name for the action.
 //
 func (a Action) Method() string {
-	return strings.Title(a.method)
+	return utils.NameToGo(a.method)
 }
 
 // Request returns the API request name for the action.
 //
 func (a Action) Request() string {
-	return utils.NameToGo(strings.Replace(strings.Title(a.method), ".", "", -1)) + "Request"
+	var rParts []string
+	parts := strings.Split(a.method, ".")
+	for _, p := range parts {
+		rParts = append(rParts, utils.NameToGo(p))
+	}
+	return strings.Join(rParts, "") + "Request"
 }
 
 // Params returns a map of parameters for the action.
@@ -640,7 +668,7 @@ default:
 				// --------------------------------------------------------------------------------
 				case map[interface{}]interface{}, map[string]interface{}:
 					expectedPayload := fmt.Sprintf("%#v", val)
-					expectedPayload = strings.Replace(expectedPayload, "map[interface {}]interface {}", "map[string]interface {}", -1)
+					expectedPayload = strings.ReplaceAll(expectedPayload, "map[interface {}]interface {}", "map[string]interface {}")
 					output = `		actual, _ = encjson.Marshal(` + escape(subject) + `)
 				expected, _ = encjson.Marshal(` + expectedPayload + `)
 				if fmt.Sprintf("%s", actual) != fmt.Sprintf("%s", expected) {` + "\n"
@@ -648,6 +676,7 @@ default:
 				// --------------------------------------------------------------------------------
 				case []interface{}:
 					expectedPayload := fmt.Sprintf("%#v", val)
+					expectedPayload = strings.ReplaceAll(expectedPayload, "map[interface {}]interface {}", "map[string]interface {}")
 					output = `		actual, _ = encjson.Marshal(` + escape(subject) + `)
 				expected, _ = encjson.Marshal(` + expectedPayload + `)
 				if fmt.Sprintf("%s", actual) != fmt.Sprintf("%s", expected) {` + "\n"
