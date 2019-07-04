@@ -114,20 +114,25 @@ func new` + g.Endpoint.MethodWithNamespace() + `Func(t Transport) ` + g.Endpoint
 func (g *Generator) genMethodDefinition() {
 	g.w("\n// ----- API Definition -------------------------------------------------------\n\n")
 
-	if g.Endpoint.Description != "" {
-		words := strings.Split(g.Endpoint.Description, " ")
-		initial := strings.ToLower(words[0:1][0])
-		description := initial + " " + strings.Join(words[1:], " ")
-		lines := strings.Split(description, "\n")
+	if g.Endpoint.Type == "xpack" {
+		g.w(`// ` + g.Endpoint.MethodWithNamespace() + " - " + g.Endpoint.Documentation)
+	} else {
+		if g.Endpoint.Description != "" {
+			words := strings.Split(g.Endpoint.Description, " ")
+			initial := strings.ToLower(words[0:1][0])
+			description := initial + " " + strings.Join(words[1:], " ")
+			lines := strings.Split(description, "\n")
 
-		g.w(`// ` + g.Endpoint.MethodWithNamespace() + " " + lines[0:1][0])
-		for _, line := range lines[1:] {
-			g.w("\n// " + line)
+			g.w(`// ` + g.Endpoint.MethodWithNamespace() + " " + lines[0:1][0])
+			for _, line := range lines[1:] {
+				g.w("\n// " + line)
+			}
+			g.w("\n")
 		}
-	}
 
-	if g.Endpoint.Documentation != "" {
-		g.w("\n//\n" + `// See full documentation at ` + g.Endpoint.Documentation + ".")
+		if g.Endpoint.Documentation != "" {
+			g.w("//\n" + `// See full documentation at ` + g.Endpoint.Documentation + ".")
+		}
 	}
 
 	g.w(`
@@ -568,6 +573,13 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(ctx context.Context,
 								pathContent.WriteString(`		path.WriteString("/")` + "\n")
 								pathContent.WriteString(`		path.WriteString(strings.Join(r.` + p + `, ","))` + "\n")
 								pathContent.WriteString(`	}` + "\n")
+							case "int", "long":
+								pathContent.WriteString(`	if r.` + p + ` != nil {` + "\n")
+								pathContent.WriteString(`		value := strconv.FormatInt(int64(*r.` + p + `), 10)` + "\n")
+								pathContent.WriteString(`		path.Grow(1 + len(value))` + "\n")
+								pathContent.WriteString(`		path.WriteString("/")` + "\n")
+								pathContent.WriteString(`		path.WriteString(value)` + "\n")
+								pathContent.WriteString(`	}` + "\n")
 							default:
 								panic(fmt.Sprintf("FAIL: %q: unexpected type %q for URL part %q\n", g.Endpoint.Name, a.Type, a.Name))
 							}
@@ -644,6 +656,12 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(ctx context.Context,
 			case "*int":
 				fieldCondition = `r.` + fieldName + ` != nil`
 				fieldValue = `strconv.FormatInt(int64(*r.` + fieldName + `), 10)`
+			case "uint":
+				fieldCondition = `r.` + fieldName + ` != 0`
+				fieldValue = `strconv.FormatUint(uint64(r.` + fieldName + `), 10)`
+			case "*uint":
+				fieldCondition = `r.` + fieldName + ` != 0`
+				fieldValue = `strconv.FormatUint(uint64(*r.` + fieldName + `), 10)`
 			case "[]string":
 				fieldCondition = ` len(r.` + fieldName + `) > 0`
 				fieldValue = `strings.Join(r.` + fieldName + `, ",")`
