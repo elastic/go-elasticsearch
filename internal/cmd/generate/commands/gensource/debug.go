@@ -15,7 +15,7 @@ func (e *Endpoint) DebugInfo() string {
 	w := tabwriter.NewWriter(&out, 0, 0, 1, ' ', 0)
 
 	fmt.Fprintln(&out, strings.Repeat("─", utils.TerminalWidth()))
-	fmt.Fprintf(&out, "API: %s (%s)\n", e.MethodWithNamespace(), e.Name)
+	fmt.Fprintf(&out, "API: %s (%s:%s)\n", e.MethodWithNamespace(), e.Type, e.Name)
 	// fmt.Fprintf(&out, "<%s>\n", e.Documentation)
 	fmt.Fprintln(&out, strings.Repeat("─", utils.TerminalWidth()))
 
