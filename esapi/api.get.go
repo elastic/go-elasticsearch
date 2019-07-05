@@ -1,9 +1,10 @@
-// Code generated from specification version 7.0.0: DO NOT EDIT
+// Code generated from specification version 7.3.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"net/http"
 	"strconv"
 	"strings"
 )
@@ -33,15 +34,12 @@ type GetRequest struct {
 	DocumentType string
 	DocumentID   string
 
-	Parent         string
 	Preference     string
 	Realtime       *bool
 	Refresh        *bool
 	Routing        string
 	Source         []string
-	SourceExclude  []string
 	SourceExcludes []string
-	SourceInclude  []string
 	SourceIncludes []string
 	StoredFields   []string
 	Version        *int
@@ -51,6 +49,8 @@ type GetRequest struct {
 	Human      bool
 	ErrorTrace bool
 	FilterPath []string
+
+	Header http.Header
 
 	ctx context.Context
 }
@@ -82,10 +82,6 @@ func (r GetRequest) Do(ctx context.Context, transport Transport) (*Response, err
 
 	params = make(map[string]string)
 
-	if r.Parent != "" {
-		params["parent"] = r.Parent
-	}
-
 	if r.Preference != "" {
 		params["preference"] = r.Preference
 	}
@@ -106,16 +102,8 @@ func (r GetRequest) Do(ctx context.Context, transport Transport) (*Response, err
 		params["_source"] = strings.Join(r.Source, ",")
 	}
 
-	if len(r.SourceExclude) > 0 {
-		params["_source_exclude"] = strings.Join(r.SourceExclude, ",")
-	}
-
 	if len(r.SourceExcludes) > 0 {
 		params["_source_excludes"] = strings.Join(r.SourceExcludes, ",")
-	}
-
-	if len(r.SourceInclude) > 0 {
-		params["_source_include"] = strings.Join(r.SourceInclude, ",")
 	}
 
 	if len(r.SourceIncludes) > 0 {
@@ -160,6 +148,18 @@ func (r GetRequest) Do(ctx context.Context, transport Transport) (*Response, err
 		req.URL.RawQuery = q.Encode()
 	}
 
+	if len(r.Header) > 0 {
+		if len(req.Header) == 0 {
+			req.Header = r.Header
+		} else {
+			for k, vv := range r.Header {
+				for _, v := range vv {
+					req.Header.Add(k, v)
+				}
+			}
+		}
+	}
+
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
@@ -191,14 +191,6 @@ func (f Get) WithContext(v context.Context) func(*GetRequest) {
 func (f Get) WithDocumentType(v string) func(*GetRequest) {
 	return func(r *GetRequest) {
 		r.DocumentType = v
-	}
-}
-
-// WithParent - the ID of the parent document.
-//
-func (f Get) WithParent(v string) func(*GetRequest) {
-	return func(r *GetRequest) {
-		r.Parent = v
 	}
 }
 
@@ -242,27 +234,11 @@ func (f Get) WithSource(v ...string) func(*GetRequest) {
 	}
 }
 
-// WithSourceExclude - a list of fields to exclude from the returned _source field.
-//
-func (f Get) WithSourceExclude(v ...string) func(*GetRequest) {
-	return func(r *GetRequest) {
-		r.SourceExclude = v
-	}
-}
-
 // WithSourceExcludes - a list of fields to exclude from the returned _source field.
 //
 func (f Get) WithSourceExcludes(v ...string) func(*GetRequest) {
 	return func(r *GetRequest) {
 		r.SourceExcludes = v
-	}
-}
-
-// WithSourceInclude - a list of fields to extract and return from the _source field.
-//
-func (f Get) WithSourceInclude(v ...string) func(*GetRequest) {
-	return func(r *GetRequest) {
-		r.SourceInclude = v
 	}
 }
 
@@ -327,5 +303,18 @@ func (f Get) WithErrorTrace() func(*GetRequest) {
 func (f Get) WithFilterPath(v ...string) func(*GetRequest) {
 	return func(r *GetRequest) {
 		r.FilterPath = v
+	}
+}
+
+// WithHeader adds the headers to the HTTP request.
+//
+func (f Get) WithHeader(h map[string]string) func(*GetRequest) {
+	return func(r *GetRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		for k, v := range h {
+			r.Header.Add(k, v)
+		}
 	}
 }

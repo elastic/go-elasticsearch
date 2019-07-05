@@ -1,10 +1,11 @@
-// Code generated from specification version 7.0.0: DO NOT EDIT
+// Code generated from specification version 7.3.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
 	"io"
+	"net/http"
 	"strconv"
 	"strings"
 	"time"
@@ -47,6 +48,7 @@ type UpdateByQueryRequest struct {
 	From                *int
 	IgnoreUnavailable   *bool
 	Lenient             *bool
+	MaxDocs             *int
 	Pipeline            string
 	Preference          string
 	Query               string
@@ -76,6 +78,8 @@ type UpdateByQueryRequest struct {
 	Human      bool
 	ErrorTrace bool
 	FilterPath []string
+
+	Header http.Header
 
 	ctx context.Context
 }
@@ -141,6 +145,10 @@ func (r UpdateByQueryRequest) Do(ctx context.Context, transport Transport) (*Res
 
 	if r.Lenient != nil {
 		params["lenient"] = strconv.FormatBool(*r.Lenient)
+	}
+
+	if r.MaxDocs != nil {
+		params["max_docs"] = strconv.FormatInt(int64(*r.MaxDocs), 10)
 	}
 
 	if r.Pipeline != "" {
@@ -269,6 +277,18 @@ func (r UpdateByQueryRequest) Do(ctx context.Context, transport Transport) (*Res
 		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
+	if len(r.Header) > 0 {
+		if len(req.Header) == 0 {
+			req.Header = r.Header
+		} else {
+			for k, vv := range r.Header {
+				for _, v := range vv {
+					req.Header.Add(k, v)
+				}
+			}
+		}
+	}
+
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
@@ -391,6 +411,14 @@ func (f UpdateByQuery) WithLenient(v bool) func(*UpdateByQueryRequest) {
 	}
 }
 
+// WithMaxDocs - maximum number of documents to process (default: all documents).
+//
+func (f UpdateByQuery) WithMaxDocs(v int) func(*UpdateByQueryRequest) {
+	return func(r *UpdateByQueryRequest) {
+		r.MaxDocs = &v
+	}
+}
+
 // WithPipeline - ingest pipeline to set on index requests made by this action. (default: none).
 //
 func (f UpdateByQuery) WithPipeline(v string) func(*UpdateByQueryRequest) {
@@ -479,7 +507,7 @@ func (f UpdateByQuery) WithSearchType(v string) func(*UpdateByQueryRequest) {
 	}
 }
 
-// WithSize - number of hits to return (default: 10).
+// WithSize - deprecated, please use `max_docs` instead.
 //
 func (f UpdateByQuery) WithSize(v int) func(*UpdateByQueryRequest) {
 	return func(r *UpdateByQueryRequest) {
@@ -612,5 +640,18 @@ func (f UpdateByQuery) WithErrorTrace() func(*UpdateByQueryRequest) {
 func (f UpdateByQuery) WithFilterPath(v ...string) func(*UpdateByQueryRequest) {
 	return func(r *UpdateByQueryRequest) {
 		r.FilterPath = v
+	}
+}
+
+// WithHeader adds the headers to the HTTP request.
+//
+func (f UpdateByQuery) WithHeader(h map[string]string) func(*UpdateByQueryRequest) {
+	return func(r *UpdateByQueryRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		for k, v := range h {
+			r.Header.Add(k, v)
+		}
 	}
 }

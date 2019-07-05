@@ -1,10 +1,11 @@
-// Code generated from specification version 7.0.0: DO NOT EDIT
+// Code generated from specification version 7.3.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
 	"io"
+	"net/http"
 	"strconv"
 	"strings"
 )
@@ -47,6 +48,8 @@ type MsearchRequest struct {
 	Human      bool
 	ErrorTrace bool
 	FilterPath []string
+
+	Header http.Header
 
 	ctx context.Context
 }
@@ -134,6 +137,18 @@ func (r MsearchRequest) Do(ctx context.Context, transport Transport) (*Response,
 		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
+	if len(r.Header) > 0 {
+		if len(req.Header) == 0 {
+			req.Header = r.Header
+		} else {
+			for k, vv := range r.Header {
+				for _, v := range vv {
+					req.Header.Add(k, v)
+				}
+			}
+		}
+	}
+
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
@@ -192,7 +207,7 @@ func (f Msearch) WithMaxConcurrentSearches(v int) func(*MsearchRequest) {
 	}
 }
 
-// WithMaxConcurrentShardRequests - the number of concurrent shard requests each sub search executes concurrently. this value should be used to limit the impact of the search on the cluster in order to limit the number of concurrent shard requests.
+// WithMaxConcurrentShardRequests - the number of concurrent shard requests each sub search executes concurrently per node. this value should be used to limit the impact of the search on the cluster in order to limit the number of concurrent shard requests.
 //
 func (f Msearch) WithMaxConcurrentShardRequests(v int) func(*MsearchRequest) {
 	return func(r *MsearchRequest) {
@@ -261,5 +276,18 @@ func (f Msearch) WithErrorTrace() func(*MsearchRequest) {
 func (f Msearch) WithFilterPath(v ...string) func(*MsearchRequest) {
 	return func(r *MsearchRequest) {
 		r.FilterPath = v
+	}
+}
+
+// WithHeader adds the headers to the HTTP request.
+//
+func (f Msearch) WithHeader(h map[string]string) func(*MsearchRequest) {
+	return func(r *MsearchRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		for k, v := range h {
+			r.Header.Add(k, v)
+		}
 	}
 }

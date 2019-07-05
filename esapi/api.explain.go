@@ -1,10 +1,11 @@
-// Code generated from specification version 7.0.0: DO NOT EDIT
+// Code generated from specification version 7.3.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
 	"io"
+	"net/http"
 	"strconv"
 	"strings"
 )
@@ -41,7 +42,6 @@ type ExplainRequest struct {
 	DefaultOperator string
 	Df              string
 	Lenient         *bool
-	Parent          string
 	Preference      string
 	Query           string
 	Routing         string
@@ -54,6 +54,8 @@ type ExplainRequest struct {
 	Human      bool
 	ErrorTrace bool
 	FilterPath []string
+
+	Header http.Header
 
 	ctx context.Context
 }
@@ -105,10 +107,6 @@ func (r ExplainRequest) Do(ctx context.Context, transport Transport) (*Response,
 
 	if r.Lenient != nil {
 		params["lenient"] = strconv.FormatBool(*r.Lenient)
-	}
-
-	if r.Parent != "" {
-		params["parent"] = r.Parent
 	}
 
 	if r.Preference != "" {
@@ -167,6 +165,18 @@ func (r ExplainRequest) Do(ctx context.Context, transport Transport) (*Response,
 
 	if r.Body != nil {
 		req.Header[headerContentType] = headerContentTypeJSON
+	}
+
+	if len(r.Header) > 0 {
+		if len(req.Header) == 0 {
+			req.Header = r.Header
+		} else {
+			for k, vv := range r.Header {
+				for _, v := range vv {
+					req.Header.Add(k, v)
+				}
+			}
+		}
 	}
 
 	if ctx != nil {
@@ -248,14 +258,6 @@ func (f Explain) WithDf(v string) func(*ExplainRequest) {
 func (f Explain) WithLenient(v bool) func(*ExplainRequest) {
 	return func(r *ExplainRequest) {
 		r.Lenient = &v
-	}
-}
-
-// WithParent - the ID of the parent document.
-//
-func (f Explain) WithParent(v string) func(*ExplainRequest) {
-	return func(r *ExplainRequest) {
-		r.Parent = v
 	}
 }
 
@@ -344,5 +346,18 @@ func (f Explain) WithErrorTrace() func(*ExplainRequest) {
 func (f Explain) WithFilterPath(v ...string) func(*ExplainRequest) {
 	return func(r *ExplainRequest) {
 		r.FilterPath = v
+	}
+}
+
+// WithHeader adds the headers to the HTTP request.
+//
+func (f Explain) WithHeader(h map[string]string) func(*ExplainRequest) {
+	return func(r *ExplainRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		for k, v := range h {
+			r.Header.Add(k, v)
+		}
 	}
 }

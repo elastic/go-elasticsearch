@@ -1,9 +1,10 @@
-// Code generated from specification version 7.0.0: DO NOT EDIT
+// Code generated from specification version 7.3.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"net/http"
 	"strconv"
 	"strings"
 	"time"
@@ -32,21 +33,24 @@ type CatIndices func(o ...func(*CatIndicesRequest)) (*Response, error)
 type CatIndicesRequest struct {
 	Index []string
 
-	Bytes         string
-	Format        string
-	H             []string
-	Health        string
-	Help          *bool
-	Local         *bool
-	MasterTimeout time.Duration
-	Pri           *bool
-	S             []string
-	V             *bool
+	Bytes                   string
+	Format                  string
+	H                       []string
+	Health                  string
+	Help                    *bool
+	IncludeUnloadedSegments *bool
+	Local                   *bool
+	MasterTimeout           time.Duration
+	Pri                     *bool
+	S                       []string
+	V                       *bool
 
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
 	FilterPath []string
+
+	Header http.Header
 
 	ctx context.Context
 }
@@ -94,6 +98,10 @@ func (r CatIndicesRequest) Do(ctx context.Context, transport Transport) (*Respon
 		params["help"] = strconv.FormatBool(*r.Help)
 	}
 
+	if r.IncludeUnloadedSegments != nil {
+		params["include_unloaded_segments"] = strconv.FormatBool(*r.IncludeUnloadedSegments)
+	}
+
 	if r.Local != nil {
 		params["local"] = strconv.FormatBool(*r.Local)
 	}
@@ -138,6 +146,18 @@ func (r CatIndicesRequest) Do(ctx context.Context, transport Transport) (*Respon
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if len(r.Header) > 0 {
+		if len(req.Header) == 0 {
+			req.Header = r.Header
+		} else {
+			for k, vv := range r.Header {
+				for _, v := range vv {
+					req.Header.Add(k, v)
+				}
+			}
+		}
 	}
 
 	if ctx != nil {
@@ -214,6 +234,14 @@ func (f CatIndices) WithHelp(v bool) func(*CatIndicesRequest) {
 	}
 }
 
+// WithIncludeUnloadedSegments - if set to true segment stats will include stats for segments that are not currently loaded into memory.
+//
+func (f CatIndices) WithIncludeUnloadedSegments(v bool) func(*CatIndicesRequest) {
+	return func(r *CatIndicesRequest) {
+		r.IncludeUnloadedSegments = &v
+	}
+}
+
 // WithLocal - return local information, do not retrieve the state from master node (default: false).
 //
 func (f CatIndices) WithLocal(v bool) func(*CatIndicesRequest) {
@@ -283,5 +311,18 @@ func (f CatIndices) WithErrorTrace() func(*CatIndicesRequest) {
 func (f CatIndices) WithFilterPath(v ...string) func(*CatIndicesRequest) {
 	return func(r *CatIndicesRequest) {
 		r.FilterPath = v
+	}
+}
+
+// WithHeader adds the headers to the HTTP request.
+//
+func (f CatIndices) WithHeader(h map[string]string) func(*CatIndicesRequest) {
+	return func(r *CatIndicesRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		for k, v := range h {
+			r.Header.Add(k, v)
+		}
 	}
 }

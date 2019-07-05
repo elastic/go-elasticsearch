@@ -1,9 +1,10 @@
-// Code generated from specification version 7.0.0: DO NOT EDIT
+// Code generated from specification version 7.3.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"net/http"
 	"strconv"
 	"strings"
 )
@@ -35,11 +36,14 @@ type FieldCapsRequest struct {
 	ExpandWildcards   string
 	Fields            []string
 	IgnoreUnavailable *bool
+	IncludeUnmapped   *bool
 
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
 	FilterPath []string
+
+	Header http.Header
 
 	ctx context.Context
 }
@@ -81,6 +85,10 @@ func (r FieldCapsRequest) Do(ctx context.Context, transport Transport) (*Respons
 		params["ignore_unavailable"] = strconv.FormatBool(*r.IgnoreUnavailable)
 	}
 
+	if r.IncludeUnmapped != nil {
+		params["include_unmapped"] = strconv.FormatBool(*r.IncludeUnmapped)
+	}
+
 	if r.Pretty {
 		params["pretty"] = "true"
 	}
@@ -105,6 +113,18 @@ func (r FieldCapsRequest) Do(ctx context.Context, transport Transport) (*Respons
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if len(r.Header) > 0 {
+		if len(req.Header) == 0 {
+			req.Header = r.Header
+		} else {
+			for k, vv := range r.Header {
+				for _, v := range vv {
+					req.Header.Add(k, v)
+				}
+			}
+		}
 	}
 
 	if ctx != nil {
@@ -173,6 +193,14 @@ func (f FieldCaps) WithIgnoreUnavailable(v bool) func(*FieldCapsRequest) {
 	}
 }
 
+// WithIncludeUnmapped - indicates whether unmapped fields should be included in the response..
+//
+func (f FieldCaps) WithIncludeUnmapped(v bool) func(*FieldCapsRequest) {
+	return func(r *FieldCapsRequest) {
+		r.IncludeUnmapped = &v
+	}
+}
+
 // WithPretty makes the response body pretty-printed.
 //
 func (f FieldCaps) WithPretty() func(*FieldCapsRequest) {
@@ -202,5 +230,18 @@ func (f FieldCaps) WithErrorTrace() func(*FieldCapsRequest) {
 func (f FieldCaps) WithFilterPath(v ...string) func(*FieldCapsRequest) {
 	return func(r *FieldCapsRequest) {
 		r.FilterPath = v
+	}
+}
+
+// WithHeader adds the headers to the HTTP request.
+//
+func (f FieldCaps) WithHeader(h map[string]string) func(*FieldCapsRequest) {
+	return func(r *FieldCapsRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		for k, v := range h {
+			r.Header.Add(k, v)
+		}
 	}
 }

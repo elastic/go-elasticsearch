@@ -1,10 +1,11 @@
-// Code generated from specification version 7.0.0: DO NOT EDIT
+// Code generated from specification version 7.3.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
 	"io"
+	"net/http"
 	"strings"
 )
 
@@ -37,6 +38,8 @@ type ClearScrollRequest struct {
 	Human      bool
 	ErrorTrace bool
 	FilterPath []string
+
+	Header http.Header
 
 	ctx context.Context
 }
@@ -92,6 +95,18 @@ func (r ClearScrollRequest) Do(ctx context.Context, transport Transport) (*Respo
 
 	if r.Body != nil {
 		req.Header[headerContentType] = headerContentTypeJSON
+	}
+
+	if len(r.Header) > 0 {
+		if len(req.Header) == 0 {
+			req.Header = r.Header
+		} else {
+			for k, vv := range r.Header {
+				for _, v := range vv {
+					req.Header.Add(k, v)
+				}
+			}
+		}
 	}
 
 	if ctx != nil {
@@ -165,5 +180,18 @@ func (f ClearScroll) WithErrorTrace() func(*ClearScrollRequest) {
 func (f ClearScroll) WithFilterPath(v ...string) func(*ClearScrollRequest) {
 	return func(r *ClearScrollRequest) {
 		r.FilterPath = v
+	}
+}
+
+// WithHeader adds the headers to the HTTP request.
+//
+func (f ClearScroll) WithHeader(h map[string]string) func(*ClearScrollRequest) {
+	return func(r *ClearScrollRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		for k, v := range h {
+			r.Header.Add(k, v)
+		}
 	}
 }

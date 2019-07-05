@@ -1,9 +1,10 @@
-// Code generated from specification version 7.0.0: DO NOT EDIT
+// Code generated from specification version 7.3.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"net/http"
 	"strconv"
 	"strings"
 )
@@ -34,10 +35,13 @@ type IndicesStatsRequest struct {
 	Metric []string
 
 	CompletionFields        []string
+	ExpandWildcards         string
 	FielddataFields         []string
 	Fields                  []string
+	ForbidClosedIndices     *bool
 	Groups                  []string
 	IncludeSegmentFileSizes *bool
+	IncludeUnloadedSegments *bool
 	Level                   string
 	Types                   []string
 
@@ -45,6 +49,8 @@ type IndicesStatsRequest struct {
 	Human      bool
 	ErrorTrace bool
 	FilterPath []string
+
+	Header http.Header
 
 	ctx context.Context
 }
@@ -78,6 +84,10 @@ func (r IndicesStatsRequest) Do(ctx context.Context, transport Transport) (*Resp
 		params["completion_fields"] = strings.Join(r.CompletionFields, ",")
 	}
 
+	if r.ExpandWildcards != "" {
+		params["expand_wildcards"] = r.ExpandWildcards
+	}
+
 	if len(r.FielddataFields) > 0 {
 		params["fielddata_fields"] = strings.Join(r.FielddataFields, ",")
 	}
@@ -86,12 +96,20 @@ func (r IndicesStatsRequest) Do(ctx context.Context, transport Transport) (*Resp
 		params["fields"] = strings.Join(r.Fields, ",")
 	}
 
+	if r.ForbidClosedIndices != nil {
+		params["forbid_closed_indices"] = strconv.FormatBool(*r.ForbidClosedIndices)
+	}
+
 	if len(r.Groups) > 0 {
 		params["groups"] = strings.Join(r.Groups, ",")
 	}
 
 	if r.IncludeSegmentFileSizes != nil {
 		params["include_segment_file_sizes"] = strconv.FormatBool(*r.IncludeSegmentFileSizes)
+	}
+
+	if r.IncludeUnloadedSegments != nil {
+		params["include_unloaded_segments"] = strconv.FormatBool(*r.IncludeUnloadedSegments)
 	}
 
 	if r.Level != "" {
@@ -126,6 +144,18 @@ func (r IndicesStatsRequest) Do(ctx context.Context, transport Transport) (*Resp
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if len(r.Header) > 0 {
+		if len(req.Header) == 0 {
+			req.Header = r.Header
+		} else {
+			for k, vv := range r.Header {
+				for _, v := range vv {
+					req.Header.Add(k, v)
+				}
+			}
+		}
 	}
 
 	if ctx != nil {
@@ -178,6 +208,14 @@ func (f IndicesStats) WithCompletionFields(v ...string) func(*IndicesStatsReques
 	}
 }
 
+// WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
+//
+func (f IndicesStats) WithExpandWildcards(v string) func(*IndicesStatsRequest) {
+	return func(r *IndicesStatsRequest) {
+		r.ExpandWildcards = v
+	}
+}
+
 // WithFielddataFields - a list of fields for `fielddata` index metric (supports wildcards).
 //
 func (f IndicesStats) WithFielddataFields(v ...string) func(*IndicesStatsRequest) {
@@ -194,6 +232,14 @@ func (f IndicesStats) WithFields(v ...string) func(*IndicesStatsRequest) {
 	}
 }
 
+// WithForbidClosedIndices - if set to false stats will also collected from closed indices if explicitly specified or if expand_wildcards expands to closed indices.
+//
+func (f IndicesStats) WithForbidClosedIndices(v bool) func(*IndicesStatsRequest) {
+	return func(r *IndicesStatsRequest) {
+		r.ForbidClosedIndices = &v
+	}
+}
+
 // WithGroups - a list of search groups for `search` index metric.
 //
 func (f IndicesStats) WithGroups(v ...string) func(*IndicesStatsRequest) {
@@ -207,6 +253,14 @@ func (f IndicesStats) WithGroups(v ...string) func(*IndicesStatsRequest) {
 func (f IndicesStats) WithIncludeSegmentFileSizes(v bool) func(*IndicesStatsRequest) {
 	return func(r *IndicesStatsRequest) {
 		r.IncludeSegmentFileSizes = &v
+	}
+}
+
+// WithIncludeUnloadedSegments - if set to true segment stats will include stats for segments that are not currently loaded into memory.
+//
+func (f IndicesStats) WithIncludeUnloadedSegments(v bool) func(*IndicesStatsRequest) {
+	return func(r *IndicesStatsRequest) {
+		r.IncludeUnloadedSegments = &v
 	}
 }
 
@@ -255,5 +309,18 @@ func (f IndicesStats) WithErrorTrace() func(*IndicesStatsRequest) {
 func (f IndicesStats) WithFilterPath(v ...string) func(*IndicesStatsRequest) {
 	return func(r *IndicesStatsRequest) {
 		r.FilterPath = v
+	}
+}
+
+// WithHeader adds the headers to the HTTP request.
+//
+func (f IndicesStats) WithHeader(h map[string]string) func(*IndicesStatsRequest) {
+	return func(r *IndicesStatsRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		for k, v := range h {
+			r.Header.Add(k, v)
+		}
 	}
 }

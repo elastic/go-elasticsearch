@@ -1,10 +1,11 @@
-// Code generated from specification version 7.0.0: DO NOT EDIT
+// Code generated from specification version 7.3.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
 	"io"
+	"net/http"
 	"strconv"
 	"strings"
 	"time"
@@ -35,6 +36,7 @@ type Reindex func(body io.Reader, o ...func(*ReindexRequest)) (*Response, error)
 type ReindexRequest struct {
 	Body io.Reader
 
+	MaxDocs             *int
 	Refresh             *bool
 	RequestsPerSecond   *int
 	Scroll              time.Duration
@@ -47,6 +49,8 @@ type ReindexRequest struct {
 	Human      bool
 	ErrorTrace bool
 	FilterPath []string
+
+	Header http.Header
 
 	ctx context.Context
 }
@@ -66,6 +70,10 @@ func (r ReindexRequest) Do(ctx context.Context, transport Transport) (*Response,
 	path.WriteString("/_reindex")
 
 	params = make(map[string]string)
+
+	if r.MaxDocs != nil {
+		params["max_docs"] = strconv.FormatInt(int64(*r.MaxDocs), 10)
+	}
 
 	if r.Refresh != nil {
 		params["refresh"] = strconv.FormatBool(*r.Refresh)
@@ -125,6 +133,18 @@ func (r ReindexRequest) Do(ctx context.Context, transport Transport) (*Response,
 		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
+	if len(r.Header) > 0 {
+		if len(req.Header) == 0 {
+			req.Header = r.Header
+		} else {
+			for k, vv := range r.Header {
+				for _, v := range vv {
+					req.Header.Add(k, v)
+				}
+			}
+		}
+	}
+
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
@@ -148,6 +168,14 @@ func (r ReindexRequest) Do(ctx context.Context, transport Transport) (*Response,
 func (f Reindex) WithContext(v context.Context) func(*ReindexRequest) {
 	return func(r *ReindexRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMaxDocs - maximum number of documents to process (default: all documents).
+//
+func (f Reindex) WithMaxDocs(v int) func(*ReindexRequest) {
+	return func(r *ReindexRequest) {
+		r.MaxDocs = &v
 	}
 }
 
@@ -236,5 +264,18 @@ func (f Reindex) WithErrorTrace() func(*ReindexRequest) {
 func (f Reindex) WithFilterPath(v ...string) func(*ReindexRequest) {
 	return func(r *ReindexRequest) {
 		r.FilterPath = v
+	}
+}
+
+// WithHeader adds the headers to the HTTP request.
+//
+func (f Reindex) WithHeader(h map[string]string) func(*ReindexRequest) {
+	return func(r *ReindexRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		for k, v := range h {
+			r.Header.Add(k, v)
+		}
 	}
 }

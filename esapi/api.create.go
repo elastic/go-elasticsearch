@@ -1,10 +1,11 @@
-// Code generated from specification version 7.0.0: DO NOT EDIT
+// Code generated from specification version 7.3.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
 	"io"
+	"net/http"
 	"strconv"
 	"strings"
 	"time"
@@ -39,7 +40,6 @@ type CreateRequest struct {
 
 	Body io.Reader
 
-	Parent              string
 	Pipeline            string
 	Refresh             string
 	Routing             string
@@ -52,6 +52,8 @@ type CreateRequest struct {
 	Human      bool
 	ErrorTrace bool
 	FilterPath []string
+
+	Header http.Header
 
 	ctx context.Context
 }
@@ -82,10 +84,6 @@ func (r CreateRequest) Do(ctx context.Context, transport Transport) (*Response, 
 	path.WriteString("_create")
 
 	params = make(map[string]string)
-
-	if r.Parent != "" {
-		params["parent"] = r.Parent
-	}
 
 	if r.Pipeline != "" {
 		params["pipeline"] = r.Pipeline
@@ -145,6 +143,18 @@ func (r CreateRequest) Do(ctx context.Context, transport Transport) (*Response, 
 		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
+	if len(r.Header) > 0 {
+		if len(req.Header) == 0 {
+			req.Header = r.Header
+		} else {
+			for k, vv := range r.Header {
+				for _, v := range vv {
+					req.Header.Add(k, v)
+				}
+			}
+		}
+	}
+
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
@@ -176,14 +186,6 @@ func (f Create) WithContext(v context.Context) func(*CreateRequest) {
 func (f Create) WithDocumentType(v string) func(*CreateRequest) {
 	return func(r *CreateRequest) {
 		r.DocumentType = v
-	}
-}
-
-// WithParent - ID of the parent document.
-//
-func (f Create) WithParent(v string) func(*CreateRequest) {
-	return func(r *CreateRequest) {
-		r.Parent = v
 	}
 }
 
@@ -272,5 +274,18 @@ func (f Create) WithErrorTrace() func(*CreateRequest) {
 func (f Create) WithFilterPath(v ...string) func(*CreateRequest) {
 	return func(r *CreateRequest) {
 		r.FilterPath = v
+	}
+}
+
+// WithHeader adds the headers to the HTTP request.
+//
+func (f Create) WithHeader(h map[string]string) func(*CreateRequest) {
+	return func(r *CreateRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		for k, v := range h {
+			r.Header.Add(k, v)
+		}
 	}
 }

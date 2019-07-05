@@ -1,10 +1,11 @@
-// Code generated from specification version 7.0.0: DO NOT EDIT
+// Code generated from specification version 7.3.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
 	"io"
+	"net/http"
 	"strconv"
 	"strings"
 	"time"
@@ -46,6 +47,7 @@ type DeleteByQueryRequest struct {
 	From                *int
 	IgnoreUnavailable   *bool
 	Lenient             *bool
+	MaxDocs             *int
 	Preference          string
 	Query               string
 	Refresh             *bool
@@ -73,6 +75,8 @@ type DeleteByQueryRequest struct {
 	Human      bool
 	ErrorTrace bool
 	FilterPath []string
+
+	Header http.Header
 
 	ctx context.Context
 }
@@ -138,6 +142,10 @@ func (r DeleteByQueryRequest) Do(ctx context.Context, transport Transport) (*Res
 
 	if r.Lenient != nil {
 		params["lenient"] = strconv.FormatBool(*r.Lenient)
+	}
+
+	if r.MaxDocs != nil {
+		params["max_docs"] = strconv.FormatInt(int64(*r.MaxDocs), 10)
 	}
 
 	if r.Preference != "" {
@@ -258,6 +266,18 @@ func (r DeleteByQueryRequest) Do(ctx context.Context, transport Transport) (*Res
 		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
+	if len(r.Header) > 0 {
+		if len(req.Header) == 0 {
+			req.Header = r.Header
+		} else {
+			for k, vv := range r.Header {
+				for _, v := range vv {
+					req.Header.Add(k, v)
+				}
+			}
+		}
+	}
+
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
@@ -372,6 +392,14 @@ func (f DeleteByQuery) WithLenient(v bool) func(*DeleteByQueryRequest) {
 	}
 }
 
+// WithMaxDocs - maximum number of documents to process (default: all documents).
+//
+func (f DeleteByQuery) WithMaxDocs(v int) func(*DeleteByQueryRequest) {
+	return func(r *DeleteByQueryRequest) {
+		r.MaxDocs = &v
+	}
+}
+
 // WithPreference - specify the node or shard the operation should be performed on (default: random).
 //
 func (f DeleteByQuery) WithPreference(v string) func(*DeleteByQueryRequest) {
@@ -452,7 +480,7 @@ func (f DeleteByQuery) WithSearchType(v string) func(*DeleteByQueryRequest) {
 	}
 }
 
-// WithSize - number of hits to return (default: 10).
+// WithSize - deprecated, please use `max_docs` instead.
 //
 func (f DeleteByQuery) WithSize(v int) func(*DeleteByQueryRequest) {
 	return func(r *DeleteByQueryRequest) {
@@ -577,5 +605,18 @@ func (f DeleteByQuery) WithErrorTrace() func(*DeleteByQueryRequest) {
 func (f DeleteByQuery) WithFilterPath(v ...string) func(*DeleteByQueryRequest) {
 	return func(r *DeleteByQueryRequest) {
 		r.FilterPath = v
+	}
+}
+
+// WithHeader adds the headers to the HTTP request.
+//
+func (f DeleteByQuery) WithHeader(h map[string]string) func(*DeleteByQueryRequest) {
+	return func(r *DeleteByQueryRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		for k, v := range h {
+			r.Header.Add(k, v)
+		}
 	}
 }

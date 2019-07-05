@@ -1,9 +1,10 @@
-// Code generated from specification version 7.0.0: DO NOT EDIT
+// Code generated from specification version 7.3.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"net/http"
 	"strconv"
 	"strings"
 	"time"
@@ -32,16 +33,19 @@ type IndicesClose func(index []string, o ...func(*IndicesCloseRequest)) (*Respon
 type IndicesCloseRequest struct {
 	Index []string
 
-	AllowNoIndices    *bool
-	ExpandWildcards   string
-	IgnoreUnavailable *bool
-	MasterTimeout     time.Duration
-	Timeout           time.Duration
+	AllowNoIndices      *bool
+	ExpandWildcards     string
+	IgnoreUnavailable   *bool
+	MasterTimeout       time.Duration
+	Timeout             time.Duration
+	WaitForActiveShards string
 
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
 	FilterPath []string
+
+	Header http.Header
 
 	ctx context.Context
 }
@@ -85,6 +89,10 @@ func (r IndicesCloseRequest) Do(ctx context.Context, transport Transport) (*Resp
 		params["timeout"] = formatDuration(r.Timeout)
 	}
 
+	if r.WaitForActiveShards != "" {
+		params["wait_for_active_shards"] = r.WaitForActiveShards
+	}
+
 	if r.Pretty {
 		params["pretty"] = "true"
 	}
@@ -109,6 +117,18 @@ func (r IndicesCloseRequest) Do(ctx context.Context, transport Transport) (*Resp
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if len(r.Header) > 0 {
+		if len(req.Header) == 0 {
+			req.Header = r.Header
+		} else {
+			for k, vv := range r.Header {
+				for _, v := range vv {
+					req.Header.Add(k, v)
+				}
+			}
+		}
 	}
 
 	if ctx != nil {
@@ -177,6 +197,14 @@ func (f IndicesClose) WithTimeout(v time.Duration) func(*IndicesCloseRequest) {
 	}
 }
 
+// WithWaitForActiveShards - sets the number of active shards to wait for before the operation returns..
+//
+func (f IndicesClose) WithWaitForActiveShards(v string) func(*IndicesCloseRequest) {
+	return func(r *IndicesCloseRequest) {
+		r.WaitForActiveShards = v
+	}
+}
+
 // WithPretty makes the response body pretty-printed.
 //
 func (f IndicesClose) WithPretty() func(*IndicesCloseRequest) {
@@ -206,5 +234,18 @@ func (f IndicesClose) WithErrorTrace() func(*IndicesCloseRequest) {
 func (f IndicesClose) WithFilterPath(v ...string) func(*IndicesCloseRequest) {
 	return func(r *IndicesCloseRequest) {
 		r.FilterPath = v
+	}
+}
+
+// WithHeader adds the headers to the HTTP request.
+//
+func (f IndicesClose) WithHeader(h map[string]string) func(*IndicesCloseRequest) {
+	return func(r *IndicesCloseRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		for k, v := range h {
+			r.Header.Add(k, v)
+		}
 	}
 }
