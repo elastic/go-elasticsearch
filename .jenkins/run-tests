@@ -19,12 +19,12 @@ if [[ (($branch_specifier != "refs/heads/xpack" && $branch_specifier != "refs/he
 fi
 
 if [[ $TEST_SUITE == "core" ]]; then
-  elasticsearch_image=elasticsearch-oss:8.0.0-SNAPSHOT
+  elasticsearch_image=elasticsearch:5.6.15
   elasticsearch_url=http://es1:9200
 fi
 
 if [[ $TEST_SUITE == "xpack" ]]; then
-  elasticsearch_image=elasticsearch:8.0.0-SNAPSHOT
+  elasticsearch_image=elasticsearch:5.6.15
   elasticsearch_url=https://elastic:elastic@es1:9200
 fi
 
