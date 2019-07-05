@@ -5,6 +5,7 @@ package esapi
 import (
 	"context"
 	"io"
+	"net/http"
 	"strings"
 )
 
@@ -36,6 +37,8 @@ type PutTemplateRequest struct {
 	Human      bool
 	ErrorTrace bool
 	FilterPath []string
+
+	Header http.Header
 
 	ctx context.Context
 }
@@ -89,6 +92,18 @@ func (r PutTemplateRequest) Do(ctx context.Context, transport Transport) (*Respo
 
 	if r.Body != nil {
 		req.Header[headerContentType] = headerContentTypeJSON
+	}
+
+	if len(r.Header) > 0 {
+		if len(req.Header) == 0 {
+			req.Header = r.Header
+		} else {
+			for k, vv := range r.Header {
+				for _, v := range vv {
+					req.Header.Add(k, v)
+				}
+			}
+		}
 	}
 
 	if ctx != nil {
@@ -146,5 +161,18 @@ func (f PutTemplate) WithErrorTrace() func(*PutTemplateRequest) {
 func (f PutTemplate) WithFilterPath(v ...string) func(*PutTemplateRequest) {
 	return func(r *PutTemplateRequest) {
 		r.FilterPath = v
+	}
+}
+
+// WithHeader adds the headers to the HTTP request.
+//
+func (f PutTemplate) WithHeader(h map[string]string) func(*PutTemplateRequest) {
+	return func(r *PutTemplateRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		for k, v := range h {
+			r.Header.Add(k, v)
+		}
 	}
 }
