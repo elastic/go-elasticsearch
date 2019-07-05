@@ -824,8 +824,13 @@ func (g *Generator) genVarSection(t Test, skipBody ...bool) {
 }
 
 func (g *Generator) genAction(a Action, skipBody ...bool) {
+	requestName := a.Request()
+	if requestName == "IndicesExistsTypeRequest" {
+		requestName = "IndicesExistsDocumentTypeRequest"
+	}
+
 	// Initialize the request
-	g.w("\t\treq = esapi." + a.Request() + "{\n")
+	g.w("\t\treq = esapi." + requestName + "{\n")
 
 	// Pass the parameters
 	for k, v := range a.Params() {
@@ -839,9 +844,9 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 		case bool:
 			g.w("\t\t\t" + k + ": ")
 
-			typ, ok := apiRegistry[a.Request()][k]
+			typ, ok := apiRegistry[requestName][k]
 			if !ok {
-				panic(fmt.Sprintf("%s.%s: field not found", a.Request(), k))
+				panic(fmt.Sprintf("%s.%s: field not found", requestName, k))
 			}
 
 			switch typ {
@@ -873,9 +878,9 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 
 				// fmt.Printf("%s: %#v\n", a.Request(), apiRegistry[a.Request()])
 				// fmt.Printf("%s: %#v\n", k, apiRegistry[a.Request()][k])
-				typ, ok := apiRegistry[a.Request()][k]
+				typ, ok := apiRegistry[requestName][k]
 				if !ok {
-					panic(fmt.Sprintf("%s.%s: field not found", a.Request(), k))
+					panic(fmt.Sprintf("%s.%s: field not found", requestName, k))
 				}
 
 				var value string
@@ -957,9 +962,9 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 		case int, *int, float64:
 			g.w("\t\t\t" + k + ": ")
 
-			typ, ok := apiRegistry[a.Request()][k]
+			typ, ok := apiRegistry[requestName][k]
 			if !ok {
-				panic(fmt.Sprintf("%s.%s: field not found", a.Request(), k))
+				panic(fmt.Sprintf("%s.%s: field not found", requestName, k))
 			}
 
 			var value string
@@ -982,9 +987,9 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 		case []interface{}:
 			g.w("\t\t\t" + k + ": ")
 
-			typ, ok := apiRegistry[a.Request()][k]
+			typ, ok := apiRegistry[requestName][k]
 			if !ok {
-				panic(fmt.Sprintf("%s.%s: field not found", a.Request(), k))
+				panic(fmt.Sprintf("%s.%s: field not found", requestName, k))
 			}
 
 			switch typ {
@@ -999,7 +1004,7 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 					}
 					g.w("`" + strings.Join(vvv, ",") + "`")
 				default:
-					panic(fmt.Sprintf("<%s> %s{}.%s: unexpected value <%T> %#v", typ, a.Request(), k, v, v))
+					panic(fmt.Sprintf("<%s> %s{}.%s: unexpected value <%T> %#v", typ, requestName, k, v, v))
 				}
 			case "[]string":
 				qv := make([]string, 0)
@@ -1019,7 +1024,7 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 						default:
 							j, err := json.Marshal(convert(vv))
 							if err != nil {
-								panic(fmt.Sprintf("%s{}.%s: %s (%s)", a.Request(), k, err, v))
+								panic(fmt.Sprintf("%s{}.%s: %s (%s)", requestName, k, err, v))
 							}
 							b.WriteString(string(j))
 						}
@@ -1031,7 +1036,7 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 				} else {
 					j, err := json.Marshal(convert(v))
 					if err != nil {
-						panic(fmt.Sprintf("%s{}.%s: %s (%s)", a.Request(), k, err, v))
+						panic(fmt.Sprintf("%s{}.%s: %s (%s)", requestName, k, err, v))
 					}
 					g.w("\t\tstrings.NewReader(`" + fmt.Sprintf("%s", j) + "`)")
 				}
@@ -1060,7 +1065,7 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 	}
 
 	if len(a.headers) > 0 {
-		if strings.Contains(a.headers["Accept"], "yaml") && strings.HasPrefix(a.Request(), "Cat") {
+		if strings.Contains(a.headers["Accept"], "yaml") && strings.HasPrefix(requestName, "Cat") {
 			g.w("\t\t" + `Format: "yaml",` + "\n")
 		}
 		if auth_header, ok := a.headers["Authorization"]; ok {
