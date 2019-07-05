@@ -1,9 +1,10 @@
-// Code generated from specification version 6.7.2: DO NOT EDIT
+// Code generated from specification version 6.8.2: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"net/http"
 	"strconv"
 	"strings"
 )
@@ -33,8 +34,8 @@ type IndicesClearCacheRequest struct {
 
 	AllowNoIndices    *bool
 	ExpandWildcards   string
-	Fielddata         *bool
 	FieldData         *bool
+	Fielddata         *bool
 	Fields            []string
 	IgnoreUnavailable *bool
 	Query             *bool
@@ -45,6 +46,8 @@ type IndicesClearCacheRequest struct {
 	Human      bool
 	ErrorTrace bool
 	FilterPath []string
+
+	Header http.Header
 
 	ctx context.Context
 }
@@ -80,12 +83,12 @@ func (r IndicesClearCacheRequest) Do(ctx context.Context, transport Transport) (
 		params["expand_wildcards"] = r.ExpandWildcards
 	}
 
-	if r.Fielddata != nil {
-		params["fielddata"] = strconv.FormatBool(*r.Fielddata)
-	}
-
 	if r.FieldData != nil {
 		params["field_data"] = strconv.FormatBool(*r.FieldData)
+	}
+
+	if r.Fielddata != nil {
+		params["fielddata"] = strconv.FormatBool(*r.Fielddata)
 	}
 
 	if len(r.Fields) > 0 {
@@ -138,6 +141,18 @@ func (r IndicesClearCacheRequest) Do(ctx context.Context, transport Transport) (
 		req.URL.RawQuery = q.Encode()
 	}
 
+	if len(r.Header) > 0 {
+		if len(req.Header) == 0 {
+			req.Header = r.Header
+		} else {
+			for k, vv := range r.Header {
+				for _, v := range vv {
+					req.Header.Add(k, v)
+				}
+			}
+		}
+	}
+
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
@@ -188,19 +203,19 @@ func (f IndicesClearCache) WithExpandWildcards(v string) func(*IndicesClearCache
 	}
 }
 
-// WithFielddata - clear field data.
-//
-func (f IndicesClearCache) WithFielddata(v bool) func(*IndicesClearCacheRequest) {
-	return func(r *IndicesClearCacheRequest) {
-		r.Fielddata = &v
-	}
-}
-
 // WithFieldData - clear field data. this is deprecated. prefer `fielddata`..
 //
 func (f IndicesClearCache) WithFieldData(v bool) func(*IndicesClearCacheRequest) {
 	return func(r *IndicesClearCacheRequest) {
 		r.FieldData = &v
+	}
+}
+
+// WithFielddata - clear field data.
+//
+func (f IndicesClearCache) WithFielddata(v bool) func(*IndicesClearCacheRequest) {
+	return func(r *IndicesClearCacheRequest) {
+		r.Fielddata = &v
 	}
 }
 
@@ -273,5 +288,18 @@ func (f IndicesClearCache) WithErrorTrace() func(*IndicesClearCacheRequest) {
 func (f IndicesClearCache) WithFilterPath(v ...string) func(*IndicesClearCacheRequest) {
 	return func(r *IndicesClearCacheRequest) {
 		r.FilterPath = v
+	}
+}
+
+// WithHeader adds the headers to the HTTP request.
+//
+func (f IndicesClearCache) WithHeader(h map[string]string) func(*IndicesClearCacheRequest) {
+	return func(r *IndicesClearCacheRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		for k, v := range h {
+			r.Header.Add(k, v)
+		}
 	}
 }

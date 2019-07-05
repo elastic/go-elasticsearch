@@ -1,16 +1,17 @@
-// Code generated from specification version 6.7.2: DO NOT EDIT
+// Code generated from specification version 6.8.2: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"net/http"
 	"strconv"
 	"strings"
 )
 
-func newIndicesExistsTypeFunc(t Transport) IndicesExistsType {
-	return func(index []string, o ...func(*IndicesExistsTypeRequest)) (*Response, error) {
-		var r = IndicesExistsTypeRequest{Index: index}
+func newIndicesExistsDocumentTypeFunc(t Transport) IndicesExistsDocumentType {
+	return func(index []string, o ...func(*IndicesExistsDocumentTypeRequest)) (*Response, error) {
+		var r = IndicesExistsDocumentTypeRequest{Index: index}
 		for _, f := range o {
 			f(&r)
 		}
@@ -20,15 +21,15 @@ func newIndicesExistsTypeFunc(t Transport) IndicesExistsType {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesExistsType returns information about whether a particular document type exists. (DEPRECATED)
+// IndicesExistsDocumentType returns information about whether a particular document type exists. (DEPRECATED)
 //
 // See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-types-exists.html.
 //
-type IndicesExistsType func(index []string, o ...func(*IndicesExistsTypeRequest)) (*Response, error)
+type IndicesExistsDocumentType func(index []string, o ...func(*IndicesExistsDocumentTypeRequest)) (*Response, error)
 
-// IndicesExistsTypeRequest configures the Indices  Exists Type API request.
+// IndicesExistsDocumentTypeRequest configures the Indices  Exists Type API request.
 //
-type IndicesExistsTypeRequest struct {
+type IndicesExistsDocumentTypeRequest struct {
 	Index        []string
 	DocumentType []string
 
@@ -42,12 +43,14 @@ type IndicesExistsTypeRequest struct {
 	ErrorTrace bool
 	FilterPath []string
 
+	Header http.Header
+
 	ctx context.Context
 }
 
 // Do executes the request and returns response or error.
 //
-func (r IndicesExistsTypeRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r IndicesExistsDocumentTypeRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -108,6 +111,18 @@ func (r IndicesExistsTypeRequest) Do(ctx context.Context, transport Transport) (
 		req.URL.RawQuery = q.Encode()
 	}
 
+	if len(r.Header) > 0 {
+		if len(req.Header) == 0 {
+			req.Header = r.Header
+		} else {
+			for k, vv := range r.Header {
+				for _, v := range vv {
+					req.Header.Add(k, v)
+				}
+			}
+		}
+	}
+
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
@@ -128,80 +143,93 @@ func (r IndicesExistsTypeRequest) Do(ctx context.Context, transport Transport) (
 
 // WithContext sets the request context.
 //
-func (f IndicesExistsType) WithContext(v context.Context) func(*IndicesExistsTypeRequest) {
-	return func(r *IndicesExistsTypeRequest) {
+func (f IndicesExistsDocumentType) WithContext(v context.Context) func(*IndicesExistsDocumentTypeRequest) {
+	return func(r *IndicesExistsDocumentTypeRequest) {
 		r.ctx = v
 	}
 }
 
 // WithDocumentType - a list of document types to check.
 //
-func (f IndicesExistsType) WithDocumentType(v ...string) func(*IndicesExistsTypeRequest) {
-	return func(r *IndicesExistsTypeRequest) {
+func (f IndicesExistsDocumentType) WithDocumentType(v ...string) func(*IndicesExistsDocumentTypeRequest) {
+	return func(r *IndicesExistsDocumentTypeRequest) {
 		r.DocumentType = v
 	}
 }
 
 // WithAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (this includes `_all` string or when no indices have been specified).
 //
-func (f IndicesExistsType) WithAllowNoIndices(v bool) func(*IndicesExistsTypeRequest) {
-	return func(r *IndicesExistsTypeRequest) {
+func (f IndicesExistsDocumentType) WithAllowNoIndices(v bool) func(*IndicesExistsDocumentTypeRequest) {
+	return func(r *IndicesExistsDocumentTypeRequest) {
 		r.AllowNoIndices = &v
 	}
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
 //
-func (f IndicesExistsType) WithExpandWildcards(v string) func(*IndicesExistsTypeRequest) {
-	return func(r *IndicesExistsTypeRequest) {
+func (f IndicesExistsDocumentType) WithExpandWildcards(v string) func(*IndicesExistsDocumentTypeRequest) {
+	return func(r *IndicesExistsDocumentTypeRequest) {
 		r.ExpandWildcards = v
 	}
 }
 
 // WithIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
 //
-func (f IndicesExistsType) WithIgnoreUnavailable(v bool) func(*IndicesExistsTypeRequest) {
-	return func(r *IndicesExistsTypeRequest) {
+func (f IndicesExistsDocumentType) WithIgnoreUnavailable(v bool) func(*IndicesExistsDocumentTypeRequest) {
+	return func(r *IndicesExistsDocumentTypeRequest) {
 		r.IgnoreUnavailable = &v
 	}
 }
 
 // WithLocal - return local information, do not retrieve the state from master node (default: false).
 //
-func (f IndicesExistsType) WithLocal(v bool) func(*IndicesExistsTypeRequest) {
-	return func(r *IndicesExistsTypeRequest) {
+func (f IndicesExistsDocumentType) WithLocal(v bool) func(*IndicesExistsDocumentTypeRequest) {
+	return func(r *IndicesExistsDocumentTypeRequest) {
 		r.Local = &v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f IndicesExistsType) WithPretty() func(*IndicesExistsTypeRequest) {
-	return func(r *IndicesExistsTypeRequest) {
+func (f IndicesExistsDocumentType) WithPretty() func(*IndicesExistsDocumentTypeRequest) {
+	return func(r *IndicesExistsDocumentTypeRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f IndicesExistsType) WithHuman() func(*IndicesExistsTypeRequest) {
-	return func(r *IndicesExistsTypeRequest) {
+func (f IndicesExistsDocumentType) WithHuman() func(*IndicesExistsDocumentTypeRequest) {
+	return func(r *IndicesExistsDocumentTypeRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f IndicesExistsType) WithErrorTrace() func(*IndicesExistsTypeRequest) {
-	return func(r *IndicesExistsTypeRequest) {
+func (f IndicesExistsDocumentType) WithErrorTrace() func(*IndicesExistsDocumentTypeRequest) {
+	return func(r *IndicesExistsDocumentTypeRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f IndicesExistsType) WithFilterPath(v ...string) func(*IndicesExistsTypeRequest) {
-	return func(r *IndicesExistsTypeRequest) {
+func (f IndicesExistsDocumentType) WithFilterPath(v ...string) func(*IndicesExistsDocumentTypeRequest) {
+	return func(r *IndicesExistsDocumentTypeRequest) {
 		r.FilterPath = v
+	}
+}
+
+// WithHeader adds the headers to the HTTP request.
+//
+func (f IndicesExistsDocumentType) WithHeader(h map[string]string) func(*IndicesExistsDocumentTypeRequest) {
+	return func(r *IndicesExistsDocumentTypeRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		for k, v := range h {
+			r.Header.Add(k, v)
+		}
 	}
 }
