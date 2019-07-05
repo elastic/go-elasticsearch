@@ -335,13 +335,15 @@ func (g *Generator) genCommonSetup() {
 					var r map[string]interface{}
 					res, _ = es.Snapshot.Get(repositoryID, []string{"_all"})
 					json.NewDecoder(res.Body).Decode(&r)
-					for _, vv := range r["responses"].([]interface{}) {
-						for _, v := range vv.(map[string]interface{})["snapshots"].([]interface{}) {
-							snapshotID, ok := v.(map[string]interface{})["snapshot"]
-							if !ok {
-								continue
+					if r["responses"] != nil {
+						for _, vv := range r["responses"].([]interface{}) {
+							for _, v := range vv.(map[string]interface{})["snapshots"].([]interface{}) {
+								snapshotID, ok := v.(map[string]interface{})["snapshot"]
+								if !ok {
+									continue
+								}
+								es.Snapshot.Delete(repositoryID, fmt.Sprintf("%s", snapshotID))
 							}
-							es.Snapshot.Delete(repositoryID, fmt.Sprintf("%s", snapshotID))
 						}
 					}
 					es.Snapshot.DeleteRepository([]string{fmt.Sprintf("%s", repositoryID)})
