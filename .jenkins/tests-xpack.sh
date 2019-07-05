@@ -31,7 +31,7 @@ time docker exec --tty --workdir=/go-elasticsearch/esapi/test go-elasticsearch /
 status1=$?
 
 docker container rm --force --volumes es1 > /dev/null 2>&1
-make cluster-clean cluster version=elasticsearch:8.0.0-SNAPSHOT detached=true
+make cluster-clean cluster version=elasticsearch:7.3-SNAPSHOT detached=true
 
 echo -e "\033[1m>>>>> Running tests: XPACK ML >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
 
@@ -39,7 +39,7 @@ time docker exec --tty --workdir=/go-elasticsearch/esapi/test go-elasticsearch /
 status2=$?
 
 docker container rm --force --volumes es1 > /dev/null 2>&1
-make cluster-clean cluster version=elasticsearch:8.0.0-SNAPSHOT detached=true
+make cluster-clean cluster version=elasticsearch:7.3-SNAPSHOT detached=true
 
 echo -e "\033[1m>>>>> Running tests: XPACK ML CRUD >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
 
