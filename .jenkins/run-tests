@@ -12,8 +12,8 @@ if [[ $TEST_SUITE != "core" && $TEST_SUITE != "xpack" ]]; then
   exit 1
 fi
 
-# Run X-Pack tests only on the "master" and "xpack" branches, and skip Core tests on the "xpack" branch
-if [[ (($branch_specifier != "refs/heads/xpack" && $branch_specifier != "refs/heads/master") && $TEST_SUITE == "xpack") || ($branch_specifier == "refs/heads/xpack" && $TEST_SUITE == "core") ]]; then
+# Skip "xpack" tests
+if [[ ($TEST_SUITE == "xpack") ]]; then
   echo -e "\033[33;1mSkipping [$TEST_SUITE] tests on the [$branch_specifier] branch.\033[0m"
   exit 0
 fi
@@ -21,11 +21,6 @@ fi
 if [[ $TEST_SUITE == "core" ]]; then
   elasticsearch_image=elasticsearch:5.6.15
   elasticsearch_url=http://es1:9200
-fi
-
-if [[ $TEST_SUITE == "xpack" ]]; then
-  elasticsearch_image=elasticsearch:5.6.15
-  elasticsearch_url=https://elastic:elastic@es1:9200
 fi
 
 function cleanup {
@@ -84,13 +79,6 @@ status=100
 case $TEST_SUITE in
   "core" )
     if bash .jenkins/tests-core.sh; then
-      status=$?
-    else
-      status=$?
-    fi
-    ;;
-  "xpack" )
-    if bash .jenkins/tests-xpack.sh; then
       status=$?
     else
       status=$?
