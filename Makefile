@@ -147,6 +147,39 @@ apidiff: ## Display API incompabilities
 		fi; \
 	}
 
+backport: ## Backport one or more commits from master into version branches
+ifeq ($(origin commits), undefined)
+	@echo "Missing commit(s), exiting..."
+	@exit 2
+endif
+ifndef branches
+	$(eval branches_list = '7.x' '6.x' '5.x')
+else
+	$(eval branches_list = $(shell echo $(branches) | tr ',' ' ') )
+endif
+	$(eval commits_list = $(shell echo $(commits) | tr ',' ' '))
+	@echo "\033[2m→ Backporting commits [$(commits)]\033[0m"
+	@{ \
+		set -e -o pipefail; \
+		for commit in $(commits_list); do \
+			git show --pretty='%h | %s' --no-patch $$commit; \
+		done; \
+		echo ""; \
+		for branch in $(branches_list); do \
+			echo "\033[2m→ $$branch\033[0m"; \
+			git checkout $$branch; \
+			for commit in $(commits_list); do \
+				git cherry-pick -x $$commit; \
+			done; \
+			git status --short --branch; \
+			echo ""; \
+		done; \
+		echo "\033[2m→ Push updates to Github:\033[0m"; \
+		for branch in $(branches_list); do \
+			echo "git push --verbose origin $$branch"; \
+		done; \
+	}
+
 godoc: ## Display documentation for the package
 	@echo "\033[2m→ Generating documentation...\033[0m"
 	@echo "open http://localhost:6060/pkg/github.com/elastic/go-elasticsearch/\n"
@@ -287,4 +320,4 @@ help:  ## Display help
 #------------- <https://suva.sh/posts/well-documented-makefiles> --------------
 
 .DEFAULT_GOAL := help
-.PHONY: help apidiff cluster cluster-clean cluster-update coverage docker examples gen-api gen-tests godoc lint test test-api test-bench test-integ test-unit
+.PHONY: help apidiff backport cluster cluster-clean cluster-update coverage docker examples gen-api gen-tests godoc lint test test-api test-bench test-integ test-unit
