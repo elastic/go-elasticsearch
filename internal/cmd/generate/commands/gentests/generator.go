@@ -559,12 +559,19 @@ func (g *Generator) genVarSection(t Test, skipBody ...bool) {
 }
 
 func (g *Generator) genAction(a Action, skipBody ...bool) {
+	requestStructName := a.Request()
+
+	// Touch up the request object names
+	if requestStructName == "IndicesExistsTypeRequest" {
+		requestStructName = "IndicesExistsDocumentTypeRequest"
+	}
+
 	// Initialize the request
-	g.w("\t\treq = esapi." + a.Request() + "{\n")
+	g.w("\t\treq = esapi." + requestStructName + "{\n")
 
 	// Pass the parameters
 	for k, v := range a.Params() {
-		// fmt.Printf("%s.%s: <%T> %v\n", a.Request(), k, v, v)
+		// fmt.Printf("%s.%s: <%T> %v\n", requestStructName, k, v, v)
 
 		if strings.HasPrefix(fmt.Sprintf("%s", v), "$") {
 			v = `stash[` + strconv.Quote(fmt.Sprintf("%s", v)) + `]`
@@ -574,9 +581,9 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 		case bool:
 			g.w("\t\t\t" + k + ": ")
 
-			typ, ok := apiRegistry[a.Request()][k]
+			typ, ok := apiRegistry[requestStructName][k]
 			if !ok {
-				panic(fmt.Sprintf("%s.%s: field not found", a.Request(), k))
+				panic(fmt.Sprintf("%s.%s: field not found", requestStructName, k))
 			}
 
 			switch typ {
@@ -606,11 +613,11 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 				g.w("\t\t\t" + k + ": ")
 				// TODO: Handle comma separated strings as lists
 
-				// fmt.Printf("%s: %#v\n", a.Request(), apiRegistry[a.Request()])
-				// fmt.Printf("%s: %#v\n", k, apiRegistry[a.Request()][k])
-				typ, ok := apiRegistry[a.Request()][k]
+				// fmt.Printf("%s: %#v\n", requestStructName, apiRegistry[requestStructName])
+				// fmt.Printf("%s: %#v\n", k, apiRegistry[requestStructName][k])
+				typ, ok := apiRegistry[requestStructName][k]
 				if !ok {
-					panic(fmt.Sprintf("%s.%s: field not found", a.Request(), k))
+					panic(fmt.Sprintf("%s.%s: field not found", requestStructName, k))
 				}
 
 				var value string
@@ -692,9 +699,9 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 		case int, *int, float64:
 			g.w("\t\t\t" + k + ": ")
 
-			typ, ok := apiRegistry[a.Request()][k]
+			typ, ok := apiRegistry[requestStructName][k]
 			if !ok {
-				panic(fmt.Sprintf("%s.%s: field not found", a.Request(), k))
+				panic(fmt.Sprintf("%s.%s: field not found", requestStructName, k))
 			}
 
 			var value string
@@ -717,9 +724,9 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 		case []interface{}:
 			g.w("\t\t\t" + k + ": ")
 
-			typ, ok := apiRegistry[a.Request()][k]
+			typ, ok := apiRegistry[requestStructName][k]
 			if !ok {
-				panic(fmt.Sprintf("%s.%s: field not found", a.Request(), k))
+				panic(fmt.Sprintf("%s.%s: field not found", requestStructName, k))
 			}
 
 			switch typ {
@@ -734,7 +741,7 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 					}
 					g.w("`" + strings.Join(vvv, ",") + "`")
 				default:
-					panic(fmt.Sprintf("<%s> %s{}.%s: unexpected value <%T> %#v", typ, a.Request(), k, v, v))
+					panic(fmt.Sprintf("<%s> %s{}.%s: unexpected value <%T> %#v", typ, requestStructName, k, v, v))
 				}
 			case "[]string":
 				qv := make([]string, 0)
@@ -754,7 +761,7 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 						default:
 							j, err := json.Marshal(convert(vv))
 							if err != nil {
-								panic(fmt.Sprintf("%s{}.%s: %s (%s)", a.Request(), k, err, v))
+								panic(fmt.Sprintf("%s{}.%s: %s (%s)", requestStructName, k, err, v))
 							}
 							b.WriteString(string(j))
 						}
@@ -766,7 +773,7 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 				} else {
 					j, err := json.Marshal(convert(v))
 					if err != nil {
-						panic(fmt.Sprintf("%s{}.%s: %s (%s)", a.Request(), k, err, v))
+						panic(fmt.Sprintf("%s{}.%s: %s (%s)", requestStructName, k, err, v))
 					}
 					g.w("\t\tstrings.NewReader(`" + fmt.Sprintf("%s", j) + "`)")
 				}
@@ -795,7 +802,7 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 	}
 
 	if len(a.headers) > 0 {
-		if strings.Contains(a.headers["Accept"], "yaml") && strings.HasPrefix(a.Request(), "Cat") {
+		if strings.Contains(a.headers["Accept"], "yaml") && strings.HasPrefix(requestStructName, "Cat") {
 			g.w("\t\t" + `Format: "yaml",` + "\n")
 		}
 		if auth_header, ok := a.headers["Authorization"]; ok {
