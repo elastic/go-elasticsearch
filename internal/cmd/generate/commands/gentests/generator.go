@@ -47,9 +47,7 @@ func (g *Generator) Output() (io.Reader, error) {
 	g.genInitializeClient()
 	g.genHelpers()
 	g.genCommonSetup()
-	if g.TestSuite.Type == "xpack" {
-		g.genXPackSetup()
-	}
+
 	if len(g.TestSuite.Setup) > 0 {
 		g.w("// ----- Test Suite Setup --------------------------------------------------------\n")
 		g.w("testSuiteSetup := func() {\n")
@@ -71,9 +69,6 @@ func (g *Generator) Output() (io.Reader, error) {
 		g.genSkip(t)
 		g.w("\tdefer recoverPanic(t)\n")
 		g.w("\tcommonSetup()\n")
-		if g.TestSuite.Type == "xpack" {
-			g.w("\txpackSetup()\n")
-		}
 		if len(g.TestSuite.Setup) > 0 {
 			g.w("\ttestSuiteSetup()\n")
 		}
@@ -212,34 +207,12 @@ var (
 }
 
 func (g *Generator) genInitializeClient() {
-	if g.TestSuite.Type == "xpack" {
-		g.w(`
-	cfg := elasticsearch.Config{
-		Transport: &http.Transport{
-			TLSClientConfig: &tls.Config{
-				InsecureSkipVerify: true,
-			},
-		},
-		// Logger: &estransport.TextLogger{
-		// 	Output: os.Stdout,
-		// 	// EnableRequestBody:  true,
-		// 	// EnableResponseBody: true,
-		// },
-	}
-	es, eserr := elasticsearch.NewClient(cfg)
+	g.w(`	es, eserr := elasticsearch.NewDefaultClient()
 	if eserr != nil {
 		t.Fatalf("Error creating the client: %s\n", eserr)
 	}
 
 `)
-	} else {
-		g.w(`	es, eserr := elasticsearch.NewDefaultClient()
-	if eserr != nil {
-		t.Fatalf("Error creating the client: %s\n", eserr)
-	}
-
-`)
-	}
 }
 
 func (g *Generator) genHelpers() {
@@ -288,7 +261,7 @@ func (g *Generator) genCommonSetup() {
 		var res *esapi.Response
 
 		{
-			res, _ = es.Cluster.Health(es.Cluster.Health.WithWaitForNoInitializingShards(true))
+			res, _ = es.Cluster.Health(es.Cluster.Health.WithWaitForStatus("yellow"))
 			if res != nil && res.Body != nil {
 				defer res.Body.Close()
 			}
@@ -358,244 +331,6 @@ func (g *Generator) genCommonSetup() {
 			}
 		}
 	}
-
-	`)
-}
-
-// Reference: https://github.com/elastic/elasticsearch/blob/master/x-pack/plugin/src/test/java/org/elasticsearch/xpack/test/rest/XPackRestIT.java
-// Reference: https://github.com/elastic/elasticsearch/blob/master/x-pack/plugin/core/src/test/java/org/elasticsearch/xpack/core/ml/integration/MlRestTestStateCleaner.java
-//
-func (g *Generator) genXPackSetup() {
-	g.w(`
-		// ----- XPack Setup -------------------------------------------------------------
-		xpackSetup := func() {
-			var res *esapi.Response
-
-			{
-				var r map[string]interface{}
-				res, _ = es.Indices.GetTemplate()
-				if res != nil && res.Body != nil {
-					defer res.Body.Close()
-					json.NewDecoder(res.Body).Decode(&r)
-					for templateName, _ := range r {
-						if strings.HasPrefix(templateName, ".") {
-							continue
-						}
-						es.Indices.DeleteTemplate(templateName)
-					}
-				}
-			}
-
-			{
-				res, _ = es.Watcher.DeleteWatch("my_watch")
-				if res != nil && res.Body != nil {
-					defer res.Body.Close()
-				}
-			}
-
-			{
-				var r map[string]interface{}
-				res, _ = es.Security.GetRole(es.Security.GetRole.WithPretty())
-				if res != nil && res.Body != nil {
-					defer res.Body.Close()
-					json.NewDecoder(res.Body).Decode(&r)
-					for k, v := range r {
-						reserved, ok := v.(map[string]interface{})["metadata"].(map[string]interface{})["_reserved"].(bool)
-						if ok && reserved {
-							continue
-						}
-						es.Security.DeleteRole(k)
-					}
-				}
-			}
-
-			{
-				var r map[string]interface{}
-				res, _ = es.Security.GetUser(es.Security.GetUser.WithPretty())
-				if res != nil && res.Body != nil {
-					defer res.Body.Close()
-					json.NewDecoder(res.Body).Decode(&r)
-					for k, v := range r {
-						reserved, ok := v.(map[string]interface{})["metadata"].(map[string]interface{})["_reserved"].(bool)
-						if ok && reserved {
-							continue
-						}
-						es.Security.DeleteUser(k)
-					}
-				}
-			}
-
-			{
-				var r map[string]interface{}
-				res, _ = es.Security.GetPrivileges(es.Security.GetPrivileges.WithPretty())
-				if res != nil && res.Body != nil {
-					defer res.Body.Close()
-					json.NewDecoder(res.Body).Decode(&r)
-					for k, v := range r {
-						reserved, ok := v.(map[string]interface{})["metadata"].(map[string]interface{})["_reserved"].(bool)
-						if ok && reserved {
-							continue
-						}
-						es.Security.DeletePrivileges(k, "_all")
-					}
-				}
-			}
-
-			{
-				var r map[string]interface{}
-				ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-				defer cancel()
-				es.ML.StopDatafeed("_all", es.ML.StopDatafeed.WithContext(ctx))
-				res, _ = es.ML.GetDatafeeds()
-				if res != nil && res.Body != nil {
-					defer res.Body.Close()
-					json.NewDecoder(res.Body).Decode(&r)
-					for _, v := range r["datafeeds"].([]interface{}) {
-						datafeedID, ok := v.(map[string]interface{})["datafeed_id"]
-						if !ok {
-							continue
-						}
-						es.ML.DeleteDatafeed(datafeedID.(string))
-					}
-				}
-			}
-
-			{
-				var r map[string]interface{}
-				ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-				defer cancel()
-				es.ML.CloseJob("_all", es.ML.CloseJob.WithContext(ctx))
-				res, _ = es.ML.GetJobs()
-				if res != nil && res.Body != nil {
-					defer res.Body.Close()
-					json.NewDecoder(res.Body).Decode(&r)
-					for _, v := range r["jobs"].([]interface{}) {
-						jobID, ok := v.(map[string]interface{})["job_id"]
-						if !ok {
-							continue
-						}
-						es.ML.DeleteJob(jobID.(string))
-					}
-				}
-			}
-
-			{
-				var r map[string]interface{}
-				res, _ = es.Rollup.GetJobs(es.Rollup.GetJobs.WithDocumentID("_all"))
-				if res != nil && res.Body != nil {
-					defer res.Body.Close()
-					json.NewDecoder(res.Body).Decode(&r)
-					for _, v := range r["jobs"].([]interface{}) {
-						jobID, ok := v.(map[string]interface{})["config"].(map[string]interface{})["id"]
-						if !ok {
-							continue
-						}
-						es.Rollup.StopJob(jobID.(string), es.Rollup.StopJob.WithWaitForCompletion(true))
-						es.Rollup.DeleteJob(jobID.(string))
-					}
-				}
-			}
-
-			{
-				var r map[string]interface{}
-				res, _ = es.Tasks.List()
-				if res != nil && res.Body != nil {
-					defer res.Body.Close()
-					json.NewDecoder(res.Body).Decode(&r)
-					for _, vv := range r["nodes"].(map[string]interface{}) {
-						for _, v := range vv.(map[string]interface{})["tasks"].(map[string]interface{}) {
-							cancellable, ok := v.(map[string]interface{})["cancellable"]
-							if !ok || !cancellable.(bool) {
-								continue
-							}
-							taskID := fmt.Sprintf("%v:%v", v.(map[string]interface{})["node"], v.(map[string]interface{})["id"])
-							ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-							defer cancel()
-							es.Tasks.Cancel(es.Tasks.Cancel.WithTaskID(taskID), es.Tasks.Cancel.WithContext(ctx))
-						}
-					}
-				}
-			}
-
-			{
-				var r map[string]interface{}
-				res, _ = es.Snapshot.GetRepository()
-				if res != nil && res.Body != nil {
-					defer res.Body.Close()
-					json.NewDecoder(res.Body).Decode(&r)
-					for repositoryID, _ := range r {
-						var r map[string]interface{}
-						res, _ = es.Snapshot.Get(repositoryID, []string{"_all"})
-						json.NewDecoder(res.Body).Decode(&r)
-						for _, vv := range r["responses"].([]interface{}) {
-							for _, v := range vv.(map[string]interface{})["snapshots"].([]interface{}) {
-								snapshotID, ok := v.(map[string]interface{})["snapshot"]
-								if !ok {
-									continue
-								}
-								es.Snapshot.Delete(repositoryID, fmt.Sprintf("%s", snapshotID))
-							}
-						}
-						es.Snapshot.DeleteRepository([]string{fmt.Sprintf("%s", repositoryID)})
-					}
-				}
-			}
-
-			{
-				res, _ = es.ILM.RemovePolicy(es.ILM.RemovePolicy.WithIndex("_all"))
-				if res != nil && res.Body != nil {
-					defer res.Body.Close()
-				}
-			}
-
-			{
-				res, _ = es.Cluster.Health(es.Cluster.Health.WithWaitForStatus("yellow"))
-				if res != nil && res.Body != nil {
-					defer res.Body.Close()
-				}
-			}
-
-			{
-				res, _ = es.Security.PutUser("x_pack_rest_user", strings.NewReader(` + "`" + `{"password":"x-pack-test-password", "roles":["superuser"]}` + "`" + `), es.Security.PutUser.WithPretty())
-				if res != nil && res.Body != nil {
-					defer res.Body.Close()
-				}
-			}
-
-			{
-				res, _ = es.Indices.Refresh(es.Indices.Refresh.WithIndex("_all"))
-				if res != nil && res.Body != nil {
-					defer res.Body.Close()
-				}
-			}
-
-			{
-				res, _ = es.Cluster.Health(es.Cluster.Health.WithWaitForStatus("yellow"))
-				if res != nil && res.Body != nil {
-					defer res.Body.Close()
-				}
-			}
-
-			{
-				var i int
-				for {
-					i++
-					var r map[string]interface{}
-					res, _ = es.Cluster.PendingTasks()
-					if res != nil && res.Body != nil {
-						defer res.Body.Close()
-						json.NewDecoder(res.Body).Decode(&r)
-						if len(r["tasks"].([]interface{})) < 1 {
-							break
-						}
-					}
-					if i > 30 {
-						break
-					}
-					time.Sleep(time.Second)
-				}
-			}
-		}
 
 	`)
 }
