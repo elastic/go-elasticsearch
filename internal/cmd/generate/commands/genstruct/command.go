@@ -120,21 +120,6 @@ func (cmd *Command) processAPIConstructor() (err error) {
 		"Remote",
 		"Snapshot",
 		"Tasks",
-
-		// XPack APIs
-		//
-		"CCR",
-		"ILM",
-		"License",
-		"Migration",
-		"ML",
-		"Monitoring",
-		"Rollup",
-		"Security",
-		"SQL",
-		"SSL",
-		"Watcher",
-		"XPack",
 	}
 
 	lpkgs, err := packages.Load(&packages.Config{Mode: packages.LoadTypes}, pkgNames...)
