@@ -7,6 +7,7 @@ import (
 	"os"
 	"sort"
 	"strings"
+	"unicode"
 
 	"gopkg.in/yaml.v2"
 
@@ -214,34 +215,28 @@ func (e *Endpoint) MethodName() string {
 // MethodWithNamespace returns the API endpoint method name with namespace.
 //
 func (e *Endpoint) MethodWithNamespace() string {
-	ep := strings.Split(e.Name, ".")
-	ns := make([]string, len(ep))
-	for _, v := range ep {
-		m := strings.Split(v, "_")
-		mn := make([]string, len(m))
-		for _, vv := range m {
-			// mn = append(mn, strings.Title(vv))
-			mn = append(mn, utils.NameToGo(vv))
-		}
-		ns = append(ns, strings.Join(mn, ""))
-	}
-	return strings.Join(ns, "")
+	return utils.APIToGo(e.Name)
 }
 
 // HumanMethodWithNamespace returns the API endpoint method name in humanized form.
 //
 func (e *Endpoint) HumanMethodWithNamespace() string {
-	ep := strings.Split(e.Name, ".")
-	ns := make([]string, len(ep))
-	for _, v := range ep {
-		m := strings.Split(v, "_")
-		mn := make([]string, len(m))
-		for _, vv := range m {
-			mn = append(mn, strings.Title(vv))
+	var (
+		src = e.MethodWithNamespace()
+		out string
+	)
+	for i, l := range src {
+		if unicode.IsUpper(l) && i > 0 {
+			if i+2 <= len(src) && unicode.IsUpper([]rune(src[i+1 : i+2])[0]) {
+				out += string(l)
+			} else {
+				out += " " + string(l)
+			}
+		} else {
+			out += string(l)
 		}
-		ns = append(ns, strings.Join(mn, " "))
 	}
-	return strings.TrimSpace(strings.Join(ns, ""))
+	return out
 }
 
 // RequiredArguments return the list of required method arguments.
@@ -346,7 +341,7 @@ func (p *Part) GoName() string {
 	case p.Name == "context":
 		return "ScriptContext"
 	default:
-		return utils.NameToGo(p.Name)
+		return utils.NameToGo(p.Name, p.Endpoint.MethodWithNamespace())
 	}
 }
 
@@ -365,7 +360,7 @@ func (p *Param) GoName() string {
 	case p.Name == "q":
 		return "Query"
 	default:
-		return utils.NameToGo(p.Name)
+		return utils.NameToGo(p.Name, p.Endpoint.MethodWithNamespace())
 	}
 }
 
@@ -383,7 +378,7 @@ func (p *Param) GoType(comment ...bool) string {
 // GoName returns a Go name for method argument.
 //
 func (p *MethodArgument) GoName() string {
-	return utils.NameToGo(p.Name)
+	return utils.NameToGo(p.Name, p.Endpoint.MethodWithNamespace())
 }
 
 // GoType returns a Go type for method argument.
