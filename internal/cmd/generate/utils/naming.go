@@ -16,9 +16,25 @@ var (
 	}
 )
 
+// APIToGo returns the Go version of API call, eg. cluster.health => ClusterHealth
+//
+func APIToGo(s string) string {
+	ep := strings.Split(s, ".")
+	ns := make([]string, len(ep))
+	for _, v := range ep {
+		m := strings.Split(v, "_")
+		mn := make([]string, len(m))
+		for _, vv := range m {
+			mn = append(mn, NameToGo(vv))
+		}
+		ns = append(ns, strings.Join(mn, ""))
+	}
+	return strings.Join(ns, "")
+}
+
 // NameToGo returns a Go version of name, eg. node_id => NodeID.
 //
-func NameToGo(s string) string {
+func NameToGo(s string, api ...string) string {
 	exceptions := map[string]string{
 		"index": "Index",
 		"id":    "DocumentID",
@@ -36,6 +52,42 @@ func NameToGo(s string) string {
 		"sql":   "SQL",
 		"ssl":   "SSL",
 		"xpack": "XPack",
+	}
+
+	specialMappingsForID := map[string]string{
+		"DeleteScript":         "ScriptID",
+		"GetScript":            "ScriptID",
+		"PutScript":            "ScriptID",
+		"IngestDeletePipeline": "PipelineID",
+		"IngestGetPipeline":    "PipelineID",
+		"IngestPutPipeline":    "PipelineID",
+		"IngestSimulate":       "PipelineID",
+		"RenderSearchTemplate": "TemplateID",
+
+		"MLDeleteDataFrameAnalytics":   "ID",
+		"MLGetDataFrameAnalytics":      "ID",
+		"MLGetDataFrameAnalyticsStats": "ID",
+		"MLPutDataFrameAnalytics":      "ID",
+		"MLStartDataFrameAnalytics":    "ID",
+		"MLStopDataFrameAnalytics":     "ID",
+
+		"RollupDeleteJob":     "JobID",
+		"RollupGetJobs":       "JobID",
+		"RollupGetRollupCaps": "Index",
+		"RollupPutJob":        "JobID",
+		"RollupStartJob":      "JobID",
+		"RollupStopJob":       "JobID",
+
+		"SecurityGetAPIKey": "ID",
+
+		"WatcherDeleteWatch":  "WatchID",
+		"WatcherExecuteWatch": "WatchID",
+		"WatcherGetWatch":     "WatchID",
+		"WatcherPutWatch":     "WatchID",
+	}
+
+	if s == "id" && api != nil && len(api) > 0 && api[0] != "" && specialMappingsForID[api[0]] != "" {
+		return specialMappingsForID[api[0]]
 	}
 
 	if value, ok := exceptions[s]; ok {
