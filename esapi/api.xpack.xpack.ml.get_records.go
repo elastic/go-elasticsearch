@@ -27,7 +27,7 @@ func newXPackMLGetRecordsFunc(t Transport) XPackMLGetRecords {
 //
 type XPackMLGetRecords func(job_id string, o ...func(*XPackMLGetRecordsRequest)) (*Response, error)
 
-// XPackMLGetRecordsRequest configures the Xpack Ml  Get Records API request.
+// XPackMLGetRecordsRequest configures the X PackML Get Records API request.
 //
 type XPackMLGetRecordsRequest struct {
 	Body io.Reader

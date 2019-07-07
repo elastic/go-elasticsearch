@@ -25,7 +25,7 @@ func newXPackWatcherStatsFunc(t Transport) XPackWatcherStats {
 //
 type XPackWatcherStats func(o ...func(*XPackWatcherStatsRequest)) (*Response, error)
 
-// XPackWatcherStatsRequest configures the Xpack Watcher Stats API request.
+// XPackWatcherStatsRequest configures the X Pack Watcher Stats API request.
 //
 type XPackWatcherStatsRequest struct {
 	Metric string

@@ -25,7 +25,7 @@ func newXPackSecurityChangePasswordFunc(t Transport) XPackSecurityChangePassword
 //
 type XPackSecurityChangePassword func(body io.Reader, o ...func(*XPackSecurityChangePasswordRequest)) (*Response, error)
 
-// XPackSecurityChangePasswordRequest configures the Xpack Security  Change Password API request.
+// XPackSecurityChangePasswordRequest configures the X Pack Security Change Password API request.
 //
 type XPackSecurityChangePasswordRequest struct {
 	Body io.Reader

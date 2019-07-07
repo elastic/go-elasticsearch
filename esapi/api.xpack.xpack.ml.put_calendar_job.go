@@ -24,7 +24,7 @@ func newXPackMLPutCalendarJobFunc(t Transport) XPackMLPutCalendarJob {
 //
 type XPackMLPutCalendarJob func(calendar_id string, job_id string, o ...func(*XPackMLPutCalendarJobRequest)) (*Response, error)
 
-// XPackMLPutCalendarJobRequest configures the Xpack Ml   Put Calendar Job API request.
+// XPackMLPutCalendarJobRequest configures the X PackML Put Calendar Job API request.
 //
 type XPackMLPutCalendarJobRequest struct {
 	CalendarID string

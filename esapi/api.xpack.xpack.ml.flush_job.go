@@ -26,7 +26,7 @@ func newXPackMLFlushJobFunc(t Transport) XPackMLFlushJob {
 //
 type XPackMLFlushJob func(job_id string, o ...func(*XPackMLFlushJobRequest)) (*Response, error)
 
-// XPackMLFlushJobRequest configures the Xpack Ml  Flush Job API request.
+// XPackMLFlushJobRequest configures the X PackML Flush Job API request.
 //
 type XPackMLFlushJobRequest struct {
 	Body io.Reader

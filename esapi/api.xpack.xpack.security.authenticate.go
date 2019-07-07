@@ -24,7 +24,7 @@ func newXPackSecurityAuthenticateFunc(t Transport) XPackSecurityAuthenticate {
 //
 type XPackSecurityAuthenticate func(o ...func(*XPackSecurityAuthenticateRequest)) (*Response, error)
 
-// XPackSecurityAuthenticateRequest configures the Xpack Security Authenticate API request.
+// XPackSecurityAuthenticateRequest configures the X Pack Security Authenticate API request.
 //
 type XPackSecurityAuthenticateRequest struct {
 	Pretty     bool

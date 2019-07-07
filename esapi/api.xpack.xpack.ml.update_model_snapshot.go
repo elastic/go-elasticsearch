@@ -25,7 +25,7 @@ func newXPackMLUpdateModelSnapshotFunc(t Transport) XPackMLUpdateModelSnapshot {
 //
 type XPackMLUpdateModelSnapshot func(snapshot_id string, job_id string, body io.Reader, o ...func(*XPackMLUpdateModelSnapshotRequest)) (*Response, error)
 
-// XPackMLUpdateModelSnapshotRequest configures the Xpack Ml   Update Model Snapshot API request.
+// XPackMLUpdateModelSnapshotRequest configures the X PackML Update Model Snapshot API request.
 //
 type XPackMLUpdateModelSnapshotRequest struct {
 	Body io.Reader

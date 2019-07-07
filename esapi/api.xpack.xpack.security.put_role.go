@@ -25,7 +25,7 @@ func newXPackSecurityPutRoleFunc(t Transport) XPackSecurityPutRole {
 //
 type XPackSecurityPutRole func(name string, body io.Reader, o ...func(*XPackSecurityPutRoleRequest)) (*Response, error)
 
-// XPackSecurityPutRoleRequest configures the Xpack Security  Put Role API request.
+// XPackSecurityPutRoleRequest configures the X Pack Security Put Role API request.
 //
 type XPackSecurityPutRoleRequest struct {
 	Body io.Reader

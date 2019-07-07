@@ -24,7 +24,7 @@ func newXPackRollupGetRollupCapsFunc(t Transport) XPackRollupGetRollupCaps {
 //
 type XPackRollupGetRollupCaps func(o ...func(*XPackRollupGetRollupCapsRequest)) (*Response, error)
 
-// XPackRollupGetRollupCapsRequest configures the Xpack Rollup   Get Rollup Caps API request.
+// XPackRollupGetRollupCapsRequest configures the X Pack Rollup Get Rollup Caps API request.
 //
 type XPackRollupGetRollupCapsRequest struct {
 	DocumentID string

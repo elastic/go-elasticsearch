@@ -24,7 +24,7 @@ func newXPackWatcherRestartFunc(t Transport) XPackWatcherRestart {
 //
 type XPackWatcherRestart func(o ...func(*XPackWatcherRestartRequest)) (*Response, error)
 
-// XPackWatcherRestartRequest configures the Xpack Watcher Restart API request.
+// XPackWatcherRestartRequest configures the X Pack Watcher Restart API request.
 //
 type XPackWatcherRestartRequest struct {
 	Pretty     bool

@@ -24,7 +24,7 @@ func newXPackSecurityGetRoleFunc(t Transport) XPackSecurityGetRole {
 //
 type XPackSecurityGetRole func(o ...func(*XPackSecurityGetRoleRequest)) (*Response, error)
 
-// XPackSecurityGetRoleRequest configures the Xpack Security  Get Role API request.
+// XPackSecurityGetRoleRequest configures the X Pack Security Get Role API request.
 //
 type XPackSecurityGetRoleRequest struct {
 	Name string

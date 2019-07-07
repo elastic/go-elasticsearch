@@ -24,7 +24,7 @@ func newXPackLicenseGetTrialStatusFunc(t Transport) XPackLicenseGetTrialStatus {
 //
 type XPackLicenseGetTrialStatus func(o ...func(*XPackLicenseGetTrialStatusRequest)) (*Response, error)
 
-// XPackLicenseGetTrialStatusRequest configures the Xpack License   Get Trial Status API request.
+// XPackLicenseGetTrialStatusRequest configures the X Pack License Get Trial Status API request.
 //
 type XPackLicenseGetTrialStatusRequest struct {
 	Pretty     bool

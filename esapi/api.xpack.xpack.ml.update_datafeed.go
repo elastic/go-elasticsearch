@@ -25,7 +25,7 @@ func newXPackMLUpdateDatafeedFunc(t Transport) XPackMLUpdateDatafeed {
 //
 type XPackMLUpdateDatafeed func(body io.Reader, datafeed_id string, o ...func(*XPackMLUpdateDatafeedRequest)) (*Response, error)
 
-// XPackMLUpdateDatafeedRequest configures the Xpack Ml  Update Datafeed API request.
+// XPackMLUpdateDatafeedRequest configures the X PackML Update Datafeed API request.
 //
 type XPackMLUpdateDatafeedRequest struct {
 	Body io.Reader

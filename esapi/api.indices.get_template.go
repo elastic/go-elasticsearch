@@ -28,7 +28,7 @@ func newIndicesGetTemplateFunc(t Transport) IndicesGetTemplate {
 //
 type IndicesGetTemplate func(o ...func(*IndicesGetTemplateRequest)) (*Response, error)
 
-// IndicesGetTemplateRequest configures the Indices  Get Template API request.
+// IndicesGetTemplateRequest configures the Indices Get Template API request.
 //
 type IndicesGetTemplateRequest struct {
 	Name []string

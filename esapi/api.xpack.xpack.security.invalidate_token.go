@@ -25,7 +25,7 @@ func newXPackSecurityInvalidateTokenFunc(t Transport) XPackSecurityInvalidateTok
 //
 type XPackSecurityInvalidateToken func(body io.Reader, o ...func(*XPackSecurityInvalidateTokenRequest)) (*Response, error)
 
-// XPackSecurityInvalidateTokenRequest configures the Xpack Security  Invalidate Token API request.
+// XPackSecurityInvalidateTokenRequest configures the X Pack Security Invalidate Token API request.
 //
 type XPackSecurityInvalidateTokenRequest struct {
 	Body io.Reader

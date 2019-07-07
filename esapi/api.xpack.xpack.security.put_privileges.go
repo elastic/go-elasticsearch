@@ -25,7 +25,7 @@ func newXPackSecurityPutPrivilegesFunc(t Transport) XPackSecurityPutPrivileges {
 //
 type XPackSecurityPutPrivileges func(body io.Reader, o ...func(*XPackSecurityPutPrivilegesRequest)) (*Response, error)
 
-// XPackSecurityPutPrivilegesRequest configures the Xpack Security  Put Privileges API request.
+// XPackSecurityPutPrivilegesRequest configures the X Pack Security Put Privileges API request.
 //
 type XPackSecurityPutPrivilegesRequest struct {
 	Body io.Reader

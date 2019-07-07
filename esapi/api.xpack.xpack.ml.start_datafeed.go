@@ -26,7 +26,7 @@ func newXPackMLStartDatafeedFunc(t Transport) XPackMLStartDatafeed {
 //
 type XPackMLStartDatafeed func(datafeed_id string, o ...func(*XPackMLStartDatafeedRequest)) (*Response, error)
 
-// XPackMLStartDatafeedRequest configures the Xpack Ml  Start Datafeed API request.
+// XPackMLStartDatafeedRequest configures the X PackML Start Datafeed API request.
 //
 type XPackMLStartDatafeedRequest struct {
 	Body io.Reader

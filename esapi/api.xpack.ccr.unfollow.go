@@ -24,7 +24,7 @@ func newCCRUnfollowFunc(t Transport) CCRUnfollow {
 //
 type CCRUnfollow func(index string, o ...func(*CCRUnfollowRequest)) (*Response, error)
 
-// CCRUnfollowRequest configures the Ccr Unfollow API request.
+// CCRUnfollowRequest configures the CCR Unfollow API request.
 //
 type CCRUnfollowRequest struct {
 	Index string

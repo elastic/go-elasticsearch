@@ -25,7 +25,7 @@ func newXPackMLGetJobStatsFunc(t Transport) XPackMLGetJobStats {
 //
 type XPackMLGetJobStats func(o ...func(*XPackMLGetJobStatsRequest)) (*Response, error)
 
-// XPackMLGetJobStatsRequest configures the Xpack Ml   Get Job Stats API request.
+// XPackMLGetJobStatsRequest configures the X PackML Get Job Stats API request.
 //
 type XPackMLGetJobStatsRequest struct {
 	JobID string

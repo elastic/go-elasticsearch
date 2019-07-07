@@ -24,7 +24,7 @@ func newILMGetStatusFunc(t Transport) ILMGetStatus {
 //
 type ILMGetStatus func(o ...func(*ILMGetStatusRequest)) (*Response, error)
 
-// ILMGetStatusRequest configures the Ilm  Get Status API request.
+// ILMGetStatusRequest configures the ILM Get Status API request.
 //
 type ILMGetStatusRequest struct {
 	Pretty     bool

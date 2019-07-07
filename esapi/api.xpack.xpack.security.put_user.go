@@ -25,7 +25,7 @@ func newXPackSecurityPutUserFunc(t Transport) XPackSecurityPutUser {
 //
 type XPackSecurityPutUser func(username string, body io.Reader, o ...func(*XPackSecurityPutUserRequest)) (*Response, error)
 
-// XPackSecurityPutUserRequest configures the Xpack Security  Put User API request.
+// XPackSecurityPutUserRequest configures the X Pack Security Put User API request.
 //
 type XPackSecurityPutUserRequest struct {
 	Body io.Reader

@@ -25,7 +25,7 @@ func newXPackMLPutCalendarFunc(t Transport) XPackMLPutCalendar {
 //
 type XPackMLPutCalendar func(calendar_id string, o ...func(*XPackMLPutCalendarRequest)) (*Response, error)
 
-// XPackMLPutCalendarRequest configures the Xpack Ml  Put Calendar API request.
+// XPackMLPutCalendarRequest configures the X PackML Put Calendar API request.
 //
 type XPackMLPutCalendarRequest struct {
 	Body io.Reader

@@ -25,7 +25,7 @@ func newXPackLicenseGetFunc(t Transport) XPackLicenseGet {
 //
 type XPackLicenseGet func(o ...func(*XPackLicenseGetRequest)) (*Response, error)
 
-// XPackLicenseGetRequest configures the Xpack License Get API request.
+// XPackLicenseGetRequest configures the X Pack License Get API request.
 //
 type XPackLicenseGetRequest struct {
 	Local *bool

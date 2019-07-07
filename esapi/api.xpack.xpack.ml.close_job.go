@@ -27,7 +27,7 @@ func newXPackMLCloseJobFunc(t Transport) XPackMLCloseJob {
 //
 type XPackMLCloseJob func(job_id string, o ...func(*XPackMLCloseJobRequest)) (*Response, error)
 
-// XPackMLCloseJobRequest configures the Xpack Ml  Close Job API request.
+// XPackMLCloseJobRequest configures the X PackML Close Job API request.
 //
 type XPackMLCloseJobRequest struct {
 	Body io.Reader

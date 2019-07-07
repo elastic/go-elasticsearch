@@ -24,7 +24,7 @@ func newXPackMLPreviewDatafeedFunc(t Transport) XPackMLPreviewDatafeed {
 //
 type XPackMLPreviewDatafeed func(datafeed_id string, o ...func(*XPackMLPreviewDatafeedRequest)) (*Response, error)
 
-// XPackMLPreviewDatafeedRequest configures the Xpack Ml  Preview Datafeed API request.
+// XPackMLPreviewDatafeedRequest configures the X PackML Preview Datafeed API request.
 //
 type XPackMLPreviewDatafeedRequest struct {
 	DatafeedID string

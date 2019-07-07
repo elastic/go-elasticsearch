@@ -26,7 +26,7 @@ func newXPackRollupStopJobFunc(t Transport) XPackRollupStopJob {
 //
 type XPackRollupStopJob func(id string, o ...func(*XPackRollupStopJobRequest)) (*Response, error)
 
-// XPackRollupStopJobRequest configures the Xpack Rollup  Stop Job API request.
+// XPackRollupStopJobRequest configures the X Pack Rollup Stop Job API request.
 //
 type XPackRollupStopJobRequest struct {
 	DocumentID string

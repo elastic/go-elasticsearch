@@ -25,7 +25,7 @@ func newXPackMigrationUpgradeFunc(t Transport) XPackMigrationUpgrade {
 //
 type XPackMigrationUpgrade func(index string, o ...func(*XPackMigrationUpgradeRequest)) (*Response, error)
 
-// XPackMigrationUpgradeRequest configures the Xpack Migration Upgrade API request.
+// XPackMigrationUpgradeRequest configures the X Pack Migration Upgrade API request.
 //
 type XPackMigrationUpgradeRequest struct {
 	Index string

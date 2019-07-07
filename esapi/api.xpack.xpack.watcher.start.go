@@ -24,7 +24,7 @@ func newXPackWatcherStartFunc(t Transport) XPackWatcherStart {
 //
 type XPackWatcherStart func(o ...func(*XPackWatcherStartRequest)) (*Response, error)
 
-// XPackWatcherStartRequest configures the Xpack Watcher Start API request.
+// XPackWatcherStartRequest configures the X Pack Watcher Start API request.
 //
 type XPackWatcherStartRequest struct {
 	Pretty     bool

@@ -24,7 +24,7 @@ func newXPackRollupDeleteJobFunc(t Transport) XPackRollupDeleteJob {
 //
 type XPackRollupDeleteJob func(id string, o ...func(*XPackRollupDeleteJobRequest)) (*Response, error)
 
-// XPackRollupDeleteJobRequest configures the Xpack Rollup  Delete Job API request.
+// XPackRollupDeleteJobRequest configures the X Pack Rollup Delete Job API request.
 //
 type XPackRollupDeleteJobRequest struct {
 	DocumentID string

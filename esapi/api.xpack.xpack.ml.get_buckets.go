@@ -27,7 +27,7 @@ func newXPackMLGetBucketsFunc(t Transport) XPackMLGetBuckets {
 //
 type XPackMLGetBuckets func(job_id string, o ...func(*XPackMLGetBucketsRequest)) (*Response, error)
 
-// XPackMLGetBucketsRequest configures the Xpack Ml  Get Buckets API request.
+// XPackMLGetBucketsRequest configures the X PackML Get Buckets API request.
 //
 type XPackMLGetBucketsRequest struct {
 	Body io.Reader

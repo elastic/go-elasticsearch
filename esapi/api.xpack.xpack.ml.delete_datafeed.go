@@ -25,7 +25,7 @@ func newXPackMLDeleteDatafeedFunc(t Transport) XPackMLDeleteDatafeed {
 //
 type XPackMLDeleteDatafeed func(datafeed_id string, o ...func(*XPackMLDeleteDatafeedRequest)) (*Response, error)
 
-// XPackMLDeleteDatafeedRequest configures the Xpack Ml  Delete Datafeed API request.
+// XPackMLDeleteDatafeedRequest configures the X PackML Delete Datafeed API request.
 //
 type XPackMLDeleteDatafeedRequest struct {
 	DatafeedID string

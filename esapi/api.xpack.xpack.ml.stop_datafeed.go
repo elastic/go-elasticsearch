@@ -26,7 +26,7 @@ func newXPackMLStopDatafeedFunc(t Transport) XPackMLStopDatafeed {
 //
 type XPackMLStopDatafeed func(datafeed_id string, o ...func(*XPackMLStopDatafeedRequest)) (*Response, error)
 
-// XPackMLStopDatafeedRequest configures the Xpack Ml  Stop Datafeed API request.
+// XPackMLStopDatafeedRequest configures the X PackML Stop Datafeed API request.
 //
 type XPackMLStopDatafeedRequest struct {
 	DatafeedID string

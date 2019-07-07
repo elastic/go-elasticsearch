@@ -24,7 +24,7 @@ func newXPackSecurityGetRoleMappingFunc(t Transport) XPackSecurityGetRoleMapping
 //
 type XPackSecurityGetRoleMapping func(o ...func(*XPackSecurityGetRoleMappingRequest)) (*Response, error)
 
-// XPackSecurityGetRoleMappingRequest configures the Xpack Security   Get Role Mapping API request.
+// XPackSecurityGetRoleMappingRequest configures the X Pack Security Get Role Mapping API request.
 //
 type XPackSecurityGetRoleMappingRequest struct {
 	Name string

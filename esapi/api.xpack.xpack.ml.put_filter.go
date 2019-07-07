@@ -25,7 +25,7 @@ func newXPackMLPutFilterFunc(t Transport) XPackMLPutFilter {
 //
 type XPackMLPutFilter func(body io.Reader, filter_id string, o ...func(*XPackMLPutFilterRequest)) (*Response, error)
 
-// XPackMLPutFilterRequest configures the Xpack Ml  Put Filter API request.
+// XPackMLPutFilterRequest configures the X PackML Put Filter API request.
 //
 type XPackMLPutFilterRequest struct {
 	Body io.Reader

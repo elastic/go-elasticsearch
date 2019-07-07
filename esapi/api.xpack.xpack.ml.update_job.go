@@ -25,7 +25,7 @@ func newXPackMLUpdateJobFunc(t Transport) XPackMLUpdateJob {
 //
 type XPackMLUpdateJob func(job_id string, body io.Reader, o ...func(*XPackMLUpdateJobRequest)) (*Response, error)
 
-// XPackMLUpdateJobRequest configures the Xpack Ml  Update Job API request.
+// XPackMLUpdateJobRequest configures the X PackML Update Job API request.
 //
 type XPackMLUpdateJobRequest struct {
 	Body io.Reader

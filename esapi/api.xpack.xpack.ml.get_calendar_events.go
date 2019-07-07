@@ -26,7 +26,7 @@ func newXPackMLGetCalendarEventsFunc(t Transport) XPackMLGetCalendarEvents {
 //
 type XPackMLGetCalendarEvents func(calendar_id string, o ...func(*XPackMLGetCalendarEventsRequest)) (*Response, error)
 
-// XPackMLGetCalendarEventsRequest configures the Xpack Ml   Get Calendar Events API request.
+// XPackMLGetCalendarEventsRequest configures the X PackML Get Calendar Events API request.
 //
 type XPackMLGetCalendarEventsRequest struct {
 	CalendarID string

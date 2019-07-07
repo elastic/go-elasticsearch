@@ -25,7 +25,7 @@ func newSecurityInvalidateAPIKeyFunc(t Transport) SecurityInvalidateAPIKey {
 //
 type SecurityInvalidateAPIKey func(body io.Reader, o ...func(*SecurityInvalidateAPIKeyRequest)) (*Response, error)
 
-// SecurityInvalidateAPIKeyRequest configures the Security   Invalidate Api Key API request.
+// SecurityInvalidateAPIKeyRequest configures the Security InvalidateAPI Key API request.
 //
 type SecurityInvalidateAPIKeyRequest struct {
 	Body io.Reader

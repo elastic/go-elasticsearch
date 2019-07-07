@@ -24,7 +24,7 @@ func newXPackMLDeleteModelSnapshotFunc(t Transport) XPackMLDeleteModelSnapshot {
 //
 type XPackMLDeleteModelSnapshot func(snapshot_id string, job_id string, o ...func(*XPackMLDeleteModelSnapshotRequest)) (*Response, error)
 
-// XPackMLDeleteModelSnapshotRequest configures the Xpack Ml   Delete Model Snapshot API request.
+// XPackMLDeleteModelSnapshotRequest configures the X PackML Delete Model Snapshot API request.
 //
 type XPackMLDeleteModelSnapshotRequest struct {
 	JobID      string

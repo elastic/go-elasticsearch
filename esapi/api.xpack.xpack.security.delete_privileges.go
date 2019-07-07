@@ -24,7 +24,7 @@ func newXPackSecurityDeletePrivilegesFunc(t Transport) XPackSecurityDeletePrivil
 //
 type XPackSecurityDeletePrivileges func(name string, application string, o ...func(*XPackSecurityDeletePrivilegesRequest)) (*Response, error)
 
-// XPackSecurityDeletePrivilegesRequest configures the Xpack Security  Delete Privileges API request.
+// XPackSecurityDeletePrivilegesRequest configures the X Pack Security Delete Privileges API request.
 //
 type XPackSecurityDeletePrivilegesRequest struct {
 	Application string

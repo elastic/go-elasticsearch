@@ -25,7 +25,7 @@ func newXPackLicensePostStartBasicFunc(t Transport) XPackLicensePostStartBasic {
 //
 type XPackLicensePostStartBasic func(o ...func(*XPackLicensePostStartBasicRequest)) (*Response, error)
 
-// XPackLicensePostStartBasicRequest configures the Xpack License   Post Start Basic API request.
+// XPackLicensePostStartBasicRequest configures the X Pack License Post Start Basic API request.
 //
 type XPackLicensePostStartBasicRequest struct {
 	Acknowledge *bool

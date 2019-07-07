@@ -25,7 +25,7 @@ func newXPackLicensePostStartTrialFunc(t Transport) XPackLicensePostStartTrial {
 //
 type XPackLicensePostStartTrial func(o ...func(*XPackLicensePostStartTrialRequest)) (*Response, error)
 
-// XPackLicensePostStartTrialRequest configures the Xpack License   Post Start Trial API request.
+// XPackLicensePostStartTrialRequest configures the X Pack License Post Start Trial API request.
 //
 type XPackLicensePostStartTrialRequest struct {
 	Acknowledge  *bool

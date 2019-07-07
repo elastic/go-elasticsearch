@@ -24,7 +24,7 @@ func newILMGetLifecycleFunc(t Transport) ILMGetLifecycle {
 //
 type ILMGetLifecycle func(o ...func(*ILMGetLifecycleRequest)) (*Response, error)
 
-// ILMGetLifecycleRequest configures the Ilm  Get Lifecycle API request.
+// ILMGetLifecycleRequest configures the ILM Get Lifecycle API request.
 //
 type ILMGetLifecycleRequest struct {
 	Policy string

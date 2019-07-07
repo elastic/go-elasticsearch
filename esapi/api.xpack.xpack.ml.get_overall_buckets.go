@@ -27,7 +27,7 @@ func newXPackMLGetOverallBucketsFunc(t Transport) XPackMLGetOverallBuckets {
 //
 type XPackMLGetOverallBuckets func(job_id string, o ...func(*XPackMLGetOverallBucketsRequest)) (*Response, error)
 
-// XPackMLGetOverallBucketsRequest configures the Xpack Ml   Get Overall Buckets API request.
+// XPackMLGetOverallBucketsRequest configures the X PackML Get Overall Buckets API request.
 //
 type XPackMLGetOverallBucketsRequest struct {
 	Body io.Reader

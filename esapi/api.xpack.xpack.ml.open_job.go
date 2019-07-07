@@ -25,7 +25,7 @@ func newXPackMLOpenJobFunc(t Transport) XPackMLOpenJob {
 //
 type XPackMLOpenJob func(job_id string, o ...func(*XPackMLOpenJobRequest)) (*Response, error)
 
-// XPackMLOpenJobRequest configures the Xpack Ml  Open Job API request.
+// XPackMLOpenJobRequest configures the X PackML Open Job API request.
 //
 type XPackMLOpenJobRequest struct {
 	IgnoreDowntime *bool

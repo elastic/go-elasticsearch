@@ -25,7 +25,7 @@ func newXPackWatcherAckWatchFunc(t Transport) XPackWatcherAckWatch {
 //
 type XPackWatcherAckWatch func(watch_id string, o ...func(*XPackWatcherAckWatchRequest)) (*Response, error)
 
-// XPackWatcherAckWatchRequest configures the Xpack Watcher  Ack Watch API request.
+// XPackWatcherAckWatchRequest configures the X Pack Watcher Ack Watch API request.
 //
 type XPackWatcherAckWatchRequest struct {
 	ActionID []string

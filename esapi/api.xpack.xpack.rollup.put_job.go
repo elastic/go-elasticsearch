@@ -25,7 +25,7 @@ func newXPackRollupPutJobFunc(t Transport) XPackRollupPutJob {
 //
 type XPackRollupPutJob func(id string, body io.Reader, o ...func(*XPackRollupPutJobRequest)) (*Response, error)
 
-// XPackRollupPutJobRequest configures the Xpack Rollup  Put Job API request.
+// XPackRollupPutJobRequest configures the X Pack Rollup Put Job API request.
 //
 type XPackRollupPutJobRequest struct {
 	DocumentID string

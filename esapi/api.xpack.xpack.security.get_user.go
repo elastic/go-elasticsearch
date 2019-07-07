@@ -24,7 +24,7 @@ func newXPackSecurityGetUserFunc(t Transport) XPackSecurityGetUser {
 //
 type XPackSecurityGetUser func(o ...func(*XPackSecurityGetUserRequest)) (*Response, error)
 
-// XPackSecurityGetUserRequest configures the Xpack Security  Get User API request.
+// XPackSecurityGetUserRequest configures the X Pack Security Get User API request.
 //
 type XPackSecurityGetUserRequest struct {
 	Username []string

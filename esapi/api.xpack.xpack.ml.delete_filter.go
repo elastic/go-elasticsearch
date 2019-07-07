@@ -24,7 +24,7 @@ func newXPackMLDeleteFilterFunc(t Transport) XPackMLDeleteFilter {
 //
 type XPackMLDeleteFilter func(filter_id string, o ...func(*XPackMLDeleteFilterRequest)) (*Response, error)
 
-// XPackMLDeleteFilterRequest configures the Xpack Ml  Delete Filter API request.
+// XPackMLDeleteFilterRequest configures the X PackML Delete Filter API request.
 //
 type XPackMLDeleteFilterRequest struct {
 	FilterID string

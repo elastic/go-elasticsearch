@@ -24,7 +24,7 @@ func newCCRFollowInfoFunc(t Transport) CCRFollowInfo {
 //
 type CCRFollowInfo func(o ...func(*CCRFollowInfoRequest)) (*Response, error)
 
-// CCRFollowInfoRequest configures the Ccr  Follow Info API request.
+// CCRFollowInfoRequest configures the CCR Follow Info API request.
 //
 type CCRFollowInfoRequest struct {
 	Index []string

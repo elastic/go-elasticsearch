@@ -25,7 +25,7 @@ func newXPackMLForecastFunc(t Transport) XPackMLForecast {
 //
 type XPackMLForecast func(job_id string, o ...func(*XPackMLForecastRequest)) (*Response, error)
 
-// XPackMLForecastRequest configures the Xpack Ml Forecast API request.
+// XPackMLForecastRequest configures the X PackML Forecast API request.
 //
 type XPackMLForecastRequest struct {
 	JobID string

@@ -28,7 +28,7 @@ func newIndicesGetSettingsFunc(t Transport) IndicesGetSettings {
 //
 type IndicesGetSettings func(o ...func(*IndicesGetSettingsRequest)) (*Response, error)
 
-// IndicesGetSettingsRequest configures the Indices  Get Settings API request.
+// IndicesGetSettingsRequest configures the Indices Get Settings API request.
 //
 type IndicesGetSettingsRequest struct {
 	Index []string

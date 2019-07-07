@@ -26,7 +26,7 @@ func newXPackMLGetCategoriesFunc(t Transport) XPackMLGetCategories {
 //
 type XPackMLGetCategories func(job_id string, o ...func(*XPackMLGetCategoriesRequest)) (*Response, error)
 
-// XPackMLGetCategoriesRequest configures the Xpack Ml  Get Categories API request.
+// XPackMLGetCategoriesRequest configures the X PackML Get Categories API request.
 //
 type XPackMLGetCategoriesRequest struct {
 	Body io.Reader

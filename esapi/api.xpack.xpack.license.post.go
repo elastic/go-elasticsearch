@@ -26,7 +26,7 @@ func newXPackLicensePostFunc(t Transport) XPackLicensePost {
 //
 type XPackLicensePost func(o ...func(*XPackLicensePostRequest)) (*Response, error)
 
-// XPackLicensePostRequest configures the Xpack License Post API request.
+// XPackLicensePostRequest configures the X Pack License Post API request.
 //
 type XPackLicensePostRequest struct {
 	Body io.Reader

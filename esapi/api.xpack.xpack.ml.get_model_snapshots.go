@@ -27,7 +27,7 @@ func newXPackMLGetModelSnapshotsFunc(t Transport) XPackMLGetModelSnapshots {
 //
 type XPackMLGetModelSnapshots func(job_id string, o ...func(*XPackMLGetModelSnapshotsRequest)) (*Response, error)
 
-// XPackMLGetModelSnapshotsRequest configures the Xpack Ml   Get Model Snapshots API request.
+// XPackMLGetModelSnapshotsRequest configures the X PackML Get Model Snapshots API request.
 //
 type XPackMLGetModelSnapshotsRequest struct {
 	Body io.Reader

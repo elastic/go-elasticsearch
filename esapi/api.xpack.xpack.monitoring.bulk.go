@@ -25,7 +25,7 @@ func newXPackMonitoringBulkFunc(t Transport) XPackMonitoringBulk {
 //
 type XPackMonitoringBulk func(body io.Reader, o ...func(*XPackMonitoringBulkRequest)) (*Response, error)
 
-// XPackMonitoringBulkRequest configures the Xpack Monitoring Bulk API request.
+// XPackMonitoringBulkRequest configures the X Pack Monitoring Bulk API request.
 //
 type XPackMonitoringBulkRequest struct {
 	DocumentType string

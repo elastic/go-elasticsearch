@@ -25,7 +25,7 @@ func newXPackMLValidateDetectorFunc(t Transport) XPackMLValidateDetector {
 //
 type XPackMLValidateDetector func(body io.Reader, o ...func(*XPackMLValidateDetectorRequest)) (*Response, error)
 
-// XPackMLValidateDetectorRequest configures the Xpack Ml  Validate Detector API request.
+// XPackMLValidateDetectorRequest configures the X PackML Validate Detector API request.
 //
 type XPackMLValidateDetectorRequest struct {
 	Body io.Reader

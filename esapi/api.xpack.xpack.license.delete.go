@@ -24,7 +24,7 @@ func newXPackLicenseDeleteFunc(t Transport) XPackLicenseDelete {
 //
 type XPackLicenseDelete func(o ...func(*XPackLicenseDeleteRequest)) (*Response, error)
 
-// XPackLicenseDeleteRequest configures the Xpack License Delete API request.
+// XPackLicenseDeleteRequest configures the X Pack License Delete API request.
 //
 type XPackLicenseDeleteRequest struct {
 	Pretty     bool

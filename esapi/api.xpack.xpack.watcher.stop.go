@@ -24,7 +24,7 @@ func newXPackWatcherStopFunc(t Transport) XPackWatcherStop {
 //
 type XPackWatcherStop func(o ...func(*XPackWatcherStopRequest)) (*Response, error)
 
-// XPackWatcherStopRequest configures the Xpack Watcher Stop API request.
+// XPackWatcherStopRequest configures the X Pack Watcher Stop API request.
 //
 type XPackWatcherStopRequest struct {
 	Pretty     bool

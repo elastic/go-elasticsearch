@@ -24,7 +24,7 @@ func newXPackSecurityDeleteRoleMappingFunc(t Transport) XPackSecurityDeleteRoleM
 //
 type XPackSecurityDeleteRoleMapping func(name string, o ...func(*XPackSecurityDeleteRoleMappingRequest)) (*Response, error)
 
-// XPackSecurityDeleteRoleMappingRequest configures the Xpack Security   Delete Role Mapping API request.
+// XPackSecurityDeleteRoleMappingRequest configures the X Pack Security Delete Role Mapping API request.
 //
 type XPackSecurityDeleteRoleMappingRequest struct {
 	Name string

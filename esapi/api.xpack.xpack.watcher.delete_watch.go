@@ -25,7 +25,7 @@ func newXPackWatcherDeleteWatchFunc(t Transport) XPackWatcherDeleteWatch {
 //
 type XPackWatcherDeleteWatch func(id string, o ...func(*XPackWatcherDeleteWatchRequest)) (*Response, error)
 
-// XPackWatcherDeleteWatchRequest configures the Xpack Watcher  Delete Watch API request.
+// XPackWatcherDeleteWatchRequest configures the X Pack Watcher Delete Watch API request.
 //
 type XPackWatcherDeleteWatchRequest struct {
 	DocumentID string

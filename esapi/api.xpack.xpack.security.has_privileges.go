@@ -25,7 +25,7 @@ func newXPackSecurityHasPrivilegesFunc(t Transport) XPackSecurityHasPrivileges {
 //
 type XPackSecurityHasPrivileges func(body io.Reader, o ...func(*XPackSecurityHasPrivilegesRequest)) (*Response, error)
 
-// XPackSecurityHasPrivilegesRequest configures the Xpack Security  Has Privileges API request.
+// XPackSecurityHasPrivilegesRequest configures the X Pack Security Has Privileges API request.
 //
 type XPackSecurityHasPrivilegesRequest struct {
 	Body io.Reader

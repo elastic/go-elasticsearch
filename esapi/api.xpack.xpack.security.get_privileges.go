@@ -24,7 +24,7 @@ func newXPackSecurityGetPrivilegesFunc(t Transport) XPackSecurityGetPrivileges {
 //
 type XPackSecurityGetPrivileges func(o ...func(*XPackSecurityGetPrivilegesRequest)) (*Response, error)
 
-// XPackSecurityGetPrivilegesRequest configures the Xpack Security  Get Privileges API request.
+// XPackSecurityGetPrivilegesRequest configures the X Pack Security Get Privileges API request.
 //
 type XPackSecurityGetPrivilegesRequest struct {
 	Application string

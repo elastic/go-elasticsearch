@@ -25,7 +25,7 @@ func newXPackSecurityGetTokenFunc(t Transport) XPackSecurityGetToken {
 //
 type XPackSecurityGetToken func(body io.Reader, o ...func(*XPackSecurityGetTokenRequest)) (*Response, error)
 
-// XPackSecurityGetTokenRequest configures the Xpack Security  Get Token API request.
+// XPackSecurityGetTokenRequest configures the X Pack Security Get Token API request.
 //
 type XPackSecurityGetTokenRequest struct {
 	Body io.Reader

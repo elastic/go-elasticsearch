@@ -25,7 +25,7 @@ func newXPackSQLQueryFunc(t Transport) XPackSQLQuery {
 //
 type XPackSQLQuery func(body io.Reader, o ...func(*XPackSQLQueryRequest)) (*Response, error)
 
-// XPackSQLQueryRequest configures the Xpack Sql Query API request.
+// XPackSQLQueryRequest configures the X PackSQL Query API request.
 //
 type XPackSQLQueryRequest struct {
 	Body io.Reader

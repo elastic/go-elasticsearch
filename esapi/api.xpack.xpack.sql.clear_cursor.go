@@ -25,7 +25,7 @@ func newXPackSQLClearCursorFunc(t Transport) XPackSQLClearCursor {
 //
 type XPackSQLClearCursor func(body io.Reader, o ...func(*XPackSQLClearCursorRequest)) (*Response, error)
 
-// XPackSQLClearCursorRequest configures the Xpack Sql  Clear Cursor API request.
+// XPackSQLClearCursorRequest configures the X PackSQL Clear Cursor API request.
 //
 type XPackSQLClearCursorRequest struct {
 	Body io.Reader

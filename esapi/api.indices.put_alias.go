@@ -28,7 +28,7 @@ func newIndicesPutAliasFunc(t Transport) IndicesPutAlias {
 //
 type IndicesPutAlias func(index []string, name string, o ...func(*IndicesPutAliasRequest)) (*Response, error)
 
-// IndicesPutAliasRequest configures the Indices  Put Alias API request.
+// IndicesPutAliasRequest configures the Indices Put Alias API request.
 //
 type IndicesPutAliasRequest struct {
 	Index []string

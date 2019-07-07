@@ -24,7 +24,7 @@ func newXPackRollupGetJobsFunc(t Transport) XPackRollupGetJobs {
 //
 type XPackRollupGetJobs func(o ...func(*XPackRollupGetJobsRequest)) (*Response, error)
 
-// XPackRollupGetJobsRequest configures the Xpack Rollup  Get Jobs API request.
+// XPackRollupGetJobsRequest configures the X Pack Rollup Get Jobs API request.
 //
 type XPackRollupGetJobsRequest struct {
 	DocumentID string

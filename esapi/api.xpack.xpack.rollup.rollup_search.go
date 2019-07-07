@@ -26,7 +26,7 @@ func newXPackRollupRollupSearchFunc(t Transport) XPackRollupRollupSearch {
 //
 type XPackRollupRollupSearch func(index string, body io.Reader, o ...func(*XPackRollupRollupSearchRequest)) (*Response, error)
 
-// XPackRollupRollupSearchRequest configures the Xpack Rollup  Rollup Search API request.
+// XPackRollupRollupSearchRequest configures the X Pack Rollup Rollup Search API request.
 //
 type XPackRollupRollupSearchRequest struct {
 	Index        string

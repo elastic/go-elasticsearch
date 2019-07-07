@@ -25,7 +25,7 @@ func newXPackMLPostDataFunc(t Transport) XPackMLPostData {
 //
 type XPackMLPostData func(job_id string, body io.Reader, o ...func(*XPackMLPostDataRequest)) (*Response, error)
 
-// XPackMLPostDataRequest configures the Xpack Ml  Post Data API request.
+// XPackMLPostDataRequest configures the X PackML Post Data API request.
 //
 type XPackMLPostDataRequest struct {
 	Body io.Reader

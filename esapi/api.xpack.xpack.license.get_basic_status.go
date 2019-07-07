@@ -24,7 +24,7 @@ func newXPackLicenseGetBasicStatusFunc(t Transport) XPackLicenseGetBasicStatus {
 //
 type XPackLicenseGetBasicStatus func(o ...func(*XPackLicenseGetBasicStatusRequest)) (*Response, error)
 
-// XPackLicenseGetBasicStatusRequest configures the Xpack License   Get Basic Status API request.
+// XPackLicenseGetBasicStatusRequest configures the X Pack License Get Basic Status API request.
 //
 type XPackLicenseGetBasicStatusRequest struct {
 	Pretty     bool

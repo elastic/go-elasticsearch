@@ -25,7 +25,7 @@ func newXPackMLGetDatafeedsFunc(t Transport) XPackMLGetDatafeeds {
 //
 type XPackMLGetDatafeeds func(o ...func(*XPackMLGetDatafeedsRequest)) (*Response, error)
 
-// XPackMLGetDatafeedsRequest configures the Xpack Ml  Get Datafeeds API request.
+// XPackMLGetDatafeedsRequest configures the X PackML Get Datafeeds API request.
 //
 type XPackMLGetDatafeedsRequest struct {
 	DatafeedID string

@@ -25,7 +25,7 @@ func newILMPutLifecycleFunc(t Transport) ILMPutLifecycle {
 //
 type ILMPutLifecycle func(o ...func(*ILMPutLifecycleRequest)) (*Response, error)
 
-// ILMPutLifecycleRequest configures the Ilm  Put Lifecycle API request.
+// ILMPutLifecycleRequest configures the ILM Put Lifecycle API request.
 //
 type ILMPutLifecycleRequest struct {
 	Body io.Reader

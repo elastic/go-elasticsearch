@@ -24,7 +24,7 @@ func newXPackSecurityClearCachedRolesFunc(t Transport) XPackSecurityClearCachedR
 //
 type XPackSecurityClearCachedRoles func(name []string, o ...func(*XPackSecurityClearCachedRolesRequest)) (*Response, error)
 
-// XPackSecurityClearCachedRolesRequest configures the Xpack Security   Clear Cached Roles API request.
+// XPackSecurityClearCachedRolesRequest configures the X Pack Security Clear Cached Roles API request.
 //
 type XPackSecurityClearCachedRolesRequest struct {
 	Name []string

@@ -25,7 +25,7 @@ func newXPackMLUpdateFilterFunc(t Transport) XPackMLUpdateFilter {
 //
 type XPackMLUpdateFilter func(body io.Reader, filter_id string, o ...func(*XPackMLUpdateFilterRequest)) (*Response, error)
 
-// XPackMLUpdateFilterRequest configures the Xpack Ml  Update Filter API request.
+// XPackMLUpdateFilterRequest configures the X PackML Update Filter API request.
 //
 type XPackMLUpdateFilterRequest struct {
 	Body io.Reader

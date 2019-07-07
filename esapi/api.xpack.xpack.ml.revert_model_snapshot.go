@@ -26,7 +26,7 @@ func newXPackMLRevertModelSnapshotFunc(t Transport) XPackMLRevertModelSnapshot {
 //
 type XPackMLRevertModelSnapshot func(snapshot_id string, job_id string, o ...func(*XPackMLRevertModelSnapshotRequest)) (*Response, error)
 
-// XPackMLRevertModelSnapshotRequest configures the Xpack Ml   Revert Model Snapshot API request.
+// XPackMLRevertModelSnapshotRequest configures the X PackML Revert Model Snapshot API request.
 //
 type XPackMLRevertModelSnapshotRequest struct {
 	Body io.Reader

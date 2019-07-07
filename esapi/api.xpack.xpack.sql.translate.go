@@ -25,7 +25,7 @@ func newXPackSQLTranslateFunc(t Transport) XPackSQLTranslate {
 //
 type XPackSQLTranslate func(body io.Reader, o ...func(*XPackSQLTranslateRequest)) (*Response, error)
 
-// XPackSQLTranslateRequest configures the Xpack Sql Translate API request.
+// XPackSQLTranslateRequest configures the X PackSQL Translate API request.
 //
 type XPackSQLTranslateRequest struct {
 	Body io.Reader

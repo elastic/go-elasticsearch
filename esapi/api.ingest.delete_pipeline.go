@@ -11,7 +11,7 @@ import (
 
 func newIngestDeletePipelineFunc(t Transport) IngestDeletePipeline {
 	return func(id string, o ...func(*IngestDeletePipelineRequest)) (*Response, error) {
-		var r = IngestDeletePipelineRequest{DocumentID: id}
+		var r = IngestDeletePipelineRequest{PipelineID: id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -27,10 +27,10 @@ func newIngestDeletePipelineFunc(t Transport) IngestDeletePipeline {
 //
 type IngestDeletePipeline func(id string, o ...func(*IngestDeletePipelineRequest)) (*Response, error)
 
-// IngestDeletePipelineRequest configures the Ingest  Delete Pipeline API request.
+// IngestDeletePipelineRequest configures the Ingest Delete Pipeline API request.
 //
 type IngestDeletePipelineRequest struct {
-	DocumentID string
+	PipelineID string
 
 	MasterTimeout time.Duration
 	Timeout       time.Duration
@@ -56,13 +56,13 @@ func (r IngestDeletePipelineRequest) Do(ctx context.Context, transport Transport
 
 	method = "DELETE"
 
-	path.Grow(1 + len("_ingest") + 1 + len("pipeline") + 1 + len(r.DocumentID))
+	path.Grow(1 + len("_ingest") + 1 + len("pipeline") + 1 + len(r.PipelineID))
 	path.WriteString("/")
 	path.WriteString("_ingest")
 	path.WriteString("/")
 	path.WriteString("pipeline")
 	path.WriteString("/")
-	path.WriteString(r.DocumentID)
+	path.WriteString(r.PipelineID)
 
 	params = make(map[string]string)
 

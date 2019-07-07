@@ -25,7 +25,7 @@ func newCCRResumeFollowFunc(t Transport) CCRResumeFollow {
 //
 type CCRResumeFollow func(index string, o ...func(*CCRResumeFollowRequest)) (*Response, error)
 
-// CCRResumeFollowRequest configures the Ccr  Resume Follow API request.
+// CCRResumeFollowRequest configures the CCR Resume Follow API request.
 //
 type CCRResumeFollowRequest struct {
 	Index string

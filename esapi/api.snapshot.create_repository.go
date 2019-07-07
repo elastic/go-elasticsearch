@@ -29,7 +29,7 @@ func newSnapshotCreateRepositoryFunc(t Transport) SnapshotCreateRepository {
 //
 type SnapshotCreateRepository func(repository string, body io.Reader, o ...func(*SnapshotCreateRepositoryRequest)) (*Response, error)
 
-// SnapshotCreateRepositoryRequest configures the Snapshot  Create Repository API request.
+// SnapshotCreateRepositoryRequest configures the Snapshot Create Repository API request.
 //
 type SnapshotCreateRepositoryRequest struct {
 	Body io.Reader

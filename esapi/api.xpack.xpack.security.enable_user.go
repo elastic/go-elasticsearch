@@ -24,7 +24,7 @@ func newXPackSecurityEnableUserFunc(t Transport) XPackSecurityEnableUser {
 //
 type XPackSecurityEnableUser func(username string, o ...func(*XPackSecurityEnableUserRequest)) (*Response, error)
 
-// XPackSecurityEnableUserRequest configures the Xpack Security  Enable User API request.
+// XPackSecurityEnableUserRequest configures the X Pack Security Enable User API request.
 //
 type XPackSecurityEnableUserRequest struct {
 	Username string

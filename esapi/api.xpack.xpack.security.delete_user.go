@@ -24,7 +24,7 @@ func newXPackSecurityDeleteUserFunc(t Transport) XPackSecurityDeleteUser {
 //
 type XPackSecurityDeleteUser func(username string, o ...func(*XPackSecurityDeleteUserRequest)) (*Response, error)
 
-// XPackSecurityDeleteUserRequest configures the Xpack Security  Delete User API request.
+// XPackSecurityDeleteUserRequest configures the X Pack Security Delete User API request.
 //
 type XPackSecurityDeleteUserRequest struct {
 	Username string

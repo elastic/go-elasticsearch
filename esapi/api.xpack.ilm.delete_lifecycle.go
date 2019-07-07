@@ -24,7 +24,7 @@ func newILMDeleteLifecycleFunc(t Transport) ILMDeleteLifecycle {
 //
 type ILMDeleteLifecycle func(o ...func(*ILMDeleteLifecycleRequest)) (*Response, error)
 
-// ILMDeleteLifecycleRequest configures the Ilm  Delete Lifecycle API request.
+// ILMDeleteLifecycleRequest configures the ILM Delete Lifecycle API request.
 //
 type ILMDeleteLifecycleRequest struct {
 	Policy string

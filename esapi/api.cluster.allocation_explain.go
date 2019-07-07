@@ -28,7 +28,7 @@ func newClusterAllocationExplainFunc(t Transport) ClusterAllocationExplain {
 //
 type ClusterAllocationExplain func(o ...func(*ClusterAllocationExplainRequest)) (*Response, error)
 
-// ClusterAllocationExplainRequest configures the Cluster  Allocation Explain API request.
+// ClusterAllocationExplainRequest configures the Cluster Allocation Explain API request.
 //
 type ClusterAllocationExplainRequest struct {
 	Body io.Reader

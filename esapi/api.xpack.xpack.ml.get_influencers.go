@@ -27,7 +27,7 @@ func newXPackMLGetInfluencersFunc(t Transport) XPackMLGetInfluencers {
 //
 type XPackMLGetInfluencers func(job_id string, o ...func(*XPackMLGetInfluencersRequest)) (*Response, error)
 
-// XPackMLGetInfluencersRequest configures the Xpack Ml  Get Influencers API request.
+// XPackMLGetInfluencersRequest configures the X PackML Get Influencers API request.
 //
 type XPackMLGetInfluencersRequest struct {
 	Body io.Reader

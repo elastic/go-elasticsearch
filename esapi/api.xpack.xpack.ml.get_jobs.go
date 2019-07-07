@@ -25,7 +25,7 @@ func newXPackMLGetJobsFunc(t Transport) XPackMLGetJobs {
 //
 type XPackMLGetJobs func(o ...func(*XPackMLGetJobsRequest)) (*Response, error)
 
-// XPackMLGetJobsRequest configures the Xpack Ml  Get Jobs API request.
+// XPackMLGetJobsRequest configures the X PackML Get Jobs API request.
 //
 type XPackMLGetJobsRequest struct {
 	JobID string

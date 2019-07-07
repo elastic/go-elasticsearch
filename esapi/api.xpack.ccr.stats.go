@@ -24,7 +24,7 @@ func newCCRStatsFunc(t Transport) CCRStats {
 //
 type CCRStats func(o ...func(*CCRStatsRequest)) (*Response, error)
 
-// CCRStatsRequest configures the Ccr Stats API request.
+// CCRStatsRequest configures the CCR Stats API request.
 //
 type CCRStatsRequest struct {
 	Pretty     bool

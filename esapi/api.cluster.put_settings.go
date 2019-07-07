@@ -29,7 +29,7 @@ func newClusterPutSettingsFunc(t Transport) ClusterPutSettings {
 //
 type ClusterPutSettings func(body io.Reader, o ...func(*ClusterPutSettingsRequest)) (*Response, error)
 
-// ClusterPutSettingsRequest configures the Cluster  Put Settings API request.
+// ClusterPutSettingsRequest configures the Cluster Put Settings API request.
 //
 type ClusterPutSettingsRequest struct {
 	Body io.Reader

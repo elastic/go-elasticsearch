@@ -26,7 +26,7 @@ func newXPackGraphExploreFunc(t Transport) XPackGraphExplore {
 //
 type XPackGraphExplore func(o ...func(*XPackGraphExploreRequest)) (*Response, error)
 
-// XPackGraphExploreRequest configures the Xpack Graph Explore API request.
+// XPackGraphExploreRequest configures the X Pack Graph Explore API request.
 //
 type XPackGraphExploreRequest struct {
 	Index        []string

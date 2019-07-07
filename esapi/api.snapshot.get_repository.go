@@ -28,7 +28,7 @@ func newSnapshotGetRepositoryFunc(t Transport) SnapshotGetRepository {
 //
 type SnapshotGetRepository func(o ...func(*SnapshotGetRepositoryRequest)) (*Response, error)
 
-// SnapshotGetRepositoryRequest configures the Snapshot  Get Repository API request.
+// SnapshotGetRepositoryRequest configures the Snapshot Get Repository API request.
 //
 type SnapshotGetRepositoryRequest struct {
 	Repository []string

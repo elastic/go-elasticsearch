@@ -24,7 +24,7 @@ func newXPackMLDeleteCalendarFunc(t Transport) XPackMLDeleteCalendar {
 //
 type XPackMLDeleteCalendar func(calendar_id string, o ...func(*XPackMLDeleteCalendarRequest)) (*Response, error)
 
-// XPackMLDeleteCalendarRequest configures the Xpack Ml  Delete Calendar API request.
+// XPackMLDeleteCalendarRequest configures the X PackML Delete Calendar API request.
 //
 type XPackMLDeleteCalendarRequest struct {
 	CalendarID string

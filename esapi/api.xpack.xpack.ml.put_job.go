@@ -25,7 +25,7 @@ func newXPackMLPutJobFunc(t Transport) XPackMLPutJob {
 //
 type XPackMLPutJob func(job_id string, body io.Reader, o ...func(*XPackMLPutJobRequest)) (*Response, error)
 
-// XPackMLPutJobRequest configures the Xpack Ml  Put Job API request.
+// XPackMLPutJobRequest configures the X PackML Put Job API request.
 //
 type XPackMLPutJobRequest struct {
 	Body io.Reader

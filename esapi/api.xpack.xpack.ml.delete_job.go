@@ -25,7 +25,7 @@ func newXPackMLDeleteJobFunc(t Transport) XPackMLDeleteJob {
 //
 type XPackMLDeleteJob func(job_id string, o ...func(*XPackMLDeleteJobRequest)) (*Response, error)
 
-// XPackMLDeleteJobRequest configures the Xpack Ml  Delete Job API request.
+// XPackMLDeleteJobRequest configures the X PackML Delete Job API request.
 //
 type XPackMLDeleteJobRequest struct {
 	JobID string

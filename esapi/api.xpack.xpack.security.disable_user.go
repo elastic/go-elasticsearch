@@ -24,7 +24,7 @@ func newXPackSecurityDisableUserFunc(t Transport) XPackSecurityDisableUser {
 //
 type XPackSecurityDisableUser func(username string, o ...func(*XPackSecurityDisableUserRequest)) (*Response, error)
 
-// XPackSecurityDisableUserRequest configures the Xpack Security  Disable User API request.
+// XPackSecurityDisableUserRequest configures the X Pack Security Disable User API request.
 //
 type XPackSecurityDisableUserRequest struct {
 	Username string

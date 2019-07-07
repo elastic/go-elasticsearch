@@ -27,7 +27,7 @@ func newXPackMLFindFileStructureFunc(t Transport) XPackMLFindFileStructure {
 //
 type XPackMLFindFileStructure func(body io.Reader, o ...func(*XPackMLFindFileStructureRequest)) (*Response, error)
 
-// XPackMLFindFileStructureRequest configures the Xpack Ml   Find File Structure API request.
+// XPackMLFindFileStructureRequest configures the X PackML Find File Structure API request.
 //
 type XPackMLFindFileStructureRequest struct {
 	Body io.Reader

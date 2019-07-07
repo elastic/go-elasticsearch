@@ -25,7 +25,7 @@ func newXPackMLPostCalendarEventsFunc(t Transport) XPackMLPostCalendarEvents {
 //
 type XPackMLPostCalendarEvents func(calendar_id string, body io.Reader, o ...func(*XPackMLPostCalendarEventsRequest)) (*Response, error)
 
-// XPackMLPostCalendarEventsRequest configures the Xpack Ml   Post Calendar Events API request.
+// XPackMLPostCalendarEventsRequest configures the X PackML Post Calendar Events API request.
 //
 type XPackMLPostCalendarEventsRequest struct {
 	Body io.Reader

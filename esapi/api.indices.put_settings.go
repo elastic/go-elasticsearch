@@ -29,7 +29,7 @@ func newIndicesPutSettingsFunc(t Transport) IndicesPutSettings {
 //
 type IndicesPutSettings func(body io.Reader, o ...func(*IndicesPutSettingsRequest)) (*Response, error)
 
-// IndicesPutSettingsRequest configures the Indices  Put Settings API request.
+// IndicesPutSettingsRequest configures the Indices Put Settings API request.
 //
 type IndicesPutSettingsRequest struct {
 	Index []string

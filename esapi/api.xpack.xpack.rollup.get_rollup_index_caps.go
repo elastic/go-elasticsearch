@@ -24,7 +24,7 @@ func newXPackRollupGetRollupIndexCapsFunc(t Transport) XPackRollupGetRollupIndex
 //
 type XPackRollupGetRollupIndexCaps func(index string, o ...func(*XPackRollupGetRollupIndexCapsRequest)) (*Response, error)
 
-// XPackRollupGetRollupIndexCapsRequest configures the Xpack Rollup    Get Rollup Index Caps API request.
+// XPackRollupGetRollupIndexCapsRequest configures the X Pack Rollup Get Rollup Index Caps API request.
 //
 type XPackRollupGetRollupIndexCapsRequest struct {
 	Index string

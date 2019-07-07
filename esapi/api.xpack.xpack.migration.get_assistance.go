@@ -25,7 +25,7 @@ func newXPackMigrationGetAssistanceFunc(t Transport) XPackMigrationGetAssistance
 //
 type XPackMigrationGetAssistance func(o ...func(*XPackMigrationGetAssistanceRequest)) (*Response, error)
 
-// XPackMigrationGetAssistanceRequest configures the Xpack Migration  Get Assistance API request.
+// XPackMigrationGetAssistanceRequest configures the X Pack Migration Get Assistance API request.
 //
 type XPackMigrationGetAssistanceRequest struct {
 	Index []string

@@ -24,7 +24,7 @@ func newXPackMLDeleteExpiredDataFunc(t Transport) XPackMLDeleteExpiredData {
 //
 type XPackMLDeleteExpiredData func(o ...func(*XPackMLDeleteExpiredDataRequest)) (*Response, error)
 
-// XPackMLDeleteExpiredDataRequest configures the Xpack Ml   Delete Expired Data API request.
+// XPackMLDeleteExpiredDataRequest configures the X PackML Delete Expired Data API request.
 //
 type XPackMLDeleteExpiredDataRequest struct {
 	Pretty     bool

@@ -26,7 +26,7 @@ func newXPackMLDeleteForecastFunc(t Transport) XPackMLDeleteForecast {
 //
 type XPackMLDeleteForecast func(job_id string, o ...func(*XPackMLDeleteForecastRequest)) (*Response, error)
 
-// XPackMLDeleteForecastRequest configures the Xpack Ml  Delete Forecast API request.
+// XPackMLDeleteForecastRequest configures the X PackML Delete Forecast API request.
 //
 type XPackMLDeleteForecastRequest struct {
 	ForecastID string

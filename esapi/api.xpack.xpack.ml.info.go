@@ -24,7 +24,7 @@ func newXPackMLInfoFunc(t Transport) XPackMLInfo {
 //
 type XPackMLInfo func(o ...func(*XPackMLInfoRequest)) (*Response, error)
 
-// XPackMLInfoRequest configures the Xpack Ml Info API request.
+// XPackMLInfoRequest configures the X PackML Info API request.
 //
 type XPackMLInfoRequest struct {
 	Pretty     bool

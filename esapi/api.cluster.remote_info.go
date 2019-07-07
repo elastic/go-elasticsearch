@@ -26,7 +26,7 @@ func newClusterRemoteInfoFunc(t Transport) ClusterRemoteInfo {
 //
 type ClusterRemoteInfo func(o ...func(*ClusterRemoteInfoRequest)) (*Response, error)
 
-// ClusterRemoteInfoRequest configures the Cluster  Remote Info API request.
+// ClusterRemoteInfoRequest configures the Cluster Remote Info API request.
 //
 type ClusterRemoteInfoRequest struct {
 	Pretty     bool

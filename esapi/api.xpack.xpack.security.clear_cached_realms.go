@@ -24,7 +24,7 @@ func newXPackSecurityClearCachedRealmsFunc(t Transport) XPackSecurityClearCached
 //
 type XPackSecurityClearCachedRealms func(realms []string, o ...func(*XPackSecurityClearCachedRealmsRequest)) (*Response, error)
 
-// XPackSecurityClearCachedRealmsRequest configures the Xpack Security   Clear Cached Realms API request.
+// XPackSecurityClearCachedRealmsRequest configures the X Pack Security Clear Cached Realms API request.
 //
 type XPackSecurityClearCachedRealmsRequest struct {
 	Realms []string

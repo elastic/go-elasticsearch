@@ -28,7 +28,7 @@ func newCatPendingTasksFunc(t Transport) CatPendingTasks {
 //
 type CatPendingTasks func(o ...func(*CatPendingTasksRequest)) (*Response, error)
 
-// CatPendingTasksRequest configures the Cat  Pending Tasks API request.
+// CatPendingTasksRequest configures the Cat Pending Tasks API request.
 //
 type CatPendingTasksRequest struct {
 	Format        string

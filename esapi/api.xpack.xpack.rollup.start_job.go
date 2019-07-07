@@ -24,7 +24,7 @@ func newXPackRollupStartJobFunc(t Transport) XPackRollupStartJob {
 //
 type XPackRollupStartJob func(id string, o ...func(*XPackRollupStartJobRequest)) (*Response, error)
 
-// XPackRollupStartJobRequest configures the Xpack Rollup  Start Job API request.
+// XPackRollupStartJobRequest configures the X Pack Rollup Start Job API request.
 //
 type XPackRollupStartJobRequest struct {
 	DocumentID string

@@ -24,7 +24,7 @@ func newXPackSSLCertificatesFunc(t Transport) XPackSSLCertificates {
 //
 type XPackSSLCertificates func(o ...func(*XPackSSLCertificatesRequest)) (*Response, error)
 
-// XPackSSLCertificatesRequest configures the Xpack Ssl Certificates API request.
+// XPackSSLCertificatesRequest configures the X PackSSL Certificates API request.
 //
 type XPackSSLCertificatesRequest struct {
 	Pretty     bool

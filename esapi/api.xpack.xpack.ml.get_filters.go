@@ -25,7 +25,7 @@ func newXPackMLGetFiltersFunc(t Transport) XPackMLGetFilters {
 //
 type XPackMLGetFilters func(o ...func(*XPackMLGetFiltersRequest)) (*Response, error)
 
-// XPackMLGetFiltersRequest configures the Xpack Ml  Get Filters API request.
+// XPackMLGetFiltersRequest configures the X PackML Get Filters API request.
 //
 type XPackMLGetFiltersRequest struct {
 	FilterID string

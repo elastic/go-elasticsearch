@@ -26,7 +26,7 @@ func newXPackMLSetUpgradeModeFunc(t Transport) XPackMLSetUpgradeMode {
 //
 type XPackMLSetUpgradeMode func(o ...func(*XPackMLSetUpgradeModeRequest)) (*Response, error)
 
-// XPackMLSetUpgradeModeRequest configures the Xpack Ml   Set Upgrade Mode API request.
+// XPackMLSetUpgradeModeRequest configures the X PackML Set Upgrade Mode API request.
 //
 type XPackMLSetUpgradeModeRequest struct {
 	Enabled *bool

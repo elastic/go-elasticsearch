@@ -24,7 +24,7 @@ func newXPackMigrationDeprecationsFunc(t Transport) XPackMigrationDeprecations {
 //
 type XPackMigrationDeprecations func(o ...func(*XPackMigrationDeprecationsRequest)) (*Response, error)
 
-// XPackMigrationDeprecationsRequest configures the Xpack Migration Deprecations API request.
+// XPackMigrationDeprecationsRequest configures the X Pack Migration Deprecations API request.
 //
 type XPackMigrationDeprecationsRequest struct {
 	Index string

@@ -24,7 +24,7 @@ func newXPackWatcherGetWatchFunc(t Transport) XPackWatcherGetWatch {
 //
 type XPackWatcherGetWatch func(id string, o ...func(*XPackWatcherGetWatchRequest)) (*Response, error)
 
-// XPackWatcherGetWatchRequest configures the Xpack Watcher  Get Watch API request.
+// XPackWatcherGetWatchRequest configures the X Pack Watcher Get Watch API request.
 //
 type XPackWatcherGetWatchRequest struct {
 	DocumentID string

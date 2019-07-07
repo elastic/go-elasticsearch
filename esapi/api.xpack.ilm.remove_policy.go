@@ -24,7 +24,7 @@ func newILMRemovePolicyFunc(t Transport) ILMRemovePolicy {
 //
 type ILMRemovePolicy func(o ...func(*ILMRemovePolicyRequest)) (*Response, error)
 
-// ILMRemovePolicyRequest configures the Ilm  Remove Policy API request.
+// ILMRemovePolicyRequest configures the ILM Remove Policy API request.
 //
 type ILMRemovePolicyRequest struct {
 	Index string

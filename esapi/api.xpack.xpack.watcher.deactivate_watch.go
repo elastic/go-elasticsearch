@@ -25,7 +25,7 @@ func newXPackWatcherDeactivateWatchFunc(t Transport) XPackWatcherDeactivateWatch
 //
 type XPackWatcherDeactivateWatch func(watch_id string, o ...func(*XPackWatcherDeactivateWatchRequest)) (*Response, error)
 
-// XPackWatcherDeactivateWatchRequest configures the Xpack Watcher  Deactivate Watch API request.
+// XPackWatcherDeactivateWatchRequest configures the X Pack Watcher Deactivate Watch API request.
 //
 type XPackWatcherDeactivateWatchRequest struct {
 	WatchID string

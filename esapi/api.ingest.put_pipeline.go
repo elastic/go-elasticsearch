@@ -12,7 +12,7 @@ import (
 
 func newIngestPutPipelineFunc(t Transport) IngestPutPipeline {
 	return func(id string, body io.Reader, o ...func(*IngestPutPipelineRequest)) (*Response, error) {
-		var r = IngestPutPipelineRequest{DocumentID: id, Body: body}
+		var r = IngestPutPipelineRequest{PipelineID: id, Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -28,10 +28,10 @@ func newIngestPutPipelineFunc(t Transport) IngestPutPipeline {
 //
 type IngestPutPipeline func(id string, body io.Reader, o ...func(*IngestPutPipelineRequest)) (*Response, error)
 
-// IngestPutPipelineRequest configures the Ingest  Put Pipeline API request.
+// IngestPutPipelineRequest configures the Ingest Put Pipeline API request.
 //
 type IngestPutPipelineRequest struct {
-	DocumentID string
+	PipelineID string
 
 	Body io.Reader
 
@@ -59,13 +59,13 @@ func (r IngestPutPipelineRequest) Do(ctx context.Context, transport Transport) (
 
 	method = "PUT"
 
-	path.Grow(1 + len("_ingest") + 1 + len("pipeline") + 1 + len(r.DocumentID))
+	path.Grow(1 + len("_ingest") + 1 + len("pipeline") + 1 + len(r.PipelineID))
 	path.WriteString("/")
 	path.WriteString("_ingest")
 	path.WriteString("/")
 	path.WriteString("pipeline")
 	path.WriteString("/")
-	path.WriteString(r.DocumentID)
+	path.WriteString(r.PipelineID)
 
 	params = make(map[string]string)
 
