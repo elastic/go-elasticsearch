@@ -481,7 +481,7 @@ func (g *Generator) genXPackSetup() {
 
 			{
 				var r map[string]interface{}
-				res, _ = es.Rollup.GetJobs(es.Rollup.GetJobs.WithDocumentID("_all"))
+				res, _ = es.Rollup.GetJobs(es.Rollup.GetJobs.WithJobID("_all"))
 				if res != nil && res.Body != nil {
 					defer res.Body.Close()
 					json.NewDecoder(res.Body).Decode(&r)
