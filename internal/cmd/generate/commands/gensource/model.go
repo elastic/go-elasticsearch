@@ -273,6 +273,7 @@ func (e *Endpoint) RequiredArguments() []MethodArgument {
 			}
 			if p.Required {
 				args = append(args, MethodArgument{
+					Endpoint:    e,
 					Name:        p.Name,
 					Type:        p.Type,
 					Description: p.Description,
@@ -282,6 +283,7 @@ func (e *Endpoint) RequiredArguments() []MethodArgument {
 			// Make the 'type' required for selected APIs
 			if p.Name == "type" && (e.Name == "index" || e.Name == "create") {
 				args = append(args, MethodArgument{
+					Endpoint:    e,
 					Name:        p.Name,
 					Type:        p.Type,
 					Description: p.Description,
@@ -294,6 +296,7 @@ func (e *Endpoint) RequiredArguments() []MethodArgument {
 	// Return the body after prominent arguments
 	if e.Body != nil && e.Body.Required {
 		args = append(args, MethodArgument{
+			Endpoint:    e,
 			Name:        "body",
 			Description: e.Body.Description,
 		})
@@ -306,6 +309,7 @@ func (e *Endpoint) RequiredArguments() []MethodArgument {
 		}
 		if p.Required {
 			args = append(args, MethodArgument{
+				Endpoint:    e,
 				Name:        p.Name,
 				Type:        p.Type,
 				Description: p.Description,
@@ -321,6 +325,7 @@ func (e *Endpoint) RequiredArguments() []MethodArgument {
 		}
 		if p.Required {
 			args = append(args, MethodArgument{
+				Endpoint:    e,
 				Name:        p.Name,
 				Type:        p.Type,
 				Description: p.Description,
