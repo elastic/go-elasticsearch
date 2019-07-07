@@ -172,7 +172,6 @@ func (g *Generator) genRequestStruct() {
 // ` + g.Endpoint.MethodWithNamespace() + `Request configures the ` + g.Endpoint.HumanMethodWithNamespace() + ` API request.
 //
 type ` + g.Endpoint.MethodWithNamespace() + `Request struct {`)
-
 	specialFields := []string{"index", "type", "id"}
 	for _, n := range specialFields {
 		if param, ok := g.Endpoint.URL.Parts[n]; ok {
