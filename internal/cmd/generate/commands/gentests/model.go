@@ -392,7 +392,7 @@ func (a Action) Params() map[string]interface{} {
 			// TODO: Properly handle ignoring status codes
 			continue
 		default:
-			kk = utils.NameToGo(k.(string))
+			kk = utils.NameToGo(k.(string), utils.APIToGo(a.method))
 		}
 		switch v.(type) {
 		case bool:
