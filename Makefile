@@ -180,6 +180,39 @@ endif
 		done; \
 	}
 
+release: ## Release a new version to Github
+ifndef version
+	@echo "Missing version argument, exiting..."
+	@exit 2
+endif
+ifeq ($(version), "")
+	@echo "Empty version argument, exiting..."
+	@exit 2
+endif
+	@echo "\033[2m→ Creating version $(version)...\033[0m"
+	@{ \
+		cp internal/version/version.go internal/version/version.go.OLD && \
+		cat internal/version/version.go.OLD | sed -e 's/Client = ".*"/Client = "$(version)"/' > internal/version/version.go && \
+		rm internal/version/version.go.OLD && \
+		go vet internal/version/version.go && \
+		go fmt internal/version/version.go && \
+		git diff --color-words internal/version/version.go | tail -n 1; \
+	}
+	@{ \
+		echo "\033[2m→ Commit and create Git tag? (y/n): \033[0m\c"; \
+		read continue; \
+		if [[ $$continue == "y" ]]; then \
+			git add internal/version/version.go && \
+			git commit --no-status --quiet --message "Release $(version)" && \
+			git tag --annotate v$(version) --message 'Release $(version)'; \
+			echo "\033[2m→ Push `git show --pretty='%h (%s)' --no-patch HEAD` to Github:\033[0m\n"; \
+			echo "\033[1m  git push origin v$(version)\033[0m\n"; \
+		else \
+			echo "Aborting..."; \
+			exit 1; \
+		fi; \
+	}
+
 godoc: ## Display documentation for the package
 	@echo "\033[2m→ Generating documentation...\033[0m"
 	@echo "open http://localhost:6060/pkg/github.com/elastic/go-elasticsearch/\n"
@@ -345,4 +378,4 @@ help:  ## Display help
 #------------- <https://suva.sh/posts/well-documented-makefiles> --------------
 
 .DEFAULT_GOAL := help
-.PHONY: help apidiff backport cluster cluster-clean cluster-update coverage docker examples gen-api gen-tests godoc lint test test-api test-bench test-integ test-unit
+.PHONY: help apidiff backport cluster cluster-clean cluster-update coverage docker examples gen-api gen-tests godoc lint release test test-api test-bench test-integ test-unit
