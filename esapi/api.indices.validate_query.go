@@ -28,7 +28,7 @@ func newIndicesValidateQueryFunc(t Transport) IndicesValidateQuery {
 //
 type IndicesValidateQuery func(o ...func(*IndicesValidateQueryRequest)) (*Response, error)
 
-// IndicesValidateQueryRequest configures the Indices  Validate Query API request.
+// IndicesValidateQueryRequest configures the Indices Validate Query API request.
 //
 type IndicesValidateQueryRequest struct {
 	Index        []string

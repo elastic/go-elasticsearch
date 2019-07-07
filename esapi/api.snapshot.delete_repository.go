@@ -27,7 +27,7 @@ func newSnapshotDeleteRepositoryFunc(t Transport) SnapshotDeleteRepository {
 //
 type SnapshotDeleteRepository func(repository []string, o ...func(*SnapshotDeleteRepositoryRequest)) (*Response, error)
 
-// SnapshotDeleteRepositoryRequest configures the Snapshot  Delete Repository API request.
+// SnapshotDeleteRepositoryRequest configures the Snapshot Delete Repository API request.
 //
 type SnapshotDeleteRepositoryRequest struct {
 	Repository []string

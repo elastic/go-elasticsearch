@@ -11,7 +11,7 @@ import (
 
 func newDeleteScriptFunc(t Transport) DeleteScript {
 	return func(id string, o ...func(*DeleteScriptRequest)) (*Response, error) {
-		var r = DeleteScriptRequest{DocumentID: id}
+		var r = DeleteScriptRequest{ScriptID: id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -30,7 +30,7 @@ type DeleteScript func(id string, o ...func(*DeleteScriptRequest)) (*Response, e
 // DeleteScriptRequest configures the Delete Script API request.
 //
 type DeleteScriptRequest struct {
-	DocumentID string
+	ScriptID string
 
 	MasterTimeout time.Duration
 	Timeout       time.Duration
@@ -56,11 +56,11 @@ func (r DeleteScriptRequest) Do(ctx context.Context, transport Transport) (*Resp
 
 	method = "DELETE"
 
-	path.Grow(1 + len("_scripts") + 1 + len(r.DocumentID))
+	path.Grow(1 + len("_scripts") + 1 + len(r.ScriptID))
 	path.WriteString("/")
 	path.WriteString("_scripts")
 	path.WriteString("/")
-	path.WriteString(r.DocumentID)
+	path.WriteString(r.ScriptID)
 
 	params = make(map[string]string)
 

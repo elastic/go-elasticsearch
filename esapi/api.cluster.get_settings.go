@@ -28,7 +28,7 @@ func newClusterGetSettingsFunc(t Transport) ClusterGetSettings {
 //
 type ClusterGetSettings func(o ...func(*ClusterGetSettingsRequest)) (*Response, error)
 
-// ClusterGetSettingsRequest configures the Cluster  Get Settings API request.
+// ClusterGetSettingsRequest configures the Cluster Get Settings API request.
 //
 type ClusterGetSettingsRequest struct {
 	FlatSettings    *bool
