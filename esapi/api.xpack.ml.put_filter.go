@@ -25,7 +25,7 @@ func newMLPutFilterFunc(t Transport) MLPutFilter {
 //
 type MLPutFilter func(body io.Reader, filter_id string, o ...func(*MLPutFilterRequest)) (*Response, error)
 
-// MLPutFilterRequest configures the Ml  Put Filter API request.
+// MLPutFilterRequest configures the ML Put Filter API request.
 //
 type MLPutFilterRequest struct {
 	Body io.Reader

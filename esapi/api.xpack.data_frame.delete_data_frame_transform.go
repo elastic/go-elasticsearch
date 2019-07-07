@@ -24,7 +24,7 @@ func newDataFrameDeleteDataFrameTransformFunc(t Transport) DataFrameDeleteDataFr
 //
 type DataFrameDeleteDataFrameTransform func(transform_id string, o ...func(*DataFrameDeleteDataFrameTransformRequest)) (*Response, error)
 
-// DataFrameDeleteDataFrameTransformRequest configures the Data Frame    Delete Data Frame Transform API request.
+// DataFrameDeleteDataFrameTransformRequest configures the Data Frame Delete Data Frame Transform API request.
 //
 type DataFrameDeleteDataFrameTransformRequest struct {
 	TransformID string

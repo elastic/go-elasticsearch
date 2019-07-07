@@ -13,7 +13,7 @@ import (
 
 func newMLStopDataFrameAnalyticsFunc(t Transport) MLStopDataFrameAnalytics {
 	return func(id string, o ...func(*MLStopDataFrameAnalyticsRequest)) (*Response, error) {
-		var r = MLStopDataFrameAnalyticsRequest{DocumentID: id}
+		var r = MLStopDataFrameAnalyticsRequest{ID: id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -23,14 +23,14 @@ func newMLStopDataFrameAnalyticsFunc(t Transport) MLStopDataFrameAnalytics {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLStopDataFrameAnalytics -
+// MLStopDataFrameAnalytics - http://www.elastic.co/guide/en/elasticsearch/reference/current/stop-dfanalytics.html
 //
 type MLStopDataFrameAnalytics func(id string, o ...func(*MLStopDataFrameAnalyticsRequest)) (*Response, error)
 
-// MLStopDataFrameAnalyticsRequest configures the Ml    Stop Data Frame Analytics API request.
+// MLStopDataFrameAnalyticsRequest configures the ML Stop Data Frame Analytics API request.
 //
 type MLStopDataFrameAnalyticsRequest struct {
-	DocumentID string
+	ID string
 
 	Body io.Reader
 
@@ -59,7 +59,7 @@ func (r MLStopDataFrameAnalyticsRequest) Do(ctx context.Context, transport Trans
 
 	method = "POST"
 
-	path.Grow(1 + len("_ml") + 1 + len("data_frame") + 1 + len("analytics") + 1 + len(r.DocumentID) + 1 + len("_stop"))
+	path.Grow(1 + len("_ml") + 1 + len("data_frame") + 1 + len("analytics") + 1 + len(r.ID) + 1 + len("_stop"))
 	path.WriteString("/")
 	path.WriteString("_ml")
 	path.WriteString("/")
@@ -67,7 +67,7 @@ func (r MLStopDataFrameAnalyticsRequest) Do(ctx context.Context, transport Trans
 	path.WriteString("/")
 	path.WriteString("analytics")
 	path.WriteString("/")
-	path.WriteString(r.DocumentID)
+	path.WriteString(r.ID)
 	path.WriteString("/")
 	path.WriteString("_stop")
 

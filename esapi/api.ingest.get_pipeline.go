@@ -27,10 +27,10 @@ func newIngestGetPipelineFunc(t Transport) IngestGetPipeline {
 //
 type IngestGetPipeline func(o ...func(*IngestGetPipelineRequest)) (*Response, error)
 
-// IngestGetPipelineRequest configures the Ingest  Get Pipeline API request.
+// IngestGetPipelineRequest configures the Ingest Get Pipeline API request.
 //
 type IngestGetPipelineRequest struct {
-	DocumentID string
+	PipelineID string
 
 	MasterTimeout time.Duration
 
@@ -55,14 +55,14 @@ func (r IngestGetPipelineRequest) Do(ctx context.Context, transport Transport) (
 
 	method = "GET"
 
-	path.Grow(1 + len("_ingest") + 1 + len("pipeline") + 1 + len(r.DocumentID))
+	path.Grow(1 + len("_ingest") + 1 + len("pipeline") + 1 + len(r.PipelineID))
 	path.WriteString("/")
 	path.WriteString("_ingest")
 	path.WriteString("/")
 	path.WriteString("pipeline")
-	if r.DocumentID != "" {
+	if r.PipelineID != "" {
 		path.WriteString("/")
-		path.WriteString(r.DocumentID)
+		path.WriteString(r.PipelineID)
 	}
 
 	params = make(map[string]string)
@@ -135,11 +135,11 @@ func (f IngestGetPipeline) WithContext(v context.Context) func(*IngestGetPipelin
 	}
 }
 
-// WithDocumentID - comma separated list of pipeline ids. wildcards supported.
+// WithPipelineID - comma separated list of pipeline ids. wildcards supported.
 //
-func (f IngestGetPipeline) WithDocumentID(v string) func(*IngestGetPipelineRequest) {
+func (f IngestGetPipeline) WithPipelineID(v string) func(*IngestGetPipelineRequest) {
 	return func(r *IngestGetPipelineRequest) {
-		r.DocumentID = v
+		r.PipelineID = v
 	}
 }
 

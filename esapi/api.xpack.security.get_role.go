@@ -24,7 +24,7 @@ func newSecurityGetRoleFunc(t Transport) SecurityGetRole {
 //
 type SecurityGetRole func(o ...func(*SecurityGetRoleRequest)) (*Response, error)
 
-// SecurityGetRoleRequest configures the Security  Get Role API request.
+// SecurityGetRoleRequest configures the Security Get Role API request.
 //
 type SecurityGetRoleRequest struct {
 	Name string

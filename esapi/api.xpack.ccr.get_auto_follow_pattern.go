@@ -24,7 +24,7 @@ func newCCRGetAutoFollowPatternFunc(t Transport) CCRGetAutoFollowPattern {
 //
 type CCRGetAutoFollowPattern func(o ...func(*CCRGetAutoFollowPatternRequest)) (*Response, error)
 
-// CCRGetAutoFollowPatternRequest configures the Ccr    Get Auto Follow Pattern API request.
+// CCRGetAutoFollowPatternRequest configures the CCR Get Auto Follow Pattern API request.
 //
 type CCRGetAutoFollowPatternRequest struct {
 	Name string

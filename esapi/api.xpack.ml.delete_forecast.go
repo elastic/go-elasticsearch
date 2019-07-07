@@ -26,7 +26,7 @@ func newMLDeleteForecastFunc(t Transport) MLDeleteForecast {
 //
 type MLDeleteForecast func(job_id string, o ...func(*MLDeleteForecastRequest)) (*Response, error)
 
-// MLDeleteForecastRequest configures the Ml  Delete Forecast API request.
+// MLDeleteForecastRequest configures the ML Delete Forecast API request.
 //
 type MLDeleteForecastRequest struct {
 	ForecastID string

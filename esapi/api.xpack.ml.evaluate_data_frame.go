@@ -21,11 +21,11 @@ func newMLEvaluateDataFrameFunc(t Transport) MLEvaluateDataFrame {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLEvaluateDataFrame -
+// MLEvaluateDataFrame - http://www.elastic.co/guide/en/elasticsearch/reference/current/evaluate-dfanalytics.html
 //
 type MLEvaluateDataFrame func(body io.Reader, o ...func(*MLEvaluateDataFrameRequest)) (*Response, error)
 
-// MLEvaluateDataFrameRequest configures the Ml   Evaluate Data Frame API request.
+// MLEvaluateDataFrameRequest configures the ML Evaluate Data Frame API request.
 //
 type MLEvaluateDataFrameRequest struct {
 	Body io.Reader

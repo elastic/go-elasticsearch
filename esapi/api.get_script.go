@@ -11,7 +11,7 @@ import (
 
 func newGetScriptFunc(t Transport) GetScript {
 	return func(id string, o ...func(*GetScriptRequest)) (*Response, error) {
-		var r = GetScriptRequest{DocumentID: id}
+		var r = GetScriptRequest{ScriptID: id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -30,7 +30,7 @@ type GetScript func(id string, o ...func(*GetScriptRequest)) (*Response, error)
 // GetScriptRequest configures the Get Script API request.
 //
 type GetScriptRequest struct {
-	DocumentID string
+	ScriptID string
 
 	MasterTimeout time.Duration
 
@@ -55,11 +55,11 @@ func (r GetScriptRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 	method = "GET"
 
-	path.Grow(1 + len("_scripts") + 1 + len(r.DocumentID))
+	path.Grow(1 + len("_scripts") + 1 + len(r.ScriptID))
 	path.WriteString("/")
 	path.WriteString("_scripts")
 	path.WriteString("/")
-	path.WriteString(r.DocumentID)
+	path.WriteString(r.ScriptID)
 
 	params = make(map[string]string)
 

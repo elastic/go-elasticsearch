@@ -24,10 +24,10 @@ func newRollupGetJobsFunc(t Transport) RollupGetJobs {
 //
 type RollupGetJobs func(o ...func(*RollupGetJobsRequest)) (*Response, error)
 
-// RollupGetJobsRequest configures the Rollup  Get Jobs API request.
+// RollupGetJobsRequest configures the Rollup Get Jobs API request.
 //
 type RollupGetJobsRequest struct {
-	DocumentID string
+	JobID string
 
 	Pretty     bool
 	Human      bool
@@ -50,14 +50,14 @@ func (r RollupGetJobsRequest) Do(ctx context.Context, transport Transport) (*Res
 
 	method = "GET"
 
-	path.Grow(1 + len("_rollup") + 1 + len("job") + 1 + len(r.DocumentID))
+	path.Grow(1 + len("_rollup") + 1 + len("job") + 1 + len(r.JobID))
 	path.WriteString("/")
 	path.WriteString("_rollup")
 	path.WriteString("/")
 	path.WriteString("job")
-	if r.DocumentID != "" {
+	if r.JobID != "" {
 		path.WriteString("/")
-		path.WriteString(r.DocumentID)
+		path.WriteString(r.JobID)
 	}
 
 	params = make(map[string]string)
@@ -126,11 +126,11 @@ func (f RollupGetJobs) WithContext(v context.Context) func(*RollupGetJobsRequest
 	}
 }
 
-// WithDocumentID - the ID of the job(s) to fetch. accepts glob patterns, or left blank for all jobs.
+// WithJobID - the ID of the job(s) to fetch. accepts glob patterns, or left blank for all jobs.
 //
-func (f RollupGetJobs) WithDocumentID(v string) func(*RollupGetJobsRequest) {
+func (f RollupGetJobs) WithJobID(v string) func(*RollupGetJobsRequest) {
 	return func(r *RollupGetJobsRequest) {
-		r.DocumentID = v
+		r.JobID = v
 	}
 }
 

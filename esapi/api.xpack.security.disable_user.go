@@ -24,7 +24,7 @@ func newSecurityDisableUserFunc(t Transport) SecurityDisableUser {
 //
 type SecurityDisableUser func(username string, o ...func(*SecurityDisableUserRequest)) (*Response, error)
 
-// SecurityDisableUserRequest configures the Security  Disable User API request.
+// SecurityDisableUserRequest configures the Security Disable User API request.
 //
 type SecurityDisableUserRequest struct {
 	Username string

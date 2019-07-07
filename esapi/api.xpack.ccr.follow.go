@@ -25,7 +25,7 @@ func newCCRFollowFunc(t Transport) CCRFollow {
 //
 type CCRFollow func(index string, body io.Reader, o ...func(*CCRFollowRequest)) (*Response, error)
 
-// CCRFollowRequest configures the Ccr Follow API request.
+// CCRFollowRequest configures the CCR Follow API request.
 //
 type CCRFollowRequest struct {
 	Index string

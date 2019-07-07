@@ -28,7 +28,7 @@ func newNodesHotThreadsFunc(t Transport) NodesHotThreads {
 //
 type NodesHotThreads func(o ...func(*NodesHotThreadsRequest)) (*Response, error)
 
-// NodesHotThreadsRequest configures the Nodes  Hot Threads API request.
+// NodesHotThreadsRequest configures the Nodes Hot Threads API request.
 //
 type NodesHotThreadsRequest struct {
 	NodeID []string

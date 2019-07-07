@@ -26,7 +26,7 @@ func newMLSetUpgradeModeFunc(t Transport) MLSetUpgradeMode {
 //
 type MLSetUpgradeMode func(o ...func(*MLSetUpgradeModeRequest)) (*Response, error)
 
-// MLSetUpgradeModeRequest configures the Ml   Set Upgrade Mode API request.
+// MLSetUpgradeModeRequest configures the ML Set Upgrade Mode API request.
 //
 type MLSetUpgradeModeRequest struct {
 	Enabled *bool

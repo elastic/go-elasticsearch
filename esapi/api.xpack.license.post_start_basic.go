@@ -25,7 +25,7 @@ func newLicensePostStartBasicFunc(t Transport) LicensePostStartBasic {
 //
 type LicensePostStartBasic func(o ...func(*LicensePostStartBasicRequest)) (*Response, error)
 
-// LicensePostStartBasicRequest configures the License   Post Start Basic API request.
+// LicensePostStartBasicRequest configures the License Post Start Basic API request.
 //
 type LicensePostStartBasicRequest struct {
 	Acknowledge *bool

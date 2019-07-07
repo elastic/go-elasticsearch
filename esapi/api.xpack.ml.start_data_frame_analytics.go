@@ -12,7 +12,7 @@ import (
 
 func newMLStartDataFrameAnalyticsFunc(t Transport) MLStartDataFrameAnalytics {
 	return func(id string, o ...func(*MLStartDataFrameAnalyticsRequest)) (*Response, error) {
-		var r = MLStartDataFrameAnalyticsRequest{DocumentID: id}
+		var r = MLStartDataFrameAnalyticsRequest{ID: id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -22,14 +22,14 @@ func newMLStartDataFrameAnalyticsFunc(t Transport) MLStartDataFrameAnalytics {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLStartDataFrameAnalytics -
+// MLStartDataFrameAnalytics - http://www.elastic.co/guide/en/elasticsearch/reference/current/start-dfanalytics.html
 //
 type MLStartDataFrameAnalytics func(id string, o ...func(*MLStartDataFrameAnalyticsRequest)) (*Response, error)
 
-// MLStartDataFrameAnalyticsRequest configures the Ml    Start Data Frame Analytics API request.
+// MLStartDataFrameAnalyticsRequest configures the ML Start Data Frame Analytics API request.
 //
 type MLStartDataFrameAnalyticsRequest struct {
-	DocumentID string
+	ID string
 
 	Body io.Reader
 
@@ -56,7 +56,7 @@ func (r MLStartDataFrameAnalyticsRequest) Do(ctx context.Context, transport Tran
 
 	method = "POST"
 
-	path.Grow(1 + len("_ml") + 1 + len("data_frame") + 1 + len("analytics") + 1 + len(r.DocumentID) + 1 + len("_start"))
+	path.Grow(1 + len("_ml") + 1 + len("data_frame") + 1 + len("analytics") + 1 + len(r.ID) + 1 + len("_start"))
 	path.WriteString("/")
 	path.WriteString("_ml")
 	path.WriteString("/")
@@ -64,7 +64,7 @@ func (r MLStartDataFrameAnalyticsRequest) Do(ctx context.Context, transport Tran
 	path.WriteString("/")
 	path.WriteString("analytics")
 	path.WriteString("/")
-	path.WriteString(r.DocumentID)
+	path.WriteString(r.ID)
 	path.WriteString("/")
 	path.WriteString("_start")
 

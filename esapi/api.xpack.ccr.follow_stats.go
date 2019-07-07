@@ -24,7 +24,7 @@ func newCCRFollowStatsFunc(t Transport) CCRFollowStats {
 //
 type CCRFollowStats func(index []string, o ...func(*CCRFollowStatsRequest)) (*Response, error)
 
-// CCRFollowStatsRequest configures the Ccr  Follow Stats API request.
+// CCRFollowStatsRequest configures the CCR Follow Stats API request.
 //
 type CCRFollowStatsRequest struct {
 	Index []string

@@ -25,7 +25,7 @@ func newSQLClearCursorFunc(t Transport) SQLClearCursor {
 //
 type SQLClearCursor func(body io.Reader, o ...func(*SQLClearCursorRequest)) (*Response, error)
 
-// SQLClearCursorRequest configures the Sql  Clear Cursor API request.
+// SQLClearCursorRequest configures the SQL Clear Cursor API request.
 //
 type SQLClearCursorRequest struct {
 	Body io.Reader

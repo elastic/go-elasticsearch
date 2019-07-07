@@ -27,7 +27,7 @@ func newNodesReloadSecureSettingsFunc(t Transport) NodesReloadSecureSettings {
 //
 type NodesReloadSecureSettings func(o ...func(*NodesReloadSecureSettingsRequest)) (*Response, error)
 
-// NodesReloadSecureSettingsRequest configures the Nodes   Reload Secure Settings API request.
+// NodesReloadSecureSettingsRequest configures the Nodes Reload Secure Settings API request.
 //
 type NodesReloadSecureSettingsRequest struct {
 	NodeID []string

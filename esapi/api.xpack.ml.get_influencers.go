@@ -27,7 +27,7 @@ func newMLGetInfluencersFunc(t Transport) MLGetInfluencers {
 //
 type MLGetInfluencers func(job_id string, o ...func(*MLGetInfluencersRequest)) (*Response, error)
 
-// MLGetInfluencersRequest configures the Ml  Get Influencers API request.
+// MLGetInfluencersRequest configures the ML Get Influencers API request.
 //
 type MLGetInfluencersRequest struct {
 	Body io.Reader

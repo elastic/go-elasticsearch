@@ -26,7 +26,7 @@ func newRollupRollupSearchFunc(t Transport) RollupRollupSearch {
 //
 type RollupRollupSearch func(index []string, body io.Reader, o ...func(*RollupRollupSearchRequest)) (*Response, error)
 
-// RollupRollupSearchRequest configures the Rollup  Rollup Search API request.
+// RollupRollupSearchRequest configures the Rollup Rollup Search API request.
 //
 type RollupRollupSearchRequest struct {
 	Index        []string

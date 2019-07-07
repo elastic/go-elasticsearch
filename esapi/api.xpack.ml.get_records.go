@@ -27,7 +27,7 @@ func newMLGetRecordsFunc(t Transport) MLGetRecords {
 //
 type MLGetRecords func(job_id string, o ...func(*MLGetRecordsRequest)) (*Response, error)
 
-// MLGetRecordsRequest configures the Ml  Get Records API request.
+// MLGetRecordsRequest configures the ML Get Records API request.
 //
 type MLGetRecordsRequest struct {
 	Body io.Reader

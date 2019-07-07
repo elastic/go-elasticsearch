@@ -12,7 +12,7 @@ import (
 
 func newRollupStopJobFunc(t Transport) RollupStopJob {
 	return func(id string, o ...func(*RollupStopJobRequest)) (*Response, error) {
-		var r = RollupStopJobRequest{DocumentID: id}
+		var r = RollupStopJobRequest{JobID: id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -26,10 +26,10 @@ func newRollupStopJobFunc(t Transport) RollupStopJob {
 //
 type RollupStopJob func(id string, o ...func(*RollupStopJobRequest)) (*Response, error)
 
-// RollupStopJobRequest configures the Rollup  Stop Job API request.
+// RollupStopJobRequest configures the Rollup Stop Job API request.
 //
 type RollupStopJobRequest struct {
-	DocumentID string
+	JobID string
 
 	Timeout           time.Duration
 	WaitForCompletion *bool
@@ -55,13 +55,13 @@ func (r RollupStopJobRequest) Do(ctx context.Context, transport Transport) (*Res
 
 	method = "POST"
 
-	path.Grow(1 + len("_rollup") + 1 + len("job") + 1 + len(r.DocumentID) + 1 + len("_stop"))
+	path.Grow(1 + len("_rollup") + 1 + len("job") + 1 + len(r.JobID) + 1 + len("_stop"))
 	path.WriteString("/")
 	path.WriteString("_rollup")
 	path.WriteString("/")
 	path.WriteString("job")
 	path.WriteString("/")
-	path.WriteString(r.DocumentID)
+	path.WriteString(r.JobID)
 	path.WriteString("/")
 	path.WriteString("_stop")
 

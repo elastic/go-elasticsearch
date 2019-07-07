@@ -25,7 +25,7 @@ func newMLPostDataFunc(t Transport) MLPostData {
 //
 type MLPostData func(job_id string, body io.Reader, o ...func(*MLPostDataRequest)) (*Response, error)
 
-// MLPostDataRequest configures the Ml  Post Data API request.
+// MLPostDataRequest configures the ML Post Data API request.
 //
 type MLPostDataRequest struct {
 	Body io.Reader

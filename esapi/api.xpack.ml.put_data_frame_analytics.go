@@ -11,7 +11,7 @@ import (
 
 func newMLPutDataFrameAnalyticsFunc(t Transport) MLPutDataFrameAnalytics {
 	return func(id string, body io.Reader, o ...func(*MLPutDataFrameAnalyticsRequest)) (*Response, error) {
-		var r = MLPutDataFrameAnalyticsRequest{DocumentID: id, Body: body}
+		var r = MLPutDataFrameAnalyticsRequest{ID: id, Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -21,14 +21,14 @@ func newMLPutDataFrameAnalyticsFunc(t Transport) MLPutDataFrameAnalytics {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPutDataFrameAnalytics -
+// MLPutDataFrameAnalytics - http://www.elastic.co/guide/en/elasticsearch/reference/current/put-dfanalytics.html
 //
 type MLPutDataFrameAnalytics func(id string, body io.Reader, o ...func(*MLPutDataFrameAnalyticsRequest)) (*Response, error)
 
-// MLPutDataFrameAnalyticsRequest configures the Ml    Put Data Frame Analytics API request.
+// MLPutDataFrameAnalyticsRequest configures the ML Put Data Frame Analytics API request.
 //
 type MLPutDataFrameAnalyticsRequest struct {
-	DocumentID string
+	ID string
 
 	Body io.Reader
 
@@ -53,7 +53,7 @@ func (r MLPutDataFrameAnalyticsRequest) Do(ctx context.Context, transport Transp
 
 	method = "PUT"
 
-	path.Grow(1 + len("_ml") + 1 + len("data_frame") + 1 + len("analytics") + 1 + len(r.DocumentID))
+	path.Grow(1 + len("_ml") + 1 + len("data_frame") + 1 + len("analytics") + 1 + len(r.ID))
 	path.WriteString("/")
 	path.WriteString("_ml")
 	path.WriteString("/")
@@ -61,7 +61,7 @@ func (r MLPutDataFrameAnalyticsRequest) Do(ctx context.Context, transport Transp
 	path.WriteString("/")
 	path.WriteString("analytics")
 	path.WriteString("/")
-	path.WriteString(r.DocumentID)
+	path.WriteString(r.ID)
 
 	params = make(map[string]string)
 

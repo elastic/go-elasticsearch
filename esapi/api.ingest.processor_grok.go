@@ -26,7 +26,7 @@ func newIngestProcessorGrokFunc(t Transport) IngestProcessorGrok {
 //
 type IngestProcessorGrok func(o ...func(*IngestProcessorGrokRequest)) (*Response, error)
 
-// IngestProcessorGrokRequest configures the Ingest  Processor Grok API request.
+// IngestProcessorGrokRequest configures the Ingest Processor Grok API request.
 //
 type IngestProcessorGrokRequest struct {
 	Pretty     bool

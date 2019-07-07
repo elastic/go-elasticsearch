@@ -24,7 +24,7 @@ func newSecurityGetRoleMappingFunc(t Transport) SecurityGetRoleMapping {
 //
 type SecurityGetRoleMapping func(o ...func(*SecurityGetRoleMappingRequest)) (*Response, error)
 
-// SecurityGetRoleMappingRequest configures the Security   Get Role Mapping API request.
+// SecurityGetRoleMappingRequest configures the Security Get Role Mapping API request.
 //
 type SecurityGetRoleMappingRequest struct {
 	Name string

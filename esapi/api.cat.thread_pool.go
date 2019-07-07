@@ -29,7 +29,7 @@ func newCatThreadPoolFunc(t Transport) CatThreadPool {
 //
 type CatThreadPool func(o ...func(*CatThreadPoolRequest)) (*Response, error)
 
-// CatThreadPoolRequest configures the Cat  Thread Pool API request.
+// CatThreadPoolRequest configures the Cat Thread Pool API request.
 //
 type CatThreadPoolRequest struct {
 	ThreadPoolPatterns []string

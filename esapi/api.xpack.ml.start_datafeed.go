@@ -26,7 +26,7 @@ func newMLStartDatafeedFunc(t Transport) MLStartDatafeed {
 //
 type MLStartDatafeed func(datafeed_id string, o ...func(*MLStartDatafeedRequest)) (*Response, error)
 
-// MLStartDatafeedRequest configures the Ml  Start Datafeed API request.
+// MLStartDatafeedRequest configures the ML Start Datafeed API request.
 //
 type MLStartDatafeedRequest struct {
 	Body io.Reader

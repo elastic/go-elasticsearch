@@ -24,13 +24,13 @@ func newSecurityGetAPIKeyFunc(t Transport) SecurityGetAPIKey {
 //
 type SecurityGetAPIKey func(o ...func(*SecurityGetAPIKeyRequest)) (*Response, error)
 
-// SecurityGetAPIKeyRequest configures the Security   Get Api Key API request.
+// SecurityGetAPIKeyRequest configures the Security GetAPI Key API request.
 //
 type SecurityGetAPIKeyRequest struct {
-	DocumentID string
-	Name       string
-	RealmName  string
-	Username   string
+	ID        string
+	Name      string
+	RealmName string
+	Username  string
 
 	Pretty     bool
 	Human      bool
@@ -58,8 +58,8 @@ func (r SecurityGetAPIKeyRequest) Do(ctx context.Context, transport Transport) (
 
 	params = make(map[string]string)
 
-	if r.DocumentID != "" {
-		params["id"] = r.DocumentID
+	if r.ID != "" {
+		params["id"] = r.ID
 	}
 
 	if r.Name != "" {
@@ -138,11 +138,11 @@ func (f SecurityGetAPIKey) WithContext(v context.Context) func(*SecurityGetAPIKe
 	}
 }
 
-// WithDocumentID - api key ID of the api key to be retrieved.
+// WithID - api key ID of the api key to be retrieved.
 //
-func (f SecurityGetAPIKey) WithDocumentID(v string) func(*SecurityGetAPIKeyRequest) {
+func (f SecurityGetAPIKey) WithID(v string) func(*SecurityGetAPIKeyRequest) {
 	return func(r *SecurityGetAPIKeyRequest) {
-		r.DocumentID = v
+		r.ID = v
 	}
 }
 

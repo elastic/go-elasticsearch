@@ -26,7 +26,7 @@ func newDataFrameStopDataFrameTransformFunc(t Transport) DataFrameStopDataFrameT
 //
 type DataFrameStopDataFrameTransform func(transform_id string, o ...func(*DataFrameStopDataFrameTransformRequest)) (*Response, error)
 
-// DataFrameStopDataFrameTransformRequest configures the Data Frame    Stop Data Frame Transform API request.
+// DataFrameStopDataFrameTransformRequest configures the Data Frame Stop Data Frame Transform API request.
 //
 type DataFrameStopDataFrameTransformRequest struct {
 	TransformID string

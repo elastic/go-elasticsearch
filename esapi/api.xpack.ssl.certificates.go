@@ -24,7 +24,7 @@ func newSSLCertificatesFunc(t Transport) SSLCertificates {
 //
 type SSLCertificates func(o ...func(*SSLCertificatesRequest)) (*Response, error)
 
-// SSLCertificatesRequest configures the Ssl Certificates API request.
+// SSLCertificatesRequest configures the SSL Certificates API request.
 //
 type SSLCertificatesRequest struct {
 	Pretty     bool

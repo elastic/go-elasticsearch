@@ -27,7 +27,7 @@ func newMLGetModelSnapshotsFunc(t Transport) MLGetModelSnapshots {
 //
 type MLGetModelSnapshots func(job_id string, o ...func(*MLGetModelSnapshotsRequest)) (*Response, error)
 
-// MLGetModelSnapshotsRequest configures the Ml   Get Model Snapshots API request.
+// MLGetModelSnapshotsRequest configures the ML Get Model Snapshots API request.
 //
 type MLGetModelSnapshotsRequest struct {
 	Body io.Reader

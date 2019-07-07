@@ -27,7 +27,7 @@ func newIndicesExistsDocumentTypeFunc(t Transport) IndicesExistsDocumentType {
 //
 type IndicesExistsDocumentType func(index []string, o ...func(*IndicesExistsDocumentTypeRequest)) (*Response, error)
 
-// IndicesExistsDocumentTypeRequest configures the Indices  Exists Type API request.
+// IndicesExistsDocumentTypeRequest configures the Indices Exists Document Type API request.
 //
 type IndicesExistsDocumentTypeRequest struct {
 	Index        []string

@@ -26,7 +26,7 @@ func newMLGetCategoriesFunc(t Transport) MLGetCategories {
 //
 type MLGetCategories func(job_id string, o ...func(*MLGetCategoriesRequest)) (*Response, error)
 
-// MLGetCategoriesRequest configures the Ml  Get Categories API request.
+// MLGetCategoriesRequest configures the ML Get Categories API request.
 //
 type MLGetCategoriesRequest struct {
 	Body io.Reader

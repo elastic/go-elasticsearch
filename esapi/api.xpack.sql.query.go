@@ -25,7 +25,7 @@ func newSQLQueryFunc(t Transport) SQLQuery {
 //
 type SQLQuery func(body io.Reader, o ...func(*SQLQueryRequest)) (*Response, error)
 
-// SQLQueryRequest configures the Sql Query API request.
+// SQLQueryRequest configures the SQL Query API request.
 //
 type SQLQueryRequest struct {
 	Body io.Reader

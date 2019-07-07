@@ -24,7 +24,7 @@ func newSecurityDeleteRoleMappingFunc(t Transport) SecurityDeleteRoleMapping {
 //
 type SecurityDeleteRoleMapping func(name string, o ...func(*SecurityDeleteRoleMappingRequest)) (*Response, error)
 
-// SecurityDeleteRoleMappingRequest configures the Security   Delete Role Mapping API request.
+// SecurityDeleteRoleMappingRequest configures the Security Delete Role Mapping API request.
 //
 type SecurityDeleteRoleMappingRequest struct {
 	Name string

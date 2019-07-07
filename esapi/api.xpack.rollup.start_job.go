@@ -10,7 +10,7 @@ import (
 
 func newRollupStartJobFunc(t Transport) RollupStartJob {
 	return func(id string, o ...func(*RollupStartJobRequest)) (*Response, error) {
-		var r = RollupStartJobRequest{DocumentID: id}
+		var r = RollupStartJobRequest{JobID: id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -24,10 +24,10 @@ func newRollupStartJobFunc(t Transport) RollupStartJob {
 //
 type RollupStartJob func(id string, o ...func(*RollupStartJobRequest)) (*Response, error)
 
-// RollupStartJobRequest configures the Rollup  Start Job API request.
+// RollupStartJobRequest configures the Rollup Start Job API request.
 //
 type RollupStartJobRequest struct {
-	DocumentID string
+	JobID string
 
 	Pretty     bool
 	Human      bool
@@ -50,13 +50,13 @@ func (r RollupStartJobRequest) Do(ctx context.Context, transport Transport) (*Re
 
 	method = "POST"
 
-	path.Grow(1 + len("_rollup") + 1 + len("job") + 1 + len(r.DocumentID) + 1 + len("_start"))
+	path.Grow(1 + len("_rollup") + 1 + len("job") + 1 + len(r.JobID) + 1 + len("_start"))
 	path.WriteString("/")
 	path.WriteString("_rollup")
 	path.WriteString("/")
 	path.WriteString("job")
 	path.WriteString("/")
-	path.WriteString(r.DocumentID)
+	path.WriteString(r.JobID)
 	path.WriteString("/")
 	path.WriteString("_start")
 

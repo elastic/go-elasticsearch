@@ -27,7 +27,7 @@ func newIndicesClearCacheFunc(t Transport) IndicesClearCache {
 //
 type IndicesClearCache func(o ...func(*IndicesClearCacheRequest)) (*Response, error)
 
-// IndicesClearCacheRequest configures the Indices  Clear Cache API request.
+// IndicesClearCacheRequest configures the Indices Clear Cache API request.
 //
 type IndicesClearCacheRequest struct {
 	Index []string

@@ -25,7 +25,7 @@ func newMLDeleteDatafeedFunc(t Transport) MLDeleteDatafeed {
 //
 type MLDeleteDatafeed func(datafeed_id string, o ...func(*MLDeleteDatafeedRequest)) (*Response, error)
 
-// MLDeleteDatafeedRequest configures the Ml  Delete Datafeed API request.
+// MLDeleteDatafeedRequest configures the ML Delete Datafeed API request.
 //
 type MLDeleteDatafeedRequest struct {
 	DatafeedID string

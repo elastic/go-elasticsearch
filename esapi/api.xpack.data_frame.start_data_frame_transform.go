@@ -25,7 +25,7 @@ func newDataFrameStartDataFrameTransformFunc(t Transport) DataFrameStartDataFram
 //
 type DataFrameStartDataFrameTransform func(transform_id string, o ...func(*DataFrameStartDataFrameTransformRequest)) (*Response, error)
 
-// DataFrameStartDataFrameTransformRequest configures the Data Frame    Start Data Frame Transform API request.
+// DataFrameStartDataFrameTransformRequest configures the Data Frame Start Data Frame Transform API request.
 //
 type DataFrameStartDataFrameTransformRequest struct {
 	TransformID string

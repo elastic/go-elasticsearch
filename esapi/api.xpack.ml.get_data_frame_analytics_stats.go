@@ -21,14 +21,14 @@ func newMLGetDataFrameAnalyticsStatsFunc(t Transport) MLGetDataFrameAnalyticsSta
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetDataFrameAnalyticsStats -
+// MLGetDataFrameAnalyticsStats - http://www.elastic.co/guide/en/elasticsearch/reference/current/get-dfanalytics-stats.html
 //
 type MLGetDataFrameAnalyticsStats func(o ...func(*MLGetDataFrameAnalyticsStatsRequest)) (*Response, error)
 
-// MLGetDataFrameAnalyticsStatsRequest configures the Ml     Get Data Frame Analytics Stats API request.
+// MLGetDataFrameAnalyticsStatsRequest configures the ML Get Data Frame Analytics Stats API request.
 //
 type MLGetDataFrameAnalyticsStatsRequest struct {
-	DocumentID string
+	ID string
 
 	AllowNoMatch *bool
 	From         *int
@@ -55,16 +55,16 @@ func (r MLGetDataFrameAnalyticsStatsRequest) Do(ctx context.Context, transport T
 
 	method = "GET"
 
-	path.Grow(1 + len("_ml") + 1 + len("data_frame") + 1 + len("analytics") + 1 + len(r.DocumentID) + 1 + len("_stats"))
+	path.Grow(1 + len("_ml") + 1 + len("data_frame") + 1 + len("analytics") + 1 + len(r.ID) + 1 + len("_stats"))
 	path.WriteString("/")
 	path.WriteString("_ml")
 	path.WriteString("/")
 	path.WriteString("data_frame")
 	path.WriteString("/")
 	path.WriteString("analytics")
-	if r.DocumentID != "" {
+	if r.ID != "" {
 		path.WriteString("/")
-		path.WriteString(r.DocumentID)
+		path.WriteString(r.ID)
 	}
 	path.WriteString("/")
 	path.WriteString("_stats")
@@ -147,11 +147,11 @@ func (f MLGetDataFrameAnalyticsStats) WithContext(v context.Context) func(*MLGet
 	}
 }
 
-// WithDocumentID - the ID of the data frame analytics stats to fetch.
+// WithID - the ID of the data frame analytics stats to fetch.
 //
-func (f MLGetDataFrameAnalyticsStats) WithDocumentID(v string) func(*MLGetDataFrameAnalyticsStatsRequest) {
+func (f MLGetDataFrameAnalyticsStats) WithID(v string) func(*MLGetDataFrameAnalyticsStatsRequest) {
 	return func(r *MLGetDataFrameAnalyticsStatsRequest) {
-		r.DocumentID = v
+		r.ID = v
 	}
 }
 

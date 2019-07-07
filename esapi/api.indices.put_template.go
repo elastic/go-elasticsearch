@@ -29,7 +29,7 @@ func newIndicesPutTemplateFunc(t Transport) IndicesPutTemplate {
 //
 type IndicesPutTemplate func(name string, body io.Reader, o ...func(*IndicesPutTemplateRequest)) (*Response, error)
 
-// IndicesPutTemplateRequest configures the Indices  Put Template API request.
+// IndicesPutTemplateRequest configures the Indices Put Template API request.
 //
 type IndicesPutTemplateRequest struct {
 	Body io.Reader

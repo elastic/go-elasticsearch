@@ -24,7 +24,7 @@ func newILMStopFunc(t Transport) ILMStop {
 //
 type ILMStop func(o ...func(*ILMStopRequest)) (*Response, error)
 
-// ILMStopRequest configures the Ilm Stop API request.
+// ILMStopRequest configures the ILM Stop API request.
 //
 type ILMStopRequest struct {
 	Pretty     bool

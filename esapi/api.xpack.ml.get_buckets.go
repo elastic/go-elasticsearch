@@ -27,7 +27,7 @@ func newMLGetBucketsFunc(t Transport) MLGetBuckets {
 //
 type MLGetBuckets func(job_id string, o ...func(*MLGetBucketsRequest)) (*Response, error)
 
-// MLGetBucketsRequest configures the Ml  Get Buckets API request.
+// MLGetBucketsRequest configures the ML Get Buckets API request.
 //
 type MLGetBucketsRequest struct {
 	Body io.Reader

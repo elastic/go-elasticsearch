@@ -11,7 +11,7 @@ import (
 
 func newRollupPutJobFunc(t Transport) RollupPutJob {
 	return func(id string, body io.Reader, o ...func(*RollupPutJobRequest)) (*Response, error) {
-		var r = RollupPutJobRequest{DocumentID: id, Body: body}
+		var r = RollupPutJobRequest{JobID: id, Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -25,10 +25,10 @@ func newRollupPutJobFunc(t Transport) RollupPutJob {
 //
 type RollupPutJob func(id string, body io.Reader, o ...func(*RollupPutJobRequest)) (*Response, error)
 
-// RollupPutJobRequest configures the Rollup  Put Job API request.
+// RollupPutJobRequest configures the Rollup Put Job API request.
 //
 type RollupPutJobRequest struct {
-	DocumentID string
+	JobID string
 
 	Body io.Reader
 
@@ -53,13 +53,13 @@ func (r RollupPutJobRequest) Do(ctx context.Context, transport Transport) (*Resp
 
 	method = "PUT"
 
-	path.Grow(1 + len("_rollup") + 1 + len("job") + 1 + len(r.DocumentID))
+	path.Grow(1 + len("_rollup") + 1 + len("job") + 1 + len(r.JobID))
 	path.WriteString("/")
 	path.WriteString("_rollup")
 	path.WriteString("/")
 	path.WriteString("job")
 	path.WriteString("/")
-	path.WriteString(r.DocumentID)
+	path.WriteString(r.JobID)
 
 	params = make(map[string]string)
 

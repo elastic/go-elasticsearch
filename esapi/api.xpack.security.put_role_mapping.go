@@ -25,7 +25,7 @@ func newSecurityPutRoleMappingFunc(t Transport) SecurityPutRoleMapping {
 //
 type SecurityPutRoleMapping func(name string, body io.Reader, o ...func(*SecurityPutRoleMappingRequest)) (*Response, error)
 
-// SecurityPutRoleMappingRequest configures the Security   Put Role Mapping API request.
+// SecurityPutRoleMappingRequest configures the Security Put Role Mapping API request.
 //
 type SecurityPutRoleMappingRequest struct {
 	Body io.Reader

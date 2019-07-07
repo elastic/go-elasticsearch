@@ -25,7 +25,7 @@ func newMLPutCalendarFunc(t Transport) MLPutCalendar {
 //
 type MLPutCalendar func(calendar_id string, o ...func(*MLPutCalendarRequest)) (*Response, error)
 
-// MLPutCalendarRequest configures the Ml  Put Calendar API request.
+// MLPutCalendarRequest configures the ML Put Calendar API request.
 //
 type MLPutCalendarRequest struct {
 	Body io.Reader

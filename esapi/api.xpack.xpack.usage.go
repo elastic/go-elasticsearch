@@ -25,7 +25,7 @@ func newXPackUsageFunc(t Transport) XPackUsage {
 //
 type XPackUsage func(o ...func(*XPackUsageRequest)) (*Response, error)
 
-// XPackUsageRequest configures the Xpack Usage API request.
+// XPackUsageRequest configures the X Pack Usage API request.
 //
 type XPackUsageRequest struct {
 	MasterTimeout time.Duration

@@ -26,7 +26,7 @@ func newMLStopDatafeedFunc(t Transport) MLStopDatafeed {
 //
 type MLStopDatafeed func(datafeed_id string, o ...func(*MLStopDatafeedRequest)) (*Response, error)
 
-// MLStopDatafeedRequest configures the Ml  Stop Datafeed API request.
+// MLStopDatafeedRequest configures the ML Stop Datafeed API request.
 //
 type MLStopDatafeedRequest struct {
 	DatafeedID string

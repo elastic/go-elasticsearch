@@ -28,7 +28,7 @@ func newIndicesUpdateAliasesFunc(t Transport) IndicesUpdateAliases {
 //
 type IndicesUpdateAliases func(body io.Reader, o ...func(*IndicesUpdateAliasesRequest)) (*Response, error)
 
-// IndicesUpdateAliasesRequest configures the Indices  Update Aliases API request.
+// IndicesUpdateAliasesRequest configures the Indices Update Aliases API request.
 //
 type IndicesUpdateAliasesRequest struct {
 	Body io.Reader

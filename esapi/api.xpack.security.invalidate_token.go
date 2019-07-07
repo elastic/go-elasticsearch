@@ -25,7 +25,7 @@ func newSecurityInvalidateTokenFunc(t Transport) SecurityInvalidateToken {
 //
 type SecurityInvalidateToken func(body io.Reader, o ...func(*SecurityInvalidateTokenRequest)) (*Response, error)
 
-// SecurityInvalidateTokenRequest configures the Security  Invalidate Token API request.
+// SecurityInvalidateTokenRequest configures the Security Invalidate Token API request.
 //
 type SecurityInvalidateTokenRequest struct {
 	Body io.Reader

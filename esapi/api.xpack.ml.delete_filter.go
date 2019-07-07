@@ -24,7 +24,7 @@ func newMLDeleteFilterFunc(t Transport) MLDeleteFilter {
 //
 type MLDeleteFilter func(filter_id string, o ...func(*MLDeleteFilterRequest)) (*Response, error)
 
-// MLDeleteFilterRequest configures the Ml  Delete Filter API request.
+// MLDeleteFilterRequest configures the ML Delete Filter API request.
 //
 type MLDeleteFilterRequest struct {
 	FilterID string

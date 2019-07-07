@@ -24,7 +24,7 @@ func newWatcherAckWatchFunc(t Transport) WatcherAckWatch {
 //
 type WatcherAckWatch func(watch_id string, o ...func(*WatcherAckWatchRequest)) (*Response, error)
 
-// WatcherAckWatchRequest configures the Watcher  Ack Watch API request.
+// WatcherAckWatchRequest configures the Watcher Ack Watch API request.
 //
 type WatcherAckWatchRequest struct {
 	ActionID []string

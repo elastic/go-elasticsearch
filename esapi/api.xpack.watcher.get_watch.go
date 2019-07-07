@@ -10,7 +10,7 @@ import (
 
 func newWatcherGetWatchFunc(t Transport) WatcherGetWatch {
 	return func(id string, o ...func(*WatcherGetWatchRequest)) (*Response, error) {
-		var r = WatcherGetWatchRequest{DocumentID: id}
+		var r = WatcherGetWatchRequest{WatchID: id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -24,10 +24,10 @@ func newWatcherGetWatchFunc(t Transport) WatcherGetWatch {
 //
 type WatcherGetWatch func(id string, o ...func(*WatcherGetWatchRequest)) (*Response, error)
 
-// WatcherGetWatchRequest configures the Watcher  Get Watch API request.
+// WatcherGetWatchRequest configures the Watcher Get Watch API request.
 //
 type WatcherGetWatchRequest struct {
-	DocumentID string
+	WatchID string
 
 	Pretty     bool
 	Human      bool
@@ -50,13 +50,13 @@ func (r WatcherGetWatchRequest) Do(ctx context.Context, transport Transport) (*R
 
 	method = "GET"
 
-	path.Grow(1 + len("_watcher") + 1 + len("watch") + 1 + len(r.DocumentID))
+	path.Grow(1 + len("_watcher") + 1 + len("watch") + 1 + len(r.WatchID))
 	path.WriteString("/")
 	path.WriteString("_watcher")
 	path.WriteString("/")
 	path.WriteString("watch")
 	path.WriteString("/")
-	path.WriteString(r.DocumentID)
+	path.WriteString(r.WatchID)
 
 	params = make(map[string]string)
 

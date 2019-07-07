@@ -25,7 +25,7 @@ func newIndicesReloadSearchAnalyzersFunc(t Transport) IndicesReloadSearchAnalyze
 //
 type IndicesReloadSearchAnalyzers func(o ...func(*IndicesReloadSearchAnalyzersRequest)) (*Response, error)
 
-// IndicesReloadSearchAnalyzersRequest configures the Indices   Reload Search Analyzers API request.
+// IndicesReloadSearchAnalyzersRequest configures the Indices Reload Search Analyzers API request.
 //
 type IndicesReloadSearchAnalyzersRequest struct {
 	Index []string

@@ -25,7 +25,7 @@ func newSecurityPutUserFunc(t Transport) SecurityPutUser {
 //
 type SecurityPutUser func(username string, body io.Reader, o ...func(*SecurityPutUserRequest)) (*Response, error)
 
-// SecurityPutUserRequest configures the Security  Put User API request.
+// SecurityPutUserRequest configures the Security Put User API request.
 //
 type SecurityPutUserRequest struct {
 	Body io.Reader

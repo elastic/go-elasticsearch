@@ -26,10 +26,10 @@ func newWatcherExecuteWatchFunc(t Transport) WatcherExecuteWatch {
 //
 type WatcherExecuteWatch func(o ...func(*WatcherExecuteWatchRequest)) (*Response, error)
 
-// WatcherExecuteWatchRequest configures the Watcher  Execute Watch API request.
+// WatcherExecuteWatchRequest configures the Watcher Execute Watch API request.
 //
 type WatcherExecuteWatchRequest struct {
-	DocumentID string
+	WatchID string
 
 	Body io.Reader
 
@@ -56,14 +56,14 @@ func (r WatcherExecuteWatchRequest) Do(ctx context.Context, transport Transport)
 
 	method = "PUT"
 
-	path.Grow(1 + len("_watcher") + 1 + len("watch") + 1 + len(r.DocumentID) + 1 + len("_execute"))
+	path.Grow(1 + len("_watcher") + 1 + len("watch") + 1 + len(r.WatchID) + 1 + len("_execute"))
 	path.WriteString("/")
 	path.WriteString("_watcher")
 	path.WriteString("/")
 	path.WriteString("watch")
-	if r.DocumentID != "" {
+	if r.WatchID != "" {
 		path.WriteString("/")
-		path.WriteString(r.DocumentID)
+		path.WriteString(r.WatchID)
 	}
 	path.WriteString("/")
 	path.WriteString("_execute")
@@ -150,11 +150,11 @@ func (f WatcherExecuteWatch) WithBody(v io.Reader) func(*WatcherExecuteWatchRequ
 	}
 }
 
-// WithDocumentID - watch ID.
+// WithWatchID - watch ID.
 //
-func (f WatcherExecuteWatch) WithDocumentID(v string) func(*WatcherExecuteWatchRequest) {
+func (f WatcherExecuteWatch) WithWatchID(v string) func(*WatcherExecuteWatchRequest) {
 	return func(r *WatcherExecuteWatchRequest) {
-		r.DocumentID = v
+		r.WatchID = v
 	}
 }
 

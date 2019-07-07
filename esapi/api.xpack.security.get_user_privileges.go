@@ -24,7 +24,7 @@ func newSecurityGetUserPrivilegesFunc(t Transport) SecurityGetUserPrivileges {
 //
 type SecurityGetUserPrivileges func(o ...func(*SecurityGetUserPrivilegesRequest)) (*Response, error)
 
-// SecurityGetUserPrivilegesRequest configures the Security   Get User Privileges API request.
+// SecurityGetUserPrivilegesRequest configures the Security Get User Privileges API request.
 //
 type SecurityGetUserPrivilegesRequest struct {
 	Pretty     bool

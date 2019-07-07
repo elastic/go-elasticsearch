@@ -31,7 +31,7 @@ type IngestSimulate func(body io.Reader, o ...func(*IngestSimulateRequest)) (*Re
 // IngestSimulateRequest configures the Ingest Simulate API request.
 //
 type IngestSimulateRequest struct {
-	DocumentID string
+	PipelineID string
 
 	Body io.Reader
 
@@ -58,14 +58,14 @@ func (r IngestSimulateRequest) Do(ctx context.Context, transport Transport) (*Re
 
 	method = "GET"
 
-	path.Grow(1 + len("_ingest") + 1 + len("pipeline") + 1 + len(r.DocumentID) + 1 + len("_simulate"))
+	path.Grow(1 + len("_ingest") + 1 + len("pipeline") + 1 + len(r.PipelineID) + 1 + len("_simulate"))
 	path.WriteString("/")
 	path.WriteString("_ingest")
 	path.WriteString("/")
 	path.WriteString("pipeline")
-	if r.DocumentID != "" {
+	if r.PipelineID != "" {
 		path.WriteString("/")
-		path.WriteString(r.DocumentID)
+		path.WriteString(r.PipelineID)
 	}
 	path.WriteString("/")
 	path.WriteString("_simulate")
@@ -144,11 +144,11 @@ func (f IngestSimulate) WithContext(v context.Context) func(*IngestSimulateReque
 	}
 }
 
-// WithDocumentID - pipeline ID.
+// WithPipelineID - pipeline ID.
 //
-func (f IngestSimulate) WithDocumentID(v string) func(*IngestSimulateRequest) {
+func (f IngestSimulate) WithPipelineID(v string) func(*IngestSimulateRequest) {
 	return func(r *IngestSimulateRequest) {
-		r.DocumentID = v
+		r.PipelineID = v
 	}
 }
 

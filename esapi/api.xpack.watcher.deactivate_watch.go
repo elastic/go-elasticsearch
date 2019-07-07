@@ -24,7 +24,7 @@ func newWatcherDeactivateWatchFunc(t Transport) WatcherDeactivateWatch {
 //
 type WatcherDeactivateWatch func(watch_id string, o ...func(*WatcherDeactivateWatchRequest)) (*Response, error)
 
-// WatcherDeactivateWatchRequest configures the Watcher  Deactivate Watch API request.
+// WatcherDeactivateWatchRequest configures the Watcher Deactivate Watch API request.
 //
 type WatcherDeactivateWatchRequest struct {
 	WatchID string

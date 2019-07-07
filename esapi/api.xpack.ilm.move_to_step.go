@@ -25,7 +25,7 @@ func newILMMoveToStepFunc(t Transport) ILMMoveToStep {
 //
 type ILMMoveToStep func(o ...func(*ILMMoveToStepRequest)) (*Response, error)
 
-// ILMMoveToStepRequest configures the Ilm   Move To Step API request.
+// ILMMoveToStepRequest configures the ILM Move To Step API request.
 //
 type ILMMoveToStepRequest struct {
 	Index string
