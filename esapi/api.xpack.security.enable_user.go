@@ -24,7 +24,7 @@ func newSecurityEnableUserFunc(t Transport) SecurityEnableUser {
 //
 type SecurityEnableUser func(username string, o ...func(*SecurityEnableUserRequest)) (*Response, error)
 
-// SecurityEnableUserRequest configures the Security  Enable User API request.
+// SecurityEnableUserRequest configures the Security Enable User API request.
 //
 type SecurityEnableUserRequest struct {
 	Username string

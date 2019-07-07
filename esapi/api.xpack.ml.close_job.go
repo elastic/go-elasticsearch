@@ -27,7 +27,7 @@ func newMLCloseJobFunc(t Transport) MLCloseJob {
 //
 type MLCloseJob func(job_id string, o ...func(*MLCloseJobRequest)) (*Response, error)
 
-// MLCloseJobRequest configures the Ml  Close Job API request.
+// MLCloseJobRequest configures the ML Close Job API request.
 //
 type MLCloseJobRequest struct {
 	Body io.Reader

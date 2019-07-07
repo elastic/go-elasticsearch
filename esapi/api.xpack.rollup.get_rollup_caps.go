@@ -24,10 +24,10 @@ func newRollupGetRollupCapsFunc(t Transport) RollupGetRollupCaps {
 //
 type RollupGetRollupCaps func(o ...func(*RollupGetRollupCapsRequest)) (*Response, error)
 
-// RollupGetRollupCapsRequest configures the Rollup   Get Rollup Caps API request.
+// RollupGetRollupCapsRequest configures the Rollup Get Rollup Caps API request.
 //
 type RollupGetRollupCapsRequest struct {
-	DocumentID string
+	Index string
 
 	Pretty     bool
 	Human      bool
@@ -50,14 +50,14 @@ func (r RollupGetRollupCapsRequest) Do(ctx context.Context, transport Transport)
 
 	method = "GET"
 
-	path.Grow(1 + len("_rollup") + 1 + len("data") + 1 + len(r.DocumentID))
+	path.Grow(1 + len("_rollup") + 1 + len("data") + 1 + len(r.Index))
 	path.WriteString("/")
 	path.WriteString("_rollup")
 	path.WriteString("/")
 	path.WriteString("data")
-	if r.DocumentID != "" {
+	if r.Index != "" {
 		path.WriteString("/")
-		path.WriteString(r.DocumentID)
+		path.WriteString(r.Index)
 	}
 
 	params = make(map[string]string)
@@ -126,11 +126,11 @@ func (f RollupGetRollupCaps) WithContext(v context.Context) func(*RollupGetRollu
 	}
 }
 
-// WithDocumentID - the ID of the index to check rollup capabilities on, or left blank for all jobs.
+// WithIndex - the ID of the index to check rollup capabilities on, or left blank for all jobs.
 //
-func (f RollupGetRollupCaps) WithDocumentID(v string) func(*RollupGetRollupCapsRequest) {
+func (f RollupGetRollupCaps) WithIndex(v string) func(*RollupGetRollupCapsRequest) {
 	return func(r *RollupGetRollupCapsRequest) {
-		r.DocumentID = v
+		r.Index = v
 	}
 }
 

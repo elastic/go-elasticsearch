@@ -24,7 +24,7 @@ func newRollupGetRollupIndexCapsFunc(t Transport) RollupGetRollupIndexCaps {
 //
 type RollupGetRollupIndexCaps func(index string, o ...func(*RollupGetRollupIndexCapsRequest)) (*Response, error)
 
-// RollupGetRollupIndexCapsRequest configures the Rollup    Get Rollup Index Caps API request.
+// RollupGetRollupIndexCapsRequest configures the Rollup Get Rollup Index Caps API request.
 //
 type RollupGetRollupIndexCapsRequest struct {
 	Index string

@@ -26,7 +26,7 @@ func newMLFlushJobFunc(t Transport) MLFlushJob {
 //
 type MLFlushJob func(job_id string, o ...func(*MLFlushJobRequest)) (*Response, error)
 
-// MLFlushJobRequest configures the Ml  Flush Job API request.
+// MLFlushJobRequest configures the ML Flush Job API request.
 //
 type MLFlushJobRequest struct {
 	Body io.Reader

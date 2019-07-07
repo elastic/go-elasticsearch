@@ -25,7 +25,7 @@ func newSecurityChangePasswordFunc(t Transport) SecurityChangePassword {
 //
 type SecurityChangePassword func(body io.Reader, o ...func(*SecurityChangePasswordRequest)) (*Response, error)
 
-// SecurityChangePasswordRequest configures the Security  Change Password API request.
+// SecurityChangePasswordRequest configures the Security Change Password API request.
 //
 type SecurityChangePasswordRequest struct {
 	Body io.Reader

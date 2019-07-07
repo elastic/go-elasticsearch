@@ -26,7 +26,7 @@ func newMLRevertModelSnapshotFunc(t Transport) MLRevertModelSnapshot {
 //
 type MLRevertModelSnapshot func(snapshot_id string, job_id string, o ...func(*MLRevertModelSnapshotRequest)) (*Response, error)
 
-// MLRevertModelSnapshotRequest configures the Ml   Revert Model Snapshot API request.
+// MLRevertModelSnapshotRequest configures the ML Revert Model Snapshot API request.
 //
 type MLRevertModelSnapshotRequest struct {
 	Body io.Reader

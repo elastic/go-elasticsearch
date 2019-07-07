@@ -24,7 +24,7 @@ func newSecurityDeleteUserFunc(t Transport) SecurityDeleteUser {
 //
 type SecurityDeleteUser func(username string, o ...func(*SecurityDeleteUserRequest)) (*Response, error)
 
-// SecurityDeleteUserRequest configures the Security  Delete User API request.
+// SecurityDeleteUserRequest configures the Security Delete User API request.
 //
 type SecurityDeleteUserRequest struct {
 	Username string

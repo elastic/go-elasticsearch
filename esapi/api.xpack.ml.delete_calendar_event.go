@@ -24,7 +24,7 @@ func newMLDeleteCalendarEventFunc(t Transport) MLDeleteCalendarEvent {
 //
 type MLDeleteCalendarEvent func(calendar_id string, event_id string, o ...func(*MLDeleteCalendarEventRequest)) (*Response, error)
 
-// MLDeleteCalendarEventRequest configures the Ml   Delete Calendar Event API request.
+// MLDeleteCalendarEventRequest configures the ML Delete Calendar Event API request.
 //
 type MLDeleteCalendarEventRequest struct {
 	CalendarID string

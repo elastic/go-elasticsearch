@@ -24,7 +24,7 @@ func newCCRPauseFollowFunc(t Transport) CCRPauseFollow {
 //
 type CCRPauseFollow func(index string, o ...func(*CCRPauseFollowRequest)) (*Response, error)
 
-// CCRPauseFollowRequest configures the Ccr  Pause Follow API request.
+// CCRPauseFollowRequest configures the CCR Pause Follow API request.
 //
 type CCRPauseFollowRequest struct {
 	Index string

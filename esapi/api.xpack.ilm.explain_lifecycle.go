@@ -24,7 +24,7 @@ func newILMExplainLifecycleFunc(t Transport) ILMExplainLifecycle {
 //
 type ILMExplainLifecycle func(o ...func(*ILMExplainLifecycleRequest)) (*Response, error)
 
-// ILMExplainLifecycleRequest configures the Ilm  Explain Lifecycle API request.
+// ILMExplainLifecycleRequest configures the ILM Explain Lifecycle API request.
 //
 type ILMExplainLifecycleRequest struct {
 	Index string

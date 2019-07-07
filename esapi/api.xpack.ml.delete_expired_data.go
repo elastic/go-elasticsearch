@@ -24,7 +24,7 @@ func newMLDeleteExpiredDataFunc(t Transport) MLDeleteExpiredData {
 //
 type MLDeleteExpiredData func(o ...func(*MLDeleteExpiredDataRequest)) (*Response, error)
 
-// MLDeleteExpiredDataRequest configures the Ml   Delete Expired Data API request.
+// MLDeleteExpiredDataRequest configures the ML Delete Expired Data API request.
 //
 type MLDeleteExpiredDataRequest struct {
 	Pretty     bool

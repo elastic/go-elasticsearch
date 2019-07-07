@@ -24,7 +24,7 @@ func newXPackInfoFunc(t Transport) XPackInfo {
 //
 type XPackInfo func(o ...func(*XPackInfoRequest)) (*Response, error)
 
-// XPackInfoRequest configures the Xpack Info API request.
+// XPackInfoRequest configures the X Pack Info API request.
 //
 type XPackInfoRequest struct {
 	Categories []string

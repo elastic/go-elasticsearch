@@ -24,7 +24,7 @@ func newLicenseGetTrialStatusFunc(t Transport) LicenseGetTrialStatus {
 //
 type LicenseGetTrialStatus func(o ...func(*LicenseGetTrialStatusRequest)) (*Response, error)
 
-// LicenseGetTrialStatusRequest configures the License   Get Trial Status API request.
+// LicenseGetTrialStatusRequest configures the License Get Trial Status API request.
 //
 type LicenseGetTrialStatusRequest struct {
 	Pretty     bool

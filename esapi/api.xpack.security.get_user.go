@@ -24,7 +24,7 @@ func newSecurityGetUserFunc(t Transport) SecurityGetUser {
 //
 type SecurityGetUser func(o ...func(*SecurityGetUserRequest)) (*Response, error)
 
-// SecurityGetUserRequest configures the Security  Get User API request.
+// SecurityGetUserRequest configures the Security Get User API request.
 //
 type SecurityGetUserRequest struct {
 	Username []string

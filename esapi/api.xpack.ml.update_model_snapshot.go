@@ -25,7 +25,7 @@ func newMLUpdateModelSnapshotFunc(t Transport) MLUpdateModelSnapshot {
 //
 type MLUpdateModelSnapshot func(snapshot_id string, job_id string, body io.Reader, o ...func(*MLUpdateModelSnapshotRequest)) (*Response, error)
 
-// MLUpdateModelSnapshotRequest configures the Ml   Update Model Snapshot API request.
+// MLUpdateModelSnapshotRequest configures the ML Update Model Snapshot API request.
 //
 type MLUpdateModelSnapshotRequest struct {
 	Body io.Reader

@@ -25,7 +25,7 @@ func newSecurityCreateAPIKeyFunc(t Transport) SecurityCreateAPIKey {
 //
 type SecurityCreateAPIKey func(body io.Reader, o ...func(*SecurityCreateAPIKeyRequest)) (*Response, error)
 
-// SecurityCreateAPIKeyRequest configures the Security   Create Api Key API request.
+// SecurityCreateAPIKeyRequest configures the Security CreateAPI Key API request.
 //
 type SecurityCreateAPIKeyRequest struct {
 	Body io.Reader

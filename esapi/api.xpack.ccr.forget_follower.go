@@ -25,7 +25,7 @@ func newCCRForgetFollowerFunc(t Transport) CCRForgetFollower {
 //
 type CCRForgetFollower func(index string, body io.Reader, o ...func(*CCRForgetFollowerRequest)) (*Response, error)
 
-// CCRForgetFollowerRequest configures the Ccr  Forget Follower API request.
+// CCRForgetFollowerRequest configures the CCR Forget Follower API request.
 //
 type CCRForgetFollowerRequest struct {
 	Index string

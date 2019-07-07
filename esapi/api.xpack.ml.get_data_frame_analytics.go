@@ -21,14 +21,14 @@ func newMLGetDataFrameAnalyticsFunc(t Transport) MLGetDataFrameAnalytics {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetDataFrameAnalytics -
+// MLGetDataFrameAnalytics - http://www.elastic.co/guide/en/elasticsearch/reference/current/get-dfanalytics.html
 //
 type MLGetDataFrameAnalytics func(o ...func(*MLGetDataFrameAnalyticsRequest)) (*Response, error)
 
-// MLGetDataFrameAnalyticsRequest configures the Ml    Get Data Frame Analytics API request.
+// MLGetDataFrameAnalyticsRequest configures the ML Get Data Frame Analytics API request.
 //
 type MLGetDataFrameAnalyticsRequest struct {
-	DocumentID string
+	ID string
 
 	AllowNoMatch *bool
 	From         *int
@@ -55,16 +55,16 @@ func (r MLGetDataFrameAnalyticsRequest) Do(ctx context.Context, transport Transp
 
 	method = "GET"
 
-	path.Grow(1 + len("_ml") + 1 + len("data_frame") + 1 + len("analytics") + 1 + len(r.DocumentID))
+	path.Grow(1 + len("_ml") + 1 + len("data_frame") + 1 + len("analytics") + 1 + len(r.ID))
 	path.WriteString("/")
 	path.WriteString("_ml")
 	path.WriteString("/")
 	path.WriteString("data_frame")
 	path.WriteString("/")
 	path.WriteString("analytics")
-	if r.DocumentID != "" {
+	if r.ID != "" {
 		path.WriteString("/")
-		path.WriteString(r.DocumentID)
+		path.WriteString(r.ID)
 	}
 
 	params = make(map[string]string)
@@ -145,11 +145,11 @@ func (f MLGetDataFrameAnalytics) WithContext(v context.Context) func(*MLGetDataF
 	}
 }
 
-// WithDocumentID - the ID of the data frame analytics to fetch.
+// WithID - the ID of the data frame analytics to fetch.
 //
-func (f MLGetDataFrameAnalytics) WithDocumentID(v string) func(*MLGetDataFrameAnalyticsRequest) {
+func (f MLGetDataFrameAnalytics) WithID(v string) func(*MLGetDataFrameAnalyticsRequest) {
 	return func(r *MLGetDataFrameAnalyticsRequest) {
-		r.DocumentID = v
+		r.ID = v
 	}
 }
 

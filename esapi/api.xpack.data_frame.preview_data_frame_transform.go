@@ -25,7 +25,7 @@ func newDataFramePreviewDataFrameTransformFunc(t Transport) DataFramePreviewData
 //
 type DataFramePreviewDataFrameTransform func(body io.Reader, o ...func(*DataFramePreviewDataFrameTransformRequest)) (*Response, error)
 
-// DataFramePreviewDataFrameTransformRequest configures the Data Frame    Preview Data Frame Transform API request.
+// DataFramePreviewDataFrameTransformRequest configures the Data Frame Preview Data Frame Transform API request.
 //
 type DataFramePreviewDataFrameTransformRequest struct {
 	Body io.Reader

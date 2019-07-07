@@ -24,7 +24,7 @@ func newMLInfoFunc(t Transport) MLInfo {
 //
 type MLInfo func(o ...func(*MLInfoRequest)) (*Response, error)
 
-// MLInfoRequest configures the Ml Info API request.
+// MLInfoRequest configures the ML Info API request.
 //
 type MLInfoRequest struct {
 	Pretty     bool

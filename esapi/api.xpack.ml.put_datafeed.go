@@ -25,7 +25,7 @@ func newMLPutDatafeedFunc(t Transport) MLPutDatafeed {
 //
 type MLPutDatafeed func(body io.Reader, datafeed_id string, o ...func(*MLPutDatafeedRequest)) (*Response, error)
 
-// MLPutDatafeedRequest configures the Ml  Put Datafeed API request.
+// MLPutDatafeedRequest configures the ML Put Datafeed API request.
 //
 type MLPutDatafeedRequest struct {
 	Body io.Reader

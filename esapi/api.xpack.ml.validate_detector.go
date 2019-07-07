@@ -25,7 +25,7 @@ func newMLValidateDetectorFunc(t Transport) MLValidateDetector {
 //
 type MLValidateDetector func(body io.Reader, o ...func(*MLValidateDetectorRequest)) (*Response, error)
 
-// MLValidateDetectorRequest configures the Ml  Validate Detector API request.
+// MLValidateDetectorRequest configures the ML Validate Detector API request.
 //
 type MLValidateDetectorRequest struct {
 	Body io.Reader

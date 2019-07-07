@@ -10,7 +10,7 @@ import (
 
 func newMLDeleteDataFrameAnalyticsFunc(t Transport) MLDeleteDataFrameAnalytics {
 	return func(id string, o ...func(*MLDeleteDataFrameAnalyticsRequest)) (*Response, error) {
-		var r = MLDeleteDataFrameAnalyticsRequest{DocumentID: id}
+		var r = MLDeleteDataFrameAnalyticsRequest{ID: id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -20,14 +20,14 @@ func newMLDeleteDataFrameAnalyticsFunc(t Transport) MLDeleteDataFrameAnalytics {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLDeleteDataFrameAnalytics -
+// MLDeleteDataFrameAnalytics - http://www.elastic.co/guide/en/elasticsearch/reference/current/delete-dfanalytics.html
 //
 type MLDeleteDataFrameAnalytics func(id string, o ...func(*MLDeleteDataFrameAnalyticsRequest)) (*Response, error)
 
-// MLDeleteDataFrameAnalyticsRequest configures the Ml    Delete Data Frame Analytics API request.
+// MLDeleteDataFrameAnalyticsRequest configures the ML Delete Data Frame Analytics API request.
 //
 type MLDeleteDataFrameAnalyticsRequest struct {
-	DocumentID string
+	ID string
 
 	Pretty     bool
 	Human      bool
@@ -50,7 +50,7 @@ func (r MLDeleteDataFrameAnalyticsRequest) Do(ctx context.Context, transport Tra
 
 	method = "DELETE"
 
-	path.Grow(1 + len("_ml") + 1 + len("data_frame") + 1 + len("analytics") + 1 + len(r.DocumentID))
+	path.Grow(1 + len("_ml") + 1 + len("data_frame") + 1 + len("analytics") + 1 + len(r.ID))
 	path.WriteString("/")
 	path.WriteString("_ml")
 	path.WriteString("/")
@@ -58,7 +58,7 @@ func (r MLDeleteDataFrameAnalyticsRequest) Do(ctx context.Context, transport Tra
 	path.WriteString("/")
 	path.WriteString("analytics")
 	path.WriteString("/")
-	path.WriteString(r.DocumentID)
+	path.WriteString(r.ID)
 
 	params = make(map[string]string)
 

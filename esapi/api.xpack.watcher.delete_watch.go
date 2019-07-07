@@ -10,7 +10,7 @@ import (
 
 func newWatcherDeleteWatchFunc(t Transport) WatcherDeleteWatch {
 	return func(id string, o ...func(*WatcherDeleteWatchRequest)) (*Response, error) {
-		var r = WatcherDeleteWatchRequest{DocumentID: id}
+		var r = WatcherDeleteWatchRequest{WatchID: id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -24,10 +24,10 @@ func newWatcherDeleteWatchFunc(t Transport) WatcherDeleteWatch {
 //
 type WatcherDeleteWatch func(id string, o ...func(*WatcherDeleteWatchRequest)) (*Response, error)
 
-// WatcherDeleteWatchRequest configures the Watcher  Delete Watch API request.
+// WatcherDeleteWatchRequest configures the Watcher Delete Watch API request.
 //
 type WatcherDeleteWatchRequest struct {
-	DocumentID string
+	WatchID string
 
 	Pretty     bool
 	Human      bool
@@ -50,13 +50,13 @@ func (r WatcherDeleteWatchRequest) Do(ctx context.Context, transport Transport) 
 
 	method = "DELETE"
 
-	path.Grow(1 + len("_watcher") + 1 + len("watch") + 1 + len(r.DocumentID))
+	path.Grow(1 + len("_watcher") + 1 + len("watch") + 1 + len(r.WatchID))
 	path.WriteString("/")
 	path.WriteString("_watcher")
 	path.WriteString("/")
 	path.WriteString("watch")
 	path.WriteString("/")
-	path.WriteString(r.DocumentID)
+	path.WriteString(r.WatchID)
 
 	params = make(map[string]string)
 

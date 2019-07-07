@@ -24,7 +24,7 @@ func newSecurityGetBuiltinPrivilegesFunc(t Transport) SecurityGetBuiltinPrivileg
 //
 type SecurityGetBuiltinPrivileges func(o ...func(*SecurityGetBuiltinPrivilegesRequest)) (*Response, error)
 
-// SecurityGetBuiltinPrivilegesRequest configures the Security   Get Builtin Privileges API request.
+// SecurityGetBuiltinPrivilegesRequest configures the Security Get Builtin Privileges API request.
 //
 type SecurityGetBuiltinPrivilegesRequest struct {
 	Pretty     bool

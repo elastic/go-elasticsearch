@@ -25,7 +25,7 @@ func newMLPutJobFunc(t Transport) MLPutJob {
 //
 type MLPutJob func(job_id string, body io.Reader, o ...func(*MLPutJobRequest)) (*Response, error)
 
-// MLPutJobRequest configures the Ml  Put Job API request.
+// MLPutJobRequest configures the ML Put Job API request.
 //
 type MLPutJobRequest struct {
 	Body io.Reader

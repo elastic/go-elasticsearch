@@ -25,7 +25,7 @@ func newSecurityGetTokenFunc(t Transport) SecurityGetToken {
 //
 type SecurityGetToken func(body io.Reader, o ...func(*SecurityGetTokenRequest)) (*Response, error)
 
-// SecurityGetTokenRequest configures the Security  Get Token API request.
+// SecurityGetTokenRequest configures the Security Get Token API request.
 //
 type SecurityGetTokenRequest struct {
 	Body io.Reader

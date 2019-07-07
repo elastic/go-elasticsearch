@@ -25,7 +25,7 @@ func newMLGetJobsFunc(t Transport) MLGetJobs {
 //
 type MLGetJobs func(o ...func(*MLGetJobsRequest)) (*Response, error)
 
-// MLGetJobsRequest configures the Ml  Get Jobs API request.
+// MLGetJobsRequest configures the ML Get Jobs API request.
 //
 type MLGetJobsRequest struct {
 	JobID string

@@ -25,7 +25,7 @@ func newSecurityPutPrivilegesFunc(t Transport) SecurityPutPrivileges {
 //
 type SecurityPutPrivileges func(body io.Reader, o ...func(*SecurityPutPrivilegesRequest)) (*Response, error)
 
-// SecurityPutPrivilegesRequest configures the Security  Put Privileges API request.
+// SecurityPutPrivilegesRequest configures the Security Put Privileges API request.
 //
 type SecurityPutPrivilegesRequest struct {
 	Body io.Reader

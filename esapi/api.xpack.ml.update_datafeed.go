@@ -25,7 +25,7 @@ func newMLUpdateDatafeedFunc(t Transport) MLUpdateDatafeed {
 //
 type MLUpdateDatafeed func(body io.Reader, datafeed_id string, o ...func(*MLUpdateDatafeedRequest)) (*Response, error)
 
-// MLUpdateDatafeedRequest configures the Ml  Update Datafeed API request.
+// MLUpdateDatafeedRequest configures the ML Update Datafeed API request.
 //
 type MLUpdateDatafeedRequest struct {
 	Body io.Reader

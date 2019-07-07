@@ -24,7 +24,7 @@ func newILMRetryFunc(t Transport) ILMRetry {
 //
 type ILMRetry func(o ...func(*ILMRetryRequest)) (*Response, error)
 
-// ILMRetryRequest configures the Ilm Retry API request.
+// ILMRetryRequest configures the ILM Retry API request.
 //
 type ILMRetryRequest struct {
 	Index string

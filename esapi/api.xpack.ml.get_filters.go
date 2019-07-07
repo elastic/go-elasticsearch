@@ -25,7 +25,7 @@ func newMLGetFiltersFunc(t Transport) MLGetFilters {
 //
 type MLGetFilters func(o ...func(*MLGetFiltersRequest)) (*Response, error)
 
-// MLGetFiltersRequest configures the Ml  Get Filters API request.
+// MLGetFiltersRequest configures the ML Get Filters API request.
 //
 type MLGetFiltersRequest struct {
 	FilterID string

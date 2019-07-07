@@ -25,7 +25,7 @@ func newMLUpdateJobFunc(t Transport) MLUpdateJob {
 //
 type MLUpdateJob func(job_id string, body io.Reader, o ...func(*MLUpdateJobRequest)) (*Response, error)
 
-// MLUpdateJobRequest configures the Ml  Update Job API request.
+// MLUpdateJobRequest configures the ML Update Job API request.
 //
 type MLUpdateJobRequest struct {
 	Body io.Reader

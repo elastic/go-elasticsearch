@@ -26,7 +26,7 @@ func newMLGetCalendarEventsFunc(t Transport) MLGetCalendarEvents {
 //
 type MLGetCalendarEvents func(calendar_id string, o ...func(*MLGetCalendarEventsRequest)) (*Response, error)
 
-// MLGetCalendarEventsRequest configures the Ml   Get Calendar Events API request.
+// MLGetCalendarEventsRequest configures the ML Get Calendar Events API request.
 //
 type MLGetCalendarEventsRequest struct {
 	CalendarID string

@@ -27,7 +27,7 @@ func newMLFindFileStructureFunc(t Transport) MLFindFileStructure {
 //
 type MLFindFileStructure func(body io.Reader, o ...func(*MLFindFileStructureRequest)) (*Response, error)
 
-// MLFindFileStructureRequest configures the Ml   Find File Structure API request.
+// MLFindFileStructureRequest configures the ML Find File Structure API request.
 //
 type MLFindFileStructureRequest struct {
 	Body io.Reader

@@ -10,7 +10,7 @@ import (
 
 func newRollupDeleteJobFunc(t Transport) RollupDeleteJob {
 	return func(id string, o ...func(*RollupDeleteJobRequest)) (*Response, error) {
-		var r = RollupDeleteJobRequest{DocumentID: id}
+		var r = RollupDeleteJobRequest{JobID: id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -24,10 +24,10 @@ func newRollupDeleteJobFunc(t Transport) RollupDeleteJob {
 //
 type RollupDeleteJob func(id string, o ...func(*RollupDeleteJobRequest)) (*Response, error)
 
-// RollupDeleteJobRequest configures the Rollup  Delete Job API request.
+// RollupDeleteJobRequest configures the Rollup Delete Job API request.
 //
 type RollupDeleteJobRequest struct {
-	DocumentID string
+	JobID string
 
 	Pretty     bool
 	Human      bool
@@ -50,13 +50,13 @@ func (r RollupDeleteJobRequest) Do(ctx context.Context, transport Transport) (*R
 
 	method = "DELETE"
 
-	path.Grow(1 + len("_rollup") + 1 + len("job") + 1 + len(r.DocumentID))
+	path.Grow(1 + len("_rollup") + 1 + len("job") + 1 + len(r.JobID))
 	path.WriteString("/")
 	path.WriteString("_rollup")
 	path.WriteString("/")
 	path.WriteString("job")
 	path.WriteString("/")
-	path.WriteString(r.DocumentID)
+	path.WriteString(r.JobID)
 
 	params = make(map[string]string)
 

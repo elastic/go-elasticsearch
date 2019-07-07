@@ -25,7 +25,7 @@ func newLicensePostStartTrialFunc(t Transport) LicensePostStartTrial {
 //
 type LicensePostStartTrial func(o ...func(*LicensePostStartTrialRequest)) (*Response, error)
 
-// LicensePostStartTrialRequest configures the License   Post Start Trial API request.
+// LicensePostStartTrialRequest configures the License Post Start Trial API request.
 //
 type LicensePostStartTrialRequest struct {
 	Acknowledge  *bool

@@ -12,7 +12,7 @@ import (
 
 func newWatcherPutWatchFunc(t Transport) WatcherPutWatch {
 	return func(id string, o ...func(*WatcherPutWatchRequest)) (*Response, error) {
-		var r = WatcherPutWatchRequest{DocumentID: id}
+		var r = WatcherPutWatchRequest{WatchID: id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -26,10 +26,10 @@ func newWatcherPutWatchFunc(t Transport) WatcherPutWatch {
 //
 type WatcherPutWatch func(id string, o ...func(*WatcherPutWatchRequest)) (*Response, error)
 
-// WatcherPutWatchRequest configures the Watcher  Put Watch API request.
+// WatcherPutWatchRequest configures the Watcher Put Watch API request.
 //
 type WatcherPutWatchRequest struct {
-	DocumentID string
+	WatchID string
 
 	Body io.Reader
 
@@ -59,13 +59,13 @@ func (r WatcherPutWatchRequest) Do(ctx context.Context, transport Transport) (*R
 
 	method = "PUT"
 
-	path.Grow(1 + len("_watcher") + 1 + len("watch") + 1 + len(r.DocumentID))
+	path.Grow(1 + len("_watcher") + 1 + len("watch") + 1 + len(r.WatchID))
 	path.WriteString("/")
 	path.WriteString("_watcher")
 	path.WriteString("/")
 	path.WriteString("watch")
 	path.WriteString("/")
-	path.WriteString(r.DocumentID)
+	path.WriteString(r.WatchID)
 
 	params = make(map[string]string)
 

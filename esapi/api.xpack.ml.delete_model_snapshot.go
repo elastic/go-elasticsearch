@@ -24,7 +24,7 @@ func newMLDeleteModelSnapshotFunc(t Transport) MLDeleteModelSnapshot {
 //
 type MLDeleteModelSnapshot func(snapshot_id string, job_id string, o ...func(*MLDeleteModelSnapshotRequest)) (*Response, error)
 
-// MLDeleteModelSnapshotRequest configures the Ml   Delete Model Snapshot API request.
+// MLDeleteModelSnapshotRequest configures the ML Delete Model Snapshot API request.
 //
 type MLDeleteModelSnapshotRequest struct {
 	JobID      string

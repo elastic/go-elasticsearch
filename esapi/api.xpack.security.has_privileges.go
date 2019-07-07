@@ -25,7 +25,7 @@ func newSecurityHasPrivilegesFunc(t Transport) SecurityHasPrivileges {
 //
 type SecurityHasPrivileges func(body io.Reader, o ...func(*SecurityHasPrivilegesRequest)) (*Response, error)
 
-// SecurityHasPrivilegesRequest configures the Security  Has Privileges API request.
+// SecurityHasPrivilegesRequest configures the Security Has Privileges API request.
 //
 type SecurityHasPrivilegesRequest struct {
 	Body io.Reader

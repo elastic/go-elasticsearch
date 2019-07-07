@@ -25,7 +25,7 @@ func newMLUpdateFilterFunc(t Transport) MLUpdateFilter {
 //
 type MLUpdateFilter func(body io.Reader, filter_id string, o ...func(*MLUpdateFilterRequest)) (*Response, error)
 
-// MLUpdateFilterRequest configures the Ml  Update Filter API request.
+// MLUpdateFilterRequest configures the ML Update Filter API request.
 //
 type MLUpdateFilterRequest struct {
 	Body io.Reader

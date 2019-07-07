@@ -25,7 +25,7 @@ func newDataFramePutDataFrameTransformFunc(t Transport) DataFramePutDataFrameTra
 //
 type DataFramePutDataFrameTransform func(body io.Reader, transform_id string, o ...func(*DataFramePutDataFrameTransformRequest)) (*Response, error)
 
-// DataFramePutDataFrameTransformRequest configures the Data Frame    Put Data Frame Transform API request.
+// DataFramePutDataFrameTransformRequest configures the Data Frame Put Data Frame Transform API request.
 //
 type DataFramePutDataFrameTransformRequest struct {
 	Body io.Reader

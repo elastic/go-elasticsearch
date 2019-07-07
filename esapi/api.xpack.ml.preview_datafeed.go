@@ -24,7 +24,7 @@ func newMLPreviewDatafeedFunc(t Transport) MLPreviewDatafeed {
 //
 type MLPreviewDatafeed func(datafeed_id string, o ...func(*MLPreviewDatafeedRequest)) (*Response, error)
 
-// MLPreviewDatafeedRequest configures the Ml  Preview Datafeed API request.
+// MLPreviewDatafeedRequest configures the ML Preview Datafeed API request.
 //
 type MLPreviewDatafeedRequest struct {
 	DatafeedID string

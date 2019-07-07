@@ -24,7 +24,7 @@ func newLicenseGetBasicStatusFunc(t Transport) LicenseGetBasicStatus {
 //
 type LicenseGetBasicStatus func(o ...func(*LicenseGetBasicStatusRequest)) (*Response, error)
 
-// LicenseGetBasicStatusRequest configures the License   Get Basic Status API request.
+// LicenseGetBasicStatusRequest configures the License Get Basic Status API request.
 //
 type LicenseGetBasicStatusRequest struct {
 	Pretty     bool

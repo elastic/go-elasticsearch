@@ -25,7 +25,7 @@ func newMLOpenJobFunc(t Transport) MLOpenJob {
 //
 type MLOpenJob func(job_id string, o ...func(*MLOpenJobRequest)) (*Response, error)
 
-// MLOpenJobRequest configures the Ml  Open Job API request.
+// MLOpenJobRequest configures the ML Open Job API request.
 //
 type MLOpenJobRequest struct {
 	IgnoreDowntime *bool

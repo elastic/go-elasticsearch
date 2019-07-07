@@ -25,7 +25,7 @@ func newMLDeleteJobFunc(t Transport) MLDeleteJob {
 //
 type MLDeleteJob func(job_id string, o ...func(*MLDeleteJobRequest)) (*Response, error)
 
-// MLDeleteJobRequest configures the Ml  Delete Job API request.
+// MLDeleteJobRequest configures the ML Delete Job API request.
 //
 type MLDeleteJobRequest struct {
 	JobID string

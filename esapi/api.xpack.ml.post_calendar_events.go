@@ -25,7 +25,7 @@ func newMLPostCalendarEventsFunc(t Transport) MLPostCalendarEvents {
 //
 type MLPostCalendarEvents func(calendar_id string, body io.Reader, o ...func(*MLPostCalendarEventsRequest)) (*Response, error)
 
-// MLPostCalendarEventsRequest configures the Ml   Post Calendar Events API request.
+// MLPostCalendarEventsRequest configures the ML Post Calendar Events API request.
 //
 type MLPostCalendarEventsRequest struct {
 	Body io.Reader

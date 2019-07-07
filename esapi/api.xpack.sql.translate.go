@@ -25,7 +25,7 @@ func newSQLTranslateFunc(t Transport) SQLTranslate {
 //
 type SQLTranslate func(body io.Reader, o ...func(*SQLTranslateRequest)) (*Response, error)
 
-// SQLTranslateRequest configures the Sql Translate API request.
+// SQLTranslateRequest configures the SQL Translate API request.
 //
 type SQLTranslateRequest struct {
 	Body io.Reader

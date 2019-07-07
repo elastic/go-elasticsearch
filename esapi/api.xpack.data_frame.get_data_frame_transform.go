@@ -25,7 +25,7 @@ func newDataFrameGetDataFrameTransformFunc(t Transport) DataFrameGetDataFrameTra
 //
 type DataFrameGetDataFrameTransform func(o ...func(*DataFrameGetDataFrameTransformRequest)) (*Response, error)
 
-// DataFrameGetDataFrameTransformRequest configures the Data Frame    Get Data Frame Transform API request.
+// DataFrameGetDataFrameTransformRequest configures the Data Frame Get Data Frame Transform API request.
 //
 type DataFrameGetDataFrameTransformRequest struct {
 	TransformID string

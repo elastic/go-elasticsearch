@@ -24,7 +24,7 @@ func newMLPutCalendarJobFunc(t Transport) MLPutCalendarJob {
 //
 type MLPutCalendarJob func(calendar_id string, job_id string, o ...func(*MLPutCalendarJobRequest)) (*Response, error)
 
-// MLPutCalendarJobRequest configures the Ml   Put Calendar Job API request.
+// MLPutCalendarJobRequest configures the ML Put Calendar Job API request.
 //
 type MLPutCalendarJobRequest struct {
 	CalendarID string

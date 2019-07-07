@@ -24,7 +24,7 @@ func newSecurityClearCachedRealmsFunc(t Transport) SecurityClearCachedRealms {
 //
 type SecurityClearCachedRealms func(realms []string, o ...func(*SecurityClearCachedRealmsRequest)) (*Response, error)
 
-// SecurityClearCachedRealmsRequest configures the Security   Clear Cached Realms API request.
+// SecurityClearCachedRealmsRequest configures the Security Clear Cached Realms API request.
 //
 type SecurityClearCachedRealmsRequest struct {
 	Realms []string

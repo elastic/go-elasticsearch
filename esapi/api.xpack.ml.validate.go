@@ -25,7 +25,7 @@ func newMLValidateFunc(t Transport) MLValidate {
 //
 type MLValidate func(body io.Reader, o ...func(*MLValidateRequest)) (*Response, error)
 
-// MLValidateRequest configures the Ml Validate API request.
+// MLValidateRequest configures the ML Validate API request.
 //
 type MLValidateRequest struct {
 	Body io.Reader

@@ -27,7 +27,7 @@ func newMLGetOverallBucketsFunc(t Transport) MLGetOverallBuckets {
 //
 type MLGetOverallBuckets func(job_id string, o ...func(*MLGetOverallBucketsRequest)) (*Response, error)
 
-// MLGetOverallBucketsRequest configures the Ml   Get Overall Buckets API request.
+// MLGetOverallBucketsRequest configures the ML Get Overall Buckets API request.
 //
 type MLGetOverallBucketsRequest struct {
 	Body io.Reader

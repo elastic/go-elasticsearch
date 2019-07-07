@@ -24,7 +24,7 @@ func newSecurityDeletePrivilegesFunc(t Transport) SecurityDeletePrivileges {
 //
 type SecurityDeletePrivileges func(name string, application string, o ...func(*SecurityDeletePrivilegesRequest)) (*Response, error)
 
-// SecurityDeletePrivilegesRequest configures the Security  Delete Privileges API request.
+// SecurityDeletePrivilegesRequest configures the Security Delete Privileges API request.
 //
 type SecurityDeletePrivilegesRequest struct {
 	Application string

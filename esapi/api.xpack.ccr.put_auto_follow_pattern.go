@@ -25,7 +25,7 @@ func newCCRPutAutoFollowPatternFunc(t Transport) CCRPutAutoFollowPattern {
 //
 type CCRPutAutoFollowPattern func(name string, body io.Reader, o ...func(*CCRPutAutoFollowPatternRequest)) (*Response, error)
 
-// CCRPutAutoFollowPatternRequest configures the Ccr    Put Auto Follow Pattern API request.
+// CCRPutAutoFollowPatternRequest configures the CCR Put Auto Follow Pattern API request.
 //
 type CCRPutAutoFollowPatternRequest struct {
 	Body io.Reader

@@ -24,7 +24,7 @@ func newCCRDeleteAutoFollowPatternFunc(t Transport) CCRDeleteAutoFollowPattern {
 //
 type CCRDeleteAutoFollowPattern func(name string, o ...func(*CCRDeleteAutoFollowPatternRequest)) (*Response, error)
 
-// CCRDeleteAutoFollowPatternRequest configures the Ccr    Delete Auto Follow Pattern API request.
+// CCRDeleteAutoFollowPatternRequest configures the CCR Delete Auto Follow Pattern API request.
 //
 type CCRDeleteAutoFollowPatternRequest struct {
 	Name string

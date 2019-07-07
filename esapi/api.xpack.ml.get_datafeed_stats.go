@@ -25,7 +25,7 @@ func newMLGetDatafeedStatsFunc(t Transport) MLGetDatafeedStats {
 //
 type MLGetDatafeedStats func(o ...func(*MLGetDatafeedStatsRequest)) (*Response, error)
 
-// MLGetDatafeedStatsRequest configures the Ml   Get Datafeed Stats API request.
+// MLGetDatafeedStatsRequest configures the ML Get Datafeed Stats API request.
 //
 type MLGetDatafeedStatsRequest struct {
 	DatafeedID string

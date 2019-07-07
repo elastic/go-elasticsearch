@@ -24,7 +24,7 @@ func newILMStartFunc(t Transport) ILMStart {
 //
 type ILMStart func(o ...func(*ILMStartRequest)) (*Response, error)
 
-// ILMStartRequest configures the Ilm Start API request.
+// ILMStartRequest configures the ILM Start API request.
 //
 type ILMStartRequest struct {
 	Pretty     bool

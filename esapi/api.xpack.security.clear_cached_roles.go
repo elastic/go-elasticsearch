@@ -24,7 +24,7 @@ func newSecurityClearCachedRolesFunc(t Transport) SecurityClearCachedRoles {
 //
 type SecurityClearCachedRoles func(name []string, o ...func(*SecurityClearCachedRolesRequest)) (*Response, error)
 
-// SecurityClearCachedRolesRequest configures the Security   Clear Cached Roles API request.
+// SecurityClearCachedRolesRequest configures the Security Clear Cached Roles API request.
 //
 type SecurityClearCachedRolesRequest struct {
 	Name []string

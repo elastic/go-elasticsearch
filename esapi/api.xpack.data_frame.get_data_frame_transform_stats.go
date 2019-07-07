@@ -25,7 +25,7 @@ func newDataFrameGetDataFrameTransformStatsFunc(t Transport) DataFrameGetDataFra
 //
 type DataFrameGetDataFrameTransformStats func(o ...func(*DataFrameGetDataFrameTransformStatsRequest)) (*Response, error)
 
-// DataFrameGetDataFrameTransformStatsRequest configures the Data Frame     Get Data Frame Transform Stats API request.
+// DataFrameGetDataFrameTransformStatsRequest configures the Data Frame Get Data Frame Transform Stats API request.
 //
 type DataFrameGetDataFrameTransformStatsRequest struct {
 	TransformID string

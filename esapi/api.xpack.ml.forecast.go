@@ -25,7 +25,7 @@ func newMLForecastFunc(t Transport) MLForecast {
 //
 type MLForecast func(job_id string, o ...func(*MLForecastRequest)) (*Response, error)
 
-// MLForecastRequest configures the Ml Forecast API request.
+// MLForecastRequest configures the ML Forecast API request.
 //
 type MLForecastRequest struct {
 	JobID string
