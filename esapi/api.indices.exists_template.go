@@ -28,7 +28,7 @@ func newIndicesExistsTemplateFunc(t Transport) IndicesExistsTemplate {
 //
 type IndicesExistsTemplate func(name []string, o ...func(*IndicesExistsTemplateRequest)) (*Response, error)
 
-// IndicesExistsTemplateRequest configures the Indices  Exists Template API request.
+// IndicesExistsTemplateRequest configures the Indices Exists Template API request.
 //
 type IndicesExistsTemplateRequest struct {
 	Name []string

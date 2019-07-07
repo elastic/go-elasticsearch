@@ -29,7 +29,7 @@ func newIndicesPutMappingFunc(t Transport) IndicesPutMapping {
 //
 type IndicesPutMapping func(body io.Reader, o ...func(*IndicesPutMappingRequest)) (*Response, error)
 
-// IndicesPutMappingRequest configures the Indices  Put Mapping API request.
+// IndicesPutMappingRequest configures the Indices Put Mapping API request.
 //
 type IndicesPutMappingRequest struct {
 	Index        []string

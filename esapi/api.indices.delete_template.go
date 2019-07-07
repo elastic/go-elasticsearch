@@ -27,7 +27,7 @@ func newIndicesDeleteTemplateFunc(t Transport) IndicesDeleteTemplate {
 //
 type IndicesDeleteTemplate func(name string, o ...func(*IndicesDeleteTemplateRequest)) (*Response, error)
 
-// IndicesDeleteTemplateRequest configures the Indices  Delete Template API request.
+// IndicesDeleteTemplateRequest configures the Indices Delete Template API request.
 //
 type IndicesDeleteTemplateRequest struct {
 	Name string

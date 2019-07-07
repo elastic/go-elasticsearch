@@ -27,7 +27,7 @@ func newIndicesExistsAliasFunc(t Transport) IndicesExistsAlias {
 //
 type IndicesExistsAlias func(o ...func(*IndicesExistsAliasRequest)) (*Response, error)
 
-// IndicesExistsAliasRequest configures the Indices  Exists Alias API request.
+// IndicesExistsAliasRequest configures the Indices Exists Alias API request.
 //
 type IndicesExistsAliasRequest struct {
 	Index []string

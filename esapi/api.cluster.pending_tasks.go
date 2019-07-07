@@ -29,7 +29,7 @@ func newClusterPendingTasksFunc(t Transport) ClusterPendingTasks {
 //
 type ClusterPendingTasks func(o ...func(*ClusterPendingTasksRequest)) (*Response, error)
 
-// ClusterPendingTasksRequest configures the Cluster  Pending Tasks API request.
+// ClusterPendingTasksRequest configures the Cluster Pending Tasks API request.
 //
 type ClusterPendingTasksRequest struct {
 	Local         *bool

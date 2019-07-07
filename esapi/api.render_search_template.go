@@ -30,7 +30,7 @@ type RenderSearchTemplate func(o ...func(*RenderSearchTemplateRequest)) (*Respon
 // RenderSearchTemplateRequest configures the Render Search Template API request.
 //
 type RenderSearchTemplateRequest struct {
-	DocumentID string
+	TemplateID string
 
 	Body io.Reader
 
@@ -55,14 +55,14 @@ func (r RenderSearchTemplateRequest) Do(ctx context.Context, transport Transport
 
 	method = "GET"
 
-	path.Grow(1 + len("_render") + 1 + len("template") + 1 + len(r.DocumentID))
+	path.Grow(1 + len("_render") + 1 + len("template") + 1 + len(r.TemplateID))
 	path.WriteString("/")
 	path.WriteString("_render")
 	path.WriteString("/")
 	path.WriteString("template")
-	if r.DocumentID != "" {
+	if r.TemplateID != "" {
 		path.WriteString("/")
-		path.WriteString(r.DocumentID)
+		path.WriteString(r.TemplateID)
 	}
 
 	params = make(map[string]string)
@@ -143,11 +143,11 @@ func (f RenderSearchTemplate) WithBody(v io.Reader) func(*RenderSearchTemplateRe
 	}
 }
 
-// WithDocumentID - the ID of the stored search template.
+// WithTemplateID - the ID of the stored search template.
 //
-func (f RenderSearchTemplate) WithDocumentID(v string) func(*RenderSearchTemplateRequest) {
+func (f RenderSearchTemplate) WithTemplateID(v string) func(*RenderSearchTemplateRequest) {
 	return func(r *RenderSearchTemplateRequest) {
-		r.DocumentID = v
+		r.TemplateID = v
 	}
 }
 

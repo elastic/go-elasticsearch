@@ -27,7 +27,7 @@ func newIndicesGetAliasFunc(t Transport) IndicesGetAlias {
 //
 type IndicesGetAlias func(o ...func(*IndicesGetAliasRequest)) (*Response, error)
 
-// IndicesGetAliasRequest configures the Indices  Get Alias API request.
+// IndicesGetAliasRequest configures the Indices Get Alias API request.
 //
 type IndicesGetAliasRequest struct {
 	Index []string

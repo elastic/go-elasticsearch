@@ -28,7 +28,7 @@ func newIndicesShardStoresFunc(t Transport) IndicesShardStores {
 //
 type IndicesShardStores func(o ...func(*IndicesShardStoresRequest)) (*Response, error)
 
-// IndicesShardStoresRequest configures the Indices  Shard Stores API request.
+// IndicesShardStoresRequest configures the Indices Shard Stores API request.
 //
 type IndicesShardStoresRequest struct {
 	Index []string

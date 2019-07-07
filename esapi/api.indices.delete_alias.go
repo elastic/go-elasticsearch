@@ -27,7 +27,7 @@ func newIndicesDeleteAliasFunc(t Transport) IndicesDeleteAlias {
 //
 type IndicesDeleteAlias func(index []string, name []string, o ...func(*IndicesDeleteAliasRequest)) (*Response, error)
 
-// IndicesDeleteAliasRequest configures the Indices  Delete Alias API request.
+// IndicesDeleteAliasRequest configures the Indices Delete Alias API request.
 //
 type IndicesDeleteAliasRequest struct {
 	Index []string

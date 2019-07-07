@@ -27,15 +27,15 @@ func newIndicesClearCacheFunc(t Transport) IndicesClearCache {
 //
 type IndicesClearCache func(o ...func(*IndicesClearCacheRequest)) (*Response, error)
 
-// IndicesClearCacheRequest configures the Indices  Clear Cache API request.
+// IndicesClearCacheRequest configures the Indices Clear Cache API request.
 //
 type IndicesClearCacheRequest struct {
 	Index []string
 
 	AllowNoIndices    *bool
 	ExpandWildcards   string
-	FieldData         *bool
 	Fielddata         *bool
+	FieldData         *bool
 	Fields            []string
 	IgnoreUnavailable *bool
 	Query             *bool
@@ -84,12 +84,12 @@ func (r IndicesClearCacheRequest) Do(ctx context.Context, transport Transport) (
 		params["expand_wildcards"] = r.ExpandWildcards
 	}
 
-	if r.FieldData != nil {
-		params["field_data"] = strconv.FormatBool(*r.FieldData)
-	}
-
 	if r.Fielddata != nil {
 		params["fielddata"] = strconv.FormatBool(*r.Fielddata)
+	}
+
+	if r.FieldData != nil {
+		params["field_data"] = strconv.FormatBool(*r.FieldData)
 	}
 
 	if len(r.Fields) > 0 {
@@ -208,19 +208,19 @@ func (f IndicesClearCache) WithExpandWildcards(v string) func(*IndicesClearCache
 	}
 }
 
-// WithFieldData - clear field data.
-//
-func (f IndicesClearCache) WithFieldData(v bool) func(*IndicesClearCacheRequest) {
-	return func(r *IndicesClearCacheRequest) {
-		r.FieldData = &v
-	}
-}
-
 // WithFielddata - clear field data.
 //
 func (f IndicesClearCache) WithFielddata(v bool) func(*IndicesClearCacheRequest) {
 	return func(r *IndicesClearCacheRequest) {
 		r.Fielddata = &v
+	}
+}
+
+// WithFieldData - clear field data.
+//
+func (f IndicesClearCache) WithFieldData(v bool) func(*IndicesClearCacheRequest) {
+	return func(r *IndicesClearCacheRequest) {
+		r.FieldData = &v
 	}
 }
 

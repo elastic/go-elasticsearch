@@ -12,7 +12,7 @@ import (
 
 func newPutScriptFunc(t Transport) PutScript {
 	return func(id string, body io.Reader, lang string, o ...func(*PutScriptRequest)) (*Response, error) {
-		var r = PutScriptRequest{DocumentID: id, Body: body, Lang: lang}
+		var r = PutScriptRequest{ScriptID: id, Body: body, Lang: lang}
 		for _, f := range o {
 			f(&r)
 		}
@@ -31,7 +31,7 @@ type PutScript func(id string, body io.Reader, lang string, o ...func(*PutScript
 // PutScriptRequest configures the Put Script API request.
 //
 type PutScriptRequest struct {
-	DocumentID string
+	ScriptID string
 
 	Body io.Reader
 
@@ -61,13 +61,13 @@ func (r PutScriptRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 	method = "PUT"
 
-	path.Grow(1 + len("_scripts") + 1 + len(r.Lang) + 1 + len(r.DocumentID))
+	path.Grow(1 + len("_scripts") + 1 + len(r.Lang) + 1 + len(r.ScriptID))
 	path.WriteString("/")
 	path.WriteString("_scripts")
 	path.WriteString("/")
 	path.WriteString(r.Lang)
 	path.WriteString("/")
-	path.WriteString(r.DocumentID)
+	path.WriteString(r.ScriptID)
 
 	params = make(map[string]string)
 

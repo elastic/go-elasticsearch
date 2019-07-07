@@ -27,7 +27,7 @@ func newIndicesGetFieldMappingFunc(t Transport) IndicesGetFieldMapping {
 //
 type IndicesGetFieldMapping func(fields []string, o ...func(*IndicesGetFieldMappingRequest)) (*Response, error)
 
-// IndicesGetFieldMappingRequest configures the Indices   Get Field Mapping API request.
+// IndicesGetFieldMappingRequest configures the Indices Get Field Mapping API request.
 //
 type IndicesGetFieldMappingRequest struct {
 	Index        []string

@@ -27,7 +27,7 @@ func newSnapshotVerifyRepositoryFunc(t Transport) SnapshotVerifyRepository {
 //
 type SnapshotVerifyRepository func(repository string, o ...func(*SnapshotVerifyRepositoryRequest)) (*Response, error)
 
-// SnapshotVerifyRepositoryRequest configures the Snapshot  Verify Repository API request.
+// SnapshotVerifyRepositoryRequest configures the Snapshot Verify Repository API request.
 //
 type SnapshotVerifyRepositoryRequest struct {
 	Repository string

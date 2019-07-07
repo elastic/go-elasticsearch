@@ -27,7 +27,7 @@ func newIndicesFlushSyncedFunc(t Transport) IndicesFlushSynced {
 //
 type IndicesFlushSynced func(o ...func(*IndicesFlushSyncedRequest)) (*Response, error)
 
-// IndicesFlushSyncedRequest configures the Indices  Flush Synced API request.
+// IndicesFlushSyncedRequest configures the Indices Flush Synced API request.
 //
 type IndicesFlushSyncedRequest struct {
 	Index []string

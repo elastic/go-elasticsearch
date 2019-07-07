@@ -27,7 +27,7 @@ func newIndicesGetUpgradeFunc(t Transport) IndicesGetUpgrade {
 //
 type IndicesGetUpgrade func(o ...func(*IndicesGetUpgradeRequest)) (*Response, error)
 
-// IndicesGetUpgradeRequest configures the Indices  Get Upgrade API request.
+// IndicesGetUpgradeRequest configures the Indices Get Upgrade API request.
 //
 type IndicesGetUpgradeRequest struct {
 	Index []string
