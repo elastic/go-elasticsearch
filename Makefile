@@ -139,7 +139,7 @@ apidiff: ## Display API incompabilities
 		set -e ; \
 		output=$$(apidiff tmp/apidiff-OLD/esapi tmp/apidiff-NEW/esapi); \
 		echo "\n$$output\n"; \
-		if echo $$output | grep -e 'incompatible' -; then \
+		if echo $$output | grep -i -e 'incompatible' - > /dev/null 2>&1; then \
 			echo "\n\033[31;1mFAILURE\033[0m\n"; \
 			false; \
 		else \
