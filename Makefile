@@ -189,8 +189,10 @@ ifeq ($(version), "")
 	@echo "Empty version argument, exiting..."
 	@exit 2
 endif
-	@echo "\033[2m→ Creating version $(version)...\033[0m"
+	$(eval branch = $(shell git rev-parse --abbrev-ref HEAD))
+	@echo "\033[2m→ [$(branch)] Creating version $(version)...\033[0m"
 	@{ \
+		set -e -o pipefail; \
 		cp internal/version/version.go internal/version/version.go.OLD && \
 		cat internal/version/version.go.OLD | sed -e 's/Client = ".*"/Client = "$(version)"/' > internal/version/version.go && \
 		rm internal/version/version.go.OLD && \
@@ -199,6 +201,7 @@ endif
 		git diff --color-words internal/version/version.go | tail -n 1; \
 	}
 	@{ \
+		set -e -o pipefail; \
 		echo "\033[2m→ Commit and create Git tag? (y/n): \033[0m\c"; \
 		read continue; \
 		if [[ $$continue == "y" ]]; then \
@@ -206,7 +209,7 @@ endif
 			git commit --no-status --quiet --message "Release $(version)" && \
 			git tag --annotate v$(version) --message 'Release $(version)'; \
 			echo "\033[2m→ Push `git show --pretty='%h (%s)' --no-patch HEAD` to Github:\033[0m\n"; \
-			echo "\033[1m  git push origin v$(version)\033[0m\n"; \
+			echo "\033[1m  git push origin HEAD && git push origin v$(version)\033[0m\n"; \
 		else \
 			echo "Aborting..."; \
 			exit 1; \
