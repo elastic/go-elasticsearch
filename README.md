@@ -72,7 +72,7 @@ cat > main.go <<-END
   }
 END
 
-go run main.go
+GO111MODULE="on" go run main.go
 ```
 
 
