@@ -30,6 +30,8 @@ type Config struct {
 	Password  string   // Password for HTTP Basic Authentication.
 
 	CloudID string // Endpoint for the Elastic Service (https://elastic.co/cloud).
+	APIKey  string // Base64-encoded token for authorization; if set, overrides username and password.
+
 	Transport http.RoundTripper  // The HTTP transport object.
 	Logger    estransport.Logger // The logger object.
 }
@@ -108,6 +110,7 @@ func NewClient(cfg Config) (*Client, error) {
 		URLs:     urls,
 		Username: cfg.Username,
 		Password: cfg.Password,
+		APIKey:   cfg.APIKey,
 
 		Transport: cfg.Transport,
 		Logger:    cfg.Logger,
