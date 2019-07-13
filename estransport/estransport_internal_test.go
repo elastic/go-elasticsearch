@@ -97,7 +97,7 @@ func TestTransportPerform(t *testing.T) {
 		tp := New(Config{URLs: []*url.URL{u}})
 
 		req, _ := http.NewRequest("GET", "/", nil)
-		tp.setBasicAuth(u, req)
+		tp.setAuthorization(u, req)
 
 		username, password, ok := req.BasicAuth()
 		if !ok {
@@ -114,7 +114,7 @@ func TestTransportPerform(t *testing.T) {
 		tp := New(Config{URLs: []*url.URL{u}, Username: "foo", Password: "bar"})
 
 		req, _ := http.NewRequest("GET", "/", nil)
-		tp.setBasicAuth(u, req)
+		tp.setAuthorization(u, req)
 
 		username, password, ok := req.BasicAuth()
 		if !ok {
@@ -123,6 +123,23 @@ func TestTransportPerform(t *testing.T) {
 
 		if username != "foo" || password != "bar" {
 			t.Errorf("Unexpected values for username and password: %s:%s", username, password)
+		}
+	})
+
+	t.Run("Sets APIKey Authentication from configuration", func(t *testing.T) {
+		u, _ := url.Parse("http://example.com")
+		tp := New(Config{URLs: []*url.URL{u}, APIKey: "Zm9vYmFy"}) // foobar
+
+		req, _ := http.NewRequest("GET", "/", nil)
+		tp.setAuthorization(u, req)
+
+		value := req.Header.Get("Authorization")
+		if value == "" {
+			t.Errorf("Expected the request to have the Authorization header set")
+		}
+
+		if value != "APIKey Zm9vYmFy" {
+			t.Errorf(`Unexpected value for Authorization: want="APIKey Zm9vYmFy", got="%s"`, value)
 		}
 	})
 
