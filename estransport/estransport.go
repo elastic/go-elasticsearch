@@ -39,6 +39,7 @@ type Config struct {
 	URLs     []*url.URL
 	Username string
 	Password string
+	APIKey   string
 
 	Transport http.RoundTripper
 	Logger    Logger
@@ -50,6 +51,7 @@ type Client struct {
 	urls     []*url.URL
 	username string
 	password string
+	apikey   string
 
 	transport http.RoundTripper
 	selector  Selector
@@ -69,6 +71,7 @@ func New(cfg Config) *Client {
 		urls:     cfg.URLs,
 		username: cfg.Username,
 		password: cfg.Password,
+		apikey:   cfg.APIKey,
 
 		transport: cfg.Transport,
 		selector:  NewRoundRobinSelector(cfg.URLs...),
@@ -89,7 +92,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	c.setUserAgent(req)
 
 	if _, ok := req.Header["Authorization"]; !ok {
-		c.setBasicAuth(u, req)
+		c.setAuthorization(u, req)
 	}
 
 	var dupReqBody *bytes.Buffer
@@ -154,10 +157,19 @@ func (c *Client) setURL(u *url.URL, req *http.Request) *http.Request {
 	return req
 }
 
-func (c *Client) setBasicAuth(u *url.URL, req *http.Request) *http.Request {
+func (c *Client) setAuthorization(u *url.URL, req *http.Request) *http.Request {
 	if u.User != nil {
 		password, _ := u.User.Password()
 		req.SetBasicAuth(u.User.Username(), password)
+		return req
+	}
+
+	if c.apikey != "" {
+		var b bytes.Buffer
+		b.Grow(len("APIKey ") + len(c.apikey))
+		b.WriteString("APIKey ")
+		b.WriteString(c.apikey)
+		req.Header.Set("Authorization", b.String())
 		return req
 	}
 
