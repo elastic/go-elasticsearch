@@ -20,8 +20,9 @@ import (
 const Version = version.Client
 
 var (
-	userAgent   string
-	reGoVersion = regexp.MustCompile(`go(\d+\.\d+\..+)`)
+	userAgent     string
+	reGoVersion   = regexp.MustCompile(`go(\d+\.\d+\..+)`)
+	defMaxRetries = 3
 )
 
 func init() {
@@ -84,44 +85,90 @@ func New(cfg Config) *Client {
 //
 func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	var (
+		res        *http.Response
+		err        error
 		dupReqBody io.Reader
+
+		// TODO(karmi): Make dynamic based on number of URLs
+		maxRetries = defMaxRetries
 	)
 
-	// Get URL from the Selector
+	// TODO: Handle context deadline
 	//
-	u, err := c.getURL()
-	if err != nil {
-		// TODO(karmi): Log error
-		return nil, fmt.Errorf("cannot get URL: %s", err)
-	}
+	// Must be run in a goroutine in order to not block the entire operation?
+	//
+	// if req.Context != nil {
+	// 	select {
+	// 	// Return immediately when context timeout is exceeded
+	// 	case <-req.Context().Done():
+	// 		return nil, req.Context().Err()
+	// 	default:
+	// 	}
+	// }
 
-	// Update request
-	//
-	c.setURL(u, req)
-	c.setUserAgent(req)
-	c.setAuthorization(u, req)
+	for i := 1; ; i++ {
+		var nodeURL *url.URL
 
-	// Duplicate request body for logger
-	//
-	if c.logger != nil && c.logger.RequestBodyEnabled() {
-		if req.Body != nil && req.Body != http.NoBody {
-			dupReqBody, req.Body, _ = duplicateBody(req.Body)
+		fmt.Printf("\nPerform: attempt %d\n", i)
+
+		// Get URL from the Selector
+		//
+		nodeURL, err = c.getURL()
+		if err != nil {
+			// TODO(karmi): Log error
+			return nil, fmt.Errorf("cannot get URL: %s", err)
 		}
-	}
 
-	// Set up time measures and execute the request
-	//
-	start := time.Now().UTC()
-	res, err := c.transport.RoundTrip(req)
-	dur := time.Since(start)
+		// Update request
+		//
+		c.setURL(nodeURL, req)
+		c.setUserAgent(req)
+		c.setAuthorization(nodeURL, req)
 
-	// Log request and response
-	//
-	if c.logger != nil {
-		c.logRoundTrip(req, res, dupReqBody, err, start, dur)
+		// Duplicate request body for logger
+		//
+		if c.logger != nil && c.logger.RequestBodyEnabled() {
+			if req.Body != nil && req.Body != http.NoBody {
+				dupReqBody, req.Body, _ = duplicateBody(req.Body)
+			}
+		}
+
+		// Set up time measures and execute the request
+		//
+		start := time.Now().UTC()
+		res, err = c.transport.RoundTrip(req)
+		dur := time.Since(start)
+
+		// Log request and response
+		//
+		if c.logger != nil {
+			c.logRoundTrip(req, res, dupReqBody, err, start, dur)
+		}
+
+		if len(c.URLs()) < 2 {
+			// TODO(karmi): Add Len() to selector
+			break
+		}
+
+		// Break if there's no error
+		//
+		if err == nil {
+			break
+		}
+
+		// Break if retries have been exhausted
+		//
+		if i >= maxRetries {
+			fmt.Printf("Perform: aborting after %d attempts\n", i)
+			break
+		}
+
+		// TODO(karmi): If c.DisableRetryOnError => break
+		// TODO(karmi): Retry on status [502, 503, 504]
 	}
 
 	// TODO(karmi): Wrap error
+	// fmt.Printf("Perform end:   err: %v\n", err)
 	return res, err
 }
 
