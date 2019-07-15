@@ -70,7 +70,12 @@ func (l *TextLogger) LogRoundTrip(req *http.Request, res *http.Response, err err
 	)
 	if l.RequestBodyEnabled() && req != nil && req.Body != nil && req.Body != http.NoBody {
 		var buf bytes.Buffer
-		buf.ReadFrom(req.Body)
+		if req.GetBody != nil {
+			b, _ := req.GetBody()
+			buf.ReadFrom(b)
+		} else {
+			buf.ReadFrom(req.Body)
+		}
 		logBodyAsText(l.Output, &buf, ">")
 	}
 	if l.ResponseBodyEnabled() && res != nil && res.Body != nil && res.Body != http.NoBody {
@@ -130,7 +135,12 @@ func (l *ColorLogger) LogRoundTrip(req *http.Request, res *http.Response, err er
 
 	if l.RequestBodyEnabled() && req != nil && req.Body != nil && req.Body != http.NoBody {
 		var buf bytes.Buffer
-		buf.ReadFrom(req.Body)
+		if req.GetBody != nil {
+			b, _ := req.GetBody()
+			buf.ReadFrom(b)
+		} else {
+			buf.ReadFrom(req.Body)
+		}
 		fmt.Fprint(l.Output, "\x1b[2m")
 		logBodyAsText(l.Output, &buf, "       »")
 		fmt.Fprint(l.Output, "\x1b[0m")
@@ -207,7 +217,12 @@ func (l *CurlLogger) LogRoundTrip(req *http.Request, res *http.Response, err err
 
 	if req != nil && req.Body != nil && req.Body != http.NoBody {
 		var buf bytes.Buffer
-		buf.ReadFrom(req.Body)
+		if req.GetBody != nil {
+			b, _ := req.GetBody()
+			buf.ReadFrom(b)
+		} else {
+			buf.ReadFrom(req.Body)
+		}
 
 		b.Grow(buf.Len())
 		b.WriteString(" -d \\\n'")
@@ -310,7 +325,12 @@ func (l *JSONLogger) LogRoundTrip(req *http.Request, res *http.Response, err err
 	appendQuote(req.Method)
 	if l.RequestBodyEnabled() && req != nil && req.Body != nil && req.Body != http.NoBody {
 		var buf bytes.Buffer
-		buf.ReadFrom(req.Body)
+		if req.GetBody != nil {
+			b, _ := req.GetBody()
+			buf.ReadFrom(b)
+		} else {
+			buf.ReadFrom(req.Body)
+		}
 
 		b.Grow(buf.Len() + 8)
 		b.WriteString(`,"body":`)

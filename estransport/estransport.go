@@ -130,12 +130,6 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		c.setUserAgent(req)
 		c.setAuthorization(nodeURL, req)
 
-		// Duplicate request body for retry
-		//
-		if req.Body != nil && req.Body != http.NoBody {
-			dupReqBodyForRetry, req.Body, _ = duplicateBody(req.Body)
-		}
-
 		// Duplicate request body for logger
 		//
 		if c.logger != nil && c.logger.RequestBodyEnabled() {
@@ -174,18 +168,11 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 			break
 		}
 
-		// Re-set the request body if needed
-		//
-		if dupReqBodyForRetry != nil {
-			req.Body = dupReqBodyForRetry
-		}
-
 		// TODO(karmi): If c.DisableRetryOnError => break
 		// TODO(karmi): Retry on status [502, 503, 504]
 	}
 
 	// TODO(karmi): Wrap error
-	// fmt.Printf("Perform end:   err: %v\n", err)
 	return res, err
 }
 

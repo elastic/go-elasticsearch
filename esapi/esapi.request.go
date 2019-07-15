@@ -1,13 +1,10 @@
 package esapi
 
 import (
-	"bytes"
 	"context"
 	"io"
 	"io/ioutil"
 	"net/http"
-	"net/url"
-	"strings"
 )
 
 const (
@@ -27,30 +24,13 @@ type Request interface {
 // newRequest creates an HTTP request.
 //
 func newRequest(method, path string, body io.Reader) (*http.Request, error) {
-	r := http.Request{
-		Method:     method,
-		URL:        &url.URL{Path: path},
-		Proto:      "HTTP/1.1",
-		ProtoMajor: 1,
-		ProtoMinor: 1,
-		Header:     make(http.Header),
-	}
+	req, err := http.NewRequest(method, path, body)
 
-	if body != nil {
-		switch b := body.(type) {
-		case *bytes.Buffer:
-			r.Body = ioutil.NopCloser(body)
-			r.ContentLength = int64(b.Len())
-		case *bytes.Reader:
-			r.Body = ioutil.NopCloser(body)
-			r.ContentLength = int64(b.Len())
-		case *strings.Reader:
-			r.Body = ioutil.NopCloser(body)
-			r.ContentLength = int64(b.Len())
-		default:
-			r.Body = ioutil.NopCloser(body)
+	if body != nil && req.GetBody == nil {
+		req.GetBody = func() (io.ReadCloser, error) {
+			return ioutil.NopCloser(body), nil
 		}
 	}
 
-	return &r, nil
+	return req, err
 }
