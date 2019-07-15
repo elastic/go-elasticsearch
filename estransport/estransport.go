@@ -88,15 +88,11 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		res *http.Response
 		err error
 
-		dupReqBodyForLog   io.ReadCloser
-		dupReqBodyForRetry io.ReadCloser
+		dupReqBodyForLog io.ReadCloser
 
 		// TODO(karmi): Make dynamic based on number of URLs
 		maxRetries = defMaxRetries
 	)
-
-	_ = dupReqBodyForLog
-	_ = dupReqBodyForRetry
 
 	// TODO: Handle context deadline
 	//
@@ -110,6 +106,10 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	// 	default:
 	// 	}
 	// }
+
+	// Update request
+	//
+	c.setUserAgent(req)
 
 	for i := 1; ; i++ {
 		var nodeURL *url.URL
@@ -127,7 +127,6 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		// Update request
 		//
 		c.setURL(nodeURL, req)
-		c.setUserAgent(req)
 		c.setAuthorization(nodeURL, req)
 
 		// Duplicate request body for logger

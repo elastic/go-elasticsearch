@@ -188,10 +188,9 @@ func TestTransportPerformRetries(t *testing.T) {
 					if i == numReqs {
 						fmt.Print(": OK\n")
 						return &http.Response{Status: "OK"}, nil
-					} else {
-						fmt.Print(": ERR\n")
-						return nil, fmt.Errorf("Mock error (%d)", i)
 					}
+					fmt.Print(": ERR\n")
+					return nil, fmt.Errorf("Mock error (%d)", i)
 				},
 			}})
 
