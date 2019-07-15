@@ -85,13 +85,18 @@ func New(cfg Config) *Client {
 //
 func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	var (
-		res        *http.Response
-		err        error
-		dupReqBody io.Reader
+		res *http.Response
+		err error
+
+		dupReqBodyForLog   io.ReadCloser
+		dupReqBodyForRetry io.ReadCloser
 
 		// TODO(karmi): Make dynamic based on number of URLs
 		maxRetries = defMaxRetries
 	)
+
+	_ = dupReqBodyForLog
+	_ = dupReqBodyForRetry
 
 	// TODO: Handle context deadline
 	//
@@ -109,7 +114,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	for i := 1; ; i++ {
 		var nodeURL *url.URL
 
-		fmt.Printf("\nPerform: attempt %d\n", i)
+		// fmt.Printf("\nPerform: attempt %d\n", i)
 
 		// Get URL from the Selector
 		//
@@ -125,11 +130,17 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		c.setUserAgent(req)
 		c.setAuthorization(nodeURL, req)
 
+		// Duplicate request body for retry
+		//
+		if req.Body != nil && req.Body != http.NoBody {
+			dupReqBodyForRetry, req.Body, _ = duplicateBody(req.Body)
+		}
+
 		// Duplicate request body for logger
 		//
 		if c.logger != nil && c.logger.RequestBodyEnabled() {
 			if req.Body != nil && req.Body != http.NoBody {
-				dupReqBody, req.Body, _ = duplicateBody(req.Body)
+				dupReqBodyForLog, req.Body, _ = duplicateBody(req.Body)
 			}
 		}
 
@@ -142,7 +153,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		// Log request and response
 		//
 		if c.logger != nil {
-			c.logRoundTrip(req, res, dupReqBody, err, start, dur)
+			c.logRoundTrip(req, res, dupReqBodyForLog, err, start, dur)
 		}
 
 		if len(c.URLs()) < 2 {
@@ -159,8 +170,14 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		// Break if retries have been exhausted
 		//
 		if i >= maxRetries {
-			fmt.Printf("Perform: aborting after %d attempts\n", i)
+			// fmt.Printf("Perform: aborting after %d attempts\n", i)
 			break
+		}
+
+		// Re-set the request body if needed
+		//
+		if dupReqBodyForRetry != nil {
+			req.Body = dupReqBodyForRetry
 		}
 
 		// TODO(karmi): If c.DisableRetryOnError => break
