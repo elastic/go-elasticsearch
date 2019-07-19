@@ -20,9 +20,11 @@ import (
 const Version = version.Client
 
 var (
-	userAgent     string
-	reGoVersion   = regexp.MustCompile(`go(\d+\.\d+\..+)`)
-	defMaxRetries = 3
+	userAgent   string
+	reGoVersion = regexp.MustCompile(`go(\d+\.\d+\..+)`)
+
+	defaultMaxRetries    = 3
+	defaultRetryOnStatus = [...]int{502, 503, 504}
 )
 
 func init() {
@@ -91,7 +93,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		dupReqBodyForLog io.ReadCloser
 
 		// TODO(karmi): Make dynamic based on number of URLs
-		maxRetries = defMaxRetries
+		maxRetries = defaultMaxRetries
 	)
 
 	// TODO: Handle context deadline
@@ -154,6 +156,22 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 			break
 		}
 
+		// Continue on specific 5xx response errors
+		//
+		// TODO(karmi): Only if c.RetryOnStatus != false
+		//
+		if res != nil {
+			var shouldRetry bool
+			for _, code := range defaultRetryOnStatus {
+				if res != nil && res.StatusCode == code {
+					shouldRetry = true
+				}
+			}
+			if shouldRetry {
+				continue
+			}
+		}
+
 		// Break if there's no error
 		//
 		if err == nil {
@@ -168,7 +186,6 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		}
 
 		// TODO(karmi): If c.DisableRetryOnError => break
-		// TODO(karmi): Retry on status [502, 503, 504]
 	}
 
 	// TODO(karmi): Wrap error

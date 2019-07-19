@@ -172,7 +172,7 @@ func TestTransportPerform(t *testing.T) {
 }
 
 func TestTransportPerformRetries(t *testing.T) {
-	t.Run("Retry request and return response", func(t *testing.T) {
+	t.Run("Retry request on error and return response", func(t *testing.T) {
 		var (
 			i       int
 			numReqs = 2
@@ -211,7 +211,46 @@ func TestTransportPerformRetries(t *testing.T) {
 		}
 	})
 
-	t.Run("Retry request and return error", func(t *testing.T) {
+	t.Run("Retry request on 5xx response and return response", func(t *testing.T) {
+		var (
+			i       int
+			numReqs = 2
+		)
+
+		u, _ := url.Parse("http://foo.bar")
+		tp := New(Config{
+			URLs: []*url.URL{u, u, u},
+			Transport: &mockTransp{
+				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+					i++
+					fmt.Printf("Request #%d", i)
+					if i == numReqs {
+						fmt.Print(": 200\n")
+						return &http.Response{StatusCode: 200}, nil
+					}
+					fmt.Print(": 502\n")
+					return &http.Response{StatusCode: 502}, nil
+				},
+			}})
+
+		req, _ := http.NewRequest("GET", "/abc", nil)
+
+		res, err := tp.Perform(req)
+
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		if res.StatusCode != 200 {
+			t.Errorf("Unexpected response: %+v", res)
+		}
+
+		if i != numReqs {
+			t.Errorf("Unexpected number of requests, want=%d, got=%d", numReqs, i)
+		}
+	})
+
+	t.Run("Retry request and return error when max retries exhausted", func(t *testing.T) {
 		var (
 			i       int
 			numReqs = 3
@@ -246,7 +285,7 @@ func TestTransportPerformRetries(t *testing.T) {
 		}
 	})
 
-	t.Run("No retry for single URL", func(t *testing.T) {
+	t.Run("Don't retry for single URL", func(t *testing.T) {
 		var (
 			i       int
 			numReqs = 1
