@@ -88,9 +88,12 @@ func TestTransportLogger(t *testing.T) {
 		})
 
 		req, _ := http.NewRequest("GET", "/abc", nil)
-		_, err := tp.Perform(req)
+		res, err := tp.Perform(req)
 		if err == nil {
-			t.Fatalf("Expected error: %s", err)
+			t.Errorf("Expected error: %v", err)
+		}
+		if res != nil {
+			t.Errorf("Expected nil response, got: %v", err)
 		}
 	})
 
