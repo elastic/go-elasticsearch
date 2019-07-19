@@ -16,13 +16,13 @@ func (errReader) Read(p []byte) (n int, err error) { return 1, errors.New("MOCK 
 func TestAPIResponse(t *testing.T) {
 	var (
 		body string
-		res  Response
+		res  *Response
 	)
 
 	t.Run("String", func(t *testing.T) {
 		body = `{"foo":"bar"}`
 
-		res = Response{StatusCode: 200, Body: ioutil.NopCloser(strings.NewReader(body))}
+		res = &Response{StatusCode: 200, Body: ioutil.NopCloser(strings.NewReader(body))}
 
 		expected := `[200 OK]` + ` ` + body
 		if res.String() != expected {
@@ -30,8 +30,24 @@ func TestAPIResponse(t *testing.T) {
 		}
 	})
 
+	t.Run("String with empty response", func(t *testing.T) {
+		res = &Response{}
+
+		if res.String() != "[0 ]" {
+			t.Errorf("Unexpected response: %s", res.String())
+		}
+	})
+
+	t.Run("String with nil response", func(t *testing.T) {
+		res = nil
+
+		if res.String() != "[0 <nil>]" {
+			t.Errorf("Unexpected response: %s", res.String())
+		}
+	})
+
 	t.Run("String Error", func(t *testing.T) {
-		res = Response{StatusCode: 200, Body: ioutil.NopCloser(errReader{})}
+		res = &Response{StatusCode: 200, Body: ioutil.NopCloser(errReader{})}
 
 		t.Log(res.String())
 		t.Log(res.String())
@@ -42,7 +58,7 @@ func TestAPIResponse(t *testing.T) {
 	})
 
 	t.Run("Status", func(t *testing.T) {
-		res = Response{StatusCode: 404}
+		res = &Response{StatusCode: 404}
 
 		if res.Status() != `404 Not Found` {
 			t.Errorf("Unexpected response status text: %s, want: 404 Not Found", res.Status())
@@ -50,13 +66,13 @@ func TestAPIResponse(t *testing.T) {
 	})
 
 	t.Run("IsError", func(t *testing.T) {
-		res = Response{StatusCode: 201}
+		res = &Response{StatusCode: 201}
 
 		if res.IsError() {
 			t.Errorf("Unexpected error for response: %s", res.Status())
 		}
 
-		res = Response{StatusCode: 403}
+		res = &Response{StatusCode: 403}
 
 		if !res.IsError() {
 			t.Errorf("Expected error for response: %s", res.Status())
