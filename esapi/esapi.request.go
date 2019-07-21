@@ -26,6 +26,10 @@ type Request interface {
 func newRequest(method, path string, body io.Reader) (*http.Request, error) {
 	req, err := http.NewRequest(method, path, body)
 
+	if err != nil {
+		return nil, err
+	}
+
 	if body != nil && req.GetBody == nil {
 		req.GetBody = func() (io.ReadCloser, error) {
 			return ioutil.NopCloser(body), nil

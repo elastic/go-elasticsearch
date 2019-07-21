@@ -151,6 +151,10 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 			c.logRoundTrip(req, res, dupReqBodyForLog, err, start, dur)
 		}
 
+		// Break when there's only a single node
+		//
+		// TODO(karmi): Not if c.RetryOnSingleNode (ie. retry on Elasticsearch Service)
+		//
 		if len(c.URLs()) < 2 {
 			// TODO(karmi): Add Len() to selector
 			break
