@@ -147,8 +147,6 @@ security/authz/13_index_datemath.yml:
 
 # Possibly a cluster health color mismatch...
 security/authz/14_cat_indices.yml:
-  - Test empty request while single authorized index
-  - Test empty request while single closed authorized index
 
 # Test looks for "testnode.crt", but "ca.crt" is returned first
 ssl/10_basic.yml:
