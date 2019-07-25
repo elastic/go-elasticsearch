@@ -749,6 +749,23 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(ctx context.Context,
 		return nil, err
 	}` + "\n\n")
 
+	g.w(`if res.StatusCode != http.StatusOK {
+		var errResp struct {
+			Errs []struct {
+				Type    string ` + "`" + `json:"type"` + "`" + `
+				Reason  string ` + "`" + `json:"reason"` + "`" + `
+				Phase   string ` + "`" + `json:"phase"` + "`" + `
+				Grouped bool   ` + "`" + `json:"grouped"` + "`" + `
+			} ` + "`" + `json:"error"` + "`" + `
+			Status int ` + "`" + `json:"status"` + "`" + `
+		}
+		err := json.NewDecoder(res.Body).Decode(&errResp)
+		if err != nil {
+			return nil, err
+		}
+		return nil, fmt.Errorf("%d %v", errResp.Status, errResp.Errs)
+	}` + "\n\n")
+
 	// Generate the return value
 	g.w(`
 	response := Response{
