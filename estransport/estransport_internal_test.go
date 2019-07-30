@@ -284,41 +284,6 @@ func TestTransportPerformRetries(t *testing.T) {
 			t.Errorf("Unexpected number of requests, want=%d, got=%d", numReqs, i)
 		}
 	})
-
-	t.Run("Don't retry for single URL", func(t *testing.T) {
-		var (
-			i       int
-			numReqs = 1
-		)
-
-		u, _ := url.Parse("http://foo.bar")
-		tp := New(Config{
-			URLs: []*url.URL{u},
-			Transport: &mockTransp{
-				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
-					i++
-					fmt.Printf("Request #%d", i)
-					fmt.Print(": ERR\n")
-					return nil, fmt.Errorf("Mock error (%d)", i)
-				},
-			}})
-
-		req, _ := http.NewRequest("GET", "/abc", nil)
-
-		res, err := tp.Perform(req)
-
-		if err == nil {
-			t.Fatalf("Expected error, got: %v", err)
-		}
-
-		if res != nil {
-			t.Errorf("Unexpected response: %+v", res)
-		}
-
-		if i != numReqs {
-			t.Errorf("Unexpected number of requests, want=%d, got=%d", numReqs, i)
-		}
-	})
 }
 
 func TestTransportSelector(t *testing.T) {

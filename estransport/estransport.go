@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"net"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -92,7 +93,6 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 
 		dupReqBodyForLog io.ReadCloser
 
-		// TODO(karmi): Make dynamic based on number of URLs
 		maxRetries = defaultMaxRetries
 	)
 
@@ -113,10 +113,11 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	//
 	c.setUserAgent(req)
 
-	for i := 1; ; i++ {
-		var nodeURL *url.URL
-
-		// fmt.Printf("\nPerform: attempt %d\n", i)
+	for i := 1; i <= maxRetries; i++ {
+		var (
+			nodeURL     *url.URL
+			shouldRetry bool
+		)
 
 		// Get URL from the Selector
 		//
@@ -151,45 +152,35 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 			c.logRoundTrip(req, res, dupReqBodyForLog, err, start, dur)
 		}
 
-		// Break when there's only a single node
+		// Retry only on network errors, but don't retry on timeout error
 		//
-		// TODO(karmi): Not if c.RetryOnSingleNode (ie. retry on Elasticsearch Service)
-		//
-		if len(c.URLs()) < 2 {
-			// TODO(karmi): Add Len() to selector
-			break
+		if err != nil {
+			if err, ok := err.(net.Error); ok {
+				if !err.Timeout() {
+					shouldRetry = true
+				}
+			} else {
+				shouldRetry = true
+			}
 		}
 
-		// Continue on specific 5xx response errors
+		// Retry on specific 5xx response errors
 		//
 		// TODO(karmi): Only if c.RetryOnStatus != false
 		//
 		if res != nil {
-			var shouldRetry bool
 			for _, code := range defaultRetryOnStatus {
-				if res != nil && res.StatusCode == code {
+				if res.StatusCode == code {
 					shouldRetry = true
 				}
 			}
-			if shouldRetry {
-				continue
-			}
 		}
 
-		// Break if there's no error
+		// Break if retry should not be performed
 		//
-		if err == nil {
+		if !shouldRetry {
 			break
 		}
-
-		// Break if retries have been exhausted
-		//
-		if i >= maxRetries {
-			// fmt.Printf("Perform: aborting after %d attempts\n", i)
-			break
-		}
-
-		// TODO(karmi): If c.DisableRetryOnError => break
 	}
 
 	// TODO(karmi): Wrap error
@@ -206,6 +197,7 @@ func (c *Client) getURL() (*url.URL, error) {
 	return c.selector.Select()
 }
 
+// TODO(karmi): Rename to setReqURL()
 func (c *Client) setURL(u *url.URL, req *http.Request) *http.Request {
 	req.URL.Scheme = u.Scheme
 	req.URL.Host = u.Host
