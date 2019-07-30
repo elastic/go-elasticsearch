@@ -48,6 +48,8 @@ endif
 	@echo "\033[2m→ Running API integration tests for [$(flavor)]...\033[0m"
 ifeq ($(flavor), xpack)
 	@{ \
+		set -e ; \
+		trap "git checkout $(PWD)/esapi/test/go.mod" SIGINT SIGTERM EXIT; \
 		export ELASTICSEARCH_URL='https://elastic:elastic@localhost:9200' && \
 		if which gotestsum > /dev/null 2>&1 ; then \
 			cd esapi/test && \
@@ -65,6 +67,8 @@ ifeq ($(flavor), xpack)
 else
 	$(eval testapiargs += $(PWD)/esapi/test/*_test.go)
 	@{ \
+		set -e ; \
+		trap "git checkout $(PWD)/esapi/test/go.mod" SIGINT SIGTERM EXIT; \
 		if which gotestsum > /dev/null 2>&1 ; then \
 			cd esapi/test && gotestsum --format=short-verbose --junitfile=$(PWD)/tmp/integration-api-report.xml -- $(testapiargs); \
 		else \
@@ -82,6 +86,7 @@ test-examples: ## Execute the _examples
 	@echo "\033[2m→ Testing the examples...\033[0m"
 	@{ \
 		set -e ; \
+		trap "git checkout _examples/**/go.mod" SIGINT SIGTERM EXIT; \
 		for f in _examples/*.go; do \
 			echo "\033[2m────────────────────────────────────────────────────────────────────────────────"; \
 			echo "\033[1m$$f\033[0m"; \
@@ -316,6 +321,8 @@ else
 endif
 	@echo "\033[2m→ Generating API package from specification ($(version):$(build_hash))...\033[0m"
 	@{ \
+		set -e; \
+		trap "git checkout $(PWD)/internal/cmd/generate/go.mod" SIGINT SIGTERM EXIT; \
 		export ELASTICSEARCH_VERSION=$(version) && \
 		export ELASTICSEARCH_BUILD_HASH=$(build_hash) && \
 		cd internal/cmd/generate && \
@@ -341,6 +348,8 @@ else
 endif
 	@echo "\033[2m→ Generating API tests from specification ($(version):$(build_hash))...\033[0m"
 	@{ \
+		set -e; \
+		trap "git checkout $(PWD)/internal/cmd/generate/go.mod" SIGINT SIGTERM EXIT; \
 		export ELASTICSEARCH_VERSION=$(version) && \
 		export ELASTICSEARCH_BUILD_HASH=$(build_hash) && \
 		rm -rf $(output)/*_test.go && \
