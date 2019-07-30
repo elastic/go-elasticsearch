@@ -25,7 +25,7 @@ func newIndicesPutSettingsFunc(t Transport) IndicesPutSettings {
 
 // IndicesPutSettings updates the index settings.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-update-settings.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-update-settings.html.
 //
 type IndicesPutSettings func(body io.Reader, o ...func(*IndicesPutSettingsRequest)) (*Response, error)
 

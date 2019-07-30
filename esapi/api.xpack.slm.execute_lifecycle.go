@@ -5,14 +5,12 @@ package esapi
 import (
 	"context"
 	"net/http"
-	"strconv"
 	"strings"
-	"time"
 )
 
-func newTasksGetFunc(t Transport) TasksGet {
-	return func(task_id string, o ...func(*TasksGetRequest)) (*Response, error) {
-		var r = TasksGetRequest{TaskID: task_id}
+func newSlmExecuteLifecycleFunc(t Transport) SlmExecuteLifecycle {
+	return func(o ...func(*SlmExecuteLifecycleRequest)) (*Response, error) {
+		var r = SlmExecuteLifecycleRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -22,19 +20,14 @@ func newTasksGetFunc(t Transport) TasksGet {
 
 // ----- API Definition -------------------------------------------------------
 
-// TasksGet returns information about a task.
+// SlmExecuteLifecycle - https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api.html
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html.
-//
-type TasksGet func(task_id string, o ...func(*TasksGetRequest)) (*Response, error)
+type SlmExecuteLifecycle func(o ...func(*SlmExecuteLifecycleRequest)) (*Response, error)
 
-// TasksGetRequest configures the Tasks Get API request.
+// SlmExecuteLifecycleRequest configures the Slm Execute Lifecycle API request.
 //
-type TasksGetRequest struct {
-	TaskID string
-
-	Timeout           time.Duration
-	WaitForCompletion *bool
+type SlmExecuteLifecycleRequest struct {
+	PolicyID string
 
 	Pretty     bool
 	Human      bool
@@ -48,30 +41,28 @@ type TasksGetRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r TasksGetRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SlmExecuteLifecycleRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "PUT"
 
-	path.Grow(1 + len("_tasks") + 1 + len(r.TaskID))
+	path.Grow(1 + len("_slm") + 1 + len("policy") + 1 + len(r.PolicyID) + 1 + len("_execute"))
 	path.WriteString("/")
-	path.WriteString("_tasks")
+	path.WriteString("_slm")
 	path.WriteString("/")
-	path.WriteString(r.TaskID)
+	path.WriteString("policy")
+	if r.PolicyID != "" {
+		path.WriteString("/")
+		path.WriteString(r.PolicyID)
+	}
+	path.WriteString("/")
+	path.WriteString("_execute")
 
 	params = make(map[string]string)
-
-	if r.Timeout != 0 {
-		params["timeout"] = formatDuration(r.Timeout)
-	}
-
-	if r.WaitForCompletion != nil {
-		params["wait_for_completion"] = strconv.FormatBool(*r.WaitForCompletion)
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -131,64 +122,56 @@ func (r TasksGetRequest) Do(ctx context.Context, transport Transport) (*Response
 
 // WithContext sets the request context.
 //
-func (f TasksGet) WithContext(v context.Context) func(*TasksGetRequest) {
-	return func(r *TasksGetRequest) {
+func (f SlmExecuteLifecycle) WithContext(v context.Context) func(*SlmExecuteLifecycleRequest) {
+	return func(r *SlmExecuteLifecycleRequest) {
 		r.ctx = v
 	}
 }
 
-// WithTimeout - explicit operation timeout.
+// WithPolicyID - the ID of the snapshot lifecycle policy to be executed.
 //
-func (f TasksGet) WithTimeout(v time.Duration) func(*TasksGetRequest) {
-	return func(r *TasksGetRequest) {
-		r.Timeout = v
-	}
-}
-
-// WithWaitForCompletion - wait for the matching tasks to complete (default: false).
-//
-func (f TasksGet) WithWaitForCompletion(v bool) func(*TasksGetRequest) {
-	return func(r *TasksGetRequest) {
-		r.WaitForCompletion = &v
+func (f SlmExecuteLifecycle) WithPolicyID(v string) func(*SlmExecuteLifecycleRequest) {
+	return func(r *SlmExecuteLifecycleRequest) {
+		r.PolicyID = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f TasksGet) WithPretty() func(*TasksGetRequest) {
-	return func(r *TasksGetRequest) {
+func (f SlmExecuteLifecycle) WithPretty() func(*SlmExecuteLifecycleRequest) {
+	return func(r *SlmExecuteLifecycleRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f TasksGet) WithHuman() func(*TasksGetRequest) {
-	return func(r *TasksGetRequest) {
+func (f SlmExecuteLifecycle) WithHuman() func(*SlmExecuteLifecycleRequest) {
+	return func(r *SlmExecuteLifecycleRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f TasksGet) WithErrorTrace() func(*TasksGetRequest) {
-	return func(r *TasksGetRequest) {
+func (f SlmExecuteLifecycle) WithErrorTrace() func(*SlmExecuteLifecycleRequest) {
+	return func(r *SlmExecuteLifecycleRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f TasksGet) WithFilterPath(v ...string) func(*TasksGetRequest) {
-	return func(r *TasksGetRequest) {
+func (f SlmExecuteLifecycle) WithFilterPath(v ...string) func(*SlmExecuteLifecycleRequest) {
+	return func(r *SlmExecuteLifecycleRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f TasksGet) WithHeader(h map[string]string) func(*TasksGetRequest) {
-	return func(r *TasksGetRequest) {
+func (f SlmExecuteLifecycle) WithHeader(h map[string]string) func(*SlmExecuteLifecycleRequest) {
+	return func(r *SlmExecuteLifecycleRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

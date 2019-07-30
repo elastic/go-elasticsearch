@@ -23,7 +23,7 @@ func newGetSourceFunc(t Transport) GetSource {
 
 // GetSource returns the source of a document.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-get.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-get.html.
 //
 type GetSource func(index string, id string, o ...func(*GetSourceRequest)) (*Response, error)
 

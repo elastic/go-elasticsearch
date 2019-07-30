@@ -23,7 +23,7 @@ func newSearchShardsFunc(t Transport) SearchShards {
 
 // SearchShards returns information about the indices and shards that a search request would be executed against.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/search-shards.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-shards.html.
 //
 type SearchShards func(o ...func(*SearchShardsRequest)) (*Response, error)
 

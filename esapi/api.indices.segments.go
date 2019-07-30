@@ -23,7 +23,7 @@ func newIndicesSegmentsFunc(t Transport) IndicesSegments {
 
 // IndicesSegments provides low-level information about segments in a Lucene index.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-segments.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-segments.html.
 //
 type IndicesSegments func(o ...func(*IndicesSegmentsRequest)) (*Response, error)
 

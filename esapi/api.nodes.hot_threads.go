@@ -24,7 +24,7 @@ func newNodesHotThreadsFunc(t Transport) NodesHotThreads {
 
 // NodesHotThreads returns information about hot threads on each node in the cluster.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-hot-threads.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-hot-threads.html.
 //
 type NodesHotThreads func(o ...func(*NodesHotThreadsRequest)) (*Response, error)
 

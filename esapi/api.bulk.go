@@ -24,7 +24,7 @@ func newBulkFunc(t Transport) Bulk {
 
 // Bulk allows to perform multiple index/update/delete operations in a single request.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-bulk.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-bulk.html.
 //
 type Bulk func(body io.Reader, o ...func(*BulkRequest)) (*Response, error)
 

@@ -22,7 +22,7 @@ func newInfoFunc(t Transport) Info {
 
 // Info returns basic information about the cluster.
 //
-// See full documentation at http://www.elastic.co/guide/.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html.
 //
 type Info func(o ...func(*InfoRequest)) (*Response, error)
 

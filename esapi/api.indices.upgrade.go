@@ -23,7 +23,7 @@ func newIndicesUpgradeFunc(t Transport) IndicesUpgrade {
 
 // IndicesUpgrade the _upgrade API is no longer useful and will be removed.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-upgrade.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-upgrade.html.
 //
 type IndicesUpgrade func(o ...func(*IndicesUpgradeRequest)) (*Response, error)
 

@@ -1,4 +1,4 @@
-// Code generated from specification version 8.0.0 (688cf832fe1): DO NOT EDIT
+// Code generated from specification version 8.0.0 (690136327fe): DO NOT EDIT
 
 package esapi
 
@@ -67,6 +67,10 @@ type API struct {
 	Search                              Search
 	SearchShards                        SearchShards
 	SearchTemplate                      SearchTemplate
+	SlmDeleteLifecycle                  SlmDeleteLifecycle
+	SlmExecuteLifecycle                 SlmExecuteLifecycle
+	SlmGetLifecycle                     SlmGetLifecycle
+	SlmPutLifecycle                     SlmPutLifecycle
 	Termvectors                         Termvectors
 	UpdateByQuery                       UpdateByQuery
 	UpdateByQueryRethrottle             UpdateByQueryRethrottle
@@ -114,6 +118,7 @@ type Cluster struct {
 type Indices struct {
 	Analyze               IndicesAnalyze
 	ClearCache            IndicesClearCache
+	Clone                 IndicesClone
 	Close                 IndicesClose
 	Create                IndicesCreate
 	DeleteAlias           IndicesDeleteAlias
@@ -422,6 +427,10 @@ func New(t Transport) *API {
 		Search:                              newSearchFunc(t),
 		SearchShards:                        newSearchShardsFunc(t),
 		SearchTemplate:                      newSearchTemplateFunc(t),
+		SlmDeleteLifecycle:                  newSlmDeleteLifecycleFunc(t),
+		SlmExecuteLifecycle:                 newSlmExecuteLifecycleFunc(t),
+		SlmGetLifecycle:                     newSlmGetLifecycleFunc(t),
+		SlmPutLifecycle:                     newSlmPutLifecycleFunc(t),
 		Termvectors:                         newTermvectorsFunc(t),
 		UpdateByQuery:                       newUpdateByQueryFunc(t),
 		UpdateByQueryRethrottle:             newUpdateByQueryRethrottleFunc(t),
@@ -462,6 +471,7 @@ func New(t Transport) *API {
 		Indices: &Indices{
 			Analyze:               newIndicesAnalyzeFunc(t),
 			ClearCache:            newIndicesClearCacheFunc(t),
+			Clone:                 newIndicesCloneFunc(t),
 			Close:                 newIndicesCloseFunc(t),
 			Create:                newIndicesCreateFunc(t),
 			DeleteAlias:           newIndicesDeleteAliasFunc(t),

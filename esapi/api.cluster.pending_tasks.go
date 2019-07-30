@@ -25,7 +25,7 @@ func newClusterPendingTasksFunc(t Transport) ClusterPendingTasks {
 // ClusterPendingTasks returns a list of any cluster-level changes (e.g. create index, update mapping,
 // allocate or fail shard) which have not yet been executed.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-pending.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-pending.html.
 //
 type ClusterPendingTasks func(o ...func(*ClusterPendingTasksRequest)) (*Response, error)
 

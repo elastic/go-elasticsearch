@@ -23,7 +23,7 @@ func newGetScriptFunc(t Transport) GetScript {
 
 // GetScript returns a script.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/modules-scripting.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-scripting.html.
 //
 type GetScript func(id string, o ...func(*GetScriptRequest)) (*Response, error)
 

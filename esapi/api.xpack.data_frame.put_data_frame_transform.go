@@ -6,6 +6,7 @@ import (
 	"context"
 	"io"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -31,6 +32,8 @@ type DataFramePutDataFrameTransformRequest struct {
 	Body io.Reader
 
 	TransformID string
+
+	DeferValidation *bool
 
 	Pretty     bool
 	Human      bool
@@ -62,6 +65,10 @@ func (r DataFramePutDataFrameTransformRequest) Do(ctx context.Context, transport
 	path.WriteString(r.TransformID)
 
 	params = make(map[string]string)
+
+	if r.DeferValidation != nil {
+		params["defer_validation"] = strconv.FormatBool(*r.DeferValidation)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -128,6 +135,14 @@ func (r DataFramePutDataFrameTransformRequest) Do(ctx context.Context, transport
 func (f DataFramePutDataFrameTransform) WithContext(v context.Context) func(*DataFramePutDataFrameTransformRequest) {
 	return func(r *DataFramePutDataFrameTransformRequest) {
 		r.ctx = v
+	}
+}
+
+// WithDeferValidation - if validations should be deferred until data frame transform starts, defaults to false..
+//
+func (f DataFramePutDataFrameTransform) WithDeferValidation(v bool) func(*DataFramePutDataFrameTransformRequest) {
+	return func(r *DataFramePutDataFrameTransformRequest) {
+		r.DeferValidation = &v
 	}
 }
 

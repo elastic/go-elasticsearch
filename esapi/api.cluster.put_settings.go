@@ -25,7 +25,7 @@ func newClusterPutSettingsFunc(t Transport) ClusterPutSettings {
 
 // ClusterPutSettings updates the cluster settings.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-update-settings.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-update-settings.html.
 //
 type ClusterPutSettings func(body io.Reader, o ...func(*ClusterPutSettingsRequest)) (*Response, error)
 

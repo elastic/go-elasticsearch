@@ -24,7 +24,7 @@ func newTermvectorsFunc(t Transport) Termvectors {
 
 // Termvectors returns information and statistics about terms in the fields of a particular document.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-termvectors.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-termvectors.html.
 //
 type Termvectors func(index string, o ...func(*TermvectorsRequest)) (*Response, error)
 

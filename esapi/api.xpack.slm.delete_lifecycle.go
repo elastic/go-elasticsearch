@@ -5,14 +5,12 @@ package esapi
 import (
 	"context"
 	"net/http"
-	"strconv"
 	"strings"
-	"time"
 )
 
-func newTasksGetFunc(t Transport) TasksGet {
-	return func(task_id string, o ...func(*TasksGetRequest)) (*Response, error) {
-		var r = TasksGetRequest{TaskID: task_id}
+func newSlmDeleteLifecycleFunc(t Transport) SlmDeleteLifecycle {
+	return func(o ...func(*SlmDeleteLifecycleRequest)) (*Response, error) {
+		var r = SlmDeleteLifecycleRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -22,19 +20,14 @@ func newTasksGetFunc(t Transport) TasksGet {
 
 // ----- API Definition -------------------------------------------------------
 
-// TasksGet returns information about a task.
+// SlmDeleteLifecycle - https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api.html
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html.
-//
-type TasksGet func(task_id string, o ...func(*TasksGetRequest)) (*Response, error)
+type SlmDeleteLifecycle func(o ...func(*SlmDeleteLifecycleRequest)) (*Response, error)
 
-// TasksGetRequest configures the Tasks Get API request.
+// SlmDeleteLifecycleRequest configures the Slm Delete Lifecycle API request.
 //
-type TasksGetRequest struct {
-	TaskID string
-
-	Timeout           time.Duration
-	WaitForCompletion *bool
+type SlmDeleteLifecycleRequest struct {
+	Policy string
 
 	Pretty     bool
 	Human      bool
@@ -48,30 +41,24 @@ type TasksGetRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r TasksGetRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SlmDeleteLifecycleRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "DELETE"
 
-	path.Grow(1 + len("_tasks") + 1 + len(r.TaskID))
+	path.Grow(1 + len("_slm") + 1 + len("policy") + 1 + len("{policy_id}"))
 	path.WriteString("/")
-	path.WriteString("_tasks")
+	path.WriteString("_slm")
 	path.WriteString("/")
-	path.WriteString(r.TaskID)
+	path.WriteString("policy")
+	path.WriteString("/")
+	path.WriteString("{policy_id}")
 
 	params = make(map[string]string)
-
-	if r.Timeout != 0 {
-		params["timeout"] = formatDuration(r.Timeout)
-	}
-
-	if r.WaitForCompletion != nil {
-		params["wait_for_completion"] = strconv.FormatBool(*r.WaitForCompletion)
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -131,64 +118,56 @@ func (r TasksGetRequest) Do(ctx context.Context, transport Transport) (*Response
 
 // WithContext sets the request context.
 //
-func (f TasksGet) WithContext(v context.Context) func(*TasksGetRequest) {
-	return func(r *TasksGetRequest) {
+func (f SlmDeleteLifecycle) WithContext(v context.Context) func(*SlmDeleteLifecycleRequest) {
+	return func(r *SlmDeleteLifecycleRequest) {
 		r.ctx = v
 	}
 }
 
-// WithTimeout - explicit operation timeout.
+// WithPolicy - the ID of the snapshot lifecycle policy to remove.
 //
-func (f TasksGet) WithTimeout(v time.Duration) func(*TasksGetRequest) {
-	return func(r *TasksGetRequest) {
-		r.Timeout = v
-	}
-}
-
-// WithWaitForCompletion - wait for the matching tasks to complete (default: false).
-//
-func (f TasksGet) WithWaitForCompletion(v bool) func(*TasksGetRequest) {
-	return func(r *TasksGetRequest) {
-		r.WaitForCompletion = &v
+func (f SlmDeleteLifecycle) WithPolicy(v string) func(*SlmDeleteLifecycleRequest) {
+	return func(r *SlmDeleteLifecycleRequest) {
+		r.Policy = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f TasksGet) WithPretty() func(*TasksGetRequest) {
-	return func(r *TasksGetRequest) {
+func (f SlmDeleteLifecycle) WithPretty() func(*SlmDeleteLifecycleRequest) {
+	return func(r *SlmDeleteLifecycleRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f TasksGet) WithHuman() func(*TasksGetRequest) {
-	return func(r *TasksGetRequest) {
+func (f SlmDeleteLifecycle) WithHuman() func(*SlmDeleteLifecycleRequest) {
+	return func(r *SlmDeleteLifecycleRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f TasksGet) WithErrorTrace() func(*TasksGetRequest) {
-	return func(r *TasksGetRequest) {
+func (f SlmDeleteLifecycle) WithErrorTrace() func(*SlmDeleteLifecycleRequest) {
+	return func(r *SlmDeleteLifecycleRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f TasksGet) WithFilterPath(v ...string) func(*TasksGetRequest) {
-	return func(r *TasksGetRequest) {
+func (f SlmDeleteLifecycle) WithFilterPath(v ...string) func(*SlmDeleteLifecycleRequest) {
+	return func(r *SlmDeleteLifecycleRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f TasksGet) WithHeader(h map[string]string) func(*TasksGetRequest) {
-	return func(r *TasksGetRequest) {
+func (f SlmDeleteLifecycle) WithHeader(h map[string]string) func(*SlmDeleteLifecycleRequest) {
+	return func(r *SlmDeleteLifecycleRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

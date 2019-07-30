@@ -5,6 +5,7 @@ package esapi
 import (
 	"context"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -28,6 +29,8 @@ type DataFrameDeleteDataFrameTransform func(transform_id string, o ...func(*Data
 //
 type DataFrameDeleteDataFrameTransformRequest struct {
 	TransformID string
+
+	Force *bool
 
 	Pretty     bool
 	Human      bool
@@ -59,6 +62,10 @@ func (r DataFrameDeleteDataFrameTransformRequest) Do(ctx context.Context, transp
 	path.WriteString(r.TransformID)
 
 	params = make(map[string]string)
+
+	if r.Force != nil {
+		params["force"] = strconv.FormatBool(*r.Force)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -121,6 +128,14 @@ func (r DataFrameDeleteDataFrameTransformRequest) Do(ctx context.Context, transp
 func (f DataFrameDeleteDataFrameTransform) WithContext(v context.Context) func(*DataFrameDeleteDataFrameTransformRequest) {
 	return func(r *DataFrameDeleteDataFrameTransformRequest) {
 		r.ctx = v
+	}
+}
+
+// WithForce - when `true`, the transform is deleted regardless of its current state. the default value is `false`, meaning that the transform must be `stopped` before it can be deleted..
+//
+func (f DataFrameDeleteDataFrameTransform) WithForce(v bool) func(*DataFrameDeleteDataFrameTransformRequest) {
+	return func(r *DataFrameDeleteDataFrameTransformRequest) {
+		r.Force = &v
 	}
 }
 

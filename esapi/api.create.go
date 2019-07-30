@@ -27,7 +27,7 @@ func newCreateFunc(t Transport) Create {
 //
 // Returns a 409 response when a document with a same ID already exists in the index.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html.
 //
 type Create func(index string, id string, body io.Reader, o ...func(*CreateRequest)) (*Response, error)
 

@@ -23,7 +23,7 @@ func newExistsSourceFunc(t Transport) ExistsSource {
 
 // ExistsSource returns information about whether a document source exists in an index.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-get.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-get.html.
 //
 type ExistsSource func(index string, id string, o ...func(*ExistsSourceRequest)) (*Response, error)
 

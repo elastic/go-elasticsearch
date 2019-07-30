@@ -23,7 +23,7 @@ func newFieldCapsFunc(t Transport) FieldCaps {
 
 // FieldCaps returns the information about the capabilities of fields among multiple indices.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/search-field-caps.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-field-caps.html.
 //
 type FieldCaps func(o ...func(*FieldCapsRequest)) (*Response, error)
 

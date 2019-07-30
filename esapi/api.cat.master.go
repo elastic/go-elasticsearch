@@ -24,7 +24,7 @@ func newCatMasterFunc(t Transport) CatMaster {
 
 // CatMaster returns information about the master node.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/cat-master.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-master.html.
 //
 type CatMaster func(o ...func(*CatMasterRequest)) (*Response, error)
 

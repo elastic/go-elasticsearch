@@ -24,7 +24,7 @@ func newNodesInfoFunc(t Transport) NodesInfo {
 
 // NodesInfo returns information about nodes in the cluster.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-info.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-info.html.
 //
 type NodesInfo func(o ...func(*NodesInfoRequest)) (*Response, error)
 

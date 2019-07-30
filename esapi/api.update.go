@@ -25,7 +25,7 @@ func newUpdateFunc(t Transport) Update {
 
 // Update updates a document with a script or partial document.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-update.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-update.html.
 //
 type Update func(index string, id string, body io.Reader, o ...func(*UpdateRequest)) (*Response, error)
 

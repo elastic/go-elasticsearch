@@ -24,7 +24,7 @@ func newMsearchFunc(t Transport) Msearch {
 
 // Msearch allows to execute several search operations in one request.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/search-multi-search.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-multi-search.html.
 //
 type Msearch func(body io.Reader, o ...func(*MsearchRequest)) (*Response, error)
 

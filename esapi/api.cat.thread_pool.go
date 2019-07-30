@@ -25,7 +25,7 @@ func newCatThreadPoolFunc(t Transport) CatThreadPool {
 // CatThreadPool returns cluster-wide thread pool statistics per node.
 // By default the active, queue and rejected statistics are returned for all thread pools.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/cat-thread-pool.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-thread-pool.html.
 //
 type CatThreadPool func(o ...func(*CatThreadPoolRequest)) (*Response, error)
 

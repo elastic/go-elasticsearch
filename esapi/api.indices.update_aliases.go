@@ -24,7 +24,7 @@ func newIndicesUpdateAliasesFunc(t Transport) IndicesUpdateAliases {
 
 // IndicesUpdateAliases updates index aliases.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html.
 //
 type IndicesUpdateAliases func(body io.Reader, o ...func(*IndicesUpdateAliasesRequest)) (*Response, error)
 

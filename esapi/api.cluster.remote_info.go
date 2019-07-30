@@ -22,7 +22,7 @@ func newClusterRemoteInfoFunc(t Transport) ClusterRemoteInfo {
 
 // ClusterRemoteInfo returns the information about configured remote clusters.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-remote-info.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-remote-info.html.
 //
 type ClusterRemoteInfo func(o ...func(*ClusterRemoteInfoRequest)) (*Response, error)
 

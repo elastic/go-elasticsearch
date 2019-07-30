@@ -25,7 +25,7 @@ func newIndexFunc(t Transport) Index {
 
 // Index creates or updates a document in an index.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html.
 //
 type Index func(index string, body io.Reader, o ...func(*IndexRequest)) (*Response, error)
 

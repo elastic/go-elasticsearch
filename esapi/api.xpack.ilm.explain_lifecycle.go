@@ -5,6 +5,7 @@ package esapi
 import (
 	"context"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -28,6 +29,9 @@ type ILMExplainLifecycle func(o ...func(*ILMExplainLifecycleRequest)) (*Response
 //
 type ILMExplainLifecycleRequest struct {
 	Index string
+
+	OnlyErrors  *bool
+	OnlyManaged *bool
 
 	Pretty     bool
 	Human      bool
@@ -61,6 +65,14 @@ func (r ILMExplainLifecycleRequest) Do(ctx context.Context, transport Transport)
 	path.WriteString("explain")
 
 	params = make(map[string]string)
+
+	if r.OnlyErrors != nil {
+		params["only_errors"] = strconv.FormatBool(*r.OnlyErrors)
+	}
+
+	if r.OnlyManaged != nil {
+		params["only_managed"] = strconv.FormatBool(*r.OnlyManaged)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -131,6 +143,22 @@ func (f ILMExplainLifecycle) WithContext(v context.Context) func(*ILMExplainLife
 func (f ILMExplainLifecycle) WithIndex(v string) func(*ILMExplainLifecycleRequest) {
 	return func(r *ILMExplainLifecycleRequest) {
 		r.Index = v
+	}
+}
+
+// WithOnlyErrors - filters the indices included in the response to ones in an ilm error state, implies only_managed.
+//
+func (f ILMExplainLifecycle) WithOnlyErrors(v bool) func(*ILMExplainLifecycleRequest) {
+	return func(r *ILMExplainLifecycleRequest) {
+		r.OnlyErrors = &v
+	}
+}
+
+// WithOnlyManaged - filters the indices included in the response to ones managed by ilm.
+//
+func (f ILMExplainLifecycle) WithOnlyManaged(v bool) func(*ILMExplainLifecycleRequest) {
+	return func(r *ILMExplainLifecycleRequest) {
+		r.OnlyManaged = &v
 	}
 }
 

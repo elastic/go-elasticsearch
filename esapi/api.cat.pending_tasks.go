@@ -24,7 +24,7 @@ func newCatPendingTasksFunc(t Transport) CatPendingTasks {
 
 // CatPendingTasks returns a concise representation of the cluster pending tasks.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/cat-pending-tasks.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-pending-tasks.html.
 //
 type CatPendingTasks func(o ...func(*CatPendingTasksRequest)) (*Response, error)
 

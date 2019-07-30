@@ -23,7 +23,7 @@ func newIndicesClearCacheFunc(t Transport) IndicesClearCache {
 
 // IndicesClearCache clears all or specific caches for one or more indices.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-clearcache.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-clearcache.html.
 //
 type IndicesClearCache func(o ...func(*IndicesClearCacheRequest)) (*Response, error)
 

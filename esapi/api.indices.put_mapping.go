@@ -25,7 +25,7 @@ func newIndicesPutMappingFunc(t Transport) IndicesPutMapping {
 
 // IndicesPutMapping updates the index mappings.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-put-mapping.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-put-mapping.html.
 //
 type IndicesPutMapping func(body io.Reader, o ...func(*IndicesPutMappingRequest)) (*Response, error)
 

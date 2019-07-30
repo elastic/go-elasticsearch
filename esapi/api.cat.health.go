@@ -24,7 +24,7 @@ func newCatHealthFunc(t Transport) CatHealth {
 
 // CatHealth returns a concise representation of the cluster health.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/cat-health.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-health.html.
 //
 type CatHealth func(o ...func(*CatHealthRequest)) (*Response, error)
 

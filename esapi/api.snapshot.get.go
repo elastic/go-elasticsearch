@@ -24,7 +24,7 @@ func newSnapshotGetFunc(t Transport) SnapshotGet {
 
 // SnapshotGet returns information about a snapshot.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html.
 //
 type SnapshotGet func(repository string, snapshot []string, o ...func(*SnapshotGetRequest)) (*Response, error)
 

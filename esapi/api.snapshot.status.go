@@ -24,7 +24,7 @@ func newSnapshotStatusFunc(t Transport) SnapshotStatus {
 
 // SnapshotStatus returns information about the status of a snapshot.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html.
 //
 type SnapshotStatus func(o ...func(*SnapshotStatusRequest)) (*Response, error)
 

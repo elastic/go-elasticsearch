@@ -23,7 +23,7 @@ func newIndicesGetFieldMappingFunc(t Transport) IndicesGetFieldMapping {
 
 // IndicesGetFieldMapping returns mapping for one or more fields.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-field-mapping.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-field-mapping.html.
 //
 type IndicesGetFieldMapping func(fields []string, o ...func(*IndicesGetFieldMappingRequest)) (*Response, error)
 

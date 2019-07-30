@@ -9,9 +9,9 @@ import (
 	"strings"
 )
 
-func newIndicesAnalyzeFunc(t Transport) IndicesAnalyze {
-	return func(o ...func(*IndicesAnalyzeRequest)) (*Response, error) {
-		var r = IndicesAnalyzeRequest{}
+func newSlmPutLifecycleFunc(t Transport) SlmPutLifecycle {
+	return func(o ...func(*SlmPutLifecycleRequest)) (*Response, error) {
+		var r = SlmPutLifecycleRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -21,18 +21,16 @@ func newIndicesAnalyzeFunc(t Transport) IndicesAnalyze {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesAnalyze performs the analysis process on a text and return the tokens breakdown of the text.
+// SlmPutLifecycle - https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api.html
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-analyze.html.
-//
-type IndicesAnalyze func(o ...func(*IndicesAnalyzeRequest)) (*Response, error)
+type SlmPutLifecycle func(o ...func(*SlmPutLifecycleRequest)) (*Response, error)
 
-// IndicesAnalyzeRequest configures the Indices Analyze API request.
+// SlmPutLifecycleRequest configures the Slm Put Lifecycle API request.
 //
-type IndicesAnalyzeRequest struct {
-	Index string
-
+type SlmPutLifecycleRequest struct {
 	Body io.Reader
+
+	PolicyID string
 
 	Pretty     bool
 	Human      bool
@@ -46,28 +44,26 @@ type IndicesAnalyzeRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r IndicesAnalyzeRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SlmPutLifecycleRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "PUT"
 
-	path.Grow(1 + len(r.Index) + 1 + len("_analyze"))
-	if r.Index != "" {
-		path.WriteString("/")
-		path.WriteString(r.Index)
-	}
+	path.Grow(1 + len("_slm") + 1 + len("policy") + 1 + len(r.PolicyID))
 	path.WriteString("/")
-	path.WriteString("_analyze")
+	path.WriteString("_slm")
+	path.WriteString("/")
+	path.WriteString("policy")
+	if r.PolicyID != "" {
+		path.WriteString("/")
+		path.WriteString(r.PolicyID)
+	}
 
 	params = make(map[string]string)
-
-	if r.Index != "" {
-		params["index"] = r.Index
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -131,64 +127,64 @@ func (r IndicesAnalyzeRequest) Do(ctx context.Context, transport Transport) (*Re
 
 // WithContext sets the request context.
 //
-func (f IndicesAnalyze) WithContext(v context.Context) func(*IndicesAnalyzeRequest) {
-	return func(r *IndicesAnalyzeRequest) {
+func (f SlmPutLifecycle) WithContext(v context.Context) func(*SlmPutLifecycleRequest) {
+	return func(r *SlmPutLifecycleRequest) {
 		r.ctx = v
 	}
 }
 
-// WithBody - Define analyzer/tokenizer parameters and the text on which the analysis should be performed.
+// WithBody - The snapshot lifecycle policy definition to register.
 //
-func (f IndicesAnalyze) WithBody(v io.Reader) func(*IndicesAnalyzeRequest) {
-	return func(r *IndicesAnalyzeRequest) {
+func (f SlmPutLifecycle) WithBody(v io.Reader) func(*SlmPutLifecycleRequest) {
+	return func(r *SlmPutLifecycleRequest) {
 		r.Body = v
 	}
 }
 
-// WithIndex - the name of the index to scope the operation.
+// WithPolicyID - the ID of the snapshot lifecycle policy.
 //
-func (f IndicesAnalyze) WithIndex(v string) func(*IndicesAnalyzeRequest) {
-	return func(r *IndicesAnalyzeRequest) {
-		r.Index = v
+func (f SlmPutLifecycle) WithPolicyID(v string) func(*SlmPutLifecycleRequest) {
+	return func(r *SlmPutLifecycleRequest) {
+		r.PolicyID = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f IndicesAnalyze) WithPretty() func(*IndicesAnalyzeRequest) {
-	return func(r *IndicesAnalyzeRequest) {
+func (f SlmPutLifecycle) WithPretty() func(*SlmPutLifecycleRequest) {
+	return func(r *SlmPutLifecycleRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f IndicesAnalyze) WithHuman() func(*IndicesAnalyzeRequest) {
-	return func(r *IndicesAnalyzeRequest) {
+func (f SlmPutLifecycle) WithHuman() func(*SlmPutLifecycleRequest) {
+	return func(r *SlmPutLifecycleRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f IndicesAnalyze) WithErrorTrace() func(*IndicesAnalyzeRequest) {
-	return func(r *IndicesAnalyzeRequest) {
+func (f SlmPutLifecycle) WithErrorTrace() func(*SlmPutLifecycleRequest) {
+	return func(r *SlmPutLifecycleRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f IndicesAnalyze) WithFilterPath(v ...string) func(*IndicesAnalyzeRequest) {
-	return func(r *IndicesAnalyzeRequest) {
+func (f SlmPutLifecycle) WithFilterPath(v ...string) func(*SlmPutLifecycleRequest) {
+	return func(r *SlmPutLifecycleRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f IndicesAnalyze) WithHeader(h map[string]string) func(*IndicesAnalyzeRequest) {
-	return func(r *IndicesAnalyzeRequest) {
+func (f SlmPutLifecycle) WithHeader(h map[string]string) func(*SlmPutLifecycleRequest) {
+	return func(r *SlmPutLifecycleRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

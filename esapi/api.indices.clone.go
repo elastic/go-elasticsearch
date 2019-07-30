@@ -10,9 +10,9 @@ import (
 	"time"
 )
 
-func newPutScriptFunc(t Transport) PutScript {
-	return func(id string, body io.Reader, o ...func(*PutScriptRequest)) (*Response, error) {
-		var r = PutScriptRequest{ScriptID: id, Body: body}
+func newIndicesCloneFunc(t Transport) IndicesClone {
+	return func(index string, target string, o ...func(*IndicesCloneRequest)) (*Response, error) {
+		var r = IndicesCloneRequest{Index: index, Target: target}
 		for _, f := range o {
 			f(&r)
 		}
@@ -22,23 +22,24 @@ func newPutScriptFunc(t Transport) PutScript {
 
 // ----- API Definition -------------------------------------------------------
 
-// PutScript creates or updates a script.
+// IndicesClone clones an existing index into a new index.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-scripting.html.
+// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-clone-index.html.
 //
-type PutScript func(id string, body io.Reader, o ...func(*PutScriptRequest)) (*Response, error)
+type IndicesClone func(index string, target string, o ...func(*IndicesCloneRequest)) (*Response, error)
 
-// PutScriptRequest configures the Put Script API request.
+// IndicesCloneRequest configures the Indices Clone API request.
 //
-type PutScriptRequest struct {
-	ScriptID string
+type IndicesCloneRequest struct {
+	Index string
 
 	Body io.Reader
 
-	ScriptContext string
+	Target string
 
-	MasterTimeout time.Duration
-	Timeout       time.Duration
+	MasterTimeout       time.Duration
+	Timeout             time.Duration
+	WaitForActiveShards string
 
 	Pretty     bool
 	Human      bool
@@ -52,7 +53,7 @@ type PutScriptRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r PutScriptRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r IndicesCloneRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -61,21 +62,15 @@ func (r PutScriptRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 	method = "PUT"
 
-	path.Grow(1 + len("_scripts") + 1 + len(r.ScriptID) + 1 + len(r.ScriptContext))
+	path.Grow(1 + len(r.Index) + 1 + len("_clone") + 1 + len(r.Target))
 	path.WriteString("/")
-	path.WriteString("_scripts")
+	path.WriteString(r.Index)
 	path.WriteString("/")
-	path.WriteString(r.ScriptID)
-	if r.ScriptContext != "" {
-		path.WriteString("/")
-		path.WriteString(r.ScriptContext)
-	}
+	path.WriteString("_clone")
+	path.WriteString("/")
+	path.WriteString(r.Target)
 
 	params = make(map[string]string)
-
-	if r.ScriptContext != "" {
-		params["context"] = r.ScriptContext
-	}
 
 	if r.MasterTimeout != 0 {
 		params["master_timeout"] = formatDuration(r.MasterTimeout)
@@ -83,6 +78,10 @@ func (r PutScriptRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 	if r.Timeout != 0 {
 		params["timeout"] = formatDuration(r.Timeout)
+	}
+
+	if r.WaitForActiveShards != "" {
+		params["wait_for_active_shards"] = r.WaitForActiveShards
 	}
 
 	if r.Pretty {
@@ -147,72 +146,80 @@ func (r PutScriptRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 // WithContext sets the request context.
 //
-func (f PutScript) WithContext(v context.Context) func(*PutScriptRequest) {
-	return func(r *PutScriptRequest) {
+func (f IndicesClone) WithContext(v context.Context) func(*IndicesCloneRequest) {
+	return func(r *IndicesCloneRequest) {
 		r.ctx = v
 	}
 }
 
-// WithScriptContext - script context.
+// WithBody - The configuration for the target index (`settings` and `aliases`).
 //
-func (f PutScript) WithScriptContext(v string) func(*PutScriptRequest) {
-	return func(r *PutScriptRequest) {
-		r.ScriptContext = v
+func (f IndicesClone) WithBody(v io.Reader) func(*IndicesCloneRequest) {
+	return func(r *IndicesCloneRequest) {
+		r.Body = v
 	}
 }
 
 // WithMasterTimeout - specify timeout for connection to master.
 //
-func (f PutScript) WithMasterTimeout(v time.Duration) func(*PutScriptRequest) {
-	return func(r *PutScriptRequest) {
+func (f IndicesClone) WithMasterTimeout(v time.Duration) func(*IndicesCloneRequest) {
+	return func(r *IndicesCloneRequest) {
 		r.MasterTimeout = v
 	}
 }
 
 // WithTimeout - explicit operation timeout.
 //
-func (f PutScript) WithTimeout(v time.Duration) func(*PutScriptRequest) {
-	return func(r *PutScriptRequest) {
+func (f IndicesClone) WithTimeout(v time.Duration) func(*IndicesCloneRequest) {
+	return func(r *IndicesCloneRequest) {
 		r.Timeout = v
+	}
+}
+
+// WithWaitForActiveShards - set the number of active shards to wait for on the cloned index before the operation returns..
+//
+func (f IndicesClone) WithWaitForActiveShards(v string) func(*IndicesCloneRequest) {
+	return func(r *IndicesCloneRequest) {
+		r.WaitForActiveShards = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f PutScript) WithPretty() func(*PutScriptRequest) {
-	return func(r *PutScriptRequest) {
+func (f IndicesClone) WithPretty() func(*IndicesCloneRequest) {
+	return func(r *IndicesCloneRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f PutScript) WithHuman() func(*PutScriptRequest) {
-	return func(r *PutScriptRequest) {
+func (f IndicesClone) WithHuman() func(*IndicesCloneRequest) {
+	return func(r *IndicesCloneRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f PutScript) WithErrorTrace() func(*PutScriptRequest) {
-	return func(r *PutScriptRequest) {
+func (f IndicesClone) WithErrorTrace() func(*IndicesCloneRequest) {
+	return func(r *IndicesCloneRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f PutScript) WithFilterPath(v ...string) func(*PutScriptRequest) {
-	return func(r *PutScriptRequest) {
+func (f IndicesClone) WithFilterPath(v ...string) func(*IndicesCloneRequest) {
+	return func(r *IndicesCloneRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f PutScript) WithHeader(h map[string]string) func(*PutScriptRequest) {
-	return func(r *PutScriptRequest) {
+func (f IndicesClone) WithHeader(h map[string]string) func(*IndicesCloneRequest) {
+	return func(r *IndicesCloneRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
