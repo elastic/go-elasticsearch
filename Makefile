@@ -181,15 +181,17 @@ endif
 	}
 
 release: ## Release a new version to Github
+	$(eval branch = $(shell git rev-parse --abbrev-ref HEAD))
+	$(eval current_version = $(shell cat internal/version/version.go | sed -Ee 's/const Client = "(.*)"/\1/' | tail -1))
+	@echo "\033[2m→ [$(branch)] Current version: $(current_version)...\033[0m"
 ifndef version
-	@echo "Missing version argument, exiting..."
+	@echo "\033[31m[!] Missing version argument, exiting...\033[0m"
 	@exit 2
 endif
 ifeq ($(version), "")
-	@echo "Empty version argument, exiting..."
+	@echo "\033[31m[!] Empty version argument, exiting...\033[0m"
 	@exit 2
 endif
-	$(eval branch = $(shell git rev-parse --abbrev-ref HEAD))
 	@echo "\033[2m→ [$(branch)] Creating version $(version)...\033[0m"
 	@{ \
 		set -e -o pipefail; \
