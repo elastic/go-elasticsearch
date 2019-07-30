@@ -241,6 +241,11 @@ indices.clear_cache:
   description: |-
     Clears all or specific caches for one or more indices.
 
+indices.clone:
+  # https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-clone-index.html
+  description: |-
+    Clones an existing index into a new index.
+
 indices.close:
   # http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-open-close.html
   description: |-
