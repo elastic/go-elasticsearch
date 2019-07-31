@@ -45,7 +45,7 @@ passing to the `WithBody()` methods:
 ```golang
 type Document struct{ Title string }
 doc := Document{Title: "Test"}
-es.Search(es.Search.WithBody(esutil.JSONReader(&doc)))
+es.Search(es.Search.WithBody(esutil.NewJSONReader(&doc)))
 ```
 
 -----
