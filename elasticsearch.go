@@ -161,7 +161,7 @@ func addrsToURLs(addrs []string) ([]*url.URL, error) {
 //
 func addrFromCloudID(input string) (string, error) {
 	var (
-		port   = 9243
+		port   = "9243"
 		scheme = "https://"
 	)
 
@@ -174,5 +174,10 @@ func addrFromCloudID(input string) (string, error) {
 		return "", err
 	}
 	parts := strings.Split(string(data), "$")
-	return fmt.Sprintf("%s%s.%s:%d", scheme, parts[1], parts[0], port), nil
+	host := parts[0]
+	idx := strings.LastIndex(host, ":")
+	if idx >= 0 {
+		host, port = host[:idx], host[idx+1:]
+	}
+	return fmt.Sprintf("%s%s.%s:%s", scheme, parts[1], host, port), nil
 }

@@ -245,6 +245,19 @@ func TestCloudID(t *testing.T) {
 		}
 	})
 
+	t.Run("Parse(include port)", func(t *testing.T) {
+		input := "name:" + base64.StdEncoding.EncodeToString([]byte("host:9243$es$kibana"))
+		expected := "https://es.host:9243"
+
+		actual, err := addrFromCloudID(input)
+		if err != nil {
+			t.Errorf("Unexpected error: %s", err)
+		}
+		if actual != expected {
+			t.Errorf("Unexpected output, want=%q, got=%q", expected, actual)
+		}
+	})
+
 	t.Run("Invalid format", func(t *testing.T) {
 		input := "foobar"
 		_, err := addrFromCloudID(input)
