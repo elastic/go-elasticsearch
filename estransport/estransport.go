@@ -40,7 +40,9 @@ type Config struct {
 	URLs     []*url.URL
 	Username string
 	Password string
-	APIKey   string
+
+	APIKey string
+	Token  string
 
 	Transport http.RoundTripper
 	Logger    Logger
@@ -52,7 +54,9 @@ type Client struct {
 	urls     []*url.URL
 	username string
 	password string
-	apikey   string
+
+	apikey string
+	token  string
 
 	transport http.RoundTripper
 	selector  Selector
@@ -72,7 +76,9 @@ func New(cfg Config) *Client {
 		urls:     cfg.URLs,
 		username: cfg.Username,
 		password: cfg.Password,
-		apikey:   cfg.APIKey,
+
+		apikey: cfg.APIKey,
+		token:  cfg.Token,
 
 		transport: cfg.Transport,
 		selector:  NewRoundRobinSelector(cfg.URLs...),
@@ -163,6 +169,15 @@ func (c *Client) setAuthorization(u *url.URL, req *http.Request) *http.Request {
 			b.Grow(len("APIKey ") + len(c.apikey))
 			b.WriteString("APIKey ")
 			b.WriteString(c.apikey)
+			req.Header.Set("Authorization", b.String())
+			return req
+		}
+
+		if c.token != "" {
+			var b bytes.Buffer
+			b.Grow(len("Bearer ") + len(c.apikey))
+			b.WriteString("Bearer ")
+			b.WriteString(c.token)
 			req.Header.Set("Authorization", b.String())
 			return req
 		}
