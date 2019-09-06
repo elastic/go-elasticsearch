@@ -20,7 +20,7 @@ func newSlmGetLifecycleFunc(t Transport) SlmGetLifecycle {
 
 // ----- API Definition -------------------------------------------------------
 
-// SlmGetLifecycle - https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api.html
+// SlmGetLifecycle - https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-get.html
 //
 type SlmGetLifecycle func(o ...func(*SlmGetLifecycleRequest)) (*Response, error)
 

@@ -1,4 +1,4 @@
-// Code generated from specification version 8.0.0 (690136327fe): DO NOT EDIT
+// Code generated from specification version 8.0.0 (768595d38f4): DO NOT EDIT
 
 package esapi
 
@@ -37,6 +37,7 @@ type API struct {
 	DataFramePutDataFrameTransform      DataFramePutDataFrameTransform
 	DataFrameStartDataFrameTransform    DataFrameStartDataFrameTransform
 	DataFrameStopDataFrameTransform     DataFrameStopDataFrameTransform
+	DataFrameUpdateDataFrameTransform   DataFrameUpdateDataFrameTransform
 	DeleteByQuery                       DeleteByQuery
 	DeleteByQueryRethrottle             DeleteByQueryRethrottle
 	Delete                              Delete
@@ -259,6 +260,7 @@ type ML struct {
 	DeleteForecast             MLDeleteForecast
 	DeleteJob                  MLDeleteJob
 	DeleteModelSnapshot        MLDeleteModelSnapshot
+	EstimateMemoryUsage        MLEstimateMemoryUsage
 	EvaluateDataFrame          MLEvaluateDataFrame
 	FindFileStructure          MLFindFileStructure
 	FlushJob                   MLFlushJob
@@ -397,6 +399,7 @@ func New(t Transport) *API {
 		DataFramePutDataFrameTransform:      newDataFramePutDataFrameTransformFunc(t),
 		DataFrameStartDataFrameTransform:    newDataFrameStartDataFrameTransformFunc(t),
 		DataFrameStopDataFrameTransform:     newDataFrameStopDataFrameTransformFunc(t),
+		DataFrameUpdateDataFrameTransform:   newDataFrameUpdateDataFrameTransformFunc(t),
 		DeleteByQuery:                       newDeleteByQueryFunc(t),
 		DeleteByQueryRethrottle:             newDeleteByQueryRethrottleFunc(t),
 		Delete:                              newDeleteFunc(t),
@@ -591,6 +594,7 @@ func New(t Transport) *API {
 			DeleteForecast:             newMLDeleteForecastFunc(t),
 			DeleteJob:                  newMLDeleteJobFunc(t),
 			DeleteModelSnapshot:        newMLDeleteModelSnapshotFunc(t),
+			EstimateMemoryUsage:        newMLEstimateMemoryUsageFunc(t),
 			EvaluateDataFrame:          newMLEvaluateDataFrameFunc(t),
 			FindFileStructure:          newMLFindFileStructureFunc(t),
 			FlushJob:                   newMLFlushJobFunc(t),

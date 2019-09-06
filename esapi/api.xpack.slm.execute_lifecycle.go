@@ -20,7 +20,7 @@ func newSlmExecuteLifecycleFunc(t Transport) SlmExecuteLifecycle {
 
 // ----- API Definition -------------------------------------------------------
 
-// SlmExecuteLifecycle - https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api.html
+// SlmExecuteLifecycle - https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-execute.html
 //
 type SlmExecuteLifecycle func(o ...func(*SlmExecuteLifecycleRequest)) (*Response, error)
 

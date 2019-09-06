@@ -9,9 +9,9 @@ import (
 	"strings"
 )
 
-func newSlmPutLifecycleFunc(t Transport) SlmPutLifecycle {
-	return func(o ...func(*SlmPutLifecycleRequest)) (*Response, error) {
-		var r = SlmPutLifecycleRequest{}
+func newMLEstimateMemoryUsageFunc(t Transport) MLEstimateMemoryUsage {
+	return func(body io.Reader, o ...func(*MLEstimateMemoryUsageRequest)) (*Response, error) {
+		var r = MLEstimateMemoryUsageRequest{Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -21,16 +21,14 @@ func newSlmPutLifecycleFunc(t Transport) SlmPutLifecycle {
 
 // ----- API Definition -------------------------------------------------------
 
-// SlmPutLifecycle - https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-put.html
+// MLEstimateMemoryUsage - http://www.elastic.co/guide/en/elasticsearch/reference/current/estimate-memory-usage-dfanalytics.html
 //
-type SlmPutLifecycle func(o ...func(*SlmPutLifecycleRequest)) (*Response, error)
+type MLEstimateMemoryUsage func(body io.Reader, o ...func(*MLEstimateMemoryUsageRequest)) (*Response, error)
 
-// SlmPutLifecycleRequest configures the Slm Put Lifecycle API request.
+// MLEstimateMemoryUsageRequest configures the ML Estimate Memory Usage API request.
 //
-type SlmPutLifecycleRequest struct {
+type MLEstimateMemoryUsageRequest struct {
 	Body io.Reader
-
-	PolicyID string
 
 	Pretty     bool
 	Human      bool
@@ -44,24 +42,17 @@ type SlmPutLifecycleRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r SlmPutLifecycleRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r MLEstimateMemoryUsageRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "PUT"
+	method = "POST"
 
-	path.Grow(1 + len("_slm") + 1 + len("policy") + 1 + len(r.PolicyID))
-	path.WriteString("/")
-	path.WriteString("_slm")
-	path.WriteString("/")
-	path.WriteString("policy")
-	if r.PolicyID != "" {
-		path.WriteString("/")
-		path.WriteString(r.PolicyID)
-	}
+	path.Grow(len("/_ml/data_frame/analytics/_estimate_memory_usage"))
+	path.WriteString("/_ml/data_frame/analytics/_estimate_memory_usage")
 
 	params = make(map[string]string)
 
@@ -127,64 +118,48 @@ func (r SlmPutLifecycleRequest) Do(ctx context.Context, transport Transport) (*R
 
 // WithContext sets the request context.
 //
-func (f SlmPutLifecycle) WithContext(v context.Context) func(*SlmPutLifecycleRequest) {
-	return func(r *SlmPutLifecycleRequest) {
+func (f MLEstimateMemoryUsage) WithContext(v context.Context) func(*MLEstimateMemoryUsageRequest) {
+	return func(r *MLEstimateMemoryUsageRequest) {
 		r.ctx = v
-	}
-}
-
-// WithBody - The snapshot lifecycle policy definition to register.
-//
-func (f SlmPutLifecycle) WithBody(v io.Reader) func(*SlmPutLifecycleRequest) {
-	return func(r *SlmPutLifecycleRequest) {
-		r.Body = v
-	}
-}
-
-// WithPolicyID - the ID of the snapshot lifecycle policy.
-//
-func (f SlmPutLifecycle) WithPolicyID(v string) func(*SlmPutLifecycleRequest) {
-	return func(r *SlmPutLifecycleRequest) {
-		r.PolicyID = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f SlmPutLifecycle) WithPretty() func(*SlmPutLifecycleRequest) {
-	return func(r *SlmPutLifecycleRequest) {
+func (f MLEstimateMemoryUsage) WithPretty() func(*MLEstimateMemoryUsageRequest) {
+	return func(r *MLEstimateMemoryUsageRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f SlmPutLifecycle) WithHuman() func(*SlmPutLifecycleRequest) {
-	return func(r *SlmPutLifecycleRequest) {
+func (f MLEstimateMemoryUsage) WithHuman() func(*MLEstimateMemoryUsageRequest) {
+	return func(r *MLEstimateMemoryUsageRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f SlmPutLifecycle) WithErrorTrace() func(*SlmPutLifecycleRequest) {
-	return func(r *SlmPutLifecycleRequest) {
+func (f MLEstimateMemoryUsage) WithErrorTrace() func(*MLEstimateMemoryUsageRequest) {
+	return func(r *MLEstimateMemoryUsageRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f SlmPutLifecycle) WithFilterPath(v ...string) func(*SlmPutLifecycleRequest) {
-	return func(r *SlmPutLifecycleRequest) {
+func (f MLEstimateMemoryUsage) WithFilterPath(v ...string) func(*MLEstimateMemoryUsageRequest) {
+	return func(r *MLEstimateMemoryUsageRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f SlmPutLifecycle) WithHeader(h map[string]string) func(*SlmPutLifecycleRequest) {
-	return func(r *SlmPutLifecycleRequest) {
+func (f MLEstimateMemoryUsage) WithHeader(h map[string]string) func(*MLEstimateMemoryUsageRequest) {
+	return func(r *MLEstimateMemoryUsageRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
