@@ -71,6 +71,8 @@ search/issue9606.yaml:
 # Stash in body
 api_key/10_basic.yml:
   - Test invalidate api key
+rollup/put_job.yml:
+  - Test put job with templates
 
 # Changing password locks out tests
 change_password/10_basic.yml:
