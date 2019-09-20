@@ -93,7 +93,7 @@ func NewClient(cfg Config) (*Client, error) {
 	}
 
 	if len(cfg.Addresses) > 0 && cfg.CloudID != "" {
-		return nil, errors.New("cannot create client: both Adresses and CloudID are set")
+		return nil, errors.New("cannot create client: both Addresses and CloudID are set")
 	}
 
 	if cfg.CloudID != "" {
