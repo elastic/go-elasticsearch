@@ -135,7 +135,7 @@ func (c *Client) getURL() (*url.URL, error) {
 	return c.selector.Select()
 }
 
-func (c *Client) setURL(u *url.URL, req *http.Request) *http.Request {
+func (c *Client) setURL(u *url.URL, req *http.Request) {
 	req.URL.Scheme = u.Scheme
 	req.URL.Host = u.Host
 
@@ -146,16 +146,14 @@ func (c *Client) setURL(u *url.URL, req *http.Request) *http.Request {
 		b.WriteString(req.URL.Path)
 		req.URL.Path = b.String()
 	}
-
-	return req
 }
 
-func (c *Client) setAuthorization(u *url.URL, req *http.Request) *http.Request {
+func (c *Client) setAuthorization(u *url.URL, req *http.Request) {
 	if _, ok := req.Header["Authorization"]; !ok {
 		if u.User != nil {
 			password, _ := u.User.Password()
 			req.SetBasicAuth(u.User.Username(), password)
-			return req
+			return
 		}
 
 		if c.apikey != "" {
@@ -164,21 +162,18 @@ func (c *Client) setAuthorization(u *url.URL, req *http.Request) *http.Request {
 			b.WriteString("APIKey ")
 			b.WriteString(c.apikey)
 			req.Header.Set("Authorization", b.String())
-			return req
+			return
 		}
 
 		if c.username != "" && c.password != "" {
 			req.SetBasicAuth(c.username, c.password)
-			return req
+			return
 		}
 	}
-
-	return req
 }
 
-func (c *Client) setUserAgent(req *http.Request) *http.Request {
+func (c *Client) setUserAgent(req *http.Request) {
 	req.Header.Set("User-Agent", userAgent)
-	return req
 }
 
 func (c *Client) logRoundTrip(
