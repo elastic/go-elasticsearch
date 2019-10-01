@@ -542,7 +542,7 @@ func (g *Generator) genXPackSetup() {
 			}
 
 			{
-				res, _ = es.ILM.RemovePolicy(es.ILM.RemovePolicy.WithIndex("_all"))
+				res, _ = es.ILM.RemovePolicy("_all")
 				if res != nil && res.Body != nil {
 					defer res.Body.Close()
 				}
