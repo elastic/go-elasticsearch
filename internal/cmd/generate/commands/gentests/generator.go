@@ -55,6 +55,7 @@ func (g *Generator) Output() (io.Reader, error) {
 		g.w("testSuiteSetup := func() {\n")
 		g.genSetupTeardown(g.TestSuite.Setup)
 		g.w("}\n")
+		g.w("_ = testSuiteSetup\n")
 		g.w("// --------------------------------------------------------------------------------\n")
 		g.w("\n")
 	}
@@ -258,6 +259,7 @@ func (g *Generator) genHelpers() {
 		t.Fatalf("Panic: %s in %s", rec, reLocation.ReplaceAllString(loc, "$1"))
 	}
 }
+_ = recoverPanic
 ` + "\n")
 
 	g.w(`
@@ -359,6 +361,7 @@ func (g *Generator) genCommonSetup() {
 			}
 		}
 	}
+	_ = commonSetup
 
 	`)
 }
@@ -597,6 +600,7 @@ func (g *Generator) genXPackSetup() {
 				}
 			}
 		}
+		_ = xpackSetup
 
 	`)
 }
