@@ -68,30 +68,31 @@ func (g *Generator) Output() (io.Reader, error) {
 		g.w("\n")
 		g.genLocationYAML(t)
 		g.w("\t" + `t.Run("` + strings.Title(t.Name) + `", ` + "func(t *testing.T) {\n")
-		g.genSkip(t)
-		g.w("\tdefer recoverPanic(t)\n")
-		g.w("\tcommonSetup()\n")
-		if g.TestSuite.Type == "xpack" {
-			g.w("\txpackSetup()\n")
-		}
-		if len(g.TestSuite.Setup) > 0 {
-			g.w("\ttestSuiteSetup()\n")
-		}
-		g.w("\n")
-		if len(t.Setup) > 0 {
-			g.w("\t// Test setup\n")
-			g.genSetupTeardown(t.Setup)
-		}
-		if len(t.Teardown) > 0 {
-			g.w("\t// Test teardown\n")
-			g.w("\tdefer func(t) {\n")
-			g.genSetupTeardown(t.Teardown)
-			g.w("\t}(t *testing.T)\n")
-		}
-		if len(t.Setup) > 0 || len(t.Teardown) > 0 {
+		if !g.genSkip(t) {
+			g.w("\tdefer recoverPanic(t)\n")
+			g.w("\tcommonSetup()\n")
+			if g.TestSuite.Type == "xpack" {
+				g.w("\txpackSetup()\n")
+			}
+			if len(g.TestSuite.Setup) > 0 {
+				g.w("\ttestSuiteSetup()\n")
+			}
 			g.w("\n")
+			if len(t.Setup) > 0 {
+				g.w("\t// Test setup\n")
+				g.genSetupTeardown(t.Setup)
+			}
+			if len(t.Teardown) > 0 {
+				g.w("\t// Test teardown\n")
+				g.w("\tdefer func(t) {\n")
+				g.genSetupTeardown(t.Teardown)
+				g.w("\t}(t *testing.T)\n")
+			}
+			if len(t.Setup) > 0 || len(t.Teardown) > 0 {
+				g.w("\n")
+			}
+			g.genSteps(t)
 		}
-		g.genSteps(t)
 		g.w("\t})\n")
 		if i < len(g.TestSuite.Tests)-1 {
 			g.w("\n")
@@ -626,18 +627,19 @@ func (g *Generator) genLocationYAML(t Test) {
 	}
 }
 
-func (g *Generator) genSkip(t Test) {
+func (g *Generator) genSkip(t Test) (skipped bool) {
 	// Check the custom skip list
 	if skips, ok := skipTests[t.BaseFilename()]; ok {
 		if len(skips) < 1 {
 			g.w("\t// Skipping all tests in '" + t.BaseFilename() + "'\n")
 			g.w("\tt.SkipNow()\n\n")
-			return
+			return true
 		}
 
 		for _, skip := range skips {
 			if skip == t.OrigName {
 				g.w("\tt.SkipNow()\n\n")
+				return true
 			}
 		}
 	}
@@ -646,10 +648,14 @@ func (g *Generator) genSkip(t Test) {
 	if t.Skip {
 		if t.SkipInfo != "" {
 			g.w("\tt.Skip(" + strconv.Quote(t.SkipInfo) + ")\n\n")
+			return true
 		} else {
 			g.w("\tt.SkipNow()\n\n")
+			return true
 		}
 	}
+
+	return false
 }
 
 func (g *Generator) genSetupTeardown(actions []Action) {
