@@ -20,7 +20,9 @@ func newCCRFollowStatsFunc(t Transport) CCRFollowStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// CCRFollowStats - https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-get-follow-stats.html
+// CCRFollowStats -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-get-follow-stats.html.
 //
 type CCRFollowStats func(index []string, o ...func(*CCRFollowStatsRequest)) (*Response, error)
 

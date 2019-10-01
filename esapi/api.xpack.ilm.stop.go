@@ -20,7 +20,9 @@ func newILMStopFunc(t Transport) ILMStop {
 
 // ----- API Definition -------------------------------------------------------
 
-// ILMStop - https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-stop.html
+// ILMStop -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-stop.html.
 //
 type ILMStop func(o ...func(*ILMStopRequest)) (*Response, error)
 

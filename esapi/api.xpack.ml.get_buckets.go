@@ -23,7 +23,9 @@ func newMLGetBucketsFunc(t Transport) MLGetBuckets {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetBuckets - http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-bucket.html
+// MLGetBuckets -
+//
+// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-bucket.html.
 //
 type MLGetBuckets func(job_id string, o ...func(*MLGetBucketsRequest)) (*Response, error)
 

@@ -21,7 +21,9 @@ func newSecurityInvalidateTokenFunc(t Transport) SecurityInvalidateToken {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityInvalidateToken - https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-invalidate-token.html
+// SecurityInvalidateToken -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-invalidate-token.html.
 //
 type SecurityInvalidateToken func(body io.Reader, o ...func(*SecurityInvalidateTokenRequest)) (*Response, error)
 

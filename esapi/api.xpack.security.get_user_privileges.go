@@ -20,7 +20,9 @@ func newSecurityGetUserPrivilegesFunc(t Transport) SecurityGetUserPrivileges {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGetUserPrivileges - https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-privileges.html
+// SecurityGetUserPrivileges -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-privileges.html.
 //
 type SecurityGetUserPrivileges func(o ...func(*SecurityGetUserPrivilegesRequest)) (*Response, error)
 

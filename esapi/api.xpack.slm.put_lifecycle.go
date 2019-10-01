@@ -10,8 +10,8 @@ import (
 )
 
 func newSlmPutLifecycleFunc(t Transport) SlmPutLifecycle {
-	return func(o ...func(*SlmPutLifecycleRequest)) (*Response, error) {
-		var r = SlmPutLifecycleRequest{}
+	return func(policy_id string, o ...func(*SlmPutLifecycleRequest)) (*Response, error) {
+		var r = SlmPutLifecycleRequest{PolicyID: policy_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -21,9 +21,11 @@ func newSlmPutLifecycleFunc(t Transport) SlmPutLifecycle {
 
 // ----- API Definition -------------------------------------------------------
 
-// SlmPutLifecycle - https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-put.html
+// SlmPutLifecycle -
 //
-type SlmPutLifecycle func(o ...func(*SlmPutLifecycleRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-put.html.
+//
+type SlmPutLifecycle func(policy_id string, o ...func(*SlmPutLifecycleRequest)) (*Response, error)
 
 // SlmPutLifecycleRequest configures the Slm Put Lifecycle API request.
 //
@@ -58,10 +60,8 @@ func (r SlmPutLifecycleRequest) Do(ctx context.Context, transport Transport) (*R
 	path.WriteString("_slm")
 	path.WriteString("/")
 	path.WriteString("policy")
-	if r.PolicyID != "" {
-		path.WriteString("/")
-		path.WriteString(r.PolicyID)
-	}
+	path.WriteString("/")
+	path.WriteString(r.PolicyID)
 
 	params = make(map[string]string)
 
@@ -138,14 +138,6 @@ func (f SlmPutLifecycle) WithContext(v context.Context) func(*SlmPutLifecycleReq
 func (f SlmPutLifecycle) WithBody(v io.Reader) func(*SlmPutLifecycleRequest) {
 	return func(r *SlmPutLifecycleRequest) {
 		r.Body = v
-	}
-}
-
-// WithPolicyID - the ID of the snapshot lifecycle policy.
-//
-func (f SlmPutLifecycle) WithPolicyID(v string) func(*SlmPutLifecycleRequest) {
-	return func(r *SlmPutLifecycleRequest) {
-		r.PolicyID = v
 	}
 }
 

@@ -21,7 +21,9 @@ func newMLEstimateMemoryUsageFunc(t Transport) MLEstimateMemoryUsage {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLEstimateMemoryUsage - http://www.elastic.co/guide/en/elasticsearch/reference/current/estimate-memory-usage-dfanalytics.html
+// MLEstimateMemoryUsage -
+//
+// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/estimate-memory-usage-dfanalytics.html.
 //
 type MLEstimateMemoryUsage func(body io.Reader, o ...func(*MLEstimateMemoryUsageRequest)) (*Response, error)
 

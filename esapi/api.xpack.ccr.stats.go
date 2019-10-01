@@ -20,7 +20,9 @@ func newCCRStatsFunc(t Transport) CCRStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// CCRStats - https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-get-stats.html
+// CCRStats -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-get-stats.html.
 //
 type CCRStats func(o ...func(*CCRStatsRequest)) (*Response, error)
 

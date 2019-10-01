@@ -20,7 +20,9 @@ func newSecurityGetRoleFunc(t Transport) SecurityGetRole {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGetRole - https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-role.html
+// SecurityGetRole -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-role.html.
 //
 type SecurityGetRole func(o ...func(*SecurityGetRoleRequest)) (*Response, error)
 

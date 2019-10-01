@@ -1,4 +1,4 @@
-// Code generated from specification version 8.0.0 (768595d38f4): DO NOT EDIT
+// Code generated from specification version 8.0.0 (b1a03a137fd): DO NOT EDIT
 
 package esapi
 
@@ -71,8 +71,17 @@ type API struct {
 	SlmDeleteLifecycle                  SlmDeleteLifecycle
 	SlmExecuteLifecycle                 SlmExecuteLifecycle
 	SlmGetLifecycle                     SlmGetLifecycle
+	SlmGetStats                         SlmGetStats
 	SlmPutLifecycle                     SlmPutLifecycle
 	Termvectors                         Termvectors
+	TransformDeleteTransform            TransformDeleteTransform
+	TransformGetTransform               TransformGetTransform
+	TransformGetTransformStats          TransformGetTransformStats
+	TransformPreviewTransform           TransformPreviewTransform
+	TransformPutTransform               TransformPutTransform
+	TransformStartTransform             TransformStartTransform
+	TransformStopTransform              TransformStopTransform
+	TransformUpdateTransform            TransformUpdateTransform
 	UpdateByQuery                       UpdateByQuery
 	UpdateByQueryRethrottle             UpdateByQueryRethrottle
 	Update                              Update
@@ -184,15 +193,16 @@ type Remote struct {
 
 // Snapshot contains the Snapshot APIs
 type Snapshot struct {
-	CreateRepository SnapshotCreateRepository
-	Create           SnapshotCreate
-	DeleteRepository SnapshotDeleteRepository
-	Delete           SnapshotDelete
-	GetRepository    SnapshotGetRepository
-	Get              SnapshotGet
-	Restore          SnapshotRestore
-	Status           SnapshotStatus
-	VerifyRepository SnapshotVerifyRepository
+	CleanupRepository SnapshotCleanupRepository
+	CreateRepository  SnapshotCreateRepository
+	Create            SnapshotCreate
+	DeleteRepository  SnapshotDeleteRepository
+	Delete            SnapshotDelete
+	GetRepository     SnapshotGetRepository
+	Get               SnapshotGet
+	Restore           SnapshotRestore
+	Status            SnapshotStatus
+	VerifyRepository  SnapshotVerifyRepository
 }
 
 // Tasks contains the Tasks APIs
@@ -433,8 +443,17 @@ func New(t Transport) *API {
 		SlmDeleteLifecycle:                  newSlmDeleteLifecycleFunc(t),
 		SlmExecuteLifecycle:                 newSlmExecuteLifecycleFunc(t),
 		SlmGetLifecycle:                     newSlmGetLifecycleFunc(t),
+		SlmGetStats:                         newSlmGetStatsFunc(t),
 		SlmPutLifecycle:                     newSlmPutLifecycleFunc(t),
 		Termvectors:                         newTermvectorsFunc(t),
+		TransformDeleteTransform:            newTransformDeleteTransformFunc(t),
+		TransformGetTransform:               newTransformGetTransformFunc(t),
+		TransformGetTransformStats:          newTransformGetTransformStatsFunc(t),
+		TransformPreviewTransform:           newTransformPreviewTransformFunc(t),
+		TransformPutTransform:               newTransformPutTransformFunc(t),
+		TransformStartTransform:             newTransformStartTransformFunc(t),
+		TransformStopTransform:              newTransformStopTransformFunc(t),
+		TransformUpdateTransform:            newTransformUpdateTransformFunc(t),
 		UpdateByQuery:                       newUpdateByQueryFunc(t),
 		UpdateByQueryRethrottle:             newUpdateByQueryRethrottleFunc(t),
 		Update:                              newUpdateFunc(t),
@@ -530,15 +549,16 @@ func New(t Transport) *API {
 		},
 		Remote: &Remote{},
 		Snapshot: &Snapshot{
-			CreateRepository: newSnapshotCreateRepositoryFunc(t),
-			Create:           newSnapshotCreateFunc(t),
-			DeleteRepository: newSnapshotDeleteRepositoryFunc(t),
-			Delete:           newSnapshotDeleteFunc(t),
-			GetRepository:    newSnapshotGetRepositoryFunc(t),
-			Get:              newSnapshotGetFunc(t),
-			Restore:          newSnapshotRestoreFunc(t),
-			Status:           newSnapshotStatusFunc(t),
-			VerifyRepository: newSnapshotVerifyRepositoryFunc(t),
+			CleanupRepository: newSnapshotCleanupRepositoryFunc(t),
+			CreateRepository:  newSnapshotCreateRepositoryFunc(t),
+			Create:            newSnapshotCreateFunc(t),
+			DeleteRepository:  newSnapshotDeleteRepositoryFunc(t),
+			Delete:            newSnapshotDeleteFunc(t),
+			GetRepository:     newSnapshotGetRepositoryFunc(t),
+			Get:               newSnapshotGetFunc(t),
+			Restore:           newSnapshotRestoreFunc(t),
+			Status:            newSnapshotStatusFunc(t),
+			VerifyRepository:  newSnapshotVerifyRepositoryFunc(t),
 		},
 		Tasks: &Tasks{
 			Cancel: newTasksCancelFunc(t),

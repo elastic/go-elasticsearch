@@ -23,7 +23,9 @@ func newMLGetInfluencersFunc(t Transport) MLGetInfluencers {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetInfluencers - http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-influencer.html
+// MLGetInfluencers -
+//
+// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-influencer.html.
 //
 type MLGetInfluencers func(job_id string, o ...func(*MLGetInfluencersRequest)) (*Response, error)
 

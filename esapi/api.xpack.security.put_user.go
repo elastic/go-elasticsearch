@@ -21,7 +21,9 @@ func newSecurityPutUserFunc(t Transport) SecurityPutUser {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityPutUser - https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-put-user.html
+// SecurityPutUser -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-put-user.html.
 //
 type SecurityPutUser func(username string, body io.Reader, o ...func(*SecurityPutUserRequest)) (*Response, error)
 

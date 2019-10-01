@@ -30,9 +30,8 @@ type GetSource func(index string, id string, o ...func(*GetSourceRequest)) (*Res
 // GetSourceRequest configures the Get Source API request.
 //
 type GetSourceRequest struct {
-	Index        string
-	DocumentType string
-	DocumentID   string
+	Index      string
+	DocumentID string
 
 	Preference     string
 	Realtime       *bool
@@ -65,21 +64,13 @@ func (r GetSourceRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 	method = "GET"
 
-	if r.DocumentType == "" {
-		r.DocumentType = "_doc"
-	}
-
-	path.Grow(1 + len(r.Index) + 1 + len(r.DocumentType) + 1 + len(r.DocumentID) + 1 + len("_source"))
+	path.Grow(1 + len(r.Index) + 1 + len("_source") + 1 + len(r.DocumentID))
 	path.WriteString("/")
 	path.WriteString(r.Index)
-	if r.DocumentType != "" {
-		path.WriteString("/")
-		path.WriteString(r.DocumentType)
-	}
-	path.WriteString("/")
-	path.WriteString(r.DocumentID)
 	path.WriteString("/")
 	path.WriteString("_source")
+	path.WriteString("/")
+	path.WriteString(r.DocumentID)
 
 	params = make(map[string]string)
 
@@ -180,14 +171,6 @@ func (r GetSourceRequest) Do(ctx context.Context, transport Transport) (*Respons
 func (f GetSource) WithContext(v context.Context) func(*GetSourceRequest) {
 	return func(r *GetSourceRequest) {
 		r.ctx = v
-	}
-}
-
-// WithDocumentType - the type of the document; deprecated and optional starting with 7.0.
-//
-func (f GetSource) WithDocumentType(v string) func(*GetSourceRequest) {
-	return func(r *GetSourceRequest) {
-		r.DocumentType = v
 	}
 }
 

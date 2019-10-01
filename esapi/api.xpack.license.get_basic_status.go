@@ -20,7 +20,9 @@ func newLicenseGetBasicStatusFunc(t Transport) LicenseGetBasicStatus {
 
 // ----- API Definition -------------------------------------------------------
 
-// LicenseGetBasicStatus - https://www.elastic.co/guide/en/elasticsearch/reference/master/get-basic-status.html
+// LicenseGetBasicStatus -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-basic-status.html.
 //
 type LicenseGetBasicStatus func(o ...func(*LicenseGetBasicStatusRequest)) (*Response, error)
 

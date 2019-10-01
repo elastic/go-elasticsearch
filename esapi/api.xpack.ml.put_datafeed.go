@@ -21,7 +21,9 @@ func newMLPutDatafeedFunc(t Transport) MLPutDatafeed {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPutDatafeed - http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-put-datafeed.html
+// MLPutDatafeed -
+//
+// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-put-datafeed.html.
 //
 type MLPutDatafeed func(body io.Reader, datafeed_id string, o ...func(*MLPutDatafeedRequest)) (*Response, error)
 

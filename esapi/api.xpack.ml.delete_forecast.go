@@ -22,7 +22,9 @@ func newMLDeleteForecastFunc(t Transport) MLDeleteForecast {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLDeleteForecast - http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-forecast.html
+// MLDeleteForecast -
+//
+// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-forecast.html.
 //
 type MLDeleteForecast func(job_id string, o ...func(*MLDeleteForecastRequest)) (*Response, error)
 

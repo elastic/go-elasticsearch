@@ -22,7 +22,9 @@ func newIndicesFreezeFunc(t Transport) IndicesFreeze {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesFreeze - https://www.elastic.co/guide/en/elasticsearch/reference/current/frozen.html
+// IndicesFreeze -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/frozen.html.
 //
 type IndicesFreeze func(index string, o ...func(*IndicesFreezeRequest)) (*Response, error)
 

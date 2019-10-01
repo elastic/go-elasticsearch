@@ -9,8 +9,8 @@ import (
 )
 
 func newILMDeleteLifecycleFunc(t Transport) ILMDeleteLifecycle {
-	return func(o ...func(*ILMDeleteLifecycleRequest)) (*Response, error) {
-		var r = ILMDeleteLifecycleRequest{}
+	return func(policy string, o ...func(*ILMDeleteLifecycleRequest)) (*Response, error) {
+		var r = ILMDeleteLifecycleRequest{Policy: policy}
 		for _, f := range o {
 			f(&r)
 		}
@@ -20,9 +20,11 @@ func newILMDeleteLifecycleFunc(t Transport) ILMDeleteLifecycle {
 
 // ----- API Definition -------------------------------------------------------
 
-// ILMDeleteLifecycle - https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-delete-lifecycle.html
+// ILMDeleteLifecycle -
 //
-type ILMDeleteLifecycle func(o ...func(*ILMDeleteLifecycleRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-delete-lifecycle.html.
+//
+type ILMDeleteLifecycle func(policy string, o ...func(*ILMDeleteLifecycleRequest)) (*Response, error)
 
 // ILMDeleteLifecycleRequest configures the ILM Delete Lifecycle API request.
 //
@@ -55,10 +57,8 @@ func (r ILMDeleteLifecycleRequest) Do(ctx context.Context, transport Transport) 
 	path.WriteString("_ilm")
 	path.WriteString("/")
 	path.WriteString("policy")
-	if r.Policy != "" {
-		path.WriteString("/")
-		path.WriteString(r.Policy)
-	}
+	path.WriteString("/")
+	path.WriteString(r.Policy)
 
 	params = make(map[string]string)
 
@@ -123,14 +123,6 @@ func (r ILMDeleteLifecycleRequest) Do(ctx context.Context, transport Transport) 
 func (f ILMDeleteLifecycle) WithContext(v context.Context) func(*ILMDeleteLifecycleRequest) {
 	return func(r *ILMDeleteLifecycleRequest) {
 		r.ctx = v
-	}
-}
-
-// WithPolicy - the name of the index lifecycle policy.
-//
-func (f ILMDeleteLifecycle) WithPolicy(v string) func(*ILMDeleteLifecycleRequest) {
-	return func(r *ILMDeleteLifecycleRequest) {
-		r.Policy = v
 	}
 }
 

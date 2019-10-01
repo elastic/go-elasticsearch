@@ -20,7 +20,9 @@ func newILMGetStatusFunc(t Transport) ILMGetStatus {
 
 // ----- API Definition -------------------------------------------------------
 
-// ILMGetStatus - https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-get-status.html
+// ILMGetStatus -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-get-status.html.
 //
 type ILMGetStatus func(o ...func(*ILMGetStatusRequest)) (*Response, error)
 

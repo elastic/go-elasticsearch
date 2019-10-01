@@ -20,7 +20,9 @@ func newWatcherDeactivateWatchFunc(t Transport) WatcherDeactivateWatch {
 
 // ----- API Definition -------------------------------------------------------
 
-// WatcherDeactivateWatch - https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-deactivate-watch.html
+// WatcherDeactivateWatch -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-deactivate-watch.html.
 //
 type WatcherDeactivateWatch func(watch_id string, o ...func(*WatcherDeactivateWatchRequest)) (*Response, error)
 

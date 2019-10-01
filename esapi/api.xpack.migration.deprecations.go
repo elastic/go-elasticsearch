@@ -20,7 +20,9 @@ func newMigrationDeprecationsFunc(t Transport) MigrationDeprecations {
 
 // ----- API Definition -------------------------------------------------------
 
-// MigrationDeprecations - http://www.elastic.co/guide/en/elasticsearch/reference/current/migration-api-deprecation.html
+// MigrationDeprecations -
+//
+// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/migration-api-deprecation.html.
 //
 type MigrationDeprecations func(o ...func(*MigrationDeprecationsRequest)) (*Response, error)
 

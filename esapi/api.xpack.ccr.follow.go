@@ -21,7 +21,9 @@ func newCCRFollowFunc(t Transport) CCRFollow {
 
 // ----- API Definition -------------------------------------------------------
 
-// CCRFollow - https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-put-follow.html
+// CCRFollow -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-put-follow.html.
 //
 type CCRFollow func(index string, body io.Reader, o ...func(*CCRFollowRequest)) (*Response, error)
 

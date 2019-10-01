@@ -21,7 +21,9 @@ func newMonitoringBulkFunc(t Transport) MonitoringBulk {
 
 // ----- API Definition -------------------------------------------------------
 
-// MonitoringBulk - https://www.elastic.co/guide/en/elasticsearch/reference/master/es-monitoring.html
+// MonitoringBulk -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/es-monitoring.html.
 //
 type MonitoringBulk func(body io.Reader, o ...func(*MonitoringBulkRequest)) (*Response, error)
 

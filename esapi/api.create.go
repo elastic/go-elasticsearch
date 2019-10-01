@@ -76,8 +76,10 @@ func (r CreateRequest) Do(ctx context.Context, transport Transport) (*Response, 
 	path.Grow(1 + len(r.Index) + 1 + len(r.DocumentType) + 1 + len(r.DocumentID) + 1 + len("_create"))
 	path.WriteString("/")
 	path.WriteString(r.Index)
-	path.WriteString("/")
-	path.WriteString(r.DocumentType)
+	if r.DocumentType != "" {
+		path.WriteString("/")
+		path.WriteString(r.DocumentType)
+	}
 	path.WriteString("/")
 	path.WriteString(r.DocumentID)
 	path.WriteString("/")

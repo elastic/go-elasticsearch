@@ -21,7 +21,9 @@ func newSecurityHasPrivilegesFunc(t Transport) SecurityHasPrivileges {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityHasPrivileges - https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-has-privileges.html
+// SecurityHasPrivileges -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-has-privileges.html.
 //
 type SecurityHasPrivileges func(body io.Reader, o ...func(*SecurityHasPrivilegesRequest)) (*Response, error)
 

@@ -21,7 +21,9 @@ func newSecurityChangePasswordFunc(t Transport) SecurityChangePassword {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityChangePassword - https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-change-password.html
+// SecurityChangePassword -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-change-password.html.
 //
 type SecurityChangePassword func(body io.Reader, o ...func(*SecurityChangePasswordRequest)) (*Response, error)
 

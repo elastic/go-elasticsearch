@@ -21,7 +21,9 @@ func newLicenseGetFunc(t Transport) LicenseGet {
 
 // ----- API Definition -------------------------------------------------------
 
-// LicenseGet - https://www.elastic.co/guide/en/elasticsearch/reference/master/get-license.html
+// LicenseGet -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-license.html.
 //
 type LicenseGet func(o ...func(*LicenseGetRequest)) (*Response, error)
 

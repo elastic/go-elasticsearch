@@ -9,8 +9,8 @@ import (
 )
 
 func newSlmDeleteLifecycleFunc(t Transport) SlmDeleteLifecycle {
-	return func(o ...func(*SlmDeleteLifecycleRequest)) (*Response, error) {
-		var r = SlmDeleteLifecycleRequest{}
+	return func(policy_id string, o ...func(*SlmDeleteLifecycleRequest)) (*Response, error) {
+		var r = SlmDeleteLifecycleRequest{PolicyID: policy_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -20,9 +20,11 @@ func newSlmDeleteLifecycleFunc(t Transport) SlmDeleteLifecycle {
 
 // ----- API Definition -------------------------------------------------------
 
-// SlmDeleteLifecycle - https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-delete.html
+// SlmDeleteLifecycle -
 //
-type SlmDeleteLifecycle func(o ...func(*SlmDeleteLifecycleRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-delete.html.
+//
+type SlmDeleteLifecycle func(policy_id string, o ...func(*SlmDeleteLifecycleRequest)) (*Response, error)
 
 // SlmDeleteLifecycleRequest configures the Slm Delete Lifecycle API request.
 //
@@ -55,10 +57,8 @@ func (r SlmDeleteLifecycleRequest) Do(ctx context.Context, transport Transport) 
 	path.WriteString("_slm")
 	path.WriteString("/")
 	path.WriteString("policy")
-	if r.PolicyID != "" {
-		path.WriteString("/")
-		path.WriteString(r.PolicyID)
-	}
+	path.WriteString("/")
+	path.WriteString(r.PolicyID)
 
 	params = make(map[string]string)
 
@@ -123,14 +123,6 @@ func (r SlmDeleteLifecycleRequest) Do(ctx context.Context, transport Transport) 
 func (f SlmDeleteLifecycle) WithContext(v context.Context) func(*SlmDeleteLifecycleRequest) {
 	return func(r *SlmDeleteLifecycleRequest) {
 		r.ctx = v
-	}
-}
-
-// WithPolicyID - the ID of the snapshot lifecycle policy to remove.
-//
-func (f SlmDeleteLifecycle) WithPolicyID(v string) func(*SlmDeleteLifecycleRequest) {
-	return func(r *SlmDeleteLifecycleRequest) {
-		r.PolicyID = v
 	}
 }
 

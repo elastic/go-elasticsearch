@@ -21,7 +21,9 @@ func newMLGetDataFrameAnalyticsFunc(t Transport) MLGetDataFrameAnalytics {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetDataFrameAnalytics - http://www.elastic.co/guide/en/elasticsearch/reference/current/get-dfanalytics.html
+// MLGetDataFrameAnalytics -
+//
+// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/get-dfanalytics.html.
 //
 type MLGetDataFrameAnalytics func(o ...func(*MLGetDataFrameAnalyticsRequest)) (*Response, error)
 

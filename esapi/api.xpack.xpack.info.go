@@ -20,7 +20,9 @@ func newXPackInfoFunc(t Transport) XPackInfo {
 
 // ----- API Definition -------------------------------------------------------
 
-// XPackInfo - https://www.elastic.co/guide/en/elasticsearch/reference/current/info-api.html
+// XPackInfo -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/info-api.html.
 //
 type XPackInfo func(o ...func(*XPackInfoRequest)) (*Response, error)
 

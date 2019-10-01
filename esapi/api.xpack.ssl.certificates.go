@@ -20,7 +20,9 @@ func newSSLCertificatesFunc(t Transport) SSLCertificates {
 
 // ----- API Definition -------------------------------------------------------
 
-// SSLCertificates - https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-ssl.html
+// SSLCertificates -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-ssl.html.
 //
 type SSLCertificates func(o ...func(*SSLCertificatesRequest)) (*Response, error)
 

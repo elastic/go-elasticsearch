@@ -22,7 +22,9 @@ func newMLStartDataFrameAnalyticsFunc(t Transport) MLStartDataFrameAnalytics {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLStartDataFrameAnalytics - http://www.elastic.co/guide/en/elasticsearch/reference/current/start-dfanalytics.html
+// MLStartDataFrameAnalytics -
+//
+// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/start-dfanalytics.html.
 //
 type MLStartDataFrameAnalytics func(id string, o ...func(*MLStartDataFrameAnalyticsRequest)) (*Response, error)
 

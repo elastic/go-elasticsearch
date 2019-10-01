@@ -21,7 +21,9 @@ func newSecurityInvalidateAPIKeyFunc(t Transport) SecurityInvalidateAPIKey {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityInvalidateAPIKey - https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-invalidate-api-key.html
+// SecurityInvalidateAPIKey -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-invalidate-api-key.html.
 //
 type SecurityInvalidateAPIKey func(body io.Reader, o ...func(*SecurityInvalidateAPIKeyRequest)) (*Response, error)
 

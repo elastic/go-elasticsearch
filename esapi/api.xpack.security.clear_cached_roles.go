@@ -20,7 +20,9 @@ func newSecurityClearCachedRolesFunc(t Transport) SecurityClearCachedRoles {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityClearCachedRoles - https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-role-cache.html
+// SecurityClearCachedRoles -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-role-cache.html.
 //
 type SecurityClearCachedRoles func(name []string, o ...func(*SecurityClearCachedRolesRequest)) (*Response, error)
 

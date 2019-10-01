@@ -9,8 +9,8 @@ import (
 )
 
 func newCCRFollowInfoFunc(t Transport) CCRFollowInfo {
-	return func(o ...func(*CCRFollowInfoRequest)) (*Response, error) {
-		var r = CCRFollowInfoRequest{}
+	return func(index []string, o ...func(*CCRFollowInfoRequest)) (*Response, error) {
+		var r = CCRFollowInfoRequest{Index: index}
 		for _, f := range o {
 			f(&r)
 		}
@@ -20,9 +20,11 @@ func newCCRFollowInfoFunc(t Transport) CCRFollowInfo {
 
 // ----- API Definition -------------------------------------------------------
 
-// CCRFollowInfo - https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-get-follow-info.html
+// CCRFollowInfo -
 //
-type CCRFollowInfo func(o ...func(*CCRFollowInfoRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-get-follow-info.html.
+//
+type CCRFollowInfo func(index []string, o ...func(*CCRFollowInfoRequest)) (*Response, error)
 
 // CCRFollowInfoRequest configures the CCR Follow Info API request.
 //
@@ -51,10 +53,8 @@ func (r CCRFollowInfoRequest) Do(ctx context.Context, transport Transport) (*Res
 	method = "GET"
 
 	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_ccr") + 1 + len("info"))
-	if len(r.Index) > 0 {
-		path.WriteString("/")
-		path.WriteString(strings.Join(r.Index, ","))
-	}
+	path.WriteString("/")
+	path.WriteString(strings.Join(r.Index, ","))
 	path.WriteString("/")
 	path.WriteString("_ccr")
 	path.WriteString("/")
@@ -123,14 +123,6 @@ func (r CCRFollowInfoRequest) Do(ctx context.Context, transport Transport) (*Res
 func (f CCRFollowInfo) WithContext(v context.Context) func(*CCRFollowInfoRequest) {
 	return func(r *CCRFollowInfoRequest) {
 		r.ctx = v
-	}
-}
-
-// WithIndex - a list of index patterns; use `_all` to perform the operation on all indices.
-//
-func (f CCRFollowInfo) WithIndex(v ...string) func(*CCRFollowInfoRequest) {
-	return func(r *CCRFollowInfoRequest) {
-		r.Index = v
 	}
 }
 

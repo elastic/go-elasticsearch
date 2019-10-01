@@ -21,7 +21,9 @@ func newLicensePostStartBasicFunc(t Transport) LicensePostStartBasic {
 
 // ----- API Definition -------------------------------------------------------
 
-// LicensePostStartBasic - https://www.elastic.co/guide/en/elasticsearch/reference/master/start-basic.html
+// LicensePostStartBasic -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/start-basic.html.
 //
 type LicensePostStartBasic func(o ...func(*LicensePostStartBasicRequest)) (*Response, error)
 

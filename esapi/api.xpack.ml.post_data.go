@@ -21,7 +21,9 @@ func newMLPostDataFunc(t Transport) MLPostData {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPostData - http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-post-data.html
+// MLPostData -
+//
+// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-post-data.html.
 //
 type MLPostData func(job_id string, body io.Reader, o ...func(*MLPostDataRequest)) (*Response, error)
 

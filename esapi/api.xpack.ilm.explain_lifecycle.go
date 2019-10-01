@@ -10,8 +10,8 @@ import (
 )
 
 func newILMExplainLifecycleFunc(t Transport) ILMExplainLifecycle {
-	return func(o ...func(*ILMExplainLifecycleRequest)) (*Response, error) {
-		var r = ILMExplainLifecycleRequest{}
+	return func(index string, o ...func(*ILMExplainLifecycleRequest)) (*Response, error) {
+		var r = ILMExplainLifecycleRequest{Index: index}
 		for _, f := range o {
 			f(&r)
 		}
@@ -21,9 +21,11 @@ func newILMExplainLifecycleFunc(t Transport) ILMExplainLifecycle {
 
 // ----- API Definition -------------------------------------------------------
 
-// ILMExplainLifecycle - https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-explain-lifecycle.html
+// ILMExplainLifecycle -
 //
-type ILMExplainLifecycle func(o ...func(*ILMExplainLifecycleRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-explain-lifecycle.html.
+//
+type ILMExplainLifecycle func(index string, o ...func(*ILMExplainLifecycleRequest)) (*Response, error)
 
 // ILMExplainLifecycleRequest configures the ILM Explain Lifecycle API request.
 //
@@ -55,10 +57,8 @@ func (r ILMExplainLifecycleRequest) Do(ctx context.Context, transport Transport)
 	method = "GET"
 
 	path.Grow(1 + len(r.Index) + 1 + len("_ilm") + 1 + len("explain"))
-	if r.Index != "" {
-		path.WriteString("/")
-		path.WriteString(r.Index)
-	}
+	path.WriteString("/")
+	path.WriteString(r.Index)
 	path.WriteString("/")
 	path.WriteString("_ilm")
 	path.WriteString("/")
@@ -135,14 +135,6 @@ func (r ILMExplainLifecycleRequest) Do(ctx context.Context, transport Transport)
 func (f ILMExplainLifecycle) WithContext(v context.Context) func(*ILMExplainLifecycleRequest) {
 	return func(r *ILMExplainLifecycleRequest) {
 		r.ctx = v
-	}
-}
-
-// WithIndex - the name of the index to explain.
-//
-func (f ILMExplainLifecycle) WithIndex(v string) func(*ILMExplainLifecycleRequest) {
-	return func(r *ILMExplainLifecycleRequest) {
-		r.Index = v
 	}
 }
 

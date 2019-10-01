@@ -20,7 +20,9 @@ func newSecurityEnableUserFunc(t Transport) SecurityEnableUser {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityEnableUser - https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-enable-user.html
+// SecurityEnableUser -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-enable-user.html.
 //
 type SecurityEnableUser func(username string, o ...func(*SecurityEnableUserRequest)) (*Response, error)
 

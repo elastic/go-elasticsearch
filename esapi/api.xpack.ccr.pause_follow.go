@@ -20,7 +20,9 @@ func newCCRPauseFollowFunc(t Transport) CCRPauseFollow {
 
 // ----- API Definition -------------------------------------------------------
 
-// CCRPauseFollow - https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-pause-follow.html
+// CCRPauseFollow -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-pause-follow.html.
 //
 type CCRPauseFollow func(index string, o ...func(*CCRPauseFollowRequest)) (*Response, error)
 

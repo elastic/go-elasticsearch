@@ -21,7 +21,9 @@ func newCCRForgetFollowerFunc(t Transport) CCRForgetFollower {
 
 // ----- API Definition -------------------------------------------------------
 
-// CCRForgetFollower - http://www.elastic.co/guide/en/elasticsearch/reference/current
+// CCRForgetFollower -
+//
+// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current.
 //
 type CCRForgetFollower func(index string, body io.Reader, o ...func(*CCRForgetFollowerRequest)) (*Response, error)
 

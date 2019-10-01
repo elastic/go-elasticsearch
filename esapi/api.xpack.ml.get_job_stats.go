@@ -21,7 +21,9 @@ func newMLGetJobStatsFunc(t Transport) MLGetJobStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetJobStats - http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-job-stats.html
+// MLGetJobStats -
+//
+// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-job-stats.html.
 //
 type MLGetJobStats func(o ...func(*MLGetJobStatsRequest)) (*Response, error)
 

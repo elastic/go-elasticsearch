@@ -20,7 +20,9 @@ func newSecurityClearCachedRealmsFunc(t Transport) SecurityClearCachedRealms {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityClearCachedRealms - https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-cache.html
+// SecurityClearCachedRealms -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-cache.html.
 //
 type SecurityClearCachedRealms func(realms []string, o ...func(*SecurityClearCachedRealmsRequest)) (*Response, error)
 

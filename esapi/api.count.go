@@ -31,8 +31,7 @@ type Count func(o ...func(*CountRequest)) (*Response, error)
 // CountRequest configures the Count API request.
 //
 type CountRequest struct {
-	Index        []string
-	DocumentType []string
+	Index []string
 
 	Body io.Reader
 
@@ -219,14 +218,6 @@ func (f Count) WithBody(v io.Reader) func(*CountRequest) {
 func (f Count) WithIndex(v ...string) func(*CountRequest) {
 	return func(r *CountRequest) {
 		r.Index = v
-	}
-}
-
-// WithDocumentType - a list of types to restrict the results.
-//
-func (f Count) WithDocumentType(v ...string) func(*CountRequest) {
-	return func(r *CountRequest) {
-		r.DocumentType = v
 	}
 }
 

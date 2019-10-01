@@ -20,7 +20,9 @@ func newSecurityAuthenticateFunc(t Transport) SecurityAuthenticate {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityAuthenticate - https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-authenticate.html
+// SecurityAuthenticate -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-authenticate.html.
 //
 type SecurityAuthenticate func(o ...func(*SecurityAuthenticateRequest)) (*Response, error)
 

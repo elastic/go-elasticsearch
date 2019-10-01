@@ -10,8 +10,8 @@ import (
 )
 
 func newIndicesReloadSearchAnalyzersFunc(t Transport) IndicesReloadSearchAnalyzers {
-	return func(o ...func(*IndicesReloadSearchAnalyzersRequest)) (*Response, error) {
-		var r = IndicesReloadSearchAnalyzersRequest{}
+	return func(index []string, o ...func(*IndicesReloadSearchAnalyzersRequest)) (*Response, error) {
+		var r = IndicesReloadSearchAnalyzersRequest{Index: index}
 		for _, f := range o {
 			f(&r)
 		}
@@ -21,9 +21,11 @@ func newIndicesReloadSearchAnalyzersFunc(t Transport) IndicesReloadSearchAnalyze
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesReloadSearchAnalyzers - https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-reload-analyzers.html
+// IndicesReloadSearchAnalyzers -
 //
-type IndicesReloadSearchAnalyzers func(o ...func(*IndicesReloadSearchAnalyzersRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-reload-analyzers.html.
+//
+type IndicesReloadSearchAnalyzers func(index []string, o ...func(*IndicesReloadSearchAnalyzersRequest)) (*Response, error)
 
 // IndicesReloadSearchAnalyzersRequest configures the Indices Reload Search Analyzers API request.
 //
@@ -56,10 +58,8 @@ func (r IndicesReloadSearchAnalyzersRequest) Do(ctx context.Context, transport T
 	method = "GET"
 
 	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_reload_search_analyzers"))
-	if len(r.Index) > 0 {
-		path.WriteString("/")
-		path.WriteString(strings.Join(r.Index, ","))
-	}
+	path.WriteString("/")
+	path.WriteString(strings.Join(r.Index, ","))
 	path.WriteString("/")
 	path.WriteString("_reload_search_analyzers")
 
@@ -138,14 +138,6 @@ func (r IndicesReloadSearchAnalyzersRequest) Do(ctx context.Context, transport T
 func (f IndicesReloadSearchAnalyzers) WithContext(v context.Context) func(*IndicesReloadSearchAnalyzersRequest) {
 	return func(r *IndicesReloadSearchAnalyzersRequest) {
 		r.ctx = v
-	}
-}
-
-// WithIndex - a list of index names to reload analyzers for.
-//
-func (f IndicesReloadSearchAnalyzers) WithIndex(v ...string) func(*IndicesReloadSearchAnalyzersRequest) {
-	return func(r *IndicesReloadSearchAnalyzersRequest) {
-		r.Index = v
 	}
 }
 

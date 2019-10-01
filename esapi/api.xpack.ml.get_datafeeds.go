@@ -21,7 +21,9 @@ func newMLGetDatafeedsFunc(t Transport) MLGetDatafeeds {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetDatafeeds - http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-datafeed.html
+// MLGetDatafeeds -
+//
+// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-datafeed.html.
 //
 type MLGetDatafeeds func(o ...func(*MLGetDatafeedsRequest)) (*Response, error)
 

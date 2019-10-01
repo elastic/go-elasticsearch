@@ -20,7 +20,9 @@ func newSecurityDeleteUserFunc(t Transport) SecurityDeleteUser {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityDeleteUser - https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-delete-user.html
+// SecurityDeleteUser -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-delete-user.html.
 //
 type SecurityDeleteUser func(username string, o ...func(*SecurityDeleteUserRequest)) (*Response, error)
 

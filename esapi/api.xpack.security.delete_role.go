@@ -20,7 +20,9 @@ func newSecurityDeleteRoleFunc(t Transport) SecurityDeleteRole {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityDeleteRole - https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-delete-role.html
+// SecurityDeleteRole -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-delete-role.html.
 //
 type SecurityDeleteRole func(name string, o ...func(*SecurityDeleteRoleRequest)) (*Response, error)
 

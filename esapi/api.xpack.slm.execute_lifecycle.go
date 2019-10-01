@@ -9,8 +9,8 @@ import (
 )
 
 func newSlmExecuteLifecycleFunc(t Transport) SlmExecuteLifecycle {
-	return func(o ...func(*SlmExecuteLifecycleRequest)) (*Response, error) {
-		var r = SlmExecuteLifecycleRequest{}
+	return func(policy_id string, o ...func(*SlmExecuteLifecycleRequest)) (*Response, error) {
+		var r = SlmExecuteLifecycleRequest{PolicyID: policy_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -20,9 +20,11 @@ func newSlmExecuteLifecycleFunc(t Transport) SlmExecuteLifecycle {
 
 // ----- API Definition -------------------------------------------------------
 
-// SlmExecuteLifecycle - https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-execute.html
+// SlmExecuteLifecycle -
 //
-type SlmExecuteLifecycle func(o ...func(*SlmExecuteLifecycleRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-execute.html.
+//
+type SlmExecuteLifecycle func(policy_id string, o ...func(*SlmExecuteLifecycleRequest)) (*Response, error)
 
 // SlmExecuteLifecycleRequest configures the Slm Execute Lifecycle API request.
 //
@@ -55,10 +57,8 @@ func (r SlmExecuteLifecycleRequest) Do(ctx context.Context, transport Transport)
 	path.WriteString("_slm")
 	path.WriteString("/")
 	path.WriteString("policy")
-	if r.PolicyID != "" {
-		path.WriteString("/")
-		path.WriteString(r.PolicyID)
-	}
+	path.WriteString("/")
+	path.WriteString(r.PolicyID)
 	path.WriteString("/")
 	path.WriteString("_execute")
 
@@ -125,14 +125,6 @@ func (r SlmExecuteLifecycleRequest) Do(ctx context.Context, transport Transport)
 func (f SlmExecuteLifecycle) WithContext(v context.Context) func(*SlmExecuteLifecycleRequest) {
 	return func(r *SlmExecuteLifecycleRequest) {
 		r.ctx = v
-	}
-}
-
-// WithPolicyID - the ID of the snapshot lifecycle policy to be executed.
-//
-func (f SlmExecuteLifecycle) WithPolicyID(v string) func(*SlmExecuteLifecycleRequest) {
-	return func(r *SlmExecuteLifecycleRequest) {
-		r.PolicyID = v
 	}
 }
 

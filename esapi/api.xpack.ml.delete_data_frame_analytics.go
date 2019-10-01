@@ -20,7 +20,9 @@ func newMLDeleteDataFrameAnalyticsFunc(t Transport) MLDeleteDataFrameAnalytics {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLDeleteDataFrameAnalytics - http://www.elastic.co/guide/en/elasticsearch/reference/current/delete-dfanalytics.html
+// MLDeleteDataFrameAnalytics -
+//
+// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/delete-dfanalytics.html.
 //
 type MLDeleteDataFrameAnalytics func(id string, o ...func(*MLDeleteDataFrameAnalyticsRequest)) (*Response, error)
 

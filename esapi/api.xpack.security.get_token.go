@@ -21,7 +21,9 @@ func newSecurityGetTokenFunc(t Transport) SecurityGetToken {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGetToken - https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-token.html
+// SecurityGetToken -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-token.html.
 //
 type SecurityGetToken func(body io.Reader, o ...func(*SecurityGetTokenRequest)) (*Response, error)
 

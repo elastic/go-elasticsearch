@@ -31,13 +31,11 @@ type IndicesGetMapping func(o ...func(*IndicesGetMappingRequest)) (*Response, er
 // IndicesGetMappingRequest configures the Indices Get Mapping API request.
 //
 type IndicesGetMappingRequest struct {
-	Index        []string
-	DocumentType []string
+	Index []string
 
 	AllowNoIndices    *bool
 	ExpandWildcards   string
 	IgnoreUnavailable *bool
-	IncludeTypeName   *bool
 	Local             *bool
 	MasterTimeout     time.Duration
 
@@ -62,17 +60,13 @@ func (r IndicesGetMappingRequest) Do(ctx context.Context, transport Transport) (
 
 	method = "GET"
 
-	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_mapping") + 1 + len(strings.Join(r.DocumentType, ",")))
+	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_mapping"))
 	if len(r.Index) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.Index, ","))
 	}
 	path.WriteString("/")
 	path.WriteString("_mapping")
-	if len(r.DocumentType) > 0 {
-		path.WriteString("/")
-		path.WriteString(strings.Join(r.DocumentType, ","))
-	}
 
 	params = make(map[string]string)
 
@@ -86,10 +80,6 @@ func (r IndicesGetMappingRequest) Do(ctx context.Context, transport Transport) (
 
 	if r.IgnoreUnavailable != nil {
 		params["ignore_unavailable"] = strconv.FormatBool(*r.IgnoreUnavailable)
-	}
-
-	if r.IncludeTypeName != nil {
-		params["include_type_name"] = strconv.FormatBool(*r.IncludeTypeName)
 	}
 
 	if r.Local != nil {
@@ -172,14 +162,6 @@ func (f IndicesGetMapping) WithIndex(v ...string) func(*IndicesGetMappingRequest
 	}
 }
 
-// WithDocumentType - a list of document types.
-//
-func (f IndicesGetMapping) WithDocumentType(v ...string) func(*IndicesGetMappingRequest) {
-	return func(r *IndicesGetMappingRequest) {
-		r.DocumentType = v
-	}
-}
-
 // WithAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (this includes `_all` string or when no indices have been specified).
 //
 func (f IndicesGetMapping) WithAllowNoIndices(v bool) func(*IndicesGetMappingRequest) {
@@ -201,14 +183,6 @@ func (f IndicesGetMapping) WithExpandWildcards(v string) func(*IndicesGetMapping
 func (f IndicesGetMapping) WithIgnoreUnavailable(v bool) func(*IndicesGetMappingRequest) {
 	return func(r *IndicesGetMappingRequest) {
 		r.IgnoreUnavailable = &v
-	}
-}
-
-// WithIncludeTypeName - whether to add the type name to the response (default: false).
-//
-func (f IndicesGetMapping) WithIncludeTypeName(v bool) func(*IndicesGetMappingRequest) {
-	return func(r *IndicesGetMappingRequest) {
-		r.IncludeTypeName = &v
 	}
 }
 
