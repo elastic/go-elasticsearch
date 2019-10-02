@@ -65,13 +65,17 @@ func (r IndicesPutMappingRequest) Do(ctx context.Context, transport Transport) (
 
 	method = "PUT"
 
-	path.Grow(len(strings.Join(r.Index, ",")) + len("/_mapping") + 1)
+	path.Grow(len(strings.Join(r.Index, ",")) + len("/_mapping") + len(r.DocumentType) + 2)
 	if len(r.Index) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.Index, ","))
 	}
 	path.WriteString("/")
 	path.WriteString("_mapping")
+	if r.DocumentType != "" {
+		path.WriteString("/")
+		path.WriteString(r.DocumentType)
+	}
 
 	params = make(map[string]string)
 
