@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -10,8 +10,8 @@ import (
 )
 
 func newILMMoveToStepFunc(t Transport) ILMMoveToStep {
-	return func(o ...func(*ILMMoveToStepRequest)) (*Response, error) {
-		var r = ILMMoveToStepRequest{}
+	return func(index string, o ...func(*ILMMoveToStepRequest)) (*Response, error) {
+		var r = ILMMoveToStepRequest{Index: index}
 		for _, f := range o {
 			f(&r)
 		}
@@ -21,9 +21,11 @@ func newILMMoveToStepFunc(t Transport) ILMMoveToStep {
 
 // ----- API Definition -------------------------------------------------------
 
-// ILMMoveToStep - https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-move-to-step.html
+// ILMMoveToStep -
 //
-type ILMMoveToStep func(o ...func(*ILMMoveToStepRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-move-to-step.html.
+//
+type ILMMoveToStep func(index string, o ...func(*ILMMoveToStepRequest)) (*Response, error)
 
 // ILMMoveToStepRequest configures the ILM Move To Step API request.
 //
@@ -58,10 +60,8 @@ func (r ILMMoveToStepRequest) Do(ctx context.Context, transport Transport) (*Res
 	path.WriteString("_ilm")
 	path.WriteString("/")
 	path.WriteString("move")
-	if r.Index != "" {
-		path.WriteString("/")
-		path.WriteString(r.Index)
-	}
+	path.WriteString("/")
+	path.WriteString(r.Index)
 
 	params = make(map[string]string)
 
@@ -138,14 +138,6 @@ func (f ILMMoveToStep) WithContext(v context.Context) func(*ILMMoveToStepRequest
 func (f ILMMoveToStep) WithBody(v io.Reader) func(*ILMMoveToStepRequest) {
 	return func(r *ILMMoveToStepRequest) {
 		r.Body = v
-	}
-}
-
-// WithIndex - the name of the index whose lifecycle step is to change.
-//
-func (f ILMMoveToStep) WithIndex(v string) func(*ILMMoveToStepRequest) {
-	return func(r *ILMMoveToStepRequest) {
-		r.Index = v
 	}
 }
 

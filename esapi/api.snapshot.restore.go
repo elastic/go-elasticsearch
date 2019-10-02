@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -25,7 +25,7 @@ func newSnapshotRestoreFunc(t Transport) SnapshotRestore {
 
 // SnapshotRestore restores a snapshot.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html.
 //
 type SnapshotRestore func(repository string, snapshot string, o ...func(*SnapshotRestoreRequest)) (*Response, error)
 

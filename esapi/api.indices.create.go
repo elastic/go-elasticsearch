@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -25,7 +25,7 @@ func newIndicesCreateFunc(t Transport) IndicesCreate {
 
 // IndicesCreate creates an index with optional settings and mappings.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-create-index.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-create-index.html.
 //
 type IndicesCreate func(index string, o ...func(*IndicesCreateRequest)) (*Response, error)
 

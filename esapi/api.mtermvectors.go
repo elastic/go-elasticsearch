@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -24,7 +24,7 @@ func newMtermvectorsFunc(t Transport) Mtermvectors {
 
 // Mtermvectors returns multiple termvectors in one request.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-multi-termvectors.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-multi-termvectors.html.
 //
 type Mtermvectors func(o ...func(*MtermvectorsRequest)) (*Response, error)
 

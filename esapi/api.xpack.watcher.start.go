@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -20,7 +20,9 @@ func newWatcherStartFunc(t Transport) WatcherStart {
 
 // ----- API Definition -------------------------------------------------------
 
-// WatcherStart - http://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-start.html
+// WatcherStart -
+//
+// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-start.html.
 //
 type WatcherStart func(o ...func(*WatcherStartRequest)) (*Response, error)
 

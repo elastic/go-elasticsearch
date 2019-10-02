@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -23,7 +23,7 @@ func newSnapshotDeleteFunc(t Transport) SnapshotDelete {
 
 // SnapshotDelete deletes a snapshot.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html.
 //
 type SnapshotDelete func(repository string, snapshot string, o ...func(*SnapshotDeleteRequest)) (*Response, error)
 

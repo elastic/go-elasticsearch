@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -23,7 +23,9 @@ func newMLFindFileStructureFunc(t Transport) MLFindFileStructure {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLFindFileStructure - http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-find-file-structure.html
+// MLFindFileStructure -
+//
+// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-find-file-structure.html.
 //
 type MLFindFileStructure func(body io.Reader, o ...func(*MLFindFileStructureRequest)) (*Response, error)
 

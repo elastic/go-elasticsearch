@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -21,7 +21,9 @@ func newMLGetDataFrameAnalyticsFunc(t Transport) MLGetDataFrameAnalytics {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetDataFrameAnalytics - http://www.elastic.co/guide/en/elasticsearch/reference/current/get-dfanalytics.html
+// MLGetDataFrameAnalytics -
+//
+// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/get-dfanalytics.html.
 //
 type MLGetDataFrameAnalytics func(o ...func(*MLGetDataFrameAnalyticsRequest)) (*Response, error)
 

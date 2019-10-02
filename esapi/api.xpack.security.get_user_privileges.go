@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -20,7 +20,9 @@ func newSecurityGetUserPrivilegesFunc(t Transport) SecurityGetUserPrivileges {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGetUserPrivileges - https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-privileges.html
+// SecurityGetUserPrivileges -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-privileges.html.
 //
 type SecurityGetUserPrivileges func(o ...func(*SecurityGetUserPrivilegesRequest)) (*Response, error)
 

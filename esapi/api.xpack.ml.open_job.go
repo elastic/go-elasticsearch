@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -6,7 +6,6 @@ import (
 	"context"
 	"net/http"
 	"strings"
-	"time"
 )
 
 func newMLOpenJobFunc(t Transport) MLOpenJob {
@@ -21,16 +20,16 @@ func newMLOpenJobFunc(t Transport) MLOpenJob {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLOpenJob - http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-open-job.html
+// MLOpenJob -
+//
+// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-open-job.html.
 //
 type MLOpenJob func(job_id string, o ...func(*MLOpenJobRequest)) (*Response, error)
 
 // MLOpenJobRequest configures the ML Open Job API request.
 //
 type MLOpenJobRequest struct {
-	IgnoreDowntime *bool
-	JobID          string
-	Timeout        time.Duration
+	JobID string
 
 	Pretty     bool
 	Human      bool
@@ -126,22 +125,6 @@ func (r MLOpenJobRequest) Do(ctx context.Context, transport Transport) (*Respons
 func (f MLOpenJob) WithContext(v context.Context) func(*MLOpenJobRequest) {
 	return func(r *MLOpenJobRequest) {
 		r.ctx = v
-	}
-}
-
-// WithIgnoreDowntime - controls if gaps in data are treated as anomalous or as a maintenance window after a job re-start.
-//
-func (f MLOpenJob) WithIgnoreDowntime(v bool) func(*MLOpenJobRequest) {
-	return func(r *MLOpenJobRequest) {
-		r.IgnoreDowntime = &v
-	}
-}
-
-// WithTimeout - controls the time to wait until a job has opened. default to 30 minutes.
-//
-func (f MLOpenJob) WithTimeout(v time.Duration) func(*MLOpenJobRequest) {
-	return func(r *MLOpenJobRequest) {
-		r.Timeout = v
 	}
 }
 

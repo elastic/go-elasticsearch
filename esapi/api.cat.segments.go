@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -23,7 +23,7 @@ func newCatSegmentsFunc(t Transport) CatSegments {
 
 // CatSegments provides low-level information about the segments in the shards of an index.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/cat-segments.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-segments.html.
 //
 type CatSegments func(o ...func(*CatSegmentsRequest)) (*Response, error)
 

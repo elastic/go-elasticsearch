@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -25,7 +25,7 @@ func newIndexFunc(t Transport) Index {
 
 // Index creates or updates a document in an index.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html.
 //
 type Index func(index string, body io.Reader, o ...func(*IndexRequest)) (*Response, error)
 
@@ -81,8 +81,10 @@ func (r IndexRequest) Do(ctx context.Context, transport Transport) (*Response, e
 	path.Grow(1 + len(r.Index) + 1 + len(r.DocumentType) + 1 + len(r.DocumentID))
 	path.WriteString("/")
 	path.WriteString(r.Index)
-	path.WriteString("/")
-	path.WriteString(r.DocumentType)
+	if r.DocumentType != "" {
+		path.WriteString("/")
+		path.WriteString(r.DocumentType)
+	}
 	if r.DocumentID != "" {
 		path.WriteString("/")
 		path.WriteString(r.DocumentID)

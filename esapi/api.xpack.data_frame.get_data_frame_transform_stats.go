@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -10,8 +10,8 @@ import (
 )
 
 func newDataFrameGetDataFrameTransformStatsFunc(t Transport) DataFrameGetDataFrameTransformStats {
-	return func(o ...func(*DataFrameGetDataFrameTransformStatsRequest)) (*Response, error) {
-		var r = DataFrameGetDataFrameTransformStatsRequest{}
+	return func(transform_id string, o ...func(*DataFrameGetDataFrameTransformStatsRequest)) (*Response, error) {
+		var r = DataFrameGetDataFrameTransformStatsRequest{TransformID: transform_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -21,9 +21,11 @@ func newDataFrameGetDataFrameTransformStatsFunc(t Transport) DataFrameGetDataFra
 
 // ----- API Definition -------------------------------------------------------
 
-// DataFrameGetDataFrameTransformStats - https://www.elastic.co/guide/en/elasticsearch/reference/current/get-data-frame-transform-stats.html
+// DataFrameGetDataFrameTransformStats -
 //
-type DataFrameGetDataFrameTransformStats func(o ...func(*DataFrameGetDataFrameTransformStatsRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-transform-stats.html.
+//
+type DataFrameGetDataFrameTransformStats func(transform_id string, o ...func(*DataFrameGetDataFrameTransformStatsRequest)) (*Response, error)
 
 // DataFrameGetDataFrameTransformStatsRequest configures the Data Frame Get Data Frame Transform Stats API request.
 //
@@ -60,10 +62,8 @@ func (r DataFrameGetDataFrameTransformStatsRequest) Do(ctx context.Context, tran
 	path.WriteString("_data_frame")
 	path.WriteString("/")
 	path.WriteString("transforms")
-	if r.TransformID != "" {
-		path.WriteString("/")
-		path.WriteString(r.TransformID)
-	}
+	path.WriteString("/")
+	path.WriteString(r.TransformID)
 	path.WriteString("/")
 	path.WriteString("_stats")
 
@@ -142,14 +142,6 @@ func (r DataFrameGetDataFrameTransformStatsRequest) Do(ctx context.Context, tran
 func (f DataFrameGetDataFrameTransformStats) WithContext(v context.Context) func(*DataFrameGetDataFrameTransformStatsRequest) {
 	return func(r *DataFrameGetDataFrameTransformStatsRequest) {
 		r.ctx = v
-	}
-}
-
-// WithTransformID - the ID of the transform for which to get stats. '_all' or '*' implies all transforms.
-//
-func (f DataFrameGetDataFrameTransformStats) WithTransformID(v string) func(*DataFrameGetDataFrameTransformStatsRequest) {
-	return func(r *DataFrameGetDataFrameTransformStatsRequest) {
-		r.TransformID = v
 	}
 }
 

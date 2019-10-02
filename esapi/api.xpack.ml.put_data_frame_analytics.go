@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -21,7 +21,9 @@ func newMLPutDataFrameAnalyticsFunc(t Transport) MLPutDataFrameAnalytics {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPutDataFrameAnalytics - http://www.elastic.co/guide/en/elasticsearch/reference/current/put-dfanalytics.html
+// MLPutDataFrameAnalytics -
+//
+// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/put-dfanalytics.html.
 //
 type MLPutDataFrameAnalytics func(id string, body io.Reader, o ...func(*MLPutDataFrameAnalyticsRequest)) (*Response, error)
 

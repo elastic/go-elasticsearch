@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -20,7 +20,9 @@ func newCCRGetAutoFollowPatternFunc(t Transport) CCRGetAutoFollowPattern {
 
 // ----- API Definition -------------------------------------------------------
 
-// CCRGetAutoFollowPattern - https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-get-auto-follow-pattern.html
+// CCRGetAutoFollowPattern -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-get-auto-follow-pattern.html.
 //
 type CCRGetAutoFollowPattern func(o ...func(*CCRGetAutoFollowPatternRequest)) (*Response, error)
 

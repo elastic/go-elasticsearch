@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -21,7 +21,9 @@ func newMLUpdateModelSnapshotFunc(t Transport) MLUpdateModelSnapshot {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLUpdateModelSnapshot - http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-update-snapshot.html
+// MLUpdateModelSnapshot -
+//
+// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-update-snapshot.html.
 //
 type MLUpdateModelSnapshot func(snapshot_id string, job_id string, body io.Reader, o ...func(*MLUpdateModelSnapshotRequest)) (*Response, error)
 

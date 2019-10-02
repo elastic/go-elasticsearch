@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -9,8 +9,8 @@ import (
 )
 
 func newILMRetryFunc(t Transport) ILMRetry {
-	return func(o ...func(*ILMRetryRequest)) (*Response, error) {
-		var r = ILMRetryRequest{}
+	return func(index string, o ...func(*ILMRetryRequest)) (*Response, error) {
+		var r = ILMRetryRequest{Index: index}
 		for _, f := range o {
 			f(&r)
 		}
@@ -20,9 +20,11 @@ func newILMRetryFunc(t Transport) ILMRetry {
 
 // ----- API Definition -------------------------------------------------------
 
-// ILMRetry - https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-retry-policy.html
+// ILMRetry -
 //
-type ILMRetry func(o ...func(*ILMRetryRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-retry-policy.html.
+//
+type ILMRetry func(index string, o ...func(*ILMRetryRequest)) (*Response, error)
 
 // ILMRetryRequest configures the ILM Retry API request.
 //
@@ -51,10 +53,8 @@ func (r ILMRetryRequest) Do(ctx context.Context, transport Transport) (*Response
 	method = "POST"
 
 	path.Grow(1 + len(r.Index) + 1 + len("_ilm") + 1 + len("retry"))
-	if r.Index != "" {
-		path.WriteString("/")
-		path.WriteString(r.Index)
-	}
+	path.WriteString("/")
+	path.WriteString(r.Index)
 	path.WriteString("/")
 	path.WriteString("_ilm")
 	path.WriteString("/")
@@ -123,14 +123,6 @@ func (r ILMRetryRequest) Do(ctx context.Context, transport Transport) (*Response
 func (f ILMRetry) WithContext(v context.Context) func(*ILMRetryRequest) {
 	return func(r *ILMRetryRequest) {
 		r.ctx = v
-	}
-}
-
-// WithIndex - the name of the indices (comma-separated) whose failed lifecycle step is to be retry.
-//
-func (f ILMRetry) WithIndex(v string) func(*ILMRetryRequest) {
-	return func(r *ILMRetryRequest) {
-		r.Index = v
 	}
 }
 

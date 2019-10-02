@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -24,7 +24,7 @@ func newCatRecoveryFunc(t Transport) CatRecovery {
 
 // CatRecovery returns information about index shard recoveries, both on-going completed.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/cat-recovery.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-recovery.html.
 //
 type CatRecovery func(o ...func(*CatRecoveryRequest)) (*Response, error)
 
@@ -33,7 +33,9 @@ type CatRecovery func(o ...func(*CatRecoveryRequest)) (*Response, error)
 type CatRecoveryRequest struct {
 	Index []string
 
+	ActiveOnly    *bool
 	Bytes         string
+	Detailed      *bool
 	Format        string
 	H             []string
 	Help          *bool
@@ -74,8 +76,16 @@ func (r CatRecoveryRequest) Do(ctx context.Context, transport Transport) (*Respo
 
 	params = make(map[string]string)
 
+	if r.ActiveOnly != nil {
+		params["active_only"] = strconv.FormatBool(*r.ActiveOnly)
+	}
+
 	if r.Bytes != "" {
 		params["bytes"] = r.Bytes
+	}
+
+	if r.Detailed != nil {
+		params["detailed"] = strconv.FormatBool(*r.Detailed)
 	}
 
 	if r.Format != "" {
@@ -88,6 +98,10 @@ func (r CatRecoveryRequest) Do(ctx context.Context, transport Transport) (*Respo
 
 	if r.Help != nil {
 		params["help"] = strconv.FormatBool(*r.Help)
+	}
+
+	if len(r.Index) > 0 {
+		params["index"] = strings.Join(r.Index, ",")
 	}
 
 	if r.MasterTimeout != 0 {
@@ -166,11 +180,19 @@ func (f CatRecovery) WithContext(v context.Context) func(*CatRecoveryRequest) {
 	}
 }
 
-// WithIndex - a list of index names to limit the returned information.
+// WithIndex - comma-separated list or wildcard expression of index names to limit the returned information.
 //
 func (f CatRecovery) WithIndex(v ...string) func(*CatRecoveryRequest) {
 	return func(r *CatRecoveryRequest) {
 		r.Index = v
+	}
+}
+
+// WithActiveOnly - if `true`, the response only includes ongoing shard recoveries.
+//
+func (f CatRecovery) WithActiveOnly(v bool) func(*CatRecoveryRequest) {
+	return func(r *CatRecoveryRequest) {
+		r.ActiveOnly = &v
 	}
 }
 
@@ -179,6 +201,14 @@ func (f CatRecovery) WithIndex(v ...string) func(*CatRecoveryRequest) {
 func (f CatRecovery) WithBytes(v string) func(*CatRecoveryRequest) {
 	return func(r *CatRecoveryRequest) {
 		r.Bytes = v
+	}
+}
+
+// WithDetailed - if `true`, the response includes detailed information about shard recoveries.
+//
+func (f CatRecovery) WithDetailed(v bool) func(*CatRecoveryRequest) {
+	return func(r *CatRecoveryRequest) {
+		r.Detailed = &v
 	}
 }
 

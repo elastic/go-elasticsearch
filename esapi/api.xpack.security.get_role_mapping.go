@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -20,7 +20,9 @@ func newSecurityGetRoleMappingFunc(t Transport) SecurityGetRoleMapping {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGetRoleMapping - https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-role-mapping.html
+// SecurityGetRoleMapping -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-role-mapping.html.
 //
 type SecurityGetRoleMapping func(o ...func(*SecurityGetRoleMappingRequest)) (*Response, error)
 

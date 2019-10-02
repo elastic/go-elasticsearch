@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -20,7 +20,9 @@ func newMigrationDeprecationsFunc(t Transport) MigrationDeprecations {
 
 // ----- API Definition -------------------------------------------------------
 
-// MigrationDeprecations - http://www.elastic.co/guide/en/elasticsearch/reference/current/migration-api-deprecation.html
+// MigrationDeprecations -
+//
+// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/migration-api-deprecation.html.
 //
 type MigrationDeprecations func(o ...func(*MigrationDeprecationsRequest)) (*Response, error)
 

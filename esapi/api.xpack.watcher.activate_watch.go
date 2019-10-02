@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -20,7 +20,9 @@ func newWatcherActivateWatchFunc(t Transport) WatcherActivateWatch {
 
 // ----- API Definition -------------------------------------------------------
 
-// WatcherActivateWatch - https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-activate-watch.html
+// WatcherActivateWatch -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-activate-watch.html.
 //
 type WatcherActivateWatch func(watch_id string, o ...func(*WatcherActivateWatchRequest)) (*Response, error)
 

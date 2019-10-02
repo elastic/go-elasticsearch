@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -24,7 +24,7 @@ func newCatRepositoriesFunc(t Transport) CatRepositories {
 
 // CatRepositories returns information about snapshot repositories registered in the cluster.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/cat-repositories.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-repositories.html.
 //
 type CatRepositories func(o ...func(*CatRepositoriesRequest)) (*Response, error)
 

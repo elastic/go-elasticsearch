@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -22,7 +22,7 @@ func newTasksCancelFunc(t Transport) TasksCancel {
 
 // TasksCancel cancels a task, if it can be cancelled through an API.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html.
 //
 type TasksCancel func(o ...func(*TasksCancelRequest)) (*Response, error)
 

@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -23,7 +23,7 @@ func newIndicesShardStoresFunc(t Transport) IndicesShardStores {
 
 // IndicesShardStores provides store information for shard copies of indices.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-shards-stores.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-shards-stores.html.
 //
 type IndicesShardStores func(o ...func(*IndicesShardStoresRequest)) (*Response, error)
 

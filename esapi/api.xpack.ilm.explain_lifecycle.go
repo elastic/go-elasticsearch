@@ -1,16 +1,17 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
 func newILMExplainLifecycleFunc(t Transport) ILMExplainLifecycle {
-	return func(o ...func(*ILMExplainLifecycleRequest)) (*Response, error) {
-		var r = ILMExplainLifecycleRequest{}
+	return func(index string, o ...func(*ILMExplainLifecycleRequest)) (*Response, error) {
+		var r = ILMExplainLifecycleRequest{Index: index}
 		for _, f := range o {
 			f(&r)
 		}
@@ -20,14 +21,19 @@ func newILMExplainLifecycleFunc(t Transport) ILMExplainLifecycle {
 
 // ----- API Definition -------------------------------------------------------
 
-// ILMExplainLifecycle - https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-explain-lifecycle.html
+// ILMExplainLifecycle -
 //
-type ILMExplainLifecycle func(o ...func(*ILMExplainLifecycleRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-explain-lifecycle.html.
+//
+type ILMExplainLifecycle func(index string, o ...func(*ILMExplainLifecycleRequest)) (*Response, error)
 
 // ILMExplainLifecycleRequest configures the ILM Explain Lifecycle API request.
 //
 type ILMExplainLifecycleRequest struct {
 	Index string
+
+	OnlyErrors  *bool
+	OnlyManaged *bool
 
 	Pretty     bool
 	Human      bool
@@ -51,16 +57,22 @@ func (r ILMExplainLifecycleRequest) Do(ctx context.Context, transport Transport)
 	method = "GET"
 
 	path.Grow(1 + len(r.Index) + 1 + len("_ilm") + 1 + len("explain"))
-	if r.Index != "" {
-		path.WriteString("/")
-		path.WriteString(r.Index)
-	}
+	path.WriteString("/")
+	path.WriteString(r.Index)
 	path.WriteString("/")
 	path.WriteString("_ilm")
 	path.WriteString("/")
 	path.WriteString("explain")
 
 	params = make(map[string]string)
+
+	if r.OnlyErrors != nil {
+		params["only_errors"] = strconv.FormatBool(*r.OnlyErrors)
+	}
+
+	if r.OnlyManaged != nil {
+		params["only_managed"] = strconv.FormatBool(*r.OnlyManaged)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -126,11 +138,19 @@ func (f ILMExplainLifecycle) WithContext(v context.Context) func(*ILMExplainLife
 	}
 }
 
-// WithIndex - the name of the index to explain.
+// WithOnlyErrors - filters the indices included in the response to ones in an ilm error state, implies only_managed.
 //
-func (f ILMExplainLifecycle) WithIndex(v string) func(*ILMExplainLifecycleRequest) {
+func (f ILMExplainLifecycle) WithOnlyErrors(v bool) func(*ILMExplainLifecycleRequest) {
 	return func(r *ILMExplainLifecycleRequest) {
-		r.Index = v
+		r.OnlyErrors = &v
+	}
+}
+
+// WithOnlyManaged - filters the indices included in the response to ones managed by ilm.
+//
+func (f ILMExplainLifecycle) WithOnlyManaged(v bool) func(*ILMExplainLifecycleRequest) {
+	return func(r *ILMExplainLifecycleRequest) {
+		r.OnlyManaged = &v
 	}
 }
 

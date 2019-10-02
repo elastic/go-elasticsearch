@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -21,7 +21,9 @@ func newSecurityCreateAPIKeyFunc(t Transport) SecurityCreateAPIKey {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityCreateAPIKey - https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-api-key.html
+// SecurityCreateAPIKey -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-api-key.html.
 //
 type SecurityCreateAPIKey func(body io.Reader, o ...func(*SecurityCreateAPIKeyRequest)) (*Response, error)
 

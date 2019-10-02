@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -6,6 +6,7 @@ import (
 	"context"
 	"io"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -21,7 +22,9 @@ func newDataFramePutDataFrameTransformFunc(t Transport) DataFramePutDataFrameTra
 
 // ----- API Definition -------------------------------------------------------
 
-// DataFramePutDataFrameTransform - https://www.elastic.co/guide/en/elasticsearch/reference/current/put-data-frame-transform.html
+// DataFramePutDataFrameTransform -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/put-transform.html.
 //
 type DataFramePutDataFrameTransform func(body io.Reader, transform_id string, o ...func(*DataFramePutDataFrameTransformRequest)) (*Response, error)
 
@@ -31,6 +34,8 @@ type DataFramePutDataFrameTransformRequest struct {
 	Body io.Reader
 
 	TransformID string
+
+	DeferValidation *bool
 
 	Pretty     bool
 	Human      bool
@@ -62,6 +67,10 @@ func (r DataFramePutDataFrameTransformRequest) Do(ctx context.Context, transport
 	path.WriteString(r.TransformID)
 
 	params = make(map[string]string)
+
+	if r.DeferValidation != nil {
+		params["defer_validation"] = strconv.FormatBool(*r.DeferValidation)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -128,6 +137,14 @@ func (r DataFramePutDataFrameTransformRequest) Do(ctx context.Context, transport
 func (f DataFramePutDataFrameTransform) WithContext(v context.Context) func(*DataFramePutDataFrameTransformRequest) {
 	return func(r *DataFramePutDataFrameTransformRequest) {
 		r.ctx = v
+	}
+}
+
+// WithDeferValidation - if validations should be deferred until data frame transform starts, defaults to false..
+//
+func (f DataFramePutDataFrameTransform) WithDeferValidation(v bool) func(*DataFramePutDataFrameTransformRequest) {
+	return func(r *DataFramePutDataFrameTransformRequest) {
+		r.DeferValidation = &v
 	}
 }
 

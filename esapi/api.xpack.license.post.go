@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -22,7 +22,9 @@ func newLicensePostFunc(t Transport) LicensePost {
 
 // ----- API Definition -------------------------------------------------------
 
-// LicensePost - https://www.elastic.co/guide/en/elasticsearch/reference/master/update-license.html
+// LicensePost -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/update-license.html.
 //
 type LicensePost func(o ...func(*LicensePostRequest)) (*Response, error)
 

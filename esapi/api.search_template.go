@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -25,7 +25,7 @@ func newSearchTemplateFunc(t Transport) SearchTemplate {
 
 // SearchTemplate allows to use the Mustache language to pre-render a search definition.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/search-template.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/search-template.html.
 //
 type SearchTemplate func(body io.Reader, o ...func(*SearchTemplateRequest)) (*Response, error)
 
@@ -37,19 +37,18 @@ type SearchTemplateRequest struct {
 
 	Body io.Reader
 
-	AllowNoIndices        *bool
-	CcsMinimizeRoundtrips *bool
-	ExpandWildcards       string
-	Explain               *bool
-	IgnoreThrottled       *bool
-	IgnoreUnavailable     *bool
-	Preference            string
-	Profile               *bool
-	RestTotalHitsAsInt    *bool
-	Routing               []string
-	Scroll                time.Duration
-	SearchType            string
-	TypedKeys             *bool
+	AllowNoIndices     *bool
+	ExpandWildcards    string
+	Explain            *bool
+	IgnoreThrottled    *bool
+	IgnoreUnavailable  *bool
+	Preference         string
+	Profile            *bool
+	RestTotalHitsAsInt *bool
+	Routing            []string
+	Scroll             time.Duration
+	SearchType         string
+	TypedKeys          *bool
 
 	Pretty     bool
 	Human      bool
@@ -90,10 +89,6 @@ func (r SearchTemplateRequest) Do(ctx context.Context, transport Transport) (*Re
 
 	if r.AllowNoIndices != nil {
 		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
-	}
-
-	if r.CcsMinimizeRoundtrips != nil {
-		params["ccs_minimize_roundtrips"] = strconv.FormatBool(*r.CcsMinimizeRoundtrips)
 	}
 
 	if r.ExpandWildcards != "" {
@@ -229,14 +224,6 @@ func (f SearchTemplate) WithDocumentType(v ...string) func(*SearchTemplateReques
 func (f SearchTemplate) WithAllowNoIndices(v bool) func(*SearchTemplateRequest) {
 	return func(r *SearchTemplateRequest) {
 		r.AllowNoIndices = &v
-	}
-}
-
-// WithCcsMinimizeRoundtrips - indicates whether network round-trips should be minimized as part of cross-cluster search requests execution.
-//
-func (f SearchTemplate) WithCcsMinimizeRoundtrips(v bool) func(*SearchTemplateRequest) {
-	return func(r *SearchTemplateRequest) {
-		r.CcsMinimizeRoundtrips = &v
 	}
 }
 

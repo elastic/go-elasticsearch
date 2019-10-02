@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -21,7 +21,9 @@ func newDataFrameGetDataFrameTransformFunc(t Transport) DataFrameGetDataFrameTra
 
 // ----- API Definition -------------------------------------------------------
 
-// DataFrameGetDataFrameTransform - https://www.elastic.co/guide/en/elasticsearch/reference/current/get-data-frame-transform.html
+// DataFrameGetDataFrameTransform -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-transform.html.
 //
 type DataFrameGetDataFrameTransform func(o ...func(*DataFrameGetDataFrameTransformRequest)) (*Response, error)
 

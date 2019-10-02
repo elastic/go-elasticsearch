@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -21,7 +21,9 @@ func newMLUpdateDatafeedFunc(t Transport) MLUpdateDatafeed {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLUpdateDatafeed - http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-update-datafeed.html
+// MLUpdateDatafeed -
+//
+// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-update-datafeed.html.
 //
 type MLUpdateDatafeed func(body io.Reader, datafeed_id string, o ...func(*MLUpdateDatafeedRequest)) (*Response, error)
 

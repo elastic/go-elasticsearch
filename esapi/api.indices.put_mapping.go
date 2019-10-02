@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -25,7 +25,7 @@ func newIndicesPutMappingFunc(t Transport) IndicesPutMapping {
 
 // IndicesPutMapping updates the index mappings.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-put-mapping.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-put-mapping.html.
 //
 type IndicesPutMapping func(body io.Reader, o ...func(*IndicesPutMappingRequest)) (*Response, error)
 
@@ -65,17 +65,13 @@ func (r IndicesPutMappingRequest) Do(ctx context.Context, transport Transport) (
 
 	method = "PUT"
 
-	path.Grow(len(strings.Join(r.Index, ",")) + len("/_mapping") + len(r.DocumentType) + 2)
+	path.Grow(len(strings.Join(r.Index, ",")) + len("/_mapping") + 1)
 	if len(r.Index) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.Index, ","))
 	}
 	path.WriteString("/")
 	path.WriteString("_mapping")
-	if r.DocumentType != "" {
-		path.WriteString("/")
-		path.WriteString(r.DocumentType)
-	}
 
 	params = make(map[string]string)
 

@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -21,7 +21,9 @@ func newMLDeleteJobFunc(t Transport) MLDeleteJob {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLDeleteJob - http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-job.html
+// MLDeleteJob -
+//
+// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-job.html.
 //
 type MLDeleteJob func(job_id string, o ...func(*MLDeleteJobRequest)) (*Response, error)
 

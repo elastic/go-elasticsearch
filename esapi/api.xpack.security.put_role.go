@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -21,7 +21,9 @@ func newSecurityPutRoleFunc(t Transport) SecurityPutRole {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityPutRole - https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-put-role.html
+// SecurityPutRole -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-put-role.html.
 //
 type SecurityPutRole func(name string, body io.Reader, o ...func(*SecurityPutRoleRequest)) (*Response, error)
 

@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -21,7 +21,9 @@ func newMLPutJobFunc(t Transport) MLPutJob {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPutJob - http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-put-job.html
+// MLPutJob -
+//
+// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-put-job.html.
 //
 type MLPutJob func(job_id string, body io.Reader, o ...func(*MLPutJobRequest)) (*Response, error)
 

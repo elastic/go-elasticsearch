@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -23,7 +23,9 @@ func newMLGetRecordsFunc(t Transport) MLGetRecords {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetRecords - http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-record.html
+// MLGetRecords -
+//
+// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-record.html.
 //
 type MLGetRecords func(job_id string, o ...func(*MLGetRecordsRequest)) (*Response, error)
 

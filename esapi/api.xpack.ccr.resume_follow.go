@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -21,7 +21,9 @@ func newCCRResumeFollowFunc(t Transport) CCRResumeFollow {
 
 // ----- API Definition -------------------------------------------------------
 
-// CCRResumeFollow - https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-resume-follow.html
+// CCRResumeFollow -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-resume-follow.html.
 //
 type CCRResumeFollow func(index string, o ...func(*CCRResumeFollowRequest)) (*Response, error)
 

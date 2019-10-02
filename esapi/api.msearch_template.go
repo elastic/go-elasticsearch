@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -24,7 +24,7 @@ func newMsearchTemplateFunc(t Transport) MsearchTemplate {
 
 // MsearchTemplate allows to execute several search template operations in one request.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/search-multi-search.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/search-multi-search.html.
 //
 type MsearchTemplate func(body io.Reader, o ...func(*MsearchTemplateRequest)) (*Response, error)
 
@@ -36,7 +36,6 @@ type MsearchTemplateRequest struct {
 
 	Body io.Reader
 
-	CcsMinimizeRoundtrips *bool
 	MaxConcurrentSearches *int
 	RestTotalHitsAsInt    *bool
 	SearchType            string
@@ -78,10 +77,6 @@ func (r MsearchTemplateRequest) Do(ctx context.Context, transport Transport) (*R
 	path.WriteString("template")
 
 	params = make(map[string]string)
-
-	if r.CcsMinimizeRoundtrips != nil {
-		params["ccs_minimize_roundtrips"] = strconv.FormatBool(*r.CcsMinimizeRoundtrips)
-	}
 
 	if r.MaxConcurrentSearches != nil {
 		params["max_concurrent_searches"] = strconv.FormatInt(int64(*r.MaxConcurrentSearches), 10)
@@ -180,14 +175,6 @@ func (f MsearchTemplate) WithIndex(v ...string) func(*MsearchTemplateRequest) {
 func (f MsearchTemplate) WithDocumentType(v ...string) func(*MsearchTemplateRequest) {
 	return func(r *MsearchTemplateRequest) {
 		r.DocumentType = v
-	}
-}
-
-// WithCcsMinimizeRoundtrips - indicates whether network round-trips should be minimized as part of cross-cluster search requests execution.
-//
-func (f MsearchTemplate) WithCcsMinimizeRoundtrips(v bool) func(*MsearchTemplateRequest) {
-	return func(r *MsearchTemplateRequest) {
-		r.CcsMinimizeRoundtrips = &v
 	}
 }
 

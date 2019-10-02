@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -20,7 +20,9 @@ func newSecurityGetUserFunc(t Transport) SecurityGetUser {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGetUser - https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-user.html
+// SecurityGetUser -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-user.html.
 //
 type SecurityGetUser func(o ...func(*SecurityGetUserRequest)) (*Response, error)
 

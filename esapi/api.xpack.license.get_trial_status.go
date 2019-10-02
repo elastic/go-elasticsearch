@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -20,7 +20,9 @@ func newLicenseGetTrialStatusFunc(t Transport) LicenseGetTrialStatus {
 
 // ----- API Definition -------------------------------------------------------
 
-// LicenseGetTrialStatus - https://www.elastic.co/guide/en/elasticsearch/reference/master/get-trial-status.html
+// LicenseGetTrialStatus -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-trial-status.html.
 //
 type LicenseGetTrialStatus func(o ...func(*LicenseGetTrialStatusRequest)) (*Response, error)
 

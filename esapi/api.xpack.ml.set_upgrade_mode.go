@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -22,7 +22,9 @@ func newMLSetUpgradeModeFunc(t Transport) MLSetUpgradeMode {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLSetUpgradeMode - http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-set-upgrade-mode.html
+// MLSetUpgradeMode -
+//
+// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-set-upgrade-mode.html.
 //
 type MLSetUpgradeMode func(o ...func(*MLSetUpgradeModeRequest)) (*Response, error)
 

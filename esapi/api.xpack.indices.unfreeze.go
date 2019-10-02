@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -22,7 +22,9 @@ func newIndicesUnfreezeFunc(t Transport) IndicesUnfreeze {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesUnfreeze - https://www.elastic.co/guide/en/elasticsearch/reference/current/frozen.html
+// IndicesUnfreeze -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/frozen.html.
 //
 type IndicesUnfreeze func(index string, o ...func(*IndicesUnfreezeRequest)) (*Response, error)
 

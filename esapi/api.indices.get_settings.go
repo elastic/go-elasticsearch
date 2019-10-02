@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -24,7 +24,7 @@ func newIndicesGetSettingsFunc(t Transport) IndicesGetSettings {
 
 // IndicesGetSettings returns settings for one or more indices.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-settings.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-settings.html.
 //
 type IndicesGetSettings func(o ...func(*IndicesGetSettingsRequest)) (*Response, error)
 

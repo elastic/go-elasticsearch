@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -20,7 +20,9 @@ func newCCRUnfollowFunc(t Transport) CCRUnfollow {
 
 // ----- API Definition -------------------------------------------------------
 
-// CCRUnfollow - http://www.elastic.co/guide/en/elasticsearch/reference/current
+// CCRUnfollow -
+//
+// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current.
 //
 type CCRUnfollow func(index string, o ...func(*CCRUnfollowRequest)) (*Response, error)
 

@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -23,7 +23,7 @@ func newClearScrollFunc(t Transport) ClearScroll {
 
 // ClearScroll explicitly clears the search context for a scroll.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/search-request-body.html#request-body-search-scroll.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-request-body.html#_clear_scroll_api.
 //
 type ClearScroll func(o ...func(*ClearScrollRequest)) (*Response, error)
 

@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -21,7 +21,9 @@ func newMLGetJobsFunc(t Transport) MLGetJobs {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetJobs - http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-job.html
+// MLGetJobs -
+//
+// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-job.html.
 //
 type MLGetJobs func(o ...func(*MLGetJobsRequest)) (*Response, error)
 

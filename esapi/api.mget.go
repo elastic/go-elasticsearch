@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -24,7 +24,7 @@ func newMgetFunc(t Transport) Mget {
 
 // Mget allows to get multiple documents in one request.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-multi-get.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-multi-get.html.
 //
 type Mget func(body io.Reader, o ...func(*MgetRequest)) (*Response, error)
 

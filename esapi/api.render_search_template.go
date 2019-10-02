@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -23,7 +23,7 @@ func newRenderSearchTemplateFunc(t Transport) RenderSearchTemplate {
 
 // RenderSearchTemplate allows to use the Mustache language to pre-render a search definition.
 //
-// See full documentation at http://www.elasticsearch.org/guide/en/elasticsearch/reference/master/search-template.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/search-template.html#_validating_templates.
 //
 type RenderSearchTemplate func(o ...func(*RenderSearchTemplateRequest)) (*Response, error)
 

@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -22,7 +22,9 @@ func newMLFlushJobFunc(t Transport) MLFlushJob {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLFlushJob - http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-flush-job.html
+// MLFlushJob -
+//
+// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-flush-job.html.
 //
 type MLFlushJob func(job_id string, o ...func(*MLFlushJobRequest)) (*Response, error)
 

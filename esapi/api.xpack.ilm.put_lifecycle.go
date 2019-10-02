@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -10,8 +10,8 @@ import (
 )
 
 func newILMPutLifecycleFunc(t Transport) ILMPutLifecycle {
-	return func(o ...func(*ILMPutLifecycleRequest)) (*Response, error) {
-		var r = ILMPutLifecycleRequest{}
+	return func(policy string, o ...func(*ILMPutLifecycleRequest)) (*Response, error) {
+		var r = ILMPutLifecycleRequest{Policy: policy}
 		for _, f := range o {
 			f(&r)
 		}
@@ -21,9 +21,11 @@ func newILMPutLifecycleFunc(t Transport) ILMPutLifecycle {
 
 // ----- API Definition -------------------------------------------------------
 
-// ILMPutLifecycle - https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-put-lifecycle.html
+// ILMPutLifecycle -
 //
-type ILMPutLifecycle func(o ...func(*ILMPutLifecycleRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-put-lifecycle.html.
+//
+type ILMPutLifecycle func(policy string, o ...func(*ILMPutLifecycleRequest)) (*Response, error)
 
 // ILMPutLifecycleRequest configures the ILM Put Lifecycle API request.
 //
@@ -58,10 +60,8 @@ func (r ILMPutLifecycleRequest) Do(ctx context.Context, transport Transport) (*R
 	path.WriteString("_ilm")
 	path.WriteString("/")
 	path.WriteString("policy")
-	if r.Policy != "" {
-		path.WriteString("/")
-		path.WriteString(r.Policy)
-	}
+	path.WriteString("/")
+	path.WriteString(r.Policy)
 
 	params = make(map[string]string)
 
@@ -138,14 +138,6 @@ func (f ILMPutLifecycle) WithContext(v context.Context) func(*ILMPutLifecycleReq
 func (f ILMPutLifecycle) WithBody(v io.Reader) func(*ILMPutLifecycleRequest) {
 	return func(r *ILMPutLifecycleRequest) {
 		r.Body = v
-	}
-}
-
-// WithPolicy - the name of the index lifecycle policy.
-//
-func (f ILMPutLifecycle) WithPolicy(v string) func(*ILMPutLifecycleRequest) {
-	return func(r *ILMPutLifecycleRequest) {
-		r.Policy = v
 	}
 }
 

@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -23,7 +23,7 @@ func newIndicesRecoveryFunc(t Transport) IndicesRecovery {
 
 // IndicesRecovery returns information about ongoing index shard recoveries.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-recovery.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-recovery.html.
 //
 type IndicesRecovery func(o ...func(*IndicesRecoveryRequest)) (*Response, error)
 

@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -23,7 +23,7 @@ func newIndicesSegmentsFunc(t Transport) IndicesSegments {
 
 // IndicesSegments provides low-level information about segments in a Lucene index.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-segments.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-segments.html.
 //
 type IndicesSegments func(o ...func(*IndicesSegmentsRequest)) (*Response, error)
 

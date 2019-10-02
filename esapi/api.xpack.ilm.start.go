@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -20,7 +20,9 @@ func newILMStartFunc(t Transport) ILMStart {
 
 // ----- API Definition -------------------------------------------------------
 
-// ILMStart - https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-start.html
+// ILMStart -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-start.html.
 //
 type ILMStart func(o ...func(*ILMStartRequest)) (*Response, error)
 

@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -21,7 +21,9 @@ func newLicensePostStartBasicFunc(t Transport) LicensePostStartBasic {
 
 // ----- API Definition -------------------------------------------------------
 
-// LicensePostStartBasic - https://www.elastic.co/guide/en/elasticsearch/reference/master/start-basic.html
+// LicensePostStartBasic -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/start-basic.html.
 //
 type LicensePostStartBasic func(o ...func(*LicensePostStartBasicRequest)) (*Response, error)
 

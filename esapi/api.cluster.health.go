@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -24,7 +24,7 @@ func newClusterHealthFunc(t Transport) ClusterHealth {
 
 // ClusterHealth returns basic information about the health of the cluster.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-health.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-health.html.
 //
 type ClusterHealth func(o ...func(*ClusterHealthRequest)) (*Response, error)
 

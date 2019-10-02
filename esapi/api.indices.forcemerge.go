@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -23,7 +23,7 @@ func newIndicesForcemergeFunc(t Transport) IndicesForcemerge {
 
 // IndicesForcemerge performs the force merge operation on one or more indices.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-forcemerge.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-forcemerge.html.
 //
 type IndicesForcemerge func(o ...func(*IndicesForcemergeRequest)) (*Response, error)
 

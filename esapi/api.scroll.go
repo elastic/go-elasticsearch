@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -25,7 +25,7 @@ func newScrollFunc(t Transport) Scroll {
 
 // Scroll allows to retrieve a large numbers of results from a single search request.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/search-request-body.html#request-body-search-scroll.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-request-body.html#request-body-search-scroll.
 //
 type Scroll func(o ...func(*ScrollRequest)) (*Response, error)
 

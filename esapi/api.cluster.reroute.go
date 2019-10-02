@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -25,7 +25,7 @@ func newClusterRerouteFunc(t Transport) ClusterReroute {
 
 // ClusterReroute allows to manually change the allocation of individual shards in the cluster.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-reroute.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-reroute.html.
 //
 type ClusterReroute func(o ...func(*ClusterRerouteRequest)) (*Response, error)
 

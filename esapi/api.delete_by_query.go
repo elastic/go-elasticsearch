@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -38,7 +38,6 @@ type DeleteByQueryRequest struct {
 	Body io.Reader
 
 	AllowNoIndices      *bool
-	Analyzer            string
 	AnalyzeWildcard     *bool
 	Conflicts           string
 	DefaultOperator     string
@@ -106,10 +105,6 @@ func (r DeleteByQueryRequest) Do(ctx context.Context, transport Transport) (*Res
 
 	if r.AllowNoIndices != nil {
 		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
-	}
-
-	if r.Analyzer != "" {
-		params["analyzer"] = r.Analyzer
 	}
 
 	if r.AnalyzeWildcard != nil {
@@ -317,14 +312,6 @@ func (f DeleteByQuery) WithDocumentType(v ...string) func(*DeleteByQueryRequest)
 func (f DeleteByQuery) WithAllowNoIndices(v bool) func(*DeleteByQueryRequest) {
 	return func(r *DeleteByQueryRequest) {
 		r.AllowNoIndices = &v
-	}
-}
-
-// WithAnalyzer - the analyzer to use for the query string.
-//
-func (f DeleteByQuery) WithAnalyzer(v string) func(*DeleteByQueryRequest) {
-	return func(r *DeleteByQueryRequest) {
-		r.Analyzer = v
 	}
 }
 

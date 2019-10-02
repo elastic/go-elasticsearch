@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -27,7 +27,7 @@ func newCreateFunc(t Transport) Create {
 //
 // Returns a 409 response when a document with a same ID already exists in the index.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html.
 //
 type Create func(index string, id string, body io.Reader, o ...func(*CreateRequest)) (*Response, error)
 
@@ -76,8 +76,10 @@ func (r CreateRequest) Do(ctx context.Context, transport Transport) (*Response, 
 	path.Grow(1 + len(r.Index) + 1 + len(r.DocumentType) + 1 + len(r.DocumentID) + 1 + len("_create"))
 	path.WriteString("/")
 	path.WriteString(r.Index)
-	path.WriteString("/")
-	path.WriteString(r.DocumentType)
+	if r.DocumentType != "" {
+		path.WriteString("/")
+		path.WriteString(r.DocumentType)
+	}
 	path.WriteString("/")
 	path.WriteString(r.DocumentID)
 	path.WriteString("/")

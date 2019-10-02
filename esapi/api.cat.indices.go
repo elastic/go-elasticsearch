@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -24,7 +24,7 @@ func newCatIndicesFunc(t Transport) CatIndices {
 
 // CatIndices returns information about indices: number of primaries and replicas, document counts, disk size, ...
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/cat-indices.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-indices.html.
 //
 type CatIndices func(o ...func(*CatIndicesRequest)) (*Response, error)
 

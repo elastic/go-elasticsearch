@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -26,7 +26,7 @@ func newIndicesRolloverFunc(t Transport) IndicesRollover {
 // IndicesRollover updates an alias to point to a new index when the existing index
 // is considered to be too large or too old.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-rollover-index.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-rollover-index.html.
 //
 type IndicesRollover func(alias string, o ...func(*IndicesRolloverRequest)) (*Response, error)
 

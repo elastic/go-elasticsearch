@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -21,7 +21,9 @@ func newDataFrameStartDataFrameTransformFunc(t Transport) DataFrameStartDataFram
 
 // ----- API Definition -------------------------------------------------------
 
-// DataFrameStartDataFrameTransform - https://www.elastic.co/guide/en/elasticsearch/reference/current/start-data-frame-transform.html
+// DataFrameStartDataFrameTransform -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/start-transform.html.
 //
 type DataFrameStartDataFrameTransform func(transform_id string, o ...func(*DataFrameStartDataFrameTransformRequest)) (*Response, error)
 

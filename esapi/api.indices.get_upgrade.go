@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -23,7 +23,7 @@ func newIndicesGetUpgradeFunc(t Transport) IndicesGetUpgrade {
 
 // IndicesGetUpgrade the _upgrade API is no longer useful and will be removed.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-upgrade.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-upgrade.html.
 //
 type IndicesGetUpgrade func(o ...func(*IndicesGetUpgradeRequest)) (*Response, error)
 

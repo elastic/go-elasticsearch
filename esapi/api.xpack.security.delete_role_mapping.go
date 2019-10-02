@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -20,7 +20,9 @@ func newSecurityDeleteRoleMappingFunc(t Transport) SecurityDeleteRoleMapping {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityDeleteRoleMapping - https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-delete-role-mapping.html
+// SecurityDeleteRoleMapping -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-delete-role-mapping.html.
 //
 type SecurityDeleteRoleMapping func(name string, o ...func(*SecurityDeleteRoleMappingRequest)) (*Response, error)
 

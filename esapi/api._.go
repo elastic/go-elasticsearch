@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1 (a92f36162e5): DO NOT EDIT
+// Code generated from specification version 7.4.0 (e2c4e8cacb9): DO NOT EDIT
 
 package esapi
 
@@ -37,6 +37,7 @@ type API struct {
 	DataFramePutDataFrameTransform      DataFramePutDataFrameTransform
 	DataFrameStartDataFrameTransform    DataFrameStartDataFrameTransform
 	DataFrameStopDataFrameTransform     DataFrameStopDataFrameTransform
+	DataFrameUpdateDataFrameTransform   DataFrameUpdateDataFrameTransform
 	DeleteByQuery                       DeleteByQuery
 	DeleteByQueryRethrottle             DeleteByQueryRethrottle
 	Delete                              Delete
@@ -66,6 +67,10 @@ type API struct {
 	Search                              Search
 	SearchShards                        SearchShards
 	SearchTemplate                      SearchTemplate
+	SlmDeleteLifecycle                  SlmDeleteLifecycle
+	SlmExecuteLifecycle                 SlmExecuteLifecycle
+	SlmGetLifecycle                     SlmGetLifecycle
+	SlmPutLifecycle                     SlmPutLifecycle
 	Termvectors                         Termvectors
 	UpdateByQuery                       UpdateByQuery
 	UpdateByQueryRethrottle             UpdateByQueryRethrottle
@@ -113,6 +118,7 @@ type Cluster struct {
 type Indices struct {
 	Analyze               IndicesAnalyze
 	ClearCache            IndicesClearCache
+	Clone                 IndicesClone
 	Close                 IndicesClose
 	Create                IndicesCreate
 	DeleteAlias           IndicesDeleteAlias
@@ -177,15 +183,16 @@ type Remote struct {
 
 // Snapshot contains the Snapshot APIs
 type Snapshot struct {
-	CreateRepository SnapshotCreateRepository
-	Create           SnapshotCreate
-	DeleteRepository SnapshotDeleteRepository
-	Delete           SnapshotDelete
-	GetRepository    SnapshotGetRepository
-	Get              SnapshotGet
-	Restore          SnapshotRestore
-	Status           SnapshotStatus
-	VerifyRepository SnapshotVerifyRepository
+	CleanupRepository SnapshotCleanupRepository
+	CreateRepository  SnapshotCreateRepository
+	Create            SnapshotCreate
+	DeleteRepository  SnapshotDeleteRepository
+	Delete            SnapshotDelete
+	GetRepository     SnapshotGetRepository
+	Get               SnapshotGet
+	Restore           SnapshotRestore
+	Status            SnapshotStatus
+	VerifyRepository  SnapshotVerifyRepository
 }
 
 // Tasks contains the Tasks APIs
@@ -253,6 +260,7 @@ type ML struct {
 	DeleteForecast             MLDeleteForecast
 	DeleteJob                  MLDeleteJob
 	DeleteModelSnapshot        MLDeleteModelSnapshot
+	EstimateMemoryUsage        MLEstimateMemoryUsage
 	EvaluateDataFrame          MLEvaluateDataFrame
 	FindFileStructure          MLFindFileStructure
 	FlushJob                   MLFlushJob
@@ -391,6 +399,7 @@ func New(t Transport) *API {
 		DataFramePutDataFrameTransform:      newDataFramePutDataFrameTransformFunc(t),
 		DataFrameStartDataFrameTransform:    newDataFrameStartDataFrameTransformFunc(t),
 		DataFrameStopDataFrameTransform:     newDataFrameStopDataFrameTransformFunc(t),
+		DataFrameUpdateDataFrameTransform:   newDataFrameUpdateDataFrameTransformFunc(t),
 		DeleteByQuery:                       newDeleteByQueryFunc(t),
 		DeleteByQueryRethrottle:             newDeleteByQueryRethrottleFunc(t),
 		Delete:                              newDeleteFunc(t),
@@ -420,6 +429,10 @@ func New(t Transport) *API {
 		Search:                              newSearchFunc(t),
 		SearchShards:                        newSearchShardsFunc(t),
 		SearchTemplate:                      newSearchTemplateFunc(t),
+		SlmDeleteLifecycle:                  newSlmDeleteLifecycleFunc(t),
+		SlmExecuteLifecycle:                 newSlmExecuteLifecycleFunc(t),
+		SlmGetLifecycle:                     newSlmGetLifecycleFunc(t),
+		SlmPutLifecycle:                     newSlmPutLifecycleFunc(t),
 		Termvectors:                         newTermvectorsFunc(t),
 		UpdateByQuery:                       newUpdateByQueryFunc(t),
 		UpdateByQueryRethrottle:             newUpdateByQueryRethrottleFunc(t),
@@ -460,6 +473,7 @@ func New(t Transport) *API {
 		Indices: &Indices{
 			Analyze:               newIndicesAnalyzeFunc(t),
 			ClearCache:            newIndicesClearCacheFunc(t),
+			Clone:                 newIndicesCloneFunc(t),
 			Close:                 newIndicesCloseFunc(t),
 			Create:                newIndicesCreateFunc(t),
 			DeleteAlias:           newIndicesDeleteAliasFunc(t),
@@ -515,15 +529,16 @@ func New(t Transport) *API {
 		},
 		Remote: &Remote{},
 		Snapshot: &Snapshot{
-			CreateRepository: newSnapshotCreateRepositoryFunc(t),
-			Create:           newSnapshotCreateFunc(t),
-			DeleteRepository: newSnapshotDeleteRepositoryFunc(t),
-			Delete:           newSnapshotDeleteFunc(t),
-			GetRepository:    newSnapshotGetRepositoryFunc(t),
-			Get:              newSnapshotGetFunc(t),
-			Restore:          newSnapshotRestoreFunc(t),
-			Status:           newSnapshotStatusFunc(t),
-			VerifyRepository: newSnapshotVerifyRepositoryFunc(t),
+			CleanupRepository: newSnapshotCleanupRepositoryFunc(t),
+			CreateRepository:  newSnapshotCreateRepositoryFunc(t),
+			Create:            newSnapshotCreateFunc(t),
+			DeleteRepository:  newSnapshotDeleteRepositoryFunc(t),
+			Delete:            newSnapshotDeleteFunc(t),
+			GetRepository:     newSnapshotGetRepositoryFunc(t),
+			Get:               newSnapshotGetFunc(t),
+			Restore:           newSnapshotRestoreFunc(t),
+			Status:            newSnapshotStatusFunc(t),
+			VerifyRepository:  newSnapshotVerifyRepositoryFunc(t),
 		},
 		Tasks: &Tasks{
 			Cancel: newTasksCancelFunc(t),
@@ -579,6 +594,7 @@ func New(t Transport) *API {
 			DeleteForecast:             newMLDeleteForecastFunc(t),
 			DeleteJob:                  newMLDeleteJobFunc(t),
 			DeleteModelSnapshot:        newMLDeleteModelSnapshotFunc(t),
+			EstimateMemoryUsage:        newMLEstimateMemoryUsageFunc(t),
 			EvaluateDataFrame:          newMLEvaluateDataFrameFunc(t),
 			FindFileStructure:          newMLFindFileStructureFunc(t),
 			FlushJob:                   newMLFlushJobFunc(t),

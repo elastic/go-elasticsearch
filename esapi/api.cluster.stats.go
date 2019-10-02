@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -24,7 +24,7 @@ func newClusterStatsFunc(t Transport) ClusterStats {
 
 // ClusterStats returns high-level overview of cluster statistics.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-stats.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-stats.html.
 //
 type ClusterStats func(o ...func(*ClusterStatsRequest)) (*Response, error)
 

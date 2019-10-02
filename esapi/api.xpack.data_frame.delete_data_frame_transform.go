@@ -1,10 +1,11 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -20,7 +21,9 @@ func newDataFrameDeleteDataFrameTransformFunc(t Transport) DataFrameDeleteDataFr
 
 // ----- API Definition -------------------------------------------------------
 
-// DataFrameDeleteDataFrameTransform - https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-data-frame-transform.html
+// DataFrameDeleteDataFrameTransform -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-transform.html.
 //
 type DataFrameDeleteDataFrameTransform func(transform_id string, o ...func(*DataFrameDeleteDataFrameTransformRequest)) (*Response, error)
 
@@ -28,6 +31,8 @@ type DataFrameDeleteDataFrameTransform func(transform_id string, o ...func(*Data
 //
 type DataFrameDeleteDataFrameTransformRequest struct {
 	TransformID string
+
+	Force *bool
 
 	Pretty     bool
 	Human      bool
@@ -59,6 +64,10 @@ func (r DataFrameDeleteDataFrameTransformRequest) Do(ctx context.Context, transp
 	path.WriteString(r.TransformID)
 
 	params = make(map[string]string)
+
+	if r.Force != nil {
+		params["force"] = strconv.FormatBool(*r.Force)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -121,6 +130,14 @@ func (r DataFrameDeleteDataFrameTransformRequest) Do(ctx context.Context, transp
 func (f DataFrameDeleteDataFrameTransform) WithContext(v context.Context) func(*DataFrameDeleteDataFrameTransformRequest) {
 	return func(r *DataFrameDeleteDataFrameTransformRequest) {
 		r.ctx = v
+	}
+}
+
+// WithForce - when `true`, the transform is deleted regardless of its current state. the default value is `false`, meaning that the transform must be `stopped` before it can be deleted..
+//
+func (f DataFrameDeleteDataFrameTransform) WithForce(v bool) func(*DataFrameDeleteDataFrameTransformRequest) {
+	return func(r *DataFrameDeleteDataFrameTransformRequest) {
+		r.Force = &v
 	}
 }
 

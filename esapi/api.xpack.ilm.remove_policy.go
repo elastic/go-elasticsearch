@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -9,8 +9,8 @@ import (
 )
 
 func newILMRemovePolicyFunc(t Transport) ILMRemovePolicy {
-	return func(o ...func(*ILMRemovePolicyRequest)) (*Response, error) {
-		var r = ILMRemovePolicyRequest{}
+	return func(index string, o ...func(*ILMRemovePolicyRequest)) (*Response, error) {
+		var r = ILMRemovePolicyRequest{Index: index}
 		for _, f := range o {
 			f(&r)
 		}
@@ -20,9 +20,11 @@ func newILMRemovePolicyFunc(t Transport) ILMRemovePolicy {
 
 // ----- API Definition -------------------------------------------------------
 
-// ILMRemovePolicy - https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-remove-policy.html
+// ILMRemovePolicy -
 //
-type ILMRemovePolicy func(o ...func(*ILMRemovePolicyRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-remove-policy.html.
+//
+type ILMRemovePolicy func(index string, o ...func(*ILMRemovePolicyRequest)) (*Response, error)
 
 // ILMRemovePolicyRequest configures the ILM Remove Policy API request.
 //
@@ -51,10 +53,8 @@ func (r ILMRemovePolicyRequest) Do(ctx context.Context, transport Transport) (*R
 	method = "POST"
 
 	path.Grow(1 + len(r.Index) + 1 + len("_ilm") + 1 + len("remove"))
-	if r.Index != "" {
-		path.WriteString("/")
-		path.WriteString(r.Index)
-	}
+	path.WriteString("/")
+	path.WriteString(r.Index)
 	path.WriteString("/")
 	path.WriteString("_ilm")
 	path.WriteString("/")
@@ -123,14 +123,6 @@ func (r ILMRemovePolicyRequest) Do(ctx context.Context, transport Transport) (*R
 func (f ILMRemovePolicy) WithContext(v context.Context) func(*ILMRemovePolicyRequest) {
 	return func(r *ILMRemovePolicyRequest) {
 		r.ctx = v
-	}
-}
-
-// WithIndex - the name of the index to remove policy on.
-//
-func (f ILMRemovePolicy) WithIndex(v string) func(*ILMRemovePolicyRequest) {
-	return func(r *ILMRemovePolicyRequest) {
-		r.Index = v
 	}
 }
 

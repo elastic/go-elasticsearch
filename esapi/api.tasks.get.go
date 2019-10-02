@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -24,7 +24,7 @@ func newTasksGetFunc(t Transport) TasksGet {
 
 // TasksGet returns information about a task.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html.
 //
 type TasksGet func(task_id string, o ...func(*TasksGetRequest)) (*Response, error)
 

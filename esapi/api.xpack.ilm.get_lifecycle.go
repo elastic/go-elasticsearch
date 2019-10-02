@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -20,7 +20,9 @@ func newILMGetLifecycleFunc(t Transport) ILMGetLifecycle {
 
 // ----- API Definition -------------------------------------------------------
 
-// ILMGetLifecycle - https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-get-lifecycle.html
+// ILMGetLifecycle -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-get-lifecycle.html.
 //
 type ILMGetLifecycle func(o ...func(*ILMGetLifecycleRequest)) (*Response, error)
 

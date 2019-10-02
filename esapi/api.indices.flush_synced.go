@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -23,7 +23,7 @@ func newIndicesFlushSyncedFunc(t Transport) IndicesFlushSynced {
 
 // IndicesFlushSynced performs a synced flush operation on one or more indices.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-flush.html#synced-flush-api.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-synced-flush-api.html.
 //
 type IndicesFlushSynced func(o ...func(*IndicesFlushSyncedRequest)) (*Response, error)
 

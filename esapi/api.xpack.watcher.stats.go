@@ -1,4 +1,4 @@
-// Code generated from specification version 7.3.1: DO NOT EDIT
+// Code generated from specification version 7.4.0: DO NOT EDIT
 
 package esapi
 
@@ -21,7 +21,9 @@ func newWatcherStatsFunc(t Transport) WatcherStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// WatcherStats - http://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-stats.html
+// WatcherStats -
+//
+// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-stats.html.
 //
 type WatcherStats func(o ...func(*WatcherStatsRequest)) (*Response, error)
 
