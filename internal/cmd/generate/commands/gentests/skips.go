@@ -152,6 +152,10 @@ monitoring/bulk/20_privileges.yml:
 # Test tries to match on whole body, but map keys are unstable in Go
 rollup/security_tests.yml:
 
+# Test tries to match on map key, but map keys are unstable in Go
+ml/data_frame_analytics_crud.yml:
+  - "Test put with description"
+
 # TEMPORARY: Missing 'body: { indices: "test_index" }' payload, TODO: PR
 snapshot/10_basic.yml:
   - Create a source only snapshot and then restore it
