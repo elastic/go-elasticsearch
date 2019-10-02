@@ -56,8 +56,6 @@ func NewEndpoint(f io.Reader) (*Endpoint, error) {
 		for partName, part := range path.Parts {
 			part.Endpoint = &endpoint
 			part.Name = partName
-			part.Type = part.Type
-			part.Description = part.Description
 		}
 	}
 
