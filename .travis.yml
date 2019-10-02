@@ -14,8 +14,6 @@ install: true
 
 matrix:
   fast_finish: true
-  allow_failures:
-    - os: windows
   include:
     - name: Unit Tests | Linux, go:stable, gomod=on
       os: linux
