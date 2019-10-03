@@ -96,19 +96,6 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		maxRetries = defaultMaxRetries
 	)
 
-	// TODO: Handle context deadline
-	//
-	// Must be run in a goroutine in order to not block the entire operation?
-	//
-	// if req.Context != nil {
-	// 	select {
-	// 	// Return immediately when context timeout is exceeded
-	// 	case <-req.Context().Done():
-	// 		return nil, req.Context().Err()
-	// 	default:
-	// 	}
-	// }
-
 	// Update request
 	//
 	c.setUserAgent(req)
