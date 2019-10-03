@@ -50,6 +50,7 @@ type Config struct {
 	DisableRetryOnStatus bool
 	EnableRetryOnTimeout bool
 	MaxRetries           int
+	RetryBackoff         func(attempt int) time.Duration
 
 	Transport http.RoundTripper
 	Logger    Logger
@@ -67,6 +68,7 @@ type Client struct {
 	disableRetryOnStatus bool
 	enableRetryOnTimeout bool
 	maxRetries           int
+	retryBackoff         func(attempt int) time.Duration
 
 	transport http.RoundTripper
 	selector  Selector
@@ -100,6 +102,7 @@ func New(cfg Config) *Client {
 		disableRetryOnStatus: cfg.DisableRetryOnStatus,
 		enableRetryOnTimeout: cfg.EnableRetryOnTimeout,
 		maxRetries:           cfg.MaxRetries,
+		retryBackoff:         cfg.RetryBackoff,
 
 		transport: cfg.Transport,
 		selector:  NewRoundRobinSelector(cfg.URLs...),
@@ -184,6 +187,12 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		//
 		if !shouldRetry {
 			break
+		}
+
+		// Delay the retry if a backoff function is configured
+		//
+		if c.retryBackoff != nil {
+			time.Sleep(c.retryBackoff(i))
 		}
 	}
 

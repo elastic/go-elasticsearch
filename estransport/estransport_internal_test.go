@@ -9,6 +9,7 @@ import (
 	"reflect"
 	"strings"
 	"testing"
+	"time"
 )
 
 var (
@@ -367,6 +368,61 @@ func TestTransportPerformRetries(t *testing.T) {
 
 		if i != 1 {
 			t.Errorf("Unexpected number of requests, want=%d, got=%d", 1, i)
+		}
+	})
+
+	t.Run("Delay the retry with a backoff function", func(t *testing.T) {
+		var (
+			i                int
+			numReqs          = 3
+			start            = time.Now()
+			expectedDuration = time.Duration(numReqs*100) * time.Millisecond
+		)
+
+		u, _ := url.Parse("http://foo.bar")
+		tp := New(Config{
+			URLs: []*url.URL{u, u, u},
+			Transport: &mockTransp{
+				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+					i++
+					fmt.Printf("Request #%d", i)
+					if i == numReqs {
+						fmt.Print(": OK\n")
+						return &http.Response{Status: "OK"}, nil
+					}
+					fmt.Print(": ERR\n")
+					return nil, &mockNetError{error: fmt.Errorf("Mock network error (%d)", i)}
+				},
+			},
+
+			// A simple incremental backoff function
+			//
+			RetryBackoff: func(i int) time.Duration {
+				d := time.Duration(i) * 100 * time.Millisecond
+				fmt.Printf("Attempt: %d | Sleeping for %s...\n", i, d)
+				return d
+			},
+		})
+
+		req, _ := http.NewRequest("GET", "/abc", nil)
+
+		res, err := tp.Perform(req)
+		end := time.Since(start)
+
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		if res.Status != "OK" {
+			t.Errorf("Unexpected response: %+v", res)
+		}
+
+		if i != numReqs {
+			t.Errorf("Unexpected number of requests, want=%d, got=%d", numReqs, i)
+		}
+
+		if end < expectedDuration {
+			t.Errorf("Unexpected duration, want=>%s, got=%s", expectedDuration, end)
 		}
 	})
 }
