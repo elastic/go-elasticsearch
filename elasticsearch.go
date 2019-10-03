@@ -32,6 +32,11 @@ type Config struct {
 	CloudID string // Endpoint for the Elastic Service (https://elastic.co/cloud).
 	APIKey  string // Base64-encoded token for authorization; if set, overrides username and password.
 
+	RetryOnStatus        []int // List of status codes for retry. Default: 502, 503, 504.
+	DisableRetryOnStatus bool  // Default: false.
+	EnableRetryOnTimeout bool  // Default: false.
+	MaxRetries           int   // Default: 3.
+
 	Transport http.RoundTripper  // The HTTP transport object.
 	Logger    estransport.Logger // The logger object.
 }
@@ -111,6 +116,11 @@ func NewClient(cfg Config) (*Client, error) {
 		Username: cfg.Username,
 		Password: cfg.Password,
 		APIKey:   cfg.APIKey,
+
+		RetryOnStatus:        cfg.RetryOnStatus,
+		DisableRetryOnStatus: cfg.DisableRetryOnStatus,
+		EnableRetryOnTimeout: cfg.EnableRetryOnTimeout,
+		MaxRetries:           cfg.MaxRetries,
 
 		Transport: cfg.Transport,
 		Logger:    cfg.Logger,

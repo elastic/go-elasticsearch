@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"reflect"
 	"strings"
 	"testing"
 )
@@ -58,6 +59,53 @@ func TestTransport(t *testing.T) {
 
 		if res.Status != "MOCK" {
 			t.Errorf("Unexpected response from transport: %+v", res)
+		}
+	})
+}
+
+func TestTransportConfig(t *testing.T) {
+	t.Run("Defaults", func(t *testing.T) {
+		tp := New(Config{})
+
+		if !reflect.DeepEqual(tp.retryOnStatus, []int{502, 503, 504}) {
+			t.Errorf("Unexpected retryOnStatus: %v", tp.retryOnStatus)
+		}
+
+		if tp.disableRetryOnStatus {
+			t.Errorf("Unexpected disableRetryOnStatus: %v", tp.disableRetryOnStatus)
+		}
+
+		if tp.enableRetryOnTimeout {
+			t.Errorf("Unexpected enableRetryOnTimeout: %v", tp.enableRetryOnTimeout)
+		}
+
+		if tp.maxRetries != 3 {
+			t.Errorf("Unexpected maxRetries: %v", tp.maxRetries)
+		}
+	})
+
+	t.Run("Custom", func(t *testing.T) {
+		tp := New(Config{
+			RetryOnStatus:        []int{404, 408},
+			DisableRetryOnStatus: true,
+			EnableRetryOnTimeout: true,
+			MaxRetries:           5,
+		})
+
+		if !reflect.DeepEqual(tp.retryOnStatus, []int{404, 408}) {
+			t.Errorf("Unexpected retryOnStatus: %v", tp.retryOnStatus)
+		}
+
+		if !tp.disableRetryOnStatus {
+			t.Errorf("Unexpected disableRetryOnStatus: %v", tp.disableRetryOnStatus)
+		}
+
+		if !tp.enableRetryOnTimeout {
+			t.Errorf("Unexpected enableRetryOnTimeout: %v", tp.enableRetryOnTimeout)
+		}
+
+		if tp.maxRetries != 5 {
+			t.Errorf("Unexpected maxRetries: %v", tp.maxRetries)
 		}
 	})
 }

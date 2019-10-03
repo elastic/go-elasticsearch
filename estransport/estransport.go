@@ -46,6 +46,11 @@ type Config struct {
 	Password string
 	APIKey   string
 
+	RetryOnStatus        []int
+	DisableRetryOnStatus bool
+	EnableRetryOnTimeout bool
+	MaxRetries           int
+
 	Transport http.RoundTripper
 	Logger    Logger
 }
@@ -57,6 +62,11 @@ type Client struct {
 	username string
 	password string
 	apikey   string
+
+	retryOnStatus        []int
+	disableRetryOnStatus bool
+	enableRetryOnTimeout bool
+	maxRetries           int
 
 	transport http.RoundTripper
 	selector  Selector
@@ -72,11 +82,24 @@ func New(cfg Config) *Client {
 		cfg.Transport = http.DefaultTransport
 	}
 
+	if len(cfg.RetryOnStatus) == 0 {
+		cfg.RetryOnStatus = defaultRetryOnStatus[:]
+	}
+
+	if cfg.MaxRetries == 0 {
+		cfg.MaxRetries = defaultMaxRetries
+	}
+
 	return &Client{
 		urls:     cfg.URLs,
 		username: cfg.Username,
 		password: cfg.Password,
 		apikey:   cfg.APIKey,
+
+		retryOnStatus:        cfg.RetryOnStatus,
+		disableRetryOnStatus: cfg.DisableRetryOnStatus,
+		enableRetryOnTimeout: cfg.EnableRetryOnTimeout,
+		maxRetries:           cfg.MaxRetries,
 
 		transport: cfg.Transport,
 		selector:  NewRoundRobinSelector(cfg.URLs...),
@@ -92,15 +115,13 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		err error
 
 		dupReqBodyForLog io.ReadCloser
-
-		maxRetries = defaultMaxRetries
 	)
 
 	// Update request
 	//
 	c.setReqUserAgent(req)
 
-	for i := 1; i <= maxRetries; i++ {
+	for i := 1; i <= c.maxRetries; i++ {
 		var (
 			nodeURL     *url.URL
 			shouldRetry bool
@@ -139,22 +160,20 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 			c.logRoundTrip(req, res, dupReqBodyForLog, err, start, dur)
 		}
 
-		// Retry only on network errors, but don't retry on timeout errors
+		// Retry only on network errors, but don't retry on timeout errors, unless configured
 		//
 		if err != nil {
 			if err, ok := err.(net.Error); ok {
-				if !err.Timeout() {
+				if !err.Timeout() || c.enableRetryOnTimeout {
 					shouldRetry = true
 				}
 			}
 		}
 
-		// Retry on specific 5xx response errors
+		// Retry on configured response statuses
 		//
-		// TODO(karmi): Only if c.RetryOnStatus != false
-		//
-		if res != nil {
-			for _, code := range defaultRetryOnStatus {
+		if res != nil && !c.disableRetryOnStatus {
+			for _, code := range c.retryOnStatus {
 				if res.StatusCode == code {
 					shouldRetry = true
 				}
