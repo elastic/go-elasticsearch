@@ -98,7 +98,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 
 	// Update request
 	//
-	c.setUserAgent(req)
+	c.setReqUserAgent(req)
 
 	for i := 1; i <= maxRetries; i++ {
 		var (
@@ -116,8 +116,8 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 
 		// Update request
 		//
-		c.setURL(nodeURL, req)
-		c.setAuthorization(nodeURL, req)
+		c.setReqURL(nodeURL, req)
+		c.setReqAuth(nodeURL, req)
 
 		// Duplicate request body for logger
 		//
@@ -182,8 +182,7 @@ func (c *Client) getURL() (*url.URL, error) {
 	return c.selector.Select()
 }
 
-// TODO(karmi): Rename to setReqURL()
-func (c *Client) setURL(u *url.URL, req *http.Request) *http.Request {
+func (c *Client) setReqURL(u *url.URL, req *http.Request) *http.Request {
 	req.URL.Scheme = u.Scheme
 	req.URL.Host = u.Host
 
@@ -198,7 +197,7 @@ func (c *Client) setURL(u *url.URL, req *http.Request) *http.Request {
 	return req
 }
 
-func (c *Client) setAuthorization(u *url.URL, req *http.Request) *http.Request {
+func (c *Client) setReqAuth(u *url.URL, req *http.Request) *http.Request {
 	if _, ok := req.Header["Authorization"]; !ok {
 		if u.User != nil {
 			password, _ := u.User.Password()
@@ -224,7 +223,7 @@ func (c *Client) setAuthorization(u *url.URL, req *http.Request) *http.Request {
 	return req
 }
 
-func (c *Client) setUserAgent(req *http.Request) *http.Request {
+func (c *Client) setReqUserAgent(req *http.Request) *http.Request {
 	req.Header.Set("User-Agent", userAgent)
 	return req
 }

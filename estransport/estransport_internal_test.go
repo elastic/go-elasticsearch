@@ -88,7 +88,7 @@ func TestTransportPerform(t *testing.T) {
 		tp := New(Config{URLs: []*url.URL{u}})
 
 		req, _ := http.NewRequest("GET", "/abc", nil)
-		tp.setURL(u, req)
+		tp.setReqURL(u, req)
 
 		expected := "https://foo.com/bar/abc"
 
@@ -102,7 +102,7 @@ func TestTransportPerform(t *testing.T) {
 		tp := New(Config{URLs: []*url.URL{u}})
 
 		req, _ := http.NewRequest("GET", "/", nil)
-		tp.setAuthorization(u, req)
+		tp.setReqAuth(u, req)
 
 		username, password, ok := req.BasicAuth()
 		if !ok {
@@ -119,7 +119,7 @@ func TestTransportPerform(t *testing.T) {
 		tp := New(Config{URLs: []*url.URL{u}, Username: "foo", Password: "bar"})
 
 		req, _ := http.NewRequest("GET", "/", nil)
-		tp.setAuthorization(u, req)
+		tp.setReqAuth(u, req)
 
 		username, password, ok := req.BasicAuth()
 		if !ok {
@@ -136,7 +136,7 @@ func TestTransportPerform(t *testing.T) {
 		tp := New(Config{URLs: []*url.URL{u}, APIKey: "Zm9vYmFy"}) // foobar
 
 		req, _ := http.NewRequest("GET", "/", nil)
-		tp.setAuthorization(u, req)
+		tp.setReqAuth(u, req)
 
 		value := req.Header.Get("Authorization")
 		if value == "" {
@@ -153,7 +153,7 @@ func TestTransportPerform(t *testing.T) {
 		tp := New(Config{URLs: []*url.URL{u}})
 
 		req, _ := http.NewRequest("GET", "/abc", nil)
-		tp.setUserAgent(req)
+		tp.setReqUserAgent(req)
 
 		if !strings.HasPrefix(req.UserAgent(), "go-elasticsearch") {
 			t.Errorf("Unexpected user agent: %s", req.UserAgent())
