@@ -177,7 +177,7 @@ func TestTransportPerform(t *testing.T) {
 }
 
 func TestTransportPerformRetries(t *testing.T) {
-	t.Run("Retry request on error and return the response", func(t *testing.T) {
+	t.Run("Retry request on network error and return the response", func(t *testing.T) {
 		var (
 			i       int
 			numReqs = 2
@@ -195,7 +195,7 @@ func TestTransportPerformRetries(t *testing.T) {
 						return &http.Response{Status: "OK"}, nil
 					}
 					fmt.Print(": ERR\n")
-					return nil, &mockNetError{error: fmt.Errorf("Mock error (%d)", i)}
+					return nil, &mockNetError{error: fmt.Errorf("Mock network error (%d)", i)}
 				},
 			}})
 
@@ -216,7 +216,7 @@ func TestTransportPerformRetries(t *testing.T) {
 		}
 	})
 
-	t.Run("Retry request on 5xx response and return response", func(t *testing.T) {
+	t.Run("Retry request on 5xx response and return new response", func(t *testing.T) {
 		var (
 			i       int
 			numReqs = 2
@@ -269,7 +269,7 @@ func TestTransportPerformRetries(t *testing.T) {
 					i++
 					fmt.Printf("Request #%d", i)
 					fmt.Print(": ERR\n")
-					return nil, &mockNetError{error: fmt.Errorf("Mock error (%d)", i)}
+					return nil, &mockNetError{error: fmt.Errorf("Mock network error (%d)", i)}
 				},
 			}})
 
@@ -287,6 +287,38 @@ func TestTransportPerformRetries(t *testing.T) {
 
 		if i != numReqs {
 			t.Errorf("Unexpected number of requests, want=%d, got=%d", numReqs, i)
+		}
+	})
+
+	t.Run("Don't retry request on regular error", func(t *testing.T) {
+		var i int
+
+		u, _ := url.Parse("http://foo.bar")
+		tp := New(Config{
+			URLs: []*url.URL{u, u, u},
+			Transport: &mockTransp{
+				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+					i++
+					fmt.Printf("Request #%d", i)
+					fmt.Print(": ERR\n")
+					return nil, fmt.Errorf("Mock regular error (%d)", i)
+				},
+			}})
+
+		req, _ := http.NewRequest("GET", "/abc", nil)
+
+		res, err := tp.Perform(req)
+
+		if err == nil {
+			t.Fatalf("Expected error, got: %v", err)
+		}
+
+		if res != nil {
+			t.Errorf("Unexpected response: %+v", res)
+		}
+
+		if i != 1 {
+			t.Errorf("Unexpected number of requests, want=%d, got=%d", 1, i)
 		}
 	})
 }
