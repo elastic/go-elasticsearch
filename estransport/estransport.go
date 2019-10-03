@@ -152,15 +152,13 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 			c.logRoundTrip(req, res, dupReqBodyForLog, err, start, dur)
 		}
 
-		// Retry only on network errors, but don't retry on timeout error
+		// Retry only on network errors, but don't retry on timeout errors
 		//
 		if err != nil {
 			if err, ok := err.(net.Error); ok {
 				if !err.Timeout() {
 					shouldRetry = true
 				}
-			} else {
-				shouldRetry = true
 			}
 		}
 

@@ -22,6 +22,11 @@ func (t *mockTransp) RoundTrip(req *http.Request) (*http.Response, error) {
 	return t.RoundTripFunc(req)
 }
 
+type mockNetError struct{ error }
+
+func (e *mockNetError) Timeout() bool   { return false }
+func (e *mockNetError) Temporary() bool { return false }
+
 func TestTransport(t *testing.T) {
 	t.Run("Interface", func(t *testing.T) {
 		var _ Interface = New(Config{})
@@ -172,7 +177,7 @@ func TestTransportPerform(t *testing.T) {
 }
 
 func TestTransportPerformRetries(t *testing.T) {
-	t.Run("Retry request on error and return response", func(t *testing.T) {
+	t.Run("Retry request on error and return the response", func(t *testing.T) {
 		var (
 			i       int
 			numReqs = 2
@@ -190,7 +195,7 @@ func TestTransportPerformRetries(t *testing.T) {
 						return &http.Response{Status: "OK"}, nil
 					}
 					fmt.Print(": ERR\n")
-					return nil, fmt.Errorf("Mock error (%d)", i)
+					return nil, &mockNetError{error: fmt.Errorf("Mock error (%d)", i)}
 				},
 			}})
 
@@ -264,7 +269,7 @@ func TestTransportPerformRetries(t *testing.T) {
 					i++
 					fmt.Printf("Request #%d", i)
 					fmt.Print(": ERR\n")
-					return nil, fmt.Errorf("Mock error (%d)", i)
+					return nil, &mockNetError{error: fmt.Errorf("Mock error (%d)", i)}
 				},
 			}})
 
