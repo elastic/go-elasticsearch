@@ -1,0 +1,29 @@
+name: OS
+
+on: [push]
+
+jobs:
+  check:
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+        go: ['1.x']
+
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+
+      # - name: Install
+      #   run: |
+      #     GO111MODULE=off GOBIN=$PWD/bin go get -u golang.org/x/lint/golint
+      #     go list -f {{.Target}} golang.org/x/lint/golint
+      #   shell: bash
+
+      # - name: Lint
+      #   run: ./bin/golint -set_exit_status ./...
+
+      - name: "Test | Unit"
+        run: go test -race -cover -v ./...
