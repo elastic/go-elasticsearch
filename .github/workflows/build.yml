@@ -1,0 +1,36 @@
+name: Build
+
+on:
+  schedule:
+    - cron: '0 1 * * *'
+  push:
+    branches:
+      - github-actions
+      - master
+      - 7.x
+      - 6.x
+  pull_request:
+    branches:
+      - master
+      - 7.x
+      - 6.x
+
+env:
+  GITHUB_ACTIONS: true
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with: { fetch-depth: 1 }
+      - uses: actions/setup-go@v2-beta
+        with: { go-version: '1.x' }
+      - name: Install dependencies
+        run: go get -u golang.org/x/lint/golint
+        env:
+          GOBIN: ${{ env.GOROOT }}/bin
+        shell: bash
+      - run: go version
+      - run: make lint

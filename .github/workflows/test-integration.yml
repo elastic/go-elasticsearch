@@ -1,0 +1,74 @@
+name: Integration
+
+on:
+  schedule:
+    - cron: '0 1 * * *'
+  push:
+    branches:
+      - github-actions
+      - master
+      - 7.x
+      - 6.x
+  pull_request:
+    branches:
+      - master
+      - 7.x
+      - 6.x
+
+env:
+  GITHUB_ACTIONS: true
+  ELASTICSEARCH_VERSION: elasticsearch-oss:8.0.0-SNAPSHOT
+
+jobs:
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with: { fetch-depth: 1 }
+      - uses: actions/setup-go@v2-beta
+        with: { go-version: '1.x' }
+      - run: go version
+      - name: Increase system limits
+        run: |
+          sudo swapoff -a
+          sudo sysctl -w vm.swappiness=1
+          sudo sysctl -w fs.file-max=262144
+          sudo sysctl -w vm.max_map_count=262144
+      - name: Launch Elasticsearch
+        run: |
+          docker pull --quiet docker.elastic.co/elasticsearch/${{ env.ELASTICSEARCH_VERSION }}
+          docker pull --quiet appropriate/curl
+          make cluster-clean cluster-update cluster detach=true version="${{ env.ELASTICSEARCH_VERSION }}"
+      - run: make test-integ race=true
+      - uses: codecov/codecov-action@v1
+        with:
+          file: tmp/integration-client.cov
+          flags: integration
+
+  examples:
+    name: Examples
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with: { fetch-depth: 1 }
+      - uses: actions/setup-go@v2-beta
+        with: { go-version: '1.x' }
+      - run: go version
+      - name: Increase system limits
+        run: |
+          sudo swapoff -a
+          sudo sysctl -w vm.swappiness=1
+          sudo sysctl -w fs.file-max=262144
+          sudo sysctl -w vm.max_map_count=262144
+      - name: Launch Elasticsearch
+        run: |
+          docker pull --quiet docker.elastic.co/elasticsearch/${{ env.ELASTICSEARCH_VERSION }}
+          docker pull --quiet appropriate/curl
+          make cluster-clean cluster-update cluster detach=true version="${{ env.ELASTICSEARCH_VERSION }}"
+      - name: Run setup
+        run: |
+          cd _examples/encoding && make setup
+        env:
+          GOBIN: ${{ env.GOROOT }}/bin
+      - run: make test-examples
