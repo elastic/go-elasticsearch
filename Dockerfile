@@ -8,7 +8,7 @@ FROM golang:${VERSION}
 
 RUN apk add --no-cache --quiet make curl git jq unzip tree && \
     go get -u golang.org/x/lint/golint && \
-    curl -sSL --retry 3 --retry-connrefused https://github.com/gotestyourself/gotestsum/releases/download/v0.3.2/gotestsum_0.3.2_linux_amd64.tar.gz | tar -xz -C /usr/local/bin gotestsum
+    curl -sSL --retry 3 --retry-connrefused https://github.com/gotestyourself/gotestsum/releases/download/v0.3.5/gotestsum_0.3.5_linux_amd64.tar.gz | tar -xz -C /usr/local/bin gotestsum
 
 VOLUME ["/tmp"]
 
