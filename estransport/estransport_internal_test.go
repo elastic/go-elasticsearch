@@ -350,14 +350,21 @@ func TestTransportPerformRetries(t *testing.T) {
 					i++
 					fmt.Printf("Request #%d", i)
 					fmt.Print(": ERR\n")
-					return nil, &mockNetError{error: fmt.Errorf("Mock network error (%d)", i)}
+					return nil, fmt.Errorf("Mock regular error (%d)", i)
 				},
-			},
-			DisableRetry: true,
-		})
+			}})
 
 		req, _ := http.NewRequest("GET", "/abc", nil)
-		tp.Perform(req)
+
+		res, err := tp.Perform(req)
+
+		if err == nil {
+			t.Fatalf("Expected error, got: %v", err)
+		}
+
+		if res != nil {
+			t.Errorf("Unexpected response: %+v", res)
+		}
 
 		if i != 1 {
 			t.Errorf("Unexpected number of requests, want=%d, got=%d", 1, i)
@@ -375,21 +382,14 @@ func TestTransportPerformRetries(t *testing.T) {
 					i++
 					fmt.Printf("Request #%d", i)
 					fmt.Print(": ERR\n")
-					return nil, fmt.Errorf("Mock regular error (%d)", i)
+					return nil, &mockNetError{error: fmt.Errorf("Mock network error (%d)", i)}
 				},
-			}})
+			},
+			DisableRetry: true,
+		})
 
 		req, _ := http.NewRequest("GET", "/abc", nil)
-
-		res, err := tp.Perform(req)
-
-		if err == nil {
-			t.Fatalf("Expected error, got: %v", err)
-		}
-
-		if res != nil {
-			t.Errorf("Unexpected response: %+v", res)
-		}
+		tp.Perform(req)
 
 		if i != 1 {
 			t.Errorf("Unexpected number of requests, want=%d, got=%d", 1, i)
