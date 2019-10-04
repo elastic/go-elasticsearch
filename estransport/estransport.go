@@ -47,7 +47,7 @@ type Config struct {
 	APIKey   string
 
 	RetryOnStatus        []int
-	DisableRetryOnStatus bool
+	DisableRetry         bool
 	EnableRetryOnTimeout bool
 	MaxRetries           int
 	RetryBackoff         func(attempt int) time.Duration
@@ -65,7 +65,7 @@ type Client struct {
 	apikey   string
 
 	retryOnStatus        []int
-	disableRetryOnStatus bool
+	disableRetry         bool
 	enableRetryOnTimeout bool
 	maxRetries           int
 	retryBackoff         func(attempt int) time.Duration
@@ -99,7 +99,7 @@ func New(cfg Config) *Client {
 		apikey:   cfg.APIKey,
 
 		retryOnStatus:        cfg.RetryOnStatus,
-		disableRetryOnStatus: cfg.DisableRetryOnStatus,
+		disableRetry:         cfg.DisableRetry,
 		enableRetryOnTimeout: cfg.EnableRetryOnTimeout,
 		maxRetries:           cfg.MaxRetries,
 		retryBackoff:         cfg.RetryBackoff,
@@ -167,7 +167,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		//
 		if err != nil {
 			if err, ok := err.(net.Error); ok {
-				if !err.Timeout() || c.enableRetryOnTimeout {
+				if (!err.Timeout() || c.enableRetryOnTimeout) && !c.disableRetry {
 					shouldRetry = true
 				}
 			}
@@ -175,7 +175,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 
 		// Retry on configured response statuses
 		//
-		if res != nil && !c.disableRetryOnStatus {
+		if res != nil && !c.disableRetry {
 			for _, code := range c.retryOnStatus {
 				if res.StatusCode == code {
 					shouldRetry = true

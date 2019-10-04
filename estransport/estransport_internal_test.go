@@ -72,8 +72,8 @@ func TestTransportConfig(t *testing.T) {
 			t.Errorf("Unexpected retryOnStatus: %v", tp.retryOnStatus)
 		}
 
-		if tp.disableRetryOnStatus {
-			t.Errorf("Unexpected disableRetryOnStatus: %v", tp.disableRetryOnStatus)
+		if tp.disableRetry {
+			t.Errorf("Unexpected disableRetry: %v", tp.disableRetry)
 		}
 
 		if tp.enableRetryOnTimeout {
@@ -88,7 +88,7 @@ func TestTransportConfig(t *testing.T) {
 	t.Run("Custom", func(t *testing.T) {
 		tp := New(Config{
 			RetryOnStatus:        []int{404, 408},
-			DisableRetryOnStatus: true,
+			DisableRetry:         true,
 			EnableRetryOnTimeout: true,
 			MaxRetries:           5,
 		})
@@ -97,8 +97,8 @@ func TestTransportConfig(t *testing.T) {
 			t.Errorf("Unexpected retryOnStatus: %v", tp.retryOnStatus)
 		}
 
-		if !tp.disableRetryOnStatus {
-			t.Errorf("Unexpected disableRetryOnStatus: %v", tp.disableRetryOnStatus)
+		if !tp.disableRetry {
+			t.Errorf("Unexpected disableRetry: %v", tp.disableRetry)
 		}
 
 		if !tp.enableRetryOnTimeout {
@@ -340,6 +340,31 @@ func TestTransportPerformRetries(t *testing.T) {
 	})
 
 	t.Run("Don't retry request on regular error", func(t *testing.T) {
+		var i int
+
+		u, _ := url.Parse("http://foo.bar")
+		tp := New(Config{
+			URLs: []*url.URL{u, u, u},
+			Transport: &mockTransp{
+				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+					i++
+					fmt.Printf("Request #%d", i)
+					fmt.Print(": ERR\n")
+					return nil, &mockNetError{error: fmt.Errorf("Mock network error (%d)", i)}
+				},
+			},
+			DisableRetry: true,
+		})
+
+		req, _ := http.NewRequest("GET", "/abc", nil)
+		tp.Perform(req)
+
+		if i != 1 {
+			t.Errorf("Unexpected number of requests, want=%d, got=%d", 1, i)
+		}
+	})
+
+	t.Run("Don't retry request when retries are disabled", func(t *testing.T) {
 		var i int
 
 		u, _ := url.Parse("http://foo.bar")

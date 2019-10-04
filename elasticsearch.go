@@ -34,7 +34,7 @@ type Config struct {
 	APIKey  string // Base64-encoded token for authorization; if set, overrides username and password.
 
 	RetryOnStatus        []int // List of status codes for retry. Default: 502, 503, 504.
-	DisableRetryOnStatus bool  // Default: false.
+	DisableRetry         bool  // Default: false.
 	EnableRetryOnTimeout bool  // Default: false.
 	MaxRetries           int   // Default: 3.
 
@@ -121,7 +121,7 @@ func NewClient(cfg Config) (*Client, error) {
 		APIKey:   cfg.APIKey,
 
 		RetryOnStatus:        cfg.RetryOnStatus,
-		DisableRetryOnStatus: cfg.DisableRetryOnStatus,
+		DisableRetry:         cfg.DisableRetry,
 		EnableRetryOnTimeout: cfg.EnableRetryOnTimeout,
 		MaxRetries:           cfg.MaxRetries,
 		RetryBackoff:         cfg.RetryBackoff,
