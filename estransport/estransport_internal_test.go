@@ -10,8 +10,10 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"reflect"
 	"strings"
 	"testing"
+	"time"
 )
 
 var (
@@ -25,6 +27,11 @@ type mockTransp struct {
 func (t *mockTransp) RoundTrip(req *http.Request) (*http.Response, error) {
 	return t.RoundTripFunc(req)
 }
+
+type mockNetError struct{ error }
+
+func (e *mockNetError) Timeout() bool   { return false }
+func (e *mockNetError) Temporary() bool { return false }
 
 func TestTransport(t *testing.T) {
 	t.Run("Interface", func(t *testing.T) {
@@ -61,6 +68,53 @@ func TestTransport(t *testing.T) {
 	})
 }
 
+func TestTransportConfig(t *testing.T) {
+	t.Run("Defaults", func(t *testing.T) {
+		tp := New(Config{})
+
+		if !reflect.DeepEqual(tp.retryOnStatus, []int{502, 503, 504}) {
+			t.Errorf("Unexpected retryOnStatus: %v", tp.retryOnStatus)
+		}
+
+		if tp.disableRetry {
+			t.Errorf("Unexpected disableRetry: %v", tp.disableRetry)
+		}
+
+		if tp.enableRetryOnTimeout {
+			t.Errorf("Unexpected enableRetryOnTimeout: %v", tp.enableRetryOnTimeout)
+		}
+
+		if tp.maxRetries != 3 {
+			t.Errorf("Unexpected maxRetries: %v", tp.maxRetries)
+		}
+	})
+
+	t.Run("Custom", func(t *testing.T) {
+		tp := New(Config{
+			RetryOnStatus:        []int{404, 408},
+			DisableRetry:         true,
+			EnableRetryOnTimeout: true,
+			MaxRetries:           5,
+		})
+
+		if !reflect.DeepEqual(tp.retryOnStatus, []int{404, 408}) {
+			t.Errorf("Unexpected retryOnStatus: %v", tp.retryOnStatus)
+		}
+
+		if !tp.disableRetry {
+			t.Errorf("Unexpected disableRetry: %v", tp.disableRetry)
+		}
+
+		if !tp.enableRetryOnTimeout {
+			t.Errorf("Unexpected enableRetryOnTimeout: %v", tp.enableRetryOnTimeout)
+		}
+
+		if tp.maxRetries != 5 {
+			t.Errorf("Unexpected maxRetries: %v", tp.maxRetries)
+		}
+	})
+}
+
 func TestTransportPerform(t *testing.T) {
 	t.Run("Executes", func(t *testing.T) {
 		u, _ := url.Parse("https://foo.com/bar")
@@ -87,7 +141,7 @@ func TestTransportPerform(t *testing.T) {
 		tp := New(Config{URLs: []*url.URL{u}})
 
 		req, _ := http.NewRequest("GET", "/abc", nil)
-		tp.setURL(u, req)
+		tp.setReqURL(u, req)
 
 		expected := "https://foo.com/bar/abc"
 
@@ -101,7 +155,7 @@ func TestTransportPerform(t *testing.T) {
 		tp := New(Config{URLs: []*url.URL{u}})
 
 		req, _ := http.NewRequest("GET", "/", nil)
-		tp.setAuthorization(u, req)
+		tp.setReqAuth(u, req)
 
 		username, password, ok := req.BasicAuth()
 		if !ok {
@@ -118,7 +172,7 @@ func TestTransportPerform(t *testing.T) {
 		tp := New(Config{URLs: []*url.URL{u}, Username: "foo", Password: "bar"})
 
 		req, _ := http.NewRequest("GET", "/", nil)
-		tp.setAuthorization(u, req)
+		tp.setReqAuth(u, req)
 
 		username, password, ok := req.BasicAuth()
 		if !ok {
@@ -135,7 +189,7 @@ func TestTransportPerform(t *testing.T) {
 		tp := New(Config{URLs: []*url.URL{u}, APIKey: "Zm9vYmFy"}) // foobar
 
 		req, _ := http.NewRequest("GET", "/", nil)
-		tp.setAuthorization(u, req)
+		tp.setReqAuth(u, req)
 
 		value := req.Header.Get("Authorization")
 		if value == "" {
@@ -152,7 +206,7 @@ func TestTransportPerform(t *testing.T) {
 		tp := New(Config{URLs: []*url.URL{u}})
 
 		req, _ := http.NewRequest("GET", "/abc", nil)
-		tp.setUserAgent(req)
+		tp.setReqUserAgent(req)
 
 		if !strings.HasPrefix(req.UserAgent(), "go-elasticsearch") {
 			t.Errorf("Unexpected user agent: %s", req.UserAgent())
@@ -171,6 +225,233 @@ func TestTransportPerform(t *testing.T) {
 		res, err := tp.Perform(req)
 		if err.Error() != "cannot get URL: No URL available" {
 			t.Fatalf("Expected error `cannot get URL`: but got error %v, response %v", err, res)
+		}
+	})
+}
+
+func TestTransportPerformRetries(t *testing.T) {
+	t.Run("Retry request on network error and return the response", func(t *testing.T) {
+		var (
+			i       int
+			numReqs = 2
+		)
+
+		u, _ := url.Parse("http://foo.bar")
+		tp := New(Config{
+			URLs: []*url.URL{u, u, u},
+			Transport: &mockTransp{
+				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+					i++
+					fmt.Printf("Request #%d", i)
+					if i == numReqs {
+						fmt.Print(": OK\n")
+						return &http.Response{Status: "OK"}, nil
+					}
+					fmt.Print(": ERR\n")
+					return nil, &mockNetError{error: fmt.Errorf("Mock network error (%d)", i)}
+				},
+			}})
+
+		req, _ := http.NewRequest("GET", "/abc", nil)
+
+		res, err := tp.Perform(req)
+
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		if res.Status != "OK" {
+			t.Errorf("Unexpected response: %+v", res)
+		}
+
+		if i != numReqs {
+			t.Errorf("Unexpected number of requests, want=%d, got=%d", numReqs, i)
+		}
+	})
+
+	t.Run("Retry request on 5xx response and return new response", func(t *testing.T) {
+		var (
+			i       int
+			numReqs = 2
+		)
+
+		u, _ := url.Parse("http://foo.bar")
+		tp := New(Config{
+			URLs: []*url.URL{u, u, u},
+			Transport: &mockTransp{
+				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+					i++
+					fmt.Printf("Request #%d", i)
+					if i == numReqs {
+						fmt.Print(": 200\n")
+						return &http.Response{StatusCode: 200}, nil
+					}
+					fmt.Print(": 502\n")
+					return &http.Response{StatusCode: 502}, nil
+				},
+			}})
+
+		req, _ := http.NewRequest("GET", "/abc", nil)
+
+		res, err := tp.Perform(req)
+
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		if res.StatusCode != 200 {
+			t.Errorf("Unexpected response: %+v", res)
+		}
+
+		if i != numReqs {
+			t.Errorf("Unexpected number of requests, want=%d, got=%d", numReqs, i)
+		}
+	})
+
+	t.Run("Retry request and return error when max retries exhausted", func(t *testing.T) {
+		var (
+			i       int
+			numReqs = 3
+		)
+
+		u, _ := url.Parse("http://foo.bar")
+		tp := New(Config{
+			URLs: []*url.URL{u, u, u},
+			Transport: &mockTransp{
+				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+					i++
+					fmt.Printf("Request #%d", i)
+					fmt.Print(": ERR\n")
+					return nil, &mockNetError{error: fmt.Errorf("Mock network error (%d)", i)}
+				},
+			}})
+
+		req, _ := http.NewRequest("GET", "/abc", nil)
+
+		res, err := tp.Perform(req)
+
+		if err == nil {
+			t.Fatalf("Expected error, got: %v", err)
+		}
+
+		if res != nil {
+			t.Errorf("Unexpected response: %+v", res)
+		}
+
+		if i != numReqs {
+			t.Errorf("Unexpected number of requests, want=%d, got=%d", numReqs, i)
+		}
+	})
+
+	t.Run("Don't retry request on regular error", func(t *testing.T) {
+		var i int
+
+		u, _ := url.Parse("http://foo.bar")
+		tp := New(Config{
+			URLs: []*url.URL{u, u, u},
+			Transport: &mockTransp{
+				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+					i++
+					fmt.Printf("Request #%d", i)
+					fmt.Print(": ERR\n")
+					return nil, fmt.Errorf("Mock regular error (%d)", i)
+				},
+			}})
+
+		req, _ := http.NewRequest("GET", "/abc", nil)
+
+		res, err := tp.Perform(req)
+
+		if err == nil {
+			t.Fatalf("Expected error, got: %v", err)
+		}
+
+		if res != nil {
+			t.Errorf("Unexpected response: %+v", res)
+		}
+
+		if i != 1 {
+			t.Errorf("Unexpected number of requests, want=%d, got=%d", 1, i)
+		}
+	})
+
+	t.Run("Don't retry request when retries are disabled", func(t *testing.T) {
+		var i int
+
+		u, _ := url.Parse("http://foo.bar")
+		tp := New(Config{
+			URLs: []*url.URL{u, u, u},
+			Transport: &mockTransp{
+				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+					i++
+					fmt.Printf("Request #%d", i)
+					fmt.Print(": ERR\n")
+					return nil, &mockNetError{error: fmt.Errorf("Mock network error (%d)", i)}
+				},
+			},
+			DisableRetry: true,
+		})
+
+		req, _ := http.NewRequest("GET", "/abc", nil)
+		tp.Perform(req)
+
+		if i != 1 {
+			t.Errorf("Unexpected number of requests, want=%d, got=%d", 1, i)
+		}
+	})
+
+	t.Run("Delay the retry with a backoff function", func(t *testing.T) {
+		var (
+			i                int
+			numReqs          = 3
+			start            = time.Now()
+			expectedDuration = time.Duration(numReqs*100) * time.Millisecond
+		)
+
+		u, _ := url.Parse("http://foo.bar")
+		tp := New(Config{
+			URLs: []*url.URL{u, u, u},
+			Transport: &mockTransp{
+				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+					i++
+					fmt.Printf("Request #%d", i)
+					if i == numReqs {
+						fmt.Print(": OK\n")
+						return &http.Response{Status: "OK"}, nil
+					}
+					fmt.Print(": ERR\n")
+					return nil, &mockNetError{error: fmt.Errorf("Mock network error (%d)", i)}
+				},
+			},
+
+			// A simple incremental backoff function
+			//
+			RetryBackoff: func(i int) time.Duration {
+				d := time.Duration(i) * 100 * time.Millisecond
+				fmt.Printf("Attempt: %d | Sleeping for %s...\n", i, d)
+				return d
+			},
+		})
+
+		req, _ := http.NewRequest("GET", "/abc", nil)
+
+		res, err := tp.Perform(req)
+		end := time.Since(start)
+
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		if res.Status != "OK" {
+			t.Errorf("Unexpected response: %+v", res)
+		}
+
+		if i != numReqs {
+			t.Errorf("Unexpected number of requests, want=%d, got=%d", numReqs, i)
+		}
+
+		if end < expectedDuration {
+			t.Errorf("Unexpected duration, want=>%s, got=%s", expectedDuration, end)
 		}
 	})
 }
