@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"net"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -26,6 +27,9 @@ const Version = version.Client
 var (
 	userAgent   string
 	reGoVersion = regexp.MustCompile(`go(\d+\.\d+\..+)`)
+
+	defaultMaxRetries    = 3
+	defaultRetryOnStatus = [...]int{502, 503, 504}
 )
 
 func init() {
@@ -46,6 +50,12 @@ type Config struct {
 	Password string
 	APIKey   string
 
+	RetryOnStatus        []int
+	DisableRetry         bool
+	EnableRetryOnTimeout bool
+	MaxRetries           int
+	RetryBackoff         func(attempt int) time.Duration
+
 	Transport http.RoundTripper
 	Logger    Logger
 }
@@ -57,6 +67,12 @@ type Client struct {
 	username string
 	password string
 	apikey   string
+
+	retryOnStatus        []int
+	disableRetry         bool
+	enableRetryOnTimeout bool
+	maxRetries           int
+	retryBackoff         func(attempt int) time.Duration
 
 	transport http.RoundTripper
 	selector  Selector
@@ -72,11 +88,25 @@ func New(cfg Config) *Client {
 		cfg.Transport = http.DefaultTransport
 	}
 
+	if len(cfg.RetryOnStatus) == 0 {
+		cfg.RetryOnStatus = defaultRetryOnStatus[:]
+	}
+
+	if cfg.MaxRetries == 0 {
+		cfg.MaxRetries = defaultMaxRetries
+	}
+
 	return &Client{
 		urls:     cfg.URLs,
 		username: cfg.Username,
 		password: cfg.Password,
 		apikey:   cfg.APIKey,
+
+		retryOnStatus:        cfg.RetryOnStatus,
+		disableRetry:         cfg.DisableRetry,
+		enableRetryOnTimeout: cfg.EnableRetryOnTimeout,
+		maxRetries:           cfg.MaxRetries,
+		retryBackoff:         cfg.RetryBackoff,
 
 		transport: cfg.Transport,
 		selector:  NewRoundRobinSelector(cfg.URLs...),
@@ -88,41 +118,86 @@ func New(cfg Config) *Client {
 //
 func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	var (
-		dupReqBody io.Reader
-	)
+		res *http.Response
+		err error
 
-	// Get URL from the Selector
-	//
-	u, err := c.getURL()
-	if err != nil {
-		// TODO(karmi): Log error
-		return nil, fmt.Errorf("cannot get URL: %s", err)
-	}
+		dupReqBodyForLog io.ReadCloser
+	)
 
 	// Update request
 	//
-	c.setURL(u, req)
-	c.setUserAgent(req)
-	c.setAuthorization(u, req)
+	c.setReqUserAgent(req)
 
-	// Duplicate request body for logger
-	//
-	if c.logger != nil && c.logger.RequestBodyEnabled() {
-		if req.Body != nil && req.Body != http.NoBody {
-			dupReqBody, req.Body, _ = duplicateBody(req.Body)
+	for i := 1; i <= c.maxRetries; i++ {
+		var (
+			nodeURL     *url.URL
+			shouldRetry bool
+		)
+
+		// Get URL from the Selector
+		//
+		nodeURL, err = c.getURL()
+		if err != nil {
+			// TODO(karmi): Log error
+			return nil, fmt.Errorf("cannot get URL: %s", err)
 		}
-	}
 
-	// Set up time measures and execute the request
-	//
-	start := time.Now().UTC()
-	res, err := c.transport.RoundTrip(req)
-	dur := time.Since(start)
+		// Update request
+		//
+		c.setReqURL(nodeURL, req)
+		c.setReqAuth(nodeURL, req)
 
-	// Log request and response
-	//
-	if c.logger != nil {
-		c.logRoundTrip(req, res, dupReqBody, err, start, dur)
+		// Duplicate request body for logger
+		//
+		if c.logger != nil && c.logger.RequestBodyEnabled() {
+			if req.Body != nil && req.Body != http.NoBody {
+				dupReqBodyForLog, req.Body, _ = duplicateBody(req.Body)
+			}
+		}
+
+		// Set up time measures and execute the request
+		//
+		start := time.Now().UTC()
+		res, err = c.transport.RoundTrip(req)
+		dur := time.Since(start)
+
+		// Log request and response
+		//
+		if c.logger != nil {
+			c.logRoundTrip(req, res, dupReqBodyForLog, err, start, dur)
+		}
+
+		// Retry only on network errors, but don't retry on timeout errors, unless configured
+		//
+		if err != nil {
+			if err, ok := err.(net.Error); ok {
+				if (!err.Timeout() || c.enableRetryOnTimeout) && !c.disableRetry {
+					shouldRetry = true
+				}
+			}
+		}
+
+		// Retry on configured response statuses
+		//
+		if res != nil && !c.disableRetry {
+			for _, code := range c.retryOnStatus {
+				if res.StatusCode == code {
+					shouldRetry = true
+				}
+			}
+		}
+
+		// Break if retry should not be performed
+		//
+		if !shouldRetry {
+			break
+		}
+
+		// Delay the retry if a backoff function is configured
+		//
+		if c.retryBackoff != nil {
+			time.Sleep(c.retryBackoff(i))
+		}
 	}
 
 	// TODO(karmi): Wrap error
@@ -139,7 +214,7 @@ func (c *Client) getURL() (*url.URL, error) {
 	return c.selector.Select()
 }
 
-func (c *Client) setURL(u *url.URL, req *http.Request) *http.Request {
+func (c *Client) setReqURL(u *url.URL, req *http.Request) *http.Request {
 	req.URL.Scheme = u.Scheme
 	req.URL.Host = u.Host
 
@@ -154,7 +229,7 @@ func (c *Client) setURL(u *url.URL, req *http.Request) *http.Request {
 	return req
 }
 
-func (c *Client) setAuthorization(u *url.URL, req *http.Request) *http.Request {
+func (c *Client) setReqAuth(u *url.URL, req *http.Request) *http.Request {
 	if _, ok := req.Header["Authorization"]; !ok {
 		if u.User != nil {
 			password, _ := u.User.Password()
@@ -180,7 +255,7 @@ func (c *Client) setAuthorization(u *url.URL, req *http.Request) *http.Request {
 	return req
 }
 
-func (c *Client) setUserAgent(req *http.Request) *http.Request {
+func (c *Client) setReqUserAgent(req *http.Request) *http.Request {
 	req.Header.Set("User-Agent", userAgent)
 	return req
 }

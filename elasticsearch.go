@@ -12,6 +12,7 @@ import (
 	"net/url"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/elastic/go-elasticsearch/v7/esapi"
 	"github.com/elastic/go-elasticsearch/v7/estransport"
@@ -35,6 +36,13 @@ type Config struct {
 
 	CloudID string // Endpoint for the Elastic Service (https://elastic.co/cloud).
 	APIKey  string // Base64-encoded token for authorization; if set, overrides username and password.
+
+	RetryOnStatus        []int // List of status codes for retry. Default: 502, 503, 504.
+	DisableRetry         bool  // Default: false.
+	EnableRetryOnTimeout bool  // Default: false.
+	MaxRetries           int   // Default: 3.
+
+	RetryBackoff func(attempt int) time.Duration // Optional backoff duration. Default: nil.
 
 	Transport http.RoundTripper  // The HTTP transport object.
 	Logger    estransport.Logger // The logger object.
@@ -115,6 +123,12 @@ func NewClient(cfg Config) (*Client, error) {
 		Username: cfg.Username,
 		Password: cfg.Password,
 		APIKey:   cfg.APIKey,
+
+		RetryOnStatus:        cfg.RetryOnStatus,
+		DisableRetry:         cfg.DisableRetry,
+		EnableRetryOnTimeout: cfg.EnableRetryOnTimeout,
+		MaxRetries:           cfg.MaxRetries,
+		RetryBackoff:         cfg.RetryBackoff,
 
 		Transport: cfg.Transport,
 		Logger:    cfg.Logger,
