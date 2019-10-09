@@ -116,13 +116,23 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	var (
 		res *http.Response
 		err error
-
-		dupReqBodyForLog io.ReadCloser
 	)
 
 	// Update request
 	//
 	c.setReqUserAgent(req)
+
+	if req.Body != nil && req.Body != http.NoBody && req.GetBody == nil {
+		if !c.disableRetry || (c.logger != nil && c.logger.RequestBodyEnabled()) {
+			var buf bytes.Buffer
+			buf.ReadFrom(req.Body)
+			req.Body = ioutil.NopCloser(&buf)
+			req.GetBody = func() (io.ReadCloser, error) {
+				r := buf
+				return ioutil.NopCloser(&r), nil
+			}
+		}
+	}
 
 	for i := 1; i <= c.maxRetries; i++ {
 		var (
@@ -143,22 +153,12 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		c.setReqURL(nodeURL, req)
 		c.setReqAuth(nodeURL, req)
 
-		if !c.disableRetry && i > 1 {
-			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
-				body, err := req.GetBody()
-				if err != nil {
-					return nil, err
-				}
-				req.Body = body
+		if !c.disableRetry && i > 1 && req.Body != nil && req.Body != http.NoBody {
+			body, err := req.GetBody()
+			if err != nil {
+				return nil, err
 			}
-		}
-
-		// Duplicate request body for logger
-		//
-		if c.logger != nil && c.logger.RequestBodyEnabled() {
-			if req.Body != nil && req.Body != http.NoBody {
-				dupReqBodyForLog, req.Body, _ = duplicateBody(req.Body)
-			}
+			req.Body = body
 		}
 
 		// Set up time measures and execute the request
@@ -170,7 +170,10 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		// Log request and response
 		//
 		if c.logger != nil {
-			c.logRoundTrip(req, res, dupReqBodyForLog, err, start, dur)
+			if c.logger.RequestBodyEnabled() && req.Body != nil && req.Body != http.NoBody {
+				req.Body, _ = req.GetBody()
+			}
+			c.logRoundTrip(req, res, err, start, dur)
 		}
 
 		// Retry only on network errors, but don't retry on timeout errors, unless configured
@@ -269,7 +272,6 @@ func (c *Client) setReqUserAgent(req *http.Request) *http.Request {
 func (c *Client) logRoundTrip(
 	req *http.Request,
 	res *http.Response,
-	reqBody io.Reader,
 	err error,
 	start time.Time,
 	dur time.Duration,
@@ -277,11 +279,6 @@ func (c *Client) logRoundTrip(
 	var dupRes http.Response
 	if res != nil {
 		dupRes = *res
-	}
-	if c.logger.RequestBodyEnabled() {
-		if req.Body != nil && req.Body != http.NoBody {
-			req.Body = ioutil.NopCloser(reqBody)
-		}
 	}
 	if c.logger.ResponseBodyEnabled() {
 		if res != nil && res.Body != nil && res.Body != http.NoBody {
