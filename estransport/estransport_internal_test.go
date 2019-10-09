@@ -4,6 +4,7 @@ package estransport
 
 import (
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -562,5 +563,40 @@ func TestURLs(t *testing.T) {
 func TestVersion(t *testing.T) {
 	if Version == "" {
 		t.Error("Version is empty")
+	}
+}
+
+func TestTransportRetry(t *testing.T) {
+	var bodies []string
+	u, _ := url.Parse("https://foo.com/bar")
+	tp := New(Config{
+		URLs:          []*url.URL{u},
+		RetryOnStatus: []int{407},
+		Transport: &mockTransp{
+			RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+				body, err := ioutil.ReadAll(req.Body)
+				if err != nil {
+					panic(err)
+				}
+				bodies = append(bodies, string(body))
+				return &http.Response{Status: "MOCK", StatusCode: 407}, nil
+			},
+		}},
+	)
+
+	req, _ := http.NewRequest("POST", "/abc", strings.NewReader("some data"))
+	res, err := tp.Perform(req)
+	if err != nil {
+		t.Fatalf("Unexpected error: %s", err)
+	}
+	_ = res
+
+	if n := len(bodies); n != 3 {
+		t.Fatalf("expected 3 requests, got %d", n)
+	}
+	for i, body := range bodies {
+		if body != "some data" {
+			t.Fatalf("request %d body: expected %q, got %q", i, "some data", body)
+		}
 	}
 }

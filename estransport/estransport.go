@@ -143,6 +143,16 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		c.setReqURL(nodeURL, req)
 		c.setReqAuth(nodeURL, req)
 
+		if !c.disableRetry && i > 1 {
+			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
+				body, err := req.GetBody()
+				if err != nil {
+					return nil, err
+				}
+				req.Body = body
+			}
+		}
+
 		// Duplicate request body for logger
 		//
 		if c.logger != nil && c.logger.RequestBodyEnabled() {
