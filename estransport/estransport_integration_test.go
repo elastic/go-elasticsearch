@@ -2,73 +2,71 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 
-// +build integration,multinode
+// +build integration
 
 package estransport_test
 
 import (
-	"encoding/json"
+	"bytes"
 	"fmt"
+	"io"
+	"io/ioutil"
 	"net/http"
+	"net/http/httptest"
 	"net/url"
+	"strings"
 	"testing"
 
 	"github.com/elastic/go-elasticsearch/v7/estransport"
+	"github.com/elastic/go-elasticsearch/v7/esutil"
 )
 
 var (
 	_ = fmt.Print
 )
 
-func TestTransportSelector(t *testing.T) {
+func TestTransportRetries(t *testing.T) {
+	var counter int
 
-	NodeName := func(t *testing.T, transport estransport.Interface) string {
-		req, err := http.NewRequest("GET", "/", nil)
-		if err != nil {
-			t.Fatalf("Unexpected error: %s", err)
-		}
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		counter++
 
-		res, err := transport.Perform(req)
-		if err != nil {
-			t.Fatalf("Unexpected error: %s", err)
-		}
+		body, _ := ioutil.ReadAll(r.Body)
+		fmt.Println("req.Body:", string(body))
 
-		fmt.Printf("> GET %s\n", req.URL)
+		http.Error(w, "FAKE 502", http.StatusBadGateway)
+	}))
+	serverURL, _ := url.Parse(server.URL)
 
-		r := struct {
-			Name string
-		}{}
+	transport := estransport.New(estransport.Config{URLs: []*url.URL{serverURL}})
 
-		if err := json.NewDecoder(res.Body).Decode(&r); err != nil {
-			t.Fatalf("Error parsing the response body: %s", err)
-		}
-
-		return r.Name
+	bodies := []io.Reader{
+		strings.NewReader(`FAKE`),
+		esutil.NewJSONReader(`FAKE`),
 	}
 
-	t.Run("RoundRobin", func(t *testing.T) {
-		var (
-			node string
-		)
-		transport := estransport.New(estransport.Config{URLs: []*url.URL{
-			{Scheme: "http", Host: "localhost:9200"},
-			{Scheme: "http", Host: "localhost:9201"},
-		}})
+	for _, body := range bodies {
+		t.Run(fmt.Sprintf("Reset the %T request body", body), func(t *testing.T) {
+			counter = 0
 
-		node = NodeName(t, transport)
-		if node != "es1" {
-			t.Errorf("Unexpected node, want=e1, got=%s", node)
-		}
+			req, err := http.NewRequest("GET", "/", body)
+			if err != nil {
+				t.Fatalf("Unexpected error: %s", err)
+			}
 
-		node = NodeName(t, transport)
-		if node != "es2" {
-			t.Errorf("Unexpected node, want=e1, got=%s", node)
-		}
+			res, err := transport.Perform(req)
+			if err != nil {
+				t.Fatalf("Unexpected error: %s", err)
+			}
 
-		node = NodeName(t, transport)
-		if node != "es1" {
-			t.Errorf("Unexpected node, want=e1, got=%s", node)
-		}
+			body, _ := ioutil.ReadAll(res.Body)
 
-	})
+			fmt.Println("> GET", req.URL)
+			fmt.Printf("< %s (tries: %d)\n", bytes.TrimSpace(body), counter)
+
+			if counter != 3 {
+				t.Errorf("Unexpected number of retries, want=3, got=%d", counter)
+			}
+		})
+	}
 }
