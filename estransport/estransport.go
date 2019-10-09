@@ -126,11 +126,11 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		if !c.disableRetry || (c.logger != nil && c.logger.RequestBodyEnabled()) {
 			var buf bytes.Buffer
 			buf.ReadFrom(req.Body)
-			req.Body = ioutil.NopCloser(&buf)
 			req.GetBody = func() (io.ReadCloser, error) {
 				r := buf
 				return ioutil.NopCloser(&r), nil
 			}
+			req.Body, _ = req.GetBody()
 		}
 	}
 
