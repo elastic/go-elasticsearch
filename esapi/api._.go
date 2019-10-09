@@ -1,4 +1,4 @@
-// Code generated from specification version 8.0.0 (b1a03a137fd): DO NOT EDIT
+// Code generated from specification version 8.0.0 (1fc8dd25324): DO NOT EDIT
 
 package esapi
 
@@ -70,6 +70,7 @@ type API struct {
 	SearchTemplate                      SearchTemplate
 	SlmDeleteLifecycle                  SlmDeleteLifecycle
 	SlmExecuteLifecycle                 SlmExecuteLifecycle
+	SlmExecuteRetention                 SlmExecuteRetention
 	SlmGetLifecycle                     SlmGetLifecycle
 	SlmGetStats                         SlmGetStats
 	SlmPutLifecycle                     SlmPutLifecycle
@@ -442,6 +443,7 @@ func New(t Transport) *API {
 		SearchTemplate:                      newSearchTemplateFunc(t),
 		SlmDeleteLifecycle:                  newSlmDeleteLifecycleFunc(t),
 		SlmExecuteLifecycle:                 newSlmExecuteLifecycleFunc(t),
+		SlmExecuteRetention:                 newSlmExecuteRetentionFunc(t),
 		SlmGetLifecycle:                     newSlmGetLifecycleFunc(t),
 		SlmGetStats:                         newSlmGetStatsFunc(t),
 		SlmPutLifecycle:                     newSlmPutLifecycleFunc(t),

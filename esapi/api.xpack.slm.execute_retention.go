@@ -8,9 +8,9 @@ import (
 	"strings"
 )
 
-func newSecurityAuthenticateFunc(t Transport) SecurityAuthenticate {
-	return func(o ...func(*SecurityAuthenticateRequest)) (*Response, error) {
-		var r = SecurityAuthenticateRequest{}
+func newSlmExecuteRetentionFunc(t Transport) SlmExecuteRetention {
+	return func(o ...func(*SlmExecuteRetentionRequest)) (*Response, error) {
+		var r = SlmExecuteRetentionRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -20,15 +20,15 @@ func newSecurityAuthenticateFunc(t Transport) SecurityAuthenticate {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityAuthenticate -
+// SlmExecuteRetention -
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-authenticate.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-execute-retention.html.
 //
-type SecurityAuthenticate func(o ...func(*SecurityAuthenticateRequest)) (*Response, error)
+type SlmExecuteRetention func(o ...func(*SlmExecuteRetentionRequest)) (*Response, error)
 
-// SecurityAuthenticateRequest configures the Security Authenticate API request.
+// SlmExecuteRetentionRequest configures the Slm Execute Retention API request.
 //
-type SecurityAuthenticateRequest struct {
+type SlmExecuteRetentionRequest struct {
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -41,17 +41,17 @@ type SecurityAuthenticateRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r SecurityAuthenticateRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SlmExecuteRetentionRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
-	path.Grow(len("/_security/_authenticate"))
-	path.WriteString("/_security/_authenticate")
+	path.Grow(len("/_slm/_execute_retention"))
+	path.WriteString("/_slm/_execute_retention")
 
 	params = make(map[string]string)
 
@@ -116,48 +116,48 @@ func (r SecurityAuthenticateRequest) Do(ctx context.Context, transport Transport
 
 // WithContext sets the request context.
 //
-func (f SecurityAuthenticate) WithContext(v context.Context) func(*SecurityAuthenticateRequest) {
-	return func(r *SecurityAuthenticateRequest) {
+func (f SlmExecuteRetention) WithContext(v context.Context) func(*SlmExecuteRetentionRequest) {
+	return func(r *SlmExecuteRetentionRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f SecurityAuthenticate) WithPretty() func(*SecurityAuthenticateRequest) {
-	return func(r *SecurityAuthenticateRequest) {
+func (f SlmExecuteRetention) WithPretty() func(*SlmExecuteRetentionRequest) {
+	return func(r *SlmExecuteRetentionRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f SecurityAuthenticate) WithHuman() func(*SecurityAuthenticateRequest) {
-	return func(r *SecurityAuthenticateRequest) {
+func (f SlmExecuteRetention) WithHuman() func(*SlmExecuteRetentionRequest) {
+	return func(r *SlmExecuteRetentionRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f SecurityAuthenticate) WithErrorTrace() func(*SecurityAuthenticateRequest) {
-	return func(r *SecurityAuthenticateRequest) {
+func (f SlmExecuteRetention) WithErrorTrace() func(*SlmExecuteRetentionRequest) {
+	return func(r *SlmExecuteRetentionRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f SecurityAuthenticate) WithFilterPath(v ...string) func(*SecurityAuthenticateRequest) {
-	return func(r *SecurityAuthenticateRequest) {
+func (f SlmExecuteRetention) WithFilterPath(v ...string) func(*SlmExecuteRetentionRequest) {
+	return func(r *SlmExecuteRetentionRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f SecurityAuthenticate) WithHeader(h map[string]string) func(*SecurityAuthenticateRequest) {
-	return func(r *SecurityAuthenticateRequest) {
+func (f SlmExecuteRetention) WithHeader(h map[string]string) func(*SlmExecuteRetentionRequest) {
+	return func(r *SlmExecuteRetentionRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
