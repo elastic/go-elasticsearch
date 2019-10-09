@@ -743,7 +743,10 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(ctx context.Context,
 		httpBody = "nil"
 	}
 
-	g.w(`req, _ := newRequest(method, path.String(), ` + httpBody + `)` + "\n\n")
+	g.w(`req, err := newRequest(method, path.String(), ` + httpBody + `)` + "\n")
+	g.w(`if err != nil {
+		return nil, err
+	}` + "\n\n")
 
 	g.w(`if len(params) > 0 {
 		q := req.URL.Query()
