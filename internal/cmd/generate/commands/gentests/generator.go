@@ -197,10 +197,11 @@ func (g *Generator) genFileHeader() {
 import (
 	encjson "encoding/json"
 	encyaml "gopkg.in/yaml.v2"
+	"fmt"
 	"context"
 	"crypto/tls"
-	"os"
 	"net/url"
+	"os"
 	"testing"
 	"time"
 
@@ -211,10 +212,11 @@ import (
 
 var (
 	// Prevent compilation errors for unused packages
+	_ = fmt.Printf
 	_ = encjson.NewDecoder
 	_ = encyaml.NewDecoder
 	_ = tls.Certificate{}
-	_ = fmt.Printf
+	_ = url.QueryEscape
 )` + "\n")
 }
 
@@ -961,7 +963,12 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 						}
 						value = fmt.Sprintf("%d", dur.Nanoseconds())
 					default:
-						value = fmt.Sprintf("%q", v)
+						if strings.HasSuffix(k, "ID") {
+							value = fmt.Sprintf("url.QueryEscape(%q)", v)
+						} else {
+							value = fmt.Sprintf("%q", v)
+						}
+
 					}
 				}
 				g.w(value)
