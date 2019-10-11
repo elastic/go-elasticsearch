@@ -62,15 +62,17 @@ func (cp *roundRobinConnectionPool) Next() (*Connection, error) {
 	cp.Lock()
 	defer cp.Unlock()
 
+	// fmt.Println("Next()", cp.list)
+
 	// Try to resurrect a dead connection if no healthy connections are available
 	//
 	if len(cp.list) < 1 {
 		if len(cp.dead) > 0 {
+			fmt.Println("Next()", cp.dead)
 			fmt.Printf("Resurrecting connection...")
 			c, cp.dead = cp.dead[len(cp.dead)-1], cp.dead[:len(cp.dead)-1] // Pop item
 			fmt.Println(c)
 			c.Dead = false
-			c.Failures = 0
 			cp.list = append(cp.list, c)
 			return c, nil
 		}
@@ -103,9 +105,19 @@ func (cp *roundRobinConnectionPool) Remove(c *Connection) error {
 	cp.Lock()
 	defer cp.Unlock()
 
-	// Push item to dead list and sort slice by DeadSince
+	// Push item to dead list and sort slice by number of failures
 	cp.dead = append(cp.dead, c)
-	sort.Slice(cp.dead, func(i, j int) bool { return cp.dead[i].Failures < cp.dead[j].Failures })
+	sort.Slice(cp.dead, func(i, j int) bool {
+		c1 := cp.dead[i]
+		c2 := cp.dead[j]
+		c1.Lock()
+		c2.Lock()
+
+		res := c1.Failures > c2.Failures
+		c1.Unlock()
+		c2.Unlock()
+		return res
+	})
 
 	// Check if connection exists in the list. Return nil if it doesn't, because another
 	// goroutine might have already removed it.
@@ -123,7 +135,8 @@ func (cp *roundRobinConnectionPool) Remove(c *Connection) error {
 	copy(cp.list[index:], cp.list[index+1:])
 	cp.list[len(cp.list)-1] = nil
 	cp.list = cp.list[:len(cp.list)-1]
-	cp.curr--
+
+	// fmt.Println("Remove()", cp.list)
 
 	return nil
 }
