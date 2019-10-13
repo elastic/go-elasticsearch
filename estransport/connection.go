@@ -20,9 +20,9 @@ type ConnectionPool interface {
 type Connection struct {
 	sync.Mutex
 
-	URL      *url.URL
-	Dead     bool
-	Failures int
+	URL      *url.URL `json:"url"`
+	Dead     bool     `json:"dead"`
+	Failures int      `json:"failures"`
 
 	// ID         string
 	// Name       string
@@ -51,6 +51,13 @@ func newRoundRobinConnectionPool(connections ...*Connection) *roundRobinConnecti
 		list: connections,
 	}
 
+	if metrics != nil {
+		metrics.Lock()
+		metrics.Pool = cp.list
+		metrics.Dead = cp.dead
+		metrics.Unlock()
+	}
+
 	return &cp
 }
 
@@ -74,6 +81,14 @@ func (cp *roundRobinConnectionPool) Next() (*Connection, error) {
 			fmt.Println(c)
 			c.Dead = false
 			cp.list = append(cp.list, c)
+
+			if metrics != nil {
+				metrics.Lock()
+				metrics.Pool = cp.list
+				metrics.Dead = cp.dead
+				metrics.Unlock()
+			}
+
 			return c, nil
 		}
 		return nil, errors.New("no connection available")
@@ -119,6 +134,12 @@ func (cp *roundRobinConnectionPool) Remove(c *Connection) error {
 		return res
 	})
 
+	if metrics != nil {
+		metrics.Lock()
+		metrics.Dead = cp.dead
+		metrics.Unlock()
+	}
+
 	// Check if connection exists in the list. Return nil if it doesn't, because another
 	// goroutine might have already removed it.
 	index := -1
@@ -136,7 +157,11 @@ func (cp *roundRobinConnectionPool) Remove(c *Connection) error {
 	cp.list[len(cp.list)-1] = nil
 	cp.list = cp.list[:len(cp.list)-1]
 
-	// fmt.Println("Remove()", cp.list)
+	if metrics != nil {
+		metrics.Lock()
+		metrics.Pool = cp.list
+		metrics.Unlock()
+	}
 
 	return nil
 }

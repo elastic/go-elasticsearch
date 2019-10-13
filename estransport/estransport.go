@@ -25,6 +25,8 @@ import (
 const Version = version.Client
 
 var (
+	metrics *Metrics
+
 	userAgent   string
 	reGoVersion = regexp.MustCompile(`go(\d+\.\d+\..+)`)
 
@@ -127,6 +129,14 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		err error
 	)
 
+	// Record metrics, when enabled
+	//
+	if IsMetricsEnabled() {
+		metrics.Lock()
+		metrics.NumRequests++
+		metrics.Unlock()
+	}
+
 	// Update request
 	//
 	c.setReqUserAgent(req)
@@ -146,7 +156,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	}
 
 	for i := 1; i <= c.maxRetries; i++ {
-		fmt.Printf("Attempt %d\n", i)
+		// fmt.Printf("Attempt %d\n", i)
 		var (
 			conn        *Connection
 			shouldRetry bool
@@ -191,6 +201,14 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		}
 
 		if err != nil {
+			// Record metrics, when enabled
+			//
+			if IsMetricsEnabled() {
+				metrics.Lock()
+				metrics.NumFailures++
+				metrics.Unlock()
+			}
+
 			// Remove the connection from pool
 			//
 			c.pool.Remove(conn)
