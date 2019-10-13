@@ -3,9 +3,11 @@ package estransport
 import (
 	"errors"
 	"fmt"
+	"math"
 	"net/url"
 	"sort"
 	"sync"
+	"time"
 )
 
 // ConnectionPool defines the interface for the connection pool.
@@ -20,9 +22,10 @@ type ConnectionPool interface {
 type Connection struct {
 	sync.Mutex
 
-	URL      *url.URL `json:"url"`
-	Dead     bool     `json:"dead"`
-	Failures int      `json:"failures"`
+	URL       *url.URL  `json:"url"`
+	Dead      bool      `json:"dead"`
+	DeadSince time.Time `json:"dead_since"`
+	Failures  int       `json:"failures"`
 
 	// ID         string
 	// Name       string
@@ -57,6 +60,62 @@ func newRoundRobinConnectionPool(connections ...*Connection) *roundRobinConnecti
 		metrics.Dead = cp.dead
 		metrics.Unlock()
 	}
+
+	// DRAFT: Resurrector
+	go func(cp *roundRobinConnectionPool) {
+		var (
+			timeoutInitial      = 60 * time.Second
+			timeoutFactorCutoff = 5
+		)
+
+		ticker := time.NewTicker(5 * time.Second)
+		defer ticker.Stop()
+
+		for {
+			select {
+			case <-ticker.C:
+				cp.Lock()
+				for _, c := range cp.dead {
+					if c == nil {
+						continue
+					}
+					c.Lock()
+					factor := func(a, b int) float64 {
+						if a > b {
+							return float64(b)
+						}
+						return float64(a)
+					}(c.Failures-1, timeoutFactorCutoff)
+					c.Unlock()
+
+					// fmt.Printf("factor: %f, math.Exp2(factor): %f\n", factor, math.Exp2(factor))
+					timeout := time.Duration(timeoutInitial.Seconds() * math.Exp2(factor) * float64(time.Second))
+					fmt.Printf("Resurrect %s (failures=%d, factor=%1.1f, timeout=%s) in %s\n", c.URL, c.Failures, factor, timeout, c.DeadSince.Add(timeout).Sub(time.Now().UTC()).Truncate(time.Second))
+
+					if time.Now().UTC().After(c.DeadSince.Add(timeout)) {
+						fmt.Printf("Resurrecting %s, timeout passed\n", c.URL)
+						c.Lock()
+						c.Dead = false
+						c.Unlock()
+						cp.list = append(cp.list, c)
+						index := -1
+						for i, conn := range cp.dead {
+							if conn == c {
+								index = i
+							}
+						}
+						if index >= 0 {
+							// Remove item; https://github.com/golang/go/wiki/SliceTricks
+							copy(cp.dead[index:], cp.dead[index+1:])
+							cp.dead[len(cp.dead)-1] = nil
+							cp.dead = cp.dead[:len(cp.dead)-1]
+						}
+					}
+				}
+				cp.Unlock()
+			}
+		}
+	}(&cp)
 
 	return &cp
 }
@@ -114,6 +173,7 @@ func (cp *roundRobinConnectionPool) Remove(c *Connection) error {
 	c.Lock()
 	fmt.Printf("Removing %s...\n", c.URL)
 	c.Dead = true
+	c.DeadSince = time.Now().UTC()
 	c.Failures++
 	c.Unlock()
 

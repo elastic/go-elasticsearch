@@ -220,6 +220,12 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 					shouldRetry = true
 				}
 			}
+		} else {
+			// Reset the failure counter
+			//
+			conn.Lock()
+			conn.Failures = 0
+			conn.Unlock()
 		}
 
 		// Retry on configured response statuses
