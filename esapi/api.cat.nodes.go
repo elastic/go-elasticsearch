@@ -1,4 +1,8 @@
-// Code generated from specification version 7.4.0: DO NOT EDIT
+// Licensed to Elasticsearch B.V. under one or more agreements.
+// Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
+// See the LICENSE file in the project root for more information.
+
+// Code generated from specification version 7.4.1: DO NOT EDIT
 
 package esapi
 
@@ -31,6 +35,7 @@ type CatNodes func(o ...func(*CatNodesRequest)) (*Response, error)
 // CatNodesRequest configures the Cat Nodes API request.
 //
 type CatNodesRequest struct {
+	Bytes         string
 	Format        string
 	FullID        *bool
 	H             []string
@@ -38,6 +43,7 @@ type CatNodesRequest struct {
 	Local         *bool
 	MasterTimeout time.Duration
 	S             []string
+	Time          string
 	V             *bool
 
 	Pretty     bool
@@ -66,6 +72,10 @@ func (r CatNodesRequest) Do(ctx context.Context, transport Transport) (*Response
 
 	params = make(map[string]string)
 
+	if r.Bytes != "" {
+		params["bytes"] = r.Bytes
+	}
+
 	if r.Format != "" {
 		params["format"] = r.Format
 	}
@@ -92,6 +102,10 @@ func (r CatNodesRequest) Do(ctx context.Context, transport Transport) (*Response
 
 	if len(r.S) > 0 {
 		params["s"] = strings.Join(r.S, ",")
+	}
+
+	if r.Time != "" {
+		params["time"] = r.Time
 	}
 
 	if r.V != nil {
@@ -162,6 +176,14 @@ func (f CatNodes) WithContext(v context.Context) func(*CatNodesRequest) {
 	}
 }
 
+// WithBytes - the unit in which to display byte values.
+//
+func (f CatNodes) WithBytes(v string) func(*CatNodesRequest) {
+	return func(r *CatNodesRequest) {
+		r.Bytes = v
+	}
+}
+
 // WithFormat - a short version of the accept header, e.g. json, yaml.
 //
 func (f CatNodes) WithFormat(v string) func(*CatNodesRequest) {
@@ -215,6 +237,14 @@ func (f CatNodes) WithMasterTimeout(v time.Duration) func(*CatNodesRequest) {
 func (f CatNodes) WithS(v ...string) func(*CatNodesRequest) {
 	return func(r *CatNodesRequest) {
 		r.S = v
+	}
+}
+
+// WithTime - the unit in which to display time values.
+//
+func (f CatNodes) WithTime(v string) func(*CatNodesRequest) {
+	return func(r *CatNodesRequest) {
+		r.Time = v
 	}
 }
 

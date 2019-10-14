@@ -1,4 +1,8 @@
-// Code generated from specification version 7.4.0: DO NOT EDIT
+// Licensed to Elasticsearch B.V. under one or more agreements.
+// Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
+// See the LICENSE file in the project root for more information.
+
+// Code generated from specification version 7.4.1: DO NOT EDIT
 
 package esapi
 
@@ -38,6 +42,7 @@ type CatTasksRequest struct {
 	NodeID     []string
 	ParentTask *int
 	S          []string
+	Time       string
 	V          *bool
 
 	Pretty     bool
@@ -96,6 +101,10 @@ func (r CatTasksRequest) Do(ctx context.Context, transport Transport) (*Response
 
 	if len(r.S) > 0 {
 		params["s"] = strings.Join(r.S, ",")
+	}
+
+	if r.Time != "" {
+		params["time"] = r.Time
 	}
 
 	if r.V != nil {
@@ -227,6 +236,14 @@ func (f CatTasks) WithParentTask(v int) func(*CatTasksRequest) {
 func (f CatTasks) WithS(v ...string) func(*CatTasksRequest) {
 	return func(r *CatTasksRequest) {
 		r.S = v
+	}
+}
+
+// WithTime - the unit in which to display time values.
+//
+func (f CatTasks) WithTime(v string) func(*CatTasksRequest) {
+	return func(r *CatTasksRequest) {
+		r.Time = v
 	}
 }
 

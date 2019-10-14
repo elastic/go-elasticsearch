@@ -1,4 +1,8 @@
-// Code generated from specification version 7.4.0: DO NOT EDIT
+// Licensed to Elasticsearch B.V. under one or more agreements.
+// Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
+// See the LICENSE file in the project root for more information.
+
+// Code generated from specification version 7.4.1: DO NOT EDIT
 
 package esapi
 
@@ -37,6 +41,7 @@ type CatHealthRequest struct {
 	Local         *bool
 	MasterTimeout time.Duration
 	S             []string
+	Time          string
 	Ts            *bool
 	V             *bool
 
@@ -88,6 +93,10 @@ func (r CatHealthRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 	if len(r.S) > 0 {
 		params["s"] = strings.Join(r.S, ",")
+	}
+
+	if r.Time != "" {
+		params["time"] = r.Time
 	}
 
 	if r.Ts != nil {
@@ -207,6 +216,14 @@ func (f CatHealth) WithMasterTimeout(v time.Duration) func(*CatHealthRequest) {
 func (f CatHealth) WithS(v ...string) func(*CatHealthRequest) {
 	return func(r *CatHealthRequest) {
 		r.S = v
+	}
+}
+
+// WithTime - the unit in which to display time values.
+//
+func (f CatHealth) WithTime(v string) func(*CatHealthRequest) {
+	return func(r *CatHealthRequest) {
+		r.Time = v
 	}
 }
 

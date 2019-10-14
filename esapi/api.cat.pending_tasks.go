@@ -1,4 +1,8 @@
-// Code generated from specification version 7.4.0: DO NOT EDIT
+// Licensed to Elasticsearch B.V. under one or more agreements.
+// Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
+// See the LICENSE file in the project root for more information.
+
+// Code generated from specification version 7.4.1: DO NOT EDIT
 
 package esapi
 
@@ -37,6 +41,7 @@ type CatPendingTasksRequest struct {
 	Local         *bool
 	MasterTimeout time.Duration
 	S             []string
+	Time          string
 	V             *bool
 
 	Pretty     bool
@@ -87,6 +92,10 @@ func (r CatPendingTasksRequest) Do(ctx context.Context, transport Transport) (*R
 
 	if len(r.S) > 0 {
 		params["s"] = strings.Join(r.S, ",")
+	}
+
+	if r.Time != "" {
+		params["time"] = r.Time
 	}
 
 	if r.V != nil {
@@ -202,6 +211,14 @@ func (f CatPendingTasks) WithMasterTimeout(v time.Duration) func(*CatPendingTask
 func (f CatPendingTasks) WithS(v ...string) func(*CatPendingTasksRequest) {
 	return func(r *CatPendingTasksRequest) {
 		r.S = v
+	}
+}
+
+// WithTime - the unit in which to display time values.
+//
+func (f CatPendingTasks) WithTime(v string) func(*CatPendingTasksRequest) {
+	return func(r *CatPendingTasksRequest) {
+		r.Time = v
 	}
 }
 
