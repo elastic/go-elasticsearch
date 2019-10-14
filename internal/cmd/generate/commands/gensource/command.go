@@ -259,7 +259,7 @@ func (cmd *Command) processFile(f *os.File) (err error) {
 			fName = filepath.Join(cmd.Output, "api."+gen.Endpoint.Type+"."+gen.Endpoint.Name+".go")
 		}
 
-		f, err := os.OpenFile(fName, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0755)
+		f, err := os.OpenFile(fName, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0644)
 		if err != nil {
 			return fmt.Errorf("error creating file: %s", err)
 		}
