@@ -1,4 +1,8 @@
-// Code generated from specification version 6.8.2-SNAPSHOT (8aa0ff06c9d): DO NOT EDIT
+// Licensed to Elasticsearch B.V. under one or more agreements.
+// Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
+// See the LICENSE file in the project root for more information.
+
+// Code generated from specification version 6.8.4 (75f6eb7b243): DO NOT EDIT
 
 package esapi
 

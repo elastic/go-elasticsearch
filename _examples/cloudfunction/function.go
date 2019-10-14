@@ -1,3 +1,7 @@
+// Licensed to Elasticsearch B.V. under one or more agreements.
+// Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
+// See the LICENSE file in the project root for more information.
+
 // Package clusterstatus demonstrates using the Elasticsearch client for Go with Google Cloud Functions.
 //
 // Deploy the function with the gcloud command:
