@@ -61,62 +61,6 @@ func newRoundRobinConnectionPool(connections ...*Connection) *roundRobinConnecti
 		metrics.Unlock()
 	}
 
-	// DRAFT: Resurrector
-	go func(cp *roundRobinConnectionPool) {
-		var (
-			timeoutInitial      = 60 * time.Second
-			timeoutFactorCutoff = 5
-		)
-
-		ticker := time.NewTicker(5 * time.Second)
-		defer ticker.Stop()
-
-		for {
-			select {
-			case <-ticker.C:
-				cp.Lock()
-				for _, c := range cp.dead {
-					if c == nil {
-						continue
-					}
-					c.Lock()
-					factor := func(a, b int) float64 {
-						if a > b {
-							return float64(b)
-						}
-						return float64(a)
-					}(c.Failures-1, timeoutFactorCutoff)
-					c.Unlock()
-
-					// fmt.Printf("factor: %f, math.Exp2(factor): %f\n", factor, math.Exp2(factor))
-					timeout := time.Duration(timeoutInitial.Seconds() * math.Exp2(factor) * float64(time.Second))
-					fmt.Printf("Resurrect %s (failures=%d, factor=%1.1f, timeout=%s) in %s\n", c.URL, c.Failures, factor, timeout, c.DeadSince.Add(timeout).Sub(time.Now().UTC()).Truncate(time.Second))
-
-					if time.Now().UTC().After(c.DeadSince.Add(timeout)) {
-						fmt.Printf("Resurrecting %s, timeout passed\n", c.URL)
-						c.Lock()
-						c.Dead = false
-						c.Unlock()
-						cp.list = append(cp.list, c)
-						index := -1
-						for i, conn := range cp.dead {
-							if conn == c {
-								index = i
-							}
-						}
-						if index >= 0 {
-							// Remove item; https://github.com/golang/go/wiki/SliceTricks
-							copy(cp.dead[index:], cp.dead[index+1:])
-							cp.dead[len(cp.dead)-1] = nil
-							cp.dead = cp.dead[:len(cp.dead)-1]
-						}
-					}
-				}
-				cp.Unlock()
-			}
-		}
-	}(&cp)
-
 	return &cp
 }
 
@@ -175,6 +119,7 @@ func (cp *roundRobinConnectionPool) Remove(c *Connection) error {
 	c.Dead = true
 	c.DeadSince = time.Now().UTC()
 	c.Failures++
+	c.scheduleResurrect(cp)
 	c.Unlock()
 
 	cp.Lock()
@@ -224,6 +169,59 @@ func (cp *roundRobinConnectionPool) Remove(c *Connection) error {
 	}
 
 	return nil
+}
+
+// Resurrect removes the connection from the dead list and adds it to the pool.
+//
+// TODO(karmi): Add a pluggable strategy as argument, eg. "optimistic", "ping".
+//
+func (c *Connection) Resurrect(cp *roundRobinConnectionPool) error {
+	c.Lock()
+	defer c.Unlock()
+
+	fmt.Printf("Resurrecting %s, timeout passed\n", c.URL)
+
+	c.Dead = false
+
+	cp.Lock()
+	defer cp.Unlock()
+
+	cp.list = append(cp.list, c)
+	index := -1
+	for i, conn := range cp.dead {
+		if conn == c {
+			index = i
+		}
+	}
+	if index >= 0 {
+		// Remove item; https://github.com/golang/go/wiki/SliceTricks
+		copy(cp.dead[index:], cp.dead[index+1:])
+		cp.dead[len(cp.dead)-1] = nil
+		cp.dead = cp.dead[:len(cp.dead)-1]
+	}
+
+	return nil
+}
+
+// Schedules the connection to be resurrected.
+//
+func (c *Connection) scheduleResurrect(cp *roundRobinConnectionPool) {
+	var (
+		timeoutInitial      = 60 * time.Second
+		timeoutFactorCutoff = 5
+	)
+
+	factor := func(a, b int) float64 {
+		if a > b {
+			return float64(b)
+		}
+		return float64(a)
+	}(c.Failures-1, timeoutFactorCutoff)
+
+	timeout := time.Duration(timeoutInitial.Seconds() * math.Exp2(factor) * float64(time.Second))
+	fmt.Printf("Resurrect %s (failures=%d, factor=%1.1f, timeout=%s) in %s\n", c.URL, c.Failures, factor, timeout, c.DeadSince.Add(timeout).Sub(time.Now().UTC()).Truncate(time.Second))
+
+	time.AfterFunc(timeout, func() { c.Resurrect(cp) })
 }
 
 func (c *Connection) String() string {
