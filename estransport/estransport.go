@@ -98,9 +98,17 @@ func New(cfg Config) *Client {
 		cfg.MaxRetries = defaultMaxRetries
 	}
 
-	var conns []*Connection
+	var (
+		conns []*Connection
+		pool  ConnectionPool
+	)
 	for _, u := range cfg.URLs {
 		conns = append(conns, &Connection{URL: u})
+	}
+	if len(conns) == 1 {
+		pool = newSingleConnectionPool(conns[0])
+	} else {
+		pool = newRoundRobinConnectionPool(conns...)
 	}
 
 	return &Client{
@@ -116,7 +124,7 @@ func New(cfg Config) *Client {
 		retryBackoff:         cfg.RetryBackoff,
 
 		transport: cfg.Transport,
-		pool:      newRoundRobinConnectionPool(conns...),
+		pool:      pool,
 		logger:    cfg.Logger,
 	}
 }

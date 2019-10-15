@@ -47,6 +47,12 @@ type roundRobinConnectionPool struct {
 	dead []*Connection
 }
 
+// newSingleConnectionPool creates a new SingleConnectionPool.
+//
+func newSingleConnectionPool(conn *Connection) *singleConnectionPool {
+	return &singleConnectionPool{connection: conn}
+}
+
 // newRoundRobinConnectionPool creates a new roundRobinConnectionPool.
 //
 func newRoundRobinConnectionPool(connections ...*Connection) *roundRobinConnectionPool {
@@ -62,6 +68,18 @@ func newRoundRobinConnectionPool(connections ...*Connection) *roundRobinConnecti
 	}
 
 	return &cp
+}
+
+// Next returns the connection from pool.
+//
+func (cp *singleConnectionPool) Next() (*Connection, error) {
+	return cp.connection, nil
+}
+
+// Remove is a no-op for single connection pool.
+//
+func (cp *singleConnectionPool) Remove(c *Connection) error {
+	return nil
 }
 
 // Next returns a connection from pool, or an error.

@@ -504,6 +504,10 @@ func TestTransportConnectionPoolNext(t *testing.T) {
 	t.Run("Single URL", func(t *testing.T) {
 		tp := New(Config{URLs: []*url.URL{{Scheme: "http", Host: "localhost:9200"}}})
 
+		if _, ok := tp.pool.(*singleConnectionPool); !ok {
+			t.Errorf("Expected connection to be singleConnectionPool, got: %T", tp)
+		}
+
 		for i := 0; i < 7; i++ {
 			c, err := tp.pool.Next()
 			if err != nil {
@@ -523,6 +527,10 @@ func TestTransportConnectionPoolNext(t *testing.T) {
 			{Scheme: "http", Host: "localhost:9200"},
 			{Scheme: "http", Host: "localhost:9201"},
 		}})
+
+		if _, ok := tp.pool.(*roundRobinConnectionPool); !ok {
+			t.Errorf("Expected connection to be roundRobinConnectionPool, got: %T", tp)
+		}
 
 		c, _ = tp.pool.Next()
 		if c.URL.String() != "http://localhost:9200" {
