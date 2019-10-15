@@ -78,12 +78,14 @@ func (cp *roundRobinConnectionPool) Next() (*Connection, error) {
 	//
 	if len(cp.list) < 1 {
 		if len(cp.dead) > 0 {
-			fmt.Println("Next()", cp.dead)
-			fmt.Printf("Resurrecting connection...")
+			fmt.Println("Next(), Dead:", cp.dead)
+			fmt.Printf("Resurrecting connection ")
 			c, cp.dead = cp.dead[len(cp.dead)-1], cp.dead[:len(cp.dead)-1] // Pop item
-			fmt.Println(c)
+			c.Lock()
+			fmt.Println(c.URL)
 			c.Dead = false
 			cp.list = append(cp.list, c)
+			c.Unlock()
 
 			if metrics != nil {
 				metrics.Lock()
@@ -139,10 +141,10 @@ func (cp *roundRobinConnectionPool) Remove(c *Connection) error {
 		c2 := cp.dead[j]
 		c1.Lock()
 		c2.Lock()
+		defer c1.Unlock()
+		defer c2.Unlock()
 
 		res := c1.Failures > c2.Failures
-		c1.Unlock()
-		c2.Unlock()
 		return res
 	})
 
@@ -183,6 +185,9 @@ func (cp *roundRobinConnectionPool) Remove(c *Connection) error {
 // TODO(karmi): Add a pluggable strategy as argument, eg. "optimistic", "ping".
 //
 func (c *Connection) Resurrect(cp *roundRobinConnectionPool) error {
+	cp.Lock()
+	defer cp.Unlock()
+
 	c.Lock()
 	defer c.Unlock()
 
@@ -194,9 +199,6 @@ func (c *Connection) Resurrect(cp *roundRobinConnectionPool) error {
 	fmt.Printf("Resurrecting %s, timeout passed\n", c.URL)
 
 	c.Dead = false
-
-	cp.Lock()
-	defer cp.Unlock()
 
 	cp.list = append(cp.list, c)
 	index := -1
