@@ -98,17 +98,11 @@ func New(cfg Config) *Client {
 		cfg.MaxRetries = defaultMaxRetries
 	}
 
-	var (
-		conns []*Connection
-		pool  ConnectionPool
-	)
-	for _, u := range cfg.URLs {
-		conns = append(conns, &Connection{URL: u})
-	}
-	if len(conns) == 1 {
-		pool = newSingleConnectionPool(conns[0])
+	var pool ConnectionPool
+	if len(cfg.URLs) == 1 {
+		pool = newSingleConnectionPool(cfg.URLs[0])
 	} else {
-		pool = newRoundRobinConnectionPool(conns...)
+		pool = newRoundRobinConnectionPool(cfg.URLs...)
 	}
 
 	return &Client{
@@ -264,6 +258,9 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 }
 
 // URLs returns a list of transport URLs.
+//
+// TODO(karmi): Refactor to take into account live, dead, orig lists.
+//
 //
 func (c *Client) URLs() []*url.URL {
 	return c.urls

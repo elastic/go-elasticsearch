@@ -44,22 +44,24 @@ type roundRobinConnectionPool struct {
 	curr int           // Index of the current connection
 	live []*Connection // List of live connections
 	dead []*Connection // List of dead connections
-	orig []*Connection // List of original connections, passed in during initialization
+	orig []*url.URL    // List of original URLs, passed in during initialization
 }
 
 // newSingleConnectionPool creates a new SingleConnectionPool.
 //
-func newSingleConnectionPool(conn *Connection) *singleConnectionPool {
-	return &singleConnectionPool{connection: conn}
+func newSingleConnectionPool(u *url.URL) *singleConnectionPool {
+	return &singleConnectionPool{connection: &Connection{URL: u}}
 }
 
 // newRoundRobinConnectionPool creates a new roundRobinConnectionPool.
 //
-func newRoundRobinConnectionPool(connections ...*Connection) *roundRobinConnectionPool {
-	cp := roundRobinConnectionPool{
-		live: connections,
-		orig: connections,
+func newRoundRobinConnectionPool(u ...*url.URL) *roundRobinConnectionPool {
+	var conns []*Connection
+	for _, url := range u {
+		conns = append(conns, &Connection{URL: url})
 	}
+
+	cp := roundRobinConnectionPool{live: conns, orig: u}
 
 	if metrics != nil {
 		metrics.Lock()
