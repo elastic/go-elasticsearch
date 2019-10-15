@@ -232,7 +232,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 			// Reset the failure counter
 			//
 			conn.Lock()
-			conn.Failures = 0
+			conn.markAsHealthy()
 			conn.Unlock()
 		}
 

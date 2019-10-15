@@ -101,7 +101,7 @@ func (cp *roundRobinConnectionPool) Next() (*Connection, error) {
 			c, cp.dead = cp.dead[len(cp.dead)-1], cp.dead[:len(cp.dead)-1] // Pop item
 			c.Lock()
 			fmt.Println(c.URL)
-			c.Dead = false
+			c.markAsAlive()
 			cp.list = append(cp.list, c)
 			c.Unlock()
 
@@ -143,9 +143,7 @@ func (cp *roundRobinConnectionPool) Remove(c *Connection) error {
 	}
 
 	fmt.Printf("Removing %s...\n", c.URL)
-	c.Dead = true
-	c.DeadSince = time.Now().UTC()
-	c.Failures++
+	c.markAsDead()
 	c.scheduleResurrect(cp)
 	c.Unlock()
 
@@ -219,7 +217,7 @@ func (c *Connection) Resurrect(cp *roundRobinConnectionPool) error {
 
 	fmt.Printf("Resurrecting %s, timeout passed\n", c.URL)
 
-	c.Dead = false
+	c.markAsAlive()
 
 	cp.list = append(cp.list, c)
 	index := -1
@@ -237,7 +235,7 @@ func (c *Connection) Resurrect(cp *roundRobinConnectionPool) error {
 	return nil
 }
 
-// Schedules the connection to be resurrected.
+// scheduleResurrect schedules the connection to be resurrected.
 //
 func (c *Connection) scheduleResurrect(cp *roundRobinConnectionPool) {
 	var (
@@ -256,6 +254,28 @@ func (c *Connection) scheduleResurrect(cp *roundRobinConnectionPool) {
 	fmt.Printf("Resurrect %s (failures=%d, factor=%1.1f, timeout=%s) in %s\n", c.URL, c.Failures, factor, timeout, c.DeadSince.Add(timeout).Sub(time.Now().UTC()).Truncate(time.Second))
 
 	time.AfterFunc(timeout, func() { c.Resurrect(cp) })
+}
+
+// markAsDead marks the connection as dead.
+//
+func (c *Connection) markAsDead() {
+	c.Dead = true
+	c.DeadSince = time.Now().UTC()
+	c.Failures++
+}
+
+// markAsAlive marks the connection as alive.
+//
+func (c *Connection) markAsAlive() {
+	c.Dead = false
+}
+
+// markAsHealthy marks the connection as healthy.
+//
+func (c *Connection) markAsHealthy() {
+	c.Dead = false
+	c.DeadSince = time.Time{}
+	c.Failures = 0
 }
 
 func (c *Connection) String() string {
