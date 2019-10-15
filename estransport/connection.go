@@ -168,7 +168,6 @@ func (cp *roundRobinConnectionPool) Remove(c *Connection) error {
 
 	// Remove item; https://github.com/golang/go/wiki/SliceTricks
 	copy(cp.list[index:], cp.list[index+1:])
-	cp.list[len(cp.list)-1] = nil
 	cp.list = cp.list[:len(cp.list)-1]
 
 	if metrics != nil {
@@ -210,7 +209,6 @@ func (c *Connection) Resurrect(cp *roundRobinConnectionPool) error {
 	if index >= 0 {
 		// Remove item; https://github.com/golang/go/wiki/SliceTricks
 		copy(cp.dead[index:], cp.dead[index+1:])
-		cp.dead[len(cp.dead)-1] = nil
 		cp.dead = cp.dead[:len(cp.dead)-1]
 	}
 
