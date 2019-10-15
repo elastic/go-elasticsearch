@@ -115,6 +115,13 @@ func (cp *roundRobinConnectionPool) Next() (*Connection, error) {
 //
 func (cp *roundRobinConnectionPool) Remove(c *Connection) error {
 	c.Lock()
+
+	if c.Dead {
+		fmt.Printf("Already removed %s\n", c.URL)
+		c.Unlock()
+		return nil
+	}
+
 	fmt.Printf("Removing %s...\n", c.URL)
 	c.Dead = true
 	c.DeadSince = time.Now().UTC()
