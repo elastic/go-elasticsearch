@@ -140,9 +140,13 @@ func (cp *roundRobinConnectionPool) Remove(c *Connection) error {
 		c1 := cp.dead[i]
 		c2 := cp.dead[j]
 		c1.Lock()
-		c2.Lock()
+		if c1 != c2 {
+			c2.Lock()
+		}
 		defer c1.Unlock()
-		defer c2.Unlock()
+		if c1 != c2 {
+			defer c2.Unlock()
+		}
 
 		res := c1.Failures > c2.Failures
 		return res
