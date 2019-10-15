@@ -179,6 +179,11 @@ func (c *Connection) Resurrect(cp *roundRobinConnectionPool) error {
 	c.Lock()
 	defer c.Unlock()
 
+	if !c.Dead {
+		fmt.Printf("Already resurrected %s\n", c.URL)
+		return nil
+	}
+
 	fmt.Printf("Resurrecting %s, timeout passed\n", c.URL)
 
 	c.Dead = false
