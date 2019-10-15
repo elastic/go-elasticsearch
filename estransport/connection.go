@@ -41,10 +41,10 @@ type singleConnectionPool struct {
 type roundRobinConnectionPool struct {
 	sync.Mutex
 
-	list []*Connection
-	curr int
-
-	dead []*Connection
+	curr int           // Index of the current connection
+	live []*Connection // List of live connections
+	dead []*Connection // List of dead connections
+	orig []*Connection // List of original connections, passed in during initialization
 }
 
 // newSingleConnectionPool creates a new SingleConnectionPool.
@@ -57,12 +57,13 @@ func newSingleConnectionPool(conn *Connection) *singleConnectionPool {
 //
 func newRoundRobinConnectionPool(connections ...*Connection) *roundRobinConnectionPool {
 	cp := roundRobinConnectionPool{
-		list: connections,
+		live: connections,
+		orig: connections,
 	}
 
 	if metrics != nil {
 		metrics.Lock()
-		metrics.Pool = cp.list
+		metrics.Pool = cp.live
 		metrics.Dead = cp.dead
 		metrics.Unlock()
 	}
@@ -90,24 +91,24 @@ func (cp *roundRobinConnectionPool) Next() (*Connection, error) {
 	cp.Lock()
 	defer cp.Unlock()
 
-	// fmt.Println("Next()", cp.list)
+	// fmt.Println("Next()", cp.live)
 
 	// Try to resurrect a dead connection if no healthy connections are available
 	//
-	if len(cp.list) < 1 {
+	if len(cp.live) < 1 {
 		if len(cp.dead) > 0 {
 			fmt.Println("Next(), Dead:", cp.dead)
 			fmt.Printf("Resurrecting connection ")
 			c, cp.dead = cp.dead[len(cp.dead)-1], cp.dead[:len(cp.dead)-1] // Pop item
 			c.Lock()
 			fmt.Println(c.URL)
-			c.markAsAlive()
-			cp.list = append(cp.list, c)
+			c.markAsLive()
+			cp.live = append(cp.live, c)
 			c.Unlock()
 
 			if metrics != nil {
 				metrics.Lock()
-				metrics.Pool = cp.list
+				metrics.Pool = cp.live
 				metrics.Dead = cp.dead
 				metrics.Unlock()
 			}
@@ -117,16 +118,16 @@ func (cp *roundRobinConnectionPool) Next() (*Connection, error) {
 		return nil, errors.New("no connection available")
 	}
 
-	if cp.curr >= len(cp.list) {
-		cp.curr = len(cp.list) - 1
+	if cp.curr >= len(cp.live) {
+		cp.curr = len(cp.live) - 1
 	}
 
 	if cp.curr < 0 {
 		return nil, errors.New("no connection available")
 	}
 
-	c = cp.list[cp.curr]
-	cp.curr = (cp.curr + 1) % len(cp.list)
+	c = cp.live[cp.curr]
+	cp.curr = (cp.curr + 1) % len(cp.live)
 
 	return c, nil
 }
@@ -177,7 +178,7 @@ func (cp *roundRobinConnectionPool) Remove(c *Connection) error {
 	// Check if connection exists in the list. Return nil if it doesn't, because another
 	// goroutine might have already removed it.
 	index := -1
-	for i, conn := range cp.list {
+	for i, conn := range cp.live {
 		if conn == c {
 			index = i
 		}
@@ -187,12 +188,12 @@ func (cp *roundRobinConnectionPool) Remove(c *Connection) error {
 	}
 
 	// Remove item; https://github.com/golang/go/wiki/SliceTricks
-	copy(cp.list[index:], cp.list[index+1:])
-	cp.list = cp.list[:len(cp.list)-1]
+	copy(cp.live[index:], cp.live[index+1:])
+	cp.live = cp.live[:len(cp.live)-1]
 
 	if metrics != nil {
 		metrics.Lock()
-		metrics.Pool = cp.list
+		metrics.Pool = cp.live
 		metrics.Unlock()
 	}
 
@@ -217,9 +218,9 @@ func (c *Connection) Resurrect(cp *roundRobinConnectionPool) error {
 
 	fmt.Printf("Resurrecting %s, timeout passed\n", c.URL)
 
-	c.markAsAlive()
+	c.markAsLive()
 
-	cp.list = append(cp.list, c)
+	cp.live = append(cp.live, c)
 	index := -1
 	for i, conn := range cp.dead {
 		if conn == c {
@@ -264,9 +265,9 @@ func (c *Connection) markAsDead() {
 	c.Failures++
 }
 
-// markAsAlive marks the connection as alive.
+// markAsLive marks the connection as alive.
 //
-func (c *Connection) markAsAlive() {
+func (c *Connection) markAsLive() {
 	c.Dead = false
 }
 
