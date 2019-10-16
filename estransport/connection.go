@@ -42,7 +42,7 @@ type Connection struct {
 type singleConnectionPool struct {
 	connection *Connection
 
-	metrics       *Metrics
+	metrics       *metrics
 	enableMetrics bool
 }
 
@@ -54,7 +54,7 @@ type roundRobinConnectionPool struct {
 	dead []*Connection // List of dead connections
 	orig []*url.URL    // List of original URLs, passed in during initialization
 
-	metrics       *Metrics
+	metrics       *metrics
 	enableMetrics bool
 }
 
@@ -78,8 +78,8 @@ func newRoundRobinConnectionPool(u ...*url.URL) *roundRobinConnectionPool {
 
 	if cp.enableMetrics {
 		cp.metrics.Lock()
-		cp.metrics.Live = cp.live
-		cp.metrics.Dead = cp.dead
+		cp.metrics.live = cp.live
+		cp.metrics.dead = cp.dead
 		cp.metrics.Unlock()
 	}
 
@@ -195,8 +195,8 @@ func (cp *roundRobinConnectionPool) Remove(c *Connection) error {
 
 	if cp.enableMetrics {
 		cp.metrics.Lock()
-		cp.metrics.Dead = cp.dead
-		cp.metrics.Live = cp.live
+		cp.metrics.dead = cp.dead
+		cp.metrics.live = cp.live
 		cp.metrics.Unlock()
 	}
 
@@ -238,8 +238,8 @@ func (c *Connection) Resurrect(cp *roundRobinConnectionPool) error {
 
 	if cp.enableMetrics {
 		cp.metrics.Lock()
-		cp.metrics.Dead = cp.dead
-		cp.metrics.Live = cp.live
+		cp.metrics.dead = cp.dead
+		cp.metrics.live = cp.live
 		cp.metrics.Unlock()
 	}
 

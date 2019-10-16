@@ -149,8 +149,11 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 
 // Metrics returns the client metrics.
 //
-func (c *Client) Metrics() (*estransport.Metrics, error) {
-	return c.Transport.(*estransport.Client).Metrics(), nil
+func (c *Client) Metrics() (estransport.Metrics, error) {
+	if mt, ok := c.Transport.(estransport.Measurable); ok {
+		return mt.Metrics()
+	}
+	return estransport.Metrics{}, errors.New("transport is missing method Metrics()")
 }
 
 // addrsFromEnvironment returns a list of addresses by splitting

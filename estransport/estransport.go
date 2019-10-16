@@ -77,7 +77,7 @@ type Client struct {
 	retryBackoff         func(attempt int) time.Duration
 
 	enableMetrics bool
-	metrics       *Metrics
+	metrics       *metrics
 
 	transport http.RoundTripper
 	pool      ConnectionPool
@@ -128,10 +128,17 @@ func New(cfg Config) *Client {
 	}
 
 	if cfg.EnableMetrics {
-		client.metrics = &Metrics{}
-		// FIXME
-		client.pool.(*roundRobinConnectionPool).enableMetrics = true
-		client.pool.(*roundRobinConnectionPool).metrics = client.metrics
+		// FIXME(karmi): Type assertion
+		if pool, ok := client.pool.(*singleConnectionPool); ok {
+			client.metrics = &metrics{}
+			pool.enableMetrics = true
+			pool.metrics = client.metrics
+		}
+		if pool, ok := client.pool.(*roundRobinConnectionPool); ok {
+			client.metrics = &metrics{}
+			pool.enableMetrics = true
+			pool.metrics = client.metrics
+		}
 	}
 
 	return &client
@@ -149,7 +156,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	//
 	if c.enableMetrics {
 		c.metrics.Lock()
-		c.metrics.NumRequests++
+		c.metrics.requests++
 		c.metrics.Unlock()
 	}
 
@@ -221,7 +228,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 			//
 			if c.enableMetrics {
 				c.metrics.Lock()
-				c.metrics.NumFailures++
+				c.metrics.failures++
 				c.metrics.Unlock()
 			}
 
