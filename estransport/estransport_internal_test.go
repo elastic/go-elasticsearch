@@ -116,6 +116,65 @@ func TestTransportConfig(t *testing.T) {
 	})
 }
 
+func TestTransportConnectionPool(t *testing.T) {
+	t.Run("Single URL", func(t *testing.T) {
+		tp := New(Config{URLs: []*url.URL{{Scheme: "http", Host: "foo1"}}})
+
+		if _, ok := tp.pool.(*singleConnectionPool); !ok {
+			t.Errorf("Expected connection to be singleConnectionPool, got: %T", tp)
+		}
+
+		conn, err := tp.pool.Next()
+		if err != nil {
+			t.Errorf("Unexpected error: %s", err)
+		}
+
+		if conn.URL.String() != "http://foo1" {
+			t.Errorf("Unexpected URL, want=http://foo1, got=%s", conn.URL)
+		}
+	})
+
+	t.Run("Two URLs", func(t *testing.T) {
+		var (
+			conn *Connection
+			err  error
+		)
+
+		tp := New(Config{URLs: []*url.URL{
+			{Scheme: "http", Host: "foo1"},
+			{Scheme: "http", Host: "foo2"},
+		}})
+
+		if _, ok := tp.pool.(*roundRobinConnectionPool); !ok {
+			t.Errorf("Expected connection to be roundRobinConnectionPool, got: %T", tp)
+		}
+
+		conn, err = tp.pool.Next()
+		if err != nil {
+			t.Errorf("Unexpected error: %s", err)
+		}
+		if conn.URL.String() != "http://foo1" {
+			t.Errorf("Unexpected URL, want=foo1, got=%s", conn.URL)
+		}
+
+		conn, err = tp.pool.Next()
+		if err != nil {
+			t.Errorf("Unexpected error: %s", err)
+		}
+		if conn.URL.String() != "http://foo2" {
+			t.Errorf("Unexpected URL, want=http://foo2, got=%s", conn.URL)
+		}
+
+		conn, err = tp.pool.Next()
+		if err != nil {
+			t.Errorf("Unexpected error: %s", err)
+		}
+		if conn.URL.String() != "http://foo1" {
+			t.Errorf("Unexpected URL, want=http://foo1, got=%s", conn.URL)
+		}
+	})
+}
+
 func TestTransportPerform(t *testing.T) {
 	t.Run("Executes", func(t *testing.T) {
 		u, _ := url.Parse("https://foo.com/bar")

@@ -10,6 +10,11 @@ import (
 	"time"
 )
 
+var (
+	defaultResurrectTimeoutInitial      = 60 * time.Second
+	defaultResurrectTimeoutFactorCutoff = 5
+)
+
 // ConnectionPool defines the interface for the connection pool.
 //
 type ConnectionPool interface {
@@ -241,19 +246,14 @@ func (c *Connection) Resurrect(cp *roundRobinConnectionPool) error {
 // scheduleResurrect schedules the connection to be resurrected.
 //
 func (c *Connection) scheduleResurrect(cp *roundRobinConnectionPool) {
-	var (
-		timeoutInitial      = 60 * time.Second
-		timeoutFactorCutoff = 5
-	)
-
 	factor := func(a, b int) float64 {
 		if a > b {
 			return float64(b)
 		}
 		return float64(a)
-	}(c.Failures-1, timeoutFactorCutoff)
+	}(c.Failures-1, defaultResurrectTimeoutFactorCutoff)
 
-	timeout := time.Duration(timeoutInitial.Seconds() * math.Exp2(factor) * float64(time.Second))
+	timeout := time.Duration(defaultResurrectTimeoutInitial.Seconds() * math.Exp2(factor) * float64(time.Second))
 	fmt.Printf("Resurrect %s (failures=%d, factor=%1.1f, timeout=%s) in %s\n", c.URL, c.Failures, factor, timeout, c.DeadSince.Add(timeout).Sub(time.Now().UTC()).Truncate(time.Second))
 
 	time.AfterFunc(timeout, func() { c.Resurrect(cp) })
