@@ -42,6 +42,8 @@ type Config struct {
 	EnableRetryOnTimeout bool  // Default: false.
 	MaxRetries           int   // Default: 3.
 
+	EnableMetrics bool // Enable the metrics collection.
+
 	RetryBackoff func(attempt int) time.Duration // Optional backoff duration. Default: nil.
 
 	Transport http.RoundTripper  // The HTTP transport object.
@@ -130,6 +132,8 @@ func NewClient(cfg Config) (*Client, error) {
 		MaxRetries:           cfg.MaxRetries,
 		RetryBackoff:         cfg.RetryBackoff,
 
+		EnableMetrics: cfg.EnableMetrics,
+
 		Transport: cfg.Transport,
 		Logger:    cfg.Logger,
 	})
@@ -141,6 +145,12 @@ func NewClient(cfg Config) (*Client, error) {
 //
 func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	return c.Transport.Perform(req)
+}
+
+// Metrics returns the client metrics.
+//
+func (c *Client) Metrics() (*estransport.Metrics, error) {
+	return c.Transport.(*estransport.Client).Metrics(), nil
 }
 
 // addrsFromEnvironment returns a list of addresses by splitting

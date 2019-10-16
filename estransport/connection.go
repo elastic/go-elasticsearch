@@ -41,6 +41,9 @@ type Connection struct {
 
 type singleConnectionPool struct {
 	connection *Connection
+
+	metrics       *Metrics
+	enableMetrics bool
 }
 
 type roundRobinConnectionPool struct {
@@ -50,12 +53,17 @@ type roundRobinConnectionPool struct {
 	live []*Connection // List of live connections
 	dead []*Connection // List of dead connections
 	orig []*url.URL    // List of original URLs, passed in during initialization
+
+	metrics       *Metrics
+	enableMetrics bool
 }
 
 // newSingleConnectionPool creates a new SingleConnectionPool.
 //
 func newSingleConnectionPool(u *url.URL) *singleConnectionPool {
-	return &singleConnectionPool{connection: &Connection{URL: u}}
+	cp := singleConnectionPool{connection: &Connection{URL: u}}
+
+	return &cp
 }
 
 // newRoundRobinConnectionPool creates a new roundRobinConnectionPool.
@@ -68,11 +76,11 @@ func newRoundRobinConnectionPool(u ...*url.URL) *roundRobinConnectionPool {
 
 	cp := roundRobinConnectionPool{live: conns, orig: u}
 
-	if metrics != nil {
-		metrics.Lock()
-		metrics.Pool = cp.live
-		metrics.Dead = cp.dead
-		metrics.Unlock()
+	if cp.enableMetrics {
+		cp.metrics.Lock()
+		cp.metrics.Live = cp.live
+		cp.metrics.Dead = cp.dead
+		cp.metrics.Unlock()
 	}
 
 	return &cp
@@ -113,13 +121,6 @@ func (cp *roundRobinConnectionPool) Next() (*Connection, error) {
 			cp.live = append(cp.live, c)
 			c.Unlock()
 
-			if metrics != nil {
-				metrics.Lock()
-				metrics.Pool = cp.live
-				metrics.Dead = cp.dead
-				metrics.Unlock()
-			}
-
 			return c, nil
 		}
 		return nil, errors.New("no connection available")
@@ -142,6 +143,15 @@ func (cp *roundRobinConnectionPool) Next() (*Connection, error) {
 // Remove removes a connection from the pool.
 //
 func (cp *roundRobinConnectionPool) Remove(c *Connection) error {
+	defer func() {
+		if cp.enableMetrics {
+			cp.metrics.Lock()
+			cp.metrics.Dead = cp.dead
+			cp.metrics.Live = cp.live
+			cp.metrics.Unlock()
+		}
+	}()
+
 	c.Lock()
 
 	if c.Dead {
@@ -176,12 +186,6 @@ func (cp *roundRobinConnectionPool) Remove(c *Connection) error {
 		return res
 	})
 
-	if metrics != nil {
-		metrics.Lock()
-		metrics.Dead = cp.dead
-		metrics.Unlock()
-	}
-
 	// Check if connection exists in the list. Return nil if it doesn't, because another
 	// goroutine might have already removed it.
 	index := -1
@@ -198,12 +202,6 @@ func (cp *roundRobinConnectionPool) Remove(c *Connection) error {
 	copy(cp.live[index:], cp.live[index+1:])
 	cp.live = cp.live[:len(cp.live)-1]
 
-	if metrics != nil {
-		metrics.Lock()
-		metrics.Pool = cp.live
-		metrics.Unlock()
-	}
-
 	return nil
 }
 
@@ -212,6 +210,15 @@ func (cp *roundRobinConnectionPool) Remove(c *Connection) error {
 // TODO(karmi): Add a pluggable strategy as argument, eg. "optimistic", "ping".
 //
 func (c *Connection) Resurrect(cp *roundRobinConnectionPool) error {
+	defer func() {
+		if cp.enableMetrics {
+			cp.metrics.Lock()
+			cp.metrics.Dead = cp.dead
+			cp.metrics.Live = cp.live
+			cp.metrics.Unlock()
+		}
+	}()
+
 	cp.Lock()
 	defer cp.Unlock()
 

@@ -25,8 +25,6 @@ import (
 const Version = version.Client
 
 var (
-	metrics *Metrics
-
 	userAgent   string
 	reGoVersion = regexp.MustCompile(`go(\d+\.\d+\..+)`)
 
@@ -58,6 +56,8 @@ type Config struct {
 	MaxRetries           int
 	RetryBackoff         func(attempt int) time.Duration
 
+	EnableMetrics bool
+
 	Transport http.RoundTripper
 	Logger    Logger
 }
@@ -75,6 +75,9 @@ type Client struct {
 	enableRetryOnTimeout bool
 	maxRetries           int
 	retryBackoff         func(attempt int) time.Duration
+
+	enableMetrics bool
+	metrics       *Metrics
 
 	transport http.RoundTripper
 	pool      ConnectionPool
@@ -105,7 +108,7 @@ func New(cfg Config) *Client {
 		pool = newRoundRobinConnectionPool(cfg.URLs...)
 	}
 
-	return &Client{
+	client := Client{
 		urls:     cfg.URLs,
 		username: cfg.Username,
 		password: cfg.Password,
@@ -117,10 +120,21 @@ func New(cfg Config) *Client {
 		maxRetries:           cfg.MaxRetries,
 		retryBackoff:         cfg.RetryBackoff,
 
+		enableMetrics: cfg.EnableMetrics,
+
 		transport: cfg.Transport,
 		pool:      pool,
 		logger:    cfg.Logger,
 	}
+
+	if cfg.EnableMetrics {
+		client.metrics = &Metrics{}
+		// FIXME
+		client.pool.(*roundRobinConnectionPool).enableMetrics = true
+		client.pool.(*roundRobinConnectionPool).metrics = client.metrics
+	}
+
+	return &client
 }
 
 // Perform executes the request and returns a response or error.
@@ -133,10 +147,10 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 
 	// Record metrics, when enabled
 	//
-	if IsMetricsEnabled() {
-		metrics.Lock()
-		metrics.NumRequests++
-		metrics.Unlock()
+	if c.enableMetrics {
+		c.metrics.Lock()
+		c.metrics.NumRequests++
+		c.metrics.Unlock()
 	}
 
 	// Update request
@@ -205,10 +219,10 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		if err != nil {
 			// Record metrics, when enabled
 			//
-			if IsMetricsEnabled() {
-				metrics.Lock()
-				metrics.NumFailures++
-				metrics.Unlock()
+			if c.enableMetrics {
+				c.metrics.Lock()
+				c.metrics.NumFailures++
+				c.metrics.Unlock()
 			}
 
 			// Remove the connection from pool

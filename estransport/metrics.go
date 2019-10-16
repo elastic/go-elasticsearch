@@ -4,7 +4,7 @@ import (
 	"sync"
 )
 
-// Metrics represents the client metrics.
+// Metrics represents the transport metrics.
 //
 type Metrics struct {
 	sync.RWMutex
@@ -13,26 +13,21 @@ type Metrics struct {
 	NumFailures int `json:"num_failures"`
 
 	// TODO(karmi): Serialize connection URL as plain string
-	Pool []*Connection `json:"pool"`
+	Live []*Connection `json:"live"`
 	Dead []*Connection `json:"dead"`
 }
 
-// EnableMetrics makes the metrics enabled.
+// Metrics returns the transport metrics.
 //
-func EnableMetrics() {
-	metrics = &Metrics{}
+func (c *Client) Metrics() *Metrics {
+	c.metrics.RLock()
+	c.metrics.RUnlock()
+	return c.metrics
 }
 
-// IsMetricsEnabled returns true when metrics are enabled.
+// For expvar, do something like this:
 //
-func IsMetricsEnabled() bool {
-	return metrics != nil
-}
-
-// MetricFunc returns object for the "expvar" package.
-//
-func MetricFunc() interface{} {
-	metrics.RLock()
-	metrics.RUnlock()
-	return metrics
-}
+// expvar.Publish("goelasticsearch", expvar.Func(func() interface{} {
+// 		m, _ := es.Metrics()
+// 		return m
+// 	}))
