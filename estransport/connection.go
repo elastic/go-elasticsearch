@@ -143,15 +143,6 @@ func (cp *roundRobinConnectionPool) Next() (*Connection, error) {
 // Remove removes a connection from the pool.
 //
 func (cp *roundRobinConnectionPool) Remove(c *Connection) error {
-	defer func() {
-		if cp.enableMetrics {
-			cp.metrics.Lock()
-			cp.metrics.Dead = cp.dead
-			cp.metrics.Live = cp.live
-			cp.metrics.Unlock()
-		}
-	}()
-
 	c.Lock()
 
 	if c.Dead {
@@ -202,6 +193,13 @@ func (cp *roundRobinConnectionPool) Remove(c *Connection) error {
 	copy(cp.live[index:], cp.live[index+1:])
 	cp.live = cp.live[:len(cp.live)-1]
 
+	if cp.enableMetrics {
+		cp.metrics.Lock()
+		cp.metrics.Dead = cp.dead
+		cp.metrics.Live = cp.live
+		cp.metrics.Unlock()
+	}
+
 	return nil
 }
 
@@ -210,15 +208,6 @@ func (cp *roundRobinConnectionPool) Remove(c *Connection) error {
 // TODO(karmi): Add a pluggable strategy as argument, eg. "optimistic", "ping".
 //
 func (c *Connection) Resurrect(cp *roundRobinConnectionPool) error {
-	defer func() {
-		if cp.enableMetrics {
-			cp.metrics.Lock()
-			cp.metrics.Dead = cp.dead
-			cp.metrics.Live = cp.live
-			cp.metrics.Unlock()
-		}
-	}()
-
 	cp.Lock()
 	defer cp.Unlock()
 
@@ -245,6 +234,13 @@ func (c *Connection) Resurrect(cp *roundRobinConnectionPool) error {
 		// Remove item; https://github.com/golang/go/wiki/SliceTricks
 		copy(cp.dead[index:], cp.dead[index+1:])
 		cp.dead = cp.dead[:len(cp.dead)-1]
+	}
+
+	if cp.enableMetrics {
+		cp.metrics.Lock()
+		cp.metrics.Dead = cp.dead
+		cp.metrics.Live = cp.live
+		cp.metrics.Unlock()
 	}
 
 	return nil
