@@ -1,11 +1,19 @@
 package estransport
 
 import (
+	"encoding/json"
 	"fmt"
 	"strings"
 	"sync"
 	"time"
 )
+
+// For expvar, do something like this:
+//
+// expvar.Publish("goelasticsearch", expvar.Func(func() interface{} {
+// 		m, _ := es.Metrics()
+// 		return m
+// 	}))
 
 // Measurable defines the interface for transports supporting metrics.
 //
@@ -23,13 +31,14 @@ type Metrics struct {
 	Dead []connectionMetric `json:"dead,omitempty"`
 }
 
-// TODO(karmi): Fix empty value for DeadSince
 type connectionMetric struct {
 	URL         string        `json:"url"`
 	Failures    int           `json:"failures,omitempty"`
-	DeadSince   time.Time     `json:"dead_since,omitempty"`
+	DeadSince   nullableTime  `json:"dead_since,omitempty"`
 	ResurrectIn time.Duration `json:"resurrect_in,omitempty"`
 }
+
+type nullableTime struct{ time.Time }
 
 type metrics struct {
 	sync.RWMutex
@@ -69,7 +78,7 @@ func (c *Client) Metrics() (Metrics, error) {
 			m.Dead = append(m.Dead, connectionMetric{
 				URL:       c.URL.String(),
 				Failures:  c.Failures,
-				DeadSince: c.DeadSince,
+				DeadSince: nullableTime{c.DeadSince},
 				// FIXME(karmi): Take factor into account
 				ResurrectIn: c.DeadSince.Add(defaultResurrectTimeoutInitial).Sub(time.Now().UTC()).Truncate(time.Second),
 			})
@@ -99,9 +108,14 @@ func (m connectionMetric) String() string {
 	return b.String()
 }
 
-// For expvar, do something like this:
+// MarshallJSON encodes zero value of time as nil.
 //
-// expvar.Publish("goelasticsearch", expvar.Func(func() interface{} {
-// 		m, _ := es.Metrics()
-// 		return m
-// 	}))
+// NOTE: isEmptyValue() doesn't handle time values.
+//       https://golang.org/src/encoding/json/encode.go?s=10804:10846#L318
+//
+func (t nullableTime) MarshalJSON() ([]byte, error) {
+	if t.IsZero() {
+		return []byte(`null`), nil
+	}
+	return json.Marshal(t.Time)
+}
