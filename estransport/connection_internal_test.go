@@ -102,7 +102,10 @@ func TestRoundRobinConnectionPoolNext(t *testing.T) {
 	t.Run("Resurrect dead connection when no live is available", func(t *testing.T) {
 		pool := &roundRobinConnectionPool{
 			live: []*Connection{},
-			dead: []*Connection{&Connection{URL: &url.URL{Scheme: "http", Host: "foo1"}}},
+			dead: []*Connection{
+				&Connection{URL: &url.URL{Scheme: "http", Host: "foo1"}, Failures: 3},
+				&Connection{URL: &url.URL{Scheme: "http", Host: "foo2"}, Failures: 1},
+			},
 		}
 
 		c, err := pool.Next()
@@ -114,8 +117,8 @@ func TestRoundRobinConnectionPoolNext(t *testing.T) {
 			t.Errorf("Expected connection, got nil: %s", c)
 		}
 
-		if c.URL.String() != "http://foo1" {
-			t.Errorf("Expected <http://foo1>, got: %s", c.URL.String())
+		if c.URL.String() != "http://foo2" {
+			t.Errorf("Expected <http://foo2>, got: %s", c.URL.String())
 		}
 
 		if c.Dead {
@@ -126,8 +129,8 @@ func TestRoundRobinConnectionPoolNext(t *testing.T) {
 			t.Errorf("Expected 1 connection in live list, got: %s", pool.live)
 		}
 
-		if len(pool.dead) != 0 {
-			t.Errorf("Expected no connections in dead list, got: %s", pool.dead)
+		if len(pool.dead) != 1 {
+			t.Errorf("Expected 1 connection in dead list, got: %s", pool.dead)
 		}
 	})
 
@@ -159,27 +162,46 @@ func TestRoundRobinConnectionPoolNext(t *testing.T) {
 }
 
 func TestRoundRobinConnectionPoolRemove(t *testing.T) {
-	t.Run("Resurrect dead connection", func(t *testing.T) {
-		pool := newRoundRobinConnectionPool(
-			&url.URL{Scheme: "http", Host: "foo1"},
-			&url.URL{Scheme: "http", Host: "foo2"},
-			&url.URL{Scheme: "http", Host: "foo3"})
+	t.Run("Remove connection, mark it, and sort dead connections", func(t *testing.T) {
+		pool := &roundRobinConnectionPool{
+			live: []*Connection{
+				&Connection{URL: &url.URL{Scheme: "http", Host: "foo1"}},
+				&Connection{URL: &url.URL{Scheme: "http", Host: "foo2"}},
+			},
+			dead: []*Connection{
+				&Connection{URL: &url.URL{Scheme: "http", Host: "foo3"}, Failures: 0},
+				&Connection{URL: &url.URL{Scheme: "http", Host: "foo4"}, Failures: 99},
+			},
+		}
+
 		conn := pool.live[0]
 
 		if err := pool.Remove(conn); err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
 
-		if len(pool.live) != 2 {
-			t.Errorf("Expected 2 live connections, got: %d", len(pool.live))
-		}
-
-		if len(pool.dead) != 1 {
-			t.Errorf("Expected 1 dead connection, got: %d", len(pool.dead))
-		}
-
 		if !conn.Dead {
 			t.Errorf("Expected the connection to be dead; %s", conn)
+		}
+
+		if len(pool.live) != 1 {
+			t.Errorf("Expected 1 live connection, got: %d", len(pool.live))
+		}
+
+		if len(pool.dead) != 3 {
+			t.Errorf("Expected 3 dead connections, got: %d", len(pool.dead))
+		}
+
+		expected := []string{
+			"http://foo4",
+			"http://foo1",
+			"http://foo3",
+		}
+
+		for i, u := range expected {
+			if pool.dead[i].URL.String() != u {
+				t.Errorf("Unexpected value for item %d in pool.dead: %s", i, pool.dead[i].URL.String())
+			}
 		}
 	})
 
