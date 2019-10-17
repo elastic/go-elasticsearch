@@ -2,7 +2,9 @@ package estransport
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -61,6 +63,9 @@ type metrics struct {
 // Metrics returns the transport metrics.
 //
 func (c *Client) Metrics() (Metrics, error) {
+	if !c.enableMetrics {
+		return Metrics{}, errors.New("transport metrics not enabled")
+	}
 	c.metrics.RLock()
 	defer c.metrics.RUnlock()
 
@@ -99,20 +104,75 @@ func (c *Client) Metrics() (Metrics, error) {
 	return m, nil
 }
 
+// String returns the metrics as a string.
+//
+func (m Metrics) String() string {
+	var (
+		i int
+		b strings.Builder
+	)
+	b.WriteString("{")
+
+	b.WriteString("Requests:")
+	b.WriteString(strconv.Itoa(m.Requests))
+
+	b.WriteString(" Failures:")
+	b.WriteString(strconv.Itoa(m.Failures))
+
+	if len(m.Responses) > 0 {
+		b.WriteString(" Responses: ")
+		b.WriteString("[")
+
+		for code, num := range m.Responses {
+			b.WriteString(strconv.Itoa(code))
+			b.WriteString(":")
+			b.WriteString(strconv.Itoa(num))
+			if i+1 < len(m.Responses) {
+				b.WriteString(", ")
+			}
+			i++
+		}
+		b.WriteString("]")
+	}
+
+	b.WriteString(" Live: [")
+	for i, c := range m.Live {
+		b.WriteString(c.String())
+		if i+1 < len(m.Live) {
+			b.WriteString(", ")
+		}
+		i++
+	}
+	b.WriteString("]")
+
+	b.WriteString(" Dead: [")
+	for i, c := range m.Dead {
+		b.WriteString(c.String())
+		if i+1 < len(m.Dead) {
+			b.WriteString(", ")
+		}
+		i++
+	}
+	b.WriteString("]")
+
+	b.WriteString("}")
+	return b.String()
+}
+
 // String returns the connection information as a string.
 //
-func (m connectionMetric) String() string {
+func (cm connectionMetric) String() string {
 	var b strings.Builder
 	b.WriteString("{")
-	b.WriteString(m.URL)
-	if m.Failures > 0 {
-		fmt.Fprintf(&b, " failures=%d", m.Failures)
+	b.WriteString(cm.URL)
+	if cm.Failures > 0 {
+		fmt.Fprintf(&b, " failures=%d", cm.Failures)
 	}
-	if m.ResurrectIn > time.Duration(0) {
-		fmt.Fprintf(&b, " resurrect_in=%s", m.ResurrectIn)
+	if !cm.DeadSince.IsZero() {
+		fmt.Fprintf(&b, " dead_since=%s", cm.DeadSince.Local().Format(time.Stamp))
 	}
-	if !m.DeadSince.IsZero() {
-		fmt.Fprintf(&b, " dead_since=%s", m.DeadSince.Local().Format(time.Stamp))
+	if cm.ResurrectIn > time.Duration(0) {
+		fmt.Fprintf(&b, " resurrect_in=%s", cm.ResurrectIn)
 	}
 	b.WriteString("}")
 	return b.String()
