@@ -130,12 +130,12 @@ func New(cfg Config) *Client {
 	if cfg.EnableMetrics {
 		// FIXME(karmi): Type assertion
 		if pool, ok := client.pool.(*singleConnectionPool); ok {
-			client.metrics = &metrics{}
+			client.metrics = &metrics{responses: make(map[int]int)}
 			pool.enableMetrics = true
 			pool.metrics = client.metrics
 		}
 		if pool, ok := client.pool.(*roundRobinConnectionPool); ok {
-			client.metrics = &metrics{}
+			client.metrics = &metrics{responses: make(map[int]int)}
 			pool.enableMetrics = true
 			pool.metrics = client.metrics
 		}
@@ -249,6 +249,12 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 			conn.Lock()
 			conn.markAsHealthy()
 			conn.Unlock()
+		}
+
+		if res != nil && c.enableMetrics {
+			c.metrics.Lock()
+			c.metrics.responses[res.StatusCode]++
+			c.metrics.Unlock()
 		}
 
 		// Retry on configured response statuses

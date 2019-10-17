@@ -10,7 +10,7 @@ import (
 
 // For expvar, do something like this:
 //
-// expvar.Publish("goelasticsearch", expvar.Func(func() interface{} {
+// expvar.Publish("go-elasticsearch", expvar.Func(func() interface{} {
 // 		m, _ := es.Metrics()
 // 		return m
 // 	}))
@@ -24,13 +24,16 @@ type Measurable interface {
 // Metrics represents the transport metrics.
 //
 type Metrics struct {
-	Requests int `json:"requests"`
-	Failures int `json:"failures"`
+	Requests  int         `json:"requests"`
+	Failures  int         `json:"failures"`
+	Responses map[int]int `json:"responses"`
 
 	Live []connectionMetric `json:"live,omitempty"`
 	Dead []connectionMetric `json:"dead,omitempty"`
 }
 
+// connectionMetric represents metric information for a connection.
+//
 type connectionMetric struct {
 	URL         string        `json:"url"`
 	Failures    int           `json:"failures,omitempty"`
@@ -38,15 +41,21 @@ type connectionMetric struct {
 	ResurrectIn time.Duration `json:"resurrect_in,omitempty"`
 }
 
+// nullableTime allows to return time zero value as nil.
+//
 type nullableTime struct{ time.Time }
 
+// metrics represents the inner state of metrics.
+//
 type metrics struct {
 	sync.RWMutex
 
-	requests int
-	failures int
-	live     []*Connection
-	dead     []*Connection
+	requests  int
+	failures  int
+	responses map[int]int
+
+	live []*Connection
+	dead []*Connection
 }
 
 // Metrics returns the transport metrics.
@@ -61,8 +70,9 @@ func (c *Client) Metrics() (Metrics, error) {
 	}
 
 	m := Metrics{
-		Requests: c.metrics.requests,
-		Failures: c.metrics.failures,
+		Requests:  c.metrics.requests,
+		Failures:  c.metrics.failures,
+		Responses: c.metrics.responses,
 	}
 
 	// FIXME(karmi): Type assertion to interface
