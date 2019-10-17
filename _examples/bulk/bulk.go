@@ -236,6 +236,11 @@ func main() {
 					}
 				}
 			}
+
+			// Close the response body, to prevent reaching the limit for goroutines or file handles
+			//
+			res.Body.Close()
+
 			// Reset the buffer and items counter
 			//
 			buf.Reset()
