@@ -219,7 +219,7 @@ func (cp *roundRobinConnectionPool) Resurrect(c *Connection) error {
 		return nil
 	}
 
-	fmt.Printf("Resurrecting %s, timeout passed\n", c.URL)
+	fmt.Printf("Resurrecting %s\n", c.URL)
 
 	c.markAsLive()
 
