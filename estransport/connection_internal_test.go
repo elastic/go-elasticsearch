@@ -260,7 +260,7 @@ func TestRoundRobinConnectionPoolResurrect(t *testing.T) {
 
 		conn := pool.dead[0]
 
-		if err := conn.Resurrect(pool); err != nil {
+		if err := pool.Resurrect(conn); err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
 
@@ -282,7 +282,7 @@ func TestRoundRobinConnectionPoolResurrect(t *testing.T) {
 
 		conn := &Connection{URL: &url.URL{Scheme: "http", Host: "foo1"}, Dead: false}
 
-		if err := conn.Resurrect(pool); err != nil {
+		if err := pool.Resurrect(conn); err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
 
@@ -302,7 +302,7 @@ func TestRoundRobinConnectionPoolResurrect(t *testing.T) {
 
 		conn := &Connection{URL: &url.URL{Scheme: "http", Host: "foo1"}, Dead: true}
 
-		if err := conn.Resurrect(pool); err != nil {
+		if err := pool.Resurrect(conn); err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
 
@@ -332,7 +332,7 @@ func TestRoundRobinConnectionPoolResurrect(t *testing.T) {
 		}
 
 		conn := pool.dead[0]
-		conn.scheduleResurrect(pool)
+		pool.scheduleResurrect(conn)
 		time.Sleep(50 * time.Millisecond)
 
 		if len(pool.live) != 1 {

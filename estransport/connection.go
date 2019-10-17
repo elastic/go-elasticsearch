@@ -153,7 +153,7 @@ func (cp *roundRobinConnectionPool) Remove(c *Connection) error {
 
 	fmt.Printf("Removing %s...\n", c.URL)
 	c.markAsDead()
-	c.scheduleResurrect(cp)
+	cp.scheduleResurrect(c)
 	c.Unlock()
 
 	cp.Lock()
@@ -207,7 +207,7 @@ func (cp *roundRobinConnectionPool) Remove(c *Connection) error {
 //
 // TODO(karmi): Add a pluggable strategy as argument, eg. "optimistic", "ping".
 //
-func (c *Connection) Resurrect(cp *roundRobinConnectionPool) error {
+func (cp *roundRobinConnectionPool) Resurrect(c *Connection) error {
 	cp.Lock()
 	defer cp.Unlock()
 
@@ -248,7 +248,7 @@ func (c *Connection) Resurrect(cp *roundRobinConnectionPool) error {
 
 // scheduleResurrect schedules the connection to be resurrected.
 //
-func (c *Connection) scheduleResurrect(cp *roundRobinConnectionPool) {
+func (cp *roundRobinConnectionPool) scheduleResurrect(c *Connection) {
 	factor := func(a, b int) float64 {
 		if a > b {
 			return float64(b)
@@ -259,7 +259,7 @@ func (c *Connection) scheduleResurrect(cp *roundRobinConnectionPool) {
 	timeout := time.Duration(defaultResurrectTimeoutInitial.Seconds() * math.Exp2(factor) * float64(time.Second))
 	fmt.Printf("Resurrect %s (failures=%d, factor=%1.1f, timeout=%s) in %s\n", c.URL, c.Failures, factor, timeout, c.DeadSince.Add(timeout).Sub(time.Now().UTC()).Truncate(time.Second))
 
-	time.AfterFunc(timeout, func() { c.Resurrect(cp) })
+	time.AfterFunc(timeout, func() { cp.Resurrect(c) })
 }
 
 // markAsDead marks the connection as dead.
