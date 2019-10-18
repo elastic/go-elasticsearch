@@ -20,6 +20,62 @@ func init() {
 	go func() { log.Fatalln(http.ListenAndServe("localhost:6060", nil)) }()
 }
 
+func BenchmarkSingleConnectionPool(b *testing.B) {
+	b.ReportAllocs()
+
+	b.Run("Next()", func(b *testing.B) {
+		pool := newSingleConnectionPool(&url.URL{Scheme: "http", Host: "foo1"})
+
+		b.Run("Single    ", func(b *testing.B) {
+			for i := 0; i < b.N; i++ {
+				_, err := pool.Next()
+				if err != nil {
+					b.Errorf("Unexpected error: %v", err)
+				}
+			}
+		})
+
+		b.Run("Parallel (1000)", func(b *testing.B) {
+			b.SetParallelism(1000)
+			b.RunParallel(func(pb *testing.PB) {
+				for pb.Next() {
+					_, err := pool.Next()
+					if err != nil {
+						b.Errorf("Unexpected error: %v", err)
+					}
+				}
+			})
+		})
+	})
+
+	b.Run("Remove()", func(b *testing.B) {
+		pool := newSingleConnectionPool(&url.URL{Scheme: "http", Host: "foo1"})
+
+		b.Run("Single    ", func(b *testing.B) {
+			c, _ := pool.Next()
+
+			for i := 0; i < b.N; i++ {
+				if err := pool.Remove(c); err != nil {
+					b.Errorf("Unexpected error: %v", err)
+				}
+			}
+		})
+
+		b.Run("Parallel (1000)", func(b *testing.B) {
+			b.SetParallelism(1000)
+			b.RunParallel(func(pb *testing.PB) {
+				c, _ := pool.Next()
+
+				for pb.Next() {
+					if err := pool.Remove(c); err != nil {
+						b.Errorf("Unexpected error: %v", err)
+					}
+				}
+			})
+		})
+	})
+}
+
 func BenchmarkRoundRobinConnectionPool(b *testing.B) {
 	b.ReportAllocs()
 
