@@ -48,6 +48,8 @@ type singleConnectionPool struct {
 
 	metrics       *metrics
 	enableMetrics bool
+
+	debugLogger DebuggingLogger
 }
 
 type roundRobinConnectionPool struct {
@@ -60,6 +62,8 @@ type roundRobinConnectionPool struct {
 
 	metrics       *metrics
 	enableMetrics bool
+
+	debugLogger DebuggingLogger
 }
 
 // newSingleConnectionPool creates a new SingleConnectionPool.
@@ -110,17 +114,18 @@ func (cp *roundRobinConnectionPool) Next() (*Connection, error) {
 	cp.Lock()
 	defer cp.Unlock()
 
-	// fmt.Println("Next()", cp.live)
-
 	// Try to resurrect a dead connection if no healthy connections are available
 	//
 	if len(cp.live) < 1 {
 		if len(cp.dead) > 0 {
-			fmt.Println("Next(), Dead:", cp.dead)
-			fmt.Printf("Resurrecting connection ")
+			if cp.debugLogger != nil {
+				cp.debugLogger.Log("Resurrecting connection ")
+			}
 			c, cp.dead = cp.dead[len(cp.dead)-1], cp.dead[:len(cp.dead)-1] // Pop item
 			c.Lock()
-			fmt.Println(c.URL)
+			if cp.debugLogger != nil {
+				cp.debugLogger.Log(c.URL.String() + "\n")
+			}
 			c.markAsLive()
 			cp.live = append(cp.live, c)
 			c.Unlock()
@@ -150,12 +155,16 @@ func (cp *roundRobinConnectionPool) Remove(c *Connection) error {
 	c.Lock()
 
 	if c.Dead {
-		fmt.Printf("Already removed %s\n", c.URL)
+		if cp.debugLogger != nil {
+			cp.debugLogger.Logf("Already removed %s\n", c.URL)
+		}
 		c.Unlock()
 		return nil
 	}
 
-	fmt.Printf("Removing %s...\n", c.URL)
+	if cp.debugLogger != nil {
+		cp.debugLogger.Logf("Removing %s...\n", c.URL)
+	}
 	c.markAsDead()
 	cp.scheduleResurrect(c)
 	c.Unlock()
@@ -219,11 +228,15 @@ func (cp *roundRobinConnectionPool) Resurrect(c *Connection) error {
 	defer c.Unlock()
 
 	if !c.Dead {
-		fmt.Printf("Already resurrected %s\n", c.URL)
+		if cp.debugLogger != nil {
+			cp.debugLogger.Logf("Already resurrected %s\n", c.URL)
+		}
 		return nil
 	}
 
-	fmt.Printf("Resurrecting %s\n", c.URL)
+	if cp.debugLogger != nil {
+		cp.debugLogger.Logf("Resurrecting %s\n", c.URL)
+	}
 
 	c.markAsLive()
 
@@ -261,7 +274,9 @@ func (cp *roundRobinConnectionPool) scheduleResurrect(c *Connection) {
 	}(c.Failures-1, defaultResurrectTimeoutFactorCutoff)
 
 	timeout := time.Duration(defaultResurrectTimeoutInitial.Seconds() * math.Exp2(factor) * float64(time.Second))
-	fmt.Printf("Resurrect %s (failures=%d, factor=%1.1f, timeout=%s) in %s\n", c.URL, c.Failures, factor, timeout, c.DeadSince.Add(timeout).Sub(time.Now().UTC()).Truncate(time.Second))
+	if cp.debugLogger != nil {
+		cp.debugLogger.Logf("Resurrect %s (failures=%d, factor=%1.1f, timeout=%s) in %s\n", c.URL, c.Failures, factor, timeout, c.DeadSince.Add(timeout).Sub(time.Now().UTC()).Truncate(time.Second))
+	}
 
 	time.AfterFunc(timeout, func() { cp.Resurrect(c) })
 }

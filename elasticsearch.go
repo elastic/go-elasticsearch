@@ -42,7 +42,8 @@ type Config struct {
 	EnableRetryOnTimeout bool  // Default: false.
 	MaxRetries           int   // Default: 3.
 
-	EnableMetrics bool // Enable the metrics collection.
+	EnableMetrics     bool // Enable the metrics collection.
+	EnableDebugLogger bool // Enable the debug logging.
 
 	RetryBackoff func(attempt int) time.Duration // Optional backoff duration. Default: nil.
 
@@ -132,7 +133,8 @@ func NewClient(cfg Config) (*Client, error) {
 		MaxRetries:           cfg.MaxRetries,
 		RetryBackoff:         cfg.RetryBackoff,
 
-		EnableMetrics: cfg.EnableMetrics,
+		EnableMetrics:     cfg.EnableMetrics,
+		EnableDebugLogger: cfg.EnableDebugLogger,
 
 		Transport: cfg.Transport,
 		Logger:    cfg.Logger,

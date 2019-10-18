@@ -60,6 +60,8 @@ func TestRoundRobinConnectionPool(t *testing.T) {
 		Config{
 			URLs:   serverURLs,
 			Logger: &TextLogger{Output: os.Stdout},
+
+			EnableDebugLogger: true,
 		})
 
 	pool := transport.pool.(*roundRobinConnectionPool)

@@ -12,6 +12,7 @@ import (
 	"net"
 	"net/http"
 	"net/url"
+	"os"
 	"regexp"
 	"runtime"
 	"strings"
@@ -56,7 +57,8 @@ type Config struct {
 	MaxRetries           int
 	RetryBackoff         func(attempt int) time.Duration
 
-	EnableMetrics bool
+	EnableMetrics     bool
+	EnableDebugLogger bool
 
 	Transport http.RoundTripper
 	Logger    Logger
@@ -78,6 +80,9 @@ type Client struct {
 
 	enableMetrics bool
 	metrics       *metrics
+
+	enableDebugLogger bool
+	debugLogger       DebuggingLogger
 
 	transport http.RoundTripper
 	pool      ConnectionPool
@@ -120,7 +125,8 @@ func New(cfg Config) *Client {
 		maxRetries:           cfg.MaxRetries,
 		retryBackoff:         cfg.RetryBackoff,
 
-		enableMetrics: cfg.EnableMetrics,
+		enableMetrics:     cfg.EnableMetrics,
+		enableDebugLogger: cfg.EnableDebugLogger,
 
 		transport: cfg.Transport,
 		pool:      pool,
@@ -128,7 +134,7 @@ func New(cfg Config) *Client {
 	}
 
 	if cfg.EnableMetrics {
-		// FIXME(karmi): Type assertion
+		// FIXME(karmi): Type assertion to interface
 		if pool, ok := client.pool.(*singleConnectionPool); ok {
 			client.metrics = &metrics{responses: make(map[int]int)}
 			pool.enableMetrics = true
@@ -138,6 +144,17 @@ func New(cfg Config) *Client {
 			client.metrics = &metrics{responses: make(map[int]int)}
 			pool.enableMetrics = true
 			pool.metrics = client.metrics
+		}
+	}
+
+	if cfg.EnableDebugLogger {
+		client.debugLogger = &DebugLogger{Output: os.Stdout}
+
+		if pool, ok := client.pool.(*singleConnectionPool); ok {
+			pool.debugLogger = client.debugLogger
+		}
+		if pool, ok := client.pool.(*roundRobinConnectionPool); ok {
+			pool.debugLogger = client.debugLogger
 		}
 	}
 

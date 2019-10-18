@@ -30,6 +30,13 @@ type Logger interface {
 	ResponseBodyEnabled() bool
 }
 
+// DebuggingLogger defines the interface for debugging logger.
+//
+type DebuggingLogger interface {
+	Log(a ...interface{}) error
+	Logf(format string, a ...interface{}) error
+}
+
 // TextLogger prints the log message in plain text.
 //
 type TextLogger struct {
@@ -60,6 +67,12 @@ type JSONLogger struct {
 	Output             io.Writer
 	EnableRequestBody  bool
 	EnableResponseBody bool
+}
+
+// DebugLogger prints debug messages as plain text.
+//
+type DebugLogger struct {
+	Output io.Writer
 }
 
 // LogRoundTrip prints the information about request and response.
@@ -374,6 +387,20 @@ func (l *JSONLogger) RequestBodyEnabled() bool { return l.EnableRequestBody }
 
 // ResponseBodyEnabled returns true when the response body should be logged.
 func (l *JSONLogger) ResponseBodyEnabled() bool { return l.EnableResponseBody }
+
+// Log prints the arguments to output in default format.
+//
+func (l *DebugLogger) Log(a ...interface{}) error {
+	_, err := fmt.Fprint(l.Output, a...)
+	return err
+}
+
+// Logf prints formats the arguments and prints them to output.
+//
+func (l *DebugLogger) Logf(format string, a ...interface{}) error {
+	_, err := fmt.Fprintf(l.Output, format, a...)
+	return err
+}
 
 func logBodyAsText(dst io.Writer, body io.Reader, prefix string) {
 	scanner := bufio.NewScanner(body)
