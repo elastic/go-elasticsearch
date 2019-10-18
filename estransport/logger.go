@@ -30,7 +30,7 @@ type Logger interface {
 	ResponseBodyEnabled() bool
 }
 
-// DebuggingLogger defines the interface for debugging logger.
+// DebuggingLogger defines the interface for a debugging logger.
 //
 type DebuggingLogger interface {
 	Log(a ...interface{}) error
@@ -69,9 +69,9 @@ type JSONLogger struct {
 	EnableResponseBody bool
 }
 
-// DebugLogger prints debug messages as plain text.
+// debugLogger prints debug messages as plain text.
 //
-type DebugLogger struct {
+type debugLogger struct {
 	Output io.Writer
 }
 
@@ -390,14 +390,14 @@ func (l *JSONLogger) ResponseBodyEnabled() bool { return l.EnableResponseBody }
 
 // Log prints the arguments to output in default format.
 //
-func (l *DebugLogger) Log(a ...interface{}) error {
+func (l *debugLogger) Log(a ...interface{}) error {
 	_, err := fmt.Fprint(l.Output, a...)
 	return err
 }
 
 // Logf prints formats the arguments and prints them to output.
 //
-func (l *DebugLogger) Logf(format string, a ...interface{}) error {
+func (l *debugLogger) Logf(format string, a ...interface{}) error {
 	_, err := fmt.Fprintf(l.Output, format, a...)
 	return err
 }

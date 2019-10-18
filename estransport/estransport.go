@@ -148,7 +148,7 @@ func New(cfg Config) *Client {
 	}
 
 	if cfg.EnableDebugLogger {
-		client.debugLogger = &DebugLogger{Output: os.Stdout}
+		client.debugLogger = &debugLogger{Output: os.Stdout}
 
 		if pool, ok := client.pool.(*singleConnectionPool); ok {
 			pool.debugLogger = client.debugLogger
