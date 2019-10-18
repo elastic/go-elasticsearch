@@ -35,12 +35,6 @@ type Connection struct {
 	Dead      bool      `json:"dead"`
 	DeadSince time.Time `json:"dead_since"`
 	Failures  int       `json:"failures"`
-
-	// ID         string
-	// Name       string
-	// Version    string
-	// Roles      []string
-	// Attributes map[string]interface{}
 }
 
 type singleConnectionPool struct {
@@ -66,16 +60,12 @@ type roundRobinConnectionPool struct {
 	debugLogger DebuggingLogger
 }
 
-// newSingleConnectionPool creates a new SingleConnectionPool.
-//
 func newSingleConnectionPool(u *url.URL) *singleConnectionPool {
 	cp := singleConnectionPool{connection: &Connection{URL: u}}
 
 	return &cp
 }
 
-// newRoundRobinConnectionPool creates a new roundRobinConnectionPool.
-//
 func newRoundRobinConnectionPool(u ...*url.URL) *roundRobinConnectionPool {
 	var conns []*Connection
 	for _, url := range u {
@@ -190,8 +180,8 @@ func (cp *roundRobinConnectionPool) Remove(c *Connection) error {
 		return res
 	})
 
-	// Check if connection exists in the list. Return nil if it doesn't, because another
-	// goroutine might have already removed it.
+	// Check if connection exists in the list. Return nil if it doesn't,
+	// because another goroutine might have already removed it.
 	index := -1
 	for i, conn := range cp.live {
 		if conn == c {
