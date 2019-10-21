@@ -132,14 +132,6 @@ func NewEndpoint(f io.Reader) (*Endpoint, error) {
 	})
 	endpoint.URL.ParamNamesSorted = paramNames
 
-	for _, path := range endpoint.URL.Paths {
-		for _, part := range path.Parts {
-			if part.Name == "type" {
-				part.Default = "_doc"
-			}
-		}
-	}
-
 	// if info, ok := apiDescriptions[endpoint.Name]; ok {
 	// 	if desc, ok := info.(map[interface{}]interface{})["description"].(string); ok {
 	// 		endpoint.Documentation.Description = desc
