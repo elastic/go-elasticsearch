@@ -202,12 +202,14 @@ import (
 	"fmt"
 	"context"
 	"crypto/tls"
+	"os"
 	"net/url"
 	"testing"
 	"time"
 
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
+	"github.com/elastic/go-elasticsearch/v8/estransport"
 )
 
 var (
@@ -229,11 +231,13 @@ func (g *Generator) genInitializeClient() {
 				InsecureSkipVerify: true,
 			},
 		},
-		// Logger: &estransport.TextLogger{
-		// 	Output: os.Stdout,
-		// 	// EnableRequestBody:  true,
-		// 	// EnableResponseBody: true,
-		// },
+	}
+	if os.Getenv("DEBUG") != "" {
+		cfg.Logger = &estransport.ColorLogger{
+			Output: os.Stdout,
+			// EnableRequestBody:  true,
+			EnableResponseBody: true,
+		}
 	}
 	es, eserr := elasticsearch.NewClient(cfg)
 	if eserr != nil {
