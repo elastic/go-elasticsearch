@@ -120,12 +120,21 @@ change_password/10_basic.yml:
 # Missing refreshes in the test
 data_frame/transforms_start_stop.yml:
 ml/index_layout.yml:
+transform/transforms_start_stop.yml:
+  - Verify start transform reuses destination index
+transform/transforms_start_stop.yml:
+  - Test get multiple transform stats
+transform/transforms_stats.yml:
+  - Test get multiple transform stats
+  - Test get multiple transform stats where one does not have a task
 
 # More QA tests than API tests
 data_frame/transforms_stats.yml:
   - Test get multiple transform stats
   - Test get transform stats on missing transform
   - Test get multiple transform stats where one does not have a task
+ml/jobs_crud.yml:
+  - Test reopen job resets the finished time
 
 # Invalid license makes subsequent tests fail
 license/20_put_license.yml:
@@ -133,13 +142,24 @@ license/20_put_license.yml:
 # Test tries to match on map from body, but Go keys are not sorted
 ml/jobs_crud.yml:
   - Test job with rules
+  - Test put job with model_memory_limit as number
+  - Test put job with model_memory_limit as string and lazy open
 
 # Test gets stuck every time
 ml/jobs_get_stats.yml:
 
-# # status_exception, Cannot process data because job [post-data-job] does not have a corresponding autodetect process
-# # resource_already_exists_exception, task with id {job-post-data-job} already exist
-# ml/post_data.yml:
+# status_exception, Cannot process data because job [post-data-job] does not have a corresponding autodetect process
+# resource_already_exists_exception, task with id {job-post-data-job} already exist
+# status_exception, Cannot open job [start-stop-datafeed-job-foo-1] because it has already been opened
+ml/post_data.yml:
+  - Test flush with skip_time
+  - Test POST data job api, flush, close and verify DataCounts doc
+  - Test flush and close job WITHOUT sending any data
+ml/start_stop_datafeed.yml:
+  - Test stop given expression
+transform/transforms_start_stop.yml:
+  - Test start transform
+  - Verify start transform reuses destination index
 
 # Possible bad test setup, Cannot open job [start-stop-datafeed-job] because it has already been opened
 # resource_already_exists_exception, task with id {job-start-stop-datafeed-job-foo-2} already exist
@@ -158,7 +178,8 @@ rollup/security_tests.yml:
 
 # Test tries to match on map key, but map keys are unstable in Go
 ml/data_frame_analytics_crud.yml:
-  - "Test put with description"
+  - Test put with description
+  - Test put valid config with custom outlier detection
 
 # TEMPORARY: Missing 'body: { indices: "test_index" }' payload, TODO: PR
 snapshot/10_basic.yml:
