@@ -13,9 +13,9 @@ import (
 	"time"
 )
 
-func newTransformStartTransformFunc(t Transport) TransformStartTransform {
-	return func(transform_id string, o ...func(*TransformStartTransformRequest)) (*Response, error) {
-		var r = TransformStartTransformRequest{TransformID: transform_id}
+func newDataFrameTransformDeprecatedStartTransformFunc(t Transport) DataFrameTransformDeprecatedStartTransform {
+	return func(transform_id string, o ...func(*DataFrameTransformDeprecatedStartTransformRequest)) (*Response, error) {
+		var r = DataFrameTransformDeprecatedStartTransformRequest{TransformID: transform_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -25,15 +25,15 @@ func newTransformStartTransformFunc(t Transport) TransformStartTransform {
 
 // ----- API Definition -------------------------------------------------------
 
-// TransformStartTransform -
+// DataFrameTransformDeprecatedStartTransform -
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/start-transform.html.
 //
-type TransformStartTransform func(transform_id string, o ...func(*TransformStartTransformRequest)) (*Response, error)
+type DataFrameTransformDeprecatedStartTransform func(transform_id string, o ...func(*DataFrameTransformDeprecatedStartTransformRequest)) (*Response, error)
 
-// TransformStartTransformRequest configures the Transform Start Transform API request.
+// DataFrameTransformDeprecatedStartTransformRequest configures the Data Frame Transform Deprecated Start Transform API request.
 //
-type TransformStartTransformRequest struct {
+type DataFrameTransformDeprecatedStartTransformRequest struct {
 	TransformID string
 
 	Timeout time.Duration
@@ -50,7 +50,7 @@ type TransformStartTransformRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r TransformStartTransformRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r DataFrameTransformDeprecatedStartTransformRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -59,9 +59,11 @@ func (r TransformStartTransformRequest) Do(ctx context.Context, transport Transp
 
 	method = "POST"
 
-	path.Grow(1 + len("_transform") + 1 + len(r.TransformID) + 1 + len("_start"))
+	path.Grow(1 + len("_data_frame") + 1 + len("transforms") + 1 + len(r.TransformID) + 1 + len("_start"))
 	path.WriteString("/")
-	path.WriteString("_transform")
+	path.WriteString("_data_frame")
+	path.WriteString("/")
+	path.WriteString("transforms")
 	path.WriteString("/")
 	path.WriteString(r.TransformID)
 	path.WriteString("/")
@@ -134,56 +136,56 @@ func (r TransformStartTransformRequest) Do(ctx context.Context, transport Transp
 
 // WithContext sets the request context.
 //
-func (f TransformStartTransform) WithContext(v context.Context) func(*TransformStartTransformRequest) {
-	return func(r *TransformStartTransformRequest) {
+func (f DataFrameTransformDeprecatedStartTransform) WithContext(v context.Context) func(*DataFrameTransformDeprecatedStartTransformRequest) {
+	return func(r *DataFrameTransformDeprecatedStartTransformRequest) {
 		r.ctx = v
 	}
 }
 
 // WithTimeout - controls the time to wait for the transform to start.
 //
-func (f TransformStartTransform) WithTimeout(v time.Duration) func(*TransformStartTransformRequest) {
-	return func(r *TransformStartTransformRequest) {
+func (f DataFrameTransformDeprecatedStartTransform) WithTimeout(v time.Duration) func(*DataFrameTransformDeprecatedStartTransformRequest) {
+	return func(r *DataFrameTransformDeprecatedStartTransformRequest) {
 		r.Timeout = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f TransformStartTransform) WithPretty() func(*TransformStartTransformRequest) {
-	return func(r *TransformStartTransformRequest) {
+func (f DataFrameTransformDeprecatedStartTransform) WithPretty() func(*DataFrameTransformDeprecatedStartTransformRequest) {
+	return func(r *DataFrameTransformDeprecatedStartTransformRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f TransformStartTransform) WithHuman() func(*TransformStartTransformRequest) {
-	return func(r *TransformStartTransformRequest) {
+func (f DataFrameTransformDeprecatedStartTransform) WithHuman() func(*DataFrameTransformDeprecatedStartTransformRequest) {
+	return func(r *DataFrameTransformDeprecatedStartTransformRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f TransformStartTransform) WithErrorTrace() func(*TransformStartTransformRequest) {
-	return func(r *TransformStartTransformRequest) {
+func (f DataFrameTransformDeprecatedStartTransform) WithErrorTrace() func(*DataFrameTransformDeprecatedStartTransformRequest) {
+	return func(r *DataFrameTransformDeprecatedStartTransformRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f TransformStartTransform) WithFilterPath(v ...string) func(*TransformStartTransformRequest) {
-	return func(r *TransformStartTransformRequest) {
+func (f DataFrameTransformDeprecatedStartTransform) WithFilterPath(v ...string) func(*DataFrameTransformDeprecatedStartTransformRequest) {
+	return func(r *DataFrameTransformDeprecatedStartTransformRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f TransformStartTransform) WithHeader(h map[string]string) func(*TransformStartTransformRequest) {
-	return func(r *TransformStartTransformRequest) {
+func (f DataFrameTransformDeprecatedStartTransform) WithHeader(h map[string]string) func(*DataFrameTransformDeprecatedStartTransformRequest) {
+	return func(r *DataFrameTransformDeprecatedStartTransformRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

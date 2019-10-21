@@ -9,13 +9,12 @@ package esapi
 import (
 	"context"
 	"net/http"
-	"strconv"
 	"strings"
 )
 
-func newTransformDeleteTransformFunc(t Transport) TransformDeleteTransform {
-	return func(transform_id string, o ...func(*TransformDeleteTransformRequest)) (*Response, error) {
-		var r = TransformDeleteTransformRequest{TransformID: transform_id}
+func newEnrichDeletePolicyFunc(t Transport) EnrichDeletePolicy {
+	return func(name string, o ...func(*EnrichDeletePolicyRequest)) (*Response, error) {
+		var r = EnrichDeletePolicyRequest{Name: name}
 		for _, f := range o {
 			f(&r)
 		}
@@ -25,18 +24,16 @@ func newTransformDeleteTransformFunc(t Transport) TransformDeleteTransform {
 
 // ----- API Definition -------------------------------------------------------
 
-// TransformDeleteTransform -
+// EnrichDeletePolicy -
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-transform.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/enrich-delete-policy.html.
 //
-type TransformDeleteTransform func(transform_id string, o ...func(*TransformDeleteTransformRequest)) (*Response, error)
+type EnrichDeletePolicy func(name string, o ...func(*EnrichDeletePolicyRequest)) (*Response, error)
 
-// TransformDeleteTransformRequest configures the Transform Delete Transform API request.
+// EnrichDeletePolicyRequest configures the Enrich Delete Policy API request.
 //
-type TransformDeleteTransformRequest struct {
-	TransformID string
-
-	Force *bool
+type EnrichDeletePolicyRequest struct {
+	Name string
 
 	Pretty     bool
 	Human      bool
@@ -50,7 +47,7 @@ type TransformDeleteTransformRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r TransformDeleteTransformRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r EnrichDeletePolicyRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -59,17 +56,15 @@ func (r TransformDeleteTransformRequest) Do(ctx context.Context, transport Trans
 
 	method = "DELETE"
 
-	path.Grow(1 + len("_transform") + 1 + len(r.TransformID))
+	path.Grow(1 + len("_enrich") + 1 + len("policy") + 1 + len(r.Name))
 	path.WriteString("/")
-	path.WriteString("_transform")
+	path.WriteString("_enrich")
 	path.WriteString("/")
-	path.WriteString(r.TransformID)
+	path.WriteString("policy")
+	path.WriteString("/")
+	path.WriteString(r.Name)
 
 	params = make(map[string]string)
-
-	if r.Force != nil {
-		params["force"] = strconv.FormatBool(*r.Force)
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -132,56 +127,48 @@ func (r TransformDeleteTransformRequest) Do(ctx context.Context, transport Trans
 
 // WithContext sets the request context.
 //
-func (f TransformDeleteTransform) WithContext(v context.Context) func(*TransformDeleteTransformRequest) {
-	return func(r *TransformDeleteTransformRequest) {
+func (f EnrichDeletePolicy) WithContext(v context.Context) func(*EnrichDeletePolicyRequest) {
+	return func(r *EnrichDeletePolicyRequest) {
 		r.ctx = v
-	}
-}
-
-// WithForce - when `true`, the transform is deleted regardless of its current state. the default value is `false`, meaning that the transform must be `stopped` before it can be deleted..
-//
-func (f TransformDeleteTransform) WithForce(v bool) func(*TransformDeleteTransformRequest) {
-	return func(r *TransformDeleteTransformRequest) {
-		r.Force = &v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f TransformDeleteTransform) WithPretty() func(*TransformDeleteTransformRequest) {
-	return func(r *TransformDeleteTransformRequest) {
+func (f EnrichDeletePolicy) WithPretty() func(*EnrichDeletePolicyRequest) {
+	return func(r *EnrichDeletePolicyRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f TransformDeleteTransform) WithHuman() func(*TransformDeleteTransformRequest) {
-	return func(r *TransformDeleteTransformRequest) {
+func (f EnrichDeletePolicy) WithHuman() func(*EnrichDeletePolicyRequest) {
+	return func(r *EnrichDeletePolicyRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f TransformDeleteTransform) WithErrorTrace() func(*TransformDeleteTransformRequest) {
-	return func(r *TransformDeleteTransformRequest) {
+func (f EnrichDeletePolicy) WithErrorTrace() func(*EnrichDeletePolicyRequest) {
+	return func(r *EnrichDeletePolicyRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f TransformDeleteTransform) WithFilterPath(v ...string) func(*TransformDeleteTransformRequest) {
-	return func(r *TransformDeleteTransformRequest) {
+func (f EnrichDeletePolicy) WithFilterPath(v ...string) func(*EnrichDeletePolicyRequest) {
+	return func(r *EnrichDeletePolicyRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f TransformDeleteTransform) WithHeader(h map[string]string) func(*TransformDeleteTransformRequest) {
-	return func(r *TransformDeleteTransformRequest) {
+func (f EnrichDeletePolicy) WithHeader(h map[string]string) func(*EnrichDeletePolicyRequest) {
+	return func(r *EnrichDeletePolicyRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

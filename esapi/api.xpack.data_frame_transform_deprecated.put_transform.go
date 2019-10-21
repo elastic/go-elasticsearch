@@ -14,9 +14,9 @@ import (
 	"strings"
 )
 
-func newTransformPutTransformFunc(t Transport) TransformPutTransform {
-	return func(body io.Reader, transform_id string, o ...func(*TransformPutTransformRequest)) (*Response, error) {
-		var r = TransformPutTransformRequest{Body: body, TransformID: transform_id}
+func newDataFrameTransformDeprecatedPutTransformFunc(t Transport) DataFrameTransformDeprecatedPutTransform {
+	return func(body io.Reader, transform_id string, o ...func(*DataFrameTransformDeprecatedPutTransformRequest)) (*Response, error) {
+		var r = DataFrameTransformDeprecatedPutTransformRequest{Body: body, TransformID: transform_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -26,15 +26,15 @@ func newTransformPutTransformFunc(t Transport) TransformPutTransform {
 
 // ----- API Definition -------------------------------------------------------
 
-// TransformPutTransform -
+// DataFrameTransformDeprecatedPutTransform -
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/put-transform.html.
 //
-type TransformPutTransform func(body io.Reader, transform_id string, o ...func(*TransformPutTransformRequest)) (*Response, error)
+type DataFrameTransformDeprecatedPutTransform func(body io.Reader, transform_id string, o ...func(*DataFrameTransformDeprecatedPutTransformRequest)) (*Response, error)
 
-// TransformPutTransformRequest configures the Transform Put Transform API request.
+// DataFrameTransformDeprecatedPutTransformRequest configures the Data Frame Transform Deprecated Put Transform API request.
 //
-type TransformPutTransformRequest struct {
+type DataFrameTransformDeprecatedPutTransformRequest struct {
 	Body io.Reader
 
 	TransformID string
@@ -53,7 +53,7 @@ type TransformPutTransformRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r TransformPutTransformRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r DataFrameTransformDeprecatedPutTransformRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -62,9 +62,11 @@ func (r TransformPutTransformRequest) Do(ctx context.Context, transport Transpor
 
 	method = "PUT"
 
-	path.Grow(1 + len("_transform") + 1 + len(r.TransformID))
+	path.Grow(1 + len("_data_frame") + 1 + len("transforms") + 1 + len(r.TransformID))
 	path.WriteString("/")
-	path.WriteString("_transform")
+	path.WriteString("_data_frame")
+	path.WriteString("/")
+	path.WriteString("transforms")
 	path.WriteString("/")
 	path.WriteString(r.TransformID)
 
@@ -139,56 +141,56 @@ func (r TransformPutTransformRequest) Do(ctx context.Context, transport Transpor
 
 // WithContext sets the request context.
 //
-func (f TransformPutTransform) WithContext(v context.Context) func(*TransformPutTransformRequest) {
-	return func(r *TransformPutTransformRequest) {
+func (f DataFrameTransformDeprecatedPutTransform) WithContext(v context.Context) func(*DataFrameTransformDeprecatedPutTransformRequest) {
+	return func(r *DataFrameTransformDeprecatedPutTransformRequest) {
 		r.ctx = v
 	}
 }
 
 // WithDeferValidation - if validations should be deferred until transform starts, defaults to false..
 //
-func (f TransformPutTransform) WithDeferValidation(v bool) func(*TransformPutTransformRequest) {
-	return func(r *TransformPutTransformRequest) {
+func (f DataFrameTransformDeprecatedPutTransform) WithDeferValidation(v bool) func(*DataFrameTransformDeprecatedPutTransformRequest) {
+	return func(r *DataFrameTransformDeprecatedPutTransformRequest) {
 		r.DeferValidation = &v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f TransformPutTransform) WithPretty() func(*TransformPutTransformRequest) {
-	return func(r *TransformPutTransformRequest) {
+func (f DataFrameTransformDeprecatedPutTransform) WithPretty() func(*DataFrameTransformDeprecatedPutTransformRequest) {
+	return func(r *DataFrameTransformDeprecatedPutTransformRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f TransformPutTransform) WithHuman() func(*TransformPutTransformRequest) {
-	return func(r *TransformPutTransformRequest) {
+func (f DataFrameTransformDeprecatedPutTransform) WithHuman() func(*DataFrameTransformDeprecatedPutTransformRequest) {
+	return func(r *DataFrameTransformDeprecatedPutTransformRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f TransformPutTransform) WithErrorTrace() func(*TransformPutTransformRequest) {
-	return func(r *TransformPutTransformRequest) {
+func (f DataFrameTransformDeprecatedPutTransform) WithErrorTrace() func(*DataFrameTransformDeprecatedPutTransformRequest) {
+	return func(r *DataFrameTransformDeprecatedPutTransformRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f TransformPutTransform) WithFilterPath(v ...string) func(*TransformPutTransformRequest) {
-	return func(r *TransformPutTransformRequest) {
+func (f DataFrameTransformDeprecatedPutTransform) WithFilterPath(v ...string) func(*DataFrameTransformDeprecatedPutTransformRequest) {
+	return func(r *DataFrameTransformDeprecatedPutTransformRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f TransformPutTransform) WithHeader(h map[string]string) func(*TransformPutTransformRequest) {
-	return func(r *TransformPutTransformRequest) {
+func (f DataFrameTransformDeprecatedPutTransform) WithHeader(h map[string]string) func(*DataFrameTransformDeprecatedPutTransformRequest) {
+	return func(r *DataFrameTransformDeprecatedPutTransformRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

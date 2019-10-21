@@ -11,7 +11,6 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
-	"time"
 )
 
 func newCatHealthFunc(t Transport) CatHealth {
@@ -35,14 +34,13 @@ type CatHealth func(o ...func(*CatHealthRequest)) (*Response, error)
 // CatHealthRequest configures the Cat Health API request.
 //
 type CatHealthRequest struct {
-	Format        string
-	H             []string
-	Help          *bool
-	Local         *bool
-	MasterTimeout time.Duration
-	S             []string
-	Ts            *bool
-	V             *bool
+	Format string
+	H      []string
+	Help   *bool
+	S      []string
+	Time   string
+	Ts     *bool
+	V      *bool
 
 	Pretty     bool
 	Human      bool
@@ -82,16 +80,12 @@ func (r CatHealthRequest) Do(ctx context.Context, transport Transport) (*Respons
 		params["help"] = strconv.FormatBool(*r.Help)
 	}
 
-	if r.Local != nil {
-		params["local"] = strconv.FormatBool(*r.Local)
-	}
-
-	if r.MasterTimeout != 0 {
-		params["master_timeout"] = formatDuration(r.MasterTimeout)
-	}
-
 	if len(r.S) > 0 {
 		params["s"] = strings.Join(r.S, ",")
+	}
+
+	if r.Time != "" {
+		params["time"] = r.Time
 	}
 
 	if r.Ts != nil {
@@ -193,27 +187,19 @@ func (f CatHealth) WithHelp(v bool) func(*CatHealthRequest) {
 	}
 }
 
-// WithLocal - return local information, do not retrieve the state from master node (default: false).
-//
-func (f CatHealth) WithLocal(v bool) func(*CatHealthRequest) {
-	return func(r *CatHealthRequest) {
-		r.Local = &v
-	}
-}
-
-// WithMasterTimeout - explicit operation timeout for connection to master node.
-//
-func (f CatHealth) WithMasterTimeout(v time.Duration) func(*CatHealthRequest) {
-	return func(r *CatHealthRequest) {
-		r.MasterTimeout = v
-	}
-}
-
 // WithS - comma-separated list of column names or column aliases to sort by.
 //
 func (f CatHealth) WithS(v ...string) func(*CatHealthRequest) {
 	return func(r *CatHealthRequest) {
 		r.S = v
+	}
+}
+
+// WithTime - the unit in which to display time values.
+//
+func (f CatHealth) WithTime(v string) func(*CatHealthRequest) {
+	return func(r *CatHealthRequest) {
+		r.Time = v
 	}
 }
 

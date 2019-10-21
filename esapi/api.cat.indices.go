@@ -47,6 +47,7 @@ type CatIndicesRequest struct {
 	MasterTimeout           time.Duration
 	Pri                     *bool
 	S                       []string
+	Time                    string
 	V                       *bool
 
 	Pretty     bool
@@ -120,6 +121,10 @@ func (r CatIndicesRequest) Do(ctx context.Context, transport Transport) (*Respon
 
 	if len(r.S) > 0 {
 		params["s"] = strings.Join(r.S, ",")
+	}
+
+	if r.Time != "" {
+		params["time"] = r.Time
 	}
 
 	if r.V != nil {
@@ -278,6 +283,14 @@ func (f CatIndices) WithPri(v bool) func(*CatIndicesRequest) {
 func (f CatIndices) WithS(v ...string) func(*CatIndicesRequest) {
 	return func(r *CatIndicesRequest) {
 		r.S = v
+	}
+}
+
+// WithTime - the unit in which to display time values.
+//
+func (f CatIndices) WithTime(v string) func(*CatIndicesRequest) {
+	return func(r *CatIndicesRequest) {
+		r.Time = v
 	}
 }
 

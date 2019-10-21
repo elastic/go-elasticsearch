@@ -14,9 +14,9 @@ import (
 	"time"
 )
 
-func newTransformStopTransformFunc(t Transport) TransformStopTransform {
-	return func(transform_id string, o ...func(*TransformStopTransformRequest)) (*Response, error) {
-		var r = TransformStopTransformRequest{TransformID: transform_id}
+func newDataFrameTransformDeprecatedStopTransformFunc(t Transport) DataFrameTransformDeprecatedStopTransform {
+	return func(transform_id string, o ...func(*DataFrameTransformDeprecatedStopTransformRequest)) (*Response, error) {
+		var r = DataFrameTransformDeprecatedStopTransformRequest{TransformID: transform_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -26,15 +26,15 @@ func newTransformStopTransformFunc(t Transport) TransformStopTransform {
 
 // ----- API Definition -------------------------------------------------------
 
-// TransformStopTransform -
+// DataFrameTransformDeprecatedStopTransform -
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/stop-transform.html.
 //
-type TransformStopTransform func(transform_id string, o ...func(*TransformStopTransformRequest)) (*Response, error)
+type DataFrameTransformDeprecatedStopTransform func(transform_id string, o ...func(*DataFrameTransformDeprecatedStopTransformRequest)) (*Response, error)
 
-// TransformStopTransformRequest configures the Transform Stop Transform API request.
+// DataFrameTransformDeprecatedStopTransformRequest configures the Data Frame Transform Deprecated Stop Transform API request.
 //
-type TransformStopTransformRequest struct {
+type DataFrameTransformDeprecatedStopTransformRequest struct {
 	TransformID string
 
 	AllowNoMatch      *bool
@@ -53,7 +53,7 @@ type TransformStopTransformRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r TransformStopTransformRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r DataFrameTransformDeprecatedStopTransformRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -62,9 +62,11 @@ func (r TransformStopTransformRequest) Do(ctx context.Context, transport Transpo
 
 	method = "POST"
 
-	path.Grow(1 + len("_transform") + 1 + len(r.TransformID) + 1 + len("_stop"))
+	path.Grow(1 + len("_data_frame") + 1 + len("transforms") + 1 + len(r.TransformID) + 1 + len("_stop"))
 	path.WriteString("/")
-	path.WriteString("_transform")
+	path.WriteString("_data_frame")
+	path.WriteString("/")
+	path.WriteString("transforms")
 	path.WriteString("/")
 	path.WriteString(r.TransformID)
 	path.WriteString("/")
@@ -145,72 +147,72 @@ func (r TransformStopTransformRequest) Do(ctx context.Context, transport Transpo
 
 // WithContext sets the request context.
 //
-func (f TransformStopTransform) WithContext(v context.Context) func(*TransformStopTransformRequest) {
-	return func(r *TransformStopTransformRequest) {
+func (f DataFrameTransformDeprecatedStopTransform) WithContext(v context.Context) func(*DataFrameTransformDeprecatedStopTransformRequest) {
+	return func(r *DataFrameTransformDeprecatedStopTransformRequest) {
 		r.ctx = v
 	}
 }
 
 // WithAllowNoMatch - whether to ignore if a wildcard expression matches no transforms. (this includes `_all` string or when no transforms have been specified).
 //
-func (f TransformStopTransform) WithAllowNoMatch(v bool) func(*TransformStopTransformRequest) {
-	return func(r *TransformStopTransformRequest) {
+func (f DataFrameTransformDeprecatedStopTransform) WithAllowNoMatch(v bool) func(*DataFrameTransformDeprecatedStopTransformRequest) {
+	return func(r *DataFrameTransformDeprecatedStopTransformRequest) {
 		r.AllowNoMatch = &v
 	}
 }
 
 // WithTimeout - controls the time to wait until the transform has stopped. default to 30 seconds.
 //
-func (f TransformStopTransform) WithTimeout(v time.Duration) func(*TransformStopTransformRequest) {
-	return func(r *TransformStopTransformRequest) {
+func (f DataFrameTransformDeprecatedStopTransform) WithTimeout(v time.Duration) func(*DataFrameTransformDeprecatedStopTransformRequest) {
+	return func(r *DataFrameTransformDeprecatedStopTransformRequest) {
 		r.Timeout = v
 	}
 }
 
 // WithWaitForCompletion - whether to wait for the transform to fully stop before returning or not. default to false.
 //
-func (f TransformStopTransform) WithWaitForCompletion(v bool) func(*TransformStopTransformRequest) {
-	return func(r *TransformStopTransformRequest) {
+func (f DataFrameTransformDeprecatedStopTransform) WithWaitForCompletion(v bool) func(*DataFrameTransformDeprecatedStopTransformRequest) {
+	return func(r *DataFrameTransformDeprecatedStopTransformRequest) {
 		r.WaitForCompletion = &v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f TransformStopTransform) WithPretty() func(*TransformStopTransformRequest) {
-	return func(r *TransformStopTransformRequest) {
+func (f DataFrameTransformDeprecatedStopTransform) WithPretty() func(*DataFrameTransformDeprecatedStopTransformRequest) {
+	return func(r *DataFrameTransformDeprecatedStopTransformRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f TransformStopTransform) WithHuman() func(*TransformStopTransformRequest) {
-	return func(r *TransformStopTransformRequest) {
+func (f DataFrameTransformDeprecatedStopTransform) WithHuman() func(*DataFrameTransformDeprecatedStopTransformRequest) {
+	return func(r *DataFrameTransformDeprecatedStopTransformRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f TransformStopTransform) WithErrorTrace() func(*TransformStopTransformRequest) {
-	return func(r *TransformStopTransformRequest) {
+func (f DataFrameTransformDeprecatedStopTransform) WithErrorTrace() func(*DataFrameTransformDeprecatedStopTransformRequest) {
+	return func(r *DataFrameTransformDeprecatedStopTransformRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f TransformStopTransform) WithFilterPath(v ...string) func(*TransformStopTransformRequest) {
-	return func(r *TransformStopTransformRequest) {
+func (f DataFrameTransformDeprecatedStopTransform) WithFilterPath(v ...string) func(*DataFrameTransformDeprecatedStopTransformRequest) {
+	return func(r *DataFrameTransformDeprecatedStopTransformRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f TransformStopTransform) WithHeader(h map[string]string) func(*TransformStopTransformRequest) {
-	return func(r *TransformStopTransformRequest) {
+func (f DataFrameTransformDeprecatedStopTransform) WithHeader(h map[string]string) func(*DataFrameTransformDeprecatedStopTransformRequest) {
+	return func(r *DataFrameTransformDeprecatedStopTransformRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

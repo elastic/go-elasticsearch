@@ -36,9 +36,8 @@ type Index func(index string, body io.Reader, o ...func(*IndexRequest)) (*Respon
 // IndexRequest configures the Index API request.
 //
 type IndexRequest struct {
-	Index        string
-	DocumentType string
-	DocumentID   string
+	Index      string
+	DocumentID string
 
 	Body io.Reader
 
@@ -78,17 +77,11 @@ func (r IndexRequest) Do(ctx context.Context, transport Transport) (*Response, e
 		method = "POST"
 	}
 
-	if r.DocumentType == "" {
-		r.DocumentType = "_doc"
-	}
-
-	path.Grow(1 + len(r.Index) + 1 + len(r.DocumentType) + 1 + len(r.DocumentID))
+	path.Grow(1 + len(r.Index) + 1 + len("_doc") + 1 + len(r.DocumentID))
 	path.WriteString("/")
 	path.WriteString(r.Index)
-	if r.DocumentType != "" {
-		path.WriteString("/")
-		path.WriteString(r.DocumentType)
-	}
+	path.WriteString("/")
+	path.WriteString("_doc")
 	if r.DocumentID != "" {
 		path.WriteString("/")
 		path.WriteString(r.DocumentID)
@@ -212,14 +205,6 @@ func (f Index) WithContext(v context.Context) func(*IndexRequest) {
 func (f Index) WithDocumentID(v string) func(*IndexRequest) {
 	return func(r *IndexRequest) {
 		r.DocumentID = v
-	}
-}
-
-// WithDocumentType - the type of the document.
-//
-func (f Index) WithDocumentType(v string) func(*IndexRequest) {
-	return func(r *IndexRequest) {
-		r.DocumentType = v
 	}
 }
 

@@ -43,6 +43,7 @@ type CatSnapshotsRequest struct {
 	IgnoreUnavailable *bool
 	MasterTimeout     time.Duration
 	S                 []string
+	Time              string
 	V                 *bool
 
 	Pretty     bool
@@ -100,6 +101,10 @@ func (r CatSnapshotsRequest) Do(ctx context.Context, transport Transport) (*Resp
 
 	if len(r.S) > 0 {
 		params["s"] = strings.Join(r.S, ",")
+	}
+
+	if r.Time != "" {
+		params["time"] = r.Time
 	}
 
 	if r.V != nil {
@@ -226,6 +231,14 @@ func (f CatSnapshots) WithMasterTimeout(v time.Duration) func(*CatSnapshotsReque
 func (f CatSnapshots) WithS(v ...string) func(*CatSnapshotsRequest) {
 	return func(r *CatSnapshotsRequest) {
 		r.S = v
+	}
+}
+
+// WithTime - the unit in which to display time values.
+//
+func (f CatSnapshots) WithTime(v string) func(*CatSnapshotsRequest) {
+	return func(r *CatSnapshotsRequest) {
+		r.Time = v
 	}
 }
 

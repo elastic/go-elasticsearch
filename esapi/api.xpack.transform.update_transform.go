@@ -62,11 +62,9 @@ func (r TransformUpdateTransformRequest) Do(ctx context.Context, transport Trans
 
 	method = "POST"
 
-	path.Grow(1 + len("_data_frame") + 1 + len("transforms") + 1 + len(r.TransformID) + 1 + len("_update"))
+	path.Grow(1 + len("_transform") + 1 + len(r.TransformID) + 1 + len("_update"))
 	path.WriteString("/")
-	path.WriteString("_data_frame")
-	path.WriteString("/")
-	path.WriteString("transforms")
+	path.WriteString("_transform")
 	path.WriteString("/")
 	path.WriteString(r.TransformID)
 	path.WriteString("/")

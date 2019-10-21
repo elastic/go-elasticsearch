@@ -11,7 +11,6 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
-	"time"
 )
 
 func newCatFielddataFunc(t Transport) CatFielddata {
@@ -37,14 +36,12 @@ type CatFielddata func(o ...func(*CatFielddataRequest)) (*Response, error)
 type CatFielddataRequest struct {
 	Fields []string
 
-	Bytes         string
-	Format        string
-	H             []string
-	Help          *bool
-	Local         *bool
-	MasterTimeout time.Duration
-	S             []string
-	V             *bool
+	Bytes  string
+	Format string
+	H      []string
+	Help   *bool
+	S      []string
+	V      *bool
 
 	Pretty     bool
 	Human      bool
@@ -97,14 +94,6 @@ func (r CatFielddataRequest) Do(ctx context.Context, transport Transport) (*Resp
 
 	if r.Help != nil {
 		params["help"] = strconv.FormatBool(*r.Help)
-	}
-
-	if r.Local != nil {
-		params["local"] = strconv.FormatBool(*r.Local)
-	}
-
-	if r.MasterTimeout != 0 {
-		params["master_timeout"] = formatDuration(r.MasterTimeout)
 	}
 
 	if len(r.S) > 0 {
@@ -219,22 +208,6 @@ func (f CatFielddata) WithH(v ...string) func(*CatFielddataRequest) {
 func (f CatFielddata) WithHelp(v bool) func(*CatFielddataRequest) {
 	return func(r *CatFielddataRequest) {
 		r.Help = &v
-	}
-}
-
-// WithLocal - return local information, do not retrieve the state from master node (default: false).
-//
-func (f CatFielddata) WithLocal(v bool) func(*CatFielddataRequest) {
-	return func(r *CatFielddataRequest) {
-		r.Local = &v
-	}
-}
-
-// WithMasterTimeout - explicit operation timeout for connection to master node.
-//
-func (f CatFielddata) WithMasterTimeout(v time.Duration) func(*CatFielddataRequest) {
-	return func(r *CatFielddataRequest) {
-		r.MasterTimeout = v
 	}
 }
 

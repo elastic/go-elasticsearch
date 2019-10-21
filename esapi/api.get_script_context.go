@@ -10,12 +10,11 @@ import (
 	"context"
 	"net/http"
 	"strings"
-	"time"
 )
 
-func newTransformStartTransformFunc(t Transport) TransformStartTransform {
-	return func(transform_id string, o ...func(*TransformStartTransformRequest)) (*Response, error) {
-		var r = TransformStartTransformRequest{TransformID: transform_id}
+func newGetScriptContextFunc(t Transport) GetScriptContext {
+	return func(o ...func(*GetScriptContextRequest)) (*Response, error) {
+		var r = GetScriptContextRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -25,19 +24,13 @@ func newTransformStartTransformFunc(t Transport) TransformStartTransform {
 
 // ----- API Definition -------------------------------------------------------
 
-// TransformStartTransform -
+// GetScriptContext returns all script contexts.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/start-transform.html.
+type GetScriptContext func(o ...func(*GetScriptContextRequest)) (*Response, error)
+
+// GetScriptContextRequest configures the Get Script Context API request.
 //
-type TransformStartTransform func(transform_id string, o ...func(*TransformStartTransformRequest)) (*Response, error)
-
-// TransformStartTransformRequest configures the Transform Start Transform API request.
-//
-type TransformStartTransformRequest struct {
-	TransformID string
-
-	Timeout time.Duration
-
+type GetScriptContextRequest struct {
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -50,28 +43,19 @@ type TransformStartTransformRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r TransformStartTransformRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r GetScriptContextRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "POST"
+	method = "GET"
 
-	path.Grow(1 + len("_transform") + 1 + len(r.TransformID) + 1 + len("_start"))
-	path.WriteString("/")
-	path.WriteString("_transform")
-	path.WriteString("/")
-	path.WriteString(r.TransformID)
-	path.WriteString("/")
-	path.WriteString("_start")
+	path.Grow(len("/_script_context"))
+	path.WriteString("/_script_context")
 
 	params = make(map[string]string)
-
-	if r.Timeout != 0 {
-		params["timeout"] = formatDuration(r.Timeout)
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -134,56 +118,48 @@ func (r TransformStartTransformRequest) Do(ctx context.Context, transport Transp
 
 // WithContext sets the request context.
 //
-func (f TransformStartTransform) WithContext(v context.Context) func(*TransformStartTransformRequest) {
-	return func(r *TransformStartTransformRequest) {
+func (f GetScriptContext) WithContext(v context.Context) func(*GetScriptContextRequest) {
+	return func(r *GetScriptContextRequest) {
 		r.ctx = v
-	}
-}
-
-// WithTimeout - controls the time to wait for the transform to start.
-//
-func (f TransformStartTransform) WithTimeout(v time.Duration) func(*TransformStartTransformRequest) {
-	return func(r *TransformStartTransformRequest) {
-		r.Timeout = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f TransformStartTransform) WithPretty() func(*TransformStartTransformRequest) {
-	return func(r *TransformStartTransformRequest) {
+func (f GetScriptContext) WithPretty() func(*GetScriptContextRequest) {
+	return func(r *GetScriptContextRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f TransformStartTransform) WithHuman() func(*TransformStartTransformRequest) {
-	return func(r *TransformStartTransformRequest) {
+func (f GetScriptContext) WithHuman() func(*GetScriptContextRequest) {
+	return func(r *GetScriptContextRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f TransformStartTransform) WithErrorTrace() func(*TransformStartTransformRequest) {
-	return func(r *TransformStartTransformRequest) {
+func (f GetScriptContext) WithErrorTrace() func(*GetScriptContextRequest) {
+	return func(r *GetScriptContextRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f TransformStartTransform) WithFilterPath(v ...string) func(*TransformStartTransformRequest) {
-	return func(r *TransformStartTransformRequest) {
+func (f GetScriptContext) WithFilterPath(v ...string) func(*GetScriptContextRequest) {
+	return func(r *GetScriptContextRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f TransformStartTransform) WithHeader(h map[string]string) func(*TransformStartTransformRequest) {
-	return func(r *TransformStartTransformRequest) {
+func (f GetScriptContext) WithHeader(h map[string]string) func(*GetScriptContextRequest) {
+	return func(r *GetScriptContextRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

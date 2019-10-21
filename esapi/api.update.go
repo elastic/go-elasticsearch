@@ -36,9 +36,8 @@ type Update func(index string, id string, body io.Reader, o ...func(*UpdateReque
 // UpdateRequest configures the Update API request.
 //
 type UpdateRequest struct {
-	Index        string
-	DocumentType string
-	DocumentID   string
+	Index      string
+	DocumentID string
 
 	Body io.Reader
 
@@ -75,21 +74,13 @@ func (r UpdateRequest) Do(ctx context.Context, transport Transport) (*Response, 
 
 	method = "POST"
 
-	if r.DocumentType == "" {
-		r.DocumentType = "_doc"
-	}
-
-	path.Grow(1 + len(r.Index) + 1 + len(r.DocumentType) + 1 + len(r.DocumentID) + 1 + len("_update"))
+	path.Grow(1 + len(r.Index) + 1 + len("_update") + 1 + len(r.DocumentID))
 	path.WriteString("/")
 	path.WriteString(r.Index)
-	if r.DocumentType != "" {
-		path.WriteString("/")
-		path.WriteString(r.DocumentType)
-	}
-	path.WriteString("/")
-	path.WriteString(r.DocumentID)
 	path.WriteString("/")
 	path.WriteString("_update")
+	path.WriteString("/")
+	path.WriteString(r.DocumentID)
 
 	params = make(map[string]string)
 
@@ -205,14 +196,6 @@ func (r UpdateRequest) Do(ctx context.Context, transport Transport) (*Response, 
 func (f Update) WithContext(v context.Context) func(*UpdateRequest) {
 	return func(r *UpdateRequest) {
 		r.ctx = v
-	}
-}
-
-// WithDocumentType - the type of the document.
-//
-func (f Update) WithDocumentType(v string) func(*UpdateRequest) {
-	return func(r *UpdateRequest) {
-		r.DocumentType = v
 	}
 }
 

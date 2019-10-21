@@ -9,13 +9,12 @@ package esapi
 import (
 	"context"
 	"net/http"
-	"strconv"
 	"strings"
 )
 
-func newTransformDeleteTransformFunc(t Transport) TransformDeleteTransform {
-	return func(transform_id string, o ...func(*TransformDeleteTransformRequest)) (*Response, error) {
-		var r = TransformDeleteTransformRequest{TransformID: transform_id}
+func newCCRPauseAutoFollowPatternFunc(t Transport) CCRPauseAutoFollowPattern {
+	return func(name string, o ...func(*CCRPauseAutoFollowPatternRequest)) (*Response, error) {
+		var r = CCRPauseAutoFollowPatternRequest{Name: name}
 		for _, f := range o {
 			f(&r)
 		}
@@ -25,18 +24,16 @@ func newTransformDeleteTransformFunc(t Transport) TransformDeleteTransform {
 
 // ----- API Definition -------------------------------------------------------
 
-// TransformDeleteTransform -
+// CCRPauseAutoFollowPattern -
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-transform.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-pause-auto-follow-pattern.html.
 //
-type TransformDeleteTransform func(transform_id string, o ...func(*TransformDeleteTransformRequest)) (*Response, error)
+type CCRPauseAutoFollowPattern func(name string, o ...func(*CCRPauseAutoFollowPatternRequest)) (*Response, error)
 
-// TransformDeleteTransformRequest configures the Transform Delete Transform API request.
+// CCRPauseAutoFollowPatternRequest configures the CCR Pause Auto Follow Pattern API request.
 //
-type TransformDeleteTransformRequest struct {
-	TransformID string
-
-	Force *bool
+type CCRPauseAutoFollowPatternRequest struct {
+	Name string
 
 	Pretty     bool
 	Human      bool
@@ -50,26 +47,26 @@ type TransformDeleteTransformRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r TransformDeleteTransformRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r CCRPauseAutoFollowPatternRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "DELETE"
+	method = "POST"
 
-	path.Grow(1 + len("_transform") + 1 + len(r.TransformID))
+	path.Grow(1 + len("_ccr") + 1 + len("auto_follow") + 1 + len(r.Name) + 1 + len("pause"))
 	path.WriteString("/")
-	path.WriteString("_transform")
+	path.WriteString("_ccr")
 	path.WriteString("/")
-	path.WriteString(r.TransformID)
+	path.WriteString("auto_follow")
+	path.WriteString("/")
+	path.WriteString(r.Name)
+	path.WriteString("/")
+	path.WriteString("pause")
 
 	params = make(map[string]string)
-
-	if r.Force != nil {
-		params["force"] = strconv.FormatBool(*r.Force)
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -132,56 +129,48 @@ func (r TransformDeleteTransformRequest) Do(ctx context.Context, transport Trans
 
 // WithContext sets the request context.
 //
-func (f TransformDeleteTransform) WithContext(v context.Context) func(*TransformDeleteTransformRequest) {
-	return func(r *TransformDeleteTransformRequest) {
+func (f CCRPauseAutoFollowPattern) WithContext(v context.Context) func(*CCRPauseAutoFollowPatternRequest) {
+	return func(r *CCRPauseAutoFollowPatternRequest) {
 		r.ctx = v
-	}
-}
-
-// WithForce - when `true`, the transform is deleted regardless of its current state. the default value is `false`, meaning that the transform must be `stopped` before it can be deleted..
-//
-func (f TransformDeleteTransform) WithForce(v bool) func(*TransformDeleteTransformRequest) {
-	return func(r *TransformDeleteTransformRequest) {
-		r.Force = &v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f TransformDeleteTransform) WithPretty() func(*TransformDeleteTransformRequest) {
-	return func(r *TransformDeleteTransformRequest) {
+func (f CCRPauseAutoFollowPattern) WithPretty() func(*CCRPauseAutoFollowPatternRequest) {
+	return func(r *CCRPauseAutoFollowPatternRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f TransformDeleteTransform) WithHuman() func(*TransformDeleteTransformRequest) {
-	return func(r *TransformDeleteTransformRequest) {
+func (f CCRPauseAutoFollowPattern) WithHuman() func(*CCRPauseAutoFollowPatternRequest) {
+	return func(r *CCRPauseAutoFollowPatternRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f TransformDeleteTransform) WithErrorTrace() func(*TransformDeleteTransformRequest) {
-	return func(r *TransformDeleteTransformRequest) {
+func (f CCRPauseAutoFollowPattern) WithErrorTrace() func(*CCRPauseAutoFollowPatternRequest) {
+	return func(r *CCRPauseAutoFollowPatternRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f TransformDeleteTransform) WithFilterPath(v ...string) func(*TransformDeleteTransformRequest) {
-	return func(r *TransformDeleteTransformRequest) {
+func (f CCRPauseAutoFollowPattern) WithFilterPath(v ...string) func(*CCRPauseAutoFollowPatternRequest) {
+	return func(r *CCRPauseAutoFollowPatternRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f TransformDeleteTransform) WithHeader(h map[string]string) func(*TransformDeleteTransformRequest) {
-	return func(r *TransformDeleteTransformRequest) {
+func (f CCRPauseAutoFollowPattern) WithHeader(h map[string]string) func(*CCRPauseAutoFollowPatternRequest) {
+	return func(r *CCRPauseAutoFollowPatternRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

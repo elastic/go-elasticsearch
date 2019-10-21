@@ -11,7 +11,6 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
-	"time"
 )
 
 func newCatRecoveryFunc(t Transport) CatRecovery {
@@ -37,15 +36,15 @@ type CatRecovery func(o ...func(*CatRecoveryRequest)) (*Response, error)
 type CatRecoveryRequest struct {
 	Index []string
 
-	ActiveOnly    *bool
-	Bytes         string
-	Detailed      *bool
-	Format        string
-	H             []string
-	Help          *bool
-	MasterTimeout time.Duration
-	S             []string
-	V             *bool
+	ActiveOnly *bool
+	Bytes      string
+	Detailed   *bool
+	Format     string
+	H          []string
+	Help       *bool
+	S          []string
+	Time       string
+	V          *bool
 
 	Pretty     bool
 	Human      bool
@@ -108,12 +107,12 @@ func (r CatRecoveryRequest) Do(ctx context.Context, transport Transport) (*Respo
 		params["index"] = strings.Join(r.Index, ",")
 	}
 
-	if r.MasterTimeout != 0 {
-		params["master_timeout"] = formatDuration(r.MasterTimeout)
-	}
-
 	if len(r.S) > 0 {
 		params["s"] = strings.Join(r.S, ",")
+	}
+
+	if r.Time != "" {
+		params["time"] = r.Time
 	}
 
 	if r.V != nil {
@@ -243,19 +242,19 @@ func (f CatRecovery) WithHelp(v bool) func(*CatRecoveryRequest) {
 	}
 }
 
-// WithMasterTimeout - explicit operation timeout for connection to master node.
-//
-func (f CatRecovery) WithMasterTimeout(v time.Duration) func(*CatRecoveryRequest) {
-	return func(r *CatRecoveryRequest) {
-		r.MasterTimeout = v
-	}
-}
-
 // WithS - comma-separated list of column names or column aliases to sort by.
 //
 func (f CatRecovery) WithS(v ...string) func(*CatRecoveryRequest) {
 	return func(r *CatRecoveryRequest) {
 		r.S = v
+	}
+}
+
+// WithTime - the unit in which to display time values.
+//
+func (f CatRecovery) WithTime(v string) func(*CatRecoveryRequest) {
+	return func(r *CatRecoveryRequest) {
+		r.Time = v
 	}
 }
 

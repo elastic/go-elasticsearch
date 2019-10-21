@@ -38,9 +38,8 @@ type Create func(index string, id string, body io.Reader, o ...func(*CreateReque
 // CreateRequest configures the Create API request.
 //
 type CreateRequest struct {
-	Index        string
-	DocumentType string
-	DocumentID   string
+	Index      string
+	DocumentID string
 
 	Body io.Reader
 
@@ -73,21 +72,13 @@ func (r CreateRequest) Do(ctx context.Context, transport Transport) (*Response, 
 
 	method = "PUT"
 
-	if r.DocumentType == "" {
-		r.DocumentType = "_doc"
-	}
-
-	path.Grow(1 + len(r.Index) + 1 + len(r.DocumentType) + 1 + len(r.DocumentID) + 1 + len("_create"))
+	path.Grow(1 + len(r.Index) + 1 + len("_create") + 1 + len(r.DocumentID))
 	path.WriteString("/")
 	path.WriteString(r.Index)
-	if r.DocumentType != "" {
-		path.WriteString("/")
-		path.WriteString(r.DocumentType)
-	}
-	path.WriteString("/")
-	path.WriteString(r.DocumentID)
 	path.WriteString("/")
 	path.WriteString("_create")
+	path.WriteString("/")
+	path.WriteString(r.DocumentID)
 
 	params = make(map[string]string)
 
@@ -187,14 +178,6 @@ func (r CreateRequest) Do(ctx context.Context, transport Transport) (*Response, 
 func (f Create) WithContext(v context.Context) func(*CreateRequest) {
 	return func(r *CreateRequest) {
 		r.ctx = v
-	}
-}
-
-// WithDocumentType - the type of the document.
-//
-func (f Create) WithDocumentType(v string) func(*CreateRequest) {
-	return func(r *CreateRequest) {
-		r.DocumentType = v
 	}
 }
 

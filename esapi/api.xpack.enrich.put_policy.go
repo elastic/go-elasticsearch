@@ -8,14 +8,14 @@ package esapi
 
 import (
 	"context"
+	"io"
 	"net/http"
 	"strings"
-	"time"
 )
 
-func newTransformStartTransformFunc(t Transport) TransformStartTransform {
-	return func(transform_id string, o ...func(*TransformStartTransformRequest)) (*Response, error) {
-		var r = TransformStartTransformRequest{TransformID: transform_id}
+func newEnrichPutPolicyFunc(t Transport) EnrichPutPolicy {
+	return func(name string, body io.Reader, o ...func(*EnrichPutPolicyRequest)) (*Response, error) {
+		var r = EnrichPutPolicyRequest{Name: name, Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -25,18 +25,18 @@ func newTransformStartTransformFunc(t Transport) TransformStartTransform {
 
 // ----- API Definition -------------------------------------------------------
 
-// TransformStartTransform -
+// EnrichPutPolicy -
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/start-transform.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/enrich-put-policy.html.
 //
-type TransformStartTransform func(transform_id string, o ...func(*TransformStartTransformRequest)) (*Response, error)
+type EnrichPutPolicy func(name string, body io.Reader, o ...func(*EnrichPutPolicyRequest)) (*Response, error)
 
-// TransformStartTransformRequest configures the Transform Start Transform API request.
+// EnrichPutPolicyRequest configures the Enrich Put Policy API request.
 //
-type TransformStartTransformRequest struct {
-	TransformID string
+type EnrichPutPolicyRequest struct {
+	Body io.Reader
 
-	Timeout time.Duration
+	Name string
 
 	Pretty     bool
 	Human      bool
@@ -50,28 +50,24 @@ type TransformStartTransformRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r TransformStartTransformRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r EnrichPutPolicyRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "POST"
+	method = "PUT"
 
-	path.Grow(1 + len("_transform") + 1 + len(r.TransformID) + 1 + len("_start"))
+	path.Grow(1 + len("_enrich") + 1 + len("policy") + 1 + len(r.Name))
 	path.WriteString("/")
-	path.WriteString("_transform")
+	path.WriteString("_enrich")
 	path.WriteString("/")
-	path.WriteString(r.TransformID)
+	path.WriteString("policy")
 	path.WriteString("/")
-	path.WriteString("_start")
+	path.WriteString(r.Name)
 
 	params = make(map[string]string)
-
-	if r.Timeout != 0 {
-		params["timeout"] = formatDuration(r.Timeout)
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -89,7 +85,7 @@ func (r TransformStartTransformRequest) Do(ctx context.Context, transport Transp
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -100,6 +96,10 @@ func (r TransformStartTransformRequest) Do(ctx context.Context, transport Transp
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if r.Body != nil {
+		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -134,56 +134,48 @@ func (r TransformStartTransformRequest) Do(ctx context.Context, transport Transp
 
 // WithContext sets the request context.
 //
-func (f TransformStartTransform) WithContext(v context.Context) func(*TransformStartTransformRequest) {
-	return func(r *TransformStartTransformRequest) {
+func (f EnrichPutPolicy) WithContext(v context.Context) func(*EnrichPutPolicyRequest) {
+	return func(r *EnrichPutPolicyRequest) {
 		r.ctx = v
-	}
-}
-
-// WithTimeout - controls the time to wait for the transform to start.
-//
-func (f TransformStartTransform) WithTimeout(v time.Duration) func(*TransformStartTransformRequest) {
-	return func(r *TransformStartTransformRequest) {
-		r.Timeout = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f TransformStartTransform) WithPretty() func(*TransformStartTransformRequest) {
-	return func(r *TransformStartTransformRequest) {
+func (f EnrichPutPolicy) WithPretty() func(*EnrichPutPolicyRequest) {
+	return func(r *EnrichPutPolicyRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f TransformStartTransform) WithHuman() func(*TransformStartTransformRequest) {
-	return func(r *TransformStartTransformRequest) {
+func (f EnrichPutPolicy) WithHuman() func(*EnrichPutPolicyRequest) {
+	return func(r *EnrichPutPolicyRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f TransformStartTransform) WithErrorTrace() func(*TransformStartTransformRequest) {
-	return func(r *TransformStartTransformRequest) {
+func (f EnrichPutPolicy) WithErrorTrace() func(*EnrichPutPolicyRequest) {
+	return func(r *EnrichPutPolicyRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f TransformStartTransform) WithFilterPath(v ...string) func(*TransformStartTransformRequest) {
-	return func(r *TransformStartTransformRequest) {
+func (f EnrichPutPolicy) WithFilterPath(v ...string) func(*EnrichPutPolicyRequest) {
+	return func(r *EnrichPutPolicyRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f TransformStartTransform) WithHeader(h map[string]string) func(*TransformStartTransformRequest) {
-	return func(r *TransformStartTransformRequest) {
+func (f EnrichPutPolicy) WithHeader(h map[string]string) func(*EnrichPutPolicyRequest) {
+	return func(r *EnrichPutPolicyRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

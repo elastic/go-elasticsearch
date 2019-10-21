@@ -11,7 +11,6 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
-	"time"
 )
 
 func newCatCountFunc(t Transport) CatCount {
@@ -37,13 +36,11 @@ type CatCount func(o ...func(*CatCountRequest)) (*Response, error)
 type CatCountRequest struct {
 	Index []string
 
-	Format        string
-	H             []string
-	Help          *bool
-	Local         *bool
-	MasterTimeout time.Duration
-	S             []string
-	V             *bool
+	Format string
+	H      []string
+	Help   *bool
+	S      []string
+	V      *bool
 
 	Pretty     bool
 	Human      bool
@@ -88,14 +85,6 @@ func (r CatCountRequest) Do(ctx context.Context, transport Transport) (*Response
 
 	if r.Help != nil {
 		params["help"] = strconv.FormatBool(*r.Help)
-	}
-
-	if r.Local != nil {
-		params["local"] = strconv.FormatBool(*r.Local)
-	}
-
-	if r.MasterTimeout != 0 {
-		params["master_timeout"] = formatDuration(r.MasterTimeout)
 	}
 
 	if len(r.S) > 0 {
@@ -202,22 +191,6 @@ func (f CatCount) WithH(v ...string) func(*CatCountRequest) {
 func (f CatCount) WithHelp(v bool) func(*CatCountRequest) {
 	return func(r *CatCountRequest) {
 		r.Help = &v
-	}
-}
-
-// WithLocal - return local information, do not retrieve the state from master node (default: false).
-//
-func (f CatCount) WithLocal(v bool) func(*CatCountRequest) {
-	return func(r *CatCountRequest) {
-		r.Local = &v
-	}
-}
-
-// WithMasterTimeout - explicit operation timeout for connection to master node.
-//
-func (f CatCount) WithMasterTimeout(v time.Duration) func(*CatCountRequest) {
-	return func(r *CatCountRequest) {
-		r.MasterTimeout = v
 	}
 }
 

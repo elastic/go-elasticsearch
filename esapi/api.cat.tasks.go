@@ -42,6 +42,7 @@ type CatTasksRequest struct {
 	NodeID     []string
 	ParentTask *int
 	S          []string
+	Time       string
 	V          *bool
 
 	Pretty     bool
@@ -100,6 +101,10 @@ func (r CatTasksRequest) Do(ctx context.Context, transport Transport) (*Response
 
 	if len(r.S) > 0 {
 		params["s"] = strings.Join(r.S, ",")
+	}
+
+	if r.Time != "" {
+		params["time"] = r.Time
 	}
 
 	if r.V != nil {
@@ -234,6 +239,14 @@ func (f CatTasks) WithParentTask(v int) func(*CatTasksRequest) {
 func (f CatTasks) WithS(v ...string) func(*CatTasksRequest) {
 	return func(r *CatTasksRequest) {
 		r.S = v
+	}
+}
+
+// WithTime - the unit in which to display time values.
+//
+func (f CatTasks) WithTime(v string) func(*CatTasksRequest) {
+	return func(r *CatTasksRequest) {
+		r.Time = v
 	}
 }
 

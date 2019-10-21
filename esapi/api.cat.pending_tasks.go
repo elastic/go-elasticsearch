@@ -41,6 +41,7 @@ type CatPendingTasksRequest struct {
 	Local         *bool
 	MasterTimeout time.Duration
 	S             []string
+	Time          string
 	V             *bool
 
 	Pretty     bool
@@ -91,6 +92,10 @@ func (r CatPendingTasksRequest) Do(ctx context.Context, transport Transport) (*R
 
 	if len(r.S) > 0 {
 		params["s"] = strings.Join(r.S, ",")
+	}
+
+	if r.Time != "" {
+		params["time"] = r.Time
 	}
 
 	if r.V != nil {
@@ -209,6 +214,14 @@ func (f CatPendingTasks) WithMasterTimeout(v time.Duration) func(*CatPendingTask
 func (f CatPendingTasks) WithS(v ...string) func(*CatPendingTasksRequest) {
 	return func(r *CatPendingTasksRequest) {
 		r.S = v
+	}
+}
+
+// WithTime - the unit in which to display time values.
+//
+func (f CatPendingTasks) WithTime(v string) func(*CatPendingTasksRequest) {
+	return func(r *CatPendingTasksRequest) {
+		r.Time = v
 	}
 }
 

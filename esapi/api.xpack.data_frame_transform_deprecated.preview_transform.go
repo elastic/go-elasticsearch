@@ -13,9 +13,9 @@ import (
 	"strings"
 )
 
-func newTransformPreviewTransformFunc(t Transport) TransformPreviewTransform {
-	return func(body io.Reader, o ...func(*TransformPreviewTransformRequest)) (*Response, error) {
-		var r = TransformPreviewTransformRequest{Body: body}
+func newDataFrameTransformDeprecatedPreviewTransformFunc(t Transport) DataFrameTransformDeprecatedPreviewTransform {
+	return func(body io.Reader, o ...func(*DataFrameTransformDeprecatedPreviewTransformRequest)) (*Response, error) {
+		var r = DataFrameTransformDeprecatedPreviewTransformRequest{Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -25,15 +25,15 @@ func newTransformPreviewTransformFunc(t Transport) TransformPreviewTransform {
 
 // ----- API Definition -------------------------------------------------------
 
-// TransformPreviewTransform -
+// DataFrameTransformDeprecatedPreviewTransform -
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/preview-transform.html.
 //
-type TransformPreviewTransform func(body io.Reader, o ...func(*TransformPreviewTransformRequest)) (*Response, error)
+type DataFrameTransformDeprecatedPreviewTransform func(body io.Reader, o ...func(*DataFrameTransformDeprecatedPreviewTransformRequest)) (*Response, error)
 
-// TransformPreviewTransformRequest configures the Transform Preview Transform API request.
+// DataFrameTransformDeprecatedPreviewTransformRequest configures the Data Frame Transform Deprecated Preview Transform API request.
 //
-type TransformPreviewTransformRequest struct {
+type DataFrameTransformDeprecatedPreviewTransformRequest struct {
 	Body io.Reader
 
 	Pretty     bool
@@ -48,7 +48,7 @@ type TransformPreviewTransformRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r TransformPreviewTransformRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r DataFrameTransformDeprecatedPreviewTransformRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -57,8 +57,8 @@ func (r TransformPreviewTransformRequest) Do(ctx context.Context, transport Tran
 
 	method = "POST"
 
-	path.Grow(len("/_transform/_preview"))
-	path.WriteString("/_transform/_preview")
+	path.Grow(len("/_data_frame/transforms/_preview"))
+	path.WriteString("/_data_frame/transforms/_preview")
 
 	params = make(map[string]string)
 
@@ -127,48 +127,48 @@ func (r TransformPreviewTransformRequest) Do(ctx context.Context, transport Tran
 
 // WithContext sets the request context.
 //
-func (f TransformPreviewTransform) WithContext(v context.Context) func(*TransformPreviewTransformRequest) {
-	return func(r *TransformPreviewTransformRequest) {
+func (f DataFrameTransformDeprecatedPreviewTransform) WithContext(v context.Context) func(*DataFrameTransformDeprecatedPreviewTransformRequest) {
+	return func(r *DataFrameTransformDeprecatedPreviewTransformRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f TransformPreviewTransform) WithPretty() func(*TransformPreviewTransformRequest) {
-	return func(r *TransformPreviewTransformRequest) {
+func (f DataFrameTransformDeprecatedPreviewTransform) WithPretty() func(*DataFrameTransformDeprecatedPreviewTransformRequest) {
+	return func(r *DataFrameTransformDeprecatedPreviewTransformRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f TransformPreviewTransform) WithHuman() func(*TransformPreviewTransformRequest) {
-	return func(r *TransformPreviewTransformRequest) {
+func (f DataFrameTransformDeprecatedPreviewTransform) WithHuman() func(*DataFrameTransformDeprecatedPreviewTransformRequest) {
+	return func(r *DataFrameTransformDeprecatedPreviewTransformRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f TransformPreviewTransform) WithErrorTrace() func(*TransformPreviewTransformRequest) {
-	return func(r *TransformPreviewTransformRequest) {
+func (f DataFrameTransformDeprecatedPreviewTransform) WithErrorTrace() func(*DataFrameTransformDeprecatedPreviewTransformRequest) {
+	return func(r *DataFrameTransformDeprecatedPreviewTransformRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f TransformPreviewTransform) WithFilterPath(v ...string) func(*TransformPreviewTransformRequest) {
-	return func(r *TransformPreviewTransformRequest) {
+func (f DataFrameTransformDeprecatedPreviewTransform) WithFilterPath(v ...string) func(*DataFrameTransformDeprecatedPreviewTransformRequest) {
+	return func(r *DataFrameTransformDeprecatedPreviewTransformRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f TransformPreviewTransform) WithHeader(h map[string]string) func(*TransformPreviewTransformRequest) {
-	return func(r *TransformPreviewTransformRequest) {
+func (f DataFrameTransformDeprecatedPreviewTransform) WithHeader(h map[string]string) func(*DataFrameTransformDeprecatedPreviewTransformRequest) {
+	return func(r *DataFrameTransformDeprecatedPreviewTransformRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

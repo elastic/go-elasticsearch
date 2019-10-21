@@ -35,9 +35,8 @@ type Delete func(index string, id string, o ...func(*DeleteRequest)) (*Response,
 // DeleteRequest configures the Delete API request.
 //
 type DeleteRequest struct {
-	Index        string
-	DocumentType string
-	DocumentID   string
+	Index      string
+	DocumentID string
 
 	IfPrimaryTerm       *int
 	IfSeqNo             *int
@@ -69,17 +68,11 @@ func (r DeleteRequest) Do(ctx context.Context, transport Transport) (*Response, 
 
 	method = "DELETE"
 
-	if r.DocumentType == "" {
-		r.DocumentType = "_doc"
-	}
-
-	path.Grow(1 + len(r.Index) + 1 + len(r.DocumentType) + 1 + len(r.DocumentID))
+	path.Grow(1 + len(r.Index) + 1 + len("_doc") + 1 + len(r.DocumentID))
 	path.WriteString("/")
 	path.WriteString(r.Index)
-	if r.DocumentType != "" {
-		path.WriteString("/")
-		path.WriteString(r.DocumentType)
-	}
+	path.WriteString("/")
+	path.WriteString("_doc")
 	path.WriteString("/")
 	path.WriteString(r.DocumentID)
 
@@ -181,14 +174,6 @@ func (r DeleteRequest) Do(ctx context.Context, transport Transport) (*Response, 
 func (f Delete) WithContext(v context.Context) func(*DeleteRequest) {
 	return func(r *DeleteRequest) {
 		r.ctx = v
-	}
-}
-
-// WithDocumentType - the type of the document.
-//
-func (f Delete) WithDocumentType(v string) func(*DeleteRequest) {
-	return func(r *DeleteRequest) {
-		r.DocumentType = v
 	}
 }
 

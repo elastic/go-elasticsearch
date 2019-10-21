@@ -11,7 +11,6 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
-	"time"
 )
 
 func newCatAliasesFunc(t Transport) CatAliases {
@@ -37,13 +36,12 @@ type CatAliases func(o ...func(*CatAliasesRequest)) (*Response, error)
 type CatAliasesRequest struct {
 	Name []string
 
-	Format        string
-	H             []string
-	Help          *bool
-	Local         *bool
-	MasterTimeout time.Duration
-	S             []string
-	V             *bool
+	Format string
+	H      []string
+	Help   *bool
+	Local  *bool
+	S      []string
+	V      *bool
 
 	Pretty     bool
 	Human      bool
@@ -92,10 +90,6 @@ func (r CatAliasesRequest) Do(ctx context.Context, transport Transport) (*Respon
 
 	if r.Local != nil {
 		params["local"] = strconv.FormatBool(*r.Local)
-	}
-
-	if r.MasterTimeout != 0 {
-		params["master_timeout"] = formatDuration(r.MasterTimeout)
 	}
 
 	if len(r.S) > 0 {
@@ -210,14 +204,6 @@ func (f CatAliases) WithHelp(v bool) func(*CatAliasesRequest) {
 func (f CatAliases) WithLocal(v bool) func(*CatAliasesRequest) {
 	return func(r *CatAliasesRequest) {
 		r.Local = &v
-	}
-}
-
-// WithMasterTimeout - explicit operation timeout for connection to master node.
-//
-func (f CatAliases) WithMasterTimeout(v time.Duration) func(*CatAliasesRequest) {
-	return func(r *CatAliasesRequest) {
-		r.MasterTimeout = v
 	}
 }
 
