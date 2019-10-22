@@ -256,13 +256,7 @@ func (cp *roundRobinConnectionPool) Resurrect(c *Connection) error {
 // scheduleResurrect schedules the connection to be resurrected.
 //
 func (cp *roundRobinConnectionPool) scheduleResurrect(c *Connection) {
-	factor := func(a, b int) float64 {
-		if a > b {
-			return float64(b)
-		}
-		return float64(a)
-	}(c.Failures-1, defaultResurrectTimeoutFactorCutoff)
-
+	factor := math.Min(float64(c.Failures-1), float64(defaultResurrectTimeoutFactorCutoff))
 	timeout := time.Duration(defaultResurrectTimeoutInitial.Seconds() * math.Exp2(factor) * float64(time.Second))
 	if cp.debugLogger != nil {
 		cp.debugLogger.Logf("Resurrect %s (failures=%d, factor=%1.1f, timeout=%s) in %s\n", c.URL, c.Failures, factor, timeout, c.DeadSince.Add(timeout).Sub(time.Now().UTC()).Truncate(time.Second))
