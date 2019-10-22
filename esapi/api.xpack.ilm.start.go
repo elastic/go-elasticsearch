@@ -170,3 +170,14 @@ func (f ILMStart) WithHeader(h map[string]string) func(*ILMStartRequest) {
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f ILMStart) WithOpaqueID(s string) func(*ILMStartRequest) {
+	return func(r *ILMStartRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

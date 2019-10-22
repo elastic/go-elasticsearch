@@ -170,3 +170,14 @@ func (f SSLCertificates) WithHeader(h map[string]string) func(*SSLCertificatesRe
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f SSLCertificates) WithOpaqueID(s string) func(*SSLCertificatesRequest) {
+	return func(r *SSLCertificatesRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

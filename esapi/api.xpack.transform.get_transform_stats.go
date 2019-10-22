@@ -218,3 +218,14 @@ func (f TransformGetTransformStats) WithHeader(h map[string]string) func(*Transf
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f TransformGetTransformStats) WithOpaqueID(s string) func(*TransformGetTransformStatsRequest) {
+	return func(r *TransformGetTransformStatsRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

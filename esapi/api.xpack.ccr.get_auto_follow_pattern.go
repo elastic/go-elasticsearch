@@ -187,3 +187,14 @@ func (f CCRGetAutoFollowPattern) WithHeader(h map[string]string) func(*CCRGetAut
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f CCRGetAutoFollowPattern) WithOpaqueID(s string) func(*CCRGetAutoFollowPatternRequest) {
+	return func(r *CCRGetAutoFollowPatternRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

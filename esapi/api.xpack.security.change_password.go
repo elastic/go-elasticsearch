@@ -210,3 +210,14 @@ func (f SecurityChangePassword) WithHeader(h map[string]string) func(*SecurityCh
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f SecurityChangePassword) WithOpaqueID(s string) func(*SecurityChangePasswordRequest) {
+	return func(r *SecurityChangePasswordRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

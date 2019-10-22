@@ -315,3 +315,14 @@ func (f Bulk) WithHeader(h map[string]string) func(*BulkRequest) {
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f Bulk) WithOpaqueID(s string) func(*BulkRequest) {
+	return func(r *BulkRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

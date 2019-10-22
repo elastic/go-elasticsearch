@@ -265,3 +265,14 @@ func (f IndicesForcemerge) WithHeader(h map[string]string) func(*IndicesForcemer
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f IndicesForcemerge) WithOpaqueID(s string) func(*IndicesForcemergeRequest) {
+	return func(r *IndicesForcemergeRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

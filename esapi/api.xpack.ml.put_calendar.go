@@ -190,3 +190,14 @@ func (f MLPutCalendar) WithHeader(h map[string]string) func(*MLPutCalendarReques
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f MLPutCalendar) WithOpaqueID(s string) func(*MLPutCalendarRequest) {
+	return func(r *MLPutCalendarRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

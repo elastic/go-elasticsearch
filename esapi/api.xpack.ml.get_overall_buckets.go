@@ -290,3 +290,14 @@ func (f MLGetOverallBuckets) WithHeader(h map[string]string) func(*MLGetOverallB
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f MLGetOverallBuckets) WithOpaqueID(s string) func(*MLGetOverallBucketsRequest) {
+	return func(r *MLGetOverallBucketsRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

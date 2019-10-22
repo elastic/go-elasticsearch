@@ -177,3 +177,14 @@ func (f SlmDeleteLifecycle) WithHeader(h map[string]string) func(*SlmDeleteLifec
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f SlmDeleteLifecycle) WithOpaqueID(s string) func(*SlmDeleteLifecycleRequest) {
+	return func(r *SlmDeleteLifecycleRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

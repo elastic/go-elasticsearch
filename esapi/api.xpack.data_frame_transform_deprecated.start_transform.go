@@ -194,3 +194,14 @@ func (f DataFrameTransformDeprecatedStartTransform) WithHeader(h map[string]stri
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f DataFrameTransformDeprecatedStartTransform) WithOpaqueID(s string) func(*DataFrameTransformDeprecatedStartTransformRequest) {
+	return func(r *DataFrameTransformDeprecatedStartTransformRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

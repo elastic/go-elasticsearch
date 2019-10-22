@@ -179,3 +179,14 @@ func (f MLPreviewDatafeed) WithHeader(h map[string]string) func(*MLPreviewDatafe
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f MLPreviewDatafeed) WithOpaqueID(s string) func(*MLPreviewDatafeedRequest) {
+	return func(r *MLPreviewDatafeedRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

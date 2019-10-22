@@ -189,3 +189,14 @@ func (f SQLQuery) WithHeader(h map[string]string) func(*SQLQueryRequest) {
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f SQLQuery) WithOpaqueID(s string) func(*SQLQueryRequest) {
+	return func(r *SQLQueryRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

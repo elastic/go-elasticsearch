@@ -235,3 +235,14 @@ func (f IndicesClone) WithHeader(h map[string]string) func(*IndicesCloneRequest)
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f IndicesClone) WithOpaqueID(s string) func(*IndicesCloneRequest) {
+	return func(r *IndicesCloneRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

@@ -191,3 +191,14 @@ func (f SecurityCreateAPIKey) WithHeader(h map[string]string) func(*SecurityCrea
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f SecurityCreateAPIKey) WithOpaqueID(s string) func(*SecurityCreateAPIKeyRequest) {
+	return func(r *SecurityCreateAPIKeyRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

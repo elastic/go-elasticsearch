@@ -170,3 +170,14 @@ func (f LicenseDelete) WithHeader(h map[string]string) func(*LicenseDeleteReques
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f LicenseDelete) WithOpaqueID(s string) func(*LicenseDeleteRequest) {
+	return func(r *LicenseDeleteRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

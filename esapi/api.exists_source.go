@@ -310,3 +310,14 @@ func (f ExistsSource) WithHeader(h map[string]string) func(*ExistsSourceRequest)
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f ExistsSource) WithOpaqueID(s string) func(*ExistsSourceRequest) {
+	return func(r *ExistsSourceRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

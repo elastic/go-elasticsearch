@@ -256,3 +256,14 @@ func (f IndicesOpen) WithHeader(h map[string]string) func(*IndicesOpenRequest) {
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f IndicesOpen) WithOpaqueID(s string) func(*IndicesOpenRequest) {
+	return func(r *IndicesOpenRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

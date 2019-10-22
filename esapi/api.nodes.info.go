@@ -227,3 +227,14 @@ func (f NodesInfo) WithHeader(h map[string]string) func(*NodesInfoRequest) {
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f NodesInfo) WithOpaqueID(s string) func(*NodesInfoRequest) {
+	return func(r *NodesInfoRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

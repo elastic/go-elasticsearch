@@ -191,3 +191,14 @@ func (f SecurityDeleteRole) WithHeader(h map[string]string) func(*SecurityDelete
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f SecurityDeleteRole) WithOpaqueID(s string) func(*SecurityDeleteRoleRequest) {
+	return func(r *SecurityDeleteRoleRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

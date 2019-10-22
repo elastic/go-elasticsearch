@@ -205,3 +205,14 @@ func (f MLForecast) WithHeader(h map[string]string) func(*MLForecastRequest) {
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f MLForecast) WithOpaqueID(s string) func(*MLForecastRequest) {
+	return func(r *MLForecastRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

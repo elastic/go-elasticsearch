@@ -384,3 +384,14 @@ func (f Count) WithHeader(h map[string]string) func(*CountRequest) {
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f Count) WithOpaqueID(s string) func(*CountRequest) {
+	return func(r *CountRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

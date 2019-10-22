@@ -187,3 +187,14 @@ func (f ILMGetLifecycle) WithHeader(h map[string]string) func(*ILMGetLifecycleRe
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f ILMGetLifecycle) WithOpaqueID(s string) func(*ILMGetLifecycleRequest) {
+	return func(r *ILMGetLifecycleRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

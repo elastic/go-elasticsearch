@@ -264,3 +264,14 @@ func (f CatMaster) WithHeader(h map[string]string) func(*CatMasterRequest) {
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f CatMaster) WithOpaqueID(s string) func(*CatMasterRequest) {
+	return func(r *CatMasterRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

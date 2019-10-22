@@ -184,3 +184,14 @@ func (f EnrichPutPolicy) WithHeader(h map[string]string) func(*EnrichPutPolicyRe
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f EnrichPutPolicy) WithOpaqueID(s string) func(*EnrichPutPolicyRequest) {
+	return func(r *EnrichPutPolicyRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

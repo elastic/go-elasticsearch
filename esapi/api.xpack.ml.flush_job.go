@@ -261,3 +261,14 @@ func (f MLFlushJob) WithHeader(h map[string]string) func(*MLFlushJobRequest) {
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f MLFlushJob) WithOpaqueID(s string) func(*MLFlushJobRequest) {
+	return func(r *MLFlushJobRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

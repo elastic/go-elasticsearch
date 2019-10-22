@@ -216,3 +216,14 @@ func (f IndicesReloadSearchAnalyzers) WithHeader(h map[string]string) func(*Indi
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f IndicesReloadSearchAnalyzers) WithOpaqueID(s string) func(*IndicesReloadSearchAnalyzersRequest) {
+	return func(r *IndicesReloadSearchAnalyzersRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

@@ -220,3 +220,14 @@ func (f GraphExplore) WithHeader(h map[string]string) func(*GraphExploreRequest)
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f GraphExplore) WithOpaqueID(s string) func(*GraphExploreRequest) {
+	return func(r *GraphExploreRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

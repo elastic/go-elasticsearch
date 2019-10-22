@@ -185,3 +185,14 @@ func (f RollupGetJobs) WithHeader(h map[string]string) func(*RollupGetJobsReques
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f RollupGetJobs) WithOpaqueID(s string) func(*RollupGetJobsRequest) {
+	return func(r *RollupGetJobsRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

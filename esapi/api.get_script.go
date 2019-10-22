@@ -190,3 +190,14 @@ func (f GetScript) WithHeader(h map[string]string) func(*GetScriptRequest) {
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f GetScript) WithOpaqueID(s string) func(*GetScriptRequest) {
+	return func(r *GetScriptRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

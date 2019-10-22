@@ -192,3 +192,14 @@ func (f CCRResumeFollow) WithHeader(h map[string]string) func(*CCRResumeFollowRe
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f CCRResumeFollow) WithOpaqueID(s string) func(*CCRResumeFollowRequest) {
+	return func(r *CCRResumeFollowRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

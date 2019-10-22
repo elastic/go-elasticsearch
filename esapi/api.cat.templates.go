@@ -281,3 +281,14 @@ func (f CatTemplates) WithHeader(h map[string]string) func(*CatTemplatesRequest)
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f CatTemplates) WithOpaqueID(s string) func(*CatTemplatesRequest) {
+	return func(r *CatTemplatesRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

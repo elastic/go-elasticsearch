@@ -170,3 +170,14 @@ func (f ClusterRemoteInfo) WithHeader(h map[string]string) func(*ClusterRemoteIn
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f ClusterRemoteInfo) WithOpaqueID(s string) func(*ClusterRemoteInfoRequest) {
+	return func(r *ClusterRemoteInfoRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

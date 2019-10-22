@@ -266,3 +266,14 @@ func (f ClusterReroute) WithHeader(h map[string]string) func(*ClusterRerouteRequ
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f ClusterReroute) WithOpaqueID(s string) func(*ClusterRerouteRequest) {
+	return func(r *ClusterRerouteRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

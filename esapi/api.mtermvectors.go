@@ -358,3 +358,14 @@ func (f Mtermvectors) WithHeader(h map[string]string) func(*MtermvectorsRequest)
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f Mtermvectors) WithOpaqueID(s string) func(*MtermvectorsRequest) {
+	return func(r *MtermvectorsRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

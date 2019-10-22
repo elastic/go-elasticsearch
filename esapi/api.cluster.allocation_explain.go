@@ -213,3 +213,14 @@ func (f ClusterAllocationExplain) WithHeader(h map[string]string) func(*ClusterA
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f ClusterAllocationExplain) WithOpaqueID(s string) func(*ClusterAllocationExplainRequest) {
+	return func(r *ClusterAllocationExplainRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

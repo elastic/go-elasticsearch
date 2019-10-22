@@ -220,3 +220,14 @@ func (f SnapshotCleanupRepository) WithHeader(h map[string]string) func(*Snapsho
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f SnapshotCleanupRepository) WithOpaqueID(s string) func(*SnapshotCleanupRepositoryRequest) {
+	return func(r *SnapshotCleanupRepositoryRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

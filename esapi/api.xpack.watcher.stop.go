@@ -170,3 +170,14 @@ func (f WatcherStop) WithHeader(h map[string]string) func(*WatcherStopRequest) {
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f WatcherStop) WithOpaqueID(s string) func(*WatcherStopRequest) {
+	return func(r *WatcherStopRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

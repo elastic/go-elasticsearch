@@ -303,3 +303,14 @@ func (f MLGetInfluencers) WithHeader(h map[string]string) func(*MLGetInfluencers
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f MLGetInfluencers) WithOpaqueID(s string) func(*MLGetInfluencersRequest) {
+	return func(r *MLGetInfluencersRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

@@ -198,3 +198,14 @@ func (f SecurityPutUser) WithHeader(h map[string]string) func(*SecurityPutUserRe
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f SecurityPutUser) WithOpaqueID(s string) func(*SecurityPutUserRequest) {
+	return func(r *SecurityPutUserRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

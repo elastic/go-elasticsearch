@@ -333,3 +333,14 @@ func (f ClusterHealth) WithHeader(h map[string]string) func(*ClusterHealthReques
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f ClusterHealth) WithOpaqueID(s string) func(*ClusterHealthRequest) {
+	return func(r *ClusterHealthRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

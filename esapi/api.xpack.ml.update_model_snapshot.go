@@ -191,3 +191,14 @@ func (f MLUpdateModelSnapshot) WithHeader(h map[string]string) func(*MLUpdateMod
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f MLUpdateModelSnapshot) WithOpaqueID(s string) func(*MLUpdateModelSnapshotRequest) {
+	return func(r *MLUpdateModelSnapshotRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

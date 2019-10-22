@@ -211,3 +211,14 @@ func (f IngestSimulate) WithHeader(h map[string]string) func(*IngestSimulateRequ
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f IngestSimulate) WithOpaqueID(s string) func(*IngestSimulateRequest) {
+	return func(r *IngestSimulateRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

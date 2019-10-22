@@ -264,3 +264,14 @@ func (f TasksList) WithHeader(h map[string]string) func(*TasksListRequest) {
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f TasksList) WithOpaqueID(s string) func(*TasksListRequest) {
+	return func(r *TasksListRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

@@ -175,3 +175,14 @@ func (f MLDeleteFilter) WithHeader(h map[string]string) func(*MLDeleteFilterRequ
 		}
 	}
 }
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f MLDeleteFilter) WithOpaqueID(s string) func(*MLDeleteFilterRequest) {
+	return func(r *MLDeleteFilterRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}
