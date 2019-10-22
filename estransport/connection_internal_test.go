@@ -339,10 +339,12 @@ func TestRoundRobinConnectionPoolResurrect(t *testing.T) {
 		pool.scheduleResurrect(conn)
 		time.Sleep(50 * time.Millisecond)
 
+		pool.Lock()
+		defer pool.Unlock()
+
 		if len(pool.live) != 1 {
 			t.Errorf("Expected 1 live connection, got: %s", pool.live)
 		}
-
 		if len(pool.dead) != 0 {
 			t.Errorf("Expected no dead connections, got: %s", pool.dead)
 		}
