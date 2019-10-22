@@ -31,10 +31,10 @@ type ConnectionPool interface {
 type Connection struct {
 	sync.Mutex
 
-	URL       *url.URL  `json:"url"`
-	Dead      bool      `json:"dead"`
-	DeadSince time.Time `json:"dead_since"`
-	Failures  int       `json:"failures"`
+	URL       *url.URL
+	Dead      bool
+	DeadSince time.Time
+	Failures  int
 }
 
 type singleConnectionPool struct {
