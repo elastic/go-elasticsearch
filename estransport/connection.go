@@ -72,7 +72,7 @@ func newRoundRobinConnectionPool(u ...*url.URL) *roundRobinConnectionPool {
 		conns = append(conns, &Connection{URL: url})
 	}
 
-	cp := roundRobinConnectionPool{live: conns, orig: u}
+	cp := roundRobinConnectionPool{live: conns, orig: u, curr: -1}
 
 	if cp.enableMetrics {
 		cp.metrics.Lock()
@@ -104,39 +104,29 @@ func (cp *roundRobinConnectionPool) Next() (*Connection, error) {
 	cp.Lock()
 	defer cp.Unlock()
 
-	// Try to resurrect a dead connection if no healthy connections are available
-	//
-	if len(cp.live) < 1 {
-		if len(cp.dead) > 0 {
-			if cp.debugLogger != nil {
-				cp.debugLogger.Log("Resurrecting connection ")
-			}
-			c, cp.dead = cp.dead[len(cp.dead)-1], cp.dead[:len(cp.dead)-1] // Pop item
-			c.Lock()
-			if cp.debugLogger != nil {
-				cp.debugLogger.Log(c.URL.String() + "\n")
-			}
-			c.markAsLive()
-			cp.live = append(cp.live, c)
-			c.Unlock()
+	// Return next live connection
+	if len(cp.live) > 0 {
+		cp.curr = (cp.curr + 1) % len(cp.live)
+		return cp.live[cp.curr], nil
 
-			return c, nil
+	} else if len(cp.dead) > 0 {
+		// Try to resurrect a dead connection if no live connections are available
+		if cp.debugLogger != nil {
+			cp.debugLogger.Log("Resurrecting connection ")
 		}
-		return nil, errors.New("no connection available")
+		c, cp.dead = cp.dead[len(cp.dead)-1], cp.dead[:len(cp.dead)-1] // Pop item
+		c.Lock()
+		if cp.debugLogger != nil {
+			cp.debugLogger.Log(c.URL.String() + "\n")
+		}
+		c.markAsLive()
+		cp.live = append(cp.live, c)
+		c.Unlock()
+
+		return c, nil
 	}
 
-	if cp.curr >= len(cp.live) {
-		cp.curr = len(cp.live) - 1
-	}
-
-	if cp.curr < 0 {
-		return nil, errors.New("no connection available")
-	}
-
-	c = cp.live[cp.curr]
-	cp.curr = (cp.curr + 1) % len(cp.live)
-
-	return c, nil
+	return nil, errors.New("no connection available")
 }
 
 // Remove removes a connection from the pool.

@@ -145,6 +145,7 @@ func TestRoundRobinConnectionPoolNext(t *testing.T) {
 				&Connection{URL: &url.URL{Scheme: "http", Host: "foo1"}},
 				&Connection{URL: &url.URL{Scheme: "http", Host: "foo2"}},
 				&Connection{URL: &url.URL{Scheme: "http", Host: "foo3"}},
+				&Connection{URL: &url.URL{Scheme: "http", Host: "foo4"}},
 			},
 		}
 
@@ -153,12 +154,12 @@ func TestRoundRobinConnectionPoolNext(t *testing.T) {
 			t.Fatalf("Unexpected error: %s", err)
 		}
 
-		// Return last connection
-		if c.URL.String() != "http://foo3" {
-			t.Errorf("Expected http://foo3, got: %s", c.URL.String())
+		// Return first connection
+		if c.URL.String() != "http://foo1" {
+			t.Errorf("Expected http://foo1, got: %s", c.URL.String())
 		}
 
-		// Reset index; (cp.curr + 1) % len(cp.live)
+		// Reset the index; (cp.curr + 1) % len(cp.live)
 		if pool.curr != 0 {
 			t.Errorf("Expected curr to be 0, got: %d", pool.curr)
 		}
