@@ -142,6 +142,9 @@ func (cp *roundRobinConnectionPool) Next() (*Connection, error) {
 // Remove removes a connection from the pool.
 //
 func (cp *roundRobinConnectionPool) Remove(c *Connection) error {
+	cp.Lock()
+	defer cp.Unlock()
+
 	c.Lock()
 
 	if c.Dead {
@@ -158,9 +161,6 @@ func (cp *roundRobinConnectionPool) Remove(c *Connection) error {
 	c.markAsDead()
 	cp.scheduleResurrect(c)
 	c.Unlock()
-
-	cp.Lock()
-	defer cp.Unlock()
 
 	// Push item to dead list and sort slice by number of failures
 	cp.dead = append(cp.dead, c)
