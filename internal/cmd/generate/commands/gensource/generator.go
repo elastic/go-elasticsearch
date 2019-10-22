@@ -435,6 +435,20 @@ func (f ` + g.Endpoint.MethodWithNamespace() + `) WithHeader(h map[string]string
 	}
 }
 `)
+
+	// Generate methods for the X-Opaque-ID header
+	g.w(`
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f ` + g.Endpoint.MethodWithNamespace() + `) WithOpaqueID(s string) func(*` + g.Endpoint.MethodWithNamespace() + `Request) {
+	return func(r *` + g.Endpoint.MethodWithNamespace() + `Request) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}
+`)
 }
 
 func (g *Generator) genDoMethod() {
