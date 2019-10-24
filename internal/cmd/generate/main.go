@@ -6,6 +6,8 @@ package main
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/internal/cmd/generate/commands"
+
+	_ "github.com/elastic/go-elasticsearch/v8/internal/cmd/generate/commands/genexamples"
 	_ "github.com/elastic/go-elasticsearch/v8/internal/cmd/generate/commands/gensource"
 	_ "github.com/elastic/go-elasticsearch/v8/internal/cmd/generate/commands/genstruct"
 	_ "github.com/elastic/go-elasticsearch/v8/internal/cmd/generate/commands/gentests"
