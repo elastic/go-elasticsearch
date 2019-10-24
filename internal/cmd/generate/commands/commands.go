@@ -14,7 +14,7 @@ import (
 
 var rootCmd = &cobra.Command{
 	Use:   "generate",
-	Short: "generate allows you to generate APIs and tests",
+	Short: "generate Go APIs, tests and examples for documentation",
 	// Long:  "TODO",
 }
 

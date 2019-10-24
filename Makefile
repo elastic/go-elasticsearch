@@ -393,6 +393,33 @@ endif
 		mv $(PWD)/esapi/test/xpack/ml/xpack_ml__jobs_crud_test.go $(PWD)/esapi/test/xpack/ml-crud/; \
 	}
 
+gen-docs:  ## Generate the skeleton of documentation examples
+	$(eval input  ?= tmp/alternatives_report.json)
+	$(eval update ?= no)
+	@{ \
+		set -e; \
+		trap "git checkout $(PWD)/internal/cmd/generate/go.mod" SIGINT SIGTERM EXIT; \
+		if [[ $(update) == 'yes' ]]; then \
+			echo "\033[2m→ Updating the alternatives_report.json file\033[0m" && \
+			curl -s https://raw.githubusercontent.com/elastic/built-docs/master/raw/en/elasticsearch/reference/master/alternatives_report.json > tmp/alternatives_report.json; \
+		fi; \
+		echo "\033[2m→ Generating Go source files from Console input in [$(input)]\033[0m" && \
+		( cd '$(PWD)/internal/cmd/generate' && \
+			go run main.go examples src --debug --input='$(PWD)/$(input)' --output='$(PWD)/.doc/examples/' \
+		) && \
+		( cd '$(PWD)/.doc/examples/src' && \
+			if which gotestsum > /dev/null 2>&1 ; then \
+				gotestsum --format=short-verbose; \
+			else \
+				go test -v $(testunitargs); \
+			fi; \
+		) && \
+		echo "\n\033[2m→ Generating ASCIIDoc files from Go source\033[0m" && \
+		( cd '$(PWD)/internal/cmd/generate' && \
+			go run main.go examples doc --debug --input='$(PWD)/.doc/examples/src/' --output='$(PWD)/.doc/examples/' \
+		) \
+	}
+
 ##@ Other
 #------------------------------------------------------------------------------
 help:  ## Display help
