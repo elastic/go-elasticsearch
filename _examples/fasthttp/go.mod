@@ -7,5 +7,5 @@ replace github.com/elastic/go-elasticsearch/v6 => ../..
 require (
 	github.com/elastic/go-elasticsearch/v6 6.x
 
-	github.com/valyala/fasthttp v1.1.0
+	github.com/valyala/fasthttp v1.5.0
 )
