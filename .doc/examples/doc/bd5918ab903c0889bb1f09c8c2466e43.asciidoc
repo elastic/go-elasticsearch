@@ -1,0 +1,18 @@
+// Generated from indices-put-mapping_bd5918ab903c0889bb1f09c8c2466e43_test.go
+//
+[source, go]
+----
+res, err := es.Indices.Create(
+	"users",
+	es.Indices.Create.WithBody(strings.NewReader(`{
+	  "mappings": {
+	    "properties": {
+	      "user_id": {
+	        "type": "long"
+	      }
+	    }
+	  }
+	}`)),
+)
+fmt.Println(res, err)
+----

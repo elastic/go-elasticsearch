@@ -1,0 +1,12 @@
+// Generated from search-request-body_bfcd65ab85d684d36a8550080032958d_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithQuery("message:number"),
+	es.Search.WithSize(0),
+	es.Search.WithTerminateAfter(1),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

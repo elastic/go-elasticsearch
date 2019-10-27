@@ -1,0 +1,22 @@
+// Generated from query-dsl-multi-match-query_047266b0d20fdb62ebc72d51952c8f6d_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "multi_match": {
+	      "query": "Will Smith",
+	      "type": "cross_fields",
+	      "fields": [
+	        "first_name",
+	        "last_name"
+	      ],
+	      "operator": "and"
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

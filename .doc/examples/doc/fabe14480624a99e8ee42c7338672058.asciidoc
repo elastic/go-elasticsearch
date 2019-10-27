@@ -1,0 +1,7 @@
+// Generated from indices-create-index_fabe14480624a99e8ee42c7338672058_test.go
+//
+[source, go]
+----
+res, err := es.Indices.Create("test?wait_for_active_shards=2")
+fmt.Println(res, err)
+----

@@ -1,0 +1,27 @@
+// Generated from query-dsl-multi-match-query_33f148e3d8676de6cc52f58749898a13_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "dis_max": {
+	      "queries": [
+	        {
+	          "match_phrase_prefix": {
+	            "subject": "quick brown f"
+	          }
+	        },
+	        {
+	          "match_phrase_prefix": {
+	            "message": "quick brown f"
+	          }
+	        }
+	      ]
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

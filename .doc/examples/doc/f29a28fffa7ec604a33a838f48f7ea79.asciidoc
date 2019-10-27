@@ -1,0 +1,41 @@
+// Generated from query-dsl-query_filter_context_f29a28fffa7ec604a33a838f48f7ea79_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "bool": {
+	      "must": [
+	        {
+	          "match": {
+	            "title": "Search"
+	          }
+	        },
+	        {
+	          "match": {
+	            "content": "Elasticsearch"
+	          }
+	        }
+	      ],
+	      "filter": [
+	        {
+	          "term": {
+	            "status": "published"
+	          }
+	        },
+	        {
+	          "range": {
+	            "publish_date": {
+	              "gte": "2015-01-01"
+	            }
+	          }
+	        }
+	      ]
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

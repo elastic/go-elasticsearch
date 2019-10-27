@@ -1,0 +1,15 @@
+// Generated from indices-put-mapping_53d938c754f36a912fcbe6473abb463f_test.go
+//
+[source, go]
+----
+res, err := es.Reindex(
+	strings.NewReader(`{
+	  "source": {
+	    "index": "users"
+	  },
+	  "dest": {
+	    "index": "new_users"
+	  }
+	}`))
+fmt.Println(res, err)
+----

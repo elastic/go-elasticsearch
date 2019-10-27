@@ -1,0 +1,20 @@
+// Generated from indices-put-mapping_0bbd30b9be3e54ff3028b9f4459634d2_test.go
+//
+[source, go]
+----
+res, err := es.Indices.PutMapping(
+	[]string{"my_index"},
+	strings.NewReader(`{
+	  "properties": {
+	    "name": {
+	      "properties": {
+	        "last": {
+	          "type": "text"
+	        }
+	      }
+	    }
+	  }
+	}`),
+)
+fmt.Println(res, err)
+----

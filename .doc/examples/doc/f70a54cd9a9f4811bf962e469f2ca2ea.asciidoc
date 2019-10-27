@@ -1,0 +1,20 @@
+// Generated from query-dsl-bool-query_f70a54cd9a9f4811bf962e469f2ca2ea_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "bool": {
+	      "filter": {
+	        "term": {
+	          "status": "active"
+	        }
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

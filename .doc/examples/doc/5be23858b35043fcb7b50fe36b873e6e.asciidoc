@@ -1,0 +1,16 @@
+// Generated from indices-put-mapping_5be23858b35043fcb7b50fe36b873e6e_test.go
+//
+[source, go]
+----
+res, err := es.Indices.PutMapping(
+	[]string{"twitter"},
+	strings.NewReader(`{
+	  "properties": {
+	    "email": {
+	      "type": "keyword"
+	    }
+	  }
+	}`),
+)
+fmt.Println(res, err)
+----

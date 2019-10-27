@@ -1,0 +1,7 @@
+// Generated from indices-delete-index_98f14fddddea54a7d6149ab7b92e099d_test.go
+//
+[source, go]
+----
+res, err := es.Indices.Delete([]string{"twitter"})
+fmt.Println(res, err)
+----

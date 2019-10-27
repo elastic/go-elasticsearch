@@ -1,0 +1,19 @@
+// Generated from query-dsl-range-query_4466d410e06712c63328de4db249e6da_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "range": {
+	      "timestamp": {
+	        "gte": "now-1d/d",
+	        "lt": "now/d"
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

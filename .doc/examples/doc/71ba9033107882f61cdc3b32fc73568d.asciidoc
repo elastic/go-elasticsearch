@@ -1,0 +1,17 @@
+// Generated from mapping_71ba9033107882f61cdc3b32fc73568d_test.go
+//
+[source, go]
+----
+res, err := es.Indices.PutMapping(
+	[]string{"my-index"},
+	strings.NewReader(`{
+	  "properties": {
+	    "employee-id": {
+	      "type": "keyword",
+	      "index": false
+	    }
+	  }
+	}`),
+)
+fmt.Println(res, err)
+----

@@ -1,0 +1,20 @@
+// Generated from query-dsl-multi-match-query_53b908c3432118c5a6e460f74d32006b_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "multi_match": {
+	      "query": "this is a test",
+	      "fields": [
+	        "subject",
+	        "message"
+	      ]
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----
