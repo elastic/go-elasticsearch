@@ -1,0 +1,23 @@
+// Generated from query-dsl-bool-query_fa88f6f5a7d728ec4f1d05244228cb09_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "bool": {
+	      "must": {
+	        "match_all": {}
+	      },
+	      "filter": {
+	        "term": {
+	          "status": "active"
+	        }
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

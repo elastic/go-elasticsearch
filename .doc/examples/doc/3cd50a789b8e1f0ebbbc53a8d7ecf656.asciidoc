@@ -1,0 +1,37 @@
+// Generated from query-dsl-multi-match-query_3cd50a789b8e1f0ebbbc53a8d7ecf656_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "bool": {
+	      "should": [
+	        {
+	          "multi_match": {
+	            "query": "Will Smith",
+	            "type": "cross_fields",
+	            "fields": [
+	              "first",
+	              "last"
+	            ],
+	            "minimum_should_match": "50%"
+	          }
+	        },
+	        {
+	          "multi_match": {
+	            "query": "Will Smith",
+	            "type": "cross_fields",
+	            "fields": [
+	              "*.edge"
+	            ]
+	          }
+	        }
+	      ]
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

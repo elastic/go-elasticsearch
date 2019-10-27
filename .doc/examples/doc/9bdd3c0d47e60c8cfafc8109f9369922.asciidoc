@@ -1,0 +1,11 @@
+// Generated from search-search_9bdd3c0d47e60c8cfafc8109f9369922_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithIndex("twitter/"),
+	es.Search.WithQuery("tag:wow"),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

@@ -1,0 +1,22 @@
+// Generated from query-dsl-query-string-query_6f21a878fee3b43c5332b81aaddbeac7_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "query_string": {
+	      "fields": [
+	        "title",
+	        "content"
+	      ],
+	      "query": "this OR that OR thus",
+	      "type": "cross_fields",
+	      "minimum_should_match": 2
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

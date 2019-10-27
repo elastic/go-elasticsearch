@@ -1,0 +1,20 @@
+// Generated from docs-bulk_8cd00a3aba7c3c158277bc032aac2830_test.go
+//
+[source, go]
+----
+res, err := es.Bulk(
+	strings.NewReader(`
+{ "update" : {"_id" : "1", "_index" : "index1", "retry_on_conflict" : 3} }
+{ "doc" : {"field" : "value"} }
+{ "update" : { "_id" : "0", "_index" : "index1", "retry_on_conflict" : 3} }
+{ "script" : { "source": "ctx._source.counter += params.param1", "lang" : "painless", "params" : {"param1" : 1}}, "upsert" : {"counter" : 1}}
+{ "update" : {"_id" : "2", "_index" : "index1", "retry_on_conflict" : 3} }
+{ "doc" : {"field" : "value"}, "doc_as_upsert" : true }
+{ "update" : {"_id" : "3", "_index" : "index1", "_source" : true} }
+{ "doc" : {"field" : "value"} }
+{ "update" : {"_id" : "4", "_index" : "index1"} }
+{ "doc" : {"field" : "value"}, "_source": true}
+`),
+)
+fmt.Println(res, err)
+----

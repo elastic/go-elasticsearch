@@ -1,0 +1,31 @@
+// Generated from aggregations-bucket-terms-aggregation_98b121bf47cebd85671a2cb519688d28_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "aggs": {
+	    "JapaneseCars": {
+	      "terms": {
+	        "field": "make",
+	        "include": [
+	          "mazda",
+	          "honda"
+	        ]
+	      }
+	    },
+	    "ActiveCarManufacturers": {
+	      "terms": {
+	        "field": "make",
+	        "exclude": [
+	          "rover",
+	          "jensen"
+	        ]
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

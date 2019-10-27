@@ -1,0 +1,18 @@
+// Generated from indices-put-mapping_734c2e2a1e45b84f1e4e65b51356fcd7_test.go
+//
+[source, go]
+----
+res, err := es.Indices.Create(
+	"new_users",
+	es.Indices.Create.WithBody(strings.NewReader(`{
+	  "mappings": {
+	    "properties": {
+	      "user_id": {
+	        "type": "keyword"
+	      }
+	    }
+	  }
+	}`)),
+)
+fmt.Println(res, err)
+----

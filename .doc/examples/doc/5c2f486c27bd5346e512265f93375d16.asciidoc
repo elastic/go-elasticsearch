@@ -1,0 +1,20 @@
+// Generated from query-dsl-range-query_5c2f486c27bd5346e512265f93375d16_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "range": {
+	      "timestamp": {
+	        "time_zone": "+01:00",
+	        "gte": "2020-01-01T00:00:00",
+	        "lte": "now"
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

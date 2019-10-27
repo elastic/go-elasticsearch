@@ -1,0 +1,24 @@
+// Generated from mapping_d8b2a88b5eca99d3691ad3cd40266736_test.go
+//
+[source, go]
+----
+res, err := es.Indices.Create(
+	"my-index",
+	es.Indices.Create.WithBody(strings.NewReader(`{
+	  "mappings": {
+	    "properties": {
+	      "age": {
+	        "type": "integer"
+	      },
+	      "email": {
+	        "type": "keyword"
+	      },
+	      "name": {
+	        "type": "text"
+	      }
+	    }
+	  }
+	}`)),
+)
+fmt.Println(res, err)
+----

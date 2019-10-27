@@ -1,0 +1,30 @@
+// Generated from indices-put-mapping_1da77e114459e0b77d78a3dcc8fae429_test.go
+//
+[source, go]
+----
+{
+	res, err := es.Indices.Create("twitter-1")
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Indices.Create(
+		"twitter-2",
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Indices.PutMapping(
+		[]string{"twitter-1,twitter-2"},
+		strings.NewReader(`{
+	  "properties": {
+	    "user_name": {
+	      "type": "text"
+	    }
+	  }
+	}`),
+	)
+	fmt.Println(res, err)
+}
+----

@@ -1,0 +1,18 @@
+// Generated from query-dsl-query-string-query_f32f0c19b42de3b87dd764fe4ca17e7c_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "query_string": {
+	      "default_field": "title",
+	      "query": "ny city",
+	      "auto_generate_synonyms_phrase_query": false
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

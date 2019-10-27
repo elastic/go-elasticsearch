@@ -1,0 +1,7 @@
+// Generated from getting-started_3f3b3e207f79303ce6f86e03e928e062_test.go
+//
+[source, go]
+----
+res, err := es.Get("customer", "1", es.Get.WithPretty())
+fmt.Println(res, err)
+----

@@ -1,0 +1,21 @@
+// Generated from query-dsl-multi-match-query_0e118857b815b62118a30c042f079db1_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "multi_match": {
+	      "query": "quick brown f",
+	      "type": "phrase_prefix",
+	      "fields": [
+	        "subject",
+	        "message"
+	      ]
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

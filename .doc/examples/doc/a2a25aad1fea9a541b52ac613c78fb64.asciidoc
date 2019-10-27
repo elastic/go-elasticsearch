@@ -1,0 +1,21 @@
+// Generated from query-dsl-query-string-query_a2a25aad1fea9a541b52ac613c78fb64_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "query_string": {
+	      "fields": [
+	        "content",
+	        "name^5"
+	      ],
+	      "query": "this AND that OR thus",
+	      "tie_breaker": 0
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

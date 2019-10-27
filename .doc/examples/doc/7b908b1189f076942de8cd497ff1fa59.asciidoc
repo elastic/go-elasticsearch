@@ -1,0 +1,22 @@
+// Generated from query-dsl-multi-match-query_7b908b1189f076942de8cd497ff1fa59_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "multi_match": {
+	      "query": "quick brown fox",
+	      "type": "most_fields",
+	      "fields": [
+	        "title",
+	        "title.original",
+	        "title.shingles"
+	      ]
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

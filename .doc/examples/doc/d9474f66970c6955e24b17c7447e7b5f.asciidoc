@@ -1,0 +1,22 @@
+// Generated from indices-put-mapping_d9474f66970c6955e24b17c7447e7b5f_test.go
+//
+[source, go]
+----
+res, err := es.Indices.Create(
+	"my_index",
+	es.Indices.Create.WithBody(strings.NewReader(`{
+	  "mappings": {
+	    "properties": {
+	      "name": {
+	        "properties": {
+	          "first": {
+	            "type": "text"
+	          }
+	        }
+	      }
+	    }
+	  }
+	}`)),
+)
+fmt.Println(res, err)
+----
