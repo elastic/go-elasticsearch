@@ -116,6 +116,65 @@ func TestTransportConfig(t *testing.T) {
 	})
 }
 
+func TestTransportConnectionPool(t *testing.T) {
+	t.Run("Single URL", func(t *testing.T) {
+		tp := New(Config{URLs: []*url.URL{{Scheme: "http", Host: "foo1"}}})
+
+		if _, ok := tp.pool.(*singleConnectionPool); !ok {
+			t.Errorf("Expected connection to be singleConnectionPool, got: %T", tp)
+		}
+
+		conn, err := tp.pool.Next()
+		if err != nil {
+			t.Errorf("Unexpected error: %s", err)
+		}
+
+		if conn.URL.String() != "http://foo1" {
+			t.Errorf("Unexpected URL, want=http://foo1, got=%s", conn.URL)
+		}
+	})
+
+	t.Run("Two URLs", func(t *testing.T) {
+		var (
+			conn *Connection
+			err  error
+		)
+
+		tp := New(Config{URLs: []*url.URL{
+			{Scheme: "http", Host: "foo1"},
+			{Scheme: "http", Host: "foo2"},
+		}})
+
+		if _, ok := tp.pool.(*roundRobinConnectionPool); !ok {
+			t.Errorf("Expected connection to be roundRobinConnectionPool, got: %T", tp)
+		}
+
+		conn, err = tp.pool.Next()
+		if err != nil {
+			t.Errorf("Unexpected error: %s", err)
+		}
+		if conn.URL.String() != "http://foo1" {
+			t.Errorf("Unexpected URL, want=foo1, got=%s", conn.URL)
+		}
+
+		conn, err = tp.pool.Next()
+		if err != nil {
+			t.Errorf("Unexpected error: %s", err)
+		}
+		if conn.URL.String() != "http://foo2" {
+			t.Errorf("Unexpected URL, want=http://foo2, got=%s", conn.URL)
+		}
+
+		conn, err = tp.pool.Next()
+		if err != nil {
+			t.Errorf("Unexpected error: %s", err)
+		}
+		if conn.URL.String() != "http://foo1" {
+			t.Errorf("Unexpected URL, want=http://foo1, got=%s", conn.URL)
+		}
+	})
+}
+
 func TestTransportPerform(t *testing.T) {
 	t.Run("Executes", func(t *testing.T) {
 		u, _ := url.Parse("https://foo.com/bar")
@@ -223,9 +282,9 @@ func TestTransportPerform(t *testing.T) {
 
 		req, _ := http.NewRequest("GET", "/abc", nil)
 
-		res, err := tp.Perform(req)
-		if err.Error() != "cannot get URL: No URL available" {
-			t.Fatalf("Expected error `cannot get URL`: but got error %v, response %v", err, res)
+		_, err := tp.Perform(req)
+		if err.Error() != `cannot get connection: no connection available` {
+			t.Fatalf("Expected error `cannot get URL`: but got error %q", err)
 		}
 	})
 }
@@ -487,97 +546,6 @@ func TestTransportPerformRetries(t *testing.T) {
 
 		if end < expectedDuration {
 			t.Errorf("Unexpected duration, want=>%s, got=%s", expectedDuration, end)
-		}
-	})
-}
-
-func TestTransportSelector(t *testing.T) {
-	t.Run("Nil value", func(t *testing.T) {
-		tp := New(Config{URLs: []*url.URL{nil}})
-
-		u, err := tp.selector.Select()
-		if err == nil {
-			t.Errorf("Expected error, but got %s", u)
-		}
-	})
-
-	t.Run("No URL", func(t *testing.T) {
-		tp := New(Config{})
-
-		u, err := tp.selector.Select()
-		if err == nil {
-			t.Errorf("Expected error, but got %s", u)
-		}
-	})
-
-	t.Run("Single URL", func(t *testing.T) {
-		tp := New(Config{URLs: []*url.URL{{Scheme: "http", Host: "localhost:9200"}}})
-
-		for i := 0; i < 7; i++ {
-			u, err := tp.selector.Select()
-			if err != nil {
-				t.Errorf("Unexpected error: %s", err)
-			}
-
-			if u.String() != "http://localhost:9200" {
-				t.Errorf("Unexpected URL, want=http://localhost:9200, got=%s", u)
-			}
-		}
-	})
-
-	t.Run("Two URLs", func(t *testing.T) {
-		var u *url.URL
-
-		tp := New(Config{URLs: []*url.URL{
-			{Scheme: "http", Host: "localhost:9200"},
-			{Scheme: "http", Host: "localhost:9201"},
-		}})
-
-		u, _ = tp.selector.Select()
-		if u.String() != "http://localhost:9200" {
-			t.Errorf("Unexpected URL, want=http://localhost:9200, got=%s", u)
-		}
-
-		u, _ = tp.selector.Select()
-		if u.String() != "http://localhost:9201" {
-			t.Errorf("Unexpected URL, want=http://localhost:9201, got=%s", u)
-		}
-
-		u, _ = tp.selector.Select()
-		if u.String() != "http://localhost:9200" {
-			t.Errorf("Unexpected URL, want=http://localhost:9200, got=%s", u)
-		}
-	})
-
-	t.Run("Three URLs", func(t *testing.T) {
-		tp := New(Config{URLs: []*url.URL{
-			{Scheme: "http", Host: "localhost:9200"},
-			{Scheme: "http", Host: "localhost:9201"},
-			{Scheme: "http", Host: "localhost:9202"},
-		}})
-
-		var expected string
-		for i := 0; i < 11; i++ {
-			u, err := tp.selector.Select()
-
-			if err != nil {
-				t.Errorf("Unexpected error: %s", err)
-			}
-
-			switch i % 3 {
-			case 0:
-				expected = "http://localhost:9200"
-			case 1:
-				expected = "http://localhost:9201"
-			case 2:
-				expected = "http://localhost:9202"
-			default:
-				t.Fatalf("Unexpected i %% 3: %d", i%3)
-			}
-
-			if u.String() != expected {
-				t.Errorf("Unexpected URL, want=%s, got=%s", expected, u)
-			}
 		}
 	})
 }
