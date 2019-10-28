@@ -279,3 +279,16 @@ func TestVersion(t *testing.T) {
 		t.Error("Version is empty")
 	}
 }
+
+func TestClientMetrics(t *testing.T) {
+	c, _ := NewClient(Config{EnableMetrics: true})
+
+	m, err := c.Metrics()
+	if err != nil {
+		t.Fatalf("Unexpected error: %v", err)
+	}
+
+	if m.Requests != 0 {
+		t.Errorf("Unexpected output: %s", m)
+	}
+}
