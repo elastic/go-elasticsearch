@@ -110,6 +110,8 @@ bulk/81_cas_with_types.yml:
 # Stash in body
 api_key/10_basic.yml:
   - Test invalidate api key
+api_key/11_invalidation.yml:
+  - Test invalidate api key by username
 rollup/put_job.yml:
   - Test put job with templates
 
