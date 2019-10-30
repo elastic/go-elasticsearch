@@ -99,8 +99,6 @@ func (cp *singleConnectionPool) Remove(c *Connection) error {
 // Next returns a connection from pool, or an error.
 //
 func (cp *roundRobinConnectionPool) Next() (*Connection, error) {
-	var c *Connection
-
 	cp.Lock()
 	defer cp.Unlock()
 
@@ -108,24 +106,15 @@ func (cp *roundRobinConnectionPool) Next() (*Connection, error) {
 	if len(cp.live) > 0 {
 		cp.curr = (cp.curr + 1) % len(cp.live)
 		return cp.live[cp.curr], nil
-
 	} else if len(cp.dead) > 0 {
-		// Try to resurrect a dead connection if no live connections are available
-		if cp.debugLogger != nil {
-			cp.debugLogger.Log("Resurrecting connection ")
-		}
-		c, cp.dead = cp.dead[len(cp.dead)-1], cp.dead[:len(cp.dead)-1] // Pop item
+		// No live connections are available, resurrect one
+		// of the dead connections with the fewest failures.
+		c := cp.dead[len(cp.dead)-1]
+		cp.dead = cp.dead[:len(cp.dead)-1]
 		c.Lock()
-		if cp.debugLogger != nil {
-			cp.debugLogger.Log(c.URL.String() + "\n")
-		}
-		c.markAsLive()
-		cp.live = append(cp.live, c)
-		c.Unlock()
-
-		return c, nil
+		defer c.Unlock()
+		return c, cp.resurrectLocked(c, false)
 	}
-
 	return nil, errors.New("no connection available")
 }
 
@@ -209,7 +198,10 @@ func (cp *roundRobinConnectionPool) Resurrect(c *Connection) error {
 		}
 		return nil
 	}
+	return cp.resurrectLocked(c, true)
+}
 
+func (cp *roundRobinConnectionPool) resurrectLocked(c *Connection, removeDead bool) error {
 	if cp.debugLogger != nil {
 		cp.debugLogger.Logf("Resurrecting %s\n", c.URL)
 	}
@@ -217,16 +209,18 @@ func (cp *roundRobinConnectionPool) Resurrect(c *Connection) error {
 	c.markAsLive()
 
 	cp.live = append(cp.live, c)
-	index := -1
-	for i, conn := range cp.dead {
-		if conn == c {
-			index = i
+	if removeDead {
+		index := -1
+		for i, conn := range cp.dead {
+			if conn == c {
+				index = i
+			}
 		}
-	}
-	if index >= 0 {
-		// Remove item; https://github.com/golang/go/wiki/SliceTricks
-		copy(cp.dead[index:], cp.dead[index+1:])
-		cp.dead = cp.dead[:len(cp.dead)-1]
+		if index >= 0 {
+			// Remove item; https://github.com/golang/go/wiki/SliceTricks
+			copy(cp.dead[index:], cp.dead[index+1:])
+			cp.dead = cp.dead[:len(cp.dead)-1]
+		}
 	}
 
 	if cp.enableMetrics {
