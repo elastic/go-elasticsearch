@@ -78,8 +78,7 @@ type Client struct {
 	maxRetries           int
 	retryBackoff         func(attempt int) time.Duration
 
-	enableMetrics bool
-	metrics       *metrics
+	metrics *metrics
 
 	enableDebugLogger bool
 	debugLogger       DebuggingLogger
@@ -125,7 +124,6 @@ func New(cfg Config) *Client {
 		maxRetries:           cfg.MaxRetries,
 		retryBackoff:         cfg.RetryBackoff,
 
-		enableMetrics:     cfg.EnableMetrics,
 		enableDebugLogger: cfg.EnableDebugLogger,
 
 		transport: cfg.Transport,
@@ -137,12 +135,10 @@ func New(cfg Config) *Client {
 		// FIXME(karmi): Type assertion to interface
 		if pool, ok := client.pool.(*singleConnectionPool); ok {
 			client.metrics = &metrics{responses: make(map[int]int)}
-			pool.enableMetrics = true
 			pool.metrics = client.metrics
 		}
 		if pool, ok := client.pool.(*roundRobinConnectionPool); ok {
 			client.metrics = &metrics{responses: make(map[int]int)}
-			pool.enableMetrics = true
 			pool.metrics = client.metrics
 		}
 	}
@@ -171,7 +167,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 
 	// Record metrics, when enabled
 	//
-	if c.enableMetrics {
+	if c.metrics != nil {
 		c.metrics.Lock()
 		c.metrics.requests++
 		c.metrics.Unlock()
@@ -243,7 +239,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		if err != nil {
 			// Record metrics, when enabled
 			//
-			if c.enableMetrics {
+			if c.metrics != nil {
 				c.metrics.Lock()
 				c.metrics.failures++
 				c.metrics.Unlock()
@@ -268,7 +264,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 			conn.Unlock()
 		}
 
-		if res != nil && c.enableMetrics {
+		if res != nil && c.metrics != nil {
 			c.metrics.Lock()
 			c.metrics.responses[res.StatusCode]++
 			c.metrics.Unlock()
