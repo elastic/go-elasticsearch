@@ -38,7 +38,9 @@ type TransformStopTransformRequest struct {
 	TransformID string
 
 	AllowNoMatch      *bool
+	Force             *bool
 	Timeout           time.Duration
+	WaitForCheckpoint *bool
 	WaitForCompletion *bool
 
 	Pretty     bool
@@ -76,8 +78,16 @@ func (r TransformStopTransformRequest) Do(ctx context.Context, transport Transpo
 		params["allow_no_match"] = strconv.FormatBool(*r.AllowNoMatch)
 	}
 
+	if r.Force != nil {
+		params["force"] = strconv.FormatBool(*r.Force)
+	}
+
 	if r.Timeout != 0 {
 		params["timeout"] = formatDuration(r.Timeout)
+	}
+
+	if r.WaitForCheckpoint != nil {
+		params["wait_for_checkpoint"] = strconv.FormatBool(*r.WaitForCheckpoint)
 	}
 
 	if r.WaitForCompletion != nil {
@@ -159,11 +169,27 @@ func (f TransformStopTransform) WithAllowNoMatch(v bool) func(*TransformStopTran
 	}
 }
 
+// WithForce - whether to force stop a failed transform or not. default to false.
+//
+func (f TransformStopTransform) WithForce(v bool) func(*TransformStopTransformRequest) {
+	return func(r *TransformStopTransformRequest) {
+		r.Force = &v
+	}
+}
+
 // WithTimeout - controls the time to wait until the transform has stopped. default to 30 seconds.
 //
 func (f TransformStopTransform) WithTimeout(v time.Duration) func(*TransformStopTransformRequest) {
 	return func(r *TransformStopTransformRequest) {
 		r.Timeout = v
+	}
+}
+
+// WithWaitForCheckpoint - whether to wait for the transform to reach a checkpoint before stopping. default to false.
+//
+func (f TransformStopTransform) WithWaitForCheckpoint(v bool) func(*TransformStopTransformRequest) {
+	return func(r *TransformStopTransformRequest) {
+		r.WaitForCheckpoint = &v
 	}
 }
 

@@ -42,6 +42,7 @@ type RankEvalRequest struct {
 	AllowNoIndices    *bool
 	ExpandWildcards   string
 	IgnoreUnavailable *bool
+	SearchType        string
 
 	Pretty     bool
 	Human      bool
@@ -84,6 +85,10 @@ func (r RankEvalRequest) Do(ctx context.Context, transport Transport) (*Response
 
 	if r.IgnoreUnavailable != nil {
 		params["ignore_unavailable"] = strconv.FormatBool(*r.IgnoreUnavailable)
+	}
+
+	if r.SearchType != "" {
+		params["search_type"] = r.SearchType
 	}
 
 	if r.Pretty {
@@ -186,6 +191,14 @@ func (f RankEval) WithExpandWildcards(v string) func(*RankEvalRequest) {
 func (f RankEval) WithIgnoreUnavailable(v bool) func(*RankEvalRequest) {
 	return func(r *RankEvalRequest) {
 		r.IgnoreUnavailable = &v
+	}
+}
+
+// WithSearchType - search operation type.
+//
+func (f RankEval) WithSearchType(v string) func(*RankEvalRequest) {
+	return func(r *RankEvalRequest) {
+		r.SearchType = v
 	}
 }
 

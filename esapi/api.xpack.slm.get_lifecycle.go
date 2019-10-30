@@ -33,7 +33,7 @@ type SlmGetLifecycle func(o ...func(*SlmGetLifecycleRequest)) (*Response, error)
 // SlmGetLifecycleRequest configures the Slm Get Lifecycle API request.
 //
 type SlmGetLifecycleRequest struct {
-	PolicyID string
+	PolicyID []string
 
 	Pretty     bool
 	Human      bool
@@ -56,14 +56,14 @@ func (r SlmGetLifecycleRequest) Do(ctx context.Context, transport Transport) (*R
 
 	method = "GET"
 
-	path.Grow(1 + len("_slm") + 1 + len("policy") + 1 + len(r.PolicyID))
+	path.Grow(1 + len("_slm") + 1 + len("policy") + 1 + len(strings.Join(r.PolicyID, ",")))
 	path.WriteString("/")
 	path.WriteString("_slm")
 	path.WriteString("/")
 	path.WriteString("policy")
-	if r.PolicyID != "" {
+	if len(r.PolicyID) > 0 {
 		path.WriteString("/")
-		path.WriteString(r.PolicyID)
+		path.WriteString(strings.Join(r.PolicyID, ","))
 	}
 
 	params = make(map[string]string)
@@ -137,7 +137,7 @@ func (f SlmGetLifecycle) WithContext(v context.Context) func(*SlmGetLifecycleReq
 
 // WithPolicyID - comma-separated list of snapshot lifecycle policies to retrieve.
 //
-func (f SlmGetLifecycle) WithPolicyID(v string) func(*SlmGetLifecycleRequest) {
+func (f SlmGetLifecycle) WithPolicyID(v ...string) func(*SlmGetLifecycleRequest) {
 	return func(r *SlmGetLifecycleRequest) {
 		r.PolicyID = v
 	}

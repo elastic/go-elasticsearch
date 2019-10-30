@@ -9,6 +9,7 @@ package esapi
 import (
 	"context"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -35,6 +36,7 @@ type SecurityGetAPIKey func(o ...func(*SecurityGetAPIKeyRequest)) (*Response, er
 type SecurityGetAPIKeyRequest struct {
 	ID        string
 	Name      string
+	Owner     *bool
 	RealmName string
 	Username  string
 
@@ -70,6 +72,10 @@ func (r SecurityGetAPIKeyRequest) Do(ctx context.Context, transport Transport) (
 
 	if r.Name != "" {
 		params["name"] = r.Name
+	}
+
+	if r.Owner != nil {
+		params["owner"] = strconv.FormatBool(*r.Owner)
 	}
 
 	if r.RealmName != "" {
@@ -160,6 +166,14 @@ func (f SecurityGetAPIKey) WithID(v string) func(*SecurityGetAPIKeyRequest) {
 func (f SecurityGetAPIKey) WithName(v string) func(*SecurityGetAPIKeyRequest) {
 	return func(r *SecurityGetAPIKeyRequest) {
 		r.Name = v
+	}
+}
+
+// WithOwner - flag to query api keys owned by the currently authenticated user.
+//
+func (f SecurityGetAPIKey) WithOwner(v bool) func(*SecurityGetAPIKeyRequest) {
+	return func(r *SecurityGetAPIKeyRequest) {
+		r.Owner = &v
 	}
 }
 
