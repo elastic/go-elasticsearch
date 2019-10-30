@@ -40,8 +40,7 @@ type Connection struct {
 type singleConnectionPool struct {
 	connection *Connection
 
-	metrics       *metrics
-	enableMetrics bool
+	metrics *metrics
 
 	debugLogger DebuggingLogger
 }
@@ -54,8 +53,7 @@ type roundRobinConnectionPool struct {
 	dead []*Connection // List of dead connections
 	orig []*url.URL    // List of original URLs, passed in during initialization
 
-	metrics       *metrics
-	enableMetrics bool
+	metrics *metrics
 
 	debugLogger DebuggingLogger
 }
@@ -74,12 +72,7 @@ func newRoundRobinConnectionPool(u ...*url.URL) *roundRobinConnectionPool {
 
 	cp := roundRobinConnectionPool{live: conns, orig: u, curr: -1}
 
-	if cp.enableMetrics {
-		cp.metrics.Lock()
-		cp.metrics.live = cp.live
-		cp.metrics.dead = cp.dead
-		cp.metrics.Unlock()
-	}
+	// BUG the transport's metrics should be initialised with the live list
 
 	return &cp
 }
@@ -182,7 +175,7 @@ func (cp *roundRobinConnectionPool) Remove(c *Connection) error {
 	copy(cp.live[index:], cp.live[index+1:])
 	cp.live = cp.live[:len(cp.live)-1]
 
-	if cp.enableMetrics {
+	if cp.metrics != nil {
 		cp.metrics.Lock()
 		cp.metrics.dead = cp.dead
 		cp.metrics.live = cp.live
@@ -229,7 +222,7 @@ func (cp *roundRobinConnectionPool) Resurrect(c *Connection) error {
 		cp.dead = cp.dead[:len(cp.dead)-1]
 	}
 
-	if cp.enableMetrics {
+	if cp.metrics != nil {
 		cp.metrics.Lock()
 		cp.metrics.dead = cp.dead
 		cp.metrics.live = cp.live

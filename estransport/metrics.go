@@ -67,7 +67,7 @@ type metrics struct {
 // Metrics returns the transport metrics.
 //
 func (c *Client) Metrics() (Metrics, error) {
-	if !c.enableMetrics {
+	if c.metrics == nil {
 		return Metrics{}, errors.New("transport metrics not enabled")
 	}
 	c.metrics.RLock()
