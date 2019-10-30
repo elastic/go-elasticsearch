@@ -1,8 +1,8 @@
-// Licensed to Elasticsearch B.V. under one or more agreements.
+// Licensed to Elasticsearch B.V under one or more agreements.
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
-
-// Code generated from specification version 7.4.1: DO NOT EDIT
+//
+// Code generated from specification version 7.4.2: DO NOT EDIT
 
 package esapi
 
@@ -11,7 +11,6 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
-	"time"
 )
 
 func newCatRecoveryFunc(t Transport) CatRecovery {
@@ -37,16 +36,15 @@ type CatRecovery func(o ...func(*CatRecoveryRequest)) (*Response, error)
 type CatRecoveryRequest struct {
 	Index []string
 
-	ActiveOnly    *bool
-	Bytes         string
-	Detailed      *bool
-	Format        string
-	H             []string
-	Help          *bool
-	MasterTimeout time.Duration
-	S             []string
-	Time          string
-	V             *bool
+	ActiveOnly *bool
+	Bytes      string
+	Detailed   *bool
+	Format     string
+	H          []string
+	Help       *bool
+	S          []string
+	Time       string
+	V          *bool
 
 	Pretty     bool
 	Human      bool
@@ -109,10 +107,6 @@ func (r CatRecoveryRequest) Do(ctx context.Context, transport Transport) (*Respo
 		params["index"] = strings.Join(r.Index, ",")
 	}
 
-	if r.MasterTimeout != 0 {
-		params["master_timeout"] = formatDuration(r.MasterTimeout)
-	}
-
 	if len(r.S) > 0 {
 		params["s"] = strings.Join(r.S, ",")
 	}
@@ -141,7 +135,10 @@ func (r CatRecoveryRequest) Do(ctx context.Context, transport Transport) (*Respo
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, _ := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), nil)
+	if err != nil {
+		return nil, err
+	}
 
 	if len(params) > 0 {
 		q := req.URL.Query()
@@ -245,14 +242,6 @@ func (f CatRecovery) WithHelp(v bool) func(*CatRecoveryRequest) {
 	}
 }
 
-// WithMasterTimeout - explicit operation timeout for connection to master node.
-//
-func (f CatRecovery) WithMasterTimeout(v time.Duration) func(*CatRecoveryRequest) {
-	return func(r *CatRecoveryRequest) {
-		r.MasterTimeout = v
-	}
-}
-
 // WithS - comma-separated list of column names or column aliases to sort by.
 //
 func (f CatRecovery) WithS(v ...string) func(*CatRecoveryRequest) {
@@ -319,5 +308,16 @@ func (f CatRecovery) WithHeader(h map[string]string) func(*CatRecoveryRequest) {
 		for k, v := range h {
 			r.Header.Add(k, v)
 		}
+	}
+}
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+//
+func (f CatRecovery) WithOpaqueID(s string) func(*CatRecoveryRequest) {
+	return func(r *CatRecoveryRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
 	}
 }

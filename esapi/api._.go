@@ -1,8 +1,8 @@
-// Licensed to Elasticsearch B.V. under one or more agreements.
+// Licensed to Elasticsearch B.V under one or more agreements.
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
-
-// Code generated from specification version 7.4.1 (42824b3731a): DO NOT EDIT
+//
+// Code generated from specification version 7.4.2 (c1c6a413632): DO NOT EDIT
 
 package esapi
 
