@@ -124,6 +124,13 @@ func NewClient(cfg Config) (*Client, error) {
 		urls = append(urls, u)
 	}
 
+	// TODO(karmi): Refactor
+	if urls[0].User != nil {
+		cfg.Username = urls[0].User.Username()
+		pw, _ := urls[0].User.Password()
+		cfg.Password = pw
+	}
+
 	tp := estransport.New(estransport.Config{
 		URLs:     urls,
 		Username: cfg.Username,
@@ -161,6 +168,15 @@ func (c *Client) Metrics() (estransport.Metrics, error) {
 		return mt.Metrics()
 	}
 	return estransport.Metrics{}, errors.New("transport is missing method Metrics()")
+}
+
+// DiscoverNodes reloads the client connections by fetching information from the cluster.
+//
+func (c *Client) DiscoverNodes() error {
+	if dt, ok := c.Transport.(estransport.Discoverable); ok {
+		return dt.DiscoverNodes()
+	}
+	return errors.New("transport is missing method DiscoverNodes()")
 }
 
 // addrsFromEnvironment returns a list of addresses by splitting
