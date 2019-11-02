@@ -57,6 +57,8 @@ type Config struct {
 	MaxRetries           int
 	RetryBackoff         func(attempt int) time.Duration
 
+	ConnectionPool ConnectionPool
+
 	EnableMetrics     bool
 	EnableDebugLogger bool
 
@@ -106,10 +108,14 @@ func New(cfg Config) *Client {
 	}
 
 	var pool ConnectionPool
-	if len(cfg.URLs) == 1 {
-		pool = newSingleConnectionPool(cfg.URLs[0])
+	if cfg.ConnectionPool != nil {
+		pool = cfg.ConnectionPool
 	} else {
-		pool = newRoundRobinConnectionPool(cfg.URLs...)
+		if len(cfg.URLs) == 1 {
+			pool = newSingleConnectionPool(cfg.URLs[0])
+		} else {
+			pool = newRoundRobinConnectionPool(cfg.URLs...)
+		}
 	}
 
 	client := Client{

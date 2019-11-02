@@ -9,6 +9,7 @@ package estransport
 import (
 	"fmt"
 	"io/ioutil"
+	"math/rand"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -20,6 +21,10 @@ import (
 var (
 	_ = fmt.Print
 )
+
+func init() {
+	rand.Seed(time.Now().Unix())
+}
 
 type mockTransp struct {
 	RoundTripFunc func(req *http.Request) (*http.Response, error)
@@ -171,6 +176,56 @@ func TestTransportConnectionPool(t *testing.T) {
 		}
 		if conn.URL.String() != "http://foo1" {
 			t.Errorf("Unexpected URL, want=http://foo1, got=%s", conn.URL)
+		}
+	})
+}
+
+type CustomConnectionPool struct {
+	URLs []*url.URL
+}
+
+// Next returns a random connection.
+func (cp *CustomConnectionPool) Next() (*Connection, error) {
+	u := cp.URLs[rand.Intn(len(cp.URLs))]
+	return &Connection{URL: u}, nil
+}
+
+func (cp *CustomConnectionPool) Remove(c *Connection) error {
+	var index = -1
+	for i, u := range cp.URLs {
+		if u == c.URL {
+			index = i
+		}
+	}
+	if index > -1 {
+		cp.URLs = append(cp.URLs[:index], cp.URLs[index+1:]...)
+		return nil
+	}
+	return fmt.Errorf("connection not found")
+}
+
+func TestTransportCustomConnectionPool(t *testing.T) {
+	t.Run("Run", func(t *testing.T) {
+		tp := New(Config{
+			ConnectionPool: &CustomConnectionPool{
+				URLs: []*url.URL{
+					{Scheme: "http", Host: "custom1"},
+					{Scheme: "http", Host: "custom2"},
+				},
+			},
+		})
+		conn, err := tp.pool.Next()
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+		if conn.URL == nil {
+			t.Errorf("Empty connection URL: %+v", conn)
+		}
+		if err := tp.pool.Remove(conn); err != nil {
+			t.Errorf("Error removing the %q connection: %s", conn.URL, err)
+		}
+		if len(tp.pool.(*CustomConnectionPool).URLs) != 1 {
+			t.Errorf("Unexpected number of connections in pool: %q", tp.pool)
 		}
 	})
 }
