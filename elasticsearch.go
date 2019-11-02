@@ -47,6 +47,8 @@ type Config struct {
 
 	RetryBackoff func(attempt int) time.Duration // Optional backoff duration. Default: nil.
 
+	ConnectionPool estransport.ConnectionPool // The connection pool object.
+
 	Transport http.RoundTripper  // The HTTP transport object.
 	Logger    estransport.Logger // The logger object.
 }
@@ -135,8 +137,9 @@ func NewClient(cfg Config) (*Client, error) {
 		EnableMetrics:     cfg.EnableMetrics,
 		EnableDebugLogger: cfg.EnableDebugLogger,
 
-		Transport: cfg.Transport,
-		Logger:    cfg.Logger,
+		ConnectionPool: cfg.ConnectionPool,
+		Transport:      cfg.Transport,
+		Logger:         cfg.Logger,
 	})
 
 	return &Client{Transport: tp, API: esapi.New(tp)}, nil
