@@ -7,8 +7,11 @@ package estransport
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"net/url"
+	"sort"
+	"strings"
 )
 
 // Discoverable defines the interface for transports supporting node discovery.
@@ -17,14 +20,14 @@ type Discoverable interface {
 	DiscoverNodes() error
 }
 
-// NodeInfo represents the information about node in a cluster.
+// nodeInfo represents the information about node in a cluster.
 //
 // See: https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-nodes-info.html
 //
-type NodeInfo struct {
+type nodeInfo struct {
 	ID         string
 	Name       string
-	Address    string
+	URL        *url.URL
 	Roles      []string
 	Attributes map[string]interface{}
 	HTTP       struct {
@@ -41,32 +44,76 @@ func (c *Client) DiscoverNodes() error {
 	}
 
 	fmt.Println("DiscoverNodes:")
-	for _, n := range nodes {
-		fmt.Printf("==> %+v\n", n)
+	for i, n := range nodes {
+		fmt.Printf("%d. %+v\n", i+1, n)
 	}
 	fmt.Println("------------------------------------------------------------")
 
-	var urls []*url.URL
-	for _, n := range nodes {
-		u, err := url.Parse(n.Address)
-		if err != nil {
-			return err
-		}
-		urls = append(urls, u)
+	if len(nodes) < 2 {
+		c.pool = newSingleConnectionPool(nodes[0].URL)
+		return nil
 	}
 
-	c.pool = newRoundRobinConnectionPool(urls...)
+	var orig []*url.URL
+	if cprr, ok := c.pool.(*roundRobinConnectionPool); ok {
+		orig = cprr.orig
+	}
+
+	cp := &roundRobinConnectionPool{orig: orig, curr: -1}
+
+	cp.Lock()
+	defer cp.Unlock()
+
+	for _, node := range nodes {
+		fmt.Printf("Checking node %s", node.URL)
+		var (
+			isDataNode   bool
+			isIngestNode bool
+		)
+
+		roles := append(node.Roles[:0:0], node.Roles...)
+		sort.Strings(roles)
+
+		if i := sort.SearchStrings(roles, "data"); i < len(roles) && roles[i] == "data" {
+			isDataNode = true
+		}
+		if i := sort.SearchStrings(roles, "ingest"); i < len(roles) && roles[i] == "ingest" {
+			isIngestNode = true
+		}
+
+		fmt.Printf("; roles=%s", node.Roles)
+
+		// Skip master only nodes
+		//
+		if !isDataNode || !isIngestNode {
+			fmt.Printf("; SKIPPING\n")
+			continue
+		} else {
+			fmt.Printf("\n")
+		}
+
+		cp.live = append(cp.live, &Connection{
+			URL:        node.URL,
+			ID:         node.ID,
+			Name:       node.Name,
+			Roles:      node.Roles,
+			Attributes: node.Attributes,
+		})
+	}
+
+	// TODO(karmi): c.pool.Replace(cp)
+	c.pool = cp
 
 	return nil
 }
 
-func (c *Client) getNodesInfo() ([]NodeInfo, error) {
+func (c *Client) getNodesInfo() ([]nodeInfo, error) {
 	var (
-		out    []NodeInfo
+		out    []nodeInfo
 		scheme = c.urls[0].Scheme
 	)
 
-	req, err := http.NewRequest("GET", "_nodes/http", nil)
+	req, err := http.NewRequest("GET", "/_nodes/http", nil)
 	if err != nil {
 		return out, err
 	}
@@ -80,14 +127,16 @@ func (c *Client) getNodesInfo() ([]NodeInfo, error) {
 	c.setReqAuth(conn.URL, req)
 	c.setReqUserAgent(req)
 
-	// fmt.Printf("%+v\n", req)
-
 	res, err := c.transport.RoundTrip(req)
 	if err != nil {
-		c.pool.Remove(conn)
 		return out, err
 	}
 	defer res.Body.Close()
+
+	if res.StatusCode > 200 {
+		body, _ := ioutil.ReadAll(res.Body)
+		return out, fmt.Errorf("server error: %s: %s", res.Status, body)
+	}
 
 	var env map[string]json.RawMessage
 	if err := json.NewDecoder(res.Body).Decode(&env); err != nil {
@@ -95,7 +144,7 @@ func (c *Client) getNodesInfo() ([]NodeInfo, error) {
 	}
 
 	// fmt.Printf("%s\n", env["nodes"])
-	var nodes map[string]NodeInfo
+	var nodes map[string]nodeInfo
 	if err := json.Unmarshal(env["nodes"], &nodes); err != nil {
 		return out, err
 	}
@@ -103,17 +152,41 @@ func (c *Client) getNodesInfo() ([]NodeInfo, error) {
 	for id, node := range nodes {
 		// fmt.Printf("%+v\n", node)
 		node.ID = id
-		nodeAddr, err := getNodeAddress(node, scheme)
+		u, err := c.getNodeURL(node, scheme)
 		if err != nil {
 			return out, err
 		}
-		node.Address = nodeAddr
+		node.URL = u
 		out = append(out, node)
 	}
 
 	return out, nil
 }
 
-func getNodeAddress(node NodeInfo, scheme string) (string, error) {
-	return scheme + "://" + node.HTTP.PublishAddress, nil
+func (c *Client) getNodeURL(node nodeInfo, scheme string) (*url.URL, error) {
+	var (
+		host string
+		port string
+
+		addrs = strings.Split(node.HTTP.PublishAddress, "/")
+		ports = strings.Split(node.HTTP.PublishAddress, ":")
+	)
+
+	if len(addrs) > 1 {
+		host = addrs[0]
+	} else {
+		host = strings.Split(addrs[0], ":")[0]
+	}
+	port = ports[len(ports)-1]
+
+	u := &url.URL{
+		Scheme: scheme,
+		Host:   host + ":" + port,
+	}
+
+	if c.username != "" || c.password != "" {
+		u.User = url.UserPassword(c.username, c.password)
+	}
+
+	return u, nil
 }

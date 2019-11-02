@@ -43,6 +43,11 @@ type Connection struct {
 	IsDead    bool
 	DeadSince time.Time
 	Failures  int
+
+	ID         string
+	Name       string
+	Roles      []string
+	Attributes map[string]interface{}
 }
 
 type singleConnectionPool struct {
