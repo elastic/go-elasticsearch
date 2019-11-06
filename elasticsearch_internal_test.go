@@ -98,6 +98,7 @@ func TestClientConfiguration(t *testing.T) {
 	})
 
 	t.Run("With CloudID", func(t *testing.T) {
+		// bar.cloud.es.io$abc123$def456
 		c, err := NewClient(Config{CloudID: "foo:YmFyLmNsb3VkLmVzLmlvJGFiYzEyMyRkZWY0NTY="})
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
@@ -105,8 +106,8 @@ func TestClientConfiguration(t *testing.T) {
 
 		u := c.Transport.(*estransport.Client).URLs()[0].String()
 
-		if u != "https://abc123.bar.cloud.es.io:9243" {
-			t.Errorf("Unexpected URL, want=https://abc123.bar.cloud.es.io:9243, got=%s", u)
+		if u != "https://abc123.bar.cloud.es.io" {
+			t.Errorf("Unexpected URL, want=https://abc123.bar.cloud.es.io, got=%s", u)
 		}
 	})
 
@@ -237,16 +238,30 @@ func TestAddrsToURLs(t *testing.T) {
 
 func TestCloudID(t *testing.T) {
 	t.Run("Parse", func(t *testing.T) {
-		input := "name:" + base64.StdEncoding.EncodeToString([]byte("host$es$kibana"))
-		expected := "https://es.host:9243"
+		var testdata = []struct {
+			in  string
+			out string
+		}{
+			{
+				in:  "name:" + base64.StdEncoding.EncodeToString([]byte("host$es$kibana")),
+				out: "https://es.host",
+			},
+			{
+				in:  "name:" + base64.StdEncoding.EncodeToString([]byte("host:9243$es$kibana")),
+				out: "https://es.host:9243",
+			},
+		}
 
-		actual, err := addrFromCloudID(input)
-		if err != nil {
-			t.Errorf("Unexpected error: %s", err)
+		for _, tt := range testdata {
+			actual, err := addrFromCloudID(tt.in)
+			if err != nil {
+				t.Errorf("Unexpected error: %s", err)
+			}
+			if actual != tt.out {
+				t.Errorf("Unexpected output, want=%q, got=%q", tt.out, actual)
+			}
 		}
-		if actual != expected {
-			t.Errorf("Unexpected output, want=%q, got=%q", expected, actual)
-		}
+
 	})
 
 	t.Run("Invalid format", func(t *testing.T) {
