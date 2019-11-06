@@ -193,10 +193,7 @@ func addrsToURLs(addrs []string) ([]*url.URL, error) {
 // See: https://www.elastic.co/guide/en/cloud/current/ec-cloud-id.html
 //
 func addrFromCloudID(input string) (string, error) {
-	var (
-		port   = 9243
-		scheme = "https://"
-	)
+	var scheme = "https://"
 
 	values := strings.Split(input, ":")
 	if len(values) != 2 {
@@ -207,5 +204,5 @@ func addrFromCloudID(input string) (string, error) {
 		return "", err
 	}
 	parts := strings.Split(string(data), "$")
-	return fmt.Sprintf("%s%s.%s:%d", scheme, parts[1], parts[0], port), nil
+	return fmt.Sprintf("%s%s.%s", scheme, parts[1], parts[0]), nil
 }
