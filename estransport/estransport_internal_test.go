@@ -190,7 +190,7 @@ func (cp *CustomConnectionPool) Next() (*Connection, error) {
 	return &Connection{URL: u}, nil
 }
 
-func (cp *CustomConnectionPool) Remove(c *Connection) error {
+func (cp *CustomConnectionPool) OnFailure(c *Connection) error {
 	var index = -1
 	for i, u := range cp.URLs {
 		if u == c.URL {
@@ -203,17 +203,26 @@ func (cp *CustomConnectionPool) Remove(c *Connection) error {
 	}
 	return fmt.Errorf("connection not found")
 }
+func (cp *CustomConnectionPool) OnSuccess(c *Connection) error { return nil }
+func (cp *CustomConnectionPool) Len() int                      { return len(cp.URLs) }
 
 func TestTransportCustomConnectionPool(t *testing.T) {
 	t.Run("Run", func(t *testing.T) {
 		tp := New(Config{
-			ConnectionPool: &CustomConnectionPool{
-				URLs: []*url.URL{
-					{Scheme: "http", Host: "custom1"},
-					{Scheme: "http", Host: "custom2"},
-				},
+			ConnectionPoolFunc: func(conns []*Connection, selector Selector) ConnectionPool {
+				return &CustomConnectionPool{
+					URLs: []*url.URL{
+						{Scheme: "http", Host: "custom1"},
+						{Scheme: "http", Host: "custom2"},
+					},
+				}
 			},
 		})
+
+		if _, ok := tp.pool.(*CustomConnectionPool); !ok {
+			t.Fatalf("Unexpected connection pool, want=CustomConnectionPool, got=%T", tp.pool)
+		}
+
 		conn, err := tp.pool.Next()
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
@@ -221,10 +230,10 @@ func TestTransportCustomConnectionPool(t *testing.T) {
 		if conn.URL == nil {
 			t.Errorf("Empty connection URL: %+v", conn)
 		}
-		if err := tp.pool.Remove(conn); err != nil {
+		if err := tp.pool.OnFailure(conn); err != nil {
 			t.Errorf("Error removing the %q connection: %s", conn.URL, err)
 		}
-		if len(tp.pool.(*CustomConnectionPool).URLs) != 1 {
+		if tp.pool.Len() != 1 {
 			t.Errorf("Unexpected number of connections in pool: %q", tp.pool)
 		}
 	})

@@ -57,13 +57,13 @@ type Config struct {
 	MaxRetries           int
 	RetryBackoff         func(attempt int) time.Duration
 
-	ConnectionPool ConnectionPool
-
 	EnableMetrics     bool
 	EnableDebugLogger bool
 
-	Transport http.RoundTripper
-	Logger    Logger
+	Transport          http.RoundTripper
+	Logger             Logger
+	Selector           Selector
+	ConnectionPoolFunc func([]*Connection, Selector) ConnectionPool
 }
 
 // Client represents the HTTP client.
@@ -86,8 +86,9 @@ type Client struct {
 	debugLogger       DebuggingLogger
 
 	transport http.RoundTripper
-	pool      ConnectionPool
 	logger    Logger
+	selector  Selector
+	pool      ConnectionPool
 }
 
 // New creates new HTTP client.
@@ -107,15 +108,16 @@ func New(cfg Config) *Client {
 		cfg.MaxRetries = defaultMaxRetries
 	}
 
+	var conns []*Connection
+	for _, u := range cfg.URLs {
+		conns = append(conns, &Connection{URL: u})
+	}
+
 	var pool ConnectionPool
-	if cfg.ConnectionPool != nil {
-		pool = cfg.ConnectionPool
+	if cfg.ConnectionPoolFunc != nil {
+		pool = cfg.ConnectionPoolFunc(conns, cfg.Selector)
 	} else {
-		if len(cfg.URLs) == 1 {
-			pool = newSingleConnectionPool(cfg.URLs[0])
-		} else {
-			pool = newRoundRobinConnectionPool(cfg.URLs...)
-		}
+		pool, _ = NewDefaultConnectionPool(conns, cfg.Selector)
 	}
 
 	client := Client{
@@ -205,8 +207,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		)
 
 		// Get connection from the pool
-		//
-		conn, err = c.getConnection()
+		conn, err = c.pool.Next()
 		if err != nil {
 			if c.logger != nil {
 				c.logRoundTrip(req, nil, err, time.Time{}, time.Duration(0))
@@ -215,7 +216,6 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		}
 
 		// Update request
-		//
 		c.setReqURL(conn.URL, req)
 		c.setReqAuth(conn.URL, req)
 
@@ -228,13 +228,11 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		}
 
 		// Set up time measures and execute the request
-		//
 		start := time.Now().UTC()
 		res, err = c.transport.RoundTrip(req)
 		dur := time.Since(start)
 
 		// Log request and response
-		//
 		if c.logger != nil {
 			if c.logger.RequestBodyEnabled() && req.Body != nil && req.Body != http.NoBody {
 				req.Body, _ = req.GetBody()
@@ -244,30 +242,24 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 
 		if err != nil {
 			// Record metrics, when enabled
-			//
 			if c.metrics != nil {
 				c.metrics.Lock()
 				c.metrics.failures++
 				c.metrics.Unlock()
 			}
 
-			// Remove the connection from pool
-			//
-			c.pool.Remove(conn)
+			// Report the connection as unsuccessful
+			c.pool.OnFailure(conn)
 
 			// Retry only on network errors, but don't retry on timeout errors, unless configured
-			//
 			if err, ok := err.(net.Error); ok {
 				if (!err.Timeout() || c.enableRetryOnTimeout) && !c.disableRetry {
 					shouldRetry = true
 				}
 			}
 		} else {
-			// Reset the failure counter
-			//
-			conn.Lock()
-			conn.markAsHealthy()
-			conn.Unlock()
+			// Report the connection as succesfull
+			c.pool.OnSuccess(conn)
 		}
 
 		if res != nil && c.metrics != nil {
@@ -277,7 +269,6 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		}
 
 		// Retry on configured response statuses
-		//
 		if res != nil && !c.disableRetry {
 			for _, code := range c.retryOnStatus {
 				if res.StatusCode == code {
@@ -287,13 +278,11 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		}
 
 		// Break if retry should not be performed
-		//
 		if !shouldRetry {
 			break
 		}
 
 		// Delay the retry if a backoff function is configured
-		//
 		if c.retryBackoff != nil {
 			time.Sleep(c.retryBackoff(i))
 		}
@@ -310,10 +299,6 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 //
 func (c *Client) URLs() []*url.URL {
 	return c.urls
-}
-
-func (c *Client) getConnection() (*Connection, error) {
-	return c.pool.Next()
 }
 
 func (c *Client) setReqURL(u *url.URL, req *http.Request) *http.Request {

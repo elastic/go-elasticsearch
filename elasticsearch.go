@@ -47,10 +47,12 @@ type Config struct {
 
 	RetryBackoff func(attempt int) time.Duration // Optional backoff duration. Default: nil.
 
-	ConnectionPool estransport.ConnectionPool // The connection pool object.
+	Transport http.RoundTripper    // The HTTP transport object.
+	Logger    estransport.Logger   // The logger object.
+	Selector  estransport.Selector // The selector object.
 
-	Transport http.RoundTripper  // The HTTP transport object.
-	Logger    estransport.Logger // The logger object.
+	// Optional constructor function for a custom ConnectionPool. Default: nil.
+	ConnectionPoolFunc func([]*estransport.Connection, estransport.Selector) estransport.ConnectionPool
 }
 
 // Client represents the Elasticsearch client.
@@ -138,9 +140,10 @@ func NewClient(cfg Config) (*Client, error) {
 		EnableMetrics:     cfg.EnableMetrics,
 		EnableDebugLogger: cfg.EnableDebugLogger,
 
-		ConnectionPool: cfg.ConnectionPool,
-		Transport:      cfg.Transport,
-		Logger:         cfg.Logger,
+		Transport:          cfg.Transport,
+		Logger:             cfg.Logger,
+		Selector:           cfg.Selector,
+		ConnectionPoolFunc: cfg.ConnectionPoolFunc,
 	})
 
 	return &Client{Transport: tp, API: esapi.New(tp)}, nil
