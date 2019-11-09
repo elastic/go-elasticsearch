@@ -85,7 +85,7 @@ func (c *Client) Metrics() (Metrics, error) {
 	}
 
 	// FIXME(karmi): Type assertion to interface
-	if pool, ok := c.pool.(*roundRobinConnectionPool); ok {
+	if pool, ok := c.pool.(*statusConnectionPool); ok {
 		for _, c := range pool.live {
 			c.Lock()
 			m.Live = append(m.Live, connectionMetric{URL: c.URL.String()})
