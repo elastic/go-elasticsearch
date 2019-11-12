@@ -39,7 +39,7 @@ type Metrics struct {
 	Failures  int         `json:"failures"`
 	Responses map[int]int `json:"responses"`
 
-	Connections []ConnectionMetric `json:"connections"`
+	Connections []fmt.Stringer `json:"connections"`
 }
 
 // ConnectionMetric represents metric information for a connection.
