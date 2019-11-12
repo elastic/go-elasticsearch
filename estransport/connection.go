@@ -97,6 +97,8 @@ func (cp *singleConnectionPool) OnFailure(c *Connection) error { return nil }
 // URLs returns the list of URLs of available connections.
 func (cp *singleConnectionPool) URLs() []*url.URL { return []*url.URL{cp.connection.URL} }
 
+func (cp *singleConnectionPool) connections() []*Connection { return []*Connection{cp.connection} }
+
 // Next returns a connection from pool, or an error.
 //
 func (cp *statusConnectionPool) Next() (*Connection, error) {
@@ -170,13 +172,6 @@ func (cp *statusConnectionPool) OnFailure(c *Connection) error {
 	copy(cp.live[index:], cp.live[index+1:])
 	cp.live = cp.live[:len(cp.live)-1]
 
-	if cp.metrics != nil {
-		cp.metrics.Lock()
-		cp.metrics.dead = cp.dead
-		cp.metrics.live = cp.live
-		cp.metrics.Unlock()
-	}
-
 	return nil
 }
 
@@ -211,6 +206,13 @@ func (cp *statusConnectionPool) URLs() []*url.URL {
 	return urls
 }
 
+func (cp *statusConnectionPool) connections() []*Connection {
+	var conns []*Connection
+	conns = append(conns, cp.live...)
+	conns = append(conns, cp.dead...)
+	return conns
+}
+
 // resurrect adds the connection to the list of available connections.
 // When removeDead is true, it also removes it from the dead list.
 // The calling code is responsible for locking.
@@ -235,13 +237,6 @@ func (cp *statusConnectionPool) resurrect(c *Connection, removeDead bool) error 
 			copy(cp.dead[index:], cp.dead[index+1:])
 			cp.dead = cp.dead[:len(cp.dead)-1]
 		}
-	}
-
-	if cp.metrics != nil {
-		cp.metrics.Lock()
-		cp.metrics.dead = cp.dead
-		cp.metrics.live = cp.live
-		cp.metrics.Unlock()
 	}
 
 	return nil
