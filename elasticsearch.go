@@ -104,10 +104,9 @@ func NewClient(cfg Config) (*Client, error) {
 		addrs = append(addrs, cloudAddrs)
 	} else {
 		if len(envAddrs) > 0 {
-			addrs = append(envAddrs, envAddrs...)
-		}
-		if len(cfg.Addresses) > 0 {
-			addrs = append(envAddrs, cfg.Addresses...)
+			addrs = append(addrs, envAddrs...)
+		} else if len(cfg.Addresses) > 0 {
+			addrs = append(addrs, cfg.Addresses...)
 		}
 	}
 
