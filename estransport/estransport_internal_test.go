@@ -209,15 +209,14 @@ func (cp *CustomConnectionPool) Len() int                      { return len(cp.U
 func TestTransportCustomConnectionPool(t *testing.T) {
 	t.Run("Run", func(t *testing.T) {
 		tp := New(Config{
-			ConnectionPoolFunc: func(conns []*Connection, selector Selector) ConnectionPool {
-				return &CustomConnectionPool{
-					URLs: []*url.URL{
-						{Scheme: "http", Host: "custom1"},
-						{Scheme: "http", Host: "custom2"},
-					},
-				}
+			ConnectionPool: &CustomConnectionPool{
+				URLs: []*url.URL{
+					{Scheme: "http", Host: "custom1"},
+					{Scheme: "http", Host: "custom2"},
+				},
 			},
-		})
+		},
+		)
 
 		if _, ok := tp.pool.(*CustomConnectionPool); !ok {
 			t.Fatalf("Unexpected connection pool, want=CustomConnectionPool, got=%T", tp.pool)
