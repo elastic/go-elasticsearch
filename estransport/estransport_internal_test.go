@@ -181,36 +181,36 @@ func TestTransportConnectionPool(t *testing.T) {
 }
 
 type CustomConnectionPool struct {
-	URLs []*url.URL
+	urls []*url.URL
 }
 
 // Next returns a random connection.
 func (cp *CustomConnectionPool) Next() (*Connection, error) {
-	u := cp.URLs[rand.Intn(len(cp.URLs))]
+	u := cp.urls[rand.Intn(len(cp.urls))]
 	return &Connection{URL: u}, nil
 }
 
 func (cp *CustomConnectionPool) OnFailure(c *Connection) error {
 	var index = -1
-	for i, u := range cp.URLs {
+	for i, u := range cp.urls {
 		if u == c.URL {
 			index = i
 		}
 	}
 	if index > -1 {
-		cp.URLs = append(cp.URLs[:index], cp.URLs[index+1:]...)
+		cp.urls = append(cp.urls[:index], cp.urls[index+1:]...)
 		return nil
 	}
 	return fmt.Errorf("connection not found")
 }
 func (cp *CustomConnectionPool) OnSuccess(c *Connection) error { return nil }
-func (cp *CustomConnectionPool) Len() int                      { return len(cp.URLs) }
+func (cp *CustomConnectionPool) URLs() []*url.URL              { return cp.urls }
 
 func TestTransportCustomConnectionPool(t *testing.T) {
 	t.Run("Run", func(t *testing.T) {
 		tp := New(Config{
 			ConnectionPool: &CustomConnectionPool{
-				URLs: []*url.URL{
+				urls: []*url.URL{
 					{Scheme: "http", Host: "custom1"},
 					{Scheme: "http", Host: "custom2"},
 				},
@@ -232,7 +232,7 @@ func TestTransportCustomConnectionPool(t *testing.T) {
 		if err := tp.pool.OnFailure(conn); err != nil {
 			t.Errorf("Error removing the %q connection: %s", conn.URL, err)
 		}
-		if tp.pool.Len() != 1 {
+		if len(tp.pool.URLs()) != 1 {
 			t.Errorf("Unexpected number of connections in pool: %q", tp.pool)
 		}
 	})

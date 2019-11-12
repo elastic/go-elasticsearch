@@ -87,8 +87,8 @@ type Client struct {
 
 	transport http.RoundTripper
 	logger    Logger
-	selector  Selector
 	pool      ConnectionPool
+	selector  Selector
 }
 
 // New creates new HTTP client.
@@ -294,11 +294,9 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 
 // URLs returns a list of transport URLs.
 //
-// TODO(karmi): Refactor to take into account live, dead, orig lists.
-//
 //
 func (c *Client) URLs() []*url.URL {
-	return c.urls
+	return c.pool.URLs()
 }
 
 func (c *Client) setReqURL(u *url.URL, req *http.Request) *http.Request {

@@ -31,7 +31,7 @@ type ConnectionPool interface {
 	Next() (*Connection, error)  // Next returns the next available connection.
 	OnSuccess(*Connection) error // OnSuccess reports that the connection behaved successfully.
 	OnFailure(*Connection) error // OnFailure reports that the connection failed.
-	Len() int                    // Len returns the number of available connections.
+	URLs() []*url.URL            // URLs returns the list of URLs of available connections.
 }
 
 // Connection represents a connection to a node.
@@ -94,8 +94,8 @@ func (cp *singleConnectionPool) OnSuccess(c *Connection) error { return nil }
 // OnFailure is a no-op for single connection pool.
 func (cp *singleConnectionPool) OnFailure(c *Connection) error { return nil }
 
-// Len returns the number of available connections.
-func (cp *singleConnectionPool) Len() int { return 1 }
+// URLs returns the list of URLs of available connections.
+func (cp *singleConnectionPool) URLs() []*url.URL { return []*url.URL{cp.connection.URL} }
 
 // Next returns a connection from pool, or an error.
 //
@@ -196,11 +196,19 @@ func (cp *statusConnectionPool) OnSuccess(c *Connection) error {
 	return cp.resurrect(c, true)
 }
 
-func (cp *statusConnectionPool) Len() int {
+// URLs returns the list of URLs of available connections.
+//
+func (cp *statusConnectionPool) URLs() []*url.URL {
+	var urls []*url.URL
+
 	cp.Lock()
 	defer cp.Unlock()
 
-	return len(cp.live)
+	for _, c := range cp.live {
+		urls = append(urls, c.URL)
+	}
+
+	return urls
 }
 
 // resurrect adds the connection to the list of available connections.
