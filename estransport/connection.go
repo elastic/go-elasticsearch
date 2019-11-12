@@ -223,6 +223,9 @@ func (cp *statusConnectionPool) resurrect(c *Connection, removeDead bool) error 
 	}
 
 	c.markAsLive()
+	if removeDead {
+		c.markAsHealthy()
+	}
 
 	cp.live = append(cp.live, c)
 	if removeDead {
