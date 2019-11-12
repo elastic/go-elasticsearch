@@ -17,7 +17,6 @@ import (
 	"time"
 
 	// Import the "expvar" and "pprof" package >>>>>>>>>>
-
 	"net/http"
 	_ "net/http/pprof"
 	// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -121,10 +120,10 @@ func main() {
 				log.Println("███", fmt.Sprintf("\x1b[1m%s\x1b[0m", "Metrics"), strings.Repeat("█", tWidth-12))
 				log.Printf(
 					""+
-						"    \x1b[2mRequests:  \x1b[0m %d\n"+
-						"    \x1b[2mFailures:  \x1b[0m %d\n"+
-						"    \x1b[2mLive nodes:\x1b[0m %s",
-					m.Requests, m.Failures, m.Live)
+						"    \x1b[2mRequests:   \x1b[0m %d\n"+
+						"    \x1b[2mFailures:   \x1b[0m %d\n"+
+						"    \x1b[2mConnections:\x1b[0m %s",
+					m.Requests, m.Failures, m.Connections)
 				log.Println(strings.Repeat("─", tWidth))
 			}
 		}
