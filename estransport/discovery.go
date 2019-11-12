@@ -38,6 +38,8 @@ type nodeInfo struct {
 // DiscoverNodes reloads the client connections by fetching information from the cluster.
 //
 func (c *Client) DiscoverNodes() error {
+	var conns []*Connection
+
 	nodes, err := c.getNodesInfo()
 	if err != nil {
 		return err
@@ -48,21 +50,6 @@ func (c *Client) DiscoverNodes() error {
 		fmt.Printf("%d. %+v\n", i+1, n)
 	}
 	fmt.Println("------------------------------------------------------------")
-
-	if len(nodes) < 2 {
-		c.pool = newSingleConnectionPool(nodes[0].URL)
-		return nil
-	}
-
-	var orig []*url.URL
-	if cprr, ok := c.pool.(*roundRobinConnectionPool); ok {
-		orig = cprr.orig
-	}
-
-	cp := &roundRobinConnectionPool{orig: orig, curr: -1}
-
-	cp.Lock()
-	defer cp.Unlock()
 
 	for _, node := range nodes {
 		fmt.Printf("Checking node %s", node.URL)
@@ -92,7 +79,7 @@ func (c *Client) DiscoverNodes() error {
 			fmt.Printf("\n")
 		}
 
-		cp.live = append(cp.live, &Connection{
+		conns = append(conns, &Connection{
 			URL:        node.URL,
 			ID:         node.ID,
 			Name:       node.Name,
@@ -101,8 +88,10 @@ func (c *Client) DiscoverNodes() error {
 		})
 	}
 
-	// TODO(karmi): c.pool.Replace(cp)
-	c.pool = cp
+	c.pool, err = NewDefaultConnectionPool(conns, c.selector)
+	if err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -118,7 +107,7 @@ func (c *Client) getNodesInfo() ([]nodeInfo, error) {
 		return out, err
 	}
 
-	conn, err := c.getConnection()
+	conn, err := c.pool.Next()
 	if err != nil {
 		return out, err
 	}

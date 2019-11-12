@@ -80,9 +80,9 @@ func TestDiscovery(t *testing.T) {
 
 		tp.DiscoverNodes()
 
-		pool, ok := tp.pool.(*roundRobinConnectionPool)
+		pool, ok := tp.pool.(*statusConnectionPool)
 		if !ok {
-			t.Errorf("Unexpected pool, want=roundRobinConnectionPool, got=%T", tp.pool)
+			t.Fatalf("Unexpected pool, want=statusConnectionPool, got=%T", tp.pool)
 		}
 
 		if len(pool.live) != 2 {
@@ -120,9 +120,9 @@ func TestDiscovery(t *testing.T) {
 
 		tp.DiscoverNodes()
 
-		pool, ok := tp.pool.(*roundRobinConnectionPool)
+		pool, ok := tp.pool.(*statusConnectionPool)
 		if !ok {
-			t.Errorf("Unexpected pool, want=roundRobinConnectionPool, got=%T", tp.pool)
+			t.Fatalf("Unexpected pool, want=statusConnectionPool, got=%T", tp.pool)
 		}
 
 		if len(pool.live) != 2 {
