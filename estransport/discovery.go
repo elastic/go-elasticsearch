@@ -12,6 +12,7 @@ import (
 	"net/url"
 	"sort"
 	"strings"
+	"sync"
 )
 
 // Discoverable defines the interface for transports supporting node discovery.
@@ -45,14 +46,7 @@ func (c *Client) DiscoverNodes() error {
 		return err
 	}
 
-	fmt.Println("DiscoverNodes:")
-	for i, n := range nodes {
-		fmt.Printf("%d. %+v\n", i+1, n)
-	}
-	fmt.Println("------------------------------------------------------------")
-
 	for _, node := range nodes {
-		fmt.Printf("Checking node %s", node.URL)
 		var (
 			isDataNode   bool
 			isIngestNode bool
@@ -68,15 +62,17 @@ func (c *Client) DiscoverNodes() error {
 			isIngestNode = true
 		}
 
-		fmt.Printf("; roles=%s", node.Roles)
+		if c.debugLogger != nil {
+			var skip string
+			if !isDataNode || !isIngestNode {
+				skip = "; [SKIP]"
+			}
+			c.debugLogger.Logf("Discovered node [%s]; %s; roles=%s%s\n", node.Name, node.URL, node.Roles, skip)
+		}
 
 		// Skip master only nodes
-		//
 		if !isDataNode || !isIngestNode {
-			fmt.Printf("; SKIPPING\n")
 			continue
-		} else {
-			fmt.Printf("\n")
 		}
 
 		conns = append(conns, &Connection{
@@ -86,6 +82,11 @@ func (c *Client) DiscoverNodes() error {
 			Roles:      node.Roles,
 			Attributes: node.Attributes,
 		})
+	}
+
+	if lockable, ok := c.pool.(sync.Locker); ok {
+		lockable.Lock()
+		defer lockable.Unlock()
 	}
 
 	c.pool, err = NewDefaultConnectionPool(conns, c.selector)
@@ -132,14 +133,12 @@ func (c *Client) getNodesInfo() ([]nodeInfo, error) {
 		return out, err
 	}
 
-	// fmt.Printf("%s\n", env["nodes"])
 	var nodes map[string]nodeInfo
 	if err := json.Unmarshal(env["nodes"], &nodes); err != nil {
 		return out, err
 	}
 
 	for id, node := range nodes {
-		// fmt.Printf("%+v\n", node)
 		node.ID = id
 		u, err := c.getNodeURL(node, scheme)
 		if err != nil {
