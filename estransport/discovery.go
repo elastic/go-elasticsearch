@@ -92,6 +92,7 @@ func (c *Client) DiscoverNodes() error {
 		defer lockable.Unlock()
 	}
 
+	// TODO(karmi): Replace only live connections, leave dead scheduled for resurrect?
 	c.pool, err = NewDefaultConnectionPool(conns, c.selector)
 	if err != nil {
 		return err
@@ -114,6 +115,7 @@ func (c *Client) getNodesInfo() ([]nodeInfo, error) {
 	c.Lock()
 	conn, err := c.pool.Next()
 	c.Unlock()
+	// TODO(karmi): If no connection is returned, fallback to original URLs
 	if err != nil {
 		return out, err
 	}

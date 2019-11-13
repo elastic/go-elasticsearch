@@ -42,6 +42,12 @@ type ConnectionMetric struct {
 	Failures  int        `json:"failures,omitempty"`
 	IsDead    bool       `json:"dead,omitempty"`
 	DeadSince *time.Time `json:"dead_since,omitempty"`
+
+	Meta struct {
+		ID    string   `json:"id"`
+		Name  string   `json:"name"`
+		Roles []string `json:"roles"`
+	} `json:"meta"`
 }
 
 // metrics represents the inner state of metrics.
@@ -88,6 +94,18 @@ func (c *Client) Metrics() (Metrics, error) {
 
 			if !c.DeadSince.IsZero() {
 				cm.DeadSince = &c.DeadSince
+			}
+
+			if c.ID != "" {
+				cm.Meta.ID = c.ID
+			}
+
+			if c.Name != "" {
+				cm.Meta.Name = c.Name
+			}
+
+			if len(c.Roles) > 0 {
+				cm.Meta.Roles = c.Roles
 			}
 
 			m.Connections = append(m.Connections, cm)
