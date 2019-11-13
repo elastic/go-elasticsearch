@@ -184,6 +184,8 @@ func (cp *statusConnectionPool) OnSuccess(c *Connection) error {
 		return nil
 	}
 
+	c.markAsHealthy()
+
 	cp.Lock()
 	defer cp.Unlock()
 	return cp.resurrect(c, true)
@@ -221,9 +223,6 @@ func (cp *statusConnectionPool) resurrect(c *Connection, removeDead bool) error 
 	}
 
 	c.markAsLive()
-	if removeDead {
-		c.markAsHealthy()
-	}
 
 	cp.live = append(cp.live, c)
 	if removeDead {
