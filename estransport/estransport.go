@@ -60,9 +60,10 @@ type Config struct {
 	EnableMetrics     bool
 	EnableDebugLogger bool
 
-	Transport          http.RoundTripper
-	Logger             Logger
-	Selector           Selector
+	Transport http.RoundTripper
+	Logger    Logger
+	Selector  Selector
+
 	ConnectionPoolFunc func([]*Connection, Selector) ConnectionPool
 }
 
@@ -84,8 +85,9 @@ type Client struct {
 
 	transport http.RoundTripper
 	logger    Logger
-	pool      ConnectionPool
 	selector  Selector
+	pool      ConnectionPool
+	poolFunc  func([]*Connection, Selector) ConnectionPool
 }
 
 // New creates new HTTP client.
@@ -110,13 +112,6 @@ func New(cfg Config) *Client {
 		conns = append(conns, &Connection{URL: u})
 	}
 
-	var pool ConnectionPool
-	if cfg.ConnectionPoolFunc != nil {
-		pool = cfg.ConnectionPoolFunc(conns, cfg.Selector)
-	} else {
-		pool, _ = NewDefaultConnectionPool(conns, cfg.Selector)
-	}
-
 	client := Client{
 		urls:     cfg.URLs,
 		username: cfg.Username,
@@ -130,8 +125,15 @@ func New(cfg Config) *Client {
 		retryBackoff:         cfg.RetryBackoff,
 
 		transport: cfg.Transport,
-		pool:      pool,
 		logger:    cfg.Logger,
+		selector:  cfg.Selector,
+		poolFunc:  cfg.ConnectionPoolFunc,
+	}
+
+	if client.poolFunc != nil {
+		client.pool = client.poolFunc(conns, client.selector)
+	} else {
+		client.pool, _ = NewDefaultConnectionPool(conns, client.selector)
 	}
 
 	if cfg.EnableDebugLogger {
