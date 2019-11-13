@@ -68,9 +68,9 @@ type roundRobinSelector struct {
 	curr int // Index of the current connection
 }
 
-// NewDefaultConnectionPool creates the default connection pool.
+// NewConnectionPool creates and returns a default connection pool.
 //
-func NewDefaultConnectionPool(conns []*Connection, selector Selector) (ConnectionPool, error) {
+func NewConnectionPool(conns []*Connection, selector Selector) (ConnectionPool, error) {
 	if len(conns) == 1 {
 		return &singleConnectionPool{connection: conns[0]}, nil
 	}

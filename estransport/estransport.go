@@ -133,7 +133,7 @@ func New(cfg Config) *Client {
 	if client.poolFunc != nil {
 		client.pool = client.poolFunc(conns, client.selector)
 	} else {
-		client.pool, _ = NewDefaultConnectionPool(conns, client.selector)
+		client.pool, _ = NewConnectionPool(conns, client.selector)
 	}
 
 	if cfg.EnableDebugLogger {
