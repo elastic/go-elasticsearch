@@ -21,7 +21,8 @@ When multiple addresses are passed in configuration, the package will use them i
 and will keep track of live and dead nodes. The status of dead nodes is checked periodically.
 
 To customize the node selection behaviour, provide a Selector implementation in the configuration.
-To replace the connection pool entirely, provide a custom ConnectionPool implementation.
+To replace the connection pool entirely, provide a custom ConnectionPool implementation via
+the ConnectionPoolFunc option.
 
 The package defines the Logger interface for logging information about request and response.
 It comes with several bundled loggers for logging in text and JSON.

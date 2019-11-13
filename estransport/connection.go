@@ -227,8 +227,8 @@ func (cp *statusConnectionPool) resurrect(c *Connection, removeDead bool) error 
 	}
 
 	c.markAsLive()
-
 	cp.live = append(cp.live, c)
+
 	if removeDead {
 		index := -1
 		for i, conn := range cp.dead {

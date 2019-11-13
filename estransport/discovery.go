@@ -92,10 +92,14 @@ func (c *Client) DiscoverNodes() error {
 		defer lockable.Unlock()
 	}
 
-	// TODO(karmi): Replace only live connections, leave dead scheduled for resurrect?
-	c.pool, err = NewDefaultConnectionPool(conns, c.selector)
-	if err != nil {
-		return err
+	if c.poolFunc != nil {
+		c.pool = c.poolFunc(conns, c.selector)
+	} else {
+		// TODO(karmi): Replace only live connections, leave dead scheduled for resurrect?
+		c.pool, err = NewConnectionPool(conns, c.selector)
+		if err != nil {
+			return err
+		}
 	}
 
 	return nil

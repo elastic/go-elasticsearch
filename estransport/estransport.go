@@ -93,7 +93,7 @@ type Client struct {
 	poolFunc  func([]*Connection, Selector) ConnectionPool
 }
 
-// New creates new HTTP client.
+// New creates new transport client.
 //
 // http.DefaultTransport will be used if no transport is passed in the configuration.
 //
