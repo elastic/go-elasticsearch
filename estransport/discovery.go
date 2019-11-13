@@ -111,7 +111,9 @@ func (c *Client) getNodesInfo() ([]nodeInfo, error) {
 		return out, err
 	}
 
+	c.Lock()
 	conn, err := c.pool.Next()
+	c.Unlock()
 	if err != nil {
 		return out, err
 	}
