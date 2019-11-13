@@ -16,6 +16,7 @@ import (
 	"regexp"
 	"runtime"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/elastic/go-elasticsearch/v8/internal/version"
@@ -70,6 +71,8 @@ type Config struct {
 // Client represents the HTTP client.
 //
 type Client struct {
+	sync.Mutex
+
 	urls     []*url.URL
 	username string
 	password string

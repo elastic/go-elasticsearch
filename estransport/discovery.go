@@ -84,6 +84,9 @@ func (c *Client) DiscoverNodes() error {
 		})
 	}
 
+	c.Lock()
+	defer c.Unlock()
+
 	if lockable, ok := c.pool.(sync.Locker); ok {
 		lockable.Lock()
 		defer lockable.Unlock()
