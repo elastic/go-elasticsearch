@@ -62,12 +62,12 @@ func (c *Client) DiscoverNodes() error {
 			isIngestNode = true
 		}
 
-		if c.debugLogger != nil {
+		if debugLogger != nil {
 			var skip string
 			if !isDataNode || !isIngestNode {
 				skip = "; [SKIP]"
 			}
-			c.debugLogger.Logf("Discovered node [%s]; %s; roles=%s%s\n", node.Name, node.URL, node.Roles, skip)
+			debugLogger.Logf("Discovered node [%s]; %s; roles=%s%s\n", node.Name, node.URL, node.Roles, skip)
 		}
 
 		// Skip master only nodes
