@@ -82,9 +82,6 @@ type Client struct {
 
 	metrics *metrics
 
-	enableDebugLogger bool
-	debugLogger       DebuggingLogger
-
 	transport http.RoundTripper
 	logger    Logger
 	pool      ConnectionPool
@@ -132,11 +129,13 @@ func New(cfg Config) *Client {
 		maxRetries:           cfg.MaxRetries,
 		retryBackoff:         cfg.RetryBackoff,
 
-		enableDebugLogger: cfg.EnableDebugLogger,
-
 		transport: cfg.Transport,
 		pool:      pool,
 		logger:    cfg.Logger,
+	}
+
+	if cfg.EnableDebugLogger {
+		debugLogger = &debuggingLogger{Output: os.Stdout}
 	}
 
 	if cfg.EnableMetrics {
@@ -148,17 +147,6 @@ func New(cfg Config) *Client {
 		if pool, ok := client.pool.(*statusConnectionPool); ok {
 			client.metrics = &metrics{responses: make(map[int]int)}
 			pool.metrics = client.metrics
-		}
-	}
-
-	if cfg.EnableDebugLogger {
-		client.debugLogger = &debugLogger{Output: os.Stdout}
-
-		if pool, ok := client.pool.(*singleConnectionPool); ok {
-			pool.debugLogger = client.debugLogger
-		}
-		if pool, ok := client.pool.(*statusConnectionPool); ok {
-			pool.debugLogger = client.debugLogger
 		}
 	}
 

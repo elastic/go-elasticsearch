@@ -48,8 +48,7 @@ type Connection struct {
 type singleConnectionPool struct {
 	connection *Connection
 
-	metrics     *metrics
-	debugLogger DebuggingLogger
+	metrics *metrics
 }
 
 type statusConnectionPool struct {
@@ -60,8 +59,7 @@ type statusConnectionPool struct {
 	orig     []*Connection // List of the original connections, passed in during initialization
 	selector Selector
 
-	metrics     *metrics
-	debugLogger DebuggingLogger
+	metrics *metrics
 }
 
 type roundRobinSelector struct {
@@ -129,15 +127,15 @@ func (cp *statusConnectionPool) OnFailure(c *Connection) error {
 	c.Lock()
 
 	if c.IsDead {
-		if cp.debugLogger != nil {
-			cp.debugLogger.Logf("Already removed %s\n", c.URL)
+		if debugLogger != nil {
+			debugLogger.Logf("Already removed %s\n", c.URL)
 		}
 		c.Unlock()
 		return nil
 	}
 
-	if cp.debugLogger != nil {
-		cp.debugLogger.Logf("Removing %s...\n", c.URL)
+	if debugLogger != nil {
+		debugLogger.Logf("Removing %s...\n", c.URL)
 	}
 	c.markAsDead()
 	cp.scheduleResurrect(c)
@@ -218,8 +216,8 @@ func (cp *statusConnectionPool) connections() []*Connection {
 // The calling code is responsible for locking.
 //
 func (cp *statusConnectionPool) resurrect(c *Connection, removeDead bool) error {
-	if cp.debugLogger != nil {
-		cp.debugLogger.Logf("Resurrecting %s\n", c.URL)
+	if debugLogger != nil {
+		debugLogger.Logf("Resurrecting %s\n", c.URL)
 	}
 
 	c.markAsLive()
@@ -250,8 +248,8 @@ func (cp *statusConnectionPool) resurrect(c *Connection, removeDead bool) error 
 func (cp *statusConnectionPool) scheduleResurrect(c *Connection) {
 	factor := math.Min(float64(c.Failures-1), float64(defaultResurrectTimeoutFactorCutoff))
 	timeout := time.Duration(defaultResurrectTimeoutInitial.Seconds() * math.Exp2(factor) * float64(time.Second))
-	if cp.debugLogger != nil {
-		cp.debugLogger.Logf("Resurrect %s (failures=%d, factor=%1.1f, timeout=%s) in %s\n", c.URL, c.Failures, factor, timeout, c.DeadSince.Add(timeout).Sub(time.Now().UTC()).Truncate(time.Second))
+	if debugLogger != nil {
+		debugLogger.Logf("Resurrect %s (failures=%d, factor=%1.1f, timeout=%s) in %s\n", c.URL, c.Failures, factor, timeout, c.DeadSince.Add(timeout).Sub(time.Now().UTC()).Truncate(time.Second))
 	}
 
 	time.AfterFunc(timeout, func() {
@@ -262,8 +260,8 @@ func (cp *statusConnectionPool) scheduleResurrect(c *Connection) {
 		defer c.Unlock()
 
 		if !c.IsDead {
-			if cp.debugLogger != nil {
-				cp.debugLogger.Logf("Already resurrected %s\n", c.URL)
+			if debugLogger != nil {
+				debugLogger.Logf("Already resurrected %s\n", c.URL)
 			}
 			return
 		}
