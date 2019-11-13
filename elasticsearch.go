@@ -42,6 +42,8 @@ type Config struct {
 	EnableRetryOnTimeout bool  // Default: false.
 	MaxRetries           int   // Default: 3.
 
+	DiscoverNodesOnStartup bool // Discover nodes when initialization of the client.
+
 	EnableMetrics     bool // Enable the metrics collection.
 	EnableDebugLogger bool // Enable the debug logging.
 
@@ -152,7 +154,13 @@ func NewClient(cfg Config) (*Client, error) {
 		ConnectionPoolFunc: cfg.ConnectionPoolFunc,
 	})
 
-	return &Client{Transport: tp, API: esapi.New(tp)}, nil
+	client := &Client{Transport: tp, API: esapi.New(tp)}
+
+	if cfg.DiscoverNodesOnStartup {
+		go client.DiscoverNodes()
+	}
+
+	return client, nil
 }
 
 // Perform delegates to Transport to execute a request and return a response.
