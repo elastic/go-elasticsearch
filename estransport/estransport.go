@@ -60,10 +60,10 @@ type Config struct {
 	EnableMetrics     bool
 	EnableDebugLogger bool
 
-	Transport      http.RoundTripper
-	Logger         Logger
-	Selector       Selector
-	ConnectionPool ConnectionPool
+	Transport          http.RoundTripper
+	Logger             Logger
+	Selector           Selector
+	ConnectionPoolFunc func([]*Connection, Selector) ConnectionPool
 }
 
 // Client represents the HTTP client.
@@ -111,8 +111,8 @@ func New(cfg Config) *Client {
 	}
 
 	var pool ConnectionPool
-	if cfg.ConnectionPool != nil {
-		pool = cfg.ConnectionPool
+	if cfg.ConnectionPoolFunc != nil {
+		pool = cfg.ConnectionPoolFunc(conns, cfg.Selector)
 	} else {
 		pool, _ = NewDefaultConnectionPool(conns, cfg.Selector)
 	}

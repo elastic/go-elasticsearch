@@ -209,14 +209,15 @@ func (cp *CustomConnectionPool) URLs() []*url.URL              { return cp.urls 
 func TestTransportCustomConnectionPool(t *testing.T) {
 	t.Run("Run", func(t *testing.T) {
 		tp := New(Config{
-			ConnectionPool: &CustomConnectionPool{
-				urls: []*url.URL{
-					{Scheme: "http", Host: "custom1"},
-					{Scheme: "http", Host: "custom2"},
-				},
+			ConnectionPoolFunc: func(conns []*Connection, selector Selector) ConnectionPool {
+				return &CustomConnectionPool{
+					urls: []*url.URL{
+						{Scheme: "http", Host: "custom1"},
+						{Scheme: "http", Host: "custom2"},
+					},
+				}
 			},
-		},
-		)
+		})
 
 		if _, ok := tp.pool.(*CustomConnectionPool); !ok {
 			t.Fatalf("Unexpected connection pool, want=CustomConnectionPool, got=%T", tp.pool)
