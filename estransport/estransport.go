@@ -141,13 +141,12 @@ func New(cfg Config) *Client {
 	}
 
 	if cfg.EnableMetrics {
-		// FIXME(karmi): Type assertion to interface
+		client.metrics = &metrics{responses: make(map[int]int)}
+		// TODO(karmi): Type assertion to interface
 		if pool, ok := client.pool.(*singleConnectionPool); ok {
-			client.metrics = &metrics{responses: make(map[int]int)}
 			pool.metrics = client.metrics
 		}
 		if pool, ok := client.pool.(*statusConnectionPool); ok {
-			client.metrics = &metrics{responses: make(map[int]int)}
 			pool.metrics = client.metrics
 		}
 	}
