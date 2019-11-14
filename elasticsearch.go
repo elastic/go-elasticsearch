@@ -42,7 +42,7 @@ type Config struct {
 	EnableRetryOnTimeout bool  // Default: false.
 	MaxRetries           int   // Default: 3.
 
-	DiscoverNodesOnStartup bool // Discover nodes when initialization of the client.
+	DiscoverNodesOnStartup bool // Discover nodes when initializing the client.
 
 	EnableMetrics     bool // Enable the metrics collection.
 	EnableDebugLogger bool // Enable the debug logging.
