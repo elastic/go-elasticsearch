@@ -430,6 +430,21 @@ func TestTransportLogger(t *testing.T) {
 	})
 }
 
+func TestDebuggingLogger(t *testing.T) {
+	logger := &debuggingLogger{Output: ioutil.Discard}
+
+	t.Run("Log", func(t *testing.T) {
+		if err := logger.Log("Foo"); err != nil {
+			t.Errorf("Unexpected error: %s", err)
+		}
+	})
+	t.Run("Logf", func(t *testing.T) {
+		if err := logger.Logf("Foo %d", 1); err != nil {
+			t.Errorf("Unexpected error: %s", err)
+		}
+	})
+}
+
 type CustomLogger struct {
 	Output io.Writer
 }

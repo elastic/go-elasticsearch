@@ -282,7 +282,9 @@ func (s *roundRobinSelector) Select(conns []*Connection) (*Connection, error) {
 //
 func (c *Connection) markAsDead() {
 	c.IsDead = true
-	c.DeadSince = time.Now().UTC()
+	if c.DeadSince.IsZero() {
+		c.DeadSince = time.Now().UTC()
+	}
 	c.Failures++
 }
 

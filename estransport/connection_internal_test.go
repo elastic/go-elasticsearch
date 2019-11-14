@@ -8,6 +8,7 @@ package estransport
 
 import (
 	"net/url"
+	"regexp"
 	"testing"
 	"time"
 )
@@ -153,6 +154,39 @@ func TestStatusConnectionPoolNext(t *testing.T) {
 	})
 }
 
+func TestStatusConnectionPoolOnSuccess(t *testing.T) {
+	t.Run("Move connection to live list and mark it as healthy", func(t *testing.T) {
+		pool := &statusConnectionPool{
+			dead: []*Connection{
+				&Connection{URL: &url.URL{Scheme: "http", Host: "foo1"}, Failures: 3, IsDead: true},
+			},
+			selector: &roundRobinSelector{curr: -1},
+		}
+
+		conn := pool.dead[0]
+
+		if err := pool.OnSuccess(conn); err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		if conn.IsDead {
+			t.Errorf("Expected the connection to be live; %s", conn)
+		}
+
+		if !conn.DeadSince.IsZero() {
+			t.Errorf("Unexpected value for DeadSince: %s", conn.DeadSince)
+		}
+
+		if len(pool.live) != 1 {
+			t.Errorf("Expected 1 live connection, got: %d", len(pool.live))
+		}
+
+		if len(pool.dead) != 0 {
+			t.Errorf("Expected 0 dead connections, got: %d", len(pool.dead))
+		}
+	})
+}
+
 func TestStatusConnectionPoolOnFailure(t *testing.T) {
 	t.Run("Remove connection, mark it, and sort dead connections", func(t *testing.T) {
 		pool := &statusConnectionPool{
@@ -175,6 +209,10 @@ func TestStatusConnectionPoolOnFailure(t *testing.T) {
 
 		if !conn.IsDead {
 			t.Errorf("Expected the connection to be dead; %s", conn)
+		}
+
+		if conn.DeadSince.IsZero() {
+			t.Errorf("Unexpected value for DeadSince: %s", conn.DeadSince)
 		}
 
 		if len(pool.live) != 1 {
@@ -298,6 +336,30 @@ func TestStatusConnectionPoolResurrect(t *testing.T) {
 		}
 		if len(pool.dead) != 0 {
 			t.Errorf("Expected no dead connections, got: %s", pool.dead)
+		}
+	})
+}
+
+func TestConnection(t *testing.T) {
+	t.Run("String", func(t *testing.T) {
+		conn := &Connection{
+			URL:       &url.URL{Scheme: "http", Host: "foo1"},
+			Failures:  10,
+			IsDead:    true,
+			DeadSince: time.Now().UTC(),
+		}
+
+		match, err := regexp.MatchString(
+			`<http://foo1> dead=true failures=10`,
+			conn.String(),
+		)
+
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		if !match {
+			t.Errorf("Unexpected output: %s", conn)
 		}
 	})
 }
