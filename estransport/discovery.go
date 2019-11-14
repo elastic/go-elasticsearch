@@ -13,6 +13,7 @@ import (
 	"sort"
 	"strings"
 	"sync"
+	"time"
 )
 
 // Discoverable defines the interface for transports supporting node discovery.
@@ -188,4 +189,11 @@ func (c *Client) getNodeURL(node nodeInfo, scheme string) (*url.URL, error) {
 	}
 
 	return u, nil
+}
+
+func (c *Client) scheduleDiscoverNodes(d time.Duration) {
+	go c.DiscoverNodes()
+	time.AfterFunc(c.discoverNodesInterval, func() {
+		c.scheduleDiscoverNodes(c.discoverNodesInterval)
+	})
 }

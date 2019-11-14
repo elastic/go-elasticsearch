@@ -14,6 +14,7 @@ import (
 	"net/url"
 	"os"
 	"testing"
+	"time"
 )
 
 func TestDiscovery(t *testing.T) {
@@ -41,6 +42,8 @@ func TestDiscovery(t *testing.T) {
 	}()
 	defer func() { srv.Close() }()
 	defer func() { srvTLS.Close() }()
+
+	time.Sleep(time.Millisecond)
 
 	t.Run("getNodesInfo()", func(t *testing.T) {
 		u, _ := url.Parse("http://" + srv.Addr)
@@ -142,6 +145,21 @@ func TestDiscovery(t *testing.T) {
 			default:
 				t.Errorf("Unexpected node: %s", conn.Name)
 			}
+		}
+	})
+
+	t.Run("scheduleDiscoverNodes()", func(t *testing.T) {
+		u, _ := url.Parse("http://" + srv.Addr)
+
+		tp := New(Config{URLs: []*url.URL{u}, DiscoverNodesInterval: time.Millisecond})
+
+		if len(tp.pool.URLs()) != 1 {
+			t.Errorf("Unexpected number of nodes, want=1, got=%d", len(tp.pool.URLs()))
+		}
+
+		time.Sleep(5 * time.Millisecond)
+		if len(tp.pool.URLs()) != 2 {
+			t.Errorf("Unexpected number of nodes, want=2, got=%d", len(tp.pool.URLs()))
 		}
 	})
 }

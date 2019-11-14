@@ -42,7 +42,8 @@ type Config struct {
 	EnableRetryOnTimeout bool  // Default: false.
 	MaxRetries           int   // Default: 3.
 
-	DiscoverNodesOnStartup bool // Discover nodes when initializing the client.
+	DiscoverNodesOnStart  bool          // Discover nodes when initializing the client. Default: false.
+	DiscoverNodesInterval time.Duration // Discover nodes periodically. Default: disabled.
 
 	EnableMetrics     bool // Enable the metrics collection.
 	EnableDebugLogger bool // Enable the debug logging.
@@ -148,6 +149,8 @@ func NewClient(cfg Config) (*Client, error) {
 		EnableMetrics:     cfg.EnableMetrics,
 		EnableDebugLogger: cfg.EnableDebugLogger,
 
+		DiscoverNodesInterval: cfg.DiscoverNodesInterval,
+
 		Transport:          cfg.Transport,
 		Logger:             cfg.Logger,
 		Selector:           cfg.Selector,
@@ -156,7 +159,7 @@ func NewClient(cfg Config) (*Client, error) {
 
 	client := &Client{Transport: tp, API: esapi.New(tp)}
 
-	if cfg.DiscoverNodesOnStartup {
+	if cfg.DiscoverNodesOnStart {
 		go client.DiscoverNodes()
 	}
 

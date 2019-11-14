@@ -61,6 +61,8 @@ type Config struct {
 	EnableMetrics     bool
 	EnableDebugLogger bool
 
+	DiscoverNodesInterval time.Duration
+
 	Transport http.RoundTripper
 	Logger    Logger
 	Selector  Selector
@@ -78,11 +80,12 @@ type Client struct {
 	password string
 	apikey   string
 
-	retryOnStatus        []int
-	disableRetry         bool
-	enableRetryOnTimeout bool
-	maxRetries           int
-	retryBackoff         func(attempt int) time.Duration
+	retryOnStatus         []int
+	disableRetry          bool
+	enableRetryOnTimeout  bool
+	maxRetries            int
+	retryBackoff          func(attempt int) time.Duration
+	discoverNodesInterval time.Duration
 
 	metrics *metrics
 
@@ -121,11 +124,12 @@ func New(cfg Config) *Client {
 		password: cfg.Password,
 		apikey:   cfg.APIKey,
 
-		retryOnStatus:        cfg.RetryOnStatus,
-		disableRetry:         cfg.DisableRetry,
-		enableRetryOnTimeout: cfg.EnableRetryOnTimeout,
-		maxRetries:           cfg.MaxRetries,
-		retryBackoff:         cfg.RetryBackoff,
+		retryOnStatus:         cfg.RetryOnStatus,
+		disableRetry:          cfg.DisableRetry,
+		enableRetryOnTimeout:  cfg.EnableRetryOnTimeout,
+		maxRetries:            cfg.MaxRetries,
+		retryBackoff:          cfg.RetryBackoff,
+		discoverNodesInterval: cfg.DiscoverNodesInterval,
 
 		transport: cfg.Transport,
 		logger:    cfg.Logger,
@@ -152,6 +156,12 @@ func New(cfg Config) *Client {
 		if pool, ok := client.pool.(*statusConnectionPool); ok {
 			pool.metrics = client.metrics
 		}
+	}
+
+	if client.discoverNodesInterval > 0 {
+		time.AfterFunc(client.discoverNodesInterval, func() {
+			client.scheduleDiscoverNodes(client.discoverNodesInterval)
+		})
 	}
 
 	return &client
