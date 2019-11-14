@@ -56,7 +56,6 @@ type statusConnectionPool struct {
 
 	live     []*Connection // List of live connections
 	dead     []*Connection // List of dead connections
-	orig     []*Connection // List of the original connections, passed in during initialization
 	selector Selector
 
 	metrics *metrics
@@ -118,6 +117,24 @@ func (cp *statusConnectionPool) Next() (*Connection, error) {
 	return nil, errors.New("no connection available")
 }
 
+// OnSuccess marks the connection as successful.
+//
+func (cp *statusConnectionPool) OnSuccess(c *Connection) error {
+	c.Lock()
+	defer c.Unlock()
+
+	// Short-circuit for live connection
+	if !c.IsDead {
+		return nil
+	}
+
+	c.markAsHealthy()
+
+	cp.Lock()
+	defer cp.Unlock()
+	return cp.resurrect(c, true)
+}
+
 // OnFailure marks the connection as failed.
 //
 func (cp *statusConnectionPool) OnFailure(c *Connection) error {
@@ -171,24 +188,6 @@ func (cp *statusConnectionPool) OnFailure(c *Connection) error {
 	cp.live = cp.live[:len(cp.live)-1]
 
 	return nil
-}
-
-// OnSuccess marks the connection as successful.
-//
-func (cp *statusConnectionPool) OnSuccess(c *Connection) error {
-	c.Lock()
-	defer c.Unlock()
-
-	// Short-circuit for live connection
-	if !c.IsDead {
-		return nil
-	}
-
-	c.markAsHealthy()
-
-	cp.Lock()
-	defer cp.Unlock()
-	return cp.resurrect(c, true)
 }
 
 // URLs returns the list of URLs of available connections.
