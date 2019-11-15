@@ -135,11 +135,11 @@ func TestDiscovery(t *testing.T) {
 		for _, conn := range pool.live {
 			switch conn.Name {
 			case "es1":
-				if conn.URL.String() != "https://foo:bar@127.0.0.1:9200" {
+				if conn.URL.String() != "https://127.0.0.1:9200" {
 					t.Errorf("Unexpected URL: %s", conn.URL.String())
 				}
 			case "es2":
-				if conn.URL.String() != "https://foo:bar@localhost:9201" {
+				if conn.URL.String() != "https://localhost:9201" {
 					t.Errorf("Unexpected URL: %s", conn.URL.String())
 				}
 			default:

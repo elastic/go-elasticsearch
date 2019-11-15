@@ -188,10 +188,6 @@ func (c *Client) getNodeURL(node nodeInfo, scheme string) (*url.URL, error) {
 		Host:   host + ":" + port,
 	}
 
-	if c.username != "" || c.password != "" {
-		u.User = url.UserPassword(c.username, c.password)
-	}
-
 	return u, nil
 }
 
