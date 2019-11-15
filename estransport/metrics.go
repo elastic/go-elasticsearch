@@ -13,13 +13,6 @@ import (
 	"time"
 )
 
-// For expvar, do something like this:
-//
-// expvar.Publish("go-elasticsearch", expvar.Func(func() interface{} {
-// 		m, _ := es.Metrics()
-// 		return m
-// 	}))
-
 // Measurable defines the interface for transports supporting metrics.
 //
 type Measurable interface {

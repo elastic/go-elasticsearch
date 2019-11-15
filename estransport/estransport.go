@@ -163,7 +163,6 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	)
 
 	// Record metrics, when enabled
-	//
 	if c.metrics != nil {
 		c.metrics.Lock()
 		c.metrics.requests++
@@ -171,7 +170,6 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	}
 
 	// Update request
-	//
 	c.setReqUserAgent(req)
 
 	if req.Body != nil && req.Body != http.NoBody && req.GetBody == nil {
@@ -189,7 +187,6 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	}
 
 	for i := 1; i <= c.maxRetries; i++ {
-		// fmt.Printf("Attempt %d\n", i)
 		var (
 			conn        *Connection
 			shouldRetry bool

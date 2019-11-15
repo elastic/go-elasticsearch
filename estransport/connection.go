@@ -29,7 +29,7 @@ type Selector interface {
 //
 type ConnectionPool interface {
 	Next() (*Connection, error)  // Next returns the next available connection.
-	OnSuccess(*Connection) error // OnSuccess reports that the connection behaved successfully.
+	OnSuccess(*Connection) error // OnSuccess reports that the connection was successful.
 	OnFailure(*Connection) error // OnFailure reports that the connection failed.
 	URLs() []*url.URL            // URLs returns the list of URLs of available connections.
 }
