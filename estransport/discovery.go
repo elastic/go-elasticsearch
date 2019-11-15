@@ -44,7 +44,10 @@ func (c *Client) DiscoverNodes() error {
 
 	nodes, err := c.getNodesInfo()
 	if err != nil {
-		return err
+		if debugLogger != nil {
+			debugLogger.Logf("Error getting nodes info: %s\n", err)
+		}
+		return fmt.Errorf("discovery: get nodes: %s", err)
 	}
 
 	for _, node := range nodes {
@@ -72,6 +75,7 @@ func (c *Client) DiscoverNodes() error {
 		}
 
 		// Skip master only nodes
+		// TODO(karmi): Move logic to Selector?
 		if !isDataNode || !isIngestNode {
 			continue
 		}
