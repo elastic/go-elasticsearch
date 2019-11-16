@@ -43,6 +43,11 @@ type Connection struct {
 	IsDead    bool
 	DeadSince time.Time
 	Failures  int
+
+	ID         string
+	Name       string
+	Roles      []string
+	Attributes map[string]interface{}
 }
 
 type singleConnectionPool struct {
@@ -222,8 +227,8 @@ func (cp *statusConnectionPool) resurrect(c *Connection, removeDead bool) error 
 	}
 
 	c.markAsLive()
-
 	cp.live = append(cp.live, c)
+
 	if removeDead {
 		index := -1
 		for i, conn := range cp.dead {
