@@ -42,6 +42,9 @@ type Config struct {
 	EnableRetryOnTimeout bool  // Default: false.
 	MaxRetries           int   // Default: 3.
 
+	DiscoverNodesOnStart  bool          // Discover nodes when initializing the client. Default: false.
+	DiscoverNodesInterval time.Duration // Discover nodes periodically. Default: disabled.
+
 	EnableMetrics     bool // Enable the metrics collection.
 	EnableDebugLogger bool // Enable the debug logging.
 
@@ -124,6 +127,13 @@ func NewClient(cfg Config) (*Client, error) {
 		urls = append(urls, u)
 	}
 
+	// TODO(karmi): Refactor
+	if urls[0].User != nil {
+		cfg.Username = urls[0].User.Username()
+		pw, _ := urls[0].User.Password()
+		cfg.Password = pw
+	}
+
 	tp := estransport.New(estransport.Config{
 		URLs:     urls,
 		Username: cfg.Username,
@@ -139,13 +149,21 @@ func NewClient(cfg Config) (*Client, error) {
 		EnableMetrics:     cfg.EnableMetrics,
 		EnableDebugLogger: cfg.EnableDebugLogger,
 
+		DiscoverNodesInterval: cfg.DiscoverNodesInterval,
+
 		Transport:          cfg.Transport,
 		Logger:             cfg.Logger,
 		Selector:           cfg.Selector,
 		ConnectionPoolFunc: cfg.ConnectionPoolFunc,
 	})
 
-	return &Client{Transport: tp, API: esapi.New(tp)}, nil
+	client := &Client{Transport: tp, API: esapi.New(tp)}
+
+	if cfg.DiscoverNodesOnStart {
+		go client.DiscoverNodes()
+	}
+
+	return client, nil
 }
 
 // Perform delegates to Transport to execute a request and return a response.
@@ -161,6 +179,15 @@ func (c *Client) Metrics() (estransport.Metrics, error) {
 		return mt.Metrics()
 	}
 	return estransport.Metrics{}, errors.New("transport is missing method Metrics()")
+}
+
+// DiscoverNodes reloads the client connections by fetching information from the cluster.
+//
+func (c *Client) DiscoverNodes() error {
+	if dt, ok := c.Transport.(estransport.Discoverable); ok {
+		return dt.DiscoverNodes()
+	}
+	return errors.New("transport is missing method DiscoverNodes()")
 }
 
 // addrsFromEnvironment returns a list of addresses by splitting

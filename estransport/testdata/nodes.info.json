@@ -1,0 +1,83 @@
+{
+  "_nodes": {
+    "total": 3,
+    "successful": 3,
+    "failed": 0
+  },
+  "cluster_name": "elasticsearch",
+  "nodes": {
+    "8g1UNpQNS06tlH1DUMBNhg": {
+      "name": "es1",
+      "transport_address": "127.0.0.1:9300",
+      "host": "127.0.0.1",
+      "ip": "127.0.0.1",
+      "version": "7.4.2",
+      "build_flavor": "default",
+      "build_type": "tar",
+      "build_hash": "2f90bbf7b93631e52bafb59b3b049cb44ec25e96",
+      "roles": ["ingest", "master", "data", "ml"],
+      "attributes": {
+        "ml.machine_memory": "8589934592",
+        "xpack.installed": "true",
+        "ml.max_open_jobs": "20"
+      },
+      "http": {
+        "bound_address": [
+          "[::1]:9200",
+          "127.0.0.1:9200"
+        ],
+        "publish_address": "127.0.0.1:9200",
+        "max_content_length_in_bytes": 104857600
+      }
+    },
+    "8YR2EBk_QvWI4guQK292RA": {
+      "name": "es2",
+      "transport_address": "127.0.0.1:9302",
+      "host": "127.0.0.1",
+      "ip": "127.0.0.1",
+      "version": "7.4.2",
+      "build_flavor": "default",
+      "build_type": "tar",
+      "build_hash": "2f90bbf7b93631e52bafb59b3b049cb44ec25e96",
+      "roles": ["ingest", "master", "data", "ml"],
+      "attributes": {
+        "ml.machine_memory": "8589934592",
+        "ml.max_open_jobs": "20",
+        "xpack.installed": "true"
+      },
+      "http": {
+        "bound_address": [
+          "127.0.0.1:9201",
+          "[::1]:9201",
+          "[fe80::1]:9201"
+        ],
+        "publish_address": "localhost/127.0.0.1:9201",
+        "max_content_length_in_bytes": 104857600
+      }
+    },
+    "oSVIMafYQD-4kD0Lz6H4-g": {
+      "name": "es3",
+      "transport_address": "127.0.0.1:9301",
+      "host": "127.0.0.1",
+      "ip": "127.0.0.1",
+      "version": "7.4.2",
+      "build_flavor": "default",
+      "build_type": "tar",
+      "build_hash": "2f90bbf7b93631e52bafb59b3b049cb44ec25e96",
+      "roles": ["master", "ml"],
+      "attributes": {
+        "ml.machine_memory": "8589934592",
+        "ml.max_open_jobs": "20",
+        "xpack.installed": "true"
+      },
+      "http": {
+        "bound_address": [
+          "[::1]:9202",
+          "127.0.0.1:9202"
+        ],
+        "publish_address": "127.0.0.1:9202",
+        "max_content_length_in_bytes": 104857600
+      }
+    }
+  }
+}
