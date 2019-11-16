@@ -16,6 +16,7 @@ import (
 	"regexp"
 	"runtime"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/elastic/go-elasticsearch/v6/internal/version"
@@ -60,6 +61,8 @@ type Config struct {
 	EnableMetrics     bool
 	EnableDebugLogger bool
 
+	DiscoverNodesInterval time.Duration
+
 	Transport http.RoundTripper
 	Logger    Logger
 	Selector  Selector
@@ -70,16 +73,19 @@ type Config struct {
 // Client represents the HTTP client.
 //
 type Client struct {
+	sync.Mutex
+
 	urls     []*url.URL
 	username string
 	password string
 	apikey   string
 
-	retryOnStatus        []int
-	disableRetry         bool
-	enableRetryOnTimeout bool
-	maxRetries           int
-	retryBackoff         func(attempt int) time.Duration
+	retryOnStatus         []int
+	disableRetry          bool
+	enableRetryOnTimeout  bool
+	maxRetries            int
+	retryBackoff          func(attempt int) time.Duration
+	discoverNodesInterval time.Duration
 
 	metrics *metrics
 
@@ -90,7 +96,7 @@ type Client struct {
 	poolFunc  func([]*Connection, Selector) ConnectionPool
 }
 
-// New creates new HTTP client.
+// New creates new transport client.
 //
 // http.DefaultTransport will be used if no transport is passed in the configuration.
 //
@@ -118,11 +124,12 @@ func New(cfg Config) *Client {
 		password: cfg.Password,
 		apikey:   cfg.APIKey,
 
-		retryOnStatus:        cfg.RetryOnStatus,
-		disableRetry:         cfg.DisableRetry,
-		enableRetryOnTimeout: cfg.EnableRetryOnTimeout,
-		maxRetries:           cfg.MaxRetries,
-		retryBackoff:         cfg.RetryBackoff,
+		retryOnStatus:         cfg.RetryOnStatus,
+		disableRetry:          cfg.DisableRetry,
+		enableRetryOnTimeout:  cfg.EnableRetryOnTimeout,
+		maxRetries:            cfg.MaxRetries,
+		retryBackoff:          cfg.RetryBackoff,
+		discoverNodesInterval: cfg.DiscoverNodesInterval,
 
 		transport: cfg.Transport,
 		logger:    cfg.Logger,
@@ -149,6 +156,12 @@ func New(cfg Config) *Client {
 		if pool, ok := client.pool.(*statusConnectionPool); ok {
 			pool.metrics = client.metrics
 		}
+	}
+
+	if client.discoverNodesInterval > 0 {
+		time.AfterFunc(client.discoverNodesInterval, func() {
+			client.scheduleDiscoverNodes(client.discoverNodesInterval)
+		})
 	}
 
 	return &client
@@ -193,7 +206,9 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		)
 
 		// Get connection from the pool
+		c.Lock()
 		conn, err = c.pool.Next()
+		c.Unlock()
 		if err != nil {
 			if c.logger != nil {
 				c.logRoundTrip(req, nil, err, time.Time{}, time.Duration(0))
@@ -235,7 +250,9 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 			}
 
 			// Report the connection as unsuccessful
+			c.Lock()
 			c.pool.OnFailure(conn)
+			c.Unlock()
 
 			// Retry only on network errors, but don't retry on timeout errors, unless configured
 			if err, ok := err.(net.Error); ok {
@@ -245,7 +262,9 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 			}
 		} else {
 			// Report the connection as succesfull
+			c.Lock()
 			c.pool.OnSuccess(conn)
+			c.Unlock()
 		}
 
 		if res != nil && c.metrics != nil {
