@@ -9,6 +9,7 @@ package estransport
 import (
 	"fmt"
 	"io/ioutil"
+	"math/rand"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -20,6 +21,10 @@ import (
 var (
 	_ = fmt.Print
 )
+
+func init() {
+	rand.Seed(time.Now().Unix())
+}
 
 type mockTransp struct {
 	RoundTripFunc func(req *http.Request) (*http.Response, error)
@@ -145,8 +150,8 @@ func TestTransportConnectionPool(t *testing.T) {
 			{Scheme: "http", Host: "foo2"},
 		}})
 
-		if _, ok := tp.pool.(*roundRobinConnectionPool); !ok {
-			t.Errorf("Expected connection to be roundRobinConnectionPool, got: %T", tp)
+		if _, ok := tp.pool.(*statusConnectionPool); !ok {
+			t.Errorf("Expected connection to be statusConnectionPool, got: %T", tp)
 		}
 
 		conn, err = tp.pool.Next()
@@ -171,6 +176,65 @@ func TestTransportConnectionPool(t *testing.T) {
 		}
 		if conn.URL.String() != "http://foo1" {
 			t.Errorf("Unexpected URL, want=http://foo1, got=%s", conn.URL)
+		}
+	})
+}
+
+type CustomConnectionPool struct {
+	urls []*url.URL
+}
+
+// Next returns a random connection.
+func (cp *CustomConnectionPool) Next() (*Connection, error) {
+	u := cp.urls[rand.Intn(len(cp.urls))]
+	return &Connection{URL: u}, nil
+}
+
+func (cp *CustomConnectionPool) OnFailure(c *Connection) error {
+	var index = -1
+	for i, u := range cp.urls {
+		if u == c.URL {
+			index = i
+		}
+	}
+	if index > -1 {
+		cp.urls = append(cp.urls[:index], cp.urls[index+1:]...)
+		return nil
+	}
+	return fmt.Errorf("connection not found")
+}
+func (cp *CustomConnectionPool) OnSuccess(c *Connection) error { return nil }
+func (cp *CustomConnectionPool) URLs() []*url.URL              { return cp.urls }
+
+func TestTransportCustomConnectionPool(t *testing.T) {
+	t.Run("Run", func(t *testing.T) {
+		tp := New(Config{
+			ConnectionPoolFunc: func(conns []*Connection, selector Selector) ConnectionPool {
+				return &CustomConnectionPool{
+					urls: []*url.URL{
+						{Scheme: "http", Host: "custom1"},
+						{Scheme: "http", Host: "custom2"},
+					},
+				}
+			},
+		})
+
+		if _, ok := tp.pool.(*CustomConnectionPool); !ok {
+			t.Fatalf("Unexpected connection pool, want=CustomConnectionPool, got=%T", tp.pool)
+		}
+
+		conn, err := tp.pool.Next()
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+		if conn.URL == nil {
+			t.Errorf("Empty connection URL: %+v", conn)
+		}
+		if err := tp.pool.OnFailure(conn); err != nil {
+			t.Errorf("Error removing the %q connection: %s", conn.URL, err)
+		}
+		if len(tp.pool.URLs()) != 1 {
+			t.Errorf("Unexpected number of connections in pool: %q", tp.pool)
 		}
 	})
 }

@@ -8,13 +8,16 @@ package estransport
 
 import (
 	"net/url"
+	"regexp"
 	"testing"
 	"time"
 )
 
 func TestSingleConnectionPoolNext(t *testing.T) {
 	t.Run("Single URL", func(t *testing.T) {
-		pool := newSingleConnectionPool(&url.URL{Scheme: "http", Host: "foo1"})
+		pool := &singleConnectionPool{
+			connection: &Connection{URL: &url.URL{Scheme: "http", Host: "foo1"}},
+		}
 
 		for i := 0; i < 7; i++ {
 			c, err := pool.Next()
@@ -29,19 +32,21 @@ func TestSingleConnectionPoolNext(t *testing.T) {
 	})
 }
 
-func TestSingleConnectionPoolRemove(t *testing.T) {
+func TestSingleConnectionPoolOnFailure(t *testing.T) {
 	t.Run("Noop", func(t *testing.T) {
-		pool := newSingleConnectionPool(&url.URL{Scheme: "http", Host: "foo1"})
+		pool := &singleConnectionPool{
+			connection: &Connection{URL: &url.URL{Scheme: "http", Host: "foo1"}},
+		}
 
-		if err := pool.Remove(&Connection{URL: &url.URL{Scheme: "http", Host: "foo1"}}); err != nil {
+		if err := pool.OnFailure(&Connection{URL: &url.URL{Scheme: "http", Host: "foo1"}}); err != nil {
 			t.Errorf("Unexpected error: %s", err)
 		}
 	})
 }
 
-func TestRoundRobinConnectionPoolNext(t *testing.T) {
+func TestStatusConnectionPoolNext(t *testing.T) {
 	t.Run("No URL", func(t *testing.T) {
-		pool := newRoundRobinConnectionPool()
+		pool := &statusConnectionPool{}
 
 		c, err := pool.Next()
 		if err == nil {
@@ -52,11 +57,16 @@ func TestRoundRobinConnectionPoolNext(t *testing.T) {
 	t.Run("Two URLs", func(t *testing.T) {
 		var c *Connection
 
-		pool := newRoundRobinConnectionPool(
-			&url.URL{Scheme: "http", Host: "foo1"},
-			&url.URL{Scheme: "http", Host: "foo2"})
+		pool := &statusConnectionPool{
+			live: []*Connection{
+				&Connection{URL: &url.URL{Scheme: "http", Host: "foo1"}},
+				&Connection{URL: &url.URL{Scheme: "http", Host: "foo2"}},
+			},
+			selector: &roundRobinSelector{curr: -1},
+		}
 
 		c, _ = pool.Next()
+
 		if c.URL.String() != "http://foo1" {
 			t.Errorf("Unexpected URL, want=foo1, got=%s", c.URL)
 		}
@@ -73,10 +83,14 @@ func TestRoundRobinConnectionPoolNext(t *testing.T) {
 	})
 
 	t.Run("Three URLs", func(t *testing.T) {
-		pool := newRoundRobinConnectionPool(
-			&url.URL{Scheme: "http", Host: "foo1"},
-			&url.URL{Scheme: "http", Host: "foo2"},
-			&url.URL{Scheme: "http", Host: "foo3"})
+		pool := &statusConnectionPool{
+			live: []*Connection{
+				&Connection{URL: &url.URL{Scheme: "http", Host: "foo1"}},
+				&Connection{URL: &url.URL{Scheme: "http", Host: "foo2"}},
+				&Connection{URL: &url.URL{Scheme: "http", Host: "foo3"}},
+			},
+			selector: &roundRobinSelector{curr: -1},
+		}
 
 		var expected string
 		for i := 0; i < 11; i++ {
@@ -104,12 +118,13 @@ func TestRoundRobinConnectionPoolNext(t *testing.T) {
 	})
 
 	t.Run("Resurrect dead connection when no live is available", func(t *testing.T) {
-		pool := &roundRobinConnectionPool{
+		pool := &statusConnectionPool{
 			live: []*Connection{},
 			dead: []*Connection{
 				&Connection{URL: &url.URL{Scheme: "http", Host: "foo1"}, Failures: 3},
 				&Connection{URL: &url.URL{Scheme: "http", Host: "foo2"}, Failures: 1},
 			},
+			selector: &roundRobinSelector{curr: -1},
 		}
 
 		c, err := pool.Next()
@@ -125,7 +140,7 @@ func TestRoundRobinConnectionPoolNext(t *testing.T) {
 			t.Errorf("Expected <http://foo2>, got: %s", c.URL.String())
 		}
 
-		if c.Dead {
+		if c.IsDead {
 			t.Errorf("Expected connection to be live, got: %s", c)
 		}
 
@@ -137,38 +152,44 @@ func TestRoundRobinConnectionPoolNext(t *testing.T) {
 			t.Errorf("Expected 1 connection in dead list, got: %s", pool.dead)
 		}
 	})
+}
 
-	t.Run("Cut off the index", func(t *testing.T) {
-		pool := &roundRobinConnectionPool{
-			curr: 99,
-			live: []*Connection{
-				&Connection{URL: &url.URL{Scheme: "http", Host: "foo1"}},
-				&Connection{URL: &url.URL{Scheme: "http", Host: "foo2"}},
-				&Connection{URL: &url.URL{Scheme: "http", Host: "foo3"}},
-				&Connection{URL: &url.URL{Scheme: "http", Host: "foo4"}},
+func TestStatusConnectionPoolOnSuccess(t *testing.T) {
+	t.Run("Move connection to live list and mark it as healthy", func(t *testing.T) {
+		pool := &statusConnectionPool{
+			dead: []*Connection{
+				&Connection{URL: &url.URL{Scheme: "http", Host: "foo1"}, Failures: 3, IsDead: true},
 			},
+			selector: &roundRobinSelector{curr: -1},
 		}
 
-		c, err := pool.Next()
-		if err != nil {
+		conn := pool.dead[0]
+
+		if err := pool.OnSuccess(conn); err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
 
-		// Return first connection
-		if c.URL.String() != "http://foo1" {
-			t.Errorf("Expected http://foo1, got: %s", c.URL.String())
+		if conn.IsDead {
+			t.Errorf("Expected the connection to be live; %s", conn)
 		}
 
-		// Reset the index; (cp.curr + 1) % len(cp.live)
-		if pool.curr != 0 {
-			t.Errorf("Expected curr to be 0, got: %d", pool.curr)
+		if !conn.DeadSince.IsZero() {
+			t.Errorf("Unexpected value for DeadSince: %s", conn.DeadSince)
+		}
+
+		if len(pool.live) != 1 {
+			t.Errorf("Expected 1 live connection, got: %d", len(pool.live))
+		}
+
+		if len(pool.dead) != 0 {
+			t.Errorf("Expected 0 dead connections, got: %d", len(pool.dead))
 		}
 	})
 }
 
-func TestRoundRobinConnectionPoolRemove(t *testing.T) {
+func TestStatusConnectionPoolOnFailure(t *testing.T) {
 	t.Run("Remove connection, mark it, and sort dead connections", func(t *testing.T) {
-		pool := &roundRobinConnectionPool{
+		pool := &statusConnectionPool{
 			live: []*Connection{
 				&Connection{URL: &url.URL{Scheme: "http", Host: "foo1"}},
 				&Connection{URL: &url.URL{Scheme: "http", Host: "foo2"}},
@@ -177,16 +198,21 @@ func TestRoundRobinConnectionPoolRemove(t *testing.T) {
 				&Connection{URL: &url.URL{Scheme: "http", Host: "foo3"}, Failures: 0},
 				&Connection{URL: &url.URL{Scheme: "http", Host: "foo4"}, Failures: 99},
 			},
+			selector: &roundRobinSelector{curr: -1},
 		}
 
 		conn := pool.live[0]
 
-		if err := pool.Remove(conn); err != nil {
+		if err := pool.OnFailure(conn); err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
 
-		if !conn.Dead {
+		if !conn.IsDead {
 			t.Errorf("Expected the connection to be dead; %s", conn)
+		}
+
+		if conn.DeadSince.IsZero() {
+			t.Errorf("Unexpected value for DeadSince: %s", conn.DeadSince)
 		}
 
 		if len(pool.live) != 1 {
@@ -211,15 +237,19 @@ func TestRoundRobinConnectionPoolRemove(t *testing.T) {
 	})
 
 	t.Run("Short circuit when the connection is already dead", func(t *testing.T) {
-		pool := newRoundRobinConnectionPool(
-			&url.URL{Scheme: "http", Host: "foo1"},
-			&url.URL{Scheme: "http", Host: "foo2"},
-			&url.URL{Scheme: "http", Host: "foo3"})
+		pool := &statusConnectionPool{
+			live: []*Connection{
+				&Connection{URL: &url.URL{Scheme: "http", Host: "foo1"}},
+				&Connection{URL: &url.URL{Scheme: "http", Host: "foo2"}},
+				&Connection{URL: &url.URL{Scheme: "http", Host: "foo3"}},
+			},
+			selector: &roundRobinSelector{curr: -1},
+		}
 
 		conn := pool.live[0]
-		conn.Dead = true
+		conn.IsDead = true
 
-		if err := pool.Remove(conn); err != nil {
+		if err := pool.OnFailure(conn); err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
 
@@ -227,49 +257,23 @@ func TestRoundRobinConnectionPoolRemove(t *testing.T) {
 			t.Errorf("Expected the dead list to be empty, got: %s", pool.dead)
 		}
 	})
-
-	t.Run("Short circuit when the connection is already removed from live list", func(t *testing.T) {
-		pool := newRoundRobinConnectionPool(
-			&url.URL{Scheme: "http", Host: "foo1"},
-			&url.URL{Scheme: "http", Host: "foo2"},
-			&url.URL{Scheme: "http", Host: "foo3"})
-
-		conn := pool.live[0]
-
-		// Remove connection manually
-		index := 0
-		copy(pool.live[index:], pool.live[index+1:])
-		pool.live = pool.live[:len(pool.live)-1]
-
-		if err := pool.Remove(conn); err != nil {
-			t.Fatalf("Unexpected error: %s", err)
-		}
-
-		if len(pool.live) != 2 {
-			t.Errorf("Expected 2 live connections, got: %s", pool.live)
-		}
-
-		if len(pool.dead) != 1 {
-			t.Logf("pool.dead: %s", pool.dead)
-			t.Errorf("Expected 1 dead connection, got: %s", pool.dead)
-		}
-	})
 }
 
-func TestRoundRobinConnectionPoolResurrect(t *testing.T) {
+func TestStatusConnectionPoolResurrect(t *testing.T) {
 	t.Run("Mark the connection as dead and add/remove it to the lists", func(t *testing.T) {
-		pool := &roundRobinConnectionPool{
-			live: []*Connection{},
-			dead: []*Connection{&Connection{URL: &url.URL{Scheme: "http", Host: "foo1"}, Dead: true}},
+		pool := &statusConnectionPool{
+			live:     []*Connection{},
+			dead:     []*Connection{&Connection{URL: &url.URL{Scheme: "http", Host: "foo1"}, IsDead: true}},
+			selector: &roundRobinSelector{curr: -1},
 		}
 
 		conn := pool.dead[0]
 
-		if err := pool.Resurrect(conn); err != nil {
+		if err := pool.resurrect(conn, true); err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
 
-		if conn.Dead {
+		if conn.IsDead {
 			t.Errorf("Expected connection to be dead, got: %s", conn)
 		}
 
@@ -282,32 +286,15 @@ func TestRoundRobinConnectionPoolResurrect(t *testing.T) {
 		}
 	})
 
-	t.Run("Short circuit when the connection is already marked as live", func(t *testing.T) {
-		pool := &roundRobinConnectionPool{}
-
-		conn := &Connection{URL: &url.URL{Scheme: "http", Host: "foo1"}, Dead: false}
-
-		if err := pool.Resurrect(conn); err != nil {
-			t.Fatalf("Unexpected error: %s", err)
-		}
-
-		if len(pool.live) != 0 {
-			t.Errorf("Expected no live connections, got: %s", pool.live)
-		}
-
-		if len(pool.dead) != 0 {
-			t.Errorf("Expected no dead connections, got: %s", pool.dead)
-		}
-	})
-
 	t.Run("Short circuit removal when the connection is not in the dead list", func(t *testing.T) {
-		pool := &roundRobinConnectionPool{
-			dead: []*Connection{&Connection{URL: &url.URL{Scheme: "http", Host: "bar"}, Dead: true}},
+		pool := &statusConnectionPool{
+			dead:     []*Connection{&Connection{URL: &url.URL{Scheme: "http", Host: "bar"}, IsDead: true}},
+			selector: &roundRobinSelector{curr: -1},
 		}
 
-		conn := &Connection{URL: &url.URL{Scheme: "http", Host: "foo1"}, Dead: true}
+		conn := &Connection{URL: &url.URL{Scheme: "http", Host: "foo1"}, IsDead: true}
 
-		if err := pool.Resurrect(conn); err != nil {
+		if err := pool.resurrect(conn, true); err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
 
@@ -324,16 +311,17 @@ func TestRoundRobinConnectionPoolResurrect(t *testing.T) {
 		defaultResurrectTimeoutInitial = 0
 		defer func() { defaultResurrectTimeoutInitial = 60 * time.Second }()
 
-		pool := &roundRobinConnectionPool{
+		pool := &statusConnectionPool{
 			live: []*Connection{},
 			dead: []*Connection{
 				&Connection{
 					URL:       &url.URL{Scheme: "http", Host: "foo1"},
 					Failures:  100,
-					Dead:      true,
+					IsDead:    true,
 					DeadSince: time.Now().UTC(),
 				},
 			},
+			selector: &roundRobinSelector{curr: -1},
 		}
 
 		conn := pool.dead[0]
@@ -348,6 +336,30 @@ func TestRoundRobinConnectionPoolResurrect(t *testing.T) {
 		}
 		if len(pool.dead) != 0 {
 			t.Errorf("Expected no dead connections, got: %s", pool.dead)
+		}
+	})
+}
+
+func TestConnection(t *testing.T) {
+	t.Run("String", func(t *testing.T) {
+		conn := &Connection{
+			URL:       &url.URL{Scheme: "http", Host: "foo1"},
+			Failures:  10,
+			IsDead:    true,
+			DeadSince: time.Now().UTC(),
+		}
+
+		match, err := regexp.MatchString(
+			`<http://foo1> dead=true failures=10`,
+			conn.String(),
+		)
+
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		if !match {
+			t.Errorf("Unexpected output: %s", conn)
 		}
 	})
 }

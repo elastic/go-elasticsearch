@@ -24,9 +24,9 @@ func BenchmarkSingleConnectionPool(b *testing.B) {
 	b.ReportAllocs()
 
 	b.Run("Next()", func(b *testing.B) {
-		pool := newSingleConnectionPool(&url.URL{Scheme: "http", Host: "foo1"})
+		pool := &singleConnectionPool{connection: &Connection{URL: &url.URL{Scheme: "http", Host: "foo1"}}}
 
-		b.Run("Single    ", func(b *testing.B) {
+		b.Run("Single          ", func(b *testing.B) {
 			for i := 0; i < b.N; i++ {
 				_, err := pool.Next()
 				if err != nil {
@@ -48,14 +48,14 @@ func BenchmarkSingleConnectionPool(b *testing.B) {
 		})
 	})
 
-	b.Run("Remove()", func(b *testing.B) {
-		pool := newSingleConnectionPool(&url.URL{Scheme: "http", Host: "foo1"})
+	b.Run("OnFailure()", func(b *testing.B) {
+		pool := &singleConnectionPool{connection: &Connection{URL: &url.URL{Scheme: "http", Host: "foo1"}}}
 
-		b.Run("Single    ", func(b *testing.B) {
+		b.Run("Single     ", func(b *testing.B) {
 			c, _ := pool.Next()
 
 			for i := 0; i < b.N; i++ {
-				if err := pool.Remove(c); err != nil {
+				if err := pool.OnFailure(c); err != nil {
 					b.Errorf("Unexpected error: %v", err)
 				}
 			}
@@ -67,7 +67,7 @@ func BenchmarkSingleConnectionPool(b *testing.B) {
 				c, _ := pool.Next()
 
 				for pb.Next() {
-					if err := pool.Remove(c); err != nil {
+					if err := pool.OnFailure(c); err != nil {
 						b.Errorf("Unexpected error: %v", err)
 					}
 				}
@@ -76,18 +76,21 @@ func BenchmarkSingleConnectionPool(b *testing.B) {
 	})
 }
 
-func BenchmarkRoundRobinConnectionPool(b *testing.B) {
+func BenchmarkStatusConnectionPool(b *testing.B) {
 	b.ReportAllocs()
 
-	var urls []*url.URL
+	var conns []*Connection
 	for i := 0; i < 1000; i++ {
-		urls = append(urls, &url.URL{Scheme: "http", Host: fmt.Sprintf("foo%d", i)})
+		conns = append(conns, &Connection{URL: &url.URL{Scheme: "http", Host: fmt.Sprintf("foo%d", i)}})
 	}
 
 	b.Run("Next()", func(b *testing.B) {
-		pool := newRoundRobinConnectionPool(urls...)
+		pool := &statusConnectionPool{
+			live:     conns,
+			selector: &roundRobinSelector{curr: -1},
+		}
 
-		b.Run("Single    ", func(b *testing.B) {
+		b.Run("Single     ", func(b *testing.B) {
 			for i := 0; i < b.N; i++ {
 				_, err := pool.Next()
 				if err != nil {
@@ -121,14 +124,20 @@ func BenchmarkRoundRobinConnectionPool(b *testing.B) {
 		})
 	})
 
-	b.Run("Remove()", func(b *testing.B) {
-		pool := newRoundRobinConnectionPool(urls...)
+	b.Run("OnFailure()", func(b *testing.B) {
+		pool := &statusConnectionPool{
+			live:     conns,
+			selector: &roundRobinSelector{curr: -1},
+		}
 
-		b.Run("Single    ", func(b *testing.B) {
-			c, _ := pool.Next()
+		b.Run("Single     ", func(b *testing.B) {
+			c, err := pool.Next()
+			if err != nil {
+				b.Fatalf("Unexpected error: %s", err)
+			}
 
 			for i := 0; i < b.N; i++ {
-				if err := pool.Remove(c); err != nil {
+				if err := pool.OnFailure(c); err != nil {
 					b.Errorf("Unexpected error: %v", err)
 				}
 			}
@@ -137,10 +146,13 @@ func BenchmarkRoundRobinConnectionPool(b *testing.B) {
 		b.Run("Parallel (10)", func(b *testing.B) {
 			b.SetParallelism(10)
 			b.RunParallel(func(pb *testing.PB) {
-				c, _ := pool.Next()
+				c, err := pool.Next()
+				if err != nil {
+					b.Fatalf("Unexpected error: %s", err)
+				}
 
 				for pb.Next() {
-					if err := pool.Remove(c); err != nil {
+					if err := pool.OnFailure(c); err != nil {
 						b.Errorf("Unexpected error: %v", err)
 					}
 				}
@@ -150,10 +162,13 @@ func BenchmarkRoundRobinConnectionPool(b *testing.B) {
 		b.Run("Parallel (100)", func(b *testing.B) {
 			b.SetParallelism(100)
 			b.RunParallel(func(pb *testing.PB) {
-				c, _ := pool.Next()
+				c, err := pool.Next()
+				if err != nil {
+					b.Fatalf("Unexpected error: %s", err)
+				}
 
 				for pb.Next() {
-					if err := pool.Remove(c); err != nil {
+					if err := pool.OnFailure(c); err != nil {
 						b.Errorf("Unexpected error: %v", err)
 					}
 				}
@@ -161,15 +176,20 @@ func BenchmarkRoundRobinConnectionPool(b *testing.B) {
 		})
 	})
 
-	b.Run("Resurrect()", func(b *testing.B) {
-		pool := newRoundRobinConnectionPool(urls...)
+	b.Run("OnSuccess()", func(b *testing.B) {
+		pool := &statusConnectionPool{
+			live:     conns,
+			selector: &roundRobinSelector{curr: -1},
+		}
 
-		b.Run("Single       ", func(b *testing.B) {
-			c, _ := pool.Next()
-			pool.Remove(c)
+		b.Run("Single     ", func(b *testing.B) {
+			c, err := pool.Next()
+			if err != nil {
+				b.Fatalf("Unexpected error: %s", err)
+			}
 
 			for i := 0; i < b.N; i++ {
-				if err := pool.Resurrect(c); err != nil {
+				if err := pool.OnSuccess(c); err != nil {
 					b.Errorf("Unexpected error: %v", err)
 				}
 			}
@@ -178,11 +198,13 @@ func BenchmarkRoundRobinConnectionPool(b *testing.B) {
 		b.Run("Parallel (10)", func(b *testing.B) {
 			b.SetParallelism(10)
 			b.RunParallel(func(pb *testing.PB) {
-				c, _ := pool.Next()
-				pool.Remove(c)
+				c, err := pool.Next()
+				if err != nil {
+					b.Fatalf("Unexpected error: %s", err)
+				}
 
 				for pb.Next() {
-					if err := pool.Resurrect(c); err != nil {
+					if err := pool.OnSuccess(c); err != nil {
 						b.Errorf("Unexpected error: %v", err)
 					}
 				}
@@ -192,13 +214,85 @@ func BenchmarkRoundRobinConnectionPool(b *testing.B) {
 		b.Run("Parallel (100)", func(b *testing.B) {
 			b.SetParallelism(100)
 			b.RunParallel(func(pb *testing.PB) {
-				c, _ := pool.Next()
-				pool.Remove(c)
+				c, err := pool.Next()
+				if err != nil {
+					b.Fatalf("Unexpected error: %s", err)
+				}
 
 				for pb.Next() {
-					if err := pool.Resurrect(c); err != nil {
+					if err := pool.OnSuccess(c); err != nil {
 						b.Errorf("Unexpected error: %v", err)
 					}
+				}
+			})
+		})
+	})
+
+	b.Run("resurrect()", func(b *testing.B) {
+		pool := &statusConnectionPool{
+			live:     conns,
+			selector: &roundRobinSelector{curr: -1},
+		}
+
+		b.Run("Single", func(b *testing.B) {
+			c, err := pool.Next()
+			if err != nil {
+				b.Fatalf("Unexpected error: %s", err)
+			}
+			err = pool.OnFailure(c)
+			if err != nil {
+				b.Fatalf("Unexpected error: %s", err)
+			}
+
+			for i := 0; i < b.N; i++ {
+				pool.Lock()
+				if err := pool.resurrect(c, true); err != nil {
+					b.Errorf("Unexpected error: %v", err)
+				}
+				pool.Unlock()
+			}
+		})
+
+		b.Run("Parallel (10)", func(b *testing.B) {
+			b.SetParallelism(10)
+			b.RunParallel(func(pb *testing.PB) {
+				c, err := pool.Next()
+				if err != nil {
+					b.Fatalf("Unexpected error: %s", err)
+				}
+				err = pool.OnFailure(c)
+				if err != nil {
+					b.Fatalf("Unexpected error: %s", err)
+				}
+
+				for pb.Next() {
+					pool.Lock()
+					if err := pool.resurrect(c, true); err != nil {
+						b.Errorf("Unexpected error: %v", err)
+					}
+					pool.Unlock()
+				}
+			})
+		})
+
+		b.Run("Parallel (100)", func(b *testing.B) {
+			b.SetParallelism(100)
+			b.RunParallel(func(pb *testing.PB) {
+				c, err := pool.Next()
+				if err != nil {
+					b.Fatalf("Unexpected error: %s", err)
+				}
+				err = pool.OnFailure(c)
+				if err != nil {
+					b.Fatalf("Unexpected error: %s", err)
+				}
+
+				for pb.Next() {
+					pool.Lock()
+					if err := pool.resurrect(c, true); err != nil {
+						b.Errorf("Unexpected error: %v", err)
+					}
+					pool.Unlock()
 				}
 			})
 		})

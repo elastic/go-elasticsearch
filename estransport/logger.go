@@ -18,6 +18,8 @@ import (
 	"time"
 )
 
+var debugLogger DebuggingLogger
+
 // Logger defines an interface for logging request and response.
 //
 type Logger interface {
@@ -69,9 +71,9 @@ type JSONLogger struct {
 	EnableResponseBody bool
 }
 
-// debugLogger prints debug messages as plain text.
+// debuggingLogger prints debug messages as plain text.
 //
-type debugLogger struct {
+type debuggingLogger struct {
 	Output io.Writer
 }
 
@@ -390,14 +392,14 @@ func (l *JSONLogger) ResponseBodyEnabled() bool { return l.EnableResponseBody }
 
 // Log prints the arguments to output in default format.
 //
-func (l *debugLogger) Log(a ...interface{}) error {
+func (l *debuggingLogger) Log(a ...interface{}) error {
 	_, err := fmt.Fprint(l.Output, a...)
 	return err
 }
 
 // Logf prints formats the arguments and prints them to output.
 //
-func (l *debugLogger) Logf(format string, a ...interface{}) error {
+func (l *debuggingLogger) Logf(format string, a ...interface{}) error {
 	_, err := fmt.Fprintf(l.Output, format, a...)
 	return err
 }
