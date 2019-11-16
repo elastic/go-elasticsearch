@@ -19,11 +19,19 @@ var (
 	defaultResurrectTimeoutFactorCutoff = 5
 )
 
+// Selector defines the interface for selecting connections from the pool.
+//
+type Selector interface {
+	Select([]*Connection) (*Connection, error)
+}
+
 // ConnectionPool defines the interface for the connection pool.
 //
 type ConnectionPool interface {
-	Next() (*Connection, error)
-	Remove(*Connection) error
+	Next() (*Connection, error)  // Next returns the next available connection.
+	OnSuccess(*Connection) error // OnSuccess reports that the connection was successful.
+	OnFailure(*Connection) error // OnFailure reports that the connection failed.
+	URLs() []*url.URL            // URLs returns the list of URLs of available connections.
 }
 
 // Connection represents a connection to a node.
@@ -32,7 +40,7 @@ type Connection struct {
 	sync.Mutex
 
 	URL       *url.URL
-	Dead      bool
+	IsDead    bool
 	DeadSince time.Time
 	Failures  int
 }
@@ -41,40 +49,34 @@ type singleConnectionPool struct {
 	connection *Connection
 
 	metrics *metrics
-
-	debugLogger DebuggingLogger
 }
 
-type roundRobinConnectionPool struct {
+type statusConnectionPool struct {
 	sync.Mutex
 
-	curr int           // Index of the current connection
-	live []*Connection // List of live connections
-	dead []*Connection // List of dead connections
-	orig []*url.URL    // List of original URLs, passed in during initialization
+	live     []*Connection // List of live connections
+	dead     []*Connection // List of dead connections
+	selector Selector
 
 	metrics *metrics
-
-	debugLogger DebuggingLogger
 }
 
-func newSingleConnectionPool(u *url.URL) *singleConnectionPool {
-	cp := singleConnectionPool{connection: &Connection{URL: u}}
+type roundRobinSelector struct {
+	sync.Mutex
 
-	return &cp
+	curr int // Index of the current connection
 }
 
-func newRoundRobinConnectionPool(u ...*url.URL) *roundRobinConnectionPool {
-	var conns []*Connection
-	for _, url := range u {
-		conns = append(conns, &Connection{URL: url})
+// NewConnectionPool creates and returns a default connection pool.
+//
+func NewConnectionPool(conns []*Connection, selector Selector) (ConnectionPool, error) {
+	if len(conns) == 1 {
+		return &singleConnectionPool{connection: conns[0]}, nil
 	}
-
-	cp := roundRobinConnectionPool{live: conns, orig: u, curr: -1}
-
-	// BUG the transport's metrics should be initialised with the live list
-
-	return &cp
+	if selector == nil {
+		selector = &roundRobinSelector{curr: -1}
+	}
+	return &statusConnectionPool{live: conns, selector: selector}, nil
 }
 
 // Next returns the connection from pool.
@@ -83,52 +85,74 @@ func (cp *singleConnectionPool) Next() (*Connection, error) {
 	return cp.connection, nil
 }
 
-// Remove is a no-op for single connection pool.
-//
-func (cp *singleConnectionPool) Remove(c *Connection) error {
-	return nil
-}
+// OnSuccess is a no-op for single connection pool.
+func (cp *singleConnectionPool) OnSuccess(c *Connection) error { return nil }
+
+// OnFailure is a no-op for single connection pool.
+func (cp *singleConnectionPool) OnFailure(c *Connection) error { return nil }
+
+// URLs returns the list of URLs of available connections.
+func (cp *singleConnectionPool) URLs() []*url.URL { return []*url.URL{cp.connection.URL} }
+
+func (cp *singleConnectionPool) connections() []*Connection { return []*Connection{cp.connection} }
 
 // Next returns a connection from pool, or an error.
 //
-func (cp *roundRobinConnectionPool) Next() (*Connection, error) {
+func (cp *statusConnectionPool) Next() (*Connection, error) {
 	cp.Lock()
 	defer cp.Unlock()
 
 	// Return next live connection
 	if len(cp.live) > 0 {
-		cp.curr = (cp.curr + 1) % len(cp.live)
-		return cp.live[cp.curr], nil
+		return cp.selector.Select(cp.live)
 	} else if len(cp.dead) > 0 {
-		// No live connections are available, resurrect one
-		// of the dead connections with the fewest failures.
+		// No live connection is available, resurrect one of the dead ones.
 		c := cp.dead[len(cp.dead)-1]
 		cp.dead = cp.dead[:len(cp.dead)-1]
 		c.Lock()
 		defer c.Unlock()
-		return c, cp.resurrectLocked(c, false)
+		cp.resurrect(c, false)
+		return c, nil
 	}
 	return nil, errors.New("no connection available")
 }
 
-// Remove removes a connection from the pool.
+// OnSuccess marks the connection as successful.
 //
-func (cp *roundRobinConnectionPool) Remove(c *Connection) error {
+func (cp *statusConnectionPool) OnSuccess(c *Connection) error {
+	c.Lock()
+	defer c.Unlock()
+
+	// Short-circuit for live connection
+	if !c.IsDead {
+		return nil
+	}
+
+	c.markAsHealthy()
+
+	cp.Lock()
+	defer cp.Unlock()
+	return cp.resurrect(c, true)
+}
+
+// OnFailure marks the connection as failed.
+//
+func (cp *statusConnectionPool) OnFailure(c *Connection) error {
 	cp.Lock()
 	defer cp.Unlock()
 
 	c.Lock()
 
-	if c.Dead {
-		if cp.debugLogger != nil {
-			cp.debugLogger.Logf("Already removed %s\n", c.URL)
+	if c.IsDead {
+		if debugLogger != nil {
+			debugLogger.Logf("Already removed %s\n", c.URL)
 		}
 		c.Unlock()
 		return nil
 	}
 
-	if cp.debugLogger != nil {
-		cp.debugLogger.Logf("Removing %s...\n", c.URL)
+	if debugLogger != nil {
+		debugLogger.Logf("Removing %s...\n", c.URL)
 	}
 	c.markAsDead()
 	cp.scheduleResurrect(c)
@@ -148,8 +172,7 @@ func (cp *roundRobinConnectionPool) Remove(c *Connection) error {
 		return res
 	})
 
-	// Check if connection exists in the list. Return nil if it doesn't,
-	// because another goroutine might have already removed it.
+	// Check if connection exists in the list, return error if not.
 	index := -1
 	for i, conn := range cp.live {
 		if conn == c {
@@ -157,46 +180,45 @@ func (cp *roundRobinConnectionPool) Remove(c *Connection) error {
 		}
 	}
 	if index < 0 {
-		return nil
+		return errors.New("connection not in live list")
 	}
 
 	// Remove item; https://github.com/golang/go/wiki/SliceTricks
 	copy(cp.live[index:], cp.live[index+1:])
 	cp.live = cp.live[:len(cp.live)-1]
 
-	if cp.metrics != nil {
-		cp.metrics.Lock()
-		cp.metrics.dead = cp.dead
-		cp.metrics.live = cp.live
-		cp.metrics.Unlock()
-	}
-
 	return nil
 }
 
-// Resurrect removes the connection from the dead list and adds it to the pool.
+// URLs returns the list of URLs of available connections.
 //
-// TODO(karmi): Add a pluggable strategy as argument, eg. "optimistic", "ping".
-//
-func (cp *roundRobinConnectionPool) Resurrect(c *Connection) error {
+func (cp *statusConnectionPool) URLs() []*url.URL {
+	var urls []*url.URL
+
 	cp.Lock()
 	defer cp.Unlock()
 
-	c.Lock()
-	defer c.Unlock()
-
-	if !c.Dead {
-		if cp.debugLogger != nil {
-			cp.debugLogger.Logf("Already resurrected %s\n", c.URL)
-		}
-		return nil
+	for _, c := range cp.live {
+		urls = append(urls, c.URL)
 	}
-	return cp.resurrectLocked(c, true)
+
+	return urls
 }
 
-func (cp *roundRobinConnectionPool) resurrectLocked(c *Connection, removeDead bool) error {
-	if cp.debugLogger != nil {
-		cp.debugLogger.Logf("Resurrecting %s\n", c.URL)
+func (cp *statusConnectionPool) connections() []*Connection {
+	var conns []*Connection
+	conns = append(conns, cp.live...)
+	conns = append(conns, cp.dead...)
+	return conns
+}
+
+// resurrect adds the connection to the list of available connections.
+// When removeDead is true, it also removes it from the dead list.
+// The calling code is responsible for locking.
+//
+func (cp *statusConnectionPool) resurrect(c *Connection, removeDead bool) error {
+	if debugLogger != nil {
+		debugLogger.Logf("Resurrecting %s\n", c.URL)
 	}
 
 	c.markAsLive()
@@ -216,52 +238,74 @@ func (cp *roundRobinConnectionPool) resurrectLocked(c *Connection, removeDead bo
 		}
 	}
 
-	if cp.metrics != nil {
-		cp.metrics.Lock()
-		cp.metrics.dead = cp.dead
-		cp.metrics.live = cp.live
-		cp.metrics.Unlock()
-	}
-
 	return nil
 }
 
 // scheduleResurrect schedules the connection to be resurrected.
 //
-func (cp *roundRobinConnectionPool) scheduleResurrect(c *Connection) {
+func (cp *statusConnectionPool) scheduleResurrect(c *Connection) {
 	factor := math.Min(float64(c.Failures-1), float64(defaultResurrectTimeoutFactorCutoff))
 	timeout := time.Duration(defaultResurrectTimeoutInitial.Seconds() * math.Exp2(factor) * float64(time.Second))
-	if cp.debugLogger != nil {
-		cp.debugLogger.Logf("Resurrect %s (failures=%d, factor=%1.1f, timeout=%s) in %s\n", c.URL, c.Failures, factor, timeout, c.DeadSince.Add(timeout).Sub(time.Now().UTC()).Truncate(time.Second))
+	if debugLogger != nil {
+		debugLogger.Logf("Resurrect %s (failures=%d, factor=%1.1f, timeout=%s) in %s\n", c.URL, c.Failures, factor, timeout, c.DeadSince.Add(timeout).Sub(time.Now().UTC()).Truncate(time.Second))
 	}
 
-	time.AfterFunc(timeout, func() { cp.Resurrect(c) })
+	time.AfterFunc(timeout, func() {
+		cp.Lock()
+		defer cp.Unlock()
+
+		c.Lock()
+		defer c.Unlock()
+
+		if !c.IsDead {
+			if debugLogger != nil {
+				debugLogger.Logf("Already resurrected %s\n", c.URL)
+			}
+			return
+		}
+
+		cp.resurrect(c, true)
+	})
+}
+
+// Select returns the connection in a round-robin fashion.
+//
+func (s *roundRobinSelector) Select(conns []*Connection) (*Connection, error) {
+	s.Lock()
+	defer s.Unlock()
+
+	s.curr = (s.curr + 1) % len(conns)
+	return conns[s.curr], nil
 }
 
 // markAsDead marks the connection as dead.
 //
 func (c *Connection) markAsDead() {
-	c.Dead = true
-	c.DeadSince = time.Now().UTC()
+	c.IsDead = true
+	if c.DeadSince.IsZero() {
+		c.DeadSince = time.Now().UTC()
+	}
 	c.Failures++
 }
 
 // markAsLive marks the connection as alive.
 //
 func (c *Connection) markAsLive() {
-	c.Dead = false
+	c.IsDead = false
 }
 
 // markAsHealthy marks the connection as healthy.
 //
 func (c *Connection) markAsHealthy() {
-	c.Dead = false
+	c.IsDead = false
 	c.DeadSince = time.Time{}
 	c.Failures = 0
 }
 
+// String returns a readable connection representation.
+//
 func (c *Connection) String() string {
 	c.Lock()
 	defer c.Unlock()
-	return fmt.Sprintf("<%s> dead=%v failures=%d", c.URL, c.Dead, c.Failures)
+	return fmt.Sprintf("<%s> dead=%v failures=%d", c.URL, c.IsDead, c.Failures)
 }

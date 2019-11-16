@@ -11,8 +11,6 @@ import (
 	"net/http"
 	"net/url"
 	"regexp"
-	"strconv"
-	"strings"
 	"testing"
 	"time"
 )
@@ -55,11 +53,8 @@ func TestMetrics(t *testing.T) {
 		if len(m.Responses) != 2 {
 			t.Errorf("Unexpected output: %+v", m.Responses)
 		}
-		if len(m.Live) != 2 {
-			t.Errorf("Unexpected output: %+v", m.Live)
-		}
-		if len(m.Dead) != 1 {
-			t.Errorf("Unexpected output: %+v", m.Dead)
+		if len(m.Connections) != 3 {
+			t.Errorf("Unexpected output: %+v", m.Connections)
 		}
 	})
 
@@ -73,29 +68,24 @@ func TestMetrics(t *testing.T) {
 	})
 
 	t.Run("String()", func(t *testing.T) {
-		var m connectionMetric
+		var m ConnectionMetric
 
-		m = connectionMetric{
-			URL:         "http://foo1",
-			Failures:    0,
-			DeadSince:   nullableTime{time.Time{}},
-			ResurrectIn: time.Duration(0),
-		}
+		m = ConnectionMetric{URL: "http://foo1"}
 
 		if m.String() != "{http://foo1}" {
 			t.Errorf("Unexpected output: %s", m)
 		}
 
 		tt, _ := time.Parse(time.RFC3339, "2010-11-11T11:00:00Z")
-		m = connectionMetric{
-			URL:         "http://foo2",
-			Failures:    123,
-			DeadSince:   nullableTime{tt},
-			ResurrectIn: time.Duration(100),
+		m = ConnectionMetric{
+			URL:       "http://foo2",
+			IsDead:    true,
+			Failures:  123,
+			DeadSince: &tt,
 		}
 
 		match, err := regexp.MatchString(
-			`{http://foo2 failures=123 dead_since=Nov 11 \d+:00:00 resurrect_in=100ns}`,
+			`{http://foo2 dead=true failures=123 dead_since=Nov 11 \d+:00:00}`,
 			m.String(),
 		)
 		if err != nil {
@@ -104,29 +94,6 @@ func TestMetrics(t *testing.T) {
 
 		if !match {
 			t.Errorf("Unexpected output: %s", m)
-		}
-	})
-
-	t.Run("nullableTime.MarshalJSON()", func(t *testing.T) {
-		var (
-			j   []byte
-			err error
-		)
-
-		j, err = nullableTime{time.Now()}.MarshalJSON()
-		if err != nil {
-			t.Fatalf("Unexpected error: %s", err)
-		}
-		if !strings.HasPrefix(string(j), `"`+strconv.Itoa(time.Now().Year())) {
-			t.Errorf("Unexpected value: %s", j)
-		}
-
-		j, err = nullableTime{}.MarshalJSON()
-		if err != nil {
-			t.Fatalf("Unexpected error: %s", err)
-		}
-		if string(j) != `null` {
-			t.Errorf("Unexpected value: %s", j)
 		}
 	})
 }

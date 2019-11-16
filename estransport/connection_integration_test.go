@@ -19,7 +19,7 @@ func NewServer(addr string, handler http.Handler) *http.Server {
 	return &http.Server{Addr: addr, Handler: handler}
 }
 
-func TestRoundRobinConnectionPool(t *testing.T) {
+func TestStatusConnectionPool(t *testing.T) {
 	defaultResurrectTimeoutInitial = time.Second
 	defer func() { defaultResurrectTimeoutInitial = 60 * time.Second }()
 
@@ -64,7 +64,7 @@ func TestRoundRobinConnectionPool(t *testing.T) {
 			EnableDebugLogger: true,
 		})
 
-	pool := transport.pool.(*roundRobinConnectionPool)
+	pool := transport.pool.(*statusConnectionPool)
 
 	for i := 1; i <= 9; i++ {
 		req, _ := http.NewRequest("GET", "/", nil)
