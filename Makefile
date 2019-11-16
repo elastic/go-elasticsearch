@@ -233,7 +233,7 @@ godoc: ## Display documentation for the package
 	GOROOT=/tmp/tmpgoroot/ GOPATH=/tmp/tmpgopath/ godoc -http=localhost:6060 -play
 
 cluster: ## Launch an Elasticsearch cluster with Docker
-	$(eval version ?= "elasticsearch-oss:7.4-SNAPSHOT")
+	$(eval version ?= "elasticsearch-oss:7.5-SNAPSHOT")
 ifeq ($(origin nodes), undefined)
 	$(eval nodes = 1)
 endif
@@ -311,7 +311,7 @@ ifdef detached
 endif
 
 cluster-update: ## Update the Docker image
-	$(eval version ?= "elasticsearch-oss:7.4-SNAPSHOT")
+	$(eval version ?= "elasticsearch-oss:7.5-SNAPSHOT")
 	@echo "\033[2m→ Updating the Docker image...\033[0m"
 	@docker pull docker.elastic.co/elasticsearch/$(version);
 
