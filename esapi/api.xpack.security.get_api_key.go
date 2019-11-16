@@ -2,13 +2,14 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.4.2: DO NOT EDIT
+// Code generated from specification version 7.5.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -35,6 +36,7 @@ type SecurityGetAPIKey func(o ...func(*SecurityGetAPIKeyRequest)) (*Response, er
 type SecurityGetAPIKeyRequest struct {
 	ID        string
 	Name      string
+	Owner     *bool
 	RealmName string
 	Username  string
 
@@ -70,6 +72,10 @@ func (r SecurityGetAPIKeyRequest) Do(ctx context.Context, transport Transport) (
 
 	if r.Name != "" {
 		params["name"] = r.Name
+	}
+
+	if r.Owner != nil {
+		params["owner"] = strconv.FormatBool(*r.Owner)
 	}
 
 	if r.RealmName != "" {
@@ -160,6 +166,14 @@ func (f SecurityGetAPIKey) WithID(v string) func(*SecurityGetAPIKeyRequest) {
 func (f SecurityGetAPIKey) WithName(v string) func(*SecurityGetAPIKeyRequest) {
 	return func(r *SecurityGetAPIKeyRequest) {
 		r.Name = v
+	}
+}
+
+// WithOwner - flag to query api keys owned by the currently authenticated user.
+//
+func (f SecurityGetAPIKey) WithOwner(v bool) func(*SecurityGetAPIKeyRequest) {
+	return func(r *SecurityGetAPIKeyRequest) {
+		r.Owner = &v
 	}
 }
 
