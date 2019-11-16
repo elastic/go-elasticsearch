@@ -62,6 +62,9 @@ type Config struct {
 
 	Transport http.RoundTripper
 	Logger    Logger
+	Selector  Selector
+
+	ConnectionPoolFunc func([]*Connection, Selector) ConnectionPool
 }
 
 // Client represents the HTTP client.
@@ -80,12 +83,11 @@ type Client struct {
 
 	metrics *metrics
 
-	enableDebugLogger bool
-	debugLogger       DebuggingLogger
-
 	transport http.RoundTripper
-	pool      ConnectionPool
 	logger    Logger
+	selector  Selector
+	pool      ConnectionPool
+	poolFunc  func([]*Connection, Selector) ConnectionPool
 }
 
 // New creates new HTTP client.
@@ -105,11 +107,9 @@ func New(cfg Config) *Client {
 		cfg.MaxRetries = defaultMaxRetries
 	}
 
-	var pool ConnectionPool
-	if len(cfg.URLs) == 1 {
-		pool = newSingleConnectionPool(cfg.URLs[0])
-	} else {
-		pool = newRoundRobinConnectionPool(cfg.URLs...)
+	var conns []*Connection
+	for _, u := range cfg.URLs {
+		conns = append(conns, &Connection{URL: u})
 	}
 
 	client := Client{
@@ -124,33 +124,30 @@ func New(cfg Config) *Client {
 		maxRetries:           cfg.MaxRetries,
 		retryBackoff:         cfg.RetryBackoff,
 
-		enableDebugLogger: cfg.EnableDebugLogger,
-
 		transport: cfg.Transport,
-		pool:      pool,
 		logger:    cfg.Logger,
+		selector:  cfg.Selector,
+		poolFunc:  cfg.ConnectionPoolFunc,
 	}
 
-	if cfg.EnableMetrics {
-		// FIXME(karmi): Type assertion to interface
-		if pool, ok := client.pool.(*singleConnectionPool); ok {
-			client.metrics = &metrics{responses: make(map[int]int)}
-			pool.metrics = client.metrics
-		}
-		if pool, ok := client.pool.(*roundRobinConnectionPool); ok {
-			client.metrics = &metrics{responses: make(map[int]int)}
-			pool.metrics = client.metrics
-		}
+	if client.poolFunc != nil {
+		client.pool = client.poolFunc(conns, client.selector)
+	} else {
+		client.pool, _ = NewConnectionPool(conns, client.selector)
 	}
 
 	if cfg.EnableDebugLogger {
-		client.debugLogger = &debugLogger{Output: os.Stdout}
+		debugLogger = &debuggingLogger{Output: os.Stdout}
+	}
 
+	if cfg.EnableMetrics {
+		client.metrics = &metrics{responses: make(map[int]int)}
+		// TODO(karmi): Type assertion to interface
 		if pool, ok := client.pool.(*singleConnectionPool); ok {
-			pool.debugLogger = client.debugLogger
+			pool.metrics = client.metrics
 		}
-		if pool, ok := client.pool.(*roundRobinConnectionPool); ok {
-			pool.debugLogger = client.debugLogger
+		if pool, ok := client.pool.(*statusConnectionPool); ok {
+			pool.metrics = client.metrics
 		}
 	}
 
@@ -166,7 +163,6 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	)
 
 	// Record metrics, when enabled
-	//
 	if c.metrics != nil {
 		c.metrics.Lock()
 		c.metrics.requests++
@@ -174,7 +170,6 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	}
 
 	// Update request
-	//
 	c.setReqUserAgent(req)
 
 	if req.Body != nil && req.Body != http.NoBody && req.GetBody == nil {
@@ -192,15 +187,13 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	}
 
 	for i := 1; i <= c.maxRetries; i++ {
-		// fmt.Printf("Attempt %d\n", i)
 		var (
 			conn        *Connection
 			shouldRetry bool
 		)
 
 		// Get connection from the pool
-		//
-		conn, err = c.getConnection()
+		conn, err = c.pool.Next()
 		if err != nil {
 			if c.logger != nil {
 				c.logRoundTrip(req, nil, err, time.Time{}, time.Duration(0))
@@ -209,7 +202,6 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		}
 
 		// Update request
-		//
 		c.setReqURL(conn.URL, req)
 		c.setReqAuth(conn.URL, req)
 
@@ -222,13 +214,11 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		}
 
 		// Set up time measures and execute the request
-		//
 		start := time.Now().UTC()
 		res, err = c.transport.RoundTrip(req)
 		dur := time.Since(start)
 
 		// Log request and response
-		//
 		if c.logger != nil {
 			if c.logger.RequestBodyEnabled() && req.Body != nil && req.Body != http.NoBody {
 				req.Body, _ = req.GetBody()
@@ -238,30 +228,24 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 
 		if err != nil {
 			// Record metrics, when enabled
-			//
 			if c.metrics != nil {
 				c.metrics.Lock()
 				c.metrics.failures++
 				c.metrics.Unlock()
 			}
 
-			// Remove the connection from pool
-			//
-			c.pool.Remove(conn)
+			// Report the connection as unsuccessful
+			c.pool.OnFailure(conn)
 
 			// Retry only on network errors, but don't retry on timeout errors, unless configured
-			//
 			if err, ok := err.(net.Error); ok {
 				if (!err.Timeout() || c.enableRetryOnTimeout) && !c.disableRetry {
 					shouldRetry = true
 				}
 			}
 		} else {
-			// Reset the failure counter
-			//
-			conn.Lock()
-			conn.markAsHealthy()
-			conn.Unlock()
+			// Report the connection as succesfull
+			c.pool.OnSuccess(conn)
 		}
 
 		if res != nil && c.metrics != nil {
@@ -271,7 +255,6 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		}
 
 		// Retry on configured response statuses
-		//
 		if res != nil && !c.disableRetry {
 			for _, code := range c.retryOnStatus {
 				if res.StatusCode == code {
@@ -281,13 +264,11 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		}
 
 		// Break if retry should not be performed
-		//
 		if !shouldRetry {
 			break
 		}
 
 		// Delay the retry if a backoff function is configured
-		//
 		if c.retryBackoff != nil {
 			time.Sleep(c.retryBackoff(i))
 		}
@@ -299,15 +280,9 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 
 // URLs returns a list of transport URLs.
 //
-// TODO(karmi): Refactor to take into account live, dead, orig lists.
-//
 //
 func (c *Client) URLs() []*url.URL {
-	return c.urls
-}
-
-func (c *Client) getConnection() (*Connection, error) {
-	return c.pool.Next()
+	return c.pool.URLs()
 }
 
 func (c *Client) setReqURL(u *url.URL, req *http.Request) *http.Request {
