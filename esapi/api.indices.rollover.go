@@ -43,7 +43,6 @@ type IndicesRolloverRequest struct {
 	NewIndex string
 
 	DryRun              *bool
-	IncludeTypeName     *bool
 	MasterTimeout       time.Duration
 	Timeout             time.Duration
 	WaitForActiveShards string
@@ -83,10 +82,6 @@ func (r IndicesRolloverRequest) Do(ctx context.Context, transport Transport) (*R
 
 	if r.DryRun != nil {
 		params["dry_run"] = strconv.FormatBool(*r.DryRun)
-	}
-
-	if r.IncludeTypeName != nil {
-		params["include_type_name"] = strconv.FormatBool(*r.IncludeTypeName)
 	}
 
 	if r.MasterTimeout != 0 {
@@ -193,14 +188,6 @@ func (f IndicesRollover) WithNewIndex(v string) func(*IndicesRolloverRequest) {
 func (f IndicesRollover) WithDryRun(v bool) func(*IndicesRolloverRequest) {
 	return func(r *IndicesRolloverRequest) {
 		r.DryRun = &v
-	}
-}
-
-// WithIncludeTypeName - whether a type should be included in the body of the mappings..
-//
-func (f IndicesRollover) WithIncludeTypeName(v bool) func(*IndicesRolloverRequest) {
-	return func(r *IndicesRolloverRequest) {
-		r.IncludeTypeName = &v
 	}
 }
 

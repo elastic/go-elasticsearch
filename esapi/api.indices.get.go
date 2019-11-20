@@ -42,7 +42,6 @@ type IndicesGetRequest struct {
 	FlatSettings      *bool
 	IgnoreUnavailable *bool
 	IncludeDefaults   *bool
-	IncludeTypeName   *bool
 	Local             *bool
 	MasterTimeout     time.Duration
 
@@ -91,10 +90,6 @@ func (r IndicesGetRequest) Do(ctx context.Context, transport Transport) (*Respon
 
 	if r.IncludeDefaults != nil {
 		params["include_defaults"] = strconv.FormatBool(*r.IncludeDefaults)
-	}
-
-	if r.IncludeTypeName != nil {
-		params["include_type_name"] = strconv.FormatBool(*r.IncludeTypeName)
 	}
 
 	if r.Local != nil {
@@ -209,14 +204,6 @@ func (f IndicesGet) WithIgnoreUnavailable(v bool) func(*IndicesGetRequest) {
 func (f IndicesGet) WithIncludeDefaults(v bool) func(*IndicesGetRequest) {
 	return func(r *IndicesGetRequest) {
 		r.IncludeDefaults = &v
-	}
-}
-
-// WithIncludeTypeName - whether to add the type name to the response (default: false).
-//
-func (f IndicesGet) WithIncludeTypeName(v bool) func(*IndicesGetRequest) {
-	return func(r *IndicesGetRequest) {
-		r.IncludeTypeName = &v
 	}
 }
 

@@ -42,7 +42,6 @@ type IndicesGetFieldMappingRequest struct {
 	ExpandWildcards   string
 	IgnoreUnavailable *bool
 	IncludeDefaults   *bool
-	IncludeTypeName   *bool
 	Local             *bool
 
 	Pretty     bool
@@ -94,10 +93,6 @@ func (r IndicesGetFieldMappingRequest) Do(ctx context.Context, transport Transpo
 
 	if r.IncludeDefaults != nil {
 		params["include_defaults"] = strconv.FormatBool(*r.IncludeDefaults)
-	}
-
-	if r.IncludeTypeName != nil {
-		params["include_type_name"] = strconv.FormatBool(*r.IncludeTypeName)
 	}
 
 	if r.Local != nil {
@@ -208,14 +203,6 @@ func (f IndicesGetFieldMapping) WithIgnoreUnavailable(v bool) func(*IndicesGetFi
 func (f IndicesGetFieldMapping) WithIncludeDefaults(v bool) func(*IndicesGetFieldMappingRequest) {
 	return func(r *IndicesGetFieldMappingRequest) {
 		r.IncludeDefaults = &v
-	}
-}
-
-// WithIncludeTypeName - whether a type should be returned in the body of the mappings..
-//
-func (f IndicesGetFieldMapping) WithIncludeTypeName(v bool) func(*IndicesGetFieldMappingRequest) {
-	return func(r *IndicesGetFieldMappingRequest) {
-		r.IncludeTypeName = &v
 	}
 }
 
