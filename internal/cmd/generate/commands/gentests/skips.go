@@ -217,4 +217,10 @@ watcher/execute_watch/60_http_input.yml:
 # Test tries to match on "tagline", which requires "human=false", which doesn't work in the Go API.
 # Also test does too much within a single test, so has to be disabled as whole, unfortunately.
 xpack/15_basic.yml:
+
+# Test uses "y" as a property name, which is parsed as 'true' in the Go YAML library;
+# see https://yaml.org/type/bool.html
+ml/explain_data_frame_analytics.yml:
+  - Test empty data frame given body
+  - Test non-empty data frame given body
 `
