@@ -202,7 +202,6 @@ endif
 		set -e -o pipefail; \
 		cp internal/version/version.go internal/version/version.go.OLD && \
 		cat internal/version/version.go.OLD | sed -e 's/Client = ".*"/Client = "$(version)"/' > internal/version/version.go && \
-		rm internal/version/version.go.OLD && \
 		go vet internal/version/version.go && \
 		go fmt internal/version/version.go && \
 		git diff --color-words internal/version/version.go | tail -n 1; \
@@ -217,8 +216,14 @@ endif
 			git tag --annotate v$(version) --message 'Release $(version)'; \
 			echo "\033[2m→ Push `git show --pretty='%h (%s)' --no-patch HEAD` to Github:\033[0m\n"; \
 			echo "\033[1m  git push origin HEAD && git push origin v$(version)\033[0m\n"; \
+			mv internal/version/version.go.OLD internal/version/version.go && \
+			git add internal/version/version.go && \
+			original_version=`cat internal/version/version.go | sed -ne 's;^const Client = "\(.*\)"$$;\1;p'` && \
+			git commit --no-status --quiet --message "Update version to $$original_version"; \
+			echo "\033[2m→ Version updated to [$$original_version].\033[0m\n"; \
 		else \
 			echo "Aborting..."; \
+			rm internal/version/version.go.OLD; \
 			exit 1; \
 		fi; \
 	}
