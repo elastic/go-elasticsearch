@@ -5,10 +5,12 @@
 package main
 
 import (
+	"context"
 	"log"
 	"os"
 	"sort"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/elastic/go-elasticsearch/v6"
@@ -42,6 +44,31 @@ func main() {
 		log.Fatalf("Error creating the client: %s", err)
 	}
 
+	// Test sending the body as POST
+	//
+	ctx, cancel := context.WithTimeout(context.Background(), 500*time.Millisecond)
+	defer cancel()
+
+	go func() {
+		es.Info()
+		if _, err := es.Search(
+			es.Search.WithBody(strings.NewReader(`{"query":{"match":{"title":"foo"}}}`)),
+			es.Search.WithPretty(),
+		); err != nil {
+			log.Fatalf("Error getting response: %s", err)
+		}
+		cancel()
+	}()
+
+	select {
+	case <-ctx.Done():
+		if ctx.Err() != context.Canceled {
+			log.Fatalf("Timeout: %s", ctx.Err())
+		}
+	}
+
+	// Run benchmark
+	//
 	t := time.Now()
 	for i := 0; i < count; i++ {
 		t0 := time.Now()
