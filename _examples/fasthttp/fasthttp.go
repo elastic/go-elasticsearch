@@ -42,6 +42,10 @@ func (t *Transport) RoundTrip(req *http.Request) (*http.Response, error) {
 // copyRequest converts a http.Request to fasthttp.Request
 //
 func (t *Transport) copyRequest(dst *fasthttp.Request, src *http.Request) *fasthttp.Request {
+	if src.Method == "GET" && src.Body != nil {
+		src.Method = "POST"
+	}
+
 	dst.SetHost(src.Host)
 	dst.SetRequestURI(src.URL.String())
 
