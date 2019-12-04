@@ -8,6 +8,7 @@ package estransport
 
 import (
 	"fmt"
+	"io"
 	"io/ioutil"
 	"math/rand"
 	"net/http"
@@ -373,6 +374,45 @@ func TestTransportPerformRetries(t *testing.T) {
 					}
 					fmt.Print(": ERR\n")
 					return nil, &mockNetError{error: fmt.Errorf("Mock network error (%d)", i)}
+				},
+			}})
+
+		req, _ := http.NewRequest("GET", "/abc", nil)
+
+		res, err := tp.Perform(req)
+
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		if res.Status != "OK" {
+			t.Errorf("Unexpected response: %+v", res)
+		}
+
+		if i != numReqs {
+			t.Errorf("Unexpected number of requests, want=%d, got=%d", numReqs, i)
+		}
+	})
+
+	t.Run("Retry request on EOF error and return the response", func(t *testing.T) {
+		var (
+			i       int
+			numReqs = 2
+		)
+
+		u, _ := url.Parse("http://foo.bar")
+		tp := New(Config{
+			URLs: []*url.URL{u, u, u},
+			Transport: &mockTransp{
+				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+					i++
+					fmt.Printf("Request #%d", i)
+					if i == numReqs {
+						fmt.Print(": OK\n")
+						return &http.Response{Status: "OK"}, nil
+					}
+					fmt.Print(": ERR\n")
+					return nil, io.EOF
 				},
 			}})
 
