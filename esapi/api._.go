@@ -1,4 +1,4 @@
-// Code generated from specification version 8.0.0 (4f1ebfaac5c): DO NOT EDIT
+// Code generated from specification version 8.0.0 (360c8be0491): DO NOT EDIT
 
 package esapi
 
@@ -61,6 +61,7 @@ type API struct {
 	FieldCaps                                     FieldCaps
 	Get                                           Get
 	GetScriptContext                              GetScriptContext
+	GetScriptLanguages                            GetScriptLanguages
 	GetScript                                     GetScript
 	GetSource                                     GetSource
 	GraphExplore                                  GraphExplore
@@ -454,6 +455,7 @@ func New(t Transport) *API {
 		FieldCaps:                                     newFieldCapsFunc(t),
 		Get:                                           newGetFunc(t),
 		GetScriptContext:                              newGetScriptContextFunc(t),
+		GetScriptLanguages:                            newGetScriptLanguagesFunc(t),
 		GetScript:                                     newGetScriptFunc(t),
 		GetSource:                                     newGetSourceFunc(t),
 		GraphExplore:                                  newGraphExploreFunc(t),
