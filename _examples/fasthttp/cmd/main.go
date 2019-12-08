@@ -50,14 +50,17 @@ func main() {
 	defer cancel()
 
 	go func() {
-		es.Info()
-		if _, err := es.Search(
+		res, err := es.Search(
 			es.Search.WithBody(strings.NewReader(`{"query":{"match":{"title":"foo"}}}`)),
 			es.Search.WithPretty(),
-		); err != nil {
+		)
+		cancel()
+		if err != nil {
 			log.Fatalf("Error getting response: %s", err)
 		}
-		cancel()
+		if res.IsError() {
+			log.Fatalf("Error response: %s", res)
+		}
 	}()
 
 	select {
