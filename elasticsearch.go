@@ -83,36 +83,30 @@ func NewDefaultClient() (*Client, error) {
 // It will use the ELASTICSEARCH_URL environment variable, if set,
 // to configure the addresses; use a comma to separate multiple URLs.
 //
-// It's an error to set both cfg.Addresses and the ELASTICSEARCH_URL
-// environment variable.
+// If either cfg.Addresses or cfg.CloudID is set, the ELASTICSEARCH_URL
+// environment variable is ignored.
+//
+// It's an error to set both cfg.Addresses and cfg.CloudID.
 //
 func NewClient(cfg Config) (*Client, error) {
 	var addrs []string
 
-	envAddrs := addrsFromEnvironment()
-
-	if len(envAddrs) > 0 && len(cfg.Addresses) > 0 {
-		return nil, errors.New("cannot create client: both ELASTICSEARCH_URL and Addresses are set")
-	}
-
-	if len(envAddrs) > 0 && cfg.CloudID != "" {
-		return nil, errors.New("cannot create client: both ELASTICSEARCH_URL and CloudID are set")
-	}
-
-	if len(cfg.Addresses) > 0 && cfg.CloudID != "" {
-		return nil, errors.New("cannot create client: both Addresses and CloudID are set")
-	}
-
-	if cfg.CloudID != "" {
-		cloudAddrs, err := addrFromCloudID(cfg.CloudID)
-		if err != nil {
-			return nil, fmt.Errorf("cannot create client: cannot parse CloudID: %s", err)
-		}
-		addrs = append(addrs, cloudAddrs)
+	if len(cfg.Addresses) == 0 && cfg.CloudID == "" {
+		addrs = addrsFromEnvironment()
 	} else {
-		if len(envAddrs) > 0 {
-			addrs = append(addrs, envAddrs...)
-		} else if len(cfg.Addresses) > 0 {
+		if len(cfg.Addresses) > 0 && cfg.CloudID != "" {
+			return nil, errors.New("cannot create client: both Addresses and CloudID are set")
+		}
+
+		if cfg.CloudID != "" {
+			cloudAddr, err := addrFromCloudID(cfg.CloudID)
+			if err != nil {
+				return nil, fmt.Errorf("cannot create client: cannot parse CloudID: %s", err)
+			}
+			addrs = append(addrs, cloudAddr)
+		}
+
+		if len(cfg.Addresses) > 0 {
 			addrs = append(addrs, cfg.Addresses...)
 		}
 	}
@@ -236,5 +230,10 @@ func addrFromCloudID(input string) (string, error) {
 		return "", err
 	}
 	parts := strings.Split(string(data), "$")
+
+	if len(parts) < 2 {
+		return "", fmt.Errorf("invalid encoded value: %s", parts)
+	}
+
 	return fmt.Sprintf("%s%s.%s", scheme, parts[1], parts[0]), nil
 }

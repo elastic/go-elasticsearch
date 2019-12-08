@@ -30,6 +30,7 @@ To configure the client, pass a Config object to the NewClient function:
 		elasticsearch.NewClient(cfg)
 
 When using the Elastic Service (https://elastic.co/cloud), you can use CloudID instead of Addresses.
+When either Addresses or CloudID is set, the ELASTICSEARCH_URL environment variable is ignored.
 
 See the elasticsearch_integration_test.go file and the _examples folder for more information.
 
