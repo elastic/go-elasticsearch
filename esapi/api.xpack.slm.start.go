@@ -9,13 +9,12 @@ package esapi
 import (
 	"context"
 	"net/http"
-	"strconv"
 	"strings"
 )
 
-func newLicenseGetFunc(t Transport) LicenseGet {
-	return func(o ...func(*LicenseGetRequest)) (*Response, error) {
-		var r = LicenseGetRequest{}
+func newSlmStartFunc(t Transport) SlmStart {
+	return func(o ...func(*SlmStartRequest)) (*Response, error) {
+		var r = SlmStartRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -25,18 +24,15 @@ func newLicenseGetFunc(t Transport) LicenseGet {
 
 // ----- API Definition -------------------------------------------------------
 
-// LicenseGet -
+// SlmStart -
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-license.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-start.html.
 //
-type LicenseGet func(o ...func(*LicenseGetRequest)) (*Response, error)
+type SlmStart func(o ...func(*SlmStartRequest)) (*Response, error)
 
-// LicenseGetRequest configures the License Get API request.
+// SlmStartRequest configures the Slm Start API request.
 //
-type LicenseGetRequest struct {
-	AcceptEnterprise *bool
-	Local            *bool
-
+type SlmStartRequest struct {
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -49,27 +45,19 @@ type LicenseGetRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r LicenseGetRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SlmStartRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
-	path.Grow(len("/_license"))
-	path.WriteString("/_license")
+	path.Grow(len("/_slm/start"))
+	path.WriteString("/_slm/start")
 
 	params = make(map[string]string)
-
-	if r.AcceptEnterprise != nil {
-		params["accept_enterprise"] = strconv.FormatBool(*r.AcceptEnterprise)
-	}
-
-	if r.Local != nil {
-		params["local"] = strconv.FormatBool(*r.Local)
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -132,64 +120,48 @@ func (r LicenseGetRequest) Do(ctx context.Context, transport Transport) (*Respon
 
 // WithContext sets the request context.
 //
-func (f LicenseGet) WithContext(v context.Context) func(*LicenseGetRequest) {
-	return func(r *LicenseGetRequest) {
+func (f SlmStart) WithContext(v context.Context) func(*SlmStartRequest) {
+	return func(r *SlmStartRequest) {
 		r.ctx = v
-	}
-}
-
-// WithAcceptEnterprise - supported for backwards compatibility with 7.x. if this param is used it must be set to true.
-//
-func (f LicenseGet) WithAcceptEnterprise(v bool) func(*LicenseGetRequest) {
-	return func(r *LicenseGetRequest) {
-		r.AcceptEnterprise = &v
-	}
-}
-
-// WithLocal - return local information, do not retrieve the state from master node (default: false).
-//
-func (f LicenseGet) WithLocal(v bool) func(*LicenseGetRequest) {
-	return func(r *LicenseGetRequest) {
-		r.Local = &v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f LicenseGet) WithPretty() func(*LicenseGetRequest) {
-	return func(r *LicenseGetRequest) {
+func (f SlmStart) WithPretty() func(*SlmStartRequest) {
+	return func(r *SlmStartRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f LicenseGet) WithHuman() func(*LicenseGetRequest) {
-	return func(r *LicenseGetRequest) {
+func (f SlmStart) WithHuman() func(*SlmStartRequest) {
+	return func(r *SlmStartRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f LicenseGet) WithErrorTrace() func(*LicenseGetRequest) {
-	return func(r *LicenseGetRequest) {
+func (f SlmStart) WithErrorTrace() func(*SlmStartRequest) {
+	return func(r *SlmStartRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f LicenseGet) WithFilterPath(v ...string) func(*LicenseGetRequest) {
-	return func(r *LicenseGetRequest) {
+func (f SlmStart) WithFilterPath(v ...string) func(*SlmStartRequest) {
+	return func(r *SlmStartRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f LicenseGet) WithHeader(h map[string]string) func(*LicenseGetRequest) {
-	return func(r *LicenseGetRequest) {
+func (f SlmStart) WithHeader(h map[string]string) func(*SlmStartRequest) {
+	return func(r *SlmStartRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -201,8 +173,8 @@ func (f LicenseGet) WithHeader(h map[string]string) func(*LicenseGetRequest) {
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f LicenseGet) WithOpaqueID(s string) func(*LicenseGetRequest) {
-	return func(r *LicenseGetRequest) {
+func (f SlmStart) WithOpaqueID(s string) func(*SlmStartRequest) {
+	return func(r *SlmStartRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
