@@ -1,0 +1,43 @@
+# This configuration file will launch Elasticsearch Stack with full TLS configuration and authentication.
+
+version: "3.7"
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+      - ./certificates:/usr/share/elasticsearch/config/certificates/
+    networks:
+      - elasticstack
+    ports:
+      - 9200:9200
+    environment:
+      - node.name=example_elasticsearch_1
+      - cluster.name=golang-example-security
+      - discovery.zen.ping.unicast.hosts=example_elasticsearch_1
+      - bootstrap.memory_lock=true
+      - network.host=example_elasticsearch_1,_local_
+      - network.publish_host=example_elasticsearch_1
+      - ES_JAVA_OPTS=-Xms1G -Xmx1G -Des.transport.cname_in_publish_address=true
+      # Security & TLS
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+      - xpack.security.enabled=true
+      - xpack.security.http.ssl.enabled=true
+      - xpack.security.http.ssl.key=/usr/share/elasticsearch/config/certificates/elasticsearch/elasticsearch.key
+      - xpack.security.http.ssl.certificate=/usr/share/elasticsearch/config/certificates/elasticsearch/elasticsearch.crt
+      - xpack.security.http.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
+      - xpack.security.transport.ssl.enabled=true
+      - xpack.security.transport.ssl.verification_mode=certificate
+      - xpack.security.transport.ssl.key=/usr/share/elasticsearch/config/certificates/elasticsearch/elasticsearch.key
+      - xpack.security.transport.ssl.certificate=/usr/share/elasticsearch/config/certificates/elasticsearch/elasticsearch.crt
+      - xpack.security.transport.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
+    ulimits: { nofile: { soft: 65535, hard: 65535 }, memlock: -1 }
+    healthcheck:
+      test: curl --cacert /usr/share/elasticsearch/config/certificates/ca/ca.crt --max-time 120 --retry 120 --retry-delay 1 --show-error --silent https://elastic:${ELASTIC_PASSWORD}@localhost:9200
+
+networks:
+  elasticstack: { labels: { elasticstack.description: "Network for the Elastic Stack" }}
+
+volumes:
+  es-data: { labels: { elasticstack.description: "Elasticsearch data" }}
