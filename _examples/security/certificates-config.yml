@@ -1,0 +1,4 @@
+instances:
+  - name: elasticsearch
+    ip:  [0.0.0.0, 127.0.0.1]
+    dns: ["localhost", "example_elasticsearch_1", "example_elasticsearch_2", "example_elasticsearch_3"]
