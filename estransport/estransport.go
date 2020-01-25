@@ -6,6 +6,8 @@ package estransport
 
 import (
 	"bytes"
+	"crypto/x509"
+	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -51,6 +53,8 @@ type Config struct {
 	Username string
 	Password string
 	APIKey   string
+
+	CACert []byte
 
 	RetryOnStatus        []int
 	DisableRetry         bool
@@ -103,6 +107,22 @@ type Client struct {
 func New(cfg Config) (*Client, error) {
 	if cfg.Transport == nil {
 		cfg.Transport = http.DefaultTransport
+	}
+
+	if cfg.CACert != nil {
+		httpTransport, ok := cfg.Transport.(*http.Transport)
+		if !ok {
+			return nil, fmt.Errorf("unable to set CA certificate for transport of type %T", cfg.Transport)
+		}
+
+		httpTransport = httpTransport.Clone()
+		httpTransport.TLSClientConfig.RootCAs = x509.NewCertPool()
+
+		if ok := httpTransport.TLSClientConfig.RootCAs.AppendCertsFromPEM(cfg.CACert); !ok {
+			return nil, errors.New("unable to add CA certificate")
+		}
+
+		cfg.Transport = httpTransport
 	}
 
 	if len(cfg.RetryOnStatus) == 0 {
