@@ -128,7 +128,7 @@ func NewClient(cfg Config) (*Client, error) {
 		cfg.Password = pw
 	}
 
-	tp := estransport.New(estransport.Config{
+	tp, err := estransport.New(estransport.Config{
 		URLs:     urls,
 		Username: cfg.Username,
 		Password: cfg.Password,

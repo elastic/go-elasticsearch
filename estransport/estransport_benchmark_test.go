@@ -41,7 +41,7 @@ func BenchmarkTransport(b *testing.B) {
 
 	b.Run("Defaults", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			tp := estransport.New(estransport.Config{
+			tp, _ := estransport.New(estransport.Config{
 				URLs:      []*url.URL{{Scheme: "http", Host: "foo"}},
 				Transport: newFakeTransport(b),
 			})

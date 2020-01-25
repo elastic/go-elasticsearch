@@ -45,7 +45,7 @@ func TestTransportLogger(t *testing.T) {
 	t.Run("Defaults", func(t *testing.T) {
 		var wg sync.WaitGroup
 
-		tp := New(Config{
+		tp, _ := New(Config{
 			URLs:      []*url.URL{{Scheme: "http", Host: "foo"}},
 			Transport: newRoundTripper(),
 			// Logger: ioutil.Discard,
@@ -67,7 +67,7 @@ func TestTransportLogger(t *testing.T) {
 	})
 
 	t.Run("Nil", func(t *testing.T) {
-		tp := New(Config{
+		tp, _ := New(Config{
 			URLs:      []*url.URL{{Scheme: "http", Host: "foo"}},
 			Transport: newRoundTripper(),
 			Logger:    nil,
@@ -81,7 +81,7 @@ func TestTransportLogger(t *testing.T) {
 	})
 
 	t.Run("No HTTP response", func(t *testing.T) {
-		tp := New(Config{
+		tp, _ := New(Config{
 			URLs: []*url.URL{{Scheme: "http", Host: "foo"}},
 			Transport: &mockTransp{
 				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
@@ -104,7 +104,7 @@ func TestTransportLogger(t *testing.T) {
 	t.Run("Keep response body", func(t *testing.T) {
 		var dst strings.Builder
 
-		tp := New(Config{
+		tp, _ := New(Config{
 			URLs:      []*url.URL{{Scheme: "http", Host: "foo"}},
 			Transport: newRoundTripper(),
 			Logger:    &TextLogger{Output: &dst, EnableRequestBody: true, EnableResponseBody: true},
@@ -135,7 +135,7 @@ func TestTransportLogger(t *testing.T) {
 	t.Run("Text with body", func(t *testing.T) {
 		var dst strings.Builder
 
-		tp := New(Config{
+		tp, _ := New(Config{
 			URLs:      []*url.URL{{Scheme: "http", Host: "foo"}},
 			Transport: newRoundTripper(),
 			Logger:    &TextLogger{Output: &dst, EnableRequestBody: true, EnableResponseBody: true},
@@ -180,7 +180,7 @@ func TestTransportLogger(t *testing.T) {
 	t.Run("Color with body", func(t *testing.T) {
 		var dst strings.Builder
 
-		tp := New(Config{
+		tp, _ := New(Config{
 			URLs:      []*url.URL{{Scheme: "http", Host: "foo"}},
 			Transport: newRoundTripper(),
 			Logger:    &ColorLogger{Output: &dst, EnableRequestBody: true, EnableResponseBody: true},
@@ -234,7 +234,7 @@ func TestTransportLogger(t *testing.T) {
 	t.Run("Curl", func(t *testing.T) {
 		var dst strings.Builder
 
-		tp := New(Config{
+		tp, _ := New(Config{
 			URLs:      []*url.URL{{Scheme: "http", Host: "foo"}},
 			Transport: newRoundTripper(),
 			Logger:    &CurlLogger{Output: &dst, EnableRequestBody: true, EnableResponseBody: true},
@@ -271,7 +271,7 @@ func TestTransportLogger(t *testing.T) {
 	t.Run("JSON", func(t *testing.T) {
 		var dst strings.Builder
 
-		tp := New(Config{
+		tp, _ := New(Config{
 			URLs:      []*url.URL{{Scheme: "http", Host: "foo"}},
 			Transport: newRoundTripper(),
 			Logger:    &JSONLogger{Output: &dst},
@@ -308,7 +308,7 @@ func TestTransportLogger(t *testing.T) {
 	t.Run("JSON with request body", func(t *testing.T) {
 		var dst strings.Builder
 
-		tp := New(Config{
+		tp, _ := New(Config{
 			URLs:      []*url.URL{{Scheme: "http", Host: "foo"}},
 			Transport: newRoundTripper(),
 			Logger:    &JSONLogger{Output: &dst, EnableRequestBody: true},
@@ -351,7 +351,7 @@ func TestTransportLogger(t *testing.T) {
 	t.Run("Custom", func(t *testing.T) {
 		var dst strings.Builder
 
-		tp := New(Config{
+		tp, _ := New(Config{
 			URLs:      []*url.URL{{Scheme: "http", Host: "foo"}},
 			Transport: newRoundTripper(),
 			Logger:    &CustomLogger{Output: &dst},
