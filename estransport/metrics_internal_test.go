@@ -17,7 +17,7 @@ import (
 
 func TestMetrics(t *testing.T) {
 	t.Run("Metrics()", func(t *testing.T) {
-		tp := New(
+		tp, _ := New(
 			Config{
 				URLs: []*url.URL{
 					{Scheme: "http", Host: "foo1"},
@@ -59,7 +59,7 @@ func TestMetrics(t *testing.T) {
 	})
 
 	t.Run("Metrics() when not enabled", func(t *testing.T) {
-		tp := New(Config{})
+		tp, _ := New(Config{})
 
 		_, err := tp.Metrics()
 		if err == nil {

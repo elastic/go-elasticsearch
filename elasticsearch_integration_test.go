@@ -184,7 +184,7 @@ func TestClientCustomTransport(t *testing.T) {
 	})
 
 	t.Run("Manual", func(t *testing.T) {
-		tr := estransport.New(estransport.Config{
+		tp, _ := estransport.New(estransport.Config{
 			URLs: []*url.URL{
 				{Scheme: "http", Host: "localhost:9200"},
 			},
@@ -192,7 +192,7 @@ func TestClientCustomTransport(t *testing.T) {
 		})
 
 		es := elasticsearch.Client{
-			Transport: tr, API: esapi.New(tr),
+			Transport: tp, API: esapi.New(tp),
 		}
 
 		for i := 0; i < 10; i++ {

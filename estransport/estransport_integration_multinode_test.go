@@ -49,7 +49,7 @@ func TestTransportSelector(t *testing.T) {
 		var (
 			node string
 		)
-		transport := estransport.New(estransport.Config{URLs: []*url.URL{
+		transport, _ := estransport.New(estransport.Config{URLs: []*url.URL{
 			{Scheme: "http", Host: "localhost:9200"},
 			{Scheme: "http", Host: "localhost:9201"},
 		}})

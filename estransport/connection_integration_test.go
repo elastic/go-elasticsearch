@@ -56,7 +56,7 @@ func TestStatusConnectionPool(t *testing.T) {
 
 	fmt.Printf("==> Started %d servers on %s\n", numServers, serverHosts)
 
-	transport := New(
+	transport, _ := New(
 		Config{
 			URLs:   serverURLs,
 			Logger: &TextLogger{Output: os.Stdout},

@@ -38,7 +38,7 @@ func TestTransportRetries(t *testing.T) {
 	}))
 	serverURL, _ := url.Parse(server.URL)
 
-	transport := estransport.New(estransport.Config{URLs: []*url.URL{serverURL}})
+	transport, _ := estransport.New(estransport.Config{URLs: []*url.URL{serverURL}})
 
 	bodies := []io.Reader{
 		strings.NewReader(`FAKE`),
