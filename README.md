@@ -106,7 +106,7 @@ log.Println(res)
 When you export the `ELASTICSEARCH_URL` environment variable,
 it will be used to set the cluster endpoint(s). Separate multiple adresses by a comma.
 
-To set the cluster endpoint(s) programatically, pass them in the configuration object
+To set the cluster endpoint(s) programatically, pass a configuration object
 to the `elasticsearch.NewClient()` function.
 
 ```golang
@@ -115,34 +115,55 @@ cfg := elasticsearch.Config{
     "http://localhost:9200",
     "http://localhost:9201",
   },
+  // ...
 }
 es, err := elasticsearch.NewClient(cfg)
-// ...
 ```
 
-To configure the HTTP settings, pass a [`http.Transport`](https://golang.org/pkg/net/http/#Transport)
-object in the configuration object (the values are for illustrative purposes only).
+To set the username and password, include them in the endpoint URL,
+or use the corresponding configuration options.
+
+```golang
+cfg := elasticsearch.Config{
+  // ...
+  Username: "foo",
+  Password: "bar",
+}
+```
+
+To set a custom certificate authority used to sign the certificates of cluster nodes,
+use the `CACert` configuration option.
+
+```golang
+cert, _ := ioutil.ReadFile(*cacert)
+
+cfg := elasticsearch.Config{
+  // ...
+  CACert: cert,
+}
+```
+
+To configure other HTTP settings, pass an [`http.Transport`](https://golang.org/pkg/net/http/#Transport)
+object in the configuration object.
 
 ```golang
 cfg := elasticsearch.Config{
   Transport: &http.Transport{
     MaxIdleConnsPerHost:   10,
     ResponseHeaderTimeout: time.Second,
-    DialContext:           (&net.Dialer{Timeout: time.Second}).DialContext,
     TLSClientConfig: &tls.Config{
       MinVersion: tls.VersionTLS11,
       // ...
     },
+    // ...
   },
 }
-
-es, err := elasticsearch.NewClient(cfg)
-// ...
 ```
 
 See the [`_examples/configuration.go`](_examples/configuration.go) and
 [`_examples/customization.go`](_examples/customization.go) files for
 more examples of configuration and customization of the client.
+See the [`_examples/security`](_examples/security) for an example of a security configuration.
 
 The following example demonstrates a more complex usage. It fetches the Elasticsearch version from the cluster, indexes a couple of documents concurrently, and prints the search results, using a lightweight wrapper around the response body.
 
@@ -335,7 +356,7 @@ The `esutil` package provides convenience helpers for working with the client. A
 
 ## Examples
 
-The **[`_examples`](./_examples)** folder contains a number of recipes and comprehensive examples to get you started with the client, including configuration and customization of the client, mocking the transport for unit tests, embedding the client in a custom type, building queries, performing requests, and parsing the responses.
+The **[`_examples`](./_examples)** folder contains a number of recipes and comprehensive examples to get you started with the client, including configuration and customization of the client, using a custom certificate authority (CA) for security (TLS), mocking the transport for unit tests, embedding the client in a custom type, building queries, performing requests individually and in bulk, and parsing the responses.
 
 <!-- ----------------------------------------------------------------------------------------------- -->
 
