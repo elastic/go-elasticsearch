@@ -100,7 +100,7 @@ type Client struct {
 //
 // http.DefaultTransport will be used if no transport is passed in the configuration.
 //
-func New(cfg Config) *Client {
+func New(cfg Config) (*Client, error) {
 	if cfg.Transport == nil {
 		cfg.Transport = http.DefaultTransport
 	}
@@ -164,7 +164,7 @@ func New(cfg Config) *Client {
 		})
 	}
 
-	return &client
+	return &client, nil
 }
 
 // Perform executes the request and returns a response or error.

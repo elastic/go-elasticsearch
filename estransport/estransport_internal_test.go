@@ -42,12 +42,13 @@ func (e *mockNetError) Temporary() bool { return false }
 
 func TestTransport(t *testing.T) {
 	t.Run("Interface", func(t *testing.T) {
-		var _ Interface = New(Config{})
-		var _ http.RoundTripper = New(Config{}).transport
+		tp, _ := New(Config{})
+		var _ Interface = tp
+		var _ http.RoundTripper = tp.transport
 	})
 
 	t.Run("Default", func(t *testing.T) {
-		tp := New(Config{})
+		tp, _ := New(Config{})
 		if tp.transport == nil {
 			t.Error("Expected the transport to not be nil")
 		}
@@ -57,7 +58,7 @@ func TestTransport(t *testing.T) {
 	})
 
 	t.Run("Custom", func(t *testing.T) {
-		tp := New(Config{
+		tp, _ := New(Config{
 			URLs: []*url.URL{{}},
 			Transport: &mockTransp{
 				RoundTripFunc: func(req *http.Request) (*http.Response, error) { return &http.Response{Status: "MOCK"}, nil },
@@ -77,7 +78,7 @@ func TestTransport(t *testing.T) {
 
 func TestTransportConfig(t *testing.T) {
 	t.Run("Defaults", func(t *testing.T) {
-		tp := New(Config{})
+		tp, _ := New(Config{})
 
 		if !reflect.DeepEqual(tp.retryOnStatus, []int{502, 503, 504}) {
 			t.Errorf("Unexpected retryOnStatus: %v", tp.retryOnStatus)
@@ -97,7 +98,7 @@ func TestTransportConfig(t *testing.T) {
 	})
 
 	t.Run("Custom", func(t *testing.T) {
-		tp := New(Config{
+		tp, _ := New(Config{
 			RetryOnStatus:        []int{404, 408},
 			DisableRetry:         true,
 			EnableRetryOnTimeout: true,
@@ -124,7 +125,7 @@ func TestTransportConfig(t *testing.T) {
 
 func TestTransportConnectionPool(t *testing.T) {
 	t.Run("Single URL", func(t *testing.T) {
-		tp := New(Config{URLs: []*url.URL{{Scheme: "http", Host: "foo1"}}})
+		tp, _ := New(Config{URLs: []*url.URL{{Scheme: "http", Host: "foo1"}}})
 
 		if _, ok := tp.pool.(*singleConnectionPool); !ok {
 			t.Errorf("Expected connection to be singleConnectionPool, got: %T", tp)
@@ -146,7 +147,7 @@ func TestTransportConnectionPool(t *testing.T) {
 			err  error
 		)
 
-		tp := New(Config{URLs: []*url.URL{
+		tp, _ := New(Config{URLs: []*url.URL{
 			{Scheme: "http", Host: "foo1"},
 			{Scheme: "http", Host: "foo2"},
 		}})
@@ -209,7 +210,7 @@ func (cp *CustomConnectionPool) URLs() []*url.URL              { return cp.urls 
 
 func TestTransportCustomConnectionPool(t *testing.T) {
 	t.Run("Run", func(t *testing.T) {
-		tp := New(Config{
+		tp, _ := New(Config{
 			ConnectionPoolFunc: func(conns []*Connection, selector Selector) ConnectionPool {
 				return &CustomConnectionPool{
 					urls: []*url.URL{
@@ -243,7 +244,7 @@ func TestTransportCustomConnectionPool(t *testing.T) {
 func TestTransportPerform(t *testing.T) {
 	t.Run("Executes", func(t *testing.T) {
 		u, _ := url.Parse("https://foo.com/bar")
-		tp := New(Config{
+		tp, _ := New(Config{
 			URLs: []*url.URL{u},
 			Transport: &mockTransp{
 				RoundTripFunc: func(req *http.Request) (*http.Response, error) { return &http.Response{Status: "MOCK"}, nil },
@@ -263,7 +264,7 @@ func TestTransportPerform(t *testing.T) {
 
 	t.Run("Sets URL", func(t *testing.T) {
 		u, _ := url.Parse("https://foo.com/bar")
-		tp := New(Config{URLs: []*url.URL{u}})
+		tp, _ := New(Config{URLs: []*url.URL{u}})
 
 		req, _ := http.NewRequest("GET", "/abc", nil)
 		tp.setReqURL(u, req)
@@ -277,7 +278,7 @@ func TestTransportPerform(t *testing.T) {
 
 	t.Run("Sets HTTP Basic Auth from URL", func(t *testing.T) {
 		u, _ := url.Parse("https://foo:bar@example.com")
-		tp := New(Config{URLs: []*url.URL{u}})
+		tp, _ := New(Config{URLs: []*url.URL{u}})
 
 		req, _ := http.NewRequest("GET", "/", nil)
 		tp.setReqAuth(u, req)
@@ -294,7 +295,7 @@ func TestTransportPerform(t *testing.T) {
 
 	t.Run("Sets HTTP Basic Auth from configuration", func(t *testing.T) {
 		u, _ := url.Parse("http://example.com")
-		tp := New(Config{URLs: []*url.URL{u}, Username: "foo", Password: "bar"})
+		tp, _ := New(Config{URLs: []*url.URL{u}, Username: "foo", Password: "bar"})
 
 		req, _ := http.NewRequest("GET", "/", nil)
 		tp.setReqAuth(u, req)
@@ -311,7 +312,7 @@ func TestTransportPerform(t *testing.T) {
 
 	t.Run("Sets APIKey Authentication from configuration", func(t *testing.T) {
 		u, _ := url.Parse("http://example.com")
-		tp := New(Config{URLs: []*url.URL{u}, APIKey: "Zm9vYmFy"}) // foobar
+		tp, _ := New(Config{URLs: []*url.URL{u}, APIKey: "Zm9vYmFy"}) // foobar
 
 		req, _ := http.NewRequest("GET", "/", nil)
 		tp.setReqAuth(u, req)
@@ -328,7 +329,7 @@ func TestTransportPerform(t *testing.T) {
 
 	t.Run("Sets UserAgent", func(t *testing.T) {
 		u, _ := url.Parse("http://example.com")
-		tp := New(Config{URLs: []*url.URL{u}})
+		tp, _ := New(Config{URLs: []*url.URL{u}})
 
 		req, _ := http.NewRequest("GET", "/abc", nil)
 		tp.setReqUserAgent(req)
@@ -339,7 +340,7 @@ func TestTransportPerform(t *testing.T) {
 	})
 
 	t.Run("Error No URL", func(t *testing.T) {
-		tp := New(Config{
+		tp, _ := New(Config{
 			URLs: []*url.URL{},
 			Transport: &mockTransp{
 				RoundTripFunc: func(req *http.Request) (*http.Response, error) { return &http.Response{Status: "MOCK"}, nil },
@@ -362,7 +363,7 @@ func TestTransportPerformRetries(t *testing.T) {
 		)
 
 		u, _ := url.Parse("http://foo.bar")
-		tp := New(Config{
+		tp, _ := New(Config{
 			URLs: []*url.URL{u, u, u},
 			Transport: &mockTransp{
 				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
@@ -401,7 +402,7 @@ func TestTransportPerformRetries(t *testing.T) {
 		)
 
 		u, _ := url.Parse("http://foo.bar")
-		tp := New(Config{
+		tp, _ := New(Config{
 			URLs: []*url.URL{u, u, u},
 			Transport: &mockTransp{
 				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
@@ -440,7 +441,7 @@ func TestTransportPerformRetries(t *testing.T) {
 		)
 
 		u, _ := url.Parse("http://foo.bar")
-		tp := New(Config{
+		tp, _ := New(Config{
 			URLs: []*url.URL{u, u, u},
 			Transport: &mockTransp{
 				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
@@ -479,7 +480,7 @@ func TestTransportPerformRetries(t *testing.T) {
 		)
 
 		u, _ := url.Parse("http://foo.bar")
-		tp := New(Config{
+		tp, _ := New(Config{
 			URLs: []*url.URL{u, u, u},
 			Transport: &mockTransp{
 				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
@@ -510,7 +511,7 @@ func TestTransportPerformRetries(t *testing.T) {
 	t.Run("Reset request body during retry", func(t *testing.T) {
 		var bodies []string
 		u, _ := url.Parse("https://foo.com/bar")
-		tp := New(Config{
+		tp, _ := New(Config{
 			URLs: []*url.URL{u},
 			Transport: &mockTransp{
 				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
@@ -545,7 +546,7 @@ func TestTransportPerformRetries(t *testing.T) {
 		var i int
 
 		u, _ := url.Parse("http://foo.bar")
-		tp := New(Config{
+		tp, _ := New(Config{
 			URLs: []*url.URL{u, u, u},
 			Transport: &mockTransp{
 				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
@@ -577,7 +578,7 @@ func TestTransportPerformRetries(t *testing.T) {
 		var i int
 
 		u, _ := url.Parse("http://foo.bar")
-		tp := New(Config{
+		tp, _ := New(Config{
 			URLs: []*url.URL{u, u, u},
 			Transport: &mockTransp{
 				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
@@ -607,7 +608,7 @@ func TestTransportPerformRetries(t *testing.T) {
 		)
 
 		u, _ := url.Parse("http://foo.bar")
-		tp := New(Config{
+		tp, _ := New(Config{
 			URLs: []*url.URL{u, u, u},
 			Transport: &mockTransp{
 				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
@@ -656,7 +657,7 @@ func TestTransportPerformRetries(t *testing.T) {
 
 func TestURLs(t *testing.T) {
 	t.Run("Returns URLs", func(t *testing.T) {
-		tp := New(Config{URLs: []*url.URL{
+		tp, _ := New(Config{URLs: []*url.URL{
 			{Scheme: "http", Host: "localhost:9200"},
 			{Scheme: "http", Host: "localhost:9201"},
 		}})
