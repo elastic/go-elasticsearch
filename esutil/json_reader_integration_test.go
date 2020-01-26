@@ -27,7 +27,7 @@ func TestJSONReaderIntegration(t *testing.T) {
 			t.Fatalf("Error creating the client: %s\n", err)
 		}
 
-		es.Indices.Delete([]string{"test"})
+		es.Indices.Delete([]string{"test"}, es.Indices.Delete.WithIgnoreUnavailable(true))
 
 		doc := struct {
 			Title string `json:"title"`
