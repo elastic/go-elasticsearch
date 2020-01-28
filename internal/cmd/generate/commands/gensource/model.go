@@ -110,6 +110,13 @@ func NewEndpoint(f io.Reader) (*Endpoint, error) {
 	if !strings.HasPrefix(endpoint.Documentation.URL, "http") {
 		if endpoint.Type == "xpack" && endpoint.Documentation.Description == "" && endpoint.Documentation.URL != "" {
 			endpoint.Documentation.Description = endpoint.Documentation.URL
+
+			if endpoint.Documentation.URL == "TODO" {
+				endpoint.Documentation.URL = ""
+			}
+			if endpoint.Documentation.Description == "TODO" {
+				endpoint.Documentation.Description = ""
+			}
 		}
 		endpoint.Documentation.URL = ""
 	}
