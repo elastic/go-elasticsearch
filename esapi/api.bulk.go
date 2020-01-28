@@ -215,7 +215,7 @@ func (f Bulk) WithPipeline(v string) func(*BulkRequest) {
 	}
 }
 
-// WithRefresh - if `true` then refresh the effected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes..
+// WithRefresh - if `true` then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes..
 //
 func (f Bulk) WithRefresh(v string) func(*BulkRequest) {
 	return func(r *BulkRequest) {

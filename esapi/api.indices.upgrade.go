@@ -25,7 +25,7 @@ func newIndicesUpgradeFunc(t Transport) IndicesUpgrade {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesUpgrade the _upgrade API is no longer useful and will be removed.
+// IndicesUpgrade deprecated Upgrades to the current version of Lucene.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-upgrade.html.
 //

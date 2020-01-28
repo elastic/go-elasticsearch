@@ -1,4 +1,4 @@
-// Code generated from specification version 8.0.0 (caef1b300ce): DO NOT EDIT
+// Code generated from specification version 8.0.0 (0fed96eebc2): DO NOT EDIT
 
 package esapi
 
@@ -326,6 +326,7 @@ type ML struct {
 	PutDatafeed                MLPutDatafeed
 	PutFilter                  MLPutFilter
 	PutJob                     MLPutJob
+	PutTrainedModel            MLPutTrainedModel
 	RevertModelSnapshot        MLRevertModelSnapshot
 	SetUpgradeMode             MLSetUpgradeMode
 	StartDataFrameAnalytics    MLStartDataFrameAnalytics
@@ -695,6 +696,7 @@ func New(t Transport) *API {
 			PutDatafeed:                newMLPutDatafeedFunc(t),
 			PutFilter:                  newMLPutFilterFunc(t),
 			PutJob:                     newMLPutJobFunc(t),
+			PutTrainedModel:            newMLPutTrainedModelFunc(t),
 			RevertModelSnapshot:        newMLRevertModelSnapshotFunc(t),
 			SetUpgradeMode:             newMLSetUpgradeModeFunc(t),
 			StartDataFrameAnalytics:    newMLStartDataFrameAnalyticsFunc(t),

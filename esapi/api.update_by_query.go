@@ -432,7 +432,7 @@ func (f UpdateByQuery) WithQuery(v string) func(*UpdateByQueryRequest) {
 	}
 }
 
-// WithRefresh - should the effected indexes be refreshed?.
+// WithRefresh - should the affected indexes be refreshed?.
 //
 func (f UpdateByQuery) WithRefresh(v bool) func(*UpdateByQueryRequest) {
 	return func(r *UpdateByQueryRequest) {

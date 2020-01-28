@@ -24,7 +24,7 @@ func newSecurityDeletePrivilegesFunc(t Transport) SecurityDeletePrivileges {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityDeletePrivileges - TODO
+// SecurityDeletePrivileges -
 //
 type SecurityDeletePrivileges func(name string, application string, o ...func(*SecurityDeletePrivilegesRequest)) (*Response, error)
 

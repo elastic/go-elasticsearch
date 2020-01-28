@@ -26,7 +26,7 @@ func newSlmDeleteLifecycleFunc(t Transport) SlmDeleteLifecycle {
 
 // SlmDeleteLifecycle -
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-delete.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-delete-policy.html.
 //
 type SlmDeleteLifecycle func(policy_id string, o ...func(*SlmDeleteLifecycleRequest)) (*Response, error)
 

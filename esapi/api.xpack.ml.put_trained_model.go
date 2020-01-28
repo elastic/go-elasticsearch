@@ -8,13 +8,14 @@ package esapi
 
 import (
 	"context"
+	"io"
 	"net/http"
 	"strings"
 )
 
-func newSlmGetStatsFunc(t Transport) SlmGetStats {
-	return func(o ...func(*SlmGetStatsRequest)) (*Response, error) {
-		var r = SlmGetStatsRequest{}
+func newMLPutTrainedModelFunc(t Transport) MLPutTrainedModel {
+	return func(body io.Reader, model_id string, o ...func(*MLPutTrainedModelRequest)) (*Response, error) {
+		var r = MLPutTrainedModelRequest{Body: body, ModelID: model_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -24,15 +25,17 @@ func newSlmGetStatsFunc(t Transport) SlmGetStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// SlmGetStats -
+// MLPutTrainedModel -
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/slm-api-get-stats.html.
-//
-type SlmGetStats func(o ...func(*SlmGetStatsRequest)) (*Response, error)
+type MLPutTrainedModel func(body io.Reader, model_id string, o ...func(*MLPutTrainedModelRequest)) (*Response, error)
 
-// SlmGetStatsRequest configures the Slm Get Stats API request.
+// MLPutTrainedModelRequest configures the ML Put Trained Model API request.
 //
-type SlmGetStatsRequest struct {
+type MLPutTrainedModelRequest struct {
+	Body io.Reader
+
+	ModelID string
+
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -45,17 +48,22 @@ type SlmGetStatsRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r SlmGetStatsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r MLPutTrainedModelRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "PUT"
 
-	path.Grow(len("/_slm/stats"))
-	path.WriteString("/_slm/stats")
+	path.Grow(1 + len("_ml") + 1 + len("inference") + 1 + len(r.ModelID))
+	path.WriteString("/")
+	path.WriteString("_ml")
+	path.WriteString("/")
+	path.WriteString("inference")
+	path.WriteString("/")
+	path.WriteString(r.ModelID)
 
 	params = make(map[string]string)
 
@@ -75,7 +83,7 @@ func (r SlmGetStatsRequest) Do(ctx context.Context, transport Transport) (*Respo
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -86,6 +94,10 @@ func (r SlmGetStatsRequest) Do(ctx context.Context, transport Transport) (*Respo
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if r.Body != nil {
+		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -120,48 +132,48 @@ func (r SlmGetStatsRequest) Do(ctx context.Context, transport Transport) (*Respo
 
 // WithContext sets the request context.
 //
-func (f SlmGetStats) WithContext(v context.Context) func(*SlmGetStatsRequest) {
-	return func(r *SlmGetStatsRequest) {
+func (f MLPutTrainedModel) WithContext(v context.Context) func(*MLPutTrainedModelRequest) {
+	return func(r *MLPutTrainedModelRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f SlmGetStats) WithPretty() func(*SlmGetStatsRequest) {
-	return func(r *SlmGetStatsRequest) {
+func (f MLPutTrainedModel) WithPretty() func(*MLPutTrainedModelRequest) {
+	return func(r *MLPutTrainedModelRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f SlmGetStats) WithHuman() func(*SlmGetStatsRequest) {
-	return func(r *SlmGetStatsRequest) {
+func (f MLPutTrainedModel) WithHuman() func(*MLPutTrainedModelRequest) {
+	return func(r *MLPutTrainedModelRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f SlmGetStats) WithErrorTrace() func(*SlmGetStatsRequest) {
-	return func(r *SlmGetStatsRequest) {
+func (f MLPutTrainedModel) WithErrorTrace() func(*MLPutTrainedModelRequest) {
+	return func(r *MLPutTrainedModelRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f SlmGetStats) WithFilterPath(v ...string) func(*SlmGetStatsRequest) {
-	return func(r *SlmGetStatsRequest) {
+func (f MLPutTrainedModel) WithFilterPath(v ...string) func(*MLPutTrainedModelRequest) {
+	return func(r *MLPutTrainedModelRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f SlmGetStats) WithHeader(h map[string]string) func(*SlmGetStatsRequest) {
-	return func(r *SlmGetStatsRequest) {
+func (f MLPutTrainedModel) WithHeader(h map[string]string) func(*MLPutTrainedModelRequest) {
+	return func(r *MLPutTrainedModelRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -173,8 +185,8 @@ func (f SlmGetStats) WithHeader(h map[string]string) func(*SlmGetStatsRequest) {
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f SlmGetStats) WithOpaqueID(s string) func(*SlmGetStatsRequest) {
-	return func(r *SlmGetStatsRequest) {
+func (f MLPutTrainedModel) WithOpaqueID(s string) func(*MLPutTrainedModelRequest) {
+	return func(r *MLPutTrainedModelRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

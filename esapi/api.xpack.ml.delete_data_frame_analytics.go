@@ -9,6 +9,7 @@ package esapi
 import (
 	"context"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -34,6 +35,8 @@ type MLDeleteDataFrameAnalytics func(id string, o ...func(*MLDeleteDataFrameAnal
 //
 type MLDeleteDataFrameAnalyticsRequest struct {
 	ID string
+
+	Force *bool
 
 	Pretty     bool
 	Human      bool
@@ -67,6 +70,10 @@ func (r MLDeleteDataFrameAnalyticsRequest) Do(ctx context.Context, transport Tra
 	path.WriteString(r.ID)
 
 	params = make(map[string]string)
+
+	if r.Force != nil {
+		params["force"] = strconv.FormatBool(*r.Force)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -132,6 +139,14 @@ func (r MLDeleteDataFrameAnalyticsRequest) Do(ctx context.Context, transport Tra
 func (f MLDeleteDataFrameAnalytics) WithContext(v context.Context) func(*MLDeleteDataFrameAnalyticsRequest) {
 	return func(r *MLDeleteDataFrameAnalyticsRequest) {
 		r.ctx = v
+	}
+}
+
+// WithForce - true if the job should be forcefully deleted.
+//
+func (f MLDeleteDataFrameAnalytics) WithForce(v bool) func(*MLDeleteDataFrameAnalyticsRequest) {
+	return func(r *MLDeleteDataFrameAnalyticsRequest) {
+		r.Force = &v
 	}
 }
 

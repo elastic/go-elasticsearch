@@ -186,7 +186,7 @@ func (f Reindex) WithMaxDocs(v int) func(*ReindexRequest) {
 	}
 }
 
-// WithRefresh - should the effected indexes be refreshed?.
+// WithRefresh - should the affected indexes be refreshed?.
 //
 func (f Reindex) WithRefresh(v bool) func(*ReindexRequest) {
 	return func(r *ReindexRequest) {

@@ -405,7 +405,7 @@ func (f DeleteByQuery) WithQuery(v string) func(*DeleteByQueryRequest) {
 	}
 }
 
-// WithRefresh - should the effected indexes be refreshed?.
+// WithRefresh - should the affected indexes be refreshed?.
 //
 func (f DeleteByQuery) WithRefresh(v bool) func(*DeleteByQueryRequest) {
 	return func(r *DeleteByQueryRequest) {

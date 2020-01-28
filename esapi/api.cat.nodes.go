@@ -40,7 +40,6 @@ type CatNodesRequest struct {
 	FullID        *bool
 	H             []string
 	Help          *bool
-	Local         *bool
 	MasterTimeout time.Duration
 	S             []string
 	Time          string
@@ -90,10 +89,6 @@ func (r CatNodesRequest) Do(ctx context.Context, transport Transport) (*Response
 
 	if r.Help != nil {
 		params["help"] = strconv.FormatBool(*r.Help)
-	}
-
-	if r.Local != nil {
-		params["local"] = strconv.FormatBool(*r.Local)
 	}
 
 	if r.MasterTimeout != 0 {
@@ -216,14 +211,6 @@ func (f CatNodes) WithH(v ...string) func(*CatNodesRequest) {
 func (f CatNodes) WithHelp(v bool) func(*CatNodesRequest) {
 	return func(r *CatNodesRequest) {
 		r.Help = &v
-	}
-}
-
-// WithLocal - return local information, do not retrieve the state from master node (default: false).
-//
-func (f CatNodes) WithLocal(v bool) func(*CatNodesRequest) {
-	return func(r *CatNodesRequest) {
-		r.Local = &v
 	}
 }
 

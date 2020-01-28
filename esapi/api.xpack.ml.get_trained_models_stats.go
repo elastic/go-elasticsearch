@@ -25,7 +25,9 @@ func newMLGetTrainedModelsStatsFunc(t Transport) MLGetTrainedModelsStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetTrainedModelsStats - TODO
+// MLGetTrainedModelsStats -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-inference-stats.html.
 //
 type MLGetTrainedModelsStats func(o ...func(*MLGetTrainedModelsStatsRequest)) (*Response, error)
 

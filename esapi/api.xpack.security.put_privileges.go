@@ -25,7 +25,7 @@ func newSecurityPutPrivilegesFunc(t Transport) SecurityPutPrivileges {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityPutPrivileges - TODO
+// SecurityPutPrivileges -
 //
 type SecurityPutPrivileges func(body io.Reader, o ...func(*SecurityPutPrivilegesRequest)) (*Response, error)
 

@@ -27,7 +27,7 @@ func newSlmPutLifecycleFunc(t Transport) SlmPutLifecycle {
 
 // SlmPutLifecycle -
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-put.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-put-policy.html.
 //
 type SlmPutLifecycle func(policy_id string, o ...func(*SlmPutLifecycleRequest)) (*Response, error)
 

@@ -25,7 +25,9 @@ func newMLGetTrainedModelsFunc(t Transport) MLGetTrainedModels {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetTrainedModels - TODO
+// MLGetTrainedModels -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-inference.html.
 //
 type MLGetTrainedModels func(o ...func(*MLGetTrainedModelsRequest)) (*Response, error)
 
@@ -35,6 +37,7 @@ type MLGetTrainedModelsRequest struct {
 	ModelID string
 
 	AllowNoMatch           *bool
+	DecompressDefinition   *bool
 	From                   *int
 	IncludeModelDefinition *bool
 	Size                   *int
@@ -74,6 +77,10 @@ func (r MLGetTrainedModelsRequest) Do(ctx context.Context, transport Transport) 
 
 	if r.AllowNoMatch != nil {
 		params["allow_no_match"] = strconv.FormatBool(*r.AllowNoMatch)
+	}
+
+	if r.DecompressDefinition != nil {
+		params["decompress_definition"] = strconv.FormatBool(*r.DecompressDefinition)
 	}
 
 	if r.From != nil {
@@ -171,6 +178,14 @@ func (f MLGetTrainedModels) WithAllowNoMatch(v bool) func(*MLGetTrainedModelsReq
 	}
 }
 
+// WithDecompressDefinition - should the model definition be decompressed into valid json or returned in a custom compressed format. defaults to true..
+//
+func (f MLGetTrainedModels) WithDecompressDefinition(v bool) func(*MLGetTrainedModelsRequest) {
+	return func(r *MLGetTrainedModelsRequest) {
+		r.DecompressDefinition = &v
+	}
+}
+
 // WithFrom - skips a number of trained models.
 //
 func (f MLGetTrainedModels) WithFrom(v int) func(*MLGetTrainedModelsRequest) {
@@ -179,7 +194,7 @@ func (f MLGetTrainedModels) WithFrom(v int) func(*MLGetTrainedModelsRequest) {
 	}
 }
 
-// WithIncludeModelDefinition - should the full model definition be included in the results. these definitions can be large.
+// WithIncludeModelDefinition - should the full model definition be included in the results. these definitions can be large. so be cautious when including them. defaults to false..
 //
 func (f MLGetTrainedModels) WithIncludeModelDefinition(v bool) func(*MLGetTrainedModelsRequest) {
 	return func(r *MLGetTrainedModelsRequest) {

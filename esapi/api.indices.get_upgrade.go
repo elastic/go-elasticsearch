@@ -25,7 +25,7 @@ func newIndicesGetUpgradeFunc(t Transport) IndicesGetUpgrade {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesGetUpgrade the _upgrade API is no longer useful and will be removed.
+// IndicesGetUpgrade deprecated Returns a progress status of current upgrade.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-upgrade.html.
 //
