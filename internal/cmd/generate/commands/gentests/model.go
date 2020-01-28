@@ -231,6 +231,8 @@ func NewAction(payload interface{}) Action {
 			a.catch = v.(string)
 		case "warnings":
 			// TODO
+		case "node_selector":
+			continue
 		case "headers":
 			for kk, vv := range v.(map[interface{}]interface{}) {
 				a.headers[kk.(string)] = vv.(string)
