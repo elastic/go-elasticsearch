@@ -1,7 +1,7 @@
 ---
 
 ELASTICSEARCH_VERSION:
-- 7.3-SNAPSHOT
+  - 7.x-SNAPSHOT
 
 GO_VERSION:
   - 1-alpine
