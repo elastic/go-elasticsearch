@@ -49,7 +49,7 @@ endif
 ifeq ($(flavor), xpack)
 	@{ \
 		set -e ; \
-		trap "git checkout $(PWD)/esapi/test/go.mod" SIGINT SIGTERM EXIT; \
+		trap "git checkout $(PWD)/esapi/test/go.mod" INT TERM EXIT; \
 		export ELASTICSEARCH_URL='https://elastic:elastic@localhost:9200' && \
 		if which gotestsum > /dev/null 2>&1 ; then \
 			cd esapi/test && \
@@ -68,7 +68,7 @@ else
 	$(eval testapiargs += $(PWD)/esapi/test/*_test.go)
 	@{ \
 		set -e ; \
-		trap "git checkout $(PWD)/esapi/test/go.mod" SIGINT SIGTERM EXIT; \
+		trap "git checkout $(PWD)/esapi/test/go.mod" INT TERM EXIT; \
 		if which gotestsum > /dev/null 2>&1 ; then \
 			cd esapi/test && gotestsum --format=short-verbose --junitfile=$(PWD)/tmp/integration-api-report.xml -- $(testapiargs); \
 		else \
@@ -86,7 +86,7 @@ test-examples: ## Execute the _examples
 	@echo "\033[2m→ Testing the examples...\033[0m"
 	@{ \
 		set -e ; \
-		trap "git checkout _examples/**/go.mod" SIGINT SIGTERM EXIT; \
+		trap "git checkout _examples/**/go.mod" INT TERM EXIT; \
 		for f in _examples/*.go; do \
 			echo "\033[2m────────────────────────────────────────────────────────────────────────────────"; \
 			echo "\033[1m$$f\033[0m"; \
@@ -126,6 +126,13 @@ lint:  ## Run lint on the package
 	@echo "\033[2m→ Running lint...\033[0m"
 	go vet github.com/elastic/go-elasticsearch/...
 	go list github.com/elastic/go-elasticsearch/... | 'grep' -v internal | xargs golint -set_exit_status
+	@{ \
+		set -e ; \
+		trap "git checkout --quiet $(PWD)/internal/cmd/generate/go.mod" INT TERM EXIT; \
+		echo "cd internal/cmd/generate/ && go vet ./..."; \
+		cd "$(PWD)/internal/cmd/generate/" && go vet ./...; \
+	}
+
 
 apidiff: ## Display API incompabilities
 	@if ! command -v apidiff > /dev/null; then \
@@ -349,7 +356,7 @@ endif
 	@echo "\033[2m→ Generating API package from specification ($(version):$(build_hash))...\033[0m"
 	@{ \
 		set -e; \
-		trap "git checkout $(PWD)/internal/cmd/generate/go.mod" SIGINT SIGTERM EXIT; \
+		trap "git checkout --quiet $(PWD)/internal/cmd/generate/go.mod" INT TERM EXIT; \
 		export ELASTICSEARCH_VERSION=$(version) && \
 		export ELASTICSEARCH_BUILD_HASH=$(build_hash) && \
 		cd internal/cmd/generate && \
@@ -377,7 +384,7 @@ endif
 	@echo "\033[2m→ Generating API tests from specification ($(version):$(build_hash))...\033[0m"
 	@{ \
 		set -e; \
-		trap "git checkout $(PWD)/internal/cmd/generate/go.mod" SIGINT SIGTERM EXIT; \
+		trap "git checkout --quiet $(PWD)/internal/cmd/generate/go.mod" INT TERM EXIT; \
 		export ELASTICSEARCH_VERSION=$(version) && \
 		export ELASTICSEARCH_BUILD_HASH=$(build_hash) && \
 		rm -rf $(output)/*_test.go && \
@@ -398,7 +405,7 @@ gen-docs:  ## Generate the skeleton of documentation examples
 	$(eval update ?= no)
 	@{ \
 		set -e; \
-		trap "git checkout $(PWD)/internal/cmd/generate/go.mod" SIGINT SIGTERM EXIT; \
+		trap "git checkout --quiet $(PWD)/internal/cmd/generate/go.mod" INT TERM EXIT; \
 		if [[ $(update) == 'yes' ]]; then \
 			echo "\033[2m→ Updating the alternatives_report.json file\033[0m" && \
 			curl -s https://raw.githubusercontent.com/elastic/built-docs/master/raw/en/elasticsearch/reference/master/alternatives_report.json > tmp/alternatives_report.json; \
