@@ -26,6 +26,8 @@ func newSecurityDeletePrivilegesFunc(t Transport) SecurityDeletePrivileges {
 
 // SecurityDeletePrivileges -
 //
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-delete-privilege.html.
+//
 type SecurityDeletePrivileges func(name string, application string, o ...func(*SecurityDeletePrivilegesRequest)) (*Response, error)
 
 // SecurityDeletePrivilegesRequest configures the Security Delete Privileges API request.

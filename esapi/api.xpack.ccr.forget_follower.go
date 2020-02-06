@@ -27,7 +27,7 @@ func newCCRForgetFollowerFunc(t Transport) CCRForgetFollower {
 
 // CCRForgetFollower -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-forget-follower.html.
 //
 type CCRForgetFollower func(index string, body io.Reader, o ...func(*CCRForgetFollowerRequest)) (*Response, error)
 

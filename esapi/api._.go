@@ -1,4 +1,4 @@
-// Code generated from specification version 8.0.0 (0fed96eebc2): DO NOT EDIT
+// Code generated from specification version 8.0.0 (290fb706150): DO NOT EDIT
 
 package esapi
 
@@ -55,6 +55,7 @@ type API struct {
 	EnrichGetPolicy                               EnrichGetPolicy
 	EnrichPutPolicy                               EnrichPutPolicy
 	EnrichStats                                   EnrichStats
+	EqlSearch                                     EqlSearch
 	Exists                                        Exists
 	ExistsSource                                  ExistsSource
 	Explain                                       Explain
@@ -108,26 +109,29 @@ type API struct {
 
 // Cat contains the Cat APIs
 type Cat struct {
-	Aliases      CatAliases
-	Allocation   CatAllocation
-	Count        CatCount
-	Fielddata    CatFielddata
-	Health       CatHealth
-	Help         CatHelp
-	Indices      CatIndices
-	Master       CatMaster
-	Nodeattrs    CatNodeattrs
-	Nodes        CatNodes
-	PendingTasks CatPendingTasks
-	Plugins      CatPlugins
-	Recovery     CatRecovery
-	Repositories CatRepositories
-	Segments     CatSegments
-	Shards       CatShards
-	Snapshots    CatSnapshots
-	Tasks        CatTasks
-	Templates    CatTemplates
-	ThreadPool   CatThreadPool
+	Aliases         CatAliases
+	Allocation      CatAllocation
+	Count           CatCount
+	Fielddata       CatFielddata
+	Health          CatHealth
+	Help            CatHelp
+	Indices         CatIndices
+	MLDatafeeds     CatMLDatafeeds
+	MLJobs          CatMLJobs
+	MLTrainedModels CatMLTrainedModels
+	Master          CatMaster
+	Nodeattrs       CatNodeattrs
+	Nodes           CatNodes
+	PendingTasks    CatPendingTasks
+	Plugins         CatPlugins
+	Recovery        CatRecovery
+	Repositories    CatRepositories
+	Segments        CatSegments
+	Shards          CatShards
+	Snapshots       CatSnapshots
+	Tasks           CatTasks
+	Templates       CatTemplates
+	ThreadPool      CatThreadPool
 }
 
 // Cluster contains the Cluster APIs
@@ -453,6 +457,7 @@ func New(t Transport) *API {
 		EnrichGetPolicy:                               newEnrichGetPolicyFunc(t),
 		EnrichPutPolicy:                               newEnrichPutPolicyFunc(t),
 		EnrichStats:                                   newEnrichStatsFunc(t),
+		EqlSearch:                                     newEqlSearchFunc(t),
 		Exists:                                        newExistsFunc(t),
 		ExistsSource:                                  newExistsSourceFunc(t),
 		Explain:                                       newExplainFunc(t),
@@ -503,26 +508,29 @@ func New(t Transport) *API {
 		UpdateByQueryRethrottle:                       newUpdateByQueryRethrottleFunc(t),
 		Update:                                        newUpdateFunc(t),
 		Cat: &Cat{
-			Aliases:      newCatAliasesFunc(t),
-			Allocation:   newCatAllocationFunc(t),
-			Count:        newCatCountFunc(t),
-			Fielddata:    newCatFielddataFunc(t),
-			Health:       newCatHealthFunc(t),
-			Help:         newCatHelpFunc(t),
-			Indices:      newCatIndicesFunc(t),
-			Master:       newCatMasterFunc(t),
-			Nodeattrs:    newCatNodeattrsFunc(t),
-			Nodes:        newCatNodesFunc(t),
-			PendingTasks: newCatPendingTasksFunc(t),
-			Plugins:      newCatPluginsFunc(t),
-			Recovery:     newCatRecoveryFunc(t),
-			Repositories: newCatRepositoriesFunc(t),
-			Segments:     newCatSegmentsFunc(t),
-			Shards:       newCatShardsFunc(t),
-			Snapshots:    newCatSnapshotsFunc(t),
-			Tasks:        newCatTasksFunc(t),
-			Templates:    newCatTemplatesFunc(t),
-			ThreadPool:   newCatThreadPoolFunc(t),
+			Aliases:         newCatAliasesFunc(t),
+			Allocation:      newCatAllocationFunc(t),
+			Count:           newCatCountFunc(t),
+			Fielddata:       newCatFielddataFunc(t),
+			Health:          newCatHealthFunc(t),
+			Help:            newCatHelpFunc(t),
+			Indices:         newCatIndicesFunc(t),
+			MLDatafeeds:     newCatMLDatafeedsFunc(t),
+			MLJobs:          newCatMLJobsFunc(t),
+			MLTrainedModels: newCatMLTrainedModelsFunc(t),
+			Master:          newCatMasterFunc(t),
+			Nodeattrs:       newCatNodeattrsFunc(t),
+			Nodes:           newCatNodesFunc(t),
+			PendingTasks:    newCatPendingTasksFunc(t),
+			Plugins:         newCatPluginsFunc(t),
+			Recovery:        newCatRecoveryFunc(t),
+			Repositories:    newCatRepositoriesFunc(t),
+			Segments:        newCatSegmentsFunc(t),
+			Shards:          newCatShardsFunc(t),
+			Snapshots:       newCatSnapshotsFunc(t),
+			Tasks:           newCatTasksFunc(t),
+			Templates:       newCatTemplatesFunc(t),
+			ThreadPool:      newCatThreadPoolFunc(t),
 		},
 		Cluster: &Cluster{
 			AllocationExplain: newClusterAllocationExplainFunc(t),

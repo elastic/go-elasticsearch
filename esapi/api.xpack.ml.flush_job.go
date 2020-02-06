@@ -28,7 +28,7 @@ func newMLFlushJobFunc(t Transport) MLFlushJob {
 
 // MLFlushJob -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-flush-job.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-flush-job.html.
 //
 type MLFlushJob func(job_id string, o ...func(*MLFlushJobRequest)) (*Response, error)
 

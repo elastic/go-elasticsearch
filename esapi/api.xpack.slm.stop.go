@@ -26,7 +26,7 @@ func newSlmStopFunc(t Transport) SlmStop {
 
 // SlmStop -
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-stop.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-stop.html.
 //
 type SlmStop func(o ...func(*SlmStopRequest)) (*Response, error)
 

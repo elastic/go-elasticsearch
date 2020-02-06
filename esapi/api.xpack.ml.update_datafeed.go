@@ -27,7 +27,7 @@ func newMLUpdateDatafeedFunc(t Transport) MLUpdateDatafeed {
 
 // MLUpdateDatafeed -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-update-datafeed.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-update-datafeed.html.
 //
 type MLUpdateDatafeed func(body io.Reader, datafeed_id string, o ...func(*MLUpdateDatafeedRequest)) (*Response, error)
 

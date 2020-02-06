@@ -27,7 +27,7 @@ func newMLDeleteDatafeedFunc(t Transport) MLDeleteDatafeed {
 
 // MLDeleteDatafeed -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-datafeed.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-datafeed.html.
 //
 type MLDeleteDatafeed func(datafeed_id string, o ...func(*MLDeleteDatafeedRequest)) (*Response, error)
 

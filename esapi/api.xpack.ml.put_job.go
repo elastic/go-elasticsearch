@@ -27,7 +27,7 @@ func newMLPutJobFunc(t Transport) MLPutJob {
 
 // MLPutJob -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-put-job.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-put-job.html.
 //
 type MLPutJob func(job_id string, body io.Reader, o ...func(*MLPutJobRequest)) (*Response, error)
 

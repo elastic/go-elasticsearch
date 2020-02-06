@@ -29,7 +29,7 @@ func newMLGetModelSnapshotsFunc(t Transport) MLGetModelSnapshots {
 
 // MLGetModelSnapshots -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-snapshot.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-snapshot.html.
 //
 type MLGetModelSnapshots func(job_id string, o ...func(*MLGetModelSnapshotsRequest)) (*Response, error)
 

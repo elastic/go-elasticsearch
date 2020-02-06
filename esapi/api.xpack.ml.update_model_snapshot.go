@@ -27,7 +27,7 @@ func newMLUpdateModelSnapshotFunc(t Transport) MLUpdateModelSnapshot {
 
 // MLUpdateModelSnapshot -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-update-snapshot.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-update-snapshot.html.
 //
 type MLUpdateModelSnapshot func(snapshot_id string, job_id string, body io.Reader, o ...func(*MLUpdateModelSnapshotRequest)) (*Response, error)
 

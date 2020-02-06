@@ -28,7 +28,7 @@ func newMLSetUpgradeModeFunc(t Transport) MLSetUpgradeMode {
 
 // MLSetUpgradeMode -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-set-upgrade-mode.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-set-upgrade-mode.html.
 //
 type MLSetUpgradeMode func(o ...func(*MLSetUpgradeModeRequest)) (*Response, error)
 

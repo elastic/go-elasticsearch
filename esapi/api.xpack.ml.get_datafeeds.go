@@ -27,7 +27,7 @@ func newMLGetDatafeedsFunc(t Transport) MLGetDatafeeds {
 
 // MLGetDatafeeds -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-datafeed.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-datafeed.html.
 //
 type MLGetDatafeeds func(o ...func(*MLGetDatafeedsRequest)) (*Response, error)
 

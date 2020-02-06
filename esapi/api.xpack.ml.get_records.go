@@ -29,7 +29,7 @@ func newMLGetRecordsFunc(t Transport) MLGetRecords {
 
 // MLGetRecords -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-record.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-record.html.
 //
 type MLGetRecords func(job_id string, o ...func(*MLGetRecordsRequest)) (*Response, error)
 

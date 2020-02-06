@@ -28,7 +28,7 @@ func newMLGetCategoriesFunc(t Transport) MLGetCategories {
 
 // MLGetCategories -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-category.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-category.html.
 //
 type MLGetCategories func(job_id string, o ...func(*MLGetCategoriesRequest)) (*Response, error)
 

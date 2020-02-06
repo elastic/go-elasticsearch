@@ -28,7 +28,7 @@ func newWatcherPutWatchFunc(t Transport) WatcherPutWatch {
 
 // WatcherPutWatch -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-put-watch.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-put-watch.html.
 //
 type WatcherPutWatch func(id string, o ...func(*WatcherPutWatchRequest)) (*Response, error)
 

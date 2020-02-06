@@ -28,7 +28,7 @@ func newMLStartDataFrameAnalyticsFunc(t Transport) MLStartDataFrameAnalytics {
 
 // MLStartDataFrameAnalytics -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/start-dfanalytics.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/start-dfanalytics.html.
 //
 type MLStartDataFrameAnalytics func(id string, o ...func(*MLStartDataFrameAnalyticsRequest)) (*Response, error)
 

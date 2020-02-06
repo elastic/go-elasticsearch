@@ -27,6 +27,8 @@ func newSecurityPutPrivilegesFunc(t Transport) SecurityPutPrivileges {
 
 // SecurityPutPrivileges -
 //
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-put-privileges.html.
+//
 type SecurityPutPrivileges func(body io.Reader, o ...func(*SecurityPutPrivilegesRequest)) (*Response, error)
 
 // SecurityPutPrivilegesRequest configures the Security Put Privileges API request.

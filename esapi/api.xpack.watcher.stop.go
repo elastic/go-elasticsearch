@@ -26,7 +26,7 @@ func newWatcherStopFunc(t Transport) WatcherStop {
 
 // WatcherStop -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-stop.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-stop.html.
 //
 type WatcherStop func(o ...func(*WatcherStopRequest)) (*Response, error)
 

@@ -29,7 +29,7 @@ func newMLGetOverallBucketsFunc(t Transport) MLGetOverallBuckets {
 
 // MLGetOverallBuckets -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-overall-buckets.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-overall-buckets.html.
 //
 type MLGetOverallBuckets func(job_id string, o ...func(*MLGetOverallBucketsRequest)) (*Response, error)
 

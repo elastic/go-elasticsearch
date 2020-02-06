@@ -27,7 +27,7 @@ func newMLUpdateJobFunc(t Transport) MLUpdateJob {
 
 // MLUpdateJob -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-update-job.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-update-job.html.
 //
 type MLUpdateJob func(job_id string, body io.Reader, o ...func(*MLUpdateJobRequest)) (*Response, error)
 

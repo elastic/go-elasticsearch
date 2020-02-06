@@ -27,7 +27,7 @@ func newEnrichPutPolicyFunc(t Transport) EnrichPutPolicy {
 
 // EnrichPutPolicy -
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/enrich-put-policy.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/put-enrich-policy-api.html.
 //
 type EnrichPutPolicy func(name string, body io.Reader, o ...func(*EnrichPutPolicyRequest)) (*Response, error)
 

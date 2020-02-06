@@ -29,7 +29,7 @@ func newMLGetInfluencersFunc(t Transport) MLGetInfluencers {
 
 // MLGetInfluencers -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-influencer.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-influencer.html.
 //
 type MLGetInfluencers func(job_id string, o ...func(*MLGetInfluencersRequest)) (*Response, error)
 

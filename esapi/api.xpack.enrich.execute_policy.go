@@ -27,7 +27,7 @@ func newEnrichExecutePolicyFunc(t Transport) EnrichExecutePolicy {
 
 // EnrichExecutePolicy -
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/enrich-execute-policy.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/execute-enrich-policy-api.html.
 //
 type EnrichExecutePolicy func(name string, o ...func(*EnrichExecutePolicyRequest)) (*Response, error)
 

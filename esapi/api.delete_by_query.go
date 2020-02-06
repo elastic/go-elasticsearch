@@ -8,6 +8,7 @@ package esapi
 
 import (
 	"context"
+	"fmt"
 	"io"
 	"net/http"
 	"strconv"
@@ -61,7 +62,7 @@ type DeleteByQueryRequest struct {
 	ScrollSize          *int
 	SearchTimeout       time.Duration
 	SearchType          string
-	Slices              *int
+	Slices              interface{}
 	Sort                []string
 	Source              []string
 	SourceExcludes      []string
@@ -187,7 +188,7 @@ func (r DeleteByQueryRequest) Do(ctx context.Context, transport Transport) (*Res
 	}
 
 	if r.Slices != nil {
-		params["slices"] = strconv.FormatInt(int64(*r.Slices), 10)
+		params["slices"] = fmt.Sprintf("%v", r.Slices)
 	}
 
 	if len(r.Sort) > 0 {
@@ -469,11 +470,11 @@ func (f DeleteByQuery) WithSearchType(v string) func(*DeleteByQueryRequest) {
 	}
 }
 
-// WithSlices - the number of slices this task should be divided into. defaults to 1 meaning the task isn't sliced into subtasks..
+// WithSlices - the number of slices this task should be divided into. defaults to 1, meaning the task isn't sliced into subtasks. can be set to `auto`..
 //
-func (f DeleteByQuery) WithSlices(v int) func(*DeleteByQueryRequest) {
+func (f DeleteByQuery) WithSlices(v interface{}) func(*DeleteByQueryRequest) {
 	return func(r *DeleteByQueryRequest) {
-		r.Slices = &v
+		r.Slices = v
 	}
 }
 

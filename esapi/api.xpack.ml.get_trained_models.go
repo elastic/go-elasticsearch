@@ -41,6 +41,7 @@ type MLGetTrainedModelsRequest struct {
 	From                   *int
 	IncludeModelDefinition *bool
 	Size                   *int
+	Tags                   []string
 
 	Pretty     bool
 	Human      bool
@@ -93,6 +94,10 @@ func (r MLGetTrainedModelsRequest) Do(ctx context.Context, transport Transport) 
 
 	if r.Size != nil {
 		params["size"] = strconv.FormatInt(int64(*r.Size), 10)
+	}
+
+	if len(r.Tags) > 0 {
+		params["tags"] = strings.Join(r.Tags, ",")
 	}
 
 	if r.Pretty {
@@ -207,6 +212,14 @@ func (f MLGetTrainedModels) WithIncludeModelDefinition(v bool) func(*MLGetTraine
 func (f MLGetTrainedModels) WithSize(v int) func(*MLGetTrainedModelsRequest) {
 	return func(r *MLGetTrainedModelsRequest) {
 		r.Size = &v
+	}
+}
+
+// WithTags - a list of tags that the model must have..
+//
+func (f MLGetTrainedModels) WithTags(v ...string) func(*MLGetTrainedModelsRequest) {
+	return func(r *MLGetTrainedModelsRequest) {
+		r.Tags = v
 	}
 }
 

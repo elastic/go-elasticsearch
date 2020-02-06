@@ -27,7 +27,7 @@ func newMLDeleteJobFunc(t Transport) MLDeleteJob {
 
 // MLDeleteJob -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-job.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-job.html.
 //
 type MLDeleteJob func(job_id string, o ...func(*MLDeleteJobRequest)) (*Response, error)
 

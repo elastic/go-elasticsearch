@@ -28,7 +28,7 @@ func newWatcherExecuteWatchFunc(t Transport) WatcherExecuteWatch {
 
 // WatcherExecuteWatch -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-execute-watch.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-execute-watch.html.
 //
 type WatcherExecuteWatch func(o ...func(*WatcherExecuteWatchRequest)) (*Response, error)
 

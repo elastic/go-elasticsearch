@@ -26,7 +26,7 @@ func newWatcherGetWatchFunc(t Transport) WatcherGetWatch {
 
 // WatcherGetWatch -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-get-watch.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-get-watch.html.
 //
 type WatcherGetWatch func(id string, o ...func(*WatcherGetWatchRequest)) (*Response, error)
 

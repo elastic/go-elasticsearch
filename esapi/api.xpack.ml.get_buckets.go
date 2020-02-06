@@ -29,7 +29,7 @@ func newMLGetBucketsFunc(t Transport) MLGetBuckets {
 
 // MLGetBuckets -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-bucket.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-bucket.html.
 //
 type MLGetBuckets func(job_id string, o ...func(*MLGetBucketsRequest)) (*Response, error)
 

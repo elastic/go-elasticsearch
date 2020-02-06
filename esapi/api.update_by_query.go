@@ -8,6 +8,7 @@ package esapi
 
 import (
 	"context"
+	"fmt"
 	"io"
 	"net/http"
 	"strconv"
@@ -63,7 +64,7 @@ type UpdateByQueryRequest struct {
 	ScrollSize          *int
 	SearchTimeout       time.Duration
 	SearchType          string
-	Slices              *int
+	Slices              interface{}
 	Sort                []string
 	Source              []string
 	SourceExcludes      []string
@@ -194,7 +195,7 @@ func (r UpdateByQueryRequest) Do(ctx context.Context, transport Transport) (*Res
 	}
 
 	if r.Slices != nil {
-		params["slices"] = strconv.FormatInt(int64(*r.Slices), 10)
+		params["slices"] = fmt.Sprintf("%v", r.Slices)
 	}
 
 	if len(r.Sort) > 0 {
@@ -496,11 +497,11 @@ func (f UpdateByQuery) WithSearchType(v string) func(*UpdateByQueryRequest) {
 	}
 }
 
-// WithSlices - the number of slices this task should be divided into. defaults to 1 meaning the task isn't sliced into subtasks..
+// WithSlices - the number of slices this task should be divided into. defaults to 1, meaning the task isn't sliced into subtasks. can be set to `auto`..
 //
-func (f UpdateByQuery) WithSlices(v int) func(*UpdateByQueryRequest) {
+func (f UpdateByQuery) WithSlices(v interface{}) func(*UpdateByQueryRequest) {
 	return func(r *UpdateByQueryRequest) {
-		r.Slices = &v
+		r.Slices = v
 	}
 }
 

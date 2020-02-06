@@ -26,7 +26,7 @@ func newSlmStartFunc(t Transport) SlmStart {
 
 // SlmStart -
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-start.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-start.html.
 //
 type SlmStart func(o ...func(*SlmStartRequest)) (*Response, error)
 

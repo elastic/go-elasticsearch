@@ -26,7 +26,7 @@ func newEnrichStatsFunc(t Transport) EnrichStats {
 
 // EnrichStats -
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/enrich-stats.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/enrich-stats-api.html.
 //
 type EnrichStats func(o ...func(*EnrichStatsRequest)) (*Response, error)
 

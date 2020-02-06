@@ -26,7 +26,7 @@ func newMLPreviewDatafeedFunc(t Transport) MLPreviewDatafeed {
 
 // MLPreviewDatafeed -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-preview-datafeed.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-preview-datafeed.html.
 //
 type MLPreviewDatafeed func(datafeed_id string, o ...func(*MLPreviewDatafeedRequest)) (*Response, error)
 

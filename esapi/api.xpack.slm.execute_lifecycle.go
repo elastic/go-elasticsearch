@@ -26,7 +26,7 @@ func newSlmExecuteLifecycleFunc(t Transport) SlmExecuteLifecycle {
 
 // SlmExecuteLifecycle -
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-execute-policy.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-execute-lifecycle.html.
 //
 type SlmExecuteLifecycle func(policy_id string, o ...func(*SlmExecuteLifecycleRequest)) (*Response, error)
 

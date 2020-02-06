@@ -26,7 +26,7 @@ func newWatcherDeleteWatchFunc(t Transport) WatcherDeleteWatch {
 
 // WatcherDeleteWatch -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-delete-watch.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-delete-watch.html.
 //
 type WatcherDeleteWatch func(id string, o ...func(*WatcherDeleteWatchRequest)) (*Response, error)
 

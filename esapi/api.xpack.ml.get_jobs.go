@@ -27,7 +27,7 @@ func newMLGetJobsFunc(t Transport) MLGetJobs {
 
 // MLGetJobs -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-job.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-job.html.
 //
 type MLGetJobs func(o ...func(*MLGetJobsRequest)) (*Response, error)
 

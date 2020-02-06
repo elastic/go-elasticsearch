@@ -26,7 +26,7 @@ func newWatcherAckWatchFunc(t Transport) WatcherAckWatch {
 
 // WatcherAckWatch -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-ack-watch.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-ack-watch.html.
 //
 type WatcherAckWatch func(watch_id string, o ...func(*WatcherAckWatchRequest)) (*Response, error)
 

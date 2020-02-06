@@ -28,7 +28,7 @@ func newMLRevertModelSnapshotFunc(t Transport) MLRevertModelSnapshot {
 
 // MLRevertModelSnapshot -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-revert-snapshot.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-revert-snapshot.html.
 //
 type MLRevertModelSnapshot func(snapshot_id string, job_id string, o ...func(*MLRevertModelSnapshotRequest)) (*Response, error)
 

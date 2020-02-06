@@ -27,7 +27,7 @@ func newWatcherStatsFunc(t Transport) WatcherStats {
 
 // WatcherStats -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-stats.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-stats.html.
 //
 type WatcherStats func(o ...func(*WatcherStatsRequest)) (*Response, error)
 

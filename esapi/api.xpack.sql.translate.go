@@ -25,7 +25,9 @@ func newSQLTranslateFunc(t Transport) SQLTranslate {
 
 // ----- API Definition -------------------------------------------------------
 
-// SQLTranslate - Translate SQL into Elasticsearch queries
+// SQLTranslate - Translates SQL into Elasticsearch queries
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/sql-translate.html.
 //
 type SQLTranslate func(body io.Reader, o ...func(*SQLTranslateRequest)) (*Response, error)
 

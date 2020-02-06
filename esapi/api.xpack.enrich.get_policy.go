@@ -26,7 +26,7 @@ func newEnrichGetPolicyFunc(t Transport) EnrichGetPolicy {
 
 // EnrichGetPolicy -
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/enrich-get-policy.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-enrich-policy-api.html.
 //
 type EnrichGetPolicy func(o ...func(*EnrichGetPolicyRequest)) (*Response, error)
 

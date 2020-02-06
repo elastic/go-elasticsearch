@@ -26,7 +26,7 @@ func newMLOpenJobFunc(t Transport) MLOpenJob {
 
 // MLOpenJob -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-open-job.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-open-job.html.
 //
 type MLOpenJob func(job_id string, o ...func(*MLOpenJobRequest)) (*Response, error)
 

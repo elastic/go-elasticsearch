@@ -26,7 +26,7 @@ func newCCRUnfollowFunc(t Transport) CCRUnfollow {
 
 // CCRUnfollow -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-unfollow.html.
 //
 type CCRUnfollow func(index string, o ...func(*CCRUnfollowRequest)) (*Response, error)
 

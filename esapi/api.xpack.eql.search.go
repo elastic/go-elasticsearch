@@ -8,13 +8,14 @@ package esapi
 
 import (
 	"context"
+	"io"
 	"net/http"
 	"strings"
 )
 
-func newSlmGetStatusFunc(t Transport) SlmGetStatus {
-	return func(o ...func(*SlmGetStatusRequest)) (*Response, error) {
-		var r = SlmGetStatusRequest{}
+func newEqlSearchFunc(t Transport) EqlSearch {
+	return func(index string, body io.Reader, o ...func(*EqlSearchRequest)) (*Response, error) {
+		var r = EqlSearchRequest{Index: index, Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -24,15 +25,19 @@ func newSlmGetStatusFunc(t Transport) SlmGetStatus {
 
 // ----- API Definition -------------------------------------------------------
 
-// SlmGetStatus -
+// EqlSearch -
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-get-status.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/eql.html.
 //
-type SlmGetStatus func(o ...func(*SlmGetStatusRequest)) (*Response, error)
+type EqlSearch func(index string, body io.Reader, o ...func(*EqlSearchRequest)) (*Response, error)
 
-// SlmGetStatusRequest configures the Slm Get Status API request.
+// EqlSearchRequest configures the Eql Search API request.
 //
-type SlmGetStatusRequest struct {
+type EqlSearchRequest struct {
+	Index string
+
+	Body io.Reader
+
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -45,7 +50,7 @@ type SlmGetStatusRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r SlmGetStatusRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r EqlSearchRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -54,8 +59,13 @@ func (r SlmGetStatusRequest) Do(ctx context.Context, transport Transport) (*Resp
 
 	method = "GET"
 
-	path.Grow(len("/_slm/status"))
-	path.WriteString("/_slm/status")
+	path.Grow(1 + len(r.Index) + 1 + len("_eql") + 1 + len("search"))
+	path.WriteString("/")
+	path.WriteString(r.Index)
+	path.WriteString("/")
+	path.WriteString("_eql")
+	path.WriteString("/")
+	path.WriteString("search")
 
 	params = make(map[string]string)
 
@@ -75,7 +85,7 @@ func (r SlmGetStatusRequest) Do(ctx context.Context, transport Transport) (*Resp
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -86,6 +96,10 @@ func (r SlmGetStatusRequest) Do(ctx context.Context, transport Transport) (*Resp
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if r.Body != nil {
+		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -120,48 +134,48 @@ func (r SlmGetStatusRequest) Do(ctx context.Context, transport Transport) (*Resp
 
 // WithContext sets the request context.
 //
-func (f SlmGetStatus) WithContext(v context.Context) func(*SlmGetStatusRequest) {
-	return func(r *SlmGetStatusRequest) {
+func (f EqlSearch) WithContext(v context.Context) func(*EqlSearchRequest) {
+	return func(r *EqlSearchRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f SlmGetStatus) WithPretty() func(*SlmGetStatusRequest) {
-	return func(r *SlmGetStatusRequest) {
+func (f EqlSearch) WithPretty() func(*EqlSearchRequest) {
+	return func(r *EqlSearchRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f SlmGetStatus) WithHuman() func(*SlmGetStatusRequest) {
-	return func(r *SlmGetStatusRequest) {
+func (f EqlSearch) WithHuman() func(*EqlSearchRequest) {
+	return func(r *EqlSearchRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f SlmGetStatus) WithErrorTrace() func(*SlmGetStatusRequest) {
-	return func(r *SlmGetStatusRequest) {
+func (f EqlSearch) WithErrorTrace() func(*EqlSearchRequest) {
+	return func(r *EqlSearchRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f SlmGetStatus) WithFilterPath(v ...string) func(*SlmGetStatusRequest) {
-	return func(r *SlmGetStatusRequest) {
+func (f EqlSearch) WithFilterPath(v ...string) func(*EqlSearchRequest) {
+	return func(r *EqlSearchRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f SlmGetStatus) WithHeader(h map[string]string) func(*SlmGetStatusRequest) {
-	return func(r *SlmGetStatusRequest) {
+func (f EqlSearch) WithHeader(h map[string]string) func(*EqlSearchRequest) {
+	return func(r *EqlSearchRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -173,8 +187,8 @@ func (f SlmGetStatus) WithHeader(h map[string]string) func(*SlmGetStatusRequest)
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f SlmGetStatus) WithOpaqueID(s string) func(*SlmGetStatusRequest) {
-	return func(r *SlmGetStatusRequest) {
+func (f EqlSearch) WithOpaqueID(s string) func(*EqlSearchRequest) {
+	return func(r *EqlSearchRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

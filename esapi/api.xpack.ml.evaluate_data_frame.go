@@ -27,7 +27,7 @@ func newMLEvaluateDataFrameFunc(t Transport) MLEvaluateDataFrame {
 
 // MLEvaluateDataFrame -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/evaluate-dfanalytics.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/evaluate-dfanalytics.html.
 //
 type MLEvaluateDataFrame func(body io.Reader, o ...func(*MLEvaluateDataFrameRequest)) (*Response, error)
 

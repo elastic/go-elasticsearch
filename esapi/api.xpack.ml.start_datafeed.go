@@ -28,7 +28,7 @@ func newMLStartDatafeedFunc(t Transport) MLStartDatafeed {
 
 // MLStartDatafeed -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-start-datafeed.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-start-datafeed.html.
 //
 type MLStartDatafeed func(datafeed_id string, o ...func(*MLStartDatafeedRequest)) (*Response, error)
 
