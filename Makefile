@@ -249,7 +249,7 @@ cluster: ## Launch an Elasticsearch cluster with Docker
 ifeq ($(origin nodes), undefined)
 	$(eval nodes = 1)
 endif
-	@printf "\033[2m→ Launching" $(nodes) "node(s) of" $(version) "...\033[0m\n"
+	@printf "\033[2m→ Launching %d node(s) of %s...\033[0m\n" $(nodes) $(version)
 ifeq ($(shell test $(nodes) && test $(nodes) -gt 1; echo $$?),0)
 	$(eval detached ?= "true")
 else
@@ -310,14 +310,14 @@ endif
 	}
 ifdef detached
 	@{ \
-		echo "\033[2m→ Waiting for the cluster...\033[0m"; \
+		printf "\033[2m→ Waiting for the cluster...\033[0m\n"; \
 		docker run --network elasticsearch --rm appropriate/curl --max-time 120 --retry 120 --retry-delay 1 --retry-connrefused --show-error --silent http://es1:9200; \
 		output="\033[2m→ Cluster ready; to remove containers:"; \
 		output="$$output docker rm -f"; \
 		for n in `seq 1 $(nodes)`; do \
 			output="$$output es$$n"; \
 		done; \
-		echo "$$output\033[0m"; \
+		printf "$$output\033[0m\n"; \
 	}
 endif
 
