@@ -43,7 +43,7 @@ func TestDiscovery(t *testing.T) {
 	defer func() { srv.Close() }()
 	defer func() { srvTLS.Close() }()
 
-	time.Sleep(time.Millisecond)
+	time.Sleep(10 * time.Millisecond)
 
 	t.Run("getNodesInfo()", func(t *testing.T) {
 		u, _ := url.Parse("http://" + srv.Addr)
