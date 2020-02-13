@@ -15,8 +15,18 @@ import (
 func TestBulkIndexer(t *testing.T) {
 	t.Run("Default", func(t *testing.T) {
 		es, _ := elasticsearch.NewDefaultClient()
-		bi := BulkIndexer{Client: es}
-		bi.Add(nil)
-		fmt.Println("NumPublished:", bi.NumPublished(), "NumFailed:", bi.NumFailed())
+		bi := &BulkIndexer{Client: es}
+		if err := bi.Add(BulkIndexerItem{Action: "index"}); err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+		fmt.Println("NumAdded:", bi.NumAdded(), "NumFailed:", bi.NumFailed())
+
+		if bi.NumAdded() != 1 {
+			t.Errorf("Unexpected NumAdded: %d", bi.NumAdded())
+		}
+
+		if err := bi.Wait(nil); err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
 	})
 }

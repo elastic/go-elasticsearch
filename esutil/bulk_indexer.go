@@ -2,68 +2,126 @@ package esutil
 
 import (
 	"bytes"
+	"context"
 	"io"
+	"net/http"
 	"sync"
 	"time"
 
 	"github.com/elastic/go-elasticsearch/v8"
 )
 
-// ?: `BulkProcessor` to mirror Java?
+// BulkIndexer is a parallel, asynchronous indexer.
 //
 type BulkIndexer struct {
-	Client *elasticsearch.Client
+	sync.Mutex
 
-	BatchSuccessCallback func(req interface{}, res interface{})            // Per batch
-	BatchErrorCallback   func(req interface{}, res interface{}, err error) // Per batch
+	Client *elasticsearch.Client
 
 	FlushInterval       time.Duration // Default 30sec
 	FlushThresholdItems uint          // Default 1000
 	FlushThresholdBytes uint          // Default 5MB
 
-	numPublished uint
-	numCreated   uint
-	numUpdated   uint
-	numDeleted   uint
-	numFailed    uint
+	NumWorkers int // Semaphore, default to runtime.NumCPU
 
-	buffer *bytes.Buffer // sync.Pool.Get(), make(), default capacity = FlushThresholdBytes (5MB)
-	// ?: Or rather a queue object, and keep buffer local during execution?
-	queue *struct { // BulkIndexerQueue
-		mu    sync.Mutex
-		queue []*BulkIndexerItem
-	}
+	numAdded   uint
+	numCreated uint
+	numUpdated uint
+	numDeleted uint
+	numFailed  uint
+
+	workers workerPool
 
 	// ?: Cancellation, timeouts? context.WithCancel() / context.WithTimeout()?
-
-	// ?: ConcurrentRequests (=> semaphore)
 }
 
+// NewBulkIndexer creates a new bulk indexer.
+//
+func NewBulkIndexer() *BulkIndexer {
+	bi := BulkIndexer{}
+
+	bufPool := sync.Pool{
+		New: func() interface{} {
+			return bytes.NewBuffer(make([]byte, 0, bi.FlushThresholdBytes))
+		},
+	}
+
+	for i := 0; i < bi.NumWorkers; i++ {
+		bi.workers = append(bi.workers, worker{bufPool: bufPool})
+	}
+
+	return &bi
+}
+
+// workerPool represents the pool of workers.
+//
+type workerPool []worker
+
+// worker represents an indexer worker.
+//
+type worker struct {
+	bufPool sync.Pool // (sync.Pool).Get().(*bytes.Buffer)
+}
+
+// BulkIndexerItem represents an indexer item.
+//
 type BulkIndexerItem struct {
+	Index  string
 	Action string
 	Body   io.Reader
 
-	Meta interface{} // ?: Use (context.Context).Value instead?
+	ErrorTrace          bool
+	FilterPath          []string
+	Header              http.Header
+	Human               bool
+	Pipeline            string
+	Pretty              bool
+	Refresh             string
+	Routing             string
+	Source              []string
+	SourceExcludes      []string
+	SourceIncludes      []string
+	Timeout             time.Duration
+	WaitForActiveShards string
 
-	SuccessCallback func(req interface{}, res interface{})            // Per item (Needed?)
-	ErrorCallback   func(req interface{}, res interface{}, err error) // Per item (Needed?)
+	Meta interface{} // To use eg. in OnSuccess/OnFailure callbacks
+
+	OnSuccess func(req interface{}, res interface{})            // Per item
+	OnFailure func(req interface{}, res interface{}, err error) // Per item
 }
 
-// ?: Variadic arguments? More flexible.
-// ?: Add(interface{}) and then type-switch over eg. `esapi.IndexRequest{}`?
+// Add adds an item to the indexer. It is asynchronous, and returns an error
+// only when the item cannot be added. Use the OnSuccess and OnFailure
+// callbacks to get the operation result.
 //
-// !: Must be threadsafe
-//
-func (bi BulkIndexer) Add(item *BulkIndexerItem) {
-	// Asynchronous, use callback for getting operation result
-	// Add item to the indexer buffer and return
+func (bi *BulkIndexer) Add(item BulkIndexerItem) error {
+	bi.Lock()
+	defer bi.Unlock()
+
+	bi.numAdded++
+
+	return nil
 }
 
-// ?: Should be exposed? Java `BulkProcessor` does. Blocking operation.
-func (bi BulkIndexer) Flush() error { return nil }
+// Flush forcefully flushes all added items.
+//
+func (bi *BulkIndexer) Flush(ctx context.Context) error { return nil }
 
-// ?: Wait for operations to finish, similar to Java's `awaitClose()`. Blocking operation.
-func (bi BulkIndexer) Wait() error { return nil }
+// Wait blocks until all added items are flushed.
+//
+func (bi *BulkIndexer) Wait(ctx context.Context) error { return nil }
 
-func (bi BulkIndexer) NumPublished() uint { return bi.numPublished }
-func (bi BulkIndexer) NumFailed() uint    { return bi.numFailed }
+// NumAdded returns the number of items added to the indexer.
+func (bi *BulkIndexer) NumAdded() uint { return bi.numAdded }
+
+// NumFailed returns the number of failed items.
+func (bi *BulkIndexer) NumFailed() uint { return bi.numFailed }
+
+// NumCreated returns the number of succesfull "create" operations.
+func (bi *BulkIndexer) NumCreated() uint { return bi.numCreated }
+
+// NumUpdated returns the number of succesfull "update" operations.
+func (bi *BulkIndexer) NumUpdated() uint { return bi.numUpdated }
+
+// NumDeleted returns the number of succesfull "delete" operations.
+func (bi *BulkIndexer) NumDeleted() uint { return bi.numDeleted }
