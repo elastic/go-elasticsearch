@@ -13,9 +13,27 @@ import (
 	"github.com/elastic/go-elasticsearch/v8"
 )
 
-// BulkIndexer is a parallel, asynchronous indexer.
+// BulkIndexer represents a parallel, asynchronous indexer.
 //
-type BulkIndexer struct {
+type BulkIndexer interface {
+	// Add adds an item to the indexer. It is asynchronous, and returns an error
+	// only when the item cannot be added. Use the OnSuccess and OnFailure
+	// callbacks to get the operation result per item.
+	Add(item BulkIndexerItem) error
+
+	// Wait blocks until all added items are indexed.
+	Wait(ctx context.Context) error
+
+	NumAdded() uint   // NumAdded returns the number of items added to the indexer.
+	NumFailed() uint  // NumFailed returns the number of failed items.
+	NumCreated() uint // NumCreated returns the number of succesfull "create" operations.
+	NumUpdated() uint // NumUpdated returns the number of succesfull "update" operations.
+	NumDeleted() uint // NumDeleted returns the number of succesfull "delete" operations.
+}
+
+// bulkIndexer is a parallel, asynchronous indexer.
+//
+type bulkIndexer struct {
 	mu    sync.Mutex
 	wg    sync.WaitGroup
 	queue chan BulkIndexerItem
@@ -23,7 +41,6 @@ type BulkIndexer struct {
 	client *elasticsearch.Client
 
 	numWorkers          int
-	flushInterval       time.Duration
 	flushThresholdItems uint
 	flushThresholdBytes uint
 
@@ -36,24 +53,21 @@ type BulkIndexer struct {
 	// ?: Cancellation, timeouts? context.WithCancel() / context.WithTimeout()?
 }
 
+// BulkIndexerConfig represents configuration of the bulk indexer.
+//
 type BulkIndexerConfig struct {
 	Client *elasticsearch.Client // The Elasticsearch client.
 
-	NumWorkers          int           // The number of workers. Defaults to runtime.NumCPU().
-	FlushInterval       time.Duration // The flush interval. Defaults to 30s.
-	FlushThresholdItems uint          // The flush threshold for items. Defaults to 1000.
-	FlushThresholdBytes uint          // The flush threshold in bytes. Defaults 5MB.
+	NumWorkers          int  // The number of workers. Defaults to runtime.NumCPU().
+	FlushThresholdItems uint // The flush threshold for items. Defaults to 1000.
+	FlushThresholdBytes uint // The flush threshold in bytes. Defaults 5MB.
 }
 
 // NewBulkIndexer creates a new bulk indexer.
 //
-func NewBulkIndexer(cfg BulkIndexerConfig) (*BulkIndexer, error) {
+func NewBulkIndexer(cfg BulkIndexerConfig) (BulkIndexer, error) {
 	if cfg.NumWorkers == 0 {
 		cfg.NumWorkers = runtime.NumCPU()
-	}
-
-	if cfg.FlushInterval == 0 {
-		cfg.FlushInterval = 30 * time.Second
 	}
 
 	if cfg.FlushThresholdItems == 0 {
@@ -64,9 +78,8 @@ func NewBulkIndexer(cfg BulkIndexerConfig) (*BulkIndexer, error) {
 		cfg.FlushThresholdBytes = 5e+6
 	}
 
-	bi := BulkIndexer{
+	bi := bulkIndexer{
 		numWorkers:          cfg.NumWorkers,
-		flushInterval:       cfg.FlushInterval,
 		flushThresholdItems: cfg.FlushThresholdItems,
 		flushThresholdBytes: cfg.FlushThresholdBytes,
 	}
@@ -99,15 +112,11 @@ type BulkIndexerItem struct {
 
 	Meta interface{} // To use eg. in OnSuccess/OnFailure callbacks
 
-	OnSuccess func(req interface{}, res interface{})            // Per item
-	OnFailure func(req interface{}, res interface{}, err error) // Per item
+	OnSuccess func(item BulkIndexerItem, req interface{}, res interface{})            // Per item
+	OnFailure func(item BulkIndexerItem, req interface{}, res interface{}, err error) // Per item
 }
 
-// Add adds an item to the indexer. It is asynchronous, and returns an error
-// only when the item cannot be added. Use the OnSuccess and OnFailure
-// callbacks to get the operation result.
-//
-func (bi *BulkIndexer) Add(item BulkIndexerItem) error {
+func (bi *bulkIndexer) Add(item BulkIndexerItem) error {
 	bi.mu.Lock()
 	defer bi.mu.Unlock()
 
@@ -117,42 +126,21 @@ func (bi *BulkIndexer) Add(item BulkIndexerItem) error {
 	return nil
 }
 
-// Flush forcefully flushes all added items.
-//
-func (bi *BulkIndexer) Flush(ctx context.Context) error { return nil }
-
-// Wait blocks until all added items are flushed.
-//
-func (bi *BulkIndexer) Wait(ctx context.Context) error {
+func (bi *bulkIndexer) Wait(ctx context.Context) error {
 	close(bi.queue)
 	bi.wg.Wait()
 	return nil
 }
 
-// NumAdded returns the number of items added to the indexer.
-func (bi *BulkIndexer) NumAdded() uint { return bi.numAdded }
+func (bi *bulkIndexer) NumAdded() uint   { return bi.numAdded }
+func (bi *bulkIndexer) NumFailed() uint  { return bi.numFailed }
+func (bi *bulkIndexer) NumCreated() uint { return bi.numCreated }
+func (bi *bulkIndexer) NumUpdated() uint { return bi.numUpdated }
+func (bi *bulkIndexer) NumDeleted() uint { return bi.numDeleted }
 
-// NumFailed returns the number of failed items.
-func (bi *BulkIndexer) NumFailed() uint { return bi.numFailed }
-
-// NumCreated returns the number of succesfull "create" operations.
-func (bi *BulkIndexer) NumCreated() uint { return bi.numCreated }
-
-// NumUpdated returns the number of succesfull "update" operations.
-func (bi *BulkIndexer) NumUpdated() uint { return bi.numUpdated }
-
-// NumDeleted returns the number of succesfull "delete" operations.
-func (bi *BulkIndexer) NumDeleted() uint { return bi.numDeleted }
-
-// worker represents an indexer worker.
+// init initializes the bulk indexer.
 //
-type worker struct {
-	ch  <-chan BulkIndexerItem
-	wg  *sync.WaitGroup
-	buf *bytes.Buffer
-}
-
-func (bi *BulkIndexer) init() {
+func (bi *bulkIndexer) init() {
 	bi.queue = make(chan BulkIndexerItem, bi.numWorkers)
 
 	for i := 0; i < bi.numWorkers; i++ {
@@ -162,6 +150,16 @@ func (bi *BulkIndexer) init() {
 	bi.wg.Add(bi.numWorkers)
 }
 
+// worker represents an indexer worker.
+//
+type worker struct {
+	ch  <-chan BulkIndexerItem
+	wg  *sync.WaitGroup
+	buf *bytes.Buffer
+}
+
+// run launches the worker goroutine.
+//
 func (w *worker) run() {
 	go func() {
 		fmt.Println("Started worker")
