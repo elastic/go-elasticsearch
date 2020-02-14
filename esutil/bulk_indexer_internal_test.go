@@ -5,8 +5,6 @@ package esutil
 import (
 	"fmt"
 	"testing"
-
-	"github.com/elastic/go-elasticsearch/v8"
 )
 
 // TODO(karmi): Benchmark in _examples with the Enron dataset?
@@ -14,8 +12,7 @@ import (
 
 func TestBulkIndexer(t *testing.T) {
 	t.Run("Default", func(t *testing.T) {
-		es, _ := elasticsearch.NewDefaultClient()
-		bi := &BulkIndexer{Client: es}
+		bi, _ := NewBulkIndexer(BulkIndexerConfig{})
 		if err := bi.Add(BulkIndexerItem{Action: "index"}); err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}

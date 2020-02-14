@@ -3,8 +3,10 @@ package esutil
 import (
 	"bytes"
 	"context"
+	"fmt"
 	"io"
 	"net/http"
+	"runtime"
 	"sync"
 	"time"
 
@@ -14,15 +16,16 @@ import (
 // BulkIndexer is a parallel, asynchronous indexer.
 //
 type BulkIndexer struct {
-	sync.Mutex
+	mu    sync.Mutex
+	wg    sync.WaitGroup
+	queue chan BulkIndexerItem
 
-	Client *elasticsearch.Client
+	client *elasticsearch.Client
 
-	FlushInterval       time.Duration // Default 30sec
-	FlushThresholdItems uint          // Default 1000
-	FlushThresholdBytes uint          // Default 5MB
-
-	NumWorkers int // Semaphore, default to runtime.NumCPU
+	numWorkers          int
+	flushInterval       time.Duration
+	flushThresholdItems uint
+	flushThresholdBytes uint
 
 	numAdded   uint
 	numCreated uint
@@ -30,37 +33,47 @@ type BulkIndexer struct {
 	numDeleted uint
 	numFailed  uint
 
-	workers workerPool
-
 	// ?: Cancellation, timeouts? context.WithCancel() / context.WithTimeout()?
+}
+
+type BulkIndexerConfig struct {
+	Client *elasticsearch.Client // The Elasticsearch client.
+
+	NumWorkers          int           // The number of workers. Defaults to runtime.NumCPU().
+	FlushInterval       time.Duration // The flush interval. Defaults to 30s.
+	FlushThresholdItems uint          // The flush threshold for items. Defaults to 1000.
+	FlushThresholdBytes uint          // The flush threshold in bytes. Defaults 5MB.
 }
 
 // NewBulkIndexer creates a new bulk indexer.
 //
-func NewBulkIndexer() *BulkIndexer {
-	bi := BulkIndexer{}
-
-	bufPool := sync.Pool{
-		New: func() interface{} {
-			return bytes.NewBuffer(make([]byte, 0, bi.FlushThresholdBytes))
-		},
+func NewBulkIndexer(cfg BulkIndexerConfig) (*BulkIndexer, error) {
+	if cfg.NumWorkers == 0 {
+		cfg.NumWorkers = runtime.NumCPU()
 	}
 
-	for i := 0; i < bi.NumWorkers; i++ {
-		bi.workers = append(bi.workers, worker{bufPool: bufPool})
+	if cfg.FlushInterval == 0 {
+		cfg.FlushInterval = 30 * time.Second
 	}
 
-	return &bi
-}
+	if cfg.FlushThresholdItems == 0 {
+		cfg.FlushThresholdItems = 1000
+	}
 
-// workerPool represents the pool of workers.
-//
-type workerPool []worker
+	if cfg.FlushThresholdBytes == 0 {
+		cfg.FlushThresholdBytes = 5e+6
+	}
 
-// worker represents an indexer worker.
-//
-type worker struct {
-	bufPool sync.Pool // (sync.Pool).Get().(*bytes.Buffer)
+	bi := BulkIndexer{
+		numWorkers:          cfg.NumWorkers,
+		flushInterval:       cfg.FlushInterval,
+		flushThresholdItems: cfg.FlushThresholdItems,
+		flushThresholdBytes: cfg.FlushThresholdBytes,
+	}
+
+	bi.init()
+
+	return &bi, nil
 }
 
 // BulkIndexerItem represents an indexer item.
@@ -95,10 +108,11 @@ type BulkIndexerItem struct {
 // callbacks to get the operation result.
 //
 func (bi *BulkIndexer) Add(item BulkIndexerItem) error {
-	bi.Lock()
-	defer bi.Unlock()
+	bi.mu.Lock()
+	defer bi.mu.Unlock()
 
 	bi.numAdded++
+	bi.queue <- item
 
 	return nil
 }
@@ -109,7 +123,11 @@ func (bi *BulkIndexer) Flush(ctx context.Context) error { return nil }
 
 // Wait blocks until all added items are flushed.
 //
-func (bi *BulkIndexer) Wait(ctx context.Context) error { return nil }
+func (bi *BulkIndexer) Wait(ctx context.Context) error {
+	close(bi.queue)
+	bi.wg.Wait()
+	return nil
+}
 
 // NumAdded returns the number of items added to the indexer.
 func (bi *BulkIndexer) NumAdded() uint { return bi.numAdded }
@@ -125,3 +143,32 @@ func (bi *BulkIndexer) NumUpdated() uint { return bi.numUpdated }
 
 // NumDeleted returns the number of succesfull "delete" operations.
 func (bi *BulkIndexer) NumDeleted() uint { return bi.numDeleted }
+
+// worker represents an indexer worker.
+//
+type worker struct {
+	ch  <-chan BulkIndexerItem
+	wg  *sync.WaitGroup
+	buf *bytes.Buffer
+}
+
+func (bi *BulkIndexer) init() {
+	bi.queue = make(chan BulkIndexerItem, bi.numWorkers)
+
+	for i := 0; i < bi.numWorkers; i++ {
+		w := worker{ch: bi.queue, wg: &bi.wg, buf: bytes.NewBuffer(make([]byte, 0, bi.flushThresholdBytes))}
+		w.run()
+	}
+	bi.wg.Add(bi.numWorkers)
+}
+
+func (w *worker) run() {
+	go func() {
+		fmt.Println("Started worker")
+		defer w.wg.Done()
+
+		for item := range w.ch {
+			fmt.Println("Got item", item)
+		}
+	}()
+}
