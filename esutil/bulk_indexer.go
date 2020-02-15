@@ -1,3 +1,7 @@
+// Licensed to Elasticsearch B.V. under one or more agreements.
+// Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
+// See the LICENSE file in the project root for more information.
+
 package esutil
 
 import (
@@ -6,6 +10,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
 	"runtime"
 	"sync"
 	"sync/atomic"
@@ -153,7 +158,9 @@ func (bi *bulkIndexer) Close(ctx context.Context) error {
 		bi.wg.Wait()
 	}
 
-	fmt.Println("==> Flushing remaining buffers...")
+	if os.Getenv("DEBUG") != "" {
+		fmt.Println("==> Flushing remaining buffers...")
+	}
 	for _, w := range bi.workers {
 		if w.buf.Len() > 0 {
 			if err := w.flush(); err != nil {
@@ -213,11 +220,15 @@ type worker struct {
 //
 func (w *worker) run() {
 	go func() {
-		fmt.Printf("--> [worker-%03d] Started\n", w.id)
+		if os.Getenv("DEBUG") != "" {
+			fmt.Printf("--> [worker-%03d] Started\n", w.id)
+		}
 		defer w.wg.Done()
 
 		for item := range w.ch {
-			fmt.Printf(">>> [worker-%03d] Got %s:%s\n", w.id, item.Action, item.DocumentID)
+			if os.Getenv("DEBUG") != "" {
+				fmt.Printf(">>> [worker-%03d] Got %s:%s\n", w.id, item.Action, item.DocumentID)
+			}
 			w.items = append(w.items, item)
 
 			if item.Body != nil {
@@ -242,12 +253,18 @@ func (w *worker) run() {
 //
 func (w *worker) flush() error {
 	if w.isFlushing {
-		fmt.Printf(">>> [worker-%03d] Already flushing\n", w.id)
+		if os.Getenv("DEBUG") != "" {
+			fmt.Printf(">>> [worker-%03d] Already flushing\n", w.id)
+		}
 		return nil
 	}
 	w.isFlushing = true
 
-	fmt.Printf(">>> [worker-%03d] FLUSH BUFFER: %s\n", w.id, w.buf.String())
+	var b bytes.Buffer
+	io.Copy(&b, w.buf)
+	if os.Getenv("DEBUG") != "" {
+		fmt.Printf(">>> [worker-%03d] FLUSH BUFFER: %s\n", w.id, b.String())
+	}
 
 	var err error
 	if err == nil {
