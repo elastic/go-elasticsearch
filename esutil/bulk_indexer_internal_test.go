@@ -18,7 +18,7 @@ import (
 func TestBulkIndexer(t *testing.T) {
 	t.Run("Basic", func(t *testing.T) {
 		var wg sync.WaitGroup
-		bi, _ := NewBulkIndexer(BulkIndexerConfig{NumWorkers: 1, FlushThresholdBytes: 7})
+		bi, _ := NewBulkIndexer(BulkIndexerConfig{NumWorkers: 1, FlushBytes: 7})
 		numItems := 3
 
 		for i := 1; i <= numItems; i++ {
@@ -37,29 +37,32 @@ func TestBulkIndexer(t *testing.T) {
 		}
 		wg.Wait()
 
-		if bi.NumAdded() != numItems {
-			t.Errorf("Unexpected NumAdded: %d", bi.NumAdded())
+		stats := bi.Stats()
+
+		if stats.NumAdded != uint(numItems) {
+			t.Errorf("Unexpected NumAdded: %d", stats.NumAdded)
 		}
 
-		if bi.NumFailed() != 0 {
-			t.Errorf("Unexpected NumFailed: %d", bi.NumFailed())
+		if stats.NumFailed != 0 {
+			t.Errorf("Unexpected NumFailed: %d", stats.NumFailed)
 		}
 
-		if err := bi.Wait(context.Background()); err != nil {
+		if err := bi.Close(context.Background()); err != nil {
 			t.Errorf("Unexpected error: %s", err)
 		}
 
-		fmt.Println("NumAdded:", bi.NumAdded(), "NumFailed:", bi.NumFailed())
+		fmt.Println("NumAdded:", stats.NumAdded, "NumFailed:", stats.NumFailed)
 	})
 
 	t.Run("Add() Timeout", func(t *testing.T) {
 		bi, _ := NewBulkIndexer(BulkIndexerConfig{NumWorkers: 1})
-		ctx, _ := context.WithTimeout(context.Background(), time.Nanosecond)
+		ctx, cancel := context.WithTimeout(context.Background(), time.Nanosecond)
+		defer cancel()
 		var errs []error
 		for i := 0; i < 10; i++ {
-			errs = append(errs, bi.Add(ctx, BulkIndexerItem{Action: "index"}))
+			errs = append(errs, bi.Add(ctx, BulkIndexerItem{Action: "index", DocumentID: "timeout"}))
 		}
-		if err := bi.Wait(context.Background()); err != nil {
+		if err := bi.Close(context.Background()); err != nil {
 			t.Errorf("Unexpected error: %s", err)
 		}
 

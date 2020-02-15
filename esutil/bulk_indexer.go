@@ -8,57 +8,70 @@ import (
 	"net/http"
 	"runtime"
 	"sync"
+	"sync/atomic"
 	"time"
 
 	"github.com/elastic/go-elasticsearch/v8"
 )
 
-// BulkIndexer represents a parallel, asynchronous indexer.
+// BulkIndexer represents a parallel, asynchronous, bulk indexer.
 //
 type BulkIndexer interface {
 	// Add adds an item to the indexer. It returns an error when the item cannot be added.
 	// Use the OnSuccess and OnFailure callbacks to get the operation result for the item.
-	// You must call the Wait() method to allow the indexer finish the indexing.
-	// It is safe for concurrent use, but all goroutines must finish before the call to Wait().
+	//
+	// You must call the Close() method after you're done adding items.
+	//
+	// It is safe for concurrent use. When it's called from goroutines,
+	// they must finish before the call to Close, eg. using sync.WaitGroup.
 	Add(context.Context, BulkIndexerItem) error
 
-	// Wait blocks until all added items are indexed.
-	Wait(context.Context) error
+	// Close waits until all added items are flushed and closes the indexer.
+	Close(context.Context) error
 
-	NumAdded() int   // NumAdded returns the number of items added to the indexer.
-	NumFailed() int  // NumFailed returns the number of failed items.
-	NumIndexed() int // NumCreated returns the number of succesfull "index" operations.
-	NumCreated() int // NumCreated returns the number of succesfull "create" operations.
-	NumUpdated() int // NumUpdated returns the number of succesfull "update" operations.
-	NumDeleted() int // NumDeleted returns the number of succesfull "delete" operations.
+	// Stats returns indexer statistics.
+	Stats() BulkIndexerStats
+}
+
+// BulkIndexerStats represents the indexer statistics.
+//
+type BulkIndexerStats struct {
+	NumAdded   uint
+	NumFailed  uint
+	NumIndexed uint
+	NumCreated uint
+	NumUpdated uint
+	NumDeleted uint
 }
 
 type bulkIndexer struct {
-	mu      sync.Mutex
 	wg      sync.WaitGroup
 	queue   chan BulkIndexerItem
 	workers []*worker
+	stats   *bulkIndexerStats
 
 	client *elasticsearch.Client
 
-	numWorkers          int
-	flushThresholdBytes int
-
-	numAdded   int
-	numFailed  int
-	numIndexed int
-	numCreated int
-	numUpdated int
-	numDeleted int
+	numWorkers int
+	flushBytes int
 }
 
-// BulkIndexerConfig represents configuration of the bulk indexer.
+type bulkIndexerStats struct {
+	numAdded   uint64
+	numFailed  uint64
+	numIndexed uint64
+	numCreated uint64
+	numUpdated uint64
+	numDeleted uint64
+}
+
+// BulkIndexerConfig represents configuration of the indexer.
 //
 type BulkIndexerConfig struct {
-	Client *elasticsearch.Client // The Elasticsearch client.
+	NumWorkers int // The number of workers. Defaults to runtime.NumCPU().
+	FlushBytes int // The flush threshold in bytes. Defaults to 5MB.
 
-	NumWorkers          int // The number of workers. Defaults to runtime.NumCPU().
-	FlushThresholdBytes int // The flush threshold in bytes. Defaults to 5MB.
+	Client *elasticsearch.Client // The Elasticsearch client.
 
 	// Parameters of the Bulk API.
 	Index               string
@@ -84,13 +97,15 @@ func NewBulkIndexer(cfg BulkIndexerConfig) (BulkIndexer, error) {
 		cfg.NumWorkers = runtime.NumCPU()
 	}
 
-	if cfg.FlushThresholdBytes == 0 {
-		cfg.FlushThresholdBytes = 5e+6
+	if cfg.FlushBytes == 0 {
+		cfg.FlushBytes = 5e+6
 	}
 
 	bi := bulkIndexer{
-		numWorkers:          cfg.NumWorkers,
-		flushThresholdBytes: cfg.FlushThresholdBytes,
+		numWorkers: cfg.NumWorkers,
+		flushBytes: cfg.FlushBytes,
+
+		stats: &bulkIndexerStats{},
 	}
 
 	bi.init()
@@ -107,17 +122,16 @@ type BulkIndexerItem struct {
 	Body            io.Reader
 	RetryOnConflict *int
 
-	Meta interface{} // To use eg. in OnSuccess/OnFailure callbacks
+	Metadata interface{} // To use eg. in OnSuccess/OnFailure callbacks
 
 	OnSuccess func(item BulkIndexerItem, req interface{}, res interface{})            // Per item
 	OnFailure func(item BulkIndexerItem, req interface{}, res interface{}, err error) // Per item
 }
 
+// Add adds an item to the indexer.
+//
 func (bi *bulkIndexer) Add(ctx context.Context, item BulkIndexerItem) error {
-	bi.mu.Lock()
-	defer bi.mu.Unlock()
-
-	bi.numAdded++
+	atomic.AddUint64(&bi.stats.numAdded, 1)
 
 	select {
 	case <-ctx.Done():
@@ -128,12 +142,14 @@ func (bi *bulkIndexer) Add(ctx context.Context, item BulkIndexerItem) error {
 	return nil
 }
 
-func (bi *bulkIndexer) Wait(ctx context.Context) error {
-	close(bi.queue)
+// Close calls flush on writers and closes the indexer queue channel.
+//
+func (bi *bulkIndexer) Close(ctx context.Context) error {
 	select {
 	case <-ctx.Done():
 		return ctx.Err()
 	default:
+		close(bi.queue)
 		bi.wg.Wait()
 	}
 
@@ -149,12 +165,18 @@ func (bi *bulkIndexer) Wait(ctx context.Context) error {
 	return nil
 }
 
-func (bi *bulkIndexer) NumAdded() int   { bi.mu.Lock(); defer bi.mu.Unlock(); return bi.numAdded }
-func (bi *bulkIndexer) NumFailed() int  { bi.mu.Lock(); defer bi.mu.Unlock(); return bi.numFailed }
-func (bi *bulkIndexer) NumIndexed() int { bi.mu.Lock(); defer bi.mu.Unlock(); return bi.numIndexed }
-func (bi *bulkIndexer) NumCreated() int { bi.mu.Lock(); defer bi.mu.Unlock(); return bi.numCreated }
-func (bi *bulkIndexer) NumUpdated() int { bi.mu.Lock(); defer bi.mu.Unlock(); return bi.numUpdated }
-func (bi *bulkIndexer) NumDeleted() int { bi.mu.Lock(); defer bi.mu.Unlock(); return bi.numDeleted }
+// Stats returns indexer statistics.
+//
+func (bi *bulkIndexer) Stats() BulkIndexerStats {
+	return BulkIndexerStats{
+		NumAdded:   uint(bi.stats.numAdded),
+		NumFailed:  uint(bi.stats.numFailed),
+		NumIndexed: uint(bi.stats.numIndexed),
+		NumCreated: uint(bi.stats.numCreated),
+		NumUpdated: uint(bi.stats.numUpdated),
+		NumDeleted: uint(bi.stats.numDeleted),
+	}
+}
 
 // init initializes the bulk indexer.
 //
@@ -166,8 +188,8 @@ func (bi *bulkIndexer) init() {
 			id:  i,
 			ch:  bi.queue,
 			wg:  &bi.wg,
-			buf: bytes.NewBuffer(make([]byte, 0, bi.flushThresholdBytes)),
-			byt: bi.flushThresholdBytes}
+			buf: bytes.NewBuffer(make([]byte, 0, bi.flushBytes)),
+			byt: bi.flushBytes}
 		w.run()
 		bi.workers = append(bi.workers, &w)
 	}
@@ -187,7 +209,7 @@ type worker struct {
 	isFlushing bool
 }
 
-// run launches the worker goroutine.
+// run launches the worker in a goroutine.
 //
 func (w *worker) run() {
 	go func() {
@@ -216,7 +238,8 @@ func (w *worker) run() {
 	}()
 }
 
-// flush writes out the buffer.
+// flush writes out the worker buffer.
+//
 func (w *worker) flush() error {
 	if w.isFlushing {
 		fmt.Printf(">>> [worker-%03d] Already flushing\n", w.id)
