@@ -9,6 +9,7 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"runtime"
@@ -266,13 +267,10 @@ func (w *worker) flush() error {
 	}
 	w.isFlushing = true
 
-	// Simulate copy operation
-	var b bytes.Buffer
-	b.Grow(w.buf.Len())
-	io.Copy(&b, w.buf)
-	// -----------------------
 	if os.Getenv("DEBUG") != "" {
-		fmt.Printf(">>> [worker-%03d] FLUSH BUFFER: %s\n", w.id, b.String())
+		fmt.Printf(">>> [worker-%03d] FLUSH BUFFER: %s\n", w.id, w.buf.String())
+	} else {
+		io.Copy(ioutil.Discard, w.buf)
 	}
 
 	var err error
