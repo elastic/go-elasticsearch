@@ -231,6 +231,13 @@ func (w *worker) run() {
 			}
 			w.items = append(w.items, item)
 
+			w.buf.WriteString(item.Action)
+			w.buf.WriteRune('/')
+			if item.DocumentID != "" {
+				w.buf.WriteString(item.DocumentID)
+			}
+			w.buf.WriteRune(':')
+
 			if item.Body != nil {
 				if _, err := w.buf.ReadFrom(item.Body); err != nil {
 					if item.OnFailure != nil {
@@ -243,7 +250,6 @@ func (w *worker) run() {
 
 			if w.buf.Len() >= w.byt {
 				w.flush()
-				w.items = w.items[:0]
 			}
 		}
 	}()
@@ -260,8 +266,11 @@ func (w *worker) flush() error {
 	}
 	w.isFlushing = true
 
+	// Simulate copy operation
 	var b bytes.Buffer
+	b.Grow(w.buf.Len())
 	io.Copy(&b, w.buf)
+	// -----------------------
 	if os.Getenv("DEBUG") != "" {
 		fmt.Printf(">>> [worker-%03d] FLUSH BUFFER: %s\n", w.id, b.String())
 	}
@@ -281,6 +290,7 @@ func (w *worker) flush() error {
 		}
 	}
 
+	w.items = w.items[:0]
 	w.buf.Reset()
 	w.isFlushing = false
 

@@ -22,7 +22,7 @@ import (
 func TestBulkIndexer(t *testing.T) {
 	t.Run("Basic", func(t *testing.T) {
 		var wg sync.WaitGroup
-		bi, _ := NewBulkIndexer(BulkIndexerConfig{NumWorkers: 1, FlushBytes: 7})
+		bi, _ := NewBulkIndexer(BulkIndexerConfig{NumWorkers: 1, FlushBytes: 15})
 		numItems := 3
 
 		for i := 1; i <= numItems; i++ {
