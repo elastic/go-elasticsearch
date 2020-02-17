@@ -201,7 +201,8 @@ func (bi *bulkIndexer) init() {
 			id:  i,
 			ch:  bi.queue,
 			bi:  bi,
-			buf: bytes.NewBuffer(make([]byte, 0, bi.flushBytes))}
+			buf: bytes.NewBuffer(make([]byte, 0, bi.flushBytes)),
+			aux: make([]byte, 0, 512)}
 		w.run()
 		bi.workers = append(bi.workers, &w)
 	}
@@ -215,6 +216,7 @@ type worker struct {
 	ch    <-chan BulkIndexerItem
 	bi    *bulkIndexer
 	buf   *bytes.Buffer
+	aux   []byte
 	items []BulkIndexerItem
 
 	isFlushing bool
@@ -261,12 +263,16 @@ func (w *worker) run() {
 func (w *worker) writeMeta(item BulkIndexerItem) error {
 	// TODO(karmi): Handle errors
 	w.buf.WriteRune('{')
-	w.buf.WriteString(strconv.Quote(item.Action))
+	w.aux = strconv.AppendQuote(w.aux, item.Action)
+	w.buf.Write(w.aux)
+	w.aux = w.aux[:0]
 	w.buf.WriteRune(':')
 	w.buf.WriteRune('{')
 	if item.DocumentID != "" {
 		w.buf.WriteString(`"_id":`)
-		w.buf.WriteString(strconv.Quote(item.DocumentID))
+		w.aux = strconv.AppendQuote(w.aux, item.DocumentID)
+		w.buf.Write(w.aux)
+		w.aux = w.aux[:0]
 	}
 	w.buf.WriteRune('}')
 	w.buf.WriteRune('}')
@@ -296,6 +302,13 @@ func (w *worker) flush() error {
 		}
 		return nil
 	}
+
+	defer func() {
+		w.items = w.items[:0]
+		w.buf.Reset()
+		w.isFlushing = false
+	}()
+
 	w.isFlushing = true
 
 	if os.Getenv("DEBUG") != "" {
@@ -318,10 +331,6 @@ func (w *worker) flush() error {
 			}
 		}
 	}
-
-	w.items = w.items[:0]
-	w.buf.Reset()
-	w.isFlushing = false
 
 	return err
 }

@@ -20,11 +20,13 @@ func BenchmarkBulkIndexer(b *testing.B) {
 		b.ResetTimer()
 
 		bi, _ := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{FlushBytes: 1024})
+		defer bi.Close(context.Background())
 
 		for i := 0; i < b.N; i++ {
-			bi.Add(context.Background(), esutil.BulkIndexerItem{Action: "foo"})
+			bi.Add(context.Background(), esutil.BulkIndexerItem{
+				Action:     "foo",
+				DocumentID: "bar",
+			})
 		}
-
-		bi.Close(context.Background())
 	})
 }
