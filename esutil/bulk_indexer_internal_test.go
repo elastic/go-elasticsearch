@@ -9,20 +9,32 @@ package esutil
 import (
 	"context"
 	"fmt"
+	"io/ioutil"
+	"net/http"
 	"strconv"
 	"strings"
 	"sync"
 	"testing"
 	"time"
+
+	"github.com/elastic/go-elasticsearch/v8"
 )
 
 // TODO(karmi): Benchmark in _examples with the Enron dataset?
 // TODO(karmi): Benchmark in _examples with the "Geopoint" and "HTTP Logs" Rally tracks.
 
+type mockTransp struct{}
+
+func (t *mockTransp) RoundTrip(req *http.Request) (*http.Response, error) {
+	return &http.Response{Body: ioutil.NopCloser(strings.NewReader(`{}`))}, nil
+}
+
 func TestBulkIndexer(t *testing.T) {
+	es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransp{}})
+
 	t.Run("Basic", func(t *testing.T) {
 		var wg sync.WaitGroup
-		bi, _ := NewBulkIndexer(BulkIndexerConfig{NumWorkers: 1, FlushBytes: 15})
+		bi, _ := NewBulkIndexer(BulkIndexerConfig{NumWorkers: 1, FlushBytes: 15, Client: es})
 		numItems := 3
 
 		for i := 1; i <= numItems; i++ {
@@ -59,12 +71,12 @@ func TestBulkIndexer(t *testing.T) {
 	})
 
 	t.Run("Add() Timeout", func(t *testing.T) {
-		bi, _ := NewBulkIndexer(BulkIndexerConfig{NumWorkers: 1})
+		bi, _ := NewBulkIndexer(BulkIndexerConfig{NumWorkers: 1, Client: es})
 		ctx, cancel := context.WithTimeout(context.Background(), time.Nanosecond)
 		defer cancel()
 		var errs []error
 		for i := 0; i < 10; i++ {
-			errs = append(errs, bi.Add(ctx, BulkIndexerItem{Action: "index", DocumentID: "timeout"}))
+			errs = append(errs, bi.Add(ctx, BulkIndexerItem{Action: "delete", DocumentID: "timeout"}))
 		}
 		if err := bi.Close(context.Background()); err != nil {
 			t.Errorf("Unexpected error: %s", err)

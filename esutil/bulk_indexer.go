@@ -9,7 +9,6 @@ import (
 	"context"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"os"
 	"runtime"
@@ -113,6 +112,8 @@ func NewBulkIndexer(cfg BulkIndexerConfig) (BulkIndexer, error) {
 	}
 
 	bi := bulkIndexer{
+		client: cfg.Client,
+
 		numWorkers: cfg.NumWorkers,
 		flushBytes: cfg.FlushBytes,
 
@@ -303,6 +304,8 @@ func (w *worker) flush() error {
 		return nil
 	}
 
+	var err error
+
 	defer func() {
 		w.items = w.items[:0]
 		w.buf.Reset()
@@ -313,11 +316,21 @@ func (w *worker) flush() error {
 
 	if os.Getenv("DEBUG") != "" {
 		fmt.Printf(">>> [worker-%03d] FLUSH BUFFER: %s\n", w.id, w.buf.String())
-	} else {
-		io.Copy(ioutil.Discard, w.buf)
 	}
 
-	var err error
+	res, err := w.bi.client.Bulk(w.buf, w.bi.client.Bulk.WithIndex("testbulk"))
+	if err != nil {
+		// TODO(karmi): Wrap error
+		return fmt.Errorf("elasticsearch: %s", err)
+	}
+	if res.Body != nil {
+		defer res.Body.Close()
+	}
+	if res.IsError() {
+		// TODO(karmi): Wrap error
+		return fmt.Errorf("elasticsearch: %s", res.String())
+	}
+
 	if err == nil {
 		for _, item := range w.items {
 			if item.OnSuccess != nil {
