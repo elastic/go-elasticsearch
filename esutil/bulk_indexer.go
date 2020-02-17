@@ -39,38 +39,6 @@ type BulkIndexer interface {
 	Stats() BulkIndexerStats
 }
 
-// BulkIndexerStats represents the indexer statistics.
-//
-type BulkIndexerStats struct {
-	NumAdded   uint
-	NumFailed  uint
-	NumIndexed uint
-	NumCreated uint
-	NumUpdated uint
-	NumDeleted uint
-}
-
-type bulkIndexer struct {
-	wg      sync.WaitGroup
-	queue   chan BulkIndexerItem
-	workers []*worker
-	stats   *bulkIndexerStats
-
-	client *elasticsearch.Client
-
-	numWorkers int
-	flushBytes int
-}
-
-type bulkIndexerStats struct {
-	numAdded   uint64
-	numFailed  uint64
-	numIndexed uint64
-	numCreated uint64
-	numUpdated uint64
-	numDeleted uint64
-}
-
 // BulkIndexerConfig represents configuration of the indexer.
 //
 type BulkIndexerConfig struct {
@@ -96,6 +64,35 @@ type BulkIndexerConfig struct {
 	WaitForActiveShards string
 }
 
+// BulkIndexerStats represents the indexer statistics.
+//
+type BulkIndexerStats struct {
+	NumAdded   uint
+	NumFailed  uint
+	NumIndexed uint
+	NumCreated uint
+	NumUpdated uint
+	NumDeleted uint
+}
+
+type bulkIndexer struct {
+	wg      sync.WaitGroup
+	queue   chan BulkIndexerItem
+	workers []*worker
+	stats   *bulkIndexerStats
+
+	config BulkIndexerConfig
+}
+
+type bulkIndexerStats struct {
+	numAdded   uint64
+	numFailed  uint64
+	numIndexed uint64
+	numCreated uint64
+	numUpdated uint64
+	numDeleted uint64
+}
+
 // NewBulkIndexer creates a new bulk indexer.
 //
 func NewBulkIndexer(cfg BulkIndexerConfig) (BulkIndexer, error) {
@@ -112,12 +109,8 @@ func NewBulkIndexer(cfg BulkIndexerConfig) (BulkIndexer, error) {
 	}
 
 	bi := bulkIndexer{
-		client: cfg.Client,
-
-		numWorkers: cfg.NumWorkers,
-		flushBytes: cfg.FlushBytes,
-
-		stats: &bulkIndexerStats{},
+		config: cfg,
+		stats:  &bulkIndexerStats{},
 	}
 
 	bi.init()
@@ -195,19 +188,19 @@ func (bi *bulkIndexer) Stats() BulkIndexerStats {
 // init initializes the bulk indexer.
 //
 func (bi *bulkIndexer) init() {
-	bi.queue = make(chan BulkIndexerItem, bi.numWorkers)
+	bi.queue = make(chan BulkIndexerItem, bi.config.NumWorkers)
 
-	for i := 1; i <= bi.numWorkers; i++ {
+	for i := 1; i <= bi.config.NumWorkers; i++ {
 		w := worker{
 			id:  i,
 			ch:  bi.queue,
 			bi:  bi,
-			buf: bytes.NewBuffer(make([]byte, 0, bi.flushBytes)),
+			buf: bytes.NewBuffer(make([]byte, 0, bi.config.FlushBytes)),
 			aux: make([]byte, 0, 512)}
 		w.run()
 		bi.workers = append(bi.workers, &w)
 	}
-	bi.wg.Add(bi.numWorkers)
+	bi.wg.Add(bi.config.NumWorkers)
 }
 
 // worker represents an indexer worker.
@@ -252,7 +245,7 @@ func (w *worker) run() {
 				continue
 			}
 
-			if w.buf.Len() >= w.bi.flushBytes {
+			if w.buf.Len() >= w.bi.config.FlushBytes {
 				w.flush()
 			}
 		}
@@ -318,7 +311,7 @@ func (w *worker) flush() error {
 		fmt.Printf(">>> [worker-%03d] FLUSH BUFFER: %s\n", w.id, w.buf.String())
 	}
 
-	res, err := w.bi.client.Bulk(w.buf, w.bi.client.Bulk.WithIndex("testbulk"))
+	res, err := w.bi.config.Client.Bulk(w.buf, w.bi.config.Client.Bulk.WithIndex(w.bi.config.Index))
 	if err != nil {
 		// TODO(karmi): Wrap error
 		return fmt.Errorf("elasticsearch: %s", err)

@@ -29,7 +29,10 @@ func TestBulkIndexerIntegration(t *testing.T) {
 		})
 
 		es.Indices.Delete([]string{indexName}, es.Indices.Delete.WithIgnoreUnavailable(true))
-		es.Indices.Create(indexName, es.Indices.Create.WithWaitForActiveShards("1"))
+		es.Indices.Create(
+			indexName,
+			es.Indices.Create.WithBody(strings.NewReader(`{"settings": {"number_of_shards": 1, "number_of_replicas": 0, "refresh_interval":"5s"}}`)),
+			es.Indices.Create.WithWaitForActiveShards("1"))
 
 		bi, _ := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
 			Index:  indexName,
