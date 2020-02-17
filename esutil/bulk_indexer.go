@@ -13,6 +13,7 @@ import (
 	"net/http"
 	"os"
 	"runtime"
+	"strconv"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -99,6 +100,10 @@ type BulkIndexerConfig struct {
 // NewBulkIndexer creates a new bulk indexer.
 //
 func NewBulkIndexer(cfg BulkIndexerConfig) (BulkIndexer, error) {
+	if cfg.Client == nil {
+		cfg.Client, _ = elasticsearch.NewDefaultClient()
+	}
+
 	if cfg.NumWorkers == 0 {
 		cfg.NumWorkers = runtime.NumCPU()
 	}
@@ -195,9 +200,8 @@ func (bi *bulkIndexer) init() {
 		w := worker{
 			id:  i,
 			ch:  bi.queue,
-			wg:  &bi.wg,
-			buf: bytes.NewBuffer(make([]byte, 0, bi.flushBytes)),
-			byt: bi.flushBytes}
+			bi:  bi,
+			buf: bytes.NewBuffer(make([]byte, 0, bi.flushBytes))}
 		w.run()
 		bi.workers = append(bi.workers, &w)
 	}
@@ -209,9 +213,8 @@ func (bi *bulkIndexer) init() {
 type worker struct {
 	id    int
 	ch    <-chan BulkIndexerItem
-	wg    *sync.WaitGroup
+	bi    *bulkIndexer
 	buf   *bytes.Buffer
-	byt   int
 	items []BulkIndexerItem
 
 	isFlushing bool
@@ -224,7 +227,7 @@ func (w *worker) run() {
 		if os.Getenv("DEBUG") != "" {
 			fmt.Printf("--> [worker-%03d] Started\n", w.id)
 		}
-		defer w.wg.Done()
+		defer w.bi.wg.Done()
 
 		for item := range w.ch {
 			if os.Getenv("DEBUG") != "" {
@@ -232,28 +235,56 @@ func (w *worker) run() {
 			}
 			w.items = append(w.items, item)
 
-			w.buf.WriteString(item.Action)
-			w.buf.WriteRune('/')
-			if item.DocumentID != "" {
-				w.buf.WriteString(item.DocumentID)
-			}
-			w.buf.WriteRune(':')
-
-			if item.Body != nil {
-				if _, err := w.buf.ReadFrom(item.Body); err != nil {
-					if item.OnFailure != nil {
-						item.OnFailure(item, nil, nil, err)
-					}
-					continue
+			if err := w.writeMeta(item); err != nil {
+				if item.OnFailure != nil {
+					item.OnFailure(item, nil, nil, err)
 				}
-				w.buf.WriteRune(',')
+				continue
 			}
 
-			if w.buf.Len() >= w.byt {
+			if err := w.writeBody(item); err != nil {
+				if item.OnFailure != nil {
+					item.OnFailure(item, nil, nil, err)
+				}
+				continue
+			}
+
+			if w.buf.Len() >= w.bi.flushBytes {
 				w.flush()
 			}
 		}
 	}()
+}
+
+// writeMeta formats and writes the item metadata to the buffer.
+//
+func (w *worker) writeMeta(item BulkIndexerItem) error {
+	// TODO(karmi): Handle errors
+	w.buf.WriteRune('{')
+	w.buf.WriteString(strconv.Quote(item.Action))
+	w.buf.WriteRune(':')
+	w.buf.WriteRune('{')
+	if item.DocumentID != "" {
+		w.buf.WriteString(`"_id":`)
+		w.buf.WriteString(strconv.Quote(item.DocumentID))
+	}
+	w.buf.WriteRune('}')
+	w.buf.WriteRune('}')
+	w.buf.WriteRune('\n')
+	return nil
+}
+
+// writeBody writes the item body to the buffer.
+//
+func (w *worker) writeBody(item BulkIndexerItem) error {
+	// TODO(karmi): Handle errors
+	if item.Body != nil {
+		if _, err := w.buf.ReadFrom(item.Body); err != nil {
+			return err
+		}
+		w.buf.WriteRune('\n')
+	}
+	return nil
 }
 
 // flush writes out the worker buffer.

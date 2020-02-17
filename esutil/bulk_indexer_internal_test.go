@@ -32,7 +32,7 @@ func TestBulkIndexer(t *testing.T) {
 				err := bi.Add(context.Background(), BulkIndexerItem{
 					Action:     "index",
 					DocumentID: strconv.Itoa(i),
-					Body:       strings.NewReader(fmt.Sprintf(`foo=%d`, i)),
+					Body:       strings.NewReader(fmt.Sprintf(`{"foo":"bar-%d"}`, i)),
 				})
 				if err != nil {
 					t.Fatalf("Unexpected error: %s", err)
