@@ -178,13 +178,13 @@ func (bi *bulkIndexer) Close(ctx context.Context) error {
 //
 func (bi *bulkIndexer) Stats() BulkIndexerStats {
 	return BulkIndexerStats{
-		NumAdded:   uint(bi.stats.numAdded),
-		NumFlushed: uint(bi.stats.numFlushed),
-		NumFailed:  uint(bi.stats.numFailed),
-		NumIndexed: uint(bi.stats.numIndexed),
-		NumCreated: uint(bi.stats.numCreated),
-		NumUpdated: uint(bi.stats.numUpdated),
-		NumDeleted: uint(bi.stats.numDeleted),
+		NumAdded:   uint(atomic.LoadUint64(&bi.stats.numAdded)),
+		NumFlushed: uint(atomic.LoadUint64(&bi.stats.numFlushed)),
+		NumFailed:  uint(atomic.LoadUint64(&bi.stats.numFailed)),
+		NumIndexed: uint(atomic.LoadUint64(&bi.stats.numIndexed)),
+		NumCreated: uint(atomic.LoadUint64(&bi.stats.numCreated)),
+		NumUpdated: uint(atomic.LoadUint64(&bi.stats.numUpdated)),
+		NumDeleted: uint(atomic.LoadUint64(&bi.stats.numDeleted)),
 	}
 }
 

@@ -34,7 +34,7 @@ func TestBulkIndexer(t *testing.T) {
 
 	t.Run("Basic", func(t *testing.T) {
 		var wg sync.WaitGroup
-		bi, _ := NewBulkIndexer(BulkIndexerConfig{NumWorkers: 1, FlushBytes: 15, Client: es})
+		bi, _ := NewBulkIndexer(BulkIndexerConfig{NumWorkers: 2, FlushBytes: 50, Client: es})
 		numItems := 3
 
 		for i := 1; i <= numItems; i++ {
