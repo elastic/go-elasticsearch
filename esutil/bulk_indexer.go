@@ -68,6 +68,7 @@ type BulkIndexerConfig struct {
 //
 type BulkIndexerStats struct {
 	NumAdded   uint
+	NumFlushed uint
 	NumFailed  uint
 	NumIndexed uint
 	NumCreated uint
@@ -86,6 +87,7 @@ type bulkIndexer struct {
 
 type bulkIndexerStats struct {
 	numAdded   uint64
+	numFlushed uint64
 	numFailed  uint64
 	numIndexed uint64
 	numCreated uint64
@@ -177,6 +179,7 @@ func (bi *bulkIndexer) Close(ctx context.Context) error {
 func (bi *bulkIndexer) Stats() BulkIndexerStats {
 	return BulkIndexerStats{
 		NumAdded:   uint(bi.stats.numAdded),
+		NumFlushed: uint(bi.stats.numFlushed),
 		NumFailed:  uint(bi.stats.numFailed),
 		NumIndexed: uint(bi.stats.numIndexed),
 		NumCreated: uint(bi.stats.numCreated),
@@ -235,6 +238,7 @@ func (w *worker) run() {
 				if item.OnFailure != nil {
 					item.OnFailure(item, nil, nil, err)
 				}
+				atomic.AddUint64(&w.bi.stats.numFailed, 1)
 				continue
 			}
 
@@ -242,6 +246,7 @@ func (w *worker) run() {
 				if item.OnFailure != nil {
 					item.OnFailure(item, nil, nil, err)
 				}
+				atomic.AddUint64(&w.bi.stats.numFailed, 1)
 				continue
 			}
 
@@ -313,6 +318,7 @@ func (w *worker) flush() error {
 
 	res, err := w.bi.config.Client.Bulk(w.buf, w.bi.config.Client.Bulk.WithIndex(w.bi.config.Index))
 	if err != nil {
+		atomic.AddUint64(&w.bi.stats.numFailed, uint64(len(w.items)))
 		// TODO(karmi): Wrap error
 		return fmt.Errorf("elasticsearch: %s", err)
 	}
@@ -320,17 +326,20 @@ func (w *worker) flush() error {
 		defer res.Body.Close()
 	}
 	if res.IsError() {
+		atomic.AddUint64(&w.bi.stats.numFailed, uint64(len(w.items)))
 		// TODO(karmi): Wrap error
 		return fmt.Errorf("elasticsearch: %s", res.String())
 	}
 
 	if err == nil {
+		atomic.AddUint64(&w.bi.stats.numFlushed, uint64(len(w.items)))
 		for _, item := range w.items {
 			if item.OnSuccess != nil {
 				item.OnSuccess(item, nil, nil)
 			}
 		}
 	} else {
+		atomic.AddUint64(&w.bi.stats.numFailed, uint64(len(w.items)))
 		for _, item := range w.items {
 			if item.OnFailure != nil {
 				item.OnFailure(item, nil, nil, fmt.Errorf("flush: %s", err))

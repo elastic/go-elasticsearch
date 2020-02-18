@@ -55,6 +55,10 @@ func TestBulkIndexerIntegration(t *testing.T) {
 			}
 		}
 
+		if err := bi.Close(context.Background()); err != nil {
+			t.Errorf("Unexpected error: %s", err)
+		}
+
 		stats := bi.Stats()
 
 		if stats.NumAdded != uint(numItems) {
@@ -65,15 +69,11 @@ func TestBulkIndexerIntegration(t *testing.T) {
 			t.Errorf("Unexpected NumFailed: %d", stats.NumFailed)
 		}
 
-		if err := bi.Close(context.Background()); err != nil {
-			t.Errorf("Unexpected error: %s", err)
-		}
-
 		fmt.Printf("  Added %d documents to indexer. Succeeded: %d. Failed: %d. Duration: %s (%.0f docs/sec)\n",
 			stats.NumAdded,
-			stats.NumAdded-stats.NumFailed,
+			stats.NumFlushed,
 			stats.NumFailed,
 			time.Since(start).Truncate(time.Millisecond),
-			1000.0/float64(time.Since(start)/time.Millisecond)*float64(stats.NumAdded-stats.NumFailed))
+			1000.0/float64(time.Since(start)/time.Millisecond)*float64(stats.NumFlushed))
 	})
 }
