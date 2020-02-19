@@ -9,7 +9,7 @@
 //
 // You can configure the number of documents and the batch size with command line flags:
 //
-//     go run bulk.go -count=10000 -batch=2500
+//     go run default.go -count=10000 -batch=2500
 //
 // The example intentionally doesn't use any abstractions or helper functions, to
 // demonstrate the low-level mechanics of working with the Bulk API: preparing
