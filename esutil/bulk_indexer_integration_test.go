@@ -12,6 +12,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"sync/atomic"
 	"testing"
 	"time"
 
@@ -22,6 +23,7 @@ import (
 
 func TestBulkIndexerIntegration(t *testing.T) {
 	t.Run("Default", func(t *testing.T) {
+		var countSuccessful uint64
 		indexName := "test-bulk-integration"
 
 		es, _ := elasticsearch.NewClient(elasticsearch.Config{
@@ -49,6 +51,9 @@ func TestBulkIndexerIntegration(t *testing.T) {
 				Action:     "index",
 				DocumentID: strconv.Itoa(i),
 				Body:       strings.NewReader(body),
+				OnSuccess: func(item esutil.BulkIndexerItem, res esutil.BulkIndexerResponseItem) {
+					atomic.AddUint64(&countSuccessful, 1)
+				},
 			})
 			if err != nil {
 				t.Fatalf("Unexpected error: %s", err)
@@ -67,6 +72,10 @@ func TestBulkIndexerIntegration(t *testing.T) {
 
 		if stats.NumFailed != 0 {
 			t.Errorf("Unexpected NumFailed: %d", stats.NumFailed)
+		}
+
+		if countSuccessful != uint64(numItems) {
+			t.Errorf("Unexpected countSuccessful: %d", countSuccessful)
 		}
 
 		fmt.Printf("  Added %d documents to indexer. Succeeded: %d. Failed: %d. Duration: %s (%.0f docs/sec)\n",

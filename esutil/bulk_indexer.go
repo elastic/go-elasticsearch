@@ -7,6 +7,7 @@ package esutil
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -20,7 +21,7 @@ import (
 	"github.com/elastic/go-elasticsearch/v8"
 )
 
-// BulkIndexer represents a parallel, asynchronous, bulk indexer.
+// BulkIndexer represents a parallel, asynchronous, efficient indexer for Elasticsearch.
 //
 type BulkIndexer interface {
 	// Add adds an item to the indexer. It returns an error when the item cannot be added.
@@ -76,6 +77,56 @@ type BulkIndexerStats struct {
 	NumDeleted uint
 }
 
+// BulkIndexerItem represents an indexer item.
+//
+type BulkIndexerItem struct {
+	Index           string
+	Action          string
+	DocumentID      string
+	Body            io.Reader
+	RetryOnConflict *int
+
+	Metadata interface{} // To use eg. in OnSuccess/OnFailure callbacks
+
+	OnSuccess func(item BulkIndexerItem, res BulkIndexerResponseItem)            // Per item
+	OnFailure func(item BulkIndexerItem, res BulkIndexerResponseItem, err error) // Per item
+}
+
+// BulkIndexerResponse represents the Elasticsearch response.
+//
+type BulkIndexerResponse struct {
+	Took      int                                  `json:"took"`
+	HasErrors bool                                 `json:"errors"`
+	Items     []map[string]BulkIndexerResponseItem `json:"items,omitempty"`
+}
+
+// BulkIndexerResponseItem represents the Elasticsearch response item.
+//
+type BulkIndexerResponseItem struct {
+	Index      string `json:"_index"`
+	DocumentID string `json:"_id"`
+	Version    int64  `json:"_version,omitempty"`
+	Result     string `json:"result,omitempty"`
+	Status     int    `json:"status,omitempty"`
+	SeqNo      int64  `json:"_seq_no,omitempty"`
+	PrimTerm   int64  `json:"_primary_term,omitempty"`
+
+	Shards struct {
+		Total      int `json:"total,omitempty"`
+		Successful int `json:"successful,omitempty"`
+		Failed     int `json:"failed,omitempty"`
+	} `json:"_shards,omitempty"`
+
+	Error struct {
+		Type   string `json:"type"`
+		Reason string `json:"reason"`
+		Cause  struct {
+			Type   string `json:"type"`
+			Reason string `json:"reason"`
+		} `json:"caused_by"`
+	} `json:"error,omitempty"`
+}
+
 type bulkIndexer struct {
 	wg      sync.WaitGroup
 	queue   chan BulkIndexerItem
@@ -120,21 +171,6 @@ func NewBulkIndexer(cfg BulkIndexerConfig) (BulkIndexer, error) {
 	return &bi, nil
 }
 
-// BulkIndexerItem represents an indexer item.
-//
-type BulkIndexerItem struct {
-	Index           string
-	Action          string
-	DocumentID      string
-	Body            io.Reader
-	RetryOnConflict *int
-
-	Metadata interface{} // To use eg. in OnSuccess/OnFailure callbacks
-
-	OnSuccess func(item BulkIndexerItem, req interface{}, res interface{})            // Per item
-	OnFailure func(item BulkIndexerItem, req interface{}, res interface{}, err error) // Per item
-}
-
 // Add adds an item to the indexer.
 //
 func (bi *bulkIndexer) Add(ctx context.Context, item BulkIndexerItem) error {
@@ -166,7 +202,8 @@ func (bi *bulkIndexer) Close(ctx context.Context) error {
 	for _, w := range bi.workers {
 		if w.buf.Len() > 0 {
 			if err := w.flush(); err != nil {
-				return fmt.Errorf("flush: %s", err)
+				// TODO(karmi): Wrap error
+				return fmt.Errorf("%s", err)
 			}
 		}
 	}
@@ -232,11 +269,10 @@ func (w *worker) run() {
 			if os.Getenv("DEBUG") != "" {
 				fmt.Printf(">>> [worker-%03d] Got %s:%s\n", w.id, item.Action, item.DocumentID)
 			}
-			w.items = append(w.items, item)
 
 			if err := w.writeMeta(item); err != nil {
 				if item.OnFailure != nil {
-					item.OnFailure(item, nil, nil, err)
+					item.OnFailure(item, BulkIndexerResponseItem{}, err)
 				}
 				atomic.AddUint64(&w.bi.stats.numFailed, 1)
 				continue
@@ -244,12 +280,13 @@ func (w *worker) run() {
 
 			if err := w.writeBody(item); err != nil {
 				if item.OnFailure != nil {
-					item.OnFailure(item, nil, nil, err)
+					item.OnFailure(item, BulkIndexerResponseItem{}, err)
 				}
 				atomic.AddUint64(&w.bi.stats.numFailed, 1)
 				continue
 			}
 
+			w.items = append(w.items, item)
 			if w.buf.Len() >= w.bi.config.FlushBytes {
 				w.flush()
 			}
@@ -302,7 +339,10 @@ func (w *worker) flush() error {
 		return nil
 	}
 
-	var err error
+	var (
+		err error
+		blk BulkIndexerResponse
+	)
 
 	defer func() {
 		w.items = w.items[:0]
@@ -320,29 +360,42 @@ func (w *worker) flush() error {
 	if err != nil {
 		atomic.AddUint64(&w.bi.stats.numFailed, uint64(len(w.items)))
 		// TODO(karmi): Wrap error
-		return fmt.Errorf("elasticsearch: %s", err)
+		return fmt.Errorf("flush: %s", err)
 	}
 	if res.Body != nil {
 		defer res.Body.Close()
 	}
 	if res.IsError() {
 		atomic.AddUint64(&w.bi.stats.numFailed, uint64(len(w.items)))
-		// TODO(karmi): Wrap error
-		return fmt.Errorf("elasticsearch: %s", res.String())
+		// TODO(karmi): Wrap error (include response struct)
+		return fmt.Errorf("flush: %s", res.String())
 	}
 
-	if err == nil {
-		atomic.AddUint64(&w.bi.stats.numFlushed, uint64(len(w.items)))
-		for _, item := range w.items {
-			if item.OnSuccess != nil {
-				item.OnSuccess(item, nil, nil)
-			}
+	// TODO(karmi): Investigate more efficient JSON implementations
+	if err := json.NewDecoder(res.Body).Decode(&blk); err != nil {
+		// TODO(karmi): Wrap error (include response struct)
+		return fmt.Errorf("flush: error parsing response body: %s", err)
+	}
+
+	for i, blkItem := range blk.Items {
+		var (
+			item BulkIndexerItem
+			info BulkIndexerResponseItem
+		)
+
+		item = w.items[i]
+		for _, v := range blkItem {
+			info = v
 		}
-	} else {
-		atomic.AddUint64(&w.bi.stats.numFailed, uint64(len(w.items)))
-		for _, item := range w.items {
+		if info.Error.Type != "" || info.Status > 201 {
+			atomic.AddUint64(&w.bi.stats.numFailed, 1)
 			if item.OnFailure != nil {
-				item.OnFailure(item, nil, nil, fmt.Errorf("flush: %s", err))
+				item.OnFailure(item, info, nil)
+			}
+		} else {
+			atomic.AddUint64(&w.bi.stats.numFlushed, 1)
+			if item.OnSuccess != nil {
+				item.OnSuccess(item, info)
 			}
 		}
 	}

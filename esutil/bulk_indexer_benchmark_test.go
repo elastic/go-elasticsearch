@@ -19,10 +19,29 @@ import (
 	"github.com/elastic/go-elasticsearch/v8/esutil"
 )
 
+var mockResponseBody = `{
+  "took": 30,
+  "errors": false,
+  "items": [
+    {
+      "index": {
+        "_index": "test",
+        "_id": "1",
+        "_version": 1,
+        "result": "created",
+        "_shards": { "total": 2, "successful": 1, "failed": 0 },
+        "status": 201,
+        "_seq_no": 0,
+        "_primary_term": 1
+      }
+    }
+  ]
+}`
+
 type mockTransp struct{}
 
 func (t *mockTransp) RoundTrip(req *http.Request) (*http.Response, error) {
-	return &http.Response{Body: ioutil.NopCloser(strings.NewReader(`{}`))}, nil
+	return &http.Response{Body: ioutil.NopCloser(strings.NewReader(mockResponseBody))}, nil // 1x alloc
 }
 
 func BenchmarkBulkIndexer(b *testing.B) {
@@ -47,8 +66,8 @@ func BenchmarkBulkIndexer(b *testing.B) {
 			docIDBuf.Write(docID)
 			bi.Add(context.Background(), esutil.BulkIndexerItem{
 				Action:     "index",
-				DocumentID: docIDBuf.String(),       // 1x alloc
-				Body:       strings.NewReader(`{}`), // 1x alloc
+				DocumentID: docIDBuf.String(),                  // 1x alloc
+				Body:       strings.NewReader(`{"foo":"bar"}`), // 1x alloc
 			})
 			docID = docID[:0]
 			docIDBuf.Reset()
