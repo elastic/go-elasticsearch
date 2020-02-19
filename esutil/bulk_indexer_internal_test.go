@@ -9,7 +9,9 @@ package esutil
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"net/http"
 	"reflect"
@@ -36,6 +38,12 @@ func (t *mockTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 		return defaultRoundTripFunc(req)
 	}
 	return t.RoundTripFunc(req)
+}
+
+type customJSONDecoder struct{}
+
+func (d customJSONDecoder) UnmarshalFromReader(r io.Reader, blk *BulkIndexerResponse) error {
+	return json.NewDecoder(r).Decode(blk)
 }
 
 func TestBulkIndexer(t *testing.T) {
@@ -198,6 +206,31 @@ func TestBulkIndexer(t *testing.T) {
 
 		if !reflect.DeepEqual(failedIDs, []string{"1", "2"}) {
 			t.Errorf("Unexpected failedIDs: %#v", failedIDs)
+		}
+	})
+
+	t.Run("Custom JSON Decoder", func(t *testing.T) {
+
+		es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{}})
+		bi, _ := NewBulkIndexer(BulkIndexerConfig{Client: es, Decoder: customJSONDecoder{}})
+
+		err := bi.Add(context.Background(), BulkIndexerItem{
+			Action:     "index",
+			DocumentID: "1",
+			Body:       strings.NewReader(`{"title":"foo"}`),
+		})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		if err := bi.Close(context.Background()); err != nil {
+			t.Errorf("Unexpected error: %s", err)
+		}
+
+		stats := bi.Stats()
+
+		if stats.NumAdded != uint(1) {
+			t.Errorf("Unexpected NumAdded: %d", stats.NumAdded)
 		}
 	})
 }

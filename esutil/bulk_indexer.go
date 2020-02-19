@@ -46,7 +46,8 @@ type BulkIndexerConfig struct {
 	NumWorkers int // The number of workers. Defaults to runtime.NumCPU().
 	FlushBytes int // The flush threshold in bytes. Defaults to 5MB.
 
-	Client *elasticsearch.Client // The Elasticsearch client.
+	Client  *elasticsearch.Client   // The Elasticsearch client.
+	Decoder BulkResponseJSONDecoder // A custom JSON decoder.
 
 	// Parameters of the Bulk API.
 	Index               string
@@ -127,6 +128,12 @@ type BulkIndexerResponseItem struct {
 	} `json:"error,omitempty"`
 }
 
+// BulkResponseJSONDecoder defines the interface for custom JSON decoders.
+//
+type BulkResponseJSONDecoder interface {
+	UnmarshalFromReader(io.Reader, *BulkIndexerResponse) error
+}
+
 type bulkIndexer struct {
 	wg      sync.WaitGroup
 	queue   chan BulkIndexerItem
@@ -151,6 +158,10 @@ type bulkIndexerStats struct {
 func NewBulkIndexer(cfg BulkIndexerConfig) (BulkIndexer, error) {
 	if cfg.Client == nil {
 		cfg.Client, _ = elasticsearch.NewDefaultClient()
+	}
+
+	if cfg.Decoder == nil {
+		cfg.Decoder = defaultJSONDecoder{}
 	}
 
 	if cfg.NumWorkers == 0 {
@@ -371,8 +382,7 @@ func (w *worker) flush() error {
 		return fmt.Errorf("flush: %s", res.String())
 	}
 
-	// TODO(karmi): Investigate more efficient JSON implementations
-	if err := json.NewDecoder(res.Body).Decode(&blk); err != nil {
+	if err := w.bi.config.Decoder.UnmarshalFromReader(res.Body, &blk); err != nil {
 		// TODO(karmi): Wrap error (include response struct)
 		return fmt.Errorf("flush: error parsing response body: %s", err)
 	}
@@ -401,4 +411,10 @@ func (w *worker) flush() error {
 	}
 
 	return err
+}
+
+type defaultJSONDecoder struct{}
+
+func (d defaultJSONDecoder) UnmarshalFromReader(r io.Reader, blk *BulkIndexerResponse) error {
+	return json.NewDecoder(r).Decode(blk)
 }
