@@ -13,7 +13,9 @@
 package main
 
 import (
+	"bytes"
 	"context"
+	"encoding/json"
 	"flag"
 	"fmt"
 	"io"
@@ -22,7 +24,6 @@ import (
 	"net/http"
 	"os"
 	"runtime"
-	"strconv"
 	"strings"
 	"sync/atomic"
 	"time"
@@ -74,18 +75,52 @@ func main() {
 	if debug {
 		cfg.Logger = &estransport.ColorLogger{Output: os.Stdout, EnableRequestBody: true, EnableResponseBody: true}
 	}
-
 	es, _ := elasticsearch.NewClient(cfg)
+
+	fm, err := os.Open("testdata/mapping.json")
+	if err != nil {
+		log.Fatalf("Error reading mapping file: %s", err)
+	}
+	var mappingEnvelope map[string]interface{}
+	json.NewDecoder(fm).Decode(&mappingEnvelope)
+	mapping, err := json.Marshal(mappingEnvelope["mappings"])
+	if err != nil {
+		log.Fatalf("Error encoding mapping: %s", err)
+	}
 
 	indexSettings.WriteString(`{ "settings": `)
 	fmt.Fprintf(&indexSettings, `{"number_of_shards": %d, "number_of_replicas": %d, "refresh_interval":"5s"}`, numShards, numReplicas)
-	indexSettings.WriteString(`, "mappings": `)
-	indexSettings.WriteString(`{"properties": { "body": { "type":"text" }}}`)
+	indexSettings.WriteString(`, "mappings":`)
+	indexSettings.Write(mapping)
 	indexSettings.WriteString(`}`)
 
 	log.Printf(
 		"Indexer: [%d] shards [%d] replicas [%d] workers [%s] flush threshold",
 		numShards, numReplicas, numWorkers, humanize.Bytes(uint64(flushBytes)))
+
+	f, err := os.Open("testdata/document.json")
+	if err != nil {
+		log.Fatalf("Error reading test document file: %s", err)
+	}
+	var m map[string]interface{}
+	json.NewDecoder(f).Decode(&m)
+	doc, err := json.Marshal(m)
+	if err != nil {
+		log.Fatalf("Error encoding test document: %s", err)
+	}
+
+	es.Indices.Delete([]string{indexName}, es.Indices.Delete.WithIgnoreUnavailable(true))
+	res, err := es.Indices.Create(
+		indexName,
+		es.Indices.Create.WithBody(strings.NewReader(indexSettings.String())),
+		es.Indices.Create.WithWaitForActiveShards("1"))
+	if err != nil {
+		log.Fatalf("Error creating index: %s", err)
+	}
+	res.Body.Close()
+	if res.IsError() {
+		log.Fatalf("Error creating index: %s", res.String())
+	}
 
 	for n := 1; n <= numRuns; n++ {
 		bi, _ := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
@@ -96,27 +131,11 @@ func main() {
 			FlushBytes: int(flushBytes),
 		})
 
-		es.Indices.Delete([]string{indexName}, es.Indices.Delete.WithIgnoreUnavailable(true))
-		res, err := es.Indices.Create(
-			indexName,
-			es.Indices.Create.WithBody(strings.NewReader(indexSettings.String())),
-			es.Indices.Create.WithWaitForActiveShards("1"))
-		if err != nil {
-			log.Fatalf("Error creating index: %s", err)
-		}
-		res.Body.Close()
-		if res.IsError() {
-			log.Fatalf("Error creating index: %s", res.String())
-		}
-
-		body := `{"body":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."}`
 		start := time.Now().UTC()
-
 		for i := 1; i <= numItems; i++ {
 			err := bi.Add(context.Background(), esutil.BulkIndexerItem{
-				Action:     "index",
-				DocumentID: strconv.Itoa(i),
-				Body:       strings.NewReader(body),
+				Action: "index",
+				Body:   bytes.NewReader(doc),
 				OnSuccess: func(item esutil.BulkIndexerItem, res esutil.BulkIndexerResponseItem) {
 					atomic.AddUint64(&countSuccessful, 1)
 				},
