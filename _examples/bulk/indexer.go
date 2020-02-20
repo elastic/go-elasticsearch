@@ -8,7 +8,7 @@
 //
 // You can configure the settings with command line flags:
 //
-//     go run indexer.go --runs=10 --count=1000000 --shards=3 --replicas=1
+//     go run indexer.go --dataset=httplog --runs=10 --count=1000000 --shards=3 --replicas=1 --flush=1000000
 
 package main
 
@@ -23,6 +23,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"path/filepath"
 	"runtime"
 	"strings"
 	"sync/atomic"
@@ -40,24 +41,26 @@ import (
 )
 
 var (
+	indexName   string
+	datasetName string
 	numWorkers  int
 	flushBytes  int
 	numRuns     int
 	numItems    int
 	numShards   int
 	numReplicas int
-	indexName   string
 	debug       bool
 )
 
 func init() {
+	flag.StringVar(&indexName, "index", "test-bulk-example", "Index name")
+	flag.StringVar(&datasetName, "dataset", "small", "Dataset to use for indexing")
 	flag.IntVar(&numWorkers, "workers", runtime.NumCPU(), "Number of indexer workers")
 	flag.IntVar(&flushBytes, "flush", 5e+6, "Flush threshold in bytes")
-	flag.IntVar(&numItems, "count", 1000000, "Number of documents to generate")
 	flag.IntVar(&numRuns, "runs", 10, "Number of runs")
+	flag.IntVar(&numItems, "count", 1000000, "Number of documents to generate")
 	flag.IntVar(&numShards, "shards", 3, "Number of index shards")
 	flag.IntVar(&numReplicas, "replicas", 0, "Number of index replicas")
-	flag.StringVar(&indexName, "index", "test-bulk-example", "Index name")
 	flag.BoolVar(&debug, "debug", false, "Enable logging output")
 	flag.Parse()
 }
@@ -68,6 +71,7 @@ func main() {
 	var (
 		countSuccessful uint64
 		indexSettings   strings.Builder
+		indexName       = indexName + "-" + datasetName
 	)
 
 	cfg := elasticsearch.Config{}
@@ -77,7 +81,7 @@ func main() {
 	}
 	es, _ := elasticsearch.NewClient(cfg)
 
-	fm, err := os.Open("testdata/mapping.json")
+	fm, err := os.Open(filepath.Join("data", datasetName, "mapping.json"))
 	if err != nil {
 		log.Fatalf("Error reading mapping file: %s", err)
 	}
@@ -95,10 +99,10 @@ func main() {
 	indexSettings.WriteString(`}`)
 
 	log.Printf(
-		"Indexer: [%d] shards [%d] replicas [%d] workers [%s] flush threshold",
-		numShards, numReplicas, numWorkers, humanize.Bytes(uint64(flushBytes)))
+		"%s: [%d] shards [%d] replicas [%d] workers [%s] flush threshold",
+		datasetName, numShards, numReplicas, numWorkers, humanize.Bytes(uint64(flushBytes)))
 
-	f, err := os.Open("testdata/document.json")
+	f, err := os.Open(filepath.Join("data", datasetName, "document.json"))
 	if err != nil {
 		log.Fatalf("Error reading test document file: %s", err)
 	}

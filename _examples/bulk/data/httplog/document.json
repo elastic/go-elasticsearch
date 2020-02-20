@@ -33,7 +33,7 @@
         "com_docker_compose_service": "nginx",
         "com_docker_compose_container-number": "1",
         "com_docker_compose_version": "1.25.4",
-        "com_docker_compose_project_working_dir": "/Users/eskarmi/Work/Elasticsearch/Talks/Elastic-Meetup-2020-01/elastic-stack-demo",
+        "com_docker_compose_project_working_dir": "/.../elastic-stack-demo",
         "maintainer": "NGINX Docker Maintainers <docker-maint@nginx.com>"
       }
     }
