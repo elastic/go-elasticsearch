@@ -1,3 +1,5 @@
+SHELL := /bin/bash
+
 ##@ Test
 test-unit:  ## Run unit tests
 	@printf "\033[2m→ Running unit tests...\033[0m\n"
