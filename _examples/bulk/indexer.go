@@ -25,6 +25,7 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
+	"sort"
 	"strings"
 	"sync/atomic"
 	"time"
@@ -71,6 +72,7 @@ func main() {
 	var (
 		countSuccessful uint64
 		indexSettings   strings.Builder
+		throughputs     []int64
 		indexName       = indexName + "-" + datasetName
 	)
 
@@ -126,6 +128,7 @@ func main() {
 		log.Fatalf("Error creating index: %s", res.String())
 	}
 
+	// TODO(karmi): Run warmup before measuring
 	for n := 1; n <= numRuns; n++ {
 		bi, _ := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
 			Index:      indexName,
@@ -154,6 +157,8 @@ func main() {
 		}
 
 		stats := bi.Stats()
+		thru := int64(1000.0 / float64(time.Since(start)/time.Millisecond) * float64(stats.NumFlushed))
+		throughputs = append(throughputs, thru)
 
 		if stats.NumAdded != uint(numItems) {
 			log.Fatalf("Unexpected NumAdded: %d", stats.NumAdded)
@@ -167,14 +172,25 @@ func main() {
 			log.Fatalf("Unexpected countSuccessful: %d", countSuccessful)
 		}
 
-		log.Printf("%4d) added=%s flushed=%s failed=%s duration=%s throughput=%s docs/sec\n",
+		log.Printf("%4d) added=%s flushed=%s failed=%s duration=%-5s throughput=%s docs/sec\n",
 			n,
 			humanize.Comma(int64(stats.NumAdded)),
 			humanize.Comma(int64(stats.NumFlushed)),
 			humanize.Comma(int64(stats.NumFailed)),
-			time.Since(start).Truncate(time.Millisecond),
-			humanize.Comma(int64(1000.0/float64(time.Since(start)/time.Millisecond)*float64(stats.NumFlushed))))
+			time.Since(start).Truncate(10*time.Millisecond),
+			humanize.Comma(thru))
 	}
+
+	// TODO(karmi): Use percentiles
+	sorted := append(make([]int64, 0), throughputs...)
+	sort.Slice(sorted, func(i, j int) bool { return sorted[i] < sorted[j] })
+
+	log.Printf(
+		"docs/sec: min: %s, max: %s, mean: %s",
+		humanize.Comma(sorted[0]),
+		humanize.Comma(sorted[(len(sorted)-1)]),
+		humanize.Comma(sorted[(len(sorted)-1)/2]),
+	)
 }
 
 // easyjsonDecoder implements a JSON decoder for the indexer
