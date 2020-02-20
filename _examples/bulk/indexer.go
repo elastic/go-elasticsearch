@@ -4,15 +4,24 @@
 
 // +build ignore
 
+// This example demonstrates indexing documents using the esutil.BulkIndexer helper.
+//
+// You can configure the settings with command line flags:
+//
+//     go run indexer.go --runs=10 --count=1000000 --shards=3 --replicas=1
+
 package main
 
 import (
 	"context"
+	"flag"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
+	"runtime"
 	"strconv"
 	"strings"
 	"sync/atomic"
@@ -30,47 +39,75 @@ import (
 )
 
 var (
-	numRuns  = 5
-	numItems = 100000
+	numWorkers  int
+	flushBytes  int
+	numRuns     int
+	numItems    int
+	numShards   int
+	numReplicas int
+	indexName   string
+	debug       bool
 )
 
 func init() {
-	if os.Getenv("RUNS") != "" {
-		numRuns, _ = strconv.Atoi(os.Getenv("RUNS"))
-	}
-	if os.Getenv("COUNT") != "" {
-		numItems, _ = strconv.Atoi(os.Getenv("COUNT"))
-	}
+	flag.IntVar(&numWorkers, "workers", runtime.NumCPU(), "Number of indexer workers")
+	flag.IntVar(&flushBytes, "flush", 5e+6, "Flush threshold in bytes")
+	flag.IntVar(&numItems, "count", 1000000, "Number of documents to generate")
+	flag.IntVar(&numRuns, "runs", 10, "Number of runs")
+	flag.IntVar(&numShards, "shards", 3, "Number of index shards")
+	flag.IntVar(&numReplicas, "replicas", 0, "Number of index replicas")
+	flag.StringVar(&indexName, "index", "test-bulk-example", "Index name")
+	flag.BoolVar(&debug, "debug", false, "Enable logging output")
+	flag.Parse()
 }
 
 func main() {
 	log.SetFlags(0)
 
-	var countSuccessful uint64
-	indexName := "test-bulk-integration"
+	var (
+		countSuccessful uint64
+		indexSettings   strings.Builder
+	)
 
 	cfg := elasticsearch.Config{}
 	cfg.Transport = &fasthttpTransport{}
-	if os.Getenv("DEBUG") != "" {
-		cfg.Logger = &estransport.ColorLogger{Output: os.Stdout}
+	if debug {
+		cfg.Logger = &estransport.ColorLogger{Output: os.Stdout, EnableRequestBody: true, EnableResponseBody: true}
 	}
 
 	es, _ := elasticsearch.NewClient(cfg)
+
+	indexSettings.WriteString(`{ "settings": `)
+	fmt.Fprintf(&indexSettings, `{"number_of_shards": %d, "number_of_replicas": %d, "refresh_interval":"5s"}`, numShards, numReplicas)
+	indexSettings.WriteString(`, "mappings": `)
+	indexSettings.WriteString(`{"properties": { "body": { "type":"text" }}}`)
+	indexSettings.WriteString(`}`)
+
+	log.Printf(
+		"Indexer: [%d] shards [%d] replicas [%d] workers [%s] flush threshold",
+		numShards, numReplicas, numWorkers, humanize.Bytes(uint64(flushBytes)))
 
 	for n := 1; n <= numRuns; n++ {
 		bi, _ := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
 			Index:      indexName,
 			Client:     es,
 			Decoder:    easyjsonDecoder{},
-			NumWorkers: 8,
-			FlushBytes: 1e+6,
+			NumWorkers: numWorkers,
+			FlushBytes: int(flushBytes),
 		})
 
 		es.Indices.Delete([]string{indexName}, es.Indices.Delete.WithIgnoreUnavailable(true))
-		es.Indices.Create(
+		res, err := es.Indices.Create(
 			indexName,
-			es.Indices.Create.WithBody(strings.NewReader(`{"settings": {"number_of_shards": 3, "number_of_replicas": 0, "refresh_interval":"5s"}}`)),
+			es.Indices.Create.WithBody(strings.NewReader(indexSettings.String())),
 			es.Indices.Create.WithWaitForActiveShards("1"))
+		if err != nil {
+			log.Fatalf("Error creating index: %s", err)
+		}
+		res.Body.Close()
+		if res.IsError() {
+			log.Fatalf("Error creating index: %s", res.String())
+		}
 
 		body := `{"body":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."}`
 		start := time.Now().UTC()
@@ -117,6 +154,10 @@ func main() {
 	}
 }
 
+// easyjsonDecoder implements a JSON decoder for the indexer
+// via the "github.com/mailru/easyjson" package.
+// See _examples/encoding for a demo.
+
 type easyjsonDecoder struct{}
 
 func (d easyjsonDecoder) UnmarshalFromReader(r io.Reader, blk *esutil.BulkIndexerResponse) error {
@@ -130,6 +171,10 @@ func (d easyjsonDecoder) UnmarshalFromReader(r io.Reader, blk *esutil.BulkIndexe
 
 	return nil
 }
+
+// fasthttpTransport implements HTTP transport for the Elasticsearch client
+// via the "github.com/valyala/fasthttp" package.
+// See _examples/fasthttp for a demo.
 
 type fasthttpTransport struct{}
 
