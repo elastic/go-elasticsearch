@@ -21,8 +21,10 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
+	"math"
 	"net/http"
 	"os"
+	"os/signal"
 	"path/filepath"
 	"runtime"
 	"strings"
@@ -133,6 +135,55 @@ func main() {
 		log.Fatalf("Error creating index: %s", res.String())
 	}
 
+	done := make(chan os.Signal)
+	signal.Notify(done, os.Interrupt)
+
+	report := func() {
+		throughput = map[string]float64{
+			"min": func() float64 { v, _ := stats.Min(samples); return v }(),
+			"max": func() float64 { v, _ := stats.Max(samples); return v }(),
+			"mdn": func() float64 { v, _ := stats.Median(samples); return v }(),
+			"p25": func() float64 { v, _ := stats.Percentile(samples, 25); return v }(),
+			"p50": func() float64 { v, _ := stats.Percentile(samples, 50); return v }(),
+			"p75": func() float64 { v, _ := stats.Percentile(samples, 75); return v }(),
+			"p95": func() float64 { v, _ := stats.Percentile(samples, 95); return v }(),
+		}
+
+		log.Println(strings.Repeat("▁", 85))
+		log.Printf(
+			"docs/sec: min [%s] max [%s] mean [%s]",
+			humanize.Comma(int64(throughput["min"])),
+			humanize.Comma(int64(throughput["max"])),
+			humanize.Comma(int64(throughput["mdn"])),
+		)
+
+		ratio := 50.0 / throughput["max"]
+
+		if !math.IsNaN(throughput["p25"]) {
+			fmt.Println("25%",
+				strings.Repeat("▆", int(throughput["p25"]*ratio)),
+				humanize.Comma(int64(throughput["p25"])), "docs/sec")
+		}
+		if !math.IsNaN(throughput["p50"]) {
+			fmt.Println("50%",
+				strings.Repeat("▆", int(throughput["p50"]*ratio)),
+				humanize.Comma(int64(throughput["p50"])), "docs/sec")
+		}
+		if !math.IsNaN(throughput["p75"]) {
+			fmt.Println("75%",
+				strings.Repeat("▆", int(throughput["p75"]*ratio)),
+				humanize.Comma(int64(throughput["p75"])), "docs/sec")
+		}
+		if !math.IsNaN(throughput["p95"]) {
+			fmt.Println("95%",
+				strings.Repeat("▆", int(throughput["p95"]*ratio)),
+				humanize.Comma(int64(throughput["p95"])), "docs/sec")
+		}
+	}
+
+	go func() { <-done; fmt.Print("\n"); report(); os.Exit(0) }()
+	defer report()
+
 	// TODO(karmi): Run warmup before measuring
 	for n := 1; n <= numRuns; n++ {
 		bi, _ := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
@@ -188,39 +239,6 @@ func main() {
 
 		time.Sleep(wait)
 	}
-
-	throughput = map[string]float64{
-		"min": func() float64 { v, _ := stats.Min(samples); return v }(),
-		"max": func() float64 { v, _ := stats.Max(samples); return v }(),
-		"mdn": func() float64 { v, _ := stats.Median(samples); return v }(),
-		"p25": func() float64 { v, _ := stats.Percentile(samples, 25); return v }(),
-		"p50": func() float64 { v, _ := stats.Percentile(samples, 50); return v }(),
-		"p75": func() float64 { v, _ := stats.Percentile(samples, 75); return v }(),
-		"p95": func() float64 { v, _ := stats.Percentile(samples, 95); return v }(),
-	}
-
-	log.Println(strings.Repeat("▁", 85))
-	log.Printf(
-		"docs/sec: min [%s] max [%s] mean [%s]",
-		humanize.Comma(int64(throughput["min"])),
-		humanize.Comma(int64(throughput["max"])),
-		humanize.Comma(int64(throughput["mdn"])),
-	)
-
-	ratio := 50.0 / throughput["max"]
-
-	fmt.Println("25%",
-		strings.Repeat("▆", int(throughput["p25"]*ratio)),
-		humanize.Comma(int64(throughput["p25"])), "docs/sec")
-	fmt.Println("50%",
-		strings.Repeat("▆", int(throughput["p50"]*ratio)),
-		humanize.Comma(int64(throughput["p50"])), "docs/sec")
-	fmt.Println("75%",
-		strings.Repeat("▆", int(throughput["p75"]*ratio)),
-		humanize.Comma(int64(throughput["p75"])), "docs/sec")
-	fmt.Println("95%",
-		strings.Repeat("▆", int(throughput["p95"]*ratio)),
-		humanize.Comma(int64(throughput["p95"])), "docs/sec")
 }
 
 // easyjsonDecoder implements a JSON decoder for the indexer
