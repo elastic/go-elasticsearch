@@ -25,10 +25,11 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
-	"sort"
 	"strings"
 	"sync/atomic"
 	"time"
+
+	"github.com/montanaflynn/stats"
 
 	"github.com/dustin/go-humanize"
 	"github.com/mailru/easyjson"
@@ -71,8 +72,9 @@ func main() {
 
 	var (
 		countSuccessful uint64
+		samples         []float64
+		throughput      map[string]float64
 		indexSettings   strings.Builder
-		throughputs     []int64
 		indexName       = indexName + "-" + datasetName
 	)
 
@@ -103,6 +105,7 @@ func main() {
 	log.Printf(
 		"%s: [%d] shards [%d] replicas [%d] workers [%s] flush threshold",
 		datasetName, numShards, numReplicas, numWorkers, humanize.Bytes(uint64(flushBytes)))
+	log.Println(strings.Repeat("▔", 85))
 
 	f, err := os.Open(filepath.Join("data", datasetName, "document.json"))
 	if err != nil {
@@ -156,41 +159,64 @@ func main() {
 			log.Fatalf("Unexpected error: %s", err)
 		}
 
-		stats := bi.Stats()
-		thru := int64(1000.0 / float64(time.Since(start)/time.Millisecond) * float64(stats.NumFlushed))
-		throughputs = append(throughputs, thru)
+		biStats := bi.Stats()
 
-		if stats.NumAdded != uint(numItems) {
-			log.Fatalf("Unexpected NumAdded: %d", stats.NumAdded)
+		sample := 1000.0 / float64(time.Since(start)/time.Millisecond) * float64(biStats.NumFlushed)
+		samples = append(samples, sample)
+
+		if biStats.NumAdded != uint(numItems) {
+			log.Fatalf("Unexpected NumAdded: %d", biStats.NumAdded)
 		}
 
-		if stats.NumFailed != 0 {
-			log.Fatalf("Unexpected NumFailed: %d", stats.NumFailed)
+		if biStats.NumFailed != 0 {
+			log.Fatalf("Unexpected NumFailed: %d", biStats.NumFailed)
 		}
 
 		if countSuccessful != uint64(n*numItems) {
 			log.Fatalf("Unexpected countSuccessful: %d", countSuccessful)
 		}
 
-		log.Printf("%4d) added=%s flushed=%s failed=%s duration=%-5s throughput=%s docs/sec\n",
+		log.Printf("%4d) added=%s flushed=%s failed=%s duration=%-8s throughput=%s docs/sec\n",
 			n,
-			humanize.Comma(int64(stats.NumAdded)),
-			humanize.Comma(int64(stats.NumFlushed)),
-			humanize.Comma(int64(stats.NumFailed)),
+			humanize.Comma(int64(biStats.NumAdded)),
+			humanize.Comma(int64(biStats.NumFlushed)),
+			humanize.Comma(int64(biStats.NumFailed)),
 			time.Since(start).Truncate(10*time.Millisecond),
-			humanize.Comma(thru))
+			humanize.Comma(int64(sample)))
 	}
 
-	// TODO(karmi): Use percentiles
-	sorted := append(make([]int64, 0), throughputs...)
-	sort.Slice(sorted, func(i, j int) bool { return sorted[i] < sorted[j] })
+	throughput = map[string]float64{
+		"min": func() float64 { v, _ := stats.Min(samples); return v }(),
+		"max": func() float64 { v, _ := stats.Max(samples); return v }(),
+		"mdn": func() float64 { v, _ := stats.Median(samples); return v }(),
+		"p25": func() float64 { v, _ := stats.Percentile(samples, 25); return v }(),
+		"p50": func() float64 { v, _ := stats.Percentile(samples, 50); return v }(),
+		"p75": func() float64 { v, _ := stats.Percentile(samples, 75); return v }(),
+		"p95": func() float64 { v, _ := stats.Percentile(samples, 95); return v }(),
+	}
 
+	log.Println(strings.Repeat("▁", 85))
 	log.Printf(
-		"docs/sec: min: %s, max: %s, mean: %s",
-		humanize.Comma(sorted[0]),
-		humanize.Comma(sorted[(len(sorted)-1)]),
-		humanize.Comma(sorted[(len(sorted)-1)/2]),
+		"docs/sec: min [%s] max [%s] mean [%s]",
+		humanize.Comma(int64(throughput["min"])),
+		humanize.Comma(int64(throughput["max"])),
+		humanize.Comma(int64(throughput["mdn"])),
 	)
+
+	ratio := 50.0 / throughput["max"]
+
+	fmt.Println("25%",
+		strings.Repeat("▆", int(throughput["p25"]*ratio)),
+		humanize.Comma(int64(throughput["p25"])), "docs/sec")
+	fmt.Println("50%",
+		strings.Repeat("▆", int(throughput["p50"]*ratio)),
+		humanize.Comma(int64(throughput["p50"])), "docs/sec")
+	fmt.Println("75%",
+		strings.Repeat("▆", int(throughput["p75"]*ratio)),
+		humanize.Comma(int64(throughput["p75"])), "docs/sec")
+	fmt.Println("95%",
+		strings.Repeat("▆", int(throughput["p95"]*ratio)),
+		humanize.Comma(int64(throughput["p95"])), "docs/sec")
 }
 
 // easyjsonDecoder implements a JSON decoder for the indexer
