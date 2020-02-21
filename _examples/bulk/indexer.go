@@ -51,6 +51,7 @@ var (
 	numItems    int
 	numShards   int
 	numReplicas int
+	wait        time.Duration
 	debug       bool
 )
 
@@ -63,6 +64,7 @@ func init() {
 	flag.IntVar(&numItems, "count", 1000000, "Number of documents to generate")
 	flag.IntVar(&numShards, "shards", 3, "Number of index shards")
 	flag.IntVar(&numReplicas, "replicas", 0, "Number of index replicas")
+	flag.DurationVar(&wait, "wait", time.Second, "Wait duration between runs")
 	flag.BoolVar(&debug, "debug", false, "Enable logging output")
 	flag.Parse()
 }
@@ -103,8 +105,8 @@ func main() {
 	indexSettings.WriteString(`}`)
 
 	log.Printf(
-		"%s: [%d] shards [%d] replicas [%d] workers [%s] flush threshold",
-		datasetName, numShards, numReplicas, numWorkers, humanize.Bytes(uint64(flushBytes)))
+		"%s: shards [%d] replicas [%d] workers [%d] flush [%s] wait [%s]",
+		datasetName, numShards, numReplicas, numWorkers, humanize.Bytes(uint64(flushBytes)), wait)
 	log.Println(strings.Repeat("▔", 85))
 
 	f, err := os.Open(filepath.Join("data", datasetName, "document.json"))
@@ -183,6 +185,8 @@ func main() {
 			humanize.Comma(int64(biStats.NumFailed)),
 			time.Since(start).Truncate(10*time.Millisecond),
 			humanize.Comma(int64(sample)))
+
+		time.Sleep(wait)
 	}
 
 	throughput = map[string]float64{
