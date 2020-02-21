@@ -45,16 +45,17 @@ import (
 )
 
 var (
-	indexName   string
-	datasetName string
-	numWorkers  int
-	flushBytes  int
-	numRuns     int
-	numItems    int
-	numShards   int
-	numReplicas int
-	wait        time.Duration
-	debug       bool
+	indexName     string
+	datasetName   string
+	numWorkers    int
+	flushBytes    int
+	numRuns       int
+	numWarmupRuns int
+	numItems      int
+	numShards     int
+	numReplicas   int
+	wait          time.Duration
+	debug         bool
 )
 
 func init() {
@@ -63,6 +64,7 @@ func init() {
 	flag.IntVar(&numWorkers, "workers", runtime.NumCPU(), "Number of indexer workers")
 	flag.IntVar(&flushBytes, "flush", 5e+6, "Flush threshold in bytes")
 	flag.IntVar(&numRuns, "runs", 10, "Number of runs")
+	flag.IntVar(&numWarmupRuns, "warmup", 3, "Number of warmup runs")
 	flag.IntVar(&numItems, "count", 1000000, "Number of documents to generate")
 	flag.IntVar(&numShards, "shards", 3, "Number of index shards")
 	flag.IntVar(&numReplicas, "replicas", 0, "Number of index replicas")
@@ -107,8 +109,8 @@ func main() {
 	indexSettings.WriteString(`}`)
 
 	log.Printf(
-		"%s: shards [%d] replicas [%d] workers [%d] flush [%s] wait [%s]",
-		datasetName, numShards, numReplicas, numWorkers, humanize.Bytes(uint64(flushBytes)), wait)
+		"%s: shards [%d] replicas [%d] workers [%d] flush [%s] warmup [%dx] wait [%s]",
+		datasetName, numShards, numReplicas, numWorkers, humanize.Bytes(uint64(flushBytes)), numWarmupRuns, wait)
 	log.Println(strings.Repeat("▔", 85))
 
 	f, err := os.Open(filepath.Join("data", datasetName, "document.json"))
@@ -184,8 +186,7 @@ func main() {
 	go func() { <-done; fmt.Print("\n"); report(); os.Exit(0) }()
 	defer report()
 
-	// TODO(karmi): Run warmup before measuring
-	for n := 1; n <= numRuns; n++ {
+	run := func(n int, measure bool) {
 		bi, _ := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
 			Index:      indexName,
 			Client:     es,
@@ -200,7 +201,9 @@ func main() {
 				Action: "index",
 				Body:   bytes.NewReader(doc),
 				OnSuccess: func(item esutil.BulkIndexerItem, res esutil.BulkIndexerResponseItem) {
-					atomic.AddUint64(&countSuccessful, 1)
+					if measure {
+						atomic.AddUint64(&countSuccessful, 1)
+					}
 				},
 			})
 			if err != nil {
@@ -212,32 +215,42 @@ func main() {
 			log.Fatalf("Unexpected error: %s", err)
 		}
 
-		biStats := bi.Stats()
+		if measure {
+			biStats := bi.Stats()
 
-		sample := 1000.0 / float64(time.Since(start)/time.Millisecond) * float64(biStats.NumFlushed)
-		samples = append(samples, sample)
+			sample := 1000.0 / float64(time.Since(start)/time.Millisecond) * float64(biStats.NumFlushed)
+			samples = append(samples, sample)
 
-		if biStats.NumAdded != uint(numItems) {
-			log.Fatalf("Unexpected NumAdded: %d", biStats.NumAdded)
+			if biStats.NumAdded != uint(numItems) {
+				log.Fatalf("Unexpected NumAdded: %d", biStats.NumAdded)
+			}
+
+			if biStats.NumFailed != 0 {
+				log.Fatalf("Unexpected NumFailed: %d", biStats.NumFailed)
+			}
+
+			if countSuccessful != uint64(n*numItems) {
+				log.Fatalf("Unexpected countSuccessful: %d", countSuccessful)
+			}
+
+			log.Printf("%4d) added=%s flushed=%s failed=%s duration=%-8s throughput=%s docs/sec\n",
+				n,
+				humanize.Comma(int64(biStats.NumAdded)),
+				humanize.Comma(int64(biStats.NumFlushed)),
+				humanize.Comma(int64(biStats.NumFailed)),
+				time.Since(start).Truncate(10*time.Millisecond),
+				humanize.Comma(int64(sample)))
+
+			time.Sleep(wait)
 		}
+	}
 
-		if biStats.NumFailed != 0 {
-			log.Fatalf("Unexpected NumFailed: %d", biStats.NumFailed)
-		}
+	for n := 1; n <= numWarmupRuns; n++ {
+		run(n, false)
+	}
 
-		if countSuccessful != uint64(n*numItems) {
-			log.Fatalf("Unexpected countSuccessful: %d", countSuccessful)
-		}
-
-		log.Printf("%4d) added=%s flushed=%s failed=%s duration=%-8s throughput=%s docs/sec\n",
-			n,
-			humanize.Comma(int64(biStats.NumAdded)),
-			humanize.Comma(int64(biStats.NumFlushed)),
-			humanize.Comma(int64(biStats.NumFailed)),
-			time.Since(start).Truncate(10*time.Millisecond),
-			humanize.Comma(int64(sample)))
-
-		time.Sleep(wait)
+	for n := 1; n <= numRuns; n++ {
+		run(n, true)
 	}
 }
 
