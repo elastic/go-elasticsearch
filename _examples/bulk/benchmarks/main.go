@@ -36,11 +36,20 @@ import (
 	"github.com/elastic/go-elasticsearch/v8/_examples/bulk/benchmarks/runner"
 )
 
+type humanBytes uint64
+
+func (b *humanBytes) String() string { return humanize.Bytes(uint64(*b)) }
+func (b *humanBytes) Set(v string) error {
+	n, err := humanize.ParseBytes(v)
+	*b = humanBytes(n)
+	return err
+}
+
 var (
 	indexName     string
 	datasetName   string
 	numWorkers    int
-	flushBytes    int
+	flushBytes    humanBytes
 	numRuns       int
 	numWarmupRuns int
 	numItems      int
@@ -54,12 +63,12 @@ func init() {
 	flag.StringVar(&indexName, "index", "test-bulk-benchmarks", "Index name")
 	flag.StringVar(&datasetName, "dataset", "small", "Dataset to use for indexing")
 	flag.IntVar(&numWorkers, "workers", runtime.NumCPU(), "Number of indexer workers")
-	flag.IntVar(&flushBytes, "flush", 5e+6, "Flush threshold in bytes")
+	flag.Var(&flushBytes, "flush", "Flush threshold in bytes (default 5MB)")
 	flag.IntVar(&numRuns, "runs", 10, "Number of runs")
 	flag.IntVar(&numWarmupRuns, "warmup", 3, "Number of warmup runs")
 	flag.IntVar(&numItems, "count", 100000, "Number of documents to generate")
 	flag.IntVar(&numShards, "shards", 3, "Number of index shards")
-	flag.IntVar(&numReplicas, "replicas", 0, "Number of index replicas")
+	flag.IntVar(&numReplicas, "replicas", 0, "Number of index replicas (default 0)")
 	flag.DurationVar(&wait, "wait", time.Second, "Wait duration between runs")
 	flag.BoolVar(&debug, "debug", false, "Enable logging output")
 	flag.Parse()
@@ -68,9 +77,10 @@ func init() {
 func main() {
 	log.SetFlags(0)
 
-	var (
-		indexName = indexName + "-" + datasetName
-	)
+	indexName = indexName + "-" + datasetName
+	if flushBytes < 1 {
+		flushBytes = humanBytes(5e+6)
+	}
 
 	cfg := elasticsearch.Config{}
 	cfg.Transport = &fasthttpTransport{}
@@ -91,7 +101,7 @@ func main() {
 		NumRuns:       numRuns,
 		NumWarmupRuns: numWarmupRuns,
 		NumWorkers:    numWorkers,
-		FlushBytes:    flushBytes,
+		FlushBytes:    int(flushBytes),
 		Wait:          wait,
 	})
 	if err != nil {
