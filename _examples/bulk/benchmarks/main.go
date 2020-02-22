@@ -13,25 +13,16 @@
 package main
 
 import (
-	"bytes"
-	"context"
-	"encoding/json"
 	"flag"
-	"fmt"
 	"io"
 	"io/ioutil"
 	"log"
-	"math"
 	"net/http"
 	"os"
 	"os/signal"
-	"path/filepath"
 	"runtime"
 	"strings"
-	"sync/atomic"
 	"time"
-
-	"github.com/montanaflynn/stats"
 
 	"github.com/dustin/go-humanize"
 	"github.com/mailru/easyjson"
@@ -42,6 +33,7 @@ import (
 	"github.com/elastic/go-elasticsearch/v8/esutil"
 
 	"github.com/elastic/go-elasticsearch/v8/_examples/bulk/benchmarks/model"
+	"github.com/elastic/go-elasticsearch/v8/_examples/bulk/benchmarks/runner"
 )
 
 var (
@@ -77,11 +69,7 @@ func main() {
 	log.SetFlags(0)
 
 	var (
-		countSuccessful uint64
-		samples         []float64
-		throughput      map[string]float64
-		indexSettings   strings.Builder
-		indexName       = indexName + "-" + datasetName
+		indexName = indexName + "-" + datasetName
 	)
 
 	cfg := elasticsearch.Config{}
@@ -91,167 +79,44 @@ func main() {
 	}
 	es, _ := elasticsearch.NewClient(cfg)
 
-	fm, err := os.Open(filepath.Join("data", datasetName, "mapping.json"))
-	if err != nil {
-		log.Fatalf("Error reading mapping file: %s", err)
-	}
-	var mappingEnvelope map[string]interface{}
-	json.NewDecoder(fm).Decode(&mappingEnvelope)
-	mapping, err := json.Marshal(mappingEnvelope["mappings"])
-	if err != nil {
-		log.Fatalf("Error encoding mapping: %s", err)
-	}
+	runner, err := runner.NewRunner(runner.Config{
+		Client:  es,
+		Decoder: easyjsonDecoder{},
 
-	indexSettings.WriteString(`{ "settings": `)
-	fmt.Fprintf(&indexSettings, `{"number_of_shards": %d, "number_of_replicas": %d, "refresh_interval":"5s"}`, numShards, numReplicas)
-	indexSettings.WriteString(`, "mappings":`)
-	indexSettings.Write(mapping)
-	indexSettings.WriteString(`}`)
-
-	log.Printf(
-		"%s: shards [%d] replicas [%d] workers [%d] flush [%s] warmup [%dx] wait [%s]",
-		datasetName, numShards, numReplicas, numWorkers, humanize.Bytes(uint64(flushBytes)), numWarmupRuns, wait)
-	log.Println(strings.Repeat("▔", 85))
-
-	f, err := os.Open(filepath.Join("data", datasetName, "document.json"))
+		IndexName:     indexName,
+		DatasetName:   datasetName,
+		NumShards:     numShards,
+		NumReplicas:   numReplicas,
+		NumItems:      numItems,
+		NumRuns:       numRuns,
+		NumWarmupRuns: numWarmupRuns,
+		NumWorkers:    numWorkers,
+		FlushBytes:    flushBytes,
+		Wait:          wait,
+	})
 	if err != nil {
-		log.Fatalf("Error reading test document file: %s", err)
-	}
-	var m map[string]interface{}
-	json.NewDecoder(f).Decode(&m)
-	doc, err := json.Marshal(m)
-	if err != nil {
-		log.Fatalf("Error encoding test document: %s", err)
-	}
-
-	es.Indices.Delete([]string{indexName}, es.Indices.Delete.WithIgnoreUnavailable(true))
-	res, err := es.Indices.Create(
-		indexName,
-		es.Indices.Create.WithBody(strings.NewReader(indexSettings.String())),
-		es.Indices.Create.WithWaitForActiveShards("1"))
-	if err != nil {
-		log.Fatalf("Error creating index: %s", err)
-	}
-	res.Body.Close()
-	if res.IsError() {
-		log.Fatalf("Error creating index: %s", res.String())
+		log.Fatalf("Error creating runner: %s", err)
 	}
 
 	done := make(chan os.Signal)
 	signal.Notify(done, os.Interrupt)
 
-	report := func() {
-		throughput = map[string]float64{
-			"min": func() float64 { v, _ := stats.Min(samples); return v }(),
-			"max": func() float64 { v, _ := stats.Max(samples); return v }(),
-			"mdn": func() float64 { v, _ := stats.Median(samples); return v }(),
-			"p25": func() float64 { v, _ := stats.Percentile(samples, 25); return v }(),
-			"p50": func() float64 { v, _ := stats.Percentile(samples, 50); return v }(),
-			"p75": func() float64 { v, _ := stats.Percentile(samples, 75); return v }(),
-			"p95": func() float64 { v, _ := stats.Percentile(samples, 95); return v }(),
-		}
+	go func() { <-done; log.Println("\n" + strings.Repeat("▁", 95)); runner.Report(); os.Exit(0) }()
+	defer runner.Report()
 
-		log.Println(strings.Repeat("▁", 85))
-		log.Printf(
-			"docs/sec: min [%s] max [%s] mean [%s]",
-			humanize.Comma(int64(throughput["min"])),
-			humanize.Comma(int64(throughput["max"])),
-			humanize.Comma(int64(throughput["mdn"])),
-		)
+	log.Printf(
+		"%s: run [%sx] warmup [%dx] shards [%d] replicas [%d] workers [%d] flush [%s] wait [%s]",
+		datasetName,
+		humanize.Comma(int64(numRuns)),
+		numWarmupRuns,
+		numShards,
+		numReplicas,
+		numWorkers,
+		humanize.Bytes(uint64(flushBytes)),
+		wait)
+	log.Println(strings.Repeat("▔", 95))
 
-		ratio := 50.0 / throughput["max"]
-
-		if !math.IsNaN(throughput["p25"]) {
-			fmt.Println("25%",
-				strings.Repeat("▆", int(throughput["p25"]*ratio)),
-				humanize.Comma(int64(throughput["p25"])), "docs/sec")
-		}
-		if !math.IsNaN(throughput["p50"]) {
-			fmt.Println("50%",
-				strings.Repeat("▆", int(throughput["p50"]*ratio)),
-				humanize.Comma(int64(throughput["p50"])), "docs/sec")
-		}
-		if !math.IsNaN(throughput["p75"]) {
-			fmt.Println("75%",
-				strings.Repeat("▆", int(throughput["p75"]*ratio)),
-				humanize.Comma(int64(throughput["p75"])), "docs/sec")
-		}
-		if !math.IsNaN(throughput["p95"]) {
-			fmt.Println("95%",
-				strings.Repeat("▆", int(throughput["p95"]*ratio)),
-				humanize.Comma(int64(throughput["p95"])), "docs/sec")
-		}
-	}
-
-	go func() { <-done; fmt.Print("\n"); report(); os.Exit(0) }()
-	defer report()
-
-	run := func(n int, measure bool) {
-		bi, _ := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
-			Index:      indexName,
-			Client:     es,
-			Decoder:    easyjsonDecoder{},
-			NumWorkers: numWorkers,
-			FlushBytes: int(flushBytes),
-		})
-
-		start := time.Now().UTC()
-		for i := 1; i <= numItems; i++ {
-			err := bi.Add(context.Background(), esutil.BulkIndexerItem{
-				Action: "index",
-				Body:   bytes.NewReader(doc),
-				OnSuccess: func(item esutil.BulkIndexerItem, res esutil.BulkIndexerResponseItem) {
-					if measure {
-						atomic.AddUint64(&countSuccessful, 1)
-					}
-				},
-			})
-			if err != nil {
-				log.Fatalf("Unexpected error: %s", err)
-			}
-		}
-
-		if err := bi.Close(context.Background()); err != nil {
-			log.Fatalf("Unexpected error: %s", err)
-		}
-
-		if measure {
-			biStats := bi.Stats()
-
-			sample := 1000.0 / float64(time.Since(start)/time.Millisecond) * float64(biStats.NumFlushed)
-			samples = append(samples, sample)
-
-			if biStats.NumAdded != uint(numItems) {
-				log.Fatalf("Unexpected NumAdded: %d", biStats.NumAdded)
-			}
-
-			if biStats.NumFailed != 0 {
-				log.Fatalf("Unexpected NumFailed: %d", biStats.NumFailed)
-			}
-
-			if countSuccessful != uint64(n*numItems) {
-				log.Fatalf("Unexpected countSuccessful: %d", countSuccessful)
-			}
-
-			log.Printf("%4d) added=%s flushed=%s failed=%s duration=%-8s throughput=%s docs/sec\n",
-				n,
-				humanize.Comma(int64(biStats.NumAdded)),
-				humanize.Comma(int64(biStats.NumFlushed)),
-				humanize.Comma(int64(biStats.NumFailed)),
-				time.Since(start).Truncate(10*time.Millisecond),
-				humanize.Comma(int64(sample)))
-
-			time.Sleep(wait)
-		}
-	}
-
-	for n := 1; n <= numWarmupRuns; n++ {
-		run(n, false)
-	}
-
-	for n := 1; n <= numRuns; n++ {
-		run(n, true)
-	}
+	runner.Run()
 }
 
 // easyjsonDecoder implements a JSON decoder for the indexer
