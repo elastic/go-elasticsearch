@@ -106,10 +106,6 @@ func (r *Runner) Report() error {
 // Run prepares the index and runs the benchmarks.
 //
 func (r *Runner) Run() error {
-	if err := r.prepare(); err != nil {
-		log.Fatalf("Runner error: %s", err)
-	}
-
 	for n := 1; n <= r.config.NumWarmupRuns; n++ {
 		if err := r.run(n, false); err != nil {
 			log.Fatalf("Runner error: %s", err)
@@ -125,19 +121,19 @@ func (r *Runner) Run() error {
 	return nil
 }
 
-// prepare re-creates the index for benchmarks.
+// setup re-creates the index for a benchmark run.
 //
-func (r *Runner) prepare() error {
+func (r *Runner) setup() error {
 	fm, err := os.Open(filepath.Join("data", r.config.DatasetName, "mapping.json"))
 	if err != nil {
-		return fmt.Errorf("prepare: reading mapping: %s", err)
+		return fmt.Errorf("setup: reading mapping: %s", err)
 	}
 
 	var mappingEnvelope map[string]interface{}
 	json.NewDecoder(fm).Decode(&mappingEnvelope)
 	mapping, err := json.Marshal(mappingEnvelope["mappings"])
 	if err != nil {
-		return fmt.Errorf("prepare: encoding mapping: %s", err)
+		return fmt.Errorf("setup: encoding mapping: %s", err)
 	}
 
 	r.indexSettings.WriteString(`{ "settings": `)
@@ -154,7 +150,7 @@ func (r *Runner) prepare() error {
 	json.NewDecoder(f).Decode(&m)
 	doc, err := json.Marshal(m)
 	if err != nil {
-		return fmt.Errorf("prepare: encoding document: %s", err)
+		return fmt.Errorf("setup: encoding document: %s", err)
 	}
 	r.doc = doc
 
@@ -166,11 +162,11 @@ func (r *Runner) prepare() error {
 		r.config.Client.Indices.Create.WithBody(strings.NewReader(r.indexSettings.String())),
 		r.config.Client.Indices.Create.WithWaitForActiveShards("1"))
 	if err != nil {
-		return fmt.Errorf("prepare: encoding document: %s", err)
+		return fmt.Errorf("setup: encoding document: %s", err)
 	}
 	res.Body.Close()
 	if res.IsError() {
-		return fmt.Errorf("prepare: encoding document: %s", res.String())
+		return fmt.Errorf("setup: encoding document: %s", res.String())
 	}
 
 	return nil
@@ -179,6 +175,10 @@ func (r *Runner) prepare() error {
 // run executes a single benchmark run n, recording stats when measure is true.
 //
 func (r *Runner) run(n int, measure bool) error {
+	if err := r.setup(); err != nil {
+		return fmt.Errorf("run: %s", err)
+	}
+
 	bi, err := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
 		Index:      r.config.IndexName,
 		Client:     r.config.Client,
