@@ -41,7 +41,7 @@ import (
 	"github.com/elastic/go-elasticsearch/v8/estransport"
 	"github.com/elastic/go-elasticsearch/v8/esutil"
 
-	"github.com/elastic/go-elasticsearch/v8/_examples/bulk/model"
+	"github.com/elastic/go-elasticsearch/v8/_examples/bulk/benchmarks/model"
 )
 
 var (
@@ -59,13 +59,13 @@ var (
 )
 
 func init() {
-	flag.StringVar(&indexName, "index", "test-bulk-example", "Index name")
+	flag.StringVar(&indexName, "index", "test-bulk-benchmarks", "Index name")
 	flag.StringVar(&datasetName, "dataset", "small", "Dataset to use for indexing")
 	flag.IntVar(&numWorkers, "workers", runtime.NumCPU(), "Number of indexer workers")
 	flag.IntVar(&flushBytes, "flush", 5e+6, "Flush threshold in bytes")
 	flag.IntVar(&numRuns, "runs", 10, "Number of runs")
 	flag.IntVar(&numWarmupRuns, "warmup", 3, "Number of warmup runs")
-	flag.IntVar(&numItems, "count", 1000000, "Number of documents to generate")
+	flag.IntVar(&numItems, "count", 100000, "Number of documents to generate")
 	flag.IntVar(&numShards, "shards", 3, "Number of index shards")
 	flag.IntVar(&numReplicas, "replicas", 0, "Number of index replicas")
 	flag.DurationVar(&wait, "wait", time.Second, "Wait duration between runs")
