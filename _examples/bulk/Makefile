@@ -1,12 +1,15 @@
 GO_TEST_CMD = $(if $(shell which richgo),richgo test,go test)
 
-test: test-default test-benchmarks
+test: test-default test-indexer
 
 test-default:
 	go run default.go
 
+test-indexer:
+	go run indexer.go
+
 test-benchmarks: clean setup
-	cd benchmarks && go run main.go --runs=1 --count=10000
+	cd benchmarks && go run main.go
 
 setup:
 	@go get -u github.com/mailru/easyjson/...
@@ -15,4 +18,4 @@ setup:
 clean:
 	@rm -f benchmarks/model/*_easyjson.go
 
-.PHONY: test test-default test-benchmarks setup clean
+.PHONY: test test-default test-indexer test-benchmarks setup clean
