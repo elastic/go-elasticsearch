@@ -55,6 +55,7 @@ type Config struct {
 	NumWorkers    int
 	FlushBytes    int
 	Wait          time.Duration
+	Mockserver    bool
 }
 
 // Report prints statistics from the benchmark runs.
@@ -215,7 +216,13 @@ func (r *Runner) run(n int, measure bool) error {
 	if measure {
 		biStats := bi.Stats()
 
-		sample := 1000.0 / float64(time.Since(start)/time.Millisecond) * float64(biStats.NumFlushed)
+		var numThroughput uint
+		if r.config.Mockserver {
+			numThroughput = biStats.NumAdded
+		} else {
+			numThroughput = biStats.NumFlushed
+		}
+		sample := 1000.0 / float64(time.Since(start)/time.Millisecond) * float64(numThroughput)
 		r.samples = append(r.samples, sample)
 
 		log.Printf("%4d) added=%s\tflushed=%s\tfailed=%s\tduration=%-5s\tthroughput=%s docs/sec\n",

@@ -56,6 +56,7 @@ var (
 	numShards     int
 	numReplicas   int
 	wait          time.Duration
+	mockserver    bool
 	debug         bool
 )
 
@@ -70,6 +71,7 @@ func init() {
 	flag.IntVar(&numShards, "shards", 3, "Number of index shards")
 	flag.IntVar(&numReplicas, "replicas", 0, "Number of index replicas (default 0)")
 	flag.DurationVar(&wait, "wait", time.Second, "Wait duration between runs")
+	flag.BoolVar(&mockserver, "mockserver", false, "Measure added, not flushed items")
 	flag.BoolVar(&debug, "debug", false, "Enable logging output")
 	flag.Parse()
 }
@@ -103,6 +105,7 @@ func main() {
 		NumWorkers:    numWorkers,
 		FlushBytes:    int(flushBytes),
 		Wait:          wait,
+		Mockserver:    mockserver,
 	})
 	if err != nil {
 		log.Fatalf("Error creating runner: %s", err)
