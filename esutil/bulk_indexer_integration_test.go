@@ -70,6 +70,10 @@ func TestBulkIndexerIntegration(t *testing.T) {
 			t.Errorf("Unexpected NumAdded: want=%d, got=%d", numItems, stats.NumAdded)
 		}
 
+		if stats.NumIndexed != uint(numItems) {
+			t.Errorf("Unexpected NumIndexed: want=%d, got=%d", numItems, stats.NumIndexed)
+		}
+
 		if stats.NumFailed != 0 {
 			t.Errorf("Unexpected NumFailed: want=0, got=%d", stats.NumFailed)
 		}

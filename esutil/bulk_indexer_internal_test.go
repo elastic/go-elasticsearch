@@ -48,18 +48,37 @@ func (d customJSONDecoder) UnmarshalFromReader(r io.Reader, blk *BulkIndexerResp
 
 func TestBulkIndexer(t *testing.T) {
 	t.Run("Basic", func(t *testing.T) {
-		var wg sync.WaitGroup
+		var (
+			wg sync.WaitGroup
 
-		es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{}})
-		bi, _ := NewBulkIndexer(BulkIndexerConfig{NumWorkers: 2, FlushBytes: 50, Client: es})
-		numItems := 3
+			countReqs int
+			testfile  string
+			numItems  = 6
+		)
+
+		es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
+			RoundTripFunc: func(*http.Request) (*http.Response, error) {
+				countReqs++
+				switch countReqs {
+				case 1:
+					testfile = "testdata/bulk_response_1a.json"
+				case 2:
+					testfile = "testdata/bulk_response_1b.json"
+				case 3:
+					testfile = "testdata/bulk_response_1c.json"
+				}
+				bodyContent, _ := ioutil.ReadFile(testfile)
+				return &http.Response{Body: ioutil.NopCloser(bytes.NewBuffer(bodyContent))}, nil
+			},
+		}})
+		bi, _ := NewBulkIndexer(BulkIndexerConfig{NumWorkers: 1, FlushBytes: 50, Client: es})
 
 		for i := 1; i <= numItems; i++ {
 			wg.Add(1)
 			go func(i int) {
 				defer wg.Done()
 				err := bi.Add(context.Background(), BulkIndexerItem{
-					Action:     "index",
+					Action:     "foo",
 					DocumentID: strconv.Itoa(i),
 					Body:       strings.NewReader(fmt.Sprintf(`{"title":"foo-%d"}`, i)),
 				})
@@ -76,17 +95,43 @@ func TestBulkIndexer(t *testing.T) {
 
 		stats := bi.Stats()
 
+		// added = numitems
 		if stats.NumAdded != uint(numItems) {
 			t.Errorf("Unexpected NumAdded: want=%d, got=%d", numItems, stats.NumAdded)
 		}
 
-		if stats.NumFailed != 0 {
-			t.Errorf("Unexpected NumFailed: want=%d, got=%d", 0, stats.NumFailed)
+		// flushed = numitems - 1x conflict + 1x not_found
+		if stats.NumFlushed != uint(numItems-2) {
+			t.Errorf("Unexpected NumFlushed: want=%d, got=%d", numItems, stats.NumFlushed)
+		}
+
+		// failed = 1x conflict + 1x not_found
+		if stats.NumFailed != 2 {
+			t.Errorf("Unexpected NumFailed: want=%d, got=%d", 2, stats.NumFailed)
+		}
+
+		// indexed = 1x
+		if stats.NumIndexed != 1 {
+			t.Errorf("Unexpected NumIndexed: want=%d, got=%d", 1, stats.NumIndexed)
+		}
+
+		// created = 1x
+		if stats.NumCreated != 1 {
+			t.Errorf("Unexpected NumCreated: want=%d, got=%d", 1, stats.NumCreated)
+		}
+
+		// deleted = 1x
+		if stats.NumDeleted != 1 {
+			t.Errorf("Unexpected NumDeleted: want=%d, got=%d", 1, stats.NumDeleted)
+		}
+
+		if stats.NumUpdated != 1 {
+			t.Errorf("Unexpected NumUpdated: want=%d, got=%d", 1, stats.NumUpdated)
 		}
 
 		// 3 items * 40 bytes, 2 workers, 1 request per worker
-		if stats.NumRequests != 2 {
-			t.Errorf("Unexpected NumRequests: want=%d, got=%d", 2, stats.NumRequests)
+		if stats.NumRequests != 3 {
+			t.Errorf("Unexpected NumRequests: want=%d, got=%d", 3, stats.NumRequests)
 		}
 	})
 
@@ -123,7 +168,7 @@ func TestBulkIndexer(t *testing.T) {
 
 			numItems       = 4
 			numFailed      = 2
-			bodyContent, _ = ioutil.ReadFile("testdata/bulk_response_1.json")
+			bodyContent, _ = ioutil.ReadFile("testdata/bulk_response_2.json")
 		)
 
 		es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
@@ -197,6 +242,18 @@ func TestBulkIndexer(t *testing.T) {
 
 		if stats.NumFailed != uint(numFailed) {
 			t.Errorf("Unexpected NumFailed: %d", stats.NumFailed)
+		}
+
+		if stats.NumFlushed != 2 {
+			t.Errorf("Unexpected NumFailed: %d", stats.NumFailed)
+		}
+
+		if stats.NumIndexed != 1 {
+			t.Errorf("Unexpected NumIndexed: %d", stats.NumIndexed)
+		}
+
+		if stats.NumUpdated != 1 {
+			t.Errorf("Unexpected NumUpdated: %d", stats.NumUpdated)
 		}
 
 		if countSuccessful != uint64(numItems-numFailed) {

@@ -398,10 +398,12 @@ func (w *worker) flush() error {
 		var (
 			item BulkIndexerItem
 			info BulkIndexerResponseItem
+			op   string
 		)
 
 		item = w.items[i]
-		for _, v := range blkItem {
+		for k, v := range blkItem {
+			op = k
 			info = v
 		}
 		if info.Error.Type != "" || info.Status > 201 {
@@ -411,6 +413,18 @@ func (w *worker) flush() error {
 			}
 		} else {
 			atomic.AddUint64(&w.bi.stats.numFlushed, 1)
+
+			switch op {
+			case "index":
+				atomic.AddUint64(&w.bi.stats.numIndexed, 1)
+			case "create":
+				atomic.AddUint64(&w.bi.stats.numCreated, 1)
+			case "delete":
+				atomic.AddUint64(&w.bi.stats.numDeleted, 1)
+			case "update":
+				atomic.AddUint64(&w.bi.stats.numUpdated, 1)
+			}
+
 			if item.OnSuccess != nil {
 				item.OnSuccess(item, info)
 			}
