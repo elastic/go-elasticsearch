@@ -69,13 +69,14 @@ type BulkIndexerConfig struct {
 // BulkIndexerStats represents the indexer statistics.
 //
 type BulkIndexerStats struct {
-	NumAdded   uint
-	NumFlushed uint
-	NumFailed  uint
-	NumIndexed uint
-	NumCreated uint
-	NumUpdated uint
-	NumDeleted uint
+	NumAdded    uint
+	NumFlushed  uint
+	NumFailed   uint
+	NumIndexed  uint
+	NumCreated  uint
+	NumUpdated  uint
+	NumDeleted  uint
+	NumRequests uint
 }
 
 // BulkIndexerItem represents an indexer item.
@@ -144,13 +145,14 @@ type bulkIndexer struct {
 }
 
 type bulkIndexerStats struct {
-	numAdded   uint64
-	numFlushed uint64
-	numFailed  uint64
-	numIndexed uint64
-	numCreated uint64
-	numUpdated uint64
-	numDeleted uint64
+	numAdded    uint64
+	numFlushed  uint64
+	numFailed   uint64
+	numIndexed  uint64
+	numCreated  uint64
+	numUpdated  uint64
+	numDeleted  uint64
+	numRequests uint64
 }
 
 // NewBulkIndexer creates a new bulk indexer.
@@ -226,13 +228,14 @@ func (bi *bulkIndexer) Close(ctx context.Context) error {
 //
 func (bi *bulkIndexer) Stats() BulkIndexerStats {
 	return BulkIndexerStats{
-		NumAdded:   uint(atomic.LoadUint64(&bi.stats.numAdded)),
-		NumFlushed: uint(atomic.LoadUint64(&bi.stats.numFlushed)),
-		NumFailed:  uint(atomic.LoadUint64(&bi.stats.numFailed)),
-		NumIndexed: uint(atomic.LoadUint64(&bi.stats.numIndexed)),
-		NumCreated: uint(atomic.LoadUint64(&bi.stats.numCreated)),
-		NumUpdated: uint(atomic.LoadUint64(&bi.stats.numUpdated)),
-		NumDeleted: uint(atomic.LoadUint64(&bi.stats.numDeleted)),
+		NumAdded:    uint(atomic.LoadUint64(&bi.stats.numAdded)),
+		NumFlushed:  uint(atomic.LoadUint64(&bi.stats.numFlushed)),
+		NumFailed:   uint(atomic.LoadUint64(&bi.stats.numFailed)),
+		NumIndexed:  uint(atomic.LoadUint64(&bi.stats.numIndexed)),
+		NumCreated:  uint(atomic.LoadUint64(&bi.stats.numCreated)),
+		NumUpdated:  uint(atomic.LoadUint64(&bi.stats.numUpdated)),
+		NumDeleted:  uint(atomic.LoadUint64(&bi.stats.numDeleted)),
+		NumRequests: uint(atomic.LoadUint64(&bi.stats.numRequests)),
 	}
 }
 
@@ -278,7 +281,7 @@ func (w *worker) run() {
 
 		for item := range w.ch {
 			if os.Getenv("DEBUG") != "" {
-				fmt.Printf(">>> [worker-%03d] Got %s:%s\n", w.id, item.Action, item.DocumentID)
+				fmt.Printf(">>> [worker-%03d] Got [%s:%s]\n", w.id, item.Action, item.DocumentID)
 			}
 
 			if err := w.writeMeta(item); err != nil {
@@ -298,6 +301,9 @@ func (w *worker) run() {
 			}
 
 			w.items = append(w.items, item)
+			if os.Getenv("DEBUG") != "" {
+				fmt.Printf(">>> [worker-%03d] w.buf.Len(): %d | FlushBytes: %d\n", w.id, w.buf.Len(), w.bi.config.FlushBytes)
+			}
 			if w.buf.Len() >= w.bi.config.FlushBytes {
 				w.flush()
 			}
@@ -367,6 +373,7 @@ func (w *worker) flush() error {
 		fmt.Printf(">>> [worker-%03d] FLUSH BUFFER: %s\n", w.id, w.buf.String())
 	}
 
+	atomic.AddUint64(&w.bi.stats.numRequests, 1)
 	res, err := w.bi.config.Client.Bulk(w.buf, w.bi.config.Client.Bulk.WithIndex(w.bi.config.Index))
 	if err != nil {
 		atomic.AddUint64(&w.bi.stats.numFailed, uint64(len(w.items)))

@@ -77,14 +77,17 @@ func TestBulkIndexer(t *testing.T) {
 		stats := bi.Stats()
 
 		if stats.NumAdded != uint(numItems) {
-			t.Errorf("Unexpected NumAdded: %d", stats.NumAdded)
+			t.Errorf("Unexpected NumAdded: want=%d, got=%d", numItems, stats.NumAdded)
 		}
 
 		if stats.NumFailed != 0 {
-			t.Errorf("Unexpected NumFailed: %d", stats.NumFailed)
+			t.Errorf("Unexpected NumFailed: want=%d, got=%d", 0, stats.NumFailed)
 		}
 
-		fmt.Println("NumAdded:", stats.NumAdded, "NumFailed:", stats.NumFailed)
+		// 3 items * 40 bytes, 2 workers, 1 request per worker
+		if stats.NumRequests != 2 {
+			t.Errorf("Unexpected NumRequests: want=%d, got=%d", 2, stats.NumRequests)
+		}
 	})
 
 	t.Run("Add() Timeout", func(t *testing.T) {

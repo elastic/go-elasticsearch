@@ -67,21 +67,22 @@ func TestBulkIndexerIntegration(t *testing.T) {
 		stats := bi.Stats()
 
 		if stats.NumAdded != uint(numItems) {
-			t.Errorf("Unexpected NumAdded: %d", stats.NumAdded)
+			t.Errorf("Unexpected NumAdded: want=%d, got=%d", numItems, stats.NumAdded)
 		}
 
 		if stats.NumFailed != 0 {
-			t.Errorf("Unexpected NumFailed: %d", stats.NumFailed)
+			t.Errorf("Unexpected NumFailed: want=0, got=%d", stats.NumFailed)
 		}
 
 		if countSuccessful != uint64(numItems) {
-			t.Errorf("Unexpected countSuccessful: %d", countSuccessful)
+			t.Errorf("Unexpected countSuccessful: want=%d, got=%d", numItems, countSuccessful)
 		}
 
-		fmt.Printf("  Added %d documents to indexer. Succeeded: %d. Failed: %d. Duration: %s (%.0f docs/sec)\n",
+		fmt.Printf("  Added %d documents to indexer. Succeeded: %d. Failed: %d. Requests: %d. Duration: %s (%.0f docs/sec)\n",
 			stats.NumAdded,
 			stats.NumFlushed,
 			stats.NumFailed,
+			stats.NumRequests,
 			time.Since(start).Truncate(time.Millisecond),
 			1000.0/float64(time.Since(start)/time.Millisecond)*float64(stats.NumFlushed))
 	})
