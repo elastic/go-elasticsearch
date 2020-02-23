@@ -114,8 +114,8 @@ func main() {
 	done := make(chan os.Signal)
 	signal.Notify(done, os.Interrupt)
 
-	go func() { <-done; log.Println("\n" + strings.Repeat("▁", 95)); runner.Report(); os.Exit(0) }()
-	defer runner.Report()
+	go func() { <-done; log.Println("\r" + strings.Repeat("▁", 95)); runner.Report(); os.Exit(0) }()
+	defer func() { log.Println(strings.Repeat("▁", 95)); runner.Report() }()
 
 	log.Printf(
 		"%s: run [%sx] warmup [%dx] shards [%d] replicas [%d] workers [%d] flush [%s] wait [%s]",

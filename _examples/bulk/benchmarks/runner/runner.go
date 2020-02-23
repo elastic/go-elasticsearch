@@ -213,6 +213,8 @@ func (r *Runner) run(n int, measure bool) error {
 		return fmt.Errorf("run: %s", err)
 	}
 
+	duration := time.Since(start)
+
 	if measure {
 		biStats := bi.Stats()
 
@@ -222,15 +224,16 @@ func (r *Runner) run(n int, measure bool) error {
 		} else {
 			numThroughput = biStats.NumFlushed
 		}
-		sample := 1000.0 / float64(time.Since(start)/time.Millisecond) * float64(numThroughput)
+		sample := 1000.0 / float64(duration/time.Millisecond) * float64(numThroughput)
 		r.samples = append(r.samples, sample)
 
-		log.Printf("%4d) added=%s\tflushed=%s\tfailed=%s\tduration=%-5s\tthroughput=%s docs/sec\n",
+		log.Printf("%4d) add=%s\tflush=%s\tfail=%s\treqs=%s\tdur=%-6s\t%s docs/sec\n",
 			n,
 			formatInt(int(biStats.NumAdded)),
 			formatInt(int(biStats.NumFlushed)),
 			formatInt(int(biStats.NumFailed)),
-			time.Since(start).Truncate(10*time.Millisecond),
+			formatInt(int(biStats.NumRequests)),
+			duration.Truncate(10*time.Millisecond),
 			humanize.Comma(int64(sample)))
 
 		time.Sleep(r.config.Wait)
