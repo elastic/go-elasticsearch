@@ -85,23 +85,47 @@ func main() {
 		"BulkIndexer: documents [%s] shards [%d] replicas [%d] workers [%d] flush [%s]",
 		humanize.Comma(int64(numItems)), numShards, numReplicas, numWorkers, humanize.Bytes(uint64(flushBytes)))
 
+	// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+	//
 	// Create the Elasticsearch client
 	//
-	es, err := elasticsearch.NewDefaultClient()
+	// NOTE: For optimal performance, consider using a third-party HTTP transport package.
+	//       See an example in the "benchmarks" folder.
+	//
+	es, err := elasticsearch.NewClient(elasticsearch.Config{
+		// Retry on 429 TooManyRequests statuses
+		//
+		RetryOnStatus: []int{502, 503, 504, 429},
+
+		// A simple incremental backoff function
+		//
+		RetryBackoff: func(i int) time.Duration { return time.Duration(i) * 100 * time.Millisecond },
+
+		// Retry up to 5 attempts
+		//
+		MaxRetries: 5,
+	})
 	if err != nil {
 		log.Fatalf("Error creating the client: %s", err)
 	}
+	// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 	// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	//
 	// Create the BulkIndexer
 	//
-	bi, _ := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
+	// NOTE: For optimal performance, consider using a third-party JSON decoding package.
+	//       See an example in the "benchmarks" folder.
+	//
+	bi, err := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
 		Index:      indexName,       // The default index name
 		Client:     es,              // The Elasticsearch client
 		NumWorkers: numWorkers,      // The number of worker goroutines
 		FlushBytes: int(flushBytes), // The flush threshold in bytes
 	})
+	if err != nil {
+		log.Fatalf("Error creating the indexer: %s", err)
+	}
 	// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 	// Generate the articles collection
@@ -181,11 +205,13 @@ func main() {
 		// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	}
 
+	// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	// Close the indexer
 	//
 	if err := bi.Close(context.Background()); err != nil {
 		log.Fatalf("Unexpected error: %s", err)
 	}
+	// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 	biStats := bi.Stats()
 
