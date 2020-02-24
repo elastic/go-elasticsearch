@@ -14,6 +14,7 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
+	"os"
 	"reflect"
 	"strconv"
 	"strings"
@@ -23,6 +24,7 @@ import (
 	"time"
 
 	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/elastic/go-elasticsearch/v8/estransport"
 )
 
 var defaultRoundTripFunc = func(*http.Request) (*http.Response, error) {
@@ -102,7 +104,7 @@ func TestBulkIndexer(t *testing.T) {
 
 		// flushed = numitems - 1x conflict + 1x not_found
 		if stats.NumFlushed != uint(numItems-2) {
-			t.Errorf("Unexpected NumFlushed: want=%d, got=%d", numItems, stats.NumFlushed)
+			t.Errorf("Unexpected NumFlushed: want=%d, got=%d", numItems-2, stats.NumFlushed)
 		}
 
 		// failed = 1x conflict + 1x not_found
@@ -266,6 +268,88 @@ func TestBulkIndexer(t *testing.T) {
 
 		if !reflect.DeepEqual(failedIDs, []string{"1", "2"}) {
 			t.Errorf("Unexpected failedIDs: %#v", failedIDs)
+		}
+	})
+
+	t.Run("TooManyRequests", func(t *testing.T) {
+		var (
+			wg sync.WaitGroup
+
+			countReqs int
+			numItems  = 2
+		)
+
+		esCfg := elasticsearch.Config{
+			Transport: &mockTransport{
+				RoundTripFunc: func(*http.Request) (*http.Response, error) {
+					countReqs++
+					if countReqs <= 4 {
+						return &http.Response{
+							StatusCode: http.StatusTooManyRequests,
+							Status:     "429 TooManyRequests",
+							Body:       ioutil.NopCloser(strings.NewReader(`{"took":1}`))}, nil
+					}
+					bodyContent, _ := ioutil.ReadFile("testdata/bulk_response_1c.json")
+					return &http.Response{
+						StatusCode: http.StatusOK,
+						Status:     "200 OK",
+						Body:       ioutil.NopCloser(bytes.NewBuffer(bodyContent)),
+					}, nil
+				},
+			},
+
+			MaxRetries:    5,
+			RetryOnStatus: []int{502, 503, 504, 429},
+			RetryBackoff: func(i int) time.Duration {
+				if os.Getenv("DEBUG") != "" {
+					fmt.Printf("*** Retry #%d\n", i)
+				}
+				return time.Duration(i) * 100 * time.Millisecond
+			},
+		}
+		if os.Getenv("DEBUG") != "" {
+			esCfg.Logger = &estransport.ColorLogger{Output: os.Stdout}
+		}
+
+		es, _ := elasticsearch.NewClient(esCfg)
+		bi, _ := NewBulkIndexer(BulkIndexerConfig{NumWorkers: 1, FlushBytes: 50, Client: es})
+
+		for i := 1; i <= numItems; i++ {
+			wg.Add(1)
+			go func(i int) {
+				defer wg.Done()
+				err := bi.Add(context.Background(), BulkIndexerItem{
+					Action: "foo",
+					Body:   strings.NewReader(`{"title":"foo"}`),
+				})
+				if err != nil {
+					t.Fatalf("Unexpected error: %s", err)
+				}
+			}(i)
+		}
+		wg.Wait()
+
+		if err := bi.Close(context.Background()); err != nil {
+			t.Errorf("Unexpected error: %s", err)
+		}
+
+		stats := bi.Stats()
+
+		if stats.NumAdded != uint(numItems) {
+			t.Errorf("Unexpected NumAdded: want=%d, got=%d", numItems, stats.NumAdded)
+		}
+
+		if stats.NumFlushed != uint(numItems) {
+			t.Errorf("Unexpected NumFlushed: want=%d, got=%d", numItems, stats.NumFlushed)
+		}
+
+		if stats.NumFailed != 0 {
+			t.Errorf("Unexpected NumFailed: want=%d, got=%d", 0, stats.NumFailed)
+		}
+
+		// Stats don't include the retries in client
+		if stats.NumRequests != 1 {
+			t.Errorf("Unexpected NumRequests: want=%d, got=%d", 3, stats.NumRequests)
 		}
 	})
 

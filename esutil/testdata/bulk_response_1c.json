@@ -1,6 +1,6 @@
 {
   "took": 30,
-  "errors": true,
+  "errors": false,
   "items": [
     {
       "delete": {
