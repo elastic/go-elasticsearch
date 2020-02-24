@@ -12,9 +12,9 @@ import (
 	"strings"
 )
 
-func newEnrichGetPolicyFunc(t Transport) EnrichGetPolicy {
-	return func(o ...func(*EnrichGetPolicyRequest)) (*Response, error) {
-		var r = EnrichGetPolicyRequest{}
+func newAutoscalingGetAutoscalingDecisionFunc(t Transport) AutoscalingGetAutoscalingDecision {
+	return func(o ...func(*AutoscalingGetAutoscalingDecisionRequest)) (*Response, error) {
+		var r = AutoscalingGetAutoscalingDecisionRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -24,17 +24,15 @@ func newEnrichGetPolicyFunc(t Transport) EnrichGetPolicy {
 
 // ----- API Definition -------------------------------------------------------
 
-// EnrichGetPolicy -
+// AutoscalingGetAutoscalingDecision -
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-enrich-policy-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-get-autoscaling-decision.html.
 //
-type EnrichGetPolicy func(o ...func(*EnrichGetPolicyRequest)) (*Response, error)
+type AutoscalingGetAutoscalingDecision func(o ...func(*AutoscalingGetAutoscalingDecisionRequest)) (*Response, error)
 
-// EnrichGetPolicyRequest configures the Enrich Get Policy API request.
+// AutoscalingGetAutoscalingDecisionRequest configures the Autoscaling Get Autoscaling Decision API request.
 //
-type EnrichGetPolicyRequest struct {
-	Name []string
-
+type AutoscalingGetAutoscalingDecisionRequest struct {
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -47,7 +45,7 @@ type EnrichGetPolicyRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r EnrichGetPolicyRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r AutoscalingGetAutoscalingDecisionRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -56,15 +54,8 @@ func (r EnrichGetPolicyRequest) Do(ctx context.Context, transport Transport) (*R
 
 	method = "GET"
 
-	path.Grow(1 + len("_enrich") + 1 + len("policy") + 1 + len(strings.Join(r.Name, ",")))
-	path.WriteString("/")
-	path.WriteString("_enrich")
-	path.WriteString("/")
-	path.WriteString("policy")
-	if len(r.Name) > 0 {
-		path.WriteString("/")
-		path.WriteString(strings.Join(r.Name, ","))
-	}
+	path.Grow(len("/_autoscaling/decision"))
+	path.WriteString("/_autoscaling/decision")
 
 	params = make(map[string]string)
 
@@ -129,56 +120,48 @@ func (r EnrichGetPolicyRequest) Do(ctx context.Context, transport Transport) (*R
 
 // WithContext sets the request context.
 //
-func (f EnrichGetPolicy) WithContext(v context.Context) func(*EnrichGetPolicyRequest) {
-	return func(r *EnrichGetPolicyRequest) {
+func (f AutoscalingGetAutoscalingDecision) WithContext(v context.Context) func(*AutoscalingGetAutoscalingDecisionRequest) {
+	return func(r *AutoscalingGetAutoscalingDecisionRequest) {
 		r.ctx = v
-	}
-}
-
-// WithName - a list of enrich policy names.
-//
-func (f EnrichGetPolicy) WithName(v ...string) func(*EnrichGetPolicyRequest) {
-	return func(r *EnrichGetPolicyRequest) {
-		r.Name = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f EnrichGetPolicy) WithPretty() func(*EnrichGetPolicyRequest) {
-	return func(r *EnrichGetPolicyRequest) {
+func (f AutoscalingGetAutoscalingDecision) WithPretty() func(*AutoscalingGetAutoscalingDecisionRequest) {
+	return func(r *AutoscalingGetAutoscalingDecisionRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f EnrichGetPolicy) WithHuman() func(*EnrichGetPolicyRequest) {
-	return func(r *EnrichGetPolicyRequest) {
+func (f AutoscalingGetAutoscalingDecision) WithHuman() func(*AutoscalingGetAutoscalingDecisionRequest) {
+	return func(r *AutoscalingGetAutoscalingDecisionRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f EnrichGetPolicy) WithErrorTrace() func(*EnrichGetPolicyRequest) {
-	return func(r *EnrichGetPolicyRequest) {
+func (f AutoscalingGetAutoscalingDecision) WithErrorTrace() func(*AutoscalingGetAutoscalingDecisionRequest) {
+	return func(r *AutoscalingGetAutoscalingDecisionRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f EnrichGetPolicy) WithFilterPath(v ...string) func(*EnrichGetPolicyRequest) {
-	return func(r *EnrichGetPolicyRequest) {
+func (f AutoscalingGetAutoscalingDecision) WithFilterPath(v ...string) func(*AutoscalingGetAutoscalingDecisionRequest) {
+	return func(r *AutoscalingGetAutoscalingDecisionRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f EnrichGetPolicy) WithHeader(h map[string]string) func(*EnrichGetPolicyRequest) {
-	return func(r *EnrichGetPolicyRequest) {
+func (f AutoscalingGetAutoscalingDecision) WithHeader(h map[string]string) func(*AutoscalingGetAutoscalingDecisionRequest) {
+	return func(r *AutoscalingGetAutoscalingDecisionRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -190,8 +173,8 @@ func (f EnrichGetPolicy) WithHeader(h map[string]string) func(*EnrichGetPolicyRe
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f EnrichGetPolicy) WithOpaqueID(s string) func(*EnrichGetPolicyRequest) {
-	return func(r *EnrichGetPolicyRequest) {
+func (f AutoscalingGetAutoscalingDecision) WithOpaqueID(s string) func(*AutoscalingGetAutoscalingDecisionRequest) {
+	return func(r *AutoscalingGetAutoscalingDecisionRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

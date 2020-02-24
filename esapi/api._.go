@@ -1,4 +1,4 @@
-// Code generated from specification version 8.0.0 (290fb706150): DO NOT EDIT
+// Code generated from specification version 8.0.0 (208f71a16aa): DO NOT EDIT
 
 package esapi
 
@@ -26,6 +26,7 @@ type API struct {
 	Watcher    *Watcher
 	XPack      *XPack
 
+	AutoscalingGetAutoscalingDecision             AutoscalingGetAutoscalingDecision
 	Bulk                                          Bulk
 	ClearScroll                                   ClearScroll
 	Count                                         Count
@@ -109,29 +110,30 @@ type API struct {
 
 // Cat contains the Cat APIs
 type Cat struct {
-	Aliases         CatAliases
-	Allocation      CatAllocation
-	Count           CatCount
-	Fielddata       CatFielddata
-	Health          CatHealth
-	Help            CatHelp
-	Indices         CatIndices
-	MLDatafeeds     CatMLDatafeeds
-	MLJobs          CatMLJobs
-	MLTrainedModels CatMLTrainedModels
-	Master          CatMaster
-	Nodeattrs       CatNodeattrs
-	Nodes           CatNodes
-	PendingTasks    CatPendingTasks
-	Plugins         CatPlugins
-	Recovery        CatRecovery
-	Repositories    CatRepositories
-	Segments        CatSegments
-	Shards          CatShards
-	Snapshots       CatSnapshots
-	Tasks           CatTasks
-	Templates       CatTemplates
-	ThreadPool      CatThreadPool
+	Aliases              CatAliases
+	Allocation           CatAllocation
+	Count                CatCount
+	Fielddata            CatFielddata
+	Health               CatHealth
+	Help                 CatHelp
+	Indices              CatIndices
+	MLDataFrameAnalytics CatMLDataFrameAnalytics
+	MLDatafeeds          CatMLDatafeeds
+	MLJobs               CatMLJobs
+	MLTrainedModels      CatMLTrainedModels
+	Master               CatMaster
+	Nodeattrs            CatNodeattrs
+	Nodes                CatNodes
+	PendingTasks         CatPendingTasks
+	Plugins              CatPlugins
+	Recovery             CatRecovery
+	Repositories         CatRepositories
+	Segments             CatSegments
+	Shards               CatShards
+	Snapshots            CatSnapshots
+	Tasks                CatTasks
+	Templates            CatTemplates
+	ThreadPool           CatThreadPool
 }
 
 // Cluster contains the Cluster APIs
@@ -428,6 +430,7 @@ type XPack struct {
 //
 func New(t Transport) *API {
 	return &API{
+		AutoscalingGetAutoscalingDecision:             newAutoscalingGetAutoscalingDecisionFunc(t),
 		Bulk:                                          newBulkFunc(t),
 		ClearScroll:                                   newClearScrollFunc(t),
 		Count:                                         newCountFunc(t),
@@ -508,29 +511,30 @@ func New(t Transport) *API {
 		UpdateByQueryRethrottle:                       newUpdateByQueryRethrottleFunc(t),
 		Update:                                        newUpdateFunc(t),
 		Cat: &Cat{
-			Aliases:         newCatAliasesFunc(t),
-			Allocation:      newCatAllocationFunc(t),
-			Count:           newCatCountFunc(t),
-			Fielddata:       newCatFielddataFunc(t),
-			Health:          newCatHealthFunc(t),
-			Help:            newCatHelpFunc(t),
-			Indices:         newCatIndicesFunc(t),
-			MLDatafeeds:     newCatMLDatafeedsFunc(t),
-			MLJobs:          newCatMLJobsFunc(t),
-			MLTrainedModels: newCatMLTrainedModelsFunc(t),
-			Master:          newCatMasterFunc(t),
-			Nodeattrs:       newCatNodeattrsFunc(t),
-			Nodes:           newCatNodesFunc(t),
-			PendingTasks:    newCatPendingTasksFunc(t),
-			Plugins:         newCatPluginsFunc(t),
-			Recovery:        newCatRecoveryFunc(t),
-			Repositories:    newCatRepositoriesFunc(t),
-			Segments:        newCatSegmentsFunc(t),
-			Shards:          newCatShardsFunc(t),
-			Snapshots:       newCatSnapshotsFunc(t),
-			Tasks:           newCatTasksFunc(t),
-			Templates:       newCatTemplatesFunc(t),
-			ThreadPool:      newCatThreadPoolFunc(t),
+			Aliases:              newCatAliasesFunc(t),
+			Allocation:           newCatAllocationFunc(t),
+			Count:                newCatCountFunc(t),
+			Fielddata:            newCatFielddataFunc(t),
+			Health:               newCatHealthFunc(t),
+			Help:                 newCatHelpFunc(t),
+			Indices:              newCatIndicesFunc(t),
+			MLDataFrameAnalytics: newCatMLDataFrameAnalyticsFunc(t),
+			MLDatafeeds:          newCatMLDatafeedsFunc(t),
+			MLJobs:               newCatMLJobsFunc(t),
+			MLTrainedModels:      newCatMLTrainedModelsFunc(t),
+			Master:               newCatMasterFunc(t),
+			Nodeattrs:            newCatNodeattrsFunc(t),
+			Nodes:                newCatNodesFunc(t),
+			PendingTasks:         newCatPendingTasksFunc(t),
+			Plugins:              newCatPluginsFunc(t),
+			Recovery:             newCatRecoveryFunc(t),
+			Repositories:         newCatRepositoriesFunc(t),
+			Segments:             newCatSegmentsFunc(t),
+			Shards:               newCatShardsFunc(t),
+			Snapshots:            newCatSnapshotsFunc(t),
+			Tasks:                newCatTasksFunc(t),
+			Templates:            newCatTemplatesFunc(t),
+			ThreadPool:           newCatThreadPoolFunc(t),
 		},
 		Cluster: &Cluster{
 			AllocationExplain: newClusterAllocationExplainFunc(t),
