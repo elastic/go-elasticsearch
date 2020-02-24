@@ -10,6 +10,11 @@ import (
 	"github.com/elastic/go-elasticsearch/v8/esutil"
 )
 
+// BulkIndexerResponse wraps the esutil.BulkIndexerResponse,
+// and implements the esutil.UnmarshalFromReader() method,
+// in order to demonstrate usage of a third-party JSON decoder,
+// such as "mailru/easyjson".
+//
 // easyjson:json
 type BulkIndexerResponse struct {
 	esutil.BulkIndexerResponse
