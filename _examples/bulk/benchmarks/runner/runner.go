@@ -104,7 +104,7 @@ func (r *Runner) Report() error {
 	return nil
 }
 
-// Run prepares the index and runs the benchmarks.
+// Run executes the benchmark runs.
 //
 func (r *Runner) Run() error {
 	for n := 1; n <= r.config.NumWarmupRuns; n++ {
@@ -145,7 +145,7 @@ func (r *Runner) setup() error {
 
 	f, err := os.Open(filepath.Join("data", r.config.DatasetName, "document.json"))
 	if err != nil {
-		return fmt.Errorf("prepare: reading document: %s", err)
+		return fmt.Errorf("setup: reading document: %s", err)
 	}
 	var m map[string]interface{}
 	json.NewDecoder(f).Decode(&m)
@@ -227,7 +227,7 @@ func (r *Runner) run(n int, measure bool) error {
 		sample := 1000.0 / float64(duration/time.Millisecond) * float64(numThroughput)
 		r.samples = append(r.samples, sample)
 
-		log.Printf("%4d) add=%s\tflush=%s\tfail=%s\treqs=%s\tdur=%-6s\t%s docs/sec\n",
+		log.Printf("%4d) add=%s\tflush=%s\tfail=%s\treqs=%s\tdur=%-6s\t%6s docs/sec\n",
 			n,
 			formatInt(int(biStats.NumAdded)),
 			formatInt(int(biStats.NumFlushed)),

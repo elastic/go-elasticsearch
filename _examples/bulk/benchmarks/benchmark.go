@@ -56,6 +56,8 @@ var (
 	numShards     int
 	numReplicas   int
 	wait          time.Duration
+	useFasthttp   bool
+	useEasyjson   bool
 	mockserver    bool
 	debug         bool
 )
@@ -64,13 +66,15 @@ func init() {
 	flag.StringVar(&indexName, "index", "test-bulk-benchmarks", "Index name")
 	flag.StringVar(&datasetName, "dataset", "small", "Dataset to use for indexing")
 	flag.IntVar(&numWorkers, "workers", runtime.NumCPU(), "Number of indexer workers")
-	flag.Var(&flushBytes, "flush", "Flush threshold in bytes (default 5MB)")
+	flag.Var(&flushBytes, "flush", "Flush threshold in bytes (default 3MB)")
 	flag.IntVar(&numRuns, "runs", 10, "Number of runs")
 	flag.IntVar(&numWarmupRuns, "warmup", 3, "Number of warmup runs")
 	flag.IntVar(&numItems, "count", 100000, "Number of documents to generate")
 	flag.IntVar(&numShards, "shards", 3, "Number of index shards")
 	flag.IntVar(&numReplicas, "replicas", 0, "Number of index replicas (default 0)")
 	flag.DurationVar(&wait, "wait", time.Second, "Wait duration between runs")
+	flag.BoolVar(&useFasthttp, "fasthttp", false, "Use valyala/fasthttp for HTTP transport")
+	flag.BoolVar(&useEasyjson, "easyjson", false, "Use mailru/easyjson for JSON decoding")
 	flag.BoolVar(&mockserver, "mockserver", false, "Measure added, not flushed items")
 	flag.BoolVar(&debug, "debug", false, "Enable logging output")
 	flag.Parse()
@@ -81,19 +85,23 @@ func main() {
 
 	indexName = indexName + "-" + datasetName
 	if flushBytes < 1 {
-		flushBytes = humanBytes(5e+6)
+		flushBytes = humanBytes(3e+6)
 	}
 
-	cfg := elasticsearch.Config{}
-	cfg.Transport = &fasthttpTransport{}
+	clientCfg := elasticsearch.Config{}
+
+	if useFasthttp {
+		clientCfg.Transport = &fasthttpTransport{}
+	}
+
 	if debug {
-		cfg.Logger = &estransport.ColorLogger{Output: os.Stdout, EnableRequestBody: true, EnableResponseBody: true}
+		clientCfg.Logger = &estransport.ColorLogger{Output: os.Stdout, EnableRequestBody: true, EnableResponseBody: true}
 	}
-	es, _ := elasticsearch.NewClient(cfg)
 
-	runner, err := runner.NewRunner(runner.Config{
-		Client:  es,
-		Decoder: easyjsonDecoder{},
+	es, _ := elasticsearch.NewClient(clientCfg)
+
+	runnerCfg := runner.Config{
+		Client: es,
 
 		IndexName:     indexName,
 		DatasetName:   datasetName,
@@ -106,7 +114,13 @@ func main() {
 		FlushBytes:    int(flushBytes),
 		Wait:          wait,
 		Mockserver:    mockserver,
-	})
+	}
+
+	if useEasyjson {
+		runnerCfg.Decoder = easyjsonDecoder{}
+	}
+
+	runner, err := runner.NewRunner(runnerCfg)
 	if err != nil {
 		log.Fatalf("Error creating runner: %s", err)
 	}
@@ -114,11 +128,11 @@ func main() {
 	done := make(chan os.Signal)
 	signal.Notify(done, os.Interrupt)
 
-	go func() { <-done; log.Println("\r" + strings.Repeat("▁", 95)); runner.Report(); os.Exit(0) }()
-	defer func() { log.Println(strings.Repeat("▁", 95)); runner.Report() }()
+	go func() { <-done; log.Println("\r" + strings.Repeat("▁", 110)); runner.Report(); os.Exit(0) }()
+	defer func() { log.Println(strings.Repeat("▁", 110)); runner.Report() }()
 
 	log.Printf(
-		"%s: run [%sx] warmup [%dx] shards [%d] replicas [%d] workers [%d] flush [%s] wait [%s]",
+		"%s: run [%sx] warmup [%dx] shards [%d] replicas [%d] workers [%d] flush [%s] wait [%s]%s%s",
 		datasetName,
 		humanize.Comma(int64(numRuns)),
 		numWarmupRuns,
@@ -126,8 +140,20 @@ func main() {
 		numReplicas,
 		numWorkers,
 		humanize.Bytes(uint64(flushBytes)),
-		wait)
-	log.Println(strings.Repeat("▔", 95))
+		wait,
+		func() string {
+			if useFasthttp {
+				return " fasthttp"
+			}
+			return ""
+		}(),
+		func() string {
+			if useEasyjson {
+				return " easyjson"
+			}
+			return ""
+		}())
+	log.Println(strings.Repeat("▔", 110))
 
 	runner.Run()
 }
@@ -207,8 +233,6 @@ func (t *fasthttpTransport) copyResponse(dst *http.Response, src *fasthttp.Respo
 		dst.Header.Set(string(k), string(v))
 	})
 
-	// Cast to a string to make a copy seeing as src.Body() won't
-	// be valid after the response is released back to the pool (fasthttp.ReleaseResponse).
 	dst.Body = ioutil.NopCloser(strings.NewReader(string(src.Body())))
 
 	return dst
