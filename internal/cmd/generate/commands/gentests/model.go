@@ -114,15 +114,16 @@ func NewTestSuite(fpath string, payloads []TestPayload) TestSuite {
 						if k == "do" {
 							ts.Setup = append(ts.Setup, NewAction(vvv))
 						}
-						// TODO: Handle skip in setup, eg. indices.get_mapping/10_basic.yml
 					}
 				}
 			}
 		case len(sec_keys) == 1 && sec_keys[0] == "teardown":
 			for _, v := range payload.Payload.(map[interface{}]interface{}) {
 				for _, vv := range v.([]interface{}) {
-					for _, vvv := range vv.(map[interface{}]interface{}) {
-						ts.Teardown = append(ts.Teardown, NewAction(vvv))
+					for k, vvv := range vv.(map[interface{}]interface{}) {
+						if k == "do" {
+							ts.Teardown = append(ts.Teardown, NewAction(vvv))
+						}
 					}
 				}
 			}
