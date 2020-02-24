@@ -8,7 +8,7 @@
 //
 // You can configure the settings with command line flags:
 //
-//     go run indexer.go --dataset=httplog --runs=10 --count=1000000 --shards=3 --replicas=1 --flush=1000000
+//     go run indexer.go --workers=8 --count=100000 --flush=1000000
 //
 package main
 
@@ -46,25 +46,17 @@ type Author struct {
 }
 
 var (
-	indexName   string
-	numWorkers  int
-	flushBytes  int
-	numRuns     int
-	numItems    int
-	numShards   int
-	numReplicas int
-	debug       bool
+	indexName  string
+	numWorkers int
+	flushBytes int
+	numItems   int
 )
 
 func init() {
 	flag.StringVar(&indexName, "index", "test-bulk-example", "Index name")
 	flag.IntVar(&numWorkers, "workers", runtime.NumCPU(), "Number of indexer workers")
 	flag.IntVar(&flushBytes, "flush", 5e+6, "Flush threshold in bytes")
-	flag.IntVar(&numRuns, "runs", 1, "Number of runs")
-	flag.IntVar(&numItems, "count", 100000, "Number of documents to generate")
-	flag.IntVar(&numShards, "shards", 3, "Number of index shards")
-	flag.IntVar(&numReplicas, "replicas", 0, "Number of index replicas")
-	flag.BoolVar(&debug, "debug", false, "Enable logging output")
+	flag.IntVar(&numItems, "count", 10000, "Number of documents to generate")
 	flag.Parse()
 
 	rand.Seed(time.Now().UnixNano())
@@ -82,8 +74,8 @@ func main() {
 	)
 
 	log.Printf(
-		"BulkIndexer: documents [%s] shards [%d] replicas [%d] workers [%d] flush [%s]",
-		humanize.Comma(int64(numItems)), numShards, numReplicas, numWorkers, humanize.Bytes(uint64(flushBytes)))
+		"BulkIndexer: documents [%s] workers [%d] flush [%s]",
+		humanize.Comma(int64(numItems)), numWorkers, humanize.Bytes(uint64(flushBytes)))
 
 	// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	//
@@ -181,14 +173,18 @@ func main() {
 			esutil.BulkIndexerItem{
 				// Action field configures the operation to perform (index, create, delete, update)
 				Action: "index",
+
 				// DocumentID is the (optional) document ID
 				DocumentID: strconv.Itoa(a.ID),
+
 				// Body is an `io.Reader` with the payload
 				Body: bytes.NewReader(data),
+
 				// OnSuccess is called for each successful operation
 				OnSuccess: func(item esutil.BulkIndexerItem, res esutil.BulkIndexerResponseItem) {
 					atomic.AddUint64(&countSuccessful, 1)
 				},
+
 				// OnFailure is called for each failed operation
 				OnFailure: func(item esutil.BulkIndexerItem, res esutil.BulkIndexerResponseItem, err error) {
 					if err != nil {
