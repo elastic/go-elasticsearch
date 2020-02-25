@@ -188,6 +188,11 @@ ml/data_frame_analytics_crud.yml:
   - Test put with description
   - Test put valid config with custom outlier detection
 
+# 404s, panics, ... possible bad setup/teardown
+ml/delete_model_snapshot.yml:
+ml/get_datafeed_stats.yml:
+ml/get_model_snapshots.yml:
+
 # TEMPORARY: Missing 'body: { indices: "test_index" }' payload, TODO: PR
 snapshot/10_basic.yml:
   - Create a source only snapshot and then restore it
