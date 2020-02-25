@@ -109,6 +109,9 @@ bulk/81_cas_with_types.yml:
 
 # ----- X-Pack ----------------------------------------------------------------
 
+# Float "3.0" handled as "3" in fmt.Sprintf()
+analytics/top_metrics.yml:
+
 # Stash in body
 api_key/10_basic.yml:
   - Test invalidate api key
