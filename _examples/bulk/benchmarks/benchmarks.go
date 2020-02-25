@@ -8,7 +8,7 @@
 //
 // You can configure the settings with command line flags:
 //
-//     go run indexer.go --dataset=httplog --runs=10 --count=1000000 --shards=3 --replicas=1 --flush=1000000
+//     go run benchmark.go --dataset=httplog --runs=15 --count=1_000_000 --shards=5 --replicas=1 --flush=1MB
 
 package main
 

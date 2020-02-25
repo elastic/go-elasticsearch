@@ -30,6 +30,7 @@ func NewRunner(cfg Config) (*Runner, error) {
 }
 
 // Runner represents the BulkIndexer benchmarking runner.
+//
 type Runner struct {
 	config Config
 
@@ -41,6 +42,7 @@ type Runner struct {
 }
 
 // Config represents configuration for Runner.
+//
 type Config struct {
 	IndexName   string
 	DatasetName string
@@ -242,7 +244,7 @@ func (r *Runner) run(n int, measure bool) error {
 	return nil
 }
 
-// formatInt converts a number like 123456 into a string like 123.45K
+// formatInt returns a number like 123456 as a string like 123.45K
 //
 func formatInt(i int) string {
 	return strings.ReplaceAll(strings.ToUpper(humanize.SIWithDigits(float64(i), 2, "")), " ", "")
