@@ -1,8 +1,8 @@
 # Example: Bulk Indexing
 
-## `bulk.go`
+## `default.go`
 
-The [`bulk.go`](bulk.go) example demonstrates how to properly operate the Elasticsearch's
+The [`default.go`](default.go) example demonstrates how to properly operate the Elasticsearch's
 [Bulk API]([https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html]).
 
 The example intentionally doesn't use any abstractions or helper functions, to
@@ -17,13 +17,41 @@ demonstrate the low-level mechanics of working with the Bulk API:
 * printing a report.
 
 ```bash
-go run bulk.go -count=100000 -batch=25000
+go run default.go -count=100000 -batch=25000
 
-# > Generated 100000 articles
-# > Batch 1  of 4
-# > Batch 2  of 4
-# > Batch 3  of 4
-# > Batch 4  of 4
-# ================================================================================
-# Sucessfuly indexed [100000] documents in 8.02s (12469 docs/sec)
+# Bulk: documents [100,000] batch size [25,000]
+# ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+# → Generated 100,000 articles
+# → Sending batch [1/4] [2/4] [3/4] [4/4]
+# ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
+# Sucessfuly indexed [100,000] documents in 3.423s (29,214 docs/sec)
 ```
+
+## `indexer.go`
+
+The [`indexer.go`](indexer.go) example demonstrates how to use the [`esutil.BulkIndexer`](../esutil/bulk_indexer.go) helper for efficient indexing in parallel.
+
+```bash
+go run indexer.go -count=100000 -flush=1000000
+
+# BulkIndexer: documents [100,000] workers [8] flush [1.0 MB]
+# ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+# → Generated 100,000 articles
+# ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
+# Sucessfuly indexed [100,000] documents in 1.909s (52,383 docs/sec)
+```
+
+The helper allows you to `Add()` bulk indexer items, and flushes each batch based on the configured threshold.
+
+```golang
+indexer, _ := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{})
+indexer.Add(
+	context.Background(),
+	esutil.BulkIndexerItem{
+		Action: "index",
+		Body:   strings.NewReader(`{"title":"Test"}`),
+	})
+indexer.Close(context.Background())
+```
+
+Please refer to the [`benchmarks`](benchmarks) folder for performance tests with different types of payload.

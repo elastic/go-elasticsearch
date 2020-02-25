@@ -30,6 +30,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/dustin/go-humanize"
+
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
 )
@@ -100,6 +102,11 @@ func main() {
 		currBatch  int
 	)
 
+	log.Printf(
+		"\x1b[1mBulk\x1b[0m: documents [%s] batch size [%s]",
+		humanize.Comma(int64(count)), humanize.Comma(int64(batch)))
+	log.Println(strings.Repeat("▁", 65))
+
 	// Create the Elasticsearch client
 	//
 	es, err := elasticsearch.NewDefaultClient()
@@ -122,7 +129,8 @@ func main() {
 			},
 		})
 	}
-	log.Printf("> Generated %d articles", len(articles))
+	log.Printf("→ Generated %s articles", humanize.Comma(int64(len(articles))))
+	fmt.Print("→ Sending batch ")
 
 	// Re-create the index
 	//
@@ -187,7 +195,7 @@ func main() {
 		// When a threshold is reached, execute the Bulk() request with body from buffer
 		//
 		if i > 0 && i%batch == 0 || i == count-1 {
-			log.Printf("> Batch %-2d of %d", currBatch, numBatches)
+			fmt.Printf("[%d/%d] ", currBatch, numBatches)
 
 			res, err = es.Bulk(bytes.NewReader(buf.Bytes()), es.Bulk.WithIndex(indexName))
 			if err != nil {
@@ -250,24 +258,25 @@ func main() {
 
 	// Report the results: number of indexed docs, number of errors, duration, indexing rate
 	//
-	log.Println(strings.Repeat("=", 80))
+	fmt.Print("\n")
+	log.Println(strings.Repeat("▔", 65))
 
 	dur := time.Since(start)
 
 	if numErrors > 0 {
 		log.Fatalf(
-			"Indexed [%d] documents with [%d] errors in %s (%.0f docs/sec)",
-			numIndexed,
-			numErrors,
+			"Indexed [%s] documents with [%s] errors in %s (%s docs/sec)",
+			humanize.Comma(int64(numIndexed)),
+			humanize.Comma(int64(numErrors)),
 			dur.Truncate(time.Millisecond),
-			1000.0/float64(dur/time.Millisecond)*float64(numIndexed),
+			humanize.Comma(int64(1000.0/float64(dur/time.Millisecond)*float64(numIndexed))),
 		)
 	} else {
 		log.Printf(
-			"Sucessfuly indexed [%d] documents in %s (%.0f docs/sec)",
-			numIndexed,
+			"Sucessfuly indexed [%s] documents in %s (%s docs/sec)",
+			humanize.Comma(int64(numIndexed)),
 			dur.Truncate(time.Millisecond),
-			1000.0/float64(dur/time.Millisecond)*float64(numIndexed),
+			humanize.Comma(int64(1000.0/float64(dur/time.Millisecond)*float64(numIndexed))),
 		)
 	}
 }

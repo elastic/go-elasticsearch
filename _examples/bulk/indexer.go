@@ -74,8 +74,9 @@ func main() {
 	)
 
 	log.Printf(
-		"BulkIndexer: documents [%s] workers [%d] flush [%s]",
+		"\x1b[1mBulkIndexer\x1b[0m: documents [%s] workers [%d] flush [%s]",
 		humanize.Comma(int64(numItems)), numWorkers, humanize.Bytes(uint64(flushBytes)))
+	log.Println(strings.Repeat("▁", 65))
 
 	// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	//
@@ -135,7 +136,7 @@ func main() {
 			},
 		})
 	}
-	log.Printf("> Generated %s articles", humanize.Comma(int64(len(articles))))
+	log.Printf("→ Generated %s articles", humanize.Comma(int64(len(articles))))
 
 	// Re-create the index
 	//
@@ -213,24 +214,24 @@ func main() {
 
 	// Report the results: number of indexed docs, number of errors, duration, indexing rate
 	//
-	log.Println(strings.Repeat("=", 80))
+	log.Println(strings.Repeat("▔", 65))
 
 	dur := time.Since(start)
 
 	if biStats.NumFailed > 0 {
 		log.Fatalf(
-			"Indexed [%s] documents with [%s] errors in %s (%.0f docs/sec)",
+			"Indexed [%s] documents with [%s] errors in %s (%s docs/sec)",
 			humanize.Comma(int64(biStats.NumFlushed)),
 			humanize.Comma(int64(biStats.NumFailed)),
 			dur.Truncate(time.Millisecond),
-			1000.0/float64(dur/time.Millisecond)*float64(biStats.NumFlushed),
+			humanize.Comma(int64(1000.0/float64(dur/time.Millisecond)*float64(biStats.NumFlushed))),
 		)
 	} else {
 		log.Printf(
-			"Sucessfuly indexed [%s] documents in %s (%.0f docs/sec)",
+			"Sucessfuly indexed [%s] documents in %s (%s docs/sec)",
 			humanize.Comma(int64(biStats.NumFlushed)),
 			dur.Truncate(time.Millisecond),
-			1000.0/float64(dur/time.Millisecond)*float64(biStats.NumFlushed),
+			humanize.Comma(int64(1000.0/float64(dur/time.Millisecond)*float64(biStats.NumFlushed))),
 		)
 	}
 }
