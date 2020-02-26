@@ -11,6 +11,7 @@ docker exec go-elasticsearch /bin/sh -c 'rm -rf esapi/test/xpack'
 
 echo -e "\033[1m>>>>> Generating the API registry\033[0m"
 
+docker exec --workdir=/go-elasticsearch/internal/cmd/generate go-elasticsearch go get -u golang.org/x/tools/cmd/goimports
 docker exec --workdir=/go-elasticsearch/internal/cmd/generate --env PACKAGE_PATH=/go-elasticsearch/esapi go-elasticsearch go generate ./...
 
 echo -e "\033[1m>>>>> Generating the test files\033[0m"
