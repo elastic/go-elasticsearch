@@ -309,7 +309,9 @@ func (g *Generator) genCommonSetup() {
 		}
 
 		{
-			res, _ = es.Indices.Delete([]string{"_all"})
+			res, _ = es.Indices.Delete(
+				[]string{"_all"},
+				es.Indices.Delete.WithExpandWildcards("open,closed,hidden"))
 			if res != nil && res.Body != nil { defer res.Body.Close() }
 		}
 
@@ -457,6 +459,15 @@ func (g *Generator) genXPackSetup() {
 			}
 
 			{
+				res, _ = es.Indices.Refresh(
+					es.Indices.Refresh.WithIndex("_all"),
+					es.Indices.Refresh.WithExpandWildcards("open,closed,hidden"))
+				if res != nil && res.Body != nil {
+					defer res.Body.Close()
+				}
+			}
+
+			{
 				var r map[string]interface{}
 				ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 				defer cancel()
@@ -585,7 +596,9 @@ func (g *Generator) genXPackSetup() {
 			}
 
 			{
-				res, _ = es.Indices.Refresh(es.Indices.Refresh.WithIndex("_all"))
+				res, _ = es.Indices.Refresh(
+					es.Indices.Refresh.WithIndex("_all"),
+					es.Indices.Refresh.WithExpandWildcards("open,closed,hidden"))
 				if res != nil && res.Body != nil {
 					defer res.Body.Close()
 				}
