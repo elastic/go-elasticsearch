@@ -19,6 +19,7 @@ import (
 	"time"
 
 	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/elastic/go-elasticsearch/v8/esapi"
 )
 
 // BulkIndexer represents a parallel, asynchronous, efficient indexer for Elasticsearch.
@@ -359,6 +360,7 @@ func (w *worker) flush() error {
 	var (
 		err error
 		blk BulkIndexerResponse
+		ctx = context.Background()
 	)
 
 	defer func() {
@@ -374,7 +376,26 @@ func (w *worker) flush() error {
 	}
 
 	atomic.AddUint64(&w.bi.stats.numRequests, 1)
-	res, err := w.bi.config.Client.Bulk(w.buf, w.bi.config.Client.Bulk.WithIndex(w.bi.config.Index))
+	req := esapi.BulkRequest{
+		Index: w.bi.config.Index,
+		Body:  w.buf,
+
+		Pipeline:            w.bi.config.Pipeline,
+		Refresh:             w.bi.config.Refresh,
+		Routing:             w.bi.config.Routing,
+		Source:              w.bi.config.Source,
+		SourceExcludes:      w.bi.config.SourceExcludes,
+		SourceIncludes:      w.bi.config.SourceIncludes,
+		Timeout:             w.bi.config.Timeout,
+		WaitForActiveShards: w.bi.config.WaitForActiveShards,
+
+		Pretty:     w.bi.config.Pretty,
+		Human:      w.bi.config.Human,
+		ErrorTrace: w.bi.config.ErrorTrace,
+		FilterPath: w.bi.config.FilterPath,
+		Header:     w.bi.config.Header,
+	}
+	res, err := req.Do(ctx, w.bi.config.Client)
 	if err != nil {
 		atomic.AddUint64(&w.bi.stats.numFailed, uint64(len(w.items)))
 		// TODO(karmi): Wrap error
