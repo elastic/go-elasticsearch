@@ -25,6 +25,7 @@ import (
 	"sync/atomic"
 	"time"
 
+	"github.com/cenkalti/backoff/v4"
 	"github.com/dustin/go-humanize"
 
 	"github.com/elastic/go-elasticsearch/v8"
@@ -80,6 +81,13 @@ func main() {
 
 	// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	//
+	// Use a third-party package for implementing the backoff function
+	//
+	retryBackoff := backoff.NewExponentialBackOff()
+	// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+	// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+	//
 	// Create the Elasticsearch client
 	//
 	// NOTE: For optimal performance, consider using a third-party HTTP transport package.
@@ -90,9 +98,14 @@ func main() {
 		//
 		RetryOnStatus: []int{502, 503, 504, 429},
 
-		// A simple incremental backoff function
+		// Configure the backoff function
 		//
-		RetryBackoff: func(i int) time.Duration { return time.Duration(i) * 100 * time.Millisecond },
+		RetryBackoff: func(i int) time.Duration {
+			if i == 1 {
+				retryBackoff.Reset()
+			}
+			return retryBackoff.NextBackOff()
+		},
 
 		// Retry up to 5 attempts
 		//
