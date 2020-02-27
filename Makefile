@@ -121,7 +121,7 @@ test-coverage:  ## Generate test coverage report
 	@printf "\033[2m→ Generating test coverage report...\033[0m\n"
 	@go tool cover -html=tmp/unit.cov -o tmp/coverage.html
 	@go tool cover -func=tmp/unit.cov | 'grep' -v 'esapi/api\.' | sed 's/github.com\/elastic\/go-elasticsearch\///g'
-	@printf "--------------------------------------------------------------------------------\nopen tmp/coverage.html\n\n"
+	@printf "\033[0m--------------------------------------------------------------------------------\nopen tmp/coverage.html\n\n\033[0m"
 
 ##@ Development
 lint:  ## Run lint on the package
