@@ -44,8 +44,9 @@ type BulkIndexer interface {
 // BulkIndexerConfig represents configuration of the indexer.
 //
 type BulkIndexerConfig struct {
-	NumWorkers int // The number of workers. Defaults to runtime.NumCPU().
-	FlushBytes int // The flush threshold in bytes. Defaults to 5MB.
+	NumWorkers   int           // The number of workers. Defaults to runtime.NumCPU().
+	FlushBytes   int           // The flush threshold in bytes. Defaults to 5MB.
+	FlushTimeout time.Duration // The flush threshold as duration. Defaults to 10sec.
 
 	Client  *elasticsearch.Client   // The Elasticsearch client.
 	Decoder BulkResponseJSONDecoder // A custom JSON decoder.
@@ -140,6 +141,7 @@ type bulkIndexer struct {
 	wg      sync.WaitGroup
 	queue   chan BulkIndexerItem
 	workers []*worker
+	ticker  *time.Ticker
 	stats   *bulkIndexerStats
 
 	config BulkIndexerConfig
@@ -173,6 +175,10 @@ func NewBulkIndexer(cfg BulkIndexerConfig) (BulkIndexer, error) {
 
 	if cfg.FlushBytes == 0 {
 		cfg.FlushBytes = 5e+6
+	}
+
+	if cfg.FlushTimeout == 0 {
+		cfg.FlushTimeout = 10 * time.Second
 	}
 
 	bi := bulkIndexer{
@@ -210,15 +216,20 @@ func (bi *bulkIndexer) Close(ctx context.Context) error {
 		bi.wg.Wait()
 	}
 
+	bi.ticker.Stop()
+
 	if os.Getenv("DEBUG") != "" {
 		fmt.Println("==> Flushing remaining buffers...")
 	}
 	for _, w := range bi.workers {
+		w.mu.Lock()
 		if w.buf.Len() > 0 {
 			if err := w.flush(); err != nil {
 				// TODO(karmi): Wrap error
+				w.mu.Unlock()
 				return fmt.Errorf("%s", err)
 			}
+			w.mu.Unlock()
 		}
 	}
 
@@ -256,6 +267,29 @@ func (bi *bulkIndexer) init() {
 		bi.workers = append(bi.workers, &w)
 	}
 	bi.wg.Add(bi.config.NumWorkers)
+
+	bi.ticker = time.NewTicker(bi.config.FlushTimeout)
+	go func() error {
+		for {
+			select {
+			case <-bi.ticker.C:
+				if os.Getenv("DEBUG") != "" {
+					fmt.Printf(">>> Auto-flushing after %s\n", bi.config.FlushTimeout)
+				}
+				for _, w := range bi.workers {
+					w.mu.Lock()
+					if w.buf.Len() > 0 {
+						if err := w.flush(); err != nil {
+							// TODO(karmi): Wrap error
+							w.mu.Unlock()
+							return fmt.Errorf("%s", err)
+						}
+					}
+					w.mu.Unlock()
+				}
+			}
+		}
+	}()
 }
 
 // worker represents an indexer worker.
@@ -263,6 +297,7 @@ func (bi *bulkIndexer) init() {
 type worker struct {
 	id    int
 	ch    <-chan BulkIndexerItem
+	mu    sync.Mutex
 	bi    *bulkIndexer
 	buf   *bytes.Buffer
 	aux   []byte
@@ -281,6 +316,8 @@ func (w *worker) run() {
 		defer w.bi.wg.Done()
 
 		for item := range w.ch {
+			w.mu.Lock()
+
 			if os.Getenv("DEBUG") != "" {
 				fmt.Printf(">>> [worker-%03d] Got [%s:%s]\n", w.id, item.Action, item.DocumentID)
 			}
@@ -290,6 +327,7 @@ func (w *worker) run() {
 					item.OnFailure(item, BulkIndexerResponseItem{}, err)
 				}
 				atomic.AddUint64(&w.bi.stats.numFailed, 1)
+				w.mu.Unlock()
 				continue
 			}
 
@@ -298,21 +336,20 @@ func (w *worker) run() {
 					item.OnFailure(item, BulkIndexerResponseItem{}, err)
 				}
 				atomic.AddUint64(&w.bi.stats.numFailed, 1)
+				w.mu.Unlock()
 				continue
 			}
 
 			w.items = append(w.items, item)
-			if os.Getenv("DEBUG") != "" {
-				fmt.Printf(">>> [worker-%03d] w.buf.Len(): %d | FlushBytes: %d\n", w.id, w.buf.Len(), w.bi.config.FlushBytes)
-			}
 			if w.buf.Len() >= w.bi.config.FlushBytes {
 				w.flush()
 			}
+			w.mu.Unlock()
 		}
 	}()
 }
 
-// writeMeta formats and writes the item metadata to the buffer.
+// writeMeta formats and writes the item metadata to the buffer; it must be called under a lock.
 //
 func (w *worker) writeMeta(item BulkIndexerItem) error {
 	// TODO(karmi): Handle errors
@@ -334,7 +371,7 @@ func (w *worker) writeMeta(item BulkIndexerItem) error {
 	return nil
 }
 
-// writeBody writes the item body to the buffer.
+// writeBody writes the item body to the buffer; it must be called under a lock.
 //
 func (w *worker) writeBody(item BulkIndexerItem) error {
 	// TODO(karmi): Handle errors
@@ -347,12 +384,19 @@ func (w *worker) writeBody(item BulkIndexerItem) error {
 	return nil
 }
 
-// flush writes out the worker buffer.
+// flush writes out the worker buffer; it must be called under a lock.
 //
 func (w *worker) flush() error {
 	if w.isFlushing {
 		if os.Getenv("DEBUG") != "" {
 			fmt.Printf(">>> [worker-%03d] Already flushing\n", w.id)
+		}
+		return nil
+	}
+
+	if w.buf.Len() < 1 {
+		if os.Getenv("DEBUG") != "" {
+			fmt.Printf(">>> [worker-%03d] Buffer empty\n", w.id)
 		}
 		return nil
 	}

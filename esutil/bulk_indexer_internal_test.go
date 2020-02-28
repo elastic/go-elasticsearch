@@ -73,7 +73,12 @@ func TestBulkIndexer(t *testing.T) {
 				return &http.Response{Body: ioutil.NopCloser(bytes.NewBuffer(bodyContent))}, nil
 			},
 		}})
-		bi, _ := NewBulkIndexer(BulkIndexerConfig{NumWorkers: 1, FlushBytes: 50, Client: es})
+		bi, _ := NewBulkIndexer(
+			BulkIndexerConfig{
+				NumWorkers:   1,
+				FlushBytes:   50,
+				FlushTimeout: time.Hour, // Disable auto-flushing, because response doesn't match number of items
+				Client:       es})
 
 		for i := 1; i <= numItems; i++ {
 			wg.Add(1)
@@ -271,6 +276,51 @@ func TestBulkIndexer(t *testing.T) {
 		}
 	})
 
+	t.Run("Automatic flush", func(t *testing.T) {
+		es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
+			RoundTripFunc: func(*http.Request) (*http.Response, error) {
+				return &http.Response{
+					StatusCode: http.StatusOK,
+					Status:     "200 OK",
+					Body:       ioutil.NopCloser(strings.NewReader(`{"items":[{"index": {}}]}`))}, nil
+			},
+		}})
+		bi, _ := NewBulkIndexer(BulkIndexerConfig{
+			NumWorkers:   1,
+			Client:       es,
+			FlushTimeout: 100 * time.Millisecond, // Decrease the flush timeout
+		})
+
+		bi.Add(context.Background(),
+			BulkIndexerItem{Action: "index", Body: strings.NewReader(`{"title":"foo"}`)})
+
+		// Allow some time for auto-flush to kick in
+		time.Sleep(150 * time.Millisecond)
+
+		stats := bi.Stats()
+		expected := uint(1)
+
+		if stats.NumAdded != expected {
+			t.Errorf("Unexpected NumAdded: want=%d, got=%d", expected, stats.NumAdded)
+		}
+
+		if stats.NumFailed != 0 {
+			t.Errorf("Unexpected NumFailed: want=%d, got=%d", 0, stats.NumFlushed)
+		}
+
+		if stats.NumFlushed != expected {
+			t.Errorf("Unexpected NumFlushed: want=%d, got=%d", expected, stats.NumFlushed)
+		}
+
+		if stats.NumIndexed != expected {
+			t.Errorf("Unexpected NumIndexed: want=%d, got=%d", expected, stats.NumIndexed)
+		}
+
+		// Wait some time before closing the indexer to clear the timer
+		time.Sleep(200 * time.Millisecond)
+		bi.Close(context.Background())
+	})
+
 	t.Run("TooManyRequests", func(t *testing.T) {
 		var (
 			wg sync.WaitGroup
@@ -354,7 +404,6 @@ func TestBulkIndexer(t *testing.T) {
 	})
 
 	t.Run("Custom JSON Decoder", func(t *testing.T) {
-
 		es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{}})
 		bi, _ := NewBulkIndexer(BulkIndexerConfig{Client: es, Decoder: customJSONDecoder{}})
 
