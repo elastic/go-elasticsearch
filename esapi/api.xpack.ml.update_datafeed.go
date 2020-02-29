@@ -10,6 +10,7 @@ import (
 	"context"
 	"io"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -37,6 +38,11 @@ type MLUpdateDatafeedRequest struct {
 	Body io.Reader
 
 	DatafeedID string
+
+	AllowNoIndices    *bool
+	ExpandWildcards   string
+	IgnoreThrottled   *bool
+	IgnoreUnavailable *bool
 
 	Pretty     bool
 	Human      bool
@@ -70,6 +76,22 @@ func (r MLUpdateDatafeedRequest) Do(ctx context.Context, transport Transport) (*
 	path.WriteString("_update")
 
 	params = make(map[string]string)
+
+	if r.AllowNoIndices != nil {
+		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
+	}
+
+	if r.ExpandWildcards != "" {
+		params["expand_wildcards"] = r.ExpandWildcards
+	}
+
+	if r.IgnoreThrottled != nil {
+		params["ignore_throttled"] = strconv.FormatBool(*r.IgnoreThrottled)
+	}
+
+	if r.IgnoreUnavailable != nil {
+		params["ignore_unavailable"] = strconv.FormatBool(*r.IgnoreUnavailable)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -139,6 +161,38 @@ func (r MLUpdateDatafeedRequest) Do(ctx context.Context, transport Transport) (*
 func (f MLUpdateDatafeed) WithContext(v context.Context) func(*MLUpdateDatafeedRequest) {
 	return func(r *MLUpdateDatafeedRequest) {
 		r.ctx = v
+	}
+}
+
+// WithAllowNoIndices - ignore if the source indices expressions resolves to no concrete indices (default: true).
+//
+func (f MLUpdateDatafeed) WithAllowNoIndices(v bool) func(*MLUpdateDatafeedRequest) {
+	return func(r *MLUpdateDatafeedRequest) {
+		r.AllowNoIndices = &v
+	}
+}
+
+// WithExpandWildcards - whether source index expressions should get expanded to open or closed indices (default: open).
+//
+func (f MLUpdateDatafeed) WithExpandWildcards(v string) func(*MLUpdateDatafeedRequest) {
+	return func(r *MLUpdateDatafeedRequest) {
+		r.ExpandWildcards = v
+	}
+}
+
+// WithIgnoreThrottled - ignore indices that are marked as throttled (default: true).
+//
+func (f MLUpdateDatafeed) WithIgnoreThrottled(v bool) func(*MLUpdateDatafeedRequest) {
+	return func(r *MLUpdateDatafeedRequest) {
+		r.IgnoreThrottled = &v
+	}
+}
+
+// WithIgnoreUnavailable - ignore unavailable indexes (default: false).
+//
+func (f MLUpdateDatafeed) WithIgnoreUnavailable(v bool) func(*MLUpdateDatafeedRequest) {
+	return func(r *MLUpdateDatafeedRequest) {
+		r.IgnoreUnavailable = &v
 	}
 }
 

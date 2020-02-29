@@ -27,7 +27,7 @@ func newCatMLDataFrameAnalyticsFunc(t Transport) CatMLDataFrameAnalytics {
 
 // CatMLDataFrameAnalytics -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/get-dfanalytics-stats.html.
+// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/cat-dfanalytics.html.
 //
 type CatMLDataFrameAnalytics func(o ...func(*CatMLDataFrameAnalyticsRequest)) (*Response, error)
 

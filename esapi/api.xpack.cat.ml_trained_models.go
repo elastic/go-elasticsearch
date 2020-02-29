@@ -27,7 +27,7 @@ func newCatMLTrainedModelsFunc(t Transport) CatMLTrainedModels {
 
 // CatMLTrainedModels -
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-inference-stats.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-trained-model.html.
 //
 type CatMLTrainedModels func(o ...func(*CatMLTrainedModelsRequest)) (*Response, error)
 

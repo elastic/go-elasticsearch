@@ -27,7 +27,7 @@ func newCatMLDatafeedsFunc(t Transport) CatMLDatafeeds {
 
 // CatMLDatafeeds -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-datafeed-stats.html.
+// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/cat-datafeeds.html.
 //
 type CatMLDatafeeds func(o ...func(*CatMLDatafeedsRequest)) (*Response, error)
 

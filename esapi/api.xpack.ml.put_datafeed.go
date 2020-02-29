@@ -10,6 +10,7 @@ import (
 	"context"
 	"io"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -37,6 +38,11 @@ type MLPutDatafeedRequest struct {
 	Body io.Reader
 
 	DatafeedID string
+
+	AllowNoIndices    *bool
+	ExpandWildcards   string
+	IgnoreThrottled   *bool
+	IgnoreUnavailable *bool
 
 	Pretty     bool
 	Human      bool
@@ -68,6 +74,22 @@ func (r MLPutDatafeedRequest) Do(ctx context.Context, transport Transport) (*Res
 	path.WriteString(r.DatafeedID)
 
 	params = make(map[string]string)
+
+	if r.AllowNoIndices != nil {
+		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
+	}
+
+	if r.ExpandWildcards != "" {
+		params["expand_wildcards"] = r.ExpandWildcards
+	}
+
+	if r.IgnoreThrottled != nil {
+		params["ignore_throttled"] = strconv.FormatBool(*r.IgnoreThrottled)
+	}
+
+	if r.IgnoreUnavailable != nil {
+		params["ignore_unavailable"] = strconv.FormatBool(*r.IgnoreUnavailable)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -137,6 +159,38 @@ func (r MLPutDatafeedRequest) Do(ctx context.Context, transport Transport) (*Res
 func (f MLPutDatafeed) WithContext(v context.Context) func(*MLPutDatafeedRequest) {
 	return func(r *MLPutDatafeedRequest) {
 		r.ctx = v
+	}
+}
+
+// WithAllowNoIndices - ignore if the source indices expressions resolves to no concrete indices (default: true).
+//
+func (f MLPutDatafeed) WithAllowNoIndices(v bool) func(*MLPutDatafeedRequest) {
+	return func(r *MLPutDatafeedRequest) {
+		r.AllowNoIndices = &v
+	}
+}
+
+// WithExpandWildcards - whether source index expressions should get expanded to open or closed indices (default: open).
+//
+func (f MLPutDatafeed) WithExpandWildcards(v string) func(*MLPutDatafeedRequest) {
+	return func(r *MLPutDatafeedRequest) {
+		r.ExpandWildcards = v
+	}
+}
+
+// WithIgnoreThrottled - ignore indices that are marked as throttled (default: true).
+//
+func (f MLPutDatafeed) WithIgnoreThrottled(v bool) func(*MLPutDatafeedRequest) {
+	return func(r *MLPutDatafeedRequest) {
+		r.IgnoreThrottled = &v
+	}
+}
+
+// WithIgnoreUnavailable - ignore unavailable indexes (default: false).
+//
+func (f MLPutDatafeed) WithIgnoreUnavailable(v bool) func(*MLPutDatafeedRequest) {
+	return func(r *MLPutDatafeedRequest) {
+		r.IgnoreUnavailable = &v
 	}
 }
 
