@@ -9,7 +9,7 @@ test-indexer:
 	go run indexer.go
 
 test-benchmarks: clean setup
-	cd benchmarks && go run main.go
+	cd benchmarks && go run benchmarks.go
 
 setup:
 	@go get -u github.com/mailru/easyjson/...
