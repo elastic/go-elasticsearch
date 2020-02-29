@@ -11,7 +11,6 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"os"
 	"runtime"
 	"strconv"
 	"sync"
@@ -48,8 +47,9 @@ type BulkIndexerConfig struct {
 	FlushBytes   int           // The flush threshold in bytes. Defaults to 5MB.
 	FlushTimeout time.Duration // The flush threshold as duration. Defaults to 10sec.
 
-	Client  *elasticsearch.Client   // The Elasticsearch client.
-	Decoder BulkResponseJSONDecoder // A custom JSON decoder.
+	Client      *elasticsearch.Client   // The Elasticsearch client.
+	Decoder     BulkResponseJSONDecoder // A custom JSON decoder.
+	DebugLogger BulkIndexerDebugLogger  // An optional logger for debugging.
 
 	// Parameters of the Bulk API.
 	Index               string
@@ -137,6 +137,12 @@ type BulkResponseJSONDecoder interface {
 	UnmarshalFromReader(io.Reader, *BulkIndexerResponse) error
 }
 
+// BulkIndexerDebugLogger defines the interface for a debugging logger.
+//
+type BulkIndexerDebugLogger interface {
+	Printf(string, ...interface{})
+}
+
 type bulkIndexer struct {
 	wg      sync.WaitGroup
 	queue   chan BulkIndexerItem
@@ -218,9 +224,6 @@ func (bi *bulkIndexer) Close(ctx context.Context) error {
 
 	bi.ticker.Stop()
 
-	if os.Getenv("DEBUG") != "" {
-		fmt.Println("==> Flushing remaining buffers...")
-	}
 	for _, w := range bi.workers {
 		w.mu.Lock()
 		if w.buf.Len() > 0 {
@@ -273,8 +276,8 @@ func (bi *bulkIndexer) init() {
 		for {
 			select {
 			case <-bi.ticker.C:
-				if os.Getenv("DEBUG") != "" {
-					fmt.Printf(">>> Auto-flushing after %s\n", bi.config.FlushTimeout)
+				if bi.config.DebugLogger != nil {
+					bi.config.DebugLogger.Printf("[indexer] Auto-flushing workers after %s\n", bi.config.FlushTimeout)
 				}
 				for _, w := range bi.workers {
 					w.mu.Lock()
@@ -310,16 +313,16 @@ type worker struct {
 //
 func (w *worker) run() {
 	go func() {
-		if os.Getenv("DEBUG") != "" {
-			fmt.Printf("--> [worker-%03d] Started\n", w.id)
+		if w.bi.config.DebugLogger != nil {
+			w.bi.config.DebugLogger.Printf("[worker-%03d] Started\n", w.id)
 		}
 		defer w.bi.wg.Done()
 
 		for item := range w.ch {
 			w.mu.Lock()
 
-			if os.Getenv("DEBUG") != "" {
-				fmt.Printf(">>> [worker-%03d] Got [%s:%s]\n", w.id, item.Action, item.DocumentID)
+			if w.bi.config.DebugLogger != nil {
+				w.bi.config.DebugLogger.Printf("[worker-%03d] Received item [%s:%s]\n", w.id, item.Action, item.DocumentID)
 			}
 
 			if err := w.writeMeta(item); err != nil {
@@ -388,15 +391,15 @@ func (w *worker) writeBody(item BulkIndexerItem) error {
 //
 func (w *worker) flush() error {
 	if w.isFlushing {
-		if os.Getenv("DEBUG") != "" {
-			fmt.Printf(">>> [worker-%03d] Already flushing\n", w.id)
+		if w.bi.config.DebugLogger != nil {
+			w.bi.config.DebugLogger.Printf("[worker-%03d] Flush: Already flushing\n", w.id)
 		}
 		return nil
 	}
 
 	if w.buf.Len() < 1 {
-		if os.Getenv("DEBUG") != "" {
-			fmt.Printf(">>> [worker-%03d] Buffer empty\n", w.id)
+		if w.bi.config.DebugLogger != nil {
+			w.bi.config.DebugLogger.Printf("[worker-%03d] Flush: Buffer empty\n", w.id)
 		}
 		return nil
 	}
@@ -415,8 +418,8 @@ func (w *worker) flush() error {
 
 	w.isFlushing = true
 
-	if os.Getenv("DEBUG") != "" {
-		fmt.Printf(">>> [worker-%03d] FLUSH BUFFER: %s\n", w.id, w.buf.String())
+	if w.bi.config.DebugLogger != nil {
+		w.bi.config.DebugLogger.Printf("[worker-%03d] Flush: %s\n", w.id, w.buf.String())
 	}
 
 	atomic.AddUint64(&w.bi.stats.numRequests, 1)

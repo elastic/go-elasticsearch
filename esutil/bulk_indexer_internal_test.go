@@ -13,6 +13,7 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"os"
 	"reflect"
@@ -73,12 +74,17 @@ func TestBulkIndexer(t *testing.T) {
 				return &http.Response{Body: ioutil.NopCloser(bytes.NewBuffer(bodyContent))}, nil
 			},
 		}})
-		bi, _ := NewBulkIndexer(
-			BulkIndexerConfig{
-				NumWorkers:   1,
-				FlushBytes:   50,
-				FlushTimeout: time.Hour, // Disable auto-flushing, because response doesn't match number of items
-				Client:       es})
+
+		cfg := BulkIndexerConfig{
+			NumWorkers:   1,
+			FlushBytes:   50,
+			FlushTimeout: time.Hour, // Disable auto-flushing, because response doesn't match number of items
+			Client:       es}
+		if os.Getenv("DEBUG") != "" {
+			cfg.DebugLogger = log.New(os.Stdout, "", 0)
+		}
+
+		bi, _ := NewBulkIndexer(cfg)
 
 		for i := 1; i <= numItems; i++ {
 			wg.Add(1)
@@ -183,7 +189,13 @@ func TestBulkIndexer(t *testing.T) {
 				return &http.Response{Body: ioutil.NopCloser(bytes.NewBuffer(bodyContent))}, nil
 			},
 		}})
-		bi, _ := NewBulkIndexer(BulkIndexerConfig{NumWorkers: 1, Client: es})
+
+		cfg := BulkIndexerConfig{NumWorkers: 1, Client: es}
+		if os.Getenv("DEBUG") != "" {
+			cfg.DebugLogger = log.New(os.Stdout, "", 0)
+		}
+
+		bi, _ := NewBulkIndexer(cfg)
 
 		successFunc := func(item BulkIndexerItem, res BulkIndexerResponseItem) {
 			atomic.AddUint64(&countSuccessful, 1)
@@ -285,11 +297,17 @@ func TestBulkIndexer(t *testing.T) {
 					Body:       ioutil.NopCloser(strings.NewReader(`{"items":[{"index": {}}]}`))}, nil
 			},
 		}})
-		bi, _ := NewBulkIndexer(BulkIndexerConfig{
+
+		cfg := BulkIndexerConfig{
 			NumWorkers:   1,
 			Client:       es,
 			FlushTimeout: 100 * time.Millisecond, // Decrease the flush timeout
-		})
+		}
+		if os.Getenv("DEBUG") != "" {
+			cfg.DebugLogger = log.New(os.Stdout, "", 0)
+		}
+
+		bi, _ := NewBulkIndexer(cfg)
 
 		bi.Add(context.Background(),
 			BulkIndexerItem{Action: "index", Body: strings.NewReader(`{"title":"foo"}`)})
@@ -360,9 +378,14 @@ func TestBulkIndexer(t *testing.T) {
 		if os.Getenv("DEBUG") != "" {
 			esCfg.Logger = &estransport.ColorLogger{Output: os.Stdout}
 		}
-
 		es, _ := elasticsearch.NewClient(esCfg)
-		bi, _ := NewBulkIndexer(BulkIndexerConfig{NumWorkers: 1, FlushBytes: 50, Client: es})
+
+		biCfg := BulkIndexerConfig{NumWorkers: 1, FlushBytes: 50, Client: es}
+		if os.Getenv("DEBUG") != "" {
+			biCfg.DebugLogger = log.New(os.Stdout, "", 0)
+		}
+
+		bi, _ := NewBulkIndexer(biCfg)
 
 		for i := 1; i <= numItems; i++ {
 			wg.Add(1)
