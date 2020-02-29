@@ -76,10 +76,10 @@ func TestBulkIndexer(t *testing.T) {
 		}})
 
 		cfg := BulkIndexerConfig{
-			NumWorkers:   1,
-			FlushBytes:   50,
-			FlushTimeout: time.Hour, // Disable auto-flushing, because response doesn't match number of items
-			Client:       es}
+			NumWorkers:    1,
+			FlushBytes:    50,
+			FlushInterval: time.Hour, // Disable auto-flushing, because response doesn't match number of items
+			Client:        es}
 		if os.Getenv("DEBUG") != "" {
 			cfg.DebugLogger = log.New(os.Stdout, "", 0)
 		}
@@ -299,9 +299,9 @@ func TestBulkIndexer(t *testing.T) {
 		}})
 
 		cfg := BulkIndexerConfig{
-			NumWorkers:   1,
-			Client:       es,
-			FlushTimeout: 100 * time.Millisecond, // Decrease the flush timeout
+			NumWorkers:    1,
+			Client:        es,
+			FlushInterval: 100 * time.Millisecond, // Decrease the flush timeout
 		}
 		if os.Getenv("DEBUG") != "" {
 			cfg.DebugLogger = log.New(os.Stdout, "", 0)

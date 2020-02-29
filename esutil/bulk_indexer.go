@@ -43,9 +43,9 @@ type BulkIndexer interface {
 // BulkIndexerConfig represents configuration of the indexer.
 //
 type BulkIndexerConfig struct {
-	NumWorkers   int           // The number of workers. Defaults to runtime.NumCPU().
-	FlushBytes   int           // The flush threshold in bytes. Defaults to 5MB.
-	FlushTimeout time.Duration // The flush threshold as duration. Defaults to 10sec.
+	NumWorkers    int           // The number of workers. Defaults to runtime.NumCPU().
+	FlushBytes    int           // The flush threshold in bytes. Defaults to 5MB.
+	FlushInterval time.Duration // The flush threshold as duration. Defaults to 10sec.
 
 	Client      *elasticsearch.Client   // The Elasticsearch client.
 	Decoder     BulkResponseJSONDecoder // A custom JSON decoder.
@@ -183,8 +183,8 @@ func NewBulkIndexer(cfg BulkIndexerConfig) (BulkIndexer, error) {
 		cfg.FlushBytes = 5e+6
 	}
 
-	if cfg.FlushTimeout == 0 {
-		cfg.FlushTimeout = 10 * time.Second
+	if cfg.FlushInterval == 0 {
+		cfg.FlushInterval = 10 * time.Second
 	}
 
 	bi := bulkIndexer{
@@ -271,13 +271,13 @@ func (bi *bulkIndexer) init() {
 	}
 	bi.wg.Add(bi.config.NumWorkers)
 
-	bi.ticker = time.NewTicker(bi.config.FlushTimeout)
+	bi.ticker = time.NewTicker(bi.config.FlushInterval)
 	go func() error {
 		for {
 			select {
 			case <-bi.ticker.C:
 				if bi.config.DebugLogger != nil {
-					bi.config.DebugLogger.Printf("[indexer] Auto-flushing workers after %s\n", bi.config.FlushTimeout)
+					bi.config.DebugLogger.Printf("[indexer] Auto-flushing workers after %s\n", bi.config.FlushInterval)
 				}
 				for _, w := range bi.workers {
 					w.mu.Lock()

@@ -124,10 +124,11 @@ func main() {
 	//       See an example in the "benchmarks" folder.
 	//
 	bi, err := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
-		Index:      indexName,       // The default index name
-		Client:     es,              // The Elasticsearch client
-		NumWorkers: numWorkers,      // The number of worker goroutines
-		FlushBytes: int(flushBytes), // The flush threshold in bytes
+		Index:         indexName,        // The default index name
+		Client:        es,               // The Elasticsearch client
+		NumWorkers:    numWorkers,       // The number of worker goroutines
+		FlushBytes:    int(flushBytes),  // The flush threshold in bytes
+		FlushInterval: 30 * time.Second, // The periodic flush interval
 	})
 	if err != nil {
 		log.Fatalf("Error creating the indexer: %s", err)

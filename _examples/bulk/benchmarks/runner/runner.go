@@ -183,11 +183,12 @@ func (r *Runner) run(n int, measure bool) error {
 	}
 
 	bi, err := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
-		Index:      r.config.IndexName,
-		Client:     r.config.Client,
-		Decoder:    r.config.Decoder,
-		NumWorkers: r.config.NumWorkers,
-		FlushBytes: r.config.FlushBytes,
+		Index:         r.config.IndexName,
+		Client:        r.config.Client,
+		Decoder:       r.config.Decoder,
+		NumWorkers:    r.config.NumWorkers,
+		FlushBytes:    r.config.FlushBytes,
+		FlushInterval: time.Hour, // Disable automatic flushing
 	})
 	if err != nil {
 		return fmt.Errorf("run: %s", err)
