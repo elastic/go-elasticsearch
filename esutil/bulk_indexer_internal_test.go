@@ -173,7 +173,50 @@ func TestBulkIndexer(t *testing.T) {
 		}
 	})
 
-	t.Run("Callbacks", func(t *testing.T) {
+	t.Run("Indexer Callback", func(t *testing.T) {
+		esCfg := elasticsearch.Config{
+			Transport: &mockTransport{
+				RoundTripFunc: func(*http.Request) (*http.Response, error) {
+					return nil, fmt.Errorf("Mock transport error")
+				},
+			},
+		}
+		if os.Getenv("DEBUG") != "" {
+			esCfg.Logger = &estransport.ColorLogger{
+				Output:             os.Stdout,
+				EnableRequestBody:  true,
+				EnableResponseBody: true,
+			}
+		}
+
+		es, _ := elasticsearch.NewClient(esCfg)
+
+		var indexerError error
+		biCfg := BulkIndexerConfig{
+			NumWorkers: 1,
+			Client:     es,
+			OnError:    func(err error) { indexerError = err },
+		}
+		if os.Getenv("DEBUG") != "" {
+			biCfg.DebugLogger = log.New(os.Stdout, "", 0)
+		}
+
+		bi, _ := NewBulkIndexer(biCfg)
+
+		if err := bi.Add(context.Background(), BulkIndexerItem{
+			Action: "foo",
+		}); err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		bi.Close(context.Background())
+
+		if indexerError == nil {
+			t.Errorf("Expected indexerError to not be nil")
+		}
+	})
+
+	t.Run("Item Callbacks", func(t *testing.T) {
 		var (
 			countSuccessful uint64
 			countFailed     uint64

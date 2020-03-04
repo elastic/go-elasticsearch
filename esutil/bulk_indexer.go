@@ -51,6 +51,8 @@ type BulkIndexerConfig struct {
 	Decoder     BulkResponseJSONDecoder // A custom JSON decoder.
 	DebugLogger BulkIndexerDebugLogger  // An optional logger for debugging.
 
+	OnError func(error) // Called for indexer errors.
+
 	// Parameters of the Bulk API.
 	Index               string
 	ErrorTrace          bool
@@ -204,6 +206,9 @@ func (bi *bulkIndexer) Add(ctx context.Context, item BulkIndexerItem) error {
 
 	select {
 	case <-ctx.Done():
+		if bi.config.OnError != nil {
+			bi.config.OnError(ctx.Err())
+		}
 		return ctx.Err()
 	case bi.queue <- item:
 	}
@@ -216,6 +221,9 @@ func (bi *bulkIndexer) Add(ctx context.Context, item BulkIndexerItem) error {
 func (bi *bulkIndexer) Close(ctx context.Context) error {
 	select {
 	case <-ctx.Done():
+		if bi.config.OnError != nil {
+			bi.config.OnError(ctx.Err())
+		}
 		return ctx.Err()
 	default:
 		close(bi.queue)
@@ -228,14 +236,15 @@ func (bi *bulkIndexer) Close(ctx context.Context) error {
 		w.mu.Lock()
 		if w.buf.Len() > 0 {
 			if err := w.flush(); err != nil {
-				// TODO(karmi): Wrap error
 				w.mu.Unlock()
-				return fmt.Errorf("%s", err)
+				if bi.config.OnError != nil {
+					bi.config.OnError(err)
+				}
+				continue
 			}
-			w.mu.Unlock()
 		}
+		w.mu.Unlock()
 	}
-
 	return nil
 }
 
@@ -272,7 +281,7 @@ func (bi *bulkIndexer) init() {
 	bi.wg.Add(bi.config.NumWorkers)
 
 	bi.ticker = time.NewTicker(bi.config.FlushInterval)
-	go func() error {
+	go func() {
 		for {
 			select {
 			case <-bi.ticker.C:
@@ -283,9 +292,11 @@ func (bi *bulkIndexer) init() {
 					w.mu.Lock()
 					if w.buf.Len() > 0 {
 						if err := w.flush(); err != nil {
-							// TODO(karmi): Wrap error
 							w.mu.Unlock()
-							return fmt.Errorf("%s", err)
+							if bi.config.OnError != nil {
+								bi.config.OnError(err)
+							}
+							continue
 						}
 					}
 					w.mu.Unlock()
@@ -345,7 +356,13 @@ func (w *worker) run() {
 
 			w.items = append(w.items, item)
 			if w.buf.Len() >= w.bi.config.FlushBytes {
-				w.flush()
+				if err := w.flush(); err != nil {
+					w.mu.Unlock()
+					if w.bi.config.OnError != nil {
+						w.bi.config.OnError(err)
+					}
+					continue
+				}
 			}
 			w.mu.Unlock()
 		}
@@ -355,7 +372,6 @@ func (w *worker) run() {
 // writeMeta formats and writes the item metadata to the buffer; it must be called under a lock.
 //
 func (w *worker) writeMeta(item BulkIndexerItem) error {
-	// TODO(karmi): Handle errors
 	w.buf.WriteRune('{')
 	w.aux = strconv.AppendQuote(w.aux, item.Action)
 	w.buf.Write(w.aux)
@@ -377,9 +393,11 @@ func (w *worker) writeMeta(item BulkIndexerItem) error {
 // writeBody writes the item body to the buffer; it must be called under a lock.
 //
 func (w *worker) writeBody(item BulkIndexerItem) error {
-	// TODO(karmi): Handle errors
 	if item.Body != nil {
 		if _, err := w.buf.ReadFrom(item.Body); err != nil {
+			if w.bi.config.OnError != nil {
+				w.bi.config.OnError(err)
+			}
 			return err
 		}
 		w.buf.WriteRune('\n')
@@ -445,7 +463,9 @@ func (w *worker) flush() error {
 	res, err := req.Do(ctx, w.bi.config.Client)
 	if err != nil {
 		atomic.AddUint64(&w.bi.stats.numFailed, uint64(len(w.items)))
-		// TODO(karmi): Wrap error
+		if w.bi.config.OnError != nil {
+			w.bi.config.OnError(fmt.Errorf("flush: %s", err))
+		}
 		return fmt.Errorf("flush: %s", err)
 	}
 	if res.Body != nil {
@@ -454,11 +474,17 @@ func (w *worker) flush() error {
 	if res.IsError() {
 		atomic.AddUint64(&w.bi.stats.numFailed, uint64(len(w.items)))
 		// TODO(karmi): Wrap error (include response struct)
+		if w.bi.config.OnError != nil {
+			w.bi.config.OnError(fmt.Errorf("flush: %s", err))
+		}
 		return fmt.Errorf("flush: %s", res.String())
 	}
 
 	if err := w.bi.config.Decoder.UnmarshalFromReader(res.Body, &blk); err != nil {
 		// TODO(karmi): Wrap error (include response struct)
+		if w.bi.config.OnError != nil {
+			w.bi.config.OnError(fmt.Errorf("flush: %s", err))
+		}
 		return fmt.Errorf("flush: error parsing response body: %s", err)
 	}
 
