@@ -25,6 +25,7 @@ import (
 	"time"
 
 	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/elastic/go-elasticsearch/v8/esapi"
 	"github.com/elastic/go-elasticsearch/v8/estransport"
 )
 
@@ -41,12 +42,6 @@ func (t *mockTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 		return defaultRoundTripFunc(req)
 	}
 	return t.RoundTripFunc(req)
-}
-
-type customJSONDecoder struct{}
-
-func (d customJSONDecoder) UnmarshalFromReader(r io.Reader, blk *BulkIndexerResponse) error {
-	return json.NewDecoder(r).Decode(blk)
 }
 
 func TestBulkIndexer(t *testing.T) {
@@ -492,4 +487,49 @@ func TestBulkIndexer(t *testing.T) {
 			t.Errorf("Unexpected NumAdded: %d", stats.NumAdded)
 		}
 	})
+
+	t.Run("Custom Flusher", func(t *testing.T) {
+		es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{}})
+		bi, _ := NewBulkIndexer(BulkIndexerConfig{
+			Client:  es,
+			Index:   "foo",
+			Flusher: &customFlusher{},
+		})
+
+		err := bi.Add(context.Background(), BulkIndexerItem{
+			Action: "index",
+			Body:   strings.NewReader(`{"title":"foo"}`),
+		})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		if err := bi.Close(context.Background()); err != nil {
+			t.Errorf("Unexpected error: %s", err)
+		}
+
+		stats := bi.Stats()
+
+		if stats.NumAdded != uint(1) {
+			t.Errorf("Unexpected NumAdded: %d", stats.NumAdded)
+		}
+	})
+}
+
+type customJSONDecoder struct{}
+
+func (d customJSONDecoder) UnmarshalFromReader(r io.Reader, blk *BulkIndexerResponse) error {
+	return json.NewDecoder(r).Decode(blk)
+}
+
+type customFlusher struct{ client *elasticsearch.Client }
+
+func (f *customFlusher) Flush(ctx context.Context, req esapi.BulkRequest) (*esapi.Response, error) {
+	body, _ := ioutil.ReadAll(req.Body)
+	fmt.Printf(">>> Custom Flusher: %q: %s\n",
+		req.Index, strings.Replace(string(body), "\n", "", -1))
+	return &esapi.Response{
+		StatusCode: 200,
+		Body:       ioutil.NopCloser(strings.NewReader(`{}`)),
+	}, nil
 }
