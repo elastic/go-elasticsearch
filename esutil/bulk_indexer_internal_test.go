@@ -524,11 +524,11 @@ func (d customJSONDecoder) UnmarshalFromReader(r io.Reader, blk *BulkIndexerResp
 
 type customFlusher struct{ Client *elasticsearch.Client }
 
-func (f *customFlusher) Flush(ctx context.Context, req esapi.BulkRequest) (*esapi.Response, error) {
+func (f *customFlusher) Flush(ctx context.Context, req esapi.BulkRequest) (context.Context, *esapi.Response, error) {
 	body, _ := ioutil.ReadAll(req.Body)
 	fmt.Printf(">>> Custom Flusher: %q: %s\n",
 		req.Index, strings.Replace(string(body), "\n", "", -1))
-	return &esapi.Response{
+	return ctx, &esapi.Response{
 		StatusCode: 200,
 		Body:       ioutil.NopCloser(strings.NewReader(`{}`)),
 	}, nil
