@@ -141,7 +141,7 @@ type BulkResponseJSONDecoder interface {
 // BulkIndexerFlusher defines the interface for flushing.
 //
 type BulkIndexerFlusher interface {
-	Flush(context.Context, esapi.BulkRequest) (*esapi.Response, error)
+	Flush(context.Context, esapi.BulkRequest) (context.Context, *esapi.Response, error)
 }
 
 // BulkIndexerDebugLogger defines the interface for a debugging logger.
@@ -324,8 +324,9 @@ type BulkIndexerDefaultFlusher struct {
 
 // Flush executes the bulk request.
 //
-func (f *BulkIndexerDefaultFlusher) Flush(ctx context.Context, req esapi.BulkRequest) (*esapi.Response, error) {
-	return req.Do(ctx, f.Client)
+func (f *BulkIndexerDefaultFlusher) Flush(ctx context.Context, req esapi.BulkRequest) (context.Context, *esapi.Response, error) {
+	res, err := req.Do(ctx, f.Client)
+	return ctx, res, err
 }
 
 // worker represents an indexer worker.
@@ -484,7 +485,7 @@ func (w *worker) flush() error {
 		FilterPath: w.bi.config.FilterPath,
 		Header:     w.bi.config.Header,
 	}
-	res, err := w.bi.config.Flusher.Flush(ctx, req)
+	ctx, res, err := w.bi.config.Flusher.Flush(ctx, req)
 	if err != nil {
 		atomic.AddUint64(&w.bi.stats.numFailed, uint64(len(w.items)))
 		if w.bi.config.OnError != nil {
