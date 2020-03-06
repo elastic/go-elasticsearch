@@ -66,12 +66,20 @@ func ExampleNewBulkIndexer() {
 			Body: strings.NewReader(`{"title":"Test"}`),
 
 			// OnSuccess is the optional callback for each successful operation
-			OnSuccess: func(item esutil.BulkIndexerItem, res esutil.BulkIndexerResponseItem) {
+			OnSuccess: func(
+				ctx context.Context,
+				item esutil.BulkIndexerItem,
+				res esutil.BulkIndexerResponseItem,
+			) {
 				fmt.Printf("[%d] %s test/%s", res.Status, res.Result, item.DocumentID)
 			},
 
 			// OnFailure is the optional callback for each failed operation
-			OnFailure: func(item esutil.BulkIndexerItem, res esutil.BulkIndexerResponseItem, err error) {
+			OnFailure: func(
+				ctx context.Context,
+				item esutil.BulkIndexerItem,
+				res esutil.BulkIndexerResponseItem, err error,
+			) {
 				if err != nil {
 					log.Printf("ERROR: %s", err)
 				} else {

@@ -51,7 +51,7 @@ func TestBulkIndexerIntegration(t *testing.T) {
 				Action:     "index",
 				DocumentID: strconv.Itoa(i),
 				Body:       strings.NewReader(body),
-				OnSuccess: func(item esutil.BulkIndexerItem, res esutil.BulkIndexerResponseItem) {
+				OnSuccess: func(ctx context.Context, item esutil.BulkIndexerItem, res esutil.BulkIndexerResponseItem) {
 					atomic.AddUint64(&countSuccessful, 1)
 				},
 			})

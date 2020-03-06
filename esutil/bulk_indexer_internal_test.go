@@ -190,7 +190,7 @@ func TestBulkIndexer(t *testing.T) {
 		biCfg := BulkIndexerConfig{
 			NumWorkers: 1,
 			Client:     es,
-			OnError:    func(err error) { indexerError = err },
+			OnError:    func(ctx context.Context, err error) { indexerError = err },
 		}
 		if os.Getenv("DEBUG") != "" {
 			biCfg.DebugLogger = log.New(os.Stdout, "", 0)
@@ -235,10 +235,10 @@ func TestBulkIndexer(t *testing.T) {
 
 		bi, _ := NewBulkIndexer(cfg)
 
-		successFunc := func(item BulkIndexerItem, res BulkIndexerResponseItem) {
+		successFunc := func(ctx context.Context, item BulkIndexerItem, res BulkIndexerResponseItem) {
 			atomic.AddUint64(&countSuccessful, 1)
 		}
-		failureFunc := func(item BulkIndexerItem, res BulkIndexerResponseItem, err error) {
+		failureFunc := func(ctx context.Context, item BulkIndexerItem, res BulkIndexerResponseItem, err error) {
 			atomic.AddUint64(&countFailed, 1)
 			failedIDs = append(failedIDs, item.DocumentID)
 		}
