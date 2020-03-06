@@ -495,6 +495,9 @@ func (w *worker) flush(ctx context.Context) error {
 		)
 
 		item = w.items[i]
+		// The Elasticsearch bulk response contains an array of maps like this:
+		//   [ { "index": { ... } }, { "create": { ... } }, ... ]
+		// We range over the map, to set the first key and value as "op" and "info".
 		for k, v := range blkItem {
 			op = k
 			info = v
