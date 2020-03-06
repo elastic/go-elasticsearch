@@ -317,8 +317,6 @@ type worker struct {
 	buf   *bytes.Buffer
 	aux   []byte
 	items []BulkIndexerItem
-
-	isFlushing bool
 }
 
 // run launches the worker in a goroutine.
@@ -411,13 +409,6 @@ func (w *worker) writeBody(item BulkIndexerItem) error {
 // flush writes out the worker buffer; it must be called under a lock.
 //
 func (w *worker) flush(ctx context.Context) error {
-	if w.isFlushing {
-		if w.bi.config.DebugLogger != nil {
-			w.bi.config.DebugLogger.Printf("[worker-%03d] Flush: Already flushing\n", w.id)
-		}
-		return nil
-	}
-
 	if w.bi.config.OnFlushStart != nil {
 		ctx = w.bi.config.OnFlushStart(ctx)
 	}
@@ -442,10 +433,7 @@ func (w *worker) flush(ctx context.Context) error {
 	defer func() {
 		w.items = w.items[:0]
 		w.buf.Reset()
-		w.isFlushing = false
 	}()
-
-	w.isFlushing = true
 
 	if w.bi.config.DebugLogger != nil {
 		w.bi.config.DebugLogger.Printf("[worker-%03d] Flush: %s\n", w.id, w.buf.String())
