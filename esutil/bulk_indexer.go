@@ -52,7 +52,9 @@ type BulkIndexerConfig struct {
 	Flusher     BulkIndexerFlusher      // A custom flusher.
 	DebugLogger BulkIndexerDebugLogger  // An optional logger for debugging.
 
-	OnError func(context.Context, error) // Called for indexer errors.
+	OnError      func(context.Context, error)          // Called for indexer errors.
+	OnFlushStart func(context.Context) context.Context // Called when the flush starts.
+	OnFlushEnd   func(context.Context)                 // Called when the flush ends.
 
 	// Parameters of the Bulk API.
 	Index               string
@@ -244,7 +246,7 @@ func (bi *bulkIndexer) Close(ctx context.Context) error {
 	for _, w := range bi.workers {
 		w.mu.Lock()
 		if w.buf.Len() > 0 {
-			if err := w.flush(); err != nil {
+			if err := w.flush(ctx); err != nil {
 				w.mu.Unlock()
 				if bi.config.OnError != nil {
 					bi.config.OnError(ctx, err)
@@ -301,7 +303,7 @@ func (bi *bulkIndexer) init() {
 				for _, w := range bi.workers {
 					w.mu.Lock()
 					if w.buf.Len() > 0 {
-						if err := w.flush(); err != nil {
+						if err := w.flush(ctx); err != nil {
 							w.mu.Unlock()
 							if bi.config.OnError != nil {
 								bi.config.OnError(ctx, err)
@@ -381,7 +383,7 @@ func (w *worker) run() {
 
 			w.items = append(w.items, item)
 			if w.buf.Len() >= w.bi.config.FlushBytes {
-				if err := w.flush(); err != nil {
+				if err := w.flush(ctx); err != nil {
 					w.mu.Unlock()
 					if w.bi.config.OnError != nil {
 						w.bi.config.OnError(ctx, err)
@@ -432,13 +434,22 @@ func (w *worker) writeBody(item BulkIndexerItem) error {
 
 // flush writes out the worker buffer; it must be called under a lock.
 //
-func (w *worker) flush() error {
+func (w *worker) flush(ctx context.Context) error {
 	if w.isFlushing {
 		if w.bi.config.DebugLogger != nil {
 			w.bi.config.DebugLogger.Printf("[worker-%03d] Flush: Already flushing\n", w.id)
 		}
 		return nil
 	}
+
+	if w.bi.config.OnFlushStart != nil {
+		ctx = w.bi.config.OnFlushStart(ctx)
+	}
+	defer func() {
+		if w.bi.config.OnFlushEnd != nil {
+			w.bi.config.OnFlushEnd(ctx)
+		}
+	}()
 
 	if w.buf.Len() < 1 {
 		if w.bi.config.DebugLogger != nil {
@@ -450,7 +461,6 @@ func (w *worker) flush() error {
 	var (
 		err error
 		blk BulkIndexerResponse
-		ctx = context.Background()
 	)
 
 	defer func() {

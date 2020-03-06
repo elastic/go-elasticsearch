@@ -326,6 +326,43 @@ func TestBulkIndexer(t *testing.T) {
 		}
 	})
 
+	t.Run("OnFlush callbacks", func(t *testing.T) {
+		es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{}})
+		bi, _ := NewBulkIndexer(BulkIndexerConfig{
+			Client: es,
+			Index:  "foo",
+			OnFlushStart: func(ctx context.Context) context.Context {
+				fmt.Println(">>> Flush started")
+				return context.WithValue(ctx, "start", time.Now().UTC())
+			},
+			OnFlushEnd: func(ctx context.Context) {
+				var duration time.Duration
+				if v := ctx.Value("start"); v != nil {
+					duration = time.Since(v.(time.Time))
+				}
+				fmt.Printf(">>> Flush finished (duration: %s)\n", duration)
+			},
+		})
+
+		err := bi.Add(context.Background(), BulkIndexerItem{
+			Action: "index",
+			Body:   strings.NewReader(`{"title":"foo"}`),
+		})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		if err := bi.Close(context.Background()); err != nil {
+			t.Errorf("Unexpected error: %s", err)
+		}
+
+		stats := bi.Stats()
+
+		if stats.NumAdded != uint(1) {
+			t.Errorf("Unexpected NumAdded: %d", stats.NumAdded)
+		}
+	})
+
 	t.Run("Automatic flush", func(t *testing.T) {
 		es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
 			RoundTripFunc: func(*http.Request) (*http.Response, error) {
