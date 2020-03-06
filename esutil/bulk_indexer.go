@@ -185,7 +185,7 @@ func NewBulkIndexer(cfg BulkIndexerConfig) (BulkIndexer, error) {
 	}
 
 	if cfg.Flusher == nil {
-		cfg.Flusher = &BulkIndexerDefaultFlusher{client: cfg.Client}
+		cfg.Flusher = &BulkIndexerDefaultFlusher{Client: cfg.Client}
 	}
 
 	if cfg.NumWorkers == 0 {
@@ -320,13 +320,13 @@ func (bi *bulkIndexer) init() {
 // BulkIndexerDefaultFlusher is the default implementation of BulkIndexerFlusher.
 //
 type BulkIndexerDefaultFlusher struct {
-	client *elasticsearch.Client
+	Client *elasticsearch.Client
 }
 
 // Flush executes the bulk request.
 //
 func (f *BulkIndexerDefaultFlusher) Flush(ctx context.Context, req esapi.BulkRequest) (*esapi.Response, error) {
-	return req.Do(ctx, f.client)
+	return req.Do(ctx, f.Client)
 }
 
 // worker represents an indexer worker.

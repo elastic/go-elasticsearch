@@ -522,7 +522,7 @@ func (d customJSONDecoder) UnmarshalFromReader(r io.Reader, blk *BulkIndexerResp
 	return json.NewDecoder(r).Decode(blk)
 }
 
-type customFlusher struct{ client *elasticsearch.Client }
+type customFlusher struct{ Client *elasticsearch.Client }
 
 func (f *customFlusher) Flush(ctx context.Context, req esapi.BulkRequest) (*esapi.Response, error) {
 	body, _ := ioutil.ReadAll(req.Body)
