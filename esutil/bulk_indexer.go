@@ -49,7 +49,6 @@ type BulkIndexerConfig struct {
 
 	Client      *elasticsearch.Client   // The Elasticsearch client.
 	Decoder     BulkResponseJSONDecoder // A custom JSON decoder.
-	Flusher     BulkIndexerFlusher      // A custom flusher.
 	DebugLogger BulkIndexerDebugLogger  // An optional logger for debugging.
 
 	OnError      func(context.Context, error)          // Called for indexer errors.
@@ -140,12 +139,6 @@ type BulkResponseJSONDecoder interface {
 	UnmarshalFromReader(io.Reader, *BulkIndexerResponse) error
 }
 
-// BulkIndexerFlusher defines the interface for flushing.
-//
-type BulkIndexerFlusher interface {
-	Flush(context.Context, esapi.BulkRequest) (context.Context, *esapi.Response, error)
-}
-
 // BulkIndexerDebugLogger defines the interface for a debugging logger.
 //
 type BulkIndexerDebugLogger interface {
@@ -182,10 +175,6 @@ func NewBulkIndexer(cfg BulkIndexerConfig) (BulkIndexer, error) {
 
 	if cfg.Decoder == nil {
 		cfg.Decoder = defaultJSONDecoder{}
-	}
-
-	if cfg.Flusher == nil {
-		cfg.Flusher = &BulkIndexerDefaultFlusher{Client: cfg.Client}
 	}
 
 	if cfg.NumWorkers == 0 {
@@ -316,19 +305,6 @@ func (bi *bulkIndexer) init() {
 			}
 		}
 	}()
-}
-
-// BulkIndexerDefaultFlusher is the default implementation of BulkIndexerFlusher.
-//
-type BulkIndexerDefaultFlusher struct {
-	Client *elasticsearch.Client
-}
-
-// Flush executes the bulk request.
-//
-func (f *BulkIndexerDefaultFlusher) Flush(ctx context.Context, req esapi.BulkRequest) (context.Context, *esapi.Response, error) {
-	res, err := req.Do(ctx, f.Client)
-	return ctx, res, err
 }
 
 // worker represents an indexer worker.
@@ -495,7 +471,7 @@ func (w *worker) flush(ctx context.Context) error {
 		FilterPath: w.bi.config.FilterPath,
 		Header:     w.bi.config.Header,
 	}
-	ctx, res, err := w.bi.config.Flusher.Flush(ctx, req)
+	res, err := req.Do(ctx, w.bi.config.Client)
 	if err != nil {
 		atomic.AddUint64(&w.bi.stats.numFailed, uint64(len(w.items)))
 		if w.bi.config.OnError != nil {
