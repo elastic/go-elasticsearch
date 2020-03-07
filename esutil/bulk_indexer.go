@@ -111,17 +111,17 @@ type BulkIndexerResponse struct {
 type BulkIndexerResponseItem struct {
 	Index      string `json:"_index"`
 	DocumentID string `json:"_id"`
-	Version    int64  `json:"_version,omitempty"`
-	Result     string `json:"result,omitempty"`
-	Status     int    `json:"status,omitempty"`
-	SeqNo      int64  `json:"_seq_no,omitempty"`
-	PrimTerm   int64  `json:"_primary_term,omitempty"`
+	Version    int64  `json:"_version"`
+	Result     string `json:"result"`
+	Status     int    `json:"status"`
+	SeqNo      int64  `json:"_seq_no"`
+	PrimTerm   int64  `json:"_primary_term"`
 
 	Shards struct {
-		Total      int `json:"total,omitempty"`
-		Successful int `json:"successful,omitempty"`
-		Failed     int `json:"failed,omitempty"`
-	} `json:"_shards,omitempty"`
+		Total      int `json:"total"`
+		Successful int `json:"successful"`
+		Failed     int `json:"failed"`
+	} `json:"_shards"`
 
 	Error struct {
 		Type   string `json:"type"`
