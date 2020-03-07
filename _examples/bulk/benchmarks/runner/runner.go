@@ -199,7 +199,7 @@ func (r *Runner) run(n int, measure bool) error {
 		err := bi.Add(context.Background(), esutil.BulkIndexerItem{
 			Action: "index",
 			Body:   bytes.NewReader(r.doc),
-			OnFailure: func(item esutil.BulkIndexerItem, res esutil.BulkIndexerResponseItem, err error) {
+			OnFailure: func(ctx context.Context, item esutil.BulkIndexerItem, res esutil.BulkIndexerResponseItem, err error) {
 				if err != nil {
 					log.Printf("ERROR: %s", err)
 				} else {
