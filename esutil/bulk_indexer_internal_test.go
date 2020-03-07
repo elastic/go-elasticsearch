@@ -103,12 +103,12 @@ func TestBulkIndexer(t *testing.T) {
 		stats := bi.Stats()
 
 		// added = numitems
-		if stats.NumAdded != uint(numItems) {
+		if stats.NumAdded != uint64(numItems) {
 			t.Errorf("Unexpected NumAdded: want=%d, got=%d", numItems, stats.NumAdded)
 		}
 
 		// flushed = numitems - 1x conflict + 1x not_found
-		if stats.NumFlushed != uint(numItems-2) {
+		if stats.NumFlushed != uint64(numItems-2) {
 			t.Errorf("Unexpected NumFlushed: want=%d, got=%d", numItems-2, stats.NumFlushed)
 		}
 
@@ -287,7 +287,7 @@ func TestBulkIndexer(t *testing.T) {
 
 		stats := bi.Stats()
 
-		if stats.NumAdded != uint(numItems) {
+		if stats.NumAdded != uint64(numItems) {
 			t.Errorf("Unexpected NumAdded: %d", stats.NumAdded)
 		}
 
@@ -296,7 +296,7 @@ func TestBulkIndexer(t *testing.T) {
 		// * Operation #2: document can't be created, because a document with the same ID already exists.
 		// * Operation #3: document can't be deleted, because it doesn't exist.
 
-		if stats.NumFailed != uint(numFailed) {
+		if stats.NumFailed != uint64(numFailed) {
 			t.Errorf("Unexpected NumFailed: %d", stats.NumFailed)
 		}
 
@@ -357,7 +357,7 @@ func TestBulkIndexer(t *testing.T) {
 
 		stats := bi.Stats()
 
-		if stats.NumAdded != uint(1) {
+		if stats.NumAdded != uint64(1) {
 			t.Errorf("Unexpected NumAdded: %d", stats.NumAdded)
 		}
 	})
@@ -390,7 +390,7 @@ func TestBulkIndexer(t *testing.T) {
 		time.Sleep(150 * time.Millisecond)
 
 		stats := bi.Stats()
-		expected := uint(1)
+		expected := uint64(1)
 
 		if stats.NumAdded != expected {
 			t.Errorf("Unexpected NumAdded: want=%d, got=%d", expected, stats.NumAdded)
@@ -482,11 +482,11 @@ func TestBulkIndexer(t *testing.T) {
 
 		stats := bi.Stats()
 
-		if stats.NumAdded != uint(numItems) {
+		if stats.NumAdded != uint64(numItems) {
 			t.Errorf("Unexpected NumAdded: want=%d, got=%d", numItems, stats.NumAdded)
 		}
 
-		if stats.NumFlushed != uint(numItems) {
+		if stats.NumFlushed != uint64(numItems) {
 			t.Errorf("Unexpected NumFlushed: want=%d, got=%d", numItems, stats.NumFlushed)
 		}
 
@@ -519,7 +519,7 @@ func TestBulkIndexer(t *testing.T) {
 
 		stats := bi.Stats()
 
-		if stats.NumAdded != uint(1) {
+		if stats.NumAdded != uint64(1) {
 			t.Errorf("Unexpected NumAdded: %d", stats.NumAdded)
 		}
 	})

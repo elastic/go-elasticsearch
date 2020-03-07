@@ -66,11 +66,11 @@ func TestBulkIndexerIntegration(t *testing.T) {
 
 		stats := bi.Stats()
 
-		if stats.NumAdded != uint(numItems) {
+		if stats.NumAdded != uint64(numItems) {
 			t.Errorf("Unexpected NumAdded: want=%d, got=%d", numItems, stats.NumAdded)
 		}
 
-		if stats.NumIndexed != uint(numItems) {
+		if stats.NumIndexed != uint64(numItems) {
 			t.Errorf("Unexpected NumIndexed: want=%d, got=%d", numItems, stats.NumIndexed)
 		}
 

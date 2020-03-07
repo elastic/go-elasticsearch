@@ -75,14 +75,14 @@ type BulkIndexerConfig struct {
 // BulkIndexerStats represents the indexer statistics.
 //
 type BulkIndexerStats struct {
-	NumAdded    uint
-	NumFlushed  uint
-	NumFailed   uint
-	NumIndexed  uint
-	NumCreated  uint
-	NumUpdated  uint
-	NumDeleted  uint
-	NumRequests uint
+	NumAdded    uint64
+	NumFlushed  uint64
+	NumFailed   uint64
+	NumIndexed  uint64
+	NumCreated  uint64
+	NumUpdated  uint64
+	NumDeleted  uint64
+	NumRequests uint64
 }
 
 // BulkIndexerItem represents an indexer item.
@@ -252,14 +252,14 @@ func (bi *bulkIndexer) Close(ctx context.Context) error {
 //
 func (bi *bulkIndexer) Stats() BulkIndexerStats {
 	return BulkIndexerStats{
-		NumAdded:    uint(atomic.LoadUint64(&bi.stats.numAdded)),
-		NumFlushed:  uint(atomic.LoadUint64(&bi.stats.numFlushed)),
-		NumFailed:   uint(atomic.LoadUint64(&bi.stats.numFailed)),
-		NumIndexed:  uint(atomic.LoadUint64(&bi.stats.numIndexed)),
-		NumCreated:  uint(atomic.LoadUint64(&bi.stats.numCreated)),
-		NumUpdated:  uint(atomic.LoadUint64(&bi.stats.numUpdated)),
-		NumDeleted:  uint(atomic.LoadUint64(&bi.stats.numDeleted)),
-		NumRequests: uint(atomic.LoadUint64(&bi.stats.numRequests)),
+		NumAdded:    atomic.LoadUint64(&bi.stats.numAdded),
+		NumFlushed:  atomic.LoadUint64(&bi.stats.numFlushed),
+		NumFailed:   atomic.LoadUint64(&bi.stats.numFailed),
+		NumIndexed:  atomic.LoadUint64(&bi.stats.numIndexed),
+		NumCreated:  atomic.LoadUint64(&bi.stats.numCreated),
+		NumUpdated:  atomic.LoadUint64(&bi.stats.numUpdated),
+		NumDeleted:  atomic.LoadUint64(&bi.stats.numDeleted),
+		NumRequests: atomic.LoadUint64(&bi.stats.numRequests),
 	}
 }
 

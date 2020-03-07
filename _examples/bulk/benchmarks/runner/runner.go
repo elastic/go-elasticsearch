@@ -221,7 +221,7 @@ func (r *Runner) run(n int, measure bool) error {
 	if measure {
 		biStats := bi.Stats()
 
-		var numThroughput uint
+		var numThroughput uint64
 		if r.config.Mockserver {
 			numThroughput = biStats.NumAdded
 		} else {
