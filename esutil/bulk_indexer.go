@@ -420,11 +420,10 @@ func (w *worker) flush(ctx context.Context) error {
 	if w.bi.config.OnFlushStart != nil {
 		ctx = w.bi.config.OnFlushStart(ctx)
 	}
-	defer func() {
-		if w.bi.config.OnFlushEnd != nil {
-			w.bi.config.OnFlushEnd(ctx)
-		}
-	}()
+
+	if w.bi.config.OnFlushEnd != nil {
+		defer func() { w.bi.config.OnFlushEnd(ctx) }()
+	}
 
 	if w.buf.Len() < 1 {
 		if w.bi.config.DebugLogger != nil {
