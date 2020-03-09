@@ -201,6 +201,8 @@ func NewBulkIndexer(cfg BulkIndexerConfig) (BulkIndexer, error) {
 
 // Add adds an item to the indexer.
 //
+// Adding an item after a call to Close() will panic.
+//
 func (bi *bulkIndexer) Add(ctx context.Context, item BulkIndexerItem) error {
 	atomic.AddUint64(&bi.stats.numAdded, 1)
 
@@ -216,9 +218,13 @@ func (bi *bulkIndexer) Add(ctx context.Context, item BulkIndexerItem) error {
 	return nil
 }
 
-// Close calls flush on writers and closes the indexer queue channel.
+// Close stops the periodic flush, closes the indexer queue channel,
+// and calls flush on all writers.
 //
 func (bi *bulkIndexer) Close(ctx context.Context) error {
+	bi.ticker.Stop()
+	close(bi.queue)
+
 	select {
 	case <-ctx.Done():
 		if bi.config.OnError != nil {
@@ -226,11 +232,8 @@ func (bi *bulkIndexer) Close(ctx context.Context) error {
 		}
 		return ctx.Err()
 	default:
-		close(bi.queue)
 		bi.wg.Wait()
 	}
-
-	bi.ticker.Stop()
 
 	for _, w := range bi.workers {
 		w.mu.Lock()
