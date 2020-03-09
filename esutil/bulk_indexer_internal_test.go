@@ -167,6 +167,25 @@ func TestBulkIndexer(t *testing.T) {
 		}
 	})
 
+	t.Run("Close() Cancel", func(t *testing.T) {
+		es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{}})
+		bi, _ := NewBulkIndexer(BulkIndexerConfig{
+			NumWorkers: 1,
+			FlushBytes: 1,
+			Client:     es,
+		})
+
+		for i := 0; i < 10; i++ {
+			bi.Add(context.Background(), BulkIndexerItem{Action: "foo"})
+		}
+
+		ctx, cancel := context.WithCancel(context.Background())
+		cancel()
+		if err := bi.Close(ctx); err == nil {
+			t.Errorf("Expected cancel error, but got: %v", err)
+		}
+	})
+
 	t.Run("Indexer Callback", func(t *testing.T) {
 		esCfg := elasticsearch.Config{
 			Transport: &mockTransport{
