@@ -182,7 +182,7 @@ func TestBulkIndexer(t *testing.T) {
 		ctx, cancel := context.WithCancel(context.Background())
 		cancel()
 		if err := bi.Close(ctx); err == nil {
-			t.Errorf("Expected cancel error, but got: %v", err)
+			t.Errorf("Expected context cancelled error, but got: %v", err)
 		}
 	})
 

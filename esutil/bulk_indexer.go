@@ -150,6 +150,7 @@ type bulkIndexer struct {
 	queue   chan BulkIndexerItem
 	workers []*worker
 	ticker  *time.Ticker
+	done    chan bool
 	stats   *bulkIndexerStats
 
 	config BulkIndexerConfig
@@ -191,6 +192,7 @@ func NewBulkIndexer(cfg BulkIndexerConfig) (BulkIndexer, error) {
 
 	bi := bulkIndexer{
 		config: cfg,
+		done:   make(chan bool),
 		stats:  &bulkIndexerStats{},
 	}
 
@@ -219,11 +221,12 @@ func (bi *bulkIndexer) Add(ctx context.Context, item BulkIndexerItem) error {
 }
 
 // Close stops the periodic flush, closes the indexer queue channel,
-// and calls flush on all writers.
+// notifies the done channel and calls flush on all writers.
 //
 func (bi *bulkIndexer) Close(ctx context.Context) error {
 	bi.ticker.Stop()
 	close(bi.queue)
+	bi.done <- true
 
 	select {
 	case <-ctx.Done():
@@ -288,6 +291,8 @@ func (bi *bulkIndexer) init() {
 		ctx := context.Background()
 		for {
 			select {
+			case <-bi.done:
+				return
 			case <-bi.ticker.C:
 				if bi.config.DebugLogger != nil {
 					bi.config.DebugLogger.Printf("[indexer] Auto-flushing workers after %s\n", bi.config.FlushInterval)
