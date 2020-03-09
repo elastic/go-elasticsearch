@@ -45,7 +45,7 @@ type BulkIndexer interface {
 type BulkIndexerConfig struct {
 	NumWorkers    int           // The number of workers. Defaults to runtime.NumCPU().
 	FlushBytes    int           // The flush threshold in bytes. Defaults to 5MB.
-	FlushInterval time.Duration // The flush threshold as duration. Defaults to 10sec.
+	FlushInterval time.Duration // The flush threshold as duration. Defaults to 30sec.
 
 	Client      *elasticsearch.Client   // The Elasticsearch client.
 	Decoder     BulkResponseJSONDecoder // A custom JSON decoder.
@@ -186,7 +186,7 @@ func NewBulkIndexer(cfg BulkIndexerConfig) (BulkIndexer, error) {
 	}
 
 	if cfg.FlushInterval == 0 {
-		cfg.FlushInterval = 10 * time.Second
+		cfg.FlushInterval = 30 * time.Second
 	}
 
 	bi := bulkIndexer{
