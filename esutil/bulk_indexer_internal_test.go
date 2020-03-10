@@ -345,13 +345,14 @@ func TestBulkIndexer(t *testing.T) {
 	})
 
 	t.Run("OnFlush callbacks", func(t *testing.T) {
+		type contextKey string
 		es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{}})
 		bi, _ := NewBulkIndexer(BulkIndexerConfig{
 			Client: es,
 			Index:  "foo",
 			OnFlushStart: func(ctx context.Context) context.Context {
 				fmt.Println(">>> Flush started")
-				return context.WithValue(ctx, "start", time.Now().UTC())
+				return context.WithValue(ctx, contextKey("start"), time.Now().UTC())
 			},
 			OnFlushEnd: func(ctx context.Context) {
 				var duration time.Duration
