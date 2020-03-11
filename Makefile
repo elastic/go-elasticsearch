@@ -392,6 +392,7 @@ endif
 		rm -rf $(output)/*_test.go && \
 		rm -rf $(output)/xpack && \
 		cd internal/cmd/generate && \
+		go get golang.org/x/tools/cmd/goimports && \
 		go generate ./... && \
 		go run main.go apitests --input '$(PWD)/$(input)/rest-api-spec/src/main/resources/rest-api-spec/test/**/*.y*ml' --output '$(PWD)/$(output)' $(args) && \
 		go run main.go apitests --input '$(PWD)/$(input)/x-pack/plugin/src/test/resources/rest-api-spec/test/**/*.yml' --output '$(PWD)/$(output)/xpack' $(args) && \
