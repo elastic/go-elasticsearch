@@ -149,17 +149,24 @@ func TestDiscovery(t *testing.T) {
 	})
 
 	t.Run("scheduleDiscoverNodes()", func(t *testing.T) {
+		var numURLs int
 		u, _ := url.Parse("http://" + srv.Addr)
 
 		tp, _ := New(Config{URLs: []*url.URL{u}, DiscoverNodesInterval: time.Millisecond})
 
-		if len(tp.pool.URLs()) != 1 {
-			t.Errorf("Unexpected number of nodes, want=1, got=%d", len(tp.pool.URLs()))
+		tp.Lock()
+		numURLs = len(tp.pool.URLs())
+		tp.Unlock()
+		if numURLs != 1 {
+			t.Errorf("Unexpected number of nodes, want=1, got=%d", numURLs)
 		}
 
 		time.Sleep(50 * time.Millisecond)
-		if len(tp.pool.URLs()) != 2 {
-			t.Errorf("Unexpected number of nodes, want=2, got=%d", len(tp.pool.URLs()))
+		tp.Lock()
+		numURLs = len(tp.pool.URLs())
+		tp.Unlock()
+		if numURLs != 2 {
+			t.Errorf("Unexpected number of nodes, want=2, got=%d", numURLs)
 		}
 	})
 }
