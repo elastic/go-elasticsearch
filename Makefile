@@ -253,9 +253,9 @@ ifeq ($(origin nodes), undefined)
 endif
 	@printf "\033[2m→ Launching %d node(s) of %s...\033[0m\n" $(nodes) $(version)
 ifeq ($(shell test $(nodes) && test $(nodes) -gt 1; echo $$?),0)
-	$(eval detached ?= "true")
+	$(eval detach ?= "true")
 else
-	$(eval detached ?= "false")
+	$(eval detach ?= "false")
 endif
 ifdef version
 ifneq (,$(findstring oss,$(version)))
@@ -305,12 +305,12 @@ endif
 				--publish $$hostport:9200 \
 				--ulimit nofile=65536:65536 \
 				--ulimit memlock=-1:-1 \
-				--detach=$(detached) \
+				--detach=$(detach) \
 				--rm \
 				docker.elastic.co/elasticsearch/$(version); \
 		done \
 	}
-ifdef detached
+ifdef detach
 	@{ \
 		printf "\033[2m→ Waiting for the cluster...\033[0m\n"; \
 		docker run --network elasticsearch --rm appropriate/curl --max-time 120 --retry 120 --retry-delay 1 --retry-connrefused --show-error --silent http://es1:9200; \
