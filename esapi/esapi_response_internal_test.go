@@ -53,9 +53,6 @@ func TestAPIResponse(t *testing.T) {
 	t.Run("String Error", func(t *testing.T) {
 		res = &Response{StatusCode: 200, Body: ioutil.NopCloser(errReader{})}
 
-		t.Log(res.String())
-		t.Log(res.String())
-
 		if !strings.Contains(res.String(), `error reading response`) {
 			t.Errorf("Expected response string to contain 'error reading response', got: %s", res.String())
 		}
