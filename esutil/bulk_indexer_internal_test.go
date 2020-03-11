@@ -147,6 +147,7 @@ func TestBulkIndexer(t *testing.T) {
 		bi, _ := NewBulkIndexer(BulkIndexerConfig{NumWorkers: 1, Client: es})
 		ctx, cancel := context.WithTimeout(context.Background(), time.Nanosecond)
 		defer cancel()
+		time.Sleep(100 * time.Millisecond)
 
 		var errs []error
 		for i := 0; i < 10; i++ {
@@ -163,7 +164,7 @@ func TestBulkIndexer(t *testing.T) {
 			}
 		}
 		if !gotError {
-			t.Errorf("Expected timeout error, but none in: %s", errs)
+			t.Errorf("Expected timeout error, but none in: %q", errs)
 		}
 	})
 
@@ -395,7 +396,7 @@ func TestBulkIndexer(t *testing.T) {
 		cfg := BulkIndexerConfig{
 			NumWorkers:    1,
 			Client:        es,
-			FlushInterval: 100 * time.Millisecond, // Decrease the flush timeout
+			FlushInterval: 50 * time.Millisecond, // Decrease the flush timeout
 		}
 		if os.Getenv("DEBUG") != "" {
 			cfg.DebugLogger = log.New(os.Stdout, "", 0)
@@ -407,7 +408,7 @@ func TestBulkIndexer(t *testing.T) {
 			BulkIndexerItem{Action: "index", Body: strings.NewReader(`{"title":"foo"}`)})
 
 		// Allow some time for auto-flush to kick in
-		time.Sleep(150 * time.Millisecond)
+		time.Sleep(250 * time.Millisecond)
 
 		stats := bi.Stats()
 		expected := uint64(1)
