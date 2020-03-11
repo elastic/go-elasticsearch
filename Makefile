@@ -259,7 +259,9 @@ else
 endif
 ifdef version
 ifneq (,$(findstring oss,$(version)))
+	$(eval elasticsearch_url = "http://es1:9200")
 else
+	$(eval elasticsearch_url = "https://elastic:elastic@es1:9200")
 	$(eval xpack_env += --env "ELASTIC_PASSWORD=elastic")
 	$(eval xpack_env += --env "xpack.license.self_generated.type=trial")
 	$(eval xpack_env += --env "xpack.security.enabled=true")
@@ -312,8 +314,8 @@ endif
 	}
 ifdef detach
 	@{ \
-		printf "\033[2m→ Waiting for the cluster...\033[0m\n"; \
-		docker run --network elasticsearch --rm appropriate/curl --max-time 120 --retry 120 --retry-delay 1 --retry-connrefused --show-error --silent http://es1:9200; \
+		printf "\033[2m→ Waiting for the cluster on $(elasticsearch_url)...\033[0m\n"; \
+		docker run --network elasticsearch --rm appropriate/curl --max-time 120 --retry 120 --retry-delay 1 --retry-connrefused --show-error --silent --insecure $(elasticsearch_url); \
 		output="\033[2m→ Cluster ready; to remove containers:"; \
 		output="$$output docker rm -f"; \
 		for n in `seq 1 $(nodes)`; do \
