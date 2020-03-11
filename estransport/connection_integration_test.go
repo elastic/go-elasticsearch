@@ -56,13 +56,14 @@ func TestStatusConnectionPool(t *testing.T) {
 
 	fmt.Printf("==> Started %d servers on %s\n", numServers, serverHosts)
 
-	transport, _ := New(
-		Config{
-			URLs:   serverURLs,
-			Logger: &TextLogger{Output: os.Stdout},
+	cfg := Config{URLs: serverURLs}
 
-			EnableDebugLogger: true,
-		})
+	if _, ok := os.LookupEnv("GITHUB_ACTIONS"); !ok {
+		cfg.Logger = &TextLogger{Output: os.Stdout}
+		cfg.EnableDebugLogger = true
+	}
+
+	transport, _ := New(cfg)
 
 	pool := transport.pool.(*statusConnectionPool)
 
