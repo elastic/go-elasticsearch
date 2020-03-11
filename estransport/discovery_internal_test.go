@@ -43,7 +43,7 @@ func TestDiscovery(t *testing.T) {
 	defer func() { srv.Close() }()
 	defer func() { srvTLS.Close() }()
 
-	time.Sleep(10 * time.Millisecond)
+	time.Sleep(50 * time.Millisecond)
 
 	t.Run("getNodesInfo()", func(t *testing.T) {
 		u, _ := url.Parse("http://" + srv.Addr)
@@ -157,7 +157,7 @@ func TestDiscovery(t *testing.T) {
 			t.Errorf("Unexpected number of nodes, want=1, got=%d", len(tp.pool.URLs()))
 		}
 
-		time.Sleep(5 * time.Millisecond)
+		time.Sleep(50 * time.Millisecond)
 		if len(tp.pool.URLs()) != 2 {
 			t.Errorf("Unexpected number of nodes, want=2, got=%d", len(tp.pool.URLs()))
 		}
