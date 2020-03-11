@@ -55,3 +55,5 @@ indexer.Close(context.Background())
 ```
 
 Please refer to the [`benchmarks`](benchmarks) folder for performance tests with different types of payload.
+
+See the [`kafka`](kafka) folder for an end-to-end example of using the bulk helper for indexing data from a Kafka topic.

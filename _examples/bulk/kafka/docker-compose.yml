@@ -1,0 +1,129 @@
+version: "3.7"
+
+services:
+  zookeeper:
+    container_name: zookeeper
+    image: confluentinc/cp-zookeeper:${CONFLUENT_VERSION}
+    networks:
+      - kafka
+    environment:
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+      KAFKA_OPTS: '-Dzookeeper.4lw.commands.whitelist=ruok'
+    healthcheck:
+      test: echo "ruok" | nc localhost 2181 | grep "imok"
+
+  kafka:
+    container_name: kafka
+    image: confluentinc/cp-server:${CONFLUENT_VERSION}
+    depends_on:
+      - zookeeper
+    ports:
+      # NOTE: Use kafka:29092 for connections within Docker
+     - 9092:9092
+    networks:
+      - kafka
+    volumes:
+      - kafka-data:/var/lib/kafka/data
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_HEAP_OPTS: '-Xms${KAFKA_MEMORY} -Xmx${KAFKA_MEMORY}'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
+      KAFKA_LOG4J_ROOT_LOGLEVEL: WARN
+      KAFKA_TOOLS_LOG4J_LOGLEVEL: ERROR
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 100
+      KAFKA_CONFLUENT_LICENSE_TOPIC_REPLICATION_FACTOR: 1
+      CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: kafka:29092
+      CONFLUENT_METRICS_REPORTER_ZOOKEEPER_CONNECT: zookeeper:2181
+      CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 1
+      CONFLUENT_METRICS_ENABLE: 'true'
+    restart: on-failure
+    healthcheck:
+      test: nc -z localhost 9092
+
+  control-center:
+    container_name: control-center
+    image: confluentinc/cp-enterprise-control-center:${CONFLUENT_VERSION}
+    hostname: control-center
+    depends_on:
+      - zookeeper
+      - kafka
+    ports:
+      - 9021:9021
+    networks:
+      - kafka
+    environment:
+      CONTROL_CENTER_BOOTSTRAP_SERVERS: 'kafka:29092'
+      CONTROL_CENTER_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      CONTROL_CENTER_REPLICATION_FACTOR: 1
+      CONTROL_CENTER_INTERNAL_TOPICS_PARTITIONS: 1
+      CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_PARTITIONS: 1
+      CONFLUENT_METRICS_TOPIC_REPLICATION: 1
+      PORT: 9021
+    ulimits: { nofile: { soft: 16384, hard: 16384 } }
+    healthcheck:
+      test: curl --head --max-time 120 --retry 120 --retry-delay 1 --show-error --silent http://localhost:9021
+
+  elasticsearch:
+    container_name: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+    networks:
+      - elasticsearch
+    ports:
+      - 9200:9200
+    environment:
+      - node.name=elasticsearch
+      - cluster.name=go-elasticsearch-kafka-demo
+      - cluster.initial_master_nodes=elasticsearch
+      - discovery.seed_hosts=elasticsearch
+      - network.host=elasticsearch,_local_
+      - network.publish_host=elasticsearch
+      - bootstrap.memory_lock=true
+      - ES_JAVA_OPTS=-Xms${ES_MEMORY} -Xmx${ES_MEMORY}
+    ulimits: { nofile: { soft: 65535, hard: 65535 }, memlock: -1 }
+    healthcheck:
+      test: curl --head --max-time 120 --retry 120 --retry-delay 1 --show-error --silent http://localhost:9200
+
+  kibana:
+    container_name: kibana
+    image: docker.elastic.co/kibana/kibana:${ELASTIC_VERSION}
+    depends_on: ['elasticsearch']
+    networks:
+      - elasticsearch
+    ports:
+      - 5601:5601
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - KIBANA_LOGGING_QUIET=true
+    healthcheck:
+      test: curl --max-time 120 --retry 120 --retry-delay 1 --show-error --silent http://localhost:5601
+
+  apm_server:
+    container_name: apm_server
+    image: docker.elastic.co/apm/apm-server:${ELASTIC_VERSION}
+    depends_on: ['elasticsearch', 'kibana']
+    command: -e --strict.perms=false
+    networks:
+      - elasticsearch
+    ports:
+      - 8200:8200
+    restart: on-failure
+    healthcheck:
+      test: curl --max-time 120 --retry 120 --retry-delay 1 --show-error --silent http://localhost:8200
+
+networks:
+  kafka:
+  elasticsearch:
+
+volumes:
+  kafka-data:
+  es-data:
