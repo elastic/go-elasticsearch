@@ -2,7 +2,7 @@
 
 The official Go client for [Elasticsearch](https://www.elastic.co/products/elasticsearch).
 
-[![GoDoc](https://godoc.org/github.com/elastic/go-elasticsearch?status.svg)](http://godoc.org/github.com/elastic/go-elasticsearch)
+[![GoDoc](https://godoc.org/github.com/elastic/go-elasticsearch?status.svg)](https://pkg.go.dev/github.com/elastic/go-elasticsearch/v6)
 [![Go Report Card](https://goreportcard.com/badge/github.com/elastic/go-elasticsearch)](https://goreportcard.com/report/github.com/elastic/go-elasticsearch)
 [![codecov.io](https://codecov.io/github/elastic/go-elasticsearch/coverage.svg?branch=master)](https://codecov.io/gh/elastic/go-elasticsearch?branch=master)
 [![Build](https://github.com/elastic/go-elasticsearch/workflows/Build/badge.svg)](https://github.com/elastic/go-elasticsearch/actions)
