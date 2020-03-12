@@ -239,12 +239,12 @@ endif
 
 godoc: ## Display documentation for the package
 	@printf "\033[2m→ Generating documentation...\033[0m\n"
-	@echo "open http://localhost:6060/pkg/github.com/elastic/go-elasticsearch/\n"
-	mkdir -p /tmp/tmpgoroot/doc
-	rm -rf /tmp/tmpgopath/src/github.com/elastic/go-elasticsearch
-	mkdir -p /tmp/tmpgopath/src/github.com/elastic/go-elasticsearch
-	tar -c --exclude='.git' --exclude='tmp' . | tar -x -C /tmp/tmpgopath/src/github.com/elastic/go-elasticsearch
-	GOROOT=/tmp/tmpgoroot/ GOPATH=/tmp/tmpgopath/ godoc -http=localhost:6060 -play
+	@echo "* http://localhost:6060/pkg/github.com/elastic/go-elasticsearch/v6"
+	@echo "* http://localhost:6060/pkg/github.com/elastic/go-elasticsearch/v6/esapi"
+	@echo "* http://localhost:6060/pkg/github.com/elastic/go-elasticsearch/v6/estransport"
+	@echo "* http://localhost:6060/pkg/github.com/elastic/go-elasticsearch/v6/esutil"
+	@printf "\n"
+	godoc --http=localhost:6060 --play
 
 cluster: ## Launch an Elasticsearch cluster with Docker
 	$(eval version ?= "elasticsearch-oss:6.8-SNAPSHOT")
