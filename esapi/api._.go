@@ -1,30 +1,31 @@
-// Code generated from specification version 8.0.0 (007ec1f1351): DO NOT EDIT
+// Code generated from specification version 8.0.0 (03cfb1dff78): DO NOT EDIT
 
 package esapi
 
 // API contains the Elasticsearch APIs
 //
 type API struct {
-	Cat        *Cat
-	Cluster    *Cluster
-	Indices    *Indices
-	Ingest     *Ingest
-	Nodes      *Nodes
-	Remote     *Remote
-	Snapshot   *Snapshot
-	Tasks      *Tasks
-	CCR        *CCR
-	ILM        *ILM
-	License    *License
-	Migration  *Migration
-	ML         *ML
-	Monitoring *Monitoring
-	Rollup     *Rollup
-	Security   *Security
-	SQL        *SQL
-	SSL        *SSL
-	Watcher    *Watcher
-	XPack      *XPack
+	Cat         *Cat
+	Cluster     *Cluster
+	Indices     *Indices
+	Ingest      *Ingest
+	Nodes       *Nodes
+	Remote      *Remote
+	Snapshot    *Snapshot
+	Tasks       *Tasks
+	AsyncSearch *AsyncSearch
+	CCR         *CCR
+	ILM         *ILM
+	License     *License
+	Migration   *Migration
+	ML          *ML
+	Monitoring  *Monitoring
+	Rollup      *Rollup
+	Security    *Security
+	SQL         *SQL
+	SSL         *SSL
+	Watcher     *Watcher
+	XPack       *XPack
 
 	AutoscalingGetAutoscalingDecision             AutoscalingGetAutoscalingDecision
 	Bulk                                          Bulk
@@ -237,6 +238,13 @@ type Tasks struct {
 	List   TasksList
 }
 
+// AsyncSearch contains the AsyncSearch APIs
+type AsyncSearch struct {
+	Delete AsyncSearchDelete
+	Get    AsyncSearchGet
+	Submit AsyncSearchSubmit
+}
+
 // CCR contains the CCR APIs
 type CCR struct {
 	DeleteAutoFollowPattern CCRDeleteAutoFollowPattern
@@ -299,6 +307,7 @@ type ML struct {
 	DeleteModelSnapshot        MLDeleteModelSnapshot
 	DeleteTrainedModel         MLDeleteTrainedModel
 	EstimateMemoryUsage        MLEstimateMemoryUsage
+	EstimateModelMemory        MLEstimateModelMemory
 	EvaluateDataFrame          MLEvaluateDataFrame
 	ExplainDataFrameAnalytics  MLExplainDataFrameAnalytics
 	FindFileStructure          MLFindFileStructure
@@ -622,6 +631,11 @@ func New(t Transport) *API {
 			Get:    newTasksGetFunc(t),
 			List:   newTasksListFunc(t),
 		},
+		AsyncSearch: &AsyncSearch{
+			Delete: newAsyncSearchDeleteFunc(t),
+			Get:    newAsyncSearchGetFunc(t),
+			Submit: newAsyncSearchSubmitFunc(t),
+		},
 		CCR: &CCR{
 			DeleteAutoFollowPattern: newCCRDeleteAutoFollowPatternFunc(t),
 			FollowInfo:              newCCRFollowInfoFunc(t),
@@ -675,6 +689,7 @@ func New(t Transport) *API {
 			DeleteModelSnapshot:        newMLDeleteModelSnapshotFunc(t),
 			DeleteTrainedModel:         newMLDeleteTrainedModelFunc(t),
 			EstimateMemoryUsage:        newMLEstimateMemoryUsageFunc(t),
+			EstimateModelMemory:        newMLEstimateModelMemoryFunc(t),
 			EvaluateDataFrame:          newMLEvaluateDataFrameFunc(t),
 			ExplainDataFrameAnalytics:  newMLExplainDataFrameAnalyticsFunc(t),
 			FindFileStructure:          newMLFindFileStructureFunc(t),

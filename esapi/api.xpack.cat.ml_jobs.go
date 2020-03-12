@@ -27,7 +27,7 @@ func newCatMLJobsFunc(t Transport) CatMLJobs {
 
 // CatMLJobs -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-job-stats.html.
+// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/cat-anomaly-detectors.html.
 //
 type CatMLJobs func(o ...func(*CatMLJobsRequest)) (*Response, error)
 
