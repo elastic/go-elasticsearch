@@ -27,8 +27,8 @@ func TestDiscovery(t *testing.T) {
 		io.Copy(w, f)
 	}
 
-	srv := &http.Server{Addr: "localhost:10100", Handler: http.HandlerFunc(defaultHandler)}
-	srvTLS := &http.Server{Addr: "localhost:10200", Handler: http.HandlerFunc(defaultHandler)}
+	srv := &http.Server{Addr: "localhost:10001", Handler: http.HandlerFunc(defaultHandler)}
+	srvTLS := &http.Server{Addr: "localhost:12001", Handler: http.HandlerFunc(defaultHandler)}
 
 	go func() {
 		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
@@ -62,15 +62,15 @@ func TestDiscovery(t *testing.T) {
 		for _, node := range nodes {
 			switch node.Name {
 			case "es1":
-				if node.URL.String() != "http://127.0.0.1:9200" {
+				if node.URL.String() != "http://127.0.0.1:10001" {
 					t.Errorf("Unexpected URL: %s", node.URL.String())
 				}
 			case "es2":
-				if node.URL.String() != "http://localhost:9201" {
+				if node.URL.String() != "http://localhost:10002" {
 					t.Errorf("Unexpected URL: %s", node.URL.String())
 				}
 			case "es3":
-				if node.URL.String() != "http://127.0.0.1:9202" {
+				if node.URL.String() != "http://127.0.0.1:10003" {
 					t.Errorf("Unexpected URL: %s", node.URL.String())
 				}
 			}
@@ -95,11 +95,11 @@ func TestDiscovery(t *testing.T) {
 		for _, conn := range pool.live {
 			switch conn.Name {
 			case "es1":
-				if conn.URL.String() != "http://127.0.0.1:9200" {
+				if conn.URL.String() != "http://127.0.0.1:10001" {
 					t.Errorf("Unexpected URL: %s", conn.URL.String())
 				}
 			case "es2":
-				if conn.URL.String() != "http://localhost:9201" {
+				if conn.URL.String() != "http://localhost:10002" {
 					t.Errorf("Unexpected URL: %s", conn.URL.String())
 				}
 			default:
@@ -135,11 +135,11 @@ func TestDiscovery(t *testing.T) {
 		for _, conn := range pool.live {
 			switch conn.Name {
 			case "es1":
-				if conn.URL.String() != "https://127.0.0.1:9200" {
+				if conn.URL.String() != "https://127.0.0.1:10001" {
 					t.Errorf("Unexpected URL: %s", conn.URL.String())
 				}
 			case "es2":
-				if conn.URL.String() != "https://localhost:9201" {
+				if conn.URL.String() != "https://localhost:10002" {
 					t.Errorf("Unexpected URL: %s", conn.URL.String())
 				}
 			default:
@@ -152,7 +152,7 @@ func TestDiscovery(t *testing.T) {
 		var numURLs int
 		u, _ := url.Parse("http://" + srv.Addr)
 
-		tp, _ := New(Config{URLs: []*url.URL{u}, DiscoverNodesInterval: time.Millisecond})
+		tp, _ := New(Config{URLs: []*url.URL{u}, DiscoverNodesInterval: 10 * time.Millisecond})
 
 		tp.Lock()
 		numURLs = len(tp.pool.URLs())
@@ -161,7 +161,7 @@ func TestDiscovery(t *testing.T) {
 			t.Errorf("Unexpected number of nodes, want=1, got=%d", numURLs)
 		}
 
-		time.Sleep(50 * time.Millisecond)
+		time.Sleep(18 * time.Millisecond) // Wait until (*Client).scheduleDiscoverNodes()
 		tp.Lock()
 		numURLs = len(tp.pool.URLs())
 		tp.Unlock()
