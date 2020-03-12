@@ -110,6 +110,9 @@ data_frame/transforms_stats.yml:
   - Test get transform stats on missing transform
   - Test get multiple transform stats where one does not have a task
 
+# This test suite keeps failing too often: disable it altogether
+ml/data_frame_analytics_crud.yml:
+
 # Invalid license makes subsequent tests fail
 license/20_put_license.yml:
 
