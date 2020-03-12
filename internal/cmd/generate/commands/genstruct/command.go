@@ -127,6 +127,7 @@ func (cmd *Command) processAPIConstructor() (err error) {
 
 		// XPack APIs
 		//
+		"AsyncSearch",
 		"CCR",
 		"ILM",
 		"License",
