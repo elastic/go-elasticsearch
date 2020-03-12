@@ -125,6 +125,7 @@ func main() {
 	//
 	bi, err := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
 		Index:         indexName,        // The default index name
+		DocumentType:  "_doc",           // The default document type
 		Client:        es,               // The Elasticsearch client
 		NumWorkers:    numWorkers,       // The number of worker goroutines
 		FlushBytes:    int(flushBytes),  // The flush threshold in bytes

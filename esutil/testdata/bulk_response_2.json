@@ -5,6 +5,7 @@
     {
       "index": {
         "_index": "test",
+        "_type": "_doc",
         "_id": "1",
         "_version": 1,
         "result": "created",
@@ -17,6 +18,7 @@
     {
       "create": {
         "_index": "test",
+        "_type": "_doc",
         "_id": "1",
         "status": 409,
         "error": {
@@ -31,6 +33,7 @@
     {
       "delete": {
         "_index": "test",
+        "_type": "_doc",
         "_id": "2",
         "_version": 1,
         "result": "not_found",
@@ -43,6 +46,7 @@
     {
       "update": {
         "_index": "test",
+        "_type": "_doc",
         "_id": "3",
         "_version": 2,
         "result": "updated",

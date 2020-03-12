@@ -5,6 +5,7 @@
     {
       "create": {
         "_index": "test",
+        "_type": "_doc",
         "_id": "3",
         "_version": 1,
         "result": "created",
@@ -21,6 +22,7 @@
     {
       "delete": {
         "_index": "test",
+        "_type": "_doc",
         "_id": "4",
         "_version": 1,
         "result": "not_found",

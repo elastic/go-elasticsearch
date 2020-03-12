@@ -37,8 +37,9 @@ func TestBulkIndexerIntegration(t *testing.T) {
 			es.Indices.Create.WithWaitForActiveShards("1"))
 
 		bi, _ := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
-			Index:  indexName,
-			Client: es,
+			Index:        indexName,
+			DocumentType: "_doc",
+			Client:       es,
 			// FlushBytes: 3e+6,
 		})
 

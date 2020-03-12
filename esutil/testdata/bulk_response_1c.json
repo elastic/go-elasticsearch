@@ -5,6 +5,7 @@
     {
       "delete": {
         "_index": "test",
+        "_type": "_doc",
         "_id": "5",
         "_version": 2,
         "result": "deleted",
@@ -21,6 +22,7 @@
     {
       "update": {
         "_index": "test",
+        "_type": "_doc",
         "_id": "6",
         "_version": 2,
         "result": "updated",

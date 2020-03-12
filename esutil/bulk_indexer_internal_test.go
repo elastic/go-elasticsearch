@@ -71,7 +71,7 @@ func TestBulkIndexer(t *testing.T) {
 
 		cfg := BulkIndexerConfig{
 			NumWorkers:    1,
-			FlushBytes:    50,
+			FlushBytes:    75,
 			FlushInterval: time.Hour, // Disable auto-flushing, because response doesn't match number of items
 			Client:        es}
 		if os.Getenv("DEBUG") != "" {
@@ -85,9 +85,10 @@ func TestBulkIndexer(t *testing.T) {
 			go func(i int) {
 				defer wg.Done()
 				err := bi.Add(context.Background(), BulkIndexerItem{
-					Action:     "foo",
-					DocumentID: strconv.Itoa(i),
-					Body:       strings.NewReader(fmt.Sprintf(`{"title":"foo-%d"}`, i)),
+					Action:       "foo",
+					DocumentType: "bar",
+					DocumentID:   strconv.Itoa(i),
+					Body:         strings.NewReader(fmt.Sprintf(`{"title":"foo-%d"}`, i)),
 				})
 				if err != nil {
 					t.Fatalf("Unexpected error: %s", err)

@@ -57,6 +57,7 @@ type BulkIndexerConfig struct {
 
 	// Parameters of the Bulk API.
 	Index               string
+	DocumentType        string
 	ErrorTrace          bool
 	FilterPath          []string
 	Header              http.Header
@@ -91,6 +92,7 @@ type BulkIndexerItem struct {
 	Index           string
 	Action          string
 	DocumentID      string
+	DocumentType    string
 	Body            io.Reader
 	RetryOnConflict *int
 
@@ -109,13 +111,14 @@ type BulkIndexerResponse struct {
 // BulkIndexerResponseItem represents the Elasticsearch response item.
 //
 type BulkIndexerResponseItem struct {
-	Index      string `json:"_index"`
-	DocumentID string `json:"_id"`
-	Version    int64  `json:"_version"`
-	Result     string `json:"result"`
-	Status     int    `json:"status"`
-	SeqNo      int64  `json:"_seq_no"`
-	PrimTerm   int64  `json:"_primary_term"`
+	Index        string `json:"_index"`
+	DocumentID   string `json:"_id"`
+	DocumentType string `json:"_type"`
+	Version      int64  `json:"_version"`
+	Result       string `json:"result"`
+	Status       int    `json:"status"`
+	SeqNo        int64  `json:"_seq_no"`
+	PrimTerm     int64  `json:"_primary_term"`
 
 	Shards struct {
 		Total      int `json:"total"`
@@ -387,6 +390,13 @@ func (w *worker) writeMeta(item BulkIndexerItem) error {
 	w.aux = w.aux[:0]
 	w.buf.WriteRune(':')
 	w.buf.WriteRune('{')
+	if item.DocumentType != "" {
+		w.buf.WriteString(`"_type":`)
+		w.aux = strconv.AppendQuote(w.aux, item.DocumentType)
+		w.buf.Write(w.aux)
+		w.aux = w.aux[:0]
+		w.buf.WriteRune(',')
+	}
 	if item.DocumentID != "" {
 		w.buf.WriteString(`"_id":`)
 		w.aux = strconv.AppendQuote(w.aux, item.DocumentID)
@@ -448,8 +458,9 @@ func (w *worker) flush(ctx context.Context) error {
 
 	atomic.AddUint64(&w.bi.stats.numRequests, 1)
 	req := esapi.BulkRequest{
-		Index: w.bi.config.Index,
-		Body:  w.buf,
+		Index:        w.bi.config.Index,
+		DocumentType: w.bi.config.DocumentType,
+		Body:         w.buf,
 
 		Pipeline:            w.bi.config.Pipeline,
 		Refresh:             w.bi.config.Refresh,
