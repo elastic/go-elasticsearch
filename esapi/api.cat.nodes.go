@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.5.0: DO NOT EDIT
+// Code generated from specification version 7.7.0: DO NOT EDIT
 
 package esapi
 
@@ -219,7 +219,7 @@ func (f CatNodes) WithHelp(v bool) func(*CatNodesRequest) {
 	}
 }
 
-// WithLocal - return local information, do not retrieve the state from master node (default: false).
+// WithLocal - calculate the selected nodes using the local cluster state rather than the state from master node (default: false).
 //
 func (f CatNodes) WithLocal(v bool) func(*CatNodesRequest) {
 	return func(r *CatNodesRequest) {

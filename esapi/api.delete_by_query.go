@@ -2,12 +2,13 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.5.0: DO NOT EDIT
+// Code generated from specification version 7.7.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"fmt"
 	"io"
 	"net/http"
 	"strconv"
@@ -42,6 +43,7 @@ type DeleteByQueryRequest struct {
 	Body io.Reader
 
 	AllowNoIndices      *bool
+	Analyzer            string
 	AnalyzeWildcard     *bool
 	Conflicts           string
 	DefaultOperator     string
@@ -62,7 +64,7 @@ type DeleteByQueryRequest struct {
 	SearchTimeout       time.Duration
 	SearchType          string
 	Size                *int
-	Slices              *int
+	Slices              interface{}
 	Sort                []string
 	Source              []string
 	SourceExcludes      []string
@@ -109,6 +111,10 @@ func (r DeleteByQueryRequest) Do(ctx context.Context, transport Transport) (*Res
 
 	if r.AllowNoIndices != nil {
 		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
+	}
+
+	if r.Analyzer != "" {
+		params["analyzer"] = r.Analyzer
 	}
 
 	if r.AnalyzeWildcard != nil {
@@ -192,7 +198,7 @@ func (r DeleteByQueryRequest) Do(ctx context.Context, transport Transport) (*Res
 	}
 
 	if r.Slices != nil {
-		params["slices"] = strconv.FormatInt(int64(*r.Slices), 10)
+		params["slices"] = fmt.Sprintf("%v", r.Slices)
 	}
 
 	if len(r.Sort) > 0 {
@@ -319,6 +325,14 @@ func (f DeleteByQuery) WithDocumentType(v ...string) func(*DeleteByQueryRequest)
 func (f DeleteByQuery) WithAllowNoIndices(v bool) func(*DeleteByQueryRequest) {
 	return func(r *DeleteByQueryRequest) {
 		r.AllowNoIndices = &v
+	}
+}
+
+// WithAnalyzer - the analyzer to use for the query string.
+//
+func (f DeleteByQuery) WithAnalyzer(v string) func(*DeleteByQueryRequest) {
+	return func(r *DeleteByQueryRequest) {
+		r.Analyzer = v
 	}
 }
 
@@ -482,11 +496,11 @@ func (f DeleteByQuery) WithSize(v int) func(*DeleteByQueryRequest) {
 	}
 }
 
-// WithSlices - the number of slices this task should be divided into. defaults to 1 meaning the task isn't sliced into subtasks..
+// WithSlices - the number of slices this task should be divided into. defaults to 1, meaning the task isn't sliced into subtasks. can be set to `auto`..
 //
-func (f DeleteByQuery) WithSlices(v int) func(*DeleteByQueryRequest) {
+func (f DeleteByQuery) WithSlices(v interface{}) func(*DeleteByQueryRequest) {
 	return func(r *DeleteByQueryRequest) {
-		r.Slices = &v
+		r.Slices = v
 	}
 }
 

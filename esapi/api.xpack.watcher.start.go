@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.5.0: DO NOT EDIT
+// Code generated from specification version 7.7.0: DO NOT EDIT
 
 package esapi
 
@@ -26,7 +26,7 @@ func newWatcherStartFunc(t Transport) WatcherStart {
 
 // WatcherStart -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-start.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-start.html.
 //
 type WatcherStart func(o ...func(*WatcherStartRequest)) (*Response, error)
 

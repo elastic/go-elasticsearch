@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.5.0: DO NOT EDIT
+// Code generated from specification version 7.7.0: DO NOT EDIT
 
 package esapi
 
@@ -26,14 +26,14 @@ func newEnrichGetPolicyFunc(t Transport) EnrichGetPolicy {
 
 // EnrichGetPolicy -
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/enrich-get-policy.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-enrich-policy-api.html.
 //
 type EnrichGetPolicy func(o ...func(*EnrichGetPolicyRequest)) (*Response, error)
 
 // EnrichGetPolicyRequest configures the Enrich Get Policy API request.
 //
 type EnrichGetPolicyRequest struct {
-	Name string
+	Name []string
 
 	Pretty     bool
 	Human      bool
@@ -56,14 +56,14 @@ func (r EnrichGetPolicyRequest) Do(ctx context.Context, transport Transport) (*R
 
 	method = "GET"
 
-	path.Grow(1 + len("_enrich") + 1 + len("policy") + 1 + len(r.Name))
+	path.Grow(1 + len("_enrich") + 1 + len("policy") + 1 + len(strings.Join(r.Name, ",")))
 	path.WriteString("/")
 	path.WriteString("_enrich")
 	path.WriteString("/")
 	path.WriteString("policy")
-	if r.Name != "" {
+	if len(r.Name) > 0 {
 		path.WriteString("/")
-		path.WriteString(r.Name)
+		path.WriteString(strings.Join(r.Name, ","))
 	}
 
 	params = make(map[string]string)
@@ -135,9 +135,9 @@ func (f EnrichGetPolicy) WithContext(v context.Context) func(*EnrichGetPolicyReq
 	}
 }
 
-// WithName - the name of the enrich policy.
+// WithName - a list of enrich policy names.
 //
-func (f EnrichGetPolicy) WithName(v string) func(*EnrichGetPolicyRequest) {
+func (f EnrichGetPolicy) WithName(v ...string) func(*EnrichGetPolicyRequest) {
 	return func(r *EnrichGetPolicyRequest) {
 		r.Name = v
 	}

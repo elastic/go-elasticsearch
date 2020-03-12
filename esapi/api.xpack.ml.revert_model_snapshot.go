@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.5.0: DO NOT EDIT
+// Code generated from specification version 7.7.0: DO NOT EDIT
 
 package esapi
 
@@ -28,7 +28,7 @@ func newMLRevertModelSnapshotFunc(t Transport) MLRevertModelSnapshot {
 
 // MLRevertModelSnapshot -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-revert-snapshot.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-revert-snapshot.html.
 //
 type MLRevertModelSnapshot func(snapshot_id string, job_id string, o ...func(*MLRevertModelSnapshotRequest)) (*Response, error)
 

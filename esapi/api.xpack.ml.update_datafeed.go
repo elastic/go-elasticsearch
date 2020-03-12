@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.5.0: DO NOT EDIT
+// Code generated from specification version 7.7.0: DO NOT EDIT
 
 package esapi
 
@@ -10,6 +10,7 @@ import (
 	"context"
 	"io"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -27,7 +28,7 @@ func newMLUpdateDatafeedFunc(t Transport) MLUpdateDatafeed {
 
 // MLUpdateDatafeed -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/ml-update-datafeed.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-update-datafeed.html.
 //
 type MLUpdateDatafeed func(body io.Reader, datafeed_id string, o ...func(*MLUpdateDatafeedRequest)) (*Response, error)
 
@@ -37,6 +38,11 @@ type MLUpdateDatafeedRequest struct {
 	Body io.Reader
 
 	DatafeedID string
+
+	AllowNoIndices    *bool
+	ExpandWildcards   string
+	IgnoreThrottled   *bool
+	IgnoreUnavailable *bool
 
 	Pretty     bool
 	Human      bool
@@ -70,6 +76,22 @@ func (r MLUpdateDatafeedRequest) Do(ctx context.Context, transport Transport) (*
 	path.WriteString("_update")
 
 	params = make(map[string]string)
+
+	if r.AllowNoIndices != nil {
+		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
+	}
+
+	if r.ExpandWildcards != "" {
+		params["expand_wildcards"] = r.ExpandWildcards
+	}
+
+	if r.IgnoreThrottled != nil {
+		params["ignore_throttled"] = strconv.FormatBool(*r.IgnoreThrottled)
+	}
+
+	if r.IgnoreUnavailable != nil {
+		params["ignore_unavailable"] = strconv.FormatBool(*r.IgnoreUnavailable)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -139,6 +161,38 @@ func (r MLUpdateDatafeedRequest) Do(ctx context.Context, transport Transport) (*
 func (f MLUpdateDatafeed) WithContext(v context.Context) func(*MLUpdateDatafeedRequest) {
 	return func(r *MLUpdateDatafeedRequest) {
 		r.ctx = v
+	}
+}
+
+// WithAllowNoIndices - ignore if the source indices expressions resolves to no concrete indices (default: true).
+//
+func (f MLUpdateDatafeed) WithAllowNoIndices(v bool) func(*MLUpdateDatafeedRequest) {
+	return func(r *MLUpdateDatafeedRequest) {
+		r.AllowNoIndices = &v
+	}
+}
+
+// WithExpandWildcards - whether source index expressions should get expanded to open or closed indices (default: open).
+//
+func (f MLUpdateDatafeed) WithExpandWildcards(v string) func(*MLUpdateDatafeedRequest) {
+	return func(r *MLUpdateDatafeedRequest) {
+		r.ExpandWildcards = v
+	}
+}
+
+// WithIgnoreThrottled - ignore indices that are marked as throttled (default: true).
+//
+func (f MLUpdateDatafeed) WithIgnoreThrottled(v bool) func(*MLUpdateDatafeedRequest) {
+	return func(r *MLUpdateDatafeedRequest) {
+		r.IgnoreThrottled = &v
+	}
+}
+
+// WithIgnoreUnavailable - ignore unavailable indexes (default: false).
+//
+func (f MLUpdateDatafeed) WithIgnoreUnavailable(v bool) func(*MLUpdateDatafeedRequest) {
+	return func(r *MLUpdateDatafeedRequest) {
+		r.IgnoreUnavailable = &v
 	}
 }
 

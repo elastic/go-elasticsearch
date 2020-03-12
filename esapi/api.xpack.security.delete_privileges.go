@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.5.0: DO NOT EDIT
+// Code generated from specification version 7.7.0: DO NOT EDIT
 
 package esapi
 
@@ -24,7 +24,9 @@ func newSecurityDeletePrivilegesFunc(t Transport) SecurityDeletePrivileges {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityDeletePrivileges - TODO
+// SecurityDeletePrivileges -
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-delete-privilege.html.
 //
 type SecurityDeletePrivileges func(name string, application string, o ...func(*SecurityDeletePrivilegesRequest)) (*Response, error)
 

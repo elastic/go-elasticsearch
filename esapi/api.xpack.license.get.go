@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.5.0: DO NOT EDIT
+// Code generated from specification version 7.7.0: DO NOT EDIT
 
 package esapi
 
@@ -34,7 +34,8 @@ type LicenseGet func(o ...func(*LicenseGetRequest)) (*Response, error)
 // LicenseGetRequest configures the License Get API request.
 //
 type LicenseGetRequest struct {
-	Local *bool
+	AcceptEnterprise *bool
+	Local            *bool
 
 	Pretty     bool
 	Human      bool
@@ -61,6 +62,10 @@ func (r LicenseGetRequest) Do(ctx context.Context, transport Transport) (*Respon
 	path.WriteString("/_license")
 
 	params = make(map[string]string)
+
+	if r.AcceptEnterprise != nil {
+		params["accept_enterprise"] = strconv.FormatBool(*r.AcceptEnterprise)
+	}
 
 	if r.Local != nil {
 		params["local"] = strconv.FormatBool(*r.Local)
@@ -130,6 +135,14 @@ func (r LicenseGetRequest) Do(ctx context.Context, transport Transport) (*Respon
 func (f LicenseGet) WithContext(v context.Context) func(*LicenseGetRequest) {
 	return func(r *LicenseGetRequest) {
 		r.ctx = v
+	}
+}
+
+// WithAcceptEnterprise - if the active license is an enterprise license, return type as 'enterprise' (default: false).
+//
+func (f LicenseGet) WithAcceptEnterprise(v bool) func(*LicenseGetRequest) {
+	return func(r *LicenseGetRequest) {
+		r.AcceptEnterprise = &v
 	}
 }
 

@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.5.0: DO NOT EDIT
+// Code generated from specification version 7.7.0: DO NOT EDIT
 
 package esapi
 
@@ -41,18 +41,19 @@ type SearchTemplateRequest struct {
 
 	Body io.Reader
 
-	AllowNoIndices     *bool
-	ExpandWildcards    string
-	Explain            *bool
-	IgnoreThrottled    *bool
-	IgnoreUnavailable  *bool
-	Preference         string
-	Profile            *bool
-	RestTotalHitsAsInt *bool
-	Routing            []string
-	Scroll             time.Duration
-	SearchType         string
-	TypedKeys          *bool
+	AllowNoIndices        *bool
+	CcsMinimizeRoundtrips *bool
+	ExpandWildcards       string
+	Explain               *bool
+	IgnoreThrottled       *bool
+	IgnoreUnavailable     *bool
+	Preference            string
+	Profile               *bool
+	RestTotalHitsAsInt    *bool
+	Routing               []string
+	Scroll                time.Duration
+	SearchType            string
+	TypedKeys             *bool
 
 	Pretty     bool
 	Human      bool
@@ -93,6 +94,10 @@ func (r SearchTemplateRequest) Do(ctx context.Context, transport Transport) (*Re
 
 	if r.AllowNoIndices != nil {
 		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
+	}
+
+	if r.CcsMinimizeRoundtrips != nil {
+		params["ccs_minimize_roundtrips"] = strconv.FormatBool(*r.CcsMinimizeRoundtrips)
 	}
 
 	if r.ExpandWildcards != "" {
@@ -231,6 +236,14 @@ func (f SearchTemplate) WithDocumentType(v ...string) func(*SearchTemplateReques
 func (f SearchTemplate) WithAllowNoIndices(v bool) func(*SearchTemplateRequest) {
 	return func(r *SearchTemplateRequest) {
 		r.AllowNoIndices = &v
+	}
+}
+
+// WithCcsMinimizeRoundtrips - indicates whether network round-trips should be minimized as part of cross-cluster search requests execution.
+//
+func (f SearchTemplate) WithCcsMinimizeRoundtrips(v bool) func(*SearchTemplateRequest) {
+	return func(r *SearchTemplateRequest) {
+		r.CcsMinimizeRoundtrips = &v
 	}
 }
 

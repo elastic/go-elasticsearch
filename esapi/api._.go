@@ -1,4 +1,4 @@
-// Code generated from specification version 7.5.0 (e9ccaed468e|v7.5.0): DO NOT EDIT
+// Code generated from specification version 7.7.0 (7189c57b6cb): DO NOT EDIT
 
 package esapi
 
@@ -26,6 +26,7 @@ type API struct {
 	Watcher    *Watcher
 	XPack      *XPack
 
+	AutoscalingGetAutoscalingDecision             AutoscalingGetAutoscalingDecision
 	Bulk                                          Bulk
 	ClearScroll                                   ClearScroll
 	Count                                         Count
@@ -55,11 +56,14 @@ type API struct {
 	EnrichGetPolicy                               EnrichGetPolicy
 	EnrichPutPolicy                               EnrichPutPolicy
 	EnrichStats                                   EnrichStats
+	EqlSearch                                     EqlSearch
 	Exists                                        Exists
 	ExistsSource                                  ExistsSource
 	Explain                                       Explain
 	FieldCaps                                     FieldCaps
 	Get                                           Get
+	GetScriptContext                              GetScriptContext
+	GetScriptLanguages                            GetScriptLanguages
 	GetScript                                     GetScript
 	GetSource                                     GetSource
 	GraphExplore                                  GraphExplore
@@ -85,7 +89,10 @@ type API struct {
 	SlmExecuteRetention                           SlmExecuteRetention
 	SlmGetLifecycle                               SlmGetLifecycle
 	SlmGetStats                                   SlmGetStats
+	SlmGetStatus                                  SlmGetStatus
 	SlmPutLifecycle                               SlmPutLifecycle
+	SlmStart                                      SlmStart
+	SlmStop                                       SlmStop
 	Termvectors                                   Termvectors
 	TransformDeleteTransform                      TransformDeleteTransform
 	TransformGetTransform                         TransformGetTransform
@@ -102,26 +109,30 @@ type API struct {
 
 // Cat contains the Cat APIs
 type Cat struct {
-	Aliases      CatAliases
-	Allocation   CatAllocation
-	Count        CatCount
-	Fielddata    CatFielddata
-	Health       CatHealth
-	Help         CatHelp
-	Indices      CatIndices
-	Master       CatMaster
-	Nodeattrs    CatNodeattrs
-	Nodes        CatNodes
-	PendingTasks CatPendingTasks
-	Plugins      CatPlugins
-	Recovery     CatRecovery
-	Repositories CatRepositories
-	Segments     CatSegments
-	Shards       CatShards
-	Snapshots    CatSnapshots
-	Tasks        CatTasks
-	Templates    CatTemplates
-	ThreadPool   CatThreadPool
+	Aliases              CatAliases
+	Allocation           CatAllocation
+	Count                CatCount
+	Fielddata            CatFielddata
+	Health               CatHealth
+	Help                 CatHelp
+	Indices              CatIndices
+	MLDataFrameAnalytics CatMLDataFrameAnalytics
+	MLDatafeeds          CatMLDatafeeds
+	MLJobs               CatMLJobs
+	MLTrainedModels      CatMLTrainedModels
+	Master               CatMaster
+	Nodeattrs            CatNodeattrs
+	Nodes                CatNodes
+	PendingTasks         CatPendingTasks
+	Plugins              CatPlugins
+	Recovery             CatRecovery
+	Repositories         CatRepositories
+	Segments             CatSegments
+	Shards               CatShards
+	Snapshots            CatSnapshots
+	Tasks                CatTasks
+	Templates            CatTemplates
+	ThreadPool           CatThreadPool
 }
 
 // Cluster contains the Cluster APIs
@@ -285,8 +296,10 @@ type ML struct {
 	DeleteForecast             MLDeleteForecast
 	DeleteJob                  MLDeleteJob
 	DeleteModelSnapshot        MLDeleteModelSnapshot
+	DeleteTrainedModel         MLDeleteTrainedModel
 	EstimateMemoryUsage        MLEstimateMemoryUsage
 	EvaluateDataFrame          MLEvaluateDataFrame
+	ExplainDataFrameAnalytics  MLExplainDataFrameAnalytics
 	FindFileStructure          MLFindFileStructure
 	FlushJob                   MLFlushJob
 	Forecast                   MLForecast
@@ -305,6 +318,8 @@ type ML struct {
 	GetModelSnapshots          MLGetModelSnapshots
 	GetOverallBuckets          MLGetOverallBuckets
 	GetRecords                 MLGetRecords
+	GetTrainedModels           MLGetTrainedModels
+	GetTrainedModelsStats      MLGetTrainedModelsStats
 	Info                       MLInfo
 	OpenJob                    MLOpenJob
 	PostCalendarEvents         MLPostCalendarEvents
@@ -316,6 +331,7 @@ type ML struct {
 	PutDatafeed                MLPutDatafeed
 	PutFilter                  MLPutFilter
 	PutJob                     MLPutJob
+	PutTrainedModel            MLPutTrainedModel
 	RevertModelSnapshot        MLRevertModelSnapshot
 	SetUpgradeMode             MLSetUpgradeMode
 	StartDataFrameAnalytics    MLStartDataFrameAnalytics
@@ -413,6 +429,7 @@ type XPack struct {
 //
 func New(t Transport) *API {
 	return &API{
+		AutoscalingGetAutoscalingDecision:             newAutoscalingGetAutoscalingDecisionFunc(t),
 		Bulk:                                          newBulkFunc(t),
 		ClearScroll:                                   newClearScrollFunc(t),
 		Count:                                         newCountFunc(t),
@@ -442,11 +459,14 @@ func New(t Transport) *API {
 		EnrichGetPolicy:                               newEnrichGetPolicyFunc(t),
 		EnrichPutPolicy:                               newEnrichPutPolicyFunc(t),
 		EnrichStats:                                   newEnrichStatsFunc(t),
+		EqlSearch:                                     newEqlSearchFunc(t),
 		Exists:                                        newExistsFunc(t),
 		ExistsSource:                                  newExistsSourceFunc(t),
 		Explain:                                       newExplainFunc(t),
 		FieldCaps:                                     newFieldCapsFunc(t),
 		Get:                                           newGetFunc(t),
+		GetScriptContext:                              newGetScriptContextFunc(t),
+		GetScriptLanguages:                            newGetScriptLanguagesFunc(t),
 		GetScript:                                     newGetScriptFunc(t),
 		GetSource:                                     newGetSourceFunc(t),
 		GraphExplore:                                  newGraphExploreFunc(t),
@@ -472,7 +492,10 @@ func New(t Transport) *API {
 		SlmExecuteRetention:                           newSlmExecuteRetentionFunc(t),
 		SlmGetLifecycle:                               newSlmGetLifecycleFunc(t),
 		SlmGetStats:                                   newSlmGetStatsFunc(t),
+		SlmGetStatus:                                  newSlmGetStatusFunc(t),
 		SlmPutLifecycle:                               newSlmPutLifecycleFunc(t),
+		SlmStart:                                      newSlmStartFunc(t),
+		SlmStop:                                       newSlmStopFunc(t),
 		Termvectors:                                   newTermvectorsFunc(t),
 		TransformDeleteTransform:                      newTransformDeleteTransformFunc(t),
 		TransformGetTransform:                         newTransformGetTransformFunc(t),
@@ -486,26 +509,30 @@ func New(t Transport) *API {
 		UpdateByQueryRethrottle:                       newUpdateByQueryRethrottleFunc(t),
 		Update:                                        newUpdateFunc(t),
 		Cat: &Cat{
-			Aliases:      newCatAliasesFunc(t),
-			Allocation:   newCatAllocationFunc(t),
-			Count:        newCatCountFunc(t),
-			Fielddata:    newCatFielddataFunc(t),
-			Health:       newCatHealthFunc(t),
-			Help:         newCatHelpFunc(t),
-			Indices:      newCatIndicesFunc(t),
-			Master:       newCatMasterFunc(t),
-			Nodeattrs:    newCatNodeattrsFunc(t),
-			Nodes:        newCatNodesFunc(t),
-			PendingTasks: newCatPendingTasksFunc(t),
-			Plugins:      newCatPluginsFunc(t),
-			Recovery:     newCatRecoveryFunc(t),
-			Repositories: newCatRepositoriesFunc(t),
-			Segments:     newCatSegmentsFunc(t),
-			Shards:       newCatShardsFunc(t),
-			Snapshots:    newCatSnapshotsFunc(t),
-			Tasks:        newCatTasksFunc(t),
-			Templates:    newCatTemplatesFunc(t),
-			ThreadPool:   newCatThreadPoolFunc(t),
+			Aliases:              newCatAliasesFunc(t),
+			Allocation:           newCatAllocationFunc(t),
+			Count:                newCatCountFunc(t),
+			Fielddata:            newCatFielddataFunc(t),
+			Health:               newCatHealthFunc(t),
+			Help:                 newCatHelpFunc(t),
+			Indices:              newCatIndicesFunc(t),
+			MLDataFrameAnalytics: newCatMLDataFrameAnalyticsFunc(t),
+			MLDatafeeds:          newCatMLDatafeedsFunc(t),
+			MLJobs:               newCatMLJobsFunc(t),
+			MLTrainedModels:      newCatMLTrainedModelsFunc(t),
+			Master:               newCatMasterFunc(t),
+			Nodeattrs:            newCatNodeattrsFunc(t),
+			Nodes:                newCatNodesFunc(t),
+			PendingTasks:         newCatPendingTasksFunc(t),
+			Plugins:              newCatPluginsFunc(t),
+			Recovery:             newCatRecoveryFunc(t),
+			Repositories:         newCatRepositoriesFunc(t),
+			Segments:             newCatSegmentsFunc(t),
+			Shards:               newCatShardsFunc(t),
+			Snapshots:            newCatSnapshotsFunc(t),
+			Tasks:                newCatTasksFunc(t),
+			Templates:            newCatTemplatesFunc(t),
+			ThreadPool:           newCatThreadPoolFunc(t),
 		},
 		Cluster: &Cluster{
 			AllocationExplain: newClusterAllocationExplainFunc(t),
@@ -644,8 +671,10 @@ func New(t Transport) *API {
 			DeleteForecast:             newMLDeleteForecastFunc(t),
 			DeleteJob:                  newMLDeleteJobFunc(t),
 			DeleteModelSnapshot:        newMLDeleteModelSnapshotFunc(t),
+			DeleteTrainedModel:         newMLDeleteTrainedModelFunc(t),
 			EstimateMemoryUsage:        newMLEstimateMemoryUsageFunc(t),
 			EvaluateDataFrame:          newMLEvaluateDataFrameFunc(t),
+			ExplainDataFrameAnalytics:  newMLExplainDataFrameAnalyticsFunc(t),
 			FindFileStructure:          newMLFindFileStructureFunc(t),
 			FlushJob:                   newMLFlushJobFunc(t),
 			Forecast:                   newMLForecastFunc(t),
@@ -664,6 +693,8 @@ func New(t Transport) *API {
 			GetModelSnapshots:          newMLGetModelSnapshotsFunc(t),
 			GetOverallBuckets:          newMLGetOverallBucketsFunc(t),
 			GetRecords:                 newMLGetRecordsFunc(t),
+			GetTrainedModels:           newMLGetTrainedModelsFunc(t),
+			GetTrainedModelsStats:      newMLGetTrainedModelsStatsFunc(t),
 			Info:                       newMLInfoFunc(t),
 			OpenJob:                    newMLOpenJobFunc(t),
 			PostCalendarEvents:         newMLPostCalendarEventsFunc(t),
@@ -675,6 +706,7 @@ func New(t Transport) *API {
 			PutDatafeed:                newMLPutDatafeedFunc(t),
 			PutFilter:                  newMLPutFilterFunc(t),
 			PutJob:                     newMLPutJobFunc(t),
+			PutTrainedModel:            newMLPutTrainedModelFunc(t),
 			RevertModelSnapshot:        newMLRevertModelSnapshotFunc(t),
 			SetUpgradeMode:             newMLSetUpgradeModeFunc(t),
 			StartDataFrameAnalytics:    newMLStartDataFrameAnalyticsFunc(t),

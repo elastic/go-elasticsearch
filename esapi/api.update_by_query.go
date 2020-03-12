@@ -2,12 +2,13 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.5.0: DO NOT EDIT
+// Code generated from specification version 7.7.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"fmt"
 	"io"
 	"net/http"
 	"strconv"
@@ -65,7 +66,7 @@ type UpdateByQueryRequest struct {
 	SearchTimeout       time.Duration
 	SearchType          string
 	Size                *int
-	Slices              *int
+	Slices              interface{}
 	Sort                []string
 	Source              []string
 	SourceExcludes      []string
@@ -204,7 +205,7 @@ func (r UpdateByQueryRequest) Do(ctx context.Context, transport Transport) (*Res
 	}
 
 	if r.Slices != nil {
-		params["slices"] = strconv.FormatInt(int64(*r.Slices), 10)
+		params["slices"] = fmt.Sprintf("%v", r.Slices)
 	}
 
 	if len(r.Sort) > 0 {
@@ -450,7 +451,7 @@ func (f UpdateByQuery) WithQuery(v string) func(*UpdateByQueryRequest) {
 	}
 }
 
-// WithRefresh - should the effected indexes be refreshed?.
+// WithRefresh - should the affected indexes be refreshed?.
 //
 func (f UpdateByQuery) WithRefresh(v bool) func(*UpdateByQueryRequest) {
 	return func(r *UpdateByQueryRequest) {
@@ -522,11 +523,11 @@ func (f UpdateByQuery) WithSize(v int) func(*UpdateByQueryRequest) {
 	}
 }
 
-// WithSlices - the number of slices this task should be divided into. defaults to 1 meaning the task isn't sliced into subtasks..
+// WithSlices - the number of slices this task should be divided into. defaults to 1, meaning the task isn't sliced into subtasks. can be set to `auto`..
 //
-func (f UpdateByQuery) WithSlices(v int) func(*UpdateByQueryRequest) {
+func (f UpdateByQuery) WithSlices(v interface{}) func(*UpdateByQueryRequest) {
 	return func(r *UpdateByQueryRequest) {
-		r.Slices = &v
+		r.Slices = v
 	}
 }
 

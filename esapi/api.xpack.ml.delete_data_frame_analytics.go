@@ -2,13 +2,14 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.5.0: DO NOT EDIT
+// Code generated from specification version 7.7.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -26,7 +27,7 @@ func newMLDeleteDataFrameAnalyticsFunc(t Transport) MLDeleteDataFrameAnalytics {
 
 // MLDeleteDataFrameAnalytics -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/delete-dfanalytics.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-dfanalytics.html.
 //
 type MLDeleteDataFrameAnalytics func(id string, o ...func(*MLDeleteDataFrameAnalyticsRequest)) (*Response, error)
 
@@ -34,6 +35,8 @@ type MLDeleteDataFrameAnalytics func(id string, o ...func(*MLDeleteDataFrameAnal
 //
 type MLDeleteDataFrameAnalyticsRequest struct {
 	ID string
+
+	Force *bool
 
 	Pretty     bool
 	Human      bool
@@ -67,6 +70,10 @@ func (r MLDeleteDataFrameAnalyticsRequest) Do(ctx context.Context, transport Tra
 	path.WriteString(r.ID)
 
 	params = make(map[string]string)
+
+	if r.Force != nil {
+		params["force"] = strconv.FormatBool(*r.Force)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -132,6 +139,14 @@ func (r MLDeleteDataFrameAnalyticsRequest) Do(ctx context.Context, transport Tra
 func (f MLDeleteDataFrameAnalytics) WithContext(v context.Context) func(*MLDeleteDataFrameAnalyticsRequest) {
 	return func(r *MLDeleteDataFrameAnalyticsRequest) {
 		r.ctx = v
+	}
+}
+
+// WithForce - true if the job should be forcefully deleted.
+//
+func (f MLDeleteDataFrameAnalytics) WithForce(v bool) func(*MLDeleteDataFrameAnalyticsRequest) {
+	return func(r *MLDeleteDataFrameAnalyticsRequest) {
+		r.Force = &v
 	}
 }
 

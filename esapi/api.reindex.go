@@ -2,12 +2,13 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.5.0: DO NOT EDIT
+// Code generated from specification version 7.7.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"fmt"
 	"io"
 	"net/http"
 	"strconv"
@@ -44,7 +45,7 @@ type ReindexRequest struct {
 	Refresh             *bool
 	RequestsPerSecond   *int
 	Scroll              time.Duration
-	Slices              *int
+	Slices              interface{}
 	Timeout             time.Duration
 	WaitForActiveShards string
 	WaitForCompletion   *bool
@@ -92,7 +93,7 @@ func (r ReindexRequest) Do(ctx context.Context, transport Transport) (*Response,
 	}
 
 	if r.Slices != nil {
-		params["slices"] = strconv.FormatInt(int64(*r.Slices), 10)
+		params["slices"] = fmt.Sprintf("%v", r.Slices)
 	}
 
 	if r.Timeout != 0 {
@@ -186,7 +187,7 @@ func (f Reindex) WithMaxDocs(v int) func(*ReindexRequest) {
 	}
 }
 
-// WithRefresh - should the effected indexes be refreshed?.
+// WithRefresh - should the affected indexes be refreshed?.
 //
 func (f Reindex) WithRefresh(v bool) func(*ReindexRequest) {
 	return func(r *ReindexRequest) {
@@ -210,11 +211,11 @@ func (f Reindex) WithScroll(v time.Duration) func(*ReindexRequest) {
 	}
 }
 
-// WithSlices - the number of slices this task should be divided into. defaults to 1 meaning the task isn't sliced into subtasks..
+// WithSlices - the number of slices this task should be divided into. defaults to 1, meaning the task isn't sliced into subtasks. can be set to `auto`..
 //
-func (f Reindex) WithSlices(v int) func(*ReindexRequest) {
+func (f Reindex) WithSlices(v interface{}) func(*ReindexRequest) {
 	return func(r *ReindexRequest) {
-		r.Slices = &v
+		r.Slices = v
 	}
 }
 

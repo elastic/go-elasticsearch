@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.5.0: DO NOT EDIT
+// Code generated from specification version 7.7.0: DO NOT EDIT
 
 package esapi
 
@@ -40,6 +40,7 @@ type MsearchTemplateRequest struct {
 
 	Body io.Reader
 
+	CcsMinimizeRoundtrips *bool
 	MaxConcurrentSearches *int
 	RestTotalHitsAsInt    *bool
 	SearchType            string
@@ -81,6 +82,10 @@ func (r MsearchTemplateRequest) Do(ctx context.Context, transport Transport) (*R
 	path.WriteString("template")
 
 	params = make(map[string]string)
+
+	if r.CcsMinimizeRoundtrips != nil {
+		params["ccs_minimize_roundtrips"] = strconv.FormatBool(*r.CcsMinimizeRoundtrips)
+	}
 
 	if r.MaxConcurrentSearches != nil {
 		params["max_concurrent_searches"] = strconv.FormatInt(int64(*r.MaxConcurrentSearches), 10)
@@ -182,6 +187,14 @@ func (f MsearchTemplate) WithIndex(v ...string) func(*MsearchTemplateRequest) {
 func (f MsearchTemplate) WithDocumentType(v ...string) func(*MsearchTemplateRequest) {
 	return func(r *MsearchTemplateRequest) {
 		r.DocumentType = v
+	}
+}
+
+// WithCcsMinimizeRoundtrips - indicates whether network round-trips should be minimized as part of cross-cluster search requests execution.
+//
+func (f MsearchTemplate) WithCcsMinimizeRoundtrips(v bool) func(*MsearchTemplateRequest) {
+	return func(r *MsearchTemplateRequest) {
+		r.CcsMinimizeRoundtrips = &v
 	}
 }
 
