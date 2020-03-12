@@ -193,7 +193,13 @@ func (c *Client) getNodeURL(node nodeInfo, scheme string) (*url.URL, error) {
 
 func (c *Client) scheduleDiscoverNodes(d time.Duration) {
 	go c.DiscoverNodes()
-	time.AfterFunc(c.discoverNodesInterval, func() {
+
+	c.Lock()
+	defer c.Unlock()
+	if c.discoverNodesTimer != nil {
+		c.discoverNodesTimer.Stop()
+	}
+	c.discoverNodesTimer = time.AfterFunc(c.discoverNodesInterval, func() {
 		c.scheduleDiscoverNodes(c.discoverNodesInterval)
 	})
 }

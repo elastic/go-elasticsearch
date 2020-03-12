@@ -90,6 +90,7 @@ type Client struct {
 	maxRetries            int
 	retryBackoff          func(attempt int) time.Duration
 	discoverNodesInterval time.Duration
+	discoverNodesTimer    *time.Timer
 
 	metrics *metrics
 

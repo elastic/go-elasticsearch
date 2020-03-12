@@ -23,10 +23,10 @@
       },
       "http": {
         "bound_address": [
-          "[::1]:9200",
-          "127.0.0.1:9200"
+          "[::1]:10001",
+          "127.0.0.1:10001"
         ],
-        "publish_address": "127.0.0.1:9200",
+        "publish_address": "127.0.0.1:10001",
         "max_content_length_in_bytes": 104857600
       }
     },
@@ -47,11 +47,11 @@
       },
       "http": {
         "bound_address": [
-          "127.0.0.1:9201",
-          "[::1]:9201",
-          "[fe80::1]:9201"
+          "127.0.0.1:10002",
+          "[::1]:10002",
+          "[fe80::1]:10002"
         ],
-        "publish_address": "localhost/127.0.0.1:9201",
+        "publish_address": "localhost/127.0.0.1:10002",
         "max_content_length_in_bytes": 104857600
       }
     },
@@ -72,10 +72,10 @@
       },
       "http": {
         "bound_address": [
-          "[::1]:9202",
-          "127.0.0.1:9202"
+          "[::1]:10003",
+          "127.0.0.1:10003"
         ],
-        "publish_address": "127.0.0.1:9202",
+        "publish_address": "127.0.0.1:10003",
         "max_content_length_in_bytes": 104857600
       }
     }
