@@ -78,9 +78,11 @@ func TestStatusConnectionPool(t *testing.T) {
 		}
 	}
 
+	pool.Lock()
 	if len(pool.live) != 3 {
 		t.Errorf("Unexpected number of live connections, want=3, got=%d", len(pool.live))
 	}
+	pool.Unlock()
 
 	server = servers[1]
 	fmt.Printf("==> Closing server: %s\n", server.Addr)
@@ -99,13 +101,17 @@ func TestStatusConnectionPool(t *testing.T) {
 		}
 	}
 
+	pool.Lock()
 	if len(pool.live) != 2 {
 		t.Errorf("Unexpected number of live connections, want=2, got=%d", len(pool.live))
 	}
+	pool.Unlock()
 
+	pool.Lock()
 	if len(pool.dead) != 1 {
 		t.Errorf("Unexpected number of dead connections, want=1, got=%d", len(pool.dead))
 	}
+	pool.Unlock()
 
 	server = NewServer("localhost:10002", http.HandlerFunc(defaultHandler))
 	servers[1] = server
@@ -130,11 +136,15 @@ func TestStatusConnectionPool(t *testing.T) {
 		}
 	}
 
+	pool.Lock()
 	if len(pool.live) != 3 {
 		t.Errorf("Unexpected number of live connections, want=3, got=%d", len(pool.live))
 	}
+	pool.Unlock()
 
+	pool.Lock()
 	if len(pool.dead) != 0 {
 		t.Errorf("Unexpected number of dead connections, want=0, got=%d", len(pool.dead))
 	}
+	pool.Unlock()
 }
