@@ -82,6 +82,9 @@ cat.aliases/20_headers.yml:
 search.aggregation/40_range.yml:
   - Date range
 
+# Tries to match on "Cluster Get Settings" output, but that's an empty map
+search/320_disallow_queries.yml:
+
 # No support for headers per request yet
 tasks.list/10_basic.yml:
   - tasks_list headers
@@ -107,11 +110,21 @@ bulk/81_cas_with_types.yml:
 
 # ----- X-Pack ----------------------------------------------------------------
 
+# The generator cuts the expected float (3.0) into int (3), to make other tests work
+analytics/top_metrics.yml:
+  - sort by double field
+  - sort by numeric script
+  - sort by scaled float field
+
 # Stash in body
 api_key/10_basic.yml:
   - Test invalidate api key
 rollup/put_job.yml:
   - Test put job with templates
+
+# Incorrect syntax for stash, "${user1_key_id}"
+api_key/11_invalidation.yml:
+  - Test invalidate api key by username
 
 # Changing password locks out tests
 change_password/10_basic.yml:
