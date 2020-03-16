@@ -1,4 +1,4 @@
-// Code generated from specification version 7.7.0 (7189c57b6cb): DO NOT EDIT
+// Code generated from specification version 7.7.0 (2f0aca992bb): DO NOT EDIT
 
 package esapi
 
@@ -298,6 +298,7 @@ type ML struct {
 	DeleteModelSnapshot        MLDeleteModelSnapshot
 	DeleteTrainedModel         MLDeleteTrainedModel
 	EstimateMemoryUsage        MLEstimateMemoryUsage
+	EstimateModelMemory        MLEstimateModelMemory
 	EvaluateDataFrame          MLEvaluateDataFrame
 	ExplainDataFrameAnalytics  MLExplainDataFrameAnalytics
 	FindFileStructure          MLFindFileStructure
@@ -673,6 +674,7 @@ func New(t Transport) *API {
 			DeleteModelSnapshot:        newMLDeleteModelSnapshotFunc(t),
 			DeleteTrainedModel:         newMLDeleteTrainedModelFunc(t),
 			EstimateMemoryUsage:        newMLEstimateMemoryUsageFunc(t),
+			EstimateModelMemory:        newMLEstimateModelMemoryFunc(t),
 			EvaluateDataFrame:          newMLEvaluateDataFrameFunc(t),
 			ExplainDataFrameAnalytics:  newMLExplainDataFrameAnalyticsFunc(t),
 			FindFileStructure:          newMLFindFileStructureFunc(t),
