@@ -149,6 +149,10 @@ license/20_put_license.yml:
 # Test tries to match on map from body, but Go keys are not sorted
 ml/jobs_crud.yml:
   - Test job with rules
+ml/data_frame_analytics_crud.yml:
+  - Test put classification given deprecated maximum_number_trees
+  - Test put valid config with default outlier detection
+  - Test put valid config with custom outlier detection
 
 # Test gets stuck every time
 ml/jobs_get_stats.yml:
@@ -161,6 +165,12 @@ ml/jobs_get_stats.yml:
 # resource_already_exists_exception, task with id {job-start-stop-datafeed-job-foo-2} already exist
 ml/start_stop_datafeed.yml:
   - Test start datafeed when persistent task allocation disabled
+
+# Test uses "y" as a property name, which is parsed as 'true' in the Go YAML library;
+# see https://yaml.org/type/bool.html
+ml/explain_data_frame_analytics.yml:
+  - Test empty data frame given body
+  - Test non-empty data frame given body
 
 # Indexing step doesn't appear to work (getting total.hits=0)
 monitoring/bulk/10_basic.yml:
