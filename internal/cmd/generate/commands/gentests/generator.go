@@ -410,7 +410,7 @@ func (g *Generator) genXPackSetup() {
 
 			{
 				var r map[string]interface{}
-				res, _ = es.Security.GetRole(es.Security.GetRole.WithPretty())
+				res, _ = es.Security.GetRole()
 				if res != nil && res.Body != nil {
 					defer res.Body.Close()
 					json.NewDecoder(res.Body).Decode(&r)
@@ -426,7 +426,7 @@ func (g *Generator) genXPackSetup() {
 
 			{
 				var r map[string]interface{}
-				res, _ = es.Security.GetUser(es.Security.GetUser.WithPretty())
+				res, _ = es.Security.GetUser()
 				if res != nil && res.Body != nil {
 					defer res.Body.Close()
 					json.NewDecoder(res.Body).Decode(&r)
@@ -442,7 +442,7 @@ func (g *Generator) genXPackSetup() {
 
 			{
 				var r map[string]interface{}
-				res, _ = es.Security.GetPrivileges(es.Security.GetPrivileges.WithPretty())
+				res, _ = es.Security.GetPrivileges()
 				if res != nil && res.Body != nil {
 					defer res.Body.Close()
 					json.NewDecoder(res.Body).Decode(&r)
@@ -553,6 +553,13 @@ func (g *Generator) genXPackSetup() {
 						}
 						es.Snapshot.DeleteRepository([]string{fmt.Sprintf("%s", repositoryID)})
 					}
+				}
+			}
+
+			{
+				res, _ = es.Indices.Delete([]string{".ml*"})
+				if res != nil && res.Body != nil {
+					defer res.Body.Close()
 				}
 			}
 
