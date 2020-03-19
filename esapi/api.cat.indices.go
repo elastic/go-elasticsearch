@@ -38,6 +38,7 @@ type CatIndicesRequest struct {
 	Index []string
 
 	Bytes                   string
+	ExpandWildcards         string
 	Format                  string
 	H                       []string
 	Health                  string
@@ -85,6 +86,10 @@ func (r CatIndicesRequest) Do(ctx context.Context, transport Transport) (*Respon
 
 	if r.Bytes != "" {
 		params["bytes"] = r.Bytes
+	}
+
+	if r.ExpandWildcards != "" {
+		params["expand_wildcards"] = r.ExpandWildcards
 	}
 
 	if r.Format != "" {
@@ -211,6 +216,14 @@ func (f CatIndices) WithIndex(v ...string) func(*CatIndicesRequest) {
 func (f CatIndices) WithBytes(v string) func(*CatIndicesRequest) {
 	return func(r *CatIndicesRequest) {
 		r.Bytes = v
+	}
+}
+
+// WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
+//
+func (f CatIndices) WithExpandWildcards(v string) func(*CatIndicesRequest) {
+	return func(r *CatIndicesRequest) {
+		r.ExpandWildcards = v
 	}
 }
 

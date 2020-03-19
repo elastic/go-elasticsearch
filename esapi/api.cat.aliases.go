@@ -36,12 +36,13 @@ type CatAliases func(o ...func(*CatAliasesRequest)) (*Response, error)
 type CatAliasesRequest struct {
 	Name []string
 
-	Format string
-	H      []string
-	Help   *bool
-	Local  *bool
-	S      []string
-	V      *bool
+	ExpandWildcards string
+	Format          string
+	H               []string
+	Help            *bool
+	Local           *bool
+	S               []string
+	V               *bool
 
 	Pretty     bool
 	Human      bool
@@ -75,6 +76,10 @@ func (r CatAliasesRequest) Do(ctx context.Context, transport Transport) (*Respon
 	}
 
 	params = make(map[string]string)
+
+	if r.ExpandWildcards != "" {
+		params["expand_wildcards"] = r.ExpandWildcards
+	}
 
 	if r.Format != "" {
 		params["format"] = r.Format
@@ -172,6 +177,14 @@ func (f CatAliases) WithContext(v context.Context) func(*CatAliasesRequest) {
 func (f CatAliases) WithName(v ...string) func(*CatAliasesRequest) {
 	return func(r *CatAliasesRequest) {
 		r.Name = v
+	}
+}
+
+// WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
+//
+func (f CatAliases) WithExpandWildcards(v string) func(*CatAliasesRequest) {
+	return func(r *CatAliasesRequest) {
+		r.ExpandWildcards = v
 	}
 }
 

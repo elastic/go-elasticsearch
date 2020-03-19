@@ -1,30 +1,31 @@
-// Code generated from specification version 7.7.0 (2f0aca992bb): DO NOT EDIT
+// Code generated from specification version 7.7.0 (9b3b08318d3): DO NOT EDIT
 
 package esapi
 
 // API contains the Elasticsearch APIs
 //
 type API struct {
-	Cat        *Cat
-	Cluster    *Cluster
-	Indices    *Indices
-	Ingest     *Ingest
-	Nodes      *Nodes
-	Remote     *Remote
-	Snapshot   *Snapshot
-	Tasks      *Tasks
-	CCR        *CCR
-	ILM        *ILM
-	License    *License
-	Migration  *Migration
-	ML         *ML
-	Monitoring *Monitoring
-	Rollup     *Rollup
-	Security   *Security
-	SQL        *SQL
-	SSL        *SSL
-	Watcher    *Watcher
-	XPack      *XPack
+	Cat         *Cat
+	Cluster     *Cluster
+	Indices     *Indices
+	Ingest      *Ingest
+	Nodes       *Nodes
+	Remote      *Remote
+	Snapshot    *Snapshot
+	Tasks       *Tasks
+	AsyncSearch *AsyncSearch
+	CCR         *CCR
+	ILM         *ILM
+	License     *License
+	Migration   *Migration
+	ML          *ML
+	Monitoring  *Monitoring
+	Rollup      *Rollup
+	Security    *Security
+	SQL         *SQL
+	SSL         *SSL
+	Watcher     *Watcher
+	XPack       *XPack
 
 	AutoscalingGetAutoscalingDecision             AutoscalingGetAutoscalingDecision
 	Bulk                                          Bulk
@@ -94,6 +95,7 @@ type API struct {
 	SlmStart                                      SlmStart
 	SlmStop                                       SlmStop
 	Termvectors                                   Termvectors
+	TransformCatTransform                         TransformCatTransform
 	TransformDeleteTransform                      TransformDeleteTransform
 	TransformGetTransform                         TransformGetTransform
 	TransformGetTransformStats                    TransformGetTransformStats
@@ -137,15 +139,18 @@ type Cat struct {
 
 // Cluster contains the Cluster APIs
 type Cluster struct {
-	AllocationExplain ClusterAllocationExplain
-	GetSettings       ClusterGetSettings
-	Health            ClusterHealth
-	PendingTasks      ClusterPendingTasks
-	PutSettings       ClusterPutSettings
-	RemoteInfo        ClusterRemoteInfo
-	Reroute           ClusterReroute
-	State             ClusterState
-	Stats             ClusterStats
+	AllocationExplain       ClusterAllocationExplain
+	DeleteComponentTemplate ClusterDeleteComponentTemplate
+	GetComponentTemplate    ClusterGetComponentTemplate
+	GetSettings             ClusterGetSettings
+	Health                  ClusterHealth
+	PendingTasks            ClusterPendingTasks
+	PutComponentTemplate    ClusterPutComponentTemplate
+	PutSettings             ClusterPutSettings
+	RemoteInfo              ClusterRemoteInfo
+	Reroute                 ClusterReroute
+	State                   ClusterState
+	Stats                   ClusterStats
 }
 
 // Indices contains the Indices APIs
@@ -234,6 +239,13 @@ type Tasks struct {
 	Cancel TasksCancel
 	Get    TasksGet
 	List   TasksList
+}
+
+// AsyncSearch contains the AsyncSearch APIs
+type AsyncSearch struct {
+	Delete AsyncSearchDelete
+	Get    AsyncSearchGet
+	Submit AsyncSearchSubmit
 }
 
 // CCR contains the CCR APIs
@@ -498,6 +510,7 @@ func New(t Transport) *API {
 		SlmStart:                                      newSlmStartFunc(t),
 		SlmStop:                                       newSlmStopFunc(t),
 		Termvectors:                                   newTermvectorsFunc(t),
+		TransformCatTransform:                         newTransformCatTransformFunc(t),
 		TransformDeleteTransform:                      newTransformDeleteTransformFunc(t),
 		TransformGetTransform:                         newTransformGetTransformFunc(t),
 		TransformGetTransformStats:                    newTransformGetTransformStatsFunc(t),
@@ -536,15 +549,18 @@ func New(t Transport) *API {
 			ThreadPool:           newCatThreadPoolFunc(t),
 		},
 		Cluster: &Cluster{
-			AllocationExplain: newClusterAllocationExplainFunc(t),
-			GetSettings:       newClusterGetSettingsFunc(t),
-			Health:            newClusterHealthFunc(t),
-			PendingTasks:      newClusterPendingTasksFunc(t),
-			PutSettings:       newClusterPutSettingsFunc(t),
-			RemoteInfo:        newClusterRemoteInfoFunc(t),
-			Reroute:           newClusterRerouteFunc(t),
-			State:             newClusterStateFunc(t),
-			Stats:             newClusterStatsFunc(t),
+			AllocationExplain:       newClusterAllocationExplainFunc(t),
+			DeleteComponentTemplate: newClusterDeleteComponentTemplateFunc(t),
+			GetComponentTemplate:    newClusterGetComponentTemplateFunc(t),
+			GetSettings:             newClusterGetSettingsFunc(t),
+			Health:                  newClusterHealthFunc(t),
+			PendingTasks:            newClusterPendingTasksFunc(t),
+			PutComponentTemplate:    newClusterPutComponentTemplateFunc(t),
+			PutSettings:             newClusterPutSettingsFunc(t),
+			RemoteInfo:              newClusterRemoteInfoFunc(t),
+			Reroute:                 newClusterRerouteFunc(t),
+			State:                   newClusterStateFunc(t),
+			Stats:                   newClusterStatsFunc(t),
 		},
 		Indices: &Indices{
 			Analyze:               newIndicesAnalyzeFunc(t),
@@ -620,6 +636,11 @@ func New(t Transport) *API {
 			Cancel: newTasksCancelFunc(t),
 			Get:    newTasksGetFunc(t),
 			List:   newTasksListFunc(t),
+		},
+		AsyncSearch: &AsyncSearch{
+			Delete: newAsyncSearchDeleteFunc(t),
+			Get:    newAsyncSearchGetFunc(t),
+			Submit: newAsyncSearchSubmitFunc(t),
 		},
 		CCR: &CCR{
 			DeleteAutoFollowPattern: newCCRDeleteAutoFollowPatternFunc(t),
