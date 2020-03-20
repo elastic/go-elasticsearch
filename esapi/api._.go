@@ -1,4 +1,4 @@
-// Code generated from specification version 8.0.0 (4f48e053f92): DO NOT EDIT
+// Code generated from specification version 8.0.0 (07eefa9807d): DO NOT EDIT
 
 package esapi
 
@@ -96,6 +96,7 @@ type API struct {
 	SlmStart                                      SlmStart
 	SlmStop                                       SlmStop
 	Termvectors                                   Termvectors
+	TransformCatTransform                         TransformCatTransform
 	TransformDeleteTransform                      TransformDeleteTransform
 	TransformGetTransform                         TransformGetTransform
 	TransformGetTransformStats                    TransformGetTransformStats
@@ -139,15 +140,18 @@ type Cat struct {
 
 // Cluster contains the Cluster APIs
 type Cluster struct {
-	AllocationExplain ClusterAllocationExplain
-	GetSettings       ClusterGetSettings
-	Health            ClusterHealth
-	PendingTasks      ClusterPendingTasks
-	PutSettings       ClusterPutSettings
-	RemoteInfo        ClusterRemoteInfo
-	Reroute           ClusterReroute
-	State             ClusterState
-	Stats             ClusterStats
+	AllocationExplain       ClusterAllocationExplain
+	DeleteComponentTemplate ClusterDeleteComponentTemplate
+	GetComponentTemplate    ClusterGetComponentTemplate
+	GetSettings             ClusterGetSettings
+	Health                  ClusterHealth
+	PendingTasks            ClusterPendingTasks
+	PutComponentTemplate    ClusterPutComponentTemplate
+	PutSettings             ClusterPutSettings
+	RemoteInfo              ClusterRemoteInfo
+	Reroute                 ClusterReroute
+	State                   ClusterState
+	Stats                   ClusterStats
 }
 
 // Indices contains the Indices APIs
@@ -508,6 +512,7 @@ func New(t Transport) *API {
 		SlmStart:                                      newSlmStartFunc(t),
 		SlmStop:                                       newSlmStopFunc(t),
 		Termvectors:                                   newTermvectorsFunc(t),
+		TransformCatTransform:                         newTransformCatTransformFunc(t),
 		TransformDeleteTransform:                      newTransformDeleteTransformFunc(t),
 		TransformGetTransform:                         newTransformGetTransformFunc(t),
 		TransformGetTransformStats:                    newTransformGetTransformStatsFunc(t),
@@ -546,15 +551,18 @@ func New(t Transport) *API {
 			ThreadPool:           newCatThreadPoolFunc(t),
 		},
 		Cluster: &Cluster{
-			AllocationExplain: newClusterAllocationExplainFunc(t),
-			GetSettings:       newClusterGetSettingsFunc(t),
-			Health:            newClusterHealthFunc(t),
-			PendingTasks:      newClusterPendingTasksFunc(t),
-			PutSettings:       newClusterPutSettingsFunc(t),
-			RemoteInfo:        newClusterRemoteInfoFunc(t),
-			Reroute:           newClusterRerouteFunc(t),
-			State:             newClusterStateFunc(t),
-			Stats:             newClusterStatsFunc(t),
+			AllocationExplain:       newClusterAllocationExplainFunc(t),
+			DeleteComponentTemplate: newClusterDeleteComponentTemplateFunc(t),
+			GetComponentTemplate:    newClusterGetComponentTemplateFunc(t),
+			GetSettings:             newClusterGetSettingsFunc(t),
+			Health:                  newClusterHealthFunc(t),
+			PendingTasks:            newClusterPendingTasksFunc(t),
+			PutComponentTemplate:    newClusterPutComponentTemplateFunc(t),
+			PutSettings:             newClusterPutSettingsFunc(t),
+			RemoteInfo:              newClusterRemoteInfoFunc(t),
+			Reroute:                 newClusterRerouteFunc(t),
+			State:                   newClusterStateFunc(t),
+			Stats:                   newClusterStatsFunc(t),
 		},
 		Indices: &Indices{
 			Analyze:               newIndicesAnalyzeFunc(t),
