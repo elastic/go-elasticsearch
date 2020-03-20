@@ -230,7 +230,9 @@ func NewAction(payload interface{}) Action {
 		case "catch":
 			a.catch = v.(string)
 		case "warnings":
-			// TODO
+			continue
+		case "allowed_warnings":
+			continue
 		case "node_selector":
 			continue
 		case "headers":
