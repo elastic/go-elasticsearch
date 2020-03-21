@@ -104,8 +104,9 @@ func (cmd *Command) Execute() (err error) {
 
 func (cmd *Command) processAPIConstructor() (err error) {
 	var (
-		namespaces []string
-		endpoints  []*types.TypeName
+		commonNamespaces []string
+		xpackNamespaces  []string
+		endpoints        []*types.TypeName
 
 		b bytes.Buffer
 		i int
@@ -113,9 +114,8 @@ func (cmd *Command) processAPIConstructor() (err error) {
 		m int
 	)
 
-	namespaces = []string{
+	commonNamespaces = []string{
 		// Core APIs
-		//
 		"Cat",
 		"Cluster",
 		"Indices",
@@ -124,9 +124,7 @@ func (cmd *Command) processAPIConstructor() (err error) {
 		"Remote",
 		"Snapshot",
 		"Tasks",
-
 		// XPack APIs
-		//
 		"CCR",
 		"ILM",
 		"License",
@@ -140,6 +138,22 @@ func (cmd *Command) processAPIConstructor() (err error) {
 		"Watcher",
 		"XPack",
 	}
+
+	xpackNamespaces = []string{
+		"CCR",
+		"ILM",
+		"License",
+		"Migration",
+		"ML",
+		"Monitoring",
+		"Rollup",
+		"Security",
+		"SQL",
+		"SSL",
+		"Watcher",
+		"XPack",
+	}
+	_ = xpackNamespaces
 
 	lpkgs, err := packages.Load(&packages.Config{Mode: packages.LoadTypes}, pkgNames...)
 	if err != nil {
@@ -208,7 +222,7 @@ func (cmd *Command) processAPIConstructor() (err error) {
 //
 type API struct {
 `)
-	for _, n := range namespaces {
+	for _, n := range commonNamespaces {
 		b.WriteString(fmt.Sprintf("\t%[1]s *%[1]s\n", n))
 	}
 
@@ -219,7 +233,7 @@ type API struct {
 		name := strings.ReplaceAll(e.Name(), "Request", "")
 
 		// Skip APIs in namespace
-		for _, n := range namespaces {
+		for _, n := range commonNamespaces {
 			if strings.HasPrefix(strings.ToLower(name), strings.ToLower(n)) {
 				skip = true
 			}
@@ -231,7 +245,7 @@ type API struct {
 
 	b.WriteString(`}` + "\n\n")
 
-	for _, n := range namespaces {
+	for _, n := range commonNamespaces {
 		b.WriteString(`// ` + n + ` contains the ` + n + ` APIs` + "\n")
 		b.WriteString(`type ` + n + ` struct {` + "\n")
 		for _, e := range endpoints {
@@ -239,6 +253,18 @@ type API struct {
 			if strings.HasPrefix(strings.ToLower(name), strings.ToLower(n)) {
 				methodName := strings.ReplaceAll(name, n, "")
 				b.WriteString(fmt.Sprintf("\t%s %s\n", methodName, name))
+			}
+			if strings.HasPrefix(e.Name(), "XPack") {
+				name := strings.ReplaceAll(e.Name(), "Request", "")
+				if strings.HasPrefix(strings.ToLower(name), "xpack"+strings.ToLower(n)) {
+					methodName := strings.ReplaceAll(name, n, "")
+					b.WriteString(fmt.Sprintf("\t%s %s\n", strings.ReplaceAll(methodName, "XPack", ""), name))
+				}
+			}
+		}
+		if n == "XPack" {
+			for _, xn := range xpackNamespaces {
+				b.WriteString(fmt.Sprintf("\t%s *%s\n", xn, xn))
 			}
 		}
 		b.WriteString("}\n\n")
@@ -254,7 +280,7 @@ func New(t Transport) *API {
 		skip := false
 		name := strings.ReplaceAll(e.Name(), "Request", "")
 
-		for _, n := range namespaces {
+		for _, n := range commonNamespaces {
 			if strings.HasPrefix(strings.ToLower(name), strings.ToLower(n)) {
 				skip = true
 			}
@@ -264,13 +290,29 @@ func New(t Transport) *API {
 		}
 	}
 
-	for _, n := range namespaces {
+	for _, n := range commonNamespaces {
 		b.WriteString(fmt.Sprintf("\t\t%[1]s: &%[1]s{\n", n))
 		for _, e := range endpoints {
 			name := strings.ReplaceAll(e.Name(), "Request", "")
 			if strings.HasPrefix(strings.ToLower(name), strings.ToLower(n)) {
 				methodName := strings.ReplaceAll(name, n, "")
 				b.WriteString(fmt.Sprintf("\t\t\t%s: new%sFunc(t),\n", methodName, name))
+			}
+		}
+		if n == "XPack" {
+			b.WriteString("// Update the XPack struct\n")
+			for _, xn := range xpackNamespaces {
+				b.WriteString(fmt.Sprintf("\t\t\t%s: &%s{\n", xn, xn))
+				for _, e := range endpoints {
+					if strings.HasPrefix(e.Name(), "XPack") {
+						name := strings.ReplaceAll(e.Name(), "Request", "")
+						if strings.HasPrefix(strings.ToLower(name), "xpack"+strings.ToLower(xn)) {
+							methodName := strings.ReplaceAll(name, xn, "")
+							b.WriteString(fmt.Sprintf("\t\t\t%s: new%sFunc(t),\n", strings.ReplaceAll(methodName, "XPack", ""), name))
+						}
+					}
+				}
+				b.WriteString("\t\t\t},\n")
 			}
 		}
 		b.WriteString("\t\t},\n")
