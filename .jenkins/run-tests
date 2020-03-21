@@ -7,18 +7,23 @@ if [[ -z $TEST_SUITE ]]; then
   exit 1
 fi
 
+if [[ -z $ELASTICSEARCH_VERSION ]]; then
+  echo -e "\033[31;1mERROR:\033[0m Required environment variable [ELASTICSEARCH_VERSION] not set\033[0m"
+  exit 1
+fi
+
 if [[ $TEST_SUITE != "core" && $TEST_SUITE != "xpack" ]]; then
   echo -e "\033[31;1mERROR:\033[0m Unknown value [$TEST_SUITE] for [TEST_SUITE]\033[0m"
   exit 1
 fi
 
 if [[ $TEST_SUITE == "core" ]]; then
-  elasticsearch_image=elasticsearch-oss:8.0.0-SNAPSHOT
+  elasticsearch_image=elasticsearch-oss:$ELASTICSEARCH_VERSION
   elasticsearch_url=http://es1:9200
 fi
 
 if [[ $TEST_SUITE == "xpack" ]]; then
-  elasticsearch_image=elasticsearch:8.0.0-SNAPSHOT
+  elasticsearch_image=elasticsearch:$ELASTICSEARCH_VERSION
   elasticsearch_url=https://elastic:elastic@es1:9200
 fi
 
