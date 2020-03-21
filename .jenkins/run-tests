@@ -7,24 +7,23 @@ if [[ -z $TEST_SUITE ]]; then
   exit 1
 fi
 
+if [[ -z $ELASTICSEARCH_VERSION ]]; then
+  echo -e "\033[31;1mERROR:\033[0m Required environment variable [ELASTICSEARCH_VERSION] not set\033[0m"
+  exit 1
+fi
+
 if [[ $TEST_SUITE != "core" && $TEST_SUITE != "xpack" ]]; then
   echo -e "\033[31;1mERROR:\033[0m Unknown value [$TEST_SUITE] for [TEST_SUITE]\033[0m"
   exit 1
 fi
 
-# Run X-Pack tests only on the "master" and "xpack" branches, and skip Core tests on the "xpack" branch
-if [[ (($branch_specifier != "refs/heads/xpack" && $branch_specifier != "refs/heads/master") && $TEST_SUITE == "xpack") || ($branch_specifier == "refs/heads/xpack" && $TEST_SUITE == "core") ]]; then
-  echo -e "\033[33;1mSkipping [$TEST_SUITE] tests on the [$branch_specifier] branch.\033[0m"
-  exit 0
-fi
-
 if [[ $TEST_SUITE == "core" ]]; then
-  elasticsearch_image=elasticsearch-oss:6.8-SNAPSHOT
+  elasticsearch_image=elasticsearch-oss:$ELASTICSEARCH_VERSION
   elasticsearch_url=http://es1:9200
 fi
 
 if [[ $TEST_SUITE == "xpack" ]]; then
-  elasticsearch_image=elasticsearch:6.8-SNAPSHOT
+  elasticsearch_image=elasticsearch:$ELASTICSEARCH_VERSION
   elasticsearch_url=https://elastic:elastic@es1:9200
 fi
 

@@ -32,7 +32,7 @@ time docker exec --tty --workdir=/go-elasticsearch/esapi/test go-elasticsearch /
 status1=$?
 
 docker container rm --force --volumes es1 > /dev/null 2>&1
-make cluster-clean cluster version=elasticsearch:6.8-SNAPSHOT detach=true
+make cluster-clean cluster version=elasticsearch:$ELASTICSEARCH_VERSION detach=true
 
 echo -e "\033[1m>>>>> Running tests: XPACK ML >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
 
@@ -40,7 +40,7 @@ time docker exec --tty --workdir=/go-elasticsearch/esapi/test go-elasticsearch /
 status2=$?
 
 docker container rm --force --volumes es1 > /dev/null 2>&1
-make cluster-clean cluster version=elasticsearch:6.8-SNAPSHOT detach=true
+make cluster-clean cluster version=elasticsearch:$ELASTICSEARCH_VERSION detach=true
 
 echo -e "\033[1m>>>>> Running tests: XPACK ML CRUD >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
 
@@ -50,5 +50,5 @@ status3=$?
 if [[ $status1 == 0 && $status2 == 0 || $status3 == 0 ]]; then
   exit 0
 else
-  exit 0
+  exit 1
 fi
