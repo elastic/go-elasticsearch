@@ -217,41 +217,143 @@ type ILM struct {
 
 // License contains the License APIs
 type License struct {
+	Delete         XPackLicenseDelete
+	GetBasicStatus XPackLicenseGetBasicStatus
+	Get            XPackLicenseGet
+	GetTrialStatus XPackLicenseGetTrialStatus
+	Post           XPackLicensePost
+	PostStartBasic XPackLicensePostStartBasic
+	PostStartTrial XPackLicensePostStartTrial
 }
 
 // Migration contains the Migration APIs
 type Migration struct {
+	Deprecations  XPackMigrationDeprecations
+	GetAssistance XPackMigrationGetAssistance
+	Upgrade       XPackMigrationUpgrade
 }
 
 // ML contains the ML APIs
 type ML struct {
+	CloseJob            XPackMLCloseJob
+	DeleteCalendarEvent XPackMLDeleteCalendarEvent
+	DeleteCalendarJob   XPackMLDeleteCalendarJob
+	DeleteCalendar      XPackMLDeleteCalendar
+	DeleteDatafeed      XPackMLDeleteDatafeed
+	DeleteExpiredData   XPackMLDeleteExpiredData
+	DeleteFilter        XPackMLDeleteFilter
+	DeleteForecast      XPackMLDeleteForecast
+	DeleteJob           XPackMLDeleteJob
+	DeleteModelSnapshot XPackMLDeleteModelSnapshot
+	FindFileStructure   XPackMLFindFileStructure
+	FlushJob            XPackMLFlushJob
+	Forecast            XPackMLForecast
+	GetBuckets          XPackMLGetBuckets
+	GetCalendarEvents   XPackMLGetCalendarEvents
+	GetCalendars        XPackMLGetCalendars
+	GetCategories       XPackMLGetCategories
+	GetDatafeedStats    XPackMLGetDatafeedStats
+	GetDatafeeds        XPackMLGetDatafeeds
+	GetFilters          XPackMLGetFilters
+	GetInfluencers      XPackMLGetInfluencers
+	GetJobStats         XPackMLGetJobStats
+	GetJobs             XPackMLGetJobs
+	GetModelSnapshots   XPackMLGetModelSnapshots
+	GetOverallBuckets   XPackMLGetOverallBuckets
+	GetRecords          XPackMLGetRecords
+	Info                XPackMLInfo
+	OpenJob             XPackMLOpenJob
+	PostCalendarEvents  XPackMLPostCalendarEvents
+	PostData            XPackMLPostData
+	PreviewDatafeed     XPackMLPreviewDatafeed
+	PutCalendarJob      XPackMLPutCalendarJob
+	PutCalendar         XPackMLPutCalendar
+	PutDatafeed         XPackMLPutDatafeed
+	PutFilter           XPackMLPutFilter
+	PutJob              XPackMLPutJob
+	RevertModelSnapshot XPackMLRevertModelSnapshot
+	SetUpgradeMode      XPackMLSetUpgradeMode
+	StartDatafeed       XPackMLStartDatafeed
+	StopDatafeed        XPackMLStopDatafeed
+	UpdateDatafeed      XPackMLUpdateDatafeed
+	UpdateFilter        XPackMLUpdateFilter
+	UpdateJob           XPackMLUpdateJob
+	UpdateModelSnapshot XPackMLUpdateModelSnapshot
+	ValidateDetector    XPackMLValidateDetector
+	Validate            XPackMLValidate
 }
 
 // Monitoring contains the Monitoring APIs
 type Monitoring struct {
+	Bulk XPackMonitoringBulk
 }
 
 // Rollup contains the Rollup APIs
 type Rollup struct {
+	DeleteJob    XPackRollupDeleteJob
+	GetJobs      XPackRollupGetJobs
+	GetCaps      XPackRollupGetRollupCaps
+	GetIndexCaps XPackRollupGetRollupIndexCaps
+	PutJob       XPackRollupPutJob
+	Search       XPackRollupRollupSearch
+	StartJob     XPackRollupStartJob
+	StopJob      XPackRollupStopJob
 }
 
 // Security contains the Security APIs
 type Security struct {
-	CreateAPIKey     SecurityCreateAPIKey
-	GetAPIKey        SecurityGetAPIKey
-	InvalidateAPIKey SecurityInvalidateAPIKey
+	CreateAPIKey      SecurityCreateAPIKey
+	GetAPIKey         SecurityGetAPIKey
+	InvalidateAPIKey  SecurityInvalidateAPIKey
+	Authenticate      XPackSecurityAuthenticate
+	ChangePassword    XPackSecurityChangePassword
+	ClearCachedRealms XPackSecurityClearCachedRealms
+	ClearCachedRoles  XPackSecurityClearCachedRoles
+	DeletePrivileges  XPackSecurityDeletePrivileges
+	DeleteRoleMapping XPackSecurityDeleteRoleMapping
+	DeleteRole        XPackSecurityDeleteRole
+	DeleteUser        XPackSecurityDeleteUser
+	DisableUser       XPackSecurityDisableUser
+	EnableUser        XPackSecurityEnableUser
+	GetPrivileges     XPackSecurityGetPrivileges
+	GetRoleMapping    XPackSecurityGetRoleMapping
+	GetRole           XPackSecurityGetRole
+	GetToken          XPackSecurityGetToken
+	GetUserPrivileges XPackSecurityGetUserPrivileges
+	GetUser           XPackSecurityGetUser
+	HasPrivileges     XPackSecurityHasPrivileges
+	InvalidateToken   XPackSecurityInvalidateToken
+	PutPrivileges     XPackSecurityPutPrivileges
+	PutRoleMapping    XPackSecurityPutRoleMapping
+	PutRole           XPackSecurityPutRole
+	PutUser           XPackSecurityPutUser
 }
 
 // SQL contains the SQL APIs
 type SQL struct {
+	ClearCursor XPackSQLClearCursor
+	Query       XPackSQLQuery
+	Translate   XPackSQLTranslate
 }
 
 // SSL contains the SSL APIs
 type SSL struct {
+	Certificates XPackSSLCertificates
 }
 
 // Watcher contains the Watcher APIs
 type Watcher struct {
+	AckWatch        XPackWatcherAckWatch
+	ActivateWatch   XPackWatcherActivateWatch
+	DeactivateWatch XPackWatcherDeactivateWatch
+	DeleteWatch     XPackWatcherDeleteWatch
+	ExecuteWatch    XPackWatcherExecuteWatch
+	GetWatch        XPackWatcherGetWatch
+	PutWatch        XPackWatcherPutWatch
+	Restart         XPackWatcherRestart
+	Start           XPackWatcherStart
+	Stats           XPackWatcherStats
+	Stop            XPackWatcherStop
 }
 
 // XPack contains the XPack APIs
@@ -361,6 +463,18 @@ type XPack struct {
 	WatcherStart              XPackWatcherStart
 	WatcherStats              XPackWatcherStats
 	WatcherStop               XPackWatcherStop
+	CCR                       *CCR
+	ILM                       *ILM
+	License                   *License
+	Migration                 *Migration
+	ML                        *ML
+	Monitoring                *Monitoring
+	Rollup                    *Rollup
+	Security                  *Security
+	SQL                       *SQL
+	SSL                       *SSL
+	Watcher                   *Watcher
+	XPack                     *XPack
 }
 
 // New creates new API
@@ -652,6 +766,130 @@ func New(t Transport) *API {
 			WatcherStart:              newXPackWatcherStartFunc(t),
 			WatcherStats:              newXPackWatcherStatsFunc(t),
 			WatcherStop:               newXPackWatcherStopFunc(t),
+			// Update the XPack struct
+			CCR: &CCR{},
+			ILM: &ILM{},
+			License: &License{
+				Delete:         newXPackLicenseDeleteFunc(t),
+				GetBasicStatus: newXPackLicenseGetBasicStatusFunc(t),
+				Get:            newXPackLicenseGetFunc(t),
+				GetTrialStatus: newXPackLicenseGetTrialStatusFunc(t),
+				Post:           newXPackLicensePostFunc(t),
+				PostStartBasic: newXPackLicensePostStartBasicFunc(t),
+				PostStartTrial: newXPackLicensePostStartTrialFunc(t),
+			},
+			Migration: &Migration{
+				Deprecations:  newXPackMigrationDeprecationsFunc(t),
+				GetAssistance: newXPackMigrationGetAssistanceFunc(t),
+				Upgrade:       newXPackMigrationUpgradeFunc(t),
+			},
+			ML: &ML{
+				CloseJob:            newXPackMLCloseJobFunc(t),
+				DeleteCalendarEvent: newXPackMLDeleteCalendarEventFunc(t),
+				DeleteCalendarJob:   newXPackMLDeleteCalendarJobFunc(t),
+				DeleteCalendar:      newXPackMLDeleteCalendarFunc(t),
+				DeleteDatafeed:      newXPackMLDeleteDatafeedFunc(t),
+				DeleteExpiredData:   newXPackMLDeleteExpiredDataFunc(t),
+				DeleteFilter:        newXPackMLDeleteFilterFunc(t),
+				DeleteForecast:      newXPackMLDeleteForecastFunc(t),
+				DeleteJob:           newXPackMLDeleteJobFunc(t),
+				DeleteModelSnapshot: newXPackMLDeleteModelSnapshotFunc(t),
+				FindFileStructure:   newXPackMLFindFileStructureFunc(t),
+				FlushJob:            newXPackMLFlushJobFunc(t),
+				Forecast:            newXPackMLForecastFunc(t),
+				GetBuckets:          newXPackMLGetBucketsFunc(t),
+				GetCalendarEvents:   newXPackMLGetCalendarEventsFunc(t),
+				GetCalendars:        newXPackMLGetCalendarsFunc(t),
+				GetCategories:       newXPackMLGetCategoriesFunc(t),
+				GetDatafeedStats:    newXPackMLGetDatafeedStatsFunc(t),
+				GetDatafeeds:        newXPackMLGetDatafeedsFunc(t),
+				GetFilters:          newXPackMLGetFiltersFunc(t),
+				GetInfluencers:      newXPackMLGetInfluencersFunc(t),
+				GetJobStats:         newXPackMLGetJobStatsFunc(t),
+				GetJobs:             newXPackMLGetJobsFunc(t),
+				GetModelSnapshots:   newXPackMLGetModelSnapshotsFunc(t),
+				GetOverallBuckets:   newXPackMLGetOverallBucketsFunc(t),
+				GetRecords:          newXPackMLGetRecordsFunc(t),
+				Info:                newXPackMLInfoFunc(t),
+				OpenJob:             newXPackMLOpenJobFunc(t),
+				PostCalendarEvents:  newXPackMLPostCalendarEventsFunc(t),
+				PostData:            newXPackMLPostDataFunc(t),
+				PreviewDatafeed:     newXPackMLPreviewDatafeedFunc(t),
+				PutCalendarJob:      newXPackMLPutCalendarJobFunc(t),
+				PutCalendar:         newXPackMLPutCalendarFunc(t),
+				PutDatafeed:         newXPackMLPutDatafeedFunc(t),
+				PutFilter:           newXPackMLPutFilterFunc(t),
+				PutJob:              newXPackMLPutJobFunc(t),
+				RevertModelSnapshot: newXPackMLRevertModelSnapshotFunc(t),
+				SetUpgradeMode:      newXPackMLSetUpgradeModeFunc(t),
+				StartDatafeed:       newXPackMLStartDatafeedFunc(t),
+				StopDatafeed:        newXPackMLStopDatafeedFunc(t),
+				UpdateDatafeed:      newXPackMLUpdateDatafeedFunc(t),
+				UpdateFilter:        newXPackMLUpdateFilterFunc(t),
+				UpdateJob:           newXPackMLUpdateJobFunc(t),
+				UpdateModelSnapshot: newXPackMLUpdateModelSnapshotFunc(t),
+				ValidateDetector:    newXPackMLValidateDetectorFunc(t),
+				Validate:            newXPackMLValidateFunc(t),
+			},
+			Monitoring: &Monitoring{
+				Bulk: newXPackMonitoringBulkFunc(t),
+			},
+			Rollup: &Rollup{
+				DeleteJob:    newXPackRollupDeleteJobFunc(t),
+				GetJobs:      newXPackRollupGetJobsFunc(t),
+				GetCaps:      newXPackRollupGetRollupCapsFunc(t),
+				GetIndexCaps: newXPackRollupGetRollupIndexCapsFunc(t),
+				PutJob:       newXPackRollupPutJobFunc(t),
+				Search:       newXPackRollupRollupSearchFunc(t),
+				StartJob:     newXPackRollupStartJobFunc(t),
+				StopJob:      newXPackRollupStopJobFunc(t),
+			},
+			Security: &Security{
+				Authenticate:      newXPackSecurityAuthenticateFunc(t),
+				ChangePassword:    newXPackSecurityChangePasswordFunc(t),
+				ClearCachedRealms: newXPackSecurityClearCachedRealmsFunc(t),
+				ClearCachedRoles:  newXPackSecurityClearCachedRolesFunc(t),
+				DeletePrivileges:  newXPackSecurityDeletePrivilegesFunc(t),
+				DeleteRoleMapping: newXPackSecurityDeleteRoleMappingFunc(t),
+				DeleteRole:        newXPackSecurityDeleteRoleFunc(t),
+				DeleteUser:        newXPackSecurityDeleteUserFunc(t),
+				DisableUser:       newXPackSecurityDisableUserFunc(t),
+				EnableUser:        newXPackSecurityEnableUserFunc(t),
+				GetPrivileges:     newXPackSecurityGetPrivilegesFunc(t),
+				GetRoleMapping:    newXPackSecurityGetRoleMappingFunc(t),
+				GetRole:           newXPackSecurityGetRoleFunc(t),
+				GetToken:          newXPackSecurityGetTokenFunc(t),
+				GetUserPrivileges: newXPackSecurityGetUserPrivilegesFunc(t),
+				GetUser:           newXPackSecurityGetUserFunc(t),
+				HasPrivileges:     newXPackSecurityHasPrivilegesFunc(t),
+				InvalidateToken:   newXPackSecurityInvalidateTokenFunc(t),
+				PutPrivileges:     newXPackSecurityPutPrivilegesFunc(t),
+				PutRoleMapping:    newXPackSecurityPutRoleMappingFunc(t),
+				PutRole:           newXPackSecurityPutRoleFunc(t),
+				PutUser:           newXPackSecurityPutUserFunc(t),
+			},
+			SQL: &SQL{
+				ClearCursor: newXPackSQLClearCursorFunc(t),
+				Query:       newXPackSQLQueryFunc(t),
+				Translate:   newXPackSQLTranslateFunc(t),
+			},
+			SSL: &SSL{
+				Certificates: newXPackSSLCertificatesFunc(t),
+			},
+			Watcher: &Watcher{
+				AckWatch:        newXPackWatcherAckWatchFunc(t),
+				ActivateWatch:   newXPackWatcherActivateWatchFunc(t),
+				DeactivateWatch: newXPackWatcherDeactivateWatchFunc(t),
+				DeleteWatch:     newXPackWatcherDeleteWatchFunc(t),
+				ExecuteWatch:    newXPackWatcherExecuteWatchFunc(t),
+				GetWatch:        newXPackWatcherGetWatchFunc(t),
+				PutWatch:        newXPackWatcherPutWatchFunc(t),
+				Restart:         newXPackWatcherRestartFunc(t),
+				Start:           newXPackWatcherStartFunc(t),
+				Stats:           newXPackWatcherStatsFunc(t),
+				Stop:            newXPackWatcherStopFunc(t),
+			},
+			XPack: &XPack{},
 		},
 	}
 }
