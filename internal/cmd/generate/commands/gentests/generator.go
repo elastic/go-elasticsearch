@@ -398,7 +398,7 @@ func (g *Generator) genXPackSetup() {
 			}
 
 			{
-				res, _ = es.Watcher.DeleteWatch("my_watch")
+				res, _ = es.XPack.Watcher.DeleteWatch("my_watch")
 				if res != nil && res.Body != nil {
 					defer res.Body.Close()
 				}
@@ -406,7 +406,7 @@ func (g *Generator) genXPackSetup() {
 
 			{
 				var r map[string]interface{}
-				res, _ = es.Security.GetRole(es.Security.GetRole.WithPretty())
+				res, _ = es.XPack.Security.GetRole(es.XPack.Security.GetRole.WithPretty())
 				if res != nil && res.Body != nil {
 					defer res.Body.Close()
 					json.NewDecoder(res.Body).Decode(&r)
@@ -415,14 +415,14 @@ func (g *Generator) genXPackSetup() {
 						if ok && reserved {
 							continue
 						}
-						es.Security.DeleteRole(k)
+						es.XPack.Security.DeleteRole(k)
 					}
 				}
 			}
 
 			{
 				var r map[string]interface{}
-				res, _ = es.Security.GetUser(es.Security.GetUser.WithPretty())
+				res, _ = es.XPack.Security.GetUser(es.XPack.Security.GetUser.WithPretty())
 				if res != nil && res.Body != nil {
 					defer res.Body.Close()
 					json.NewDecoder(res.Body).Decode(&r)
@@ -431,14 +431,14 @@ func (g *Generator) genXPackSetup() {
 						if ok && reserved {
 							continue
 						}
-						es.Security.DeleteUser(k)
+						es.XPack.Security.DeleteUser(k)
 					}
 				}
 			}
 
 			{
 				var r map[string]interface{}
-				res, _ = es.Security.GetPrivileges(es.Security.GetPrivileges.WithPretty())
+				res, _ = es.XPack.Security.GetPrivileges(es.XPack.Security.GetPrivileges.WithPretty())
 				if res != nil && res.Body != nil {
 					defer res.Body.Close()
 					json.NewDecoder(res.Body).Decode(&r)
@@ -447,7 +447,7 @@ func (g *Generator) genXPackSetup() {
 						if ok && reserved {
 							continue
 						}
-						es.Security.DeletePrivileges(k, "_all")
+						es.XPack.Security.DeletePrivileges(k, "_all")
 					}
 				}
 			}
@@ -456,8 +456,8 @@ func (g *Generator) genXPackSetup() {
 				var r map[string]interface{}
 				ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 				defer cancel()
-				es.ML.StopDatafeed("_all", es.ML.StopDatafeed.WithContext(ctx))
-				res, _ = es.ML.GetDatafeeds()
+				es.XPack.ML.StopDatafeed("_all", es.XPack.ML.StopDatafeed.WithContext(ctx))
+				res, _ = es.XPack.ML.GetDatafeeds()
 				if res != nil && res.Body != nil {
 					defer res.Body.Close()
 					json.NewDecoder(res.Body).Decode(&r)
@@ -466,7 +466,7 @@ func (g *Generator) genXPackSetup() {
 						if !ok {
 							continue
 						}
-						es.ML.DeleteDatafeed(datafeedID.(string))
+						es.XPack.ML.DeleteDatafeed(datafeedID.(string))
 					}
 				}
 			}
@@ -475,8 +475,8 @@ func (g *Generator) genXPackSetup() {
 				var r map[string]interface{}
 				ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 				defer cancel()
-				es.ML.CloseJob("_all", es.ML.CloseJob.WithContext(ctx))
-				res, _ = es.ML.GetJobs()
+				es.XPack.ML.CloseJob("_all", es.XPack.ML.CloseJob.WithContext(ctx))
+				res, _ = es.XPack.ML.GetJobs()
 				if res != nil && res.Body != nil {
 					defer res.Body.Close()
 					json.NewDecoder(res.Body).Decode(&r)
@@ -485,14 +485,14 @@ func (g *Generator) genXPackSetup() {
 						if !ok {
 							continue
 						}
-						es.ML.DeleteJob(jobID.(string))
+						es.XPack.ML.DeleteJob(jobID.(string))
 					}
 				}
 			}
 
 			{
 				var r map[string]interface{}
-				res, _ = es.Rollup.GetJobs(es.Rollup.GetJobs.WithJobID("_all"))
+				res, _ = es.XPack.Rollup.GetJobs(es.XPack.Rollup.GetJobs.WithDocumentID("_all"))
 				if res != nil && res.Body != nil {
 					defer res.Body.Close()
 					json.NewDecoder(res.Body).Decode(&r)
@@ -501,8 +501,8 @@ func (g *Generator) genXPackSetup() {
 						if !ok {
 							continue
 						}
-						es.Rollup.StopJob(jobID.(string), es.Rollup.StopJob.WithWaitForCompletion(true))
-						es.Rollup.DeleteJob(jobID.(string))
+						es.XPack.Rollup.StopJob(jobID.(string), es.XPack.Rollup.StopJob.WithWaitForCompletion(true))
+						es.XPack.Rollup.DeleteJob(jobID.(string))
 					}
 				}
 			}
@@ -567,7 +567,7 @@ func (g *Generator) genXPackSetup() {
 			}
 
 			{
-				res, _ = es.Security.PutUser("x_pack_rest_user", strings.NewReader(` + "`" + `{"password":"x-pack-test-password", "roles":["superuser"]}` + "`" + `), es.Security.PutUser.WithPretty())
+				res, _ = es.XPack.Security.PutUser("x_pack_rest_user", strings.NewReader(` + "`" + `{"password":"x-pack-test-password", "roles":["superuser"]}` + "`" + `), es.XPack.Security.PutUser.WithPretty())
 				if res != nil && res.Body != nil {
 					defer res.Body.Close()
 				}
