@@ -184,7 +184,14 @@ rollup/security_tests.yml:
 
 # Test tries to match on map key, but map keys are unstable in Go
 ml/data_frame_analytics_crud.yml:
-  - "Test put with description"
+  - Test put valid config with default outlier detection, query, and filter
+  - Test put valid config with default outlier detection
+  - Test put valid config with custom outlier detection
+  - Test put regression given valid
+  - Test put with description
+  - Test max model memory limit
+  - Test put classification given valid
+  - Test put classification given deprecated maximum_number_trees
 
 # TEMPORARY: Missing 'body: { indices: "test_index" }' payload, TODO: PR
 snapshot/10_basic.yml:
