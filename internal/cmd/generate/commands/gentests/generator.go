@@ -477,11 +477,11 @@ func (g *Generator) genXPackSetup() {
 					defer res.Body.Close()
 					json.NewDecoder(res.Body).Decode(&r)
 					for _, v := range r["datafeeds"].([]interface{}) {
-						datafeedID, ok := v.(map[string]interface{})["datafeed_id"]
-						if !ok {
-							continue
+						datafeed, ok := v.(map[string]interface{})
+						if ok {
+							datafeedID := datafeed["datafeed_id"].(string)
+							es.ML.DeleteDatafeed(datafeedID)
 						}
-						es.ML.DeleteDatafeed(datafeedID.(string))
 					}
 				}
 			}
@@ -496,11 +496,11 @@ func (g *Generator) genXPackSetup() {
 					defer res.Body.Close()
 					json.NewDecoder(res.Body).Decode(&r)
 					for _, v := range r["jobs"].([]interface{}) {
-						jobID, ok := v.(map[string]interface{})["job_id"]
-						if !ok {
-							continue
+						job, ok := v.(map[string]interface{})
+						if ok {
+							jobID := job["job_id"].(string)
+							es.ML.DeleteJob(jobID)
 						}
-						es.ML.DeleteJob(jobID.(string))
 					}
 				}
 			}
@@ -512,12 +512,12 @@ func (g *Generator) genXPackSetup() {
 					defer res.Body.Close()
 					json.NewDecoder(res.Body).Decode(&r)
 					for _, v := range r["jobs"].([]interface{}) {
-						jobID, ok := v.(map[string]interface{})["config"].(map[string]interface{})["id"]
-						if !ok {
-							continue
+						job, ok := v.(map[string]interface{})["config"]
+						if ok {
+							jobID := job.(map[string]interface{})["id"].(string)
+							es.Rollup.StopJob(jobID, es.Rollup.StopJob.WithWaitForCompletion(true))
+							es.Rollup.DeleteJob(jobID)
 						}
-						es.Rollup.StopJob(jobID.(string), es.Rollup.StopJob.WithWaitForCompletion(true))
-						es.Rollup.DeleteJob(jobID.(string))
 					}
 				}
 			}
@@ -531,13 +531,12 @@ func (g *Generator) genXPackSetup() {
 					for _, vv := range r["nodes"].(map[string]interface{}) {
 						for _, v := range vv.(map[string]interface{})["tasks"].(map[string]interface{}) {
 							cancellable, ok := v.(map[string]interface{})["cancellable"]
-							if !ok || !cancellable.(bool) {
-								continue
+							if ok && cancellable.(bool) {
+								taskID := fmt.Sprintf("%v:%v", v.(map[string]interface{})["node"], v.(map[string]interface{})["id"])
+								ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+								defer cancel()
+								es.Tasks.Cancel(es.Tasks.Cancel.WithTaskID(taskID), es.Tasks.Cancel.WithContext(ctx))
 							}
-							taskID := fmt.Sprintf("%v:%v", v.(map[string]interface{})["node"], v.(map[string]interface{})["id"])
-							ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-							defer cancel()
-							es.Tasks.Cancel(es.Tasks.Cancel.WithTaskID(taskID), es.Tasks.Cancel.WithContext(ctx))
 						}
 					}
 				}
@@ -556,10 +555,9 @@ func (g *Generator) genXPackSetup() {
 						for _, vv := range r["responses"].([]interface{}) {
 							for _, v := range vv.(map[string]interface{})["snapshots"].([]interface{}) {
 								snapshotID, ok := v.(map[string]interface{})["snapshot"]
-								if !ok {
-									continue
+								if ok {
+									es.Snapshot.Delete(repositoryID, fmt.Sprintf("%s", snapshotID))
 								}
-								es.Snapshot.Delete(repositoryID, fmt.Sprintf("%s", snapshotID))
 							}
 						}
 						es.Snapshot.DeleteRepository([]string{fmt.Sprintf("%s", repositoryID)})
