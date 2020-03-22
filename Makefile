@@ -346,8 +346,8 @@ gen-api:  ## Generate the API package from the JSON specification
 ifdef debug
 	$(eval args += --debug)
 endif
-ifdef ELASTICSEARCH_VERSION
-	$(eval version = $(ELASTICSEARCH_VERSION))
+ifdef ELASTICSEARCH_BUILD_VERSION
+	$(eval version = $(ELASTICSEARCH_BUILD_VERSION))
 else
 	$(eval version = $(shell cat "$(input)/buildSrc/version.properties" | grep 'elasticsearch' | cut -d '=' -f 2 | tr -d ' '))
 endif
@@ -360,7 +360,7 @@ endif
 	@{ \
 		set -e; \
 		trap "test -d .git && git checkout --quiet $(PWD)/internal/cmd/generate/go.mod" INT TERM EXIT; \
-		export ELASTICSEARCH_VERSION=$(version) && \
+		export ELASTICSEARCH_BUILD_VERSION=$(version) && \
 		export ELASTICSEARCH_BUILD_HASH=$(build_hash) && \
 		cd internal/cmd/generate && \
 		go run main.go apisource --input '$(PWD)/$(input)/rest-api-spec/src/main/resources/rest-api-spec/api/*.json' --output '$(PWD)/$(output)' $(args) && \
@@ -375,7 +375,7 @@ ifdef debug
 	$(eval args += --debug)
 endif
 ifdef ELASTICSEARCH_VERSION
-	$(eval version = $(ELASTICSEARCH_VERSION))
+	$(eval version = $(ELASTICSEARCH_BUILD_VERSION))
 else
 	$(eval version = $(shell cat "$(input)/buildSrc/version.properties" | grep 'elasticsearch' | cut -d '=' -f 2 | tr -d ' '))
 endif
@@ -388,7 +388,7 @@ endif
 	@{ \
 		set -e; \
 		trap "test -d .git && git checkout --quiet $(PWD)/internal/cmd/generate/go.mod" INT TERM EXIT; \
-		export ELASTICSEARCH_VERSION=$(version) && \
+		export ELASTICSEARCH_BUILD_VERSION=$(version) && \
 		export ELASTICSEARCH_BUILD_HASH=$(build_hash) && \
 		rm -rf $(output)/*_test.go && \
 		rm -rf $(output)/xpack && \
