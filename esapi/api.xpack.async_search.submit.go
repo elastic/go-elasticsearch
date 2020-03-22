@@ -516,7 +516,7 @@ func (f AsyncSearchSubmit) WithQuery(v string) func(*AsyncSearchSubmitRequest) {
 	}
 }
 
-// WithRequestCache - specify if request cache should be used for this request or not, defaults to index level setting.
+// WithRequestCache - specify if request cache should be used for this request or not, defaults to true.
 //
 func (f AsyncSearchSubmit) WithRequestCache(v bool) func(*AsyncSearchSubmitRequest) {
 	return func(r *AsyncSearchSubmitRequest) {
