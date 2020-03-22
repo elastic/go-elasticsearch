@@ -375,7 +375,7 @@ gen-tests:  ## Generate the API tests from the YAML specification
 ifdef debug
 	$(eval args += --debug)
 endif
-ifdef ELASTICSEARCH_VERSION
+ifdef ELASTICSEARCH_BUILD_VERSION
 	$(eval version = $(ELASTICSEARCH_BUILD_VERSION))
 else
 	$(eval version = $(shell cat "$(input)/buildSrc/version.properties" | grep 'elasticsearch' | cut -d '=' -f 2 | tr -d ' '))
