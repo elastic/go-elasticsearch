@@ -21,7 +21,7 @@ var (
 // EsVersion returns the Elasticsearch from environment variable, Java property file, or an error.
 //
 func EsVersion(fpath string) (string, error) {
-	if envEsVersion := os.Getenv("ELASTICSEARCH_VERSION"); envEsVersion != "" {
+	if envEsVersion := os.Getenv("ELASTICSEARCH_BUILD_VERSION"); envEsVersion != "" {
 		return envEsVersion, nil
 	}
 
