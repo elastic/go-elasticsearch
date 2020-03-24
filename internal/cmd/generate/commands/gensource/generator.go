@@ -137,6 +137,10 @@ func (g *Generator) genMethodDefinition() {
 		}
 	}
 
+	if g.Endpoint.Stability != "stable" {
+		g.w("\n//\n// This API is " + g.Endpoint.Stability + ".")
+	}
+
 	if g.Endpoint.Documentation.URL != "" {
 		g.w("\n//\n" + `// See full documentation at ` + g.Endpoint.Documentation.URL + ".")
 	}

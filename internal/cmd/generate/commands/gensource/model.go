@@ -159,6 +159,8 @@ type Endpoint struct {
 		Description string `json:"description"`
 	} `json:"documentation"`
 
+	Stability string `json:"stability"`
+
 	URL    *URL              `json:"url"`
 	Params map[string]*Param `json:"params"`
 	Body   *Body             `json:"body"`
