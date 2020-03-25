@@ -26,6 +26,8 @@ func newRollupDeleteJobFunc(t Transport) RollupDeleteJob {
 
 // RollupDeleteJob -
 //
+// This API is experimental.
+//
 type RollupDeleteJob func(id string, o ...func(*RollupDeleteJobRequest)) (*Response, error)
 
 // RollupDeleteJobRequest configures the Rollup Delete Job API request.

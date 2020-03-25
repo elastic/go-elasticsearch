@@ -28,6 +28,8 @@ func newRollupStopJobFunc(t Transport) RollupStopJob {
 
 // RollupStopJob -
 //
+// This API is experimental.
+//
 type RollupStopJob func(id string, o ...func(*RollupStopJobRequest)) (*Response, error)
 
 // RollupStopJobRequest configures the Rollup Stop Job API request.

@@ -26,6 +26,8 @@ func newGetScriptLanguagesFunc(t Transport) GetScriptLanguages {
 
 // GetScriptLanguages returns available script types, languages and contexts
 //
+// This API is experimental.
+//
 type GetScriptLanguages func(o ...func(*GetScriptLanguagesRequest)) (*Response, error)
 
 // GetScriptLanguagesRequest configures the Get Script Languages API request.

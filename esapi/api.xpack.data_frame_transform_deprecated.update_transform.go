@@ -28,6 +28,8 @@ func newDataFrameTransformDeprecatedUpdateTransformFunc(t Transport) DataFrameTr
 
 // DataFrameTransformDeprecatedUpdateTransform -
 //
+// This API is beta.
+//
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/update-transform.html.
 //
 type DataFrameTransformDeprecatedUpdateTransform func(body io.Reader, transform_id string, o ...func(*DataFrameTransformDeprecatedUpdateTransformRequest)) (*Response, error)

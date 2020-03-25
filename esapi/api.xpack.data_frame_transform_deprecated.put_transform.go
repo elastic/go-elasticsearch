@@ -28,6 +28,8 @@ func newDataFrameTransformDeprecatedPutTransformFunc(t Transport) DataFrameTrans
 
 // DataFrameTransformDeprecatedPutTransform -
 //
+// This API is beta.
+//
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/put-transform.html.
 //
 type DataFrameTransformDeprecatedPutTransform func(body io.Reader, transform_id string, o ...func(*DataFrameTransformDeprecatedPutTransformRequest)) (*Response, error)

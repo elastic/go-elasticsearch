@@ -27,6 +27,8 @@ func newDataFrameTransformDeprecatedDeleteTransformFunc(t Transport) DataFrameTr
 
 // DataFrameTransformDeprecatedDeleteTransform -
 //
+// This API is beta.
+//
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-transform.html.
 //
 type DataFrameTransformDeprecatedDeleteTransform func(transform_id string, o ...func(*DataFrameTransformDeprecatedDeleteTransformRequest)) (*Response, error)

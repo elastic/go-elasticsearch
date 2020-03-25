@@ -12,9 +12,9 @@ import (
 	"strings"
 )
 
-func newRollupGetJobsFunc(t Transport) RollupGetJobs {
-	return func(o ...func(*RollupGetJobsRequest)) (*Response, error) {
-		var r = RollupGetJobsRequest{}
+func newIndicesGetDataStreamsFunc(t Transport) IndicesGetDataStreams {
+	return func(o ...func(*IndicesGetDataStreamsRequest)) (*Response, error) {
+		var r = IndicesGetDataStreamsRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -24,16 +24,18 @@ func newRollupGetJobsFunc(t Transport) RollupGetJobs {
 
 // ----- API Definition -------------------------------------------------------
 
-// RollupGetJobs -
+// IndicesGetDataStreams returns data streams.
 //
 // This API is experimental.
 //
-type RollupGetJobs func(o ...func(*RollupGetJobsRequest)) (*Response, error)
-
-// RollupGetJobsRequest configures the Rollup Get Jobs API request.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html.
 //
-type RollupGetJobsRequest struct {
-	JobID string
+type IndicesGetDataStreams func(o ...func(*IndicesGetDataStreamsRequest)) (*Response, error)
+
+// IndicesGetDataStreamsRequest configures the Indices Get Data Streams API request.
+//
+type IndicesGetDataStreamsRequest struct {
+	Name []string
 
 	Pretty     bool
 	Human      bool
@@ -47,7 +49,7 @@ type RollupGetJobsRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r RollupGetJobsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r IndicesGetDataStreamsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -56,14 +58,12 @@ func (r RollupGetJobsRequest) Do(ctx context.Context, transport Transport) (*Res
 
 	method = "GET"
 
-	path.Grow(1 + len("_rollup") + 1 + len("job") + 1 + len(r.JobID))
+	path.Grow(1 + len("_data_streams") + 1 + len(strings.Join(r.Name, ",")))
 	path.WriteString("/")
-	path.WriteString("_rollup")
-	path.WriteString("/")
-	path.WriteString("job")
-	if r.JobID != "" {
+	path.WriteString("_data_streams")
+	if len(r.Name) > 0 {
 		path.WriteString("/")
-		path.WriteString(r.JobID)
+		path.WriteString(strings.Join(r.Name, ","))
 	}
 
 	params = make(map[string]string)
@@ -129,56 +129,56 @@ func (r RollupGetJobsRequest) Do(ctx context.Context, transport Transport) (*Res
 
 // WithContext sets the request context.
 //
-func (f RollupGetJobs) WithContext(v context.Context) func(*RollupGetJobsRequest) {
-	return func(r *RollupGetJobsRequest) {
+func (f IndicesGetDataStreams) WithContext(v context.Context) func(*IndicesGetDataStreamsRequest) {
+	return func(r *IndicesGetDataStreamsRequest) {
 		r.ctx = v
 	}
 }
 
-// WithJobID - the ID of the job(s) to fetch. accepts glob patterns, or left blank for all jobs.
+// WithName - the comma separated names of data streams.
 //
-func (f RollupGetJobs) WithJobID(v string) func(*RollupGetJobsRequest) {
-	return func(r *RollupGetJobsRequest) {
-		r.JobID = v
+func (f IndicesGetDataStreams) WithName(v ...string) func(*IndicesGetDataStreamsRequest) {
+	return func(r *IndicesGetDataStreamsRequest) {
+		r.Name = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f RollupGetJobs) WithPretty() func(*RollupGetJobsRequest) {
-	return func(r *RollupGetJobsRequest) {
+func (f IndicesGetDataStreams) WithPretty() func(*IndicesGetDataStreamsRequest) {
+	return func(r *IndicesGetDataStreamsRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f RollupGetJobs) WithHuman() func(*RollupGetJobsRequest) {
-	return func(r *RollupGetJobsRequest) {
+func (f IndicesGetDataStreams) WithHuman() func(*IndicesGetDataStreamsRequest) {
+	return func(r *IndicesGetDataStreamsRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f RollupGetJobs) WithErrorTrace() func(*RollupGetJobsRequest) {
-	return func(r *RollupGetJobsRequest) {
+func (f IndicesGetDataStreams) WithErrorTrace() func(*IndicesGetDataStreamsRequest) {
+	return func(r *IndicesGetDataStreamsRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f RollupGetJobs) WithFilterPath(v ...string) func(*RollupGetJobsRequest) {
-	return func(r *RollupGetJobsRequest) {
+func (f IndicesGetDataStreams) WithFilterPath(v ...string) func(*IndicesGetDataStreamsRequest) {
+	return func(r *IndicesGetDataStreamsRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f RollupGetJobs) WithHeader(h map[string]string) func(*RollupGetJobsRequest) {
-	return func(r *RollupGetJobsRequest) {
+func (f IndicesGetDataStreams) WithHeader(h map[string]string) func(*IndicesGetDataStreamsRequest) {
+	return func(r *IndicesGetDataStreamsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -190,8 +190,8 @@ func (f RollupGetJobs) WithHeader(h map[string]string) func(*RollupGetJobsReques
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f RollupGetJobs) WithOpaqueID(s string) func(*RollupGetJobsRequest) {
-	return func(r *RollupGetJobsRequest) {
+func (f IndicesGetDataStreams) WithOpaqueID(s string) func(*IndicesGetDataStreamsRequest) {
+	return func(r *IndicesGetDataStreamsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

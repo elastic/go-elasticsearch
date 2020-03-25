@@ -1,4 +1,4 @@
-// Code generated from specification version 7.7.0 (d25c01a373f): DO NOT EDIT
+// Code generated from specification version 7.7.0 (ba09a778dcf): DO NOT EDIT
 
 package esapi
 
@@ -159,8 +159,10 @@ type Indices struct {
 	ClearCache            IndicesClearCache
 	Clone                 IndicesClone
 	Close                 IndicesClose
+	CreateDataStream      IndicesCreateDataStream
 	Create                IndicesCreate
 	DeleteAlias           IndicesDeleteAlias
+	DeleteDataStream      IndicesDeleteDataStream
 	Delete                IndicesDelete
 	DeleteTemplate        IndicesDeleteTemplate
 	ExistsAlias           IndicesExistsAlias
@@ -172,6 +174,7 @@ type Indices struct {
 	Forcemerge            IndicesForcemerge
 	Freeze                IndicesFreeze
 	GetAlias              IndicesGetAlias
+	GetDataStreams        IndicesGetDataStreams
 	GetFieldMapping       IndicesGetFieldMapping
 	GetMapping            IndicesGetMapping
 	Get                   IndicesGet
@@ -567,8 +570,10 @@ func New(t Transport) *API {
 			ClearCache:            newIndicesClearCacheFunc(t),
 			Clone:                 newIndicesCloneFunc(t),
 			Close:                 newIndicesCloseFunc(t),
+			CreateDataStream:      newIndicesCreateDataStreamFunc(t),
 			Create:                newIndicesCreateFunc(t),
 			DeleteAlias:           newIndicesDeleteAliasFunc(t),
+			DeleteDataStream:      newIndicesDeleteDataStreamFunc(t),
 			Delete:                newIndicesDeleteFunc(t),
 			DeleteTemplate:        newIndicesDeleteTemplateFunc(t),
 			ExistsAlias:           newIndicesExistsAliasFunc(t),
@@ -580,6 +585,7 @@ func New(t Transport) *API {
 			Forcemerge:            newIndicesForcemergeFunc(t),
 			Freeze:                newIndicesFreezeFunc(t),
 			GetAlias:              newIndicesGetAliasFunc(t),
+			GetDataStreams:        newIndicesGetDataStreamsFunc(t),
 			GetFieldMapping:       newIndicesGetFieldMappingFunc(t),
 			GetMapping:            newIndicesGetMappingFunc(t),
 			Get:                   newIndicesGetFunc(t),

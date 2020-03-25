@@ -26,6 +26,8 @@ func newRollupGetRollupCapsFunc(t Transport) RollupGetRollupCaps {
 
 // RollupGetRollupCaps -
 //
+// This API is experimental.
+//
 type RollupGetRollupCaps func(o ...func(*RollupGetRollupCapsRequest)) (*Response, error)
 
 // RollupGetRollupCapsRequest configures the Rollup Get Rollup Caps API request.

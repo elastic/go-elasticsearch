@@ -27,6 +27,8 @@ func newDataFrameTransformDeprecatedGetTransformStatsFunc(t Transport) DataFrame
 
 // DataFrameTransformDeprecatedGetTransformStats -
 //
+// This API is beta.
+//
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-transform-stats.html.
 //
 type DataFrameTransformDeprecatedGetTransformStats func(transform_id string, o ...func(*DataFrameTransformDeprecatedGetTransformStatsRequest)) (*Response, error)

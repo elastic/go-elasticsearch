@@ -27,6 +27,8 @@ func newDataFrameTransformDeprecatedGetTransformFunc(t Transport) DataFrameTrans
 
 // DataFrameTransformDeprecatedGetTransform -
 //
+// This API is beta.
+//
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-transform.html.
 //
 type DataFrameTransformDeprecatedGetTransform func(o ...func(*DataFrameTransformDeprecatedGetTransformRequest)) (*Response, error)

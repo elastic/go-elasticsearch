@@ -26,6 +26,8 @@ func newGetScriptContextFunc(t Transport) GetScriptContext {
 
 // GetScriptContext returns all script contexts.
 //
+// This API is experimental.
+//
 type GetScriptContext func(o ...func(*GetScriptContextRequest)) (*Response, error)
 
 // GetScriptContextRequest configures the Get Script Context API request.

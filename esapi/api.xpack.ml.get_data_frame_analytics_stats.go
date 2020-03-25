@@ -27,6 +27,8 @@ func newMLGetDataFrameAnalyticsStatsFunc(t Transport) MLGetDataFrameAnalyticsSta
 
 // MLGetDataFrameAnalyticsStats -
 //
+// This API is experimental.
+//
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-dfanalytics-stats.html.
 //
 type MLGetDataFrameAnalyticsStats func(o ...func(*MLGetDataFrameAnalyticsStatsRequest)) (*Response, error)

@@ -27,6 +27,8 @@ func newMLPutTrainedModelFunc(t Transport) MLPutTrainedModel {
 
 // MLPutTrainedModel - TODO
 //
+// This API is experimental.
+//
 type MLPutTrainedModel func(body io.Reader, model_id string, o ...func(*MLPutTrainedModelRequest)) (*Response, error)
 
 // MLPutTrainedModelRequest configures the ML Put Trained Model API request.

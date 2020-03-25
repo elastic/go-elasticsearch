@@ -28,6 +28,8 @@ func newRollupRollupSearchFunc(t Transport) RollupRollupSearch {
 
 // RollupRollupSearch -
 //
+// This API is experimental.
+//
 type RollupRollupSearch func(index []string, body io.Reader, o ...func(*RollupRollupSearchRequest)) (*Response, error)
 
 // RollupRollupSearchRequest configures the Rollup Rollup Search API request.
