@@ -182,7 +182,7 @@ func (g *Generator) genRequestStruct() {
 // ` + g.Endpoint.MethodWithNamespace() + `Request configures the ` + g.Endpoint.HumanMethodWithNamespace() + ` API request.
 //
 type ` + g.Endpoint.MethodWithNamespace() + `Request struct {`)
-	specialFields := []string{"index", "type", "id"}
+	specialFields := []string{"index", "id"}
 	for _, n := range specialFields {
 		if param, ok := g.Endpoint.URL.AllParts[n]; ok {
 			g.w("\n\t" + param.GoName())
@@ -214,6 +214,17 @@ type ` + g.Endpoint.MethodWithNamespace() + `Request struct {`)
 				skip = true
 			}
 		}
+		// Skip type only for selected APIs at this point
+		if p.Name == "type" && p.Deprecated {
+			if g.Endpoint.Name == "bulk" ||
+				g.Endpoint.Name == "create" ||
+				g.Endpoint.Name == "delete" ||
+				g.Endpoint.Name == "index" ||
+				g.Endpoint.Name == "update" {
+				continue
+			}
+		}
+
 		if skip {
 			continue
 		}
@@ -265,7 +276,9 @@ func (f ` + g.Endpoint.MethodWithNamespace() + `) WithContext(v context.Context)
 	// Skip adding With... options for arguments which are part of the method signature
 	skipRequiredArgs := make(map[string]bool)
 	for _, p := range g.Endpoint.RequiredArguments() {
-		skipRequiredArgs[p.Name] = true
+		if p.Name != "type" {
+			skipRequiredArgs[p.Name] = true
+		}
 	}
 
 	var methodBody = func(e *Endpoint, a interface{}) string {
@@ -359,7 +372,7 @@ func (f ` + g.Endpoint.MethodWithNamespace() + `) WithBody(v io.Reader) func(*` 
 	// Generate With... methods for parts
 	for _, pName := range g.Endpoint.URL.PartNamesSorted {
 		if p, ok := g.Endpoint.URL.AllParts[pName]; ok {
-			if skipRequiredArgs[p.Name] && p.Name != "type" {
+			if skipRequiredArgs[p.Name] {
 				continue
 			}
 
@@ -530,9 +543,20 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(ctx context.Context,
 
 		// FIXME: Select longest path based on number of template entries, not string length
 		longestPath := g.Endpoint.URL.Paths[0]
-		for _, v := range g.Endpoint.URL.Paths {
-			if len(v.Path) > len(longestPath.Path) {
-				longestPath = v
+		for _, p := range g.Endpoint.URL.Paths {
+			// Skip deprecated parts only for selected APIs at this point
+			if p.Deprecated.Version != "" && p.Deprecated.Version < EsVersion {
+				if g.Endpoint.Name == "bulk" ||
+					g.Endpoint.Name == "create" ||
+					g.Endpoint.Name == "delete" ||
+					g.Endpoint.Name == "get" ||
+					g.Endpoint.Name == "index" ||
+					g.Endpoint.Name == "update" {
+					continue
+				}
+			}
+			if len(p.Path) > len(longestPath.Path) {
+				longestPath = p
 			}
 		}
 
@@ -580,7 +604,7 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(ctx context.Context,
 				// Optional arguments
 				if p == "" {
 					for _, a := range longestPath.Parts {
-						// fmt.Printf("a: %+v\n", a)
+						// fmt.Printf("%s: %+v\n", a.Name, a)
 						if strings.HasPrefix(v, "{") && a.Name == r.Replace(v) {
 							p = a.GoName()
 

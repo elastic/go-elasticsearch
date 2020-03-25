@@ -66,7 +66,18 @@ func NewEndpoint(f io.Reader) (*Endpoint, error) {
 	var params [][]string
 	for _, path := range endpoint.URL.Paths {
 		var parts []string
-		for partName := range path.Parts {
+		for partName, part := range path.Parts {
+			// Skip type only for selected APIs at this point
+			if part.Name == "type" && part.Deprecated {
+				if endpoint.Name == "bulk" ||
+					endpoint.Name == "create" ||
+					endpoint.Name == "delete" ||
+					endpoint.Name == "get" ||
+					endpoint.Name == "index" ||
+					endpoint.Name == "update" {
+					continue
+				}
+			}
 			parts = append(parts, partName)
 		}
 		params = append(params, parts)
@@ -206,6 +217,8 @@ type Part struct {
 	Type        string `json:"type"`
 	Description string `json:"description"`
 	Required    bool   `json:"required"`
+
+	Deprecated bool `json:"deprecated"`
 }
 
 // Param represents API endpoint parameter.
@@ -302,7 +315,6 @@ func (e *Endpoint) RequiredArguments() []MethodArgument {
 	var args = make([]MethodArgument, 0)
 	var prominentArgs = []string{
 		"index",
-		"type",
 		"id",
 		"repository",
 		"snapshot",
@@ -329,16 +341,6 @@ func (e *Endpoint) RequiredArguments() []MethodArgument {
 				continue
 			}
 			if p.Required {
-				args = append(args, MethodArgument{
-					Endpoint:    e,
-					Name:        p.Name,
-					Type:        p.Type,
-					Description: p.Description,
-					Required:    true,
-				})
-			}
-			// Make the 'type' required for selected APIs
-			if p.Name == "type" && (e.Name == "index" || e.Name == "create") {
 				args = append(args, MethodArgument{
 					Endpoint:    e,
 					Name:        p.Name,
