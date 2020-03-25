@@ -34,9 +34,10 @@ type ExistsSource func(index string, id string, o ...func(*ExistsSourceRequest))
 // ExistsSourceRequest configures the Exists Source API request.
 //
 type ExistsSourceRequest struct {
-	Index        string
+	Index      string
+	DocumentID string
+
 	DocumentType string
-	DocumentID   string
 
 	Preference     string
 	Realtime       *bool

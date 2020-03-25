@@ -26,6 +26,8 @@ func newAutoscalingGetAutoscalingDecisionFunc(t Transport) AutoscalingGetAutosca
 
 // AutoscalingGetAutoscalingDecision -
 //
+// This API is experimental.
+//
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-get-autoscaling-decision.html.
 //
 type AutoscalingGetAutoscalingDecision func(o ...func(*AutoscalingGetAutoscalingDecisionRequest)) (*Response, error)

@@ -27,6 +27,8 @@ func newEqlSearchFunc(t Transport) EqlSearch {
 
 // EqlSearch -
 //
+// This API is beta.
+//
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/eql.html.
 //
 type EqlSearch func(index string, body io.Reader, o ...func(*EqlSearchRequest)) (*Response, error)

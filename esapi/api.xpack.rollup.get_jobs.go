@@ -26,6 +26,8 @@ func newRollupGetJobsFunc(t Transport) RollupGetJobs {
 
 // RollupGetJobs -
 //
+// This API is experimental.
+//
 type RollupGetJobs func(o ...func(*RollupGetJobsRequest)) (*Response, error)
 
 // RollupGetJobsRequest configures the Rollup Get Jobs API request.

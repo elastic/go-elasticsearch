@@ -28,6 +28,8 @@ func newDataFrameTransformDeprecatedStopTransformFunc(t Transport) DataFrameTran
 
 // DataFrameTransformDeprecatedStopTransform -
 //
+// This API is beta.
+//
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/stop-transform.html.
 //
 type DataFrameTransformDeprecatedStopTransform func(transform_id string, o ...func(*DataFrameTransformDeprecatedStopTransformRequest)) (*Response, error)

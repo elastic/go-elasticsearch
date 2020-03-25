@@ -26,6 +26,8 @@ func newRollupStartJobFunc(t Transport) RollupStartJob {
 
 // RollupStartJob -
 //
+// This API is experimental.
+//
 type RollupStartJob func(id string, o ...func(*RollupStartJobRequest)) (*Response, error)
 
 // RollupStartJobRequest configures the Rollup Start Job API request.

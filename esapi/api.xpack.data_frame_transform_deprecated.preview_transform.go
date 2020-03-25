@@ -27,6 +27,8 @@ func newDataFrameTransformDeprecatedPreviewTransformFunc(t Transport) DataFrameT
 
 // DataFrameTransformDeprecatedPreviewTransform -
 //
+// This API is beta.
+//
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/preview-transform.html.
 //
 type DataFrameTransformDeprecatedPreviewTransform func(body io.Reader, o ...func(*DataFrameTransformDeprecatedPreviewTransformRequest)) (*Response, error)

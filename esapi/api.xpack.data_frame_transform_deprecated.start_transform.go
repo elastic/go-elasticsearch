@@ -27,6 +27,8 @@ func newDataFrameTransformDeprecatedStartTransformFunc(t Transport) DataFrameTra
 
 // DataFrameTransformDeprecatedStartTransform -
 //
+// This API is beta.
+//
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/start-transform.html.
 //
 type DataFrameTransformDeprecatedStartTransform func(transform_id string, o ...func(*DataFrameTransformDeprecatedStartTransformRequest)) (*Response, error)

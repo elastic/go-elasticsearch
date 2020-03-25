@@ -35,10 +35,11 @@ type Bulk func(body io.Reader, o ...func(*BulkRequest)) (*Response, error)
 // BulkRequest configures the Bulk API request.
 //
 type BulkRequest struct {
-	Index        string
-	DocumentType string
+	Index string
 
 	Body io.Reader
+
+	DocumentType string
 
 	Pipeline            string
 	Refresh             string

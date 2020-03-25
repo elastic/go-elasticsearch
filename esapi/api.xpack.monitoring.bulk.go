@@ -27,6 +27,8 @@ func newMonitoringBulkFunc(t Transport) MonitoringBulk {
 
 // MonitoringBulk -
 //
+// This API is experimental.
+//
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/monitor-elasticsearch-cluster.html.
 //
 type MonitoringBulk func(body io.Reader, o ...func(*MonitoringBulkRequest)) (*Response, error)
@@ -34,9 +36,9 @@ type MonitoringBulk func(body io.Reader, o ...func(*MonitoringBulkRequest)) (*Re
 // MonitoringBulkRequest configures the Monitoring Bulk API request.
 //
 type MonitoringBulkRequest struct {
-	DocumentType string
-
 	Body io.Reader
+
+	DocumentType string
 
 	Interval         string
 	SystemAPIVersion string

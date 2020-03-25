@@ -34,7 +34,8 @@ type IndicesExistsDocumentType func(index []string, o ...func(*IndicesExistsDocu
 // IndicesExistsDocumentTypeRequest configures the Indices Exists Document Type API request.
 //
 type IndicesExistsDocumentTypeRequest struct {
-	Index        []string
+	Index []string
+
 	DocumentType []string
 
 	AllowNoIndices    *bool

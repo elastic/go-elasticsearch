@@ -35,10 +35,11 @@ type IndicesValidateQuery func(o ...func(*IndicesValidateQueryRequest)) (*Respon
 // IndicesValidateQueryRequest configures the Indices Validate Query API request.
 //
 type IndicesValidateQueryRequest struct {
-	Index        []string
-	DocumentType []string
+	Index []string
 
 	Body io.Reader
+
+	DocumentType []string
 
 	AllowNoIndices    *bool
 	AllShards         *bool

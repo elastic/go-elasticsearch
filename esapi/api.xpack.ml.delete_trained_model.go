@@ -26,6 +26,8 @@ func newMLDeleteTrainedModelFunc(t Transport) MLDeleteTrainedModel {
 
 // MLDeleteTrainedModel -
 //
+// This API is experimental.
+//
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-inference.html.
 //
 type MLDeleteTrainedModel func(model_id string, o ...func(*MLDeleteTrainedModelRequest)) (*Response, error)

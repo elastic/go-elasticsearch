@@ -27,6 +27,8 @@ func newRollupPutJobFunc(t Transport) RollupPutJob {
 
 // RollupPutJob -
 //
+// This API is experimental.
+//
 type RollupPutJob func(id string, body io.Reader, o ...func(*RollupPutJobRequest)) (*Response, error)
 
 // RollupPutJobRequest configures the Rollup Put Job API request.

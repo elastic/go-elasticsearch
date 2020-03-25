@@ -27,6 +27,8 @@ func newMLPutDataFrameAnalyticsFunc(t Transport) MLPutDataFrameAnalytics {
 
 // MLPutDataFrameAnalytics -
 //
+// This API is experimental.
+//
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/put-dfanalytics.html.
 //
 type MLPutDataFrameAnalytics func(id string, body io.Reader, o ...func(*MLPutDataFrameAnalyticsRequest)) (*Response, error)

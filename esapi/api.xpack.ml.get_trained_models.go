@@ -27,6 +27,8 @@ func newMLGetTrainedModelsFunc(t Transport) MLGetTrainedModels {
 
 // MLGetTrainedModels -
 //
+// This API is experimental.
+//
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-inference.html.
 //
 type MLGetTrainedModels func(o ...func(*MLGetTrainedModelsRequest)) (*Response, error)
