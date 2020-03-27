@@ -45,7 +45,6 @@ type AsyncSearchSubmitRequest struct {
 	Analyzer                   string
 	AnalyzeWildcard            *bool
 	BatchedReduceSize          *int
-	CleanOnCompletion          *bool
 	DefaultOperator            string
 	Df                         string
 	DocvalueFields             []string
@@ -55,6 +54,7 @@ type AsyncSearchSubmitRequest struct {
 	IgnoreThrottled            *bool
 	IgnoreUnavailable          *bool
 	KeepAlive                  time.Duration
+	KeepOnCompletion           *bool
 	Lenient                    *bool
 	MaxConcurrentShardRequests *int
 	Preference                 string
@@ -80,7 +80,7 @@ type AsyncSearchSubmitRequest struct {
 	TrackTotalHits             *bool
 	TypedKeys                  *bool
 	Version                    *bool
-	WaitForCompletion          time.Duration
+	WaitForCompletionTimeout   time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -133,10 +133,6 @@ func (r AsyncSearchSubmitRequest) Do(ctx context.Context, transport Transport) (
 		params["batched_reduce_size"] = strconv.FormatInt(int64(*r.BatchedReduceSize), 10)
 	}
 
-	if r.CleanOnCompletion != nil {
-		params["clean_on_completion"] = strconv.FormatBool(*r.CleanOnCompletion)
-	}
-
 	if r.DefaultOperator != "" {
 		params["default_operator"] = r.DefaultOperator
 	}
@@ -171,6 +167,10 @@ func (r AsyncSearchSubmitRequest) Do(ctx context.Context, transport Transport) (
 
 	if r.KeepAlive != 0 {
 		params["keep_alive"] = formatDuration(r.KeepAlive)
+	}
+
+	if r.KeepOnCompletion != nil {
+		params["keep_on_completion"] = strconv.FormatBool(*r.KeepOnCompletion)
 	}
 
 	if r.Lenient != nil {
@@ -273,8 +273,8 @@ func (r AsyncSearchSubmitRequest) Do(ctx context.Context, transport Transport) (
 		params["version"] = strconv.FormatBool(*r.Version)
 	}
 
-	if r.WaitForCompletion != 0 {
-		params["wait_for_completion"] = formatDuration(r.WaitForCompletion)
+	if r.WaitForCompletionTimeout != 0 {
+		params["wait_for_completion_timeout"] = formatDuration(r.WaitForCompletionTimeout)
 	}
 
 	if r.Pretty {
@@ -404,14 +404,6 @@ func (f AsyncSearchSubmit) WithBatchedReduceSize(v int) func(*AsyncSearchSubmitR
 	}
 }
 
-// WithCleanOnCompletion - control whether the response should not be stored in the cluster if it completed within the provided [wait_for_completion] time (default: true).
-//
-func (f AsyncSearchSubmit) WithCleanOnCompletion(v bool) func(*AsyncSearchSubmitRequest) {
-	return func(r *AsyncSearchSubmitRequest) {
-		r.CleanOnCompletion = &v
-	}
-}
-
 // WithDefaultOperator - the default operator for query string query (and or or).
 //
 func (f AsyncSearchSubmit) WithDefaultOperator(v string) func(*AsyncSearchSubmitRequest) {
@@ -481,6 +473,14 @@ func (f AsyncSearchSubmit) WithIgnoreUnavailable(v bool) func(*AsyncSearchSubmit
 func (f AsyncSearchSubmit) WithKeepAlive(v time.Duration) func(*AsyncSearchSubmitRequest) {
 	return func(r *AsyncSearchSubmitRequest) {
 		r.KeepAlive = v
+	}
+}
+
+// WithKeepOnCompletion - control whether the response should be stored in the cluster if it completed within the provided [wait_for_completion] time (default: true).
+//
+func (f AsyncSearchSubmit) WithKeepOnCompletion(v bool) func(*AsyncSearchSubmitRequest) {
+	return func(r *AsyncSearchSubmitRequest) {
+		r.KeepOnCompletion = &v
 	}
 }
 
@@ -684,11 +684,11 @@ func (f AsyncSearchSubmit) WithVersion(v bool) func(*AsyncSearchSubmitRequest) {
 	}
 }
 
-// WithWaitForCompletion - specify the time that the request should block waiting for the final response.
+// WithWaitForCompletionTimeout - specify the time that the request should block waiting for the final response.
 //
-func (f AsyncSearchSubmit) WithWaitForCompletion(v time.Duration) func(*AsyncSearchSubmitRequest) {
+func (f AsyncSearchSubmit) WithWaitForCompletionTimeout(v time.Duration) func(*AsyncSearchSubmitRequest) {
 	return func(r *AsyncSearchSubmitRequest) {
-		r.WaitForCompletion = v
+		r.WaitForCompletionTimeout = v
 	}
 }
 

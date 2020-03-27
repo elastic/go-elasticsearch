@@ -1,4 +1,4 @@
-// Code generated from specification version 7.7.0 (ba09a778dcf): DO NOT EDIT
+// Code generated from specification version 7.7.0 (16692e103ff): DO NOT EDIT
 
 package esapi
 
@@ -135,6 +135,7 @@ type Cat struct {
 	Tasks                CatTasks
 	Templates            CatTemplates
 	ThreadPool           CatThreadPool
+	Transform            CatTransform
 }
 
 // Cluster contains the Cluster APIs
@@ -550,6 +551,7 @@ func New(t Transport) *API {
 			Tasks:                newCatTasksFunc(t),
 			Templates:            newCatTemplatesFunc(t),
 			ThreadPool:           newCatThreadPoolFunc(t),
+			Transform:            newCatTransformFunc(t),
 		},
 		Cluster: &Cluster{
 			AllocationExplain:       newClusterAllocationExplainFunc(t),
