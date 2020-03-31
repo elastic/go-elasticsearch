@@ -61,6 +61,10 @@ update/60_refresh.yml:
 update/61_refresh_with_types.yml:
   - When refresh url parameter is an empty string that means "refresh immediately"
 
+# catch: bad_request, Expected [status] to not be nil
+indices.data_stream/10_basic.yml:
+  - Create data stream with invalid name
+
 # Stash in value
 cluster.reroute/11_explain.yml:
 nodes.info/30_settings.yml:
@@ -75,6 +79,7 @@ indices.shrink/10_basic.yml:
 indices.shrink/20_source_mapping.yml:
 indices.shrink/30_copy_settings.yml:
 indices.split/30_copy_settings.yml:
+nodes.info/10_basic.yml:
 
 # Parsed response is YAML: value is map[interface {}]interface {}, not map[string]interface {}
 cat.aliases/20_headers.yml:
@@ -83,6 +88,10 @@ cat.aliases/20_headers.yml:
 # Incorrect int instead of float in match (aggregations.date_range.buckets.0.from: 1000000); TODO: PR
 search.aggregation/40_range.yml:
   - Date range
+
+# Mismatch in number parsing, 8623000 != 8.623e+06
+search.aggregation/340_geo_distance.yml:
+  - avg_bucket
 
 # No support for headers per request yet
 tasks.list/10_basic.yml:
