@@ -73,6 +73,7 @@ indices.shrink/10_basic.yml:
 indices.shrink/20_source_mapping.yml:
 indices.shrink/30_copy_settings.yml:
 indices.split/30_copy_settings.yml:
+nodes.info/10_basic.yml:
 
 # Parsed response is YAML: value is map[interface {}]interface {}, not map[string]interface {}
 cat.aliases/20_headers.yml:
