@@ -9,6 +9,7 @@ The official Go client for [Elasticsearch](https://www.elastic.co/products/elast
 [![Unit](https://github.com/elastic/go-elasticsearch/workflows/Unit/badge.svg)](https://github.com/elastic/go-elasticsearch/actions?query=branch%3Amaster)
 [![Integration](https://github.com/elastic/go-elasticsearch/workflows/Integration/badge.svg)](https://github.com/elastic/go-elasticsearch/actions?query=branch%3Amaster)
 [![API](https://github.com/elastic/go-elasticsearch/workflows/API/badge.svg)](https://github.com/elastic/go-elasticsearch/actions?query=branch%3Amaster)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Felastic%2Fgo-elasticsearch.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Felastic%2Fgo-elasticsearch?ref=badge_shield)
 
 ## Compatibility
 
@@ -367,3 +368,6 @@ The **[`_examples`](./_examples)** folder contains a number of recipes and compr
 ## License
 
 (c) 2019 Elasticsearch. Licensed under the Apache License, Version 2.0.
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Felastic%2Fgo-elasticsearch.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Felastic%2Fgo-elasticsearch?ref=badge_large)
