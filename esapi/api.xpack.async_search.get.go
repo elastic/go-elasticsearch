@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.7.0: DO NOT EDIT
+// Code generated from specification version 7.8.0: DO NOT EDIT
 
 package esapi
 
@@ -37,9 +37,9 @@ type AsyncSearchGet func(id string, o ...func(*AsyncSearchGetRequest)) (*Respons
 type AsyncSearchGetRequest struct {
 	DocumentID string
 
-	KeepAlive         time.Duration
-	TypedKeys         *bool
-	WaitForCompletion time.Duration
+	KeepAlive                time.Duration
+	TypedKeys                *bool
+	WaitForCompletionTimeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -78,8 +78,8 @@ func (r AsyncSearchGetRequest) Do(ctx context.Context, transport Transport) (*Re
 		params["typed_keys"] = strconv.FormatBool(*r.TypedKeys)
 	}
 
-	if r.WaitForCompletion != 0 {
-		params["wait_for_completion"] = formatDuration(r.WaitForCompletion)
+	if r.WaitForCompletionTimeout != 0 {
+		params["wait_for_completion_timeout"] = formatDuration(r.WaitForCompletionTimeout)
 	}
 
 	if r.Pretty {
@@ -165,11 +165,11 @@ func (f AsyncSearchGet) WithTypedKeys(v bool) func(*AsyncSearchGetRequest) {
 	}
 }
 
-// WithWaitForCompletion - specify the time that the request should block waiting for the final response.
+// WithWaitForCompletionTimeout - specify the time that the request should block waiting for the final response.
 //
-func (f AsyncSearchGet) WithWaitForCompletion(v time.Duration) func(*AsyncSearchGetRequest) {
+func (f AsyncSearchGet) WithWaitForCompletionTimeout(v time.Duration) func(*AsyncSearchGetRequest) {
 	return func(r *AsyncSearchGetRequest) {
-		r.WaitForCompletion = v
+		r.WaitForCompletionTimeout = v
 	}
 }
 
