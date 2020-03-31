@@ -1,4 +1,4 @@
-// Code generated from specification version 8.0.0 (856721c574d): DO NOT EDIT
+// Code generated from specification version 8.0.0 (b7af8524228): DO NOT EDIT
 
 package esapi
 
@@ -136,6 +136,7 @@ type Cat struct {
 	Tasks                CatTasks
 	Templates            CatTemplates
 	ThreadPool           CatThreadPool
+	Transform            CatTransform
 }
 
 // Cluster contains the Cluster APIs
@@ -164,6 +165,7 @@ type Indices struct {
 	Create                IndicesCreate
 	DeleteAlias           IndicesDeleteAlias
 	DeleteDataStream      IndicesDeleteDataStream
+	DeleteIndexTemplate   IndicesDeleteIndexTemplate
 	Delete                IndicesDelete
 	DeleteTemplate        IndicesDeleteTemplate
 	ExistsAlias           IndicesExistsAlias
@@ -177,6 +179,7 @@ type Indices struct {
 	GetAlias              IndicesGetAlias
 	GetDataStreams        IndicesGetDataStreams
 	GetFieldMapping       IndicesGetFieldMapping
+	GetIndexTemplate      IndicesGetIndexTemplate
 	GetMapping            IndicesGetMapping
 	Get                   IndicesGet
 	GetSettings           IndicesGetSettings
@@ -184,6 +187,7 @@ type Indices struct {
 	GetUpgrade            IndicesGetUpgrade
 	Open                  IndicesOpen
 	PutAlias              IndicesPutAlias
+	PutIndexTemplate      IndicesPutIndexTemplate
 	PutMapping            IndicesPutMapping
 	PutSettings           IndicesPutSettings
 	PutTemplate           IndicesPutTemplate
@@ -552,6 +556,7 @@ func New(t Transport) *API {
 			Tasks:                newCatTasksFunc(t),
 			Templates:            newCatTemplatesFunc(t),
 			ThreadPool:           newCatThreadPoolFunc(t),
+			Transform:            newCatTransformFunc(t),
 		},
 		Cluster: &Cluster{
 			AllocationExplain:       newClusterAllocationExplainFunc(t),
@@ -576,6 +581,7 @@ func New(t Transport) *API {
 			Create:                newIndicesCreateFunc(t),
 			DeleteAlias:           newIndicesDeleteAliasFunc(t),
 			DeleteDataStream:      newIndicesDeleteDataStreamFunc(t),
+			DeleteIndexTemplate:   newIndicesDeleteIndexTemplateFunc(t),
 			Delete:                newIndicesDeleteFunc(t),
 			DeleteTemplate:        newIndicesDeleteTemplateFunc(t),
 			ExistsAlias:           newIndicesExistsAliasFunc(t),
@@ -589,6 +595,7 @@ func New(t Transport) *API {
 			GetAlias:              newIndicesGetAliasFunc(t),
 			GetDataStreams:        newIndicesGetDataStreamsFunc(t),
 			GetFieldMapping:       newIndicesGetFieldMappingFunc(t),
+			GetIndexTemplate:      newIndicesGetIndexTemplateFunc(t),
 			GetMapping:            newIndicesGetMappingFunc(t),
 			Get:                   newIndicesGetFunc(t),
 			GetSettings:           newIndicesGetSettingsFunc(t),
@@ -596,6 +603,7 @@ func New(t Transport) *API {
 			GetUpgrade:            newIndicesGetUpgradeFunc(t),
 			Open:                  newIndicesOpenFunc(t),
 			PutAlias:              newIndicesPutAliasFunc(t),
+			PutIndexTemplate:      newIndicesPutIndexTemplateFunc(t),
 			PutMapping:            newIndicesPutMappingFunc(t),
 			PutSettings:           newIndicesPutSettingsFunc(t),
 			PutTemplate:           newIndicesPutTemplateFunc(t),
