@@ -81,6 +81,7 @@ type Config struct {
 // Stats represents statistics about a single run.
 //
 type Stats struct {
+	Start              time.Time
 	Duration           time.Duration
 	Outcome            string
 	ResponseStatusCode int
@@ -100,10 +101,7 @@ func (e *Error) Error() string { return e.err }
 // Run executes the benchmark runs.
 //
 func (r *Runner) Run() error {
-	var (
-		errs  []error
-		start time.Time
-	)
+	var errs []error
 
 	if _, err := r.config.SetupFunc(r.config); err != nil {
 		return err
@@ -119,14 +117,13 @@ func (r *Runner) Run() error {
 
 	for n := 1; n <= r.config.NumRepetitions; n++ {
 		for i := 1; i <= r.config.NumIterations; i++ {
-			stat := Stats{}
-			start = time.Now().UTC()
+			stat := Stats{Start: time.Now().UTC()}
 			res, err := r.config.RunnerFunc(r.config)
 			if err != nil {
 				errs = append(errs, err)
 				stat.Outcome = "failure"
 			} else {
-				stat.Duration = time.Since(start)
+				stat.Duration = time.Since(stat.Start)
 				stat.ResponseStatusCode = res.StatusCode
 				if res.IsError() {
 					errs = append(errs, fmt.Errorf("HTTP error: %s", res.String()))
@@ -162,7 +159,7 @@ func (r *Runner) SaveStats() error {
 
 	for _, s := range r.stats {
 		record := record{
-			Timestamp: time.Now().UTC(),
+			Timestamp: s.Start,
 			Tags:      []string{"go-elasticsearch"},
 			Labels: map[string]string{
 				"client": "go-elasticsearch",
