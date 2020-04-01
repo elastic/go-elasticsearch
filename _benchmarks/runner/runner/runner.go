@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/elastic/go-elasticsearch/v8/esapi"
 	"github.com/elastic/go-elasticsearch/v8/esutil"
 )
 
@@ -58,8 +59,8 @@ type Config struct {
 	NumRepetitions int
 	NumIterations  int
 
-	SetupFunc    func(Config) error
-	RunnerFunc   func(Config) error
+	SetupFunc    func(Config) (*esapi.Response, error)
+	RunnerFunc   func(Config) (*esapi.Response, error)
 	RunnerClient *elasticsearch.Client
 
 	StatsClient *elasticsearch.Client
@@ -68,8 +69,9 @@ type Config struct {
 // Stats represents statistics about a single run.
 //
 type Stats struct {
-	Iterations int           `json:"iterations"`
-	Duration   time.Duration `json:"duration"`
+	Duration           time.Duration
+	Outcome            string
+	ResponseStatusCode int
 }
 
 // Error describes an error occurring in during run.
@@ -87,38 +89,41 @@ func (e *Error) Error() string { return e.err }
 //
 func (r *Runner) Run() error {
 	var (
-		errs     []error
-		start    time.Time
-		duration time.Duration
-		stats    Stats
+		errs  []error
+		start time.Time
 	)
 
-	if err := r.config.SetupFunc(r.config); err != nil {
+	if _, err := r.config.SetupFunc(r.config); err != nil {
 		return err
 	}
 
 	for n := 1; n <= r.config.NumWarmups; n++ {
 		for i := 1; i <= r.config.NumIterations; i++ {
-			if err := r.config.RunnerFunc(r.config); err != nil {
+			if _, err := r.config.RunnerFunc(r.config); err != nil {
 				errs = append(errs, err)
 			}
 		}
 	}
 
 	for n := 1; n <= r.config.NumRepetitions; n++ {
-		start = time.Now().UTC()
 		for i := 1; i <= r.config.NumIterations; i++ {
-			if err := r.config.RunnerFunc(r.config); err != nil {
+			stat := Stats{}
+			start = time.Now().UTC()
+			res, err := r.config.RunnerFunc(r.config)
+			if err != nil {
 				errs = append(errs, err)
+				stat.Outcome = "failure"
+			} else {
+				stat.Duration = time.Since(start)
+				stat.ResponseStatusCode = res.StatusCode
+				if res.IsError() {
+					stat.Outcome = "failure"
+				} else {
+					stat.Outcome = "success"
+				}
+				r.stats = append(r.stats, stat)
 			}
 		}
-		duration = time.Since(start)
-
-		stats = Stats{
-			Duration:   duration,
-			Iterations: r.config.NumIterations,
-		}
-		r.stats = append(r.stats, stats)
 	}
 
 	r.SaveStats()
@@ -143,11 +148,23 @@ func (r *Runner) SaveStats() error {
 	for _, s := range r.stats {
 		record := record{
 			Timestamp: time.Now().UTC(),
-			Labels:    map[string]string{"client": "go-elasticsearch"},
 			Tags:      []string{"go-elasticsearch"},
+			Labels: map[string]string{
+				"client": "go-elasticsearch",
+			},
 			Event: recordEvent{
 				Action:   r.config.Action,
-				Duration: s.Duration.Nanoseconds() / int64(s.Iterations),
+				Duration: s.Duration.Nanoseconds(),
+			},
+			Benchmark: recordBenchmark{
+				Warmups:     r.config.NumWarmups,
+				Repetitions: r.config.NumRepetitions,
+				Iterations:  r.config.NumIterations,
+			},
+			HTTP: recordHTTP{
+				Response: recordHTTPResponse{
+					StatusCode: s.ResponseStatusCode,
+				},
 			},
 		}
 		payload := esutil.NewJSONReader(record)
@@ -167,19 +184,41 @@ func (r *Runner) SaveStats() error {
 	return nil
 }
 
-// record represents statistics about a single run.
+// record represents statistics about a single iteration.
 //
 type record struct {
 	Timestamp time.Time         `json:"@timestamp"`
 	Labels    map[string]string `json:"labels,omitempty"`
 	Tags      []string          `json:"tags,omitempty"`
 
-	Event recordEvent `json:"event"`
+	Event     recordEvent     `json:"event"`
+	Benchmark recordBenchmark `json:"benchmark,omitempty"`
+	HTTP      recordHTTP      `json:"http,omitempty"`
 }
 
-// recordEvent represents the event information for a single run.
+// recordEvent represents the event information for a single iteration.
 //
 type recordEvent struct {
 	Action   string `json:"action,omitempty"`
 	Duration int64  `json:"duration,omitempty"`
+}
+
+// recordBenchmark represents the benchmark information for a single iteration.
+//
+type recordBenchmark struct {
+	Warmups     int `json:"warmups,omitempty"`
+	Repetitions int `json:"repetitions,omitempty"`
+	Iterations  int `json:"iterations,omitempty"`
+}
+
+// recordHTTP represents the HTTP information for a single iteration.
+//
+type recordHTTP struct {
+	Response recordHTTPResponse `json:"response,omitempty"`
+}
+
+// recordHTTPResponse represents the HTTP response information for a single iteration.
+//
+type recordHTTPResponse struct {
+	StatusCode int `json:"status_code,omitempty"`
 }

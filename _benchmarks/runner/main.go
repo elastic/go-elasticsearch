@@ -8,6 +8,7 @@ import (
 	"log"
 
 	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/elastic/go-elasticsearch/v8/esapi"
 
 	"github.com/elastic/go-elasticsearch/v8/_benchmarks/runner"
 )
@@ -23,21 +24,21 @@ func main() {
 		StatsClient:  statsClient,
 
 		NumWarmups:     1,
-		NumRepetitions: 5,
-		NumIterations:  10,
+		NumRepetitions: 10,
+		NumIterations:  1000,
 	}
 
 	runnerConfig.Action = "info"
 
-	runnerConfig.SetupFunc = func(c runner.Config) error {
-		res, _ := c.RunnerClient.Info()
+	runnerConfig.SetupFunc = func(c runner.Config) (*esapi.Response, error) {
+		res, err := c.RunnerClient.Info()
 		res.Body.Close()
-		return nil
+		return res, err
 	}
-	runnerConfig.RunnerFunc = func(c runner.Config) error {
-		res, _ := c.RunnerClient.Info()
+	runnerConfig.RunnerFunc = func(c runner.Config) (*esapi.Response, error) {
+		res, err := c.RunnerClient.Info()
 		res.Body.Close()
-		return nil
+		return res, err
 	}
 
 	runner, err := runner.NewRunner(runnerConfig)
@@ -49,5 +50,5 @@ func main() {
 		log.Fatalf("ERROR: %s", err)
 	}
 
-	log.Printf("[%s] %+v\n", runnerConfig.Action, runner.Stats())
+	// log.Printf("[%s] %+v\n", runnerConfig.Action, runner.Stats())
 }
