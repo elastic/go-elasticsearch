@@ -6,9 +6,11 @@ package main
 
 import (
 	"log"
+	"os"
 
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
+	"github.com/elastic/go-elasticsearch/v8/estransport"
 
 	"github.com/elastic/go-elasticsearch/v8/_benchmarks/runner"
 )
@@ -16,8 +18,17 @@ import (
 func main() {
 	log.SetFlags(0)
 
-	runnerClient, _ := elasticsearch.NewDefaultClient()
-	statsClient, _ := elasticsearch.NewDefaultClient()
+	runnerClient, _ := elasticsearch.NewClient(
+		elasticsearch.Config{
+			DisableRetry: true,
+		},
+	)
+
+	statsClient, _ := elasticsearch.NewClient(
+		elasticsearch.Config{
+			Logger: &estransport.ColorLogger{Output: os.Stdout},
+		},
+	)
 
 	runnerConfig := runner.Config{
 		RunnerClient: runnerClient,
@@ -25,14 +36,16 @@ func main() {
 
 		NumWarmups:     1,
 		NumRepetitions: 10,
-		NumIterations:  1000,
+		NumIterations:  100,
 	}
 
 	runnerConfig.Action = "info"
 
 	runnerConfig.SetupFunc = func(c runner.Config) (*esapi.Response, error) {
 		res, err := c.RunnerClient.Info()
-		res.Body.Close()
+		if err == nil && res != nil {
+			res.Body.Close()
+		}
 		return res, err
 	}
 	runnerConfig.RunnerFunc = func(c runner.Config) (*esapi.Response, error) {

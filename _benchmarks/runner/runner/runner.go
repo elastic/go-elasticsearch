@@ -5,6 +5,7 @@
 package runner
 
 import (
+	"context"
 	"fmt"
 	"time"
 
@@ -40,14 +41,25 @@ func NewRunner(cfg Config) (*Runner, error) {
 		return nil, fmt.Errorf("missing cfg.Action")
 	}
 
-	return &Runner{config: cfg}, nil
+	indexer, _ := esutil.NewBulkIndexer(
+		esutil.BulkIndexerConfig{
+			Client:        cfg.StatsClient,
+			Index:         statsIndex,
+			FlushInterval: 10 * time.Second},
+	)
+
+	return &Runner{
+		config:  cfg,
+		indexer: indexer,
+	}, nil
 }
 
 // Runner represents the benchmarking runner.
 //
 type Runner struct {
-	config Config
-	stats  []Stats
+	config  Config
+	stats   []Stats
+	indexer esutil.BulkIndexer
 }
 
 // Config represents configuration for Runner.
@@ -117,6 +129,7 @@ func (r *Runner) Run() error {
 				stat.Duration = time.Since(start)
 				stat.ResponseStatusCode = res.StatusCode
 				if res.IsError() {
+					errs = append(errs, fmt.Errorf("HTTP error: %s", res.String()))
 					stat.Outcome = "failure"
 				} else {
 					stat.Outcome = "success"
@@ -126,7 +139,9 @@ func (r *Runner) Run() error {
 		}
 	}
 
-	r.SaveStats()
+	if err := r.SaveStats(); err != nil {
+		return err
+	}
 
 	if len(errs) > 0 {
 		return &Error{err: fmt.Sprintf("encountered %d errors during the run", len(errs)), errs: errs}
@@ -167,17 +182,32 @@ func (r *Runner) SaveStats() error {
 				},
 			},
 		}
-		payload := esutil.NewJSONReader(record)
-		res, err := r.config.StatsClient.Index(statsIndex, payload)
-		if err != nil {
-			errs = append(errs, err)
-		} else {
-			if res.IsError() {
-				errs = append(errs, fmt.Errorf("error: %s", res.String()))
-			}
-			res.Body.Close()
+		if err := r.indexer.Add(
+			context.Background(),
+			esutil.BulkIndexerItem{
+				Action: "index",
+				Body:   esutil.NewJSONReader(record),
+				OnFailure: func(
+					ctx context.Context,
+					item esutil.BulkIndexerItem,
+					res esutil.BulkIndexerResponseItem, err error,
+				) {
+					if err != nil {
+						errs = append(errs, err)
+					} else {
+						errs = append(errs, fmt.Errorf("HTTP error: %s: %s", res.Error.Type, res.Error.Reason))
+					}
+				},
+			},
+		); err != nil {
+			return err
 		}
 	}
+
+	if err := r.indexer.Close(context.Background()); err != nil {
+		return err
+	}
+
 	if len(errs) > 0 {
 		return fmt.Errorf("%d errors when saving stats: %s", len(errs), errs)
 	}
