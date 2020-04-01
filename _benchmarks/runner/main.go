@@ -18,15 +18,27 @@ import (
 func main() {
 	log.SetFlags(0)
 
+	targetURL := os.Getenv("ELASTICSEARCH_TARGET_URL")
+	if targetURL == "" {
+		log.Fatal("ERROR: Required environment variable [ELASTICSEARCH_TARGET_URL] empty")
+	}
+
+	reportURL := os.Getenv("ELASTICSEARCH_REPORT_URL")
+	if targetURL == "" {
+		log.Fatal("ERROR: Required environment variable [ELASTICSEARCH_REPORT_URL] empty")
+	}
+
 	runnerClient, _ := elasticsearch.NewClient(
 		elasticsearch.Config{
+			Addresses:    []string{targetURL},
 			DisableRetry: true,
 		},
 	)
 
 	statsClient, _ := elasticsearch.NewClient(
 		elasticsearch.Config{
-			Logger: &estransport.ColorLogger{Output: os.Stdout},
+			Addresses: []string{reportURL},
+			Logger:    &estransport.ColorLogger{Output: os.Stdout},
 		},
 	)
 
