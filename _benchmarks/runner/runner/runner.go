@@ -15,7 +15,7 @@ import (
 )
 
 var (
-	statsIndex = "metrics"
+	statsIndex = "metrics-intake-" + time.Now().Format("2006-01")
 )
 
 // NewRunner returns new benchmarking runner.
@@ -45,7 +45,8 @@ func NewRunner(cfg Config) (*Runner, error) {
 		esutil.BulkIndexerConfig{
 			Client:        cfg.StatsClient,
 			Index:         statsIndex,
-			FlushInterval: 10 * time.Second},
+			FlushBytes:    2e+6,
+			FlushInterval: 15 * time.Second},
 	)
 
 	return &Runner{

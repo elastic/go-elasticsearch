@@ -37,8 +37,9 @@ func main() {
 
 	statsClient, _ := elasticsearch.NewClient(
 		elasticsearch.Config{
-			Addresses: []string{reportURL},
-			Logger:    &estransport.ColorLogger{Output: os.Stdout},
+			Addresses:  []string{reportURL},
+			MaxRetries: 10,
+			Logger:     &estransport.ColorLogger{Output: os.Stdout},
 		},
 	)
 
@@ -46,34 +47,68 @@ func main() {
 		RunnerClient: runnerClient,
 		StatsClient:  statsClient,
 
-		NumWarmups:     1,
-		NumRepetitions: 10,
-		NumIterations:  100,
+		NumWarmups:     0,
+		NumRepetitions: 5,
+		NumIterations:  1000,
 	}
 
-	runnerConfig.Action = "info"
+	// -- Ping
+	{
 
-	runnerConfig.SetupFunc = func(c runner.Config) (*esapi.Response, error) {
-		res, err := c.RunnerClient.Info()
-		if err == nil && res != nil {
-			res.Body.Close()
+		runnerConfig.Action = "ping"
+
+		runnerConfig.SetupFunc = func(c runner.Config) (*esapi.Response, error) {
+			res, err := c.RunnerClient.Ping()
+			if err == nil && res != nil {
+				res.Body.Close()
+			}
+			return res, err
 		}
-		return res, err
-	}
-	runnerConfig.RunnerFunc = func(c runner.Config) (*esapi.Response, error) {
-		res, err := c.RunnerClient.Info()
-		res.Body.Close()
-		return res, err
+		runnerConfig.RunnerFunc = func(c runner.Config) (*esapi.Response, error) {
+			res, err := c.RunnerClient.Ping()
+			if err == nil && res != nil {
+				res.Body.Close()
+			}
+			return res, err
+		}
+
+		runner, err := runner.NewRunner(runnerConfig)
+		if err != nil {
+			log.Fatalf("ERROR: %s", err)
+		}
+
+		if err := runner.Run(); err != nil {
+			log.Fatalf("ERROR: %s", err)
+		}
+
 	}
 
-	runner, err := runner.NewRunner(runnerConfig)
-	if err != nil {
-		log.Fatalf("ERROR: %s", err)
-	}
+	// -- Info
+	{
+		runnerConfig.Action = "info"
 
-	if err := runner.Run(); err != nil {
-		log.Fatalf("ERROR: %s", err)
-	}
+		runnerConfig.SetupFunc = func(c runner.Config) (*esapi.Response, error) {
+			res, err := c.RunnerClient.Info()
+			if err == nil && res != nil {
+				res.Body.Close()
+			}
+			return res, err
+		}
+		runnerConfig.RunnerFunc = func(c runner.Config) (*esapi.Response, error) {
+			res, err := c.RunnerClient.Info()
+			if err == nil && res != nil {
+				res.Body.Close()
+			}
+			return res, err
+		}
 
-	// log.Printf("[%s] %+v\n", runnerConfig.Action, runner.Stats())
+		runner, err := runner.NewRunner(runnerConfig)
+		if err != nil {
+			log.Fatalf("ERROR: %s", err)
+		}
+
+		if err := runner.Run(); err != nil {
+			log.Fatalf("ERROR: %s", err)
+		}
+	}
 }
