@@ -36,7 +36,7 @@ func main() {
 
 	start := time.Now().UTC()
 
-	log.Printf(boldUnderline("Running benchmarks for go-elasticsearch@%s"), elasticsearch.Version)
+	log.Printf(boldUnderline("Running benchmarks for go-elasticsearch@%s; %s/go%s"), elasticsearch.Version, runner.OSFamily, runner.RuntimeVersion)
 
 	targetURL := os.Getenv("ELASTICSEARCH_TARGET_URL")
 	if targetURL == "" {

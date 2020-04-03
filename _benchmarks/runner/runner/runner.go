@@ -7,6 +7,8 @@ package runner
 import (
 	"context"
 	"fmt"
+	"regexp"
+	"runtime"
 	"time"
 
 	"github.com/elastic/go-elasticsearch/v8"
@@ -16,8 +18,23 @@ import (
 
 var (
 	statsIndex = "metrics-intake-" + time.Now().Format("2006-01")
-	errs       []error
+
+	reGoVersion = regexp.MustCompile(`go(\d+\.\d+\.?.?)`)
+	errs        []error
+
+	OSFamily       string
+	RuntimeVersion string
 )
+
+func init() {
+	OSFamily = runtime.GOOS
+
+	if v := reGoVersion.ReplaceAllString(runtime.Version(), "$1"); v != "" {
+		RuntimeVersion = v
+	} else {
+		RuntimeVersion = runtime.Version()
+	}
+}
 
 // NewRunner returns new benchmarking runner.
 //
@@ -186,6 +203,9 @@ func (r *Runner) SaveStats() error {
 					StatusCode: s.ResponseStatusCode,
 				},
 			},
+			OS:      recordOS{Family: OSFamily},
+			Git:     recordGit{Branch: "master"},
+			Runtime: recordRuntime{Name: "go", Version: RuntimeVersion},
 		}
 		if err := r.indexer.Add(
 			context.Background(),
@@ -229,6 +249,9 @@ type record struct {
 	Event     recordEvent     `json:"event"`
 	Benchmark recordBenchmark `json:"benchmark,omitempty"`
 	HTTP      recordHTTP      `json:"http,omitempty"`
+	OS        recordOS        `json:"os,omitempty"`
+	Runtime   recordRuntime   `json:"runtime,omitempty"`
+	Git       recordGit       `json:"git,omitempty"`
 }
 
 // recordEvent represents the event information for a single iteration.
@@ -255,4 +278,23 @@ type recordHTTP struct {
 //
 type recordHTTPResponse struct {
 	StatusCode int `json:"status_code,omitempty"`
+}
+
+// recordOS represents the information about the operating system.
+//
+type recordOS struct {
+	Family string `json:"family,omitempty"`
+}
+
+// recordRuntime represents the information about the runtime.
+//
+type recordRuntime struct {
+	Name    string `json:"name,omitempty"`
+	Version string `json:"version,omitempty"`
+}
+
+// recordGit represents the information about the Git repository.
+//
+type recordGit struct {
+	Branch string `json:"branch,omitempty"`
 }
