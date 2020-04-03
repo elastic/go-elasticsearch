@@ -5,8 +5,13 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
+	"time"
+
+	"github.com/fatih/color"
+	"github.com/montanaflynn/stats"
 
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
@@ -15,8 +20,23 @@ import (
 	"github.com/elastic/go-elasticsearch/v8/_benchmarks/runner"
 )
 
+var (
+	red           = color.New(color.FgRed).SprintFunc()
+	green         = color.New(color.FgGreen).SprintFunc()
+	faint         = color.New(color.Faint).SprintFunc()
+	bold          = color.New(color.Bold).SprintFunc()
+	underline     = color.New(color.Underline).SprintFunc()
+	boldUnderline = color.New(color.Bold).Add(color.Underline).SprintFunc()
+
+	defaultRepetitions = 1000
+)
+
 func main() {
 	log.SetFlags(0)
+
+	start := time.Now().UTC()
+
+	log.Printf(boldUnderline("Running benchmarks for go-elasticsearch@%s"), elasticsearch.Version)
 
 	targetURL := os.Getenv("ELASTICSEARCH_TARGET_URL")
 	if targetURL == "" {
@@ -35,80 +55,112 @@ func main() {
 		},
 	)
 
-	statsClient, _ := elasticsearch.NewClient(
-		elasticsearch.Config{
-			Addresses:  []string{reportURL},
-			MaxRetries: 10,
-			Logger:     &estransport.ColorLogger{Output: os.Stdout},
-		},
-	)
+	statsClientConfig := elasticsearch.Config{
+		Addresses:            []string{reportURL},
+		MaxRetries:           10,
+		EnableRetryOnTimeout: true,
+	}
+	if os.Getenv("DEBUG") != "" {
+		statsClientConfig.Logger = &estransport.ColorLogger{Output: os.Stdout}
+	}
+
+	statsClient, _ := elasticsearch.NewClient(statsClientConfig)
 
 	runnerConfig := runner.Config{
 		RunnerClient: runnerClient,
 		StatsClient:  statsClient,
-
-		NumWarmups:     0,
-		NumRepetitions: 5,
-		NumIterations:  1000,
 	}
 
-	// -- Ping
-	{
+	operations := []struct {
+		Action         string
+		NumWarmups     int
+		NumRepetitions int
+		SetupFunc      runner.RunnerFunc
+		RunnerFunc     runner.RunnerFunc
+	}{
+		{
+			Action:         "ping",
+			NumWarmups:     0,
+			NumRepetitions: defaultRepetitions,
+			RunnerFunc: func(c runner.Config) (*esapi.Response, error) {
+				res, err := c.RunnerClient.Ping()
+				if err == nil && res != nil {
+					res.Body.Close()
+				}
+				return res, err
+			},
+		},
 
-		runnerConfig.Action = "ping"
+		{
+			Action:         "info",
+			NumWarmups:     0,
+			NumRepetitions: defaultRepetitions,
+			RunnerFunc: func(c runner.Config) (*esapi.Response, error) {
+				res, err := c.RunnerClient.Info()
+				if err == nil && res != nil {
+					res.Body.Close()
+				}
+				return res, err
+			},
+		},
+	}
 
-		runnerConfig.SetupFunc = func(c runner.Config) (*esapi.Response, error) {
-			res, err := c.RunnerClient.Ping()
-			if err == nil && res != nil {
-				res.Body.Close()
-			}
-			return res, err
-		}
-		runnerConfig.RunnerFunc = func(c runner.Config) (*esapi.Response, error) {
-			res, err := c.RunnerClient.Ping()
-			if err == nil && res != nil {
-				res.Body.Close()
-			}
-			return res, err
-		}
+	for _, operation := range operations {
+		runnerConfig.Action = operation.Action
+		runnerConfig.NumRepetitions = operation.NumRepetitions
+		runnerConfig.SetupFunc = operation.SetupFunc
+		runnerConfig.RunnerFunc = operation.RunnerFunc
 
 		runner, err := runner.NewRunner(runnerConfig)
 		if err != nil {
 			log.Fatalf("ERROR: %s", err)
 		}
 
-		if err := runner.Run(); err != nil {
-			log.Fatalf("ERROR: %s", err)
-		}
+		err = runner.Run()
 
+		var (
+			w = log.Writer()
+
+			samples []float64
+			mean    time.Duration
+		)
+
+		for _, s := range runner.Stats() {
+			samples = append(samples, float64(s.Duration))
+		}
+		mean = func() time.Duration { v, _ := stats.Mean(samples); return time.Duration(v).Truncate(time.Millisecond) }()
+
+		fmt.Fprintf(w, "  [%s]", operation.Action)
+		fmt.Fprintf(w, " %d×", operation.NumRepetitions)
+		fmt.Fprintf(w, " "+faint("mean=")+"%s", mean)
+		fmt.Fprintf(w, " "+faint("runner=")+"%s", func() string {
+			if len(runner.Stats()) < 1 {
+				return red("failure")
+			}
+			for _, s := range runner.Stats() {
+				if s.Outcome == "failure" {
+					return red("failure")
+				}
+			}
+			return green("success")
+		}())
+		fmt.Fprintf(w, " "+faint("report=")+"%s", func() string {
+			if err != nil || len(runner.Errs()) > 0 {
+				return red("failure")
+			}
+			return green("success")
+		}())
+		fmt.Fprintf(w, "\n")
+
+		if os.Getenv("DEBUG") != "" {
+			if err != nil {
+				log.Print("Error: ", err)
+			}
+			if len(runner.Errs()) > 0 {
+				log.Printf("Errors: %q", runner.Errs())
+			}
+		}
 	}
 
-	// -- Info
-	{
-		runnerConfig.Action = "info"
-
-		runnerConfig.SetupFunc = func(c runner.Config) (*esapi.Response, error) {
-			res, err := c.RunnerClient.Info()
-			if err == nil && res != nil {
-				res.Body.Close()
-			}
-			return res, err
-		}
-		runnerConfig.RunnerFunc = func(c runner.Config) (*esapi.Response, error) {
-			res, err := c.RunnerClient.Info()
-			if err == nil && res != nil {
-				res.Body.Close()
-			}
-			return res, err
-		}
-
-		runner, err := runner.NewRunner(runnerConfig)
-		if err != nil {
-			log.Fatalf("ERROR: %s", err)
-		}
-
-		if err := runner.Run(); err != nil {
-			log.Fatalf("ERROR: %s", err)
-		}
-	}
+	log.Printf(underline("Finished in %s"), time.Since(start).Truncate(time.Millisecond))
 }

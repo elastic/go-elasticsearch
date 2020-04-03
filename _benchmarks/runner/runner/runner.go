@@ -16,6 +16,7 @@ import (
 
 var (
 	statsIndex = "metrics-intake-" + time.Now().Format("2006-01")
+	errs       []error
 )
 
 // NewRunner returns new benchmarking runner.
@@ -27,10 +28,6 @@ func NewRunner(cfg Config) (*Runner, error) {
 
 	if cfg.StatsClient == nil {
 		return nil, fmt.Errorf("missing cfg.StatsClient")
-	}
-
-	if cfg.SetupFunc == nil {
-		return nil, fmt.Errorf("missing cfg.SetupFunc")
 	}
 
 	if cfg.RunnerFunc == nil {
@@ -46,7 +43,9 @@ func NewRunner(cfg Config) (*Runner, error) {
 			Client:        cfg.StatsClient,
 			Index:         statsIndex,
 			FlushBytes:    2e+6,
-			FlushInterval: 15 * time.Second},
+			FlushInterval: 15 * time.Second,
+			OnError:       func(ctx context.Context, err error) { errs = append(errs, err) },
+		},
 	)
 
 	return &Runner{
@@ -70,14 +69,17 @@ type Config struct {
 
 	NumWarmups     int
 	NumRepetitions int
-	NumIterations  int
 
-	SetupFunc    func(Config) (*esapi.Response, error)
-	RunnerFunc   func(Config) (*esapi.Response, error)
+	SetupFunc    RunnerFunc
+	RunnerFunc   RunnerFunc
 	RunnerClient *elasticsearch.Client
 
 	StatsClient *elasticsearch.Client
 }
+
+// RunnerFunc represents the runner operation.
+//
+type RunnerFunc func(Config) (*esapi.Response, error)
 
 // Stats represents statistics about a single run.
 //
@@ -104,36 +106,36 @@ func (e *Error) Error() string { return e.err }
 func (r *Runner) Run() error {
 	var errs []error
 
-	if _, err := r.config.SetupFunc(r.config); err != nil {
-		return err
+	r.stats = r.stats[:]
+
+	if r.config.SetupFunc != nil {
+		if _, err := r.config.SetupFunc(r.config); err != nil {
+			return err
+		}
 	}
 
 	for n := 1; n <= r.config.NumWarmups; n++ {
-		for i := 1; i <= r.config.NumIterations; i++ {
-			if _, err := r.config.RunnerFunc(r.config); err != nil {
-				errs = append(errs, err)
-			}
+		if _, err := r.config.RunnerFunc(r.config); err != nil {
+			errs = append(errs, err)
 		}
 	}
 
 	for n := 1; n <= r.config.NumRepetitions; n++ {
-		for i := 1; i <= r.config.NumIterations; i++ {
-			stat := Stats{Start: time.Now().UTC()}
-			res, err := r.config.RunnerFunc(r.config)
-			if err != nil {
-				errs = append(errs, err)
+		stat := Stats{Start: time.Now().UTC()}
+		res, err := r.config.RunnerFunc(r.config)
+		if err != nil {
+			errs = append(errs, err)
+			stat.Outcome = "failure"
+		} else {
+			stat.Duration = time.Since(stat.Start)
+			stat.ResponseStatusCode = res.StatusCode
+			if res.IsError() {
+				errs = append(errs, fmt.Errorf("HTTP error: %s", res.String()))
 				stat.Outcome = "failure"
 			} else {
-				stat.Duration = time.Since(stat.Start)
-				stat.ResponseStatusCode = res.StatusCode
-				if res.IsError() {
-					errs = append(errs, fmt.Errorf("HTTP error: %s", res.String()))
-					stat.Outcome = "failure"
-				} else {
-					stat.Outcome = "success"
-				}
-				r.stats = append(r.stats, stat)
+				stat.Outcome = "success"
 			}
+			r.stats = append(r.stats, stat)
 		}
 	}
 
@@ -151,6 +153,12 @@ func (r *Runner) Run() error {
 //
 func (r *Runner) Stats() []Stats {
 	return r.stats
+}
+
+// Errs returns the runner errors.
+//
+func (r *Runner) Errs() []error {
+	return errs
 }
 
 // SaveStats stores runner statistics in Elasticsearch.
@@ -172,7 +180,6 @@ func (r *Runner) SaveStats() error {
 			Benchmark: recordBenchmark{
 				Warmups:     r.config.NumWarmups,
 				Repetitions: r.config.NumRepetitions,
-				Iterations:  r.config.NumIterations,
 			},
 			HTTP: recordHTTP{
 				Response: recordHTTPResponse{
@@ -236,7 +243,6 @@ type recordEvent struct {
 type recordBenchmark struct {
 	Warmups     int `json:"warmups,omitempty"`
 	Repetitions int `json:"repetitions,omitempty"`
-	Iterations  int `json:"iterations,omitempty"`
 }
 
 // recordHTTP represents the HTTP information for a single iteration.
