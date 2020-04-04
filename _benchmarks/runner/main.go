@@ -5,13 +5,16 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"log"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/fatih/color"
 	"github.com/montanaflynn/stats"
+	"github.com/tidwall/gjson"
 
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
@@ -82,6 +85,7 @@ func main() {
 		SetupFunc      runner.RunnerFunc
 		RunnerFunc     runner.RunnerFunc
 	}{
+		// ----- Ping() -------------------------------------------------------------------------------
 		{
 			Action:         "ping",
 			NumWarmups:     0,
@@ -95,6 +99,7 @@ func main() {
 			},
 		},
 
+		// ----- Info() -------------------------------------------------------------------------------
 		{
 			Action:         "info",
 			NumWarmups:     0,
@@ -103,6 +108,53 @@ func main() {
 				res, err := c.RunnerClient.Info()
 				if err == nil && res != nil {
 					res.Body.Close()
+				}
+				return res, err
+			},
+		},
+
+		// ----- Get() --------------------------------------------------------------------------------
+		{
+			Action:         "get",
+			NumWarmups:     100,
+			NumRepetitions: defaultRepetitions,
+			SetupFunc: func(c runner.Config) (*esapi.Response, error) {
+				var (
+					res *esapi.Response
+					err error
+
+					indexName = "test-bench-get"
+				)
+				res, _ = c.RunnerClient.Indices.Delete([]string{indexName})
+				if res != nil && res.Body != nil {
+					res.Body.Close()
+				}
+				res, err = c.RunnerClient.Index(indexName, strings.NewReader(`{"title":"Test"}`), c.RunnerClient.Index.WithDocumentID("1"))
+				if err != nil {
+					return res, err
+				}
+				res.Body.Close()
+				res, err = c.RunnerClient.Indices.Refresh(c.RunnerClient.Indices.Refresh.WithIndex(indexName))
+				if err != nil {
+					return res, err
+				}
+				res.Body.Close()
+				return res, err
+			},
+			RunnerFunc: func(c runner.Config) (*esapi.Response, error) {
+				var indexName = "test-bench-get"
+				res, err := c.RunnerClient.Get(indexName, "1")
+				if err != nil {
+					return res, err
+				}
+				defer res.Body.Close()
+				var b bytes.Buffer
+				if _, err := b.ReadFrom(res.Body); err != nil {
+					return nil, err
+				}
+				output := gjson.GetBytes(b.Bytes(), "_source.title")
+				if output.Str != "Test" {
+					return nil, fmt.Errorf("Unexpected output: %s", b.String())
 				}
 				return res, err
 			},
@@ -140,8 +192,8 @@ func main() {
 		}
 		mean = func() time.Duration { v, _ := stats.Mean(samples); return time.Duration(v).Truncate(time.Millisecond) }()
 
-		fmt.Fprintf(w, "  [%s]", operation.Action)
-		fmt.Fprintf(w, " %d×", operation.NumRepetitions)
+		fmt.Fprintf(w, "  %-15s", fmt.Sprintf("[%s]", operation.Action))
+		fmt.Fprintf(w, " %-9s", fmt.Sprintf("%d×", operation.NumRepetitions))
 		fmt.Fprintf(w, " "+faint("mean=")+"%s", mean)
 		fmt.Fprintf(w, " "+faint("runner=")+"%s", func() string {
 			if len(run.Stats()) < 1 {
