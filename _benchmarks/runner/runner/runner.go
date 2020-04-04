@@ -44,8 +44,8 @@ func NewRunner(cfg Config) (*Runner, error) {
 		return nil, fmt.Errorf("missing cfg.RunnerClient")
 	}
 
-	if cfg.StatsClient == nil {
-		return nil, fmt.Errorf("missing cfg.StatsClient")
+	if cfg.ReportClient == nil {
+		return nil, fmt.Errorf("missing cfg.ReportClient")
 	}
 
 	if cfg.RunnerFunc == nil {
@@ -58,7 +58,7 @@ func NewRunner(cfg Config) (*Runner, error) {
 
 	indexer, _ := esutil.NewBulkIndexer(
 		esutil.BulkIndexerConfig{
-			Client:        cfg.StatsClient,
+			Client:        cfg.ReportClient,
 			Index:         statsIndex,
 			FlushBytes:    2e+6,
 			FlushInterval: 15 * time.Second,
@@ -92,12 +92,12 @@ type Config struct {
 	RunnerFunc   RunnerFunc
 	RunnerClient *elasticsearch.Client
 
-	StatsClient *elasticsearch.Client
+	ReportClient *elasticsearch.Client
 }
 
 // RunnerFunc represents the runner operation.
 //
-type RunnerFunc func(Config) (*esapi.Response, error)
+type RunnerFunc func(int, Config) (*esapi.Response, error)
 
 // Stats represents statistics about a single run.
 //
@@ -137,20 +137,20 @@ func (r *Runner) Run() error {
 	r.stats = r.stats[:]
 
 	if r.config.SetupFunc != nil {
-		if _, err := r.config.SetupFunc(r.config); err != nil {
+		if _, err := r.config.SetupFunc(0, r.config); err != nil {
 			return err
 		}
 	}
 
 	for n := 1; n <= r.config.NumWarmups; n++ {
-		if _, err := r.config.RunnerFunc(r.config); err != nil {
+		if _, err := r.config.RunnerFunc(n, r.config); err != nil {
 			errs = append(errs, err)
 		}
 	}
 
 	for n := 1; n <= r.config.NumRepetitions; n++ {
 		stat := Stats{Start: time.Now().UTC()}
-		res, err := r.config.RunnerFunc(r.config)
+		res, err := r.config.RunnerFunc(n, r.config)
 		if err != nil {
 			errs = append(errs, err)
 			stat.Outcome = "failure"

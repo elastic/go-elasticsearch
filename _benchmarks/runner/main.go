@@ -8,7 +8,9 @@ import (
 	"bytes"
 	"fmt"
 	"log"
+	"math/rand"
 	"os"
+	"path/filepath"
 	"strings"
 	"time"
 
@@ -39,6 +41,8 @@ var (
 func main() {
 	log.SetFlags(0)
 
+	rand.Seed(time.Now().UnixNano())
+
 	start := time.Now().UTC()
 
 	log.Printf(boldUnderline("Running benchmarks for go-elasticsearch@%s; %s/go%s"), elasticsearch.Version, runner.OSFamily, runner.RuntimeVersion)
@@ -53,29 +57,37 @@ func main() {
 		log.Fatal("ERROR: Required environment variable [ELASTICSEARCH_REPORT_URL] empty")
 	}
 
+	dataSource := os.Getenv("DATA_SOURCE")
+	if dataSource == "" {
+		log.Fatal("ERROR: Required environment variable [DATA_SOURCE] empty")
+	}
+	if _, err := os.Stat(dataSource); os.IsNotExist(err) {
+		log.Fatalf("ERROR: Data source at [%s] does not exist", dataSource)
+	}
+
 	filterOperations = os.Getenv("FILTER")
 
-	runnerClient, _ := elasticsearch.NewClient(
-		elasticsearch.Config{
-			Addresses:    []string{targetURL},
-			DisableRetry: true,
-		},
-	)
+	runnerClientConfig := elasticsearch.Config{
+		Addresses:    []string{targetURL},
+		DisableRetry: true,
+	}
 
-	statsClientConfig := elasticsearch.Config{
+	reportClientConfig := elasticsearch.Config{
 		Addresses:            []string{reportURL},
 		MaxRetries:           10,
 		EnableRetryOnTimeout: true,
 	}
 	if os.Getenv("DEBUG") != "" {
-		statsClientConfig.Logger = &estransport.ColorLogger{Output: os.Stdout}
+		runnerClientConfig.Logger = &estransport.ColorLogger{Output: os.Stdout}
+		reportClientConfig.Logger = &estransport.ColorLogger{Output: os.Stdout}
 	}
 
-	statsClient, _ := elasticsearch.NewClient(statsClientConfig)
+	runnerClient, _ := elasticsearch.NewClient(runnerClientConfig)
+	reportClient, _ := elasticsearch.NewClient(reportClientConfig)
 
 	runnerConfig := runner.Config{
 		RunnerClient: runnerClient,
-		StatsClient:  statsClient,
+		ReportClient: reportClient,
 	}
 
 	operations := []struct {
@@ -90,7 +102,7 @@ func main() {
 			Action:         "ping",
 			NumWarmups:     0,
 			NumRepetitions: defaultRepetitions,
-			RunnerFunc: func(c runner.Config) (*esapi.Response, error) {
+			RunnerFunc: func(n int, c runner.Config) (*esapi.Response, error) {
 				res, err := c.RunnerClient.Ping()
 				if err == nil && res != nil {
 					res.Body.Close()
@@ -104,7 +116,7 @@ func main() {
 			Action:         "info",
 			NumWarmups:     0,
 			NumRepetitions: defaultRepetitions,
-			RunnerFunc: func(c runner.Config) (*esapi.Response, error) {
+			RunnerFunc: func(n int, c runner.Config) (*esapi.Response, error) {
 				res, err := c.RunnerClient.Info()
 				if err == nil && res != nil {
 					res.Body.Close()
@@ -118,7 +130,7 @@ func main() {
 			Action:         "get",
 			NumWarmups:     100,
 			NumRepetitions: defaultRepetitions,
-			SetupFunc: func(c runner.Config) (*esapi.Response, error) {
+			SetupFunc: func(n int, c runner.Config) (*esapi.Response, error) {
 				var (
 					res *esapi.Response
 					err error
@@ -141,7 +153,7 @@ func main() {
 				res.Body.Close()
 				return res, err
 			},
-			RunnerFunc: func(c runner.Config) (*esapi.Response, error) {
+			RunnerFunc: func(n int, c runner.Config) (*esapi.Response, error) {
 				var indexName = "test-bench-get"
 				res, err := c.RunnerClient.Get(indexName, "1")
 				if err != nil {
@@ -154,6 +166,60 @@ func main() {
 				}
 				output := gjson.GetBytes(b.Bytes(), "_source.title")
 				if output.Str != "Test" {
+					return nil, fmt.Errorf("Unexpected output: %s", b.String())
+				}
+				return res, err
+			},
+		},
+
+		// ----- Index() --------------------------------------------------------------------------------
+		{
+			Action:         "index",
+			NumWarmups:     100,
+			NumRepetitions: defaultRepetitions,
+			SetupFunc: func(n int, c runner.Config) (*esapi.Response, error) {
+				var (
+					res *esapi.Response
+					err error
+
+					indexName = "test-bench-index"
+				)
+				res, _ = c.RunnerClient.Indices.Delete([]string{indexName})
+				if res != nil && res.Body != nil {
+					res.Body.Close()
+				}
+				res, err = c.RunnerClient.Indices.Create(indexName)
+				if err != nil {
+					return res, err
+				}
+				res.Body.Close()
+				return res, err
+			},
+			RunnerFunc: func(n int, c runner.Config) (*esapi.Response, error) {
+				var (
+					res *esapi.Response
+					err error
+
+					indexName = "test-bench-index"
+				)
+
+				docID := fmt.Sprintf("%04d-%04d", n, rand.Intn(defaultRepetitions))
+				docBody, err := os.Open(filepath.Join(dataSource, "small", "document.json"))
+				if err != nil {
+					return nil, err
+				}
+				res, err = c.RunnerClient.Index(indexName, docBody, c.RunnerClient.Index.WithDocumentID(docID))
+				if err != nil {
+					return res, err
+				}
+				defer res.Body.Close()
+
+				var b bytes.Buffer
+				if _, err := b.ReadFrom(res.Body); err != nil {
+					return nil, err
+				}
+				output := gjson.GetBytes(b.Bytes(), "result")
+				if output.Str != "created" {
 					return nil, fmt.Errorf("Unexpected output: %s", b.String())
 				}
 				return res, err
@@ -217,7 +283,7 @@ func main() {
 		if err != nil {
 			if err, ok := err.(*runner.Error); ok {
 				if os.Getenv("DEBUG") != "" {
-					log.Print("Error: ", err, err.Errs())
+					log.Print("Error: ", err, ": ", err.Errs())
 				} else {
 					log.Print("Error: ", err)
 				}
