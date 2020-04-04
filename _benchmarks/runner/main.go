@@ -29,6 +29,8 @@ var (
 	boldUnderline = color.New(color.Bold).Add(color.Underline).SprintFunc()
 
 	defaultRepetitions = 1000
+
+	filterOperations string
 )
 
 func main() {
@@ -47,6 +49,8 @@ func main() {
 	if targetURL == "" {
 		log.Fatal("ERROR: Required environment variable [ELASTICSEARCH_REPORT_URL] empty")
 	}
+
+	filterOperations = os.Getenv("FILTER")
 
 	runnerClient, _ := elasticsearch.NewClient(
 		elasticsearch.Config{
@@ -106,6 +110,12 @@ func main() {
 	}
 
 	for _, operation := range operations {
+		if filterOperations != "" {
+			if !strings.Contains(filterOperations, operation.Action) {
+				continue
+			}
+		}
+
 		runnerConfig.Action = operation.Action
 		runnerConfig.NumRepetitions = operation.NumRepetitions
 		runnerConfig.SetupFunc = operation.SetupFunc
