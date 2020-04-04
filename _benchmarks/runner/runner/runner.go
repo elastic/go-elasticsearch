@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"regexp"
 	"runtime"
+	"strings"
 	"time"
 
 	"github.com/elastic/go-elasticsearch/v8"
@@ -117,6 +118,16 @@ type Error struct {
 // Error returns string message for error.
 //
 func (e *Error) Error() string { return e.err }
+
+// Errs returns the underlying errors.
+//
+func (e *Error) Errs() string {
+	var errStrings []string
+	for _, e := range e.errs {
+		errStrings = append(errStrings, e.Error())
+	}
+	return strings.Join(errStrings, ";")
+}
 
 // Run executes the benchmark runs.
 //

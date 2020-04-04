@@ -121,12 +121,12 @@ func main() {
 		runnerConfig.SetupFunc = operation.SetupFunc
 		runnerConfig.RunnerFunc = operation.RunnerFunc
 
-		runner, err := runner.NewRunner(runnerConfig)
+		run, err := runner.NewRunner(runnerConfig)
 		if err != nil {
 			log.Fatalf("ERROR: %s", err)
 		}
 
-		err = runner.Run()
+		err = run.Run()
 
 		var (
 			w = log.Writer()
@@ -135,7 +135,7 @@ func main() {
 			mean    time.Duration
 		)
 
-		for _, s := range runner.Stats() {
+		for _, s := range run.Stats() {
 			samples = append(samples, float64(s.Duration))
 		}
 		mean = func() time.Duration { v, _ := stats.Mean(samples); return time.Duration(v).Truncate(time.Millisecond) }()
@@ -144,10 +144,10 @@ func main() {
 		fmt.Fprintf(w, " %d×", operation.NumRepetitions)
 		fmt.Fprintf(w, " "+faint("mean=")+"%s", mean)
 		fmt.Fprintf(w, " "+faint("runner=")+"%s", func() string {
-			if len(runner.Stats()) < 1 {
+			if len(run.Stats()) < 1 {
 				return red("failure")
 			}
-			for _, s := range runner.Stats() {
+			for _, s := range run.Stats() {
 				if s.Outcome == "failure" {
 					return red("failure")
 				}
@@ -155,20 +155,27 @@ func main() {
 			return green("success")
 		}())
 		fmt.Fprintf(w, " "+faint("report=")+"%s", func() string {
-			if err != nil || len(runner.Errs()) > 0 {
+			if err != nil || len(run.Errs()) > 0 {
 				return red("failure")
 			}
 			return green("success")
 		}())
 		fmt.Fprintf(w, "\n")
 
-		if os.Getenv("DEBUG") != "" {
-			if err != nil {
+		if err != nil {
+			if err, ok := err.(*runner.Error); ok {
+				if os.Getenv("DEBUG") != "" {
+					log.Print("Error: ", err, err.Errs())
+				} else {
+					log.Print("Error: ", err)
+				}
+			} else {
 				log.Print("Error: ", err)
 			}
-			if len(runner.Errs()) > 0 {
-				log.Printf("Errors: %q", runner.Errs())
-			}
+		}
+
+		if len(run.Errs()) > 0 {
+			log.Printf("Errors: %q", run.Errs())
 		}
 	}
 
