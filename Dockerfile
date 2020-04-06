@@ -16,7 +16,9 @@ ENV CGO_ENABLED=0
 ENV TERM xterm-256color
 
 WORKDIR /go-elasticsearch
+
+# TODO(karmi): Copy dependencies first to make use of Docker layer caching
 COPY . .
 
-RUN go mod download && go mod vendor && \
-    cd internal/cmd/generate && go mod download && go mod vendor
+RUN cd internal/cmd/generate && go mod download && go mod vendor
+RUN cd _benchmarks/runner && go mod download && go mod vendor
