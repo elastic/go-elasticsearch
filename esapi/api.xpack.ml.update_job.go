@@ -25,7 +25,7 @@ func newMLUpdateJobFunc(t Transport) MLUpdateJob {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLUpdateJob -
+// MLUpdateJob - Updates certain properties of an anomaly detection job.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-update-job.html.
 //

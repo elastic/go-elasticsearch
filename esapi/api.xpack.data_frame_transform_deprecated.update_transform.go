@@ -26,7 +26,7 @@ func newDataFrameTransformDeprecatedUpdateTransformFunc(t Transport) DataFrameTr
 
 // ----- API Definition -------------------------------------------------------
 
-// DataFrameTransformDeprecatedUpdateTransform -
+// DataFrameTransformDeprecatedUpdateTransform - Updates certain properties of a transform.
 //
 // This API is beta.
 //

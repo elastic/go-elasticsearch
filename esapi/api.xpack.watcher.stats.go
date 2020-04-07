@@ -25,7 +25,7 @@ func newWatcherStatsFunc(t Transport) WatcherStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// WatcherStats -
+// WatcherStats - Retrieves the current Watcher metrics.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-stats.html.
 //

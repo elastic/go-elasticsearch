@@ -27,7 +27,7 @@ func newMLGetModelSnapshotsFunc(t Transport) MLGetModelSnapshots {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetModelSnapshots -
+// MLGetModelSnapshots - Retrieves information about model snapshots.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-snapshot.html.
 //

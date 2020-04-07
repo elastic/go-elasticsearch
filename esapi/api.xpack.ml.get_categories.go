@@ -26,7 +26,7 @@ func newMLGetCategoriesFunc(t Transport) MLGetCategories {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetCategories -
+// MLGetCategories - Retrieves anomaly detection job results for one or more categories.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-category.html.
 //

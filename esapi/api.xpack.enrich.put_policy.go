@@ -25,7 +25,7 @@ func newEnrichPutPolicyFunc(t Transport) EnrichPutPolicy {
 
 // ----- API Definition -------------------------------------------------------
 
-// EnrichPutPolicy -
+// EnrichPutPolicy - Creates a new enrich policy.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/put-enrich-policy-api.html.
 //

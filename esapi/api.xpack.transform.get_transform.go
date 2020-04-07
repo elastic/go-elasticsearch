@@ -25,7 +25,7 @@ func newTransformGetTransformFunc(t Transport) TransformGetTransform {
 
 // ----- API Definition -------------------------------------------------------
 
-// TransformGetTransform -
+// TransformGetTransform - Retrieves configuration information for transforms.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-transform.html.
 //

@@ -26,7 +26,7 @@ func newMLStopDatafeedFunc(t Transport) MLStopDatafeed {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLStopDatafeed -
+// MLStopDatafeed - Stops one or more datafeeds.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-stop-datafeed.html.
 //

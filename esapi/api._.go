@@ -1,4 +1,4 @@
-// Code generated from specification version 7.8.0 (6e025c12f08): DO NOT EDIT
+// Code generated from specification version 7.8.0 (f0ed21f5b6a): DO NOT EDIT
 
 package esapi
 
@@ -27,18 +27,14 @@ type API struct {
 	Watcher     *Watcher
 	XPack       *XPack
 
+	AutoscalingDeleteAutoscalingPolicy            AutoscalingDeleteAutoscalingPolicy
 	AutoscalingGetAutoscalingDecision             AutoscalingGetAutoscalingDecision
+	AutoscalingGetAutoscalingPolicy               AutoscalingGetAutoscalingPolicy
+	AutoscalingPutAutoscalingPolicy               AutoscalingPutAutoscalingPolicy
 	Bulk                                          Bulk
 	ClearScroll                                   ClearScroll
 	Count                                         Count
 	Create                                        Create
-	DataFrameDeleteDataFrameTransform             DataFrameDeleteDataFrameTransform
-	DataFrameGetDataFrameTransform                DataFrameGetDataFrameTransform
-	DataFrameGetDataFrameTransformStats           DataFrameGetDataFrameTransformStats
-	DataFramePreviewDataFrameTransform            DataFramePreviewDataFrameTransform
-	DataFramePutDataFrameTransform                DataFramePutDataFrameTransform
-	DataFrameStartDataFrameTransform              DataFrameStartDataFrameTransform
-	DataFrameStopDataFrameTransform               DataFrameStopDataFrameTransform
 	DataFrameTransformDeprecatedDeleteTransform   DataFrameTransformDeprecatedDeleteTransform
 	DataFrameTransformDeprecatedGetTransform      DataFrameTransformDeprecatedGetTransform
 	DataFrameTransformDeprecatedGetTransformStats DataFrameTransformDeprecatedGetTransformStats
@@ -47,7 +43,6 @@ type API struct {
 	DataFrameTransformDeprecatedStartTransform    DataFrameTransformDeprecatedStartTransform
 	DataFrameTransformDeprecatedStopTransform     DataFrameTransformDeprecatedStopTransform
 	DataFrameTransformDeprecatedUpdateTransform   DataFrameTransformDeprecatedUpdateTransform
-	DataFrameUpdateDataFrameTransform             DataFrameUpdateDataFrameTransform
 	DeleteByQuery                                 DeleteByQuery
 	DeleteByQueryRethrottle                       DeleteByQueryRethrottle
 	Delete                                        Delete
@@ -95,7 +90,6 @@ type API struct {
 	SlmStart                                      SlmStart
 	SlmStop                                       SlmStop
 	Termvectors                                   Termvectors
-	TransformCatTransform                         TransformCatTransform
 	TransformDeleteTransform                      TransformDeleteTransform
 	TransformGetTransform                         TransformGetTransform
 	TransformGetTransformStats                    TransformGetTransformStats
@@ -135,13 +129,14 @@ type Cat struct {
 	Tasks                CatTasks
 	Templates            CatTemplates
 	ThreadPool           CatThreadPool
-	Transform            CatTransform
+	Transforms           CatTransforms
 }
 
 // Cluster contains the Cluster APIs
 type Cluster struct {
 	AllocationExplain       ClusterAllocationExplain
 	DeleteComponentTemplate ClusterDeleteComponentTemplate
+	ExistsComponentTemplate ClusterExistsComponentTemplate
 	GetComponentTemplate    ClusterGetComponentTemplate
 	GetSettings             ClusterGetSettings
 	Health                  ClusterHealth
@@ -316,7 +311,6 @@ type ML struct {
 	DeleteJob                  MLDeleteJob
 	DeleteModelSnapshot        MLDeleteModelSnapshot
 	DeleteTrainedModel         MLDeleteTrainedModel
-	EstimateMemoryUsage        MLEstimateMemoryUsage
 	EstimateModelMemory        MLEstimateModelMemory
 	EvaluateDataFrame          MLEvaluateDataFrame
 	ExplainDataFrameAnalytics  MLExplainDataFrameAnalytics
@@ -449,18 +443,14 @@ type XPack struct {
 //
 func New(t Transport) *API {
 	return &API{
-		AutoscalingGetAutoscalingDecision:             newAutoscalingGetAutoscalingDecisionFunc(t),
-		Bulk:                                          newBulkFunc(t),
-		ClearScroll:                                   newClearScrollFunc(t),
-		Count:                                         newCountFunc(t),
-		Create:                                        newCreateFunc(t),
-		DataFrameDeleteDataFrameTransform:             newDataFrameDeleteDataFrameTransformFunc(t),
-		DataFrameGetDataFrameTransform:                newDataFrameGetDataFrameTransformFunc(t),
-		DataFrameGetDataFrameTransformStats:           newDataFrameGetDataFrameTransformStatsFunc(t),
-		DataFramePreviewDataFrameTransform:            newDataFramePreviewDataFrameTransformFunc(t),
-		DataFramePutDataFrameTransform:                newDataFramePutDataFrameTransformFunc(t),
-		DataFrameStartDataFrameTransform:              newDataFrameStartDataFrameTransformFunc(t),
-		DataFrameStopDataFrameTransform:               newDataFrameStopDataFrameTransformFunc(t),
+		AutoscalingDeleteAutoscalingPolicy: newAutoscalingDeleteAutoscalingPolicyFunc(t),
+		AutoscalingGetAutoscalingDecision:  newAutoscalingGetAutoscalingDecisionFunc(t),
+		AutoscalingGetAutoscalingPolicy:    newAutoscalingGetAutoscalingPolicyFunc(t),
+		AutoscalingPutAutoscalingPolicy:    newAutoscalingPutAutoscalingPolicyFunc(t),
+		Bulk:                               newBulkFunc(t),
+		ClearScroll:                        newClearScrollFunc(t),
+		Count:                              newCountFunc(t),
+		Create:                             newCreateFunc(t),
 		DataFrameTransformDeprecatedDeleteTransform:   newDataFrameTransformDeprecatedDeleteTransformFunc(t),
 		DataFrameTransformDeprecatedGetTransform:      newDataFrameTransformDeprecatedGetTransformFunc(t),
 		DataFrameTransformDeprecatedGetTransformStats: newDataFrameTransformDeprecatedGetTransformStatsFunc(t),
@@ -469,66 +459,64 @@ func New(t Transport) *API {
 		DataFrameTransformDeprecatedStartTransform:    newDataFrameTransformDeprecatedStartTransformFunc(t),
 		DataFrameTransformDeprecatedStopTransform:     newDataFrameTransformDeprecatedStopTransformFunc(t),
 		DataFrameTransformDeprecatedUpdateTransform:   newDataFrameTransformDeprecatedUpdateTransformFunc(t),
-		DataFrameUpdateDataFrameTransform:             newDataFrameUpdateDataFrameTransformFunc(t),
-		DeleteByQuery:                                 newDeleteByQueryFunc(t),
-		DeleteByQueryRethrottle:                       newDeleteByQueryRethrottleFunc(t),
-		Delete:                                        newDeleteFunc(t),
-		DeleteScript:                                  newDeleteScriptFunc(t),
-		EnrichDeletePolicy:                            newEnrichDeletePolicyFunc(t),
-		EnrichExecutePolicy:                           newEnrichExecutePolicyFunc(t),
-		EnrichGetPolicy:                               newEnrichGetPolicyFunc(t),
-		EnrichPutPolicy:                               newEnrichPutPolicyFunc(t),
-		EnrichStats:                                   newEnrichStatsFunc(t),
-		EqlSearch:                                     newEqlSearchFunc(t),
-		Exists:                                        newExistsFunc(t),
-		ExistsSource:                                  newExistsSourceFunc(t),
-		Explain:                                       newExplainFunc(t),
-		FieldCaps:                                     newFieldCapsFunc(t),
-		Get:                                           newGetFunc(t),
-		GetScriptContext:                              newGetScriptContextFunc(t),
-		GetScriptLanguages:                            newGetScriptLanguagesFunc(t),
-		GetScript:                                     newGetScriptFunc(t),
-		GetSource:                                     newGetSourceFunc(t),
-		GraphExplore:                                  newGraphExploreFunc(t),
-		Index:                                         newIndexFunc(t),
-		Info:                                          newInfoFunc(t),
-		Mget:                                          newMgetFunc(t),
-		Msearch:                                       newMsearchFunc(t),
-		MsearchTemplate:                               newMsearchTemplateFunc(t),
-		Mtermvectors:                                  newMtermvectorsFunc(t),
-		Ping:                                          newPingFunc(t),
-		PutScript:                                     newPutScriptFunc(t),
-		RankEval:                                      newRankEvalFunc(t),
-		Reindex:                                       newReindexFunc(t),
-		ReindexRethrottle:                             newReindexRethrottleFunc(t),
-		RenderSearchTemplate:                          newRenderSearchTemplateFunc(t),
-		ScriptsPainlessExecute:                        newScriptsPainlessExecuteFunc(t),
-		Scroll:                                        newScrollFunc(t),
-		Search:                                        newSearchFunc(t),
-		SearchShards:                                  newSearchShardsFunc(t),
-		SearchTemplate:                                newSearchTemplateFunc(t),
-		SlmDeleteLifecycle:                            newSlmDeleteLifecycleFunc(t),
-		SlmExecuteLifecycle:                           newSlmExecuteLifecycleFunc(t),
-		SlmExecuteRetention:                           newSlmExecuteRetentionFunc(t),
-		SlmGetLifecycle:                               newSlmGetLifecycleFunc(t),
-		SlmGetStats:                                   newSlmGetStatsFunc(t),
-		SlmGetStatus:                                  newSlmGetStatusFunc(t),
-		SlmPutLifecycle:                               newSlmPutLifecycleFunc(t),
-		SlmStart:                                      newSlmStartFunc(t),
-		SlmStop:                                       newSlmStopFunc(t),
-		Termvectors:                                   newTermvectorsFunc(t),
-		TransformCatTransform:                         newTransformCatTransformFunc(t),
-		TransformDeleteTransform:                      newTransformDeleteTransformFunc(t),
-		TransformGetTransform:                         newTransformGetTransformFunc(t),
-		TransformGetTransformStats:                    newTransformGetTransformStatsFunc(t),
-		TransformPreviewTransform:                     newTransformPreviewTransformFunc(t),
-		TransformPutTransform:                         newTransformPutTransformFunc(t),
-		TransformStartTransform:                       newTransformStartTransformFunc(t),
-		TransformStopTransform:                        newTransformStopTransformFunc(t),
-		TransformUpdateTransform:                      newTransformUpdateTransformFunc(t),
-		UpdateByQuery:                                 newUpdateByQueryFunc(t),
-		UpdateByQueryRethrottle:                       newUpdateByQueryRethrottleFunc(t),
-		Update:                                        newUpdateFunc(t),
+		DeleteByQuery:              newDeleteByQueryFunc(t),
+		DeleteByQueryRethrottle:    newDeleteByQueryRethrottleFunc(t),
+		Delete:                     newDeleteFunc(t),
+		DeleteScript:               newDeleteScriptFunc(t),
+		EnrichDeletePolicy:         newEnrichDeletePolicyFunc(t),
+		EnrichExecutePolicy:        newEnrichExecutePolicyFunc(t),
+		EnrichGetPolicy:            newEnrichGetPolicyFunc(t),
+		EnrichPutPolicy:            newEnrichPutPolicyFunc(t),
+		EnrichStats:                newEnrichStatsFunc(t),
+		EqlSearch:                  newEqlSearchFunc(t),
+		Exists:                     newExistsFunc(t),
+		ExistsSource:               newExistsSourceFunc(t),
+		Explain:                    newExplainFunc(t),
+		FieldCaps:                  newFieldCapsFunc(t),
+		Get:                        newGetFunc(t),
+		GetScriptContext:           newGetScriptContextFunc(t),
+		GetScriptLanguages:         newGetScriptLanguagesFunc(t),
+		GetScript:                  newGetScriptFunc(t),
+		GetSource:                  newGetSourceFunc(t),
+		GraphExplore:               newGraphExploreFunc(t),
+		Index:                      newIndexFunc(t),
+		Info:                       newInfoFunc(t),
+		Mget:                       newMgetFunc(t),
+		Msearch:                    newMsearchFunc(t),
+		MsearchTemplate:            newMsearchTemplateFunc(t),
+		Mtermvectors:               newMtermvectorsFunc(t),
+		Ping:                       newPingFunc(t),
+		PutScript:                  newPutScriptFunc(t),
+		RankEval:                   newRankEvalFunc(t),
+		Reindex:                    newReindexFunc(t),
+		ReindexRethrottle:          newReindexRethrottleFunc(t),
+		RenderSearchTemplate:       newRenderSearchTemplateFunc(t),
+		ScriptsPainlessExecute:     newScriptsPainlessExecuteFunc(t),
+		Scroll:                     newScrollFunc(t),
+		Search:                     newSearchFunc(t),
+		SearchShards:               newSearchShardsFunc(t),
+		SearchTemplate:             newSearchTemplateFunc(t),
+		SlmDeleteLifecycle:         newSlmDeleteLifecycleFunc(t),
+		SlmExecuteLifecycle:        newSlmExecuteLifecycleFunc(t),
+		SlmExecuteRetention:        newSlmExecuteRetentionFunc(t),
+		SlmGetLifecycle:            newSlmGetLifecycleFunc(t),
+		SlmGetStats:                newSlmGetStatsFunc(t),
+		SlmGetStatus:               newSlmGetStatusFunc(t),
+		SlmPutLifecycle:            newSlmPutLifecycleFunc(t),
+		SlmStart:                   newSlmStartFunc(t),
+		SlmStop:                    newSlmStopFunc(t),
+		Termvectors:                newTermvectorsFunc(t),
+		TransformDeleteTransform:   newTransformDeleteTransformFunc(t),
+		TransformGetTransform:      newTransformGetTransformFunc(t),
+		TransformGetTransformStats: newTransformGetTransformStatsFunc(t),
+		TransformPreviewTransform:  newTransformPreviewTransformFunc(t),
+		TransformPutTransform:      newTransformPutTransformFunc(t),
+		TransformStartTransform:    newTransformStartTransformFunc(t),
+		TransformStopTransform:     newTransformStopTransformFunc(t),
+		TransformUpdateTransform:   newTransformUpdateTransformFunc(t),
+		UpdateByQuery:              newUpdateByQueryFunc(t),
+		UpdateByQueryRethrottle:    newUpdateByQueryRethrottleFunc(t),
+		Update:                     newUpdateFunc(t),
 		Cat: &Cat{
 			Aliases:              newCatAliasesFunc(t),
 			Allocation:           newCatAllocationFunc(t),
@@ -554,11 +542,12 @@ func New(t Transport) *API {
 			Tasks:                newCatTasksFunc(t),
 			Templates:            newCatTemplatesFunc(t),
 			ThreadPool:           newCatThreadPoolFunc(t),
-			Transform:            newCatTransformFunc(t),
+			Transforms:           newCatTransformsFunc(t),
 		},
 		Cluster: &Cluster{
 			AllocationExplain:       newClusterAllocationExplainFunc(t),
 			DeleteComponentTemplate: newClusterDeleteComponentTemplateFunc(t),
+			ExistsComponentTemplate: newClusterExistsComponentTemplateFunc(t),
 			GetComponentTemplate:    newClusterGetComponentTemplateFunc(t),
 			GetSettings:             newClusterGetSettingsFunc(t),
 			Health:                  newClusterHealthFunc(t),
@@ -708,7 +697,6 @@ func New(t Transport) *API {
 			DeleteJob:                  newMLDeleteJobFunc(t),
 			DeleteModelSnapshot:        newMLDeleteModelSnapshotFunc(t),
 			DeleteTrainedModel:         newMLDeleteTrainedModelFunc(t),
-			EstimateMemoryUsage:        newMLEstimateMemoryUsageFunc(t),
 			EstimateModelMemory:        newMLEstimateModelMemoryFunc(t),
 			EvaluateDataFrame:          newMLEvaluateDataFrameFunc(t),
 			ExplainDataFrameAnalytics:  newMLExplainDataFrameAnalyticsFunc(t),

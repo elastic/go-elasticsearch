@@ -25,7 +25,7 @@ func newMLExplainDataFrameAnalyticsFunc(t Transport) MLExplainDataFrameAnalytics
 
 // ----- API Definition -------------------------------------------------------
 
-// MLExplainDataFrameAnalytics -
+// MLExplainDataFrameAnalytics - Explains a data frame analytics config.
 //
 // This API is experimental.
 //

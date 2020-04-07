@@ -24,7 +24,7 @@ func newMLOpenJobFunc(t Transport) MLOpenJob {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLOpenJob -
+// MLOpenJob - Opens one or more anomaly detection jobs.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-open-job.html.
 //

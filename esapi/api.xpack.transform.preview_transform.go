@@ -25,7 +25,7 @@ func newTransformPreviewTransformFunc(t Transport) TransformPreviewTransform {
 
 // ----- API Definition -------------------------------------------------------
 
-// TransformPreviewTransform -
+// TransformPreviewTransform - Previews a transform.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/preview-transform.html.
 //

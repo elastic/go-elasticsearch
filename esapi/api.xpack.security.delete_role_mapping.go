@@ -24,7 +24,7 @@ func newSecurityDeleteRoleMappingFunc(t Transport) SecurityDeleteRoleMapping {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityDeleteRoleMapping -
+// SecurityDeleteRoleMapping - Removes role mappings.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-delete-role-mapping.html.
 //

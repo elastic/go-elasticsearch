@@ -28,6 +28,8 @@ func newGetScriptContextFunc(t Transport) GetScriptContext {
 //
 // This API is experimental.
 //
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/painless/master/painless-contexts.html.
+//
 type GetScriptContext func(o ...func(*GetScriptContextRequest)) (*Response, error)
 
 // GetScriptContextRequest configures the Get Script Context API request.

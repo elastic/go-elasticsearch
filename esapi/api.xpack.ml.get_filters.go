@@ -25,7 +25,9 @@ func newMLGetFiltersFunc(t Transport) MLGetFilters {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetFilters -
+// MLGetFilters - Retrieves filters.
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-filter.html.
 //
 type MLGetFilters func(o ...func(*MLGetFiltersRequest)) (*Response, error)
 

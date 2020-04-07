@@ -25,7 +25,7 @@ func newMLPutJobFunc(t Transport) MLPutJob {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPutJob -
+// MLPutJob - Instantiates an anomaly detection job.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-put-job.html.
 //

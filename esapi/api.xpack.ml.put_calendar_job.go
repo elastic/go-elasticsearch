@@ -24,7 +24,9 @@ func newMLPutCalendarJobFunc(t Transport) MLPutCalendarJob {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPutCalendarJob -
+// MLPutCalendarJob - Adds an anomaly detection job to a calendar.
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-put-calendar-job.html.
 //
 type MLPutCalendarJob func(calendar_id string, job_id string, o ...func(*MLPutCalendarJobRequest)) (*Response, error)
 

@@ -25,7 +25,7 @@ func newEqlSearchFunc(t Transport) EqlSearch {
 
 // ----- API Definition -------------------------------------------------------
 
-// EqlSearch -
+// EqlSearch - Returns results matching a query expressed in Event Query Language (EQL)
 //
 // This API is beta.
 //

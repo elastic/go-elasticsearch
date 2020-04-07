@@ -24,9 +24,11 @@ func newRollupDeleteJobFunc(t Transport) RollupDeleteJob {
 
 // ----- API Definition -------------------------------------------------------
 
-// RollupDeleteJob -
+// RollupDeleteJob - Deletes an existing rollup job.
 //
 // This API is experimental.
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-delete-job.html.
 //
 type RollupDeleteJob func(id string, o ...func(*RollupDeleteJobRequest)) (*Response, error)
 

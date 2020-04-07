@@ -8,14 +8,13 @@ package esapi
 
 import (
 	"context"
-	"io"
 	"net/http"
 	"strings"
 )
 
-func newSecurityInvalidateAPIKeyFunc(t Transport) SecurityInvalidateAPIKey {
-	return func(body io.Reader, o ...func(*SecurityInvalidateAPIKeyRequest)) (*Response, error) {
-		var r = SecurityInvalidateAPIKeyRequest{Body: body}
+func newAutoscalingGetAutoscalingPolicyFunc(t Transport) AutoscalingGetAutoscalingPolicy {
+	return func(name string, o ...func(*AutoscalingGetAutoscalingPolicyRequest)) (*Response, error) {
+		var r = AutoscalingGetAutoscalingPolicyRequest{Name: name}
 		for _, f := range o {
 			f(&r)
 		}
@@ -25,16 +24,18 @@ func newSecurityInvalidateAPIKeyFunc(t Transport) SecurityInvalidateAPIKey {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityInvalidateAPIKey - Invalidates one or more API keys.
+// AutoscalingGetAutoscalingPolicy -
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-invalidate-api-key.html.
+// This API is experimental.
 //
-type SecurityInvalidateAPIKey func(body io.Reader, o ...func(*SecurityInvalidateAPIKeyRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-get-autoscaling-policy.html.
+//
+type AutoscalingGetAutoscalingPolicy func(name string, o ...func(*AutoscalingGetAutoscalingPolicyRequest)) (*Response, error)
 
-// SecurityInvalidateAPIKeyRequest configures the Security InvalidateAPI Key API request.
+// AutoscalingGetAutoscalingPolicyRequest configures the Autoscaling Get Autoscaling Policy API request.
 //
-type SecurityInvalidateAPIKeyRequest struct {
-	Body io.Reader
+type AutoscalingGetAutoscalingPolicyRequest struct {
+	Name string
 
 	Pretty     bool
 	Human      bool
@@ -48,17 +49,22 @@ type SecurityInvalidateAPIKeyRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r SecurityInvalidateAPIKeyRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r AutoscalingGetAutoscalingPolicyRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "DELETE"
+	method = "GET"
 
-	path.Grow(len("/_security/api_key"))
-	path.WriteString("/_security/api_key")
+	path.Grow(1 + len("_autoscaling") + 1 + len("policy") + 1 + len(r.Name))
+	path.WriteString("/")
+	path.WriteString("_autoscaling")
+	path.WriteString("/")
+	path.WriteString("policy")
+	path.WriteString("/")
+	path.WriteString(r.Name)
 
 	params = make(map[string]string)
 
@@ -78,7 +84,7 @@ func (r SecurityInvalidateAPIKeyRequest) Do(ctx context.Context, transport Trans
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -89,10 +95,6 @@ func (r SecurityInvalidateAPIKeyRequest) Do(ctx context.Context, transport Trans
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
-	}
-
-	if r.Body != nil {
-		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -127,48 +129,48 @@ func (r SecurityInvalidateAPIKeyRequest) Do(ctx context.Context, transport Trans
 
 // WithContext sets the request context.
 //
-func (f SecurityInvalidateAPIKey) WithContext(v context.Context) func(*SecurityInvalidateAPIKeyRequest) {
-	return func(r *SecurityInvalidateAPIKeyRequest) {
+func (f AutoscalingGetAutoscalingPolicy) WithContext(v context.Context) func(*AutoscalingGetAutoscalingPolicyRequest) {
+	return func(r *AutoscalingGetAutoscalingPolicyRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f SecurityInvalidateAPIKey) WithPretty() func(*SecurityInvalidateAPIKeyRequest) {
-	return func(r *SecurityInvalidateAPIKeyRequest) {
+func (f AutoscalingGetAutoscalingPolicy) WithPretty() func(*AutoscalingGetAutoscalingPolicyRequest) {
+	return func(r *AutoscalingGetAutoscalingPolicyRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f SecurityInvalidateAPIKey) WithHuman() func(*SecurityInvalidateAPIKeyRequest) {
-	return func(r *SecurityInvalidateAPIKeyRequest) {
+func (f AutoscalingGetAutoscalingPolicy) WithHuman() func(*AutoscalingGetAutoscalingPolicyRequest) {
+	return func(r *AutoscalingGetAutoscalingPolicyRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f SecurityInvalidateAPIKey) WithErrorTrace() func(*SecurityInvalidateAPIKeyRequest) {
-	return func(r *SecurityInvalidateAPIKeyRequest) {
+func (f AutoscalingGetAutoscalingPolicy) WithErrorTrace() func(*AutoscalingGetAutoscalingPolicyRequest) {
+	return func(r *AutoscalingGetAutoscalingPolicyRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f SecurityInvalidateAPIKey) WithFilterPath(v ...string) func(*SecurityInvalidateAPIKeyRequest) {
-	return func(r *SecurityInvalidateAPIKeyRequest) {
+func (f AutoscalingGetAutoscalingPolicy) WithFilterPath(v ...string) func(*AutoscalingGetAutoscalingPolicyRequest) {
+	return func(r *AutoscalingGetAutoscalingPolicyRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f SecurityInvalidateAPIKey) WithHeader(h map[string]string) func(*SecurityInvalidateAPIKeyRequest) {
-	return func(r *SecurityInvalidateAPIKeyRequest) {
+func (f AutoscalingGetAutoscalingPolicy) WithHeader(h map[string]string) func(*AutoscalingGetAutoscalingPolicyRequest) {
+	return func(r *AutoscalingGetAutoscalingPolicyRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -180,8 +182,8 @@ func (f SecurityInvalidateAPIKey) WithHeader(h map[string]string) func(*Security
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f SecurityInvalidateAPIKey) WithOpaqueID(s string) func(*SecurityInvalidateAPIKeyRequest) {
-	return func(r *SecurityInvalidateAPIKeyRequest) {
+func (f AutoscalingGetAutoscalingPolicy) WithOpaqueID(s string) func(*AutoscalingGetAutoscalingPolicyRequest) {
+	return func(r *AutoscalingGetAutoscalingPolicyRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

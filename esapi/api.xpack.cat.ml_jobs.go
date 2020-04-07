@@ -25,7 +25,7 @@ func newCatMLJobsFunc(t Transport) CatMLJobs {
 
 // ----- API Definition -------------------------------------------------------
 
-// CatMLJobs -
+// CatMLJobs - Gets configuration and usage information about anomaly detection jobs.
 //
 // See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/cat-anomaly-detectors.html.
 //

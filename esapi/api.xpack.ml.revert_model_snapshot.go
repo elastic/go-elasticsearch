@@ -26,7 +26,7 @@ func newMLRevertModelSnapshotFunc(t Transport) MLRevertModelSnapshot {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLRevertModelSnapshot -
+// MLRevertModelSnapshot - Reverts to a specific snapshot.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-revert-snapshot.html.
 //

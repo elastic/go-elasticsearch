@@ -26,7 +26,7 @@ func newWatcherPutWatchFunc(t Transport) WatcherPutWatch {
 
 // ----- API Definition -------------------------------------------------------
 
-// WatcherPutWatch -
+// WatcherPutWatch - Creates a new watch, or updates an existing one.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-put-watch.html.
 //

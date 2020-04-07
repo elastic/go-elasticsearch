@@ -25,7 +25,7 @@ func newLicensePostStartBasicFunc(t Transport) LicensePostStartBasic {
 
 // ----- API Definition -------------------------------------------------------
 
-// LicensePostStartBasic -
+// LicensePostStartBasic - Starts an indefinite basic license.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/start-basic.html.
 //

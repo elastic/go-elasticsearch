@@ -25,7 +25,7 @@ func newMLDeleteDataFrameAnalyticsFunc(t Transport) MLDeleteDataFrameAnalytics {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLDeleteDataFrameAnalytics -
+// MLDeleteDataFrameAnalytics - Deletes an existing data frame analytics job.
 //
 // This API is experimental.
 //

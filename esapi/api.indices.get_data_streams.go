@@ -35,7 +35,7 @@ type IndicesGetDataStreams func(o ...func(*IndicesGetDataStreamsRequest)) (*Resp
 // IndicesGetDataStreamsRequest configures the Indices Get Data Streams API request.
 //
 type IndicesGetDataStreamsRequest struct {
-	Name []string
+	Name string
 
 	Pretty     bool
 	Human      bool
@@ -58,12 +58,12 @@ func (r IndicesGetDataStreamsRequest) Do(ctx context.Context, transport Transpor
 
 	method = "GET"
 
-	path.Grow(1 + len("_data_streams") + 1 + len(strings.Join(r.Name, ",")))
+	path.Grow(1 + len("_data_streams") + 1 + len(r.Name))
 	path.WriteString("/")
 	path.WriteString("_data_streams")
-	if len(r.Name) > 0 {
+	if r.Name != "" {
 		path.WriteString("/")
-		path.WriteString(strings.Join(r.Name, ","))
+		path.WriteString(r.Name)
 	}
 
 	params = make(map[string]string)
@@ -135,9 +135,9 @@ func (f IndicesGetDataStreams) WithContext(v context.Context) func(*IndicesGetDa
 	}
 }
 
-// WithName - the comma separated names of data streams.
+// WithName - the name or wildcard expression of the requested data streams.
 //
-func (f IndicesGetDataStreams) WithName(v ...string) func(*IndicesGetDataStreamsRequest) {
+func (f IndicesGetDataStreams) WithName(v string) func(*IndicesGetDataStreamsRequest) {
 	return func(r *IndicesGetDataStreamsRequest) {
 		r.Name = v
 	}

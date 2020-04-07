@@ -24,9 +24,11 @@ func newRollupStartJobFunc(t Transport) RollupStartJob {
 
 // ----- API Definition -------------------------------------------------------
 
-// RollupStartJob -
+// RollupStartJob - Starts an existing, stopped rollup job.
 //
 // This API is experimental.
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-start-job.html.
 //
 type RollupStartJob func(id string, o ...func(*RollupStartJobRequest)) (*Response, error)
 

@@ -24,7 +24,9 @@ func newMLDeleteExpiredDataFunc(t Transport) MLDeleteExpiredData {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLDeleteExpiredData -
+// MLDeleteExpiredData - Deletes expired and unused machine learning data.
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-expired-data.html.
 //
 type MLDeleteExpiredData func(o ...func(*MLDeleteExpiredDataRequest)) (*Response, error)
 

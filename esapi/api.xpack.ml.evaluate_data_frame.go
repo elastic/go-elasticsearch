@@ -25,7 +25,7 @@ func newMLEvaluateDataFrameFunc(t Transport) MLEvaluateDataFrame {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLEvaluateDataFrame -
+// MLEvaluateDataFrame - Evaluates the data frame analytics for an annotated index.
 //
 // This API is experimental.
 //

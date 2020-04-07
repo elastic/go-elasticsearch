@@ -26,7 +26,7 @@ func newTransformUpdateTransformFunc(t Transport) TransformUpdateTransform {
 
 // ----- API Definition -------------------------------------------------------
 
-// TransformUpdateTransform -
+// TransformUpdateTransform - Updates certain properties of a transform.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/update-transform.html.
 //

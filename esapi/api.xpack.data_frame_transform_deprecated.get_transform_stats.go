@@ -25,7 +25,7 @@ func newDataFrameTransformDeprecatedGetTransformStatsFunc(t Transport) DataFrame
 
 // ----- API Definition -------------------------------------------------------
 
-// DataFrameTransformDeprecatedGetTransformStats -
+// DataFrameTransformDeprecatedGetTransformStats - Retrieves usage information for transforms.
 //
 // This API is beta.
 //

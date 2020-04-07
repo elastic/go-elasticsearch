@@ -25,7 +25,7 @@ func newSecurityPutPrivilegesFunc(t Transport) SecurityPutPrivileges {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityPutPrivileges -
+// SecurityPutPrivileges - Adds or updates application privileges.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-put-privileges.html.
 //

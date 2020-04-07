@@ -25,7 +25,7 @@ func newMLUpdateModelSnapshotFunc(t Transport) MLUpdateModelSnapshot {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLUpdateModelSnapshot -
+// MLUpdateModelSnapshot - Updates certain properties of a snapshot.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-update-snapshot.html.
 //

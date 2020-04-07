@@ -12,9 +12,9 @@ import (
 	"strings"
 )
 
-func newWatcherActivateWatchFunc(t Transport) WatcherActivateWatch {
-	return func(watch_id string, o ...func(*WatcherActivateWatchRequest)) (*Response, error) {
-		var r = WatcherActivateWatchRequest{WatchID: watch_id}
+func newAutoscalingDeleteAutoscalingPolicyFunc(t Transport) AutoscalingDeleteAutoscalingPolicy {
+	return func(name string, o ...func(*AutoscalingDeleteAutoscalingPolicyRequest)) (*Response, error) {
+		var r = AutoscalingDeleteAutoscalingPolicyRequest{Name: name}
 		for _, f := range o {
 			f(&r)
 		}
@@ -24,16 +24,18 @@ func newWatcherActivateWatchFunc(t Transport) WatcherActivateWatch {
 
 // ----- API Definition -------------------------------------------------------
 
-// WatcherActivateWatch - Activates a currently inactive watch.
+// AutoscalingDeleteAutoscalingPolicy -
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-activate-watch.html.
+// This API is experimental.
 //
-type WatcherActivateWatch func(watch_id string, o ...func(*WatcherActivateWatchRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-delete-autoscaling-policy.html.
+//
+type AutoscalingDeleteAutoscalingPolicy func(name string, o ...func(*AutoscalingDeleteAutoscalingPolicyRequest)) (*Response, error)
 
-// WatcherActivateWatchRequest configures the Watcher Activate Watch API request.
+// AutoscalingDeleteAutoscalingPolicyRequest configures the Autoscaling Delete Autoscaling Policy API request.
 //
-type WatcherActivateWatchRequest struct {
-	WatchID string
+type AutoscalingDeleteAutoscalingPolicyRequest struct {
+	Name string
 
 	Pretty     bool
 	Human      bool
@@ -47,24 +49,22 @@ type WatcherActivateWatchRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r WatcherActivateWatchRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r AutoscalingDeleteAutoscalingPolicyRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "PUT"
+	method = "DELETE"
 
-	path.Grow(1 + len("_watcher") + 1 + len("watch") + 1 + len(r.WatchID) + 1 + len("_activate"))
+	path.Grow(1 + len("_autoscaling") + 1 + len("policy") + 1 + len(r.Name))
 	path.WriteString("/")
-	path.WriteString("_watcher")
+	path.WriteString("_autoscaling")
 	path.WriteString("/")
-	path.WriteString("watch")
+	path.WriteString("policy")
 	path.WriteString("/")
-	path.WriteString(r.WatchID)
-	path.WriteString("/")
-	path.WriteString("_activate")
+	path.WriteString(r.Name)
 
 	params = make(map[string]string)
 
@@ -129,48 +129,48 @@ func (r WatcherActivateWatchRequest) Do(ctx context.Context, transport Transport
 
 // WithContext sets the request context.
 //
-func (f WatcherActivateWatch) WithContext(v context.Context) func(*WatcherActivateWatchRequest) {
-	return func(r *WatcherActivateWatchRequest) {
+func (f AutoscalingDeleteAutoscalingPolicy) WithContext(v context.Context) func(*AutoscalingDeleteAutoscalingPolicyRequest) {
+	return func(r *AutoscalingDeleteAutoscalingPolicyRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f WatcherActivateWatch) WithPretty() func(*WatcherActivateWatchRequest) {
-	return func(r *WatcherActivateWatchRequest) {
+func (f AutoscalingDeleteAutoscalingPolicy) WithPretty() func(*AutoscalingDeleteAutoscalingPolicyRequest) {
+	return func(r *AutoscalingDeleteAutoscalingPolicyRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f WatcherActivateWatch) WithHuman() func(*WatcherActivateWatchRequest) {
-	return func(r *WatcherActivateWatchRequest) {
+func (f AutoscalingDeleteAutoscalingPolicy) WithHuman() func(*AutoscalingDeleteAutoscalingPolicyRequest) {
+	return func(r *AutoscalingDeleteAutoscalingPolicyRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f WatcherActivateWatch) WithErrorTrace() func(*WatcherActivateWatchRequest) {
-	return func(r *WatcherActivateWatchRequest) {
+func (f AutoscalingDeleteAutoscalingPolicy) WithErrorTrace() func(*AutoscalingDeleteAutoscalingPolicyRequest) {
+	return func(r *AutoscalingDeleteAutoscalingPolicyRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f WatcherActivateWatch) WithFilterPath(v ...string) func(*WatcherActivateWatchRequest) {
-	return func(r *WatcherActivateWatchRequest) {
+func (f AutoscalingDeleteAutoscalingPolicy) WithFilterPath(v ...string) func(*AutoscalingDeleteAutoscalingPolicyRequest) {
+	return func(r *AutoscalingDeleteAutoscalingPolicyRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f WatcherActivateWatch) WithHeader(h map[string]string) func(*WatcherActivateWatchRequest) {
-	return func(r *WatcherActivateWatchRequest) {
+func (f AutoscalingDeleteAutoscalingPolicy) WithHeader(h map[string]string) func(*AutoscalingDeleteAutoscalingPolicyRequest) {
+	return func(r *AutoscalingDeleteAutoscalingPolicyRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -182,8 +182,8 @@ func (f WatcherActivateWatch) WithHeader(h map[string]string) func(*WatcherActiv
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f WatcherActivateWatch) WithOpaqueID(s string) func(*WatcherActivateWatchRequest) {
-	return func(r *WatcherActivateWatchRequest) {
+func (f AutoscalingDeleteAutoscalingPolicy) WithOpaqueID(s string) func(*AutoscalingDeleteAutoscalingPolicyRequest) {
+	return func(r *AutoscalingDeleteAutoscalingPolicyRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

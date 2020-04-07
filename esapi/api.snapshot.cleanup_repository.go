@@ -8,7 +8,6 @@ package esapi
 
 import (
 	"context"
-	"io"
 	"net/http"
 	"strings"
 	"time"
@@ -35,8 +34,6 @@ type SnapshotCleanupRepository func(repository string, o ...func(*SnapshotCleanu
 // SnapshotCleanupRepositoryRequest configures the Snapshot Cleanup Repository API request.
 //
 type SnapshotCleanupRepositoryRequest struct {
-	Body io.Reader
-
 	Repository string
 
 	MasterTimeout time.Duration
@@ -97,7 +94,7 @@ func (r SnapshotCleanupRepositoryRequest) Do(ctx context.Context, transport Tran
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -108,10 +105,6 @@ func (r SnapshotCleanupRepositoryRequest) Do(ctx context.Context, transport Tran
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
-	}
-
-	if r.Body != nil {
-		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -149,14 +142,6 @@ func (r SnapshotCleanupRepositoryRequest) Do(ctx context.Context, transport Tran
 func (f SnapshotCleanupRepository) WithContext(v context.Context) func(*SnapshotCleanupRepositoryRequest) {
 	return func(r *SnapshotCleanupRepositoryRequest) {
 		r.ctx = v
-	}
-}
-
-// WithBody - .
-//
-func (f SnapshotCleanupRepository) WithBody(v io.Reader) func(*SnapshotCleanupRepositoryRequest) {
-	return func(r *SnapshotCleanupRepositoryRequest) {
-		r.Body = v
 	}
 }
 

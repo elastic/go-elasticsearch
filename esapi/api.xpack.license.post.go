@@ -26,7 +26,7 @@ func newLicensePostFunc(t Transport) LicensePost {
 
 // ----- API Definition -------------------------------------------------------
 
-// LicensePost -
+// LicensePost - Updates the license for the cluster.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/update-license.html.
 //
