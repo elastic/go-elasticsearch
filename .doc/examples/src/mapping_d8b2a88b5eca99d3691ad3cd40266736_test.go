@@ -21,7 +21,7 @@ var (
 	_ = elasticsearch.NewDefaultClient
 )
 
-// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/mapping.asciidoc#L144>
+// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/mapping.asciidoc#L137>
 //
 // --------------------------------------------------------------------------------
 // PUT /my-index
