@@ -31,7 +31,7 @@ func Test_search_search_f5569945024b9d664828693705c27c1a(t *testing.T) {
 
 	// tag:f5569945024b9d664828693705c27c1a[]
 	res, err := es.Search(
-		es.Search.WithIndex("kimchy,elasticsearch/"),
+		es.Search.WithIndex("kimchy,elasticsearch"),
 		es.Search.WithQuery("user:kimchy"),
 		es.Search.WithPretty(),
 	)

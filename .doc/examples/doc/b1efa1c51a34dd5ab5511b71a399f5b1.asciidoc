@@ -1,0 +1,16 @@
+// Generated from docs-reindex_b1efa1c51a34dd5ab5511b71a399f5b1_test.go
+//
+[source, go]
+----
+res, err := es.Reindex(
+	strings.NewReader(`{
+	  "source": {
+	    "index": "source"
+	  },
+	  "dest": {
+	    "index": "dest",
+	    "pipeline": "some_ingest_pipeline"
+	  }
+	}`))
+fmt.Println(res, err)
+----

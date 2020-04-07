@@ -1,0 +1,32 @@
+// Generated from search-request-sort_ae9b5fbd42af2386ffbf56ad4a697e51_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithIndex("my_index"),
+	es.Search.WithBody(strings.NewReader(`{
+	  "sort": [
+	    {
+	      "post_date": {
+	        "order": "asc"
+	      }
+	    },
+	    "user",
+	    {
+	      "name": "desc"
+	    },
+	    {
+	      "age": "desc"
+	    },
+	    "_score"
+	  ],
+	  "query": {
+	    "term": {
+	      "user": "kimchy"
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

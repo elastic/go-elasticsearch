@@ -1,0 +1,19 @@
+// Generated from indices-templates_9166cf38427d5cde5d2ec12a2012b669_test.go
+//
+[source, go]
+----
+res, err := es.Indices.PutTemplate(
+	"template_1",
+	strings.NewReader(`{
+	  "index_patterns": [
+	    "*"
+	  ],
+	  "order": 0,
+	  "settings": {
+	    "number_of_shards": 1
+	  },
+	  "version": 123
+	}`),
+)
+fmt.Println(res, err)
+----

@@ -49,7 +49,7 @@ func Test_getting_started_cfbaea6f0df045c5d940bbb6a9c69cd8(t *testing.T) {
 
 	// tag:cfbaea6f0df045c5d940bbb6a9c69cd8[]
 	res, err := es.Search(
-		es.Search.WithIndex("bank/"),
+		es.Search.WithIndex("bank"),
 		es.Search.WithBody(strings.NewReader(`{
 		  "size": 0,
 		  "aggs": {

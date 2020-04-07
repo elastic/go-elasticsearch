@@ -31,7 +31,7 @@ func Test_search_search_be49260e1b3496c4feac38c56ebb0669(t *testing.T) {
 
 	// tag:be49260e1b3496c4feac38c56ebb0669[]
 	res, err := es.Search(
-		es.Search.WithIndex("twitter/"),
+		es.Search.WithIndex("twitter"),
 		es.Search.WithQuery("user:kimchy"),
 		es.Search.WithPretty(),
 	)

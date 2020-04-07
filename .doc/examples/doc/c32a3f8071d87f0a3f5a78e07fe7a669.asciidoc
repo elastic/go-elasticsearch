@@ -1,0 +1,19 @@
+// Generated from docs-delete-by-query_c32a3f8071d87f0a3f5a78e07fe7a669_test.go
+//
+[source, go]
+----
+res, err := es.DeleteByQuery(
+	[]string{"twitter"},
+	strings.NewReader(`{
+	  "query": {
+	    "range": {
+	      "age": {
+	        "gte": 10
+	      }
+	    }
+	  }
+	}`),
+	es.DeleteByQuery.WithRouting("1"),
+)
+fmt.Println(res, err)
+----

@@ -1,0 +1,20 @@
+// Generated from docs-delete-by-query_a5a7050fb9dcb9574e081957ade28617_test.go
+//
+[source, go]
+----
+res, err := es.DeleteByQuery(
+	[]string{"twitter"},
+	strings.NewReader(`{
+	  "query": {
+	    "range": {
+	      "likes": {
+	        "lt": 10
+	      }
+	    }
+	  }
+	}`),
+	es.DeleteByQuery.WithRefresh(true),
+	es.DeleteByQuery.WithSlices("5"),
+)
+fmt.Println(res, err)
+----

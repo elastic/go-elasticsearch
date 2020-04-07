@@ -40,7 +40,7 @@ func Test_getting_started_4b90feb9d5d3dbfce424dac0341320b7(t *testing.T) {
 
 	// tag:4b90feb9d5d3dbfce424dac0341320b7[]
 	res, err := es.Search(
-		es.Search.WithIndex("bank/"),
+		es.Search.WithIndex("bank"),
 		es.Search.WithBody(strings.NewReader(`{
 		  "query": {
 		    "match_all": {}

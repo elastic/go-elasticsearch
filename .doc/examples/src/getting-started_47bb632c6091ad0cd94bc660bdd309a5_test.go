@@ -44,7 +44,7 @@ func Test_getting_started_47bb632c6091ad0cd94bc660bdd309a5(t *testing.T) {
 
 	// tag:47bb632c6091ad0cd94bc660bdd309a5[]
 	res, err := es.Search(
-		es.Search.WithIndex("bank/"),
+		es.Search.WithIndex("bank"),
 		es.Search.WithBody(strings.NewReader(`{
 		  "query": {
 		    "bool": {

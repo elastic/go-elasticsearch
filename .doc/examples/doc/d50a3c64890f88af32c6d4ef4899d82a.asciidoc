@@ -1,0 +1,25 @@
+// Generated from search-request-sort_d50a3c64890f88af32c6d4ef4899d82a_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "sort": [
+	    {
+	      "_geo_distance": {
+	        "pin.location": "40,-70",
+	        "order": "asc",
+	        "unit": "km"
+	      }
+	    }
+	  ],
+	  "query": {
+	    "term": {
+	      "user": "kimchy"
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

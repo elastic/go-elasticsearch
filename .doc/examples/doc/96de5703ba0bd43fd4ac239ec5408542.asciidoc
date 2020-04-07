@@ -1,0 +1,20 @@
+// Generated from docs-update_96de5703ba0bd43fd4ac239ec5408542_test.go
+//
+[source, go]
+----
+res, err := es.Update(
+	"test",
+	"1",
+	strings.NewReader(`{
+	  "script": {
+	    "source": "ctx._source.counter += params.count",
+	    "lang": "painless",
+	    "params": {
+	      "count": 4
+	    }
+	  }
+	}`),
+	es.Update.WithPretty(),
+)
+fmt.Println(res, err)
+----

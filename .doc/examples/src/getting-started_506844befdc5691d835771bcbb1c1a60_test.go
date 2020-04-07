@@ -38,7 +38,7 @@ func Test_getting_started_506844befdc5691d835771bcbb1c1a60(t *testing.T) {
 
 	// tag:506844befdc5691d835771bcbb1c1a60[]
 	res, err := es.Search(
-		es.Search.WithIndex("bank/"),
+		es.Search.WithIndex("bank"),
 		es.Search.WithBody(strings.NewReader(`{
 		  "query": {
 		    "match_all": {}

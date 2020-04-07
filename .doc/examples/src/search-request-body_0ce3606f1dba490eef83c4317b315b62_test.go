@@ -37,7 +37,7 @@ func Test_search_request_body_0ce3606f1dba490eef83c4317b315b62(t *testing.T) {
 
 	// tag:0ce3606f1dba490eef83c4317b315b62[]
 	res, err := es.Search(
-		es.Search.WithIndex("twitter/"),
+		es.Search.WithIndex("twitter"),
 		es.Search.WithBody(strings.NewReader(`{
 		  "query": {
 		    "term": {

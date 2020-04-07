@@ -1,0 +1,7 @@
+// Generated from docs-reindex_cfc37446bd892d1ac42a3c8e8b204e6c_test.go
+//
+[source, go]
+----
+res, err := es.Get("test2", "1", es.Get.WithPretty())
+fmt.Println(res, err)
+----

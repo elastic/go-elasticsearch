@@ -1,0 +1,20 @@
+// Generated from query-dsl-exists-query_43af86de5e49aa06070092fffc138208_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "bool": {
+	      "must_not": {
+	        "exists": {
+	          "field": "user"
+	        }
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

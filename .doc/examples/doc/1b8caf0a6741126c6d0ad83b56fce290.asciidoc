@@ -1,0 +1,29 @@
+// Generated from indices-templates_1b8caf0a6741126c6d0ad83b56fce290_test.go
+//
+[source, go]
+----
+res, err := es.Indices.PutTemplate(
+	"template_1",
+	strings.NewReader(`{
+	  "index_patterns": [
+	    "te*"
+	  ],
+	  "settings": {
+	    "number_of_shards": 1
+	  },
+	  "aliases": {
+	    "alias1": {},
+	    "alias2": {
+	      "filter": {
+	        "term": {
+	          "user": "kimchy"
+	        }
+	      },
+	      "routing": "kimchy"
+	    },
+	    "{index}-alias": {}
+	  }
+	}`),
+)
+fmt.Println(res, err)
+----

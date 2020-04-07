@@ -1,0 +1,23 @@
+// Generated from docs-get_913770050ebbf3b9b549a899bc11060a_test.go
+//
+[source, go]
+----
+res, err := es.Indices.Create(
+	"twitter",
+	es.Indices.Create.WithBody(strings.NewReader(`{
+	  "mappings": {
+	    "properties": {
+	      "counter": {
+	        "type": "integer",
+	        "store": false
+	      },
+	      "tags": {
+	        "type": "keyword",
+	        "store": true
+	      }
+	    }
+	  }
+	}`)),
+)
+fmt.Println(res, err)
+----

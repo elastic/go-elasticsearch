@@ -1,0 +1,25 @@
+// Generated from docs-reindex_36b2778f23d0955255f52c075c4d213d_test.go
+//
+[source, go]
+----
+res, err := es.Reindex(
+	strings.NewReader(`{
+	  "source": {
+	    "remote": {
+	      "host": "http://otherhost:9200",
+	      "username": "user",
+	      "password": "pass"
+	    },
+	    "index": "source",
+	    "query": {
+	      "match": {
+	        "test": "data"
+	      }
+	    }
+	  },
+	  "dest": {
+	    "index": "dest"
+	  }
+	}`))
+fmt.Println(res, err)
+----

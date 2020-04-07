@@ -3,7 +3,7 @@
 [source, go]
 ----
 res, err := es.Search(
-	es.Search.WithIndex("kimchy,elasticsearch/"),
+	es.Search.WithIndex("kimchy,elasticsearch"),
 	es.Search.WithQuery("user:kimchy"),
 	es.Search.WithPretty(),
 )

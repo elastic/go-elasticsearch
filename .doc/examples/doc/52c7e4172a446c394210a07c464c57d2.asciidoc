@@ -1,0 +1,10 @@
+// Generated from docs-delete-by-query_52c7e4172a446c394210a07c464c57d2_test.go
+//
+[source, go]
+----
+res, err := es.DeleteByQueryRethrottle(
+	"r1A2WoRbTwKZ516z6NEs5A:36619",
+	esapi.IntPtr(-1),
+)
+fmt.Println(res, err)
+----

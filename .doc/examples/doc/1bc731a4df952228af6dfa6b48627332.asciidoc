@@ -1,0 +1,22 @@
+// Generated from docs-reindex_1bc731a4df952228af6dfa6b48627332_test.go
+//
+[source, go]
+----
+res, err := es.Reindex(
+	strings.NewReader(`{
+	  "max_docs": 10,
+	  "source": {
+	    "index": "twitter",
+	    "query": {
+	      "function_score": {
+	        "random_score": {},
+	        "min_score": 0.9
+	      }
+	    }
+	  },
+	  "dest": {
+	    "index": "random_twitter"
+	  }
+	}`))
+fmt.Println(res, err)
+----

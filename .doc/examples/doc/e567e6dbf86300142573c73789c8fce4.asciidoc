@@ -1,0 +1,12 @@
+// Generated from docs-reindex_e567e6dbf86300142573c73789c8fce4_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithIndex("new_twitter"),
+	es.Search.WithFilterPath("hits.total"),
+	es.Search.WithSize(0),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

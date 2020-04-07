@@ -1,0 +1,17 @@
+// Generated from docs-update_381fced1882ca8337143e6bb180a5715_test.go
+//
+[source, go]
+----
+res, err := es.Index(
+	"test",
+	strings.NewReader(`{
+	  "counter": 1,
+	  "tags": [
+	    "red"
+	  ]
+	}`),
+	es.Index.WithDocumentID("1"),
+	es.Index.WithPretty(),
+)
+fmt.Println(res, err)
+----

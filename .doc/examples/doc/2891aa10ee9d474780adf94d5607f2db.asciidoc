@@ -1,0 +1,19 @@
+// Generated from search-request-sort_2891aa10ee9d474780adf94d5607f2db_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithIndex("index_long,index_double"),
+	es.Search.WithBody(strings.NewReader(`{
+	  "sort": [
+	    {
+	      "field": {
+	        "numeric_type": "double"
+	      }
+	    }
+	  ]
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

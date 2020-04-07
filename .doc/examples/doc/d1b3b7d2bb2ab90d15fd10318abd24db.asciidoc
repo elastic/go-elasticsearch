@@ -1,0 +1,27 @@
+// Generated from search-request-sort_d1b3b7d2bb2ab90d15fd10318abd24db_test.go
+//
+[source, go]
+----
+res, err := es.Indices.Create(
+	"my_index",
+	es.Indices.Create.WithBody(strings.NewReader(`{
+	  "mappings": {
+	    "properties": {
+	      "post_date": {
+	        "type": "date"
+	      },
+	      "user": {
+	        "type": "keyword"
+	      },
+	      "name": {
+	        "type": "keyword"
+	      },
+	      "age": {
+	        "type": "integer"
+	      }
+	    }
+	  }
+	}`)),
+)
+fmt.Println(res, err)
+----

@@ -1,0 +1,18 @@
+// Generated from docs-reindex_1216f8f7367df3aa823012cef310c08a_test.go
+//
+[source, go]
+----
+res, err := es.Reindex(
+	strings.NewReader(`{
+	  "source": {
+	    "index": "test"
+	  },
+	  "dest": {
+	    "index": "test2"
+	  },
+	  "script": {
+	    "source": "ctx._source.tag = ctx._source.remove(\"flag\")"
+	  }
+	}`))
+fmt.Println(res, err)
+----

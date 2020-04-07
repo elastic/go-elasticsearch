@@ -1,0 +1,30 @@
+// Generated from docs-reindex_9a4d5e41c52c20635d1fd9c6e13f6c7a_test.go
+//
+[source, go]
+----
+{
+	res, err := es.Index(
+		"metricbeat-2016.05.30",
+		strings.NewReader(`{
+	  "system.cpu.idle.pct": 0.908
+	}`),
+		es.Index.WithDocumentID("1"),
+		es.Index.WithRefresh("true"),
+		es.Index.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Index(
+		"metricbeat-2016.05.31",
+		strings.NewReader(`{
+	  "system.cpu.idle.pct": 0.105
+	}`),
+		es.Index.WithDocumentID("1"),
+		es.Index.WithRefresh("true"),
+		es.Index.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+----

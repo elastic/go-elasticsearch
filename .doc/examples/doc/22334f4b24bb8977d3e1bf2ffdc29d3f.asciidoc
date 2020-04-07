@@ -1,0 +1,63 @@
+// Generated from search-request-sort_22334f4b24bb8977d3e1bf2ffdc29d3f_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "nested": {
+	      "path": "parent",
+	      "query": {
+	        "bool": {
+	          "must": {
+	            "range": {
+	              "parent.age": {
+	                "gte": 21
+	              }
+	            }
+	          },
+	          "filter": {
+	            "nested": {
+	              "path": "parent.child",
+	              "query": {
+	                "match": {
+	                  "parent.child.name": "matt"
+	                }
+	              }
+	            }
+	          }
+	        }
+	      }
+	    }
+	  },
+	  "sort": [
+	    {
+	      "parent.child.age": {
+	        "mode": "min",
+	        "order": "asc",
+	        "nested": {
+	          "path": "parent",
+	          "filter": {
+	            "range": {
+	              "parent.age": {
+	                "gte": 21
+	              }
+	            }
+	          },
+	          "nested": {
+	            "path": "parent.child",
+	            "filter": {
+	              "match": {
+	                "parent.child.name": "matt"
+	              }
+	            }
+	          }
+	        }
+	      }
+	    }
+	  ]
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

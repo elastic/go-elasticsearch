@@ -35,7 +35,7 @@ func Test_getting_started_231aa0bb39c35fe199d28fe0e4a62b2e(t *testing.T) {
 
 	// tag:231aa0bb39c35fe199d28fe0e4a62b2e[]
 	res, err := es.Search(
-		es.Search.WithIndex("bank/"),
+		es.Search.WithIndex("bank"),
 		es.Search.WithBody(strings.NewReader(`{
 		  "query": {
 		    "match_phrase": {

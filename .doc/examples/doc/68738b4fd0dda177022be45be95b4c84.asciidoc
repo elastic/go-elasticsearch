@@ -1,0 +1,10 @@
+// Generated from docs-reindex_68738b4fd0dda177022be45be95b4c84_test.go
+//
+[source, go]
+----
+res, err := es.ReindexRethrottle(
+	"r1A2WoRbTwKZ516z6NEs5A:36619",
+	esapi.IntPtr(-1),
+)
+fmt.Println(res, err)
+----

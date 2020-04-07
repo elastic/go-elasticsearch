@@ -3,7 +3,7 @@
 [source, go]
 ----
 res, err := es.Search(
-	es.Search.WithIndex("bank/"),
+	es.Search.WithIndex("bank"),
 	es.Search.WithBody(strings.NewReader(`{
 	  "query": {
 	    "bool": {

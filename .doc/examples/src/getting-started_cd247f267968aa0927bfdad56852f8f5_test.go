@@ -35,7 +35,7 @@ func Test_getting_started_cd247f267968aa0927bfdad56852f8f5(t *testing.T) {
 
 	// tag:cd247f267968aa0927bfdad56852f8f5[]
 	res, err := es.Search(
-		es.Search.WithIndex("bank/"),
+		es.Search.WithIndex("bank"),
 		es.Search.WithBody(strings.NewReader(`{
 		  "query": {
 		    "match": {

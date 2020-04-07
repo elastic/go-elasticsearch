@@ -1,0 +1,9 @@
+// Generated from docs-delete-by-query_18ddb7e7a4bcafd449df956e828ed7a8_test.go
+//
+[source, go]
+----
+res, err := es.Tasks.Cancel(
+	es.Tasks.Cancel.WithTaskID("r1A2WoRbTwKZ516z6NEs5A:36619"),
+)
+fmt.Println(res, err)
+----

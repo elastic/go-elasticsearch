@@ -1,0 +1,14 @@
+// Generated from query-dsl-match-all-query_81c9aa2678d6166a9662ddf2c011a6a5_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "match_none": {}
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

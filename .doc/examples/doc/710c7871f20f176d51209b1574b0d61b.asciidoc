@@ -1,0 +1,12 @@
+// Generated from docs-get_710c7871f20f176d51209b1574b0d61b_test.go
+//
+[source, go]
+----
+res, err := es.Get(
+	"twitter",
+	"1",
+	es.Get.WithStoredFields("tags,counter"),
+	es.Get.WithPretty(),
+)
+fmt.Println(res, err)
+----

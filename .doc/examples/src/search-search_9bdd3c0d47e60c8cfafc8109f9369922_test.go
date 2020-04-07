@@ -31,7 +31,7 @@ func Test_search_search_9bdd3c0d47e60c8cfafc8109f9369922(t *testing.T) {
 
 	// tag:9bdd3c0d47e60c8cfafc8109f9369922[]
 	res, err := es.Search(
-		es.Search.WithIndex("twitter/"),
+		es.Search.WithIndex("twitter"),
 		es.Search.WithQuery("tag:wow"),
 		es.Search.WithPretty(),
 	)

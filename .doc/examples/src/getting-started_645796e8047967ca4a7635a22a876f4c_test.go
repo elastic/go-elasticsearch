@@ -52,7 +52,7 @@ func Test_getting_started_645796e8047967ca4a7635a22a876f4c(t *testing.T) {
 
 	// tag:645796e8047967ca4a7635a22a876f4c[]
 	res, err := es.Search(
-		es.Search.WithIndex("bank/"),
+		es.Search.WithIndex("bank"),
 		es.Search.WithBody(strings.NewReader(`{
 		  "size": 0,
 		  "aggs": {

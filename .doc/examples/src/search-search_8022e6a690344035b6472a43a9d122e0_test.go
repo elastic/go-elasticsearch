@@ -31,7 +31,7 @@ func Test_search_search_8022e6a690344035b6472a43a9d122e0(t *testing.T) {
 
 	// tag:8022e6a690344035b6472a43a9d122e0[]
 	res, err := es.Search(
-		es.Search.WithIndex("_all/"),
+		es.Search.WithIndex("_all"),
 		es.Search.WithQuery("user:kimchy"),
 		es.Search.WithPretty(),
 	)

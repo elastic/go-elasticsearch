@@ -1,0 +1,28 @@
+// Generated from docs-delete-by-query_3e573bfabe00f8bfb8bb69aa5820768e_test.go
+//
+[source, go]
+----
+{
+	res, err := es.Indices.Refresh()
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Search(
+		es.Search.WithIndex("twitter"),
+		es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "range": {
+	      "likes": {
+	        "lt": 10
+	      }
+	    }
+	  }
+	}`)),
+		es.Search.WithFilterPath("hits.total"),
+		es.Search.WithSize(0),
+		es.Search.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+----

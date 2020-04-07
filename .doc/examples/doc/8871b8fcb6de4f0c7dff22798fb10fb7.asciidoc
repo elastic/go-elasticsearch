@@ -1,0 +1,20 @@
+// Generated from docs-reindex_8871b8fcb6de4f0c7dff22798fb10fb7_test.go
+//
+[source, go]
+----
+res, err := es.Reindex(
+	strings.NewReader(`{
+	  "source": {
+	    "index": "twitter"
+	  },
+	  "dest": {
+	    "index": "new_twitter",
+	    "version_type": "external"
+	  },
+	  "script": {
+	    "source": "if (ctx._source.foo == 'bar') {ctx._version++; ctx._source.remove('foo')}",
+	    "lang": "painless"
+	  }
+	}`))
+fmt.Println(res, err)
+----

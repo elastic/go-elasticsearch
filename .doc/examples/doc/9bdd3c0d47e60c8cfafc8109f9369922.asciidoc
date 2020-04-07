@@ -3,7 +3,7 @@
 [source, go]
 ----
 res, err := es.Search(
-	es.Search.WithIndex("twitter/"),
+	es.Search.WithIndex("twitter"),
 	es.Search.WithQuery("tag:wow"),
 	es.Search.WithPretty(),
 )
