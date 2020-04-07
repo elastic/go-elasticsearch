@@ -26,7 +26,9 @@ func newMLGetCalendarEventsFunc(t Transport) MLGetCalendarEvents {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetCalendarEvents -
+// MLGetCalendarEvents - Retrieves information about the scheduled events in calendars.
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-calendar-event.html.
 //
 type MLGetCalendarEvents func(calendar_id string, o ...func(*MLGetCalendarEventsRequest)) (*Response, error)
 

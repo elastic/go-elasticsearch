@@ -25,7 +25,7 @@ func newTransformGetTransformStatsFunc(t Transport) TransformGetTransformStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// TransformGetTransformStats -
+// TransformGetTransformStats - Retrieves usage information for transforms.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-transform-stats.html.
 //

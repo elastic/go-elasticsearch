@@ -27,7 +27,7 @@ func newAsyncSearchSubmitFunc(t Transport) AsyncSearchSubmit {
 
 // ----- API Definition -------------------------------------------------------
 
-// AsyncSearchSubmit -
+// AsyncSearchSubmit - Executes a search request asynchronously.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/async-search.html.
 //

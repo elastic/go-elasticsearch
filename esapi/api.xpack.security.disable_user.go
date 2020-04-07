@@ -24,7 +24,7 @@ func newSecurityDisableUserFunc(t Transport) SecurityDisableUser {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityDisableUser -
+// SecurityDisableUser - Disables users in the native realm.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-disable-user.html.
 //

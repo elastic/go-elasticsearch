@@ -26,7 +26,7 @@ func newDataFrameTransformDeprecatedPutTransformFunc(t Transport) DataFrameTrans
 
 // ----- API Definition -------------------------------------------------------
 
-// DataFrameTransformDeprecatedPutTransform -
+// DataFrameTransformDeprecatedPutTransform - Instantiates a transform.
 //
 // This API is beta.
 //

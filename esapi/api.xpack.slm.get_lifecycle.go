@@ -24,7 +24,7 @@ func newSlmGetLifecycleFunc(t Transport) SlmGetLifecycle {
 
 // ----- API Definition -------------------------------------------------------
 
-// SlmGetLifecycle -
+// SlmGetLifecycle - Retrieves one or more snapshot lifecycle policy definitions and information about the latest snapshot attempts.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-get-policy.html.
 //

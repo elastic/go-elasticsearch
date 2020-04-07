@@ -24,7 +24,7 @@ func newCCRFollowInfoFunc(t Transport) CCRFollowInfo {
 
 // ----- API Definition -------------------------------------------------------
 
-// CCRFollowInfo -
+// CCRFollowInfo - Retrieves information about all follower indices, including parameters and status for each follower index
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-get-follow-info.html.
 //

@@ -25,7 +25,7 @@ func newMLGetJobsFunc(t Transport) MLGetJobs {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetJobs -
+// MLGetJobs - Retrieves configuration information for anomaly detection jobs.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-job.html.
 //

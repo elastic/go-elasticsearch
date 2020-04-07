@@ -24,7 +24,7 @@ func newWatcherDeactivateWatchFunc(t Transport) WatcherDeactivateWatch {
 
 // ----- API Definition -------------------------------------------------------
 
-// WatcherDeactivateWatch -
+// WatcherDeactivateWatch - Deactivates a currently active watch.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-deactivate-watch.html.
 //

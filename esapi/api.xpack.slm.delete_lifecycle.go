@@ -24,7 +24,7 @@ func newSlmDeleteLifecycleFunc(t Transport) SlmDeleteLifecycle {
 
 // ----- API Definition -------------------------------------------------------
 
-// SlmDeleteLifecycle -
+// SlmDeleteLifecycle - Deletes an existing snapshot lifecycle policy.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-delete-policy.html.
 //

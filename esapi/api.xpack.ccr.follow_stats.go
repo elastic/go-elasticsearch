@@ -24,7 +24,7 @@ func newCCRFollowStatsFunc(t Transport) CCRFollowStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// CCRFollowStats -
+// CCRFollowStats - Retrieves follower stats. return shard-level stats about the following tasks associated with each shard for the specified indices.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-get-follow-stats.html.
 //

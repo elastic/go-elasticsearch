@@ -24,7 +24,7 @@ func newSecurityGetUserFunc(t Transport) SecurityGetUser {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGetUser -
+// SecurityGetUser - Retrieves information about users in the native realm and built-in users.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-user.html.
 //

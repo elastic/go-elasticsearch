@@ -24,7 +24,7 @@ func newSlmStopFunc(t Transport) SlmStop {
 
 // ----- API Definition -------------------------------------------------------
 
-// SlmStop -
+// SlmStop - Turns off snapshot lifecycle management (SLM).
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-stop.html.
 //

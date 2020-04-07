@@ -25,7 +25,7 @@ func newSecurityInvalidateAPIKeyFunc(t Transport) SecurityInvalidateAPIKey {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityInvalidateAPIKey -
+// SecurityInvalidateAPIKey - Invalidates one or more API keys.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-invalidate-api-key.html.
 //

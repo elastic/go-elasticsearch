@@ -25,7 +25,7 @@ func newEnrichExecutePolicyFunc(t Transport) EnrichExecutePolicy {
 
 // ----- API Definition -------------------------------------------------------
 
-// EnrichExecutePolicy -
+// EnrichExecutePolicy - Creates the enrich index for an existing enrich policy.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/execute-enrich-policy-api.html.
 //

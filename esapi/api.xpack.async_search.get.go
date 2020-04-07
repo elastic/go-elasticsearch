@@ -26,7 +26,7 @@ func newAsyncSearchGetFunc(t Transport) AsyncSearchGet {
 
 // ----- API Definition -------------------------------------------------------
 
-// AsyncSearchGet -
+// AsyncSearchGet - Retrieves the results of a previously submitted async search request given its ID.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/async-search.html.
 //

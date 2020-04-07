@@ -24,9 +24,11 @@ func newRollupGetRollupCapsFunc(t Transport) RollupGetRollupCaps {
 
 // ----- API Definition -------------------------------------------------------
 
-// RollupGetRollupCaps -
+// RollupGetRollupCaps - Returns the capabilities of any rollup jobs that have been configured for a specific index or index pattern.
 //
 // This API is experimental.
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-get-rollup-caps.html.
 //
 type RollupGetRollupCaps func(o ...func(*RollupGetRollupCapsRequest)) (*Response, error)
 

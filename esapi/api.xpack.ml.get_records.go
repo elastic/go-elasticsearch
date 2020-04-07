@@ -27,7 +27,7 @@ func newMLGetRecordsFunc(t Transport) MLGetRecords {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetRecords -
+// MLGetRecords - Retrieves anomaly records for an anomaly detection job.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-record.html.
 //
@@ -227,7 +227,7 @@ func (f MLGetRecords) WithFrom(v int) func(*MLGetRecordsRequest) {
 	}
 }
 
-// WithRecordScore - .
+// WithRecordScore - returns records with anomaly scores greater or equal than this value.
 //
 func (f MLGetRecords) WithRecordScore(v interface{}) func(*MLGetRecordsRequest) {
 	return func(r *MLGetRecordsRequest) {

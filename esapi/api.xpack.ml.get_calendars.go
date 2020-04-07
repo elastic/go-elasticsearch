@@ -26,7 +26,9 @@ func newMLGetCalendarsFunc(t Transport) MLGetCalendars {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetCalendars -
+// MLGetCalendars - Retrieves configuration information for calendars.
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-calendar.html.
 //
 type MLGetCalendars func(o ...func(*MLGetCalendarsRequest)) (*Response, error)
 

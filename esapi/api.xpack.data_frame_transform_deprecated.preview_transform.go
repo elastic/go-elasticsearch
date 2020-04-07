@@ -25,7 +25,7 @@ func newDataFrameTransformDeprecatedPreviewTransformFunc(t Transport) DataFrameT
 
 // ----- API Definition -------------------------------------------------------
 
-// DataFrameTransformDeprecatedPreviewTransform -
+// DataFrameTransformDeprecatedPreviewTransform - Previews a transform.
 //
 // This API is beta.
 //

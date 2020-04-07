@@ -24,7 +24,7 @@ func newWatcherGetWatchFunc(t Transport) WatcherGetWatch {
 
 // ----- API Definition -------------------------------------------------------
 
-// WatcherGetWatch -
+// WatcherGetWatch - Retrieves a watch by its ID.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-get-watch.html.
 //

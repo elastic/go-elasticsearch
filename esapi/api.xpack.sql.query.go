@@ -25,7 +25,7 @@ func newSQLQueryFunc(t Transport) SQLQuery {
 
 // ----- API Definition -------------------------------------------------------
 
-// SQLQuery - Executes an SQL request
+// SQLQuery - Executes a SQL request
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/sql-rest-overview.html.
 //

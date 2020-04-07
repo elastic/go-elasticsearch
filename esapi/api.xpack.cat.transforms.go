@@ -13,9 +13,9 @@ import (
 	"strings"
 )
 
-func newCatTransformFunc(t Transport) CatTransform {
-	return func(o ...func(*CatTransformRequest)) (*Response, error) {
-		var r = CatTransformRequest{}
+func newCatTransformsFunc(t Transport) CatTransforms {
+	return func(o ...func(*CatTransformsRequest)) (*Response, error) {
+		var r = CatTransformsRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -25,15 +25,15 @@ func newCatTransformFunc(t Transport) CatTransform {
 
 // ----- API Definition -------------------------------------------------------
 
-// CatTransform -
+// CatTransforms - Gets configuration and usage information about transforms.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-transforms.html.
 //
-type CatTransform func(o ...func(*CatTransformRequest)) (*Response, error)
+type CatTransforms func(o ...func(*CatTransformsRequest)) (*Response, error)
 
-// CatTransformRequest configures the Cat Transform API request.
+// CatTransformsRequest configures the Cat Transforms API request.
 //
-type CatTransformRequest struct {
+type CatTransformsRequest struct {
 	TransformID string
 
 	AllowNoMatch *bool
@@ -58,7 +58,7 @@ type CatTransformRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r CatTransformRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r CatTransformsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -176,128 +176,128 @@ func (r CatTransformRequest) Do(ctx context.Context, transport Transport) (*Resp
 
 // WithContext sets the request context.
 //
-func (f CatTransform) WithContext(v context.Context) func(*CatTransformRequest) {
-	return func(r *CatTransformRequest) {
+func (f CatTransforms) WithContext(v context.Context) func(*CatTransformsRequest) {
+	return func(r *CatTransformsRequest) {
 		r.ctx = v
 	}
 }
 
 // WithTransformID - the ID of the transform for which to get stats. '_all' or '*' implies all transforms.
 //
-func (f CatTransform) WithTransformID(v string) func(*CatTransformRequest) {
-	return func(r *CatTransformRequest) {
+func (f CatTransforms) WithTransformID(v string) func(*CatTransformsRequest) {
+	return func(r *CatTransformsRequest) {
 		r.TransformID = v
 	}
 }
 
 // WithAllowNoMatch - whether to ignore if a wildcard expression matches no transforms. (this includes `_all` string or when no transforms have been specified).
 //
-func (f CatTransform) WithAllowNoMatch(v bool) func(*CatTransformRequest) {
-	return func(r *CatTransformRequest) {
+func (f CatTransforms) WithAllowNoMatch(v bool) func(*CatTransformsRequest) {
+	return func(r *CatTransformsRequest) {
 		r.AllowNoMatch = &v
 	}
 }
 
 // WithFormat - a short version of the accept header, e.g. json, yaml.
 //
-func (f CatTransform) WithFormat(v string) func(*CatTransformRequest) {
-	return func(r *CatTransformRequest) {
+func (f CatTransforms) WithFormat(v string) func(*CatTransformsRequest) {
+	return func(r *CatTransformsRequest) {
 		r.Format = v
 	}
 }
 
 // WithFrom - skips a number of transform configs, defaults to 0.
 //
-func (f CatTransform) WithFrom(v int) func(*CatTransformRequest) {
-	return func(r *CatTransformRequest) {
+func (f CatTransforms) WithFrom(v int) func(*CatTransformsRequest) {
+	return func(r *CatTransformsRequest) {
 		r.From = &v
 	}
 }
 
 // WithH - comma-separated list of column names to display.
 //
-func (f CatTransform) WithH(v ...string) func(*CatTransformRequest) {
-	return func(r *CatTransformRequest) {
+func (f CatTransforms) WithH(v ...string) func(*CatTransformsRequest) {
+	return func(r *CatTransformsRequest) {
 		r.H = v
 	}
 }
 
 // WithHelp - return help information.
 //
-func (f CatTransform) WithHelp(v bool) func(*CatTransformRequest) {
-	return func(r *CatTransformRequest) {
+func (f CatTransforms) WithHelp(v bool) func(*CatTransformsRequest) {
+	return func(r *CatTransformsRequest) {
 		r.Help = &v
 	}
 }
 
 // WithS - comma-separated list of column names or column aliases to sort by.
 //
-func (f CatTransform) WithS(v ...string) func(*CatTransformRequest) {
-	return func(r *CatTransformRequest) {
+func (f CatTransforms) WithS(v ...string) func(*CatTransformsRequest) {
+	return func(r *CatTransformsRequest) {
 		r.S = v
 	}
 }
 
 // WithSize - specifies a max number of transforms to get, defaults to 100.
 //
-func (f CatTransform) WithSize(v int) func(*CatTransformRequest) {
-	return func(r *CatTransformRequest) {
+func (f CatTransforms) WithSize(v int) func(*CatTransformsRequest) {
+	return func(r *CatTransformsRequest) {
 		r.Size = &v
 	}
 }
 
 // WithTime - the unit in which to display time values.
 //
-func (f CatTransform) WithTime(v string) func(*CatTransformRequest) {
-	return func(r *CatTransformRequest) {
+func (f CatTransforms) WithTime(v string) func(*CatTransformsRequest) {
+	return func(r *CatTransformsRequest) {
 		r.Time = v
 	}
 }
 
 // WithV - verbose mode. display column headers.
 //
-func (f CatTransform) WithV(v bool) func(*CatTransformRequest) {
-	return func(r *CatTransformRequest) {
+func (f CatTransforms) WithV(v bool) func(*CatTransformsRequest) {
+	return func(r *CatTransformsRequest) {
 		r.V = &v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f CatTransform) WithPretty() func(*CatTransformRequest) {
-	return func(r *CatTransformRequest) {
+func (f CatTransforms) WithPretty() func(*CatTransformsRequest) {
+	return func(r *CatTransformsRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f CatTransform) WithHuman() func(*CatTransformRequest) {
-	return func(r *CatTransformRequest) {
+func (f CatTransforms) WithHuman() func(*CatTransformsRequest) {
+	return func(r *CatTransformsRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f CatTransform) WithErrorTrace() func(*CatTransformRequest) {
-	return func(r *CatTransformRequest) {
+func (f CatTransforms) WithErrorTrace() func(*CatTransformsRequest) {
+	return func(r *CatTransformsRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f CatTransform) WithFilterPath(v ...string) func(*CatTransformRequest) {
-	return func(r *CatTransformRequest) {
+func (f CatTransforms) WithFilterPath(v ...string) func(*CatTransformsRequest) {
+	return func(r *CatTransformsRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f CatTransform) WithHeader(h map[string]string) func(*CatTransformRequest) {
-	return func(r *CatTransformRequest) {
+func (f CatTransforms) WithHeader(h map[string]string) func(*CatTransformsRequest) {
+	return func(r *CatTransformsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -309,8 +309,8 @@ func (f CatTransform) WithHeader(h map[string]string) func(*CatTransformRequest)
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f CatTransform) WithOpaqueID(s string) func(*CatTransformRequest) {
-	return func(r *CatTransformRequest) {
+func (f CatTransforms) WithOpaqueID(s string) func(*CatTransformsRequest) {
+	return func(r *CatTransformsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

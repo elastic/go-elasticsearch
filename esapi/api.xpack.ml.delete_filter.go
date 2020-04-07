@@ -24,7 +24,9 @@ func newMLDeleteFilterFunc(t Transport) MLDeleteFilter {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLDeleteFilter -
+// MLDeleteFilter - Deletes a filter.
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-filter.html.
 //
 type MLDeleteFilter func(filter_id string, o ...func(*MLDeleteFilterRequest)) (*Response, error)
 

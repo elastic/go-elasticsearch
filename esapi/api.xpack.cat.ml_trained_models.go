@@ -25,7 +25,7 @@ func newCatMLTrainedModelsFunc(t Transport) CatMLTrainedModels {
 
 // ----- API Definition -------------------------------------------------------
 
-// CatMLTrainedModels -
+// CatMLTrainedModels - Gets configuration and usage information about inference trained models.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-trained-model.html.
 //

@@ -25,7 +25,9 @@ func newMLPutFilterFunc(t Transport) MLPutFilter {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPutFilter -
+// MLPutFilter - Instantiates a filter.
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-put-filter.html.
 //
 type MLPutFilter func(body io.Reader, filter_id string, o ...func(*MLPutFilterRequest)) (*Response, error)
 

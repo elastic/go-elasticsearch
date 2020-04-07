@@ -24,7 +24,7 @@ func newSecurityEnableUserFunc(t Transport) SecurityEnableUser {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityEnableUser -
+// SecurityEnableUser - Enables users in the native realm.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-enable-user.html.
 //

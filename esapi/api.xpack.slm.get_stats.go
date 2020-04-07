@@ -24,7 +24,7 @@ func newSlmGetStatsFunc(t Transport) SlmGetStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// SlmGetStats -
+// SlmGetStats - Returns global and policy-level statistics about actions taken by snapshot lifecycle management.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/slm-api-get-stats.html.
 //

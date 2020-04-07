@@ -24,7 +24,7 @@ func newSlmExecuteRetentionFunc(t Transport) SlmExecuteRetention {
 
 // ----- API Definition -------------------------------------------------------
 
-// SlmExecuteRetention -
+// SlmExecuteRetention - Deletes any snapshots that are expired according to the policy's retention rules.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-execute-retention.html.
 //

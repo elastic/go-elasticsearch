@@ -24,7 +24,7 @@ func newILMStartFunc(t Transport) ILMStart {
 
 // ----- API Definition -------------------------------------------------------
 
-// ILMStart -
+// ILMStart - Start the index lifecycle management (ILM) plugin.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-start.html.
 //

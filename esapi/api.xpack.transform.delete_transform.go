@@ -25,7 +25,7 @@ func newTransformDeleteTransformFunc(t Transport) TransformDeleteTransform {
 
 // ----- API Definition -------------------------------------------------------
 
-// TransformDeleteTransform -
+// TransformDeleteTransform - Deletes an existing transform.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-transform.html.
 //

@@ -24,7 +24,7 @@ func newSlmStartFunc(t Transport) SlmStart {
 
 // ----- API Definition -------------------------------------------------------
 
-// SlmStart -
+// SlmStart - Turns on snapshot lifecycle management (SLM).
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-start.html.
 //

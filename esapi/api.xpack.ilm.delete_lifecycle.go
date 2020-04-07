@@ -24,7 +24,7 @@ func newILMDeleteLifecycleFunc(t Transport) ILMDeleteLifecycle {
 
 // ----- API Definition -------------------------------------------------------
 
-// ILMDeleteLifecycle -
+// ILMDeleteLifecycle - Deletes the specified lifecycle policy definition. A currently used policy cannot be deleted.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-delete-lifecycle.html.
 //

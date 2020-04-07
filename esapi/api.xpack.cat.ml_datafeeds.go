@@ -25,7 +25,7 @@ func newCatMLDatafeedsFunc(t Transport) CatMLDatafeeds {
 
 // ----- API Definition -------------------------------------------------------
 
-// CatMLDatafeeds -
+// CatMLDatafeeds - Gets configuration and usage information about datafeeds.
 //
 // See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/cat-datafeeds.html.
 //

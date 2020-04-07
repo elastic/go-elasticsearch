@@ -24,7 +24,7 @@ func newSlmExecuteLifecycleFunc(t Transport) SlmExecuteLifecycle {
 
 // ----- API Definition -------------------------------------------------------
 
-// SlmExecuteLifecycle -
+// SlmExecuteLifecycle - Immediately creates a snapshot according to the lifecycle policy, without waiting for the scheduled time.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-execute-lifecycle.html.
 //

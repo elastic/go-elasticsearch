@@ -25,7 +25,7 @@ func newDataFrameTransformDeprecatedDeleteTransformFunc(t Transport) DataFrameTr
 
 // ----- API Definition -------------------------------------------------------
 
-// DataFrameTransformDeprecatedDeleteTransform -
+// DataFrameTransformDeprecatedDeleteTransform - Deletes an existing transform.
 //
 // This API is beta.
 //

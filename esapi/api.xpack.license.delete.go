@@ -24,7 +24,7 @@ func newLicenseDeleteFunc(t Transport) LicenseDelete {
 
 // ----- API Definition -------------------------------------------------------
 
-// LicenseDelete -
+// LicenseDelete - Deletes licensing information for the cluster
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-license.html.
 //

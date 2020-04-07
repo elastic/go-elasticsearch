@@ -26,9 +26,9 @@ func newIndicesFreezeFunc(t Transport) IndicesFreeze {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesFreeze -
+// IndicesFreeze - Freezes an index. A frozen index has almost no overhead on the cluster (except for maintaining its metadata in memory) and is read-only.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/frozen.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/freeze-index-api.html.
 //
 type IndicesFreeze func(index string, o ...func(*IndicesFreezeRequest)) (*Response, error)
 

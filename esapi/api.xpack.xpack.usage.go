@@ -25,7 +25,7 @@ func newXPackUsageFunc(t Transport) XPackUsage {
 
 // ----- API Definition -------------------------------------------------------
 
-// XPackUsage -
+// XPackUsage - Retrieves usage information about the installed X-Pack features.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/usage-api.html.
 //

@@ -25,7 +25,9 @@ func newMLEstimateModelMemoryFunc(t Transport) MLEstimateModelMemory {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLEstimateModelMemory -
+// MLEstimateModelMemory - Estimates the model memory
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-apis.html.
 //
 type MLEstimateModelMemory func(body io.Reader, o ...func(*MLEstimateModelMemoryRequest)) (*Response, error)
 

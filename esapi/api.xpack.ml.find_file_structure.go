@@ -27,7 +27,7 @@ func newMLFindFileStructureFunc(t Transport) MLFindFileStructure {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLFindFileStructure -
+// MLFindFileStructure - Finds the structure of a text file. The text file must contain data that is suitable to be ingested into Elasticsearch.
 //
 // This API is experimental.
 //

@@ -25,7 +25,7 @@ func newMonitoringBulkFunc(t Transport) MonitoringBulk {
 
 // ----- API Definition -------------------------------------------------------
 
-// MonitoringBulk -
+// MonitoringBulk - Used by the monitoring features to send monitoring data.
 //
 // This API is experimental.
 //

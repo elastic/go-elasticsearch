@@ -25,7 +25,7 @@ func newDataFrameTransformDeprecatedStartTransformFunc(t Transport) DataFrameTra
 
 // ----- API Definition -------------------------------------------------------
 
-// DataFrameTransformDeprecatedStartTransform -
+// DataFrameTransformDeprecatedStartTransform - Starts one or more transforms.
 //
 // This API is beta.
 //

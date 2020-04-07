@@ -24,7 +24,7 @@ func newILMGetLifecycleFunc(t Transport) ILMGetLifecycle {
 
 // ----- API Definition -------------------------------------------------------
 
-// ILMGetLifecycle -
+// ILMGetLifecycle - Returns the specified policy definition. Includes the policy version and last modified date.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-get-lifecycle.html.
 //

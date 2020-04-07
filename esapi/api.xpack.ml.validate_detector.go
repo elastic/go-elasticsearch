@@ -25,7 +25,7 @@ func newMLValidateDetectorFunc(t Transport) MLValidateDetector {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLValidateDetector -
+// MLValidateDetector - Validates an anomaly detection detector.
 //
 type MLValidateDetector func(body io.Reader, o ...func(*MLValidateDetectorRequest)) (*Response, error)
 
