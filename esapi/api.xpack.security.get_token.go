@@ -25,7 +25,7 @@ func newSecurityGetTokenFunc(t Transport) SecurityGetToken {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGetToken -
+// SecurityGetToken - Creates a bearer token for access without requiring basic authentication.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-token.html.
 //

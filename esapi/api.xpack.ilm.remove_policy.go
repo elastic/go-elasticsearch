@@ -24,7 +24,7 @@ func newILMRemovePolicyFunc(t Transport) ILMRemovePolicy {
 
 // ----- API Definition -------------------------------------------------------
 
-// ILMRemovePolicy -
+// ILMRemovePolicy - Removes the assigned lifecycle policy and stops managing the specified index
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-remove-policy.html.
 //

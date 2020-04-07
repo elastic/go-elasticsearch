@@ -24,7 +24,7 @@ func newCCRPauseAutoFollowPatternFunc(t Transport) CCRPauseAutoFollowPattern {
 
 // ----- API Definition -------------------------------------------------------
 
-// CCRPauseAutoFollowPattern -
+// CCRPauseAutoFollowPattern - Pauses an auto-follow pattern
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-pause-auto-follow-pattern.html.
 //

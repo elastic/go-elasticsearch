@@ -24,7 +24,7 @@ func newWatcherStopFunc(t Transport) WatcherStop {
 
 // ----- API Definition -------------------------------------------------------
 
-// WatcherStop -
+// WatcherStop - Stops Watcher if it is running.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-stop.html.
 //

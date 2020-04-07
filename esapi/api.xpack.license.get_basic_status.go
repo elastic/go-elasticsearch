@@ -24,7 +24,7 @@ func newLicenseGetBasicStatusFunc(t Transport) LicenseGetBasicStatus {
 
 // ----- API Definition -------------------------------------------------------
 
-// LicenseGetBasicStatus -
+// LicenseGetBasicStatus - Retrieves information about the status of the basic license.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-basic-status.html.
 //

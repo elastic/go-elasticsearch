@@ -25,7 +25,7 @@ func newMLDeleteJobFunc(t Transport) MLDeleteJob {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLDeleteJob -
+// MLDeleteJob - Deletes an existing anomaly detection job.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-job.html.
 //

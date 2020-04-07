@@ -24,7 +24,7 @@ func newCCRDeleteAutoFollowPatternFunc(t Transport) CCRDeleteAutoFollowPattern {
 
 // ----- API Definition -------------------------------------------------------
 
-// CCRDeleteAutoFollowPattern -
+// CCRDeleteAutoFollowPattern - Deletes auto-follow patterns.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-delete-auto-follow-pattern.html.
 //

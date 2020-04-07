@@ -25,7 +25,7 @@ func newMLGetTrainedModelsStatsFunc(t Transport) MLGetTrainedModelsStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetTrainedModelsStats -
+// MLGetTrainedModelsStats - Retrieves usage information for trained inference models.
 //
 // This API is experimental.
 //

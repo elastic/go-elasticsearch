@@ -26,7 +26,7 @@ func newGraphExploreFunc(t Transport) GraphExplore {
 
 // ----- API Definition -------------------------------------------------------
 
-// GraphExplore -
+// GraphExplore - Explore extracted and summarized information about the documents and terms in an index.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/graph-explore-api.html.
 //

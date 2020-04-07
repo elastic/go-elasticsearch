@@ -26,9 +26,11 @@ func newRollupRollupSearchFunc(t Transport) RollupRollupSearch {
 
 // ----- API Definition -------------------------------------------------------
 
-// RollupRollupSearch -
+// RollupRollupSearch - Enables searching rolled-up data using the standard query DSL.
 //
 // This API is experimental.
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-search.html.
 //
 type RollupRollupSearch func(index []string, body io.Reader, o ...func(*RollupRollupSearchRequest)) (*Response, error)
 

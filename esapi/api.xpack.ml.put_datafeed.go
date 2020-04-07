@@ -26,7 +26,7 @@ func newMLPutDatafeedFunc(t Transport) MLPutDatafeed {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPutDatafeed -
+// MLPutDatafeed - Instantiates a datafeed.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-put-datafeed.html.
 //

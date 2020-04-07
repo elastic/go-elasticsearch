@@ -25,7 +25,7 @@ func newSecurityChangePasswordFunc(t Transport) SecurityChangePassword {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityChangePassword -
+// SecurityChangePassword - Changes the passwords of users in the native realm and built-in users.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-change-password.html.
 //

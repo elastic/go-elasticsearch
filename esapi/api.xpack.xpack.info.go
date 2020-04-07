@@ -24,7 +24,7 @@ func newXPackInfoFunc(t Transport) XPackInfo {
 
 // ----- API Definition -------------------------------------------------------
 
-// XPackInfo -
+// XPackInfo - Retrieves information about the installed X-Pack features.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/info-api.html.
 //

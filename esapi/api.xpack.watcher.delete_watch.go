@@ -24,7 +24,7 @@ func newWatcherDeleteWatchFunc(t Transport) WatcherDeleteWatch {
 
 // ----- API Definition -------------------------------------------------------
 
-// WatcherDeleteWatch -
+// WatcherDeleteWatch - Removes a watch from Watcher.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-delete-watch.html.
 //

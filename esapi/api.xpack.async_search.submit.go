@@ -27,7 +27,7 @@ func newAsyncSearchSubmitFunc(t Transport) AsyncSearchSubmit {
 
 // ----- API Definition -------------------------------------------------------
 
-// AsyncSearchSubmit -
+// AsyncSearchSubmit - Executes a search request asynchronously.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/async-search.html.
 //
@@ -476,7 +476,7 @@ func (f AsyncSearchSubmit) WithKeepAlive(v time.Duration) func(*AsyncSearchSubmi
 	}
 }
 
-// WithKeepOnCompletion - control whether the response should be stored in the cluster if it completed within the provided [wait_for_completion] time (default: true).
+// WithKeepOnCompletion - control whether the response should be stored in the cluster if it completed within the provided [wait_for_completion] time (default: false).
 //
 func (f AsyncSearchSubmit) WithKeepOnCompletion(v bool) func(*AsyncSearchSubmitRequest) {
 	return func(r *AsyncSearchSubmitRequest) {

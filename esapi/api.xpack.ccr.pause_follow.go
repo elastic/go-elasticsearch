@@ -24,7 +24,7 @@ func newCCRPauseFollowFunc(t Transport) CCRPauseFollow {
 
 // ----- API Definition -------------------------------------------------------
 
-// CCRPauseFollow -
+// CCRPauseFollow - Pauses a follower index. The follower index will not fetch any additional operations from the leader index.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-pause-follow.html.
 //

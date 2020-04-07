@@ -24,7 +24,7 @@ func newSecurityGetRoleMappingFunc(t Transport) SecurityGetRoleMapping {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGetRoleMapping -
+// SecurityGetRoleMapping - Retrieves role mappings.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-role-mapping.html.
 //

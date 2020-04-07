@@ -24,7 +24,7 @@ func newAsyncSearchDeleteFunc(t Transport) AsyncSearchDelete {
 
 // ----- API Definition -------------------------------------------------------
 
-// AsyncSearchDelete -
+// AsyncSearchDelete - Deletes an async search by ID. If the search is still running, the search request will be cancelled. Otherwise, the saved search results are deleted.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/async-search.html.
 //

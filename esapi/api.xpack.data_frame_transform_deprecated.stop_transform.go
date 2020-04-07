@@ -26,7 +26,7 @@ func newDataFrameTransformDeprecatedStopTransformFunc(t Transport) DataFrameTran
 
 // ----- API Definition -------------------------------------------------------
 
-// DataFrameTransformDeprecatedStopTransform -
+// DataFrameTransformDeprecatedStopTransform - Stops one or more transforms.
 //
 // This API is beta.
 //

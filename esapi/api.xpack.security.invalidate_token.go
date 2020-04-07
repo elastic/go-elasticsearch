@@ -25,7 +25,7 @@ func newSecurityInvalidateTokenFunc(t Transport) SecurityInvalidateToken {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityInvalidateToken -
+// SecurityInvalidateToken - Invalidates one or more access tokens or refresh tokens.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-invalidate-token.html.
 //

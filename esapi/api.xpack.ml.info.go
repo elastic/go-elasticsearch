@@ -24,7 +24,9 @@ func newMLInfoFunc(t Transport) MLInfo {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLInfo -
+// MLInfo - Returns defaults and limits used by machine learning.
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-ml-info.html.
 //
 type MLInfo func(o ...func(*MLInfoRequest)) (*Response, error)
 

@@ -25,7 +25,7 @@ func newMLPutDataFrameAnalyticsFunc(t Transport) MLPutDataFrameAnalytics {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPutDataFrameAnalytics -
+// MLPutDataFrameAnalytics - Instantiates a data frame analytics job.
 //
 // This API is experimental.
 //

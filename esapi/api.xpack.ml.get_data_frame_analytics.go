@@ -25,7 +25,7 @@ func newMLGetDataFrameAnalyticsFunc(t Transport) MLGetDataFrameAnalytics {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetDataFrameAnalytics -
+// MLGetDataFrameAnalytics - Retrieves configuration information for data frame analytics jobs.
 //
 // This API is experimental.
 //

@@ -26,7 +26,7 @@ func newWatcherExecuteWatchFunc(t Transport) WatcherExecuteWatch {
 
 // ----- API Definition -------------------------------------------------------
 
-// WatcherExecuteWatch -
+// WatcherExecuteWatch - Forces the execution of a stored watch.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-execute-watch.html.
 //

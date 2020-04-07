@@ -25,7 +25,7 @@ func newMLGetTrainedModelsFunc(t Transport) MLGetTrainedModels {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetTrainedModels -
+// MLGetTrainedModels - Retrieves configuration information for a trained inference model.
 //
 // This API is experimental.
 //

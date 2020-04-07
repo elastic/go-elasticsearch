@@ -26,7 +26,7 @@ func newMLStartDataFrameAnalyticsFunc(t Transport) MLStartDataFrameAnalytics {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLStartDataFrameAnalytics -
+// MLStartDataFrameAnalytics - Starts a data frame analytics job.
 //
 // This API is experimental.
 //

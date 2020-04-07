@@ -13,9 +13,9 @@ import (
 	"strings"
 )
 
-func newMLEstimateMemoryUsageFunc(t Transport) MLEstimateMemoryUsage {
-	return func(body io.Reader, o ...func(*MLEstimateMemoryUsageRequest)) (*Response, error) {
-		var r = MLEstimateMemoryUsageRequest{Body: body}
+func newAutoscalingPutAutoscalingPolicyFunc(t Transport) AutoscalingPutAutoscalingPolicy {
+	return func(name string, body io.Reader, o ...func(*AutoscalingPutAutoscalingPolicyRequest)) (*Response, error) {
+		var r = AutoscalingPutAutoscalingPolicyRequest{Name: name, Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -25,16 +25,20 @@ func newMLEstimateMemoryUsageFunc(t Transport) MLEstimateMemoryUsage {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLEstimateMemoryUsage -
+// AutoscalingPutAutoscalingPolicy -
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/estimate-memory-usage-dfanalytics.html.
+// This API is experimental.
 //
-type MLEstimateMemoryUsage func(body io.Reader, o ...func(*MLEstimateMemoryUsageRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-put-autoscaling-policy.html.
+//
+type AutoscalingPutAutoscalingPolicy func(name string, body io.Reader, o ...func(*AutoscalingPutAutoscalingPolicyRequest)) (*Response, error)
 
-// MLEstimateMemoryUsageRequest configures the ML Estimate Memory Usage API request.
+// AutoscalingPutAutoscalingPolicyRequest configures the Autoscaling Put Autoscaling Policy API request.
 //
-type MLEstimateMemoryUsageRequest struct {
+type AutoscalingPutAutoscalingPolicyRequest struct {
 	Body io.Reader
+
+	Name string
 
 	Pretty     bool
 	Human      bool
@@ -48,17 +52,22 @@ type MLEstimateMemoryUsageRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r MLEstimateMemoryUsageRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r AutoscalingPutAutoscalingPolicyRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "POST"
+	method = "PUT"
 
-	path.Grow(len("/_ml/data_frame/analytics/_estimate_memory_usage"))
-	path.WriteString("/_ml/data_frame/analytics/_estimate_memory_usage")
+	path.Grow(1 + len("_autoscaling") + 1 + len("policy") + 1 + len(r.Name))
+	path.WriteString("/")
+	path.WriteString("_autoscaling")
+	path.WriteString("/")
+	path.WriteString("policy")
+	path.WriteString("/")
+	path.WriteString(r.Name)
 
 	params = make(map[string]string)
 
@@ -127,48 +136,48 @@ func (r MLEstimateMemoryUsageRequest) Do(ctx context.Context, transport Transpor
 
 // WithContext sets the request context.
 //
-func (f MLEstimateMemoryUsage) WithContext(v context.Context) func(*MLEstimateMemoryUsageRequest) {
-	return func(r *MLEstimateMemoryUsageRequest) {
+func (f AutoscalingPutAutoscalingPolicy) WithContext(v context.Context) func(*AutoscalingPutAutoscalingPolicyRequest) {
+	return func(r *AutoscalingPutAutoscalingPolicyRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f MLEstimateMemoryUsage) WithPretty() func(*MLEstimateMemoryUsageRequest) {
-	return func(r *MLEstimateMemoryUsageRequest) {
+func (f AutoscalingPutAutoscalingPolicy) WithPretty() func(*AutoscalingPutAutoscalingPolicyRequest) {
+	return func(r *AutoscalingPutAutoscalingPolicyRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f MLEstimateMemoryUsage) WithHuman() func(*MLEstimateMemoryUsageRequest) {
-	return func(r *MLEstimateMemoryUsageRequest) {
+func (f AutoscalingPutAutoscalingPolicy) WithHuman() func(*AutoscalingPutAutoscalingPolicyRequest) {
+	return func(r *AutoscalingPutAutoscalingPolicyRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f MLEstimateMemoryUsage) WithErrorTrace() func(*MLEstimateMemoryUsageRequest) {
-	return func(r *MLEstimateMemoryUsageRequest) {
+func (f AutoscalingPutAutoscalingPolicy) WithErrorTrace() func(*AutoscalingPutAutoscalingPolicyRequest) {
+	return func(r *AutoscalingPutAutoscalingPolicyRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f MLEstimateMemoryUsage) WithFilterPath(v ...string) func(*MLEstimateMemoryUsageRequest) {
-	return func(r *MLEstimateMemoryUsageRequest) {
+func (f AutoscalingPutAutoscalingPolicy) WithFilterPath(v ...string) func(*AutoscalingPutAutoscalingPolicyRequest) {
+	return func(r *AutoscalingPutAutoscalingPolicyRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f MLEstimateMemoryUsage) WithHeader(h map[string]string) func(*MLEstimateMemoryUsageRequest) {
-	return func(r *MLEstimateMemoryUsageRequest) {
+func (f AutoscalingPutAutoscalingPolicy) WithHeader(h map[string]string) func(*AutoscalingPutAutoscalingPolicyRequest) {
+	return func(r *AutoscalingPutAutoscalingPolicyRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -180,8 +189,8 @@ func (f MLEstimateMemoryUsage) WithHeader(h map[string]string) func(*MLEstimateM
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f MLEstimateMemoryUsage) WithOpaqueID(s string) func(*MLEstimateMemoryUsageRequest) {
-	return func(r *MLEstimateMemoryUsageRequest) {
+func (f AutoscalingPutAutoscalingPolicy) WithOpaqueID(s string) func(*AutoscalingPutAutoscalingPolicyRequest) {
+	return func(r *AutoscalingPutAutoscalingPolicyRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

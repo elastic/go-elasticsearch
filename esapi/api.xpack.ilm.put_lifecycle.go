@@ -25,7 +25,7 @@ func newILMPutLifecycleFunc(t Transport) ILMPutLifecycle {
 
 // ----- API Definition -------------------------------------------------------
 
-// ILMPutLifecycle -
+// ILMPutLifecycle - Creates a lifecycle policy
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-put-lifecycle.html.
 //

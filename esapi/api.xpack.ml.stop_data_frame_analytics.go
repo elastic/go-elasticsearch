@@ -27,7 +27,7 @@ func newMLStopDataFrameAnalyticsFunc(t Transport) MLStopDataFrameAnalytics {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLStopDataFrameAnalytics -
+// MLStopDataFrameAnalytics - Stops one or more data frame analytics jobs.
 //
 // This API is experimental.
 //

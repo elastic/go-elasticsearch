@@ -25,7 +25,7 @@ func newSecurityPutUserFunc(t Transport) SecurityPutUser {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityPutUser -
+// SecurityPutUser - Adds and updates users in the native realm. These users are commonly referred to as native users.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-put-user.html.
 //

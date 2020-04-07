@@ -25,7 +25,7 @@ func newTransformStartTransformFunc(t Transport) TransformStartTransform {
 
 // ----- API Definition -------------------------------------------------------
 
-// TransformStartTransform -
+// TransformStartTransform - Starts one or more transforms.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/start-transform.html.
 //

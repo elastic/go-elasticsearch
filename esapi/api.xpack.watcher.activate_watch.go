@@ -24,7 +24,7 @@ func newWatcherActivateWatchFunc(t Transport) WatcherActivateWatch {
 
 // ----- API Definition -------------------------------------------------------
 
-// WatcherActivateWatch -
+// WatcherActivateWatch - Activates a currently inactive watch.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-activate-watch.html.
 //

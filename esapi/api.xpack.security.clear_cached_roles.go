@@ -24,7 +24,7 @@ func newSecurityClearCachedRolesFunc(t Transport) SecurityClearCachedRoles {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityClearCachedRoles -
+// SecurityClearCachedRoles - Evicts roles from the native role cache.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-role-cache.html.
 //

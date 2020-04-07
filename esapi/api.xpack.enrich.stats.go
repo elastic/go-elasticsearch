@@ -24,7 +24,7 @@ func newEnrichStatsFunc(t Transport) EnrichStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// EnrichStats -
+// EnrichStats - Gets enrich coordinator statistics and information about enrich policies that are currently executing.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/enrich-stats-api.html.
 //

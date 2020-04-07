@@ -25,7 +25,7 @@ func newSecurityCreateAPIKeyFunc(t Transport) SecurityCreateAPIKey {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityCreateAPIKey -
+// SecurityCreateAPIKey - Creates an API key for access without requiring basic authentication.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-api-key.html.
 //

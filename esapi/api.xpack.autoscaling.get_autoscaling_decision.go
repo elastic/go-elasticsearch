@@ -24,7 +24,7 @@ func newAutoscalingGetAutoscalingDecisionFunc(t Transport) AutoscalingGetAutosca
 
 // ----- API Definition -------------------------------------------------------
 
-// AutoscalingGetAutoscalingDecision -
+// AutoscalingGetAutoscalingDecision - Gets the current autoscaling decision based on the configured autoscaling policy, indicating whether or not autoscaling is needed.
 //
 // This API is experimental.
 //

@@ -26,7 +26,7 @@ func newTransformStopTransformFunc(t Transport) TransformStopTransform {
 
 // ----- API Definition -------------------------------------------------------
 
-// TransformStopTransform -
+// TransformStopTransform - Stops one or more transforms.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/stop-transform.html.
 //

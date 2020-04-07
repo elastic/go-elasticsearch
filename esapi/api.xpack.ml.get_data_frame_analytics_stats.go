@@ -25,7 +25,7 @@ func newMLGetDataFrameAnalyticsStatsFunc(t Transport) MLGetDataFrameAnalyticsSta
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetDataFrameAnalyticsStats -
+// MLGetDataFrameAnalyticsStats - Retrieves usage information for data frame analytics jobs.
 //
 // This API is experimental.
 //

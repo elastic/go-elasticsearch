@@ -24,7 +24,7 @@ func newMLDeleteTrainedModelFunc(t Transport) MLDeleteTrainedModel {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLDeleteTrainedModel -
+// MLDeleteTrainedModel - Deletes an existing trained inference model that is currently not referenced by an ingest pipeline.
 //
 // This API is experimental.
 //
