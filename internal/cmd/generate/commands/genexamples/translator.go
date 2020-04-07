@@ -9,6 +9,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"log"
 	"net/url"
 	"regexp"
 	"sort"
@@ -24,6 +25,8 @@ const testCheck = "\t" + `if err != nil {            // SKIP
 	}                                                  // SKIP
 	defer res.Body.Close()                             // SKIP
 `
+
+var _ = log.Print
 
 // ConsoleToGo contains translation rules.
 //
@@ -65,30 +68,35 @@ var ConsoleToGo = []TranslateRule{
 		}},
 
 	{ // ----- Index() or Create() ----------------------------------------------
-		Pattern: `^(PUT|POST) /?\w+/(_doc|_create)/?.*`,
+		Pattern: `^(PUT|POST) /?.+/(_doc|_create|_update)/?.*`,
 		Func: func(in string) (string, error) {
 			var (
 				src     strings.Builder
 				apiName string
 			)
 
-			re := regexp.MustCompile(`(?ms)^(?P<method>PUT|POST) /?(?P<index>\w+)/(?P<api>_doc|_create)/?(?P<id>\w+)?(?P<params>\??[\S]+)?\s?(?P<body>.*)`)
+			re := regexp.MustCompile(`(?ms)^(?P<method>PUT|POST) /?(?P<index>.+)/(?P<api>_doc|_create|_update)/?(?P<id>\w+)?(?P<params>\??[\S]+)?\s?(?P<body>.*)`)
 			matches := re.FindStringSubmatch(in)
 			if matches == nil {
 				return "", errors.New("cannot match example source to pattern")
 			}
 
-			if matches[3] == "_create" {
-				apiName = "Create"
-			} else {
+			switch matches[3] {
+			case "_doc":
 				apiName = "Index"
+			case "_create":
+				apiName = "Create"
+			case "_update":
+				apiName = "Update"
+			default:
+				return "", fmt.Errorf("Unknown API [%s]", matches[3])
 			}
 
 			src.WriteString("\tres, err := es." + apiName + "(\n")
 
 			fmt.Fprintf(&src, "\t%q,\n", matches[2])
 
-			if apiName == "Create" {
+			if apiName == "Create" || apiName == "Update" {
 				fmt.Fprintf(&src, "\t%q,\n", matches[4])
 			}
 
@@ -185,6 +193,78 @@ var ConsoleToGo = []TranslateRule{
 			return src.String(), nil
 		}},
 
+	{ // ----- Indices.PutTemplate() -------------------------------------------------
+		Pattern: `^PUT /?_template/[^/\s]+`,
+		Func: func(in string) (string, error) {
+			var src strings.Builder
+
+			re := regexp.MustCompile(`(?ms)^PUT /?_template/(?P<name>[^/\s]+)/?(?P<params>\??[\S/]+)?\s?(?P<body>.+)?`)
+			matches := re.FindStringSubmatch(in)
+			if matches == nil {
+				return "", errors.New("cannot match example source to pattern")
+			}
+
+			src.WriteString("\tres, err := es.Indices.PutTemplate(")
+			fmt.Fprintf(&src, "\n\t%q,\n", matches[1])
+
+			if matches[2] != "" || matches[3] != "" {
+				if strings.TrimSpace(matches[3]) != "" {
+					body, err := bodyStringToReader(matches[3])
+					if err != nil {
+						return "", fmt.Errorf("error converting body: %s", err)
+					}
+					fmt.Fprintf(&src, "\t%s,\n", body)
+				}
+
+				if matches[2] != "" {
+					params, err := queryToParams(matches[2])
+					if err != nil {
+						return "", fmt.Errorf("error parsing URL params: %s", err)
+					}
+					args, err := paramsToArguments("Indices.PutTemplate", params)
+					if err != nil {
+						return "", fmt.Errorf("error converting params to arguments: %s", err)
+					}
+					fmt.Fprintf(&src, args)
+				}
+			}
+
+			src.WriteString(")")
+			return src.String(), nil
+		}},
+
+	{ // ----- Indices.GetTemplate() -------------------------------------------------
+		Pattern: `^GET /?_template/[^/\s]+`,
+		Func: func(in string) (string, error) {
+			var src strings.Builder
+
+			re := regexp.MustCompile(`(?ms)^GET /?_template/(?P<name>[^/\?\s]+)/?(?P<params>\??[\S/]+)?\s?`)
+			matches := re.FindStringSubmatch(in)
+			if matches == nil {
+				return "", errors.New("cannot match example source to pattern")
+			}
+
+			src.WriteString("\tres, err := es.Indices.GetTemplate(")
+			if matches[1] != "" {
+				fmt.Fprintf(&src, "\n\tes.Indices.GetTemplate.WithName(%q),\n", matches[1])
+			}
+
+			if matches[2] != "" {
+				params, err := queryToParams(matches[2])
+				if err != nil {
+					return "", fmt.Errorf("error parsing URL params: %s", err)
+				}
+				args, err := paramsToArguments("Indices.GetTemplate", params)
+				if err != nil {
+					return "", fmt.Errorf("error converting params to arguments: %s", err)
+				}
+				fmt.Fprintf(&src, args)
+			}
+
+			src.WriteString(")")
+			return src.String(), nil
+		}},
+
 	{ // ----- Indices.Create() -------------------------------------------------
 		Pattern: `^PUT /?[^/\s]+\s?`,
 		Func: func(in string) (string, error) {
@@ -260,12 +340,33 @@ var ConsoleToGo = []TranslateRule{
 			return src.String(), nil
 		}},
 
-	{ // ----- Get() or GetSource() ---------------------------------------------
-		Pattern: `^GET /?\w+/(_doc|_source)/\w+`,
+	{ // ----- Indices.Refresh() -------------------------------------------------
+		Pattern: `^GET /?[^/\s]*/?_refresh`,
 		Func: func(in string) (string, error) {
 			var src strings.Builder
 
-			re := regexp.MustCompile(`(?ms)^GET /?(?P<index>\w+)/(?P<api>_doc|_source)/(?P<id>\w+)(?P<params>\??\S+)?\s*$`)
+			re := regexp.MustCompile(`(?ms)^GET /?(?P<index>[^/\s]*)/?_refresh$`)
+			matches := re.FindStringSubmatch(in)
+			if matches == nil {
+				return "", errors.New("cannot match example source to pattern")
+			}
+
+			src.WriteString("\tres, err := es.Indices.Refresh(")
+
+			if matches[1] != "" {
+				fmt.Fprintf(&src, "[]string{%q}", matches[1])
+			}
+
+			src.WriteString(")")
+			return src.String(), nil
+		}},
+
+	{ // ----- Get() or GetSource() ---------------------------------------------
+		Pattern: `^GET /?.+/(_doc|_source)/\w+`,
+		Func: func(in string) (string, error) {
+			var src strings.Builder
+
+			re := regexp.MustCompile(`(?ms)^GET /?(?P<index>.+)/(?P<api>_doc|_source)/(?P<id>\w+)(?P<params>\??\S+)?\s*$`)
 			matches := re.FindStringSubmatch(in)
 			if matches == nil {
 				return "", errors.New("cannot match example source to pattern")
@@ -382,11 +483,11 @@ var ConsoleToGo = []TranslateRule{
 		}},
 
 	{ // ----- Search() ---------------------------------------------------------
-		Pattern: `^(GET|POST) /?(\S+)?/?_search`,
+		Pattern: `^(GET|POST) /?[^/]*/?_search`,
 		Func: func(in string) (string, error) {
 			var src strings.Builder
 
-			re := regexp.MustCompile(`(?ms)^(GET|POST) /?(?P<index>\S+)?/?_search(?P<params>\??[\S]+)?\s?(?P<body>.+)?`)
+			re := regexp.MustCompile(`(?ms)^(GET|POST) /?(?P<index>[^/]*)?/?_search(?P<params>\??[\S]+)?\s?(?P<body>.+)?`)
 			matches := re.FindStringSubmatch(in)
 			if matches == nil {
 				return "", errors.New("cannot match example source to pattern")
@@ -405,8 +506,10 @@ var ConsoleToGo = []TranslateRule{
 				fmt.Fprintf(&src, "\tes.Search.WithBody(%s),\n", body)
 			}
 
+			var params url.Values
 			if matches[3] != "" {
-				params, err := url.ParseQuery(strings.TrimPrefix(strings.TrimPrefix(matches[3], "/"), "?"))
+				var err error
+				params, err = url.ParseQuery(strings.TrimPrefix(strings.TrimPrefix(matches[3], "/"), "?"))
 				if err != nil {
 					return "", fmt.Errorf("error parsing URL params: %s", err)
 				}
@@ -417,7 +520,140 @@ var ConsoleToGo = []TranslateRule{
 				fmt.Fprint(&src, args)
 			}
 
-			src.WriteString("\tes.Search.WithPretty(),\n")
+			var hasPretty bool
+			for k, _ := range params {
+				if k == "pretty" {
+					hasPretty = true
+				}
+			}
+
+			if !hasPretty {
+				src.WriteString("\tes.Search.WithPretty(),\n")
+			}
+
+			src.WriteString("\t)")
+			return src.String(), nil
+		}},
+
+	{ // ----- DeleteByQueryRethrottle() ---------------------------------------------------------
+		Pattern: `^POST /?_delete_by_query.+_rethrottle`,
+		Func: func(in string) (string, error) {
+			var src strings.Builder
+
+			re := regexp.MustCompile(`(?ms)^POST /?_delete_by_query/(?P<task_id>\S+)/_rethrottle(?P<params>\??[\S/]+)?`)
+
+			matches := re.FindStringSubmatch(in)
+			if matches == nil {
+				return "", errors.New("cannot match example source to pattern")
+			}
+
+			src.WriteString("\tres, err := es.DeleteByQueryRethrottle(\n")
+			fmt.Fprintf(&src, "%q,\n", matches[1])
+
+			if matches[2] != "" {
+				params, err := url.ParseQuery(strings.TrimPrefix(strings.TrimPrefix(matches[2], "/"), "?"))
+				if err != nil {
+					return "", fmt.Errorf("error parsing URL params: %s", err)
+				}
+
+				var requestsPerSecond []string
+				for key, value := range params {
+					if key == "requests_per_second" {
+						requestsPerSecond = value
+						delete(params, key)
+					}
+				}
+				fmt.Fprintf(&src, "esapi.IntPtr(%v),\n", strings.Join(requestsPerSecond, ""))
+
+				args, err := paramsToArguments("DeleteByQueryRethrottle", params)
+				if err != nil {
+					return "", fmt.Errorf("error converting params to arguments: %s", err)
+				}
+				fmt.Fprintf(&src, args)
+			}
+
+			src.WriteString("\t)")
+			return src.String(), nil
+		}},
+
+	{ // ----- DeleteByQuery() ---------------------------------------------------------
+		Pattern: `^(GET|POST) /?(\S+)?/?_delete_by_query`,
+		Func: func(in string) (string, error) {
+			var src strings.Builder
+
+			re := regexp.MustCompile(`(?ms)^(GET|POST) /?(?P<index>[^/]*)?/?_delete_by_query(?P<params>\??[\S]+)?\s?(?P<body>.+)?`)
+			matches := re.FindStringSubmatch(in)
+			if matches == nil {
+				return "", errors.New("cannot match example source to pattern")
+			}
+
+			src.WriteString("\tres, err := es.DeleteByQuery(\n")
+			if matches[2] != "" {
+				fmt.Fprintf(&src, "\t[]string{%q},\n", matches[2])
+			}
+
+			if strings.TrimSpace(matches[4]) != "" {
+				body, err := bodyStringToReader(matches[4])
+				if err != nil {
+					return "", fmt.Errorf("error converting body: %s", err)
+				}
+				fmt.Fprintf(&src, "\t%s,\n", body)
+			}
+
+			var params url.Values
+			if matches[3] != "" {
+				var err error
+				params, err = url.ParseQuery(strings.TrimPrefix(strings.TrimPrefix(matches[3], "/"), "?"))
+				if err != nil {
+					return "", fmt.Errorf("error parsing URL params: %s", err)
+				}
+				args, err := paramsToArguments("DeleteByQuery", params)
+				if err != nil {
+					return "", fmt.Errorf("error converting params to arguments: %s", err)
+				}
+				fmt.Fprint(&src, args)
+			}
+
+			src.WriteString("\t)")
+			return src.String(), nil
+		}},
+
+	{ // ----- ReindexRethrottle() ---------------------------------------------------------
+		Pattern: `^POST /?_reindex.+_rethrottle`,
+		Func: func(in string) (string, error) {
+			var src strings.Builder
+
+			re := regexp.MustCompile(`(?ms)^POST /?_reindex/(?P<task_id>\S+)/_rethrottle(?P<params>\??[\S/]+)?`)
+
+			matches := re.FindStringSubmatch(in)
+			if matches == nil {
+				return "", errors.New("cannot match example source to pattern")
+			}
+
+			src.WriteString("\tres, err := es.ReindexRethrottle(\n")
+			fmt.Fprintf(&src, "%q,\n", matches[1])
+
+			if matches[2] != "" {
+				params, err := url.ParseQuery(strings.TrimPrefix(strings.TrimPrefix(matches[2], "/"), "?"))
+				if err != nil {
+					return "", fmt.Errorf("error parsing URL params: %s", err)
+				}
+
+				var requestsPerSecond []string
+				for key, value := range params {
+					if key == "requests_per_second" {
+						requestsPerSecond = value
+						delete(params, key)
+					}
+				}
+				fmt.Fprintf(&src, "esapi.IntPtr(%v),\n", strings.Join(requestsPerSecond, ""))
+
+				args, err := paramsToArguments("ReindexRethrottle", params)
+				if err != nil {
+					return "", fmt.Errorf("error converting params to arguments: %s", err)
+				}
+				fmt.Fprintf(&src, args)
+			}
 
 			src.WriteString("\t)")
 			return src.String(), nil
@@ -446,6 +682,7 @@ var ConsoleToGo = []TranslateRule{
 			}
 
 			if matches[1] != "" {
+				src.WriteString(",\n")
 				params, err := url.ParseQuery(strings.TrimPrefix(strings.TrimPrefix(matches[1], "/"), "?"))
 				if err != nil {
 					return "", fmt.Errorf("error parsing URL params: %s", err)
@@ -492,6 +729,75 @@ var ConsoleToGo = []TranslateRule{
 					return "", fmt.Errorf("error converting params to arguments: %s", err)
 				}
 				fmt.Fprint(&src, args)
+			}
+
+			src.WriteString("\t)")
+			return src.String(), nil
+		}},
+
+	{ // ----- Tasks.Get() ---------------------------------------------------------
+		Pattern: `^GET /?_tasks`,
+		Func: func(in string) (string, error) {
+			var src strings.Builder
+
+			re := regexp.MustCompile(`(?ms)^GET /?_tasks/?(?P<task_id>\S+)?/?(?P<params>\??[\S/]+)?`)
+
+			matches := re.FindStringSubmatch(in)
+			if matches == nil {
+				return "", errors.New("cannot match example source to pattern")
+			}
+
+			src.WriteString("\tres, err := es.Tasks.Get(\n")
+
+			if matches[1] != "" {
+				fmt.Fprintf(&src, "\t%q,\n", matches[1])
+			}
+
+			if matches[2] != "" {
+				params, err := url.ParseQuery(strings.TrimPrefix(strings.TrimPrefix(matches[2], "/"), "?"))
+				if err != nil {
+					return "", fmt.Errorf("error parsing URL params: %s", err)
+				}
+
+				args, err := paramsToArguments("Tasks.Get", params)
+				if err != nil {
+					return "", fmt.Errorf("error converting params to arguments: %s", err)
+				}
+				fmt.Fprintf(&src, args)
+			}
+
+			src.WriteString("\t)")
+			return src.String(), nil
+		}},
+
+	{ // ----- Tasks.Cancel() ---------------------------------------------------------
+		Pattern: `^POST /?_tasks.+_cancel`,
+		Func: func(in string) (string, error) {
+			var src strings.Builder
+
+			re := regexp.MustCompile(`(?ms)^POST /?_tasks/(?P<task_id>\S+)/_cancel(?P<params>\??[\S/]+)?`)
+
+			matches := re.FindStringSubmatch(in)
+			if matches == nil {
+				return "", errors.New("cannot match example source to pattern")
+			}
+
+			src.WriteString("\tres, err := es.Tasks.Cancel(\n")
+			if matches[1] != "" {
+				fmt.Fprintf(&src, "es.Tasks.Cancel.WithTaskID(%q),\n", matches[1])
+			}
+
+			if matches[2] != "" {
+				params, err := url.ParseQuery(strings.TrimPrefix(strings.TrimPrefix(matches[2], "/"), "?"))
+				if err != nil {
+					return "", fmt.Errorf("error parsing URL params: %s", err)
+				}
+
+				args, err := paramsToArguments("Tasks.Cancel", params)
+				if err != nil {
+					return "", fmt.Errorf("error converting params to arguments: %s", err)
+				}
+				fmt.Fprintf(&src, args)
 			}
 
 			src.WriteString("\t)")
@@ -630,8 +936,25 @@ func paramsToArguments(api string, params url.Values) (string, error) {
 				return "", fmt.Errorf("error parsing duration: %s", err)
 			}
 			value = fmt.Sprintf("time.Duration(%d)", time.Duration(dur))
-		case "from", "size", "terminate_after", "version": // numeric
+		case "from", "size", "terminate_after", "version", "requests_per_second", "scroll_size": // numeric
 			value = fmt.Sprintf("%s", value)
+		case "pretty":
+			value = "" // WithPretty() doesn't take any value
+		case "refresh":
+			switch api {
+			case "Index":
+				if params[k][0] == "" {
+					value = `"true"` // WithRefresh() needs a string
+				} else {
+					value = strconv.Quote(value)
+				}
+			case "Reindex", "DeleteByQuery":
+				if params[k][0] == "" {
+					value = "true" // WithRefresh() needs a boolean
+				}
+			default:
+				value = strconv.Quote(value)
+			}
 		default:
 			value = strconv.Quote(value)
 		}
