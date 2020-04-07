@@ -83,6 +83,10 @@ cat.aliases/20_headers.yml:
 search.aggregation/40_range.yml:
   - Date range
 
+# Mismatch in number parsing, 8623000 != 8.623e+06
+search.aggregation/340_geo_distance.yml:
+  - avg_bucket
+
 # Tries to match on "Cluster Get Settings" output, but that's an empty map
 search/320_disallow_queries.yml:
 
