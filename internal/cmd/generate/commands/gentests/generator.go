@@ -337,6 +337,11 @@ func (g *Generator) genCommonSetup() {
 		}
 
 		{
+			res, _ = es.Indices.DeleteIndexTemplate("_all")
+			if res != nil && res.Body != nil { defer res.Body.Close() }
+		}
+
+		{
 			res, _ = es.Indices.DeleteAlias([]string{"_all"}, []string{"_all"})
 			if res != nil && res.Body != nil { defer res.Body.Close() }
 		}
