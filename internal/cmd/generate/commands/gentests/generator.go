@@ -347,6 +347,11 @@ func (g *Generator) genCommonSetup() {
 		}
 
 		{
+			res, _ = es.Indices.DeleteDataStream("_all")
+			if res != nil && res.Body != nil { defer res.Body.Close() }
+		}
+
+		{
 			var r map[string]interface{}
 			res, _ = es.Snapshot.GetRepository()
 			if res != nil && res.Body != nil {
