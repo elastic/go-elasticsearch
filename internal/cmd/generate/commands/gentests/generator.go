@@ -337,7 +337,7 @@ func (g *Generator) genCommonSetup() {
 		}
 
 		{
-			res, _ = es.Indices.DeleteIndexTemplate("_all")
+			res, _ = es.Indices.DeleteIndexTemplate("*")
 			if res != nil && res.Body != nil { defer res.Body.Close() }
 		}
 
