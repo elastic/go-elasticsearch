@@ -44,6 +44,7 @@ var EnabledFiles = []string{
 	"query-dsl/query_filter_context.asciidoc",
 	"query-dsl/range-query.asciidoc",
 	"query-dsl/term-query.asciidoc",
+	"query-dsl/terms-query.asciidoc",
 	"query-dsl/wildcard-query.asciidoc",
 	"search/request-body.asciidoc",
 	"search/request/sort.asciidoc",
