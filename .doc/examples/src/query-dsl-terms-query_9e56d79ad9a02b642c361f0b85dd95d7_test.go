@@ -1,0 +1,59 @@
+// Licensed to Elasticsearch B.V under one or more agreements.
+// Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
+// See the LICENSE file in the project root for more information.
+//
+// Code generated, DO NOT EDIT
+
+package elasticsearch_test
+
+import (
+	"fmt"
+	"os"
+	"strings"
+	"testing"
+
+	"github.com/elastic/go-elasticsearch/v8"
+)
+
+var (
+	_ = fmt.Printf
+	_ = os.Stdout
+	_ = elasticsearch.NewDefaultClient
+)
+
+// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/query-dsl/terms-query.asciidoc#L127>
+//
+// --------------------------------------------------------------------------------
+// PUT my_index
+// {
+//     "mappings" : {
+//         "properties" : {
+//             "color" : { "type" : "keyword" }
+//         }
+//     }
+// }
+// --------------------------------------------------------------------------------
+
+func Test_query_dsl_terms_query_9e56d79ad9a02b642c361f0b85dd95d7(t *testing.T) {
+	es, _ := elasticsearch.NewDefaultClient()
+
+	// tag:9e56d79ad9a02b642c361f0b85dd95d7[]
+	res, err := es.Indices.Create(
+		"my_index",
+		es.Indices.Create.WithBody(strings.NewReader(`{
+		  "mappings": {
+		    "properties": {
+		      "color": {
+		        "type": "keyword"
+		      }
+		    }
+		  }
+		}`)),
+	)
+	fmt.Println(res, err)
+	if err != nil { // SKIP
+		t.Fatalf("Error getting the response: %s", err) // SKIP
+	} // SKIP
+	defer res.Body.Close() // SKIP
+	// end:9e56d79ad9a02b642c361f0b85dd95d7[]
+}

@@ -1,0 +1,14 @@
+// Generated from query-dsl-terms-query_8c5977410335d58217e0626618ce6641_test.go
+//
+[source, go]
+----
+res, err := es.Index(
+	"my_index",
+	strings.NewReader(`{
+	  "color": "blue"
+	}`),
+	es.Index.WithDocumentID("2"),
+	es.Index.WithPretty(),
+)
+fmt.Println(res, err)
+----

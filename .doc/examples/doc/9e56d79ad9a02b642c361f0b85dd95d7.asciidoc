@@ -1,0 +1,18 @@
+// Generated from query-dsl-terms-query_9e56d79ad9a02b642c361f0b85dd95d7_test.go
+//
+[source, go]
+----
+res, err := es.Indices.Create(
+	"my_index",
+	es.Indices.Create.WithBody(strings.NewReader(`{
+	  "mappings": {
+	    "properties": {
+	      "color": {
+	        "type": "keyword"
+	      }
+	    }
+	  }
+	}`)),
+)
+fmt.Println(res, err)
+----
