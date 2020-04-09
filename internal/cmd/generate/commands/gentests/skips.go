@@ -109,6 +109,10 @@ indices.put_mapping/10_basic.yml:
 search/issue4895.yml:
 search/issue9606.yml:
 
+# Test doesn't work on 7.x
+indices.data_stream/10_basic.yml:
+  - "Create data stream with invalid name"
+
 # FIXME
 bulk/80_cas.yml:
 bulk/81_cas_with_types.yml:
