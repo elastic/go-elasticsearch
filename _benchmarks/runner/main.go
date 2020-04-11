@@ -44,36 +44,42 @@ func main() {
 	rand.Seed(time.Now().UnixNano())
 
 	start := time.Now().UTC()
-
-	log.Printf(boldUnderline("Running benchmarks for go-elasticsearch@%s; %s/go%s"), elasticsearch.Version, runner.OSFamily, runner.RuntimeVersion)
-
-	targetURL := os.Getenv("ELASTICSEARCH_TARGET_URL")
-	if targetURL == "" {
-		log.Fatal("ERROR: Required environment variable [ELASTICSEARCH_TARGET_URL] empty")
+	config := map[string]string{
+		"BUILD_ID":                 "",
+		"DATA_SOURCE":              "",
+		"CLIENT_BRANCH":            "",
+		"CLIENT_COMMIT":            "",
+		"ELASTICSEARCH_TARGET_URL": "",
+		"ELASTICSEARCH_REPORT_URL": "",
+		"TARGET_SERVICE_TYPE":      "",
+		"TARGET_SERVICE_NAME":      "",
+		"TARGET_SERVICE_VERSION":   "",
+		"TARGET_SERVICE_OS_FAMILY": "",
 	}
 
-	reportURL := os.Getenv("ELASTICSEARCH_REPORT_URL")
-	if targetURL == "" {
-		log.Fatal("ERROR: Required environment variable [ELASTICSEARCH_REPORT_URL] empty")
+	log.Printf(boldUnderline("Running benchmarks for go-elasticsearch@%s; %s/go%s"), elasticsearch.Version, runner.RuntimeOS, runner.RuntimeVersion)
+
+	for k, _ := range config {
+		v := os.Getenv(k)
+		if v == "" {
+			log.Fatalf("ERROR: Required environment variable [%s] empty", k)
+		}
+		config[k] = v
 	}
 
-	dataSource := os.Getenv("DATA_SOURCE")
-	if dataSource == "" {
-		log.Fatal("ERROR: Required environment variable [DATA_SOURCE] empty")
-	}
-	if _, err := os.Stat(dataSource); os.IsNotExist(err) {
-		log.Fatalf("ERROR: Data source at [%s] does not exist", dataSource)
+	if _, err := os.Stat(config["DATA_SOURCE"]); os.IsNotExist(err) {
+		log.Fatalf("ERROR: Data source at [%s] does not exist", config["DATA_SOURCE"])
 	}
 
 	filterOperations = os.Getenv("FILTER")
 
 	runnerClientConfig := elasticsearch.Config{
-		Addresses:    []string{targetURL},
+		Addresses:    []string{config["ELASTICSEARCH_TARGET_URL"]},
 		DisableRetry: true,
 	}
 
 	reportClientConfig := elasticsearch.Config{
-		Addresses:            []string{reportURL},
+		Addresses:            []string{config["ELASTICSEARCH_REPORT_URL"]},
 		MaxRetries:           10,
 		EnableRetryOnTimeout: true,
 	}
@@ -88,6 +94,30 @@ func main() {
 	runnerConfig := runner.Config{
 		RunnerClient: runnerClient,
 		ReportClient: reportClient,
+
+		BuildID: config["BUILD_ID"],
+		Target: struct {
+			OS      runner.ConfigOS
+			Service runner.ConfigService
+		}{
+			OS: runner.ConfigOS{Family: config["TARGET_SERVICE_OS_FAMILY"]},
+			Service: runner.ConfigService{
+				Type:    config["TARGET_SERVICE_TYPE"],
+				Name:    config["TARGET_SERVICE_NAME"],
+				Version: config["TARGET_SERVICE_VERSION"],
+				Git: runner.ConfigGit{
+					Branch: os.Getenv("TARGET_SERVICE_GIT_BRANCH"),
+					Commit: os.Getenv("TARGET_SERVICE_GIT_COMMIT"),
+				},
+			},
+		},
+		Runner: struct {
+			Service runner.ConfigService
+		}{
+			Service: runner.ConfigService{
+				Git: runner.ConfigGit{Branch: config["CLIENT_BRANCH"], Commit: config["CLIENT_COMMIT"]},
+			},
+		},
 	}
 
 	operations := []struct {
@@ -204,7 +234,7 @@ func main() {
 				)
 
 				docID := fmt.Sprintf("%04d-%04d", n, rand.Intn(defaultRepetitions))
-				docBody, err := os.Open(filepath.Join(dataSource, "small", "document.json"))
+				docBody, err := os.Open(filepath.Join(config["DATA_SOURCE"], "small", "document.json"))
 				if err != nil {
 					return nil, err
 				}
