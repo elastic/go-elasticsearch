@@ -23,12 +23,12 @@ var (
 	reGoVersion = regexp.MustCompile(`go(\d+\.\d+\.?.?)`)
 	errs        []error
 
-	OSFamily       string
+	RuntimeOS      string
 	RuntimeVersion string
 )
 
 func init() {
-	OSFamily = runtime.GOOS
+	RuntimeOS = runtime.GOOS
 
 	if v := reGoVersion.ReplaceAllString(runtime.Version(), "$1"); v != "" {
 		RuntimeVersion = v
@@ -54,6 +54,10 @@ func NewRunner(cfg Config) (*Runner, error) {
 
 	if cfg.Action == "" {
 		return nil, fmt.Errorf("missing cfg.Action")
+	}
+
+	if cfg.BuildID == "" {
+		return nil, fmt.Errorf("missing cfg.BuildID")
 	}
 
 	indexer, _ := esutil.NewBulkIndexer(
@@ -83,6 +87,8 @@ type Runner struct {
 // Config represents configuration for Runner.
 //
 type Config struct {
+	BuildID string
+
 	Action string
 
 	NumWarmups     int
@@ -93,6 +99,37 @@ type Config struct {
 	RunnerClient *elasticsearch.Client
 
 	ReportClient *elasticsearch.Client
+
+	Target struct {
+		OS      ConfigOS
+		Service ConfigService
+	}
+
+	Runner struct {
+		Service ConfigService
+	}
+}
+
+// ConfigOS describes OS.
+//
+type ConfigOS struct {
+	Family string
+}
+
+// ConfigService describes service.
+//
+type ConfigService struct {
+	Type    string
+	Name    string
+	Version string
+	Git     ConfigGit
+}
+
+// ConfigGit describes Git.
+//
+type ConfigGit struct {
+	Branch string
+	Commit string
 }
 
 // RunnerFunc represents the runner operation.
@@ -148,6 +185,7 @@ func (r *Runner) Run() error {
 		}
 	}
 
+	start := time.Now().UTC()
 	for n := 1; n <= r.config.NumRepetitions; n++ {
 		stat := Stats{Start: time.Now().UTC()}
 		res, err := r.config.RunnerFunc(n, r.config)
@@ -167,7 +205,8 @@ func (r *Runner) Run() error {
 		}
 	}
 
-	if err := r.SaveStats(); err != nil {
+	duration := time.Since(start)
+	if err := r.SaveStats(duration); err != nil {
 		return err
 	}
 
@@ -191,32 +230,47 @@ func (r *Runner) Errs() []error {
 
 // SaveStats stores runner statistics in Elasticsearch.
 //
-func (r *Runner) SaveStats() error {
+func (r *Runner) SaveStats(dur time.Duration) error {
 	var errs []error
 
 	for _, s := range r.stats {
 		record := record{
 			Timestamp: s.Start,
-			Tags:      []string{"go-elasticsearch"},
-			Labels: map[string]string{
-				"client": "go-elasticsearch",
-			},
+			Tags:      []string{"bench", "go-elasticsearch"},
 			Event: recordEvent{
 				Action:   r.config.Action,
 				Duration: s.Duration.Nanoseconds(),
-			},
-			Benchmark: recordBenchmark{
-				Warmups:     r.config.NumWarmups,
-				Repetitions: r.config.NumRepetitions,
 			},
 			HTTP: recordHTTP{
 				Response: recordHTTPResponse{
 					StatusCode: s.ResponseStatusCode,
 				},
 			},
-			OS:      recordOS{Family: OSFamily},
-			Git:     recordGit{Branch: "master"},
-			Runtime: recordRuntime{Name: "go", Version: RuntimeVersion},
+			Benchmark: recordBenchmark{
+				BuildID:     r.config.BuildID,
+				Warmups:     r.config.NumWarmups,
+				Repetitions: r.config.NumRepetitions,
+				Duration:    dur,
+				Runner: recordRunner{
+					Service: recordService{
+						Type:    "client",
+						Name:    "go-elasticsearch",
+						Version: elasticsearch.Version,
+						Git:     recordGit{Branch: r.config.Runner.Service.Git.Branch, Commit: r.config.Runner.Service.Git.Commit},
+					},
+					Runtime: recordRuntime{Name: "go", Version: RuntimeVersion},
+					OS:      recordOS{Family: RuntimeOS},
+				},
+				Target: recordTarget{
+					Service: recordService{
+						Type:    r.config.Target.Service.Type,
+						Name:    r.config.Target.Service.Type,
+						Version: r.config.Target.Service.Version,
+						Git:     recordGit{Branch: r.config.Target.Service.Git.Branch, Commit: r.config.Target.Service.Git.Commit},
+					},
+					OS: recordOS{Family: r.config.Target.OS.Family},
+				},
+			},
 		}
 		if err := r.indexer.Add(
 			context.Background(),
@@ -251,61 +305,80 @@ func (r *Runner) SaveStats() error {
 }
 
 // record represents statistics about a single iteration.
-//
 type record struct {
 	Timestamp time.Time         `json:"@timestamp"`
 	Labels    map[string]string `json:"labels,omitempty"`
 	Tags      []string          `json:"tags,omitempty"`
 
 	Event     recordEvent     `json:"event"`
-	Benchmark recordBenchmark `json:"benchmark,omitempty"`
 	HTTP      recordHTTP      `json:"http,omitempty"`
-	OS        recordOS        `json:"os,omitempty"`
-	Runtime   recordRuntime   `json:"runtime,omitempty"`
-	Git       recordGit       `json:"git,omitempty"`
+	Benchmark recordBenchmark `json:"benchmark"`
 }
 
 // recordEvent represents the event information for a single iteration.
-//
+// See: https://www.elastic.co/guide/en/ecs/current/ecs-event.html
 type recordEvent struct {
-	Action   string `json:"action,omitempty"`
-	Duration int64  `json:"duration,omitempty"`
+	Action   string `json:"action"`
+	Duration int64  `json:"duration"`
+	Dataset  string `json:"dataset,omitempty"`
 }
 
 // recordBenchmark represents the benchmark information for a single iteration.
-//
 type recordBenchmark struct {
-	Warmups     int `json:"warmups,omitempty"`
-	Repetitions int `json:"repetitions,omitempty"`
+	BuildID     string        `json:"build_id"`
+	Warmups     int           `json:"warmups"`
+	Repetitions int           `json:"repetitions"`
+	Duration    time.Duration `json:"duration"`
+	Runner      recordRunner  `json:"runner"`
+	Target      recordTarget  `json:"target"`
+}
+
+// recordRunner represents the information about the runner.
+type recordRunner struct {
+	Service recordService `json:"service"`
+	Runtime recordRuntime `json:"runtime"`
+	OS      recordOS      `json:"os"`
+}
+
+// recordTarget represents the information about the target.
+type recordTarget struct {
+	Service recordService `json:"service"`
+	OS      recordOS      `json:"os"`
+}
+
+// recordService represents the information about the target service.
+// See: https://www.elastic.co/guide/en/ecs/current/ecs-service.html
+type recordService struct {
+	Type    string    `json:"type"`
+	Name    string    `json:"name"`
+	Version string    `json:"version"`
+	Git     recordGit `json:"git,omitempty"`
 }
 
 // recordHTTP represents the HTTP information for a single iteration.
-//
 type recordHTTP struct {
 	Response recordHTTPResponse `json:"response,omitempty"`
 }
 
 // recordHTTPResponse represents the HTTP response information for a single iteration.
-//
 type recordHTTPResponse struct {
-	StatusCode int `json:"status_code,omitempty"`
+	StatusCode int `json:"status_code"`
 }
 
 // recordOS represents the information about the operating system.
-//
+// See: https://www.elastic.co/guide/en/ecs/current/ecs-os.html
 type recordOS struct {
-	Family string `json:"family,omitempty"`
+	Family string `json:"family"`
 }
 
-// recordRuntime represents the information about the runtime.
-//
+// recordRuntime represents the information about the client runtime.
 type recordRuntime struct {
-	Name    string `json:"name,omitempty"`
-	Version string `json:"version,omitempty"`
+	Name    string `json:"name"`
+	Version string `json:"version"`
 }
 
-// recordGit represents the information about the Git repository.
-//
+// recordGit represents the information about the client Git repository.
 type recordGit struct {
 	Branch string `json:"branch,omitempty"`
+	Commit string `json:"commit,omitempty"`
 }
