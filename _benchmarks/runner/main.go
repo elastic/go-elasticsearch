@@ -7,6 +7,8 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"io"
+	"io/ioutil"
 	"log"
 	"math/rand"
 	"os"
@@ -140,8 +142,9 @@ func main() {
 			NumRepetitions: defaultRepetitions,
 			RunnerFunc: func(n int, c runner.Config) (*esapi.Response, error) {
 				res, err := c.RunnerClient.Ping()
-				if err == nil && res != nil {
-					res.Body.Close()
+				if err == nil && res != nil && res.Body != nil {
+					defer res.Body.Close()
+					io.Copy(ioutil.Discard, res.Body)
 				}
 				return res, err
 			},
@@ -155,8 +158,9 @@ func main() {
 			NumRepetitions: defaultRepetitions,
 			RunnerFunc: func(n int, c runner.Config) (*esapi.Response, error) {
 				res, err := c.RunnerClient.Info()
-				if err == nil && res != nil {
-					res.Body.Close()
+				if err == nil && res != nil && res.Body != nil {
+					defer res.Body.Close()
+					io.Copy(ioutil.Discard, res.Body)
 				}
 				return res, err
 			},
@@ -177,18 +181,21 @@ func main() {
 				)
 				res, _ = c.RunnerClient.Indices.Delete([]string{indexName})
 				if res != nil && res.Body != nil {
-					res.Body.Close()
+					defer res.Body.Close()
+					io.Copy(ioutil.Discard, res.Body)
 				}
 				res, err = c.RunnerClient.Index(indexName, strings.NewReader(`{"title":"Test"}`), c.RunnerClient.Index.WithDocumentID("1"))
 				if err != nil {
 					return res, err
 				}
-				res.Body.Close()
+				defer res.Body.Close()
+				io.Copy(ioutil.Discard, res.Body)
 				res, err = c.RunnerClient.Indices.Refresh(c.RunnerClient.Indices.Refresh.WithIndex(indexName))
 				if err != nil {
 					return res, err
 				}
-				res.Body.Close()
+				defer res.Body.Close()
+				io.Copy(ioutil.Discard, res.Body)
 				return res, err
 			},
 			RunnerFunc: func(n int, c runner.Config) (*esapi.Response, error) {
@@ -204,7 +211,7 @@ func main() {
 				}
 				output := gjson.GetBytes(b.Bytes(), "_source.title")
 				if output.Str != "Test" {
-					return nil, fmt.Errorf("Unexpected output: %s", b.String())
+					return nil, fmt.Errorf("Unexpected output: %q", b.String())
 				}
 				return res, err
 			},
