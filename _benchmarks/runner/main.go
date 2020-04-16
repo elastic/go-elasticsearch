@@ -45,16 +45,17 @@ func main() {
 
 	start := time.Now().UTC()
 	config := map[string]string{
-		"BUILD_ID":                 "",
-		"DATA_SOURCE":              "",
-		"CLIENT_BRANCH":            "",
-		"CLIENT_COMMIT":            "",
-		"ELASTICSEARCH_TARGET_URL": "",
-		"ELASTICSEARCH_REPORT_URL": "",
-		"TARGET_SERVICE_TYPE":      "",
-		"TARGET_SERVICE_NAME":      "",
-		"TARGET_SERVICE_VERSION":   "",
-		"TARGET_SERVICE_OS_FAMILY": "",
+		"BUILD_ID":                     "",
+		"DATA_SOURCE":                  "",
+		"CLIENT_BRANCH":                "",
+		"CLIENT_COMMIT":                "",
+		"CLIENT_BENCHMARK_ENVIRONMENT": "",
+		"ELASTICSEARCH_TARGET_URL":     "",
+		"ELASTICSEARCH_REPORT_URL":     "",
+		"TARGET_SERVICE_TYPE":          "",
+		"TARGET_SERVICE_NAME":          "",
+		"TARGET_SERVICE_VERSION":       "",
+		"TARGET_SERVICE_OS_FAMILY":     "",
 	}
 
 	log.Printf(boldUnderline("Running benchmarks for go-elasticsearch@%s; %s/go%s"), elasticsearch.Version, runner.RuntimeOS, runner.RuntimeVersion)
@@ -95,7 +96,9 @@ func main() {
 		RunnerClient: runnerClient,
 		ReportClient: reportClient,
 
-		BuildID: config["BUILD_ID"],
+		BuildID:     config["BUILD_ID"],
+		Category:    os.Getenv("CLIENT_BENCHMARK_CATEGORY"),
+		Environment: config["CLIENT_BENCHMARK_ENVIRONMENT"],
 		Target: struct {
 			OS      runner.ConfigOS
 			Service runner.ConfigService
@@ -122,6 +125,8 @@ func main() {
 
 	operations := []struct {
 		Action         string
+		Category       string
+		Environment    string
 		NumWarmups     int
 		NumRepetitions int
 		SetupFunc      runner.RunnerFunc
@@ -130,6 +135,7 @@ func main() {
 		// ----- Ping() -------------------------------------------------------------------------------
 		{
 			Action:         "ping",
+			Category:       "core",
 			NumWarmups:     0,
 			NumRepetitions: defaultRepetitions,
 			RunnerFunc: func(n int, c runner.Config) (*esapi.Response, error) {
@@ -144,6 +150,7 @@ func main() {
 		// ----- Info() -------------------------------------------------------------------------------
 		{
 			Action:         "info",
+			Category:       "core",
 			NumWarmups:     0,
 			NumRepetitions: defaultRepetitions,
 			RunnerFunc: func(n int, c runner.Config) (*esapi.Response, error) {
@@ -158,6 +165,7 @@ func main() {
 		// ----- Get() --------------------------------------------------------------------------------
 		{
 			Action:         "get",
+			Category:       "core",
 			NumWarmups:     100,
 			NumRepetitions: defaultRepetitions,
 			SetupFunc: func(n int, c runner.Config) (*esapi.Response, error) {
@@ -205,6 +213,7 @@ func main() {
 		// ----- Index() --------------------------------------------------------------------------------
 		{
 			Action:         "index",
+			Category:       "core",
 			NumWarmups:     100,
 			NumRepetitions: defaultRepetitions,
 			SetupFunc: func(n int, c runner.Config) (*esapi.Response, error) {
@@ -268,6 +277,18 @@ func main() {
 		runnerConfig.NumRepetitions = operation.NumRepetitions
 		runnerConfig.SetupFunc = operation.SetupFunc
 		runnerConfig.RunnerFunc = operation.RunnerFunc
+
+		if operation.Category != "" {
+			runnerConfig.Category = operation.Category
+		} else {
+			runnerConfig.Category = os.Getenv("CLIENT_BENCHMARK_CATEGORY")
+		}
+
+		if operation.Environment != "" {
+			runnerConfig.Environment = operation.Environment
+		} else {
+			runnerConfig.Environment = os.Getenv("CLIENT_BENCHMARK_ENVIRONMENT")
+		}
 
 		run, err := runner.NewRunner(runnerConfig)
 		if err != nil {

@@ -40,24 +40,8 @@ func init() {
 // NewRunner returns new benchmarking runner.
 //
 func NewRunner(cfg Config) (*Runner, error) {
-	if cfg.RunnerClient == nil {
-		return nil, fmt.Errorf("missing cfg.RunnerClient")
-	}
-
-	if cfg.ReportClient == nil {
-		return nil, fmt.Errorf("missing cfg.ReportClient")
-	}
-
-	if cfg.RunnerFunc == nil {
-		return nil, fmt.Errorf("missing cfg.RunnerFunc")
-	}
-
-	if cfg.Action == "" {
-		return nil, fmt.Errorf("missing cfg.Action")
-	}
-
-	if cfg.BuildID == "" {
-		return nil, fmt.Errorf("missing cfg.BuildID")
+	if err := validateConfig(cfg); err != nil {
+		return nil, err
 	}
 
 	indexer, _ := esutil.NewBulkIndexer(
@@ -89,7 +73,9 @@ type Runner struct {
 type Config struct {
 	BuildID string
 
-	Action string
+	Action      string
+	Category    string
+	Environment string
 
 	NumWarmups     int
 	NumRepetitions int
@@ -169,6 +155,10 @@ func (e *Error) Errs() string {
 // Run executes the benchmark runs.
 //
 func (r *Runner) Run() error {
+	if err := validateConfig(r.config); err != nil {
+		return err
+	}
+
 	var errs []error
 
 	r.stats = r.stats[:]
@@ -185,7 +175,6 @@ func (r *Runner) Run() error {
 		}
 	}
 
-	start := time.Now().UTC()
 	for n := 1; n <= r.config.NumRepetitions; n++ {
 		stat := Stats{Start: time.Now().UTC()}
 		res, err := r.config.RunnerFunc(n, r.config)
@@ -205,8 +194,7 @@ func (r *Runner) Run() error {
 		}
 	}
 
-	duration := time.Since(start)
-	if err := r.SaveStats(duration); err != nil {
+	if err := r.SaveStats(); err != nil {
 		return err
 	}
 
@@ -230,13 +218,17 @@ func (r *Runner) Errs() []error {
 
 // SaveStats stores runner statistics in Elasticsearch.
 //
-func (r *Runner) SaveStats(dur time.Duration) error {
+func (r *Runner) SaveStats() error {
 	var errs []error
 
 	for _, s := range r.stats {
 		record := record{
 			Timestamp: s.Start,
 			Tags:      []string{"bench", "go-elasticsearch"},
+			Labels: map[string]string{
+				"build_id":    r.config.BuildID,
+				"environment": r.config.Environment,
+			},
 			Event: recordEvent{
 				Action:   r.config.Action,
 				Duration: s.Duration.Nanoseconds(),
@@ -248,9 +240,9 @@ func (r *Runner) SaveStats(dur time.Duration) error {
 			},
 			Benchmark: recordBenchmark{
 				BuildID:     r.config.BuildID,
-				Warmups:     r.config.NumWarmups,
+				Category:    r.config.Category,
+				Environment: r.config.Environment,
 				Repetitions: r.config.NumRepetitions,
-				Duration:    dur,
 				Runner: recordRunner{
 					Service: recordService{
 						Type:    "client",
@@ -325,12 +317,12 @@ type recordEvent struct {
 
 // recordBenchmark represents the benchmark information for a single iteration.
 type recordBenchmark struct {
-	BuildID     string        `json:"build_id"`
-	Warmups     int           `json:"warmups"`
-	Repetitions int           `json:"repetitions"`
-	Duration    time.Duration `json:"duration"`
-	Runner      recordRunner  `json:"runner"`
-	Target      recordTarget  `json:"target"`
+	BuildID     string       `json:"build_id"`
+	Repetitions int          `json:"repetitions"`
+	Runner      recordRunner `json:"runner"`
+	Target      recordTarget `json:"target"`
+	Category    string       `json:"category,omitempty"`
+	Environment string       `json:"environment,omitempty"`
 }
 
 // recordRunner represents the information about the runner.
@@ -381,4 +373,36 @@ type recordRuntime struct {
 type recordGit struct {
 	Branch string `json:"branch,omitempty"`
 	Commit string `json:"commit,omitempty"`
+}
+
+func validateConfig(cfg Config) error {
+	if cfg.BuildID == "" {
+		return fmt.Errorf("missing cfg.BuildID")
+	}
+
+	if cfg.Action == "" {
+		return fmt.Errorf("missing cfg.Action")
+	}
+
+	if cfg.Category == "" {
+		return fmt.Errorf("missing cfg.Category")
+	}
+
+	if cfg.Environment == "" {
+		return fmt.Errorf("missing cfg.Environment")
+	}
+
+	if cfg.RunnerClient == nil {
+		return fmt.Errorf("missing cfg.RunnerClient")
+	}
+
+	if cfg.ReportClient == nil {
+		return fmt.Errorf("missing cfg.ReportClient")
+	}
+
+	if cfg.RunnerFunc == nil {
+		return fmt.Errorf("missing cfg.RunnerFunc")
+	}
+
+	return nil
 }
