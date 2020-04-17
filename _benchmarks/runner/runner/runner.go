@@ -227,6 +227,7 @@ func (r *Runner) SaveStats() error {
 			Tags:      []string{"bench", "go-elasticsearch"},
 			Labels: map[string]string{
 				"build_id":    r.config.BuildID,
+				"client":      "go-elasticsearch",
 				"environment": r.config.Environment,
 			},
 			Event: recordEvent{
