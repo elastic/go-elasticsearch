@@ -44,6 +44,10 @@ func NewRunner(cfg Config) (*Runner, error) {
 		return nil, err
 	}
 
+	if cfg.NumOperations == 0 {
+		cfg.NumOperations = 1
+	}
+
 	indexer, _ := esutil.NewBulkIndexer(
 		esutil.BulkIndexerConfig{
 			Client:        cfg.ReportClient,
@@ -79,6 +83,7 @@ type Config struct {
 
 	NumWarmups     int
 	NumRepetitions int
+	NumOperations  int
 
 	SetupFunc    RunnerFunc
 	RunnerFunc   RunnerFunc
@@ -244,6 +249,7 @@ func (r *Runner) SaveStats() error {
 				Category:    r.config.Category,
 				Environment: r.config.Environment,
 				Repetitions: r.config.NumRepetitions,
+				Operations:  r.config.NumOperations,
 				Runner: recordRunner{
 					Service: recordService{
 						Type:    "client",
@@ -320,6 +326,7 @@ type recordEvent struct {
 type recordBenchmark struct {
 	BuildID     string       `json:"build_id"`
 	Repetitions int          `json:"repetitions"`
+	Operations  int          `json:"operations"`
 	Runner      recordRunner `json:"runner"`
 	Target      recordTarget `json:"target"`
 	Category    string       `json:"category,omitempty"`

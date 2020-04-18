@@ -90,7 +90,7 @@ func main() {
 		EnableRetryOnTimeout: true,
 	}
 	if os.Getenv("DEBUG") != "" {
-		runnerClientConfig.Logger = &estransport.ColorLogger{Output: os.Stdout}
+		runnerClientConfig.Logger = &estransport.ColorLogger{Output: os.Stdout, EnableRequestBody: true, EnableResponseBody: true}
 		reportClientConfig.Logger = &estransport.ColorLogger{Output: os.Stdout}
 	}
 
@@ -139,6 +139,12 @@ func main() {
 		runnerConfig.NumRepetitions = operation.NumRepetitions
 		runnerConfig.SetupFunc = operation.SetupFunc
 		runnerConfig.RunnerFunc = operation.RunnerFunc
+
+		if operation.NumOperations > 0 {
+			runnerConfig.NumOperations = operation.NumOperations
+		} else {
+			runnerConfig.NumOperations = 1
+		}
 
 		if operation.Category != "" {
 			runnerConfig.Category = operation.Category

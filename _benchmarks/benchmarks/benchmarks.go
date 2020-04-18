@@ -23,6 +23,7 @@ type Operation struct {
 	Environment    string
 	NumWarmups     int
 	NumRepetitions int
+	NumOperations  int
 	SetupFunc      runner.RunnerFunc
 	RunnerFunc     runner.RunnerFunc
 }
