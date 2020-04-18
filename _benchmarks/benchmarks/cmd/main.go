@@ -194,11 +194,11 @@ func main() {
 		fmt.Fprintf(w, "\n")
 
 		if err != nil {
-			if err, ok := err.(*runner.Error); ok {
+			if runnerErr, ok := err.(*runner.Error); ok {
 				if os.Getenv("DEBUG") != "" {
-					log.Print("Error: ", err, ": ", err.Errs())
+					log.Print("Error: ", runnerErr, ": ", runnerErr.Errs())
 				} else {
-					log.Print("Error: ", err)
+					log.Print("Error: ", runnerErr)
 				}
 			} else {
 				log.Print("Error: ", err)
