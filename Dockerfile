@@ -21,4 +21,4 @@ WORKDIR /go-elasticsearch
 COPY . .
 
 RUN cd internal/cmd/generate && go mod download && go mod vendor
-RUN cd _benchmarks/runner && go mod download && go mod vendor
+RUN cd _benchmarks/benchmarks && go mod download && go mod vendor

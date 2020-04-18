@@ -1,27 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 set -eo pipefail
-
-if [[ -z $BUILD_ID ]]; then
-  echo -e "\033[31;1mERROR:\033[0m Required environment variable [BUILD_ID] not set\033[0m"; exit 1
-fi
-
-if [[ -z $CLIENT_COMMIT ]]; then
-  echo -e "\033[31;1mERROR:\033[0m Required environment variable [CLIENT_COMMIT] not set\033[0m"; exit 1
-fi
-
-if [[ -z $ELASTICSEARCH_TARGET_URL ]]; then
-  echo -e "\033[31;1mERROR:\033[0m Required environment variable [ELASTICSEARCH_TARGET_URL] not set\033[0m"; exit 1
-fi
-
-if [[ -z $ELASTICSEARCH_REPORT_URL ]]; then
-  echo -e "\033[31;1mERROR:\033[0m Required environment variable [ELASTICSEARCH_REPORT_URL] not set\033[0m"; exit 1
-fi
-
-if [[ -z $DATA_SOURCE ]]; then
-  echo -e "\033[31;1mERROR:\033[0m Required environment variable [DATA_SOURCE] not set\033[0m"; exit 1
-fi
-
-TIMEFORMAT="(Duration: %0lR)"
-
-cd runner && time go run main.go
+cd benchmarks && go run cmd/main.go
