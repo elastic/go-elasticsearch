@@ -90,7 +90,7 @@ func main() {
 		EnableRetryOnTimeout: true,
 	}
 	if os.Getenv("DEBUG") != "" {
-		runnerClientConfig.Logger = &estransport.ColorLogger{Output: os.Stdout, EnableRequestBody: true, EnableResponseBody: true}
+		runnerClientConfig.Logger = &estransport.ColorLogger{Output: os.Stdout}
 		reportClientConfig.Logger = &estransport.ColorLogger{Output: os.Stdout}
 	}
 
@@ -130,7 +130,7 @@ func main() {
 
 	for _, operation := range benchmarks.Operations {
 		if filterOperations != "" {
-			if !strings.Contains(filterOperations, operation.Action) {
+			if !strings.Contains(operation.Action, filterOperations) {
 				continue
 			}
 		}
