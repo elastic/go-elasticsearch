@@ -6,15 +6,16 @@ package operations
 
 import (
 	"bytes"
+	"context"
 	"fmt"
-	"io"
 	"os"
 	"path/filepath"
 	"strings"
 
-	"github.com/tidwall/gjson"
-
+	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
+	"github.com/elastic/go-elasticsearch/v8/estransport"
+	"github.com/elastic/go-elasticsearch/v8/esutil"
 
 	"github.com/elastic/go-elasticsearch/v8/benchmarks"
 	"github.com/elastic/go-elasticsearch/v8/benchmarks/runner"
@@ -23,19 +24,19 @@ import (
 func init() {
 	benchmarks.Register(
 		benchmarks.Operation{
-			Action:   "bulk",
-			Category: "core",
+			Action:   "bulk-helper",
+			Category: "helpers",
 
-			NumWarmups:     10,
-			NumRepetitions: 1000,
-			NumOperations:  10000,
+			NumWarmups:     1,
+			NumRepetitions: 10,
+			NumOperations:  1000000,
 
 			SetupFunc: func(n int, c runner.Config) (*esapi.Response, error) {
 				var (
 					res *esapi.Response
 					err error
 
-					indexName     = "test-bench-bulk"
+					indexName     = "test-bench-bulk-helper"
 					indexSettings = `{"settings": { "number_of_shards": 3, "refresh_interval":"5s"}}`
 				)
 				res, _ = c.RunnerClient.Indices.Delete([]string{indexName})
@@ -55,17 +56,38 @@ func init() {
 
 			RunnerFunc: func(n int, c runner.Config) (*esapi.Response, error) {
 				var (
-					res *esapi.Response
 					err error
 
-					indexName = "test-bench-bulk"
-					opMeta    = []byte("{ \"index\" : {} }\n")
-					opBody    bytes.Buffer
+					indexName = "test-bench-bulk-helper"
 					docBody   = bytes.NewBuffer([]byte(""))
 				)
 
-				opBody.Reset()
 				docBody.Reset()
+
+				var addresses []string
+				for _, u := range c.RunnerClient.Transport.(*estransport.Client).URLs() {
+					addresses = append(addresses, u.String())
+				}
+
+				es, err := elasticsearch.NewClient(elasticsearch.Config{
+					Addresses:     addresses,
+					RetryOnStatus: []int{502, 503, 504, 429}, // Retry on 429 TooManyRequests statuses
+					MaxRetries:    5,
+				})
+				if err != nil {
+					return nil, err
+				}
+
+				bi, err := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
+					Index:      indexName,
+					Client:     es,
+					NumWorkers: 8,
+					FlushBytes: 2e+6,
+					// FlushInterval: 30 * time.Second,
+				})
+				if err != nil {
+					return nil, err
+				}
 
 				f, err := os.Open(filepath.Join(benchmarks.Config["DATA_SOURCE"], "small", "document.json"))
 				if err != nil {
@@ -76,28 +98,31 @@ func init() {
 				docBody.WriteRune('\n')
 
 				for i := 0; i < c.NumOperations; i++ {
-					var copyDocBody bytes.Buffer
-					tr := io.TeeReader(docBody, &copyDocBody)
-					opBody.Write(opMeta)
-					opBody.ReadFrom(tr)
-					docBody = &copyDocBody
+					err = bi.Add(
+						context.Background(),
+						esutil.BulkIndexerItem{
+							Action: "index",
+							Body:   bytes.NewReader(docBody.Bytes()),
+						},
+					)
+					if err != nil {
+						return nil, err
+					}
 				}
 
-				res, err = c.RunnerClient.Bulk(&opBody, c.RunnerClient.Bulk.WithIndex(indexName))
+				err = bi.Close(context.Background())
 				if err != nil {
-					return res, err
-				}
-				defer res.Body.Close()
-
-				var b bytes.Buffer
-				if _, err := b.ReadFrom(res.Body); err != nil {
 					return nil, err
 				}
-				output := gjson.GetBytes(b.Bytes(), "errors")
-				if output.Bool() {
-					return nil, fmt.Errorf("Unexpected errors in output: %s", b.String())
+
+				biStats := bi.Stats()
+				if biStats.NumFailed > 0 {
+					return nil, fmt.Errorf("Unexpected failures: %s", biStats)
 				}
-				return res, err
+				if int(biStats.NumAdded) != c.NumOperations {
+					return nil, fmt.Errorf("Unexpected failures: added=%d, expected=%d", biStats.NumAdded, c.NumOperations)
+				}
+				return &esapi.Response{StatusCode: 200}, nil
 			},
 		},
 	)
