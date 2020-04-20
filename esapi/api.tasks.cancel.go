@@ -189,7 +189,7 @@ func (f TasksCancel) WithParentTaskID(v string) func(*TasksCancelRequest) {
 	}
 }
 
-// WithWaitForCompletion - should the request block until the cancellation of the task and its child tasks is completed. defaults to false.
+// WithWaitForCompletion - should the request block until the cancellation of the task and its descendant tasks is completed. defaults to false.
 //
 func (f TasksCancel) WithWaitForCompletion(v bool) func(*TasksCancelRequest) {
 	return func(r *TasksCancelRequest) {
