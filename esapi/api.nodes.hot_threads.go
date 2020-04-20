@@ -65,11 +65,9 @@ func (r NodesHotThreadsRequest) Do(ctx context.Context, transport Transport) (*R
 
 	method = "GET"
 
-	path.Grow(1 + len("_cluster") + 1 + len("nodes") + 1 + len(strings.Join(r.NodeID, ",")) + 1 + len("hot_threads"))
+	path.Grow(1 + len("_nodes") + 1 + len(strings.Join(r.NodeID, ",")) + 1 + len("hot_threads"))
 	path.WriteString("/")
-	path.WriteString("_cluster")
-	path.WriteString("/")
-	path.WriteString("nodes")
+	path.WriteString("_nodes")
 	if len(r.NodeID) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.NodeID, ","))

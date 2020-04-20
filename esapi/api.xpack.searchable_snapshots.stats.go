@@ -12,9 +12,9 @@ import (
 	"strings"
 )
 
-func newIndicesGetDataStreamsFunc(t Transport) IndicesGetDataStreams {
-	return func(o ...func(*IndicesGetDataStreamsRequest)) (*Response, error) {
-		var r = IndicesGetDataStreamsRequest{}
+func newSearchableSnapshotsStatsFunc(t Transport) SearchableSnapshotsStats {
+	return func(o ...func(*SearchableSnapshotsStatsRequest)) (*Response, error) {
+		var r = SearchableSnapshotsStatsRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -24,18 +24,18 @@ func newIndicesGetDataStreamsFunc(t Transport) IndicesGetDataStreams {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesGetDataStreams returns data streams.
+// SearchableSnapshotsStats -
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/searchable-snapshots-api-stats.html.
 //
-type IndicesGetDataStreams func(o ...func(*IndicesGetDataStreamsRequest)) (*Response, error)
+type SearchableSnapshotsStats func(o ...func(*SearchableSnapshotsStatsRequest)) (*Response, error)
 
-// IndicesGetDataStreamsRequest configures the Indices Get Data Streams API request.
+// SearchableSnapshotsStatsRequest configures the Searchable Snapshots Stats API request.
 //
-type IndicesGetDataStreamsRequest struct {
-	Name string
+type SearchableSnapshotsStatsRequest struct {
+	Index []string
 
 	Pretty     bool
 	Human      bool
@@ -49,7 +49,7 @@ type IndicesGetDataStreamsRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r IndicesGetDataStreamsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SearchableSnapshotsStatsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -58,13 +58,15 @@ func (r IndicesGetDataStreamsRequest) Do(ctx context.Context, transport Transpor
 
 	method = "GET"
 
-	path.Grow(1 + len("_data_streams") + 1 + len(r.Name))
-	path.WriteString("/")
-	path.WriteString("_data_streams")
-	if r.Name != "" {
+	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_searchable_snapshots") + 1 + len("stats"))
+	if len(r.Index) > 0 {
 		path.WriteString("/")
-		path.WriteString(r.Name)
+		path.WriteString(strings.Join(r.Index, ","))
 	}
+	path.WriteString("/")
+	path.WriteString("_searchable_snapshots")
+	path.WriteString("/")
+	path.WriteString("stats")
 
 	params = make(map[string]string)
 
@@ -129,56 +131,56 @@ func (r IndicesGetDataStreamsRequest) Do(ctx context.Context, transport Transpor
 
 // WithContext sets the request context.
 //
-func (f IndicesGetDataStreams) WithContext(v context.Context) func(*IndicesGetDataStreamsRequest) {
-	return func(r *IndicesGetDataStreamsRequest) {
+func (f SearchableSnapshotsStats) WithContext(v context.Context) func(*SearchableSnapshotsStatsRequest) {
+	return func(r *SearchableSnapshotsStatsRequest) {
 		r.ctx = v
 	}
 }
 
-// WithName - the name or wildcard expression of the requested data streams.
+// WithIndex - a list of index names.
 //
-func (f IndicesGetDataStreams) WithName(v string) func(*IndicesGetDataStreamsRequest) {
-	return func(r *IndicesGetDataStreamsRequest) {
-		r.Name = v
+func (f SearchableSnapshotsStats) WithIndex(v ...string) func(*SearchableSnapshotsStatsRequest) {
+	return func(r *SearchableSnapshotsStatsRequest) {
+		r.Index = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f IndicesGetDataStreams) WithPretty() func(*IndicesGetDataStreamsRequest) {
-	return func(r *IndicesGetDataStreamsRequest) {
+func (f SearchableSnapshotsStats) WithPretty() func(*SearchableSnapshotsStatsRequest) {
+	return func(r *SearchableSnapshotsStatsRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f IndicesGetDataStreams) WithHuman() func(*IndicesGetDataStreamsRequest) {
-	return func(r *IndicesGetDataStreamsRequest) {
+func (f SearchableSnapshotsStats) WithHuman() func(*SearchableSnapshotsStatsRequest) {
+	return func(r *SearchableSnapshotsStatsRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f IndicesGetDataStreams) WithErrorTrace() func(*IndicesGetDataStreamsRequest) {
-	return func(r *IndicesGetDataStreamsRequest) {
+func (f SearchableSnapshotsStats) WithErrorTrace() func(*SearchableSnapshotsStatsRequest) {
+	return func(r *SearchableSnapshotsStatsRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f IndicesGetDataStreams) WithFilterPath(v ...string) func(*IndicesGetDataStreamsRequest) {
-	return func(r *IndicesGetDataStreamsRequest) {
+func (f SearchableSnapshotsStats) WithFilterPath(v ...string) func(*SearchableSnapshotsStatsRequest) {
+	return func(r *SearchableSnapshotsStatsRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f IndicesGetDataStreams) WithHeader(h map[string]string) func(*IndicesGetDataStreamsRequest) {
-	return func(r *IndicesGetDataStreamsRequest) {
+func (f SearchableSnapshotsStats) WithHeader(h map[string]string) func(*SearchableSnapshotsStatsRequest) {
+	return func(r *SearchableSnapshotsStatsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -190,8 +192,8 @@ func (f IndicesGetDataStreams) WithHeader(h map[string]string) func(*IndicesGetD
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f IndicesGetDataStreams) WithOpaqueID(s string) func(*IndicesGetDataStreamsRequest) {
-	return func(r *IndicesGetDataStreamsRequest) {
+func (f SearchableSnapshotsStats) WithOpaqueID(s string) func(*SearchableSnapshotsStatsRequest) {
+	return func(r *SearchableSnapshotsStatsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
