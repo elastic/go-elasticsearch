@@ -12,9 +12,9 @@ import (
 	"strings"
 )
 
-func newIndicesGetDataStreamsFunc(t Transport) IndicesGetDataStreams {
-	return func(o ...func(*IndicesGetDataStreamsRequest)) (*Response, error) {
-		var r = IndicesGetDataStreamsRequest{}
+func newAutoscalingGetAutoscalingPolicyFunc(t Transport) AutoscalingGetAutoscalingPolicy {
+	return func(name string, o ...func(*AutoscalingGetAutoscalingPolicyRequest)) (*Response, error) {
+		var r = AutoscalingGetAutoscalingPolicyRequest{Name: name}
 		for _, f := range o {
 			f(&r)
 		}
@@ -24,17 +24,17 @@ func newIndicesGetDataStreamsFunc(t Transport) IndicesGetDataStreams {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesGetDataStreams returns data streams.
+// AutoscalingGetAutoscalingPolicy -
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-get-autoscaling-policy.html.
 //
-type IndicesGetDataStreams func(o ...func(*IndicesGetDataStreamsRequest)) (*Response, error)
+type AutoscalingGetAutoscalingPolicy func(name string, o ...func(*AutoscalingGetAutoscalingPolicyRequest)) (*Response, error)
 
-// IndicesGetDataStreamsRequest configures the Indices Get Data Streams API request.
+// AutoscalingGetAutoscalingPolicyRequest configures the Autoscaling Get Autoscaling Policy API request.
 //
-type IndicesGetDataStreamsRequest struct {
+type AutoscalingGetAutoscalingPolicyRequest struct {
 	Name string
 
 	Pretty     bool
@@ -49,7 +49,7 @@ type IndicesGetDataStreamsRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r IndicesGetDataStreamsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r AutoscalingGetAutoscalingPolicyRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -58,13 +58,13 @@ func (r IndicesGetDataStreamsRequest) Do(ctx context.Context, transport Transpor
 
 	method = "GET"
 
-	path.Grow(1 + len("_data_streams") + 1 + len(r.Name))
+	path.Grow(1 + len("_autoscaling") + 1 + len("policy") + 1 + len(r.Name))
 	path.WriteString("/")
-	path.WriteString("_data_streams")
-	if r.Name != "" {
-		path.WriteString("/")
-		path.WriteString(r.Name)
-	}
+	path.WriteString("_autoscaling")
+	path.WriteString("/")
+	path.WriteString("policy")
+	path.WriteString("/")
+	path.WriteString(r.Name)
 
 	params = make(map[string]string)
 
@@ -129,56 +129,48 @@ func (r IndicesGetDataStreamsRequest) Do(ctx context.Context, transport Transpor
 
 // WithContext sets the request context.
 //
-func (f IndicesGetDataStreams) WithContext(v context.Context) func(*IndicesGetDataStreamsRequest) {
-	return func(r *IndicesGetDataStreamsRequest) {
+func (f AutoscalingGetAutoscalingPolicy) WithContext(v context.Context) func(*AutoscalingGetAutoscalingPolicyRequest) {
+	return func(r *AutoscalingGetAutoscalingPolicyRequest) {
 		r.ctx = v
-	}
-}
-
-// WithName - the name or wildcard expression of the requested data streams.
-//
-func (f IndicesGetDataStreams) WithName(v string) func(*IndicesGetDataStreamsRequest) {
-	return func(r *IndicesGetDataStreamsRequest) {
-		r.Name = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f IndicesGetDataStreams) WithPretty() func(*IndicesGetDataStreamsRequest) {
-	return func(r *IndicesGetDataStreamsRequest) {
+func (f AutoscalingGetAutoscalingPolicy) WithPretty() func(*AutoscalingGetAutoscalingPolicyRequest) {
+	return func(r *AutoscalingGetAutoscalingPolicyRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f IndicesGetDataStreams) WithHuman() func(*IndicesGetDataStreamsRequest) {
-	return func(r *IndicesGetDataStreamsRequest) {
+func (f AutoscalingGetAutoscalingPolicy) WithHuman() func(*AutoscalingGetAutoscalingPolicyRequest) {
+	return func(r *AutoscalingGetAutoscalingPolicyRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f IndicesGetDataStreams) WithErrorTrace() func(*IndicesGetDataStreamsRequest) {
-	return func(r *IndicesGetDataStreamsRequest) {
+func (f AutoscalingGetAutoscalingPolicy) WithErrorTrace() func(*AutoscalingGetAutoscalingPolicyRequest) {
+	return func(r *AutoscalingGetAutoscalingPolicyRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f IndicesGetDataStreams) WithFilterPath(v ...string) func(*IndicesGetDataStreamsRequest) {
-	return func(r *IndicesGetDataStreamsRequest) {
+func (f AutoscalingGetAutoscalingPolicy) WithFilterPath(v ...string) func(*AutoscalingGetAutoscalingPolicyRequest) {
+	return func(r *AutoscalingGetAutoscalingPolicyRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f IndicesGetDataStreams) WithHeader(h map[string]string) func(*IndicesGetDataStreamsRequest) {
-	return func(r *IndicesGetDataStreamsRequest) {
+func (f AutoscalingGetAutoscalingPolicy) WithHeader(h map[string]string) func(*AutoscalingGetAutoscalingPolicyRequest) {
+	return func(r *AutoscalingGetAutoscalingPolicyRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -190,8 +182,8 @@ func (f IndicesGetDataStreams) WithHeader(h map[string]string) func(*IndicesGetD
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f IndicesGetDataStreams) WithOpaqueID(s string) func(*IndicesGetDataStreamsRequest) {
-	return func(r *IndicesGetDataStreamsRequest) {
+func (f AutoscalingGetAutoscalingPolicy) WithOpaqueID(s string) func(*AutoscalingGetAutoscalingPolicyRequest) {
+	return func(r *AutoscalingGetAutoscalingPolicyRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

@@ -8,6 +8,7 @@ package esapi
 
 import (
 	"context"
+	"io"
 	"net/http"
 	"strings"
 	"time"
@@ -34,6 +35,8 @@ type NodesReloadSecureSettings func(o ...func(*NodesReloadSecureSettingsRequest)
 // NodesReloadSecureSettingsRequest configures the Nodes Reload Secure Settings API request.
 //
 type NodesReloadSecureSettingsRequest struct {
+	Body io.Reader
+
 	NodeID []string
 
 	Timeout time.Duration
@@ -91,7 +94,7 @@ func (r NodesReloadSecureSettingsRequest) Do(ctx context.Context, transport Tran
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -102,6 +105,10 @@ func (r NodesReloadSecureSettingsRequest) Do(ctx context.Context, transport Tran
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if r.Body != nil {
+		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -139,6 +146,14 @@ func (r NodesReloadSecureSettingsRequest) Do(ctx context.Context, transport Tran
 func (f NodesReloadSecureSettings) WithContext(v context.Context) func(*NodesReloadSecureSettingsRequest) {
 	return func(r *NodesReloadSecureSettingsRequest) {
 		r.ctx = v
+	}
+}
+
+// WithBody - An object containing the password for the elasticsearch keystore.
+//
+func (f NodesReloadSecureSettings) WithBody(v io.Reader) func(*NodesReloadSecureSettingsRequest) {
+	return func(r *NodesReloadSecureSettingsRequest) {
+		r.Body = v
 	}
 }
 
