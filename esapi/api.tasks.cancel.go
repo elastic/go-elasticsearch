@@ -9,7 +9,6 @@ package esapi
 import (
 	"context"
 	"net/http"
-	"strconv"
 	"strings"
 )
 
@@ -36,10 +35,9 @@ type TasksCancel func(o ...func(*TasksCancelRequest)) (*Response, error)
 type TasksCancelRequest struct {
 	TaskID string
 
-	Actions           []string
-	Nodes             []string
-	ParentTaskID      string
-	WaitForCompletion *bool
+	Actions      []string
+	Nodes        []string
+	ParentTaskID string
 
 	Pretty     bool
 	Human      bool
@@ -84,10 +82,6 @@ func (r TasksCancelRequest) Do(ctx context.Context, transport Transport) (*Respo
 
 	if r.ParentTaskID != "" {
 		params["parent_task_id"] = r.ParentTaskID
-	}
-
-	if r.WaitForCompletion != nil {
-		params["wait_for_completion"] = strconv.FormatBool(*r.WaitForCompletion)
 	}
 
 	if r.Pretty {
@@ -186,14 +180,6 @@ func (f TasksCancel) WithNodes(v ...string) func(*TasksCancelRequest) {
 func (f TasksCancel) WithParentTaskID(v string) func(*TasksCancelRequest) {
 	return func(r *TasksCancelRequest) {
 		r.ParentTaskID = v
-	}
-}
-
-// WithWaitForCompletion - should the request block until the cancellation of the task and its descendant tasks is completed. defaults to false.
-//
-func (f TasksCancel) WithWaitForCompletion(v bool) func(*TasksCancelRequest) {
-	return func(r *TasksCancelRequest) {
-		r.WaitForCompletion = &v
 	}
 }
 
