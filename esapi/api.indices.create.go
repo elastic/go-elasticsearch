@@ -42,6 +42,7 @@ type IndicesCreateRequest struct {
 
 	IncludeTypeName     *bool
 	MasterTimeout       time.Duration
+	PreferV2Templates   *bool
 	Timeout             time.Duration
 	WaitForActiveShards string
 
@@ -78,6 +79,10 @@ func (r IndicesCreateRequest) Do(ctx context.Context, transport Transport) (*Res
 
 	if r.MasterTimeout != 0 {
 		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.PreferV2Templates != nil {
+		params["prefer_v2_templates"] = strconv.FormatBool(*r.PreferV2Templates)
 	}
 
 	if r.Timeout != 0 {
@@ -180,6 +185,14 @@ func (f IndicesCreate) WithIncludeTypeName(v bool) func(*IndicesCreateRequest) {
 func (f IndicesCreate) WithMasterTimeout(v time.Duration) func(*IndicesCreateRequest) {
 	return func(r *IndicesCreateRequest) {
 		r.MasterTimeout = v
+	}
+}
+
+// WithPreferV2Templates - favor v2 templates instead of v1 templates during index creation.
+//
+func (f IndicesCreate) WithPreferV2Templates(v bool) func(*IndicesCreateRequest) {
+	return func(r *IndicesCreateRequest) {
+		r.PreferV2Templates = &v
 	}
 }
 
