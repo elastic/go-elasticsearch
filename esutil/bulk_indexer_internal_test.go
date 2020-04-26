@@ -545,6 +545,66 @@ func TestBulkIndexer(t *testing.T) {
 			t.Errorf("Unexpected NumAdded: %d", stats.NumAdded)
 		}
 	})
+
+	t.Run("Worker.writeMeta()", func(t *testing.T) {
+		type args struct {
+			item BulkIndexerItem
+		}
+		tests := []struct {
+			name string
+			args args
+			want string
+		}{
+			{
+				"without _index and _id",
+				args{BulkIndexerItem{Action: "index"}},
+				`{"index":{}}` + "\n",
+			},
+			{
+				"with _id",
+				args{BulkIndexerItem{
+					Action:     "index",
+					DocumentID: "42",
+				}},
+				`{"index":{"_id":"42"}}` + "\n",
+			},
+			{
+				"with _index",
+				args{BulkIndexerItem{
+					Action: "index",
+					Index:  "test",
+				}},
+				`{"index":{"_index":"test"}}` + "\n",
+			},
+			{
+				"with _index and _id",
+				args{BulkIndexerItem{
+					Action:     "index",
+					DocumentID: "42",
+					Index:      "test",
+				}},
+				`{"index":{"_id":"42","_index":"test"}}` + "\n",
+			},
+		}
+		for _, tt := range tests {
+			tt := tt
+
+			t.Run(tt.name, func(t *testing.T) {
+				w := &worker{
+					buf: bytes.NewBuffer(make([]byte, 0, 5e+6)),
+					aux: make([]byte, 0, 512),
+				}
+				if err := w.writeMeta(tt.args.item); err != nil {
+					t.Errorf("Unexpected error: %v", err)
+				}
+
+				if w.buf.String() != tt.want {
+					t.Errorf("worker.writeMeta() %s = got [%s], want [%s]", tt.name, w.buf.String(), tt.want)
+				}
+
+			})
+		}
+	})
 }
 
 type customJSONDecoder struct{}
