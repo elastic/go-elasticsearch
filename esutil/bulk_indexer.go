@@ -393,6 +393,15 @@ func (w *worker) writeMeta(item BulkIndexerItem) error {
 		w.buf.Write(w.aux)
 		w.aux = w.aux[:0]
 	}
+	if item.Index != "" {
+		if item.DocumentID != "" {
+			w.buf.WriteRune(',')
+		}
+		w.buf.WriteString(`"_index":`)
+		w.aux = strconv.AppendQuote(w.aux, item.Index)
+		w.buf.Write(w.aux)
+		w.aux = w.aux[:0]
+	}
 	w.buf.WriteRune('}')
 	w.buf.WriteRune('}')
 	w.buf.WriteRune('\n')
