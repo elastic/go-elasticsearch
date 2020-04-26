@@ -22,6 +22,8 @@ import (
 )
 
 func TestBulkIndexerIntegration(t *testing.T) {
+	body := `{"body":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."}`
+
 	t.Run("Default", func(t *testing.T) {
 		var countSuccessful uint64
 		indexName := "test-bulk-integration"
@@ -43,7 +45,6 @@ func TestBulkIndexerIntegration(t *testing.T) {
 		})
 
 		numItems := 100000
-		body := `{"body":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."}`
 		start := time.Now().UTC()
 
 		for i := 1; i <= numItems; i++ {
@@ -89,5 +90,70 @@ func TestBulkIndexerIntegration(t *testing.T) {
 			stats.NumRequests,
 			time.Since(start).Truncate(time.Millisecond),
 			1000.0/float64(time.Since(start)/time.Millisecond)*float64(stats.NumFlushed))
+	})
+
+	t.Run("Multiple indices", func(t *testing.T) {
+		es, _ := elasticsearch.NewClient(elasticsearch.Config{
+			Logger: &estransport.ColorLogger{Output: os.Stdout},
+		})
+
+		bi, _ := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
+			Index:  "test-index-a",
+			Client: es,
+		})
+
+		// Default index
+		for i := 1; i <= 10; i++ {
+			err := bi.Add(context.Background(), esutil.BulkIndexerItem{
+				Action:     "index",
+				DocumentID: strconv.Itoa(i),
+				Body:       strings.NewReader(body),
+			})
+			if err != nil {
+				t.Fatalf("Unexpected error: %s", err)
+			}
+		}
+
+		// Index 1
+		for i := 1; i <= 10; i++ {
+			err := bi.Add(context.Background(), esutil.BulkIndexerItem{
+				Action: "index",
+				Index:  "test-index-b",
+				Body:   strings.NewReader(body),
+			})
+			if err != nil {
+				t.Fatalf("Unexpected error: %s", err)
+			}
+		}
+
+		// Index 2
+		for i := 1; i <= 10; i++ {
+			err := bi.Add(context.Background(), esutil.BulkIndexerItem{
+				Action: "index",
+				Index:  "test-index-c",
+				Body:   strings.NewReader(body),
+			})
+			if err != nil {
+				t.Fatalf("Unexpected error: %s", err)
+			}
+		}
+
+		if err := bi.Close(context.Background()); err != nil {
+			t.Errorf("Unexpected error: %s", err)
+		}
+		stats := bi.Stats()
+
+		expectedIndexed := 10 + 10 + 10
+		if stats.NumIndexed != uint64(expectedIndexed) {
+			t.Errorf("Unexpected NumIndexed: want=%d, got=%d", expectedIndexed, stats.NumIndexed)
+		}
+
+		res, err := es.Indices.Exists([]string{"test-index-a", "test-index-b", "test-index-c"})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+		if res.StatusCode != 200 {
+			t.Errorf("Expected indices to exist, but got a [%s] response", res.Status())
+		}
 	})
 }
