@@ -551,3 +551,68 @@ type customJSONDecoder struct{}
 func (d customJSONDecoder) UnmarshalFromReader(r io.Reader, blk *BulkIndexerResponse) error {
 	return json.NewDecoder(r).Decode(blk)
 }
+
+func Test_worker_writeMeta(t *testing.T) {
+	type args struct {
+		item BulkIndexerItem
+	}
+	tests := []struct {
+		name     string
+		args     args
+		wantErr  bool
+		wantMeta string
+	}{
+		{
+			"without _index and _id",
+			args{BulkIndexerItem{Action: "index"}},
+			false,
+			`{"index":{}}` + "\n",
+		},
+		{
+			"with _id",
+			args{BulkIndexerItem{
+				Action:     "index",
+				DocumentID: "42",
+			}},
+			false,
+			`{"index":{"_id":"42"}}` + "\n",
+		},
+		{
+			"with _index",
+			args{BulkIndexerItem{
+				Action: "index",
+				Index:  "test",
+			}},
+			false,
+			`{"index":{"_index":"test"}}` + "\n",
+		},
+		{
+			"with _index and _id",
+			args{BulkIndexerItem{
+				Action:     "index",
+				DocumentID: "42",
+				Index:      "test",
+			}},
+			false,
+			`{"index":{"_id":"42","_index":"test"}}` + "\n",
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+
+		t.Run(tt.name, func(t *testing.T) {
+			w := &worker{
+				buf: bytes.NewBuffer(make([]byte, 0, 5e+6)),
+				aux: make([]byte, 0, 512),
+			}
+			if err := w.writeMeta(tt.args.item); (err != nil) != tt.wantErr {
+				t.Errorf("worker.writeMeta() %s = %v, wantErr %v", tt.name, err, tt.wantErr)
+			}
+
+			if w.buf.String() != tt.wantMeta {
+				t.Errorf("worker.writeMeta() %s = got %q, want %q", tt.name, w.buf.String(), tt.wantMeta)
+			}
+
+		})
+	}
+}
