@@ -9,6 +9,7 @@ package esapi
 import (
 	"errors"
 	"io/ioutil"
+	"net/http"
 	"strings"
 	"testing"
 )
@@ -77,6 +78,21 @@ func TestAPIResponse(t *testing.T) {
 
 		if !res.IsError() {
 			t.Errorf("Expected error for response: %s", res.Status())
+		}
+	})
+
+	t.Run("Warnings", func(t *testing.T) {
+		hdr := http.Header{}
+		hdr.Add("Warning", "Foo 1")
+		hdr.Add("Warning", "Foo 2")
+		res = &Response{StatusCode: 201, Header: hdr}
+
+		if !res.HasWarnings() {
+			t.Errorf("Expected response to have warnings")
+		}
+
+		if len(res.Warnings()) != 2 {
+			t.Errorf("Expected [2] warnings, got: %d", len(res.Warnings()))
 		}
 	})
 }
