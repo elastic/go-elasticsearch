@@ -78,3 +78,15 @@ func (r *Response) Status() string {
 func (r *Response) IsError() bool {
 	return r.StatusCode > 299
 }
+
+// Warnings returns the deprecation warnings from response headers.
+//
+func (r *Response) Warnings() []string {
+	return r.Header["Warning"]
+}
+
+// HasWarnings returns true when the response headers contain deprecation warnings.
+//
+func (r *Response) HasWarnings() bool {
+	return len(r.Warnings()) > 0
+}
