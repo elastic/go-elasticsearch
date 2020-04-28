@@ -95,12 +95,13 @@ func TestBulkIndexerIntegration(t *testing.T) {
 
 	t.Run("Multiple indices", func(t *testing.T) {
 		es, _ := elasticsearch.NewClient(elasticsearch.Config{
-			Logger: &estransport.ColorLogger{Output: os.Stdout},
+			Logger: &estransport.ColorLogger{Output: os.Stdout, EnableRequestBody: true, EnableResponseBody: true},
 		})
 
 		bi, _ := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
-			Index:  "test-index-a",
-			Client: es,
+			Index:        "test-index-a",
+			DocumentType: "_doc",
+			Client:       es,
 		})
 
 		// Default index
