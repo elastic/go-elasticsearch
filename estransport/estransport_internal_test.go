@@ -339,6 +339,34 @@ func TestTransportPerform(t *testing.T) {
 		}
 	})
 
+	t.Run("Sets global HTTP request headers", func(t *testing.T) {
+		hdr := http.Header{}
+		hdr.Set("X-Foo", "bar")
+
+		tp, _ := New(Config{Header: hdr})
+
+		{
+			// Set the global HTTP header
+			req, _ := http.NewRequest("GET", "/abc", nil)
+			tp.setReqGlobalHeader(req)
+
+			if req.Header.Get("X-Foo") != "bar" {
+				t.Errorf("Unexpected global HTTP request header value: %s", req.Header.Get("X-Foo"))
+			}
+		}
+
+		{
+			// Do NOT overwrite an existing request header
+			req, _ := http.NewRequest("GET", "/abc", nil)
+			req.Header.Set("X-Foo", "baz")
+			tp.setReqGlobalHeader(req)
+
+			if req.Header.Get("X-Foo") != "baz" {
+				t.Errorf("Unexpected global HTTP request header value: %s", req.Header.Get("X-Foo"))
+			}
+		}
+	})
+
 	t.Run("Error No URL", func(t *testing.T) {
 		tp, _ := New(Config{
 			URLs: []*url.URL{},

@@ -54,6 +54,7 @@ type Config struct {
 	Password string
 	APIKey   string
 
+	Header http.Header
 	CACert []byte
 
 	RetryOnStatus        []int
@@ -83,6 +84,7 @@ type Client struct {
 	username string
 	password string
 	apikey   string
+	header   http.Header
 
 	retryOnStatus         []int
 	disableRetry          bool
@@ -144,6 +146,7 @@ func New(cfg Config) (*Client, error) {
 		username: cfg.Username,
 		password: cfg.Password,
 		apikey:   cfg.APIKey,
+		header:   cfg.Header,
 
 		retryOnStatus:         cfg.RetryOnStatus,
 		disableRetry:          cfg.DisableRetry,
@@ -205,6 +208,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 
 	// Update request
 	c.setReqUserAgent(req)
+	c.setReqGlobalHeader(req)
 
 	if req.Body != nil && req.Body != http.NoBody && req.GetBody == nil {
 		if !c.disableRetry || (c.logger != nil && c.logger.RequestBodyEnabled()) {
@@ -373,6 +377,19 @@ func (c *Client) setReqAuth(u *url.URL, req *http.Request) *http.Request {
 
 func (c *Client) setReqUserAgent(req *http.Request) *http.Request {
 	req.Header.Set("User-Agent", userAgent)
+	return req
+}
+
+func (c *Client) setReqGlobalHeader(req *http.Request) *http.Request {
+	if len(c.header) > 0 {
+		for k, v := range c.header {
+			if req.Header.Get(k) != k {
+				for _, vv := range v {
+					req.Header.Add(k, vv)
+				}
+			}
+		}
+	}
 	return req
 }
 

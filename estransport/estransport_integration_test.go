@@ -70,3 +70,31 @@ func TestTransportRetries(t *testing.T) {
 		})
 	}
 }
+
+func TestTransportHeaders(t *testing.T) {
+	u, _ := url.Parse("http://localhost:9200")
+
+	hdr := http.Header{}
+	hdr.Set("Accept", "application/yaml")
+
+	tp, _ := estransport.New(estransport.Config{
+		URLs:   []*url.URL{u},
+		Header: hdr,
+	})
+
+	req, _ := http.NewRequest("GET", "/", nil)
+	res, err := tp.Perform(req)
+	if err != nil {
+		t.Fatalf("Unexpected error: %s", err)
+	}
+	defer res.Body.Close()
+
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		t.Fatalf("Unexpected error: %s", err)
+	}
+
+	if !bytes.HasPrefix(body, []byte("---")) {
+		t.Errorf("Unexpected response body:\n%s", body)
+	}
+}

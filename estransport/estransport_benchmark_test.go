@@ -53,4 +53,23 @@ func BenchmarkTransport(b *testing.B) {
 			}
 		}
 	})
+
+	b.Run("Headers", func(b *testing.B) {
+		hdr := http.Header{}
+		hdr.Set("Accept", "application/yaml")
+
+		for i := 0; i < b.N; i++ {
+			tp, _ := estransport.New(estransport.Config{
+				URLs:      []*url.URL{{Scheme: "http", Host: "foo"}},
+				Header:    hdr,
+				Transport: newFakeTransport(b),
+			})
+
+			req, _ := http.NewRequest("GET", "/abc", nil)
+			_, err := tp.Perform(req)
+			if err != nil {
+				b.Fatalf("Unexpected error: %s", err)
+			}
+		}
+	})
 }
