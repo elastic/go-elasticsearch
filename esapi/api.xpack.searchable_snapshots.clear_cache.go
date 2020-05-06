@@ -25,7 +25,7 @@ func newSearchableSnapshotsClearCacheFunc(t Transport) SearchableSnapshotsClearC
 
 // ----- API Definition -------------------------------------------------------
 
-// SearchableSnapshotsClearCache -
+// SearchableSnapshotsClearCache - Clear the cache of searchable snapshots.
 //
 // This API is experimental.
 //

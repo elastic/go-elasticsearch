@@ -15,9 +15,9 @@ import (
 	"time"
 )
 
-func newIndicesPutIndexTemplateFunc(t Transport) IndicesPutIndexTemplate {
-	return func(name string, body io.Reader, o ...func(*IndicesPutIndexTemplateRequest)) (*Response, error) {
-		var r = IndicesPutIndexTemplateRequest{Name: name, Body: body}
+func newIndicesSimulateIndexTemplateFunc(t Transport) IndicesSimulateIndexTemplate {
+	return func(name string, o ...func(*IndicesSimulateIndexTemplateRequest)) (*Response, error) {
+		var r = IndicesSimulateIndexTemplateRequest{Name: name}
 		for _, f := range o {
 			f(&r)
 		}
@@ -27,15 +27,15 @@ func newIndicesPutIndexTemplateFunc(t Transport) IndicesPutIndexTemplate {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesPutIndexTemplate creates or updates an index template.
+// IndicesSimulateIndexTemplate simulate matching the given index name against the index templates in the system
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html.
 //
-type IndicesPutIndexTemplate func(name string, body io.Reader, o ...func(*IndicesPutIndexTemplateRequest)) (*Response, error)
+type IndicesSimulateIndexTemplate func(name string, o ...func(*IndicesSimulateIndexTemplateRequest)) (*Response, error)
 
-// IndicesPutIndexTemplateRequest configures the Indices Put Index Template API request.
+// IndicesSimulateIndexTemplateRequest configures the Indices Simulate Index Template API request.
 //
-type IndicesPutIndexTemplateRequest struct {
+type IndicesSimulateIndexTemplateRequest struct {
 	Body io.Reader
 
 	Name string
@@ -56,18 +56,20 @@ type IndicesPutIndexTemplateRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r IndicesPutIndexTemplateRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r IndicesSimulateIndexTemplateRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "PUT"
+	method = "POST"
 
-	path.Grow(1 + len("_index_template") + 1 + len(r.Name))
+	path.Grow(1 + len("_index_template") + 1 + len("_simulate_index") + 1 + len(r.Name))
 	path.WriteString("/")
 	path.WriteString("_index_template")
+	path.WriteString("/")
+	path.WriteString("_simulate_index")
 	path.WriteString("/")
 	path.WriteString(r.Name)
 
@@ -150,72 +152,80 @@ func (r IndicesPutIndexTemplateRequest) Do(ctx context.Context, transport Transp
 
 // WithContext sets the request context.
 //
-func (f IndicesPutIndexTemplate) WithContext(v context.Context) func(*IndicesPutIndexTemplateRequest) {
-	return func(r *IndicesPutIndexTemplateRequest) {
+func (f IndicesSimulateIndexTemplate) WithContext(v context.Context) func(*IndicesSimulateIndexTemplateRequest) {
+	return func(r *IndicesSimulateIndexTemplateRequest) {
 		r.ctx = v
 	}
 }
 
-// WithCause - user defined reason for creating/updating the index template.
+// WithBody - New index template definition, which will be included in the simulation, as if it already exists in the system.
 //
-func (f IndicesPutIndexTemplate) WithCause(v string) func(*IndicesPutIndexTemplateRequest) {
-	return func(r *IndicesPutIndexTemplateRequest) {
+func (f IndicesSimulateIndexTemplate) WithBody(v io.Reader) func(*IndicesSimulateIndexTemplateRequest) {
+	return func(r *IndicesSimulateIndexTemplateRequest) {
+		r.Body = v
+	}
+}
+
+// WithCause - user defined reason for dry-run creating the new template for simulation purposes.
+//
+func (f IndicesSimulateIndexTemplate) WithCause(v string) func(*IndicesSimulateIndexTemplateRequest) {
+	return func(r *IndicesSimulateIndexTemplateRequest) {
 		r.Cause = v
 	}
 }
 
-// WithCreate - whether the index template should only be added if new or can also replace an existing one.
+// WithCreate - whether the index template we optionally defined in the body should only be dry-run added if new or can also replace an existing one.
 //
-func (f IndicesPutIndexTemplate) WithCreate(v bool) func(*IndicesPutIndexTemplateRequest) {
-	return func(r *IndicesPutIndexTemplateRequest) {
+func (f IndicesSimulateIndexTemplate) WithCreate(v bool) func(*IndicesSimulateIndexTemplateRequest) {
+	return func(r *IndicesSimulateIndexTemplateRequest) {
 		r.Create = &v
 	}
 }
 
 // WithMasterTimeout - specify timeout for connection to master.
 //
-func (f IndicesPutIndexTemplate) WithMasterTimeout(v time.Duration) func(*IndicesPutIndexTemplateRequest) {
-	return func(r *IndicesPutIndexTemplateRequest) {
+func (f IndicesSimulateIndexTemplate) WithMasterTimeout(v time.Duration) func(*IndicesSimulateIndexTemplateRequest) {
+	return func(r *IndicesSimulateIndexTemplateRequest) {
 		r.MasterTimeout = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f IndicesPutIndexTemplate) WithPretty() func(*IndicesPutIndexTemplateRequest) {
-	return func(r *IndicesPutIndexTemplateRequest) {
+func (f IndicesSimulateIndexTemplate) WithPretty() func(*IndicesSimulateIndexTemplateRequest) {
+	return func(r *IndicesSimulateIndexTemplateRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f IndicesPutIndexTemplate) WithHuman() func(*IndicesPutIndexTemplateRequest) {
-	return func(r *IndicesPutIndexTemplateRequest) {
+func (f IndicesSimulateIndexTemplate) WithHuman() func(*IndicesSimulateIndexTemplateRequest) {
+	return func(r *IndicesSimulateIndexTemplateRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f IndicesPutIndexTemplate) WithErrorTrace() func(*IndicesPutIndexTemplateRequest) {
-	return func(r *IndicesPutIndexTemplateRequest) {
+func (f IndicesSimulateIndexTemplate) WithErrorTrace() func(*IndicesSimulateIndexTemplateRequest) {
+	return func(r *IndicesSimulateIndexTemplateRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f IndicesPutIndexTemplate) WithFilterPath(v ...string) func(*IndicesPutIndexTemplateRequest) {
-	return func(r *IndicesPutIndexTemplateRequest) {
+func (f IndicesSimulateIndexTemplate) WithFilterPath(v ...string) func(*IndicesSimulateIndexTemplateRequest) {
+	return func(r *IndicesSimulateIndexTemplateRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f IndicesPutIndexTemplate) WithHeader(h map[string]string) func(*IndicesPutIndexTemplateRequest) {
-	return func(r *IndicesPutIndexTemplateRequest) {
+func (f IndicesSimulateIndexTemplate) WithHeader(h map[string]string) func(*IndicesSimulateIndexTemplateRequest) {
+	return func(r *IndicesSimulateIndexTemplateRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -227,8 +237,8 @@ func (f IndicesPutIndexTemplate) WithHeader(h map[string]string) func(*IndicesPu
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f IndicesPutIndexTemplate) WithOpaqueID(s string) func(*IndicesPutIndexTemplateRequest) {
-	return func(r *IndicesPutIndexTemplateRequest) {
+func (f IndicesSimulateIndexTemplate) WithOpaqueID(s string) func(*IndicesSimulateIndexTemplateRequest) {
+	return func(r *IndicesSimulateIndexTemplateRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

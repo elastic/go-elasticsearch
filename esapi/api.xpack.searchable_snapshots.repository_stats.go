@@ -24,7 +24,7 @@ func newSearchableSnapshotsRepositoryStatsFunc(t Transport) SearchableSnapshotsR
 
 // ----- API Definition -------------------------------------------------------
 
-// SearchableSnapshotsRepositoryStats -
+// SearchableSnapshotsRepositoryStats - Retrieve usage statistics about a snapshot repository.
 //
 // This API is experimental.
 //

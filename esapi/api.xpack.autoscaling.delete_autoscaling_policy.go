@@ -24,7 +24,7 @@ func newAutoscalingDeleteAutoscalingPolicyFunc(t Transport) AutoscalingDeleteAut
 
 // ----- API Definition -------------------------------------------------------
 
-// AutoscalingDeleteAutoscalingPolicy -
+// AutoscalingDeleteAutoscalingPolicy - Deletes an autoscaling policy.
 //
 // This API is experimental.
 //

@@ -27,7 +27,7 @@ func newSearchableSnapshotsMountFunc(t Transport) SearchableSnapshotsMount {
 
 // ----- API Definition -------------------------------------------------------
 
-// SearchableSnapshotsMount -
+// SearchableSnapshotsMount - Mount a snapshot as a searchable index.
 //
 // This API is experimental.
 //
