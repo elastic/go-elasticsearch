@@ -21,7 +21,7 @@ var (
 	_ = elasticsearch.NewDefaultClient
 )
 
-// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/indices/templates.asciidoc#L10>
+// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/indices/templates.asciidoc#L22>
 //
 // --------------------------------------------------------------------------------
 // PUT _template/template_1

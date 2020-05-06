@@ -21,7 +21,7 @@ var (
 	_ = elasticsearch.NewDefaultClient
 )
 
-// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/aggregations/bucket/terms-aggregation.asciidoc#L341>
+// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/aggregations/bucket/terms-aggregation.asciidoc#L207>
 //
 // --------------------------------------------------------------------------------
 // GET /_search

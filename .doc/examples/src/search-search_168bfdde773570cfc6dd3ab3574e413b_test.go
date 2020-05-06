@@ -20,7 +20,7 @@ var (
 	_ = elasticsearch.NewDefaultClient
 )
 
-// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/search/search.asciidoc#L404>
+// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/search/search.asciidoc#L406>
 //
 // --------------------------------------------------------------------------------
 // GET /_search?q=user:kimchy

@@ -9,6 +9,7 @@ package elasticsearch_test
 import (
 	"fmt"
 	"os"
+	"strings"
 	"testing"
 
 	"github.com/elastic/go-elasticsearch/v8"
@@ -20,25 +21,36 @@ var (
 	_ = elasticsearch.NewDefaultClient
 )
 
-// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/search/search.asciidoc#L7>
+// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/docs/bulk.asciidoc#L548>
 //
 // --------------------------------------------------------------------------------
-// GET /twitter/_search?q=tag:wow
+// POST /_bulk
+// { "update": {"_id": "5", "_index": "index1"} }
+// { "doc": {"my_field": "foo"} }
+// { "update": {"_id": "6", "_index": "index1"} }
+// { "doc": {"my_field": "foo"} }
+// { "create": {"_id": "7", "_index": "index1"} }
+// { "my_field": "foo" }
 // --------------------------------------------------------------------------------
 
-func Test_search_search_9bdd3c0d47e60c8cfafc8109f9369922(t *testing.T) {
+func Test_docs_bulk_1aa91d3d48140d6367b6cabca8737b8f(t *testing.T) {
 	es, _ := elasticsearch.NewDefaultClient()
 
-	// tag:9bdd3c0d47e60c8cfafc8109f9369922[]
-	res, err := es.Search(
-		es.Search.WithIndex("twitter"),
-		es.Search.WithQuery("tag:wow"),
-		es.Search.WithPretty(),
+	// tag:1aa91d3d48140d6367b6cabca8737b8f[]
+	res, err := es.Bulk(
+		strings.NewReader(`
+{ "update": {"_id": "5", "_index": "index1"} }
+{ "doc": {"my_field": "foo"} }
+{ "update": {"_id": "6", "_index": "index1"} }
+{ "doc": {"my_field": "foo"} }
+{ "create": {"_id": "7", "_index": "index1"} }
+{ "my_field": "foo" }
+`),
 	)
 	fmt.Println(res, err)
 	if err != nil { // SKIP
 		t.Fatalf("Error getting the response: %s", err) // SKIP
 	} // SKIP
 	defer res.Body.Close() // SKIP
-	// end:9bdd3c0d47e60c8cfafc8109f9369922[]
+	// end:1aa91d3d48140d6367b6cabca8737b8f[]
 }

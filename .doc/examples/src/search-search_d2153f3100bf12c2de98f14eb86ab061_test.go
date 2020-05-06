@@ -9,7 +9,6 @@ package elasticsearch_test
 import (
 	"fmt"
 	"os"
-	"strings"
 	"testing"
 
 	"github.com/elastic/go-elasticsearch/v8"
@@ -21,37 +20,18 @@ var (
 	_ = elasticsearch.NewDefaultClient
 )
 
-// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/aggregations/bucket/terms-aggregation.asciidoc#L135>
+// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/search/search.asciidoc#L10>
 //
 // --------------------------------------------------------------------------------
-// GET /_search
-// {
-//     "aggs" : {
-//         "products" : {
-//             "terms" : {
-//                 "field" : "product",
-//                 "size" : 5
-//             }
-//         }
-//     }
-// }
+// GET /twitter/_search
 // --------------------------------------------------------------------------------
 
-func Test_aggregations_bucket_terms_aggregation_d50a3835bf5795ac73e58906a3413544(t *testing.T) {
+func Test_search_search_d2153f3100bf12c2de98f14eb86ab061(t *testing.T) {
 	es, _ := elasticsearch.NewDefaultClient()
 
-	// tag:d50a3835bf5795ac73e58906a3413544[]
+	// tag:d2153f3100bf12c2de98f14eb86ab061[]
 	res, err := es.Search(
-		es.Search.WithBody(strings.NewReader(`{
-		  "aggs": {
-		    "products": {
-		      "terms": {
-		        "field": "product",
-		        "size": 5
-		      }
-		    }
-		  }
-		}`)),
+		es.Search.WithIndex("twitter"),
 		es.Search.WithPretty(),
 	)
 	fmt.Println(res, err)
@@ -59,5 +39,5 @@ func Test_aggregations_bucket_terms_aggregation_d50a3835bf5795ac73e58906a3413544
 		t.Fatalf("Error getting the response: %s", err) // SKIP
 	} // SKIP
 	defer res.Body.Close() // SKIP
-	// end:d50a3835bf5795ac73e58906a3413544[]
+	// end:d2153f3100bf12c2de98f14eb86ab061[]
 }

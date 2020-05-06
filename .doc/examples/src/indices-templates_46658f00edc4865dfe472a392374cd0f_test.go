@@ -20,7 +20,7 @@ var (
 	_ = elasticsearch.NewDefaultClient
 )
 
-// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/indices/templates.asciidoc#L239>
+// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/indices/templates.asciidoc#L251>
 //
 // --------------------------------------------------------------------------------
 // GET /_template/template_1?filter_path=*.version
