@@ -24,7 +24,7 @@ func newAutoscalingGetAutoscalingPolicyFunc(t Transport) AutoscalingGetAutoscali
 
 // ----- API Definition -------------------------------------------------------
 
-// AutoscalingGetAutoscalingPolicy -
+// AutoscalingGetAutoscalingPolicy - Retrieves an autoscaling policy.
 //
 // This API is experimental.
 //

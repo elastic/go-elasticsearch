@@ -1,4 +1,4 @@
-// Code generated from specification version 7.8.0 (c012897667c): DO NOT EDIT
+// Code generated from specification version 7.8.0 (8686200a320): DO NOT EDIT
 
 package esapi
 
@@ -138,19 +138,21 @@ type Cat struct {
 
 // Cluster contains the Cluster APIs
 type Cluster struct {
-	AllocationExplain       ClusterAllocationExplain
-	DeleteComponentTemplate ClusterDeleteComponentTemplate
-	ExistsComponentTemplate ClusterExistsComponentTemplate
-	GetComponentTemplate    ClusterGetComponentTemplate
-	GetSettings             ClusterGetSettings
-	Health                  ClusterHealth
-	PendingTasks            ClusterPendingTasks
-	PutComponentTemplate    ClusterPutComponentTemplate
-	PutSettings             ClusterPutSettings
-	RemoteInfo              ClusterRemoteInfo
-	Reroute                 ClusterReroute
-	State                   ClusterState
-	Stats                   ClusterStats
+	AllocationExplain            ClusterAllocationExplain
+	DeleteComponentTemplate      ClusterDeleteComponentTemplate
+	DeleteVotingConfigExclusions ClusterDeleteVotingConfigExclusions
+	ExistsComponentTemplate      ClusterExistsComponentTemplate
+	GetComponentTemplate         ClusterGetComponentTemplate
+	GetSettings                  ClusterGetSettings
+	Health                       ClusterHealth
+	PendingTasks                 ClusterPendingTasks
+	PostVotingConfigExclusions   ClusterPostVotingConfigExclusions
+	PutComponentTemplate         ClusterPutComponentTemplate
+	PutSettings                  ClusterPutSettings
+	RemoteInfo                   ClusterRemoteInfo
+	Reroute                      ClusterReroute
+	State                        ClusterState
+	Stats                        ClusterStats
 }
 
 // Indices contains the Indices APIs
@@ -197,6 +199,7 @@ type Indices struct {
 	Segments              IndicesSegments
 	ShardStores           IndicesShardStores
 	Shrink                IndicesShrink
+	SimulateIndexTemplate IndicesSimulateIndexTemplate
 	Split                 IndicesSplit
 	Stats                 IndicesStats
 	Unfreeze              IndicesUnfreeze
@@ -554,19 +557,21 @@ func New(t Transport) *API {
 			Transforms:           newCatTransformsFunc(t),
 		},
 		Cluster: &Cluster{
-			AllocationExplain:       newClusterAllocationExplainFunc(t),
-			DeleteComponentTemplate: newClusterDeleteComponentTemplateFunc(t),
-			ExistsComponentTemplate: newClusterExistsComponentTemplateFunc(t),
-			GetComponentTemplate:    newClusterGetComponentTemplateFunc(t),
-			GetSettings:             newClusterGetSettingsFunc(t),
-			Health:                  newClusterHealthFunc(t),
-			PendingTasks:            newClusterPendingTasksFunc(t),
-			PutComponentTemplate:    newClusterPutComponentTemplateFunc(t),
-			PutSettings:             newClusterPutSettingsFunc(t),
-			RemoteInfo:              newClusterRemoteInfoFunc(t),
-			Reroute:                 newClusterRerouteFunc(t),
-			State:                   newClusterStateFunc(t),
-			Stats:                   newClusterStatsFunc(t),
+			AllocationExplain:            newClusterAllocationExplainFunc(t),
+			DeleteComponentTemplate:      newClusterDeleteComponentTemplateFunc(t),
+			DeleteVotingConfigExclusions: newClusterDeleteVotingConfigExclusionsFunc(t),
+			ExistsComponentTemplate:      newClusterExistsComponentTemplateFunc(t),
+			GetComponentTemplate:         newClusterGetComponentTemplateFunc(t),
+			GetSettings:                  newClusterGetSettingsFunc(t),
+			Health:                       newClusterHealthFunc(t),
+			PendingTasks:                 newClusterPendingTasksFunc(t),
+			PostVotingConfigExclusions:   newClusterPostVotingConfigExclusionsFunc(t),
+			PutComponentTemplate:         newClusterPutComponentTemplateFunc(t),
+			PutSettings:                  newClusterPutSettingsFunc(t),
+			RemoteInfo:                   newClusterRemoteInfoFunc(t),
+			Reroute:                      newClusterRerouteFunc(t),
+			State:                        newClusterStateFunc(t),
+			Stats:                        newClusterStatsFunc(t),
 		},
 		Indices: &Indices{
 			Analyze:               newIndicesAnalyzeFunc(t),
@@ -611,6 +616,7 @@ func New(t Transport) *API {
 			Segments:              newIndicesSegmentsFunc(t),
 			ShardStores:           newIndicesShardStoresFunc(t),
 			Shrink:                newIndicesShrinkFunc(t),
+			SimulateIndexTemplate: newIndicesSimulateIndexTemplateFunc(t),
 			Split:                 newIndicesSplitFunc(t),
 			Stats:                 newIndicesStatsFunc(t),
 			Unfreeze:              newIndicesUnfreezeFunc(t),

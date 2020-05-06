@@ -25,7 +25,7 @@ func newAutoscalingPutAutoscalingPolicyFunc(t Transport) AutoscalingPutAutoscali
 
 // ----- API Definition -------------------------------------------------------
 
-// AutoscalingPutAutoscalingPolicy -
+// AutoscalingPutAutoscalingPolicy - Creates a new autoscaling policy.
 //
 // This API is experimental.
 //

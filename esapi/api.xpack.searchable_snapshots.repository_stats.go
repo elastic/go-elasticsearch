@@ -24,11 +24,11 @@ func newSearchableSnapshotsRepositoryStatsFunc(t Transport) SearchableSnapshotsR
 
 // ----- API Definition -------------------------------------------------------
 
-// SearchableSnapshotsRepositoryStats -
+// SearchableSnapshotsRepositoryStats - Retrieve usage statistics about a snapshot repository.
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/searchable-snapshots-repository-stats.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/searchable-snapshots-repository-stats.html.
 //
 type SearchableSnapshotsRepositoryStats func(repository string, o ...func(*SearchableSnapshotsRepositoryStatsRequest)) (*Response, error)
 
