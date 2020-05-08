@@ -44,7 +44,7 @@ type CatThreadPoolRequest struct {
 	Local         *bool
 	MasterTimeout time.Duration
 	S             []string
-	Size          string
+	Time          string
 	V             *bool
 
 	Pretty     bool
@@ -104,8 +104,8 @@ func (r CatThreadPoolRequest) Do(ctx context.Context, transport Transport) (*Res
 		params["s"] = strings.Join(r.S, ",")
 	}
 
-	if r.Size != "" {
-		params["size"] = r.Size
+	if r.Time != "" {
+		params["time"] = r.Time
 	}
 
 	if r.V != nil {
@@ -235,11 +235,11 @@ func (f CatThreadPool) WithS(v ...string) func(*CatThreadPoolRequest) {
 	}
 }
 
-// WithSize - the multiplier in which to display values.
+// WithTime - the unit in which to display time values.
 //
-func (f CatThreadPool) WithSize(v string) func(*CatThreadPoolRequest) {
+func (f CatThreadPool) WithTime(v string) func(*CatThreadPoolRequest) {
 	return func(r *CatThreadPoolRequest) {
-		r.Size = v
+		r.Time = v
 	}
 }
 
