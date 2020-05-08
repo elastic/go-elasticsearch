@@ -105,6 +105,18 @@ cat.aliases/10_basic.yml:
 indices.put_mapping/10_basic.yml:
   - "Put mappings with explicit _doc type bwc"
 
+# Test fails with: [400 Bad Request] illegal_argument_exception, "template [test] has index patterns [test-*] matching patterns from existing index templates [test2,test] with patterns (test2 => [test-*],test => [test-*, test2-*]), use index templates (/_index_template) instead"
+test/indices.put_template/10_basic.yml:
+
+# Incompatible regex
+cat.templates/10_basic.yml:
+  - "Sort templates"
+  - "Multiple template"
+
+# Missing test setup
+cluster.voting_config_exclusions/10_basic.yml:
+  - "Add voting config exclusion by unknown node name"
+
 # Not relevant
 search/issue4895.yml:
 search/issue9606.yml:
