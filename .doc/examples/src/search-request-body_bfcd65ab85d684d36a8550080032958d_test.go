@@ -20,7 +20,7 @@ var (
 	_ = elasticsearch.NewDefaultClient
 )
 
-// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/search/request-body.asciidoc#L156>
+// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/search/request-body.asciidoc#L59>
 //
 // --------------------------------------------------------------------------------
 // GET /_search?q=message:number&size=0&terminate_after=1

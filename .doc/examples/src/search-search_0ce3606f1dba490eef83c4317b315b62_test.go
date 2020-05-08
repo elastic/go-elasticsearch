@@ -21,7 +21,7 @@ var (
 	_ = elasticsearch.NewDefaultClient
 )
 
-// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/search/request-body.asciidoc#L7>
+// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/search/search.asciidoc#L513>
 //
 // --------------------------------------------------------------------------------
 // GET /twitter/_search
@@ -32,7 +32,7 @@ var (
 // }
 // --------------------------------------------------------------------------------
 
-func Test_search_request_body_0ce3606f1dba490eef83c4317b315b62(t *testing.T) {
+func Test_search_search_0ce3606f1dba490eef83c4317b315b62(t *testing.T) {
 	es, _ := elasticsearch.NewDefaultClient()
 
 	// tag:0ce3606f1dba490eef83c4317b315b62[]
