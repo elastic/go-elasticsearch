@@ -107,22 +107,23 @@ func NewTestSuite(fpath string, payloads []TestPayload) TestSuite {
 	for _, payload := range payloads {
 		sec_keys := utils.MapKeys(payload.Payload)
 		switch {
-		case len(sec_keys) == 1 && sec_keys[0] == "setup":
-			for _, v := range payload.Payload.(map[interface{}]interface{}) {
-				for _, vv := range v.([]interface{}) {
-					for k, vvv := range vv.(map[interface{}]interface{}) {
-						if k == "do" {
-							ts.Setup = append(ts.Setup, NewAction(vvv))
+		case len(sec_keys) > 0 && strings.Contains(strings.Join(sec_keys, ","), "setup") || strings.Contains(strings.Join(sec_keys, ","), "teardown"):
+			for k, v := range payload.Payload.(map[interface{}]interface{}) {
+				switch k {
+				case "setup":
+					for _, vv := range v.([]interface{}) {
+						for k, vvv := range vv.(map[interface{}]interface{}) {
+							if k == "do" {
+								ts.Setup = append(ts.Setup, NewAction(vvv))
+							}
 						}
 					}
-				}
-			}
-		case len(sec_keys) == 1 && sec_keys[0] == "teardown":
-			for _, v := range payload.Payload.(map[interface{}]interface{}) {
-				for _, vv := range v.([]interface{}) {
-					for k, vvv := range vv.(map[interface{}]interface{}) {
-						if k == "do" {
-							ts.Teardown = append(ts.Teardown, NewAction(vvv))
+				case "teardown":
+					for _, vv := range v.([]interface{}) {
+						for k, vvv := range vv.(map[interface{}]interface{}) {
+							if k == "do" {
+								ts.Teardown = append(ts.Teardown, NewAction(vvv))
+							}
 						}
 					}
 				}
