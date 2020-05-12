@@ -76,7 +76,7 @@ var (
 	out.WriteString(`es, _ := elasticsearch.NewDefaultClient()` + "\n")
 
 	if !g.Example.IsTranslated() {
-		out.WriteString("\n\tt.Error(`")
+		out.WriteString("\n\tt.Error(`Missing implementation for: ")
 
 		out.WriteString(strings.Split(g.Example.Source, "\n")[0])
 		out.WriteString("`)\n")

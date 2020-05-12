@@ -33,7 +33,7 @@ var _ = log.Print
 var ConsoleToGo = []TranslateRule{
 
 	{ // ----- Info() -----------------------------------------------------------
-		Pattern: "^GET /$",
+		Pattern: `^GET /\s*$`,
 		Func: func(in string) (string, error) {
 			return "res, err := es.Info()", nil
 		}},
@@ -42,6 +42,39 @@ var ConsoleToGo = []TranslateRule{
 		Pattern: `^GET /_cat/health\?v`,
 		Func: func(in string) (string, error) {
 			return "\tres, err := es.Cat.Health(es.Cat.Health.WithV(true))", nil
+		}},
+
+	{ // ----- Cluster.Health() -----------------------------------------------------
+		Pattern: `^GET /_cluster/health`,
+		Func: func(in string) (string, error) {
+			var src strings.Builder
+
+			re := regexp.MustCompile(`(?ms)^(?P<method>GET) /?_cluster/health/?(?P<index>[^/\s\?]+)?(?P<params>\??[\S]+)?\s*$`)
+			matches := re.FindStringSubmatch(in)
+			if matches == nil {
+				return "", errors.New("cannot match example source to pattern")
+			}
+
+			fmt.Fprint(&src, "\tres, err := es.Cluster.Health(\n")
+
+			if matches[2] != "" {
+				fmt.Fprintf(&src, "\tes.Cluster.Health.WithIndex([]string{%q}...),\n", matches[2])
+			}
+
+			if matches[3] != "" {
+				params, err := queryToParams(matches[3])
+				if err != nil {
+					return "", fmt.Errorf("error parsing URL params: %s", err)
+				}
+				args, err := paramsToArguments("Cluster.Health", params)
+				if err != nil {
+					return "", fmt.Errorf("error converting params to arguments: %s", err)
+				}
+				fmt.Fprintf(&src, args)
+			}
+
+			src.WriteString(")")
+			return src.String(), nil
 		}},
 
 	{ // ----- Cluster.PutSettings() --------------------------------------------
@@ -61,8 +94,20 @@ var ConsoleToGo = []TranslateRule{
 				return "", fmt.Errorf("error converting body: %s", err)
 			}
 			fmt.Fprintf(&src, "\t%s", body)
-			src.WriteString(")")
 
+			if matches[2] != "" {
+				params, err := queryToParams(matches[2])
+				if err != nil {
+					return "", fmt.Errorf("error parsing URL params: %s", err)
+				}
+				args, err := paramsToArguments("Cluster.PutSettings", params)
+				if err != nil {
+					return "", fmt.Errorf("error converting params to arguments: %s", err)
+				}
+				fmt.Fprintf(&src, args)
+			}
+
+			src.WriteString(")")
 			return src.String(), nil
 
 		}},
@@ -182,6 +227,49 @@ var ConsoleToGo = []TranslateRule{
 						return "", fmt.Errorf("error parsing URL params: %s", err)
 					}
 					args, err := paramsToArguments("Indices.PutMapping", params)
+					if err != nil {
+						return "", fmt.Errorf("error converting params to arguments: %s", err)
+					}
+					fmt.Fprintf(&src, "\t%s", args)
+				}
+			}
+
+			src.WriteString(")")
+			return src.String(), nil
+		}},
+
+	{ // ----- Indices.PutSettings() -------------------------------------------------
+		Pattern: `^PUT /?[^/\s]+/_settings`,
+		Func: func(in string) (string, error) {
+			var src strings.Builder
+
+			re := regexp.MustCompile(`(?ms)^PUT /?(?P<index>[^/\s]+)(?P<params>\??[\S/]+)?_settings\s?(?P<body>.+)?`)
+			matches := re.FindStringSubmatch(in)
+			if matches == nil {
+				return "", errors.New("cannot match example source to pattern")
+			}
+
+			src.WriteString("\tres, err := es.Indices.PutSettings(")
+
+			if matches[2] != "" || matches[3] != "" {
+				if matches[3] != "" {
+					body, err := bodyStringToReader(matches[3])
+					if err != nil {
+						return "", fmt.Errorf("error converting body: %s", err)
+					}
+					fmt.Fprintf(&src, "\t%s,\n", body)
+				}
+
+				if matches[1] != "" {
+					fmt.Fprintf(&src, "\n\tes.Indices.PutSettings.WithIndex([]string{%q}...),\n", matches[1])
+				}
+
+				if matches[2] != "" {
+					params, err := queryToParams(matches[2])
+					if err != nil {
+						return "", fmt.Errorf("error parsing URL params: %s", err)
+					}
+					args, err := paramsToArguments("Indices.PutSettings", params)
 					if err != nil {
 						return "", fmt.Errorf("error converting params to arguments: %s", err)
 					}
@@ -361,6 +449,119 @@ var ConsoleToGo = []TranslateRule{
 			return src.String(), nil
 		}},
 
+	{ // ----- Indices.Open() + Indices.Close() ---------------------------------
+		Pattern: `^POST /?[^/\s]*/?(?P<operation>_close|_open)\s*`,
+		Func: func(in string) (string, error) {
+			var src strings.Builder
+			var apiName string
+
+			re := regexp.MustCompile(`(?ms)^POST /?(?P<index>[^/\s]*)/?(?P<operation>_open|_close)\s*$`)
+			matches := re.FindStringSubmatch(in)
+			if matches == nil {
+				return "", errors.New("cannot match example source to pattern")
+			}
+
+			switch matches[2] {
+			case "_open":
+				apiName = "Open"
+			case "_close":
+				apiName = "Close"
+			default:
+				return "", fmt.Errorf("unknown operation [%s]", matches[2])
+			}
+
+			fmt.Fprintf(&src, "\tres, err := es.Indices.%s(", apiName)
+
+			if matches[1] != "" {
+				fmt.Fprintf(&src, "[]string{%q}", matches[1])
+			}
+
+			src.WriteString(")")
+			return src.String(), nil
+		}},
+
+	{ // ----- Indices.Aliases() + Indices.PutAlias() ---------------------------
+		Pattern: `^POST /?[^/\s]*/?_aliases`,
+		Func: func(in string) (string, error) {
+			var src strings.Builder
+			var apiName string
+
+			re := regexp.MustCompile(`(?ms)^POST /?(?P<index>[^/\s]*)/?_aliases/?(?P<params>\??[\S/]+)?\s?(?P<body>.+)?`)
+			matches := re.FindStringSubmatch(in)
+			if matches == nil {
+				return "", errors.New("cannot match example source to pattern")
+			}
+
+			if matches[1] != "" {
+				apiName = "PutAlias"
+				src.WriteString("\tres, err := es.Indices.PutAlias(")
+				fmt.Fprintf(&src, "[]string{%q}", matches[1])
+			} else {
+				apiName = "UpdateAliases"
+				src.WriteString("\tres, err := es.Indices.UpdateAliases(")
+			}
+
+			if strings.TrimSpace(matches[3]) != "" {
+				body, err := bodyStringToReader(matches[3])
+				if err != nil {
+					return "", fmt.Errorf("error converting body: %s", err)
+				}
+				if apiName == "PutAlias" {
+					fmt.Fprintf(&src, "\tes.Indices.%s.WithBody(%s),\n", apiName, body)
+				} else {
+					fmt.Fprintf(&src, "\t%s,\n", body)
+				}
+			}
+
+			if matches[2] != "" {
+				params, err := queryToParams(matches[2])
+				if err != nil {
+					return "", fmt.Errorf("error parsing URL params: %s", err)
+				}
+				args, err := paramsToArguments(apiName, params)
+				if err != nil {
+					return "", fmt.Errorf("error converting params to arguments: %s", err)
+				}
+				fmt.Fprintf(&src, args)
+			}
+
+			src.WriteString(")")
+			return src.String(), nil
+		}},
+
+	{ // ----- Indices.Forcemerge() -------------------------------------------------
+		Pattern: `^POST /?[^/\s]*/?_forcemerge`,
+		Func: func(in string) (string, error) {
+			var src strings.Builder
+
+			re := regexp.MustCompile(`(?ms)^POST /?(?P<index>[^/\s]*)/?_forcemerge/?(?P<params>\??[\S/]+)?$`)
+			matches := re.FindStringSubmatch(in)
+			if matches == nil {
+				return "", errors.New("cannot match example source to pattern")
+			}
+
+			src.WriteString("\tres, err := es.Indices.Forcemerge(")
+
+			if matches[1] != "" {
+				fmt.Fprintf(&src, "\tes.Indices.Forcemerge.WithIndex([]string{%q}...),\n", matches[1])
+			}
+
+			if matches[2] != "" {
+				params, err := queryToParams(matches[2])
+				if err != nil {
+					return "", fmt.Errorf("error parsing URL params: %s", err)
+				}
+				args, err := paramsToArguments("Indices.Forcemerge", params)
+				if err != nil {
+					return "", fmt.Errorf("error converting params to arguments: %s", err)
+				}
+				fmt.Fprintf(&src, args)
+			}
+
+			src.WriteString(")")
+			return src.String(), nil
+		}},
+
 	{ // ----- Get() or GetSource() ---------------------------------------------
 		Pattern: `^GET /?.+/(_doc|_source)/\w+`,
 		Func: func(in string) (string, error) {
@@ -529,6 +730,59 @@ var ConsoleToGo = []TranslateRule{
 
 			if !hasPretty {
 				src.WriteString("\tes.Search.WithPretty(),\n")
+			}
+
+			src.WriteString("\t)")
+			return src.String(), nil
+		}},
+
+	{ // ----- Count() ---------------------------------------------------------
+		Pattern: `^GET /?[^/]*/?_count`,
+		Func: func(in string) (string, error) {
+			var src strings.Builder
+
+			re := regexp.MustCompile(`(?ms)^GET /?(?P<index>[^/]*)?/?_count(?P<params>\??[\S]+)?\s?(?P<body>.+)?`)
+			matches := re.FindStringSubmatch(in)
+			if matches == nil {
+				return "", errors.New("cannot match example source to pattern")
+			}
+
+			src.WriteString("\tres, err := es.Count(\n")
+			if matches[1] != "" {
+				fmt.Fprintf(&src, "\tes.Count.WithIndex(%q),\n", matches[2])
+			}
+
+			if strings.TrimSpace(matches[3]) != "" {
+				body, err := bodyStringToReader(matches[3])
+				if err != nil {
+					return "", fmt.Errorf("error converting body: %s", err)
+				}
+				fmt.Fprintf(&src, "\tes.Count.WithBody(%s),\n", body)
+			}
+
+			var params url.Values
+			if matches[2] != "" {
+				var err error
+				params, err = url.ParseQuery(strings.TrimPrefix(strings.TrimPrefix(matches[2], "/"), "?"))
+				if err != nil {
+					return "", fmt.Errorf("error parsing URL params: %s", err)
+				}
+				args, err := paramsToArguments("Count", params)
+				if err != nil {
+					return "", fmt.Errorf("error converting params to arguments: %s", err)
+				}
+				fmt.Fprint(&src, args)
+			}
+
+			var hasPretty bool
+			for k, _ := range params {
+				if k == "pretty" {
+					hasPretty = true
+				}
+			}
+
+			if !hasPretty {
+				src.WriteString("\tes.Count.WithPretty(),\n")
 			}
 
 			src.WriteString("\t)")
@@ -936,7 +1190,7 @@ func paramsToArguments(api string, params url.Values) (string, error) {
 				return "", fmt.Errorf("error parsing duration: %s", err)
 			}
 			value = fmt.Sprintf("time.Duration(%d)", time.Duration(dur))
-		case "from", "size", "terminate_after", "version", "requests_per_second", "scroll_size": // numeric
+		case "from", "size", "terminate_after", "version", "requests_per_second", "scroll_size", "max_num_segments": // numeric
 			value = fmt.Sprintf("%s", value)
 		case "pretty":
 			value = "" // WithPretty() doesn't take any value
