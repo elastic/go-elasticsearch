@@ -1,0 +1,12 @@
+// Generated from indices-aliases_427f6b5c5376cbf0f71f242a60ca3d9e_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithIndex("alias2"),
+	es.Search.WithQuery("user:kimchy"),
+	es.Search.WithRouting("2,3"),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

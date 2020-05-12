@@ -1,0 +1,17 @@
+// Generated from indices-aliases_d3016e4e8025362ad9a05ee86bb2061f_test.go
+//
+[source, go]
+----
+res, err := es.Indices.UpdateAliases(strings.NewReader(`{
+	  "actions": [
+	    {
+	      "add": {
+	        "index": "twitter",
+	        "alias": "alias1"
+	      }
+	    }
+	  ]
+	}`),
+)
+fmt.Println(res, err)
+----

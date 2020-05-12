@@ -1,0 +1,24 @@
+// Generated from mapping-params-fielddata_6a81d00f0d73bc5985e76b3cadab645e_test.go
+//
+[source, go]
+----
+res, err := es.Indices.Create(
+	"my_index",
+	es.Indices.Create.WithBody(strings.NewReader(`{
+	  "mappings": {
+	    "properties": {
+	      "tag": {
+	        "type": "text",
+	        "fielddata": true,
+	        "fielddata_frequency_filter": {
+	          "min": 0.001,
+	          "max": 0.1,
+	          "min_segment_size": 500
+	        }
+	      }
+	    }
+	  }
+	}`)),
+)
+fmt.Println(res, err)
+----

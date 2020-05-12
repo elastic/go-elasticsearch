@@ -1,0 +1,11 @@
+// Generated from search-count_1b542e3ea87a742f95641d64dcfb1bdb_test.go
+//
+[source, go]
+----
+res, err := es.Count(
+	es.Count.WithIndex("?q=user:kimchy"),
+	es.Count.WithQuery("user:kimchy"),
+	es.Count.WithPretty(),
+)
+fmt.Println(res, err)
+----

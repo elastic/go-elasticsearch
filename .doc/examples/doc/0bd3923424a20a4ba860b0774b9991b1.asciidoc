@@ -1,0 +1,38 @@
+// Generated from query-dsl-nested-query_0bd3923424a20a4ba860b0774b9991b1_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithIndex("drivers"),
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "nested": {
+	      "path": "driver",
+	      "query": {
+	        "nested": {
+	          "path": "driver.vehicle",
+	          "query": {
+	            "bool": {
+	              "must": [
+	                {
+	                  "match": {
+	                    "driver.vehicle.make": "Powell Motors"
+	                  }
+	                },
+	                {
+	                  "match": {
+	                    "driver.vehicle.model": "Canyonero"
+	                  }
+	                }
+	              ]
+	            }
+	          }
+	        }
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

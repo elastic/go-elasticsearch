@@ -1,0 +1,22 @@
+// Generated from indices-aliases_7cf71671859be7c1ecf673396db377cd_test.go
+//
+[source, go]
+----
+res, err := es.Indices.UpdateAliases(strings.NewReader(`{
+	  "actions": [
+	    {
+	      "add": {
+	        "index": "test1",
+	        "alias": "alias2",
+	        "filter": {
+	          "term": {
+	            "user": "kimchy"
+	          }
+	        }
+	      }
+	    }
+	  ]
+	}`),
+)
+fmt.Println(res, err)
+----

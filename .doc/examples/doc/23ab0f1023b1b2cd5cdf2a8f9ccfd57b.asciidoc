@@ -1,0 +1,18 @@
+// Generated from indices-aliases_23ab0f1023b1b2cd5cdf2a8f9ccfd57b_test.go
+//
+[source, go]
+----
+res, err := es.Indices.Create(
+	"test1",
+	es.Indices.Create.WithBody(strings.NewReader(`{
+	  "mappings": {
+	    "properties": {
+	      "user": {
+	        "type": "keyword"
+	      }
+	    }
+	  }
+	}`)),
+)
+fmt.Println(res, err)
+----

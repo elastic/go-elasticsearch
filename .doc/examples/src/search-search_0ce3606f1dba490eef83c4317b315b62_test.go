@@ -21,7 +21,7 @@ var (
 	_ = elasticsearch.NewDefaultClient
 )
 
-// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/search/search.asciidoc#L513>
+// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/search/search.asciidoc#L581>
 //
 // --------------------------------------------------------------------------------
 // GET /twitter/_search

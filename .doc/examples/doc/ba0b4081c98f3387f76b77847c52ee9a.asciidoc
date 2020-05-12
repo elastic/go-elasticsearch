@@ -1,0 +1,31 @@
+// Generated from indices-update-settings_ba0b4081c98f3387f76b77847c52ee9a_test.go
+//
+[source, go]
+----
+{
+	res, err := es.Indices.Close([]string{"twitter"})
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Indices.PutSettings(strings.NewReader(`{
+	  "analysis": {
+	    "analyzer": {
+	      "content": {
+	        "type": "custom",
+	        "tokenizer": "whitespace"
+	      }
+	    }
+	  }
+	}`),
+
+		es.Indices.PutSettings.WithIndex([]string{"twitter"}...),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Indices.Open([]string{"twitter"})
+	fmt.Println(res, err)
+}
+----

@@ -1,0 +1,39 @@
+// Generated from query-dsl-function-score-query_df17f920b0deab3529b98df88b781f55_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "function_score": {
+	      "functions": [
+	        {
+	          "gauss": {
+	            "price": {
+	              "origin": "0",
+	              "scale": "20"
+	            }
+	          }
+	        },
+	        {
+	          "gauss": {
+	            "location": {
+	              "origin": "11, 12",
+	              "scale": "2km"
+	            }
+	          }
+	        }
+	      ],
+	      "query": {
+	        "match": {
+	          "properties": "balcony"
+	        }
+	      },
+	      "score_mode": "multiply"
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

@@ -1,0 +1,53 @@
+// Generated from query-dsl-nested-query_873fbbc6ab81409058591385fd602736_test.go
+//
+[source, go]
+----
+{
+	res, err := es.Index(
+		"drivers",
+		strings.NewReader(`{
+	  "driver": {
+	    "last_name": "McQueen",
+	    "vehicle": [
+	      {
+	        "make": "Powell Motors",
+	        "model": "Canyonero"
+	      },
+	      {
+	        "make": "Miller-Meteor",
+	        "model": "Ecto-1"
+	      }
+	    ]
+	  }
+	}`),
+		es.Index.WithDocumentID("1"),
+		es.Index.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Index(
+		"drivers",
+		strings.NewReader(`{
+	  "driver": {
+	    "last_name": "Hudson",
+	    "vehicle": [
+	      {
+	        "make": "Mifune",
+	        "model": "Mach Five"
+	      },
+	      {
+	        "make": "Miller-Meteor",
+	        "model": "Ecto-1"
+	      }
+	    ]
+	  }
+	}`),
+		es.Index.WithDocumentID("2"),
+		es.Index.WithRefresh("true"),
+		es.Index.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+----
