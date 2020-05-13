@@ -144,27 +144,29 @@ func (cmd *SrcCommand) Execute() error {
 	}
 
 	for _, e := range examples {
+		if !e.IsEnabled() || !e.IsExecutable() {
+			skipped++
+			continue
+		}
+
 		if seen[e.Digest] {
 			continue
 		}
-		if e.IsEnabled() && e.IsExecutable() {
-			if utils.IsTTY() {
-				fmt.Fprint(os.Stderr, "\x1b[2m")
-			}
-			fmt.Fprintln(os.Stderr, strings.Repeat("━", utils.TerminalWidth()))
-			fmt.Fprintf(os.Stderr, "Processing example %q @ %s\n", e.ID(), e.Digest)
-			if utils.IsTTY() {
-				fmt.Fprint(os.Stderr, "\x1b[0m")
-			}
-			if err := cmd.processExample(e); err != nil {
-				return fmt.Errorf("error processing example %s: %v", e.ID(), err)
-			}
-			processed++
-			if e.IsTranslated() {
-				translated++
-			}
-		} else {
-			skipped++
+
+		if utils.IsTTY() {
+			fmt.Fprint(os.Stderr, "\x1b[2m")
+		}
+		fmt.Fprintln(os.Stderr, strings.Repeat("━", utils.TerminalWidth()))
+		fmt.Fprintf(os.Stderr, "Processing example %q @ %s\n", e.ID(), e.Digest)
+		if utils.IsTTY() {
+			fmt.Fprint(os.Stderr, "\x1b[0m")
+		}
+		if err := cmd.processExample(e); err != nil {
+			return fmt.Errorf("error processing example %s: %v", e.ID(), err)
+		}
+		processed++
+		if e.IsTranslated() {
+			translated++
 		}
 		seen[e.Digest] = true
 	}

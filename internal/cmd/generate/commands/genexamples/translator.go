@@ -39,13 +39,13 @@ var ConsoleToGo = []TranslateRule{
 		}},
 
 	{ // ----- Cat.Health() -----------------------------------------------------
-		Pattern: `^GET /_cat/health\?v`,
+		Pattern: `^GET /?_cat/health\?v`,
 		Func: func(in string) (string, error) {
 			return "\tres, err := es.Cat.Health(es.Cat.Health.WithV(true))", nil
 		}},
 
 	{ // ----- Cluster.Health() -----------------------------------------------------
-		Pattern: `^GET /_cluster/health`,
+		Pattern: `^GET /?_cluster/health`,
 		Func: func(in string) (string, error) {
 			var src strings.Builder
 
