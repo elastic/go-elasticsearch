@@ -1,0 +1,7 @@
+// Generated from cluster-health_b02e4907c9936c1adc16ccce9d49900d_test.go
+//
+[source, go]
+----
+res, err := es.Cluster.Health()
+fmt.Println(res, err)
+----
