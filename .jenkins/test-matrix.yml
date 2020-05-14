@@ -1,13 +1,13 @@
 ---
 
-ELASTICSEARCH_VERSION:
+STACK_VERSION:
   - 8.0.0-SNAPSHOT
 
 GO_VERSION:
   - 1-alpine
 
 TEST_SUITE:
-  - core
+  - oss
   - xpack
 
 exclude: ~
