@@ -1,0 +1,17 @@
+---
+- job:
+    project-type: freestyle
+    node: linux && immutable
+    name: elastic+go-elasticsearch+benchmarks
+    display-name: 'elastic / go-elasticsearch # benchmarks'
+    description: Client benchmarks for the Go client
+    parameters:
+      - string: { name: branch_specifier, default: refs/heads/benchmarks }
+    triggers:
+      - timed: "H H/12 * * *"
+    vault:
+      role_id: "ddbd0d44-0e51-105b-177a-c8fdfd445126"
+    builders:
+      - shell: |-
+          #!/usr/local/bin/runbld
+          .jenkins/run-benchmarks
