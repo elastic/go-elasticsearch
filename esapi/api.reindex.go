@@ -42,7 +42,6 @@ type ReindexRequest struct {
 	Body io.Reader
 
 	MaxDocs             *int
-	PreferV2Templates   *bool
 	Refresh             *bool
 	RequestsPerSecond   *int
 	Scroll              time.Duration
@@ -79,10 +78,6 @@ func (r ReindexRequest) Do(ctx context.Context, transport Transport) (*Response,
 
 	if r.MaxDocs != nil {
 		params["max_docs"] = strconv.FormatInt(int64(*r.MaxDocs), 10)
-	}
-
-	if r.PreferV2Templates != nil {
-		params["prefer_v2_templates"] = strconv.FormatBool(*r.PreferV2Templates)
 	}
 
 	if r.Refresh != nil {
@@ -189,14 +184,6 @@ func (f Reindex) WithContext(v context.Context) func(*ReindexRequest) {
 func (f Reindex) WithMaxDocs(v int) func(*ReindexRequest) {
 	return func(r *ReindexRequest) {
 		r.MaxDocs = &v
-	}
-}
-
-// WithPreferV2Templates - favor v2 templates instead of v1 templates during index creation.
-//
-func (f Reindex) WithPreferV2Templates(v bool) func(*ReindexRequest) {
-	return func(r *ReindexRequest) {
-		r.PreferV2Templates = &v
 	}
 }
 

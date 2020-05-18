@@ -27,7 +27,7 @@ func newSnapshotCleanupRepositoryFunc(t Transport) SnapshotCleanupRepository {
 
 // SnapshotCleanupRepository removes stale data from repository.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/clean-up-snapshot-repo-api.html.
 //
 type SnapshotCleanupRepository func(repository string, o ...func(*SnapshotCleanupRepositoryRequest)) (*Response, error)
 

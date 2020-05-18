@@ -8,14 +8,13 @@ package esapi
 
 import (
 	"context"
-	"io"
 	"net/http"
 	"strings"
 )
 
-func newMLValidateDetectorFunc(t Transport) MLValidateDetector {
-	return func(body io.Reader, o ...func(*MLValidateDetectorRequest)) (*Response, error) {
-		var r = MLValidateDetectorRequest{Body: body}
+func newIndicesGetDataStreamFunc(t Transport) IndicesGetDataStream {
+	return func(o ...func(*IndicesGetDataStreamRequest)) (*Response, error) {
+		var r = IndicesGetDataStreamRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -25,16 +24,18 @@ func newMLValidateDetectorFunc(t Transport) MLValidateDetector {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLValidateDetector - Validates an anomaly detection detector.
+// IndicesGetDataStream returns data streams.
 //
-// See full documentation at https://www.elastic.co/guide/en/machine-learning/current/ml-jobs.html.
+// This API is experimental.
 //
-type MLValidateDetector func(body io.Reader, o ...func(*MLValidateDetectorRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html.
+//
+type IndicesGetDataStream func(o ...func(*IndicesGetDataStreamRequest)) (*Response, error)
 
-// MLValidateDetectorRequest configures the ML Validate Detector API request.
+// IndicesGetDataStreamRequest configures the Indices Get Data Stream API request.
 //
-type MLValidateDetectorRequest struct {
-	Body io.Reader
+type IndicesGetDataStreamRequest struct {
+	Name string
 
 	Pretty     bool
 	Human      bool
@@ -48,17 +49,22 @@ type MLValidateDetectorRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r MLValidateDetectorRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r IndicesGetDataStreamRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "POST"
+	method = "GET"
 
-	path.Grow(len("/_ml/anomaly_detectors/_validate/detector"))
-	path.WriteString("/_ml/anomaly_detectors/_validate/detector")
+	path.Grow(1 + len("_data_stream") + 1 + len(r.Name))
+	path.WriteString("/")
+	path.WriteString("_data_stream")
+	if r.Name != "" {
+		path.WriteString("/")
+		path.WriteString(r.Name)
+	}
 
 	params = make(map[string]string)
 
@@ -78,7 +84,7 @@ func (r MLValidateDetectorRequest) Do(ctx context.Context, transport Transport) 
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -89,10 +95,6 @@ func (r MLValidateDetectorRequest) Do(ctx context.Context, transport Transport) 
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
-	}
-
-	if r.Body != nil {
-		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -127,48 +129,56 @@ func (r MLValidateDetectorRequest) Do(ctx context.Context, transport Transport) 
 
 // WithContext sets the request context.
 //
-func (f MLValidateDetector) WithContext(v context.Context) func(*MLValidateDetectorRequest) {
-	return func(r *MLValidateDetectorRequest) {
+func (f IndicesGetDataStream) WithContext(v context.Context) func(*IndicesGetDataStreamRequest) {
+	return func(r *IndicesGetDataStreamRequest) {
 		r.ctx = v
+	}
+}
+
+// WithName - the name or wildcard expression of the requested data streams.
+//
+func (f IndicesGetDataStream) WithName(v string) func(*IndicesGetDataStreamRequest) {
+	return func(r *IndicesGetDataStreamRequest) {
+		r.Name = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f MLValidateDetector) WithPretty() func(*MLValidateDetectorRequest) {
-	return func(r *MLValidateDetectorRequest) {
+func (f IndicesGetDataStream) WithPretty() func(*IndicesGetDataStreamRequest) {
+	return func(r *IndicesGetDataStreamRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f MLValidateDetector) WithHuman() func(*MLValidateDetectorRequest) {
-	return func(r *MLValidateDetectorRequest) {
+func (f IndicesGetDataStream) WithHuman() func(*IndicesGetDataStreamRequest) {
+	return func(r *IndicesGetDataStreamRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f MLValidateDetector) WithErrorTrace() func(*MLValidateDetectorRequest) {
-	return func(r *MLValidateDetectorRequest) {
+func (f IndicesGetDataStream) WithErrorTrace() func(*IndicesGetDataStreamRequest) {
+	return func(r *IndicesGetDataStreamRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f MLValidateDetector) WithFilterPath(v ...string) func(*MLValidateDetectorRequest) {
-	return func(r *MLValidateDetectorRequest) {
+func (f IndicesGetDataStream) WithFilterPath(v ...string) func(*IndicesGetDataStreamRequest) {
+	return func(r *IndicesGetDataStreamRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f MLValidateDetector) WithHeader(h map[string]string) func(*MLValidateDetectorRequest) {
-	return func(r *MLValidateDetectorRequest) {
+func (f IndicesGetDataStream) WithHeader(h map[string]string) func(*IndicesGetDataStreamRequest) {
+	return func(r *IndicesGetDataStreamRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -180,8 +190,8 @@ func (f MLValidateDetector) WithHeader(h map[string]string) func(*MLValidateDete
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f MLValidateDetector) WithOpaqueID(s string) func(*MLValidateDetectorRequest) {
-	return func(r *MLValidateDetectorRequest) {
+func (f IndicesGetDataStream) WithOpaqueID(s string) func(*IndicesGetDataStreamRequest) {
+	return func(r *IndicesGetDataStreamRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

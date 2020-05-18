@@ -27,6 +27,8 @@ func newMLValidateFunc(t Transport) MLValidate {
 
 // MLValidate - Validates an anomaly detection job.
 //
+// See full documentation at https://www.elastic.co/guide/en/machine-learning/current/ml-jobs.html.
+//
 type MLValidate func(body io.Reader, o ...func(*MLValidateRequest)) (*Response, error)
 
 // MLValidateRequest configures the ML Validate API request.

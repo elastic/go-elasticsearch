@@ -44,7 +44,6 @@ type UpdateRequest struct {
 	IfPrimaryTerm       *int
 	IfSeqNo             *int
 	Lang                string
-	PreferV2Templates   *bool
 	Refresh             string
 	RetryOnConflict     *int
 	Routing             string
@@ -95,10 +94,6 @@ func (r UpdateRequest) Do(ctx context.Context, transport Transport) (*Response, 
 
 	if r.Lang != "" {
 		params["lang"] = r.Lang
-	}
-
-	if r.PreferV2Templates != nil {
-		params["prefer_v2_templates"] = strconv.FormatBool(*r.PreferV2Templates)
 	}
 
 	if r.Refresh != "" {
@@ -225,14 +220,6 @@ func (f Update) WithIfSeqNo(v int) func(*UpdateRequest) {
 func (f Update) WithLang(v string) func(*UpdateRequest) {
 	return func(r *UpdateRequest) {
 		r.Lang = v
-	}
-}
-
-// WithPreferV2Templates - favor v2 templates instead of v1 templates during automatic index creation.
-//
-func (f Update) WithPreferV2Templates(v bool) func(*UpdateRequest) {
-	return func(r *UpdateRequest) {
-		r.PreferV2Templates = &v
 	}
 }
 
