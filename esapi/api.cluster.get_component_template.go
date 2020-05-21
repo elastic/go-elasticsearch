@@ -28,7 +28,7 @@ func newClusterGetComponentTemplateFunc(t Transport) ClusterGetComponentTemplate
 
 // ClusterGetComponentTemplate returns one or more component templates
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-templates.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-template.html.
 //
 type ClusterGetComponentTemplate func(o ...func(*ClusterGetComponentTemplateRequest)) (*Response, error)
 

@@ -1,4 +1,4 @@
-// Code generated from specification version 8.0.0 (8541ef4f758): DO NOT EDIT
+// Code generated from specification version 8.0.0 (8a086ba05de): DO NOT EDIT
 
 package esapi
 
@@ -200,6 +200,7 @@ type Indices struct {
 	ShardStores           IndicesShardStores
 	Shrink                IndicesShrink
 	SimulateIndexTemplate IndicesSimulateIndexTemplate
+	SimulateTemplate      IndicesSimulateTemplate
 	Split                 IndicesSplit
 	Stats                 IndicesStats
 	Unfreeze              IndicesUnfreeze
@@ -617,6 +618,7 @@ func New(t Transport) *API {
 			ShardStores:           newIndicesShardStoresFunc(t),
 			Shrink:                newIndicesShrinkFunc(t),
 			SimulateIndexTemplate: newIndicesSimulateIndexTemplateFunc(t),
+			SimulateTemplate:      newIndicesSimulateTemplateFunc(t),
 			Split:                 newIndicesSplitFunc(t),
 			Stats:                 newIndicesStatsFunc(t),
 			Unfreeze:              newIndicesUnfreezeFunc(t),
