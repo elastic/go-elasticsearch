@@ -7,6 +7,8 @@ package operations
 import (
 	"bytes"
 	"fmt"
+	"io"
+	"io/ioutil"
 	"math/rand"
 	"os"
 	"path/filepath"
@@ -34,13 +36,17 @@ func init() {
 				)
 				res, _ = c.RunnerClient.Indices.Delete([]string{indexName})
 				if res != nil && res.Body != nil {
+					io.Copy(ioutil.Discard, res.Body)
 					res.Body.Close()
 				}
 				res, err = c.RunnerClient.Indices.Create(indexName)
 				if err != nil {
 					return res, err
 				}
-				res.Body.Close()
+				if res.Body != nil {
+					io.Copy(ioutil.Discard, res.Body)
+					res.Body.Close()
+				}
 				return res, err
 			},
 			RunnerFunc: func(n int, c runner.Config) (*esapi.Response, error) {
@@ -60,12 +66,13 @@ func init() {
 				if err != nil {
 					return res, err
 				}
-				defer res.Body.Close()
 
 				var b bytes.Buffer
 				if _, err := b.ReadFrom(res.Body); err != nil {
 					return nil, err
 				}
+				res.Body.Close()
+
 				output := gjson.GetBytes(b.Bytes(), "result")
 				if output.Str != "created" {
 					return nil, fmt.Errorf("Unexpected output: %s", b.String())

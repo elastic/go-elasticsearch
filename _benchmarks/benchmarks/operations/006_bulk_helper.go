@@ -50,7 +50,9 @@ func init() {
 				if err != nil {
 					return res, err
 				}
-				res.Body.Close()
+				if res != nil && res.Body != nil {
+					res.Body.Close()
+				}
 				return res, err
 			},
 
@@ -94,6 +96,8 @@ func init() {
 					return nil, err
 				}
 				docBody.ReadFrom(f)
+				f.Close()
+
 				docBody = bytes.NewBuffer(bytes.ReplaceAll(docBody.Bytes(), []byte("\n"), []byte("")))
 				docBody.WriteRune('\n')
 

@@ -24,8 +24,8 @@ func init() {
 			RunnerFunc: func(n int, c runner.Config) (*esapi.Response, error) {
 				res, err := c.RunnerClient.Ping()
 				if err == nil && res != nil && res.Body != nil {
-					defer res.Body.Close()
 					io.Copy(ioutil.Discard, res.Body)
+					res.Body.Close()
 				}
 				return res, err
 			},

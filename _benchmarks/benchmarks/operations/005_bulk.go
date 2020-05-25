@@ -72,6 +72,8 @@ func init() {
 					return nil, err
 				}
 				docBody.ReadFrom(f)
+				f.Close()
+
 				docBody = bytes.NewBuffer(bytes.ReplaceAll(docBody.Bytes(), []byte("\n"), []byte("")))
 				docBody.WriteRune('\n')
 
@@ -87,12 +89,13 @@ func init() {
 				if err != nil {
 					return res, err
 				}
-				defer res.Body.Close()
 
 				var b bytes.Buffer
 				if _, err := b.ReadFrom(res.Body); err != nil {
 					return nil, err
 				}
+				res.Body.Close()
+
 				output := gjson.GetBytes(b.Bytes(), "errors")
 				if output.Bool() {
 					return nil, fmt.Errorf("Unexpected errors in output: %s", b.String())

@@ -34,8 +34,8 @@ func init() {
 				)
 				res, _ = c.RunnerClient.Indices.Delete([]string{indexName})
 				if res != nil && res.Body != nil {
-					defer res.Body.Close()
 					io.Copy(ioutil.Discard, res.Body)
+					res.Body.Close()
 				}
 				res, err = c.RunnerClient.Index(indexName, strings.NewReader(`{"title":"Test"}`), c.RunnerClient.Index.WithDocumentID("1"))
 				if err != nil {
@@ -47,8 +47,8 @@ func init() {
 				if err != nil {
 					return res, err
 				}
-				defer res.Body.Close()
 				io.Copy(ioutil.Discard, res.Body)
+				res.Body.Close()
 				return res, err
 			},
 			RunnerFunc: func(n int, c runner.Config) (*esapi.Response, error) {
@@ -57,11 +57,12 @@ func init() {
 				if err != nil {
 					return res, err
 				}
-				defer res.Body.Close()
 				var b bytes.Buffer
 				if _, err := b.ReadFrom(res.Body); err != nil {
 					return nil, err
 				}
+				res.Body.Close()
+
 				output := gjson.GetBytes(b.Bytes(), "_source.title")
 				if output.Str != "Test" {
 					return nil, fmt.Errorf("Unexpected output: %q", b.String())
