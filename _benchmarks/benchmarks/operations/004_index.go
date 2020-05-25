@@ -26,7 +26,7 @@ func init() {
 			Action:         "index",
 			Category:       "core",
 			NumWarmups:     100,
-			NumRepetitions: benchmarks.DefaultRepetitions,
+			NumRepetitions: 10000,
 			SetupFunc: func(n int, c runner.Config) (*esapi.Response, error) {
 				var (
 					res *esapi.Response

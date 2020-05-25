@@ -20,7 +20,7 @@ func init() {
 			Action:         "ping",
 			Category:       "core",
 			NumWarmups:     0,
-			NumRepetitions: benchmarks.DefaultRepetitions,
+			NumRepetitions: 10000,
 			RunnerFunc: func(n int, c runner.Config) (*esapi.Response, error) {
 				res, err := c.RunnerClient.Ping()
 				if err == nil && res != nil && res.Body != nil {
