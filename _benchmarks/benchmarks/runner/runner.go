@@ -238,6 +238,7 @@ func (r *Runner) SaveStats() error {
 			Event: recordEvent{
 				Action:   r.config.Action,
 				Duration: s.Duration.Nanoseconds(),
+				Outcome:  s.Outcome,
 			},
 			HTTP: recordHTTP{
 				Response: recordHTTPResponse{
@@ -319,6 +320,7 @@ type record struct {
 type recordEvent struct {
 	Action   string `json:"action"`
 	Duration int64  `json:"duration"`
+	Outcome  string `json:"outcome,omitempty"`
 	Dataset  string `json:"dataset,omitempty"`
 }
 
