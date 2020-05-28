@@ -8,8 +8,6 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"os"
-	"path/filepath"
 	"strings"
 
 	"github.com/tidwall/gjson"
@@ -61,20 +59,11 @@ func init() {
 					indexName = "test-bench-bulk"
 					opMeta    = []byte("{ \"index\" : {} }\n")
 					opBody    bytes.Buffer
-					docBody   = bytes.NewBuffer([]byte(""))
 				)
 
 				opBody.Reset()
-				docBody.Reset()
 
-				f, err := os.Open(filepath.Join(benchmarks.Config["DATA_SOURCE"], "small", "document.json"))
-				if err != nil {
-					return nil, err
-				}
-				docBody.ReadFrom(f)
-				f.Close()
-
-				docBody = bytes.NewBuffer(bytes.ReplaceAll(docBody.Bytes(), []byte("\n"), []byte("")))
+				docBody := bytes.NewBuffer(bytes.ReplaceAll(benchmarks.DataSources["small"].Bytes(), []byte("\n"), []byte("")))
 				docBody.WriteRune('\n')
 
 				for i := 0; i < c.NumOperations; i++ {

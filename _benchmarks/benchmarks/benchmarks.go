@@ -5,12 +5,15 @@
 package benchmarks
 
 import (
+	"bytes"
+
 	"github.com/elastic/go-elasticsearch/v8/benchmarks/runner"
 )
 
 var (
-	Config     map[string]string
-	Operations []Operation
+	Config      map[string]string
+	Operations  []Operation
+	DataSources = make(map[string]*bytes.Buffer)
 
 	DefaultRepetitions = 1000
 )

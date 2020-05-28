@@ -8,8 +8,6 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"os"
-	"path/filepath"
 	"strings"
 
 	"github.com/elastic/go-elasticsearch/v8"
@@ -61,10 +59,7 @@ func init() {
 					err error
 
 					indexName = "test-bench-bulk-helper"
-					docBody   = bytes.NewBuffer([]byte(""))
 				)
-
-				docBody.Reset()
 
 				var addresses []string
 				for _, u := range c.RunnerClient.Transport.(*estransport.Client).URLs() {
@@ -91,14 +86,7 @@ func init() {
 					return nil, err
 				}
 
-				f, err := os.Open(filepath.Join(benchmarks.Config["DATA_SOURCE"], "small", "document.json"))
-				if err != nil {
-					return nil, err
-				}
-				docBody.ReadFrom(f)
-				f.Close()
-
-				docBody = bytes.NewBuffer(bytes.ReplaceAll(docBody.Bytes(), []byte("\n"), []byte("")))
+				docBody := bytes.NewBuffer(bytes.ReplaceAll(benchmarks.DataSources["small"].Bytes(), []byte("\n"), []byte("")))
 				docBody.WriteRune('\n')
 
 				for i := 0; i < c.NumOperations; i++ {

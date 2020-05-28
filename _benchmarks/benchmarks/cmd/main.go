@@ -5,10 +5,13 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"math/rand"
 	"os"
+	"path/filepath"
 	"strings"
 	"time"
 
@@ -75,6 +78,25 @@ func main() {
 
 	if _, err := os.Stat(benchmarks.Config["DATA_SOURCE"]); os.IsNotExist(err) {
 		log.Fatalf("ERROR: Data source at [%s] does not exist", benchmarks.Config["DATA_SOURCE"])
+	}
+
+	dirs, err := ioutil.ReadDir(benchmarks.Config["DATA_SOURCE"])
+	if err != nil {
+		log.Fatalf("ERROR: Unable to list files in [%s]", benchmarks.Config["DATA_SOURCE"])
+	}
+	for _, file := range dirs {
+		if !file.IsDir() {
+			continue
+		}
+		c, err := os.Open(filepath.Join(benchmarks.Config["DATA_SOURCE"], file.Name(), "document.json"))
+		if err != nil {
+			log.Fatalf("ERROR: Unable to open file: %s", err)
+		}
+		var b bytes.Buffer
+		b.ReadFrom(c)
+		c.Close()
+
+		benchmarks.DataSources[file.Name()] = &b
 	}
 
 	filterOperations = os.Getenv("FILTER")

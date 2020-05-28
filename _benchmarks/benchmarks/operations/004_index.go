@@ -10,8 +10,6 @@ import (
 	"io"
 	"io/ioutil"
 	"math/rand"
-	"os"
-	"path/filepath"
 
 	"github.com/elastic/go-elasticsearch/v8/esapi"
 	"github.com/tidwall/gjson"
@@ -58,10 +56,7 @@ func init() {
 				)
 
 				docID := fmt.Sprintf("%04d-%04d", n, rand.Intn(benchmarks.DefaultRepetitions))
-				docBody, err := os.Open(filepath.Join(benchmarks.Config["DATA_SOURCE"], "small", "document.json"))
-				if err != nil {
-					return nil, err
-				}
+				docBody := bytes.NewBuffer(benchmarks.DataSources["small"].Bytes())
 				res, err = c.RunnerClient.Index(indexName, docBody, c.RunnerClient.Index.WithDocumentID(docID))
 				if err != nil {
 					return res, err
