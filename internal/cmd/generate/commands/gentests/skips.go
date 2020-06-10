@@ -262,4 +262,7 @@ xpack/15_basic.yml:
 ml/explain_data_frame_analytics.yml:
   - Test empty data frame given body
   - Test non-empty data frame given body
+
+# Test uses "n" as a property name, which is parsed as 'false' in the Go YAML library;
+search.aggregation/10_histogram.yml:
 `
