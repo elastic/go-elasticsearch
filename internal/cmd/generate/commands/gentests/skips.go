@@ -74,6 +74,7 @@ indices.shrink/20_source_mapping.yml:
 indices.shrink/30_copy_settings.yml:
 indices.split/30_copy_settings.yml:
 nodes.info/10_basic.yml:
+nodes.reload_secure_settings/10_basic.yml:
 
 # Parsed response is YAML: value is map[interface {}]interface {}, not map[string]interface {}
 cat.aliases/20_headers.yml:
@@ -192,6 +193,9 @@ ml/start_stop_datafeed.yml:
 ml/explain_data_frame_analytics.yml:
   - Test empty data frame given body
   - Test non-empty data frame given body
+
+# Test uses "n" as a property name, which is parsed as 'false' in the Go YAML library;
+search.aggregation/10_histogram.yml:
 
 # Indexing step doesn't appear to work (getting total.hits=0)
 monitoring/bulk/10_basic.yml:
