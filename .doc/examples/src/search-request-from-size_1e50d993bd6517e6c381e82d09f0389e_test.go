@@ -21,39 +21,41 @@ var (
 	_ = elasticsearch.NewDefaultClient
 )
 
-// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/mapping.asciidoc#L176>
+// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/search/request/from-size.asciidoc#L22>
 //
 // --------------------------------------------------------------------------------
-// PUT /my-index/_mapping
+// GET /_search
 // {
-//   "properties": {
-//     "employee-id": {
-//       "type": "keyword",
-//       "index": false
+//   "from": 5,
+//   "size": 20,
+//   "query": {
+//     "term": {
+//       "user.id": "8a4f500d"
 //     }
 //   }
 // }
 // --------------------------------------------------------------------------------
 
-func Test_mapping_71ba9033107882f61cdc3b32fc73568d(t *testing.T) {
+func Test_search_request_from_size_1e50d993bd6517e6c381e82d09f0389e(t *testing.T) {
 	es, _ := elasticsearch.NewDefaultClient()
 
-	// tag:71ba9033107882f61cdc3b32fc73568d[]
-	res, err := es.Indices.PutMapping(
-		[]string{"my-index"},
-		strings.NewReader(`{
-		  "properties": {
-		    "employee-id": {
-		      "type": "keyword",
-		      "index": false
+	// tag:1e50d993bd6517e6c381e82d09f0389e[]
+	res, err := es.Search(
+		es.Search.WithBody(strings.NewReader(`{
+		  "from": 5,
+		  "size": 20,
+		  "query": {
+		    "term": {
+		      "user.id": "8a4f500d"
 		    }
 		  }
-		}`),
+		}`)),
+		es.Search.WithPretty(),
 	)
 	fmt.Println(res, err)
 	if err != nil { // SKIP
 		t.Fatalf("Error getting the response: %s", err) // SKIP
 	} // SKIP
 	defer res.Body.Close() // SKIP
-	// end:71ba9033107882f61cdc3b32fc73568d[]
+	// end:1e50d993bd6517e6c381e82d09f0389e[]
 }

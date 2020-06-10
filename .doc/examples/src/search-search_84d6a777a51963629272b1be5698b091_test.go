@@ -21,39 +21,38 @@ var (
 	_ = elasticsearch.NewDefaultClient
 )
 
-// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/mapping.asciidoc#L176>
+// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/search/search.asciidoc#L623>
 //
 // --------------------------------------------------------------------------------
-// PUT /my-index/_mapping
+// GET /twitter/_search
 // {
-//   "properties": {
-//     "employee-id": {
-//       "type": "keyword",
-//       "index": false
+//   "query": {
+//     "term": {
+//       "user": "kimchy"
 //     }
 //   }
 // }
 // --------------------------------------------------------------------------------
 
-func Test_mapping_71ba9033107882f61cdc3b32fc73568d(t *testing.T) {
+func Test_search_search_84d6a777a51963629272b1be5698b091(t *testing.T) {
 	es, _ := elasticsearch.NewDefaultClient()
 
-	// tag:71ba9033107882f61cdc3b32fc73568d[]
-	res, err := es.Indices.PutMapping(
-		[]string{"my-index"},
-		strings.NewReader(`{
-		  "properties": {
-		    "employee-id": {
-		      "type": "keyword",
-		      "index": false
+	// tag:84d6a777a51963629272b1be5698b091[]
+	res, err := es.Search(
+		es.Search.WithIndex("twitter"),
+		es.Search.WithBody(strings.NewReader(`{
+		  "query": {
+		    "term": {
+		      "user": "kimchy"
 		    }
 		  }
-		}`),
+		}`)),
+		es.Search.WithPretty(),
 	)
 	fmt.Println(res, err)
 	if err != nil { // SKIP
 		t.Fatalf("Error getting the response: %s", err) // SKIP
 	} // SKIP
 	defer res.Body.Close() // SKIP
-	// end:71ba9033107882f61cdc3b32fc73568d[]
+	// end:84d6a777a51963629272b1be5698b091[]
 }

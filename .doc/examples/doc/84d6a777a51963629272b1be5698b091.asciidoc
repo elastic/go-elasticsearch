@@ -1,0 +1,17 @@
+// Generated from search-search_84d6a777a51963629272b1be5698b091_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithIndex("twitter"),
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "term": {
+	      "user": "kimchy"
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

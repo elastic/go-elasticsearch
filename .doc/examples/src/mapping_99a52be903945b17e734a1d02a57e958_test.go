@@ -20,7 +20,7 @@ var (
 	_ = elasticsearch.NewDefaultClient
 )
 
-// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/mapping.asciidoc#L250>
+// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/mapping.asciidoc#L260>
 //
 // --------------------------------------------------------------------------------
 // GET /my-index/_mapping/field/employee-id
