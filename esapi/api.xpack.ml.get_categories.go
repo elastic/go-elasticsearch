@@ -40,8 +40,9 @@ type MLGetCategoriesRequest struct {
 	CategoryID *int
 	JobID      string
 
-	From *int
-	Size *int
+	From                *int
+	PartitionFieldValue string
+	Size                *int
 
 	Pretty     bool
 	Human      bool
@@ -86,6 +87,10 @@ func (r MLGetCategoriesRequest) Do(ctx context.Context, transport Transport) (*R
 
 	if r.From != nil {
 		params["from"] = strconv.FormatInt(int64(*r.From), 10)
+	}
+
+	if r.PartitionFieldValue != "" {
+		params["partition_field_value"] = r.PartitionFieldValue
 	}
 
 	if r.Size != nil {
@@ -184,6 +189,14 @@ func (f MLGetCategories) WithCategoryID(v int) func(*MLGetCategoriesRequest) {
 func (f MLGetCategories) WithFrom(v int) func(*MLGetCategoriesRequest) {
 	return func(r *MLGetCategoriesRequest) {
 		r.From = &v
+	}
+}
+
+// WithPartitionFieldValue - specifies the partition to retrieve categories for. this is optional, and should never be used for jobs where per-partition categorization is disabled..
+//
+func (f MLGetCategories) WithPartitionFieldValue(v string) func(*MLGetCategoriesRequest) {
+	return func(r *MLGetCategoriesRequest) {
+		r.PartitionFieldValue = v
 	}
 }
 

@@ -36,8 +36,9 @@ type MLForecast func(job_id string, o ...func(*MLForecastRequest)) (*Response, e
 type MLForecastRequest struct {
 	JobID string
 
-	Duration  time.Duration
-	ExpiresIn time.Duration
+	Duration       time.Duration
+	ExpiresIn      time.Duration
+	MaxModelMemory string
 
 	Pretty     bool
 	Human      bool
@@ -78,6 +79,10 @@ func (r MLForecastRequest) Do(ctx context.Context, transport Transport) (*Respon
 
 	if r.ExpiresIn != 0 {
 		params["expires_in"] = formatDuration(r.ExpiresIn)
+	}
+
+	if r.MaxModelMemory != "" {
+		params["max_model_memory"] = r.MaxModelMemory
 	}
 
 	if r.Pretty {
@@ -160,6 +165,14 @@ func (f MLForecast) WithDuration(v time.Duration) func(*MLForecastRequest) {
 func (f MLForecast) WithExpiresIn(v time.Duration) func(*MLForecastRequest) {
 	return func(r *MLForecastRequest) {
 		r.ExpiresIn = v
+	}
+}
+
+// WithMaxModelMemory - the max memory able to be used by the forecast. default is 20mb..
+//
+func (f MLForecast) WithMaxModelMemory(v string) func(*MLForecastRequest) {
+	return func(r *MLForecastRequest) {
+		r.MaxModelMemory = v
 	}
 }
 

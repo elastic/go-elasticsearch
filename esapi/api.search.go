@@ -682,7 +682,7 @@ func (f Search) WithTrackScores(v bool) func(*SearchRequest) {
 	}
 }
 
-// WithTrackTotalHits - indicate if the number of documents that match the query should be tracked.
+// WithTrackTotalHits - indicate if the number of documents that match the query should be tracked. a number can also be specified, to accurately track the total hit count up to the number..
 //
 func (f Search) WithTrackTotalHits(v interface{}) func(*SearchRequest) {
 	return func(r *SearchRequest) {

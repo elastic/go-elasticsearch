@@ -8,6 +8,7 @@ package esapi
 
 import (
 	"context"
+	"fmt"
 	"io"
 	"net/http"
 	"strconv"
@@ -77,7 +78,7 @@ type AsyncSearchSubmitRequest struct {
 	TerminateAfter             *int
 	Timeout                    time.Duration
 	TrackScores                *bool
-	TrackTotalHits             *bool
+	TrackTotalHits             interface{}
 	TypedKeys                  *bool
 	Version                    *bool
 	WaitForCompletionTimeout   time.Duration
@@ -262,7 +263,7 @@ func (r AsyncSearchSubmitRequest) Do(ctx context.Context, transport Transport) (
 	}
 
 	if r.TrackTotalHits != nil {
-		params["track_total_hits"] = strconv.FormatBool(*r.TrackTotalHits)
+		params["track_total_hits"] = fmt.Sprintf("%v", r.TrackTotalHits)
 	}
 
 	if r.TypedKeys != nil {
@@ -660,11 +661,11 @@ func (f AsyncSearchSubmit) WithTrackScores(v bool) func(*AsyncSearchSubmitReques
 	}
 }
 
-// WithTrackTotalHits - indicate if the number of documents that match the query should be tracked.
+// WithTrackTotalHits - indicate if the number of documents that match the query should be tracked. a number can also be specified, to accurately track the total hit count up to the number..
 //
-func (f AsyncSearchSubmit) WithTrackTotalHits(v bool) func(*AsyncSearchSubmitRequest) {
+func (f AsyncSearchSubmit) WithTrackTotalHits(v interface{}) func(*AsyncSearchSubmitRequest) {
 	return func(r *AsyncSearchSubmitRequest) {
-		r.TrackTotalHits = &v
+		r.TrackTotalHits = v
 	}
 }
 
