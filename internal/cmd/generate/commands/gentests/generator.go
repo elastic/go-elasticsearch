@@ -363,7 +363,7 @@ func (g *Generator) genCommonSetup() {
 								if !ok {
 									continue
 								}
-								es.Snapshot.Delete(repositoryID, fmt.Sprintf("%s", snapshotID))
+								es.Snapshot.Delete(repositoryID, []string{fmt.Sprintf("%s", snapshotID)})
 							}
 						}
 					}
@@ -561,7 +561,7 @@ func (g *Generator) genXPackSetup() {
 							for _, v := range vv.(map[string]interface{})["snapshots"].([]interface{}) {
 								snapshotID, ok := v.(map[string]interface{})["snapshot"]
 								if ok {
-									es.Snapshot.Delete(repositoryID, fmt.Sprintf("%s", snapshotID))
+									es.Snapshot.Delete(repositoryID, []string{fmt.Sprintf("%s", snapshotID)})
 								}
 							}
 						}
@@ -1021,7 +1021,16 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 				re := regexp.MustCompile("^(\\d+).*")
 				value = re.ReplaceAllString(fmt.Sprintf("%d", v), "$1")
 			case "*int":
-				g.w(`esapi.IntPtr(` + fmt.Sprintf("%d", v) + `)`)
+				switch v.(type) {
+				case int:
+					g.w(`esapi.IntPtr(` + fmt.Sprintf("%d", v) + `)`)
+				case float64:
+					if vv, ok := v.(float64); ok {
+						g.w(`esapi.IntPtr(` + fmt.Sprintf("%d", int(vv)) + `)`)
+					}
+				default:
+					panic(fmt.Sprintf("Unexpected type [%T] for [%s]", v, k))
+				}
 			default:
 				value = fmt.Sprintf("%v", v)
 			}
