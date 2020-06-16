@@ -1,4 +1,4 @@
-// Code generated from specification version 7.8.0 (8686200a320): DO NOT EDIT
+// Code generated from specification version 7.9.0 (2edcd064fe9): DO NOT EDIT
 
 package esapi
 
@@ -178,6 +178,7 @@ type Indices struct {
 	Forcemerge            IndicesForcemerge
 	Freeze                IndicesFreeze
 	GetAlias              IndicesGetAlias
+	GetDataStream         IndicesGetDataStream
 	GetDataStreams        IndicesGetDataStreams
 	GetFieldMapping       IndicesGetFieldMapping
 	GetIndexTemplate      IndicesGetIndexTemplate
@@ -195,11 +196,13 @@ type Indices struct {
 	Recovery              IndicesRecovery
 	Refresh               IndicesRefresh
 	ReloadSearchAnalyzers IndicesReloadSearchAnalyzers
+	ResolveIndex          IndicesResolveIndex
 	Rollover              IndicesRollover
 	Segments              IndicesSegments
 	ShardStores           IndicesShardStores
 	Shrink                IndicesShrink
 	SimulateIndexTemplate IndicesSimulateIndexTemplate
+	SimulateTemplate      IndicesSimulateTemplate
 	Split                 IndicesSplit
 	Stats                 IndicesStats
 	Unfreeze              IndicesUnfreeze
@@ -595,6 +598,7 @@ func New(t Transport) *API {
 			Forcemerge:            newIndicesForcemergeFunc(t),
 			Freeze:                newIndicesFreezeFunc(t),
 			GetAlias:              newIndicesGetAliasFunc(t),
+			GetDataStream:         newIndicesGetDataStreamFunc(t),
 			GetDataStreams:        newIndicesGetDataStreamsFunc(t),
 			GetFieldMapping:       newIndicesGetFieldMappingFunc(t),
 			GetIndexTemplate:      newIndicesGetIndexTemplateFunc(t),
@@ -612,11 +616,13 @@ func New(t Transport) *API {
 			Recovery:              newIndicesRecoveryFunc(t),
 			Refresh:               newIndicesRefreshFunc(t),
 			ReloadSearchAnalyzers: newIndicesReloadSearchAnalyzersFunc(t),
+			ResolveIndex:          newIndicesResolveIndexFunc(t),
 			Rollover:              newIndicesRolloverFunc(t),
 			Segments:              newIndicesSegmentsFunc(t),
 			ShardStores:           newIndicesShardStoresFunc(t),
 			Shrink:                newIndicesShrinkFunc(t),
 			SimulateIndexTemplate: newIndicesSimulateIndexTemplateFunc(t),
+			SimulateTemplate:      newIndicesSimulateTemplateFunc(t),
 			Split:                 newIndicesSplitFunc(t),
 			Stats:                 newIndicesStatsFunc(t),
 			Unfreeze:              newIndicesUnfreezeFunc(t),

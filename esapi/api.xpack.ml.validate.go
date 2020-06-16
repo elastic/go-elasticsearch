@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.8.0: DO NOT EDIT
+// Code generated from specification version 7.9.0: DO NOT EDIT
 
 package esapi
 
@@ -26,6 +26,8 @@ func newMLValidateFunc(t Transport) MLValidate {
 // ----- API Definition -------------------------------------------------------
 
 // MLValidate - Validates an anomaly detection job.
+//
+// See full documentation at https://www.elastic.co/guide/en/machine-learning/current/ml-jobs.html.
 //
 type MLValidate func(body io.Reader, o ...func(*MLValidateRequest)) (*Response, error)
 

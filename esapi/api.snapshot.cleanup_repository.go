@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.8.0: DO NOT EDIT
+// Code generated from specification version 7.9.0: DO NOT EDIT
 
 package esapi
 
@@ -27,7 +27,7 @@ func newSnapshotCleanupRepositoryFunc(t Transport) SnapshotCleanupRepository {
 
 // SnapshotCleanupRepository removes stale data from repository.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/clean-up-snapshot-repo-api.html.
 //
 type SnapshotCleanupRepository func(repository string, o ...func(*SnapshotCleanupRepositoryRequest)) (*Response, error)
 

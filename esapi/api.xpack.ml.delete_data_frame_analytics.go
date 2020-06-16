@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.8.0: DO NOT EDIT
+// Code generated from specification version 7.9.0: DO NOT EDIT
 
 package esapi
 
@@ -11,6 +11,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func newMLDeleteDataFrameAnalyticsFunc(t Transport) MLDeleteDataFrameAnalytics {
@@ -38,7 +39,8 @@ type MLDeleteDataFrameAnalytics func(id string, o ...func(*MLDeleteDataFrameAnal
 type MLDeleteDataFrameAnalyticsRequest struct {
 	ID string
 
-	Force *bool
+	Force   *bool
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -75,6 +77,10 @@ func (r MLDeleteDataFrameAnalyticsRequest) Do(ctx context.Context, transport Tra
 
 	if r.Force != nil {
 		params["force"] = strconv.FormatBool(*r.Force)
+	}
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
 	}
 
 	if r.Pretty {
@@ -149,6 +155,14 @@ func (f MLDeleteDataFrameAnalytics) WithContext(v context.Context) func(*MLDelet
 func (f MLDeleteDataFrameAnalytics) WithForce(v bool) func(*MLDeleteDataFrameAnalyticsRequest) {
 	return func(r *MLDeleteDataFrameAnalyticsRequest) {
 		r.Force = &v
+	}
+}
+
+// WithTimeout - controls the time to wait until a job is deleted. defaults to 1 minute.
+//
+func (f MLDeleteDataFrameAnalytics) WithTimeout(v time.Duration) func(*MLDeleteDataFrameAnalyticsRequest) {
+	return func(r *MLDeleteDataFrameAnalyticsRequest) {
+		r.Timeout = v
 	}
 }
 

@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.8.0: DO NOT EDIT
+// Code generated from specification version 7.9.0: DO NOT EDIT
 
 package esapi
 
@@ -40,6 +40,7 @@ type MLGetTrainedModelsRequest struct {
 
 	AllowNoMatch           *bool
 	DecompressDefinition   *bool
+	ForExport              *bool
 	From                   *int
 	IncludeModelDefinition *bool
 	Size                   *int
@@ -84,6 +85,10 @@ func (r MLGetTrainedModelsRequest) Do(ctx context.Context, transport Transport) 
 
 	if r.DecompressDefinition != nil {
 		params["decompress_definition"] = strconv.FormatBool(*r.DecompressDefinition)
+	}
+
+	if r.ForExport != nil {
+		params["for_export"] = strconv.FormatBool(*r.ForExport)
 	}
 
 	if r.From != nil {
@@ -190,6 +195,14 @@ func (f MLGetTrainedModels) WithAllowNoMatch(v bool) func(*MLGetTrainedModelsReq
 func (f MLGetTrainedModels) WithDecompressDefinition(v bool) func(*MLGetTrainedModelsRequest) {
 	return func(r *MLGetTrainedModelsRequest) {
 		r.DecompressDefinition = &v
+	}
+}
+
+// WithForExport - omits fields that are illegal to set on model put.
+//
+func (f MLGetTrainedModels) WithForExport(v bool) func(*MLGetTrainedModelsRequest) {
+	return func(r *MLGetTrainedModelsRequest) {
+		r.ForExport = &v
 	}
 }
 

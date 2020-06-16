@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.8.0: DO NOT EDIT
+// Code generated from specification version 7.9.0: DO NOT EDIT
 
 package esapi
 
@@ -31,7 +31,7 @@ func newClusterPutComponentTemplateFunc(t Transport) ClusterPutComponentTemplate
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-templates.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-template.html.
 //
 type ClusterPutComponentTemplate func(name string, body io.Reader, o ...func(*ClusterPutComponentTemplateRequest)) (*Response, error)
 

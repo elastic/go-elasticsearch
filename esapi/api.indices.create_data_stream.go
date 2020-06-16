@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.8.0: DO NOT EDIT
+// Code generated from specification version 7.9.0: DO NOT EDIT
 
 package esapi
 
@@ -14,8 +14,8 @@ import (
 )
 
 func newIndicesCreateDataStreamFunc(t Transport) IndicesCreateDataStream {
-	return func(name string, body io.Reader, o ...func(*IndicesCreateDataStreamRequest)) (*Response, error) {
-		var r = IndicesCreateDataStreamRequest{Name: name, Body: body}
+	return func(name string, o ...func(*IndicesCreateDataStreamRequest)) (*Response, error) {
+		var r = IndicesCreateDataStreamRequest{Name: name}
 		for _, f := range o {
 			f(&r)
 		}
@@ -31,7 +31,7 @@ func newIndicesCreateDataStreamFunc(t Transport) IndicesCreateDataStream {
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html.
 //
-type IndicesCreateDataStream func(name string, body io.Reader, o ...func(*IndicesCreateDataStreamRequest)) (*Response, error)
+type IndicesCreateDataStream func(name string, o ...func(*IndicesCreateDataStreamRequest)) (*Response, error)
 
 // IndicesCreateDataStreamRequest configures the Indices Create Data Stream API request.
 //
@@ -137,6 +137,14 @@ func (r IndicesCreateDataStreamRequest) Do(ctx context.Context, transport Transp
 func (f IndicesCreateDataStream) WithContext(v context.Context) func(*IndicesCreateDataStreamRequest) {
 	return func(r *IndicesCreateDataStreamRequest) {
 		r.ctx = v
+	}
+}
+
+// WithBody - The data stream definition.
+//
+func (f IndicesCreateDataStream) WithBody(v io.Reader) func(*IndicesCreateDataStreamRequest) {
+	return func(r *IndicesCreateDataStreamRequest) {
+		r.Body = v
 	}
 }
 
