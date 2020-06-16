@@ -1,4 +1,4 @@
-// Code generated from specification version 8.0.0 (99aeed6acf4): DO NOT EDIT
+// Code generated from specification version 8.0.0 (e926994d875): DO NOT EDIT
 
 package esapi
 
@@ -195,6 +195,7 @@ type Indices struct {
 	Recovery              IndicesRecovery
 	Refresh               IndicesRefresh
 	ReloadSearchAnalyzers IndicesReloadSearchAnalyzers
+	ResolveIndex          IndicesResolveIndex
 	Rollover              IndicesRollover
 	Segments              IndicesSegments
 	ShardStores           IndicesShardStores
@@ -613,6 +614,7 @@ func New(t Transport) *API {
 			Recovery:              newIndicesRecoveryFunc(t),
 			Refresh:               newIndicesRefreshFunc(t),
 			ReloadSearchAnalyzers: newIndicesReloadSearchAnalyzersFunc(t),
+			ResolveIndex:          newIndicesResolveIndexFunc(t),
 			Rollover:              newIndicesRolloverFunc(t),
 			Segments:              newIndicesSegmentsFunc(t),
 			ShardStores:           newIndicesShardStoresFunc(t),
