@@ -8,6 +8,7 @@ package esapi
 
 import (
 	"context"
+	"io"
 	"net/http"
 	"strings"
 )
@@ -33,6 +34,8 @@ type MLDeleteExpiredData func(o ...func(*MLDeleteExpiredDataRequest)) (*Response
 // MLDeleteExpiredDataRequest configures the ML Delete Expired Data API request.
 //
 type MLDeleteExpiredDataRequest struct {
+	Body io.Reader
+
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -75,7 +78,7 @@ func (r MLDeleteExpiredDataRequest) Do(ctx context.Context, transport Transport)
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -86,6 +89,10 @@ func (r MLDeleteExpiredDataRequest) Do(ctx context.Context, transport Transport)
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if r.Body != nil {
+		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -123,6 +130,14 @@ func (r MLDeleteExpiredDataRequest) Do(ctx context.Context, transport Transport)
 func (f MLDeleteExpiredData) WithContext(v context.Context) func(*MLDeleteExpiredDataRequest) {
 	return func(r *MLDeleteExpiredDataRequest) {
 		r.ctx = v
+	}
+}
+
+// WithBody - deleting expired data parameters.
+//
+func (f MLDeleteExpiredData) WithBody(v io.Reader) func(*MLDeleteExpiredDataRequest) {
+	return func(r *MLDeleteExpiredDataRequest) {
+		r.Body = v
 	}
 }
 

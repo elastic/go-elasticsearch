@@ -45,7 +45,6 @@ type CreateRequest struct {
 	Body io.Reader
 
 	Pipeline            string
-	PreferV2Templates   *bool
 	Refresh             string
 	Routing             string
 	Timeout             time.Duration
@@ -94,10 +93,6 @@ func (r CreateRequest) Do(ctx context.Context, transport Transport) (*Response, 
 
 	if r.Pipeline != "" {
 		params["pipeline"] = r.Pipeline
-	}
-
-	if r.PreferV2Templates != nil {
-		params["prefer_v2_templates"] = strconv.FormatBool(*r.PreferV2Templates)
 	}
 
 	if r.Refresh != "" {
@@ -208,14 +203,6 @@ func (f Create) WithDocumentType(v string) func(*CreateRequest) {
 func (f Create) WithPipeline(v string) func(*CreateRequest) {
 	return func(r *CreateRequest) {
 		r.Pipeline = v
-	}
-}
-
-// WithPreferV2Templates - favor v2 templates instead of v1 templates during automatic index creation.
-//
-func (f Create) WithPreferV2Templates(v bool) func(*CreateRequest) {
-	return func(r *CreateRequest) {
-		r.PreferV2Templates = &v
 	}
 }
 
