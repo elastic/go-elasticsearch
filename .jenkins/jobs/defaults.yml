@@ -46,7 +46,7 @@
     - axis:
         type: yaml
         filename: .jenkins/test-matrix.yml
-        name: ELASTICSEARCH_VERSION
+        name: STACK_VERSION
     - axis:
         type: yaml
         filename: .jenkins/test-matrix.yml
