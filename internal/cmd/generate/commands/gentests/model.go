@@ -230,11 +230,7 @@ func NewAction(payload interface{}) Action {
 		switch k {
 		case "catch":
 			a.catch = v.(string)
-		case "warnings":
-			continue
-		case "allowed_warnings":
-			continue
-		case "node_selector":
+		case "warnings", "allowed_warnings", "node_selector", "arbitrary_key":
 			continue
 		case "headers":
 			for kk, vv := range v.(map[interface{}]interface{}) {
