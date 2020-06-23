@@ -8,16 +8,14 @@ package esapi
 
 import (
 	"context"
-	"io"
 	"net/http"
-	"strconv"
 	"strings"
 	"time"
 )
 
-func newEqlSearchFunc(t Transport) EqlSearch {
-	return func(index string, body io.Reader, o ...func(*EqlSearchRequest)) (*Response, error) {
-		var r = EqlSearchRequest{Index: index, Body: body}
+func newEqlGetFunc(t Transport) EqlGet {
+	return func(id string, o ...func(*EqlGetRequest)) (*Response, error) {
+		var r = EqlGetRequest{DocumentID: id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -27,23 +25,20 @@ func newEqlSearchFunc(t Transport) EqlSearch {
 
 // ----- API Definition -------------------------------------------------------
 
-// EqlSearch - Returns results matching a query expressed in Event Query Language (EQL)
+// EqlGet - Returns async results from previously executed Event Query Language (EQL) search
 //
 // This API is beta.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/eql-search-api.html.
 //
-type EqlSearch func(index string, body io.Reader, o ...func(*EqlSearchRequest)) (*Response, error)
+type EqlGet func(id string, o ...func(*EqlGetRequest)) (*Response, error)
 
-// EqlSearchRequest configures the Eql Search API request.
+// EqlGetRequest configures the Eql Get API request.
 //
-type EqlSearchRequest struct {
-	Index string
-
-	Body io.Reader
+type EqlGetRequest struct {
+	DocumentID string
 
 	KeepAlive                time.Duration
-	KeepOnCompletion         *bool
 	WaitForCompletionTimeout time.Duration
 
 	Pretty     bool
@@ -58,7 +53,7 @@ type EqlSearchRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r EqlSearchRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r EqlGetRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -67,22 +62,18 @@ func (r EqlSearchRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 	method = "GET"
 
-	path.Grow(1 + len(r.Index) + 1 + len("_eql") + 1 + len("search"))
-	path.WriteString("/")
-	path.WriteString(r.Index)
+	path.Grow(1 + len("_eql") + 1 + len("search") + 1 + len(r.DocumentID))
 	path.WriteString("/")
 	path.WriteString("_eql")
 	path.WriteString("/")
 	path.WriteString("search")
+	path.WriteString("/")
+	path.WriteString(r.DocumentID)
 
 	params = make(map[string]string)
 
 	if r.KeepAlive != 0 {
 		params["keep_alive"] = formatDuration(r.KeepAlive)
-	}
-
-	if r.KeepOnCompletion != nil {
-		params["keep_on_completion"] = strconv.FormatBool(*r.KeepOnCompletion)
 	}
 
 	if r.WaitForCompletionTimeout != 0 {
@@ -105,7 +96,7 @@ func (r EqlSearchRequest) Do(ctx context.Context, transport Transport) (*Respons
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -116,10 +107,6 @@ func (r EqlSearchRequest) Do(ctx context.Context, transport Transport) (*Respons
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
-	}
-
-	if r.Body != nil {
-		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -154,72 +141,64 @@ func (r EqlSearchRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 // WithContext sets the request context.
 //
-func (f EqlSearch) WithContext(v context.Context) func(*EqlSearchRequest) {
-	return func(r *EqlSearchRequest) {
+func (f EqlGet) WithContext(v context.Context) func(*EqlGetRequest) {
+	return func(r *EqlGetRequest) {
 		r.ctx = v
 	}
 }
 
 // WithKeepAlive - update the time interval in which the results (partial or final) for this search will be available.
 //
-func (f EqlSearch) WithKeepAlive(v time.Duration) func(*EqlSearchRequest) {
-	return func(r *EqlSearchRequest) {
+func (f EqlGet) WithKeepAlive(v time.Duration) func(*EqlGetRequest) {
+	return func(r *EqlGetRequest) {
 		r.KeepAlive = v
-	}
-}
-
-// WithKeepOnCompletion - control whether the response should be stored in the cluster if it completed within the provided [wait_for_completion] time (default: false).
-//
-func (f EqlSearch) WithKeepOnCompletion(v bool) func(*EqlSearchRequest) {
-	return func(r *EqlSearchRequest) {
-		r.KeepOnCompletion = &v
 	}
 }
 
 // WithWaitForCompletionTimeout - specify the time that the request should block waiting for the final response.
 //
-func (f EqlSearch) WithWaitForCompletionTimeout(v time.Duration) func(*EqlSearchRequest) {
-	return func(r *EqlSearchRequest) {
+func (f EqlGet) WithWaitForCompletionTimeout(v time.Duration) func(*EqlGetRequest) {
+	return func(r *EqlGetRequest) {
 		r.WaitForCompletionTimeout = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f EqlSearch) WithPretty() func(*EqlSearchRequest) {
-	return func(r *EqlSearchRequest) {
+func (f EqlGet) WithPretty() func(*EqlGetRequest) {
+	return func(r *EqlGetRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f EqlSearch) WithHuman() func(*EqlSearchRequest) {
-	return func(r *EqlSearchRequest) {
+func (f EqlGet) WithHuman() func(*EqlGetRequest) {
+	return func(r *EqlGetRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f EqlSearch) WithErrorTrace() func(*EqlSearchRequest) {
-	return func(r *EqlSearchRequest) {
+func (f EqlGet) WithErrorTrace() func(*EqlGetRequest) {
+	return func(r *EqlGetRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f EqlSearch) WithFilterPath(v ...string) func(*EqlSearchRequest) {
-	return func(r *EqlSearchRequest) {
+func (f EqlGet) WithFilterPath(v ...string) func(*EqlGetRequest) {
+	return func(r *EqlGetRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f EqlSearch) WithHeader(h map[string]string) func(*EqlSearchRequest) {
-	return func(r *EqlSearchRequest) {
+func (f EqlGet) WithHeader(h map[string]string) func(*EqlGetRequest) {
+	return func(r *EqlGetRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -231,8 +210,8 @@ func (f EqlSearch) WithHeader(h map[string]string) func(*EqlSearchRequest) {
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f EqlSearch) WithOpaqueID(s string) func(*EqlSearchRequest) {
-	return func(r *EqlSearchRequest) {
+func (f EqlGet) WithOpaqueID(s string) func(*EqlGetRequest) {
+	return func(r *EqlGetRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

@@ -8,6 +8,7 @@ package esapi
 
 import (
 	"context"
+	"io"
 	"net/http"
 	"strconv"
 	"strings"
@@ -35,6 +36,8 @@ type FieldCaps func(o ...func(*FieldCapsRequest)) (*Response, error)
 //
 type FieldCapsRequest struct {
 	Index []string
+
+	Body io.Reader
 
 	AllowNoIndices    *bool
 	ExpandWildcards   string
@@ -109,7 +112,7 @@ func (r FieldCapsRequest) Do(ctx context.Context, transport Transport) (*Respons
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -120,6 +123,10 @@ func (r FieldCapsRequest) Do(ctx context.Context, transport Transport) (*Respons
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if r.Body != nil {
+		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -157,6 +164,14 @@ func (r FieldCapsRequest) Do(ctx context.Context, transport Transport) (*Respons
 func (f FieldCaps) WithContext(v context.Context) func(*FieldCapsRequest) {
 	return func(r *FieldCapsRequest) {
 		r.ctx = v
+	}
+}
+
+// WithBody - An index filter specified with the Query DSL.
+//
+func (f FieldCaps) WithBody(v io.Reader) func(*FieldCapsRequest) {
+	return func(r *FieldCapsRequest) {
+		r.Body = v
 	}
 }
 
