@@ -1,0 +1,22 @@
+// Generated from aggregations-metrics-valuecount-aggregation_3722cb3705b6bc7f486969deace3dd83_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithIndex("sales"),
+	es.Search.WithBody(strings.NewReader(`{
+	  "aggs": {
+	    "type_count": {
+	      "value_count": {
+	        "script": {
+	          "source": "doc['type'].value"
+	        }
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithSize(0),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

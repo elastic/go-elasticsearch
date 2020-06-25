@@ -21,7 +21,7 @@ var (
 	_ = elasticsearch.NewDefaultClient
 )
 
-// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/search/request/sort.asciidoc#L193>
+// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/search/request/sort.asciidoc#L192>
 //
 // --------------------------------------------------------------------------------
 // PUT /index_long

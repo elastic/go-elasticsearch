@@ -1,0 +1,7 @@
+// Generated from docs-delete_c5e5873783246c7b1c01d8464fed72c4_test.go
+//
+[source, go]
+----
+res, err := es.Delete("twitter", "1", es.Delete.WithPretty())
+fmt.Println(res, err)
+----

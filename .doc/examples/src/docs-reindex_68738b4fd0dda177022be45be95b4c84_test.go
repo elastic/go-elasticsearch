@@ -21,7 +21,7 @@ var (
 	_ = elasticsearch.NewDefaultClient
 )
 
-// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/docs/reindex.asciidoc#L161>
+// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/docs/reindex.asciidoc#L170>
 //
 // --------------------------------------------------------------------------------
 // POST _reindex/r1A2WoRbTwKZ516z6NEs5A:36619/_rethrottle?requests_per_second=-1

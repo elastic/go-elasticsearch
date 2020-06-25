@@ -21,7 +21,7 @@ var (
 	_ = elasticsearch.NewDefaultClient
 )
 
-// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/indices/aliases.asciidoc#L196>
+// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/indices/aliases.asciidoc#L200>
 //
 // --------------------------------------------------------------------------------
 // POST /_aliases

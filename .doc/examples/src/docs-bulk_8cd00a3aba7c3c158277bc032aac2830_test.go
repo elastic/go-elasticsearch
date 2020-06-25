@@ -21,7 +21,7 @@ var (
 	_ = elasticsearch.NewDefaultClient
 )
 
-// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/docs/bulk.asciidoc#L533>
+// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/docs/bulk.asciidoc#L542>
 //
 // --------------------------------------------------------------------------------
 // POST _bulk

@@ -11,6 +11,7 @@ import (
 	"os"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/elastic/go-elasticsearch/v8"
 )
@@ -21,30 +22,35 @@ var (
 	_ = elasticsearch.NewDefaultClient
 )
 
-// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/search/search.asciidoc#L581>
+// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/search/request/scroll.asciidoc#L45>
 //
 // --------------------------------------------------------------------------------
-// GET /twitter/_search
+// POST /twitter/_search?scroll=1m
 // {
-//     "query" : {
-//         "term" : { "user" : "kimchy" }
+//     "size": 100,
+//     "query": {
+//         "match" : {
+//             "title" : "elasticsearch"
+//         }
 //     }
 // }
 // --------------------------------------------------------------------------------
 
-func Test_search_search_0ce3606f1dba490eef83c4317b315b62(t *testing.T) {
+func Test_search_request_scroll_7e52bec09624cf6c0de5d13f2bfad5a5(t *testing.T) {
 	es, _ := elasticsearch.NewDefaultClient()
 
-	// tag:0ce3606f1dba490eef83c4317b315b62[]
+	// tag:7e52bec09624cf6c0de5d13f2bfad5a5[]
 	res, err := es.Search(
 		es.Search.WithIndex("twitter"),
 		es.Search.WithBody(strings.NewReader(`{
+		  "size": 100,
 		  "query": {
-		    "term": {
-		      "user": "kimchy"
+		    "match": {
+		      "title": "elasticsearch"
 		    }
 		  }
 		}`)),
+		es.Search.WithScroll(time.Duration(60000000000)),
 		es.Search.WithPretty(),
 	)
 	fmt.Println(res, err)
@@ -52,5 +58,5 @@ func Test_search_search_0ce3606f1dba490eef83c4317b315b62(t *testing.T) {
 		t.Fatalf("Error getting the response: %s", err) // SKIP
 	} // SKIP
 	defer res.Body.Close() // SKIP
-	// end:0ce3606f1dba490eef83c4317b315b62[]
+	// end:7e52bec09624cf6c0de5d13f2bfad5a5[]
 }

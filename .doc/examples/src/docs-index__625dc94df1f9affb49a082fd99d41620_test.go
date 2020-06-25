@@ -21,7 +21,7 @@ var (
 	_ = elasticsearch.NewDefaultClient
 )
 
-// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/docs/index_.asciidoc#L244>
+// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/docs/index_.asciidoc#L271>
 //
 // --------------------------------------------------------------------------------
 // POST twitter/_doc?routing=kimchy

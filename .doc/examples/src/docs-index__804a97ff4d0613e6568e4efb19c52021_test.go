@@ -21,7 +21,7 @@ var (
 	_ = elasticsearch.NewDefaultClient
 )
 
-// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/docs/index_.asciidoc#L146>
+// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/docs/index_.asciidoc#L173>
 //
 // --------------------------------------------------------------------------------
 // PUT _cluster/settings

@@ -9,7 +9,6 @@ package elasticsearch_test
 import (
 	"fmt"
 	"os"
-	"strings"
 	"testing"
 
 	"github.com/elastic/go-elasticsearch/v8"
@@ -21,38 +20,21 @@ var (
 	_ = elasticsearch.NewDefaultClient
 )
 
-// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/search/request/from-size.asciidoc#L14>
+// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/indices/get-mapping.asciidoc#L10>
 //
 // --------------------------------------------------------------------------------
-// GET /_search
-// {
-//     "from" : 0, "size" : 10,
-//     "query" : {
-//         "term" : { "user" : "kimchy" }
-//     }
-// }
+// GET /twitter/_mapping
 // --------------------------------------------------------------------------------
 
-func Test_search_request_from_size_9a26759ccbd338224ecaacf7c49ab08e(t *testing.T) {
+func Test_indices_get_mapping_a8fba09a46b2c3524428aa3259b7124f(t *testing.T) {
 	es, _ := elasticsearch.NewDefaultClient()
 
-	// tag:9a26759ccbd338224ecaacf7c49ab08e[]
-	res, err := es.Search(
-		es.Search.WithBody(strings.NewReader(`{
-		  "from": 0,
-		  "size": 10,
-		  "query": {
-		    "term": {
-		      "user": "kimchy"
-		    }
-		  }
-		}`)),
-		es.Search.WithPretty(),
-	)
+	// tag:a8fba09a46b2c3524428aa3259b7124f[]
+	res, err := es.Indices.GetMapping(es.Indices.GetMapping.WithIndex("twitter"))
 	fmt.Println(res, err)
 	if err != nil { // SKIP
 		t.Fatalf("Error getting the response: %s", err) // SKIP
 	} // SKIP
 	defer res.Body.Close() // SKIP
-	// end:9a26759ccbd338224ecaacf7c49ab08e[]
+	// end:a8fba09a46b2c3524428aa3259b7124f[]
 }

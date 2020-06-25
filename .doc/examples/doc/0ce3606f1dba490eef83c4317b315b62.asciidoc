@@ -1,4 +1,4 @@
-// Generated from search-search_0ce3606f1dba490eef83c4317b315b62_test.go
+// Generated from search-request-body_0ce3606f1dba490eef83c4317b315b62_test.go
 //
 [source, go]
 ----

@@ -1,0 +1,53 @@
+// Generated from api-conventions_6464124d1677f4552ddddd95a340ca3a_test.go
+//
+[source, go]
+----
+{
+	res, err := es.Index(
+		"library",
+		strings.NewReader(`{
+	  "title": "Book #1",
+	  "rating": 200.1
+	}`),
+		es.Index.WithRefresh("true"),
+		es.Index.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Index(
+		"library",
+		strings.NewReader(`{
+	  "title": "Book #2",
+	  "rating": 1.7
+	}`),
+		es.Index.WithRefresh("true"),
+		es.Index.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Index(
+		"library",
+		strings.NewReader(`{
+	  "title": "Book #3",
+	  "rating": 0.1
+	}`),
+		es.Index.WithRefresh("true"),
+		es.Index.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Search(
+		es.Search.WithSource("title"),
+		es.Search.WithFilterPath("hits.hits._source"),
+		es.Search.WithSort("rating:desc"),
+		es.Search.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+----

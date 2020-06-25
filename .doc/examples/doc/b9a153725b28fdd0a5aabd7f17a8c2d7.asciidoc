@@ -1,0 +1,10 @@
+// Generated from api-conventions_b9a153725b28fdd0a5aabd7f17a8c2d7_test.go
+//
+[source, go]
+----
+res, err := es.Indices.GetSettings(
+	es.Indices.GetSettings.WithIndex([]string{"twitter"}...),
+	es.Indices.GetSettings.WithFlatSettings(true),
+)
+fmt.Println(res, err)
+----

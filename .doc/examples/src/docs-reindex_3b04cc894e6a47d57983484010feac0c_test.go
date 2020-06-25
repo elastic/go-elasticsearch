@@ -20,7 +20,7 @@ var (
 	_ = elasticsearch.NewDefaultClient
 )
 
-// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/docs/reindex.asciidoc#L787>
+// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/docs/reindex.asciidoc#L800>
 //
 // --------------------------------------------------------------------------------
 // GET metricbeat-2016.05.30-1/_doc/1

@@ -1,0 +1,18 @@
+// Generated from docs-update-by-query_abd4fc3ce7784413a56fe2dcfe2809b5_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithIndex("test"),
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "match": {
+	      "flag": "foo"
+	    }
+	  }
+	}`)),
+	es.Search.WithFilterPath("hits.total"),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

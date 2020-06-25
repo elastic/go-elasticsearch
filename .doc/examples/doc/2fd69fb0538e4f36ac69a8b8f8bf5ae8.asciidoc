@@ -1,0 +1,20 @@
+// Generated from docs-update-by-query_2fd69fb0538e4f36ac69a8b8f8bf5ae8_test.go
+//
+[source, go]
+----
+res, err := es.UpdateByQuery(
+	[]string{"twitter"},
+	es.UpdateByQuery.WithBody(strings.NewReader(`{
+	  "script": {
+	    "source": "ctx._source.likes++",
+	    "lang": "painless"
+	  },
+	  "query": {
+	    "term": {
+	      "user": "kimchy"
+	    }
+	  }
+	}`)),
+)
+fmt.Println(res, err)
+----

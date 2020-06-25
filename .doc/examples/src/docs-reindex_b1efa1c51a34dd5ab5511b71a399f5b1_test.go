@@ -21,7 +21,7 @@ var (
 	_ = elasticsearch.NewDefaultClient
 )
 
-// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/docs/reindex.asciidoc#L403>
+// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/docs/reindex.asciidoc#L413>
 //
 // --------------------------------------------------------------------------------
 // POST _reindex

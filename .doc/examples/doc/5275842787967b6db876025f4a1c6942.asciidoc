@@ -1,0 +1,24 @@
+// Generated from search-suggesters_5275842787967b6db876025f4a1c6942_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "suggest": {
+	    "text": "tring out Elasticsearch",
+	    "my-suggest-1": {
+	      "term": {
+	        "field": "message"
+	      }
+	    },
+	    "my-suggest-2": {
+	      "term": {
+	        "field": "user"
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

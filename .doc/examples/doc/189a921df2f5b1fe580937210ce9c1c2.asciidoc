@@ -1,0 +1,18 @@
+// Generated from search_189a921df2f5b1fe580937210ce9c1c2_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "match_all": {}
+	  },
+	  "stats": [
+	    "group1",
+	    "group2"
+	  ]
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

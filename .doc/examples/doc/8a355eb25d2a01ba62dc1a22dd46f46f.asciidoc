@@ -1,0 +1,22 @@
+// Generated from aggregations-bucket-datehistogram-aggregation_8a355eb25d2a01ba62dc1a22dd46f46f_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithIndex("sales"),
+	es.Search.WithBody(strings.NewReader(`{
+	  "aggs": {
+	    "sales_over_time": {
+	      "date_histogram": {
+	        "field": "date",
+	        "calendar_interval": "1M",
+	        "format": "yyyy-MM-dd"
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithSize(0),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

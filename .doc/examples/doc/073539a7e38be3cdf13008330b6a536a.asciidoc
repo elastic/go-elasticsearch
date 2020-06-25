@@ -1,0 +1,11 @@
+// Generated from cat-indices_073539a7e38be3cdf13008330b6a536a_test.go
+//
+[source, go]
+----
+res, err := es.Cat.Indices(
+	es.Cat.Indices.WithIndex([]string{"twi*"}...),
+	es.Cat.Indices.WithS("index"),
+	es.Cat.Indices.WithV(true),
+)
+fmt.Println(res, err)
+----

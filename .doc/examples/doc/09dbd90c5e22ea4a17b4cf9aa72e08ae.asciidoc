@@ -1,0 +1,11 @@
+// Generated from api-conventions_09dbd90c5e22ea4a17b4cf9aa72e08ae_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithFilterPath("took,hits.hits._id,hits.hits._score"),
+	es.Search.WithQuery("elasticsearch"),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

@@ -1,14 +1,13 @@
-// Generated from search-request-from-size_9a26759ccbd338224ecaacf7c49ab08e_test.go
+// Generated from api-conventions_978088f989d45dd09339582e9cbc60e0_test.go
 //
 [source, go]
 ----
 res, err := es.Search(
+	es.Search.WithIndex("%3Clogstash-%7Bnow%2Fd%7D%3E"),
 	es.Search.WithBody(strings.NewReader(`{
-	  "from": 0,
-	  "size": 10,
 	  "query": {
-	    "term": {
-	      "user": "kimchy"
+	    "match": {
+	      "test": "data"
 	    }
 	  }
 	}`)),

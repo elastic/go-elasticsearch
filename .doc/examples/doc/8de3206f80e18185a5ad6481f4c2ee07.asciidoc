@@ -1,0 +1,22 @@
+// Generated from aggregations-bucket-datehistogram-aggregation_8de3206f80e18185a5ad6481f4c2ee07_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithIndex("my_index"),
+	es.Search.WithBody(strings.NewReader(`{
+	  "aggs": {
+	    "by_day": {
+	      "date_histogram": {
+	        "field": "date",
+	        "calendar_interval": "day",
+	        "time_zone": "-01:00"
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithSize(0),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

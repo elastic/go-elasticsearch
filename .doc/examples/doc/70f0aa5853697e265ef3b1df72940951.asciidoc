@@ -1,0 +1,49 @@
+// Generated from aggregations-bucket-datehistogram-aggregation_70f0aa5853697e265ef3b1df72940951_test.go
+//
+[source, go]
+----
+{
+	res, err := es.Index(
+		"my_index",
+		strings.NewReader(`{
+	  "date": "2015-10-01T00:30:00Z"
+	}`),
+		es.Index.WithDocumentID("1"),
+		es.Index.WithRefresh("true"),
+		es.Index.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Index(
+		"my_index",
+		strings.NewReader(`{
+	  "date": "2015-10-01T01:30:00Z"
+	}`),
+		es.Index.WithDocumentID("2"),
+		es.Index.WithRefresh("true"),
+		es.Index.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Search(
+		es.Search.WithIndex("my_index"),
+		es.Search.WithBody(strings.NewReader(`{
+	  "aggs": {
+	    "by_day": {
+	      "date_histogram": {
+	        "field": "date",
+	        "calendar_interval": "day"
+	      }
+	    }
+	  }
+	}`)),
+		es.Search.WithSize(0),
+		es.Search.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+----

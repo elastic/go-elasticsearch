@@ -1,0 +1,9 @@
+// Generated from search-request-scroll_b94cee0f74f57742b3948f9b784dfdd4_test.go
+//
+[source, go]
+----
+res, err := es.ClearScroll(
+	es.ClearScroll.WithScrollID("DXF1ZXJ5QW5kRmV0Y2gBAAAAAAAAAD4WYm9laVYtZndUQlNsdDcwakFMNjU1QQ==", "DnF1ZXJ5VGhlbkZldGNoBQAAAAAAAAABFmtSWWRRWUJrU2o2ZExpSGJCVmQxYUEAAAAAAAAAAxZrUllkUVlCa1NqNmRMaUhiQlZkMWFBAAAAAAAAAAIWa1JZZFFZQmtTajZkTGlIYkJWZDFhQQAAAAAAAAAFFmtSWWRRWUJrU2o2ZExpSGJCVmQxYUEAAAAAAAAABBZrUllkUVlCa1NqNmRMaUhiQlZkMWFB"),
+)
+fmt.Println(res, err)
+----

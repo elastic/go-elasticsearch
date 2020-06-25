@@ -30,8 +30,9 @@ func Test_docs_delete_by_query_216848930c2d344fe0bed0daa70c35b9(t *testing.T) {
 	es, _ := elasticsearch.NewDefaultClient()
 
 	// tag:216848930c2d344fe0bed0daa70c35b9[]
-	res, err := es.Tasks.Get(
-		"?detailed=true&actions=*/delete/byquery",
+	res, err := es.Tasks.List(
+		es.Tasks.List.WithActions("*/delete/byquery"),
+		es.Tasks.List.WithDetailed(true),
 	)
 	fmt.Println(res, err)
 	if err != nil { // SKIP

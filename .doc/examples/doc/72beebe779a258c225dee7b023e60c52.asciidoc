@@ -1,0 +1,10 @@
+// Generated from search-request-scroll_72beebe779a258c225dee7b023e60c52_test.go
+//
+[source, go]
+----
+res, err := es.Nodes.Stats(
+	es.Nodes.Stats.WithMetric([]string{"indices"}...),
+	es.Nodes.Stats.WithIndexMetric([]string{"search"}...),
+)
+fmt.Println(res, err)
+----

@@ -1,0 +1,13 @@
+// Generated from docs-update-by-query_025b54db0edc50c24ea48a2bd94366ad_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithIndex("twitter"),
+	es.Search.WithFilterPath("hits.total"),
+	es.Search.WithQuery("extra:test"),
+	es.Search.WithSize(0),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

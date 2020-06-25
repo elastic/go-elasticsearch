@@ -1,0 +1,10 @@
+// Generated from docs-update-by-query_bdb30dd52d32f50994008f4f9c0da5f0_test.go
+//
+[source, go]
+----
+res, err := es.UpdateByQueryRethrottle(
+	"r1A2WoRbTwKZ516z6NEs5A:36619",
+	esapi.IntPtr(-1),
+)
+fmt.Println(res, err)
+----

@@ -1,0 +1,16 @@
+// Generated from docs-update-by-query_ea02de2dbe05091fcb0dac72c8ba5f83_test.go
+//
+[source, go]
+----
+res, err := es.UpdateByQuery(
+	[]string{"twitter"},
+	es.UpdateByQuery.WithBody(strings.NewReader(`{
+	  "script": {
+	    "source": "ctx._source['extra'] = 'test'"
+	  }
+	}`)),
+	es.UpdateByQuery.WithRefresh(true),
+	es.UpdateByQuery.WithSlices("5"),
+)
+fmt.Println(res, err)
+----

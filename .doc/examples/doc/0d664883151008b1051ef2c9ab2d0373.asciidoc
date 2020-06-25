@@ -1,0 +1,36 @@
+// Generated from docs-update-by-query_0d664883151008b1051ef2c9ab2d0373_test.go
+//
+[source, go]
+----
+{
+	res, err := es.UpdateByQuery(
+		[]string{"twitter"},
+		es.UpdateByQuery.WithBody(strings.NewReader(`{
+	  "slice": {
+	    "id": 0,
+	    "max": 2
+	  },
+	  "script": {
+	    "source": "ctx._source['extra'] = 'test'"
+	  }
+	}`)),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.UpdateByQuery(
+		[]string{"twitter"},
+		es.UpdateByQuery.WithBody(strings.NewReader(`{
+	  "slice": {
+	    "id": 1,
+	    "max": 2
+	  },
+	  "script": {
+	    "source": "ctx._source['extra'] = 'test'"
+	  }
+	}`)),
+	)
+	fmt.Println(res, err)
+}
+----
