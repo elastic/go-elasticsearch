@@ -153,6 +153,27 @@ func (cmd *SrcCommand) Execute() error {
 			continue
 		}
 
+		var shouldSkip bool
+		for _, pat := range skipPatterns {
+			matched, _ := regexp.MatchString(pat, e.Source)
+			if matched {
+				skipped++
+				shouldSkip = true
+			}
+		}
+		if shouldSkip {
+			if utils.IsTTY() {
+				fmt.Fprint(os.Stderr, "\x1b[2m")
+			}
+			fmt.Fprintln(os.Stderr, strings.Repeat("━", utils.TerminalWidth()))
+			fmt.Fprintf(os.Stderr, "Skipping example %q @ %s\n", e.ID(), e.Digest)
+			if utils.IsTTY() {
+				fmt.Fprint(os.Stderr, "\x1b[0m")
+			}
+			skipped++
+			continue
+		}
+
 		if utils.IsTTY() {
 			fmt.Fprint(os.Stderr, "\x1b[2m")
 		}
