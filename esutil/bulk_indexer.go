@@ -10,6 +10,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"runtime"
 	"strconv"
@@ -354,7 +355,7 @@ func (w *worker) run() {
 				continue
 			}
 
-			if err := w.writeBody(item); err != nil {
+			if err := w.writeBody(&item); err != nil {
 				if item.OnFailure != nil {
 					item.OnFailure(ctx, item, BulkIndexerResponseItem{}, err)
 				}
@@ -410,8 +411,21 @@ func (w *worker) writeMeta(item BulkIndexerItem) error {
 
 // writeBody writes the item body to the buffer; it must be called under a lock.
 //
-func (w *worker) writeBody(item BulkIndexerItem) error {
+func (w *worker) writeBody(item *BulkIndexerItem) error {
 	if item.Body != nil {
+
+		var getBody func() io.Reader
+
+		if item.OnSuccess != nil || item.OnFailure != nil {
+			var buf bytes.Buffer
+			buf.ReadFrom(item.Body)
+			getBody = func() io.Reader {
+				r := buf
+				return ioutil.NopCloser(&r)
+			}
+			item.Body = getBody()
+		}
+
 		if _, err := w.buf.ReadFrom(item.Body); err != nil {
 			if w.bi.config.OnError != nil {
 				w.bi.config.OnError(context.Background(), err)
@@ -419,6 +433,10 @@ func (w *worker) writeBody(item BulkIndexerItem) error {
 			return err
 		}
 		w.buf.WriteRune('\n')
+
+		if getBody != nil && (item.OnSuccess != nil || item.OnFailure != nil) {
+			item.Body = getBody()
+		}
 	}
 	return nil
 }
