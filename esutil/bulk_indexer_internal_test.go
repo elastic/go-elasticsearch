@@ -232,9 +232,11 @@ func TestBulkIndexer(t *testing.T) {
 
 	t.Run("Item Callbacks", func(t *testing.T) {
 		var (
-			countSuccessful uint64
-			countFailed     uint64
-			failedIDs       []string
+			countSuccessful      uint64
+			countFailed          uint64
+			failedIDs            []string
+			successfulItemBodies []string
+			failedItemBodies     []string
 
 			numItems       = 4
 			numFailed      = 2
@@ -256,10 +258,22 @@ func TestBulkIndexer(t *testing.T) {
 
 		successFunc := func(ctx context.Context, item BulkIndexerItem, res BulkIndexerResponseItem) {
 			atomic.AddUint64(&countSuccessful, 1)
+
+			buf, err := ioutil.ReadAll(item.Body)
+			if err != nil {
+				t.Fatalf("Unexpected error: %s", err)
+			}
+			successfulItemBodies = append(successfulItemBodies, string(buf))
 		}
 		failureFunc := func(ctx context.Context, item BulkIndexerItem, res BulkIndexerResponseItem, err error) {
 			atomic.AddUint64(&countFailed, 1)
 			failedIDs = append(failedIDs, item.DocumentID)
+
+			buf, err := ioutil.ReadAll(item.Body)
+			if err != nil {
+				t.Fatalf("Unexpected error: %s", err)
+			}
+			failedItemBodies = append(failedItemBodies, string(buf))
 		}
 
 		if err := bi.Add(context.Background(), BulkIndexerItem{
@@ -285,6 +299,7 @@ func TestBulkIndexer(t *testing.T) {
 		if err := bi.Add(context.Background(), BulkIndexerItem{
 			Action:     "delete",
 			DocumentID: "2",
+			Body:       strings.NewReader(`{"title":"baz"}`),
 			OnSuccess:  successFunc,
 			OnFailure:  failureFunc,
 		}); err != nil {
@@ -342,6 +357,14 @@ func TestBulkIndexer(t *testing.T) {
 
 		if !reflect.DeepEqual(failedIDs, []string{"1", "2"}) {
 			t.Errorf("Unexpected failedIDs: %#v", failedIDs)
+		}
+
+		if !reflect.DeepEqual(successfulItemBodies, []string{`{"title":"foo"}`, `{"doc":{"title":"qux"}}`}) {
+			t.Errorf("Unexpected successfulItemBodies: %#v", successfulItemBodies)
+		}
+
+		if !reflect.DeepEqual(failedItemBodies, []string{`{"title":"bar"}`, `{"title":"baz"}`}) {
+			t.Errorf("Unexpected failedItemBodies: %#v", failedItemBodies)
 		}
 	})
 
