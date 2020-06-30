@@ -226,8 +226,9 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 
 	for i := 1; i <= c.maxRetries; i++ {
 		var (
-			conn        *Connection
-			shouldRetry bool
+			conn            *Connection
+			shouldRetry     bool
+			shouldCloseBody bool
 		)
 
 		// Get connection from the pool
@@ -308,6 +309,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 			for _, code := range c.retryOnStatus {
 				if res.StatusCode == code {
 					shouldRetry = true
+					shouldCloseBody = true
 				}
 			}
 		}
@@ -315,6 +317,14 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		// Break if retry should not be performed
 		if !shouldRetry {
 			break
+		}
+
+		// Drain and close body when retrying after response
+		if shouldCloseBody && i < c.maxRetries {
+			if res.Body != nil {
+				io.Copy(ioutil.Discard, res.Body)
+				res.Body.Close()
+			}
 		}
 
 		// Delay the retry if a backoff function is configured
