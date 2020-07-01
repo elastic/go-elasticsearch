@@ -62,7 +62,7 @@ func (r ScrollRequest) Do(ctx context.Context, transport Transport) (*Response, 
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
 	path.Grow(len("/_search/scroll"))
 	path.WriteString("/_search/scroll")
