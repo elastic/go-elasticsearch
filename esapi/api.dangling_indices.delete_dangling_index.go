@@ -16,7 +16,7 @@ import (
 
 func newDanglingIndicesDeleteDanglingIndexFunc(t Transport) DanglingIndicesDeleteDanglingIndex {
 	return func(index_uuid string, o ...func(*DanglingIndicesDeleteDanglingIndexRequest)) (*Response, error) {
-		var r = DanglingIndicesDeleteDanglingIndexRequest{IndexUuid: index_uuid}
+		var r = DanglingIndicesDeleteDanglingIndexRequest{IndexUUID: index_uuid}
 		for _, f := range o {
 			f(&r)
 		}
@@ -35,7 +35,7 @@ type DanglingIndicesDeleteDanglingIndex func(index_uuid string, o ...func(*Dangl
 // DanglingIndicesDeleteDanglingIndexRequest configures the Dangling Indices Delete Dangling Index API request.
 //
 type DanglingIndicesDeleteDanglingIndexRequest struct {
-	IndexUuid string
+	IndexUUID string
 
 	AcceptDataLoss *bool
 	MasterTimeout  time.Duration
@@ -62,11 +62,11 @@ func (r DanglingIndicesDeleteDanglingIndexRequest) Do(ctx context.Context, trans
 
 	method = "DELETE"
 
-	path.Grow(1 + len("_dangling") + 1 + len(r.IndexUuid))
+	path.Grow(1 + len("_dangling") + 1 + len(r.IndexUUID))
 	path.WriteString("/")
 	path.WriteString("_dangling")
 	path.WriteString("/")
-	path.WriteString(r.IndexUuid)
+	path.WriteString(r.IndexUUID)
 
 	params = make(map[string]string)
 
