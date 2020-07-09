@@ -7,7 +7,9 @@
 package esapi
 
 import (
+	"bytes"
 	"context"
+	"encoding/json"
 	"io"
 	"net/http"
 	"strconv"
@@ -97,17 +99,14 @@ func (r ScrollRequest) Do(ctx context.Context, transport Transport) (*Response, 
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
+	if len(params) > 0 {
+		_data, _ := json.Marshal(params)
+		r.Body = bytes.NewReader(_data)
+	}
+
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		return nil, err
-	}
-
-	if len(params) > 0 {
-		q := req.URL.Query()
-		for k, v := range params {
-			q.Set(k, v)
-		}
-		req.URL.RawQuery = q.Encode()
 	}
 
 	if r.Body != nil {
