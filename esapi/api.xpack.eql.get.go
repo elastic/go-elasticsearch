@@ -9,13 +9,13 @@ package esapi
 import (
 	"context"
 	"net/http"
-	"strconv"
 	"strings"
+	"time"
 )
 
-func newXPackInfoFunc(t Transport) XPackInfo {
-	return func(o ...func(*XPackInfoRequest)) (*Response, error) {
-		var r = XPackInfoRequest{}
+func newEqlGetFunc(t Transport) EqlGet {
+	return func(id string, o ...func(*EqlGetRequest)) (*Response, error) {
+		var r = EqlGetRequest{DocumentID: id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -25,17 +25,21 @@ func newXPackInfoFunc(t Transport) XPackInfo {
 
 // ----- API Definition -------------------------------------------------------
 
-// XPackInfo - Retrieves information about the installed X-Pack features.
+// EqlGet - Returns async results from previously executed Event Query Language (EQL) search
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/info-api.html.
+// This API is beta.
 //
-type XPackInfo func(o ...func(*XPackInfoRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/eql-search-api.html.
+//
+type EqlGet func(id string, o ...func(*EqlGetRequest)) (*Response, error)
 
-// XPackInfoRequest configures the X Pack Info API request.
+// EqlGetRequest configures the Eql Get API request.
 //
-type XPackInfoRequest struct {
-	AcceptEnterprise *bool
-	Categories       []string
+type EqlGetRequest struct {
+	DocumentID string
+
+	KeepAlive                time.Duration
+	WaitForCompletionTimeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -49,7 +53,7 @@ type XPackInfoRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r XPackInfoRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r EqlGetRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -58,17 +62,22 @@ func (r XPackInfoRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 	method = "GET"
 
-	path.Grow(len("/_xpack"))
-	path.WriteString("/_xpack")
+	path.Grow(1 + len("_eql") + 1 + len("search") + 1 + len(r.DocumentID))
+	path.WriteString("/")
+	path.WriteString("_eql")
+	path.WriteString("/")
+	path.WriteString("search")
+	path.WriteString("/")
+	path.WriteString(r.DocumentID)
 
 	params = make(map[string]string)
 
-	if r.AcceptEnterprise != nil {
-		params["accept_enterprise"] = strconv.FormatBool(*r.AcceptEnterprise)
+	if r.KeepAlive != 0 {
+		params["keep_alive"] = formatDuration(r.KeepAlive)
 	}
 
-	if len(r.Categories) > 0 {
-		params["categories"] = strings.Join(r.Categories, ",")
+	if r.WaitForCompletionTimeout != 0 {
+		params["wait_for_completion_timeout"] = formatDuration(r.WaitForCompletionTimeout)
 	}
 
 	if r.Pretty {
@@ -132,64 +141,64 @@ func (r XPackInfoRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 // WithContext sets the request context.
 //
-func (f XPackInfo) WithContext(v context.Context) func(*XPackInfoRequest) {
-	return func(r *XPackInfoRequest) {
+func (f EqlGet) WithContext(v context.Context) func(*EqlGetRequest) {
+	return func(r *EqlGetRequest) {
 		r.ctx = v
 	}
 }
 
-// WithAcceptEnterprise - if an enterprise license is installed, return the type and mode as 'enterprise' (default: false).
+// WithKeepAlive - update the time interval in which the results (partial or final) for this search will be available.
 //
-func (f XPackInfo) WithAcceptEnterprise(v bool) func(*XPackInfoRequest) {
-	return func(r *XPackInfoRequest) {
-		r.AcceptEnterprise = &v
+func (f EqlGet) WithKeepAlive(v time.Duration) func(*EqlGetRequest) {
+	return func(r *EqlGetRequest) {
+		r.KeepAlive = v
 	}
 }
 
-// WithCategories - comma-separated list of info categories. can be any of: build, license, features.
+// WithWaitForCompletionTimeout - specify the time that the request should block waiting for the final response.
 //
-func (f XPackInfo) WithCategories(v ...string) func(*XPackInfoRequest) {
-	return func(r *XPackInfoRequest) {
-		r.Categories = v
+func (f EqlGet) WithWaitForCompletionTimeout(v time.Duration) func(*EqlGetRequest) {
+	return func(r *EqlGetRequest) {
+		r.WaitForCompletionTimeout = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f XPackInfo) WithPretty() func(*XPackInfoRequest) {
-	return func(r *XPackInfoRequest) {
+func (f EqlGet) WithPretty() func(*EqlGetRequest) {
+	return func(r *EqlGetRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f XPackInfo) WithHuman() func(*XPackInfoRequest) {
-	return func(r *XPackInfoRequest) {
+func (f EqlGet) WithHuman() func(*EqlGetRequest) {
+	return func(r *EqlGetRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f XPackInfo) WithErrorTrace() func(*XPackInfoRequest) {
-	return func(r *XPackInfoRequest) {
+func (f EqlGet) WithErrorTrace() func(*EqlGetRequest) {
+	return func(r *EqlGetRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f XPackInfo) WithFilterPath(v ...string) func(*XPackInfoRequest) {
-	return func(r *XPackInfoRequest) {
+func (f EqlGet) WithFilterPath(v ...string) func(*EqlGetRequest) {
+	return func(r *EqlGetRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f XPackInfo) WithHeader(h map[string]string) func(*XPackInfoRequest) {
-	return func(r *XPackInfoRequest) {
+func (f EqlGet) WithHeader(h map[string]string) func(*EqlGetRequest) {
+	return func(r *EqlGetRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -201,8 +210,8 @@ func (f XPackInfo) WithHeader(h map[string]string) func(*XPackInfoRequest) {
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f XPackInfo) WithOpaqueID(s string) func(*XPackInfoRequest) {
-	return func(r *XPackInfoRequest) {
+func (f EqlGet) WithOpaqueID(s string) func(*EqlGetRequest) {
+	return func(r *EqlGetRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

@@ -1,4 +1,4 @@
-// Code generated from specification version 7.9.0 (7dda9934f90): DO NOT EDIT
+// Code generated from specification version 7.9.0 (2e71d0aa919): DO NOT EDIT
 
 package esapi
 
@@ -55,6 +55,8 @@ type API struct {
 	EnrichGetPolicy                               EnrichGetPolicy
 	EnrichPutPolicy                               EnrichPutPolicy
 	EnrichStats                                   EnrichStats
+	EqlDelete                                     EqlDelete
+	EqlGet                                        EqlGet
 	EqlSearch                                     EqlSearch
 	Exists                                        Exists
 	ExistsSource                                  ExistsSource
@@ -160,6 +162,7 @@ type Cluster struct {
 
 // Indices contains the Indices APIs
 type Indices struct {
+	AddBlock              IndicesAddBlock
 	Analyze               IndicesAnalyze
 	ClearCache            IndicesClearCache
 	Clone                 IndicesClone
@@ -366,6 +369,7 @@ type ML struct {
 	StartDatafeed              MLStartDatafeed
 	StopDataFrameAnalytics     MLStopDataFrameAnalytics
 	StopDatafeed               MLStopDatafeed
+	UpdateDataFrameAnalytics   MLUpdateDataFrameAnalytics
 	UpdateDatafeed             MLUpdateDatafeed
 	UpdateFilter               MLUpdateFilter
 	UpdateJob                  MLUpdateJob
@@ -393,32 +397,33 @@ type Rollup struct {
 
 // Security contains the Security APIs
 type Security struct {
-	Authenticate         SecurityAuthenticate
-	ChangePassword       SecurityChangePassword
-	ClearCachedRealms    SecurityClearCachedRealms
-	ClearCachedRoles     SecurityClearCachedRoles
-	CreateAPIKey         SecurityCreateAPIKey
-	DeletePrivileges     SecurityDeletePrivileges
-	DeleteRoleMapping    SecurityDeleteRoleMapping
-	DeleteRole           SecurityDeleteRole
-	DeleteUser           SecurityDeleteUser
-	DisableUser          SecurityDisableUser
-	EnableUser           SecurityEnableUser
-	GetAPIKey            SecurityGetAPIKey
-	GetBuiltinPrivileges SecurityGetBuiltinPrivileges
-	GetPrivileges        SecurityGetPrivileges
-	GetRoleMapping       SecurityGetRoleMapping
-	GetRole              SecurityGetRole
-	GetToken             SecurityGetToken
-	GetUserPrivileges    SecurityGetUserPrivileges
-	GetUser              SecurityGetUser
-	HasPrivileges        SecurityHasPrivileges
-	InvalidateAPIKey     SecurityInvalidateAPIKey
-	InvalidateToken      SecurityInvalidateToken
-	PutPrivileges        SecurityPutPrivileges
-	PutRoleMapping       SecurityPutRoleMapping
-	PutRole              SecurityPutRole
-	PutUser              SecurityPutUser
+	Authenticate          SecurityAuthenticate
+	ChangePassword        SecurityChangePassword
+	ClearCachedPrivileges SecurityClearCachedPrivileges
+	ClearCachedRealms     SecurityClearCachedRealms
+	ClearCachedRoles      SecurityClearCachedRoles
+	CreateAPIKey          SecurityCreateAPIKey
+	DeletePrivileges      SecurityDeletePrivileges
+	DeleteRoleMapping     SecurityDeleteRoleMapping
+	DeleteRole            SecurityDeleteRole
+	DeleteUser            SecurityDeleteUser
+	DisableUser           SecurityDisableUser
+	EnableUser            SecurityEnableUser
+	GetAPIKey             SecurityGetAPIKey
+	GetBuiltinPrivileges  SecurityGetBuiltinPrivileges
+	GetPrivileges         SecurityGetPrivileges
+	GetRoleMapping        SecurityGetRoleMapping
+	GetRole               SecurityGetRole
+	GetToken              SecurityGetToken
+	GetUserPrivileges     SecurityGetUserPrivileges
+	GetUser               SecurityGetUser
+	HasPrivileges         SecurityHasPrivileges
+	InvalidateAPIKey      SecurityInvalidateAPIKey
+	InvalidateToken       SecurityInvalidateToken
+	PutPrivileges         SecurityPutPrivileges
+	PutRoleMapping        SecurityPutRoleMapping
+	PutRole               SecurityPutRole
+	PutUser               SecurityPutUser
 }
 
 // SQL contains the SQL APIs
@@ -485,6 +490,8 @@ func New(t Transport) *API {
 		EnrichGetPolicy:                               newEnrichGetPolicyFunc(t),
 		EnrichPutPolicy:                               newEnrichPutPolicyFunc(t),
 		EnrichStats:                                   newEnrichStatsFunc(t),
+		EqlDelete:                                     newEqlDeleteFunc(t),
+		EqlGet:                                        newEqlGetFunc(t),
 		EqlSearch:                                     newEqlSearchFunc(t),
 		Exists:                                        newExistsFunc(t),
 		ExistsSource:                                  newExistsSourceFunc(t),
@@ -583,6 +590,7 @@ func New(t Transport) *API {
 			Stats:                        newClusterStatsFunc(t),
 		},
 		Indices: &Indices{
+			AddBlock:              newIndicesAddBlockFunc(t),
 			Analyze:               newIndicesAnalyzeFunc(t),
 			ClearCache:            newIndicesClearCacheFunc(t),
 			Clone:                 newIndicesCloneFunc(t),
@@ -766,6 +774,7 @@ func New(t Transport) *API {
 			StartDatafeed:              newMLStartDatafeedFunc(t),
 			StopDataFrameAnalytics:     newMLStopDataFrameAnalyticsFunc(t),
 			StopDatafeed:               newMLStopDatafeedFunc(t),
+			UpdateDataFrameAnalytics:   newMLUpdateDataFrameAnalyticsFunc(t),
 			UpdateDatafeed:             newMLUpdateDatafeedFunc(t),
 			UpdateFilter:               newMLUpdateFilterFunc(t),
 			UpdateJob:                  newMLUpdateJobFunc(t),
@@ -787,32 +796,33 @@ func New(t Transport) *API {
 			StopJob:      newRollupStopJobFunc(t),
 		},
 		Security: &Security{
-			Authenticate:         newSecurityAuthenticateFunc(t),
-			ChangePassword:       newSecurityChangePasswordFunc(t),
-			ClearCachedRealms:    newSecurityClearCachedRealmsFunc(t),
-			ClearCachedRoles:     newSecurityClearCachedRolesFunc(t),
-			CreateAPIKey:         newSecurityCreateAPIKeyFunc(t),
-			DeletePrivileges:     newSecurityDeletePrivilegesFunc(t),
-			DeleteRoleMapping:    newSecurityDeleteRoleMappingFunc(t),
-			DeleteRole:           newSecurityDeleteRoleFunc(t),
-			DeleteUser:           newSecurityDeleteUserFunc(t),
-			DisableUser:          newSecurityDisableUserFunc(t),
-			EnableUser:           newSecurityEnableUserFunc(t),
-			GetAPIKey:            newSecurityGetAPIKeyFunc(t),
-			GetBuiltinPrivileges: newSecurityGetBuiltinPrivilegesFunc(t),
-			GetPrivileges:        newSecurityGetPrivilegesFunc(t),
-			GetRoleMapping:       newSecurityGetRoleMappingFunc(t),
-			GetRole:              newSecurityGetRoleFunc(t),
-			GetToken:             newSecurityGetTokenFunc(t),
-			GetUserPrivileges:    newSecurityGetUserPrivilegesFunc(t),
-			GetUser:              newSecurityGetUserFunc(t),
-			HasPrivileges:        newSecurityHasPrivilegesFunc(t),
-			InvalidateAPIKey:     newSecurityInvalidateAPIKeyFunc(t),
-			InvalidateToken:      newSecurityInvalidateTokenFunc(t),
-			PutPrivileges:        newSecurityPutPrivilegesFunc(t),
-			PutRoleMapping:       newSecurityPutRoleMappingFunc(t),
-			PutRole:              newSecurityPutRoleFunc(t),
-			PutUser:              newSecurityPutUserFunc(t),
+			Authenticate:          newSecurityAuthenticateFunc(t),
+			ChangePassword:        newSecurityChangePasswordFunc(t),
+			ClearCachedPrivileges: newSecurityClearCachedPrivilegesFunc(t),
+			ClearCachedRealms:     newSecurityClearCachedRealmsFunc(t),
+			ClearCachedRoles:      newSecurityClearCachedRolesFunc(t),
+			CreateAPIKey:          newSecurityCreateAPIKeyFunc(t),
+			DeletePrivileges:      newSecurityDeletePrivilegesFunc(t),
+			DeleteRoleMapping:     newSecurityDeleteRoleMappingFunc(t),
+			DeleteRole:            newSecurityDeleteRoleFunc(t),
+			DeleteUser:            newSecurityDeleteUserFunc(t),
+			DisableUser:           newSecurityDisableUserFunc(t),
+			EnableUser:            newSecurityEnableUserFunc(t),
+			GetAPIKey:             newSecurityGetAPIKeyFunc(t),
+			GetBuiltinPrivileges:  newSecurityGetBuiltinPrivilegesFunc(t),
+			GetPrivileges:         newSecurityGetPrivilegesFunc(t),
+			GetRoleMapping:        newSecurityGetRoleMappingFunc(t),
+			GetRole:               newSecurityGetRoleFunc(t),
+			GetToken:              newSecurityGetTokenFunc(t),
+			GetUserPrivileges:     newSecurityGetUserPrivilegesFunc(t),
+			GetUser:               newSecurityGetUserFunc(t),
+			HasPrivileges:         newSecurityHasPrivilegesFunc(t),
+			InvalidateAPIKey:      newSecurityInvalidateAPIKeyFunc(t),
+			InvalidateToken:       newSecurityInvalidateTokenFunc(t),
+			PutPrivileges:         newSecurityPutPrivilegesFunc(t),
+			PutRoleMapping:        newSecurityPutRoleMappingFunc(t),
+			PutRole:               newSecurityPutRoleFunc(t),
+			PutUser:               newSecurityPutUserFunc(t),
 		},
 		SQL: &SQL{
 			ClearCursor: newSQLClearCursorFunc(t),

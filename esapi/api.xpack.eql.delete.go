@@ -9,13 +9,12 @@ package esapi
 import (
 	"context"
 	"net/http"
-	"strconv"
 	"strings"
 )
 
-func newXPackInfoFunc(t Transport) XPackInfo {
-	return func(o ...func(*XPackInfoRequest)) (*Response, error) {
-		var r = XPackInfoRequest{}
+func newEqlDeleteFunc(t Transport) EqlDelete {
+	return func(id string, o ...func(*EqlDeleteRequest)) (*Response, error) {
+		var r = EqlDeleteRequest{DocumentID: id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -25,17 +24,18 @@ func newXPackInfoFunc(t Transport) XPackInfo {
 
 // ----- API Definition -------------------------------------------------------
 
-// XPackInfo - Retrieves information about the installed X-Pack features.
+// EqlDelete - Deletes an async EQL search by ID. If the search is still running, the search request will be cancelled. Otherwise, the saved search results are deleted.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/info-api.html.
+// This API is beta.
 //
-type XPackInfo func(o ...func(*XPackInfoRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/eql-search-api.html.
+//
+type EqlDelete func(id string, o ...func(*EqlDeleteRequest)) (*Response, error)
 
-// XPackInfoRequest configures the X Pack Info API request.
+// EqlDeleteRequest configures the Eql Delete API request.
 //
-type XPackInfoRequest struct {
-	AcceptEnterprise *bool
-	Categories       []string
+type EqlDeleteRequest struct {
+	DocumentID string
 
 	Pretty     bool
 	Human      bool
@@ -49,27 +49,24 @@ type XPackInfoRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r XPackInfoRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r EqlDeleteRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "DELETE"
 
-	path.Grow(len("/_xpack"))
-	path.WriteString("/_xpack")
+	path.Grow(1 + len("_eql") + 1 + len("search") + 1 + len(r.DocumentID))
+	path.WriteString("/")
+	path.WriteString("_eql")
+	path.WriteString("/")
+	path.WriteString("search")
+	path.WriteString("/")
+	path.WriteString(r.DocumentID)
 
 	params = make(map[string]string)
-
-	if r.AcceptEnterprise != nil {
-		params["accept_enterprise"] = strconv.FormatBool(*r.AcceptEnterprise)
-	}
-
-	if len(r.Categories) > 0 {
-		params["categories"] = strings.Join(r.Categories, ",")
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -132,64 +129,48 @@ func (r XPackInfoRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 // WithContext sets the request context.
 //
-func (f XPackInfo) WithContext(v context.Context) func(*XPackInfoRequest) {
-	return func(r *XPackInfoRequest) {
+func (f EqlDelete) WithContext(v context.Context) func(*EqlDeleteRequest) {
+	return func(r *EqlDeleteRequest) {
 		r.ctx = v
-	}
-}
-
-// WithAcceptEnterprise - if an enterprise license is installed, return the type and mode as 'enterprise' (default: false).
-//
-func (f XPackInfo) WithAcceptEnterprise(v bool) func(*XPackInfoRequest) {
-	return func(r *XPackInfoRequest) {
-		r.AcceptEnterprise = &v
-	}
-}
-
-// WithCategories - comma-separated list of info categories. can be any of: build, license, features.
-//
-func (f XPackInfo) WithCategories(v ...string) func(*XPackInfoRequest) {
-	return func(r *XPackInfoRequest) {
-		r.Categories = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f XPackInfo) WithPretty() func(*XPackInfoRequest) {
-	return func(r *XPackInfoRequest) {
+func (f EqlDelete) WithPretty() func(*EqlDeleteRequest) {
+	return func(r *EqlDeleteRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f XPackInfo) WithHuman() func(*XPackInfoRequest) {
-	return func(r *XPackInfoRequest) {
+func (f EqlDelete) WithHuman() func(*EqlDeleteRequest) {
+	return func(r *EqlDeleteRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f XPackInfo) WithErrorTrace() func(*XPackInfoRequest) {
-	return func(r *XPackInfoRequest) {
+func (f EqlDelete) WithErrorTrace() func(*EqlDeleteRequest) {
+	return func(r *EqlDeleteRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f XPackInfo) WithFilterPath(v ...string) func(*XPackInfoRequest) {
-	return func(r *XPackInfoRequest) {
+func (f EqlDelete) WithFilterPath(v ...string) func(*EqlDeleteRequest) {
+	return func(r *EqlDeleteRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f XPackInfo) WithHeader(h map[string]string) func(*XPackInfoRequest) {
-	return func(r *XPackInfoRequest) {
+func (f EqlDelete) WithHeader(h map[string]string) func(*EqlDeleteRequest) {
+	return func(r *EqlDeleteRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -201,8 +182,8 @@ func (f XPackInfo) WithHeader(h map[string]string) func(*XPackInfoRequest) {
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f XPackInfo) WithOpaqueID(s string) func(*XPackInfoRequest) {
-	return func(r *XPackInfoRequest) {
+func (f EqlDelete) WithOpaqueID(s string) func(*EqlDeleteRequest) {
+	return func(r *EqlDeleteRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

@@ -10,7 +10,9 @@ import (
 	"context"
 	"io"
 	"net/http"
+	"strconv"
 	"strings"
+	"time"
 )
 
 func newEqlSearchFunc(t Transport) EqlSearch {
@@ -39,6 +41,10 @@ type EqlSearchRequest struct {
 	Index string
 
 	Body io.Reader
+
+	KeepAlive                time.Duration
+	KeepOnCompletion         *bool
+	WaitForCompletionTimeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -70,6 +76,18 @@ func (r EqlSearchRequest) Do(ctx context.Context, transport Transport) (*Respons
 	path.WriteString("search")
 
 	params = make(map[string]string)
+
+	if r.KeepAlive != 0 {
+		params["keep_alive"] = formatDuration(r.KeepAlive)
+	}
+
+	if r.KeepOnCompletion != nil {
+		params["keep_on_completion"] = strconv.FormatBool(*r.KeepOnCompletion)
+	}
+
+	if r.WaitForCompletionTimeout != 0 {
+		params["wait_for_completion_timeout"] = formatDuration(r.WaitForCompletionTimeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -139,6 +157,30 @@ func (r EqlSearchRequest) Do(ctx context.Context, transport Transport) (*Respons
 func (f EqlSearch) WithContext(v context.Context) func(*EqlSearchRequest) {
 	return func(r *EqlSearchRequest) {
 		r.ctx = v
+	}
+}
+
+// WithKeepAlive - update the time interval in which the results (partial or final) for this search will be available.
+//
+func (f EqlSearch) WithKeepAlive(v time.Duration) func(*EqlSearchRequest) {
+	return func(r *EqlSearchRequest) {
+		r.KeepAlive = v
+	}
+}
+
+// WithKeepOnCompletion - control whether the response should be stored in the cluster if it completed within the provided [wait_for_completion] time (default: false).
+//
+func (f EqlSearch) WithKeepOnCompletion(v bool) func(*EqlSearchRequest) {
+	return func(r *EqlSearchRequest) {
+		r.KeepOnCompletion = &v
+	}
+}
+
+// WithWaitForCompletionTimeout - specify the time that the request should block waiting for the final response.
+//
+func (f EqlSearch) WithWaitForCompletionTimeout(v time.Duration) func(*EqlSearchRequest) {
+	return func(r *EqlSearchRequest) {
+		r.WaitForCompletionTimeout = v
 	}
 }
 

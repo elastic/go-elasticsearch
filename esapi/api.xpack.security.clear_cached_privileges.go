@@ -12,9 +12,9 @@ import (
 	"strings"
 )
 
-func newIndicesGetDataStreamFunc(t Transport) IndicesGetDataStream {
-	return func(o ...func(*IndicesGetDataStreamRequest)) (*Response, error) {
-		var r = IndicesGetDataStreamRequest{}
+func newSecurityClearCachedPrivilegesFunc(t Transport) SecurityClearCachedPrivileges {
+	return func(application []string, o ...func(*SecurityClearCachedPrivilegesRequest)) (*Response, error) {
+		var r = SecurityClearCachedPrivilegesRequest{Application: application}
 		for _, f := range o {
 			f(&r)
 		}
@@ -24,18 +24,16 @@ func newIndicesGetDataStreamFunc(t Transport) IndicesGetDataStream {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesGetDataStream returns data streams.
+// SecurityClearCachedPrivileges - Evicts application privileges from the native application privileges cache.
 //
-// This API is experimental.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-privilege-cache.html.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html.
-//
-type IndicesGetDataStream func(o ...func(*IndicesGetDataStreamRequest)) (*Response, error)
+type SecurityClearCachedPrivileges func(application []string, o ...func(*SecurityClearCachedPrivilegesRequest)) (*Response, error)
 
-// IndicesGetDataStreamRequest configures the Indices Get Data Stream API request.
+// SecurityClearCachedPrivilegesRequest configures the Security Clear Cached Privileges API request.
 //
-type IndicesGetDataStreamRequest struct {
-	Name []string
+type SecurityClearCachedPrivilegesRequest struct {
+	Application []string
 
 	Pretty     bool
 	Human      bool
@@ -49,22 +47,24 @@ type IndicesGetDataStreamRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r IndicesGetDataStreamRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SecurityClearCachedPrivilegesRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
-	path.Grow(1 + len("_data_stream") + 1 + len(strings.Join(r.Name, ",")))
+	path.Grow(1 + len("_security") + 1 + len("privilege") + 1 + len(strings.Join(r.Application, ",")) + 1 + len("_clear_cache"))
 	path.WriteString("/")
-	path.WriteString("_data_stream")
-	if len(r.Name) > 0 {
-		path.WriteString("/")
-		path.WriteString(strings.Join(r.Name, ","))
-	}
+	path.WriteString("_security")
+	path.WriteString("/")
+	path.WriteString("privilege")
+	path.WriteString("/")
+	path.WriteString(strings.Join(r.Application, ","))
+	path.WriteString("/")
+	path.WriteString("_clear_cache")
 
 	params = make(map[string]string)
 
@@ -129,56 +129,48 @@ func (r IndicesGetDataStreamRequest) Do(ctx context.Context, transport Transport
 
 // WithContext sets the request context.
 //
-func (f IndicesGetDataStream) WithContext(v context.Context) func(*IndicesGetDataStreamRequest) {
-	return func(r *IndicesGetDataStreamRequest) {
+func (f SecurityClearCachedPrivileges) WithContext(v context.Context) func(*SecurityClearCachedPrivilegesRequest) {
+	return func(r *SecurityClearCachedPrivilegesRequest) {
 		r.ctx = v
-	}
-}
-
-// WithName - a list of data streams to get; use `*` to get all data streams.
-//
-func (f IndicesGetDataStream) WithName(v ...string) func(*IndicesGetDataStreamRequest) {
-	return func(r *IndicesGetDataStreamRequest) {
-		r.Name = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f IndicesGetDataStream) WithPretty() func(*IndicesGetDataStreamRequest) {
-	return func(r *IndicesGetDataStreamRequest) {
+func (f SecurityClearCachedPrivileges) WithPretty() func(*SecurityClearCachedPrivilegesRequest) {
+	return func(r *SecurityClearCachedPrivilegesRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f IndicesGetDataStream) WithHuman() func(*IndicesGetDataStreamRequest) {
-	return func(r *IndicesGetDataStreamRequest) {
+func (f SecurityClearCachedPrivileges) WithHuman() func(*SecurityClearCachedPrivilegesRequest) {
+	return func(r *SecurityClearCachedPrivilegesRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f IndicesGetDataStream) WithErrorTrace() func(*IndicesGetDataStreamRequest) {
-	return func(r *IndicesGetDataStreamRequest) {
+func (f SecurityClearCachedPrivileges) WithErrorTrace() func(*SecurityClearCachedPrivilegesRequest) {
+	return func(r *SecurityClearCachedPrivilegesRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f IndicesGetDataStream) WithFilterPath(v ...string) func(*IndicesGetDataStreamRequest) {
-	return func(r *IndicesGetDataStreamRequest) {
+func (f SecurityClearCachedPrivileges) WithFilterPath(v ...string) func(*SecurityClearCachedPrivilegesRequest) {
+	return func(r *SecurityClearCachedPrivilegesRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f IndicesGetDataStream) WithHeader(h map[string]string) func(*IndicesGetDataStreamRequest) {
-	return func(r *IndicesGetDataStreamRequest) {
+func (f SecurityClearCachedPrivileges) WithHeader(h map[string]string) func(*SecurityClearCachedPrivilegesRequest) {
+	return func(r *SecurityClearCachedPrivilegesRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -190,8 +182,8 @@ func (f IndicesGetDataStream) WithHeader(h map[string]string) func(*IndicesGetDa
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f IndicesGetDataStream) WithOpaqueID(s string) func(*IndicesGetDataStreamRequest) {
-	return func(r *IndicesGetDataStreamRequest) {
+func (f SecurityClearCachedPrivileges) WithOpaqueID(s string) func(*SecurityClearCachedPrivilegesRequest) {
+	return func(r *SecurityClearCachedPrivilegesRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
