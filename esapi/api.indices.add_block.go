@@ -8,16 +8,15 @@ package esapi
 
 import (
 	"context"
-	"io"
 	"net/http"
 	"strconv"
 	"strings"
 	"time"
 )
 
-func newIndicesPutMappingFunc(t Transport) IndicesPutMapping {
-	return func(index []string, body io.Reader, o ...func(*IndicesPutMappingRequest)) (*Response, error) {
-		var r = IndicesPutMappingRequest{Index: index, Body: body}
+func newIndicesAddBlockFunc(t Transport) IndicesAddBlock {
+	return func(index []string, block string, o ...func(*IndicesAddBlockRequest)) (*Response, error) {
+		var r = IndicesAddBlockRequest{Index: index, Block: block}
 		for _, f := range o {
 			f(&r)
 		}
@@ -27,25 +26,24 @@ func newIndicesPutMappingFunc(t Transport) IndicesPutMapping {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesPutMapping updates the index mappings.
+// IndicesAddBlock adds a block to an index.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-put-mapping.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-blocks.html.
 //
-type IndicesPutMapping func(index []string, body io.Reader, o ...func(*IndicesPutMappingRequest)) (*Response, error)
+type IndicesAddBlock func(index []string, block string, o ...func(*IndicesAddBlockRequest)) (*Response, error)
 
-// IndicesPutMappingRequest configures the Indices Put Mapping API request.
+// IndicesAddBlockRequest configures the Indices Add Block API request.
 //
-type IndicesPutMappingRequest struct {
+type IndicesAddBlockRequest struct {
 	Index []string
 
-	Body io.Reader
+	Block string
 
 	AllowNoIndices    *bool
 	ExpandWildcards   string
 	IgnoreUnavailable *bool
 	MasterTimeout     time.Duration
 	Timeout           time.Duration
-	WriteIndexOnly    *bool
 
 	Pretty     bool
 	Human      bool
@@ -59,7 +57,7 @@ type IndicesPutMappingRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r IndicesPutMappingRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r IndicesAddBlockRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -68,13 +66,13 @@ func (r IndicesPutMappingRequest) Do(ctx context.Context, transport Transport) (
 
 	method = "PUT"
 
-	path.Grow(len(strings.Join(r.Index, ",")) + len("/_mapping") + 1)
-	if len(r.Index) > 0 {
-		path.WriteString("/")
-		path.WriteString(strings.Join(r.Index, ","))
-	}
+	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_block") + 1 + len(r.Block))
 	path.WriteString("/")
-	path.WriteString("_mapping")
+	path.WriteString(strings.Join(r.Index, ","))
+	path.WriteString("/")
+	path.WriteString("_block")
+	path.WriteString("/")
+	path.WriteString(r.Block)
 
 	params = make(map[string]string)
 
@@ -98,10 +96,6 @@ func (r IndicesPutMappingRequest) Do(ctx context.Context, transport Transport) (
 		params["timeout"] = formatDuration(r.Timeout)
 	}
 
-	if r.WriteIndexOnly != nil {
-		params["write_index_only"] = strconv.FormatBool(*r.WriteIndexOnly)
-	}
-
 	if r.Pretty {
 		params["pretty"] = "true"
 	}
@@ -118,7 +112,7 @@ func (r IndicesPutMappingRequest) Do(ctx context.Context, transport Transport) (
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -129,10 +123,6 @@ func (r IndicesPutMappingRequest) Do(ctx context.Context, transport Transport) (
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
-	}
-
-	if r.Body != nil {
-		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -167,96 +157,88 @@ func (r IndicesPutMappingRequest) Do(ctx context.Context, transport Transport) (
 
 // WithContext sets the request context.
 //
-func (f IndicesPutMapping) WithContext(v context.Context) func(*IndicesPutMappingRequest) {
-	return func(r *IndicesPutMappingRequest) {
+func (f IndicesAddBlock) WithContext(v context.Context) func(*IndicesAddBlockRequest) {
+	return func(r *IndicesAddBlockRequest) {
 		r.ctx = v
 	}
 }
 
 // WithAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (this includes `_all` string or when no indices have been specified).
 //
-func (f IndicesPutMapping) WithAllowNoIndices(v bool) func(*IndicesPutMappingRequest) {
-	return func(r *IndicesPutMappingRequest) {
+func (f IndicesAddBlock) WithAllowNoIndices(v bool) func(*IndicesAddBlockRequest) {
+	return func(r *IndicesAddBlockRequest) {
 		r.AllowNoIndices = &v
 	}
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
 //
-func (f IndicesPutMapping) WithExpandWildcards(v string) func(*IndicesPutMappingRequest) {
-	return func(r *IndicesPutMappingRequest) {
+func (f IndicesAddBlock) WithExpandWildcards(v string) func(*IndicesAddBlockRequest) {
+	return func(r *IndicesAddBlockRequest) {
 		r.ExpandWildcards = v
 	}
 }
 
 // WithIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
 //
-func (f IndicesPutMapping) WithIgnoreUnavailable(v bool) func(*IndicesPutMappingRequest) {
-	return func(r *IndicesPutMappingRequest) {
+func (f IndicesAddBlock) WithIgnoreUnavailable(v bool) func(*IndicesAddBlockRequest) {
+	return func(r *IndicesAddBlockRequest) {
 		r.IgnoreUnavailable = &v
 	}
 }
 
 // WithMasterTimeout - specify timeout for connection to master.
 //
-func (f IndicesPutMapping) WithMasterTimeout(v time.Duration) func(*IndicesPutMappingRequest) {
-	return func(r *IndicesPutMappingRequest) {
+func (f IndicesAddBlock) WithMasterTimeout(v time.Duration) func(*IndicesAddBlockRequest) {
+	return func(r *IndicesAddBlockRequest) {
 		r.MasterTimeout = v
 	}
 }
 
 // WithTimeout - explicit operation timeout.
 //
-func (f IndicesPutMapping) WithTimeout(v time.Duration) func(*IndicesPutMappingRequest) {
-	return func(r *IndicesPutMappingRequest) {
+func (f IndicesAddBlock) WithTimeout(v time.Duration) func(*IndicesAddBlockRequest) {
+	return func(r *IndicesAddBlockRequest) {
 		r.Timeout = v
-	}
-}
-
-// WithWriteIndexOnly - when true, applies mappings only to the write index of an alias or data stream.
-//
-func (f IndicesPutMapping) WithWriteIndexOnly(v bool) func(*IndicesPutMappingRequest) {
-	return func(r *IndicesPutMappingRequest) {
-		r.WriteIndexOnly = &v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f IndicesPutMapping) WithPretty() func(*IndicesPutMappingRequest) {
-	return func(r *IndicesPutMappingRequest) {
+func (f IndicesAddBlock) WithPretty() func(*IndicesAddBlockRequest) {
+	return func(r *IndicesAddBlockRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f IndicesPutMapping) WithHuman() func(*IndicesPutMappingRequest) {
-	return func(r *IndicesPutMappingRequest) {
+func (f IndicesAddBlock) WithHuman() func(*IndicesAddBlockRequest) {
+	return func(r *IndicesAddBlockRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f IndicesPutMapping) WithErrorTrace() func(*IndicesPutMappingRequest) {
-	return func(r *IndicesPutMappingRequest) {
+func (f IndicesAddBlock) WithErrorTrace() func(*IndicesAddBlockRequest) {
+	return func(r *IndicesAddBlockRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f IndicesPutMapping) WithFilterPath(v ...string) func(*IndicesPutMappingRequest) {
-	return func(r *IndicesPutMappingRequest) {
+func (f IndicesAddBlock) WithFilterPath(v ...string) func(*IndicesAddBlockRequest) {
+	return func(r *IndicesAddBlockRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f IndicesPutMapping) WithHeader(h map[string]string) func(*IndicesPutMappingRequest) {
-	return func(r *IndicesPutMappingRequest) {
+func (f IndicesAddBlock) WithHeader(h map[string]string) func(*IndicesAddBlockRequest) {
+	return func(r *IndicesAddBlockRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -268,8 +250,8 @@ func (f IndicesPutMapping) WithHeader(h map[string]string) func(*IndicesPutMappi
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f IndicesPutMapping) WithOpaqueID(s string) func(*IndicesPutMappingRequest) {
-	return func(r *IndicesPutMappingRequest) {
+func (f IndicesAddBlock) WithOpaqueID(s string) func(*IndicesAddBlockRequest) {
+	return func(r *IndicesAddBlockRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

@@ -12,9 +12,9 @@ import (
 	"strings"
 )
 
-func newIndicesDeleteDataStreamFunc(t Transport) IndicesDeleteDataStream {
-	return func(name []string, o ...func(*IndicesDeleteDataStreamRequest)) (*Response, error) {
-		var r = IndicesDeleteDataStreamRequest{Name: name}
+func newSecurityClearCachedPrivilegesFunc(t Transport) SecurityClearCachedPrivileges {
+	return func(application []string, o ...func(*SecurityClearCachedPrivilegesRequest)) (*Response, error) {
+		var r = SecurityClearCachedPrivilegesRequest{Application: application}
 		for _, f := range o {
 			f(&r)
 		}
@@ -24,18 +24,16 @@ func newIndicesDeleteDataStreamFunc(t Transport) IndicesDeleteDataStream {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesDeleteDataStream deletes a data stream.
+// SecurityClearCachedPrivileges - Evicts application privileges from the native application privileges cache.
 //
-// This API is experimental.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-privilege-cache.html.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html.
-//
-type IndicesDeleteDataStream func(name []string, o ...func(*IndicesDeleteDataStreamRequest)) (*Response, error)
+type SecurityClearCachedPrivileges func(application []string, o ...func(*SecurityClearCachedPrivilegesRequest)) (*Response, error)
 
-// IndicesDeleteDataStreamRequest configures the Indices Delete Data Stream API request.
+// SecurityClearCachedPrivilegesRequest configures the Security Clear Cached Privileges API request.
 //
-type IndicesDeleteDataStreamRequest struct {
-	Name []string
+type SecurityClearCachedPrivilegesRequest struct {
+	Application []string
 
 	Pretty     bool
 	Human      bool
@@ -49,20 +47,24 @@ type IndicesDeleteDataStreamRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r IndicesDeleteDataStreamRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SecurityClearCachedPrivilegesRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "DELETE"
+	method = "POST"
 
-	path.Grow(1 + len("_data_stream") + 1 + len(strings.Join(r.Name, ",")))
+	path.Grow(1 + len("_security") + 1 + len("privilege") + 1 + len(strings.Join(r.Application, ",")) + 1 + len("_clear_cache"))
 	path.WriteString("/")
-	path.WriteString("_data_stream")
+	path.WriteString("_security")
 	path.WriteString("/")
-	path.WriteString(strings.Join(r.Name, ","))
+	path.WriteString("privilege")
+	path.WriteString("/")
+	path.WriteString(strings.Join(r.Application, ","))
+	path.WriteString("/")
+	path.WriteString("_clear_cache")
 
 	params = make(map[string]string)
 
@@ -127,48 +129,48 @@ func (r IndicesDeleteDataStreamRequest) Do(ctx context.Context, transport Transp
 
 // WithContext sets the request context.
 //
-func (f IndicesDeleteDataStream) WithContext(v context.Context) func(*IndicesDeleteDataStreamRequest) {
-	return func(r *IndicesDeleteDataStreamRequest) {
+func (f SecurityClearCachedPrivileges) WithContext(v context.Context) func(*SecurityClearCachedPrivilegesRequest) {
+	return func(r *SecurityClearCachedPrivilegesRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f IndicesDeleteDataStream) WithPretty() func(*IndicesDeleteDataStreamRequest) {
-	return func(r *IndicesDeleteDataStreamRequest) {
+func (f SecurityClearCachedPrivileges) WithPretty() func(*SecurityClearCachedPrivilegesRequest) {
+	return func(r *SecurityClearCachedPrivilegesRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f IndicesDeleteDataStream) WithHuman() func(*IndicesDeleteDataStreamRequest) {
-	return func(r *IndicesDeleteDataStreamRequest) {
+func (f SecurityClearCachedPrivileges) WithHuman() func(*SecurityClearCachedPrivilegesRequest) {
+	return func(r *SecurityClearCachedPrivilegesRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f IndicesDeleteDataStream) WithErrorTrace() func(*IndicesDeleteDataStreamRequest) {
-	return func(r *IndicesDeleteDataStreamRequest) {
+func (f SecurityClearCachedPrivileges) WithErrorTrace() func(*SecurityClearCachedPrivilegesRequest) {
+	return func(r *SecurityClearCachedPrivilegesRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f IndicesDeleteDataStream) WithFilterPath(v ...string) func(*IndicesDeleteDataStreamRequest) {
-	return func(r *IndicesDeleteDataStreamRequest) {
+func (f SecurityClearCachedPrivileges) WithFilterPath(v ...string) func(*SecurityClearCachedPrivilegesRequest) {
+	return func(r *SecurityClearCachedPrivilegesRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f IndicesDeleteDataStream) WithHeader(h map[string]string) func(*IndicesDeleteDataStreamRequest) {
-	return func(r *IndicesDeleteDataStreamRequest) {
+func (f SecurityClearCachedPrivileges) WithHeader(h map[string]string) func(*SecurityClearCachedPrivilegesRequest) {
+	return func(r *SecurityClearCachedPrivilegesRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -180,8 +182,8 @@ func (f IndicesDeleteDataStream) WithHeader(h map[string]string) func(*IndicesDe
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f IndicesDeleteDataStream) WithOpaqueID(s string) func(*IndicesDeleteDataStreamRequest) {
-	return func(r *IndicesDeleteDataStreamRequest) {
+func (f SecurityClearCachedPrivileges) WithOpaqueID(s string) func(*SecurityClearCachedPrivilegesRequest) {
+	return func(r *SecurityClearCachedPrivilegesRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
