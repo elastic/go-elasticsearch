@@ -347,7 +347,7 @@ func (g *Generator) genCommonSetup() {
 		}
 
 		{
-			res, _ = es.Indices.DeleteDataStream("_all")
+			res, _ = es.Indices.DeleteDataStream([]string{"_all"})
 			if res != nil && res.Body != nil { defer res.Body.Close() }
 		}
 
