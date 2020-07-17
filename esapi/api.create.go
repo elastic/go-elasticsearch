@@ -78,15 +78,24 @@ func (r CreateRequest) Do(ctx context.Context, transport Transport) (*Response, 
 		r.DocumentType = "_doc"
 	}
 
-	path.Grow(1 + len(r.Index) + 1 + len(r.DocumentType) + 1 + len(r.DocumentID) + 1 + len("_create"))
-	path.WriteString("/")
-	path.WriteString(r.Index)
-	path.WriteString("/")
-	path.WriteString(r.DocumentType)
-	path.WriteString("/")
-	path.WriteString(r.DocumentID)
-	path.WriteString("/")
-	path.WriteString("_create")
+	if len(r.DocumentID) != 0 {
+		path.Grow(1 + len(r.Index) + 1 + len(r.DocumentType) + 1 + len(r.DocumentID) + 1 + len("_create"))
+		path.WriteString("/")
+		path.WriteString(r.Index)
+		path.WriteString("/")
+		path.WriteString(r.DocumentType)
+		path.WriteString("/")
+		path.WriteString(r.DocumentID)
+		path.WriteString("/")
+		path.WriteString("_create")
+	} else {
+		path.Grow(1 + len(r.Index) + 1 + len(r.DocumentType))
+		path.WriteString("/")
+		path.WriteString(r.Index)
+		path.WriteString("/")
+		path.WriteString(r.DocumentType)
+		method = "POST"
+	}
 
 	params = make(map[string]string)
 
