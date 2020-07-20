@@ -59,11 +59,34 @@ cd "$WORKSPACE/tmp/elasticsearch-clients-benchmarks/terraform/gcp"
 $TERRAFORM init --input=false
 $TERRAFORM apply --auto-approve --input=false --var client_image="$CLIENT_IMAGE"
 
-set +x
-echo -e "\033[1mWaiting for [$($TERRAFORM output runner_instance_name)] to be ready...\033[0m"
-until $GCLOUD compute --project 'elastic-clients' ssh "$($TERRAFORM output runner_instance_name)" --zone='europe-west1-b' --command="sudo su - runner -c 'docker container inspect benchmarks-data'" &> /dev/null; do sleep 1; done;
+set +ex
+echo -e "\n\033[1mWaiting for instance [$($TERRAFORM output runner_instance_name)] to be ready...\033[0m"
 
-echo -e "\nRunning benchmarks for [$CLIENT_IMAGE]\n"
+SECONDS=0
+while (( SECONDS < 900 )); do # Timeout: 15min
+  $GCLOUD compute --project 'elastic-clients' ssh "$($TERRAFORM output runner_instance_name)" --zone='europe-west1-b' --command="sudo su - runner -c 'docker container inspect -f \"{{.Name}}:{{.State.Status}}\" benchmarks-data'"
+  status=$?
+  if [[ $status -eq 0 ]]; then
+    break
+  else
+    sleep 1
+  fi
+done
+
+echo -e "\n\033[1mWaiting for cluster at [$($TERRAFORM output master_ip)] to be ready...\033[0m"
+
+SECONDS=0
+while (( SECONDS < 900 )); do # Timeout: 15min
+  $GCLOUD compute --project 'elastic-clients' ssh "$($TERRAFORM output runner_instance_name)" --zone='europe-west1-b' --command="sudo su - runner -c 'curl -sS $($TERRAFORM output master_ip):9200/_cat/nodes?v'"
+  status=$?
+  if [[ $status -eq 0 ]]; then
+    break
+  else
+    sleep 1
+  fi
+done
+
+echo -e "\n\033[1mRunning benchmarks for [$CLIENT_IMAGE]\033[0m"
 set -x
 
 $GCLOUD compute --project 'elastic-clients' ssh "$($TERRAFORM output runner_instance_name)" \
