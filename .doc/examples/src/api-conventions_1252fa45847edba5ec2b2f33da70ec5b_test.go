@@ -20,7 +20,7 @@ var (
 	_ = elasticsearch.NewDefaultClient
 )
 
-// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/api-conventions.asciidoc#L273>
+// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/api-conventions.asciidoc#L282>
 //
 // --------------------------------------------------------------------------------
 // GET /_cluster/state?filter_path=routing_table.indices.**.state

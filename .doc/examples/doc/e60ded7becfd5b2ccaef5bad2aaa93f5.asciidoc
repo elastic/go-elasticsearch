@@ -1,0 +1,20 @@
+// Generated from aggregations-bucket-terms-aggregation_e60ded7becfd5b2ccaef5bad2aaa93f5_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "aggs": {
+	    "products": {
+	      "terms": {
+	        "field": "product",
+	        "size": 5,
+	        "show_term_doc_count_error": true
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

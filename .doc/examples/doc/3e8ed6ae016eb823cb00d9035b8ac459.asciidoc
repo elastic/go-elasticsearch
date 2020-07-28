@@ -1,0 +1,10 @@
+// Generated from search-search_3e8ed6ae016eb823cb00d9035b8ac459_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithIndex("my-index-000001"),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

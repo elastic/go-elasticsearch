@@ -20,7 +20,7 @@ var (
 	_ = elasticsearch.NewDefaultClient
 )
 
-// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/cat/indices.asciidoc#L94>
+// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/cat/indices.asciidoc#L100>
 //
 // --------------------------------------------------------------------------------
 // GET /_cat/indices/twi*?v&s=index

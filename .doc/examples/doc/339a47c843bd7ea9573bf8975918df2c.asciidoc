@@ -1,0 +1,17 @@
+// Generated from docs-get_339a47c843bd7ea9573bf8975918df2c_test.go
+//
+[source, go]
+----
+res, err := es.Index(
+	"twitter",
+	strings.NewReader(`{
+	  "counter": 1,
+	  "tags": [
+	    "red"
+	  ]
+	}`),
+	es.Index.WithDocumentID("1"),
+	es.Index.WithPretty(),
+)
+fmt.Println(res, err)
+----

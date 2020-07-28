@@ -20,7 +20,7 @@ var (
 	_ = elasticsearch.NewDefaultClient
 )
 
-// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/docs/delete-by-query.asciidoc#L660>
+// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/docs/delete-by-query.asciidoc#L667>
 //
 // --------------------------------------------------------------------------------
 // POST _tasks/r1A2WoRbTwKZ516z6NEs5A:36619/_cancel

@@ -1,0 +1,21 @@
+// Generated from aggregations-bucket-terms-aggregation_ba770c774af72e54b2b5a503b5332c71_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "aggs": {
+	    "genres": {
+	      "terms": {
+	        "script": {
+	          "source": "doc['genre'].value",
+	          "lang": "painless"
+	        }
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

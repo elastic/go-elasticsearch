@@ -21,7 +21,7 @@ var (
 	_ = elasticsearch.NewDefaultClient
 )
 
-// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/api-conventions.asciidoc#L133>
+// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/api-conventions.asciidoc#L142>
 //
 // --------------------------------------------------------------------------------
 // # GET /<logstash-{now/d-2d}>,<logstash-{now/d-1d}>,<logstash-{now/d}>/_search

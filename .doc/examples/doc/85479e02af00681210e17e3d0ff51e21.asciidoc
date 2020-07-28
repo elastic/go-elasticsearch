@@ -1,0 +1,19 @@
+// Generated from mapping-types-date_85479e02af00681210e17e3d0ff51e21_test.go
+//
+[source, go]
+----
+res, err := es.Indices.Create(
+	"my-index-000001",
+	es.Indices.Create.WithBody(strings.NewReader(`{
+	  "mappings": {
+	    "properties": {
+	      "date": {
+	        "type": "date",
+	        "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+	      }
+	    }
+	  }
+	}`)),
+)
+fmt.Println(res, err)
+----

@@ -1,0 +1,28 @@
+// Generated from mapping-types-nested_5553cf7a02c22f616cd994747f2dd5a5_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithIndex("my-index-000001"),
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "bool": {
+	      "must": [
+	        {
+	          "match": {
+	            "user.first": "Alice"
+	          }
+	        },
+	        {
+	          "match": {
+	            "user.last": "Smith"
+	          }
+	        }
+	      ]
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

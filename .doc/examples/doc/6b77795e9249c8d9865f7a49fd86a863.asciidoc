@@ -1,0 +1,20 @@
+// Generated from query-dsl-range-query_6b77795e9249c8d9865f7a49fd86a863_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "range": {
+	      "age": {
+	        "gte": 10,
+	        "lte": 20,
+	        "boost": 2.0
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

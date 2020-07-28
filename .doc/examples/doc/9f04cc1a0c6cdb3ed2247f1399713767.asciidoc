@@ -1,0 +1,18 @@
+// Generated from mapping-types-keyword_9f04cc1a0c6cdb3ed2247f1399713767_test.go
+//
+[source, go]
+----
+res, err := es.Indices.Create(
+	"my-index-000001",
+	es.Indices.Create.WithBody(strings.NewReader(`{
+	  "mappings": {
+	    "properties": {
+	      "tags": {
+	        "type": "keyword"
+	      }
+	    }
+	  }
+	}`)),
+)
+fmt.Println(res, err)
+----

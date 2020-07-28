@@ -20,7 +20,7 @@ var (
 	_ = elasticsearch.NewDefaultClient
 )
 
-// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/api-conventions.asciidoc#L298>
+// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/api-conventions.asciidoc#L307>
 //
 // --------------------------------------------------------------------------------
 // GET /_count?filter_path=-_shards

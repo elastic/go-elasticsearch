@@ -1,0 +1,14 @@
+// Generated from indices-aliases_866f52fbe17d4177a9f0d49c422b95ff_test.go
+//
+[source, go]
+----
+res, err := es.Index(
+	"alias1",
+	strings.NewReader(`{
+	  "foo": "bar"
+	}`),
+	es.Index.WithDocumentID("1"),
+	es.Index.WithPretty(),
+)
+fmt.Println(res, err)
+----

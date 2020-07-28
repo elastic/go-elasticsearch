@@ -1,0 +1,23 @@
+// Generated from search-request-scroll_a22f1a6661a074a07041a710e4da6d50_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithIndex("twitter"),
+	es.Search.WithBody(strings.NewReader(`{
+	  "slice": {
+	    "field": "date",
+	    "id": 0,
+	    "max": 10
+	  },
+	  "query": {
+	    "match": {
+	      "title": "elasticsearch"
+	    }
+	  }
+	}`)),
+	es.Search.WithScroll(time.Duration(60000000000)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

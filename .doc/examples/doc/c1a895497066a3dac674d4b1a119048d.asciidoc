@@ -1,0 +1,17 @@
+// Generated from query-dsl-term-query_c1a895497066a3dac674d4b1a119048d_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithIndex("my-index-000001"),
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "term": {
+	      "full_text": "Quick Brown Foxes!"
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

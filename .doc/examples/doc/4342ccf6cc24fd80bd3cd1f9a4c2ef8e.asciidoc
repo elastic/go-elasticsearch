@@ -1,0 +1,14 @@
+// Generated from search-request-scroll_4342ccf6cc24fd80bd3cd1f9a4c2ef8e_test.go
+//
+[source, go]
+----
+res, err := es.ClearScroll(
+	es.ClearScroll.WithBody(strings.NewReader(`{
+	  "scroll_id": [
+	    "DXF1ZXJ5QW5kRmV0Y2gBAAAAAAAAAD4WYm9laVYtZndUQlNsdDcwakFMNjU1QQ==",
+	    "DnF1ZXJ5VGhlbkZldGNoBQAAAAAAAAABFmtSWWRRWUJrU2o2ZExpSGJCVmQxYUEAAAAAAAAAAxZrUllkUVlCa1NqNmRMaUhiQlZkMWFBAAAAAAAAAAIWa1JZZFFZQmtTajZkTGlIYkJWZDFhQQAAAAAAAAAFFmtSWWRRWUJrU2o2ZExpSGJCVmQxYUEAAAAAAAAABBZrUllkUVlCa1NqNmRMaUhiQlZkMWFB"
+	  ]
+	}`)),
+)
+fmt.Println(res, err)
+----

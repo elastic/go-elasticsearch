@@ -1,0 +1,19 @@
+// Generated from query-dsl-function-score-query_fad524db23eb5718ff310956e590b00d_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "function_score": {
+	      "random_score": {
+	        "seed": 10,
+	        "field": "_seq_no"
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

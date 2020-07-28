@@ -1,0 +1,111 @@
+// Generated from mapping-types-nested_6cd083045bf06e80b83889a939a18451_test.go
+//
+[source, go]
+----
+{
+	res, err := es.Indices.Create(
+		"my-index-000001",
+		es.Indices.Create.WithBody(strings.NewReader(`{
+	  "mappings": {
+	    "properties": {
+	      "user": {
+	        "type": "nested"
+	      }
+	    }
+	  }
+	}`)),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Index(
+		"my-index-000001",
+		strings.NewReader(`{
+	  "group": "fans",
+	  "user": [
+	    {
+	      "first": "John",
+	      "last": "Smith"
+	    },
+	    {
+	      "first": "Alice",
+	      "last": "White"
+	    }
+	  ]
+	}`),
+		es.Index.WithDocumentID("1"),
+		es.Index.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Search(
+		es.Search.WithIndex("my-index-000001"),
+		es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "nested": {
+	      "path": "user",
+	      "query": {
+	        "bool": {
+	          "must": [
+	            {
+	              "match": {
+	                "user.first": "Alice"
+	              }
+	            },
+	            {
+	              "match": {
+	                "user.last": "Smith"
+	              }
+	            }
+	          ]
+	        }
+	      }
+	    }
+	  }
+	}`)),
+		es.Search.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Search(
+		es.Search.WithIndex("my-index-000001"),
+		es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "nested": {
+	      "path": "user",
+	      "query": {
+	        "bool": {
+	          "must": [
+	            {
+	              "match": {
+	                "user.first": "Alice"
+	              }
+	            },
+	            {
+	              "match": {
+	                "user.last": "White"
+	              }
+	            }
+	          ]
+	        }
+	      },
+	      "inner_hits": {
+	        "highlight": {
+	          "fields": {
+	            "user.first": {}
+	          }
+	        }
+	      }
+	    }
+	  }
+	}`)),
+		es.Search.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+----

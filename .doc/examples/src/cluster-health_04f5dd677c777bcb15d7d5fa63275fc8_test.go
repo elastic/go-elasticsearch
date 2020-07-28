@@ -21,7 +21,7 @@ var (
 	_ = elasticsearch.NewDefaultClient
 )
 
-// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/cluster/health.asciidoc#L35>
+// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/cluster/health.asciidoc#L36>
 //
 // --------------------------------------------------------------------------------
 // GET /_cluster/health?wait_for_status=yellow&timeout=50s

@@ -1,0 +1,7 @@
+// Generated from mapping_dea22bb4997e368950f0fc80f2a5f304_test.go
+//
+[source, go]
+----
+res, err := es.Indices.GetMapping(es.Indices.GetMapping.WithIndex("my-index-000001"))
+fmt.Println(res, err)
+----

@@ -20,7 +20,7 @@ var (
 	_ = elasticsearch.NewDefaultClient
 )
 
-// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/api-conventions.asciidoc#L407>
+// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/api-conventions.asciidoc#L416>
 //
 // --------------------------------------------------------------------------------
 // GET twitter/_settings?flat_settings=false

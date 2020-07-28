@@ -1,0 +1,23 @@
+// Generated from query-dsl-function-score-query_f9fec6ec9a7da3d35ac674712bd5b813_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "function_score": {
+	      "gauss": {
+	        "date": {
+	          "origin": "2013-09-17",
+	          "scale": "10d",
+	          "offset": "5d",
+	          "decay": 0.5
+	        }
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

@@ -1,0 +1,47 @@
+// Generated from mapping-fields-id-field_8c8b5224befab7804461c7e7b6086d9a_test.go
+//
+[source, go]
+----
+{
+	res, err := es.Index(
+		"my-index-000001",
+		strings.NewReader(`{
+	  "text": "Document with ID 1"
+	}`),
+		es.Index.WithDocumentID("1"),
+		es.Index.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Index(
+		"my-index-000001",
+		strings.NewReader(`{
+	  "text": "Document with ID 2"
+	}`),
+		es.Index.WithDocumentID("2"),
+		es.Index.WithRefresh("true"),
+		es.Index.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Search(
+		es.Search.WithIndex("my-index-000001"),
+		es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "terms": {
+	      "_id": [
+	        "1",
+	        "2"
+	      ]
+	    }
+	  }
+	}`)),
+		es.Search.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+----

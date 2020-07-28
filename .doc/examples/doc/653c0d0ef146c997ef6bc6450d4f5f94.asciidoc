@@ -1,0 +1,27 @@
+// Generated from aggregations-bucket-terms-aggregation_653c0d0ef146c997ef6bc6450d4f5f94_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "aggs": {
+	    "actors": {
+	      "terms": {
+	        "field": "actors",
+	        "size": 10
+	      },
+	      "aggs": {
+	        "costars": {
+	          "terms": {
+	            "field": "actors",
+	            "size": 5
+	          }
+	        }
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

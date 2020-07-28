@@ -1,0 +1,34 @@
+// Generated from docs-index__ac875a357f4d4643cdc625b59e927622_test.go
+//
+[source, go]
+----
+{
+	res, err := es.Cluster.PutSettings(
+		strings.NewReader(`{
+	  "persistent": {
+	    "action.auto_create_index": "twitter,index10,-index1*,+ind*"
+	  }
+	}`))
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Cluster.PutSettings(
+		strings.NewReader(`{
+	  "persistent": {
+	    "action.auto_create_index": "false"
+	  }
+	}`))
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Cluster.PutSettings(
+		strings.NewReader(`{
+	  "persistent": {
+	    "action.auto_create_index": "true"
+	  }
+	}`))
+	fmt.Println(res, err)
+}
+----

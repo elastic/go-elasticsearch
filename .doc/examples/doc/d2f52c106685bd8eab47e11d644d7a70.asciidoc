@@ -1,0 +1,69 @@
+// Generated from mapping-types-date_d2f52c106685bd8eab47e11d644d7a70_test.go
+//
+[source, go]
+----
+{
+	res, err := es.Indices.Create(
+		"my-index-000001",
+		es.Indices.Create.WithBody(strings.NewReader(`{
+	  "mappings": {
+	    "properties": {
+	      "date": {
+	        "type": "date"
+	      }
+	    }
+	  }
+	}`)),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Index(
+		"my-index-000001",
+		strings.NewReader(`{
+	  "date": "2015-01-01"
+	} `),
+		es.Index.WithDocumentID("1"),
+		es.Index.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Index(
+		"my-index-000001",
+		strings.NewReader(`{
+	  "date": "2015-01-01T12:10:30Z"
+	} `),
+		es.Index.WithDocumentID("2"),
+		es.Index.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Index(
+		"my-index-000001",
+		strings.NewReader(`{
+	  "date": 1420070400001
+	} `),
+		es.Index.WithDocumentID("3"),
+		es.Index.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Search(
+		es.Search.WithIndex("my-index-000001"),
+		es.Search.WithBody(strings.NewReader(`{
+	  "sort": {
+	    "date": "asc"
+	  }
+	}`)),
+		es.Search.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+----

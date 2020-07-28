@@ -1,0 +1,29 @@
+// Generated from search-request-sort_666c420fe61fa122386da3c356a64943_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "term": {
+	      "user": "kimchy"
+	    }
+	  },
+	  "sort": {
+	    "_script": {
+	      "type": "number",
+	      "script": {
+	        "lang": "painless",
+	        "source": "doc['field_name'].value * params.factor",
+	        "params": {
+	          "factor": 1.1
+	        }
+	      },
+	      "order": "asc"
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

@@ -1,0 +1,62 @@
+// Generated from mapping-types-array_f454e3f8ad5f5bd82a4a25af7dee9ca1_test.go
+//
+[source, go]
+----
+{
+	res, err := es.Index(
+		"my-index-000001",
+		strings.NewReader(`{
+	  "message": "some arrays in this document...",
+	  "tags": [
+	    "elasticsearch",
+	    "wow"
+	  ],
+	  "lists": [
+	    {
+	      "name": "prog_list",
+	      "description": "programming list"
+	    },
+	    {
+	      "name": "cool_list",
+	      "description": "cool stuff list"
+	    }
+	  ]
+	}`),
+		es.Index.WithDocumentID("1"),
+		es.Index.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Index(
+		"my-index-000001",
+		strings.NewReader(`{
+	  "message": "no arrays in this document...",
+	  "tags": "elasticsearch",
+	  "lists": {
+	    "name": "prog_list",
+	    "description": "programming list"
+	  }
+	}`),
+		es.Index.WithDocumentID("2"),
+		es.Index.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Search(
+		es.Search.WithIndex("my-index-000001"),
+		es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "match": {
+	      "tags": "elasticsearch"
+	    }
+	  }
+	}`)),
+		es.Search.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+----

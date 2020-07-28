@@ -1,0 +1,17 @@
+// Generated from query-dsl-query-string-query_2a9747bcfaf1f9491ebd410b3fcb6798_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "query_string": {
+	      "query": "(new york city) OR (big apple)",
+	      "default_field": "content"
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

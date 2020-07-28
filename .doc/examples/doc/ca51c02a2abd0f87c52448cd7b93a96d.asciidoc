@@ -1,0 +1,21 @@
+// Generated from query-dsl-function-score-query_ca51c02a2abd0f87c52448cd7b93a96d_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "function_score": {
+	      "field_value_factor": {
+	        "field": "likes",
+	        "factor": 1.2,
+	        "modifier": "sqrt",
+	        "missing": 1
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

@@ -1,0 +1,20 @@
+// Generated from query-dsl-wildcard-query_8ad4a5ea7657eba25dc9a0ea994cf07d_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "wildcard": {
+	      "user": {
+	        "value": "ki*y",
+	        "boost": 1.0,
+	        "rewrite": "constant_score"
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

@@ -1,0 +1,23 @@
+// Generated from search-request-sort_b607eea422295a3e9acd75f9ed1c8cb7_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "sort": [
+	    {
+	      "price": {
+	        "missing": "_last"
+	      }
+	    }
+	  ],
+	  "query": {
+	    "term": {
+	      "product": "chocolate"
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

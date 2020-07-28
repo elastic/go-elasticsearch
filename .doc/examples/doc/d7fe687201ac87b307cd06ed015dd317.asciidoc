@@ -1,0 +1,17 @@
+// Generated from indices-put-mapping_d7fe687201ac87b307cd06ed015dd317_test.go
+//
+[source, go]
+----
+res, err := es.Indices.PutMapping(
+	[]string{"my-index-000001"},
+	strings.NewReader(`{
+	  "properties": {
+	    "user_id": {
+	      "type": "keyword",
+	      "ignore_above": 100
+	    }
+	  }
+	}`),
+)
+fmt.Println(res, err)
+----

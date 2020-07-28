@@ -1,0 +1,21 @@
+// Generated from query-dsl-function-score-query_eff2fc92d46eb3c8f4d424eed18f54a2_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "function_score": {
+	      "query": {
+	        "match_all": {}
+	      },
+	      "boost": "5",
+	      "random_score": {},
+	      "boost_mode": "multiply"
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

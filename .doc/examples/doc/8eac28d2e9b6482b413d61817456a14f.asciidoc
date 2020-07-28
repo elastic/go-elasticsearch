@@ -1,0 +1,28 @@
+// Generated from aggregations-bucket-terms-aggregation_8eac28d2e9b6482b413d61817456a14f_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "aggs": {
+	    "genres": {
+	      "terms": {
+	        "field": "genre",
+	        "order": {
+	          "max_play_count": "desc"
+	        }
+	      },
+	      "aggs": {
+	        "max_play_count": {
+	          "max": {
+	            "field": "play_count"
+	          }
+	        }
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

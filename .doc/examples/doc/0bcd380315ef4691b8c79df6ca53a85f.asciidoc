@@ -1,0 +1,23 @@
+// Generated from search-request-sort_0bcd380315ef4691b8c79df6ca53a85f_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "sort": [
+	    {
+	      "price": {
+	        "unmapped_type": "long"
+	      }
+	    }
+	  ],
+	  "query": {
+	    "term": {
+	      "product": "chocolate"
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

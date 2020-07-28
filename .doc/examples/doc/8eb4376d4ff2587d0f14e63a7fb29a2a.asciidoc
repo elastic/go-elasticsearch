@@ -1,0 +1,11 @@
+// Generated from search-search_8eb4376d4ff2587d0f14e63a7fb29a2a_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithIndex("_all"),
+	es.Search.WithQuery("user.id:kimchy"),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

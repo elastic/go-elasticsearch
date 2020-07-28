@@ -1,0 +1,18 @@
+// Generated from search-request-sort_532ddf9afdcd0b1c9c0bb331e74d8df3_test.go
+//
+[source, go]
+----
+res, err := es.Indices.Create(
+	"index_long",
+	es.Indices.Create.WithBody(strings.NewReader(`{
+	  "mappings": {
+	    "properties": {
+	      "field": {
+	        "type": "long"
+	      }
+	    }
+	  }
+	}`)),
+)
+fmt.Println(res, err)
+----

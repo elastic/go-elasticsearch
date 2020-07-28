@@ -1,0 +1,13 @@
+// Generated from search-request-scroll_add240aa149d8b11139947502b279ee0_test.go
+//
+[source, go]
+----
+res, err := es.Scroll(
+	es.Scroll.WithBody(strings.NewReader(`{
+	  "scroll": "1m",
+	  "scroll_id": "DXF1ZXJ5QW5kRmV0Y2gBAAAAAAAAAD4WYm9laVYtZndUQlNsdDcwakFMNjU1QQ=="
+	}`)),
+	es.Scroll.WithPretty(),
+)
+fmt.Println(res, err)
+----

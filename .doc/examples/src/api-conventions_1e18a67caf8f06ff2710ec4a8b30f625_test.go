@@ -20,7 +20,7 @@ var (
 	_ = elasticsearch.NewDefaultClient
 )
 
-// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/api-conventions.asciidoc#L317>
+// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/api-conventions.asciidoc#L326>
 //
 // --------------------------------------------------------------------------------
 // GET /_cluster/state?filter_path=metadata.indices.*.state,-metadata.indices.logstash-*

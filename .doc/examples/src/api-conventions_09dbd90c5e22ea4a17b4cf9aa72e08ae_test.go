@@ -20,7 +20,7 @@ var (
 	_ = elasticsearch.NewDefaultClient
 )
 
-// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/api-conventions.asciidoc#L222>
+// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/api-conventions.asciidoc#L231>
 //
 // --------------------------------------------------------------------------------
 // GET /_search?q=elasticsearch&filter_path=took,hits.hits._id,hits.hits._score

@@ -1,0 +1,25 @@
+// Generated from docs-update_4832108e01f5efac5e6e40ac405998ca_test.go
+//
+[source, go]
+----
+res, err := es.Update(
+	"sessions",
+	"dh3sgudg8gsrgl",
+	strings.NewReader(`{
+	  "scripted_upsert": true,
+	  "script": {
+	    "id": "my_web_session_summariser",
+	    "params": {
+	      "pageViewEvent": {
+	        "url": "foo.com/bar",
+	        "response": 404,
+	        "time": "2014-01-01 12:32"
+	      }
+	    }
+	  },
+	  "upsert": {}
+	}`),
+	es.Update.WithPretty(),
+)
+fmt.Println(res, err)
+----

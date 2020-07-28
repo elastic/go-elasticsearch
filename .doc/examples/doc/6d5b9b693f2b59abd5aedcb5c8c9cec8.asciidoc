@@ -1,0 +1,22 @@
+// Generated from indices-create-index_6d5b9b693f2b59abd5aedcb5c8c9cec8_test.go
+//
+[source, go]
+----
+res, err := es.Indices.Create(
+	"test",
+	es.Indices.Create.WithBody(strings.NewReader(`{
+	  "aliases": {
+	    "alias_1": {},
+	    "alias_2": {
+	      "filter": {
+	        "term": {
+	          "user": "kimchy"
+	        }
+	      },
+	      "routing": "kimchy"
+	    }
+	  }
+	}`)),
+)
+fmt.Println(res, err)
+----

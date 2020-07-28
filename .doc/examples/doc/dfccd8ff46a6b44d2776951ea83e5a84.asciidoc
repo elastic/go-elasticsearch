@@ -1,0 +1,20 @@
+// Generated from indices-aliases_dfccd8ff46a6b44d2776951ea83e5a84_test.go
+//
+[source, go]
+----
+res, err := es.Indices.UpdateAliases(strings.NewReader(`{
+	  "actions": [
+	    {
+	      "add": {
+	        "indices": [
+	          "test1",
+	          "test2"
+	        ],
+	        "alias": "alias1"
+	      }
+	    }
+	  ]
+	}`),
+)
+fmt.Println(res, err)
+----

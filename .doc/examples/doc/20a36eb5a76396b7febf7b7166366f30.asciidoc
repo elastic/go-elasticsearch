@@ -1,0 +1,19 @@
+// Generated from search-request-scroll_20a36eb5a76396b7febf7b7166366f30_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithIndex("twitter"),
+	es.Search.WithBody(strings.NewReader(`{
+	  "size": 100,
+	  "query": {
+	    "match": {
+	      "title": "elasticsearch"
+	    }
+	  }
+	}`)),
+	es.Search.WithScroll(time.Duration(60000000000)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

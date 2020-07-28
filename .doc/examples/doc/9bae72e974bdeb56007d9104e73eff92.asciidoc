@@ -1,0 +1,14 @@
+// Generated from docs-update_9bae72e974bdeb56007d9104e73eff92_test.go
+//
+[source, go]
+----
+res, err := es.Update(
+	"test",
+	"1",
+	strings.NewReader(`{
+	  "script": "ctx._source.remove('new_field')"
+	}`),
+	es.Update.WithPretty(),
+)
+fmt.Println(res, err)
+----

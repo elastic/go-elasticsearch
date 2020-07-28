@@ -1,0 +1,18 @@
+// Generated from query-dsl-nested-query_dfcc83efefaddccfe5dce0695c2266ef_test.go
+//
+[source, go]
+----
+res, err := es.Indices.Create(
+	"my-index-000001",
+	es.Indices.Create.WithBody(strings.NewReader(`{
+	  "mappings": {
+	    "properties": {
+	      "obj1": {
+	        "type": "nested"
+	      }
+	    }
+	  }
+	}`)),
+)
+fmt.Println(res, err)
+----

@@ -1,0 +1,74 @@
+// Generated from mapping-params-multi-fields_6aa2941855d13f365f70aa8767ecb137_test.go
+//
+[source, go]
+----
+{
+	res, err := es.Indices.Create(
+		"my-index-000001",
+		es.Indices.Create.WithBody(strings.NewReader(`{
+	  "mappings": {
+	    "properties": {
+	      "city": {
+	        "type": "text",
+	        "fields": {
+	          "raw": {
+	            "type": "keyword"
+	          }
+	        }
+	      }
+	    }
+	  }
+	}`)),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Index(
+		"my-index-000001",
+		strings.NewReader(`{
+	  "city": "New York"
+	}`),
+		es.Index.WithDocumentID("1"),
+		es.Index.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Index(
+		"my-index-000001",
+		strings.NewReader(`{
+	  "city": "York"
+	}`),
+		es.Index.WithDocumentID("2"),
+		es.Index.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Search(
+		es.Search.WithIndex("my-index-000001"),
+		es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "match": {
+	      "city": "york"
+	    }
+	  },
+	  "sort": {
+	    "city.raw": "asc"
+	  },
+	  "aggs": {
+	    "Cities": {
+	      "terms": {
+	        "field": "city.raw"
+	      }
+	    }
+	  }
+	}`)),
+		es.Search.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+----

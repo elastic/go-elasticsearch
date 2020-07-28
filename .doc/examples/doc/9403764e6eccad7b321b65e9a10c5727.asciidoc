@@ -1,0 +1,20 @@
+// Generated from aggregations-bucket-terms-aggregation_9403764e6eccad7b321b65e9a10c5727_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "aggs": {
+	    "tags": {
+	      "terms": {
+	        "field": "tags",
+	        "include": ".*sport.*",
+	        "exclude": "water_.*"
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

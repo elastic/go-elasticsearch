@@ -1,0 +1,18 @@
+// Generated from search-request-sort_69d5710bdec73041c66f21d5f96637e8_test.go
+//
+[source, go]
+----
+res, err := es.Indices.Create(
+	"index_long",
+	es.Indices.Create.WithBody(strings.NewReader(`{
+	  "mappings": {
+	    "properties": {
+	      "field": {
+	        "type": "date_nanos"
+	      }
+	    }
+	  }
+	}`)),
+)
+fmt.Println(res, err)
+----

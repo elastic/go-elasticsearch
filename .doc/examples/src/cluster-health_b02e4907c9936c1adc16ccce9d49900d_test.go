@@ -20,7 +20,7 @@ var (
 	_ = elasticsearch.NewDefaultClient
 )
 
-// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/cluster/health.asciidoc#L143>
+// <https://github.com/elastic/elasticsearch/blob/master/docs/reference/cluster/health.asciidoc#L150>
 //
 // --------------------------------------------------------------------------------
 // GET _cluster/health

@@ -1,0 +1,19 @@
+// Generated from aggregations-bucket-terms-aggregation_8f9a3fcd17a111f63caa3bef6e5f00f2_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "aggs": {
+	    "tags": {
+	      "terms": {
+	        "field": "tags",
+	        "execution_hint": "map"
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

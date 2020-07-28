@@ -1,0 +1,12 @@
+// Generated from search_3227b17f70d3cb3a5f2b296d6943848a_test.go
+//
+[source, go]
+----
+res, err := es.Cluster.PutSettings(
+	strings.NewReader(`{
+	  "transient": {
+	    "cluster.routing.use_adaptive_replica_selection": false
+	  }
+	}`))
+fmt.Println(res, err)
+----
