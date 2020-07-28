@@ -81,6 +81,7 @@ indices.shrink/30_copy_settings.yml:
 indices.split/30_copy_settings.yml:
 nodes.info/10_basic.yml:
 nodes.reload_secure_settings/10_basic.yml:
+nodes.stats/50_indexing_pressure.yml:
 
 # Parsed response is YAML: value is map[interface {}]interface {}, not map[string]interface {}
 cat.aliases/20_headers.yml:
