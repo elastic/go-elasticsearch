@@ -12,9 +12,9 @@ import (
 	"strings"
 )
 
-func newIndicesDeleteDataStreamFunc(t Transport) IndicesDeleteDataStream {
-	return func(name []string, o ...func(*IndicesDeleteDataStreamRequest)) (*Response, error) {
-		var r = IndicesDeleteDataStreamRequest{Name: name}
+func newIndicesGetDataStreamFunc(t Transport) IndicesGetDataStream {
+	return func(o ...func(*IndicesGetDataStreamRequest)) (*Response, error) {
+		var r = IndicesGetDataStreamRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -24,17 +24,17 @@ func newIndicesDeleteDataStreamFunc(t Transport) IndicesDeleteDataStream {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesDeleteDataStream deletes a data stream.
+// IndicesGetDataStream - Returns data streams.
 //
 // This API is experimental.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html.
 //
-type IndicesDeleteDataStream func(name []string, o ...func(*IndicesDeleteDataStreamRequest)) (*Response, error)
+type IndicesGetDataStream func(o ...func(*IndicesGetDataStreamRequest)) (*Response, error)
 
-// IndicesDeleteDataStreamRequest configures the Indices Delete Data Stream API request.
+// IndicesGetDataStreamRequest configures the Indices Get Data Stream API request.
 //
-type IndicesDeleteDataStreamRequest struct {
+type IndicesGetDataStreamRequest struct {
 	Name []string
 
 	Pretty     bool
@@ -49,20 +49,22 @@ type IndicesDeleteDataStreamRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r IndicesDeleteDataStreamRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r IndicesGetDataStreamRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "DELETE"
+	method = "GET"
 
 	path.Grow(1 + len("_data_stream") + 1 + len(strings.Join(r.Name, ",")))
 	path.WriteString("/")
 	path.WriteString("_data_stream")
-	path.WriteString("/")
-	path.WriteString(strings.Join(r.Name, ","))
+	if len(r.Name) > 0 {
+		path.WriteString("/")
+		path.WriteString(strings.Join(r.Name, ","))
+	}
 
 	params = make(map[string]string)
 
@@ -127,48 +129,56 @@ func (r IndicesDeleteDataStreamRequest) Do(ctx context.Context, transport Transp
 
 // WithContext sets the request context.
 //
-func (f IndicesDeleteDataStream) WithContext(v context.Context) func(*IndicesDeleteDataStreamRequest) {
-	return func(r *IndicesDeleteDataStreamRequest) {
+func (f IndicesGetDataStream) WithContext(v context.Context) func(*IndicesGetDataStreamRequest) {
+	return func(r *IndicesGetDataStreamRequest) {
 		r.ctx = v
+	}
+}
+
+// WithName - a list of data streams to get; use `*` to get all data streams.
+//
+func (f IndicesGetDataStream) WithName(v ...string) func(*IndicesGetDataStreamRequest) {
+	return func(r *IndicesGetDataStreamRequest) {
+		r.Name = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f IndicesDeleteDataStream) WithPretty() func(*IndicesDeleteDataStreamRequest) {
-	return func(r *IndicesDeleteDataStreamRequest) {
+func (f IndicesGetDataStream) WithPretty() func(*IndicesGetDataStreamRequest) {
+	return func(r *IndicesGetDataStreamRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f IndicesDeleteDataStream) WithHuman() func(*IndicesDeleteDataStreamRequest) {
-	return func(r *IndicesDeleteDataStreamRequest) {
+func (f IndicesGetDataStream) WithHuman() func(*IndicesGetDataStreamRequest) {
+	return func(r *IndicesGetDataStreamRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f IndicesDeleteDataStream) WithErrorTrace() func(*IndicesDeleteDataStreamRequest) {
-	return func(r *IndicesDeleteDataStreamRequest) {
+func (f IndicesGetDataStream) WithErrorTrace() func(*IndicesGetDataStreamRequest) {
+	return func(r *IndicesGetDataStreamRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f IndicesDeleteDataStream) WithFilterPath(v ...string) func(*IndicesDeleteDataStreamRequest) {
-	return func(r *IndicesDeleteDataStreamRequest) {
+func (f IndicesGetDataStream) WithFilterPath(v ...string) func(*IndicesGetDataStreamRequest) {
+	return func(r *IndicesGetDataStreamRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f IndicesDeleteDataStream) WithHeader(h map[string]string) func(*IndicesDeleteDataStreamRequest) {
-	return func(r *IndicesDeleteDataStreamRequest) {
+func (f IndicesGetDataStream) WithHeader(h map[string]string) func(*IndicesGetDataStreamRequest) {
+	return func(r *IndicesGetDataStreamRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -180,8 +190,8 @@ func (f IndicesDeleteDataStream) WithHeader(h map[string]string) func(*IndicesDe
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f IndicesDeleteDataStream) WithOpaqueID(s string) func(*IndicesDeleteDataStreamRequest) {
-	return func(r *IndicesDeleteDataStreamRequest) {
+func (f IndicesGetDataStream) WithOpaqueID(s string) func(*IndicesGetDataStreamRequest) {
+	return func(r *IndicesGetDataStreamRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

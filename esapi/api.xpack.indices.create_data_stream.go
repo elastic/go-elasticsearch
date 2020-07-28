@@ -25,7 +25,7 @@ func newIndicesCreateDataStreamFunc(t Transport) IndicesCreateDataStream {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesCreateDataStream creates or updates a data stream
+// IndicesCreateDataStream - Creates or updates a data stream
 //
 // This API is experimental.
 //

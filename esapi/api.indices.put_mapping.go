@@ -47,6 +47,7 @@ type IndicesPutMappingRequest struct {
 	IncludeTypeName   *bool
 	MasterTimeout     time.Duration
 	Timeout           time.Duration
+	WriteIndexOnly    *bool
 
 	Pretty     bool
 	Human      bool
@@ -105,6 +106,10 @@ func (r IndicesPutMappingRequest) Do(ctx context.Context, transport Transport) (
 
 	if r.Timeout != 0 {
 		params["timeout"] = formatDuration(r.Timeout)
+	}
+
+	if r.WriteIndexOnly != nil {
+		params["write_index_only"] = strconv.FormatBool(*r.WriteIndexOnly)
 	}
 
 	if r.Pretty {
@@ -239,6 +244,14 @@ func (f IndicesPutMapping) WithMasterTimeout(v time.Duration) func(*IndicesPutMa
 func (f IndicesPutMapping) WithTimeout(v time.Duration) func(*IndicesPutMappingRequest) {
 	return func(r *IndicesPutMappingRequest) {
 		r.Timeout = v
+	}
+}
+
+// WithWriteIndexOnly - when true, applies mappings only to the write index of an alias or data stream.
+//
+func (f IndicesPutMapping) WithWriteIndexOnly(v bool) func(*IndicesPutMappingRequest) {
+	return func(r *IndicesPutMappingRequest) {
+		r.WriteIndexOnly = &v
 	}
 }
 

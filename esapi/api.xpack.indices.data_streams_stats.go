@@ -12,9 +12,9 @@ import (
 	"strings"
 )
 
-func newIndicesGetDataStreamFunc(t Transport) IndicesGetDataStream {
-	return func(o ...func(*IndicesGetDataStreamRequest)) (*Response, error) {
-		var r = IndicesGetDataStreamRequest{}
+func newIndicesDataStreamsStatsFunc(t Transport) IndicesDataStreamsStats {
+	return func(o ...func(*IndicesDataStreamsStatsRequest)) (*Response, error) {
+		var r = IndicesDataStreamsStatsRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -24,17 +24,17 @@ func newIndicesGetDataStreamFunc(t Transport) IndicesGetDataStream {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesGetDataStream returns data streams.
+// IndicesDataStreamsStats - Provides statistics on operations happening in a data stream.
 //
 // This API is experimental.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html.
 //
-type IndicesGetDataStream func(o ...func(*IndicesGetDataStreamRequest)) (*Response, error)
+type IndicesDataStreamsStats func(o ...func(*IndicesDataStreamsStatsRequest)) (*Response, error)
 
-// IndicesGetDataStreamRequest configures the Indices Get Data Stream API request.
+// IndicesDataStreamsStatsRequest configures the Indices Data Streams Stats API request.
 //
-type IndicesGetDataStreamRequest struct {
+type IndicesDataStreamsStatsRequest struct {
 	Name []string
 
 	Pretty     bool
@@ -49,7 +49,7 @@ type IndicesGetDataStreamRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r IndicesGetDataStreamRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r IndicesDataStreamsStatsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -58,13 +58,15 @@ func (r IndicesGetDataStreamRequest) Do(ctx context.Context, transport Transport
 
 	method = "GET"
 
-	path.Grow(1 + len("_data_stream") + 1 + len(strings.Join(r.Name, ",")))
+	path.Grow(1 + len("_data_stream") + 1 + len(strings.Join(r.Name, ",")) + 1 + len("_stats"))
 	path.WriteString("/")
 	path.WriteString("_data_stream")
 	if len(r.Name) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.Name, ","))
 	}
+	path.WriteString("/")
+	path.WriteString("_stats")
 
 	params = make(map[string]string)
 
@@ -129,56 +131,56 @@ func (r IndicesGetDataStreamRequest) Do(ctx context.Context, transport Transport
 
 // WithContext sets the request context.
 //
-func (f IndicesGetDataStream) WithContext(v context.Context) func(*IndicesGetDataStreamRequest) {
-	return func(r *IndicesGetDataStreamRequest) {
+func (f IndicesDataStreamsStats) WithContext(v context.Context) func(*IndicesDataStreamsStatsRequest) {
+	return func(r *IndicesDataStreamsStatsRequest) {
 		r.ctx = v
 	}
 }
 
-// WithName - a list of data streams to get; use `*` to get all data streams.
+// WithName - a list of data stream names; use _all to perform the operation on all data streams.
 //
-func (f IndicesGetDataStream) WithName(v ...string) func(*IndicesGetDataStreamRequest) {
-	return func(r *IndicesGetDataStreamRequest) {
+func (f IndicesDataStreamsStats) WithName(v ...string) func(*IndicesDataStreamsStatsRequest) {
+	return func(r *IndicesDataStreamsStatsRequest) {
 		r.Name = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f IndicesGetDataStream) WithPretty() func(*IndicesGetDataStreamRequest) {
-	return func(r *IndicesGetDataStreamRequest) {
+func (f IndicesDataStreamsStats) WithPretty() func(*IndicesDataStreamsStatsRequest) {
+	return func(r *IndicesDataStreamsStatsRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f IndicesGetDataStream) WithHuman() func(*IndicesGetDataStreamRequest) {
-	return func(r *IndicesGetDataStreamRequest) {
+func (f IndicesDataStreamsStats) WithHuman() func(*IndicesDataStreamsStatsRequest) {
+	return func(r *IndicesDataStreamsStatsRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f IndicesGetDataStream) WithErrorTrace() func(*IndicesGetDataStreamRequest) {
-	return func(r *IndicesGetDataStreamRequest) {
+func (f IndicesDataStreamsStats) WithErrorTrace() func(*IndicesDataStreamsStatsRequest) {
+	return func(r *IndicesDataStreamsStatsRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f IndicesGetDataStream) WithFilterPath(v ...string) func(*IndicesGetDataStreamRequest) {
-	return func(r *IndicesGetDataStreamRequest) {
+func (f IndicesDataStreamsStats) WithFilterPath(v ...string) func(*IndicesDataStreamsStatsRequest) {
+	return func(r *IndicesDataStreamsStatsRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f IndicesGetDataStream) WithHeader(h map[string]string) func(*IndicesGetDataStreamRequest) {
-	return func(r *IndicesGetDataStreamRequest) {
+func (f IndicesDataStreamsStats) WithHeader(h map[string]string) func(*IndicesDataStreamsStatsRequest) {
+	return func(r *IndicesDataStreamsStatsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -190,8 +192,8 @@ func (f IndicesGetDataStream) WithHeader(h map[string]string) func(*IndicesGetDa
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f IndicesGetDataStream) WithOpaqueID(s string) func(*IndicesGetDataStreamRequest) {
-	return func(r *IndicesGetDataStreamRequest) {
+func (f IndicesDataStreamsStats) WithOpaqueID(s string) func(*IndicesDataStreamsStatsRequest) {
+	return func(r *IndicesDataStreamsStatsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
