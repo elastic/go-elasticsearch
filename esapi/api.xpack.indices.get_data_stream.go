@@ -26,8 +26,6 @@ func newIndicesGetDataStreamFunc(t Transport) IndicesGetDataStream {
 
 // IndicesGetDataStream - Returns data streams.
 //
-// This API is experimental.
-//
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html.
 //
 type IndicesGetDataStream func(o ...func(*IndicesGetDataStreamRequest)) (*Response, error)

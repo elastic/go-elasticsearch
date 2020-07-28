@@ -26,8 +26,6 @@ func newIndicesDataStreamsStatsFunc(t Transport) IndicesDataStreamsStats {
 
 // IndicesDataStreamsStats - Provides statistics on operations happening in a data stream.
 //
-// This API is experimental.
-//
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html.
 //
 type IndicesDataStreamsStats func(o ...func(*IndicesDataStreamsStatsRequest)) (*Response, error)
