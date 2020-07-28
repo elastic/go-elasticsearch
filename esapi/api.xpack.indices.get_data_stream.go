@@ -8,14 +8,13 @@ package esapi
 
 import (
 	"context"
-	"io"
 	"net/http"
 	"strings"
 )
 
-func newIndicesCreateDataStreamFunc(t Transport) IndicesCreateDataStream {
-	return func(name string, o ...func(*IndicesCreateDataStreamRequest)) (*Response, error) {
-		var r = IndicesCreateDataStreamRequest{Name: name}
+func newIndicesGetDataStreamFunc(t Transport) IndicesGetDataStream {
+	return func(o ...func(*IndicesGetDataStreamRequest)) (*Response, error) {
+		var r = IndicesGetDataStreamRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -25,20 +24,16 @@ func newIndicesCreateDataStreamFunc(t Transport) IndicesCreateDataStream {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesCreateDataStream creates or updates a data stream
-//
-// This API is experimental.
+// IndicesGetDataStream - Returns data streams.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html.
 //
-type IndicesCreateDataStream func(name string, o ...func(*IndicesCreateDataStreamRequest)) (*Response, error)
+type IndicesGetDataStream func(o ...func(*IndicesGetDataStreamRequest)) (*Response, error)
 
-// IndicesCreateDataStreamRequest configures the Indices Create Data Stream API request.
+// IndicesGetDataStreamRequest configures the Indices Get Data Stream API request.
 //
-type IndicesCreateDataStreamRequest struct {
-	Body io.Reader
-
-	Name string
+type IndicesGetDataStreamRequest struct {
+	Name []string
 
 	Pretty     bool
 	Human      bool
@@ -52,20 +47,22 @@ type IndicesCreateDataStreamRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r IndicesCreateDataStreamRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r IndicesGetDataStreamRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "PUT"
+	method = "GET"
 
-	path.Grow(1 + len("_data_stream") + 1 + len(r.Name))
+	path.Grow(1 + len("_data_stream") + 1 + len(strings.Join(r.Name, ",")))
 	path.WriteString("/")
 	path.WriteString("_data_stream")
-	path.WriteString("/")
-	path.WriteString(r.Name)
+	if len(r.Name) > 0 {
+		path.WriteString("/")
+		path.WriteString(strings.Join(r.Name, ","))
+	}
 
 	params = make(map[string]string)
 
@@ -85,7 +82,7 @@ func (r IndicesCreateDataStreamRequest) Do(ctx context.Context, transport Transp
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -96,10 +93,6 @@ func (r IndicesCreateDataStreamRequest) Do(ctx context.Context, transport Transp
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
-	}
-
-	if r.Body != nil {
-		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -134,56 +127,56 @@ func (r IndicesCreateDataStreamRequest) Do(ctx context.Context, transport Transp
 
 // WithContext sets the request context.
 //
-func (f IndicesCreateDataStream) WithContext(v context.Context) func(*IndicesCreateDataStreamRequest) {
-	return func(r *IndicesCreateDataStreamRequest) {
+func (f IndicesGetDataStream) WithContext(v context.Context) func(*IndicesGetDataStreamRequest) {
+	return func(r *IndicesGetDataStreamRequest) {
 		r.ctx = v
 	}
 }
 
-// WithBody - The data stream definition.
+// WithName - a list of data streams to get; use `*` to get all data streams.
 //
-func (f IndicesCreateDataStream) WithBody(v io.Reader) func(*IndicesCreateDataStreamRequest) {
-	return func(r *IndicesCreateDataStreamRequest) {
-		r.Body = v
+func (f IndicesGetDataStream) WithName(v ...string) func(*IndicesGetDataStreamRequest) {
+	return func(r *IndicesGetDataStreamRequest) {
+		r.Name = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f IndicesCreateDataStream) WithPretty() func(*IndicesCreateDataStreamRequest) {
-	return func(r *IndicesCreateDataStreamRequest) {
+func (f IndicesGetDataStream) WithPretty() func(*IndicesGetDataStreamRequest) {
+	return func(r *IndicesGetDataStreamRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f IndicesCreateDataStream) WithHuman() func(*IndicesCreateDataStreamRequest) {
-	return func(r *IndicesCreateDataStreamRequest) {
+func (f IndicesGetDataStream) WithHuman() func(*IndicesGetDataStreamRequest) {
+	return func(r *IndicesGetDataStreamRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f IndicesCreateDataStream) WithErrorTrace() func(*IndicesCreateDataStreamRequest) {
-	return func(r *IndicesCreateDataStreamRequest) {
+func (f IndicesGetDataStream) WithErrorTrace() func(*IndicesGetDataStreamRequest) {
+	return func(r *IndicesGetDataStreamRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f IndicesCreateDataStream) WithFilterPath(v ...string) func(*IndicesCreateDataStreamRequest) {
-	return func(r *IndicesCreateDataStreamRequest) {
+func (f IndicesGetDataStream) WithFilterPath(v ...string) func(*IndicesGetDataStreamRequest) {
+	return func(r *IndicesGetDataStreamRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f IndicesCreateDataStream) WithHeader(h map[string]string) func(*IndicesCreateDataStreamRequest) {
-	return func(r *IndicesCreateDataStreamRequest) {
+func (f IndicesGetDataStream) WithHeader(h map[string]string) func(*IndicesGetDataStreamRequest) {
+	return func(r *IndicesGetDataStreamRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -195,8 +188,8 @@ func (f IndicesCreateDataStream) WithHeader(h map[string]string) func(*IndicesCr
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f IndicesCreateDataStream) WithOpaqueID(s string) func(*IndicesCreateDataStreamRequest) {
-	return func(r *IndicesCreateDataStreamRequest) {
+func (f IndicesGetDataStream) WithOpaqueID(s string) func(*IndicesGetDataStreamRequest) {
+	return func(r *IndicesGetDataStreamRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

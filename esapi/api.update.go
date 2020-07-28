@@ -45,6 +45,7 @@ type UpdateRequest struct {
 	IfSeqNo             *int
 	Lang                string
 	Refresh             string
+	RequireAlias        *bool
 	RetryOnConflict     *int
 	Routing             string
 	Source              []string
@@ -98,6 +99,10 @@ func (r UpdateRequest) Do(ctx context.Context, transport Transport) (*Response, 
 
 	if r.Refresh != "" {
 		params["refresh"] = r.Refresh
+	}
+
+	if r.RequireAlias != nil {
+		params["require_alias"] = strconv.FormatBool(*r.RequireAlias)
 	}
 
 	if r.RetryOnConflict != nil {
@@ -228,6 +233,14 @@ func (f Update) WithLang(v string) func(*UpdateRequest) {
 func (f Update) WithRefresh(v string) func(*UpdateRequest) {
 	return func(r *UpdateRequest) {
 		r.Refresh = v
+	}
+}
+
+// WithRequireAlias - when true, requires destination is an alias. default is false.
+//
+func (f Update) WithRequireAlias(v bool) func(*UpdateRequest) {
+	return func(r *UpdateRequest) {
+		r.RequireAlias = &v
 	}
 }
 

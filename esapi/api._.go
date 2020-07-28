@@ -1,4 +1,4 @@
-// Code generated from specification version 8.0.0 (fe609f0ee5d): DO NOT EDIT
+// Code generated from specification version 8.0.0 (785a91c1e3f): DO NOT EDIT
 
 package esapi
 
@@ -185,7 +185,6 @@ type Indices struct {
 	Freeze                IndicesFreeze
 	GetAlias              IndicesGetAlias
 	GetDataStream         IndicesGetDataStream
-	GetDataStreams        IndicesGetDataStreams
 	GetFieldMapping       IndicesGetFieldMapping
 	GetIndexTemplate      IndicesGetIndexTemplate
 	GetMapping            IndicesGetMapping
@@ -613,7 +612,6 @@ func New(t Transport) *API {
 			Freeze:                newIndicesFreezeFunc(t),
 			GetAlias:              newIndicesGetAliasFunc(t),
 			GetDataStream:         newIndicesGetDataStreamFunc(t),
-			GetDataStreams:        newIndicesGetDataStreamsFunc(t),
 			GetFieldMapping:       newIndicesGetFieldMappingFunc(t),
 			GetIndexTemplate:      newIndicesGetIndexTemplateFunc(t),
 			GetMapping:            newIndicesGetMappingFunc(t),

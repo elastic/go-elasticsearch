@@ -9,7 +9,6 @@ package esapi
 import (
 	"context"
 	"net/http"
-	"strconv"
 	"strings"
 )
 
@@ -25,9 +24,7 @@ func newIndicesDataStreamsStatsFunc(t Transport) IndicesDataStreamsStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesDataStreamsStats provides statistics on operations happening in a data stream.
-//
-// This API is experimental.
+// IndicesDataStreamsStats - Provides statistics on operations happening in a data stream.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html.
 //
@@ -37,9 +34,6 @@ type IndicesDataStreamsStats func(o ...func(*IndicesDataStreamsStatsRequest)) (*
 //
 type IndicesDataStreamsStatsRequest struct {
 	Name []string
-
-	ExpandWildcards     string
-	ForbidClosedIndices *bool
 
 	Pretty     bool
 	Human      bool
@@ -73,14 +67,6 @@ func (r IndicesDataStreamsStatsRequest) Do(ctx context.Context, transport Transp
 	path.WriteString("_stats")
 
 	params = make(map[string]string)
-
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
-	}
-
-	if r.ForbidClosedIndices != nil {
-		params["forbid_closed_indices"] = strconv.FormatBool(*r.ForbidClosedIndices)
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -154,22 +140,6 @@ func (f IndicesDataStreamsStats) WithContext(v context.Context) func(*IndicesDat
 func (f IndicesDataStreamsStats) WithName(v ...string) func(*IndicesDataStreamsStatsRequest) {
 	return func(r *IndicesDataStreamsStatsRequest) {
 		r.Name = v
-	}
-}
-
-// WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-//
-func (f IndicesDataStreamsStats) WithExpandWildcards(v string) func(*IndicesDataStreamsStatsRequest) {
-	return func(r *IndicesDataStreamsStatsRequest) {
-		r.ExpandWildcards = v
-	}
-}
-
-// WithForbidClosedIndices - if set to false stats will also collected from closed indices if explicitly specified or if expand_wildcards expands to closed indices.
-//
-func (f IndicesDataStreamsStats) WithForbidClosedIndices(v bool) func(*IndicesDataStreamsStatsRequest) {
-	return func(r *IndicesDataStreamsStatsRequest) {
-		r.ForbidClosedIndices = &v
 	}
 }
 
