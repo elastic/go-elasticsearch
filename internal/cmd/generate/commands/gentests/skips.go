@@ -82,6 +82,7 @@ indices.split/30_copy_settings.yml:
 nodes.info/10_basic.yml:
 nodes.reload_secure_settings/10_basic.yml:
 nodes.stats/50_indexing_pressure.yml:
+nodes.stats/40_store_stats.yml:
 
 # Parsed response is YAML: value is map[interface {}]interface {}, not map[string]interface {}
 cat.aliases/20_headers.yml:
@@ -121,6 +122,8 @@ cat.templates/10_basic.yml:
 # Missing test setup
 cluster.voting_config_exclusions/10_basic.yml:
   - "Add voting config exclusion by unknown node name"
+indices.resolve_index/10_basic_resolve_index.yml:
+  - "Resolve index with hidden and closed indices"
 
 # Not relevant
 search/issue4895.yml:
