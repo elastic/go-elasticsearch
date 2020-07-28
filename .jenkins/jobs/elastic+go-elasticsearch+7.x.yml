@@ -11,4 +11,4 @@
           description: The Git branch specifier to build
     triggers:
       - github
-      - timed: '@daily'
+      - timed: 'H */12 * * *'
