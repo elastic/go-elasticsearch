@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.9.0: DO NOT EDIT
+// Code generated from specification version 7.10.0: DO NOT EDIT
 
 package esapi
 
@@ -10,6 +10,7 @@ import (
 	"context"
 	"io"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -42,6 +43,7 @@ type BulkRequest struct {
 
 	Pipeline            string
 	Refresh             string
+	RequireAlias        *bool
 	Routing             string
 	Source              []string
 	SourceExcludes      []string
@@ -90,6 +92,10 @@ func (r BulkRequest) Do(ctx context.Context, transport Transport) (*Response, er
 
 	if r.Refresh != "" {
 		params["refresh"] = r.Refresh
+	}
+
+	if r.RequireAlias != nil {
+		params["require_alias"] = strconv.FormatBool(*r.RequireAlias)
 	}
 
 	if r.Routing != "" {
@@ -220,6 +226,14 @@ func (f Bulk) WithPipeline(v string) func(*BulkRequest) {
 func (f Bulk) WithRefresh(v string) func(*BulkRequest) {
 	return func(r *BulkRequest) {
 		r.Refresh = v
+	}
+}
+
+// WithRequireAlias - sets require_alias for all incoming documents. defaults to unset (false).
+//
+func (f Bulk) WithRequireAlias(v bool) func(*BulkRequest) {
+	return func(r *BulkRequest) {
+		r.RequireAlias = &v
 	}
 }
 

@@ -1,4 +1,4 @@
-// Code generated from specification version 7.9.0 (2e71d0aa919): DO NOT EDIT
+// Code generated from specification version 7.10.0 (aa57bbd422c): DO NOT EDIT
 
 package esapi
 
@@ -169,6 +169,7 @@ type Indices struct {
 	Close                 IndicesClose
 	CreateDataStream      IndicesCreateDataStream
 	Create                IndicesCreate
+	DataStreamsStats      IndicesDataStreamsStats
 	DeleteAlias           IndicesDeleteAlias
 	DeleteDataStream      IndicesDeleteDataStream
 	DeleteIndexTemplate   IndicesDeleteIndexTemplate
@@ -185,7 +186,6 @@ type Indices struct {
 	Freeze                IndicesFreeze
 	GetAlias              IndicesGetAlias
 	GetDataStream         IndicesGetDataStream
-	GetDataStreams        IndicesGetDataStreams
 	GetFieldMapping       IndicesGetFieldMapping
 	GetIndexTemplate      IndicesGetIndexTemplate
 	GetMapping            IndicesGetMapping
@@ -597,6 +597,7 @@ func New(t Transport) *API {
 			Close:                 newIndicesCloseFunc(t),
 			CreateDataStream:      newIndicesCreateDataStreamFunc(t),
 			Create:                newIndicesCreateFunc(t),
+			DataStreamsStats:      newIndicesDataStreamsStatsFunc(t),
 			DeleteAlias:           newIndicesDeleteAliasFunc(t),
 			DeleteDataStream:      newIndicesDeleteDataStreamFunc(t),
 			DeleteIndexTemplate:   newIndicesDeleteIndexTemplateFunc(t),
@@ -613,7 +614,6 @@ func New(t Transport) *API {
 			Freeze:                newIndicesFreezeFunc(t),
 			GetAlias:              newIndicesGetAliasFunc(t),
 			GetDataStream:         newIndicesGetDataStreamFunc(t),
-			GetDataStreams:        newIndicesGetDataStreamsFunc(t),
 			GetFieldMapping:       newIndicesGetFieldMappingFunc(t),
 			GetIndexTemplate:      newIndicesGetIndexTemplateFunc(t),
 			GetMapping:            newIndicesGetMappingFunc(t),

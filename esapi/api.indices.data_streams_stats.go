@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.8.0: DO NOT EDIT
+// Code generated from specification version 7.10.0: DO NOT EDIT
 
 package esapi
 
@@ -12,9 +12,9 @@ import (
 	"strings"
 )
 
-func newIndicesGetDataStreamsFunc(t Transport) IndicesGetDataStreams {
-	return func(o ...func(*IndicesGetDataStreamsRequest)) (*Response, error) {
-		var r = IndicesGetDataStreamsRequest{}
+func newIndicesDataStreamsStatsFunc(t Transport) IndicesDataStreamsStats {
+	return func(o ...func(*IndicesDataStreamsStatsRequest)) (*Response, error) {
+		var r = IndicesDataStreamsStatsRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -24,18 +24,18 @@ func newIndicesGetDataStreamsFunc(t Transport) IndicesGetDataStreams {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesGetDataStreams returns data streams.
+// IndicesDataStreamsStats provides statistics on operations happening in a data stream.
 //
 // This API is experimental.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html.
 //
-type IndicesGetDataStreams func(o ...func(*IndicesGetDataStreamsRequest)) (*Response, error)
+type IndicesDataStreamsStats func(o ...func(*IndicesDataStreamsStatsRequest)) (*Response, error)
 
-// IndicesGetDataStreamsRequest configures the Indices Get Data Streams API request.
+// IndicesDataStreamsStatsRequest configures the Indices Data Streams Stats API request.
 //
-type IndicesGetDataStreamsRequest struct {
-	Name string
+type IndicesDataStreamsStatsRequest struct {
+	Name []string
 
 	Pretty     bool
 	Human      bool
@@ -49,7 +49,7 @@ type IndicesGetDataStreamsRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r IndicesGetDataStreamsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r IndicesDataStreamsStatsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -58,13 +58,15 @@ func (r IndicesGetDataStreamsRequest) Do(ctx context.Context, transport Transpor
 
 	method = "GET"
 
-	path.Grow(1 + len("_data_streams") + 1 + len(r.Name))
+	path.Grow(1 + len("_data_stream") + 1 + len(strings.Join(r.Name, ",")) + 1 + len("_stats"))
 	path.WriteString("/")
-	path.WriteString("_data_streams")
-	if r.Name != "" {
+	path.WriteString("_data_stream")
+	if len(r.Name) > 0 {
 		path.WriteString("/")
-		path.WriteString(r.Name)
+		path.WriteString(strings.Join(r.Name, ","))
 	}
+	path.WriteString("/")
+	path.WriteString("_stats")
 
 	params = make(map[string]string)
 
@@ -129,56 +131,56 @@ func (r IndicesGetDataStreamsRequest) Do(ctx context.Context, transport Transpor
 
 // WithContext sets the request context.
 //
-func (f IndicesGetDataStreams) WithContext(v context.Context) func(*IndicesGetDataStreamsRequest) {
-	return func(r *IndicesGetDataStreamsRequest) {
+func (f IndicesDataStreamsStats) WithContext(v context.Context) func(*IndicesDataStreamsStatsRequest) {
+	return func(r *IndicesDataStreamsStatsRequest) {
 		r.ctx = v
 	}
 }
 
-// WithName - the name or wildcard expression of the requested data streams.
+// WithName - a list of data stream names; use _all to perform the operation on all data streams.
 //
-func (f IndicesGetDataStreams) WithName(v string) func(*IndicesGetDataStreamsRequest) {
-	return func(r *IndicesGetDataStreamsRequest) {
+func (f IndicesDataStreamsStats) WithName(v ...string) func(*IndicesDataStreamsStatsRequest) {
+	return func(r *IndicesDataStreamsStatsRequest) {
 		r.Name = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f IndicesGetDataStreams) WithPretty() func(*IndicesGetDataStreamsRequest) {
-	return func(r *IndicesGetDataStreamsRequest) {
+func (f IndicesDataStreamsStats) WithPretty() func(*IndicesDataStreamsStatsRequest) {
+	return func(r *IndicesDataStreamsStatsRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f IndicesGetDataStreams) WithHuman() func(*IndicesGetDataStreamsRequest) {
-	return func(r *IndicesGetDataStreamsRequest) {
+func (f IndicesDataStreamsStats) WithHuman() func(*IndicesDataStreamsStatsRequest) {
+	return func(r *IndicesDataStreamsStatsRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f IndicesGetDataStreams) WithErrorTrace() func(*IndicesGetDataStreamsRequest) {
-	return func(r *IndicesGetDataStreamsRequest) {
+func (f IndicesDataStreamsStats) WithErrorTrace() func(*IndicesDataStreamsStatsRequest) {
+	return func(r *IndicesDataStreamsStatsRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f IndicesGetDataStreams) WithFilterPath(v ...string) func(*IndicesGetDataStreamsRequest) {
-	return func(r *IndicesGetDataStreamsRequest) {
+func (f IndicesDataStreamsStats) WithFilterPath(v ...string) func(*IndicesDataStreamsStatsRequest) {
+	return func(r *IndicesDataStreamsStatsRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f IndicesGetDataStreams) WithHeader(h map[string]string) func(*IndicesGetDataStreamsRequest) {
-	return func(r *IndicesGetDataStreamsRequest) {
+func (f IndicesDataStreamsStats) WithHeader(h map[string]string) func(*IndicesDataStreamsStatsRequest) {
+	return func(r *IndicesDataStreamsStatsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -190,8 +192,8 @@ func (f IndicesGetDataStreams) WithHeader(h map[string]string) func(*IndicesGetD
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f IndicesGetDataStreams) WithOpaqueID(s string) func(*IndicesGetDataStreamsRequest) {
-	return func(r *IndicesGetDataStreamsRequest) {
+func (f IndicesDataStreamsStats) WithOpaqueID(s string) func(*IndicesDataStreamsStatsRequest) {
+	return func(r *IndicesDataStreamsStatsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

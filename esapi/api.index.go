@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.9.0: DO NOT EDIT
+// Code generated from specification version 7.10.0: DO NOT EDIT
 
 package esapi
 
@@ -47,6 +47,7 @@ type IndexRequest struct {
 	OpType              string
 	Pipeline            string
 	Refresh             string
+	RequireAlias        *bool
 	Routing             string
 	Timeout             time.Duration
 	Version             *int
@@ -114,6 +115,10 @@ func (r IndexRequest) Do(ctx context.Context, transport Transport) (*Response, e
 
 	if r.Refresh != "" {
 		params["refresh"] = r.Refresh
+	}
+
+	if r.RequireAlias != nil {
+		params["require_alias"] = strconv.FormatBool(*r.RequireAlias)
 	}
 
 	if r.Routing != "" {
@@ -260,6 +265,14 @@ func (f Index) WithPipeline(v string) func(*IndexRequest) {
 func (f Index) WithRefresh(v string) func(*IndexRequest) {
 	return func(r *IndexRequest) {
 		r.Refresh = v
+	}
+}
+
+// WithRequireAlias - when true, requires destination to be an alias. default is false.
+//
+func (f Index) WithRequireAlias(v bool) func(*IndexRequest) {
+	return func(r *IndexRequest) {
+		r.RequireAlias = &v
 	}
 }
 
