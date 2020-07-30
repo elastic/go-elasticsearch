@@ -33,6 +33,15 @@ export ELASTICSEARCH_REPORT_PASSWORD="$report_password"
 
 export TF_VAR_reporting_url="$ELASTICSEARCH_REPORT_URL"
 export TF_VAR_reporting_password="$ELASTICSEARCH_REPORT_PASSWORD"
+
+runner_ssh_private_key="$(vault read -field=runner_ssh_private_key secret/clients-team/benchmarking)"
+runner_ssh_public_key="$(vault read -field=runner_ssh_public_key secret/clients-team/benchmarking)"
+export TF_VAR_runner_ssh_private_key="$runner_ssh_private_key"
+export TF_VAR_runner_ssh_public_key="$runner_ssh_public_key"
+echo "$runner_ssh_private_key" > "$WORKSPACE/tmp/runner_id_rsa"
+echo "$runner_ssh_public_key" > "$WORKSPACE/tmp/runner_id_rsa.pub"
+chmod go= "$WORKSPACE/tmp/runner_id_rsa"
+chmod go= "$WORKSPACE/tmp/runner_id_rsa.pub"
 set -x
 
 TERRAFORM=$(command -v terraform)
@@ -64,7 +73,7 @@ echo -e "\n\033[1mWaiting for instance [$($TERRAFORM output runner_instance_name
 
 SECONDS=0
 while (( SECONDS < 900 )); do # Timeout: 15min
-  $GCLOUD compute --project 'elastic-clients' ssh "$($TERRAFORM output runner_instance_name)" --zone='europe-west1-b' --command="sudo su - runner -c 'docker container inspect -f \"{{.Name}}:{{.State.Status}}\" benchmarks-data'"
+  $GCLOUD compute --project 'elastic-clients' ssh runner@"$($TERRAFORM output runner_instance_name)" --zone='europe-west1-b' --ssh-key-file="$WORKSPACE/tmp/runner_id_rsa" --command="sudo su - runner -c 'docker container inspect -f \"{{.Name}}:{{.State.Status}}\" benchmarks-data'"
   status=$?
   if [[ $status -eq 0 ]]; then
     break
@@ -77,7 +86,7 @@ echo -e "\n\033[1mWaiting for cluster at [$($TERRAFORM output master_ip)] to be 
 
 SECONDS=0
 while (( SECONDS < 900 )); do # Timeout: 15min
-  $GCLOUD compute --project 'elastic-clients' ssh "$($TERRAFORM output runner_instance_name)" --zone='europe-west1-b' --command="sudo su - runner -c 'curl -sS $($TERRAFORM output master_ip):9200/_cat/nodes?v'"
+  $GCLOUD compute --project 'elastic-clients' ssh runner@"$($TERRAFORM output runner_instance_name)" --zone='europe-west1-b' --ssh-key-file="$WORKSPACE/tmp/runner_id_rsa" --command="sudo su - runner -c 'curl -sS $($TERRAFORM output master_ip):9200/_cat/nodes?v'"
   status=$?
   if [[ $status -eq 0 ]]; then
     break
@@ -89,8 +98,9 @@ done
 echo -e "\n\033[1mRunning benchmarks for [$CLIENT_IMAGE]\033[0m"
 set -x
 
-$GCLOUD compute --project 'elastic-clients' ssh "$($TERRAFORM output runner_instance_name)" \
+$GCLOUD compute --project 'elastic-clients' ssh runner@"$($TERRAFORM output runner_instance_name)" \
   --zone='europe-west1-b' \
+  --ssh-key-file="$WORKSPACE/tmp/runner_id_rsa" \
   --ssh-flag='-t' \
   --command="\
   CLIENT_BRANCH=$CLIENT_BRANCH \
