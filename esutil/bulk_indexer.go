@@ -107,6 +107,9 @@ type BulkIndexerItem struct {
 	Action          string
 	DocumentID      string
 	Routing         string
+	DocumentType    string
+	Version         int64
+	VersionType     string
 	Body            io.Reader
 	RetryOnConflict *int
 
@@ -409,6 +412,21 @@ func (w *worker) writeMeta(item BulkIndexerItem) error {
 		w.buf.Write(w.aux)
 		w.aux = w.aux[:0]
 	}
+
+	if item.DocumentID != "" && item.Version != 0 {
+		w.buf.WriteRune(',')
+		w.buf.WriteString(`"version":`)
+		w.buf.WriteString(strconv.FormatInt(item.Version, 10))
+	}
+
+	if item.DocumentID != "" && item.VersionType != "" {
+		w.buf.WriteRune(',')
+		w.buf.WriteString(`"version_type":`)
+		w.aux = strconv.AppendQuote(w.aux, item.VersionType)
+		w.buf.Write(w.aux)
+		w.aux = w.aux[:0]
+	}
+
 	if item.Routing != "" {
 		if item.DocumentID != "" {
 			w.buf.WriteRune(',')
@@ -418,6 +436,7 @@ func (w *worker) writeMeta(item BulkIndexerItem) error {
 		w.buf.Write(w.aux)
 		w.aux = w.aux[:0]
 	}
+
 	if item.Index != "" {
 		if item.DocumentID != "" || item.Routing != "" {
 			w.buf.WriteRune(',')
