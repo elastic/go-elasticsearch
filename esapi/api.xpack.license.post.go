@@ -14,7 +14,9 @@ import (
 	"strings"
 )
 
-func newLicensePostFunc(t Transport) LicensePost {
+// NewLicensePost creates a new API client for the LicensePost endpoint
+//
+func NewLicensePost(t Transport) LicensePost {
 	return func(o ...func(*LicensePostRequest)) (*Response, error) {
 		var r = LicensePostRequest{}
 		for _, f := range o {

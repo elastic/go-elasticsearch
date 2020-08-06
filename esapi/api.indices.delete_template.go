@@ -13,7 +13,9 @@ import (
 	"time"
 )
 
-func newIndicesDeleteTemplateFunc(t Transport) IndicesDeleteTemplate {
+// NewIndicesDeleteTemplate creates a new API client for the IndicesDeleteTemplate endpoint
+//
+func NewIndicesDeleteTemplate(t Transport) IndicesDeleteTemplate {
 	return func(name string, o ...func(*IndicesDeleteTemplateRequest)) (*Response, error) {
 		var r = IndicesDeleteTemplateRequest{Name: name}
 		for _, f := range o {

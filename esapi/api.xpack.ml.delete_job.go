@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newMLDeleteJobFunc(t Transport) MLDeleteJob {
+// NewMLDeleteJob creates a new API client for the MLDeleteJob endpoint
+//
+func NewMLDeleteJob(t Transport) MLDeleteJob {
 	return func(job_id string, o ...func(*MLDeleteJobRequest)) (*Response, error) {
 		var r = MLDeleteJobRequest{JobID: job_id}
 		for _, f := range o {

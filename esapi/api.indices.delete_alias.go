@@ -13,7 +13,9 @@ import (
 	"time"
 )
 
-func newIndicesDeleteAliasFunc(t Transport) IndicesDeleteAlias {
+// NewIndicesDeleteAlias creates a new API client for the IndicesDeleteAlias endpoint
+//
+func NewIndicesDeleteAlias(t Transport) IndicesDeleteAlias {
 	return func(index []string, name []string, o ...func(*IndicesDeleteAliasRequest)) (*Response, error) {
 		var r = IndicesDeleteAliasRequest{Index: index, Name: name}
 		for _, f := range o {

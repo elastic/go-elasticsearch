@@ -89,13 +89,16 @@ func (g *Generator) genHeader() {
 }
 
 func (g *Generator) genConstructor() {
+	n := g.Endpoint.MethodWithNamespace()
 	g.w(`
-func new` + g.Endpoint.MethodWithNamespace() + `Func(t Transport) ` + g.Endpoint.MethodWithNamespace() + ` {
+// New` + n + ` creates a new API client for the ` + n + ` endpoint` + `
+//
+func New` + n + `(t Transport) ` + n + ` {
 	return func(`)
 	g.genMethodArguments()
-	g.w(`o ...func(*` + g.Endpoint.MethodWithNamespace() + `Request)) (*Response, error) {`)
+	g.w(`o ...func(*` + n + `Request)) (*Response, error) {`)
 	if len(g.Endpoint.RequiredArguments()) > 0 {
-		g.w("\n\t\t" + `var r = ` + g.Endpoint.MethodWithNamespace() + `Request{`)
+		g.w("\n\t\t" + `var r = ` + n + `Request{`)
 		for i, arg := range g.Endpoint.RequiredArguments() {
 			if arg.Name == "type" {
 				continue // Skip the type parameter, "_doc" is used by default
@@ -107,7 +110,7 @@ func new` + g.Endpoint.MethodWithNamespace() + `Func(t Transport) ` + g.Endpoint
 		}
 		g.w("}\n")
 	} else {
-		g.w("\n\t\t" + `var r = ` + g.Endpoint.MethodWithNamespace() + `Request{}` + "\n")
+		g.w("\n\t\t" + `var r = ` + n + `Request{}` + "\n")
 	}
 	g.w(`		for _, f := range o {
 			f(&r)

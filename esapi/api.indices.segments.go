@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newIndicesSegmentsFunc(t Transport) IndicesSegments {
+// NewIndicesSegments creates a new API client for the IndicesSegments endpoint
+//
+func NewIndicesSegments(t Transport) IndicesSegments {
 	return func(o ...func(*IndicesSegmentsRequest)) (*Response, error) {
 		var r = IndicesSegmentsRequest{}
 		for _, f := range o {

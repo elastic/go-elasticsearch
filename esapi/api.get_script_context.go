@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newGetScriptContextFunc(t Transport) GetScriptContext {
+// NewGetScriptContext creates a new API client for the GetScriptContext endpoint
+//
+func NewGetScriptContext(t Transport) GetScriptContext {
 	return func(o ...func(*GetScriptContextRequest)) (*Response, error) {
 		var r = GetScriptContextRequest{}
 		for _, f := range o {

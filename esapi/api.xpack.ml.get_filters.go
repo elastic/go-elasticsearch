@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newMLGetFiltersFunc(t Transport) MLGetFilters {
+// NewMLGetFilters creates a new API client for the MLGetFilters endpoint
+//
+func NewMLGetFilters(t Transport) MLGetFilters {
 	return func(o ...func(*MLGetFiltersRequest)) (*Response, error) {
 		var r = MLGetFiltersRequest{}
 		for _, f := range o {

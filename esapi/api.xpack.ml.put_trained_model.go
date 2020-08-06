@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newMLPutTrainedModelFunc(t Transport) MLPutTrainedModel {
+// NewMLPutTrainedModel creates a new API client for the MLPutTrainedModel endpoint
+//
+func NewMLPutTrainedModel(t Transport) MLPutTrainedModel {
 	return func(body io.Reader, model_id string, o ...func(*MLPutTrainedModelRequest)) (*Response, error) {
 		var r = MLPutTrainedModelRequest{Body: body, ModelID: model_id}
 		for _, f := range o {

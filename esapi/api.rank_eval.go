@@ -14,7 +14,9 @@ import (
 	"strings"
 )
 
-func newRankEvalFunc(t Transport) RankEval {
+// NewRankEval creates a new API client for the RankEval endpoint
+//
+func NewRankEval(t Transport) RankEval {
 	return func(body io.Reader, o ...func(*RankEvalRequest)) (*Response, error) {
 		var r = RankEvalRequest{Body: body}
 		for _, f := range o {

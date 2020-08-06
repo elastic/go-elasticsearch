@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newCatShardsFunc(t Transport) CatShards {
+// NewCatShards creates a new API client for the CatShards endpoint
+//
+func NewCatShards(t Transport) CatShards {
 	return func(o ...func(*CatShardsRequest)) (*Response, error) {
 		var r = CatShardsRequest{}
 		for _, f := range o {

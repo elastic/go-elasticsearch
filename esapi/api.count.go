@@ -14,7 +14,9 @@ import (
 	"strings"
 )
 
-func newCountFunc(t Transport) Count {
+// NewCount creates a new API client for the Count endpoint
+//
+func NewCount(t Transport) Count {
 	return func(o ...func(*CountRequest)) (*Response, error) {
 		var r = CountRequest{}
 		for _, f := range o {

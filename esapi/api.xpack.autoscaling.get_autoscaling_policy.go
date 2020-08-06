@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newAutoscalingGetAutoscalingPolicyFunc(t Transport) AutoscalingGetAutoscalingPolicy {
+// NewAutoscalingGetAutoscalingPolicy creates a new API client for the AutoscalingGetAutoscalingPolicy endpoint
+//
+func NewAutoscalingGetAutoscalingPolicy(t Transport) AutoscalingGetAutoscalingPolicy {
 	return func(name string, o ...func(*AutoscalingGetAutoscalingPolicyRequest)) (*Response, error) {
 		var r = AutoscalingGetAutoscalingPolicyRequest{Name: name}
 		for _, f := range o {

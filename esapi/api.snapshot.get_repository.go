@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newSnapshotGetRepositoryFunc(t Transport) SnapshotGetRepository {
+// NewSnapshotGetRepository creates a new API client for the SnapshotGetRepository endpoint
+//
+func NewSnapshotGetRepository(t Transport) SnapshotGetRepository {
 	return func(o ...func(*SnapshotGetRepositoryRequest)) (*Response, error) {
 		var r = SnapshotGetRepositoryRequest{}
 		for _, f := range o {

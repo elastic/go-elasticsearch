@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newLicenseGetBasicStatusFunc(t Transport) LicenseGetBasicStatus {
+// NewLicenseGetBasicStatus creates a new API client for the LicenseGetBasicStatus endpoint
+//
+func NewLicenseGetBasicStatus(t Transport) LicenseGetBasicStatus {
 	return func(o ...func(*LicenseGetBasicStatusRequest)) (*Response, error) {
 		var r = LicenseGetBasicStatusRequest{}
 		for _, f := range o {

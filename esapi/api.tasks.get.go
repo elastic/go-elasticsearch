@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newTasksGetFunc(t Transport) TasksGet {
+// NewTasksGet creates a new API client for the TasksGet endpoint
+//
+func NewTasksGet(t Transport) TasksGet {
 	return func(task_id string, o ...func(*TasksGetRequest)) (*Response, error) {
 		var r = TasksGetRequest{TaskID: task_id}
 		for _, f := range o {

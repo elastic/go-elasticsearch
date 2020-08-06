@@ -15,7 +15,9 @@ import (
 	"time"
 )
 
-func newMLFindFileStructureFunc(t Transport) MLFindFileStructure {
+// NewMLFindFileStructure creates a new API client for the MLFindFileStructure endpoint
+//
+func NewMLFindFileStructure(t Transport) MLFindFileStructure {
 	return func(body io.Reader, o ...func(*MLFindFileStructureRequest)) (*Response, error) {
 		var r = MLFindFileStructureRequest{Body: body}
 		for _, f := range o {

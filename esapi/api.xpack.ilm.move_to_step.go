@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newILMMoveToStepFunc(t Transport) ILMMoveToStep {
+// NewILMMoveToStep creates a new API client for the ILMMoveToStep endpoint
+//
+func NewILMMoveToStep(t Transport) ILMMoveToStep {
 	return func(index string, o ...func(*ILMMoveToStepRequest)) (*Response, error) {
 		var r = ILMMoveToStepRequest{Index: index}
 		for _, f := range o {

@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newIndicesExistsDocumentTypeFunc(t Transport) IndicesExistsDocumentType {
+// NewIndicesExistsDocumentType creates a new API client for the IndicesExistsDocumentType endpoint
+//
+func NewIndicesExistsDocumentType(t Transport) IndicesExistsDocumentType {
 	return func(index []string, o ...func(*IndicesExistsDocumentTypeRequest)) (*Response, error) {
 		var r = IndicesExistsDocumentTypeRequest{Index: index}
 		for _, f := range o {

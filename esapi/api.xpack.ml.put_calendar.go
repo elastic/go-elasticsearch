@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newMLPutCalendarFunc(t Transport) MLPutCalendar {
+// NewMLPutCalendar creates a new API client for the MLPutCalendar endpoint
+//
+func NewMLPutCalendar(t Transport) MLPutCalendar {
 	return func(calendar_id string, o ...func(*MLPutCalendarRequest)) (*Response, error) {
 		var r = MLPutCalendarRequest{CalendarID: calendar_id}
 		for _, f := range o {

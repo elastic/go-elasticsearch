@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newScriptsPainlessExecuteFunc(t Transport) ScriptsPainlessExecute {
+// NewScriptsPainlessExecute creates a new API client for the ScriptsPainlessExecute endpoint
+//
+func NewScriptsPainlessExecute(t Transport) ScriptsPainlessExecute {
 	return func(o ...func(*ScriptsPainlessExecuteRequest)) (*Response, error) {
 		var r = ScriptsPainlessExecuteRequest{}
 		for _, f := range o {

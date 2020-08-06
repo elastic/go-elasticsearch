@@ -15,7 +15,9 @@ import (
 	"time"
 )
 
-func newClusterPutComponentTemplateFunc(t Transport) ClusterPutComponentTemplate {
+// NewClusterPutComponentTemplate creates a new API client for the ClusterPutComponentTemplate endpoint
+//
+func NewClusterPutComponentTemplate(t Transport) ClusterPutComponentTemplate {
 	return func(name string, body io.Reader, o ...func(*ClusterPutComponentTemplateRequest)) (*Response, error) {
 		var r = ClusterPutComponentTemplateRequest{Name: name, Body: body}
 		for _, f := range o {

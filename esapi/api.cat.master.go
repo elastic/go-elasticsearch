@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newCatMasterFunc(t Transport) CatMaster {
+// NewCatMaster creates a new API client for the CatMaster endpoint
+//
+func NewCatMaster(t Transport) CatMaster {
 	return func(o ...func(*CatMasterRequest)) (*Response, error) {
 		var r = CatMasterRequest{}
 		for _, f := range o {

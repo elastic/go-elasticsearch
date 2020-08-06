@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newCCRResumeAutoFollowPatternFunc(t Transport) CCRResumeAutoFollowPattern {
+// NewCCRResumeAutoFollowPattern creates a new API client for the CCRResumeAutoFollowPattern endpoint
+//
+func NewCCRResumeAutoFollowPattern(t Transport) CCRResumeAutoFollowPattern {
 	return func(name string, o ...func(*CCRResumeAutoFollowPatternRequest)) (*Response, error) {
 		var r = CCRResumeAutoFollowPatternRequest{Name: name}
 		for _, f := range o {

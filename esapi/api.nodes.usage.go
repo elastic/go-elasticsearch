@@ -13,7 +13,9 @@ import (
 	"time"
 )
 
-func newNodesUsageFunc(t Transport) NodesUsage {
+// NewNodesUsage creates a new API client for the NodesUsage endpoint
+//
+func NewNodesUsage(t Transport) NodesUsage {
 	return func(o ...func(*NodesUsageRequest)) (*Response, error) {
 		var r = NodesUsageRequest{}
 		for _, f := range o {

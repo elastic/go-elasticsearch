@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newIndicesUpdateAliasesFunc(t Transport) IndicesUpdateAliases {
+// NewIndicesUpdateAliases creates a new API client for the IndicesUpdateAliases endpoint
+//
+func NewIndicesUpdateAliases(t Transport) IndicesUpdateAliases {
 	return func(body io.Reader, o ...func(*IndicesUpdateAliasesRequest)) (*Response, error) {
 		var r = IndicesUpdateAliasesRequest{Body: body}
 		for _, f := range o {

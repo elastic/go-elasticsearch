@@ -15,7 +15,9 @@ import (
 	"time"
 )
 
-func newMLDeleteExpiredDataFunc(t Transport) MLDeleteExpiredData {
+// NewMLDeleteExpiredData creates a new API client for the MLDeleteExpiredData endpoint
+//
+func NewMLDeleteExpiredData(t Transport) MLDeleteExpiredData {
 	return func(o ...func(*MLDeleteExpiredDataRequest)) (*Response, error) {
 		var r = MLDeleteExpiredDataRequest{}
 		for _, f := range o {

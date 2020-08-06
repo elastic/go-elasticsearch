@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newDataFrameTransformDeprecatedDeleteTransformFunc(t Transport) DataFrameTransformDeprecatedDeleteTransform {
+// NewDataFrameTransformDeprecatedDeleteTransform creates a new API client for the DataFrameTransformDeprecatedDeleteTransform endpoint
+//
+func NewDataFrameTransformDeprecatedDeleteTransform(t Transport) DataFrameTransformDeprecatedDeleteTransform {
 	return func(transform_id string, o ...func(*DataFrameTransformDeprecatedDeleteTransformRequest)) (*Response, error) {
 		var r = DataFrameTransformDeprecatedDeleteTransformRequest{TransformID: transform_id}
 		for _, f := range o {

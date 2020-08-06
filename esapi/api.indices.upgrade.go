@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newIndicesUpgradeFunc(t Transport) IndicesUpgrade {
+// NewIndicesUpgrade creates a new API client for the IndicesUpgrade endpoint
+//
+func NewIndicesUpgrade(t Transport) IndicesUpgrade {
 	return func(o ...func(*IndicesUpgradeRequest)) (*Response, error) {
 		var r = IndicesUpgradeRequest{}
 		for _, f := range o {

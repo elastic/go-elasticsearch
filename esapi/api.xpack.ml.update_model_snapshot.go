@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newMLUpdateModelSnapshotFunc(t Transport) MLUpdateModelSnapshot {
+// NewMLUpdateModelSnapshot creates a new API client for the MLUpdateModelSnapshot endpoint
+//
+func NewMLUpdateModelSnapshot(t Transport) MLUpdateModelSnapshot {
 	return func(snapshot_id string, job_id string, body io.Reader, o ...func(*MLUpdateModelSnapshotRequest)) (*Response, error) {
 		var r = MLUpdateModelSnapshotRequest{SnapshotID: snapshot_id, JobID: job_id, Body: body}
 		for _, f := range o {

@@ -13,7 +13,9 @@ import (
 	"time"
 )
 
-func newDataFrameTransformDeprecatedStartTransformFunc(t Transport) DataFrameTransformDeprecatedStartTransform {
+// NewDataFrameTransformDeprecatedStartTransform creates a new API client for the DataFrameTransformDeprecatedStartTransform endpoint
+//
+func NewDataFrameTransformDeprecatedStartTransform(t Transport) DataFrameTransformDeprecatedStartTransform {
 	return func(transform_id string, o ...func(*DataFrameTransformDeprecatedStartTransformRequest)) (*Response, error) {
 		var r = DataFrameTransformDeprecatedStartTransformRequest{TransformID: transform_id}
 		for _, f := range o {

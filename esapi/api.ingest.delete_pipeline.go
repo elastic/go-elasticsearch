@@ -13,7 +13,9 @@ import (
 	"time"
 )
 
-func newIngestDeletePipelineFunc(t Transport) IngestDeletePipeline {
+// NewIngestDeletePipeline creates a new API client for the IngestDeletePipeline endpoint
+//
+func NewIngestDeletePipeline(t Transport) IngestDeletePipeline {
 	return func(id string, o ...func(*IngestDeletePipelineRequest)) (*Response, error) {
 		var r = IngestDeletePipelineRequest{PipelineID: id}
 		for _, f := range o {

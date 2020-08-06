@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newCatMLJobsFunc(t Transport) CatMLJobs {
+// NewCatMLJobs creates a new API client for the CatMLJobs endpoint
+//
+func NewCatMLJobs(t Transport) CatMLJobs {
 	return func(o ...func(*CatMLJobsRequest)) (*Response, error) {
 		var r = CatMLJobsRequest{}
 		for _, f := range o {

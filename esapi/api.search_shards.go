@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newSearchShardsFunc(t Transport) SearchShards {
+// NewSearchShards creates a new API client for the SearchShards endpoint
+//
+func NewSearchShards(t Transport) SearchShards {
 	return func(o ...func(*SearchShardsRequest)) (*Response, error) {
 		var r = SearchShardsRequest{}
 		for _, f := range o {

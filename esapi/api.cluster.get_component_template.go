@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newClusterGetComponentTemplateFunc(t Transport) ClusterGetComponentTemplate {
+// NewClusterGetComponentTemplate creates a new API client for the ClusterGetComponentTemplate endpoint
+//
+func NewClusterGetComponentTemplate(t Transport) ClusterGetComponentTemplate {
 	return func(o ...func(*ClusterGetComponentTemplateRequest)) (*Response, error) {
 		var r = ClusterGetComponentTemplateRequest{}
 		for _, f := range o {

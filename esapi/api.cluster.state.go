@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newClusterStateFunc(t Transport) ClusterState {
+// NewClusterState creates a new API client for the ClusterState endpoint
+//
+func NewClusterState(t Transport) ClusterState {
 	return func(o ...func(*ClusterStateRequest)) (*Response, error) {
 		var r = ClusterStateRequest{}
 		for _, f := range o {

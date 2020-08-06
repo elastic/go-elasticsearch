@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newIndicesUnfreezeFunc(t Transport) IndicesUnfreeze {
+// NewIndicesUnfreeze creates a new API client for the IndicesUnfreeze endpoint
+//
+func NewIndicesUnfreeze(t Transport) IndicesUnfreeze {
 	return func(index string, o ...func(*IndicesUnfreezeRequest)) (*Response, error) {
 		var r = IndicesUnfreezeRequest{Index: index}
 		for _, f := range o {

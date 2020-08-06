@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newSecurityGetUserFunc(t Transport) SecurityGetUser {
+// NewSecurityGetUser creates a new API client for the SecurityGetUser endpoint
+//
+func NewSecurityGetUser(t Transport) SecurityGetUser {
 	return func(o ...func(*SecurityGetUserRequest)) (*Response, error) {
 		var r = SecurityGetUserRequest{}
 		for _, f := range o {

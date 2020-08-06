@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newSQLClearCursorFunc(t Transport) SQLClearCursor {
+// NewSQLClearCursor creates a new API client for the SQLClearCursor endpoint
+//
+func NewSQLClearCursor(t Transport) SQLClearCursor {
 	return func(body io.Reader, o ...func(*SQLClearCursorRequest)) (*Response, error) {
 		var r = SQLClearCursorRequest{Body: body}
 		for _, f := range o {

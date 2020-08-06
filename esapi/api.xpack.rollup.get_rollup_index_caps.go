@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newRollupGetRollupIndexCapsFunc(t Transport) RollupGetRollupIndexCaps {
+// NewRollupGetRollupIndexCaps creates a new API client for the RollupGetRollupIndexCaps endpoint
+//
+func NewRollupGetRollupIndexCaps(t Transport) RollupGetRollupIndexCaps {
 	return func(index string, o ...func(*RollupGetRollupIndexCapsRequest)) (*Response, error) {
 		var r = RollupGetRollupIndexCapsRequest{Index: index}
 		for _, f := range o {

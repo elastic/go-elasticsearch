@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newCCRForgetFollowerFunc(t Transport) CCRForgetFollower {
+// NewCCRForgetFollower creates a new API client for the CCRForgetFollower endpoint
+//
+func NewCCRForgetFollower(t Transport) CCRForgetFollower {
 	return func(index string, body io.Reader, o ...func(*CCRForgetFollowerRequest)) (*Response, error) {
 		var r = CCRForgetFollowerRequest{Index: index, Body: body}
 		for _, f := range o {

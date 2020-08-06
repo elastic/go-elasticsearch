@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newIngestPutPipelineFunc(t Transport) IngestPutPipeline {
+// NewIngestPutPipeline creates a new API client for the IngestPutPipeline endpoint
+//
+func NewIngestPutPipeline(t Transport) IngestPutPipeline {
 	return func(id string, body io.Reader, o ...func(*IngestPutPipelineRequest)) (*Response, error) {
 		var r = IngestPutPipelineRequest{PipelineID: id, Body: body}
 		for _, f := range o {

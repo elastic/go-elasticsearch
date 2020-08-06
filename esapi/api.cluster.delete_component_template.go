@@ -13,7 +13,9 @@ import (
 	"time"
 )
 
-func newClusterDeleteComponentTemplateFunc(t Transport) ClusterDeleteComponentTemplate {
+// NewClusterDeleteComponentTemplate creates a new API client for the ClusterDeleteComponentTemplate endpoint
+//
+func NewClusterDeleteComponentTemplate(t Transport) ClusterDeleteComponentTemplate {
 	return func(name string, o ...func(*ClusterDeleteComponentTemplateRequest)) (*Response, error) {
 		var r = ClusterDeleteComponentTemplateRequest{Name: name}
 		for _, f := range o {

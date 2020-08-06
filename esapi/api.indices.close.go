@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newIndicesCloseFunc(t Transport) IndicesClose {
+// NewIndicesClose creates a new API client for the IndicesClose endpoint
+//
+func NewIndicesClose(t Transport) IndicesClose {
 	return func(index []string, o ...func(*IndicesCloseRequest)) (*Response, error) {
 		var r = IndicesCloseRequest{Index: index}
 		for _, f := range o {

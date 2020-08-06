@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newMLPostCalendarEventsFunc(t Transport) MLPostCalendarEvents {
+// NewMLPostCalendarEvents creates a new API client for the MLPostCalendarEvents endpoint
+//
+func NewMLPostCalendarEvents(t Transport) MLPostCalendarEvents {
 	return func(calendar_id string, body io.Reader, o ...func(*MLPostCalendarEventsRequest)) (*Response, error) {
 		var r = MLPostCalendarEventsRequest{CalendarID: calendar_id, Body: body}
 		for _, f := range o {

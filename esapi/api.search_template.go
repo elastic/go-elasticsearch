@@ -15,7 +15,9 @@ import (
 	"time"
 )
 
-func newSearchTemplateFunc(t Transport) SearchTemplate {
+// NewSearchTemplate creates a new API client for the SearchTemplate endpoint
+//
+func NewSearchTemplate(t Transport) SearchTemplate {
 	return func(body io.Reader, o ...func(*SearchTemplateRequest)) (*Response, error) {
 		var r = SearchTemplateRequest{Body: body}
 		for _, f := range o {

@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newCatHealthFunc(t Transport) CatHealth {
+// NewCatHealth creates a new API client for the CatHealth endpoint
+//
+func NewCatHealth(t Transport) CatHealth {
 	return func(o ...func(*CatHealthRequest)) (*Response, error) {
 		var r = CatHealthRequest{}
 		for _, f := range o {

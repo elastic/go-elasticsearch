@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newGraphExploreFunc(t Transport) GraphExplore {
+// NewGraphExplore creates a new API client for the GraphExplore endpoint
+//
+func NewGraphExplore(t Transport) GraphExplore {
 	return func(index []string, o ...func(*GraphExploreRequest)) (*Response, error) {
 		var r = GraphExploreRequest{Index: index}
 		for _, f := range o {

@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newCatIndicesFunc(t Transport) CatIndices {
+// NewCatIndices creates a new API client for the CatIndices endpoint
+//
+func NewCatIndices(t Transport) CatIndices {
 	return func(o ...func(*CatIndicesRequest)) (*Response, error) {
 		var r = CatIndicesRequest{}
 		for _, f := range o {

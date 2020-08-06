@@ -15,7 +15,9 @@ import (
 	"time"
 )
 
-func newScrollFunc(t Transport) Scroll {
+// NewScroll creates a new API client for the Scroll endpoint
+//
+func NewScroll(t Transport) Scroll {
 	return func(o ...func(*ScrollRequest)) (*Response, error) {
 		var r = ScrollRequest{}
 		for _, f := range o {

@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newCatThreadPoolFunc(t Transport) CatThreadPool {
+// NewCatThreadPool creates a new API client for the CatThreadPool endpoint
+//
+func NewCatThreadPool(t Transport) CatThreadPool {
 	return func(o ...func(*CatThreadPoolRequest)) (*Response, error) {
 		var r = CatThreadPoolRequest{}
 		for _, f := range o {

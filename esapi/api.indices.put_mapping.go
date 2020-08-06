@@ -15,7 +15,9 @@ import (
 	"time"
 )
 
-func newIndicesPutMappingFunc(t Transport) IndicesPutMapping {
+// NewIndicesPutMapping creates a new API client for the IndicesPutMapping endpoint
+//
+func NewIndicesPutMapping(t Transport) IndicesPutMapping {
 	return func(index []string, body io.Reader, o ...func(*IndicesPutMappingRequest)) (*Response, error) {
 		var r = IndicesPutMappingRequest{Index: index, Body: body}
 		for _, f := range o {

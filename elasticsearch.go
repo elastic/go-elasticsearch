@@ -96,6 +96,38 @@ func NewDefaultClient() (*Client, error) {
 // It's an error to set both cfg.Addresses and cfg.CloudID.
 //
 func NewClient(cfg Config) (*Client, error) {
+	tp, err := NewTransportClient(cfg)
+	if err != nil {
+		return nil, err
+	}
+
+	client := &Client{Transport: tp, API: esapi.New(tp)}
+
+	if cfg.DiscoverNodesOnStart {
+		go client.DiscoverNodes()
+	}
+
+	return client, nil
+}
+
+// NewTransportClient creates a new low-level transport client
+// with configuration from cfg. Generally, you'll only want to
+// use this if you want to be selective of the APIs your client
+// uses. In most cases use NewClient, which attempts to discover
+// additional Elasticsearch nodes and automatically instantiates
+// all Elasticsearch API clients for you.
+//
+// It will use http://localhost:9200 as the default address.
+//
+// It will use the ELASTICSEARCH_URL environment variable, if set,
+// to configure the addresses; use a comma to separate multiple URLs.
+//
+// If either cfg.Addresses or cfg.CloudID is set, the ELASTICSEARCH_URL
+// environment variable is ignored.
+//
+// It's an error to set both cfg.Addresses and cfg.CloudID.
+//
+func NewTransportClient(cfg Config) (*estransport.Client, error) {
 	var addrs []string
 
 	if len(cfg.Addresses) == 0 && cfg.CloudID == "" {
@@ -163,14 +195,7 @@ func NewClient(cfg Config) (*Client, error) {
 	if err != nil {
 		return nil, fmt.Errorf("error creating transport: %s", err)
 	}
-
-	client := &Client{Transport: tp, API: esapi.New(tp)}
-
-	if cfg.DiscoverNodesOnStart {
-		go client.DiscoverNodes()
-	}
-
-	return client, nil
+	return tp, nil
 }
 
 // Perform delegates to Transport to execute a request and return a response.

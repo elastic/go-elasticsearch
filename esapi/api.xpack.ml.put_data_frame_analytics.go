@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newMLPutDataFrameAnalyticsFunc(t Transport) MLPutDataFrameAnalytics {
+// NewMLPutDataFrameAnalytics creates a new API client for the MLPutDataFrameAnalytics endpoint
+//
+func NewMLPutDataFrameAnalytics(t Transport) MLPutDataFrameAnalytics {
 	return func(id string, body io.Reader, o ...func(*MLPutDataFrameAnalyticsRequest)) (*Response, error) {
 		var r = MLPutDataFrameAnalyticsRequest{ID: id, Body: body}
 		for _, f := range o {

@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newNodesHotThreadsFunc(t Transport) NodesHotThreads {
+// NewNodesHotThreads creates a new API client for the NodesHotThreads endpoint
+//
+func NewNodesHotThreads(t Transport) NodesHotThreads {
 	return func(o ...func(*NodesHotThreadsRequest)) (*Response, error) {
 		var r = NodesHotThreadsRequest{}
 		for _, f := range o {

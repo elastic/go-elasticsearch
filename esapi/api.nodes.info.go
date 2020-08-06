@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newNodesInfoFunc(t Transport) NodesInfo {
+// NewNodesInfo creates a new API client for the NodesInfo endpoint
+//
+func NewNodesInfo(t Transport) NodesInfo {
 	return func(o ...func(*NodesInfoRequest)) (*Response, error) {
 		var r = NodesInfoRequest{}
 		for _, f := range o {

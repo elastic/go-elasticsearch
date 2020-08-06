@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newMLGetJobsFunc(t Transport) MLGetJobs {
+// NewMLGetJobs creates a new API client for the MLGetJobs endpoint
+//
+func NewMLGetJobs(t Transport) MLGetJobs {
 	return func(o ...func(*MLGetJobsRequest)) (*Response, error) {
 		var r = MLGetJobsRequest{}
 		for _, f := range o {

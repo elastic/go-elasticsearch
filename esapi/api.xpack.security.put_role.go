@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newSecurityPutRoleFunc(t Transport) SecurityPutRole {
+// NewSecurityPutRole creates a new API client for the SecurityPutRole endpoint
+//
+func NewSecurityPutRole(t Transport) SecurityPutRole {
 	return func(name string, body io.Reader, o ...func(*SecurityPutRoleRequest)) (*Response, error) {
 		var r = SecurityPutRoleRequest{Name: name, Body: body}
 		for _, f := range o {

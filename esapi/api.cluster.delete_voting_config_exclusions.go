@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newClusterDeleteVotingConfigExclusionsFunc(t Transport) ClusterDeleteVotingConfigExclusions {
+// NewClusterDeleteVotingConfigExclusions creates a new API client for the ClusterDeleteVotingConfigExclusions endpoint
+//
+func NewClusterDeleteVotingConfigExclusions(t Transport) ClusterDeleteVotingConfigExclusions {
 	return func(o ...func(*ClusterDeleteVotingConfigExclusionsRequest)) (*Response, error) {
 		var r = ClusterDeleteVotingConfigExclusionsRequest{}
 		for _, f := range o {

@@ -13,7 +13,9 @@ import (
 	"time"
 )
 
-func newIngestGetPipelineFunc(t Transport) IngestGetPipeline {
+// NewIngestGetPipeline creates a new API client for the IngestGetPipeline endpoint
+//
+func NewIngestGetPipeline(t Transport) IngestGetPipeline {
 	return func(o ...func(*IngestGetPipelineRequest)) (*Response, error) {
 		var r = IngestGetPipelineRequest{}
 		for _, f := range o {

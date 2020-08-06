@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newMLGetTrainedModelsFunc(t Transport) MLGetTrainedModels {
+// NewMLGetTrainedModels creates a new API client for the MLGetTrainedModels endpoint
+//
+func NewMLGetTrainedModels(t Transport) MLGetTrainedModels {
 	return func(o ...func(*MLGetTrainedModelsRequest)) (*Response, error) {
 		var r = MLGetTrainedModelsRequest{}
 		for _, f := range o {

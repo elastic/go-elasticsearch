@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newIndicesGetFieldMappingFunc(t Transport) IndicesGetFieldMapping {
+// NewIndicesGetFieldMapping creates a new API client for the IndicesGetFieldMapping endpoint
+//
+func NewIndicesGetFieldMapping(t Transport) IndicesGetFieldMapping {
 	return func(fields []string, o ...func(*IndicesGetFieldMappingRequest)) (*Response, error) {
 		var r = IndicesGetFieldMappingRequest{Fields: fields}
 		for _, f := range o {

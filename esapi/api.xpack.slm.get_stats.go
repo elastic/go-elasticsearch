@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newSlmGetStatsFunc(t Transport) SlmGetStats {
+// NewSlmGetStats creates a new API client for the SlmGetStats endpoint
+//
+func NewSlmGetStats(t Transport) SlmGetStats {
 	return func(o ...func(*SlmGetStatsRequest)) (*Response, error) {
 		var r = SlmGetStatsRequest{}
 		for _, f := range o {

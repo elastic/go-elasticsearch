@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newIndicesShrinkFunc(t Transport) IndicesShrink {
+// NewIndicesShrink creates a new API client for the IndicesShrink endpoint
+//
+func NewIndicesShrink(t Transport) IndicesShrink {
 	return func(index string, target string, o ...func(*IndicesShrinkRequest)) (*Response, error) {
 		var r = IndicesShrinkRequest{Index: index, Target: target}
 		for _, f := range o {

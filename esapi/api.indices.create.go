@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newIndicesCreateFunc(t Transport) IndicesCreate {
+// NewIndicesCreate creates a new API client for the IndicesCreate endpoint
+//
+func NewIndicesCreate(t Transport) IndicesCreate {
 	return func(index string, o ...func(*IndicesCreateRequest)) (*Response, error) {
 		var r = IndicesCreateRequest{Index: index}
 		for _, f := range o {

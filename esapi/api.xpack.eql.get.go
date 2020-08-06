@@ -13,7 +13,9 @@ import (
 	"time"
 )
 
-func newEqlGetFunc(t Transport) EqlGet {
+// NewEqlGet creates a new API client for the EqlGet endpoint
+//
+func NewEqlGet(t Transport) EqlGet {
 	return func(id string, o ...func(*EqlGetRequest)) (*Response, error) {
 		var r = EqlGetRequest{DocumentID: id}
 		for _, f := range o {

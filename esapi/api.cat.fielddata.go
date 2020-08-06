@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newCatFielddataFunc(t Transport) CatFielddata {
+// NewCatFielddata creates a new API client for the CatFielddata endpoint
+//
+func NewCatFielddata(t Transport) CatFielddata {
 	return func(o ...func(*CatFielddataRequest)) (*Response, error) {
 		var r = CatFielddataRequest{}
 		for _, f := range o {

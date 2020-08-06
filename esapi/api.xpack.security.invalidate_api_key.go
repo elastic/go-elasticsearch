@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newSecurityInvalidateAPIKeyFunc(t Transport) SecurityInvalidateAPIKey {
+// NewSecurityInvalidateAPIKey creates a new API client for the SecurityInvalidateAPIKey endpoint
+//
+func NewSecurityInvalidateAPIKey(t Transport) SecurityInvalidateAPIKey {
 	return func(body io.Reader, o ...func(*SecurityInvalidateAPIKeyRequest)) (*Response, error) {
 		var r = SecurityInvalidateAPIKeyRequest{Body: body}
 		for _, f := range o {

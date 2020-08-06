@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newCatNodeattrsFunc(t Transport) CatNodeattrs {
+// NewCatNodeattrs creates a new API client for the CatNodeattrs endpoint
+//
+func NewCatNodeattrs(t Transport) CatNodeattrs {
 	return func(o ...func(*CatNodeattrsRequest)) (*Response, error) {
 		var r = CatNodeattrsRequest{}
 		for _, f := range o {

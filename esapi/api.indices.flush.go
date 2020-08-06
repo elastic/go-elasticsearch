@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newIndicesFlushFunc(t Transport) IndicesFlush {
+// NewIndicesFlush creates a new API client for the IndicesFlush endpoint
+//
+func NewIndicesFlush(t Transport) IndicesFlush {
 	return func(o ...func(*IndicesFlushRequest)) (*Response, error) {
 		var r = IndicesFlushRequest{}
 		for _, f := range o {

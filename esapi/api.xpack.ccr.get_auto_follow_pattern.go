@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newCCRGetAutoFollowPatternFunc(t Transport) CCRGetAutoFollowPattern {
+// NewCCRGetAutoFollowPattern creates a new API client for the CCRGetAutoFollowPattern endpoint
+//
+func NewCCRGetAutoFollowPattern(t Transport) CCRGetAutoFollowPattern {
 	return func(o ...func(*CCRGetAutoFollowPatternRequest)) (*Response, error) {
 		var r = CCRGetAutoFollowPatternRequest{}
 		for _, f := range o {

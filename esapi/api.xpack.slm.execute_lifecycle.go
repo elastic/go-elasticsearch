@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newSlmExecuteLifecycleFunc(t Transport) SlmExecuteLifecycle {
+// NewSlmExecuteLifecycle creates a new API client for the SlmExecuteLifecycle endpoint
+//
+func NewSlmExecuteLifecycle(t Transport) SlmExecuteLifecycle {
 	return func(policy_id string, o ...func(*SlmExecuteLifecycleRequest)) (*Response, error) {
 		var r = SlmExecuteLifecycleRequest{PolicyID: policy_id}
 		for _, f := range o {

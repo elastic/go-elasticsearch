@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newSecurityHasPrivilegesFunc(t Transport) SecurityHasPrivileges {
+// NewSecurityHasPrivileges creates a new API client for the SecurityHasPrivileges endpoint
+//
+func NewSecurityHasPrivileges(t Transport) SecurityHasPrivileges {
 	return func(body io.Reader, o ...func(*SecurityHasPrivilegesRequest)) (*Response, error) {
 		var r = SecurityHasPrivilegesRequest{Body: body}
 		for _, f := range o {

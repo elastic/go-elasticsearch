@@ -13,7 +13,9 @@ import (
 	"time"
 )
 
-func newSnapshotCleanupRepositoryFunc(t Transport) SnapshotCleanupRepository {
+// NewSnapshotCleanupRepository creates a new API client for the SnapshotCleanupRepository endpoint
+//
+func NewSnapshotCleanupRepository(t Transport) SnapshotCleanupRepository {
 	return func(repository string, o ...func(*SnapshotCleanupRepositoryRequest)) (*Response, error) {
 		var r = SnapshotCleanupRepositoryRequest{Repository: repository}
 		for _, f := range o {

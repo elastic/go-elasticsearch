@@ -14,7 +14,9 @@ import (
 	"strings"
 )
 
-func newMgetFunc(t Transport) Mget {
+// NewMget creates a new API client for the Mget endpoint
+//
+func NewMget(t Transport) Mget {
 	return func(body io.Reader, o ...func(*MgetRequest)) (*Response, error) {
 		var r = MgetRequest{Body: body}
 		for _, f := range o {

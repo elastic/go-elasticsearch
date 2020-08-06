@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newMLDeleteDataFrameAnalyticsFunc(t Transport) MLDeleteDataFrameAnalytics {
+// NewMLDeleteDataFrameAnalytics creates a new API client for the MLDeleteDataFrameAnalytics endpoint
+//
+func NewMLDeleteDataFrameAnalytics(t Transport) MLDeleteDataFrameAnalytics {
 	return func(id string, o ...func(*MLDeleteDataFrameAnalyticsRequest)) (*Response, error) {
 		var r = MLDeleteDataFrameAnalyticsRequest{ID: id}
 		for _, f := range o {

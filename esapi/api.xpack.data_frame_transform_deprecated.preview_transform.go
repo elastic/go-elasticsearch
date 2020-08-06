@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newDataFrameTransformDeprecatedPreviewTransformFunc(t Transport) DataFrameTransformDeprecatedPreviewTransform {
+// NewDataFrameTransformDeprecatedPreviewTransform creates a new API client for the DataFrameTransformDeprecatedPreviewTransform endpoint
+//
+func NewDataFrameTransformDeprecatedPreviewTransform(t Transport) DataFrameTransformDeprecatedPreviewTransform {
 	return func(body io.Reader, o ...func(*DataFrameTransformDeprecatedPreviewTransformRequest)) (*Response, error) {
 		var r = DataFrameTransformDeprecatedPreviewTransformRequest{Body: body}
 		for _, f := range o {

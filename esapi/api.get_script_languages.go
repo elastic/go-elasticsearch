@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newGetScriptLanguagesFunc(t Transport) GetScriptLanguages {
+// NewGetScriptLanguages creates a new API client for the GetScriptLanguages endpoint
+//
+func NewGetScriptLanguages(t Transport) GetScriptLanguages {
 	return func(o ...func(*GetScriptLanguagesRequest)) (*Response, error) {
 		var r = GetScriptLanguagesRequest{}
 		for _, f := range o {

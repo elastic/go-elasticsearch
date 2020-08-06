@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newSecurityPutPrivilegesFunc(t Transport) SecurityPutPrivileges {
+// NewSecurityPutPrivileges creates a new API client for the SecurityPutPrivileges endpoint
+//
+func NewSecurityPutPrivileges(t Transport) SecurityPutPrivileges {
 	return func(body io.Reader, o ...func(*SecurityPutPrivilegesRequest)) (*Response, error) {
 		var r = SecurityPutPrivilegesRequest{Body: body}
 		for _, f := range o {

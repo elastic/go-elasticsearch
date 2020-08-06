@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newMigrationDeprecationsFunc(t Transport) MigrationDeprecations {
+// NewMigrationDeprecations creates a new API client for the MigrationDeprecations endpoint
+//
+func NewMigrationDeprecations(t Transport) MigrationDeprecations {
 	return func(o ...func(*MigrationDeprecationsRequest)) (*Response, error) {
 		var r = MigrationDeprecationsRequest{}
 		for _, f := range o {

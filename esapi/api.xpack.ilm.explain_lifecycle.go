@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newILMExplainLifecycleFunc(t Transport) ILMExplainLifecycle {
+// NewILMExplainLifecycle creates a new API client for the ILMExplainLifecycle endpoint
+//
+func NewILMExplainLifecycle(t Transport) ILMExplainLifecycle {
 	return func(index string, o ...func(*ILMExplainLifecycleRequest)) (*Response, error) {
 		var r = ILMExplainLifecycleRequest{Index: index}
 		for _, f := range o {

@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newIndicesSplitFunc(t Transport) IndicesSplit {
+// NewIndicesSplit creates a new API client for the IndicesSplit endpoint
+//
+func NewIndicesSplit(t Transport) IndicesSplit {
 	return func(index string, target string, o ...func(*IndicesSplitRequest)) (*Response, error) {
 		var r = IndicesSplitRequest{Index: index, Target: target}
 		for _, f := range o {

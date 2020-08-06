@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newDeleteByQueryRethrottleFunc(t Transport) DeleteByQueryRethrottle {
+// NewDeleteByQueryRethrottle creates a new API client for the DeleteByQueryRethrottle endpoint
+//
+func NewDeleteByQueryRethrottle(t Transport) DeleteByQueryRethrottle {
 	return func(task_id string, requests_per_second *int, o ...func(*DeleteByQueryRethrottleRequest)) (*Response, error) {
 		var r = DeleteByQueryRethrottleRequest{TaskID: task_id, RequestsPerSecond: requests_per_second}
 		for _, f := range o {

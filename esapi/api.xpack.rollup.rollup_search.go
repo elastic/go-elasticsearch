@@ -14,7 +14,9 @@ import (
 	"strings"
 )
 
-func newRollupRollupSearchFunc(t Transport) RollupRollupSearch {
+// NewRollupRollupSearch creates a new API client for the RollupRollupSearch endpoint
+//
+func NewRollupRollupSearch(t Transport) RollupRollupSearch {
 	return func(index []string, body io.Reader, o ...func(*RollupRollupSearchRequest)) (*Response, error) {
 		var r = RollupRollupSearchRequest{Index: index, Body: body}
 		for _, f := range o {

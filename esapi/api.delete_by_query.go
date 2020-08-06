@@ -16,7 +16,9 @@ import (
 	"time"
 )
 
-func newDeleteByQueryFunc(t Transport) DeleteByQuery {
+// NewDeleteByQuery creates a new API client for the DeleteByQuery endpoint
+//
+func NewDeleteByQuery(t Transport) DeleteByQuery {
 	return func(index []string, body io.Reader, o ...func(*DeleteByQueryRequest)) (*Response, error) {
 		var r = DeleteByQueryRequest{Index: index, Body: body}
 		for _, f := range o {

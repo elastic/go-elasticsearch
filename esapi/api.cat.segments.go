@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newCatSegmentsFunc(t Transport) CatSegments {
+// NewCatSegments creates a new API client for the CatSegments endpoint
+//
+func NewCatSegments(t Transport) CatSegments {
 	return func(o ...func(*CatSegmentsRequest)) (*Response, error) {
 		var r = CatSegmentsRequest{}
 		for _, f := range o {

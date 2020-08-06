@@ -14,7 +14,9 @@ import (
 	"strings"
 )
 
-func newMLGetCalendarEventsFunc(t Transport) MLGetCalendarEvents {
+// NewMLGetCalendarEvents creates a new API client for the MLGetCalendarEvents endpoint
+//
+func NewMLGetCalendarEvents(t Transport) MLGetCalendarEvents {
 	return func(calendar_id string, o ...func(*MLGetCalendarEventsRequest)) (*Response, error) {
 		var r = MLGetCalendarEventsRequest{CalendarID: calendar_id}
 		for _, f := range o {

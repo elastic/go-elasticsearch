@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newILMRemovePolicyFunc(t Transport) ILMRemovePolicy {
+// NewILMRemovePolicy creates a new API client for the ILMRemovePolicy endpoint
+//
+func NewILMRemovePolicy(t Transport) ILMRemovePolicy {
 	return func(index string, o ...func(*ILMRemovePolicyRequest)) (*Response, error) {
 		var r = ILMRemovePolicyRequest{Index: index}
 		for _, f := range o {

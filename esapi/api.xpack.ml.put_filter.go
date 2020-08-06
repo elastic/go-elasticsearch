@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newMLPutFilterFunc(t Transport) MLPutFilter {
+// NewMLPutFilter creates a new API client for the MLPutFilter endpoint
+//
+func NewMLPutFilter(t Transport) MLPutFilter {
 	return func(body io.Reader, filter_id string, o ...func(*MLPutFilterRequest)) (*Response, error) {
 		var r = MLPutFilterRequest{Body: body, FilterID: filter_id}
 		for _, f := range o {

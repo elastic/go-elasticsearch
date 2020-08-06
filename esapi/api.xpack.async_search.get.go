@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newAsyncSearchGetFunc(t Transport) AsyncSearchGet {
+// NewAsyncSearchGet creates a new API client for the AsyncSearchGet endpoint
+//
+func NewAsyncSearchGet(t Transport) AsyncSearchGet {
 	return func(id string, o ...func(*AsyncSearchGetRequest)) (*Response, error) {
 		var r = AsyncSearchGetRequest{DocumentID: id}
 		for _, f := range o {

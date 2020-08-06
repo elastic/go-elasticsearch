@@ -13,7 +13,9 @@ import (
 	"time"
 )
 
-func newGetScriptFunc(t Transport) GetScript {
+// NewGetScript creates a new API client for the GetScript endpoint
+//
+func NewGetScript(t Transport) GetScript {
 	return func(id string, o ...func(*GetScriptRequest)) (*Response, error) {
 		var r = GetScriptRequest{ScriptID: id}
 		for _, f := range o {

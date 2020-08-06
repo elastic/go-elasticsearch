@@ -13,7 +13,9 @@ import (
 	"time"
 )
 
-func newClusterPostVotingConfigExclusionsFunc(t Transport) ClusterPostVotingConfigExclusions {
+// NewClusterPostVotingConfigExclusions creates a new API client for the ClusterPostVotingConfigExclusions endpoint
+//
+func NewClusterPostVotingConfigExclusions(t Transport) ClusterPostVotingConfigExclusions {
 	return func(o ...func(*ClusterPostVotingConfigExclusionsRequest)) (*Response, error) {
 		var r = ClusterPostVotingConfigExclusionsRequest{}
 		for _, f := range o {

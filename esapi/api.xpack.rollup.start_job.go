@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newRollupStartJobFunc(t Transport) RollupStartJob {
+// NewRollupStartJob creates a new API client for the RollupStartJob endpoint
+//
+func NewRollupStartJob(t Transport) RollupStartJob {
 	return func(id string, o ...func(*RollupStartJobRequest)) (*Response, error) {
 		var r = RollupStartJobRequest{JobID: id}
 		for _, f := range o {

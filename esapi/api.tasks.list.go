@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newTasksListFunc(t Transport) TasksList {
+// NewTasksList creates a new API client for the TasksList endpoint
+//
+func NewTasksList(t Transport) TasksList {
 	return func(o ...func(*TasksListRequest)) (*Response, error) {
 		var r = TasksListRequest{}
 		for _, f := range o {

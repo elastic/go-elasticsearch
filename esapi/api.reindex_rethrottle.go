@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newReindexRethrottleFunc(t Transport) ReindexRethrottle {
+// NewReindexRethrottle creates a new API client for the ReindexRethrottle endpoint
+//
+func NewReindexRethrottle(t Transport) ReindexRethrottle {
 	return func(task_id string, requests_per_second *int, o ...func(*ReindexRethrottleRequest)) (*Response, error) {
 		var r = ReindexRethrottleRequest{TaskID: task_id, RequestsPerSecond: requests_per_second}
 		for _, f := range o {

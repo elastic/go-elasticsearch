@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newMLInfoFunc(t Transport) MLInfo {
+// NewMLInfo creates a new API client for the MLInfo endpoint
+//
+func NewMLInfo(t Transport) MLInfo {
 	return func(o ...func(*MLInfoRequest)) (*Response, error) {
 		var r = MLInfoRequest{}
 		for _, f := range o {

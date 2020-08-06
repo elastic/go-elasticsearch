@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newILMGetStatusFunc(t Transport) ILMGetStatus {
+// NewILMGetStatus creates a new API client for the ILMGetStatus endpoint
+//
+func NewILMGetStatus(t Transport) ILMGetStatus {
 	return func(o ...func(*ILMGetStatusRequest)) (*Response, error) {
 		var r = ILMGetStatusRequest{}
 		for _, f := range o {

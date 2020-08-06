@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newGetFunc(t Transport) Get {
+// NewGet creates a new API client for the Get endpoint
+//
+func NewGet(t Transport) Get {
 	return func(index string, id string, o ...func(*GetRequest)) (*Response, error) {
 		var r = GetRequest{Index: index, DocumentID: id}
 		for _, f := range o {

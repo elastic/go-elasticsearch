@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newSecurityDeletePrivilegesFunc(t Transport) SecurityDeletePrivileges {
+// NewSecurityDeletePrivileges creates a new API client for the SecurityDeletePrivileges endpoint
+//
+func NewSecurityDeletePrivileges(t Transport) SecurityDeletePrivileges {
 	return func(name string, application string, o ...func(*SecurityDeletePrivilegesRequest)) (*Response, error) {
 		var r = SecurityDeletePrivilegesRequest{Name: name, Application: application}
 		for _, f := range o {

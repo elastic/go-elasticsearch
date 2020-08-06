@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newIngestProcessorGrokFunc(t Transport) IngestProcessorGrok {
+// NewIngestProcessorGrok creates a new API client for the IngestProcessorGrok endpoint
+//
+func NewIngestProcessorGrok(t Transport) IngestProcessorGrok {
 	return func(o ...func(*IngestProcessorGrokRequest)) (*Response, error) {
 		var r = IngestProcessorGrokRequest{}
 		for _, f := range o {

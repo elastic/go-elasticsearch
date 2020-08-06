@@ -14,7 +14,9 @@ import (
 	"strings"
 )
 
-func newTransformPutTransformFunc(t Transport) TransformPutTransform {
+// NewTransformPutTransform creates a new API client for the TransformPutTransform endpoint
+//
+func NewTransformPutTransform(t Transport) TransformPutTransform {
 	return func(body io.Reader, transform_id string, o ...func(*TransformPutTransformRequest)) (*Response, error) {
 		var r = TransformPutTransformRequest{Body: body, TransformID: transform_id}
 		for _, f := range o {

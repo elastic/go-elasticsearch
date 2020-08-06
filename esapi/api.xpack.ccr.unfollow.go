@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newCCRUnfollowFunc(t Transport) CCRUnfollow {
+// NewCCRUnfollow creates a new API client for the CCRUnfollow endpoint
+//
+func NewCCRUnfollow(t Transport) CCRUnfollow {
 	return func(index string, o ...func(*CCRUnfollowRequest)) (*Response, error) {
 		var r = CCRUnfollowRequest{Index: index}
 		for _, f := range o {

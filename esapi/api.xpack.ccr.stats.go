@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newCCRStatsFunc(t Transport) CCRStats {
+// NewCCRStats creates a new API client for the CCRStats endpoint
+//
+func NewCCRStats(t Transport) CCRStats {
 	return func(o ...func(*CCRStatsRequest)) (*Response, error) {
 		var r = CCRStatsRequest{}
 		for _, f := range o {

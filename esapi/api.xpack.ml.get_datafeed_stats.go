@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newMLGetDatafeedStatsFunc(t Transport) MLGetDatafeedStats {
+// NewMLGetDatafeedStats creates a new API client for the MLGetDatafeedStats endpoint
+//
+func NewMLGetDatafeedStats(t Transport) MLGetDatafeedStats {
 	return func(o ...func(*MLGetDatafeedStatsRequest)) (*Response, error) {
 		var r = MLGetDatafeedStatsRequest{}
 		for _, f := range o {

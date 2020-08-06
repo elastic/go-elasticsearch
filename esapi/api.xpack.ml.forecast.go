@@ -13,7 +13,9 @@ import (
 	"time"
 )
 
-func newMLForecastFunc(t Transport) MLForecast {
+// NewMLForecast creates a new API client for the MLForecast endpoint
+//
+func NewMLForecast(t Transport) MLForecast {
 	return func(job_id string, o ...func(*MLForecastRequest)) (*Response, error) {
 		var r = MLForecastRequest{JobID: job_id}
 		for _, f := range o {

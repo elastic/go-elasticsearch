@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newSecurityGetTokenFunc(t Transport) SecurityGetToken {
+// NewSecurityGetToken creates a new API client for the SecurityGetToken endpoint
+//
+func NewSecurityGetToken(t Transport) SecurityGetToken {
 	return func(body io.Reader, o ...func(*SecurityGetTokenRequest)) (*Response, error) {
 		var r = SecurityGetTokenRequest{Body: body}
 		for _, f := range o {

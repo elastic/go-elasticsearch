@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newSQLQueryFunc(t Transport) SQLQuery {
+// NewSQLQuery creates a new API client for the SQLQuery endpoint
+//
+func NewSQLQuery(t Transport) SQLQuery {
 	return func(body io.Reader, o ...func(*SQLQueryRequest)) (*Response, error) {
 		var r = SQLQueryRequest{Body: body}
 		for _, f := range o {

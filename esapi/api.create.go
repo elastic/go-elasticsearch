@@ -15,7 +15,9 @@ import (
 	"time"
 )
 
-func newCreateFunc(t Transport) Create {
+// NewCreate creates a new API client for the Create endpoint
+//
+func NewCreate(t Transport) Create {
 	return func(index string, id string, body io.Reader, o ...func(*CreateRequest)) (*Response, error) {
 		var r = CreateRequest{Index: index, DocumentID: id, Body: body}
 		for _, f := range o {

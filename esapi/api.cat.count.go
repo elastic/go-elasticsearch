@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newCatCountFunc(t Transport) CatCount {
+// NewCatCount creates a new API client for the CatCount endpoint
+//
+func NewCatCount(t Transport) CatCount {
 	return func(o ...func(*CatCountRequest)) (*Response, error) {
 		var r = CatCountRequest{}
 		for _, f := range o {

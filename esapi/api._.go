@@ -1,4 +1,4 @@
-// Code generated from specification version 8.0.0 (785a91c1e3f): DO NOT EDIT
+// Code generated from specification version 8.0.0 (0fd6a17aa17f73a9f981394b0a224c3afec57e90): DO NOT EDIT
 
 package esapi
 
@@ -141,6 +141,38 @@ type Cat struct {
 	Transforms           CatTransforms
 }
 
+// NewCat creates a new API client for Cat APIs
+//
+func NewCat(t Transport) *Cat {
+	return &Cat{
+		Aliases:              NewCatAliases(t),
+		Allocation:           NewCatAllocation(t),
+		Count:                NewCatCount(t),
+		Fielddata:            NewCatFielddata(t),
+		Health:               NewCatHealth(t),
+		Help:                 NewCatHelp(t),
+		Indices:              NewCatIndices(t),
+		MLDataFrameAnalytics: NewCatMLDataFrameAnalytics(t),
+		MLDatafeeds:          NewCatMLDatafeeds(t),
+		MLJobs:               NewCatMLJobs(t),
+		MLTrainedModels:      NewCatMLTrainedModels(t),
+		Master:               NewCatMaster(t),
+		Nodeattrs:            NewCatNodeattrs(t),
+		Nodes:                NewCatNodes(t),
+		PendingTasks:         NewCatPendingTasks(t),
+		Plugins:              NewCatPlugins(t),
+		Recovery:             NewCatRecovery(t),
+		Repositories:         NewCatRepositories(t),
+		Segments:             NewCatSegments(t),
+		Shards:               NewCatShards(t),
+		Snapshots:            NewCatSnapshots(t),
+		Tasks:                NewCatTasks(t),
+		Templates:            NewCatTemplates(t),
+		ThreadPool:           NewCatThreadPool(t),
+		Transforms:           NewCatTransforms(t),
+	}
+}
+
 // Cluster contains the Cluster APIs
 type Cluster struct {
 	AllocationExplain            ClusterAllocationExplain
@@ -158,6 +190,28 @@ type Cluster struct {
 	Reroute                      ClusterReroute
 	State                        ClusterState
 	Stats                        ClusterStats
+}
+
+// NewCluster creates a new API client for Cluster APIs
+//
+func NewCluster(t Transport) *Cluster {
+	return &Cluster{
+		AllocationExplain:            NewClusterAllocationExplain(t),
+		DeleteComponentTemplate:      NewClusterDeleteComponentTemplate(t),
+		DeleteVotingConfigExclusions: NewClusterDeleteVotingConfigExclusions(t),
+		ExistsComponentTemplate:      NewClusterExistsComponentTemplate(t),
+		GetComponentTemplate:         NewClusterGetComponentTemplate(t),
+		GetSettings:                  NewClusterGetSettings(t),
+		Health:                       NewClusterHealth(t),
+		PendingTasks:                 NewClusterPendingTasks(t),
+		PostVotingConfigExclusions:   NewClusterPostVotingConfigExclusions(t),
+		PutComponentTemplate:         NewClusterPutComponentTemplate(t),
+		PutSettings:                  NewClusterPutSettings(t),
+		RemoteInfo:                   NewClusterRemoteInfo(t),
+		Reroute:                      NewClusterReroute(t),
+		State:                        NewClusterState(t),
+		Stats:                        NewClusterStats(t),
+	}
 }
 
 // Indices contains the Indices APIs
@@ -216,6 +270,65 @@ type Indices struct {
 	ValidateQuery         IndicesValidateQuery
 }
 
+// NewIndices creates a new API client for Indices APIs
+//
+func NewIndices(t Transport) *Indices {
+	return &Indices{
+		AddBlock:              NewIndicesAddBlock(t),
+		Analyze:               NewIndicesAnalyze(t),
+		ClearCache:            NewIndicesClearCache(t),
+		Clone:                 NewIndicesClone(t),
+		Close:                 NewIndicesClose(t),
+		CreateDataStream:      NewIndicesCreateDataStream(t),
+		Create:                NewIndicesCreate(t),
+		DataStreamsStats:      NewIndicesDataStreamsStats(t),
+		DeleteAlias:           NewIndicesDeleteAlias(t),
+		DeleteDataStream:      NewIndicesDeleteDataStream(t),
+		DeleteIndexTemplate:   NewIndicesDeleteIndexTemplate(t),
+		Delete:                NewIndicesDelete(t),
+		DeleteTemplate:        NewIndicesDeleteTemplate(t),
+		ExistsAlias:           NewIndicesExistsAlias(t),
+		ExistsDocumentType:    NewIndicesExistsDocumentType(t),
+		ExistsIndexTemplate:   NewIndicesExistsIndexTemplate(t),
+		Exists:                NewIndicesExists(t),
+		ExistsTemplate:        NewIndicesExistsTemplate(t),
+		Flush:                 NewIndicesFlush(t),
+		Forcemerge:            NewIndicesForcemerge(t),
+		Freeze:                NewIndicesFreeze(t),
+		GetAlias:              NewIndicesGetAlias(t),
+		GetDataStream:         NewIndicesGetDataStream(t),
+		GetFieldMapping:       NewIndicesGetFieldMapping(t),
+		GetIndexTemplate:      NewIndicesGetIndexTemplate(t),
+		GetMapping:            NewIndicesGetMapping(t),
+		Get:                   NewIndicesGet(t),
+		GetSettings:           NewIndicesGetSettings(t),
+		GetTemplate:           NewIndicesGetTemplate(t),
+		GetUpgrade:            NewIndicesGetUpgrade(t),
+		Open:                  NewIndicesOpen(t),
+		PutAlias:              NewIndicesPutAlias(t),
+		PutIndexTemplate:      NewIndicesPutIndexTemplate(t),
+		PutMapping:            NewIndicesPutMapping(t),
+		PutSettings:           NewIndicesPutSettings(t),
+		PutTemplate:           NewIndicesPutTemplate(t),
+		Recovery:              NewIndicesRecovery(t),
+		Refresh:               NewIndicesRefresh(t),
+		ReloadSearchAnalyzers: NewIndicesReloadSearchAnalyzers(t),
+		ResolveIndex:          NewIndicesResolveIndex(t),
+		Rollover:              NewIndicesRollover(t),
+		Segments:              NewIndicesSegments(t),
+		ShardStores:           NewIndicesShardStores(t),
+		Shrink:                NewIndicesShrink(t),
+		SimulateIndexTemplate: NewIndicesSimulateIndexTemplate(t),
+		SimulateTemplate:      NewIndicesSimulateTemplate(t),
+		Split:                 NewIndicesSplit(t),
+		Stats:                 NewIndicesStats(t),
+		Unfreeze:              NewIndicesUnfreeze(t),
+		UpdateAliases:         NewIndicesUpdateAliases(t),
+		Upgrade:               NewIndicesUpgrade(t),
+		ValidateQuery:         NewIndicesValidateQuery(t),
+	}
+}
+
 // Ingest contains the Ingest APIs
 type Ingest struct {
 	DeletePipeline IngestDeletePipeline
@@ -223,6 +336,18 @@ type Ingest struct {
 	ProcessorGrok  IngestProcessorGrok
 	PutPipeline    IngestPutPipeline
 	Simulate       IngestSimulate
+}
+
+// NewIngest creates a new API client for Ingest APIs
+//
+func NewIngest(t Transport) *Ingest {
+	return &Ingest{
+		DeletePipeline: NewIngestDeletePipeline(t),
+		GetPipeline:    NewIngestGetPipeline(t),
+		ProcessorGrok:  NewIngestProcessorGrok(t),
+		PutPipeline:    NewIngestPutPipeline(t),
+		Simulate:       NewIngestSimulate(t),
+	}
 }
 
 // Nodes contains the Nodes APIs
@@ -234,8 +359,26 @@ type Nodes struct {
 	Usage                NodesUsage
 }
 
+// NewNodes creates a new API client for Nodes APIs
+//
+func NewNodes(t Transport) *Nodes {
+	return &Nodes{
+		HotThreads:           NewNodesHotThreads(t),
+		Info:                 NewNodesInfo(t),
+		ReloadSecureSettings: NewNodesReloadSecureSettings(t),
+		Stats:                NewNodesStats(t),
+		Usage:                NewNodesUsage(t),
+	}
+}
+
 // Remote contains the Remote APIs
 type Remote struct {
+}
+
+// NewRemote creates a new API client for Remote APIs
+//
+func NewRemote(t Transport) *Remote {
+	return &Remote{}
 }
 
 // Snapshot contains the Snapshot APIs
@@ -252,6 +395,23 @@ type Snapshot struct {
 	VerifyRepository  SnapshotVerifyRepository
 }
 
+// NewSnapshot creates a new API client for Snapshot APIs
+//
+func NewSnapshot(t Transport) *Snapshot {
+	return &Snapshot{
+		CleanupRepository: NewSnapshotCleanupRepository(t),
+		CreateRepository:  NewSnapshotCreateRepository(t),
+		Create:            NewSnapshotCreate(t),
+		DeleteRepository:  NewSnapshotDeleteRepository(t),
+		Delete:            NewSnapshotDelete(t),
+		GetRepository:     NewSnapshotGetRepository(t),
+		Get:               NewSnapshotGet(t),
+		Restore:           NewSnapshotRestore(t),
+		Status:            NewSnapshotStatus(t),
+		VerifyRepository:  NewSnapshotVerifyRepository(t),
+	}
+}
+
 // Tasks contains the Tasks APIs
 type Tasks struct {
 	Cancel TasksCancel
@@ -259,11 +419,31 @@ type Tasks struct {
 	List   TasksList
 }
 
+// NewTasks creates a new API client for Tasks APIs
+//
+func NewTasks(t Transport) *Tasks {
+	return &Tasks{
+		Cancel: NewTasksCancel(t),
+		Get:    NewTasksGet(t),
+		List:   NewTasksList(t),
+	}
+}
+
 // AsyncSearch contains the AsyncSearch APIs
 type AsyncSearch struct {
 	Delete AsyncSearchDelete
 	Get    AsyncSearchGet
 	Submit AsyncSearchSubmit
+}
+
+// NewAsyncSearch creates a new API client for AsyncSearch APIs
+//
+func NewAsyncSearch(t Transport) *AsyncSearch {
+	return &AsyncSearch{
+		Delete: NewAsyncSearchDelete(t),
+		Get:    NewAsyncSearchGet(t),
+		Submit: NewAsyncSearchSubmit(t),
+	}
 }
 
 // CCR contains the CCR APIs
@@ -283,6 +463,26 @@ type CCR struct {
 	Unfollow                CCRUnfollow
 }
 
+// NewCCR creates a new API client for CCR APIs
+//
+func NewCCR(t Transport) *CCR {
+	return &CCR{
+		DeleteAutoFollowPattern: NewCCRDeleteAutoFollowPattern(t),
+		FollowInfo:              NewCCRFollowInfo(t),
+		Follow:                  NewCCRFollow(t),
+		FollowStats:             NewCCRFollowStats(t),
+		ForgetFollower:          NewCCRForgetFollower(t),
+		GetAutoFollowPattern:    NewCCRGetAutoFollowPattern(t),
+		PauseAutoFollowPattern:  NewCCRPauseAutoFollowPattern(t),
+		PauseFollow:             NewCCRPauseFollow(t),
+		PutAutoFollowPattern:    NewCCRPutAutoFollowPattern(t),
+		ResumeAutoFollowPattern: NewCCRResumeAutoFollowPattern(t),
+		ResumeFollow:            NewCCRResumeFollow(t),
+		Stats:                   NewCCRStats(t),
+		Unfollow:                NewCCRUnfollow(t),
+	}
+}
+
 // ILM contains the ILM APIs
 type ILM struct {
 	DeleteLifecycle  ILMDeleteLifecycle
@@ -297,6 +497,23 @@ type ILM struct {
 	Stop             ILMStop
 }
 
+// NewILM creates a new API client for ILM APIs
+//
+func NewILM(t Transport) *ILM {
+	return &ILM{
+		DeleteLifecycle:  NewILMDeleteLifecycle(t),
+		ExplainLifecycle: NewILMExplainLifecycle(t),
+		GetLifecycle:     NewILMGetLifecycle(t),
+		GetStatus:        NewILMGetStatus(t),
+		MoveToStep:       NewILMMoveToStep(t),
+		PutLifecycle:     NewILMPutLifecycle(t),
+		RemovePolicy:     NewILMRemovePolicy(t),
+		Retry:            NewILMRetry(t),
+		Start:            NewILMStart(t),
+		Stop:             NewILMStop(t),
+	}
+}
+
 // License contains the License APIs
 type License struct {
 	Delete         LicenseDelete
@@ -308,9 +525,31 @@ type License struct {
 	PostStartTrial LicensePostStartTrial
 }
 
+// NewLicense creates a new API client for License APIs
+//
+func NewLicense(t Transport) *License {
+	return &License{
+		Delete:         NewLicenseDelete(t),
+		GetBasicStatus: NewLicenseGetBasicStatus(t),
+		Get:            NewLicenseGet(t),
+		GetTrialStatus: NewLicenseGetTrialStatus(t),
+		Post:           NewLicensePost(t),
+		PostStartBasic: NewLicensePostStartBasic(t),
+		PostStartTrial: NewLicensePostStartTrial(t),
+	}
+}
+
 // Migration contains the Migration APIs
 type Migration struct {
 	Deprecations MigrationDeprecations
+}
+
+// NewMigration creates a new API client for Migration APIs
+//
+func NewMigration(t Transport) *Migration {
+	return &Migration{
+		Deprecations: NewMigrationDeprecations(t),
+	}
 }
 
 // ML contains the ML APIs
@@ -377,9 +616,84 @@ type ML struct {
 	Validate                   MLValidate
 }
 
+// NewML creates a new API client for ML APIs
+//
+func NewML(t Transport) *ML {
+	return &ML{
+		CloseJob:                   NewMLCloseJob(t),
+		DeleteCalendarEvent:        NewMLDeleteCalendarEvent(t),
+		DeleteCalendarJob:          NewMLDeleteCalendarJob(t),
+		DeleteCalendar:             NewMLDeleteCalendar(t),
+		DeleteDataFrameAnalytics:   NewMLDeleteDataFrameAnalytics(t),
+		DeleteDatafeed:             NewMLDeleteDatafeed(t),
+		DeleteExpiredData:          NewMLDeleteExpiredData(t),
+		DeleteFilter:               NewMLDeleteFilter(t),
+		DeleteForecast:             NewMLDeleteForecast(t),
+		DeleteJob:                  NewMLDeleteJob(t),
+		DeleteModelSnapshot:        NewMLDeleteModelSnapshot(t),
+		DeleteTrainedModel:         NewMLDeleteTrainedModel(t),
+		EstimateModelMemory:        NewMLEstimateModelMemory(t),
+		EvaluateDataFrame:          NewMLEvaluateDataFrame(t),
+		ExplainDataFrameAnalytics:  NewMLExplainDataFrameAnalytics(t),
+		FindFileStructure:          NewMLFindFileStructure(t),
+		FlushJob:                   NewMLFlushJob(t),
+		Forecast:                   NewMLForecast(t),
+		GetBuckets:                 NewMLGetBuckets(t),
+		GetCalendarEvents:          NewMLGetCalendarEvents(t),
+		GetCalendars:               NewMLGetCalendars(t),
+		GetCategories:              NewMLGetCategories(t),
+		GetDataFrameAnalytics:      NewMLGetDataFrameAnalytics(t),
+		GetDataFrameAnalyticsStats: NewMLGetDataFrameAnalyticsStats(t),
+		GetDatafeedStats:           NewMLGetDatafeedStats(t),
+		GetDatafeeds:               NewMLGetDatafeeds(t),
+		GetFilters:                 NewMLGetFilters(t),
+		GetInfluencers:             NewMLGetInfluencers(t),
+		GetJobStats:                NewMLGetJobStats(t),
+		GetJobs:                    NewMLGetJobs(t),
+		GetModelSnapshots:          NewMLGetModelSnapshots(t),
+		GetOverallBuckets:          NewMLGetOverallBuckets(t),
+		GetRecords:                 NewMLGetRecords(t),
+		GetTrainedModels:           NewMLGetTrainedModels(t),
+		GetTrainedModelsStats:      NewMLGetTrainedModelsStats(t),
+		Info:                       NewMLInfo(t),
+		OpenJob:                    NewMLOpenJob(t),
+		PostCalendarEvents:         NewMLPostCalendarEvents(t),
+		PostData:                   NewMLPostData(t),
+		PreviewDatafeed:            NewMLPreviewDatafeed(t),
+		PutCalendarJob:             NewMLPutCalendarJob(t),
+		PutCalendar:                NewMLPutCalendar(t),
+		PutDataFrameAnalytics:      NewMLPutDataFrameAnalytics(t),
+		PutDatafeed:                NewMLPutDatafeed(t),
+		PutFilter:                  NewMLPutFilter(t),
+		PutJob:                     NewMLPutJob(t),
+		PutTrainedModel:            NewMLPutTrainedModel(t),
+		RevertModelSnapshot:        NewMLRevertModelSnapshot(t),
+		SetUpgradeMode:             NewMLSetUpgradeMode(t),
+		StartDataFrameAnalytics:    NewMLStartDataFrameAnalytics(t),
+		StartDatafeed:              NewMLStartDatafeed(t),
+		StopDataFrameAnalytics:     NewMLStopDataFrameAnalytics(t),
+		StopDatafeed:               NewMLStopDatafeed(t),
+		UpdateDataFrameAnalytics:   NewMLUpdateDataFrameAnalytics(t),
+		UpdateDatafeed:             NewMLUpdateDatafeed(t),
+		UpdateFilter:               NewMLUpdateFilter(t),
+		UpdateJob:                  NewMLUpdateJob(t),
+		UpdateModelSnapshot:        NewMLUpdateModelSnapshot(t),
+		ValidateDetector:           NewMLValidateDetector(t),
+		Validate:                   NewMLValidate(t),
+	}
+}
+
 // Monitoring contains the Monitoring APIs
 type Monitoring struct {
 	Bulk MonitoringBulk
+}
+
+// NewMonitoring creates a new API client for Monitoring APIs
+//
+func NewMonitoring(t Transport) *Monitoring {
+	return &Monitoring{
+		Bulk: NewMonitoringBulk(t),
+	}
 }
 
 // Rollup contains the Rollup APIs
@@ -392,6 +706,21 @@ type Rollup struct {
 	Search       RollupRollupSearch
 	StartJob     RollupStartJob
 	StopJob      RollupStopJob
+}
+
+// NewRollup creates a new API client for Rollup APIs
+//
+func NewRollup(t Transport) *Rollup {
+	return &Rollup{
+		DeleteJob:    NewRollupDeleteJob(t),
+		GetJobs:      NewRollupGetJobs(t),
+		GetCaps:      NewRollupGetRollupCaps(t),
+		GetIndexCaps: NewRollupGetRollupIndexCaps(t),
+		PutJob:       NewRollupPutJob(t),
+		Search:       NewRollupRollupSearch(t),
+		StartJob:     NewRollupStartJob(t),
+		StopJob:      NewRollupStopJob(t),
+	}
 }
 
 // Security contains the Security APIs
@@ -425,6 +754,40 @@ type Security struct {
 	PutUser               SecurityPutUser
 }
 
+// NewSecurity creates a new API client for Security APIs
+//
+func NewSecurity(t Transport) *Security {
+	return &Security{
+		Authenticate:          NewSecurityAuthenticate(t),
+		ChangePassword:        NewSecurityChangePassword(t),
+		ClearCachedPrivileges: NewSecurityClearCachedPrivileges(t),
+		ClearCachedRealms:     NewSecurityClearCachedRealms(t),
+		ClearCachedRoles:      NewSecurityClearCachedRoles(t),
+		CreateAPIKey:          NewSecurityCreateAPIKey(t),
+		DeletePrivileges:      NewSecurityDeletePrivileges(t),
+		DeleteRoleMapping:     NewSecurityDeleteRoleMapping(t),
+		DeleteRole:            NewSecurityDeleteRole(t),
+		DeleteUser:            NewSecurityDeleteUser(t),
+		DisableUser:           NewSecurityDisableUser(t),
+		EnableUser:            NewSecurityEnableUser(t),
+		GetAPIKey:             NewSecurityGetAPIKey(t),
+		GetBuiltinPrivileges:  NewSecurityGetBuiltinPrivileges(t),
+		GetPrivileges:         NewSecurityGetPrivileges(t),
+		GetRoleMapping:        NewSecurityGetRoleMapping(t),
+		GetRole:               NewSecurityGetRole(t),
+		GetToken:              NewSecurityGetToken(t),
+		GetUserPrivileges:     NewSecurityGetUserPrivileges(t),
+		GetUser:               NewSecurityGetUser(t),
+		HasPrivileges:         NewSecurityHasPrivileges(t),
+		InvalidateAPIKey:      NewSecurityInvalidateAPIKey(t),
+		InvalidateToken:       NewSecurityInvalidateToken(t),
+		PutPrivileges:         NewSecurityPutPrivileges(t),
+		PutRoleMapping:        NewSecurityPutRoleMapping(t),
+		PutRole:               NewSecurityPutRole(t),
+		PutUser:               NewSecurityPutUser(t),
+	}
+}
+
 // SQL contains the SQL APIs
 type SQL struct {
 	ClearCursor SQLClearCursor
@@ -432,9 +795,27 @@ type SQL struct {
 	Translate   SQLTranslate
 }
 
+// NewSQL creates a new API client for SQL APIs
+//
+func NewSQL(t Transport) *SQL {
+	return &SQL{
+		ClearCursor: NewSQLClearCursor(t),
+		Query:       NewSQLQuery(t),
+		Translate:   NewSQLTranslate(t),
+	}
+}
+
 // SSL contains the SSL APIs
 type SSL struct {
 	Certificates SSLCertificates
+}
+
+// NewSSL creates a new API client for SSL APIs
+//
+func NewSSL(t Transport) *SSL {
+	return &SSL{
+		Certificates: NewSSLCertificates(t),
+	}
 }
 
 // Watcher contains the Watcher APIs
@@ -451,400 +832,145 @@ type Watcher struct {
 	Stop            WatcherStop
 }
 
+// NewWatcher creates a new API client for Watcher APIs
+//
+func NewWatcher(t Transport) *Watcher {
+	return &Watcher{
+		AckWatch:        NewWatcherAckWatch(t),
+		ActivateWatch:   NewWatcherActivateWatch(t),
+		DeactivateWatch: NewWatcherDeactivateWatch(t),
+		DeleteWatch:     NewWatcherDeleteWatch(t),
+		ExecuteWatch:    NewWatcherExecuteWatch(t),
+		GetWatch:        NewWatcherGetWatch(t),
+		PutWatch:        NewWatcherPutWatch(t),
+		Start:           NewWatcherStart(t),
+		Stats:           NewWatcherStats(t),
+		Stop:            NewWatcherStop(t),
+	}
+}
+
 // XPack contains the XPack APIs
 type XPack struct {
 	Info  XPackInfo
 	Usage XPackUsage
 }
 
+// NewXPack creates a new API client for XPack APIs
+//
+func NewXPack(t Transport) *XPack {
+	return &XPack{
+		Info:  NewXPackInfo(t),
+		Usage: NewXPackUsage(t),
+	}
+}
+
 // New creates new API
 //
 func New(t Transport) *API {
 	return &API{
-		AutoscalingDeleteAutoscalingPolicy:            newAutoscalingDeleteAutoscalingPolicyFunc(t),
-		AutoscalingGetAutoscalingDecision:             newAutoscalingGetAutoscalingDecisionFunc(t),
-		AutoscalingGetAutoscalingPolicy:               newAutoscalingGetAutoscalingPolicyFunc(t),
-		AutoscalingPutAutoscalingPolicy:               newAutoscalingPutAutoscalingPolicyFunc(t),
-		Bulk:                                          newBulkFunc(t),
-		ClearScroll:                                   newClearScrollFunc(t),
-		Count:                                         newCountFunc(t),
-		Create:                                        newCreateFunc(t),
-		DanglingIndicesDeleteDanglingIndex:            newDanglingIndicesDeleteDanglingIndexFunc(t),
-		DanglingIndicesImportDanglingIndex:            newDanglingIndicesImportDanglingIndexFunc(t),
-		DanglingIndicesListDanglingIndices:            newDanglingIndicesListDanglingIndicesFunc(t),
-		DataFrameTransformDeprecatedDeleteTransform:   newDataFrameTransformDeprecatedDeleteTransformFunc(t),
-		DataFrameTransformDeprecatedGetTransform:      newDataFrameTransformDeprecatedGetTransformFunc(t),
-		DataFrameTransformDeprecatedGetTransformStats: newDataFrameTransformDeprecatedGetTransformStatsFunc(t),
-		DataFrameTransformDeprecatedPreviewTransform:  newDataFrameTransformDeprecatedPreviewTransformFunc(t),
-		DataFrameTransformDeprecatedPutTransform:      newDataFrameTransformDeprecatedPutTransformFunc(t),
-		DataFrameTransformDeprecatedStartTransform:    newDataFrameTransformDeprecatedStartTransformFunc(t),
-		DataFrameTransformDeprecatedStopTransform:     newDataFrameTransformDeprecatedStopTransformFunc(t),
-		DataFrameTransformDeprecatedUpdateTransform:   newDataFrameTransformDeprecatedUpdateTransformFunc(t),
-		DeleteByQuery:                                 newDeleteByQueryFunc(t),
-		DeleteByQueryRethrottle:                       newDeleteByQueryRethrottleFunc(t),
-		Delete:                                        newDeleteFunc(t),
-		DeleteScript:                                  newDeleteScriptFunc(t),
-		EnrichDeletePolicy:                            newEnrichDeletePolicyFunc(t),
-		EnrichExecutePolicy:                           newEnrichExecutePolicyFunc(t),
-		EnrichGetPolicy:                               newEnrichGetPolicyFunc(t),
-		EnrichPutPolicy:                               newEnrichPutPolicyFunc(t),
-		EnrichStats:                                   newEnrichStatsFunc(t),
-		EqlDelete:                                     newEqlDeleteFunc(t),
-		EqlGet:                                        newEqlGetFunc(t),
-		EqlSearch:                                     newEqlSearchFunc(t),
-		Exists:                                        newExistsFunc(t),
-		ExistsSource:                                  newExistsSourceFunc(t),
-		Explain:                                       newExplainFunc(t),
-		FieldCaps:                                     newFieldCapsFunc(t),
-		Get:                                           newGetFunc(t),
-		GetScriptContext:                              newGetScriptContextFunc(t),
-		GetScriptLanguages:                            newGetScriptLanguagesFunc(t),
-		GetScript:                                     newGetScriptFunc(t),
-		GetSource:                                     newGetSourceFunc(t),
-		GraphExplore:                                  newGraphExploreFunc(t),
-		Index:                                         newIndexFunc(t),
-		Info:                                          newInfoFunc(t),
-		Mget:                                          newMgetFunc(t),
-		Msearch:                                       newMsearchFunc(t),
-		MsearchTemplate:                               newMsearchTemplateFunc(t),
-		Mtermvectors:                                  newMtermvectorsFunc(t),
-		Ping:                                          newPingFunc(t),
-		PutScript:                                     newPutScriptFunc(t),
-		RankEval:                                      newRankEvalFunc(t),
-		Reindex:                                       newReindexFunc(t),
-		ReindexRethrottle:                             newReindexRethrottleFunc(t),
-		RenderSearchTemplate:                          newRenderSearchTemplateFunc(t),
-		ScriptsPainlessExecute:                        newScriptsPainlessExecuteFunc(t),
-		Scroll:                                        newScrollFunc(t),
-		Search:                                        newSearchFunc(t),
-		SearchShards:                                  newSearchShardsFunc(t),
-		SearchTemplate:                                newSearchTemplateFunc(t),
-		SearchableSnapshotsClearCache:                 newSearchableSnapshotsClearCacheFunc(t),
-		SearchableSnapshotsMount:                      newSearchableSnapshotsMountFunc(t),
-		SearchableSnapshotsRepositoryStats:            newSearchableSnapshotsRepositoryStatsFunc(t),
-		SearchableSnapshotsStats:                      newSearchableSnapshotsStatsFunc(t),
-		SlmDeleteLifecycle:                            newSlmDeleteLifecycleFunc(t),
-		SlmExecuteLifecycle:                           newSlmExecuteLifecycleFunc(t),
-		SlmExecuteRetention:                           newSlmExecuteRetentionFunc(t),
-		SlmGetLifecycle:                               newSlmGetLifecycleFunc(t),
-		SlmGetStats:                                   newSlmGetStatsFunc(t),
-		SlmGetStatus:                                  newSlmGetStatusFunc(t),
-		SlmPutLifecycle:                               newSlmPutLifecycleFunc(t),
-		SlmStart:                                      newSlmStartFunc(t),
-		SlmStop:                                       newSlmStopFunc(t),
-		Termvectors:                                   newTermvectorsFunc(t),
-		TransformDeleteTransform:                      newTransformDeleteTransformFunc(t),
-		TransformGetTransform:                         newTransformGetTransformFunc(t),
-		TransformGetTransformStats:                    newTransformGetTransformStatsFunc(t),
-		TransformPreviewTransform:                     newTransformPreviewTransformFunc(t),
-		TransformPutTransform:                         newTransformPutTransformFunc(t),
-		TransformStartTransform:                       newTransformStartTransformFunc(t),
-		TransformStopTransform:                        newTransformStopTransformFunc(t),
-		TransformUpdateTransform:                      newTransformUpdateTransformFunc(t),
-		UpdateByQuery:                                 newUpdateByQueryFunc(t),
-		UpdateByQueryRethrottle:                       newUpdateByQueryRethrottleFunc(t),
-		Update:                                        newUpdateFunc(t),
-		Cat: &Cat{
-			Aliases:              newCatAliasesFunc(t),
-			Allocation:           newCatAllocationFunc(t),
-			Count:                newCatCountFunc(t),
-			Fielddata:            newCatFielddataFunc(t),
-			Health:               newCatHealthFunc(t),
-			Help:                 newCatHelpFunc(t),
-			Indices:              newCatIndicesFunc(t),
-			MLDataFrameAnalytics: newCatMLDataFrameAnalyticsFunc(t),
-			MLDatafeeds:          newCatMLDatafeedsFunc(t),
-			MLJobs:               newCatMLJobsFunc(t),
-			MLTrainedModels:      newCatMLTrainedModelsFunc(t),
-			Master:               newCatMasterFunc(t),
-			Nodeattrs:            newCatNodeattrsFunc(t),
-			Nodes:                newCatNodesFunc(t),
-			PendingTasks:         newCatPendingTasksFunc(t),
-			Plugins:              newCatPluginsFunc(t),
-			Recovery:             newCatRecoveryFunc(t),
-			Repositories:         newCatRepositoriesFunc(t),
-			Segments:             newCatSegmentsFunc(t),
-			Shards:               newCatShardsFunc(t),
-			Snapshots:            newCatSnapshotsFunc(t),
-			Tasks:                newCatTasksFunc(t),
-			Templates:            newCatTemplatesFunc(t),
-			ThreadPool:           newCatThreadPoolFunc(t),
-			Transforms:           newCatTransformsFunc(t),
-		},
-		Cluster: &Cluster{
-			AllocationExplain:            newClusterAllocationExplainFunc(t),
-			DeleteComponentTemplate:      newClusterDeleteComponentTemplateFunc(t),
-			DeleteVotingConfigExclusions: newClusterDeleteVotingConfigExclusionsFunc(t),
-			ExistsComponentTemplate:      newClusterExistsComponentTemplateFunc(t),
-			GetComponentTemplate:         newClusterGetComponentTemplateFunc(t),
-			GetSettings:                  newClusterGetSettingsFunc(t),
-			Health:                       newClusterHealthFunc(t),
-			PendingTasks:                 newClusterPendingTasksFunc(t),
-			PostVotingConfigExclusions:   newClusterPostVotingConfigExclusionsFunc(t),
-			PutComponentTemplate:         newClusterPutComponentTemplateFunc(t),
-			PutSettings:                  newClusterPutSettingsFunc(t),
-			RemoteInfo:                   newClusterRemoteInfoFunc(t),
-			Reroute:                      newClusterRerouteFunc(t),
-			State:                        newClusterStateFunc(t),
-			Stats:                        newClusterStatsFunc(t),
-		},
-		Indices: &Indices{
-			AddBlock:              newIndicesAddBlockFunc(t),
-			Analyze:               newIndicesAnalyzeFunc(t),
-			ClearCache:            newIndicesClearCacheFunc(t),
-			Clone:                 newIndicesCloneFunc(t),
-			Close:                 newIndicesCloseFunc(t),
-			CreateDataStream:      newIndicesCreateDataStreamFunc(t),
-			Create:                newIndicesCreateFunc(t),
-			DataStreamsStats:      newIndicesDataStreamsStatsFunc(t),
-			DeleteAlias:           newIndicesDeleteAliasFunc(t),
-			DeleteDataStream:      newIndicesDeleteDataStreamFunc(t),
-			DeleteIndexTemplate:   newIndicesDeleteIndexTemplateFunc(t),
-			Delete:                newIndicesDeleteFunc(t),
-			DeleteTemplate:        newIndicesDeleteTemplateFunc(t),
-			ExistsAlias:           newIndicesExistsAliasFunc(t),
-			ExistsDocumentType:    newIndicesExistsDocumentTypeFunc(t),
-			ExistsIndexTemplate:   newIndicesExistsIndexTemplateFunc(t),
-			Exists:                newIndicesExistsFunc(t),
-			ExistsTemplate:        newIndicesExistsTemplateFunc(t),
-			Flush:                 newIndicesFlushFunc(t),
-			Forcemerge:            newIndicesForcemergeFunc(t),
-			Freeze:                newIndicesFreezeFunc(t),
-			GetAlias:              newIndicesGetAliasFunc(t),
-			GetDataStream:         newIndicesGetDataStreamFunc(t),
-			GetFieldMapping:       newIndicesGetFieldMappingFunc(t),
-			GetIndexTemplate:      newIndicesGetIndexTemplateFunc(t),
-			GetMapping:            newIndicesGetMappingFunc(t),
-			Get:                   newIndicesGetFunc(t),
-			GetSettings:           newIndicesGetSettingsFunc(t),
-			GetTemplate:           newIndicesGetTemplateFunc(t),
-			GetUpgrade:            newIndicesGetUpgradeFunc(t),
-			Open:                  newIndicesOpenFunc(t),
-			PutAlias:              newIndicesPutAliasFunc(t),
-			PutIndexTemplate:      newIndicesPutIndexTemplateFunc(t),
-			PutMapping:            newIndicesPutMappingFunc(t),
-			PutSettings:           newIndicesPutSettingsFunc(t),
-			PutTemplate:           newIndicesPutTemplateFunc(t),
-			Recovery:              newIndicesRecoveryFunc(t),
-			Refresh:               newIndicesRefreshFunc(t),
-			ReloadSearchAnalyzers: newIndicesReloadSearchAnalyzersFunc(t),
-			ResolveIndex:          newIndicesResolveIndexFunc(t),
-			Rollover:              newIndicesRolloverFunc(t),
-			Segments:              newIndicesSegmentsFunc(t),
-			ShardStores:           newIndicesShardStoresFunc(t),
-			Shrink:                newIndicesShrinkFunc(t),
-			SimulateIndexTemplate: newIndicesSimulateIndexTemplateFunc(t),
-			SimulateTemplate:      newIndicesSimulateTemplateFunc(t),
-			Split:                 newIndicesSplitFunc(t),
-			Stats:                 newIndicesStatsFunc(t),
-			Unfreeze:              newIndicesUnfreezeFunc(t),
-			UpdateAliases:         newIndicesUpdateAliasesFunc(t),
-			Upgrade:               newIndicesUpgradeFunc(t),
-			ValidateQuery:         newIndicesValidateQueryFunc(t),
-		},
-		Ingest: &Ingest{
-			DeletePipeline: newIngestDeletePipelineFunc(t),
-			GetPipeline:    newIngestGetPipelineFunc(t),
-			ProcessorGrok:  newIngestProcessorGrokFunc(t),
-			PutPipeline:    newIngestPutPipelineFunc(t),
-			Simulate:       newIngestSimulateFunc(t),
-		},
-		Nodes: &Nodes{
-			HotThreads:           newNodesHotThreadsFunc(t),
-			Info:                 newNodesInfoFunc(t),
-			ReloadSecureSettings: newNodesReloadSecureSettingsFunc(t),
-			Stats:                newNodesStatsFunc(t),
-			Usage:                newNodesUsageFunc(t),
-		},
-		Remote: &Remote{},
-		Snapshot: &Snapshot{
-			CleanupRepository: newSnapshotCleanupRepositoryFunc(t),
-			CreateRepository:  newSnapshotCreateRepositoryFunc(t),
-			Create:            newSnapshotCreateFunc(t),
-			DeleteRepository:  newSnapshotDeleteRepositoryFunc(t),
-			Delete:            newSnapshotDeleteFunc(t),
-			GetRepository:     newSnapshotGetRepositoryFunc(t),
-			Get:               newSnapshotGetFunc(t),
-			Restore:           newSnapshotRestoreFunc(t),
-			Status:            newSnapshotStatusFunc(t),
-			VerifyRepository:  newSnapshotVerifyRepositoryFunc(t),
-		},
-		Tasks: &Tasks{
-			Cancel: newTasksCancelFunc(t),
-			Get:    newTasksGetFunc(t),
-			List:   newTasksListFunc(t),
-		},
-		AsyncSearch: &AsyncSearch{
-			Delete: newAsyncSearchDeleteFunc(t),
-			Get:    newAsyncSearchGetFunc(t),
-			Submit: newAsyncSearchSubmitFunc(t),
-		},
-		CCR: &CCR{
-			DeleteAutoFollowPattern: newCCRDeleteAutoFollowPatternFunc(t),
-			FollowInfo:              newCCRFollowInfoFunc(t),
-			Follow:                  newCCRFollowFunc(t),
-			FollowStats:             newCCRFollowStatsFunc(t),
-			ForgetFollower:          newCCRForgetFollowerFunc(t),
-			GetAutoFollowPattern:    newCCRGetAutoFollowPatternFunc(t),
-			PauseAutoFollowPattern:  newCCRPauseAutoFollowPatternFunc(t),
-			PauseFollow:             newCCRPauseFollowFunc(t),
-			PutAutoFollowPattern:    newCCRPutAutoFollowPatternFunc(t),
-			ResumeAutoFollowPattern: newCCRResumeAutoFollowPatternFunc(t),
-			ResumeFollow:            newCCRResumeFollowFunc(t),
-			Stats:                   newCCRStatsFunc(t),
-			Unfollow:                newCCRUnfollowFunc(t),
-		},
-		ILM: &ILM{
-			DeleteLifecycle:  newILMDeleteLifecycleFunc(t),
-			ExplainLifecycle: newILMExplainLifecycleFunc(t),
-			GetLifecycle:     newILMGetLifecycleFunc(t),
-			GetStatus:        newILMGetStatusFunc(t),
-			MoveToStep:       newILMMoveToStepFunc(t),
-			PutLifecycle:     newILMPutLifecycleFunc(t),
-			RemovePolicy:     newILMRemovePolicyFunc(t),
-			Retry:            newILMRetryFunc(t),
-			Start:            newILMStartFunc(t),
-			Stop:             newILMStopFunc(t),
-		},
-		License: &License{
-			Delete:         newLicenseDeleteFunc(t),
-			GetBasicStatus: newLicenseGetBasicStatusFunc(t),
-			Get:            newLicenseGetFunc(t),
-			GetTrialStatus: newLicenseGetTrialStatusFunc(t),
-			Post:           newLicensePostFunc(t),
-			PostStartBasic: newLicensePostStartBasicFunc(t),
-			PostStartTrial: newLicensePostStartTrialFunc(t),
-		},
-		Migration: &Migration{
-			Deprecations: newMigrationDeprecationsFunc(t),
-		},
-		ML: &ML{
-			CloseJob:                   newMLCloseJobFunc(t),
-			DeleteCalendarEvent:        newMLDeleteCalendarEventFunc(t),
-			DeleteCalendarJob:          newMLDeleteCalendarJobFunc(t),
-			DeleteCalendar:             newMLDeleteCalendarFunc(t),
-			DeleteDataFrameAnalytics:   newMLDeleteDataFrameAnalyticsFunc(t),
-			DeleteDatafeed:             newMLDeleteDatafeedFunc(t),
-			DeleteExpiredData:          newMLDeleteExpiredDataFunc(t),
-			DeleteFilter:               newMLDeleteFilterFunc(t),
-			DeleteForecast:             newMLDeleteForecastFunc(t),
-			DeleteJob:                  newMLDeleteJobFunc(t),
-			DeleteModelSnapshot:        newMLDeleteModelSnapshotFunc(t),
-			DeleteTrainedModel:         newMLDeleteTrainedModelFunc(t),
-			EstimateModelMemory:        newMLEstimateModelMemoryFunc(t),
-			EvaluateDataFrame:          newMLEvaluateDataFrameFunc(t),
-			ExplainDataFrameAnalytics:  newMLExplainDataFrameAnalyticsFunc(t),
-			FindFileStructure:          newMLFindFileStructureFunc(t),
-			FlushJob:                   newMLFlushJobFunc(t),
-			Forecast:                   newMLForecastFunc(t),
-			GetBuckets:                 newMLGetBucketsFunc(t),
-			GetCalendarEvents:          newMLGetCalendarEventsFunc(t),
-			GetCalendars:               newMLGetCalendarsFunc(t),
-			GetCategories:              newMLGetCategoriesFunc(t),
-			GetDataFrameAnalytics:      newMLGetDataFrameAnalyticsFunc(t),
-			GetDataFrameAnalyticsStats: newMLGetDataFrameAnalyticsStatsFunc(t),
-			GetDatafeedStats:           newMLGetDatafeedStatsFunc(t),
-			GetDatafeeds:               newMLGetDatafeedsFunc(t),
-			GetFilters:                 newMLGetFiltersFunc(t),
-			GetInfluencers:             newMLGetInfluencersFunc(t),
-			GetJobStats:                newMLGetJobStatsFunc(t),
-			GetJobs:                    newMLGetJobsFunc(t),
-			GetModelSnapshots:          newMLGetModelSnapshotsFunc(t),
-			GetOverallBuckets:          newMLGetOverallBucketsFunc(t),
-			GetRecords:                 newMLGetRecordsFunc(t),
-			GetTrainedModels:           newMLGetTrainedModelsFunc(t),
-			GetTrainedModelsStats:      newMLGetTrainedModelsStatsFunc(t),
-			Info:                       newMLInfoFunc(t),
-			OpenJob:                    newMLOpenJobFunc(t),
-			PostCalendarEvents:         newMLPostCalendarEventsFunc(t),
-			PostData:                   newMLPostDataFunc(t),
-			PreviewDatafeed:            newMLPreviewDatafeedFunc(t),
-			PutCalendarJob:             newMLPutCalendarJobFunc(t),
-			PutCalendar:                newMLPutCalendarFunc(t),
-			PutDataFrameAnalytics:      newMLPutDataFrameAnalyticsFunc(t),
-			PutDatafeed:                newMLPutDatafeedFunc(t),
-			PutFilter:                  newMLPutFilterFunc(t),
-			PutJob:                     newMLPutJobFunc(t),
-			PutTrainedModel:            newMLPutTrainedModelFunc(t),
-			RevertModelSnapshot:        newMLRevertModelSnapshotFunc(t),
-			SetUpgradeMode:             newMLSetUpgradeModeFunc(t),
-			StartDataFrameAnalytics:    newMLStartDataFrameAnalyticsFunc(t),
-			StartDatafeed:              newMLStartDatafeedFunc(t),
-			StopDataFrameAnalytics:     newMLStopDataFrameAnalyticsFunc(t),
-			StopDatafeed:               newMLStopDatafeedFunc(t),
-			UpdateDataFrameAnalytics:   newMLUpdateDataFrameAnalyticsFunc(t),
-			UpdateDatafeed:             newMLUpdateDatafeedFunc(t),
-			UpdateFilter:               newMLUpdateFilterFunc(t),
-			UpdateJob:                  newMLUpdateJobFunc(t),
-			UpdateModelSnapshot:        newMLUpdateModelSnapshotFunc(t),
-			ValidateDetector:           newMLValidateDetectorFunc(t),
-			Validate:                   newMLValidateFunc(t),
-		},
-		Monitoring: &Monitoring{
-			Bulk: newMonitoringBulkFunc(t),
-		},
-		Rollup: &Rollup{
-			DeleteJob:    newRollupDeleteJobFunc(t),
-			GetJobs:      newRollupGetJobsFunc(t),
-			GetCaps:      newRollupGetRollupCapsFunc(t),
-			GetIndexCaps: newRollupGetRollupIndexCapsFunc(t),
-			PutJob:       newRollupPutJobFunc(t),
-			Search:       newRollupRollupSearchFunc(t),
-			StartJob:     newRollupStartJobFunc(t),
-			StopJob:      newRollupStopJobFunc(t),
-		},
-		Security: &Security{
-			Authenticate:          newSecurityAuthenticateFunc(t),
-			ChangePassword:        newSecurityChangePasswordFunc(t),
-			ClearCachedPrivileges: newSecurityClearCachedPrivilegesFunc(t),
-			ClearCachedRealms:     newSecurityClearCachedRealmsFunc(t),
-			ClearCachedRoles:      newSecurityClearCachedRolesFunc(t),
-			CreateAPIKey:          newSecurityCreateAPIKeyFunc(t),
-			DeletePrivileges:      newSecurityDeletePrivilegesFunc(t),
-			DeleteRoleMapping:     newSecurityDeleteRoleMappingFunc(t),
-			DeleteRole:            newSecurityDeleteRoleFunc(t),
-			DeleteUser:            newSecurityDeleteUserFunc(t),
-			DisableUser:           newSecurityDisableUserFunc(t),
-			EnableUser:            newSecurityEnableUserFunc(t),
-			GetAPIKey:             newSecurityGetAPIKeyFunc(t),
-			GetBuiltinPrivileges:  newSecurityGetBuiltinPrivilegesFunc(t),
-			GetPrivileges:         newSecurityGetPrivilegesFunc(t),
-			GetRoleMapping:        newSecurityGetRoleMappingFunc(t),
-			GetRole:               newSecurityGetRoleFunc(t),
-			GetToken:              newSecurityGetTokenFunc(t),
-			GetUserPrivileges:     newSecurityGetUserPrivilegesFunc(t),
-			GetUser:               newSecurityGetUserFunc(t),
-			HasPrivileges:         newSecurityHasPrivilegesFunc(t),
-			InvalidateAPIKey:      newSecurityInvalidateAPIKeyFunc(t),
-			InvalidateToken:       newSecurityInvalidateTokenFunc(t),
-			PutPrivileges:         newSecurityPutPrivilegesFunc(t),
-			PutRoleMapping:        newSecurityPutRoleMappingFunc(t),
-			PutRole:               newSecurityPutRoleFunc(t),
-			PutUser:               newSecurityPutUserFunc(t),
-		},
-		SQL: &SQL{
-			ClearCursor: newSQLClearCursorFunc(t),
-			Query:       newSQLQueryFunc(t),
-			Translate:   newSQLTranslateFunc(t),
-		},
-		SSL: &SSL{
-			Certificates: newSSLCertificatesFunc(t),
-		},
-		Watcher: &Watcher{
-			AckWatch:        newWatcherAckWatchFunc(t),
-			ActivateWatch:   newWatcherActivateWatchFunc(t),
-			DeactivateWatch: newWatcherDeactivateWatchFunc(t),
-			DeleteWatch:     newWatcherDeleteWatchFunc(t),
-			ExecuteWatch:    newWatcherExecuteWatchFunc(t),
-			GetWatch:        newWatcherGetWatchFunc(t),
-			PutWatch:        newWatcherPutWatchFunc(t),
-			Start:           newWatcherStartFunc(t),
-			Stats:           newWatcherStatsFunc(t),
-			Stop:            newWatcherStopFunc(t),
-		},
-		XPack: &XPack{
-			Info:  newXPackInfoFunc(t),
-			Usage: newXPackUsageFunc(t),
-		},
+		AutoscalingDeleteAutoscalingPolicy:            NewAutoscalingDeleteAutoscalingPolicy(t),
+		AutoscalingGetAutoscalingDecision:             NewAutoscalingGetAutoscalingDecision(t),
+		AutoscalingGetAutoscalingPolicy:               NewAutoscalingGetAutoscalingPolicy(t),
+		AutoscalingPutAutoscalingPolicy:               NewAutoscalingPutAutoscalingPolicy(t),
+		Bulk:                                          NewBulk(t),
+		ClearScroll:                                   NewClearScroll(t),
+		Count:                                         NewCount(t),
+		Create:                                        NewCreate(t),
+		DanglingIndicesDeleteDanglingIndex:            NewDanglingIndicesDeleteDanglingIndex(t),
+		DanglingIndicesImportDanglingIndex:            NewDanglingIndicesImportDanglingIndex(t),
+		DanglingIndicesListDanglingIndices:            NewDanglingIndicesListDanglingIndices(t),
+		DataFrameTransformDeprecatedDeleteTransform:   NewDataFrameTransformDeprecatedDeleteTransform(t),
+		DataFrameTransformDeprecatedGetTransform:      NewDataFrameTransformDeprecatedGetTransform(t),
+		DataFrameTransformDeprecatedGetTransformStats: NewDataFrameTransformDeprecatedGetTransformStats(t),
+		DataFrameTransformDeprecatedPreviewTransform:  NewDataFrameTransformDeprecatedPreviewTransform(t),
+		DataFrameTransformDeprecatedPutTransform:      NewDataFrameTransformDeprecatedPutTransform(t),
+		DataFrameTransformDeprecatedStartTransform:    NewDataFrameTransformDeprecatedStartTransform(t),
+		DataFrameTransformDeprecatedStopTransform:     NewDataFrameTransformDeprecatedStopTransform(t),
+		DataFrameTransformDeprecatedUpdateTransform:   NewDataFrameTransformDeprecatedUpdateTransform(t),
+		DeleteByQuery:                                 NewDeleteByQuery(t),
+		DeleteByQueryRethrottle:                       NewDeleteByQueryRethrottle(t),
+		Delete:                                        NewDelete(t),
+		DeleteScript:                                  NewDeleteScript(t),
+		EnrichDeletePolicy:                            NewEnrichDeletePolicy(t),
+		EnrichExecutePolicy:                           NewEnrichExecutePolicy(t),
+		EnrichGetPolicy:                               NewEnrichGetPolicy(t),
+		EnrichPutPolicy:                               NewEnrichPutPolicy(t),
+		EnrichStats:                                   NewEnrichStats(t),
+		EqlDelete:                                     NewEqlDelete(t),
+		EqlGet:                                        NewEqlGet(t),
+		EqlSearch:                                     NewEqlSearch(t),
+		Exists:                                        NewExists(t),
+		ExistsSource:                                  NewExistsSource(t),
+		Explain:                                       NewExplain(t),
+		FieldCaps:                                     NewFieldCaps(t),
+		Get:                                           NewGet(t),
+		GetScriptContext:                              NewGetScriptContext(t),
+		GetScriptLanguages:                            NewGetScriptLanguages(t),
+		GetScript:                                     NewGetScript(t),
+		GetSource:                                     NewGetSource(t),
+		GraphExplore:                                  NewGraphExplore(t),
+		Index:                                         NewIndex(t),
+		Info:                                          NewInfo(t),
+		Mget:                                          NewMget(t),
+		Msearch:                                       NewMsearch(t),
+		MsearchTemplate:                               NewMsearchTemplate(t),
+		Mtermvectors:                                  NewMtermvectors(t),
+		Ping:                                          NewPing(t),
+		PutScript:                                     NewPutScript(t),
+		RankEval:                                      NewRankEval(t),
+		Reindex:                                       NewReindex(t),
+		ReindexRethrottle:                             NewReindexRethrottle(t),
+		RenderSearchTemplate:                          NewRenderSearchTemplate(t),
+		ScriptsPainlessExecute:                        NewScriptsPainlessExecute(t),
+		Scroll:                                        NewScroll(t),
+		Search:                                        NewSearch(t),
+		SearchShards:                                  NewSearchShards(t),
+		SearchTemplate:                                NewSearchTemplate(t),
+		SearchableSnapshotsClearCache:                 NewSearchableSnapshotsClearCache(t),
+		SearchableSnapshotsMount:                      NewSearchableSnapshotsMount(t),
+		SearchableSnapshotsRepositoryStats:            NewSearchableSnapshotsRepositoryStats(t),
+		SearchableSnapshotsStats:                      NewSearchableSnapshotsStats(t),
+		SlmDeleteLifecycle:                            NewSlmDeleteLifecycle(t),
+		SlmExecuteLifecycle:                           NewSlmExecuteLifecycle(t),
+		SlmExecuteRetention:                           NewSlmExecuteRetention(t),
+		SlmGetLifecycle:                               NewSlmGetLifecycle(t),
+		SlmGetStats:                                   NewSlmGetStats(t),
+		SlmGetStatus:                                  NewSlmGetStatus(t),
+		SlmPutLifecycle:                               NewSlmPutLifecycle(t),
+		SlmStart:                                      NewSlmStart(t),
+		SlmStop:                                       NewSlmStop(t),
+		Termvectors:                                   NewTermvectors(t),
+		TransformDeleteTransform:                      NewTransformDeleteTransform(t),
+		TransformGetTransform:                         NewTransformGetTransform(t),
+		TransformGetTransformStats:                    NewTransformGetTransformStats(t),
+		TransformPreviewTransform:                     NewTransformPreviewTransform(t),
+		TransformPutTransform:                         NewTransformPutTransform(t),
+		TransformStartTransform:                       NewTransformStartTransform(t),
+		TransformStopTransform:                        NewTransformStopTransform(t),
+		TransformUpdateTransform:                      NewTransformUpdateTransform(t),
+		UpdateByQuery:                                 NewUpdateByQuery(t),
+		UpdateByQueryRethrottle:                       NewUpdateByQueryRethrottle(t),
+		Update:                                        NewUpdate(t),
+		Cat:                                           NewCat(t),
+		Cluster:                                       NewCluster(t),
+		Indices:                                       NewIndices(t),
+		Ingest:                                        NewIngest(t),
+		Nodes:                                         NewNodes(t),
+		Remote:                                        NewRemote(t),
+		Snapshot:                                      NewSnapshot(t),
+		Tasks:                                         NewTasks(t),
+		AsyncSearch:                                   NewAsyncSearch(t),
+		CCR:                                           NewCCR(t),
+		ILM:                                           NewILM(t),
+		License:                                       NewLicense(t),
+		Migration:                                     NewMigration(t),
+		ML:                                            NewML(t),
+		Monitoring:                                    NewMonitoring(t),
+		Rollup:                                        NewRollup(t),
+		Security:                                      NewSecurity(t),
+		SQL:                                           NewSQL(t),
+		SSL:                                           NewSSL(t),
+		Watcher:                                       NewWatcher(t),
+		XPack:                                         NewXPack(t),
 	}
 }

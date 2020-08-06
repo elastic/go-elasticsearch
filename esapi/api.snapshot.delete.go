@@ -13,7 +13,9 @@ import (
 	"time"
 )
 
-func newSnapshotDeleteFunc(t Transport) SnapshotDelete {
+// NewSnapshotDelete creates a new API client for the SnapshotDelete endpoint
+//
+func NewSnapshotDelete(t Transport) SnapshotDelete {
 	return func(repository string, snapshot []string, o ...func(*SnapshotDeleteRequest)) (*Response, error) {
 		var r = SnapshotDeleteRequest{Repository: repository, Snapshot: snapshot}
 		for _, f := range o {

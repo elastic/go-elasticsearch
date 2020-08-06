@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newSecurityGetRoleMappingFunc(t Transport) SecurityGetRoleMapping {
+// NewSecurityGetRoleMapping creates a new API client for the SecurityGetRoleMapping endpoint
+//
+func NewSecurityGetRoleMapping(t Transport) SecurityGetRoleMapping {
 	return func(o ...func(*SecurityGetRoleMappingRequest)) (*Response, error) {
 		var r = SecurityGetRoleMappingRequest{}
 		for _, f := range o {

@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newCatTasksFunc(t Transport) CatTasks {
+// NewCatTasks creates a new API client for the CatTasks endpoint
+//
+func NewCatTasks(t Transport) CatTasks {
 	return func(o ...func(*CatTasksRequest)) (*Response, error) {
 		var r = CatTasksRequest{}
 		for _, f := range o {

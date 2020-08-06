@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newIndicesAnalyzeFunc(t Transport) IndicesAnalyze {
+// NewIndicesAnalyze creates a new API client for the IndicesAnalyze endpoint
+//
+func NewIndicesAnalyze(t Transport) IndicesAnalyze {
 	return func(o ...func(*IndicesAnalyzeRequest)) (*Response, error) {
 		var r = IndicesAnalyzeRequest{}
 		for _, f := range o {

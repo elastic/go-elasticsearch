@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newDeleteFunc(t Transport) Delete {
+// NewDelete creates a new API client for the Delete endpoint
+//
+func NewDelete(t Transport) Delete {
 	return func(index string, id string, o ...func(*DeleteRequest)) (*Response, error) {
 		var r = DeleteRequest{Index: index, DocumentID: id}
 		for _, f := range o {

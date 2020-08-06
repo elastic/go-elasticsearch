@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newIndicesResolveIndexFunc(t Transport) IndicesResolveIndex {
+// NewIndicesResolveIndex creates a new API client for the IndicesResolveIndex endpoint
+//
+func NewIndicesResolveIndex(t Transport) IndicesResolveIndex {
 	return func(name []string, o ...func(*IndicesResolveIndexRequest)) (*Response, error) {
 		var r = IndicesResolveIndexRequest{Name: name}
 		for _, f := range o {

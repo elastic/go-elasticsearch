@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newIndicesReloadSearchAnalyzersFunc(t Transport) IndicesReloadSearchAnalyzers {
+// NewIndicesReloadSearchAnalyzers creates a new API client for the IndicesReloadSearchAnalyzers endpoint
+//
+func NewIndicesReloadSearchAnalyzers(t Transport) IndicesReloadSearchAnalyzers {
 	return func(index []string, o ...func(*IndicesReloadSearchAnalyzersRequest)) (*Response, error) {
 		var r = IndicesReloadSearchAnalyzersRequest{Index: index}
 		for _, f := range o {

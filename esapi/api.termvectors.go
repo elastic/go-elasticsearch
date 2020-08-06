@@ -14,7 +14,9 @@ import (
 	"strings"
 )
 
-func newTermvectorsFunc(t Transport) Termvectors {
+// NewTermvectors creates a new API client for the Termvectors endpoint
+//
+func NewTermvectors(t Transport) Termvectors {
 	return func(index string, o ...func(*TermvectorsRequest)) (*Response, error) {
 		var r = TermvectorsRequest{Index: index}
 		for _, f := range o {

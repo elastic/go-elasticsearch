@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newPingFunc(t Transport) Ping {
+// NewPing creates a new API client for the Ping endpoint
+//
+func NewPing(t Transport) Ping {
 	return func(o ...func(*PingRequest)) (*Response, error) {
 		var r = PingRequest{}
 		for _, f := range o {

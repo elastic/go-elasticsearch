@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newDataFrameTransformDeprecatedStopTransformFunc(t Transport) DataFrameTransformDeprecatedStopTransform {
+// NewDataFrameTransformDeprecatedStopTransform creates a new API client for the DataFrameTransformDeprecatedStopTransform endpoint
+//
+func NewDataFrameTransformDeprecatedStopTransform(t Transport) DataFrameTransformDeprecatedStopTransform {
 	return func(transform_id string, o ...func(*DataFrameTransformDeprecatedStopTransformRequest)) (*Response, error) {
 		var r = DataFrameTransformDeprecatedStopTransformRequest{TransformID: transform_id}
 		for _, f := range o {

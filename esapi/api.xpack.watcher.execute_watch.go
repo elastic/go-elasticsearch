@@ -14,7 +14,9 @@ import (
 	"strings"
 )
 
-func newWatcherExecuteWatchFunc(t Transport) WatcherExecuteWatch {
+// NewWatcherExecuteWatch creates a new API client for the WatcherExecuteWatch endpoint
+//
+func NewWatcherExecuteWatch(t Transport) WatcherExecuteWatch {
 	return func(o ...func(*WatcherExecuteWatchRequest)) (*Response, error) {
 		var r = WatcherExecuteWatchRequest{}
 		for _, f := range o {

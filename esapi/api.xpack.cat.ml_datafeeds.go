@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newCatMLDatafeedsFunc(t Transport) CatMLDatafeeds {
+// NewCatMLDatafeeds creates a new API client for the CatMLDatafeeds endpoint
+//
+func NewCatMLDatafeeds(t Transport) CatMLDatafeeds {
 	return func(o ...func(*CatMLDatafeedsRequest)) (*Response, error) {
 		var r = CatMLDatafeedsRequest{}
 		for _, f := range o {

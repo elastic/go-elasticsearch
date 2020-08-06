@@ -15,7 +15,9 @@ import (
 	"time"
 )
 
-func newUpdateFunc(t Transport) Update {
+// NewUpdate creates a new API client for the Update endpoint
+//
+func NewUpdate(t Transport) Update {
 	return func(index string, id string, body io.Reader, o ...func(*UpdateRequest)) (*Response, error) {
 		var r = UpdateRequest{Index: index, DocumentID: id, Body: body}
 		for _, f := range o {

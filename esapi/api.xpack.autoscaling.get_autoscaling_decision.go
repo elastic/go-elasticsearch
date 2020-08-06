@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newAutoscalingGetAutoscalingDecisionFunc(t Transport) AutoscalingGetAutoscalingDecision {
+// NewAutoscalingGetAutoscalingDecision creates a new API client for the AutoscalingGetAutoscalingDecision endpoint
+//
+func NewAutoscalingGetAutoscalingDecision(t Transport) AutoscalingGetAutoscalingDecision {
 	return func(o ...func(*AutoscalingGetAutoscalingDecisionRequest)) (*Response, error) {
 		var r = AutoscalingGetAutoscalingDecisionRequest{}
 		for _, f := range o {

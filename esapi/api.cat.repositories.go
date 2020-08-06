@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newCatRepositoriesFunc(t Transport) CatRepositories {
+// NewCatRepositories creates a new API client for the CatRepositories endpoint
+//
+func NewCatRepositories(t Transport) CatRepositories {
 	return func(o ...func(*CatRepositoriesRequest)) (*Response, error) {
 		var r = CatRepositoriesRequest{}
 		for _, f := range o {

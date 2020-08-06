@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newMLValidateFunc(t Transport) MLValidate {
+// NewMLValidate creates a new API client for the MLValidate endpoint
+//
+func NewMLValidate(t Transport) MLValidate {
 	return func(body io.Reader, o ...func(*MLValidateRequest)) (*Response, error) {
 		var r = MLValidateRequest{Body: body}
 		for _, f := range o {

@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newEnrichStatsFunc(t Transport) EnrichStats {
+// NewEnrichStats creates a new API client for the EnrichStats endpoint
+//
+func NewEnrichStats(t Transport) EnrichStats {
 	return func(o ...func(*EnrichStatsRequest)) (*Response, error) {
 		var r = EnrichStatsRequest{}
 		for _, f := range o {

@@ -16,7 +16,9 @@ import (
 	"time"
 )
 
-func newReindexFunc(t Transport) Reindex {
+// NewReindex creates a new API client for the Reindex endpoint
+//
+func NewReindex(t Transport) Reindex {
 	return func(body io.Reader, o ...func(*ReindexRequest)) (*Response, error) {
 		var r = ReindexRequest{Body: body}
 		for _, f := range o {

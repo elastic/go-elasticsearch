@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newSecurityChangePasswordFunc(t Transport) SecurityChangePassword {
+// NewSecurityChangePassword creates a new API client for the SecurityChangePassword endpoint
+//
+func NewSecurityChangePassword(t Transport) SecurityChangePassword {
 	return func(body io.Reader, o ...func(*SecurityChangePasswordRequest)) (*Response, error) {
 		var r = SecurityChangePasswordRequest{Body: body}
 		for _, f := range o {
