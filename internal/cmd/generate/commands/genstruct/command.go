@@ -243,6 +243,19 @@ type API struct {
 			}
 		}
 		b.WriteString("}\n\n")
+
+		b.WriteString(`// New` + n + ` creates a new API client for ` + n + ` APIs` + "\n//\n")
+		b.WriteString(`func New` + n + `(t Transport) *` + n + ` {
+	return &` + n + "{\n")
+		for _, e := range endpoints {
+			name := strings.ReplaceAll(e.Name(), "Request", "")
+			if strings.HasPrefix(strings.ToLower(name), strings.ToLower(n)) {
+				methodName := strings.ReplaceAll(name, n, "")
+				b.WriteString(fmt.Sprintf("\t\t%s: new%sFunc(t),\n", methodName, name))
+			}
+		}
+		b.WriteString("\t}\n")
+		b.WriteString("}\n\n")
 	}
 
 	b.WriteString(`// New creates new API
@@ -266,15 +279,7 @@ func New(t Transport) *API {
 	}
 
 	for _, n := range namespaces {
-		b.WriteString(fmt.Sprintf("\t\t%[1]s: &%[1]s{\n", n))
-		for _, e := range endpoints {
-			name := strings.ReplaceAll(e.Name(), "Request", "")
-			if strings.HasPrefix(strings.ToLower(name), strings.ToLower(n)) {
-				methodName := strings.ReplaceAll(name, n, "")
-				b.WriteString(fmt.Sprintf("\t\t\t%s: new%sFunc(t),\n", methodName, name))
-			}
-		}
-		b.WriteString("\t\t},\n")
+		b.WriteString(fmt.Sprintf("\t\t%[1]s: New%[1]s(t),\n", n))
 	}
 
 	b.WriteString(`	}
