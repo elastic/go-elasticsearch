@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newCatPluginsFunc(t Transport) CatPlugins {
+// NewCatPlugins creates a new API client for the CatPlugins endpoint
+//
+func NewCatPlugins(t Transport) CatPlugins {
 	return func(o ...func(*CatPluginsRequest)) (*Response, error) {
 		var r = CatPluginsRequest{}
 		for _, f := range o {

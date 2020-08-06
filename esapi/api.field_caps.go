@@ -14,7 +14,9 @@ import (
 	"strings"
 )
 
-func newFieldCapsFunc(t Transport) FieldCaps {
+// NewFieldCaps creates a new API client for the FieldCaps endpoint
+//
+func NewFieldCaps(t Transport) FieldCaps {
 	return func(o ...func(*FieldCapsRequest)) (*Response, error) {
 		var r = FieldCapsRequest{}
 		for _, f := range o {

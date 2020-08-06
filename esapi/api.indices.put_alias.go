@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newIndicesPutAliasFunc(t Transport) IndicesPutAlias {
+// NewIndicesPutAlias creates a new API client for the IndicesPutAlias endpoint
+//
+func NewIndicesPutAlias(t Transport) IndicesPutAlias {
 	return func(index []string, name string, o ...func(*IndicesPutAliasRequest)) (*Response, error) {
 		var r = IndicesPutAliasRequest{Index: index, Name: name}
 		for _, f := range o {

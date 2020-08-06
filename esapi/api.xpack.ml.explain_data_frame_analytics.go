@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newMLExplainDataFrameAnalyticsFunc(t Transport) MLExplainDataFrameAnalytics {
+// NewMLExplainDataFrameAnalytics creates a new API client for the MLExplainDataFrameAnalytics endpoint
+//
+func NewMLExplainDataFrameAnalytics(t Transport) MLExplainDataFrameAnalytics {
 	return func(o ...func(*MLExplainDataFrameAnalyticsRequest)) (*Response, error) {
 		var r = MLExplainDataFrameAnalyticsRequest{}
 		for _, f := range o {

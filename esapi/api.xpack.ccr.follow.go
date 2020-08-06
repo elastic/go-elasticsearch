@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newCCRFollowFunc(t Transport) CCRFollow {
+// NewCCRFollow creates a new API client for the CCRFollow endpoint
+//
+func NewCCRFollow(t Transport) CCRFollow {
 	return func(index string, body io.Reader, o ...func(*CCRFollowRequest)) (*Response, error) {
 		var r = CCRFollowRequest{Index: index, Body: body}
 		for _, f := range o {

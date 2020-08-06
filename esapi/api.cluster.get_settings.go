@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newClusterGetSettingsFunc(t Transport) ClusterGetSettings {
+// NewClusterGetSettings creates a new API client for the ClusterGetSettings endpoint
+//
+func NewClusterGetSettings(t Transport) ClusterGetSettings {
 	return func(o ...func(*ClusterGetSettingsRequest)) (*Response, error) {
 		var r = ClusterGetSettingsRequest{}
 		for _, f := range o {

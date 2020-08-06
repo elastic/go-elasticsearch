@@ -15,7 +15,9 @@ import (
 	"strings"
 )
 
-func newMLGetInfluencersFunc(t Transport) MLGetInfluencers {
+// NewMLGetInfluencers creates a new API client for the MLGetInfluencers endpoint
+//
+func NewMLGetInfluencers(t Transport) MLGetInfluencers {
 	return func(job_id string, o ...func(*MLGetInfluencersRequest)) (*Response, error) {
 		var r = MLGetInfluencersRequest{JobID: job_id}
 		for _, f := range o {

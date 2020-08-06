@@ -16,7 +16,9 @@ import (
 	"time"
 )
 
-func newAsyncSearchSubmitFunc(t Transport) AsyncSearchSubmit {
+// NewAsyncSearchSubmit creates a new API client for the AsyncSearchSubmit endpoint
+//
+func NewAsyncSearchSubmit(t Transport) AsyncSearchSubmit {
 	return func(o ...func(*AsyncSearchSubmitRequest)) (*Response, error) {
 		var r = AsyncSearchSubmitRequest{}
 		for _, f := range o {

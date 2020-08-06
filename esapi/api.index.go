@@ -15,7 +15,9 @@ import (
 	"time"
 )
 
-func newIndexFunc(t Transport) Index {
+// NewIndex creates a new API client for the Index endpoint
+//
+func NewIndex(t Transport) Index {
 	return func(index string, body io.Reader, o ...func(*IndexRequest)) (*Response, error) {
 		var r = IndexRequest{Index: index, Body: body}
 		for _, f := range o {

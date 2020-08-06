@@ -15,7 +15,9 @@ import (
 	"time"
 )
 
-func newSearchableSnapshotsMountFunc(t Transport) SearchableSnapshotsMount {
+// NewSearchableSnapshotsMount creates a new API client for the SearchableSnapshotsMount endpoint
+//
+func NewSearchableSnapshotsMount(t Transport) SearchableSnapshotsMount {
 	return func(repository string, snapshot string, body io.Reader, o ...func(*SearchableSnapshotsMountRequest)) (*Response, error) {
 		var r = SearchableSnapshotsMountRequest{Repository: repository, Snapshot: snapshot, Body: body}
 		for _, f := range o {

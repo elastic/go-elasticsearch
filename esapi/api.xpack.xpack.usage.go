@@ -13,7 +13,9 @@ import (
 	"time"
 )
 
-func newXPackUsageFunc(t Transport) XPackUsage {
+// NewXPackUsage creates a new API client for the XPackUsage endpoint
+//
+func NewXPackUsage(t Transport) XPackUsage {
 	return func(o ...func(*XPackUsageRequest)) (*Response, error) {
 		var r = XPackUsageRequest{}
 		for _, f := range o {

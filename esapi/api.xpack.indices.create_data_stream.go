@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newIndicesCreateDataStreamFunc(t Transport) IndicesCreateDataStream {
+// NewIndicesCreateDataStream creates a new API client for the IndicesCreateDataStream endpoint
+//
+func NewIndicesCreateDataStream(t Transport) IndicesCreateDataStream {
 	return func(name string, o ...func(*IndicesCreateDataStreamRequest)) (*Response, error) {
 		var r = IndicesCreateDataStreamRequest{Name: name}
 		for _, f := range o {

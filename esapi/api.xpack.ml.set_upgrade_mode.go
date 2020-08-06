@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newMLSetUpgradeModeFunc(t Transport) MLSetUpgradeMode {
+// NewMLSetUpgradeMode creates a new API client for the MLSetUpgradeMode endpoint
+//
+func NewMLSetUpgradeMode(t Transport) MLSetUpgradeMode {
 	return func(o ...func(*MLSetUpgradeModeRequest)) (*Response, error) {
 		var r = MLSetUpgradeModeRequest{}
 		for _, f := range o {

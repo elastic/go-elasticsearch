@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newMLPostDataFunc(t Transport) MLPostData {
+// NewMLPostData creates a new API client for the MLPostData endpoint
+//
+func NewMLPostData(t Transport) MLPostData {
 	return func(job_id string, body io.Reader, o ...func(*MLPostDataRequest)) (*Response, error) {
 		var r = MLPostDataRequest{JobID: job_id, Body: body}
 		for _, f := range o {

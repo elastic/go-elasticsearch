@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newEnrichDeletePolicyFunc(t Transport) EnrichDeletePolicy {
+// NewEnrichDeletePolicy creates a new API client for the EnrichDeletePolicy endpoint
+//
+func NewEnrichDeletePolicy(t Transport) EnrichDeletePolicy {
 	return func(name string, o ...func(*EnrichDeletePolicyRequest)) (*Response, error) {
 		var r = EnrichDeletePolicyRequest{Name: name}
 		for _, f := range o {

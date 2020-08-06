@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newCCRPutAutoFollowPatternFunc(t Transport) CCRPutAutoFollowPattern {
+// NewCCRPutAutoFollowPattern creates a new API client for the CCRPutAutoFollowPattern endpoint
+//
+func NewCCRPutAutoFollowPattern(t Transport) CCRPutAutoFollowPattern {
 	return func(name string, body io.Reader, o ...func(*CCRPutAutoFollowPatternRequest)) (*Response, error) {
 		var r = CCRPutAutoFollowPatternRequest{Name: name, Body: body}
 		for _, f := range o {

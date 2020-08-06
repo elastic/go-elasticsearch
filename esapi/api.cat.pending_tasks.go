@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newCatPendingTasksFunc(t Transport) CatPendingTasks {
+// NewCatPendingTasks creates a new API client for the CatPendingTasks endpoint
+//
+func NewCatPendingTasks(t Transport) CatPendingTasks {
 	return func(o ...func(*CatPendingTasksRequest)) (*Response, error) {
 		var r = CatPendingTasksRequest{}
 		for _, f := range o {

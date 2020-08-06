@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newCCRPauseFollowFunc(t Transport) CCRPauseFollow {
+// NewCCRPauseFollow creates a new API client for the CCRPauseFollow endpoint
+//
+func NewCCRPauseFollow(t Transport) CCRPauseFollow {
 	return func(index string, o ...func(*CCRPauseFollowRequest)) (*Response, error) {
 		var r = CCRPauseFollowRequest{Index: index}
 		for _, f := range o {

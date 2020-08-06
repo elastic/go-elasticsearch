@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newLicenseGetFunc(t Transport) LicenseGet {
+// NewLicenseGet creates a new API client for the LicenseGet endpoint
+//
+func NewLicenseGet(t Transport) LicenseGet {
 	return func(o ...func(*LicenseGetRequest)) (*Response, error) {
 		var r = LicenseGetRequest{}
 		for _, f := range o {

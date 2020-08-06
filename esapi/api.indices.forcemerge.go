@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newIndicesForcemergeFunc(t Transport) IndicesForcemerge {
+// NewIndicesForcemerge creates a new API client for the IndicesForcemerge endpoint
+//
+func NewIndicesForcemerge(t Transport) IndicesForcemerge {
 	return func(o ...func(*IndicesForcemergeRequest)) (*Response, error) {
 		var r = IndicesForcemergeRequest{}
 		for _, f := range o {

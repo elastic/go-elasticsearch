@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newMLOpenJobFunc(t Transport) MLOpenJob {
+// NewMLOpenJob creates a new API client for the MLOpenJob endpoint
+//
+func NewMLOpenJob(t Transport) MLOpenJob {
 	return func(job_id string, o ...func(*MLOpenJobRequest)) (*Response, error) {
 		var r = MLOpenJobRequest{JobID: job_id}
 		for _, f := range o {

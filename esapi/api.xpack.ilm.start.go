@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newILMStartFunc(t Transport) ILMStart {
+// NewILMStart creates a new API client for the ILMStart endpoint
+//
+func NewILMStart(t Transport) ILMStart {
 	return func(o ...func(*ILMStartRequest)) (*Response, error) {
 		var r = ILMStartRequest{}
 		for _, f := range o {

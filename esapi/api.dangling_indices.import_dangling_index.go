@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newDanglingIndicesImportDanglingIndexFunc(t Transport) DanglingIndicesImportDanglingIndex {
+// NewDanglingIndicesImportDanglingIndex creates a new API client for the DanglingIndicesImportDanglingIndex endpoint
+//
+func NewDanglingIndicesImportDanglingIndex(t Transport) DanglingIndicesImportDanglingIndex {
 	return func(index_uuid string, o ...func(*DanglingIndicesImportDanglingIndexRequest)) (*Response, error) {
 		var r = DanglingIndicesImportDanglingIndexRequest{IndexUuid: index_uuid}
 		for _, f := range o {

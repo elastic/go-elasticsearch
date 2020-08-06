@@ -14,7 +14,9 @@ import (
 	"strings"
 )
 
-func newMLUpdateDatafeedFunc(t Transport) MLUpdateDatafeed {
+// NewMLUpdateDatafeed creates a new API client for the MLUpdateDatafeed endpoint
+//
+func NewMLUpdateDatafeed(t Transport) MLUpdateDatafeed {
 	return func(body io.Reader, datafeed_id string, o ...func(*MLUpdateDatafeedRequest)) (*Response, error) {
 		var r = MLUpdateDatafeedRequest{Body: body, DatafeedID: datafeed_id}
 		for _, f := range o {

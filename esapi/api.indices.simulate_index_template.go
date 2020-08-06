@@ -15,7 +15,9 @@ import (
 	"time"
 )
 
-func newIndicesSimulateIndexTemplateFunc(t Transport) IndicesSimulateIndexTemplate {
+// NewIndicesSimulateIndexTemplate creates a new API client for the IndicesSimulateIndexTemplate endpoint
+//
+func NewIndicesSimulateIndexTemplate(t Transport) IndicesSimulateIndexTemplate {
 	return func(name string, o ...func(*IndicesSimulateIndexTemplateRequest)) (*Response, error) {
 		var r = IndicesSimulateIndexTemplateRequest{Name: name}
 		for _, f := range o {

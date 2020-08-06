@@ -14,7 +14,9 @@ import (
 	"strings"
 )
 
-func newClusterAllocationExplainFunc(t Transport) ClusterAllocationExplain {
+// NewClusterAllocationExplain creates a new API client for the ClusterAllocationExplain endpoint
+//
+func NewClusterAllocationExplain(t Transport) ClusterAllocationExplain {
 	return func(o ...func(*ClusterAllocationExplainRequest)) (*Response, error) {
 		var r = ClusterAllocationExplainRequest{}
 		for _, f := range o {

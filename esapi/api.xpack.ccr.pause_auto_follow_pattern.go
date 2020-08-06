@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newCCRPauseAutoFollowPatternFunc(t Transport) CCRPauseAutoFollowPattern {
+// NewCCRPauseAutoFollowPattern creates a new API client for the CCRPauseAutoFollowPattern endpoint
+//
+func NewCCRPauseAutoFollowPattern(t Transport) CCRPauseAutoFollowPattern {
 	return func(name string, o ...func(*CCRPauseAutoFollowPatternRequest)) (*Response, error) {
 		var r = CCRPauseAutoFollowPatternRequest{Name: name}
 		for _, f := range o {

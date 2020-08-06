@@ -14,7 +14,9 @@ import (
 	"strings"
 )
 
-func newWatcherPutWatchFunc(t Transport) WatcherPutWatch {
+// NewWatcherPutWatch creates a new API client for the WatcherPutWatch endpoint
+//
+func NewWatcherPutWatch(t Transport) WatcherPutWatch {
 	return func(id string, o ...func(*WatcherPutWatchRequest)) (*Response, error) {
 		var r = WatcherPutWatchRequest{WatchID: id}
 		for _, f := range o {

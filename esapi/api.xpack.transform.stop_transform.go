@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newTransformStopTransformFunc(t Transport) TransformStopTransform {
+// NewTransformStopTransform creates a new API client for the TransformStopTransform endpoint
+//
+func NewTransformStopTransform(t Transport) TransformStopTransform {
 	return func(transform_id string, o ...func(*TransformStopTransformRequest)) (*Response, error) {
 		var r = TransformStopTransformRequest{TransformID: transform_id}
 		for _, f := range o {

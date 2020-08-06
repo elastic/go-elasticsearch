@@ -15,7 +15,9 @@ import (
 	"time"
 )
 
-func newIndicesPutSettingsFunc(t Transport) IndicesPutSettings {
+// NewIndicesPutSettings creates a new API client for the IndicesPutSettings endpoint
+//
+func NewIndicesPutSettings(t Transport) IndicesPutSettings {
 	return func(body io.Reader, o ...func(*IndicesPutSettingsRequest)) (*Response, error) {
 		var r = IndicesPutSettingsRequest{Body: body}
 		for _, f := range o {

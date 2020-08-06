@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newSecurityClearCachedRealmsFunc(t Transport) SecurityClearCachedRealms {
+// NewSecurityClearCachedRealms creates a new API client for the SecurityClearCachedRealms endpoint
+//
+func NewSecurityClearCachedRealms(t Transport) SecurityClearCachedRealms {
 	return func(realms []string, o ...func(*SecurityClearCachedRealmsRequest)) (*Response, error) {
 		var r = SecurityClearCachedRealmsRequest{Realms: realms}
 		for _, f := range o {

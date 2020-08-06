@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newIndicesCloneFunc(t Transport) IndicesClone {
+// NewIndicesClone creates a new API client for the IndicesClone endpoint
+//
+func NewIndicesClone(t Transport) IndicesClone {
 	return func(index string, target string, o ...func(*IndicesCloneRequest)) (*Response, error) {
 		var r = IndicesCloneRequest{Index: index, Target: target}
 		for _, f := range o {

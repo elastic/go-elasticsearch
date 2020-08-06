@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newSecurityDeleteUserFunc(t Transport) SecurityDeleteUser {
+// NewSecurityDeleteUser creates a new API client for the SecurityDeleteUser endpoint
+//
+func NewSecurityDeleteUser(t Transport) SecurityDeleteUser {
 	return func(username string, o ...func(*SecurityDeleteUserRequest)) (*Response, error) {
 		var r = SecurityDeleteUserRequest{Username: username}
 		for _, f := range o {

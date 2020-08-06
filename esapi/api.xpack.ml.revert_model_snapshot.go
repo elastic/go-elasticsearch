@@ -14,7 +14,9 @@ import (
 	"strings"
 )
 
-func newMLRevertModelSnapshotFunc(t Transport) MLRevertModelSnapshot {
+// NewMLRevertModelSnapshot creates a new API client for the MLRevertModelSnapshot endpoint
+//
+func NewMLRevertModelSnapshot(t Transport) MLRevertModelSnapshot {
 	return func(snapshot_id string, job_id string, o ...func(*MLRevertModelSnapshotRequest)) (*Response, error) {
 		var r = MLRevertModelSnapshotRequest{SnapshotID: snapshot_id, JobID: job_id}
 		for _, f := range o {

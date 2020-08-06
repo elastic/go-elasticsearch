@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newCCRFollowStatsFunc(t Transport) CCRFollowStats {
+// NewCCRFollowStats creates a new API client for the CCRFollowStats endpoint
+//
+func NewCCRFollowStats(t Transport) CCRFollowStats {
 	return func(index []string, o ...func(*CCRFollowStatsRequest)) (*Response, error) {
 		var r = CCRFollowStatsRequest{Index: index}
 		for _, f := range o {

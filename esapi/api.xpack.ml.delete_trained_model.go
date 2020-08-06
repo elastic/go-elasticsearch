@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newMLDeleteTrainedModelFunc(t Transport) MLDeleteTrainedModel {
+// NewMLDeleteTrainedModel creates a new API client for the MLDeleteTrainedModel endpoint
+//
+func NewMLDeleteTrainedModel(t Transport) MLDeleteTrainedModel {
 	return func(model_id string, o ...func(*MLDeleteTrainedModelRequest)) (*Response, error) {
 		var r = MLDeleteTrainedModelRequest{ModelID: model_id}
 		for _, f := range o {

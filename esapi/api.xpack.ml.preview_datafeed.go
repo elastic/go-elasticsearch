@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newMLPreviewDatafeedFunc(t Transport) MLPreviewDatafeed {
+// NewMLPreviewDatafeed creates a new API client for the MLPreviewDatafeed endpoint
+//
+func NewMLPreviewDatafeed(t Transport) MLPreviewDatafeed {
 	return func(datafeed_id string, o ...func(*MLPreviewDatafeedRequest)) (*Response, error) {
 		var r = MLPreviewDatafeedRequest{DatafeedID: datafeed_id}
 		for _, f := range o {

@@ -14,7 +14,9 @@ import (
 	"strings"
 )
 
-func newMsearchFunc(t Transport) Msearch {
+// NewMsearch creates a new API client for the Msearch endpoint
+//
+func NewMsearch(t Transport) Msearch {
 	return func(body io.Reader, o ...func(*MsearchRequest)) (*Response, error) {
 		var r = MsearchRequest{Body: body}
 		for _, f := range o {

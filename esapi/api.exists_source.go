@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newExistsSourceFunc(t Transport) ExistsSource {
+// NewExistsSource creates a new API client for the ExistsSource endpoint
+//
+func NewExistsSource(t Transport) ExistsSource {
 	return func(index string, id string, o ...func(*ExistsSourceRequest)) (*Response, error) {
 		var r = ExistsSourceRequest{Index: index, DocumentID: id}
 		for _, f := range o {

@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newDanglingIndicesDeleteDanglingIndexFunc(t Transport) DanglingIndicesDeleteDanglingIndex {
+// NewDanglingIndicesDeleteDanglingIndex creates a new API client for the DanglingIndicesDeleteDanglingIndex endpoint
+//
+func NewDanglingIndicesDeleteDanglingIndex(t Transport) DanglingIndicesDeleteDanglingIndex {
 	return func(index_uuid string, o ...func(*DanglingIndicesDeleteDanglingIndexRequest)) (*Response, error) {
 		var r = DanglingIndicesDeleteDanglingIndexRequest{IndexUuid: index_uuid}
 		for _, f := range o {

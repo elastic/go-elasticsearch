@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newWatcherDeactivateWatchFunc(t Transport) WatcherDeactivateWatch {
+// NewWatcherDeactivateWatch creates a new API client for the WatcherDeactivateWatch endpoint
+//
+func NewWatcherDeactivateWatch(t Transport) WatcherDeactivateWatch {
 	return func(watch_id string, o ...func(*WatcherDeactivateWatchRequest)) (*Response, error) {
 		var r = WatcherDeactivateWatchRequest{WatchID: watch_id}
 		for _, f := range o {

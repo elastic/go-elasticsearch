@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newUpdateByQueryRethrottleFunc(t Transport) UpdateByQueryRethrottle {
+// NewUpdateByQueryRethrottle creates a new API client for the UpdateByQueryRethrottle endpoint
+//
+func NewUpdateByQueryRethrottle(t Transport) UpdateByQueryRethrottle {
 	return func(task_id string, requests_per_second *int, o ...func(*UpdateByQueryRethrottleRequest)) (*Response, error) {
 		var r = UpdateByQueryRethrottleRequest{TaskID: task_id, RequestsPerSecond: requests_per_second}
 		for _, f := range o {

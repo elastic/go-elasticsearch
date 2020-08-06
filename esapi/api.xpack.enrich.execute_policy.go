@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newEnrichExecutePolicyFunc(t Transport) EnrichExecutePolicy {
+// NewEnrichExecutePolicy creates a new API client for the EnrichExecutePolicy endpoint
+//
+func NewEnrichExecutePolicy(t Transport) EnrichExecutePolicy {
 	return func(name string, o ...func(*EnrichExecutePolicyRequest)) (*Response, error) {
 		var r = EnrichExecutePolicyRequest{Name: name}
 		for _, f := range o {

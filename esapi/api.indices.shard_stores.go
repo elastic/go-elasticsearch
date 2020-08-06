@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newIndicesShardStoresFunc(t Transport) IndicesShardStores {
+// NewIndicesShardStores creates a new API client for the IndicesShardStores endpoint
+//
+func NewIndicesShardStores(t Transport) IndicesShardStores {
 	return func(o ...func(*IndicesShardStoresRequest)) (*Response, error) {
 		var r = IndicesShardStoresRequest{}
 		for _, f := range o {

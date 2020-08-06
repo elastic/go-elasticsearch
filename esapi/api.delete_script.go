@@ -13,7 +13,9 @@ import (
 	"time"
 )
 
-func newDeleteScriptFunc(t Transport) DeleteScript {
+// NewDeleteScript creates a new API client for the DeleteScript endpoint
+//
+func NewDeleteScript(t Transport) DeleteScript {
 	return func(id string, o ...func(*DeleteScriptRequest)) (*Response, error) {
 		var r = DeleteScriptRequest{ScriptID: id}
 		for _, f := range o {

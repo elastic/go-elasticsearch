@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newSnapshotStatusFunc(t Transport) SnapshotStatus {
+// NewSnapshotStatus creates a new API client for the SnapshotStatus endpoint
+//
+func NewSnapshotStatus(t Transport) SnapshotStatus {
 	return func(o ...func(*SnapshotStatusRequest)) (*Response, error) {
 		var r = SnapshotStatusRequest{}
 		for _, f := range o {

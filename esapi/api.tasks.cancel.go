@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newTasksCancelFunc(t Transport) TasksCancel {
+// NewTasksCancel creates a new API client for the TasksCancel endpoint
+//
+func NewTasksCancel(t Transport) TasksCancel {
 	return func(o ...func(*TasksCancelRequest)) (*Response, error) {
 		var r = TasksCancelRequest{}
 		for _, f := range o {

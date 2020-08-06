@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newILMGetLifecycleFunc(t Transport) ILMGetLifecycle {
+// NewILMGetLifecycle creates a new API client for the ILMGetLifecycle endpoint
+//
+func NewILMGetLifecycle(t Transport) ILMGetLifecycle {
 	return func(o ...func(*ILMGetLifecycleRequest)) (*Response, error) {
 		var r = ILMGetLifecycleRequest{}
 		for _, f := range o {

@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newInfoFunc(t Transport) Info {
+// NewInfo creates a new API client for the Info endpoint
+//
+func NewInfo(t Transport) Info {
 	return func(o ...func(*InfoRequest)) (*Response, error) {
 		var r = InfoRequest{}
 		for _, f := range o {

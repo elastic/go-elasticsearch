@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newClusterHealthFunc(t Transport) ClusterHealth {
+// NewClusterHealth creates a new API client for the ClusterHealth endpoint
+//
+func NewClusterHealth(t Transport) ClusterHealth {
 	return func(o ...func(*ClusterHealthRequest)) (*Response, error) {
 		var r = ClusterHealthRequest{}
 		for _, f := range o {

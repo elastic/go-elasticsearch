@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newRenderSearchTemplateFunc(t Transport) RenderSearchTemplate {
+// NewRenderSearchTemplate creates a new API client for the RenderSearchTemplate endpoint
+//
+func NewRenderSearchTemplate(t Transport) RenderSearchTemplate {
 	return func(o ...func(*RenderSearchTemplateRequest)) (*Response, error) {
 		var r = RenderSearchTemplateRequest{}
 		for _, f := range o {

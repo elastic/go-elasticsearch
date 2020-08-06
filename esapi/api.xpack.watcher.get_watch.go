@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newWatcherGetWatchFunc(t Transport) WatcherGetWatch {
+// NewWatcherGetWatch creates a new API client for the WatcherGetWatch endpoint
+//
+func NewWatcherGetWatch(t Transport) WatcherGetWatch {
 	return func(id string, o ...func(*WatcherGetWatchRequest)) (*Response, error) {
 		var r = WatcherGetWatchRequest{WatchID: id}
 		for _, f := range o {

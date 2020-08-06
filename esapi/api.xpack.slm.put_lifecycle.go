@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newSlmPutLifecycleFunc(t Transport) SlmPutLifecycle {
+// NewSlmPutLifecycle creates a new API client for the SlmPutLifecycle endpoint
+//
+func NewSlmPutLifecycle(t Transport) SlmPutLifecycle {
 	return func(policy_id string, o ...func(*SlmPutLifecycleRequest)) (*Response, error) {
 		var r = SlmPutLifecycleRequest{PolicyID: policy_id}
 		for _, f := range o {

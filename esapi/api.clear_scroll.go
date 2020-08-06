@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newClearScrollFunc(t Transport) ClearScroll {
+// NewClearScroll creates a new API client for the ClearScroll endpoint
+//
+func NewClearScroll(t Transport) ClearScroll {
 	return func(o ...func(*ClearScrollRequest)) (*Response, error) {
 		var r = ClearScrollRequest{}
 		for _, f := range o {

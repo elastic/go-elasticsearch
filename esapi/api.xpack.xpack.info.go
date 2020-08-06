@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newXPackInfoFunc(t Transport) XPackInfo {
+// NewXPackInfo creates a new API client for the XPackInfo endpoint
+//
+func NewXPackInfo(t Transport) XPackInfo {
 	return func(o ...func(*XPackInfoRequest)) (*Response, error) {
 		var r = XPackInfoRequest{}
 		for _, f := range o {

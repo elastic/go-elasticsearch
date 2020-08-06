@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newCCRDeleteAutoFollowPatternFunc(t Transport) CCRDeleteAutoFollowPattern {
+// NewCCRDeleteAutoFollowPattern creates a new API client for the CCRDeleteAutoFollowPattern endpoint
+//
+func NewCCRDeleteAutoFollowPattern(t Transport) CCRDeleteAutoFollowPattern {
 	return func(name string, o ...func(*CCRDeleteAutoFollowPatternRequest)) (*Response, error) {
 		var r = CCRDeleteAutoFollowPatternRequest{Name: name}
 		for _, f := range o {

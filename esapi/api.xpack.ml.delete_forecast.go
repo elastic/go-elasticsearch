@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newMLDeleteForecastFunc(t Transport) MLDeleteForecast {
+// NewMLDeleteForecast creates a new API client for the MLDeleteForecast endpoint
+//
+func NewMLDeleteForecast(t Transport) MLDeleteForecast {
 	return func(job_id string, o ...func(*MLDeleteForecastRequest)) (*Response, error) {
 		var r = MLDeleteForecastRequest{JobID: job_id}
 		for _, f := range o {

@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newIndicesExistsFunc(t Transport) IndicesExists {
+// NewIndicesExists creates a new API client for the IndicesExists endpoint
+//
+func NewIndicesExists(t Transport) IndicesExists {
 	return func(index []string, o ...func(*IndicesExistsRequest)) (*Response, error) {
 		var r = IndicesExistsRequest{Index: index}
 		for _, f := range o {

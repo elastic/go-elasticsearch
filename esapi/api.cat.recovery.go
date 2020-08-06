@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newCatRecoveryFunc(t Transport) CatRecovery {
+// NewCatRecovery creates a new API client for the CatRecovery endpoint
+//
+func NewCatRecovery(t Transport) CatRecovery {
 	return func(o ...func(*CatRecoveryRequest)) (*Response, error) {
 		var r = CatRecoveryRequest{}
 		for _, f := range o {

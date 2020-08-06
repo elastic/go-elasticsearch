@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newRollupGetRollupCapsFunc(t Transport) RollupGetRollupCaps {
+// NewRollupGetRollupCaps creates a new API client for the RollupGetRollupCaps endpoint
+//
+func NewRollupGetRollupCaps(t Transport) RollupGetRollupCaps {
 	return func(o ...func(*RollupGetRollupCapsRequest)) (*Response, error) {
 		var r = RollupGetRollupCapsRequest{}
 		for _, f := range o {

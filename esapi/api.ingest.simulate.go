@@ -14,7 +14,9 @@ import (
 	"strings"
 )
 
-func newIngestSimulateFunc(t Transport) IngestSimulate {
+// NewIngestSimulate creates a new API client for the IngestSimulate endpoint
+//
+func NewIngestSimulate(t Transport) IngestSimulate {
 	return func(body io.Reader, o ...func(*IngestSimulateRequest)) (*Response, error) {
 		var r = IngestSimulateRequest{Body: body}
 		for _, f := range o {

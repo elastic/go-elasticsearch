@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newILMStopFunc(t Transport) ILMStop {
+// NewILMStop creates a new API client for the ILMStop endpoint
+//
+func NewILMStop(t Transport) ILMStop {
 	return func(o ...func(*ILMStopRequest)) (*Response, error) {
 		var r = ILMStopRequest{}
 		for _, f := range o {

@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newSlmExecuteRetentionFunc(t Transport) SlmExecuteRetention {
+// NewSlmExecuteRetention creates a new API client for the SlmExecuteRetention endpoint
+//
+func NewSlmExecuteRetention(t Transport) SlmExecuteRetention {
 	return func(o ...func(*SlmExecuteRetentionRequest)) (*Response, error) {
 		var r = SlmExecuteRetentionRequest{}
 		for _, f := range o {

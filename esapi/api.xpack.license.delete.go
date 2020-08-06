@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newLicenseDeleteFunc(t Transport) LicenseDelete {
+// NewLicenseDelete creates a new API client for the LicenseDelete endpoint
+//
+func NewLicenseDelete(t Transport) LicenseDelete {
 	return func(o ...func(*LicenseDeleteRequest)) (*Response, error) {
 		var r = LicenseDeleteRequest{}
 		for _, f := range o {

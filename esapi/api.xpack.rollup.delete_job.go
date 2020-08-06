@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newRollupDeleteJobFunc(t Transport) RollupDeleteJob {
+// NewRollupDeleteJob creates a new API client for the RollupDeleteJob endpoint
+//
+func NewRollupDeleteJob(t Transport) RollupDeleteJob {
 	return func(id string, o ...func(*RollupDeleteJobRequest)) (*Response, error) {
 		var r = RollupDeleteJobRequest{JobID: id}
 		for _, f := range o {

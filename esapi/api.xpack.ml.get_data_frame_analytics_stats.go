@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newMLGetDataFrameAnalyticsStatsFunc(t Transport) MLGetDataFrameAnalyticsStats {
+// NewMLGetDataFrameAnalyticsStats creates a new API client for the MLGetDataFrameAnalyticsStats endpoint
+//
+func NewMLGetDataFrameAnalyticsStats(t Transport) MLGetDataFrameAnalyticsStats {
 	return func(o ...func(*MLGetDataFrameAnalyticsStatsRequest)) (*Response, error) {
 		var r = MLGetDataFrameAnalyticsStatsRequest{}
 		for _, f := range o {

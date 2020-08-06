@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newSecurityClearCachedPrivilegesFunc(t Transport) SecurityClearCachedPrivileges {
+// NewSecurityClearCachedPrivileges creates a new API client for the SecurityClearCachedPrivileges endpoint
+//
+func NewSecurityClearCachedPrivileges(t Transport) SecurityClearCachedPrivileges {
 	return func(application []string, o ...func(*SecurityClearCachedPrivilegesRequest)) (*Response, error) {
 		var r = SecurityClearCachedPrivilegesRequest{Application: application}
 		for _, f := range o {

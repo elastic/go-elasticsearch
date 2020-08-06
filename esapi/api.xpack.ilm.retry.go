@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newILMRetryFunc(t Transport) ILMRetry {
+// NewILMRetry creates a new API client for the ILMRetry endpoint
+//
+func NewILMRetry(t Transport) ILMRetry {
 	return func(index string, o ...func(*ILMRetryRequest)) (*Response, error) {
 		var r = ILMRetryRequest{Index: index}
 		for _, f := range o {

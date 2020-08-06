@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newCatMLDataFrameAnalyticsFunc(t Transport) CatMLDataFrameAnalytics {
+// NewCatMLDataFrameAnalytics creates a new API client for the CatMLDataFrameAnalytics endpoint
+//
+func NewCatMLDataFrameAnalytics(t Transport) CatMLDataFrameAnalytics {
 	return func(o ...func(*CatMLDataFrameAnalyticsRequest)) (*Response, error) {
 		var r = CatMLDataFrameAnalyticsRequest{}
 		for _, f := range o {

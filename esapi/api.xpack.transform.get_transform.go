@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newTransformGetTransformFunc(t Transport) TransformGetTransform {
+// NewTransformGetTransform creates a new API client for the TransformGetTransform endpoint
+//
+func NewTransformGetTransform(t Transport) TransformGetTransform {
 	return func(o ...func(*TransformGetTransformRequest)) (*Response, error) {
 		var r = TransformGetTransformRequest{}
 		for _, f := range o {

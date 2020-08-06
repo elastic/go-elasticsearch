@@ -14,7 +14,9 @@ import (
 	"strings"
 )
 
-func newMtermvectorsFunc(t Transport) Mtermvectors {
+// NewMtermvectors creates a new API client for the Mtermvectors endpoint
+//
+func NewMtermvectors(t Transport) Mtermvectors {
 	return func(o ...func(*MtermvectorsRequest)) (*Response, error) {
 		var r = MtermvectorsRequest{}
 		for _, f := range o {

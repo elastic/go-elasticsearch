@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newWatcherStatsFunc(t Transport) WatcherStats {
+// NewWatcherStats creates a new API client for the WatcherStats endpoint
+//
+func NewWatcherStats(t Transport) WatcherStats {
 	return func(o ...func(*WatcherStatsRequest)) (*Response, error) {
 		var r = WatcherStatsRequest{}
 		for _, f := range o {

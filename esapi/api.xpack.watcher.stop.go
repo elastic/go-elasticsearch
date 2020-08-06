@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newWatcherStopFunc(t Transport) WatcherStop {
+// NewWatcherStop creates a new API client for the WatcherStop endpoint
+//
+func NewWatcherStop(t Transport) WatcherStop {
 	return func(o ...func(*WatcherStopRequest)) (*Response, error) {
 		var r = WatcherStopRequest{}
 		for _, f := range o {

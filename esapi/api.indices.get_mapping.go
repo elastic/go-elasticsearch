@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newIndicesGetMappingFunc(t Transport) IndicesGetMapping {
+// NewIndicesGetMapping creates a new API client for the IndicesGetMapping endpoint
+//
+func NewIndicesGetMapping(t Transport) IndicesGetMapping {
 	return func(o ...func(*IndicesGetMappingRequest)) (*Response, error) {
 		var r = IndicesGetMappingRequest{}
 		for _, f := range o {

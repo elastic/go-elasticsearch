@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newMLUpdateDataFrameAnalyticsFunc(t Transport) MLUpdateDataFrameAnalytics {
+// NewMLUpdateDataFrameAnalytics creates a new API client for the MLUpdateDataFrameAnalytics endpoint
+//
+func NewMLUpdateDataFrameAnalytics(t Transport) MLUpdateDataFrameAnalytics {
 	return func(id string, body io.Reader, o ...func(*MLUpdateDataFrameAnalyticsRequest)) (*Response, error) {
 		var r = MLUpdateDataFrameAnalyticsRequest{DocumentID: id, Body: body}
 		for _, f := range o {

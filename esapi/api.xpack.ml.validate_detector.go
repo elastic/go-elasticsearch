@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newMLValidateDetectorFunc(t Transport) MLValidateDetector {
+// NewMLValidateDetector creates a new API client for the MLValidateDetector endpoint
+//
+func NewMLValidateDetector(t Transport) MLValidateDetector {
 	return func(body io.Reader, o ...func(*MLValidateDetectorRequest)) (*Response, error) {
 		var r = MLValidateDetectorRequest{Body: body}
 		for _, f := range o {

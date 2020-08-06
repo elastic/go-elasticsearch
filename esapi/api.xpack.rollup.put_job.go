@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newRollupPutJobFunc(t Transport) RollupPutJob {
+// NewRollupPutJob creates a new API client for the RollupPutJob endpoint
+//
+func NewRollupPutJob(t Transport) RollupPutJob {
 	return func(id string, body io.Reader, o ...func(*RollupPutJobRequest)) (*Response, error) {
 		var r = RollupPutJobRequest{JobID: id, Body: body}
 		for _, f := range o {

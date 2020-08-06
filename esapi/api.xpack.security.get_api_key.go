@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newSecurityGetAPIKeyFunc(t Transport) SecurityGetAPIKey {
+// NewSecurityGetAPIKey creates a new API client for the SecurityGetAPIKey endpoint
+//
+func NewSecurityGetAPIKey(t Transport) SecurityGetAPIKey {
 	return func(o ...func(*SecurityGetAPIKeyRequest)) (*Response, error) {
 		var r = SecurityGetAPIKeyRequest{}
 		for _, f := range o {

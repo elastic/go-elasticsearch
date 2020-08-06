@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newClusterRemoteInfoFunc(t Transport) ClusterRemoteInfo {
+// NewClusterRemoteInfo creates a new API client for the ClusterRemoteInfo endpoint
+//
+func NewClusterRemoteInfo(t Transport) ClusterRemoteInfo {
 	return func(o ...func(*ClusterRemoteInfoRequest)) (*Response, error) {
 		var r = ClusterRemoteInfoRequest{}
 		for _, f := range o {

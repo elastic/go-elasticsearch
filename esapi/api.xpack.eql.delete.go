@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newEqlDeleteFunc(t Transport) EqlDelete {
+// NewEqlDelete creates a new API client for the EqlDelete endpoint
+//
+func NewEqlDelete(t Transport) EqlDelete {
 	return func(id string, o ...func(*EqlDeleteRequest)) (*Response, error) {
 		var r = EqlDeleteRequest{DocumentID: id}
 		for _, f := range o {

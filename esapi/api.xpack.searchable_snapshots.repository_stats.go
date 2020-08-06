@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newSearchableSnapshotsRepositoryStatsFunc(t Transport) SearchableSnapshotsRepositoryStats {
+// NewSearchableSnapshotsRepositoryStats creates a new API client for the SearchableSnapshotsRepositoryStats endpoint
+//
+func NewSearchableSnapshotsRepositoryStats(t Transport) SearchableSnapshotsRepositoryStats {
 	return func(repository string, o ...func(*SearchableSnapshotsRepositoryStatsRequest)) (*Response, error) {
 		var r = SearchableSnapshotsRepositoryStatsRequest{Repository: repository}
 		for _, f := range o {

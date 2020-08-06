@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newMLUpdateJobFunc(t Transport) MLUpdateJob {
+// NewMLUpdateJob creates a new API client for the MLUpdateJob endpoint
+//
+func NewMLUpdateJob(t Transport) MLUpdateJob {
 	return func(job_id string, body io.Reader, o ...func(*MLUpdateJobRequest)) (*Response, error) {
 		var r = MLUpdateJobRequest{JobID: job_id, Body: body}
 		for _, f := range o {

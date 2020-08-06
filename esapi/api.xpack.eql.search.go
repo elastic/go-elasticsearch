@@ -15,7 +15,9 @@ import (
 	"time"
 )
 
-func newEqlSearchFunc(t Transport) EqlSearch {
+// NewEqlSearch creates a new API client for the EqlSearch endpoint
+//
+func NewEqlSearch(t Transport) EqlSearch {
 	return func(index string, body io.Reader, o ...func(*EqlSearchRequest)) (*Response, error) {
 		var r = EqlSearchRequest{Index: index, Body: body}
 		for _, f := range o {

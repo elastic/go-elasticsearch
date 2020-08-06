@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newMLDeleteCalendarEventFunc(t Transport) MLDeleteCalendarEvent {
+// NewMLDeleteCalendarEvent creates a new API client for the MLDeleteCalendarEvent endpoint
+//
+func NewMLDeleteCalendarEvent(t Transport) MLDeleteCalendarEvent {
 	return func(calendar_id string, event_id string, o ...func(*MLDeleteCalendarEventRequest)) (*Response, error) {
 		var r = MLDeleteCalendarEventRequest{CalendarID: calendar_id, EventID: event_id}
 		for _, f := range o {

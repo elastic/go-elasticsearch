@@ -15,7 +15,9 @@ import (
 	"time"
 )
 
-func newIndicesRolloverFunc(t Transport) IndicesRollover {
+// NewIndicesRollover creates a new API client for the IndicesRollover endpoint
+//
+func NewIndicesRollover(t Transport) IndicesRollover {
 	return func(alias string, o ...func(*IndicesRolloverRequest)) (*Response, error) {
 		var r = IndicesRolloverRequest{Alias: alias}
 		for _, f := range o {

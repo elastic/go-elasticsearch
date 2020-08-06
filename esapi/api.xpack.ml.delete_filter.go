@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newMLDeleteFilterFunc(t Transport) MLDeleteFilter {
+// NewMLDeleteFilter creates a new API client for the MLDeleteFilter endpoint
+//
+func NewMLDeleteFilter(t Transport) MLDeleteFilter {
 	return func(filter_id string, o ...func(*MLDeleteFilterRequest)) (*Response, error) {
 		var r = MLDeleteFilterRequest{FilterID: filter_id}
 		for _, f := range o {

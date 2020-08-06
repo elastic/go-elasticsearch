@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newIndicesRecoveryFunc(t Transport) IndicesRecovery {
+// NewIndicesRecovery creates a new API client for the IndicesRecovery endpoint
+//
+func NewIndicesRecovery(t Transport) IndicesRecovery {
 	return func(o ...func(*IndicesRecoveryRequest)) (*Response, error) {
 		var r = IndicesRecoveryRequest{}
 		for _, f := range o {

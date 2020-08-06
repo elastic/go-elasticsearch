@@ -14,7 +14,9 @@ import (
 	"strings"
 )
 
-func newMLFlushJobFunc(t Transport) MLFlushJob {
+// NewMLFlushJob creates a new API client for the MLFlushJob endpoint
+//
+func NewMLFlushJob(t Transport) MLFlushJob {
 	return func(job_id string, o ...func(*MLFlushJobRequest)) (*Response, error) {
 		var r = MLFlushJobRequest{JobID: job_id}
 		for _, f := range o {

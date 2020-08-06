@@ -15,7 +15,9 @@ import (
 	"time"
 )
 
-func newClusterPutSettingsFunc(t Transport) ClusterPutSettings {
+// NewClusterPutSettings creates a new API client for the ClusterPutSettings endpoint
+//
+func NewClusterPutSettings(t Transport) ClusterPutSettings {
 	return func(body io.Reader, o ...func(*ClusterPutSettingsRequest)) (*Response, error) {
 		var r = ClusterPutSettingsRequest{Body: body}
 		for _, f := range o {

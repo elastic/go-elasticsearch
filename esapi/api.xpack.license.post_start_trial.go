@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newLicensePostStartTrialFunc(t Transport) LicensePostStartTrial {
+// NewLicensePostStartTrial creates a new API client for the LicensePostStartTrial endpoint
+//
+func NewLicensePostStartTrial(t Transport) LicensePostStartTrial {
 	return func(o ...func(*LicensePostStartTrialRequest)) (*Response, error) {
 		var r = LicensePostStartTrialRequest{}
 		for _, f := range o {

@@ -15,7 +15,9 @@ import (
 	"time"
 )
 
-func newMLCloseJobFunc(t Transport) MLCloseJob {
+// NewMLCloseJob creates a new API client for the MLCloseJob endpoint
+//
+func NewMLCloseJob(t Transport) MLCloseJob {
 	return func(job_id string, o ...func(*MLCloseJobRequest)) (*Response, error) {
 		var r = MLCloseJobRequest{JobID: job_id}
 		for _, f := range o {

@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newAutoscalingDeleteAutoscalingPolicyFunc(t Transport) AutoscalingDeleteAutoscalingPolicy {
+// NewAutoscalingDeleteAutoscalingPolicy creates a new API client for the AutoscalingDeleteAutoscalingPolicy endpoint
+//
+func NewAutoscalingDeleteAutoscalingPolicy(t Transport) AutoscalingDeleteAutoscalingPolicy {
 	return func(name string, o ...func(*AutoscalingDeleteAutoscalingPolicyRequest)) (*Response, error) {
 		var r = AutoscalingDeleteAutoscalingPolicyRequest{Name: name}
 		for _, f := range o {

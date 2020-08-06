@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newCCRFollowInfoFunc(t Transport) CCRFollowInfo {
+// NewCCRFollowInfo creates a new API client for the CCRFollowInfo endpoint
+//
+func NewCCRFollowInfo(t Transport) CCRFollowInfo {
 	return func(index []string, o ...func(*CCRFollowInfoRequest)) (*Response, error) {
 		var r = CCRFollowInfoRequest{Index: index}
 		for _, f := range o {

@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newCCRResumeFollowFunc(t Transport) CCRResumeFollow {
+// NewCCRResumeFollow creates a new API client for the CCRResumeFollow endpoint
+//
+func NewCCRResumeFollow(t Transport) CCRResumeFollow {
 	return func(index string, o ...func(*CCRResumeFollowRequest)) (*Response, error) {
 		var r = CCRResumeFollowRequest{Index: index}
 		for _, f := range o {

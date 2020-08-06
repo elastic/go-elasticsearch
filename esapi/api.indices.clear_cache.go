@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newIndicesClearCacheFunc(t Transport) IndicesClearCache {
+// NewIndicesClearCache creates a new API client for the IndicesClearCache endpoint
+//
+func NewIndicesClearCache(t Transport) IndicesClearCache {
 	return func(o ...func(*IndicesClearCacheRequest)) (*Response, error) {
 		var r = IndicesClearCacheRequest{}
 		for _, f := range o {

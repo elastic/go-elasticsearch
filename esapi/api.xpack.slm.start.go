@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newSlmStartFunc(t Transport) SlmStart {
+// NewSlmStart creates a new API client for the SlmStart endpoint
+//
+func NewSlmStart(t Transport) SlmStart {
 	return func(o ...func(*SlmStartRequest)) (*Response, error) {
 		var r = SlmStartRequest{}
 		for _, f := range o {

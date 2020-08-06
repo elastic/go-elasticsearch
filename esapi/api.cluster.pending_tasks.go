@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newClusterPendingTasksFunc(t Transport) ClusterPendingTasks {
+// NewClusterPendingTasks creates a new API client for the ClusterPendingTasks endpoint
+//
+func NewClusterPendingTasks(t Transport) ClusterPendingTasks {
 	return func(o ...func(*ClusterPendingTasksRequest)) (*Response, error) {
 		var r = ClusterPendingTasksRequest{}
 		for _, f := range o {

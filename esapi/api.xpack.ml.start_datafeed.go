@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newMLStartDatafeedFunc(t Transport) MLStartDatafeed {
+// NewMLStartDatafeed creates a new API client for the MLStartDatafeed endpoint
+//
+func NewMLStartDatafeed(t Transport) MLStartDatafeed {
 	return func(datafeed_id string, o ...func(*MLStartDatafeedRequest)) (*Response, error) {
 		var r = MLStartDatafeedRequest{DatafeedID: datafeed_id}
 		for _, f := range o {

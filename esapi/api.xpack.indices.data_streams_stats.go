@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newIndicesDataStreamsStatsFunc(t Transport) IndicesDataStreamsStats {
+// NewIndicesDataStreamsStats creates a new API client for the IndicesDataStreamsStats endpoint
+//
+func NewIndicesDataStreamsStats(t Transport) IndicesDataStreamsStats {
 	return func(o ...func(*IndicesDataStreamsStatsRequest)) (*Response, error) {
 		var r = IndicesDataStreamsStatsRequest{}
 		for _, f := range o {

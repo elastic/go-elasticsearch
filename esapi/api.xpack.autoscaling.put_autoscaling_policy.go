@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newAutoscalingPutAutoscalingPolicyFunc(t Transport) AutoscalingPutAutoscalingPolicy {
+// NewAutoscalingPutAutoscalingPolicy creates a new API client for the AutoscalingPutAutoscalingPolicy endpoint
+//
+func NewAutoscalingPutAutoscalingPolicy(t Transport) AutoscalingPutAutoscalingPolicy {
 	return func(name string, body io.Reader, o ...func(*AutoscalingPutAutoscalingPolicyRequest)) (*Response, error) {
 		var r = AutoscalingPutAutoscalingPolicyRequest{Name: name, Body: body}
 		for _, f := range o {

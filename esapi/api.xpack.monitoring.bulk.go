@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newMonitoringBulkFunc(t Transport) MonitoringBulk {
+// NewMonitoringBulk creates a new API client for the MonitoringBulk endpoint
+//
+func NewMonitoringBulk(t Transport) MonitoringBulk {
 	return func(body io.Reader, o ...func(*MonitoringBulkRequest)) (*Response, error) {
 		var r = MonitoringBulkRequest{Body: body}
 		for _, f := range o {

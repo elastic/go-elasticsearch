@@ -16,7 +16,9 @@ import (
 	"time"
 )
 
-func newUpdateByQueryFunc(t Transport) UpdateByQuery {
+// NewUpdateByQuery creates a new API client for the UpdateByQuery endpoint
+//
+func NewUpdateByQuery(t Transport) UpdateByQuery {
 	return func(index []string, o ...func(*UpdateByQueryRequest)) (*Response, error) {
 		var r = UpdateByQueryRequest{Index: index}
 		for _, f := range o {

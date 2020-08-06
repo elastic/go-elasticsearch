@@ -14,7 +14,9 @@ import (
 	"strings"
 )
 
-func newTransformUpdateTransformFunc(t Transport) TransformUpdateTransform {
+// NewTransformUpdateTransform creates a new API client for the TransformUpdateTransform endpoint
+//
+func NewTransformUpdateTransform(t Transport) TransformUpdateTransform {
 	return func(body io.Reader, transform_id string, o ...func(*TransformUpdateTransformRequest)) (*Response, error) {
 		var r = TransformUpdateTransformRequest{Body: body, TransformID: transform_id}
 		for _, f := range o {

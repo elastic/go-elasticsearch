@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newDataFrameTransformDeprecatedGetTransformStatsFunc(t Transport) DataFrameTransformDeprecatedGetTransformStats {
+// NewDataFrameTransformDeprecatedGetTransformStats creates a new API client for the DataFrameTransformDeprecatedGetTransformStats endpoint
+//
+func NewDataFrameTransformDeprecatedGetTransformStats(t Transport) DataFrameTransformDeprecatedGetTransformStats {
 	return func(transform_id string, o ...func(*DataFrameTransformDeprecatedGetTransformStatsRequest)) (*Response, error) {
 		var r = DataFrameTransformDeprecatedGetTransformStatsRequest{TransformID: transform_id}
 		for _, f := range o {

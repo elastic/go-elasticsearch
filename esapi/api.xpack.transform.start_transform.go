@@ -13,7 +13,9 @@ import (
 	"time"
 )
 
-func newTransformStartTransformFunc(t Transport) TransformStartTransform {
+// NewTransformStartTransform creates a new API client for the TransformStartTransform endpoint
+//
+func NewTransformStartTransform(t Transport) TransformStartTransform {
 	return func(transform_id string, o ...func(*TransformStartTransformRequest)) (*Response, error) {
 		var r = TransformStartTransformRequest{TransformID: transform_id}
 		for _, f := range o {

@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newILMDeleteLifecycleFunc(t Transport) ILMDeleteLifecycle {
+// NewILMDeleteLifecycle creates a new API client for the ILMDeleteLifecycle endpoint
+//
+func NewILMDeleteLifecycle(t Transport) ILMDeleteLifecycle {
 	return func(policy string, o ...func(*ILMDeleteLifecycleRequest)) (*Response, error) {
 		var r = ILMDeleteLifecycleRequest{Policy: policy}
 		for _, f := range o {

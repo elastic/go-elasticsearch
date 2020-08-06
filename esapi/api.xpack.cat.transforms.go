@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newCatTransformsFunc(t Transport) CatTransforms {
+// NewCatTransforms creates a new API client for the CatTransforms endpoint
+//
+func NewCatTransforms(t Transport) CatTransforms {
 	return func(o ...func(*CatTransformsRequest)) (*Response, error) {
 		var r = CatTransformsRequest{}
 		for _, f := range o {

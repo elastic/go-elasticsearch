@@ -14,7 +14,9 @@ import (
 	"strings"
 )
 
-func newExplainFunc(t Transport) Explain {
+// NewExplain creates a new API client for the Explain endpoint
+//
+func NewExplain(t Transport) Explain {
 	return func(index string, id string, o ...func(*ExplainRequest)) (*Response, error) {
 		var r = ExplainRequest{Index: index, DocumentID: id}
 		for _, f := range o {

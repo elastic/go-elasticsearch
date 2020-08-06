@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newAsyncSearchDeleteFunc(t Transport) AsyncSearchDelete {
+// NewAsyncSearchDelete creates a new API client for the AsyncSearchDelete endpoint
+//
+func NewAsyncSearchDelete(t Transport) AsyncSearchDelete {
 	return func(id string, o ...func(*AsyncSearchDeleteRequest)) (*Response, error) {
 		var r = AsyncSearchDeleteRequest{DocumentID: id}
 		for _, f := range o {

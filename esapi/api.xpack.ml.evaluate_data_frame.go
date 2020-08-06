@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newMLEvaluateDataFrameFunc(t Transport) MLEvaluateDataFrame {
+// NewMLEvaluateDataFrame creates a new API client for the MLEvaluateDataFrame endpoint
+//
+func NewMLEvaluateDataFrame(t Transport) MLEvaluateDataFrame {
 	return func(body io.Reader, o ...func(*MLEvaluateDataFrameRequest)) (*Response, error) {
 		var r = MLEvaluateDataFrameRequest{Body: body}
 		for _, f := range o {

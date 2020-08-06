@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newDanglingIndicesListDanglingIndicesFunc(t Transport) DanglingIndicesListDanglingIndices {
+// NewDanglingIndicesListDanglingIndices creates a new API client for the DanglingIndicesListDanglingIndices endpoint
+//
+func NewDanglingIndicesListDanglingIndices(t Transport) DanglingIndicesListDanglingIndices {
 	return func(o ...func(*DanglingIndicesListDanglingIndicesRequest)) (*Response, error) {
 		var r = DanglingIndicesListDanglingIndicesRequest{}
 		for _, f := range o {

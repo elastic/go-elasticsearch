@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newCatAllocationFunc(t Transport) CatAllocation {
+// NewCatAllocation creates a new API client for the CatAllocation endpoint
+//
+func NewCatAllocation(t Transport) CatAllocation {
 	return func(o ...func(*CatAllocationRequest)) (*Response, error) {
 		var r = CatAllocationRequest{}
 		for _, f := range o {

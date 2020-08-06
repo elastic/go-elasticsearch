@@ -14,7 +14,9 @@ import (
 	"strings"
 )
 
-func newMLPutDatafeedFunc(t Transport) MLPutDatafeed {
+// NewMLPutDatafeed creates a new API client for the MLPutDatafeed endpoint
+//
+func NewMLPutDatafeed(t Transport) MLPutDatafeed {
 	return func(body io.Reader, datafeed_id string, o ...func(*MLPutDatafeedRequest)) (*Response, error) {
 		var r = MLPutDatafeedRequest{Body: body, DatafeedID: datafeed_id}
 		for _, f := range o {

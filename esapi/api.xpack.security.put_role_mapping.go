@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newSecurityPutRoleMappingFunc(t Transport) SecurityPutRoleMapping {
+// NewSecurityPutRoleMapping creates a new API client for the SecurityPutRoleMapping endpoint
+//
+func NewSecurityPutRoleMapping(t Transport) SecurityPutRoleMapping {
 	return func(name string, body io.Reader, o ...func(*SecurityPutRoleMappingRequest)) (*Response, error) {
 		var r = SecurityPutRoleMappingRequest{Name: name, Body: body}
 		for _, f := range o {

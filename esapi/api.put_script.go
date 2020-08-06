@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newPutScriptFunc(t Transport) PutScript {
+// NewPutScript creates a new API client for the PutScript endpoint
+//
+func NewPutScript(t Transport) PutScript {
 	return func(id string, body io.Reader, o ...func(*PutScriptRequest)) (*Response, error) {
 		var r = PutScriptRequest{ScriptID: id, Body: body}
 		for _, f := range o {

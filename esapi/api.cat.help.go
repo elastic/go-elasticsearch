@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newCatHelpFunc(t Transport) CatHelp {
+// NewCatHelp creates a new API client for the CatHelp endpoint
+//
+func NewCatHelp(t Transport) CatHelp {
 	return func(o ...func(*CatHelpRequest)) (*Response, error) {
 		var r = CatHelpRequest{}
 		for _, f := range o {

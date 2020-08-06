@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newSlmGetLifecycleFunc(t Transport) SlmGetLifecycle {
+// NewSlmGetLifecycle creates a new API client for the SlmGetLifecycle endpoint
+//
+func NewSlmGetLifecycle(t Transport) SlmGetLifecycle {
 	return func(o ...func(*SlmGetLifecycleRequest)) (*Response, error) {
 		var r = SlmGetLifecycleRequest{}
 		for _, f := range o {

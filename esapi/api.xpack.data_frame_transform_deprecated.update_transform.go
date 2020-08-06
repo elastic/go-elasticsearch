@@ -14,7 +14,9 @@ import (
 	"strings"
 )
 
-func newDataFrameTransformDeprecatedUpdateTransformFunc(t Transport) DataFrameTransformDeprecatedUpdateTransform {
+// NewDataFrameTransformDeprecatedUpdateTransform creates a new API client for the DataFrameTransformDeprecatedUpdateTransform endpoint
+//
+func NewDataFrameTransformDeprecatedUpdateTransform(t Transport) DataFrameTransformDeprecatedUpdateTransform {
 	return func(body io.Reader, transform_id string, o ...func(*DataFrameTransformDeprecatedUpdateTransformRequest)) (*Response, error) {
 		var r = DataFrameTransformDeprecatedUpdateTransformRequest{Body: body, TransformID: transform_id}
 		for _, f := range o {

@@ -15,7 +15,9 @@ import (
 	"time"
 )
 
-func newClusterRerouteFunc(t Transport) ClusterReroute {
+// NewClusterReroute creates a new API client for the ClusterReroute endpoint
+//
+func NewClusterReroute(t Transport) ClusterReroute {
 	return func(o ...func(*ClusterRerouteRequest)) (*Response, error) {
 		var r = ClusterRerouteRequest{}
 		for _, f := range o {

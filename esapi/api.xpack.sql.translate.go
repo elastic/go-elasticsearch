@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newSQLTranslateFunc(t Transport) SQLTranslate {
+// NewSQLTranslate creates a new API client for the SQLTranslate endpoint
+//
+func NewSQLTranslate(t Transport) SQLTranslate {
 	return func(body io.Reader, o ...func(*SQLTranslateRequest)) (*Response, error) {
 		var r = SQLTranslateRequest{Body: body}
 		for _, f := range o {

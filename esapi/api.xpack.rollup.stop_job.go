@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newRollupStopJobFunc(t Transport) RollupStopJob {
+// NewRollupStopJob creates a new API client for the RollupStopJob endpoint
+//
+func NewRollupStopJob(t Transport) RollupStopJob {
 	return func(id string, o ...func(*RollupStopJobRequest)) (*Response, error) {
 		var r = RollupStopJobRequest{JobID: id}
 		for _, f := range o {

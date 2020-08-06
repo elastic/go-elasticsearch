@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newMLDeleteModelSnapshotFunc(t Transport) MLDeleteModelSnapshot {
+// NewMLDeleteModelSnapshot creates a new API client for the MLDeleteModelSnapshot endpoint
+//
+func NewMLDeleteModelSnapshot(t Transport) MLDeleteModelSnapshot {
 	return func(snapshot_id string, job_id string, o ...func(*MLDeleteModelSnapshotRequest)) (*Response, error) {
 		var r = MLDeleteModelSnapshotRequest{SnapshotID: snapshot_id, JobID: job_id}
 		for _, f := range o {

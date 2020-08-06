@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newILMPutLifecycleFunc(t Transport) ILMPutLifecycle {
+// NewILMPutLifecycle creates a new API client for the ILMPutLifecycle endpoint
+//
+func NewILMPutLifecycle(t Transport) ILMPutLifecycle {
 	return func(policy string, o ...func(*ILMPutLifecycleRequest)) (*Response, error) {
 		var r = ILMPutLifecycleRequest{Policy: policy}
 		for _, f := range o {

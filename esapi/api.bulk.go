@@ -15,7 +15,9 @@ import (
 	"time"
 )
 
-func newBulkFunc(t Transport) Bulk {
+// NewBulk creates a new API client for the Bulk endpoint
+//
+func NewBulk(t Transport) Bulk {
 	return func(body io.Reader, o ...func(*BulkRequest)) (*Response, error) {
 		var r = BulkRequest{Body: body}
 		for _, f := range o {

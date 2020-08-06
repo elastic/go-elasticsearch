@@ -16,7 +16,9 @@ import (
 	"time"
 )
 
-func newSearchFunc(t Transport) Search {
+// NewSearch creates a new API client for the Search endpoint
+//
+func NewSearch(t Transport) Search {
 	return func(o ...func(*SearchRequest)) (*Response, error) {
 		var r = SearchRequest{}
 		for _, f := range o {

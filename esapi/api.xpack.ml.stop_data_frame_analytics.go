@@ -15,7 +15,9 @@ import (
 	"time"
 )
 
-func newMLStopDataFrameAnalyticsFunc(t Transport) MLStopDataFrameAnalytics {
+// NewMLStopDataFrameAnalytics creates a new API client for the MLStopDataFrameAnalytics endpoint
+//
+func NewMLStopDataFrameAnalytics(t Transport) MLStopDataFrameAnalytics {
 	return func(id string, o ...func(*MLStopDataFrameAnalyticsRequest)) (*Response, error) {
 		var r = MLStopDataFrameAnalyticsRequest{ID: id}
 		for _, f := range o {

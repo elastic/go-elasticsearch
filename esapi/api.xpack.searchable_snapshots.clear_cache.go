@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newSearchableSnapshotsClearCacheFunc(t Transport) SearchableSnapshotsClearCache {
+// NewSearchableSnapshotsClearCache creates a new API client for the SearchableSnapshotsClearCache endpoint
+//
+func NewSearchableSnapshotsClearCache(t Transport) SearchableSnapshotsClearCache {
 	return func(o ...func(*SearchableSnapshotsClearCacheRequest)) (*Response, error) {
 		var r = SearchableSnapshotsClearCacheRequest{}
 		for _, f := range o {

@@ -251,7 +251,7 @@ type API struct {
 			name := strings.ReplaceAll(e.Name(), "Request", "")
 			if strings.HasPrefix(strings.ToLower(name), strings.ToLower(n)) {
 				methodName := strings.ReplaceAll(name, n, "")
-				b.WriteString(fmt.Sprintf("\t\t%s: new%sFunc(t),\n", methodName, name))
+				b.WriteString(fmt.Sprintf("\t\t%s: New%s(t),\n", methodName, name))
 			}
 		}
 		b.WriteString("\t}\n")
@@ -274,7 +274,7 @@ func New(t Transport) *API {
 			}
 		}
 		if !skip {
-			b.WriteString(fmt.Sprintf("\t\t%[1]s: new%[1]sFunc(t),\n", name))
+			b.WriteString(fmt.Sprintf("\t\t%[1]s: New%[1]s(t),\n", name))
 		}
 	}
 

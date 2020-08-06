@@ -14,7 +14,9 @@ import (
 	"strings"
 )
 
-func newIndicesValidateQueryFunc(t Transport) IndicesValidateQuery {
+// NewIndicesValidateQuery creates a new API client for the IndicesValidateQuery endpoint
+//
+func NewIndicesValidateQuery(t Transport) IndicesValidateQuery {
 	return func(o ...func(*IndicesValidateQueryRequest)) (*Response, error) {
 		var r = IndicesValidateQueryRequest{}
 		for _, f := range o {

@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newSSLCertificatesFunc(t Transport) SSLCertificates {
+// NewSSLCertificates creates a new API client for the SSLCertificates endpoint
+//
+func NewSSLCertificates(t Transport) SSLCertificates {
 	return func(o ...func(*SSLCertificatesRequest)) (*Response, error) {
 		var r = SSLCertificatesRequest{}
 		for _, f := range o {

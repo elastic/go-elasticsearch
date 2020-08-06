@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newIndicesGetAliasFunc(t Transport) IndicesGetAlias {
+// NewIndicesGetAlias creates a new API client for the IndicesGetAlias endpoint
+//
+func NewIndicesGetAlias(t Transport) IndicesGetAlias {
 	return func(o ...func(*IndicesGetAliasRequest)) (*Response, error) {
 		var r = IndicesGetAliasRequest{}
 		for _, f := range o {

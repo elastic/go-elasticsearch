@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newSecurityInvalidateTokenFunc(t Transport) SecurityInvalidateToken {
+// NewSecurityInvalidateToken creates a new API client for the SecurityInvalidateToken endpoint
+//
+func NewSecurityInvalidateToken(t Transport) SecurityInvalidateToken {
 	return func(body io.Reader, o ...func(*SecurityInvalidateTokenRequest)) (*Response, error) {
 		var r = SecurityInvalidateTokenRequest{Body: body}
 		for _, f := range o {

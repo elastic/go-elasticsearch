@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newTransformPreviewTransformFunc(t Transport) TransformPreviewTransform {
+// NewTransformPreviewTransform creates a new API client for the TransformPreviewTransform endpoint
+//
+func NewTransformPreviewTransform(t Transport) TransformPreviewTransform {
 	return func(body io.Reader, o ...func(*TransformPreviewTransformRequest)) (*Response, error) {
 		var r = TransformPreviewTransformRequest{Body: body}
 		for _, f := range o {

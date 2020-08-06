@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newMLEstimateModelMemoryFunc(t Transport) MLEstimateModelMemory {
+// NewMLEstimateModelMemory creates a new API client for the MLEstimateModelMemory endpoint
+//
+func NewMLEstimateModelMemory(t Transport) MLEstimateModelMemory {
 	return func(body io.Reader, o ...func(*MLEstimateModelMemoryRequest)) (*Response, error) {
 		var r = MLEstimateModelMemoryRequest{Body: body}
 		for _, f := range o {

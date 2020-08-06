@@ -15,7 +15,9 @@ import (
 	"strings"
 )
 
-func newMLGetModelSnapshotsFunc(t Transport) MLGetModelSnapshots {
+// NewMLGetModelSnapshots creates a new API client for the MLGetModelSnapshots endpoint
+//
+func NewMLGetModelSnapshots(t Transport) MLGetModelSnapshots {
 	return func(job_id string, o ...func(*MLGetModelSnapshotsRequest)) (*Response, error) {
 		var r = MLGetModelSnapshotsRequest{JobID: job_id}
 		for _, f := range o {

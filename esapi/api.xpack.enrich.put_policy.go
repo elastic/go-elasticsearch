@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newEnrichPutPolicyFunc(t Transport) EnrichPutPolicy {
+// NewEnrichPutPolicy creates a new API client for the EnrichPutPolicy endpoint
+//
+func NewEnrichPutPolicy(t Transport) EnrichPutPolicy {
 	return func(name string, body io.Reader, o ...func(*EnrichPutPolicyRequest)) (*Response, error) {
 		var r = EnrichPutPolicyRequest{Name: name, Body: body}
 		for _, f := range o {

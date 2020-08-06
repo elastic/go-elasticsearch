@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newTransformDeleteTransformFunc(t Transport) TransformDeleteTransform {
+// NewTransformDeleteTransform creates a new API client for the TransformDeleteTransform endpoint
+//
+func NewTransformDeleteTransform(t Transport) TransformDeleteTransform {
 	return func(transform_id string, o ...func(*TransformDeleteTransformRequest)) (*Response, error) {
 		var r = TransformDeleteTransformRequest{TransformID: transform_id}
 		for _, f := range o {

@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newEnrichGetPolicyFunc(t Transport) EnrichGetPolicy {
+// NewEnrichGetPolicy creates a new API client for the EnrichGetPolicy endpoint
+//
+func NewEnrichGetPolicy(t Transport) EnrichGetPolicy {
 	return func(o ...func(*EnrichGetPolicyRequest)) (*Response, error) {
 		var r = EnrichGetPolicyRequest{}
 		for _, f := range o {

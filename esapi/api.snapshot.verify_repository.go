@@ -13,7 +13,9 @@ import (
 	"time"
 )
 
-func newSnapshotVerifyRepositoryFunc(t Transport) SnapshotVerifyRepository {
+// NewSnapshotVerifyRepository creates a new API client for the SnapshotVerifyRepository endpoint
+//
+func NewSnapshotVerifyRepository(t Transport) SnapshotVerifyRepository {
 	return func(repository string, o ...func(*SnapshotVerifyRepositoryRequest)) (*Response, error) {
 		var r = SnapshotVerifyRepositoryRequest{Repository: repository}
 		for _, f := range o {

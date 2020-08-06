@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newCatTemplatesFunc(t Transport) CatTemplates {
+// NewCatTemplates creates a new API client for the CatTemplates endpoint
+//
+func NewCatTemplates(t Transport) CatTemplates {
 	return func(o ...func(*CatTemplatesRequest)) (*Response, error) {
 		var r = CatTemplatesRequest{}
 		for _, f := range o {

@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newSecurityClearCachedRolesFunc(t Transport) SecurityClearCachedRoles {
+// NewSecurityClearCachedRoles creates a new API client for the SecurityClearCachedRoles endpoint
+//
+func NewSecurityClearCachedRoles(t Transport) SecurityClearCachedRoles {
 	return func(name []string, o ...func(*SecurityClearCachedRolesRequest)) (*Response, error) {
 		var r = SecurityClearCachedRolesRequest{Name: name}
 		for _, f := range o {

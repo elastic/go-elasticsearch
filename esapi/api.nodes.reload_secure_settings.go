@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newNodesReloadSecureSettingsFunc(t Transport) NodesReloadSecureSettings {
+// NewNodesReloadSecureSettings creates a new API client for the NodesReloadSecureSettings endpoint
+//
+func NewNodesReloadSecureSettings(t Transport) NodesReloadSecureSettings {
 	return func(o ...func(*NodesReloadSecureSettingsRequest)) (*Response, error) {
 		var r = NodesReloadSecureSettingsRequest{}
 		for _, f := range o {

@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newMLUpdateFilterFunc(t Transport) MLUpdateFilter {
+// NewMLUpdateFilter creates a new API client for the MLUpdateFilter endpoint
+//
+func NewMLUpdateFilter(t Transport) MLUpdateFilter {
 	return func(body io.Reader, filter_id string, o ...func(*MLUpdateFilterRequest)) (*Response, error) {
 		var r = MLUpdateFilterRequest{Body: body, FilterID: filter_id}
 		for _, f := range o {

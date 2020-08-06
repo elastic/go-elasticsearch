@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newIndicesOpenFunc(t Transport) IndicesOpen {
+// NewIndicesOpen creates a new API client for the IndicesOpen endpoint
+//
+func NewIndicesOpen(t Transport) IndicesOpen {
 	return func(index []string, o ...func(*IndicesOpenRequest)) (*Response, error) {
 		var r = IndicesOpenRequest{Index: index}
 		for _, f := range o {

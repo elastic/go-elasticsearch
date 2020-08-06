@@ -12,7 +12,9 @@ import (
 	"strings"
 )
 
-func newIndicesDeleteDataStreamFunc(t Transport) IndicesDeleteDataStream {
+// NewIndicesDeleteDataStream creates a new API client for the IndicesDeleteDataStream endpoint
+//
+func NewIndicesDeleteDataStream(t Transport) IndicesDeleteDataStream {
 	return func(name []string, o ...func(*IndicesDeleteDataStreamRequest)) (*Response, error) {
 		var r = IndicesDeleteDataStreamRequest{Name: name}
 		for _, f := range o {

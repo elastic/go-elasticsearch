@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newIndicesAddBlockFunc(t Transport) IndicesAddBlock {
+// NewIndicesAddBlock creates a new API client for the IndicesAddBlock endpoint
+//
+func NewIndicesAddBlock(t Transport) IndicesAddBlock {
 	return func(index []string, block string, o ...func(*IndicesAddBlockRequest)) (*Response, error) {
 		var r = IndicesAddBlockRequest{Index: index, Block: block}
 		for _, f := range o {

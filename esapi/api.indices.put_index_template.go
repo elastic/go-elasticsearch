@@ -15,7 +15,9 @@ import (
 	"time"
 )
 
-func newIndicesPutIndexTemplateFunc(t Transport) IndicesPutIndexTemplate {
+// NewIndicesPutIndexTemplate creates a new API client for the IndicesPutIndexTemplate endpoint
+//
+func NewIndicesPutIndexTemplate(t Transport) IndicesPutIndexTemplate {
 	return func(name string, body io.Reader, o ...func(*IndicesPutIndexTemplateRequest)) (*Response, error) {
 		var r = IndicesPutIndexTemplateRequest{Name: name, Body: body}
 		for _, f := range o {

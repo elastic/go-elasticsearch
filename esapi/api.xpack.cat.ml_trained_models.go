@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newCatMLTrainedModelsFunc(t Transport) CatMLTrainedModels {
+// NewCatMLTrainedModels creates a new API client for the CatMLTrainedModels endpoint
+//
+func NewCatMLTrainedModels(t Transport) CatMLTrainedModels {
 	return func(o ...func(*CatMLTrainedModelsRequest)) (*Response, error) {
 		var r = CatMLTrainedModelsRequest{}
 		for _, f := range o {

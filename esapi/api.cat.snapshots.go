@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newCatSnapshotsFunc(t Transport) CatSnapshots {
+// NewCatSnapshots creates a new API client for the CatSnapshots endpoint
+//
+func NewCatSnapshots(t Transport) CatSnapshots {
 	return func(o ...func(*CatSnapshotsRequest)) (*Response, error) {
 		var r = CatSnapshotsRequest{}
 		for _, f := range o {

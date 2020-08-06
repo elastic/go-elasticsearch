@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newCatAliasesFunc(t Transport) CatAliases {
+// NewCatAliases creates a new API client for the CatAliases endpoint
+//
+func NewCatAliases(t Transport) CatAliases {
 	return func(o ...func(*CatAliasesRequest)) (*Response, error) {
 		var r = CatAliasesRequest{}
 		for _, f := range o {

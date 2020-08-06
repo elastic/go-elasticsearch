@@ -14,7 +14,9 @@ import (
 	"time"
 )
 
-func newIndicesGetIndexTemplateFunc(t Transport) IndicesGetIndexTemplate {
+// NewIndicesGetIndexTemplate creates a new API client for the IndicesGetIndexTemplate endpoint
+//
+func NewIndicesGetIndexTemplate(t Transport) IndicesGetIndexTemplate {
 	return func(o ...func(*IndicesGetIndexTemplateRequest)) (*Response, error) {
 		var r = IndicesGetIndexTemplateRequest{}
 		for _, f := range o {

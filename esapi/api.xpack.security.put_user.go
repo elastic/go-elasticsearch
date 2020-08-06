@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newSecurityPutUserFunc(t Transport) SecurityPutUser {
+// NewSecurityPutUser creates a new API client for the SecurityPutUser endpoint
+//
+func NewSecurityPutUser(t Transport) SecurityPutUser {
 	return func(username string, body io.Reader, o ...func(*SecurityPutUserRequest)) (*Response, error) {
 		var r = SecurityPutUserRequest{Username: username, Body: body}
 		for _, f := range o {

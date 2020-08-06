@@ -13,7 +13,9 @@ import (
 	"strings"
 )
 
-func newMLDeleteDatafeedFunc(t Transport) MLDeleteDatafeed {
+// NewMLDeleteDatafeed creates a new API client for the MLDeleteDatafeed endpoint
+//
+func NewMLDeleteDatafeed(t Transport) MLDeleteDatafeed {
 	return func(datafeed_id string, o ...func(*MLDeleteDatafeedRequest)) (*Response, error) {
 		var r = MLDeleteDatafeedRequest{DatafeedID: datafeed_id}
 		for _, f := range o {
