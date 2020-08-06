@@ -193,7 +193,7 @@ func New(cfg Config) (*Client, error) {
 
 // Perform executes the request and returns a response or error.
 //
-func (c *Client) Perform(req *http.Request) (*http.Response, error) {
+func (c *Client) Perform(origReq *http.Request) (*http.Response, error) {
 	var (
 		res *http.Response
 		err error
@@ -207,18 +207,18 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	}
 
 	// Update request
-	c.setReqUserAgent(req)
-	c.setReqGlobalHeader(req)
+	c.setReqUserAgent(origReq)
+	c.setReqGlobalHeader(origReq)
 
-	if req.Body != nil && req.Body != http.NoBody && req.GetBody == nil {
+	if origReq.Body != nil && origReq.Body != http.NoBody && origReq.GetBody == nil {
 		if !c.disableRetry || (c.logger != nil && c.logger.RequestBodyEnabled()) {
 			var buf bytes.Buffer
-			buf.ReadFrom(req.Body)
-			req.GetBody = func() (io.ReadCloser, error) {
+			buf.ReadFrom(origReq.Body)
+			origReq.GetBody = func() (io.ReadCloser, error) {
 				r := buf
 				return ioutil.NopCloser(&r), nil
 			}
-			if req.Body, err = req.GetBody(); err != nil {
+			if origReq.Body, err = origReq.GetBody(); err != nil {
 				return nil, fmt.Errorf("cannot get request body: %s", err)
 			}
 		}
@@ -230,6 +230,11 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 			shouldRetry     bool
 			shouldCloseBody bool
 		)
+
+		req := origReq
+		if i > 1 {
+			req = origReq.Clone(origReq.Context())
+		}
 
 		// Get connection from the pool
 		c.Lock()
