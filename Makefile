@@ -37,9 +37,6 @@ endif
 		go test -v $(testintegargs) "./estransport" "./esapi" "./esutil"; \
 	fi;
 
-test-integ-race:
-	docker stop elasticsearch; docker start elasticsearch; for i in {1..50}; do go test -v -race -cover -count=1 -coverprofile=tmp/integration-client.cov -tags='integration' -timeout=1h . -run "DataRace"; done 
-
 test-api:  ## Run generated API integration tests
 	@mkdir -p tmp
 ifdef race
