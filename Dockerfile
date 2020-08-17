@@ -16,7 +16,10 @@ ENV CGO_ENABLED=0
 ENV TERM xterm-256color
 
 WORKDIR /go/src/github.com/elastic/go-elasticsearch
-COPY . .
+COPY go.mod go.sum ./
+RUN go mod download
 
-RUN go mod download && \
-    cd internal/cmd/generate && go mod download
+COPY internal/cmd/generate/go.mod internal/cmd/generate/go.sum internal/cmd/generate/
+RUN cd internal/cmd/generate && go mod download
+
+COPY . .
