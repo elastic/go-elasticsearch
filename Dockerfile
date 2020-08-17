@@ -18,5 +18,5 @@ ENV TERM xterm-256color
 WORKDIR /go-elasticsearch
 COPY . .
 
-RUN go mod download && go mod vendor && \
-    cd internal/cmd/generate && go mod download && go mod vendor
+RUN go mod download && \
+    cd internal/cmd/generate && go mod download
