@@ -15,7 +15,7 @@ VOLUME ["/tmp"]
 ENV CGO_ENABLED=0
 ENV TERM xterm-256color
 
-WORKDIR /go-elasticsearch
+WORKDIR /go/src/github.com/elastic/go-elasticsearch
 COPY . .
 
 RUN go mod download && \
