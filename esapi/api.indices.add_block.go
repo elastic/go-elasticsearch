@@ -28,7 +28,7 @@ func newIndicesAddBlockFunc(t Transport) IndicesAddBlock {
 
 // IndicesAddBlock adds a block to an index.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-blocks.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/index-modules-blocks.html.
 //
 type IndicesAddBlock func(index []string, block string, o ...func(*IndicesAddBlockRequest)) (*Response, error)
 

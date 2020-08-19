@@ -27,7 +27,7 @@ func newClearScrollFunc(t Transport) ClearScroll {
 
 // ClearScroll explicitly clears the search context for a scroll.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-request-body.html#_clear_scroll_api.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/clear-scroll-api.html.
 //
 type ClearScroll func(o ...func(*ClearScrollRequest)) (*Response, error)
 
