@@ -8,6 +8,7 @@ package esapi
 
 import (
 	"context"
+	"io"
 	"net/http"
 	"strconv"
 	"strings"
@@ -35,9 +36,12 @@ type MLStopDatafeed func(datafeed_id string, o ...func(*MLStopDatafeedRequest)) 
 // MLStopDatafeedRequest configures the ML Stop Datafeed API request.
 //
 type MLStopDatafeedRequest struct {
+	Body io.Reader
+
 	DatafeedID string
 
 	AllowNoDatafeeds *bool
+	AllowNoMatch     *bool
 	Force            *bool
 	Timeout          time.Duration
 
@@ -78,6 +82,10 @@ func (r MLStopDatafeedRequest) Do(ctx context.Context, transport Transport) (*Re
 		params["allow_no_datafeeds"] = strconv.FormatBool(*r.AllowNoDatafeeds)
 	}
 
+	if r.AllowNoMatch != nil {
+		params["allow_no_match"] = strconv.FormatBool(*r.AllowNoMatch)
+	}
+
 	if r.Force != nil {
 		params["force"] = strconv.FormatBool(*r.Force)
 	}
@@ -102,7 +110,7 @@ func (r MLStopDatafeedRequest) Do(ctx context.Context, transport Transport) (*Re
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -113,6 +121,10 @@ func (r MLStopDatafeedRequest) Do(ctx context.Context, transport Transport) (*Re
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if r.Body != nil {
+		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -153,11 +165,27 @@ func (f MLStopDatafeed) WithContext(v context.Context) func(*MLStopDatafeedReque
 	}
 }
 
+// WithBody - The URL params optionally sent in the body.
+//
+func (f MLStopDatafeed) WithBody(v io.Reader) func(*MLStopDatafeedRequest) {
+	return func(r *MLStopDatafeedRequest) {
+		r.Body = v
+	}
+}
+
 // WithAllowNoDatafeeds - whether to ignore if a wildcard expression matches no datafeeds. (this includes `_all` string or when no datafeeds have been specified).
 //
 func (f MLStopDatafeed) WithAllowNoDatafeeds(v bool) func(*MLStopDatafeedRequest) {
 	return func(r *MLStopDatafeedRequest) {
 		r.AllowNoDatafeeds = &v
+	}
+}
+
+// WithAllowNoMatch - whether to ignore if a wildcard expression matches no datafeeds. (this includes `_all` string or when no datafeeds have been specified).
+//
+func (f MLStopDatafeed) WithAllowNoMatch(v bool) func(*MLStopDatafeedRequest) {
+	return func(r *MLStopDatafeedRequest) {
+		r.AllowNoMatch = &v
 	}
 }
 
