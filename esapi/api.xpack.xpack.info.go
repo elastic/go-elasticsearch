@@ -138,7 +138,7 @@ func (f XPackInfo) WithContext(v context.Context) func(*XPackInfoRequest) {
 	}
 }
 
-// WithAcceptEnterprise - supported for backwards compatibility with 7.x. if this param is used it must be set to true.
+// WithAcceptEnterprise - if this param is used it must be set to true.
 //
 func (f XPackInfo) WithAcceptEnterprise(v bool) func(*XPackInfoRequest) {
 	return func(r *XPackInfoRequest) {

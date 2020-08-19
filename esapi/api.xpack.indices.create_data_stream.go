@@ -8,7 +8,6 @@ package esapi
 
 import (
 	"context"
-	"io"
 	"net/http"
 	"strings"
 )
@@ -25,7 +24,7 @@ func newIndicesCreateDataStreamFunc(t Transport) IndicesCreateDataStream {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesCreateDataStream - Creates or updates a data stream
+// IndicesCreateDataStream - Creates a data stream
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html.
 //
@@ -34,8 +33,6 @@ type IndicesCreateDataStream func(name string, o ...func(*IndicesCreateDataStrea
 // IndicesCreateDataStreamRequest configures the Indices Create Data Stream API request.
 //
 type IndicesCreateDataStreamRequest struct {
-	Body io.Reader
-
 	Name string
 
 	Pretty     bool
@@ -83,7 +80,7 @@ func (r IndicesCreateDataStreamRequest) Do(ctx context.Context, transport Transp
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -94,10 +91,6 @@ func (r IndicesCreateDataStreamRequest) Do(ctx context.Context, transport Transp
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
-	}
-
-	if r.Body != nil {
-		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -135,14 +128,6 @@ func (r IndicesCreateDataStreamRequest) Do(ctx context.Context, transport Transp
 func (f IndicesCreateDataStream) WithContext(v context.Context) func(*IndicesCreateDataStreamRequest) {
 	return func(r *IndicesCreateDataStreamRequest) {
 		r.ctx = v
-	}
-}
-
-// WithBody - The data stream definition.
-//
-func (f IndicesCreateDataStream) WithBody(v io.Reader) func(*IndicesCreateDataStreamRequest) {
-	return func(r *IndicesCreateDataStreamRequest) {
-		r.Body = v
 	}
 }
 
