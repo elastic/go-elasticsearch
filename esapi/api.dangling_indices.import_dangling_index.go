@@ -16,7 +16,7 @@ import (
 
 func newDanglingIndicesImportDanglingIndexFunc(t Transport) DanglingIndicesImportDanglingIndex {
 	return func(index_uuid string, o ...func(*DanglingIndicesImportDanglingIndexRequest)) (*Response, error) {
-		var r = DanglingIndicesImportDanglingIndexRequest{IndexUuid: index_uuid}
+		var r = DanglingIndicesImportDanglingIndexRequest{IndexUUID: index_uuid}
 		for _, f := range o {
 			f(&r)
 		}
@@ -35,7 +35,7 @@ type DanglingIndicesImportDanglingIndex func(index_uuid string, o ...func(*Dangl
 // DanglingIndicesImportDanglingIndexRequest configures the Dangling Indices Import Dangling Index API request.
 //
 type DanglingIndicesImportDanglingIndexRequest struct {
-	IndexUuid string
+	IndexUUID string
 
 	AcceptDataLoss *bool
 	MasterTimeout  time.Duration
@@ -62,11 +62,11 @@ func (r DanglingIndicesImportDanglingIndexRequest) Do(ctx context.Context, trans
 
 	method = "POST"
 
-	path.Grow(1 + len("_dangling") + 1 + len(r.IndexUuid))
+	path.Grow(1 + len("_dangling") + 1 + len(r.IndexUUID))
 	path.WriteString("/")
 	path.WriteString("_dangling")
 	path.WriteString("/")
-	path.WriteString(r.IndexUuid)
+	path.WriteString(r.IndexUUID)
 
 	params = make(map[string]string)
 
