@@ -46,8 +46,9 @@ func NameToGo(s string, api ...string) string {
 	}
 
 	acronyms := map[string]string{
-		"id":  "ID",
-		"ttl": "TTL",
+		"id":         "ID",
+		"ttl":        "TTL",
+		"index_uuid": "IndexUUID",
 
 		"api":   "API",
 		"ccr":   "CCR",
