@@ -231,6 +231,10 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 			shouldCloseBody bool
 		)
 
+		if i > 1 {
+			req = req.Clone(req.Context())
+		}
+
 		// Get connection from the pool
 		c.Lock()
 		conn, err = c.pool.Next()
