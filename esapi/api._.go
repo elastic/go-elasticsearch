@@ -1,4 +1,4 @@
-// Code generated from specification version 8.0.0 (610a47c792e): DO NOT EDIT
+// Code generated from specification version 8.0.0 (8fc9581d359): DO NOT EDIT
 
 package esapi
 
@@ -33,6 +33,7 @@ type API struct {
 	AutoscalingPutAutoscalingPolicy               AutoscalingPutAutoscalingPolicy
 	Bulk                                          Bulk
 	ClearScroll                                   ClearScroll
+	ClosePointInTime                              ClosePointInTime
 	Count                                         Count
 	Create                                        Create
 	DanglingIndicesDeleteDanglingIndex            DanglingIndicesDeleteDanglingIndex
@@ -74,6 +75,7 @@ type API struct {
 	Msearch                                       Msearch
 	MsearchTemplate                               MsearchTemplate
 	Mtermvectors                                  Mtermvectors
+	OpenPointInTime                               OpenPointInTime
 	Ping                                          Ping
 	PutScript                                     PutScript
 	RankEval                                      RankEval
@@ -467,6 +469,7 @@ func New(t Transport) *API {
 		AutoscalingPutAutoscalingPolicy:               newAutoscalingPutAutoscalingPolicyFunc(t),
 		Bulk:                                          newBulkFunc(t),
 		ClearScroll:                                   newClearScrollFunc(t),
+		ClosePointInTime:                              newClosePointInTimeFunc(t),
 		Count:                                         newCountFunc(t),
 		Create:                                        newCreateFunc(t),
 		DanglingIndicesDeleteDanglingIndex:            newDanglingIndicesDeleteDanglingIndexFunc(t),
@@ -508,6 +511,7 @@ func New(t Transport) *API {
 		Msearch:                                       newMsearchFunc(t),
 		MsearchTemplate:                               newMsearchTemplateFunc(t),
 		Mtermvectors:                                  newMtermvectorsFunc(t),
+		OpenPointInTime:                               newOpenPointInTimeFunc(t),
 		Ping:                                          newPingFunc(t),
 		PutScript:                                     newPutScriptFunc(t),
 		RankEval:                                      newRankEvalFunc(t),
