@@ -1654,7 +1654,7 @@ func paramsToArguments(api string, params url.Values) (string, error) {
 				value = strconv.Quote(value)
 			}
 		case "detailed", "flat_settings": // bool
-			value = value
+			value = string(value)
 		case "v": // Blank bool
 			value = "true"
 		default:
