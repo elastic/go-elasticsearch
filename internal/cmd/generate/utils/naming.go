@@ -46,9 +46,8 @@ func NameToGo(s string, api ...string) string {
 	}
 
 	acronyms := map[string]string{
-		"id":         "ID",
-		"ttl":        "TTL",
-		"index_uuid": "IndexUUID",
+		"id":  "ID",
+		"ttl": "TTL",
 
 		"api":   "API",
 		"ccr":   "CCR",
@@ -104,6 +103,8 @@ func NameToGo(s string, api ...string) string {
 	for _, v := range ep {
 		if value, ok := acronyms[v]; ok {
 			v = value
+		} else if v == "uuid" {
+			v = "UUID"
 		}
 		ns = append(ns, strings.Title(v))
 	}
