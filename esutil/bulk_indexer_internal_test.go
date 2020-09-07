@@ -585,6 +585,36 @@ func TestBulkIndexer(t *testing.T) {
 				}},
 				`{"index":{"_id":"42","_index":"test"}}` + "\n",
 			},
+			{
+				"with version and no document",
+				args{BulkIndexerItem{
+					Action:     "index",
+					Index:      "test",
+					Version:    23,
+				}},
+				`{"index":{"_index":"test"}}` + "\n",
+			},
+			{
+				"with version",
+				args{BulkIndexerItem{
+					Action:     "index",
+					DocumentID: "42",
+					Index:      "test",
+					Version:    23,
+				}},
+				`{"index":{"_id":"42","version":23,"_index":"test"}}` + "\n",
+			},
+			{
+				"with version and version_type",
+				args{BulkIndexerItem{
+					Action:      "index",
+					DocumentID:  "42",
+					Index:       "test",
+					Version:     23,
+					VersionType: "external",
+				}},
+				`{"index":{"_id":"42","version":23,"version_type":"external","_index":"test"}}` + "\n",
+			},
 		}
 		for _, tt := range tests {
 			tt := tt
