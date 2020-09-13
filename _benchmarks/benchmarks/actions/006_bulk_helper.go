@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 
-package operations
+package actions
 
 import (
 	"bytes"
@@ -21,8 +21,8 @@ import (
 
 func init() {
 	benchmarks.Register(
-		benchmarks.Operation{
-			Action:   "bulk-helper",
+		benchmarks.Action{
+			Name:     "bulk-helper",
 			Category: "helpers",
 
 			NumWarmups:     1,

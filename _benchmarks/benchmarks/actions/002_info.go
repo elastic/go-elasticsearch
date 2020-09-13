@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 
-package operations
+package actions
 
 import (
 	"io"
@@ -16,8 +16,8 @@ import (
 
 func init() {
 	benchmarks.Register(
-		benchmarks.Operation{
-			Action:         "info",
+		benchmarks.Action{
+			Name:           "info",
 			Category:       "core",
 			NumWarmups:     0,
 			NumRepetitions: 10000,

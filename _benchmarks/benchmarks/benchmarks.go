@@ -12,16 +12,16 @@ import (
 
 var (
 	Config      map[string]string
-	Operations  []Operation
+	Actions     []Action
 	DataSources = make(map[string]*bytes.Buffer)
 
 	DefaultRepetitions = 1000
 )
 
-// Operation represents a benchmarked operation.
+// Action represents a benchmarked action.
 //
-type Operation struct {
-	Action         string
+type Action struct {
+	Name           string
 	Category       string
 	Environment    string
 	NumWarmups     int
@@ -33,7 +33,7 @@ type Operation struct {
 
 // Register appends op to the list of operations.
 //
-func Register(op Operation) error {
-	Operations = append(Operations, op)
+func Register(a Action) error {
+	Actions = append(Actions, a)
 	return nil
 }

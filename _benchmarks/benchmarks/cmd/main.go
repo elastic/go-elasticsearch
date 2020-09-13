@@ -24,7 +24,7 @@ import (
 	"github.com/elastic/go-elasticsearch/v8/benchmarks"
 	"github.com/elastic/go-elasticsearch/v8/benchmarks/runner"
 
-	_ "github.com/elastic/go-elasticsearch/v8/benchmarks/operations"
+	_ "github.com/elastic/go-elasticsearch/v8/benchmarks/actions"
 )
 
 var (
@@ -37,7 +37,7 @@ var (
 
 	defaultRepetitions = 1000
 
-	filterOperations string
+	filterActions string
 )
 
 func main() {
@@ -99,7 +99,7 @@ func main() {
 		benchmarks.DataSources[file.Name()] = &b
 	}
 
-	filterOperations = os.Getenv("FILTER")
+	filterActions = os.Getenv("FILTER")
 
 	runnerClientConfig := elasticsearch.Config{
 		Addresses:    []string{benchmarks.Config["ELASTICSEARCH_TARGET_URL"]},
@@ -150,32 +150,32 @@ func main() {
 		},
 	}
 
-	for _, operation := range benchmarks.Operations {
-		if filterOperations != "" {
-			if !strings.Contains(operation.Action, filterOperations) {
+	for _, action := range benchmarks.Actions {
+		if filterActions != "" {
+			if !strings.Contains(action.Name, filterActions) {
 				continue
 			}
 		}
 
-		runnerConfig.Action = operation.Action
-		runnerConfig.NumRepetitions = operation.NumRepetitions
-		runnerConfig.SetupFunc = operation.SetupFunc
-		runnerConfig.RunnerFunc = operation.RunnerFunc
+		runnerConfig.Action = action.Name
+		runnerConfig.NumRepetitions = action.NumRepetitions
+		runnerConfig.SetupFunc = action.SetupFunc
+		runnerConfig.RunnerFunc = action.RunnerFunc
 
-		if operation.NumOperations > 0 {
-			runnerConfig.NumOperations = operation.NumOperations
+		if action.NumOperations > 0 {
+			runnerConfig.NumOperations = action.NumOperations
 		} else {
 			runnerConfig.NumOperations = 1
 		}
 
-		if operation.Category != "" {
-			runnerConfig.Category = operation.Category
+		if action.Category != "" {
+			runnerConfig.Category = action.Category
 		} else {
 			runnerConfig.Category = os.Getenv("CLIENT_BENCHMARK_CATEGORY")
 		}
 
-		if operation.Environment != "" {
-			runnerConfig.Environment = operation.Environment
+		if action.Environment != "" {
+			runnerConfig.Environment = action.Environment
 		} else {
 			runnerConfig.Environment = os.Getenv("CLIENT_BENCHMARK_ENVIRONMENT")
 		}
@@ -199,8 +199,8 @@ func main() {
 		}
 		mean = func() time.Duration { v, _ := stats.Mean(samples); return time.Duration(v).Truncate(time.Millisecond) }()
 
-		fmt.Fprintf(w, "  %-15s", fmt.Sprintf("[%s]", operation.Action))
-		fmt.Fprintf(w, " %-9s", fmt.Sprintf("%d×", operation.NumRepetitions))
+		fmt.Fprintf(w, "  %-15s", fmt.Sprintf("[%s]", action.Name))
+		fmt.Fprintf(w, " %-9s", fmt.Sprintf("%d×", action.NumRepetitions))
 		fmt.Fprintf(w, " "+faint("mean=")+"%s", mean)
 		fmt.Fprintf(w, " "+faint("runner=")+"%s", func() string {
 			if len(run.Stats()) < 1 {
