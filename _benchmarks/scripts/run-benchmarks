@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+set -eo pipefail
+cd benchmarks && go run cmd/main.go
