@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+#
+# Licensed to Elasticsearch B.V. under one or more agreements.
+# Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
+# See the LICENSE file in the project root for more information.
+
+set -euxo pipefail
+
+export WORKSPACE=${WORKSPACE:-$PWD}
+
+COMMIT="$(git rev-parse --short HEAD)"
+
+export CLIENT_IMAGE="eu.gcr.io/elastic-clients/go-elasticsearch:$COMMIT"
+export CLIENT_BRANCH='master'
+export CLIENT_COMMAND='source /environment.sh && cd _benchmarks/benchmarks && go run cmd/main.go'
+
+set +x
+echo -e "\033[1mBuilding Docker image for commit [$COMMIT]\033[0m"
+set -x
+docker build --file Dockerfile --tag elastic/go-elasticsearch .
+
+set +u
+if [[ -n $JENKINS_URL ]]; then
+	set +x
+	VAULT_TOKEN=$(vault write -field=token auth/approle/login role_id="$VAULT_ROLE_ID" secret_id="$VAULT_SECRET_ID")
+	export VAULT_TOKEN
+	set -x
+fi
+set -u
+
+mkdir -p "$WORKSPACE/tmp"
+vault read -field=gcp_service_account secret/clients-team/benchmarking > "$WORKSPACE/tmp/credentials.json"
+gcloud auth activate-service-account --key-file "$WORKSPACE/tmp/credentials.json"
+
+gcloud auth configure-docker --quiet
+gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://eu.gcr.io
+docker tag elastic/go-elasticsearch "$CLIENT_IMAGE"
+docker push "$CLIENT_IMAGE"
+
+exec "$WORKSPACE/.jenkins/scripts/run-benchmarks.sh"
