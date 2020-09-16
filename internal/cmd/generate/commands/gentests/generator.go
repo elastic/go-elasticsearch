@@ -223,36 +223,35 @@ var (
 }
 
 func (g *Generator) genInitializeClient() {
+	g.w(`
+	cfg := elasticsearch.Config{}
+	`)
+
 	if g.TestSuite.Type == "xpack" {
 		g.w(`
-	cfg := elasticsearch.Config{
-		Transport: &http.Transport{
-			TLSClientConfig: &tls.Config{
-				InsecureSkipVerify: true,
-			},
+	cfg.Transport = &http.Transport{
+		TLSClientConfig: &tls.Config{
+			InsecureSkipVerify: true,
 		},
+	}` + "\n")
 	}
-	if os.Getenv("DEBUG") != "" {
-		cfg.Logger = &estransport.ColorLogger{
-			Output: os.Stdout,
-			// EnableRequestBody:  true,
-			EnableResponseBody: true,
-		}
-	}
+
+	g.w(`
+			if os.Getenv("DEBUG") != "" {
+				cfg.Logger = &estransport.ColorLogger{
+					Output: os.Stdout,
+					// EnableRequestBody:  true,
+					EnableResponseBody: true,
+				}
+			}` + "\n")
+
+	g.w(`
 	es, eserr := elasticsearch.NewClient(cfg)
 	if eserr != nil {
 		t.Fatalf("Error creating the client: %s\n", eserr)
 	}
 
 `)
-	} else {
-		g.w(`	es, eserr := elasticsearch.NewDefaultClient()
-	if eserr != nil {
-		t.Fatalf("Error creating the client: %s\n", eserr)
-	}
-
-`)
-	}
 }
 
 func (g *Generator) genHelpers() {
