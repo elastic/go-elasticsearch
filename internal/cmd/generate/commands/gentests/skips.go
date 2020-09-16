@@ -137,8 +137,10 @@ bulk/81_cas_with_types.yml:
 
 # ----- X-Pack ----------------------------------------------------------------
 
-# Float "3.0" handled as "3" in fmt.Sprintf()
+# Float "3.0" decoded as "3" by gopkg.in/yaml.v2
 analytics/top_metrics.yml:
+runtime_fields/30_double.yml:
+  - docvalue_fields
 
 # Stash in body
 api_key/10_basic.yml:
@@ -268,6 +270,8 @@ xpack/15_basic.yml:
 ml/explain_data_frame_analytics.yml:
   - Test empty data frame given body
   - Test non-empty data frame given body
+runtime_fields/10_keyword.yml:
+  - docvalue_fields
 
 # Test uses "n" as a property name, which is parsed as 'false' in the Go YAML library;
 search.aggregation/10_histogram.yml:
