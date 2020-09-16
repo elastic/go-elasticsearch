@@ -275,4 +275,17 @@ runtime_fields/10_keyword.yml:
 
 # Test uses "n" as a property name, which is parsed as 'false' in the Go YAML library;
 search.aggregation/10_histogram.yml:
+
+# Getting "no matching index template found for data stream [invalid-data-stream]"
+data_stream/10_basic.yml:
+  - Create data stream with invalid name
+
+# The matcher like 'indices.0.aliases.0' points to internal index
+data_stream/80_resolve_index_data_streams.yml:
+  - Resolve index with indices, aliases, and data streams
+  - Resolve index with hidden and closed indices
+
+# Zero matchers like '...shards.0.stores.0.allocation:primary' expect array, not map
+data_stream/40_supported_apis.yml:
+  - Verify shard stores api
 `
