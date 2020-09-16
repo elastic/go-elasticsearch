@@ -133,11 +133,14 @@ bulk/81_cas_with_types.yml:
 
 # ----- X-Pack ----------------------------------------------------------------
 
-# The generator cuts the expected float (3.0) into int (3), to make other tests work
+# Float "3.0" decoded as "3" by gopkg.in/yaml.v2
 analytics/top_metrics.yml:
   - sort by double field
   - sort by numeric script
   - sort by scaled float field
+
+runtime_fields/30_double.yml:
+  - docvalue_fields
 
 # Stash in body
 api_key/10_basic.yml:
@@ -253,4 +256,18 @@ watcher/execute_watch/60_http_input.yml:
 # Test tries to match on "tagline", which requires "human=false", which doesn't work in the Go API.
 # Also test does too much within a single test, so has to be disabled as whole, unfortunately.
 xpack/15_basic.yml:
+
+# Test uses "y" as a property name, which is parsed as 'true' in the Go YAML library;
+# see https://yaml.org/type/bool.html
+ml/explain_data_frame_analytics.yml:
+  - Test empty data frame given body
+  - Test non-empty data frame given body
+runtime_fields/10_keyword.yml:
+  - docvalue_fields
+
+# Test uses "n" as a property name, which is parsed as 'false' in the Go YAML library;
+search.aggregation/10_histogram.yml:
+
+# Test uses "n" as a property name, which is parsed as 'false' in the Go YAML library;
+search.aggregation/10_histogram.yml:
 `
