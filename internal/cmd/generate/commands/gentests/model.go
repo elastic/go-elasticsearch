@@ -651,9 +651,12 @@ default:
 					rkey := r.Replace(key)
 					output += `		if ` + nilGuard + ` { t.Error("Expected [` + rkey + `] to not be nil") }
 						actual = ` + escape(subject) + `.(encjson.Number).String()
-						// TEMP: Hack to prevent 1.0 != 1 errors
-						actual = strings.TrimSuffix(actual.(string), ".0")
 						expected = ` + expected + `
+						// TEMP: Hack to prevent 1.0 != 1 errors
+						if strings.HasSuffix(actual.(string), ".0") {
+							actual = strings.TrimSuffix(actual.(string), ".0")
+							expected = strings.TrimSuffix(` + strconv.Quote(expected) + `, ".0")
+						}
 						assertion = fmt.Sprintf("%v", actual) == fmt.Sprintf("%v", expected)
 					if !assertion {
 						t.Logf("%v != %v", actual, expected)` + "\n"
@@ -663,11 +666,11 @@ default:
 					output += `		if ` +
 						nilGuard +
 						" || \n" +
-						`fmt.Sprintf("%s", ` + escape(subject) + `) != `
+						`strings.TrimSpace(fmt.Sprintf("%s", ` + escape(subject) + `)) != `
 					if strings.HasPrefix(expected, "$") {
-						output += `fmt.Sprintf("%s", ` + `stash["` + expected + `"]` + `)`
+						output += `strings.TrimSpace(fmt.Sprintf("%s", ` + `stash["` + expected + `"]` + `))`
 					} else {
-						output += `fmt.Sprintf("%s", ` + strconv.Quote(expected) + `)`
+						output += `strings.TrimSpace(fmt.Sprintf("%s", ` + strconv.Quote(expected) + `))`
 					}
 					output += " {\n"
 
