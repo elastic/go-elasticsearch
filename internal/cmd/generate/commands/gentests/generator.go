@@ -399,6 +399,13 @@ func (g *Generator) genXPackSetup() {
 			var res *esapi.Response
 
 			{
+				res, _ = es.Indices.DeleteDataStream([]string{"*"})
+				if res != nil && res.Body != nil {
+					defer res.Body.Close()
+				}
+			}
+
+			{
 				var r map[string]interface{}
 				res, _ = es.Indices.GetTemplate()
 				if res != nil && res.Body != nil {
