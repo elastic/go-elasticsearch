@@ -310,9 +310,11 @@ func (g *Generator) genCommonSetup() {
 
 		{
 			res, _ = es.Indices.Delete(
-				[]string{"_all"},
-				es.Indices.Delete.WithExpandWildcards("open,closed"))
-			if res != nil && res.Body != nil { defer res.Body.Close() }
+				[]string{"*"},
+				es.Indices.Delete.WithExpandWildcards("all"))
+			if res != nil && res.Body != nil {
+				defer res.Body.Close()
+			}
 		}
 
 		{
