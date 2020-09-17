@@ -141,6 +141,7 @@ analytics/top_metrics.yml:
 
 runtime_fields/30_double.yml:
   - docvalue_fields
+  - fetch fields
 
 # Stash in body
 api_key/10_basic.yml:
@@ -264,6 +265,7 @@ ml/explain_data_frame_analytics.yml:
   - Test non-empty data frame given body
 runtime_fields/10_keyword.yml:
   - docvalue_fields
+  - fetch fields
 
 # Test uses "n" as a property name, which is parsed as 'false' in the Go YAML library;
 search.aggregation/10_histogram.yml:
@@ -280,4 +282,9 @@ data_stream/80_resolve_index_data_streams.yml:
 # Zero matchers like '...shards.0.stores.0.allocation:primary' expect array, not map
 data_stream/40_supported_apis.yml:
   - Verify shard stores api
+
+# Failing with error 'Index [.security] is not on the current version. Security features relying on the index will not be available until the upgrade API is run on the index'
+data_stream/40_supported_apis.yml:
+  - Verify search shards api
+  - Verify rank eval with data streams
 `
