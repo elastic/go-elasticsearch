@@ -272,12 +272,20 @@ func TestCloudID(t *testing.T) {
 			out string
 		}{
 			{
-				in:  "name:" + base64.StdEncoding.EncodeToString([]byte("host$es$kibana")),
-				out: "https://es.host",
+				in:  "name:" + base64.StdEncoding.EncodeToString([]byte("host$es_uuid$kibana_uuid")),
+				out: "https://es_uuid.host",
 			},
 			{
-				in:  "name:" + base64.StdEncoding.EncodeToString([]byte("host:9243$es$kibana")),
-				out: "https://es.host:9243",
+				in:  "name:" + base64.StdEncoding.EncodeToString([]byte("host:9243$es_uuid$kibana_uuid")),
+				out: "https://es_uuid.host:9243",
+			},
+			{
+				in:  "name:" + base64.StdEncoding.EncodeToString([]byte("host$es_uuid$")),
+				out: "https://es_uuid.host",
+			},
+			{
+				in:  "name:" + base64.StdEncoding.EncodeToString([]byte("host$es_uuid")),
+				out: "https://es_uuid.host",
 			},
 		}
 
