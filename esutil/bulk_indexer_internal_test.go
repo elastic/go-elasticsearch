@@ -585,6 +585,11 @@ func TestBulkIndexer(t *testing.T) {
 				}},
 				`{"index":{"_id":"42","_index":"test"}}` + "\n",
 			},
+			{
+				"with _type and without _id",
+				args{BulkIndexerItem{Action: "index", DocumentType: "foo"}},
+				`{"index":{"_type":"foo"}}` + "\n",
+			},
 		}
 		for _, tt := range tests {
 			tt := tt
