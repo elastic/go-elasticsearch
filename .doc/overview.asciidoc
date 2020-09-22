@@ -8,6 +8,7 @@ https://github.com/elastic/go-elasticsearch[GitHub]
 and https://godoc.org/github.com/elastic/go-elasticsearch[GoDoc]. This 
 documentation provides only an overview of features.
 
+
 [discrete]
 === {es} Version Compatibility
 
@@ -42,12 +43,14 @@ func main() {
 Please have a look at the collection of comprehensive examples in the repository
 at https://github.com/elastic/go-elasticsearch/tree/master/_examples.
 
+
 [discrete]
 === Resources
 
 * https://github.com/elastic/go-elasticsearch[Source Code]
 * https://godoc.org/github.com/elastic/go-elasticsearch[API Documentation]
 * https://github.com/elastic/go-elasticsearch/tree/master/_examples[Examples and Recipes]
+
 
 [discrete]
 === License

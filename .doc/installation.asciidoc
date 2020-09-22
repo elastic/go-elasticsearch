@@ -1,5 +1,5 @@
 [[installation]]
-=== Installation
+== Installation
 
 To install the 7.x version of the client, add the package to your `go.mod` file:
 
