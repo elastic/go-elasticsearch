@@ -27,7 +27,7 @@ func newOpenPointInTimeFunc(t Transport) OpenPointInTime {
 
 // OpenPointInTime - Open a point in time that can be used in subsequent searches
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/point-in-time.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/point-in-time-api.html.
 //
 type OpenPointInTime func(o ...func(*OpenPointInTimeRequest)) (*Response, error)
 

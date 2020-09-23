@@ -29,7 +29,7 @@ func newSearchableSnapshotsClearCacheFunc(t Transport) SearchableSnapshotsClearC
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/searchable-snapshots-api-clear-cache.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/searchable-snapshots-apis.html.
 //
 type SearchableSnapshotsClearCache func(o ...func(*SearchableSnapshotsClearCacheRequest)) (*Response, error)
 

@@ -38,13 +38,13 @@ type MLGetTrainedModels func(o ...func(*MLGetTrainedModelsRequest)) (*Response, 
 type MLGetTrainedModelsRequest struct {
 	ModelID string
 
-	AllowNoMatch           *bool
-	DecompressDefinition   *bool
-	ForExport              *bool
-	From                   *int
-	IncludeModelDefinition *bool
-	Size                   *int
-	Tags                   []string
+	AllowNoMatch         *bool
+	DecompressDefinition *bool
+	ForExport            *bool
+	From                 *int
+	Include              string
+	Size                 *int
+	Tags                 []string
 
 	Pretty     bool
 	Human      bool
@@ -95,8 +95,8 @@ func (r MLGetTrainedModelsRequest) Do(ctx context.Context, transport Transport) 
 		params["from"] = strconv.FormatInt(int64(*r.From), 10)
 	}
 
-	if r.IncludeModelDefinition != nil {
-		params["include_model_definition"] = strconv.FormatBool(*r.IncludeModelDefinition)
+	if r.Include != "" {
+		params["include"] = r.Include
 	}
 
 	if r.Size != nil {
@@ -214,11 +214,11 @@ func (f MLGetTrainedModels) WithFrom(v int) func(*MLGetTrainedModelsRequest) {
 	}
 }
 
-// WithIncludeModelDefinition - should the full model definition be included in the results. these definitions can be large. so be cautious when including them. defaults to false..
+// WithInclude - a comma-separate list of fields to optionally include. valid options are 'definition' and 'total_feature_importance'. default is none..
 //
-func (f MLGetTrainedModels) WithIncludeModelDefinition(v bool) func(*MLGetTrainedModelsRequest) {
+func (f MLGetTrainedModels) WithInclude(v string) func(*MLGetTrainedModelsRequest) {
 	return func(r *MLGetTrainedModelsRequest) {
-		r.IncludeModelDefinition = &v
+		r.Include = v
 	}
 }
 
