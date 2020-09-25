@@ -28,7 +28,7 @@ func newSearchableSnapshotsStatsFunc(t Transport) SearchableSnapshotsStats {
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/searchable-snapshots-api-stats.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/searchable-snapshots-apis.html.
 //
 type SearchableSnapshotsStats func(o ...func(*SearchableSnapshotsStatsRequest)) (*Response, error)
 

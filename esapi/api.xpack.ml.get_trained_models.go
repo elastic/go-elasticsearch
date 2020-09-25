@@ -42,6 +42,7 @@ type MLGetTrainedModelsRequest struct {
 	DecompressDefinition   *bool
 	ForExport              *bool
 	From                   *int
+	Include                string
 	IncludeModelDefinition *bool
 	Size                   *int
 	Tags                   []string
@@ -93,6 +94,10 @@ func (r MLGetTrainedModelsRequest) Do(ctx context.Context, transport Transport) 
 
 	if r.From != nil {
 		params["from"] = strconv.FormatInt(int64(*r.From), 10)
+	}
+
+	if r.Include != "" {
+		params["include"] = r.Include
 	}
 
 	if r.IncludeModelDefinition != nil {
@@ -211,6 +216,14 @@ func (f MLGetTrainedModels) WithForExport(v bool) func(*MLGetTrainedModelsReques
 func (f MLGetTrainedModels) WithFrom(v int) func(*MLGetTrainedModelsRequest) {
 	return func(r *MLGetTrainedModelsRequest) {
 		r.From = &v
+	}
+}
+
+// WithInclude - a comma-separate list of fields to optionally include. valid options are 'definition' and 'total_feature_importance'. default is none..
+//
+func (f MLGetTrainedModels) WithInclude(v string) func(*MLGetTrainedModelsRequest) {
+	return func(r *MLGetTrainedModelsRequest) {
+		r.Include = v
 	}
 }
 
