@@ -350,7 +350,13 @@ func main() {
 As you see in the example above, the `esapi` package allows to call the Elasticsearch APIs in two distinct ways: either by creating a struct, such as `IndexRequest`, and calling its `Do()` method by passing it a context and the client, or by calling the `Search()` function on the client directly, using the option functions such as `WithIndex()`. See more information and examples in the
 [package documentation](https://godoc.org/github.com/elastic/go-elasticsearch/esapi).
 
-The `estransport` package handles the transfer of data to and from Elasticsearch. At the moment, the implementation is really minimal: it only round-robins across the configured cluster endpoints. In future, more features — retrying failed requests, ignoring certain status codes, auto-discovering nodes in the cluster, and so on — will be added.
+The `estransport` package handles the transfer of data to and from Elasticsearch, including retrying failed requests, keeping a connection pool, discovering cluster nodes and logging.
+
+Read more about the client internals and usage in the following blog posts:
+
+* https://www.elastic.co/blog/the-go-client-for-elasticsearch-introduction
+* https://www.elastic.co/blog/the-go-client-for-elasticsearch-configuration-and-customization
+* https://www.elastic.co/blog/the-go-client-for-elasticsearch-working-with-data
 
 <!-- ----------------------------------------------------------------------------------------------- -->
 
