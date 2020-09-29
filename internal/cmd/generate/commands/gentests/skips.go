@@ -300,4 +300,11 @@ data_stream/40_supported_apis.yml:
   - Open write index for data stream opens all backing indices
 data_stream/90_reindex.yml:
   - Reindex from data stream into an index
+
+# Error: constant 9223372036854775808 overflows int (https://play.golang.org/p/Fshfve-RQAy)
+unsigned_long/10_basic.yml:
+unsigned_long/20_null_value.yml:
+unsigned_long/30_multi_fields.yml:
+unsigned_long/40_different_numeric.yml:
+unsigned_long/50_script_values.yml:
 `
