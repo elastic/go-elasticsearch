@@ -12,9 +12,9 @@ import (
 	"strings"
 )
 
-func newMLDeleteTrainedModelFunc(t Transport) MLDeleteTrainedModel {
-	return func(model_id string, o ...func(*MLDeleteTrainedModelRequest)) (*Response, error) {
-		var r = MLDeleteTrainedModelRequest{ModelID: model_id}
+func newSecurityClearAPIKeyCacheFunc(t Transport) SecurityClearAPIKeyCache {
+	return func(ids []string, o ...func(*SecurityClearAPIKeyCacheRequest)) (*Response, error) {
+		var r = SecurityClearAPIKeyCacheRequest{Ids: ids}
 		for _, f := range o {
 			f(&r)
 		}
@@ -24,18 +24,16 @@ func newMLDeleteTrainedModelFunc(t Transport) MLDeleteTrainedModel {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLDeleteTrainedModel - Deletes an existing trained inference model that is currently not referenced by an ingest pipeline.
+// SecurityClearAPIKeyCache - Clear a subset or all entries from the API key cache.
 //
-// This API is experimental.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-api-key-cache.html.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-trained-models.html.
-//
-type MLDeleteTrainedModel func(model_id string, o ...func(*MLDeleteTrainedModelRequest)) (*Response, error)
+type SecurityClearAPIKeyCache func(ids []string, o ...func(*SecurityClearAPIKeyCacheRequest)) (*Response, error)
 
-// MLDeleteTrainedModelRequest configures the ML Delete Trained Model API request.
+// SecurityClearAPIKeyCacheRequest configures the Security ClearAPI Key Cache API request.
 //
-type MLDeleteTrainedModelRequest struct {
-	ModelID string
+type SecurityClearAPIKeyCacheRequest struct {
+	Ids []string
 
 	Pretty     bool
 	Human      bool
@@ -49,22 +47,24 @@ type MLDeleteTrainedModelRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r MLDeleteTrainedModelRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SecurityClearAPIKeyCacheRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "DELETE"
+	method = "POST"
 
-	path.Grow(1 + len("_ml") + 1 + len("trained_models") + 1 + len(r.ModelID))
+	path.Grow(1 + len("_security") + 1 + len("api_key") + 1 + len(strings.Join(r.Ids, ",")) + 1 + len("_clear_cache"))
 	path.WriteString("/")
-	path.WriteString("_ml")
+	path.WriteString("_security")
 	path.WriteString("/")
-	path.WriteString("trained_models")
+	path.WriteString("api_key")
 	path.WriteString("/")
-	path.WriteString(r.ModelID)
+	path.WriteString(strings.Join(r.Ids, ","))
+	path.WriteString("/")
+	path.WriteString("_clear_cache")
 
 	params = make(map[string]string)
 
@@ -129,48 +129,48 @@ func (r MLDeleteTrainedModelRequest) Do(ctx context.Context, transport Transport
 
 // WithContext sets the request context.
 //
-func (f MLDeleteTrainedModel) WithContext(v context.Context) func(*MLDeleteTrainedModelRequest) {
-	return func(r *MLDeleteTrainedModelRequest) {
+func (f SecurityClearAPIKeyCache) WithContext(v context.Context) func(*SecurityClearAPIKeyCacheRequest) {
+	return func(r *SecurityClearAPIKeyCacheRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f MLDeleteTrainedModel) WithPretty() func(*MLDeleteTrainedModelRequest) {
-	return func(r *MLDeleteTrainedModelRequest) {
+func (f SecurityClearAPIKeyCache) WithPretty() func(*SecurityClearAPIKeyCacheRequest) {
+	return func(r *SecurityClearAPIKeyCacheRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f MLDeleteTrainedModel) WithHuman() func(*MLDeleteTrainedModelRequest) {
-	return func(r *MLDeleteTrainedModelRequest) {
+func (f SecurityClearAPIKeyCache) WithHuman() func(*SecurityClearAPIKeyCacheRequest) {
+	return func(r *SecurityClearAPIKeyCacheRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f MLDeleteTrainedModel) WithErrorTrace() func(*MLDeleteTrainedModelRequest) {
-	return func(r *MLDeleteTrainedModelRequest) {
+func (f SecurityClearAPIKeyCache) WithErrorTrace() func(*SecurityClearAPIKeyCacheRequest) {
+	return func(r *SecurityClearAPIKeyCacheRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f MLDeleteTrainedModel) WithFilterPath(v ...string) func(*MLDeleteTrainedModelRequest) {
-	return func(r *MLDeleteTrainedModelRequest) {
+func (f SecurityClearAPIKeyCache) WithFilterPath(v ...string) func(*SecurityClearAPIKeyCacheRequest) {
+	return func(r *SecurityClearAPIKeyCacheRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f MLDeleteTrainedModel) WithHeader(h map[string]string) func(*MLDeleteTrainedModelRequest) {
-	return func(r *MLDeleteTrainedModelRequest) {
+func (f SecurityClearAPIKeyCache) WithHeader(h map[string]string) func(*SecurityClearAPIKeyCacheRequest) {
+	return func(r *SecurityClearAPIKeyCacheRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -182,8 +182,8 @@ func (f MLDeleteTrainedModel) WithHeader(h map[string]string) func(*MLDeleteTrai
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f MLDeleteTrainedModel) WithOpaqueID(s string) func(*MLDeleteTrainedModelRequest) {
-	return func(r *MLDeleteTrainedModelRequest) {
+func (f SecurityClearAPIKeyCache) WithOpaqueID(s string) func(*SecurityClearAPIKeyCacheRequest) {
+	return func(r *SecurityClearAPIKeyCacheRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

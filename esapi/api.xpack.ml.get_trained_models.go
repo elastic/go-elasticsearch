@@ -29,7 +29,7 @@ func newMLGetTrainedModelsFunc(t Transport) MLGetTrainedModels {
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-inference.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-trained-models.html.
 //
 type MLGetTrainedModels func(o ...func(*MLGetTrainedModelsRequest)) (*Response, error)
 
@@ -68,11 +68,11 @@ func (r MLGetTrainedModelsRequest) Do(ctx context.Context, transport Transport) 
 
 	method = "GET"
 
-	path.Grow(1 + len("_ml") + 1 + len("inference") + 1 + len(r.ModelID))
+	path.Grow(1 + len("_ml") + 1 + len("trained_models") + 1 + len(r.ModelID))
 	path.WriteString("/")
 	path.WriteString("_ml")
 	path.WriteString("/")
-	path.WriteString("inference")
+	path.WriteString("trained_models")
 	if r.ModelID != "" {
 		path.WriteString("/")
 		path.WriteString(r.ModelID)

@@ -1,4 +1,4 @@
-// Code generated from specification version 7.10.0 (e28750b001e): DO NOT EDIT
+// Code generated from specification version 7.10.0 (88b45dfa611): DO NOT EDIT
 
 package esapi
 
@@ -401,6 +401,7 @@ type Rollup struct {
 type Security struct {
 	Authenticate          SecurityAuthenticate
 	ChangePassword        SecurityChangePassword
+	ClearAPIKeyCache      SecurityClearAPIKeyCache
 	ClearCachedPrivileges SecurityClearCachedPrivileges
 	ClearCachedRealms     SecurityClearCachedRealms
 	ClearCachedRoles      SecurityClearCachedRoles
@@ -802,6 +803,7 @@ func New(t Transport) *API {
 		Security: &Security{
 			Authenticate:          newSecurityAuthenticateFunc(t),
 			ChangePassword:        newSecurityChangePasswordFunc(t),
+			ClearAPIKeyCache:      newSecurityClearAPIKeyCacheFunc(t),
 			ClearCachedPrivileges: newSecurityClearCachedPrivilegesFunc(t),
 			ClearCachedRealms:     newSecurityClearCachedRealmsFunc(t),
 			ClearCachedRoles:      newSecurityClearCachedRolesFunc(t),
