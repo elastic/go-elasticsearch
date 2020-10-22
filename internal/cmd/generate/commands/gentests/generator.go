@@ -72,7 +72,7 @@ func (g *Generator) Output() (io.Reader, error) {
 	for i, t := range g.TestSuite.Tests {
 		g.w("\n")
 		g.genLocationYAML(t)
-		g.w("\t" + `t.Run("` + t.Name + `", ` + "func(t *testing.T) {\n")
+		g.w("\t" + `t.Run("` + strings.ReplaceAll(t.Name, " ", "_") + `", ` + "func(t *testing.T) {\n")
 		if !g.genSkip(t) {
 			g.w("\tdefer recoverPanic(t)\n")
 			g.w("\tcommonSetup()\n")
@@ -889,7 +889,7 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 		// fmt.Printf("%s.%s: <%T> %v\n", a.Request(), k, v, v)
 
 		if strings.HasPrefix(fmt.Sprintf("%s", v), "$") {
-			v = `stash[` + strconv.Quote(fmt.Sprintf("%s", v)) + `]`
+			v = `stash[` + strconv.Quote(strings.ReplaceAll(strings.ReplaceAll(fmt.Sprintf("%s", v), "{", ""), "}", "")) + `]`
 		}
 
 		switch v.(type) {
