@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.10.0: DO NOT EDIT
+// Code generated from specification version 7.11.0: DO NOT EDIT
 
 package esapi
 
@@ -27,7 +27,7 @@ func newMLGetTrainedModelsFunc(t Transport) MLGetTrainedModels {
 
 // MLGetTrainedModels - Retrieves configuration information for a trained inference model.
 //
-// This API is experimental.
+// This API is beta.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-trained-models.html.
 //
@@ -40,7 +40,7 @@ type MLGetTrainedModelsRequest struct {
 
 	AllowNoMatch           *bool
 	DecompressDefinition   *bool
-	ForExport              *bool
+	ExcludeGenerated       *bool
 	From                   *int
 	Include                string
 	IncludeModelDefinition *bool
@@ -88,8 +88,8 @@ func (r MLGetTrainedModelsRequest) Do(ctx context.Context, transport Transport) 
 		params["decompress_definition"] = strconv.FormatBool(*r.DecompressDefinition)
 	}
 
-	if r.ForExport != nil {
-		params["for_export"] = strconv.FormatBool(*r.ForExport)
+	if r.ExcludeGenerated != nil {
+		params["exclude_generated"] = strconv.FormatBool(*r.ExcludeGenerated)
 	}
 
 	if r.From != nil {
@@ -203,11 +203,11 @@ func (f MLGetTrainedModels) WithDecompressDefinition(v bool) func(*MLGetTrainedM
 	}
 }
 
-// WithForExport - omits fields that are illegal to set on model put.
+// WithExcludeGenerated - omits fields that are illegal to set on model put.
 //
-func (f MLGetTrainedModels) WithForExport(v bool) func(*MLGetTrainedModelsRequest) {
+func (f MLGetTrainedModels) WithExcludeGenerated(v bool) func(*MLGetTrainedModelsRequest) {
 	return func(r *MLGetTrainedModelsRequest) {
-		r.ForExport = &v
+		r.ExcludeGenerated = &v
 	}
 }
 

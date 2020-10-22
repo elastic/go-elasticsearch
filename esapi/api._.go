@@ -1,4 +1,4 @@
-// Code generated from specification version 7.10.0 (88b45dfa611): DO NOT EDIT
+// Code generated from specification version 7.11.0 (5f37db4ec54): DO NOT EDIT
 
 package esapi
 
@@ -28,6 +28,7 @@ type API struct {
 	XPack       *XPack
 
 	AutoscalingDeleteAutoscalingPolicy            AutoscalingDeleteAutoscalingPolicy
+	AutoscalingGetAutoscalingCapacity             AutoscalingGetAutoscalingCapacity
 	AutoscalingGetAutoscalingDecision             AutoscalingGetAutoscalingDecision
 	AutoscalingGetAutoscalingPolicy               AutoscalingGetAutoscalingPolicy
 	AutoscalingPutAutoscalingPolicy               AutoscalingPutAutoscalingPolicy
@@ -244,6 +245,7 @@ type Remote struct {
 // Snapshot contains the Snapshot APIs
 type Snapshot struct {
 	CleanupRepository SnapshotCleanupRepository
+	Clone             SnapshotClone
 	CreateRepository  SnapshotCreateRepository
 	Create            SnapshotCreate
 	DeleteRepository  SnapshotDeleteRepository
@@ -420,6 +422,7 @@ type Security struct {
 	GetToken              SecurityGetToken
 	GetUserPrivileges     SecurityGetUserPrivileges
 	GetUser               SecurityGetUser
+	GrantAPIKey           SecurityGrantAPIKey
 	HasPrivileges         SecurityHasPrivileges
 	InvalidateAPIKey      SecurityInvalidateAPIKey
 	InvalidateToken       SecurityInvalidateToken
@@ -466,6 +469,7 @@ type XPack struct {
 func New(t Transport) *API {
 	return &API{
 		AutoscalingDeleteAutoscalingPolicy:            newAutoscalingDeleteAutoscalingPolicyFunc(t),
+		AutoscalingGetAutoscalingCapacity:             newAutoscalingGetAutoscalingCapacityFunc(t),
 		AutoscalingGetAutoscalingDecision:             newAutoscalingGetAutoscalingDecisionFunc(t),
 		AutoscalingGetAutoscalingPolicy:               newAutoscalingGetAutoscalingPolicyFunc(t),
 		AutoscalingPutAutoscalingPolicy:               newAutoscalingPutAutoscalingPolicyFunc(t),
@@ -666,6 +670,7 @@ func New(t Transport) *API {
 		Remote: &Remote{},
 		Snapshot: &Snapshot{
 			CleanupRepository: newSnapshotCleanupRepositoryFunc(t),
+			Clone:             newSnapshotCloneFunc(t),
 			CreateRepository:  newSnapshotCreateRepositoryFunc(t),
 			Create:            newSnapshotCreateFunc(t),
 			DeleteRepository:  newSnapshotDeleteRepositoryFunc(t),
@@ -822,6 +827,7 @@ func New(t Transport) *API {
 			GetToken:              newSecurityGetTokenFunc(t),
 			GetUserPrivileges:     newSecurityGetUserPrivilegesFunc(t),
 			GetUser:               newSecurityGetUserFunc(t),
+			GrantAPIKey:           newSecurityGrantAPIKeyFunc(t),
 			HasPrivileges:         newSecurityHasPrivilegesFunc(t),
 			InvalidateAPIKey:      newSecurityInvalidateAPIKeyFunc(t),
 			InvalidateToken:       newSecurityInvalidateTokenFunc(t),

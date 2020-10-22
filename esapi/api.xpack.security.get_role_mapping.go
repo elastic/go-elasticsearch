@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.10.0: DO NOT EDIT
+// Code generated from specification version 7.11.0: DO NOT EDIT
 
 package esapi
 
@@ -33,7 +33,7 @@ type SecurityGetRoleMapping func(o ...func(*SecurityGetRoleMappingRequest)) (*Re
 // SecurityGetRoleMappingRequest configures the Security Get Role Mapping API request.
 //
 type SecurityGetRoleMappingRequest struct {
-	Name string
+	Name []string
 
 	Pretty     bool
 	Human      bool
@@ -56,14 +56,14 @@ func (r SecurityGetRoleMappingRequest) Do(ctx context.Context, transport Transpo
 
 	method = "GET"
 
-	path.Grow(1 + len("_security") + 1 + len("role_mapping") + 1 + len(r.Name))
+	path.Grow(1 + len("_security") + 1 + len("role_mapping") + 1 + len(strings.Join(r.Name, ",")))
 	path.WriteString("/")
 	path.WriteString("_security")
 	path.WriteString("/")
 	path.WriteString("role_mapping")
-	if r.Name != "" {
+	if len(r.Name) > 0 {
 		path.WriteString("/")
-		path.WriteString(r.Name)
+		path.WriteString(strings.Join(r.Name, ","))
 	}
 
 	params = make(map[string]string)
@@ -135,9 +135,9 @@ func (f SecurityGetRoleMapping) WithContext(v context.Context) func(*SecurityGet
 	}
 }
 
-// WithName - role-mapping name.
+// WithName - a list of role-mapping names.
 //
-func (f SecurityGetRoleMapping) WithName(v string) func(*SecurityGetRoleMappingRequest) {
+func (f SecurityGetRoleMapping) WithName(v ...string) func(*SecurityGetRoleMappingRequest) {
 	return func(r *SecurityGetRoleMappingRequest) {
 		r.Name = v
 	}

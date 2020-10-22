@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.10.0: DO NOT EDIT
+// Code generated from specification version 7.11.0: DO NOT EDIT
 
 package esapi
 
@@ -38,6 +38,7 @@ type MLGetDatafeedsRequest struct {
 
 	AllowNoDatafeeds *bool
 	AllowNoMatch     *bool
+	ExcludeGenerated *bool
 
 	Pretty     bool
 	Human      bool
@@ -78,6 +79,10 @@ func (r MLGetDatafeedsRequest) Do(ctx context.Context, transport Transport) (*Re
 
 	if r.AllowNoMatch != nil {
 		params["allow_no_match"] = strconv.FormatBool(*r.AllowNoMatch)
+	}
+
+	if r.ExcludeGenerated != nil {
+		params["exclude_generated"] = strconv.FormatBool(*r.ExcludeGenerated)
 	}
 
 	if r.Pretty {
@@ -168,6 +173,14 @@ func (f MLGetDatafeeds) WithAllowNoDatafeeds(v bool) func(*MLGetDatafeedsRequest
 func (f MLGetDatafeeds) WithAllowNoMatch(v bool) func(*MLGetDatafeedsRequest) {
 	return func(r *MLGetDatafeedsRequest) {
 		r.AllowNoMatch = &v
+	}
+}
+
+// WithExcludeGenerated - omits fields that are illegal to set on datafeed put.
+//
+func (f MLGetDatafeeds) WithExcludeGenerated(v bool) func(*MLGetDatafeedsRequest) {
+	return func(r *MLGetDatafeedsRequest) {
+		r.ExcludeGenerated = &v
 	}
 }
 

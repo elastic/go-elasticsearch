@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.10.0: DO NOT EDIT
+// Code generated from specification version 7.11.0: DO NOT EDIT
 
 package esapi
 
@@ -27,7 +27,7 @@ func newMLGetDataFrameAnalyticsFunc(t Transport) MLGetDataFrameAnalytics {
 
 // MLGetDataFrameAnalytics - Retrieves configuration information for data frame analytics jobs.
 //
-// This API is experimental.
+// This API is beta.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-dfanalytics.html.
 //
@@ -38,9 +38,10 @@ type MLGetDataFrameAnalytics func(o ...func(*MLGetDataFrameAnalyticsRequest)) (*
 type MLGetDataFrameAnalyticsRequest struct {
 	ID string
 
-	AllowNoMatch *bool
-	From         *int
-	Size         *int
+	AllowNoMatch     *bool
+	ExcludeGenerated *bool
+	From             *int
+	Size             *int
 
 	Pretty     bool
 	Human      bool
@@ -79,6 +80,10 @@ func (r MLGetDataFrameAnalyticsRequest) Do(ctx context.Context, transport Transp
 
 	if r.AllowNoMatch != nil {
 		params["allow_no_match"] = strconv.FormatBool(*r.AllowNoMatch)
+	}
+
+	if r.ExcludeGenerated != nil {
+		params["exclude_generated"] = strconv.FormatBool(*r.ExcludeGenerated)
 	}
 
 	if r.From != nil {
@@ -169,6 +174,14 @@ func (f MLGetDataFrameAnalytics) WithID(v string) func(*MLGetDataFrameAnalyticsR
 func (f MLGetDataFrameAnalytics) WithAllowNoMatch(v bool) func(*MLGetDataFrameAnalyticsRequest) {
 	return func(r *MLGetDataFrameAnalyticsRequest) {
 		r.AllowNoMatch = &v
+	}
+}
+
+// WithExcludeGenerated - omits fields that are illegal to set on data frame analytics put.
+//
+func (f MLGetDataFrameAnalytics) WithExcludeGenerated(v bool) func(*MLGetDataFrameAnalyticsRequest) {
+	return func(r *MLGetDataFrameAnalyticsRequest) {
+		r.ExcludeGenerated = &v
 	}
 }
 

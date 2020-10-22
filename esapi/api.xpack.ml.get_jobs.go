@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.10.0: DO NOT EDIT
+// Code generated from specification version 7.11.0: DO NOT EDIT
 
 package esapi
 
@@ -36,8 +36,9 @@ type MLGetJobs func(o ...func(*MLGetJobsRequest)) (*Response, error)
 type MLGetJobsRequest struct {
 	JobID string
 
-	AllowNoJobs  *bool
-	AllowNoMatch *bool
+	AllowNoJobs      *bool
+	AllowNoMatch     *bool
+	ExcludeGenerated *bool
 
 	Pretty     bool
 	Human      bool
@@ -78,6 +79,10 @@ func (r MLGetJobsRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 	if r.AllowNoMatch != nil {
 		params["allow_no_match"] = strconv.FormatBool(*r.AllowNoMatch)
+	}
+
+	if r.ExcludeGenerated != nil {
+		params["exclude_generated"] = strconv.FormatBool(*r.ExcludeGenerated)
 	}
 
 	if r.Pretty {
@@ -168,6 +173,14 @@ func (f MLGetJobs) WithAllowNoJobs(v bool) func(*MLGetJobsRequest) {
 func (f MLGetJobs) WithAllowNoMatch(v bool) func(*MLGetJobsRequest) {
 	return func(r *MLGetJobsRequest) {
 		r.AllowNoMatch = &v
+	}
+}
+
+// WithExcludeGenerated - omits fields that are illegal to set on job put.
+//
+func (f MLGetJobs) WithExcludeGenerated(v bool) func(*MLGetJobsRequest) {
+	return func(r *MLGetJobsRequest) {
+		r.ExcludeGenerated = &v
 	}
 }
 
