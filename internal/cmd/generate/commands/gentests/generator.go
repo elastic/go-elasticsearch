@@ -72,7 +72,7 @@ func (g *Generator) Output() (io.Reader, error) {
 	for i, t := range g.TestSuite.Tests {
 		g.w("\n")
 		g.genLocationYAML(t)
-		g.w("\t" + `t.Run("` + strings.Title(t.Name) + `", ` + "func(t *testing.T) {\n")
+		g.w("\t" + `t.Run("` + t.Name + `", ` + "func(t *testing.T) {\n")
 		if !g.genSkip(t) {
 			g.w("\tdefer recoverPanic(t)\n")
 			g.w("\tcommonSetup()\n")
@@ -1134,19 +1134,31 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 		if strings.Contains(a.headers["Accept"], "yaml") && strings.HasPrefix(a.Request(), "Cat") {
 			g.w("\t\t" + `Format: "yaml",` + "\n")
 		}
-		if auth_header, ok := a.headers["Authorization"]; ok {
-			auth_fields := strings.Split(auth_header, " ")
-			auth_name := auth_fields[0]
-			auth_value := auth_fields[1]
-			if strings.HasPrefix(auth_value, "$") {
-				auth_value = `fmt.Sprintf("%s", stash["` + strings.ReplaceAll(strings.ReplaceAll(auth_value, "{", ""), "}", "") + `"])`
-			} else {
-				auth_value = `"` + auth_value + `"`
+
+		g.w("\t\tHeader: http.Header{\n")
+		for name, value := range a.headers {
+
+			if name == "Content-Type" && value == "application/json"{
+				continue
 			}
-			g.w("\t\t" + `Header: http.Header{` + "\n")
-			g.w("\t\t\t" + `"Authorization": []string{"` + auth_name + ` " + ` + auth_value + `},` + "\n")
-			g.w("\t\t" + `},` + "\n")
+
+			if name == "Authorization" {
+				auth_fields := strings.Split(value, " ")
+				auth_name := auth_fields[0]
+				auth_value := auth_fields[1]
+				if strings.HasPrefix(auth_value, "$") {
+					auth_value = `fmt.Sprintf("%s", stash["` + strings.ReplaceAll(strings.ReplaceAll(auth_value, "{", ""), "}", "") + `"])`
+				} else {
+					auth_value = `"` + auth_value + `"`
+				}
+				g.w("\t\t\t" + `"Authorization": []string{"` + auth_name + ` " + ` + auth_value + `},` + "\n")
+
+			} else {
+				g.w("\t\t\t\"" + name + "\": []string{\"" + value + "\"},\n")
+			}
+
 		}
+		g.w("\t\t},\n")
 	}
 
 	g.w("\t\t}\n\n")
