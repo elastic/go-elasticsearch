@@ -650,7 +650,12 @@ default:
 					r := strings.NewReplacer(`"`, "", `\`, "")
 					rkey := r.Replace(key)
 					output += `		if ` + nilGuard + ` { t.Error("Expected [` + rkey + `] to not be nil") }
-						actual = ` + escape(subject) + `.(encjson.Number).String()
+						actual = ` + escape(subject) + `
+						if intValue, ok := actual.(int); ok {
+							actual = fmt.Sprint(intValue)
+						} else {
+							actual = actual.(encjson.Number).String()
+						}
 						expected = ` + expected + `
 						// TEMP: Hack to prevent 1.0 != 1 errors
 						if strings.HasSuffix(actual.(string), ".0") {
@@ -676,11 +681,14 @@ default:
 
 				// --------------------------------------------------------------------------------
 				case map[interface{}]interface{}, map[string]interface{}:
+					// We cannot reliably serialize to json and compare the json outputs: YAML responses are parsed as
+					// a map[interface{}]interface{} that encoding/json fails to marshall
+					// See https://play.golang.org/p/jhcXwg5dIrn
 					expectedPayload := fmt.Sprintf("%#v", val)
 					expectedPayload = strings.ReplaceAll(expectedPayload, "map[interface {}]interface {}", "map[string]interface {}")
-					output = `		actual, _ = encjson.Marshal(` + escape(subject) + `)
-				expected, _ = encjson.Marshal(` + expectedPayload + `)
-				if fmt.Sprintf("%s", actual) != fmt.Sprintf("%s", expected) {` + "\n"
+					output = `		actual = fmt.Sprintf("%v",` + escape(subject) + `)
+				expected = fmt.Sprintf("%v",` + expectedPayload + `)
+				if actual != expected {` + "\n"
 
 				// --------------------------------------------------------------------------------
 				case []interface{}:
