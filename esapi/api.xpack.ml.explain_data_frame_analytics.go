@@ -27,7 +27,7 @@ func newMLExplainDataFrameAnalyticsFunc(t Transport) MLExplainDataFrameAnalytics
 
 // MLExplainDataFrameAnalytics - Explains a data frame analytics config.
 //
-// This API is experimental.
+// This API is beta.
 //
 // See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/explain-dfanalytics.html.
 //

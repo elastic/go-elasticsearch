@@ -13,9 +13,9 @@ import (
 	"strings"
 )
 
-func newMLPutDataFrameAnalyticsFunc(t Transport) MLPutDataFrameAnalytics {
-	return func(id string, body io.Reader, o ...func(*MLPutDataFrameAnalyticsRequest)) (*Response, error) {
-		var r = MLPutDataFrameAnalyticsRequest{ID: id, Body: body}
+func newSecurityGrantAPIKeyFunc(t Transport) SecurityGrantAPIKey {
+	return func(body io.Reader, o ...func(*SecurityGrantAPIKeyRequest)) (*Response, error) {
+		var r = SecurityGrantAPIKeyRequest{Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -25,20 +25,18 @@ func newMLPutDataFrameAnalyticsFunc(t Transport) MLPutDataFrameAnalytics {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPutDataFrameAnalytics - Instantiates a data frame analytics job.
+// SecurityGrantAPIKey - Creates an API key on behalf of another user.
 //
-// This API is beta.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-grant-api-key.html.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/put-dfanalytics.html.
-//
-type MLPutDataFrameAnalytics func(id string, body io.Reader, o ...func(*MLPutDataFrameAnalyticsRequest)) (*Response, error)
+type SecurityGrantAPIKey func(body io.Reader, o ...func(*SecurityGrantAPIKeyRequest)) (*Response, error)
 
-// MLPutDataFrameAnalyticsRequest configures the ML Put Data Frame Analytics API request.
+// SecurityGrantAPIKeyRequest configures the Security GrantAPI Key API request.
 //
-type MLPutDataFrameAnalyticsRequest struct {
-	ID string
-
+type SecurityGrantAPIKeyRequest struct {
 	Body io.Reader
+
+	Refresh string
 
 	Pretty     bool
 	Human      bool
@@ -52,26 +50,23 @@ type MLPutDataFrameAnalyticsRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r MLPutDataFrameAnalyticsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SecurityGrantAPIKeyRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "PUT"
+	method = "POST"
 
-	path.Grow(1 + len("_ml") + 1 + len("data_frame") + 1 + len("analytics") + 1 + len(r.ID))
-	path.WriteString("/")
-	path.WriteString("_ml")
-	path.WriteString("/")
-	path.WriteString("data_frame")
-	path.WriteString("/")
-	path.WriteString("analytics")
-	path.WriteString("/")
-	path.WriteString(r.ID)
+	path.Grow(len("/_security/api_key/grant"))
+	path.WriteString("/_security/api_key/grant")
 
 	params = make(map[string]string)
+
+	if r.Refresh != "" {
+		params["refresh"] = r.Refresh
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -138,48 +133,56 @@ func (r MLPutDataFrameAnalyticsRequest) Do(ctx context.Context, transport Transp
 
 // WithContext sets the request context.
 //
-func (f MLPutDataFrameAnalytics) WithContext(v context.Context) func(*MLPutDataFrameAnalyticsRequest) {
-	return func(r *MLPutDataFrameAnalyticsRequest) {
+func (f SecurityGrantAPIKey) WithContext(v context.Context) func(*SecurityGrantAPIKeyRequest) {
+	return func(r *SecurityGrantAPIKeyRequest) {
 		r.ctx = v
+	}
+}
+
+// WithRefresh - if `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes..
+//
+func (f SecurityGrantAPIKey) WithRefresh(v string) func(*SecurityGrantAPIKeyRequest) {
+	return func(r *SecurityGrantAPIKeyRequest) {
+		r.Refresh = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f MLPutDataFrameAnalytics) WithPretty() func(*MLPutDataFrameAnalyticsRequest) {
-	return func(r *MLPutDataFrameAnalyticsRequest) {
+func (f SecurityGrantAPIKey) WithPretty() func(*SecurityGrantAPIKeyRequest) {
+	return func(r *SecurityGrantAPIKeyRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f MLPutDataFrameAnalytics) WithHuman() func(*MLPutDataFrameAnalyticsRequest) {
-	return func(r *MLPutDataFrameAnalyticsRequest) {
+func (f SecurityGrantAPIKey) WithHuman() func(*SecurityGrantAPIKeyRequest) {
+	return func(r *SecurityGrantAPIKeyRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f MLPutDataFrameAnalytics) WithErrorTrace() func(*MLPutDataFrameAnalyticsRequest) {
-	return func(r *MLPutDataFrameAnalyticsRequest) {
+func (f SecurityGrantAPIKey) WithErrorTrace() func(*SecurityGrantAPIKeyRequest) {
+	return func(r *SecurityGrantAPIKeyRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f MLPutDataFrameAnalytics) WithFilterPath(v ...string) func(*MLPutDataFrameAnalyticsRequest) {
-	return func(r *MLPutDataFrameAnalyticsRequest) {
+func (f SecurityGrantAPIKey) WithFilterPath(v ...string) func(*SecurityGrantAPIKeyRequest) {
+	return func(r *SecurityGrantAPIKeyRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f MLPutDataFrameAnalytics) WithHeader(h map[string]string) func(*MLPutDataFrameAnalyticsRequest) {
-	return func(r *MLPutDataFrameAnalyticsRequest) {
+func (f SecurityGrantAPIKey) WithHeader(h map[string]string) func(*SecurityGrantAPIKeyRequest) {
+	return func(r *SecurityGrantAPIKeyRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -191,8 +194,8 @@ func (f MLPutDataFrameAnalytics) WithHeader(h map[string]string) func(*MLPutData
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f MLPutDataFrameAnalytics) WithOpaqueID(s string) func(*MLPutDataFrameAnalyticsRequest) {
-	return func(r *MLPutDataFrameAnalyticsRequest) {
+func (f SecurityGrantAPIKey) WithOpaqueID(s string) func(*SecurityGrantAPIKeyRequest) {
+	return func(r *SecurityGrantAPIKeyRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

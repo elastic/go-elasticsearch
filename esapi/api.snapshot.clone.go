@@ -11,11 +11,12 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
-func newMLPutDataFrameAnalyticsFunc(t Transport) MLPutDataFrameAnalytics {
-	return func(id string, body io.Reader, o ...func(*MLPutDataFrameAnalyticsRequest)) (*Response, error) {
-		var r = MLPutDataFrameAnalyticsRequest{ID: id, Body: body}
+func newSnapshotCloneFunc(t Transport) SnapshotClone {
+	return func(repository string, snapshot string, body io.Reader, target_snapshot string, o ...func(*SnapshotCloneRequest)) (*Response, error) {
+		var r = SnapshotCloneRequest{Repository: repository, Snapshot: snapshot, Body: body, TargetSnapshot: target_snapshot}
 		for _, f := range o {
 			f(&r)
 		}
@@ -25,20 +26,22 @@ func newMLPutDataFrameAnalyticsFunc(t Transport) MLPutDataFrameAnalytics {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPutDataFrameAnalytics - Instantiates a data frame analytics job.
+// SnapshotClone clones indices from one snapshot into another snapshot in the same repository.
 //
-// This API is beta.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/put-dfanalytics.html.
-//
-type MLPutDataFrameAnalytics func(id string, body io.Reader, o ...func(*MLPutDataFrameAnalyticsRequest)) (*Response, error)
+type SnapshotClone func(repository string, snapshot string, body io.Reader, target_snapshot string, o ...func(*SnapshotCloneRequest)) (*Response, error)
 
-// MLPutDataFrameAnalyticsRequest configures the ML Put Data Frame Analytics API request.
+// SnapshotCloneRequest configures the Snapshot Clone API request.
 //
-type MLPutDataFrameAnalyticsRequest struct {
-	ID string
-
+type SnapshotCloneRequest struct {
 	Body io.Reader
+
+	Repository     string
+	Snapshot       string
+	TargetSnapshot string
+
+	MasterTimeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -52,7 +55,7 @@ type MLPutDataFrameAnalyticsRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r MLPutDataFrameAnalyticsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SnapshotCloneRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -61,17 +64,23 @@ func (r MLPutDataFrameAnalyticsRequest) Do(ctx context.Context, transport Transp
 
 	method = "PUT"
 
-	path.Grow(1 + len("_ml") + 1 + len("data_frame") + 1 + len("analytics") + 1 + len(r.ID))
+	path.Grow(1 + len("_snapshot") + 1 + len(r.Repository) + 1 + len(r.Snapshot) + 1 + len("_clone") + 1 + len(r.TargetSnapshot))
 	path.WriteString("/")
-	path.WriteString("_ml")
+	path.WriteString("_snapshot")
 	path.WriteString("/")
-	path.WriteString("data_frame")
+	path.WriteString(r.Repository)
 	path.WriteString("/")
-	path.WriteString("analytics")
+	path.WriteString(r.Snapshot)
 	path.WriteString("/")
-	path.WriteString(r.ID)
+	path.WriteString("_clone")
+	path.WriteString("/")
+	path.WriteString(r.TargetSnapshot)
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -138,48 +147,56 @@ func (r MLPutDataFrameAnalyticsRequest) Do(ctx context.Context, transport Transp
 
 // WithContext sets the request context.
 //
-func (f MLPutDataFrameAnalytics) WithContext(v context.Context) func(*MLPutDataFrameAnalyticsRequest) {
-	return func(r *MLPutDataFrameAnalyticsRequest) {
+func (f SnapshotClone) WithContext(v context.Context) func(*SnapshotCloneRequest) {
+	return func(r *SnapshotCloneRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - explicit operation timeout for connection to master node.
+//
+func (f SnapshotClone) WithMasterTimeout(v time.Duration) func(*SnapshotCloneRequest) {
+	return func(r *SnapshotCloneRequest) {
+		r.MasterTimeout = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f MLPutDataFrameAnalytics) WithPretty() func(*MLPutDataFrameAnalyticsRequest) {
-	return func(r *MLPutDataFrameAnalyticsRequest) {
+func (f SnapshotClone) WithPretty() func(*SnapshotCloneRequest) {
+	return func(r *SnapshotCloneRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f MLPutDataFrameAnalytics) WithHuman() func(*MLPutDataFrameAnalyticsRequest) {
-	return func(r *MLPutDataFrameAnalyticsRequest) {
+func (f SnapshotClone) WithHuman() func(*SnapshotCloneRequest) {
+	return func(r *SnapshotCloneRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f MLPutDataFrameAnalytics) WithErrorTrace() func(*MLPutDataFrameAnalyticsRequest) {
-	return func(r *MLPutDataFrameAnalyticsRequest) {
+func (f SnapshotClone) WithErrorTrace() func(*SnapshotCloneRequest) {
+	return func(r *SnapshotCloneRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f MLPutDataFrameAnalytics) WithFilterPath(v ...string) func(*MLPutDataFrameAnalyticsRequest) {
-	return func(r *MLPutDataFrameAnalyticsRequest) {
+func (f SnapshotClone) WithFilterPath(v ...string) func(*SnapshotCloneRequest) {
+	return func(r *SnapshotCloneRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f MLPutDataFrameAnalytics) WithHeader(h map[string]string) func(*MLPutDataFrameAnalyticsRequest) {
-	return func(r *MLPutDataFrameAnalyticsRequest) {
+func (f SnapshotClone) WithHeader(h map[string]string) func(*SnapshotCloneRequest) {
+	return func(r *SnapshotCloneRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -191,8 +208,8 @@ func (f MLPutDataFrameAnalytics) WithHeader(h map[string]string) func(*MLPutData
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f MLPutDataFrameAnalytics) WithOpaqueID(s string) func(*MLPutDataFrameAnalyticsRequest) {
-	return func(r *MLPutDataFrameAnalyticsRequest) {
+func (f SnapshotClone) WithOpaqueID(s string) func(*SnapshotCloneRequest) {
+	return func(r *SnapshotCloneRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

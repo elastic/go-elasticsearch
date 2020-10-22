@@ -27,7 +27,7 @@ func newMLUpdateDataFrameAnalyticsFunc(t Transport) MLUpdateDataFrameAnalytics {
 
 // MLUpdateDataFrameAnalytics - Updates certain properties of a data frame analytics job.
 //
-// This API is experimental.
+// This API is beta.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/update-dfanalytics.html.
 //

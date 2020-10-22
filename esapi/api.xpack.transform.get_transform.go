@@ -36,9 +36,10 @@ type TransformGetTransform func(o ...func(*TransformGetTransformRequest)) (*Resp
 type TransformGetTransformRequest struct {
 	TransformID string
 
-	AllowNoMatch *bool
-	From         *int
-	Size         *int
+	AllowNoMatch     *bool
+	ExcludeGenerated *bool
+	From             *int
+	Size             *int
 
 	Pretty     bool
 	Human      bool
@@ -73,6 +74,10 @@ func (r TransformGetTransformRequest) Do(ctx context.Context, transport Transpor
 
 	if r.AllowNoMatch != nil {
 		params["allow_no_match"] = strconv.FormatBool(*r.AllowNoMatch)
+	}
+
+	if r.ExcludeGenerated != nil {
+		params["exclude_generated"] = strconv.FormatBool(*r.ExcludeGenerated)
 	}
 
 	if r.From != nil {
@@ -163,6 +168,14 @@ func (f TransformGetTransform) WithTransformID(v string) func(*TransformGetTrans
 func (f TransformGetTransform) WithAllowNoMatch(v bool) func(*TransformGetTransformRequest) {
 	return func(r *TransformGetTransformRequest) {
 		r.AllowNoMatch = &v
+	}
+}
+
+// WithExcludeGenerated - omits fields that are illegal to set on transform put.
+//
+func (f TransformGetTransform) WithExcludeGenerated(v bool) func(*TransformGetTransformRequest) {
+	return func(r *TransformGetTransformRequest) {
+		r.ExcludeGenerated = &v
 	}
 }
 

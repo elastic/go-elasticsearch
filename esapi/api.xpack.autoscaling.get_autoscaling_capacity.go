@@ -8,14 +8,13 @@ package esapi
 
 import (
 	"context"
-	"io"
 	"net/http"
 	"strings"
 )
 
-func newMLPutDataFrameAnalyticsFunc(t Transport) MLPutDataFrameAnalytics {
-	return func(id string, body io.Reader, o ...func(*MLPutDataFrameAnalyticsRequest)) (*Response, error) {
-		var r = MLPutDataFrameAnalyticsRequest{ID: id, Body: body}
+func newAutoscalingGetAutoscalingCapacityFunc(t Transport) AutoscalingGetAutoscalingCapacity {
+	return func(o ...func(*AutoscalingGetAutoscalingCapacityRequest)) (*Response, error) {
+		var r = AutoscalingGetAutoscalingCapacityRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -25,21 +24,17 @@ func newMLPutDataFrameAnalyticsFunc(t Transport) MLPutDataFrameAnalytics {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPutDataFrameAnalytics - Instantiates a data frame analytics job.
+// AutoscalingGetAutoscalingCapacity - Gets the current autoscaling capacity based on the configured autoscaling policy.
 //
-// This API is beta.
+// This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/put-dfanalytics.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-get-autoscaling-capacity.html.
 //
-type MLPutDataFrameAnalytics func(id string, body io.Reader, o ...func(*MLPutDataFrameAnalyticsRequest)) (*Response, error)
+type AutoscalingGetAutoscalingCapacity func(o ...func(*AutoscalingGetAutoscalingCapacityRequest)) (*Response, error)
 
-// MLPutDataFrameAnalyticsRequest configures the ML Put Data Frame Analytics API request.
+// AutoscalingGetAutoscalingCapacityRequest configures the Autoscaling Get Autoscaling Capacity API request.
 //
-type MLPutDataFrameAnalyticsRequest struct {
-	ID string
-
-	Body io.Reader
-
+type AutoscalingGetAutoscalingCapacityRequest struct {
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -52,24 +47,17 @@ type MLPutDataFrameAnalyticsRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r MLPutDataFrameAnalyticsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r AutoscalingGetAutoscalingCapacityRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "PUT"
+	method = "GET"
 
-	path.Grow(1 + len("_ml") + 1 + len("data_frame") + 1 + len("analytics") + 1 + len(r.ID))
-	path.WriteString("/")
-	path.WriteString("_ml")
-	path.WriteString("/")
-	path.WriteString("data_frame")
-	path.WriteString("/")
-	path.WriteString("analytics")
-	path.WriteString("/")
-	path.WriteString(r.ID)
+	path.Grow(len("/_autoscaling/capacity"))
+	path.WriteString("/_autoscaling/capacity")
 
 	params = make(map[string]string)
 
@@ -89,7 +77,7 @@ func (r MLPutDataFrameAnalyticsRequest) Do(ctx context.Context, transport Transp
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -100,10 +88,6 @@ func (r MLPutDataFrameAnalyticsRequest) Do(ctx context.Context, transport Transp
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
-	}
-
-	if r.Body != nil {
-		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -138,48 +122,48 @@ func (r MLPutDataFrameAnalyticsRequest) Do(ctx context.Context, transport Transp
 
 // WithContext sets the request context.
 //
-func (f MLPutDataFrameAnalytics) WithContext(v context.Context) func(*MLPutDataFrameAnalyticsRequest) {
-	return func(r *MLPutDataFrameAnalyticsRequest) {
+func (f AutoscalingGetAutoscalingCapacity) WithContext(v context.Context) func(*AutoscalingGetAutoscalingCapacityRequest) {
+	return func(r *AutoscalingGetAutoscalingCapacityRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f MLPutDataFrameAnalytics) WithPretty() func(*MLPutDataFrameAnalyticsRequest) {
-	return func(r *MLPutDataFrameAnalyticsRequest) {
+func (f AutoscalingGetAutoscalingCapacity) WithPretty() func(*AutoscalingGetAutoscalingCapacityRequest) {
+	return func(r *AutoscalingGetAutoscalingCapacityRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f MLPutDataFrameAnalytics) WithHuman() func(*MLPutDataFrameAnalyticsRequest) {
-	return func(r *MLPutDataFrameAnalyticsRequest) {
+func (f AutoscalingGetAutoscalingCapacity) WithHuman() func(*AutoscalingGetAutoscalingCapacityRequest) {
+	return func(r *AutoscalingGetAutoscalingCapacityRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f MLPutDataFrameAnalytics) WithErrorTrace() func(*MLPutDataFrameAnalyticsRequest) {
-	return func(r *MLPutDataFrameAnalyticsRequest) {
+func (f AutoscalingGetAutoscalingCapacity) WithErrorTrace() func(*AutoscalingGetAutoscalingCapacityRequest) {
+	return func(r *AutoscalingGetAutoscalingCapacityRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f MLPutDataFrameAnalytics) WithFilterPath(v ...string) func(*MLPutDataFrameAnalyticsRequest) {
-	return func(r *MLPutDataFrameAnalyticsRequest) {
+func (f AutoscalingGetAutoscalingCapacity) WithFilterPath(v ...string) func(*AutoscalingGetAutoscalingCapacityRequest) {
+	return func(r *AutoscalingGetAutoscalingCapacityRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f MLPutDataFrameAnalytics) WithHeader(h map[string]string) func(*MLPutDataFrameAnalyticsRequest) {
-	return func(r *MLPutDataFrameAnalyticsRequest) {
+func (f AutoscalingGetAutoscalingCapacity) WithHeader(h map[string]string) func(*AutoscalingGetAutoscalingCapacityRequest) {
+	return func(r *AutoscalingGetAutoscalingCapacityRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -191,8 +175,8 @@ func (f MLPutDataFrameAnalytics) WithHeader(h map[string]string) func(*MLPutData
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f MLPutDataFrameAnalytics) WithOpaqueID(s string) func(*MLPutDataFrameAnalyticsRequest) {
-	return func(r *MLPutDataFrameAnalyticsRequest) {
+func (f AutoscalingGetAutoscalingCapacity) WithOpaqueID(s string) func(*AutoscalingGetAutoscalingCapacityRequest) {
+	return func(r *AutoscalingGetAutoscalingCapacityRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

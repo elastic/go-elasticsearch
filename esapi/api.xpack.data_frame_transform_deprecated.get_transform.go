@@ -38,9 +38,10 @@ type DataFrameTransformDeprecatedGetTransform func(o ...func(*DataFrameTransform
 type DataFrameTransformDeprecatedGetTransformRequest struct {
 	TransformID string
 
-	AllowNoMatch *bool
-	From         *int
-	Size         *int
+	AllowNoMatch     *bool
+	ExcludeGenerated *bool
+	From             *int
+	Size             *int
 
 	Pretty     bool
 	Human      bool
@@ -77,6 +78,10 @@ func (r DataFrameTransformDeprecatedGetTransformRequest) Do(ctx context.Context,
 
 	if r.AllowNoMatch != nil {
 		params["allow_no_match"] = strconv.FormatBool(*r.AllowNoMatch)
+	}
+
+	if r.ExcludeGenerated != nil {
+		params["exclude_generated"] = strconv.FormatBool(*r.ExcludeGenerated)
 	}
 
 	if r.From != nil {
@@ -167,6 +172,14 @@ func (f DataFrameTransformDeprecatedGetTransform) WithTransformID(v string) func
 func (f DataFrameTransformDeprecatedGetTransform) WithAllowNoMatch(v bool) func(*DataFrameTransformDeprecatedGetTransformRequest) {
 	return func(r *DataFrameTransformDeprecatedGetTransformRequest) {
 		r.AllowNoMatch = &v
+	}
+}
+
+// WithExcludeGenerated - omits generated fields. allows transform configurations to be easily copied between clusters and within the same cluster.
+//
+func (f DataFrameTransformDeprecatedGetTransform) WithExcludeGenerated(v bool) func(*DataFrameTransformDeprecatedGetTransformRequest) {
+	return func(r *DataFrameTransformDeprecatedGetTransformRequest) {
+		r.ExcludeGenerated = &v
 	}
 }
 

@@ -27,9 +27,9 @@ func newMLGetTrainedModelsStatsFunc(t Transport) MLGetTrainedModelsStats {
 
 // MLGetTrainedModelsStats - Retrieves usage information for trained inference models.
 //
-// This API is experimental.
+// This API is beta.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-inference-stats.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-trained-models-stats.html.
 //
 type MLGetTrainedModelsStats func(o ...func(*MLGetTrainedModelsStatsRequest)) (*Response, error)
 
@@ -63,11 +63,11 @@ func (r MLGetTrainedModelsStatsRequest) Do(ctx context.Context, transport Transp
 
 	method = "GET"
 
-	path.Grow(1 + len("_ml") + 1 + len("inference") + 1 + len(r.ModelID) + 1 + len("_stats"))
+	path.Grow(1 + len("_ml") + 1 + len("trained_models") + 1 + len(r.ModelID) + 1 + len("_stats"))
 	path.WriteString("/")
 	path.WriteString("_ml")
 	path.WriteString("/")
-	path.WriteString("inference")
+	path.WriteString("trained_models")
 	if r.ModelID != "" {
 		path.WriteString("/")
 		path.WriteString(r.ModelID)

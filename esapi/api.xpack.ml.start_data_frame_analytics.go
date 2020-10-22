@@ -28,7 +28,7 @@ func newMLStartDataFrameAnalyticsFunc(t Transport) MLStartDataFrameAnalytics {
 
 // MLStartDataFrameAnalytics - Starts a data frame analytics job.
 //
-// This API is experimental.
+// This API is beta.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/start-dfanalytics.html.
 //

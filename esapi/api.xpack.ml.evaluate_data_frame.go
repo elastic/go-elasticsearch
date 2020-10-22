@@ -27,7 +27,7 @@ func newMLEvaluateDataFrameFunc(t Transport) MLEvaluateDataFrame {
 
 // MLEvaluateDataFrame - Evaluates the data frame analytics for an annotated index.
 //
-// This API is experimental.
+// This API is beta.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/evaluate-dfanalytics.html.
 //

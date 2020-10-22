@@ -8,14 +8,13 @@ package esapi
 
 import (
 	"context"
-	"io"
 	"net/http"
 	"strings"
 )
 
-func newMLPutDataFrameAnalyticsFunc(t Transport) MLPutDataFrameAnalytics {
-	return func(id string, body io.Reader, o ...func(*MLPutDataFrameAnalyticsRequest)) (*Response, error) {
-		var r = MLPutDataFrameAnalyticsRequest{ID: id, Body: body}
+func newSecurityClearAPIKeyCacheFunc(t Transport) SecurityClearAPIKeyCache {
+	return func(ids []string, o ...func(*SecurityClearAPIKeyCacheRequest)) (*Response, error) {
+		var r = SecurityClearAPIKeyCacheRequest{Ids: ids}
 		for _, f := range o {
 			f(&r)
 		}
@@ -25,20 +24,16 @@ func newMLPutDataFrameAnalyticsFunc(t Transport) MLPutDataFrameAnalytics {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPutDataFrameAnalytics - Instantiates a data frame analytics job.
+// SecurityClearAPIKeyCache - Clear a subset or all entries from the API key cache.
 //
-// This API is beta.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-api-key-cache.html.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/put-dfanalytics.html.
-//
-type MLPutDataFrameAnalytics func(id string, body io.Reader, o ...func(*MLPutDataFrameAnalyticsRequest)) (*Response, error)
+type SecurityClearAPIKeyCache func(ids []string, o ...func(*SecurityClearAPIKeyCacheRequest)) (*Response, error)
 
-// MLPutDataFrameAnalyticsRequest configures the ML Put Data Frame Analytics API request.
+// SecurityClearAPIKeyCacheRequest configures the Security ClearAPI Key Cache API request.
 //
-type MLPutDataFrameAnalyticsRequest struct {
-	ID string
-
-	Body io.Reader
+type SecurityClearAPIKeyCacheRequest struct {
+	Ids []string
 
 	Pretty     bool
 	Human      bool
@@ -52,24 +47,24 @@ type MLPutDataFrameAnalyticsRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r MLPutDataFrameAnalyticsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SecurityClearAPIKeyCacheRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "PUT"
+	method = "POST"
 
-	path.Grow(1 + len("_ml") + 1 + len("data_frame") + 1 + len("analytics") + 1 + len(r.ID))
+	path.Grow(1 + len("_security") + 1 + len("api_key") + 1 + len(strings.Join(r.Ids, ",")) + 1 + len("_clear_cache"))
 	path.WriteString("/")
-	path.WriteString("_ml")
+	path.WriteString("_security")
 	path.WriteString("/")
-	path.WriteString("data_frame")
+	path.WriteString("api_key")
 	path.WriteString("/")
-	path.WriteString("analytics")
+	path.WriteString(strings.Join(r.Ids, ","))
 	path.WriteString("/")
-	path.WriteString(r.ID)
+	path.WriteString("_clear_cache")
 
 	params = make(map[string]string)
 
@@ -89,7 +84,7 @@ func (r MLPutDataFrameAnalyticsRequest) Do(ctx context.Context, transport Transp
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -100,10 +95,6 @@ func (r MLPutDataFrameAnalyticsRequest) Do(ctx context.Context, transport Transp
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
-	}
-
-	if r.Body != nil {
-		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -138,48 +129,48 @@ func (r MLPutDataFrameAnalyticsRequest) Do(ctx context.Context, transport Transp
 
 // WithContext sets the request context.
 //
-func (f MLPutDataFrameAnalytics) WithContext(v context.Context) func(*MLPutDataFrameAnalyticsRequest) {
-	return func(r *MLPutDataFrameAnalyticsRequest) {
+func (f SecurityClearAPIKeyCache) WithContext(v context.Context) func(*SecurityClearAPIKeyCacheRequest) {
+	return func(r *SecurityClearAPIKeyCacheRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f MLPutDataFrameAnalytics) WithPretty() func(*MLPutDataFrameAnalyticsRequest) {
-	return func(r *MLPutDataFrameAnalyticsRequest) {
+func (f SecurityClearAPIKeyCache) WithPretty() func(*SecurityClearAPIKeyCacheRequest) {
+	return func(r *SecurityClearAPIKeyCacheRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f MLPutDataFrameAnalytics) WithHuman() func(*MLPutDataFrameAnalyticsRequest) {
-	return func(r *MLPutDataFrameAnalyticsRequest) {
+func (f SecurityClearAPIKeyCache) WithHuman() func(*SecurityClearAPIKeyCacheRequest) {
+	return func(r *SecurityClearAPIKeyCacheRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f MLPutDataFrameAnalytics) WithErrorTrace() func(*MLPutDataFrameAnalyticsRequest) {
-	return func(r *MLPutDataFrameAnalyticsRequest) {
+func (f SecurityClearAPIKeyCache) WithErrorTrace() func(*SecurityClearAPIKeyCacheRequest) {
+	return func(r *SecurityClearAPIKeyCacheRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f MLPutDataFrameAnalytics) WithFilterPath(v ...string) func(*MLPutDataFrameAnalyticsRequest) {
-	return func(r *MLPutDataFrameAnalyticsRequest) {
+func (f SecurityClearAPIKeyCache) WithFilterPath(v ...string) func(*SecurityClearAPIKeyCacheRequest) {
+	return func(r *SecurityClearAPIKeyCacheRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f MLPutDataFrameAnalytics) WithHeader(h map[string]string) func(*MLPutDataFrameAnalyticsRequest) {
-	return func(r *MLPutDataFrameAnalyticsRequest) {
+func (f SecurityClearAPIKeyCache) WithHeader(h map[string]string) func(*SecurityClearAPIKeyCacheRequest) {
+	return func(r *SecurityClearAPIKeyCacheRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -191,8 +182,8 @@ func (f MLPutDataFrameAnalytics) WithHeader(h map[string]string) func(*MLPutData
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f MLPutDataFrameAnalytics) WithOpaqueID(s string) func(*MLPutDataFrameAnalyticsRequest) {
-	return func(r *MLPutDataFrameAnalyticsRequest) {
+func (f SecurityClearAPIKeyCache) WithOpaqueID(s string) func(*SecurityClearAPIKeyCacheRequest) {
+	return func(r *SecurityClearAPIKeyCacheRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

@@ -27,9 +27,9 @@ func newMLGetTrainedModelsFunc(t Transport) MLGetTrainedModels {
 
 // MLGetTrainedModels - Retrieves configuration information for a trained inference model.
 //
-// This API is experimental.
+// This API is beta.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-inference.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-trained-models.html.
 //
 type MLGetTrainedModels func(o ...func(*MLGetTrainedModelsRequest)) (*Response, error)
 
@@ -40,7 +40,7 @@ type MLGetTrainedModelsRequest struct {
 
 	AllowNoMatch           *bool
 	DecompressDefinition   *bool
-	ForExport              *bool
+	ExcludeGenerated       *bool
 	From                   *int
 	Include                string
 	IncludeModelDefinition *bool
@@ -68,11 +68,11 @@ func (r MLGetTrainedModelsRequest) Do(ctx context.Context, transport Transport) 
 
 	method = "GET"
 
-	path.Grow(1 + len("_ml") + 1 + len("inference") + 1 + len(r.ModelID))
+	path.Grow(1 + len("_ml") + 1 + len("trained_models") + 1 + len(r.ModelID))
 	path.WriteString("/")
 	path.WriteString("_ml")
 	path.WriteString("/")
-	path.WriteString("inference")
+	path.WriteString("trained_models")
 	if r.ModelID != "" {
 		path.WriteString("/")
 		path.WriteString(r.ModelID)
@@ -88,8 +88,8 @@ func (r MLGetTrainedModelsRequest) Do(ctx context.Context, transport Transport) 
 		params["decompress_definition"] = strconv.FormatBool(*r.DecompressDefinition)
 	}
 
-	if r.ForExport != nil {
-		params["for_export"] = strconv.FormatBool(*r.ForExport)
+	if r.ExcludeGenerated != nil {
+		params["exclude_generated"] = strconv.FormatBool(*r.ExcludeGenerated)
 	}
 
 	if r.From != nil {
@@ -203,11 +203,11 @@ func (f MLGetTrainedModels) WithDecompressDefinition(v bool) func(*MLGetTrainedM
 	}
 }
 
-// WithForExport - omits fields that are illegal to set on model put.
+// WithExcludeGenerated - omits fields that are illegal to set on model put.
 //
-func (f MLGetTrainedModels) WithForExport(v bool) func(*MLGetTrainedModelsRequest) {
+func (f MLGetTrainedModels) WithExcludeGenerated(v bool) func(*MLGetTrainedModelsRequest) {
 	return func(r *MLGetTrainedModelsRequest) {
-		r.ForExport = &v
+		r.ExcludeGenerated = &v
 	}
 }
 

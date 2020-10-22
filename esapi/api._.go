@@ -1,4 +1,4 @@
-// Code generated from specification version 8.0.0 (ad69694863a): DO NOT EDIT
+// Code generated from specification version 8.0.0 (e56673015cb): DO NOT EDIT
 
 package esapi
 
@@ -28,6 +28,7 @@ type API struct {
 	XPack       *XPack
 
 	AutoscalingDeleteAutoscalingPolicy            AutoscalingDeleteAutoscalingPolicy
+	AutoscalingGetAutoscalingCapacity             AutoscalingGetAutoscalingCapacity
 	AutoscalingGetAutoscalingDecision             AutoscalingGetAutoscalingDecision
 	AutoscalingGetAutoscalingPolicy               AutoscalingGetAutoscalingPolicy
 	AutoscalingPutAutoscalingPolicy               AutoscalingPutAutoscalingPolicy
@@ -243,6 +244,7 @@ type Remote struct {
 // Snapshot contains the Snapshot APIs
 type Snapshot struct {
 	CleanupRepository SnapshotCleanupRepository
+	Clone             SnapshotClone
 	CreateRepository  SnapshotCreateRepository
 	Create            SnapshotCreate
 	DeleteRepository  SnapshotDeleteRepository
@@ -400,6 +402,7 @@ type Rollup struct {
 type Security struct {
 	Authenticate          SecurityAuthenticate
 	ChangePassword        SecurityChangePassword
+	ClearAPIKeyCache      SecurityClearAPIKeyCache
 	ClearCachedPrivileges SecurityClearCachedPrivileges
 	ClearCachedRealms     SecurityClearCachedRealms
 	ClearCachedRoles      SecurityClearCachedRoles
@@ -418,6 +421,7 @@ type Security struct {
 	GetToken              SecurityGetToken
 	GetUserPrivileges     SecurityGetUserPrivileges
 	GetUser               SecurityGetUser
+	GrantAPIKey           SecurityGrantAPIKey
 	HasPrivileges         SecurityHasPrivileges
 	InvalidateAPIKey      SecurityInvalidateAPIKey
 	InvalidateToken       SecurityInvalidateToken
@@ -464,6 +468,7 @@ type XPack struct {
 func New(t Transport) *API {
 	return &API{
 		AutoscalingDeleteAutoscalingPolicy:            newAutoscalingDeleteAutoscalingPolicyFunc(t),
+		AutoscalingGetAutoscalingCapacity:             newAutoscalingGetAutoscalingCapacityFunc(t),
 		AutoscalingGetAutoscalingDecision:             newAutoscalingGetAutoscalingDecisionFunc(t),
 		AutoscalingGetAutoscalingPolicy:               newAutoscalingGetAutoscalingPolicyFunc(t),
 		AutoscalingPutAutoscalingPolicy:               newAutoscalingPutAutoscalingPolicyFunc(t),
@@ -663,6 +668,7 @@ func New(t Transport) *API {
 		Remote: &Remote{},
 		Snapshot: &Snapshot{
 			CleanupRepository: newSnapshotCleanupRepositoryFunc(t),
+			Clone:             newSnapshotCloneFunc(t),
 			CreateRepository:  newSnapshotCreateRepositoryFunc(t),
 			Create:            newSnapshotCreateFunc(t),
 			DeleteRepository:  newSnapshotDeleteRepositoryFunc(t),
@@ -800,6 +806,7 @@ func New(t Transport) *API {
 		Security: &Security{
 			Authenticate:          newSecurityAuthenticateFunc(t),
 			ChangePassword:        newSecurityChangePasswordFunc(t),
+			ClearAPIKeyCache:      newSecurityClearAPIKeyCacheFunc(t),
 			ClearCachedPrivileges: newSecurityClearCachedPrivilegesFunc(t),
 			ClearCachedRealms:     newSecurityClearCachedRealmsFunc(t),
 			ClearCachedRoles:      newSecurityClearCachedRolesFunc(t),
@@ -818,6 +825,7 @@ func New(t Transport) *API {
 			GetToken:              newSecurityGetTokenFunc(t),
 			GetUserPrivileges:     newSecurityGetUserPrivilegesFunc(t),
 			GetUser:               newSecurityGetUserFunc(t),
+			GrantAPIKey:           newSecurityGrantAPIKeyFunc(t),
 			HasPrivileges:         newSecurityHasPrivilegesFunc(t),
 			InvalidateAPIKey:      newSecurityInvalidateAPIKeyFunc(t),
 			InvalidateToken:       newSecurityInvalidateTokenFunc(t),
