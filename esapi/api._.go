@@ -1,4 +1,4 @@
-// Code generated from specification version 7.10.0 (88b45dfa611): DO NOT EDIT
+// Code generated from specification version 7.10.0 (51f8b0b8d2f): DO NOT EDIT
 
 package esapi
 
@@ -244,6 +244,7 @@ type Remote struct {
 // Snapshot contains the Snapshot APIs
 type Snapshot struct {
 	CleanupRepository SnapshotCleanupRepository
+	Clone             SnapshotClone
 	CreateRepository  SnapshotCreateRepository
 	Create            SnapshotCreate
 	DeleteRepository  SnapshotDeleteRepository
@@ -420,6 +421,7 @@ type Security struct {
 	GetToken              SecurityGetToken
 	GetUserPrivileges     SecurityGetUserPrivileges
 	GetUser               SecurityGetUser
+	GrantAPIKey           SecurityGrantAPIKey
 	HasPrivileges         SecurityHasPrivileges
 	InvalidateAPIKey      SecurityInvalidateAPIKey
 	InvalidateToken       SecurityInvalidateToken
@@ -666,6 +668,7 @@ func New(t Transport) *API {
 		Remote: &Remote{},
 		Snapshot: &Snapshot{
 			CleanupRepository: newSnapshotCleanupRepositoryFunc(t),
+			Clone:             newSnapshotCloneFunc(t),
 			CreateRepository:  newSnapshotCreateRepositoryFunc(t),
 			Create:            newSnapshotCreateFunc(t),
 			DeleteRepository:  newSnapshotDeleteRepositoryFunc(t),
@@ -822,6 +825,7 @@ func New(t Transport) *API {
 			GetToken:              newSecurityGetTokenFunc(t),
 			GetUserPrivileges:     newSecurityGetUserPrivilegesFunc(t),
 			GetUser:               newSecurityGetUserFunc(t),
+			GrantAPIKey:           newSecurityGrantAPIKeyFunc(t),
 			HasPrivileges:         newSecurityHasPrivilegesFunc(t),
 			InvalidateAPIKey:      newSecurityInvalidateAPIKeyFunc(t),
 			InvalidateToken:       newSecurityInvalidateTokenFunc(t),

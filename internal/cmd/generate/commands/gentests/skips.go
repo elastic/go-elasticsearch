@@ -200,6 +200,9 @@ ml/start_stop_datafeed.yml:
 ml/explain_data_frame_analytics.yml:
   - Test empty data frame given body
   - Test non-empty data frame given body
+  # "unsigned_long" expected by the test isn't returned by ES 
+  - Test field_selection given body
+  - Test field_selection given job
 
 # Test uses "n" as a property name, which is parsed as 'false' in the Go YAML library;
 search.aggregation/10_histogram.yml:
@@ -262,9 +265,6 @@ xpack/15_basic.yml:
 
 # Test uses "y" as a property name, which is parsed as 'true' in the Go YAML library;
 # see https://yaml.org/type/bool.html
-ml/explain_data_frame_analytics.yml:
-  - Test empty data frame given body
-  - Test non-empty data frame given body
 runtime_fields/10_keyword.yml:
   - docvalue_fields
   - fetch fields

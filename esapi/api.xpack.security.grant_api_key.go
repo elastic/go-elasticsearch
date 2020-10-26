@@ -8,13 +8,14 @@ package esapi
 
 import (
 	"context"
+	"io"
 	"net/http"
 	"strings"
 )
 
-func newSecurityGetRoleMappingFunc(t Transport) SecurityGetRoleMapping {
-	return func(o ...func(*SecurityGetRoleMappingRequest)) (*Response, error) {
-		var r = SecurityGetRoleMappingRequest{}
+func newSecurityGrantAPIKeyFunc(t Transport) SecurityGrantAPIKey {
+	return func(body io.Reader, o ...func(*SecurityGrantAPIKeyRequest)) (*Response, error) {
+		var r = SecurityGrantAPIKeyRequest{Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -24,16 +25,18 @@ func newSecurityGetRoleMappingFunc(t Transport) SecurityGetRoleMapping {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGetRoleMapping - Retrieves role mappings.
+// SecurityGrantAPIKey - Creates an API key on behalf of another user.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-role-mapping.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-grant-api-key.html.
 //
-type SecurityGetRoleMapping func(o ...func(*SecurityGetRoleMappingRequest)) (*Response, error)
+type SecurityGrantAPIKey func(body io.Reader, o ...func(*SecurityGrantAPIKeyRequest)) (*Response, error)
 
-// SecurityGetRoleMappingRequest configures the Security Get Role Mapping API request.
+// SecurityGrantAPIKeyRequest configures the Security GrantAPI Key API request.
 //
-type SecurityGetRoleMappingRequest struct {
-	Name []string
+type SecurityGrantAPIKeyRequest struct {
+	Body io.Reader
+
+	Refresh string
 
 	Pretty     bool
 	Human      bool
@@ -47,26 +50,23 @@ type SecurityGetRoleMappingRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r SecurityGetRoleMappingRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SecurityGrantAPIKeyRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
-	path.Grow(1 + len("_security") + 1 + len("role_mapping") + 1 + len(strings.Join(r.Name, ",")))
-	path.WriteString("/")
-	path.WriteString("_security")
-	path.WriteString("/")
-	path.WriteString("role_mapping")
-	if len(r.Name) > 0 {
-		path.WriteString("/")
-		path.WriteString(strings.Join(r.Name, ","))
-	}
+	path.Grow(len("/_security/api_key/grant"))
+	path.WriteString("/_security/api_key/grant")
 
 	params = make(map[string]string)
+
+	if r.Refresh != "" {
+		params["refresh"] = r.Refresh
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -84,7 +84,7 @@ func (r SecurityGetRoleMappingRequest) Do(ctx context.Context, transport Transpo
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -95,6 +95,10 @@ func (r SecurityGetRoleMappingRequest) Do(ctx context.Context, transport Transpo
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if r.Body != nil {
+		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -129,56 +133,56 @@ func (r SecurityGetRoleMappingRequest) Do(ctx context.Context, transport Transpo
 
 // WithContext sets the request context.
 //
-func (f SecurityGetRoleMapping) WithContext(v context.Context) func(*SecurityGetRoleMappingRequest) {
-	return func(r *SecurityGetRoleMappingRequest) {
+func (f SecurityGrantAPIKey) WithContext(v context.Context) func(*SecurityGrantAPIKeyRequest) {
+	return func(r *SecurityGrantAPIKeyRequest) {
 		r.ctx = v
 	}
 }
 
-// WithName - a list of role-mapping names.
+// WithRefresh - if `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes..
 //
-func (f SecurityGetRoleMapping) WithName(v ...string) func(*SecurityGetRoleMappingRequest) {
-	return func(r *SecurityGetRoleMappingRequest) {
-		r.Name = v
+func (f SecurityGrantAPIKey) WithRefresh(v string) func(*SecurityGrantAPIKeyRequest) {
+	return func(r *SecurityGrantAPIKeyRequest) {
+		r.Refresh = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f SecurityGetRoleMapping) WithPretty() func(*SecurityGetRoleMappingRequest) {
-	return func(r *SecurityGetRoleMappingRequest) {
+func (f SecurityGrantAPIKey) WithPretty() func(*SecurityGrantAPIKeyRequest) {
+	return func(r *SecurityGrantAPIKeyRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f SecurityGetRoleMapping) WithHuman() func(*SecurityGetRoleMappingRequest) {
-	return func(r *SecurityGetRoleMappingRequest) {
+func (f SecurityGrantAPIKey) WithHuman() func(*SecurityGrantAPIKeyRequest) {
+	return func(r *SecurityGrantAPIKeyRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f SecurityGetRoleMapping) WithErrorTrace() func(*SecurityGetRoleMappingRequest) {
-	return func(r *SecurityGetRoleMappingRequest) {
+func (f SecurityGrantAPIKey) WithErrorTrace() func(*SecurityGrantAPIKeyRequest) {
+	return func(r *SecurityGrantAPIKeyRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f SecurityGetRoleMapping) WithFilterPath(v ...string) func(*SecurityGetRoleMappingRequest) {
-	return func(r *SecurityGetRoleMappingRequest) {
+func (f SecurityGrantAPIKey) WithFilterPath(v ...string) func(*SecurityGrantAPIKeyRequest) {
+	return func(r *SecurityGrantAPIKeyRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f SecurityGetRoleMapping) WithHeader(h map[string]string) func(*SecurityGetRoleMappingRequest) {
-	return func(r *SecurityGetRoleMappingRequest) {
+func (f SecurityGrantAPIKey) WithHeader(h map[string]string) func(*SecurityGrantAPIKeyRequest) {
+	return func(r *SecurityGrantAPIKeyRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -190,8 +194,8 @@ func (f SecurityGetRoleMapping) WithHeader(h map[string]string) func(*SecurityGe
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f SecurityGetRoleMapping) WithOpaqueID(s string) func(*SecurityGetRoleMappingRequest) {
-	return func(r *SecurityGetRoleMappingRequest) {
+func (f SecurityGrantAPIKey) WithOpaqueID(s string) func(*SecurityGrantAPIKeyRequest) {
+	return func(r *SecurityGrantAPIKeyRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

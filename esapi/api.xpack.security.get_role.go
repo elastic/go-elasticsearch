@@ -33,7 +33,7 @@ type SecurityGetRole func(o ...func(*SecurityGetRoleRequest)) (*Response, error)
 // SecurityGetRoleRequest configures the Security Get Role API request.
 //
 type SecurityGetRoleRequest struct {
-	Name string
+	Name []string
 
 	Pretty     bool
 	Human      bool
@@ -56,14 +56,14 @@ func (r SecurityGetRoleRequest) Do(ctx context.Context, transport Transport) (*R
 
 	method = "GET"
 
-	path.Grow(1 + len("_security") + 1 + len("role") + 1 + len(r.Name))
+	path.Grow(1 + len("_security") + 1 + len("role") + 1 + len(strings.Join(r.Name, ",")))
 	path.WriteString("/")
 	path.WriteString("_security")
 	path.WriteString("/")
 	path.WriteString("role")
-	if r.Name != "" {
+	if len(r.Name) > 0 {
 		path.WriteString("/")
-		path.WriteString(r.Name)
+		path.WriteString(strings.Join(r.Name, ","))
 	}
 
 	params = make(map[string]string)
@@ -135,9 +135,9 @@ func (f SecurityGetRole) WithContext(v context.Context) func(*SecurityGetRoleReq
 	}
 }
 
-// WithName - role name.
+// WithName - a list of role names.
 //
-func (f SecurityGetRole) WithName(v string) func(*SecurityGetRoleRequest) {
+func (f SecurityGetRole) WithName(v ...string) func(*SecurityGetRoleRequest) {
 	return func(r *SecurityGetRoleRequest) {
 		r.Name = v
 	}
