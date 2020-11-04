@@ -29,9 +29,8 @@ jobs:
 
           cd src
           bash make.bash
-
-          echo "::set-env name=GOROOT::$GOROOT"
-          echo "::add-path::$GOROOT/bin"
+          echo "GOROOT=$GOROOT" >> $GITHUB_ENV
+          echo "$GOROOT/bin" >> $GITHUB_PATH
       - uses: actions/checkout@v2
         with: { fetch-depth: 1 }
       - run: go version
