@@ -8,16 +8,13 @@ https://github.com/elastic/go-elasticsearch[GitHub]
 and https://godoc.org/github.com/elastic/go-elasticsearch[GoDoc]. This 
 documentation provides only an overview of features.
 
-
 [discrete]
-=== {es} Version Compatibility
+=== Features
 
-The client major versions correspond to the {es} major versions:
-to connect to {es} `6.x`, use a `6.x` version of the client,
-to connect to {es} `7.x`, use a `7.x` version of the client, and so on.
-
-The `master` branch of the client is compatible with the `master` branch of 
-{es}.
+* One-to-one mapping with REST API.
+* Generalized, pluggable architecture.
+* Helpers for convenience.
+* Rich set of examples.
 
 
 [discrete]

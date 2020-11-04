@@ -48,3 +48,39 @@ END
 
 go run main.go
 ------------------------------------
+
+
+[discrete]
+=== {es} Version Compatibility
+
+The client major versions correspond to the {es} major versions: to connect to 
+{es} `7.x`, use a `7.x` version of the client, to connect to {es} `6.x`, use a 
+`6.x` version of the client, and so on.
+
+[NOTE]
+--
+While the 5.x version of the client is available, it is no longer actively 
+maintained, neither the corresponding {es} version. For more information, refer 
+to https://www.elastic.co/support/eol[Elastic product end of life dates].
+--
+
+[%header,cols=2*]
+|===
+|{es} Version
+|Client Version
+
+|`master`
+|`master`
+
+|`7.x`
+|`7.x`
+
+|`6.x`
+|`6.x`
+
+|`5.x`
+|`5.x`
+|===
+
+The `master` branch of the client is compatible with the `master` branch of 
+{es}.
