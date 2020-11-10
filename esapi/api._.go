@@ -1,4 +1,4 @@
-// Code generated from specification version 7.10.0 (51f8b0b8d2f): DO NOT EDIT
+// Code generated from specification version 7.10.0 (9546d0d5329): DO NOT EDIT
 
 package esapi
 
@@ -28,6 +28,7 @@ type API struct {
 	XPack       *XPack
 
 	AutoscalingDeleteAutoscalingPolicy            AutoscalingDeleteAutoscalingPolicy
+	AutoscalingGetAutoscalingCapacity             AutoscalingGetAutoscalingCapacity
 	AutoscalingGetAutoscalingDecision             AutoscalingGetAutoscalingDecision
 	AutoscalingGetAutoscalingPolicy               AutoscalingGetAutoscalingPolicy
 	AutoscalingPutAutoscalingPolicy               AutoscalingPutAutoscalingPolicy
@@ -267,6 +268,7 @@ type Tasks struct {
 type AsyncSearch struct {
 	Delete AsyncSearchDelete
 	Get    AsyncSearchGet
+	Status AsyncSearchStatus
 	Submit AsyncSearchSubmit
 }
 
@@ -468,6 +470,7 @@ type XPack struct {
 func New(t Transport) *API {
 	return &API{
 		AutoscalingDeleteAutoscalingPolicy:            newAutoscalingDeleteAutoscalingPolicyFunc(t),
+		AutoscalingGetAutoscalingCapacity:             newAutoscalingGetAutoscalingCapacityFunc(t),
 		AutoscalingGetAutoscalingDecision:             newAutoscalingGetAutoscalingDecisionFunc(t),
 		AutoscalingGetAutoscalingPolicy:               newAutoscalingGetAutoscalingPolicyFunc(t),
 		AutoscalingPutAutoscalingPolicy:               newAutoscalingPutAutoscalingPolicyFunc(t),
@@ -687,6 +690,7 @@ func New(t Transport) *API {
 		AsyncSearch: &AsyncSearch{
 			Delete: newAsyncSearchDeleteFunc(t),
 			Get:    newAsyncSearchGetFunc(t),
+			Status: newAsyncSearchStatusFunc(t),
 			Submit: newAsyncSearchSubmitFunc(t),
 		},
 		CCR: &CCR{
