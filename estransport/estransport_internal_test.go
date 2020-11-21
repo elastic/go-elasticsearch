@@ -501,6 +501,50 @@ func TestTransportPerformRetries(t *testing.T) {
 		}
 	})
 
+	t.Run("Close response body for a 5xx response", func(t *testing.T) {
+		var (
+			i       int
+			numReqs = 5
+		)
+
+		u, _ := url.Parse("http://foo.bar")
+		tp, _ := New(Config{
+			URLs:       []*url.URL{u, u, u},
+			MaxRetries: numReqs,
+			Transport: &mockTransp{
+				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+					i++
+					fmt.Printf("Request #%d", i)
+					fmt.Print(": 502\n")
+					body := ioutil.NopCloser(strings.NewReader(`MOCK`))
+					return &http.Response{StatusCode: 502, Body: body}, nil
+				},
+			}})
+
+		req, _ := http.NewRequest("GET", "/", nil)
+
+		res, err := tp.Perform(req)
+
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		if i != numReqs {
+			t.Errorf("Unexpected number of requests, want=%d, got=%d", numReqs, i)
+		}
+
+		if res.StatusCode != 502 {
+			t.Errorf("Unexpected response: %+v", res)
+		}
+
+		resBody, _ := ioutil.ReadAll(res.Body)
+		res.Body.Close()
+
+		if string(resBody) != "MOCK" {
+			t.Errorf("Unexpected body, want=MOCK, got=%s", resBody)
+		}
+	})
+
 	t.Run("Retry request and return error when max retries exhausted", func(t *testing.T) {
 		var (
 			i       int
