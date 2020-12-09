@@ -221,6 +221,13 @@ func TestClientConfiguration(t *testing.T) {
 			t.Errorf("Expected error, got: %+v", c)
 		}
 	})
+
+	t.Run("With invalid default URL", func(t *testing.T) {
+		_, err := NewClient(Config{})
+		if err != nil {
+			t.Errorf("Expected correct default URL, got %s: %v", defaultURL, err)
+		}
+	})
 }
 
 func TestClientInterface(t *testing.T) {
