@@ -8,6 +8,7 @@ import (
 	"bufio"
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -80,6 +81,12 @@ type debuggingLogger struct {
 // LogRoundTrip prints the information about request and response.
 //
 func (l *TextLogger) LogRoundTrip(req *http.Request, res *http.Response, err error, start time.Time, dur time.Duration) error {
+	if req == nil {
+		return errors.New("request is empty")
+	}
+	if req.URL == nil {
+		return errors.New("request URL is empty")
+	}
 	fmt.Fprintf(l.Output, "%s %s %s [status:%d request:%s]\n",
 		start.Format(time.RFC3339),
 		req.Method,
@@ -87,7 +94,7 @@ func (l *TextLogger) LogRoundTrip(req *http.Request, res *http.Response, err err
 		resStatusCode(res),
 		dur.Truncate(time.Millisecond),
 	)
-	if l.RequestBodyEnabled() && req != nil && req.Body != nil && req.Body != http.NoBody {
+	if l.RequestBodyEnabled() && req.Body != nil && req.Body != http.NoBody {
 		var buf bytes.Buffer
 		if req.GetBody != nil {
 			b, _ := req.GetBody()
@@ -118,6 +125,16 @@ func (l *TextLogger) ResponseBodyEnabled() bool { return l.EnableResponseBody }
 // LogRoundTrip prints the information about request and response.
 //
 func (l *ColorLogger) LogRoundTrip(req *http.Request, res *http.Response, err error, start time.Time, dur time.Duration) error {
+	if req == nil {
+		return errors.New("request is empty")
+	}
+	if req.URL == nil {
+		return errors.New("request URL is empty")
+	}
+	if res == nil {
+		return errors.New("response is empty")
+	}
+
 	query, _ := url.QueryUnescape(req.URL.RawQuery)
 	if query != "" {
 		query = "?" + query
@@ -152,7 +169,7 @@ func (l *ColorLogger) LogRoundTrip(req *http.Request, res *http.Response, err er
 		dur.Truncate(time.Millisecond),
 	)
 
-	if l.RequestBodyEnabled() && req != nil && req.Body != nil && req.Body != http.NoBody {
+	if l.RequestBodyEnabled() && req.Body != nil && req.Body != http.NoBody {
 		var buf bytes.Buffer
 		if req.GetBody != nil {
 			b, _ := req.GetBody()
@@ -165,7 +182,7 @@ func (l *ColorLogger) LogRoundTrip(req *http.Request, res *http.Response, err er
 		fmt.Fprint(l.Output, "\x1b[0m")
 	}
 
-	if l.ResponseBodyEnabled() && res != nil && res.Body != nil && res.Body != http.NoBody {
+	if l.ResponseBodyEnabled() && res.Body != nil && res.Body != http.NoBody {
 		defer res.Body.Close()
 		var buf bytes.Buffer
 		buf.ReadFrom(res.Body)
@@ -193,6 +210,13 @@ func (l *ColorLogger) ResponseBodyEnabled() bool { return l.EnableResponseBody }
 // LogRoundTrip prints the information about request and response.
 //
 func (l *CurlLogger) LogRoundTrip(req *http.Request, res *http.Response, err error, start time.Time, dur time.Duration) error {
+	if req == nil {
+		return errors.New("request is empty")
+	}
+	if req.URL == nil {
+		return errors.New("request URL is empty")
+	}
+
 	var b bytes.Buffer
 
 	var query string
@@ -252,7 +276,9 @@ func (l *CurlLogger) LogRoundTrip(req *http.Request, res *http.Response, err err
 	b.WriteRune('\n')
 
 	var status string
-	status = res.Status
+	if res != nil {
+		status = res.Status
+	}
 
 	fmt.Fprintf(&b, "# => %s [%s] %s\n", start.UTC().Format(time.RFC3339), status, dur.Truncate(time.Millisecond))
 	if l.ResponseBodyEnabled() && res != nil && res.Body != nil && res.Body != http.NoBody {
@@ -286,6 +312,12 @@ func (l *JSONLogger) LogRoundTrip(req *http.Request, res *http.Response, err err
 	// https://github.com/elastic/ecs/blob/master/schemas/http.yml
 	//
 	// TODO(karmi): Research performance optimization of using sync.Pool
+	if req == nil {
+		return errors.New("request is empty")
+	}
+	if req.URL == nil {
+		return errors.New("request URL is empty")
+	}
 
 	bsize := 200
 	var b = bytes.NewBuffer(make([]byte, 0, bsize))
@@ -342,7 +374,7 @@ func (l *JSONLogger) LogRoundTrip(req *http.Request, res *http.Response, err err
 	b.WriteString(`{"request":{`)
 	b.WriteString(`"method":`)
 	appendQuote(req.Method)
-	if l.RequestBodyEnabled() && req != nil && req.Body != nil && req.Body != http.NoBody {
+	if l.RequestBodyEnabled() && req.Body != nil && req.Body != http.NoBody {
 		var buf bytes.Buffer
 		if req.GetBody != nil {
 			b, _ := req.GetBody()
