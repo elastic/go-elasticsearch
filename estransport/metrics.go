@@ -153,7 +153,6 @@ func (m Metrics) String() string {
 		if i+1 < len(m.Connections) {
 			b.WriteString(", ")
 		}
-		i++
 	}
 	b.WriteString("]")
 
