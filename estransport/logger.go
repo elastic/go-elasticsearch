@@ -216,12 +216,13 @@ func (l *CurlLogger) LogRoundTrip(req *http.Request, res *http.Response, err err
 	if req.URL == nil {
 		return errors.New("request URL is empty")
 	}
+	reqURL := req.URL
 
 	var b bytes.Buffer
 
 	var query string
 	qvalues := url.Values{}
-	for k, v := range req.URL.Query() {
+	for k, v := range reqURL.Query() {
 		if k == "pretty" {
 			continue
 		}
@@ -251,7 +252,7 @@ func (l *CurlLogger) LogRoundTrip(req *http.Request, res *http.Response, err err
 	}
 
 	b.WriteString(" 'http://localhost:9200")
-	b.WriteString(req.URL.Path)
+	b.WriteString(reqURL.Path)
 	b.WriteString("?pretty")
 	if query != "" {
 		fmt.Fprintf(&b, "&%s", query)
