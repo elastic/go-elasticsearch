@@ -19,7 +19,12 @@ import (
 	"time"
 )
 
-var debugLogger DebuggingLogger
+var (
+	debugLogger        DebuggingLogger
+	errRequestEmpty    = errors.New("request is empty")
+	errRequestURLEmpty = errors.New("request URL is empty")
+	errResponseEmpty   = errors.New("response is empty")
+)
 
 // Logger defines an interface for logging request and response.
 //
@@ -82,10 +87,10 @@ type debuggingLogger struct {
 //
 func (l *TextLogger) LogRoundTrip(req *http.Request, res *http.Response, err error, start time.Time, dur time.Duration) error {
 	if req == nil {
-		return errors.New("request is empty")
+		return errRequestEmpty
 	}
 	if req.URL == nil {
-		return errors.New("request URL is empty")
+		return errRequestURLEmpty
 	}
 	fmt.Fprintf(l.Output, "%s %s %s [status:%d request:%s]\n",
 		start.Format(time.RFC3339),
@@ -126,13 +131,13 @@ func (l *TextLogger) ResponseBodyEnabled() bool { return l.EnableResponseBody }
 //
 func (l *ColorLogger) LogRoundTrip(req *http.Request, res *http.Response, err error, start time.Time, dur time.Duration) error {
 	if req == nil {
-		return errors.New("request is empty")
+		return errRequestEmpty
 	}
 	if req.URL == nil {
-		return errors.New("request URL is empty")
+		return errRequestURLEmpty
 	}
 	if res == nil {
-		return errors.New("response is empty")
+		return errResponseEmpty
 	}
 
 	query, _ := url.QueryUnescape(req.URL.RawQuery)
@@ -211,10 +216,10 @@ func (l *ColorLogger) ResponseBodyEnabled() bool { return l.EnableResponseBody }
 //
 func (l *CurlLogger) LogRoundTrip(req *http.Request, res *http.Response, err error, start time.Time, dur time.Duration) error {
 	if req == nil {
-		return errors.New("request is empty")
+		return errRequestEmpty
 	}
 	if req.URL == nil {
-		return errors.New("request URL is empty")
+		return errRequestURLEmpty
 	}
 	reqURL := req.URL
 
@@ -314,10 +319,10 @@ func (l *JSONLogger) LogRoundTrip(req *http.Request, res *http.Response, err err
 	//
 	// TODO(karmi): Research performance optimization of using sync.Pool
 	if req == nil {
-		return errors.New("request is empty")
+		return errRequestEmpty
 	}
 	if req.URL == nil {
-		return errors.New("request URL is empty")
+		return errRequestURLEmpty
 	}
 
 	bsize := 200
