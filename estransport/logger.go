@@ -136,10 +136,6 @@ func (l *ColorLogger) LogRoundTrip(req *http.Request, res *http.Response, err er
 	if req.URL == nil {
 		return errRequestURLEmpty
 	}
-	if res == nil {
-		return errResponseEmpty
-	}
-
 	query, _ := url.QueryUnescape(req.URL.RawQuery)
 	if query != "" {
 		query = "?" + query
@@ -150,6 +146,9 @@ func (l *ColorLogger) LogRoundTrip(req *http.Request, res *http.Response, err er
 		color  string
 	)
 
+	if res == nil {
+		return errResponseEmpty
+	}
 	status = res.Status
 	switch {
 	case res.StatusCode > 0 && res.StatusCode < 300:
@@ -318,12 +317,6 @@ func (l *JSONLogger) LogRoundTrip(req *http.Request, res *http.Response, err err
 	// https://github.com/elastic/ecs/blob/master/schemas/http.yml
 	//
 	// TODO(karmi): Research performance optimization of using sync.Pool
-	if req == nil {
-		return errRequestEmpty
-	}
-	if req.URL == nil {
-		return errRequestURLEmpty
-	}
 
 	bsize := 200
 	var b = bytes.NewBuffer(make([]byte, 0, bsize))
@@ -347,6 +340,12 @@ func (l *JSONLogger) LogRoundTrip(req *http.Request, res *http.Response, err err
 		b.Write(v)
 	}
 
+	if req == nil {
+		return errRequestEmpty
+	}
+	if req.URL == nil {
+		return errRequestURLEmpty
+	}
 	port := req.URL.Port()
 
 	b.WriteRune('{')
