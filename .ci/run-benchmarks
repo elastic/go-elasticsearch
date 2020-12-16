@@ -37,4 +37,4 @@ gcloud auth print-access-token | docker login -u oauth2accesstoken --password-st
 docker tag elastic/go-elasticsearch "$CLIENT_IMAGE"
 docker push "$CLIENT_IMAGE"
 
-exec "$WORKSPACE/.jenkins/scripts/run-benchmarks.sh"
+exec "$WORKSPACE/.ci/scripts/run-benchmarks.sh"

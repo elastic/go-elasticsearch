@@ -17,4 +17,4 @@
     builders:
       - shell: |-
           #!/usr/local/bin/runbld
-          .jenkins/run-benchmarks
+          .ci/run-benchmarks

@@ -89,14 +89,14 @@ echo -e "\033[1m>>>>> EXECUTE [$TEST_SUITE] >>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m
 status=100
 case $TEST_SUITE in
   "oss" )
-    if bash .jenkins/scripts/tests-oss.sh; then
+    if bash .ci/scripts/tests-oss.sh; then
       status=$?
     else
       status=$?
     fi
     ;;
   "xpack" )
-    if bash .jenkins/scripts/tests-xpack.sh; then
+    if bash .ci/scripts/tests-xpack.sh; then
       status=$?
     else
       status=$?
