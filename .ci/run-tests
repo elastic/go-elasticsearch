@@ -85,14 +85,14 @@ docker run \
 status=100
 case $TEST_SUITE in
   "core" )
-    if ELASTICSEARCH_VERSION="$ELASTICSEARCH_VERSION" bash .jenkins/tests-core.sh; then
+    if ELASTICSEARCH_VERSION="$ELASTICSEARCH_VERSION" bash .ci/tests-core.sh; then
       status=$?
     else
       status=$?
     fi
     ;;
   "xpack" )
-    if ELASTICSEARCH_VERSION="$ELASTICSEARCH_VERSION" bash .jenkins/tests-xpack.sh; then
+    if ELASTICSEARCH_VERSION="$ELASTICSEARCH_VERSION" bash .ci/tests-xpack.sh; then
       status=$?
     else
       status=$?

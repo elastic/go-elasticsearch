@@ -276,9 +276,9 @@ else
 	$(eval xpack_env += --env "xpack.security.transport.ssl.certificate=certs/elasticsearch.crt")
 	$(eval xpack_env += --env "xpack.security.transport.ssl.certificate_authorities=certs/ca.crt")
 	$(eval xpack_env += --env "xpack.security.transport.ssl.verification_mode=none")
-	$(eval xpack_volumes += --volume "$(PWD)/.jenkins/certs/elasticsearch.crt:/usr/share/elasticsearch/config/certs/elasticsearch.crt")
-	$(eval xpack_volumes += --volume "$(PWD)/.jenkins/certs/elasticsearch.key:/usr/share/elasticsearch/config/certs/elasticsearch.key")
-	$(eval xpack_volumes += --volume "$(PWD)/.jenkins/certs/ca.crt:/usr/share/elasticsearch/config/certs/ca.crt")
+	$(eval xpack_volumes += --volume "$(PWD)/.ci/certs/elasticsearch.crt:/usr/share/elasticsearch/config/certs/elasticsearch.crt")
+	$(eval xpack_volumes += --volume "$(PWD)/.ci/certs/elasticsearch.key:/usr/share/elasticsearch/config/certs/elasticsearch.key")
+	$(eval xpack_volumes += --volume "$(PWD)/.ci/certs/ca.crt:/usr/share/elasticsearch/config/certs/ca.crt")
 endif
 endif
 	@docker network inspect elasticsearch > /dev/null 2>&1 || docker network create elasticsearch;
