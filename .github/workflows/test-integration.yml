@@ -26,7 +26,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with: { fetch-depth: 1 }
-      - uses: actions/setup-go@v2-beta
+      - uses: actions/setup-go@v2.1.3
         with: { go-version: '1.x' }
       - run: go version
       - name: Increase system limits
@@ -52,7 +52,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with: { fetch-depth: 1 }
-      - uses: actions/setup-go@v2-beta
+      - uses: actions/setup-go@v2.1.3
         with: { go-version: '1.x' }
       - run: go version
       - name: Increase system limits
