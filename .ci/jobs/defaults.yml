@@ -45,19 +45,19 @@
         - linux
     - axis:
         type: yaml
-        filename: .jenkins/test-matrix.yml
+        filename: .ci/test-matrix.yml
         name: STACK_VERSION
     - axis:
         type: yaml
-        filename: .jenkins/test-matrix.yml
+        filename: .ci/test-matrix.yml
         name: GO_VERSION
     - axis:
         type: yaml
-        filename: .jenkins/test-matrix.yml
+        filename: .ci/test-matrix.yml
         name: TEST_SUITE
     yaml-strategy:
       exclude-key: exclude
-      filename: .jenkins/test-matrix.yml
+      filename: .ci/test-matrix.yml
     wrappers:
       - ansicolor
       - timeout:
@@ -69,7 +69,7 @@
     builders:
       - shell: |-
           #!/usr/local/bin/runbld
-          .jenkins/run-tests
+          .ci/run-tests
     publishers:
       - email:
           recipients: build-lang-clients@elastic.co
