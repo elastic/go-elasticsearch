@@ -44,7 +44,7 @@ if [[ -z $es_node_name ]]; then
 
 fi
 
-  export script_path="$PWD/.jenkins"
+  export script_path="$PWD/.ci"
   source $script_path/scripts/functions/cleanup.sh
   source $script_path/scripts/functions/wait-for-container.sh
   trap "cleanup_trap ${network_name}" EXIT
