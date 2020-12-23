@@ -33,6 +33,8 @@ var skipFiles = []string{
   "search/320_disallow_queries.yml", // Tries to match key in an empty map (`transient:{}`)
 
   "watcher/stats/10_basic.yml", // Sets "emit_stacktraces" as string ("true"), not bool
+
+  "search.highlight/20_fvh.yml", // bad backslash
 }
 
 // TODO: Comments into descriptions for `Skip()`
