@@ -8,13 +8,14 @@ package esapi
 
 import (
 	"context"
+	"io"
 	"net/http"
 	"strings"
 )
 
-func newIndicesDeleteDataStreamFunc(t Transport) IndicesDeleteDataStream {
-	return func(name []string, o ...func(*IndicesDeleteDataStreamRequest)) (*Response, error) {
-		var r = IndicesDeleteDataStreamRequest{Name: name}
+func newRollupRollupFunc(t Transport) RollupRollup {
+	return func(index string, body io.Reader, rollup_index string, o ...func(*RollupRollupRequest)) (*Response, error) {
+		var r = RollupRollupRequest{Index: index, Body: body, RollupIndex: rollup_index}
 		for _, f := range o {
 			f(&r)
 		}
@@ -24,18 +25,20 @@ func newIndicesDeleteDataStreamFunc(t Transport) IndicesDeleteDataStream {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesDeleteDataStream - Deletes a data stream.
+// RollupRollup - Rollup an index
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-api.html.
 //
-type IndicesDeleteDataStream func(name []string, o ...func(*IndicesDeleteDataStreamRequest)) (*Response, error)
+type RollupRollup func(index string, body io.Reader, rollup_index string, o ...func(*RollupRollupRequest)) (*Response, error)
 
-// IndicesDeleteDataStreamRequest configures the Indices Delete Data Stream API request.
+// RollupRollupRequest configures the Rollup Rollup API request.
 //
-type IndicesDeleteDataStreamRequest struct {
-	Name []string
+type RollupRollupRequest struct {
+	Index string
 
-	ExpandWildcards string
+	Body io.Reader
+
+	RollupIndex string
 
 	Pretty     bool
 	Human      bool
@@ -49,26 +52,24 @@ type IndicesDeleteDataStreamRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r IndicesDeleteDataStreamRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r RollupRollupRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "DELETE"
+	method = "POST"
 
-	path.Grow(1 + len("_data_stream") + 1 + len(strings.Join(r.Name, ",")))
+	path.Grow(1 + len(r.Index) + 1 + len("_rollup") + 1 + len(r.RollupIndex))
 	path.WriteString("/")
-	path.WriteString("_data_stream")
+	path.WriteString(r.Index)
 	path.WriteString("/")
-	path.WriteString(strings.Join(r.Name, ","))
+	path.WriteString("_rollup")
+	path.WriteString("/")
+	path.WriteString(r.RollupIndex)
 
 	params = make(map[string]string)
-
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -86,7 +87,7 @@ func (r IndicesDeleteDataStreamRequest) Do(ctx context.Context, transport Transp
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -97,6 +98,10 @@ func (r IndicesDeleteDataStreamRequest) Do(ctx context.Context, transport Transp
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if r.Body != nil {
+		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -131,56 +136,48 @@ func (r IndicesDeleteDataStreamRequest) Do(ctx context.Context, transport Transp
 
 // WithContext sets the request context.
 //
-func (f IndicesDeleteDataStream) WithContext(v context.Context) func(*IndicesDeleteDataStreamRequest) {
-	return func(r *IndicesDeleteDataStreamRequest) {
+func (f RollupRollup) WithContext(v context.Context) func(*RollupRollupRequest) {
+	return func(r *RollupRollupRequest) {
 		r.ctx = v
-	}
-}
-
-// WithExpandWildcards - whether wildcard expressions should get expanded to open or closed indices (default: open).
-//
-func (f IndicesDeleteDataStream) WithExpandWildcards(v string) func(*IndicesDeleteDataStreamRequest) {
-	return func(r *IndicesDeleteDataStreamRequest) {
-		r.ExpandWildcards = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f IndicesDeleteDataStream) WithPretty() func(*IndicesDeleteDataStreamRequest) {
-	return func(r *IndicesDeleteDataStreamRequest) {
+func (f RollupRollup) WithPretty() func(*RollupRollupRequest) {
+	return func(r *RollupRollupRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f IndicesDeleteDataStream) WithHuman() func(*IndicesDeleteDataStreamRequest) {
-	return func(r *IndicesDeleteDataStreamRequest) {
+func (f RollupRollup) WithHuman() func(*RollupRollupRequest) {
+	return func(r *RollupRollupRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f IndicesDeleteDataStream) WithErrorTrace() func(*IndicesDeleteDataStreamRequest) {
-	return func(r *IndicesDeleteDataStreamRequest) {
+func (f RollupRollup) WithErrorTrace() func(*RollupRollupRequest) {
+	return func(r *RollupRollupRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f IndicesDeleteDataStream) WithFilterPath(v ...string) func(*IndicesDeleteDataStreamRequest) {
-	return func(r *IndicesDeleteDataStreamRequest) {
+func (f RollupRollup) WithFilterPath(v ...string) func(*RollupRollupRequest) {
+	return func(r *RollupRollupRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f IndicesDeleteDataStream) WithHeader(h map[string]string) func(*IndicesDeleteDataStreamRequest) {
-	return func(r *IndicesDeleteDataStreamRequest) {
+func (f RollupRollup) WithHeader(h map[string]string) func(*RollupRollupRequest) {
+	return func(r *RollupRollupRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -192,8 +189,8 @@ func (f IndicesDeleteDataStream) WithHeader(h map[string]string) func(*IndicesDe
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f IndicesDeleteDataStream) WithOpaqueID(s string) func(*IndicesDeleteDataStreamRequest) {
-	return func(r *IndicesDeleteDataStreamRequest) {
+func (f RollupRollup) WithOpaqueID(s string) func(*RollupRollupRequest) {
+	return func(r *RollupRollupRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

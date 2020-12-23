@@ -27,6 +27,8 @@ func newCatTasksFunc(t Transport) CatTasks {
 
 // CatTasks returns information about the tasks currently executing on one or more nodes in the cluster.
 //
+// This API is experimental.
+//
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html.
 //
 type CatTasks func(o ...func(*CatTasksRequest)) (*Response, error)
@@ -34,16 +36,16 @@ type CatTasks func(o ...func(*CatTasksRequest)) (*Response, error)
 // CatTasksRequest configures the Cat Tasks API request.
 //
 type CatTasksRequest struct {
-	Actions    []string
-	Detailed   *bool
-	Format     string
-	H          []string
-	Help       *bool
-	NodeID     []string
-	ParentTask *int
-	S          []string
-	Time       string
-	V          *bool
+	Actions      []string
+	Detailed     *bool
+	Format       string
+	H            []string
+	Help         *bool
+	Nodes        []string
+	ParentTaskID string
+	S            []string
+	Time         string
+	V            *bool
 
 	Pretty     bool
 	Human      bool
@@ -91,12 +93,12 @@ func (r CatTasksRequest) Do(ctx context.Context, transport Transport) (*Response
 		params["help"] = strconv.FormatBool(*r.Help)
 	}
 
-	if len(r.NodeID) > 0 {
-		params["node_id"] = strings.Join(r.NodeID, ",")
+	if len(r.Nodes) > 0 {
+		params["nodes"] = strings.Join(r.Nodes, ",")
 	}
 
-	if r.ParentTask != nil {
-		params["parent_task"] = strconv.FormatInt(int64(*r.ParentTask), 10)
+	if r.ParentTaskID != "" {
+		params["parent_task_id"] = r.ParentTaskID
 	}
 
 	if len(r.S) > 0 {
@@ -218,19 +220,19 @@ func (f CatTasks) WithHelp(v bool) func(*CatTasksRequest) {
 	}
 }
 
-// WithNodeID - a list of node ids or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes.
+// WithNodes - a list of node ids or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes.
 //
-func (f CatTasks) WithNodeID(v ...string) func(*CatTasksRequest) {
+func (f CatTasks) WithNodes(v ...string) func(*CatTasksRequest) {
 	return func(r *CatTasksRequest) {
-		r.NodeID = v
+		r.Nodes = v
 	}
 }
 
-// WithParentTask - return tasks with specified parent task ID. set to -1 to return all..
+// WithParentTaskID - return tasks with specified parent task ID (node_id:task_number). set to -1 to return all..
 //
-func (f CatTasks) WithParentTask(v int) func(*CatTasksRequest) {
+func (f CatTasks) WithParentTaskID(v string) func(*CatTasksRequest) {
 	return func(r *CatTasksRequest) {
-		r.ParentTask = &v
+		r.ParentTaskID = v
 	}
 }
 

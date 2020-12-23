@@ -12,9 +12,9 @@ import (
 	"strings"
 )
 
-func newIndicesGetDataStreamFunc(t Transport) IndicesGetDataStream {
-	return func(o ...func(*IndicesGetDataStreamRequest)) (*Response, error) {
-		var r = IndicesGetDataStreamRequest{}
+func newIndicesMigrateToDataStreamFunc(t Transport) IndicesMigrateToDataStream {
+	return func(name string, o ...func(*IndicesMigrateToDataStreamRequest)) (*Response, error) {
+		var r = IndicesMigrateToDataStreamRequest{Name: name}
 		for _, f := range o {
 			f(&r)
 		}
@@ -24,18 +24,16 @@ func newIndicesGetDataStreamFunc(t Transport) IndicesGetDataStream {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesGetDataStream - Returns data streams.
+// IndicesMigrateToDataStream - Migrates an alias to a data stream
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html.
 //
-type IndicesGetDataStream func(o ...func(*IndicesGetDataStreamRequest)) (*Response, error)
+type IndicesMigrateToDataStream func(name string, o ...func(*IndicesMigrateToDataStreamRequest)) (*Response, error)
 
-// IndicesGetDataStreamRequest configures the Indices Get Data Stream API request.
+// IndicesMigrateToDataStreamRequest configures the Indices Migrate To Data Stream API request.
 //
-type IndicesGetDataStreamRequest struct {
-	Name []string
-
-	ExpandWildcards string
+type IndicesMigrateToDataStreamRequest struct {
+	Name string
 
 	Pretty     bool
 	Human      bool
@@ -49,28 +47,24 @@ type IndicesGetDataStreamRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r IndicesGetDataStreamRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r IndicesMigrateToDataStreamRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
-	path.Grow(1 + len("_data_stream") + 1 + len(strings.Join(r.Name, ",")))
+	path.Grow(1 + len("_data_stream") + 1 + len("_migrate") + 1 + len(r.Name))
 	path.WriteString("/")
 	path.WriteString("_data_stream")
-	if len(r.Name) > 0 {
-		path.WriteString("/")
-		path.WriteString(strings.Join(r.Name, ","))
-	}
+	path.WriteString("/")
+	path.WriteString("_migrate")
+	path.WriteString("/")
+	path.WriteString(r.Name)
 
 	params = make(map[string]string)
-
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -133,64 +127,48 @@ func (r IndicesGetDataStreamRequest) Do(ctx context.Context, transport Transport
 
 // WithContext sets the request context.
 //
-func (f IndicesGetDataStream) WithContext(v context.Context) func(*IndicesGetDataStreamRequest) {
-	return func(r *IndicesGetDataStreamRequest) {
+func (f IndicesMigrateToDataStream) WithContext(v context.Context) func(*IndicesMigrateToDataStreamRequest) {
+	return func(r *IndicesMigrateToDataStreamRequest) {
 		r.ctx = v
-	}
-}
-
-// WithName - a list of data streams to get; use `*` to get all data streams.
-//
-func (f IndicesGetDataStream) WithName(v ...string) func(*IndicesGetDataStreamRequest) {
-	return func(r *IndicesGetDataStreamRequest) {
-		r.Name = v
-	}
-}
-
-// WithExpandWildcards - whether wildcard expressions should get expanded to open or closed indices (default: open).
-//
-func (f IndicesGetDataStream) WithExpandWildcards(v string) func(*IndicesGetDataStreamRequest) {
-	return func(r *IndicesGetDataStreamRequest) {
-		r.ExpandWildcards = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f IndicesGetDataStream) WithPretty() func(*IndicesGetDataStreamRequest) {
-	return func(r *IndicesGetDataStreamRequest) {
+func (f IndicesMigrateToDataStream) WithPretty() func(*IndicesMigrateToDataStreamRequest) {
+	return func(r *IndicesMigrateToDataStreamRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f IndicesGetDataStream) WithHuman() func(*IndicesGetDataStreamRequest) {
-	return func(r *IndicesGetDataStreamRequest) {
+func (f IndicesMigrateToDataStream) WithHuman() func(*IndicesMigrateToDataStreamRequest) {
+	return func(r *IndicesMigrateToDataStreamRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f IndicesGetDataStream) WithErrorTrace() func(*IndicesGetDataStreamRequest) {
-	return func(r *IndicesGetDataStreamRequest) {
+func (f IndicesMigrateToDataStream) WithErrorTrace() func(*IndicesMigrateToDataStreamRequest) {
+	return func(r *IndicesMigrateToDataStreamRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f IndicesGetDataStream) WithFilterPath(v ...string) func(*IndicesGetDataStreamRequest) {
-	return func(r *IndicesGetDataStreamRequest) {
+func (f IndicesMigrateToDataStream) WithFilterPath(v ...string) func(*IndicesMigrateToDataStreamRequest) {
+	return func(r *IndicesMigrateToDataStreamRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f IndicesGetDataStream) WithHeader(h map[string]string) func(*IndicesGetDataStreamRequest) {
-	return func(r *IndicesGetDataStreamRequest) {
+func (f IndicesMigrateToDataStream) WithHeader(h map[string]string) func(*IndicesMigrateToDataStreamRequest) {
+	return func(r *IndicesMigrateToDataStreamRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -202,8 +180,8 @@ func (f IndicesGetDataStream) WithHeader(h map[string]string) func(*IndicesGetDa
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f IndicesGetDataStream) WithOpaqueID(s string) func(*IndicesGetDataStreamRequest) {
-	return func(r *IndicesGetDataStreamRequest) {
+func (f IndicesMigrateToDataStream) WithOpaqueID(s string) func(*IndicesMigrateToDataStreamRequest) {
+	return func(r *IndicesMigrateToDataStreamRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

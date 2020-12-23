@@ -14,9 +14,9 @@ import (
 	"time"
 )
 
-func newTasksGetFunc(t Transport) TasksGet {
-	return func(task_id string, o ...func(*TasksGetRequest)) (*Response, error) {
-		var r = TasksGetRequest{TaskID: task_id}
+func newMLUpgradeJobSnapshotFunc(t Transport) MLUpgradeJobSnapshot {
+	return func(snapshot_id string, job_id string, o ...func(*MLUpgradeJobSnapshotRequest)) (*Response, error) {
+		var r = MLUpgradeJobSnapshotRequest{SnapshotID: snapshot_id, JobID: job_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -26,18 +26,17 @@ func newTasksGetFunc(t Transport) TasksGet {
 
 // ----- API Definition -------------------------------------------------------
 
-// TasksGet returns information about a task.
+// MLUpgradeJobSnapshot - Upgrades a given job snapshot to the current major version.
 //
-// This API is experimental.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-upgrade-job-model-snapshot.html.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html.
-//
-type TasksGet func(task_id string, o ...func(*TasksGetRequest)) (*Response, error)
+type MLUpgradeJobSnapshot func(snapshot_id string, job_id string, o ...func(*MLUpgradeJobSnapshotRequest)) (*Response, error)
 
-// TasksGetRequest configures the Tasks Get API request.
+// MLUpgradeJobSnapshotRequest configures the ML Upgrade Job Snapshot API request.
 //
-type TasksGetRequest struct {
-	TaskID string
+type MLUpgradeJobSnapshotRequest struct {
+	JobID      string
+	SnapshotID string
 
 	Timeout           time.Duration
 	WaitForCompletion *bool
@@ -54,20 +53,28 @@ type TasksGetRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r TasksGetRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r MLUpgradeJobSnapshotRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
-	path.Grow(1 + len("_tasks") + 1 + len(r.TaskID))
+	path.Grow(1 + len("_ml") + 1 + len("anomaly_detectors") + 1 + len(r.JobID) + 1 + len("model_snapshots") + 1 + len(r.SnapshotID) + 1 + len("_upgrade"))
 	path.WriteString("/")
-	path.WriteString("_tasks")
+	path.WriteString("_ml")
 	path.WriteString("/")
-	path.WriteString(r.TaskID)
+	path.WriteString("anomaly_detectors")
+	path.WriteString("/")
+	path.WriteString(r.JobID)
+	path.WriteString("/")
+	path.WriteString("model_snapshots")
+	path.WriteString("/")
+	path.WriteString(r.SnapshotID)
+	path.WriteString("/")
+	path.WriteString("_upgrade")
 
 	params = make(map[string]string)
 
@@ -140,64 +147,64 @@ func (r TasksGetRequest) Do(ctx context.Context, transport Transport) (*Response
 
 // WithContext sets the request context.
 //
-func (f TasksGet) WithContext(v context.Context) func(*TasksGetRequest) {
-	return func(r *TasksGetRequest) {
+func (f MLUpgradeJobSnapshot) WithContext(v context.Context) func(*MLUpgradeJobSnapshotRequest) {
+	return func(r *MLUpgradeJobSnapshotRequest) {
 		r.ctx = v
 	}
 }
 
-// WithTimeout - explicit operation timeout.
+// WithTimeout - how long should the api wait for the job to be opened and the old snapshot to be loaded..
 //
-func (f TasksGet) WithTimeout(v time.Duration) func(*TasksGetRequest) {
-	return func(r *TasksGetRequest) {
+func (f MLUpgradeJobSnapshot) WithTimeout(v time.Duration) func(*MLUpgradeJobSnapshotRequest) {
+	return func(r *MLUpgradeJobSnapshotRequest) {
 		r.Timeout = v
 	}
 }
 
-// WithWaitForCompletion - wait for the matching tasks to complete (default: false).
+// WithWaitForCompletion - should the request wait until the task is complete before responding to the caller. default is false..
 //
-func (f TasksGet) WithWaitForCompletion(v bool) func(*TasksGetRequest) {
-	return func(r *TasksGetRequest) {
+func (f MLUpgradeJobSnapshot) WithWaitForCompletion(v bool) func(*MLUpgradeJobSnapshotRequest) {
+	return func(r *MLUpgradeJobSnapshotRequest) {
 		r.WaitForCompletion = &v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f TasksGet) WithPretty() func(*TasksGetRequest) {
-	return func(r *TasksGetRequest) {
+func (f MLUpgradeJobSnapshot) WithPretty() func(*MLUpgradeJobSnapshotRequest) {
+	return func(r *MLUpgradeJobSnapshotRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f TasksGet) WithHuman() func(*TasksGetRequest) {
-	return func(r *TasksGetRequest) {
+func (f MLUpgradeJobSnapshot) WithHuman() func(*MLUpgradeJobSnapshotRequest) {
+	return func(r *MLUpgradeJobSnapshotRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f TasksGet) WithErrorTrace() func(*TasksGetRequest) {
-	return func(r *TasksGetRequest) {
+func (f MLUpgradeJobSnapshot) WithErrorTrace() func(*MLUpgradeJobSnapshotRequest) {
+	return func(r *MLUpgradeJobSnapshotRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f TasksGet) WithFilterPath(v ...string) func(*TasksGetRequest) {
-	return func(r *TasksGetRequest) {
+func (f MLUpgradeJobSnapshot) WithFilterPath(v ...string) func(*MLUpgradeJobSnapshotRequest) {
+	return func(r *MLUpgradeJobSnapshotRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f TasksGet) WithHeader(h map[string]string) func(*TasksGetRequest) {
-	return func(r *TasksGetRequest) {
+func (f MLUpgradeJobSnapshot) WithHeader(h map[string]string) func(*MLUpgradeJobSnapshotRequest) {
+	return func(r *MLUpgradeJobSnapshotRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -209,8 +216,8 @@ func (f TasksGet) WithHeader(h map[string]string) func(*TasksGetRequest) {
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f TasksGet) WithOpaqueID(s string) func(*TasksGetRequest) {
-	return func(r *TasksGetRequest) {
+func (f MLUpgradeJobSnapshot) WithOpaqueID(s string) func(*MLUpgradeJobSnapshotRequest) {
+	return func(r *MLUpgradeJobSnapshotRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
