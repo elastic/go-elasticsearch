@@ -239,6 +239,11 @@ type API struct {
 			name := strings.ReplaceAll(e.Name(), "Request", "")
 			if strings.HasPrefix(strings.ToLower(name), strings.ToLower(n)) {
 				methodName := strings.ReplaceAll(name, n, "")
+				// Some methods are equal to the namespace (like 'rollup.rollup')
+				// and we don't want to have an empty string here.
+				if len(methodName) == 0 {
+				    methodName = strings.Replace(name, n, "", 1)
+				}
 				b.WriteString(fmt.Sprintf("\t%s %s\n", methodName, name))
 			}
 		}
@@ -271,6 +276,11 @@ func New(t Transport) *API {
 			name := strings.ReplaceAll(e.Name(), "Request", "")
 			if strings.HasPrefix(strings.ToLower(name), strings.ToLower(n)) {
 				methodName := strings.ReplaceAll(name, n, "")
+				// Some methods are equal to the namespace (like 'rollup.rollup')
+				// and we don't want to have an empty string here.
+				if len(methodName) == 0 {
+				    methodName = strings.Replace(name, n, "", 1)
+				}
 				b.WriteString(fmt.Sprintf("\t\t\t%s: new%sFunc(t),\n", methodName, name))
 			}
 		}
