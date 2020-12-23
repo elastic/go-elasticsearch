@@ -31,6 +31,8 @@ var skipFiles = []string{
 	"ml/evaluate_data_frame.yml", // Floats as map keys
 
 	"watcher/stats/10_basic.yml", // Sets "emit_stacktraces" as string ("true"), not bool
+	
+	"search.highlight/20_fvh.yml", // bad backslash
 }
 
 // TODO: Comments into descriptions for `Skip()`
