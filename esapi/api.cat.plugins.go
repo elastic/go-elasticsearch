@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.11.0: DO NOT EDIT
+// Code generated from specification version 7.12.0: DO NOT EDIT
 
 package esapi
 
@@ -35,13 +35,14 @@ type CatPlugins func(o ...func(*CatPluginsRequest)) (*Response, error)
 // CatPluginsRequest configures the Cat Plugins API request.
 //
 type CatPluginsRequest struct {
-	Format        string
-	H             []string
-	Help          *bool
-	Local         *bool
-	MasterTimeout time.Duration
-	S             []string
-	V             *bool
+	Format           string
+	H                []string
+	Help             *bool
+	IncludeBootstrap *bool
+	Local            *bool
+	MasterTimeout    time.Duration
+	S                []string
+	V                *bool
 
 	Pretty     bool
 	Human      bool
@@ -79,6 +80,10 @@ func (r CatPluginsRequest) Do(ctx context.Context, transport Transport) (*Respon
 
 	if r.Help != nil {
 		params["help"] = strconv.FormatBool(*r.Help)
+	}
+
+	if r.IncludeBootstrap != nil {
+		params["include_bootstrap"] = strconv.FormatBool(*r.IncludeBootstrap)
 	}
 
 	if r.Local != nil {
@@ -185,6 +190,14 @@ func (f CatPlugins) WithH(v ...string) func(*CatPluginsRequest) {
 func (f CatPlugins) WithHelp(v bool) func(*CatPluginsRequest) {
 	return func(r *CatPluginsRequest) {
 		r.Help = &v
+	}
+}
+
+// WithIncludeBootstrap - include bootstrap plugins in the response.
+//
+func (f CatPlugins) WithIncludeBootstrap(v bool) func(*CatPluginsRequest) {
+	return func(r *CatPluginsRequest) {
+		r.IncludeBootstrap = &v
 	}
 }
 
