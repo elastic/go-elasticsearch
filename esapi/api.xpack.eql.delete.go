@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.11.0: DO NOT EDIT
+// Code generated from specification version 7.12.0: DO NOT EDIT
 
 package esapi
 
@@ -25,8 +25,6 @@ func newEqlDeleteFunc(t Transport) EqlDelete {
 // ----- API Definition -------------------------------------------------------
 
 // EqlDelete - Deletes an async EQL search by ID. If the search is still running, the search request will be cancelled. Otherwise, the saved search results are deleted.
-//
-// This API is beta.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/eql-search-api.html.
 //

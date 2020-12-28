@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.11.0: DO NOT EDIT
+// Code generated from specification version 7.12.0: DO NOT EDIT
 
 package esapi
 
@@ -28,8 +28,6 @@ func newEqlSearchFunc(t Transport) EqlSearch {
 // ----- API Definition -------------------------------------------------------
 
 // EqlSearch - Returns results matching a query expressed in Event Query Language (EQL)
-//
-// This API is beta.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/eql-search-api.html.
 //

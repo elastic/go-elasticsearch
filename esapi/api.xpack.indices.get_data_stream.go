@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.11.0: DO NOT EDIT
+// Code generated from specification version 7.12.0: DO NOT EDIT
 
 package esapi
 
@@ -35,6 +35,8 @@ type IndicesGetDataStream func(o ...func(*IndicesGetDataStreamRequest)) (*Respon
 type IndicesGetDataStreamRequest struct {
 	Name []string
 
+	ExpandWildcards string
+
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -65,6 +67,10 @@ func (r IndicesGetDataStreamRequest) Do(ctx context.Context, transport Transport
 	}
 
 	params = make(map[string]string)
+
+	if r.ExpandWildcards != "" {
+		params["expand_wildcards"] = r.ExpandWildcards
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -138,6 +144,14 @@ func (f IndicesGetDataStream) WithContext(v context.Context) func(*IndicesGetDat
 func (f IndicesGetDataStream) WithName(v ...string) func(*IndicesGetDataStreamRequest) {
 	return func(r *IndicesGetDataStreamRequest) {
 		r.Name = v
+	}
+}
+
+// WithExpandWildcards - whether wildcard expressions should get expanded to open or closed indices (default: open).
+//
+func (f IndicesGetDataStream) WithExpandWildcards(v string) func(*IndicesGetDataStreamRequest) {
+	return func(r *IndicesGetDataStreamRequest) {
+		r.ExpandWildcards = v
 	}
 }
 
