@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.10.0: DO NOT EDIT
+// Code generated from specification version 7.10.2: DO NOT EDIT
 
 package esapi
 
@@ -26,6 +26,8 @@ func newTasksCancelFunc(t Transport) TasksCancel {
 // ----- API Definition -------------------------------------------------------
 
 // TasksCancel cancels a task, if it can be cancelled through an API.
+//
+// This API is experimental.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html.
 //
