@@ -41,7 +41,6 @@ type CatShardsRequest struct {
 	Format        string
 	H             []string
 	Help          *bool
-	Local         *bool
 	MasterTimeout time.Duration
 	S             []string
 	Time          string
@@ -94,10 +93,6 @@ func (r CatShardsRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 	if r.Help != nil {
 		params["help"] = strconv.FormatBool(*r.Help)
-	}
-
-	if r.Local != nil {
-		params["local"] = strconv.FormatBool(*r.Local)
 	}
 
 	if r.MasterTimeout != 0 {
@@ -220,14 +215,6 @@ func (f CatShards) WithH(v ...string) func(*CatShardsRequest) {
 func (f CatShards) WithHelp(v bool) func(*CatShardsRequest) {
 	return func(r *CatShardsRequest) {
 		r.Help = &v
-	}
-}
-
-// WithLocal - return local information, do not retrieve the state from master node (default: false).
-//
-func (f CatShards) WithLocal(v bool) func(*CatShardsRequest) {
-	return func(r *CatShardsRequest) {
-		r.Local = &v
 	}
 }
 

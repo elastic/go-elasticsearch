@@ -13,9 +13,9 @@ import (
 	"strings"
 )
 
-func newAutoscalingPutAutoscalingPolicyFunc(t Transport) AutoscalingPutAutoscalingPolicy {
-	return func(name string, body io.Reader, o ...func(*AutoscalingPutAutoscalingPolicyRequest)) (*Response, error) {
-		var r = AutoscalingPutAutoscalingPolicyRequest{Name: name, Body: body}
+func newLogstashPutPipelineFunc(t Transport) LogstashPutPipeline {
+	return func(id string, body io.Reader, o ...func(*LogstashPutPipelineRequest)) (*Response, error) {
+		var r = LogstashPutPipelineRequest{DocumentID: id, Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -25,18 +25,18 @@ func newAutoscalingPutAutoscalingPolicyFunc(t Transport) AutoscalingPutAutoscali
 
 // ----- API Definition -------------------------------------------------------
 
-// AutoscalingPutAutoscalingPolicy - Creates a new autoscaling policy. Designed for indirect use by ECE/ESS and ECK. Direct use is not supported.
+// LogstashPutPipeline - Adds and updates Logstash Pipelines used for Central Management
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-put-autoscaling-policy.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/logstash-api-put-pipeline.html.
 //
-type AutoscalingPutAutoscalingPolicy func(name string, body io.Reader, o ...func(*AutoscalingPutAutoscalingPolicyRequest)) (*Response, error)
+type LogstashPutPipeline func(id string, body io.Reader, o ...func(*LogstashPutPipelineRequest)) (*Response, error)
 
-// AutoscalingPutAutoscalingPolicyRequest configures the Autoscaling Put Autoscaling Policy API request.
+// LogstashPutPipelineRequest configures the Logstash Put Pipeline API request.
 //
-type AutoscalingPutAutoscalingPolicyRequest struct {
+type LogstashPutPipelineRequest struct {
+	DocumentID string
+
 	Body io.Reader
-
-	Name string
 
 	Pretty     bool
 	Human      bool
@@ -50,7 +50,7 @@ type AutoscalingPutAutoscalingPolicyRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r AutoscalingPutAutoscalingPolicyRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r LogstashPutPipelineRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -59,13 +59,13 @@ func (r AutoscalingPutAutoscalingPolicyRequest) Do(ctx context.Context, transpor
 
 	method = "PUT"
 
-	path.Grow(1 + len("_autoscaling") + 1 + len("policy") + 1 + len(r.Name))
+	path.Grow(1 + len("_logstash") + 1 + len("pipeline") + 1 + len(r.DocumentID))
 	path.WriteString("/")
-	path.WriteString("_autoscaling")
+	path.WriteString("_logstash")
 	path.WriteString("/")
-	path.WriteString("policy")
+	path.WriteString("pipeline")
 	path.WriteString("/")
-	path.WriteString(r.Name)
+	path.WriteString(r.DocumentID)
 
 	params = make(map[string]string)
 
@@ -134,48 +134,48 @@ func (r AutoscalingPutAutoscalingPolicyRequest) Do(ctx context.Context, transpor
 
 // WithContext sets the request context.
 //
-func (f AutoscalingPutAutoscalingPolicy) WithContext(v context.Context) func(*AutoscalingPutAutoscalingPolicyRequest) {
-	return func(r *AutoscalingPutAutoscalingPolicyRequest) {
+func (f LogstashPutPipeline) WithContext(v context.Context) func(*LogstashPutPipelineRequest) {
+	return func(r *LogstashPutPipelineRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f AutoscalingPutAutoscalingPolicy) WithPretty() func(*AutoscalingPutAutoscalingPolicyRequest) {
-	return func(r *AutoscalingPutAutoscalingPolicyRequest) {
+func (f LogstashPutPipeline) WithPretty() func(*LogstashPutPipelineRequest) {
+	return func(r *LogstashPutPipelineRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f AutoscalingPutAutoscalingPolicy) WithHuman() func(*AutoscalingPutAutoscalingPolicyRequest) {
-	return func(r *AutoscalingPutAutoscalingPolicyRequest) {
+func (f LogstashPutPipeline) WithHuman() func(*LogstashPutPipelineRequest) {
+	return func(r *LogstashPutPipelineRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f AutoscalingPutAutoscalingPolicy) WithErrorTrace() func(*AutoscalingPutAutoscalingPolicyRequest) {
-	return func(r *AutoscalingPutAutoscalingPolicyRequest) {
+func (f LogstashPutPipeline) WithErrorTrace() func(*LogstashPutPipelineRequest) {
+	return func(r *LogstashPutPipelineRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f AutoscalingPutAutoscalingPolicy) WithFilterPath(v ...string) func(*AutoscalingPutAutoscalingPolicyRequest) {
-	return func(r *AutoscalingPutAutoscalingPolicyRequest) {
+func (f LogstashPutPipeline) WithFilterPath(v ...string) func(*LogstashPutPipelineRequest) {
+	return func(r *LogstashPutPipelineRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f AutoscalingPutAutoscalingPolicy) WithHeader(h map[string]string) func(*AutoscalingPutAutoscalingPolicyRequest) {
-	return func(r *AutoscalingPutAutoscalingPolicyRequest) {
+func (f LogstashPutPipeline) WithHeader(h map[string]string) func(*LogstashPutPipelineRequest) {
+	return func(r *LogstashPutPipelineRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -187,8 +187,8 @@ func (f AutoscalingPutAutoscalingPolicy) WithHeader(h map[string]string) func(*A
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f AutoscalingPutAutoscalingPolicy) WithOpaqueID(s string) func(*AutoscalingPutAutoscalingPolicyRequest) {
-	return func(r *AutoscalingPutAutoscalingPolicyRequest) {
+func (f LogstashPutPipeline) WithOpaqueID(s string) func(*LogstashPutPipelineRequest) {
+	return func(r *LogstashPutPipelineRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

@@ -12,9 +12,9 @@ import (
 	"strings"
 )
 
-func newAutoscalingDeleteAutoscalingPolicyFunc(t Transport) AutoscalingDeleteAutoscalingPolicy {
-	return func(name string, o ...func(*AutoscalingDeleteAutoscalingPolicyRequest)) (*Response, error) {
-		var r = AutoscalingDeleteAutoscalingPolicyRequest{Name: name}
+func newLogstashDeletePipelineFunc(t Transport) LogstashDeletePipeline {
+	return func(id string, o ...func(*LogstashDeletePipelineRequest)) (*Response, error) {
+		var r = LogstashDeletePipelineRequest{DocumentID: id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -24,16 +24,16 @@ func newAutoscalingDeleteAutoscalingPolicyFunc(t Transport) AutoscalingDeleteAut
 
 // ----- API Definition -------------------------------------------------------
 
-// AutoscalingDeleteAutoscalingPolicy - Deletes an autoscaling policy. Designed for indirect use by ECE/ESS and ECK. Direct use is not supported.
+// LogstashDeletePipeline - Deletes Logstash Pipelines used by Central Management
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-delete-autoscaling-policy.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/logstash-api-delete-pipeline.html.
 //
-type AutoscalingDeleteAutoscalingPolicy func(name string, o ...func(*AutoscalingDeleteAutoscalingPolicyRequest)) (*Response, error)
+type LogstashDeletePipeline func(id string, o ...func(*LogstashDeletePipelineRequest)) (*Response, error)
 
-// AutoscalingDeleteAutoscalingPolicyRequest configures the Autoscaling Delete Autoscaling Policy API request.
+// LogstashDeletePipelineRequest configures the Logstash Delete Pipeline API request.
 //
-type AutoscalingDeleteAutoscalingPolicyRequest struct {
-	Name string
+type LogstashDeletePipelineRequest struct {
+	DocumentID string
 
 	Pretty     bool
 	Human      bool
@@ -47,7 +47,7 @@ type AutoscalingDeleteAutoscalingPolicyRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r AutoscalingDeleteAutoscalingPolicyRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r LogstashDeletePipelineRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -56,13 +56,13 @@ func (r AutoscalingDeleteAutoscalingPolicyRequest) Do(ctx context.Context, trans
 
 	method = "DELETE"
 
-	path.Grow(1 + len("_autoscaling") + 1 + len("policy") + 1 + len(r.Name))
+	path.Grow(1 + len("_logstash") + 1 + len("pipeline") + 1 + len(r.DocumentID))
 	path.WriteString("/")
-	path.WriteString("_autoscaling")
+	path.WriteString("_logstash")
 	path.WriteString("/")
-	path.WriteString("policy")
+	path.WriteString("pipeline")
 	path.WriteString("/")
-	path.WriteString(r.Name)
+	path.WriteString(r.DocumentID)
 
 	params = make(map[string]string)
 
@@ -127,48 +127,48 @@ func (r AutoscalingDeleteAutoscalingPolicyRequest) Do(ctx context.Context, trans
 
 // WithContext sets the request context.
 //
-func (f AutoscalingDeleteAutoscalingPolicy) WithContext(v context.Context) func(*AutoscalingDeleteAutoscalingPolicyRequest) {
-	return func(r *AutoscalingDeleteAutoscalingPolicyRequest) {
+func (f LogstashDeletePipeline) WithContext(v context.Context) func(*LogstashDeletePipelineRequest) {
+	return func(r *LogstashDeletePipelineRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f AutoscalingDeleteAutoscalingPolicy) WithPretty() func(*AutoscalingDeleteAutoscalingPolicyRequest) {
-	return func(r *AutoscalingDeleteAutoscalingPolicyRequest) {
+func (f LogstashDeletePipeline) WithPretty() func(*LogstashDeletePipelineRequest) {
+	return func(r *LogstashDeletePipelineRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f AutoscalingDeleteAutoscalingPolicy) WithHuman() func(*AutoscalingDeleteAutoscalingPolicyRequest) {
-	return func(r *AutoscalingDeleteAutoscalingPolicyRequest) {
+func (f LogstashDeletePipeline) WithHuman() func(*LogstashDeletePipelineRequest) {
+	return func(r *LogstashDeletePipelineRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f AutoscalingDeleteAutoscalingPolicy) WithErrorTrace() func(*AutoscalingDeleteAutoscalingPolicyRequest) {
-	return func(r *AutoscalingDeleteAutoscalingPolicyRequest) {
+func (f LogstashDeletePipeline) WithErrorTrace() func(*LogstashDeletePipelineRequest) {
+	return func(r *LogstashDeletePipelineRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f AutoscalingDeleteAutoscalingPolicy) WithFilterPath(v ...string) func(*AutoscalingDeleteAutoscalingPolicyRequest) {
-	return func(r *AutoscalingDeleteAutoscalingPolicyRequest) {
+func (f LogstashDeletePipeline) WithFilterPath(v ...string) func(*LogstashDeletePipelineRequest) {
+	return func(r *LogstashDeletePipelineRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f AutoscalingDeleteAutoscalingPolicy) WithHeader(h map[string]string) func(*AutoscalingDeleteAutoscalingPolicyRequest) {
-	return func(r *AutoscalingDeleteAutoscalingPolicyRequest) {
+func (f LogstashDeletePipeline) WithHeader(h map[string]string) func(*LogstashDeletePipelineRequest) {
+	return func(r *LogstashDeletePipelineRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -180,8 +180,8 @@ func (f AutoscalingDeleteAutoscalingPolicy) WithHeader(h map[string]string) func
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f AutoscalingDeleteAutoscalingPolicy) WithOpaqueID(s string) func(*AutoscalingDeleteAutoscalingPolicyRequest) {
-	return func(r *AutoscalingDeleteAutoscalingPolicyRequest) {
+func (f LogstashDeletePipeline) WithOpaqueID(s string) func(*LogstashDeletePipelineRequest) {
+	return func(r *LogstashDeletePipelineRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

@@ -24,9 +24,7 @@ func newAutoscalingGetAutoscalingCapacityFunc(t Transport) AutoscalingGetAutosca
 
 // ----- API Definition -------------------------------------------------------
 
-// AutoscalingGetAutoscalingCapacity - Gets the current autoscaling capacity based on the configured autoscaling policy.
-//
-// This API is experimental.
+// AutoscalingGetAutoscalingCapacity - Gets the current autoscaling capacity based on the configured autoscaling policy. Designed for indirect use by ECE/ESS and ECK. Direct use is not supported.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-get-autoscaling-capacity.html.
 //

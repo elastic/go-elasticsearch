@@ -27,6 +27,8 @@ func newTasksCancelFunc(t Transport) TasksCancel {
 
 // TasksCancel cancels a task, if it can be cancelled through an API.
 //
+// This API is experimental.
+//
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html.
 //
 type TasksCancel func(o ...func(*TasksCancelRequest)) (*Response, error)

@@ -13,9 +13,9 @@ import (
 	"strings"
 )
 
-func newAutoscalingPutAutoscalingPolicyFunc(t Transport) AutoscalingPutAutoscalingPolicy {
-	return func(name string, body io.Reader, o ...func(*AutoscalingPutAutoscalingPolicyRequest)) (*Response, error) {
-		var r = AutoscalingPutAutoscalingPolicyRequest{Name: name, Body: body}
+func newRollupRollupFunc(t Transport) RollupRollup {
+	return func(index string, body io.Reader, rollup_index string, o ...func(*RollupRollupRequest)) (*Response, error) {
+		var r = RollupRollupRequest{Index: index, Body: body, RollupIndex: rollup_index}
 		for _, f := range o {
 			f(&r)
 		}
@@ -25,18 +25,20 @@ func newAutoscalingPutAutoscalingPolicyFunc(t Transport) AutoscalingPutAutoscali
 
 // ----- API Definition -------------------------------------------------------
 
-// AutoscalingPutAutoscalingPolicy - Creates a new autoscaling policy. Designed for indirect use by ECE/ESS and ECK. Direct use is not supported.
+// RollupRollup - Rollup an index
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-put-autoscaling-policy.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-api.html.
 //
-type AutoscalingPutAutoscalingPolicy func(name string, body io.Reader, o ...func(*AutoscalingPutAutoscalingPolicyRequest)) (*Response, error)
+type RollupRollup func(index string, body io.Reader, rollup_index string, o ...func(*RollupRollupRequest)) (*Response, error)
 
-// AutoscalingPutAutoscalingPolicyRequest configures the Autoscaling Put Autoscaling Policy API request.
+// RollupRollupRequest configures the Rollup Rollup API request.
 //
-type AutoscalingPutAutoscalingPolicyRequest struct {
+type RollupRollupRequest struct {
+	Index string
+
 	Body io.Reader
 
-	Name string
+	RollupIndex string
 
 	Pretty     bool
 	Human      bool
@@ -50,22 +52,22 @@ type AutoscalingPutAutoscalingPolicyRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r AutoscalingPutAutoscalingPolicyRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r RollupRollupRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "PUT"
+	method = "POST"
 
-	path.Grow(1 + len("_autoscaling") + 1 + len("policy") + 1 + len(r.Name))
+	path.Grow(1 + len(r.Index) + 1 + len("_rollup") + 1 + len(r.RollupIndex))
 	path.WriteString("/")
-	path.WriteString("_autoscaling")
+	path.WriteString(r.Index)
 	path.WriteString("/")
-	path.WriteString("policy")
+	path.WriteString("_rollup")
 	path.WriteString("/")
-	path.WriteString(r.Name)
+	path.WriteString(r.RollupIndex)
 
 	params = make(map[string]string)
 
@@ -134,48 +136,48 @@ func (r AutoscalingPutAutoscalingPolicyRequest) Do(ctx context.Context, transpor
 
 // WithContext sets the request context.
 //
-func (f AutoscalingPutAutoscalingPolicy) WithContext(v context.Context) func(*AutoscalingPutAutoscalingPolicyRequest) {
-	return func(r *AutoscalingPutAutoscalingPolicyRequest) {
+func (f RollupRollup) WithContext(v context.Context) func(*RollupRollupRequest) {
+	return func(r *RollupRollupRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f AutoscalingPutAutoscalingPolicy) WithPretty() func(*AutoscalingPutAutoscalingPolicyRequest) {
-	return func(r *AutoscalingPutAutoscalingPolicyRequest) {
+func (f RollupRollup) WithPretty() func(*RollupRollupRequest) {
+	return func(r *RollupRollupRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f AutoscalingPutAutoscalingPolicy) WithHuman() func(*AutoscalingPutAutoscalingPolicyRequest) {
-	return func(r *AutoscalingPutAutoscalingPolicyRequest) {
+func (f RollupRollup) WithHuman() func(*RollupRollupRequest) {
+	return func(r *RollupRollupRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f AutoscalingPutAutoscalingPolicy) WithErrorTrace() func(*AutoscalingPutAutoscalingPolicyRequest) {
-	return func(r *AutoscalingPutAutoscalingPolicyRequest) {
+func (f RollupRollup) WithErrorTrace() func(*RollupRollupRequest) {
+	return func(r *RollupRollupRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f AutoscalingPutAutoscalingPolicy) WithFilterPath(v ...string) func(*AutoscalingPutAutoscalingPolicyRequest) {
-	return func(r *AutoscalingPutAutoscalingPolicyRequest) {
+func (f RollupRollup) WithFilterPath(v ...string) func(*RollupRollupRequest) {
+	return func(r *RollupRollupRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f AutoscalingPutAutoscalingPolicy) WithHeader(h map[string]string) func(*AutoscalingPutAutoscalingPolicyRequest) {
-	return func(r *AutoscalingPutAutoscalingPolicyRequest) {
+func (f RollupRollup) WithHeader(h map[string]string) func(*RollupRollupRequest) {
+	return func(r *RollupRollupRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -187,8 +189,8 @@ func (f AutoscalingPutAutoscalingPolicy) WithHeader(h map[string]string) func(*A
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f AutoscalingPutAutoscalingPolicy) WithOpaqueID(s string) func(*AutoscalingPutAutoscalingPolicyRequest) {
-	return func(r *AutoscalingPutAutoscalingPolicyRequest) {
+func (f RollupRollup) WithOpaqueID(s string) func(*RollupRollupRequest) {
+	return func(r *RollupRollupRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

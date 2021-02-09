@@ -1,4 +1,4 @@
-// Code generated from specification version 8.0.0 (e56673015cb): DO NOT EDIT
+// Code generated from specification version 8.0.0 (03492665170): DO NOT EDIT
 
 package esapi
 
@@ -72,6 +72,9 @@ type API struct {
 	GraphExplore                                  GraphExplore
 	Index                                         Index
 	Info                                          Info
+	LogstashDeletePipeline                        LogstashDeletePipeline
+	LogstashGetPipeline                           LogstashGetPipeline
+	LogstashPutPipeline                           LogstashPutPipeline
 	Mget                                          Mget
 	Msearch                                       Msearch
 	MsearchTemplate                               MsearchTemplate
@@ -102,6 +105,7 @@ type API struct {
 	SlmStart                                      SlmStart
 	SlmStop                                       SlmStop
 	Termvectors                                   Termvectors
+	TextStructureFindStructure                    TextStructureFindStructure
 	TransformDeleteTransform                      TransformDeleteTransform
 	TransformGetTransform                         TransformGetTransform
 	TransformGetTransformStats                    TransformGetTransformStats
@@ -195,7 +199,9 @@ type Indices struct {
 	GetSettings           IndicesGetSettings
 	GetTemplate           IndicesGetTemplate
 	GetUpgrade            IndicesGetUpgrade
+	MigrateToDataStream   IndicesMigrateToDataStream
 	Open                  IndicesOpen
+	PromoteDataStream     IndicesPromoteDataStream
 	PutAlias              IndicesPutAlias
 	PutIndexTemplate      IndicesPutIndexTemplate
 	PutMapping            IndicesPutMapping
@@ -267,6 +273,7 @@ type Tasks struct {
 type AsyncSearch struct {
 	Delete AsyncSearchDelete
 	Get    AsyncSearchGet
+	Status AsyncSearchStatus
 	Submit AsyncSearchSubmit
 }
 
@@ -377,6 +384,7 @@ type ML struct {
 	UpdateFilter               MLUpdateFilter
 	UpdateJob                  MLUpdateJob
 	UpdateModelSnapshot        MLUpdateModelSnapshot
+	UpgradeJobSnapshot         MLUpgradeJobSnapshot
 	ValidateDetector           MLValidateDetector
 	Validate                   MLValidate
 }
@@ -393,6 +401,7 @@ type Rollup struct {
 	GetCaps      RollupGetRollupCaps
 	GetIndexCaps RollupGetRollupIndexCaps
 	PutJob       RollupPutJob
+	Rollup       RollupRollup
 	Search       RollupRollupSearch
 	StartJob     RollupStartJob
 	StopJob      RollupStopJob
@@ -452,6 +461,7 @@ type Watcher struct {
 	ExecuteWatch    WatcherExecuteWatch
 	GetWatch        WatcherGetWatch
 	PutWatch        WatcherPutWatch
+	QueryWatches    WatcherQueryWatches
 	Start           WatcherStart
 	Stats           WatcherStats
 	Stop            WatcherStop
@@ -512,6 +522,9 @@ func New(t Transport) *API {
 		GraphExplore:                                  newGraphExploreFunc(t),
 		Index:                                         newIndexFunc(t),
 		Info:                                          newInfoFunc(t),
+		LogstashDeletePipeline:                        newLogstashDeletePipelineFunc(t),
+		LogstashGetPipeline:                           newLogstashGetPipelineFunc(t),
+		LogstashPutPipeline:                           newLogstashPutPipelineFunc(t),
 		Mget:                                          newMgetFunc(t),
 		Msearch:                                       newMsearchFunc(t),
 		MsearchTemplate:                               newMsearchTemplateFunc(t),
@@ -542,6 +555,7 @@ func New(t Transport) *API {
 		SlmStart:                                      newSlmStartFunc(t),
 		SlmStop:                                       newSlmStopFunc(t),
 		Termvectors:                                   newTermvectorsFunc(t),
+		TextStructureFindStructure:                    newTextStructureFindStructureFunc(t),
 		TransformDeleteTransform:                      newTransformDeleteTransformFunc(t),
 		TransformGetTransform:                         newTransformGetTransformFunc(t),
 		TransformGetTransformStats:                    newTransformGetTransformStatsFunc(t),
@@ -628,7 +642,9 @@ func New(t Transport) *API {
 			GetSettings:           newIndicesGetSettingsFunc(t),
 			GetTemplate:           newIndicesGetTemplateFunc(t),
 			GetUpgrade:            newIndicesGetUpgradeFunc(t),
+			MigrateToDataStream:   newIndicesMigrateToDataStreamFunc(t),
 			Open:                  newIndicesOpenFunc(t),
+			PromoteDataStream:     newIndicesPromoteDataStreamFunc(t),
 			PutAlias:              newIndicesPutAliasFunc(t),
 			PutIndexTemplate:      newIndicesPutIndexTemplateFunc(t),
 			PutMapping:            newIndicesPutMappingFunc(t),
@@ -687,6 +703,7 @@ func New(t Transport) *API {
 		AsyncSearch: &AsyncSearch{
 			Delete: newAsyncSearchDeleteFunc(t),
 			Get:    newAsyncSearchGetFunc(t),
+			Status: newAsyncSearchStatusFunc(t),
 			Submit: newAsyncSearchSubmitFunc(t),
 		},
 		CCR: &CCR{
@@ -787,6 +804,7 @@ func New(t Transport) *API {
 			UpdateFilter:               newMLUpdateFilterFunc(t),
 			UpdateJob:                  newMLUpdateJobFunc(t),
 			UpdateModelSnapshot:        newMLUpdateModelSnapshotFunc(t),
+			UpgradeJobSnapshot:         newMLUpgradeJobSnapshotFunc(t),
 			ValidateDetector:           newMLValidateDetectorFunc(t),
 			Validate:                   newMLValidateFunc(t),
 		},
@@ -799,6 +817,7 @@ func New(t Transport) *API {
 			GetCaps:      newRollupGetRollupCapsFunc(t),
 			GetIndexCaps: newRollupGetRollupIndexCapsFunc(t),
 			PutJob:       newRollupPutJobFunc(t),
+			Rollup:       newRollupRollupFunc(t),
 			Search:       newRollupRollupSearchFunc(t),
 			StartJob:     newRollupStartJobFunc(t),
 			StopJob:      newRollupStopJobFunc(t),
@@ -850,6 +869,7 @@ func New(t Transport) *API {
 			ExecuteWatch:    newWatcherExecuteWatchFunc(t),
 			GetWatch:        newWatcherGetWatchFunc(t),
 			PutWatch:        newWatcherPutWatchFunc(t),
+			QueryWatches:    newWatcherQueryWatchesFunc(t),
 			Start:           newWatcherStartFunc(t),
 			Stats:           newWatcherStatsFunc(t),
 			Stop:            newWatcherStopFunc(t),

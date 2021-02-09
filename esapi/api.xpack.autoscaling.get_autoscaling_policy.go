@@ -24,9 +24,7 @@ func newAutoscalingGetAutoscalingPolicyFunc(t Transport) AutoscalingGetAutoscali
 
 // ----- API Definition -------------------------------------------------------
 
-// AutoscalingGetAutoscalingPolicy - Retrieves an autoscaling policy.
-//
-// This API is experimental.
+// AutoscalingGetAutoscalingPolicy - Retrieves an autoscaling policy. Designed for indirect use by ECE/ESS and ECK. Direct use is not supported.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-get-autoscaling-policy.html.
 //

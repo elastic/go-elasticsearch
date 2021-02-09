@@ -27,8 +27,6 @@ func newClusterDeleteComponentTemplateFunc(t Transport) ClusterDeleteComponentTe
 
 // ClusterDeleteComponentTemplate deletes a component template
 //
-// This API is experimental.
-//
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-template.html.
 //
 type ClusterDeleteComponentTemplate func(name string, o ...func(*ClusterDeleteComponentTemplateRequest)) (*Response, error)

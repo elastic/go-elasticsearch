@@ -29,8 +29,6 @@ func newIndicesPutIndexTemplateFunc(t Transport) IndicesPutIndexTemplate {
 
 // IndicesPutIndexTemplate creates or updates an index template.
 //
-// This API is experimental.
-//
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html.
 //
 type IndicesPutIndexTemplate func(name string, body io.Reader, o ...func(*IndicesPutIndexTemplateRequest)) (*Response, error)

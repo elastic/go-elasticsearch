@@ -29,8 +29,6 @@ func newClusterPutComponentTemplateFunc(t Transport) ClusterPutComponentTemplate
 
 // ClusterPutComponentTemplate creates or updates a component template
 //
-// This API is experimental.
-//
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-template.html.
 //
 type ClusterPutComponentTemplate func(name string, body io.Reader, o ...func(*ClusterPutComponentTemplateRequest)) (*Response, error)
