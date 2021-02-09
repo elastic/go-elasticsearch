@@ -238,7 +238,7 @@ type API struct {
 		for _, e := range endpoints {
 			name := strings.ReplaceAll(e.Name(), "Request", "")
 			if strings.HasPrefix(strings.ToLower(name), strings.ToLower(n)) {
-				methodName := strings.ReplaceAll(name, n, "")
+				methodName := cmd.stripNamespace(name, n)
 				b.WriteString(fmt.Sprintf("\t%s %s\n", methodName, name))
 			}
 		}
@@ -270,7 +270,7 @@ func New(t Transport) *API {
 		for _, e := range endpoints {
 			name := strings.ReplaceAll(e.Name(), "Request", "")
 			if strings.HasPrefix(strings.ToLower(name), strings.ToLower(n)) {
-				methodName := strings.ReplaceAll(name, n, "")
+				methodName := cmd.stripNamespace(name, n)
 				b.WriteString(fmt.Sprintf("\t\t\t%s: new%sFunc(t),\n", methodName, name))
 			}
 		}
@@ -340,4 +340,15 @@ func New(t Transport) *API {
 		return fmt.Errorf("error closing file: %s", err)
 	}
 	return nil
+}
+
+// stripNamespace Returns a stripped method name both for struct and API mapping
+//
+// Returns the original value if the namespace is equivalent to the method name.
+func (cmd *Command) stripNamespace(methodName, namespace string) string {
+	newMethodName := strings.ReplaceAll(methodName, namespace, "")
+	if len(newMethodName) == 0 {
+		newMethodName = namespace
+	}
+	return newMethodName
 }
