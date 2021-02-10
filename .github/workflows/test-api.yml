@@ -11,7 +11,7 @@ jobs:
   test-core:
     name: Core
     env:
-      ELASTICSEARCH_VERSION: elasticsearch:7.x-SNAPSHOT
+      ELASTICSEARCH_VERSION: elasticsearch:7.11.0-SNAPSHOT
       ELASTICSEARCH_URL: http://localhost:9200
     runs-on: ubuntu-latest
     steps:
@@ -43,7 +43,7 @@ jobs:
   test-xpack:
       name: X-Pack
       env:
-        ELASTICSEARCH_VERSION: elasticsearch:7.x-SNAPSHOT
+        ELASTICSEARCH_VERSION: elasticsearch:7.11.0-SNAPSHOT
         ELASTICSEARCH_URL: https://elastic:elastic@localhost:9200
       runs-on: ubuntu-latest
       steps:
