@@ -19,7 +19,7 @@ if [[ ($branch_specifier == "refs/heads/xpack" && $TEST_SUITE == "core") ]]; the
 fi
 
 if [[ $TEST_SUITE == "core" ]]; then
-  elasticsearch_image=elasticsearch-oss:$STACK_VERSION
+  elasticsearch_image=elasticsearch:$STACK_VERSION
   elasticsearch_url=http://es1:9200
 fi
 
