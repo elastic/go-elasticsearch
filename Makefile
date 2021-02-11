@@ -247,7 +247,7 @@ godoc: ## Display documentation for the package
 	godoc --http=localhost:6060 --play
 
 cluster: ## Launch an Elasticsearch cluster with Docker
-	$(eval version ?= "elasticsearch-oss:7.x-SNAPSHOT")
+	$(eval version ?= "elasticsearch:7.11.0-SNAPSHOT")
 ifeq ($(origin nodes), undefined)
 	$(eval nodes = 1)
 endif
@@ -257,10 +257,8 @@ ifeq ($(shell test $(nodes) && test $(nodes) -gt 1; echo $$?),0)
 else
 	$(eval detach ?= "false")
 endif
-ifdef version
-ifneq (,$(findstring oss,$(version)))
 	$(eval elasticsearch_url = "http://es1:9200")
-else
+ifeq ($(flavor), xpack)
 	$(eval elasticsearch_url = "https://elastic:elastic@es1:9200")
 	$(eval xpack_env += --env "ELASTIC_PASSWORD=elastic")
 	$(eval xpack_env += --env "xpack.license.self_generated.type=trial")
@@ -279,7 +277,6 @@ else
 	$(eval xpack_volumes += --volume "$(PWD)/.ci/certs/elasticsearch.crt:/usr/share/elasticsearch/config/certs/elasticsearch.crt")
 	$(eval xpack_volumes += --volume "$(PWD)/.ci/certs/elasticsearch.key:/usr/share/elasticsearch/config/certs/elasticsearch.key")
 	$(eval xpack_volumes += --volume "$(PWD)/.ci/certs/ca.crt:/usr/share/elasticsearch/config/certs/ca.crt")
-endif
 endif
 	@docker network inspect elasticsearch > /dev/null 2>&1 || docker network create elasticsearch;
 	@{ \
@@ -327,7 +324,7 @@ ifdef detach
 endif
 
 cluster-update: ## Update the Docker image
-	$(eval version ?= "elasticsearch-oss:7.x-SNAPSHOT")
+	$(eval version ?= "elasticsearch:7.11.0-SNAPSHOT")
 	@printf "\033[2m→ Updating the Docker image...\033[0m\n"
 	@docker pull docker.elastic.co/elasticsearch/$(version);
 
@@ -338,7 +335,7 @@ cluster-clean: ## Remove unused Docker volumes and networks
 
 docker: ## Build the Docker image and run it
 	docker build --file Dockerfile --tag elastic/go-elasticsearch .
-	docker run -it --network elasticsearch --volume $(PWD)/tmp:/tmp:rw,delegated --rm elastic/go-elasticsearch
+	docker run -it --name go-elasticsearch --network elasticsearch --volume $(PWD)/tmp:/tmp:rw,delegated --rm elastic/go-elasticsearch
 
 ##@ Generator
 gen-api:  ## Generate the API package from the JSON specification
