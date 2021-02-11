@@ -44,11 +44,11 @@ echo -e "\033[1m>>>>> SETUP [$TEST_SUITE] >>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
 docker build --file Dockerfile --tag elastic/go-elasticsearch .
 
 # Launch a single Elasticsearch node
-(make cluster detach=true version=$elasticsearch_image)
+(make cluster detach=true version=$elasticsearch_image flavor=$TEST_SUITE)
 
 # Store the Elasticsearch version and build hash
 ELASTICSEARCH_VERSION="$STACK_VERSION"
-ELASTICSEARCH_BUILD_VERSION=$(docker run --network elasticsearch --rm appropriate/curl -sSk $elasticsearch_url | docker run -i --rm stedolan/jq -r '.version.number')
+ELASTICSEARCH_BUILD_VERSION=$(docker run --network elasticsearch --rm appropriate/curl --retry-connrefused --retry 5 --retry-delay 5 --retry-max-time 60 -sSk $elasticsearch_url | docker run -i --rm stedolan/jq -r '.version.number')
 ELASTICSEARCH_BUILD_HASH=$(docker run --network elasticsearch --rm appropriate/curl -sSk $elasticsearch_url | docker run -i --rm stedolan/jq -r '.version.build_hash')
 
 # Download Elasticsearch source code at ELASTICSEARCH_BUILD_HASH and store it in a container
