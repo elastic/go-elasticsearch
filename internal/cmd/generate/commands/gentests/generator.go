@@ -308,6 +308,15 @@ func (g *Generator) genCommonSetup() {
 		}
 
 		{
+			res, _ = es.Indices.DeleteDataStream(
+				[]string{"*"},
+				es.Indices.DeleteDataStream.WithExpandWildcards("all"))
+			if res != nil && res.Body != nil {
+				defer res.Body.Close()
+			}
+		}
+
+		{
 			res, _ = es.Indices.Delete(
 				[]string{"*"},
 				es.Indices.Delete.WithExpandWildcards("all"))
@@ -344,11 +353,6 @@ func (g *Generator) genCommonSetup() {
 
 		{
 			res, _ = es.Indices.DeleteAlias([]string{"_all"}, []string{"_all"})
-			if res != nil && res.Body != nil { defer res.Body.Close() }
-		}
-
-		{
-			res, _ = es.Indices.DeleteDataStream([]string{"_all"})
 			if res != nil && res.Body != nil { defer res.Body.Close() }
 		}
 
