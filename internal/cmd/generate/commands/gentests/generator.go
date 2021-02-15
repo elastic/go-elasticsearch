@@ -310,7 +310,8 @@ func (g *Generator) genCommonSetup() {
 		{
 			res, _ = es.Indices.DeleteDataStream(
 				[]string{"*"},
-				es.Indices.DeleteDataStream.WithExpandWildcards("all"))
+				es.Indices.DeleteDataStream.WithExpandWildcards("all"),
+				es.Indices.DeleteDataStream.WithExpandWildcards("hidden"))
 			if res != nil && res.Body != nil {
 				defer res.Body.Close()
 			}
