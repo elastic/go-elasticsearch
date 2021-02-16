@@ -25,13 +25,13 @@ services:
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
       - xpack.security.enabled=true
       - xpack.security.http.ssl.enabled=true
-      - xpack.security.http.ssl.key=/usr/share/elasticsearch/config/certificates/elasticsearch/elasticsearch.key
-      - xpack.security.http.ssl.certificate=/usr/share/elasticsearch/config/certificates/elasticsearch/elasticsearch.crt
+      - xpack.security.http.ssl.key=/usr/share/elasticsearch/config/certificates/elasticsearch/testnode.key
+      - xpack.security.http.ssl.certificate=/usr/share/elasticsearch/config/certificates/elasticsearch/testnode.crt
       - xpack.security.http.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
       - xpack.security.transport.ssl.enabled=true
       - xpack.security.transport.ssl.verification_mode=certificate
-      - xpack.security.transport.ssl.key=/usr/share/elasticsearch/config/certificates/elasticsearch/elasticsearch.key
-      - xpack.security.transport.ssl.certificate=/usr/share/elasticsearch/config/certificates/elasticsearch/elasticsearch.crt
+      - xpack.security.transport.ssl.key=/usr/share/elasticsearch/config/certificates/elasticsearch/testnode.key
+      - xpack.security.transport.ssl.certificate=/usr/share/elasticsearch/config/certificates/elasticsearch/testnode.crt
       - xpack.security.transport.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
     ulimits: { nofile: { soft: 65535, hard: 65535 }, memlock: -1 }
     healthcheck:
