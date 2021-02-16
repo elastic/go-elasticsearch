@@ -8,10 +8,10 @@ env:
   GITHUB_ACTIONS: true
 
 jobs:
-  test-core:
-    name: Core
+  test-free:
+    name: Free
     env:
-      ELASTICSEARCH_VERSION: elasticsearch-oss:7.x-SNAPSHOT
+      ELASTICSEARCH_VERSION: elasticsearch:7.x-SNAPSHOT
       ELASTICSEARCH_URL: http://localhost:9200
     runs-on: ubuntu-latest
     steps:
@@ -40,8 +40,8 @@ jobs:
       - run: ELASTICSEARCH_BUILD_HASH=$(cat elasticsearch_build_hash) make gen-tests
       - run: make test-api
 
-  test-xpack:
-      name: X-Pack
+  test-platinum:
+      name: Platinum
       env:
         ELASTICSEARCH_VERSION: elasticsearch:7.x-SNAPSHOT
         ELASTICSEARCH_URL: https://elastic:elastic@localhost:9200
@@ -62,7 +62,7 @@ jobs:
           run: |
             docker pull --quiet docker.elastic.co/elasticsearch/${{ env.ELASTICSEARCH_VERSION }}
             docker pull --quiet appropriate/curl
-            make cluster-clean cluster-update cluster detach=true version="${{ env.ELASTICSEARCH_VERSION }}"
+            make cluster-clean cluster-update cluster flavor=platinum detach=true version="${{ env.ELASTICSEARCH_VERSION }}"
         - name: Download Elasticsearch source
           run: |
             curl -sSk ${{ env.ELASTICSEARCH_URL }}
