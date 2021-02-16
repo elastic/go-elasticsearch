@@ -56,3 +56,4 @@ fi
 
 echo -e "\033[34;1mINFO:\033[0m Creating network $network_name if it does not exist already \033[0m"
 docker network inspect "$network_name" > /dev/null 2>&1 || docker network create "$network_name"
+
