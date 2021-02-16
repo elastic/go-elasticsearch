@@ -88,15 +88,15 @@ echo -e "\033[1m>>>>> EXECUTE [$TEST_SUITE] >>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m
 # NOTE: Conditions needed to prevent early exit due to the 'set -e' option
 status=100
 case $TEST_SUITE in
-  "oss" )
-    if bash .ci/scripts/tests-oss.sh; then
+  "free" )
+    if bash .ci/scripts/tests-free.sh; then
       status=$?
     else
       status=$?
     fi
     ;;
-  "xpack" )
-    if bash .ci/scripts/tests-xpack.sh; then
+  "platinum" )
+    if bash .ci/scripts/tests-platinum.sh; then
       status=$?
     else
       status=$?

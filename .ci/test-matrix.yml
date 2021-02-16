@@ -7,7 +7,7 @@ GO_VERSION:
   - 1-alpine
 
 TEST_SUITE:
-  - oss
-  - xpack
+  - free
+  - platinum
 
 exclude: ~
