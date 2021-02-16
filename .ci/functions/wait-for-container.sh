@@ -11,8 +11,9 @@
 function wait_for_container {
   set +x
   until ! container_running "$1" || (container_running "$1" && [[ "$(docker inspect -f "{{.State.Health.Status}}" ${1})" != "starting" ]]); do
+    echo ""
     docker inspect -f "{{range .State.Health.Log}}{{.Output}}{{end}}" ${1}
-    echo -e "\033[34;1mINFO:\033[0m Waiting for container [$1] to be up...\033[0m"
+    echo -e "\033[34;1mINFO:\033[0m waiting for node $1 to be up\033[0m"
     sleep 2;
   done;
 
