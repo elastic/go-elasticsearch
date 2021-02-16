@@ -207,7 +207,7 @@ func (f IndicesStats) WithMetric(v ...string) func(*IndicesStatsRequest) {
 	}
 }
 
-// WithCompletionFields - a list of fields for `fielddata` and `suggest` index metric (supports wildcards).
+// WithCompletionFields - a list of fields for the `completion` index metric (supports wildcards).
 //
 func (f IndicesStats) WithCompletionFields(v ...string) func(*IndicesStatsRequest) {
 	return func(r *IndicesStatsRequest) {
@@ -223,7 +223,7 @@ func (f IndicesStats) WithExpandWildcards(v string) func(*IndicesStatsRequest) {
 	}
 }
 
-// WithFielddataFields - a list of fields for `fielddata` index metric (supports wildcards).
+// WithFielddataFields - a list of fields for the `fielddata` index metric (supports wildcards).
 //
 func (f IndicesStats) WithFielddataFields(v ...string) func(*IndicesStatsRequest) {
 	return func(r *IndicesStatsRequest) {

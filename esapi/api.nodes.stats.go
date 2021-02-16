@@ -212,7 +212,7 @@ func (f NodesStats) WithNodeID(v ...string) func(*NodesStatsRequest) {
 	}
 }
 
-// WithCompletionFields - a list of fields for `fielddata` and `suggest` index metric (supports wildcards).
+// WithCompletionFields - a list of fields for the `completion` index metric (supports wildcards).
 //
 func (f NodesStats) WithCompletionFields(v ...string) func(*NodesStatsRequest) {
 	return func(r *NodesStatsRequest) {
@@ -220,7 +220,7 @@ func (f NodesStats) WithCompletionFields(v ...string) func(*NodesStatsRequest) {
 	}
 }
 
-// WithFielddataFields - a list of fields for `fielddata` index metric (supports wildcards).
+// WithFielddataFields - a list of fields for the `fielddata` index metric (supports wildcards).
 //
 func (f NodesStats) WithFielddataFields(v ...string) func(*NodesStatsRequest) {
 	return func(r *NodesStatsRequest) {

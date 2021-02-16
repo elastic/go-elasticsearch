@@ -27,8 +27,6 @@ func newEqlGetFunc(t Transport) EqlGet {
 
 // EqlGet - Returns async results from previously executed Event Query Language (EQL) search
 //
-// This API is beta.
-//
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/eql-search-api.html.
 //
 type EqlGet func(id string, o ...func(*EqlGetRequest)) (*Response, error)

@@ -12,9 +12,9 @@ import (
 	"strings"
 )
 
-func newIndicesGetDataStreamFunc(t Transport) IndicesGetDataStream {
-	return func(o ...func(*IndicesGetDataStreamRequest)) (*Response, error) {
-		var r = IndicesGetDataStreamRequest{}
+func newAsyncSearchStatusFunc(t Transport) AsyncSearchStatus {
+	return func(id string, o ...func(*AsyncSearchStatusRequest)) (*Response, error) {
+		var r = AsyncSearchStatusRequest{DocumentID: id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -24,18 +24,16 @@ func newIndicesGetDataStreamFunc(t Transport) IndicesGetDataStream {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesGetDataStream - Returns data streams.
+// AsyncSearchStatus - Retrieves the status of a previously submitted async search request given its ID.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/async-search.html.
 //
-type IndicesGetDataStream func(o ...func(*IndicesGetDataStreamRequest)) (*Response, error)
+type AsyncSearchStatus func(id string, o ...func(*AsyncSearchStatusRequest)) (*Response, error)
 
-// IndicesGetDataStreamRequest configures the Indices Get Data Stream API request.
+// AsyncSearchStatusRequest configures the Async Search Status API request.
 //
-type IndicesGetDataStreamRequest struct {
-	Name []string
-
-	ExpandWildcards string
+type AsyncSearchStatusRequest struct {
+	DocumentID string
 
 	Pretty     bool
 	Human      bool
@@ -49,7 +47,7 @@ type IndicesGetDataStreamRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r IndicesGetDataStreamRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r AsyncSearchStatusRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -58,19 +56,15 @@ func (r IndicesGetDataStreamRequest) Do(ctx context.Context, transport Transport
 
 	method = "GET"
 
-	path.Grow(1 + len("_data_stream") + 1 + len(strings.Join(r.Name, ",")))
+	path.Grow(1 + len("_async_search") + 1 + len("status") + 1 + len(r.DocumentID))
 	path.WriteString("/")
-	path.WriteString("_data_stream")
-	if len(r.Name) > 0 {
-		path.WriteString("/")
-		path.WriteString(strings.Join(r.Name, ","))
-	}
+	path.WriteString("_async_search")
+	path.WriteString("/")
+	path.WriteString("status")
+	path.WriteString("/")
+	path.WriteString(r.DocumentID)
 
 	params = make(map[string]string)
-
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -133,64 +127,48 @@ func (r IndicesGetDataStreamRequest) Do(ctx context.Context, transport Transport
 
 // WithContext sets the request context.
 //
-func (f IndicesGetDataStream) WithContext(v context.Context) func(*IndicesGetDataStreamRequest) {
-	return func(r *IndicesGetDataStreamRequest) {
+func (f AsyncSearchStatus) WithContext(v context.Context) func(*AsyncSearchStatusRequest) {
+	return func(r *AsyncSearchStatusRequest) {
 		r.ctx = v
-	}
-}
-
-// WithName - a list of data streams to get; use `*` to get all data streams.
-//
-func (f IndicesGetDataStream) WithName(v ...string) func(*IndicesGetDataStreamRequest) {
-	return func(r *IndicesGetDataStreamRequest) {
-		r.Name = v
-	}
-}
-
-// WithExpandWildcards - whether wildcard expressions should get expanded to open or closed indices (default: open).
-//
-func (f IndicesGetDataStream) WithExpandWildcards(v string) func(*IndicesGetDataStreamRequest) {
-	return func(r *IndicesGetDataStreamRequest) {
-		r.ExpandWildcards = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f IndicesGetDataStream) WithPretty() func(*IndicesGetDataStreamRequest) {
-	return func(r *IndicesGetDataStreamRequest) {
+func (f AsyncSearchStatus) WithPretty() func(*AsyncSearchStatusRequest) {
+	return func(r *AsyncSearchStatusRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f IndicesGetDataStream) WithHuman() func(*IndicesGetDataStreamRequest) {
-	return func(r *IndicesGetDataStreamRequest) {
+func (f AsyncSearchStatus) WithHuman() func(*AsyncSearchStatusRequest) {
+	return func(r *AsyncSearchStatusRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f IndicesGetDataStream) WithErrorTrace() func(*IndicesGetDataStreamRequest) {
-	return func(r *IndicesGetDataStreamRequest) {
+func (f AsyncSearchStatus) WithErrorTrace() func(*AsyncSearchStatusRequest) {
+	return func(r *AsyncSearchStatusRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f IndicesGetDataStream) WithFilterPath(v ...string) func(*IndicesGetDataStreamRequest) {
-	return func(r *IndicesGetDataStreamRequest) {
+func (f AsyncSearchStatus) WithFilterPath(v ...string) func(*AsyncSearchStatusRequest) {
+	return func(r *AsyncSearchStatusRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f IndicesGetDataStream) WithHeader(h map[string]string) func(*IndicesGetDataStreamRequest) {
-	return func(r *IndicesGetDataStreamRequest) {
+func (f AsyncSearchStatus) WithHeader(h map[string]string) func(*AsyncSearchStatusRequest) {
+	return func(r *AsyncSearchStatusRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -202,8 +180,8 @@ func (f IndicesGetDataStream) WithHeader(h map[string]string) func(*IndicesGetDa
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f IndicesGetDataStream) WithOpaqueID(s string) func(*IndicesGetDataStreamRequest) {
-	return func(r *IndicesGetDataStreamRequest) {
+func (f AsyncSearchStatus) WithOpaqueID(s string) func(*AsyncSearchStatusRequest) {
+	return func(r *AsyncSearchStatusRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

@@ -44,7 +44,6 @@ type CatIndicesRequest struct {
 	Health                  string
 	Help                    *bool
 	IncludeUnloadedSegments *bool
-	Local                   *bool
 	MasterTimeout           time.Duration
 	Pri                     *bool
 	S                       []string
@@ -110,10 +109,6 @@ func (r CatIndicesRequest) Do(ctx context.Context, transport Transport) (*Respon
 
 	if r.IncludeUnloadedSegments != nil {
 		params["include_unloaded_segments"] = strconv.FormatBool(*r.IncludeUnloadedSegments)
-	}
-
-	if r.Local != nil {
-		params["local"] = strconv.FormatBool(*r.Local)
 	}
 
 	if r.MasterTimeout != 0 {
@@ -264,14 +259,6 @@ func (f CatIndices) WithHelp(v bool) func(*CatIndicesRequest) {
 func (f CatIndices) WithIncludeUnloadedSegments(v bool) func(*CatIndicesRequest) {
 	return func(r *CatIndicesRequest) {
 		r.IncludeUnloadedSegments = &v
-	}
-}
-
-// WithLocal - return local information, do not retrieve the state from master node (default: false).
-//
-func (f CatIndices) WithLocal(v bool) func(*CatIndicesRequest) {
-	return func(r *CatIndicesRequest) {
-		r.Local = &v
 	}
 }
 

@@ -13,9 +13,9 @@ import (
 	"strings"
 )
 
-func newAutoscalingPutAutoscalingPolicyFunc(t Transport) AutoscalingPutAutoscalingPolicy {
-	return func(name string, body io.Reader, o ...func(*AutoscalingPutAutoscalingPolicyRequest)) (*Response, error) {
-		var r = AutoscalingPutAutoscalingPolicyRequest{Name: name, Body: body}
+func newWatcherQueryWatchesFunc(t Transport) WatcherQueryWatches {
+	return func(o ...func(*WatcherQueryWatchesRequest)) (*Response, error) {
+		var r = WatcherQueryWatchesRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -25,18 +25,16 @@ func newAutoscalingPutAutoscalingPolicyFunc(t Transport) AutoscalingPutAutoscali
 
 // ----- API Definition -------------------------------------------------------
 
-// AutoscalingPutAutoscalingPolicy - Creates a new autoscaling policy. Designed for indirect use by ECE/ESS and ECK. Direct use is not supported.
+// WatcherQueryWatches - Retrieves stored watches.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-put-autoscaling-policy.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-query-watches.html.
 //
-type AutoscalingPutAutoscalingPolicy func(name string, body io.Reader, o ...func(*AutoscalingPutAutoscalingPolicyRequest)) (*Response, error)
+type WatcherQueryWatches func(o ...func(*WatcherQueryWatchesRequest)) (*Response, error)
 
-// AutoscalingPutAutoscalingPolicyRequest configures the Autoscaling Put Autoscaling Policy API request.
+// WatcherQueryWatchesRequest configures the Watcher Query Watches API request.
 //
-type AutoscalingPutAutoscalingPolicyRequest struct {
+type WatcherQueryWatchesRequest struct {
 	Body io.Reader
-
-	Name string
 
 	Pretty     bool
 	Human      bool
@@ -50,22 +48,17 @@ type AutoscalingPutAutoscalingPolicyRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r AutoscalingPutAutoscalingPolicyRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r WatcherQueryWatchesRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "PUT"
+	method = "GET"
 
-	path.Grow(1 + len("_autoscaling") + 1 + len("policy") + 1 + len(r.Name))
-	path.WriteString("/")
-	path.WriteString("_autoscaling")
-	path.WriteString("/")
-	path.WriteString("policy")
-	path.WriteString("/")
-	path.WriteString(r.Name)
+	path.Grow(len("/_watcher/_query/watches"))
+	path.WriteString("/_watcher/_query/watches")
 
 	params = make(map[string]string)
 
@@ -134,48 +127,56 @@ func (r AutoscalingPutAutoscalingPolicyRequest) Do(ctx context.Context, transpor
 
 // WithContext sets the request context.
 //
-func (f AutoscalingPutAutoscalingPolicy) WithContext(v context.Context) func(*AutoscalingPutAutoscalingPolicyRequest) {
-	return func(r *AutoscalingPutAutoscalingPolicyRequest) {
+func (f WatcherQueryWatches) WithContext(v context.Context) func(*WatcherQueryWatchesRequest) {
+	return func(r *WatcherQueryWatchesRequest) {
 		r.ctx = v
+	}
+}
+
+// WithBody - From, size, query, sort and search_after.
+//
+func (f WatcherQueryWatches) WithBody(v io.Reader) func(*WatcherQueryWatchesRequest) {
+	return func(r *WatcherQueryWatchesRequest) {
+		r.Body = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f AutoscalingPutAutoscalingPolicy) WithPretty() func(*AutoscalingPutAutoscalingPolicyRequest) {
-	return func(r *AutoscalingPutAutoscalingPolicyRequest) {
+func (f WatcherQueryWatches) WithPretty() func(*WatcherQueryWatchesRequest) {
+	return func(r *WatcherQueryWatchesRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f AutoscalingPutAutoscalingPolicy) WithHuman() func(*AutoscalingPutAutoscalingPolicyRequest) {
-	return func(r *AutoscalingPutAutoscalingPolicyRequest) {
+func (f WatcherQueryWatches) WithHuman() func(*WatcherQueryWatchesRequest) {
+	return func(r *WatcherQueryWatchesRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f AutoscalingPutAutoscalingPolicy) WithErrorTrace() func(*AutoscalingPutAutoscalingPolicyRequest) {
-	return func(r *AutoscalingPutAutoscalingPolicyRequest) {
+func (f WatcherQueryWatches) WithErrorTrace() func(*WatcherQueryWatchesRequest) {
+	return func(r *WatcherQueryWatchesRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f AutoscalingPutAutoscalingPolicy) WithFilterPath(v ...string) func(*AutoscalingPutAutoscalingPolicyRequest) {
-	return func(r *AutoscalingPutAutoscalingPolicyRequest) {
+func (f WatcherQueryWatches) WithFilterPath(v ...string) func(*WatcherQueryWatchesRequest) {
+	return func(r *WatcherQueryWatchesRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f AutoscalingPutAutoscalingPolicy) WithHeader(h map[string]string) func(*AutoscalingPutAutoscalingPolicyRequest) {
-	return func(r *AutoscalingPutAutoscalingPolicyRequest) {
+func (f WatcherQueryWatches) WithHeader(h map[string]string) func(*WatcherQueryWatchesRequest) {
+	return func(r *WatcherQueryWatchesRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -187,8 +188,8 @@ func (f AutoscalingPutAutoscalingPolicy) WithHeader(h map[string]string) func(*A
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f AutoscalingPutAutoscalingPolicy) WithOpaqueID(s string) func(*AutoscalingPutAutoscalingPolicyRequest) {
-	return func(r *AutoscalingPutAutoscalingPolicyRequest) {
+func (f WatcherQueryWatches) WithOpaqueID(s string) func(*WatcherQueryWatchesRequest) {
+	return func(r *WatcherQueryWatchesRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
