@@ -11,7 +11,7 @@ jobs:
   test-core:
     name: Core
     env:
-      ELASTICSEARCH_VERSION: elasticsearch-oss:8.0.0-SNAPSHOT
+      ELASTICSEARCH_VERSION: elasticsearch:8.0.0-SNAPSHOT
       ELASTICSEARCH_URL: http://localhost:9200
     runs-on: ubuntu-latest
     steps:
