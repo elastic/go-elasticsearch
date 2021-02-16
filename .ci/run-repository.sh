@@ -33,7 +33,7 @@ echo -e "\033[32;1mSUCCESS:\033[0m successfully started the ${STACK_VERSION} sta
 
 TIMEFORMAT="Duration: %0lR"
 
-if [[ $TEST_SUITE != "oss" && $TEST_SUITE != "xpack" ]]; then
+if [[ $TEST_SUITE != "free" && $TEST_SUITE != "platinum" ]]; then
   echo -e "\033[31;1mERROR:\033[0m Unknown value [$TEST_SUITE] for [TEST_SUITE]\033[0m"
   exit 1
 fi
