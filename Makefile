@@ -45,10 +45,10 @@ endif
 	$(eval testapiargs += "-cover" "-coverpkg=github.com/elastic/go-elasticsearch/v7/esapi" "-coverprofile=$(PWD)/tmp/integration-api.cov" "-tags='integration'" "-timeout=1h")
 ifdef flavor
 else
-	$(eval flavor='core')
+	$(eval flavor='free')
 endif
 	@printf "\033[2m→ Running API integration tests for [$(flavor)]...\033[0m\n"
-ifeq ($(flavor), xpack)
+ifeq ($(flavor), platinum)
 	@{ \
 		set -e ; \
 		trap "test -d .git && git checkout --quiet $(PWD)/esapi/test/go.mod" INT TERM EXIT; \
@@ -248,6 +248,9 @@ godoc: ## Display documentation for the package
 
 cluster: ## Launch an Elasticsearch cluster with Docker
 	$(eval version ?= "elasticsearch:7.11.0-SNAPSHOT")
+	$(eval flavor ?= "core")
+	$(eval elasticsearch_url = "http://es1:9200")
+
 ifeq ($(origin nodes), undefined)
 	$(eval nodes = 1)
 endif
@@ -257,25 +260,25 @@ ifeq ($(shell test $(nodes) && test $(nodes) -gt 1; echo $$?),0)
 else
 	$(eval detach ?= "false")
 endif
-	$(eval elasticsearch_url = "http://es1:9200")
-ifeq ($(flavor), xpack)
+
+ifeq ($(flavor), platinum)
 	$(eval elasticsearch_url = "https://elastic:elastic@es1:9200")
 	$(eval xpack_env += --env "ELASTIC_PASSWORD=elastic")
 	$(eval xpack_env += --env "xpack.license.self_generated.type=trial")
 	$(eval xpack_env += --env "xpack.security.enabled=true")
 	$(eval xpack_env += --env "xpack.security.http.ssl.enabled=true")
 	$(eval xpack_env += --env "xpack.security.http.ssl.verification_mode=certificate")
-	$(eval xpack_env += --env "xpack.security.http.ssl.key=certs/elasticsearch.key")
-	$(eval xpack_env += --env "xpack.security.http.ssl.certificate=certs/elasticsearch.crt")
+	$(eval xpack_env += --env "xpack.security.http.ssl.key=certs/testnode.key")
+	$(eval xpack_env += --env "xpack.security.http.ssl.certificate=certs/testnode.crt")
 	$(eval xpack_env += --env "xpack.security.http.ssl.certificate_authorities=certs/ca.crt")
 	$(eval xpack_env += --env "xpack.security.http.ssl.verification_mode=none")
 	$(eval xpack_env += --env "xpack.security.transport.ssl.enabled=true")
-	$(eval xpack_env += --env "xpack.security.transport.ssl.key=certs/elasticsearch.key")
-	$(eval xpack_env += --env "xpack.security.transport.ssl.certificate=certs/elasticsearch.crt")
+	$(eval xpack_env += --env "xpack.security.transport.ssl.key=certs/testnode.key")
+	$(eval xpack_env += --env "xpack.security.transport.ssl.certificate=certs/testnode.crt")
 	$(eval xpack_env += --env "xpack.security.transport.ssl.certificate_authorities=certs/ca.crt")
 	$(eval xpack_env += --env "xpack.security.transport.ssl.verification_mode=none")
-	$(eval xpack_volumes += --volume "$(PWD)/.ci/certs/elasticsearch.crt:/usr/share/elasticsearch/config/certs/elasticsearch.crt")
-	$(eval xpack_volumes += --volume "$(PWD)/.ci/certs/elasticsearch.key:/usr/share/elasticsearch/config/certs/elasticsearch.key")
+	$(eval xpack_volumes += --volume "$(PWD)/.ci/certs/testnode.crt:/usr/share/elasticsearch/config/certs/testnode.crt")
+	$(eval xpack_volumes += --volume "$(PWD)/.ci/certs/testnode.key:/usr/share/elasticsearch/config/certs/testnode.key")
 	$(eval xpack_volumes += --volume "$(PWD)/.ci/certs/ca.crt:/usr/share/elasticsearch/config/certs/ca.crt")
 endif
 	@docker network inspect elasticsearch > /dev/null 2>&1 || docker network create elasticsearch;
@@ -334,8 +337,8 @@ cluster-clean: ## Remove unused Docker volumes and networks
 	docker network prune --force
 
 docker: ## Build the Docker image and run it
-	docker build --file Dockerfile --tag elastic/go-elasticsearch .
-	docker run -it --name go-elasticsearch --network elasticsearch --volume $(PWD)/tmp:/tmp:rw,delegated --rm elastic/go-elasticsearch
+	docker build --file .ci/Dockerfile --tag elastic/go-elasticsearch .
+	docker run -it --network elasticsearch --volume $(PWD)/tmp:/tmp:rw,delegated --rm elastic/go-elasticsearch
 
 ##@ Generator
 gen-api:  ## Generate the API package from the JSON specification
