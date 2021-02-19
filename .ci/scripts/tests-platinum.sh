@@ -30,8 +30,12 @@ mv esapi/test/xpack/ml/xpack_ml__jobs_crud_test.go esapi/test/xpack/ml-crud/
 
 set +e # Do not fail immediately when a single test suite fails
 
-echo -e "\033[34;1mINFO:\033[0m Running tests: XPACK >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
+echo -e "\033[34;1mINFO:\033[0m Download tests deps: XPACK >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
+
 cd /go-elasticsearch/esapi/test || exit
+go mod download
+
+echo -e "\033[34;1mINFO:\033[0m Running tests: XPACK >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
 
 gotestsum --format=short-verbose --junitfile=$WORKSPACE/TEST-integration-api-xpack-junit.xml -- --tags=integration --timeout=1h -v xpack/*_test.go
 status1=$?

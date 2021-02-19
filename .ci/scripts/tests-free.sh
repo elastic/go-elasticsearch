@@ -19,9 +19,13 @@ echo -e "\033[34;1mINFO:\033[0m Generating the test files\033[0m"
 
 go run main.go apitests --output '/go-elasticsearch/esapi/test' --input '/tmp/elasticsearch/rest-api-spec/src/main/resources/rest-api-spec/test/**/*.y*ml'
 
-echo -e "\033[34;1mINFO:\033[0m Running the tests\033[0m"
+echo -e "\033[34;1mINFO:\033[0m Download tests deps: XPACK >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
 
 cd /go-elasticsearch/esapi/test || exit
+go mod download
+
+echo -e "\033[34;1mINFO:\033[0m Running the tests\033[0m"
+
 gotestsum --format=short-verbose --junitfile=$WORKSPACE/TEST-integration-api-junit.xml -- -tags=integration -timeout=1h *_test.go
 status=$?
 
