@@ -1,26 +1,32 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
-set -euo pipefail
+set -uo pipefail
 
 TIMEFORMAT="(Duration: %0lR)"
 
-echo -e "\033[1m>>>>> Cleaning up test files\033[0m"
+echo -e "\033[34;1mINFO:\033[0m Cleaning up test files\033[0m"
 
-docker exec go-elasticsearch /bin/sh -c 'rm -rf esapi/test/*_test.go'
-docker exec go-elasticsearch /bin/sh -c 'rm -rf esapi/test/xpack'
+rm -rf esapi/test/*_test.go
+rm -rf esapi/test/xpack
 
-echo -e "\033[1m>>>>> Generating the API registry\033[0m"
+echo -e "\033[34;1mINFO:\033[0m Generating the API registry\033[0m"
 
-docker exec --workdir=/go-elasticsearch/internal/cmd/generate go-elasticsearch go get -u golang.org/x/tools/cmd/goimports
-docker exec --workdir=/go-elasticsearch/internal/cmd/generate --env PACKAGE_PATH=/go-elasticsearch/esapi go-elasticsearch go generate ./...
+cd /go-elasticsearch/internal/cmd/generate || exit
+go get -u golang.org/x/tools/cmd/goimports
+PACKAGE_PATH=/go-elasticsearch/esapi go generate ./...
 
-echo -e "\033[1m>>>>> Generating the test files\033[0m"
+echo -e "\033[34;1mINFO:\033[0m Generating the test files\033[0m"
 
-time docker exec --tty --workdir=/go-elasticsearch/internal/cmd/generate go-elasticsearch go run main.go apitests --output '/go-elasticsearch/esapi/test' --input '/elasticsearch-source/elasticsearch/rest-api-spec/src/main/resources/rest-api-spec/test/**/*.y*ml'
+go run main.go apitests --output '/go-elasticsearch/esapi/test' --input '/tmp/elasticsearch/rest-api-spec/src/main/resources/rest-api-spec/test/**/*.y*ml'
 
-echo -e "\033[1m>>>>> Running the tests\033[0m"
+echo -e "\033[34;1mINFO:\033[0m Download tests deps >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
 
-time docker exec --tty --workdir=/go-elasticsearch/esapi/test go-elasticsearch /bin/sh -c 'gotestsum --format=short-verbose --junitfile=$WORKSPACE/TEST-integration-api-junit.xml -- -tags=integration -timeout=1h *_test.go'
+cd /go-elasticsearch/esapi/test || exit
+go mod download
+
+echo -e "\033[34;1mINFO:\033[0m Running the tests\033[0m"
+
+gotestsum --format=short-verbose --junitfile=$WORKSPACE/TEST-integration-api-junit.xml -- -tags=integration -timeout=1h *_test.go
 status=$?
 
 exit $status
