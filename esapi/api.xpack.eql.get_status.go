@@ -12,9 +12,9 @@ import (
 	"strings"
 )
 
-func newAutoscalingGetAutoscalingCapacityFunc(t Transport) AutoscalingGetAutoscalingCapacity {
-	return func(o ...func(*AutoscalingGetAutoscalingCapacityRequest)) (*Response, error) {
-		var r = AutoscalingGetAutoscalingCapacityRequest{}
+func newEqlGetStatusFunc(t Transport) EqlGetStatus {
+	return func(id string, o ...func(*EqlGetStatusRequest)) (*Response, error) {
+		var r = EqlGetStatusRequest{DocumentID: id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -24,15 +24,17 @@ func newAutoscalingGetAutoscalingCapacityFunc(t Transport) AutoscalingGetAutosca
 
 // ----- API Definition -------------------------------------------------------
 
-// AutoscalingGetAutoscalingCapacity - Gets the current autoscaling capacity based on the configured autoscaling policy. Designed for indirect use by ECE/ESS and ECK. Direct use is not supported.
+// EqlGetStatus - Returns the status of a previously submitted async or stored Event Query Language (EQL) search
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-get-autoscaling-capacity.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/eql-search-api.html.
 //
-type AutoscalingGetAutoscalingCapacity func(o ...func(*AutoscalingGetAutoscalingCapacityRequest)) (*Response, error)
+type EqlGetStatus func(id string, o ...func(*EqlGetStatusRequest)) (*Response, error)
 
-// AutoscalingGetAutoscalingCapacityRequest configures the Autoscaling Get Autoscaling Capacity API request.
+// EqlGetStatusRequest configures the Eql Get Status API request.
 //
-type AutoscalingGetAutoscalingCapacityRequest struct {
+type EqlGetStatusRequest struct {
+	DocumentID string
+
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -45,7 +47,7 @@ type AutoscalingGetAutoscalingCapacityRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r AutoscalingGetAutoscalingCapacityRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r EqlGetStatusRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -54,8 +56,15 @@ func (r AutoscalingGetAutoscalingCapacityRequest) Do(ctx context.Context, transp
 
 	method = "GET"
 
-	path.Grow(len("/_autoscaling/capacity"))
-	path.WriteString("/_autoscaling/capacity")
+	path.Grow(1 + len("_eql") + 1 + len("search") + 1 + len("status") + 1 + len(r.DocumentID))
+	path.WriteString("/")
+	path.WriteString("_eql")
+	path.WriteString("/")
+	path.WriteString("search")
+	path.WriteString("/")
+	path.WriteString("status")
+	path.WriteString("/")
+	path.WriteString(r.DocumentID)
 
 	params = make(map[string]string)
 
@@ -120,48 +129,48 @@ func (r AutoscalingGetAutoscalingCapacityRequest) Do(ctx context.Context, transp
 
 // WithContext sets the request context.
 //
-func (f AutoscalingGetAutoscalingCapacity) WithContext(v context.Context) func(*AutoscalingGetAutoscalingCapacityRequest) {
-	return func(r *AutoscalingGetAutoscalingCapacityRequest) {
+func (f EqlGetStatus) WithContext(v context.Context) func(*EqlGetStatusRequest) {
+	return func(r *EqlGetStatusRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f AutoscalingGetAutoscalingCapacity) WithPretty() func(*AutoscalingGetAutoscalingCapacityRequest) {
-	return func(r *AutoscalingGetAutoscalingCapacityRequest) {
+func (f EqlGetStatus) WithPretty() func(*EqlGetStatusRequest) {
+	return func(r *EqlGetStatusRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f AutoscalingGetAutoscalingCapacity) WithHuman() func(*AutoscalingGetAutoscalingCapacityRequest) {
-	return func(r *AutoscalingGetAutoscalingCapacityRequest) {
+func (f EqlGetStatus) WithHuman() func(*EqlGetStatusRequest) {
+	return func(r *EqlGetStatusRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f AutoscalingGetAutoscalingCapacity) WithErrorTrace() func(*AutoscalingGetAutoscalingCapacityRequest) {
-	return func(r *AutoscalingGetAutoscalingCapacityRequest) {
+func (f EqlGetStatus) WithErrorTrace() func(*EqlGetStatusRequest) {
+	return func(r *EqlGetStatusRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f AutoscalingGetAutoscalingCapacity) WithFilterPath(v ...string) func(*AutoscalingGetAutoscalingCapacityRequest) {
-	return func(r *AutoscalingGetAutoscalingCapacityRequest) {
+func (f EqlGetStatus) WithFilterPath(v ...string) func(*EqlGetStatusRequest) {
+	return func(r *EqlGetStatusRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f AutoscalingGetAutoscalingCapacity) WithHeader(h map[string]string) func(*AutoscalingGetAutoscalingCapacityRequest) {
-	return func(r *AutoscalingGetAutoscalingCapacityRequest) {
+func (f EqlGetStatus) WithHeader(h map[string]string) func(*EqlGetStatusRequest) {
+	return func(r *EqlGetStatusRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -173,8 +182,8 @@ func (f AutoscalingGetAutoscalingCapacity) WithHeader(h map[string]string) func(
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f AutoscalingGetAutoscalingCapacity) WithOpaqueID(s string) func(*AutoscalingGetAutoscalingCapacityRequest) {
-	return func(r *AutoscalingGetAutoscalingCapacityRequest) {
+func (f EqlGetStatus) WithOpaqueID(s string) func(*EqlGetStatusRequest) {
+	return func(r *EqlGetStatusRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
