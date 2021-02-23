@@ -204,7 +204,7 @@ func (f IndicesClose) WithTimeout(v time.Duration) func(*IndicesCloseRequest) {
 	}
 }
 
-// WithWaitForActiveShards - sets the number of active shards to wait for before the operation returns..
+// WithWaitForActiveShards - sets the number of active shards to wait for before the operation returns. set to `index-setting` to wait according to the index setting `index.write.wait_for_active_shards`, or `all` to wait for all shards, or an integer. defaults to `0`..
 //
 func (f IndicesClose) WithWaitForActiveShards(v string) func(*IndicesCloseRequest) {
 	return func(r *IndicesCloseRequest) {

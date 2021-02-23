@@ -58,6 +58,7 @@ type SearchRequest struct {
 	IgnoreUnavailable          *bool
 	Lenient                    *bool
 	MaxConcurrentShardRequests *int
+	MinCompatibleShardNode     string
 	Preference                 string
 	PreFilterShardSize         *int
 	Query                      string
@@ -182,6 +183,10 @@ func (r SearchRequest) Do(ctx context.Context, transport Transport) (*Response, 
 
 	if r.MaxConcurrentShardRequests != nil {
 		params["max_concurrent_shard_requests"] = strconv.FormatInt(int64(*r.MaxConcurrentShardRequests), 10)
+	}
+
+	if r.MinCompatibleShardNode != "" {
+		params["min_compatible_shard_node"] = r.MinCompatibleShardNode
 	}
 
 	if r.Preference != "" {
@@ -508,6 +513,14 @@ func (f Search) WithLenient(v bool) func(*SearchRequest) {
 func (f Search) WithMaxConcurrentShardRequests(v int) func(*SearchRequest) {
 	return func(r *SearchRequest) {
 		r.MaxConcurrentShardRequests = &v
+	}
+}
+
+// WithMinCompatibleShardNode - the minimum compatible version that all shards involved in search should have for this request to be successful.
+//
+func (f Search) WithMinCompatibleShardNode(v string) func(*SearchRequest) {
+	return func(r *SearchRequest) {
+		r.MinCompatibleShardNode = v
 	}
 }
 

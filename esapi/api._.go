@@ -1,4 +1,4 @@
-// Code generated from specification version 7.12.0 (bbbfa249d08): DO NOT EDIT
+// Code generated from specification version 7.12.0 (9fab35b5085): DO NOT EDIT
 
 package esapi
 
@@ -59,6 +59,7 @@ type API struct {
 	EnrichStats                                   EnrichStats
 	EqlDelete                                     EqlDelete
 	EqlGet                                        EqlGet
+	EqlGetStatus                                  EqlGetStatus
 	EqlSearch                                     EqlSearch
 	Exists                                        Exists
 	ExistsSource                                  ExistsSource
@@ -72,6 +73,9 @@ type API struct {
 	GraphExplore                                  GraphExplore
 	Index                                         Index
 	Info                                          Info
+	LogstashDeletePipeline                        LogstashDeletePipeline
+	LogstashGetPipeline                           LogstashGetPipeline
+	LogstashPutPipeline                           LogstashPutPipeline
 	Mget                                          Mget
 	Msearch                                       Msearch
 	MsearchTemplate                               MsearchTemplate
@@ -102,6 +106,7 @@ type API struct {
 	SlmStart                                      SlmStart
 	SlmStop                                       SlmStop
 	Termvectors                                   Termvectors
+	TextStructureFindStructure                    TextStructureFindStructure
 	TransformDeleteTransform                      TransformDeleteTransform
 	TransformGetTransform                         TransformGetTransform
 	TransformGetTransformStats                    TransformGetTransformStats
@@ -252,6 +257,7 @@ type Snapshot struct {
 	Create            SnapshotCreate
 	DeleteRepository  SnapshotDeleteRepository
 	Delete            SnapshotDelete
+	GetFeatures       SnapshotGetFeatures
 	GetRepository     SnapshotGetRepository
 	Get               SnapshotGet
 	Restore           SnapshotRestore
@@ -506,6 +512,7 @@ func New(t Transport) *API {
 		EnrichStats:                                   newEnrichStatsFunc(t),
 		EqlDelete:                                     newEqlDeleteFunc(t),
 		EqlGet:                                        newEqlGetFunc(t),
+		EqlGetStatus:                                  newEqlGetStatusFunc(t),
 		EqlSearch:                                     newEqlSearchFunc(t),
 		Exists:                                        newExistsFunc(t),
 		ExistsSource:                                  newExistsSourceFunc(t),
@@ -519,6 +526,9 @@ func New(t Transport) *API {
 		GraphExplore:                                  newGraphExploreFunc(t),
 		Index:                                         newIndexFunc(t),
 		Info:                                          newInfoFunc(t),
+		LogstashDeletePipeline:                        newLogstashDeletePipelineFunc(t),
+		LogstashGetPipeline:                           newLogstashGetPipelineFunc(t),
+		LogstashPutPipeline:                           newLogstashPutPipelineFunc(t),
 		Mget:                                          newMgetFunc(t),
 		Msearch:                                       newMsearchFunc(t),
 		MsearchTemplate:                               newMsearchTemplateFunc(t),
@@ -549,6 +559,7 @@ func New(t Transport) *API {
 		SlmStart:                                      newSlmStartFunc(t),
 		SlmStop:                                       newSlmStopFunc(t),
 		Termvectors:                                   newTermvectorsFunc(t),
+		TextStructureFindStructure:                    newTextStructureFindStructureFunc(t),
 		TransformDeleteTransform:                      newTransformDeleteTransformFunc(t),
 		TransformGetTransform:                         newTransformGetTransformFunc(t),
 		TransformGetTransformStats:                    newTransformGetTransformStatsFunc(t),
@@ -683,6 +694,7 @@ func New(t Transport) *API {
 			Create:            newSnapshotCreateFunc(t),
 			DeleteRepository:  newSnapshotDeleteRepositoryFunc(t),
 			Delete:            newSnapshotDeleteFunc(t),
+			GetFeatures:       newSnapshotGetFeaturesFunc(t),
 			GetRepository:     newSnapshotGetRepositoryFunc(t),
 			Get:               newSnapshotGetFunc(t),
 			Restore:           newSnapshotRestoreFunc(t),

@@ -8,13 +8,14 @@ package esapi
 
 import (
 	"context"
+	"io"
 	"net/http"
 	"strings"
 )
 
-func newAutoscalingGetAutoscalingCapacityFunc(t Transport) AutoscalingGetAutoscalingCapacity {
-	return func(o ...func(*AutoscalingGetAutoscalingCapacityRequest)) (*Response, error) {
-		var r = AutoscalingGetAutoscalingCapacityRequest{}
+func newLogstashPutPipelineFunc(t Transport) LogstashPutPipeline {
+	return func(id string, body io.Reader, o ...func(*LogstashPutPipelineRequest)) (*Response, error) {
+		var r = LogstashPutPipelineRequest{DocumentID: id, Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -24,15 +25,19 @@ func newAutoscalingGetAutoscalingCapacityFunc(t Transport) AutoscalingGetAutosca
 
 // ----- API Definition -------------------------------------------------------
 
-// AutoscalingGetAutoscalingCapacity - Gets the current autoscaling capacity based on the configured autoscaling policy. Designed for indirect use by ECE/ESS and ECK. Direct use is not supported.
+// LogstashPutPipeline - Adds and updates Logstash Pipelines used for Central Management
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-get-autoscaling-capacity.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/logstash-api-put-pipeline.html.
 //
-type AutoscalingGetAutoscalingCapacity func(o ...func(*AutoscalingGetAutoscalingCapacityRequest)) (*Response, error)
+type LogstashPutPipeline func(id string, body io.Reader, o ...func(*LogstashPutPipelineRequest)) (*Response, error)
 
-// AutoscalingGetAutoscalingCapacityRequest configures the Autoscaling Get Autoscaling Capacity API request.
+// LogstashPutPipelineRequest configures the Logstash Put Pipeline API request.
 //
-type AutoscalingGetAutoscalingCapacityRequest struct {
+type LogstashPutPipelineRequest struct {
+	DocumentID string
+
+	Body io.Reader
+
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -45,17 +50,22 @@ type AutoscalingGetAutoscalingCapacityRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r AutoscalingGetAutoscalingCapacityRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r LogstashPutPipelineRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "PUT"
 
-	path.Grow(len("/_autoscaling/capacity"))
-	path.WriteString("/_autoscaling/capacity")
+	path.Grow(1 + len("_logstash") + 1 + len("pipeline") + 1 + len(r.DocumentID))
+	path.WriteString("/")
+	path.WriteString("_logstash")
+	path.WriteString("/")
+	path.WriteString("pipeline")
+	path.WriteString("/")
+	path.WriteString(r.DocumentID)
 
 	params = make(map[string]string)
 
@@ -75,7 +85,7 @@ func (r AutoscalingGetAutoscalingCapacityRequest) Do(ctx context.Context, transp
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -86,6 +96,10 @@ func (r AutoscalingGetAutoscalingCapacityRequest) Do(ctx context.Context, transp
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if r.Body != nil {
+		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -120,48 +134,48 @@ func (r AutoscalingGetAutoscalingCapacityRequest) Do(ctx context.Context, transp
 
 // WithContext sets the request context.
 //
-func (f AutoscalingGetAutoscalingCapacity) WithContext(v context.Context) func(*AutoscalingGetAutoscalingCapacityRequest) {
-	return func(r *AutoscalingGetAutoscalingCapacityRequest) {
+func (f LogstashPutPipeline) WithContext(v context.Context) func(*LogstashPutPipelineRequest) {
+	return func(r *LogstashPutPipelineRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f AutoscalingGetAutoscalingCapacity) WithPretty() func(*AutoscalingGetAutoscalingCapacityRequest) {
-	return func(r *AutoscalingGetAutoscalingCapacityRequest) {
+func (f LogstashPutPipeline) WithPretty() func(*LogstashPutPipelineRequest) {
+	return func(r *LogstashPutPipelineRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f AutoscalingGetAutoscalingCapacity) WithHuman() func(*AutoscalingGetAutoscalingCapacityRequest) {
-	return func(r *AutoscalingGetAutoscalingCapacityRequest) {
+func (f LogstashPutPipeline) WithHuman() func(*LogstashPutPipelineRequest) {
+	return func(r *LogstashPutPipelineRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f AutoscalingGetAutoscalingCapacity) WithErrorTrace() func(*AutoscalingGetAutoscalingCapacityRequest) {
-	return func(r *AutoscalingGetAutoscalingCapacityRequest) {
+func (f LogstashPutPipeline) WithErrorTrace() func(*LogstashPutPipelineRequest) {
+	return func(r *LogstashPutPipelineRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f AutoscalingGetAutoscalingCapacity) WithFilterPath(v ...string) func(*AutoscalingGetAutoscalingCapacityRequest) {
-	return func(r *AutoscalingGetAutoscalingCapacityRequest) {
+func (f LogstashPutPipeline) WithFilterPath(v ...string) func(*LogstashPutPipelineRequest) {
+	return func(r *LogstashPutPipelineRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f AutoscalingGetAutoscalingCapacity) WithHeader(h map[string]string) func(*AutoscalingGetAutoscalingCapacityRequest) {
-	return func(r *AutoscalingGetAutoscalingCapacityRequest) {
+func (f LogstashPutPipeline) WithHeader(h map[string]string) func(*LogstashPutPipelineRequest) {
+	return func(r *LogstashPutPipelineRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -173,8 +187,8 @@ func (f AutoscalingGetAutoscalingCapacity) WithHeader(h map[string]string) func(
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f AutoscalingGetAutoscalingCapacity) WithOpaqueID(s string) func(*AutoscalingGetAutoscalingCapacityRequest) {
-	return func(r *AutoscalingGetAutoscalingCapacityRequest) {
+func (f LogstashPutPipeline) WithOpaqueID(s string) func(*LogstashPutPipelineRequest) {
+	return func(r *LogstashPutPipelineRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

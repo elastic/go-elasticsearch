@@ -10,11 +10,12 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"time"
 )
 
-func newAutoscalingGetAutoscalingCapacityFunc(t Transport) AutoscalingGetAutoscalingCapacity {
-	return func(o ...func(*AutoscalingGetAutoscalingCapacityRequest)) (*Response, error) {
-		var r = AutoscalingGetAutoscalingCapacityRequest{}
+func newSnapshotGetFeaturesFunc(t Transport) SnapshotGetFeatures {
+	return func(o ...func(*SnapshotGetFeaturesRequest)) (*Response, error) {
+		var r = SnapshotGetFeaturesRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -24,15 +25,17 @@ func newAutoscalingGetAutoscalingCapacityFunc(t Transport) AutoscalingGetAutosca
 
 // ----- API Definition -------------------------------------------------------
 
-// AutoscalingGetAutoscalingCapacity - Gets the current autoscaling capacity based on the configured autoscaling policy. Designed for indirect use by ECE/ESS and ECK. Direct use is not supported.
+// SnapshotGetFeatures returns a list of features which can be snapshotted in this cluster.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-get-autoscaling-capacity.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html.
 //
-type AutoscalingGetAutoscalingCapacity func(o ...func(*AutoscalingGetAutoscalingCapacityRequest)) (*Response, error)
+type SnapshotGetFeatures func(o ...func(*SnapshotGetFeaturesRequest)) (*Response, error)
 
-// AutoscalingGetAutoscalingCapacityRequest configures the Autoscaling Get Autoscaling Capacity API request.
+// SnapshotGetFeaturesRequest configures the Snapshot Get Features API request.
 //
-type AutoscalingGetAutoscalingCapacityRequest struct {
+type SnapshotGetFeaturesRequest struct {
+	MasterTimeout time.Duration
+
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -45,7 +48,7 @@ type AutoscalingGetAutoscalingCapacityRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r AutoscalingGetAutoscalingCapacityRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SnapshotGetFeaturesRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -54,10 +57,14 @@ func (r AutoscalingGetAutoscalingCapacityRequest) Do(ctx context.Context, transp
 
 	method = "GET"
 
-	path.Grow(len("/_autoscaling/capacity"))
-	path.WriteString("/_autoscaling/capacity")
+	path.Grow(len("/_snapshottable_features"))
+	path.WriteString("/_snapshottable_features")
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -120,48 +127,56 @@ func (r AutoscalingGetAutoscalingCapacityRequest) Do(ctx context.Context, transp
 
 // WithContext sets the request context.
 //
-func (f AutoscalingGetAutoscalingCapacity) WithContext(v context.Context) func(*AutoscalingGetAutoscalingCapacityRequest) {
-	return func(r *AutoscalingGetAutoscalingCapacityRequest) {
+func (f SnapshotGetFeatures) WithContext(v context.Context) func(*SnapshotGetFeaturesRequest) {
+	return func(r *SnapshotGetFeaturesRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - explicit operation timeout for connection to master node.
+//
+func (f SnapshotGetFeatures) WithMasterTimeout(v time.Duration) func(*SnapshotGetFeaturesRequest) {
+	return func(r *SnapshotGetFeaturesRequest) {
+		r.MasterTimeout = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f AutoscalingGetAutoscalingCapacity) WithPretty() func(*AutoscalingGetAutoscalingCapacityRequest) {
-	return func(r *AutoscalingGetAutoscalingCapacityRequest) {
+func (f SnapshotGetFeatures) WithPretty() func(*SnapshotGetFeaturesRequest) {
+	return func(r *SnapshotGetFeaturesRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f AutoscalingGetAutoscalingCapacity) WithHuman() func(*AutoscalingGetAutoscalingCapacityRequest) {
-	return func(r *AutoscalingGetAutoscalingCapacityRequest) {
+func (f SnapshotGetFeatures) WithHuman() func(*SnapshotGetFeaturesRequest) {
+	return func(r *SnapshotGetFeaturesRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f AutoscalingGetAutoscalingCapacity) WithErrorTrace() func(*AutoscalingGetAutoscalingCapacityRequest) {
-	return func(r *AutoscalingGetAutoscalingCapacityRequest) {
+func (f SnapshotGetFeatures) WithErrorTrace() func(*SnapshotGetFeaturesRequest) {
+	return func(r *SnapshotGetFeaturesRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f AutoscalingGetAutoscalingCapacity) WithFilterPath(v ...string) func(*AutoscalingGetAutoscalingCapacityRequest) {
-	return func(r *AutoscalingGetAutoscalingCapacityRequest) {
+func (f SnapshotGetFeatures) WithFilterPath(v ...string) func(*SnapshotGetFeaturesRequest) {
+	return func(r *SnapshotGetFeaturesRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f AutoscalingGetAutoscalingCapacity) WithHeader(h map[string]string) func(*AutoscalingGetAutoscalingCapacityRequest) {
-	return func(r *AutoscalingGetAutoscalingCapacityRequest) {
+func (f SnapshotGetFeatures) WithHeader(h map[string]string) func(*SnapshotGetFeaturesRequest) {
+	return func(r *SnapshotGetFeaturesRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -173,8 +188,8 @@ func (f AutoscalingGetAutoscalingCapacity) WithHeader(h map[string]string) func(
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f AutoscalingGetAutoscalingCapacity) WithOpaqueID(s string) func(*AutoscalingGetAutoscalingCapacityRequest) {
-	return func(r *AutoscalingGetAutoscalingCapacityRequest) {
+func (f SnapshotGetFeatures) WithOpaqueID(s string) func(*SnapshotGetFeaturesRequest) {
+	return func(r *SnapshotGetFeaturesRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

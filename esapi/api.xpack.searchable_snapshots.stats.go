@@ -37,6 +37,8 @@ type SearchableSnapshotsStats func(o ...func(*SearchableSnapshotsStatsRequest)) 
 type SearchableSnapshotsStatsRequest struct {
 	Index []string
 
+	Level string
+
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -69,6 +71,10 @@ func (r SearchableSnapshotsStatsRequest) Do(ctx context.Context, transport Trans
 	path.WriteString("stats")
 
 	params = make(map[string]string)
+
+	if r.Level != "" {
+		params["level"] = r.Level
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -142,6 +148,14 @@ func (f SearchableSnapshotsStats) WithContext(v context.Context) func(*Searchabl
 func (f SearchableSnapshotsStats) WithIndex(v ...string) func(*SearchableSnapshotsStatsRequest) {
 	return func(r *SearchableSnapshotsStatsRequest) {
 		r.Index = v
+	}
+}
+
+// WithLevel - return stats aggregated at cluster, index or shard level.
+//
+func (f SearchableSnapshotsStats) WithLevel(v string) func(*SearchableSnapshotsStatsRequest) {
+	return func(r *SearchableSnapshotsStatsRequest) {
+		r.Level = v
 	}
 }
 

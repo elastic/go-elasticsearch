@@ -44,6 +44,7 @@ type SearchableSnapshotsMountRequest struct {
 	Snapshot   string
 
 	MasterTimeout     time.Duration
+	Storage           string
 	WaitForCompletion *bool
 
 	Pretty     bool
@@ -81,6 +82,10 @@ func (r SearchableSnapshotsMountRequest) Do(ctx context.Context, transport Trans
 
 	if r.MasterTimeout != 0 {
 		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.Storage != "" {
+		params["storage"] = r.Storage
 	}
 
 	if r.WaitForCompletion != nil {
@@ -163,6 +168,14 @@ func (f SearchableSnapshotsMount) WithContext(v context.Context) func(*Searchabl
 func (f SearchableSnapshotsMount) WithMasterTimeout(v time.Duration) func(*SearchableSnapshotsMountRequest) {
 	return func(r *SearchableSnapshotsMountRequest) {
 		r.MasterTimeout = v
+	}
+}
+
+// WithStorage - selects the kind of local storage used to accelerate searches. experimental, and defaults to `full_copy`.
+//
+func (f SearchableSnapshotsMount) WithStorage(v string) func(*SearchableSnapshotsMountRequest) {
+	return func(r *SearchableSnapshotsMountRequest) {
+		r.Storage = v
 	}
 }
 
