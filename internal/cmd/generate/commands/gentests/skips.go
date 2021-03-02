@@ -310,4 +310,8 @@ unsigned_long/30_multi_fields.yml:
 unsigned_long/40_different_numeric.yml:
 unsigned_long/50_script_values.yml:
 unsigned_long/60_collapse.yml:
+
+# Cannot compare float64 ending with .0 reliably due to inconsistent serialisation (https://github.com/golang/go/issues/26363)
+search/330_fetch_fields.yml:
+  - Test nested field inside object structure
 `
