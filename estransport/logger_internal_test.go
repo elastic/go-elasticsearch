@@ -59,7 +59,8 @@ func TestTransportLogger(t *testing.T) {
 				req, _ := http.NewRequest("GET", "/abc", nil)
 				_, err := tp.Perform(req)
 				if err != nil {
-					t.Fatalf("Unexpected error: %s", err)
+					t.Errorf("Unexpected error: %s", err)
+					return
 				}
 			}()
 		}
