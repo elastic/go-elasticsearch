@@ -17,6 +17,7 @@ import (
 	"net/http"
 	"os"
 	"reflect"
+	"regexp"
 	"strconv"
 	"strings"
 	"sync"
@@ -626,6 +627,111 @@ func TestBulkIndexer(t *testing.T) {
 					t.Errorf("worker.writeMeta() %s = got [%s], want [%s]", tt.name, w.buf.String(), tt.want)
 				}
 
+			})
+		}
+	})
+
+	t.Run("MetaHeader presence in Request header", func(t *testing.T) {
+		type args struct {
+			disableMetaHeader bool
+			header            http.Header
+		}
+		tests := []struct {
+			name string
+			args args
+			want string
+		}{
+			{
+				name: "Meta header is present in header",
+				args: args{
+					disableMetaHeader: false,
+				},
+				want: `.*,h=bp`,
+			},
+			{
+				name: "Header should be empty of meta header",
+				args: args{
+					disableMetaHeader: true,
+				},
+				want: ``,
+			},
+			{
+				name: "User has set header",
+				args: args{
+					disableMetaHeader: false,
+					header: http.Header{
+						"X-Test-User": []string{"UserValue"},
+					},
+				},
+			},
+			{
+				name: "User should not temper with Meta Header",
+				args: args{
+					disableMetaHeader: false,
+					header: http.Header{
+						"X-Test-User": []string{"UserValue"},
+						estransport.HeaderClientMeta: []string{"h=shouldntbechanged"},
+					},
+				},
+			},
+		}
+		for _, tt := range tests {
+			t.Run(tt.name, func(t *testing.T) {
+				reValidation := regexp.MustCompile(tt.want)
+
+				esConfig := elasticsearch.Config{
+					DisableMetaHeader: tt.args.disableMetaHeader,
+					Header: tt.args.header,
+					Transport: &mockTransport{
+						RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+							headerMeta := request.Header.Get(estransport.HeaderClientMeta)
+
+							if !reValidation.MatchString(headerMeta) {
+								t.Errorf("Meta Header presence is invalid, got : %s, want : %s", headerMeta, tt.want)
+							}
+
+							if tt.args.disableMetaHeader && headerMeta != "" {
+								t.Errorf("Meta Header is disabled, should be empty, got : %s", headerMeta)
+							}
+
+							if tt.args.header != nil {
+								if userHeader := request.Header.Get("X-Test-User"); userHeader != "UserValue" {
+									t.Errorf("User header should be preserved, got : %s", userHeader)
+								}
+							}
+
+							return &http.Response{
+								StatusCode: http.StatusOK,
+								Status:     "200 OK",
+								Body:       io.NopCloser(bytes.NewBuffer(nil)),
+							}, nil
+						},
+					},
+				}
+
+				client, err := elasticsearch.NewClient(esConfig)
+				if err != nil {
+					log.Fatal(err)
+				}
+
+				cfg := BulkIndexerConfig{
+					Client: client,
+					Header: tt.args.header,
+				}
+				bi, err := NewBulkIndexer(cfg)
+				if err != nil {
+					log.Fatal(err)
+				}
+
+				err = bi.Add(context.Background(), BulkIndexerItem{
+					Action:     "foo",
+					DocumentID: strconv.Itoa(1),
+					Body:       strings.NewReader(fmt.Sprintf(`{"title":"foo-%d"}`, 1)),
+				})
+				if err != nil {
+					log.Fatal(err)
+				}
+				bi.Close(context.Background())
 			})
 		}
 	})
