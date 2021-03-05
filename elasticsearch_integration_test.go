@@ -265,3 +265,30 @@ func TestClientAPI(t *testing.T) {
 		fmt.Println(d["tagline"])
 	})
 }
+
+func TestDataRaceForRequests(t *testing.T) {
+	t.Run("DataRace", func(t *testing.T) {
+		var wg sync.WaitGroup
+
+		es, err := elasticsearch.NewClient(elasticsearch.Config{
+			DisableRetry: true,
+		})
+		if err != nil {
+			log.Fatalf("Error creating the client: %s\n", err)
+		}
+
+		for i := 1; i <= 5; i++ {
+			wg.Add(1)
+			go func() {
+				defer wg.Done()
+				res, err := es.Ping()
+				if err != nil {
+					log.Printf("Error getting response: %s", err)
+				}
+				t.Log(res)
+			}()
+		}
+
+		wg.Wait()
+	})
+}
