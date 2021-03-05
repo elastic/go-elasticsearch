@@ -90,7 +90,8 @@ func TestBulkIndexer(t *testing.T) {
 					Body:       strings.NewReader(fmt.Sprintf(`{"title":"foo-%d"}`, i)),
 				})
 				if err != nil {
-					t.Fatalf("Unexpected error: %s", err)
+					t.Errorf("Unexpected error: %s", err)
+					return
 				}
 			}(i)
 		}
@@ -514,7 +515,8 @@ func TestBulkIndexer(t *testing.T) {
 					Body:   strings.NewReader(`{"title":"foo"}`),
 				})
 				if err != nil {
-					t.Fatalf("Unexpected error: %s", err)
+					t.Errorf("Unexpected error: %s", err)
+					return
 				}
 			}(i)
 		}

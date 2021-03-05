@@ -32,12 +32,14 @@ func TestDiscovery(t *testing.T) {
 
 	go func() {
 		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			t.Fatalf("Unable to start server: %s", err)
+			t.Errorf("Unable to start server: %s", err)
+			return
 		}
 	}()
 	go func() {
 		if err := srvTLS.ListenAndServeTLS("testdata/cert.pem", "testdata/key.pem"); err != nil && err != http.ErrServerClosed {
-			t.Fatalf("Unable to start server: %s", err)
+			t.Errorf("Unable to start server: %s", err)
+			return
 		}
 	}()
 	defer func() { srv.Close() }()
