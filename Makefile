@@ -55,12 +55,14 @@ ifeq ($(flavor), platinum)
 		export ELASTICSEARCH_URL='https://elastic:elastic@localhost:9200' && \
 		if which gotestsum > /dev/null 2>&1 ; then \
 			cd esapi/test && \
+			go mod download && \
 				gotestsum --format=short-verbose --junitfile=$(PWD)/tmp/integration-api-report.xml -- $(testapiargs) $(PWD)/esapi/test/xpack/*_test.go && \
 				gotestsum --format=short-verbose --junitfile=$(PWD)/tmp/integration-api-report.xml -- $(testapiargs) $(PWD)/esapi/test/xpack/ml/*_test.go && \
 				gotestsum --format=short-verbose --junitfile=$(PWD)/tmp/integration-api-report.xml -- $(testapiargs) $(PWD)/esapi/test/xpack/ml-crud/*_test.go; \
 		else \
 			echo "go test -v" $(testapiargs); \
 			cd esapi/test && \
+			go mod download && \
 				go test -v $(testapiargs) $(PWD)/esapi/test/xpack/*_test.go && \
 				go test -v $(testapiargs) $(PWD)/esapi/test/xpack/ml/*_test.go && \
 				go test -v $(testapiargs) $(PWD)/esapi/test/xpack/ml-crud/*_test.go;  \
@@ -72,10 +74,14 @@ else
 		set -e ; \
 		trap "test -d .git && git checkout --quiet $(PWD)/esapi/test/go.mod" INT TERM EXIT; \
 		if which gotestsum > /dev/null 2>&1 ; then \
-			cd esapi/test && gotestsum --format=short-verbose --junitfile=$(PWD)/tmp/integration-api-report.xml -- $(testapiargs); \
+			cd esapi/test && \
+			go mod download && \
+			gotestsum --format=short-verbose --junitfile=$(PWD)/tmp/integration-api-report.xml -- $(testapiargs); \
 		else \
 			echo "go test -v" $(testapiargs); \
-			cd esapi/test && go test -v $(testapiargs); \
+			cd esapi/test && \
+			go mod download && \
+			go test -v $(testapiargs); \
 		fi; \
 	}
 endif
@@ -89,6 +95,18 @@ test-examples: ## Execute the _examples
 	@{ \
 		set -e ; \
 		trap "test -d .git && git checkout --quiet _examples/**/go.mod" INT TERM EXIT; \
+		for d in _examples/*/; do \
+			printf "\033[2m────────────────────────────────────────────────────────────────────────────────\n"; \
+			printf "\033[1mUpdating dependencies for $$d\033[0m\n"; \
+			printf "\033[2m────────────────────────────────────────────────────────────────────────────────\033[0m\n"; \
+			(cd $$d && go mod download) || \
+			( \
+				printf "\033[31m────────────────────────────────────────────────────────────────────────────────\033[0m\n"; \
+				printf "\033[31;1m⨯ ERROR\033[0m\n"; \
+				false; \
+			); \
+	    done; \
+	    \
 		for f in _examples/*.go; do \
 			printf "\033[2m────────────────────────────────────────────────────────────────────────────────\n"; \
 			printf "\033[1m$$f\033[0m\n"; \
