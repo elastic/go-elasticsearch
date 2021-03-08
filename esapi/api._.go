@@ -1,4 +1,4 @@
-// Code generated from specification version 7.12.0 (9fab35b5085): DO NOT EDIT
+// Code generated from specification version 7.12.0 (79d4dca1632): DO NOT EDIT
 
 package esapi
 
@@ -64,6 +64,7 @@ type API struct {
 	Exists                                        Exists
 	ExistsSource                                  ExistsSource
 	Explain                                       Explain
+	FeaturesGetFeatures                           FeaturesGetFeatures
 	FieldCaps                                     FieldCaps
 	Get                                           Get
 	GetScriptContext                              GetScriptContext
@@ -517,6 +518,7 @@ func New(t Transport) *API {
 		Exists:                                        newExistsFunc(t),
 		ExistsSource:                                  newExistsSourceFunc(t),
 		Explain:                                       newExplainFunc(t),
+		FeaturesGetFeatures:                           newFeaturesGetFeaturesFunc(t),
 		FieldCaps:                                     newFieldCapsFunc(t),
 		Get:                                           newGetFunc(t),
 		GetScriptContext:                              newGetScriptContextFunc(t),
