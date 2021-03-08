@@ -796,3 +796,73 @@ func TestMetaHeader(t *testing.T) {
 		}
 	})
 }
+
+func TestMaxRetries(t *testing.T) {
+	tests := []struct {
+		name              string
+		maxRetries        int
+		disableRetry      bool
+		expectedCallCount int
+	}{
+		{
+			name:              "MaxRetries Active set to default",
+			disableRetry:      false,
+			expectedCallCount: 4,
+		},
+		{
+			name:              "MaxRetries Active set to 1",
+			maxRetries:        1,
+			disableRetry:      false,
+			expectedCallCount: 2,
+		},
+		{
+			name:              "Max Retries Active set to 2",
+			maxRetries:        2,
+			disableRetry:      false,
+			expectedCallCount: 3,
+		},
+		{
+			name:              "Max Retries Active set to 3",
+			maxRetries:        3,
+			disableRetry:      false,
+			expectedCallCount: 4,
+		},
+		{
+			name:              "MaxRetries Inactive set to 0",
+			maxRetries:        0,
+			disableRetry:      true,
+			expectedCallCount: 1,
+		},
+		{
+			name:              "MaxRetries Inactive set to 3",
+			maxRetries:        3,
+			disableRetry:      true,
+			expectedCallCount: 1,
+		},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			var callCount int
+			c, _ := New(Config{
+				URLs: []*url.URL{{}},
+				Transport: &mockTransp{
+					RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+						callCount += 1
+						return &http.Response{
+							StatusCode: http.StatusBadGateway,
+							Status:     "MOCK",
+						}, nil
+					},
+				},
+				MaxRetries:   test.maxRetries,
+				DisableRetry: test.disableRetry,
+			})
+
+			c.Perform(&http.Request{URL: &url.URL{}, Header: make(http.Header)}) // errcheck ignore
+
+			if test.expectedCallCount != callCount {
+				t.Errorf("Bad retry call count, got : %d, want : %d", callCount, test.expectedCallCount)
+			}
+		})
+	}
+}
