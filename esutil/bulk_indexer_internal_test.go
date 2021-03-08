@@ -646,7 +646,7 @@ func TestBulkIndexer(t *testing.T) {
 				args: args{
 					disableMetaHeader: false,
 				},
-				want: `.*,h=bp`,
+				want: `^[a-z]{1,}=[a-z0-9\.\-]{1,}(?:,[a-z]{1,}=[a-z0-9\.\-]+)*,h=bp$`,
 			},
 			{
 				name: "Header should be empty of meta header",
