@@ -33,6 +33,10 @@ func initMetaHeader() string {
 			"t",
 			strippedEsVersion,
 		},
+		{
+			"hc",
+			strippedGoVersion,
+		},
 	}
 
 	var arr []string
@@ -50,7 +54,7 @@ func buildStrippedVersion(version string) string {
 	if len(v) == 3 && !strings.Contains(version, "devel") {
 		switch {
 		case v[2] != "":
-			return v[1]+"p"
+			return v[1] + "p"
 		default:
 			return v[1]
 		}

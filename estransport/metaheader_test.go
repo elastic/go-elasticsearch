@@ -1,13 +1,14 @@
 package estransport
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/internal/version"
 	"regexp"
 	"runtime"
 	"testing"
+
+	"github.com/elastic/go-elasticsearch/v8/internal/version"
 )
 
-var(
+var (
 	metaHeaderReValidation = regexp.MustCompile(`^[a-z]{1,}=[a-z0-9\.\-]{1,}(?:,[a-z]{1,}=[a-z0-9\.\-]+)*$`)
 )
 
@@ -80,15 +81,14 @@ func Test_initMetaHeader(t *testing.T) {
 	}{
 		{
 			name: "Meta header generation",
-			want: "es=" + esVersion + ",go=" + goVersion + ",t=" + esVersion,
+			want: "es=" + esVersion + ",go=" + goVersion + ",t=" + esVersion + ",hc=" + goVersion,
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			metaHeader := initMetaHeader()
-			if got := metaHeader; got != tt.want {
-				t.Errorf("initMetaHeader() = %v, want %v", got, tt.want)
+			if metaHeader != tt.want {
+				t.Errorf("initMetaHeader() = %v, want %v", metaHeader, tt.want)
 			}
 			if valid := metaHeaderReValidation.Match([]byte(metaHeader)); valid != true {
 				t.Errorf("Metaheder doesn't validate regexp format validation, got : %s", metaHeader)
