@@ -748,3 +748,51 @@ func TestVersion(t *testing.T) {
 		t.Error("Version is empty")
 	}
 }
+
+func TestMetaHeader(t *testing.T) {
+	t.Run("X-Elastic-Client-Meta header should be present by default", func(t *testing.T) {
+		u := &url.URL{Scheme: "http", Host: "foo:9200"}
+		tp, _ := New(Config{
+			URLs: []*url.URL{u, u, u},
+			Transport: &mockTransp{
+				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+					return &http.Response{Status: "OK"}, nil
+				},
+			},
+		})
+
+		req, _ := http.NewRequest("GET", "/", nil)
+
+		tp.Perform(req)
+
+		headerValue := req.Header.Get("X-Elastic-Client-Meta")
+		fmt.Println(headerValue)
+		if headerValue != initMetaHeader() {
+			t.Errorf("Meta header should be present, want: %s, got : %s",
+				initMetaHeader(),
+				headerValue,
+			)
+		}
+	})
+	t.Run("X-Elastic-Client-Meta header should be disabled by config", func(t *testing.T) {
+		u := &url.URL{Scheme: "http", Host: "foo:9200"}
+		tp, _ := New(Config{
+			URLs: []*url.URL{u, u, u},
+			Transport: &mockTransp{
+				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+					return &http.Response{Status: "OK"}, nil
+				},
+			},
+			DisableMetaHeader: true,
+		})
+
+		req, _ := http.NewRequest("GET", "/", nil)
+
+		_, _ = tp.Perform(req)
+
+		headerValue := req.Header.Get("X-Elastic-Client-Meta")
+		if headerValue != "" {
+			t.Errorf("Meta header should be empty, got: %s", headerValue)
+		}
+	})
+}
