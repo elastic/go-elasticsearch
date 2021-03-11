@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.12.0: DO NOT EDIT
+// Code generated from specification version 7.13.0: DO NOT EDIT
 
 package esapi
 
@@ -44,6 +44,7 @@ type SearchableSnapshotsMountRequest struct {
 	Snapshot   string
 
 	MasterTimeout     time.Duration
+	Storage           string
 	WaitForCompletion *bool
 
 	Pretty     bool
@@ -81,6 +82,10 @@ func (r SearchableSnapshotsMountRequest) Do(ctx context.Context, transport Trans
 
 	if r.MasterTimeout != 0 {
 		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.Storage != "" {
+		params["storage"] = r.Storage
 	}
 
 	if r.WaitForCompletion != nil {
@@ -163,6 +168,14 @@ func (f SearchableSnapshotsMount) WithContext(v context.Context) func(*Searchabl
 func (f SearchableSnapshotsMount) WithMasterTimeout(v time.Duration) func(*SearchableSnapshotsMountRequest) {
 	return func(r *SearchableSnapshotsMountRequest) {
 		r.MasterTimeout = v
+	}
+}
+
+// WithStorage - selects the kind of local storage used to accelerate searches. experimental, and defaults to `full_copy`.
+//
+func (f SearchableSnapshotsMount) WithStorage(v string) func(*SearchableSnapshotsMountRequest) {
+	return func(r *SearchableSnapshotsMountRequest) {
+		r.Storage = v
 	}
 }
 

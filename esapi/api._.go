@@ -1,4 +1,4 @@
-// Code generated from specification version 7.12.0 (bbbfa249d08): DO NOT EDIT
+// Code generated from specification version 7.13.0 (67b040f8f1a): DO NOT EDIT
 
 package esapi
 
@@ -59,10 +59,12 @@ type API struct {
 	EnrichStats                                   EnrichStats
 	EqlDelete                                     EqlDelete
 	EqlGet                                        EqlGet
+	EqlGetStatus                                  EqlGetStatus
 	EqlSearch                                     EqlSearch
 	Exists                                        Exists
 	ExistsSource                                  ExistsSource
 	Explain                                       Explain
+	FeaturesGetFeatures                           FeaturesGetFeatures
 	FieldCaps                                     FieldCaps
 	Get                                           Get
 	GetScriptContext                              GetScriptContext
@@ -72,6 +74,9 @@ type API struct {
 	GraphExplore                                  GraphExplore
 	Index                                         Index
 	Info                                          Info
+	LogstashDeletePipeline                        LogstashDeletePipeline
+	LogstashGetPipeline                           LogstashGetPipeline
+	LogstashPutPipeline                           LogstashPutPipeline
 	Mget                                          Mget
 	Msearch                                       Msearch
 	MsearchTemplate                               MsearchTemplate
@@ -102,6 +107,7 @@ type API struct {
 	SlmStart                                      SlmStart
 	SlmStop                                       SlmStop
 	Termvectors                                   Termvectors
+	TextStructureFindStructure                    TextStructureFindStructure
 	TransformDeleteTransform                      TransformDeleteTransform
 	TransformGetTransform                         TransformGetTransform
 	TransformGetTransformStats                    TransformGetTransformStats
@@ -334,6 +340,7 @@ type ML struct {
 	DeleteForecast             MLDeleteForecast
 	DeleteJob                  MLDeleteJob
 	DeleteModelSnapshot        MLDeleteModelSnapshot
+	DeleteTrainedModelAlias    MLDeleteTrainedModelAlias
 	DeleteTrainedModel         MLDeleteTrainedModel
 	EstimateModelMemory        MLEstimateModelMemory
 	EvaluateDataFrame          MLEvaluateDataFrame
@@ -362,6 +369,7 @@ type ML struct {
 	OpenJob                    MLOpenJob
 	PostCalendarEvents         MLPostCalendarEvents
 	PostData                   MLPostData
+	PreviewDataFrameAnalytics  MLPreviewDataFrameAnalytics
 	PreviewDatafeed            MLPreviewDatafeed
 	PutCalendarJob             MLPutCalendarJob
 	PutCalendar                MLPutCalendar
@@ -369,6 +377,7 @@ type ML struct {
 	PutDatafeed                MLPutDatafeed
 	PutFilter                  MLPutFilter
 	PutJob                     MLPutJob
+	PutTrainedModelAlias       MLPutTrainedModelAlias
 	PutTrainedModel            MLPutTrainedModel
 	RevertModelSnapshot        MLRevertModelSnapshot
 	SetUpgradeMode             MLSetUpgradeMode
@@ -506,10 +515,12 @@ func New(t Transport) *API {
 		EnrichStats:                                   newEnrichStatsFunc(t),
 		EqlDelete:                                     newEqlDeleteFunc(t),
 		EqlGet:                                        newEqlGetFunc(t),
+		EqlGetStatus:                                  newEqlGetStatusFunc(t),
 		EqlSearch:                                     newEqlSearchFunc(t),
 		Exists:                                        newExistsFunc(t),
 		ExistsSource:                                  newExistsSourceFunc(t),
 		Explain:                                       newExplainFunc(t),
+		FeaturesGetFeatures:                           newFeaturesGetFeaturesFunc(t),
 		FieldCaps:                                     newFieldCapsFunc(t),
 		Get:                                           newGetFunc(t),
 		GetScriptContext:                              newGetScriptContextFunc(t),
@@ -519,6 +530,9 @@ func New(t Transport) *API {
 		GraphExplore:                                  newGraphExploreFunc(t),
 		Index:                                         newIndexFunc(t),
 		Info:                                          newInfoFunc(t),
+		LogstashDeletePipeline:                        newLogstashDeletePipelineFunc(t),
+		LogstashGetPipeline:                           newLogstashGetPipelineFunc(t),
+		LogstashPutPipeline:                           newLogstashPutPipelineFunc(t),
 		Mget:                                          newMgetFunc(t),
 		Msearch:                                       newMsearchFunc(t),
 		MsearchTemplate:                               newMsearchTemplateFunc(t),
@@ -549,6 +563,7 @@ func New(t Transport) *API {
 		SlmStart:                                      newSlmStartFunc(t),
 		SlmStop:                                       newSlmStopFunc(t),
 		Termvectors:                                   newTermvectorsFunc(t),
+		TextStructureFindStructure:                    newTextStructureFindStructureFunc(t),
 		TransformDeleteTransform:                      newTransformDeleteTransformFunc(t),
 		TransformGetTransform:                         newTransformGetTransformFunc(t),
 		TransformGetTransformStats:                    newTransformGetTransformStatsFunc(t),
@@ -751,6 +766,7 @@ func New(t Transport) *API {
 			DeleteForecast:             newMLDeleteForecastFunc(t),
 			DeleteJob:                  newMLDeleteJobFunc(t),
 			DeleteModelSnapshot:        newMLDeleteModelSnapshotFunc(t),
+			DeleteTrainedModelAlias:    newMLDeleteTrainedModelAliasFunc(t),
 			DeleteTrainedModel:         newMLDeleteTrainedModelFunc(t),
 			EstimateModelMemory:        newMLEstimateModelMemoryFunc(t),
 			EvaluateDataFrame:          newMLEvaluateDataFrameFunc(t),
@@ -779,6 +795,7 @@ func New(t Transport) *API {
 			OpenJob:                    newMLOpenJobFunc(t),
 			PostCalendarEvents:         newMLPostCalendarEventsFunc(t),
 			PostData:                   newMLPostDataFunc(t),
+			PreviewDataFrameAnalytics:  newMLPreviewDataFrameAnalyticsFunc(t),
 			PreviewDatafeed:            newMLPreviewDatafeedFunc(t),
 			PutCalendarJob:             newMLPutCalendarJobFunc(t),
 			PutCalendar:                newMLPutCalendarFunc(t),
@@ -786,6 +803,7 @@ func New(t Transport) *API {
 			PutDatafeed:                newMLPutDatafeedFunc(t),
 			PutFilter:                  newMLPutFilterFunc(t),
 			PutJob:                     newMLPutJobFunc(t),
+			PutTrainedModelAlias:       newMLPutTrainedModelAliasFunc(t),
 			PutTrainedModel:            newMLPutTrainedModelFunc(t),
 			RevertModelSnapshot:        newMLRevertModelSnapshotFunc(t),
 			SetUpgradeMode:             newMLSetUpgradeModeFunc(t),

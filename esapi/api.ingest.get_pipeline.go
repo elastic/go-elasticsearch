@@ -2,13 +2,14 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.12.0: DO NOT EDIT
+// Code generated from specification version 7.13.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -37,6 +38,7 @@ type IngestGetPipelineRequest struct {
 	PipelineID string
 
 	MasterTimeout time.Duration
+	Summary       *bool
 
 	Pretty     bool
 	Human      bool
@@ -73,6 +75,10 @@ func (r IngestGetPipelineRequest) Do(ctx context.Context, transport Transport) (
 
 	if r.MasterTimeout != 0 {
 		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.Summary != nil {
+		params["summary"] = strconv.FormatBool(*r.Summary)
 	}
 
 	if r.Pretty {
@@ -155,6 +161,14 @@ func (f IngestGetPipeline) WithPipelineID(v string) func(*IngestGetPipelineReque
 func (f IngestGetPipeline) WithMasterTimeout(v time.Duration) func(*IngestGetPipelineRequest) {
 	return func(r *IngestGetPipelineRequest) {
 		r.MasterTimeout = v
+	}
+}
+
+// WithSummary - return pipelines without their definitions (default: false).
+//
+func (f IngestGetPipeline) WithSummary(v bool) func(*IngestGetPipelineRequest) {
+	return func(r *IngestGetPipelineRequest) {
+		r.Summary = &v
 	}
 }
 

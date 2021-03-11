@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.12.0: DO NOT EDIT
+// Code generated from specification version 7.13.0: DO NOT EDIT
 
 package esapi
 
@@ -44,6 +44,7 @@ type NodesStatsRequest struct {
 	Fields                  []string
 	Groups                  *bool
 	IncludeSegmentFileSizes *bool
+	IncludeUnloadedSegments *bool
 	Level                   string
 	Timeout                 time.Duration
 	Types                   []string
@@ -107,6 +108,10 @@ func (r NodesStatsRequest) Do(ctx context.Context, transport Transport) (*Respon
 
 	if r.IncludeSegmentFileSizes != nil {
 		params["include_segment_file_sizes"] = strconv.FormatBool(*r.IncludeSegmentFileSizes)
+	}
+
+	if r.IncludeUnloadedSegments != nil {
+		params["include_unloaded_segments"] = strconv.FormatBool(*r.IncludeUnloadedSegments)
 	}
 
 	if r.Level != "" {
@@ -249,6 +254,14 @@ func (f NodesStats) WithGroups(v bool) func(*NodesStatsRequest) {
 func (f NodesStats) WithIncludeSegmentFileSizes(v bool) func(*NodesStatsRequest) {
 	return func(r *NodesStatsRequest) {
 		r.IncludeSegmentFileSizes = &v
+	}
+}
+
+// WithIncludeUnloadedSegments - if set to true segment stats will include stats for segments that are not currently loaded into memory.
+//
+func (f NodesStats) WithIncludeUnloadedSegments(v bool) func(*NodesStatsRequest) {
+	return func(r *NodesStatsRequest) {
+		r.IncludeUnloadedSegments = &v
 	}
 }
 

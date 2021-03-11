@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.12.0: DO NOT EDIT
+// Code generated from specification version 7.13.0: DO NOT EDIT
 
 package esapi
 
@@ -37,6 +37,8 @@ type SearchableSnapshotsStats func(o ...func(*SearchableSnapshotsStatsRequest)) 
 type SearchableSnapshotsStatsRequest struct {
 	Index []string
 
+	Level string
+
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -69,6 +71,10 @@ func (r SearchableSnapshotsStatsRequest) Do(ctx context.Context, transport Trans
 	path.WriteString("stats")
 
 	params = make(map[string]string)
+
+	if r.Level != "" {
+		params["level"] = r.Level
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -142,6 +148,14 @@ func (f SearchableSnapshotsStats) WithContext(v context.Context) func(*Searchabl
 func (f SearchableSnapshotsStats) WithIndex(v ...string) func(*SearchableSnapshotsStatsRequest) {
 	return func(r *SearchableSnapshotsStatsRequest) {
 		r.Index = v
+	}
+}
+
+// WithLevel - return stats aggregated at cluster, index or shard level.
+//
+func (f SearchableSnapshotsStats) WithLevel(v string) func(*SearchableSnapshotsStatsRequest) {
+	return func(r *SearchableSnapshotsStatsRequest) {
+		r.Level = v
 	}
 }
 

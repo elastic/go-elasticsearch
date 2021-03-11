@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.12.0: DO NOT EDIT
+// Code generated from specification version 7.13.0: DO NOT EDIT
 
 package esapi
 
@@ -35,16 +35,17 @@ type CatNodes func(o ...func(*CatNodesRequest)) (*Response, error)
 // CatNodesRequest configures the Cat Nodes API request.
 //
 type CatNodesRequest struct {
-	Bytes         string
-	Format        string
-	FullID        *bool
-	H             []string
-	Help          *bool
-	Local         *bool
-	MasterTimeout time.Duration
-	S             []string
-	Time          string
-	V             *bool
+	Bytes                   string
+	Format                  string
+	FullID                  *bool
+	H                       []string
+	Help                    *bool
+	IncludeUnloadedSegments *bool
+	Local                   *bool
+	MasterTimeout           time.Duration
+	S                       []string
+	Time                    string
+	V                       *bool
 
 	Pretty     bool
 	Human      bool
@@ -90,6 +91,10 @@ func (r CatNodesRequest) Do(ctx context.Context, transport Transport) (*Response
 
 	if r.Help != nil {
 		params["help"] = strconv.FormatBool(*r.Help)
+	}
+
+	if r.IncludeUnloadedSegments != nil {
+		params["include_unloaded_segments"] = strconv.FormatBool(*r.IncludeUnloadedSegments)
 	}
 
 	if r.Local != nil {
@@ -216,6 +221,14 @@ func (f CatNodes) WithH(v ...string) func(*CatNodesRequest) {
 func (f CatNodes) WithHelp(v bool) func(*CatNodesRequest) {
 	return func(r *CatNodesRequest) {
 		r.Help = &v
+	}
+}
+
+// WithIncludeUnloadedSegments - if set to true segment stats will include stats for segments that are not currently loaded into memory.
+//
+func (f CatNodes) WithIncludeUnloadedSegments(v bool) func(*CatNodesRequest) {
+	return func(r *CatNodesRequest) {
+		r.IncludeUnloadedSegments = &v
 	}
 }
 

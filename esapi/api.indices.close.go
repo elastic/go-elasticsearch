@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.12.0: DO NOT EDIT
+// Code generated from specification version 7.13.0: DO NOT EDIT
 
 package esapi
 
@@ -204,7 +204,7 @@ func (f IndicesClose) WithTimeout(v time.Duration) func(*IndicesCloseRequest) {
 	}
 }
 
-// WithWaitForActiveShards - sets the number of active shards to wait for before the operation returns..
+// WithWaitForActiveShards - sets the number of active shards to wait for before the operation returns. set to `index-setting` to wait according to the index setting `index.write.wait_for_active_shards`, or `all` to wait for all shards, or an integer. defaults to `0`..
 //
 func (f IndicesClose) WithWaitForActiveShards(v string) func(*IndicesCloseRequest) {
 	return func(r *IndicesCloseRequest) {
