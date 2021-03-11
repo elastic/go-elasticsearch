@@ -588,7 +588,7 @@ func TestTransportPerformRetries(t *testing.T) {
 			URLs: []*url.URL{u},
 			Transport: &mockTransp{
 				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
-					body, err := io.ReadAll(req.Body)
+					body, err := ioutil.ReadAll(req.Body)
 					if err != nil {
 						panic(err)
 					}
