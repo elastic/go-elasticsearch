@@ -64,8 +64,8 @@ func TestTransportRetries(t *testing.T) {
 			fmt.Println("> GET", req.URL)
 			fmt.Printf("< %s (tries: %d)\n", bytes.TrimSpace(body), counter)
 
-			if counter != 3 {
-				t.Errorf("Unexpected number of retries, want=3, got=%d", counter)
+			if counter != 4 {
+				t.Errorf("Unexpected number of attempts, want=4, got=%d", counter)
 			}
 		})
 	}
