@@ -30,6 +30,7 @@ const Version = version.Client
 
 var (
 	userAgent   string
+	metaHeader  string
 	reGoVersion = regexp.MustCompile(`go(\d+\.\d+\..+)`)
 
 	defaultMaxRetries    = 3
@@ -38,6 +39,7 @@ var (
 
 func init() {
 	userAgent = initUserAgent()
+	metaHeader = initMetaHeader()
 }
 
 // Interface defines the interface for HTTP client.
@@ -66,6 +68,8 @@ type Config struct {
 	EnableMetrics     bool
 	EnableDebugLogger bool
 
+	DisableMetaHeader bool
+
 	DiscoverNodesInterval time.Duration
 
 	Transport http.RoundTripper
@@ -89,6 +93,7 @@ type Client struct {
 	retryOnStatus         []int
 	disableRetry          bool
 	enableRetryOnTimeout  bool
+	disableMetaHeader	  bool
 	maxRetries            int
 	retryBackoff          func(attempt int) time.Duration
 	discoverNodesInterval time.Duration
@@ -151,6 +156,7 @@ func New(cfg Config) (*Client, error) {
 		retryOnStatus:         cfg.RetryOnStatus,
 		disableRetry:          cfg.DisableRetry,
 		enableRetryOnTimeout:  cfg.EnableRetryOnTimeout,
+		disableMetaHeader:      cfg.DisableMetaHeader,
 		maxRetries:            cfg.MaxRetries,
 		retryBackoff:          cfg.RetryBackoff,
 		discoverNodesInterval: cfg.DiscoverNodesInterval,
@@ -209,6 +215,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	// Update request
 	c.setReqUserAgent(req)
 	c.setReqGlobalHeader(req)
+	c.setMetaHeader(req)
 
 	if req.Body != nil && req.Body != http.NoBody && req.GetBody == nil {
 		if !c.disableRetry || (c.logger != nil && c.logger.RequestBodyEnabled()) {
@@ -399,6 +406,21 @@ func (c *Client) setReqGlobalHeader(req *http.Request) *http.Request {
 				}
 			}
 		}
+	}
+	return req
+}
+
+func (c *Client) setMetaHeader(req *http.Request) *http.Request {
+	if c.disableMetaHeader {
+		req.Header.Del(HeaderClientMeta)
+		return req
+	}
+
+	existingMetaHeader := req.Header.Get(HeaderClientMeta)
+	if existingMetaHeader != "" {
+		req.Header.Set(HeaderClientMeta, strings.Join([]string{metaHeader, existingMetaHeader},","))
+	} else {
+		req.Header.Add(HeaderClientMeta, metaHeader)
 	}
 	return req
 }

@@ -9,6 +9,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/elastic/go-elasticsearch/v8/estransport"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -493,6 +494,13 @@ func (w *worker) flush(ctx context.Context) error {
 		FilterPath: w.bi.config.FilterPath,
 		Header:     w.bi.config.Header,
 	}
+
+	// Add Header and MetaHeader to config if not already set
+	if req.Header == nil {
+		req.Header = http.Header{}
+	}
+	req.Header.Set(estransport.HeaderClientMeta, "h=bp")
+
 	res, err := req.Do(ctx, w.bi.config.Client)
 	if err != nil {
 		atomic.AddUint64(&w.bi.stats.numFailed, uint64(len(w.items)))
