@@ -231,7 +231,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		}
 	}
 
-	for i := 1; i <= c.maxRetries; i++ {
+	for i := 0; i <= c.maxRetries; i++ {
 		var (
 			conn            *Connection
 			shouldRetry     bool
@@ -253,7 +253,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		c.setReqURL(conn.URL, req)
 		c.setReqAuth(conn.URL, req)
 
-		if !c.disableRetry && i > 1 && req.Body != nil && req.Body != http.NoBody {
+		if !c.disableRetry && i > 0 && req.Body != nil && req.Body != http.NoBody {
 			body, err := req.GetBody()
 			if err != nil {
 				return nil, fmt.Errorf("cannot get request body: %s", err)
@@ -336,7 +336,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 
 		// Delay the retry if a backoff function is configured
 		if c.retryBackoff != nil {
-			time.Sleep(c.retryBackoff(i))
+			time.Sleep(c.retryBackoff(i + 1))
 		}
 	}
 
