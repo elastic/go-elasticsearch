@@ -8,7 +8,7 @@ FROM golang:1.11-alpine AS Builder
 WORKDIR /go-elasticsearch-demo-xkcdsearch
 COPY . .
 
-RUN CGO_ENABLED=0 GOOS=linux go build -mod=vendor -tags netgo -o /xkcdsearch cmd/xkcdsearch/main.go
+RUN CGO_ENABLED=0 GOOS=linux go build -mod=vendor -tags netgo -o /xkcdsearch cmd/xkcd/main.go
 
 FROM alpine
 RUN apk update && apk add ca-certificates
