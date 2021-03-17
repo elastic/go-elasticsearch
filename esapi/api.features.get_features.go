@@ -9,14 +9,13 @@ package esapi
 import (
 	"context"
 	"net/http"
-	"strconv"
 	"strings"
 	"time"
 )
 
-func newIngestGetPipelineFunc(t Transport) IngestGetPipeline {
-	return func(o ...func(*IngestGetPipelineRequest)) (*Response, error) {
-		var r = IngestGetPipelineRequest{}
+func newFeaturesGetFeaturesFunc(t Transport) FeaturesGetFeatures {
+	return func(o ...func(*FeaturesGetFeaturesRequest)) (*Response, error) {
+		var r = FeaturesGetFeaturesRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -26,19 +25,16 @@ func newIngestGetPipelineFunc(t Transport) IngestGetPipeline {
 
 // ----- API Definition -------------------------------------------------------
 
-// IngestGetPipeline returns a pipeline.
+// FeaturesGetFeatures returns a list of features which can be snapshotted in this cluster.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-pipeline-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html.
 //
-type IngestGetPipeline func(o ...func(*IngestGetPipelineRequest)) (*Response, error)
+type FeaturesGetFeatures func(o ...func(*FeaturesGetFeaturesRequest)) (*Response, error)
 
-// IngestGetPipelineRequest configures the Ingest Get Pipeline API request.
+// FeaturesGetFeaturesRequest configures the Features Get Features API request.
 //
-type IngestGetPipelineRequest struct {
-	PipelineID string
-
+type FeaturesGetFeaturesRequest struct {
 	MasterTimeout time.Duration
-	Summary       *bool
 
 	Pretty     bool
 	Human      bool
@@ -52,7 +48,7 @@ type IngestGetPipelineRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r IngestGetPipelineRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r FeaturesGetFeaturesRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -61,24 +57,13 @@ func (r IngestGetPipelineRequest) Do(ctx context.Context, transport Transport) (
 
 	method = "GET"
 
-	path.Grow(1 + len("_ingest") + 1 + len("pipeline") + 1 + len(r.PipelineID))
-	path.WriteString("/")
-	path.WriteString("_ingest")
-	path.WriteString("/")
-	path.WriteString("pipeline")
-	if r.PipelineID != "" {
-		path.WriteString("/")
-		path.WriteString(r.PipelineID)
-	}
+	path.Grow(len("/_features"))
+	path.WriteString("/_features")
 
 	params = make(map[string]string)
 
 	if r.MasterTimeout != 0 {
 		params["master_timeout"] = formatDuration(r.MasterTimeout)
-	}
-
-	if r.Summary != nil {
-		params["summary"] = strconv.FormatBool(*r.Summary)
 	}
 
 	if r.Pretty {
@@ -142,72 +127,56 @@ func (r IngestGetPipelineRequest) Do(ctx context.Context, transport Transport) (
 
 // WithContext sets the request context.
 //
-func (f IngestGetPipeline) WithContext(v context.Context) func(*IngestGetPipelineRequest) {
-	return func(r *IngestGetPipelineRequest) {
+func (f FeaturesGetFeatures) WithContext(v context.Context) func(*FeaturesGetFeaturesRequest) {
+	return func(r *FeaturesGetFeaturesRequest) {
 		r.ctx = v
-	}
-}
-
-// WithPipelineID - comma separated list of pipeline ids. wildcards supported.
-//
-func (f IngestGetPipeline) WithPipelineID(v string) func(*IngestGetPipelineRequest) {
-	return func(r *IngestGetPipelineRequest) {
-		r.PipelineID = v
 	}
 }
 
 // WithMasterTimeout - explicit operation timeout for connection to master node.
 //
-func (f IngestGetPipeline) WithMasterTimeout(v time.Duration) func(*IngestGetPipelineRequest) {
-	return func(r *IngestGetPipelineRequest) {
+func (f FeaturesGetFeatures) WithMasterTimeout(v time.Duration) func(*FeaturesGetFeaturesRequest) {
+	return func(r *FeaturesGetFeaturesRequest) {
 		r.MasterTimeout = v
-	}
-}
-
-// WithSummary - return pipelines without their definitions (default: false).
-//
-func (f IngestGetPipeline) WithSummary(v bool) func(*IngestGetPipelineRequest) {
-	return func(r *IngestGetPipelineRequest) {
-		r.Summary = &v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f IngestGetPipeline) WithPretty() func(*IngestGetPipelineRequest) {
-	return func(r *IngestGetPipelineRequest) {
+func (f FeaturesGetFeatures) WithPretty() func(*FeaturesGetFeaturesRequest) {
+	return func(r *FeaturesGetFeaturesRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f IngestGetPipeline) WithHuman() func(*IngestGetPipelineRequest) {
-	return func(r *IngestGetPipelineRequest) {
+func (f FeaturesGetFeatures) WithHuman() func(*FeaturesGetFeaturesRequest) {
+	return func(r *FeaturesGetFeaturesRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f IngestGetPipeline) WithErrorTrace() func(*IngestGetPipelineRequest) {
-	return func(r *IngestGetPipelineRequest) {
+func (f FeaturesGetFeatures) WithErrorTrace() func(*FeaturesGetFeaturesRequest) {
+	return func(r *FeaturesGetFeaturesRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f IngestGetPipeline) WithFilterPath(v ...string) func(*IngestGetPipelineRequest) {
-	return func(r *IngestGetPipelineRequest) {
+func (f FeaturesGetFeatures) WithFilterPath(v ...string) func(*FeaturesGetFeaturesRequest) {
+	return func(r *FeaturesGetFeaturesRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f IngestGetPipeline) WithHeader(h map[string]string) func(*IngestGetPipelineRequest) {
-	return func(r *IngestGetPipelineRequest) {
+func (f FeaturesGetFeatures) WithHeader(h map[string]string) func(*FeaturesGetFeaturesRequest) {
+	return func(r *FeaturesGetFeaturesRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -219,8 +188,8 @@ func (f IngestGetPipeline) WithHeader(h map[string]string) func(*IngestGetPipeli
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f IngestGetPipeline) WithOpaqueID(s string) func(*IngestGetPipelineRequest) {
-	return func(r *IngestGetPipelineRequest) {
+func (f FeaturesGetFeatures) WithOpaqueID(s string) func(*FeaturesGetFeaturesRequest) {
+	return func(r *FeaturesGetFeaturesRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

@@ -1,4 +1,4 @@
-// Code generated from specification version 8.0.0 (5eb0a9528a5): DO NOT EDIT
+// Code generated from specification version 8.0.0 (d181b947c26): DO NOT EDIT
 
 package esapi
 
@@ -64,6 +64,7 @@ type API struct {
 	Exists                                        Exists
 	ExistsSource                                  ExistsSource
 	Explain                                       Explain
+	FeaturesGetFeatures                           FeaturesGetFeatures
 	FieldCaps                                     FieldCaps
 	Get                                           Get
 	GetScriptContext                              GetScriptContext
@@ -339,6 +340,7 @@ type ML struct {
 	DeleteForecast             MLDeleteForecast
 	DeleteJob                  MLDeleteJob
 	DeleteModelSnapshot        MLDeleteModelSnapshot
+	DeleteTrainedModelAlias    MLDeleteTrainedModelAlias
 	DeleteTrainedModel         MLDeleteTrainedModel
 	EstimateModelMemory        MLEstimateModelMemory
 	EvaluateDataFrame          MLEvaluateDataFrame
@@ -367,6 +369,7 @@ type ML struct {
 	OpenJob                    MLOpenJob
 	PostCalendarEvents         MLPostCalendarEvents
 	PostData                   MLPostData
+	PreviewDataFrameAnalytics  MLPreviewDataFrameAnalytics
 	PreviewDatafeed            MLPreviewDatafeed
 	PutCalendarJob             MLPutCalendarJob
 	PutCalendar                MLPutCalendar
@@ -374,6 +377,7 @@ type ML struct {
 	PutDatafeed                MLPutDatafeed
 	PutFilter                  MLPutFilter
 	PutJob                     MLPutJob
+	PutTrainedModelAlias       MLPutTrainedModelAlias
 	PutTrainedModel            MLPutTrainedModel
 	RevertModelSnapshot        MLRevertModelSnapshot
 	SetUpgradeMode             MLSetUpgradeMode
@@ -516,6 +520,7 @@ func New(t Transport) *API {
 		Exists:                                        newExistsFunc(t),
 		ExistsSource:                                  newExistsSourceFunc(t),
 		Explain:                                       newExplainFunc(t),
+		FeaturesGetFeatures:                           newFeaturesGetFeaturesFunc(t),
 		FieldCaps:                                     newFieldCapsFunc(t),
 		Get:                                           newGetFunc(t),
 		GetScriptContext:                              newGetScriptContextFunc(t),
@@ -761,6 +766,7 @@ func New(t Transport) *API {
 			DeleteForecast:             newMLDeleteForecastFunc(t),
 			DeleteJob:                  newMLDeleteJobFunc(t),
 			DeleteModelSnapshot:        newMLDeleteModelSnapshotFunc(t),
+			DeleteTrainedModelAlias:    newMLDeleteTrainedModelAliasFunc(t),
 			DeleteTrainedModel:         newMLDeleteTrainedModelFunc(t),
 			EstimateModelMemory:        newMLEstimateModelMemoryFunc(t),
 			EvaluateDataFrame:          newMLEvaluateDataFrameFunc(t),
@@ -789,6 +795,7 @@ func New(t Transport) *API {
 			OpenJob:                    newMLOpenJobFunc(t),
 			PostCalendarEvents:         newMLPostCalendarEventsFunc(t),
 			PostData:                   newMLPostDataFunc(t),
+			PreviewDataFrameAnalytics:  newMLPreviewDataFrameAnalyticsFunc(t),
 			PreviewDatafeed:            newMLPreviewDatafeedFunc(t),
 			PutCalendarJob:             newMLPutCalendarJobFunc(t),
 			PutCalendar:                newMLPutCalendarFunc(t),
@@ -796,6 +803,7 @@ func New(t Transport) *API {
 			PutDatafeed:                newMLPutDatafeedFunc(t),
 			PutFilter:                  newMLPutFilterFunc(t),
 			PutJob:                     newMLPutJobFunc(t),
+			PutTrainedModelAlias:       newMLPutTrainedModelAliasFunc(t),
 			PutTrainedModel:            newMLPutTrainedModelFunc(t),
 			RevertModelSnapshot:        newMLRevertModelSnapshotFunc(t),
 			SetUpgradeMode:             newMLSetUpgradeModeFunc(t),
