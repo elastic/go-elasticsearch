@@ -703,7 +703,7 @@ func TestBulkIndexer(t *testing.T) {
 							return &http.Response{
 								StatusCode: http.StatusOK,
 								Status:     "200 OK",
-								Body:       io.NopCloser(bytes.NewBuffer(nil)),
+								Body:       ioutil.NopCloser(bytes.NewBuffer(nil)),
 							}, nil
 						},
 					},
