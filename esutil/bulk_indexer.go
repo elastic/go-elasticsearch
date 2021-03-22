@@ -9,7 +9,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/elastic/go-elasticsearch/v8/estransport"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -21,6 +20,7 @@ import (
 
 	"github.com/elastic/go-elasticsearch/v7"
 	"github.com/elastic/go-elasticsearch/v7/esapi"
+	"github.com/elastic/go-elasticsearch/v7/estransport"
 )
 
 // BulkIndexer represents a parallel, asynchronous, efficient indexer for Elasticsearch.
