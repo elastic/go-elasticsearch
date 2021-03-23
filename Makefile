@@ -265,7 +265,7 @@ godoc: ## Display documentation for the package
 	godoc --http=localhost:6060 --play
 
 cluster: ## Launch an Elasticsearch cluster with Docker
-	$(eval version ?= "elasticsearch:7.12.0-SNAPSHOT")
+	$(eval version ?= "elasticsearch:7.12-SNAPSHOT")
 	$(eval flavor ?= "core")
 	$(eval elasticsearch_url = "http://es1:9200")
 
@@ -345,7 +345,7 @@ ifdef detach
 endif
 
 cluster-update: ## Update the Docker image
-	$(eval version ?= "elasticsearch:7.12.0-SNAPSHOT")
+	$(eval version ?= "elasticsearch:7.12-SNAPSHOT")
 	@printf "\033[2m→ Updating the Docker image...\033[0m\n"
 	@docker pull docker.elastic.co/elasticsearch/$(version);
 
