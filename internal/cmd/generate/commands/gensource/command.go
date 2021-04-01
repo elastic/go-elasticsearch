@@ -142,7 +142,6 @@ func (cmd *Command) Execute() (err error) {
 		if err != nil {
 			return err
 		}
-		defer f.Close()
 
 		if err := cmd.processFile(f); err != nil {
 			return fmt.Errorf("Processing file %q: %s", fname, err)
@@ -153,6 +152,8 @@ func (cmd *Command) Execute() (err error) {
 		if err != nil {
 			return fmt.Errorf("error creating endpoint for %q: %s", fname, err)
 		}
+		f.Close()
+
 		endpoints = append(endpoints, e)
 		stats.n++
 	}
