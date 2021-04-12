@@ -17,16 +17,15 @@ PACKAGE_PATH=/go-elasticsearch/esapi go generate ./...
 
 echo -e "\033[34;1mINFO:\033[0m Generating the test files\033[0m"
 
-go run main.go apitests --output '/go-elasticsearch/esapi/test/xpack' --input '/tmp/elasticsearch/x-pack/plugin/src/test/resources/rest-api-spec/test/**/*.yml'
-go run main.go apitests --output '/go-elasticsearch/esapi/test/xpack' --input '/tmp/elasticsearch/x-pack/plugin/src/test/resources/rest-api-spec/test/**/**/*.yml'
+go run main.go apitests --output '/go-elasticsearch/esapi/test/xpack' --input '/tmp/rest-api-spec/test/platinum/**/*.yml'
 
 cd /go-elasticsearch || exit
 
 mkdir -p esapi/test/xpack/ml
 mkdir -p esapi/test/xpack/ml-crud
 
-mv esapi/test/xpack/xpack_ml* esapi/test/xpack/ml/
-mv esapi/test/xpack/ml/xpack_ml__jobs_crud_test.go esapi/test/xpack/ml-crud/
+mv esapi/test/xpack/ml__* esapi/test/xpack/ml/
+mv esapi/test/xpack/ml/ml__jobs_crud_test.go esapi/test/xpack/ml-crud/
 
 set +e # Do not fail immediately when a single test suite fails
 

@@ -2,20 +2,19 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 
-package commands
+package cmd
 
 import (
 	"os"
 
 	"github.com/spf13/cobra"
 
-	"github.com/elastic/go-elasticsearch/v8/internal/cmd/generate/utils"
+	"github.com/elastic/go-elasticsearch/v8/internal/build/utils"
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "generate",
-	Short: "generate Go APIs, tests and examples for documentation",
-	// Long:  "TODO",
+	Use:   "build",
+	Short: "Build tools for Elasticsearch client, helpers for CI, etc...",
 }
 
 // Execute launches the CLI application.

@@ -268,8 +268,13 @@ godoc: ## Display documentation for the package
 
 cluster: ## Launch an Elasticsearch cluster with Docker
 	$(eval flavor ?= "core")
-	$(eval version ?= "elasticsearch:" ${ELASTICSEARCH_BUILD_VERSION})
 	$(eval elasticsearch_url = "http://es1:9200")
+
+ifdef ELASTICSEARCH_BUILD_VERSION
+	$(eval version ?= "elasticsearch:"${ELASTICSEARCH_BUILD_VERSION})
+else
+	$(eval version ?= "elasticsearch:"${ELASTICSEARCH_DEFAULT_BUILD_VERSION})
+endif
 
 ifeq ($(origin nodes), undefined)
 	$(eval nodes = 1)
@@ -287,16 +292,14 @@ ifeq ($(flavor), platinum)
 	$(eval xpack_env += --env "xpack.license.self_generated.type=trial")
 	$(eval xpack_env += --env "xpack.security.enabled=true")
 	$(eval xpack_env += --env "xpack.security.http.ssl.enabled=true")
-	$(eval xpack_env += --env "xpack.security.http.ssl.verification_mode=certificate")
 	$(eval xpack_env += --env "xpack.security.http.ssl.key=certs/testnode.key")
 	$(eval xpack_env += --env "xpack.security.http.ssl.certificate=certs/testnode.crt")
 	$(eval xpack_env += --env "xpack.security.http.ssl.certificate_authorities=certs/ca.crt")
-	$(eval xpack_env += --env "xpack.security.http.ssl.verification_mode=none")
 	$(eval xpack_env += --env "xpack.security.transport.ssl.enabled=true")
+	$(eval xpack_env += --env "xpack.security.transport.ssl.verification_mode=certificate")
 	$(eval xpack_env += --env "xpack.security.transport.ssl.key=certs/testnode.key")
 	$(eval xpack_env += --env "xpack.security.transport.ssl.certificate=certs/testnode.crt")
 	$(eval xpack_env += --env "xpack.security.transport.ssl.certificate_authorities=certs/ca.crt")
-	$(eval xpack_env += --env "xpack.security.transport.ssl.verification_mode=none")
 	$(eval xpack_volumes += --volume "$(PWD)/.ci/certs/testnode.crt:/usr/share/elasticsearch/config/certs/testnode.crt")
 	$(eval xpack_volumes += --volume "$(PWD)/.ci/certs/testnode.key:/usr/share/elasticsearch/config/certs/testnode.key")
 	$(eval xpack_volumes += --volume "$(PWD)/.ci/certs/ca.crt:/usr/share/elasticsearch/config/certs/ca.crt")
@@ -347,7 +350,11 @@ ifdef detach
 endif
 
 cluster-update: ## Update the Docker image
+ifdef ELASTICSEARCH_BUILD_VERSION
 	$(eval version ?= "elasticsearch:"${ELASTICSEARCH_BUILD_VERSION})
+else
+	$(eval version ?= "elasticsearch:"${ELASTICSEARCH_DEFAULT_BUILD_VERSION})
+endif
 	@printf "\033[2m→ Updating the Docker image...\033[0m\n"
 	@docker pull docker.elastic.co/elasticsearch/$(version);
 
@@ -375,15 +382,15 @@ endif
 ifdef ELASTICSEARCH_BUILD_HASH
 	$(eval build_hash = $(ELASTICSEARCH_BUILD_HASH))
 else
-	$(eval build_hash = $(shell cat tmp/elasticsearch.json | jq ".commit_hash"))
+	$(eval build_hash = $(shell cat tmp/elasticsearch.json | jq ".projects.elasticsearch.commit_hash"))
 endif
 	@printf "\033[2m→ Generating API package from specification ($(version):$(build_hash))...\033[0m\n"
 	@{ \
 		set -e; \
-		trap "test -d .git && git checkout --quiet $(PWD)/internal/cmd/generate/go.mod" INT TERM EXIT; \
+#		trap "test -d .git && git checkout --quiet $(PWD)/internal/build/go.mod" INT TERM EXIT; \
 		export ELASTICSEARCH_BUILD_VERSION=$(version) && \
 		export ELASTICSEARCH_BUILD_HASH=$(build_hash) && \
-		cd internal/cmd/generate && \
+		cd internal/build && \
 		go run main.go apisource --input '$(PWD)/$(input)/api/*.json' --output '$(PWD)/$(output)' $(args) && \
 		go run main.go apistruct --output '$(PWD)/$(output)'; \
 	}
@@ -407,12 +414,12 @@ endif
 	@printf "\033[2m→ Generating API tests from specification ($(version):$(build_hash))...\033[0m\n"
 	@{ \
 		set -e; \
-		trap "test -d .git && git checkout --quiet $(PWD)/internal/cmd/generate/go.mod" INT TERM EXIT; \
+#		trap "test -d .git && git checkout --quiet $(PWD)/internal/cmd/generate/go.mod" INT TERM EXIT; \
 		export ELASTICSEARCH_BUILD_VERSION=$(version) && \
 		export ELASTICSEARCH_BUILD_HASH=$(build_hash) && \
 		rm -rf $(output)/*_test.go && \
 		rm -rf $(output)/xpack && \
-		cd internal/cmd/generate && \
+		cd internal/build && \
 		go get golang.org/x/tools/cmd/goimports && \
 		go generate ./... && \
 		go run main.go apitests --input '$(PWD)/$(input)/test/free/**/*.y*ml' --output '$(PWD)/$(output)' $(args) && \
@@ -445,7 +452,7 @@ gen-docs:  ## Generate the skeleton of documentation examples
 			fi; \
 		) && \
 		printf "\n\033[2m→ Generating ASCIIDoc files from Go source\033[0m\n" && \
-		( cd '$(PWD)/internal/cmd/generate' && \
+		( cd '$(PWD)/internal/build' && \
 			go run main.go examples doc --debug --input='$(PWD)/.doc/examples/src/' --output='$(PWD)/.doc/examples/' \
 		) \
 	}
@@ -459,9 +466,12 @@ else
 endif
 	@mkdir -p tmp
 	@{ \
-  		set -e; \
+		set -e; \
 		printf "\n\033[2m→ Downloading latest Elasticsearch specs for version [$(version)]\033[0m\n" && \
-  		curl -s https://artifacts-api.elastic.co/v1/versions/$(version) | jq ".version.builds|=sort_by(.start_time | strptime(\"%a, %d %b %Y %H:%M:%S %Z\"))| .version.builds | reverse[] | .projects|select(.elasticsearch)|.elasticsearch" | jq -s ".[0]" > $(output)/elasticsearch.json; \
+		rm -rf $(output)/rest-api-spec \
+		rm -rf $(output)/elasticsearch.json \
+		cd internal/build && \
+		go run main.go download-spec --output '$(PWD)/$(output)'; \
 	}
 
 ##@ Other

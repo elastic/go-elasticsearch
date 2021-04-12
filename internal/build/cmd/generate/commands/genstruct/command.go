@@ -7,6 +7,7 @@ package genstruct
 import (
 	"bytes"
 	"fmt"
+	"github.com/elastic/go-elasticsearch/v8/internal/build/cmd"
 	"go/types"
 	"io"
 	"os"
@@ -18,8 +19,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/elastic/go-elasticsearch/v8/internal/cmd/generate/commands"
-	"github.com/elastic/go-elasticsearch/v8/internal/cmd/generate/utils"
+	"github.com/elastic/go-elasticsearch/v8/internal/build/utils"
 )
 
 var (
@@ -54,7 +54,7 @@ func init() {
 	info = genapiCmd.Flags().Bool("info", false, "Print the API details to terminal")
 	genapiCmd.Flags().SortFlags = false
 
-	commands.RegisterCmd(genapiCmd)
+	cmd.RegisterCmd(genapiCmd)
 }
 
 var genapiCmd = &cobra.Command{
