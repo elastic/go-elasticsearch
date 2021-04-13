@@ -387,7 +387,7 @@ endif
 	@printf "\033[2m→ Generating API package from specification ($(version):$(build_hash))...\033[0m\n"
 	@{ \
 		set -e; \
-#		trap "test -d .git && git checkout --quiet $(PWD)/internal/build/go.mod" INT TERM EXIT; \
+		trap "test -d .git && git checkout --quiet $(PWD)/internal/build/go.mod" INT TERM EXIT; \
 		export ELASTICSEARCH_BUILD_VERSION=$(version) && \
 		export ELASTICSEARCH_BUILD_HASH=$(build_hash) && \
 		cd internal/build && \
@@ -414,7 +414,7 @@ endif
 	@printf "\033[2m→ Generating API tests from specification ($(version):$(build_hash))...\033[0m\n"
 	@{ \
 		set -e; \
-#		trap "test -d .git && git checkout --quiet $(PWD)/internal/cmd/generate/go.mod" INT TERM EXIT; \
+		trap "test -d .git && git checkout --quiet $(PWD)/internal/cmd/generate/go.mod" INT TERM EXIT; \
 		export ELASTICSEARCH_BUILD_VERSION=$(version) && \
 		export ELASTICSEARCH_BUILD_HASH=$(build_hash) && \
 		rm -rf $(output)/*_test.go && \
@@ -468,8 +468,8 @@ endif
 	@{ \
 		set -e; \
 		printf "\n\033[2m→ Downloading latest Elasticsearch specs for version [$(version)]\033[0m\n" && \
-		rm -rf $(output)/rest-api-spec \
-		rm -rf $(output)/elasticsearch.json \
+		rm -rf $(output)/rest-api-spec && \
+		rm -rf $(output)/elasticsearch.json && \
 		cd internal/build && \
 		go run main.go download-spec --output '$(PWD)/$(output)'; \
 	}
