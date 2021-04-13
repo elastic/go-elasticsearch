@@ -669,7 +669,7 @@ func TestBulkIndexer(t *testing.T) {
 				args: args{
 					disableMetaHeader: false,
 					header: http.Header{
-						"X-Test-User": []string{"UserValue"},
+						"X-Test-User":                []string{"UserValue"},
 						estransport.HeaderClientMeta: []string{"h=shouldntbechanged"},
 					},
 				},
@@ -681,7 +681,7 @@ func TestBulkIndexer(t *testing.T) {
 
 				esConfig := elasticsearch.Config{
 					DisableMetaHeader: tt.args.disableMetaHeader,
-					Header: tt.args.header,
+					Header:            tt.args.header,
 					Transport: &mockTransport{
 						RoundTripFunc: func(request *http.Request) (*http.Response, error) {
 							headerMeta := request.Header.Get(estransport.HeaderClientMeta)

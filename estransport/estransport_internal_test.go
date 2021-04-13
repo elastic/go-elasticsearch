@@ -327,6 +327,40 @@ func TestTransportPerform(t *testing.T) {
 		}
 	})
 
+	t.Run("Sets APIKey Authentication over ServiceToken", func(t *testing.T) {
+		u, _ := url.Parse("http://example.com")
+		tp, _ := New(Config{URLs: []*url.URL{u}, APIKey: "Zm9vYmFy", ServiceToken: "AAEAAWVs"}) // foobar
+
+		req, _ := http.NewRequest("GET", "/", nil)
+		tp.setReqAuth(u, req)
+
+		value := req.Header.Get("Authorization")
+		if value == "" {
+			t.Errorf("Expected the request to have the Authorization header set")
+		}
+
+		if value != "APIKey Zm9vYmFy" {
+			t.Errorf(`Unexpected value for Authorization: want="APIKey Zm9vYmFy", got="%s"`, value)
+		}
+	})
+
+	t.Run("Sets ServiceToken Authentication from configuration", func(t *testing.T) {
+		u, _ := url.Parse("http://example.com")
+		tp, _ := New(Config{URLs: []*url.URL{u}, ServiceToken: "AAEAAWVs"})
+
+		req, _ := http.NewRequest("GET", "/", nil)
+		tp.setReqAuth(u, req)
+
+		value := req.Header.Get("Authorization")
+		if value == "" {
+			t.Errorf("Expected the request to have the Authorization header set")
+		}
+
+		if value != "Bearer AAEAAWVs" {
+			t.Errorf(`Unexpected value for Authorization: want="Bearer AAEAAWVs", got="%s"`, value)
+		}
+	})
+
 	t.Run("Sets UserAgent", func(t *testing.T) {
 		u, _ := url.Parse("http://example.com")
 		tp, _ := New(Config{URLs: []*url.URL{u}})

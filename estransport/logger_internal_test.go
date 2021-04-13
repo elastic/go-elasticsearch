@@ -236,9 +236,9 @@ func TestTransportLogger(t *testing.T) {
 		var dst strings.Builder
 
 		tp, _ := New(Config{
-			URLs:      []*url.URL{{Scheme: "http", Host: "foo"}},
-			Transport: newRoundTripper(),
-			Logger:    &CurlLogger{Output: &dst, EnableRequestBody: true, EnableResponseBody: true},
+			URLs:              []*url.URL{{Scheme: "http", Host: "foo"}},
+			Transport:         newRoundTripper(),
+			Logger:            &CurlLogger{Output: &dst, EnableRequestBody: true, EnableResponseBody: true},
 			DisableMetaHeader: true,
 		})
 

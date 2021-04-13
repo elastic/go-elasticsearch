@@ -51,10 +51,11 @@ type Interface interface {
 // Config represents the configuration of HTTP client.
 //
 type Config struct {
-	URLs     []*url.URL
-	Username string
-	Password string
-	APIKey   string
+	URLs         []*url.URL
+	Username     string
+	Password     string
+	APIKey       string
+	ServiceToken string
 
 	Header http.Header
 	CACert []byte
@@ -84,16 +85,17 @@ type Config struct {
 type Client struct {
 	sync.Mutex
 
-	urls     []*url.URL
-	username string
-	password string
-	apikey   string
-	header   http.Header
+	urls         []*url.URL
+	username     string
+	password     string
+	apikey       string
+	servicetoken string
+	header       http.Header
 
 	retryOnStatus         []int
 	disableRetry          bool
 	enableRetryOnTimeout  bool
-	disableMetaHeader	  bool
+	disableMetaHeader     bool
 	maxRetries            int
 	retryBackoff          func(attempt int) time.Duration
 	discoverNodesInterval time.Duration
@@ -147,16 +149,17 @@ func New(cfg Config) (*Client, error) {
 	}
 
 	client := Client{
-		urls:     cfg.URLs,
-		username: cfg.Username,
-		password: cfg.Password,
-		apikey:   cfg.APIKey,
-		header:   cfg.Header,
+		urls:         cfg.URLs,
+		username:     cfg.Username,
+		password:     cfg.Password,
+		apikey:       cfg.APIKey,
+		servicetoken: cfg.ServiceToken,
+		header:       cfg.Header,
 
 		retryOnStatus:         cfg.RetryOnStatus,
 		disableRetry:          cfg.DisableRetry,
 		enableRetryOnTimeout:  cfg.EnableRetryOnTimeout,
-		disableMetaHeader:      cfg.DisableMetaHeader,
+		disableMetaHeader:     cfg.DisableMetaHeader,
 		maxRetries:            cfg.MaxRetries,
 		retryBackoff:          cfg.RetryBackoff,
 		discoverNodesInterval: cfg.DiscoverNodesInterval,
@@ -383,6 +386,15 @@ func (c *Client) setReqAuth(u *url.URL, req *http.Request) *http.Request {
 			return req
 		}
 
+		if c.servicetoken != "" {
+			var b bytes.Buffer
+			b.Grow(len("Bearer ") + len(c.apikey))
+			b.WriteString("Bearer ")
+			b.WriteString(c.servicetoken)
+			req.Header.Set("Authorization", b.String())
+			return req
+		}
+
 		if c.username != "" && c.password != "" {
 			req.SetBasicAuth(c.username, c.password)
 			return req
@@ -418,7 +430,7 @@ func (c *Client) setMetaHeader(req *http.Request) *http.Request {
 
 	existingMetaHeader := req.Header.Get(HeaderClientMeta)
 	if existingMetaHeader != "" {
-		req.Header.Set(HeaderClientMeta, strings.Join([]string{metaHeader, existingMetaHeader},","))
+		req.Header.Set(HeaderClientMeta, strings.Join([]string{metaHeader, existingMetaHeader}, ","))
 	} else {
 		req.Header.Add(HeaderClientMeta, metaHeader)
 	}
