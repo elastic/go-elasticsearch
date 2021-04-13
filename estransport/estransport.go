@@ -388,7 +388,7 @@ func (c *Client) setReqAuth(u *url.URL, req *http.Request) *http.Request {
 
 		if c.servicetoken != "" {
 			var b bytes.Buffer
-			b.Grow(len("Bearer ") + len(c.apikey))
+			b.Grow(len("Bearer ") + len(c.servicetoken))
 			b.WriteString("Bearer ")
 			b.WriteString(c.servicetoken)
 			req.Header.Set("Authorization", b.String())
