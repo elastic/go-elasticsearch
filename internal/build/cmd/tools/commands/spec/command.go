@@ -23,13 +23,15 @@ import (
 )
 
 var (
-	output *string
-	debug  *bool
-	info   *bool
+	output     *string
+	commitHash *string
+	debug      *bool
+	info       *bool
 )
 
 func init() {
 	output = toolsCmd.Flags().StringP("output", "o", "", "Path to a folder for generated output")
+	commitHash = toolsCmd.Flags().StringP("commit_hash", "c", "", "Elasticsearch commit hash")
 	debug = toolsCmd.Flags().BoolP("debug", "d", false, "Print the generated source to terminal")
 	info = toolsCmd.Flags().Bool("info", false, "Print the API details to terminal")
 
@@ -41,9 +43,10 @@ var toolsCmd = &cobra.Command{
 	Short: "Downdload specification artifact for code & tests generation",
 	Run: func(cmd *cobra.Command, args []string) {
 		command := &Command{
-			Output: *output,
-			Debug:  *debug,
-			Info:   *info,
+			Output:     *output,
+			CommitHash: *commitHash,
+			Debug:      *debug,
+			Info:       *info,
 		}
 		err := command.Execute()
 		if err != nil {
@@ -54,9 +57,10 @@ var toolsCmd = &cobra.Command{
 }
 
 type Command struct {
-	Output string
-	Debug  bool
-	Info   bool
+	Output     string
+	CommitHash string
+	Debug      bool
+	Info       bool
 }
 
 func (c Command) Execute() (err error) {
@@ -82,8 +86,24 @@ func (c Command) Execute() (err error) {
 		log.Fatalf(err.Error())
 	}
 
-	build := findMostRecentBuild(v.Version.Builds)
-	if err := c.extractZipToDest(build); err != nil {
+	if c.Debug {
+		log.Printf("%d builds found", len(v.Version.Builds))
+	}
+
+	var build Build
+	if build, err = findBuildByCommitHash(c.CommitHash, v.Version.Builds); err != nil {
+		build = findMostRecentBuild(v.Version.Builds)
+	}
+	if c.Debug {
+		log.Printf("Build found : %s", build.Projects.Elasticsearch.CommitHash)
+	}
+
+	data, err := c.downloadZip(build)
+	if err != nil {
+		log.Fatalf("Cannot download zip from %s, reason : %s", build.zipfileUrl(), err)
+	}
+
+	if err := c.extractZipToDest(data); err != nil {
 		log.Fatalf(err.Error())
 	}
 
@@ -136,23 +156,7 @@ func (b Build) zipfileUrl() string {
 	return ""
 }
 
-func (c Command) extractZipToDest(b Build) error {
-	url := b.zipfileUrl()
-	client := &http.Client{}
-
-	req, err := http.NewRequest(http.MethodGet, url, nil)
-	if err != nil {
-		return err
-	}
-
-	req.Header.Add("Accept-Content", "gzip")
-	res, err := client.Do(req)
-	if err != nil {
-		return err
-	}
-	defer res.Body.Close()
-
-	data, _ := ioutil.ReadAll(res.Body)
+func (c Command) extractZipToDest(data []byte) error {
 	zipReader, err := zip.NewReader(bytes.NewReader(data), int64(len(data)))
 	if err != nil {
 		return err
@@ -183,7 +187,35 @@ func (c Command) extractZipToDest(b Build) error {
 		}
 	}
 
+	if c.Debug {
+		log.Printf("Zipfile successfully extracted to %s", c.Output)
+	}
+
 	return nil
+}
+
+func (c Command) downloadZip(b Build) ([]byte, error) {
+	url := b.zipfileUrl()
+	if c.Debug {
+		log.Printf("Zipfile url : %s", b.zipfileUrl())
+	}
+
+	client := &http.Client{}
+
+	req, err := http.NewRequest(http.MethodGet, url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Accept-Content", "gzip")
+	res, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	data, _ := ioutil.ReadAll(res.Body)
+	return data, err
 }
 
 func findMostRecentBuild(builds []Build) Build {
@@ -196,4 +228,13 @@ func findMostRecentBuild(builds []Build) Build {
 		}
 	}
 	return latestBuild
+}
+
+func findBuildByCommitHash(commitHash string, builds []Build) (Build, error) {
+	for _, build := range builds {
+		if build.Projects.Elasticsearch.CommitHash == commitHash {
+			return build, nil
+		}
+	}
+	return Build{}, fmt.Errorf("Build with commit hash %s not found", commitHash)
 }

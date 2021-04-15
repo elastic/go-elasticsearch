@@ -41,12 +41,8 @@ ELASTICSEARCH_BUILD_VERSION=$(curl -sSk $external_elasticsearch_url | jq -r '.ve
 ELASTICSEARCH_BUILD_HASH=$(curl -sSk $external_elasticsearch_url | jq -r '.version.build_hash')
 
 echo -e "\033[34;1mINFO:\033[0m Download Elasticsearch specs... \033[0m"
-docker run --volume=$HOME/workspace/tmp:/tmp --workdir=/tmp --rm elastic/go-elasticsearch /bin/sh -c "
-  rm -rf /tmp/rest.zip
-  rm -rf /tmp/rest-api-spec/
-  curl -s https://artifacts-api.elastic.co/v1/versions/8.0.0-SNAPSHOT | jq '.version.builds|=sort_by(.start_time | strptime(\"%a, %d %b %Y %H:%M:%S %Z\"))| .version.builds | reverse[] | .projects|select(.elasticsearch)|.elasticsearch' | jq -s '.[0]' > /tmp/elasticsearch.json
-  curl \"\$(cat /tmp/elasticsearch.json | jq -r '.packages | with_entries( select(.key|contains(\"rest-resources\"))) | first(.[] | .url)')\" --output /tmp/rest.zip
-  unzip -q /tmp/rest.zip -d /tmp
+docker run --volume=$HOME/workspace/tmp:/tmp --workdir=/go-elasticsearch/internal/build --rm elastic/go-elasticsearch /bin/sh -c "
+  go run main.go download-spec -o /tmp
 "
 
 echo -e "\033[34;1mINFO:\033[0m Execute [$TEST_SUITE] >>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"

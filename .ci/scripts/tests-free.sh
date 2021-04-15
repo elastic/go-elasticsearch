@@ -11,7 +11,7 @@ rm -rf esapi/test/xpack
 
 echo -e "\033[34;1mINFO:\033[0m Generating the API registry\033[0m"
 
-cd /go-elasticsearch/internal/cmd/generate || exit
+cd /go-elasticsearch/internal/build || exit
 go get -u golang.org/x/tools/cmd/goimports
 PACKAGE_PATH=/go-elasticsearch/esapi go generate ./...
 
