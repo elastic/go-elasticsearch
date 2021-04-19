@@ -24,8 +24,8 @@ cd /go-elasticsearch || exit
 mkdir -p esapi/test/xpack/ml
 mkdir -p esapi/test/xpack/ml-crud
 
-mv esapi/test/xpack/ml__* esapi/test/xpack/ml/
-mv esapi/test/xpack/ml/ml__jobs_crud_test.go esapi/test/xpack/ml-crud/
+mv esapi/test/xpack/xpack_ml* esapi/test/xpack/ml/
+mv esapi/test/xpack/ml/xpack_ml__jobs_crud_test.go esapi/test/xpack/ml-crud/
 
 set +e # Do not fail immediately when a single test suite fails
 
