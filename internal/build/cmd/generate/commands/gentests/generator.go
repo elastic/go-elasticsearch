@@ -42,8 +42,8 @@ type Generator struct {
 //
 func (g *Generator) Output() (io.Reader, error) {
 	name := g.TestSuite.Name()
-	if g.TestSuite.Type == "platinum" {
-		name = "Platinum_" + name
+	if g.TestSuite.Type == "xpack" {
+		name = "Xpack_" + name
 	}
 
 	g.genFileHeader()
@@ -51,7 +51,7 @@ func (g *Generator) Output() (io.Reader, error) {
 	g.genInitializeClient()
 	g.genHelpers()
 	g.genCommonSetup()
-	if g.TestSuite.Type == "platinum" {
+	if g.TestSuite.Type == "xpack" {
 		g.genXPackSetup()
 	}
 	if len(g.TestSuite.Setup) > 0 {
@@ -76,7 +76,7 @@ func (g *Generator) Output() (io.Reader, error) {
 		if !g.genSkip(t) {
 			g.w("\tdefer recoverPanic(t)\n")
 			g.w("\tcommonSetup()\n")
-			if g.TestSuite.Type == "platinum" {
+			if g.TestSuite.Type == "xpack" {
 				g.w("\txpackSetup()\n")
 			}
 			if len(g.TestSuite.Setup) > 0 {
@@ -227,7 +227,7 @@ func (g *Generator) genInitializeClient() {
 	cfg := elasticsearch.Config{}
 	`)
 
-	if g.TestSuite.Type == "platinum" {
+	if g.TestSuite.Type == "xpack" {
 		g.w(`
 	cfg.Transport = &http.Transport{
 		TLSClientConfig: &tls.Config{
