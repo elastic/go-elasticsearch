@@ -63,6 +63,8 @@ type Command struct {
 	Info       bool
 }
 
+// download-spec runs a query to the Elastic artifact API, retrieve the list of active artifacts
+// downloads, extract and write to disk the rest-resources spec alongside a json with relevant build information.
 func (c Command) Execute() (err error) {
 	const artifactsUrl = "https://artifacts-api.elastic.co/v1/versions"
 
@@ -147,6 +149,9 @@ type Build struct {
 	} `json:"projects"`
 }
 
+
+// zipfileUrl return the file URL for the rest-resources artifact from Build
+// There should be only one artifact matching the requirements par Build.
 func (b Build) zipfileUrl() string {
 	for _, pack := range b.Projects.Elasticsearch.Packages {
 		if pack.Type == "zip" && strings.Contains(pack.Url, "rest-resources") {
@@ -156,6 +161,8 @@ func (b Build) zipfileUrl() string {
 	return ""
 }
 
+
+// extractZipToDest extract the data from a previously downloaded file loaded in memory.
 func (c Command) extractZipToDest(data []byte) error {
 	zipReader, err := zip.NewReader(bytes.NewReader(data), int64(len(data)))
 	if err != nil {
@@ -194,6 +201,7 @@ func (c Command) extractZipToDest(data []byte) error {
 	return nil
 }
 
+// downloadZip fetches the rest-resources artifact from a Build and return its content as []byte.
 func (c Command) downloadZip(b Build) ([]byte, error) {
 	url := b.zipfileUrl()
 	if c.Debug {
@@ -218,6 +226,8 @@ func (c Command) downloadZip(b Build) ([]byte, error) {
 	return data, err
 }
 
+// findMostRecentBuild iterates through the builds retrieved from the api
+// and return the latest one based on the StartTime of each Build.
 func findMostRecentBuild(builds []Build) Build {
 	var latestBuild Build
 	for _, build := range builds {
@@ -230,6 +240,8 @@ func findMostRecentBuild(builds []Build) Build {
 	return latestBuild
 }
 
+// findBuildByCommitHash iterates through the builds and returns the first occurrence of Build
+// that matches the provided commitHash.
 func findBuildByCommitHash(commitHash string, builds []Build) (Build, error) {
 	for _, build := range builds {
 		if build.Projects.Elasticsearch.CommitHash == commitHash {
