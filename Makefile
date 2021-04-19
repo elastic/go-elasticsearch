@@ -409,7 +409,7 @@ endif
 ifdef ELASTICSEARCH_BUILD_HASH
 	$(eval build_hash = $(ELASTICSEARCH_BUILD_HASH))
 else
-	$(eval build_hash = $(shell cat tmp/elasticsearch.json | jq ".commit_hash"))
+	$(eval build_hash = $(shell cat tmp/elasticsearch.json | jq ".projects.elasticsearch.commit_hash"))
 endif
 	@printf "\033[2m→ Generating API tests from specification ($(version):$(build_hash))...\033[0m\n"
 	@{ \
@@ -426,8 +426,8 @@ endif
 		go run main.go apitests --input '$(PWD)/$(input)/test/platinum/**/*.yml' --output '$(PWD)/$(output)/xpack' $(args) && \
 		mkdir -p '$(PWD)/esapi/test/xpack/ml' && \
 		mkdir -p '$(PWD)/esapi/test/xpack/ml-crud' && \
-		mv $(PWD)/esapi/test/xpack/ml__* $(PWD)/esapi/test/xpack/ml/ && \
-		mv $(PWD)/esapi/test/xpack/ml/ml__jobs_crud_test.go $(PWD)/esapi/test/xpack/ml-crud/; \
+		mv $(PWD)/esapi/test/xpack/xpack_ml* $(PWD)/esapi/test/xpack/ml/ && \
+		mv $(PWD)/esapi/test/xpack/ml/xpack_ml__jobs_crud_test.go $(PWD)/esapi/test/xpack/ml-crud/; \
 	}
 
 gen-docs:  ## Generate the skeleton of documentation examples
@@ -459,15 +459,10 @@ gen-docs:  ## Generate the skeleton of documentation examples
 
 download-specs: ## Download the latest specs for the specified Elasticsearch version
 	$(eval output ?= tmp)
-ifdef ELASTICSEARCH_BUILD_VERSION
-	$(eval version = $(ELASTICSEARCH_BUILD_VERSION))
-else
-	$(eval version = $(ELASTICSEARCH_DEFAULT_BUILD_VERSION))
-endif
 	@mkdir -p tmp
 	@{ \
 		set -e; \
-		printf "\n\033[2m→ Downloading latest Elasticsearch specs for version [$(version)]\033[0m\n" && \
+		printf "\n\033[2m→ Downloading latest Elasticsearch specs for version [$(ELASTICSEARCH_DEFAULT_BUILD_VERSION)]\033[0m\n" && \
 		rm -rf $(output)/rest-api-spec && \
 		rm -rf $(output)/elasticsearch.json && \
 		cd internal/build && \
