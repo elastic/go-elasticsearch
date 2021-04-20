@@ -8,14 +8,13 @@ package esapi
 
 import (
 	"context"
-	"io"
 	"net/http"
 	"strings"
 )
 
-func newMLPreviewDatafeedFunc(t Transport) MLPreviewDatafeed {
-	return func(o ...func(*MLPreviewDatafeedRequest)) (*Response, error) {
-		var r = MLPreviewDatafeedRequest{}
+func newShutdownGetNodeFunc(t Transport) ShutdownGetNode {
+	return func(o ...func(*ShutdownGetNodeRequest)) (*Response, error) {
+		var r = ShutdownGetNodeRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -25,18 +24,18 @@ func newMLPreviewDatafeedFunc(t Transport) MLPreviewDatafeed {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPreviewDatafeed - Previews a datafeed.
+// ShutdownGetNode retrieve status of a node or nodes that are currently marked as shutting down
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-preview-datafeed.html.
+// This API is experimental.
 //
-type MLPreviewDatafeed func(o ...func(*MLPreviewDatafeedRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current.
+//
+type ShutdownGetNode func(o ...func(*ShutdownGetNodeRequest)) (*Response, error)
 
-// MLPreviewDatafeedRequest configures the ML Preview Datafeed API request.
+// ShutdownGetNodeRequest configures the Shutdown Get Node API request.
 //
-type MLPreviewDatafeedRequest struct {
-	Body io.Reader
-
-	DatafeedID string
+type ShutdownGetNodeRequest struct {
+	NodeID string
 
 	Pretty     bool
 	Human      bool
@@ -50,7 +49,7 @@ type MLPreviewDatafeedRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r MLPreviewDatafeedRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r ShutdownGetNodeRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -59,17 +58,15 @@ func (r MLPreviewDatafeedRequest) Do(ctx context.Context, transport Transport) (
 
 	method = "GET"
 
-	path.Grow(1 + len("_ml") + 1 + len("datafeeds") + 1 + len(r.DatafeedID) + 1 + len("_preview"))
+	path.Grow(1 + len("_nodes") + 1 + len(r.NodeID) + 1 + len("shutdown"))
 	path.WriteString("/")
-	path.WriteString("_ml")
-	path.WriteString("/")
-	path.WriteString("datafeeds")
-	if r.DatafeedID != "" {
+	path.WriteString("_nodes")
+	if r.NodeID != "" {
 		path.WriteString("/")
-		path.WriteString(r.DatafeedID)
+		path.WriteString(r.NodeID)
 	}
 	path.WriteString("/")
-	path.WriteString("_preview")
+	path.WriteString("shutdown")
 
 	params = make(map[string]string)
 
@@ -89,7 +86,7 @@ func (r MLPreviewDatafeedRequest) Do(ctx context.Context, transport Transport) (
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -100,10 +97,6 @@ func (r MLPreviewDatafeedRequest) Do(ctx context.Context, transport Transport) (
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
-	}
-
-	if r.Body != nil {
-		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -138,64 +131,56 @@ func (r MLPreviewDatafeedRequest) Do(ctx context.Context, transport Transport) (
 
 // WithContext sets the request context.
 //
-func (f MLPreviewDatafeed) WithContext(v context.Context) func(*MLPreviewDatafeedRequest) {
-	return func(r *MLPreviewDatafeedRequest) {
+func (f ShutdownGetNode) WithContext(v context.Context) func(*ShutdownGetNodeRequest) {
+	return func(r *ShutdownGetNodeRequest) {
 		r.ctx = v
 	}
 }
 
-// WithBody - The datafeed config and job config with which to execute the preview.
+// WithNodeID - which node for which to retrieve the shutdown status.
 //
-func (f MLPreviewDatafeed) WithBody(v io.Reader) func(*MLPreviewDatafeedRequest) {
-	return func(r *MLPreviewDatafeedRequest) {
-		r.Body = v
-	}
-}
-
-// WithDatafeedID - the ID of the datafeed to preview.
-//
-func (f MLPreviewDatafeed) WithDatafeedID(v string) func(*MLPreviewDatafeedRequest) {
-	return func(r *MLPreviewDatafeedRequest) {
-		r.DatafeedID = v
+func (f ShutdownGetNode) WithNodeID(v string) func(*ShutdownGetNodeRequest) {
+	return func(r *ShutdownGetNodeRequest) {
+		r.NodeID = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f MLPreviewDatafeed) WithPretty() func(*MLPreviewDatafeedRequest) {
-	return func(r *MLPreviewDatafeedRequest) {
+func (f ShutdownGetNode) WithPretty() func(*ShutdownGetNodeRequest) {
+	return func(r *ShutdownGetNodeRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f MLPreviewDatafeed) WithHuman() func(*MLPreviewDatafeedRequest) {
-	return func(r *MLPreviewDatafeedRequest) {
+func (f ShutdownGetNode) WithHuman() func(*ShutdownGetNodeRequest) {
+	return func(r *ShutdownGetNodeRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f MLPreviewDatafeed) WithErrorTrace() func(*MLPreviewDatafeedRequest) {
-	return func(r *MLPreviewDatafeedRequest) {
+func (f ShutdownGetNode) WithErrorTrace() func(*ShutdownGetNodeRequest) {
+	return func(r *ShutdownGetNodeRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f MLPreviewDatafeed) WithFilterPath(v ...string) func(*MLPreviewDatafeedRequest) {
-	return func(r *MLPreviewDatafeedRequest) {
+func (f ShutdownGetNode) WithFilterPath(v ...string) func(*ShutdownGetNodeRequest) {
+	return func(r *ShutdownGetNodeRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f MLPreviewDatafeed) WithHeader(h map[string]string) func(*MLPreviewDatafeedRequest) {
-	return func(r *MLPreviewDatafeedRequest) {
+func (f ShutdownGetNode) WithHeader(h map[string]string) func(*ShutdownGetNodeRequest) {
+	return func(r *ShutdownGetNodeRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -207,8 +192,8 @@ func (f MLPreviewDatafeed) WithHeader(h map[string]string) func(*MLPreviewDatafe
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f MLPreviewDatafeed) WithOpaqueID(s string) func(*MLPreviewDatafeedRequest) {
-	return func(r *MLPreviewDatafeedRequest) {
+func (f ShutdownGetNode) WithOpaqueID(s string) func(*ShutdownGetNodeRequest) {
+	return func(r *ShutdownGetNodeRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

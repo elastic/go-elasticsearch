@@ -10,12 +10,11 @@ import (
 	"context"
 	"net/http"
 	"strings"
-	"time"
 )
 
-func newFeaturesGetFeaturesFunc(t Transport) FeaturesGetFeatures {
-	return func(o ...func(*FeaturesGetFeaturesRequest)) (*Response, error) {
-		var r = FeaturesGetFeaturesRequest{}
+func newIngestGeoIPStatsFunc(t Transport) IngestGeoIPStats {
+	return func(o ...func(*IngestGeoIPStatsRequest)) (*Response, error) {
+		var r = IngestGeoIPStatsRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -25,17 +24,15 @@ func newFeaturesGetFeaturesFunc(t Transport) FeaturesGetFeatures {
 
 // ----- API Definition -------------------------------------------------------
 
-// FeaturesGetFeatures gets a list of features which can be included in snapshots using the feature_states field when creating a snapshot
+// IngestGeoIPStats returns statistical information about geoip databases
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-features-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/geoip-stats-api.html.
 //
-type FeaturesGetFeatures func(o ...func(*FeaturesGetFeaturesRequest)) (*Response, error)
+type IngestGeoIPStats func(o ...func(*IngestGeoIPStatsRequest)) (*Response, error)
 
-// FeaturesGetFeaturesRequest configures the Features Get Features API request.
+// IngestGeoIPStatsRequest configures the Ingest GeoIP Stats API request.
 //
-type FeaturesGetFeaturesRequest struct {
-	MasterTimeout time.Duration
-
+type IngestGeoIPStatsRequest struct {
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -48,7 +45,7 @@ type FeaturesGetFeaturesRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r FeaturesGetFeaturesRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r IngestGeoIPStatsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -57,14 +54,10 @@ func (r FeaturesGetFeaturesRequest) Do(ctx context.Context, transport Transport)
 
 	method = "GET"
 
-	path.Grow(len("/_features"))
-	path.WriteString("/_features")
+	path.Grow(len("/_ingest/geoip/stats"))
+	path.WriteString("/_ingest/geoip/stats")
 
 	params = make(map[string]string)
-
-	if r.MasterTimeout != 0 {
-		params["master_timeout"] = formatDuration(r.MasterTimeout)
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -127,56 +120,48 @@ func (r FeaturesGetFeaturesRequest) Do(ctx context.Context, transport Transport)
 
 // WithContext sets the request context.
 //
-func (f FeaturesGetFeatures) WithContext(v context.Context) func(*FeaturesGetFeaturesRequest) {
-	return func(r *FeaturesGetFeaturesRequest) {
+func (f IngestGeoIPStats) WithContext(v context.Context) func(*IngestGeoIPStatsRequest) {
+	return func(r *IngestGeoIPStatsRequest) {
 		r.ctx = v
-	}
-}
-
-// WithMasterTimeout - explicit operation timeout for connection to master node.
-//
-func (f FeaturesGetFeatures) WithMasterTimeout(v time.Duration) func(*FeaturesGetFeaturesRequest) {
-	return func(r *FeaturesGetFeaturesRequest) {
-		r.MasterTimeout = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f FeaturesGetFeatures) WithPretty() func(*FeaturesGetFeaturesRequest) {
-	return func(r *FeaturesGetFeaturesRequest) {
+func (f IngestGeoIPStats) WithPretty() func(*IngestGeoIPStatsRequest) {
+	return func(r *IngestGeoIPStatsRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f FeaturesGetFeatures) WithHuman() func(*FeaturesGetFeaturesRequest) {
-	return func(r *FeaturesGetFeaturesRequest) {
+func (f IngestGeoIPStats) WithHuman() func(*IngestGeoIPStatsRequest) {
+	return func(r *IngestGeoIPStatsRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f FeaturesGetFeatures) WithErrorTrace() func(*FeaturesGetFeaturesRequest) {
-	return func(r *FeaturesGetFeaturesRequest) {
+func (f IngestGeoIPStats) WithErrorTrace() func(*IngestGeoIPStatsRequest) {
+	return func(r *IngestGeoIPStatsRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f FeaturesGetFeatures) WithFilterPath(v ...string) func(*FeaturesGetFeaturesRequest) {
-	return func(r *FeaturesGetFeaturesRequest) {
+func (f IngestGeoIPStats) WithFilterPath(v ...string) func(*IngestGeoIPStatsRequest) {
+	return func(r *IngestGeoIPStatsRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f FeaturesGetFeatures) WithHeader(h map[string]string) func(*FeaturesGetFeaturesRequest) {
-	return func(r *FeaturesGetFeaturesRequest) {
+func (f IngestGeoIPStats) WithHeader(h map[string]string) func(*IngestGeoIPStatsRequest) {
+	return func(r *IngestGeoIPStatsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -188,8 +173,8 @@ func (f FeaturesGetFeatures) WithHeader(h map[string]string) func(*FeaturesGetFe
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f FeaturesGetFeatures) WithOpaqueID(s string) func(*FeaturesGetFeaturesRequest) {
-	return func(r *FeaturesGetFeaturesRequest) {
+func (f IngestGeoIPStats) WithOpaqueID(s string) func(*IngestGeoIPStatsRequest) {
+	return func(r *IngestGeoIPStatsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

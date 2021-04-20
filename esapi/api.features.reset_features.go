@@ -10,12 +10,11 @@ import (
 	"context"
 	"net/http"
 	"strings"
-	"time"
 )
 
-func newFeaturesGetFeaturesFunc(t Transport) FeaturesGetFeatures {
-	return func(o ...func(*FeaturesGetFeaturesRequest)) (*Response, error) {
-		var r = FeaturesGetFeaturesRequest{}
+func newFeaturesResetFeaturesFunc(t Transport) FeaturesResetFeatures {
+	return func(o ...func(*FeaturesResetFeaturesRequest)) (*Response, error) {
+		var r = FeaturesResetFeaturesRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -25,17 +24,17 @@ func newFeaturesGetFeaturesFunc(t Transport) FeaturesGetFeatures {
 
 // ----- API Definition -------------------------------------------------------
 
-// FeaturesGetFeatures gets a list of features which can be included in snapshots using the feature_states field when creating a snapshot
+// FeaturesResetFeatures resets the internal state of features, usually by deleting system indices
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-features-api.html.
+// This API is experimental.
 //
-type FeaturesGetFeatures func(o ...func(*FeaturesGetFeaturesRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html.
+//
+type FeaturesResetFeatures func(o ...func(*FeaturesResetFeaturesRequest)) (*Response, error)
 
-// FeaturesGetFeaturesRequest configures the Features Get Features API request.
+// FeaturesResetFeaturesRequest configures the Features Reset Features API request.
 //
-type FeaturesGetFeaturesRequest struct {
-	MasterTimeout time.Duration
-
+type FeaturesResetFeaturesRequest struct {
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -48,23 +47,19 @@ type FeaturesGetFeaturesRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r FeaturesGetFeaturesRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r FeaturesResetFeaturesRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
-	path.Grow(len("/_features"))
-	path.WriteString("/_features")
+	path.Grow(len("/_features/_reset"))
+	path.WriteString("/_features/_reset")
 
 	params = make(map[string]string)
-
-	if r.MasterTimeout != 0 {
-		params["master_timeout"] = formatDuration(r.MasterTimeout)
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -127,56 +122,48 @@ func (r FeaturesGetFeaturesRequest) Do(ctx context.Context, transport Transport)
 
 // WithContext sets the request context.
 //
-func (f FeaturesGetFeatures) WithContext(v context.Context) func(*FeaturesGetFeaturesRequest) {
-	return func(r *FeaturesGetFeaturesRequest) {
+func (f FeaturesResetFeatures) WithContext(v context.Context) func(*FeaturesResetFeaturesRequest) {
+	return func(r *FeaturesResetFeaturesRequest) {
 		r.ctx = v
-	}
-}
-
-// WithMasterTimeout - explicit operation timeout for connection to master node.
-//
-func (f FeaturesGetFeatures) WithMasterTimeout(v time.Duration) func(*FeaturesGetFeaturesRequest) {
-	return func(r *FeaturesGetFeaturesRequest) {
-		r.MasterTimeout = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f FeaturesGetFeatures) WithPretty() func(*FeaturesGetFeaturesRequest) {
-	return func(r *FeaturesGetFeaturesRequest) {
+func (f FeaturesResetFeatures) WithPretty() func(*FeaturesResetFeaturesRequest) {
+	return func(r *FeaturesResetFeaturesRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f FeaturesGetFeatures) WithHuman() func(*FeaturesGetFeaturesRequest) {
-	return func(r *FeaturesGetFeaturesRequest) {
+func (f FeaturesResetFeatures) WithHuman() func(*FeaturesResetFeaturesRequest) {
+	return func(r *FeaturesResetFeaturesRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f FeaturesGetFeatures) WithErrorTrace() func(*FeaturesGetFeaturesRequest) {
-	return func(r *FeaturesGetFeaturesRequest) {
+func (f FeaturesResetFeatures) WithErrorTrace() func(*FeaturesResetFeaturesRequest) {
+	return func(r *FeaturesResetFeaturesRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f FeaturesGetFeatures) WithFilterPath(v ...string) func(*FeaturesGetFeaturesRequest) {
-	return func(r *FeaturesGetFeaturesRequest) {
+func (f FeaturesResetFeatures) WithFilterPath(v ...string) func(*FeaturesResetFeaturesRequest) {
+	return func(r *FeaturesResetFeaturesRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f FeaturesGetFeatures) WithHeader(h map[string]string) func(*FeaturesGetFeaturesRequest) {
-	return func(r *FeaturesGetFeaturesRequest) {
+func (f FeaturesResetFeatures) WithHeader(h map[string]string) func(*FeaturesResetFeaturesRequest) {
+	return func(r *FeaturesResetFeaturesRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -188,8 +175,8 @@ func (f FeaturesGetFeatures) WithHeader(h map[string]string) func(*FeaturesGetFe
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f FeaturesGetFeatures) WithOpaqueID(s string) func(*FeaturesGetFeaturesRequest) {
-	return func(r *FeaturesGetFeaturesRequest) {
+func (f FeaturesResetFeatures) WithOpaqueID(s string) func(*FeaturesResetFeaturesRequest) {
+	return func(r *FeaturesResetFeaturesRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
