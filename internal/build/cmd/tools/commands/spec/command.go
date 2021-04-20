@@ -125,6 +125,9 @@ func (c Command) writeFileToDest(filename string, data []byte) error {
 	if err := ioutil.WriteFile(path, data, 0644); err != nil {
 		return fmt.Errorf("cannot write file: %s", err)
 	}
+	if c.Debug {
+		log.Printf("Successfuly written file to : %s", path)
+	}
 	return nil
 }
 
