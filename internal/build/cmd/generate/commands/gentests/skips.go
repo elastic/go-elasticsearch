@@ -38,7 +38,6 @@ var skipFiles = []string{
 }
 
 // TODO: Comments into descriptions for `Skip()`
-//
 var skipTestsYAML = `
 ---
 # Cannot distinguish between missing value for refresh and an empty string
@@ -282,7 +281,9 @@ search.aggregation/10_histogram.yml:
 
 # Getting "no matching index template found for data stream [invalid-data-stream]"
 data_stream/10_basic.yml:
+  - Create data stream
   - Create data stream with invalid name
+  - append-only writes to backing indices prohibited
 
 # The matcher like 'indices.0.aliases.0' points to internal index
 data_stream/80_resolve_index_data_streams.yml:
@@ -320,4 +321,13 @@ search/350_point_in_time.yml:
 
 nodes.stats/11_indices_metrics.yml:
   - Metric - http
+
+data_stream/10_data_stream_resolvability.yml:
+  - Verify data stream resolvability in ILM remove policy API
+
+data_stream/60_get_backing_indices.yml:
+  - Get backing indices for data stream
+
+searchable_snapshots/10_usage.yml:
+  - Tests searchable snapshots usage stats with full_copy and shared_cache indices
 `
