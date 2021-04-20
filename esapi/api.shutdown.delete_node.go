@@ -8,14 +8,13 @@ package esapi
 
 import (
 	"context"
-	"io"
 	"net/http"
 	"strings"
 )
 
-func newMLPreviewDatafeedFunc(t Transport) MLPreviewDatafeed {
-	return func(o ...func(*MLPreviewDatafeedRequest)) (*Response, error) {
-		var r = MLPreviewDatafeedRequest{}
+func newShutdownDeleteNodeFunc(t Transport) ShutdownDeleteNode {
+	return func(node_id string, o ...func(*ShutdownDeleteNodeRequest)) (*Response, error) {
+		var r = ShutdownDeleteNodeRequest{NodeID: node_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -25,18 +24,18 @@ func newMLPreviewDatafeedFunc(t Transport) MLPreviewDatafeed {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPreviewDatafeed - Previews a datafeed.
+// ShutdownDeleteNode removes a node from the shutdown list
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-preview-datafeed.html.
+// This API is experimental.
 //
-type MLPreviewDatafeed func(o ...func(*MLPreviewDatafeedRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current.
+//
+type ShutdownDeleteNode func(node_id string, o ...func(*ShutdownDeleteNodeRequest)) (*Response, error)
 
-// MLPreviewDatafeedRequest configures the ML Preview Datafeed API request.
+// ShutdownDeleteNodeRequest configures the Shutdown Delete Node API request.
 //
-type MLPreviewDatafeedRequest struct {
-	Body io.Reader
-
-	DatafeedID string
+type ShutdownDeleteNodeRequest struct {
+	NodeID string
 
 	Pretty     bool
 	Human      bool
@@ -50,26 +49,22 @@ type MLPreviewDatafeedRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r MLPreviewDatafeedRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r ShutdownDeleteNodeRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "DELETE"
 
-	path.Grow(1 + len("_ml") + 1 + len("datafeeds") + 1 + len(r.DatafeedID) + 1 + len("_preview"))
+	path.Grow(1 + len("_nodes") + 1 + len(r.NodeID) + 1 + len("shutdown"))
 	path.WriteString("/")
-	path.WriteString("_ml")
+	path.WriteString("_nodes")
 	path.WriteString("/")
-	path.WriteString("datafeeds")
-	if r.DatafeedID != "" {
-		path.WriteString("/")
-		path.WriteString(r.DatafeedID)
-	}
+	path.WriteString(r.NodeID)
 	path.WriteString("/")
-	path.WriteString("_preview")
+	path.WriteString("shutdown")
 
 	params = make(map[string]string)
 
@@ -89,7 +84,7 @@ func (r MLPreviewDatafeedRequest) Do(ctx context.Context, transport Transport) (
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -100,10 +95,6 @@ func (r MLPreviewDatafeedRequest) Do(ctx context.Context, transport Transport) (
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
-	}
-
-	if r.Body != nil {
-		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -138,64 +129,48 @@ func (r MLPreviewDatafeedRequest) Do(ctx context.Context, transport Transport) (
 
 // WithContext sets the request context.
 //
-func (f MLPreviewDatafeed) WithContext(v context.Context) func(*MLPreviewDatafeedRequest) {
-	return func(r *MLPreviewDatafeedRequest) {
+func (f ShutdownDeleteNode) WithContext(v context.Context) func(*ShutdownDeleteNodeRequest) {
+	return func(r *ShutdownDeleteNodeRequest) {
 		r.ctx = v
-	}
-}
-
-// WithBody - The datafeed config and job config with which to execute the preview.
-//
-func (f MLPreviewDatafeed) WithBody(v io.Reader) func(*MLPreviewDatafeedRequest) {
-	return func(r *MLPreviewDatafeedRequest) {
-		r.Body = v
-	}
-}
-
-// WithDatafeedID - the ID of the datafeed to preview.
-//
-func (f MLPreviewDatafeed) WithDatafeedID(v string) func(*MLPreviewDatafeedRequest) {
-	return func(r *MLPreviewDatafeedRequest) {
-		r.DatafeedID = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f MLPreviewDatafeed) WithPretty() func(*MLPreviewDatafeedRequest) {
-	return func(r *MLPreviewDatafeedRequest) {
+func (f ShutdownDeleteNode) WithPretty() func(*ShutdownDeleteNodeRequest) {
+	return func(r *ShutdownDeleteNodeRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f MLPreviewDatafeed) WithHuman() func(*MLPreviewDatafeedRequest) {
-	return func(r *MLPreviewDatafeedRequest) {
+func (f ShutdownDeleteNode) WithHuman() func(*ShutdownDeleteNodeRequest) {
+	return func(r *ShutdownDeleteNodeRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f MLPreviewDatafeed) WithErrorTrace() func(*MLPreviewDatafeedRequest) {
-	return func(r *MLPreviewDatafeedRequest) {
+func (f ShutdownDeleteNode) WithErrorTrace() func(*ShutdownDeleteNodeRequest) {
+	return func(r *ShutdownDeleteNodeRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f MLPreviewDatafeed) WithFilterPath(v ...string) func(*MLPreviewDatafeedRequest) {
-	return func(r *MLPreviewDatafeedRequest) {
+func (f ShutdownDeleteNode) WithFilterPath(v ...string) func(*ShutdownDeleteNodeRequest) {
+	return func(r *ShutdownDeleteNodeRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f MLPreviewDatafeed) WithHeader(h map[string]string) func(*MLPreviewDatafeedRequest) {
-	return func(r *MLPreviewDatafeedRequest) {
+func (f ShutdownDeleteNode) WithHeader(h map[string]string) func(*ShutdownDeleteNodeRequest) {
+	return func(r *ShutdownDeleteNodeRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -207,8 +182,8 @@ func (f MLPreviewDatafeed) WithHeader(h map[string]string) func(*MLPreviewDatafe
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f MLPreviewDatafeed) WithOpaqueID(s string) func(*MLPreviewDatafeedRequest) {
-	return func(r *MLPreviewDatafeedRequest) {
+func (f ShutdownDeleteNode) WithOpaqueID(s string) func(*ShutdownDeleteNodeRequest) {
+	return func(r *ShutdownDeleteNodeRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

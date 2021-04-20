@@ -1,4 +1,4 @@
-// Code generated from specification version 8.0.0 (d181b947c26): DO NOT EDIT
+// Code generated from specification version 8.0.0 (d3be790): DO NOT EDIT
 
 package esapi
 
@@ -65,7 +65,9 @@ type API struct {
 	ExistsSource                                  ExistsSource
 	Explain                                       Explain
 	FeaturesGetFeatures                           FeaturesGetFeatures
+	FeaturesResetFeatures                         FeaturesResetFeatures
 	FieldCaps                                     FieldCaps
+	FleetGlobalCheckpoints                        FleetGlobalCheckpoints
 	Get                                           Get
 	GetScriptContext                              GetScriptContext
 	GetScriptLanguages                            GetScriptLanguages
@@ -97,6 +99,9 @@ type API struct {
 	SearchableSnapshotsMount                      SearchableSnapshotsMount
 	SearchableSnapshotsRepositoryStats            SearchableSnapshotsRepositoryStats
 	SearchableSnapshotsStats                      SearchableSnapshotsStats
+	ShutdownDeleteNode                            ShutdownDeleteNode
+	ShutdownGetNode                               ShutdownGetNode
+	ShutdownPutNode                               ShutdownPutNode
 	SlmDeleteLifecycle                            SlmDeleteLifecycle
 	SlmExecuteLifecycle                           SlmExecuteLifecycle
 	SlmExecuteRetention                           SlmExecuteRetention
@@ -230,6 +235,7 @@ type Indices struct {
 // Ingest contains the Ingest APIs
 type Ingest struct {
 	DeletePipeline IngestDeletePipeline
+	GeoIPStats     IngestGeoIPStats
 	GetPipeline    IngestGetPipeline
 	ProcessorGrok  IngestProcessorGrok
 	PutPipeline    IngestPutPipeline
@@ -521,7 +527,9 @@ func New(t Transport) *API {
 		ExistsSource:                                  newExistsSourceFunc(t),
 		Explain:                                       newExplainFunc(t),
 		FeaturesGetFeatures:                           newFeaturesGetFeaturesFunc(t),
+		FeaturesResetFeatures:                         newFeaturesResetFeaturesFunc(t),
 		FieldCaps:                                     newFieldCapsFunc(t),
+		FleetGlobalCheckpoints:                        newFleetGlobalCheckpointsFunc(t),
 		Get:                                           newGetFunc(t),
 		GetScriptContext:                              newGetScriptContextFunc(t),
 		GetScriptLanguages:                            newGetScriptLanguagesFunc(t),
@@ -553,6 +561,9 @@ func New(t Transport) *API {
 		SearchableSnapshotsMount:                      newSearchableSnapshotsMountFunc(t),
 		SearchableSnapshotsRepositoryStats:            newSearchableSnapshotsRepositoryStatsFunc(t),
 		SearchableSnapshotsStats:                      newSearchableSnapshotsStatsFunc(t),
+		ShutdownDeleteNode:                            newShutdownDeleteNodeFunc(t),
+		ShutdownGetNode:                               newShutdownGetNodeFunc(t),
+		ShutdownPutNode:                               newShutdownPutNodeFunc(t),
 		SlmDeleteLifecycle:                            newSlmDeleteLifecycleFunc(t),
 		SlmExecuteLifecycle:                           newSlmExecuteLifecycleFunc(t),
 		SlmExecuteRetention:                           newSlmExecuteRetentionFunc(t),
@@ -677,6 +688,7 @@ func New(t Transport) *API {
 		},
 		Ingest: &Ingest{
 			DeletePipeline: newIngestDeletePipelineFunc(t),
+			GeoIPStats:     newIngestGeoIPStatsFunc(t),
 			GetPipeline:    newIngestGetPipelineFunc(t),
 			ProcessorGrok:  newIngestProcessorGrokFunc(t),
 			PutPipeline:    newIngestPutPipelineFunc(t),
