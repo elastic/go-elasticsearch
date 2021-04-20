@@ -9,6 +9,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/elastic/go-elasticsearch/v8/internal/build/cmd"
 	"io"
 	"io/ioutil"
 	"os"
@@ -20,8 +21,7 @@ import (
 	"github.com/spf13/cobra"
 	"golang.org/x/tools/imports"
 
-	"github.com/elastic/go-elasticsearch/v8/internal/cmd/generate/commands"
-	"github.com/elastic/go-elasticsearch/v8/internal/cmd/generate/utils"
+	"github.com/elastic/go-elasticsearch/v8/internal/build/utils"
 )
 
 var (
@@ -58,7 +58,7 @@ func init() {
 	genexamplesCmd.AddCommand(genexamplesSrcCmd)
 	genexamplesCmd.AddCommand(genexamplesDocCmd)
 
-	commands.RegisterCmd(genexamplesCmd)
+	cmd.RegisterCmd(genexamplesCmd)
 }
 
 var genexamplesCmd = &cobra.Command{

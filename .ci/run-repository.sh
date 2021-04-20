@@ -40,16 +40,10 @@ echo -e "\033[34;1mINFO:\033[0m Retrieving Elasticsearch Version & Hash from con
 ELASTICSEARCH_BUILD_VERSION=$(curl -sSk $external_elasticsearch_url | jq -r '.version.number')
 ELASTICSEARCH_BUILD_HASH=$(curl -sSk $external_elasticsearch_url | jq -r '.version.build_hash')
 
-echo -e "\033[34;1mINFO:\033[0m Downloading Elasticsearch repository @ $ELASTICSEARCH_BUILD_HASH... \033[0m"
-mkdir -p $WORKSPACE/tmp
-curl --retry 10 -sSL "https://github.com/elastic/elasticsearch/archive/$ELASTICSEARCH_BUILD_HASH.zip" > "$WORKSPACE/tmp/elasticsearch-$ELASTICSEARCH_BUILD_HASH.zip"
-
-echo -e "\033[34;1mINFO:\033[0m Extracting the Elasticsearch source... \033[0m"
-docker run --volume=$WORKSPACE/tmp:/tmp --workdir=/tmp --rm elastic/go-elasticsearch unzip -q -o "elasticsearch-$ELASTICSEARCH_BUILD_HASH.zip" '*.properties' '*.json' '*.y*ml'
-docker run --volume=$WORKSPACE/tmp:/tmp --workdir=/tmp --rm elastic/go-elasticsearch /bin/sh -c "
-  rm -rf /tmp/elasticsearch-$ELASTICSEARCH_BUILD_HASH.zip
-  rm -rf /tmp/elasticsearch/
-  mv /tmp/elasticsearch-$ELASTICSEARCH_BUILD_HASH* /tmp/elasticsearch/
+echo -e "\033[34;1mINFO:\033[0m Download Elasticsearch specs... \033[0m"
+docker run --volume=$WORKSPACE/tmp:/tmp --workdir=/go-elasticsearch/internal/build --rm elastic/go-elasticsearch /bin/sh -c "
+  go mod download
+  go run main.go download-spec -o /tmp -d
 "
 
 echo -e "\033[34;1mINFO:\033[0m Execute [$TEST_SUITE] >>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"

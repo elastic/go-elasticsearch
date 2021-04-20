@@ -7,6 +7,7 @@ package gensource
 import (
 	"bytes"
 	"fmt"
+	"github.com/elastic/go-elasticsearch/v8/internal/build/cmd"
 	"io"
 	"os"
 	"path/filepath"
@@ -15,8 +16,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/elastic/go-elasticsearch/v8/internal/cmd/generate/commands"
-	"github.com/elastic/go-elasticsearch/v8/internal/cmd/generate/utils"
+	"github.com/elastic/go-elasticsearch/v8/internal/build/utils"
 )
 
 var (
@@ -46,7 +46,7 @@ func init() {
 	gensourceCmd.MarkFlagRequired("output")
 	gensourceCmd.Flags().SortFlags = false
 
-	commands.RegisterCmd(gensourceCmd)
+	cmd.RegisterCmd(gensourceCmd)
 }
 
 var gensourceCmd = &cobra.Command{
@@ -142,7 +142,6 @@ func (cmd *Command) Execute() (err error) {
 		if err != nil {
 			return err
 		}
-		defer f.Close()
 
 		if err := cmd.processFile(f); err != nil {
 			return fmt.Errorf("Processing file %q: %s", fname, err)
@@ -153,6 +152,8 @@ func (cmd *Command) Execute() (err error) {
 		if err != nil {
 			return fmt.Errorf("error creating endpoint for %q: %s", fname, err)
 		}
+		f.Close()
+
 		endpoints = append(endpoints, e)
 		stats.n++
 	}
