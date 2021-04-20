@@ -41,7 +41,7 @@ ELASTICSEARCH_BUILD_VERSION=$(curl -sSk $external_elasticsearch_url | jq -r '.ve
 ELASTICSEARCH_BUILD_HASH=$(curl -sSk $external_elasticsearch_url | jq -r '.version.build_hash')
 
 echo -e "\033[34;1mINFO:\033[0m Download Elasticsearch specs... \033[0m"
-docker run --volume=$HOME/workspace/tmp:/tmp --workdir=/go-elasticsearch/internal/build --rm elastic/go-elasticsearch /bin/sh -c "
+docker run --volume=$WORKSPACE/tmp:/tmp --workdir=/go-elasticsearch/internal/build --rm elastic/go-elasticsearch /bin/sh -c "
   go mod download
   go run main.go download-spec -o /tmp -d
 "
