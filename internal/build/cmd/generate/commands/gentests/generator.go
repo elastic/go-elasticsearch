@@ -43,7 +43,7 @@ type Generator struct {
 func (g *Generator) Output() (io.Reader, error) {
 	name := g.TestSuite.Name()
 	if g.TestSuite.Type == "xpack" {
-		name = "XPack_" + name
+		name = "Xpack_" + name
 	}
 
 	g.genFileHeader()

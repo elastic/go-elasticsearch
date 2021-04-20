@@ -11,13 +11,13 @@ rm -rf esapi/test/xpack
 
 echo -e "\033[34;1mINFO:\033[0m Generating the API registry\033[0m"
 
-cd /go-elasticsearch/internal/cmd/generate || exit
+cd /go-elasticsearch/internal/build || exit
 go get -u golang.org/x/tools/cmd/goimports
 PACKAGE_PATH=/go-elasticsearch/esapi go generate ./...
 
 echo -e "\033[34;1mINFO:\033[0m Generating the test files\033[0m"
 
-go run main.go apitests --output '/go-elasticsearch/esapi/test' --input '/tmp/elasticsearch/rest-api-spec/src/main/resources/rest-api-spec/test/**/*.y*ml'
+go run main.go apitests --output '/go-elasticsearch/esapi/test' --input "/tmp/rest-api-spec/test/free/**/*.y*ml"
 
 echo -e "\033[34;1mINFO:\033[0m Download tests deps >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
 

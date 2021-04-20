@@ -19,8 +19,8 @@ import (
 	"github.com/spf13/cobra"
 	yaml "gopkg.in/yaml.v2"
 
-	"github.com/elastic/go-elasticsearch/v7/internal/cmd/generate/commands"
-	"github.com/elastic/go-elasticsearch/v7/internal/cmd/generate/utils"
+	"github.com/elastic/go-elasticsearch/v7/internal/build/cmd"
+	"github.com/elastic/go-elasticsearch/v7/internal/build/utils"
 )
 
 var (
@@ -52,7 +52,7 @@ func init() {
 	gentestsCmd.MarkFlagRequired("input")
 	gentestsCmd.MarkFlagRequired("output")
 
-	commands.RegisterCmd(gentestsCmd)
+	cmd.RegisterCmd(gentestsCmd)
 }
 
 var gentestsCmd = &cobra.Command{
