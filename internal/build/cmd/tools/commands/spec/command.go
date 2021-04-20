@@ -16,6 +16,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"net/url"
 	"os"
 	"path/filepath"
 	"strings"
@@ -133,36 +134,69 @@ type Versions struct {
 	} `json:"version"`
 }
 
+type PackageUrl struct {
+	*url.URL
+}
+
+func (p *PackageUrl) UnmarshalJSON(data []byte) error {
+	if string(data) == "null" {
+		return nil
+	}
+	url, err := url.Parse(string(data[1 : len(data)-1]))
+	if err == nil {
+		p.URL = url
+	}
+	return err
+}
+
+type BuildStartTime struct {
+	*time.Time
+}
+
+func (t *BuildStartTime) UnmarshalJSON(data []byte) error {
+	if string(data) == "null" {
+		return nil
+	}
+	var err error
+	parsedTime, err := time.Parse(`"`+"Mon, 2 Jan 2006 15:04:05 MST"+`"`, string(data))
+	t.Time = &parsedTime
+	return err
+}
+
 type Build struct {
-	StartTime string `json:"start_time"`
-	Version   string `json:"version"`
-	BuildId   string `json:"build_id"`
+	StartTime BuildStartTime `json:"start_time"`
+	Version   string         `json:"version"`
+	BuildId   string         `json:"build_id"`
 	Projects  struct {
 		Elasticsearch struct {
 			Branch     string `json:"branch"`
 			CommitHash string `json:"commit_hash"`
 			Packages   map[string]struct {
-				Url  string `json:"url"`
-				Type string `json:"type"`
+				Url  PackageUrl `json:"url"`
+				Type string     `json:"type"`
 			}
 		} `json:"elasticsearch"`
 	} `json:"projects"`
 }
 
+func NewBuild() Build {
+	t := time.Date(1970, 0,0,0,0,0,0, time.UTC)
+	startTime := BuildStartTime{Time: &t}
+	return Build{StartTime: startTime}
+}
 
 // zipfileUrl return the file URL for the rest-resources artifact from Build
 // There should be only one artifact matching the requirements par Build.
 func (b Build) zipfileUrl() string {
 	for _, pack := range b.Projects.Elasticsearch.Packages {
-		if pack.Type == "zip" && strings.Contains(pack.Url, "rest-resources") {
-			return pack.Url
+		if pack.Type == "zip" && strings.Contains(pack.Url.String(), "rest-resources") {
+			return pack.Url.String()
 		}
 	}
 	return ""
 }
 
-
-// extractZipToDest extract the data from a previously downloaded file loaded in memory.
+// extractZipToDest extract the data from a previously downloaded file loaded in memory to Output target.
 func (c Command) extractZipToDest(data []byte) error {
 	zipReader, err := zip.NewReader(bytes.NewReader(data), int64(len(data)))
 	if err != nil {
@@ -230,10 +264,9 @@ func (c Command) downloadZip(b Build) ([]byte, error) {
 // and return the latest one based on the StartTime of each Build.
 func findMostRecentBuild(builds []Build) Build {
 	var latestBuild Build
+	latestBuild = NewBuild()
 	for _, build := range builds {
-		t, _ := time.Parse(time.RFC1123, build.StartTime)
-		lt, _ := time.Parse(time.RFC1123, latestBuild.StartTime)
-		if t.After(lt) {
+		if build.StartTime.After(*latestBuild.StartTime.Time) {
 			latestBuild = build
 		}
 	}
