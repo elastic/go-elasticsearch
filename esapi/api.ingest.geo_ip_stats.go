@@ -12,9 +12,9 @@ import (
 	"strings"
 )
 
-func newIngestGeoIpStatsFunc(t Transport) IngestGeoIpStats {
-	return func(o ...func(*IngestGeoIpStatsRequest)) (*Response, error) {
-		var r = IngestGeoIpStatsRequest{}
+func newIngestGeoIPStatsFunc(t Transport) IngestGeoIPStats {
+	return func(o ...func(*IngestGeoIPStatsRequest)) (*Response, error) {
+		var r = IngestGeoIPStatsRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -24,15 +24,15 @@ func newIngestGeoIpStatsFunc(t Transport) IngestGeoIpStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// IngestGeoIpStats returns statistical information about geoip databases
+// IngestGeoIPStats returns statistical information about geoip databases
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/geoip-stats-api.html.
 //
-type IngestGeoIpStats func(o ...func(*IngestGeoIpStatsRequest)) (*Response, error)
+type IngestGeoIPStats func(o ...func(*IngestGeoIPStatsRequest)) (*Response, error)
 
-// IngestGeoIpStatsRequest configures the Ingest Geo Ip Stats API request.
+// IngestGeoIPStatsRequest configures the Ingest GeoIP Stats API request.
 //
-type IngestGeoIpStatsRequest struct {
+type IngestGeoIPStatsRequest struct {
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -45,7 +45,7 @@ type IngestGeoIpStatsRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r IngestGeoIpStatsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r IngestGeoIPStatsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -120,48 +120,48 @@ func (r IngestGeoIpStatsRequest) Do(ctx context.Context, transport Transport) (*
 
 // WithContext sets the request context.
 //
-func (f IngestGeoIpStats) WithContext(v context.Context) func(*IngestGeoIpStatsRequest) {
-	return func(r *IngestGeoIpStatsRequest) {
+func (f IngestGeoIPStats) WithContext(v context.Context) func(*IngestGeoIPStatsRequest) {
+	return func(r *IngestGeoIPStatsRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f IngestGeoIpStats) WithPretty() func(*IngestGeoIpStatsRequest) {
-	return func(r *IngestGeoIpStatsRequest) {
+func (f IngestGeoIPStats) WithPretty() func(*IngestGeoIPStatsRequest) {
+	return func(r *IngestGeoIPStatsRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f IngestGeoIpStats) WithHuman() func(*IngestGeoIpStatsRequest) {
-	return func(r *IngestGeoIpStatsRequest) {
+func (f IngestGeoIPStats) WithHuman() func(*IngestGeoIPStatsRequest) {
+	return func(r *IngestGeoIPStatsRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f IngestGeoIpStats) WithErrorTrace() func(*IngestGeoIpStatsRequest) {
-	return func(r *IngestGeoIpStatsRequest) {
+func (f IngestGeoIPStats) WithErrorTrace() func(*IngestGeoIPStatsRequest) {
+	return func(r *IngestGeoIPStatsRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f IngestGeoIpStats) WithFilterPath(v ...string) func(*IngestGeoIpStatsRequest) {
-	return func(r *IngestGeoIpStatsRequest) {
+func (f IngestGeoIPStats) WithFilterPath(v ...string) func(*IngestGeoIPStatsRequest) {
+	return func(r *IngestGeoIPStatsRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f IngestGeoIpStats) WithHeader(h map[string]string) func(*IngestGeoIpStatsRequest) {
-	return func(r *IngestGeoIpStatsRequest) {
+func (f IngestGeoIPStats) WithHeader(h map[string]string) func(*IngestGeoIPStatsRequest) {
+	return func(r *IngestGeoIPStatsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -173,8 +173,8 @@ func (f IngestGeoIpStats) WithHeader(h map[string]string) func(*IngestGeoIpStats
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f IngestGeoIpStats) WithOpaqueID(s string) func(*IngestGeoIpStatsRequest) {
-	return func(r *IngestGeoIpStatsRequest) {
+func (f IngestGeoIPStats) WithOpaqueID(s string) func(*IngestGeoIPStatsRequest) {
+	return func(r *IngestGeoIPStatsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

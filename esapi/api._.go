@@ -237,7 +237,7 @@ type Indices struct {
 // Ingest contains the Ingest APIs
 type Ingest struct {
 	DeletePipeline IngestDeletePipeline
-	GeoIpStats     IngestGeoIpStats
+	GeoIPStats     IngestGeoIPStats
 	GetPipeline    IngestGetPipeline
 	ProcessorGrok  IngestProcessorGrok
 	PutPipeline    IngestPutPipeline
@@ -691,7 +691,7 @@ func New(t Transport) *API {
 		},
 		Ingest: &Ingest{
 			DeletePipeline: newIngestDeletePipelineFunc(t),
-			GeoIpStats:     newIngestGeoIpStatsFunc(t),
+			GeoIPStats:     newIngestGeoIPStatsFunc(t),
 			GetPipeline:    newIngestGetPipelineFunc(t),
 			ProcessorGrok:  newIngestProcessorGrokFunc(t),
 			PutPipeline:    newIngestPutPipelineFunc(t),
