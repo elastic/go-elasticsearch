@@ -6,7 +6,6 @@ package utils
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -14,55 +13,26 @@ import (
 	"strings"
 )
 
-var (
-	reEsVersion = regexp.MustCompile(`elasticsearch\s+=\s+(\d+\.\d+\.\d+)`)
-)
+var resVersion = regexp.MustCompile(`(\d+.\d+.\d+).*`)
 
 // EsVersion returns the Elasticsearch from environment variable, Java property file, or an error.
 //
 func EsVersion(fpath string) (string, error) {
 	if envEsVersion := os.Getenv("ELASTICSEARCH_BUILD_VERSION"); envEsVersion != "" {
-		return envEsVersion, nil
+		splitVersion := resVersion.FindStringSubmatch(envEsVersion)
+		return splitVersion[1], nil
+	} else {
+		return "", fmt.Errorf("ELASTICSEARCH_BUILD_VERSION is empty")
 	}
-
-	basePath, err := basePathFromFilepath(fpath)
-	if err != nil {
-		return "", fmt.Errorf("EsVersion: %s", err)
-	}
-
-	c, err := ioutil.ReadFile(filepath.Join(basePath, "buildSrc", "version.properties"))
-	if err != nil {
-		return "", fmt.Errorf("EsVersion: %s", err)
-	}
-
-	m := reEsVersion.FindSubmatch(c)
-	if len(m) < 2 {
-		return "", nil
-	}
-	return string(m[1]), nil
 }
 
 // GitCommit returns the Git commit from environment variable or parsing information from fpath, or an error.
 //
 func GitCommit(fpath string) (string, error) {
-	if gitCommitEnv := os.Getenv("ELASTICSEARCH_BUILD_HASH"); gitCommitEnv != "" {
-		return gitCommitEnv, nil
+	if esBuildHash := os.Getenv("ELASTICSEARCH_BUILD_HASH"); esBuildHash != "" {
+		return esBuildHash[:7], nil
 	}
-
-	basePath, err := basePathFromFilepath(fpath)
-	if err != nil {
-		return "", fmt.Errorf("GitCommit: %s", err)
-	}
-
-	args := strings.Split("git --git-dir="+basePath+".git rev-parse --short HEAD", " ")
-	cmd := exec.Command(args[0:1][0], args[1:]...)
-	// fmt.Printf("> %s\n", strings.Join(cmd.Args, " "))
-
-	out, err := cmd.Output()
-	if err != nil {
-		return "", fmt.Errorf("GitCommit: %s", err)
-	}
-	return strings.TrimSpace(string(out)), nil
+	return "", fmt.Errorf("ELASTICSEARCH_BUILD_HASH is empty")
 }
 
 // GitTag returns the Git tag for fpath if available, or an error.

@@ -1,5 +1,7 @@
 SHELL := /bin/bash
 
+ELASTICSEARCH_DEFAULT_BUILD_VERSION = "7.13.0-SNAPSHOT"
+
 ##@ Test
 test-unit:  ## Run unit tests
 	@printf "\033[2m→ Running unit tests...\033[0m\n"
@@ -149,8 +151,8 @@ lint:  ## Run lint on the package
 	@{ \
 		set -e ; \
 		trap "test -d ../../../.git && git checkout --quiet go.mod" INT TERM EXIT; \
-		echo "cd internal/cmd/generate/ && go vet ./..."; \
-		cd "internal/cmd/generate/" && go mod download && go vet ./...; \
+		echo "cd internal/build/ && go vet ./..."; \
+		cd "internal/build/" && go mod download && go vet ./...; \
 	}
 
 
@@ -269,6 +271,12 @@ cluster: ## Launch an Elasticsearch cluster with Docker
 	$(eval flavor ?= "core")
 	$(eval elasticsearch_url = "http://es1:9200")
 
+ifdef ELASTICSEARCH_BUILD_VERSION
+	$(eval version ?= "elasticsearch:"${ELASTICSEARCH_BUILD_VERSION})
+else
+	$(eval version ?= "elasticsearch:"${ELASTICSEARCH_DEFAULT_BUILD_VERSION})
+endif
+
 ifeq ($(origin nodes), undefined)
 	$(eval nodes = 1)
 endif
@@ -285,16 +293,14 @@ ifeq ($(flavor), platinum)
 	$(eval xpack_env += --env "xpack.license.self_generated.type=trial")
 	$(eval xpack_env += --env "xpack.security.enabled=true")
 	$(eval xpack_env += --env "xpack.security.http.ssl.enabled=true")
-	$(eval xpack_env += --env "xpack.security.http.ssl.verification_mode=certificate")
 	$(eval xpack_env += --env "xpack.security.http.ssl.key=certs/testnode.key")
 	$(eval xpack_env += --env "xpack.security.http.ssl.certificate=certs/testnode.crt")
 	$(eval xpack_env += --env "xpack.security.http.ssl.certificate_authorities=certs/ca.crt")
-	$(eval xpack_env += --env "xpack.security.http.ssl.verification_mode=none")
 	$(eval xpack_env += --env "xpack.security.transport.ssl.enabled=true")
+	$(eval xpack_env += --env "xpack.security.transport.ssl.verification_mode=certificate")
 	$(eval xpack_env += --env "xpack.security.transport.ssl.key=certs/testnode.key")
 	$(eval xpack_env += --env "xpack.security.transport.ssl.certificate=certs/testnode.crt")
 	$(eval xpack_env += --env "xpack.security.transport.ssl.certificate_authorities=certs/ca.crt")
-	$(eval xpack_env += --env "xpack.security.transport.ssl.verification_mode=none")
 	$(eval xpack_volumes += --volume "$(PWD)/.ci/certs/testnode.crt:/usr/share/elasticsearch/config/certs/testnode.crt")
 	$(eval xpack_volumes += --volume "$(PWD)/.ci/certs/testnode.key:/usr/share/elasticsearch/config/certs/testnode.key")
 	$(eval xpack_volumes += --volume "$(PWD)/.ci/certs/ca.crt:/usr/share/elasticsearch/config/certs/ca.crt")
@@ -345,7 +351,11 @@ ifdef detach
 endif
 
 cluster-update: ## Update the Docker image
-	$(eval version ?= "elasticsearch:7.13.0-SNAPSHOT")
+ifdef ELASTICSEARCH_BUILD_VERSION
+	$(eval version ?= "elasticsearch:"${ELASTICSEARCH_BUILD_VERSION})
+else
+	$(eval version ?= "elasticsearch:"${ELASTICSEARCH_DEFAULT_BUILD_VERSION})
+endif
 	@printf "\033[2m→ Updating the Docker image...\033[0m\n"
 	@docker pull docker.elastic.co/elasticsearch/$(version);
 
@@ -360,7 +370,7 @@ docker: ## Build the Docker image and run it
 
 ##@ Generator
 gen-api:  ## Generate the API package from the JSON specification
-	$(eval input  ?= tmp/elasticsearch)
+	$(eval input  ?= tmp/rest-api-spec)
 	$(eval output ?= esapi)
 ifdef debug
 	$(eval args += --debug)
@@ -368,27 +378,26 @@ endif
 ifdef ELASTICSEARCH_BUILD_VERSION
 	$(eval version = $(ELASTICSEARCH_BUILD_VERSION))
 else
-	$(eval version = $(shell cat "$(input)/buildSrc/version.properties" | grep 'elasticsearch' | cut -d '=' -f 2 | tr -d ' '))
+	$(eval version = $(ELASTICSEARCH_DEFAULT_BUILD_VERSION))
 endif
 ifdef ELASTICSEARCH_BUILD_HASH
 	$(eval build_hash = $(ELASTICSEARCH_BUILD_HASH))
 else
-	$(eval build_hash = $(shell git --git-dir='$(input)/.git' rev-parse --short HEAD))
+	$(eval build_hash = $(shell cat tmp/elasticsearch.json | jq ".projects.elasticsearch.commit_hash"))
 endif
 	@printf "\033[2m→ Generating API package from specification ($(version):$(build_hash))...\033[0m\n"
 	@{ \
 		set -e; \
-		trap "test -d .git && git checkout --quiet $(PWD)/internal/cmd/generate/go.mod" INT TERM EXIT; \
+		trap "test -d .git && git checkout --quiet $(PWD)/internal/build/go.mod" INT TERM EXIT; \
 		export ELASTICSEARCH_BUILD_VERSION=$(version) && \
 		export ELASTICSEARCH_BUILD_HASH=$(build_hash) && \
-		cd internal/cmd/generate && \
-		go run main.go apisource --input '$(PWD)/$(input)/rest-api-spec/src/main/resources/rest-api-spec/api/*.json' --output '$(PWD)/$(output)' $(args) && \
-		go run main.go apisource --input '$(PWD)/$(input)/x-pack/plugin/src/test/resources/rest-api-spec/api/*.json' --output '$(PWD)/$(output)' $(args) && \
+		cd internal/build && \
+		go run main.go apisource --input '$(PWD)/$(input)/api/*.json' --output '$(PWD)/$(output)' $(args) && \
 		go run main.go apistruct --output '$(PWD)/$(output)'; \
 	}
 
 gen-tests:  ## Generate the API tests from the YAML specification
-	$(eval input  ?= tmp/elasticsearch)
+	$(eval input  ?= tmp/rest-api-spec)
 	$(eval output ?= esapi/test)
 ifdef debug
 	$(eval args += --debug)
@@ -396,12 +405,12 @@ endif
 ifdef ELASTICSEARCH_BUILD_VERSION
 	$(eval version = $(ELASTICSEARCH_BUILD_VERSION))
 else
-	$(eval version = $(shell cat "$(input)/buildSrc/version.properties" | grep 'elasticsearch' | cut -d '=' -f 2 | tr -d ' '))
+	$(eval version = $(ELASTICSEARCH_DEFAULT_BUILD_VERSION))
 endif
 ifdef ELASTICSEARCH_BUILD_HASH
 	$(eval build_hash = $(ELASTICSEARCH_BUILD_HASH))
 else
-	$(eval build_hash = $(shell git --git-dir='$(input)/.git' rev-parse --short HEAD))
+	$(eval build_hash = $(shell cat tmp/elasticsearch.json | jq ".projects.elasticsearch.commit_hash"))
 endif
 	@printf "\033[2m→ Generating API tests from specification ($(version):$(build_hash))...\033[0m\n"
 	@{ \
@@ -411,12 +420,11 @@ endif
 		export ELASTICSEARCH_BUILD_HASH=$(build_hash) && \
 		rm -rf $(output)/*_test.go && \
 		rm -rf $(output)/xpack && \
-		cd internal/cmd/generate && \
+		cd internal/build && \
 		go get golang.org/x/tools/cmd/goimports && \
 		go generate ./... && \
-		go run main.go apitests --input '$(PWD)/$(input)/rest-api-spec/src/main/resources/rest-api-spec/test/**/*.y*ml' --output '$(PWD)/$(output)' $(args) && \
-		go run main.go apitests --input '$(PWD)/$(input)/x-pack/plugin/src/test/resources/rest-api-spec/test/**/*.yml' --output '$(PWD)/$(output)/xpack' $(args) && \
-		go run main.go apitests --input '$(PWD)/$(input)/x-pack/plugin/src/test/resources/rest-api-spec/test/**/**/*.yml' --output '$(PWD)/$(output)/xpack' $(args) && \
+		go run main.go apitests --input '$(PWD)/$(input)/test/free/**/*.y*ml' --output '$(PWD)/$(output)' $(args) && \
+		go run main.go apitests --input '$(PWD)/$(input)/test/platinum/**/*.yml' --output '$(PWD)/$(output)/xpack' $(args) && \
 		mkdir -p '$(PWD)/esapi/test/xpack/ml' && \
 		mkdir -p '$(PWD)/esapi/test/xpack/ml-crud' && \
 		mv $(PWD)/esapi/test/xpack/xpack_ml* $(PWD)/esapi/test/xpack/ml/ && \
@@ -445,9 +453,21 @@ gen-docs:  ## Generate the skeleton of documentation examples
 			fi; \
 		) && \
 		printf "\n\033[2m→ Generating ASCIIDoc files from Go source\033[0m\n" && \
-		( cd '$(PWD)/internal/cmd/generate' && \
+		( cd '$(PWD)/internal/build' && \
 			go run main.go examples doc --debug --input='$(PWD)/.doc/examples/src/' --output='$(PWD)/.doc/examples/' \
 		) \
+	}
+
+download-specs: ## Download the latest specs for the specified Elasticsearch version
+	$(eval output ?= tmp)
+	@mkdir -p tmp
+	@{ \
+		set -e; \
+		printf "\n\033[2m→ Downloading latest Elasticsearch specs for version [$(ELASTICSEARCH_DEFAULT_BUILD_VERSION)]\033[0m\n" && \
+		rm -rf $(output)/rest-api-spec && \
+		rm -rf $(output)/elasticsearch.json && \
+		cd internal/build && \
+		go run main.go download-spec --output '$(PWD)/$(output)'; \
 	}
 
 ##@ Other
