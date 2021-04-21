@@ -78,6 +78,8 @@ indices.split/30_copy_settings.yml:
 nodes.info/10_basic.yml:
 nodes.reload_secure_settings/10_basic.yml:
 nodes.stats/50_indexing_pressure.yml:
+nodes.stats/40_store_stats.yml:
+  - Store stats
 
 # Parsed response is YAML: value is map[interface {}]interface {}, not map[string]interface {}
 cat.aliases/20_headers.yml:
@@ -314,4 +316,7 @@ search/350_point_in_time.yml:
 
 nodes.stats/11_indices_metrics.yml:
   - Metric - http
+
+searchable_snapshots/10_usage.yml:
+  - Tests searchable snapshots usage stats with full_copy and shared_cache indices
 `
