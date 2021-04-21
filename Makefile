@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-ELASTICSEARCH_DEFAULT_BUILD_VERSION = "7.x-SNAPSHOT"
+ELASTICSEARCH_DEFAULT_BUILD_VERSION = "7.13.0-SNAPSHOT"
 
 ##@ Test
 test-unit:  ## Run unit tests
