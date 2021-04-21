@@ -6,7 +6,7 @@ package gentests
 
 import (
 	"fmt"
-	"strings"
+  "strings"
 
 	"gopkg.in/yaml.v2"
 )
@@ -308,4 +308,10 @@ unsigned_long/60_collapse.yml:
 # Cannot compare float64 ending with .0 reliably due to inconsistent serialisation (https://github.com/golang/go/issues/26363)
 search/330_fetch_fields.yml:
   - Test nested field inside object structure
+
+search/350_point_in_time.yml:
+  - msearch
+
+nodes.stats/11_indices_metrics.yml:
+  - Metric - http
 `
