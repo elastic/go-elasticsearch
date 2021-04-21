@@ -13,11 +13,12 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/elastic/go-elasticsearch/v7/internal/cmd/generate/utils"
+	"github.com/elastic/go-elasticsearch/v7/internal/build/utils"
 )
 
 var reFilename = regexp.MustCompile(`\d*_?(.+)\.ya?ml`)
 var reNumber = regexp.MustCompile(`^\d+$`)
+var reBaseFilename = regexp.MustCompile(`rest-api-spec/test/\w+/(.*$)`)
 
 // TestPayload represents a single raw section (`---`) from the YAML file.
 //
@@ -97,11 +98,11 @@ func NewTestSuite(fpath string, payloads []TestPayload) TestSuite {
 		Filepath: fpath,
 	}
 
-	if strings.Contains(fpath, "x-pack") {
+	if strings.Contains(fpath, "platinum") {
 		ts.Type = "xpack"
 	}
 	if ts.Type == "" {
-		ts.Type = "core"
+		ts.Type = "free"
 	}
 
 	for _, payload := range payloads {
@@ -299,7 +300,7 @@ func (ts TestSuite) SkipEsVersion(minmax string) bool {
 // BaseFilename extracts and returns the test filename in form of `foo/bar/10_qux.yml`.
 //
 func (t Test) BaseFilename() string {
-	parts := strings.Split(t.Filepath, "rest-api-spec/test")
+	parts := reBaseFilename.FindStringSubmatch(t.Filepath)
 	if len(parts) < 1 {
 		panic(fmt.Sprintf("Unexpected parts for path [%s]: %s", t.Filepath, parts))
 	}
