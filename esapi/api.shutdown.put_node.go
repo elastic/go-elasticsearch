@@ -8,13 +8,14 @@ package esapi
 
 import (
 	"context"
+	"io"
 	"net/http"
 	"strings"
 )
 
-func newMLDeleteTrainedModelAliasFunc(t Transport) MLDeleteTrainedModelAlias {
-	return func(model_alias string, model_id string, o ...func(*MLDeleteTrainedModelAliasRequest)) (*Response, error) {
-		var r = MLDeleteTrainedModelAliasRequest{ModelAlias: model_alias, ModelID: model_id}
+func newShutdownPutNodeFunc(t Transport) ShutdownPutNode {
+	return func(body io.Reader, node_id string, o ...func(*ShutdownPutNodeRequest)) (*Response, error) {
+		var r = ShutdownPutNodeRequest{Body: body, NodeID: node_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -24,17 +25,20 @@ func newMLDeleteTrainedModelAliasFunc(t Transport) MLDeleteTrainedModelAlias {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLDeleteTrainedModelAlias - Deletes a model alias that refers to the trained model
+// ShutdownPutNode adds a node to be shut down
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-trained-models-aliases.html.
+// This API is experimental.
 //
-type MLDeleteTrainedModelAlias func(model_alias string, model_id string, o ...func(*MLDeleteTrainedModelAliasRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current.
+//
+type ShutdownPutNode func(body io.Reader, node_id string, o ...func(*ShutdownPutNodeRequest)) (*Response, error)
 
-// MLDeleteTrainedModelAliasRequest configures the ML Delete Trained Model Alias API request.
+// ShutdownPutNodeRequest configures the Shutdown Put Node API request.
 //
-type MLDeleteTrainedModelAliasRequest struct {
-	ModelAlias string
-	ModelID    string
+type ShutdownPutNodeRequest struct {
+	Body io.Reader
+
+	NodeID string
 
 	Pretty     bool
 	Human      bool
@@ -48,26 +52,22 @@ type MLDeleteTrainedModelAliasRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r MLDeleteTrainedModelAliasRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r ShutdownPutNodeRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "DELETE"
+	method = "PUT"
 
-	path.Grow(1 + len("_ml") + 1 + len("trained_models") + 1 + len(r.ModelID) + 1 + len("model_aliases") + 1 + len(r.ModelAlias))
+	path.Grow(1 + len("_nodes") + 1 + len(r.NodeID) + 1 + len("shutdown"))
 	path.WriteString("/")
-	path.WriteString("_ml")
+	path.WriteString("_nodes")
 	path.WriteString("/")
-	path.WriteString("trained_models")
+	path.WriteString(r.NodeID)
 	path.WriteString("/")
-	path.WriteString(r.ModelID)
-	path.WriteString("/")
-	path.WriteString("model_aliases")
-	path.WriteString("/")
-	path.WriteString(r.ModelAlias)
+	path.WriteString("shutdown")
 
 	params = make(map[string]string)
 
@@ -87,7 +87,7 @@ func (r MLDeleteTrainedModelAliasRequest) Do(ctx context.Context, transport Tran
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -98,6 +98,10 @@ func (r MLDeleteTrainedModelAliasRequest) Do(ctx context.Context, transport Tran
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if r.Body != nil {
+		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -132,48 +136,48 @@ func (r MLDeleteTrainedModelAliasRequest) Do(ctx context.Context, transport Tran
 
 // WithContext sets the request context.
 //
-func (f MLDeleteTrainedModelAlias) WithContext(v context.Context) func(*MLDeleteTrainedModelAliasRequest) {
-	return func(r *MLDeleteTrainedModelAliasRequest) {
+func (f ShutdownPutNode) WithContext(v context.Context) func(*ShutdownPutNodeRequest) {
+	return func(r *ShutdownPutNodeRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f MLDeleteTrainedModelAlias) WithPretty() func(*MLDeleteTrainedModelAliasRequest) {
-	return func(r *MLDeleteTrainedModelAliasRequest) {
+func (f ShutdownPutNode) WithPretty() func(*ShutdownPutNodeRequest) {
+	return func(r *ShutdownPutNodeRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f MLDeleteTrainedModelAlias) WithHuman() func(*MLDeleteTrainedModelAliasRequest) {
-	return func(r *MLDeleteTrainedModelAliasRequest) {
+func (f ShutdownPutNode) WithHuman() func(*ShutdownPutNodeRequest) {
+	return func(r *ShutdownPutNodeRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f MLDeleteTrainedModelAlias) WithErrorTrace() func(*MLDeleteTrainedModelAliasRequest) {
-	return func(r *MLDeleteTrainedModelAliasRequest) {
+func (f ShutdownPutNode) WithErrorTrace() func(*ShutdownPutNodeRequest) {
+	return func(r *ShutdownPutNodeRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f MLDeleteTrainedModelAlias) WithFilterPath(v ...string) func(*MLDeleteTrainedModelAliasRequest) {
-	return func(r *MLDeleteTrainedModelAliasRequest) {
+func (f ShutdownPutNode) WithFilterPath(v ...string) func(*ShutdownPutNodeRequest) {
+	return func(r *ShutdownPutNodeRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f MLDeleteTrainedModelAlias) WithHeader(h map[string]string) func(*MLDeleteTrainedModelAliasRequest) {
-	return func(r *MLDeleteTrainedModelAliasRequest) {
+func (f ShutdownPutNode) WithHeader(h map[string]string) func(*ShutdownPutNodeRequest) {
+	return func(r *ShutdownPutNodeRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -185,8 +189,8 @@ func (f MLDeleteTrainedModelAlias) WithHeader(h map[string]string) func(*MLDelet
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f MLDeleteTrainedModelAlias) WithOpaqueID(s string) func(*MLDeleteTrainedModelAliasRequest) {
-	return func(r *MLDeleteTrainedModelAliasRequest) {
+func (f ShutdownPutNode) WithOpaqueID(s string) func(*ShutdownPutNodeRequest) {
+	return func(r *ShutdownPutNodeRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

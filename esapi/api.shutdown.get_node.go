@@ -12,9 +12,9 @@ import (
 	"strings"
 )
 
-func newMLDeleteTrainedModelAliasFunc(t Transport) MLDeleteTrainedModelAlias {
-	return func(model_alias string, model_id string, o ...func(*MLDeleteTrainedModelAliasRequest)) (*Response, error) {
-		var r = MLDeleteTrainedModelAliasRequest{ModelAlias: model_alias, ModelID: model_id}
+func newShutdownGetNodeFunc(t Transport) ShutdownGetNode {
+	return func(o ...func(*ShutdownGetNodeRequest)) (*Response, error) {
+		var r = ShutdownGetNodeRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -24,17 +24,18 @@ func newMLDeleteTrainedModelAliasFunc(t Transport) MLDeleteTrainedModelAlias {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLDeleteTrainedModelAlias - Deletes a model alias that refers to the trained model
+// ShutdownGetNode retrieve status of a node or nodes that are currently marked as shutting down
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-trained-models-aliases.html.
+// This API is experimental.
 //
-type MLDeleteTrainedModelAlias func(model_alias string, model_id string, o ...func(*MLDeleteTrainedModelAliasRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current.
+//
+type ShutdownGetNode func(o ...func(*ShutdownGetNodeRequest)) (*Response, error)
 
-// MLDeleteTrainedModelAliasRequest configures the ML Delete Trained Model Alias API request.
+// ShutdownGetNodeRequest configures the Shutdown Get Node API request.
 //
-type MLDeleteTrainedModelAliasRequest struct {
-	ModelAlias string
-	ModelID    string
+type ShutdownGetNodeRequest struct {
+	NodeID string
 
 	Pretty     bool
 	Human      bool
@@ -48,26 +49,24 @@ type MLDeleteTrainedModelAliasRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r MLDeleteTrainedModelAliasRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r ShutdownGetNodeRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "DELETE"
+	method = "GET"
 
-	path.Grow(1 + len("_ml") + 1 + len("trained_models") + 1 + len(r.ModelID) + 1 + len("model_aliases") + 1 + len(r.ModelAlias))
+	path.Grow(1 + len("_nodes") + 1 + len(r.NodeID) + 1 + len("shutdown"))
 	path.WriteString("/")
-	path.WriteString("_ml")
+	path.WriteString("_nodes")
+	if r.NodeID != "" {
+		path.WriteString("/")
+		path.WriteString(r.NodeID)
+	}
 	path.WriteString("/")
-	path.WriteString("trained_models")
-	path.WriteString("/")
-	path.WriteString(r.ModelID)
-	path.WriteString("/")
-	path.WriteString("model_aliases")
-	path.WriteString("/")
-	path.WriteString(r.ModelAlias)
+	path.WriteString("shutdown")
 
 	params = make(map[string]string)
 
@@ -132,48 +131,56 @@ func (r MLDeleteTrainedModelAliasRequest) Do(ctx context.Context, transport Tran
 
 // WithContext sets the request context.
 //
-func (f MLDeleteTrainedModelAlias) WithContext(v context.Context) func(*MLDeleteTrainedModelAliasRequest) {
-	return func(r *MLDeleteTrainedModelAliasRequest) {
+func (f ShutdownGetNode) WithContext(v context.Context) func(*ShutdownGetNodeRequest) {
+	return func(r *ShutdownGetNodeRequest) {
 		r.ctx = v
+	}
+}
+
+// WithNodeID - which node for which to retrieve the shutdown status.
+//
+func (f ShutdownGetNode) WithNodeID(v string) func(*ShutdownGetNodeRequest) {
+	return func(r *ShutdownGetNodeRequest) {
+		r.NodeID = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f MLDeleteTrainedModelAlias) WithPretty() func(*MLDeleteTrainedModelAliasRequest) {
-	return func(r *MLDeleteTrainedModelAliasRequest) {
+func (f ShutdownGetNode) WithPretty() func(*ShutdownGetNodeRequest) {
+	return func(r *ShutdownGetNodeRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f MLDeleteTrainedModelAlias) WithHuman() func(*MLDeleteTrainedModelAliasRequest) {
-	return func(r *MLDeleteTrainedModelAliasRequest) {
+func (f ShutdownGetNode) WithHuman() func(*ShutdownGetNodeRequest) {
+	return func(r *ShutdownGetNodeRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f MLDeleteTrainedModelAlias) WithErrorTrace() func(*MLDeleteTrainedModelAliasRequest) {
-	return func(r *MLDeleteTrainedModelAliasRequest) {
+func (f ShutdownGetNode) WithErrorTrace() func(*ShutdownGetNodeRequest) {
+	return func(r *ShutdownGetNodeRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f MLDeleteTrainedModelAlias) WithFilterPath(v ...string) func(*MLDeleteTrainedModelAliasRequest) {
-	return func(r *MLDeleteTrainedModelAliasRequest) {
+func (f ShutdownGetNode) WithFilterPath(v ...string) func(*ShutdownGetNodeRequest) {
+	return func(r *ShutdownGetNodeRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f MLDeleteTrainedModelAlias) WithHeader(h map[string]string) func(*MLDeleteTrainedModelAliasRequest) {
-	return func(r *MLDeleteTrainedModelAliasRequest) {
+func (f ShutdownGetNode) WithHeader(h map[string]string) func(*ShutdownGetNodeRequest) {
+	return func(r *ShutdownGetNodeRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -185,8 +192,8 @@ func (f MLDeleteTrainedModelAlias) WithHeader(h map[string]string) func(*MLDelet
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f MLDeleteTrainedModelAlias) WithOpaqueID(s string) func(*MLDeleteTrainedModelAliasRequest) {
-	return func(r *MLDeleteTrainedModelAliasRequest) {
+func (f ShutdownGetNode) WithOpaqueID(s string) func(*ShutdownGetNodeRequest) {
+	return func(r *ShutdownGetNodeRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

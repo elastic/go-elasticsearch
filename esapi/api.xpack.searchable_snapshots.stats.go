@@ -24,7 +24,7 @@ func newSearchableSnapshotsStatsFunc(t Transport) SearchableSnapshotsStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// SearchableSnapshotsStats - Retrieve various statistics about searchable snapshots.
+// SearchableSnapshotsStats - Retrieve shard-level statistics about searchable snapshots.
 //
 // This API is experimental.
 //

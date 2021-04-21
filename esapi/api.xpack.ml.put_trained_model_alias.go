@@ -14,7 +14,7 @@ import (
 )
 
 func newMLPutTrainedModelAliasFunc(t Transport) MLPutTrainedModelAlias {
-	return func(model_alias string, model_id string, o ...func(*MLPutTrainedModelAliasRequest)) (*Response, error) {
+	return func(model_id string, model_alias string, o ...func(*MLPutTrainedModelAliasRequest)) (*Response, error) {
 		var r = MLPutTrainedModelAliasRequest{ModelAlias: model_alias, ModelID: model_id}
 		for _, f := range o {
 			f(&r)
@@ -26,8 +26,6 @@ func newMLPutTrainedModelAliasFunc(t Transport) MLPutTrainedModelAlias {
 // ----- API Definition -------------------------------------------------------
 
 // MLPutTrainedModelAlias - Creates a new model alias (or reassigns an existing one) to refer to the trained model
-//
-// This API is beta.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/put-trained-models-aliases.html.
 //

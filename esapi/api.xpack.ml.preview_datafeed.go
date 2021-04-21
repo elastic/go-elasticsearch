@@ -8,13 +8,14 @@ package esapi
 
 import (
 	"context"
+	"io"
 	"net/http"
 	"strings"
 )
 
 func newMLPreviewDatafeedFunc(t Transport) MLPreviewDatafeed {
-	return func(datafeed_id string, o ...func(*MLPreviewDatafeedRequest)) (*Response, error) {
-		var r = MLPreviewDatafeedRequest{DatafeedID: datafeed_id}
+	return func(o ...func(*MLPreviewDatafeedRequest)) (*Response, error) {
+		var r = MLPreviewDatafeedRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -28,11 +29,13 @@ func newMLPreviewDatafeedFunc(t Transport) MLPreviewDatafeed {
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-preview-datafeed.html.
 //
-type MLPreviewDatafeed func(datafeed_id string, o ...func(*MLPreviewDatafeedRequest)) (*Response, error)
+type MLPreviewDatafeed func(o ...func(*MLPreviewDatafeedRequest)) (*Response, error)
 
 // MLPreviewDatafeedRequest configures the ML Preview Datafeed API request.
 //
 type MLPreviewDatafeedRequest struct {
+	Body io.Reader
+
 	DatafeedID string
 
 	Pretty     bool
@@ -61,8 +64,10 @@ func (r MLPreviewDatafeedRequest) Do(ctx context.Context, transport Transport) (
 	path.WriteString("_ml")
 	path.WriteString("/")
 	path.WriteString("datafeeds")
-	path.WriteString("/")
-	path.WriteString(r.DatafeedID)
+	if r.DatafeedID != "" {
+		path.WriteString("/")
+		path.WriteString(r.DatafeedID)
+	}
 	path.WriteString("/")
 	path.WriteString("_preview")
 
@@ -84,7 +89,7 @@ func (r MLPreviewDatafeedRequest) Do(ctx context.Context, transport Transport) (
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -95,6 +100,10 @@ func (r MLPreviewDatafeedRequest) Do(ctx context.Context, transport Transport) (
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if r.Body != nil {
+		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -132,6 +141,22 @@ func (r MLPreviewDatafeedRequest) Do(ctx context.Context, transport Transport) (
 func (f MLPreviewDatafeed) WithContext(v context.Context) func(*MLPreviewDatafeedRequest) {
 	return func(r *MLPreviewDatafeedRequest) {
 		r.ctx = v
+	}
+}
+
+// WithBody - The datafeed config and job config with which to execute the preview.
+//
+func (f MLPreviewDatafeed) WithBody(v io.Reader) func(*MLPreviewDatafeedRequest) {
+	return func(r *MLPreviewDatafeedRequest) {
+		r.Body = v
+	}
+}
+
+// WithDatafeedID - the ID of the datafeed to preview.
+//
+func (f MLPreviewDatafeed) WithDatafeedID(v string) func(*MLPreviewDatafeedRequest) {
+	return func(r *MLPreviewDatafeedRequest) {
+		r.DatafeedID = v
 	}
 }
 
