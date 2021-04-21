@@ -94,7 +94,11 @@ func (c Command) Execute() (err error) {
 	}
 
 	var build Build
-	if build, err = findBuildByCommitHash(c.CommitHash, v.Version.Builds); err != nil {
+	if c.CommitHash != "" {
+		if build, err = findBuildByCommitHash(c.CommitHash, v.Version.Builds); err != nil {
+			build = findMostRecentBuild(v.Version.Builds)
+		}
+	} else {
 		build = findMostRecentBuild(v.Version.Builds)
 	}
 	if c.Debug {
