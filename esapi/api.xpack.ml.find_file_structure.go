@@ -2,7 +2,7 @@
 // Elasticsearch B.V. licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 //
-// Code generated from specification version 7.12.0: DO NOT EDIT
+// Code generated from specification version 7.13.0: DO NOT EDIT
 
 package esapi
 
@@ -31,7 +31,7 @@ func newMLFindFileStructureFunc(t Transport) MLFindFileStructure {
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-find-file-structure.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/find-structure.html.
 //
 type MLFindFileStructure func(body io.Reader, o ...func(*MLFindFileStructureRequest)) (*Response, error)
 

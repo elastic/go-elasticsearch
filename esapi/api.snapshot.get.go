@@ -39,6 +39,7 @@ type SnapshotGetRequest struct {
 	Snapshot   []string
 
 	IgnoreUnavailable *bool
+	IndexDetails      *bool
 	MasterTimeout     time.Duration
 	Verbose           *bool
 
@@ -75,6 +76,10 @@ func (r SnapshotGetRequest) Do(ctx context.Context, transport Transport) (*Respo
 
 	if r.IgnoreUnavailable != nil {
 		params["ignore_unavailable"] = strconv.FormatBool(*r.IgnoreUnavailable)
+	}
+
+	if r.IndexDetails != nil {
+		params["index_details"] = strconv.FormatBool(*r.IndexDetails)
 	}
 
 	if r.MasterTimeout != 0 {
@@ -157,6 +162,14 @@ func (f SnapshotGet) WithContext(v context.Context) func(*SnapshotGetRequest) {
 func (f SnapshotGet) WithIgnoreUnavailable(v bool) func(*SnapshotGetRequest) {
 	return func(r *SnapshotGetRequest) {
 		r.IgnoreUnavailable = &v
+	}
+}
+
+// WithIndexDetails - whether to include details of each index in the snapshot, if those details are available. defaults to false..
+//
+func (f SnapshotGet) WithIndexDetails(v bool) func(*SnapshotGetRequest) {
+	return func(r *SnapshotGetRequest) {
+		r.IndexDetails = &v
 	}
 }
 

@@ -27,8 +27,6 @@ func newMLPutTrainedModelAliasFunc(t Transport) MLPutTrainedModelAlias {
 
 // MLPutTrainedModelAlias - Creates a new model alias (or reassigns an existing one) to refer to the trained model
 //
-// This API is beta.
-//
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/put-trained-models-aliases.html.
 //
 type MLPutTrainedModelAlias func(model_alias string, model_id string, o ...func(*MLPutTrainedModelAliasRequest)) (*Response, error)
