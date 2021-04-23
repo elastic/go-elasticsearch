@@ -12,9 +12,9 @@ import (
 	"strings"
 )
 
-func newMLDeleteTrainedModelAliasFunc(t Transport) MLDeleteTrainedModelAlias {
-	return func(model_alias string, model_id string, o ...func(*MLDeleteTrainedModelAliasRequest)) (*Response, error) {
-		var r = MLDeleteTrainedModelAliasRequest{ModelAlias: model_alias, ModelID: model_id}
+func newIngestGeoIPStatsFunc(t Transport) IngestGeoIPStats {
+	return func(o ...func(*IngestGeoIPStatsRequest)) (*Response, error) {
+		var r = IngestGeoIPStatsRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -24,18 +24,15 @@ func newMLDeleteTrainedModelAliasFunc(t Transport) MLDeleteTrainedModelAlias {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLDeleteTrainedModelAlias - Deletes a model alias that refers to the trained model
+// IngestGeoIPStats returns statistical information about geoip databases
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-trained-models-aliases.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/geoip-stats-api.html.
 //
-type MLDeleteTrainedModelAlias func(model_alias string, model_id string, o ...func(*MLDeleteTrainedModelAliasRequest)) (*Response, error)
+type IngestGeoIPStats func(o ...func(*IngestGeoIPStatsRequest)) (*Response, error)
 
-// MLDeleteTrainedModelAliasRequest configures the ML Delete Trained Model Alias API request.
+// IngestGeoIPStatsRequest configures the Ingest GeoIP Stats API request.
 //
-type MLDeleteTrainedModelAliasRequest struct {
-	ModelAlias string
-	ModelID    string
-
+type IngestGeoIPStatsRequest struct {
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -48,26 +45,17 @@ type MLDeleteTrainedModelAliasRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r MLDeleteTrainedModelAliasRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r IngestGeoIPStatsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "DELETE"
+	method = "GET"
 
-	path.Grow(1 + len("_ml") + 1 + len("trained_models") + 1 + len(r.ModelID) + 1 + len("model_aliases") + 1 + len(r.ModelAlias))
-	path.WriteString("/")
-	path.WriteString("_ml")
-	path.WriteString("/")
-	path.WriteString("trained_models")
-	path.WriteString("/")
-	path.WriteString(r.ModelID)
-	path.WriteString("/")
-	path.WriteString("model_aliases")
-	path.WriteString("/")
-	path.WriteString(r.ModelAlias)
+	path.Grow(len("/_ingest/geoip/stats"))
+	path.WriteString("/_ingest/geoip/stats")
 
 	params = make(map[string]string)
 
@@ -132,48 +120,48 @@ func (r MLDeleteTrainedModelAliasRequest) Do(ctx context.Context, transport Tran
 
 // WithContext sets the request context.
 //
-func (f MLDeleteTrainedModelAlias) WithContext(v context.Context) func(*MLDeleteTrainedModelAliasRequest) {
-	return func(r *MLDeleteTrainedModelAliasRequest) {
+func (f IngestGeoIPStats) WithContext(v context.Context) func(*IngestGeoIPStatsRequest) {
+	return func(r *IngestGeoIPStatsRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f MLDeleteTrainedModelAlias) WithPretty() func(*MLDeleteTrainedModelAliasRequest) {
-	return func(r *MLDeleteTrainedModelAliasRequest) {
+func (f IngestGeoIPStats) WithPretty() func(*IngestGeoIPStatsRequest) {
+	return func(r *IngestGeoIPStatsRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f MLDeleteTrainedModelAlias) WithHuman() func(*MLDeleteTrainedModelAliasRequest) {
-	return func(r *MLDeleteTrainedModelAliasRequest) {
+func (f IngestGeoIPStats) WithHuman() func(*IngestGeoIPStatsRequest) {
+	return func(r *IngestGeoIPStatsRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f MLDeleteTrainedModelAlias) WithErrorTrace() func(*MLDeleteTrainedModelAliasRequest) {
-	return func(r *MLDeleteTrainedModelAliasRequest) {
+func (f IngestGeoIPStats) WithErrorTrace() func(*IngestGeoIPStatsRequest) {
+	return func(r *IngestGeoIPStatsRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f MLDeleteTrainedModelAlias) WithFilterPath(v ...string) func(*MLDeleteTrainedModelAliasRequest) {
-	return func(r *MLDeleteTrainedModelAliasRequest) {
+func (f IngestGeoIPStats) WithFilterPath(v ...string) func(*IngestGeoIPStatsRequest) {
+	return func(r *IngestGeoIPStatsRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f MLDeleteTrainedModelAlias) WithHeader(h map[string]string) func(*MLDeleteTrainedModelAliasRequest) {
-	return func(r *MLDeleteTrainedModelAliasRequest) {
+func (f IngestGeoIPStats) WithHeader(h map[string]string) func(*IngestGeoIPStatsRequest) {
+	return func(r *IngestGeoIPStatsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -185,8 +173,8 @@ func (f MLDeleteTrainedModelAlias) WithHeader(h map[string]string) func(*MLDelet
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f MLDeleteTrainedModelAlias) WithOpaqueID(s string) func(*MLDeleteTrainedModelAliasRequest) {
-	return func(r *MLDeleteTrainedModelAliasRequest) {
+func (f IngestGeoIPStats) WithOpaqueID(s string) func(*IngestGeoIPStatsRequest) {
+	return func(r *IngestGeoIPStatsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
