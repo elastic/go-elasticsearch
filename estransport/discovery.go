@@ -30,7 +30,7 @@ type nodeInfo struct {
 	ID         string
 	Name       string
 	URL        *url.URL
-	Roles      []string
+	Roles      []string `json:"roles"`
 	Attributes map[string]interface{}
 	HTTP       struct {
 		PublishAddress string `json:"publish_address"`
@@ -52,23 +52,19 @@ func (c *Client) DiscoverNodes() error {
 
 	for _, node := range nodes {
 		var (
-			isDataNode   bool
-			isIngestNode bool
+			isMasterOnlyNode bool
 		)
 
 		roles := append(node.Roles[:0:0], node.Roles...)
 		sort.Strings(roles)
 
-		if i := sort.SearchStrings(roles, "data"); i < len(roles) && roles[i] == "data" {
-			isDataNode = true
-		}
-		if i := sort.SearchStrings(roles, "ingest"); i < len(roles) && roles[i] == "ingest" {
-			isIngestNode = true
+		if len(roles) == 1 && roles[0] == "master" {
+			isMasterOnlyNode = true
 		}
 
 		if debugLogger != nil {
 			var skip string
-			if !isDataNode || !isIngestNode {
+			if isMasterOnlyNode {
 				skip = "; [SKIP]"
 			}
 			debugLogger.Logf("Discovered node [%s]; %s; roles=%s%s\n", node.Name, node.URL, node.Roles, skip)
@@ -76,7 +72,7 @@ func (c *Client) DiscoverNodes() error {
 
 		// Skip master only nodes
 		// TODO(karmi): Move logic to Selector?
-		if !isDataNode || !isIngestNode {
+		if isMasterOnlyNode {
 			continue
 		}
 
