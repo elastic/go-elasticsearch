@@ -7,9 +7,12 @@
 package estransport
 
 import (
+	"bytes"
 	"crypto/tls"
+	"encoding/json"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"os"
@@ -171,6 +174,217 @@ func TestDiscovery(t *testing.T) {
 		tp.Unlock()
 		if numURLs != 2 {
 			t.Errorf("Unexpected number of nodes, want=2, got=%d", numURLs)
+		}
+	})
+
+	t.Run("Role based nodes discovery", func(t *testing.T) {
+		type Node struct {
+			Name string
+			Url string
+			Roles []string
+		}
+
+		type fields struct {
+			Nodes []Node
+		}
+		type wants struct {
+			wantErr bool
+			wantsNConn int
+		}
+		tests := []struct {
+			name    string
+			args  fields
+			want  wants
+		}{
+			{
+				"Default roles should allow every node to be selected",
+				fields{
+					Nodes: []Node{
+						{
+							Name: "es1",
+							Url: "http://es1:9200",
+							Roles: []string{
+								"data",
+								"data_cold",
+								"data_content",
+								"data_frozen",
+								"data_hot",
+								"data_warm",
+								"ingest",
+								"master",
+								"ml",
+								"remote_cluster_client",
+								"transform",
+							},
+						},{
+							Name: "es2",
+							Url: "http://es2:9200",
+							Roles: []string{
+								"data",
+								"data_cold",
+								"data_content",
+								"data_frozen",
+								"data_hot",
+								"data_warm",
+								"ingest",
+								"master",
+								"ml",
+								"remote_cluster_client",
+								"transform",
+							},
+						},{
+							Name: "es3",
+							Url: "http://es3:9200",
+							Roles: []string{
+								"data",
+								"data_cold",
+								"data_content",
+								"data_frozen",
+								"data_hot",
+								"data_warm",
+								"ingest",
+								"master",
+								"ml",
+								"remote_cluster_client",
+								"transform",
+							},
+						},
+					},
+				},
+				wants{
+					false, 3,
+				},
+			},
+			{
+				"Master only node should not be selected",
+				fields{
+					Nodes: []Node{
+						{
+							Name: "es1",
+							Url: "http://es1:9200",
+							Roles: []string{
+								"master",
+							},
+						},
+						{
+							Name: "es2",
+							Url: "http://es2:9200",
+							Roles: []string{
+								"data",
+								"data_cold",
+								"data_content",
+								"data_frozen",
+								"data_hot",
+								"data_warm",
+								"ingest",
+								"master",
+								"ml",
+								"remote_cluster_client",
+								"transform",
+							},
+						},
+						{
+							Name: "es3",
+							Url: "http://es3:9200",
+							Roles: []string{
+								"data",
+								"data_cold",
+								"data_content",
+								"data_frozen",
+								"data_hot",
+								"data_warm",
+								"ingest",
+								"master",
+								"ml",
+								"remote_cluster_client",
+								"transform",
+							},
+						},
+					},
+				},
+
+				wants{
+					false, 2,
+				},
+			},
+			{
+				"Master and data only nodes should be selected",
+				fields{
+					Nodes: []Node{
+						{
+							Name: "es1",
+							Url: "http://es1:9200",
+							Roles: []string{
+								"data",
+								"master",
+							},
+						},{
+							Name: "es2",
+							Url: "http://es2:9200",
+							Roles: []string{
+								"data",
+								"master",
+							},
+						},
+					},
+				},
+
+				wants{
+					false, 2,
+				},
+			},
+		}
+		for _, tt := range tests {
+			t.Run(tt.name, func(t *testing.T) {
+				var names []string
+				var urls []*url.URL
+				for _, v := range tt.args.Nodes {
+					u, _ := url.Parse(v.Url)
+					urls = append(urls, u)
+					names = append(names, v.Name)
+				}
+
+				newRoundTripper := func() http.RoundTripper {
+					return &mockTransp{
+						RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+							nodes := make(map[string]map[string]nodeInfo)
+							nodes["nodes"] = make(map[string]nodeInfo)
+							for _, v := range tt.args.Nodes {
+								nodes["nodes"][v.Name] = nodeInfo{Roles: v.Roles}
+							}
+
+							b, _ := json.Marshal(nodes)
+
+							return &http.Response{
+								Status:        "200 OK",
+								StatusCode:    200,
+								ContentLength: int64(len(b)),
+								Header:        http.Header(map[string][]string{"Content-Type": {"application/json"}}),
+								Body:          ioutil.NopCloser(bytes.NewReader(b)),
+							}, nil
+						},
+					}
+				}
+
+				c, _ := New(Config{
+					URLs:     urls,
+					Transport: newRoundTripper(),
+				})
+				c.DiscoverNodes()
+
+				pool, ok := c.pool.(*statusConnectionPool)
+				if !ok {
+					t.Fatalf("Unexpected pool, want=statusConnectionPool, got=%T", c.pool)
+				}
+
+				if len(pool.live) != tt.want.wantsNConn {
+					t.Errorf("Unexpected number of nodes, want=%d, got=%d", tt.want.wantsNConn, len(pool.live))
+				}
+
+				if err := c.DiscoverNodes(); (err != nil) != tt.want.wantErr {
+					t.Errorf("DiscoverNodes() error = %v, wantErr %v", err, tt.want.wantErr)
+				}
+			})
 		}
 	})
 }
