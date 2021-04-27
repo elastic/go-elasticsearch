@@ -478,7 +478,6 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(ctx context.Context,
 		params  map[string]string
 	)` + "\n\n")
 
-	// Generate the HTTP method
 	switch g.Endpoint.Name {
 	case "index":
 		g.w("\t")
@@ -489,7 +488,16 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(ctx context.Context,
 	}`)
 		g.w("\n\n")
 	default:
-		g.w("\t" + `method = "` + g.Endpoint.URL.Paths[0].Methods[0] + `"` + "\n\n")
+		var httpMethod string
+		// If endpoint has both GET and POST available
+		// Prefer POST usage in order to prevent go routine leak
+		// See https://github.com/golang/go/issues/29246
+		if g.Endpoint.URL.ContainsMethods("GET", "POST") {
+			httpMethod = "POST"
+		} else {
+			httpMethod = g.Endpoint.URL.Paths[0].Methods[0]
+		}
+		g.w("\t" + `method = "` + httpMethod + `"` + "\n\n")
 	}
 
 	// Get default part values for specific APIs
