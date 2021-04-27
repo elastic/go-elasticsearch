@@ -55,7 +55,7 @@ func (r WatcherQueryWatchesRequest) Do(ctx context.Context, transport Transport)
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
 	path.Grow(len("/_watcher/_query/watches"))
 	path.WriteString("/_watcher/_query/watches")

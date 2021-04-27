@@ -8,14 +8,13 @@ package esapi
 
 import (
 	"context"
-	"io"
 	"net/http"
 	"strings"
 )
 
-func newMLUpdateDataFrameAnalyticsFunc(t Transport) MLUpdateDataFrameAnalytics {
-	return func(id string, body io.Reader, o ...func(*MLUpdateDataFrameAnalyticsRequest)) (*Response, error) {
-		var r = MLUpdateDataFrameAnalyticsRequest{DocumentID: id, Body: body}
+func newSecurityGetServiceCredentialsFunc(t Transport) SecurityGetServiceCredentials {
+	return func(service string, namespace string, o ...func(*SecurityGetServiceCredentialsRequest)) (*Response, error) {
+		var r = SecurityGetServiceCredentialsRequest{Namespace: namespace, Service: service}
 		for _, f := range o {
 			f(&r)
 		}
@@ -25,18 +24,19 @@ func newMLUpdateDataFrameAnalyticsFunc(t Transport) MLUpdateDataFrameAnalytics {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLUpdateDataFrameAnalytics - Updates certain properties of a data frame analytics job.
+// SecurityGetServiceCredentials - Retrieves information of all service credentials for a service account.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/update-dfanalytics.html.
+// This API is beta.
 //
-type MLUpdateDataFrameAnalytics func(id string, body io.Reader, o ...func(*MLUpdateDataFrameAnalyticsRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-service-credentials.html.
+//
+type SecurityGetServiceCredentials func(namespace string, service string, o ...func(*SecurityGetServiceCredentialsRequest)) (*Response, error)
 
-// MLUpdateDataFrameAnalyticsRequest configures the ML Update Data Frame Analytics API request.
+// SecurityGetServiceCredentialsRequest configures the Security Get Service Credentials API request.
 //
-type MLUpdateDataFrameAnalyticsRequest struct {
-	DocumentID string
-
-	Body io.Reader
+type SecurityGetServiceCredentialsRequest struct {
+	Namespace string
+	Service   string
 
 	Pretty     bool
 	Human      bool
@@ -50,26 +50,26 @@ type MLUpdateDataFrameAnalyticsRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r MLUpdateDataFrameAnalyticsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SecurityGetServiceCredentialsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "POST"
+	method = "GET"
 
-	path.Grow(1 + len("_ml") + 1 + len("data_frame") + 1 + len("analytics") + 1 + len(r.DocumentID) + 1 + len("_update"))
+	path.Grow(1 + len("_security") + 1 + len("service") + 1 + len(r.Namespace) + 1 + len(r.Service) + 1 + len("credential"))
 	path.WriteString("/")
-	path.WriteString("_ml")
+	path.WriteString("_security")
 	path.WriteString("/")
-	path.WriteString("data_frame")
+	path.WriteString("service")
 	path.WriteString("/")
-	path.WriteString("analytics")
+	path.WriteString(r.Namespace)
 	path.WriteString("/")
-	path.WriteString(r.DocumentID)
+	path.WriteString(r.Service)
 	path.WriteString("/")
-	path.WriteString("_update")
+	path.WriteString("credential")
 
 	params = make(map[string]string)
 
@@ -89,7 +89,7 @@ func (r MLUpdateDataFrameAnalyticsRequest) Do(ctx context.Context, transport Tra
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -100,10 +100,6 @@ func (r MLUpdateDataFrameAnalyticsRequest) Do(ctx context.Context, transport Tra
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
-	}
-
-	if r.Body != nil {
-		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -138,48 +134,48 @@ func (r MLUpdateDataFrameAnalyticsRequest) Do(ctx context.Context, transport Tra
 
 // WithContext sets the request context.
 //
-func (f MLUpdateDataFrameAnalytics) WithContext(v context.Context) func(*MLUpdateDataFrameAnalyticsRequest) {
-	return func(r *MLUpdateDataFrameAnalyticsRequest) {
+func (f SecurityGetServiceCredentials) WithContext(v context.Context) func(*SecurityGetServiceCredentialsRequest) {
+	return func(r *SecurityGetServiceCredentialsRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f MLUpdateDataFrameAnalytics) WithPretty() func(*MLUpdateDataFrameAnalyticsRequest) {
-	return func(r *MLUpdateDataFrameAnalyticsRequest) {
+func (f SecurityGetServiceCredentials) WithPretty() func(*SecurityGetServiceCredentialsRequest) {
+	return func(r *SecurityGetServiceCredentialsRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f MLUpdateDataFrameAnalytics) WithHuman() func(*MLUpdateDataFrameAnalyticsRequest) {
-	return func(r *MLUpdateDataFrameAnalyticsRequest) {
+func (f SecurityGetServiceCredentials) WithHuman() func(*SecurityGetServiceCredentialsRequest) {
+	return func(r *SecurityGetServiceCredentialsRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f MLUpdateDataFrameAnalytics) WithErrorTrace() func(*MLUpdateDataFrameAnalyticsRequest) {
-	return func(r *MLUpdateDataFrameAnalyticsRequest) {
+func (f SecurityGetServiceCredentials) WithErrorTrace() func(*SecurityGetServiceCredentialsRequest) {
+	return func(r *SecurityGetServiceCredentialsRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f MLUpdateDataFrameAnalytics) WithFilterPath(v ...string) func(*MLUpdateDataFrameAnalyticsRequest) {
-	return func(r *MLUpdateDataFrameAnalyticsRequest) {
+func (f SecurityGetServiceCredentials) WithFilterPath(v ...string) func(*SecurityGetServiceCredentialsRequest) {
+	return func(r *SecurityGetServiceCredentialsRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f MLUpdateDataFrameAnalytics) WithHeader(h map[string]string) func(*MLUpdateDataFrameAnalyticsRequest) {
-	return func(r *MLUpdateDataFrameAnalyticsRequest) {
+func (f SecurityGetServiceCredentials) WithHeader(h map[string]string) func(*SecurityGetServiceCredentialsRequest) {
+	return func(r *SecurityGetServiceCredentialsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -191,8 +187,8 @@ func (f MLUpdateDataFrameAnalytics) WithHeader(h map[string]string) func(*MLUpda
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f MLUpdateDataFrameAnalytics) WithOpaqueID(s string) func(*MLUpdateDataFrameAnalyticsRequest) {
-	return func(r *MLUpdateDataFrameAnalyticsRequest) {
+func (f SecurityGetServiceCredentials) WithOpaqueID(s string) func(*SecurityGetServiceCredentialsRequest) {
+	return func(r *SecurityGetServiceCredentialsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

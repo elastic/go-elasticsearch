@@ -40,6 +40,7 @@ type FleetGlobalCheckpointsRequest struct {
 	Checkpoints    []string
 	Timeout        time.Duration
 	WaitForAdvance *bool
+	WaitForIndex   *bool
 
 	Pretty     bool
 	Human      bool
@@ -82,6 +83,10 @@ func (r FleetGlobalCheckpointsRequest) Do(ctx context.Context, transport Transpo
 
 	if r.WaitForAdvance != nil {
 		params["wait_for_advance"] = strconv.FormatBool(*r.WaitForAdvance)
+	}
+
+	if r.WaitForIndex != nil {
+		params["wait_for_index"] = strconv.FormatBool(*r.WaitForIndex)
 	}
 
 	if r.Pretty {
@@ -172,6 +177,14 @@ func (f FleetGlobalCheckpoints) WithTimeout(v time.Duration) func(*FleetGlobalCh
 func (f FleetGlobalCheckpoints) WithWaitForAdvance(v bool) func(*FleetGlobalCheckpointsRequest) {
 	return func(r *FleetGlobalCheckpointsRequest) {
 		r.WaitForAdvance = &v
+	}
+}
+
+// WithWaitForIndex - whether to wait for the target index to exist and all primary shards be active.
+//
+func (f FleetGlobalCheckpoints) WithWaitForIndex(v bool) func(*FleetGlobalCheckpointsRequest) {
+	return func(r *FleetGlobalCheckpointsRequest) {
+		r.WaitForIndex = &v
 	}
 }
 

@@ -71,7 +71,7 @@ func (r TermvectorsRequest) Do(ctx context.Context, transport Transport) (*Respo
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
 	path.Grow(1 + len(r.Index) + 1 + len("_termvectors") + 1 + len(r.DocumentID))
 	path.WriteString("/")

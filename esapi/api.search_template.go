@@ -73,7 +73,7 @@ func (r SearchTemplateRequest) Do(ctx context.Context, transport Transport) (*Re
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
 	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_search") + 1 + len("template"))
 	if len(r.Index) > 0 {

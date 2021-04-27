@@ -72,7 +72,7 @@ func (r ExplainRequest) Do(ctx context.Context, transport Transport) (*Response,
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
 	path.Grow(1 + len(r.Index) + 1 + len("_explain") + 1 + len(r.DocumentID))
 	path.WriteString("/")

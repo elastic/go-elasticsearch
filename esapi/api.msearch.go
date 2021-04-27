@@ -66,7 +66,7 @@ func (r MsearchRequest) Do(ctx context.Context, transport Transport) (*Response,
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
 	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_msearch"))
 	if len(r.Index) > 0 {

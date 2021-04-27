@@ -14,7 +14,7 @@ import (
 
 func newMLDeleteTrainedModelAliasFunc(t Transport) MLDeleteTrainedModelAlias {
 	return func(model_alias string, model_id string, o ...func(*MLDeleteTrainedModelAliasRequest)) (*Response, error) {
-		var r = MLDeleteTrainedModelAliasRequest{ModelAlias: model_alias, ModelID: model_id}
+		var r = MLDeleteTrainedModelAliasRequest{ModelID: model_id, ModelAlias: model_alias}
 		for _, f := range o {
 			f(&r)
 		}
@@ -25,8 +25,6 @@ func newMLDeleteTrainedModelAliasFunc(t Transport) MLDeleteTrainedModelAlias {
 // ----- API Definition -------------------------------------------------------
 
 // MLDeleteTrainedModelAlias - Deletes a model alias that refers to the trained model
-//
-// This API is beta.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-trained-models-aliases.html.
 //

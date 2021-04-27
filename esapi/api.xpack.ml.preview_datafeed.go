@@ -57,7 +57,7 @@ func (r MLPreviewDatafeedRequest) Do(ctx context.Context, transport Transport) (
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
 	path.Grow(1 + len("_ml") + 1 + len("datafeeds") + 1 + len(r.DatafeedID) + 1 + len("_preview"))
 	path.WriteString("/")
