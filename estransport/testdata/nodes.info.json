@@ -64,7 +64,7 @@
       "build_flavor": "default",
       "build_type": "tar",
       "build_hash": "2f90bbf7b93631e52bafb59b3b049cb44ec25e96",
-      "roles": ["master", "ml"],
+      "roles": ["master"],
       "attributes": {
         "ml.machine_memory": "8589934592",
         "ml.max_open_jobs": "20",
