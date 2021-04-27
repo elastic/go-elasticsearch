@@ -16,6 +16,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"reflect"
 	"testing"
 	"time"
 )
@@ -179,13 +180,12 @@ func TestDiscovery(t *testing.T) {
 
 	t.Run("Role based nodes discovery", func(t *testing.T) {
 		type Node struct {
-			Name string
-			Url string
+			URL string
 			Roles []string
 		}
 
 		type fields struct {
-			Nodes []Node
+			Nodes map[string]Node
 		}
 		type wants struct {
 			wantErr bool
@@ -199,10 +199,9 @@ func TestDiscovery(t *testing.T) {
 			{
 				"Default roles should allow every node to be selected",
 				fields{
-					Nodes: []Node{
-						{
-							Name: "es1",
-							Url: "http://es1:9200",
+					Nodes: map[string]Node{
+						"es1": {
+							URL: "http://es1:9200",
 							Roles: []string{
 								"data",
 								"data_cold",
@@ -216,9 +215,9 @@ func TestDiscovery(t *testing.T) {
 								"remote_cluster_client",
 								"transform",
 							},
-						},{
-							Name: "es2",
-							Url: "http://es2:9200",
+						},
+						"es2": {
+							URL: "http://es2:9200",
 							Roles: []string{
 								"data",
 								"data_cold",
@@ -232,9 +231,9 @@ func TestDiscovery(t *testing.T) {
 								"remote_cluster_client",
 								"transform",
 							},
-						},{
-							Name: "es3",
-							Url: "http://es3:9200",
+						},
+						"es3": {
+							URL: "http://es3:9200",
 							Roles: []string{
 								"data",
 								"data_cold",
@@ -258,17 +257,15 @@ func TestDiscovery(t *testing.T) {
 			{
 				"Master only node should not be selected",
 				fields{
-					Nodes: []Node{
-						{
-							Name: "es1",
-							Url: "http://es1:9200",
+					Nodes: map[string]Node{
+						"es1": {
+							URL: "http://es1:9200",
 							Roles: []string{
 								"master",
 							},
 						},
-						{
-							Name: "es2",
-							Url: "http://es2:9200",
+						"es2": {
+							URL: "http://es2:9200",
 							Roles: []string{
 								"data",
 								"data_cold",
@@ -283,9 +280,8 @@ func TestDiscovery(t *testing.T) {
 								"transform",
 							},
 						},
-						{
-							Name: "es3",
-							Url: "http://es3:9200",
+						"es3": {
+							URL: "http://es3:9200",
 							Roles: []string{
 								"data",
 								"data_cold",
@@ -310,17 +306,16 @@ func TestDiscovery(t *testing.T) {
 			{
 				"Master and data only nodes should be selected",
 				fields{
-					Nodes: []Node{
-						{
-							Name: "es1",
-							Url: "http://es1:9200",
+					Nodes: map[string]Node{
+						"es1": {
+							URL: "http://es1:9200",
 							Roles: []string{
 								"data",
 								"master",
 							},
-						},{
-							Name: "es2",
-							Url: "http://es2:9200",
+						},
+						"es2": {
+							URL: "http://es2:9200",
 							Roles: []string{
 								"data",
 								"master",
@@ -338,10 +333,10 @@ func TestDiscovery(t *testing.T) {
 			t.Run(tt.name, func(t *testing.T) {
 				var names []string
 				var urls []*url.URL
-				for _, v := range tt.args.Nodes {
-					u, _ := url.Parse(v.Url)
+				for name, node := range tt.args.Nodes {
+					u, _ := url.Parse(node.URL)
 					urls = append(urls, u)
-					names = append(names, v.Name)
+					names = append(names, name)
 				}
 
 				newRoundTripper := func() http.RoundTripper {
@@ -349,8 +344,8 @@ func TestDiscovery(t *testing.T) {
 						RoundTripFunc: func(req *http.Request) (*http.Response, error) {
 							nodes := make(map[string]map[string]nodeInfo)
 							nodes["nodes"] = make(map[string]nodeInfo)
-							for _, v := range tt.args.Nodes {
-								nodes["nodes"][v.Name] = nodeInfo{Roles: v.Roles}
+							for name, node := range tt.args.Nodes {
+								nodes["nodes"][name] = nodeInfo{Roles: node.Roles}
 							}
 
 							b, _ := json.Marshal(nodes)
@@ -379,6 +374,12 @@ func TestDiscovery(t *testing.T) {
 
 				if len(pool.live) != tt.want.wantsNConn {
 					t.Errorf("Unexpected number of nodes, want=%d, got=%d", tt.want.wantsNConn, len(pool.live))
+				}
+
+				for _, conn := range pool.live {
+					if !reflect.DeepEqual(tt.args.Nodes[conn.ID].Roles, conn.Roles) {
+						t.Errorf("Unexpected roles for node %s, want=%s, got=%s", conn.Name, tt.args.Nodes[conn.ID], conn.Roles)
+					}
 				}
 
 				if err := c.DiscoverNodes(); (err != nil) != tt.want.wantErr {
