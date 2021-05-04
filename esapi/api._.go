@@ -1,4 +1,21 @@
-// Code generated from specification version 8.0.0 (6aa0735): DO NOT EDIT
+// Licensed to Elasticsearch B.V. under one or more contributor
+// license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright
+// ownership. Elasticsearch B.V. licenses this file to you under
+// the Apache License, Version 2.0 (the "License"); you may
+// not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+//
+// Code generated from specification version 8.0.0 (c1c5e67): DO NOT EDIT
 
 package esapi
 
@@ -29,7 +46,6 @@ type API struct {
 
 	AutoscalingDeleteAutoscalingPolicy            AutoscalingDeleteAutoscalingPolicy
 	AutoscalingGetAutoscalingCapacity             AutoscalingGetAutoscalingCapacity
-	AutoscalingGetAutoscalingDecision             AutoscalingGetAutoscalingDecision
 	AutoscalingGetAutoscalingPolicy               AutoscalingGetAutoscalingPolicy
 	AutoscalingPutAutoscalingPolicy               AutoscalingPutAutoscalingPolicy
 	Bulk                                          Bulk
@@ -98,7 +114,6 @@ type API struct {
 	SearchableSnapshotsCacheStats                 SearchableSnapshotsCacheStats
 	SearchableSnapshotsClearCache                 SearchableSnapshotsClearCache
 	SearchableSnapshotsMount                      SearchableSnapshotsMount
-	SearchableSnapshotsRepositoryStats            SearchableSnapshotsRepositoryStats
 	SearchableSnapshotsStats                      SearchableSnapshotsStats
 	ShutdownDeleteNode                            ShutdownDeleteNode
 	ShutdownGetNode                               ShutdownGetNode
@@ -206,7 +221,6 @@ type Indices struct {
 	Get                   IndicesGet
 	GetSettings           IndicesGetSettings
 	GetTemplate           IndicesGetTemplate
-	GetUpgrade            IndicesGetUpgrade
 	MigrateToDataStream   IndicesMigrateToDataStream
 	Open                  IndicesOpen
 	PromoteDataStream     IndicesPromoteDataStream
@@ -229,7 +243,6 @@ type Indices struct {
 	Stats                 IndicesStats
 	Unfreeze              IndicesUnfreeze
 	UpdateAliases         IndicesUpdateAliases
-	Upgrade               IndicesUpgrade
 	ValidateQuery         IndicesValidateQuery
 }
 
@@ -264,7 +277,6 @@ type Snapshot struct {
 	Create            SnapshotCreate
 	DeleteRepository  SnapshotDeleteRepository
 	Delete            SnapshotDelete
-	GetFeatures       SnapshotGetFeatures
 	GetRepository     SnapshotGetRepository
 	Get               SnapshotGet
 	Restore           SnapshotRestore
@@ -352,7 +364,6 @@ type ML struct {
 	EstimateModelMemory        MLEstimateModelMemory
 	EvaluateDataFrame          MLEvaluateDataFrame
 	ExplainDataFrameAnalytics  MLExplainDataFrameAnalytics
-	FindFileStructure          MLFindFileStructure
 	FlushJob                   MLFlushJob
 	Forecast                   MLForecast
 	GetBuckets                 MLGetBuckets
@@ -497,7 +508,6 @@ func New(t Transport) *API {
 	return &API{
 		AutoscalingDeleteAutoscalingPolicy:            newAutoscalingDeleteAutoscalingPolicyFunc(t),
 		AutoscalingGetAutoscalingCapacity:             newAutoscalingGetAutoscalingCapacityFunc(t),
-		AutoscalingGetAutoscalingDecision:             newAutoscalingGetAutoscalingDecisionFunc(t),
 		AutoscalingGetAutoscalingPolicy:               newAutoscalingGetAutoscalingPolicyFunc(t),
 		AutoscalingPutAutoscalingPolicy:               newAutoscalingPutAutoscalingPolicyFunc(t),
 		Bulk:                                          newBulkFunc(t),
@@ -566,7 +576,6 @@ func New(t Transport) *API {
 		SearchableSnapshotsCacheStats:                 newSearchableSnapshotsCacheStatsFunc(t),
 		SearchableSnapshotsClearCache:                 newSearchableSnapshotsClearCacheFunc(t),
 		SearchableSnapshotsMount:                      newSearchableSnapshotsMountFunc(t),
-		SearchableSnapshotsRepositoryStats:            newSearchableSnapshotsRepositoryStatsFunc(t),
 		SearchableSnapshotsStats:                      newSearchableSnapshotsStatsFunc(t),
 		ShutdownDeleteNode:                            newShutdownDeleteNodeFunc(t),
 		ShutdownGetNode:                               newShutdownGetNodeFunc(t),
@@ -667,7 +676,6 @@ func New(t Transport) *API {
 			Get:                   newIndicesGetFunc(t),
 			GetSettings:           newIndicesGetSettingsFunc(t),
 			GetTemplate:           newIndicesGetTemplateFunc(t),
-			GetUpgrade:            newIndicesGetUpgradeFunc(t),
 			MigrateToDataStream:   newIndicesMigrateToDataStreamFunc(t),
 			Open:                  newIndicesOpenFunc(t),
 			PromoteDataStream:     newIndicesPromoteDataStreamFunc(t),
@@ -690,7 +698,6 @@ func New(t Transport) *API {
 			Stats:                 newIndicesStatsFunc(t),
 			Unfreeze:              newIndicesUnfreezeFunc(t),
 			UpdateAliases:         newIndicesUpdateAliasesFunc(t),
-			Upgrade:               newIndicesUpgradeFunc(t),
 			ValidateQuery:         newIndicesValidateQueryFunc(t),
 		},
 		Ingest: &Ingest{
@@ -716,7 +723,6 @@ func New(t Transport) *API {
 			Create:            newSnapshotCreateFunc(t),
 			DeleteRepository:  newSnapshotDeleteRepositoryFunc(t),
 			Delete:            newSnapshotDeleteFunc(t),
-			GetFeatures:       newSnapshotGetFeaturesFunc(t),
 			GetRepository:     newSnapshotGetRepositoryFunc(t),
 			Get:               newSnapshotGetFunc(t),
 			Restore:           newSnapshotRestoreFunc(t),
@@ -790,7 +796,6 @@ func New(t Transport) *API {
 			EstimateModelMemory:        newMLEstimateModelMemoryFunc(t),
 			EvaluateDataFrame:          newMLEvaluateDataFrameFunc(t),
 			ExplainDataFrameAnalytics:  newMLExplainDataFrameAnalyticsFunc(t),
-			FindFileStructure:          newMLFindFileStructureFunc(t),
 			FlushJob:                   newMLFlushJobFunc(t),
 			Forecast:                   newMLForecastFunc(t),
 			GetBuckets:                 newMLGetBucketsFunc(t),
