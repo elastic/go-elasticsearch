@@ -22,7 +22,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/elastic/go-elasticsearch/v8/estransport"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -34,6 +33,7 @@ import (
 
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
+	"github.com/elastic/go-elasticsearch/v8/estransport"
 )
 
 // BulkIndexer represents a parallel, asynchronous, efficient indexer for Elasticsearch.
@@ -106,6 +106,7 @@ type BulkIndexerItem struct {
 	Index           string
 	Action          string
 	DocumentID      string
+	Routing         string
 	Body            io.Reader
 	RetryOnConflict *int
 
@@ -408,8 +409,17 @@ func (w *worker) writeMeta(item BulkIndexerItem) error {
 		w.buf.Write(w.aux)
 		w.aux = w.aux[:0]
 	}
-	if item.Index != "" {
+	if item.Routing != "" {
 		if item.DocumentID != "" {
+			w.buf.WriteRune(',')
+		}
+		w.buf.WriteString(`"_routing":`)
+		w.aux = strconv.AppendQuote(w.aux, item.Routing)
+		w.buf.Write(w.aux)
+		w.aux = w.aux[:0]
+	}
+	if item.Index != "" {
+		if item.DocumentID != "" || item.Routing != "" {
 			w.buf.WriteRune(',')
 		}
 		w.buf.WriteString(`"_index":`)
