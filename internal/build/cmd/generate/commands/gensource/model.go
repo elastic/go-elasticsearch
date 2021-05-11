@@ -510,3 +510,28 @@ func (p *MethodArgument) GoName() string {
 func (p *MethodArgument) GoType(comment ...bool) string {
 	return utils.TypeToGo(p.Type)
 }
+
+// ContainsMethods return true if every method passed in argument is present in every Path
+func (u *URL) ContainsMethods(methods ...string) bool {
+	for _, path := range u.Paths {
+		// Fast exit if both collections are not the same size
+		if len(methods) != len(path.Methods) {
+			return false
+		}
+
+		// We iterate over every items
+		items := make(map[string]struct{})
+		for _, v := range path.Methods {
+			items[v] = struct{}{}
+		}
+
+		for _, method := range methods {
+			if _, ok := items[method]; ok {
+				continue
+			}
+			return false
+		}
+		continue
+	}
+	return true
+}
