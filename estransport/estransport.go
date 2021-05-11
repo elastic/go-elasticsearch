@@ -30,6 +30,7 @@ import (
 	"os"
 	"regexp"
 	"runtime"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -37,13 +38,18 @@ import (
 	"github.com/elastic/go-elasticsearch/v8/internal/version"
 )
 
-// Version returns the package version as a string.
-//
-const Version = version.Client
+const (
+	// Version returns the package version as a string.
+	Version = version.Client
+
+	// esCompatHeader defines the env var for Compatibility header.
+	esCompatHeader = "ELASTIC_CLIENT_APIVERSIONING"
+)
 
 var (
 	userAgent   string
 	metaHeader  string
+	compatibilityHeader bool
 	reGoVersion = regexp.MustCompile(`go(\d+\.\d+\..+)`)
 
 	defaultMaxRetries    = 3
@@ -53,6 +59,9 @@ var (
 func init() {
 	userAgent = initUserAgent()
 	metaHeader = initMetaHeader()
+
+	compatHeaderStr := os.Getenv(esCompatHeader)
+	compatibilityHeader, _ = strconv.ParseBool(compatHeaderStr)
 }
 
 // Interface defines the interface for HTTP client.
@@ -220,6 +229,14 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		res *http.Response
 		err error
 	)
+
+	// Compatibility Header
+	if compatibilityHeader {
+		if req.Body != nil {
+			req.Header["Content-Type"] = []string{"application/vnd.elasticsearch+json;compatible-with=7"}
+		}
+		req.Header["Accept"] = []string{"application/vnd.elasticsearch+json;compatible-with=7"}
+	}
 
 	// Record metrics, when enabled
 	if c.metrics != nil {
