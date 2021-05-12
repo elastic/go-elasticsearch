@@ -80,7 +80,7 @@ func (r MLGetModelSnapshotsRequest) Do(ctx context.Context, transport Transport)
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
 	path.Grow(1 + len("_ml") + 1 + len("anomaly_detectors") + 1 + len(r.JobID) + 1 + len("model_snapshots") + 1 + len(r.SnapshotID))
 	path.WriteString("/")

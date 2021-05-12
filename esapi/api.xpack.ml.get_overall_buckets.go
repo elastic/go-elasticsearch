@@ -81,7 +81,7 @@ func (r MLGetOverallBucketsRequest) Do(ctx context.Context, transport Transport)
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
 	path.Grow(1 + len("_ml") + 1 + len("anomaly_detectors") + 1 + len(r.JobID) + 1 + len("results") + 1 + len("overall_buckets"))
 	path.WriteString("/")

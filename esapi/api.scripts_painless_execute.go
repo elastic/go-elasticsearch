@@ -70,7 +70,7 @@ func (r ScriptsPainlessExecuteRequest) Do(ctx context.Context, transport Transpo
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
 	path.Grow(len("/_scripts/painless/_execute"))
 	path.WriteString("/_scripts/painless/_execute")

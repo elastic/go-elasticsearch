@@ -74,7 +74,7 @@ func (r MLGetCalendarsRequest) Do(ctx context.Context, transport Transport) (*Re
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
 	path.Grow(1 + len("_ml") + 1 + len("calendars") + 1 + len(r.CalendarID))
 	path.WriteString("/")

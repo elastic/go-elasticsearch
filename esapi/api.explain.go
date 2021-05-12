@@ -86,7 +86,7 @@ func (r ExplainRequest) Do(ctx context.Context, transport Transport) (*Response,
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
 	if r.DocumentType == "" {
 		r.DocumentType = "_doc"

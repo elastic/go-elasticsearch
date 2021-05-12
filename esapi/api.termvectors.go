@@ -85,7 +85,7 @@ func (r TermvectorsRequest) Do(ctx context.Context, transport Transport) (*Respo
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
 	if r.DocumentType == "" {
 		r.DocumentType = "_doc"

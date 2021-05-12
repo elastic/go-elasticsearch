@@ -70,7 +70,7 @@ func (r RenderSearchTemplateRequest) Do(ctx context.Context, transport Transport
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
 	path.Grow(1 + len("_render") + 1 + len("template") + 1 + len(r.TemplateID))
 	path.WriteString("/")

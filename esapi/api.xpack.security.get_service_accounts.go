@@ -21,14 +21,13 @@ package esapi
 
 import (
 	"context"
-	"io"
 	"net/http"
 	"strings"
 )
 
-func newMLPreviewDataFrameAnalyticsFunc(t Transport) MLPreviewDataFrameAnalytics {
-	return func(o ...func(*MLPreviewDataFrameAnalyticsRequest)) (*Response, error) {
-		var r = MLPreviewDataFrameAnalyticsRequest{}
+func newSecurityGetServiceAccountsFunc(t Transport) SecurityGetServiceAccounts {
+	return func(o ...func(*SecurityGetServiceAccountsRequest)) (*Response, error) {
+		var r = SecurityGetServiceAccountsRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -38,18 +37,19 @@ func newMLPreviewDataFrameAnalyticsFunc(t Transport) MLPreviewDataFrameAnalytics
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPreviewDataFrameAnalytics - Previews that will be analyzed given a data frame analytics config.
+// SecurityGetServiceAccounts - Retrieves information about service accounts.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/preview-dfanalytics.html.
+// This API is beta.
 //
-type MLPreviewDataFrameAnalytics func(o ...func(*MLPreviewDataFrameAnalyticsRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-service-accounts.html.
+//
+type SecurityGetServiceAccounts func(o ...func(*SecurityGetServiceAccountsRequest)) (*Response, error)
 
-// MLPreviewDataFrameAnalyticsRequest configures the ML Preview Data Frame Analytics API request.
+// SecurityGetServiceAccountsRequest configures the Security Get Service Accounts API request.
 //
-type MLPreviewDataFrameAnalyticsRequest struct {
-	DocumentID string
-
-	Body io.Reader
+type SecurityGetServiceAccountsRequest struct {
+	Namespace string
+	Service   string
 
 	Pretty     bool
 	Human      bool
@@ -63,28 +63,28 @@ type MLPreviewDataFrameAnalyticsRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r MLPreviewDataFrameAnalyticsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SecurityGetServiceAccountsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "POST"
+	method = "GET"
 
-	path.Grow(1 + len("_ml") + 1 + len("data_frame") + 1 + len("analytics") + 1 + len(r.DocumentID) + 1 + len("_preview"))
+	path.Grow(1 + len("_security") + 1 + len("service") + 1 + len(r.Namespace) + 1 + len(r.Service))
 	path.WriteString("/")
-	path.WriteString("_ml")
+	path.WriteString("_security")
 	path.WriteString("/")
-	path.WriteString("data_frame")
-	path.WriteString("/")
-	path.WriteString("analytics")
-	if r.DocumentID != "" {
+	path.WriteString("service")
+	if r.Namespace != "" {
 		path.WriteString("/")
-		path.WriteString(r.DocumentID)
+		path.WriteString(r.Namespace)
 	}
-	path.WriteString("/")
-	path.WriteString("_preview")
+	if r.Service != "" {
+		path.WriteString("/")
+		path.WriteString(r.Service)
+	}
 
 	params = make(map[string]string)
 
@@ -104,7 +104,7 @@ func (r MLPreviewDataFrameAnalyticsRequest) Do(ctx context.Context, transport Tr
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -115,10 +115,6 @@ func (r MLPreviewDataFrameAnalyticsRequest) Do(ctx context.Context, transport Tr
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
-	}
-
-	if r.Body != nil {
-		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -153,64 +149,64 @@ func (r MLPreviewDataFrameAnalyticsRequest) Do(ctx context.Context, transport Tr
 
 // WithContext sets the request context.
 //
-func (f MLPreviewDataFrameAnalytics) WithContext(v context.Context) func(*MLPreviewDataFrameAnalyticsRequest) {
-	return func(r *MLPreviewDataFrameAnalyticsRequest) {
+func (f SecurityGetServiceAccounts) WithContext(v context.Context) func(*SecurityGetServiceAccountsRequest) {
+	return func(r *SecurityGetServiceAccountsRequest) {
 		r.ctx = v
 	}
 }
 
-// WithBody - The data frame analytics config to preview.
+// WithNamespace - an identifier for the namespace.
 //
-func (f MLPreviewDataFrameAnalytics) WithBody(v io.Reader) func(*MLPreviewDataFrameAnalyticsRequest) {
-	return func(r *MLPreviewDataFrameAnalyticsRequest) {
-		r.Body = v
+func (f SecurityGetServiceAccounts) WithNamespace(v string) func(*SecurityGetServiceAccountsRequest) {
+	return func(r *SecurityGetServiceAccountsRequest) {
+		r.Namespace = v
 	}
 }
 
-// WithDocumentID - the ID of the data frame analytics to preview.
+// WithService - an identifier for the service name.
 //
-func (f MLPreviewDataFrameAnalytics) WithDocumentID(v string) func(*MLPreviewDataFrameAnalyticsRequest) {
-	return func(r *MLPreviewDataFrameAnalyticsRequest) {
-		r.DocumentID = v
+func (f SecurityGetServiceAccounts) WithService(v string) func(*SecurityGetServiceAccountsRequest) {
+	return func(r *SecurityGetServiceAccountsRequest) {
+		r.Service = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f MLPreviewDataFrameAnalytics) WithPretty() func(*MLPreviewDataFrameAnalyticsRequest) {
-	return func(r *MLPreviewDataFrameAnalyticsRequest) {
+func (f SecurityGetServiceAccounts) WithPretty() func(*SecurityGetServiceAccountsRequest) {
+	return func(r *SecurityGetServiceAccountsRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f MLPreviewDataFrameAnalytics) WithHuman() func(*MLPreviewDataFrameAnalyticsRequest) {
-	return func(r *MLPreviewDataFrameAnalyticsRequest) {
+func (f SecurityGetServiceAccounts) WithHuman() func(*SecurityGetServiceAccountsRequest) {
+	return func(r *SecurityGetServiceAccountsRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f MLPreviewDataFrameAnalytics) WithErrorTrace() func(*MLPreviewDataFrameAnalyticsRequest) {
-	return func(r *MLPreviewDataFrameAnalyticsRequest) {
+func (f SecurityGetServiceAccounts) WithErrorTrace() func(*SecurityGetServiceAccountsRequest) {
+	return func(r *SecurityGetServiceAccountsRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f MLPreviewDataFrameAnalytics) WithFilterPath(v ...string) func(*MLPreviewDataFrameAnalyticsRequest) {
-	return func(r *MLPreviewDataFrameAnalyticsRequest) {
+func (f SecurityGetServiceAccounts) WithFilterPath(v ...string) func(*SecurityGetServiceAccountsRequest) {
+	return func(r *SecurityGetServiceAccountsRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f MLPreviewDataFrameAnalytics) WithHeader(h map[string]string) func(*MLPreviewDataFrameAnalyticsRequest) {
-	return func(r *MLPreviewDataFrameAnalyticsRequest) {
+func (f SecurityGetServiceAccounts) WithHeader(h map[string]string) func(*SecurityGetServiceAccountsRequest) {
+	return func(r *SecurityGetServiceAccountsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -222,8 +218,8 @@ func (f MLPreviewDataFrameAnalytics) WithHeader(h map[string]string) func(*MLPre
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f MLPreviewDataFrameAnalytics) WithOpaqueID(s string) func(*MLPreviewDataFrameAnalyticsRequest) {
-	return func(r *MLPreviewDataFrameAnalyticsRequest) {
+func (f SecurityGetServiceAccounts) WithOpaqueID(s string) func(*SecurityGetServiceAccountsRequest) {
+	return func(r *SecurityGetServiceAccountsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
