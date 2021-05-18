@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.0.0 (c1c5e67): DO NOT EDIT
+// Code generated from specification version 8.0.0 (7ed32f6): DO NOT EDIT
 
 package esapi
 
@@ -127,6 +127,8 @@ type API struct {
 	SlmPutLifecycle                               SlmPutLifecycle
 	SlmStart                                      SlmStart
 	SlmStop                                       SlmStop
+	TermsEnum                                     TermsEnum
+	Termsenum                                     Termsenum
 	Termvectors                                   Termvectors
 	TextStructureFindStructure                    TextStructureFindStructure
 	TransformDeleteTransform                      TransformDeleteTransform
@@ -449,6 +451,7 @@ type Security struct {
 	DeleteUser               SecurityDeleteUser
 	DisableUser              SecurityDisableUser
 	EnableUser               SecurityEnableUser
+	EnrollNode               SecurityEnrollNode
 	GetAPIKey                SecurityGetAPIKey
 	GetBuiltinPrivileges     SecurityGetBuiltinPrivileges
 	GetPrivileges            SecurityGetPrivileges
@@ -589,6 +592,8 @@ func New(t Transport) *API {
 		SlmPutLifecycle:                               newSlmPutLifecycleFunc(t),
 		SlmStart:                                      newSlmStartFunc(t),
 		SlmStop:                                       newSlmStopFunc(t),
+		TermsEnum:                                     newTermsEnumFunc(t),
+		Termsenum:                                     newTermsenumFunc(t),
 		Termvectors:                                   newTermvectorsFunc(t),
 		TextStructureFindStructure:                    newTextStructureFindStructureFunc(t),
 		TransformDeleteTransform:                      newTransformDeleteTransformFunc(t),
@@ -875,6 +880,7 @@ func New(t Transport) *API {
 			DeleteUser:               newSecurityDeleteUserFunc(t),
 			DisableUser:              newSecurityDisableUserFunc(t),
 			EnableUser:               newSecurityEnableUserFunc(t),
+			EnrollNode:               newSecurityEnrollNodeFunc(t),
 			GetAPIKey:                newSecurityGetAPIKeyFunc(t),
 			GetBuiltinPrivileges:     newSecurityGetBuiltinPrivilegesFunc(t),
 			GetPrivileges:            newSecurityGetPrivilegesFunc(t),

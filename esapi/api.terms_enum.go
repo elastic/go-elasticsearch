@@ -21,14 +21,14 @@ package esapi
 
 import (
 	"context"
+	"io"
 	"net/http"
-	"strconv"
 	"strings"
 )
 
-func newMLPutTrainedModelAliasFunc(t Transport) MLPutTrainedModelAlias {
-	return func(model_alias string, model_id string, o ...func(*MLPutTrainedModelAliasRequest)) (*Response, error) {
-		var r = MLPutTrainedModelAliasRequest{ModelID: model_id, ModelAlias: model_alias}
+func newTermsEnumFunc(t Transport) TermsEnum {
+	return func(index []string, o ...func(*TermsEnumRequest)) (*Response, error) {
+		var r = TermsEnumRequest{Index: index}
 		for _, f := range o {
 			f(&r)
 		}
@@ -38,19 +38,20 @@ func newMLPutTrainedModelAliasFunc(t Transport) MLPutTrainedModelAlias {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPutTrainedModelAlias - Creates a new model alias (or reassigns an existing one) to refer to the trained model
+// TermsEnum the terms enum API  can be used to discover terms in the index that begin with the provided string. It is designed for low-latency look-ups used in auto-complete scenarios.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/put-trained-models-aliases.html.
+// This API is beta.
 //
-type MLPutTrainedModelAlias func(model_alias string, model_id string, o ...func(*MLPutTrainedModelAliasRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/search-terms-enum.html.
+//
+type TermsEnum func(index []string, o ...func(*TermsEnumRequest)) (*Response, error)
 
-// MLPutTrainedModelAliasRequest configures the ML Put Trained Model Alias API request.
+// TermsEnumRequest configures the Terms Enum API request.
 //
-type MLPutTrainedModelAliasRequest struct {
-	ModelAlias string
-	ModelID    string
+type TermsEnumRequest struct {
+	Index []string
 
-	Reassign *bool
+	Body io.Reader
 
 	Pretty     bool
 	Human      bool
@@ -64,32 +65,22 @@ type MLPutTrainedModelAliasRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r MLPutTrainedModelAliasRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r TermsEnumRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "PUT"
+	method = "POST"
 
-	path.Grow(1 + len("_ml") + 1 + len("trained_models") + 1 + len(r.ModelID) + 1 + len("model_aliases") + 1 + len(r.ModelAlias))
+	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_terms_enum"))
 	path.WriteString("/")
-	path.WriteString("_ml")
+	path.WriteString(strings.Join(r.Index, ","))
 	path.WriteString("/")
-	path.WriteString("trained_models")
-	path.WriteString("/")
-	path.WriteString(r.ModelID)
-	path.WriteString("/")
-	path.WriteString("model_aliases")
-	path.WriteString("/")
-	path.WriteString(r.ModelAlias)
+	path.WriteString("_terms_enum")
 
 	params = make(map[string]string)
-
-	if r.Reassign != nil {
-		params["reassign"] = strconv.FormatBool(*r.Reassign)
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -107,7 +98,7 @@ func (r MLPutTrainedModelAliasRequest) Do(ctx context.Context, transport Transpo
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -118,6 +109,10 @@ func (r MLPutTrainedModelAliasRequest) Do(ctx context.Context, transport Transpo
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if r.Body != nil {
+		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -152,56 +147,56 @@ func (r MLPutTrainedModelAliasRequest) Do(ctx context.Context, transport Transpo
 
 // WithContext sets the request context.
 //
-func (f MLPutTrainedModelAlias) WithContext(v context.Context) func(*MLPutTrainedModelAliasRequest) {
-	return func(r *MLPutTrainedModelAliasRequest) {
+func (f TermsEnum) WithContext(v context.Context) func(*TermsEnumRequest) {
+	return func(r *TermsEnumRequest) {
 		r.ctx = v
 	}
 }
 
-// WithReassign - if the model_alias already exists and points to a separate model_id, this parameter must be true. defaults to false..
+// WithBody - field name, string which is the prefix expected in matching terms, timeout and size for max number of results.
 //
-func (f MLPutTrainedModelAlias) WithReassign(v bool) func(*MLPutTrainedModelAliasRequest) {
-	return func(r *MLPutTrainedModelAliasRequest) {
-		r.Reassign = &v
+func (f TermsEnum) WithBody(v io.Reader) func(*TermsEnumRequest) {
+	return func(r *TermsEnumRequest) {
+		r.Body = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f MLPutTrainedModelAlias) WithPretty() func(*MLPutTrainedModelAliasRequest) {
-	return func(r *MLPutTrainedModelAliasRequest) {
+func (f TermsEnum) WithPretty() func(*TermsEnumRequest) {
+	return func(r *TermsEnumRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f MLPutTrainedModelAlias) WithHuman() func(*MLPutTrainedModelAliasRequest) {
-	return func(r *MLPutTrainedModelAliasRequest) {
+func (f TermsEnum) WithHuman() func(*TermsEnumRequest) {
+	return func(r *TermsEnumRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f MLPutTrainedModelAlias) WithErrorTrace() func(*MLPutTrainedModelAliasRequest) {
-	return func(r *MLPutTrainedModelAliasRequest) {
+func (f TermsEnum) WithErrorTrace() func(*TermsEnumRequest) {
+	return func(r *TermsEnumRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f MLPutTrainedModelAlias) WithFilterPath(v ...string) func(*MLPutTrainedModelAliasRequest) {
-	return func(r *MLPutTrainedModelAliasRequest) {
+func (f TermsEnum) WithFilterPath(v ...string) func(*TermsEnumRequest) {
+	return func(r *TermsEnumRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f MLPutTrainedModelAlias) WithHeader(h map[string]string) func(*MLPutTrainedModelAliasRequest) {
-	return func(r *MLPutTrainedModelAliasRequest) {
+func (f TermsEnum) WithHeader(h map[string]string) func(*TermsEnumRequest) {
+	return func(r *TermsEnumRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -213,8 +208,8 @@ func (f MLPutTrainedModelAlias) WithHeader(h map[string]string) func(*MLPutTrain
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f MLPutTrainedModelAlias) WithOpaqueID(s string) func(*MLPutTrainedModelAliasRequest) {
-	return func(r *MLPutTrainedModelAliasRequest) {
+func (f TermsEnum) WithOpaqueID(s string) func(*TermsEnumRequest) {
+	return func(r *TermsEnumRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

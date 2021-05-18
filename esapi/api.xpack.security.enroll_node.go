@@ -22,13 +22,12 @@ package esapi
 import (
 	"context"
 	"net/http"
-	"strconv"
 	"strings"
 )
 
-func newMLPutTrainedModelAliasFunc(t Transport) MLPutTrainedModelAlias {
-	return func(model_alias string, model_id string, o ...func(*MLPutTrainedModelAliasRequest)) (*Response, error) {
-		var r = MLPutTrainedModelAliasRequest{ModelID: model_id, ModelAlias: model_alias}
+func newSecurityEnrollNodeFunc(t Transport) SecurityEnrollNode {
+	return func(o ...func(*SecurityEnrollNodeRequest)) (*Response, error) {
+		var r = SecurityEnrollNodeRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -38,20 +37,15 @@ func newMLPutTrainedModelAliasFunc(t Transport) MLPutTrainedModelAlias {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPutTrainedModelAlias - Creates a new model alias (or reassigns an existing one) to refer to the trained model
+// SecurityEnrollNode - Allows a new node to enroll to an existing cluster with security enabled.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/put-trained-models-aliases.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/security-api-enroll-node.html.
 //
-type MLPutTrainedModelAlias func(model_alias string, model_id string, o ...func(*MLPutTrainedModelAliasRequest)) (*Response, error)
+type SecurityEnrollNode func(o ...func(*SecurityEnrollNodeRequest)) (*Response, error)
 
-// MLPutTrainedModelAliasRequest configures the ML Put Trained Model Alias API request.
+// SecurityEnrollNodeRequest configures the Security Enroll Node API request.
 //
-type MLPutTrainedModelAliasRequest struct {
-	ModelAlias string
-	ModelID    string
-
-	Reassign *bool
-
+type SecurityEnrollNodeRequest struct {
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -64,32 +58,19 @@ type MLPutTrainedModelAliasRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r MLPutTrainedModelAliasRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SecurityEnrollNodeRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "PUT"
+	method = "GET"
 
-	path.Grow(1 + len("_ml") + 1 + len("trained_models") + 1 + len(r.ModelID) + 1 + len("model_aliases") + 1 + len(r.ModelAlias))
-	path.WriteString("/")
-	path.WriteString("_ml")
-	path.WriteString("/")
-	path.WriteString("trained_models")
-	path.WriteString("/")
-	path.WriteString(r.ModelID)
-	path.WriteString("/")
-	path.WriteString("model_aliases")
-	path.WriteString("/")
-	path.WriteString(r.ModelAlias)
+	path.Grow(len("/_security/enroll_node"))
+	path.WriteString("/_security/enroll_node")
 
 	params = make(map[string]string)
-
-	if r.Reassign != nil {
-		params["reassign"] = strconv.FormatBool(*r.Reassign)
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -152,56 +133,48 @@ func (r MLPutTrainedModelAliasRequest) Do(ctx context.Context, transport Transpo
 
 // WithContext sets the request context.
 //
-func (f MLPutTrainedModelAlias) WithContext(v context.Context) func(*MLPutTrainedModelAliasRequest) {
-	return func(r *MLPutTrainedModelAliasRequest) {
+func (f SecurityEnrollNode) WithContext(v context.Context) func(*SecurityEnrollNodeRequest) {
+	return func(r *SecurityEnrollNodeRequest) {
 		r.ctx = v
-	}
-}
-
-// WithReassign - if the model_alias already exists and points to a separate model_id, this parameter must be true. defaults to false..
-//
-func (f MLPutTrainedModelAlias) WithReassign(v bool) func(*MLPutTrainedModelAliasRequest) {
-	return func(r *MLPutTrainedModelAliasRequest) {
-		r.Reassign = &v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f MLPutTrainedModelAlias) WithPretty() func(*MLPutTrainedModelAliasRequest) {
-	return func(r *MLPutTrainedModelAliasRequest) {
+func (f SecurityEnrollNode) WithPretty() func(*SecurityEnrollNodeRequest) {
+	return func(r *SecurityEnrollNodeRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f MLPutTrainedModelAlias) WithHuman() func(*MLPutTrainedModelAliasRequest) {
-	return func(r *MLPutTrainedModelAliasRequest) {
+func (f SecurityEnrollNode) WithHuman() func(*SecurityEnrollNodeRequest) {
+	return func(r *SecurityEnrollNodeRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f MLPutTrainedModelAlias) WithErrorTrace() func(*MLPutTrainedModelAliasRequest) {
-	return func(r *MLPutTrainedModelAliasRequest) {
+func (f SecurityEnrollNode) WithErrorTrace() func(*SecurityEnrollNodeRequest) {
+	return func(r *SecurityEnrollNodeRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f MLPutTrainedModelAlias) WithFilterPath(v ...string) func(*MLPutTrainedModelAliasRequest) {
-	return func(r *MLPutTrainedModelAliasRequest) {
+func (f SecurityEnrollNode) WithFilterPath(v ...string) func(*SecurityEnrollNodeRequest) {
+	return func(r *SecurityEnrollNodeRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f MLPutTrainedModelAlias) WithHeader(h map[string]string) func(*MLPutTrainedModelAliasRequest) {
-	return func(r *MLPutTrainedModelAliasRequest) {
+func (f SecurityEnrollNode) WithHeader(h map[string]string) func(*SecurityEnrollNodeRequest) {
+	return func(r *SecurityEnrollNodeRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -213,8 +186,8 @@ func (f MLPutTrainedModelAlias) WithHeader(h map[string]string) func(*MLPutTrain
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f MLPutTrainedModelAlias) WithOpaqueID(s string) func(*MLPutTrainedModelAliasRequest) {
-	return func(r *MLPutTrainedModelAliasRequest) {
+func (f SecurityEnrollNode) WithOpaqueID(s string) func(*SecurityEnrollNodeRequest) {
+	return func(r *SecurityEnrollNodeRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
