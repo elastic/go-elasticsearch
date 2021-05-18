@@ -332,4 +332,8 @@ nodes.stats/11_indices_metrics.yml:
 
 searchable_snapshots/10_usage.yml:
   - Tests searchable snapshots usage stats with full_copy and shared_cache indices
+
+# Expects count 2 but returns only 1
+service_accounts/10_basic.yml:
+  - Test service account tokens
 `
