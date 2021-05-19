@@ -60,8 +60,8 @@ func init() {
 	userAgent = initUserAgent()
 	metaHeader = initMetaHeader()
 
-	compatHeaderStr := os.Getenv(esCompatHeader)
-	compatibilityHeader, _ = strconv.ParseBool(compatHeaderStr)
+	compatHeaderEnv := os.Getenv(esCompatHeader)
+	compatibilityHeader, _ = strconv.ParseBool(compatHeaderEnv)
 }
 
 // Interface defines the interface for HTTP client.
@@ -233,9 +233,9 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	// Compatibility Header
 	if compatibilityHeader {
 		if req.Body != nil {
-			req.Header["Content-Type"] = []string{"application/vnd.elasticsearch+json;compatible-with=7"}
+			req.Header.Set("Content-Type", "application/vnd.elasticsearch+json;compatible-with=7")
 		}
-		req.Header["Accept"] = []string{"application/vnd.elasticsearch+json;compatible-with=7"}
+		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=7")
 	}
 
 	// Record metrics, when enabled
