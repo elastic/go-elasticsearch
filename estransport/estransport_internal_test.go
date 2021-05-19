@@ -915,3 +915,69 @@ func TestMaxRetries(t *testing.T) {
 		})
 	}
 }
+
+func TestCompatibilityHeader(t *testing.T) {
+	tests := []struct {
+		name                string
+		compatibilityHeader bool
+		bodyPresent         bool
+		expectsHeader       []string
+	}{
+		{
+			name:                "Compatibility header disabled",
+			compatibilityHeader: false,
+			bodyPresent: false,
+			expectsHeader:       []string{"application/json"},
+		},
+		{
+			name:                "Compatibility header enabled",
+			compatibilityHeader: true,
+			bodyPresent: false,
+			expectsHeader:       []string{"application/vnd.elasticsearch+json;compatible-with=7"},
+		},
+		{
+			name: "Compatibility header enabled with body",
+			compatibilityHeader: true,
+			bodyPresent: true,
+			expectsHeader:       []string{"application/vnd.elasticsearch+json;compatible-with=7"},
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			compatibilityHeader = test.compatibilityHeader
+
+			c, _ := New(Config{
+				URLs: []*url.URL{{}},
+				Transport: &mockTransp{
+					RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+						if test.compatibilityHeader {
+							if !reflect.DeepEqual(req.Header["Accept"], test.expectsHeader) {
+								t.Errorf("Compatibility header enabled but header is, not in request headers, got: %s, want: %s", req.Header["Accept"], test.expectsHeader)
+							}
+						}
+						if test.bodyPresent {
+							if !reflect.DeepEqual(req.Header["Content-Type"], test.expectsHeader) {
+								t.Errorf("Compatibility header with Body enabled, not in request headers, got: %s, want: %s", req.Header["Content-Type"], test.expectsHeader)
+							}
+						}
+
+						return &http.Response{
+							StatusCode: http.StatusOK,
+							Status:     "MOCK",
+						}, nil
+					},
+				},
+			})
+
+			req := &http.Request{URL: &url.URL{}, Header: make(http.Header)}
+			if test.bodyPresent {
+				req.Body = ioutil.NopCloser(strings.NewReader("{}"))
+			}
+
+			_, _ = c.Perform(req)
+
+			compatibilityHeader = false
+		})
+	}
+}
