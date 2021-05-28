@@ -146,6 +146,13 @@ type BulkIndexerResponseItem struct {
 			Reason string `json:"reason"`
 		} `json:"caused_by"`
 	} `json:"error,omitempty"`
+	
+	Get struct {
+		SeqNo    int64                  `json:"_seq_no"`
+		PrimTerm int64                  `json:"_primary_term"`
+		Found    bool                   `json:"found"`
+		Source   map[string]interface{} `json:"_source"`
+	} `json:"get"`
 }
 
 // BulkResponseJSONDecoder defines the interface for custom JSON decoders.
