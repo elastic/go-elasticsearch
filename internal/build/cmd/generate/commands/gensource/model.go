@@ -395,9 +395,16 @@ func (e *Endpoint) RequiredArguments() []MethodArgument {
 		return false
 	}
 
+	var keys []string
+	for k := range e.URL.Paths[0].Parts{
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+
 	// Return the prominent arguments first
 	for _, d := range prominentArgs {
-		for _, p := range e.URL.Paths[0].Parts {
+		for _, k := range keys {
+			p := e.URL.Paths[0].Parts[k]
 			if p.Name != d {
 				continue
 			}
@@ -423,7 +430,8 @@ func (e *Endpoint) RequiredArguments() []MethodArgument {
 	}
 
 	// Return rest of the URL parts
-	for _, p := range e.URL.Paths[0].Parts {
+	for _, k := range keys {
+		p := e.URL.Paths[0].Parts[k]
 		if contains(p.Name) {
 			continue
 		}
