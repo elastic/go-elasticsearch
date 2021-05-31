@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 7.13.0 (b3af420): DO NOT EDIT
+// Code generated from specification version 7.13.1 (9a77580): DO NOT EDIT
 
 package esapi
 
@@ -284,6 +284,7 @@ type Snapshot struct {
 	Delete            SnapshotDelete
 	GetRepository     SnapshotGetRepository
 	Get               SnapshotGet
+	RepositoryAnalyze SnapshotRepositoryAnalyze
 	Restore           SnapshotRestore
 	Status            SnapshotStatus
 	VerifyRepository  SnapshotVerifyRepository
@@ -736,6 +737,7 @@ func New(t Transport) *API {
 			Delete:            newSnapshotDeleteFunc(t),
 			GetRepository:     newSnapshotGetRepositoryFunc(t),
 			Get:               newSnapshotGetFunc(t),
+			RepositoryAnalyze: newSnapshotRepositoryAnalyzeFunc(t),
 			Restore:           newSnapshotRestoreFunc(t),
 			Status:            newSnapshotStatusFunc(t),
 			VerifyRepository:  newSnapshotVerifyRepositoryFunc(t),
