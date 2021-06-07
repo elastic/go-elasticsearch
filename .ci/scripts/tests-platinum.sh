@@ -33,7 +33,7 @@ set +e # Do not fail immediately when a single test suite fails
 echo -e "\033[34;1mINFO:\033[0m Download tests deps >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
 
 cd /go-elasticsearch/esapi/test || exit
-go mod download
+go mod tidy
 
 echo -e "\033[34;1mINFO:\033[0m Running tests: XPACK >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
 

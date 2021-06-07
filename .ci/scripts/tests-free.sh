@@ -22,7 +22,7 @@ go run main.go apitests --output '/go-elasticsearch/esapi/test' --input '/tmp/el
 echo -e "\033[34;1mINFO:\033[0m Download tests deps >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
 
 cd /go-elasticsearch/esapi/test || exit
-go mod download
+go mod tidy
 
 echo -e "\033[34;1mINFO:\033[0m Running the tests\033[0m"
 
