@@ -26,7 +26,7 @@ import (
 	"strings"
 )
 
-var resVersion = regexp.MustCompile(`(\d+.\d+.\d+).*`)
+var resVersion = regexp.MustCompile(`(\d+\.(x|\d+.\d+)).*`)
 
 // EsVersion returns the Elasticsearch from environment variable, Java property file, or an error.
 //
