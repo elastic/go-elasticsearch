@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 7.13.0: DO NOT EDIT
+// Code generated from specification version 7.x: DO NOT EDIT
 
 package esapi
 
@@ -70,7 +70,7 @@ func (r ScriptsPainlessExecuteRequest) Do(ctx context.Context, transport Transpo
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
 	path.Grow(len("/_scripts/painless/_execute"))
 	path.WriteString("/_scripts/painless/_execute")

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 7.13.0: DO NOT EDIT
+// Code generated from specification version 7.x: DO NOT EDIT
 
 package esapi
 
@@ -70,7 +70,7 @@ func (r MLExplainDataFrameAnalyticsRequest) Do(ctx context.Context, transport Tr
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
 	path.Grow(1 + len("_ml") + 1 + len("data_frame") + 1 + len("analytics") + 1 + len(r.DocumentID) + 1 + len("_explain"))
 	path.WriteString("/")

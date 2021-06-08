@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 7.13.0: DO NOT EDIT
+// Code generated from specification version 7.x: DO NOT EDIT
 
 package esapi
 
@@ -85,7 +85,7 @@ func (r TermvectorsRequest) Do(ctx context.Context, transport Transport) (*Respo
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
 	if r.DocumentType == "" {
 		r.DocumentType = "_doc"

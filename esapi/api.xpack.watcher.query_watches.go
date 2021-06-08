@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 7.13.0: DO NOT EDIT
+// Code generated from specification version 7.x: DO NOT EDIT
 
 package esapi
 
@@ -68,7 +68,7 @@ func (r WatcherQueryWatchesRequest) Do(ctx context.Context, transport Transport)
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
 	path.Grow(len("/_watcher/_query/watches"))
 	path.WriteString("/_watcher/_query/watches")

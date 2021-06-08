@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 7.13.0: DO NOT EDIT
+// Code generated from specification version 7.x: DO NOT EDIT
 
 package esapi
 
@@ -72,7 +72,7 @@ func (r ClusterAllocationExplainRequest) Do(ctx context.Context, transport Trans
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
 	path.Grow(len("/_cluster/allocation/explain"))
 	path.WriteString("/_cluster/allocation/explain")

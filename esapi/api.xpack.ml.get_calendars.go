@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 7.13.0: DO NOT EDIT
+// Code generated from specification version 7.x: DO NOT EDIT
 
 package esapi
 
@@ -74,7 +74,7 @@ func (r MLGetCalendarsRequest) Do(ctx context.Context, transport Transport) (*Re
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
 	path.Grow(1 + len("_ml") + 1 + len("calendars") + 1 + len(r.CalendarID))
 	path.WriteString("/")

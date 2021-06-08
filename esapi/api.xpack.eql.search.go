@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 7.13.0: DO NOT EDIT
+// Code generated from specification version 7.x: DO NOT EDIT
 
 package esapi
 
@@ -76,7 +76,7 @@ func (r EqlSearchRequest) Do(ctx context.Context, transport Transport) (*Respons
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
 	path.Grow(1 + len(r.Index) + 1 + len("_eql") + 1 + len("search"))
 	path.WriteString("/")
