@@ -39,7 +39,7 @@ func newSecurityEnrollNodeFunc(t Transport) SecurityEnrollNode {
 
 // SecurityEnrollNode - Allows a new node to enroll to an existing cluster with security enabled.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/security-api-enroll-node.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/security-api-node-enrollment.html.
 //
 type SecurityEnrollNode func(o ...func(*SecurityEnrollNodeRequest)) (*Response, error)
 

@@ -28,7 +28,7 @@ import (
 
 func newMLPutTrainedModelAliasFunc(t Transport) MLPutTrainedModelAlias {
 	return func(model_alias string, model_id string, o ...func(*MLPutTrainedModelAliasRequest)) (*Response, error) {
-		var r = MLPutTrainedModelAliasRequest{ModelID: model_id, ModelAlias: model_alias}
+		var r = MLPutTrainedModelAliasRequest{ModelAlias: model_alias, ModelID: model_id}
 		for _, f := range o {
 			f(&r)
 		}
