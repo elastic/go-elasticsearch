@@ -107,7 +107,6 @@ type BulkIndexerItem struct {
 	Action          string
 	DocumentID      string
 	Routing         string
-	DocumentType    string
 	Version         int64
 	VersionType     string
 	Body            io.Reader
