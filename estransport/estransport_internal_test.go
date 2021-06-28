@@ -20,6 +20,8 @@
 package estransport
 
 import (
+	"bytes"
+	"compress/gzip"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -108,6 +110,10 @@ func TestTransportConfig(t *testing.T) {
 		if tp.maxRetries != 3 {
 			t.Errorf("Unexpected maxRetries: %v", tp.maxRetries)
 		}
+
+		if tp.compressRequestBody {
+			t.Errorf("Unexpected compressRequestBody: %v", tp.compressRequestBody)
+		}
 	})
 
 	t.Run("Custom", func(t *testing.T) {
@@ -116,6 +122,7 @@ func TestTransportConfig(t *testing.T) {
 			DisableRetry:         true,
 			EnableRetryOnTimeout: true,
 			MaxRetries:           5,
+			CompressRequestBody:  true,
 		})
 
 		if !reflect.DeepEqual(tp.retryOnStatus, []int{404, 408}) {
@@ -132,6 +139,10 @@ func TestTransportConfig(t *testing.T) {
 
 		if tp.maxRetries != 5 {
 			t.Errorf("Unexpected maxRetries: %v", tp.maxRetries)
+		}
+
+		if !tp.compressRequestBody {
+			t.Errorf("Unexpected compressRequestBody: %v", tp.compressRequestBody)
 		}
 	})
 }
@@ -926,19 +937,19 @@ func TestCompatibilityHeader(t *testing.T) {
 		{
 			name:                "Compatibility header disabled",
 			compatibilityHeader: false,
-			bodyPresent: false,
+			bodyPresent:         false,
 			expectsHeader:       []string{"application/json"},
 		},
 		{
 			name:                "Compatibility header enabled",
 			compatibilityHeader: true,
-			bodyPresent: false,
+			bodyPresent:         false,
 			expectsHeader:       []string{"application/vnd.elasticsearch+json;compatible-with=7"},
 		},
 		{
-			name: "Compatibility header enabled with body",
+			name:                "Compatibility header enabled with body",
 			compatibilityHeader: true,
-			bodyPresent: true,
+			bodyPresent:         true,
 			expectsHeader:       []string{"application/vnd.elasticsearch+json;compatible-with=7"},
 		},
 	}
@@ -978,6 +989,71 @@ func TestCompatibilityHeader(t *testing.T) {
 			_, _ = c.Perform(req)
 
 			compatibilityHeader = false
+		})
+	}
+}
+
+func TestTransportCompression(t *testing.T) {
+
+	tests := []struct {
+		name            string
+		compressionFlag bool
+		inputBody       string
+		expectedBodyHex string
+	}{
+		{
+			name:            "Uncompressed",
+			compressionFlag: false,
+			inputBody:       "elasticsearch",
+		},
+		{
+			name:            "Compressed",
+			compressionFlag: true,
+			inputBody:       "elasticsearch",
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			tp, _ := New(Config{
+				URLs:                []*url.URL{{}},
+				CompressRequestBody: test.compressionFlag,
+				Transport: &mockTransp{
+					RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+						if req.Body == nil || req.Body == http.NoBody {
+							return nil, fmt.Errorf("unexpected body: %v", req.Body)
+						}
+
+						var buf bytes.Buffer
+						if !test.compressionFlag {
+							buf.ReadFrom(req.Body)
+						} else {
+							zr, err := gzip.NewReader(req.Body)
+							if err != nil {
+								return nil, fmt.Errorf("decompression error: %v", err)
+							}
+							buf.ReadFrom(zr)
+						}
+
+						if buf.String() != test.inputBody {
+							return nil, fmt.Errorf("unexpected body: %s", buf.String())
+						}
+
+						return &http.Response{Status: "MOCK"}, nil
+					},
+				},
+			})
+
+			req, _ := http.NewRequest("POST", "/abc", bytes.NewBufferString(test.inputBody))
+
+			res, err := tp.Perform(req)
+			if err != nil {
+				t.Fatalf("Unexpected error: %s", err)
+			}
+
+			if res.Status != "MOCK" {
+				t.Errorf("Unexpected response: %+v", res)
+			}
 		})
 	}
 }
