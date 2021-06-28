@@ -19,6 +19,7 @@ package estransport
 
 import (
 	"bytes"
+	"compress/gzip"
 	"crypto/x509"
 	"errors"
 	"fmt"
@@ -47,10 +48,10 @@ const (
 )
 
 var (
-	userAgent   string
-	metaHeader  string
+	userAgent           string
+	metaHeader          string
 	compatibilityHeader bool
-	reGoVersion = regexp.MustCompile(`go(\d+\.\d+\..+)`)
+	reGoVersion         = regexp.MustCompile(`go(\d+\.\d+\..+)`)
 
 	defaultMaxRetries    = 3
 	defaultRetryOnStatus = [...]int{502, 503, 504}
@@ -88,6 +89,8 @@ type Config struct {
 	MaxRetries           int
 	RetryBackoff         func(attempt int) time.Duration
 
+	CompressRequestBody bool
+
 	EnableMetrics     bool
 	EnableDebugLogger bool
 
@@ -122,6 +125,8 @@ type Client struct {
 	retryBackoff          func(attempt int) time.Duration
 	discoverNodesInterval time.Duration
 	discoverNodesTimer    *time.Timer
+
+	compressRequestBody bool
 
 	metrics *metrics
 
@@ -185,6 +190,8 @@ func New(cfg Config) (*Client, error) {
 		maxRetries:            cfg.MaxRetries,
 		retryBackoff:          cfg.RetryBackoff,
 		discoverNodesInterval: cfg.DiscoverNodesInterval,
+
+		compressRequestBody: cfg.CompressRequestBody,
 
 		transport: cfg.Transport,
 		logger:    cfg.Logger,
@@ -250,16 +257,36 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	c.setReqGlobalHeader(req)
 	c.setMetaHeader(req)
 
-	if req.Body != nil && req.Body != http.NoBody && req.GetBody == nil {
-		if !c.disableRetry || (c.logger != nil && c.logger.RequestBodyEnabled()) {
+	if req.Body != nil && req.Body != http.NoBody {
+		if c.compressRequestBody {
 			var buf bytes.Buffer
-			buf.ReadFrom(req.Body)
+			zw := gzip.NewWriter(&buf)
+			if _, err := io.Copy(zw, req.Body); err != nil {
+				return nil, fmt.Errorf("failed to compress request body: %s", err)
+			}
+			if err := zw.Close(); err != nil {
+				return nil, fmt.Errorf("failed to compress request body (during close): %s", err)
+			}
+
 			req.GetBody = func() (io.ReadCloser, error) {
 				r := buf
 				return ioutil.NopCloser(&r), nil
 			}
-			if req.Body, err = req.GetBody(); err != nil {
-				return nil, fmt.Errorf("cannot get request body: %s", err)
+			req.Body, _ = req.GetBody()
+
+			req.Header.Set("Content-Encoding", "gzip")
+			req.ContentLength = int64(buf.Len())
+
+		} else if req.GetBody == nil {
+			if !c.disableRetry || (c.logger != nil && c.logger.RequestBodyEnabled()) {
+				var buf bytes.Buffer
+				buf.ReadFrom(req.Body)
+
+				req.GetBody = func() (io.ReadCloser, error) {
+					r := buf
+					return ioutil.NopCloser(&r), nil
+				}
+				req.Body, _ = req.GetBody()
 			}
 		}
 	}
