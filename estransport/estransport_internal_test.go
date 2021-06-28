@@ -937,19 +937,19 @@ func TestCompatibilityHeader(t *testing.T) {
 		{
 			name:                "Compatibility header disabled",
 			compatibilityHeader: false,
-			bodyPresent:         false,
+			bodyPresent: false,
 			expectsHeader:       []string{"application/json"},
 		},
 		{
 			name:                "Compatibility header enabled",
 			compatibilityHeader: true,
-			bodyPresent:         false,
+			bodyPresent: false,
 			expectsHeader:       []string{"application/vnd.elasticsearch+json;compatible-with=7"},
 		},
 		{
-			name:                "Compatibility header enabled with body",
+			name: "Compatibility header enabled with body",
 			compatibilityHeader: true,
-			bodyPresent:         true,
+			bodyPresent: true,
 			expectsHeader:       []string{"application/vnd.elasticsearch+json;compatible-with=7"},
 		},
 	}

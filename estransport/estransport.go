@@ -48,10 +48,10 @@ const (
 )
 
 var (
-	userAgent           string
-	metaHeader          string
+	userAgent   string
+	metaHeader  string
 	compatibilityHeader bool
-	reGoVersion         = regexp.MustCompile(`go(\d+\.\d+\..+)`)
+	reGoVersion = regexp.MustCompile(`go(\d+\.\d+\..+)`)
 
 	defaultMaxRetries    = 3
 	defaultRetryOnStatus = [...]int{502, 503, 504}
