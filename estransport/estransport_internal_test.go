@@ -1025,14 +1025,20 @@ func TestRequestCompression(t *testing.T) {
 						}
 
 						var buf bytes.Buffer
-						if !test.compressionFlag {
-							buf.ReadFrom(req.Body)
-						} else {
-							zr, err := gzip.NewReader(req.Body)
+						buf.ReadFrom(req.Body)
+
+						if req.ContentLength != int64(buf.Len()) {
+							return nil, fmt.Errorf("mismatched Content-Length: %d vs actual %d", req.ContentLength, buf.Len())
+						}
+
+						if test.compressionFlag {
+							var unBuf bytes.Buffer
+							zr, err := gzip.NewReader(&buf)
 							if err != nil {
 								return nil, fmt.Errorf("decompression error: %v", err)
 							}
-							buf.ReadFrom(zr)
+							unBuf.ReadFrom(zr)
+							buf = unBuf
 						}
 
 						if buf.String() != test.inputBody {
