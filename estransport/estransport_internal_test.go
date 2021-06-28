@@ -993,7 +993,7 @@ func TestCompatibilityHeader(t *testing.T) {
 	}
 }
 
-func TestTransportCompression(t *testing.T) {
+func TestRequestCompression(t *testing.T) {
 
 	tests := []struct {
 		name            string
