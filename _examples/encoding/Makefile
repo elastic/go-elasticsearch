@@ -10,6 +10,8 @@ bench: clean setup # Run benchmarks
 
 setup: ## Install & Setup
 	@go get -u github.com/mailru/easyjson/...
+	@go mod download github.com/fatih/color
+	@go mod download github.com/tidwall/gjson
 	go generate ./model
 
 clean: ## Remove artifacts
