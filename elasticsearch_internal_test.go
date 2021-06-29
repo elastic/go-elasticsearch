@@ -22,14 +22,48 @@ package elasticsearch
 import (
 	"encoding/base64"
 	"errors"
+	"github.com/elastic/go-elasticsearch/v7/estransport"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"os"
 	"regexp"
+	"strings"
 	"testing"
-
-	"github.com/elastic/go-elasticsearch/v7/estransport"
 )
+
+var called bool
+
+type mockTransp struct{
+	RoundTripFunc func(*http.Request) (*http.Response, error)
+}
+
+var defaultRoundTripFunc = func(req *http.Request) (*http.Response, error) {
+	response := &http.Response{Header: http.Header{"X-Elastic-Product": []string{"X-Elastic-Product"}}}
+
+	if req.URL.Path == "/" {
+		response.Body = ioutil.NopCloser(strings.NewReader(`{
+		  "version" : {
+			"number" : "7.14.0-SNAPSHOT",
+			"build_flavor" : "default"
+		  },
+		  "tagline" : "You Know, for Search"
+		}`))
+		response.Header.Add("Content-Type", "application/json")
+	} else {
+		called = true
+	}
+
+	return response, nil
+}
+
+func (t *mockTransp) RoundTrip(req *http.Request) (*http.Response, error) {
+	if t.RoundTripFunc == nil {
+		return defaultRoundTripFunc(req)
+	}
+	return t.RoundTripFunc(req)
+}
+
 
 func TestClientConfiguration(t *testing.T) {
 	t.Parallel()
@@ -49,7 +83,7 @@ func TestClientConfiguration(t *testing.T) {
 	})
 
 	t.Run("With URL from Addresses", func(t *testing.T) {
-		c, err := NewClient(Config{Addresses: []string{"http://localhost:8080//"}})
+		c, err := NewClient(Config{Addresses: []string{"http://localhost:8080//"}, Transport: &mockTransp{}})
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
@@ -65,7 +99,7 @@ func TestClientConfiguration(t *testing.T) {
 		os.Setenv("ELASTICSEARCH_URL", "http://example.com")
 		defer func() { os.Setenv("ELASTICSEARCH_URL", "") }()
 
-		c, err := NewDefaultClient()
+		c, err := NewClient(Config{Transport: &mockTransp{}})
 		if err != nil {
 			t.Errorf("Unexpected error: %s", err)
 		}
@@ -81,7 +115,7 @@ func TestClientConfiguration(t *testing.T) {
 		os.Setenv("ELASTICSEARCH_URL", "http://example.com")
 		defer func() { os.Setenv("ELASTICSEARCH_URL", "") }()
 
-		c, err := NewClient(Config{Addresses: []string{"http://localhost:8080//"}})
+		c, err := NewClient(Config{Addresses: []string{"http://localhost:8080//"}, Transport: &mockTransp{}})
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
@@ -97,7 +131,7 @@ func TestClientConfiguration(t *testing.T) {
 		os.Setenv("ELASTICSEARCH_URL", "http://example.com")
 		defer func() { os.Setenv("ELASTICSEARCH_URL", "") }()
 
-		c, err := NewClient(Config{CloudID: "foo:YmFyLmNsb3VkLmVzLmlvJGFiYzEyMyRkZWY0NTY="})
+		c, err := NewClient(Config{CloudID: "foo:YmFyLmNsb3VkLmVzLmlvJGFiYzEyMyRkZWY0NTY=", Transport: &mockTransp{}})
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
@@ -122,7 +156,7 @@ func TestClientConfiguration(t *testing.T) {
 
 	t.Run("With CloudID", func(t *testing.T) {
 		// bar.cloud.es.io$abc123$def456
-		c, err := NewClient(Config{CloudID: "foo:YmFyLmNsb3VkLmVzLmlvJGFiYzEyMyRkZWY0NTY="})
+		c, err := NewClient(Config{CloudID: "foo:YmFyLmNsb3VkLmVzLmlvJGFiYzEyMyRkZWY0NTY=", Transport: &mockTransp{}})
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
@@ -171,15 +205,26 @@ func TestClientConfiguration(t *testing.T) {
 			t.Errorf("Expected error, got: %+v", c)
 		}
 	})
-}
 
-var called bool
-
-type mockTransp struct{}
-
-func (t *mockTransp) RoundTrip(req *http.Request) (*http.Response, error) {
-	called = true
-	return &http.Response{}, nil
+	t.Run("With skip check", func(t *testing.T) {
+		_, err := NewClient(
+			Config{
+				Transport: &mockTransp{
+					RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+						return &http.Response{
+							Header: http.Header{
+								"X-Elastic-Product": []string{"X-Elastic-Product"},
+							},
+							Body: ioutil.NopCloser(strings.NewReader("")),
+						}, nil
+					},
+				},
+				UseHeaderCheckOnly: true,
+		})
+		if err != nil {
+			t.Errorf("Unexpected error, got: %+v", err)
+		}
+	})
 }
 
 func TestClientInterface(t *testing.T) {
@@ -346,14 +391,182 @@ func TestVersion(t *testing.T) {
 }
 
 func TestClientMetrics(t *testing.T) {
-	c, _ := NewClient(Config{EnableMetrics: true})
+	c, _ := NewClient(Config{EnableMetrics: true, Transport: &mockTransp{}})
 
 	m, err := c.Metrics()
 	if err != nil {
 		t.Fatalf("Unexpected error: %v", err)
 	}
 
-	if m.Requests != 0 {
+	if m.Requests > 1 {
 		t.Errorf("Unexpected output: %s", m)
+	}
+}
+
+func TestParseElasticsearchVersion(t *testing.T) {
+	tests := []struct {
+		name    string
+		version string
+		major   int64
+		minor   int64
+		patch   int64
+		wantErr bool
+	}{
+		{
+			name:    "Nominal version parsing",
+			version: "7.14.0",
+			major:   7,
+			minor:   14,
+			patch:   0,
+			wantErr: false,
+		},
+		{
+			name:    "Snapshot version parsing",
+			version: "7.14.0-SNAPSHOT",
+			major:   7,
+			minor:   14,
+			patch:   0,
+			wantErr: false,
+		},
+		{
+			name:    "Previous major parsing",
+			version: "6.15.1",
+			major:   6,
+			minor:   15,
+			patch:   1,
+			wantErr: false,
+		},
+		{
+			name:    "Error parsing version",
+			version: "6.15",
+			major:   0,
+			minor:   0,
+			patch:   0,
+			wantErr: true,
+		},
+	}
+		for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, got1, got2, err := ParseElasticsearchVersion(tt.version)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("ParseElasticsearchVersion() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if got != tt.major {
+				t.Errorf("ParseElasticsearchVersion() got = %v, want %v", got, tt.major)
+			}
+			if got1 != tt.minor {
+				t.Errorf("ParseElasticsearchVersion() got1 = %v, want %v", got1, tt.minor)
+			}
+			if got2 != tt.patch {
+				t.Errorf("ParseElasticsearchVersion() got2 = %v, want %v", got2, tt.patch)
+			}
+		})
+	}
+}
+
+func TestGenuineCheckInfo(t *testing.T) {
+	tests := []struct {
+		name    string
+		info    Info
+		wantErr bool
+	}{
+		{
+			name: "Genuine Elasticsearch 7.14.0",
+			info: Info{
+				Version: EsVersion{
+					Number:      "7.14.0",
+					BuildFlavor: "default",
+				},
+				Tagline: "You Know, for Search",
+			},
+			wantErr: false,
+		},
+		{
+			name: "Genuine Elasticsearch 6.15.1",
+			info: Info{
+				Version: EsVersion{
+					Number:      "6.15.1",
+					BuildFlavor: "default",
+				},
+				Tagline: "You Know, for Search",
+			},
+			wantErr: false,
+		},
+		{
+			name: "Not so genuine Elasticsearch 7 major",
+			info: Info{
+				Version: EsVersion{
+					Number:      "7.12.0",
+					BuildFlavor: "newer",
+				},
+				Tagline: "You Know, for Search",
+			},
+			wantErr: true,
+		},
+		{
+			name: "Not so genuine Elasticsearch 6 major",
+			info: Info{
+				Version: EsVersion{
+					Number:      "6.12.0",
+					BuildFlavor: "default",
+				},
+				Tagline: "You Know, for Fun",
+			},
+			wantErr: true,
+		},
+		{
+			name: "Way older Elasticsearch major",
+			info: Info{
+				Version: EsVersion{
+					Number:      "5.12.0",
+					BuildFlavor: "default",
+				},
+				Tagline: "You Know, for Fun",
+			},
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if err := genuineCheckInfo(tt.info); (err != nil) != tt.wantErr {
+				t.Errorf("genuineCheckInfo() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}
+
+func TestGenuineCheckHeader(t *testing.T) {
+	tests := []struct {
+		name    string
+		headers http.Header
+		wantErr bool
+	}{
+		{
+			name: "Available and good product header",
+			headers: http.Header{
+				"X-Elastic-Product": []string{"Elasticsearch"},
+			},
+			wantErr: false,
+		},
+		{
+			name: "Available and bad product header",
+			headers: http.Header{
+				"X-Elastic-Product": []string{"Elasticmerch"},
+			},
+			wantErr: true,
+		},
+		{
+			name: "Unavailable product header",
+			headers: http.Header{},
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if err := genuineCheckHeader(tt.headers); (err != nil) != tt.wantErr {
+				t.Errorf("genuineCheckHeader() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
 	}
 }

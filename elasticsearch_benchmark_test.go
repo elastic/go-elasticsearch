@@ -39,16 +39,47 @@ var defaultResponse = http.Response{
 	Body:          ioutil.NopCloser(strings.NewReader(`{}`)),
 }
 
+var infoResponse = http.Response{
+	Status:     "200 OK",
+	StatusCode: http.StatusOK,
+	Header:     http.Header(map[string][]string{"Content-Type": {"application/json"}}),
+}
+
 type FakeTransport struct {
+	InfoResponse *http.Response
 	FakeResponse *http.Response
 }
 
 func (t *FakeTransport) RoundTrip(req *http.Request) (*http.Response, error) {
+	if req.URL.Path == "/" {
+		response := t.InfoResponse
+		response.Body = ioutil.NopCloser(strings.NewReader(`{
+		  "name" : "es1",
+		  "cluster_name" : "go-elasticsearch",
+		  "cluster_uuid" : "clusteruuid",
+		  "version" : {
+			"number" : "7.14.0-SNAPSHOT",
+			"build_flavor" : "default",
+			"build_type" : "docker",
+			"build_hash" : "somehash",
+			"build_date" : "2021-06-09T06:34:20.411011746Z",
+			"build_snapshot" : true,
+			"lucene_version" : "8.9.0",
+			"minimum_wire_compatibility_version" : "6.8.0",
+			"minimum_index_compatibility_version" : "6.0.0-beta1"
+		  },
+		  "tagline" : "You Know, for Search"
+		}`))
+		return t.InfoResponse, nil
+	}
 	return t.FakeResponse, nil
 }
 
 func newFakeTransport(b *testing.B) *FakeTransport {
-	return &FakeTransport{FakeResponse: &defaultResponse}
+	return &FakeTransport{
+		InfoResponse: &infoResponse,
+		FakeResponse: &defaultResponse,
+	}
 }
 
 func BenchmarkClient(b *testing.B) {
@@ -56,7 +87,7 @@ func BenchmarkClient(b *testing.B) {
 
 	b.Run("Create client with defaults", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			_, err := elasticsearch.NewDefaultClient()
+			_, err := elasticsearch.NewClient(elasticsearch.Config{Transport: newFakeTransport(b)})
 
 			if err != nil {
 				b.Fatalf("Unexpected error when creating a client: %s", err)

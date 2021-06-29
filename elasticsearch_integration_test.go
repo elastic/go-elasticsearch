@@ -150,16 +150,12 @@ func TestClientTransport(t *testing.T) {
 			t.Fatalf("Error creating the client: %s", err)
 		}
 
-		res, err := es.Info()
+		_, err = es.Info()
 		if err == nil {
 			t.Fatalf("Expected error, but got: %v", err)
 		}
 		if _, ok := err.(*net.OpError); !ok {
 			t.Fatalf("Expected net.OpError, but got: %T", err)
-		}
-
-		if res != nil {
-			t.Fatalf("Unexpected response: %+v", res)
 		}
 	})
 }

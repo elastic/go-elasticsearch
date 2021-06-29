@@ -32,7 +32,11 @@ import (
 // TODO(karmi): Refactor into a shared mock/testing package
 
 var (
-	defaultResponse    = &http.Response{StatusCode: 200, Body: ioutil.NopCloser(strings.NewReader("MOCK"))}
+	defaultResponse    = &http.Response{
+		StatusCode: 200,
+		Header: http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+		Body: ioutil.NopCloser(strings.NewReader("MOCK")),
+	}
 	defaultRoundTripFn = func(*http.Request) (*http.Response, error) { return defaultResponse, nil }
 	errorRoundTripFn   = func(*http.Request) (*http.Response, error) {
 		return &http.Response{

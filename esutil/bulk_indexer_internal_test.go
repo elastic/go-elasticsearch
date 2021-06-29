@@ -42,6 +42,14 @@ import (
 	"github.com/elastic/go-elasticsearch/v7/estransport"
 )
 
+var infoBody = `{
+  "version" : {
+	"number" : "7.14.0-SNAPSHOT",
+	"build_flavor" : "default"
+  },
+  "tagline" : "You Know, for Search"
+}`
+
 var defaultRoundTripFunc = func(*http.Request) (*http.Response, error) {
 	return &http.Response{Body: ioutil.NopCloser(strings.NewReader(`{}`))}, nil
 }
@@ -68,7 +76,11 @@ func TestBulkIndexer(t *testing.T) {
 		)
 
 		es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
-			RoundTripFunc: func(*http.Request) (*http.Response, error) {
+			RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+				if request.URL.Path == "/" {
+					return &http.Response{Header: http.Header{"Content-Type": []string{"application/json"}}, Body: ioutil.NopCloser(strings.NewReader(infoBody))}, nil
+				}
+
 				countReqs++
 				switch countReqs {
 				case 1:
@@ -205,7 +217,11 @@ func TestBulkIndexer(t *testing.T) {
 	t.Run("Indexer Callback", func(t *testing.T) {
 		esCfg := elasticsearch.Config{
 			Transport: &mockTransport{
-				RoundTripFunc: func(*http.Request) (*http.Response, error) {
+				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+					if request.URL.Path == "/" {
+						return &http.Response{Body: ioutil.NopCloser(strings.NewReader(infoBody))}, nil
+					}
+
 					return nil, fmt.Errorf("Mock transport error")
 				},
 			},
@@ -697,6 +713,14 @@ func TestBulkIndexer(t *testing.T) {
 					Header:            tt.args.header,
 					Transport: &mockTransport{
 						RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+							if request.URL.Path == "/" {
+								return &http.Response{
+									StatusCode: http.StatusOK,
+									Status:     "200 OK",
+									Body:       ioutil.NopCloser(strings.NewReader(infoBody)),
+								}, nil
+							}
+
 							headerMeta := request.Header.Get(estransport.HeaderClientMeta)
 
 							if !reValidation.MatchString(headerMeta) {
