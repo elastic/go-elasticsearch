@@ -38,8 +38,6 @@ import (
 
 var (
 	reVersion          *regexp.Regexp
-	useHeaderCheckOnly bool
-	productChecked     bool
 )
 
 func init() {
@@ -102,9 +100,11 @@ type Config struct {
 // Client represents the Elasticsearch client.
 //
 type Client struct {
-	*esapi.API // Embeds the API methods
-	Transport  estransport.Interface
-	muCheck    sync.Mutex
+	*esapi.API     // Embeds the API methods
+	Transport      estransport.Interface
+	muCheck        sync.Mutex
+	productChecked bool
+	useHeaderCheckOnly bool
 }
 
 type esVersion struct {
@@ -219,13 +219,15 @@ func NewClient(cfg Config) (*Client, error) {
 	}
 
 	if cfg.UseHeaderCheckOnly {
-		useHeaderCheckOnly = true
+		client.useHeaderCheckOnly = true
 	}
 
 
 	return client, err
 }
 
+// genuineCheckHeader validates the presence of the X-Elastic-Product header
+//
 func genuineCheckHeader(header http.Header) error {
 	if header.Get("X-Elastic-Product") != "Elasticsearch" {
 		return fmt.Errorf(unknownProduct)
@@ -233,6 +235,8 @@ func genuineCheckHeader(header http.Header) error {
 	return nil
 }
 
+// genuineCheckInfo validates the informations given by Elasticsearch
+//
 func genuineCheckInfo(info info) error {
 	major, minor, _, err := ParseElasticsearchVersion(info.Version.Number)
 	if err != nil {
@@ -277,7 +281,7 @@ func ParseElasticsearchVersion(version string) (int64, int64, int64, error) {
 // Perform delegates to Transport to execute a request and return a response.
 //
 func (c *Client) Perform(req *http.Request) (*http.Response, error) {
-	if !productChecked {
+	if !c.productChecked {
 		var info info
 
 		res, err := c.Info()
@@ -305,7 +309,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 				err = genuineCheckHeader(res.Header)
 
 				if err != nil {
-					if !useHeaderCheckOnly && info.Version.Number != "" {
+					if !c.useHeaderCheckOnly && info.Version.Number != "" {
 						err = genuineCheckInfo(info)
 					}
 				}
@@ -314,7 +318,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 				return nil, err
 			}
 			c.muCheck.Lock()
-			productChecked = true
+			c.productChecked = true
 			c.muCheck.Unlock()
 		}
 	}
