@@ -102,7 +102,7 @@ type Config struct {
 type Client struct {
 	*esapi.API     // Embeds the API methods
 	Transport      estransport.Interface
-	muCheck        sync.Mutex
+	muCheck        sync.RWMutex
 	productChecked bool
 	useHeaderCheckOnly bool
 }
@@ -281,49 +281,65 @@ func ParseElasticsearchVersion(version string) (int64, int64, int64, error) {
 // Perform delegates to Transport to execute a request and return a response.
 //
 func (c *Client) Perform(req *http.Request) (*http.Response, error) {
-	if !c.productChecked {
-		var info info
+	c.muCheck.RLock()
+	productChecked := c.productChecked
+	c.muCheck.RUnlock()
 
-		res, err := c.Info()
+	if !productChecked {
+		err := c.productCheck()
 		if err != nil {
 			return nil, err
 		}
 
-		contentType := res.Header.Get("Content-Type")
-		if res.Body != nil {
-			defer res.Body.Close()
-
-			if strings.Contains(contentType, "json") {
-				decoder := json.NewDecoder(res.Body)
-				err = decoder.Decode(&info)
-				if err != nil {
-					return nil, fmt.Errorf("error decoding Elasticsearch informations: %s", err)
-				}
-			}
-
-			switch res.StatusCode {
-			case http.StatusForbidden:
-			case http.StatusUnauthorized:
-				break
-			default:
-				err = genuineCheckHeader(res.Header)
-
-				if err != nil {
-					if !c.useHeaderCheckOnly && info.Version.Number != "" {
-						err = genuineCheckInfo(info)
-					}
-				}
-			}
-			if err != nil {
-				return nil, err
-			}
-			c.muCheck.Lock()
-			c.productChecked = true
-			c.muCheck.Unlock()
-		}
+		c.muCheck.Lock()
+		c.productChecked = true
+		c.muCheck.Unlock()
 	}
 
 	return c.Transport.Perform(req)
+}
+
+// productCheck runs an esapi.Info query to retrieve informations of the current cluster
+// decodes the response and decides if the cluster is a genuine Elasticsearch product.
+func (c *Client) productCheck() (error) {
+	var info info
+
+	res, err := c.Info()
+	if err != nil {
+		return err
+	}
+
+	contentType := res.Header.Get("Content-Type")
+	if res.Body != nil {
+		defer res.Body.Close()
+
+		if strings.Contains(contentType, "json") {
+			decoder := json.NewDecoder(res.Body)
+			err = decoder.Decode(&info)
+			if err != nil {
+				return fmt.Errorf("error decoding Elasticsearch informations: %s", err)
+			}
+		}
+
+		switch res.StatusCode {
+		case http.StatusForbidden:
+		case http.StatusUnauthorized:
+			break
+		default:
+			err = genuineCheckHeader(res.Header)
+
+			if err != nil {
+				if !c.useHeaderCheckOnly && info.Version.Number != "" {
+					err = genuineCheckInfo(info)
+				}
+			}
+		}
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 // Metrics returns the client metrics.
