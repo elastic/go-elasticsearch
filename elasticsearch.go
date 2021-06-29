@@ -28,6 +28,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/elastic/go-elasticsearch/v7/esapi"
@@ -103,6 +104,7 @@ type Config struct {
 type Client struct {
 	*esapi.API // Embeds the API methods
 	Transport  estransport.Interface
+	muCheck    sync.Mutex
 }
 
 type esVersion struct {
@@ -275,6 +277,7 @@ func ParseElasticsearchVersion(version string) (int64, int64, int64, error) {
 // Perform delegates to Transport to execute a request and return a response.
 //
 func (c *Client) Perform(req *http.Request) (*http.Response, error) {
+	c.muCheck.Lock()
 	if !productChecked {
 		var info info
 
@@ -314,6 +317,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 			productChecked = true
 		}
 	}
+	c.muCheck.Unlock()
 
 	return c.Transport.Perform(req)
 }
