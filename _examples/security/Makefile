@@ -31,4 +31,6 @@ certificates-clean:
 cluster-clean:
 	docker-compose --file elasticsearch-cluster.yml down --volumes
 
-.PHONY: test test-integ certificates cluster certificates-clean cluster-clean
+setup:
+
+.PHONY: test test-integ certificates cluster certificates-clean cluster-clean setup
