@@ -101,7 +101,7 @@ test-examples: ## Execute the _examples
 			printf "\033[2m────────────────────────────────────────────────────────────────────────────────\n"; \
 			printf "\033[1mUpdating dependencies for $$d\033[0m\n"; \
 			printf "\033[2m────────────────────────────────────────────────────────────────────────────────\033[0m\n"; \
-			(cd $$d && go mod download && make setup) || \
+			(cd $$d && go mod tidy && go mod download && make setup) || \
 			( \
 				printf "\033[31m────────────────────────────────────────────────────────────────────────────────\033[0m\n"; \
 				printf "\033[31;1m⨯ ERROR\033[0m\n"; \
