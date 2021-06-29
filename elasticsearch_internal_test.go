@@ -468,13 +468,13 @@ func TestParseElasticsearchVersion(t *testing.T) {
 func TestGenuineCheckInfo(t *testing.T) {
 	tests := []struct {
 		name    string
-		info    Info
+		info    info
 		wantErr bool
 	}{
 		{
 			name: "Genuine Elasticsearch 7.14.0",
-			info: Info{
-				Version: EsVersion{
+			info: info{
+				Version: esVersion{
 					Number:      "7.14.0",
 					BuildFlavor: "default",
 				},
@@ -484,8 +484,8 @@ func TestGenuineCheckInfo(t *testing.T) {
 		},
 		{
 			name: "Genuine Elasticsearch 6.15.1",
-			info: Info{
-				Version: EsVersion{
+			info: info{
+				Version: esVersion{
 					Number:      "6.15.1",
 					BuildFlavor: "default",
 				},
@@ -495,8 +495,8 @@ func TestGenuineCheckInfo(t *testing.T) {
 		},
 		{
 			name: "Not so genuine Elasticsearch 7 major",
-			info: Info{
-				Version: EsVersion{
+			info: info{
+				Version: esVersion{
 					Number:      "7.12.0",
 					BuildFlavor: "newer",
 				},
@@ -506,8 +506,8 @@ func TestGenuineCheckInfo(t *testing.T) {
 		},
 		{
 			name: "Not so genuine Elasticsearch 6 major",
-			info: Info{
-				Version: EsVersion{
+			info: info{
+				Version: esVersion{
 					Number:      "6.12.0",
 					BuildFlavor: "default",
 				},
@@ -517,8 +517,8 @@ func TestGenuineCheckInfo(t *testing.T) {
 		},
 		{
 			name: "Way older Elasticsearch major",
-			info: Info{
-				Version: EsVersion{
+			info: info{
+				Version: esVersion{
 					Number:      "5.12.0",
 					BuildFlavor: "default",
 				},
