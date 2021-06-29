@@ -40,6 +40,7 @@ var (
 	defaultRoundTripFn = func(*http.Request) (*http.Response, error) { return defaultResponse, nil }
 	errorRoundTripFn   = func(*http.Request) (*http.Response, error) {
 		return &http.Response{
+			Header: http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
 			StatusCode: 400,
 			Body: ioutil.NopCloser(strings.NewReader(`
 					{ "error" : {
