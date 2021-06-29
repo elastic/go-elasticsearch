@@ -105,13 +105,13 @@ type Client struct {
 	Transport  estransport.Interface
 }
 
-type EsVersion struct {
+type esVersion struct {
 	Number                           string    `json:"number"`
 	BuildFlavor                      string    `json:"build_flavor"`
 }
 
-type Info struct {
-	Version     EsVersion `json:"version"`
+type info struct {
+	Version     esVersion `json:"version"`
 	Tagline     string    `json:"tagline"`
 }
 
@@ -231,7 +231,7 @@ func genuineCheckHeader(header http.Header) error {
 	return nil
 }
 
-func genuineCheckInfo(info Info) error {
+func genuineCheckInfo(info info) error {
 	major, minor, _, err := ParseElasticsearchVersion(info.Version.Number)
 	if err != nil {
 		return err
@@ -276,7 +276,7 @@ func ParseElasticsearchVersion(version string) (int64, int64, int64, error) {
 //
 func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	if !productChecked {
-		var info Info
+		var info info
 
 		res, err := c.Info()
 		if err != nil {
