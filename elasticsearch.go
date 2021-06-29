@@ -277,7 +277,6 @@ func ParseElasticsearchVersion(version string) (int64, int64, int64, error) {
 // Perform delegates to Transport to execute a request and return a response.
 //
 func (c *Client) Perform(req *http.Request) (*http.Response, error) {
-	c.muCheck.Lock()
 	if !productChecked {
 		var info info
 
@@ -314,10 +313,11 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 			if err != nil {
 				return nil, err
 			}
+			c.muCheck.Lock()
 			productChecked = true
+			c.muCheck.Unlock()
 		}
 	}
-	c.muCheck.Unlock()
 
 	return c.Transport.Perform(req)
 }
