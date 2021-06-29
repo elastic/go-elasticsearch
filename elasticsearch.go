@@ -43,7 +43,7 @@ var (
 )
 
 func init() {
-	versionPattern := `(\d+).(\d+).(\d+)`
+	versionPattern := `^([0-9]+)\.([0-9]+)\.([0-9]+)`
 	reVersion = regexp.MustCompile(versionPattern)
 }
 
