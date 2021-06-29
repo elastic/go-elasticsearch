@@ -39,7 +39,7 @@ type mockTransp struct{
 }
 
 var defaultRoundTripFunc = func(req *http.Request) (*http.Response, error) {
-	response := &http.Response{Header: http.Header{"X-Elastic-Product": []string{"X-Elastic-Product"}}}
+	response := &http.Response{Header: http.Header{"X-Elastic-Product": []string{"Elasticsearch"}}}
 
 	if req.URL.Path == "/" {
 		response.Body = ioutil.NopCloser(strings.NewReader(`{
