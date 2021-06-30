@@ -219,7 +219,6 @@ func TestClientConfiguration(t *testing.T) {
 						}, nil
 					},
 				},
-				UseHeaderCheckOnly: true,
 		})
 		if err != nil {
 			t.Errorf("Unexpected error, got: %+v", err)

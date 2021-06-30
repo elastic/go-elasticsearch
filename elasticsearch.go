@@ -86,7 +86,6 @@ type Config struct {
 	EnableDebugLogger bool // Enable the debug logging.
 
 	DisableMetaHeader  bool // Disable the additional "X-Elastic-Client-Meta" HTTP header.
-	UseHeaderCheckOnly bool
 
 	RetryBackoff func(attempt int) time.Duration // Optional backoff duration. Default: nil.
 
@@ -103,7 +102,6 @@ type Config struct {
 type Client struct {
 	*esapi.API// Embeds the API methods
 	Transport          estransport.Interface
-	useHeaderCheckOnly bool
 
 	once              sync.Once
 	productCheckError error
@@ -221,11 +219,6 @@ func NewClient(cfg Config) (*Client, error) {
 		go client.DiscoverNodes()
 	}
 
-	if cfg.UseHeaderCheckOnly {
-		client.useHeaderCheckOnly = true
-	}
-
-
 	return client, err
 }
 
@@ -329,7 +322,7 @@ func (c *Client) productCheck() (error) {
 			err = genuineCheckHeader(res.Header)
 
 			if err != nil {
-				if !c.useHeaderCheckOnly && info.Version.Number != "" {
+				if info.Version.Number != "" {
 					err = genuineCheckInfo(info)
 				}
 			}
