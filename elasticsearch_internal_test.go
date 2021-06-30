@@ -569,3 +569,62 @@ func TestGenuineCheckHeader(t *testing.T) {
 		})
 	}
 }
+
+func TestResponseCheckOnly(t *testing.T) {
+	tests := []struct {
+		name                 string
+		useResponseCheckOnly bool
+		response             *http.Response
+		wantErr              bool
+	} {
+		{
+			name:     "Valid answer with header",
+			useResponseCheckOnly: false,
+			response: &http.Response{
+				Header: http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+				Body: ioutil.NopCloser(strings.NewReader("{}")),
+			},
+			wantErr:  false,
+		},
+		{
+			name:     "Valid answer without header",
+			useResponseCheckOnly: false,
+			response: &http.Response{
+				Body: ioutil.NopCloser(strings.NewReader("{}")),
+			},
+			wantErr:  true,
+		},
+		{
+			name:     "Valid answer with header and response check",
+			useResponseCheckOnly: true,
+			response: &http.Response{
+				Header: http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+				Body: ioutil.NopCloser(strings.NewReader("{}")),
+			},
+			wantErr:  false,
+		},
+		{
+			name:     "Valid answer withouth header and response check",
+			useResponseCheckOnly: true,
+			response: &http.Response{
+				Body: ioutil.NopCloser(strings.NewReader("{}")),
+			},
+			wantErr:  true,
+		},
+
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			c, _ := NewClient(Config{
+				Transport: &mockTransp{RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+					return tt.response, nil
+				}},
+				UseResponseCheckOnly: tt.useResponseCheckOnly,
+			})
+			_, err := c.Cat.Indices()
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Unexpected error, got %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}

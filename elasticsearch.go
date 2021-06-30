@@ -38,7 +38,7 @@ import (
 )
 
 var (
-	reVersion          *regexp.Regexp
+	reVersion *regexp.Regexp
 )
 
 func init() {
@@ -47,9 +47,9 @@ func init() {
 }
 
 const (
-	defaultURL = "http://localhost:9200"
-	tagline    = "You Know, for Search"
-    unknownProduct = "the client noticed that the server is not Elasticsearch and we do not support this unknown product"
+	defaultURL     = "http://localhost:9200"
+	tagline        = "You Know, for Search"
+	unknownProduct = "the client noticed that the server is not Elasticsearch and we do not support this unknown product"
 )
 
 // Version returns the package version as a string.
@@ -85,7 +85,8 @@ type Config struct {
 	EnableMetrics     bool // Enable the metrics collection.
 	EnableDebugLogger bool // Enable the debug logging.
 
-	DisableMetaHeader  bool // Disable the additional "X-Elastic-Client-Meta" HTTP header.
+	DisableMetaHeader    bool // Disable the additional "X-Elastic-Client-Meta" HTTP header.
+	UseResponseCheckOnly bool
 
 	RetryBackoff func(attempt int) time.Duration // Optional backoff duration. Default: nil.
 
@@ -100,21 +101,23 @@ type Config struct {
 // Client represents the Elasticsearch client.
 //
 type Client struct {
-	*esapi.API// Embeds the API methods
-	Transport          estransport.Interface
+	*esapi.API // Embeds the API methods
+	Transport  estransport.Interface
 
-	once              sync.Once
-	productCheckError error
+	productCheckOnce     sync.Once
+	responseCheckOnce    sync.Once
+	productCheckError    error
+	useResponseCheckOnly bool
 }
 
 type esVersion struct {
-	Number                           string    `json:"number"`
-	BuildFlavor                      string    `json:"build_flavor"`
+	Number      string `json:"number"`
+	BuildFlavor string `json:"build_flavor"`
 }
 
 type info struct {
-	Version     esVersion `json:"version"`
-	Tagline     string    `json:"tagline"`
+	Version esVersion `json:"version"`
+	Tagline string    `json:"tagline"`
 }
 
 // NewDefaultClient creates a new client with default options.
@@ -212,7 +215,7 @@ func NewClient(cfg Config) (*Client, error) {
 		return nil, fmt.Errorf("error creating transport: %s", err)
 	}
 
-	client := &Client{Transport: tp}
+	client := &Client{Transport: tp, useResponseCheckOnly: cfg.UseResponseCheckOnly}
 	client.API = esapi.New(client)
 
 	if cfg.DiscoverNodesOnStart {
@@ -277,23 +280,38 @@ func ParseElasticsearchVersion(version string) (int64, int64, int64, error) {
 // Perform delegates to Transport to execute a request and return a response.
 //
 func (c *Client) Perform(req *http.Request) (*http.Response, error) {
-	c.once.Do(func() {
-		err := c.productCheck()
-		if err != nil {
-			c.productCheckError = err
+	// ProductCheck validation
+	c.productCheckOnce.Do(func() {
+		// We skip this validation of we only want the header validation.
+		// ResponseCheck path continues after original request.
+		if c.useResponseCheckOnly {
+			return
 		}
+
+		// Launch product check for 7.x, request info, check header then payload.
+		c.productCheckError = c.productCheck()
 		return
 	})
+
+	// Retrieve the original request.
+	res, err := c.Transport.Perform(req)
+
+	c.responseCheckOnce.Do(func() {
+		// ResponseCheck path continues, we run the header check on the first answer from ES.
+		if c.useResponseCheckOnly {
+			c.productCheckError = genuineCheckHeader(res.Header)
+		}
+	})
+
 	if c.productCheckError != nil {
 		return nil, c.productCheckError
 	}
-
-	return c.Transport.Perform(req)
+	return res, err
 }
 
 // productCheck runs an esapi.Info query to retrieve informations of the current cluster
 // decodes the response and decides if the cluster is a genuine Elasticsearch product.
-func (c *Client) productCheck() (error) {
+func (c *Client) productCheck() error {
 	var info info
 
 	req := esapi.InfoRequest{}
