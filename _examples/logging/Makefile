@@ -4,4 +4,8 @@ test:  ## Run tests
 	go run default.go
 	go run custom.go
 
-.PHONY: test
+setup:
+	@go mod download
+	@go mod download github.com/rs/zerolog
+
+.PHONY: test setup

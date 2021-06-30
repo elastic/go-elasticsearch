@@ -18,13 +18,18 @@
 package elasticsearch
 
 import (
+	"context"
 	"encoding/base64"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
 	"net/url"
 	"os"
+	"regexp"
+	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/elastic/go-elasticsearch/v7/esapi"
@@ -32,8 +37,19 @@ import (
 	"github.com/elastic/go-elasticsearch/v7/internal/version"
 )
 
+var (
+	reVersion          *regexp.Regexp
+)
+
+func init() {
+	versionPattern := `^([0-9]+)\.([0-9]+)\.([0-9]+)`
+	reVersion = regexp.MustCompile(versionPattern)
+}
+
 const (
 	defaultURL = "http://localhost:9200"
+	tagline    = "You Know, for Search"
+    unknownProduct = "the client noticed that the server is not Elasticsearch and we do not support this unknown product"
 )
 
 // Version returns the package version as a string.
@@ -69,7 +85,7 @@ type Config struct {
 	EnableMetrics     bool // Enable the metrics collection.
 	EnableDebugLogger bool // Enable the debug logging.
 
-	DisableMetaHeader bool // Disable the additional "X-Elastic-Client-Meta" HTTP header.
+	DisableMetaHeader  bool // Disable the additional "X-Elastic-Client-Meta" HTTP header.
 
 	RetryBackoff func(attempt int) time.Duration // Optional backoff duration. Default: nil.
 
@@ -84,8 +100,21 @@ type Config struct {
 // Client represents the Elasticsearch client.
 //
 type Client struct {
-	*esapi.API // Embeds the API methods
-	Transport  estransport.Interface
+	*esapi.API// Embeds the API methods
+	Transport          estransport.Interface
+
+	once              sync.Once
+	productCheckError error
+}
+
+type esVersion struct {
+	Number                           string    `json:"number"`
+	BuildFlavor                      string    `json:"build_flavor"`
+}
+
+type info struct {
+	Version     esVersion `json:"version"`
+	Tagline     string    `json:"tagline"`
 }
 
 // NewDefaultClient creates a new client with default options.
@@ -183,19 +212,127 @@ func NewClient(cfg Config) (*Client, error) {
 		return nil, fmt.Errorf("error creating transport: %s", err)
 	}
 
-	client := &Client{Transport: tp, API: esapi.New(tp)}
+	client := &Client{Transport: tp}
+	client.API = esapi.New(client)
 
 	if cfg.DiscoverNodesOnStart {
 		go client.DiscoverNodes()
 	}
 
-	return client, nil
+	return client, err
+}
+
+// genuineCheckHeader validates the presence of the X-Elastic-Product header
+//
+func genuineCheckHeader(header http.Header) error {
+	if header.Get("X-Elastic-Product") != "Elasticsearch" {
+		return fmt.Errorf(unknownProduct)
+	}
+	return nil
+}
+
+// genuineCheckInfo validates the informations given by Elasticsearch
+//
+func genuineCheckInfo(info info) error {
+	major, minor, _, err := ParseElasticsearchVersion(info.Version.Number)
+	if err != nil {
+		return err
+	}
+
+	if major < 6 {
+		return fmt.Errorf(unknownProduct)
+	}
+	if major < 7 {
+		if info.Tagline != tagline {
+			return fmt.Errorf(unknownProduct)
+		}
+	}
+	if major >= 7 {
+		if minor < 14 {
+			if info.Tagline != tagline ||
+				info.Version.BuildFlavor != "default" {
+				return fmt.Errorf(unknownProduct)
+			}
+		}
+	}
+
+	return nil
+}
+
+// ParseElasticsearchVersion returns an int64 representation of Elasticsearch version.
+//
+func ParseElasticsearchVersion(version string) (int64, int64, int64, error) {
+	matches := reVersion.FindStringSubmatch(version)
+
+	if len(matches) < 4 {
+		return 0, 0, 0, fmt.Errorf("")
+	}
+	major, _ := strconv.ParseInt(matches[1], 10, 0)
+	minor, _ := strconv.ParseInt(matches[2], 10, 0)
+	patch, _ := strconv.ParseInt(matches[3], 10, 0)
+
+	return major, minor, patch, nil
 }
 
 // Perform delegates to Transport to execute a request and return a response.
 //
 func (c *Client) Perform(req *http.Request) (*http.Response, error) {
+	c.once.Do(func() {
+		err := c.productCheck()
+		if err != nil {
+			c.productCheckError = err
+		}
+		return
+	})
+	if c.productCheckError != nil {
+		return nil, c.productCheckError
+	}
+
 	return c.Transport.Perform(req)
+}
+
+// productCheck runs an esapi.Info query to retrieve informations of the current cluster
+// decodes the response and decides if the cluster is a genuine Elasticsearch product.
+func (c *Client) productCheck() (error) {
+	var info info
+
+	req := esapi.InfoRequest{}
+	res, err := req.Do(context.Background(), c.Transport)
+	if err != nil {
+		return err
+	}
+
+	contentType := res.Header.Get("Content-Type")
+	if res.Body != nil {
+		defer res.Body.Close()
+
+		if strings.Contains(contentType, "json") {
+			decoder := json.NewDecoder(res.Body)
+			err = decoder.Decode(&info)
+			if err != nil {
+				return fmt.Errorf("error decoding Elasticsearch informations: %s", err)
+			}
+		}
+
+		switch res.StatusCode {
+		case http.StatusForbidden:
+		case http.StatusUnauthorized:
+			break
+		default:
+			err = genuineCheckHeader(res.Header)
+
+			if err != nil {
+				if info.Version.Number != "" {
+					err = genuineCheckInfo(info)
+				}
+			}
+		}
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 // Metrics returns the client metrics.
