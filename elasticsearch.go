@@ -18,6 +18,7 @@
 package elasticsearch
 
 import (
+	"context"
 	"encoding/base64"
 	"encoding/json"
 	"errors"
@@ -100,11 +101,12 @@ type Config struct {
 // Client represents the Elasticsearch client.
 //
 type Client struct {
-	*esapi.API     // Embeds the API methods
-	Transport      estransport.Interface
-	muCheck        sync.RWMutex
-	productChecked bool
+	*esapi.API// Embeds the API methods
+	Transport          estransport.Interface
 	useHeaderCheckOnly bool
+
+	once              sync.Once
+	productCheckError error
 }
 
 type esVersion struct {
@@ -212,7 +214,8 @@ func NewClient(cfg Config) (*Client, error) {
 		return nil, fmt.Errorf("error creating transport: %s", err)
 	}
 
-	client := &Client{Transport: tp, API: esapi.New(tp)}
+	client := &Client{Transport: tp}
+	client.API = esapi.New(client)
 
 	if cfg.DiscoverNodesOnStart {
 		go client.DiscoverNodes()
@@ -281,19 +284,15 @@ func ParseElasticsearchVersion(version string) (int64, int64, int64, error) {
 // Perform delegates to Transport to execute a request and return a response.
 //
 func (c *Client) Perform(req *http.Request) (*http.Response, error) {
-	c.muCheck.RLock()
-	productChecked := c.productChecked
-	c.muCheck.RUnlock()
-
-	if !productChecked {
+	c.once.Do(func() {
 		err := c.productCheck()
 		if err != nil {
-			return nil, err
+			c.productCheckError = err
 		}
-
-		c.muCheck.Lock()
-		c.productChecked = true
-		c.muCheck.Unlock()
+		return
+	})
+	if c.productCheckError != nil {
+		return nil, c.productCheckError
 	}
 
 	return c.Transport.Perform(req)
@@ -304,7 +303,8 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 func (c *Client) productCheck() (error) {
 	var info info
 
-	res, err := c.Info()
+	req := esapi.InfoRequest{}
+	res, err := req.Do(context.Background(), c.Transport)
 	if err != nil {
 		return err
 	}
