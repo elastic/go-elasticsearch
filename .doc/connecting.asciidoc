@@ -1,0 +1,86 @@
+[[connecting]]
+== Connecting
+
+This page contains the information you need to connect and use the Client with 
+{es}.
+
+**On this page**
+
+* <<auth-reference, Authentication options>>
+* <<client-usage, Using the client>>
+
+[discrete]
+[[auth-reference]]
+=== Authentication
+
+This document contains code snippets to show you how to connect to various {es} 
+providers.
+
+
+[discrete]
+[[auth-basic]]
+==== Basic authentication
+
+To set the cluster endpoints, the username, and the password programatically, pass a configuration object to the `elasticsearch.NewClient()` function.
+
+[source,go]
+------------------------------------
+cfg := elasticsearch.Config{
+  Addresses: []string{
+    "http://localhost:9200",
+    "http://localhost:9201",
+  },
+  Username: "foo",
+  Password: "bar",
+}
+es, err := elasticsearch.NewClient(cfg)
+------------------------------------
+
+You can also include the username and password in the endpoint URL:
+
+```
+'https://username:password@localhost:9200'
+```
+
+
+[discrete]
+[[auth-ec]]
+==== Elastic Cloud
+
+If you are using https://www.elastic.co/cloud[Elastic Cloud], the client offers 
+an easy way to connect to it. You must pass the Cloud ID that you can find in 
+the cloud console and the corresponding API key.
+
+[source,go]
+------------------------------------
+cfg := elasticsearch.Config{
+		CloudID: "CLOUD_ID",
+		APIKey: "API_KEY"
+}
+es, err := elasticsearch.NewClient(cfg)
+------------------------------------
+
+
+[discrete]
+[[client-usage]]
+=== Using the client
+
+The {es} package ties together two separate packages for calling the Elasticsearch APIs and transferring data over HTTP: `esapi` and `estransport`, respectively.
+
+Use the `elasticsearch.NewDefaultClient()` function to create the client with the default settings.
+
+[source,go]
+------------------------------------
+es, err := elasticsearch.NewDefaultClient()
+if err != nil {
+  log.Fatalf("Error creating the client: %s", err)
+}
+
+res, err := es.Info()
+if err != nil {
+  log.Fatalf("Error getting response: %s", err)
+}
+
+defer res.Body.Close()
+log.Println(res)
+------------------------------------
