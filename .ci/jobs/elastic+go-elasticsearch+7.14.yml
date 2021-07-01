@@ -1,15 +1,14 @@
 ---
 - job:
-    name: elastic+go-elasticsearch+7.11
-    display-name: 'elastic / go-elasticsearch # 7.11'
-    description: Testing the go-elasticsearch 7.11 branch.
+    name: elastic+go-elasticsearch+7.14
+    display-name: 'elastic / go-elasticsearch # 7.14'
+    description: Testing the go-elasticsearch 7.14 branch.
     junit_results: "*-junit.xml"
     parameters:
       - string:
           name: branch_specifier
-          default: refs/heads/7.11
+          default: refs/heads/7.14
           description: The Git branch specifier to build
     triggers:
       - github
       - timed: 'H */12 * * *'
-
