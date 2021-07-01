@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 7.x: DO NOT EDIT
+// Code generated from specification version 7.14.0: DO NOT EDIT
 
 package esapi
 
@@ -26,7 +26,7 @@ import (
 )
 
 func newMLDeleteTrainedModelAliasFunc(t Transport) MLDeleteTrainedModelAlias {
-	return func(model_id string, model_alias string, o ...func(*MLDeleteTrainedModelAliasRequest)) (*Response, error) {
+	return func(model_alias string, model_id string, o ...func(*MLDeleteTrainedModelAliasRequest)) (*Response, error) {
 		var r = MLDeleteTrainedModelAliasRequest{ModelAlias: model_alias, ModelID: model_id}
 		for _, f := range o {
 			f(&r)

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 7.x: DO NOT EDIT
+// Code generated from specification version 7.14.0: DO NOT EDIT
 
 package esapi
 
@@ -52,6 +52,7 @@ type SnapshotGetRequest struct {
 	Snapshot   []string
 
 	IgnoreUnavailable *bool
+	IncludeRepository *bool
 	IndexDetails      *bool
 	MasterTimeout     time.Duration
 	Verbose           *bool
@@ -89,6 +90,10 @@ func (r SnapshotGetRequest) Do(ctx context.Context, transport Transport) (*Respo
 
 	if r.IgnoreUnavailable != nil {
 		params["ignore_unavailable"] = strconv.FormatBool(*r.IgnoreUnavailable)
+	}
+
+	if r.IncludeRepository != nil {
+		params["include_repository"] = strconv.FormatBool(*r.IncludeRepository)
 	}
 
 	if r.IndexDetails != nil {
@@ -175,6 +180,14 @@ func (f SnapshotGet) WithContext(v context.Context) func(*SnapshotGetRequest) {
 func (f SnapshotGet) WithIgnoreUnavailable(v bool) func(*SnapshotGetRequest) {
 	return func(r *SnapshotGetRequest) {
 		r.IgnoreUnavailable = &v
+	}
+}
+
+// WithIncludeRepository - whether to include the repository name in the snapshot info. defaults to true..
+//
+func (f SnapshotGet) WithIncludeRepository(v bool) func(*SnapshotGetRequest) {
+	return func(r *SnapshotGetRequest) {
+		r.IncludeRepository = &v
 	}
 }
 
