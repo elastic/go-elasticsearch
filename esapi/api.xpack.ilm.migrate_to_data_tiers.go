@@ -23,12 +23,13 @@ import (
 	"context"
 	"io"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
-func newTermsenumFunc(t Transport) Termsenum {
-	return func(index []string, o ...func(*TermsenumRequest)) (*Response, error) {
-		var r = TermsenumRequest{Index: index}
+func newILMMigrateToDataTiersFunc(t Transport) ILMMigrateToDataTiers {
+	return func(o ...func(*ILMMigrateToDataTiersRequest)) (*Response, error) {
+		var r = ILMMigrateToDataTiersRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -38,20 +39,18 @@ func newTermsenumFunc(t Transport) Termsenum {
 
 // ----- API Definition -------------------------------------------------------
 
-// Termsenum the terms enum API  can be used to discover terms in the index that begin with the provided string. It is designed for low-latency look-ups used in auto-complete scenarios.
+// ILMMigrateToDataTiers - Migrates the indices and ILM policies away from custom node attribute allocation routing to data tiers routing
 //
-// This API is beta.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-migrate-to-data-tiers.html.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/terms-enum.html.
-//
-type Termsenum func(index []string, o ...func(*TermsenumRequest)) (*Response, error)
+type ILMMigrateToDataTiers func(o ...func(*ILMMigrateToDataTiersRequest)) (*Response, error)
 
-// TermsenumRequest configures the Termsenum API request.
+// ILMMigrateToDataTiersRequest configures the ILM Migrate To Data Tiers API request.
 //
-type TermsenumRequest struct {
-	Index []string
-
+type ILMMigrateToDataTiersRequest struct {
 	Body io.Reader
+
+	DryRun *bool
 
 	Pretty     bool
 	Human      bool
@@ -65,7 +64,7 @@ type TermsenumRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r TermsenumRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r ILMMigrateToDataTiersRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -74,13 +73,14 @@ func (r TermsenumRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 	method = "POST"
 
-	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_terms_enum"))
-	path.WriteString("/")
-	path.WriteString(strings.Join(r.Index, ","))
-	path.WriteString("/")
-	path.WriteString("_terms_enum")
+	path.Grow(len("/_ilm/migrate_to_data_tiers"))
+	path.WriteString("/_ilm/migrate_to_data_tiers")
 
 	params = make(map[string]string)
+
+	if r.DryRun != nil {
+		params["dry_run"] = strconv.FormatBool(*r.DryRun)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -147,56 +147,64 @@ func (r TermsenumRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 // WithContext sets the request context.
 //
-func (f Termsenum) WithContext(v context.Context) func(*TermsenumRequest) {
-	return func(r *TermsenumRequest) {
+func (f ILMMigrateToDataTiers) WithContext(v context.Context) func(*ILMMigrateToDataTiersRequest) {
+	return func(r *ILMMigrateToDataTiersRequest) {
 		r.ctx = v
 	}
 }
 
-// WithBody - field name, string which is the prefix expected in matching terms, timeout and size for max number of results.
+// WithBody - Optionally specify a legacy index template name to delete and optionally specify a node attribute name used for index shard routing (defaults to "data").
 //
-func (f Termsenum) WithBody(v io.Reader) func(*TermsenumRequest) {
-	return func(r *TermsenumRequest) {
+func (f ILMMigrateToDataTiers) WithBody(v io.Reader) func(*ILMMigrateToDataTiersRequest) {
+	return func(r *ILMMigrateToDataTiersRequest) {
 		r.Body = v
+	}
+}
+
+// WithDryRun - if set to true it will simulate the migration, providing a way to retrieve the ilm policies and indices that need to be migrated. the default is false.
+//
+func (f ILMMigrateToDataTiers) WithDryRun(v bool) func(*ILMMigrateToDataTiersRequest) {
+	return func(r *ILMMigrateToDataTiersRequest) {
+		r.DryRun = &v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f Termsenum) WithPretty() func(*TermsenumRequest) {
-	return func(r *TermsenumRequest) {
+func (f ILMMigrateToDataTiers) WithPretty() func(*ILMMigrateToDataTiersRequest) {
+	return func(r *ILMMigrateToDataTiersRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f Termsenum) WithHuman() func(*TermsenumRequest) {
-	return func(r *TermsenumRequest) {
+func (f ILMMigrateToDataTiers) WithHuman() func(*ILMMigrateToDataTiersRequest) {
+	return func(r *ILMMigrateToDataTiersRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f Termsenum) WithErrorTrace() func(*TermsenumRequest) {
-	return func(r *TermsenumRequest) {
+func (f ILMMigrateToDataTiers) WithErrorTrace() func(*ILMMigrateToDataTiersRequest) {
+	return func(r *ILMMigrateToDataTiersRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f Termsenum) WithFilterPath(v ...string) func(*TermsenumRequest) {
-	return func(r *TermsenumRequest) {
+func (f ILMMigrateToDataTiers) WithFilterPath(v ...string) func(*ILMMigrateToDataTiersRequest) {
+	return func(r *ILMMigrateToDataTiersRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f Termsenum) WithHeader(h map[string]string) func(*TermsenumRequest) {
-	return func(r *TermsenumRequest) {
+func (f ILMMigrateToDataTiers) WithHeader(h map[string]string) func(*ILMMigrateToDataTiersRequest) {
+	return func(r *ILMMigrateToDataTiersRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -208,8 +216,8 @@ func (f Termsenum) WithHeader(h map[string]string) func(*TermsenumRequest) {
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f Termsenum) WithOpaqueID(s string) func(*TermsenumRequest) {
-	return func(r *TermsenumRequest) {
+func (f ILMMigrateToDataTiers) WithOpaqueID(s string) func(*ILMMigrateToDataTiersRequest) {
+	return func(r *ILMMigrateToDataTiersRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

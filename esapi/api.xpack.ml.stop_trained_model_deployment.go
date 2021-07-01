@@ -25,9 +25,9 @@ import (
 	"strings"
 )
 
-func newSecurityGetUserPrivilegesFunc(t Transport) SecurityGetUserPrivileges {
-	return func(o ...func(*SecurityGetUserPrivilegesRequest)) (*Response, error) {
-		var r = SecurityGetUserPrivilegesRequest{}
+func newMLStopTrainedModelDeploymentFunc(t Transport) MLStopTrainedModelDeployment {
+	return func(model_id string, o ...func(*MLStopTrainedModelDeploymentRequest)) (*Response, error) {
+		var r = MLStopTrainedModelDeploymentRequest{ModelID: model_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -37,15 +37,19 @@ func newSecurityGetUserPrivilegesFunc(t Transport) SecurityGetUserPrivileges {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGetUserPrivileges - Retrieves security privileges for the logged in user.
+// MLStopTrainedModelDeployment - Stop a trained model deployment.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-user-privileges.html.
+// This API is experimental.
 //
-type SecurityGetUserPrivileges func(o ...func(*SecurityGetUserPrivilegesRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/stop-trained-model-deployment.html.
+//
+type MLStopTrainedModelDeployment func(model_id string, o ...func(*MLStopTrainedModelDeploymentRequest)) (*Response, error)
 
-// SecurityGetUserPrivilegesRequest configures the Security Get User Privileges API request.
+// MLStopTrainedModelDeploymentRequest configures the ML Stop Trained Model Deployment API request.
 //
-type SecurityGetUserPrivilegesRequest struct {
+type MLStopTrainedModelDeploymentRequest struct {
+	ModelID string
+
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -58,17 +62,26 @@ type SecurityGetUserPrivilegesRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r SecurityGetUserPrivilegesRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r MLStopTrainedModelDeploymentRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
-	path.Grow(len("/_security/user/_privileges"))
-	path.WriteString("/_security/user/_privileges")
+	path.Grow(1 + len("_ml") + 1 + len("trained_models") + 1 + len(r.ModelID) + 1 + len("deployment") + 1 + len("_stop"))
+	path.WriteString("/")
+	path.WriteString("_ml")
+	path.WriteString("/")
+	path.WriteString("trained_models")
+	path.WriteString("/")
+	path.WriteString(r.ModelID)
+	path.WriteString("/")
+	path.WriteString("deployment")
+	path.WriteString("/")
+	path.WriteString("_stop")
 
 	params = make(map[string]string)
 
@@ -133,48 +146,48 @@ func (r SecurityGetUserPrivilegesRequest) Do(ctx context.Context, transport Tran
 
 // WithContext sets the request context.
 //
-func (f SecurityGetUserPrivileges) WithContext(v context.Context) func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f MLStopTrainedModelDeployment) WithContext(v context.Context) func(*MLStopTrainedModelDeploymentRequest) {
+	return func(r *MLStopTrainedModelDeploymentRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f SecurityGetUserPrivileges) WithPretty() func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f MLStopTrainedModelDeployment) WithPretty() func(*MLStopTrainedModelDeploymentRequest) {
+	return func(r *MLStopTrainedModelDeploymentRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f SecurityGetUserPrivileges) WithHuman() func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f MLStopTrainedModelDeployment) WithHuman() func(*MLStopTrainedModelDeploymentRequest) {
+	return func(r *MLStopTrainedModelDeploymentRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f SecurityGetUserPrivileges) WithErrorTrace() func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f MLStopTrainedModelDeployment) WithErrorTrace() func(*MLStopTrainedModelDeploymentRequest) {
+	return func(r *MLStopTrainedModelDeploymentRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f SecurityGetUserPrivileges) WithFilterPath(v ...string) func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f MLStopTrainedModelDeployment) WithFilterPath(v ...string) func(*MLStopTrainedModelDeploymentRequest) {
+	return func(r *MLStopTrainedModelDeploymentRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f SecurityGetUserPrivileges) WithHeader(h map[string]string) func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f MLStopTrainedModelDeployment) WithHeader(h map[string]string) func(*MLStopTrainedModelDeploymentRequest) {
+	return func(r *MLStopTrainedModelDeploymentRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -186,8 +199,8 @@ func (f SecurityGetUserPrivileges) WithHeader(h map[string]string) func(*Securit
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f SecurityGetUserPrivileges) WithOpaqueID(s string) func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f MLStopTrainedModelDeployment) WithOpaqueID(s string) func(*MLStopTrainedModelDeploymentRequest) {
+	return func(r *MLStopTrainedModelDeploymentRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

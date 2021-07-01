@@ -21,13 +21,14 @@ package esapi
 
 import (
 	"context"
+	"io"
 	"net/http"
 	"strings"
 )
 
-func newSecurityGetUserPrivilegesFunc(t Transport) SecurityGetUserPrivileges {
-	return func(o ...func(*SecurityGetUserPrivilegesRequest)) (*Response, error) {
-		var r = SecurityGetUserPrivilegesRequest{}
+func newSecuritySamlLogoutFunc(t Transport) SecuritySamlLogout {
+	return func(body io.Reader, o ...func(*SecuritySamlLogoutRequest)) (*Response, error) {
+		var r = SecuritySamlLogoutRequest{Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -37,15 +38,17 @@ func newSecurityGetUserPrivilegesFunc(t Transport) SecurityGetUserPrivileges {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGetUserPrivileges - Retrieves security privileges for the logged in user.
+// SecuritySamlLogout - Invalidates an access token and a refresh token that were generated via the SAML Authenticate API
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-user-privileges.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-saml-logout.html.
 //
-type SecurityGetUserPrivileges func(o ...func(*SecurityGetUserPrivilegesRequest)) (*Response, error)
+type SecuritySamlLogout func(body io.Reader, o ...func(*SecuritySamlLogoutRequest)) (*Response, error)
 
-// SecurityGetUserPrivilegesRequest configures the Security Get User Privileges API request.
+// SecuritySamlLogoutRequest configures the Security Saml Logout API request.
 //
-type SecurityGetUserPrivilegesRequest struct {
+type SecuritySamlLogoutRequest struct {
+	Body io.Reader
+
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -58,17 +61,17 @@ type SecurityGetUserPrivilegesRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r SecurityGetUserPrivilegesRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SecuritySamlLogoutRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
-	path.Grow(len("/_security/user/_privileges"))
-	path.WriteString("/_security/user/_privileges")
+	path.Grow(len("/_security/saml/logout"))
+	path.WriteString("/_security/saml/logout")
 
 	params = make(map[string]string)
 
@@ -88,7 +91,7 @@ func (r SecurityGetUserPrivilegesRequest) Do(ctx context.Context, transport Tran
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -99,6 +102,10 @@ func (r SecurityGetUserPrivilegesRequest) Do(ctx context.Context, transport Tran
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if r.Body != nil {
+		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -133,48 +140,48 @@ func (r SecurityGetUserPrivilegesRequest) Do(ctx context.Context, transport Tran
 
 // WithContext sets the request context.
 //
-func (f SecurityGetUserPrivileges) WithContext(v context.Context) func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f SecuritySamlLogout) WithContext(v context.Context) func(*SecuritySamlLogoutRequest) {
+	return func(r *SecuritySamlLogoutRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f SecurityGetUserPrivileges) WithPretty() func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f SecuritySamlLogout) WithPretty() func(*SecuritySamlLogoutRequest) {
+	return func(r *SecuritySamlLogoutRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f SecurityGetUserPrivileges) WithHuman() func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f SecuritySamlLogout) WithHuman() func(*SecuritySamlLogoutRequest) {
+	return func(r *SecuritySamlLogoutRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f SecurityGetUserPrivileges) WithErrorTrace() func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f SecuritySamlLogout) WithErrorTrace() func(*SecuritySamlLogoutRequest) {
+	return func(r *SecuritySamlLogoutRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f SecurityGetUserPrivileges) WithFilterPath(v ...string) func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f SecuritySamlLogout) WithFilterPath(v ...string) func(*SecuritySamlLogoutRequest) {
+	return func(r *SecuritySamlLogoutRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f SecurityGetUserPrivileges) WithHeader(h map[string]string) func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f SecuritySamlLogout) WithHeader(h map[string]string) func(*SecuritySamlLogoutRequest) {
+	return func(r *SecuritySamlLogoutRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -186,8 +193,8 @@ func (f SecurityGetUserPrivileges) WithHeader(h map[string]string) func(*Securit
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f SecurityGetUserPrivileges) WithOpaqueID(s string) func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f SecuritySamlLogout) WithOpaqueID(s string) func(*SecuritySamlLogoutRequest) {
+	return func(r *SecuritySamlLogoutRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

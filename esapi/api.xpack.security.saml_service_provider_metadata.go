@@ -25,9 +25,9 @@ import (
 	"strings"
 )
 
-func newSecurityGetUserPrivilegesFunc(t Transport) SecurityGetUserPrivileges {
-	return func(o ...func(*SecurityGetUserPrivilegesRequest)) (*Response, error) {
-		var r = SecurityGetUserPrivilegesRequest{}
+func newSecuritySamlServiceProviderMetadataFunc(t Transport) SecuritySamlServiceProviderMetadata {
+	return func(realm_name string, o ...func(*SecuritySamlServiceProviderMetadataRequest)) (*Response, error) {
+		var r = SecuritySamlServiceProviderMetadataRequest{RealmName: realm_name}
 		for _, f := range o {
 			f(&r)
 		}
@@ -37,15 +37,17 @@ func newSecurityGetUserPrivilegesFunc(t Transport) SecurityGetUserPrivileges {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGetUserPrivileges - Retrieves security privileges for the logged in user.
+// SecuritySamlServiceProviderMetadata - Generates SAML metadata for the Elastic stack SAML 2.0 Service Provider
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-user-privileges.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-saml-sp-metadata.html.
 //
-type SecurityGetUserPrivileges func(o ...func(*SecurityGetUserPrivilegesRequest)) (*Response, error)
+type SecuritySamlServiceProviderMetadata func(realm_name string, o ...func(*SecuritySamlServiceProviderMetadataRequest)) (*Response, error)
 
-// SecurityGetUserPrivilegesRequest configures the Security Get User Privileges API request.
+// SecuritySamlServiceProviderMetadataRequest configures the Security Saml Service Provider Metadata API request.
 //
-type SecurityGetUserPrivilegesRequest struct {
+type SecuritySamlServiceProviderMetadataRequest struct {
+	RealmName string
+
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -58,7 +60,7 @@ type SecurityGetUserPrivilegesRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r SecurityGetUserPrivilegesRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SecuritySamlServiceProviderMetadataRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -67,8 +69,15 @@ func (r SecurityGetUserPrivilegesRequest) Do(ctx context.Context, transport Tran
 
 	method = "GET"
 
-	path.Grow(len("/_security/user/_privileges"))
-	path.WriteString("/_security/user/_privileges")
+	path.Grow(1 + len("_security") + 1 + len("saml") + 1 + len("metadata") + 1 + len(r.RealmName))
+	path.WriteString("/")
+	path.WriteString("_security")
+	path.WriteString("/")
+	path.WriteString("saml")
+	path.WriteString("/")
+	path.WriteString("metadata")
+	path.WriteString("/")
+	path.WriteString(r.RealmName)
 
 	params = make(map[string]string)
 
@@ -133,48 +142,48 @@ func (r SecurityGetUserPrivilegesRequest) Do(ctx context.Context, transport Tran
 
 // WithContext sets the request context.
 //
-func (f SecurityGetUserPrivileges) WithContext(v context.Context) func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f SecuritySamlServiceProviderMetadata) WithContext(v context.Context) func(*SecuritySamlServiceProviderMetadataRequest) {
+	return func(r *SecuritySamlServiceProviderMetadataRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f SecurityGetUserPrivileges) WithPretty() func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f SecuritySamlServiceProviderMetadata) WithPretty() func(*SecuritySamlServiceProviderMetadataRequest) {
+	return func(r *SecuritySamlServiceProviderMetadataRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f SecurityGetUserPrivileges) WithHuman() func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f SecuritySamlServiceProviderMetadata) WithHuman() func(*SecuritySamlServiceProviderMetadataRequest) {
+	return func(r *SecuritySamlServiceProviderMetadataRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f SecurityGetUserPrivileges) WithErrorTrace() func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f SecuritySamlServiceProviderMetadata) WithErrorTrace() func(*SecuritySamlServiceProviderMetadataRequest) {
+	return func(r *SecuritySamlServiceProviderMetadataRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f SecurityGetUserPrivileges) WithFilterPath(v ...string) func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f SecuritySamlServiceProviderMetadata) WithFilterPath(v ...string) func(*SecuritySamlServiceProviderMetadataRequest) {
+	return func(r *SecuritySamlServiceProviderMetadataRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f SecurityGetUserPrivileges) WithHeader(h map[string]string) func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f SecuritySamlServiceProviderMetadata) WithHeader(h map[string]string) func(*SecuritySamlServiceProviderMetadataRequest) {
+	return func(r *SecuritySamlServiceProviderMetadataRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -186,8 +195,8 @@ func (f SecurityGetUserPrivileges) WithHeader(h map[string]string) func(*Securit
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f SecurityGetUserPrivileges) WithOpaqueID(s string) func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f SecuritySamlServiceProviderMetadata) WithOpaqueID(s string) func(*SecuritySamlServiceProviderMetadataRequest) {
+	return func(r *SecuritySamlServiceProviderMetadataRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

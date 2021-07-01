@@ -25,9 +25,9 @@ import (
 	"strings"
 )
 
-func newSecurityGetUserPrivilegesFunc(t Transport) SecurityGetUserPrivileges {
-	return func(o ...func(*SecurityGetUserPrivilegesRequest)) (*Response, error) {
-		var r = SecurityGetUserPrivilegesRequest{}
+func newSecurityEnrollKibanaFunc(t Transport) SecurityEnrollKibana {
+	return func(o ...func(*SecurityEnrollKibanaRequest)) (*Response, error) {
+		var r = SecurityEnrollKibanaRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -37,15 +37,15 @@ func newSecurityGetUserPrivilegesFunc(t Transport) SecurityGetUserPrivileges {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGetUserPrivileges - Retrieves security privileges for the logged in user.
+// SecurityEnrollKibana - Allows a kibana instance to configure itself to communicate with a secured elasticsearch cluster.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-user-privileges.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/security-api-enroll-kibana.html.
 //
-type SecurityGetUserPrivileges func(o ...func(*SecurityGetUserPrivilegesRequest)) (*Response, error)
+type SecurityEnrollKibana func(o ...func(*SecurityEnrollKibanaRequest)) (*Response, error)
 
-// SecurityGetUserPrivilegesRequest configures the Security Get User Privileges API request.
+// SecurityEnrollKibanaRequest configures the Security Enroll Kibana API request.
 //
-type SecurityGetUserPrivilegesRequest struct {
+type SecurityEnrollKibanaRequest struct {
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -58,7 +58,7 @@ type SecurityGetUserPrivilegesRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r SecurityGetUserPrivilegesRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SecurityEnrollKibanaRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -67,8 +67,8 @@ func (r SecurityGetUserPrivilegesRequest) Do(ctx context.Context, transport Tran
 
 	method = "GET"
 
-	path.Grow(len("/_security/user/_privileges"))
-	path.WriteString("/_security/user/_privileges")
+	path.Grow(len("/_security/enroll/kibana"))
+	path.WriteString("/_security/enroll/kibana")
 
 	params = make(map[string]string)
 
@@ -133,48 +133,48 @@ func (r SecurityGetUserPrivilegesRequest) Do(ctx context.Context, transport Tran
 
 // WithContext sets the request context.
 //
-func (f SecurityGetUserPrivileges) WithContext(v context.Context) func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f SecurityEnrollKibana) WithContext(v context.Context) func(*SecurityEnrollKibanaRequest) {
+	return func(r *SecurityEnrollKibanaRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f SecurityGetUserPrivileges) WithPretty() func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f SecurityEnrollKibana) WithPretty() func(*SecurityEnrollKibanaRequest) {
+	return func(r *SecurityEnrollKibanaRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f SecurityGetUserPrivileges) WithHuman() func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f SecurityEnrollKibana) WithHuman() func(*SecurityEnrollKibanaRequest) {
+	return func(r *SecurityEnrollKibanaRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f SecurityGetUserPrivileges) WithErrorTrace() func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f SecurityEnrollKibana) WithErrorTrace() func(*SecurityEnrollKibanaRequest) {
+	return func(r *SecurityEnrollKibanaRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f SecurityGetUserPrivileges) WithFilterPath(v ...string) func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f SecurityEnrollKibana) WithFilterPath(v ...string) func(*SecurityEnrollKibanaRequest) {
+	return func(r *SecurityEnrollKibanaRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f SecurityGetUserPrivileges) WithHeader(h map[string]string) func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f SecurityEnrollKibana) WithHeader(h map[string]string) func(*SecurityEnrollKibanaRequest) {
+	return func(r *SecurityEnrollKibanaRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -186,8 +186,8 @@ func (f SecurityGetUserPrivileges) WithHeader(h map[string]string) func(*Securit
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f SecurityGetUserPrivileges) WithOpaqueID(s string) func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f SecurityEnrollKibana) WithOpaqueID(s string) func(*SecurityEnrollKibanaRequest) {
+	return func(r *SecurityEnrollKibanaRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

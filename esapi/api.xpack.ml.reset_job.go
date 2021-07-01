@@ -22,12 +22,13 @@ package esapi
 import (
 	"context"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
-func newSecurityGetUserPrivilegesFunc(t Transport) SecurityGetUserPrivileges {
-	return func(o ...func(*SecurityGetUserPrivilegesRequest)) (*Response, error) {
-		var r = SecurityGetUserPrivilegesRequest{}
+func newMLResetJobFunc(t Transport) MLResetJob {
+	return func(job_id string, o ...func(*MLResetJobRequest)) (*Response, error) {
+		var r = MLResetJobRequest{JobID: job_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -37,15 +38,19 @@ func newSecurityGetUserPrivilegesFunc(t Transport) SecurityGetUserPrivileges {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGetUserPrivileges - Retrieves security privileges for the logged in user.
+// MLResetJob - Resets an existing anomaly detection job.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-user-privileges.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-reset-job.html.
 //
-type SecurityGetUserPrivileges func(o ...func(*SecurityGetUserPrivilegesRequest)) (*Response, error)
+type MLResetJob func(job_id string, o ...func(*MLResetJobRequest)) (*Response, error)
 
-// SecurityGetUserPrivilegesRequest configures the Security Get User Privileges API request.
+// MLResetJobRequest configures the ML Reset Job API request.
 //
-type SecurityGetUserPrivilegesRequest struct {
+type MLResetJobRequest struct {
+	JobID string
+
+	WaitForCompletion *bool
+
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -58,19 +63,30 @@ type SecurityGetUserPrivilegesRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r SecurityGetUserPrivilegesRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r MLResetJobRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
-	path.Grow(len("/_security/user/_privileges"))
-	path.WriteString("/_security/user/_privileges")
+	path.Grow(1 + len("_ml") + 1 + len("anomaly_detectors") + 1 + len(r.JobID) + 1 + len("_reset"))
+	path.WriteString("/")
+	path.WriteString("_ml")
+	path.WriteString("/")
+	path.WriteString("anomaly_detectors")
+	path.WriteString("/")
+	path.WriteString(r.JobID)
+	path.WriteString("/")
+	path.WriteString("_reset")
 
 	params = make(map[string]string)
+
+	if r.WaitForCompletion != nil {
+		params["wait_for_completion"] = strconv.FormatBool(*r.WaitForCompletion)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -133,48 +149,56 @@ func (r SecurityGetUserPrivilegesRequest) Do(ctx context.Context, transport Tran
 
 // WithContext sets the request context.
 //
-func (f SecurityGetUserPrivileges) WithContext(v context.Context) func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f MLResetJob) WithContext(v context.Context) func(*MLResetJobRequest) {
+	return func(r *MLResetJobRequest) {
 		r.ctx = v
+	}
+}
+
+// WithWaitForCompletion - should this request wait until the operation has completed before returning.
+//
+func (f MLResetJob) WithWaitForCompletion(v bool) func(*MLResetJobRequest) {
+	return func(r *MLResetJobRequest) {
+		r.WaitForCompletion = &v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f SecurityGetUserPrivileges) WithPretty() func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f MLResetJob) WithPretty() func(*MLResetJobRequest) {
+	return func(r *MLResetJobRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f SecurityGetUserPrivileges) WithHuman() func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f MLResetJob) WithHuman() func(*MLResetJobRequest) {
+	return func(r *MLResetJobRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f SecurityGetUserPrivileges) WithErrorTrace() func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f MLResetJob) WithErrorTrace() func(*MLResetJobRequest) {
+	return func(r *MLResetJobRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f SecurityGetUserPrivileges) WithFilterPath(v ...string) func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f MLResetJob) WithFilterPath(v ...string) func(*MLResetJobRequest) {
+	return func(r *MLResetJobRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f SecurityGetUserPrivileges) WithHeader(h map[string]string) func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f MLResetJob) WithHeader(h map[string]string) func(*MLResetJobRequest) {
+	return func(r *MLResetJobRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -186,8 +210,8 @@ func (f SecurityGetUserPrivileges) WithHeader(h map[string]string) func(*Securit
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f SecurityGetUserPrivileges) WithOpaqueID(s string) func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f MLResetJob) WithOpaqueID(s string) func(*MLResetJobRequest) {
+	return func(r *MLResetJobRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

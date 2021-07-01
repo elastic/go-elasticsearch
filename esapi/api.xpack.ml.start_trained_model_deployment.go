@@ -23,11 +23,12 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"time"
 )
 
-func newSecurityGetUserPrivilegesFunc(t Transport) SecurityGetUserPrivileges {
-	return func(o ...func(*SecurityGetUserPrivilegesRequest)) (*Response, error) {
-		var r = SecurityGetUserPrivilegesRequest{}
+func newMLStartTrainedModelDeploymentFunc(t Transport) MLStartTrainedModelDeployment {
+	return func(model_id string, o ...func(*MLStartTrainedModelDeploymentRequest)) (*Response, error) {
+		var r = MLStartTrainedModelDeploymentRequest{ModelID: model_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -37,15 +38,21 @@ func newSecurityGetUserPrivilegesFunc(t Transport) SecurityGetUserPrivileges {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGetUserPrivileges - Retrieves security privileges for the logged in user.
+// MLStartTrainedModelDeployment - Start a trained model deployment.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-user-privileges.html.
+// This API is experimental.
 //
-type SecurityGetUserPrivileges func(o ...func(*SecurityGetUserPrivilegesRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-start-trained-model-deployment.html.
+//
+type MLStartTrainedModelDeployment func(model_id string, o ...func(*MLStartTrainedModelDeploymentRequest)) (*Response, error)
 
-// SecurityGetUserPrivilegesRequest configures the Security Get User Privileges API request.
+// MLStartTrainedModelDeploymentRequest configures the ML Start Trained Model Deployment API request.
 //
-type SecurityGetUserPrivilegesRequest struct {
+type MLStartTrainedModelDeploymentRequest struct {
+	ModelID string
+
+	Timeout time.Duration
+
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -58,19 +65,32 @@ type SecurityGetUserPrivilegesRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r SecurityGetUserPrivilegesRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r MLStartTrainedModelDeploymentRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
-	path.Grow(len("/_security/user/_privileges"))
-	path.WriteString("/_security/user/_privileges")
+	path.Grow(1 + len("_ml") + 1 + len("trained_models") + 1 + len(r.ModelID) + 1 + len("deployment") + 1 + len("_start"))
+	path.WriteString("/")
+	path.WriteString("_ml")
+	path.WriteString("/")
+	path.WriteString("trained_models")
+	path.WriteString("/")
+	path.WriteString(r.ModelID)
+	path.WriteString("/")
+	path.WriteString("deployment")
+	path.WriteString("/")
+	path.WriteString("_start")
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -133,48 +153,56 @@ func (r SecurityGetUserPrivilegesRequest) Do(ctx context.Context, transport Tran
 
 // WithContext sets the request context.
 //
-func (f SecurityGetUserPrivileges) WithContext(v context.Context) func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f MLStartTrainedModelDeployment) WithContext(v context.Context) func(*MLStartTrainedModelDeploymentRequest) {
+	return func(r *MLStartTrainedModelDeploymentRequest) {
 		r.ctx = v
+	}
+}
+
+// WithTimeout - controls the time to wait until the model is deployed.
+//
+func (f MLStartTrainedModelDeployment) WithTimeout(v time.Duration) func(*MLStartTrainedModelDeploymentRequest) {
+	return func(r *MLStartTrainedModelDeploymentRequest) {
+		r.Timeout = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f SecurityGetUserPrivileges) WithPretty() func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f MLStartTrainedModelDeployment) WithPretty() func(*MLStartTrainedModelDeploymentRequest) {
+	return func(r *MLStartTrainedModelDeploymentRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f SecurityGetUserPrivileges) WithHuman() func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f MLStartTrainedModelDeployment) WithHuman() func(*MLStartTrainedModelDeploymentRequest) {
+	return func(r *MLStartTrainedModelDeploymentRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f SecurityGetUserPrivileges) WithErrorTrace() func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f MLStartTrainedModelDeployment) WithErrorTrace() func(*MLStartTrainedModelDeploymentRequest) {
+	return func(r *MLStartTrainedModelDeploymentRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f SecurityGetUserPrivileges) WithFilterPath(v ...string) func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f MLStartTrainedModelDeployment) WithFilterPath(v ...string) func(*MLStartTrainedModelDeploymentRequest) {
+	return func(r *MLStartTrainedModelDeploymentRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f SecurityGetUserPrivileges) WithHeader(h map[string]string) func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f MLStartTrainedModelDeployment) WithHeader(h map[string]string) func(*MLStartTrainedModelDeploymentRequest) {
+	return func(r *MLStartTrainedModelDeploymentRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -186,8 +214,8 @@ func (f SecurityGetUserPrivileges) WithHeader(h map[string]string) func(*Securit
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f SecurityGetUserPrivileges) WithOpaqueID(s string) func(*SecurityGetUserPrivilegesRequest) {
-	return func(r *SecurityGetUserPrivilegesRequest) {
+func (f MLStartTrainedModelDeployment) WithOpaqueID(s string) func(*MLStartTrainedModelDeploymentRequest) {
+	return func(r *MLStartTrainedModelDeploymentRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
