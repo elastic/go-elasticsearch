@@ -152,7 +152,7 @@ lint:  ## Run lint on the package
 		set -e ; \
 		trap "test -d ../../../.git && git checkout --quiet go.mod" INT TERM EXIT; \
 		echo "cd internal/build/ && go vet ./..."; \
-		cd "internal/build/" && go mod download && go vet ./...; \
+		cd "internal/build/" && go mod tidy && go mod download && go vet ./...; \
 	}
 
 
