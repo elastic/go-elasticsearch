@@ -4,4 +4,6 @@ test:  ## Run tests
 	go run default.go
 	go run custom.go
 
-.PHONY: test
+setup:
+
+.PHONY: test setup
