@@ -999,7 +999,6 @@ func TestRequestCompression(t *testing.T) {
 		name            string
 		compressionFlag bool
 		inputBody       string
-		expectedBodyHex string
 	}{
 		{
 			name:            "Uncompressed",
