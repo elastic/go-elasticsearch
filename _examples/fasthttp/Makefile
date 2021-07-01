@@ -7,6 +7,7 @@ bench:  ## Run benchmarks
 	$(GO_TEST_CMD) -run=none -bench=. -benchmem -benchtime=10s -v fasthttp_benchmark_test.go
 
 setup:
-
+	@go mod tidy
+	@go mod download
 
 .PHONY: test bench setup
