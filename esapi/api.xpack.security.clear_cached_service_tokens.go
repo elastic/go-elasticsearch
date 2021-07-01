@@ -26,7 +26,7 @@ import (
 )
 
 func newSecurityClearCachedServiceTokensFunc(t Transport) SecurityClearCachedServiceTokens {
-	return func(name []string, service string, namespace string, o ...func(*SecurityClearCachedServiceTokensRequest)) (*Response, error) {
+	return func(name []string, namespace string, service string, o ...func(*SecurityClearCachedServiceTokensRequest)) (*Response, error) {
 		var r = SecurityClearCachedServiceTokensRequest{Name: name, Namespace: namespace, Service: service}
 		for _, f := range o {
 			f(&r)

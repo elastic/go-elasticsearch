@@ -21,13 +21,14 @@ package esapi
 
 import (
 	"context"
+	"io"
 	"net/http"
 	"strings"
 )
 
-func newSecurityGetServiceCredentialsFunc(t Transport) SecurityGetServiceCredentials {
-	return func(namespace string, service string, o ...func(*SecurityGetServiceCredentialsRequest)) (*Response, error) {
-		var r = SecurityGetServiceCredentialsRequest{Namespace: namespace, Service: service}
+func newSecuritySamlLogoutFunc(t Transport) SecuritySamlLogout {
+	return func(body io.Reader, o ...func(*SecuritySamlLogoutRequest)) (*Response, error) {
+		var r = SecuritySamlLogoutRequest{Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -37,19 +38,16 @@ func newSecurityGetServiceCredentialsFunc(t Transport) SecurityGetServiceCredent
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGetServiceCredentials - Retrieves information of all service credentials for a service account.
+// SecuritySamlLogout - Invalidates an access token and a refresh token that were generated via the SAML Authenticate API
 //
-// This API is beta.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-saml-logout.html.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-service-credentials.html.
-//
-type SecurityGetServiceCredentials func(service string, namespace string, o ...func(*SecurityGetServiceCredentialsRequest)) (*Response, error)
+type SecuritySamlLogout func(body io.Reader, o ...func(*SecuritySamlLogoutRequest)) (*Response, error)
 
-// SecurityGetServiceCredentialsRequest configures the Security Get Service Credentials API request.
+// SecuritySamlLogoutRequest configures the Security Saml Logout API request.
 //
-type SecurityGetServiceCredentialsRequest struct {
-	Namespace string
-	Service   string
+type SecuritySamlLogoutRequest struct {
+	Body io.Reader
 
 	Pretty     bool
 	Human      bool
@@ -63,26 +61,17 @@ type SecurityGetServiceCredentialsRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r SecurityGetServiceCredentialsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SecuritySamlLogoutRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
-	path.Grow(1 + len("_security") + 1 + len("service") + 1 + len(r.Namespace) + 1 + len(r.Service) + 1 + len("credential"))
-	path.WriteString("/")
-	path.WriteString("_security")
-	path.WriteString("/")
-	path.WriteString("service")
-	path.WriteString("/")
-	path.WriteString(r.Namespace)
-	path.WriteString("/")
-	path.WriteString(r.Service)
-	path.WriteString("/")
-	path.WriteString("credential")
+	path.Grow(len("/_security/saml/logout"))
+	path.WriteString("/_security/saml/logout")
 
 	params = make(map[string]string)
 
@@ -102,7 +91,7 @@ func (r SecurityGetServiceCredentialsRequest) Do(ctx context.Context, transport 
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -113,6 +102,10 @@ func (r SecurityGetServiceCredentialsRequest) Do(ctx context.Context, transport 
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if r.Body != nil {
+		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -147,48 +140,48 @@ func (r SecurityGetServiceCredentialsRequest) Do(ctx context.Context, transport 
 
 // WithContext sets the request context.
 //
-func (f SecurityGetServiceCredentials) WithContext(v context.Context) func(*SecurityGetServiceCredentialsRequest) {
-	return func(r *SecurityGetServiceCredentialsRequest) {
+func (f SecuritySamlLogout) WithContext(v context.Context) func(*SecuritySamlLogoutRequest) {
+	return func(r *SecuritySamlLogoutRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f SecurityGetServiceCredentials) WithPretty() func(*SecurityGetServiceCredentialsRequest) {
-	return func(r *SecurityGetServiceCredentialsRequest) {
+func (f SecuritySamlLogout) WithPretty() func(*SecuritySamlLogoutRequest) {
+	return func(r *SecuritySamlLogoutRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f SecurityGetServiceCredentials) WithHuman() func(*SecurityGetServiceCredentialsRequest) {
-	return func(r *SecurityGetServiceCredentialsRequest) {
+func (f SecuritySamlLogout) WithHuman() func(*SecuritySamlLogoutRequest) {
+	return func(r *SecuritySamlLogoutRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f SecurityGetServiceCredentials) WithErrorTrace() func(*SecurityGetServiceCredentialsRequest) {
-	return func(r *SecurityGetServiceCredentialsRequest) {
+func (f SecuritySamlLogout) WithErrorTrace() func(*SecuritySamlLogoutRequest) {
+	return func(r *SecuritySamlLogoutRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f SecurityGetServiceCredentials) WithFilterPath(v ...string) func(*SecurityGetServiceCredentialsRequest) {
-	return func(r *SecurityGetServiceCredentialsRequest) {
+func (f SecuritySamlLogout) WithFilterPath(v ...string) func(*SecuritySamlLogoutRequest) {
+	return func(r *SecuritySamlLogoutRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f SecurityGetServiceCredentials) WithHeader(h map[string]string) func(*SecurityGetServiceCredentialsRequest) {
-	return func(r *SecurityGetServiceCredentialsRequest) {
+func (f SecuritySamlLogout) WithHeader(h map[string]string) func(*SecuritySamlLogoutRequest) {
+	return func(r *SecuritySamlLogoutRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -200,8 +193,8 @@ func (f SecurityGetServiceCredentials) WithHeader(h map[string]string) func(*Sec
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f SecurityGetServiceCredentials) WithOpaqueID(s string) func(*SecurityGetServiceCredentialsRequest) {
-	return func(r *SecurityGetServiceCredentialsRequest) {
+func (f SecuritySamlLogout) WithOpaqueID(s string) func(*SecuritySamlLogoutRequest) {
+	return func(r *SecuritySamlLogoutRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

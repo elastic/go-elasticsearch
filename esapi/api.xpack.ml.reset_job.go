@@ -22,12 +22,13 @@ package esapi
 import (
 	"context"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
-func newSecurityGetServiceCredentialsFunc(t Transport) SecurityGetServiceCredentials {
-	return func(namespace string, service string, o ...func(*SecurityGetServiceCredentialsRequest)) (*Response, error) {
-		var r = SecurityGetServiceCredentialsRequest{Namespace: namespace, Service: service}
+func newMLResetJobFunc(t Transport) MLResetJob {
+	return func(job_id string, o ...func(*MLResetJobRequest)) (*Response, error) {
+		var r = MLResetJobRequest{JobID: job_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -37,19 +38,18 @@ func newSecurityGetServiceCredentialsFunc(t Transport) SecurityGetServiceCredent
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGetServiceCredentials - Retrieves information of all service credentials for a service account.
+// MLResetJob - Resets an existing anomaly detection job.
 //
-// This API is beta.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-reset-job.html.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-service-credentials.html.
-//
-type SecurityGetServiceCredentials func(service string, namespace string, o ...func(*SecurityGetServiceCredentialsRequest)) (*Response, error)
+type MLResetJob func(job_id string, o ...func(*MLResetJobRequest)) (*Response, error)
 
-// SecurityGetServiceCredentialsRequest configures the Security Get Service Credentials API request.
+// MLResetJobRequest configures the ML Reset Job API request.
 //
-type SecurityGetServiceCredentialsRequest struct {
-	Namespace string
-	Service   string
+type MLResetJobRequest struct {
+	JobID string
+
+	WaitForCompletion *bool
 
 	Pretty     bool
 	Human      bool
@@ -63,28 +63,30 @@ type SecurityGetServiceCredentialsRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r SecurityGetServiceCredentialsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r MLResetJobRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
-	path.Grow(1 + len("_security") + 1 + len("service") + 1 + len(r.Namespace) + 1 + len(r.Service) + 1 + len("credential"))
+	path.Grow(1 + len("_ml") + 1 + len("anomaly_detectors") + 1 + len(r.JobID) + 1 + len("_reset"))
 	path.WriteString("/")
-	path.WriteString("_security")
+	path.WriteString("_ml")
 	path.WriteString("/")
-	path.WriteString("service")
+	path.WriteString("anomaly_detectors")
 	path.WriteString("/")
-	path.WriteString(r.Namespace)
+	path.WriteString(r.JobID)
 	path.WriteString("/")
-	path.WriteString(r.Service)
-	path.WriteString("/")
-	path.WriteString("credential")
+	path.WriteString("_reset")
 
 	params = make(map[string]string)
+
+	if r.WaitForCompletion != nil {
+		params["wait_for_completion"] = strconv.FormatBool(*r.WaitForCompletion)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -147,48 +149,56 @@ func (r SecurityGetServiceCredentialsRequest) Do(ctx context.Context, transport 
 
 // WithContext sets the request context.
 //
-func (f SecurityGetServiceCredentials) WithContext(v context.Context) func(*SecurityGetServiceCredentialsRequest) {
-	return func(r *SecurityGetServiceCredentialsRequest) {
+func (f MLResetJob) WithContext(v context.Context) func(*MLResetJobRequest) {
+	return func(r *MLResetJobRequest) {
 		r.ctx = v
+	}
+}
+
+// WithWaitForCompletion - should this request wait until the operation has completed before returning.
+//
+func (f MLResetJob) WithWaitForCompletion(v bool) func(*MLResetJobRequest) {
+	return func(r *MLResetJobRequest) {
+		r.WaitForCompletion = &v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f SecurityGetServiceCredentials) WithPretty() func(*SecurityGetServiceCredentialsRequest) {
-	return func(r *SecurityGetServiceCredentialsRequest) {
+func (f MLResetJob) WithPretty() func(*MLResetJobRequest) {
+	return func(r *MLResetJobRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f SecurityGetServiceCredentials) WithHuman() func(*SecurityGetServiceCredentialsRequest) {
-	return func(r *SecurityGetServiceCredentialsRequest) {
+func (f MLResetJob) WithHuman() func(*MLResetJobRequest) {
+	return func(r *MLResetJobRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f SecurityGetServiceCredentials) WithErrorTrace() func(*SecurityGetServiceCredentialsRequest) {
-	return func(r *SecurityGetServiceCredentialsRequest) {
+func (f MLResetJob) WithErrorTrace() func(*MLResetJobRequest) {
+	return func(r *MLResetJobRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f SecurityGetServiceCredentials) WithFilterPath(v ...string) func(*SecurityGetServiceCredentialsRequest) {
-	return func(r *SecurityGetServiceCredentialsRequest) {
+func (f MLResetJob) WithFilterPath(v ...string) func(*MLResetJobRequest) {
+	return func(r *MLResetJobRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f SecurityGetServiceCredentials) WithHeader(h map[string]string) func(*SecurityGetServiceCredentialsRequest) {
-	return func(r *SecurityGetServiceCredentialsRequest) {
+func (f MLResetJob) WithHeader(h map[string]string) func(*MLResetJobRequest) {
+	return func(r *MLResetJobRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -200,8 +210,8 @@ func (f SecurityGetServiceCredentials) WithHeader(h map[string]string) func(*Sec
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f SecurityGetServiceCredentials) WithOpaqueID(s string) func(*SecurityGetServiceCredentialsRequest) {
-	return func(r *SecurityGetServiceCredentialsRequest) {
+func (f MLResetJob) WithOpaqueID(s string) func(*MLResetJobRequest) {
+	return func(r *MLResetJobRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

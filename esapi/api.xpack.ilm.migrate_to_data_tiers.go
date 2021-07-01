@@ -21,13 +21,15 @@ package esapi
 
 import (
 	"context"
+	"io"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
-func newSecurityGetServiceCredentialsFunc(t Transport) SecurityGetServiceCredentials {
-	return func(namespace string, service string, o ...func(*SecurityGetServiceCredentialsRequest)) (*Response, error) {
-		var r = SecurityGetServiceCredentialsRequest{Namespace: namespace, Service: service}
+func newILMMigrateToDataTiersFunc(t Transport) ILMMigrateToDataTiers {
+	return func(o ...func(*ILMMigrateToDataTiersRequest)) (*Response, error) {
+		var r = ILMMigrateToDataTiersRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -37,19 +39,18 @@ func newSecurityGetServiceCredentialsFunc(t Transport) SecurityGetServiceCredent
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGetServiceCredentials - Retrieves information of all service credentials for a service account.
+// ILMMigrateToDataTiers - Migrates the indices and ILM policies away from custom node attribute allocation routing to data tiers routing
 //
-// This API is beta.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-migrate-to-data-tiers.html.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-service-credentials.html.
-//
-type SecurityGetServiceCredentials func(service string, namespace string, o ...func(*SecurityGetServiceCredentialsRequest)) (*Response, error)
+type ILMMigrateToDataTiers func(o ...func(*ILMMigrateToDataTiersRequest)) (*Response, error)
 
-// SecurityGetServiceCredentialsRequest configures the Security Get Service Credentials API request.
+// ILMMigrateToDataTiersRequest configures the ILM Migrate To Data Tiers API request.
 //
-type SecurityGetServiceCredentialsRequest struct {
-	Namespace string
-	Service   string
+type ILMMigrateToDataTiersRequest struct {
+	Body io.Reader
+
+	DryRun *bool
 
 	Pretty     bool
 	Human      bool
@@ -63,28 +64,23 @@ type SecurityGetServiceCredentialsRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r SecurityGetServiceCredentialsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r ILMMigrateToDataTiersRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
-	path.Grow(1 + len("_security") + 1 + len("service") + 1 + len(r.Namespace) + 1 + len(r.Service) + 1 + len("credential"))
-	path.WriteString("/")
-	path.WriteString("_security")
-	path.WriteString("/")
-	path.WriteString("service")
-	path.WriteString("/")
-	path.WriteString(r.Namespace)
-	path.WriteString("/")
-	path.WriteString(r.Service)
-	path.WriteString("/")
-	path.WriteString("credential")
+	path.Grow(len("/_ilm/migrate_to_data_tiers"))
+	path.WriteString("/_ilm/migrate_to_data_tiers")
 
 	params = make(map[string]string)
+
+	if r.DryRun != nil {
+		params["dry_run"] = strconv.FormatBool(*r.DryRun)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -102,7 +98,7 @@ func (r SecurityGetServiceCredentialsRequest) Do(ctx context.Context, transport 
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -113,6 +109,10 @@ func (r SecurityGetServiceCredentialsRequest) Do(ctx context.Context, transport 
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if r.Body != nil {
+		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -147,48 +147,64 @@ func (r SecurityGetServiceCredentialsRequest) Do(ctx context.Context, transport 
 
 // WithContext sets the request context.
 //
-func (f SecurityGetServiceCredentials) WithContext(v context.Context) func(*SecurityGetServiceCredentialsRequest) {
-	return func(r *SecurityGetServiceCredentialsRequest) {
+func (f ILMMigrateToDataTiers) WithContext(v context.Context) func(*ILMMigrateToDataTiersRequest) {
+	return func(r *ILMMigrateToDataTiersRequest) {
 		r.ctx = v
+	}
+}
+
+// WithBody - Optionally specify a legacy index template name to delete and optionally specify a node attribute name used for index shard routing (defaults to "data").
+//
+func (f ILMMigrateToDataTiers) WithBody(v io.Reader) func(*ILMMigrateToDataTiersRequest) {
+	return func(r *ILMMigrateToDataTiersRequest) {
+		r.Body = v
+	}
+}
+
+// WithDryRun - if set to true it will simulate the migration, providing a way to retrieve the ilm policies and indices that need to be migrated. the default is false.
+//
+func (f ILMMigrateToDataTiers) WithDryRun(v bool) func(*ILMMigrateToDataTiersRequest) {
+	return func(r *ILMMigrateToDataTiersRequest) {
+		r.DryRun = &v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f SecurityGetServiceCredentials) WithPretty() func(*SecurityGetServiceCredentialsRequest) {
-	return func(r *SecurityGetServiceCredentialsRequest) {
+func (f ILMMigrateToDataTiers) WithPretty() func(*ILMMigrateToDataTiersRequest) {
+	return func(r *ILMMigrateToDataTiersRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f SecurityGetServiceCredentials) WithHuman() func(*SecurityGetServiceCredentialsRequest) {
-	return func(r *SecurityGetServiceCredentialsRequest) {
+func (f ILMMigrateToDataTiers) WithHuman() func(*ILMMigrateToDataTiersRequest) {
+	return func(r *ILMMigrateToDataTiersRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f SecurityGetServiceCredentials) WithErrorTrace() func(*SecurityGetServiceCredentialsRequest) {
-	return func(r *SecurityGetServiceCredentialsRequest) {
+func (f ILMMigrateToDataTiers) WithErrorTrace() func(*ILMMigrateToDataTiersRequest) {
+	return func(r *ILMMigrateToDataTiersRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f SecurityGetServiceCredentials) WithFilterPath(v ...string) func(*SecurityGetServiceCredentialsRequest) {
-	return func(r *SecurityGetServiceCredentialsRequest) {
+func (f ILMMigrateToDataTiers) WithFilterPath(v ...string) func(*ILMMigrateToDataTiersRequest) {
+	return func(r *ILMMigrateToDataTiersRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f SecurityGetServiceCredentials) WithHeader(h map[string]string) func(*SecurityGetServiceCredentialsRequest) {
-	return func(r *SecurityGetServiceCredentialsRequest) {
+func (f ILMMigrateToDataTiers) WithHeader(h map[string]string) func(*ILMMigrateToDataTiersRequest) {
+	return func(r *ILMMigrateToDataTiersRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -200,8 +216,8 @@ func (f SecurityGetServiceCredentials) WithHeader(h map[string]string) func(*Sec
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f SecurityGetServiceCredentials) WithOpaqueID(s string) func(*SecurityGetServiceCredentialsRequest) {
-	return func(r *SecurityGetServiceCredentialsRequest) {
+func (f ILMMigrateToDataTiers) WithOpaqueID(s string) func(*ILMMigrateToDataTiersRequest) {
+	return func(r *ILMMigrateToDataTiersRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

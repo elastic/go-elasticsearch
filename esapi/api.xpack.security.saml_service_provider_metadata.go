@@ -25,9 +25,9 @@ import (
 	"strings"
 )
 
-func newSecurityGetServiceCredentialsFunc(t Transport) SecurityGetServiceCredentials {
-	return func(namespace string, service string, o ...func(*SecurityGetServiceCredentialsRequest)) (*Response, error) {
-		var r = SecurityGetServiceCredentialsRequest{Namespace: namespace, Service: service}
+func newSecuritySamlServiceProviderMetadataFunc(t Transport) SecuritySamlServiceProviderMetadata {
+	return func(realm_name string, o ...func(*SecuritySamlServiceProviderMetadataRequest)) (*Response, error) {
+		var r = SecuritySamlServiceProviderMetadataRequest{RealmName: realm_name}
 		for _, f := range o {
 			f(&r)
 		}
@@ -37,19 +37,16 @@ func newSecurityGetServiceCredentialsFunc(t Transport) SecurityGetServiceCredent
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGetServiceCredentials - Retrieves information of all service credentials for a service account.
+// SecuritySamlServiceProviderMetadata - Generates SAML metadata for the Elastic stack SAML 2.0 Service Provider
 //
-// This API is beta.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-saml-sp-metadata.html.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-service-credentials.html.
-//
-type SecurityGetServiceCredentials func(service string, namespace string, o ...func(*SecurityGetServiceCredentialsRequest)) (*Response, error)
+type SecuritySamlServiceProviderMetadata func(realm_name string, o ...func(*SecuritySamlServiceProviderMetadataRequest)) (*Response, error)
 
-// SecurityGetServiceCredentialsRequest configures the Security Get Service Credentials API request.
+// SecuritySamlServiceProviderMetadataRequest configures the Security Saml Service Provider Metadata API request.
 //
-type SecurityGetServiceCredentialsRequest struct {
-	Namespace string
-	Service   string
+type SecuritySamlServiceProviderMetadataRequest struct {
+	RealmName string
 
 	Pretty     bool
 	Human      bool
@@ -63,7 +60,7 @@ type SecurityGetServiceCredentialsRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r SecurityGetServiceCredentialsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SecuritySamlServiceProviderMetadataRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -72,17 +69,15 @@ func (r SecurityGetServiceCredentialsRequest) Do(ctx context.Context, transport 
 
 	method = "GET"
 
-	path.Grow(1 + len("_security") + 1 + len("service") + 1 + len(r.Namespace) + 1 + len(r.Service) + 1 + len("credential"))
+	path.Grow(1 + len("_security") + 1 + len("saml") + 1 + len("metadata") + 1 + len(r.RealmName))
 	path.WriteString("/")
 	path.WriteString("_security")
 	path.WriteString("/")
-	path.WriteString("service")
+	path.WriteString("saml")
 	path.WriteString("/")
-	path.WriteString(r.Namespace)
+	path.WriteString("metadata")
 	path.WriteString("/")
-	path.WriteString(r.Service)
-	path.WriteString("/")
-	path.WriteString("credential")
+	path.WriteString(r.RealmName)
 
 	params = make(map[string]string)
 
@@ -147,48 +142,48 @@ func (r SecurityGetServiceCredentialsRequest) Do(ctx context.Context, transport 
 
 // WithContext sets the request context.
 //
-func (f SecurityGetServiceCredentials) WithContext(v context.Context) func(*SecurityGetServiceCredentialsRequest) {
-	return func(r *SecurityGetServiceCredentialsRequest) {
+func (f SecuritySamlServiceProviderMetadata) WithContext(v context.Context) func(*SecuritySamlServiceProviderMetadataRequest) {
+	return func(r *SecuritySamlServiceProviderMetadataRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f SecurityGetServiceCredentials) WithPretty() func(*SecurityGetServiceCredentialsRequest) {
-	return func(r *SecurityGetServiceCredentialsRequest) {
+func (f SecuritySamlServiceProviderMetadata) WithPretty() func(*SecuritySamlServiceProviderMetadataRequest) {
+	return func(r *SecuritySamlServiceProviderMetadataRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f SecurityGetServiceCredentials) WithHuman() func(*SecurityGetServiceCredentialsRequest) {
-	return func(r *SecurityGetServiceCredentialsRequest) {
+func (f SecuritySamlServiceProviderMetadata) WithHuman() func(*SecuritySamlServiceProviderMetadataRequest) {
+	return func(r *SecuritySamlServiceProviderMetadataRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f SecurityGetServiceCredentials) WithErrorTrace() func(*SecurityGetServiceCredentialsRequest) {
-	return func(r *SecurityGetServiceCredentialsRequest) {
+func (f SecuritySamlServiceProviderMetadata) WithErrorTrace() func(*SecuritySamlServiceProviderMetadataRequest) {
+	return func(r *SecuritySamlServiceProviderMetadataRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f SecurityGetServiceCredentials) WithFilterPath(v ...string) func(*SecurityGetServiceCredentialsRequest) {
-	return func(r *SecurityGetServiceCredentialsRequest) {
+func (f SecuritySamlServiceProviderMetadata) WithFilterPath(v ...string) func(*SecuritySamlServiceProviderMetadataRequest) {
+	return func(r *SecuritySamlServiceProviderMetadataRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f SecurityGetServiceCredentials) WithHeader(h map[string]string) func(*SecurityGetServiceCredentialsRequest) {
-	return func(r *SecurityGetServiceCredentialsRequest) {
+func (f SecuritySamlServiceProviderMetadata) WithHeader(h map[string]string) func(*SecuritySamlServiceProviderMetadataRequest) {
+	return func(r *SecuritySamlServiceProviderMetadataRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -200,8 +195,8 @@ func (f SecurityGetServiceCredentials) WithHeader(h map[string]string) func(*Sec
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f SecurityGetServiceCredentials) WithOpaqueID(s string) func(*SecurityGetServiceCredentialsRequest) {
-	return func(r *SecurityGetServiceCredentialsRequest) {
+func (f SecuritySamlServiceProviderMetadata) WithOpaqueID(s string) func(*SecuritySamlServiceProviderMetadataRequest) {
+	return func(r *SecuritySamlServiceProviderMetadataRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

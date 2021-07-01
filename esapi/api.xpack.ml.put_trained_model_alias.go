@@ -28,7 +28,7 @@ import (
 
 func newMLPutTrainedModelAliasFunc(t Transport) MLPutTrainedModelAlias {
 	return func(model_alias string, model_id string, o ...func(*MLPutTrainedModelAliasRequest)) (*Response, error) {
-		var r = MLPutTrainedModelAliasRequest{ModelAlias: model_alias, ModelID: model_id}
+		var r = MLPutTrainedModelAliasRequest{ModelID: model_id, ModelAlias: model_alias}
 		for _, f := range o {
 			f(&r)
 		}
@@ -42,7 +42,7 @@ func newMLPutTrainedModelAliasFunc(t Transport) MLPutTrainedModelAlias {
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/put-trained-models-aliases.html.
 //
-type MLPutTrainedModelAlias func(model_alias string, model_id string, o ...func(*MLPutTrainedModelAliasRequest)) (*Response, error)
+type MLPutTrainedModelAlias func(model_id string, model_alias string, o ...func(*MLPutTrainedModelAliasRequest)) (*Response, error)
 
 // MLPutTrainedModelAliasRequest configures the ML Put Trained Model Alias API request.
 //
