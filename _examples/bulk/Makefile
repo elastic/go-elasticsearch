@@ -15,7 +15,10 @@ setup:
 	@go get -u github.com/mailru/easyjson/...
 	@go mod download github.com/dustin/go-humanize
 	@go mod download github.com/cenkalti/backoff/v4
-	cd benchmarks && go mod download && go mod download github.com/mailru/easyjson && go generate ./model
+	@cd benchmarks && \
+	go mod download && \
+	go mod download github.com/mailru/easyjson && \
+	go generate ./model
 
 clean:
 	@rm -f benchmarks/model/*_easyjson.go
