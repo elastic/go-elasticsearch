@@ -111,3 +111,51 @@ func TestTransportHeaders(t *testing.T) {
 		t.Errorf("Unexpected response body:\n%s", body)
 	}
 }
+
+func TestTransportCompression(t *testing.T) {
+	var req *http.Request
+	var res *http.Response
+	var err error
+
+	u, _ := url.Parse("http://localhost:9200")
+
+	transport, _ := estransport.New(estransport.Config{
+		URLs: []*url.URL{u},
+		CompressRequestBody: true,
+	})
+
+	indexName := "/shiny_new_index"
+
+	req, _ = http.NewRequest(http.MethodPut, indexName, nil)
+	res, err = transport.Perform(req)
+	if err != nil {
+		t.Fatalf("Unexpected error, cannot create index: %v", err)
+	}
+
+	req, _ = http.NewRequest(http.MethodGet, indexName, nil)
+	res, err = transport.Perform(req)
+	if err != nil {
+		t.Fatalf("Unexpected error, cannot find index: %v", err)
+	}
+
+	req, _ = http.NewRequest(
+		http.MethodPost,
+		strings.Join([]string{indexName, "/_doc"}, ""),
+		strings.NewReader(`{"solidPayload": 1}`),
+	)
+	req.Header.Set("Content-Type", "application/json")
+	res, err = transport.Perform(req)
+	if err != nil {
+		t.Fatalf("Unexpected error, cannot POST payload: %v", err)
+	}
+
+	if res.StatusCode != http.StatusCreated {
+		t.Fatalf("Unexpected StatusCode, expected 201, got: %v", res.StatusCode)
+	}
+
+	req, _ = http.NewRequest(http.MethodDelete, indexName, nil)
+	_, err = transport.Perform(req)
+	if err != nil {
+		t.Fatalf("Unexpected error, cannot DELETE %s: %v", indexName, err)
+	}
+}
