@@ -79,6 +79,8 @@ type Config struct {
 	EnableRetryOnTimeout bool  // Default: false.
 	MaxRetries           int   // Default: 3.
 
+	CompressRequestBody bool // Default: false.
+
 	DiscoverNodesOnStart  bool          // Discover nodes when initializing the client. Default: false.
 	DiscoverNodesInterval time.Duration // Discover nodes periodically. Default: disabled.
 
@@ -198,6 +200,8 @@ func NewClient(cfg Config) (*Client, error) {
 		EnableRetryOnTimeout: cfg.EnableRetryOnTimeout,
 		MaxRetries:           cfg.MaxRetries,
 		RetryBackoff:         cfg.RetryBackoff,
+
+		CompressRequestBody: cfg.CompressRequestBody,
 
 		EnableMetrics:     cfg.EnableMetrics,
 		EnableDebugLogger: cfg.EnableDebugLogger,

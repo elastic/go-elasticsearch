@@ -20,6 +20,8 @@
 package estransport
 
 import (
+	"bytes"
+	"compress/gzip"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -108,6 +110,10 @@ func TestTransportConfig(t *testing.T) {
 		if tp.maxRetries != 3 {
 			t.Errorf("Unexpected maxRetries: %v", tp.maxRetries)
 		}
+
+		if tp.compressRequestBody {
+			t.Errorf("Unexpected compressRequestBody: %v", tp.compressRequestBody)
+		}
 	})
 
 	t.Run("Custom", func(t *testing.T) {
@@ -116,6 +122,7 @@ func TestTransportConfig(t *testing.T) {
 			DisableRetry:         true,
 			EnableRetryOnTimeout: true,
 			MaxRetries:           5,
+			CompressRequestBody:  true,
 		})
 
 		if !reflect.DeepEqual(tp.retryOnStatus, []int{404, 408}) {
@@ -132,6 +139,10 @@ func TestTransportConfig(t *testing.T) {
 
 		if tp.maxRetries != 5 {
 			t.Errorf("Unexpected maxRetries: %v", tp.maxRetries)
+		}
+
+		if !tp.compressRequestBody {
+			t.Errorf("Unexpected compressRequestBody: %v", tp.compressRequestBody)
 		}
 	})
 }
@@ -978,6 +989,76 @@ func TestCompatibilityHeader(t *testing.T) {
 			_, _ = c.Perform(req)
 
 			compatibilityHeader = false
+		})
+	}
+}
+
+func TestRequestCompression(t *testing.T) {
+
+	tests := []struct {
+		name            string
+		compressionFlag bool
+		inputBody       string
+	}{
+		{
+			name:            "Uncompressed",
+			compressionFlag: false,
+			inputBody:       "elasticsearch",
+		},
+		{
+			name:            "Compressed",
+			compressionFlag: true,
+			inputBody:       "elasticsearch",
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			tp, _ := New(Config{
+				URLs:                []*url.URL{{}},
+				CompressRequestBody: test.compressionFlag,
+				Transport: &mockTransp{
+					RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+						if req.Body == nil || req.Body == http.NoBody {
+							return nil, fmt.Errorf("unexpected body: %v", req.Body)
+						}
+
+						var buf bytes.Buffer
+						buf.ReadFrom(req.Body)
+
+						if req.ContentLength != int64(buf.Len()) {
+							return nil, fmt.Errorf("mismatched Content-Length: %d vs actual %d", req.ContentLength, buf.Len())
+						}
+
+						if test.compressionFlag {
+							var unBuf bytes.Buffer
+							zr, err := gzip.NewReader(&buf)
+							if err != nil {
+								return nil, fmt.Errorf("decompression error: %v", err)
+							}
+							unBuf.ReadFrom(zr)
+							buf = unBuf
+						}
+
+						if buf.String() != test.inputBody {
+							return nil, fmt.Errorf("unexpected body: %s", buf.String())
+						}
+
+						return &http.Response{Status: "MOCK"}, nil
+					},
+				},
+			})
+
+			req, _ := http.NewRequest("POST", "/abc", bytes.NewBufferString(test.inputBody))
+
+			res, err := tp.Perform(req)
+			if err != nil {
+				t.Fatalf("Unexpected error: %s", err)
+			}
+
+			if res.Status != "MOCK" {
+				t.Errorf("Unexpected response: %+v", res)
+			}
 		})
 	}
 }
