@@ -280,31 +280,30 @@ func ParseElasticsearchVersion(version string) (int64, int64, int64, error) {
 // Perform delegates to Transport to execute a request and return a response.
 //
 func (c *Client) Perform(req *http.Request) (*http.Response, error) {
-	// ProductCheck validation
-	c.productCheckOnce.Do(func() {
-		// We skip this validation of we only want the header validation.
-		// ResponseCheck path continues after original request.
-		if c.useResponseCheckOnly {
-			return
+	// ProductCheck validation. We skip this validation of we only want the
+	// header validation. ResponseCheck path continues after original request.
+	if !c.useResponseCheckOnly {
+		c.productCheckOnce.Do(func() {
+			// Launch product check for 7.x, request info, check header then payload.
+			c.productCheckError = c.productCheck()
+		})
+		if c.productCheckError != nil {
+			return nil, c.productCheckError
 		}
-
-		// Launch product check for 7.x, request info, check header then payload.
-		c.productCheckError = c.productCheck()
-		return
-	})
+	}
 
 	// Retrieve the original request.
 	res, err := c.Transport.Perform(req)
 
-	c.responseCheckOnce.Do(func() {
-		// ResponseCheck path continues, we run the header check on the first answer from ES.
-		if c.useResponseCheckOnly {
+	if err == nil && c.useResponseCheckOnly {
+		c.responseCheckOnce.Do(func() {
+			// ResponseCheck path continues, we run the header check on the first answer from ES.
 			c.productCheckError = genuineCheckHeader(res.Header)
+		})
+		if c.productCheckError != nil {
+			res.Body.Close()
+			return nil, c.productCheckError
 		}
-	})
-
-	if c.productCheckError != nil {
-		return nil, c.productCheckError
 	}
 	return res, err
 }
