@@ -101,13 +101,12 @@ type Config struct {
 // Client represents the Elasticsearch client.
 //
 type Client struct {
-	*esapi.API // Embeds the API methods
-	Transport  estransport.Interface
-
-	productCheckOnce     sync.Once
-	responseCheckOnce    sync.Once
-	productCheckError    error
+	*esapi.API           // Embeds the API methods
+	Transport            estransport.Interface
 	useResponseCheckOnly bool
+
+	productCheckMu      sync.RWMutex
+	productCheckSuccess bool
 }
 
 type esVersion struct {
@@ -280,33 +279,48 @@ func ParseElasticsearchVersion(version string) (int64, int64, int64, error) {
 // Perform delegates to Transport to execute a request and return a response.
 //
 func (c *Client) Perform(req *http.Request) (*http.Response, error) {
-	// ProductCheck validation
-	c.productCheckOnce.Do(func() {
-		// We skip this validation of we only want the header validation.
-		// ResponseCheck path continues after original request.
-		if c.useResponseCheckOnly {
-			return
-		}
-
+	// ProductCheck validation. We skip this validation of we only want the
+	// header validation. ResponseCheck path continues after original request.
+	if !c.useResponseCheckOnly {
 		// Launch product check for 7.x, request info, check header then payload.
-		c.productCheckError = c.productCheck()
-		return
-	})
+		if err := c.doProductCheck(c.productCheck); err != nil {
+			return nil, err
+		}
+	}
 
 	// Retrieve the original request.
 	res, err := c.Transport.Perform(req)
 
-	c.responseCheckOnce.Do(func() {
-		// ResponseCheck path continues, we run the header check on the first answer from ES.
-		if c.useResponseCheckOnly {
-			c.productCheckError = genuineCheckHeader(res.Header)
+	// ResponseCheck path continues, we run the header check on the first answer from ES.
+	if err == nil {
+		checkHeader := func() error { return genuineCheckHeader(res.Header) }
+		if err := c.doProductCheck(checkHeader); err != nil {
+			res.Body.Close()
+			return nil, err
 		}
-	})
-
-	if c.productCheckError != nil {
-		return nil, c.productCheckError
 	}
 	return res, err
+}
+
+// doProductCheck calls f if there as not been a prior successful call to doProductCheck,
+// returning nil otherwise.
+func (c *Client) doProductCheck(f func() error) error {
+	c.productCheckMu.RLock()
+	productCheckSuccess := c.productCheckSuccess
+	c.productCheckMu.RUnlock()
+	if productCheckSuccess {
+		return nil
+	}
+	c.productCheckMu.Lock()
+	defer c.productCheckMu.Unlock()
+	if c.productCheckSuccess {
+		return nil
+	}
+	if err := f(); err != nil {
+		return err
+	}
+	c.productCheckSuccess = true
+	return nil
 }
 
 // productCheck runs an esapi.Info query to retrieve informations of the current cluster
