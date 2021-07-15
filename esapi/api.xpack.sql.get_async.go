@@ -21,14 +21,14 @@ package esapi
 
 import (
 	"context"
-	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
-func newRollupRollupFunc(t Transport) RollupRollup {
-	return func(index string, body io.Reader, rollup_index string, o ...func(*RollupRollupRequest)) (*Response, error) {
-		var r = RollupRollupRequest{Index: index, Body: body, RollupIndex: rollup_index}
+func newSQLGetAsyncFunc(t Transport) SQLGetAsync {
+	return func(id string, o ...func(*SQLGetAsyncRequest)) (*Response, error) {
+		var r = SQLGetAsyncRequest{DocumentID: id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -38,22 +38,21 @@ func newRollupRollupFunc(t Transport) RollupRollup {
 
 // ----- API Definition -------------------------------------------------------
 
-// RollupRollup - Rollup an index
+// SQLGetAsync - Returns the current status and available results for an async SQL search or stored synchronous SQL search
 //
-// This API is experimental.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-async-sql-search-api.html.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/xpack-rollup.html.
-//
-type RollupRollup func(index string, body io.Reader, rollup_index string, o ...func(*RollupRollupRequest)) (*Response, error)
+type SQLGetAsync func(id string, o ...func(*SQLGetAsyncRequest)) (*Response, error)
 
-// RollupRollupRequest configures the Rollup Rollup API request.
+// SQLGetAsyncRequest configures the SQL Get Async API request.
 //
-type RollupRollupRequest struct {
-	Index string
+type SQLGetAsyncRequest struct {
+	DocumentID string
 
-	Body io.Reader
-
-	RollupIndex string
+	Delimiter                string
+	Format                   string
+	KeepAlive                time.Duration
+	WaitForCompletionTimeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -67,24 +66,40 @@ type RollupRollupRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r RollupRollupRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SQLGetAsyncRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "POST"
+	method = "GET"
 
-	path.Grow(1 + len(r.Index) + 1 + len("_rollup") + 1 + len(r.RollupIndex))
+	path.Grow(1 + len("_sql") + 1 + len("async") + 1 + len(r.DocumentID))
 	path.WriteString("/")
-	path.WriteString(r.Index)
+	path.WriteString("_sql")
 	path.WriteString("/")
-	path.WriteString("_rollup")
+	path.WriteString("async")
 	path.WriteString("/")
-	path.WriteString(r.RollupIndex)
+	path.WriteString(r.DocumentID)
 
 	params = make(map[string]string)
+
+	if r.Delimiter != "" {
+		params["delimiter"] = r.Delimiter
+	}
+
+	if r.Format != "" {
+		params["format"] = r.Format
+	}
+
+	if r.KeepAlive != 0 {
+		params["keep_alive"] = formatDuration(r.KeepAlive)
+	}
+
+	if r.WaitForCompletionTimeout != 0 {
+		params["wait_for_completion_timeout"] = formatDuration(r.WaitForCompletionTimeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -102,7 +117,7 @@ func (r RollupRollupRequest) Do(ctx context.Context, transport Transport) (*Resp
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -113,10 +128,6 @@ func (r RollupRollupRequest) Do(ctx context.Context, transport Transport) (*Resp
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
-	}
-
-	if r.Body != nil {
-		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -151,48 +162,80 @@ func (r RollupRollupRequest) Do(ctx context.Context, transport Transport) (*Resp
 
 // WithContext sets the request context.
 //
-func (f RollupRollup) WithContext(v context.Context) func(*RollupRollupRequest) {
-	return func(r *RollupRollupRequest) {
+func (f SQLGetAsync) WithContext(v context.Context) func(*SQLGetAsyncRequest) {
+	return func(r *SQLGetAsyncRequest) {
 		r.ctx = v
+	}
+}
+
+// WithDelimiter - separator for csv results.
+//
+func (f SQLGetAsync) WithDelimiter(v string) func(*SQLGetAsyncRequest) {
+	return func(r *SQLGetAsyncRequest) {
+		r.Delimiter = v
+	}
+}
+
+// WithFormat - short version of the accept header, e.g. json, yaml.
+//
+func (f SQLGetAsync) WithFormat(v string) func(*SQLGetAsyncRequest) {
+	return func(r *SQLGetAsyncRequest) {
+		r.Format = v
+	}
+}
+
+// WithKeepAlive - retention period for the search and its results.
+//
+func (f SQLGetAsync) WithKeepAlive(v time.Duration) func(*SQLGetAsyncRequest) {
+	return func(r *SQLGetAsyncRequest) {
+		r.KeepAlive = v
+	}
+}
+
+// WithWaitForCompletionTimeout - duration to wait for complete results.
+//
+func (f SQLGetAsync) WithWaitForCompletionTimeout(v time.Duration) func(*SQLGetAsyncRequest) {
+	return func(r *SQLGetAsyncRequest) {
+		r.WaitForCompletionTimeout = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f RollupRollup) WithPretty() func(*RollupRollupRequest) {
-	return func(r *RollupRollupRequest) {
+func (f SQLGetAsync) WithPretty() func(*SQLGetAsyncRequest) {
+	return func(r *SQLGetAsyncRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f RollupRollup) WithHuman() func(*RollupRollupRequest) {
-	return func(r *RollupRollupRequest) {
+func (f SQLGetAsync) WithHuman() func(*SQLGetAsyncRequest) {
+	return func(r *SQLGetAsyncRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f RollupRollup) WithErrorTrace() func(*RollupRollupRequest) {
-	return func(r *RollupRollupRequest) {
+func (f SQLGetAsync) WithErrorTrace() func(*SQLGetAsyncRequest) {
+	return func(r *SQLGetAsyncRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f RollupRollup) WithFilterPath(v ...string) func(*RollupRollupRequest) {
-	return func(r *RollupRollupRequest) {
+func (f SQLGetAsync) WithFilterPath(v ...string) func(*SQLGetAsyncRequest) {
+	return func(r *SQLGetAsyncRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f RollupRollup) WithHeader(h map[string]string) func(*RollupRollupRequest) {
-	return func(r *RollupRollupRequest) {
+func (f SQLGetAsync) WithHeader(h map[string]string) func(*SQLGetAsyncRequest) {
+	return func(r *SQLGetAsyncRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -204,8 +247,8 @@ func (f RollupRollup) WithHeader(h map[string]string) func(*RollupRollupRequest)
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f RollupRollup) WithOpaqueID(s string) func(*RollupRollupRequest) {
-	return func(r *RollupRollupRequest) {
+func (f SQLGetAsync) WithOpaqueID(s string) func(*SQLGetAsyncRequest) {
+	return func(r *SQLGetAsyncRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

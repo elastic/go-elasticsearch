@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.0.0 (005f209): DO NOT EDIT
+// Code generated from specification version 8.0.0 (0f2e221): DO NOT EDIT
 
 package esapi
 
@@ -212,6 +212,7 @@ type Indices struct {
 	ExistsIndexTemplate   IndicesExistsIndexTemplate
 	Exists                IndicesExists
 	ExistsTemplate        IndicesExistsTemplate
+	FieldUsageStats       IndicesFieldUsageStats
 	Flush                 IndicesFlush
 	Forcemerge            IndicesForcemerge
 	Freeze                IndicesFreeze
@@ -487,9 +488,12 @@ type Security struct {
 
 // SQL contains the SQL APIs
 type SQL struct {
-	ClearCursor SQLClearCursor
-	Query       SQLQuery
-	Translate   SQLTranslate
+	ClearCursor    SQLClearCursor
+	DeleteAsync    SQLDeleteAsync
+	GetAsync       SQLGetAsync
+	GetAsyncStatus SQLGetAsyncStatus
+	Query          SQLQuery
+	Translate      SQLTranslate
 }
 
 // SSL contains the SSL APIs
@@ -683,6 +687,7 @@ func New(t Transport) *API {
 			ExistsIndexTemplate:   newIndicesExistsIndexTemplateFunc(t),
 			Exists:                newIndicesExistsFunc(t),
 			ExistsTemplate:        newIndicesExistsTemplateFunc(t),
+			FieldUsageStats:       newIndicesFieldUsageStatsFunc(t),
 			Flush:                 newIndicesFlushFunc(t),
 			Forcemerge:            newIndicesForcemergeFunc(t),
 			Freeze:                newIndicesFreezeFunc(t),
@@ -927,9 +932,12 @@ func New(t Transport) *API {
 			SamlServiceProviderMetadata: newSecuritySamlServiceProviderMetadataFunc(t),
 		},
 		SQL: &SQL{
-			ClearCursor: newSQLClearCursorFunc(t),
-			Query:       newSQLQueryFunc(t),
-			Translate:   newSQLTranslateFunc(t),
+			ClearCursor:    newSQLClearCursorFunc(t),
+			DeleteAsync:    newSQLDeleteAsyncFunc(t),
+			GetAsync:       newSQLGetAsyncFunc(t),
+			GetAsyncStatus: newSQLGetAsyncStatusFunc(t),
+			Query:          newSQLQueryFunc(t),
+			Translate:      newSQLTranslateFunc(t),
 		},
 		SSL: &SSL{
 			Certificates: newSSLCertificatesFunc(t),
