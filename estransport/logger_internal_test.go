@@ -20,6 +20,7 @@
 package estransport
 
 import (
+	"bytes"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -440,6 +441,103 @@ func TestTransportLogger(t *testing.T) {
 		}
 		if err.Error() != "MOCK ERROR" {
 			t.Errorf("Unexpected error value, expected [ERROR MOCK], got [%s]", err.Error())
+		}
+	})
+}
+
+func TestLoggers(t *testing.T) {
+	start := time.Now()
+	dur := time.Second
+	t.Run("TextLogger req == nil", func(t *testing.T) {
+		var buff bytes.Buffer
+		logger := TextLogger{Output: &buff}
+		err := logger.LogRoundTrip(nil, nil, nil, start, dur)
+		if !errors.Is(err, errRequestEmpty) {
+			t.Errorf("Expected error `%s`, got `%v`", errRequestEmpty, err)
+		}
+	})
+	t.Run("TextLogger req.URL == nil", func(t *testing.T) {
+		var buff bytes.Buffer
+		logger := TextLogger{Output: &buff}
+		req := http.Request{
+			Method: http.MethodGet,
+		}
+
+		err := logger.LogRoundTrip(&req, nil, nil, start, dur)
+		if !errors.Is(err, errRequestURLEmpty) {
+			t.Errorf("Expected error `%s`, got `%v`", errRequestURLEmpty, err)
+		}
+	})
+	t.Run("ColorLogger req == nil", func(t *testing.T) {
+		var buff bytes.Buffer
+		logger := ColorLogger{Output: &buff}
+		err := logger.LogRoundTrip(nil, nil, nil, start, dur)
+		if !errors.Is(err, errRequestEmpty) {
+			t.Errorf("Expected error `%s`, got `%v`", errRequestEmpty, err)
+		}
+	})
+	t.Run("ColorLogger req.URL == nil", func(t *testing.T) {
+		var buff bytes.Buffer
+		logger := ColorLogger{Output: &buff}
+		req := http.Request{
+			Method: http.MethodGet,
+		}
+
+		err := logger.LogRoundTrip(&req, nil, nil, start, dur)
+		if !errors.Is(err, errRequestURLEmpty) {
+			t.Errorf("Expected error `%s`, got `%v`", errRequestURLEmpty, err)
+		}
+	})
+	t.Run("ColorLogger res == nil", func(t *testing.T) {
+		var buff bytes.Buffer
+		logger := ColorLogger{Output: &buff}
+		req, err := http.NewRequest(http.MethodGet, "http:example.com", nil)
+		if err != nil {
+			t.Errorf("Unexpected error: %s", err)
+		}
+		err = logger.LogRoundTrip(req, nil, nil, start, dur)
+		if !errors.Is(err, errResponseEmpty) {
+			t.Errorf("Expected error `%s`, got `%v`", errResponseEmpty, err)
+		}
+	})
+	t.Run("CurlLogger req == nil", func(t *testing.T) {
+		var buff bytes.Buffer
+		logger := CurlLogger{Output: &buff}
+		err := logger.LogRoundTrip(nil, nil, nil, start, dur)
+		if !errors.Is(err, errRequestEmpty) {
+			t.Errorf("Expected error `%s`, got `%v`", errRequestEmpty, err)
+		}
+	})
+	t.Run("CurlLogger req.URL == nil", func(t *testing.T) {
+		var buff bytes.Buffer
+		logger := CurlLogger{Output: &buff}
+		req := http.Request{
+			Method: http.MethodGet,
+		}
+
+		err := logger.LogRoundTrip(&req, nil, nil, start, dur)
+		if !errors.Is(err, errRequestURLEmpty) {
+			t.Errorf("Expected error `%s`, got `%v`", errRequestURLEmpty, err)
+		}
+	})
+	t.Run("JSONLogger req == nil", func(t *testing.T) {
+		var buff bytes.Buffer
+		logger := JSONLogger{Output: &buff}
+		err := logger.LogRoundTrip(nil, nil, nil, start, dur)
+		if !errors.Is(err, errRequestEmpty) {
+			t.Errorf("Expected error `%s`, got `%v`", errRequestEmpty, err)
+		}
+	})
+	t.Run("JSONLogger req.URL == nil", func(t *testing.T) {
+		var buff bytes.Buffer
+		logger := JSONLogger{Output: &buff}
+		req := http.Request{
+			Method: http.MethodGet,
+		}
+
+		err := logger.LogRoundTrip(&req, nil, nil, start, dur)
+		if !errors.Is(err, errRequestURLEmpty) {
+			t.Errorf("Expected error `%s`, got `%v`", errRequestURLEmpty, err)
 		}
 	})
 }
