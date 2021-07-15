@@ -26,8 +26,8 @@ import (
 )
 
 func newSecurityGetServiceCredentialsFunc(t Transport) SecurityGetServiceCredentials {
-	return func(namespace string, service string, o ...func(*SecurityGetServiceCredentialsRequest)) (*Response, error) {
-		var r = SecurityGetServiceCredentialsRequest{Namespace: namespace, Service: service}
+	return func(service string, namespace string, o ...func(*SecurityGetServiceCredentialsRequest)) (*Response, error) {
+		var r = SecurityGetServiceCredentialsRequest{Service: service, Namespace: namespace}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,7 +43,7 @@ func newSecurityGetServiceCredentialsFunc(t Transport) SecurityGetServiceCredent
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-service-credentials.html.
 //
-type SecurityGetServiceCredentials func(service string, namespace string, o ...func(*SecurityGetServiceCredentialsRequest)) (*Response, error)
+type SecurityGetServiceCredentials func(namespace string, service string, o ...func(*SecurityGetServiceCredentialsRequest)) (*Response, error)
 
 // SecurityGetServiceCredentialsRequest configures the Security Get Service Credentials API request.
 //

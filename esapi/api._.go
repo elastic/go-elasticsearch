@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 7.x (febed8b): DO NOT EDIT
+// Code generated from specification version 7.x (4e182b9): DO NOT EDIT
 
 package esapi
 
@@ -208,11 +208,13 @@ type Indices struct {
 	DeleteIndexTemplate   IndicesDeleteIndexTemplate
 	Delete                IndicesDelete
 	DeleteTemplate        IndicesDeleteTemplate
+	DiskUsage             IndicesDiskUsage
 	ExistsAlias           IndicesExistsAlias
 	ExistsDocumentType    IndicesExistsDocumentType
 	ExistsIndexTemplate   IndicesExistsIndexTemplate
 	Exists                IndicesExists
 	ExistsTemplate        IndicesExistsTemplate
+	FieldUsageStats       IndicesFieldUsageStats
 	Flush                 IndicesFlush
 	FlushSynced           IndicesFlushSynced
 	Forcemerge            IndicesForcemerge
@@ -487,9 +489,12 @@ type Security struct {
 
 // SQL contains the SQL APIs
 type SQL struct {
-	ClearCursor SQLClearCursor
-	Query       SQLQuery
-	Translate   SQLTranslate
+	ClearCursor    SQLClearCursor
+	DeleteAsync    SQLDeleteAsync
+	GetAsync       SQLGetAsync
+	GetAsyncStatus SQLGetAsyncStatus
+	Query          SQLQuery
+	Translate      SQLTranslate
 }
 
 // SSL contains the SSL APIs
@@ -679,11 +684,13 @@ func New(t Transport) *API {
 			DeleteIndexTemplate:   newIndicesDeleteIndexTemplateFunc(t),
 			Delete:                newIndicesDeleteFunc(t),
 			DeleteTemplate:        newIndicesDeleteTemplateFunc(t),
+			DiskUsage:             newIndicesDiskUsageFunc(t),
 			ExistsAlias:           newIndicesExistsAliasFunc(t),
 			ExistsDocumentType:    newIndicesExistsDocumentTypeFunc(t),
 			ExistsIndexTemplate:   newIndicesExistsIndexTemplateFunc(t),
 			Exists:                newIndicesExistsFunc(t),
 			ExistsTemplate:        newIndicesExistsTemplateFunc(t),
+			FieldUsageStats:       newIndicesFieldUsageStatsFunc(t),
 			Flush:                 newIndicesFlushFunc(t),
 			FlushSynced:           newIndicesFlushSyncedFunc(t),
 			Forcemerge:            newIndicesForcemergeFunc(t),
@@ -927,9 +934,12 @@ func New(t Transport) *API {
 			SamlServiceProviderMetadata: newSecuritySamlServiceProviderMetadataFunc(t),
 		},
 		SQL: &SQL{
-			ClearCursor: newSQLClearCursorFunc(t),
-			Query:       newSQLQueryFunc(t),
-			Translate:   newSQLTranslateFunc(t),
+			ClearCursor:    newSQLClearCursorFunc(t),
+			DeleteAsync:    newSQLDeleteAsyncFunc(t),
+			GetAsync:       newSQLGetAsyncFunc(t),
+			GetAsyncStatus: newSQLGetAsyncStatusFunc(t),
+			Query:          newSQLQueryFunc(t),
+			Translate:      newSQLTranslateFunc(t),
 		},
 		SSL: &SSL{
 			Certificates: newSSLCertificatesFunc(t),

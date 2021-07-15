@@ -21,15 +21,14 @@ package esapi
 
 import (
 	"context"
-	"io"
 	"net/http"
 	"strconv"
 	"strings"
 )
 
-func newMLPutJobFunc(t Transport) MLPutJob {
-	return func(job_id string, body io.Reader, o ...func(*MLPutJobRequest)) (*Response, error) {
-		var r = MLPutJobRequest{JobID: job_id, Body: body}
+func newIndicesFieldUsageStatsFunc(t Transport) IndicesFieldUsageStats {
+	return func(index string, o ...func(*IndicesFieldUsageStatsRequest)) (*Response, error) {
+		var r = IndicesFieldUsageStatsRequest{Index: index}
 		for _, f := range o {
 			f(&r)
 		}
@@ -39,22 +38,22 @@ func newMLPutJobFunc(t Transport) MLPutJob {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPutJob - Instantiates an anomaly detection job.
+// IndicesFieldUsageStats returns the field usage stats for each field of an index
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-put-job.html.
+// This API is experimental.
 //
-type MLPutJob func(job_id string, body io.Reader, o ...func(*MLPutJobRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-field-usage-stats.html.
+//
+type IndicesFieldUsageStats func(index string, o ...func(*IndicesFieldUsageStatsRequest)) (*Response, error)
 
-// MLPutJobRequest configures the ML Put Job API request.
+// IndicesFieldUsageStatsRequest configures the Indices Field Usage Stats API request.
 //
-type MLPutJobRequest struct {
-	Body io.Reader
-
-	JobID string
+type IndicesFieldUsageStatsRequest struct {
+	Index string
 
 	AllowNoIndices    *bool
 	ExpandWildcards   string
-	IgnoreThrottled   *bool
+	Fields            []string
 	IgnoreUnavailable *bool
 
 	Pretty     bool
@@ -69,22 +68,20 @@ type MLPutJobRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r MLPutJobRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r IndicesFieldUsageStatsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "PUT"
+	method = "GET"
 
-	path.Grow(1 + len("_ml") + 1 + len("anomaly_detectors") + 1 + len(r.JobID))
+	path.Grow(1 + len(r.Index) + 1 + len("_field_usage_stats"))
 	path.WriteString("/")
-	path.WriteString("_ml")
+	path.WriteString(r.Index)
 	path.WriteString("/")
-	path.WriteString("anomaly_detectors")
-	path.WriteString("/")
-	path.WriteString(r.JobID)
+	path.WriteString("_field_usage_stats")
 
 	params = make(map[string]string)
 
@@ -96,8 +93,8 @@ func (r MLPutJobRequest) Do(ctx context.Context, transport Transport) (*Response
 		params["expand_wildcards"] = r.ExpandWildcards
 	}
 
-	if r.IgnoreThrottled != nil {
-		params["ignore_throttled"] = strconv.FormatBool(*r.IgnoreThrottled)
+	if len(r.Fields) > 0 {
+		params["fields"] = strings.Join(r.Fields, ",")
 	}
 
 	if r.IgnoreUnavailable != nil {
@@ -120,7 +117,7 @@ func (r MLPutJobRequest) Do(ctx context.Context, transport Transport) (*Response
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -131,10 +128,6 @@ func (r MLPutJobRequest) Do(ctx context.Context, transport Transport) (*Response
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
-	}
-
-	if r.Body != nil {
-		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -169,80 +162,80 @@ func (r MLPutJobRequest) Do(ctx context.Context, transport Transport) (*Response
 
 // WithContext sets the request context.
 //
-func (f MLPutJob) WithContext(v context.Context) func(*MLPutJobRequest) {
-	return func(r *MLPutJobRequest) {
+func (f IndicesFieldUsageStats) WithContext(v context.Context) func(*IndicesFieldUsageStatsRequest) {
+	return func(r *IndicesFieldUsageStatsRequest) {
 		r.ctx = v
 	}
 }
 
-// WithAllowNoIndices - ignore if the source indices expressions resolves to no concrete indices (default: true). only set if datafeed_config is provided..
+// WithAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (this includes `_all` string or when no indices have been specified).
 //
-func (f MLPutJob) WithAllowNoIndices(v bool) func(*MLPutJobRequest) {
-	return func(r *MLPutJobRequest) {
+func (f IndicesFieldUsageStats) WithAllowNoIndices(v bool) func(*IndicesFieldUsageStatsRequest) {
+	return func(r *IndicesFieldUsageStatsRequest) {
 		r.AllowNoIndices = &v
 	}
 }
 
-// WithExpandWildcards - whether source index expressions should get expanded to open or closed indices (default: open). only set if datafeed_config is provided..
+// WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
 //
-func (f MLPutJob) WithExpandWildcards(v string) func(*MLPutJobRequest) {
-	return func(r *MLPutJobRequest) {
+func (f IndicesFieldUsageStats) WithExpandWildcards(v string) func(*IndicesFieldUsageStatsRequest) {
+	return func(r *IndicesFieldUsageStatsRequest) {
 		r.ExpandWildcards = v
 	}
 }
 
-// WithIgnoreThrottled - ignore indices that are marked as throttled (default: true). only set if datafeed_config is provided..
+// WithFields - a list of fields to include in the stats if only a subset of fields should be returned (supports wildcards).
 //
-func (f MLPutJob) WithIgnoreThrottled(v bool) func(*MLPutJobRequest) {
-	return func(r *MLPutJobRequest) {
-		r.IgnoreThrottled = &v
+func (f IndicesFieldUsageStats) WithFields(v ...string) func(*IndicesFieldUsageStatsRequest) {
+	return func(r *IndicesFieldUsageStatsRequest) {
+		r.Fields = v
 	}
 }
 
-// WithIgnoreUnavailable - ignore unavailable indexes (default: false). only set if datafeed_config is provided..
+// WithIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
 //
-func (f MLPutJob) WithIgnoreUnavailable(v bool) func(*MLPutJobRequest) {
-	return func(r *MLPutJobRequest) {
+func (f IndicesFieldUsageStats) WithIgnoreUnavailable(v bool) func(*IndicesFieldUsageStatsRequest) {
+	return func(r *IndicesFieldUsageStatsRequest) {
 		r.IgnoreUnavailable = &v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f MLPutJob) WithPretty() func(*MLPutJobRequest) {
-	return func(r *MLPutJobRequest) {
+func (f IndicesFieldUsageStats) WithPretty() func(*IndicesFieldUsageStatsRequest) {
+	return func(r *IndicesFieldUsageStatsRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f MLPutJob) WithHuman() func(*MLPutJobRequest) {
-	return func(r *MLPutJobRequest) {
+func (f IndicesFieldUsageStats) WithHuman() func(*IndicesFieldUsageStatsRequest) {
+	return func(r *IndicesFieldUsageStatsRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f MLPutJob) WithErrorTrace() func(*MLPutJobRequest) {
-	return func(r *MLPutJobRequest) {
+func (f IndicesFieldUsageStats) WithErrorTrace() func(*IndicesFieldUsageStatsRequest) {
+	return func(r *IndicesFieldUsageStatsRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f MLPutJob) WithFilterPath(v ...string) func(*MLPutJobRequest) {
-	return func(r *MLPutJobRequest) {
+func (f IndicesFieldUsageStats) WithFilterPath(v ...string) func(*IndicesFieldUsageStatsRequest) {
+	return func(r *IndicesFieldUsageStatsRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f MLPutJob) WithHeader(h map[string]string) func(*MLPutJobRequest) {
-	return func(r *MLPutJobRequest) {
+func (f IndicesFieldUsageStats) WithHeader(h map[string]string) func(*IndicesFieldUsageStatsRequest) {
+	return func(r *IndicesFieldUsageStatsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -254,8 +247,8 @@ func (f MLPutJob) WithHeader(h map[string]string) func(*MLPutJobRequest) {
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f MLPutJob) WithOpaqueID(s string) func(*MLPutJobRequest) {
-	return func(r *MLPutJobRequest) {
+func (f IndicesFieldUsageStats) WithOpaqueID(s string) func(*IndicesFieldUsageStatsRequest) {
+	return func(r *IndicesFieldUsageStatsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

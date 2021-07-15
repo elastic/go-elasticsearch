@@ -26,8 +26,8 @@ import (
 )
 
 func newMLDeleteTrainedModelAliasFunc(t Transport) MLDeleteTrainedModelAlias {
-	return func(model_id string, model_alias string, o ...func(*MLDeleteTrainedModelAliasRequest)) (*Response, error) {
-		var r = MLDeleteTrainedModelAliasRequest{ModelID: model_id, ModelAlias: model_alias}
+	return func(model_alias string, model_id string, o ...func(*MLDeleteTrainedModelAliasRequest)) (*Response, error) {
+		var r = MLDeleteTrainedModelAliasRequest{ModelAlias: model_alias, ModelID: model_id}
 		for _, f := range o {
 			f(&r)
 		}

@@ -22,13 +22,12 @@ package esapi
 import (
 	"context"
 	"net/http"
-	"strconv"
 	"strings"
 )
 
-func newMLPutTrainedModelAliasFunc(t Transport) MLPutTrainedModelAlias {
-	return func(model_alias string, model_id string, o ...func(*MLPutTrainedModelAliasRequest)) (*Response, error) {
-		var r = MLPutTrainedModelAliasRequest{ModelAlias: model_alias, ModelID: model_id}
+func newSQLGetAsyncStatusFunc(t Transport) SQLGetAsyncStatus {
+	return func(id string, o ...func(*SQLGetAsyncStatusRequest)) (*Response, error) {
+		var r = SQLGetAsyncStatusRequest{DocumentID: id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -38,19 +37,16 @@ func newMLPutTrainedModelAliasFunc(t Transport) MLPutTrainedModelAlias {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPutTrainedModelAlias - Creates a new model alias (or reassigns an existing one) to refer to the trained model
+// SQLGetAsyncStatus - Returns the current status of an async SQL search or a stored synchronous SQL search
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/put-trained-models-aliases.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-async-sql-search-status-api.html.
 //
-type MLPutTrainedModelAlias func(model_alias string, model_id string, o ...func(*MLPutTrainedModelAliasRequest)) (*Response, error)
+type SQLGetAsyncStatus func(id string, o ...func(*SQLGetAsyncStatusRequest)) (*Response, error)
 
-// MLPutTrainedModelAliasRequest configures the ML Put Trained Model Alias API request.
+// SQLGetAsyncStatusRequest configures the SQL Get Async Status API request.
 //
-type MLPutTrainedModelAliasRequest struct {
-	ModelAlias string
-	ModelID    string
-
-	Reassign *bool
+type SQLGetAsyncStatusRequest struct {
+	DocumentID string
 
 	Pretty     bool
 	Human      bool
@@ -64,32 +60,26 @@ type MLPutTrainedModelAliasRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r MLPutTrainedModelAliasRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SQLGetAsyncStatusRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "PUT"
+	method = "GET"
 
-	path.Grow(1 + len("_ml") + 1 + len("trained_models") + 1 + len(r.ModelID) + 1 + len("model_aliases") + 1 + len(r.ModelAlias))
+	path.Grow(1 + len("_sql") + 1 + len("async") + 1 + len("status") + 1 + len(r.DocumentID))
 	path.WriteString("/")
-	path.WriteString("_ml")
+	path.WriteString("_sql")
 	path.WriteString("/")
-	path.WriteString("trained_models")
+	path.WriteString("async")
 	path.WriteString("/")
-	path.WriteString(r.ModelID)
+	path.WriteString("status")
 	path.WriteString("/")
-	path.WriteString("model_aliases")
-	path.WriteString("/")
-	path.WriteString(r.ModelAlias)
+	path.WriteString(r.DocumentID)
 
 	params = make(map[string]string)
-
-	if r.Reassign != nil {
-		params["reassign"] = strconv.FormatBool(*r.Reassign)
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -152,56 +142,48 @@ func (r MLPutTrainedModelAliasRequest) Do(ctx context.Context, transport Transpo
 
 // WithContext sets the request context.
 //
-func (f MLPutTrainedModelAlias) WithContext(v context.Context) func(*MLPutTrainedModelAliasRequest) {
-	return func(r *MLPutTrainedModelAliasRequest) {
+func (f SQLGetAsyncStatus) WithContext(v context.Context) func(*SQLGetAsyncStatusRequest) {
+	return func(r *SQLGetAsyncStatusRequest) {
 		r.ctx = v
-	}
-}
-
-// WithReassign - if the model_alias already exists and points to a separate model_id, this parameter must be true. defaults to false..
-//
-func (f MLPutTrainedModelAlias) WithReassign(v bool) func(*MLPutTrainedModelAliasRequest) {
-	return func(r *MLPutTrainedModelAliasRequest) {
-		r.Reassign = &v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f MLPutTrainedModelAlias) WithPretty() func(*MLPutTrainedModelAliasRequest) {
-	return func(r *MLPutTrainedModelAliasRequest) {
+func (f SQLGetAsyncStatus) WithPretty() func(*SQLGetAsyncStatusRequest) {
+	return func(r *SQLGetAsyncStatusRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f MLPutTrainedModelAlias) WithHuman() func(*MLPutTrainedModelAliasRequest) {
-	return func(r *MLPutTrainedModelAliasRequest) {
+func (f SQLGetAsyncStatus) WithHuman() func(*SQLGetAsyncStatusRequest) {
+	return func(r *SQLGetAsyncStatusRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f MLPutTrainedModelAlias) WithErrorTrace() func(*MLPutTrainedModelAliasRequest) {
-	return func(r *MLPutTrainedModelAliasRequest) {
+func (f SQLGetAsyncStatus) WithErrorTrace() func(*SQLGetAsyncStatusRequest) {
+	return func(r *SQLGetAsyncStatusRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f MLPutTrainedModelAlias) WithFilterPath(v ...string) func(*MLPutTrainedModelAliasRequest) {
-	return func(r *MLPutTrainedModelAliasRequest) {
+func (f SQLGetAsyncStatus) WithFilterPath(v ...string) func(*SQLGetAsyncStatusRequest) {
+	return func(r *SQLGetAsyncStatusRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f MLPutTrainedModelAlias) WithHeader(h map[string]string) func(*MLPutTrainedModelAliasRequest) {
-	return func(r *MLPutTrainedModelAliasRequest) {
+func (f SQLGetAsyncStatus) WithHeader(h map[string]string) func(*SQLGetAsyncStatusRequest) {
+	return func(r *SQLGetAsyncStatusRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -213,8 +195,8 @@ func (f MLPutTrainedModelAlias) WithHeader(h map[string]string) func(*MLPutTrain
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f MLPutTrainedModelAlias) WithOpaqueID(s string) func(*MLPutTrainedModelAliasRequest) {
-	return func(r *MLPutTrainedModelAliasRequest) {
+func (f SQLGetAsyncStatus) WithOpaqueID(s string) func(*SQLGetAsyncStatusRequest) {
+	return func(r *SQLGetAsyncStatusRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

@@ -40,7 +40,9 @@ func newRollupRollupFunc(t Transport) RollupRollup {
 
 // RollupRollup - Rollup an index
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-api.html.
+// This API is experimental.
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/xpack-rollup.html.
 //
 type RollupRollup func(index string, body io.Reader, rollup_index string, o ...func(*RollupRollupRequest)) (*Response, error)
 

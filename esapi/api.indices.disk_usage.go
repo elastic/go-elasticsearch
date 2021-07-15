@@ -21,15 +21,14 @@ package esapi
 
 import (
 	"context"
-	"io"
 	"net/http"
 	"strconv"
 	"strings"
 )
 
-func newMLPutJobFunc(t Transport) MLPutJob {
-	return func(job_id string, body io.Reader, o ...func(*MLPutJobRequest)) (*Response, error) {
-		var r = MLPutJobRequest{JobID: job_id, Body: body}
+func newIndicesDiskUsageFunc(t Transport) IndicesDiskUsage {
+	return func(index string, o ...func(*IndicesDiskUsageRequest)) (*Response, error) {
+		var r = IndicesDiskUsageRequest{Index: index}
 		for _, f := range o {
 			f(&r)
 		}
@@ -39,23 +38,24 @@ func newMLPutJobFunc(t Transport) MLPutJob {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPutJob - Instantiates an anomaly detection job.
+// IndicesDiskUsage analyzes the disk usage of each field of an index or data stream
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-put-job.html.
+// This API is experimental.
 //
-type MLPutJob func(job_id string, body io.Reader, o ...func(*MLPutJobRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-disk-usage.html.
+//
+type IndicesDiskUsage func(index string, o ...func(*IndicesDiskUsageRequest)) (*Response, error)
 
-// MLPutJobRequest configures the ML Put Job API request.
+// IndicesDiskUsageRequest configures the Indices Disk Usage API request.
 //
-type MLPutJobRequest struct {
-	Body io.Reader
-
-	JobID string
+type IndicesDiskUsageRequest struct {
+	Index string
 
 	AllowNoIndices    *bool
 	ExpandWildcards   string
-	IgnoreThrottled   *bool
+	Flush             *bool
 	IgnoreUnavailable *bool
+	RunExpensiveTasks *bool
 
 	Pretty     bool
 	Human      bool
@@ -69,22 +69,20 @@ type MLPutJobRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r MLPutJobRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r IndicesDiskUsageRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "PUT"
+	method = "POST"
 
-	path.Grow(1 + len("_ml") + 1 + len("anomaly_detectors") + 1 + len(r.JobID))
+	path.Grow(1 + len(r.Index) + 1 + len("_disk_usage"))
 	path.WriteString("/")
-	path.WriteString("_ml")
+	path.WriteString(r.Index)
 	path.WriteString("/")
-	path.WriteString("anomaly_detectors")
-	path.WriteString("/")
-	path.WriteString(r.JobID)
+	path.WriteString("_disk_usage")
 
 	params = make(map[string]string)
 
@@ -96,12 +94,16 @@ func (r MLPutJobRequest) Do(ctx context.Context, transport Transport) (*Response
 		params["expand_wildcards"] = r.ExpandWildcards
 	}
 
-	if r.IgnoreThrottled != nil {
-		params["ignore_throttled"] = strconv.FormatBool(*r.IgnoreThrottled)
+	if r.Flush != nil {
+		params["flush"] = strconv.FormatBool(*r.Flush)
 	}
 
 	if r.IgnoreUnavailable != nil {
 		params["ignore_unavailable"] = strconv.FormatBool(*r.IgnoreUnavailable)
+	}
+
+	if r.RunExpensiveTasks != nil {
+		params["run_expensive_tasks"] = strconv.FormatBool(*r.RunExpensiveTasks)
 	}
 
 	if r.Pretty {
@@ -120,7 +122,7 @@ func (r MLPutJobRequest) Do(ctx context.Context, transport Transport) (*Response
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -131,10 +133,6 @@ func (r MLPutJobRequest) Do(ctx context.Context, transport Transport) (*Response
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
-	}
-
-	if r.Body != nil {
-		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -169,80 +167,88 @@ func (r MLPutJobRequest) Do(ctx context.Context, transport Transport) (*Response
 
 // WithContext sets the request context.
 //
-func (f MLPutJob) WithContext(v context.Context) func(*MLPutJobRequest) {
-	return func(r *MLPutJobRequest) {
+func (f IndicesDiskUsage) WithContext(v context.Context) func(*IndicesDiskUsageRequest) {
+	return func(r *IndicesDiskUsageRequest) {
 		r.ctx = v
 	}
 }
 
-// WithAllowNoIndices - ignore if the source indices expressions resolves to no concrete indices (default: true). only set if datafeed_config is provided..
+// WithAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (this includes `_all` string or when no indices have been specified).
 //
-func (f MLPutJob) WithAllowNoIndices(v bool) func(*MLPutJobRequest) {
-	return func(r *MLPutJobRequest) {
+func (f IndicesDiskUsage) WithAllowNoIndices(v bool) func(*IndicesDiskUsageRequest) {
+	return func(r *IndicesDiskUsageRequest) {
 		r.AllowNoIndices = &v
 	}
 }
 
-// WithExpandWildcards - whether source index expressions should get expanded to open or closed indices (default: open). only set if datafeed_config is provided..
+// WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
 //
-func (f MLPutJob) WithExpandWildcards(v string) func(*MLPutJobRequest) {
-	return func(r *MLPutJobRequest) {
+func (f IndicesDiskUsage) WithExpandWildcards(v string) func(*IndicesDiskUsageRequest) {
+	return func(r *IndicesDiskUsageRequest) {
 		r.ExpandWildcards = v
 	}
 }
 
-// WithIgnoreThrottled - ignore indices that are marked as throttled (default: true). only set if datafeed_config is provided..
+// WithFlush - whether flush or not before analyzing the index disk usage. defaults to true.
 //
-func (f MLPutJob) WithIgnoreThrottled(v bool) func(*MLPutJobRequest) {
-	return func(r *MLPutJobRequest) {
-		r.IgnoreThrottled = &v
+func (f IndicesDiskUsage) WithFlush(v bool) func(*IndicesDiskUsageRequest) {
+	return func(r *IndicesDiskUsageRequest) {
+		r.Flush = &v
 	}
 }
 
-// WithIgnoreUnavailable - ignore unavailable indexes (default: false). only set if datafeed_config is provided..
+// WithIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
 //
-func (f MLPutJob) WithIgnoreUnavailable(v bool) func(*MLPutJobRequest) {
-	return func(r *MLPutJobRequest) {
+func (f IndicesDiskUsage) WithIgnoreUnavailable(v bool) func(*IndicesDiskUsageRequest) {
+	return func(r *IndicesDiskUsageRequest) {
 		r.IgnoreUnavailable = &v
+	}
+}
+
+// WithRunExpensiveTasks - must be set to [true] in order for the task to be performed. defaults to false..
+//
+func (f IndicesDiskUsage) WithRunExpensiveTasks(v bool) func(*IndicesDiskUsageRequest) {
+	return func(r *IndicesDiskUsageRequest) {
+		r.RunExpensiveTasks = &v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f MLPutJob) WithPretty() func(*MLPutJobRequest) {
-	return func(r *MLPutJobRequest) {
+func (f IndicesDiskUsage) WithPretty() func(*IndicesDiskUsageRequest) {
+	return func(r *IndicesDiskUsageRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f MLPutJob) WithHuman() func(*MLPutJobRequest) {
-	return func(r *MLPutJobRequest) {
+func (f IndicesDiskUsage) WithHuman() func(*IndicesDiskUsageRequest) {
+	return func(r *IndicesDiskUsageRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f MLPutJob) WithErrorTrace() func(*MLPutJobRequest) {
-	return func(r *MLPutJobRequest) {
+func (f IndicesDiskUsage) WithErrorTrace() func(*IndicesDiskUsageRequest) {
+	return func(r *IndicesDiskUsageRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f MLPutJob) WithFilterPath(v ...string) func(*MLPutJobRequest) {
-	return func(r *MLPutJobRequest) {
+func (f IndicesDiskUsage) WithFilterPath(v ...string) func(*IndicesDiskUsageRequest) {
+	return func(r *IndicesDiskUsageRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f MLPutJob) WithHeader(h map[string]string) func(*MLPutJobRequest) {
-	return func(r *MLPutJobRequest) {
+func (f IndicesDiskUsage) WithHeader(h map[string]string) func(*IndicesDiskUsageRequest) {
+	return func(r *IndicesDiskUsageRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -254,8 +260,8 @@ func (f MLPutJob) WithHeader(h map[string]string) func(*MLPutJobRequest) {
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f MLPutJob) WithOpaqueID(s string) func(*MLPutJobRequest) {
-	return func(r *MLPutJobRequest) {
+func (f IndicesDiskUsage) WithOpaqueID(s string) func(*IndicesDiskUsageRequest) {
+	return func(r *IndicesDiskUsageRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

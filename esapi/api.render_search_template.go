@@ -40,7 +40,7 @@ func newRenderSearchTemplateFunc(t Transport) RenderSearchTemplate {
 
 // RenderSearchTemplate allows to use the Mustache language to pre-render a search definition.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/search-template.html#_validating_templates.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/render-search-template-api.html.
 //
 type RenderSearchTemplate func(o ...func(*RenderSearchTemplateRequest)) (*Response, error)
 
