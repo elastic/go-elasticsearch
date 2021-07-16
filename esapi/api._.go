@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 7.14.0 (febed8b): DO NOT EDIT
+// Code generated from specification version 7.14.0 (eb28a49): DO NOT EDIT
 
 package esapi
 
@@ -487,9 +487,12 @@ type Security struct {
 
 // SQL contains the SQL APIs
 type SQL struct {
-	ClearCursor SQLClearCursor
-	Query       SQLQuery
-	Translate   SQLTranslate
+	ClearCursor    SQLClearCursor
+	DeleteAsync    SQLDeleteAsync
+	GetAsync       SQLGetAsync
+	GetAsyncStatus SQLGetAsyncStatus
+	Query          SQLQuery
+	Translate      SQLTranslate
 }
 
 // SSL contains the SSL APIs
@@ -927,9 +930,12 @@ func New(t Transport) *API {
 			SamlServiceProviderMetadata: newSecuritySamlServiceProviderMetadataFunc(t),
 		},
 		SQL: &SQL{
-			ClearCursor: newSQLClearCursorFunc(t),
-			Query:       newSQLQueryFunc(t),
-			Translate:   newSQLTranslateFunc(t),
+			ClearCursor:    newSQLClearCursorFunc(t),
+			DeleteAsync:    newSQLDeleteAsyncFunc(t),
+			GetAsync:       newSQLGetAsyncFunc(t),
+			GetAsyncStatus: newSQLGetAsyncStatusFunc(t),
+			Query:          newSQLQueryFunc(t),
+			Translate:      newSQLTranslateFunc(t),
 		},
 		SSL: &SSL{
 			Certificates: newSSLCertificatesFunc(t),

@@ -21,14 +21,13 @@ package esapi
 
 import (
 	"context"
-	"io"
 	"net/http"
 	"strings"
 )
 
-func newRenderSearchTemplateFunc(t Transport) RenderSearchTemplate {
-	return func(o ...func(*RenderSearchTemplateRequest)) (*Response, error) {
-		var r = RenderSearchTemplateRequest{}
+func newSQLGetAsyncStatusFunc(t Transport) SQLGetAsyncStatus {
+	return func(id string, o ...func(*SQLGetAsyncStatusRequest)) (*Response, error) {
+		var r = SQLGetAsyncStatusRequest{DocumentID: id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -38,18 +37,16 @@ func newRenderSearchTemplateFunc(t Transport) RenderSearchTemplate {
 
 // ----- API Definition -------------------------------------------------------
 
-// RenderSearchTemplate allows to use the Mustache language to pre-render a search definition.
+// SQLGetAsyncStatus - Returns the current status of an async SQL search or a stored synchronous SQL search
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/render-search-template-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-async-sql-search-status-api.html.
 //
-type RenderSearchTemplate func(o ...func(*RenderSearchTemplateRequest)) (*Response, error)
+type SQLGetAsyncStatus func(id string, o ...func(*SQLGetAsyncStatusRequest)) (*Response, error)
 
-// RenderSearchTemplateRequest configures the Render Search Template API request.
+// SQLGetAsyncStatusRequest configures the SQL Get Async Status API request.
 //
-type RenderSearchTemplateRequest struct {
-	TemplateID string
-
-	Body io.Reader
+type SQLGetAsyncStatusRequest struct {
+	DocumentID string
 
 	Pretty     bool
 	Human      bool
@@ -63,24 +60,24 @@ type RenderSearchTemplateRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r RenderSearchTemplateRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SQLGetAsyncStatusRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "POST"
+	method = "GET"
 
-	path.Grow(1 + len("_render") + 1 + len("template") + 1 + len(r.TemplateID))
+	path.Grow(1 + len("_sql") + 1 + len("async") + 1 + len("status") + 1 + len(r.DocumentID))
 	path.WriteString("/")
-	path.WriteString("_render")
+	path.WriteString("_sql")
 	path.WriteString("/")
-	path.WriteString("template")
-	if r.TemplateID != "" {
-		path.WriteString("/")
-		path.WriteString(r.TemplateID)
-	}
+	path.WriteString("async")
+	path.WriteString("/")
+	path.WriteString("status")
+	path.WriteString("/")
+	path.WriteString(r.DocumentID)
 
 	params = make(map[string]string)
 
@@ -100,7 +97,7 @@ func (r RenderSearchTemplateRequest) Do(ctx context.Context, transport Transport
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -111,10 +108,6 @@ func (r RenderSearchTemplateRequest) Do(ctx context.Context, transport Transport
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
-	}
-
-	if r.Body != nil {
-		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -149,64 +142,48 @@ func (r RenderSearchTemplateRequest) Do(ctx context.Context, transport Transport
 
 // WithContext sets the request context.
 //
-func (f RenderSearchTemplate) WithContext(v context.Context) func(*RenderSearchTemplateRequest) {
-	return func(r *RenderSearchTemplateRequest) {
+func (f SQLGetAsyncStatus) WithContext(v context.Context) func(*SQLGetAsyncStatusRequest) {
+	return func(r *SQLGetAsyncStatusRequest) {
 		r.ctx = v
-	}
-}
-
-// WithBody - The search definition template and its params.
-//
-func (f RenderSearchTemplate) WithBody(v io.Reader) func(*RenderSearchTemplateRequest) {
-	return func(r *RenderSearchTemplateRequest) {
-		r.Body = v
-	}
-}
-
-// WithTemplateID - the ID of the stored search template.
-//
-func (f RenderSearchTemplate) WithTemplateID(v string) func(*RenderSearchTemplateRequest) {
-	return func(r *RenderSearchTemplateRequest) {
-		r.TemplateID = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f RenderSearchTemplate) WithPretty() func(*RenderSearchTemplateRequest) {
-	return func(r *RenderSearchTemplateRequest) {
+func (f SQLGetAsyncStatus) WithPretty() func(*SQLGetAsyncStatusRequest) {
+	return func(r *SQLGetAsyncStatusRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f RenderSearchTemplate) WithHuman() func(*RenderSearchTemplateRequest) {
-	return func(r *RenderSearchTemplateRequest) {
+func (f SQLGetAsyncStatus) WithHuman() func(*SQLGetAsyncStatusRequest) {
+	return func(r *SQLGetAsyncStatusRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f RenderSearchTemplate) WithErrorTrace() func(*RenderSearchTemplateRequest) {
-	return func(r *RenderSearchTemplateRequest) {
+func (f SQLGetAsyncStatus) WithErrorTrace() func(*SQLGetAsyncStatusRequest) {
+	return func(r *SQLGetAsyncStatusRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f RenderSearchTemplate) WithFilterPath(v ...string) func(*RenderSearchTemplateRequest) {
-	return func(r *RenderSearchTemplateRequest) {
+func (f SQLGetAsyncStatus) WithFilterPath(v ...string) func(*SQLGetAsyncStatusRequest) {
+	return func(r *SQLGetAsyncStatusRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f RenderSearchTemplate) WithHeader(h map[string]string) func(*RenderSearchTemplateRequest) {
-	return func(r *RenderSearchTemplateRequest) {
+func (f SQLGetAsyncStatus) WithHeader(h map[string]string) func(*SQLGetAsyncStatusRequest) {
+	return func(r *SQLGetAsyncStatusRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -218,8 +195,8 @@ func (f RenderSearchTemplate) WithHeader(h map[string]string) func(*RenderSearch
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f RenderSearchTemplate) WithOpaqueID(s string) func(*RenderSearchTemplateRequest) {
-	return func(r *RenderSearchTemplateRequest) {
+func (f SQLGetAsyncStatus) WithOpaqueID(s string) func(*SQLGetAsyncStatusRequest) {
+	return func(r *SQLGetAsyncStatusRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
