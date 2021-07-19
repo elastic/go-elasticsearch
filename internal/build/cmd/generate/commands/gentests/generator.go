@@ -321,6 +321,84 @@ func (g *Generator) genCommonSetup() {
 		}
 
 		{
+			type Node struct {
+				UnderscoreNodes struct {
+					Total      int "json:\"total\""
+					Successful int "json:\"successful\""
+					Failed     int "json:\"failed\""
+				} "json:\"_nodes\""
+				ClusterName string "json:\"cluster_name\""
+				Nodes       []struct {
+					NodeId string "json:\"node_id\""
+				} "json:\"nodes\""
+			}
+
+			res, _ = es.ShutdownGetNode()
+			if res != nil && res.Body != nil {
+				defer res.Body.Close()
+			}
+			var r Node
+			_ = json.NewDecoder(res.Body).Decode(&r)
+			handleResponseError(t, res)
+
+			for _, node := range r.Nodes {
+				es.ShutdownDeleteNode(node.NodeId)
+			}
+		}
+
+		{
+			type Meta struct {
+				Metadata struct {
+					Indices map[string]interface {
+					} "json:\"indices\""
+				} "json:\"metadata\""
+			}
+
+			indices, _ := es.Cluster.State(
+				es.Cluster.State.WithMetric("metadata"),
+				es.Cluster.State.WithFilterPath("metadata.indices.*.settings.index.store.snapshot"),
+			)
+			var r Meta
+			_ = json.NewDecoder(indices.Body).Decode(&r)
+			for key, _ := range r.Metadata.Indices {
+				es.Indices.Delete([]string{key})
+			}
+		}
+
+		{
+			type Repositories map[string]struct {
+					Type     string "json:\"type\""
+			}
+
+			type Snaps struct {
+				Snapshots []struct {
+					Snapshot           string        "json:\"snapshot\""
+					Repository         string        "json:\"repository\""
+				} "json:\"snapshots\""
+			}
+
+
+			res, _ = es.Snapshot.GetRepository(es.Snapshot.GetRepository.WithRepository("_all"))
+			var rep Repositories
+			_ = json.NewDecoder(res.Body).Decode(&rep)
+			for repoName, repository := range rep {
+				if repository.Type == "fs" {
+					snapshots, _ := es.Snapshot.Get(
+						repoName, []string{"_all"},
+						es.Snapshot.Get.WithIgnoreUnavailable(true),
+					)
+					var snaps Snaps
+					_ = json.NewDecoder(snapshots.Body).Decode(&snaps)
+
+					for _, snapshot := range snaps.Snapshots {
+						_, _ = es.Snapshot.Delete(repoName, []string{snapshot.Snapshot})
+					}
+				}
+				_, _ = es.Snapshot.DeleteRepository([]string{repoName})
+			}
+		}
+
+		{
 			res, _ = es.Indices.DeleteDataStream(
 				[]string{"*"},
 				es.Indices.DeleteDataStream.WithExpandWildcards("all"),
