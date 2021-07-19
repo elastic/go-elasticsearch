@@ -48,6 +48,8 @@ var skipFiles = []string{
   "watcher/stats/10_basic.yml", // Sets "emit_stacktraces" as string ("true"), not bool
 
   "search.highlight/20_fvh.yml", // bad backslash
+
+  "indices.stats/50_disk_usage.yml", // Needs a replacement mechanism implementation
 }
 
 // TODO: Comments into descriptions for `Skip()`
