@@ -49,7 +49,8 @@ var skipFiles = []string{
 
   "search.highlight/20_fvh.yml", // bad backslash
 
-  "indices.stats/50_disk_usage.yml", // Needs a replacement mechanism implementation
+  "indices.stats/50_disk_usage.yml",  // Needs a replacement mechanism implementation
+  "indices.stats/60_field_usage.yml", // Needs a replacement mechanism implementation
 }
 
 // TODO: Comments into descriptions for `Skip()`
