@@ -324,8 +324,13 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	res, err := c.Transport.Perform(req)
 
 	// ResponseCheck path continues, we run the header check on the first answer from ES.
-	if err == nil {
-		checkHeader := func() error { return genuineCheckHeader(res.Header) }
+	if c.useResponseCheckOnly {
+		checkHeader := func() error {
+			if res != nil {
+				return genuineCheckHeader(res.Header)
+			}
+			return nil
+		}
 		if err := c.doProductCheck(checkHeader); err != nil {
 			if res.Body != nil {
 				res.Body.Close()
@@ -400,19 +405,14 @@ func (c *Client) productCheck() error {
 			}
 		}
 
-		switch res.StatusCode {
-		case http.StatusForbidden:
-		case http.StatusUnauthorized:
-			break
-		default:
-			err = genuineCheckHeader(res.Header)
+		err = genuineCheckHeader(res.Header)
 
-			if err != nil {
-				if info.Version.Number != "" {
-					err = genuineCheckInfo(info)
-				}
+		if err != nil {
+			if info.Version.Number != "" {
+				err = genuineCheckInfo(info)
 			}
 		}
+
 		if err != nil {
 			return err
 		}
