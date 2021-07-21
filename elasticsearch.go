@@ -47,9 +47,10 @@ func init() {
 }
 
 const (
-	defaultURL     = "http://localhost:9200"
-	tagline        = "You Know, for Search"
-	unknownProduct = "the client noticed that the server is not Elasticsearch and we do not support this unknown product"
+	defaultURL         = "http://localhost:9200"
+	tagline            = "You Know, for Search"
+	unknownProduct     = "the client noticed that the server is not Elasticsearch and we do not support this unknown product"
+	unsupportedProduct = "The client noticed that the server is not a supported distribution of Elasticsearch"
 )
 
 // Version returns the package version as a string.
@@ -120,6 +121,32 @@ type info struct {
 	Version esVersion `json:"version"`
 	Tagline string    `json:"tagline"`
 }
+
+type errContactEs struct {
+	message string
+}
+
+func newErrContactEs(message string) errContactEs {
+	return errContactEs{message: message}
+}
+
+func (e errContactEs) Error() string {
+	return e.message
+}
+
+type ErrProductCheck struct {
+	message string
+}
+
+func newErrProductCheck(message string) ErrProductCheck {
+	return ErrProductCheck{message: message}
+}
+
+func (e ErrProductCheck) Error() string {
+	return e.message
+}
+
+
 
 // NewDefaultClient creates a new client with default options.
 //
@@ -232,7 +259,7 @@ func NewClient(cfg Config) (*Client, error) {
 //
 func genuineCheckHeader(header http.Header) error {
 	if header.Get("X-Elastic-Product") != "Elasticsearch" {
-		return fmt.Errorf(unknownProduct)
+		return newErrProductCheck(unknownProduct)
 	}
 	return nil
 }
@@ -246,18 +273,19 @@ func genuineCheckInfo(info info) error {
 	}
 
 	if major < 6 {
-		return fmt.Errorf(unknownProduct)
+		return newErrProductCheck(unknownProduct)
 	}
 	if major < 7 {
 		if info.Tagline != tagline {
-			return fmt.Errorf(unknownProduct)
+			return newErrProductCheck(unknownProduct)
 		}
 	}
 	if major >= 7 {
 		if minor < 14 {
-			if info.Tagline != tagline ||
-				info.Version.BuildFlavor != "default" {
-				return fmt.Errorf(unknownProduct)
+			if info.Tagline != tagline {
+				return newErrProductCheck(unknownProduct)
+			} else if info.Version.BuildFlavor != "default" {
+				return newErrProductCheck(unsupportedProduct)
 			}
 		}
 	}
@@ -299,7 +327,9 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	if err == nil {
 		checkHeader := func() error { return genuineCheckHeader(res.Header) }
 		if err := c.doProductCheck(checkHeader); err != nil {
-			res.Body.Close()
+			if res.Body != nil {
+				res.Body.Close()
+			}
 			return nil, err
 		}
 	}
@@ -312,18 +342,34 @@ func (c *Client) doProductCheck(f func() error) error {
 	c.productCheckMu.RLock()
 	productCheckSuccess := c.productCheckSuccess
 	c.productCheckMu.RUnlock()
+
 	if productCheckSuccess {
 		return nil
 	}
+
 	c.productCheckMu.Lock()
 	defer c.productCheckMu.Unlock()
+
 	if c.productCheckSuccess {
 		return nil
 	}
+
 	if err := f(); err != nil {
-		return err
+		// At this point either the check:
+		// - could not make contact with Elasticsearch
+		//	 in which case we should retry on the next request.
+		// - determined the cluster is not supported
+		//	 then we return the error to the user.
+		switch err.(type) {
+		case errContactEs:
+			return nil
+		default:
+			return err
+		}
 	}
+
 	c.productCheckSuccess = true
+
 	return nil
 }
 
@@ -336,6 +382,10 @@ func (c *Client) productCheck() error {
 	res, err := req.Do(context.Background(), c.Transport)
 	if err != nil {
 		return err
+	}
+
+	if res.IsError() {
+		return newErrContactEs("cannot retrieve info from Elasticsearch")
 	}
 
 	contentType := res.Header.Get("Content-Type")

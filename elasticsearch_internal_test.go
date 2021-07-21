@@ -471,6 +471,7 @@ func TestGenuineCheckInfo(t *testing.T) {
 		name    string
 		info    info
 		wantErr bool
+		err 	error
 	}{
 		{
 			name: "Genuine Elasticsearch 7.14.0",
@@ -482,6 +483,7 @@ func TestGenuineCheckInfo(t *testing.T) {
 				Tagline: "You Know, for Search",
 			},
 			wantErr: false,
+			err: nil,
 		},
 		{
 			name: "Genuine Elasticsearch 6.15.1",
@@ -493,6 +495,7 @@ func TestGenuineCheckInfo(t *testing.T) {
 				Tagline: "You Know, for Search",
 			},
 			wantErr: false,
+			err: nil,
 		},
 		{
 			name: "Not so genuine Elasticsearch 7 major",
@@ -504,6 +507,7 @@ func TestGenuineCheckInfo(t *testing.T) {
 				Tagline: "You Know, for Search",
 			},
 			wantErr: true,
+			err: errors.New(unknownProduct),
 		},
 		{
 			name: "Not so genuine Elasticsearch 6 major",
@@ -515,6 +519,7 @@ func TestGenuineCheckInfo(t *testing.T) {
 				Tagline: "You Know, for Fun",
 			},
 			wantErr: true,
+			err: errors.New(unknownProduct),
 		},
 		{
 			name: "Way older Elasticsearch major",
@@ -526,11 +531,24 @@ func TestGenuineCheckInfo(t *testing.T) {
 				Tagline: "You Know, for Fun",
 			},
 			wantErr: true,
+			err: errors.New(unknownProduct),
+		},
+		{
+			name: "Elasticsearch oss",
+			info: info{
+				Version: esVersion{
+					Number:      "7.10.0",
+					BuildFlavor: "oss",
+				},
+				Tagline: "You Know, for Search",
+			},
+			wantErr: true,
+			err: errors.New(unsupportedProduct),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := genuineCheckInfo(tt.info); (err != nil) != tt.wantErr {
+			if err := genuineCheckInfo(tt.info); (err != nil) != tt.wantErr && err != tt.err {
 				t.Errorf("genuineCheckInfo() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
@@ -619,6 +637,24 @@ func TestResponseCheckOnly(t *testing.T) {
 			useResponseCheckOnly: true,
 			response:             nil,
 			requestErr:           errors.New("request failed"),
+			wantErr:              true,
+		},
+		{
+			name:                 "Valid request, 500 response",
+			useResponseCheckOnly: false,
+			response:             &http.Response{
+				StatusCode: http.StatusInternalServerError,
+			},
+			requestErr:           nil,
+			wantErr:              true,
+		},
+		{
+			name:                 "Valid request, 404 response",
+			useResponseCheckOnly: false,
+			response:             &http.Response{
+				StatusCode: http.StatusNotFound,
+			},
+			requestErr:           nil,
 			wantErr:              true,
 		},
 	}
