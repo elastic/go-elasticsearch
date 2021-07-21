@@ -134,6 +134,7 @@ func (e errContactEs) Error() string {
 	return e.message
 }
 
+// ErrProductCheck is returned if the Elasticsearch cluster is not supported.
 type ErrProductCheck struct {
 	message string
 }
