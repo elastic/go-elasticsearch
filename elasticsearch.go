@@ -300,16 +300,9 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 
 	// ResponseCheck path continues, we run the header check on the first answer from ES.
 	if err == nil {
-		checkHeader := func() error {
-			if res != nil {
-				return genuineCheckHeader(res.Header)
-			}
-			return nil
-		}
+		checkHeader := func() error { return genuineCheckHeader(res.Header) }
 		if err := c.doProductCheck(checkHeader); err != nil {
-			if res.Body != nil {
-				res.Body.Close()
-			}
+			res.Body.Close()
 			return nil, err
 		}
 	}
