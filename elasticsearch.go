@@ -299,7 +299,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	res, err := c.Transport.Perform(req)
 
 	// ResponseCheck path continues, we run the header check on the first answer from ES.
-	if c.useResponseCheckOnly {
+	if err == nil {
 		checkHeader := func() error {
 			if res != nil {
 				return genuineCheckHeader(res.Header)
