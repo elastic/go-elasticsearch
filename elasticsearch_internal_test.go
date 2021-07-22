@@ -644,6 +644,7 @@ func TestResponseCheckOnly(t *testing.T) {
 			useResponseCheckOnly: false,
 			response:             &http.Response{
 				StatusCode: http.StatusInternalServerError,
+				Body: ioutil.NopCloser(strings.NewReader("")),
 			},
 			requestErr:           nil,
 			wantErr:              true,
@@ -653,9 +654,30 @@ func TestResponseCheckOnly(t *testing.T) {
 			useResponseCheckOnly: false,
 			response:             &http.Response{
 				StatusCode: http.StatusNotFound,
+				Body: ioutil.NopCloser(strings.NewReader("")),
 			},
 			requestErr:           nil,
 			wantErr:              true,
+		},
+		{
+			name:                 "Valid request, 403 response",
+			useResponseCheckOnly: false,
+			response:             &http.Response{
+				StatusCode: http.StatusForbidden,
+				Body: ioutil.NopCloser(strings.NewReader("")),
+			},
+			requestErr:           nil,
+			wantErr:              false,
+		},
+		{
+			name:                 "Valid request, 401 response",
+			useResponseCheckOnly: false,
+			response:             &http.Response{
+				StatusCode: http.StatusUnauthorized,
+				Body: ioutil.NopCloser(strings.NewReader("")),
+			},
+			requestErr:           nil,
+			wantErr:              false,
 		},
 	}
 	for _, tt := range tests {

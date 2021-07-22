@@ -23,6 +23,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"os"
@@ -335,41 +337,47 @@ func (c *Client) doProductCheck(f func() error) error {
 // productCheck runs an esapi.Info query to retrieve informations of the current cluster
 // decodes the response and decides if the cluster is a genuine Elasticsearch product.
 func (c *Client) productCheck() error {
-	var info info
-
 	req := esapi.InfoRequest{}
 	res, err := req.Do(context.Background(), c.Transport)
 	if err != nil {
 		return err
 	}
+	defer res.Body.Close()
 
 	if res.IsError() {
-		return fmt.Errorf("cannot retrieve info from Elasticsearch")
+		_, err = io.Copy(ioutil.Discard, res.Body)
+		if err != nil {
+			return err
+		}
+		switch res.StatusCode {
+		case http.StatusUnauthorized:
+			return nil
+		case http.StatusForbidden:
+			return nil
+		default:
+			return fmt.Errorf("cannot retrieve informations from Elasticsearch")
+		}
 	}
 
-	contentType := res.Header.Get("Content-Type")
-	if res.Body != nil {
-		defer res.Body.Close()
+	err = genuineCheckHeader(res.Header)
 
+	if err != nil {
+		var info info
+		contentType := res.Header.Get("Content-Type")
 		if strings.Contains(contentType, "json") {
-			decoder := json.NewDecoder(res.Body)
-			err = decoder.Decode(&info)
+			err = json.NewDecoder(res.Body).Decode(&info)
 			if err != nil {
 				return fmt.Errorf("error decoding Elasticsearch informations: %s", err)
 			}
 		}
 
-		err = genuineCheckHeader(res.Header)
-
-		if err != nil {
-			if info.Version.Number != "" {
-				err = genuineCheckInfo(info)
-			}
+		if info.Version.Number != "" {
+			err = genuineCheckInfo(info)
 		}
+	}
 
-		if err != nil {
-			return err
-		}
+	if err != nil {
+		return err
 	}
 
 	return nil
