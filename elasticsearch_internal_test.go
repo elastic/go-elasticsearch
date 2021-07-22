@@ -646,7 +646,7 @@ func TestResponseCheckOnly(t *testing.T) {
 				StatusCode: http.StatusInternalServerError,
 			},
 			requestErr:           nil,
-			wantErr:              false,
+			wantErr:              true,
 		},
 		{
 			name:                 "Valid request, 404 response",
@@ -655,7 +655,7 @@ func TestResponseCheckOnly(t *testing.T) {
 				StatusCode: http.StatusNotFound,
 			},
 			requestErr:           nil,
-			wantErr:              false,
+			wantErr:              true,
 		},
 	}
 	for _, tt := range tests {
@@ -690,57 +690,22 @@ func TestProductCheckError(t *testing.T) {
 	defer server.Close()
 
 	c, _ := NewClient(Config{Addresses: []string{server.URL}, DisableRetry: true})
-	if _, err := c.Cat.Indices(); err != nil {
-		t.Fatal("first unexpected error")
-	}
-	if _, err := c.Cat.Indices(); err != nil {
-		t.Fatalf("second unexpected error: %s", err)
-	}
-	if n := len(requestPaths); n != 4 {
-		t.Fatalf("expected 3 requests, got %d", n)
-	}
-	if !reflect.DeepEqual(requestPaths, []string{"/", "/_cat/indices", "/", "/_cat/indices"}) {
-		t.Fatalf("unexpected request paths: %s", requestPaths)
-	}
-}
-
-
-func TestProductCheckRetry(t *testing.T) {
-	var requestPaths []string
-	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		requestPaths = append(requestPaths, r.URL.Path)
-		if len(requestPaths) < 4 {
-			// Simulate transient error from a proxy on the first request.
-			// This must not be cached by the client.
-			w.WriteHeader(http.StatusBadGateway)
-			return
-		}
-		w.Header().Set("X-Elastic-Product", "Elasticsearch")
-		w.Write([]byte("{}"))
-	}))
-	defer server.Close()
-
-	c, _ := NewClient(Config{Addresses: []string{server.URL}, DisableRetry: true})
-	if _, err := c.Cat.Indices(); err != nil {
-		t.Fatal("first unexpected error")
-	}
-	if _, err := c.Cat.Indices(); err != nil {
-		t.Fatalf("second unexpected error: %s", err)
+	if _, err := c.Cat.Indices(); err == nil {
+		t.Fatal("expected error")
 	}
 	if c.productCheckSuccess {
-		t.Fatalf("product check should not be valid at this point")
+		t.Fatalf("product check should be invalid, got %v", c.productCheckSuccess)
 	}
 	if _, err := c.Cat.Indices(); err != nil {
-		t.Fatalf("third unexpected error: %s", err)
+		t.Fatalf("unexpected error: %s", err)
 	}
-	if n := len(requestPaths); n != 6 {
+	if n := len(requestPaths); n != 3 {
 		t.Fatalf("expected 3 requests, got %d", n)
 	}
-	if !reflect.DeepEqual(requestPaths, []string{"/", "/_cat/indices", "/", "/_cat/indices", "/", "/_cat/indices"}) {
+	if !reflect.DeepEqual(requestPaths, []string{"/", "/", "/_cat/indices"}) {
 		t.Fatalf("unexpected request paths: %s", requestPaths)
 	}
-
 	if !c.productCheckSuccess {
-		t.Fatalf("product check should be valid")
+		t.Fatalf("product check should be valid, got : %v", c.productCheckSuccess)
 	}
 }
