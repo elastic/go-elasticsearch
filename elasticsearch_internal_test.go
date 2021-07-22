@@ -22,14 +22,50 @@ package elasticsearch
 import (
 	"encoding/base64"
 	"errors"
+	"io/ioutil"
 	"net/http"
+	"net/http/httptest"
 	"net/url"
 	"os"
+	"reflect"
 	"regexp"
+	"strings"
 	"testing"
 
 	"github.com/elastic/go-elasticsearch/v8/estransport"
 )
+
+var called bool
+
+type mockTransp struct {
+	RoundTripFunc func(*http.Request) (*http.Response, error)
+}
+
+var defaultRoundTripFunc = func(req *http.Request) (*http.Response, error) {
+	response := &http.Response{Header: http.Header{"X-Elastic-Product": []string{"Elasticsearch"}}}
+
+	if req.URL.Path == "/" {
+		response.Body = ioutil.NopCloser(strings.NewReader(`{
+		  "version" : {
+			"number" : "8.0.0-SNAPSHOT",
+			"build_flavor" : "default"
+		  },
+		  "tagline" : "You Know, for Search"
+		}`))
+		response.Header.Add("Content-Type", "application/json")
+	} else {
+		called = true
+	}
+
+	return response, nil
+}
+
+func (t *mockTransp) RoundTrip(req *http.Request) (*http.Response, error) {
+	if t.RoundTripFunc == nil {
+		return defaultRoundTripFunc(req)
+	}
+	return t.RoundTripFunc(req)
+}
 
 func TestClientConfiguration(t *testing.T) {
 	t.Parallel()
@@ -171,15 +207,6 @@ func TestClientConfiguration(t *testing.T) {
 			t.Errorf("Expected error, got: %+v", c)
 		}
 	})
-}
-
-var called bool
-
-type mockTransp struct{}
-
-func (t *mockTransp) RoundTrip(req *http.Request) (*http.Response, error) {
-	called = true
-	return &http.Response{}, nil
 }
 
 func TestClientInterface(t *testing.T) {
@@ -355,5 +382,90 @@ func TestClientMetrics(t *testing.T) {
 
 	if m.Requests != 0 {
 		t.Errorf("Unexpected output: %s", m)
+	}
+}
+
+func TestResponseCheckOnly(t *testing.T) {
+	tests := []struct {
+		name                 string
+		response             *http.Response
+		requestErr           error
+		wantErr              bool
+	}{
+		{
+			name: "Valid answer with header",
+			response: &http.Response{
+				Header: http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+				Body:   ioutil.NopCloser(strings.NewReader("{}")),
+			},
+			wantErr: false,
+		},
+		{
+			name: "Valid answer without header",
+			response: &http.Response{
+				Body: ioutil.NopCloser(strings.NewReader("{}")),
+			},
+			wantErr: true,
+		},
+		{
+			name: "Valid answer with http error code",
+			response: &http.Response{
+				StatusCode: http.StatusUnauthorized,
+				Header: http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+				Body:       ioutil.NopCloser(strings.NewReader("{}")),
+			},
+			wantErr: false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			c, _ := NewClient(Config{
+				Transport: &mockTransp{RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+					return tt.response, tt.requestErr
+				}},
+			})
+			_, err := c.Cat.Indices()
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Unexpected error, got %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}
+
+
+func TestProductCheckError(t *testing.T) {
+	var requestPaths []string
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		requestPaths = append(requestPaths, r.URL.Path)
+		if len(requestPaths) == 1 {
+			// Simulate transient error from a proxy on the first request.
+			// This must not be cached by the client.
+			w.WriteHeader(http.StatusBadGateway)
+			return
+		}
+		w.Header().Set("X-Elastic-Product", "Elasticsearch")
+		w.Write([]byte("{}"))
+	}))
+	defer server.Close()
+
+	c, _ := NewClient(Config{Addresses: []string{server.URL}, DisableRetry: true})
+	if _, err := c.Cat.Indices(); err == nil {
+		t.Fatal("expected error")
+	}
+	if c.productCheckSuccess {
+		t.Fatalf("product check should be invalid, got %v", c.productCheckSuccess)
+	}
+	if _, err := c.Cat.Indices(); err != nil {
+		t.Fatalf("unexpected error: %s", err)
+	}
+	if n := len(requestPaths); n != 2 {
+		t.Fatalf("expected 2 requests, got %d", n)
+	}
+	if !reflect.DeepEqual(requestPaths, []string{"/_cat/indices", "/_cat/indices"}) {
+		t.Fatalf("unexpected request paths: %s", requestPaths)
+	}
+	if !c.productCheckSuccess {
+		t.Fatalf("product check should be valid, got : %v", c.productCheckSuccess)
 	}
 }
