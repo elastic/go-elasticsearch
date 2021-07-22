@@ -43,6 +43,7 @@ var (
 			return &http.Response{
 				StatusCode: 200,
 				Header: http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+				Body: ioutil.NopCloser(strings.NewReader("{}")),
 			}, nil
 		}
 		return &http.Response{
