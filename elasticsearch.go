@@ -23,6 +23,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"os"
@@ -47,9 +49,10 @@ func init() {
 }
 
 const (
-	defaultURL     = "http://localhost:9200"
-	tagline        = "You Know, for Search"
-	unknownProduct = "the client noticed that the server is not Elasticsearch and we do not support this unknown product"
+	defaultURL         = "http://localhost:9200"
+	tagline            = "You Know, for Search"
+	unknownProduct     = "the client noticed that the server is not Elasticsearch and we do not support this unknown product"
+	unsupportedProduct = "the client noticed that the server is not a supported distribution of Elasticsearch"
 )
 
 // Version returns the package version as a string.
@@ -118,6 +121,7 @@ type info struct {
 	Version esVersion `json:"version"`
 	Tagline string    `json:"tagline"`
 }
+
 
 // NewDefaultClient creates a new client with default options.
 //
@@ -228,7 +232,7 @@ func NewClient(cfg Config) (*Client, error) {
 //
 func genuineCheckHeader(header http.Header) error {
 	if header.Get("X-Elastic-Product") != "Elasticsearch" {
-		return fmt.Errorf(unknownProduct)
+		return errors.New(unknownProduct)
 	}
 	return nil
 }
@@ -242,18 +246,19 @@ func genuineCheckInfo(info info) error {
 	}
 
 	if major < 6 {
-		return fmt.Errorf(unknownProduct)
+		return errors.New(unknownProduct)
 	}
 	if major < 7 {
 		if info.Tagline != tagline {
-			return fmt.Errorf(unknownProduct)
+			return errors.New(unknownProduct)
 		}
 	}
 	if major >= 7 {
 		if minor < 14 {
-			if info.Tagline != tagline ||
-				info.Version.BuildFlavor != "default" {
-				return fmt.Errorf(unknownProduct)
+			if info.Tagline != tagline {
+				return errors.New(unknownProduct)
+			} else if info.Version.BuildFlavor != "default" {
+				return errors.New(unsupportedProduct)
 			}
 		}
 	}
@@ -308,60 +313,71 @@ func (c *Client) doProductCheck(f func() error) error {
 	c.productCheckMu.RLock()
 	productCheckSuccess := c.productCheckSuccess
 	c.productCheckMu.RUnlock()
+
 	if productCheckSuccess {
 		return nil
 	}
+
 	c.productCheckMu.Lock()
 	defer c.productCheckMu.Unlock()
+
 	if c.productCheckSuccess {
 		return nil
 	}
+
 	if err := f(); err != nil {
 		return err
 	}
+
 	c.productCheckSuccess = true
+
 	return nil
 }
 
 // productCheck runs an esapi.Info query to retrieve informations of the current cluster
 // decodes the response and decides if the cluster is a genuine Elasticsearch product.
 func (c *Client) productCheck() error {
-	var info info
-
 	req := esapi.InfoRequest{}
 	res, err := req.Do(context.Background(), c.Transport)
 	if err != nil {
 		return err
 	}
+	defer res.Body.Close()
 
-	contentType := res.Header.Get("Content-Type")
-	if res.Body != nil {
-		defer res.Body.Close()
+	if res.IsError() {
+		_, err = io.Copy(ioutil.Discard, res.Body)
+		if err != nil {
+			return err
+		}
+		switch res.StatusCode {
+		case http.StatusUnauthorized:
+			return nil
+		case http.StatusForbidden:
+			return nil
+		default:
+			return fmt.Errorf("cannot retrieve informations from Elasticsearch")
+		}
+	}
 
+	err = genuineCheckHeader(res.Header)
+
+	if err != nil {
+		var info info
+		contentType := res.Header.Get("Content-Type")
 		if strings.Contains(contentType, "json") {
-			decoder := json.NewDecoder(res.Body)
-			err = decoder.Decode(&info)
+			err = json.NewDecoder(res.Body).Decode(&info)
 			if err != nil {
 				return fmt.Errorf("error decoding Elasticsearch informations: %s", err)
 			}
 		}
 
-		switch res.StatusCode {
-		case http.StatusForbidden:
-		case http.StatusUnauthorized:
-			break
-		default:
-			err = genuineCheckHeader(res.Header)
+		if info.Version.Number != "" {
+			err = genuineCheckInfo(info)
+		}
+	}
 
-			if err != nil {
-				if info.Version.Number != "" {
-					err = genuineCheckInfo(info)
-				}
-			}
-		}
-		if err != nil {
-			return err
-		}
+	if err != nil {
+		return err
 	}
 
 	return nil
