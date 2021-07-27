@@ -21,14 +21,13 @@ package esapi
 
 import (
 	"context"
-	"io"
 	"net/http"
 	"strings"
 )
 
-func newRollupRollupFunc(t Transport) RollupRollup {
-	return func(index string, body io.Reader, rollup_index string, o ...func(*RollupRollupRequest)) (*Response, error) {
-		var r = RollupRollupRequest{Index: index, Body: body, RollupIndex: rollup_index}
+func newSQLDeleteAsyncFunc(t Transport) SQLDeleteAsync {
+	return func(id string, o ...func(*SQLDeleteAsyncRequest)) (*Response, error) {
+		var r = SQLDeleteAsyncRequest{DocumentID: id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -38,22 +37,16 @@ func newRollupRollupFunc(t Transport) RollupRollup {
 
 // ----- API Definition -------------------------------------------------------
 
-// RollupRollup - Rollup an index
+// SQLDeleteAsync - Deletes an async SQL search or a stored synchronous SQL search. If the search is still running, the API cancels it.
 //
-// This API is experimental.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-async-sql-search-api.html.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/xpack-rollup.html.
-//
-type RollupRollup func(index string, body io.Reader, rollup_index string, o ...func(*RollupRollupRequest)) (*Response, error)
+type SQLDeleteAsync func(id string, o ...func(*SQLDeleteAsyncRequest)) (*Response, error)
 
-// RollupRollupRequest configures the Rollup Rollup API request.
+// SQLDeleteAsyncRequest configures the SQL Delete Async API request.
 //
-type RollupRollupRequest struct {
-	Index string
-
-	Body io.Reader
-
-	RollupIndex string
+type SQLDeleteAsyncRequest struct {
+	DocumentID string
 
 	Pretty     bool
 	Human      bool
@@ -67,22 +60,24 @@ type RollupRollupRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r RollupRollupRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SQLDeleteAsyncRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "POST"
+	method = "DELETE"
 
-	path.Grow(1 + len(r.Index) + 1 + len("_rollup") + 1 + len(r.RollupIndex))
+	path.Grow(1 + len("_sql") + 1 + len("async") + 1 + len("delete") + 1 + len(r.DocumentID))
 	path.WriteString("/")
-	path.WriteString(r.Index)
+	path.WriteString("_sql")
 	path.WriteString("/")
-	path.WriteString("_rollup")
+	path.WriteString("async")
 	path.WriteString("/")
-	path.WriteString(r.RollupIndex)
+	path.WriteString("delete")
+	path.WriteString("/")
+	path.WriteString(r.DocumentID)
 
 	params = make(map[string]string)
 
@@ -102,7 +97,7 @@ func (r RollupRollupRequest) Do(ctx context.Context, transport Transport) (*Resp
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -113,10 +108,6 @@ func (r RollupRollupRequest) Do(ctx context.Context, transport Transport) (*Resp
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
-	}
-
-	if r.Body != nil {
-		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -151,48 +142,48 @@ func (r RollupRollupRequest) Do(ctx context.Context, transport Transport) (*Resp
 
 // WithContext sets the request context.
 //
-func (f RollupRollup) WithContext(v context.Context) func(*RollupRollupRequest) {
-	return func(r *RollupRollupRequest) {
+func (f SQLDeleteAsync) WithContext(v context.Context) func(*SQLDeleteAsyncRequest) {
+	return func(r *SQLDeleteAsyncRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f RollupRollup) WithPretty() func(*RollupRollupRequest) {
-	return func(r *RollupRollupRequest) {
+func (f SQLDeleteAsync) WithPretty() func(*SQLDeleteAsyncRequest) {
+	return func(r *SQLDeleteAsyncRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f RollupRollup) WithHuman() func(*RollupRollupRequest) {
-	return func(r *RollupRollupRequest) {
+func (f SQLDeleteAsync) WithHuman() func(*SQLDeleteAsyncRequest) {
+	return func(r *SQLDeleteAsyncRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f RollupRollup) WithErrorTrace() func(*RollupRollupRequest) {
-	return func(r *RollupRollupRequest) {
+func (f SQLDeleteAsync) WithErrorTrace() func(*SQLDeleteAsyncRequest) {
+	return func(r *SQLDeleteAsyncRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f RollupRollup) WithFilterPath(v ...string) func(*RollupRollupRequest) {
-	return func(r *RollupRollupRequest) {
+func (f SQLDeleteAsync) WithFilterPath(v ...string) func(*SQLDeleteAsyncRequest) {
+	return func(r *SQLDeleteAsyncRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f RollupRollup) WithHeader(h map[string]string) func(*RollupRollupRequest) {
-	return func(r *RollupRollupRequest) {
+func (f SQLDeleteAsync) WithHeader(h map[string]string) func(*SQLDeleteAsyncRequest) {
+	return func(r *SQLDeleteAsyncRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -204,8 +195,8 @@ func (f RollupRollup) WithHeader(h map[string]string) func(*RollupRollupRequest)
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f RollupRollup) WithOpaqueID(s string) func(*RollupRollupRequest) {
-	return func(r *RollupRollupRequest) {
+func (f SQLDeleteAsync) WithOpaqueID(s string) func(*SQLDeleteAsyncRequest) {
+	return func(r *SQLDeleteAsyncRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
