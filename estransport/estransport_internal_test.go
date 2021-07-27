@@ -22,6 +22,7 @@ package estransport
 import (
 	"bytes"
 	"compress/gzip"
+	"context"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -785,6 +786,37 @@ func TestTransportPerformRetries(t *testing.T) {
 			t.Errorf("Unexpected duration, want=>%s, got=%s", expectedDuration, end)
 		}
 	})
+
+	t.Run("Delay the retry with retry on timeout and context deadline", func(t *testing.T) {
+		var i int
+		u, _ := url.Parse("http://foo.bar")
+		tp, _ := New(Config{
+			EnableRetryOnTimeout: true,
+			MaxRetries:           100,
+			RetryBackoff:         func(i int) time.Duration { return time.Hour },
+			URLs:                 []*url.URL{u},
+			Transport: &mockTransp{
+				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+					i++
+					<-req.Context().Done()
+					return nil, req.Context().Err()
+				},
+			},
+		})
+
+		req, _ := http.NewRequest("GET", "/abc", nil)
+		ctx, cancel := context.WithTimeout(req.Context(), 50*time.Millisecond)
+		defer cancel()
+		req = req.WithContext(ctx)
+
+		_, err := tp.Perform(req)
+		if err != context.DeadlineExceeded {
+			t.Fatalf("expected context.DeadlineExceeded, got %s", err)
+		}
+		if i != 1 {
+			t.Fatalf("unexpected number of requests: expected 1, got got %d", i)
+		}
+	})
 }
 
 func TestURLs(t *testing.T) {
@@ -937,19 +969,19 @@ func TestCompatibilityHeader(t *testing.T) {
 		{
 			name:                "Compatibility header disabled",
 			compatibilityHeader: false,
-			bodyPresent: false,
+			bodyPresent:         false,
 			expectsHeader:       []string{"application/json"},
 		},
 		{
 			name:                "Compatibility header enabled",
 			compatibilityHeader: true,
-			bodyPresent: false,
+			bodyPresent:         false,
 			expectsHeader:       []string{"application/vnd.elasticsearch+json;compatible-with=7"},
 		},
 		{
-			name: "Compatibility header enabled with body",
+			name:                "Compatibility header enabled with body",
 			compatibilityHeader: true,
-			bodyPresent: true,
+			bodyPresent:         true,
 			expectsHeader:       []string{"application/vnd.elasticsearch+json;compatible-with=7"},
 		},
 	}

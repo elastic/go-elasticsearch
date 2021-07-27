@@ -48,10 +48,10 @@ const (
 )
 
 var (
-	userAgent   string
-	metaHeader  string
+	userAgent           string
+	metaHeader          string
 	compatibilityHeader bool
-	reGoVersion = regexp.MustCompile(`go(\d+\.\d+\..+)`)
+	reGoVersion         = regexp.MustCompile(`go(\d+\.\d+\..+)`)
 
 	defaultMaxRetries    = 3
 	defaultRetryOnStatus = [...]int{502, 503, 504}
@@ -396,7 +396,19 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 
 		// Delay the retry if a backoff function is configured
 		if c.retryBackoff != nil {
-			time.Sleep(c.retryBackoff(i + 1))
+			var cancelled bool
+			backoff := c.retryBackoff(i + 1)
+			timer := time.NewTimer(backoff)
+			select {
+			case <-req.Context().Done():
+				err = req.Context().Err()
+				cancelled = true
+				timer.Stop()
+			case <-timer.C:
+			}
+			if cancelled {
+				break
+			}
 		}
 	}
 
