@@ -628,6 +628,9 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(ctx context.Context,
 						case "list":
 							pathGrow.WriteString(`len(strings.Join(r.` + p + `, ",")) + `)
 							pathContent.WriteString(`	path.WriteString(strings.Join(r.` + p + `, ","))` + "\n")
+						case "long":
+							pathGrow.WriteString(`len(strconv.Itoa(*r.` + p + `)) + `)
+							pathContent.WriteString(`	path.WriteString(strconv.Itoa(*r.` + p + `))` + "\n")
 						default:
 							panic(fmt.Sprintf("FAIL: %q: unexpected type %q for URL part %q\n", g.Endpoint.Name, a.Type, a.Name))
 						}
