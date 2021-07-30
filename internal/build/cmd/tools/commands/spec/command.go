@@ -232,6 +232,7 @@ func (c Command) extractZipToDest(data []byte) error {
 		if err != nil {
 			return fmt.Errorf("cannot read file in zipfile: %s", err)
 		}
+		defer f.Close()
 
 		if file.FileInfo().IsDir() {
 			path := filepath.Join(c.Output, file.Name)
