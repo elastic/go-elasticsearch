@@ -54,7 +54,7 @@ func init() {
 
 var toolsCmd = &cobra.Command{
 	Use:   "download-spec",
-	Short: "Downdload specification artifact for code & tests generation",
+	Short: "Download specification artifact for code & tests generation",
 	Run: func(cmd *cobra.Command, args []string) {
 		command := &Command{
 			Output:     *output,
