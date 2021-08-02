@@ -54,7 +54,7 @@ func init() {
 
 var toolsCmd = &cobra.Command{
 	Use:   "download-spec",
-	Short: "Downdload specification artifact for code & tests generation",
+	Short: "Download specification artifact for code & tests generation",
 	Run: func(cmd *cobra.Command, args []string) {
 		command := &Command{
 			Output:     *output,
@@ -232,6 +232,7 @@ func (c Command) extractZipToDest(data []byte) error {
 		if err != nil {
 			return fmt.Errorf("cannot read file in zipfile: %s", err)
 		}
+		defer f.Close()
 
 		if file.FileInfo().IsDir() {
 			path := filepath.Join(c.Output, file.Name)
