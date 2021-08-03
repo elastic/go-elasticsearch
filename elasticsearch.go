@@ -124,7 +124,6 @@ type info struct {
 	Tagline string    `json:"tagline"`
 }
 
-
 // NewDefaultClient creates a new client with default options.
 //
 // It will use http://localhost:9200 as the default address.
@@ -292,7 +291,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	// header validation. ResponseCheck path continues after original request.
 	if !c.useResponseCheckOnly {
 		// Launch product check for 7.x, request info, check header then payload.
-		if err := c.doProductCheck(c.productCheck); err != nil {
+		if err := c.doProductCheck(req.Context(), c.productCheck); err != nil {
 			return nil, err
 		}
 	}
@@ -302,8 +301,10 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 
 	// ResponseCheck path continues, we run the header check on the first answer from ES.
 	if err == nil {
-		checkHeader := func() error { return genuineCheckHeader(res.Header) }
-		if err := c.doProductCheck(checkHeader); err != nil {
+		checkHeader := func(context.Context) error {
+			return genuineCheckHeader(res.Header)
+		}
+		if err := c.doProductCheck(req.Context(), checkHeader); err != nil {
 			res.Body.Close()
 			return nil, err
 		}
@@ -313,7 +314,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 
 // doProductCheck calls f if there as not been a prior successful call to doProductCheck,
 // returning nil otherwise.
-func (c *Client) doProductCheck(f func() error) error {
+func (c *Client) doProductCheck(ctx context.Context, f func(context.Context) error) error {
 	c.productCheckMu.RLock()
 	productCheckSuccess := c.productCheckSuccess
 	c.productCheckMu.RUnlock()
@@ -329,7 +330,7 @@ func (c *Client) doProductCheck(f func() error) error {
 		return nil
 	}
 
-	if err := f(); err != nil {
+	if err := f(ctx); err != nil {
 		return err
 	}
 
@@ -340,9 +341,9 @@ func (c *Client) doProductCheck(f func() error) error {
 
 // productCheck runs an esapi.Info query to retrieve informations of the current cluster
 // decodes the response and decides if the cluster is a genuine Elasticsearch product.
-func (c *Client) productCheck() error {
+func (c *Client) productCheck(ctx context.Context) error {
 	req := esapi.InfoRequest{}
-	res, err := req.Do(context.Background(), c.Transport)
+	res, err := req.Do(ctx, c.Transport)
 	if err != nil {
 		return err
 	}
