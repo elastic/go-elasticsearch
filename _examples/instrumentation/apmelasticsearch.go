@@ -80,7 +80,7 @@ func main() {
 			// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		})
 	if err != nil {
-		log.Fatal("ERROR: %s", err)
+		log.Fatalf("ERROR: %s", err)
 	}
 
 	// Set up the "done" channel
