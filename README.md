@@ -12,7 +12,11 @@ The official Go client for [Elasticsearch](https://www.elastic.co/products/elast
 
 ## Compatibility
 
-The client major versions correspond to the compatible Elasticsearch major versions: to connect to Elasticsearch `7.x`, use a [`7.x`](https://github.com/elastic/go-elasticsearch/tree/7.x) version of the client, to connect to Elasticsearch `6.x`, use a [`6.x`](https://github.com/elastic/go-elasticsearch/tree/6.x) version of the client.
+Language clients are forward compatible; meaning that clients support communicating
+with greater minor versions of Elasticsearch.
+
+Elastic language clients are also backwards compatible with lesser supported
+minor Elasticsearch versions.
 
 When using Go modules, include the version in the import path, and specify either an explicit version or a branch:
 
