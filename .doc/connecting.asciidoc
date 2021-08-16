@@ -84,3 +84,83 @@ if err != nil {
 defer res.Body.Close()
 log.Println(res)
 ------------------------------------
+
+[discrete]
+[[connecting-faas]]
+=== Using the Client in a Function-as-a-Service Environment
+
+This section illustrates the best practices for leveraging the {es} client in a Function-as-a-Service (FaaS) environment.
+The most influential optimization is to initialize the client outside of the function, the global scope.
+This practice does not only improve performance but also enables background functionality as – for example –
+https://www.elastic.co/blog/elasticsearch-sniffing-best-practices-what-when-why-how[sniffing].
+The following examples provide a skeleton for the best practices.
+
+[discrete]
+[[connecting-faas-gcp]]
+==== GCP Cloud Functions
+
+[source,go]
+----------------------------
+package httpexample
+
+import (
+	"github.com/elastic/go-elasticsearch/v8"
+)
+
+var client *elasticsearch.Client
+
+func init() {
+	var err error
+
+	... # Client configuration
+	client, err = elasticsearch.NewClient(cfg)
+	if err != nil {
+		log.Fatalf("elasticsearch.NewClient: %v", err)
+	}
+}
+
+func HttpExample(w http.ResponseWriter, r *http.Request) {
+	... # Client usage
+}
+
+----------------------------
+
+[discrete]
+[[connecting-faas-aws]]
+==== AWS Lambda
+
+[source,go]
+----------------------------
+package httpexample
+
+import (
+	"github.com/aws/aws-lambda-go/lambda"
+	"github.com/elastic/go-elasticsearch/v8"
+)
+
+var client *elasticsearch.Client
+
+func init() {
+	var err error
+
+	... # Client configuration
+	client, err = elasticsearch.NewClient(cfg)
+	if err != nil {
+		log.Fatalf("elasticsearch.NewClient: %v", err)
+	}
+}
+
+func HttpExample() {
+	... # Client usage
+}
+
+func main() {
+	lambda.Start(HttpExample)
+}
+----------------------------
+
+Resources used to assess these recommendations:
+
+* https://cloud.google.com/functions/docs/bestpractices/tips#use_global_variables_to_reuse_objects_in_future_invocations[GCP Cloud Functions: Tips & Tricks]
+* https://docs.aws.amazon.com/lambda/latest/dg/best-practices.html[Best practices for working with AWS Lambda functions]
+* https://docs.aws.amazon.com/lambda/latest/operatorguide/global-scope.html[AWS Lambda: Comparing the effect of global scope]
