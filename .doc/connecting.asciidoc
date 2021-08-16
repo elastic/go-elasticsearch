@@ -104,7 +104,7 @@ The following examples provide a skeleton for the best practices.
 package httpexample
 
 import (
-	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/elastic/go-elasticsearch/v7"
 )
 
 var client *elasticsearch.Client
@@ -135,7 +135,7 @@ package httpexample
 
 import (
 	"github.com/aws/aws-lambda-go/lambda"
-	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/elastic/go-elasticsearch/v7"
 )
 
 var client *elasticsearch.Client
