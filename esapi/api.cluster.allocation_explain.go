@@ -158,7 +158,7 @@ func (f ClusterAllocationExplain) WithContext(v context.Context) func(*ClusterAl
 	}
 }
 
-// WithBody - The index, shard, and primary flag to explain. Empty means 'explain the first unassigned shard'.
+// WithBody - The index, shard, and primary flag to explain. Empty means 'explain a randomly-chosen unassigned shard'.
 //
 func (f ClusterAllocationExplain) WithBody(v io.Reader) func(*ClusterAllocationExplainRequest) {
 	return func(r *ClusterAllocationExplainRequest) {

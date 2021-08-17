@@ -39,7 +39,7 @@ func newSecurityEnrollKibanaFunc(t Transport) SecurityEnrollKibana {
 
 // SecurityEnrollKibana - Allows a kibana instance to configure itself to communicate with a secured elasticsearch cluster.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/security-api-enroll-kibana.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/security-api-kibana-enrollment.html.
 //
 type SecurityEnrollKibana func(o ...func(*SecurityEnrollKibanaRequest)) (*Response, error)
 

@@ -40,7 +40,7 @@ func newSQLClearCursorFunc(t Transport) SQLClearCursor {
 
 // SQLClearCursor - Clears the SQL cursor
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/sql-pagination.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/clear-sql-cursor-api.html.
 //
 type SQLClearCursor func(body io.Reader, o ...func(*SQLClearCursorRequest)) (*Response, error)
 

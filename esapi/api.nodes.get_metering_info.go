@@ -25,9 +25,9 @@ import (
 	"strings"
 )
 
-func newMLStopTrainedModelDeploymentFunc(t Transport) MLStopTrainedModelDeployment {
-	return func(model_id string, o ...func(*MLStopTrainedModelDeploymentRequest)) (*Response, error) {
-		var r = MLStopTrainedModelDeploymentRequest{ModelID: model_id}
+func newNodesGetMeteringInfoFunc(t Transport) NodesGetMeteringInfo {
+	return func(node_id []string, o ...func(*NodesGetMeteringInfoRequest)) (*Response, error) {
+		var r = NodesGetMeteringInfoRequest{NodeID: node_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -37,18 +37,18 @@ func newMLStopTrainedModelDeploymentFunc(t Transport) MLStopTrainedModelDeployme
 
 // ----- API Definition -------------------------------------------------------
 
-// MLStopTrainedModelDeployment - Stop a trained model deployment.
+// NodesGetMeteringInfo returns cluster repositories metering information.
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/stop-trained-model-deployment.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-repositories-metering-api.html.
 //
-type MLStopTrainedModelDeployment func(model_id string, o ...func(*MLStopTrainedModelDeploymentRequest)) (*Response, error)
+type NodesGetMeteringInfo func(node_id []string, o ...func(*NodesGetMeteringInfoRequest)) (*Response, error)
 
-// MLStopTrainedModelDeploymentRequest configures the ML Stop Trained Model Deployment API request.
+// NodesGetMeteringInfoRequest configures the Nodes Get Metering Info API request.
 //
-type MLStopTrainedModelDeploymentRequest struct {
-	ModelID string
+type NodesGetMeteringInfoRequest struct {
+	NodeID []string
 
 	Pretty     bool
 	Human      bool
@@ -62,26 +62,22 @@ type MLStopTrainedModelDeploymentRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r MLStopTrainedModelDeploymentRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r NodesGetMeteringInfoRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "POST"
+	method = "GET"
 
-	path.Grow(1 + len("_ml") + 1 + len("trained_models") + 1 + len(r.ModelID) + 1 + len("deployment") + 1 + len("_stop"))
+	path.Grow(1 + len("_nodes") + 1 + len(strings.Join(r.NodeID, ",")) + 1 + len("_repositories_metering"))
 	path.WriteString("/")
-	path.WriteString("_ml")
+	path.WriteString("_nodes")
 	path.WriteString("/")
-	path.WriteString("trained_models")
+	path.WriteString(strings.Join(r.NodeID, ","))
 	path.WriteString("/")
-	path.WriteString(r.ModelID)
-	path.WriteString("/")
-	path.WriteString("deployment")
-	path.WriteString("/")
-	path.WriteString("_stop")
+	path.WriteString("_repositories_metering")
 
 	params = make(map[string]string)
 
@@ -146,48 +142,48 @@ func (r MLStopTrainedModelDeploymentRequest) Do(ctx context.Context, transport T
 
 // WithContext sets the request context.
 //
-func (f MLStopTrainedModelDeployment) WithContext(v context.Context) func(*MLStopTrainedModelDeploymentRequest) {
-	return func(r *MLStopTrainedModelDeploymentRequest) {
+func (f NodesGetMeteringInfo) WithContext(v context.Context) func(*NodesGetMeteringInfoRequest) {
+	return func(r *NodesGetMeteringInfoRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f MLStopTrainedModelDeployment) WithPretty() func(*MLStopTrainedModelDeploymentRequest) {
-	return func(r *MLStopTrainedModelDeploymentRequest) {
+func (f NodesGetMeteringInfo) WithPretty() func(*NodesGetMeteringInfoRequest) {
+	return func(r *NodesGetMeteringInfoRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f MLStopTrainedModelDeployment) WithHuman() func(*MLStopTrainedModelDeploymentRequest) {
-	return func(r *MLStopTrainedModelDeploymentRequest) {
+func (f NodesGetMeteringInfo) WithHuman() func(*NodesGetMeteringInfoRequest) {
+	return func(r *NodesGetMeteringInfoRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f MLStopTrainedModelDeployment) WithErrorTrace() func(*MLStopTrainedModelDeploymentRequest) {
-	return func(r *MLStopTrainedModelDeploymentRequest) {
+func (f NodesGetMeteringInfo) WithErrorTrace() func(*NodesGetMeteringInfoRequest) {
+	return func(r *NodesGetMeteringInfoRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f MLStopTrainedModelDeployment) WithFilterPath(v ...string) func(*MLStopTrainedModelDeploymentRequest) {
-	return func(r *MLStopTrainedModelDeploymentRequest) {
+func (f NodesGetMeteringInfo) WithFilterPath(v ...string) func(*NodesGetMeteringInfoRequest) {
+	return func(r *NodesGetMeteringInfoRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f MLStopTrainedModelDeployment) WithHeader(h map[string]string) func(*MLStopTrainedModelDeploymentRequest) {
-	return func(r *MLStopTrainedModelDeploymentRequest) {
+func (f NodesGetMeteringInfo) WithHeader(h map[string]string) func(*NodesGetMeteringInfoRequest) {
+	return func(r *NodesGetMeteringInfoRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -199,8 +195,8 @@ func (f MLStopTrainedModelDeployment) WithHeader(h map[string]string) func(*MLSt
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f MLStopTrainedModelDeployment) WithOpaqueID(s string) func(*MLStopTrainedModelDeploymentRequest) {
-	return func(r *MLStopTrainedModelDeploymentRequest) {
+func (f NodesGetMeteringInfo) WithOpaqueID(s string) func(*NodesGetMeteringInfoRequest) {
+	return func(r *NodesGetMeteringInfoRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

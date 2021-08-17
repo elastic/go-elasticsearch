@@ -42,7 +42,7 @@ func newIndicesFieldUsageStatsFunc(t Transport) IndicesFieldUsageStats {
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-field-usage-stats.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/field-usage-stats.html.
 //
 type IndicesFieldUsageStats func(index string, o ...func(*IndicesFieldUsageStatsRequest)) (*Response, error)
 

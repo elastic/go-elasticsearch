@@ -22,12 +22,13 @@ package esapi
 import (
 	"context"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
-func newMLStopTrainedModelDeploymentFunc(t Transport) MLStopTrainedModelDeployment {
-	return func(model_id string, o ...func(*MLStopTrainedModelDeploymentRequest)) (*Response, error) {
-		var r = MLStopTrainedModelDeploymentRequest{ModelID: model_id}
+func newNodesClearMeteringArchiveFunc(t Transport) NodesClearMeteringArchive {
+	return func(max_archive_version *int, node_id []string, o ...func(*NodesClearMeteringArchiveRequest)) (*Response, error) {
+		var r = NodesClearMeteringArchiveRequest{MaxArchiveVersion: max_archive_version, NodeID: node_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -37,18 +38,19 @@ func newMLStopTrainedModelDeploymentFunc(t Transport) MLStopTrainedModelDeployme
 
 // ----- API Definition -------------------------------------------------------
 
-// MLStopTrainedModelDeployment - Stop a trained model deployment.
+// NodesClearMeteringArchive removes the archived repositories metering information present in the cluster.
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/stop-trained-model-deployment.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/clear-repositories-metering-archive-api.html.
 //
-type MLStopTrainedModelDeployment func(model_id string, o ...func(*MLStopTrainedModelDeploymentRequest)) (*Response, error)
+type NodesClearMeteringArchive func(max_archive_version *int, node_id []string, o ...func(*NodesClearMeteringArchiveRequest)) (*Response, error)
 
-// MLStopTrainedModelDeploymentRequest configures the ML Stop Trained Model Deployment API request.
+// NodesClearMeteringArchiveRequest configures the Nodes Clear Metering Archive API request.
 //
-type MLStopTrainedModelDeploymentRequest struct {
-	ModelID string
+type NodesClearMeteringArchiveRequest struct {
+	MaxArchiveVersion *int
+	NodeID            []string
 
 	Pretty     bool
 	Human      bool
@@ -62,26 +64,24 @@ type MLStopTrainedModelDeploymentRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r MLStopTrainedModelDeploymentRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r NodesClearMeteringArchiveRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "POST"
+	method = "DELETE"
 
-	path.Grow(1 + len("_ml") + 1 + len("trained_models") + 1 + len(r.ModelID) + 1 + len("deployment") + 1 + len("_stop"))
+	path.Grow(1 + len("_nodes") + 1 + len(strings.Join(r.NodeID, ",")) + 1 + len("_repositories_metering") + 1 + len(strconv.Itoa(*r.MaxArchiveVersion)))
 	path.WriteString("/")
-	path.WriteString("_ml")
+	path.WriteString("_nodes")
 	path.WriteString("/")
-	path.WriteString("trained_models")
+	path.WriteString(strings.Join(r.NodeID, ","))
 	path.WriteString("/")
-	path.WriteString(r.ModelID)
+	path.WriteString("_repositories_metering")
 	path.WriteString("/")
-	path.WriteString("deployment")
-	path.WriteString("/")
-	path.WriteString("_stop")
+	path.WriteString(strconv.Itoa(*r.MaxArchiveVersion))
 
 	params = make(map[string]string)
 
@@ -146,48 +146,48 @@ func (r MLStopTrainedModelDeploymentRequest) Do(ctx context.Context, transport T
 
 // WithContext sets the request context.
 //
-func (f MLStopTrainedModelDeployment) WithContext(v context.Context) func(*MLStopTrainedModelDeploymentRequest) {
-	return func(r *MLStopTrainedModelDeploymentRequest) {
+func (f NodesClearMeteringArchive) WithContext(v context.Context) func(*NodesClearMeteringArchiveRequest) {
+	return func(r *NodesClearMeteringArchiveRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f MLStopTrainedModelDeployment) WithPretty() func(*MLStopTrainedModelDeploymentRequest) {
-	return func(r *MLStopTrainedModelDeploymentRequest) {
+func (f NodesClearMeteringArchive) WithPretty() func(*NodesClearMeteringArchiveRequest) {
+	return func(r *NodesClearMeteringArchiveRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f MLStopTrainedModelDeployment) WithHuman() func(*MLStopTrainedModelDeploymentRequest) {
-	return func(r *MLStopTrainedModelDeploymentRequest) {
+func (f NodesClearMeteringArchive) WithHuman() func(*NodesClearMeteringArchiveRequest) {
+	return func(r *NodesClearMeteringArchiveRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f MLStopTrainedModelDeployment) WithErrorTrace() func(*MLStopTrainedModelDeploymentRequest) {
-	return func(r *MLStopTrainedModelDeploymentRequest) {
+func (f NodesClearMeteringArchive) WithErrorTrace() func(*NodesClearMeteringArchiveRequest) {
+	return func(r *NodesClearMeteringArchiveRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f MLStopTrainedModelDeployment) WithFilterPath(v ...string) func(*MLStopTrainedModelDeploymentRequest) {
-	return func(r *MLStopTrainedModelDeploymentRequest) {
+func (f NodesClearMeteringArchive) WithFilterPath(v ...string) func(*NodesClearMeteringArchiveRequest) {
+	return func(r *NodesClearMeteringArchiveRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f MLStopTrainedModelDeployment) WithHeader(h map[string]string) func(*MLStopTrainedModelDeploymentRequest) {
-	return func(r *MLStopTrainedModelDeploymentRequest) {
+func (f NodesClearMeteringArchive) WithHeader(h map[string]string) func(*NodesClearMeteringArchiveRequest) {
+	return func(r *NodesClearMeteringArchiveRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -199,8 +199,8 @@ func (f MLStopTrainedModelDeployment) WithHeader(h map[string]string) func(*MLSt
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f MLStopTrainedModelDeployment) WithOpaqueID(s string) func(*MLStopTrainedModelDeploymentRequest) {
-	return func(r *MLStopTrainedModelDeploymentRequest) {
+func (f NodesClearMeteringArchive) WithOpaqueID(s string) func(*NodesClearMeteringArchiveRequest) {
+	return func(r *NodesClearMeteringArchiveRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

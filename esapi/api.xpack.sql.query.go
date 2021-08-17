@@ -40,7 +40,7 @@ func newSQLQueryFunc(t Transport) SQLQuery {
 
 // SQLQuery - Executes a SQL request
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/sql-rest-overview.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/sql-search-api.html.
 //
 type SQLQuery func(body io.Reader, o ...func(*SQLQueryRequest)) (*Response, error)
 

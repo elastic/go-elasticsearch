@@ -42,7 +42,7 @@ func newMLStartTrainedModelDeploymentFunc(t Transport) MLStartTrainedModelDeploy
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-start-trained-model-deployment.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/start-trained-model-deployment.html.
 //
 type MLStartTrainedModelDeployment func(model_id string, o ...func(*MLStartTrainedModelDeploymentRequest)) (*Response, error)
 
@@ -159,7 +159,7 @@ func (f MLStartTrainedModelDeployment) WithContext(v context.Context) func(*MLSt
 	}
 }
 
-// WithTimeout - controls the time to wait until the model is deployed.
+// WithTimeout - controls the amount of time to wait for the model to deploy..
 //
 func (f MLStartTrainedModelDeployment) WithTimeout(v time.Duration) func(*MLStartTrainedModelDeploymentRequest) {
 	return func(r *MLStartTrainedModelDeploymentRequest) {

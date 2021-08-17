@@ -21,14 +21,15 @@ package esapi
 
 import (
 	"context"
+	"io"
 	"net/http"
 	"strings"
 	"time"
 )
 
 func newMLInferTrainedModelDeploymentFunc(t Transport) MLInferTrainedModelDeployment {
-	return func(model_id string, o ...func(*MLInferTrainedModelDeploymentRequest)) (*Response, error) {
-		var r = MLInferTrainedModelDeploymentRequest{ModelID: model_id}
+	return func(body io.Reader, model_id string, o ...func(*MLInferTrainedModelDeploymentRequest)) (*Response, error) {
+		var r = MLInferTrainedModelDeploymentRequest{Body: body, ModelID: model_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -42,13 +43,15 @@ func newMLInferTrainedModelDeploymentFunc(t Transport) MLInferTrainedModelDeploy
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-infer-trained-model-deployment.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/infer-trained-model-deployment.html.
 //
-type MLInferTrainedModelDeployment func(model_id string, o ...func(*MLInferTrainedModelDeploymentRequest)) (*Response, error)
+type MLInferTrainedModelDeployment func(body io.Reader, model_id string, o ...func(*MLInferTrainedModelDeploymentRequest)) (*Response, error)
 
 // MLInferTrainedModelDeploymentRequest configures the ML Infer Trained Model Deployment API request.
 //
 type MLInferTrainedModelDeploymentRequest struct {
+	Body io.Reader
+
 	ModelID string
 
 	Timeout time.Duration
@@ -108,7 +111,7 @@ func (r MLInferTrainedModelDeploymentRequest) Do(ctx context.Context, transport 
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -119,6 +122,10 @@ func (r MLInferTrainedModelDeploymentRequest) Do(ctx context.Context, transport 
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if r.Body != nil {
+		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -159,7 +166,7 @@ func (f MLInferTrainedModelDeployment) WithContext(v context.Context) func(*MLIn
 	}
 }
 
-// WithTimeout - controls the time to wait for the inference result.
+// WithTimeout - controls the amount of time to wait for inference results..
 //
 func (f MLInferTrainedModelDeployment) WithTimeout(v time.Duration) func(*MLInferTrainedModelDeploymentRequest) {
 	return func(r *MLInferTrainedModelDeploymentRequest) {
