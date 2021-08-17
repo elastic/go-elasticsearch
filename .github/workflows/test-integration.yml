@@ -6,12 +6,12 @@ on:
   push:
     branches:
       - github-actions
-      - master
+      - main
       - 7.x
       - 6.x
   pull_request:
     branches:
-      - master
+      - main
       - 7.x
       - 6.x
 

@@ -181,7 +181,7 @@ apidiff: ## Display API incompabilities
 		fi; \
 	}
 
-backport: ## Backport one or more commits from master into version branches
+backport: ## Backport one or more commits from main into version branches
 ifeq ($(origin commits), undefined)
 	@echo "Missing commit(s), exiting..."
 	@exit 2

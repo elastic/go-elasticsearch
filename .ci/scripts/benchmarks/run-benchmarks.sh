@@ -60,7 +60,7 @@ trap cleanup INT TERM EXIT;
 if [[ ! -d "$WORKSPACE/tmp/elasticsearch-clients-benchmarks" ]]; then
   git clone --depth 1 git@github.com:elastic/elasticsearch-clients-benchmarks.git "$WORKSPACE/tmp/elasticsearch-clients-benchmarks"
 else
-  cd "$WORKSPACE/tmp/elasticsearch-clients-benchmarks" && git fetch --quiet && git reset origin/master --hard
+  cd "$WORKSPACE/tmp/elasticsearch-clients-benchmarks" && git fetch --quiet && git reset origin/main --hard
 fi
 
 cd "$WORKSPACE/tmp/elasticsearch-clients-benchmarks/terraform/gcp"

@@ -8,7 +8,7 @@
     parameters:
       - string:
           name: branch_specifier
-          default: refs/heads/master
+          default: refs/heads/main
           description: The Git branch specifier to build
     triggers:
       - timed: "H H/12 * * *"
