@@ -199,6 +199,7 @@ ml/jobs_crud.yml:
   - Test job with rules
   - Test put job with model_memory_limit as number
   - Test put job with model_memory_limit as string and lazy open
+  - Test update job
 
 # Test gets stuck every time
 ml/jobs_get_stats.yml:
@@ -337,6 +338,9 @@ search/350_point_in_time.yml:
 
 nodes.stats/11_indices_metrics.yml:
   - Metric - http
+  - Metric - blank for indices shards
+  - Metric - _all for indices shards
+  - indices shards total count test
 
 data_stream/10_data_stream_resolvability.yml:
   - Verify data stream resolvability in ILM remove policy API
