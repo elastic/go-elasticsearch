@@ -324,6 +324,7 @@ endif
 				--env "node.attr.testattr=test" \
 				--env "path.repo=/tmp" \
 				--env "repositories.url.allowed_urls=http://snapshot.test*" \
+				--env "xpack.security.enabled=false" \
 				--env ES_JAVA_OPTS="-Xms1g -Xmx1g" \
 				$(xpack_env) \
 				--volume `echo $(version) | tr -C "[:alnum:]" '-'`-node-$$n-data:/usr/share/elasticsearch/data \
