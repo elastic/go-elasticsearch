@@ -7,7 +7,7 @@
 # Export the TEST_SUITE variable, eg. 'free' or 'platinum' defaults to 'free'.
 # Export the NUMBER_OF_NODES variable to start more than 1 node
 
-# Version 1.4.0
+# Version 1.5.0
 # - Initial version of the run-elasticsearch.sh script
 # - Deleting the volume should not dependent on the container still running
 # - Fixed `ES_JAVA_OPTS` config
@@ -18,6 +18,7 @@
 # - Added flags to make local CCR configurations work
 # - Added action.destructive_requires_name=false as the default will be true in v8
 # - Added ingest.geoip.downloader.enabled=false as it causes false positives in testing
+# - Moved ELASTIC_PASSWORD to the base arguments for "Security On by default"
 
 script_path=$(dirname $(realpath -s $0))
 source $script_path/functions/imports.sh

@@ -121,7 +121,7 @@ func TestTransportCompression(t *testing.T) {
 
 	if envURL, ok := os.LookupEnv("ELASTICSEARCH_URL"); ok && envURL != "" {
 		u, err = url.Parse(envURL)
-		if err != nil {	
+		if err != nil {
 			t.Fatalf("Cannot parse ELASTICSEARCH_URL: %v", err)
 		}
 	} else {
