@@ -31,10 +31,12 @@ endif
 	$(eval testintegargs += "-cover" "-coverprofile=tmp/integration-client.cov" "-tags='$(testintegtags)'" "-timeout=1h")
 	@mkdir -p tmp
 	@if which gotestsum > /dev/null 2>&1 ; then \
+  		export ELASTICSEARCH_URL='http://elastic:elastic@localhost:9200'; \
 		echo "gotestsum --format=short-verbose --junitfile=tmp/integration-report.xml --" $(testintegargs); \
 		gotestsum --format=short-verbose --junitfile=tmp/integration-report.xml -- $(testintegargs) "."; \
 		gotestsum --format=short-verbose --junitfile=tmp/integration-report.xml -- $(testintegargs) "./estransport" "./esapi" "./esutil"; \
 	else \
+	  	export ELASTICSEARCH_URL='http://elastic:elastic@localhost:9200'; \
 		echo "go test -v" $(testintegargs) "."; \
 		go test -v $(testintegargs) "./estransport" "./esapi" "./esutil"; \
 	fi;
@@ -72,7 +74,7 @@ ifeq ($(flavor), platinum)
 	}
 else
 	$(eval testapiargs += $(PWD)/esapi/test/*_test.go)
-	@{ \
+	{ \
 		set -e ; \
 		trap "test -d .git && git checkout --quiet $(PWD)/esapi/test/go.mod" INT TERM EXIT; \
 		if which gotestsum > /dev/null 2>&1 ; then \
@@ -113,7 +115,7 @@ test-examples: ## Execute the _examples
 			printf "\033[2m────────────────────────────────────────────────────────────────────────────────\n"; \
 			printf "\033[1m$$f\033[0m\n"; \
 			printf "\033[2m────────────────────────────────────────────────────────────────────────────────\033[0m\n"; \
-			(go run $$f && true) || \
+			(export ELASTICSEARCH_URL=http://elastic:elastic@localhost:9200 && go run $$f && true) || \
 			( \
 				printf "\033[31m────────────────────────────────────────────────────────────────────────────────\033[0m\n"; \
 				printf "\033[31;1m⨯ ERROR\033[0m\n"; \
