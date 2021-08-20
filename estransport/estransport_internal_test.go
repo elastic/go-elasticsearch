@@ -398,6 +398,21 @@ func TestTransportPerform(t *testing.T) {
 		}
 	})
 
+	t.Run("Overwrites UserAgent", func(t *testing.T) {
+		u, _ := url.Parse("http://example.com")
+
+		tp, _ := New(Config{URLs: []*url.URL{u}, Header: http.Header{
+			userAgentHeader: []string{"Elastic-Fleet-Server/7.11.1 (darwin; amd64; Go 1.16.6)"},
+		}})
+
+		req, _ := http.NewRequest("GET", "/abc", nil)
+		tp.setReqUserAgent(req)
+
+		if !strings.HasPrefix(req.UserAgent(), "Elastic-Fleet-Server") {
+			t.Errorf("Unexpected user agent: %s", req.UserAgent())
+		}
+	})
+
 	t.Run("Sets global HTTP request headers", func(t *testing.T) {
 		hdr := http.Header{}
 		hdr.Set("X-Foo", "bar")
