@@ -44,7 +44,7 @@ func newNodesClearMeteringArchiveFunc(t Transport) NodesClearMeteringArchive {
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/clear-repositories-metering-archive-api.html.
 //
-type NodesClearMeteringArchive func(node_id []string, max_archive_version *int, o ...func(*NodesClearMeteringArchiveRequest)) (*Response, error)
+type NodesClearMeteringArchive func(max_archive_version *int, node_id []string, o ...func(*NodesClearMeteringArchiveRequest)) (*Response, error)
 
 // NodesClearMeteringArchiveRequest configures the Nodes Clear Metering Archive API request.
 //

@@ -45,7 +45,7 @@ func newSearchMvtFunc(t Transport) SearchMvt {
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-vector-tile-api.html.
 //
-type SearchMvt func(index []string, zoom *int, x *int, y *int, field string, o ...func(*SearchMvtRequest)) (*Response, error)
+type SearchMvt func(index []string, field string, zoom *int, x *int, y *int, o ...func(*SearchMvtRequest)) (*Response, error)
 
 // SearchMvtRequest configures the Search Mvt API request.
 //
