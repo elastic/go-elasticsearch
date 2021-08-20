@@ -172,9 +172,14 @@ rollup/put_job.yml:
 api_key/11_invalidation.yml:
   - Test invalidate api key by username
 
+# Incorrect syntax for stash
+api_key/20_query.yml:
+  - Test query api key
+
 # Changing password locks out tests
 change_password/10_basic.yml:
   - Test user changing their own password
+  - Test changing users password with prehashed password
 
 # Missing refreshes in the test
 data_frame/transforms_start_stop.yml:
