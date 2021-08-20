@@ -195,6 +195,7 @@ license/20_put_license.yml:
 # Test tries to match on map from body, but Go keys are not sorted
 ml/jobs_crud.yml:
   - Test job with rules
+  - Test update job
 ml/data_frame_analytics_crud.yml:
   - Test put classification given deprecated maximum_number_trees
   - Test put valid config with default outlier detection
@@ -329,6 +330,9 @@ search/350_point_in_time.yml:
 
 nodes.stats/11_indices_metrics.yml:
   - Metric - http
+  - Metric - blank for indices shards
+  - Metric - _all for indices shards
+  - indices shards total count test
 
 searchable_snapshots/10_usage.yml:
   - Tests searchable snapshots usage stats with full_copy and shared_cache indices
