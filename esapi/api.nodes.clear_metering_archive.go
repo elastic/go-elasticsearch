@@ -22,12 +22,13 @@ package esapi
 import (
 	"context"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
-func newSecurityClearCachedServiceTokensFunc(t Transport) SecurityClearCachedServiceTokens {
-	return func(name []string, service string, namespace string, o ...func(*SecurityClearCachedServiceTokensRequest)) (*Response, error) {
-		var r = SecurityClearCachedServiceTokensRequest{Name: name, Namespace: namespace, Service: service}
+func newNodesClearMeteringArchiveFunc(t Transport) NodesClearMeteringArchive {
+	return func(max_archive_version *int, node_id []string, o ...func(*NodesClearMeteringArchiveRequest)) (*Response, error) {
+		var r = NodesClearMeteringArchiveRequest{NodeID: node_id, MaxArchiveVersion: max_archive_version}
 		for _, f := range o {
 			f(&r)
 		}
@@ -37,20 +38,19 @@ func newSecurityClearCachedServiceTokensFunc(t Transport) SecurityClearCachedSer
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityClearCachedServiceTokens - Evicts tokens from the service account token caches.
+// NodesClearMeteringArchive removes the archived repositories metering information present in the cluster.
 //
-// This API is beta.
+// This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-service-token-caches.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/clear-repositories-metering-archive-api.html.
 //
-type SecurityClearCachedServiceTokens func(name []string, namespace string, service string, o ...func(*SecurityClearCachedServiceTokensRequest)) (*Response, error)
+type NodesClearMeteringArchive func(node_id []string, max_archive_version *int, o ...func(*NodesClearMeteringArchiveRequest)) (*Response, error)
 
-// SecurityClearCachedServiceTokensRequest configures the Security Clear Cached Service Tokens API request.
+// NodesClearMeteringArchiveRequest configures the Nodes Clear Metering Archive API request.
 //
-type SecurityClearCachedServiceTokensRequest struct {
-	Name      []string
-	Namespace string
-	Service   string
+type NodesClearMeteringArchiveRequest struct {
+	MaxArchiveVersion *int
+	NodeID            []string
 
 	Pretty     bool
 	Human      bool
@@ -64,32 +64,24 @@ type SecurityClearCachedServiceTokensRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r SecurityClearCachedServiceTokensRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r NodesClearMeteringArchiveRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "POST"
+	method = "DELETE"
 
-	path.Grow(1 + len("_security") + 1 + len("service") + 1 + len(r.Namespace) + 1 + len(r.Service) + 1 + len("credential") + 1 + len("token") + 1 + len(strings.Join(r.Name, ",")) + 1 + len("_clear_cache"))
+	path.Grow(1 + len("_nodes") + 1 + len(strings.Join(r.NodeID, ",")) + 1 + len("_repositories_metering") + 1 + len(strconv.Itoa(*r.MaxArchiveVersion)))
 	path.WriteString("/")
-	path.WriteString("_security")
+	path.WriteString("_nodes")
 	path.WriteString("/")
-	path.WriteString("service")
+	path.WriteString(strings.Join(r.NodeID, ","))
 	path.WriteString("/")
-	path.WriteString(r.Namespace)
+	path.WriteString("_repositories_metering")
 	path.WriteString("/")
-	path.WriteString(r.Service)
-	path.WriteString("/")
-	path.WriteString("credential")
-	path.WriteString("/")
-	path.WriteString("token")
-	path.WriteString("/")
-	path.WriteString(strings.Join(r.Name, ","))
-	path.WriteString("/")
-	path.WriteString("_clear_cache")
+	path.WriteString(strconv.Itoa(*r.MaxArchiveVersion))
 
 	params = make(map[string]string)
 
@@ -154,48 +146,48 @@ func (r SecurityClearCachedServiceTokensRequest) Do(ctx context.Context, transpo
 
 // WithContext sets the request context.
 //
-func (f SecurityClearCachedServiceTokens) WithContext(v context.Context) func(*SecurityClearCachedServiceTokensRequest) {
-	return func(r *SecurityClearCachedServiceTokensRequest) {
+func (f NodesClearMeteringArchive) WithContext(v context.Context) func(*NodesClearMeteringArchiveRequest) {
+	return func(r *NodesClearMeteringArchiveRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f SecurityClearCachedServiceTokens) WithPretty() func(*SecurityClearCachedServiceTokensRequest) {
-	return func(r *SecurityClearCachedServiceTokensRequest) {
+func (f NodesClearMeteringArchive) WithPretty() func(*NodesClearMeteringArchiveRequest) {
+	return func(r *NodesClearMeteringArchiveRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f SecurityClearCachedServiceTokens) WithHuman() func(*SecurityClearCachedServiceTokensRequest) {
-	return func(r *SecurityClearCachedServiceTokensRequest) {
+func (f NodesClearMeteringArchive) WithHuman() func(*NodesClearMeteringArchiveRequest) {
+	return func(r *NodesClearMeteringArchiveRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f SecurityClearCachedServiceTokens) WithErrorTrace() func(*SecurityClearCachedServiceTokensRequest) {
-	return func(r *SecurityClearCachedServiceTokensRequest) {
+func (f NodesClearMeteringArchive) WithErrorTrace() func(*NodesClearMeteringArchiveRequest) {
+	return func(r *NodesClearMeteringArchiveRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f SecurityClearCachedServiceTokens) WithFilterPath(v ...string) func(*SecurityClearCachedServiceTokensRequest) {
-	return func(r *SecurityClearCachedServiceTokensRequest) {
+func (f NodesClearMeteringArchive) WithFilterPath(v ...string) func(*NodesClearMeteringArchiveRequest) {
+	return func(r *NodesClearMeteringArchiveRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f SecurityClearCachedServiceTokens) WithHeader(h map[string]string) func(*SecurityClearCachedServiceTokensRequest) {
-	return func(r *SecurityClearCachedServiceTokensRequest) {
+func (f NodesClearMeteringArchive) WithHeader(h map[string]string) func(*NodesClearMeteringArchiveRequest) {
+	return func(r *NodesClearMeteringArchiveRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -207,8 +199,8 @@ func (f SecurityClearCachedServiceTokens) WithHeader(h map[string]string) func(*
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f SecurityClearCachedServiceTokens) WithOpaqueID(s string) func(*SecurityClearCachedServiceTokensRequest) {
-	return func(r *SecurityClearCachedServiceTokensRequest) {
+func (f NodesClearMeteringArchive) WithOpaqueID(s string) func(*NodesClearMeteringArchiveRequest) {
+	return func(r *NodesClearMeteringArchiveRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

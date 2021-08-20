@@ -25,9 +25,9 @@ import (
 	"strings"
 )
 
-func newSecurityClearCachedServiceTokensFunc(t Transport) SecurityClearCachedServiceTokens {
-	return func(name []string, service string, namespace string, o ...func(*SecurityClearCachedServiceTokensRequest)) (*Response, error) {
-		var r = SecurityClearCachedServiceTokensRequest{Name: name, Namespace: namespace, Service: service}
+func newNodesGetMeteringInfoFunc(t Transport) NodesGetMeteringInfo {
+	return func(node_id []string, o ...func(*NodesGetMeteringInfoRequest)) (*Response, error) {
+		var r = NodesGetMeteringInfoRequest{NodeID: node_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -37,20 +37,18 @@ func newSecurityClearCachedServiceTokensFunc(t Transport) SecurityClearCachedSer
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityClearCachedServiceTokens - Evicts tokens from the service account token caches.
+// NodesGetMeteringInfo returns cluster repositories metering information.
 //
-// This API is beta.
+// This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-service-token-caches.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-repositories-metering-api.html.
 //
-type SecurityClearCachedServiceTokens func(name []string, namespace string, service string, o ...func(*SecurityClearCachedServiceTokensRequest)) (*Response, error)
+type NodesGetMeteringInfo func(node_id []string, o ...func(*NodesGetMeteringInfoRequest)) (*Response, error)
 
-// SecurityClearCachedServiceTokensRequest configures the Security Clear Cached Service Tokens API request.
+// NodesGetMeteringInfoRequest configures the Nodes Get Metering Info API request.
 //
-type SecurityClearCachedServiceTokensRequest struct {
-	Name      []string
-	Namespace string
-	Service   string
+type NodesGetMeteringInfoRequest struct {
+	NodeID []string
 
 	Pretty     bool
 	Human      bool
@@ -64,32 +62,22 @@ type SecurityClearCachedServiceTokensRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r SecurityClearCachedServiceTokensRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r NodesGetMeteringInfoRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "POST"
+	method = "GET"
 
-	path.Grow(1 + len("_security") + 1 + len("service") + 1 + len(r.Namespace) + 1 + len(r.Service) + 1 + len("credential") + 1 + len("token") + 1 + len(strings.Join(r.Name, ",")) + 1 + len("_clear_cache"))
+	path.Grow(1 + len("_nodes") + 1 + len(strings.Join(r.NodeID, ",")) + 1 + len("_repositories_metering"))
 	path.WriteString("/")
-	path.WriteString("_security")
+	path.WriteString("_nodes")
 	path.WriteString("/")
-	path.WriteString("service")
+	path.WriteString(strings.Join(r.NodeID, ","))
 	path.WriteString("/")
-	path.WriteString(r.Namespace)
-	path.WriteString("/")
-	path.WriteString(r.Service)
-	path.WriteString("/")
-	path.WriteString("credential")
-	path.WriteString("/")
-	path.WriteString("token")
-	path.WriteString("/")
-	path.WriteString(strings.Join(r.Name, ","))
-	path.WriteString("/")
-	path.WriteString("_clear_cache")
+	path.WriteString("_repositories_metering")
 
 	params = make(map[string]string)
 
@@ -154,48 +142,48 @@ func (r SecurityClearCachedServiceTokensRequest) Do(ctx context.Context, transpo
 
 // WithContext sets the request context.
 //
-func (f SecurityClearCachedServiceTokens) WithContext(v context.Context) func(*SecurityClearCachedServiceTokensRequest) {
-	return func(r *SecurityClearCachedServiceTokensRequest) {
+func (f NodesGetMeteringInfo) WithContext(v context.Context) func(*NodesGetMeteringInfoRequest) {
+	return func(r *NodesGetMeteringInfoRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f SecurityClearCachedServiceTokens) WithPretty() func(*SecurityClearCachedServiceTokensRequest) {
-	return func(r *SecurityClearCachedServiceTokensRequest) {
+func (f NodesGetMeteringInfo) WithPretty() func(*NodesGetMeteringInfoRequest) {
+	return func(r *NodesGetMeteringInfoRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f SecurityClearCachedServiceTokens) WithHuman() func(*SecurityClearCachedServiceTokensRequest) {
-	return func(r *SecurityClearCachedServiceTokensRequest) {
+func (f NodesGetMeteringInfo) WithHuman() func(*NodesGetMeteringInfoRequest) {
+	return func(r *NodesGetMeteringInfoRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f SecurityClearCachedServiceTokens) WithErrorTrace() func(*SecurityClearCachedServiceTokensRequest) {
-	return func(r *SecurityClearCachedServiceTokensRequest) {
+func (f NodesGetMeteringInfo) WithErrorTrace() func(*NodesGetMeteringInfoRequest) {
+	return func(r *NodesGetMeteringInfoRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f SecurityClearCachedServiceTokens) WithFilterPath(v ...string) func(*SecurityClearCachedServiceTokensRequest) {
-	return func(r *SecurityClearCachedServiceTokensRequest) {
+func (f NodesGetMeteringInfo) WithFilterPath(v ...string) func(*NodesGetMeteringInfoRequest) {
+	return func(r *NodesGetMeteringInfoRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f SecurityClearCachedServiceTokens) WithHeader(h map[string]string) func(*SecurityClearCachedServiceTokensRequest) {
-	return func(r *SecurityClearCachedServiceTokensRequest) {
+func (f NodesGetMeteringInfo) WithHeader(h map[string]string) func(*NodesGetMeteringInfoRequest) {
+	return func(r *NodesGetMeteringInfoRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -207,8 +195,8 @@ func (f SecurityClearCachedServiceTokens) WithHeader(h map[string]string) func(*
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f SecurityClearCachedServiceTokens) WithOpaqueID(s string) func(*SecurityClearCachedServiceTokensRequest) {
-	return func(r *SecurityClearCachedServiceTokensRequest) {
+func (f NodesGetMeteringInfo) WithOpaqueID(s string) func(*NodesGetMeteringInfoRequest) {
+	return func(r *NodesGetMeteringInfoRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

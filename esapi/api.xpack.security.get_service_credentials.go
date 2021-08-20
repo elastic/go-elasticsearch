@@ -26,8 +26,8 @@ import (
 )
 
 func newSecurityGetServiceCredentialsFunc(t Transport) SecurityGetServiceCredentials {
-	return func(service string, namespace string, o ...func(*SecurityGetServiceCredentialsRequest)) (*Response, error) {
-		var r = SecurityGetServiceCredentialsRequest{Service: service, Namespace: namespace}
+	return func(namespace string, service string, o ...func(*SecurityGetServiceCredentialsRequest)) (*Response, error) {
+		var r = SecurityGetServiceCredentialsRequest{Namespace: namespace, Service: service}
 		for _, f := range o {
 			f(&r)
 		}

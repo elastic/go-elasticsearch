@@ -26,8 +26,8 @@ import (
 )
 
 func newSecurityDeleteServiceTokenFunc(t Transport) SecurityDeleteServiceToken {
-	return func(name string, service string, namespace string, o ...func(*SecurityDeleteServiceTokenRequest)) (*Response, error) {
-		var r = SecurityDeleteServiceTokenRequest{Name: name, Service: service, Namespace: namespace}
+	return func(name string, namespace string, service string, o ...func(*SecurityDeleteServiceTokenRequest)) (*Response, error) {
+		var r = SecurityDeleteServiceTokenRequest{Name: name, Namespace: namespace, Service: service}
 		for _, f := range o {
 			f(&r)
 		}
