@@ -286,6 +286,7 @@ else
 	$(eval detach ?= "false")
 endif
 
+$(eval elasticsearch_url = "http://elastic:elastic@es1:9200")
 ifeq ($(flavor), platinum)
 	$(eval elasticsearch_url = "https://elastic:elastic@es1:9200")
 	$(eval xpack_env += --env "ELASTIC_PASSWORD=elastic")
@@ -315,6 +316,7 @@ endif
 			docker run \
 				--name "es$$n" \
 				--network elasticsearch \
+				--env "ELASTIC_PASSWORD=elastic" \
 				--env "node.name=es$$n" \
 				--env "cluster.name=go-elasticsearch" \
 				--env "cluster.initial_master_nodes=es1" \
@@ -324,7 +326,6 @@ endif
 				--env "node.attr.testattr=test" \
 				--env "path.repo=/tmp" \
 				--env "repositories.url.allowed_urls=http://snapshot.test*" \
-				--env "xpack.security.enabled=false" \
 				--env ES_JAVA_OPTS="-Xms1g -Xmx1g" \
 				$(xpack_env) \
 				--volume `echo $(version) | tr -C "[:alnum:]" '-'`-node-$$n-data:/usr/share/elasticsearch/data \

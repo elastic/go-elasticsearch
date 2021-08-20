@@ -31,6 +31,7 @@ cluster_name=${moniker}${suffix}
 
 declare -a volumes
 environment=($(cat <<-END
+  --env ELASTIC_PASSWORD=$elastic_password
   --env node.name=$es_node_name
   --env cluster.name=$cluster_name
   --env cluster.initial_master_nodes=$master_node_name
@@ -42,12 +43,10 @@ environment=($(cat <<-END
   --env repositories.url.allowed_urls=http://snapshot.test*
   --env action.destructive_requires_name=false
   --env ingest.geoip.downloader.enabled=false
-  --env xpack.security.enabled=false
 END
 ))
 if [[ "$TEST_SUITE" == "platinum" ]]; then
   environment+=($(cat <<-END
-    --env ELASTIC_PASSWORD=$elastic_password
     --env xpack.license.self_generated.type=trial
     --env xpack.security.enabled=true
     --env xpack.security.http.ssl.enabled=true
