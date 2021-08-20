@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 7.x (4e182b9): DO NOT EDIT
+// Code generated from specification version 7.15.0 (4a97926): DO NOT EDIT
 
 package esapi
 
@@ -109,6 +109,7 @@ type API struct {
 	RenderSearchTemplate                          RenderSearchTemplate
 	ScriptsPainlessExecute                        ScriptsPainlessExecute
 	Scroll                                        Scroll
+	SearchMvt                                     SearchMvt
 	Search                                        Search
 	SearchShards                                  SearchShards
 	SearchTemplate                                SearchTemplate
@@ -266,6 +267,8 @@ type Ingest struct {
 
 // Nodes contains the Nodes APIs
 type Nodes struct {
+	ClearMeteringArchive NodesClearMeteringArchive
+	GetMeteringInfo      NodesGetMeteringInfo
 	HotThreads           NodesHotThreads
 	Info                 NodesInfo
 	ReloadSecureSettings NodesReloadSecureSettings
@@ -479,6 +482,7 @@ type Security struct {
 	PutRoleMapping              SecurityPutRoleMapping
 	PutRole                     SecurityPutRole
 	PutUser                     SecurityPutUser
+	QueryAPIKeys                SecurityQueryAPIKeys
 	SamlAuthenticate            SecuritySamlAuthenticate
 	SamlCompleteLogout          SecuritySamlCompleteLogout
 	SamlInvalidate              SecuritySamlInvalidate
@@ -592,6 +596,7 @@ func New(t Transport) *API {
 		RenderSearchTemplate:                          newRenderSearchTemplateFunc(t),
 		ScriptsPainlessExecute:                        newScriptsPainlessExecuteFunc(t),
 		Scroll:                                        newScrollFunc(t),
+		SearchMvt:                                     newSearchMvtFunc(t),
 		Search:                                        newSearchFunc(t),
 		SearchShards:                                  newSearchShardsFunc(t),
 		SearchTemplate:                                newSearchTemplateFunc(t),
@@ -738,6 +743,8 @@ func New(t Transport) *API {
 			Simulate:       newIngestSimulateFunc(t),
 		},
 		Nodes: &Nodes{
+			ClearMeteringArchive: newNodesClearMeteringArchiveFunc(t),
+			GetMeteringInfo:      newNodesGetMeteringInfoFunc(t),
 			HotThreads:           newNodesHotThreadsFunc(t),
 			Info:                 newNodesInfoFunc(t),
 			ReloadSecureSettings: newNodesReloadSecureSettingsFunc(t),
@@ -926,6 +933,7 @@ func New(t Transport) *API {
 			PutRoleMapping:              newSecurityPutRoleMappingFunc(t),
 			PutRole:                     newSecurityPutRoleFunc(t),
 			PutUser:                     newSecurityPutUserFunc(t),
+			QueryAPIKeys:                newSecurityQueryAPIKeysFunc(t),
 			SamlAuthenticate:            newSecuritySamlAuthenticateFunc(t),
 			SamlCompleteLogout:          newSecuritySamlCompleteLogoutFunc(t),
 			SamlInvalidate:              newSecuritySamlInvalidateFunc(t),

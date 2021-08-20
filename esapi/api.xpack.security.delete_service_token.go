@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 7.x: DO NOT EDIT
+// Code generated from specification version 7.15.0: DO NOT EDIT
 
 package esapi
 
@@ -26,8 +26,8 @@ import (
 )
 
 func newSecurityDeleteServiceTokenFunc(t Transport) SecurityDeleteServiceToken {
-	return func(name string, service string, namespace string, o ...func(*SecurityDeleteServiceTokenRequest)) (*Response, error) {
-		var r = SecurityDeleteServiceTokenRequest{Name: name, Service: service, Namespace: namespace}
+	return func(name string, namespace string, service string, o ...func(*SecurityDeleteServiceTokenRequest)) (*Response, error) {
+		var r = SecurityDeleteServiceTokenRequest{Name: name, Namespace: namespace, Service: service}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,7 +43,7 @@ func newSecurityDeleteServiceTokenFunc(t Transport) SecurityDeleteServiceToken {
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-delete-service-token.html.
 //
-type SecurityDeleteServiceToken func(name string, namespace string, service string, o ...func(*SecurityDeleteServiceTokenRequest)) (*Response, error)
+type SecurityDeleteServiceToken func(name string, service string, namespace string, o ...func(*SecurityDeleteServiceTokenRequest)) (*Response, error)
 
 // SecurityDeleteServiceTokenRequest configures the Security Delete Service Token API request.
 //

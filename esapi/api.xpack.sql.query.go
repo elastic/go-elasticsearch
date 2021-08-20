@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 7.x: DO NOT EDIT
+// Code generated from specification version 7.15.0: DO NOT EDIT
 
 package esapi
 
@@ -40,7 +40,7 @@ func newSQLQueryFunc(t Transport) SQLQuery {
 
 // SQLQuery - Executes a SQL request
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/sql-rest-overview.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/sql-search-api.html.
 //
 type SQLQuery func(body io.Reader, o ...func(*SQLQueryRequest)) (*Response, error)
 

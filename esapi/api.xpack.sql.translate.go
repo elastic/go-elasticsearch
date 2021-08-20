@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 7.x: DO NOT EDIT
+// Code generated from specification version 7.15.0: DO NOT EDIT
 
 package esapi
 
@@ -40,7 +40,7 @@ func newSQLTranslateFunc(t Transport) SQLTranslate {
 
 // SQLTranslate - Translates SQL into Elasticsearch queries
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/sql-translate.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/sql-translate-api.html.
 //
 type SQLTranslate func(body io.Reader, o ...func(*SQLTranslateRequest)) (*Response, error)
 
