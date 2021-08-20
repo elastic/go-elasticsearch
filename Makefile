@@ -286,7 +286,7 @@ else
 	$(eval detach ?= "false")
 endif
 
-$(eval elasticsearch_url = "http://elastic:elastic@es1:9200")
+	$(eval elasticsearch_url = "http://elastic:elastic@es1:9200")
 ifeq ($(flavor), platinum)
 	$(eval elasticsearch_url = "https://elastic:elastic@es1:9200")
 	$(eval xpack_env += --env "ELASTIC_PASSWORD=elastic")
