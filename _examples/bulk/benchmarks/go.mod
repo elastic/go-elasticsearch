@@ -6,7 +6,7 @@ replace github.com/elastic/go-elasticsearch/v8 => ../../..
 
 require (
 	github.com/dustin/go-humanize v1.0.0
-	github.com/elastic/go-elasticsearch/v8 master
+	github.com/elastic/go-elasticsearch/v8 v8.0.0-20210817150010-57d659deaca7
 	github.com/mailru/easyjson v0.7.1
 	github.com/montanaflynn/stats v0.6.3
 	github.com/valyala/fasthttp v1.9.0

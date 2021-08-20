@@ -31,10 +31,12 @@ endif
 	$(eval testintegargs += "-cover" "-coverprofile=tmp/integration-client.cov" "-tags='$(testintegtags)'" "-timeout=1h")
 	@mkdir -p tmp
 	@if which gotestsum > /dev/null 2>&1 ; then \
+  		export ELASTICSEARCH_URL='http://elastic:elastic@localhost:9200'; \
 		echo "gotestsum --format=short-verbose --junitfile=tmp/integration-report.xml --" $(testintegargs); \
 		gotestsum --format=short-verbose --junitfile=tmp/integration-report.xml -- $(testintegargs) "."; \
 		gotestsum --format=short-verbose --junitfile=tmp/integration-report.xml -- $(testintegargs) "./estransport" "./esapi" "./esutil"; \
 	else \
+	  	export ELASTICSEARCH_URL='http://elastic:elastic@localhost:9200'; \
 		echo "go test -v" $(testintegargs) "."; \
 		go test -v $(testintegargs) "./estransport" "./esapi" "./esutil"; \
 	fi;
@@ -72,7 +74,7 @@ ifeq ($(flavor), platinum)
 	}
 else
 	$(eval testapiargs += $(PWD)/esapi/test/*_test.go)
-	@{ \
+	{ \
 		set -e ; \
 		trap "test -d .git && git checkout --quiet $(PWD)/esapi/test/go.mod" INT TERM EXIT; \
 		if which gotestsum > /dev/null 2>&1 ; then \
@@ -113,7 +115,7 @@ test-examples: ## Execute the _examples
 			printf "\033[2m────────────────────────────────────────────────────────────────────────────────\n"; \
 			printf "\033[1m$$f\033[0m\n"; \
 			printf "\033[2m────────────────────────────────────────────────────────────────────────────────\033[0m\n"; \
-			(go run $$f && true) || \
+			(export ELASTICSEARCH_URL=http://elastic:elastic@localhost:9200 && go run $$f && true) || \
 			( \
 				printf "\033[31m────────────────────────────────────────────────────────────────────────────────\033[0m\n"; \
 				printf "\033[31;1m⨯ ERROR\033[0m\n"; \
@@ -286,6 +288,7 @@ else
 	$(eval detach ?= "false")
 endif
 
+	$(eval elasticsearch_url = "http://elastic:elastic@es1:9200")
 ifeq ($(flavor), platinum)
 	$(eval elasticsearch_url = "https://elastic:elastic@es1:9200")
 	$(eval xpack_env += --env "ELASTIC_PASSWORD=elastic")
@@ -315,6 +318,7 @@ endif
 			docker run \
 				--name "es$$n" \
 				--network elasticsearch \
+				--env "ELASTIC_PASSWORD=elastic" \
 				--env "node.name=es$$n" \
 				--env "cluster.name=go-elasticsearch" \
 				--env "cluster.initial_master_nodes=es1" \
@@ -324,7 +328,6 @@ endif
 				--env "node.attr.testattr=test" \
 				--env "path.repo=/tmp" \
 				--env "repositories.url.allowed_urls=http://snapshot.test*" \
-				--env "xpack.security.enabled=false" \
 				--env ES_JAVA_OPTS="-Xms1g -Xmx1g" \
 				$(xpack_env) \
 				--volume `echo $(version) | tr -C "[:alnum:]" '-'`-node-$$n-data:/usr/share/elasticsearch/data \

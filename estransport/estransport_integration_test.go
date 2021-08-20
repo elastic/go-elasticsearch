@@ -27,6 +27,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"os"
 	"strings"
 	"testing"
 
@@ -116,8 +117,16 @@ func TestTransportCompression(t *testing.T) {
 	var req *http.Request
 	var res *http.Response
 	var err error
+	var u *url.URL
 
-	u, _ := url.Parse("http://localhost:9200")
+	if envURL, ok := os.LookupEnv("ELASTICSEARCH_URL"); ok && envURL != "" {
+		u, err = url.Parse(envURL)
+		if err != nil {
+			t.Fatalf("Cannot parse ELASTICSEARCH_URL: %v", err)
+		}
+	} else {
+		u, _ = url.Parse("http://localhost:9200")
+	}
 
 	transport, _ := estransport.New(estransport.Config{
 		URLs: []*url.URL{u},

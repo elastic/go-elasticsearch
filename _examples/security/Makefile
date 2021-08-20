@@ -1,3 +1,5 @@
+export ELASTICSEARCH_URL=http://elastic:elastic@localhost:9200
+
 test:
 	@for file in ./*.go; do \
 		echo "go build -o /dev/null $$file"; \
