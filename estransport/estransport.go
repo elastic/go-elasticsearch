@@ -45,6 +45,8 @@ const (
 
 	// esCompatHeader defines the env var for Compatibility header.
 	esCompatHeader = "ELASTIC_CLIENT_APIVERSIONING"
+
+	userAgentHeader = "User-Agent"
 )
 
 var (
@@ -474,7 +476,14 @@ func (c *Client) setReqAuth(u *url.URL, req *http.Request) *http.Request {
 }
 
 func (c *Client) setReqUserAgent(req *http.Request) *http.Request {
-	req.Header.Set("User-Agent", userAgent)
+	if len(c.header) > 0 {
+		ua := c.header.Get(userAgentHeader)
+		if ua != "" {
+			req.Header.Set(userAgentHeader, ua)
+			return req
+		}
+	}
+	req.Header.Set(userAgentHeader, userAgent)
 	return req
 }
 
