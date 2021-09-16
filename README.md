@@ -12,11 +12,8 @@ The official Go client for [Elasticsearch](https://www.elastic.co/products/elast
 
 ## Compatibility
 
-Language clients are forward compatible; meaning that clients support communicating
-with greater minor versions of Elasticsearch.
-
-Elastic language clients are also backwards compatible with lesser supported
-minor Elasticsearch versions.
+Language clients are forward compatible; meaning that clients support communicating with greater or equal minor versions of Elasticsearch.
+Elasticsearch language clients are only backwards compatible with default distributions and without guarantees made.
 
 When using Go modules, include the version in the import path, and specify either an explicit version or a branch:
 
