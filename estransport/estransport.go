@@ -490,7 +490,7 @@ func (c *Client) setReqUserAgent(req *http.Request) *http.Request {
 func (c *Client) setReqGlobalHeader(req *http.Request) *http.Request {
 	if len(c.header) > 0 {
 		for k, v := range c.header {
-			if req.Header.Get(k) != k {
+			if req.Header.Get(k) != v {
 				for _, vv := range v {
 					req.Header.Add(k, vv)
 				}
