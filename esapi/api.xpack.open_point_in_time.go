@@ -27,8 +27,8 @@ import (
 )
 
 func newOpenPointInTimeFunc(t Transport) OpenPointInTime {
-	return func(o ...func(*OpenPointInTimeRequest)) (*Response, error) {
-		var r = OpenPointInTimeRequest{}
+	return func(index []string, o ...func(*OpenPointInTimeRequest)) (*Response, error) {
+		var r = OpenPointInTimeRequest{Index: index}
 		for _, f := range o {
 			f(&r)
 		}
@@ -42,7 +42,7 @@ func newOpenPointInTimeFunc(t Transport) OpenPointInTime {
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/point-in-time-api.html.
 //
-type OpenPointInTime func(o ...func(*OpenPointInTimeRequest)) (*Response, error)
+type OpenPointInTime func(index []string, o ...func(*OpenPointInTimeRequest)) (*Response, error)
 
 // OpenPointInTimeRequest configures the Open Point In Time API request.
 //
@@ -77,10 +77,8 @@ func (r OpenPointInTimeRequest) Do(ctx context.Context, transport Transport) (*R
 	method = "POST"
 
 	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_pit"))
-	if len(r.Index) > 0 {
-		path.WriteString("/")
-		path.WriteString(strings.Join(r.Index, ","))
-	}
+	path.WriteString("/")
+	path.WriteString(strings.Join(r.Index, ","))
 	path.WriteString("/")
 	path.WriteString("_pit")
 
@@ -170,14 +168,6 @@ func (r OpenPointInTimeRequest) Do(ctx context.Context, transport Transport) (*R
 func (f OpenPointInTime) WithContext(v context.Context) func(*OpenPointInTimeRequest) {
 	return func(r *OpenPointInTimeRequest) {
 		r.ctx = v
-	}
-}
-
-// WithIndex - a list of index names to open point in time; use _all to perform the operation on all indices.
-//
-func (f OpenPointInTime) WithIndex(v ...string) func(*OpenPointInTimeRequest) {
-	return func(r *OpenPointInTimeRequest) {
-		r.Index = v
 	}
 }
 

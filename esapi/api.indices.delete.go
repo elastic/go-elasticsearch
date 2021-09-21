@@ -178,7 +178,7 @@ func (f IndicesDelete) WithAllowNoIndices(v bool) func(*IndicesDeleteRequest) {
 	}
 }
 
-// WithExpandWildcards - whether wildcard expressions should get expanded to open or closed indices (default: open).
+// WithExpandWildcards - whether wildcard expressions should get expanded to open, closed, or hidden indices.
 //
 func (f IndicesDelete) WithExpandWildcards(v string) func(*IndicesDeleteRequest) {
 	return func(r *IndicesDeleteRequest) {
