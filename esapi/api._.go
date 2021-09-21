@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 7.15.0 (4a97926): DO NOT EDIT
+// Code generated from specification version 7.15.0 (2c06575): DO NOT EDIT
 
 package esapi
 
@@ -267,13 +267,15 @@ type Ingest struct {
 
 // Nodes contains the Nodes APIs
 type Nodes struct {
-	ClearMeteringArchive NodesClearMeteringArchive
-	GetMeteringInfo      NodesGetMeteringInfo
-	HotThreads           NodesHotThreads
-	Info                 NodesInfo
-	ReloadSecureSettings NodesReloadSecureSettings
-	Stats                NodesStats
-	Usage                NodesUsage
+	ClearMeteringArchive             NodesClearMeteringArchive
+	ClearRepositoriesMeteringArchive NodesClearRepositoriesMeteringArchive
+	GetMeteringInfo                  NodesGetMeteringInfo
+	GetRepositoriesMeteringInfo      NodesGetRepositoriesMeteringInfo
+	HotThreads                       NodesHotThreads
+	Info                             NodesInfo
+	ReloadSecureSettings             NodesReloadSecureSettings
+	Stats                            NodesStats
+	Usage                            NodesUsage
 }
 
 // Remote contains the Remote APIs
@@ -743,13 +745,15 @@ func New(t Transport) *API {
 			Simulate:       newIngestSimulateFunc(t),
 		},
 		Nodes: &Nodes{
-			ClearMeteringArchive: newNodesClearMeteringArchiveFunc(t),
-			GetMeteringInfo:      newNodesGetMeteringInfoFunc(t),
-			HotThreads:           newNodesHotThreadsFunc(t),
-			Info:                 newNodesInfoFunc(t),
-			ReloadSecureSettings: newNodesReloadSecureSettingsFunc(t),
-			Stats:                newNodesStatsFunc(t),
-			Usage:                newNodesUsageFunc(t),
+			ClearMeteringArchive:             newNodesClearMeteringArchiveFunc(t),
+			ClearRepositoriesMeteringArchive: newNodesClearRepositoriesMeteringArchiveFunc(t),
+			GetMeteringInfo:                  newNodesGetMeteringInfoFunc(t),
+			GetRepositoriesMeteringInfo:      newNodesGetRepositoriesMeteringInfoFunc(t),
+			HotThreads:                       newNodesHotThreadsFunc(t),
+			Info:                             newNodesInfoFunc(t),
+			ReloadSecureSettings:             newNodesReloadSecureSettingsFunc(t),
+			Stats:                            newNodesStatsFunc(t),
+			Usage:                            newNodesUsageFunc(t),
 		},
 		Remote: &Remote{},
 		Snapshot: &Snapshot{
