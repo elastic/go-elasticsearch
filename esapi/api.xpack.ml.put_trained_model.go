@@ -23,6 +23,7 @@ import (
 	"context"
 	"io"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -50,6 +51,8 @@ type MLPutTrainedModelRequest struct {
 	Body io.Reader
 
 	ModelID string
+
+	DeferDefinitionDecompression *bool
 
 	Pretty     bool
 	Human      bool
@@ -81,6 +84,10 @@ func (r MLPutTrainedModelRequest) Do(ctx context.Context, transport Transport) (
 	path.WriteString(r.ModelID)
 
 	params = make(map[string]string)
+
+	if r.DeferDefinitionDecompression != nil {
+		params["defer_definition_decompression"] = strconv.FormatBool(*r.DeferDefinitionDecompression)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -150,6 +157,14 @@ func (r MLPutTrainedModelRequest) Do(ctx context.Context, transport Transport) (
 func (f MLPutTrainedModel) WithContext(v context.Context) func(*MLPutTrainedModelRequest) {
 	return func(r *MLPutTrainedModelRequest) {
 		r.ctx = v
+	}
+}
+
+// WithDeferDefinitionDecompression - if set to `true` and a `compressed_definition` is provided, the request defers definition decompression and skips relevant validations..
+//
+func (f MLPutTrainedModel) WithDeferDefinitionDecompression(v bool) func(*MLPutTrainedModelRequest) {
+	return func(r *MLPutTrainedModelRequest) {
+		r.DeferDefinitionDecompression = &v
 	}
 }
 

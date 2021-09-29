@@ -21,6 +21,7 @@ package esapi
 
 import (
 	"context"
+	"fmt"
 	"io"
 	"net/http"
 	"strconv"
@@ -29,7 +30,7 @@ import (
 
 func newSearchMvtFunc(t Transport) SearchMvt {
 	return func(index []string, field string, zoom *int, x *int, y *int, o ...func(*SearchMvtRequest)) (*Response, error) {
-		var r = SearchMvtRequest{Index: index, Field: field, Zoom: zoom, X: x, Y: y}
+		var r = SearchMvtRequest{Index: index, X: x, Y: y, Field: field, Zoom: zoom}
 		for _, f := range o {
 			f(&r)
 		}
@@ -59,11 +60,12 @@ type SearchMvtRequest struct {
 	Y     *int
 	Zoom  *int
 
-	ExactBounds   *bool
-	Extent        *int
-	GridPrecision *int
-	GridType      string
-	Size          *int
+	ExactBounds    *bool
+	Extent         *int
+	GridPrecision  *int
+	GridType       string
+	Size           *int
+	TrackTotalHits interface{}
 
 	Pretty     bool
 	Human      bool
@@ -120,6 +122,10 @@ func (r SearchMvtRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 	if r.Size != nil {
 		params["size"] = strconv.FormatInt(int64(*r.Size), 10)
+	}
+
+	if r.TrackTotalHits != nil {
+		params["track_total_hits"] = fmt.Sprintf("%v", r.TrackTotalHits)
 	}
 
 	if r.Pretty {
@@ -238,6 +244,14 @@ func (f SearchMvt) WithGridType(v string) func(*SearchMvtRequest) {
 func (f SearchMvt) WithSize(v int) func(*SearchMvtRequest) {
 	return func(r *SearchMvtRequest) {
 		r.Size = &v
+	}
+}
+
+// WithTrackTotalHits - indicate if the number of documents that match the query should be tracked. a number can also be specified, to accurately track the total hit count up to the number..
+//
+func (f SearchMvt) WithTrackTotalHits(v interface{}) func(*SearchMvtRequest) {
+	return func(r *SearchMvtRequest) {
+		r.TrackTotalHits = v
 	}
 }
 

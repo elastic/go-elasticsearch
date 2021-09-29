@@ -37,9 +37,7 @@ func newShutdownGetNodeFunc(t Transport) ShutdownGetNode {
 
 // ----- API Definition -------------------------------------------------------
 
-// ShutdownGetNode retrieve status of a node or nodes that are currently marked as shutting down
-//
-// This API is experimental.
+// ShutdownGetNode retrieve status of a node or nodes that are currently marked as shutting down. Designed for indirect use by ECE/ESS and ECK. Direct use is not supported.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current.
 //

@@ -22,12 +22,13 @@ package esapi
 import (
 	"context"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
-func newSearchableSnapshotsStatsFunc(t Transport) SearchableSnapshotsStats {
-	return func(o ...func(*SearchableSnapshotsStatsRequest)) (*Response, error) {
-		var r = SearchableSnapshotsStatsRequest{}
+func newNodesClearRepositoriesMeteringArchiveFunc(t Transport) NodesClearRepositoriesMeteringArchive {
+	return func(node_id []string, max_archive_version *int, o ...func(*NodesClearRepositoriesMeteringArchiveRequest)) (*Response, error) {
+		var r = NodesClearRepositoriesMeteringArchiveRequest{NodeID: node_id, MaxArchiveVersion: max_archive_version}
 		for _, f := range o {
 			f(&r)
 		}
@@ -37,18 +38,19 @@ func newSearchableSnapshotsStatsFunc(t Transport) SearchableSnapshotsStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// SearchableSnapshotsStats - Retrieve shard-level statistics about searchable snapshots.
+// NodesClearRepositoriesMeteringArchive removes the archived repositories metering information present in the cluster.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/searchable-snapshots-apis.html.
+// This API is experimental.
 //
-type SearchableSnapshotsStats func(o ...func(*SearchableSnapshotsStatsRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/clear-repositories-metering-archive-api.html.
+//
+type NodesClearRepositoriesMeteringArchive func(node_id []string, max_archive_version *int, o ...func(*NodesClearRepositoriesMeteringArchiveRequest)) (*Response, error)
 
-// SearchableSnapshotsStatsRequest configures the Searchable Snapshots Stats API request.
+// NodesClearRepositoriesMeteringArchiveRequest configures the Nodes Clear Repositories Metering Archive API request.
 //
-type SearchableSnapshotsStatsRequest struct {
-	Index []string
-
-	Level string
+type NodesClearRepositoriesMeteringArchiveRequest struct {
+	MaxArchiveVersion *int
+	NodeID            []string
 
 	Pretty     bool
 	Human      bool
@@ -62,30 +64,26 @@ type SearchableSnapshotsStatsRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r SearchableSnapshotsStatsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r NodesClearRepositoriesMeteringArchiveRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "DELETE"
 
-	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_searchable_snapshots") + 1 + len("stats"))
-	if len(r.Index) > 0 {
-		path.WriteString("/")
-		path.WriteString(strings.Join(r.Index, ","))
-	}
+	path.Grow(1 + len("_nodes") + 1 + len(strings.Join(r.NodeID, ",")) + 1 + len("_repositories_metering") + 1 + len(strconv.Itoa(*r.MaxArchiveVersion)))
 	path.WriteString("/")
-	path.WriteString("_searchable_snapshots")
+	path.WriteString("_nodes")
 	path.WriteString("/")
-	path.WriteString("stats")
+	path.WriteString(strings.Join(r.NodeID, ","))
+	path.WriteString("/")
+	path.WriteString("_repositories_metering")
+	path.WriteString("/")
+	path.WriteString(strconv.Itoa(*r.MaxArchiveVersion))
 
 	params = make(map[string]string)
-
-	if r.Level != "" {
-		params["level"] = r.Level
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -148,64 +146,48 @@ func (r SearchableSnapshotsStatsRequest) Do(ctx context.Context, transport Trans
 
 // WithContext sets the request context.
 //
-func (f SearchableSnapshotsStats) WithContext(v context.Context) func(*SearchableSnapshotsStatsRequest) {
-	return func(r *SearchableSnapshotsStatsRequest) {
+func (f NodesClearRepositoriesMeteringArchive) WithContext(v context.Context) func(*NodesClearRepositoriesMeteringArchiveRequest) {
+	return func(r *NodesClearRepositoriesMeteringArchiveRequest) {
 		r.ctx = v
-	}
-}
-
-// WithIndex - a list of index names.
-//
-func (f SearchableSnapshotsStats) WithIndex(v ...string) func(*SearchableSnapshotsStatsRequest) {
-	return func(r *SearchableSnapshotsStatsRequest) {
-		r.Index = v
-	}
-}
-
-// WithLevel - return stats aggregated at cluster, index or shard level.
-//
-func (f SearchableSnapshotsStats) WithLevel(v string) func(*SearchableSnapshotsStatsRequest) {
-	return func(r *SearchableSnapshotsStatsRequest) {
-		r.Level = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f SearchableSnapshotsStats) WithPretty() func(*SearchableSnapshotsStatsRequest) {
-	return func(r *SearchableSnapshotsStatsRequest) {
+func (f NodesClearRepositoriesMeteringArchive) WithPretty() func(*NodesClearRepositoriesMeteringArchiveRequest) {
+	return func(r *NodesClearRepositoriesMeteringArchiveRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f SearchableSnapshotsStats) WithHuman() func(*SearchableSnapshotsStatsRequest) {
-	return func(r *SearchableSnapshotsStatsRequest) {
+func (f NodesClearRepositoriesMeteringArchive) WithHuman() func(*NodesClearRepositoriesMeteringArchiveRequest) {
+	return func(r *NodesClearRepositoriesMeteringArchiveRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f SearchableSnapshotsStats) WithErrorTrace() func(*SearchableSnapshotsStatsRequest) {
-	return func(r *SearchableSnapshotsStatsRequest) {
+func (f NodesClearRepositoriesMeteringArchive) WithErrorTrace() func(*NodesClearRepositoriesMeteringArchiveRequest) {
+	return func(r *NodesClearRepositoriesMeteringArchiveRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f SearchableSnapshotsStats) WithFilterPath(v ...string) func(*SearchableSnapshotsStatsRequest) {
-	return func(r *SearchableSnapshotsStatsRequest) {
+func (f NodesClearRepositoriesMeteringArchive) WithFilterPath(v ...string) func(*NodesClearRepositoriesMeteringArchiveRequest) {
+	return func(r *NodesClearRepositoriesMeteringArchiveRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f SearchableSnapshotsStats) WithHeader(h map[string]string) func(*SearchableSnapshotsStatsRequest) {
-	return func(r *SearchableSnapshotsStatsRequest) {
+func (f NodesClearRepositoriesMeteringArchive) WithHeader(h map[string]string) func(*NodesClearRepositoriesMeteringArchiveRequest) {
+	return func(r *NodesClearRepositoriesMeteringArchiveRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -217,8 +199,8 @@ func (f SearchableSnapshotsStats) WithHeader(h map[string]string) func(*Searchab
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f SearchableSnapshotsStats) WithOpaqueID(s string) func(*SearchableSnapshotsStatsRequest) {
-	return func(r *SearchableSnapshotsStatsRequest) {
+func (f NodesClearRepositoriesMeteringArchive) WithOpaqueID(s string) func(*NodesClearRepositoriesMeteringArchiveRequest) {
+	return func(r *NodesClearRepositoriesMeteringArchiveRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
