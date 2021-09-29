@@ -39,8 +39,6 @@ func newIndicesResolveIndexFunc(t Transport) IndicesResolveIndex {
 
 // IndicesResolveIndex returns information about any matching indices, aliases, and data streams
 //
-// This API is experimental.
-//
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-resolve-index-api.html.
 //
 type IndicesResolveIndex func(name []string, o ...func(*IndicesResolveIndexRequest)) (*Response, error)

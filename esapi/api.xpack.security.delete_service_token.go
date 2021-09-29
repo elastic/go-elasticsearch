@@ -39,8 +39,6 @@ func newSecurityDeleteServiceTokenFunc(t Transport) SecurityDeleteServiceToken {
 
 // SecurityDeleteServiceToken - Deletes a service account token.
 //
-// This API is beta.
-//
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-delete-service-token.html.
 //
 type SecurityDeleteServiceToken func(name string, namespace string, service string, o ...func(*SecurityDeleteServiceTokenRequest)) (*Response, error)

@@ -27,8 +27,8 @@ import (
 )
 
 func newTransformPreviewTransformFunc(t Transport) TransformPreviewTransform {
-	return func(body io.Reader, o ...func(*TransformPreviewTransformRequest)) (*Response, error) {
-		var r = TransformPreviewTransformRequest{Body: body}
+	return func(o ...func(*TransformPreviewTransformRequest)) (*Response, error) {
+		var r = TransformPreviewTransformRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -42,12 +42,14 @@ func newTransformPreviewTransformFunc(t Transport) TransformPreviewTransform {
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/preview-transform.html.
 //
-type TransformPreviewTransform func(body io.Reader, o ...func(*TransformPreviewTransformRequest)) (*Response, error)
+type TransformPreviewTransform func(o ...func(*TransformPreviewTransformRequest)) (*Response, error)
 
 // TransformPreviewTransformRequest configures the Transform Preview Transform API request.
 //
 type TransformPreviewTransformRequest struct {
 	Body io.Reader
+
+	TransformID string
 
 	Pretty     bool
 	Human      bool
@@ -70,8 +72,15 @@ func (r TransformPreviewTransformRequest) Do(ctx context.Context, transport Tran
 
 	method = "POST"
 
-	path.Grow(len("/_transform/_preview"))
-	path.WriteString("/_transform/_preview")
+	path.Grow(1 + len("_transform") + 1 + len(r.TransformID) + 1 + len("_preview"))
+	path.WriteString("/")
+	path.WriteString("_transform")
+	if r.TransformID != "" {
+		path.WriteString("/")
+		path.WriteString(r.TransformID)
+	}
+	path.WriteString("/")
+	path.WriteString("_preview")
 
 	params = make(map[string]string)
 
@@ -143,6 +152,22 @@ func (r TransformPreviewTransformRequest) Do(ctx context.Context, transport Tran
 func (f TransformPreviewTransform) WithContext(v context.Context) func(*TransformPreviewTransformRequest) {
 	return func(r *TransformPreviewTransformRequest) {
 		r.ctx = v
+	}
+}
+
+// WithBody - The definition for the transform to preview.
+//
+func (f TransformPreviewTransform) WithBody(v io.Reader) func(*TransformPreviewTransformRequest) {
+	return func(r *TransformPreviewTransformRequest) {
+		r.Body = v
+	}
+}
+
+// WithTransformID - the ID of the transform to preview..
+//
+func (f TransformPreviewTransform) WithTransformID(v string) func(*TransformPreviewTransformRequest) {
+	return func(r *TransformPreviewTransformRequest) {
+		r.TransformID = v
 	}
 }
 

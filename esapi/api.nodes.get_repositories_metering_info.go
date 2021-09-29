@@ -25,9 +25,9 @@ import (
 	"strings"
 )
 
-func newSearchableSnapshotsStatsFunc(t Transport) SearchableSnapshotsStats {
-	return func(o ...func(*SearchableSnapshotsStatsRequest)) (*Response, error) {
-		var r = SearchableSnapshotsStatsRequest{}
+func newNodesGetRepositoriesMeteringInfoFunc(t Transport) NodesGetRepositoriesMeteringInfo {
+	return func(node_id []string, o ...func(*NodesGetRepositoriesMeteringInfoRequest)) (*Response, error) {
+		var r = NodesGetRepositoriesMeteringInfoRequest{NodeID: node_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -37,18 +37,18 @@ func newSearchableSnapshotsStatsFunc(t Transport) SearchableSnapshotsStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// SearchableSnapshotsStats - Retrieve shard-level statistics about searchable snapshots.
+// NodesGetRepositoriesMeteringInfo returns cluster repositories metering information.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/searchable-snapshots-apis.html.
+// This API is experimental.
 //
-type SearchableSnapshotsStats func(o ...func(*SearchableSnapshotsStatsRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-repositories-metering-api.html.
+//
+type NodesGetRepositoriesMeteringInfo func(node_id []string, o ...func(*NodesGetRepositoriesMeteringInfoRequest)) (*Response, error)
 
-// SearchableSnapshotsStatsRequest configures the Searchable Snapshots Stats API request.
+// NodesGetRepositoriesMeteringInfoRequest configures the Nodes Get Repositories Metering Info API request.
 //
-type SearchableSnapshotsStatsRequest struct {
-	Index []string
-
-	Level string
+type NodesGetRepositoriesMeteringInfoRequest struct {
+	NodeID []string
 
 	Pretty     bool
 	Human      bool
@@ -62,7 +62,7 @@ type SearchableSnapshotsStatsRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r SearchableSnapshotsStatsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r NodesGetRepositoriesMeteringInfoRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -71,21 +71,15 @@ func (r SearchableSnapshotsStatsRequest) Do(ctx context.Context, transport Trans
 
 	method = "GET"
 
-	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_searchable_snapshots") + 1 + len("stats"))
-	if len(r.Index) > 0 {
-		path.WriteString("/")
-		path.WriteString(strings.Join(r.Index, ","))
-	}
+	path.Grow(1 + len("_nodes") + 1 + len(strings.Join(r.NodeID, ",")) + 1 + len("_repositories_metering"))
 	path.WriteString("/")
-	path.WriteString("_searchable_snapshots")
+	path.WriteString("_nodes")
 	path.WriteString("/")
-	path.WriteString("stats")
+	path.WriteString(strings.Join(r.NodeID, ","))
+	path.WriteString("/")
+	path.WriteString("_repositories_metering")
 
 	params = make(map[string]string)
-
-	if r.Level != "" {
-		params["level"] = r.Level
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -148,64 +142,48 @@ func (r SearchableSnapshotsStatsRequest) Do(ctx context.Context, transport Trans
 
 // WithContext sets the request context.
 //
-func (f SearchableSnapshotsStats) WithContext(v context.Context) func(*SearchableSnapshotsStatsRequest) {
-	return func(r *SearchableSnapshotsStatsRequest) {
+func (f NodesGetRepositoriesMeteringInfo) WithContext(v context.Context) func(*NodesGetRepositoriesMeteringInfoRequest) {
+	return func(r *NodesGetRepositoriesMeteringInfoRequest) {
 		r.ctx = v
-	}
-}
-
-// WithIndex - a list of index names.
-//
-func (f SearchableSnapshotsStats) WithIndex(v ...string) func(*SearchableSnapshotsStatsRequest) {
-	return func(r *SearchableSnapshotsStatsRequest) {
-		r.Index = v
-	}
-}
-
-// WithLevel - return stats aggregated at cluster, index or shard level.
-//
-func (f SearchableSnapshotsStats) WithLevel(v string) func(*SearchableSnapshotsStatsRequest) {
-	return func(r *SearchableSnapshotsStatsRequest) {
-		r.Level = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f SearchableSnapshotsStats) WithPretty() func(*SearchableSnapshotsStatsRequest) {
-	return func(r *SearchableSnapshotsStatsRequest) {
+func (f NodesGetRepositoriesMeteringInfo) WithPretty() func(*NodesGetRepositoriesMeteringInfoRequest) {
+	return func(r *NodesGetRepositoriesMeteringInfoRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f SearchableSnapshotsStats) WithHuman() func(*SearchableSnapshotsStatsRequest) {
-	return func(r *SearchableSnapshotsStatsRequest) {
+func (f NodesGetRepositoriesMeteringInfo) WithHuman() func(*NodesGetRepositoriesMeteringInfoRequest) {
+	return func(r *NodesGetRepositoriesMeteringInfoRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f SearchableSnapshotsStats) WithErrorTrace() func(*SearchableSnapshotsStatsRequest) {
-	return func(r *SearchableSnapshotsStatsRequest) {
+func (f NodesGetRepositoriesMeteringInfo) WithErrorTrace() func(*NodesGetRepositoriesMeteringInfoRequest) {
+	return func(r *NodesGetRepositoriesMeteringInfoRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f SearchableSnapshotsStats) WithFilterPath(v ...string) func(*SearchableSnapshotsStatsRequest) {
-	return func(r *SearchableSnapshotsStatsRequest) {
+func (f NodesGetRepositoriesMeteringInfo) WithFilterPath(v ...string) func(*NodesGetRepositoriesMeteringInfoRequest) {
+	return func(r *NodesGetRepositoriesMeteringInfoRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f SearchableSnapshotsStats) WithHeader(h map[string]string) func(*SearchableSnapshotsStatsRequest) {
-	return func(r *SearchableSnapshotsStatsRequest) {
+func (f NodesGetRepositoriesMeteringInfo) WithHeader(h map[string]string) func(*NodesGetRepositoriesMeteringInfoRequest) {
+	return func(r *NodesGetRepositoriesMeteringInfoRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -217,8 +195,8 @@ func (f SearchableSnapshotsStats) WithHeader(h map[string]string) func(*Searchab
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f SearchableSnapshotsStats) WithOpaqueID(s string) func(*SearchableSnapshotsStatsRequest) {
-	return func(r *SearchableSnapshotsStatsRequest) {
+func (f NodesGetRepositoriesMeteringInfo) WithOpaqueID(s string) func(*NodesGetRepositoriesMeteringInfoRequest) {
+	return func(r *NodesGetRepositoriesMeteringInfoRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
