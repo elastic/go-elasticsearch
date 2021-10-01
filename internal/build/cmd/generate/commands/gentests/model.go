@@ -661,13 +661,23 @@ default:
 						`fmt.Sprintf("%v", ` + expected + `)` +
 						" {\n"
 				case int, float64:
+					// Date range special case
+					// From & to are set in yaml tests as integer
+					// but ES returns a scientific notation float
+					var specialCase string
+					if strings.HasSuffix(key, "from") || strings.HasSuffix(key, "to") {
+						specialCase = `else if floatValue, err := actual.(encjson.Number).Float64(); err == nil {
+							actual = fmt.Sprintf("%d", int(floatValue))
+						} `
+					}
+
 					r := strings.NewReplacer(`"`, "", `\`, "")
 					rkey := r.Replace(key)
 					output += `		if ` + nilGuard + ` { t.Error("Expected [` + rkey + `] to not be nil") }
 						actual = ` + escape(subject) + `
 						if intValue, ok := actual.(int); ok {
 							actual = fmt.Sprint(intValue)
-						} else {
+						}` + specialCase + `else {
 							actual = actual.(encjson.Number).String()
 						}
 						expected = ` + expected + `
@@ -804,9 +814,20 @@ func (s Stash) Key() string {
 	return fmt.Sprintf("$%s", vals[0])
 }
 
-// Value returns the stash value as a string.
+// Value return the stash value as a string.
 //
-func (s Stash) Value() string {
+func (s Stash) FirstValue() string {
+	vals := utils.MapKeys(s.payload)
+	if len(vals) < 1 {
+		return ""
+	}
+
+	return vals[0]
+}
+
+// ExpandedValue returns the stash value in a container as a string.
+//
+func (s Stash) ExpandedValue() string {
 	vals := utils.MapKeys(s.payload)
 	if len(vals) < 1 {
 		return ""
@@ -863,9 +884,15 @@ func expand(s string, format ...string) string {
 					b.WriteString(`.(map[string]interface{})`)
 				}
 			}
-			b.WriteString(`["`)
-			b.WriteString(strings.Trim(v, `"`)) // Remove the quotes from keys
-			b.WriteString(`"]`)
+			b.WriteString("[")
+			if strings.HasPrefix(v, "$") {
+				b.WriteString(fmt.Sprintf(`stash["%s"].(string)`, strings.Trim(v,`"`))) // Remove the quotes from keys
+			} else {
+				b.WriteString(`"`)
+				b.WriteString(strings.Trim(v, `"`)) // Remove the quotes from keys
+				b.WriteString(`"`)
+			}
+			b.WriteString("]")
 		}
 
 	}
@@ -879,7 +906,16 @@ func catchnil(input string) string {
 
 	parts := strings.Split(strings.Replace(input, `\.`, `_~_|_~_`, -1), ".")
 	for i := range parts {
-		output += strings.Join(parts[:i+1], ".") + " == nil"
+		// Skip casting for runtime stash variable replacement nil escape
+		if parts[i] == "(string)]" {
+			continue
+		}
+
+		part := parts[:i+1]
+		if strings.Contains(parts[i], "$") {
+			part = append(part, parts[i+1])
+		}
+		output += strings.Join(part, ".") + " == nil"
 		if i+1 < len(parts) {
 			output += " ||\n\t\t"
 		}
