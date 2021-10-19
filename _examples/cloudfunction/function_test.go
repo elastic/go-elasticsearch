@@ -26,7 +26,6 @@ import (
 	"testing"
 
 	"github.com/elastic/go-elasticsearch/v8"
-
 	"github.com/elastic/go-elasticsearch/v8/_examples/clusterstatus"
 )
 

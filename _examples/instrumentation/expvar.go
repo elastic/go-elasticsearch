@@ -22,6 +22,10 @@ import (
 	"fmt"
 	"io"
 	"log"
+
+	// Import the "expvar" and "pprof" package >>>>>>>>>>
+	"net/http"
+	_ "net/http/pprof"
 	"os"
 	"os/signal"
 	"runtime"
@@ -29,15 +33,9 @@ import (
 	"syscall"
 	"time"
 
-	// Import the "expvar" and "pprof" package >>>>>>>>>>
-	"net/http"
-	_ "net/http/pprof"
-	// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-	"golang.org/x/crypto/ssh/terminal"
-
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/estransport"
+	"golang.org/x/crypto/ssh/terminal"
 )
 
 var (

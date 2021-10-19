@@ -27,11 +27,10 @@ import (
 	"time"
 
 	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/elastic/go-elasticsearch/v8/_examples/encoding/model"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
 	"github.com/fatih/color"
 	"github.com/mailru/easyjson"
-
-	"github.com/elastic/go-elasticsearch/v8/_examples/encoding/model"
 )
 
 var (

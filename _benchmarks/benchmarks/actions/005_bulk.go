@@ -23,12 +23,10 @@ import (
 	"io"
 	"strings"
 
-	"github.com/tidwall/gjson"
-
-	"github.com/elastic/go-elasticsearch/v8/esapi"
-
 	"github.com/elastic/go-elasticsearch/v8/benchmarks"
 	"github.com/elastic/go-elasticsearch/v8/benchmarks/runner"
+	"github.com/elastic/go-elasticsearch/v8/esapi"
+	"github.com/tidwall/gjson"
 )
 
 func init() {

@@ -28,15 +28,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/fatih/color"
-	"golang.org/x/crypto/ssh/terminal"
-
 	"github.com/elastic/go-elasticsearch/v8"
-
+	"github.com/fatih/color"
 	"go.opencensus.io/plugin/ochttp"
 	"go.opencensus.io/stats/view"
 	"go.opencensus.io/tag"
 	"go.opencensus.io/trace"
+	"golang.org/x/crypto/ssh/terminal"
 )
 
 const count = 100

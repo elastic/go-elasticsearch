@@ -22,7 +22,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/elastic/go-elasticsearch/v8/internal/build/cmd"
 	"io"
 	"io/ioutil"
 	"os"
@@ -31,10 +30,10 @@ import (
 	"strings"
 	"time"
 
+	"github.com/elastic/go-elasticsearch/v8/internal/build/cmd"
+	"github.com/elastic/go-elasticsearch/v8/internal/build/utils"
 	"github.com/spf13/cobra"
 	"golang.org/x/tools/imports"
-
-	"github.com/elastic/go-elasticsearch/v8/internal/build/utils"
 )
 
 var (

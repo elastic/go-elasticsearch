@@ -32,13 +32,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/fatih/color"
-	"golang.org/x/crypto/ssh/terminal"
-
 	"github.com/elastic/go-elasticsearch/v8"
-
+	"github.com/fatih/color"
 	"go.elastic.co/apm"
 	"go.elastic.co/apm/module/apmelasticsearch"
+	"golang.org/x/crypto/ssh/terminal"
 )
 
 const count = 100

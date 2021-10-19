@@ -21,10 +21,9 @@ import (
 	"io"
 	"io/ioutil"
 
-	"github.com/elastic/go-elasticsearch/v8/esapi"
-
 	"github.com/elastic/go-elasticsearch/v8/benchmarks"
 	"github.com/elastic/go-elasticsearch/v8/benchmarks/runner"
+	"github.com/elastic/go-elasticsearch/v8/esapi"
 )
 
 func init() {

@@ -19,18 +19,17 @@ package main_test
 
 import (
 	"bytes"
+	"encoding/json"
 	"io"
 	"io/ioutil"
 	"log"
 	"testing"
 	"time"
 
-	"encoding/json"
-	"github.com/mailru/easyjson"
-	"github.com/tidwall/gjson"
-
 	"github.com/elastic/go-elasticsearch/v8/_examples/encoding/model"
 	"github.com/elastic/go-elasticsearch/v8/esutil"
+	"github.com/mailru/easyjson"
+	"github.com/tidwall/gjson"
 )
 
 func BenchmarkEncode(b *testing.B) {

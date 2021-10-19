@@ -20,9 +20,8 @@ package cmd
 import (
 	"os"
 
-	"github.com/spf13/cobra"
-
 	"github.com/elastic/go-elasticsearch/v8/internal/build/utils"
+	"github.com/spf13/cobra"
 )
 
 var rootCmd = &cobra.Command{

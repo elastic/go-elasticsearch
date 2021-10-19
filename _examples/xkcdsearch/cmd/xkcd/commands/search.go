@@ -24,11 +24,9 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/spf13/cobra"
-
 	"github.com/elastic/go-elasticsearch/v8"
-
 	"github.com/elastic/go-elasticsearch/v8/_examples/xkcdsearch"
+	"github.com/spf13/cobra"
 )
 
 func init() {

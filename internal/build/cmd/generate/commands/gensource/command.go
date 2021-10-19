@@ -20,16 +20,15 @@ package gensource
 import (
 	"bytes"
 	"fmt"
-	"github.com/elastic/go-elasticsearch/v8/internal/build/cmd"
 	"io"
 	"os"
 	"path/filepath"
 	"strings"
 	"time"
 
-	"github.com/spf13/cobra"
-
+	"github.com/elastic/go-elasticsearch/v8/internal/build/cmd"
 	"github.com/elastic/go-elasticsearch/v8/internal/build/utils"
+	"github.com/spf13/cobra"
 )
 
 var (

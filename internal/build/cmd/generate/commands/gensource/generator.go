@@ -24,9 +24,8 @@ import (
 	"reflect"
 	"strings"
 
-	"golang.org/x/tools/imports"
-
 	"github.com/elastic/go-elasticsearch/v8/internal/build/utils"
+	"golang.org/x/tools/imports"
 )
 
 // Generator represents the "gensource" generator.

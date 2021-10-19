@@ -19,7 +19,6 @@ package main
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/internal/build/cmd"
-
 	_ "github.com/elastic/go-elasticsearch/v8/internal/build/cmd/generate/commands/genexamples"
 	_ "github.com/elastic/go-elasticsearch/v8/internal/build/cmd/generate/commands/gensource"
 	_ "github.com/elastic/go-elasticsearch/v8/internal/build/cmd/generate/commands/genstruct"

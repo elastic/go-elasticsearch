@@ -26,9 +26,8 @@ import (
 	"strings"
 	"unicode"
 
-	"gopkg.in/yaml.v2"
-
 	"github.com/elastic/go-elasticsearch/v8/internal/build/utils"
+	"gopkg.in/yaml.v2"
 )
 
 var (

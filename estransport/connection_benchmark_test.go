@@ -24,10 +24,9 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	_ "net/http/pprof"
 	"net/url"
 	"testing"
-
-	_ "net/http/pprof"
 )
 
 func init() {

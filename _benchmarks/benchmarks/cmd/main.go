@@ -28,16 +28,13 @@ import (
 	"strings"
 	"time"
 
+	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/elastic/go-elasticsearch/v8/benchmarks"
+	_ "github.com/elastic/go-elasticsearch/v8/benchmarks/actions"
+	"github.com/elastic/go-elasticsearch/v8/benchmarks/runner"
+	"github.com/elastic/go-elasticsearch/v8/estransport"
 	"github.com/fatih/color"
 	"github.com/montanaflynn/stats"
-
-	"github.com/elastic/go-elasticsearch/v8"
-	"github.com/elastic/go-elasticsearch/v8/estransport"
-
-	"github.com/elastic/go-elasticsearch/v8/benchmarks"
-	"github.com/elastic/go-elasticsearch/v8/benchmarks/runner"
-
-	_ "github.com/elastic/go-elasticsearch/v8/benchmarks/actions"
 )
 
 var (

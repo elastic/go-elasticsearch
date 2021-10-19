@@ -30,10 +30,9 @@ import (
 	"time"
 
 	"github.com/dustin/go-humanize"
-	"github.com/montanaflynn/stats"
-
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/esutil"
+	"github.com/montanaflynn/stats"
 )
 
 // NewRunner returns new BulkIndexer benchmarking runner.

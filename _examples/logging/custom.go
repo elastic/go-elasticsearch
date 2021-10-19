@@ -31,9 +31,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/rs/zerolog"
-
 	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/rs/zerolog"
 )
 
 // CustomLogger implements the estransport.Logger interface.

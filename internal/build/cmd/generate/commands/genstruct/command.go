@@ -20,19 +20,17 @@ package genstruct
 import (
 	"bytes"
 	"fmt"
-	"github.com/elastic/go-elasticsearch/v8/internal/build/cmd"
 	"go/types"
 	"io"
 	"os"
 	"path/filepath"
 	"strings"
 
+	"github.com/elastic/go-elasticsearch/v8/internal/build/cmd"
+	"github.com/elastic/go-elasticsearch/v8/internal/build/utils"
+	"github.com/spf13/cobra"
 	"golang.org/x/tools/go/packages"
 	"golang.org/x/tools/imports"
-
-	"github.com/spf13/cobra"
-
-	"github.com/elastic/go-elasticsearch/v8/internal/build/utils"
 )
 
 var (
