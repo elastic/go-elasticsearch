@@ -15,6 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
+//go:build !integration
 // +build !integration
 
 package estransport
@@ -72,8 +73,8 @@ func TestStatusConnectionPoolNext(t *testing.T) {
 
 		pool := &statusConnectionPool{
 			live: []*Connection{
-				&Connection{URL: &url.URL{Scheme: "http", Host: "foo1"}},
-				&Connection{URL: &url.URL{Scheme: "http", Host: "foo2"}},
+				{URL: &url.URL{Scheme: "http", Host: "foo1"}},
+				{URL: &url.URL{Scheme: "http", Host: "foo2"}},
 			},
 			selector: &roundRobinSelector{curr: -1},
 		}
@@ -98,9 +99,9 @@ func TestStatusConnectionPoolNext(t *testing.T) {
 	t.Run("Three URLs", func(t *testing.T) {
 		pool := &statusConnectionPool{
 			live: []*Connection{
-				&Connection{URL: &url.URL{Scheme: "http", Host: "foo1"}},
-				&Connection{URL: &url.URL{Scheme: "http", Host: "foo2"}},
-				&Connection{URL: &url.URL{Scheme: "http", Host: "foo3"}},
+				{URL: &url.URL{Scheme: "http", Host: "foo1"}},
+				{URL: &url.URL{Scheme: "http", Host: "foo2"}},
+				{URL: &url.URL{Scheme: "http", Host: "foo3"}},
 			},
 			selector: &roundRobinSelector{curr: -1},
 		}
@@ -134,8 +135,8 @@ func TestStatusConnectionPoolNext(t *testing.T) {
 		pool := &statusConnectionPool{
 			live: []*Connection{},
 			dead: []*Connection{
-				&Connection{URL: &url.URL{Scheme: "http", Host: "foo1"}, Failures: 3},
-				&Connection{URL: &url.URL{Scheme: "http", Host: "foo2"}, Failures: 1},
+				{URL: &url.URL{Scheme: "http", Host: "foo1"}, Failures: 3},
+				{URL: &url.URL{Scheme: "http", Host: "foo2"}, Failures: 1},
 			},
 			selector: &roundRobinSelector{curr: -1},
 		}
@@ -171,7 +172,7 @@ func TestStatusConnectionPoolOnSuccess(t *testing.T) {
 	t.Run("Move connection to live list and mark it as healthy", func(t *testing.T) {
 		pool := &statusConnectionPool{
 			dead: []*Connection{
-				&Connection{URL: &url.URL{Scheme: "http", Host: "foo1"}, Failures: 3, IsDead: true},
+				{URL: &url.URL{Scheme: "http", Host: "foo1"}, Failures: 3, IsDead: true},
 			},
 			selector: &roundRobinSelector{curr: -1},
 		}
@@ -204,12 +205,12 @@ func TestStatusConnectionPoolOnFailure(t *testing.T) {
 	t.Run("Remove connection, mark it, and sort dead connections", func(t *testing.T) {
 		pool := &statusConnectionPool{
 			live: []*Connection{
-				&Connection{URL: &url.URL{Scheme: "http", Host: "foo1"}},
-				&Connection{URL: &url.URL{Scheme: "http", Host: "foo2"}},
+				{URL: &url.URL{Scheme: "http", Host: "foo1"}},
+				{URL: &url.URL{Scheme: "http", Host: "foo2"}},
 			},
 			dead: []*Connection{
-				&Connection{URL: &url.URL{Scheme: "http", Host: "foo3"}, Failures: 0},
-				&Connection{URL: &url.URL{Scheme: "http", Host: "foo4"}, Failures: 99},
+				{URL: &url.URL{Scheme: "http", Host: "foo3"}, Failures: 0},
+				{URL: &url.URL{Scheme: "http", Host: "foo4"}, Failures: 99},
 			},
 			selector: &roundRobinSelector{curr: -1},
 		}
@@ -252,9 +253,9 @@ func TestStatusConnectionPoolOnFailure(t *testing.T) {
 	t.Run("Short circuit when the connection is already dead", func(t *testing.T) {
 		pool := &statusConnectionPool{
 			live: []*Connection{
-				&Connection{URL: &url.URL{Scheme: "http", Host: "foo1"}},
-				&Connection{URL: &url.URL{Scheme: "http", Host: "foo2"}},
-				&Connection{URL: &url.URL{Scheme: "http", Host: "foo3"}},
+				{URL: &url.URL{Scheme: "http", Host: "foo1"}},
+				{URL: &url.URL{Scheme: "http", Host: "foo2"}},
+				{URL: &url.URL{Scheme: "http", Host: "foo3"}},
 			},
 			selector: &roundRobinSelector{curr: -1},
 		}
@@ -276,7 +277,7 @@ func TestStatusConnectionPoolResurrect(t *testing.T) {
 	t.Run("Mark the connection as dead and add/remove it to the lists", func(t *testing.T) {
 		pool := &statusConnectionPool{
 			live:     []*Connection{},
-			dead:     []*Connection{&Connection{URL: &url.URL{Scheme: "http", Host: "foo1"}, IsDead: true}},
+			dead:     []*Connection{{URL: &url.URL{Scheme: "http", Host: "foo1"}, IsDead: true}},
 			selector: &roundRobinSelector{curr: -1},
 		}
 
@@ -301,7 +302,7 @@ func TestStatusConnectionPoolResurrect(t *testing.T) {
 
 	t.Run("Short circuit removal when the connection is not in the dead list", func(t *testing.T) {
 		pool := &statusConnectionPool{
-			dead:     []*Connection{&Connection{URL: &url.URL{Scheme: "http", Host: "bar"}, IsDead: true}},
+			dead:     []*Connection{{URL: &url.URL{Scheme: "http", Host: "bar"}, IsDead: true}},
 			selector: &roundRobinSelector{curr: -1},
 		}
 
@@ -327,7 +328,7 @@ func TestStatusConnectionPoolResurrect(t *testing.T) {
 		pool := &statusConnectionPool{
 			live: []*Connection{},
 			dead: []*Connection{
-				&Connection{
+				{
 					URL:       &url.URL{Scheme: "http", Host: "foo1"},
 					Failures:  100,
 					IsDead:    true,

@@ -76,7 +76,7 @@ func main() {
 	log.Printf(boldUnderline("Running benchmarks for go-elasticsearch@%s; %s/go%s"), elasticsearch.Version, runner.RuntimeOS, runner.RuntimeVersion)
 
 	var missingConfigs []string
-	for k, _ := range benchmarks.Config {
+	for k := range benchmarks.Config {
 		v := os.Getenv(k)
 		if v == "" {
 			missingConfigs = append(missingConfigs, k)

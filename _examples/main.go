@@ -15,6 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
+//go:build ignore
 // +build ignore
 
 // This example demonstrates a basic usage of the Elasticsearch Go client.

@@ -15,6 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
+//go:build ignore
 // +build ignore
 
 // This collection of examples demonstrates how to configure the default logger of the client.

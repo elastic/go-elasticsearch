@@ -15,6 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
+//go:build !integration
 // +build !integration
 
 package esutil
@@ -80,7 +81,7 @@ func TestBulkIndexer(t *testing.T) {
 				}
 				bodyContent, _ := ioutil.ReadFile(testfile)
 				return &http.Response{
-					Body: ioutil.NopCloser(bytes.NewBuffer(bodyContent)),
+					Body:   ioutil.NopCloser(bytes.NewBuffer(bodyContent)),
 					Header: http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
 				}, nil
 			},
@@ -264,7 +265,7 @@ func TestBulkIndexer(t *testing.T) {
 		es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
 			RoundTripFunc: func(*http.Request) (*http.Response, error) {
 				return &http.Response{
-					Body: ioutil.NopCloser(bytes.NewBuffer(bodyContent)),
+					Body:   ioutil.NopCloser(bytes.NewBuffer(bodyContent)),
 					Header: http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
 				}, nil
 			},
@@ -434,7 +435,7 @@ func TestBulkIndexer(t *testing.T) {
 					StatusCode: http.StatusOK,
 					Status:     "200 OK",
 					Body:       ioutil.NopCloser(strings.NewReader(`{"items":[{"index": {}}]}`)),
-					Header: http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+					Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
 				}, nil
 			},
 		}})
@@ -504,7 +505,7 @@ func TestBulkIndexer(t *testing.T) {
 						StatusCode: http.StatusOK,
 						Status:     "200 OK",
 						Body:       ioutil.NopCloser(bytes.NewBuffer(bodyContent)),
-						Header: http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
 					}, nil
 				},
 			},

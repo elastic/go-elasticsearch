@@ -15,6 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
+//go:build !integration
 // +build !integration
 
 package estransport
@@ -193,7 +194,7 @@ func TestDiscovery(t *testing.T) {
 
 	t.Run("Role based nodes discovery", func(t *testing.T) {
 		type Node struct {
-			URL string
+			URL   string
 			Roles []string
 		}
 
@@ -201,13 +202,13 @@ func TestDiscovery(t *testing.T) {
 			Nodes map[string]Node
 		}
 		type wants struct {
-			wantErr bool
+			wantErr    bool
 			wantsNConn int
 		}
 		tests := []struct {
-			name    string
-			args  fields
-			want  wants
+			name string
+			args fields
+			want wants
 		}{
 			{
 				"Default roles should allow every node to be selected",
@@ -375,7 +376,7 @@ func TestDiscovery(t *testing.T) {
 				}
 
 				c, _ := New(Config{
-					URLs:     urls,
+					URLs:      urls,
 					Transport: newRoundTripper(),
 				})
 				c.DiscoverNodes()

@@ -886,7 +886,7 @@ func expand(s string, format ...string) string {
 			}
 			b.WriteString("[")
 			if strings.HasPrefix(v, "$") {
-				b.WriteString(fmt.Sprintf(`stash["%s"].(string)`, strings.Trim(v,`"`))) // Remove the quotes from keys
+				b.WriteString(fmt.Sprintf(`stash["%s"].(string)`, strings.Trim(v, `"`))) // Remove the quotes from keys
 			} else {
 				b.WriteString(`"`)
 				b.WriteString(strings.Trim(v, `"`)) // Remove the quotes from keys

@@ -15,6 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
+//go:build !integration
 // +build !integration
 
 package elasticsearch
@@ -387,10 +388,10 @@ func TestClientMetrics(t *testing.T) {
 
 func TestResponseCheckOnly(t *testing.T) {
 	tests := []struct {
-		name                 string
-		response             *http.Response
-		requestErr           error
-		wantErr              bool
+		name       string
+		response   *http.Response
+		requestErr error
+		wantErr    bool
 	}{
 		{
 			name: "Valid answer with header",
@@ -411,7 +412,7 @@ func TestResponseCheckOnly(t *testing.T) {
 			name: "Valid answer with http error code",
 			response: &http.Response{
 				StatusCode: http.StatusUnauthorized,
-				Header: http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+				Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
 				Body:       ioutil.NopCloser(strings.NewReader("{}")),
 			},
 			wantErr: false,
@@ -432,7 +433,6 @@ func TestResponseCheckOnly(t *testing.T) {
 		})
 	}
 }
-
 
 func TestProductCheckError(t *testing.T) {
 	var requestPaths []string

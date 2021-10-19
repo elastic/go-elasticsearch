@@ -111,7 +111,7 @@ func (e *ConsoleExporter) ExportSpan(sd *trace.SpanData) {
 	if len(sd.Attributes) > 0 {
 		faint.Print("░ ")
 		var keys []string
-		for k, _ := range sd.Attributes {
+		for k := range sd.Attributes {
 			keys = append(keys, k)
 		}
 		sort.Strings(keys)

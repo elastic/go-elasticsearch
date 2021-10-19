@@ -15,6 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
+//go:build integration && multinode
 // +build integration,multinode
 
 package estransport_test
