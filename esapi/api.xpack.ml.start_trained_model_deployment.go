@@ -52,6 +52,7 @@ type MLStartTrainedModelDeploymentRequest struct {
 	ModelID string
 
 	Timeout time.Duration
+	WaitFor string
 
 	Pretty     bool
 	Human      bool
@@ -90,6 +91,10 @@ func (r MLStartTrainedModelDeploymentRequest) Do(ctx context.Context, transport 
 
 	if r.Timeout != 0 {
 		params["timeout"] = formatDuration(r.Timeout)
+	}
+
+	if r.WaitFor != "" {
+		params["wait_for"] = r.WaitFor
 	}
 
 	if r.Pretty {
@@ -164,6 +169,14 @@ func (f MLStartTrainedModelDeployment) WithContext(v context.Context) func(*MLSt
 func (f MLStartTrainedModelDeployment) WithTimeout(v time.Duration) func(*MLStartTrainedModelDeploymentRequest) {
 	return func(r *MLStartTrainedModelDeploymentRequest) {
 		r.Timeout = v
+	}
+}
+
+// WithWaitFor - the allocation status for which to wait.
+//
+func (f MLStartTrainedModelDeployment) WithWaitFor(v string) func(*MLStartTrainedModelDeploymentRequest) {
+	return func(r *MLStartTrainedModelDeploymentRequest) {
+		r.WaitFor = v
 	}
 }
 

@@ -24,12 +24,11 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
-	"time"
 )
 
-func newNodesInfoFunc(t Transport) NodesInfo {
-	return func(o ...func(*NodesInfoRequest)) (*Response, error) {
-		var r = NodesInfoRequest{}
+func newNodesClearRepositoriesMeteringArchiveFunc(t Transport) NodesClearRepositoriesMeteringArchive {
+	return func(max_archive_version *int, node_id []string, o ...func(*NodesClearRepositoriesMeteringArchiveRequest)) (*Response, error) {
+		var r = NodesClearRepositoriesMeteringArchiveRequest{MaxArchiveVersion: max_archive_version, NodeID: node_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -39,20 +38,19 @@ func newNodesInfoFunc(t Transport) NodesInfo {
 
 // ----- API Definition -------------------------------------------------------
 
-// NodesInfo returns information about nodes in the cluster.
+// NodesClearRepositoriesMeteringArchive removes the archived repositories metering information present in the cluster.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-info.html.
+// This API is experimental.
 //
-type NodesInfo func(o ...func(*NodesInfoRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/clear-repositories-metering-archive-api.html.
+//
+type NodesClearRepositoriesMeteringArchive func(max_archive_version *int, node_id []string, o ...func(*NodesClearRepositoriesMeteringArchiveRequest)) (*Response, error)
 
-// NodesInfoRequest configures the Nodes Info API request.
+// NodesClearRepositoriesMeteringArchiveRequest configures the Nodes Clear Repositories Metering Archive API request.
 //
-type NodesInfoRequest struct {
-	Metric []string
-	NodeID []string
-
-	FlatSettings *bool
-	Timeout      time.Duration
+type NodesClearRepositoriesMeteringArchiveRequest struct {
+	MaxArchiveVersion *int
+	NodeID            []string
 
 	Pretty     bool
 	Human      bool
@@ -66,36 +64,26 @@ type NodesInfoRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r NodesInfoRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r NodesClearRepositoriesMeteringArchiveRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "DELETE"
 
-	path.Grow(1 + len("_nodes") + 1 + len(strings.Join(r.NodeID, ",")) + 1 + len(strings.Join(r.Metric, ",")))
+	path.Grow(1 + len("_nodes") + 1 + len(strings.Join(r.NodeID, ",")) + 1 + len("_repositories_metering") + 1 + len(strconv.Itoa(*r.MaxArchiveVersion)))
 	path.WriteString("/")
 	path.WriteString("_nodes")
-	if len(r.NodeID) > 0 {
-		path.WriteString("/")
-		path.WriteString(strings.Join(r.NodeID, ","))
-	}
-	if len(r.Metric) > 0 {
-		path.WriteString("/")
-		path.WriteString(strings.Join(r.Metric, ","))
-	}
+	path.WriteString("/")
+	path.WriteString(strings.Join(r.NodeID, ","))
+	path.WriteString("/")
+	path.WriteString("_repositories_metering")
+	path.WriteString("/")
+	path.WriteString(strconv.Itoa(*r.MaxArchiveVersion))
 
 	params = make(map[string]string)
-
-	if r.FlatSettings != nil {
-		params["flat_settings"] = strconv.FormatBool(*r.FlatSettings)
-	}
-
-	if r.Timeout != 0 {
-		params["timeout"] = formatDuration(r.Timeout)
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -158,80 +146,48 @@ func (r NodesInfoRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 // WithContext sets the request context.
 //
-func (f NodesInfo) WithContext(v context.Context) func(*NodesInfoRequest) {
-	return func(r *NodesInfoRequest) {
+func (f NodesClearRepositoriesMeteringArchive) WithContext(v context.Context) func(*NodesClearRepositoriesMeteringArchiveRequest) {
+	return func(r *NodesClearRepositoriesMeteringArchiveRequest) {
 		r.ctx = v
-	}
-}
-
-// WithMetric - a list of metrics you wish returned. leave empty to return all metrics..
-//
-func (f NodesInfo) WithMetric(v ...string) func(*NodesInfoRequest) {
-	return func(r *NodesInfoRequest) {
-		r.Metric = v
-	}
-}
-
-// WithNodeID - a list of node ids or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes.
-//
-func (f NodesInfo) WithNodeID(v ...string) func(*NodesInfoRequest) {
-	return func(r *NodesInfoRequest) {
-		r.NodeID = v
-	}
-}
-
-// WithFlatSettings - return settings in flat format (default: false).
-//
-func (f NodesInfo) WithFlatSettings(v bool) func(*NodesInfoRequest) {
-	return func(r *NodesInfoRequest) {
-		r.FlatSettings = &v
-	}
-}
-
-// WithTimeout - explicit operation timeout.
-//
-func (f NodesInfo) WithTimeout(v time.Duration) func(*NodesInfoRequest) {
-	return func(r *NodesInfoRequest) {
-		r.Timeout = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f NodesInfo) WithPretty() func(*NodesInfoRequest) {
-	return func(r *NodesInfoRequest) {
+func (f NodesClearRepositoriesMeteringArchive) WithPretty() func(*NodesClearRepositoriesMeteringArchiveRequest) {
+	return func(r *NodesClearRepositoriesMeteringArchiveRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f NodesInfo) WithHuman() func(*NodesInfoRequest) {
-	return func(r *NodesInfoRequest) {
+func (f NodesClearRepositoriesMeteringArchive) WithHuman() func(*NodesClearRepositoriesMeteringArchiveRequest) {
+	return func(r *NodesClearRepositoriesMeteringArchiveRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f NodesInfo) WithErrorTrace() func(*NodesInfoRequest) {
-	return func(r *NodesInfoRequest) {
+func (f NodesClearRepositoriesMeteringArchive) WithErrorTrace() func(*NodesClearRepositoriesMeteringArchiveRequest) {
+	return func(r *NodesClearRepositoriesMeteringArchiveRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f NodesInfo) WithFilterPath(v ...string) func(*NodesInfoRequest) {
-	return func(r *NodesInfoRequest) {
+func (f NodesClearRepositoriesMeteringArchive) WithFilterPath(v ...string) func(*NodesClearRepositoriesMeteringArchiveRequest) {
+	return func(r *NodesClearRepositoriesMeteringArchiveRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f NodesInfo) WithHeader(h map[string]string) func(*NodesInfoRequest) {
-	return func(r *NodesInfoRequest) {
+func (f NodesClearRepositoriesMeteringArchive) WithHeader(h map[string]string) func(*NodesClearRepositoriesMeteringArchiveRequest) {
+	return func(r *NodesClearRepositoriesMeteringArchiveRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -243,8 +199,8 @@ func (f NodesInfo) WithHeader(h map[string]string) func(*NodesInfoRequest) {
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f NodesInfo) WithOpaqueID(s string) func(*NodesInfoRequest) {
-	return func(r *NodesInfoRequest) {
+func (f NodesClearRepositoriesMeteringArchive) WithOpaqueID(s string) func(*NodesClearRepositoriesMeteringArchiveRequest) {
+	return func(r *NodesClearRepositoriesMeteringArchiveRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

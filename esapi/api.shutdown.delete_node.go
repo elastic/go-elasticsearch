@@ -37,9 +37,7 @@ func newShutdownDeleteNodeFunc(t Transport) ShutdownDeleteNode {
 
 // ----- API Definition -------------------------------------------------------
 
-// ShutdownDeleteNode removes a node from the shutdown list
-//
-// This API is experimental.
+// ShutdownDeleteNode removes a node from the shutdown list. Designed for indirect use by ECE/ESS and ECK. Direct use is not supported.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current.
 //

@@ -23,12 +23,13 @@ import (
 	"context"
 	"io"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
-func newMonitoringBulkFunc(t Transport) MonitoringBulk {
-	return func(body io.Reader, o ...func(*MonitoringBulkRequest)) (*Response, error) {
-		var r = MonitoringBulkRequest{Body: body}
+func newMLPutTrainedModelDefinitionPartFunc(t Transport) MLPutTrainedModelDefinitionPart {
+	return func(body io.Reader, model_id string, part *int, o ...func(*MLPutTrainedModelDefinitionPartRequest)) (*Response, error) {
+		var r = MLPutTrainedModelDefinitionPartRequest{Body: body, ModelID: model_id, Part: part}
 		for _, f := range o {
 			f(&r)
 		}
@@ -38,22 +39,21 @@ func newMonitoringBulkFunc(t Transport) MonitoringBulk {
 
 // ----- API Definition -------------------------------------------------------
 
-// MonitoringBulk - Used by the monitoring features to send monitoring data.
+// MLPutTrainedModelDefinitionPart - Creates part of a trained model definition
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/monitor-elasticsearch-cluster.html.
+// This API is experimental.
 //
-type MonitoringBulk func(body io.Reader, o ...func(*MonitoringBulkRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/put-trained-model-definition-part.html.
+//
+type MLPutTrainedModelDefinitionPart func(body io.Reader, model_id string, part *int, o ...func(*MLPutTrainedModelDefinitionPartRequest)) (*Response, error)
 
-// MonitoringBulkRequest configures the Monitoring Bulk API request.
+// MLPutTrainedModelDefinitionPartRequest configures the ML Put Trained Model Definition Part API request.
 //
-type MonitoringBulkRequest struct {
+type MLPutTrainedModelDefinitionPartRequest struct {
 	Body io.Reader
 
-	DocumentType string
-
-	Interval         string
-	SystemAPIVersion string
-	SystemID         string
+	ModelID string
+	Part    *int
 
 	Pretty     bool
 	Human      bool
@@ -67,38 +67,28 @@ type MonitoringBulkRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r MonitoringBulkRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r MLPutTrainedModelDefinitionPartRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "POST"
+	method = "PUT"
 
-	path.Grow(1 + len("_monitoring") + 1 + len(r.DocumentType) + 1 + len("bulk"))
+	path.Grow(1 + len("_ml") + 1 + len("trained_models") + 1 + len(r.ModelID) + 1 + len("definition") + 1 + len(strconv.Itoa(*r.Part)))
 	path.WriteString("/")
-	path.WriteString("_monitoring")
-	if r.DocumentType != "" {
-		path.WriteString("/")
-		path.WriteString(r.DocumentType)
-	}
+	path.WriteString("_ml")
 	path.WriteString("/")
-	path.WriteString("bulk")
+	path.WriteString("trained_models")
+	path.WriteString("/")
+	path.WriteString(r.ModelID)
+	path.WriteString("/")
+	path.WriteString("definition")
+	path.WriteString("/")
+	path.WriteString(strconv.Itoa(*r.Part))
 
 	params = make(map[string]string)
-
-	if r.Interval != "" {
-		params["interval"] = r.Interval
-	}
-
-	if r.SystemAPIVersion != "" {
-		params["system_api_version"] = r.SystemAPIVersion
-	}
-
-	if r.SystemID != "" {
-		params["system_id"] = r.SystemID
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -165,80 +155,48 @@ func (r MonitoringBulkRequest) Do(ctx context.Context, transport Transport) (*Re
 
 // WithContext sets the request context.
 //
-func (f MonitoringBulk) WithContext(v context.Context) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
+func (f MLPutTrainedModelDefinitionPart) WithContext(v context.Context) func(*MLPutTrainedModelDefinitionPartRequest) {
+	return func(r *MLPutTrainedModelDefinitionPartRequest) {
 		r.ctx = v
-	}
-}
-
-// WithDocumentType - default document type for items which don't provide one.
-//
-func (f MonitoringBulk) WithDocumentType(v string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
-		r.DocumentType = v
-	}
-}
-
-// WithInterval - collection interval (e.g., '10s' or '10000ms') of the payload.
-//
-func (f MonitoringBulk) WithInterval(v string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
-		r.Interval = v
-	}
-}
-
-// WithSystemAPIVersion - api version of the monitored system.
-//
-func (f MonitoringBulk) WithSystemAPIVersion(v string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
-		r.SystemAPIVersion = v
-	}
-}
-
-// WithSystemID - identifier of the monitored system.
-//
-func (f MonitoringBulk) WithSystemID(v string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
-		r.SystemID = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f MonitoringBulk) WithPretty() func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
+func (f MLPutTrainedModelDefinitionPart) WithPretty() func(*MLPutTrainedModelDefinitionPartRequest) {
+	return func(r *MLPutTrainedModelDefinitionPartRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f MonitoringBulk) WithHuman() func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
+func (f MLPutTrainedModelDefinitionPart) WithHuman() func(*MLPutTrainedModelDefinitionPartRequest) {
+	return func(r *MLPutTrainedModelDefinitionPartRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f MonitoringBulk) WithErrorTrace() func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
+func (f MLPutTrainedModelDefinitionPart) WithErrorTrace() func(*MLPutTrainedModelDefinitionPartRequest) {
+	return func(r *MLPutTrainedModelDefinitionPartRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f MonitoringBulk) WithFilterPath(v ...string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
+func (f MLPutTrainedModelDefinitionPart) WithFilterPath(v ...string) func(*MLPutTrainedModelDefinitionPartRequest) {
+	return func(r *MLPutTrainedModelDefinitionPartRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f MonitoringBulk) WithHeader(h map[string]string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
+func (f MLPutTrainedModelDefinitionPart) WithHeader(h map[string]string) func(*MLPutTrainedModelDefinitionPartRequest) {
+	return func(r *MLPutTrainedModelDefinitionPartRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -250,8 +208,8 @@ func (f MonitoringBulk) WithHeader(h map[string]string) func(*MonitoringBulkRequ
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f MonitoringBulk) WithOpaqueID(s string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
+func (f MLPutTrainedModelDefinitionPart) WithOpaqueID(s string) func(*MLPutTrainedModelDefinitionPartRequest) {
+	return func(r *MLPutTrainedModelDefinitionPartRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

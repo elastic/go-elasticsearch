@@ -22,14 +22,12 @@ package esapi
 import (
 	"context"
 	"net/http"
-	"strconv"
 	"strings"
-	"time"
 )
 
-func newNodesInfoFunc(t Transport) NodesInfo {
-	return func(o ...func(*NodesInfoRequest)) (*Response, error) {
-		var r = NodesInfoRequest{}
+func newMigrationGetFeatureUpgradeStatusFunc(t Transport) MigrationGetFeatureUpgradeStatus {
+	return func(o ...func(*MigrationGetFeatureUpgradeStatusRequest)) (*Response, error) {
+		var r = MigrationGetFeatureUpgradeStatusRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -39,21 +37,15 @@ func newNodesInfoFunc(t Transport) NodesInfo {
 
 // ----- API Definition -------------------------------------------------------
 
-// NodesInfo returns information about nodes in the cluster.
+// MigrationGetFeatureUpgradeStatus - Find out whether system features need to be upgraded or not
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-info.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/migration-api-feature-upgrade.html.
 //
-type NodesInfo func(o ...func(*NodesInfoRequest)) (*Response, error)
+type MigrationGetFeatureUpgradeStatus func(o ...func(*MigrationGetFeatureUpgradeStatusRequest)) (*Response, error)
 
-// NodesInfoRequest configures the Nodes Info API request.
+// MigrationGetFeatureUpgradeStatusRequest configures the Migration Get Feature Upgrade Status API request.
 //
-type NodesInfoRequest struct {
-	Metric []string
-	NodeID []string
-
-	FlatSettings *bool
-	Timeout      time.Duration
-
+type MigrationGetFeatureUpgradeStatusRequest struct {
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -66,7 +58,7 @@ type NodesInfoRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r NodesInfoRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r MigrationGetFeatureUpgradeStatusRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -75,27 +67,10 @@ func (r NodesInfoRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 	method = "GET"
 
-	path.Grow(1 + len("_nodes") + 1 + len(strings.Join(r.NodeID, ",")) + 1 + len(strings.Join(r.Metric, ",")))
-	path.WriteString("/")
-	path.WriteString("_nodes")
-	if len(r.NodeID) > 0 {
-		path.WriteString("/")
-		path.WriteString(strings.Join(r.NodeID, ","))
-	}
-	if len(r.Metric) > 0 {
-		path.WriteString("/")
-		path.WriteString(strings.Join(r.Metric, ","))
-	}
+	path.Grow(len("/_migration/system_features"))
+	path.WriteString("/_migration/system_features")
 
 	params = make(map[string]string)
-
-	if r.FlatSettings != nil {
-		params["flat_settings"] = strconv.FormatBool(*r.FlatSettings)
-	}
-
-	if r.Timeout != 0 {
-		params["timeout"] = formatDuration(r.Timeout)
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -158,80 +133,48 @@ func (r NodesInfoRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 // WithContext sets the request context.
 //
-func (f NodesInfo) WithContext(v context.Context) func(*NodesInfoRequest) {
-	return func(r *NodesInfoRequest) {
+func (f MigrationGetFeatureUpgradeStatus) WithContext(v context.Context) func(*MigrationGetFeatureUpgradeStatusRequest) {
+	return func(r *MigrationGetFeatureUpgradeStatusRequest) {
 		r.ctx = v
-	}
-}
-
-// WithMetric - a list of metrics you wish returned. leave empty to return all metrics..
-//
-func (f NodesInfo) WithMetric(v ...string) func(*NodesInfoRequest) {
-	return func(r *NodesInfoRequest) {
-		r.Metric = v
-	}
-}
-
-// WithNodeID - a list of node ids or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes.
-//
-func (f NodesInfo) WithNodeID(v ...string) func(*NodesInfoRequest) {
-	return func(r *NodesInfoRequest) {
-		r.NodeID = v
-	}
-}
-
-// WithFlatSettings - return settings in flat format (default: false).
-//
-func (f NodesInfo) WithFlatSettings(v bool) func(*NodesInfoRequest) {
-	return func(r *NodesInfoRequest) {
-		r.FlatSettings = &v
-	}
-}
-
-// WithTimeout - explicit operation timeout.
-//
-func (f NodesInfo) WithTimeout(v time.Duration) func(*NodesInfoRequest) {
-	return func(r *NodesInfoRequest) {
-		r.Timeout = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f NodesInfo) WithPretty() func(*NodesInfoRequest) {
-	return func(r *NodesInfoRequest) {
+func (f MigrationGetFeatureUpgradeStatus) WithPretty() func(*MigrationGetFeatureUpgradeStatusRequest) {
+	return func(r *MigrationGetFeatureUpgradeStatusRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f NodesInfo) WithHuman() func(*NodesInfoRequest) {
-	return func(r *NodesInfoRequest) {
+func (f MigrationGetFeatureUpgradeStatus) WithHuman() func(*MigrationGetFeatureUpgradeStatusRequest) {
+	return func(r *MigrationGetFeatureUpgradeStatusRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f NodesInfo) WithErrorTrace() func(*NodesInfoRequest) {
-	return func(r *NodesInfoRequest) {
+func (f MigrationGetFeatureUpgradeStatus) WithErrorTrace() func(*MigrationGetFeatureUpgradeStatusRequest) {
+	return func(r *MigrationGetFeatureUpgradeStatusRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f NodesInfo) WithFilterPath(v ...string) func(*NodesInfoRequest) {
-	return func(r *NodesInfoRequest) {
+func (f MigrationGetFeatureUpgradeStatus) WithFilterPath(v ...string) func(*MigrationGetFeatureUpgradeStatusRequest) {
+	return func(r *MigrationGetFeatureUpgradeStatusRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f NodesInfo) WithHeader(h map[string]string) func(*NodesInfoRequest) {
-	return func(r *NodesInfoRequest) {
+func (f MigrationGetFeatureUpgradeStatus) WithHeader(h map[string]string) func(*MigrationGetFeatureUpgradeStatusRequest) {
+	return func(r *MigrationGetFeatureUpgradeStatusRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -243,8 +186,8 @@ func (f NodesInfo) WithHeader(h map[string]string) func(*NodesInfoRequest) {
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f NodesInfo) WithOpaqueID(s string) func(*NodesInfoRequest) {
-	return func(r *NodesInfoRequest) {
+func (f MigrationGetFeatureUpgradeStatus) WithOpaqueID(s string) func(*MigrationGetFeatureUpgradeStatusRequest) {
+	return func(r *MigrationGetFeatureUpgradeStatusRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

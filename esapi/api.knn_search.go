@@ -26,9 +26,9 @@ import (
 	"strings"
 )
 
-func newMonitoringBulkFunc(t Transport) MonitoringBulk {
-	return func(body io.Reader, o ...func(*MonitoringBulkRequest)) (*Response, error) {
-		var r = MonitoringBulkRequest{Body: body}
+func newKnnSearchFunc(t Transport) KnnSearch {
+	return func(index []string, o ...func(*KnnSearchRequest)) (*Response, error) {
+		var r = KnnSearchRequest{Index: index}
 		for _, f := range o {
 			f(&r)
 		}
@@ -38,22 +38,22 @@ func newMonitoringBulkFunc(t Transport) MonitoringBulk {
 
 // ----- API Definition -------------------------------------------------------
 
-// MonitoringBulk - Used by the monitoring features to send monitoring data.
+// KnnSearch performs a kNN search.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/monitor-elasticsearch-cluster.html.
+// This API is experimental.
 //
-type MonitoringBulk func(body io.Reader, o ...func(*MonitoringBulkRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-search.html.
+//
+type KnnSearch func(index []string, o ...func(*KnnSearchRequest)) (*Response, error)
 
-// MonitoringBulkRequest configures the Monitoring Bulk API request.
+// KnnSearchRequest configures the Knn Search API request.
 //
-type MonitoringBulkRequest struct {
+type KnnSearchRequest struct {
+	Index []string
+
 	Body io.Reader
 
-	DocumentType string
-
-	Interval         string
-	SystemAPIVersion string
-	SystemID         string
+	Routing []string
 
 	Pretty     bool
 	Human      bool
@@ -67,7 +67,7 @@ type MonitoringBulkRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r MonitoringBulkRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r KnnSearchRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -76,28 +76,16 @@ func (r MonitoringBulkRequest) Do(ctx context.Context, transport Transport) (*Re
 
 	method = "POST"
 
-	path.Grow(1 + len("_monitoring") + 1 + len(r.DocumentType) + 1 + len("bulk"))
+	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_knn_search"))
 	path.WriteString("/")
-	path.WriteString("_monitoring")
-	if r.DocumentType != "" {
-		path.WriteString("/")
-		path.WriteString(r.DocumentType)
-	}
+	path.WriteString(strings.Join(r.Index, ","))
 	path.WriteString("/")
-	path.WriteString("bulk")
+	path.WriteString("_knn_search")
 
 	params = make(map[string]string)
 
-	if r.Interval != "" {
-		params["interval"] = r.Interval
-	}
-
-	if r.SystemAPIVersion != "" {
-		params["system_api_version"] = r.SystemAPIVersion
-	}
-
-	if r.SystemID != "" {
-		params["system_id"] = r.SystemID
+	if len(r.Routing) > 0 {
+		params["routing"] = strings.Join(r.Routing, ",")
 	}
 
 	if r.Pretty {
@@ -165,80 +153,64 @@ func (r MonitoringBulkRequest) Do(ctx context.Context, transport Transport) (*Re
 
 // WithContext sets the request context.
 //
-func (f MonitoringBulk) WithContext(v context.Context) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
+func (f KnnSearch) WithContext(v context.Context) func(*KnnSearchRequest) {
+	return func(r *KnnSearchRequest) {
 		r.ctx = v
 	}
 }
 
-// WithDocumentType - default document type for items which don't provide one.
+// WithBody - The search definition.
 //
-func (f MonitoringBulk) WithDocumentType(v string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
-		r.DocumentType = v
+func (f KnnSearch) WithBody(v io.Reader) func(*KnnSearchRequest) {
+	return func(r *KnnSearchRequest) {
+		r.Body = v
 	}
 }
 
-// WithInterval - collection interval (e.g., '10s' or '10000ms') of the payload.
+// WithRouting - a list of specific routing values.
 //
-func (f MonitoringBulk) WithInterval(v string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
-		r.Interval = v
-	}
-}
-
-// WithSystemAPIVersion - api version of the monitored system.
-//
-func (f MonitoringBulk) WithSystemAPIVersion(v string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
-		r.SystemAPIVersion = v
-	}
-}
-
-// WithSystemID - identifier of the monitored system.
-//
-func (f MonitoringBulk) WithSystemID(v string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
-		r.SystemID = v
+func (f KnnSearch) WithRouting(v ...string) func(*KnnSearchRequest) {
+	return func(r *KnnSearchRequest) {
+		r.Routing = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f MonitoringBulk) WithPretty() func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
+func (f KnnSearch) WithPretty() func(*KnnSearchRequest) {
+	return func(r *KnnSearchRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f MonitoringBulk) WithHuman() func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
+func (f KnnSearch) WithHuman() func(*KnnSearchRequest) {
+	return func(r *KnnSearchRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f MonitoringBulk) WithErrorTrace() func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
+func (f KnnSearch) WithErrorTrace() func(*KnnSearchRequest) {
+	return func(r *KnnSearchRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f MonitoringBulk) WithFilterPath(v ...string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
+func (f KnnSearch) WithFilterPath(v ...string) func(*KnnSearchRequest) {
+	return func(r *KnnSearchRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f MonitoringBulk) WithHeader(h map[string]string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
+func (f KnnSearch) WithHeader(h map[string]string) func(*KnnSearchRequest) {
+	return func(r *KnnSearchRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -250,8 +222,8 @@ func (f MonitoringBulk) WithHeader(h map[string]string) func(*MonitoringBulkRequ
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f MonitoringBulk) WithOpaqueID(s string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
+func (f KnnSearch) WithOpaqueID(s string) func(*KnnSearchRequest) {
+	return func(r *KnnSearchRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

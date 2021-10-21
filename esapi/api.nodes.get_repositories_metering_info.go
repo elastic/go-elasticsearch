@@ -22,14 +22,12 @@ package esapi
 import (
 	"context"
 	"net/http"
-	"strconv"
 	"strings"
-	"time"
 )
 
-func newNodesInfoFunc(t Transport) NodesInfo {
-	return func(o ...func(*NodesInfoRequest)) (*Response, error) {
-		var r = NodesInfoRequest{}
+func newNodesGetRepositoriesMeteringInfoFunc(t Transport) NodesGetRepositoriesMeteringInfo {
+	return func(node_id []string, o ...func(*NodesGetRepositoriesMeteringInfoRequest)) (*Response, error) {
+		var r = NodesGetRepositoriesMeteringInfoRequest{NodeID: node_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -39,20 +37,18 @@ func newNodesInfoFunc(t Transport) NodesInfo {
 
 // ----- API Definition -------------------------------------------------------
 
-// NodesInfo returns information about nodes in the cluster.
+// NodesGetRepositoriesMeteringInfo returns cluster repositories metering information.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-info.html.
+// This API is experimental.
 //
-type NodesInfo func(o ...func(*NodesInfoRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-repositories-metering-api.html.
+//
+type NodesGetRepositoriesMeteringInfo func(node_id []string, o ...func(*NodesGetRepositoriesMeteringInfoRequest)) (*Response, error)
 
-// NodesInfoRequest configures the Nodes Info API request.
+// NodesGetRepositoriesMeteringInfoRequest configures the Nodes Get Repositories Metering Info API request.
 //
-type NodesInfoRequest struct {
-	Metric []string
+type NodesGetRepositoriesMeteringInfoRequest struct {
 	NodeID []string
-
-	FlatSettings *bool
-	Timeout      time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -66,7 +62,7 @@ type NodesInfoRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r NodesInfoRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r NodesGetRepositoriesMeteringInfoRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -75,27 +71,15 @@ func (r NodesInfoRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 	method = "GET"
 
-	path.Grow(1 + len("_nodes") + 1 + len(strings.Join(r.NodeID, ",")) + 1 + len(strings.Join(r.Metric, ",")))
+	path.Grow(1 + len("_nodes") + 1 + len(strings.Join(r.NodeID, ",")) + 1 + len("_repositories_metering"))
 	path.WriteString("/")
 	path.WriteString("_nodes")
-	if len(r.NodeID) > 0 {
-		path.WriteString("/")
-		path.WriteString(strings.Join(r.NodeID, ","))
-	}
-	if len(r.Metric) > 0 {
-		path.WriteString("/")
-		path.WriteString(strings.Join(r.Metric, ","))
-	}
+	path.WriteString("/")
+	path.WriteString(strings.Join(r.NodeID, ","))
+	path.WriteString("/")
+	path.WriteString("_repositories_metering")
 
 	params = make(map[string]string)
-
-	if r.FlatSettings != nil {
-		params["flat_settings"] = strconv.FormatBool(*r.FlatSettings)
-	}
-
-	if r.Timeout != 0 {
-		params["timeout"] = formatDuration(r.Timeout)
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -158,80 +142,48 @@ func (r NodesInfoRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 // WithContext sets the request context.
 //
-func (f NodesInfo) WithContext(v context.Context) func(*NodesInfoRequest) {
-	return func(r *NodesInfoRequest) {
+func (f NodesGetRepositoriesMeteringInfo) WithContext(v context.Context) func(*NodesGetRepositoriesMeteringInfoRequest) {
+	return func(r *NodesGetRepositoriesMeteringInfoRequest) {
 		r.ctx = v
-	}
-}
-
-// WithMetric - a list of metrics you wish returned. leave empty to return all metrics..
-//
-func (f NodesInfo) WithMetric(v ...string) func(*NodesInfoRequest) {
-	return func(r *NodesInfoRequest) {
-		r.Metric = v
-	}
-}
-
-// WithNodeID - a list of node ids or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes.
-//
-func (f NodesInfo) WithNodeID(v ...string) func(*NodesInfoRequest) {
-	return func(r *NodesInfoRequest) {
-		r.NodeID = v
-	}
-}
-
-// WithFlatSettings - return settings in flat format (default: false).
-//
-func (f NodesInfo) WithFlatSettings(v bool) func(*NodesInfoRequest) {
-	return func(r *NodesInfoRequest) {
-		r.FlatSettings = &v
-	}
-}
-
-// WithTimeout - explicit operation timeout.
-//
-func (f NodesInfo) WithTimeout(v time.Duration) func(*NodesInfoRequest) {
-	return func(r *NodesInfoRequest) {
-		r.Timeout = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f NodesInfo) WithPretty() func(*NodesInfoRequest) {
-	return func(r *NodesInfoRequest) {
+func (f NodesGetRepositoriesMeteringInfo) WithPretty() func(*NodesGetRepositoriesMeteringInfoRequest) {
+	return func(r *NodesGetRepositoriesMeteringInfoRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f NodesInfo) WithHuman() func(*NodesInfoRequest) {
-	return func(r *NodesInfoRequest) {
+func (f NodesGetRepositoriesMeteringInfo) WithHuman() func(*NodesGetRepositoriesMeteringInfoRequest) {
+	return func(r *NodesGetRepositoriesMeteringInfoRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f NodesInfo) WithErrorTrace() func(*NodesInfoRequest) {
-	return func(r *NodesInfoRequest) {
+func (f NodesGetRepositoriesMeteringInfo) WithErrorTrace() func(*NodesGetRepositoriesMeteringInfoRequest) {
+	return func(r *NodesGetRepositoriesMeteringInfoRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f NodesInfo) WithFilterPath(v ...string) func(*NodesInfoRequest) {
-	return func(r *NodesInfoRequest) {
+func (f NodesGetRepositoriesMeteringInfo) WithFilterPath(v ...string) func(*NodesGetRepositoriesMeteringInfoRequest) {
+	return func(r *NodesGetRepositoriesMeteringInfoRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f NodesInfo) WithHeader(h map[string]string) func(*NodesInfoRequest) {
-	return func(r *NodesInfoRequest) {
+func (f NodesGetRepositoriesMeteringInfo) WithHeader(h map[string]string) func(*NodesGetRepositoriesMeteringInfoRequest) {
+	return func(r *NodesGetRepositoriesMeteringInfoRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -243,8 +195,8 @@ func (f NodesInfo) WithHeader(h map[string]string) func(*NodesInfoRequest) {
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f NodesInfo) WithOpaqueID(s string) func(*NodesInfoRequest) {
-	return func(r *NodesInfoRequest) {
+func (f NodesGetRepositoriesMeteringInfo) WithOpaqueID(s string) func(*NodesGetRepositoriesMeteringInfoRequest) {
+	return func(r *NodesGetRepositoriesMeteringInfoRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

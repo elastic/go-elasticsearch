@@ -26,9 +26,9 @@ import (
 	"strings"
 )
 
-func newMonitoringBulkFunc(t Transport) MonitoringBulk {
-	return func(body io.Reader, o ...func(*MonitoringBulkRequest)) (*Response, error) {
-		var r = MonitoringBulkRequest{Body: body}
+func newMLPutTrainedModelVocabularyFunc(t Transport) MLPutTrainedModelVocabulary {
+	return func(body io.Reader, model_id string, o ...func(*MLPutTrainedModelVocabularyRequest)) (*Response, error) {
+		var r = MLPutTrainedModelVocabularyRequest{Body: body, ModelID: model_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -38,22 +38,20 @@ func newMonitoringBulkFunc(t Transport) MonitoringBulk {
 
 // ----- API Definition -------------------------------------------------------
 
-// MonitoringBulk - Used by the monitoring features to send monitoring data.
+// MLPutTrainedModelVocabulary - Creates a trained model vocabulary
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/monitor-elasticsearch-cluster.html.
+// This API is experimental.
 //
-type MonitoringBulk func(body io.Reader, o ...func(*MonitoringBulkRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/put-trained-model-vocabulary.html.
+//
+type MLPutTrainedModelVocabulary func(body io.Reader, model_id string, o ...func(*MLPutTrainedModelVocabularyRequest)) (*Response, error)
 
-// MonitoringBulkRequest configures the Monitoring Bulk API request.
+// MLPutTrainedModelVocabularyRequest configures the ML Put Trained Model Vocabulary API request.
 //
-type MonitoringBulkRequest struct {
+type MLPutTrainedModelVocabularyRequest struct {
 	Body io.Reader
 
-	DocumentType string
-
-	Interval         string
-	SystemAPIVersion string
-	SystemID         string
+	ModelID string
 
 	Pretty     bool
 	Human      bool
@@ -67,38 +65,26 @@ type MonitoringBulkRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r MonitoringBulkRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r MLPutTrainedModelVocabularyRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "POST"
+	method = "PUT"
 
-	path.Grow(1 + len("_monitoring") + 1 + len(r.DocumentType) + 1 + len("bulk"))
+	path.Grow(1 + len("_ml") + 1 + len("trained_models") + 1 + len(r.ModelID) + 1 + len("vocabulary"))
 	path.WriteString("/")
-	path.WriteString("_monitoring")
-	if r.DocumentType != "" {
-		path.WriteString("/")
-		path.WriteString(r.DocumentType)
-	}
+	path.WriteString("_ml")
 	path.WriteString("/")
-	path.WriteString("bulk")
+	path.WriteString("trained_models")
+	path.WriteString("/")
+	path.WriteString(r.ModelID)
+	path.WriteString("/")
+	path.WriteString("vocabulary")
 
 	params = make(map[string]string)
-
-	if r.Interval != "" {
-		params["interval"] = r.Interval
-	}
-
-	if r.SystemAPIVersion != "" {
-		params["system_api_version"] = r.SystemAPIVersion
-	}
-
-	if r.SystemID != "" {
-		params["system_id"] = r.SystemID
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -165,80 +151,48 @@ func (r MonitoringBulkRequest) Do(ctx context.Context, transport Transport) (*Re
 
 // WithContext sets the request context.
 //
-func (f MonitoringBulk) WithContext(v context.Context) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
+func (f MLPutTrainedModelVocabulary) WithContext(v context.Context) func(*MLPutTrainedModelVocabularyRequest) {
+	return func(r *MLPutTrainedModelVocabularyRequest) {
 		r.ctx = v
-	}
-}
-
-// WithDocumentType - default document type for items which don't provide one.
-//
-func (f MonitoringBulk) WithDocumentType(v string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
-		r.DocumentType = v
-	}
-}
-
-// WithInterval - collection interval (e.g., '10s' or '10000ms') of the payload.
-//
-func (f MonitoringBulk) WithInterval(v string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
-		r.Interval = v
-	}
-}
-
-// WithSystemAPIVersion - api version of the monitored system.
-//
-func (f MonitoringBulk) WithSystemAPIVersion(v string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
-		r.SystemAPIVersion = v
-	}
-}
-
-// WithSystemID - identifier of the monitored system.
-//
-func (f MonitoringBulk) WithSystemID(v string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
-		r.SystemID = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f MonitoringBulk) WithPretty() func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
+func (f MLPutTrainedModelVocabulary) WithPretty() func(*MLPutTrainedModelVocabularyRequest) {
+	return func(r *MLPutTrainedModelVocabularyRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f MonitoringBulk) WithHuman() func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
+func (f MLPutTrainedModelVocabulary) WithHuman() func(*MLPutTrainedModelVocabularyRequest) {
+	return func(r *MLPutTrainedModelVocabularyRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f MonitoringBulk) WithErrorTrace() func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
+func (f MLPutTrainedModelVocabulary) WithErrorTrace() func(*MLPutTrainedModelVocabularyRequest) {
+	return func(r *MLPutTrainedModelVocabularyRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f MonitoringBulk) WithFilterPath(v ...string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
+func (f MLPutTrainedModelVocabulary) WithFilterPath(v ...string) func(*MLPutTrainedModelVocabularyRequest) {
+	return func(r *MLPutTrainedModelVocabularyRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f MonitoringBulk) WithHeader(h map[string]string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
+func (f MLPutTrainedModelVocabulary) WithHeader(h map[string]string) func(*MLPutTrainedModelVocabularyRequest) {
+	return func(r *MLPutTrainedModelVocabularyRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -250,8 +204,8 @@ func (f MonitoringBulk) WithHeader(h map[string]string) func(*MonitoringBulkRequ
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f MonitoringBulk) WithOpaqueID(s string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
+func (f MLPutTrainedModelVocabulary) WithOpaqueID(s string) func(*MLPutTrainedModelVocabularyRequest) {
+	return func(r *MLPutTrainedModelVocabularyRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

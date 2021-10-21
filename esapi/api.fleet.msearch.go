@@ -26,9 +26,9 @@ import (
 	"strings"
 )
 
-func newMonitoringBulkFunc(t Transport) MonitoringBulk {
-	return func(body io.Reader, o ...func(*MonitoringBulkRequest)) (*Response, error) {
-		var r = MonitoringBulkRequest{Body: body}
+func newFleetMsearchFunc(t Transport) FleetMsearch {
+	return func(body io.Reader, o ...func(*FleetMsearchRequest)) (*Response, error) {
+		var r = FleetMsearchRequest{Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -38,22 +38,18 @@ func newMonitoringBulkFunc(t Transport) MonitoringBulk {
 
 // ----- API Definition -------------------------------------------------------
 
-// MonitoringBulk - Used by the monitoring features to send monitoring data.
+// FleetMsearch multi Search API where the search will only be executed after specified checkpoints are available due to a refresh. This API is designed for internal use by the fleet server project.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/monitor-elasticsearch-cluster.html.
+// This API is experimental.
 //
-type MonitoringBulk func(body io.Reader, o ...func(*MonitoringBulkRequest)) (*Response, error)
+type FleetMsearch func(body io.Reader, o ...func(*FleetMsearchRequest)) (*Response, error)
 
-// MonitoringBulkRequest configures the Monitoring Bulk API request.
+// FleetMsearchRequest configures the Fleet Msearch API request.
 //
-type MonitoringBulkRequest struct {
+type FleetMsearchRequest struct {
+	Index string
+
 	Body io.Reader
-
-	DocumentType string
-
-	Interval         string
-	SystemAPIVersion string
-	SystemID         string
 
 	Pretty     bool
 	Human      bool
@@ -67,7 +63,7 @@ type MonitoringBulkRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r MonitoringBulkRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r FleetMsearchRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -76,29 +72,17 @@ func (r MonitoringBulkRequest) Do(ctx context.Context, transport Transport) (*Re
 
 	method = "POST"
 
-	path.Grow(1 + len("_monitoring") + 1 + len(r.DocumentType) + 1 + len("bulk"))
-	path.WriteString("/")
-	path.WriteString("_monitoring")
-	if r.DocumentType != "" {
+	path.Grow(1 + len(r.Index) + 1 + len("_fleet") + 1 + len("_msearch"))
+	if r.Index != "" {
 		path.WriteString("/")
-		path.WriteString(r.DocumentType)
+		path.WriteString(r.Index)
 	}
 	path.WriteString("/")
-	path.WriteString("bulk")
+	path.WriteString("_fleet")
+	path.WriteString("/")
+	path.WriteString("_msearch")
 
 	params = make(map[string]string)
-
-	if r.Interval != "" {
-		params["interval"] = r.Interval
-	}
-
-	if r.SystemAPIVersion != "" {
-		params["system_api_version"] = r.SystemAPIVersion
-	}
-
-	if r.SystemID != "" {
-		params["system_id"] = r.SystemID
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -165,80 +149,56 @@ func (r MonitoringBulkRequest) Do(ctx context.Context, transport Transport) (*Re
 
 // WithContext sets the request context.
 //
-func (f MonitoringBulk) WithContext(v context.Context) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
+func (f FleetMsearch) WithContext(v context.Context) func(*FleetMsearchRequest) {
+	return func(r *FleetMsearchRequest) {
 		r.ctx = v
 	}
 }
 
-// WithDocumentType - default document type for items which don't provide one.
+// WithIndex - the index name to use as the default.
 //
-func (f MonitoringBulk) WithDocumentType(v string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
-		r.DocumentType = v
-	}
-}
-
-// WithInterval - collection interval (e.g., '10s' or '10000ms') of the payload.
-//
-func (f MonitoringBulk) WithInterval(v string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
-		r.Interval = v
-	}
-}
-
-// WithSystemAPIVersion - api version of the monitored system.
-//
-func (f MonitoringBulk) WithSystemAPIVersion(v string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
-		r.SystemAPIVersion = v
-	}
-}
-
-// WithSystemID - identifier of the monitored system.
-//
-func (f MonitoringBulk) WithSystemID(v string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
-		r.SystemID = v
+func (f FleetMsearch) WithIndex(v string) func(*FleetMsearchRequest) {
+	return func(r *FleetMsearchRequest) {
+		r.Index = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f MonitoringBulk) WithPretty() func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
+func (f FleetMsearch) WithPretty() func(*FleetMsearchRequest) {
+	return func(r *FleetMsearchRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f MonitoringBulk) WithHuman() func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
+func (f FleetMsearch) WithHuman() func(*FleetMsearchRequest) {
+	return func(r *FleetMsearchRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f MonitoringBulk) WithErrorTrace() func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
+func (f FleetMsearch) WithErrorTrace() func(*FleetMsearchRequest) {
+	return func(r *FleetMsearchRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f MonitoringBulk) WithFilterPath(v ...string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
+func (f FleetMsearch) WithFilterPath(v ...string) func(*FleetMsearchRequest) {
+	return func(r *FleetMsearchRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f MonitoringBulk) WithHeader(h map[string]string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
+func (f FleetMsearch) WithHeader(h map[string]string) func(*FleetMsearchRequest) {
+	return func(r *FleetMsearchRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -250,8 +210,8 @@ func (f MonitoringBulk) WithHeader(h map[string]string) func(*MonitoringBulkRequ
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f MonitoringBulk) WithOpaqueID(s string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
+func (f FleetMsearch) WithOpaqueID(s string) func(*FleetMsearchRequest) {
+	return func(r *FleetMsearchRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

@@ -39,8 +39,6 @@ func newSecurityGetServiceAccountsFunc(t Transport) SecurityGetServiceAccounts {
 
 // SecurityGetServiceAccounts - Retrieves information about service accounts.
 //
-// This API is beta.
-//
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-service-accounts.html.
 //
 type SecurityGetServiceAccounts func(o ...func(*SecurityGetServiceAccountsRequest)) (*Response, error)

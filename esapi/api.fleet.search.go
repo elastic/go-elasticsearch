@@ -23,12 +23,14 @@ import (
 	"context"
 	"io"
 	"net/http"
+	"strconv"
 	"strings"
+	"time"
 )
 
-func newMonitoringBulkFunc(t Transport) MonitoringBulk {
-	return func(body io.Reader, o ...func(*MonitoringBulkRequest)) (*Response, error) {
-		var r = MonitoringBulkRequest{Body: body}
+func newFleetSearchFunc(t Transport) FleetSearch {
+	return func(index string, o ...func(*FleetSearchRequest)) (*Response, error) {
+		var r = FleetSearchRequest{Index: index}
 		for _, f := range o {
 			f(&r)
 		}
@@ -38,22 +40,22 @@ func newMonitoringBulkFunc(t Transport) MonitoringBulk {
 
 // ----- API Definition -------------------------------------------------------
 
-// MonitoringBulk - Used by the monitoring features to send monitoring data.
+// FleetSearch search API where the search will only be executed after specified checkpoints are available due to a refresh. This API is designed for internal use by the fleet server project.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/monitor-elasticsearch-cluster.html.
+// This API is experimental.
 //
-type MonitoringBulk func(body io.Reader, o ...func(*MonitoringBulkRequest)) (*Response, error)
+type FleetSearch func(index string, o ...func(*FleetSearchRequest)) (*Response, error)
 
-// MonitoringBulkRequest configures the Monitoring Bulk API request.
+// FleetSearchRequest configures the Fleet Search API request.
 //
-type MonitoringBulkRequest struct {
+type FleetSearchRequest struct {
+	Index string
+
 	Body io.Reader
 
-	DocumentType string
-
-	Interval         string
-	SystemAPIVersion string
-	SystemID         string
+	AllowPartialSearchResults *bool
+	WaitForCheckpoints        []string
+	WaitForCheckpointsTimeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -67,7 +69,7 @@ type MonitoringBulkRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r MonitoringBulkRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r FleetSearchRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -76,28 +78,26 @@ func (r MonitoringBulkRequest) Do(ctx context.Context, transport Transport) (*Re
 
 	method = "POST"
 
-	path.Grow(1 + len("_monitoring") + 1 + len(r.DocumentType) + 1 + len("bulk"))
+	path.Grow(1 + len(r.Index) + 1 + len("_fleet") + 1 + len("_search"))
 	path.WriteString("/")
-	path.WriteString("_monitoring")
-	if r.DocumentType != "" {
-		path.WriteString("/")
-		path.WriteString(r.DocumentType)
-	}
+	path.WriteString(r.Index)
 	path.WriteString("/")
-	path.WriteString("bulk")
+	path.WriteString("_fleet")
+	path.WriteString("/")
+	path.WriteString("_search")
 
 	params = make(map[string]string)
 
-	if r.Interval != "" {
-		params["interval"] = r.Interval
+	if r.AllowPartialSearchResults != nil {
+		params["allow_partial_search_results"] = strconv.FormatBool(*r.AllowPartialSearchResults)
 	}
 
-	if r.SystemAPIVersion != "" {
-		params["system_api_version"] = r.SystemAPIVersion
+	if len(r.WaitForCheckpoints) > 0 {
+		params["wait_for_checkpoints"] = strings.Join(r.WaitForCheckpoints, ",")
 	}
 
-	if r.SystemID != "" {
-		params["system_id"] = r.SystemID
+	if r.WaitForCheckpointsTimeout != 0 {
+		params["wait_for_checkpoints_timeout"] = formatDuration(r.WaitForCheckpointsTimeout)
 	}
 
 	if r.Pretty {
@@ -165,80 +165,80 @@ func (r MonitoringBulkRequest) Do(ctx context.Context, transport Transport) (*Re
 
 // WithContext sets the request context.
 //
-func (f MonitoringBulk) WithContext(v context.Context) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
+func (f FleetSearch) WithContext(v context.Context) func(*FleetSearchRequest) {
+	return func(r *FleetSearchRequest) {
 		r.ctx = v
 	}
 }
 
-// WithDocumentType - default document type for items which don't provide one.
+// WithBody - The search definition using the Query DSL.
 //
-func (f MonitoringBulk) WithDocumentType(v string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
-		r.DocumentType = v
+func (f FleetSearch) WithBody(v io.Reader) func(*FleetSearchRequest) {
+	return func(r *FleetSearchRequest) {
+		r.Body = v
 	}
 }
 
-// WithInterval - collection interval (e.g., '10s' or '10000ms') of the payload.
+// WithAllowPartialSearchResults - indicate if an error should be returned if there is a partial search failure or timeout.
 //
-func (f MonitoringBulk) WithInterval(v string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
-		r.Interval = v
+func (f FleetSearch) WithAllowPartialSearchResults(v bool) func(*FleetSearchRequest) {
+	return func(r *FleetSearchRequest) {
+		r.AllowPartialSearchResults = &v
 	}
 }
 
-// WithSystemAPIVersion - api version of the monitored system.
+// WithWaitForCheckpoints - comma separated list of checkpoints, one per shard.
 //
-func (f MonitoringBulk) WithSystemAPIVersion(v string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
-		r.SystemAPIVersion = v
+func (f FleetSearch) WithWaitForCheckpoints(v ...string) func(*FleetSearchRequest) {
+	return func(r *FleetSearchRequest) {
+		r.WaitForCheckpoints = v
 	}
 }
 
-// WithSystemID - identifier of the monitored system.
+// WithWaitForCheckpointsTimeout - explicit wait_for_checkpoints timeout.
 //
-func (f MonitoringBulk) WithSystemID(v string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
-		r.SystemID = v
+func (f FleetSearch) WithWaitForCheckpointsTimeout(v time.Duration) func(*FleetSearchRequest) {
+	return func(r *FleetSearchRequest) {
+		r.WaitForCheckpointsTimeout = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f MonitoringBulk) WithPretty() func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
+func (f FleetSearch) WithPretty() func(*FleetSearchRequest) {
+	return func(r *FleetSearchRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f MonitoringBulk) WithHuman() func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
+func (f FleetSearch) WithHuman() func(*FleetSearchRequest) {
+	return func(r *FleetSearchRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f MonitoringBulk) WithErrorTrace() func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
+func (f FleetSearch) WithErrorTrace() func(*FleetSearchRequest) {
+	return func(r *FleetSearchRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f MonitoringBulk) WithFilterPath(v ...string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
+func (f FleetSearch) WithFilterPath(v ...string) func(*FleetSearchRequest) {
+	return func(r *FleetSearchRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f MonitoringBulk) WithHeader(h map[string]string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
+func (f FleetSearch) WithHeader(h map[string]string) func(*FleetSearchRequest) {
+	return func(r *FleetSearchRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -250,8 +250,8 @@ func (f MonitoringBulk) WithHeader(h map[string]string) func(*MonitoringBulkRequ
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f MonitoringBulk) WithOpaqueID(s string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
+func (f FleetSearch) WithOpaqueID(s string) func(*FleetSearchRequest) {
+	return func(r *FleetSearchRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
