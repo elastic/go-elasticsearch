@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 7.x (821f36b): DO NOT EDIT
+// Code generated from specification version 7.16.0 (58d84cd): DO NOT EDIT
 
 package esapi
 
@@ -85,6 +85,8 @@ type API struct {
 	FeaturesResetFeatures                         FeaturesResetFeatures
 	FieldCaps                                     FieldCaps
 	FleetGlobalCheckpoints                        FleetGlobalCheckpoints
+	FleetMsearch                                  FleetMsearch
+	FleetSearch                                   FleetSearch
 	Get                                           Get
 	GetScriptContext                              GetScriptContext
 	GetScriptLanguages                            GetScriptLanguages
@@ -141,6 +143,7 @@ type API struct {
 	TransformStartTransform                       TransformStartTransform
 	TransformStopTransform                        TransformStopTransform
 	TransformUpdateTransform                      TransformUpdateTransform
+	TransformUpgradeTransforms                    TransformUpgradeTransforms
 	UpdateByQuery                                 UpdateByQuery
 	UpdateByQueryRethrottle                       UpdateByQueryRethrottle
 	Update                                        Update
@@ -230,6 +233,7 @@ type Indices struct {
 	GetTemplate           IndicesGetTemplate
 	GetUpgrade            IndicesGetUpgrade
 	MigrateToDataStream   IndicesMigrateToDataStream
+	ModifyDataStream      IndicesModifyDataStream
 	Open                  IndicesOpen
 	PromoteDataStream     IndicesPromoteDataStream
 	PutAlias              IndicesPutAlias
@@ -358,7 +362,9 @@ type License struct {
 
 // Migration contains the Migration APIs
 type Migration struct {
-	Deprecations MigrationDeprecations
+	Deprecations            MigrationDeprecations
+	GetFeatureUpgradeStatus MigrationGetFeatureUpgradeStatus
+	PostFeatureUpgrade      MigrationPostFeatureUpgrade
 }
 
 // ML contains the ML APIs
@@ -574,6 +580,8 @@ func New(t Transport) *API {
 		FeaturesResetFeatures:                         newFeaturesResetFeaturesFunc(t),
 		FieldCaps:                                     newFieldCapsFunc(t),
 		FleetGlobalCheckpoints:                        newFleetGlobalCheckpointsFunc(t),
+		FleetMsearch:                                  newFleetMsearchFunc(t),
+		FleetSearch:                                   newFleetSearchFunc(t),
 		Get:                                           newGetFunc(t),
 		GetScriptContext:                              newGetScriptContextFunc(t),
 		GetScriptLanguages:                            newGetScriptLanguagesFunc(t),
@@ -630,6 +638,7 @@ func New(t Transport) *API {
 		TransformStartTransform:                       newTransformStartTransformFunc(t),
 		TransformStopTransform:                        newTransformStopTransformFunc(t),
 		TransformUpdateTransform:                      newTransformUpdateTransformFunc(t),
+		TransformUpgradeTransforms:                    newTransformUpgradeTransformsFunc(t),
 		UpdateByQuery:                                 newUpdateByQueryFunc(t),
 		UpdateByQueryRethrottle:                       newUpdateByQueryRethrottleFunc(t),
 		Update:                                        newUpdateFunc(t),
@@ -712,6 +721,7 @@ func New(t Transport) *API {
 			GetTemplate:           newIndicesGetTemplateFunc(t),
 			GetUpgrade:            newIndicesGetUpgradeFunc(t),
 			MigrateToDataStream:   newIndicesMigrateToDataStreamFunc(t),
+			ModifyDataStream:      newIndicesModifyDataStreamFunc(t),
 			Open:                  newIndicesOpenFunc(t),
 			PromoteDataStream:     newIndicesPromoteDataStreamFunc(t),
 			PutAlias:              newIndicesPutAliasFunc(t),
@@ -819,7 +829,9 @@ func New(t Transport) *API {
 			PostStartTrial: newLicensePostStartTrialFunc(t),
 		},
 		Migration: &Migration{
-			Deprecations: newMigrationDeprecationsFunc(t),
+			Deprecations:            newMigrationDeprecationsFunc(t),
+			GetFeatureUpgradeStatus: newMigrationGetFeatureUpgradeStatusFunc(t),
+			PostFeatureUpgrade:      newMigrationPostFeatureUpgradeFunc(t),
 		},
 		ML: &ML{
 			CloseJob:                   newMLCloseJobFunc(t),

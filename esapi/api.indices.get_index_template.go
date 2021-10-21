@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 7.x: DO NOT EDIT
+// Code generated from specification version 7.16.0: DO NOT EDIT
 
 package esapi
 
@@ -48,7 +48,7 @@ type IndicesGetIndexTemplate func(o ...func(*IndicesGetIndexTemplateRequest)) (*
 // IndicesGetIndexTemplateRequest configures the Indices Get Index Template API request.
 //
 type IndicesGetIndexTemplateRequest struct {
-	Name []string
+	Name string
 
 	FlatSettings  *bool
 	Local         *bool
@@ -75,12 +75,12 @@ func (r IndicesGetIndexTemplateRequest) Do(ctx context.Context, transport Transp
 
 	method = "GET"
 
-	path.Grow(1 + len("_index_template") + 1 + len(strings.Join(r.Name, ",")))
+	path.Grow(1 + len("_index_template") + 1 + len(r.Name))
 	path.WriteString("/")
 	path.WriteString("_index_template")
-	if len(r.Name) > 0 {
+	if r.Name != "" {
 		path.WriteString("/")
-		path.WriteString(strings.Join(r.Name, ","))
+		path.WriteString(r.Name)
 	}
 
 	params = make(map[string]string)
@@ -164,9 +164,9 @@ func (f IndicesGetIndexTemplate) WithContext(v context.Context) func(*IndicesGet
 	}
 }
 
-// WithName - the comma separated names of the index templates.
+// WithName - a pattern that returned template names must match.
 //
-func (f IndicesGetIndexTemplate) WithName(v ...string) func(*IndicesGetIndexTemplateRequest) {
+func (f IndicesGetIndexTemplate) WithName(v string) func(*IndicesGetIndexTemplateRequest) {
 	return func(r *IndicesGetIndexTemplateRequest) {
 		r.Name = v
 	}

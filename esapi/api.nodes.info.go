@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 7.x: DO NOT EDIT
+// Code generated from specification version 7.16.0: DO NOT EDIT
 
 package esapi
 
@@ -164,7 +164,7 @@ func (f NodesInfo) WithContext(v context.Context) func(*NodesInfoRequest) {
 	}
 }
 
-// WithMetric - a list of metrics you wish returned. leave empty to return all..
+// WithMetric - a list of metrics you wish returned. leave empty to return all metrics..
 //
 func (f NodesInfo) WithMetric(v ...string) func(*NodesInfoRequest) {
 	return func(r *NodesInfoRequest) {
