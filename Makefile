@@ -187,7 +187,7 @@ ifeq ($(origin commits), undefined)
 	@exit 2
 endif
 ifndef branches
-	$(eval branches_list = '7.x' '6.x' '5.x')
+	$(eval branches_list = '7.16' '6.x' '5.x')
 else
 	$(eval branches_list = $(shell echo $(branches) | tr ',' ' ') )
 endif
