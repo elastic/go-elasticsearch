@@ -54,6 +54,7 @@ type Config struct {
 	CloudID      string // Endpoint for the Elastic Service (https://elastic.co/cloud).
 	APIKey       string // Base64-encoded token for authorization; if set, overrides username/password and service token.
 	ServiceToken string // Service token for authorization; if set, overrides username/password.
+	Fingerprint  string // sha256 hex Fingerprint given by Elasticsearch on first launch.
 
 	Header http.Header // Global HTTP request header.
 
@@ -166,6 +167,7 @@ func NewClient(cfg Config) (*Client, error) {
 		Password:     cfg.Password,
 		APIKey:       cfg.APIKey,
 		ServiceToken: cfg.ServiceToken,
+		Fingerprint:  cfg.Fingerprint,
 
 		Header: cfg.Header,
 		CACert: cfg.CACert,
