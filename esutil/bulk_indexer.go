@@ -107,7 +107,7 @@ type BulkIndexerItem struct {
 	Action          string
 	DocumentID      string
 	Routing         string
-	Version         int64
+	Version         *int64
 	VersionType     string
 	Body            io.Reader
 	RetryOnConflict *int
@@ -412,10 +412,10 @@ func (w *worker) writeMeta(item BulkIndexerItem) error {
 		w.aux = w.aux[:0]
 	}
 
-	if item.DocumentID != "" && item.Version != 0 {
+	if item.DocumentID != "" && item.Version != nil {
 		w.buf.WriteRune(',')
 		w.buf.WriteString(`"version":`)
-		w.buf.WriteString(strconv.FormatInt(item.Version, 10))
+		w.buf.WriteString(strconv.FormatInt(*item.Version, 10))
 	}
 
 	if item.DocumentID != "" && item.VersionType != "" {
