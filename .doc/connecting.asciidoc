@@ -62,7 +62,7 @@ es, err := elasticsearch.NewClient(cfg)
 
 [discrete]
 [[compatibility-mode]]
-==== Compatibility Mode
+==== Compatibility mode
 
 {es} server 8.0 introduces a compatibility mode allowing for a smoother transition from 7 to 8.
 Using the compatibility mode, the client sends versioned headers with each request instructing the server on the expected behaviour.
