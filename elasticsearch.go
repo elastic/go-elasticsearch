@@ -82,13 +82,14 @@ type Config struct {
 	EnableRetryOnTimeout bool  // Default: false.
 	MaxRetries           int   // Default: 3.
 
-	CompressRequestBody bool // Default: false.
+	CompressRequestBody  bool // Default: false.
+	DiscoverNodesOnStart bool // Discover nodes when initializing the client. Default: false.
 
-	DiscoverNodesOnStart  bool          // Discover nodes when initializing the client. Default: false.
 	DiscoverNodesInterval time.Duration // Discover nodes periodically. Default: disabled.
 
-	EnableMetrics     bool // Enable the metrics collection.
-	EnableDebugLogger bool // Enable the debug logging.
+	EnableMetrics           bool // Enable the metrics collection.
+	EnableDebugLogger       bool // Enable the debug logging.
+	EnableCompatibilityMode bool // Enable sends compatibility header
 
 	DisableMetaHeader    bool // Disable the additional "X-Elastic-Client-Meta" HTTP header.
 	UseResponseCheckOnly bool
@@ -204,6 +205,7 @@ func NewClient(cfg Config) (*Client, error) {
 		RetryBackoff:         cfg.RetryBackoff,
 
 		CompressRequestBody: cfg.CompressRequestBody,
+		CompatibilityHeader: cfg.EnableCompatibilityMode,
 
 		EnableMetrics:     cfg.EnableMetrics,
 		EnableDebugLogger: cfg.EnableDebugLogger,
