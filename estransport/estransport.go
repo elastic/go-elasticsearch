@@ -92,6 +92,7 @@ type Config struct {
 	RetryBackoff         func(attempt int) time.Duration
 
 	CompressRequestBody bool
+	CompatibilityHeader bool
 
 	EnableMetrics     bool
 	EnableDebugLogger bool
@@ -129,6 +130,7 @@ type Client struct {
 	discoverNodesTimer    *time.Timer
 
 	compressRequestBody bool
+	compatibilityHeader bool
 
 	metrics *metrics
 
@@ -194,6 +196,7 @@ func New(cfg Config) (*Client, error) {
 		discoverNodesInterval: cfg.DiscoverNodesInterval,
 
 		compressRequestBody: cfg.CompressRequestBody,
+		compatibilityHeader: cfg.CompatibilityHeader,
 
 		transport: cfg.Transport,
 		logger:    cfg.Logger,
@@ -240,7 +243,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	)
 
 	// Compatibility Header
-	if compatibilityHeader {
+	if compatibilityHeader || c.compatibilityHeader {
 		if req.Body != nil {
 			req.Header.Set("Content-Type", "application/vnd.elasticsearch+json;compatible-with=7")
 		}

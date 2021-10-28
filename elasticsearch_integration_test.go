@@ -158,6 +158,23 @@ func TestClientTransport(t *testing.T) {
 			t.Fatalf("Expected net.OpError, but got: %T", err)
 		}
 	})
+
+	t.Run("Compatibility Header", func(t *testing.T) {
+		client, err := elasticsearch.NewClient(elasticsearch.Config{EnableCompatibilityMode: true})
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		res, err := client.Info()
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		contentType := res.Header.Get("content-type")
+		if contentType != "application/vnd.elasticsearch+json;compatible-with=7" {
+			t.Fatalf("Unexpected content-type header, want \"application/vnd.elasticsearch+json;compatible-with=7\", got: %s", contentType)
+		}
+	})
 }
 
 type CustomTransport struct {

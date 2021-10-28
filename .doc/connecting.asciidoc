@@ -60,6 +60,19 @@ cfg := elasticsearch.Config{
 es, err := elasticsearch.NewClient(cfg)
 ------------------------------------
 
+[discrete]
+[[compatibility-mode]]
+==== Compatibility Mode
+
+Elasticsearch server 8.0 introduces a new compatibility mode allowing for a smoother transition from 7 to 8.
+Using the compatibility mode, the client sends versioned headers with each request instructing the server on the expected behaviour.
+------------------------------------
+Content-Type: application/vnd.elasticsearch+json; compatible-with=7
+Accept: application/vnd.elasticsearch+json; compatible-with=7
+------------------------------------
+This allows you to update the server first, then the client.
+
+To enable this, the latest 7.x client can use the environment variable `ELASTIC_CLIENT_APIVERSIONING` or the configuration option `config.EnableCompatibilityMode` in the client Config.
 
 [discrete]
 [[client-usage]]

@@ -696,6 +696,7 @@ func TestResponseCheckOnly(t *testing.T) {
 	}
 }
 
+
 func TestProductCheckError(t *testing.T) {
 	var requestPaths []string
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -730,4 +731,46 @@ func TestProductCheckError(t *testing.T) {
 	if !c.productCheckSuccess {
 		t.Fatalf("product check should be valid, got : %v", c.productCheckSuccess)
 	}
+}
+
+
+func TestCompatibilityHeader(t *testing.T) {
+	client, err := NewClient(Config{
+		Transport: &mockTransp{RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+			if request.URL.Path == "/" || request.URL.Path == "/test-index/_search" {
+				accept := request.Header.Get("Accept")
+				if accept != "application/vnd.elasticsearch+json;compatible-with=7" {
+					t.Fatalf("Invalid header, expected: %s, got: %s",
+						"application/vnd.elasticsearch+json;compatible-with=7",
+						accept,
+					)
+				}
+
+				if request.URL.Path == "/test-index/_search" {
+					contentType := request.Header.Get("Content-Type")
+					if contentType != "application/vnd.elasticsearch+json;compatible-with=7" {
+						t.Fatalf("Invalid header, expected: %s, got: %s",
+							"application/vnd.elasticsearch+json;compatible-with=7",
+							contentType,
+						)
+					}
+				}
+			} else {
+				t.Fatal("Unexpected route called")
+			}
+
+			return defaultRoundTripFunc(request)
+		}},
+		Addresses:               []string{"http://127.0.0.1:9200"},
+		EnableCompatibilityMode: true,
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	client.Info()
+	client.Search(
+		client.Search.WithIndex("test-index"),
+		client.Search.WithBody(strings.NewReader("{}")),
+	)
 }
