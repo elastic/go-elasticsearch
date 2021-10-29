@@ -51,9 +51,10 @@ type Config struct {
 	Username  string   // Username for HTTP Basic Authentication.
 	Password  string   // Password for HTTP Basic Authentication.
 
-	CloudID      string // Endpoint for the Elastic Service (https://elastic.co/cloud).
-	APIKey       string // Base64-encoded token for authorization; if set, overrides username/password and service token.
-	ServiceToken string // Service token for authorization; if set, overrides username/password.
+	CloudID                string // Endpoint for the Elastic Service (https://elastic.co/cloud).
+	APIKey                 string // Base64-encoded token for authorization; if set, overrides username/password and service token.
+	ServiceToken           string // Service token for authorization; if set, overrides username/password.
+	CertificateFingerprint string // SHA256 hex fingerprint given by Elasticsearch on first launch.
 
 	Header http.Header // Global HTTP request header.
 
@@ -161,11 +162,12 @@ func NewClient(cfg Config) (*Client, error) {
 	}
 
 	tp, err := estransport.New(estransport.Config{
-		URLs:         urls,
-		Username:     cfg.Username,
-		Password:     cfg.Password,
-		APIKey:       cfg.APIKey,
-		ServiceToken: cfg.ServiceToken,
+		URLs:                   urls,
+		Username:               cfg.Username,
+		Password:               cfg.Password,
+		APIKey:                 cfg.APIKey,
+		ServiceToken:           cfg.ServiceToken,
+		CertificateFingerprint: cfg.CertificateFingerprint,
 
 		Header: cfg.Header,
 		CACert: cfg.CACert,

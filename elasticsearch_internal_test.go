@@ -20,6 +20,8 @@
 package elasticsearch
 
 import (
+	"bytes"
+	"crypto/x509"
 	"encoding/base64"
 	"errors"
 	"io/ioutil"
@@ -467,5 +469,42 @@ func TestProductCheckError(t *testing.T) {
 	}
 	if !c.productCheckSuccess {
 		t.Fatalf("product check should be valid, got : %v", c.productCheckSuccess)
+	}
+}
+
+
+func TestFingerprint(t *testing.T) {
+	body := []byte(`{"body": true"}"`)
+	server := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("X-Elastic-Product", "Elasticsearch")
+		w.Write(body)
+	}))
+	defer server.Close()
+
+	config := Config{
+		Addresses: []string{server.URL},
+		DisableRetry: true,
+	}
+
+	// Without certificate and authority, client should fail on TLS
+	client, _ := NewClient(config)
+	res, err := client.Info()
+	if _, ok := err.(x509.UnknownAuthorityError); !ok {
+		t.Fatalf("Uknown error, expected UnknownAuthorityError, got: %s", err)
+	}
+
+	// We add the fingerprint corresponding ton testcert.LocalhostCert
+	//
+	config.CertificateFingerprint = "448F628A8A65AA18560E53A80C53ACB38C51B427DF0334082349141147DC9BF6"
+	client, _ = NewClient(config)
+	res, err = client.Info()
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer res.Body.Close()
+
+	data, _ := ioutil.ReadAll(res.Body)
+	if bytes.Compare(data, body) != 0 {
+		t.Fatalf("unexpected payload returned: expected: %s, got: %s", body, data)
 	}
 }
