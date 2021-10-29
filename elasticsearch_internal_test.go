@@ -495,7 +495,7 @@ func TestFingerprint(t *testing.T) {
 
 	// We add the fingerprint corresponding ton testcert.LocalhostCert
 	//
-	config.Fingerprint = "448F628A8A65AA18560E53A80C53ACB38C51B427DF0334082349141147DC9BF6"
+	config.CertificateFingerprint = "448F628A8A65AA18560E53A80C53ACB38C51B427DF0334082349141147DC9BF6"
 	client, _ = NewClient(config)
 	res, err = client.Info()
 	if err != nil {

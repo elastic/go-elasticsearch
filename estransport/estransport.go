@@ -109,7 +109,7 @@ type Config struct {
 
 	ConnectionPoolFunc func([]*Connection, Selector) ConnectionPool
 
-	Fingerprint string
+	CertificateFingerprint string
 }
 
 // Client represents the HTTP client.
@@ -155,9 +155,9 @@ func New(cfg Config) (*Client, error) {
 	}
 
 	if transport, ok := cfg.Transport.(*http.Transport); ok {
-		if cfg.Fingerprint != "" {
+		if cfg.CertificateFingerprint != "" {
 			transport.DialTLS = func(network, addr string) (net.Conn, error) {
-				fingerprint, _ := hex.DecodeString(cfg.Fingerprint)
+				fingerprint, _ := hex.DecodeString(cfg.CertificateFingerprint)
 
 				c, err := tls.Dial(network, addr, &tls.Config{InsecureSkipVerify: true})
 				if err != nil {
@@ -175,7 +175,7 @@ func New(cfg Config) (*Client, error) {
 						return c, nil
 					}
 				}
-				return nil, fmt.Errorf("fingerprint mismatch, provided: %s", cfg.Fingerprint)
+				return nil, fmt.Errorf("fingerprint mismatch, provided: %s", cfg.CertificateFingerprint)
 			}
 		}
 	}
