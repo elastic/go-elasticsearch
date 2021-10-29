@@ -593,8 +593,8 @@ func TestBulkIndexer(t *testing.T) {
 			t.Errorf("Unexpected NumAdded: %d", stats.NumAdded)
 		}
 	})
-
 	t.Run("Worker.writeMeta()", func(t *testing.T) {
+		v:=int64(23)
 		type args struct {
 			item BulkIndexerItem
 		}
@@ -638,7 +638,7 @@ func TestBulkIndexer(t *testing.T) {
 				args{BulkIndexerItem{
 					Action:     "index",
 					Index:      "test",
-					Version:    23,
+					Version:    &v,
 				}},
 				`{"index":{"_index":"test"}}` + "\n",
 			},
@@ -648,7 +648,7 @@ func TestBulkIndexer(t *testing.T) {
 					Action:     "index",
 					DocumentID: "42",
 					Index:      "test",
-					Version:    23,
+					Version:    &v,
 				}},
 				`{"index":{"_id":"42","version":23,"_index":"test"}}` + "\n",
 			},
@@ -658,7 +658,7 @@ func TestBulkIndexer(t *testing.T) {
 					Action:      "index",
 					DocumentID:  "42",
 					Index:       "test",
-					Version:     23,
+					Version:     &v,
 					VersionType: "external",
 				}},
 				`{"index":{"_id":"42","version":23,"version_type":"external","_index":"test"}}` + "\n",
