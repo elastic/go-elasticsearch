@@ -60,6 +60,13 @@ cfg := elasticsearch.Config{
 es, err := elasticsearch.NewClient(cfg)
 ------------------------------------
 
+[discrete]
+[[compatibility-mode]]
+=== Compatibility mode
+
+The {es} server version 8.0 is introducing a new compatibility mode that allows you a smoother upgrade experience from 7 to 8. In a nutshell, you can use the latest 7.x `go-elasticsearch` Elasticsearch client with an 8.x Elasticsearch server, giving more room to coordinate the upgrade of your codebase to the next major version.
+
+If you want to leverage this functionality, please make sure that you are using the latest 7.x `go-elasticsearch` client and set the environment variable `ELASTIC_CLIENT_APIVERSIONING` to `true` or the configuration option `config.EnableCompatibilityMode` in the client `Config`. The client is handling the rest internally. For every 8.0 and beyond `go-elasticsearch` client, you're all set! The compatibility mode is enabled by default.
 
 [discrete]
 [[client-usage]]
