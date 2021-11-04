@@ -49,8 +49,7 @@ type MLGetDatafeedStats func(o ...func(*MLGetDatafeedStatsRequest)) (*Response, 
 type MLGetDatafeedStatsRequest struct {
 	DatafeedID string
 
-	AllowNoDatafeeds *bool
-	AllowNoMatch     *bool
+	AllowNoMatch *bool
 
 	Pretty     bool
 	Human      bool
@@ -86,10 +85,6 @@ func (r MLGetDatafeedStatsRequest) Do(ctx context.Context, transport Transport) 
 	path.WriteString("_stats")
 
 	params = make(map[string]string)
-
-	if r.AllowNoDatafeeds != nil {
-		params["allow_no_datafeeds"] = strconv.FormatBool(*r.AllowNoDatafeeds)
-	}
 
 	if r.AllowNoMatch != nil {
 		params["allow_no_match"] = strconv.FormatBool(*r.AllowNoMatch)
@@ -167,14 +162,6 @@ func (f MLGetDatafeedStats) WithContext(v context.Context) func(*MLGetDatafeedSt
 func (f MLGetDatafeedStats) WithDatafeedID(v string) func(*MLGetDatafeedStatsRequest) {
 	return func(r *MLGetDatafeedStatsRequest) {
 		r.DatafeedID = v
-	}
-}
-
-// WithAllowNoDatafeeds - whether to ignore if a wildcard expression matches no datafeeds. (this includes `_all` string or when no datafeeds have been specified).
-//
-func (f MLGetDatafeedStats) WithAllowNoDatafeeds(v bool) func(*MLGetDatafeedStatsRequest) {
-	return func(r *MLGetDatafeedStatsRequest) {
-		r.AllowNoDatafeeds = &v
 	}
 }
 
