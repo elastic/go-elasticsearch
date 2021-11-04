@@ -49,14 +49,13 @@ type CatMLDatafeeds func(o ...func(*CatMLDatafeedsRequest)) (*Response, error)
 type CatMLDatafeedsRequest struct {
 	DatafeedID string
 
-	AllowNoDatafeeds *bool
-	AllowNoMatch     *bool
-	Format           string
-	H                []string
-	Help             *bool
-	S                []string
-	Time             string
-	V                *bool
+	AllowNoMatch *bool
+	Format       string
+	H            []string
+	Help         *bool
+	S            []string
+	Time         string
+	V            *bool
 
 	Pretty     bool
 	Human      bool
@@ -92,10 +91,6 @@ func (r CatMLDatafeedsRequest) Do(ctx context.Context, transport Transport) (*Re
 	}
 
 	params = make(map[string]string)
-
-	if r.AllowNoDatafeeds != nil {
-		params["allow_no_datafeeds"] = strconv.FormatBool(*r.AllowNoDatafeeds)
-	}
 
 	if r.AllowNoMatch != nil {
 		params["allow_no_match"] = strconv.FormatBool(*r.AllowNoMatch)
@@ -197,14 +192,6 @@ func (f CatMLDatafeeds) WithContext(v context.Context) func(*CatMLDatafeedsReque
 func (f CatMLDatafeeds) WithDatafeedID(v string) func(*CatMLDatafeedsRequest) {
 	return func(r *CatMLDatafeedsRequest) {
 		r.DatafeedID = v
-	}
-}
-
-// WithAllowNoDatafeeds - whether to ignore if a wildcard expression matches no datafeeds. (this includes `_all` string or when no datafeeds have been specified).
-//
-func (f CatMLDatafeeds) WithAllowNoDatafeeds(v bool) func(*CatMLDatafeedsRequest) {
-	return func(r *CatMLDatafeedsRequest) {
-		r.AllowNoDatafeeds = &v
 	}
 }
 

@@ -53,7 +53,6 @@ type MLGetOverallBucketsRequest struct {
 
 	JobID string
 
-	AllowNoJobs    *bool
 	AllowNoMatch   *bool
 	BucketSpan     string
 	End            string
@@ -96,10 +95,6 @@ func (r MLGetOverallBucketsRequest) Do(ctx context.Context, transport Transport)
 	path.WriteString("overall_buckets")
 
 	params = make(map[string]string)
-
-	if r.AllowNoJobs != nil {
-		params["allow_no_jobs"] = strconv.FormatBool(*r.AllowNoJobs)
-	}
 
 	if r.AllowNoMatch != nil {
 		params["allow_no_match"] = strconv.FormatBool(*r.AllowNoMatch)
@@ -205,14 +200,6 @@ func (f MLGetOverallBuckets) WithContext(v context.Context) func(*MLGetOverallBu
 func (f MLGetOverallBuckets) WithBody(v io.Reader) func(*MLGetOverallBucketsRequest) {
 	return func(r *MLGetOverallBucketsRequest) {
 		r.Body = v
-	}
-}
-
-// WithAllowNoJobs - whether to ignore if a wildcard expression matches no jobs. (this includes `_all` string or when no jobs have been specified).
-//
-func (f MLGetOverallBuckets) WithAllowNoJobs(v bool) func(*MLGetOverallBucketsRequest) {
-	return func(r *MLGetOverallBucketsRequest) {
-		r.AllowNoJobs = &v
 	}
 }
 

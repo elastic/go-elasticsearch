@@ -49,7 +49,6 @@ type MLGetJobs func(o ...func(*MLGetJobsRequest)) (*Response, error)
 type MLGetJobsRequest struct {
 	JobID string
 
-	AllowNoJobs      *bool
 	AllowNoMatch     *bool
 	ExcludeGenerated *bool
 
@@ -85,10 +84,6 @@ func (r MLGetJobsRequest) Do(ctx context.Context, transport Transport) (*Respons
 	}
 
 	params = make(map[string]string)
-
-	if r.AllowNoJobs != nil {
-		params["allow_no_jobs"] = strconv.FormatBool(*r.AllowNoJobs)
-	}
 
 	if r.AllowNoMatch != nil {
 		params["allow_no_match"] = strconv.FormatBool(*r.AllowNoMatch)
@@ -170,14 +165,6 @@ func (f MLGetJobs) WithContext(v context.Context) func(*MLGetJobsRequest) {
 func (f MLGetJobs) WithJobID(v string) func(*MLGetJobsRequest) {
 	return func(r *MLGetJobsRequest) {
 		r.JobID = v
-	}
-}
-
-// WithAllowNoJobs - whether to ignore if a wildcard expression matches no jobs. (this includes `_all` string or when no jobs have been specified).
-//
-func (f MLGetJobs) WithAllowNoJobs(v bool) func(*MLGetJobsRequest) {
-	return func(r *MLGetJobsRequest) {
-		r.AllowNoJobs = &v
 	}
 }
 
