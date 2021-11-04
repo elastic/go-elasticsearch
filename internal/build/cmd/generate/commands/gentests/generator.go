@@ -977,6 +977,8 @@ func (g *Generator) genVarSection(t Test, skipBody ...bool) {
 }
 
 func (g *Generator) genAction(a Action, skipBody ...bool) {
+	varDetection := regexp.MustCompile(".*(\\$\\{(\\w+)\\}).*")
+
 	// Initialize the request
 	g.w("\t\treq = esapi." + a.Request() + "{\n")
 
@@ -1016,10 +1018,25 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 			if k == "Body" {
 				g.w("\t\t\t" + k + ": ")
 				body := v.(string)
-				if !strings.HasSuffix(body, "\n") {
-					body = body + "\n"
+
+				if varDetection.MatchString(body) {
+					g.w("strings.NewReader(strings.NewReplacer(")
+
+					matchs := varDetection.FindAllStringSubmatch(body, -1)
+					for _, match := range matchs {
+						bodyVar := match[1]
+						stashVar := fmt.Sprintf(`stash["$%s"].(string)`, match[2])
+
+						g.w(fmt.Sprintf("`%s`, %s", bodyVar, stashVar))
+					}
+					g.w(").Replace(`" + body + "`))")
+				} else {
+					if !strings.HasSuffix(body, "\n") {
+						body = body + "\n"
+					}
+					g.w("strings.NewReader(`" + body + "`)")
 				}
-				g.w("strings.NewReader(`" + body + "`)")
+
 			} else {
 				g.w("\t\t\t" + k + ": ")
 				// TODO: Handle comma separated strings as lists

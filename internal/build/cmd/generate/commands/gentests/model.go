@@ -697,6 +697,8 @@ default:
 						" || \n" +
 						`strings.TrimSpace(fmt.Sprintf("%s", ` + escape(subject) + `)) != `
 					if strings.HasPrefix(expected, "$") {
+						// Remove brackets if we compare to a stashed value replaced in the body.
+						expected = strings.NewReplacer("{", "", "}", "").Replace(expected)
 						output += `strings.TrimSpace(fmt.Sprintf("%s", ` + `stash["` + expected + `"]` + `))`
 					} else {
 						output += `strings.TrimSpace(fmt.Sprintf("%s", ` + strconv.Quote(expected) + `))`
