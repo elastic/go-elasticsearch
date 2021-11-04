@@ -49,7 +49,6 @@ var skipFiles = []string{
 }
 
 // TODO: Comments into descriptions for `Skip()`
-//
 var skipTestsYAML = `
 ---
 # Cannot distinguish between missing value for refresh and an empty string
@@ -338,6 +337,9 @@ nodes.stats/11_indices_metrics.yml:
   - Metric - blank for indices shards
   - Metric - _all for indices shards
   - indices shards total count test
+  - Metric - blank for indices shard_stats
+  - Metric - _all for indices shard_stats
+  - indices shard_stats total count test
 
 searchable_snapshots/10_usage.yml:
   - Tests searchable snapshots usage stats with full_copy and shared_cache indices
@@ -346,3 +348,4 @@ searchable_snapshots/10_usage.yml:
 service_accounts/10_basic.yml:
   - Test service account tokens
 `
+//
