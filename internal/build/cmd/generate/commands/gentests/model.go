@@ -697,6 +697,8 @@ default:
 						" || \n" +
 						`strings.TrimSpace(fmt.Sprintf("%s", ` + escape(subject) + `)) != `
 					if strings.HasPrefix(expected, "$") {
+						// Remove brackets if we compare to a stashed value replaced in the body.
+						expected = strings.NewReplacer("{", "", "}", "").Replace(expected)
 						output += `strings.TrimSpace(fmt.Sprintf("%s", ` + `stash["` + expected + `"]` + `))`
 					} else {
 						output += `strings.TrimSpace(fmt.Sprintf("%s", ` + strconv.Quote(expected) + `))`
@@ -886,7 +888,7 @@ func expand(s string, format ...string) string {
 			}
 			b.WriteString("[")
 			if strings.HasPrefix(v, "$") {
-				b.WriteString(fmt.Sprintf(`stash["%s"].(string)`, strings.Trim(v,`"`))) // Remove the quotes from keys
+				b.WriteString(fmt.Sprintf(`stash["%s"].(string)`, strings.Trim(v, `"`))) // Remove the quotes from keys
 			} else {
 				b.WriteString(`"`)
 				b.WriteString(strings.Trim(v, `"`)) // Remove the quotes from keys
