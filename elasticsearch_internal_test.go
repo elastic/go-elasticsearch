@@ -15,6 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
+//go:build !integration
 // +build !integration
 
 package elasticsearch
@@ -389,10 +390,10 @@ func TestClientMetrics(t *testing.T) {
 
 func TestResponseCheckOnly(t *testing.T) {
 	tests := []struct {
-		name                 string
-		response             *http.Response
-		requestErr           error
-		wantErr              bool
+		name       string
+		response   *http.Response
+		requestErr error
+		wantErr    bool
 	}{
 		{
 			name: "Valid answer with header",
@@ -410,13 +411,61 @@ func TestResponseCheckOnly(t *testing.T) {
 			wantErr: true,
 		},
 		{
-			name: "Valid answer with http error code",
+			name: "Valid answer with header and response check",
 			response: &http.Response{
-				StatusCode: http.StatusUnauthorized,
 				Header: http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
-				Body:       ioutil.NopCloser(strings.NewReader("{}")),
+				Body:   ioutil.NopCloser(strings.NewReader("{}")),
 			},
 			wantErr: false,
+		},
+		{
+			name: "Valid answer without header and response check",
+			response: &http.Response{
+				Body: ioutil.NopCloser(strings.NewReader("{}")),
+			},
+			wantErr: true,
+		},
+		{
+			name:       "Request failed",
+			response:   nil,
+			requestErr: errors.New("request failed"),
+			wantErr:    true,
+		},
+		{
+			name: "Valid request, 500 response",
+			response: &http.Response{
+				StatusCode: http.StatusInternalServerError,
+				Body:       ioutil.NopCloser(strings.NewReader("")),
+			},
+			requestErr: nil,
+			wantErr:    true,
+		},
+		{
+			name: "Valid request, 404 response",
+			response: &http.Response{
+				StatusCode: http.StatusNotFound,
+				Body:       ioutil.NopCloser(strings.NewReader("")),
+			},
+			requestErr: nil,
+			wantErr:    true,
+		},
+		{
+			name: "Valid request, 403 response",
+			response: &http.Response{
+				StatusCode: http.StatusForbidden,
+				Body:       ioutil.NopCloser(strings.NewReader("")),
+			},
+			requestErr: nil,
+			wantErr:    false,
+		},
+		{
+			name: "Valid request, 401 response",
+			response: &http.Response{
+				StatusCode: http.StatusUnauthorized,
+				Body:       ioutil.NopCloser(strings.NewReader("")),
+			},
+			requestErr: nil,
+			wantErr:    false,
 		},
 	}
 
@@ -434,7 +483,6 @@ func TestResponseCheckOnly(t *testing.T) {
 		})
 	}
 }
-
 
 func TestProductCheckError(t *testing.T) {
 	var requestPaths []string
@@ -472,7 +520,6 @@ func TestProductCheckError(t *testing.T) {
 	}
 }
 
-
 func TestFingerprint(t *testing.T) {
 	body := []byte(`{"body": true"}"`)
 	server := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -482,7 +529,7 @@ func TestFingerprint(t *testing.T) {
 	defer server.Close()
 
 	config := Config{
-		Addresses: []string{server.URL},
+		Addresses:    []string{server.URL},
 		DisableRetry: true,
 	}
 

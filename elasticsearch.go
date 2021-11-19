@@ -212,14 +212,15 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	// Retrieve the original request.
 	res, err := c.Transport.Perform(req)
 
-	// ResponseCheck path continues, we run the header check on the first answer from ES.
-	if err == nil {
+	// ResponseCheck, we run the header check on the first answer from ES.
+	if err == nil && (res.StatusCode != http.StatusForbidden && res.StatusCode != http.StatusUnauthorized) {
 		checkHeader := func() error { return genuineCheckHeader(res.Header) }
 		if err := c.doProductCheck(checkHeader); err != nil {
 			res.Body.Close()
 			return nil, err
 		}
 	}
+
 	return res, err
 }
 
