@@ -213,7 +213,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	res, err := c.Transport.Perform(req)
 
 	// ResponseCheck, we run the header check on the first answer from ES.
-	if err == nil && (res.StatusCode != http.StatusForbidden && res.StatusCode != http.StatusUnauthorized) {
+	if err == nil && (res.StatusCode >= 200 && res.StatusCode < 300) {
 		checkHeader := func() error { return genuineCheckHeader(res.Header) }
 		if err := c.doProductCheck(checkHeader); err != nil {
 			res.Body.Close()

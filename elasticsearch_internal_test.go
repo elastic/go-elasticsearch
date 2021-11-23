@@ -406,6 +406,7 @@ func TestResponseCheckOnly(t *testing.T) {
 		{
 			name: "Valid answer without header",
 			response: &http.Response{
+				StatusCode: http.StatusOK,
 				Body: ioutil.NopCloser(strings.NewReader("{}")),
 			},
 			wantErr: true,
@@ -421,6 +422,7 @@ func TestResponseCheckOnly(t *testing.T) {
 		{
 			name: "Valid answer without header and response check",
 			response: &http.Response{
+				StatusCode: http.StatusOK,
 				Body: ioutil.NopCloser(strings.NewReader("{}")),
 			},
 			wantErr: true,
@@ -438,7 +440,7 @@ func TestResponseCheckOnly(t *testing.T) {
 				Body:       ioutil.NopCloser(strings.NewReader("")),
 			},
 			requestErr: nil,
-			wantErr:    true,
+			wantErr:    false,
 		},
 		{
 			name: "Valid request, 404 response",
@@ -447,7 +449,7 @@ func TestResponseCheckOnly(t *testing.T) {
 				Body:       ioutil.NopCloser(strings.NewReader("")),
 			},
 			requestErr: nil,
-			wantErr:    true,
+			wantErr:    false,
 		},
 		{
 			name: "Valid request, 403 response",
@@ -494,14 +496,15 @@ func TestProductCheckError(t *testing.T) {
 			w.WriteHeader(http.StatusBadGateway)
 			return
 		}
+
 		w.Header().Set("X-Elastic-Product", "Elasticsearch")
 		w.Write([]byte("{}"))
 	}))
 	defer server.Close()
 
 	c, _ := NewClient(Config{Addresses: []string{server.URL}, DisableRetry: true})
-	if _, err := c.Cat.Indices(); err == nil {
-		t.Fatal("expected error")
+	if _, err := c.Cat.Indices(); err != nil {
+		t.Fatalf("unexpected error: %s", err)
 	}
 	if c.productCheckSuccess {
 		t.Fatalf("product check should be invalid, got %v", c.productCheckSuccess)
