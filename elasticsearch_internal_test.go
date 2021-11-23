@@ -630,6 +630,7 @@ func TestResponseCheckOnly(t *testing.T) {
 			name:                 "Valid answer without header and response check",
 			useResponseCheckOnly: true,
 			response: &http.Response{
+				StatusCode: http.StatusOK,
 				Body: ioutil.NopCloser(strings.NewReader("{}")),
 			},
 			wantErr: true,

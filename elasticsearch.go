@@ -304,7 +304,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	res, err := c.Transport.Perform(req)
 
 	// ResponseCheck path continues, we run the header check on the first answer from ES.
-	if err == nil {
+	if err == nil && (res.StatusCode >= 200 && res.StatusCode < 300){
 		checkHeader := func(context.Context) error {
 			return genuineCheckHeader(res.Header)
 		}
