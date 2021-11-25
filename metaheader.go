@@ -1,4 +1,3 @@
-// Licensed to Elasticsearch B.V. under one or more contributor
 // license agreements. See the NOTICE file distributed with
 // this work for additional information regarding copyright
 // ownership. Elasticsearch B.V. licenses this file to you under
@@ -15,7 +14,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
-package estransport
+package elasticsearch
 
 import (
 	"regexp"
@@ -27,7 +26,14 @@ import (
 // each request to Elasticsearch.
 const HeaderClientMeta = "x-elastic-client-meta"
 
-var metaReVersion = regexp.MustCompile("([0-9.]+)(.*)")
+var (
+	metaHeader    string
+	metaReVersion = regexp.MustCompile("([0-9.]+)(.*)")
+)
+
+func init() {
+	metaHeader = initMetaHeader()
+}
 
 func initMetaHeader() string {
 	var b strings.Builder

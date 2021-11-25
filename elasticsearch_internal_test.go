@@ -35,7 +35,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/elastic/go-elasticsearch/v8/estransport"
+	estransport "github.com/elastic/elastic-transport-go"
 )
 
 var called bool

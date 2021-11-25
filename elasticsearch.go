@@ -24,25 +24,34 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"regexp"
+	"runtime"
 	"strings"
 	"sync"
 	"time"
 
 	"github.com/elastic/go-elasticsearch/v8/esapi"
-	"github.com/elastic/go-elasticsearch/v8/estransport"
 	"github.com/elastic/go-elasticsearch/v8/internal/version"
+
+	estransport "github.com/elastic/elastic-transport-go"
 )
 
 const (
 	defaultURL = "http://localhost:9200"
-)
 
-// Version returns the package version as a string.
-//
-const (
+	// Version returns the package version as a string.
 	Version        = version.Client
 	unknownProduct = "the client noticed that the server is not Elasticsearch and we do not support this unknown product"
 )
+
+var (
+	userAgent           string
+	reGoVersion         = regexp.MustCompile(`go(\d+\.\d+\..+)`)
+)
+
+func init() {
+	userAgent = initUserAgent()
+}
 
 // Config represents the client configuration.
 //
@@ -94,6 +103,7 @@ type Client struct {
 	*esapi.API // Embeds the API methods
 	Transport  estransport.Interface
 
+	disableMetaHeader   bool
 	productCheckMu      sync.RWMutex
 	productCheckSuccess bool
 }
@@ -162,6 +172,8 @@ func NewClient(cfg Config) (*Client, error) {
 	}
 
 	tp, err := estransport.New(estransport.Config{
+		UserAgent: userAgent,
+
 		URLs:                   urls,
 		Username:               cfg.Username,
 		Password:               cfg.Password,
@@ -183,8 +195,6 @@ func NewClient(cfg Config) (*Client, error) {
 		EnableMetrics:     cfg.EnableMetrics,
 		EnableDebugLogger: cfg.EnableDebugLogger,
 
-		DisableMetaHeader: cfg.DisableMetaHeader,
-
 		DiscoverNodesInterval: cfg.DiscoverNodesInterval,
 
 		Transport:          cfg.Transport,
@@ -196,7 +206,10 @@ func NewClient(cfg Config) (*Client, error) {
 		return nil, fmt.Errorf("error creating transport: %s", err)
 	}
 
-	client := &Client{Transport: tp}
+	client := &Client{
+		Transport: tp,
+		disableMetaHeader: cfg.DisableMetaHeader,
+	}
 	client.API = esapi.New(client)
 
 	if cfg.DiscoverNodesOnStart {
@@ -209,6 +222,17 @@ func NewClient(cfg Config) (*Client, error) {
 // Perform delegates to Transport to execute a request and return a response.
 //
 func (c *Client) Perform(req *http.Request) (*http.Response, error) {
+	if !c.disableMetaHeader {
+		existingMetaHeader := req.Header.Get(HeaderClientMeta)
+		if existingMetaHeader != "" {
+			req.Header.Set(HeaderClientMeta, strings.Join([]string{metaHeader, existingMetaHeader}, ","))
+		} else {
+			req.Header.Add(HeaderClientMeta, metaHeader)
+		}
+	} else {
+		req.Header.Del(HeaderClientMeta)
+	}
+
 	// Retrieve the original request.
 	res, err := c.Transport.Perform(req)
 
@@ -330,4 +354,27 @@ func addrFromCloudID(input string) (string, error) {
 	}
 
 	return fmt.Sprintf("%s%s.%s", scheme, parts[1], parts[0]), nil
+}
+
+func initUserAgent() string {
+	var b strings.Builder
+
+	b.WriteString("go-elasticsearch")
+	b.WriteRune('/')
+	b.WriteString(Version)
+	b.WriteRune(' ')
+	b.WriteRune('(')
+	b.WriteString(runtime.GOOS)
+	b.WriteRune(' ')
+	b.WriteString(runtime.GOARCH)
+	b.WriteString("; ")
+	b.WriteString("Go ")
+	if v := reGoVersion.ReplaceAllString(runtime.Version(), "$1"); v != "" {
+		b.WriteString(v)
+	} else {
+		b.WriteString(runtime.Version())
+	}
+	b.WriteRune(')')
+
+	return b.String()
 }

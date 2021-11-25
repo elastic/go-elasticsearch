@@ -1,4 +1,3 @@
-// Licensed to Elasticsearch B.V. under one or more contributor
 // license agreements. See the NOTICE file distributed with
 // this work for additional information regarding copyright
 // ownership. Elasticsearch B.V. licenses this file to you under
@@ -15,14 +14,13 @@
 // specific language governing permissions and limitations
 // under the License.
 
-package estransport
+package elasticsearch
 
 import (
+	"github.com/elastic/go-elasticsearch/v8/internal/version"
 	"regexp"
 	"runtime"
 	"testing"
-
-	"github.com/elastic/go-elasticsearch/v8/internal/version"
 )
 
 var (

@@ -37,7 +37,7 @@ import (
 	"golang.org/x/crypto/ssh/terminal"
 
 	"github.com/elastic/go-elasticsearch/v8"
-	"github.com/elastic/go-elasticsearch/v8/estransport"
+	estransport "github.com/elastic/elastic-transport-go"
 )
 
 var (
