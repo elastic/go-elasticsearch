@@ -33,7 +33,7 @@ import (
 	"github.com/elastic/go-elasticsearch/v8/esapi"
 	"github.com/elastic/go-elasticsearch/v8/internal/version"
 
-	estransport "github.com/elastic/elastic-transport-go"
+	"github.com/elastic/elastic-transport-go/v8/estransport"
 )
 
 const (

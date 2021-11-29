@@ -32,7 +32,7 @@ import (
 	"strings"
 
 	"github.com/elastic/go-elasticsearch/v8"
-	estransport "github.com/elastic/elastic-transport-go"
+	"github.com/elastic/elastic-transport-go/v8/estransport"
 )
 
 func main() {

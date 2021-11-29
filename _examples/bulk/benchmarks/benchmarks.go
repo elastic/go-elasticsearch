@@ -42,7 +42,7 @@ import (
 	"github.com/valyala/fasthttp"
 
 	"github.com/elastic/go-elasticsearch/v8"
-	estransport "github.com/elastic/elastic-transport-go"
+	"github.com/elastic/elastic-transport-go/v8/estransport"
 	"github.com/elastic/go-elasticsearch/v8/esutil"
 
 	"github.com/elastic/go-elasticsearch/v8/_examples/bulk/benchmarks/model"
