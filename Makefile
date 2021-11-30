@@ -34,11 +34,11 @@ endif
   		export ELASTICSEARCH_URL='http://elastic:elastic@localhost:9200'; \
 		echo "gotestsum --format=short-verbose --junitfile=tmp/integration-report.xml --" $(testintegargs); \
 		gotestsum --format=short-verbose --junitfile=tmp/integration-report.xml -- $(testintegargs) "."; \
-		gotestsum --format=short-verbose --junitfile=tmp/integration-report.xml -- $(testintegargs) "./estransport" "./esapi" "./esutil"; \
+		gotestsum --format=short-verbose --junitfile=tmp/integration-report.xml -- $(testintegargs) "./esapi" "./esutil"; \
 	else \
 	  	export ELASTICSEARCH_URL='http://elastic:elastic@localhost:9200'; \
 		echo "go test -v" $(testintegargs) "."; \
-		go test -v $(testintegargs) "./estransport" "./esapi" "./esutil"; \
+		go test -v $(testintegargs) "./esapi" "./esutil"; \
 	fi;
 
 test-api:  ## Run generated API integration tests
@@ -263,7 +263,6 @@ godoc: ## Display documentation for the package
 	@printf "\033[2m→ Generating documentation...\033[0m\n"
 	@echo "* http://localhost:6060/pkg/github.com/elastic/go-elasticsearch/v8"
 	@echo "* http://localhost:6060/pkg/github.com/elastic/go-elasticsearch/v8/esapi"
-	@echo "* http://localhost:6060/pkg/github.com/elastic/go-elasticsearch/v8/estransport"
 	@echo "* http://localhost:6060/pkg/github.com/elastic/go-elasticsearch/v8/esutil"
 	@printf "\n"
 	godoc --http=localhost:6060 --play
