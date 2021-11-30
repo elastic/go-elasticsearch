@@ -23,7 +23,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/elastic/elastic-transport-go/v8/estransport"
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
@@ -76,7 +76,7 @@ func init() {
 				)
 
 				var addresses []string
-				for _, u := range c.RunnerClient.Transport.(*estransport.Client).URLs() {
+				for _, u := range c.RunnerClient.Transport.(*elastictransport.Client).URLs() {
 					addresses = append(addresses, u.String())
 				}
 

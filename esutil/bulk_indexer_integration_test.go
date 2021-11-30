@@ -31,7 +31,7 @@ import (
 	"time"
 
 	"github.com/elastic/go-elasticsearch/v8"
-	"github.com/elastic/elastic-transport-go/v8/estransport"
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/esutil"
 )
 
@@ -60,7 +60,7 @@ func TestBulkIndexerIntegration(t *testing.T) {
 
 				es, _ := elasticsearch.NewClient(elasticsearch.Config{
 					CompressRequestBody: tt.CompressRequestBodyEnabled,
-					Logger:              &estransport.ColorLogger{Output: os.Stdout},
+					Logger:              &elastictransport.ColorLogger{Output: os.Stdout},
 				})
 
 				es.Indices.Delete([]string{indexName}, es.Indices.Delete.WithIgnoreUnavailable(true))
@@ -126,7 +126,7 @@ func TestBulkIndexerIntegration(t *testing.T) {
 			t.Run("Multiple indices", func(t *testing.T) {
 				es, _ := elasticsearch.NewClient(elasticsearch.Config{
 					CompressRequestBody: tt.CompressRequestBodyEnabled,
-					Logger:              &estransport.ColorLogger{Output: os.Stdout},
+					Logger:              &elastictransport.ColorLogger{Output: os.Stdout},
 				})
 
 				bi, _ := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
@@ -194,7 +194,7 @@ func TestBulkIndexerIntegration(t *testing.T) {
 
 				es, _ := elasticsearch.NewClient(elasticsearch.Config{
 					CompressRequestBody: tt.CompressRequestBodyEnabled,
-					Logger:              &estransport.ColorLogger{Output: os.Stdout},
+					Logger:              &elastictransport.ColorLogger{Output: os.Stdout},
 				})
 
 				es.Indices.Delete([]string{index}, es.Indices.Delete.WithIgnoreUnavailable(true))

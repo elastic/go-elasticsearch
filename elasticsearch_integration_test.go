@@ -35,7 +35,7 @@ import (
 
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
-	"github.com/elastic/elastic-transport-go/v8/estransport"
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 )
 
 func TestClientTransport(t *testing.T) {
@@ -197,7 +197,7 @@ func TestClientCustomTransport(t *testing.T) {
 	})
 
 	t.Run("Manual", func(t *testing.T) {
-		tp, _ := estransport.New(estransport.Config{
+		tp, _ := elastictransportansport.New(elastictransportansport.Config{
 			URLs: []*url.URL{
 				{Scheme: "http", Host: "localhost:9200"},
 			},

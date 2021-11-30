@@ -38,7 +38,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/elastic/elastic-transport-go/v8/estransport"
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8"
 )
 
@@ -214,7 +214,7 @@ func TestBulkIndexer(t *testing.T) {
 			},
 		}
 		if os.Getenv("DEBUG") != "" {
-			esCfg.Logger = &estransport.ColorLogger{
+			esCfg.Logger = &elastictransport.ColorLogger{
 				Output:             os.Stdout,
 				EnableRequestBody:  true,
 				EnableResponseBody: true,
@@ -519,7 +519,7 @@ func TestBulkIndexer(t *testing.T) {
 			},
 		}
 		if os.Getenv("DEBUG") != "" {
-			esCfg.Logger = &estransport.ColorLogger{Output: os.Stdout}
+			esCfg.Logger = &elastictransport.ColorLogger{Output: os.Stdout}
 		}
 		es, _ := elasticsearch.NewClient(esCfg)
 

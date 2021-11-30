@@ -37,7 +37,7 @@ import (
 	"golang.org/x/crypto/ssh/terminal"
 
 	"github.com/elastic/go-elasticsearch/v8"
-	"github.com/elastic/elastic-transport-go/v8/estransport"
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 )
 
 var (
@@ -92,7 +92,7 @@ func main() {
 				"http://localhost:10003",
 			},
 
-			Logger:            &estransport.ColorLogger{Output: os.Stdout},
+			Logger:            &elastictransport.ColorLogger{Output: os.Stdout},
 			DisableRetry:      true,
 			EnableDebugLogger: true,
 

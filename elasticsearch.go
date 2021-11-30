@@ -33,7 +33,7 @@ import (
 	"github.com/elastic/go-elasticsearch/v8/esapi"
 	"github.com/elastic/go-elasticsearch/v8/internal/version"
 
-	"github.com/elastic/elastic-transport-go/v8/estransport"
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 )
 
 const (
@@ -90,18 +90,18 @@ type Config struct {
 	RetryBackoff func(attempt int) time.Duration // Optional backoff duration. Default: nil.
 
 	Transport http.RoundTripper    // The HTTP transport object.
-	Logger    estransport.Logger   // The logger object.
-	Selector  estransport.Selector // The selector object.
+	Logger    elastictransport.Logger   // The logger object.
+	Selector  elastictransport.Selector // The selector object.
 
 	// Optional constructor function for a custom ConnectionPool. Default: nil.
-	ConnectionPoolFunc func([]*estransport.Connection, estransport.Selector) estransport.ConnectionPool
+	ConnectionPoolFunc func([]*elastictransport.Connection, elastictransport.Selector) elastictransport.ConnectionPool
 }
 
 // Client represents the Elasticsearch client.
 //
 type Client struct {
 	*esapi.API // Embeds the API methods
-	Transport  estransport.Interface
+	Transport  elastictransport.Interface
 
 	disableMetaHeader   bool
 	productCheckMu      sync.RWMutex
@@ -171,7 +171,7 @@ func NewClient(cfg Config) (*Client, error) {
 		cfg.Password = pw
 	}
 
-	tp, err := estransport.New(estransport.Config{
+	tp, err := elastictransport.New(elastictransport.Config{
 		UserAgent: userAgent,
 
 		URLs:                   urls,
@@ -286,17 +286,17 @@ func genuineCheckHeader(header http.Header) error {
 
 // Metrics returns the client metrics.
 //
-func (c *Client) Metrics() (estransport.Metrics, error) {
-	if mt, ok := c.Transport.(estransport.Measurable); ok {
+func (c *Client) Metrics() (elastictransport.Metrics, error) {
+	if mt, ok := c.Transport.(elastictransport.Measurable); ok {
 		return mt.Metrics()
 	}
-	return estransport.Metrics{}, errors.New("transport is missing method Metrics()")
+	return elastictransport.Metrics{}, errors.New("transport is missing method Metrics()")
 }
 
 // DiscoverNodes reloads the client connections by fetching information from the cluster.
 //
 func (c *Client) DiscoverNodes() error {
-	if dt, ok := c.Transport.(estransport.Discoverable); ok {
+	if dt, ok := c.Transport.(elastictransport.Discoverable); ok {
 		return dt.DiscoverNodes()
 	}
 	return errors.New("transport is missing method DiscoverNodes()")
