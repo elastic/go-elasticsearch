@@ -3,13 +3,20 @@
     "_meta": {
       "version": "8-SNAPSHOT"
     },
-
     "properties": {
-      "count": { "type": "long" },
-      "tags":  { "type": "keyword" },
-      "time":  { "type": "date" },
-      "title": { "type": "text" }
+      "count": {
+        "type": "long"
+      },
+      "tags": {
+        "type": "keyword"
+      },
+      "time": {
+        "type": "date"
+      },
+      "title": {
+        "type": "text"
       }
     }
   }
+}
 }
