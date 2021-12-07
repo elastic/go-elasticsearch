@@ -19,38 +19,38 @@ package gentests
 
 import (
 	"fmt"
-  "strings"
+	"strings"
 
-  "gopkg.in/yaml.v2"
+	"gopkg.in/yaml.v2"
 )
 
 var skipTests map[string][]string
 
 func init() {
-  err := yaml.NewDecoder(strings.NewReader(skipTestsYAML)).Decode(&skipTests)
-  if err != nil {
-    panic(fmt.Sprintf("ERROR: %v", err))
-  }
+	err := yaml.NewDecoder(strings.NewReader(skipTestsYAML)).Decode(&skipTests)
+	if err != nil {
+		panic(fmt.Sprintf("ERROR: %v", err))
+	}
 }
 
 var skipFiles = []string{
-  "update/85_fields_meta.yml",            // Uses non-existing API property
-  "update/86_fields_meta_with_types.yml", // --||--
+	"update/85_fields_meta.yml",            // Uses non-existing API property
+	"update/86_fields_meta_with_types.yml", // --||--
 
-  "ml/jobs_get_result_buckets.yml",    // Passes string value to int variable
-  "ml/jobs_get_result_categories.yml", // --||--
-  "ml/set_upgrade_mode.yml",           // --||--
+	"ml/jobs_get_result_buckets.yml",    // Passes string value to int variable
+	"ml/jobs_get_result_categories.yml", // --||--
+	"ml/set_upgrade_mode.yml",           // --||--
 
-  "ml/evaluate_data_frame.yml", // Floats as map keys
+	"ml/evaluate_data_frame.yml", // Floats as map keys
 
-  "search/320_disallow_queries.yml", // Tries to match key in an empty map (`transient:{}`)
+	"search/320_disallow_queries.yml", // Tries to match key in an empty map (`transient:{}`)
 
-  "watcher/stats/10_basic.yml", // Sets "emit_stacktraces" as string ("true"), not bool
+	"watcher/stats/10_basic.yml", // Sets "emit_stacktraces" as string ("true"), not bool
 
-  "search.highlight/20_fvh.yml", // bad backslash
+	"search.highlight/20_fvh.yml", // bad backslash
 
-  "indices.stats/50_disk_usage.yml",  // Needs a replacement mechanism implementation
-  "indices.stats/60_field_usage.yml", // Needs a replacement mechanism implementation
+	"indices.stats/50_disk_usage.yml",  // Needs a replacement mechanism implementation
+	"indices.stats/60_field_usage.yml", // Needs a replacement mechanism implementation
 }
 
 // TODO: Comments into descriptions for `Skip()`
@@ -151,6 +151,15 @@ search/issue9606.yml:
 # FIXME
 bulk/80_cas.yml:
 bulk/81_cas_with_types.yml:
+
+# Incompatible to date with test runner
+tsdb/80_index_resize.yml:
+  - shrink
+  - clone
+
+# Number conversion needs to be addressed in test gen
+tsdb/40_search.yml:
+  - aggregate a metric
 
 # ----- X-Pack ----------------------------------------------------------------
 
@@ -354,4 +363,11 @@ searchable_snapshots/10_usage.yml:
 # Expects count 2 but returns only 1
 service_accounts/10_basic.yml:
   - Test service account tokens
+
+# Replace stash token in payload not yet implemented
+api_key/20_query.yml:
+  - Test query api key
+
+change_password/10_basic.yml:
+  - Test changing users password with prehashed password
 `
