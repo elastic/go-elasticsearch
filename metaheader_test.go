@@ -15,14 +15,13 @@
 // specific language governing permissions and limitations
 // under the License.
 
-package estransport
+package elasticsearch
 
 import (
+	"github.com/elastic/go-elasticsearch/v8/internal/version"
 	"regexp"
 	"runtime"
 	"testing"
-
-	"github.com/elastic/go-elasticsearch/v8/internal/version"
 )
 
 var (

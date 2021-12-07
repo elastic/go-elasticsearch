@@ -1,6 +1,8 @@
 # Bulk Indexer Benchmarks
 
-The [`benchmarks.go`](benchmarks.go) file executes end-to-end benchmarks for `esutil.NewBulkIndexer`. It allows to configure indexer parameters, index settings, number of runs. See `go run benchmarks.go --help` for an overview of configuration options:
+The [`benchmarks.go`](benchmarks.go) file executes end-to-end benchmarks for `esutil.NewBulkIndexer`. It allows to
+configure indexer parameters, index settings, number of runs. See `go run benchmarks.go --help` for an overview of
+configuration options:
 
 ```
 go run benchmarks.go --help
@@ -67,7 +69,8 @@ docs/sec: min [279,173] max [289,351] mean [286,987]
 
 ## HTTP Log Event
 
-The [`httplog`](data/httplog/document.json) dataset uses a bigger document (2.5K), corresponding to a log event gathered by [Filebeat](https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-module-nginx.html) from Nginx.
+The [`httplog`](data/httplog/document.json) dataset uses a bigger document (2.5K), corresponding to a log event gathered
+by [Filebeat](https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-module-nginx.html) from Nginx.
 
 ```
 ELASTICSEARCH_URL=http://server:9200 go run benchmarks.go --dataset=httplog --count=1_000_000 --flush=3MB --shards=5 --replicas=0 --fasthttp=true --easyjson=true
@@ -89,7 +92,8 @@ docs/sec: min [50,165] max [53,072] mean [52,011]
 
 ## Mock Server
 
-The `--mockserver` flag allows to run the benchmark against a "mock server", in this case Nginx, to understand a theoretical performance of the client, without the overhead of a real Elasticsearch cluster.
+The `--mockserver` flag allows to run the benchmark against a "mock server", in this case Nginx, to understand a
+theoretical performance of the client, without the overhead of a real Elasticsearch cluster.
 
 ```
 ELASTICSEARCH_URL=http://server:8000 go run benchmarks.go --dataset=small --count=1_000_000 --flush=2MB --warmup=0 --mockserver
@@ -117,8 +121,12 @@ the size and structure of your data, the index settings and mappings, the cluste
 The benchmarks have been run in the following environment:
 
 * OS: Ubuntu 18.04.4 LTS (5.0.0-1031-gcp)
-* Client: A `n2-standard-8` [GCP instance](https://cloud.google.com/compute/docs/machine-types#n2_machine_types) (8 vCPUs/32GB RAM)
-* Server: A `n2-standard-16` [GCP instance](https://cloud.google.com/compute/docs/machine-types#n2_machine_types) (16 vCPUs/64GB RAM)
-* Disk: A [local SSD](https://cloud.google.com/compute/docs/disks#localssds) formatted as `ext4` on NVMe interface for Elasticsearch data
-* A single-node Elasticsearch cluster, `7.6.0`, [default distribution](https://www.elastic.co/downloads/elasticsearch), installed from a TAR, with 4GB locked for heap
+* Client: A `n2-standard-8` [GCP instance](https://cloud.google.com/compute/docs/machine-types#n2_machine_types) (8
+  vCPUs/32GB RAM)
+* Server: A `n2-standard-16` [GCP instance](https://cloud.google.com/compute/docs/machine-types#n2_machine_types) (16
+  vCPUs/64GB RAM)
+* Disk: A [local SSD](https://cloud.google.com/compute/docs/disks#localssds) formatted as `ext4` on NVMe interface for
+  Elasticsearch data
+* A single-node Elasticsearch cluster, `7.6.0`, [default distribution](https://www.elastic.co/downloads/elasticsearch),
+  installed from a TAR, with 4GB locked for heap
 * Nginx 1.17.8 with [`nginx.conf`](etc/nginx.conf)

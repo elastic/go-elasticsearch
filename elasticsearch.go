@@ -24,25 +24,34 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"regexp"
+	"runtime"
 	"strings"
 	"sync"
 	"time"
 
 	"github.com/elastic/go-elasticsearch/v8/esapi"
-	"github.com/elastic/go-elasticsearch/v8/estransport"
 	"github.com/elastic/go-elasticsearch/v8/internal/version"
+
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 )
 
 const (
 	defaultURL = "http://localhost:9200"
-)
 
-// Version returns the package version as a string.
-//
-const (
+	// Version returns the package version as a string.
 	Version        = version.Client
 	unknownProduct = "the client noticed that the server is not Elasticsearch and we do not support this unknown product"
 )
+
+var (
+	userAgent           string
+	reGoVersion         = regexp.MustCompile(`go(\d+\.\d+\..+)`)
+)
+
+func init() {
+	userAgent = initUserAgent()
+}
 
 // Config represents the client configuration.
 //
@@ -81,19 +90,20 @@ type Config struct {
 	RetryBackoff func(attempt int) time.Duration // Optional backoff duration. Default: nil.
 
 	Transport http.RoundTripper    // The HTTP transport object.
-	Logger    estransport.Logger   // The logger object.
-	Selector  estransport.Selector // The selector object.
+	Logger    elastictransport.Logger   // The logger object.
+	Selector  elastictransport.Selector // The selector object.
 
 	// Optional constructor function for a custom ConnectionPool. Default: nil.
-	ConnectionPoolFunc func([]*estransport.Connection, estransport.Selector) estransport.ConnectionPool
+	ConnectionPoolFunc func([]*elastictransport.Connection, elastictransport.Selector) elastictransport.ConnectionPool
 }
 
 // Client represents the Elasticsearch client.
 //
 type Client struct {
 	*esapi.API // Embeds the API methods
-	Transport  estransport.Interface
+	Transport  elastictransport.Interface
 
+	disableMetaHeader   bool
 	productCheckMu      sync.RWMutex
 	productCheckSuccess bool
 }
@@ -161,7 +171,9 @@ func NewClient(cfg Config) (*Client, error) {
 		cfg.Password = pw
 	}
 
-	tp, err := estransport.New(estransport.Config{
+	tp, err := elastictransport.New(elastictransport.Config{
+		UserAgent: userAgent,
+
 		URLs:                   urls,
 		Username:               cfg.Username,
 		Password:               cfg.Password,
@@ -183,8 +195,6 @@ func NewClient(cfg Config) (*Client, error) {
 		EnableMetrics:     cfg.EnableMetrics,
 		EnableDebugLogger: cfg.EnableDebugLogger,
 
-		DisableMetaHeader: cfg.DisableMetaHeader,
-
 		DiscoverNodesInterval: cfg.DiscoverNodesInterval,
 
 		Transport:          cfg.Transport,
@@ -196,7 +206,10 @@ func NewClient(cfg Config) (*Client, error) {
 		return nil, fmt.Errorf("error creating transport: %s", err)
 	}
 
-	client := &Client{Transport: tp}
+	client := &Client{
+		Transport: tp,
+		disableMetaHeader: cfg.DisableMetaHeader,
+	}
 	client.API = esapi.New(client)
 
 	if cfg.DiscoverNodesOnStart {
@@ -209,6 +222,17 @@ func NewClient(cfg Config) (*Client, error) {
 // Perform delegates to Transport to execute a request and return a response.
 //
 func (c *Client) Perform(req *http.Request) (*http.Response, error) {
+	if !c.disableMetaHeader {
+		existingMetaHeader := req.Header.Get(HeaderClientMeta)
+		if existingMetaHeader != "" {
+			req.Header.Set(HeaderClientMeta, strings.Join([]string{metaHeader, existingMetaHeader}, ","))
+		} else {
+			req.Header.Add(HeaderClientMeta, metaHeader)
+		}
+	} else {
+		req.Header.Del(HeaderClientMeta)
+	}
+
 	// Retrieve the original request.
 	res, err := c.Transport.Perform(req)
 
@@ -262,17 +286,17 @@ func genuineCheckHeader(header http.Header) error {
 
 // Metrics returns the client metrics.
 //
-func (c *Client) Metrics() (estransport.Metrics, error) {
-	if mt, ok := c.Transport.(estransport.Measurable); ok {
+func (c *Client) Metrics() (elastictransport.Metrics, error) {
+	if mt, ok := c.Transport.(elastictransport.Measurable); ok {
 		return mt.Metrics()
 	}
-	return estransport.Metrics{}, errors.New("transport is missing method Metrics()")
+	return elastictransport.Metrics{}, errors.New("transport is missing method Metrics()")
 }
 
 // DiscoverNodes reloads the client connections by fetching information from the cluster.
 //
 func (c *Client) DiscoverNodes() error {
-	if dt, ok := c.Transport.(estransport.Discoverable); ok {
+	if dt, ok := c.Transport.(elastictransport.Discoverable); ok {
 		return dt.DiscoverNodes()
 	}
 	return errors.New("transport is missing method DiscoverNodes()")
@@ -330,4 +354,27 @@ func addrFromCloudID(input string) (string, error) {
 	}
 
 	return fmt.Sprintf("%s%s.%s", scheme, parts[1], parts[0]), nil
+}
+
+func initUserAgent() string {
+	var b strings.Builder
+
+	b.WriteString("go-elasticsearch")
+	b.WriteRune('/')
+	b.WriteString(Version)
+	b.WriteRune(' ')
+	b.WriteRune('(')
+	b.WriteString(runtime.GOOS)
+	b.WriteRune(' ')
+	b.WriteString(runtime.GOARCH)
+	b.WriteString("; ")
+	b.WriteString("Go ")
+	if v := reGoVersion.ReplaceAllString(runtime.Version(), "$1"); v != "" {
+		b.WriteString(v)
+	} else {
+		b.WriteString(runtime.Version())
+	}
+	b.WriteRune(')')
+
+	return b.String()
 }
