@@ -15,6 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
+//go:build ignore
 // +build ignore
 
 // This example demonstrates indexing documents using the esutil.BulkIndexer helper.
@@ -41,8 +42,8 @@ import (
 	"github.com/mailru/easyjson"
 	"github.com/valyala/fasthttp"
 
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8"
-	"github.com/elastic/go-elasticsearch/v8/estransport"
 	"github.com/elastic/go-elasticsearch/v8/esutil"
 
 	"github.com/elastic/go-elasticsearch/v8/_examples/bulk/benchmarks/model"
@@ -108,7 +109,7 @@ func main() {
 	}
 
 	if debug {
-		clientCfg.Logger = &estransport.ColorLogger{Output: os.Stdout, EnableRequestBody: true, EnableResponseBody: true}
+		clientCfg.Logger = &elastictransport.ColorLogger{Output: os.Stdout, EnableRequestBody: true, EnableResponseBody: true}
 	}
 
 	es, _ := elasticsearch.NewClient(clientCfg)

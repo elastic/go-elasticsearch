@@ -35,7 +35,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/elastic/go-elasticsearch/v8/estransport"
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 )
 
 var called bool
@@ -80,7 +80,7 @@ func TestClientConfiguration(t *testing.T) {
 			t.Errorf("Unexpected error: %s", err)
 		}
 
-		u := c.Transport.(*estransport.Client).URLs()[0].String()
+		u := c.Transport.(*elastictransport.Client).URLs()[0].String()
 
 		if u != defaultURL {
 			t.Errorf("Unexpected URL, want=%s, got=%s", defaultURL, u)
@@ -93,7 +93,7 @@ func TestClientConfiguration(t *testing.T) {
 			t.Fatalf("Unexpected error: %s", err)
 		}
 
-		u := c.Transport.(*estransport.Client).URLs()[0].String()
+		u := c.Transport.(*elastictransport.Client).URLs()[0].String()
 
 		if u != "http://localhost:8080" {
 			t.Errorf("Unexpected URL, want=http://localhost:8080, got=%s", u)
@@ -109,7 +109,7 @@ func TestClientConfiguration(t *testing.T) {
 			t.Errorf("Unexpected error: %s", err)
 		}
 
-		u := c.Transport.(*estransport.Client).URLs()[0].String()
+		u := c.Transport.(*elastictransport.Client).URLs()[0].String()
 
 		if u != "http://example.com" {
 			t.Errorf("Unexpected URL, want=http://example.com, got=%s", u)
@@ -125,7 +125,7 @@ func TestClientConfiguration(t *testing.T) {
 			t.Fatalf("Unexpected error: %s", err)
 		}
 
-		u := c.Transport.(*estransport.Client).URLs()[0].String()
+		u := c.Transport.(*elastictransport.Client).URLs()[0].String()
 
 		if u != "http://localhost:8080" {
 			t.Errorf("Unexpected URL, want=http://localhost:8080, got=%s", u)
@@ -141,7 +141,7 @@ func TestClientConfiguration(t *testing.T) {
 			t.Fatalf("Unexpected error: %s", err)
 		}
 
-		u := c.Transport.(*estransport.Client).URLs()[0].String()
+		u := c.Transport.(*elastictransport.Client).URLs()[0].String()
 
 		if u != "https://abc123.bar.cloud.es.io" {
 			t.Errorf("Unexpected URL, want=https://abc123.bar.cloud.es.io, got=%s", u)
@@ -166,7 +166,7 @@ func TestClientConfiguration(t *testing.T) {
 			t.Fatalf("Unexpected error: %s", err)
 		}
 
-		u := c.Transport.(*estransport.Client).URLs()[0].String()
+		u := c.Transport.(*elastictransport.Client).URLs()[0].String()
 
 		if u != "https://abc123.bar.cloud.es.io" {
 			t.Errorf("Unexpected URL, want=https://abc123.bar.cloud.es.io, got=%s", u)

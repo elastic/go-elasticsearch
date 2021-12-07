@@ -17,7 +17,7 @@
 
 // +build ignore
 
-// This examples demonstrates how to implement the "estransport.Logger" interface with a custom type,
+// This examples demonstrates how to implement the "elastictransport.Logger" interface with a custom type,
 // and use it with the client for structured logging via the "rs/zerolog" package.
 
 package main
@@ -35,7 +35,7 @@ import (
 	"github.com/elastic/go-elasticsearch/v8"
 )
 
-// CustomLogger implements the estransport.Logger interface.
+// CustomLogger implements the elastictransport.Logger interface.
 //
 type CustomLogger struct {
 	zerolog.Logger
