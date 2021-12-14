@@ -50,18 +50,17 @@ type ClusterHealth func(o ...func(*ClusterHealthRequest)) (*Response, error)
 type ClusterHealthRequest struct {
 	Index []string
 
-	ExpandWildcards                  string
-	Level                            string
-	Local                            *bool
-	MasterTimeout                    time.Duration
-	Return200ForClusterHealthTimeout *bool
-	Timeout                          time.Duration
-	WaitForActiveShards              string
-	WaitForEvents                    string
-	WaitForNoInitializingShards      *bool
-	WaitForNoRelocatingShards        *bool
-	WaitForNodes                     string
-	WaitForStatus                    string
+	ExpandWildcards             string
+	Level                       string
+	Local                       *bool
+	MasterTimeout               time.Duration
+	Timeout                     time.Duration
+	WaitForActiveShards         string
+	WaitForEvents               string
+	WaitForNoInitializingShards *bool
+	WaitForNoRelocatingShards   *bool
+	WaitForNodes                string
+	WaitForStatus               string
 
 	Pretty     bool
 	Human      bool
@@ -110,10 +109,6 @@ func (r ClusterHealthRequest) Do(ctx context.Context, transport Transport) (*Res
 
 	if r.MasterTimeout != 0 {
 		params["master_timeout"] = formatDuration(r.MasterTimeout)
-	}
-
-	if r.Return200ForClusterHealthTimeout != nil {
-		params["return_200_for_cluster_health_timeout"] = strconv.FormatBool(*r.Return200ForClusterHealthTimeout)
 	}
 
 	if r.Timeout != 0 {
@@ -248,14 +243,6 @@ func (f ClusterHealth) WithLocal(v bool) func(*ClusterHealthRequest) {
 func (f ClusterHealth) WithMasterTimeout(v time.Duration) func(*ClusterHealthRequest) {
 	return func(r *ClusterHealthRequest) {
 		r.MasterTimeout = v
-	}
-}
-
-// WithReturn200ForClusterHealthTimeout - whether to return http 200 instead of 408 in case of a cluster health timeout from the server side.
-//
-func (f ClusterHealth) WithReturn200ForClusterHealthTimeout(v bool) func(*ClusterHealthRequest) {
-	return func(r *ClusterHealthRequest) {
-		r.Return200ForClusterHealthTimeout = &v
 	}
 }
 

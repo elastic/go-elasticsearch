@@ -24,6 +24,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func newTransformUpgradeTransformsFunc(t Transport) TransformUpgradeTransforms {
@@ -47,7 +48,8 @@ type TransformUpgradeTransforms func(o ...func(*TransformUpgradeTransformsReques
 // TransformUpgradeTransformsRequest configures the Transform Upgrade Transforms API request.
 //
 type TransformUpgradeTransformsRequest struct {
-	DryRun *bool
+	DryRun  *bool
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -77,6 +79,10 @@ func (r TransformUpgradeTransformsRequest) Do(ctx context.Context, transport Tra
 
 	if r.DryRun != nil {
 		params["dry_run"] = strconv.FormatBool(*r.DryRun)
+	}
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
 	}
 
 	if r.Pretty {
@@ -151,6 +157,14 @@ func (f TransformUpgradeTransforms) WithContext(v context.Context) func(*Transfo
 func (f TransformUpgradeTransforms) WithDryRun(v bool) func(*TransformUpgradeTransformsRequest) {
 	return func(r *TransformUpgradeTransformsRequest) {
 		r.DryRun = &v
+	}
+}
+
+// WithTimeout - controls the time to wait for the upgrade.
+//
+func (f TransformUpgradeTransforms) WithTimeout(v time.Duration) func(*TransformUpgradeTransformsRequest) {
+	return func(r *TransformUpgradeTransformsRequest) {
+		r.Timeout = v
 	}
 }
 

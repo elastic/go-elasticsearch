@@ -27,8 +27,8 @@ import (
 )
 
 func newOpenPointInTimeFunc(t Transport) OpenPointInTime {
-	return func(index []string, o ...func(*OpenPointInTimeRequest)) (*Response, error) {
-		var r = OpenPointInTimeRequest{Index: index}
+	return func(index []string, keep_alive string, o ...func(*OpenPointInTimeRequest)) (*Response, error) {
+		var r = OpenPointInTimeRequest{Index: index, KeepAlive: keep_alive}
 		for _, f := range o {
 			f(&r)
 		}
@@ -42,7 +42,7 @@ func newOpenPointInTimeFunc(t Transport) OpenPointInTime {
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/point-in-time-api.html.
 //
-type OpenPointInTime func(index []string, o ...func(*OpenPointInTimeRequest)) (*Response, error)
+type OpenPointInTime func(index []string, keep_alive string, o ...func(*OpenPointInTimeRequest)) (*Response, error)
 
 // OpenPointInTimeRequest configures the Open Point In Time API request.
 //

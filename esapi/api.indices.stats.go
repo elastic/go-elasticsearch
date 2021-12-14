@@ -60,7 +60,6 @@ type IndicesStatsRequest struct {
 	IncludeSegmentFileSizes *bool
 	IncludeUnloadedSegments *bool
 	Level                   string
-	Types                   []string
 
 	Pretty     bool
 	Human      bool
@@ -131,10 +130,6 @@ func (r IndicesStatsRequest) Do(ctx context.Context, transport Transport) (*Resp
 
 	if r.Level != "" {
 		params["level"] = r.Level
-	}
-
-	if len(r.Types) > 0 {
-		params["types"] = strings.Join(r.Types, ",")
 	}
 
 	if r.Pretty {
@@ -289,14 +284,6 @@ func (f IndicesStats) WithIncludeUnloadedSegments(v bool) func(*IndicesStatsRequ
 func (f IndicesStats) WithLevel(v string) func(*IndicesStatsRequest) {
 	return func(r *IndicesStatsRequest) {
 		r.Level = v
-	}
-}
-
-// WithTypes - a list of document types for the `indexing` index metric.
-//
-func (f IndicesStats) WithTypes(v ...string) func(*IndicesStatsRequest) {
-	return func(r *IndicesStatsRequest) {
-		r.Types = v
 	}
 }
 

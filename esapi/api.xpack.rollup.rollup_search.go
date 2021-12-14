@@ -54,8 +54,6 @@ type RollupRollupSearchRequest struct {
 
 	Body io.Reader
 
-	DocumentType string
-
 	RestTotalHitsAsInt *bool
 	TypedKeys          *bool
 
@@ -80,13 +78,9 @@ func (r RollupRollupSearchRequest) Do(ctx context.Context, transport Transport) 
 
 	method = "POST"
 
-	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len(r.DocumentType) + 1 + len("_rollup_search"))
+	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_rollup_search"))
 	path.WriteString("/")
 	path.WriteString(strings.Join(r.Index, ","))
-	if r.DocumentType != "" {
-		path.WriteString("/")
-		path.WriteString(r.DocumentType)
-	}
 	path.WriteString("/")
 	path.WriteString("_rollup_search")
 
@@ -168,14 +162,6 @@ func (r RollupRollupSearchRequest) Do(ctx context.Context, transport Transport) 
 func (f RollupRollupSearch) WithContext(v context.Context) func(*RollupRollupSearchRequest) {
 	return func(r *RollupRollupSearchRequest) {
 		r.ctx = v
-	}
-}
-
-// WithDocumentType - the doc type inside the index.
-//
-func (f RollupRollupSearch) WithDocumentType(v string) func(*RollupRollupSearchRequest) {
-	return func(r *RollupRollupSearchRequest) {
-		r.DocumentType = v
 	}
 }
 
