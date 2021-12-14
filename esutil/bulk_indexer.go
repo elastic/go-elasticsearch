@@ -23,7 +23,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"runtime"
 	"strconv"
@@ -108,7 +107,7 @@ type BulkIndexerItem struct {
 	Routing         string
 	Version         *int64
 	VersionType     string
-	Body            io.Reader
+	Body            io.ReadSeeker
 	RetryOnConflict *int
 
 	OnSuccess func(context.Context, BulkIndexerItem, BulkIndexerResponseItem)        // Per item
@@ -453,30 +452,14 @@ func (w *worker) writeMeta(item BulkIndexerItem) error {
 //
 func (w *worker) writeBody(item *BulkIndexerItem) error {
 	if item.Body != nil {
-
-		var getBody func() io.Reader
-
-		if item.OnSuccess != nil || item.OnFailure != nil {
-			var buf bytes.Buffer
-			buf.ReadFrom(item.Body)
-			getBody = func() io.Reader {
-				r := buf
-				return ioutil.NopCloser(&r)
-			}
-			item.Body = getBody()
-		}
-
 		if _, err := w.buf.ReadFrom(item.Body); err != nil {
 			if w.bi.config.OnError != nil {
 				w.bi.config.OnError(context.Background(), err)
 			}
 			return err
 		}
+		item.Body.Seek(0, io.SeekStart)
 		w.buf.WriteRune('\n')
-
-		if getBody != nil && (item.OnSuccess != nil || item.OnFailure != nil) {
-			item.Body = getBody()
-		}
 	}
 	return nil
 }
@@ -539,7 +522,6 @@ func (w *worker) flush(ctx context.Context) error {
 		req.Header = http.Header{}
 	}
 	req.Header.Set(elasticsearch.HeaderClientMeta, "h=bp")
-
 
 	res, err := req.Do(ctx, w.bi.config.Client)
 	if err != nil {
