@@ -52,8 +52,6 @@ type IndicesValidateQueryRequest struct {
 
 	Body io.Reader
 
-	DocumentType []string
-
 	AllowNoIndices    *bool
 	AllShards         *bool
 	Analyzer          string
@@ -88,14 +86,10 @@ func (r IndicesValidateQueryRequest) Do(ctx context.Context, transport Transport
 
 	method = "POST"
 
-	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len(strings.Join(r.DocumentType, ",")) + 1 + len("_validate") + 1 + len("query"))
+	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_validate") + 1 + len("query"))
 	if len(r.Index) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.Index, ","))
-	}
-	if len(r.DocumentType) > 0 {
-		path.WriteString("/")
-		path.WriteString(strings.Join(r.DocumentType, ","))
 	}
 	path.WriteString("/")
 	path.WriteString("_validate")
@@ -236,14 +230,6 @@ func (f IndicesValidateQuery) WithBody(v io.Reader) func(*IndicesValidateQueryRe
 func (f IndicesValidateQuery) WithIndex(v ...string) func(*IndicesValidateQueryRequest) {
 	return func(r *IndicesValidateQueryRequest) {
 		r.Index = v
-	}
-}
-
-// WithDocumentType - a list of document types to restrict the operation; leave empty to perform the operation on all types.
-//
-func (f IndicesValidateQuery) WithDocumentType(v ...string) func(*IndicesValidateQueryRequest) {
-	return func(r *IndicesValidateQueryRequest) {
-		r.DocumentType = v
 	}
 }
 

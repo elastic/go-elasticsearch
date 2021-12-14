@@ -25,6 +25,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func newTransformPutTransformFunc(t Transport) TransformPutTransform {
@@ -53,6 +54,7 @@ type TransformPutTransformRequest struct {
 	TransformID string
 
 	DeferValidation *bool
+	Timeout         time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -85,6 +87,10 @@ func (r TransformPutTransformRequest) Do(ctx context.Context, transport Transpor
 
 	if r.DeferValidation != nil {
 		params["defer_validation"] = strconv.FormatBool(*r.DeferValidation)
+	}
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
 	}
 
 	if r.Pretty {
@@ -163,6 +169,14 @@ func (f TransformPutTransform) WithContext(v context.Context) func(*TransformPut
 func (f TransformPutTransform) WithDeferValidation(v bool) func(*TransformPutTransformRequest) {
 	return func(r *TransformPutTransformRequest) {
 		r.DeferValidation = &v
+	}
+}
+
+// WithTimeout - controls the time to wait for the transform to start.
+//
+func (f TransformPutTransform) WithTimeout(v time.Duration) func(*TransformPutTransformRequest) {
+	return func(r *TransformPutTransformRequest) {
+		r.Timeout = v
 	}
 }
 

@@ -53,8 +53,6 @@ type BulkRequest struct {
 
 	Body io.Reader
 
-	DocumentType string
-
 	Pipeline            string
 	Refresh             string
 	RequireAlias        *bool
@@ -63,6 +61,7 @@ type BulkRequest struct {
 	SourceExcludes      []string
 	SourceIncludes      []string
 	Timeout             time.Duration
+	DocumentType        string
 	WaitForActiveShards string
 
 	Pretty     bool
@@ -86,14 +85,10 @@ func (r BulkRequest) Do(ctx context.Context, transport Transport) (*Response, er
 
 	method = "POST"
 
-	path.Grow(1 + len(r.Index) + 1 + len(r.DocumentType) + 1 + len("_bulk"))
+	path.Grow(1 + len(r.Index) + 1 + len("_bulk"))
 	if r.Index != "" {
 		path.WriteString("/")
 		path.WriteString(r.Index)
-	}
-	if r.DocumentType != "" {
-		path.WriteString("/")
-		path.WriteString(r.DocumentType)
 	}
 	path.WriteString("/")
 	path.WriteString("_bulk")
@@ -219,14 +214,6 @@ func (f Bulk) WithIndex(v string) func(*BulkRequest) {
 	}
 }
 
-// WithDocumentType - default document type for items which don't provide one.
-//
-func (f Bulk) WithDocumentType(v string) func(*BulkRequest) {
-	return func(r *BulkRequest) {
-		r.DocumentType = v
-	}
-}
-
 // WithPipeline - the pipeline ID to preprocess incoming documents with.
 //
 func (f Bulk) WithPipeline(v string) func(*BulkRequest) {
@@ -288,6 +275,14 @@ func (f Bulk) WithSourceIncludes(v ...string) func(*BulkRequest) {
 func (f Bulk) WithTimeout(v time.Duration) func(*BulkRequest) {
 	return func(r *BulkRequest) {
 		r.Timeout = v
+	}
+}
+
+// WithDocumentType - default document type for items which don't provide one.
+//
+func (f Bulk) WithDocumentType(v string) func(*BulkRequest) {
+	return func(r *BulkRequest) {
+		r.DocumentType = v
 	}
 }
 
