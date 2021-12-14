@@ -26,6 +26,7 @@ import (
 	"os"
 	"regexp"
 	"runtime"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -45,8 +46,9 @@ const (
 )
 
 var (
-	userAgent           string
-	reGoVersion         = regexp.MustCompile(`go(\d+\.\d+\..+)`)
+	esCompatHeader = "ELASTIC_CLIENT_APIVERSIONING"
+	userAgent      string
+	reGoVersion    = regexp.MustCompile(`go(\d+\.\d+\..+)`)
 )
 
 func init() {
@@ -82,14 +84,15 @@ type Config struct {
 	DiscoverNodesOnStart  bool          // Discover nodes when initializing the client. Default: false.
 	DiscoverNodesInterval time.Duration // Discover nodes periodically. Default: disabled.
 
-	EnableMetrics     bool // Enable the metrics collection.
-	EnableDebugLogger bool // Enable the debug logging.
+	EnableMetrics           bool // Enable the metrics collection.
+	EnableDebugLogger       bool // Enable the debug logging.
+	EnableCompatibilityMode bool // Enable sends compatibility header
 
 	DisableMetaHeader bool // Disable the additional "X-Elastic-Client-Meta" HTTP header.
 
 	RetryBackoff func(attempt int) time.Duration // Optional backoff duration. Default: nil.
 
-	Transport http.RoundTripper    // The HTTP transport object.
+	Transport http.RoundTripper         // The HTTP transport object.
 	Logger    elastictransport.Logger   // The logger object.
 	Selector  elastictransport.Selector // The selector object.
 
@@ -100,8 +103,9 @@ type Config struct {
 // Client represents the Elasticsearch client.
 //
 type Client struct {
-	*esapi.API // Embeds the API methods
-	Transport  elastictransport.Interface
+	*esapi.API          // Embeds the API methods
+	Transport           elastictransport.Interface
+	compatibilityHeader bool
 
 	disableMetaHeader   bool
 	productCheckMu      sync.RWMutex
@@ -206,9 +210,13 @@ func NewClient(cfg Config) (*Client, error) {
 		return nil, fmt.Errorf("error creating transport: %s", err)
 	}
 
+	compatHeaderEnv := os.Getenv(esCompatHeader)
+	compatibilityHeader, _ := strconv.ParseBool(compatHeaderEnv)
+
 	client := &Client{
-		Transport: tp,
-		disableMetaHeader: cfg.DisableMetaHeader,
+		Transport:           tp,
+		disableMetaHeader:   cfg.DisableMetaHeader,
+		compatibilityHeader: cfg.EnableCompatibilityMode || compatibilityHeader,
 	}
 	client.API = esapi.New(client)
 
@@ -222,6 +230,12 @@ func NewClient(cfg Config) (*Client, error) {
 // Perform delegates to Transport to execute a request and return a response.
 //
 func (c *Client) Perform(req *http.Request) (*http.Response, error) {
+	// Compatibility Header
+	if c.compatibilityHeader {
+		req.Header.Set("Content-Type", "application/vnd.elasticsearch+json;compatible-with=8")
+		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=8")
+	}
+
 	if !c.disableMetaHeader {
 		existingMetaHeader := req.Header.Get(HeaderClientMeta)
 		if existingMetaHeader != "" {
