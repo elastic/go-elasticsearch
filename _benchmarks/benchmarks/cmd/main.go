@@ -32,7 +32,7 @@ import (
 	"github.com/montanaflynn/stats"
 
 	"github.com/elastic/go-elasticsearch/v8"
-	"github.com/elastic/go-elasticsearch/v8/estransport"
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 
 	"github.com/elastic/go-elasticsearch/v8/benchmarks"
 	"github.com/elastic/go-elasticsearch/v8/benchmarks/runner"
@@ -125,8 +125,8 @@ func main() {
 		EnableRetryOnTimeout: true,
 	}
 	if os.Getenv("DEBUG") != "" {
-		runnerClientConfig.Logger = &estransport.ColorLogger{Output: os.Stdout}
-		reportClientConfig.Logger = &estransport.ColorLogger{Output: os.Stdout}
+		runnerClientConfig.Logger = &elastictransport.ColorLogger{Output: os.Stdout}
+		reportClientConfig.Logger = &elastictransport.ColorLogger{Output: os.Stdout}
 	}
 
 	runnerClient, _ := elasticsearch.NewClient(runnerClientConfig)

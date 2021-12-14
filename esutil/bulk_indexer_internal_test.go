@@ -38,8 +38,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8"
-	"github.com/elastic/go-elasticsearch/v8/estransport"
 )
 
 var defaultRoundTripFunc = func(*http.Request) (*http.Response, error) {
@@ -214,7 +214,7 @@ func TestBulkIndexer(t *testing.T) {
 			},
 		}
 		if os.Getenv("DEBUG") != "" {
-			esCfg.Logger = &estransport.ColorLogger{
+			esCfg.Logger = &elastictransport.ColorLogger{
 				Output:             os.Stdout,
 				EnableRequestBody:  true,
 				EnableResponseBody: true,
@@ -519,7 +519,7 @@ func TestBulkIndexer(t *testing.T) {
 			},
 		}
 		if os.Getenv("DEBUG") != "" {
-			esCfg.Logger = &estransport.ColorLogger{Output: os.Stdout}
+			esCfg.Logger = &elastictransport.ColorLogger{Output: os.Stdout}
 		}
 		es, _ := elasticsearch.NewClient(esCfg)
 
@@ -723,7 +723,7 @@ func TestBulkIndexer(t *testing.T) {
 					disableMetaHeader: false,
 					header: http.Header{
 						"X-Test-User":                []string{"UserValue"},
-						estransport.HeaderClientMeta: []string{"h=shouldntbechanged"},
+						elasticsearch.HeaderClientMeta: []string{"h=shouldntbechanged"},
 					},
 				},
 			},
@@ -737,7 +737,7 @@ func TestBulkIndexer(t *testing.T) {
 					Header:            tt.args.header,
 					Transport: &mockTransport{
 						RoundTripFunc: func(request *http.Request) (*http.Response, error) {
-							headerMeta := request.Header.Get(estransport.HeaderClientMeta)
+							headerMeta := request.Header.Get(elasticsearch.HeaderClientMeta)
 
 							if !reValidation.MatchString(headerMeta) {
 								t.Errorf("Meta Header presence is invalid, got : %s, want : %s", headerMeta, tt.want)

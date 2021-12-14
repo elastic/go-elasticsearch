@@ -33,7 +33,6 @@ import (
 
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
-	"github.com/elastic/go-elasticsearch/v8/estransport"
 )
 
 // BulkIndexer represents a parallel, asynchronous, efficient indexer for Elasticsearch.
@@ -539,7 +538,8 @@ func (w *worker) flush(ctx context.Context) error {
 	if req.Header == nil {
 		req.Header = http.Header{}
 	}
-	req.Header.Set(estransport.HeaderClientMeta, "h=bp")
+	req.Header.Set(elasticsearch.HeaderClientMeta, "h=bp")
+
 
 	res, err := req.Do(ctx, w.bi.config.Client)
 	if err != nil {

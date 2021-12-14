@@ -1,0 +1,4 @@
+github.com/elastic/elastic-transport-go/v8 v8.0.0-20211202110751-50105067ef27 h1:O58SwZ7pdt7Lzy8JqpJubJlgDbr9jVV7ro4HFPvaZDw=
+github.com/elastic/elastic-transport-go/v8 v8.0.0-20211202110751-50105067ef27/go.mod h1:87Tcz8IVNe6rVSLdBux1o/PEItLtyabHU3naC7IoqKI=
+github.com/elastic/go-elasticsearch/v8 v8.0.0-20211123103400-5f8a17a2322f h1:m4o9rvJO5TNlTmpZ2RMsD96Y6ezWM+loFzQG2RCbHTc=
+github.com/elastic/go-elasticsearch/v8 v8.0.0-20211123103400-5f8a17a2322f/go.mod h1:xe9a/L2aeOgFKKgrO3ibQTnMdpAeL0GC+5/HpGScSa4=

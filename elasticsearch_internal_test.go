@@ -32,10 +32,11 @@ import (
 	"os"
 	"reflect"
 	"regexp"
+	"strconv"
 	"strings"
 	"testing"
 
-	"github.com/elastic/go-elasticsearch/v8/estransport"
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 )
 
 var called bool
@@ -80,7 +81,7 @@ func TestClientConfiguration(t *testing.T) {
 			t.Errorf("Unexpected error: %s", err)
 		}
 
-		u := c.Transport.(*estransport.Client).URLs()[0].String()
+		u := c.Transport.(*elastictransport.Client).URLs()[0].String()
 
 		if u != defaultURL {
 			t.Errorf("Unexpected URL, want=%s, got=%s", defaultURL, u)
@@ -93,7 +94,7 @@ func TestClientConfiguration(t *testing.T) {
 			t.Fatalf("Unexpected error: %s", err)
 		}
 
-		u := c.Transport.(*estransport.Client).URLs()[0].String()
+		u := c.Transport.(*elastictransport.Client).URLs()[0].String()
 
 		if u != "http://localhost:8080" {
 			t.Errorf("Unexpected URL, want=http://localhost:8080, got=%s", u)
@@ -109,7 +110,7 @@ func TestClientConfiguration(t *testing.T) {
 			t.Errorf("Unexpected error: %s", err)
 		}
 
-		u := c.Transport.(*estransport.Client).URLs()[0].String()
+		u := c.Transport.(*elastictransport.Client).URLs()[0].String()
 
 		if u != "http://example.com" {
 			t.Errorf("Unexpected URL, want=http://example.com, got=%s", u)
@@ -125,7 +126,7 @@ func TestClientConfiguration(t *testing.T) {
 			t.Fatalf("Unexpected error: %s", err)
 		}
 
-		u := c.Transport.(*estransport.Client).URLs()[0].String()
+		u := c.Transport.(*elastictransport.Client).URLs()[0].String()
 
 		if u != "http://localhost:8080" {
 			t.Errorf("Unexpected URL, want=http://localhost:8080, got=%s", u)
@@ -141,7 +142,7 @@ func TestClientConfiguration(t *testing.T) {
 			t.Fatalf("Unexpected error: %s", err)
 		}
 
-		u := c.Transport.(*estransport.Client).URLs()[0].String()
+		u := c.Transport.(*elastictransport.Client).URLs()[0].String()
 
 		if u != "https://abc123.bar.cloud.es.io" {
 			t.Errorf("Unexpected URL, want=https://abc123.bar.cloud.es.io, got=%s", u)
@@ -166,7 +167,7 @@ func TestClientConfiguration(t *testing.T) {
 			t.Fatalf("Unexpected error: %s", err)
 		}
 
-		u := c.Transport.(*estransport.Client).URLs()[0].String()
+		u := c.Transport.(*elastictransport.Client).URLs()[0].String()
 
 		if u != "https://abc123.bar.cloud.es.io" {
 			t.Errorf("Unexpected URL, want=https://abc123.bar.cloud.es.io, got=%s", u)
@@ -407,7 +408,7 @@ func TestResponseCheckOnly(t *testing.T) {
 			name: "Valid answer without header",
 			response: &http.Response{
 				StatusCode: http.StatusOK,
-				Body: ioutil.NopCloser(strings.NewReader("{}")),
+				Body:       ioutil.NopCloser(strings.NewReader("{}")),
 			},
 			wantErr: true,
 		},
@@ -423,7 +424,7 @@ func TestResponseCheckOnly(t *testing.T) {
 			name: "Valid answer without header and response check",
 			response: &http.Response{
 				StatusCode: http.StatusOK,
-				Body: ioutil.NopCloser(strings.NewReader("{}")),
+				Body:       ioutil.NopCloser(strings.NewReader("{}")),
 			},
 			wantErr: true,
 		},
@@ -556,5 +557,96 @@ func TestFingerprint(t *testing.T) {
 	data, _ := ioutil.ReadAll(res.Body)
 	if bytes.Compare(data, body) != 0 {
 		t.Fatalf("unexpected payload returned: expected: %s, got: %s", body, data)
+	}
+}
+
+func TestCompatibilityHeader(t *testing.T) {
+	tests := []struct {
+		name                string
+		envVar              bool
+		configVar           bool
+		compatibilityHeader bool
+		bodyPresent         bool
+		expectsHeader       []string
+	}{
+		{
+			name:                "Compatibility header disabled",
+			compatibilityHeader: false,
+			bodyPresent:         false,
+			envVar:              false,
+			configVar:           false,
+			expectsHeader:       []string{"application/json"},
+		},
+		{
+			name:                "Compatibility header enabled with env var",
+			compatibilityHeader: true,
+			bodyPresent:         false,
+			envVar:              true,
+			configVar:           false,
+			expectsHeader:       []string{"application/vnd.elasticsearch+json;compatible-with=8"},
+		},
+		{
+			name:                "Compatibility header enabled with body with env var",
+			compatibilityHeader: true,
+			bodyPresent:         true,
+			envVar:              true,
+			configVar:           false,
+			expectsHeader:       []string{"application/vnd.elasticsearch+json;compatible-with=8"},
+		},
+		{
+			name:                "Compatibility header enabled in conf",
+			compatibilityHeader: true,
+			bodyPresent:         false,
+			envVar:              false,
+			configVar:           true,
+			expectsHeader:       []string{"application/vnd.elasticsearch+json;compatible-with=8"},
+		},
+		{
+			name:                "Compatibility header enabled with body in conf",
+			compatibilityHeader: true,
+			bodyPresent:         true,
+			envVar:              false,
+			configVar:           true,
+			expectsHeader:       []string{"application/vnd.elasticsearch+json;compatible-with=8"},
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			t.Setenv(esCompatHeader, strconv.FormatBool(test.compatibilityHeader))
+
+			c, _ := NewClient(Config{
+				EnableCompatibilityMode: test.configVar,
+				Addresses:               []string{},
+				Transport: &mockTransp{
+					RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+						if test.compatibilityHeader {
+							if !reflect.DeepEqual(req.Header["Accept"], test.expectsHeader) {
+								t.Errorf("Compatibility header enabled but header is, not in request headers, got: %s, want: %s", req.Header["Accept"], test.expectsHeader)
+							}
+
+							if test.bodyPresent {
+								if !reflect.DeepEqual(req.Header["Content-Type"], test.expectsHeader) {
+									t.Errorf("Compatibility header with Body enabled, not in request headers, got: %s, want: %s", req.Header["Content-Type"], test.expectsHeader)
+								}
+							}
+						}
+
+						return &http.Response{
+							StatusCode: http.StatusOK,
+							Status:     "MOCK",
+							Body:       ioutil.NopCloser(strings.NewReader("{}")),
+						}, nil
+					},
+				},
+			})
+
+			req := &http.Request{URL: &url.URL{}, Header: make(http.Header)}
+			if test.bodyPresent {
+				req.Body = ioutil.NopCloser(strings.NewReader("{}"))
+			}
+
+			_, _ = c.Perform(req)
+		})
 	}
 }

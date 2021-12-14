@@ -21,7 +21,7 @@ services:
       - zookeeper
     ports:
       # NOTE: Use kafka:29092 for connections within Docker
-     - 9092:9092
+      - 9092:9092
     networks:
       - kafka
     volumes:
@@ -96,7 +96,7 @@ services:
   kibana:
     container_name: kibana
     image: docker.elastic.co/kibana/kibana:${ELASTIC_VERSION}
-    depends_on: ['elasticsearch']
+    depends_on: [ 'elasticsearch' ]
     networks:
       - elasticsearch
     ports:
@@ -110,7 +110,7 @@ services:
   apm_server:
     container_name: apm_server
     image: docker.elastic.co/apm/apm-server:${ELASTIC_VERSION}
-    depends_on: ['elasticsearch', 'kibana']
+    depends_on: [ 'elasticsearch', 'kibana' ]
     command: -e --strict.perms=false
     networks:
       - elasticsearch

@@ -5,7 +5,8 @@ go 1.11
 replace github.com/elastic/go-elasticsearch/v8 => ../..
 
 require (
-	github.com/elastic/go-elasticsearch/v8 master
+	github.com/elastic/elastic-transport-go/v8 v8.0.0-20211202110751-50105067ef27 // indirect
+	github.com/elastic/go-elasticsearch/v8 v8.0.0-20210817150010-57d659deaca7
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
 	github.com/rs/zerolog v1.11.0
 	github.com/spf13/cobra v0.0.3

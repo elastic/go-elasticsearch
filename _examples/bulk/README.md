@@ -5,8 +5,8 @@
 The [`default.go`](default.go) example demonstrates how to properly operate the Elasticsearch's
 [Bulk API]([https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html]).
 
-The example intentionally doesn't use any abstractions or helper functions, to
-demonstrate the low-level mechanics of working with the Bulk API:
+The example intentionally doesn't use any abstractions or helper functions, to demonstrate the low-level mechanics of
+working with the Bulk API:
 
 * iterating over a slice of data and preparing the `meta`/`data` pairs,
 * filling a buffer with the payload until the configured threshold for a single batch is reached,
@@ -29,7 +29,8 @@ go run default.go -count=100000 -batch=25000
 
 ## `indexer.go`
 
-The [`indexer.go`](indexer.go) example demonstrates how to use the [`esutil.BulkIndexer`](../esutil/bulk_indexer.go) helper for efficient indexing in parallel.
+The [`indexer.go`](indexer.go) example demonstrates how to use the [`esutil.BulkIndexer`](../esutil/bulk_indexer.go)
+helper for efficient indexing in parallel.
 
 ```bash
 go run indexer.go -count=100000 -flush=1000000

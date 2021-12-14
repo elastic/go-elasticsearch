@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
-package estransport
+package elasticsearch
 
 import (
 	"regexp"
@@ -27,7 +27,14 @@ import (
 // each request to Elasticsearch.
 const HeaderClientMeta = "x-elastic-client-meta"
 
-var metaReVersion = regexp.MustCompile("([0-9.]+)(.*)")
+var (
+	metaHeader    string
+	metaReVersion = regexp.MustCompile("([0-9.]+)(.*)")
+)
+
+func init() {
+	metaHeader = initMetaHeader()
+}
 
 func initMetaHeader() string {
 	var b strings.Builder
