@@ -8,11 +8,13 @@ on:
       - github-actions
       - main
       - 7.16
+      - 7.17
       - 6.x
   pull_request:
     branches:
       - main
       - 7.16
+      - 7.17
       - 6.x
 
 env:
