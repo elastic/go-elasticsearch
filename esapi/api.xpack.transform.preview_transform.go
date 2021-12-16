@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.0.0: DO NOT EDIT
+// Code generated from specification version 8.1.0: DO NOT EDIT
 
 package esapi
 
@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newTransformPreviewTransformFunc(t Transport) TransformPreviewTransform {
@@ -50,6 +51,8 @@ type TransformPreviewTransformRequest struct {
 	Body io.Reader
 
 	TransformID string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -83,6 +86,10 @@ func (r TransformPreviewTransformRequest) Do(ctx context.Context, transport Tran
 	path.WriteString("_preview")
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -168,6 +175,14 @@ func (f TransformPreviewTransform) WithBody(v io.Reader) func(*TransformPreviewT
 func (f TransformPreviewTransform) WithTransformID(v string) func(*TransformPreviewTransformRequest) {
 	return func(r *TransformPreviewTransformRequest) {
 		r.TransformID = v
+	}
+}
+
+// WithTimeout - controls the time to wait for the preview.
+//
+func (f TransformPreviewTransform) WithTimeout(v time.Duration) func(*TransformPreviewTransformRequest) {
+	return func(r *TransformPreviewTransformRequest) {
+		r.Timeout = v
 	}
 }
 

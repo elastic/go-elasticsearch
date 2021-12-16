@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.0.0: DO NOT EDIT
+// Code generated from specification version 8.1.0: DO NOT EDIT
 
 package esapi
 
@@ -55,6 +55,7 @@ type IndicesForcemergeRequest struct {
 	IgnoreUnavailable  *bool
 	MaxNumSegments     *int
 	OnlyExpungeDeletes *bool
+	WaitForCompletion  *bool
 
 	Pretty     bool
 	Human      bool
@@ -109,6 +110,10 @@ func (r IndicesForcemergeRequest) Do(ctx context.Context, transport Transport) (
 
 	if r.OnlyExpungeDeletes != nil {
 		params["only_expunge_deletes"] = strconv.FormatBool(*r.OnlyExpungeDeletes)
+	}
+
+	if r.WaitForCompletion != nil {
+		params["wait_for_completion"] = strconv.FormatBool(*r.WaitForCompletion)
 	}
 
 	if r.Pretty {
@@ -231,6 +236,14 @@ func (f IndicesForcemerge) WithMaxNumSegments(v int) func(*IndicesForcemergeRequ
 func (f IndicesForcemerge) WithOnlyExpungeDeletes(v bool) func(*IndicesForcemergeRequest) {
 	return func(r *IndicesForcemergeRequest) {
 		r.OnlyExpungeDeletes = &v
+	}
+}
+
+// WithWaitForCompletion - should the request wait until the force merge is completed..
+//
+func (f IndicesForcemerge) WithWaitForCompletion(v bool) func(*IndicesForcemergeRequest) {
+	return func(r *IndicesForcemergeRequest) {
+		r.WaitForCompletion = &v
 	}
 }
 

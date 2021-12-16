@@ -15,13 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.0.0: DO NOT EDIT
+// Code generated from specification version 8.1.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -49,6 +50,7 @@ type MLDeleteTrainedModel func(model_id string, o ...func(*MLDeleteTrainedModelR
 type MLDeleteTrainedModelRequest struct {
 	ModelID string
 
+	Force   *bool
 	Timeout time.Duration
 
 	Pretty     bool
@@ -81,6 +83,10 @@ func (r MLDeleteTrainedModelRequest) Do(ctx context.Context, transport Transport
 	path.WriteString(r.ModelID)
 
 	params = make(map[string]string)
+
+	if r.Force != nil {
+		params["force"] = strconv.FormatBool(*r.Force)
+	}
 
 	if r.Timeout != 0 {
 		params["timeout"] = formatDuration(r.Timeout)
@@ -150,6 +156,14 @@ func (r MLDeleteTrainedModelRequest) Do(ctx context.Context, transport Transport
 func (f MLDeleteTrainedModel) WithContext(v context.Context) func(*MLDeleteTrainedModelRequest) {
 	return func(r *MLDeleteTrainedModelRequest) {
 		r.ctx = v
+	}
+}
+
+// WithForce - true if the model should be forcefully deleted.
+//
+func (f MLDeleteTrainedModel) WithForce(v bool) func(*MLDeleteTrainedModelRequest) {
+	return func(r *MLDeleteTrainedModelRequest) {
+		r.Force = &v
 	}
 }
 

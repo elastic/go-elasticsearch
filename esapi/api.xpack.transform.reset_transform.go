@@ -22,12 +22,14 @@ package esapi
 import (
 	"context"
 	"net/http"
+	"strconv"
 	"strings"
+	"time"
 )
 
-func newSQLDeleteAsyncFunc(t Transport) SQLDeleteAsync {
-	return func(id string, o ...func(*SQLDeleteAsyncRequest)) (*Response, error) {
-		var r = SQLDeleteAsyncRequest{DocumentID: id}
+func newTransformResetTransformFunc(t Transport) TransformResetTransform {
+	return func(transform_id string, o ...func(*TransformResetTransformRequest)) (*Response, error) {
+		var r = TransformResetTransformRequest{TransformID: transform_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -37,16 +39,19 @@ func newSQLDeleteAsyncFunc(t Transport) SQLDeleteAsync {
 
 // ----- API Definition -------------------------------------------------------
 
-// SQLDeleteAsync - Deletes an async SQL search or a stored synchronous SQL search. If the search is still running, the API cancels it.
+// TransformResetTransform - Resets an existing transform.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-async-sql-search-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/reset-transform.html.
 //
-type SQLDeleteAsync func(id string, o ...func(*SQLDeleteAsyncRequest)) (*Response, error)
+type TransformResetTransform func(transform_id string, o ...func(*TransformResetTransformRequest)) (*Response, error)
 
-// SQLDeleteAsyncRequest configures the SQL Delete Async API request.
+// TransformResetTransformRequest configures the Transform Reset Transform API request.
 //
-type SQLDeleteAsyncRequest struct {
-	DocumentID string
+type TransformResetTransformRequest struct {
+	TransformID string
+
+	Force   *bool
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -60,26 +65,32 @@ type SQLDeleteAsyncRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r SQLDeleteAsyncRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r TransformResetTransformRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "DELETE"
+	method = "POST"
 
-	path.Grow(1 + len("_sql") + 1 + len("async") + 1 + len("delete") + 1 + len(r.DocumentID))
+	path.Grow(1 + len("_transform") + 1 + len(r.TransformID) + 1 + len("_reset"))
 	path.WriteString("/")
-	path.WriteString("_sql")
+	path.WriteString("_transform")
 	path.WriteString("/")
-	path.WriteString("async")
+	path.WriteString(r.TransformID)
 	path.WriteString("/")
-	path.WriteString("delete")
-	path.WriteString("/")
-	path.WriteString(r.DocumentID)
+	path.WriteString("_reset")
 
 	params = make(map[string]string)
+
+	if r.Force != nil {
+		params["force"] = strconv.FormatBool(*r.Force)
+	}
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -142,48 +153,64 @@ func (r SQLDeleteAsyncRequest) Do(ctx context.Context, transport Transport) (*Re
 
 // WithContext sets the request context.
 //
-func (f SQLDeleteAsync) WithContext(v context.Context) func(*SQLDeleteAsyncRequest) {
-	return func(r *SQLDeleteAsyncRequest) {
+func (f TransformResetTransform) WithContext(v context.Context) func(*TransformResetTransformRequest) {
+	return func(r *TransformResetTransformRequest) {
 		r.ctx = v
+	}
+}
+
+// WithForce - when `true`, the transform is reset regardless of its current state. the default value is `false`, meaning that the transform must be `stopped` before it can be reset..
+//
+func (f TransformResetTransform) WithForce(v bool) func(*TransformResetTransformRequest) {
+	return func(r *TransformResetTransformRequest) {
+		r.Force = &v
+	}
+}
+
+// WithTimeout - controls the time to wait for the transform to reset.
+//
+func (f TransformResetTransform) WithTimeout(v time.Duration) func(*TransformResetTransformRequest) {
+	return func(r *TransformResetTransformRequest) {
+		r.Timeout = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f SQLDeleteAsync) WithPretty() func(*SQLDeleteAsyncRequest) {
-	return func(r *SQLDeleteAsyncRequest) {
+func (f TransformResetTransform) WithPretty() func(*TransformResetTransformRequest) {
+	return func(r *TransformResetTransformRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f SQLDeleteAsync) WithHuman() func(*SQLDeleteAsyncRequest) {
-	return func(r *SQLDeleteAsyncRequest) {
+func (f TransformResetTransform) WithHuman() func(*TransformResetTransformRequest) {
+	return func(r *TransformResetTransformRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f SQLDeleteAsync) WithErrorTrace() func(*SQLDeleteAsyncRequest) {
-	return func(r *SQLDeleteAsyncRequest) {
+func (f TransformResetTransform) WithErrorTrace() func(*TransformResetTransformRequest) {
+	return func(r *TransformResetTransformRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f SQLDeleteAsync) WithFilterPath(v ...string) func(*SQLDeleteAsyncRequest) {
-	return func(r *SQLDeleteAsyncRequest) {
+func (f TransformResetTransform) WithFilterPath(v ...string) func(*TransformResetTransformRequest) {
+	return func(r *TransformResetTransformRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f SQLDeleteAsync) WithHeader(h map[string]string) func(*SQLDeleteAsyncRequest) {
-	return func(r *SQLDeleteAsyncRequest) {
+func (f TransformResetTransform) WithHeader(h map[string]string) func(*TransformResetTransformRequest) {
+	return func(r *TransformResetTransformRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -195,8 +222,8 @@ func (f SQLDeleteAsync) WithHeader(h map[string]string) func(*SQLDeleteAsyncRequ
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f SQLDeleteAsync) WithOpaqueID(s string) func(*SQLDeleteAsyncRequest) {
-	return func(r *SQLDeleteAsyncRequest) {
+func (f TransformResetTransform) WithOpaqueID(s string) func(*TransformResetTransformRequest) {
+	return func(r *TransformResetTransformRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

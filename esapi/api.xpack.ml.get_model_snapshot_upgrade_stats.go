@@ -22,12 +22,13 @@ package esapi
 import (
 	"context"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
-func newSQLDeleteAsyncFunc(t Transport) SQLDeleteAsync {
-	return func(id string, o ...func(*SQLDeleteAsyncRequest)) (*Response, error) {
-		var r = SQLDeleteAsyncRequest{DocumentID: id}
+func newMLGetModelSnapshotUpgradeStatsFunc(t Transport) MLGetModelSnapshotUpgradeStats {
+	return func(snapshot_id string, job_id string, o ...func(*MLGetModelSnapshotUpgradeStatsRequest)) (*Response, error) {
+		var r = MLGetModelSnapshotUpgradeStatsRequest{SnapshotID: snapshot_id, JobID: job_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -37,16 +38,19 @@ func newSQLDeleteAsyncFunc(t Transport) SQLDeleteAsync {
 
 // ----- API Definition -------------------------------------------------------
 
-// SQLDeleteAsync - Deletes an async SQL search or a stored synchronous SQL search. If the search is still running, the API cancels it.
+// MLGetModelSnapshotUpgradeStats - Gets stats for anomaly detection job model snapshot upgrades that are in progress.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-async-sql-search-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-job-model-snapshot-upgrade-stats.html.
 //
-type SQLDeleteAsync func(id string, o ...func(*SQLDeleteAsyncRequest)) (*Response, error)
+type MLGetModelSnapshotUpgradeStats func(snapshot_id string, job_id string, o ...func(*MLGetModelSnapshotUpgradeStatsRequest)) (*Response, error)
 
-// SQLDeleteAsyncRequest configures the SQL Delete Async API request.
+// MLGetModelSnapshotUpgradeStatsRequest configures the ML Get Model Snapshot Upgrade Stats API request.
 //
-type SQLDeleteAsyncRequest struct {
-	DocumentID string
+type MLGetModelSnapshotUpgradeStatsRequest struct {
+	JobID      string
+	SnapshotID string
+
+	AllowNoMatch *bool
 
 	Pretty     bool
 	Human      bool
@@ -60,26 +64,36 @@ type SQLDeleteAsyncRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r SQLDeleteAsyncRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r MLGetModelSnapshotUpgradeStatsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "DELETE"
+	method = "GET"
 
-	path.Grow(1 + len("_sql") + 1 + len("async") + 1 + len("delete") + 1 + len(r.DocumentID))
+	path.Grow(1 + len("_ml") + 1 + len("anomaly_detectors") + 1 + len(r.JobID) + 1 + len("model_snapshots") + 1 + len(r.SnapshotID) + 1 + len("_upgrade") + 1 + len("_stats"))
 	path.WriteString("/")
-	path.WriteString("_sql")
+	path.WriteString("_ml")
 	path.WriteString("/")
-	path.WriteString("async")
+	path.WriteString("anomaly_detectors")
 	path.WriteString("/")
-	path.WriteString("delete")
+	path.WriteString(r.JobID)
 	path.WriteString("/")
-	path.WriteString(r.DocumentID)
+	path.WriteString("model_snapshots")
+	path.WriteString("/")
+	path.WriteString(r.SnapshotID)
+	path.WriteString("/")
+	path.WriteString("_upgrade")
+	path.WriteString("/")
+	path.WriteString("_stats")
 
 	params = make(map[string]string)
+
+	if r.AllowNoMatch != nil {
+		params["allow_no_match"] = strconv.FormatBool(*r.AllowNoMatch)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -142,48 +156,56 @@ func (r SQLDeleteAsyncRequest) Do(ctx context.Context, transport Transport) (*Re
 
 // WithContext sets the request context.
 //
-func (f SQLDeleteAsync) WithContext(v context.Context) func(*SQLDeleteAsyncRequest) {
-	return func(r *SQLDeleteAsyncRequest) {
+func (f MLGetModelSnapshotUpgradeStats) WithContext(v context.Context) func(*MLGetModelSnapshotUpgradeStatsRequest) {
+	return func(r *MLGetModelSnapshotUpgradeStatsRequest) {
 		r.ctx = v
+	}
+}
+
+// WithAllowNoMatch - whether to ignore if a wildcard expression matches no jobs or no snapshots. (this includes the `_all` string.).
+//
+func (f MLGetModelSnapshotUpgradeStats) WithAllowNoMatch(v bool) func(*MLGetModelSnapshotUpgradeStatsRequest) {
+	return func(r *MLGetModelSnapshotUpgradeStatsRequest) {
+		r.AllowNoMatch = &v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f SQLDeleteAsync) WithPretty() func(*SQLDeleteAsyncRequest) {
-	return func(r *SQLDeleteAsyncRequest) {
+func (f MLGetModelSnapshotUpgradeStats) WithPretty() func(*MLGetModelSnapshotUpgradeStatsRequest) {
+	return func(r *MLGetModelSnapshotUpgradeStatsRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f SQLDeleteAsync) WithHuman() func(*SQLDeleteAsyncRequest) {
-	return func(r *SQLDeleteAsyncRequest) {
+func (f MLGetModelSnapshotUpgradeStats) WithHuman() func(*MLGetModelSnapshotUpgradeStatsRequest) {
+	return func(r *MLGetModelSnapshotUpgradeStatsRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f SQLDeleteAsync) WithErrorTrace() func(*SQLDeleteAsyncRequest) {
-	return func(r *SQLDeleteAsyncRequest) {
+func (f MLGetModelSnapshotUpgradeStats) WithErrorTrace() func(*MLGetModelSnapshotUpgradeStatsRequest) {
+	return func(r *MLGetModelSnapshotUpgradeStatsRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f SQLDeleteAsync) WithFilterPath(v ...string) func(*SQLDeleteAsyncRequest) {
-	return func(r *SQLDeleteAsyncRequest) {
+func (f MLGetModelSnapshotUpgradeStats) WithFilterPath(v ...string) func(*MLGetModelSnapshotUpgradeStatsRequest) {
+	return func(r *MLGetModelSnapshotUpgradeStatsRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f SQLDeleteAsync) WithHeader(h map[string]string) func(*SQLDeleteAsyncRequest) {
-	return func(r *SQLDeleteAsyncRequest) {
+func (f MLGetModelSnapshotUpgradeStats) WithHeader(h map[string]string) func(*MLGetModelSnapshotUpgradeStatsRequest) {
+	return func(r *MLGetModelSnapshotUpgradeStatsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -195,8 +217,8 @@ func (f SQLDeleteAsync) WithHeader(h map[string]string) func(*SQLDeleteAsyncRequ
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f SQLDeleteAsync) WithOpaqueID(s string) func(*SQLDeleteAsyncRequest) {
-	return func(r *SQLDeleteAsyncRequest) {
+func (f MLGetModelSnapshotUpgradeStats) WithOpaqueID(s string) func(*MLGetModelSnapshotUpgradeStatsRequest) {
+	return func(r *MLGetModelSnapshotUpgradeStatsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

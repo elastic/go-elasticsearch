@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.0.0 (6aa32dd): DO NOT EDIT
+// Code generated from specification version 8.1.0 (7305000): DO NOT EDIT
 
 package esapi
 
@@ -131,6 +131,7 @@ type API struct {
 	TransformGetTransformStats         TransformGetTransformStats
 	TransformPreviewTransform          TransformPreviewTransform
 	TransformPutTransform              TransformPutTransform
+	TransformResetTransform            TransformResetTransform
 	TransformStartTransform            TransformStartTransform
 	TransformStopTransform             TransformStopTransform
 	TransformUpdateTransform           TransformUpdateTransform
@@ -205,7 +206,6 @@ type Indices struct {
 	DeleteTemplate        IndicesDeleteTemplate
 	DiskUsage             IndicesDiskUsage
 	ExistsAlias           IndicesExistsAlias
-	ExistsDocumentType    IndicesExistsDocumentType
 	ExistsIndexTemplate   IndicesExistsIndexTemplate
 	Exists                IndicesExists
 	ExistsTemplate        IndicesExistsTemplate
@@ -384,6 +384,7 @@ type ML struct {
 	GetInfluencers                MLGetInfluencers
 	GetJobStats                   MLGetJobStats
 	GetJobs                       MLGetJobs
+	GetModelSnapshotUpgradeStats  MLGetModelSnapshotUpgradeStats
 	GetModelSnapshots             MLGetModelSnapshots
 	GetOverallBuckets             MLGetOverallBuckets
 	GetRecords                    MLGetRecords
@@ -617,6 +618,7 @@ func New(t Transport) *API {
 		TransformGetTransformStats:         newTransformGetTransformStatsFunc(t),
 		TransformPreviewTransform:          newTransformPreviewTransformFunc(t),
 		TransformPutTransform:              newTransformPutTransformFunc(t),
+		TransformResetTransform:            newTransformResetTransformFunc(t),
 		TransformStartTransform:            newTransformStartTransformFunc(t),
 		TransformStopTransform:             newTransformStopTransformFunc(t),
 		TransformUpdateTransform:           newTransformUpdateTransformFunc(t),
@@ -684,7 +686,6 @@ func New(t Transport) *API {
 			DeleteTemplate:        newIndicesDeleteTemplateFunc(t),
 			DiskUsage:             newIndicesDiskUsageFunc(t),
 			ExistsAlias:           newIndicesExistsAliasFunc(t),
-			ExistsDocumentType:    newIndicesExistsDocumentTypeFunc(t),
 			ExistsIndexTemplate:   newIndicesExistsIndexTemplateFunc(t),
 			Exists:                newIndicesExistsFunc(t),
 			ExistsTemplate:        newIndicesExistsTemplateFunc(t),
@@ -840,6 +841,7 @@ func New(t Transport) *API {
 			GetInfluencers:                newMLGetInfluencersFunc(t),
 			GetJobStats:                   newMLGetJobStatsFunc(t),
 			GetJobs:                       newMLGetJobsFunc(t),
+			GetModelSnapshotUpgradeStats:  newMLGetModelSnapshotUpgradeStatsFunc(t),
 			GetModelSnapshots:             newMLGetModelSnapshotsFunc(t),
 			GetOverallBuckets:             newMLGetOverallBucketsFunc(t),
 			GetRecords:                    newMLGetRecordsFunc(t),
