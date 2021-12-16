@@ -17,4 +17,4 @@
     builders:
       - shell: |-
           #!/usr/local/bin/runbld
-          .ci/run-benchmarks
+          .ci/scripts/benchmarks/run-benchmarks.sh
