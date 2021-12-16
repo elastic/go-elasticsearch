@@ -19,7 +19,7 @@ on:
 
 env:
   GITHUB_ACTIONS: true
-  ELASTICSEARCH_VERSION: elasticsearch:8.0.0-SNAPSHOT
+  ELASTICSEARCH_VERSION: elasticsearch:8.1.0-SNAPSHOT
 
 jobs:
   test:
