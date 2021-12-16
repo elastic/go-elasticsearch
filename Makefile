@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-ELASTICSEARCH_DEFAULT_BUILD_VERSION = "7.16.2-SNAPSHOT"
+ELASTICSEARCH_DEFAULT_BUILD_VERSION = "7.17.0-SNAPSHOT"
 
 ##@ Test
 test-unit:  ## Run unit tests
@@ -187,7 +187,7 @@ ifeq ($(origin commits), undefined)
 	@exit 2
 endif
 ifndef branches
-	$(eval branches_list = '7.16' '6.x' '5.x')
+	$(eval branches_list = '7.17' '6.x' '5.x')
 else
 	$(eval branches_list = $(shell echo $(branches) | tr ',' ' ') )
 endif
@@ -267,7 +267,7 @@ godoc: ## Display documentation for the package
 	godoc --http=localhost:6060 --play
 
 cluster: ## Launch an Elasticsearch cluster with Docker
-	$(eval version ?= "elasticsearch:7.x-SNAPSHOT")
+	$(eval version ?= "elasticsearch:7.17.0-SNAPSHOT")
 	$(eval flavor ?= "core")
 	$(eval elasticsearch_url = "http://es1:9200")
 
