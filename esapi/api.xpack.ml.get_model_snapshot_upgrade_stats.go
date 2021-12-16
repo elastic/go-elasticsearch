@@ -22,13 +22,13 @@ package esapi
 import (
 	"context"
 	"net/http"
+	"strconv"
 	"strings"
-	"time"
 )
 
-func newDataFrameTransformDeprecatedStartTransformFunc(t Transport) DataFrameTransformDeprecatedStartTransform {
-	return func(transform_id string, o ...func(*DataFrameTransformDeprecatedStartTransformRequest)) (*Response, error) {
-		var r = DataFrameTransformDeprecatedStartTransformRequest{TransformID: transform_id}
+func newMLGetModelSnapshotUpgradeStatsFunc(t Transport) MLGetModelSnapshotUpgradeStats {
+	return func(snapshot_id string, job_id string, o ...func(*MLGetModelSnapshotUpgradeStatsRequest)) (*Response, error) {
+		var r = MLGetModelSnapshotUpgradeStatsRequest{SnapshotID: snapshot_id, JobID: job_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -38,20 +38,19 @@ func newDataFrameTransformDeprecatedStartTransformFunc(t Transport) DataFrameTra
 
 // ----- API Definition -------------------------------------------------------
 
-// DataFrameTransformDeprecatedStartTransform - Starts one or more transforms.
+// MLGetModelSnapshotUpgradeStats - Gets stats for anomaly detection job model snapshot upgrades that are in progress.
 //
-// This API is beta.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-job-model-snapshot-upgrade-stats.html.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/start-transform.html.
-//
-type DataFrameTransformDeprecatedStartTransform func(transform_id string, o ...func(*DataFrameTransformDeprecatedStartTransformRequest)) (*Response, error)
+type MLGetModelSnapshotUpgradeStats func(snapshot_id string, job_id string, o ...func(*MLGetModelSnapshotUpgradeStatsRequest)) (*Response, error)
 
-// DataFrameTransformDeprecatedStartTransformRequest configures the Data Frame Transform Deprecated Start Transform API request.
+// MLGetModelSnapshotUpgradeStatsRequest configures the ML Get Model Snapshot Upgrade Stats API request.
 //
-type DataFrameTransformDeprecatedStartTransformRequest struct {
-	TransformID string
+type MLGetModelSnapshotUpgradeStatsRequest struct {
+	JobID      string
+	SnapshotID string
 
-	Timeout time.Duration
+	AllowNoMatch *bool
 
 	Pretty     bool
 	Human      bool
@@ -65,29 +64,35 @@ type DataFrameTransformDeprecatedStartTransformRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r DataFrameTransformDeprecatedStartTransformRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r MLGetModelSnapshotUpgradeStatsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "POST"
+	method = "GET"
 
-	path.Grow(1 + len("_data_frame") + 1 + len("transforms") + 1 + len(r.TransformID) + 1 + len("_start"))
+	path.Grow(1 + len("_ml") + 1 + len("anomaly_detectors") + 1 + len(r.JobID) + 1 + len("model_snapshots") + 1 + len(r.SnapshotID) + 1 + len("_upgrade") + 1 + len("_stats"))
 	path.WriteString("/")
-	path.WriteString("_data_frame")
+	path.WriteString("_ml")
 	path.WriteString("/")
-	path.WriteString("transforms")
+	path.WriteString("anomaly_detectors")
 	path.WriteString("/")
-	path.WriteString(r.TransformID)
+	path.WriteString(r.JobID)
 	path.WriteString("/")
-	path.WriteString("_start")
+	path.WriteString("model_snapshots")
+	path.WriteString("/")
+	path.WriteString(r.SnapshotID)
+	path.WriteString("/")
+	path.WriteString("_upgrade")
+	path.WriteString("/")
+	path.WriteString("_stats")
 
 	params = make(map[string]string)
 
-	if r.Timeout != 0 {
-		params["timeout"] = formatDuration(r.Timeout)
+	if r.AllowNoMatch != nil {
+		params["allow_no_match"] = strconv.FormatBool(*r.AllowNoMatch)
 	}
 
 	if r.Pretty {
@@ -151,56 +156,56 @@ func (r DataFrameTransformDeprecatedStartTransformRequest) Do(ctx context.Contex
 
 // WithContext sets the request context.
 //
-func (f DataFrameTransformDeprecatedStartTransform) WithContext(v context.Context) func(*DataFrameTransformDeprecatedStartTransformRequest) {
-	return func(r *DataFrameTransformDeprecatedStartTransformRequest) {
+func (f MLGetModelSnapshotUpgradeStats) WithContext(v context.Context) func(*MLGetModelSnapshotUpgradeStatsRequest) {
+	return func(r *MLGetModelSnapshotUpgradeStatsRequest) {
 		r.ctx = v
 	}
 }
 
-// WithTimeout - controls the time to wait for the transform to start.
+// WithAllowNoMatch - whether to ignore if a wildcard expression matches no jobs or no snapshots. (this includes the `_all` string.).
 //
-func (f DataFrameTransformDeprecatedStartTransform) WithTimeout(v time.Duration) func(*DataFrameTransformDeprecatedStartTransformRequest) {
-	return func(r *DataFrameTransformDeprecatedStartTransformRequest) {
-		r.Timeout = v
+func (f MLGetModelSnapshotUpgradeStats) WithAllowNoMatch(v bool) func(*MLGetModelSnapshotUpgradeStatsRequest) {
+	return func(r *MLGetModelSnapshotUpgradeStatsRequest) {
+		r.AllowNoMatch = &v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f DataFrameTransformDeprecatedStartTransform) WithPretty() func(*DataFrameTransformDeprecatedStartTransformRequest) {
-	return func(r *DataFrameTransformDeprecatedStartTransformRequest) {
+func (f MLGetModelSnapshotUpgradeStats) WithPretty() func(*MLGetModelSnapshotUpgradeStatsRequest) {
+	return func(r *MLGetModelSnapshotUpgradeStatsRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f DataFrameTransformDeprecatedStartTransform) WithHuman() func(*DataFrameTransformDeprecatedStartTransformRequest) {
-	return func(r *DataFrameTransformDeprecatedStartTransformRequest) {
+func (f MLGetModelSnapshotUpgradeStats) WithHuman() func(*MLGetModelSnapshotUpgradeStatsRequest) {
+	return func(r *MLGetModelSnapshotUpgradeStatsRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f DataFrameTransformDeprecatedStartTransform) WithErrorTrace() func(*DataFrameTransformDeprecatedStartTransformRequest) {
-	return func(r *DataFrameTransformDeprecatedStartTransformRequest) {
+func (f MLGetModelSnapshotUpgradeStats) WithErrorTrace() func(*MLGetModelSnapshotUpgradeStatsRequest) {
+	return func(r *MLGetModelSnapshotUpgradeStatsRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f DataFrameTransformDeprecatedStartTransform) WithFilterPath(v ...string) func(*DataFrameTransformDeprecatedStartTransformRequest) {
-	return func(r *DataFrameTransformDeprecatedStartTransformRequest) {
+func (f MLGetModelSnapshotUpgradeStats) WithFilterPath(v ...string) func(*MLGetModelSnapshotUpgradeStatsRequest) {
+	return func(r *MLGetModelSnapshotUpgradeStatsRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f DataFrameTransformDeprecatedStartTransform) WithHeader(h map[string]string) func(*DataFrameTransformDeprecatedStartTransformRequest) {
-	return func(r *DataFrameTransformDeprecatedStartTransformRequest) {
+func (f MLGetModelSnapshotUpgradeStats) WithHeader(h map[string]string) func(*MLGetModelSnapshotUpgradeStatsRequest) {
+	return func(r *MLGetModelSnapshotUpgradeStatsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -212,8 +217,8 @@ func (f DataFrameTransformDeprecatedStartTransform) WithHeader(h map[string]stri
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f DataFrameTransformDeprecatedStartTransform) WithOpaqueID(s string) func(*DataFrameTransformDeprecatedStartTransformRequest) {
-	return func(r *DataFrameTransformDeprecatedStartTransformRequest) {
+func (f MLGetModelSnapshotUpgradeStats) WithOpaqueID(s string) func(*MLGetModelSnapshotUpgradeStatsRequest) {
+	return func(r *MLGetModelSnapshotUpgradeStatsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
