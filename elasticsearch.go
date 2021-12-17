@@ -74,10 +74,10 @@ type Config struct {
 	// The option is only valid when the transport is not specified, or when it's http.Transport.
 	CACert []byte
 
-	RetryOnStatus        []int // List of status codes for retry. Default: 502, 503, 504.
-	DisableRetry         bool  // Default: false.
-	EnableRetryOnTimeout bool  // Default: false.
-	MaxRetries           int   // Default: 3.
+	RetryOnStatus []int                           // List of status codes for retry. Default: 502, 503, 504.
+	DisableRetry  bool                            // Default: false.
+	MaxRetries    int                             // Default: 3.
+	RetryOnError  func(*http.Request, error) bool // Optional function allowing to indicate which error should be retried. Default: nil.
 
 	CompressRequestBody bool // Default: false.
 
@@ -188,11 +188,11 @@ func NewClient(cfg Config) (*Client, error) {
 		Header: cfg.Header,
 		CACert: cfg.CACert,
 
-		RetryOnStatus:        cfg.RetryOnStatus,
-		DisableRetry:         cfg.DisableRetry,
-		EnableRetryOnTimeout: cfg.EnableRetryOnTimeout,
-		MaxRetries:           cfg.MaxRetries,
-		RetryBackoff:         cfg.RetryBackoff,
+		RetryOnStatus: cfg.RetryOnStatus,
+		DisableRetry:  cfg.DisableRetry,
+		RetryOnError:  cfg.RetryOnError,
+		MaxRetries:    cfg.MaxRetries,
+		RetryBackoff:  cfg.RetryBackoff,
 
 		CompressRequestBody: cfg.CompressRequestBody,
 
