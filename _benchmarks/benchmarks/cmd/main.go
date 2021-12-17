@@ -31,8 +31,8 @@ import (
 	"github.com/fatih/color"
 	"github.com/montanaflynn/stats"
 
-	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8"
 
 	"github.com/elastic/go-elasticsearch/v8/benchmarks"
 	"github.com/elastic/go-elasticsearch/v8/benchmarks/runner"
@@ -76,7 +76,7 @@ func main() {
 	log.Printf(boldUnderline("Running benchmarks for go-elasticsearch@%s; %s/go%s"), elasticsearch.Version, runner.RuntimeOS, runner.RuntimeVersion)
 
 	var missingConfigs []string
-	for k, _ := range benchmarks.Config {
+	for k := range benchmarks.Config {
 		v := os.Getenv(k)
 		if v == "" {
 			missingConfigs = append(missingConfigs, k)
@@ -120,9 +120,8 @@ func main() {
 	}
 
 	reportClientConfig := elasticsearch.Config{
-		Addresses:            []string{benchmarks.Config["ELASTICSEARCH_REPORT_URL"]},
-		MaxRetries:           10,
-		EnableRetryOnTimeout: true,
+		Addresses:  []string{benchmarks.Config["ELASTICSEARCH_REPORT_URL"]},
+		MaxRetries: 10,
 	}
 	if os.Getenv("DEBUG") != "" {
 		runnerClientConfig.Logger = &elastictransport.ColorLogger{Output: os.Stdout}
