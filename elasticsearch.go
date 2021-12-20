@@ -35,6 +35,7 @@ import (
 	"github.com/elastic/go-elasticsearch/v8/internal/version"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	tpversion "github.com/elastic/elastic-transport-go/v8/elastictransport/version"
 )
 
 const (
@@ -43,12 +44,17 @@ const (
 	// Version returns the package version as a string.
 	Version        = version.Client
 	unknownProduct = "the client noticed that the server is not Elasticsearch and we do not support this unknown product"
+
+	// HeaderClientMeta Key for the HTTP Header related to telemetry data sent with
+	// each request to Elasticsearch.
+	HeaderClientMeta = "x-elastic-client-meta"
 )
 
 var (
 	esCompatHeader = "ELASTIC_CLIENT_APIVERSIONING"
 	userAgent      string
 	reGoVersion    = regexp.MustCompile(`go(\d+\.\d+\..+)`)
+	reMetaVersion  = regexp.MustCompile("([0-9.]+)(.*)")
 )
 
 func init() {
@@ -105,6 +111,7 @@ type Config struct {
 type Client struct {
 	*esapi.API          // Embeds the API methods
 	Transport           elastictransport.Interface
+	metaHeader          string
 	compatibilityHeader bool
 
 	disableMetaHeader   bool
@@ -216,6 +223,7 @@ func NewClient(cfg Config) (*Client, error) {
 	client := &Client{
 		Transport:           tp,
 		disableMetaHeader:   cfg.DisableMetaHeader,
+		metaHeader:          initMetaHeader(tp),
 		compatibilityHeader: cfg.EnableCompatibilityMode || compatibilityHeader,
 	}
 	client.API = esapi.New(client)
@@ -239,9 +247,9 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	if !c.disableMetaHeader {
 		existingMetaHeader := req.Header.Get(HeaderClientMeta)
 		if existingMetaHeader != "" {
-			req.Header.Set(HeaderClientMeta, strings.Join([]string{metaHeader, existingMetaHeader}, ","))
+			req.Header.Set(HeaderClientMeta, strings.Join([]string{c.metaHeader, existingMetaHeader}, ","))
 		} else {
-			req.Header.Add(HeaderClientMeta, metaHeader)
+			req.Header.Add(HeaderClientMeta, c.metaHeader)
 		}
 	} else {
 		req.Header.Del(HeaderClientMeta)
@@ -391,4 +399,62 @@ func initUserAgent() string {
 	b.WriteRune(')')
 
 	return b.String()
+}
+
+func initMetaHeader(transport interface{}) string {
+	var b strings.Builder
+	var strippedGoVersion string
+	var strippedEsVersion string
+	var strippedTransportVersion string
+
+	strippedEsVersion = buildStrippedVersion(Version)
+	strippedGoVersion = buildStrippedVersion(runtime.Version())
+
+	if _, ok := transport.(*elastictransport.Client); ok {
+		strippedTransportVersion = buildStrippedVersion(tpversion.Transport)
+	} else {
+		strippedTransportVersion = strippedEsVersion
+	}
+
+	var duos = [][]string{
+		{
+			"es",
+			strippedEsVersion,
+		},
+		{
+			"go",
+			strippedGoVersion,
+		},
+		{
+			"t",
+			strippedTransportVersion,
+		},
+		{
+			"hc",
+			strippedGoVersion,
+		},
+	}
+
+	var arr []string
+	for _, duo := range duos {
+		arr = append(arr, strings.Join(duo, "="))
+	}
+	b.WriteString(strings.Join(arr, ","))
+
+	return b.String()
+}
+
+func buildStrippedVersion(version string) string {
+	v := reMetaVersion.FindStringSubmatch(version)
+
+	if len(v) == 3 && !strings.Contains(version, "devel") {
+		switch {
+		case v[2] != "":
+			return v[1] + "p"
+		default:
+			return v[1]
+		}
+	}
+
+	return "0.0p"
 }

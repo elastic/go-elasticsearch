@@ -39,6 +39,7 @@ import (
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 )
 
+var metaHeaderReValidation = regexp.MustCompile(`^[a-z]{1,}=[a-z0-9\.\-]{1,}(?:,[a-z]{1,}=[a-z0-9\.\-]+)*$`)
 var called bool
 
 type mockTransp struct {
@@ -649,4 +650,91 @@ func TestCompatibilityHeader(t *testing.T) {
 			_, _ = c.Perform(req)
 		})
 	}
+}
+
+func TestBuildStrippedVersion(t *testing.T) {
+	type args struct {
+		version string
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{
+			name: "Standard Go version",
+			args: args{version: "go1.16"},
+			want: "1.16",
+		},
+		{
+			name: "Rc Go version",
+			args: args{
+				version: "go1.16rc1",
+			},
+			want: "1.16p",
+		},
+		{
+			name: "Beta Go version (go1.16beta1 example)",
+			args: args{
+				version: "devel +2ff33f5e44 Thu Dec 17 16:03:19 2020 +0000",
+			},
+			want: "0.0p",
+		},
+		{
+			name: "Random mostly good Go version",
+			args: args{
+				version: "1.16",
+			},
+			want: "1.16",
+		},
+		{
+			name: "Client package version",
+			args: args{
+				version: "8.0.0",
+			},
+			want: "8.0.0",
+		},
+		{
+			name: "Client pre release version",
+			args: args{
+				version: "8.0.0-SNAPSHOT",
+			},
+			want: "8.0.0p",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := buildStrippedVersion(tt.args.version); got != tt.want {
+				t.Errorf("buildStrippedVersion() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestMetaHeader(t *testing.T) {
+	t.Run("MetaHeader with elastictransport", func(t *testing.T) {
+		tp, _ := elastictransport.New(elastictransport.Config{
+			URLs: []*url.URL{{Scheme: "http", Host: "foo"}},
+			Transport: &mockTransp{
+				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+					h := request.Header.Get(HeaderClientMeta)
+					if !metaHeaderReValidation.MatchString(h) {
+						t.Errorf("expected client metaheader to validate regexp, got: %s", h)
+					}
+
+					return &http.Response{
+						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+						StatusCode: http.StatusOK,
+						Status:     "OK",
+						Body:       ioutil.NopCloser(strings.NewReader("")),
+					}, nil
+				},
+			},
+		})
+
+		c, _ := NewDefaultClient()
+		c.Transport = tp
+
+		_, _ = c.Info()
+	})
 }
