@@ -54,9 +54,7 @@ var (
 	esCompatHeader = "ELASTIC_CLIENT_APIVERSIONING"
 	userAgent      string
 	reGoVersion    = regexp.MustCompile(`go(\d+\.\d+\..+)`)
-
-	metaHeader    string
-	metaReVersion = regexp.MustCompile("([0-9.]+)(.*)")
+	reMetaVersion  = regexp.MustCompile("([0-9.]+)(.*)")
 )
 
 func init() {
@@ -113,6 +111,7 @@ type Config struct {
 type Client struct {
 	*esapi.API          // Embeds the API methods
 	Transport           elastictransport.Interface
+	metaHeader          string
 	compatibilityHeader bool
 
 	disableMetaHeader   bool
@@ -224,6 +223,7 @@ func NewClient(cfg Config) (*Client, error) {
 	client := &Client{
 		Transport:           tp,
 		disableMetaHeader:   cfg.DisableMetaHeader,
+		metaHeader:          initMetaHeader(tp),
 		compatibilityHeader: cfg.EnableCompatibilityMode || compatibilityHeader,
 	}
 	client.API = esapi.New(client)
@@ -231,8 +231,6 @@ func NewClient(cfg Config) (*Client, error) {
 	if cfg.DiscoverNodesOnStart {
 		go client.DiscoverNodes()
 	}
-
-	metaHeader = initMetaHeader(client.Transport)
 
 	return client, nil
 }
@@ -249,9 +247,9 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	if !c.disableMetaHeader {
 		existingMetaHeader := req.Header.Get(HeaderClientMeta)
 		if existingMetaHeader != "" {
-			req.Header.Set(HeaderClientMeta, strings.Join([]string{metaHeader, existingMetaHeader}, ","))
+			req.Header.Set(HeaderClientMeta, strings.Join([]string{c.metaHeader, existingMetaHeader}, ","))
 		} else {
-			req.Header.Add(HeaderClientMeta, metaHeader)
+			req.Header.Add(HeaderClientMeta, c.metaHeader)
 		}
 	} else {
 		req.Header.Del(HeaderClientMeta)
@@ -447,7 +445,7 @@ func initMetaHeader(transport interface{}) string {
 }
 
 func buildStrippedVersion(version string) string {
-	v := metaReVersion.FindStringSubmatch(version)
+	v := reMetaVersion.FindStringSubmatch(version)
 
 	if len(v) == 3 && !strings.Contains(version, "devel") {
 		switch {
