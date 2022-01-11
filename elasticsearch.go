@@ -48,6 +48,8 @@ const (
 	// HeaderClientMeta Key for the HTTP Header related to telemetry data sent with
 	// each request to Elasticsearch.
 	HeaderClientMeta = "x-elastic-client-meta"
+
+	CompatibilityHeader = "application/vnd.elasticsearch+json;compatible-with=8"
 )
 
 var (
@@ -240,8 +242,10 @@ func NewClient(cfg Config) (*Client, error) {
 func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	// Compatibility Header
 	if c.compatibilityHeader {
-		req.Header.Set("Content-Type", "application/vnd.elasticsearch+json;compatible-with=8")
-		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=8")
+		if req.Body != nil {
+			req.Header.Set("Content-Type", CompatibilityHeader)
+		}
+		req.Header.Set("Accept", CompatibilityHeader)
 	}
 
 	if !c.disableMetaHeader {
