@@ -19,9 +19,8 @@ package gentests
 
 import (
 	"fmt"
-	"strings"
-
 	"gopkg.in/yaml.v2"
+	"strings"
 )
 
 var skipTests map[string][]string
@@ -51,6 +50,7 @@ var skipFiles = []string{
 
 	"indices.stats/50_disk_usage.yml",  // Needs a replacement mechanism implementation
 	"indices.stats/60_field_usage.yml", // Needs a replacement mechanism implementation
+	"eql/10_basic.yml",
 }
 
 // TODO: Comments into descriptions for `Skip()`
@@ -301,6 +301,8 @@ ml/explain_data_frame_analytics.yml:
 runtime_fields/10_keyword.yml:
   - docvalue_fields
   - fetch fields
+vector-tile/10_basic.yml:
+vector-tile/20_aggregations.yml:
 
 # Test uses "n" as a property name, which is parsed as 'false' in the Go YAML library;
 search.aggregation/10_histogram.yml:
