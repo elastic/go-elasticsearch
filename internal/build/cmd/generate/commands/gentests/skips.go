@@ -19,9 +19,8 @@ package gentests
 
 import (
 	"fmt"
-	"strings"
-
 	"gopkg.in/yaml.v2"
+	"strings"
 )
 
 var skipTests map[string][]string
@@ -51,6 +50,7 @@ var skipFiles = []string{
 
 	"indices.stats/50_disk_usage.yml",  // Needs a replacement mechanism implementation
 	"indices.stats/60_field_usage.yml", // Needs a replacement mechanism implementation
+	"eql/10_basic.yml",
 }
 
 // TODO: Comments into descriptions for `Skip()`
@@ -90,6 +90,15 @@ nodes.stats/30_discovery.yml:
   - Discovery stats
 nodes.discovery/30_discovery.yml:
   - Discovery stats
+
+# wrongly assumed as []interface{} where these should be map[string]interface{}
+data_stream/150_tsdb.yml:
+eql/20_runtime_mappings.yml:
+  - Execute EQL events query with search time keyword runtime field
+  - Execute EQL events query with search time ip runtime field
+spatial/60_geo_line.yml:
+  - Test geo_line aggregation on geo points
+  - Test empty buckets
 
 # Arbitrary key
 indices.shrink/10_basic.yml:
@@ -151,6 +160,10 @@ search/issue9606.yml:
 # FIXME
 bulk/80_cas.yml:
 bulk/81_cas_with_types.yml:
+
+# Incompatible variable replacement
+tsdb/150_tsdb.yml:
+  - 
 
 # Incompatible to date with test runner
 tsdb/80_index_resize.yml:
@@ -301,6 +314,8 @@ ml/explain_data_frame_analytics.yml:
 runtime_fields/10_keyword.yml:
   - docvalue_fields
   - fetch fields
+vector-tile/10_basic.yml:
+vector-tile/20_aggregations.yml:
 
 # Test uses "n" as a property name, which is parsed as 'false' in the Go YAML library;
 search.aggregation/10_histogram.yml:
