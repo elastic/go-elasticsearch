@@ -95,8 +95,10 @@ nodes.discovery/30_discovery.yml:
 data_stream/150_tsdb.yml:
 eql/20_runtime_mappings.yml:
   - Execute EQL events query with search time keyword runtime field
+  - Execute EQL events query with search time ip runtime field
 spatial/60_geo_line.yml:
   - Test geo_line aggregation on geo points
+  - Test empty buckets
 
 # Arbitrary key
 indices.shrink/10_basic.yml:
