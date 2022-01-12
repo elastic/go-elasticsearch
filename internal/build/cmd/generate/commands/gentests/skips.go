@@ -91,6 +91,13 @@ nodes.stats/30_discovery.yml:
 nodes.discovery/30_discovery.yml:
   - Discovery stats
 
+# wrongly assumed as []interface{} where these should be map[string]interface{}
+data_stream/150_tsdb.yml:
+eql/20_runtime_mappings.yml:
+  - Execute EQL events query with search time keyword runtime field
+spatial/60_geo_line.yml:
+  - Test geo_line aggregation on geo points
+
 # Arbitrary key
 indices.shrink/10_basic.yml:
 indices.shrink/20_source_mapping.yml:
@@ -151,6 +158,10 @@ search/issue9606.yml:
 # FIXME
 bulk/80_cas.yml:
 bulk/81_cas_with_types.yml:
+
+# Incompatible variable replacement
+tsdb/150_tsdb.yml:
+  - 
 
 # Incompatible to date with test runner
 tsdb/80_index_resize.yml:
