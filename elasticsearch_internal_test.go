@@ -630,6 +630,10 @@ func TestCompatibilityHeader(t *testing.T) {
 								if !reflect.DeepEqual(req.Header["Content-Type"], test.expectsHeader) {
 									t.Errorf("Compatibility header with Body enabled, not in request headers, got: %s, want: %s", req.Header["Content-Type"], test.expectsHeader)
 								}
+							} else {
+								if reflect.DeepEqual(req.Header["Content-Type"], test.expectsHeader) {
+									t.Errorf("Compatibility header if Content-Type shouldn't be set with an empty body")
+								}
 							}
 						}
 
