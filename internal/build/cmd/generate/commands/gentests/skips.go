@@ -121,6 +121,13 @@ cat.aliases/10_basic.yml:
   - "Column headers (pre 7.4.0)"
   - "Alias against closed index (pre 7.4.0)"
 
+# Checks for nil required arguments makes this test incompatible with the integration tests
+indices.delete_alias/all_path_options.yml:
+  - check delete with blank index and blank alias
+indices.put_alias/all_path_options.yml:
+  - put alias with blank index
+  - put alias with missing name
+
 indices.put_mapping/10_basic.yml:
   - "Put mappings with explicit _doc type bwc"
 

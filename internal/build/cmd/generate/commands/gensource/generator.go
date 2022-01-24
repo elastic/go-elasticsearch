@@ -556,8 +556,9 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(ctx context.Context,
 		g.w(f(g.Endpoint))
 	} else {
 		var (
-			pathGrow    strings.Builder
-			pathContent strings.Builder
+			requiredArgsValidation strings.Builder
+			pathGrow               strings.Builder
+			pathContent            strings.Builder
 		)
 
 		pathGrow.WriteString(`	path.Grow(`)
@@ -599,15 +600,18 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(ctx context.Context,
 						pathContent.WriteString(`	path.WriteString("/")` + "\n")
 						switch a.Type {
 						case "int":
+							requiredArgsValidation.WriteString(`if r.` + p + ` == nil { return nil, errors.New("` + a.Name + ` is required and cannot be nil") }` + "\n")
 							pathGrow.WriteString(`len(strconv.Itoa(*r.` + p + `)) + `)
 							pathContent.WriteString(`	path.WriteString(strconv.Itoa(*r.` + p + `))` + "\n")
 						case "string":
 							pathGrow.WriteString(`len(r.` + p + `) + `)
 							pathContent.WriteString(`	path.WriteString(r.` + p + `)` + "\n")
 						case "list":
+							requiredArgsValidation.WriteString(`if len(r.` + p + `) == 0 { return nil, errors.New("` + a.Name + ` is required and cannot be nil or empty") }` + "\n")
 							pathGrow.WriteString(`len(strings.Join(r.` + p + `, ",")) + `)
 							pathContent.WriteString(`	path.WriteString(strings.Join(r.` + p + `, ","))` + "\n")
 						case "long":
+							requiredArgsValidation.WriteString(`if r.` + p + ` == nil { return nil, errors.New("` + a.Name + ` is required and cannot be nil") }` + "\n")
 							pathGrow.WriteString(`len(strconv.Itoa(*r.` + p + `)) + `)
 							pathContent.WriteString(`	path.WriteString(strconv.Itoa(*r.` + p + `))` + "\n")
 						default:
@@ -686,6 +690,7 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(ctx context.Context,
 
 		// Write out the content
 		pathGrow.WriteString(`)`)
+		g.w(requiredArgsValidation.String() + "\n")
 		g.w(strings.Replace(pathGrow.String(), " + )", ")", 1) + "\n")
 		g.w(pathContent.String() + "\n")
 	}
