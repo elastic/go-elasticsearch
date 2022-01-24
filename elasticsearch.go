@@ -49,7 +49,7 @@ const (
 	// each request to Elasticsearch.
 	HeaderClientMeta = "x-elastic-client-meta"
 
-	CompatibilityHeader = "application/vnd.elasticsearch+json;compatible-with=8"
+	compatibilityHeader = "application/vnd.elasticsearch+json;compatible-with=8"
 )
 
 var (
@@ -243,9 +243,9 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	// Compatibility Header
 	if c.compatibilityHeader {
 		if req.Body != nil {
-			req.Header.Set("Content-Type", CompatibilityHeader)
+			req.Header.Set("Content-Type", compatibilityHeader)
 		}
-		req.Header.Set("Accept", CompatibilityHeader)
+		req.Header.Set("Accept", compatibilityHeader)
 	}
 
 	if !c.disableMetaHeader {
