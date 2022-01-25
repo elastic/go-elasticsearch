@@ -667,7 +667,7 @@ default:
 					var specialCase string
 					if strings.HasSuffix(key, "from") || strings.HasSuffix(key, "to") {
 						specialCase = `else if floatValue, err := actual.(encjson.Number).Float64(); err == nil {
-							actual = fmt.Sprintf("%d", int(floatValue))
+							actual = strconv.FormatFloat(floatValue, 'f', -1, 64)
 						} `
 					}
 
