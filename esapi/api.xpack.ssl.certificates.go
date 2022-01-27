@@ -67,7 +67,8 @@ func (r SSLCertificatesRequest) Do(ctx context.Context, transport Transport) (*R
 
 	method = "GET"
 
-	path.Grow(len("/_ssl/certificates"))
+	path.Grow(7 + len("/_ssl/certificates"))
+	path.WriteString("http://")
 	path.WriteString("/_ssl/certificates")
 
 	params = make(map[string]string)

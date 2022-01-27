@@ -77,7 +77,8 @@ func (r CatFielddataRequest) Do(ctx context.Context, transport Transport) (*Resp
 
 	method = "GET"
 
-	path.Grow(1 + len("_cat") + 1 + len("fielddata") + 1 + len(strings.Join(r.Fields, ",")))
+	path.Grow(7 + 1 + len("_cat") + 1 + len("fielddata") + 1 + len(strings.Join(r.Fields, ",")))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_cat")
 	path.WriteString("/")

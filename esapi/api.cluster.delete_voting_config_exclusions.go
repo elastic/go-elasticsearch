@@ -70,7 +70,8 @@ func (r ClusterDeleteVotingConfigExclusionsRequest) Do(ctx context.Context, tran
 
 	method = "DELETE"
 
-	path.Grow(len("/_cluster/voting_config_exclusions"))
+	path.Grow(7 + len("/_cluster/voting_config_exclusions"))
+	path.WriteString("http://")
 	path.WriteString("/_cluster/voting_config_exclusions")
 
 	params = make(map[string]string)

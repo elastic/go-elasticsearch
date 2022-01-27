@@ -72,7 +72,8 @@ func (r IndicesAnalyzeRequest) Do(ctx context.Context, transport Transport) (*Re
 
 	method = "POST"
 
-	path.Grow(1 + len(r.Index) + 1 + len("_analyze"))
+	path.Grow(7 + 1 + len(r.Index) + 1 + len("_analyze"))
+	path.WriteString("http://")
 	if r.Index != "" {
 		path.WriteString("/")
 		path.WriteString(r.Index)

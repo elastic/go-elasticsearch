@@ -72,7 +72,8 @@ func (r ScriptsPainlessExecuteRequest) Do(ctx context.Context, transport Transpo
 
 	method = "POST"
 
-	path.Grow(len("/_scripts/painless/_execute"))
+	path.Grow(7 + len("/_scripts/painless/_execute"))
+	path.WriteString("http://")
 	path.WriteString("/_scripts/painless/_execute")
 
 	params = make(map[string]string)

@@ -72,7 +72,8 @@ func (r CCRForgetFollowerRequest) Do(ctx context.Context, transport Transport) (
 
 	method = "POST"
 
-	path.Grow(1 + len(r.Index) + 1 + len("_ccr") + 1 + len("forget_follower"))
+	path.Grow(7 + 1 + len(r.Index) + 1 + len("_ccr") + 1 + len("forget_follower"))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString(r.Index)
 	path.WriteString("/")

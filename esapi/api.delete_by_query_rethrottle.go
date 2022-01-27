@@ -72,7 +72,8 @@ func (r DeleteByQueryRethrottleRequest) Do(ctx context.Context, transport Transp
 
 	method = "POST"
 
-	path.Grow(1 + len("_delete_by_query") + 1 + len(r.TaskID) + 1 + len("_rethrottle"))
+	path.Grow(7 + 1 + len("_delete_by_query") + 1 + len(r.TaskID) + 1 + len("_rethrottle"))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_delete_by_query")
 	path.WriteString("/")

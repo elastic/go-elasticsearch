@@ -71,7 +71,8 @@ func (r LicenseGetRequest) Do(ctx context.Context, transport Transport) (*Respon
 
 	method = "GET"
 
-	path.Grow(len("/_license"))
+	path.Grow(7 + len("/_license"))
+	path.WriteString("http://")
 	path.WriteString("/_license")
 
 	params = make(map[string]string)

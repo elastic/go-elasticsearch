@@ -69,7 +69,8 @@ func (r EnrichGetPolicyRequest) Do(ctx context.Context, transport Transport) (*R
 
 	method = "GET"
 
-	path.Grow(1 + len("_enrich") + 1 + len("policy") + 1 + len(strings.Join(r.Name, ",")))
+	path.Grow(7 + 1 + len("_enrich") + 1 + len("policy") + 1 + len(strings.Join(r.Name, ",")))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_enrich")
 	path.WriteString("/")

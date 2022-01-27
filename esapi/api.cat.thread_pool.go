@@ -81,7 +81,8 @@ func (r CatThreadPoolRequest) Do(ctx context.Context, transport Transport) (*Res
 
 	method = "GET"
 
-	path.Grow(1 + len("_cat") + 1 + len("thread_pool") + 1 + len(strings.Join(r.ThreadPoolPatterns, ",")))
+	path.Grow(7 + 1 + len("_cat") + 1 + len("thread_pool") + 1 + len(strings.Join(r.ThreadPoolPatterns, ",")))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_cat")
 	path.WriteString("/")

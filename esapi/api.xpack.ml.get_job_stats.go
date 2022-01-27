@@ -72,7 +72,8 @@ func (r MLGetJobStatsRequest) Do(ctx context.Context, transport Transport) (*Res
 
 	method = "GET"
 
-	path.Grow(1 + len("_ml") + 1 + len("anomaly_detectors") + 1 + len(r.JobID) + 1 + len("_stats"))
+	path.Grow(7 + 1 + len("_ml") + 1 + len("anomaly_detectors") + 1 + len(r.JobID) + 1 + len("_stats"))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_ml")
 	path.WriteString("/")

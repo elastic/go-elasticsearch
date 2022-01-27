@@ -21,6 +21,7 @@ package esapi
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strings"
 	"time"
@@ -73,7 +74,12 @@ func (r SnapshotDeleteRepositoryRequest) Do(ctx context.Context, transport Trans
 
 	method = "DELETE"
 
-	path.Grow(1 + len("_snapshot") + 1 + len(strings.Join(r.Repository, ",")))
+	if len(r.Repository) == 0 {
+		return nil, errors.New("repository is required and cannot be nil or empty")
+	}
+
+	path.Grow(7 + 1 + len("_snapshot") + 1 + len(strings.Join(r.Repository, ",")))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_snapshot")
 	path.WriteString("/")

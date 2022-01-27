@@ -72,7 +72,8 @@ func (r ILMMoveToStepRequest) Do(ctx context.Context, transport Transport) (*Res
 
 	method = "POST"
 
-	path.Grow(1 + len("_ilm") + 1 + len("move") + 1 + len(r.Index))
+	path.Grow(7 + 1 + len("_ilm") + 1 + len("move") + 1 + len(r.Index))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_ilm")
 	path.WriteString("/")

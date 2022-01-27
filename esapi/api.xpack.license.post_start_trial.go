@@ -71,7 +71,8 @@ func (r LicensePostStartTrialRequest) Do(ctx context.Context, transport Transpor
 
 	method = "POST"
 
-	path.Grow(len("/_license/start_trial"))
+	path.Grow(7 + len("/_license/start_trial"))
+	path.WriteString("http://")
 	path.WriteString("/_license/start_trial")
 
 	params = make(map[string]string)

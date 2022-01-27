@@ -77,7 +77,8 @@ func (r CatNodeattrsRequest) Do(ctx context.Context, transport Transport) (*Resp
 
 	method = "GET"
 
-	path.Grow(len("/_cat/nodeattrs"))
+	path.Grow(7 + len("/_cat/nodeattrs"))
+	path.WriteString("http://")
 	path.WriteString("/_cat/nodeattrs")
 
 	params = make(map[string]string)

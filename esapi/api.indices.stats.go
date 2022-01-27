@@ -82,7 +82,8 @@ func (r IndicesStatsRequest) Do(ctx context.Context, transport Transport) (*Resp
 
 	method = "GET"
 
-	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_stats") + 1 + len(strings.Join(r.Metric, ",")))
+	path.Grow(7 + 1 + len(strings.Join(r.Index, ",")) + 1 + len("_stats") + 1 + len(strings.Join(r.Metric, ",")))
+	path.WriteString("http://")
 	if len(r.Index) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.Index, ","))

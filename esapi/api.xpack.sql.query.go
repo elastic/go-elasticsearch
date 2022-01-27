@@ -72,7 +72,8 @@ func (r SQLQueryRequest) Do(ctx context.Context, transport Transport) (*Response
 
 	method = "POST"
 
-	path.Grow(len("/_sql"))
+	path.Grow(7 + len("/_sql"))
+	path.WriteString("http://")
 	path.WriteString("/_sql")
 
 	params = make(map[string]string)

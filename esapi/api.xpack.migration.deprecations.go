@@ -69,7 +69,8 @@ func (r MigrationDeprecationsRequest) Do(ctx context.Context, transport Transpor
 
 	method = "GET"
 
-	path.Grow(1 + len(r.Index) + 1 + len("_migration") + 1 + len("deprecations"))
+	path.Grow(7 + 1 + len(r.Index) + 1 + len("_migration") + 1 + len("deprecations"))
+	path.WriteString("http://")
 	if r.Index != "" {
 		path.WriteString("/")
 		path.WriteString(r.Index)

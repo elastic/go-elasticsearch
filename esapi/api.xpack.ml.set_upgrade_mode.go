@@ -72,7 +72,8 @@ func (r MLSetUpgradeModeRequest) Do(ctx context.Context, transport Transport) (*
 
 	method = "POST"
 
-	path.Grow(len("/_ml/set_upgrade_mode"))
+	path.Grow(7 + len("/_ml/set_upgrade_mode"))
+	path.WriteString("http://")
 	path.WriteString("/_ml/set_upgrade_mode")
 
 	params = make(map[string]string)

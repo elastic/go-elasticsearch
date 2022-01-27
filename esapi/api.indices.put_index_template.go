@@ -78,7 +78,8 @@ func (r IndicesPutIndexTemplateRequest) Do(ctx context.Context, transport Transp
 
 	method = "PUT"
 
-	path.Grow(1 + len("_index_template") + 1 + len(r.Name))
+	path.Grow(7 + 1 + len("_index_template") + 1 + len(r.Name))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_index_template")
 	path.WriteString("/")

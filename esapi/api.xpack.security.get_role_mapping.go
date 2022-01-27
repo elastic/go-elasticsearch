@@ -69,7 +69,8 @@ func (r SecurityGetRoleMappingRequest) Do(ctx context.Context, transport Transpo
 
 	method = "GET"
 
-	path.Grow(1 + len("_security") + 1 + len("role_mapping") + 1 + len(strings.Join(r.Name, ",")))
+	path.Grow(7 + 1 + len("_security") + 1 + len("role_mapping") + 1 + len(strings.Join(r.Name, ",")))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_security")
 	path.WriteString("/")

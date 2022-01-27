@@ -67,7 +67,8 @@ func (r SlmExecuteRetentionRequest) Do(ctx context.Context, transport Transport)
 
 	method = "POST"
 
-	path.Grow(len("/_slm/_execute_retention"))
+	path.Grow(7 + len("/_slm/_execute_retention"))
+	path.WriteString("http://")
 	path.WriteString("/_slm/_execute_retention")
 
 	params = make(map[string]string)

@@ -82,7 +82,8 @@ func (r IndicesPutSettingsRequest) Do(ctx context.Context, transport Transport) 
 
 	method = "PUT"
 
-	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_settings"))
+	path.Grow(7 + 1 + len(strings.Join(r.Index, ",")) + 1 + len("_settings"))
+	path.WriteString("http://")
 	if len(r.Index) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.Index, ","))

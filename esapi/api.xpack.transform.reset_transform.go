@@ -74,7 +74,8 @@ func (r TransformResetTransformRequest) Do(ctx context.Context, transport Transp
 
 	method = "POST"
 
-	path.Grow(1 + len("_transform") + 1 + len(r.TransformID) + 1 + len("_reset"))
+	path.Grow(7 + 1 + len("_transform") + 1 + len(r.TransformID) + 1 + len("_reset"))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_transform")
 	path.WriteString("/")

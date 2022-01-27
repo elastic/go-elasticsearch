@@ -78,7 +78,8 @@ func (r IndicesUnfreezeRequest) Do(ctx context.Context, transport Transport) (*R
 
 	method = "POST"
 
-	path.Grow(1 + len(r.Index) + 1 + len("_unfreeze"))
+	path.Grow(7 + 1 + len(r.Index) + 1 + len("_unfreeze"))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString(r.Index)
 	path.WriteString("/")

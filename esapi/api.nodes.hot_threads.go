@@ -79,7 +79,8 @@ func (r NodesHotThreadsRequest) Do(ctx context.Context, transport Transport) (*R
 
 	method = "GET"
 
-	path.Grow(1 + len("_nodes") + 1 + len(strings.Join(r.NodeID, ",")) + 1 + len("hot_threads"))
+	path.Grow(7 + 1 + len("_nodes") + 1 + len(strings.Join(r.NodeID, ",")) + 1 + len("hot_threads"))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_nodes")
 	if len(r.NodeID) > 0 {

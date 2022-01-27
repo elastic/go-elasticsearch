@@ -70,7 +70,8 @@ func (r SecurityGetTokenRequest) Do(ctx context.Context, transport Transport) (*
 
 	method = "POST"
 
-	path.Grow(len("/_security/oauth2/token"))
+	path.Grow(7 + len("/_security/oauth2/token"))
+	path.WriteString("http://")
 	path.WriteString("/_security/oauth2/token")
 
 	params = make(map[string]string)

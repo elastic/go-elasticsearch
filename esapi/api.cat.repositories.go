@@ -77,7 +77,8 @@ func (r CatRepositoriesRequest) Do(ctx context.Context, transport Transport) (*R
 
 	method = "GET"
 
-	path.Grow(len("/_cat/repositories"))
+	path.Grow(7 + len("/_cat/repositories"))
+	path.WriteString("http://")
 	path.WriteString("/_cat/repositories")
 
 	params = make(map[string]string)

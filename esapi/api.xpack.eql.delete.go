@@ -69,7 +69,8 @@ func (r EqlDeleteRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 	method = "DELETE"
 
-	path.Grow(1 + len("_eql") + 1 + len("search") + 1 + len(r.DocumentID))
+	path.Grow(7 + 1 + len("_eql") + 1 + len("search") + 1 + len(r.DocumentID))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_eql")
 	path.WriteString("/")

@@ -85,7 +85,8 @@ func (r BulkRequest) Do(ctx context.Context, transport Transport) (*Response, er
 
 	method = "POST"
 
-	path.Grow(1 + len(r.Index) + 1 + len("_bulk"))
+	path.Grow(7 + 1 + len(r.Index) + 1 + len("_bulk"))
+	path.WriteString("http://")
 	if r.Index != "" {
 		path.WriteString("/")
 		path.WriteString(r.Index)

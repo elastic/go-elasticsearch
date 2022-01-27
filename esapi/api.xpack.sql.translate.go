@@ -70,7 +70,8 @@ func (r SQLTranslateRequest) Do(ctx context.Context, transport Transport) (*Resp
 
 	method = "POST"
 
-	path.Grow(len("/_sql/translate"))
+	path.Grow(7 + len("/_sql/translate"))
+	path.WriteString("http://")
 	path.WriteString("/_sql/translate")
 
 	params = make(map[string]string)

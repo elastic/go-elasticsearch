@@ -83,7 +83,8 @@ func (r ClusterHealthRequest) Do(ctx context.Context, transport Transport) (*Res
 
 	method = "GET"
 
-	path.Grow(1 + len("_cluster") + 1 + len("health") + 1 + len(strings.Join(r.Index, ",")))
+	path.Grow(7 + 1 + len("_cluster") + 1 + len("health") + 1 + len(strings.Join(r.Index, ",")))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_cluster")
 	path.WriteString("/")

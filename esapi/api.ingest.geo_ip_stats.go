@@ -67,7 +67,8 @@ func (r IngestGeoIPStatsRequest) Do(ctx context.Context, transport Transport) (*
 
 	method = "GET"
 
-	path.Grow(len("/_ingest/geoip/stats"))
+	path.Grow(7 + len("/_ingest/geoip/stats"))
+	path.WriteString("http://")
 	path.WriteString("/_ingest/geoip/stats")
 
 	params = make(map[string]string)

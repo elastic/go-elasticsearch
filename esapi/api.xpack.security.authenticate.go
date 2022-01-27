@@ -67,7 +67,8 @@ func (r SecurityAuthenticateRequest) Do(ctx context.Context, transport Transport
 
 	method = "GET"
 
-	path.Grow(len("/_security/_authenticate"))
+	path.Grow(7 + len("/_security/_authenticate"))
+	path.WriteString("http://")
 	path.WriteString("/_security/_authenticate")
 
 	params = make(map[string]string)

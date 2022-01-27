@@ -77,7 +77,8 @@ func (r TasksCancelRequest) Do(ctx context.Context, transport Transport) (*Respo
 
 	method = "POST"
 
-	path.Grow(1 + len("_tasks") + 1 + len(r.TaskID) + 1 + len("_cancel"))
+	path.Grow(7 + 1 + len("_tasks") + 1 + len(r.TaskID) + 1 + len("_cancel"))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_tasks")
 	if r.TaskID != "" {

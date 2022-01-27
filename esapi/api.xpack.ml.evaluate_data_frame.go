@@ -70,7 +70,8 @@ func (r MLEvaluateDataFrameRequest) Do(ctx context.Context, transport Transport)
 
 	method = "POST"
 
-	path.Grow(len("/_ml/data_frame/_evaluate"))
+	path.Grow(7 + len("/_ml/data_frame/_evaluate"))
+	path.WriteString("http://")
 	path.WriteString("/_ml/data_frame/_evaluate")
 
 	params = make(map[string]string)

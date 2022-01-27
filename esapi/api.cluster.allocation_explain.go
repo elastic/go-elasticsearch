@@ -74,7 +74,8 @@ func (r ClusterAllocationExplainRequest) Do(ctx context.Context, transport Trans
 
 	method = "POST"
 
-	path.Grow(len("/_cluster/allocation/explain"))
+	path.Grow(7 + len("/_cluster/allocation/explain"))
+	path.WriteString("http://")
 	path.WriteString("/_cluster/allocation/explain")
 
 	params = make(map[string]string)

@@ -88,7 +88,8 @@ func (r CountRequest) Do(ctx context.Context, transport Transport) (*Response, e
 
 	method = "POST"
 
-	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_count"))
+	path.Grow(7 + 1 + len(strings.Join(r.Index, ",")) + 1 + len("_count"))
+	path.WriteString("http://")
 	if len(r.Index) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.Index, ","))

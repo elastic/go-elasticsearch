@@ -77,7 +77,8 @@ func (r MLStartDatafeedRequest) Do(ctx context.Context, transport Transport) (*R
 
 	method = "POST"
 
-	path.Grow(1 + len("_ml") + 1 + len("datafeeds") + 1 + len(r.DatafeedID) + 1 + len("_start"))
+	path.Grow(7 + 1 + len("_ml") + 1 + len("datafeeds") + 1 + len(r.DatafeedID) + 1 + len("_start"))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_ml")
 	path.WriteString("/")

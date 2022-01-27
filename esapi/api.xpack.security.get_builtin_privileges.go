@@ -67,7 +67,8 @@ func (r SecurityGetBuiltinPrivilegesRequest) Do(ctx context.Context, transport T
 
 	method = "GET"
 
-	path.Grow(len("/_security/privilege/_builtin"))
+	path.Grow(7 + len("/_security/privilege/_builtin"))
+	path.WriteString("http://")
 	path.WriteString("/_security/privilege/_builtin")
 
 	params = make(map[string]string)

@@ -21,6 +21,7 @@ package esapi
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strings"
 )
@@ -71,7 +72,12 @@ func (r IndicesDeleteDataStreamRequest) Do(ctx context.Context, transport Transp
 
 	method = "DELETE"
 
-	path.Grow(1 + len("_data_stream") + 1 + len(strings.Join(r.Name, ",")))
+	if len(r.Name) == 0 {
+		return nil, errors.New("name is required and cannot be nil or empty")
+	}
+
+	path.Grow(7 + 1 + len("_data_stream") + 1 + len(strings.Join(r.Name, ",")))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_data_stream")
 	path.WriteString("/")

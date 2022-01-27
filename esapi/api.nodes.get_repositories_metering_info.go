@@ -21,6 +21,7 @@ package esapi
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strings"
 )
@@ -71,7 +72,12 @@ func (r NodesGetRepositoriesMeteringInfoRequest) Do(ctx context.Context, transpo
 
 	method = "GET"
 
-	path.Grow(1 + len("_nodes") + 1 + len(strings.Join(r.NodeID, ",")) + 1 + len("_repositories_metering"))
+	if len(r.NodeID) == 0 {
+		return nil, errors.New("node_id is required and cannot be nil or empty")
+	}
+
+	path.Grow(7 + 1 + len("_nodes") + 1 + len(strings.Join(r.NodeID, ",")) + 1 + len("_repositories_metering"))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_nodes")
 	path.WriteString("/")

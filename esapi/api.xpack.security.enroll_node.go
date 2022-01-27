@@ -67,7 +67,8 @@ func (r SecurityEnrollNodeRequest) Do(ctx context.Context, transport Transport) 
 
 	method = "GET"
 
-	path.Grow(len("/_security/enroll/node"))
+	path.Grow(7 + len("/_security/enroll/node"))
+	path.WriteString("http://")
 	path.WriteString("/_security/enroll/node")
 
 	params = make(map[string]string)

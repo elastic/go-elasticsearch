@@ -119,7 +119,8 @@ func (r SearchRequest) Do(ctx context.Context, transport Transport) (*Response, 
 
 	method = "POST"
 
-	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_search"))
+	path.Grow(7 + 1 + len(strings.Join(r.Index, ",")) + 1 + len("_search"))
+	path.WriteString("http://")
 	if len(r.Index) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.Index, ","))

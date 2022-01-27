@@ -73,7 +73,8 @@ func (r SnapshotVerifyRepositoryRequest) Do(ctx context.Context, transport Trans
 
 	method = "POST"
 
-	path.Grow(1 + len("_snapshot") + 1 + len(r.Repository) + 1 + len("_verify"))
+	path.Grow(7 + 1 + len("_snapshot") + 1 + len(r.Repository) + 1 + len("_verify"))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_snapshot")
 	path.WriteString("/")

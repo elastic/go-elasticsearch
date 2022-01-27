@@ -67,7 +67,8 @@ func (r GetScriptLanguagesRequest) Do(ctx context.Context, transport Transport) 
 
 	method = "GET"
 
-	path.Grow(len("/_script_language"))
+	path.Grow(7 + len("/_script_language"))
+	path.WriteString("http://")
 	path.WriteString("/_script_language")
 
 	params = make(map[string]string)

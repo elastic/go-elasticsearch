@@ -21,6 +21,7 @@ package esapi
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strconv"
 	"strings"
@@ -78,7 +79,12 @@ func (r IndicesGetFieldMappingRequest) Do(ctx context.Context, transport Transpo
 
 	method = "GET"
 
-	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_mapping") + 1 + len("field") + 1 + len(strings.Join(r.Fields, ",")))
+	if len(r.Fields) == 0 {
+		return nil, errors.New("fields is required and cannot be nil or empty")
+	}
+
+	path.Grow(7 + 1 + len(strings.Join(r.Index, ",")) + 1 + len("_mapping") + 1 + len("field") + 1 + len(strings.Join(r.Fields, ",")))
+	path.WriteString("http://")
 	if len(r.Index) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.Index, ","))

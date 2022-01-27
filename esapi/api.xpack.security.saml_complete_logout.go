@@ -70,7 +70,8 @@ func (r SecuritySamlCompleteLogoutRequest) Do(ctx context.Context, transport Tra
 
 	method = "POST"
 
-	path.Grow(len("/_security/saml/complete_logout"))
+	path.Grow(7 + len("/_security/saml/complete_logout"))
+	path.WriteString("http://")
 	path.WriteString("/_security/saml/complete_logout")
 
 	params = make(map[string]string)

@@ -70,7 +70,8 @@ func (r SecurityQueryAPIKeysRequest) Do(ctx context.Context, transport Transport
 
 	method = "POST"
 
-	path.Grow(len("/_security/_query/api_key"))
+	path.Grow(7 + len("/_security/_query/api_key"))
+	path.WriteString("http://")
 	path.WriteString("/_security/_query/api_key")
 
 	params = make(map[string]string)

@@ -77,7 +77,8 @@ func (r SnapshotCloneRequest) Do(ctx context.Context, transport Transport) (*Res
 
 	method = "PUT"
 
-	path.Grow(1 + len("_snapshot") + 1 + len(r.Repository) + 1 + len(r.Snapshot) + 1 + len("_clone") + 1 + len(r.TargetSnapshot))
+	path.Grow(7 + 1 + len("_snapshot") + 1 + len(r.Repository) + 1 + len(r.Snapshot) + 1 + len("_clone") + 1 + len(r.TargetSnapshot))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_snapshot")
 	path.WriteString("/")

@@ -67,7 +67,8 @@ func (r AutoscalingGetAutoscalingCapacityRequest) Do(ctx context.Context, transp
 
 	method = "GET"
 
-	path.Grow(len("/_autoscaling/capacity"))
+	path.Grow(7 + len("/_autoscaling/capacity"))
+	path.WriteString("http://")
 	path.WriteString("/_autoscaling/capacity")
 
 	params = make(map[string]string)

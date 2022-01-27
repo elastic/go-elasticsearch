@@ -72,7 +72,8 @@ func (r FleetMsearchRequest) Do(ctx context.Context, transport Transport) (*Resp
 
 	method = "POST"
 
-	path.Grow(1 + len(r.Index) + 1 + len("_fleet") + 1 + len("_fleet_msearch"))
+	path.Grow(7 + 1 + len(r.Index) + 1 + len("_fleet") + 1 + len("_fleet_msearch"))
+	path.WriteString("http://")
 	if r.Index != "" {
 		path.WriteString("/")
 		path.WriteString(r.Index)

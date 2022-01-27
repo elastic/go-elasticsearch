@@ -80,7 +80,8 @@ func (r CatNodesRequest) Do(ctx context.Context, transport Transport) (*Response
 
 	method = "GET"
 
-	path.Grow(len("/_cat/nodes"))
+	path.Grow(7 + len("/_cat/nodes"))
+	path.WriteString("http://")
 	path.WriteString("/_cat/nodes")
 
 	params = make(map[string]string)

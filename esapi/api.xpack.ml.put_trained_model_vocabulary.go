@@ -74,7 +74,8 @@ func (r MLPutTrainedModelVocabularyRequest) Do(ctx context.Context, transport Tr
 
 	method = "PUT"
 
-	path.Grow(1 + len("_ml") + 1 + len("trained_models") + 1 + len(r.ModelID) + 1 + len("vocabulary"))
+	path.Grow(7 + 1 + len("_ml") + 1 + len("trained_models") + 1 + len(r.ModelID) + 1 + len("vocabulary"))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_ml")
 	path.WriteString("/")

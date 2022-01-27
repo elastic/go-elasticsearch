@@ -71,7 +71,8 @@ func (r RollupDeleteJobRequest) Do(ctx context.Context, transport Transport) (*R
 
 	method = "DELETE"
 
-	path.Grow(1 + len("_rollup") + 1 + len("job") + 1 + len(r.JobID))
+	path.Grow(7 + 1 + len("_rollup") + 1 + len("job") + 1 + len(r.JobID))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_rollup")
 	path.WriteString("/")

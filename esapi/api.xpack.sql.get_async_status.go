@@ -69,7 +69,8 @@ func (r SQLGetAsyncStatusRequest) Do(ctx context.Context, transport Transport) (
 
 	method = "GET"
 
-	path.Grow(1 + len("_sql") + 1 + len("async") + 1 + len("status") + 1 + len(r.DocumentID))
+	path.Grow(7 + 1 + len("_sql") + 1 + len("async") + 1 + len("status") + 1 + len(r.DocumentID))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_sql")
 	path.WriteString("/")

@@ -77,7 +77,8 @@ func (r IndicesFieldUsageStatsRequest) Do(ctx context.Context, transport Transpo
 
 	method = "GET"
 
-	path.Grow(1 + len(r.Index) + 1 + len("_field_usage_stats"))
+	path.Grow(7 + 1 + len(r.Index) + 1 + len("_field_usage_stats"))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString(r.Index)
 	path.WriteString("/")

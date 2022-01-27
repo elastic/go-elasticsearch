@@ -86,7 +86,8 @@ func (r MtermvectorsRequest) Do(ctx context.Context, transport Transport) (*Resp
 
 	method = "POST"
 
-	path.Grow(1 + len(r.Index) + 1 + len("_mtermvectors"))
+	path.Grow(7 + 1 + len(r.Index) + 1 + len("_mtermvectors"))
+	path.WriteString("http://")
 	if r.Index != "" {
 		path.WriteString("/")
 		path.WriteString(r.Index)

@@ -78,7 +78,8 @@ func (r PutScriptRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 	method = "PUT"
 
-	path.Grow(1 + len("_scripts") + 1 + len(r.ScriptID) + 1 + len(r.ScriptContext))
+	path.Grow(7 + 1 + len("_scripts") + 1 + len(r.ScriptID) + 1 + len(r.ScriptContext))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_scripts")
 	path.WriteString("/")

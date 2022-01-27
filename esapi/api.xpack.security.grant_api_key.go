@@ -72,7 +72,8 @@ func (r SecurityGrantAPIKeyRequest) Do(ctx context.Context, transport Transport)
 
 	method = "POST"
 
-	path.Grow(len("/_security/api_key/grant"))
+	path.Grow(7 + len("/_security/api_key/grant"))
+	path.WriteString("http://")
 	path.WriteString("/_security/api_key/grant")
 
 	params = make(map[string]string)

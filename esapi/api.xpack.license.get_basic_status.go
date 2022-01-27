@@ -67,7 +67,8 @@ func (r LicenseGetBasicStatusRequest) Do(ctx context.Context, transport Transpor
 
 	method = "GET"
 
-	path.Grow(len("/_license/basic_status"))
+	path.Grow(7 + len("/_license/basic_status"))
+	path.WriteString("http://")
 	path.WriteString("/_license/basic_status")
 
 	params = make(map[string]string)

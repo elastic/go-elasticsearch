@@ -80,7 +80,8 @@ func (r CatSnapshotsRequest) Do(ctx context.Context, transport Transport) (*Resp
 
 	method = "GET"
 
-	path.Grow(1 + len("_cat") + 1 + len("snapshots") + 1 + len(strings.Join(r.Repository, ",")))
+	path.Grow(7 + 1 + len("_cat") + 1 + len("snapshots") + 1 + len(strings.Join(r.Repository, ",")))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_cat")
 	path.WriteString("/")

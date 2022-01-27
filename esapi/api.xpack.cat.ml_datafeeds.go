@@ -78,7 +78,8 @@ func (r CatMLDatafeedsRequest) Do(ctx context.Context, transport Transport) (*Re
 
 	method = "GET"
 
-	path.Grow(1 + len("_cat") + 1 + len("ml") + 1 + len("datafeeds") + 1 + len(r.DatafeedID))
+	path.Grow(7 + 1 + len("_cat") + 1 + len("ml") + 1 + len("datafeeds") + 1 + len(r.DatafeedID))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_cat")
 	path.WriteString("/")

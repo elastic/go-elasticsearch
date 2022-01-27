@@ -69,7 +69,8 @@ func (r ILMDeleteLifecycleRequest) Do(ctx context.Context, transport Transport) 
 
 	method = "DELETE"
 
-	path.Grow(1 + len("_ilm") + 1 + len("policy") + 1 + len(r.Policy))
+	path.Grow(7 + 1 + len("_ilm") + 1 + len("policy") + 1 + len(r.Policy))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_ilm")
 	path.WriteString("/")

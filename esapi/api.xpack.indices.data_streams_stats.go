@@ -69,7 +69,8 @@ func (r IndicesDataStreamsStatsRequest) Do(ctx context.Context, transport Transp
 
 	method = "GET"
 
-	path.Grow(1 + len("_data_stream") + 1 + len(strings.Join(r.Name, ",")) + 1 + len("_stats"))
+	path.Grow(7 + 1 + len("_data_stream") + 1 + len(strings.Join(r.Name, ",")) + 1 + len("_stats"))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_data_stream")
 	if len(r.Name) > 0 {

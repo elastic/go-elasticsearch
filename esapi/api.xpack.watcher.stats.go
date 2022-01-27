@@ -72,7 +72,8 @@ func (r WatcherStatsRequest) Do(ctx context.Context, transport Transport) (*Resp
 
 	method = "GET"
 
-	path.Grow(1 + len("_watcher") + 1 + len("stats") + 1 + len(strings.Join(r.Metric, ",")))
+	path.Grow(7 + 1 + len("_watcher") + 1 + len("stats") + 1 + len(strings.Join(r.Metric, ",")))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_watcher")
 	path.WriteString("/")

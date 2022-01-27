@@ -82,7 +82,8 @@ func (r ClusterStateRequest) Do(ctx context.Context, transport Transport) (*Resp
 
 	method = "GET"
 
-	path.Grow(1 + len("_cluster") + 1 + len("state") + 1 + len(strings.Join(r.Metric, ",")) + 1 + len(strings.Join(r.Index, ",")))
+	path.Grow(7 + 1 + len("_cluster") + 1 + len("state") + 1 + len(strings.Join(r.Metric, ",")) + 1 + len(strings.Join(r.Index, ",")))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_cluster")
 	path.WriteString("/")

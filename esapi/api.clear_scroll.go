@@ -72,7 +72,8 @@ func (r ClearScrollRequest) Do(ctx context.Context, transport Transport) (*Respo
 
 	method = "DELETE"
 
-	path.Grow(1 + len("_search") + 1 + len("scroll") + 1 + len(strings.Join(r.ScrollID, ",")))
+	path.Grow(7 + 1 + len("_search") + 1 + len("scroll") + 1 + len(strings.Join(r.ScrollID, ",")))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_search")
 	path.WriteString("/")

@@ -76,7 +76,8 @@ func (r ClusterPutSettingsRequest) Do(ctx context.Context, transport Transport) 
 
 	method = "PUT"
 
-	path.Grow(len("/_cluster/settings"))
+	path.Grow(7 + len("/_cluster/settings"))
+	path.WriteString("http://")
 	path.WriteString("/_cluster/settings")
 
 	params = make(map[string]string)

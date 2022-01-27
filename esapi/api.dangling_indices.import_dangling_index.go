@@ -75,7 +75,8 @@ func (r DanglingIndicesImportDanglingIndexRequest) Do(ctx context.Context, trans
 
 	method = "POST"
 
-	path.Grow(1 + len("_dangling") + 1 + len(r.IndexUUID))
+	path.Grow(7 + 1 + len("_dangling") + 1 + len(r.IndexUUID))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_dangling")
 	path.WriteString("/")

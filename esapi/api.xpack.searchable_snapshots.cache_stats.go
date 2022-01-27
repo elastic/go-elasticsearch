@@ -71,7 +71,8 @@ func (r SearchableSnapshotsCacheStatsRequest) Do(ctx context.Context, transport 
 
 	method = "GET"
 
-	path.Grow(1 + len("_searchable_snapshots") + 1 + len(strings.Join(r.NodeID, ",")) + 1 + len("cache") + 1 + len("stats"))
+	path.Grow(7 + 1 + len("_searchable_snapshots") + 1 + len(strings.Join(r.NodeID, ",")) + 1 + len("cache") + 1 + len("stats"))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_searchable_snapshots")
 	if len(r.NodeID) > 0 {

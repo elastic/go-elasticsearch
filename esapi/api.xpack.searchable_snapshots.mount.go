@@ -79,7 +79,8 @@ func (r SearchableSnapshotsMountRequest) Do(ctx context.Context, transport Trans
 
 	method = "POST"
 
-	path.Grow(1 + len("_snapshot") + 1 + len(r.Repository) + 1 + len(r.Snapshot) + 1 + len("_mount"))
+	path.Grow(7 + 1 + len("_snapshot") + 1 + len(r.Repository) + 1 + len(r.Snapshot) + 1 + len("_mount"))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_snapshot")
 	path.WriteString("/")

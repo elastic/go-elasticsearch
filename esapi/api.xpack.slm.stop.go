@@ -67,7 +67,8 @@ func (r SlmStopRequest) Do(ctx context.Context, transport Transport) (*Response,
 
 	method = "POST"
 
-	path.Grow(len("/_slm/stop"))
+	path.Grow(7 + len("/_slm/stop"))
+	path.WriteString("http://")
 	path.WriteString("/_slm/stop")
 
 	params = make(map[string]string)

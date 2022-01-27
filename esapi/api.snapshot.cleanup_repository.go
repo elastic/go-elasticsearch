@@ -73,7 +73,8 @@ func (r SnapshotCleanupRepositoryRequest) Do(ctx context.Context, transport Tran
 
 	method = "POST"
 
-	path.Grow(1 + len("_snapshot") + 1 + len(r.Repository) + 1 + len("_cleanup"))
+	path.Grow(7 + 1 + len("_snapshot") + 1 + len(r.Repository) + 1 + len("_cleanup"))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_snapshot")
 	path.WriteString("/")

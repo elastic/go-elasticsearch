@@ -78,7 +78,8 @@ func (r CatAliasesRequest) Do(ctx context.Context, transport Transport) (*Respon
 
 	method = "GET"
 
-	path.Grow(1 + len("_cat") + 1 + len("aliases") + 1 + len(strings.Join(r.Name, ",")))
+	path.Grow(7 + 1 + len("_cat") + 1 + len("aliases") + 1 + len(strings.Join(r.Name, ",")))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_cat")
 	path.WriteString("/")

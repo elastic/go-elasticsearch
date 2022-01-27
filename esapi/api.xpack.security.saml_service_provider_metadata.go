@@ -69,7 +69,8 @@ func (r SecuritySamlServiceProviderMetadataRequest) Do(ctx context.Context, tran
 
 	method = "GET"
 
-	path.Grow(1 + len("_security") + 1 + len("saml") + 1 + len("metadata") + 1 + len(r.RealmName))
+	path.Grow(7 + 1 + len("_security") + 1 + len("saml") + 1 + len("metadata") + 1 + len(r.RealmName))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_security")
 	path.WriteString("/")

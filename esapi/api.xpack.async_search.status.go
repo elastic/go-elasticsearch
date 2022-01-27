@@ -69,7 +69,8 @@ func (r AsyncSearchStatusRequest) Do(ctx context.Context, transport Transport) (
 
 	method = "GET"
 
-	path.Grow(1 + len("_async_search") + 1 + len("status") + 1 + len(r.DocumentID))
+	path.Grow(7 + 1 + len("_async_search") + 1 + len("status") + 1 + len(r.DocumentID))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_async_search")
 	path.WriteString("/")

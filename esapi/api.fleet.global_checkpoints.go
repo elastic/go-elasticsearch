@@ -76,7 +76,8 @@ func (r FleetGlobalCheckpointsRequest) Do(ctx context.Context, transport Transpo
 
 	method = "GET"
 
-	path.Grow(1 + len(r.Index) + 1 + len("_fleet") + 1 + len("global_checkpoints"))
+	path.Grow(7 + 1 + len(r.Index) + 1 + len("_fleet") + 1 + len("global_checkpoints"))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString(r.Index)
 	path.WriteString("/")

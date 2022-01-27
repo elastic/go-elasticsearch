@@ -70,7 +70,8 @@ func (r MLDeleteCalendarEventRequest) Do(ctx context.Context, transport Transpor
 
 	method = "DELETE"
 
-	path.Grow(1 + len("_ml") + 1 + len("calendars") + 1 + len(r.CalendarID) + 1 + len("events") + 1 + len(r.EventID))
+	path.Grow(7 + 1 + len("_ml") + 1 + len("calendars") + 1 + len(r.CalendarID) + 1 + len("events") + 1 + len(r.EventID))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_ml")
 	path.WriteString("/")

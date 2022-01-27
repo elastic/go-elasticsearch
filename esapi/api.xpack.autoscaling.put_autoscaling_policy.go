@@ -72,7 +72,8 @@ func (r AutoscalingPutAutoscalingPolicyRequest) Do(ctx context.Context, transpor
 
 	method = "PUT"
 
-	path.Grow(1 + len("_autoscaling") + 1 + len("policy") + 1 + len(r.Name))
+	path.Grow(7 + 1 + len("_autoscaling") + 1 + len("policy") + 1 + len(r.Name))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_autoscaling")
 	path.WriteString("/")

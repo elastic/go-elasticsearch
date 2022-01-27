@@ -70,7 +70,8 @@ func (r SecuritySamlPrepareAuthenticationRequest) Do(ctx context.Context, transp
 
 	method = "POST"
 
-	path.Grow(len("/_security/saml/prepare"))
+	path.Grow(7 + len("/_security/saml/prepare"))
+	path.WriteString("http://")
 	path.WriteString("/_security/saml/prepare")
 
 	params = make(map[string]string)

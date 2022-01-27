@@ -70,7 +70,8 @@ func (r ClosePointInTimeRequest) Do(ctx context.Context, transport Transport) (*
 
 	method = "DELETE"
 
-	path.Grow(len("/_pit"))
+	path.Grow(7 + len("/_pit"))
+	path.WriteString("http://")
 	path.WriteString("/_pit")
 
 	params = make(map[string]string)

@@ -69,7 +69,8 @@ func (r ShutdownGetNodeRequest) Do(ctx context.Context, transport Transport) (*R
 
 	method = "GET"
 
-	path.Grow(1 + len("_nodes") + 1 + len(r.NodeID) + 1 + len("shutdown"))
+	path.Grow(7 + 1 + len("_nodes") + 1 + len(r.NodeID) + 1 + len("shutdown"))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_nodes")
 	if r.NodeID != "" {

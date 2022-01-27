@@ -73,7 +73,8 @@ func (r MLDeleteJobRequest) Do(ctx context.Context, transport Transport) (*Respo
 
 	method = "DELETE"
 
-	path.Grow(1 + len("_ml") + 1 + len("anomaly_detectors") + 1 + len(r.JobID))
+	path.Grow(7 + 1 + len("_ml") + 1 + len("anomaly_detectors") + 1 + len(r.JobID))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_ml")
 	path.WriteString("/")

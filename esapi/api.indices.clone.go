@@ -79,7 +79,8 @@ func (r IndicesCloneRequest) Do(ctx context.Context, transport Transport) (*Resp
 
 	method = "PUT"
 
-	path.Grow(1 + len(r.Index) + 1 + len("_clone") + 1 + len(r.Target))
+	path.Grow(7 + 1 + len(r.Index) + 1 + len("_clone") + 1 + len(r.Target))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString(r.Index)
 	path.WriteString("/")

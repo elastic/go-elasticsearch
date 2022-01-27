@@ -84,7 +84,8 @@ func (r ReindexRequest) Do(ctx context.Context, transport Transport) (*Response,
 
 	method = "POST"
 
-	path.Grow(len("/_reindex"))
+	path.Grow(7 + len("/_reindex"))
+	path.WriteString("http://")
 	path.WriteString("/_reindex")
 
 	params = make(map[string]string)

@@ -76,7 +76,8 @@ func (r MonitoringBulkRequest) Do(ctx context.Context, transport Transport) (*Re
 
 	method = "POST"
 
-	path.Grow(1 + len("_monitoring") + 1 + len(r.DocumentType) + 1 + len("bulk"))
+	path.Grow(7 + 1 + len("_monitoring") + 1 + len(r.DocumentType) + 1 + len("bulk"))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_monitoring")
 	if r.DocumentType != "" {

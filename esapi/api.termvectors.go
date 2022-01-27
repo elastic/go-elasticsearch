@@ -86,7 +86,8 @@ func (r TermvectorsRequest) Do(ctx context.Context, transport Transport) (*Respo
 
 	method = "POST"
 
-	path.Grow(1 + len(r.Index) + 1 + len("_termvectors") + 1 + len(r.DocumentID))
+	path.Grow(7 + 1 + len(r.Index) + 1 + len("_termvectors") + 1 + len(r.DocumentID))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString(r.Index)
 	path.WriteString("/")

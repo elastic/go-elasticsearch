@@ -72,7 +72,8 @@ func (r SecurityHasPrivilegesRequest) Do(ctx context.Context, transport Transpor
 
 	method = "POST"
 
-	path.Grow(1 + len("_security") + 1 + len("user") + 1 + len(r.User) + 1 + len("_has_privileges"))
+	path.Grow(7 + 1 + len("_security") + 1 + len("user") + 1 + len(r.User) + 1 + len("_has_privileges"))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_security")
 	path.WriteString("/")

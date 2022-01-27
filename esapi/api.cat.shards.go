@@ -80,7 +80,8 @@ func (r CatShardsRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 	method = "GET"
 
-	path.Grow(1 + len("_cat") + 1 + len("shards") + 1 + len(strings.Join(r.Index, ",")))
+	path.Grow(7 + 1 + len("_cat") + 1 + len("shards") + 1 + len(strings.Join(r.Index, ",")))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_cat")
 	path.WriteString("/")

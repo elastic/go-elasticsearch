@@ -69,7 +69,8 @@ func (r WatcherDeactivateWatchRequest) Do(ctx context.Context, transport Transpo
 
 	method = "PUT"
 
-	path.Grow(1 + len("_watcher") + 1 + len("watch") + 1 + len(r.WatchID) + 1 + len("_deactivate"))
+	path.Grow(7 + 1 + len("_watcher") + 1 + len("watch") + 1 + len(r.WatchID) + 1 + len("_deactivate"))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_watcher")
 	path.WriteString("/")

@@ -76,7 +76,8 @@ func (r CatHealthRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 	method = "GET"
 
-	path.Grow(len("/_cat/health"))
+	path.Grow(7 + len("/_cat/health"))
+	path.WriteString("http://")
 	path.WriteString("/_cat/health")
 
 	params = make(map[string]string)

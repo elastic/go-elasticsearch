@@ -67,7 +67,8 @@ func (r CCRStatsRequest) Do(ctx context.Context, transport Transport) (*Response
 
 	method = "GET"
 
-	path.Grow(len("/_ccr/stats"))
+	path.Grow(7 + len("/_ccr/stats"))
+	path.WriteString("http://")
 	path.WriteString("/_ccr/stats")
 
 	params = make(map[string]string)
