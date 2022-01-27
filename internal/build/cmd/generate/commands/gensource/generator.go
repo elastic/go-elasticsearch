@@ -576,6 +576,12 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(ctx context.Context,
 
 		pathGrow.WriteString(`	path.Grow(`)
 
+		// Adds a scheme to the initial empty request.
+		// This allows the http.NewRequest to build a proper url
+		// even if some arguments are missing.
+		pathGrow.WriteString(`7 + `)
+		pathContent.WriteString(`path.WriteString("http://")` + "\n")
+
 		// FIXME: Select longest path based on number of template entries, not string length
 		longestPath := g.Endpoint.URL.Paths[0]
 		for _, p := range g.Endpoint.URL.Paths {
@@ -806,6 +812,7 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(ctx context.Context,
 	}
 
 	g.w(`req, err := newRequest(method, path.String(), ` + httpBody + `)` + "\n")
+
 	g.w(`if err != nil {
 		return nil, err
 	}` + "\n\n")

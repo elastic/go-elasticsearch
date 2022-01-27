@@ -15,6 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
+//go:build !integration
 // +build !integration
 
 package esapi
@@ -73,6 +74,17 @@ func TestAPIRequest(t *testing.T) {
 		}
 		if _, ok := req.Body.(io.ReadCloser); !ok {
 			t.Errorf("Unexpected type for req.Body: %T", req.Body)
+		}
+
+		req, err = newRequest("GET", "http:////_aliases/test", nil)
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+		if req.URL.String() != "http:////_aliases/test" {
+			t.Errorf("Unexpected url for request: %s", req.URL.String())
+		}
+		if req.URL.Host != "" {
+			t.Errorf("Unexpected host, should be empty, got: %s", req.URL.Host)
 		}
 	})
 }
