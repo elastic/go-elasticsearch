@@ -19,7 +19,7 @@ package gentests
 
 import (
 	"fmt"
-  "strings"
+	"strings"
 
 	"gopkg.in/yaml.v2"
 )
@@ -44,7 +44,7 @@ var skipFiles = []string{
 	"ml/evaluate_data_frame.yml", // Floats as map keys
 
 	"watcher/stats/10_basic.yml", // Sets "emit_stacktraces" as string ("true"), not bool
-	
+
 	"search.highlight/20_fvh.yml", // bad backslash
 }
 
@@ -230,6 +230,9 @@ ml/start_stop_datafeed.yml:
 ml/explain_data_frame_analytics.yml:
   - Test empty data frame given body
   - Test non-empty data frame given body
+
+vector-tile/10_basic.yml:
+vector-tile/20_aggregations.yml:
 
 # Test uses "n" as a property name, which is parsed as 'false' in the Go YAML library;
 search.aggregation/10_histogram.yml:
