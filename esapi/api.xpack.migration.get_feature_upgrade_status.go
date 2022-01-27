@@ -67,7 +67,8 @@ func (r MigrationGetFeatureUpgradeStatusRequest) Do(ctx context.Context, transpo
 
 	method = "GET"
 
-	path.Grow(len("/_migration/system_features"))
+	path.Grow(7 + len("/_migration/system_features"))
+	path.WriteString("http://")
 	path.WriteString("/_migration/system_features")
 
 	params = make(map[string]string)

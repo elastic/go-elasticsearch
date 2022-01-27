@@ -21,6 +21,7 @@ package esapi
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strconv"
 	"strings"
@@ -75,7 +76,12 @@ func (r IndicesExistsTemplateRequest) Do(ctx context.Context, transport Transpor
 
 	method = "HEAD"
 
-	path.Grow(1 + len("_template") + 1 + len(strings.Join(r.Name, ",")))
+	if len(r.Name) == 0 {
+		return nil, errors.New("name is required and cannot be nil or empty")
+	}
+
+	path.Grow(7 + 1 + len("_template") + 1 + len(strings.Join(r.Name, ",")))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_template")
 	path.WriteString("/")

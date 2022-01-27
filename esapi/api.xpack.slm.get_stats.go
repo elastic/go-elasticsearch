@@ -67,7 +67,8 @@ func (r SlmGetStatsRequest) Do(ctx context.Context, transport Transport) (*Respo
 
 	method = "GET"
 
-	path.Grow(len("/_slm/stats"))
+	path.Grow(7 + len("/_slm/stats"))
+	path.WriteString("http://")
 	path.WriteString("/_slm/stats")
 
 	params = make(map[string]string)

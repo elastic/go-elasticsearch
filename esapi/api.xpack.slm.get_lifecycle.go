@@ -69,7 +69,8 @@ func (r SlmGetLifecycleRequest) Do(ctx context.Context, transport Transport) (*R
 
 	method = "GET"
 
-	path.Grow(1 + len("_slm") + 1 + len("policy") + 1 + len(strings.Join(r.PolicyID, ",")))
+	path.Grow(7 + 1 + len("_slm") + 1 + len("policy") + 1 + len(strings.Join(r.PolicyID, ",")))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_slm")
 	path.WriteString("/")

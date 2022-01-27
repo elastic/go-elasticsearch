@@ -71,7 +71,8 @@ func (r XPackInfoRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 	method = "GET"
 
-	path.Grow(len("/_xpack"))
+	path.Grow(7 + len("/_xpack"))
+	path.WriteString("http://")
 	path.WriteString("/_xpack")
 
 	params = make(map[string]string)

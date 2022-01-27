@@ -69,7 +69,8 @@ func (r LogstashGetPipelineRequest) Do(ctx context.Context, transport Transport)
 
 	method = "GET"
 
-	path.Grow(1 + len("_logstash") + 1 + len("pipeline") + 1 + len(r.DocumentID))
+	path.Grow(7 + 1 + len("_logstash") + 1 + len("pipeline") + 1 + len(r.DocumentID))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_logstash")
 	path.WriteString("/")

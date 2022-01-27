@@ -70,7 +70,8 @@ func (r FeaturesGetFeaturesRequest) Do(ctx context.Context, transport Transport)
 
 	method = "GET"
 
-	path.Grow(len("/_features"))
+	path.Grow(7 + len("/_features"))
+	path.WriteString("http://")
 	path.WriteString("/_features")
 
 	params = make(map[string]string)

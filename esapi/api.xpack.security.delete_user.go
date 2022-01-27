@@ -71,7 +71,8 @@ func (r SecurityDeleteUserRequest) Do(ctx context.Context, transport Transport) 
 
 	method = "DELETE"
 
-	path.Grow(1 + len("_security") + 1 + len("user") + 1 + len(r.Username))
+	path.Grow(7 + 1 + len("_security") + 1 + len("user") + 1 + len(r.Username))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_security")
 	path.WriteString("/")

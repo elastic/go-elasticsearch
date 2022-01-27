@@ -74,7 +74,8 @@ func (r IndicesUpdateAliasesRequest) Do(ctx context.Context, transport Transport
 
 	method = "POST"
 
-	path.Grow(len("/_aliases"))
+	path.Grow(7 + len("/_aliases"))
+	path.WriteString("http://")
 	path.WriteString("/_aliases")
 
 	params = make(map[string]string)

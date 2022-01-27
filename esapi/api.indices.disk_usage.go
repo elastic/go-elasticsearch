@@ -78,7 +78,8 @@ func (r IndicesDiskUsageRequest) Do(ctx context.Context, transport Transport) (*
 
 	method = "POST"
 
-	path.Grow(1 + len(r.Index) + 1 + len("_disk_usage"))
+	path.Grow(7 + 1 + len(r.Index) + 1 + len("_disk_usage"))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString(r.Index)
 	path.WriteString("/")

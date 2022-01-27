@@ -72,7 +72,8 @@ func (r SecurityPutPrivilegesRequest) Do(ctx context.Context, transport Transpor
 
 	method = "PUT"
 
-	path.Grow(len("/_security/privilege/"))
+	path.Grow(7 + len("/_security/privilege/"))
+	path.WriteString("http://")
 	path.WriteString("/_security/privilege/")
 
 	params = make(map[string]string)

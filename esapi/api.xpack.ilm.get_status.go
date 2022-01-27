@@ -67,7 +67,8 @@ func (r ILMGetStatusRequest) Do(ctx context.Context, transport Transport) (*Resp
 
 	method = "GET"
 
-	path.Grow(len("/_ilm/status"))
+	path.Grow(7 + len("/_ilm/status"))
+	path.WriteString("http://")
 	path.WriteString("/_ilm/status")
 
 	params = make(map[string]string)

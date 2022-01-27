@@ -70,7 +70,8 @@ func (r WatcherQueryWatchesRequest) Do(ctx context.Context, transport Transport)
 
 	method = "POST"
 
-	path.Grow(len("/_watcher/_query/watches"))
+	path.Grow(7 + len("/_watcher/_query/watches"))
+	path.WriteString("http://")
 	path.WriteString("/_watcher/_query/watches")
 
 	params = make(map[string]string)

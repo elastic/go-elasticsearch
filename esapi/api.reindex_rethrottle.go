@@ -72,7 +72,8 @@ func (r ReindexRethrottleRequest) Do(ctx context.Context, transport Transport) (
 
 	method = "POST"
 
-	path.Grow(1 + len("_reindex") + 1 + len(r.TaskID) + 1 + len("_rethrottle"))
+	path.Grow(7 + 1 + len("_reindex") + 1 + len(r.TaskID) + 1 + len("_rethrottle"))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_reindex")
 	path.WriteString("/")

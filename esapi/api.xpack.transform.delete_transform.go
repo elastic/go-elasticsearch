@@ -74,7 +74,8 @@ func (r TransformDeleteTransformRequest) Do(ctx context.Context, transport Trans
 
 	method = "DELETE"
 
-	path.Grow(1 + len("_transform") + 1 + len(r.TransformID))
+	path.Grow(7 + 1 + len("_transform") + 1 + len(r.TransformID))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_transform")
 	path.WriteString("/")

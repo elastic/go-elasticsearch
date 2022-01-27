@@ -77,7 +77,8 @@ func (r IndicesCreateRequest) Do(ctx context.Context, transport Transport) (*Res
 
 	method = "PUT"
 
-	path.Grow(1 + len(r.Index))
+	path.Grow(7 + 1 + len(r.Index))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString(r.Index)
 

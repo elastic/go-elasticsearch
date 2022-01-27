@@ -70,7 +70,8 @@ func (r MLEstimateModelMemoryRequest) Do(ctx context.Context, transport Transpor
 
 	method = "POST"
 
-	path.Grow(len("/_ml/anomaly_detectors/_estimate_model_memory"))
+	path.Grow(7 + len("/_ml/anomaly_detectors/_estimate_model_memory"))
+	path.WriteString("http://")
 	path.WriteString("/_ml/anomaly_detectors/_estimate_model_memory")
 
 	params = make(map[string]string)

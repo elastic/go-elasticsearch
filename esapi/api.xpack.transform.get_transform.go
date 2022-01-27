@@ -75,7 +75,8 @@ func (r TransformGetTransformRequest) Do(ctx context.Context, transport Transpor
 
 	method = "GET"
 
-	path.Grow(1 + len("_transform") + 1 + len(r.TransformID))
+	path.Grow(7 + 1 + len("_transform") + 1 + len(r.TransformID))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_transform")
 	if r.TransformID != "" {

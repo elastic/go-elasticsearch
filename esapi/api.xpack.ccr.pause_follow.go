@@ -69,7 +69,8 @@ func (r CCRPauseFollowRequest) Do(ctx context.Context, transport Transport) (*Re
 
 	method = "POST"
 
-	path.Grow(1 + len(r.Index) + 1 + len("_ccr") + 1 + len("pause_follow"))
+	path.Grow(7 + 1 + len(r.Index) + 1 + len("_ccr") + 1 + len("pause_follow"))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString(r.Index)
 	path.WriteString("/")

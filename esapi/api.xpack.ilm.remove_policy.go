@@ -69,7 +69,8 @@ func (r ILMRemovePolicyRequest) Do(ctx context.Context, transport Transport) (*R
 
 	method = "POST"
 
-	path.Grow(1 + len(r.Index) + 1 + len("_ilm") + 1 + len("remove"))
+	path.Grow(7 + 1 + len(r.Index) + 1 + len("_ilm") + 1 + len("remove"))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString(r.Index)
 	path.WriteString("/")

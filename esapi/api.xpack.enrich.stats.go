@@ -67,7 +67,8 @@ func (r EnrichStatsRequest) Do(ctx context.Context, transport Transport) (*Respo
 
 	method = "GET"
 
-	path.Grow(len("/_enrich/_stats"))
+	path.Grow(7 + len("/_enrich/_stats"))
+	path.WriteString("http://")
 	path.WriteString("/_enrich/_stats")
 
 	params = make(map[string]string)

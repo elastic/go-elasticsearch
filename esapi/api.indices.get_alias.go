@@ -77,7 +77,8 @@ func (r IndicesGetAliasRequest) Do(ctx context.Context, transport Transport) (*R
 
 	method = "GET"
 
-	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_alias") + 1 + len(strings.Join(r.Name, ",")))
+	path.Grow(7 + 1 + len(strings.Join(r.Index, ",")) + 1 + len("_alias") + 1 + len(strings.Join(r.Name, ",")))
+	path.WriteString("http://")
 	if len(r.Index) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.Index, ","))

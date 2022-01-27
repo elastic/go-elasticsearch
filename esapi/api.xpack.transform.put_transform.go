@@ -77,7 +77,8 @@ func (r TransformPutTransformRequest) Do(ctx context.Context, transport Transpor
 
 	method = "PUT"
 
-	path.Grow(1 + len("_transform") + 1 + len(r.TransformID))
+	path.Grow(7 + 1 + len("_transform") + 1 + len(r.TransformID))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_transform")
 	path.WriteString("/")

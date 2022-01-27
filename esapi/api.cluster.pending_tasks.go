@@ -73,7 +73,8 @@ func (r ClusterPendingTasksRequest) Do(ctx context.Context, transport Transport)
 
 	method = "GET"
 
-	path.Grow(len("/_cluster/pending_tasks"))
+	path.Grow(7 + len("/_cluster/pending_tasks"))
+	path.WriteString("http://")
 	path.WriteString("/_cluster/pending_tasks")
 
 	params = make(map[string]string)

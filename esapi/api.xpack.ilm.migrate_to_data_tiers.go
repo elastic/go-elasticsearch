@@ -73,7 +73,8 @@ func (r ILMMigrateToDataTiersRequest) Do(ctx context.Context, transport Transpor
 
 	method = "POST"
 
-	path.Grow(len("/_ilm/migrate_to_data_tiers"))
+	path.Grow(7 + len("/_ilm/migrate_to_data_tiers"))
+	path.WriteString("http://")
 	path.WriteString("/_ilm/migrate_to_data_tiers")
 
 	params = make(map[string]string)

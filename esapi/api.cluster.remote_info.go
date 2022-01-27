@@ -67,7 +67,8 @@ func (r ClusterRemoteInfoRequest) Do(ctx context.Context, transport Transport) (
 
 	method = "GET"
 
-	path.Grow(len("/_remote/info"))
+	path.Grow(7 + len("/_remote/info"))
+	path.WriteString("http://")
 	path.WriteString("/_remote/info")
 
 	params = make(map[string]string)

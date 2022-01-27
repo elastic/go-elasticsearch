@@ -71,7 +71,8 @@ func (r SecurityEnableUserRequest) Do(ctx context.Context, transport Transport) 
 
 	method = "PUT"
 
-	path.Grow(1 + len("_security") + 1 + len("user") + 1 + len(r.Username) + 1 + len("_enable"))
+	path.Grow(7 + 1 + len("_security") + 1 + len("user") + 1 + len(r.Username) + 1 + len("_enable"))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_security")
 	path.WriteString("/")

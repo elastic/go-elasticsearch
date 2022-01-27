@@ -71,7 +71,8 @@ func (r RollupGetJobsRequest) Do(ctx context.Context, transport Transport) (*Res
 
 	method = "GET"
 
-	path.Grow(1 + len("_rollup") + 1 + len("job") + 1 + len(r.JobID))
+	path.Grow(7 + 1 + len("_rollup") + 1 + len("job") + 1 + len(r.JobID))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_rollup")
 	path.WriteString("/")

@@ -67,7 +67,8 @@ func (r IngestProcessorGrokRequest) Do(ctx context.Context, transport Transport)
 
 	method = "GET"
 
-	path.Grow(len("/_ingest/processor/grok"))
+	path.Grow(7 + len("/_ingest/processor/grok"))
+	path.WriteString("http://")
 	path.WriteString("/_ingest/processor/grok")
 
 	params = make(map[string]string)

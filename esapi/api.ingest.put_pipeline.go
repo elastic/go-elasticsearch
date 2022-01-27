@@ -78,7 +78,8 @@ func (r IngestPutPipelineRequest) Do(ctx context.Context, transport Transport) (
 
 	method = "PUT"
 
-	path.Grow(1 + len("_ingest") + 1 + len("pipeline") + 1 + len(r.PipelineID))
+	path.Grow(7 + 1 + len("_ingest") + 1 + len("pipeline") + 1 + len(r.PipelineID))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_ingest")
 	path.WriteString("/")

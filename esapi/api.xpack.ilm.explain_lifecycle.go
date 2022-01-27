@@ -73,7 +73,8 @@ func (r ILMExplainLifecycleRequest) Do(ctx context.Context, transport Transport)
 
 	method = "GET"
 
-	path.Grow(1 + len(r.Index) + 1 + len("_ilm") + 1 + len("explain"))
+	path.Grow(7 + 1 + len(r.Index) + 1 + len("_ilm") + 1 + len("explain"))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString(r.Index)
 	path.WriteString("/")

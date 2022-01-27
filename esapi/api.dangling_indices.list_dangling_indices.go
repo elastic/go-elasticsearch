@@ -67,7 +67,8 @@ func (r DanglingIndicesListDanglingIndicesRequest) Do(ctx context.Context, trans
 
 	method = "GET"
 
-	path.Grow(len("/_dangling"))
+	path.Grow(7 + len("/_dangling"))
+	path.WriteString("http://")
 	path.WriteString("/_dangling")
 
 	params = make(map[string]string)

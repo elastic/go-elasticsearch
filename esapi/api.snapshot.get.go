@@ -21,6 +21,7 @@ package esapi
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strconv"
 	"strings"
@@ -78,7 +79,12 @@ func (r SnapshotGetRequest) Do(ctx context.Context, transport Transport) (*Respo
 
 	method = "GET"
 
-	path.Grow(1 + len("_snapshot") + 1 + len(r.Repository) + 1 + len(strings.Join(r.Snapshot, ",")))
+	if len(r.Snapshot) == 0 {
+		return nil, errors.New("snapshot is required and cannot be nil or empty")
+	}
+
+	path.Grow(7 + 1 + len("_snapshot") + 1 + len(r.Repository) + 1 + len(strings.Join(r.Snapshot, ",")))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_snapshot")
 	path.WriteString("/")

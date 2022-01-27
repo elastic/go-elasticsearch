@@ -71,7 +71,8 @@ func (r CatHelpRequest) Do(ctx context.Context, transport Transport) (*Response,
 
 	method = "GET"
 
-	path.Grow(len("/_cat"))
+	path.Grow(7 + len("/_cat"))
+	path.WriteString("http://")
 	path.WriteString("/_cat")
 
 	params = make(map[string]string)

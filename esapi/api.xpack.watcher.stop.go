@@ -67,7 +67,8 @@ func (r WatcherStopRequest) Do(ctx context.Context, transport Transport) (*Respo
 
 	method = "POST"
 
-	path.Grow(len("/_watcher/_stop"))
+	path.Grow(7 + len("/_watcher/_stop"))
+	path.WriteString("http://")
 	path.WriteString("/_watcher/_stop")
 
 	params = make(map[string]string)

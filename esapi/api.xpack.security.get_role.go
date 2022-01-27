@@ -69,7 +69,8 @@ func (r SecurityGetRoleRequest) Do(ctx context.Context, transport Transport) (*R
 
 	method = "GET"
 
-	path.Grow(1 + len("_security") + 1 + len("role") + 1 + len(strings.Join(r.Name, ",")))
+	path.Grow(7 + 1 + len("_security") + 1 + len("role") + 1 + len(strings.Join(r.Name, ",")))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_security")
 	path.WriteString("/")

@@ -70,7 +70,8 @@ func (r IndicesModifyDataStreamRequest) Do(ctx context.Context, transport Transp
 
 	method = "POST"
 
-	path.Grow(len("/_data_stream/_modify"))
+	path.Grow(7 + len("/_data_stream/_modify"))
+	path.WriteString("http://")
 	path.WriteString("/_data_stream/_modify")
 
 	params = make(map[string]string)

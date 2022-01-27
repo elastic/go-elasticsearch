@@ -73,7 +73,8 @@ func (r ClusterDeleteComponentTemplateRequest) Do(ctx context.Context, transport
 
 	method = "DELETE"
 
-	path.Grow(1 + len("_component_template") + 1 + len(r.Name))
+	path.Grow(7 + 1 + len("_component_template") + 1 + len(r.Name))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_component_template")
 	path.WriteString("/")

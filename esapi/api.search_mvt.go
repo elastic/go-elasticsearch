@@ -21,6 +21,7 @@ package esapi
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -88,7 +89,21 @@ func (r SearchMvtRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 	method = "POST"
 
-	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_mvt") + 1 + len(r.Field) + 1 + len(strconv.Itoa(*r.Zoom)) + 1 + len(strconv.Itoa(*r.X)) + 1 + len(strconv.Itoa(*r.Y)))
+	if len(r.Index) == 0 {
+		return nil, errors.New("index is required and cannot be nil or empty")
+	}
+	if r.Zoom == nil {
+		return nil, errors.New("zoom is required and cannot be nil")
+	}
+	if r.X == nil {
+		return nil, errors.New("x is required and cannot be nil")
+	}
+	if r.Y == nil {
+		return nil, errors.New("y is required and cannot be nil")
+	}
+
+	path.Grow(7 + 1 + len(strings.Join(r.Index, ",")) + 1 + len("_mvt") + 1 + len(r.Field) + 1 + len(strconv.Itoa(*r.Zoom)) + 1 + len(strconv.Itoa(*r.X)) + 1 + len(strconv.Itoa(*r.Y)))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString(strings.Join(r.Index, ","))
 	path.WriteString("/")

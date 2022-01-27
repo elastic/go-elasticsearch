@@ -72,7 +72,8 @@ func (r EnrichExecutePolicyRequest) Do(ctx context.Context, transport Transport)
 
 	method = "PUT"
 
-	path.Grow(1 + len("_enrich") + 1 + len("policy") + 1 + len(r.Name) + 1 + len("_execute"))
+	path.Grow(7 + 1 + len("_enrich") + 1 + len("policy") + 1 + len(r.Name) + 1 + len("_execute"))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_enrich")
 	path.WriteString("/")

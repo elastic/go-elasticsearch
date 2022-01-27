@@ -21,6 +21,7 @@ package esapi
 
 import (
 	"context"
+	"errors"
 	"io"
 	"net/http"
 	"strconv"
@@ -76,7 +77,12 @@ func (r MLPutTrainedModelDefinitionPartRequest) Do(ctx context.Context, transpor
 
 	method = "PUT"
 
-	path.Grow(1 + len("_ml") + 1 + len("trained_models") + 1 + len(r.ModelID) + 1 + len("definition") + 1 + len(strconv.Itoa(*r.Part)))
+	if r.Part == nil {
+		return nil, errors.New("part is required and cannot be nil")
+	}
+
+	path.Grow(7 + 1 + len("_ml") + 1 + len("trained_models") + 1 + len(r.ModelID) + 1 + len("definition") + 1 + len(strconv.Itoa(*r.Part)))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_ml")
 	path.WriteString("/")

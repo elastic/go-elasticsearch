@@ -80,7 +80,8 @@ func (r CatAllocationRequest) Do(ctx context.Context, transport Transport) (*Res
 
 	method = "GET"
 
-	path.Grow(1 + len("_cat") + 1 + len("allocation") + 1 + len(strings.Join(r.NodeID, ",")))
+	path.Grow(7 + 1 + len("_cat") + 1 + len("allocation") + 1 + len(strings.Join(r.NodeID, ",")))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_cat")
 	path.WriteString("/")

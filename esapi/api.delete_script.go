@@ -73,7 +73,8 @@ func (r DeleteScriptRequest) Do(ctx context.Context, transport Transport) (*Resp
 
 	method = "DELETE"
 
-	path.Grow(1 + len("_scripts") + 1 + len(r.ScriptID))
+	path.Grow(7 + 1 + len("_scripts") + 1 + len(r.ScriptID))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_scripts")
 	path.WriteString("/")

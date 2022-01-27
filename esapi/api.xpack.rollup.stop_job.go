@@ -76,7 +76,8 @@ func (r RollupStopJobRequest) Do(ctx context.Context, transport Transport) (*Res
 
 	method = "POST"
 
-	path.Grow(1 + len("_rollup") + 1 + len("job") + 1 + len(r.JobID) + 1 + len("_stop"))
+	path.Grow(7 + 1 + len("_rollup") + 1 + len("job") + 1 + len(r.JobID) + 1 + len("_stop"))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_rollup")
 	path.WriteString("/")

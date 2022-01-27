@@ -72,7 +72,8 @@ func (r SlmPutLifecycleRequest) Do(ctx context.Context, transport Transport) (*R
 
 	method = "PUT"
 
-	path.Grow(1 + len("_slm") + 1 + len("policy") + 1 + len(r.PolicyID))
+	path.Grow(7 + 1 + len("_slm") + 1 + len("policy") + 1 + len(r.PolicyID))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_slm")
 	path.WriteString("/")

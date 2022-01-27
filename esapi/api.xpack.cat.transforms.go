@@ -80,7 +80,8 @@ func (r CatTransformsRequest) Do(ctx context.Context, transport Transport) (*Res
 
 	method = "GET"
 
-	path.Grow(1 + len("_cat") + 1 + len("transforms") + 1 + len(r.TransformID))
+	path.Grow(7 + 1 + len("_cat") + 1 + len("transforms") + 1 + len(r.TransformID))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_cat")
 	path.WriteString("/")

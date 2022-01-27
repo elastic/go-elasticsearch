@@ -21,6 +21,7 @@ package esapi
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strconv"
 	"strings"
@@ -79,7 +80,12 @@ func (r IndicesAddBlockRequest) Do(ctx context.Context, transport Transport) (*R
 
 	method = "PUT"
 
-	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_block") + 1 + len(r.Block))
+	if len(r.Index) == 0 {
+		return nil, errors.New("index is required and cannot be nil or empty")
+	}
+
+	path.Grow(7 + 1 + len(strings.Join(r.Index, ",")) + 1 + len("_block") + 1 + len(r.Block))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString(strings.Join(r.Index, ","))
 	path.WriteString("/")

@@ -81,7 +81,8 @@ func (r IndicesRolloverRequest) Do(ctx context.Context, transport Transport) (*R
 
 	method = "POST"
 
-	path.Grow(1 + len(r.Alias) + 1 + len("_rollover") + 1 + len(r.NewIndex))
+	path.Grow(7 + 1 + len(r.Alias) + 1 + len("_rollover") + 1 + len(r.NewIndex))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString(r.Alias)
 	path.WriteString("/")

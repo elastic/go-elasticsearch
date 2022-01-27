@@ -69,7 +69,8 @@ func (r SecurityGetUserRequest) Do(ctx context.Context, transport Transport) (*R
 
 	method = "GET"
 
-	path.Grow(1 + len("_security") + 1 + len("user") + 1 + len(strings.Join(r.Username, ",")))
+	path.Grow(7 + 1 + len("_security") + 1 + len("user") + 1 + len(strings.Join(r.Username, ",")))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_security")
 	path.WriteString("/")

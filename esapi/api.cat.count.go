@@ -76,7 +76,8 @@ func (r CatCountRequest) Do(ctx context.Context, transport Transport) (*Response
 
 	method = "GET"
 
-	path.Grow(1 + len("_cat") + 1 + len("count") + 1 + len(strings.Join(r.Index, ",")))
+	path.Grow(7 + 1 + len("_cat") + 1 + len("count") + 1 + len(strings.Join(r.Index, ",")))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_cat")
 	path.WriteString("/")

@@ -70,7 +70,8 @@ func (r SQLClearCursorRequest) Do(ctx context.Context, transport Transport) (*Re
 
 	method = "POST"
 
-	path.Grow(len("/_sql/close"))
+	path.Grow(7 + len("/_sql/close"))
+	path.WriteString("http://")
 	path.WriteString("/_sql/close")
 
 	params = make(map[string]string)

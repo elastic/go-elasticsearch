@@ -70,7 +70,8 @@ func (r MLValidateRequest) Do(ctx context.Context, transport Transport) (*Respon
 
 	method = "POST"
 
-	path.Grow(len("/_ml/anomaly_detectors/_validate"))
+	path.Grow(7 + len("/_ml/anomaly_detectors/_validate"))
+	path.WriteString("http://")
 	path.WriteString("/_ml/anomaly_detectors/_validate")
 
 	params = make(map[string]string)

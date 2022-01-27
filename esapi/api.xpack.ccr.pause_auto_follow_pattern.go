@@ -69,7 +69,8 @@ func (r CCRPauseAutoFollowPatternRequest) Do(ctx context.Context, transport Tran
 
 	method = "POST"
 
-	path.Grow(1 + len("_ccr") + 1 + len("auto_follow") + 1 + len(r.Name) + 1 + len("pause"))
+	path.Grow(7 + 1 + len("_ccr") + 1 + len("auto_follow") + 1 + len(r.Name) + 1 + len("pause"))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_ccr")
 	path.WriteString("/")

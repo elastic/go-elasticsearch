@@ -67,7 +67,8 @@ func (r ILMStopRequest) Do(ctx context.Context, transport Transport) (*Response,
 
 	method = "POST"
 
-	path.Grow(len("/_ilm/stop"))
+	path.Grow(7 + len("/_ilm/stop"))
+	path.WriteString("http://")
 	path.WriteString("/_ilm/stop")
 
 	params = make(map[string]string)

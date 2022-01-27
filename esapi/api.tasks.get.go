@@ -76,7 +76,8 @@ func (r TasksGetRequest) Do(ctx context.Context, transport Transport) (*Response
 
 	method = "GET"
 
-	path.Grow(1 + len("_tasks") + 1 + len(r.TaskID))
+	path.Grow(7 + 1 + len("_tasks") + 1 + len(r.TaskID))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_tasks")
 	path.WriteString("/")

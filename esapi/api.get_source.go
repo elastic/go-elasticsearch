@@ -81,7 +81,8 @@ func (r GetSourceRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 	method = "GET"
 
-	path.Grow(1 + len(r.Index) + 1 + len("_source") + 1 + len(r.DocumentID))
+	path.Grow(7 + 1 + len(r.Index) + 1 + len("_source") + 1 + len(r.DocumentID))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString(r.Index)
 	path.WriteString("/")

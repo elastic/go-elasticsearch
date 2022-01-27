@@ -70,7 +70,8 @@ func (r WatcherAckWatchRequest) Do(ctx context.Context, transport Transport) (*R
 
 	method = "PUT"
 
-	path.Grow(1 + len("_watcher") + 1 + len("watch") + 1 + len(r.WatchID) + 1 + len("_ack") + 1 + len(strings.Join(r.ActionID, ",")))
+	path.Grow(7 + 1 + len("_watcher") + 1 + len("watch") + 1 + len(r.WatchID) + 1 + len("_ack") + 1 + len(strings.Join(r.ActionID, ",")))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_watcher")
 	path.WriteString("/")

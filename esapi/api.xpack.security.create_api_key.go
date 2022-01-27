@@ -72,7 +72,8 @@ func (r SecurityCreateAPIKeyRequest) Do(ctx context.Context, transport Transport
 
 	method = "PUT"
 
-	path.Grow(len("/_security/api_key"))
+	path.Grow(7 + len("/_security/api_key"))
+	path.WriteString("http://")
 	path.WriteString("/_security/api_key")
 
 	params = make(map[string]string)

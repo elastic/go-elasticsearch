@@ -69,7 +69,8 @@ func (r IndicesCreateDataStreamRequest) Do(ctx context.Context, transport Transp
 
 	method = "PUT"
 
-	path.Grow(1 + len("_data_stream") + 1 + len(r.Name))
+	path.Grow(7 + 1 + len("_data_stream") + 1 + len(r.Name))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_data_stream")
 	path.WriteString("/")

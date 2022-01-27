@@ -70,7 +70,8 @@ func (r SecuritySamlInvalidateRequest) Do(ctx context.Context, transport Transpo
 
 	method = "POST"
 
-	path.Grow(len("/_security/saml/invalidate"))
+	path.Grow(7 + len("/_security/saml/invalidate"))
+	path.WriteString("http://")
 	path.WriteString("/_security/saml/invalidate")
 
 	params = make(map[string]string)

@@ -71,7 +71,8 @@ func (r IndicesGetDataStreamRequest) Do(ctx context.Context, transport Transport
 
 	method = "GET"
 
-	path.Grow(1 + len("_data_stream") + 1 + len(strings.Join(r.Name, ",")))
+	path.Grow(7 + 1 + len("_data_stream") + 1 + len(strings.Join(r.Name, ",")))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_data_stream")
 	if len(r.Name) > 0 {

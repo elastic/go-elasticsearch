@@ -73,7 +73,8 @@ func (r MLGetFiltersRequest) Do(ctx context.Context, transport Transport) (*Resp
 
 	method = "GET"
 
-	path.Grow(1 + len("_ml") + 1 + len("filters") + 1 + len(r.FilterID))
+	path.Grow(7 + 1 + len("_ml") + 1 + len("filters") + 1 + len(r.FilterID))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_ml")
 	path.WriteString("/")

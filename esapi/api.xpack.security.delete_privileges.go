@@ -72,7 +72,8 @@ func (r SecurityDeletePrivilegesRequest) Do(ctx context.Context, transport Trans
 
 	method = "DELETE"
 
-	path.Grow(1 + len("_security") + 1 + len("privilege") + 1 + len(r.Application) + 1 + len(r.Name))
+	path.Grow(7 + 1 + len("_security") + 1 + len("privilege") + 1 + len(r.Application) + 1 + len(r.Name))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_security")
 	path.WriteString("/")

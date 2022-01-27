@@ -79,7 +79,8 @@ func (r ClusterRerouteRequest) Do(ctx context.Context, transport Transport) (*Re
 
 	method = "POST"
 
-	path.Grow(len("/_cluster/reroute"))
+	path.Grow(7 + len("/_cluster/reroute"))
+	path.WriteString("http://")
 	path.WriteString("/_cluster/reroute")
 
 	params = make(map[string]string)

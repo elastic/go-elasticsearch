@@ -76,7 +76,8 @@ func (r IndicesFlushRequest) Do(ctx context.Context, transport Transport) (*Resp
 
 	method = "POST"
 
-	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_flush"))
+	path.Grow(7 + 1 + len(strings.Join(r.Index, ",")) + 1 + len("_flush"))
+	path.WriteString("http://")
 	if len(r.Index) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.Index, ","))

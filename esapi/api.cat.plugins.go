@@ -78,7 +78,8 @@ func (r CatPluginsRequest) Do(ctx context.Context, transport Transport) (*Respon
 
 	method = "GET"
 
-	path.Grow(len("/_cat/plugins"))
+	path.Grow(7 + len("/_cat/plugins"))
+	path.WriteString("http://")
 	path.WriteString("/_cat/plugins")
 
 	params = make(map[string]string)

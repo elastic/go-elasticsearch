@@ -87,7 +87,8 @@ func (r TextStructureFindStructureRequest) Do(ctx context.Context, transport Tra
 
 	method = "POST"
 
-	path.Grow(len("/_text_structure/find_structure"))
+	path.Grow(7 + len("/_text_structure/find_structure"))
+	path.WriteString("http://")
 	path.WriteString("/_text_structure/find_structure")
 
 	params = make(map[string]string)

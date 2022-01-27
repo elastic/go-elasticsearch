@@ -72,7 +72,8 @@ func (r MLDeleteDatafeedRequest) Do(ctx context.Context, transport Transport) (*
 
 	method = "DELETE"
 
-	path.Grow(1 + len("_ml") + 1 + len("datafeeds") + 1 + len(r.DatafeedID))
+	path.Grow(7 + 1 + len("_ml") + 1 + len("datafeeds") + 1 + len(r.DatafeedID))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_ml")
 	path.WriteString("/")

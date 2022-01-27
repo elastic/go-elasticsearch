@@ -83,7 +83,8 @@ func (r NodesStatsRequest) Do(ctx context.Context, transport Transport) (*Respon
 
 	method = "GET"
 
-	path.Grow(1 + len("_nodes") + 1 + len(strings.Join(r.NodeID, ",")) + 1 + len("stats") + 1 + len(strings.Join(r.Metric, ",")) + 1 + len(strings.Join(r.IndexMetric, ",")))
+	path.Grow(7 + 1 + len("_nodes") + 1 + len(strings.Join(r.NodeID, ",")) + 1 + len("stats") + 1 + len(strings.Join(r.Metric, ",")) + 1 + len(strings.Join(r.IndexMetric, ",")))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_nodes")
 	if len(r.NodeID) > 0 {

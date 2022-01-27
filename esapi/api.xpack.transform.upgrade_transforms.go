@@ -72,7 +72,8 @@ func (r TransformUpgradeTransformsRequest) Do(ctx context.Context, transport Tra
 
 	method = "POST"
 
-	path.Grow(len("/_transform/_upgrade"))
+	path.Grow(7 + len("/_transform/_upgrade"))
+	path.WriteString("http://")
 	path.WriteString("/_transform/_upgrade")
 
 	params = make(map[string]string)

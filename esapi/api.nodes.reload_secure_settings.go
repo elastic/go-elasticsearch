@@ -75,7 +75,8 @@ func (r NodesReloadSecureSettingsRequest) Do(ctx context.Context, transport Tran
 
 	method = "POST"
 
-	path.Grow(1 + len("_nodes") + 1 + len(strings.Join(r.NodeID, ",")) + 1 + len("reload_secure_settings"))
+	path.Grow(7 + 1 + len("_nodes") + 1 + len(strings.Join(r.NodeID, ",")) + 1 + len("reload_secure_settings"))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_nodes")
 	if len(r.NodeID) > 0 {

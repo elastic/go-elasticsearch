@@ -67,7 +67,8 @@ func (r SecurityGetUserPrivilegesRequest) Do(ctx context.Context, transport Tran
 
 	method = "GET"
 
-	path.Grow(len("/_security/user/_privileges"))
+	path.Grow(7 + len("/_security/user/_privileges"))
+	path.WriteString("http://")
 	path.WriteString("/_security/user/_privileges")
 
 	params = make(map[string]string)

@@ -76,7 +76,8 @@ func (r RollupRollupRequest) Do(ctx context.Context, transport Transport) (*Resp
 
 	method = "POST"
 
-	path.Grow(1 + len(r.Index) + 1 + len("_rollup") + 1 + len(r.RollupIndex))
+	path.Grow(7 + 1 + len(r.Index) + 1 + len("_rollup") + 1 + len(r.RollupIndex))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString(r.Index)
 	path.WriteString("/")

@@ -67,7 +67,8 @@ func (r PingRequest) Do(ctx context.Context, transport Transport) (*Response, er
 
 	method = "HEAD"
 
-	path.Grow(len("/"))
+	path.Grow(7 + len("/"))
+	path.WriteString("http://")
 	path.WriteString("/")
 
 	params = make(map[string]string)

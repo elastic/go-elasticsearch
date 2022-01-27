@@ -69,7 +69,8 @@ func (r FeaturesResetFeaturesRequest) Do(ctx context.Context, transport Transpor
 
 	method = "POST"
 
-	path.Grow(len("/_features/_reset"))
+	path.Grow(7 + len("/_features/_reset"))
+	path.WriteString("http://")
 	path.WriteString("/_features/_reset")
 
 	params = make(map[string]string)

@@ -67,7 +67,8 @@ func (r MLInfoRequest) Do(ctx context.Context, transport Transport) (*Response, 
 
 	method = "GET"
 
-	path.Grow(len("/_ml/info"))
+	path.Grow(7 + len("/_ml/info"))
+	path.WriteString("http://")
 	path.WriteString("/_ml/info")
 
 	params = make(map[string]string)

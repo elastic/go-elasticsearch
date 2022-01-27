@@ -74,7 +74,8 @@ func (r SnapshotGetRepositoryRequest) Do(ctx context.Context, transport Transpor
 
 	method = "GET"
 
-	path.Grow(1 + len("_snapshot") + 1 + len(strings.Join(r.Repository, ",")))
+	path.Grow(7 + 1 + len("_snapshot") + 1 + len(strings.Join(r.Repository, ",")))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_snapshot")
 	if len(r.Repository) > 0 {

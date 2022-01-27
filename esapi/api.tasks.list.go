@@ -79,7 +79,8 @@ func (r TasksListRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 	method = "GET"
 
-	path.Grow(len("/_tasks"))
+	path.Grow(7 + len("/_tasks"))
+	path.WriteString("http://")
 	path.WriteString("/_tasks")
 
 	params = make(map[string]string)

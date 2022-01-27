@@ -67,7 +67,8 @@ func (r SecurityEnrollKibanaRequest) Do(ctx context.Context, transport Transport
 
 	method = "GET"
 
-	path.Grow(len("/_security/enroll/kibana"))
+	path.Grow(7 + len("/_security/enroll/kibana"))
+	path.WriteString("http://")
 	path.WriteString("/_security/enroll/kibana")
 
 	params = make(map[string]string)

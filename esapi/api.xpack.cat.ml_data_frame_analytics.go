@@ -79,7 +79,8 @@ func (r CatMLDataFrameAnalyticsRequest) Do(ctx context.Context, transport Transp
 
 	method = "GET"
 
-	path.Grow(1 + len("_cat") + 1 + len("ml") + 1 + len("data_frame") + 1 + len("analytics") + 1 + len(r.DocumentID))
+	path.Grow(7 + 1 + len("_cat") + 1 + len("ml") + 1 + len("data_frame") + 1 + len("analytics") + 1 + len(r.DocumentID))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_cat")
 	path.WriteString("/")

@@ -84,7 +84,8 @@ func (r CatIndicesRequest) Do(ctx context.Context, transport Transport) (*Respon
 
 	method = "GET"
 
-	path.Grow(1 + len("_cat") + 1 + len("indices") + 1 + len(strings.Join(r.Index, ",")))
+	path.Grow(7 + 1 + len("_cat") + 1 + len("indices") + 1 + len(strings.Join(r.Index, ",")))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_cat")
 	path.WriteString("/")

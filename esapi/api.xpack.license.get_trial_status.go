@@ -67,7 +67,8 @@ func (r LicenseGetTrialStatusRequest) Do(ctx context.Context, transport Transpor
 
 	method = "GET"
 
-	path.Grow(len("/_license/trial_status"))
+	path.Grow(7 + len("/_license/trial_status"))
+	path.WriteString("http://")
 	path.WriteString("/_license/trial_status")
 
 	params = make(map[string]string)

@@ -71,7 +71,8 @@ func (r RollupGetRollupIndexCapsRequest) Do(ctx context.Context, transport Trans
 
 	method = "GET"
 
-	path.Grow(1 + len(r.Index) + 1 + len("_rollup") + 1 + len("data"))
+	path.Grow(7 + 1 + len(r.Index) + 1 + len("_rollup") + 1 + len("data"))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString(r.Index)
 	path.WriteString("/")

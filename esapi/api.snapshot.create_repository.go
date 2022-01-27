@@ -78,7 +78,8 @@ func (r SnapshotCreateRepositoryRequest) Do(ctx context.Context, transport Trans
 
 	method = "PUT"
 
-	path.Grow(1 + len("_snapshot") + 1 + len(r.Repository))
+	path.Grow(7 + 1 + len("_snapshot") + 1 + len(r.Repository))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_snapshot")
 	path.WriteString("/")

@@ -21,6 +21,7 @@ package esapi
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strings"
 )
@@ -69,7 +70,12 @@ func (r SecurityClearAPIKeyCacheRequest) Do(ctx context.Context, transport Trans
 
 	method = "POST"
 
-	path.Grow(1 + len("_security") + 1 + len("api_key") + 1 + len(strings.Join(r.Ids, ",")) + 1 + len("_clear_cache"))
+	if len(r.Ids) == 0 {
+		return nil, errors.New("ids is required and cannot be nil or empty")
+	}
+
+	path.Grow(7 + 1 + len("_security") + 1 + len("api_key") + 1 + len(strings.Join(r.Ids, ",")) + 1 + len("_clear_cache"))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_security")
 	path.WriteString("/")

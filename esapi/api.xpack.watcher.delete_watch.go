@@ -69,7 +69,8 @@ func (r WatcherDeleteWatchRequest) Do(ctx context.Context, transport Transport) 
 
 	method = "DELETE"
 
-	path.Grow(1 + len("_watcher") + 1 + len("watch") + 1 + len(r.WatchID))
+	path.Grow(7 + 1 + len("_watcher") + 1 + len("watch") + 1 + len(r.WatchID))
+	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_watcher")
 	path.WriteString("/")
