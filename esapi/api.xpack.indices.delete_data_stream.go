@@ -15,12 +15,13 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 7.16.0: DO NOT EDIT
+// Code generated from specification version 7.17.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strings"
 )
@@ -70,6 +71,10 @@ func (r IndicesDeleteDataStreamRequest) Do(ctx context.Context, transport Transp
 	)
 
 	method = "DELETE"
+
+	if len(r.Name) == 0 {
+		return nil, errors.New("name is required and cannot be nil or empty")
+	}
 
 	path.Grow(1 + len("_data_stream") + 1 + len(strings.Join(r.Name, ",")))
 	path.WriteString("/")

@@ -15,12 +15,13 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 7.16.0: DO NOT EDIT
+// Code generated from specification version 7.17.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strconv"
 	"strings"
@@ -73,6 +74,10 @@ func (r IndicesReloadSearchAnalyzersRequest) Do(ctx context.Context, transport T
 	)
 
 	method = "POST"
+
+	if len(r.Index) == 0 {
+		return nil, errors.New("index is required and cannot be nil or empty")
+	}
 
 	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_reload_search_analyzers"))
 	path.WriteString("/")

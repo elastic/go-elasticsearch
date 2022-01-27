@@ -15,12 +15,13 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 7.16.0: DO NOT EDIT
+// Code generated from specification version 7.17.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strconv"
 	"strings"
@@ -76,6 +77,10 @@ func (r IndicesExistsAliasRequest) Do(ctx context.Context, transport Transport) 
 	)
 
 	method = "HEAD"
+
+	if len(r.Name) == 0 {
+		return nil, errors.New("name is required and cannot be nil or empty")
+	}
 
 	path.Grow(1 + len(strings.Join(r.Index, ",")) + 1 + len("_alias") + 1 + len(strings.Join(r.Name, ",")))
 	if len(r.Index) > 0 {

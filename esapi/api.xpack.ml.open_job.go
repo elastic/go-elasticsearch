@@ -15,12 +15,13 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 7.16.0: DO NOT EDIT
+// Code generated from specification version 7.17.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"io"
 	"net/http"
 	"strings"
 )
@@ -46,6 +47,8 @@ type MLOpenJob func(job_id string, o ...func(*MLOpenJobRequest)) (*Response, err
 // MLOpenJobRequest configures the ML Open Job API request.
 //
 type MLOpenJobRequest struct {
+	Body io.Reader
+
 	JobID string
 
 	Pretty     bool
@@ -97,7 +100,7 @@ func (r MLOpenJobRequest) Do(ctx context.Context, transport Transport) (*Respons
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -108,6 +111,10 @@ func (r MLOpenJobRequest) Do(ctx context.Context, transport Transport) (*Respons
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if r.Body != nil {
+		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -145,6 +152,14 @@ func (r MLOpenJobRequest) Do(ctx context.Context, transport Transport) (*Respons
 func (f MLOpenJob) WithContext(v context.Context) func(*MLOpenJobRequest) {
 	return func(r *MLOpenJobRequest) {
 		r.ctx = v
+	}
+}
+
+// WithBody - Query parameters can be specified in the body.
+//
+func (f MLOpenJob) WithBody(v io.Reader) func(*MLOpenJobRequest) {
+	return func(r *MLOpenJobRequest) {
+		r.Body = v
 	}
 }
 

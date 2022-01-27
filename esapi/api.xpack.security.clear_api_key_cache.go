@@ -15,12 +15,13 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 7.16.0: DO NOT EDIT
+// Code generated from specification version 7.17.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strings"
 )
@@ -68,6 +69,10 @@ func (r SecurityClearAPIKeyCacheRequest) Do(ctx context.Context, transport Trans
 	)
 
 	method = "POST"
+
+	if len(r.Ids) == 0 {
+		return nil, errors.New("ids is required and cannot be nil or empty")
+	}
 
 	path.Grow(1 + len("_security") + 1 + len("api_key") + 1 + len(strings.Join(r.Ids, ",")) + 1 + len("_clear_cache"))
 	path.WriteString("/")

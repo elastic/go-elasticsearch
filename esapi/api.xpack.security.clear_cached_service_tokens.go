@@ -15,19 +15,20 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 7.16.0: DO NOT EDIT
+// Code generated from specification version 7.17.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strings"
 )
 
 func newSecurityClearCachedServiceTokensFunc(t Transport) SecurityClearCachedServiceTokens {
-	return func(name []string, namespace string, service string, o ...func(*SecurityClearCachedServiceTokensRequest)) (*Response, error) {
-		var r = SecurityClearCachedServiceTokensRequest{Name: name, Service: service, Namespace: namespace}
+	return func(name []string, service string, namespace string, o ...func(*SecurityClearCachedServiceTokensRequest)) (*Response, error) {
+		var r = SecurityClearCachedServiceTokensRequest{Name: name, Namespace: namespace, Service: service}
 		for _, f := range o {
 			f(&r)
 		}
@@ -70,6 +71,10 @@ func (r SecurityClearCachedServiceTokensRequest) Do(ctx context.Context, transpo
 	)
 
 	method = "POST"
+
+	if len(r.Name) == 0 {
+		return nil, errors.New("name is required and cannot be nil or empty")
+	}
 
 	path.Grow(1 + len("_security") + 1 + len("service") + 1 + len(r.Namespace) + 1 + len(r.Service) + 1 + len("credential") + 1 + len("token") + 1 + len(strings.Join(r.Name, ",")) + 1 + len("_clear_cache"))
 	path.WriteString("/")

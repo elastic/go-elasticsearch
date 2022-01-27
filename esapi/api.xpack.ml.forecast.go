@@ -15,12 +15,13 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 7.16.0: DO NOT EDIT
+// Code generated from specification version 7.17.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"io"
 	"net/http"
 	"strings"
 	"time"
@@ -47,6 +48,8 @@ type MLForecast func(job_id string, o ...func(*MLForecastRequest)) (*Response, e
 // MLForecastRequest configures the ML Forecast API request.
 //
 type MLForecastRequest struct {
+	Body io.Reader
+
 	JobID string
 
 	Duration       time.Duration
@@ -114,7 +117,7 @@ func (r MLForecastRequest) Do(ctx context.Context, transport Transport) (*Respon
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -125,6 +128,10 @@ func (r MLForecastRequest) Do(ctx context.Context, transport Transport) (*Respon
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if r.Body != nil {
+		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -162,6 +169,14 @@ func (r MLForecastRequest) Do(ctx context.Context, transport Transport) (*Respon
 func (f MLForecast) WithContext(v context.Context) func(*MLForecastRequest) {
 	return func(r *MLForecastRequest) {
 		r.ctx = v
+	}
+}
+
+// WithBody - Query parameters can be specified in the body.
+//
+func (f MLForecast) WithBody(v io.Reader) func(*MLForecastRequest) {
+	return func(r *MLForecastRequest) {
+		r.Body = v
 	}
 }
 

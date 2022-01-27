@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 7.16.0: DO NOT EDIT
+// Code generated from specification version 7.17.0: DO NOT EDIT
 
 package esapi
 
@@ -26,7 +26,7 @@ import (
 )
 
 func newSecurityGetServiceCredentialsFunc(t Transport) SecurityGetServiceCredentials {
-	return func(namespace string, service string, o ...func(*SecurityGetServiceCredentialsRequest)) (*Response, error) {
+	return func(service string, namespace string, o ...func(*SecurityGetServiceCredentialsRequest)) (*Response, error) {
 		var r = SecurityGetServiceCredentialsRequest{Namespace: namespace, Service: service}
 		for _, f := range o {
 			f(&r)
