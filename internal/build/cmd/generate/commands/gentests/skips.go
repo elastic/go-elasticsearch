@@ -317,6 +317,8 @@ data_stream/80_resolve_index_data_streams.yml:
 # Zero matchers like '...shards.0.stores.0.allocation:primary' expect array, not map
 data_stream/40_supported_apis.yml:
   - Verify shard stores api
+spatial/60_geo_line.yml:
+  - Test empty buckets
 
 # Failing with error 'Index [.security] is not on the current version. Security features relying on the index will not be available until the upgrade API is run on the index'
 data_stream/40_supported_apis.yml:
