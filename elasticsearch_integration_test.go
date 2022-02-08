@@ -15,6 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
+//go:build integration && !multinode
 // +build integration,!multinode
 
 package elasticsearch_test
@@ -33,9 +34,9 @@ import (
 	"testing"
 	"time"
 
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
-	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 )
 
 func TestClientTransport(t *testing.T) {
