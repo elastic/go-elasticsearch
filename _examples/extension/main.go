@@ -15,6 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
+//go:build ignore
 // +build ignore
 
 // This examples demonstrates how extend the API of the client by embedding it inside a custom type.
@@ -30,9 +31,9 @@ import (
 	"net/url"
 	"os"
 
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
-	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 )
 
 const port = "9209"
