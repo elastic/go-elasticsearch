@@ -501,6 +501,86 @@ func (g *Generator) genXPackSetup() {
 					defer res.Body.Close()
 				}
 			}
+	
+			{
+				var r struct {
+					Transforms []struct {
+						Id string ` + "`json:\"id\"`" + `
+					} ` + "`json:\"transforms\"`" + `
+				}
+				res, _ := es.TransformGetTransform(es.TransformGetTransform.WithTransformID("_all"))
+				if res != nil && res.Body != nil {
+					defer res.Body.Close()
+					json.NewDecoder(res.Body).Decode(&r)
+				}
+				for _, transform := range r.Transforms {
+					id := transform.Id
+					res, _ := es.TransformDeleteTransform(id)
+					if res != nil && res.Body != nil {
+						defer res.Body.Close()
+					}
+				}
+			}
+	
+			{
+				var r struct {
+					TrainedModelConfigs []struct {
+						ModelId string ` + "`json:\"model_id\"`" + `
+					} ` + "`json:\"trained_model_configs\"`" + `
+				}
+				res, _ := es.ML.GetTrainedModels(es.ML.GetTrainedModels.WithModelID("_all"))
+				if res != nil && res.Body != nil {
+					defer res.Body.Close()
+					json.NewDecoder(res.Body).Decode(&r)
+					for _, model := range r.TrainedModelConfigs {
+						model_id := model.ModelId
+						res, _ := es.ML.DeleteTrainedModel(model_id)
+						if res != nil && res.Body != nil {
+							defer res.Body.Close()
+						}
+					}
+				}
+			}
+
+			{
+				var r struct {
+					Filters []struct {
+						FilterId string ` + "`json:\"filter_id\"`" + `
+					} ` + "`json:\"filters\"`" + `
+				}
+				res, _ := es.ML.GetFilters()
+				if res != nil && res.Body != nil {
+					defer res.Body.Close()
+					json.NewDecoder(res.Body).Decode(&r)
+				}
+				for _, filter := range r.Filters {
+					filter_id := filter.FilterId
+					res, _ := es.ML.DeleteFilter(filter_id)
+					if res != nil && res.Body != nil {
+						defer res.Body.Close()
+					}
+				}
+			}
+
+			{
+				var r struct {
+					Calendars []struct {
+						CalendarId string ` + "`json:\"calendar_id\"`" + `
+					} ` + "`json:\"calendars\"`" + `
+				}
+				res, _ := es.ML.GetCalendars()
+				if res != nil && res.Body != nil {
+					defer res.Body.Close()
+					json.NewDecoder(res.Body).Decode(&r)
+				}
+				for _, calendar := range r.Calendars {
+					calendar_id := calendar.CalendarId
+					res, _ := es.ML.DeleteCalendar(calendar_id)
+					if res != nil && res.Body != nil {
+						defer res.Body.Close()
+					}
+				}
+			}
 
 			{
 				var r map[string]interface{}
@@ -557,14 +637,22 @@ func (g *Generator) genXPackSetup() {
 			}
 
 			{
-				var r map[string]interface{}
+				var r struct {
+					Apps map[string]struct {
+						Read struct {
+							Metadata struct {
+								Description string ` + "`json:\"description\"`" + `
+								Reserved    bool   ` + "`json:\"_reserved\"`" + `
+							} ` + "`json:\"metadata\"`" + `
+						} ` + "`json:\"read\"`" + `
+					}
+				}
 				res, _ = es.Security.GetPrivileges()
 				if res != nil && res.Body != nil {
 					defer res.Body.Close()
 					json.NewDecoder(res.Body).Decode(&r)
-					for k, v := range r {
-						reserved, ok := v.(map[string]interface{})["metadata"].(map[string]interface{})["_reserved"].(bool)
-						if ok && reserved {
+					for k, v := range r.Apps {
+						if v.Read.Metadata.Reserved {
 							continue
 						}
 						es.Security.DeletePrivileges(k, "_all")
