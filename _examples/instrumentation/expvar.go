@@ -101,7 +101,7 @@ func main() {
 			// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		})
 	if err != nil {
-		log.Fatal("ERROR: %s", err)
+		log.Fatalf("ERROR: %s", err)
 	}
 
 	// Publish client metrics to expvar >>>>>>>>>>>>>>>>>
