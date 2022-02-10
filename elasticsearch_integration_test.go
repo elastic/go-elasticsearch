@@ -140,7 +140,7 @@ func TestClientTransport(t *testing.T) {
 				ResponseHeaderTimeout: time.Second,
 				DialContext:           (&net.Dialer{Timeout: time.Nanosecond}).DialContext,
 				TLSClientConfig: &tls.Config{
-					MinVersion:         tls.VersionTLS11,
+					MinVersion:         tls.VersionTLS12,
 					InsecureSkipVerify: true,
 				},
 			},
