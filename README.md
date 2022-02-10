@@ -375,4 +375,4 @@ The **[`_examples`](./_examples)** folder contains a number of recipes and compr
 
 ## License
 
-(c) 2019 Elasticsearch. Licensed under the Apache License, Version 2.0.
+This software is licensed under the [Apache 2 license](./LICENSE). See [NOTICE](./NOTICE).
