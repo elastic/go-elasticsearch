@@ -181,6 +181,7 @@ func TestBulkIndexerIntegration(t *testing.T) {
 					Body:        strings.NewReader(body),
 					Version:     &version,
 					VersionType: "external",
+					Routing:     `"{required": true}`,
 					OnSuccess: func(ctx context.Context, item esutil.BulkIndexerItem, item2 esutil.BulkIndexerResponseItem) {
 						if version != item2.Version &&
 							version != *item.Version &&
