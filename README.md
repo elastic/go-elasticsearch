@@ -159,7 +159,7 @@ cfg := elasticsearch.Config{
     MaxIdleConnsPerHost:   10,
     ResponseHeaderTimeout: time.Second,
     TLSClientConfig: &tls.Config{
-      MinVersion: tls.VersionTLS11,
+      MinVersion: tls.VersionTLS12,
       // ...
     },
     // ...
