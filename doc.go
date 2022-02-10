@@ -39,7 +39,7 @@ To configure the client, pass a Config object to the NewClient function:
 		    ResponseHeaderTimeout: time.Second,
 		    DialContext:           (&net.Dialer{Timeout: time.Second}).DialContext,
 		    TLSClientConfig: &tls.Config{
-		      MinVersion:         tls.VersionTLS11,
+		      MinVersion:         tls.VersionTLS12,
 		    },
 		  },
 		}
