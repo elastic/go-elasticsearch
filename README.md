@@ -17,23 +17,23 @@ Elasticsearch language clients are only backwards compatible with default distri
 
 When using Go modules, include the version in the import path, and specify either an explicit version or a branch:
 
-    require github.com/elastic/go-elasticsearch/v7 7.16
-    require github.com/elastic/go-elasticsearch/v7 7.0.0
+    require github.com/elastic/go-elasticsearch/v8 v8.0.0
+    require github.com/elastic/go-elasticsearch/v7 7.17
 
 It's possible to use multiple versions of the client in a single project:
 
     // go.mod
-    github.com/elastic/go-elasticsearch/v6 6.x
-    github.com/elastic/go-elasticsearch/v7 7.16
+    github.com/elastic/go-elasticsearch/v7 v7.17.0
+    github.com/elastic/go-elasticsearch/v8 v8.0.0
 
     // main.go
     import (
-      elasticsearch6 "github.com/elastic/go-elasticsearch/v6"
       elasticsearch7 "github.com/elastic/go-elasticsearch/v7"
+      elasticsearch8 "github.com/elastic/go-elasticsearch/v8"
     )
     // ...
-    es6, _ := elasticsearch6.NewDefaultClient()
     es7, _ := elasticsearch7.NewDefaultClient()
+    es8, _ := elasticsearch8.NewDefaultClient()
 
 The `main` branch of the client is compatible with the current `master` branch of Elasticsearch.
 
@@ -159,7 +159,7 @@ cfg := elasticsearch.Config{
     MaxIdleConnsPerHost:   10,
     ResponseHeaderTimeout: time.Second,
     TLSClientConfig: &tls.Config{
-      MinVersion: tls.VersionTLS11,
+      MinVersion: tls.VersionTLS12,
       // ...
     },
     // ...
@@ -375,4 +375,4 @@ The **[`_examples`](./_examples)** folder contains a number of recipes and compr
 
 ## License
 
-(c) 2019 Elasticsearch. Licensed under the Apache License, Version 2.0.
+This software is licensed under the [Apache 2 license](./LICENSE). See [NOTICE](./NOTICE).
