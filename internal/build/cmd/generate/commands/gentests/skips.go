@@ -181,10 +181,6 @@ tsdb/80_index_resize.yml:
 tsdb/40_search.yml:
   - aggregate a metric
 
-# Deliberate wrong type doesn't match Go types
-cluster.desired_nodes/10_basic.yml:
-  - Test version must be a number
-
 # ----- X-Pack ----------------------------------------------------------------
 
 # Float "3.0" decoded as "3" by gopkg.in/yaml.v2

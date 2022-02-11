@@ -27,7 +27,6 @@ var (
 		"list":    "[]string",
 		"number":  "*int",
 		"int":     "*int",
-		"integer": "*int",
 		"long":    "*int",
 		"string":  "string",
 		"time":    "time.Duration",

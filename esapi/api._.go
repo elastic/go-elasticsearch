@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.1.0 (02e798d): DO NOT EDIT
+// Code generated from specification version 8.1.0 (6b6f06e): DO NOT EDIT
 
 package esapi
 
@@ -60,9 +60,6 @@ type API struct {
 	DeleteByQueryRethrottle            DeleteByQueryRethrottle
 	Delete                             Delete
 	DeleteScript                       DeleteScript
-	DesiredNodesDeleteDesiredNodes     DesiredNodesDeleteDesiredNodes
-	DesiredNodesGetDesiredNodes        DesiredNodesGetDesiredNodes
-	DesiredNodesUpdateDesiredNodes     DesiredNodesUpdateDesiredNodes
 	EnrichDeletePolicy                 EnrichDeletePolicy
 	EnrichExecutePolicy                EnrichExecutePolicy
 	EnrichGetPolicy                    EnrichGetPolicy
@@ -89,9 +86,6 @@ type API struct {
 	GraphExplore                       GraphExplore
 	Index                              Index
 	Info                               Info
-	InternalDeleteDesiredNodes         InternalDeleteDesiredNodes
-	InternalGetDesiredNodes            InternalGetDesiredNodes
-	InternalUpdateDesiredNodes         InternalUpdateDesiredNodes
 	KnnSearch                          KnnSearch
 	LogstashDeletePipeline             LogstashDeletePipeline
 	LogstashGetPipeline                LogstashGetPipeline
@@ -553,9 +547,6 @@ func New(t Transport) *API {
 		DeleteByQueryRethrottle:            newDeleteByQueryRethrottleFunc(t),
 		Delete:                             newDeleteFunc(t),
 		DeleteScript:                       newDeleteScriptFunc(t),
-		DesiredNodesDeleteDesiredNodes:     newDesiredNodesDeleteDesiredNodesFunc(t),
-		DesiredNodesGetDesiredNodes:        newDesiredNodesGetDesiredNodesFunc(t),
-		DesiredNodesUpdateDesiredNodes:     newDesiredNodesUpdateDesiredNodesFunc(t),
 		EnrichDeletePolicy:                 newEnrichDeletePolicyFunc(t),
 		EnrichExecutePolicy:                newEnrichExecutePolicyFunc(t),
 		EnrichGetPolicy:                    newEnrichGetPolicyFunc(t),
@@ -582,9 +573,6 @@ func New(t Transport) *API {
 		GraphExplore:                       newGraphExploreFunc(t),
 		Index:                              newIndexFunc(t),
 		Info:                               newInfoFunc(t),
-		InternalDeleteDesiredNodes:         newInternalDeleteDesiredNodesFunc(t),
-		InternalGetDesiredNodes:            newInternalGetDesiredNodesFunc(t),
-		InternalUpdateDesiredNodes:         newInternalUpdateDesiredNodesFunc(t),
 		KnnSearch:                          newKnnSearchFunc(t),
 		LogstashDeletePipeline:             newLogstashDeletePipelineFunc(t),
 		LogstashGetPipeline:                newLogstashGetPipelineFunc(t),

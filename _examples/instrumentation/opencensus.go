@@ -139,7 +139,7 @@ func main() {
 			// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		})
 	if err != nil {
-		log.Fatalf("ERROR: %s", err)
+		log.Fatal("ERROR: %s", err)
 	}
 
 	// Set up the "done" channel
@@ -171,7 +171,7 @@ func main() {
 		ochttp.ClientRoundtripLatencyDistribution,
 		ochttp.ClientCompletedCount,
 	); err != nil {
-		log.Fatalf("ERROR: %s", err)
+		log.Fatal("ERROR: %s", err)
 	}
 
 	// Report views to STDOUT once in a while

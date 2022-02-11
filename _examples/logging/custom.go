@@ -15,7 +15,6 @@
 // specific language governing permissions and limitations
 // under the License.
 
-//go:build ignore
 // +build ignore
 
 // This examples demonstrates how to implement the "elastictransport.Logger" interface with a custom type,

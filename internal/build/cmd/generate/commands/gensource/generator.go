@@ -629,7 +629,7 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(ctx context.Context,
 						pathGrow.WriteString(`1 + `)
 						pathContent.WriteString(`	path.WriteString("/")` + "\n")
 						switch a.Type {
-						case "int", "integer":
+						case "int":
 							requiredArgsValidation.WriteString(`if r.` + p + ` == nil { return nil, errors.New("` + a.Name + ` is required and cannot be nil") }` + "\n")
 							pathGrow.WriteString(`len(strconv.Itoa(*r.` + p + `)) + `)
 							pathContent.WriteString(`	path.WriteString(strconv.Itoa(*r.` + p + `))` + "\n")

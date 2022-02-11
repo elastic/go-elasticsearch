@@ -53,7 +53,6 @@ type IndicesGetRequest struct {
 
 	AllowNoIndices    *bool
 	ExpandWildcards   string
-	Features          string
 	FlatSettings      *bool
 	IgnoreUnavailable *bool
 	IncludeDefaults   *bool
@@ -98,10 +97,6 @@ func (r IndicesGetRequest) Do(ctx context.Context, transport Transport) (*Respon
 
 	if r.ExpandWildcards != "" {
 		params["expand_wildcards"] = r.ExpandWildcards
-	}
-
-	if r.Features != "" {
-		params["features"] = r.Features
 	}
 
 	if r.FlatSettings != nil {
@@ -204,14 +199,6 @@ func (f IndicesGet) WithAllowNoIndices(v bool) func(*IndicesGetRequest) {
 func (f IndicesGet) WithExpandWildcards(v string) func(*IndicesGetRequest) {
 	return func(r *IndicesGetRequest) {
 		r.ExpandWildcards = v
-	}
-}
-
-// WithFeatures - return only information on specified index features.
-//
-func (f IndicesGet) WithFeatures(v string) func(*IndicesGetRequest) {
-	return func(r *IndicesGetRequest) {
-		r.Features = v
 	}
 }
 

@@ -36,8 +36,8 @@ import (
 
 	"golang.org/x/crypto/ssh/terminal"
 
-	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 )
 
 var (
@@ -101,7 +101,7 @@ func main() {
 			// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		})
 	if err != nil {
-		log.Fatalf("ERROR: %s", err)
+		log.Fatal("ERROR: %s", err)
 	}
 
 	// Publish client metrics to expvar >>>>>>>>>>>>>>>>>
