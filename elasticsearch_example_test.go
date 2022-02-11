@@ -15,6 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
+//go:build !integration
 // +build !integration
 
 package elasticsearch_test
@@ -62,7 +63,7 @@ func ExampleNewClient() {
 			ResponseHeaderTimeout: time.Second,
 			DialContext:           (&net.Dialer{Timeout: time.Second}).DialContext,
 			TLSClientConfig: &tls.Config{
-				MinVersion: tls.VersionTLS11,
+				MinVersion: tls.VersionTLS12,
 			},
 		},
 	}

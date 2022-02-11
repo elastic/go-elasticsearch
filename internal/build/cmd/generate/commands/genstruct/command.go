@@ -272,7 +272,7 @@ type API struct {
 				// Some methods are equal to the namespace (like 'rollup.rollup')
 				// and we don't want to have an empty string here.
 				if len(methodName) == 0 {
-				    methodName = strings.Replace(name, n, "", 1)
+					methodName = strings.Replace(name, n, "", 1)
 				}
 				b.WriteString(fmt.Sprintf("\t%s %s\n", methodName, name))
 			}
@@ -309,7 +309,7 @@ func New(t Transport) *API {
 				// Some methods are equal to the namespace (like 'rollup.rollup')
 				// and we don't want to have an empty string here.
 				if len(methodName) == 0 {
-				    methodName = strings.Replace(name, n, "", 1)
+					methodName = strings.Replace(name, n, "", 1)
 				}
 				b.WriteString(fmt.Sprintf("\t\t\t%s: new%sFunc(t),\n", methodName, name))
 			}

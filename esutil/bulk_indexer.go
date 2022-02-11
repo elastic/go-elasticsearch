@@ -428,7 +428,7 @@ func (w *worker) writeMeta(item BulkIndexerItem) error {
 		if item.DocumentID != "" {
 			w.buf.WriteRune(',')
 		}
-		w.buf.WriteString(`"_routing":`)
+		w.buf.WriteString(`"routing":`)
 		w.aux = strconv.AppendQuote(w.aux, item.Routing)
 		w.buf.Write(w.aux)
 		w.aux = w.aux[:0]

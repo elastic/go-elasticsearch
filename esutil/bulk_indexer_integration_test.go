@@ -30,8 +30,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/esutil"
 )
 
@@ -212,6 +212,7 @@ func TestBulkIndexerIntegration(t *testing.T) {
 							Body:        strings.NewReader(body),
 							Version:     &version,
 							VersionType: "external",
+							Routing:     `"{required": true}`,
 							OnSuccess: func(ctx context.Context, item esutil.BulkIndexerItem, item2 esutil.BulkIndexerResponseItem) {
 								if version != item2.Version &&
 									version != *item.Version &&

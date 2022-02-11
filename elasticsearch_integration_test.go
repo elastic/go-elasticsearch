@@ -15,6 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
+//go:build integration && !multinode
 // +build integration,!multinode
 
 package elasticsearch_test
@@ -33,9 +34,9 @@ import (
 	"testing"
 	"time"
 
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
-	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 )
 
 func TestClientTransport(t *testing.T) {
@@ -139,7 +140,7 @@ func TestClientTransport(t *testing.T) {
 				ResponseHeaderTimeout: time.Second,
 				DialContext:           (&net.Dialer{Timeout: time.Nanosecond}).DialContext,
 				TLSClientConfig: &tls.Config{
-					MinVersion:         tls.VersionTLS11,
+					MinVersion:         tls.VersionTLS12,
 					InsecureSkipVerify: true,
 				},
 			},
@@ -197,7 +198,7 @@ func TestClientCustomTransport(t *testing.T) {
 	})
 
 	t.Run("Manual", func(t *testing.T) {
-		tp, _ := elastictransportansport.New(elastictransportansport.Config{
+		tp, _ := elastictransport.New(elastictransport.Config{
 			URLs: []*url.URL{
 				{Scheme: "http", Host: "localhost:9200"},
 			},

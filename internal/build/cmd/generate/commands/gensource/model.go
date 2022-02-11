@@ -396,7 +396,7 @@ func (e *Endpoint) RequiredArguments() []MethodArgument {
 	}
 
 	var keys []string
-	for k := range e.URL.Paths[0].Parts{
+	for k := range e.URL.Paths[0].Parts {
 		keys = append(keys, k)
 	}
 	sort.Strings(keys)
