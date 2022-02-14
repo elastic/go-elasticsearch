@@ -3,7 +3,7 @@
 #
 # $ docker run -it --network elasticsearch --name xkcdsearch-demo --publish 8000:8000 --rm elastic/go-elasticsearch-demo-xkcdsearch
 #
-FROM golang:1.11-alpine AS Builder
+FROM golang:1.17-alpine AS Builder
 
 WORKDIR /go-elasticsearch-demo-xkcdsearch
 COPY . .
