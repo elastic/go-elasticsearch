@@ -22,6 +22,7 @@ package elasticsearch
 
 import (
 	"bytes"
+	"crypto/tls"
 	"crypto/x509"
 	"encoding/base64"
 	"errors"
@@ -527,10 +528,64 @@ func TestProductCheckError(t *testing.T) {
 
 func TestFingerprint(t *testing.T) {
 	body := []byte(`{"body": true"}"`)
-	server := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	cert, err := tls.X509KeyPair([]byte(`-----BEGIN CERTIFICATE-----
+MIIDYjCCAkqgAwIBAgIVAIZQH0fe5U+bGQ6m1JUBO/AQkQ/9MA0GCSqGSIb3DQEB
+CwUAMDQxMjAwBgNVBAMTKUVsYXN0aWMgQ2VydGlmaWNhdGUgVG9vbCBBdXRvZ2Vu
+ZXJhdGVkIENBMB4XDTIwMDMyNzE5MTcxMVoXDTIzMDMyNzE5MTcxMVowEzERMA8G
+A1UEAxMIaW5zdGFuY2UwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDB
+fco1t1+sE1gTwTVGcXKZqJTP2GjMHM0cfJE5KKfwC5B+pHADRT6FZxvepgKjEBDt
+CK+2Rmotyeb15XXMSKguNhyT+2PuKvT5r05L7P91XRYXrwxG2swJPtct7A87xdFa
+Ek+YRpqGGmTaux2jOELMiAmqEzoj6w/xFq+LF4SolTW4wOL2eLFkEFHBX2oCwU5T
+Q+B+7E9zL45nFWlkeRGJ+ZQTnRNZ/1r4N9A9Gtj4x/H1/y4inWndikdxAb5QiEYJ
+T+vbQWzHYWjz13ttHJsz+6T8rvA1jK+buHgVh4K8lV13X9k54soBqHB8va7/KIJP
+g8gvd6vusEI7Bmfl1as7AgMBAAGjgYswgYgwHQYDVR0OBBYEFKnnpvuVYwtFSUis
+WwN9OHLyExzJMB8GA1UdIwQYMBaAFJYCWKn16g+acbing4Vl45QGUBs0MDsGA1Ud
+EQQ0MDKCCWxvY2FsaG9zdIIIaW5zdGFuY2WHBH8AAAGHEAAAAAAAAAAAAAAAAAAA
+AAGCA2VzMTAJBgNVHRMEAjAAMA0GCSqGSIb3DQEBCwUAA4IBAQAPNsIoD4GBrTgR
+jfvBuHS6eU16P95m16O8Mdpr4SMQgWLQUhs8aoVgfwpg2TkbCWxOe6khJOyNm7bf
+fW4aFQ/OHcQV4Czz3c7eOHTWSyMlCOv+nRXd4giJZ5TOHw1zKGmKXOIvhvE6RfdF
+uBBfrusk164H4iykm0Bbr/wo4d6wuebp3ZYLPw5zV0D08rsaR+3VJ9VxWuFpdm/r
+2onYOohyuX9DRjAczasC+CRRQN4eHJlRfSQB8WfTKw3EloRJJDAg6SJyGiAJ++BF
+hnqfNcEyKes2AWagFF9aTbEJMrzMhH+YB5F+S/PWvMUlFzcoocVKqc4pIrjKUNWO
+6nbTxeAB
+-----END CERTIFICATE-----`), []byte(`-----BEGIN RSA PRIVATE KEY-----
+MIIEowIBAAKCAQEAwX3KNbdfrBNYE8E1RnFymaiUz9hozBzNHHyROSin8AuQfqRw
+A0U+hWcb3qYCoxAQ7QivtkZqLcnm9eV1zEioLjYck/tj7ir0+a9OS+z/dV0WF68M
+RtrMCT7XLewPO8XRWhJPmEaahhpk2rsdozhCzIgJqhM6I+sP8RavixeEqJU1uMDi
+9nixZBBRwV9qAsFOU0PgfuxPcy+OZxVpZHkRifmUE50TWf9a+DfQPRrY+Mfx9f8u
+Ip1p3YpHcQG+UIhGCU/r20Fsx2Fo89d7bRybM/uk/K7wNYyvm7h4FYeCvJVdd1/Z
+OeLKAahwfL2u/yiCT4PIL3er7rBCOwZn5dWrOwIDAQABAoIBAFcm4ICnculf4Sks
+umFbUiISA81GjZV6V4zAMu1K+bGuk8vnJyjh9JJD6hK0NbXa07TgV7zDJKoxKd2S
+GCgGhfIin2asMcuh/6vDIYIjYsErR3stdlsnzAVSD7v4ergSlwR6AO32xz0mAE1h
+QK029yeHEstPU72/7/NIo5MD6dXAbut1MzgijZD8RQo1z21D6qmLcPTVTfkn7a3W
+MY3y7XUIkA1TOyIRsH3k6F6NBWkvtXbwOUeLCJ14EvS8T9BqhIhPDZv8mQTRLDOD
+tQRyC4Cnw+UhYmnMFJhj6N2jpTBv/AdoKcRC56uBJyPW+dxj6i4e7n3pQuxqRvpI
+LLJJsskCgYEA4QQxzuJizLKV75rE+Qxg0Ej0Gid1aj3H5eeTZOUhm9KC8KDfPdpk
+msKaNzJq/VDcqHPluGS1jYZVgZlal1nk5xKBcbQ4n297VPVd+sLtlf0bj4atlDUO
++iOVo0H7k5yWvj+TzVRlc5zjDLcnQh8i+22o3+65hIrb2zpzg/cCZJ8CgYEA3CJX
+bjmWPQ0uZVIa8Wz8cJFtKT9uVl7Z3/f6HjN9I0b/9MmVlNxQVAilVwhDkzR/UawG
+QeRFBJ6XWRwX0aoMq+O9VSNu/R2rtEMpIYt3LwbI3yw6GRoCdB5qeL820O+KX5Fl
+/z+ZNgrHgA1yKPVf+8ke2ZtLEqPHMN+BMuq8t+UCgYEAy0MfvzQPbbuw55WWcyb0
+WZJdNzcHwKX4ajzrj4vP9VOPRtD7eINMt+QsrMnVjei6u0yeahhHTIXZvc2K4Qeq
+V/YGinDzaUqqTU+synXFauUOPXO6XxQi6GC2rphPKsOcBFWoLSYc0vgYvgbA5uD7
+l8Yyc77RROKuwfWmHcJHHh8CgYBurGFSjGdJWHgr/oSHPqkIG0VLiJV7nQJjBPRd
+/Lr8YnTK6BJpHf7Q0Ov3frMirjEYqakXtaExel5TMbmT8q+eN8h3pnHlleY+oclr
+EQghv4J8GWs4NYhoQuZ6wH/ZuaTS+XHTS3FG51J3wcrUZtET8ICvHNE4lNjPbH8z
+TysENQKBgHER1RtDFdz+O7mlWibrHk8JDgcVdZV/pBF+9cb7r/orkH9RLAHDlsAO
+tuSVaQmm5eqgaAxMamBXSyw1lir07byemyuEDg0mJ1rNUGsAY8P+LWr579gvKMme
+5gvrJr99JkBTV3z+TiL7dZa52eW00Ijqg2qcbHGpq3kXWWkbd8Tn
+-----END RSA PRIVATE KEY-----`))
+	if err != nil {
+		t.Fatal(err)
+	}
+	server := httptest.NewUnstartedServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("X-Elastic-Product", "Elasticsearch")
 		w.Write(body)
 	}))
+	server.TLS = new(tls.Config)
+	server.TLS.Certificates = []tls.Certificate{cert}
+	server.StartTLS()
+
 	defer server.Close()
 
 	config := Config{
@@ -547,7 +602,7 @@ func TestFingerprint(t *testing.T) {
 
 	// We add the fingerprint corresponding ton testcert.LocalhostCert
 	//
-	config.CertificateFingerprint = "448F628A8A65AA18560E53A80C53ACB38C51B427DF0334082349141147DC9BF6"
+	config.CertificateFingerprint = "7A3A6031CD097DA0EE84D65137912A84576B50194045B41F4F4B8AC1A98116BE"
 	client, _ = NewClient(config)
 	res, err = client.Info()
 	if err != nil {
