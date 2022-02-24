@@ -1,2 +1,2 @@
-github.com/elastic/elastic-transport-go/v8 v8.0.0-alpha h1:SW9xcMVxx4Nv9oRm5rQxzAMAatwiZV8xROP2a48y45Q=
-github.com/elastic/elastic-transport-go/v8 v8.0.0-alpha/go.mod h1:87Tcz8IVNe6rVSLdBux1o/PEItLtyabHU3naC7IoqKI=
+github.com/elastic/elastic-transport-go/v8 v8.0.0-alpha.0.20220208085130-957c0aaffd0d h1:oOAbXhSAHIRCzyzyjmtISN11sziiBHyrVhvP0mEg9E0=
+github.com/elastic/elastic-transport-go/v8 v8.0.0-alpha.0.20220208085130-957c0aaffd0d/go.mod h1:87Tcz8IVNe6rVSLdBux1o/PEItLtyabHU3naC7IoqKI=
