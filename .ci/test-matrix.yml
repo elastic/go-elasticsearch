@@ -1,7 +1,7 @@
 ---
 
 STACK_VERSION:
-  - 7.17.0-SNAPSHOT
+  - 7.17.1-SNAPSHOT
 
 GO_VERSION:
   - 1-alpine
