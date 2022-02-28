@@ -1,4 +1,10 @@
-#v7.17.0
+# v7.17.1
+
+## Client
+
+* Fixed serialisation of the `routing` parameter for the `BulkIndexerItem` routing property.
+
+# v7.17.0
 
 ## Client
 
@@ -6,7 +12,7 @@
 * The client will now return an error if a required arguments is passed as a nil value. [#201](https://github.com/elastic/go-elasticsearch/issues/201)
 * API is compatible with Elasticsearch 7.17.0
 
-#v8.0.0-alpha
+# v8.0.0-alpha
 
 ## Client
 
@@ -16,7 +22,7 @@
 * Changed the `Body` parameter for `BulkIndexerItem` in favor of `io.ReadSeeker` to lower memory consumption when using the `esutil.BulkIndexer`.
 * Replaced the `Config` option `RetryOnTimeout` in favor of a new `RetryOnError` function which allows to dynamically chose what error should be retried."
 
-#v7.16.0
+# v7.16.0
 
 # Client
 * Adds versioning and routing options to the `BulkIndexer`. Thanks to @mehran-prs and @munkyboy !
@@ -86,12 +92,12 @@ CertificateFingerprint: \"A6FB224A4386...\"
   * ShutdownPutNode
   * TermsEnum"
 
-#v7.15.1
+# v7.15.1
 
 # Client
   * Allow User-Agent override via the `userAgentHeader` header. Credit goes to @aleksmaus!  "
 
-#v7.15.0
+# v7.15.0
 
 # Client
   * Body compression can now be enabled in the client via the `CompressRequestBody` config option. Thank you @bschofield for this contribution ! 
@@ -110,7 +116,7 @@ CertificateFingerprint: \"A6FB224A4386...\"
       * GetRepositoriesMeteringInfo [documentation](https://www.elastic.co/guide/en/elasticsearch/reference/7.15/get-repositories-metering-api.html)
     * SearchMvt [documentation](https://www.elastic.co/guide/en/elasticsearch/reference/master/search-vector-tile-api.html)"
 
-#v7.14.0
+# v7.14.0
 
 # Client
 Starting in v7.14.0 the client performs a required product check before the first API call is executed. This product check allows the client to establish that it’s communicating with a supported Elasticsearch cluster.
@@ -139,13 +145,13 @@ The product check requires a single HTTP request to the `info` API. In most case
   * TermsEnum, [see documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-terms-enum.html)
 
 
-#v7.13.1
+# v7.13.1
 
 # X-Pack
 * New API:
   * `SnapshotRepositoryAnalyze`"
 
-#v7.13.0
+# v7.13.0
 
 # Client
 * Adds support for compatibility header for Elasticsearch. If the environment variable 'ELASTIC_CLIENT_APIVERSIONING' is set to true or 1, the client will send the headers Accept and Content-Type with the following value: application/vnd.elasticsearch+json;compatible-with=7.
@@ -196,7 +202,7 @@ The product check requires a single HTTP request to the `info` API. In most case
 * New experimental APIs: 
   * `SearchableSnapshotsCacheStats`
 
-#v7.12.0
+# v7.12.0
 
 # Transport
 * Added the `X-Elastic-Client-Meta` HTTP header (#240)
@@ -221,27 +227,27 @@ The product check requires a single HTTP request to the `info` API. In most case
 * `SearchableSnapshotsMount` with `WithStorage` - selects the kind of local storage used to accelerate searches. experimental, and defaults to `full_copy`.
 
 
-#v7.11.0
+# v7.11.0
 
 * Updated APIs for Elasticsearch 7.11"
 
-#v7.10.0
+# v7.10.0
 
 * Updated APIs for Elasticsearch 7.10 
 * Fixed capitalization of UUID values"
 
-#v7.9.0
+# v7.9.0
 
 * Updated APIs for Elasticsearch 7.9
 * Util: Reinstate item.Body after it is consumed in BulkIndexer
 * Transport: Fix memory leak when retrying 5xx responses
 * Fixes and improvements to the test generator
 
-#v7.8.0
+# v7.8.0
 
 * Updated APIs for Elasticsearch 7.8.0
 
-#v7.7.0
+# v7.7.0
 
 * API: Add convenience method for accessing the deprecation warnings in the response headers
 * Transport: Add the CACert global configuration option
@@ -253,19 +259,19 @@ The product check requires a single HTTP request to the `info` API. In most case
 * Generator: Tests: Fixes and improvements
 * Generator: Source: Updates and improvements"
 
-#v7.6.0
+# v7.6.0
 
 * Ignore the ELASTICSEARCH_URL variable when address is passed in configuration
 * Retry on EOF errors"
 
-#v6.8.5
+# v6.8.5
 
 * Support for Elasticsearch 6.8.5 APIs
 * Add support for request retries
 * Add connection state management
 * Add support for node discovery in client
 
-#v7.5.0
+# v7.5.0
 
 * Support for Elasticsearch 7.5 APIs
 * Add support for request retries
