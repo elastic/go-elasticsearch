@@ -119,10 +119,15 @@ cat.aliases/20_headers.yml:
 # Incorrect int instead of float in match (aggregations.date_range.buckets.0.from: 1000000); TODO: PR
 search.aggregation/40_range.yml:
   - Date range
+  - Min and max long range bounds
 
 # Mismatch in number parsing, 8623000 != 8.623e+06
 search.aggregation/340_geo_distance.yml:
   - avg_bucket
+
+# .key in map issue
+search.aggregation/200_top_hits.yml:
+  - explain
 
 # No support for headers per request yet
 tasks.list/10_basic.yml:
@@ -184,6 +189,14 @@ tsdb/40_search.yml:
 # Deliberate wrong type doesn't match Go types
 cluster.desired_nodes/10_basic.yml:
   - Test version must be a number
+  - Test update move to a new history id
+  - Test delete desired nodes
+  - Test using the same version with different definition is forbidden
+  - Test unknown settings are allowed in future versions
+  - Test some settings can be overridden
+  - Test history_id must be present
+  - Test update desired nodes is idempotent
+  - Test going backwards within the same history is forbidden
 
 # ----- X-Pack ----------------------------------------------------------------
 
@@ -356,6 +369,10 @@ data_stream/40_supported_apis.yml:
 data_stream/90_reindex.yml:
   - Reindex from data stream into an index
 
+# Needs further implementation of .key access to map variables
+data_streams/10_data_stream_resolvability.yml:
+  - Verify data stream resolvability in ILM remove policy API
+
 # Error: constant 9223372036854775808 overflows int (https://play.golang.org/p/7pUdz-_Pdom)
 unsigned_long/10_basic.yml:
 unsigned_long/20_null_value.yml:
@@ -396,4 +413,8 @@ api_key/20_query.yml:
 
 change_password/10_basic.yml:
   - Test changing users password with prehashed password
+
+token/10_basic.yml:
+  - Test invalidate user's tokens
+  - Test invalidate realm's tokens
 `
