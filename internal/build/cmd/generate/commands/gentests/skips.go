@@ -127,7 +127,7 @@ search.aggregation/340_geo_distance.yml:
 
 # .key in map issue
 search.aggregation/200_top_hits.yml:
-  - explain.ci/
+  - explain
 
 # No support for headers per request yet
 tasks.list/10_basic.yml:
@@ -195,6 +195,8 @@ cluster.desired_nodes/10_basic.yml:
   - Test unknown settings are allowed in future versions
   - Test some settings can be overridden
   - Test history_id must be present
+  - Test update desired nodes is idempotent
+  - Test going backwards within the same history is forbidden
 
 # ----- X-Pack ----------------------------------------------------------------
 
