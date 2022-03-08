@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.1.0 (02e798d): DO NOT EDIT
+// Code generated from specification version 8.1.0 (66b60a2): DO NOT EDIT
 
 package esapi
 
@@ -484,6 +484,9 @@ type Security struct {
 	HasPrivileges               SecurityHasPrivileges
 	InvalidateAPIKey            SecurityInvalidateAPIKey
 	InvalidateToken             SecurityInvalidateToken
+	OidcAuthenticate            SecurityOidcAuthenticate
+	OidcLogout                  SecurityOidcLogout
+	OidcPrepareAuthentication   SecurityOidcPrepareAuthentication
 	PutPrivileges               SecurityPutPrivileges
 	PutRoleMapping              SecurityPutRoleMapping
 	PutRole                     SecurityPutRole
@@ -941,6 +944,9 @@ func New(t Transport) *API {
 			HasPrivileges:               newSecurityHasPrivilegesFunc(t),
 			InvalidateAPIKey:            newSecurityInvalidateAPIKeyFunc(t),
 			InvalidateToken:             newSecurityInvalidateTokenFunc(t),
+			OidcAuthenticate:            newSecurityOidcAuthenticateFunc(t),
+			OidcLogout:                  newSecurityOidcLogoutFunc(t),
+			OidcPrepareAuthentication:   newSecurityOidcPrepareAuthenticationFunc(t),
 			PutPrivileges:               newSecurityPutPrivilegesFunc(t),
 			PutRoleMapping:              newSecurityPutRoleMappingFunc(t),
 			PutRole:                     newSecurityPutRoleFunc(t),
