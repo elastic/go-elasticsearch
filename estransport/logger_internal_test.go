@@ -277,7 +277,7 @@ func TestTransportLogger(t *testing.T) {
 			t.Fatalf("Expected 9 lines, got %d", len(lines))
 		}
 
-		if !strings.Contains(lines[0], "curl -X GET 'http://localhost:9200/abc?pretty&q=a%2Cb'") {
+		if !strings.Contains(lines[0], "curl -X GET 'http://foo/abc?pretty&q=a%2Cb'") {
 			t.Errorf("Unexpected output: %s", lines[0])
 		}
 	})
