@@ -111,9 +111,9 @@ log.Println(res)
 > NOTE: It is _critical_ to both close the response body _and_ to consume it, in order to re-use persistent TCP connections in the default HTTP transport. If you're not interested in the response body, call `io.Copy(ioutil.Discard, res.Body)`.
 
 When you export the `ELASTICSEARCH_URL` environment variable,
-it will be used to set the cluster endpoint(s). Separate multiple adresses by a comma.
+it will be used to set the cluster endpoint(s). Separate multiple addresses by a comma.
 
-To set the cluster endpoint(s) programatically, pass a configuration object
+To set the cluster endpoint(s) programmatically, pass a configuration object
 to the `elasticsearch.NewClient()` function.
 
 ```golang
