@@ -7,8 +7,8 @@ ARG  VERSION=1-alpine
 FROM golang:${VERSION}
 
 RUN apk add --no-cache --quiet make curl git jq unzip tree && \
-    go get -u golang.org/x/lint/golint && \
-    curl -sSL --retry 3 --retry-connrefused https://github.com/gotestyourself/gotestsum/releases/download/v1.6.1/gotestsum_1.6.1_linux_amd64.tar.gz | tar -xz -C /usr/local/bin gotestsum
+    go install golang.org/x/lint/golint@latest && \
+    go install gotest.tools/gotestsum@latest
 
 VOLUME ["/tmp"]
 
