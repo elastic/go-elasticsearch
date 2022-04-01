@@ -53,6 +53,8 @@ var skipFiles = []string{
 	"eql/10_basic.yml",
 	"field_caps/50_fieldtype_filter.yml", // Incompatible test, need handling for double escaping keys with dots
 	"search.aggregation/350_variable_width_histogram.yml",
+	"cluster.desired_nodes/10_basic.yml",
+	"user_profile/10_basic.yml",
 }
 
 // TODO: Comments into descriptions for `Skip()`
