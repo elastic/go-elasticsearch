@@ -51,6 +51,8 @@ var skipFiles = []string{
 	"indices.stats/50_disk_usage.yml",  // Needs a replacement mechanism implementation
 	"indices.stats/60_field_usage.yml", // Needs a replacement mechanism implementation
 	"eql/10_basic.yml",
+	"field_caps/50_fieldtype_filter.yml", // Incompatible test, need handling for double escaping keys with dots
+	"search.aggregation/350_variable_width_histogram.yml",
 }
 
 // TODO: Comments into descriptions for `Skip()`
