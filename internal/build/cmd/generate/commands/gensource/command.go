@@ -147,7 +147,7 @@ func (cmd *Command) Execute() (err error) {
 
 	for _, fpath := range inputFiles {
 		fname := filepath.Base(fpath)
-		if fname == "_common.json" {
+		if fname == "_common.json" || strings.HasPrefix(fname, "_internal") {
 			continue
 		}
 
