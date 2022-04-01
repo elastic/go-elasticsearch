@@ -57,6 +57,7 @@ func NameToGo(s string, api ...string) string {
 		"index": "Index",
 		"id":    "DocumentID",
 		"type":  "DocumentType",
+		"uid":   "UID",
 	}
 
 	acronyms := map[string]string{
