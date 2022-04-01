@@ -15,22 +15,19 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.1.0: DO NOT EDIT
+// Code generated from specification version 8.3.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
-	"errors"
-	"io"
 	"net/http"
-	"strconv"
 	"strings"
 )
 
-func newDesiredNodesUpdateDesiredNodesFunc(t Transport) DesiredNodesUpdateDesiredNodes {
-	return func(body io.Reader, history_id string, version *int, o ...func(*DesiredNodesUpdateDesiredNodesRequest)) (*Response, error) {
-		var r = DesiredNodesUpdateDesiredNodesRequest{Body: body, HistoryID: history_id, Version: version}
+func newSecurityGetUserProfileFunc(t Transport) SecurityGetUserProfile {
+	return func(uid string, o ...func(*SecurityGetUserProfileRequest)) (*Response, error) {
+		var r = SecurityGetUserProfileRequest{UID: uid}
 		for _, f := range o {
 			f(&r)
 		}
@@ -40,19 +37,20 @@ func newDesiredNodesUpdateDesiredNodesFunc(t Transport) DesiredNodesUpdateDesire
 
 // ----- API Definition -------------------------------------------------------
 
-// DesiredNodesUpdateDesiredNodes updates the desired nodes. Designed for indirect use by ECE/ESS and ECK. Direct use is not supported.
+// SecurityGetUserProfile - Retrieves user profile for the given unique ID.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/update-desired-nodes.html.
+// This API is experimental.
 //
-type DesiredNodesUpdateDesiredNodes func(body io.Reader, history_id string, version *int, o ...func(*DesiredNodesUpdateDesiredNodesRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-user-profile.html.
+//
+type SecurityGetUserProfile func(uid string, o ...func(*SecurityGetUserProfileRequest)) (*Response, error)
 
-// DesiredNodesUpdateDesiredNodesRequest configures the Desired Nodes Update Desired Nodes API request.
+// SecurityGetUserProfileRequest configures the Security Get User Profile API request.
 //
-type DesiredNodesUpdateDesiredNodesRequest struct {
-	Body io.Reader
+type SecurityGetUserProfileRequest struct {
+	UID string
 
-	HistoryID string
-	Version   *int
+	Data []string
 
 	Pretty     bool
 	Human      bool
@@ -66,31 +64,29 @@ type DesiredNodesUpdateDesiredNodesRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r DesiredNodesUpdateDesiredNodesRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SecurityGetUserProfileRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "PUT"
+	method = "GET"
 
-	if r.Version == nil {
-		return nil, errors.New("version is required and cannot be nil")
-	}
-
-	path.Grow(7 + 1 + len("_internal") + 1 + len("desired_nodes") + 1 + len(r.HistoryID) + 1 + len(strconv.Itoa(*r.Version)))
+	path.Grow(7 + 1 + len("_security") + 1 + len("profile") + 1 + len(r.UID))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString("_internal")
+	path.WriteString("_security")
 	path.WriteString("/")
-	path.WriteString("desired_nodes")
+	path.WriteString("profile")
 	path.WriteString("/")
-	path.WriteString(r.HistoryID)
-	path.WriteString("/")
-	path.WriteString(strconv.Itoa(*r.Version))
+	path.WriteString(r.UID)
 
 	params = make(map[string]string)
+
+	if len(r.Data) > 0 {
+		params["data"] = strings.Join(r.Data, ",")
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -108,7 +104,7 @@ func (r DesiredNodesUpdateDesiredNodesRequest) Do(ctx context.Context, transport
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -119,10 +115,6 @@ func (r DesiredNodesUpdateDesiredNodesRequest) Do(ctx context.Context, transport
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
-	}
-
-	if r.Body != nil {
-		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -157,48 +149,56 @@ func (r DesiredNodesUpdateDesiredNodesRequest) Do(ctx context.Context, transport
 
 // WithContext sets the request context.
 //
-func (f DesiredNodesUpdateDesiredNodes) WithContext(v context.Context) func(*DesiredNodesUpdateDesiredNodesRequest) {
-	return func(r *DesiredNodesUpdateDesiredNodesRequest) {
+func (f SecurityGetUserProfile) WithContext(v context.Context) func(*SecurityGetUserProfileRequest) {
+	return func(r *SecurityGetUserProfileRequest) {
 		r.ctx = v
+	}
+}
+
+// WithData - a list of keys for which the corresponding application data are retrieved..
+//
+func (f SecurityGetUserProfile) WithData(v ...string) func(*SecurityGetUserProfileRequest) {
+	return func(r *SecurityGetUserProfileRequest) {
+		r.Data = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f DesiredNodesUpdateDesiredNodes) WithPretty() func(*DesiredNodesUpdateDesiredNodesRequest) {
-	return func(r *DesiredNodesUpdateDesiredNodesRequest) {
+func (f SecurityGetUserProfile) WithPretty() func(*SecurityGetUserProfileRequest) {
+	return func(r *SecurityGetUserProfileRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f DesiredNodesUpdateDesiredNodes) WithHuman() func(*DesiredNodesUpdateDesiredNodesRequest) {
-	return func(r *DesiredNodesUpdateDesiredNodesRequest) {
+func (f SecurityGetUserProfile) WithHuman() func(*SecurityGetUserProfileRequest) {
+	return func(r *SecurityGetUserProfileRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f DesiredNodesUpdateDesiredNodes) WithErrorTrace() func(*DesiredNodesUpdateDesiredNodesRequest) {
-	return func(r *DesiredNodesUpdateDesiredNodesRequest) {
+func (f SecurityGetUserProfile) WithErrorTrace() func(*SecurityGetUserProfileRequest) {
+	return func(r *SecurityGetUserProfileRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f DesiredNodesUpdateDesiredNodes) WithFilterPath(v ...string) func(*DesiredNodesUpdateDesiredNodesRequest) {
-	return func(r *DesiredNodesUpdateDesiredNodesRequest) {
+func (f SecurityGetUserProfile) WithFilterPath(v ...string) func(*SecurityGetUserProfileRequest) {
+	return func(r *SecurityGetUserProfileRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f DesiredNodesUpdateDesiredNodes) WithHeader(h map[string]string) func(*DesiredNodesUpdateDesiredNodesRequest) {
-	return func(r *DesiredNodesUpdateDesiredNodesRequest) {
+func (f SecurityGetUserProfile) WithHeader(h map[string]string) func(*SecurityGetUserProfileRequest) {
+	return func(r *SecurityGetUserProfileRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -210,8 +210,8 @@ func (f DesiredNodesUpdateDesiredNodes) WithHeader(h map[string]string) func(*De
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f DesiredNodesUpdateDesiredNodes) WithOpaqueID(s string) func(*DesiredNodesUpdateDesiredNodesRequest) {
-	return func(r *DesiredNodesUpdateDesiredNodesRequest) {
+func (f SecurityGetUserProfile) WithOpaqueID(s string) func(*SecurityGetUserProfileRequest) {
+	return func(r *SecurityGetUserProfileRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

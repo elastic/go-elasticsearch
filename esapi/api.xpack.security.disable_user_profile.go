@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.1.0: DO NOT EDIT
+// Code generated from specification version 8.3.0: DO NOT EDIT
 
 package esapi
 
@@ -25,9 +25,9 @@ import (
 	"strings"
 )
 
-func newInternalDeleteDesiredNodesFunc(t Transport) InternalDeleteDesiredNodes {
-	return func(o ...func(*InternalDeleteDesiredNodesRequest)) (*Response, error) {
-		var r = InternalDeleteDesiredNodesRequest{}
+func newSecurityDisableUserProfileFunc(t Transport) SecurityDisableUserProfile {
+	return func(uid string, o ...func(*SecurityDisableUserProfileRequest)) (*Response, error) {
+		var r = SecurityDisableUserProfileRequest{UID: uid}
 		for _, f := range o {
 			f(&r)
 		}
@@ -37,17 +37,21 @@ func newInternalDeleteDesiredNodesFunc(t Transport) InternalDeleteDesiredNodes {
 
 // ----- API Definition -------------------------------------------------------
 
-// InternalDeleteDesiredNodes deletes the desired nodes. Designed for indirect use by ECE/ESS and ECK. Direct use is not supported.
+// SecurityDisableUserProfile - Disables a user profile so it's not visible in user profile searches.
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-desired-nodes.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/security-api-disable-user-profile.html.
 //
-type InternalDeleteDesiredNodes func(o ...func(*InternalDeleteDesiredNodesRequest)) (*Response, error)
+type SecurityDisableUserProfile func(uid string, o ...func(*SecurityDisableUserProfileRequest)) (*Response, error)
 
-// InternalDeleteDesiredNodesRequest configures the Internal Delete Desired Nodes API request.
+// SecurityDisableUserProfileRequest configures the Security Disable User Profile API request.
 //
-type InternalDeleteDesiredNodesRequest struct {
+type SecurityDisableUserProfileRequest struct {
+	UID string
+
+	Refresh string
+
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -60,20 +64,31 @@ type InternalDeleteDesiredNodesRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r InternalDeleteDesiredNodesRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SecurityDisableUserProfileRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "DELETE"
+	method = "PUT"
 
-	path.Grow(7 + len("/_internal/desired_nodes"))
+	path.Grow(7 + 1 + len("_security") + 1 + len("profile") + 1 + len(r.UID) + 1 + len("_disable"))
 	path.WriteString("http://")
-	path.WriteString("/_internal/desired_nodes")
+	path.WriteString("/")
+	path.WriteString("_security")
+	path.WriteString("/")
+	path.WriteString("profile")
+	path.WriteString("/")
+	path.WriteString(r.UID)
+	path.WriteString("/")
+	path.WriteString("_disable")
 
 	params = make(map[string]string)
+
+	if r.Refresh != "" {
+		params["refresh"] = r.Refresh
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -136,48 +151,56 @@ func (r InternalDeleteDesiredNodesRequest) Do(ctx context.Context, transport Tra
 
 // WithContext sets the request context.
 //
-func (f InternalDeleteDesiredNodes) WithContext(v context.Context) func(*InternalDeleteDesiredNodesRequest) {
-	return func(r *InternalDeleteDesiredNodesRequest) {
+func (f SecurityDisableUserProfile) WithContext(v context.Context) func(*SecurityDisableUserProfileRequest) {
+	return func(r *SecurityDisableUserProfileRequest) {
 		r.ctx = v
+	}
+}
+
+// WithRefresh - if `true` then refresh the affected shards to make this operation visible to search, if `wait_for` (the default) then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes..
+//
+func (f SecurityDisableUserProfile) WithRefresh(v string) func(*SecurityDisableUserProfileRequest) {
+	return func(r *SecurityDisableUserProfileRequest) {
+		r.Refresh = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f InternalDeleteDesiredNodes) WithPretty() func(*InternalDeleteDesiredNodesRequest) {
-	return func(r *InternalDeleteDesiredNodesRequest) {
+func (f SecurityDisableUserProfile) WithPretty() func(*SecurityDisableUserProfileRequest) {
+	return func(r *SecurityDisableUserProfileRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f InternalDeleteDesiredNodes) WithHuman() func(*InternalDeleteDesiredNodesRequest) {
-	return func(r *InternalDeleteDesiredNodesRequest) {
+func (f SecurityDisableUserProfile) WithHuman() func(*SecurityDisableUserProfileRequest) {
+	return func(r *SecurityDisableUserProfileRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f InternalDeleteDesiredNodes) WithErrorTrace() func(*InternalDeleteDesiredNodesRequest) {
-	return func(r *InternalDeleteDesiredNodesRequest) {
+func (f SecurityDisableUserProfile) WithErrorTrace() func(*SecurityDisableUserProfileRequest) {
+	return func(r *SecurityDisableUserProfileRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f InternalDeleteDesiredNodes) WithFilterPath(v ...string) func(*InternalDeleteDesiredNodesRequest) {
-	return func(r *InternalDeleteDesiredNodesRequest) {
+func (f SecurityDisableUserProfile) WithFilterPath(v ...string) func(*SecurityDisableUserProfileRequest) {
+	return func(r *SecurityDisableUserProfileRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f InternalDeleteDesiredNodes) WithHeader(h map[string]string) func(*InternalDeleteDesiredNodesRequest) {
-	return func(r *InternalDeleteDesiredNodesRequest) {
+func (f SecurityDisableUserProfile) WithHeader(h map[string]string) func(*SecurityDisableUserProfileRequest) {
+	return func(r *SecurityDisableUserProfileRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -189,8 +212,8 @@ func (f InternalDeleteDesiredNodes) WithHeader(h map[string]string) func(*Intern
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f InternalDeleteDesiredNodes) WithOpaqueID(s string) func(*InternalDeleteDesiredNodesRequest) {
-	return func(r *InternalDeleteDesiredNodesRequest) {
+func (f SecurityDisableUserProfile) WithOpaqueID(s string) func(*SecurityDisableUserProfileRequest) {
+	return func(r *SecurityDisableUserProfileRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

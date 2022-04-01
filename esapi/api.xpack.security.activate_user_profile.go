@@ -15,19 +15,20 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.1.0: DO NOT EDIT
+// Code generated from specification version 8.3.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"io"
 	"net/http"
 	"strings"
 )
 
-func newInternalGetDesiredNodesFunc(t Transport) InternalGetDesiredNodes {
-	return func(o ...func(*InternalGetDesiredNodesRequest)) (*Response, error) {
-		var r = InternalGetDesiredNodesRequest{}
+func newSecurityActivateUserProfileFunc(t Transport) SecurityActivateUserProfile {
+	return func(body io.Reader, o ...func(*SecurityActivateUserProfileRequest)) (*Response, error) {
+		var r = SecurityActivateUserProfileRequest{Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -37,17 +38,19 @@ func newInternalGetDesiredNodesFunc(t Transport) InternalGetDesiredNodes {
 
 // ----- API Definition -------------------------------------------------------
 
-// InternalGetDesiredNodes gets the latest desired nodes. Designed for indirect use by ECE/ESS and ECK. Direct use is not supported.
+// SecurityActivateUserProfile - Creates or updates the user profile on behalf of another user.
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-desired-nodes.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-activate-user-profile.html.
 //
-type InternalGetDesiredNodes func(o ...func(*InternalGetDesiredNodesRequest)) (*Response, error)
+type SecurityActivateUserProfile func(body io.Reader, o ...func(*SecurityActivateUserProfileRequest)) (*Response, error)
 
-// InternalGetDesiredNodesRequest configures the Internal Get Desired Nodes API request.
+// SecurityActivateUserProfileRequest configures the Security Activate User Profile API request.
 //
-type InternalGetDesiredNodesRequest struct {
+type SecurityActivateUserProfileRequest struct {
+	Body io.Reader
+
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -60,18 +63,18 @@ type InternalGetDesiredNodesRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r InternalGetDesiredNodesRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SecurityActivateUserProfileRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
-	path.Grow(7 + len("/_internal/desired_nodes/_latest"))
+	path.Grow(7 + len("/_security/profile/_activate"))
 	path.WriteString("http://")
-	path.WriteString("/_internal/desired_nodes/_latest")
+	path.WriteString("/_security/profile/_activate")
 
 	params = make(map[string]string)
 
@@ -91,7 +94,7 @@ func (r InternalGetDesiredNodesRequest) Do(ctx context.Context, transport Transp
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -102,6 +105,10 @@ func (r InternalGetDesiredNodesRequest) Do(ctx context.Context, transport Transp
 			q.Set(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
+	}
+
+	if r.Body != nil {
+		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if len(r.Header) > 0 {
@@ -136,48 +143,48 @@ func (r InternalGetDesiredNodesRequest) Do(ctx context.Context, transport Transp
 
 // WithContext sets the request context.
 //
-func (f InternalGetDesiredNodes) WithContext(v context.Context) func(*InternalGetDesiredNodesRequest) {
-	return func(r *InternalGetDesiredNodesRequest) {
+func (f SecurityActivateUserProfile) WithContext(v context.Context) func(*SecurityActivateUserProfileRequest) {
+	return func(r *SecurityActivateUserProfileRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f InternalGetDesiredNodes) WithPretty() func(*InternalGetDesiredNodesRequest) {
-	return func(r *InternalGetDesiredNodesRequest) {
+func (f SecurityActivateUserProfile) WithPretty() func(*SecurityActivateUserProfileRequest) {
+	return func(r *SecurityActivateUserProfileRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f InternalGetDesiredNodes) WithHuman() func(*InternalGetDesiredNodesRequest) {
-	return func(r *InternalGetDesiredNodesRequest) {
+func (f SecurityActivateUserProfile) WithHuman() func(*SecurityActivateUserProfileRequest) {
+	return func(r *SecurityActivateUserProfileRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f InternalGetDesiredNodes) WithErrorTrace() func(*InternalGetDesiredNodesRequest) {
-	return func(r *InternalGetDesiredNodesRequest) {
+func (f SecurityActivateUserProfile) WithErrorTrace() func(*SecurityActivateUserProfileRequest) {
+	return func(r *SecurityActivateUserProfileRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f InternalGetDesiredNodes) WithFilterPath(v ...string) func(*InternalGetDesiredNodesRequest) {
-	return func(r *InternalGetDesiredNodesRequest) {
+func (f SecurityActivateUserProfile) WithFilterPath(v ...string) func(*SecurityActivateUserProfileRequest) {
+	return func(r *SecurityActivateUserProfileRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f InternalGetDesiredNodes) WithHeader(h map[string]string) func(*InternalGetDesiredNodesRequest) {
-	return func(r *InternalGetDesiredNodesRequest) {
+func (f SecurityActivateUserProfile) WithHeader(h map[string]string) func(*SecurityActivateUserProfileRequest) {
+	return func(r *SecurityActivateUserProfileRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -189,8 +196,8 @@ func (f InternalGetDesiredNodes) WithHeader(h map[string]string) func(*InternalG
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f InternalGetDesiredNodes) WithOpaqueID(s string) func(*InternalGetDesiredNodesRequest) {
-	return func(r *InternalGetDesiredNodesRequest) {
+func (f SecurityActivateUserProfile) WithOpaqueID(s string) func(*SecurityActivateUserProfileRequest) {
+	return func(r *SecurityActivateUserProfileRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
