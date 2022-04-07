@@ -686,6 +686,10 @@ default:
 							actual = strings.TrimSuffix(actual.(string), ".0")
 							expected = strings.TrimSuffix(` + strconv.Quote(expected) + `, ".0")
 						}
+						if ok, _ := regexp.Match(` + "`^\\d\\.\\d+E\\d+$`" + `, []byte(actual.(string))); ok {
+							replacer := strings.NewReplacer("e+0", "E", "e+", "E")
+							expected = replacer.Replace(` + strconv.Quote(expected) + `)
+						}
 						assertion = fmt.Sprintf("%v", actual) == fmt.Sprintf("%v", expected)
 					if !assertion {
 						t.Logf("%v != %v", actual, expected)` + "\n"
