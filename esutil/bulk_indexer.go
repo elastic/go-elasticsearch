@@ -444,6 +444,13 @@ func (w *worker) writeMeta(item BulkIndexerItem) error {
 		w.buf.Write(w.aux)
 		w.aux = w.aux[:0]
 	}
+	// support update retry_on_conflict
+	if item.RetryOnConflict != nil && item.Action == "update" {
+		w.buf.WriteString(",")
+		w.aux = strconv.AppendInt(w.aux, int64(*item.RetryOnConflict), 10)
+		w.buf.Write(w.aux)
+		w.aux = w.aux[:0]
+	}
 	w.buf.WriteRune('}')
 	w.buf.WriteRune('}')
 	w.buf.WriteRune('\n')
