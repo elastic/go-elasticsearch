@@ -7,19 +7,17 @@ on:
     branches:
       - github-actions
       - main
-      - 7.16
+      - 8.2
       - 7.17
-      - 6.x
   pull_request:
     branches:
       - main
-      - 7.16
+      - 8.2
       - 7.17
-      - 6.x
 
 env:
   GITHUB_ACTIONS: true
-  ELASTICSEARCH_VERSION: elasticsearch:8.1.0-SNAPSHOT
+  ELASTICSEARCH_VERSION: elasticsearch:8.3.0-SNAPSHOT
 
 jobs:
   test:
