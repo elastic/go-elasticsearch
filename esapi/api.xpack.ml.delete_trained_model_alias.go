@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 7.17.1: DO NOT EDIT
+// Code generated from specification version 7.17.3: DO NOT EDIT
 
 package esapi
 
@@ -41,7 +41,7 @@ func newMLDeleteTrainedModelAliasFunc(t Transport) MLDeleteTrainedModelAlias {
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-trained-models-aliases.html.
 //
-type MLDeleteTrainedModelAlias func(model_alias string, model_id string, o ...func(*MLDeleteTrainedModelAliasRequest)) (*Response, error)
+type MLDeleteTrainedModelAlias func(model_id string, model_alias string, o ...func(*MLDeleteTrainedModelAliasRequest)) (*Response, error)
 
 // MLDeleteTrainedModelAliasRequest configures the ML Delete Trained Model Alias API request.
 //
