@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 7.17.1: DO NOT EDIT
+// Code generated from specification version 7.17.3: DO NOT EDIT
 
 package esapi
 
@@ -26,8 +26,8 @@ import (
 )
 
 func newSecurityCreateServiceTokenFunc(t Transport) SecurityCreateServiceToken {
-	return func(namespace string, service string, o ...func(*SecurityCreateServiceTokenRequest)) (*Response, error) {
-		var r = SecurityCreateServiceTokenRequest{Service: service, Namespace: namespace}
+	return func(service string, namespace string, o ...func(*SecurityCreateServiceTokenRequest)) (*Response, error) {
+		var r = SecurityCreateServiceTokenRequest{Namespace: namespace, Service: service}
 		for _, f := range o {
 			f(&r)
 		}

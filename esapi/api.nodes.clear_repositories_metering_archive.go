@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 7.17.1: DO NOT EDIT
+// Code generated from specification version 7.17.3: DO NOT EDIT
 
 package esapi
 
@@ -28,7 +28,7 @@ import (
 )
 
 func newNodesClearRepositoriesMeteringArchiveFunc(t Transport) NodesClearRepositoriesMeteringArchive {
-	return func(node_id []string, max_archive_version *int, o ...func(*NodesClearRepositoriesMeteringArchiveRequest)) (*Response, error) {
+	return func(max_archive_version *int, node_id []string, o ...func(*NodesClearRepositoriesMeteringArchiveRequest)) (*Response, error) {
 		var r = NodesClearRepositoriesMeteringArchiveRequest{NodeID: node_id, MaxArchiveVersion: max_archive_version}
 		for _, f := range o {
 			f(&r)
