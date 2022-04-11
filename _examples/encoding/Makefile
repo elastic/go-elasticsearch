@@ -10,7 +10,7 @@ bench: clean setup # Run benchmarks
 	go test -run=none -bench=. -benchmem benchmark_test.go
 
 setup: ## Install & Setup
-	go get -u github.com/mailru/easyjson/...
+	go get github.com/mailru/easyjson && go install github.com/mailru/easyjson/...@latest
 
 clean: ## Remove artifacts
 	@rm -f model/*_easyjson.go
