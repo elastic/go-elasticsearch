@@ -445,6 +445,7 @@ func (w *worker) writeMeta(item BulkIndexerItem) error {
 	// support update retry_on_conflict
 	if item.RetryOnConflict != nil && item.Action == "update" {
 		w.buf.WriteString(",")
+		w.buf.WriteString(`"retry_on_conflict":`)
 		w.aux = strconv.AppendInt(w.aux, int64(*item.RetryOnConflict), 10)
 		w.buf.Write(w.aux)
 		w.aux = w.aux[:0]
