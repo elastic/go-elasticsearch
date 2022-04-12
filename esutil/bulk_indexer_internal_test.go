@@ -24,6 +24,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/elastic/go-elasticsearch/v8/esapi"
 	"io"
 	"io/ioutil"
 	"log"
@@ -713,6 +714,24 @@ func TestBulkIndexer(t *testing.T) {
 					VersionType: "external",
 				}},
 				`{"index":{"_id":"42","version":23,"version_type":"external","_index":"test"}}` + "\n",
+			},
+			{
+				"with retry_on_conflict and bad action",
+				args{BulkIndexerItem{
+					Action:          "index",
+					DocumentID:      "1",
+					RetryOnConflict: esapi.IntPtr(3),
+				}},
+				`{"index":{"_id":"1"}}` + "\n",
+			},
+			{
+				"with retry_on_conflict",
+				args{BulkIndexerItem{
+					Action:          "update",
+					DocumentID:      "1",
+					RetryOnConflict: esapi.IntPtr(3),
+				}},
+				`{"update":{"_id":"1","retry_on_conflict":3}}` + "\n",
 			},
 		}
 		for _, tt := range tests {
