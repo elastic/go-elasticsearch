@@ -106,6 +106,10 @@ search.aggregation/40_range.yml:
 search.aggregation/340_geo_distance.yml:
   - avg_bucket
 
+# .key in map issue
+search.aggregation/200_top_hits.yml:
+  - explain
+
 # Tries to match on "Cluster Get Settings" output, but that's an empty map
 search/320_disallow_queries.yml:
 
