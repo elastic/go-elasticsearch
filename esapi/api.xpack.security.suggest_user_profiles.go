@@ -15,22 +15,20 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.1.0: DO NOT EDIT
+// Code generated from specification version 8.2.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
-	"errors"
 	"io"
 	"net/http"
-	"strconv"
 	"strings"
 )
 
-func newDesiredNodesUpdateDesiredNodesFunc(t Transport) DesiredNodesUpdateDesiredNodes {
-	return func(body io.Reader, history_id string, version *int, o ...func(*DesiredNodesUpdateDesiredNodesRequest)) (*Response, error) {
-		var r = DesiredNodesUpdateDesiredNodesRequest{Body: body, HistoryID: history_id, Version: version}
+func newSecuritySuggestUserProfilesFunc(t Transport) SecuritySuggestUserProfiles {
+	return func(o ...func(*SecuritySuggestUserProfilesRequest)) (*Response, error) {
+		var r = SecuritySuggestUserProfilesRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -40,19 +38,20 @@ func newDesiredNodesUpdateDesiredNodesFunc(t Transport) DesiredNodesUpdateDesire
 
 // ----- API Definition -------------------------------------------------------
 
-// DesiredNodesUpdateDesiredNodes updates the desired nodes. Designed for indirect use by ECE/ESS and ECK. Direct use is not supported.
+// SecuritySuggestUserProfiles - Get suggestions for user profiles that match specified search criteria.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/update-desired-nodes.html.
+// This API is experimental.
 //
-type DesiredNodesUpdateDesiredNodes func(body io.Reader, history_id string, version *int, o ...func(*DesiredNodesUpdateDesiredNodesRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/security-api-suggest-user-profile.html.
+//
+type SecuritySuggestUserProfiles func(o ...func(*SecuritySuggestUserProfilesRequest)) (*Response, error)
 
-// DesiredNodesUpdateDesiredNodesRequest configures the Desired Nodes Update Desired Nodes API request.
+// SecuritySuggestUserProfilesRequest configures the Security Suggest User Profiles API request.
 //
-type DesiredNodesUpdateDesiredNodesRequest struct {
+type SecuritySuggestUserProfilesRequest struct {
 	Body io.Reader
 
-	HistoryID string
-	Version   *int
+	Data []string
 
 	Pretty     bool
 	Human      bool
@@ -66,31 +65,24 @@ type DesiredNodesUpdateDesiredNodesRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r DesiredNodesUpdateDesiredNodesRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SecuritySuggestUserProfilesRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "PUT"
+	method = "POST"
 
-	if r.Version == nil {
-		return nil, errors.New("version is required and cannot be nil")
-	}
-
-	path.Grow(7 + 1 + len("_internal") + 1 + len("desired_nodes") + 1 + len(r.HistoryID) + 1 + len(strconv.Itoa(*r.Version)))
+	path.Grow(7 + len("/_security/profile/_suggest"))
 	path.WriteString("http://")
-	path.WriteString("/")
-	path.WriteString("_internal")
-	path.WriteString("/")
-	path.WriteString("desired_nodes")
-	path.WriteString("/")
-	path.WriteString(r.HistoryID)
-	path.WriteString("/")
-	path.WriteString(strconv.Itoa(*r.Version))
+	path.WriteString("/_security/profile/_suggest")
 
 	params = make(map[string]string)
+
+	if len(r.Data) > 0 {
+		params["data"] = strings.Join(r.Data, ",")
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -157,48 +149,64 @@ func (r DesiredNodesUpdateDesiredNodesRequest) Do(ctx context.Context, transport
 
 // WithContext sets the request context.
 //
-func (f DesiredNodesUpdateDesiredNodes) WithContext(v context.Context) func(*DesiredNodesUpdateDesiredNodesRequest) {
-	return func(r *DesiredNodesUpdateDesiredNodesRequest) {
+func (f SecuritySuggestUserProfiles) WithContext(v context.Context) func(*SecuritySuggestUserProfilesRequest) {
+	return func(r *SecuritySuggestUserProfilesRequest) {
 		r.ctx = v
+	}
+}
+
+// WithBody - The suggestion definition for user profiles.
+//
+func (f SecuritySuggestUserProfiles) WithBody(v io.Reader) func(*SecuritySuggestUserProfilesRequest) {
+	return func(r *SecuritySuggestUserProfilesRequest) {
+		r.Body = v
+	}
+}
+
+// WithData - a list of keys for which the corresponding application data are retrieved..
+//
+func (f SecuritySuggestUserProfiles) WithData(v ...string) func(*SecuritySuggestUserProfilesRequest) {
+	return func(r *SecuritySuggestUserProfilesRequest) {
+		r.Data = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f DesiredNodesUpdateDesiredNodes) WithPretty() func(*DesiredNodesUpdateDesiredNodesRequest) {
-	return func(r *DesiredNodesUpdateDesiredNodesRequest) {
+func (f SecuritySuggestUserProfiles) WithPretty() func(*SecuritySuggestUserProfilesRequest) {
+	return func(r *SecuritySuggestUserProfilesRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f DesiredNodesUpdateDesiredNodes) WithHuman() func(*DesiredNodesUpdateDesiredNodesRequest) {
-	return func(r *DesiredNodesUpdateDesiredNodesRequest) {
+func (f SecuritySuggestUserProfiles) WithHuman() func(*SecuritySuggestUserProfilesRequest) {
+	return func(r *SecuritySuggestUserProfilesRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f DesiredNodesUpdateDesiredNodes) WithErrorTrace() func(*DesiredNodesUpdateDesiredNodesRequest) {
-	return func(r *DesiredNodesUpdateDesiredNodesRequest) {
+func (f SecuritySuggestUserProfiles) WithErrorTrace() func(*SecuritySuggestUserProfilesRequest) {
+	return func(r *SecuritySuggestUserProfilesRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f DesiredNodesUpdateDesiredNodes) WithFilterPath(v ...string) func(*DesiredNodesUpdateDesiredNodesRequest) {
-	return func(r *DesiredNodesUpdateDesiredNodesRequest) {
+func (f SecuritySuggestUserProfiles) WithFilterPath(v ...string) func(*SecuritySuggestUserProfilesRequest) {
+	return func(r *SecuritySuggestUserProfilesRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f DesiredNodesUpdateDesiredNodes) WithHeader(h map[string]string) func(*DesiredNodesUpdateDesiredNodesRequest) {
-	return func(r *DesiredNodesUpdateDesiredNodesRequest) {
+func (f SecuritySuggestUserProfiles) WithHeader(h map[string]string) func(*SecuritySuggestUserProfilesRequest) {
+	return func(r *SecuritySuggestUserProfilesRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -210,8 +218,8 @@ func (f DesiredNodesUpdateDesiredNodes) WithHeader(h map[string]string) func(*De
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f DesiredNodesUpdateDesiredNodes) WithOpaqueID(s string) func(*DesiredNodesUpdateDesiredNodesRequest) {
-	return func(r *DesiredNodesUpdateDesiredNodesRequest) {
+func (f SecuritySuggestUserProfiles) WithOpaqueID(s string) func(*SecuritySuggestUserProfilesRequest) {
+	return func(r *SecuritySuggestUserProfilesRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

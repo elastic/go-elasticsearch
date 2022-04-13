@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.1.0 (66b60a2): DO NOT EDIT
+// Code generated from specification version 8.2.0 (2440f0a): DO NOT EDIT
 
 package esapi
 
@@ -60,9 +60,6 @@ type API struct {
 	DeleteByQueryRethrottle            DeleteByQueryRethrottle
 	Delete                             Delete
 	DeleteScript                       DeleteScript
-	DesiredNodesDeleteDesiredNodes     DesiredNodesDeleteDesiredNodes
-	DesiredNodesGetDesiredNodes        DesiredNodesGetDesiredNodes
-	DesiredNodesUpdateDesiredNodes     DesiredNodesUpdateDesiredNodes
 	EnrichDeletePolicy                 EnrichDeletePolicy
 	EnrichExecutePolicy                EnrichExecutePolicy
 	EnrichGetPolicy                    EnrichGetPolicy
@@ -89,9 +86,6 @@ type API struct {
 	GraphExplore                       GraphExplore
 	Index                              Index
 	Info                               Info
-	InternalDeleteDesiredNodes         InternalDeleteDesiredNodes
-	InternalGetDesiredNodes            InternalGetDesiredNodes
-	InternalUpdateDesiredNodes         InternalUpdateDesiredNodes
 	KnnSearch                          KnnSearch
 	LogstashDeletePipeline             LogstashDeletePipeline
 	LogstashGetPipeline                LogstashGetPipeline
@@ -151,6 +145,7 @@ type API struct {
 type Cat struct {
 	Aliases              CatAliases
 	Allocation           CatAllocation
+	ComponentTemplates   CatComponentTemplates
 	Count                CatCount
 	Fielddata            CatFielddata
 	Health               CatHealth
@@ -390,6 +385,7 @@ type ML struct {
 	GetInfluencers                MLGetInfluencers
 	GetJobStats                   MLGetJobStats
 	GetJobs                       MLGetJobs
+	GetMemoryStats                MLGetMemoryStats
 	GetModelSnapshotUpgradeStats  MLGetModelSnapshotUpgradeStats
 	GetModelSnapshots             MLGetModelSnapshots
 	GetOverallBuckets             MLGetOverallBuckets
@@ -452,6 +448,7 @@ type Rollup struct {
 
 // Security contains the Security APIs
 type Security struct {
+	ActivateUserProfile         SecurityActivateUserProfile
 	Authenticate                SecurityAuthenticate
 	ChangePassword              SecurityChangePassword
 	ClearAPIKeyCache            SecurityClearAPIKeyCache
@@ -466,7 +463,9 @@ type Security struct {
 	DeleteRole                  SecurityDeleteRole
 	DeleteServiceToken          SecurityDeleteServiceToken
 	DeleteUser                  SecurityDeleteUser
+	DisableUserProfile          SecurityDisableUserProfile
 	DisableUser                 SecurityDisableUser
+	EnableUserProfile           SecurityEnableUserProfile
 	EnableUser                  SecurityEnableUser
 	EnrollKibana                SecurityEnrollKibana
 	EnrollNode                  SecurityEnrollNode
@@ -479,6 +478,7 @@ type Security struct {
 	GetServiceCredentials       SecurityGetServiceCredentials
 	GetToken                    SecurityGetToken
 	GetUserPrivileges           SecurityGetUserPrivileges
+	GetUserProfile              SecurityGetUserProfile
 	GetUser                     SecurityGetUser
 	GrantAPIKey                 SecurityGrantAPIKey
 	HasPrivileges               SecurityHasPrivileges
@@ -498,6 +498,8 @@ type Security struct {
 	SamlLogout                  SecuritySamlLogout
 	SamlPrepareAuthentication   SecuritySamlPrepareAuthentication
 	SamlServiceProviderMetadata SecuritySamlServiceProviderMetadata
+	SuggestUserProfiles         SecuritySuggestUserProfiles
+	UpdateUserProfileData       SecurityUpdateUserProfileData
 }
 
 // SQL contains the SQL APIs
@@ -556,9 +558,6 @@ func New(t Transport) *API {
 		DeleteByQueryRethrottle:            newDeleteByQueryRethrottleFunc(t),
 		Delete:                             newDeleteFunc(t),
 		DeleteScript:                       newDeleteScriptFunc(t),
-		DesiredNodesDeleteDesiredNodes:     newDesiredNodesDeleteDesiredNodesFunc(t),
-		DesiredNodesGetDesiredNodes:        newDesiredNodesGetDesiredNodesFunc(t),
-		DesiredNodesUpdateDesiredNodes:     newDesiredNodesUpdateDesiredNodesFunc(t),
 		EnrichDeletePolicy:                 newEnrichDeletePolicyFunc(t),
 		EnrichExecutePolicy:                newEnrichExecutePolicyFunc(t),
 		EnrichGetPolicy:                    newEnrichGetPolicyFunc(t),
@@ -585,9 +584,6 @@ func New(t Transport) *API {
 		GraphExplore:                       newGraphExploreFunc(t),
 		Index:                              newIndexFunc(t),
 		Info:                               newInfoFunc(t),
-		InternalDeleteDesiredNodes:         newInternalDeleteDesiredNodesFunc(t),
-		InternalGetDesiredNodes:            newInternalGetDesiredNodesFunc(t),
-		InternalUpdateDesiredNodes:         newInternalUpdateDesiredNodesFunc(t),
 		KnnSearch:                          newKnnSearchFunc(t),
 		LogstashDeletePipeline:             newLogstashDeletePipelineFunc(t),
 		LogstashGetPipeline:                newLogstashGetPipelineFunc(t),
@@ -644,6 +640,7 @@ func New(t Transport) *API {
 		Cat: &Cat{
 			Aliases:              newCatAliasesFunc(t),
 			Allocation:           newCatAllocationFunc(t),
+			ComponentTemplates:   newCatComponentTemplatesFunc(t),
 			Count:                newCatCountFunc(t),
 			Fielddata:            newCatFielddataFunc(t),
 			Health:               newCatHealthFunc(t),
@@ -856,6 +853,7 @@ func New(t Transport) *API {
 			GetInfluencers:                newMLGetInfluencersFunc(t),
 			GetJobStats:                   newMLGetJobStatsFunc(t),
 			GetJobs:                       newMLGetJobsFunc(t),
+			GetMemoryStats:                newMLGetMemoryStatsFunc(t),
 			GetModelSnapshotUpgradeStats:  newMLGetModelSnapshotUpgradeStatsFunc(t),
 			GetModelSnapshots:             newMLGetModelSnapshotsFunc(t),
 			GetOverallBuckets:             newMLGetOverallBucketsFunc(t),
@@ -912,6 +910,7 @@ func New(t Transport) *API {
 			StopJob:      newRollupStopJobFunc(t),
 		},
 		Security: &Security{
+			ActivateUserProfile:         newSecurityActivateUserProfileFunc(t),
 			Authenticate:                newSecurityAuthenticateFunc(t),
 			ChangePassword:              newSecurityChangePasswordFunc(t),
 			ClearAPIKeyCache:            newSecurityClearAPIKeyCacheFunc(t),
@@ -926,7 +925,9 @@ func New(t Transport) *API {
 			DeleteRole:                  newSecurityDeleteRoleFunc(t),
 			DeleteServiceToken:          newSecurityDeleteServiceTokenFunc(t),
 			DeleteUser:                  newSecurityDeleteUserFunc(t),
+			DisableUserProfile:          newSecurityDisableUserProfileFunc(t),
 			DisableUser:                 newSecurityDisableUserFunc(t),
+			EnableUserProfile:           newSecurityEnableUserProfileFunc(t),
 			EnableUser:                  newSecurityEnableUserFunc(t),
 			EnrollKibana:                newSecurityEnrollKibanaFunc(t),
 			EnrollNode:                  newSecurityEnrollNodeFunc(t),
@@ -939,6 +940,7 @@ func New(t Transport) *API {
 			GetServiceCredentials:       newSecurityGetServiceCredentialsFunc(t),
 			GetToken:                    newSecurityGetTokenFunc(t),
 			GetUserPrivileges:           newSecurityGetUserPrivilegesFunc(t),
+			GetUserProfile:              newSecurityGetUserProfileFunc(t),
 			GetUser:                     newSecurityGetUserFunc(t),
 			GrantAPIKey:                 newSecurityGrantAPIKeyFunc(t),
 			HasPrivileges:               newSecurityHasPrivilegesFunc(t),
@@ -958,6 +960,8 @@ func New(t Transport) *API {
 			SamlLogout:                  newSecuritySamlLogoutFunc(t),
 			SamlPrepareAuthentication:   newSecuritySamlPrepareAuthenticationFunc(t),
 			SamlServiceProviderMetadata: newSecuritySamlServiceProviderMetadataFunc(t),
+			SuggestUserProfiles:         newSecuritySuggestUserProfilesFunc(t),
+			UpdateUserProfileData:       newSecurityUpdateUserProfileDataFunc(t),
 		},
 		SQL: &SQL{
 			ClearCursor:    newSQLClearCursorFunc(t),

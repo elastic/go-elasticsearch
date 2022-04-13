@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.1.0: DO NOT EDIT
+// Code generated from specification version 8.2.0: DO NOT EDIT
 
 package esapi
 
@@ -55,8 +55,10 @@ type FieldCapsRequest struct {
 	AllowNoIndices    *bool
 	ExpandWildcards   string
 	Fields            []string
+	Filters           []string
 	IgnoreUnavailable *bool
 	IncludeUnmapped   *bool
+	Types             []string
 
 	Pretty     bool
 	Human      bool
@@ -102,12 +104,20 @@ func (r FieldCapsRequest) Do(ctx context.Context, transport Transport) (*Respons
 		params["fields"] = strings.Join(r.Fields, ",")
 	}
 
+	if len(r.Filters) > 0 {
+		params["filters"] = strings.Join(r.Filters, ",")
+	}
+
 	if r.IgnoreUnavailable != nil {
 		params["ignore_unavailable"] = strconv.FormatBool(*r.IgnoreUnavailable)
 	}
 
 	if r.IncludeUnmapped != nil {
 		params["include_unmapped"] = strconv.FormatBool(*r.IncludeUnmapped)
+	}
+
+	if len(r.Types) > 0 {
+		params["types"] = strings.Join(r.Types, ",")
 	}
 
 	if r.Pretty {
@@ -221,6 +231,14 @@ func (f FieldCaps) WithFields(v ...string) func(*FieldCapsRequest) {
 	}
 }
 
+// WithFilters - an optional set of filters: can include +metadata,-metadata,-nested,-multifield,-parent.
+//
+func (f FieldCaps) WithFilters(v ...string) func(*FieldCapsRequest) {
+	return func(r *FieldCapsRequest) {
+		r.Filters = v
+	}
+}
+
 // WithIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
 //
 func (f FieldCaps) WithIgnoreUnavailable(v bool) func(*FieldCapsRequest) {
@@ -234,6 +252,14 @@ func (f FieldCaps) WithIgnoreUnavailable(v bool) func(*FieldCapsRequest) {
 func (f FieldCaps) WithIncludeUnmapped(v bool) func(*FieldCapsRequest) {
 	return func(r *FieldCapsRequest) {
 		r.IncludeUnmapped = &v
+	}
+}
+
+// WithTypes - only return results for fields that have one of the types in the list.
+//
+func (f FieldCaps) WithTypes(v ...string) func(*FieldCapsRequest) {
+	return func(r *FieldCapsRequest) {
+		r.Types = v
 	}
 }
 
