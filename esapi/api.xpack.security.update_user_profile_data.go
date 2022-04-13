@@ -23,12 +23,13 @@ import (
 	"context"
 	"io"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
-func newSecurityPutUserFunc(t Transport) SecurityPutUser {
-	return func(username string, body io.Reader, o ...func(*SecurityPutUserRequest)) (*Response, error) {
-		var r = SecurityPutUserRequest{Username: username, Body: body}
+func newSecurityUpdateUserProfileDataFunc(t Transport) SecurityUpdateUserProfileData {
+	return func(body io.Reader, uid string, o ...func(*SecurityUpdateUserProfileDataRequest)) (*Response, error) {
+		var r = SecurityUpdateUserProfileDataRequest{Body: body, UID: uid}
 		for _, f := range o {
 			f(&r)
 		}
@@ -38,20 +39,24 @@ func newSecurityPutUserFunc(t Transport) SecurityPutUser {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityPutUser - Adds and updates users in the native realm. These users are commonly referred to as native users.
+// SecurityUpdateUserProfileData - Update application specific data for the user profile of the given unique ID.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-put-user.html.
+// This API is experimental.
 //
-type SecurityPutUser func(username string, body io.Reader, o ...func(*SecurityPutUserRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-update-user-profile-data.html.
+//
+type SecurityUpdateUserProfileData func(body io.Reader, uid string, o ...func(*SecurityUpdateUserProfileDataRequest)) (*Response, error)
 
-// SecurityPutUserRequest configures the Security Put User API request.
+// SecurityUpdateUserProfileDataRequest configures the Security Update User Profile Data API request.
 //
-type SecurityPutUserRequest struct {
+type SecurityUpdateUserProfileDataRequest struct {
 	Body io.Reader
 
-	Username string
+	UID string
 
-	Refresh string
+	IfPrimaryTerm *int
+	IfSeqNo       *int
+	Refresh       string
 
 	Pretty     bool
 	Human      bool
@@ -65,7 +70,7 @@ type SecurityPutUserRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r SecurityPutUserRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SecurityUpdateUserProfileDataRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -74,16 +79,26 @@ func (r SecurityPutUserRequest) Do(ctx context.Context, transport Transport) (*R
 
 	method = "PUT"
 
-	path.Grow(7 + 1 + len("_security") + 1 + len("user") + 1 + len(r.Username))
+	path.Grow(7 + 1 + len("_security") + 1 + len("profile") + 1 + len(r.UID) + 1 + len("_data"))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_security")
 	path.WriteString("/")
-	path.WriteString("user")
+	path.WriteString("profile")
 	path.WriteString("/")
-	path.WriteString(r.Username)
+	path.WriteString(r.UID)
+	path.WriteString("/")
+	path.WriteString("_data")
 
 	params = make(map[string]string)
+
+	if r.IfPrimaryTerm != nil {
+		params["if_primary_term"] = strconv.FormatInt(int64(*r.IfPrimaryTerm), 10)
+	}
+
+	if r.IfSeqNo != nil {
+		params["if_seq_no"] = strconv.FormatInt(int64(*r.IfSeqNo), 10)
+	}
 
 	if r.Refresh != "" {
 		params["refresh"] = r.Refresh
@@ -154,56 +169,72 @@ func (r SecurityPutUserRequest) Do(ctx context.Context, transport Transport) (*R
 
 // WithContext sets the request context.
 //
-func (f SecurityPutUser) WithContext(v context.Context) func(*SecurityPutUserRequest) {
-	return func(r *SecurityPutUserRequest) {
+func (f SecurityUpdateUserProfileData) WithContext(v context.Context) func(*SecurityUpdateUserProfileDataRequest) {
+	return func(r *SecurityUpdateUserProfileDataRequest) {
 		r.ctx = v
+	}
+}
+
+// WithIfPrimaryTerm - only perform the update operation if the last operation that has changed the document has the specified primary term.
+//
+func (f SecurityUpdateUserProfileData) WithIfPrimaryTerm(v int) func(*SecurityUpdateUserProfileDataRequest) {
+	return func(r *SecurityUpdateUserProfileDataRequest) {
+		r.IfPrimaryTerm = &v
+	}
+}
+
+// WithIfSeqNo - only perform the update operation if the last operation that has changed the document has the specified sequence number.
+//
+func (f SecurityUpdateUserProfileData) WithIfSeqNo(v int) func(*SecurityUpdateUserProfileDataRequest) {
+	return func(r *SecurityUpdateUserProfileDataRequest) {
+		r.IfSeqNo = &v
 	}
 }
 
 // WithRefresh - if `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes..
 //
-func (f SecurityPutUser) WithRefresh(v string) func(*SecurityPutUserRequest) {
-	return func(r *SecurityPutUserRequest) {
+func (f SecurityUpdateUserProfileData) WithRefresh(v string) func(*SecurityUpdateUserProfileDataRequest) {
+	return func(r *SecurityUpdateUserProfileDataRequest) {
 		r.Refresh = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f SecurityPutUser) WithPretty() func(*SecurityPutUserRequest) {
-	return func(r *SecurityPutUserRequest) {
+func (f SecurityUpdateUserProfileData) WithPretty() func(*SecurityUpdateUserProfileDataRequest) {
+	return func(r *SecurityUpdateUserProfileDataRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f SecurityPutUser) WithHuman() func(*SecurityPutUserRequest) {
-	return func(r *SecurityPutUserRequest) {
+func (f SecurityUpdateUserProfileData) WithHuman() func(*SecurityUpdateUserProfileDataRequest) {
+	return func(r *SecurityUpdateUserProfileDataRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f SecurityPutUser) WithErrorTrace() func(*SecurityPutUserRequest) {
-	return func(r *SecurityPutUserRequest) {
+func (f SecurityUpdateUserProfileData) WithErrorTrace() func(*SecurityUpdateUserProfileDataRequest) {
+	return func(r *SecurityUpdateUserProfileDataRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f SecurityPutUser) WithFilterPath(v ...string) func(*SecurityPutUserRequest) {
-	return func(r *SecurityPutUserRequest) {
+func (f SecurityUpdateUserProfileData) WithFilterPath(v ...string) func(*SecurityUpdateUserProfileDataRequest) {
+	return func(r *SecurityUpdateUserProfileDataRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f SecurityPutUser) WithHeader(h map[string]string) func(*SecurityPutUserRequest) {
-	return func(r *SecurityPutUserRequest) {
+func (f SecurityUpdateUserProfileData) WithHeader(h map[string]string) func(*SecurityUpdateUserProfileDataRequest) {
+	return func(r *SecurityUpdateUserProfileDataRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -215,8 +246,8 @@ func (f SecurityPutUser) WithHeader(h map[string]string) func(*SecurityPutUserRe
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f SecurityPutUser) WithOpaqueID(s string) func(*SecurityPutUserRequest) {
-	return func(r *SecurityPutUserRequest) {
+func (f SecurityUpdateUserProfileData) WithOpaqueID(s string) func(*SecurityUpdateUserProfileDataRequest) {
+	return func(r *SecurityUpdateUserProfileDataRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

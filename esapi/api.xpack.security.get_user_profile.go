@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.1.0: DO NOT EDIT
+// Code generated from specification version 8.2.0: DO NOT EDIT
 
 package esapi
 
@@ -25,9 +25,9 @@ import (
 	"strings"
 )
 
-func newInternalDeleteDesiredNodesFunc(t Transport) InternalDeleteDesiredNodes {
-	return func(o ...func(*InternalDeleteDesiredNodesRequest)) (*Response, error) {
-		var r = InternalDeleteDesiredNodesRequest{}
+func newSecurityGetUserProfileFunc(t Transport) SecurityGetUserProfile {
+	return func(uid string, o ...func(*SecurityGetUserProfileRequest)) (*Response, error) {
+		var r = SecurityGetUserProfileRequest{UID: uid}
 		for _, f := range o {
 			f(&r)
 		}
@@ -37,17 +37,21 @@ func newInternalDeleteDesiredNodesFunc(t Transport) InternalDeleteDesiredNodes {
 
 // ----- API Definition -------------------------------------------------------
 
-// InternalDeleteDesiredNodes deletes the desired nodes. Designed for indirect use by ECE/ESS and ECK. Direct use is not supported.
+// SecurityGetUserProfile - Retrieves user profile for the given unique ID.
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-desired-nodes.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-user-profile.html.
 //
-type InternalDeleteDesiredNodes func(o ...func(*InternalDeleteDesiredNodesRequest)) (*Response, error)
+type SecurityGetUserProfile func(uid string, o ...func(*SecurityGetUserProfileRequest)) (*Response, error)
 
-// InternalDeleteDesiredNodesRequest configures the Internal Delete Desired Nodes API request.
+// SecurityGetUserProfileRequest configures the Security Get User Profile API request.
 //
-type InternalDeleteDesiredNodesRequest struct {
+type SecurityGetUserProfileRequest struct {
+	UID string
+
+	Data []string
+
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -60,20 +64,29 @@ type InternalDeleteDesiredNodesRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r InternalDeleteDesiredNodesRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SecurityGetUserProfileRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "DELETE"
+	method = "GET"
 
-	path.Grow(7 + len("/_internal/desired_nodes"))
+	path.Grow(7 + 1 + len("_security") + 1 + len("profile") + 1 + len(r.UID))
 	path.WriteString("http://")
-	path.WriteString("/_internal/desired_nodes")
+	path.WriteString("/")
+	path.WriteString("_security")
+	path.WriteString("/")
+	path.WriteString("profile")
+	path.WriteString("/")
+	path.WriteString(r.UID)
 
 	params = make(map[string]string)
+
+	if len(r.Data) > 0 {
+		params["data"] = strings.Join(r.Data, ",")
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -136,48 +149,56 @@ func (r InternalDeleteDesiredNodesRequest) Do(ctx context.Context, transport Tra
 
 // WithContext sets the request context.
 //
-func (f InternalDeleteDesiredNodes) WithContext(v context.Context) func(*InternalDeleteDesiredNodesRequest) {
-	return func(r *InternalDeleteDesiredNodesRequest) {
+func (f SecurityGetUserProfile) WithContext(v context.Context) func(*SecurityGetUserProfileRequest) {
+	return func(r *SecurityGetUserProfileRequest) {
 		r.ctx = v
+	}
+}
+
+// WithData - a list of keys for which the corresponding application data are retrieved..
+//
+func (f SecurityGetUserProfile) WithData(v ...string) func(*SecurityGetUserProfileRequest) {
+	return func(r *SecurityGetUserProfileRequest) {
+		r.Data = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f InternalDeleteDesiredNodes) WithPretty() func(*InternalDeleteDesiredNodesRequest) {
-	return func(r *InternalDeleteDesiredNodesRequest) {
+func (f SecurityGetUserProfile) WithPretty() func(*SecurityGetUserProfileRequest) {
+	return func(r *SecurityGetUserProfileRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f InternalDeleteDesiredNodes) WithHuman() func(*InternalDeleteDesiredNodesRequest) {
-	return func(r *InternalDeleteDesiredNodesRequest) {
+func (f SecurityGetUserProfile) WithHuman() func(*SecurityGetUserProfileRequest) {
+	return func(r *SecurityGetUserProfileRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f InternalDeleteDesiredNodes) WithErrorTrace() func(*InternalDeleteDesiredNodesRequest) {
-	return func(r *InternalDeleteDesiredNodesRequest) {
+func (f SecurityGetUserProfile) WithErrorTrace() func(*SecurityGetUserProfileRequest) {
+	return func(r *SecurityGetUserProfileRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f InternalDeleteDesiredNodes) WithFilterPath(v ...string) func(*InternalDeleteDesiredNodesRequest) {
-	return func(r *InternalDeleteDesiredNodesRequest) {
+func (f SecurityGetUserProfile) WithFilterPath(v ...string) func(*SecurityGetUserProfileRequest) {
+	return func(r *SecurityGetUserProfileRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f InternalDeleteDesiredNodes) WithHeader(h map[string]string) func(*InternalDeleteDesiredNodesRequest) {
-	return func(r *InternalDeleteDesiredNodesRequest) {
+func (f SecurityGetUserProfile) WithHeader(h map[string]string) func(*SecurityGetUserProfileRequest) {
+	return func(r *SecurityGetUserProfileRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -189,8 +210,8 @@ func (f InternalDeleteDesiredNodes) WithHeader(h map[string]string) func(*Intern
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f InternalDeleteDesiredNodes) WithOpaqueID(s string) func(*InternalDeleteDesiredNodesRequest) {
-	return func(r *InternalDeleteDesiredNodesRequest) {
+func (f SecurityGetUserProfile) WithOpaqueID(s string) func(*SecurityGetUserProfileRequest) {
+	return func(r *SecurityGetUserProfileRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

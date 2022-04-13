@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.1.0: DO NOT EDIT
+// Code generated from specification version 8.2.0: DO NOT EDIT
 
 package esapi
 
@@ -23,11 +23,12 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"time"
 )
 
-func newDesiredNodesGetDesiredNodesFunc(t Transport) DesiredNodesGetDesiredNodes {
-	return func(o ...func(*DesiredNodesGetDesiredNodesRequest)) (*Response, error) {
-		var r = DesiredNodesGetDesiredNodesRequest{}
+func newMLGetMemoryStatsFunc(t Transport) MLGetMemoryStats {
+	return func(o ...func(*MLGetMemoryStatsRequest)) (*Response, error) {
+		var r = MLGetMemoryStatsRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -37,15 +38,20 @@ func newDesiredNodesGetDesiredNodesFunc(t Transport) DesiredNodesGetDesiredNodes
 
 // ----- API Definition -------------------------------------------------------
 
-// DesiredNodesGetDesiredNodes gets the latest desired nodes. Designed for indirect use by ECE/ESS and ECK. Direct use is not supported.
+// MLGetMemoryStats - Returns information on how ML is using memory.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-desired-nodes.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-ml-memory.html.
 //
-type DesiredNodesGetDesiredNodes func(o ...func(*DesiredNodesGetDesiredNodesRequest)) (*Response, error)
+type MLGetMemoryStats func(o ...func(*MLGetMemoryStatsRequest)) (*Response, error)
 
-// DesiredNodesGetDesiredNodesRequest configures the Desired Nodes Get Desired Nodes API request.
+// MLGetMemoryStatsRequest configures the ML Get Memory Stats API request.
 //
-type DesiredNodesGetDesiredNodesRequest struct {
+type MLGetMemoryStatsRequest struct {
+	NodeID string
+
+	MasterTimeout time.Duration
+	Timeout       time.Duration
+
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -58,7 +64,7 @@ type DesiredNodesGetDesiredNodesRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r DesiredNodesGetDesiredNodesRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r MLGetMemoryStatsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -67,11 +73,28 @@ func (r DesiredNodesGetDesiredNodesRequest) Do(ctx context.Context, transport Tr
 
 	method = "GET"
 
-	path.Grow(7 + len("/_internal/desired_nodes/_latest"))
+	path.Grow(7 + 1 + len("_ml") + 1 + len("memory") + 1 + len(r.NodeID) + 1 + len("_stats"))
 	path.WriteString("http://")
-	path.WriteString("/_internal/desired_nodes/_latest")
+	path.WriteString("/")
+	path.WriteString("_ml")
+	path.WriteString("/")
+	path.WriteString("memory")
+	if r.NodeID != "" {
+		path.WriteString("/")
+		path.WriteString(r.NodeID)
+	}
+	path.WriteString("/")
+	path.WriteString("_stats")
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -134,48 +157,72 @@ func (r DesiredNodesGetDesiredNodesRequest) Do(ctx context.Context, transport Tr
 
 // WithContext sets the request context.
 //
-func (f DesiredNodesGetDesiredNodes) WithContext(v context.Context) func(*DesiredNodesGetDesiredNodesRequest) {
-	return func(r *DesiredNodesGetDesiredNodesRequest) {
+func (f MLGetMemoryStats) WithContext(v context.Context) func(*MLGetMemoryStatsRequest) {
+	return func(r *MLGetMemoryStatsRequest) {
 		r.ctx = v
+	}
+}
+
+// WithNodeID - specifies the node or nodes to retrieve stats for..
+//
+func (f MLGetMemoryStats) WithNodeID(v string) func(*MLGetMemoryStatsRequest) {
+	return func(r *MLGetMemoryStatsRequest) {
+		r.NodeID = v
+	}
+}
+
+// WithMasterTimeout - explicit operation timeout for connection to master node.
+//
+func (f MLGetMemoryStats) WithMasterTimeout(v time.Duration) func(*MLGetMemoryStatsRequest) {
+	return func(r *MLGetMemoryStatsRequest) {
+		r.MasterTimeout = v
+	}
+}
+
+// WithTimeout - explicit operation timeout.
+//
+func (f MLGetMemoryStats) WithTimeout(v time.Duration) func(*MLGetMemoryStatsRequest) {
+	return func(r *MLGetMemoryStatsRequest) {
+		r.Timeout = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f DesiredNodesGetDesiredNodes) WithPretty() func(*DesiredNodesGetDesiredNodesRequest) {
-	return func(r *DesiredNodesGetDesiredNodesRequest) {
+func (f MLGetMemoryStats) WithPretty() func(*MLGetMemoryStatsRequest) {
+	return func(r *MLGetMemoryStatsRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f DesiredNodesGetDesiredNodes) WithHuman() func(*DesiredNodesGetDesiredNodesRequest) {
-	return func(r *DesiredNodesGetDesiredNodesRequest) {
+func (f MLGetMemoryStats) WithHuman() func(*MLGetMemoryStatsRequest) {
+	return func(r *MLGetMemoryStatsRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f DesiredNodesGetDesiredNodes) WithErrorTrace() func(*DesiredNodesGetDesiredNodesRequest) {
-	return func(r *DesiredNodesGetDesiredNodesRequest) {
+func (f MLGetMemoryStats) WithErrorTrace() func(*MLGetMemoryStatsRequest) {
+	return func(r *MLGetMemoryStatsRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f DesiredNodesGetDesiredNodes) WithFilterPath(v ...string) func(*DesiredNodesGetDesiredNodesRequest) {
-	return func(r *DesiredNodesGetDesiredNodesRequest) {
+func (f MLGetMemoryStats) WithFilterPath(v ...string) func(*MLGetMemoryStatsRequest) {
+	return func(r *MLGetMemoryStatsRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f DesiredNodesGetDesiredNodes) WithHeader(h map[string]string) func(*DesiredNodesGetDesiredNodesRequest) {
-	return func(r *DesiredNodesGetDesiredNodesRequest) {
+func (f MLGetMemoryStats) WithHeader(h map[string]string) func(*MLGetMemoryStatsRequest) {
+	return func(r *MLGetMemoryStatsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -187,8 +234,8 @@ func (f DesiredNodesGetDesiredNodes) WithHeader(h map[string]string) func(*Desir
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f DesiredNodesGetDesiredNodes) WithOpaqueID(s string) func(*DesiredNodesGetDesiredNodesRequest) {
-	return func(r *DesiredNodesGetDesiredNodesRequest) {
+func (f MLGetMemoryStats) WithOpaqueID(s string) func(*MLGetMemoryStatsRequest) {
+	return func(r *MLGetMemoryStatsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

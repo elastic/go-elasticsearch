@@ -24,11 +24,12 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 )
 
-func newCatMLDatafeedsFunc(t Transport) CatMLDatafeeds {
-	return func(o ...func(*CatMLDatafeedsRequest)) (*Response, error) {
-		var r = CatMLDatafeedsRequest{}
+func newCatComponentTemplatesFunc(t Transport) CatComponentTemplates {
+	return func(o ...func(*CatComponentTemplatesRequest)) (*Response, error) {
+		var r = CatComponentTemplatesRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -38,24 +39,24 @@ func newCatMLDatafeedsFunc(t Transport) CatMLDatafeeds {
 
 // ----- API Definition -------------------------------------------------------
 
-// CatMLDatafeeds - Gets configuration and usage information about datafeeds.
+// CatComponentTemplates returns information about existing component_templates templates.
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/cat-datafeeds.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-compoentn-templates.html.
 //
-type CatMLDatafeeds func(o ...func(*CatMLDatafeedsRequest)) (*Response, error)
+type CatComponentTemplates func(o ...func(*CatComponentTemplatesRequest)) (*Response, error)
 
-// CatMLDatafeedsRequest configures the CatML Datafeeds API request.
+// CatComponentTemplatesRequest configures the Cat Component Templates API request.
 //
-type CatMLDatafeedsRequest struct {
-	DatafeedID string
+type CatComponentTemplatesRequest struct {
+	Name string
 
-	AllowNoMatch *bool
-	Format       string
-	H            []string
-	Help         *bool
-	S            []string
-	Time         string
-	V            *bool
+	Format        string
+	H             []string
+	Help          *bool
+	Local         *bool
+	MasterTimeout time.Duration
+	S             []string
+	V             *bool
 
 	Pretty     bool
 	Human      bool
@@ -69,7 +70,7 @@ type CatMLDatafeedsRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r CatMLDatafeedsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r CatComponentTemplatesRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -78,24 +79,18 @@ func (r CatMLDatafeedsRequest) Do(ctx context.Context, transport Transport) (*Re
 
 	method = "GET"
 
-	path.Grow(7 + 1 + len("_cat") + 1 + len("ml") + 1 + len("datafeeds") + 1 + len(r.DatafeedID))
+	path.Grow(7 + 1 + len("_cat") + 1 + len("component_templates") + 1 + len(r.Name))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_cat")
 	path.WriteString("/")
-	path.WriteString("ml")
-	path.WriteString("/")
-	path.WriteString("datafeeds")
-	if r.DatafeedID != "" {
+	path.WriteString("component_templates")
+	if r.Name != "" {
 		path.WriteString("/")
-		path.WriteString(r.DatafeedID)
+		path.WriteString(r.Name)
 	}
 
 	params = make(map[string]string)
-
-	if r.AllowNoMatch != nil {
-		params["allow_no_match"] = strconv.FormatBool(*r.AllowNoMatch)
-	}
 
 	if r.Format != "" {
 		params["format"] = r.Format
@@ -109,12 +104,16 @@ func (r CatMLDatafeedsRequest) Do(ctx context.Context, transport Transport) (*Re
 		params["help"] = strconv.FormatBool(*r.Help)
 	}
 
-	if len(r.S) > 0 {
-		params["s"] = strings.Join(r.S, ",")
+	if r.Local != nil {
+		params["local"] = strconv.FormatBool(*r.Local)
 	}
 
-	if r.Time != "" {
-		params["time"] = r.Time
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if len(r.S) > 0 {
+		params["s"] = strings.Join(r.S, ",")
 	}
 
 	if r.V != nil {
@@ -182,112 +181,112 @@ func (r CatMLDatafeedsRequest) Do(ctx context.Context, transport Transport) (*Re
 
 // WithContext sets the request context.
 //
-func (f CatMLDatafeeds) WithContext(v context.Context) func(*CatMLDatafeedsRequest) {
-	return func(r *CatMLDatafeedsRequest) {
+func (f CatComponentTemplates) WithContext(v context.Context) func(*CatComponentTemplatesRequest) {
+	return func(r *CatComponentTemplatesRequest) {
 		r.ctx = v
 	}
 }
 
-// WithDatafeedID - the ID of the datafeeds stats to fetch.
+// WithName - a pattern that returned component template names must match.
 //
-func (f CatMLDatafeeds) WithDatafeedID(v string) func(*CatMLDatafeedsRequest) {
-	return func(r *CatMLDatafeedsRequest) {
-		r.DatafeedID = v
-	}
-}
-
-// WithAllowNoMatch - whether to ignore if a wildcard expression matches no datafeeds. (this includes `_all` string or when no datafeeds have been specified).
-//
-func (f CatMLDatafeeds) WithAllowNoMatch(v bool) func(*CatMLDatafeedsRequest) {
-	return func(r *CatMLDatafeedsRequest) {
-		r.AllowNoMatch = &v
+func (f CatComponentTemplates) WithName(v string) func(*CatComponentTemplatesRequest) {
+	return func(r *CatComponentTemplatesRequest) {
+		r.Name = v
 	}
 }
 
 // WithFormat - a short version of the accept header, e.g. json, yaml.
 //
-func (f CatMLDatafeeds) WithFormat(v string) func(*CatMLDatafeedsRequest) {
-	return func(r *CatMLDatafeedsRequest) {
+func (f CatComponentTemplates) WithFormat(v string) func(*CatComponentTemplatesRequest) {
+	return func(r *CatComponentTemplatesRequest) {
 		r.Format = v
 	}
 }
 
 // WithH - comma-separated list of column names to display.
 //
-func (f CatMLDatafeeds) WithH(v ...string) func(*CatMLDatafeedsRequest) {
-	return func(r *CatMLDatafeedsRequest) {
+func (f CatComponentTemplates) WithH(v ...string) func(*CatComponentTemplatesRequest) {
+	return func(r *CatComponentTemplatesRequest) {
 		r.H = v
 	}
 }
 
 // WithHelp - return help information.
 //
-func (f CatMLDatafeeds) WithHelp(v bool) func(*CatMLDatafeedsRequest) {
-	return func(r *CatMLDatafeedsRequest) {
+func (f CatComponentTemplates) WithHelp(v bool) func(*CatComponentTemplatesRequest) {
+	return func(r *CatComponentTemplatesRequest) {
 		r.Help = &v
+	}
+}
+
+// WithLocal - return local information, do not retrieve the state from master node (default: false).
+//
+func (f CatComponentTemplates) WithLocal(v bool) func(*CatComponentTemplatesRequest) {
+	return func(r *CatComponentTemplatesRequest) {
+		r.Local = &v
+	}
+}
+
+// WithMasterTimeout - explicit operation timeout for connection to master node.
+//
+func (f CatComponentTemplates) WithMasterTimeout(v time.Duration) func(*CatComponentTemplatesRequest) {
+	return func(r *CatComponentTemplatesRequest) {
+		r.MasterTimeout = v
 	}
 }
 
 // WithS - comma-separated list of column names or column aliases to sort by.
 //
-func (f CatMLDatafeeds) WithS(v ...string) func(*CatMLDatafeedsRequest) {
-	return func(r *CatMLDatafeedsRequest) {
+func (f CatComponentTemplates) WithS(v ...string) func(*CatComponentTemplatesRequest) {
+	return func(r *CatComponentTemplatesRequest) {
 		r.S = v
-	}
-}
-
-// WithTime - the unit in which to display time values.
-//
-func (f CatMLDatafeeds) WithTime(v string) func(*CatMLDatafeedsRequest) {
-	return func(r *CatMLDatafeedsRequest) {
-		r.Time = v
 	}
 }
 
 // WithV - verbose mode. display column headers.
 //
-func (f CatMLDatafeeds) WithV(v bool) func(*CatMLDatafeedsRequest) {
-	return func(r *CatMLDatafeedsRequest) {
+func (f CatComponentTemplates) WithV(v bool) func(*CatComponentTemplatesRequest) {
+	return func(r *CatComponentTemplatesRequest) {
 		r.V = &v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f CatMLDatafeeds) WithPretty() func(*CatMLDatafeedsRequest) {
-	return func(r *CatMLDatafeedsRequest) {
+func (f CatComponentTemplates) WithPretty() func(*CatComponentTemplatesRequest) {
+	return func(r *CatComponentTemplatesRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f CatMLDatafeeds) WithHuman() func(*CatMLDatafeedsRequest) {
-	return func(r *CatMLDatafeedsRequest) {
+func (f CatComponentTemplates) WithHuman() func(*CatComponentTemplatesRequest) {
+	return func(r *CatComponentTemplatesRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f CatMLDatafeeds) WithErrorTrace() func(*CatMLDatafeedsRequest) {
-	return func(r *CatMLDatafeedsRequest) {
+func (f CatComponentTemplates) WithErrorTrace() func(*CatComponentTemplatesRequest) {
+	return func(r *CatComponentTemplatesRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f CatMLDatafeeds) WithFilterPath(v ...string) func(*CatMLDatafeedsRequest) {
-	return func(r *CatMLDatafeedsRequest) {
+func (f CatComponentTemplates) WithFilterPath(v ...string) func(*CatComponentTemplatesRequest) {
+	return func(r *CatComponentTemplatesRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f CatMLDatafeeds) WithHeader(h map[string]string) func(*CatMLDatafeedsRequest) {
-	return func(r *CatMLDatafeedsRequest) {
+func (f CatComponentTemplates) WithHeader(h map[string]string) func(*CatComponentTemplatesRequest) {
+	return func(r *CatComponentTemplatesRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -299,8 +298,8 @@ func (f CatMLDatafeeds) WithHeader(h map[string]string) func(*CatMLDatafeedsRequ
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f CatMLDatafeeds) WithOpaqueID(s string) func(*CatMLDatafeedsRequest) {
-	return func(r *CatMLDatafeedsRequest) {
+func (f CatComponentTemplates) WithOpaqueID(s string) func(*CatComponentTemplatesRequest) {
+	return func(r *CatComponentTemplatesRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
