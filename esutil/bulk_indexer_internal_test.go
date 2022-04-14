@@ -25,7 +25,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/elastic/go-elasticsearch/v8/esapi"
 	"io"
 	"io/ioutil"
 	"log"
@@ -42,6 +41,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/elastic/go-elasticsearch/v8/esapi"
 )
 
 var defaultRoundTripFunc = func(*http.Request) (*http.Response, error) {
@@ -807,6 +807,48 @@ func TestBulkIndexer(t *testing.T) {
 				bi.Close(context.Background())
 			})
 		}
+	})
+
+	t.Run("Concurrent Flushing", func(t *testing.T) {
+		esConfig := elasticsearch.Config{
+			Transport: &mockTransport{
+				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+					return &http.Response{
+						StatusCode: http.StatusOK,
+						Status:     "200 OK",
+						Body:       io.NopCloser(bytes.NewBuffer(nil)),
+					}, nil
+				},
+			},
+		}
+
+		client, err := elasticsearch.NewClient(esConfig)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		cfg := BulkIndexerConfig{
+			NumWorkers: 10,
+			Client:     client,
+			Header:     http.Header{"X-Test": []string{"TestValue"}},
+			FlushBytes: 1,
+		}
+		bi, err := NewBulkIndexer(cfg)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		for i := 0; i < 100; i++ {
+			err = bi.Add(context.Background(), BulkIndexerItem{
+				Action:     "foo",
+				DocumentID: strconv.Itoa(1),
+				Body:       strings.NewReader(`{"title":"foo"}`),
+			})
+		}
+		if err != nil {
+			log.Fatal(err)
+		}
+		bi.Close(context.Background())
 	})
 }
 
