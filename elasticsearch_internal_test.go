@@ -850,23 +850,26 @@ tuSVaQmm5eqgaAxMamBXSyw1lir07byemyuEDg0mJ1rNUGsAY8P+LWr579gvKMme
 
 	// Without certificate and authority, client should fail on TLS
 	client, _ := NewClient(config)
-	res, err := client.Info()
-	if _, ok := err.(x509.UnknownAuthorityError); !ok {
-		t.Fatalf("Uknown error, expected UnknownAuthorityError, got: %s", err)
+	_, err = client.Info()
+
+	if err.Error() != `x509: “instance” certificate is not standards compliant` {
+		if _, ok := err.(x509.UnknownAuthorityError); !ok {
+			t.Fatalf("Uknown error, expected UnknownAuthorityError, got: %s", err)
+		}
 	}
 
-	// We add the fingerprint corresponding ton testcert.LocalhostCert
+	// We add the fingerprint corresponding to testcert.LocalhostCert
 	//
 	config.CertificateFingerprint = "7A3A6031CD097DA0EE84D65137912A84576B50194045B41F4F4B8AC1A98116BE"
 	client, _ = NewClient(config)
-	res, err = client.Info()
+	res, err := client.Info()
 	if err != nil {
 		t.Fatal(err)
 	}
 	defer res.Body.Close()
 
 	data, _ := ioutil.ReadAll(res.Body)
-	if bytes.Compare(data, body) != 0 {
+	if !bytes.Equal(data, body) {
 		t.Fatalf("unexpected payload returned: expected: %s, got: %s", body, data)
 	}
 }
