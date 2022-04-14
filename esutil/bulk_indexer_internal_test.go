@@ -15,6 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
+//go:build !integration
 // +build !integration
 
 package esutil
@@ -24,7 +25,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/elastic/go-elasticsearch/v7/esapi"
 	"io"
 	"io/ioutil"
 	"log"
@@ -40,6 +40,7 @@ import (
 	"time"
 
 	"github.com/elastic/go-elasticsearch/v7"
+	"github.com/elastic/go-elasticsearch/v7/esapi"
 	"github.com/elastic/go-elasticsearch/v7/estransport"
 )
 
@@ -281,7 +282,7 @@ func TestBulkIndexer(t *testing.T) {
 					return &http.Response{
 						StatusCode: http.StatusOK,
 						Status:     "200 OK",
-						Body:       ioutil.NopCloser(strings.NewReader(`{
+						Body: ioutil.NopCloser(strings.NewReader(`{
 						  "version" : {
 							"number" : "7.14.0-SNAPSHOT",
 							"build_flavor" : "default"
@@ -460,7 +461,7 @@ func TestBulkIndexer(t *testing.T) {
 					return &http.Response{
 						StatusCode: http.StatusOK,
 						Status:     "200 OK",
-						Body:       ioutil.NopCloser(strings.NewReader(`{
+						Body: ioutil.NopCloser(strings.NewReader(`{
 						  "version" : {
 							"number" : "7.14.0-SNAPSHOT",
 							"build_flavor" : "default"
@@ -534,7 +535,7 @@ func TestBulkIndexer(t *testing.T) {
 						return &http.Response{
 							StatusCode: http.StatusOK,
 							Status:     "200 OK",
-							Body:       ioutil.NopCloser(strings.NewReader(`{
+							Body: ioutil.NopCloser(strings.NewReader(`{
 						  "version" : {
 							"number" : "7.14.0-SNAPSHOT",
 							"build_flavor" : "default"
@@ -646,7 +647,7 @@ func TestBulkIndexer(t *testing.T) {
 		}
 	})
 	t.Run("Worker.writeMeta()", func(t *testing.T) {
-		v:=int64(23)
+		v := int64(23)
 		type args struct {
 			item BulkIndexerItem
 		}
@@ -688,9 +689,9 @@ func TestBulkIndexer(t *testing.T) {
 			{
 				"with version and no document",
 				args{BulkIndexerItem{
-					Action:     "index",
-					Index:      "test",
-					Version:    &v,
+					Action:  "index",
+					Index:   "test",
+					Version: &v,
 				}},
 				`{"index":{"_index":"test"}}` + "\n",
 			},
@@ -865,6 +866,48 @@ func TestBulkIndexer(t *testing.T) {
 				bi.Close(context.Background())
 			})
 		}
+	})
+
+	t.Run("Concurrent Flushing", func(t *testing.T) {
+		esConfig := elasticsearch.Config{
+			Transport: &mockTransport{
+				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+					return &http.Response{
+						StatusCode: http.StatusOK,
+						Status:     "200 OK",
+						Body:       io.NopCloser(bytes.NewBuffer(nil)),
+					}, nil
+				},
+			},
+		}
+
+		client, err := elasticsearch.NewClient(esConfig)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		cfg := BulkIndexerConfig{
+			NumWorkers: 10,
+			Client:     client,
+			Header:     http.Header{"X-Test": []string{"TestValue"}},
+			FlushBytes: 1,
+		}
+		bi, err := NewBulkIndexer(cfg)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		for i := 0; i < 100; i++ {
+			err = bi.Add(context.Background(), BulkIndexerItem{
+				Action:     "foo",
+				DocumentID: strconv.Itoa(1),
+				Body:       strings.NewReader(`{"title":"foo"}`),
+			})
+		}
+		if err != nil {
+			log.Fatal(err)
+		}
+		bi.Close(context.Background())
 	})
 }
 
