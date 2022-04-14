@@ -541,7 +541,7 @@ func (w *worker) flush(ctx context.Context) error {
 		Human:      w.bi.config.Human,
 		ErrorTrace: w.bi.config.ErrorTrace,
 		FilterPath: w.bi.config.FilterPath,
-		Header:     w.bi.config.Header,
+		Header:     w.bi.config.Header.Clone(),
 	}
 
 	// Add Header and MetaHeader to config if not already set
