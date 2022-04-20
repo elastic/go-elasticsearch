@@ -163,8 +163,7 @@ func TestBulkIndexerIntegration(t *testing.T) {
 		var index string = "test-index-a"
 
 		es, _ := elasticsearch.NewClient(elasticsearch.Config{
-			CompressRequestBody: tt.CompressRequestBodyEnabled,
-			Logger:              &estransport.ColorLogger{Output: os.Stdout},
+			Logger: &estransport.ColorLogger{Output: os.Stdout},
 		})
 
 		es.Indices.Delete([]string{index}, es.Indices.Delete.WithIgnoreUnavailable(true))
