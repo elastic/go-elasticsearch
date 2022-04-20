@@ -206,14 +206,16 @@ func TestBulkIndexerIntegration(t *testing.T) {
 		}
 
 		bi, _ := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
-			Index:  index,
-			Client: es,
+			Index:        index,
+			Client:       es,
+			DocumentType: "_doc",
 		})
 		bulkIndex(bi, 500)
 
 		bi, _ = esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
-			Index:  index,
-			Client: es,
+			Index:        index,
+			Client:       es,
+			DocumentType: "_doc",
 		})
 		bulkIndex(bi, 900)
 	})
