@@ -621,6 +621,17 @@ func TestBulkIndexer(t *testing.T) {
 				}},
 				`{"index":{"_id":"42","version":23,"version_type":"external","_index":"test"}}` + "\n",
 			},
+			{
+				"with doc type and routing",
+				args{BulkIndexerItem{
+					Action:       "index",
+					DocumentID:   "42",
+					DocumentType: "type",
+					Index:        "test",
+					Routing:      "route",
+				}},
+				`{"index":{"_type":"type","_id":"42","routing":"route","_index":"test"}}` + "\n",
+			},
 		}
 		for _, tt := range tests {
 			tt := tt

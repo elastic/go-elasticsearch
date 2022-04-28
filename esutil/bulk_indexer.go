@@ -424,7 +424,7 @@ func (w *worker) writeMeta(item BulkIndexerItem) error {
 	}
 
 	if item.Routing != "" {
-		if item.DocumentID != "" {
+		if item.DocumentID != "" || item.DocumentType != "" {
 			w.buf.WriteRune(',')
 		}
 		w.buf.WriteString(`"routing":`)
