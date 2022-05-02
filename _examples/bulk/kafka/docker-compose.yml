@@ -88,6 +88,8 @@ services:
       - network.host=elasticsearch,_local_
       - network.publish_host=elasticsearch
       - bootstrap.memory_lock=true
+      - xpack.security.enabled=false
+      - xpack.security.http.ssl.enabled=false
       - ES_JAVA_OPTS=-Xms${ES_MEMORY} -Xmx${ES_MEMORY}
     ulimits: { nofile: { soft: 65535, hard: 65535 }, memlock: -1 }
     healthcheck:
@@ -106,19 +108,6 @@ services:
       - KIBANA_LOGGING_QUIET=true
     healthcheck:
       test: curl --max-time 120 --retry 120 --retry-delay 1 --show-error --silent http://localhost:5601
-
-  apm_server:
-    container_name: apm_server
-    image: docker.elastic.co/apm/apm-server:${ELASTIC_VERSION}
-    depends_on: [ 'elasticsearch', 'kibana' ]
-    command: -e --strict.perms=false
-    networks:
-      - elasticsearch
-    ports:
-      - 8200:8200
-    restart: on-failure
-    healthcheck:
-      test: curl --max-time 120 --retry 120 --retry-delay 1 --show-error --silent http://localhost:8200
 
 networks:
   kafka:
