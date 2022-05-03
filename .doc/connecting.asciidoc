@@ -6,7 +6,7 @@ This page contains the information you need to connect and use the Client with
 
 **On this page**
 
-* <<connecting, Connecting>>
+* Connecting
 ** <<connecting-to-elastic-cloud, Connecting to Elastic Cloud>>
 ** <<connecting-to-self-managed, Connecting to a self-managed cluster>>
 ** <<verifying-with-ca, Verifying HTTPS with CA certificates>>
@@ -19,13 +19,6 @@ This page contains the information you need to connect and use the Client with
 * <<compatibility-mode, Compatibility mode>>
 * <<client-usage, Using the client>>
 * <<connecting-faas, Using the Client in a Function-as-a-Service Environment>>
-
-[discrete]
-[[connecting]]
-=== Connecting
-
-This section contains code snippets to show you how to connect to various {es}
-providers.
 
 [discrete]
 [[connecting-to-elastic-cloud]]
