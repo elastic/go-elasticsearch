@@ -119,8 +119,8 @@ to the `elasticsearch.NewClient()` function.
 ```golang
 cfg := elasticsearch.Config{
   Addresses: []string{
-    "http://localhost:9200",
-    "http://localhost:9201",
+    "https://localhost:9200",
+    "https://localhost:9201",
   },
   // ...
 }
@@ -147,6 +147,15 @@ cert, _ := ioutil.ReadFile(*cacert)
 cfg := elasticsearch.Config{
   // ...
   CACert: cert,
+}
+```
+
+To set a fingerprint to validate the HTTPS connectionm use the `CertificateFingerprint` configuration option.
+
+```golang
+cfg := elasticsearch.Config{
+	// ...
+    CertificateFingerprint: fingerPrint,
 }
 ```
 
