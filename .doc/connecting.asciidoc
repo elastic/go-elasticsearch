@@ -36,7 +36,7 @@ cfg := elasticsearch.Config{
 }
 es, err := elasticsearch.NewClient(cfg)
 ------------------------------------
-**IMPORTANT**: you need to copy and store the `API key` in a secure place, since you will not be able to view it again in Elastic Cloud.
+IMPORTANT: you need to copy and store the `API key` in a secure place since you will not be able to view it again in Elastic Cloud.
 
 [discrete]
 [[connecting-to-self-managed]]
