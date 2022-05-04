@@ -46,7 +46,7 @@ Starting from version 8.0, {es} offers security by default with authentication a
 
 To connect to the {es} cluster you need to configure the client to use the generated CA certificate. If you’re just getting started with {es} we recommend reading the documentation on configuring and starting {es} to ensure your cluster is running as expected.
 
-When you start Elasticsearch for the first time you’ll see a distinct block like the one below in the output from Elasticsearch (you may have to scroll up if it’s been a while):
+When you start {es} for the first time you’ll see a distinct block like the one below in the output from {es} (you may have to scroll up if it’s been a while):
 
 ```sh
 ----------------------------------------------------------------
