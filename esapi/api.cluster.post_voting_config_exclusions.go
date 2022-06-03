@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.3.0: DO NOT EDIT
+// Code generated from specification version 8.4.0: DO NOT EDIT
 
 package esapi
 
@@ -47,9 +47,10 @@ type ClusterPostVotingConfigExclusions func(o ...func(*ClusterPostVotingConfigEx
 // ClusterPostVotingConfigExclusionsRequest configures the Cluster Post Voting Config Exclusions API request.
 //
 type ClusterPostVotingConfigExclusionsRequest struct {
-	NodeIds   string
-	NodeNames string
-	Timeout   time.Duration
+	MasterTimeout time.Duration
+	NodeIds       string
+	NodeNames     string
+	Timeout       time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -77,6 +78,10 @@ func (r ClusterPostVotingConfigExclusionsRequest) Do(ctx context.Context, transp
 	path.WriteString("/_cluster/voting_config_exclusions")
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
 
 	if r.NodeIds != "" {
 		params["node_ids"] = r.NodeIds
@@ -154,6 +159,14 @@ func (r ClusterPostVotingConfigExclusionsRequest) Do(ctx context.Context, transp
 func (f ClusterPostVotingConfigExclusions) WithContext(v context.Context) func(*ClusterPostVotingConfigExclusionsRequest) {
 	return func(r *ClusterPostVotingConfigExclusionsRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - timeout for submitting request to master.
+//
+func (f ClusterPostVotingConfigExclusions) WithMasterTimeout(v time.Duration) func(*ClusterPostVotingConfigExclusionsRequest) {
+	return func(r *ClusterPostVotingConfigExclusionsRequest) {
+		r.MasterTimeout = v
 	}
 }
 

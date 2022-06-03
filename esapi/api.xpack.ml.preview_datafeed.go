@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.3.0: DO NOT EDIT
+// Code generated from specification version 8.4.0: DO NOT EDIT
 
 package esapi
 
@@ -50,6 +50,9 @@ type MLPreviewDatafeedRequest struct {
 	Body io.Reader
 
 	DatafeedID string
+
+	End   string
+	Start string
 
 	Pretty     bool
 	Human      bool
@@ -86,6 +89,14 @@ func (r MLPreviewDatafeedRequest) Do(ctx context.Context, transport Transport) (
 	path.WriteString("_preview")
 
 	params = make(map[string]string)
+
+	if r.End != "" {
+		params["end"] = r.End
+	}
+
+	if r.Start != "" {
+		params["start"] = r.Start
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -171,6 +182,22 @@ func (f MLPreviewDatafeed) WithBody(v io.Reader) func(*MLPreviewDatafeedRequest)
 func (f MLPreviewDatafeed) WithDatafeedID(v string) func(*MLPreviewDatafeedRequest) {
 	return func(r *MLPreviewDatafeedRequest) {
 		r.DatafeedID = v
+	}
+}
+
+// WithEnd - the end time when the datafeed preview should stop.
+//
+func (f MLPreviewDatafeed) WithEnd(v string) func(*MLPreviewDatafeedRequest) {
+	return func(r *MLPreviewDatafeedRequest) {
+		r.End = v
+	}
+}
+
+// WithStart - the start time from where the datafeed preview should begin.
+//
+func (f MLPreviewDatafeed) WithStart(v string) func(*MLPreviewDatafeedRequest) {
+	return func(r *MLPreviewDatafeedRequest) {
+		r.Start = v
 	}
 }
 
