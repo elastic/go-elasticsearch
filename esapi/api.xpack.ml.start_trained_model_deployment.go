@@ -22,6 +22,7 @@ package esapi
 import (
 	"context"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -51,8 +52,11 @@ type MLStartTrainedModelDeployment func(model_id string, o ...func(*MLStartTrain
 type MLStartTrainedModelDeploymentRequest struct {
 	ModelID string
 
-	Timeout time.Duration
-	WaitFor string
+	NumberOfAllocations  *int
+	QueueCapacity        *int
+	ThreadsPerAllocation *int
+	Timeout              time.Duration
+	WaitFor              string
 
 	Pretty     bool
 	Human      bool
@@ -89,6 +93,18 @@ func (r MLStartTrainedModelDeploymentRequest) Do(ctx context.Context, transport 
 	path.WriteString("_start")
 
 	params = make(map[string]string)
+
+	if r.NumberOfAllocations != nil {
+		params["number_of_allocations"] = strconv.FormatInt(int64(*r.NumberOfAllocations), 10)
+	}
+
+	if r.QueueCapacity != nil {
+		params["queue_capacity"] = strconv.FormatInt(int64(*r.QueueCapacity), 10)
+	}
+
+	if r.ThreadsPerAllocation != nil {
+		params["threads_per_allocation"] = strconv.FormatInt(int64(*r.ThreadsPerAllocation), 10)
+	}
 
 	if r.Timeout != 0 {
 		params["timeout"] = formatDuration(r.Timeout)
@@ -162,6 +178,30 @@ func (r MLStartTrainedModelDeploymentRequest) Do(ctx context.Context, transport 
 func (f MLStartTrainedModelDeployment) WithContext(v context.Context) func(*MLStartTrainedModelDeploymentRequest) {
 	return func(r *MLStartTrainedModelDeploymentRequest) {
 		r.ctx = v
+	}
+}
+
+// WithNumberOfAllocations - the number of model allocations on each node where the model is deployed..
+//
+func (f MLStartTrainedModelDeployment) WithNumberOfAllocations(v int) func(*MLStartTrainedModelDeploymentRequest) {
+	return func(r *MLStartTrainedModelDeploymentRequest) {
+		r.NumberOfAllocations = &v
+	}
+}
+
+// WithQueueCapacity - controls how many inference requests are allowed in the queue at a time..
+//
+func (f MLStartTrainedModelDeployment) WithQueueCapacity(v int) func(*MLStartTrainedModelDeploymentRequest) {
+	return func(r *MLStartTrainedModelDeploymentRequest) {
+		r.QueueCapacity = &v
+	}
+}
+
+// WithThreadsPerAllocation - the number of threads used by each model allocation during inference..
+//
+func (f MLStartTrainedModelDeployment) WithThreadsPerAllocation(v int) func(*MLStartTrainedModelDeploymentRequest) {
+	return func(r *MLStartTrainedModelDeploymentRequest) {
+		r.ThreadsPerAllocation = &v
 	}
 }
 

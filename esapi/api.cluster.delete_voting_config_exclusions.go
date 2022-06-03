@@ -24,6 +24,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func newClusterDeleteVotingConfigExclusionsFunc(t Transport) ClusterDeleteVotingConfigExclusions {
@@ -47,6 +48,7 @@ type ClusterDeleteVotingConfigExclusions func(o ...func(*ClusterDeleteVotingConf
 // ClusterDeleteVotingConfigExclusionsRequest configures the Cluster Delete Voting Config Exclusions API request.
 //
 type ClusterDeleteVotingConfigExclusionsRequest struct {
+	MasterTimeout  time.Duration
 	WaitForRemoval *bool
 
 	Pretty     bool
@@ -75,6 +77,10 @@ func (r ClusterDeleteVotingConfigExclusionsRequest) Do(ctx context.Context, tran
 	path.WriteString("/_cluster/voting_config_exclusions")
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
 
 	if r.WaitForRemoval != nil {
 		params["wait_for_removal"] = strconv.FormatBool(*r.WaitForRemoval)
@@ -144,6 +150,14 @@ func (r ClusterDeleteVotingConfigExclusionsRequest) Do(ctx context.Context, tran
 func (f ClusterDeleteVotingConfigExclusions) WithContext(v context.Context) func(*ClusterDeleteVotingConfigExclusionsRequest) {
 	return func(r *ClusterDeleteVotingConfigExclusionsRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - timeout for submitting request to master.
+//
+func (f ClusterDeleteVotingConfigExclusions) WithMasterTimeout(v time.Duration) func(*ClusterDeleteVotingConfigExclusionsRequest) {
+	return func(r *ClusterDeleteVotingConfigExclusionsRequest) {
+		r.MasterTimeout = v
 	}
 }
 

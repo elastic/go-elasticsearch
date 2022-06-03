@@ -67,6 +67,7 @@ type SearchMvtRequest struct {
 	GridType       string
 	Size           *int
 	TrackTotalHits interface{}
+	WithLabels     *bool
 
 	Pretty     bool
 	Human      bool
@@ -141,6 +142,10 @@ func (r SearchMvtRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 	if r.TrackTotalHits != nil {
 		params["track_total_hits"] = fmt.Sprintf("%v", r.TrackTotalHits)
+	}
+
+	if r.WithLabels != nil {
+		params["with_labels"] = strconv.FormatBool(*r.WithLabels)
 	}
 
 	if r.Pretty {
@@ -267,6 +272,14 @@ func (f SearchMvt) WithSize(v int) func(*SearchMvtRequest) {
 func (f SearchMvt) WithTrackTotalHits(v interface{}) func(*SearchMvtRequest) {
 	return func(r *SearchMvtRequest) {
 		r.TrackTotalHits = v
+	}
+}
+
+// WithWithLabels - if true, the hits and aggs layers will contain additional point features with suggested label positions for the original features..
+//
+func (f SearchMvt) WithWithLabels(v bool) func(*SearchMvtRequest) {
+	return func(r *SearchMvtRequest) {
+		r.WithLabels = &v
 	}
 }
 

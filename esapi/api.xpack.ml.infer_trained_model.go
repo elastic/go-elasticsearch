@@ -24,11 +24,12 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
-func newMLPreviewDatafeedFunc(t Transport) MLPreviewDatafeed {
-	return func(o ...func(*MLPreviewDatafeedRequest)) (*Response, error) {
-		var r = MLPreviewDatafeedRequest{}
+func newMLInferTrainedModelFunc(t Transport) MLInferTrainedModel {
+	return func(body io.Reader, model_id string, o ...func(*MLInferTrainedModelRequest)) (*Response, error) {
+		var r = MLInferTrainedModelRequest{Body: body, ModelID: model_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -38,21 +39,22 @@ func newMLPreviewDatafeedFunc(t Transport) MLPreviewDatafeed {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPreviewDatafeed - Previews a datafeed.
+// MLInferTrainedModel - Evaluate a trained model.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-preview-datafeed.html.
+// This API is experimental.
 //
-type MLPreviewDatafeed func(o ...func(*MLPreviewDatafeedRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/infer-trained-model.html.
+//
+type MLInferTrainedModel func(body io.Reader, model_id string, o ...func(*MLInferTrainedModelRequest)) (*Response, error)
 
-// MLPreviewDatafeedRequest configures the ML Preview Datafeed API request.
+// MLInferTrainedModelRequest configures the ML Infer Trained Model API request.
 //
-type MLPreviewDatafeedRequest struct {
+type MLInferTrainedModelRequest struct {
 	Body io.Reader
 
-	DatafeedID string
+	ModelID string
 
-	End   string
-	Start string
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -66,7 +68,7 @@ type MLPreviewDatafeedRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r MLPreviewDatafeedRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r MLInferTrainedModelRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -75,27 +77,23 @@ func (r MLPreviewDatafeedRequest) Do(ctx context.Context, transport Transport) (
 
 	method = "POST"
 
-	path.Grow(7 + 1 + len("_ml") + 1 + len("datafeeds") + 1 + len(r.DatafeedID) + 1 + len("_preview"))
+	path.Grow(7 + 1 + len("_ml") + 1 + len("trained_models") + 1 + len(r.ModelID) + 1 + len("deployment") + 1 + len("_infer"))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_ml")
 	path.WriteString("/")
-	path.WriteString("datafeeds")
-	if r.DatafeedID != "" {
-		path.WriteString("/")
-		path.WriteString(r.DatafeedID)
-	}
+	path.WriteString("trained_models")
 	path.WriteString("/")
-	path.WriteString("_preview")
+	path.WriteString(r.ModelID)
+	path.WriteString("/")
+	path.WriteString("deployment")
+	path.WriteString("/")
+	path.WriteString("_infer")
 
 	params = make(map[string]string)
 
-	if r.End != "" {
-		params["end"] = r.End
-	}
-
-	if r.Start != "" {
-		params["start"] = r.Start
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
 	}
 
 	if r.Pretty {
@@ -163,80 +161,56 @@ func (r MLPreviewDatafeedRequest) Do(ctx context.Context, transport Transport) (
 
 // WithContext sets the request context.
 //
-func (f MLPreviewDatafeed) WithContext(v context.Context) func(*MLPreviewDatafeedRequest) {
-	return func(r *MLPreviewDatafeedRequest) {
+func (f MLInferTrainedModel) WithContext(v context.Context) func(*MLInferTrainedModelRequest) {
+	return func(r *MLInferTrainedModelRequest) {
 		r.ctx = v
 	}
 }
 
-// WithBody - The datafeed config and job config with which to execute the preview.
+// WithTimeout - controls the amount of time to wait for inference results..
 //
-func (f MLPreviewDatafeed) WithBody(v io.Reader) func(*MLPreviewDatafeedRequest) {
-	return func(r *MLPreviewDatafeedRequest) {
-		r.Body = v
-	}
-}
-
-// WithDatafeedID - the ID of the datafeed to preview.
-//
-func (f MLPreviewDatafeed) WithDatafeedID(v string) func(*MLPreviewDatafeedRequest) {
-	return func(r *MLPreviewDatafeedRequest) {
-		r.DatafeedID = v
-	}
-}
-
-// WithEnd - the end time when the datafeed preview should stop.
-//
-func (f MLPreviewDatafeed) WithEnd(v string) func(*MLPreviewDatafeedRequest) {
-	return func(r *MLPreviewDatafeedRequest) {
-		r.End = v
-	}
-}
-
-// WithStart - the start time from where the datafeed preview should begin.
-//
-func (f MLPreviewDatafeed) WithStart(v string) func(*MLPreviewDatafeedRequest) {
-	return func(r *MLPreviewDatafeedRequest) {
-		r.Start = v
+func (f MLInferTrainedModel) WithTimeout(v time.Duration) func(*MLInferTrainedModelRequest) {
+	return func(r *MLInferTrainedModelRequest) {
+		r.Timeout = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f MLPreviewDatafeed) WithPretty() func(*MLPreviewDatafeedRequest) {
-	return func(r *MLPreviewDatafeedRequest) {
+func (f MLInferTrainedModel) WithPretty() func(*MLInferTrainedModelRequest) {
+	return func(r *MLInferTrainedModelRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f MLPreviewDatafeed) WithHuman() func(*MLPreviewDatafeedRequest) {
-	return func(r *MLPreviewDatafeedRequest) {
+func (f MLInferTrainedModel) WithHuman() func(*MLInferTrainedModelRequest) {
+	return func(r *MLInferTrainedModelRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f MLPreviewDatafeed) WithErrorTrace() func(*MLPreviewDatafeedRequest) {
-	return func(r *MLPreviewDatafeedRequest) {
+func (f MLInferTrainedModel) WithErrorTrace() func(*MLInferTrainedModelRequest) {
+	return func(r *MLInferTrainedModelRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f MLPreviewDatafeed) WithFilterPath(v ...string) func(*MLPreviewDatafeedRequest) {
-	return func(r *MLPreviewDatafeedRequest) {
+func (f MLInferTrainedModel) WithFilterPath(v ...string) func(*MLInferTrainedModelRequest) {
+	return func(r *MLInferTrainedModelRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f MLPreviewDatafeed) WithHeader(h map[string]string) func(*MLPreviewDatafeedRequest) {
-	return func(r *MLPreviewDatafeedRequest) {
+func (f MLInferTrainedModel) WithHeader(h map[string]string) func(*MLInferTrainedModelRequest) {
+	return func(r *MLInferTrainedModelRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -248,8 +222,8 @@ func (f MLPreviewDatafeed) WithHeader(h map[string]string) func(*MLPreviewDatafe
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f MLPreviewDatafeed) WithOpaqueID(s string) func(*MLPreviewDatafeedRequest) {
-	return func(r *MLPreviewDatafeedRequest) {
+func (f MLInferTrainedModel) WithOpaqueID(s string) func(*MLInferTrainedModelRequest) {
+	return func(r *MLInferTrainedModelRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

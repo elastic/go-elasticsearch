@@ -55,6 +55,7 @@ type SnapshotGetRequest struct {
 	IgnoreUnavailable *bool
 	IncludeRepository *bool
 	IndexDetails      *bool
+	IndexNames        *bool
 	MasterTimeout     time.Duration
 	Verbose           *bool
 
@@ -104,6 +105,10 @@ func (r SnapshotGetRequest) Do(ctx context.Context, transport Transport) (*Respo
 
 	if r.IndexDetails != nil {
 		params["index_details"] = strconv.FormatBool(*r.IndexDetails)
+	}
+
+	if r.IndexNames != nil {
+		params["index_names"] = strconv.FormatBool(*r.IndexNames)
 	}
 
 	if r.MasterTimeout != 0 {
@@ -202,6 +207,14 @@ func (f SnapshotGet) WithIncludeRepository(v bool) func(*SnapshotGetRequest) {
 func (f SnapshotGet) WithIndexDetails(v bool) func(*SnapshotGetRequest) {
 	return func(r *SnapshotGetRequest) {
 		r.IndexDetails = &v
+	}
+}
+
+// WithIndexNames - whether to include the name of each index in the snapshot. defaults to true..
+//
+func (f SnapshotGet) WithIndexNames(v bool) func(*SnapshotGetRequest) {
+	return func(r *SnapshotGetRequest) {
+		r.IndexNames = &v
 	}
 }
 
