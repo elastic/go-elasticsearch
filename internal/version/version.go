@@ -19,4 +19,4 @@ package version
 
 // Client returns the client version as a string.
 //
-const Client = "7.17.3-SNAPSHOT"
+const Client = "7.17.4-SNAPSHOT"
