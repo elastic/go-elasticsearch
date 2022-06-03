@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.3.0 (dea288e): DO NOT EDIT
+// Code generated from specification version 8.4.0 (071d8b8): DO NOT EDIT
 
 package esapi
 
@@ -392,7 +392,7 @@ type ML struct {
 	GetRecords                    MLGetRecords
 	GetTrainedModels              MLGetTrainedModels
 	GetTrainedModelsStats         MLGetTrainedModelsStats
-	InferTrainedModelDeployment   MLInferTrainedModelDeployment
+	InferTrainedModel             MLInferTrainedModel
 	Info                          MLInfo
 	OpenJob                       MLOpenJob
 	PostCalendarEvents            MLPostCalendarEvents
@@ -860,7 +860,7 @@ func New(t Transport) *API {
 			GetRecords:                    newMLGetRecordsFunc(t),
 			GetTrainedModels:              newMLGetTrainedModelsFunc(t),
 			GetTrainedModelsStats:         newMLGetTrainedModelsStatsFunc(t),
-			InferTrainedModelDeployment:   newMLInferTrainedModelDeploymentFunc(t),
+			InferTrainedModel:             newMLInferTrainedModelFunc(t),
 			Info:                          newMLInfoFunc(t),
 			OpenJob:                       newMLOpenJobFunc(t),
 			PostCalendarEvents:            newMLPostCalendarEventsFunc(t),

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.3.0: DO NOT EDIT
+// Code generated from specification version 8.4.0: DO NOT EDIT
 
 package esapi
 
@@ -27,9 +27,9 @@ import (
 	"time"
 )
 
-func newMLInferTrainedModelDeploymentFunc(t Transport) MLInferTrainedModelDeployment {
-	return func(body io.Reader, model_id string, o ...func(*MLInferTrainedModelDeploymentRequest)) (*Response, error) {
-		var r = MLInferTrainedModelDeploymentRequest{Body: body, ModelID: model_id}
+func newMLInferTrainedModelFunc(t Transport) MLInferTrainedModel {
+	return func(body io.Reader, model_id string, o ...func(*MLInferTrainedModelRequest)) (*Response, error) {
+		var r = MLInferTrainedModelRequest{Body: body, ModelID: model_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -39,17 +39,17 @@ func newMLInferTrainedModelDeploymentFunc(t Transport) MLInferTrainedModelDeploy
 
 // ----- API Definition -------------------------------------------------------
 
-// MLInferTrainedModelDeployment - Evaluate a trained model.
+// MLInferTrainedModel - Evaluate a trained model.
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/infer-trained-model-deployment.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/infer-trained-model.html.
 //
-type MLInferTrainedModelDeployment func(body io.Reader, model_id string, o ...func(*MLInferTrainedModelDeploymentRequest)) (*Response, error)
+type MLInferTrainedModel func(body io.Reader, model_id string, o ...func(*MLInferTrainedModelRequest)) (*Response, error)
 
-// MLInferTrainedModelDeploymentRequest configures the ML Infer Trained Model Deployment API request.
+// MLInferTrainedModelRequest configures the ML Infer Trained Model API request.
 //
-type MLInferTrainedModelDeploymentRequest struct {
+type MLInferTrainedModelRequest struct {
 	Body io.Reader
 
 	ModelID string
@@ -68,7 +68,7 @@ type MLInferTrainedModelDeploymentRequest struct {
 
 // Do executes the request and returns response or error.
 //
-func (r MLInferTrainedModelDeploymentRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r MLInferTrainedModelRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -161,56 +161,56 @@ func (r MLInferTrainedModelDeploymentRequest) Do(ctx context.Context, transport 
 
 // WithContext sets the request context.
 //
-func (f MLInferTrainedModelDeployment) WithContext(v context.Context) func(*MLInferTrainedModelDeploymentRequest) {
-	return func(r *MLInferTrainedModelDeploymentRequest) {
+func (f MLInferTrainedModel) WithContext(v context.Context) func(*MLInferTrainedModelRequest) {
+	return func(r *MLInferTrainedModelRequest) {
 		r.ctx = v
 	}
 }
 
 // WithTimeout - controls the amount of time to wait for inference results..
 //
-func (f MLInferTrainedModelDeployment) WithTimeout(v time.Duration) func(*MLInferTrainedModelDeploymentRequest) {
-	return func(r *MLInferTrainedModelDeploymentRequest) {
+func (f MLInferTrainedModel) WithTimeout(v time.Duration) func(*MLInferTrainedModelRequest) {
+	return func(r *MLInferTrainedModelRequest) {
 		r.Timeout = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
 //
-func (f MLInferTrainedModelDeployment) WithPretty() func(*MLInferTrainedModelDeploymentRequest) {
-	return func(r *MLInferTrainedModelDeploymentRequest) {
+func (f MLInferTrainedModel) WithPretty() func(*MLInferTrainedModelRequest) {
+	return func(r *MLInferTrainedModelRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
 //
-func (f MLInferTrainedModelDeployment) WithHuman() func(*MLInferTrainedModelDeploymentRequest) {
-	return func(r *MLInferTrainedModelDeploymentRequest) {
+func (f MLInferTrainedModel) WithHuman() func(*MLInferTrainedModelRequest) {
+	return func(r *MLInferTrainedModelRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
 //
-func (f MLInferTrainedModelDeployment) WithErrorTrace() func(*MLInferTrainedModelDeploymentRequest) {
-	return func(r *MLInferTrainedModelDeploymentRequest) {
+func (f MLInferTrainedModel) WithErrorTrace() func(*MLInferTrainedModelRequest) {
+	return func(r *MLInferTrainedModelRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
 //
-func (f MLInferTrainedModelDeployment) WithFilterPath(v ...string) func(*MLInferTrainedModelDeploymentRequest) {
-	return func(r *MLInferTrainedModelDeploymentRequest) {
+func (f MLInferTrainedModel) WithFilterPath(v ...string) func(*MLInferTrainedModelRequest) {
+	return func(r *MLInferTrainedModelRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
 //
-func (f MLInferTrainedModelDeployment) WithHeader(h map[string]string) func(*MLInferTrainedModelDeploymentRequest) {
-	return func(r *MLInferTrainedModelDeploymentRequest) {
+func (f MLInferTrainedModel) WithHeader(h map[string]string) func(*MLInferTrainedModelRequest) {
+	return func(r *MLInferTrainedModelRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -222,8 +222,8 @@ func (f MLInferTrainedModelDeployment) WithHeader(h map[string]string) func(*MLI
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
 //
-func (f MLInferTrainedModelDeployment) WithOpaqueID(s string) func(*MLInferTrainedModelDeploymentRequest) {
-	return func(r *MLInferTrainedModelDeploymentRequest) {
+func (f MLInferTrainedModel) WithOpaqueID(s string) func(*MLInferTrainedModelRequest) {
+	return func(r *MLInferTrainedModelRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
