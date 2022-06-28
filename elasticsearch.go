@@ -21,6 +21,7 @@ import (
 	"encoding/base64"
 	"errors"
 	"fmt"
+	"github.com/elastic/go-elasticsearch/v8/typedapi"
 	"net/http"
 	"net/url"
 	"os"
@@ -108,10 +109,9 @@ type Config struct {
 	ConnectionPoolFunc func([]*elastictransport.Connection, elastictransport.Selector) elastictransport.ConnectionPool
 }
 
-// Client represents the Elasticsearch client.
+// BaseClient represents the Elasticsearch client.
 //
-type Client struct {
-	*esapi.API          // Embeds the API methods
+type BaseClient struct {
 	Transport           elastictransport.Interface
 	metaHeader          string
 	compatibilityHeader bool
@@ -119,6 +119,18 @@ type Client struct {
 	disableMetaHeader   bool
 	productCheckMu      sync.RWMutex
 	productCheckSuccess bool
+}
+
+// Client represents the Functional Options API.
+type Client struct {
+	BaseClient
+	*esapi.API
+}
+
+// TypedClient represents the Typed API.
+type TypedClient struct {
+	BaseClient
+	*typedapi.API
 }
 
 // NewDefaultClient creates a new client with default options.
@@ -145,6 +157,65 @@ func NewDefaultClient() (*Client, error) {
 // It's an error to set both cfg.Addresses and cfg.CloudID.
 //
 func NewClient(cfg Config) (*Client, error) {
+	tp, err := newTransport(cfg)
+	if err != nil {
+		return nil, err
+	}
+
+	compatHeaderEnv := os.Getenv(esCompatHeader)
+	compatibilityHeader, _ := strconv.ParseBool(compatHeaderEnv)
+
+	client := &Client{
+		BaseClient: BaseClient{
+			Transport:           tp,
+			disableMetaHeader:   cfg.DisableMetaHeader,
+			metaHeader:          initMetaHeader(tp),
+			compatibilityHeader: cfg.EnableCompatibilityMode || compatibilityHeader,
+		},
+	}
+	client.API = esapi.New(client)
+
+	if cfg.DiscoverNodesOnStart {
+		go client.DiscoverNodes()
+	}
+
+	return client, nil
+}
+
+// NewTypedClient create a new client with the configuration from cfg.
+//
+// This version uses the same configuration as NewClient.
+//
+// It will return the client with the TypedAPI.
+func NewTypedClient(cfg Config) (*TypedClient, error) {
+	tp, err := newTransport(cfg)
+	if err != nil {
+		return nil, err
+	}
+
+	compatHeaderEnv := os.Getenv(esCompatHeader)
+	compatibilityHeader, _ := strconv.ParseBool(compatHeaderEnv)
+
+	metaHeader := strings.Join([]string{initMetaHeader(tp), "hl=1"}, ",")
+
+	client := &TypedClient{
+		BaseClient: BaseClient{
+			Transport:           tp,
+			disableMetaHeader:   cfg.DisableMetaHeader,
+			metaHeader:          metaHeader,
+			compatibilityHeader: cfg.EnableCompatibilityMode || compatibilityHeader,
+		},
+	}
+	client.API = typedapi.New(client)
+
+	if cfg.DiscoverNodesOnStart {
+		go client.DiscoverNodes()
+	}
+
+	return client, nil
+}
+
+func newTransport(cfg Config) (*elastictransport.Client, error) {
 	var addrs []string
 
 	if len(cfg.Addresses) == 0 && cfg.CloudID == "" {
@@ -219,27 +290,12 @@ func NewClient(cfg Config) (*Client, error) {
 		return nil, fmt.Errorf("error creating transport: %s", err)
 	}
 
-	compatHeaderEnv := os.Getenv(esCompatHeader)
-	compatibilityHeader, _ := strconv.ParseBool(compatHeaderEnv)
-
-	client := &Client{
-		Transport:           tp,
-		disableMetaHeader:   cfg.DisableMetaHeader,
-		metaHeader:          initMetaHeader(tp),
-		compatibilityHeader: cfg.EnableCompatibilityMode || compatibilityHeader,
-	}
-	client.API = esapi.New(client)
-
-	if cfg.DiscoverNodesOnStart {
-		go client.DiscoverNodes()
-	}
-
-	return client, nil
+	return tp, nil
 }
 
 // Perform delegates to Transport to execute a request and return a response.
 //
-func (c *Client) Perform(req *http.Request) (*http.Response, error) {
+func (c *BaseClient) Perform(req *http.Request) (*http.Response, error) {
 	// Compatibility Header
 	if c.compatibilityHeader {
 		if req.Body != nil {
@@ -276,7 +332,7 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 
 // doProductCheck calls f if there as not been a prior successful call to doProductCheck,
 // returning nil otherwise.
-func (c *Client) doProductCheck(f func() error) error {
+func (c *BaseClient) doProductCheck(f func() error) error {
 	c.productCheckMu.RLock()
 	productCheckSuccess := c.productCheckSuccess
 	c.productCheckMu.RUnlock()
@@ -312,7 +368,7 @@ func genuineCheckHeader(header http.Header) error {
 
 // Metrics returns the client metrics.
 //
-func (c *Client) Metrics() (elastictransport.Metrics, error) {
+func (c *BaseClient) Metrics() (elastictransport.Metrics, error) {
 	if mt, ok := c.Transport.(elastictransport.Measurable); ok {
 		return mt.Metrics()
 	}
@@ -321,7 +377,7 @@ func (c *Client) Metrics() (elastictransport.Metrics, error) {
 
 // DiscoverNodes reloads the client connections by fetching information from the cluster.
 //
-func (c *Client) DiscoverNodes() error {
+func (c *BaseClient) DiscoverNodes() error {
 	if dt, ok := c.Transport.(elastictransport.Discoverable); ok {
 		return dt.DiscoverNodes()
 	}

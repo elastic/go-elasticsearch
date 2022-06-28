@@ -22,6 +22,7 @@ package elasticsearch
 
 import (
 	"bytes"
+	"context"
 	"crypto/tls"
 	"crypto/x509"
 	"encoding/base64"
@@ -799,4 +800,68 @@ func TestMetaHeader(t *testing.T) {
 
 		_, _ = c.Info()
 	})
+
+	t.Run("Metaheader with typedclient", func(t *testing.T) {
+		tp, _ := elastictransport.New(elastictransport.Config{
+			URLs: []*url.URL{{Scheme: "http", Host: "foo"}},
+			Transport: &mockTransp{
+				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+					h := request.Header.Get(HeaderClientMeta)
+					if !metaHeaderReValidation.MatchString(h) {
+						t.Errorf("expected client metaheader to validate regexp, got: %s", h)
+					}
+					if !strings.Contains(h, "hl=1") {
+						t.Errorf("invalid metaheader, should contain hl=1, got: %s", h)
+					}
+
+					return &http.Response{
+						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+						StatusCode: http.StatusOK,
+						Status:     "OK",
+						Body:       ioutil.NopCloser(strings.NewReader("")),
+					}, nil
+				},
+			},
+		})
+
+		c, _ := NewTypedClient(Config{})
+		c.Transport = tp
+
+		_, _ = c.Info().Do(nil)
+	})
+}
+
+func TestNewTypedClient(t *testing.T) {
+	tp, _ := elastictransport.New(elastictransport.Config{
+		URLs: []*url.URL{{Scheme: "http", Host: "foo"}},
+		Transport: &mockTransp{
+			RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+				h := request.Header.Get(HeaderClientMeta)
+				if !metaHeaderReValidation.MatchString(h) {
+					t.Errorf("expected client metaheader to validate regexp, got: %s", h)
+				}
+
+				return &http.Response{
+					Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+					StatusCode: http.StatusOK,
+					Status:     "OK",
+					Body:       ioutil.NopCloser(strings.NewReader("")),
+				}, nil
+			},
+		},
+	})
+
+	c, _ := NewTypedClient(Config{})
+	c.Transport = tp
+
+	res, err := c.Info().Do(context.Background())
+	if err != nil {
+		t.Fatalf("unexpected error: %s", err)
+	}
+	defer res.Body.Close()
+
+	_, err = NewClient(Config{})
+	if err != nil {
+		t.Fatalf("unexpected error: %s", err)
+	}
 }
