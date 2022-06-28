@@ -1,0 +1,76 @@
+// Licensed to Elasticsearch B.V. under one or more contributor
+// license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright
+// ownership. Elasticsearch B.V. licenses this file to you under
+// the Apache License, Version 2.0 (the "License"); you may
+// not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+
+
+// Code generated from the elasticsearch-specification DO NOT EDIT.
+// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
+
+
+package types
+
+// ActionStatus type.
+//
+// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/watcher/_types/Action.ts#L122-L127
+type ActionStatus struct {
+	Ack                     AcknowledgeState `json:"ack"`
+	LastExecution           *ExecutionState  `json:"last_execution,omitempty"`
+	LastSuccessfulExecution *ExecutionState  `json:"last_successful_execution,omitempty"`
+	LastThrottle            *ThrottleState   `json:"last_throttle,omitempty"`
+}
+
+// ActionStatusBuilder holds ActionStatus struct and provides a builder API.
+type ActionStatusBuilder struct {
+	v *ActionStatus
+}
+
+// NewActionStatus provides a builder for the ActionStatus struct.
+func NewActionStatusBuilder() *ActionStatusBuilder {
+	r := ActionStatusBuilder{
+		&ActionStatus{},
+	}
+
+	return &r
+}
+
+// Build finalize the chain and returns the ActionStatus struct
+func (rb *ActionStatusBuilder) Build() ActionStatus {
+	return *rb.v
+}
+
+func (rb *ActionStatusBuilder) Ack(ack *AcknowledgeStateBuilder) *ActionStatusBuilder {
+	v := ack.Build()
+	rb.v.Ack = v
+	return rb
+}
+
+func (rb *ActionStatusBuilder) LastExecution(lastexecution *ExecutionStateBuilder) *ActionStatusBuilder {
+	v := lastexecution.Build()
+	rb.v.LastExecution = &v
+	return rb
+}
+
+func (rb *ActionStatusBuilder) LastSuccessfulExecution(lastsuccessfulexecution *ExecutionStateBuilder) *ActionStatusBuilder {
+	v := lastsuccessfulexecution.Build()
+	rb.v.LastSuccessfulExecution = &v
+	return rb
+}
+
+func (rb *ActionStatusBuilder) LastThrottle(lastthrottle *ThrottleStateBuilder) *ActionStatusBuilder {
+	v := lastthrottle.Build()
+	rb.v.LastThrottle = &v
+	return rb
+}

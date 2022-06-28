@@ -25,10 +25,16 @@ import (
 	"crypto/tls"
 	"encoding/json"
 	"fmt"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/core/search"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/indices/create"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/refresh"
 	"log"
 	"net"
 	"net/http"
 	"net/url"
+	"os"
+	"strconv"
 	"sync"
 	"sync/atomic"
 	"testing"
@@ -206,7 +212,10 @@ func TestClientCustomTransport(t *testing.T) {
 		})
 
 		es := elasticsearch.Client{
-			Transport: tp, API: esapi.New(tp),
+			BaseClient: elasticsearch.BaseClient{
+				Transport: tp,
+			},
+			API: esapi.New(tp),
 		}
 
 		for i := 0; i < 10; i++ {
@@ -240,7 +249,10 @@ func TestClientReplaceTransport(t *testing.T) {
 	t.Run("Replaced", func(t *testing.T) {
 		tr := &ReplacedTransport{}
 		es := elasticsearch.Client{
-			Transport: tr, API: esapi.New(tr),
+			BaseClient: elasticsearch.BaseClient{
+				Transport: tr,
+			},
+			API: esapi.New(tr),
 		}
 
 		for i := 0; i < 10; i++ {
@@ -277,5 +289,209 @@ func TestClientAPI(t *testing.T) {
 		}
 
 		fmt.Println(d["tagline"])
+	})
+}
+
+func TestTypedClient(t *testing.T) {
+	t.Run("Info", func(t *testing.T) {
+		es, err := elasticsearch.NewTypedClient(elasticsearch.Config{})
+		if err != nil {
+			t.Fatalf("error creating the client: %s", err)
+		}
+
+		res, err := es.Info().Do(context.Background())
+		if err != nil {
+			t.Fatalf("error reading Info request: %s", err)
+		}
+		defer res.Body.Close()
+
+		var d map[string]interface{}
+		err = json.NewDecoder(res.Body).Decode(&d)
+		if err != nil {
+			log.Fatalf("Error parsing the response: %s\n", err)
+		}
+
+		if d["tagline"] != "You Know, for Search" {
+			t.Errorf("invalid tagline, got: %s", d["tagline"])
+		}
+	})
+
+	t.Run("Index & Search", func(t *testing.T) {
+		es, err := elasticsearch.NewTypedClient(elasticsearch.Config{})
+
+		u, _ := url.Parse("http://localhost:9200")
+		tp, _ := elastictransport.New(
+			elastictransport.Config{
+				URLs:   []*url.URL{u},
+				Logger: &elastictransport.ColorLogger{os.Stdout, true, true},
+			},
+		)
+		es.Transport = tp
+		if err != nil {
+			t.Fatalf("error creating the client: %s", err)
+		}
+
+		// If the index doesn't exist we create it with a mapping.
+		indexName := "test-index"
+		if ok, err := es.Indices.Exists(indexName).IsSuccess(nil); !ok && err == nil {
+			res, err := es.Indices.Create(indexName).
+				Request(create.NewRequestBuilder().
+					Mappings(
+						types.NewTypeMappingBuilder().
+							Properties(
+								map[types.PropertyName]*types.PropertyBuilder{
+									"price": types.NewPropertyBuilder().IntegerNumberProperty(types.NewIntegerNumberPropertyBuilder()),
+									"name":  types.NewPropertyBuilder().KeywordProperty(types.NewKeywordPropertyBuilder()),
+								},
+							),
+					).Build()).
+				Do(nil)
+			if err != nil {
+				t.Fatalf("error creating index test-index: %s", err)
+			}
+			defer res.Body.Close()
+		} else if err != nil {
+			t.Error(err)
+		}
+
+		// Once everything is done we delete the index.
+		defer func() {
+			_, err := es.Indices.Delete(indexName).Do(context.Background())
+			if err != nil {
+				t.Error(err)
+			}
+		}()
+
+		for _, document := range []struct {
+			Id    int    `json:"id"`
+			Name  string `json:"name"`
+			Price int    `json:"price"`
+		}{
+			{
+				Id:    1,
+				Name:  "Foo",
+				Price: 10,
+			},
+			{
+				Id:    2,
+				Name:  "Bar",
+				Price: 12,
+			},
+			{
+				Id:    3,
+				Name:  "Baz",
+				Price: 4,
+			},
+		} {
+			indexResponse, err := es.Index(indexName).
+				Request(document).
+				Id(strconv.Itoa(document.Id)).
+				Refresh(refresh.Waitfor).
+				Do(nil)
+			if err != nil {
+				t.Fatalf("error indexing document: %s", err)
+			}
+			defer indexResponse.Body.Close()
+		}
+
+		if ok, err := es.Get(indexName, "1").IsSuccess(nil); !ok {
+			t.Fatalf("could not retrieve document: %s", err)
+		}
+
+		res, err := es.Search().
+			Index(indexName).
+			Request(search.NewRequestBuilder().
+				Query(
+					types.NewQueryContainerBuilder().
+						Match(map[types.Field]*types.MatchQueryBuilder{
+							"name": types.NewMatchQueryBuilder().Query("Foo"),
+						}),
+				).Build(),
+			).Do(nil)
+
+		if err != nil {
+			t.Fatalf("error runnning search query: %s", err)
+		}
+		defer res.Body.Close()
+
+		type SearchResult struct {
+			Hits struct {
+				Total struct {
+					Value    int
+					Relation string
+				} `json:"total"`
+				Hits []struct {
+					Index  string `json:"_index"`
+					Source struct {
+						Id   int
+						Name string
+					} `json:"_source"`
+				} `json:"hits"`
+			} `json:"hits"`
+		}
+
+		sr := SearchResult{}
+
+		err = json.NewDecoder(res.Body).Decode(&sr)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		if sr.Hits.Total.Value != 1 && sr.Hits.Hits[0].Source.Name != "Foo" {
+			t.Fatalf("unexpected search result")
+		}
+
+		type PriceAggregation struct {
+			Aggregations map[string]struct{ Value float64 } `json:"aggregations"`
+		}
+
+		pa := PriceAggregation{}
+
+		totalPricesAgg, err := es.Search().
+			Index(indexName).
+			Request(
+				search.NewRequestBuilder().
+					Size(0).
+					Aggregations(
+						map[string]*types.AggregationContainerBuilder{
+							"total_prices": types.NewAggregationContainerBuilder().
+								Sum(types.NewSumAggregationBuilder().Field("price")),
+						}).
+					Build(),
+			).Do(nil)
+
+		if err != nil {
+			t.Fatal(err)
+		}
+		defer totalPricesAgg.Body.Close()
+
+		err = json.NewDecoder(totalPricesAgg.Body).Decode(&pa)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		if pa.Aggregations["total_prices"].Value != 26. {
+			t.Fatalf("error in aggregation, should be 26, got: %f", pa.Aggregations["total_prices"].Value)
+		}
+	})
+
+	t.Run("Term query from JSON", func(t *testing.T) {
+		searchRequest, err := search.NewRequestBuilder().FromJSON(`{
+		  "query": {
+			"term": {
+			  "user.id": {
+				"value": "kimchy",
+				"boost": 1.0
+			  }
+			}
+		  }
+		}`)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		if searchRequest.Query.Term["user.id"].Value.(string) != "kimchy" {
+			t.Fatalf("unexpected string in Query.Term.Value, expected kimchy, got: %s", searchRequest.Query.Term["user.id"].Value.(string))
+		}
 	})
 }

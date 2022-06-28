@@ -1,0 +1,60 @@
+// Licensed to Elasticsearch B.V. under one or more contributor
+// license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright
+// ownership. Elasticsearch B.V. licenses this file to you under
+// the Apache License, Version 2.0 (the "License"); you may
+// not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+
+
+// Code generated from the elasticsearch-specification DO NOT EDIT.
+// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
+
+
+package types
+
+// TotalUserProfiles type.
+//
+// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/security/suggest_user_profiles/Response.ts#L24-L27
+type TotalUserProfiles struct {
+	Relation RelationName `json:"relation"`
+	Value    int64        `json:"value"`
+}
+
+// TotalUserProfilesBuilder holds TotalUserProfiles struct and provides a builder API.
+type TotalUserProfilesBuilder struct {
+	v *TotalUserProfiles
+}
+
+// NewTotalUserProfiles provides a builder for the TotalUserProfiles struct.
+func NewTotalUserProfilesBuilder() *TotalUserProfilesBuilder {
+	r := TotalUserProfilesBuilder{
+		&TotalUserProfiles{},
+	}
+
+	return &r
+}
+
+// Build finalize the chain and returns the TotalUserProfiles struct
+func (rb *TotalUserProfilesBuilder) Build() TotalUserProfiles {
+	return *rb.v
+}
+
+func (rb *TotalUserProfilesBuilder) Relation(relation RelationName) *TotalUserProfilesBuilder {
+	rb.v.Relation = relation
+	return rb
+}
+
+func (rb *TotalUserProfilesBuilder) Value(value int64) *TotalUserProfilesBuilder {
+	rb.v.Value = value
+	return rb
+}
