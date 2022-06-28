@@ -1,3 +1,18 @@
+# 8.3.0
+
+## API
+
+* `ML.InferTrainedModelDeployment` renamed to `InferTrainedModel`
+* `ML.PreviewDatafeed` has two new parameters, `start` and `end`. [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/8.3/ml-preview-datafeed.html)
+* `ML.StartTrainedModelDeployment` has three new parameters, `number_of_allocations`, `threads_per_allocation` and `queue_capacity`. [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/master/start-trained-model-deployment.html)
+* `Cluster.DeleteVotingConfigExclusions` has a new `master_timeout` parameter.
+* `Cluster.PostVotingConfigExclusions` has a new `master_timeout` parameter.
+* `Snapshot.Get` has a new `index_names` parameters (boolean). Whether to include the name of each index in the snapshot. Defaults to true.
+
+**New APIs**
+
+* `Security.HasPrivilegesUserProfile` (Experimental API) [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-has-privileges-user-profile.html)
+
 # 8.2.0
 ## Client
 
