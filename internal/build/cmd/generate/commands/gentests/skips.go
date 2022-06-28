@@ -56,6 +56,9 @@ var skipFiles = []string{
 	"cluster.desired_nodes/10_basic.yml", // incompatible $ stash replacement
 	"user_profile/10_basic.yml",          // internal
 	"health/10_basic.yml",                // internal
+	"health/20_component.yml",            // internal
+	"health/30_feature.yml",              // internal
+	"health/40_useractions.yml",          // internal
 }
 
 // TODO: Comments into descriptions for `Skip()`
@@ -422,4 +425,8 @@ change_password/10_basic.yml:
 token/10_basic.yml:
   - Test invalidate user's tokens
   - Test invalidate realm's tokens
+
+# Replacement with pattern matching fails
+user_profile/40_has_privileges.yml:
+  - Test profile has privileges api
 `
