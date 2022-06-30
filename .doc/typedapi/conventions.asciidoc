@@ -1,0 +1,93 @@
+[conventions]
+== Conventions
+
+=== Naming
+
+Some names in the API are not compatible with the Golang syntax, like leading underscores and sometime collides with reserved keywords such as `range`, `type`, etc...
+
+Whenever appropriate they are modified in favor of a suffix underscore, most of the time for compatibility, sometimes for disambiguation with likely named fields without underscores (eg `source` and `_source`).
+
+=== Endpoints
+
+All the available endpoints are generated in separate packages and assembled in the client. The `core` namespace is duplicated at the root of the client for convenient access.
+
+Each endpoint follows a factory pattern which returns a pointer to a new instance each time. This leads to a builder pattern allowing to directly chain the options before running your query.
+
+[source,go]
+-----
+res, err := es.Search().Index("my-index").AllowPartialSearchResults(true).Do(context.Background())
+-----
+
+If parameters are needed for the specific endpoint you are using, those will be present as arguments in the same order as the API:
+
+[source,go]
+------------------------------------
+c.Create("index_name", "doc_id")
+------------------------------------
+
+Otherwise, you can find them within the builder:
+
+[source,go]
+------------------------------------
+c.Search().Index("index_name")
+------------------------------------
+
+Alternatively each endpoint can be instantiated directly from its package:
+
+[source,go]
+------------------------------------
+transport, _ := elastictransport.New(elastictransport.Config{})
+_, _ = search.New(transport).Do(nil)
+------------------------------------
+
+The `Do` method takes an optional `context`, runs the request through the transport and returns the results as well as an error.
+
+For body-empty endpoints such as `core.Exists`, an additional method `IsSuccess` is available. As the `Do` method it takes an optional `context`, will drain and close the body if needed and will return a boolean alongside and error.
+This allows for easier control flow using the short `if` statement.
+
+=== Requests
+
+Requests are modeled around structures that follows as closely as possible the {es} API and uses the standard `json/encoding` for serialization.
+Corresponding request can be found withing the same package as its endpoint and comes with a Builder that allows you to deep dive into the API by following the types.
+
+The builder is particularly useful around pointer fields and is totally embeddable within a standard struct declaration, such that these two declarations gives you the same result:
+
+[source,go]
+------------------------------------
+types.QueryContainer{
+    Term: map[types.Field]types.TermQuery{
+        "name": {Value: types.FieldValue{"Foo"}},
+    },
+}
+types.QueryContainer{
+    Term: map[types.Field]types.TermQuery{
+        "name": types.NewTermQuery().Value(types.NewFieldValue().String("Foo")).Build(),
+    },
+}
+------------------------------------
+
+=== Responses
+
+While not part of the initial release responses will be added at a later date.
+
+=== Types
+
+Requests and responses are relying on a collection of structures generated from the https://github.com/elastic/elasticsearch-specification[elasticsearch-specification] in the `types` package.
+Each type comes with json tags and a builder.
+
+=== Enums
+
+The {es} API has several instances of enumerations, for this API they each have a package within `types/enums`.
+An enum is declared as a type and serializes to the API value, for example the `refresh` options from the Search API:
+
+[source,go]
+------------------------------------
+refresh.True => "true"
+refresh.False => "false"
+refresh.Waitfor => "wait_for"
+------------------------------------
+
+=== Unions
+
+To capture the expressiveness of the API while retaining strong typing union fields are represented by a type alias to an interface.
+Each type alias comes with a builder that lists the possible types for the underlying value.

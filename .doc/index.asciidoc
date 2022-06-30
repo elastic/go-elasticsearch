@@ -9,3 +9,5 @@ include::overview.asciidoc[]
 include::installation.asciidoc[]
 
 include::connecting.asciidoc[]
+
+include::typedapi/typedapi.asciidoc[]

@@ -1,0 +1,27 @@
+[[aggregations]]
+=== Aggregations
+
+Given documents with a `price` field, we run a sum aggregation on `index-name`:
+[source,go]
+-----
+// Building the aggregation first
+priceSumAggregation := types.NewSumAggregation().Field("price").Build() // <1>
+
+totalPricesAgg, err := es.Search().
+    Index("index-name"). // <2>
+    Request(
+        search.NewRequest().
+            Size(0). // <3>
+            Aggregations(
+                map[string]types.AggregationContainer{
+                    "total_prices": {
+                        Sum: &priceSumAggregation,  // <4>
+                    },
+                }).
+            Build(),
+    ).Do(context.Background())
+-----
+<1> First the sum aggregation where we specify the field name which it will be run upon.
+<2> We specify the index name.
+<3> Set the size to 0, since we only want to retrieve the result of the aggregation.
+<4> The `SumAggregation` is part of the `AggregationContainer` map.
