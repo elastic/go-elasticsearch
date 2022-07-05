@@ -52,14 +52,15 @@ type MgetRequest struct {
 
 	Body io.Reader
 
-	Preference     string
-	Realtime       *bool
-	Refresh        *bool
-	Routing        string
-	Source         []string
-	SourceExcludes []string
-	SourceIncludes []string
-	StoredFields   []string
+	ForceSyntheticSource *bool
+	Preference           string
+	Realtime             *bool
+	Refresh              *bool
+	Routing              string
+	Source               []string
+	SourceExcludes       []string
+	SourceIncludes       []string
+	StoredFields         []string
 
 	Pretty     bool
 	Human      bool
@@ -92,6 +93,10 @@ func (r MgetRequest) Do(ctx context.Context, transport Transport) (*Response, er
 	path.WriteString("_mget")
 
 	params = make(map[string]string)
+
+	if r.ForceSyntheticSource != nil {
+		params["force_synthetic_source"] = strconv.FormatBool(*r.ForceSyntheticSource)
+	}
 
 	if r.Preference != "" {
 		params["preference"] = r.Preference
@@ -201,6 +206,14 @@ func (f Mget) WithContext(v context.Context) func(*MgetRequest) {
 func (f Mget) WithIndex(v string) func(*MgetRequest) {
 	return func(r *MgetRequest) {
 		r.Index = v
+	}
+}
+
+// WithForceSyntheticSource - should this request force synthetic _source? use this to test if the mapping supports synthetic _source and to get a sense of the worst case performance. fetches with this enabled will be slower the enabling synthetic source natively in the index..
+//
+func (f Mget) WithForceSyntheticSource(v bool) func(*MgetRequest) {
+	return func(r *MgetRequest) {
+		r.ForceSyntheticSource = &v
 	}
 }
 

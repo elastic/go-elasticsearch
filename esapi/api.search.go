@@ -65,6 +65,7 @@ type SearchRequest struct {
 	DocvalueFields             []string
 	ExpandWildcards            string
 	Explain                    *bool
+	ForceSyntheticSource       *bool
 	From                       *int
 	IgnoreThrottled            *bool
 	IgnoreUnavailable          *bool
@@ -172,6 +173,10 @@ func (r SearchRequest) Do(ctx context.Context, transport Transport) (*Response, 
 
 	if r.Explain != nil {
 		params["explain"] = strconv.FormatBool(*r.Explain)
+	}
+
+	if r.ForceSyntheticSource != nil {
+		params["force_synthetic_source"] = strconv.FormatBool(*r.ForceSyntheticSource)
 	}
 
 	if r.From != nil {
@@ -474,6 +479,14 @@ func (f Search) WithExpandWildcards(v string) func(*SearchRequest) {
 func (f Search) WithExplain(v bool) func(*SearchRequest) {
 	return func(r *SearchRequest) {
 		r.Explain = &v
+	}
+}
+
+// WithForceSyntheticSource - should this request force synthetic _source? use this to test if the mapping supports synthetic _source and to get a sense of the worst case performance. fetches with this enabled will be slower the enabling synthetic source natively in the index..
+//
+func (f Search) WithForceSyntheticSource(v bool) func(*SearchRequest) {
+	return func(r *SearchRequest) {
+		r.ForceSyntheticSource = &v
 	}
 }
 

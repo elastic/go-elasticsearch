@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.4.0 (071d8b8): DO NOT EDIT
+// Code generated from specification version 8.4.0 (4e18993): DO NOT EDIT
 
 package esapi
 
@@ -482,6 +482,7 @@ type Security struct {
 	GetUser                     SecurityGetUser
 	GrantAPIKey                 SecurityGrantAPIKey
 	HasPrivileges               SecurityHasPrivileges
+	HasPrivilegesUserProfile    SecurityHasPrivilegesUserProfile
 	InvalidateAPIKey            SecurityInvalidateAPIKey
 	InvalidateToken             SecurityInvalidateToken
 	OidcAuthenticate            SecurityOidcAuthenticate
@@ -944,6 +945,7 @@ func New(t Transport) *API {
 			GetUser:                     newSecurityGetUserFunc(t),
 			GrantAPIKey:                 newSecurityGrantAPIKeyFunc(t),
 			HasPrivileges:               newSecurityHasPrivilegesFunc(t),
+			HasPrivilegesUserProfile:    newSecurityHasPrivilegesUserProfileFunc(t),
 			InvalidateAPIKey:            newSecurityInvalidateAPIKeyFunc(t),
 			InvalidateToken:             newSecurityInvalidateTokenFunc(t),
 			OidcAuthenticate:            newSecurityOidcAuthenticateFunc(t),
