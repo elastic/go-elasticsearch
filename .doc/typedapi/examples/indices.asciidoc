@@ -1,5 +1,5 @@
 [[indices]]
-== Creating an index
+==== Creating an index
 
 For this example on how to create an index, lets create an index named `test-index` and provide a mapping for the field `price` which will be an integer.
 Notice how using the builder for the `IntegerNumberProperty` will automatically apply the correct value for the `type` field.

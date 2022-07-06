@@ -1,5 +1,5 @@
 [[naming]]
-== Naming
+==== Naming
 
 Whenever appropriate, names may be suffixed with an underscore:
 

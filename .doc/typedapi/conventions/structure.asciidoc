@@ -1,5 +1,5 @@
 [[structure]]
-== Structure
+==== Structure
 
 The Typed client lives in the `typedapi` package within the `go-elasticsearch` repository.
 

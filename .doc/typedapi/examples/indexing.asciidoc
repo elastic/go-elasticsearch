@@ -1,5 +1,5 @@
 [[indexing]]
-=== Indexing a document
+==== Indexing a document
 
 The standard way of indexing a document is to provide a `struct` to the `Request` method, the standard `json/encoder` will be run on your structure and the result will be sent to {es}.
 

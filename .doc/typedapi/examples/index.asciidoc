@@ -1,5 +1,5 @@
 [[examples]]
-== Examples
+=== Examples
 
 This sections lists a series of frequent use cases that will help you start with this new API.
 
@@ -11,8 +11,8 @@ This sections lists a series of frequent use cases that will help you start with
 
 NOTE: This is a work in progress, the documentation will evolve in the future.
 
-include::indices.asciidoc
-include::indexing.asciidoc
-include::getdoc.asciidoc
-include::search.asciidoc
-include::aggregations.asciidoc
+include::indices.asciidoc[]
+include::indexing.asciidoc[]
+include::getdoc.asciidoc[]
+include::search.asciidoc[]
+include::aggregations.asciidoc[]

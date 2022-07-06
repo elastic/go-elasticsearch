@@ -1,10 +1,10 @@
 [[types]]
-== Types
+==== Types
 
 Requests and responses are relying on a collection of structures generated from the https://github.com/elastic/elasticsearch-specification[elasticsearch-specification] in the `types` package.
 Each type comes with json tags and a builder.
 
-== Enums
+==== Enums
 
 The {es} API has several instances of enumerations, each have a package within `types/enums`.
 An enum is declared as a type and each member of the enum is an exported variable with its value.
@@ -17,7 +17,7 @@ refresh.False => "false"
 refresh.Waitfor => "wait_for"
 ------------------------------------
 
-== Unions
+==== Unions
 
 To capture the expressiveness of the API union fields are represented by a type alias to an interface.
 Each type alias comes with a builder that lists the possible types for the underlying value.

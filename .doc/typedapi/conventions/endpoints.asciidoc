@@ -1,5 +1,5 @@
 [[endpoints]]
-== Endpoints
+==== Endpoints
 
 All the available endpoints are generated in separate packages and assembled in the client. The `core` namespace is duplicated at the root of the client for convenient access.
 

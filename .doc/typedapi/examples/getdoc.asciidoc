@@ -1,5 +1,5 @@
 [[retrieving_document]]
-=== Retrieving a document
+==== Retrieving a document
 
 Retrieving a document follows the API as part of the argument of the endpoint.
 In order you provide the `index`, the `id` and then run the query:
@@ -8,7 +8,7 @@ In order you provide the `index`, the `id` and then run the query:
 res, err := es.Get("index-name", "id").Do(context.Background())
 -----
 
-=== Checking for a document existence
+==== Checking for a document existence
 
 If you do not whish to retrieve the content of the document and want only to check if it exists in your index, we provide the `IsSuccess` shortcut:
 [source,go]

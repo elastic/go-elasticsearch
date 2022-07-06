@@ -1,5 +1,5 @@
 [[aggregations]]
-=== Aggregations
+==== Aggregations
 
 Given documents with a `price` field, we run a sum aggregation on `index-name`:
 [source,go]
