@@ -2,7 +2,7 @@
 [runningqueries]
 == Running Queries
 
-=== Request structures
+## Request structures
 
 Each endpoint comes  with a Request type that represents the body of its request.
 For example, a simple search request for a term "Foo" in the `name` field could be written like this:
@@ -18,7 +18,7 @@ search.Request{
 }
 -----
 
-=== Query Builder
+## Query Builder
 
 Although the structure syntax is lightweight, the types will sometimes lead you to pointers of string or even type aliases which ultimately are interfaces.
 For all those occasions as well as discoverability we provide for the entire API a builder for each type, such that the above request can be written like this:
@@ -37,7 +37,7 @@ ss := search.NewRequest().
 
 The builders are designed to take value arguments for easier inline use, you can mix at will the structures and the builder as you see fit depending on your usage.
 
-=== Raw JSON
+## Raw JSON
 
 Lastly if you want to use your own pre-baked JSON queries using templates or even a specific encoder, you can pass the body directly to the `Raw` method of the endpoint:
 [source,go]
