@@ -1,4 +1,4 @@
-[examples]
+[[examples]]
 == Examples
 
 This sections lists a series of frequent use cases that will help you start with this new API.

@@ -1,5 +1,5 @@
 
-[runningqueries]
+[[runningqueries]]
 == Running Queries
 
 ## Request structures
