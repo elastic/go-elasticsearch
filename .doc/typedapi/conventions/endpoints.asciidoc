@@ -7,32 +7,41 @@ Each endpoint follows a factory pattern which returns a pointer to a new instanc
 
 [source,go]
 -----
-res, err := es.Search().Index("my-index").AllowPartialSearchResults(true).Do(context.Background())
+res, err := es.Search().Index("index_name").AllowPartialSearchResults(true).Do(context.Background())
 -----
 
 If parameters are needed for the specific endpoint you are using, those will be present as arguments in the same order as the API:
 
 [source,go]
 ------------------------------------
-c.Create("index_name", "doc_id").Do(context.Background())
+es.Create("index_name", "doc_id").Do(context.Background())
 ------------------------------------
 
 Otherwise, you can find them within the builder:
 
 [source,go]
 ------------------------------------
-c.Search().Index("index_name").Do(context.Background())
+es.Search().Index("index_name").Do(context.Background())
 ------------------------------------
 
 Alternatively each endpoint can be instantiated directly from its package:
 
 [source,go]
 ------------------------------------
-transport, _ := elastictransport.New(elastictransport.Config{})
-_, _ = search.New(transport).Do(context.Background())
+transport, err := elastictransport.New(elastictransport.Config{})
+res, err = search.New(transport).Do(context.Background())
 ------------------------------------
 
 The `Do` method takes an optional `context`, runs the request through the transport and returns the results as well as an error.
 
 For body-empty endpoints such as `core.Exists`, an additional method `IsSuccess` is available. As the `Do` method it takes an optional `context`, will drain and close the body if needed and will return a boolean alongside and error.
 This allows for easier control flow using the short `if` statement.
+
+[source,go]
+-----
+if exists, err := es.Core.Exists("index_name", "doc_id").IsSuccess(context.Background()); exists {
+    // The document exists!
+} else if err != nil {
+    // An error occurred.
+}
+-----

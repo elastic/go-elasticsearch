@@ -15,7 +15,7 @@ document := struct {
 	Price: 10,
 }
 
-res, err := es.Index("index-name").
+res, err := es.Index("index_name").
     Request(document).
     Do(context.Background())
 -----
@@ -24,7 +24,7 @@ Alternatively you can use the `Raw` method and provide the already serialized JS
 
 [source,go]
 -----
-res, err := es.Index("index-name").
+res, err := es.Index("index_name").
 			Raw([]byte(`{
 			  "id": 1,
 			  "name": "Foo",

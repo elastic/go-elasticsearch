@@ -5,7 +5,7 @@ Retrieving a document follows the API as part of the argument of the endpoint.
 In order you provide the `index`, the `id` and then run the query:
 [source,go]
 -----
-res, err := es.Get("index-name", "id").Do(context.Background())
+res, err := es.Get("index_name", "doc_id").Do(context.Background())
 -----
 
 ==== Checking for a document existence
@@ -13,7 +13,7 @@ res, err := es.Get("index-name", "id").Do(context.Background())
 If you do not wish to retrieve the content of the document and want only to check if it exists in your index, we provide the `IsSuccess` shortcut:
 [source,go]
 -----
-if ok, err := es.Exists("index-name", "id").IsSuccess(nil); ok {
+if exists, err := es.Exists("index_name", "doc_id").IsSuccess(nil); exists {
     // The document exists !
 } else if err != nil {
    // Handle error.

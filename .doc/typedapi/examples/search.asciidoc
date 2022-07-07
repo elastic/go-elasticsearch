@@ -1,13 +1,13 @@
 [[search]]
 ==== Search
 
-Building a search query can be done with structs or builder, as an example lets search for document with a field `name` with a value of `Foo` in the index named `index-name`.
+Building a search query can be done with structs or builder, as an example lets search for document with a field `name` with a value of `Foo` in the index named `index_name`.
 
 With a struct request:
 [source,go]
 -----
 res, err := es.Search().
-    Index("index-name"). // <1>
+    Index("index_name"). // <1>
     Request(&search.Request{ // <2>
         Query: &types.QueryContainer{
             Match: map[types.Field]types.MatchQuery{
@@ -25,7 +25,7 @@ The same query using the builder:
 [source,go]
 -----
 res, err := es.Search().
-    Index("index-name").
+    Index("index_name").
     Request(search.NewRequest().
         Query(types.NewQueryContainer().
             Match(map[types.Field]types.MatchQuery{

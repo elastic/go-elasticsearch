@@ -1,14 +1,14 @@
 [[aggregations]]
 ==== Aggregations
 
-Given documents with a `price` field, we run a sum aggregation on `index-name`:
+Given documents with a `price` field, we run a sum aggregation on `index_name`:
 [source,go]
 -----
 // Building the aggregation first
 priceSumAggregation := types.NewSumAggregation().Field("price").Build() // <1>
 
 totalPricesAgg, err := es.Search().
-    Index("index-name"). // <2>
+    Index("index_name"). // <2>
     Request(
         search.NewRequest().
             Size(0). // <3>
