@@ -10,7 +10,7 @@ res, err := es.Get("index-name", "id").Do(context.Background())
 
 ==== Checking for a document existence
 
-If you do not whish to retrieve the content of the document and want only to check if it exists in your index, we provide the `IsSuccess` shortcut:
+If you do not wish to retrieve the content of the document and want only to check if it exists in your index, we provide the `IsSuccess` shortcut:
 [source,go]
 -----
 if ok, err := es.Exists("index-name", "id").IsSuccess(nil); ok {
