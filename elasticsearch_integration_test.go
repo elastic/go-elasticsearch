@@ -335,16 +335,14 @@ func TestTypedClient(t *testing.T) {
 		indexName := "test-index"
 		if ok, err := es.Indices.Exists(indexName).IsSuccess(nil); !ok && err == nil {
 			res, err := es.Indices.Create(indexName).
-				Request(create.NewRequestBuilder().
-					Mappings(
-						types.NewTypeMappingBuilder().
-							Properties(
-								map[types.PropertyName]*types.PropertyBuilder{
-									"price": types.NewPropertyBuilder().IntegerNumberProperty(types.NewIntegerNumberPropertyBuilder()),
-									"name":  types.NewPropertyBuilder().KeywordProperty(types.NewKeywordPropertyBuilder()),
-								},
-							),
-					).Build()).
+				Request(&create.Request{
+					Mappings: &types.TypeMapping{
+						Properties: map[types.PropertyName]types.Property{
+							"price": types.NewIntegerNumberPropertyBuilder().Build(),
+							"name":  types.NewKeywordPropertyBuilder().Build(),
+						},
+					},
+				}).
 				Do(nil)
 			if err != nil {
 				t.Fatalf("error creating index test-index: %s", err)
@@ -387,7 +385,7 @@ func TestTypedClient(t *testing.T) {
 				Request(document).
 				Id(strconv.Itoa(document.Id)).
 				Refresh(refresh.Waitfor).
-				Do(nil)
+				Do(context.Background())
 			if err != nil {
 				t.Fatalf("error indexing document: %s", err)
 			}
@@ -400,14 +398,13 @@ func TestTypedClient(t *testing.T) {
 
 		res, err := es.Search().
 			Index(indexName).
-			Request(search.NewRequestBuilder().
-				Query(
-					types.NewQueryContainerBuilder().
-						Match(map[types.Field]*types.MatchQueryBuilder{
-							"name": types.NewMatchQueryBuilder().Query("Foo"),
-						}),
-				).Build(),
-			).Do(nil)
+			Request(&search.Request{
+				Query: &types.QueryContainer{
+					Match: map[types.Field]types.MatchQuery{
+						"name": {Query: "Foo"},
+					},
+				},
+			}).Do(context.Background())
 
 		if err != nil {
 			t.Fatalf("error runnning search query: %s", err)
@@ -447,18 +444,22 @@ func TestTypedClient(t *testing.T) {
 
 		pa := PriceAggregation{}
 
+		size := 0
+		field := types.Field("price")
+
 		totalPricesAgg, err := es.Search().
 			Index(indexName).
 			Request(
-				search.NewRequestBuilder().
-					Size(0).
-					Aggregations(
-						map[string]*types.AggregationContainerBuilder{
-							"total_prices": types.NewAggregationContainerBuilder().
-								Sum(types.NewSumAggregationBuilder().Field("price")),
-						}).
-					Build(),
-			).Do(nil)
+				&search.Request{
+					Size: &size,
+					Aggregations: map[string]types.AggregationContainer{
+						"total_prices": {
+							Sum: &types.SumAggregation{
+								Field: &field,
+							},
+						},
+					},
+				}).Do(context.Background())
 
 		if err != nil {
 			t.Fatal(err)
