@@ -10,12 +10,12 @@ The builder is particularly useful around pointer fields and is embeddable withi
 ------------------------------------
 types.QueryContainer{
     Term: map[types.Field]types.TermQuery{
-        "name": {Value: types.FieldValue{"Foo"}},
+        "name": {Value: "Foo"},
     },
 }
 types.QueryContainer{
     Term: map[types.Field]types.TermQuery{
-        "name": types.NewTermQuery().Value(types.NewFieldValue().String("Foo")).Build(),
+        "name": types.NewTermQueryBuilder().Value(types.NewFieldValueBuilder().String("Foo")).Build(),
     },
 }
 ------------------------------------

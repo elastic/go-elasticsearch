@@ -4,24 +4,20 @@
 Given documents with a `price` field, we run a sum aggregation on `index_name`:
 [source,go]
 -----
-// Building the aggregation first
-priceSumAggregation := types.NewSumAggregation().Field("price").Build() // <1>
-
 totalPricesAgg, err := es.Search().
-    Index("index_name"). // <2>
-    Request(
-        search.NewRequest().
-            Size(0). // <3>
-            Aggregations(
-                map[string]types.AggregationContainer{
-                    "total_prices": {
-                        Sum: &priceSumAggregation,  // <4>
-                    },
-                }).
-            Build(),
-    ).Do(context.Background())
+	Index("index_name"). // <1>
+	Request(
+		search.NewRequestBuilder().
+			Size(0). // <2>
+			Aggregations(
+				map[string]*types.AggregationContainerBuilder{
+					"total_prices": types.NewAggregationContainerBuilder(). // <3>
+						Sum(types.NewSumAggregationBuilder().Field("price")), // <4>
+				}).
+			Build(),
+	).Do(context.Background())
 -----
-<1> Specifies the field name on which the sum aggregation runs.
-<2> Specifies the index name.
-<3> Sets the size to 0 to retrieve only the result of the aggregation.
+<1> Specifies the index name.
+<2> Sets the size to 0 to retrieve only the result of the aggregation.
+<3> Specifies the field name on which the sum aggregation runs.
 <4> The `SumAggregation` is part of the `AggregationContainer` map.

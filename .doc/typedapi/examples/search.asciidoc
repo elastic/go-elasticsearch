@@ -25,17 +25,15 @@ The same query using the builder:
 [source,go]
 -----
 res, err := es.Search().
-    Index("index_name").
-    Request(search.NewRequest().
-        Query(types.NewQueryContainer().
-            Match(map[types.Field]types.MatchQuery{
-                "name": types.NewMatchQuery().
-                    Query("Foo").
-                    Build(),
-            }).
-            Build()).
-        Build(),
-    ).Do(context.Background())
+	Index("index_name").
+	Request(search.NewRequestBuilder().
+		Query(types.NewQueryContainerBuilder().
+			Match(map[types.Field]types.MatchQueryBuilder{
+				"name": types.NewMatchQueryBuilder().
+					Query("Foo"),
+			})).
+		Build(),
+	).Do(context.Background())
 -----
 
 Both of the examples produce the following JSON:
