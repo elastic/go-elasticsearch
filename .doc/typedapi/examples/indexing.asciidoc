@@ -20,7 +20,7 @@ res, err := es.Index("index_name").
     Do(context.Background())
 -----
 
-Alternatively you can use the `Raw` method and provide the already serialized JSON:
+Alternatively, you can use the `Raw` method and provide the already serialized JSON:
 
 [source,go]
 -----

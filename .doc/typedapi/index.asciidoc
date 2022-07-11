@@ -12,7 +12,7 @@ These will be added later on along with typed responses and error handling.
 === Getting started
 
 The new typed client can be obtained from the `elasticsearch` package using the `NewTypedClient` function.
-This new API takes the sames arguments as the previous one and uses the same transport underneath.
+This new API takes the same arguments as the previous one and uses the same transport underneath.
 
 Connection to an {es} cluster is identical to the existing client, only the API changes:
 

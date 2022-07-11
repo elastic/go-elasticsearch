@@ -34,8 +34,7 @@ res, err = search.New(transport).Do(context.Background())
 
 The `Do` method takes an optional `context`, runs the request through the transport and returns the results as well as an error.
 
-For body-empty endpoints such as `core.Exists`, an additional method `IsSuccess` is available. As the `Do` method it takes an optional `context`, will drain and close the body if needed and will return a boolean alongside and error.
-This allows for easier control flow using the short `if` statement.
+For body-empty endpoints such as `core.Exists`, an additional method `IsSuccess` is available. As the `Do` method, it takes an optional `context`, drains and closes the body if needed, and returns a boolean alongside an error
 
 [source,go]
 -----

@@ -6,7 +6,7 @@ Each type comes with json tags and a builder.
 
 ==== Enums
 
-The {es} API has several instances of enumerations, each have a package within `types/enums`.
+The {es} API has several instances of enumerations, each has a package within `types/enums`.
 An enum is declared as a type and each member of the enum is an exported variable with its value.
 The enum types serializes to the relevant API value, for example the `refresh` options which can be found in the Search API:
 

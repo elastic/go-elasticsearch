@@ -1,7 +1,7 @@
 [[search]]
 ==== Search
 
-Building a search query can be done with structs or builder, as an example lets search for document with a field `name` with a value of `Foo` in the index named `index_name`.
+Building a search query can be done with structs or builder. As an example, let's search for a document with a field `name` with a value of `Foo` in the index named `index_name`.
 
 With a struct request:
 [source,go]
@@ -38,7 +38,7 @@ res, err := es.Search().
     ).Do(context.Background())
 -----
 
-Both of these will produce the following JSON:
+Both of the examples produce the following JSON:
 
 [source,json]
 -----

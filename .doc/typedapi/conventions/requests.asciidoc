@@ -4,7 +4,7 @@
 Requests are modeled around structures that follows as closely as possible the {es} API and uses the standard `json/encoding` for serialization.
 Corresponding request can be found withing the same package as its endpoint and comes with a Builder that allows you to deep dive into the API by following the types.
 
-The builder is particularly useful around pointer fields and is totally embeddable within a standard struct declaration, such that these two declarations gives you the same result:
+The builder is particularly useful around pointer fields and is embeddable within a standard struct declaration, such that these two declarations give you the same result:
 
 [source,go]
 ------------------------------------

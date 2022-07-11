@@ -21,7 +21,7 @@ totalPricesAgg, err := es.Search().
             Build(),
     ).Do(context.Background())
 -----
-<1> First the sum aggregation where we specify the field name which it will be run upon.
-<2> We specify the index name.
-<3> Set the size to 0, since we only want to retrieve the result of the aggregation.
+<1> Specifies the field name on which the sum aggregation runs.
+<2> Specifies the index name.
+<3> Sets the size to 0 to retrieve only the result of the aggregation.
 <4> The `SumAggregation` is part of the `AggregationContainer` map.

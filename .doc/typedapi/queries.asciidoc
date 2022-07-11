@@ -20,7 +20,7 @@ search.Request{
 ==== Query Builder
 
 Although the structure syntax is lightweight, the types will sometimes lead you to pointers of string or even type aliases which ultimately are interfaces.
-For all those occasions as well as discoverability we provide for the entire API a builder for each type, such that the above request can be written like this:
+For all those occasions as well as discoverability, we provide for the entire API a builder for each type; the request above can be written like this:
 
 [source,go]
 -----
@@ -53,4 +53,4 @@ es.Search().Raw([]byte(`{
 }`))
 -----
 
-No further validation or serialization is done on what is sent through this method, setting a payload with this will take precedence over any request structure you may submit before running the query.
+No further validation or serialization is done on what is sent through this method, setting a payload with this takes precedence over any request structure you may submit before running the query.
