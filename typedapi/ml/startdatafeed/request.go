@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package startdatafeed
 
@@ -31,17 +29,17 @@ import (
 
 // Request holds the request body struct for the package startdatafeed
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ml/start_datafeed/MlStartDatafeedRequest.ts#L24-L91
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ml/start_datafeed/MlStartDatafeedRequest.ts#L24-L91
 type Request struct {
 
 	// End Refer to the description for the `end` query parameter.
-	End *types.Time `json:"end,omitempty"`
+	End *types.DateTime `json:"end,omitempty"`
 
 	// Start Refer to the description for the `start` query parameter.
-	Start *types.Time `json:"start,omitempty"`
+	Start *types.DateTime `json:"start,omitempty"`
 
 	// Timeout Refer to the description for the `timeout` query parameter.
-	Timeout *types.Time `json:"timeout,omitempty"`
+	Timeout *types.Duration `json:"timeout,omitempty"`
 }
 
 // RequestBuilder is the builder API for the startdatafeed.Request
@@ -74,19 +72,19 @@ func (rb *RequestBuilder) Build() *Request {
 	return rb.v
 }
 
-func (rb *RequestBuilder) End(end *types.TimeBuilder) *RequestBuilder {
+func (rb *RequestBuilder) End(end *types.DateTimeBuilder) *RequestBuilder {
 	v := end.Build()
 	rb.v.End = &v
 	return rb
 }
 
-func (rb *RequestBuilder) Start(start *types.TimeBuilder) *RequestBuilder {
+func (rb *RequestBuilder) Start(start *types.DateTimeBuilder) *RequestBuilder {
 	v := start.Build()
 	rb.v.Start = &v
 	return rb
 }
 
-func (rb *RequestBuilder) Timeout(timeout *types.TimeBuilder) *RequestBuilder {
+func (rb *RequestBuilder) Timeout(timeout *types.DurationBuilder) *RequestBuilder {
 	v := timeout.Build()
 	rb.v.Timeout = &v
 	return rb

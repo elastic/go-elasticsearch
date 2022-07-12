@@ -15,34 +15,32 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // TransformIndexerStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/transform/get_transform_stats/types.ts#L42-L60
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/transform/get_transform_stats/types.ts#L48-L66
 type TransformIndexerStats struct {
-	DeleteTimeInMs                     *EpochMillis `json:"delete_time_in_ms,omitempty"`
-	DocumentsDeleted                   *int64       `json:"documents_deleted,omitempty"`
-	DocumentsIndexed                   int64        `json:"documents_indexed"`
-	DocumentsProcessed                 int64        `json:"documents_processed"`
-	ExponentialAvgCheckpointDurationMs float64      `json:"exponential_avg_checkpoint_duration_ms"`
-	ExponentialAvgDocumentsIndexed     float64      `json:"exponential_avg_documents_indexed"`
-	ExponentialAvgDocumentsProcessed   float64      `json:"exponential_avg_documents_processed"`
-	IndexFailures                      int64        `json:"index_failures"`
-	IndexTimeInMs                      int64        `json:"index_time_in_ms"`
-	IndexTotal                         int64        `json:"index_total"`
-	PagesProcessed                     int64        `json:"pages_processed"`
-	ProcessingTimeInMs                 int64        `json:"processing_time_in_ms"`
-	ProcessingTotal                    int64        `json:"processing_total"`
-	SearchFailures                     int64        `json:"search_failures"`
-	SearchTimeInMs                     int64        `json:"search_time_in_ms"`
-	SearchTotal                        int64        `json:"search_total"`
-	TriggerCount                       int64        `json:"trigger_count"`
+	DeleteTimeInMs                     *EpochTimeUnitMillis         `json:"delete_time_in_ms,omitempty"`
+	DocumentsDeleted                   *int64                       `json:"documents_deleted,omitempty"`
+	DocumentsIndexed                   int64                        `json:"documents_indexed"`
+	DocumentsProcessed                 int64                        `json:"documents_processed"`
+	ExponentialAvgCheckpointDurationMs DurationValueUnitFloatMillis `json:"exponential_avg_checkpoint_duration_ms"`
+	ExponentialAvgDocumentsIndexed     float64                      `json:"exponential_avg_documents_indexed"`
+	ExponentialAvgDocumentsProcessed   float64                      `json:"exponential_avg_documents_processed"`
+	IndexFailures                      int64                        `json:"index_failures"`
+	IndexTimeInMs                      DurationValueUnitMillis      `json:"index_time_in_ms"`
+	IndexTotal                         int64                        `json:"index_total"`
+	PagesProcessed                     int64                        `json:"pages_processed"`
+	ProcessingTimeInMs                 DurationValueUnitMillis      `json:"processing_time_in_ms"`
+	ProcessingTotal                    int64                        `json:"processing_total"`
+	SearchFailures                     int64                        `json:"search_failures"`
+	SearchTimeInMs                     DurationValueUnitMillis      `json:"search_time_in_ms"`
+	SearchTotal                        int64                        `json:"search_total"`
+	TriggerCount                       int64                        `json:"trigger_count"`
 }
 
 // TransformIndexerStatsBuilder holds TransformIndexerStats struct and provides a builder API.
@@ -64,7 +62,7 @@ func (rb *TransformIndexerStatsBuilder) Build() TransformIndexerStats {
 	return *rb.v
 }
 
-func (rb *TransformIndexerStatsBuilder) DeleteTimeInMs(deletetimeinms *EpochMillisBuilder) *TransformIndexerStatsBuilder {
+func (rb *TransformIndexerStatsBuilder) DeleteTimeInMs(deletetimeinms *EpochTimeUnitMillisBuilder) *TransformIndexerStatsBuilder {
 	v := deletetimeinms.Build()
 	rb.v.DeleteTimeInMs = &v
 	return rb
@@ -85,8 +83,9 @@ func (rb *TransformIndexerStatsBuilder) DocumentsProcessed(documentsprocessed in
 	return rb
 }
 
-func (rb *TransformIndexerStatsBuilder) ExponentialAvgCheckpointDurationMs(exponentialavgcheckpointdurationms float64) *TransformIndexerStatsBuilder {
-	rb.v.ExponentialAvgCheckpointDurationMs = exponentialavgcheckpointdurationms
+func (rb *TransformIndexerStatsBuilder) ExponentialAvgCheckpointDurationMs(exponentialavgcheckpointdurationms *DurationValueUnitFloatMillisBuilder) *TransformIndexerStatsBuilder {
+	v := exponentialavgcheckpointdurationms.Build()
+	rb.v.ExponentialAvgCheckpointDurationMs = v
 	return rb
 }
 
@@ -105,8 +104,9 @@ func (rb *TransformIndexerStatsBuilder) IndexFailures(indexfailures int64) *Tran
 	return rb
 }
 
-func (rb *TransformIndexerStatsBuilder) IndexTimeInMs(indextimeinms int64) *TransformIndexerStatsBuilder {
-	rb.v.IndexTimeInMs = indextimeinms
+func (rb *TransformIndexerStatsBuilder) IndexTimeInMs(indextimeinms *DurationValueUnitMillisBuilder) *TransformIndexerStatsBuilder {
+	v := indextimeinms.Build()
+	rb.v.IndexTimeInMs = v
 	return rb
 }
 
@@ -120,8 +120,9 @@ func (rb *TransformIndexerStatsBuilder) PagesProcessed(pagesprocessed int64) *Tr
 	return rb
 }
 
-func (rb *TransformIndexerStatsBuilder) ProcessingTimeInMs(processingtimeinms int64) *TransformIndexerStatsBuilder {
-	rb.v.ProcessingTimeInMs = processingtimeinms
+func (rb *TransformIndexerStatsBuilder) ProcessingTimeInMs(processingtimeinms *DurationValueUnitMillisBuilder) *TransformIndexerStatsBuilder {
+	v := processingtimeinms.Build()
+	rb.v.ProcessingTimeInMs = v
 	return rb
 }
 
@@ -135,8 +136,9 @@ func (rb *TransformIndexerStatsBuilder) SearchFailures(searchfailures int64) *Tr
 	return rb
 }
 
-func (rb *TransformIndexerStatsBuilder) SearchTimeInMs(searchtimeinms int64) *TransformIndexerStatsBuilder {
-	rb.v.SearchTimeInMs = searchtimeinms
+func (rb *TransformIndexerStatsBuilder) SearchTimeInMs(searchtimeinms *DurationValueUnitMillisBuilder) *TransformIndexerStatsBuilder {
+	v := searchtimeinms.Build()
+	rb.v.SearchTimeInMs = v
 	return rb
 }
 

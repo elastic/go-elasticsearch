@@ -15,21 +15,20 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // SnapshotStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/snapshot/_types/SnapshotStats.ts#L23-L28
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/snapshot/_types/SnapshotStats.ts#L23-L29
 type SnapshotStats struct {
-	Incremental       FileCountSnapshotStats `json:"incremental"`
-	StartTimeInMillis int64                  `json:"start_time_in_millis"`
-	TimeInMillis      int64                  `json:"time_in_millis"`
-	Total             FileCountSnapshotStats `json:"total"`
+	Incremental       FileCountSnapshotStats  `json:"incremental"`
+	StartTimeInMillis EpochTimeUnitMillis     `json:"start_time_in_millis"`
+	Time              *Duration               `json:"time,omitempty"`
+	TimeInMillis      DurationValueUnitMillis `json:"time_in_millis"`
+	Total             FileCountSnapshotStats  `json:"total"`
 }
 
 // SnapshotStatsBuilder holds SnapshotStats struct and provides a builder API.
@@ -57,13 +56,21 @@ func (rb *SnapshotStatsBuilder) Incremental(incremental *FileCountSnapshotStatsB
 	return rb
 }
 
-func (rb *SnapshotStatsBuilder) StartTimeInMillis(starttimeinmillis int64) *SnapshotStatsBuilder {
-	rb.v.StartTimeInMillis = starttimeinmillis
+func (rb *SnapshotStatsBuilder) StartTimeInMillis(starttimeinmillis *EpochTimeUnitMillisBuilder) *SnapshotStatsBuilder {
+	v := starttimeinmillis.Build()
+	rb.v.StartTimeInMillis = v
 	return rb
 }
 
-func (rb *SnapshotStatsBuilder) TimeInMillis(timeinmillis int64) *SnapshotStatsBuilder {
-	rb.v.TimeInMillis = timeinmillis
+func (rb *SnapshotStatsBuilder) Time(time *DurationBuilder) *SnapshotStatsBuilder {
+	v := time.Build()
+	rb.v.Time = &v
+	return rb
+}
+
+func (rb *SnapshotStatsBuilder) TimeInMillis(timeinmillis *DurationValueUnitMillisBuilder) *SnapshotStatsBuilder {
+	v := timeinmillis.Build()
+	rb.v.TimeInMillis = v
 	return rb
 }
 

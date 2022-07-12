@@ -15,27 +15,25 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // GetStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_types/Stats.ts#L87-L98
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/Stats.ts#L88-L99
 type GetStats struct {
-	Current             int64   `json:"current"`
-	ExistsTime          *string `json:"exists_time,omitempty"`
-	ExistsTimeInMillis  int64   `json:"exists_time_in_millis"`
-	ExistsTotal         int64   `json:"exists_total"`
-	MissingTime         *string `json:"missing_time,omitempty"`
-	MissingTimeInMillis int64   `json:"missing_time_in_millis"`
-	MissingTotal        int64   `json:"missing_total"`
-	Time                *string `json:"time,omitempty"`
-	TimeInMillis        int64   `json:"time_in_millis"`
-	Total               int64   `json:"total"`
+	Current             int64                   `json:"current"`
+	ExistsTime          *Duration               `json:"exists_time,omitempty"`
+	ExistsTimeInMillis  DurationValueUnitMillis `json:"exists_time_in_millis"`
+	ExistsTotal         int64                   `json:"exists_total"`
+	MissingTime         *Duration               `json:"missing_time,omitempty"`
+	MissingTimeInMillis DurationValueUnitMillis `json:"missing_time_in_millis"`
+	MissingTotal        int64                   `json:"missing_total"`
+	Time                *Duration               `json:"time,omitempty"`
+	TimeInMillis        DurationValueUnitMillis `json:"time_in_millis"`
+	Total               int64                   `json:"total"`
 }
 
 // GetStatsBuilder holds GetStats struct and provides a builder API.
@@ -62,13 +60,15 @@ func (rb *GetStatsBuilder) Current(current int64) *GetStatsBuilder {
 	return rb
 }
 
-func (rb *GetStatsBuilder) ExistsTime(existstime string) *GetStatsBuilder {
-	rb.v.ExistsTime = &existstime
+func (rb *GetStatsBuilder) ExistsTime(existstime *DurationBuilder) *GetStatsBuilder {
+	v := existstime.Build()
+	rb.v.ExistsTime = &v
 	return rb
 }
 
-func (rb *GetStatsBuilder) ExistsTimeInMillis(existstimeinmillis int64) *GetStatsBuilder {
-	rb.v.ExistsTimeInMillis = existstimeinmillis
+func (rb *GetStatsBuilder) ExistsTimeInMillis(existstimeinmillis *DurationValueUnitMillisBuilder) *GetStatsBuilder {
+	v := existstimeinmillis.Build()
+	rb.v.ExistsTimeInMillis = v
 	return rb
 }
 
@@ -77,13 +77,15 @@ func (rb *GetStatsBuilder) ExistsTotal(existstotal int64) *GetStatsBuilder {
 	return rb
 }
 
-func (rb *GetStatsBuilder) MissingTime(missingtime string) *GetStatsBuilder {
-	rb.v.MissingTime = &missingtime
+func (rb *GetStatsBuilder) MissingTime(missingtime *DurationBuilder) *GetStatsBuilder {
+	v := missingtime.Build()
+	rb.v.MissingTime = &v
 	return rb
 }
 
-func (rb *GetStatsBuilder) MissingTimeInMillis(missingtimeinmillis int64) *GetStatsBuilder {
-	rb.v.MissingTimeInMillis = missingtimeinmillis
+func (rb *GetStatsBuilder) MissingTimeInMillis(missingtimeinmillis *DurationValueUnitMillisBuilder) *GetStatsBuilder {
+	v := missingtimeinmillis.Build()
+	rb.v.MissingTimeInMillis = v
 	return rb
 }
 
@@ -92,13 +94,15 @@ func (rb *GetStatsBuilder) MissingTotal(missingtotal int64) *GetStatsBuilder {
 	return rb
 }
 
-func (rb *GetStatsBuilder) Time(time string) *GetStatsBuilder {
-	rb.v.Time = &time
+func (rb *GetStatsBuilder) Time(time *DurationBuilder) *GetStatsBuilder {
+	v := time.Build()
+	rb.v.Time = &v
 	return rb
 }
 
-func (rb *GetStatsBuilder) TimeInMillis(timeinmillis int64) *GetStatsBuilder {
-	rb.v.TimeInMillis = timeinmillis
+func (rb *GetStatsBuilder) TimeInMillis(timeinmillis *DurationValueUnitMillisBuilder) *GetStatsBuilder {
+	v := timeinmillis.Build()
+	rb.v.TimeInMillis = v
 	return rb
 }
 

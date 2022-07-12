@@ -15,27 +15,25 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // Statistics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/slm/_types/SnapshotLifecycle.ts#L45-L68
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/slm/_types/SnapshotLifecycle.ts#L51-L74
 type Statistics struct {
-	Policy                        *Id          `json:"policy,omitempty"`
-	RetentionDeletionTime         *DateString  `json:"retention_deletion_time,omitempty"`
-	RetentionDeletionTimeMillis   *EpochMillis `json:"retention_deletion_time_millis,omitempty"`
-	RetentionFailed               *int64       `json:"retention_failed,omitempty"`
-	RetentionRuns                 *int64       `json:"retention_runs,omitempty"`
-	RetentionTimedOut             *int64       `json:"retention_timed_out,omitempty"`
-	TotalSnapshotDeletionFailures *int64       `json:"total_snapshot_deletion_failures,omitempty"`
-	TotalSnapshotsDeleted         *int64       `json:"total_snapshots_deleted,omitempty"`
-	TotalSnapshotsFailed          *int64       `json:"total_snapshots_failed,omitempty"`
-	TotalSnapshotsTaken           *int64       `json:"total_snapshots_taken,omitempty"`
+	Policy                        *Id                      `json:"policy,omitempty"`
+	RetentionDeletionTime         *Duration                `json:"retention_deletion_time,omitempty"`
+	RetentionDeletionTimeMillis   *DurationValueUnitMillis `json:"retention_deletion_time_millis,omitempty"`
+	RetentionFailed               *int64                   `json:"retention_failed,omitempty"`
+	RetentionRuns                 *int64                   `json:"retention_runs,omitempty"`
+	RetentionTimedOut             *int64                   `json:"retention_timed_out,omitempty"`
+	TotalSnapshotDeletionFailures *int64                   `json:"total_snapshot_deletion_failures,omitempty"`
+	TotalSnapshotsDeleted         *int64                   `json:"total_snapshots_deleted,omitempty"`
+	TotalSnapshotsFailed          *int64                   `json:"total_snapshots_failed,omitempty"`
+	TotalSnapshotsTaken           *int64                   `json:"total_snapshots_taken,omitempty"`
 }
 
 // StatisticsBuilder holds Statistics struct and provides a builder API.
@@ -62,12 +60,13 @@ func (rb *StatisticsBuilder) Policy(policy Id) *StatisticsBuilder {
 	return rb
 }
 
-func (rb *StatisticsBuilder) RetentionDeletionTime(retentiondeletiontime DateString) *StatisticsBuilder {
-	rb.v.RetentionDeletionTime = &retentiondeletiontime
+func (rb *StatisticsBuilder) RetentionDeletionTime(retentiondeletiontime *DurationBuilder) *StatisticsBuilder {
+	v := retentiondeletiontime.Build()
+	rb.v.RetentionDeletionTime = &v
 	return rb
 }
 
-func (rb *StatisticsBuilder) RetentionDeletionTimeMillis(retentiondeletiontimemillis *EpochMillisBuilder) *StatisticsBuilder {
+func (rb *StatisticsBuilder) RetentionDeletionTimeMillis(retentiondeletiontimemillis *DurationValueUnitMillisBuilder) *StatisticsBuilder {
 	v := retentiondeletiontimemillis.Build()
 	rb.v.RetentionDeletionTimeMillis = &v
 	return rb

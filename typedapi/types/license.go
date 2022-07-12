@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
@@ -28,16 +26,16 @@ import (
 
 // License type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/license/_types/License.ts#L42-L53
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/license/_types/License.ts#L42-L53
 type License struct {
-	ExpiryDateInMillis EpochMillis             `json:"expiry_date_in_millis"`
-	IssueDateInMillis  EpochMillis             `json:"issue_date_in_millis"`
+	ExpiryDateInMillis EpochTimeUnitMillis     `json:"expiry_date_in_millis"`
+	IssueDateInMillis  EpochTimeUnitMillis     `json:"issue_date_in_millis"`
 	IssuedTo           string                  `json:"issued_to"`
 	Issuer             string                  `json:"issuer"`
 	MaxNodes           int64                   `json:"max_nodes,omitempty"`
 	MaxResourceUnits   *int64                  `json:"max_resource_units,omitempty"`
 	Signature          string                  `json:"signature"`
-	StartDateInMillis  *EpochMillis            `json:"start_date_in_millis,omitempty"`
+	StartDateInMillis  *EpochTimeUnitMillis    `json:"start_date_in_millis,omitempty"`
 	Type               licensetype.LicenseType `json:"type"`
 	Uid                string                  `json:"uid"`
 }
@@ -61,13 +59,13 @@ func (rb *LicenseBuilder) Build() License {
 	return *rb.v
 }
 
-func (rb *LicenseBuilder) ExpiryDateInMillis(expirydateinmillis *EpochMillisBuilder) *LicenseBuilder {
+func (rb *LicenseBuilder) ExpiryDateInMillis(expirydateinmillis *EpochTimeUnitMillisBuilder) *LicenseBuilder {
 	v := expirydateinmillis.Build()
 	rb.v.ExpiryDateInMillis = v
 	return rb
 }
 
-func (rb *LicenseBuilder) IssueDateInMillis(issuedateinmillis *EpochMillisBuilder) *LicenseBuilder {
+func (rb *LicenseBuilder) IssueDateInMillis(issuedateinmillis *EpochTimeUnitMillisBuilder) *LicenseBuilder {
 	v := issuedateinmillis.Build()
 	rb.v.IssueDateInMillis = v
 	return rb
@@ -98,7 +96,7 @@ func (rb *LicenseBuilder) Signature(signature string) *LicenseBuilder {
 	return rb
 }
 
-func (rb *LicenseBuilder) StartDateInMillis(startdateinmillis *EpochMillisBuilder) *LicenseBuilder {
+func (rb *LicenseBuilder) StartDateInMillis(startdateinmillis *EpochTimeUnitMillisBuilder) *LicenseBuilder {
 	v := startdateinmillis.Build()
 	rb.v.StartDateInMillis = &v
 	return rb

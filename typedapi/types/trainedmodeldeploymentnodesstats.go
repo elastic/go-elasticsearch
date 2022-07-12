@@ -15,19 +15,17 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // TrainedModelDeploymentNodesStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ml/_types/TrainedModel.ts#L121-L148
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ml/_types/TrainedModel.ts#L127-L154
 type TrainedModelDeploymentNodesStats struct {
 	// AverageInferenceTimeMs The average time for each inference call to complete on this node.
-	AverageInferenceTimeMs float64 `json:"average_inference_time_ms"`
+	AverageInferenceTimeMs DurationValueUnitFloatMillis `json:"average_inference_time_ms"`
 	// ErrorCount The number of errors when evaluating the trained model.
 	ErrorCount int `json:"error_count"`
 	// InferenceCount The total number of inference calls made against this node for this model.
@@ -47,7 +45,7 @@ type TrainedModelDeploymentNodesStats struct {
 	// allocation.
 	RoutingState TrainedModelAllocationRoutingTable `json:"routing_state"`
 	// StartTime The epoch timestamp when the allocation started.
-	StartTime int64 `json:"start_time"`
+	StartTime EpochTimeUnitMillis `json:"start_time"`
 	// ThreadsPerAllocation The number of threads used by each allocation during inference.
 	ThreadsPerAllocation int `json:"threads_per_allocation"`
 	// TimeoutCount The number of inference requests that timed out before being processed.
@@ -75,8 +73,9 @@ func (rb *TrainedModelDeploymentNodesStatsBuilder) Build() TrainedModelDeploymen
 
 // AverageInferenceTimeMs The average time for each inference call to complete on this node.
 
-func (rb *TrainedModelDeploymentNodesStatsBuilder) AverageInferenceTimeMs(averageinferencetimems float64) *TrainedModelDeploymentNodesStatsBuilder {
-	rb.v.AverageInferenceTimeMs = averageinferencetimems
+func (rb *TrainedModelDeploymentNodesStatsBuilder) AverageInferenceTimeMs(averageinferencetimems *DurationValueUnitFloatMillisBuilder) *TrainedModelDeploymentNodesStatsBuilder {
+	v := averageinferencetimems.Build()
+	rb.v.AverageInferenceTimeMs = v
 	return rb
 }
 
@@ -142,8 +141,9 @@ func (rb *TrainedModelDeploymentNodesStatsBuilder) RoutingState(routingstate *Tr
 
 // StartTime The epoch timestamp when the allocation started.
 
-func (rb *TrainedModelDeploymentNodesStatsBuilder) StartTime(starttime int64) *TrainedModelDeploymentNodesStatsBuilder {
-	rb.v.StartTime = starttime
+func (rb *TrainedModelDeploymentNodesStatsBuilder) StartTime(starttime *EpochTimeUnitMillisBuilder) *TrainedModelDeploymentNodesStatsBuilder {
+	v := starttime.Build()
+	rb.v.StartTime = v
 	return rb
 }
 

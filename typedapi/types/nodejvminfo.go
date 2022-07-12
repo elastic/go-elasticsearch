@@ -15,30 +15,28 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // NodeJvmInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/nodes/info/types.ts#L347-L361
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/nodes/info/types.ts#L348-L362
 type NodeJvmInfo struct {
-	BundledJdk                            bool              `json:"bundled_jdk"`
-	GcCollectors                          []string          `json:"gc_collectors"`
-	InputArguments                        []string          `json:"input_arguments"`
-	Mem                                   NodeInfoJvmMemory `json:"mem"`
-	MemoryPools                           []string          `json:"memory_pools"`
-	Pid                                   int               `json:"pid"`
-	StartTimeInMillis                     int64             `json:"start_time_in_millis"`
-	UsingBundledJdk                       bool              `json:"using_bundled_jdk"`
-	UsingCompressedOrdinaryObjectPointers string            `json:"using_compressed_ordinary_object_pointers,omitempty"`
-	Version                               VersionString     `json:"version"`
-	VmName                                Name              `json:"vm_name"`
-	VmVendor                              string            `json:"vm_vendor"`
-	VmVersion                             VersionString     `json:"vm_version"`
+	BundledJdk                            bool                `json:"bundled_jdk"`
+	GcCollectors                          []string            `json:"gc_collectors"`
+	InputArguments                        []string            `json:"input_arguments"`
+	Mem                                   NodeInfoJvmMemory   `json:"mem"`
+	MemoryPools                           []string            `json:"memory_pools"`
+	Pid                                   int                 `json:"pid"`
+	StartTimeInMillis                     EpochTimeUnitMillis `json:"start_time_in_millis"`
+	UsingBundledJdk                       bool                `json:"using_bundled_jdk"`
+	UsingCompressedOrdinaryObjectPointers string              `json:"using_compressed_ordinary_object_pointers,omitempty"`
+	Version                               VersionString       `json:"version"`
+	VmName                                Name                `json:"vm_name"`
+	VmVendor                              string              `json:"vm_vendor"`
+	VmVersion                             VersionString       `json:"vm_version"`
 }
 
 // NodeJvmInfoBuilder holds NodeJvmInfo struct and provides a builder API.
@@ -91,8 +89,9 @@ func (rb *NodeJvmInfoBuilder) Pid(pid int) *NodeJvmInfoBuilder {
 	return rb
 }
 
-func (rb *NodeJvmInfoBuilder) StartTimeInMillis(starttimeinmillis int64) *NodeJvmInfoBuilder {
-	rb.v.StartTimeInMillis = starttimeinmillis
+func (rb *NodeJvmInfoBuilder) StartTimeInMillis(starttimeinmillis *EpochTimeUnitMillisBuilder) *NodeJvmInfoBuilder {
+	v := starttimeinmillis.Build()
+	rb.v.StartTimeInMillis = v
 	return rb
 }
 

@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
@@ -28,7 +26,7 @@ import (
 
 // IndexSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/indices/_types/IndexSettings.ts#L66-L163
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/indices/_types/IndexSettings.ts#L69-L168
 type IndexSettings struct {
 	Analysis *IndexSettingsAnalysis `json:"analysis,omitempty"`
 	// Analyze Settings to define analyzers, tokenizers, token filters and character
@@ -38,22 +36,23 @@ type IndexSettings struct {
 	Blocks             *IndexSettingBlocks                      `json:"blocks,omitempty"`
 	CheckOnStartup     *indexcheckonstartup.IndexCheckOnStartup `json:"check_on_startup,omitempty"`
 	Codec              *string                                  `json:"codec,omitempty"`
-	CreationDate       *DateString                              `json:"creation_date,omitempty"`
-	CreationDateString *DateString                              `json:"creation_date_string,omitempty"`
+	CreationDate       *StringifiedEpochTimeUnitMillis          `json:"creation_date,omitempty"`
+	CreationDateString *DateTime                                `json:"creation_date_string,omitempty"`
 	DefaultPipeline    *PipelineName                            `json:"default_pipeline,omitempty"`
 	FinalPipeline      *PipelineName                            `json:"final_pipeline,omitempty"`
 	Format             string                                   `json:"format,omitempty"`
-	GcDeletes          *Time                                    `json:"gc_deletes,omitempty"`
+	GcDeletes          *Duration                                `json:"gc_deletes,omitempty"`
 	Hidden             string                                   `json:"hidden,omitempty"`
 	Highlight          *SettingsHighlight                       `json:"highlight,omitempty"`
 	Index              *IndexSettings                           `json:"index,omitempty"`
+	IndexSettings      map[string]interface{}                   `json:"IndexSettings,omitempty"`
 	// IndexingPressure Configure indexing back pressure limits.
 	IndexingPressure              *IndexingPressure       `json:"indexing_pressure,omitempty"`
 	IndexingSlowlog               *SlowlogSettings        `json:"indexing.slowlog,omitempty"`
 	Lifecycle                     *IndexSettingsLifecycle `json:"lifecycle,omitempty"`
 	LoadFixedBitsetFiltersEagerly *bool                   `json:"load_fixed_bitset_filters_eagerly,omitempty"`
-	// Mappings Enable or disable dynamic mapping for an index.
-	Mappings                *MappingLimitSettings `json:"mappings,omitempty"`
+	// Mapping Enable or disable dynamic mapping for an index.
+	Mapping                 *MappingLimitSettings `json:"mapping,omitempty"`
 	MaxDocvalueFieldsSearch *int                  `json:"max_docvalue_fields_search,omitempty"`
 	MaxInnerResultWindow    *int                  `json:"max_inner_result_window,omitempty"`
 	MaxNgramDiff            *int                  `json:"max_ngram_diff,omitempty"`
@@ -74,7 +73,7 @@ type IndexSettings struct {
 	ProvidedName            *Name                 `json:"provided_name,omitempty"`
 	Queries                 *Queries              `json:"queries,omitempty"`
 	QueryString             *SettingsQueryString  `json:"query_string,omitempty"`
-	RefreshInterval         *Time                 `json:"refresh_interval,omitempty"`
+	RefreshInterval         *Duration             `json:"refresh_interval,omitempty"`
 	Routing                 *IndexRouting         `json:"routing,omitempty"`
 	RoutingPartitionSize    *int                  `json:"routing_partition_size,omitempty"`
 	RoutingPath             []string              `json:"routing_path,omitempty"`
@@ -105,7 +104,9 @@ type IndexSettingsBuilder struct {
 // NewIndexSettings provides a builder for the IndexSettings struct.
 func NewIndexSettingsBuilder() *IndexSettingsBuilder {
 	r := IndexSettingsBuilder{
-		&IndexSettings{},
+		&IndexSettings{
+			IndexSettings: make(map[string]interface{}, 0),
+		},
 	}
 
 	return &r
@@ -152,13 +153,15 @@ func (rb *IndexSettingsBuilder) Codec(codec string) *IndexSettingsBuilder {
 	return rb
 }
 
-func (rb *IndexSettingsBuilder) CreationDate(creationdate DateString) *IndexSettingsBuilder {
-	rb.v.CreationDate = &creationdate
+func (rb *IndexSettingsBuilder) CreationDate(creationdate *StringifiedEpochTimeUnitMillisBuilder) *IndexSettingsBuilder {
+	v := creationdate.Build()
+	rb.v.CreationDate = &v
 	return rb
 }
 
-func (rb *IndexSettingsBuilder) CreationDateString(creationdatestring DateString) *IndexSettingsBuilder {
-	rb.v.CreationDateString = &creationdatestring
+func (rb *IndexSettingsBuilder) CreationDateString(creationdatestring *DateTimeBuilder) *IndexSettingsBuilder {
+	v := creationdatestring.Build()
+	rb.v.CreationDateString = &v
 	return rb
 }
 
@@ -177,7 +180,7 @@ func (rb *IndexSettingsBuilder) Format(arg string) *IndexSettingsBuilder {
 	return rb
 }
 
-func (rb *IndexSettingsBuilder) GcDeletes(gcdeletes *TimeBuilder) *IndexSettingsBuilder {
+func (rb *IndexSettingsBuilder) GcDeletes(gcdeletes *DurationBuilder) *IndexSettingsBuilder {
 	v := gcdeletes.Build()
 	rb.v.GcDeletes = &v
 	return rb
@@ -197,6 +200,11 @@ func (rb *IndexSettingsBuilder) Highlight(highlight *SettingsHighlightBuilder) *
 func (rb *IndexSettingsBuilder) Index(index *IndexSettingsBuilder) *IndexSettingsBuilder {
 	v := index.Build()
 	rb.v.Index = &v
+	return rb
+}
+
+func (rb *IndexSettingsBuilder) IndexSettings(value map[string]interface{}) *IndexSettingsBuilder {
+	rb.v.IndexSettings = value
 	return rb
 }
 
@@ -225,11 +233,11 @@ func (rb *IndexSettingsBuilder) LoadFixedBitsetFiltersEagerly(loadfixedbitsetfil
 	return rb
 }
 
-// Mappings Enable or disable dynamic mapping for an index.
+// Mapping Enable or disable dynamic mapping for an index.
 
-func (rb *IndexSettingsBuilder) Mappings(mappings *MappingLimitSettingsBuilder) *IndexSettingsBuilder {
-	v := mappings.Build()
-	rb.v.Mappings = &v
+func (rb *IndexSettingsBuilder) Mapping(mapping *MappingLimitSettingsBuilder) *IndexSettingsBuilder {
+	v := mapping.Build()
+	rb.v.Mapping = &v
 	return rb
 }
 
@@ -336,7 +344,7 @@ func (rb *IndexSettingsBuilder) QueryString(querystring *SettingsQueryStringBuil
 	return rb
 }
 
-func (rb *IndexSettingsBuilder) RefreshInterval(refreshinterval *TimeBuilder) *IndexSettingsBuilder {
+func (rb *IndexSettingsBuilder) RefreshInterval(refreshinterval *DurationBuilder) *IndexSettingsBuilder {
 	v := refreshinterval.Build()
 	rb.v.RefreshInterval = &v
 	return rb

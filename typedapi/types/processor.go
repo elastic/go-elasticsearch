@@ -15,21 +15,19 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // Processor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/nodes/_types/Stats.ts#L155-L160
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/nodes/_types/Stats.ts#L156-L161
 type Processor struct {
-	Count        *int64 `json:"count,omitempty"`
-	Current      *int64 `json:"current,omitempty"`
-	Failed       *int64 `json:"failed,omitempty"`
-	TimeInMillis *int64 `json:"time_in_millis,omitempty"`
+	Count        *int64                   `json:"count,omitempty"`
+	Current      *int64                   `json:"current,omitempty"`
+	Failed       *int64                   `json:"failed,omitempty"`
+	TimeInMillis *DurationValueUnitMillis `json:"time_in_millis,omitempty"`
 }
 
 // ProcessorBuilder holds Processor struct and provides a builder API.
@@ -66,7 +64,8 @@ func (rb *ProcessorBuilder) Failed(failed int64) *ProcessorBuilder {
 	return rb
 }
 
-func (rb *ProcessorBuilder) TimeInMillis(timeinmillis int64) *ProcessorBuilder {
-	rb.v.TimeInMillis = &timeinmillis
+func (rb *ProcessorBuilder) TimeInMillis(timeinmillis *DurationValueUnitMillisBuilder) *ProcessorBuilder {
+	v := timeinmillis.Build()
+	rb.v.TimeInMillis = &v
 	return rb
 }

@@ -15,20 +15,18 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // Phase type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ilm/_types/Phase.ts#L25-L30
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ilm/_types/Phase.ts#L25-L33
 type Phase struct {
 	Actions        *Actions        `json:"actions,omitempty"`
 	Configurations *Configurations `json:"configurations,omitempty"`
-	MinAge         *Time           `json:"min_age,omitempty"`
+	MinAge         int64           `json:"min_age,omitempty"`
 }
 
 // PhaseBuilder holds Phase struct and provides a builder API.
@@ -62,8 +60,7 @@ func (rb *PhaseBuilder) Configurations(configurations *ConfigurationsBuilder) *P
 	return rb
 }
 
-func (rb *PhaseBuilder) MinAge(minage *TimeBuilder) *PhaseBuilder {
-	v := minage.Build()
-	rb.v.MinAge = &v
+func (rb *PhaseBuilder) MinAge(arg int64) *PhaseBuilder {
+	rb.v.MinAge = arg
 	return rb
 }

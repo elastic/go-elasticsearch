@@ -15,30 +15,28 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // Job type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ml/_types/Job.ts#L46-L70
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ml/_types/Job.ts#L51-L75
 type Job struct {
 	AllowLazyOpen                        bool             `json:"allow_lazy_open"`
 	AnalysisConfig                       AnalysisConfig   `json:"analysis_config"`
 	AnalysisLimits                       *AnalysisLimits  `json:"analysis_limits,omitempty"`
-	BackgroundPersistInterval            *Time            `json:"background_persist_interval,omitempty"`
+	BackgroundPersistInterval            *Duration        `json:"background_persist_interval,omitempty"`
 	Blocked                              *JobBlocked      `json:"blocked,omitempty"`
-	CreateTime                           *int             `json:"create_time,omitempty"`
+	CreateTime                           *DateTime        `json:"create_time,omitempty"`
 	CustomSettings                       *CustomSettings  `json:"custom_settings,omitempty"`
 	DailyModelSnapshotRetentionAfterDays *int64           `json:"daily_model_snapshot_retention_after_days,omitempty"`
 	DataDescription                      DataDescription  `json:"data_description"`
 	DatafeedConfig                       *Datafeed        `json:"datafeed_config,omitempty"`
 	Deleting                             *bool            `json:"deleting,omitempty"`
 	Description                          *string          `json:"description,omitempty"`
-	FinishedTime                         *int             `json:"finished_time,omitempty"`
+	FinishedTime                         *DateTime        `json:"finished_time,omitempty"`
 	Groups                               []string         `json:"groups,omitempty"`
 	JobId                                Id               `json:"job_id"`
 	JobType                              *string          `json:"job_type,omitempty"`
@@ -87,7 +85,7 @@ func (rb *JobBuilder) AnalysisLimits(analysislimits *AnalysisLimitsBuilder) *Job
 	return rb
 }
 
-func (rb *JobBuilder) BackgroundPersistInterval(backgroundpersistinterval *TimeBuilder) *JobBuilder {
+func (rb *JobBuilder) BackgroundPersistInterval(backgroundpersistinterval *DurationBuilder) *JobBuilder {
 	v := backgroundpersistinterval.Build()
 	rb.v.BackgroundPersistInterval = &v
 	return rb
@@ -99,8 +97,9 @@ func (rb *JobBuilder) Blocked(blocked *JobBlockedBuilder) *JobBuilder {
 	return rb
 }
 
-func (rb *JobBuilder) CreateTime(createtime int) *JobBuilder {
-	rb.v.CreateTime = &createtime
+func (rb *JobBuilder) CreateTime(createtime *DateTimeBuilder) *JobBuilder {
+	v := createtime.Build()
+	rb.v.CreateTime = &v
 	return rb
 }
 
@@ -137,8 +136,9 @@ func (rb *JobBuilder) Description(description string) *JobBuilder {
 	return rb
 }
 
-func (rb *JobBuilder) FinishedTime(finishedtime int) *JobBuilder {
-	rb.v.FinishedTime = &finishedtime
+func (rb *JobBuilder) FinishedTime(finishedtime *DateTimeBuilder) *JobBuilder {
+	v := finishedtime.Build()
+	rb.v.FinishedTime = &v
 	return rb
 }
 

@@ -15,24 +15,22 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // RolloverConditions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/indices/rollover/types.ts#L24-L32
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/indices/rollover/types.ts#L24-L32
 type RolloverConditions struct {
-	MaxAge                   *Time        `json:"max_age,omitempty"`
-	MaxAgeMillis             *EpochMillis `json:"max_age_millis,omitempty"`
-	MaxDocs                  *int64       `json:"max_docs,omitempty"`
-	MaxPrimaryShardSize      *ByteSize    `json:"max_primary_shard_size,omitempty"`
-	MaxPrimaryShardSizeBytes *ByteSize    `json:"max_primary_shard_size_bytes,omitempty"`
-	MaxSize                  *string      `json:"max_size,omitempty"`
-	MaxSizeBytes             *ByteSize    `json:"max_size_bytes,omitempty"`
+	MaxAge                   *Duration                `json:"max_age,omitempty"`
+	MaxAgeMillis             *DurationValueUnitMillis `json:"max_age_millis,omitempty"`
+	MaxDocs                  *int64                   `json:"max_docs,omitempty"`
+	MaxPrimaryShardSize      *ByteSize                `json:"max_primary_shard_size,omitempty"`
+	MaxPrimaryShardSizeBytes *ByteSize                `json:"max_primary_shard_size_bytes,omitempty"`
+	MaxSize                  *string                  `json:"max_size,omitempty"`
+	MaxSizeBytes             *ByteSize                `json:"max_size_bytes,omitempty"`
 }
 
 // RolloverConditionsBuilder holds RolloverConditions struct and provides a builder API.
@@ -54,13 +52,13 @@ func (rb *RolloverConditionsBuilder) Build() RolloverConditions {
 	return *rb.v
 }
 
-func (rb *RolloverConditionsBuilder) MaxAge(maxage *TimeBuilder) *RolloverConditionsBuilder {
+func (rb *RolloverConditionsBuilder) MaxAge(maxage *DurationBuilder) *RolloverConditionsBuilder {
 	v := maxage.Build()
 	rb.v.MaxAge = &v
 	return rb
 }
 
-func (rb *RolloverConditionsBuilder) MaxAgeMillis(maxagemillis *EpochMillisBuilder) *RolloverConditionsBuilder {
+func (rb *RolloverConditionsBuilder) MaxAgeMillis(maxagemillis *DurationValueUnitMillisBuilder) *RolloverConditionsBuilder {
 	v := maxagemillis.Build()
 	rb.v.MaxAgeMillis = &v
 	return rb

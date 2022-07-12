@@ -15,16 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // TrainedModelInferenceStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ml/_types/TrainedModel.ts#L92-L112
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ml/_types/TrainedModel.ts#L98-L118
 type TrainedModelInferenceStats struct {
 	// CacheMissCount The number of times the model was loaded for inference and was not retrieved
 	// from the cache.
@@ -42,7 +40,7 @@ type TrainedModelInferenceStats struct {
 	// were missing.
 	MissingAllFieldsCount int `json:"missing_all_fields_count"`
 	// Timestamp The time when the statistics were last updated.
-	Timestamp Time `json:"timestamp"`
+	Timestamp DateTime `json:"timestamp"`
 }
 
 // TrainedModelInferenceStatsBuilder holds TrainedModelInferenceStats struct and provides a builder API.
@@ -101,7 +99,7 @@ func (rb *TrainedModelInferenceStatsBuilder) MissingAllFieldsCount(missingallfie
 
 // Timestamp The time when the statistics were last updated.
 
-func (rb *TrainedModelInferenceStatsBuilder) Timestamp(timestamp *TimeBuilder) *TrainedModelInferenceStatsBuilder {
+func (rb *TrainedModelInferenceStatsBuilder) Timestamp(timestamp *DateTimeBuilder) *TrainedModelInferenceStatsBuilder {
 	v := timestamp.Build()
 	rb.v.Timestamp = v
 	return rb

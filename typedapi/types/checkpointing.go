@@ -15,19 +15,17 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // Checkpointing type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/transform/get_transform_stats/types.ts#L71-L78
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/transform/get_transform_stats/types.ts#L77-L84
 type Checkpointing struct {
 	ChangesLastDetectedAt         *int64           `json:"changes_last_detected_at,omitempty"`
-	ChangesLastDetectedAtDateTime *DateString      `json:"changes_last_detected_at_date_time,omitempty"`
+	ChangesLastDetectedAtDateTime *DateTime        `json:"changes_last_detected_at_date_time,omitempty"`
 	Last                          CheckpointStats  `json:"last"`
 	LastSearchTime                *int64           `json:"last_search_time,omitempty"`
 	Next                          *CheckpointStats `json:"next,omitempty"`
@@ -58,8 +56,9 @@ func (rb *CheckpointingBuilder) ChangesLastDetectedAt(changeslastdetectedat int6
 	return rb
 }
 
-func (rb *CheckpointingBuilder) ChangesLastDetectedAtDateTime(changeslastdetectedatdatetime DateString) *CheckpointingBuilder {
-	rb.v.ChangesLastDetectedAtDateTime = &changeslastdetectedatdatetime
+func (rb *CheckpointingBuilder) ChangesLastDetectedAtDateTime(changeslastdetectedatdatetime *DateTimeBuilder) *CheckpointingBuilder {
+	v := changeslastdetectedatdatetime.Build()
+	rb.v.ChangesLastDetectedAtDateTime = &v
 	return rb
 }
 

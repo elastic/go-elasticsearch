@@ -15,19 +15,18 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // ElisionTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_types/analysis/token_filters.ts#L186-L190
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/analysis/token_filters.ts#L186-L191
 type ElisionTokenFilter struct {
-	Articles     []string       `json:"articles"`
-	ArticlesCase bool           `json:"articles_case"`
+	Articles     []string       `json:"articles,omitempty"`
+	ArticlesCase *bool          `json:"articles_case,omitempty"`
+	ArticlesPath *string        `json:"articles_path,omitempty"`
 	Type         string         `json:"type,omitempty"`
 	Version      *VersionString `json:"version,omitempty"`
 }
@@ -59,7 +58,12 @@ func (rb *ElisionTokenFilterBuilder) Articles(articles ...string) *ElisionTokenF
 }
 
 func (rb *ElisionTokenFilterBuilder) ArticlesCase(articlescase bool) *ElisionTokenFilterBuilder {
-	rb.v.ArticlesCase = articlescase
+	rb.v.ArticlesCase = &articlescase
+	return rb
+}
+
+func (rb *ElisionTokenFilterBuilder) ArticlesPath(articlespath string) *ElisionTokenFilterBuilder {
+	rb.v.ArticlesPath = &articlespath
 	return rb
 }
 

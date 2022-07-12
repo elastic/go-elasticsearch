@@ -15,18 +15,16 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // TruncateTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_types/analysis/token_filters.ts#L326-L329
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/analysis/token_filters.ts#L328-L331
 type TruncateTokenFilter struct {
-	Length  int            `json:"length"`
+	Length  *int           `json:"length,omitempty"`
 	Type    string         `json:"type,omitempty"`
 	Version *VersionString `json:"version,omitempty"`
 }
@@ -53,7 +51,7 @@ func (rb *TruncateTokenFilterBuilder) Build() TruncateTokenFilter {
 }
 
 func (rb *TruncateTokenFilterBuilder) Length(length int) *TruncateTokenFilterBuilder {
-	rb.v.Length = length
+	rb.v.Length = &length
 	return rb
 }
 

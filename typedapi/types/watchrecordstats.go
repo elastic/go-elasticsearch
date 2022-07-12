@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
@@ -28,12 +26,12 @@ import (
 
 // WatchRecordStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/watcher/stats/types.ts#L54-L60
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/watcher/stats/types.ts#L54-L60
 type WatchRecordStats struct {
 	ExecutedActions []string                      `json:"executed_actions,omitempty"`
 	ExecutionPhase  executionphase.ExecutionPhase `json:"execution_phase"`
-	ExecutionTime   DateString                    `json:"execution_time"`
-	TriggeredTime   DateString                    `json:"triggered_time"`
+	ExecutionTime   DateTime                      `json:"execution_time"`
+	TriggeredTime   DateTime                      `json:"triggered_time"`
 	WatchId         Id                            `json:"watch_id"`
 	WatchRecordId   Id                            `json:"watch_record_id"`
 }
@@ -67,13 +65,15 @@ func (rb *WatchRecordStatsBuilder) ExecutionPhase(executionphase executionphase.
 	return rb
 }
 
-func (rb *WatchRecordStatsBuilder) ExecutionTime(executiontime DateString) *WatchRecordStatsBuilder {
-	rb.v.ExecutionTime = executiontime
+func (rb *WatchRecordStatsBuilder) ExecutionTime(executiontime *DateTimeBuilder) *WatchRecordStatsBuilder {
+	v := executiontime.Build()
+	rb.v.ExecutionTime = v
 	return rb
 }
 
-func (rb *WatchRecordStatsBuilder) TriggeredTime(triggeredtime DateString) *WatchRecordStatsBuilder {
-	rb.v.TriggeredTime = triggeredtime
+func (rb *WatchRecordStatsBuilder) TriggeredTime(triggeredtime *DateTimeBuilder) *WatchRecordStatsBuilder {
+	v := triggeredtime.Build()
+	rb.v.TriggeredTime = v
 	return rb
 }
 

@@ -15,23 +15,21 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // FetchProfile type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_global/search/_types/profile.ts#L136-L143
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_global/search/_types/profile.ts#L137-L144
 type FetchProfile struct {
-	Breakdown   FetchProfileBreakdown `json:"breakdown"`
-	Children    []FetchProfile        `json:"children,omitempty"`
-	Debug       *FetchProfileDebug    `json:"debug,omitempty"`
-	Description string                `json:"description"`
-	TimeInNanos int64                 `json:"time_in_nanos"`
-	Type        string                `json:"type"`
+	Breakdown   FetchProfileBreakdown  `json:"breakdown"`
+	Children    []FetchProfile         `json:"children,omitempty"`
+	Debug       *FetchProfileDebug     `json:"debug,omitempty"`
+	Description string                 `json:"description"`
+	TimeInNanos DurationValueUnitNanos `json:"time_in_nanos"`
+	Type        string                 `json:"type"`
 }
 
 // FetchProfileBuilder holds FetchProfile struct and provides a builder API.
@@ -79,8 +77,9 @@ func (rb *FetchProfileBuilder) Description(description string) *FetchProfileBuil
 	return rb
 }
 
-func (rb *FetchProfileBuilder) TimeInNanos(timeinnanos int64) *FetchProfileBuilder {
-	rb.v.TimeInNanos = timeinnanos
+func (rb *FetchProfileBuilder) TimeInNanos(timeinnanos *DurationValueUnitNanosBuilder) *FetchProfileBuilder {
+	v := timeinnanos.Build()
+	rb.v.TimeInNanos = v
 	return rb
 }
 

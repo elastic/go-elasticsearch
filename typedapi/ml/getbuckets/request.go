@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package getbuckets
 
@@ -31,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package getbuckets
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ml/get_buckets/MlGetBucketsRequest.ts#L26-L133
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ml/get_buckets/MlGetBucketsRequest.ts#L26-L133
 type Request struct {
 
 	// AnomalyScore Refer to the description for the `anomaly_score` query parameter.
@@ -41,7 +39,7 @@ type Request struct {
 	Desc *bool `json:"desc,omitempty"`
 
 	// End Refer to the description for the `end` query parameter.
-	End *types.DateString `json:"end,omitempty"`
+	End *types.DateTime `json:"end,omitempty"`
 
 	// ExcludeInterim Refer to the description for the `exclude_interim` query parameter.
 	ExcludeInterim *bool `json:"exclude_interim,omitempty"`
@@ -55,7 +53,7 @@ type Request struct {
 	Sort *types.Field `json:"sort,omitempty"`
 
 	// Start Refer to the description for the `start` query parameter.
-	Start *types.DateString `json:"start,omitempty"`
+	Start *types.DateTime `json:"start,omitempty"`
 }
 
 // RequestBuilder is the builder API for the getbuckets.Request
@@ -98,8 +96,9 @@ func (rb *RequestBuilder) Desc(desc bool) *RequestBuilder {
 	return rb
 }
 
-func (rb *RequestBuilder) End(end types.DateString) *RequestBuilder {
-	rb.v.End = &end
+func (rb *RequestBuilder) End(end *types.DateTimeBuilder) *RequestBuilder {
+	v := end.Build()
+	rb.v.End = &v
 	return rb
 }
 
@@ -124,7 +123,8 @@ func (rb *RequestBuilder) Sort(sort types.Field) *RequestBuilder {
 	return rb
 }
 
-func (rb *RequestBuilder) Start(start types.DateString) *RequestBuilder {
-	rb.v.Start = &start
+func (rb *RequestBuilder) Start(start *types.DateTimeBuilder) *RequestBuilder {
+	v := start.Build()
+	rb.v.Start = &v
 	return rb
 }

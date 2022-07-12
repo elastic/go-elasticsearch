@@ -15,19 +15,19 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // RecoveryStartStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/indices/recovery/types.ts#L85-L88
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/indices/recovery/types.ts#L91-L96
 type RecoveryStartStatus struct {
-	CheckIndexTime    int64  `json:"check_index_time"`
-	TotalTimeInMillis string `json:"total_time_in_millis"`
+	CheckIndexTime         *Duration               `json:"check_index_time,omitempty"`
+	CheckIndexTimeInMillis DurationValueUnitMillis `json:"check_index_time_in_millis"`
+	TotalTime              *Duration               `json:"total_time,omitempty"`
+	TotalTimeInMillis      DurationValueUnitMillis `json:"total_time_in_millis"`
 }
 
 // RecoveryStartStatusBuilder holds RecoveryStartStatus struct and provides a builder API.
@@ -49,12 +49,26 @@ func (rb *RecoveryStartStatusBuilder) Build() RecoveryStartStatus {
 	return *rb.v
 }
 
-func (rb *RecoveryStartStatusBuilder) CheckIndexTime(checkindextime int64) *RecoveryStartStatusBuilder {
-	rb.v.CheckIndexTime = checkindextime
+func (rb *RecoveryStartStatusBuilder) CheckIndexTime(checkindextime *DurationBuilder) *RecoveryStartStatusBuilder {
+	v := checkindextime.Build()
+	rb.v.CheckIndexTime = &v
 	return rb
 }
 
-func (rb *RecoveryStartStatusBuilder) TotalTimeInMillis(totaltimeinmillis string) *RecoveryStartStatusBuilder {
-	rb.v.TotalTimeInMillis = totaltimeinmillis
+func (rb *RecoveryStartStatusBuilder) CheckIndexTimeInMillis(checkindextimeinmillis *DurationValueUnitMillisBuilder) *RecoveryStartStatusBuilder {
+	v := checkindextimeinmillis.Build()
+	rb.v.CheckIndexTimeInMillis = v
+	return rb
+}
+
+func (rb *RecoveryStartStatusBuilder) TotalTime(totaltime *DurationBuilder) *RecoveryStartStatusBuilder {
+	v := totaltime.Build()
+	rb.v.TotalTime = &v
+	return rb
+}
+
+func (rb *RecoveryStartStatusBuilder) TotalTimeInMillis(totaltimeinmillis *DurationValueUnitMillisBuilder) *RecoveryStartStatusBuilder {
+	v := totaltimeinmillis.Build()
+	rb.v.TotalTimeInMillis = v
 	return rb
 }

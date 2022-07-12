@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
@@ -29,11 +27,11 @@ import (
 
 // WebhookAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/watcher/_types/Actions.ts#L293-L293
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/watcher/_types/Actions.ts#L293-L293
 type WebhookAction struct {
 	Auth              *HttpInputAuthentication           `json:"auth,omitempty"`
 	Body              *string                            `json:"body,omitempty"`
-	ConnectionTimeout *Time                              `json:"connection_timeout,omitempty"`
+	ConnectionTimeout *Duration                          `json:"connection_timeout,omitempty"`
 	Headers           map[string]string                  `json:"headers,omitempty"`
 	Host              *Host                              `json:"host,omitempty"`
 	Method            *httpinputmethod.HttpInputMethod   `json:"method,omitempty"`
@@ -41,7 +39,7 @@ type WebhookAction struct {
 	Path              *string                            `json:"path,omitempty"`
 	Port              *uint                              `json:"port,omitempty"`
 	Proxy             *HttpInputProxy                    `json:"proxy,omitempty"`
-	ReadTimeout       *Time                              `json:"read_timeout,omitempty"`
+	ReadTimeout       *Duration                          `json:"read_timeout,omitempty"`
 	Scheme            *connectionscheme.ConnectionScheme `json:"scheme,omitempty"`
 	Url               *string                            `json:"url,omitempty"`
 }
@@ -79,7 +77,7 @@ func (rb *WebhookActionBuilder) Body(body string) *WebhookActionBuilder {
 	return rb
 }
 
-func (rb *WebhookActionBuilder) ConnectionTimeout(connectiontimeout *TimeBuilder) *WebhookActionBuilder {
+func (rb *WebhookActionBuilder) ConnectionTimeout(connectiontimeout *DurationBuilder) *WebhookActionBuilder {
 	v := connectiontimeout.Build()
 	rb.v.ConnectionTimeout = &v
 	return rb
@@ -121,7 +119,7 @@ func (rb *WebhookActionBuilder) Proxy(proxy *HttpInputProxyBuilder) *WebhookActi
 	return rb
 }
 
-func (rb *WebhookActionBuilder) ReadTimeout(readtimeout *TimeBuilder) *WebhookActionBuilder {
+func (rb *WebhookActionBuilder) ReadTimeout(readtimeout *DurationBuilder) *WebhookActionBuilder {
 	v := readtimeout.Build()
 	rb.v.ReadTimeout = &v
 	return rb

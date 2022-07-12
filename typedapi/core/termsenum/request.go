@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package termsenum
 
@@ -31,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package termsenum
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_global/terms_enum/TermsEnumRequest.ts#L26-L65
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_global/terms_enum/TermsEnumRequest.ts#L26-L65
 type Request struct {
 
 	// CaseInsensitive When true the provided search string is matched against index terms without
@@ -58,7 +56,7 @@ type Request struct {
 	// Timeout The maximum length of time to spend collecting results. Defaults to "1s" (one
 	// second). If the timeout is exceeded the complete flag set to false in the
 	// response and the results may be partial or empty.
-	Timeout *types.Time `json:"timeout,omitempty"`
+	Timeout *types.Duration `json:"timeout,omitempty"`
 }
 
 // RequestBuilder is the builder API for the termsenum.Request
@@ -122,7 +120,7 @@ func (rb *RequestBuilder) String(string string) *RequestBuilder {
 	return rb
 }
 
-func (rb *RequestBuilder) Timeout(timeout *types.TimeBuilder) *RequestBuilder {
+func (rb *RequestBuilder) Timeout(timeout *types.DurationBuilder) *RequestBuilder {
 	v := timeout.Build()
 	rb.v.Timeout = &v
 	return rb

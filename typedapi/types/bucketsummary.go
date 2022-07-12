@@ -15,16 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // BucketSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ml/_types/Bucket.ts#L24-L66
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ml/_types/Bucket.ts#L31-L78
 type BucketSummary struct {
 	// AnomalyScore The maximum anomaly score, between 0-100, for any of the bucket influencers.
 	// This is an overall, rate-limited
@@ -35,7 +33,7 @@ type BucketSummary struct {
 	BucketInfluencers []BucketInfluencer `json:"bucket_influencers"`
 	// BucketSpan The length of the bucket in seconds. This value matches the bucket span that
 	// is specified in the job.
-	BucketSpan Time `json:"bucket_span"`
+	BucketSpan DurationValueUnitSeconds `json:"bucket_span"`
 	// EventCount The number of input data records processed in this bucket.
 	EventCount int64 `json:"event_count"`
 	// InitialAnomalyScore The maximum anomaly score for any of the bucket influencers. This is the
@@ -49,13 +47,17 @@ type BucketSummary struct {
 	JobId Id `json:"job_id"`
 	// ProcessingTimeMs The amount of time, in milliseconds, that it took to analyze the bucket
 	// contents and calculate results.
-	ProcessingTimeMs float64 `json:"processing_time_ms"`
+	ProcessingTimeMs DurationValueUnitMillis `json:"processing_time_ms"`
 	// ResultType Internal. This value is always set to bucket.
 	ResultType string `json:"result_type"`
 	// Timestamp The start time of the bucket. This timestamp uniquely identifies the bucket.
 	// Events that occur exactly at the
 	// timestamp of the bucket are included in the results for the bucket.
-	Timestamp Time `json:"timestamp"`
+	Timestamp EpochTimeUnitMillis `json:"timestamp"`
+	// TimestampString The start time of the bucket. This timestamp uniquely identifies the bucket.
+	// Events that occur exactly at the
+	// timestamp of the bucket are included in the results for the bucket.
+	TimestampString *DateTime `json:"timestamp_string,omitempty"`
 }
 
 // BucketSummaryBuilder holds BucketSummary struct and provides a builder API.
@@ -100,7 +102,7 @@ func (rb *BucketSummaryBuilder) BucketInfluencers(bucket_influencers []BucketInf
 // BucketSpan The length of the bucket in seconds. This value matches the bucket span that
 // is specified in the job.
 
-func (rb *BucketSummaryBuilder) BucketSpan(bucketspan *TimeBuilder) *BucketSummaryBuilder {
+func (rb *BucketSummaryBuilder) BucketSpan(bucketspan *DurationValueUnitSecondsBuilder) *BucketSummaryBuilder {
 	v := bucketspan.Build()
 	rb.v.BucketSpan = v
 	return rb
@@ -140,8 +142,9 @@ func (rb *BucketSummaryBuilder) JobId(jobid Id) *BucketSummaryBuilder {
 // ProcessingTimeMs The amount of time, in milliseconds, that it took to analyze the bucket
 // contents and calculate results.
 
-func (rb *BucketSummaryBuilder) ProcessingTimeMs(processingtimems float64) *BucketSummaryBuilder {
-	rb.v.ProcessingTimeMs = processingtimems
+func (rb *BucketSummaryBuilder) ProcessingTimeMs(processingtimems *DurationValueUnitMillisBuilder) *BucketSummaryBuilder {
+	v := processingtimems.Build()
+	rb.v.ProcessingTimeMs = v
 	return rb
 }
 
@@ -156,8 +159,18 @@ func (rb *BucketSummaryBuilder) ResultType(resulttype string) *BucketSummaryBuil
 // Events that occur exactly at the
 // timestamp of the bucket are included in the results for the bucket.
 
-func (rb *BucketSummaryBuilder) Timestamp(timestamp *TimeBuilder) *BucketSummaryBuilder {
+func (rb *BucketSummaryBuilder) Timestamp(timestamp *EpochTimeUnitMillisBuilder) *BucketSummaryBuilder {
 	v := timestamp.Build()
 	rb.v.Timestamp = v
+	return rb
+}
+
+// TimestampString The start time of the bucket. This timestamp uniquely identifies the bucket.
+// Events that occur exactly at the
+// timestamp of the bucket are included in the results for the bucket.
+
+func (rb *BucketSummaryBuilder) TimestampString(timestampstring *DateTimeBuilder) *BucketSummaryBuilder {
+	v := timestampstring.Build()
+	rb.v.TimestampString = &v
 	return rb
 }

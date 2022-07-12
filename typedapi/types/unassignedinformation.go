@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
@@ -28,10 +26,10 @@ import (
 
 // UnassignedInformation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/cluster/allocation_explain/types.ts#L117-L125
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/cluster/allocation_explain/types.ts#L117-L125
 type UnassignedInformation struct {
 	AllocationStatus         *string                                                 `json:"allocation_status,omitempty"`
-	At                       DateString                                              `json:"at"`
+	At                       DateTime                                                `json:"at"`
 	Delayed                  *bool                                                   `json:"delayed,omitempty"`
 	Details                  *string                                                 `json:"details,omitempty"`
 	FailedAllocationAttempts *int                                                    `json:"failed_allocation_attempts,omitempty"`
@@ -63,8 +61,9 @@ func (rb *UnassignedInformationBuilder) AllocationStatus(allocationstatus string
 	return rb
 }
 
-func (rb *UnassignedInformationBuilder) At(at DateString) *UnassignedInformationBuilder {
-	rb.v.At = at
+func (rb *UnassignedInformationBuilder) At(at *DateTimeBuilder) *UnassignedInformationBuilder {
+	v := at.Build()
+	rb.v.At = v
 	return rb
 }
 

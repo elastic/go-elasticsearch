@@ -15,23 +15,21 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // CountRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/cat/count/types.ts#L22-L38
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/cat/count/types.ts#L23-L39
 type CountRecord struct {
 	// Count the document count
 	Count *string `json:"count,omitempty"`
-	// Epoch seconds since 1969-01-01 00:00:00
-	Epoch *EpochMillis `json:"epoch,omitempty"`
+	// Epoch seconds since 1970-01-01 00:00:00
+	Epoch *StringifiedEpochTimeUnitSeconds `json:"epoch,omitempty"`
 	// Timestamp time in HH:MM:SS
-	Timestamp *DateString `json:"timestamp,omitempty"`
+	Timestamp *TimeOfDay `json:"timestamp,omitempty"`
 }
 
 // CountRecordBuilder holds CountRecord struct and provides a builder API.
@@ -60,9 +58,9 @@ func (rb *CountRecordBuilder) Count(count string) *CountRecordBuilder {
 	return rb
 }
 
-// Epoch seconds since 1969-01-01 00:00:00
+// Epoch seconds since 1970-01-01 00:00:00
 
-func (rb *CountRecordBuilder) Epoch(epoch *EpochMillisBuilder) *CountRecordBuilder {
+func (rb *CountRecordBuilder) Epoch(epoch *StringifiedEpochTimeUnitSecondsBuilder) *CountRecordBuilder {
 	v := epoch.Build()
 	rb.v.Epoch = &v
 	return rb
@@ -70,7 +68,7 @@ func (rb *CountRecordBuilder) Epoch(epoch *EpochMillisBuilder) *CountRecordBuild
 
 // Timestamp time in HH:MM:SS
 
-func (rb *CountRecordBuilder) Timestamp(timestamp DateString) *CountRecordBuilder {
+func (rb *CountRecordBuilder) Timestamp(timestamp TimeOfDay) *CountRecordBuilder {
 	rb.v.Timestamp = &timestamp
 	return rb
 }

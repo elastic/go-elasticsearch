@@ -15,16 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // DatafeedConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ml/_types/Datafeed.ts#L49-L106
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ml/_types/Datafeed.ts#L60-L117
 type DatafeedConfig struct {
 	// Aggregations If set, the datafeed performs aggregation searches. Support for aggregations
 	// is limited and should be used only with low cardinality data.
@@ -56,8 +54,8 @@ type DatafeedConfig struct {
 	// overwritten by the full bucket results. If the datafeed uses aggregations,
 	// this value must be divisible by the interval of the date histogram
 	// aggregation.
-	Frequency *Timestamp `json:"frequency,omitempty"`
-	Indexes   []string   `json:"indexes,omitempty"`
+	Frequency *Duration `json:"frequency,omitempty"`
+	Indexes   []string  `json:"indexes,omitempty"`
 	// Indices An array of index names. Wildcards are supported. If any indices are in
 	// remote clusters, the machine learning nodes must have the
 	// `remote_cluster_client` role.
@@ -82,7 +80,7 @@ type DatafeedConfig struct {
 	// a.m., set this property to 120 seconds. The default value is randomly
 	// selected between `60s` and `120s`. This randomness improves the query
 	// performance when there are multiple jobs running on the same node.
-	QueryDelay *Timestamp `json:"query_delay,omitempty"`
+	QueryDelay *Duration `json:"query_delay,omitempty"`
 	// RuntimeMappings Specifies runtime fields for the datafeed search.
 	RuntimeMappings *RuntimeFields `json:"runtime_mappings,omitempty"`
 	// ScriptFields Specifies scripts that evaluate custom expressions and returns script fields
@@ -174,8 +172,9 @@ func (rb *DatafeedConfigBuilder) DelayedDataCheckConfig(delayeddatacheckconfig *
 // this value must be divisible by the interval of the date histogram
 // aggregation.
 
-func (rb *DatafeedConfigBuilder) Frequency(frequency Timestamp) *DatafeedConfigBuilder {
-	rb.v.Frequency = &frequency
+func (rb *DatafeedConfigBuilder) Frequency(frequency *DurationBuilder) *DatafeedConfigBuilder {
+	v := frequency.Build()
+	rb.v.Frequency = &v
 	return rb
 }
 
@@ -235,8 +234,9 @@ func (rb *DatafeedConfigBuilder) Query(query *QueryContainerBuilder) *DatafeedCo
 // selected between `60s` and `120s`. This randomness improves the query
 // performance when there are multiple jobs running on the same node.
 
-func (rb *DatafeedConfigBuilder) QueryDelay(querydelay Timestamp) *DatafeedConfigBuilder {
-	rb.v.QueryDelay = &querydelay
+func (rb *DatafeedConfigBuilder) QueryDelay(querydelay *DurationBuilder) *DatafeedConfigBuilder {
+	v := querydelay.Build()
+	rb.v.QueryDelay = &v
 	return rb
 }
 

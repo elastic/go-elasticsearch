@@ -15,16 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // GeoIpDownloadStatistics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ingest/geo_ip_stats/types.ts#L23-L34
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ingest/geo_ip_stats/types.ts#L24-L35
 type GeoIpDownloadStatistics struct {
 	// DatabaseCount Current number of databases available for use.
 	DatabaseCount int `json:"database_count"`
@@ -35,7 +33,7 @@ type GeoIpDownloadStatistics struct {
 	// SuccessfulDownloads Total number of successful database downloads.
 	SuccessfulDownloads int `json:"successful_downloads"`
 	// TotalDownloadTime Total milliseconds spent downloading databases.
-	TotalDownloadTime int `json:"total_download_time"`
+	TotalDownloadTime DurationValueUnitMillis `json:"total_download_time"`
 }
 
 // GeoIpDownloadStatisticsBuilder holds GeoIpDownloadStatistics struct and provides a builder API.
@@ -87,7 +85,8 @@ func (rb *GeoIpDownloadStatisticsBuilder) SuccessfulDownloads(successfuldownload
 
 // TotalDownloadTime Total milliseconds spent downloading databases.
 
-func (rb *GeoIpDownloadStatisticsBuilder) TotalDownloadTime(totaldownloadtime int) *GeoIpDownloadStatisticsBuilder {
-	rb.v.TotalDownloadTime = totaldownloadtime
+func (rb *GeoIpDownloadStatisticsBuilder) TotalDownloadTime(totaldownloadtime *DurationValueUnitMillisBuilder) *GeoIpDownloadStatisticsBuilder {
+	v := totaldownloadtime.Build()
+	rb.v.TotalDownloadTime = v
 	return rb
 }

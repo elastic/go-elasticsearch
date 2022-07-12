@@ -15,21 +15,20 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // ClusterProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/cluster/stats/types.ts#L261-L266
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/cluster/stats/types.ts#L262-L268
 type ClusterProcessor struct {
-	Count        int64 `json:"count"`
-	Current      int64 `json:"current"`
-	Failed       int64 `json:"failed"`
-	TimeInMillis int64 `json:"time_in_millis"`
+	Count        int64                   `json:"count"`
+	Current      int64                   `json:"current"`
+	Failed       int64                   `json:"failed"`
+	Time         *Duration               `json:"time,omitempty"`
+	TimeInMillis DurationValueUnitMillis `json:"time_in_millis"`
 }
 
 // ClusterProcessorBuilder holds ClusterProcessor struct and provides a builder API.
@@ -66,7 +65,14 @@ func (rb *ClusterProcessorBuilder) Failed(failed int64) *ClusterProcessorBuilder
 	return rb
 }
 
-func (rb *ClusterProcessorBuilder) TimeInMillis(timeinmillis int64) *ClusterProcessorBuilder {
-	rb.v.TimeInMillis = timeinmillis
+func (rb *ClusterProcessorBuilder) Time(time *DurationBuilder) *ClusterProcessorBuilder {
+	v := time.Build()
+	rb.v.Time = &v
+	return rb
+}
+
+func (rb *ClusterProcessorBuilder) TimeInMillis(timeinmillis *DurationValueUnitMillisBuilder) *ClusterProcessorBuilder {
+	v := timeinmillis.Build()
+	rb.v.TimeInMillis = v
 	return rb
 }

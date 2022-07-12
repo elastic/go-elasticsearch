@@ -15,16 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // RepositoryMeteringInformation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/nodes/_types/RepositoryMeteringInformation.ts#L24-L66
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/nodes/_types/RepositoryMeteringInformation.ts#L24-L66
 type RepositoryMeteringInformation struct {
 	// Archived A flag that tells whether or not this object has been archived. When a
 	// repository is closed or updated the
@@ -49,10 +47,10 @@ type RepositoryMeteringInformation struct {
 	RepositoryName Name `json:"repository_name"`
 	// RepositoryStartedAt Time the repository was created or updated. Recorded in milliseconds since
 	// the Unix Epoch.
-	RepositoryStartedAt EpochMillis `json:"repository_started_at"`
+	RepositoryStartedAt EpochTimeUnitMillis `json:"repository_started_at"`
 	// RepositoryStoppedAt Time the repository was deleted or updated. Recorded in milliseconds since
 	// the Unix Epoch.
-	RepositoryStoppedAt *EpochMillis `json:"repository_stopped_at,omitempty"`
+	RepositoryStoppedAt *EpochTimeUnitMillis `json:"repository_stopped_at,omitempty"`
 	// RepositoryType Repository type.
 	RepositoryType string `json:"repository_type"`
 	// RequestCounts An object with the number of request performed against the repository grouped
@@ -129,7 +127,7 @@ func (rb *RepositoryMeteringInformationBuilder) RepositoryName(repositoryname Na
 // RepositoryStartedAt Time the repository was created or updated. Recorded in milliseconds since
 // the Unix Epoch.
 
-func (rb *RepositoryMeteringInformationBuilder) RepositoryStartedAt(repositorystartedat *EpochMillisBuilder) *RepositoryMeteringInformationBuilder {
+func (rb *RepositoryMeteringInformationBuilder) RepositoryStartedAt(repositorystartedat *EpochTimeUnitMillisBuilder) *RepositoryMeteringInformationBuilder {
 	v := repositorystartedat.Build()
 	rb.v.RepositoryStartedAt = v
 	return rb
@@ -138,7 +136,7 @@ func (rb *RepositoryMeteringInformationBuilder) RepositoryStartedAt(repositoryst
 // RepositoryStoppedAt Time the repository was deleted or updated. Recorded in milliseconds since
 // the Unix Epoch.
 
-func (rb *RepositoryMeteringInformationBuilder) RepositoryStoppedAt(repositorystoppedat *EpochMillisBuilder) *RepositoryMeteringInformationBuilder {
+func (rb *RepositoryMeteringInformationBuilder) RepositoryStoppedAt(repositorystoppedat *EpochTimeUnitMillisBuilder) *RepositoryMeteringInformationBuilder {
 	v := repositorystoppedat.Build()
 	rb.v.RepositoryStoppedAt = &v
 	return rb

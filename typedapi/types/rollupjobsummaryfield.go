@@ -15,20 +15,18 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // RollupJobSummaryField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/rollup/get_rollup_index_caps/types.ts#L35-L39
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/rollup/get_rollup_index_caps/types.ts#L35-L39
 type RollupJobSummaryField struct {
-	Agg              string  `json:"agg"`
-	CalendarInterval *Time   `json:"calendar_interval,omitempty"`
-	TimeZone         *string `json:"time_zone,omitempty"`
+	Agg              string    `json:"agg"`
+	CalendarInterval *Duration `json:"calendar_interval,omitempty"`
+	TimeZone         *TimeZone `json:"time_zone,omitempty"`
 }
 
 // RollupJobSummaryFieldBuilder holds RollupJobSummaryField struct and provides a builder API.
@@ -55,13 +53,13 @@ func (rb *RollupJobSummaryFieldBuilder) Agg(agg string) *RollupJobSummaryFieldBu
 	return rb
 }
 
-func (rb *RollupJobSummaryFieldBuilder) CalendarInterval(calendarinterval *TimeBuilder) *RollupJobSummaryFieldBuilder {
+func (rb *RollupJobSummaryFieldBuilder) CalendarInterval(calendarinterval *DurationBuilder) *RollupJobSummaryFieldBuilder {
 	v := calendarinterval.Build()
 	rb.v.CalendarInterval = &v
 	return rb
 }
 
-func (rb *RollupJobSummaryFieldBuilder) TimeZone(timezone string) *RollupJobSummaryFieldBuilder {
+func (rb *RollupJobSummaryFieldBuilder) TimeZone(timezone TimeZone) *RollupJobSummaryFieldBuilder {
 	rb.v.TimeZone = &timezone
 	return rb
 }

@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 // Creates or updates a pipeline.
 package putpipeline
@@ -210,6 +208,14 @@ func (r *PutPipeline) MasterTimeout(value string) *PutPipeline {
 // API name: timeout
 func (r *PutPipeline) Timeout(value string) *PutPipeline {
 	r.values.Set("timeout", value)
+
+	return r
+}
+
+// IfVersion Required version for optimistic concurrency control for pipeline updates
+// API name: if_version
+func (r *PutPipeline) IfVersion(value string) *PutPipeline {
+	r.values.Set("if_version", value)
 
 	return r
 }

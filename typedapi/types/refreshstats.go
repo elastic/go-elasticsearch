@@ -15,23 +15,21 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // RefreshStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_types/Stats.ts#L167-L174
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/Stats.ts#L168-L175
 type RefreshStats struct {
-	ExternalTotal             int64   `json:"external_total"`
-	ExternalTotalTimeInMillis int64   `json:"external_total_time_in_millis"`
-	Listeners                 int64   `json:"listeners"`
-	Total                     int64   `json:"total"`
-	TotalTime                 *string `json:"total_time,omitempty"`
-	TotalTimeInMillis         int64   `json:"total_time_in_millis"`
+	ExternalTotal             int64                   `json:"external_total"`
+	ExternalTotalTimeInMillis DurationValueUnitMillis `json:"external_total_time_in_millis"`
+	Listeners                 int64                   `json:"listeners"`
+	Total                     int64                   `json:"total"`
+	TotalTime                 *Duration               `json:"total_time,omitempty"`
+	TotalTimeInMillis         DurationValueUnitMillis `json:"total_time_in_millis"`
 }
 
 // RefreshStatsBuilder holds RefreshStats struct and provides a builder API.
@@ -58,8 +56,9 @@ func (rb *RefreshStatsBuilder) ExternalTotal(externaltotal int64) *RefreshStatsB
 	return rb
 }
 
-func (rb *RefreshStatsBuilder) ExternalTotalTimeInMillis(externaltotaltimeinmillis int64) *RefreshStatsBuilder {
-	rb.v.ExternalTotalTimeInMillis = externaltotaltimeinmillis
+func (rb *RefreshStatsBuilder) ExternalTotalTimeInMillis(externaltotaltimeinmillis *DurationValueUnitMillisBuilder) *RefreshStatsBuilder {
+	v := externaltotaltimeinmillis.Build()
+	rb.v.ExternalTotalTimeInMillis = v
 	return rb
 }
 
@@ -73,12 +72,14 @@ func (rb *RefreshStatsBuilder) Total(total int64) *RefreshStatsBuilder {
 	return rb
 }
 
-func (rb *RefreshStatsBuilder) TotalTime(totaltime string) *RefreshStatsBuilder {
-	rb.v.TotalTime = &totaltime
+func (rb *RefreshStatsBuilder) TotalTime(totaltime *DurationBuilder) *RefreshStatsBuilder {
+	v := totaltime.Build()
+	rb.v.TotalTime = &v
 	return rb
 }
 
-func (rb *RefreshStatsBuilder) TotalTimeInMillis(totaltimeinmillis int64) *RefreshStatsBuilder {
-	rb.v.TotalTimeInMillis = totaltimeinmillis
+func (rb *RefreshStatsBuilder) TotalTimeInMillis(totaltimeinmillis *DurationValueUnitMillisBuilder) *RefreshStatsBuilder {
+	v := totaltimeinmillis.Build()
+	rb.v.TotalTimeInMillis = v
 	return rb
 }

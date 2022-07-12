@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
@@ -28,7 +26,7 @@ import (
 
 // JobStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ml/_types/Job.ts#L91-L102
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ml/_types/Job.ts#L96-L107
 type JobStats struct {
 	AssignmentExplanation *string               `json:"assignment_explanation,omitempty"`
 	DataCounts            DataCounts            `json:"data_counts"`
@@ -37,7 +35,7 @@ type JobStats struct {
 	JobId                 string                `json:"job_id"`
 	ModelSizeStats        ModelSizeStats        `json:"model_size_stats"`
 	Node                  *DiscoveryNode        `json:"node,omitempty"`
-	OpenTime              *DateString           `json:"open_time,omitempty"`
+	OpenTime              *DateTime             `json:"open_time,omitempty"`
 	State                 jobstate.JobState     `json:"state"`
 	TimingStats           JobTimingStats        `json:"timing_stats"`
 }
@@ -100,8 +98,9 @@ func (rb *JobStatsBuilder) Node(node *DiscoveryNodeBuilder) *JobStatsBuilder {
 	return rb
 }
 
-func (rb *JobStatsBuilder) OpenTime(opentime DateString) *JobStatsBuilder {
-	rb.v.OpenTime = &opentime
+func (rb *JobStatsBuilder) OpenTime(opentime *DateTimeBuilder) *JobStatsBuilder {
+	v := opentime.Build()
+	rb.v.OpenTime = &v
 	return rb
 }
 

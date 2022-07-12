@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
@@ -29,7 +27,7 @@ import (
 
 // ModelSizeStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ml/_types/Model.ts#L56-L78
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ml/_types/Model.ts#L56-L78
 type ModelSizeStats struct {
 	AssignmentMemoryBasis         *string                                   `json:"assignment_memory_basis,omitempty"`
 	BucketAllocationFailuresCount int64                                     `json:"bucket_allocation_failures_count"`
@@ -39,7 +37,7 @@ type ModelSizeStats struct {
 	FailedCategoryCount           int                                       `json:"failed_category_count"`
 	FrequentCategoryCount         int                                       `json:"frequent_category_count"`
 	JobId                         Id                                        `json:"job_id"`
-	LogTime                       Time                                      `json:"log_time"`
+	LogTime                       DateTime                                  `json:"log_time"`
 	MemoryStatus                  memorystatus.MemoryStatus                 `json:"memory_status"`
 	ModelBytes                    ByteSize                                  `json:"model_bytes"`
 	ModelBytesExceeded            *ByteSize                                 `json:"model_bytes_exceeded,omitempty"`
@@ -113,7 +111,7 @@ func (rb *ModelSizeStatsBuilder) JobId(jobid Id) *ModelSizeStatsBuilder {
 	return rb
 }
 
-func (rb *ModelSizeStatsBuilder) LogTime(logtime *TimeBuilder) *ModelSizeStatsBuilder {
+func (rb *ModelSizeStatsBuilder) LogTime(logtime *DateTimeBuilder) *ModelSizeStatsBuilder {
 	v := logtime.Build()
 	rb.v.LogTime = v
 	return rb

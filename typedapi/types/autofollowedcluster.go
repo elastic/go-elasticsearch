@@ -15,20 +15,18 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // AutoFollowedCluster type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ccr/stats/types.ts.ts#L27-L31
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ccr/stats/types.ts.ts#L27-L31
 type AutoFollowedCluster struct {
-	ClusterName              Name          `json:"cluster_name"`
-	LastSeenMetadataVersion  VersionNumber `json:"last_seen_metadata_version"`
-	TimeSinceLastCheckMillis DateString    `json:"time_since_last_check_millis"`
+	ClusterName              Name                    `json:"cluster_name"`
+	LastSeenMetadataVersion  VersionNumber           `json:"last_seen_metadata_version"`
+	TimeSinceLastCheckMillis DurationValueUnitMillis `json:"time_since_last_check_millis"`
 }
 
 // AutoFollowedClusterBuilder holds AutoFollowedCluster struct and provides a builder API.
@@ -60,7 +58,8 @@ func (rb *AutoFollowedClusterBuilder) LastSeenMetadataVersion(lastseenmetadatave
 	return rb
 }
 
-func (rb *AutoFollowedClusterBuilder) TimeSinceLastCheckMillis(timesincelastcheckmillis DateString) *AutoFollowedClusterBuilder {
-	rb.v.TimeSinceLastCheckMillis = timesincelastcheckmillis
+func (rb *AutoFollowedClusterBuilder) TimeSinceLastCheckMillis(timesincelastcheckmillis *DurationValueUnitMillisBuilder) *AutoFollowedClusterBuilder {
+	v := timesincelastcheckmillis.Build()
+	rb.v.TimeSinceLastCheckMillis = v
 	return rb
 }

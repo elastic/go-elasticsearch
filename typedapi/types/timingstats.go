@@ -15,21 +15,19 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // TimingStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ml/_types/DataframeAnalytics.ts#L416-L421
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ml/_types/DataframeAnalytics.ts#L421-L426
 type TimingStats struct {
 	// ElapsedTime Runtime of the analysis in milliseconds.
-	ElapsedTime int `json:"elapsed_time"`
+	ElapsedTime DurationValueUnitMillis `json:"elapsed_time"`
 	// IterationTime Runtime of the latest iteration of the analysis in milliseconds.
-	IterationTime *int `json:"iteration_time,omitempty"`
+	IterationTime *DurationValueUnitMillis `json:"iteration_time,omitempty"`
 }
 
 // TimingStatsBuilder holds TimingStats struct and provides a builder API.
@@ -53,14 +51,16 @@ func (rb *TimingStatsBuilder) Build() TimingStats {
 
 // ElapsedTime Runtime of the analysis in milliseconds.
 
-func (rb *TimingStatsBuilder) ElapsedTime(elapsedtime int) *TimingStatsBuilder {
-	rb.v.ElapsedTime = elapsedtime
+func (rb *TimingStatsBuilder) ElapsedTime(elapsedtime *DurationValueUnitMillisBuilder) *TimingStatsBuilder {
+	v := elapsedtime.Build()
+	rb.v.ElapsedTime = v
 	return rb
 }
 
 // IterationTime Runtime of the latest iteration of the analysis in milliseconds.
 
-func (rb *TimingStatsBuilder) IterationTime(iterationtime int) *TimingStatsBuilder {
-	rb.v.IterationTime = &iterationtime
+func (rb *TimingStatsBuilder) IterationTime(iterationtime *DurationValueUnitMillisBuilder) *TimingStatsBuilder {
+	v := iterationtime.Build()
+	rb.v.IterationTime = &v
 	return rb
 }

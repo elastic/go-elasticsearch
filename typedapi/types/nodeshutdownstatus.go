@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
@@ -29,14 +27,14 @@ import (
 
 // NodeShutdownStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/shutdown/get_node/ShutdownGetNodeResponse.ts#L29-L38
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/shutdown/get_node/ShutdownGetNodeResponse.ts#L29-L38
 type NodeShutdownStatus struct {
 	NodeId                NodeId                        `json:"node_id"`
 	PersistentTasks       PersistentTaskStatus          `json:"persistent_tasks"`
 	Plugins               PluginsStatus                 `json:"plugins"`
 	Reason                string                        `json:"reason"`
 	ShardMigration        ShardMigrationStatus          `json:"shard_migration"`
-	ShutdownStartedmillis EpochMillis                   `json:"shutdown_startedmillis"`
+	ShutdownStartedmillis EpochTimeUnitMillis           `json:"shutdown_startedmillis"`
 	Status                shutdownstatus.ShutdownStatus `json:"status"`
 	Type                  shutdowntype.ShutdownType     `json:"type"`
 }
@@ -88,7 +86,7 @@ func (rb *NodeShutdownStatusBuilder) ShardMigration(shardmigration *ShardMigrati
 	return rb
 }
 
-func (rb *NodeShutdownStatusBuilder) ShutdownStartedmillis(shutdownstartedmillis *EpochMillisBuilder) *NodeShutdownStatusBuilder {
+func (rb *NodeShutdownStatusBuilder) ShutdownStartedmillis(shutdownstartedmillis *EpochTimeUnitMillisBuilder) *NodeShutdownStatusBuilder {
 	v := shutdownstartedmillis.Build()
 	rb.v.ShutdownStartedmillis = v
 	return rb

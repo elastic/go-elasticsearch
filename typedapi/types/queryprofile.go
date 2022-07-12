@@ -15,22 +15,20 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // QueryProfile type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_global/search/_types/profile.ts#L115-L121
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_global/search/_types/profile.ts#L116-L122
 type QueryProfile struct {
-	Breakdown   QueryBreakdown `json:"breakdown"`
-	Children    []QueryProfile `json:"children,omitempty"`
-	Description string         `json:"description"`
-	TimeInNanos int64          `json:"time_in_nanos"`
-	Type        string         `json:"type"`
+	Breakdown   QueryBreakdown         `json:"breakdown"`
+	Children    []QueryProfile         `json:"children,omitempty"`
+	Description string                 `json:"description"`
+	TimeInNanos DurationValueUnitNanos `json:"time_in_nanos"`
+	Type        string                 `json:"type"`
 }
 
 // QueryProfileBuilder holds QueryProfile struct and provides a builder API.
@@ -72,8 +70,9 @@ func (rb *QueryProfileBuilder) Description(description string) *QueryProfileBuil
 	return rb
 }
 
-func (rb *QueryProfileBuilder) TimeInNanos(timeinnanos int64) *QueryProfileBuilder {
-	rb.v.TimeInNanos = timeinnanos
+func (rb *QueryProfileBuilder) TimeInNanos(timeinnanos *DurationValueUnitNanosBuilder) *QueryProfileBuilder {
+	v := timeinnanos.Build()
+	rb.v.TimeInNanos = v
 	return rb
 }
 

@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package query
 
@@ -31,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package query
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/sql/query/QuerySqlRequest.ts#L28-L111
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/sql/query/QuerySqlRequest.ts#L28-L111
 type Request struct {
 
 	// Catalog Default catalog (cluster) for queries. If unspecified, the queries execute on
@@ -57,7 +55,7 @@ type Request struct {
 	IndexUsingFrozen *bool `json:"index_using_frozen,omitempty"`
 
 	// KeepAlive Retention period for an async or saved synchronous search.
-	KeepAlive *types.Time `json:"keep_alive,omitempty"`
+	KeepAlive *types.Duration `json:"keep_alive,omitempty"`
 
 	// KeepOnCompletion If true, Elasticsearch stores synchronous searches if you also specify the
 	// wait_for_completion_timeout parameter. If false, Elasticsearch only stores
@@ -65,7 +63,7 @@ type Request struct {
 	KeepOnCompletion *bool `json:"keep_on_completion,omitempty"`
 
 	// PageTimeout The timeout before a pagination request fails.
-	PageTimeout *types.Time `json:"page_timeout,omitempty"`
+	PageTimeout *types.Duration `json:"page_timeout,omitempty"`
 
 	// Params Values for parameters in the query.
 	Params map[string]interface{} `json:"params,omitempty"`
@@ -74,7 +72,7 @@ type Request struct {
 	Query *string `json:"query,omitempty"`
 
 	// RequestTimeout The timeout before the request fails.
-	RequestTimeout *types.Time `json:"request_timeout,omitempty"`
+	RequestTimeout *types.Duration `json:"request_timeout,omitempty"`
 
 	// RuntimeMappings Defines one or more runtime fields in the search request. These fields take
 	// precedence over mapped fields with the same name.
@@ -82,12 +80,12 @@ type Request struct {
 
 	// TimeZone Time-zone in ISO 8601 used for executing the query on the server. More
 	// information available here.
-	TimeZone *string `json:"time_zone,omitempty"`
+	TimeZone *types.TimeZone `json:"time_zone,omitempty"`
 
 	// WaitForCompletionTimeout Period to wait for complete results. Defaults to no timeout, meaning the
 	// request waits for complete search results. If the search doesn’t finish
 	// within this period, the search becomes async.
-	WaitForCompletionTimeout *types.Time `json:"wait_for_completion_timeout,omitempty"`
+	WaitForCompletionTimeout *types.Duration `json:"wait_for_completion_timeout,omitempty"`
 }
 
 // RequestBuilder is the builder API for the query.Request
@@ -158,7 +156,7 @@ func (rb *RequestBuilder) IndexUsingFrozen(indexusingfrozen bool) *RequestBuilde
 	return rb
 }
 
-func (rb *RequestBuilder) KeepAlive(keepalive *types.TimeBuilder) *RequestBuilder {
+func (rb *RequestBuilder) KeepAlive(keepalive *types.DurationBuilder) *RequestBuilder {
 	v := keepalive.Build()
 	rb.v.KeepAlive = &v
 	return rb
@@ -169,7 +167,7 @@ func (rb *RequestBuilder) KeepOnCompletion(keeponcompletion bool) *RequestBuilde
 	return rb
 }
 
-func (rb *RequestBuilder) PageTimeout(pagetimeout *types.TimeBuilder) *RequestBuilder {
+func (rb *RequestBuilder) PageTimeout(pagetimeout *types.DurationBuilder) *RequestBuilder {
 	v := pagetimeout.Build()
 	rb.v.PageTimeout = &v
 	return rb
@@ -185,7 +183,7 @@ func (rb *RequestBuilder) Query(query string) *RequestBuilder {
 	return rb
 }
 
-func (rb *RequestBuilder) RequestTimeout(requesttimeout *types.TimeBuilder) *RequestBuilder {
+func (rb *RequestBuilder) RequestTimeout(requesttimeout *types.DurationBuilder) *RequestBuilder {
 	v := requesttimeout.Build()
 	rb.v.RequestTimeout = &v
 	return rb
@@ -197,12 +195,12 @@ func (rb *RequestBuilder) RuntimeMappings(runtimemappings *types.RuntimeFieldsBu
 	return rb
 }
 
-func (rb *RequestBuilder) TimeZone(timezone string) *RequestBuilder {
+func (rb *RequestBuilder) TimeZone(timezone types.TimeZone) *RequestBuilder {
 	rb.v.TimeZone = &timezone
 	return rb
 }
 
-func (rb *RequestBuilder) WaitForCompletionTimeout(waitforcompletiontimeout *types.TimeBuilder) *RequestBuilder {
+func (rb *RequestBuilder) WaitForCompletionTimeout(waitforcompletiontimeout *types.DurationBuilder) *RequestBuilder {
 	v := waitforcompletiontimeout.Build()
 	rb.v.WaitForCompletionTimeout = &v
 	return rb

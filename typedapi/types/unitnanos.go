@@ -15,34 +15,32 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
-// DateString type alias.
+// UnitNanos type alias.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_types/Time.ts#L27-L27
-type DateString string
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/Time.ts#L35-L36
+type UnitNanos int64
 
-// DateStringBuilder holds DateString struct and provides a builder API.
-type DateStringBuilder struct {
-	v DateString
+// UnitNanosBuilder holds UnitNanos struct and provides a builder API.
+type UnitNanosBuilder struct {
+	v UnitNanos
 }
 
-// NewDateString provides a builder for the DateString struct.
-func NewDateStringBuilder() *DateStringBuilder {
-	return &DateStringBuilder{}
+// NewUnitNanos provides a builder for the UnitNanos struct.
+func NewUnitNanosBuilder() *UnitNanosBuilder {
+	return &UnitNanosBuilder{}
 }
 
-// Build finalize the chain and returns the DateString struct
-func (b *DateStringBuilder) Build() DateString {
+// Build finalize the chain and returns the UnitNanos struct
+func (b *UnitNanosBuilder) Build() UnitNanos {
 	return b.v
 }
 
-func (b *DateStringBuilder) DateString(value DateString) *DateStringBuilder {
+func (b *UnitNanosBuilder) UnitNanos(value UnitNanos) *UnitNanosBuilder {
 	b.v = value
 	return b
 }

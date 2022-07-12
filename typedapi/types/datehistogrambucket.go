@@ -15,20 +15,18 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // DateHistogramBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_types/aggregations/Aggregate.ts#L338-L341
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/aggregations/Aggregate.ts#L338-L341
 type DateHistogramBucket struct {
 	Aggregations map[AggregateName]Aggregate `json:"aggregations,omitempty"`
 	DocCount     int64                       `json:"doc_count"`
-	Key          EpochMillis                 `json:"key"`
+	Key          EpochTimeUnitMillis         `json:"key"`
 	KeyAsString  *string                     `json:"key_as_string,omitempty"`
 }
 
@@ -67,7 +65,7 @@ func (rb *DateHistogramBucketBuilder) DocCount(doccount int64) *DateHistogramBuc
 	return rb
 }
 
-func (rb *DateHistogramBucketBuilder) Key(key *EpochMillisBuilder) *DateHistogramBucketBuilder {
+func (rb *DateHistogramBucketBuilder) Key(key *EpochTimeUnitMillisBuilder) *DateHistogramBucketBuilder {
 	v := key.Build()
 	rb.v.Key = v
 	return rb

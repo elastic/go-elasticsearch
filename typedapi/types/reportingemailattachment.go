@@ -15,19 +15,17 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // ReportingEmailAttachment type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/watcher/_types/Actions.ts#L224-L232
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/watcher/_types/Actions.ts#L224-L232
 type ReportingEmailAttachment struct {
 	Inline   *bool                       `json:"inline,omitempty"`
-	Interval *Time                       `json:"interval,omitempty"`
+	Interval *Duration                   `json:"interval,omitempty"`
 	Request  *HttpInputRequestDefinition `json:"request,omitempty"`
 	Retries  *int                        `json:"retries,omitempty"`
 	Url      string                      `json:"url"`
@@ -57,7 +55,7 @@ func (rb *ReportingEmailAttachmentBuilder) Inline(inline bool) *ReportingEmailAt
 	return rb
 }
 
-func (rb *ReportingEmailAttachmentBuilder) Interval(interval *TimeBuilder) *ReportingEmailAttachmentBuilder {
+func (rb *ReportingEmailAttachmentBuilder) Interval(interval *DurationBuilder) *ReportingEmailAttachmentBuilder {
 	v := interval.Build()
 	rb.v.Interval = &v
 	return rb

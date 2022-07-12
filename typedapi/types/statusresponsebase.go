@@ -15,24 +15,24 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // StatusResponseBase type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/async_search/status/AsyncSearchStatusResponse.ts#L24-L27
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/async_search/status/AsyncSearchStatusResponse.ts#L24-L27
 type StatusResponseBase struct {
-	CompletionStatus       *int            `json:"completion_status,omitempty"`
-	ExpirationTimeInMillis EpochMillis     `json:"expiration_time_in_millis"`
-	Id                     *Id             `json:"id,omitempty"`
-	IsPartial              bool            `json:"is_partial"`
-	IsRunning              bool            `json:"is_running"`
-	Shards_                ShardStatistics `json:"_shards"`
-	StartTimeInMillis      EpochMillis     `json:"start_time_in_millis"`
+	CompletionStatus       *int                `json:"completion_status,omitempty"`
+	ExpirationTime         *DateTime           `json:"expiration_time,omitempty"`
+	ExpirationTimeInMillis EpochTimeUnitMillis `json:"expiration_time_in_millis"`
+	Id                     *Id                 `json:"id,omitempty"`
+	IsPartial              bool                `json:"is_partial"`
+	IsRunning              bool                `json:"is_running"`
+	Shards_                ShardStatistics     `json:"_shards"`
+	StartTime              *DateTime           `json:"start_time,omitempty"`
+	StartTimeInMillis      EpochTimeUnitMillis `json:"start_time_in_millis"`
 }
 
 // StatusResponseBaseBuilder holds StatusResponseBase struct and provides a builder API.
@@ -59,7 +59,13 @@ func (rb *StatusResponseBaseBuilder) CompletionStatus(completionstatus int) *Sta
 	return rb
 }
 
-func (rb *StatusResponseBaseBuilder) ExpirationTimeInMillis(expirationtimeinmillis *EpochMillisBuilder) *StatusResponseBaseBuilder {
+func (rb *StatusResponseBaseBuilder) ExpirationTime(expirationtime *DateTimeBuilder) *StatusResponseBaseBuilder {
+	v := expirationtime.Build()
+	rb.v.ExpirationTime = &v
+	return rb
+}
+
+func (rb *StatusResponseBaseBuilder) ExpirationTimeInMillis(expirationtimeinmillis *EpochTimeUnitMillisBuilder) *StatusResponseBaseBuilder {
 	v := expirationtimeinmillis.Build()
 	rb.v.ExpirationTimeInMillis = v
 	return rb
@@ -86,7 +92,13 @@ func (rb *StatusResponseBaseBuilder) Shards_(shards_ *ShardStatisticsBuilder) *S
 	return rb
 }
 
-func (rb *StatusResponseBaseBuilder) StartTimeInMillis(starttimeinmillis *EpochMillisBuilder) *StatusResponseBaseBuilder {
+func (rb *StatusResponseBaseBuilder) StartTime(starttime *DateTimeBuilder) *StatusResponseBaseBuilder {
+	v := starttime.Build()
+	rb.v.StartTime = &v
+	return rb
+}
+
+func (rb *StatusResponseBaseBuilder) StartTimeInMillis(starttimeinmillis *EpochTimeUnitMillisBuilder) *StatusResponseBaseBuilder {
 	v := starttimeinmillis.Build()
 	rb.v.StartTimeInMillis = v
 	return rb

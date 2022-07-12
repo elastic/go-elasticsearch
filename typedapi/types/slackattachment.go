@@ -15,16 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // SlackAttachment type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/watcher/_types/Actions.ts#L101-L117
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/watcher/_types/Actions.ts#L101-L117
 type SlackAttachment struct {
 	AuthorIcon *string                `json:"author_icon,omitempty"`
 	AuthorLink *string                `json:"author_link,omitempty"`
@@ -40,7 +38,7 @@ type SlackAttachment struct {
 	ThumbUrl   *string                `json:"thumb_url,omitempty"`
 	Title      string                 `json:"title"`
 	TitleLink  *string                `json:"title_link,omitempty"`
-	Ts         *DateString            `json:"ts,omitempty"`
+	Ts         *EpochTimeUnitSeconds  `json:"ts,omitempty"`
 }
 
 // SlackAttachmentBuilder holds SlackAttachment struct and provides a builder API.
@@ -136,7 +134,8 @@ func (rb *SlackAttachmentBuilder) TitleLink(titlelink string) *SlackAttachmentBu
 	return rb
 }
 
-func (rb *SlackAttachmentBuilder) Ts(ts DateString) *SlackAttachmentBuilder {
-	rb.v.Ts = &ts
+func (rb *SlackAttachmentBuilder) Ts(ts *EpochTimeUnitSecondsBuilder) *SlackAttachmentBuilder {
+	v := ts.Build()
+	rb.v.Ts = &v
 	return rb
 }

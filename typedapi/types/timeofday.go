@@ -15,19 +15,15 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
-// TimeOfDay holds the union for the following types:
-//     HourAndMinute
-//     string
+// TimeOfDay type alias.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/watcher/_types/Schedule.ts#L103-L104
-type TimeOfDay interface{}
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/Time.ts#L44-L45
+type TimeOfDay string
 
 // TimeOfDayBuilder holds TimeOfDay struct and provides a builder API.
 type TimeOfDayBuilder struct {
@@ -40,17 +36,11 @@ func NewTimeOfDayBuilder() *TimeOfDayBuilder {
 }
 
 // Build finalize the chain and returns the TimeOfDay struct
-func (u *TimeOfDayBuilder) Build() TimeOfDay {
-	return u.v
+func (b *TimeOfDayBuilder) Build() TimeOfDay {
+	return b.v
 }
 
-func (u *TimeOfDayBuilder) HourAndMinute(hourandminute *HourAndMinuteBuilder) *TimeOfDayBuilder {
-	v := hourandminute.Build()
-	u.v = &v
-	return u
-}
-
-func (u *TimeOfDayBuilder) String(string string) *TimeOfDayBuilder {
-	u.v = &string
-	return u
+func (b *TimeOfDayBuilder) TimeOfDay(value TimeOfDay) *TimeOfDayBuilder {
+	b.v = value
+	return b
 }

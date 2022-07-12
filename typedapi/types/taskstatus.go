@@ -15,34 +15,32 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // TaskStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/tasks/_types/TaskStatus.ts#L24-L42
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/tasks/_types/TaskStatus.ts#L24-L42
 type TaskStatus struct {
-	Batches              int64    `json:"batches"`
-	Canceled             *string  `json:"canceled,omitempty"`
-	Created              int64    `json:"created"`
-	Deleted              int64    `json:"deleted"`
-	Failures             []string `json:"failures,omitempty"`
-	Noops                int64    `json:"noops"`
-	RequestsPerSecond    float32  `json:"requests_per_second"`
-	Retries              Retries  `json:"retries"`
-	Throttled            *Time    `json:"throttled,omitempty"`
-	ThrottledMillis      int64    `json:"throttled_millis"`
-	ThrottledUntil       *Time    `json:"throttled_until,omitempty"`
-	ThrottledUntilMillis int64    `json:"throttled_until_millis"`
-	TimedOut             *bool    `json:"timed_out,omitempty"`
-	Took                 *int64   `json:"took,omitempty"`
-	Total                int64    `json:"total"`
-	Updated              int64    `json:"updated"`
-	VersionConflicts     int64    `json:"version_conflicts"`
+	Batches              int64                    `json:"batches"`
+	Canceled             *string                  `json:"canceled,omitempty"`
+	Created              int64                    `json:"created"`
+	Deleted              int64                    `json:"deleted"`
+	Failures             []string                 `json:"failures,omitempty"`
+	Noops                int64                    `json:"noops"`
+	RequestsPerSecond    float32                  `json:"requests_per_second"`
+	Retries              Retries                  `json:"retries"`
+	Throttled            *Duration                `json:"throttled,omitempty"`
+	ThrottledMillis      DurationValueUnitMillis  `json:"throttled_millis"`
+	ThrottledUntil       *Duration                `json:"throttled_until,omitempty"`
+	ThrottledUntilMillis DurationValueUnitMillis  `json:"throttled_until_millis"`
+	TimedOut             *bool                    `json:"timed_out,omitempty"`
+	Took                 *DurationValueUnitMillis `json:"took,omitempty"`
+	Total                int64                    `json:"total"`
+	Updated              int64                    `json:"updated"`
+	VersionConflicts     int64                    `json:"version_conflicts"`
 }
 
 // TaskStatusBuilder holds TaskStatus struct and provides a builder API.
@@ -105,25 +103,27 @@ func (rb *TaskStatusBuilder) Retries(retries *RetriesBuilder) *TaskStatusBuilder
 	return rb
 }
 
-func (rb *TaskStatusBuilder) Throttled(throttled *TimeBuilder) *TaskStatusBuilder {
+func (rb *TaskStatusBuilder) Throttled(throttled *DurationBuilder) *TaskStatusBuilder {
 	v := throttled.Build()
 	rb.v.Throttled = &v
 	return rb
 }
 
-func (rb *TaskStatusBuilder) ThrottledMillis(throttledmillis int64) *TaskStatusBuilder {
-	rb.v.ThrottledMillis = throttledmillis
+func (rb *TaskStatusBuilder) ThrottledMillis(throttledmillis *DurationValueUnitMillisBuilder) *TaskStatusBuilder {
+	v := throttledmillis.Build()
+	rb.v.ThrottledMillis = v
 	return rb
 }
 
-func (rb *TaskStatusBuilder) ThrottledUntil(throttleduntil *TimeBuilder) *TaskStatusBuilder {
+func (rb *TaskStatusBuilder) ThrottledUntil(throttleduntil *DurationBuilder) *TaskStatusBuilder {
 	v := throttleduntil.Build()
 	rb.v.ThrottledUntil = &v
 	return rb
 }
 
-func (rb *TaskStatusBuilder) ThrottledUntilMillis(throttleduntilmillis int64) *TaskStatusBuilder {
-	rb.v.ThrottledUntilMillis = throttleduntilmillis
+func (rb *TaskStatusBuilder) ThrottledUntilMillis(throttleduntilmillis *DurationValueUnitMillisBuilder) *TaskStatusBuilder {
+	v := throttleduntilmillis.Build()
+	rb.v.ThrottledUntilMillis = v
 	return rb
 }
 
@@ -132,8 +132,9 @@ func (rb *TaskStatusBuilder) TimedOut(timedout bool) *TaskStatusBuilder {
 	return rb
 }
 
-func (rb *TaskStatusBuilder) Took(took int64) *TaskStatusBuilder {
-	rb.v.Took = &took
+func (rb *TaskStatusBuilder) Took(took *DurationValueUnitMillisBuilder) *TaskStatusBuilder {
+	v := took.Build()
+	rb.v.Took = &v
 	return rb
 }
 

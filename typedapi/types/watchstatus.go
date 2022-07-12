@@ -15,21 +15,19 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // WatchStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/watcher/_types/Watch.ts#L49-L56
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/watcher/_types/Watch.ts#L49-L56
 type WatchStatus struct {
 	Actions          Actions         `json:"actions"`
 	ExecutionState   *string         `json:"execution_state,omitempty"`
-	LastChecked      *DateString     `json:"last_checked,omitempty"`
-	LastMetCondition *DateString     `json:"last_met_condition,omitempty"`
+	LastChecked      *DateTime       `json:"last_checked,omitempty"`
+	LastMetCondition *DateTime       `json:"last_met_condition,omitempty"`
 	State            ActivationState `json:"state"`
 	Version          VersionNumber   `json:"version"`
 }
@@ -64,13 +62,15 @@ func (rb *WatchStatusBuilder) ExecutionState(executionstate string) *WatchStatus
 	return rb
 }
 
-func (rb *WatchStatusBuilder) LastChecked(lastchecked DateString) *WatchStatusBuilder {
-	rb.v.LastChecked = &lastchecked
+func (rb *WatchStatusBuilder) LastChecked(lastchecked *DateTimeBuilder) *WatchStatusBuilder {
+	v := lastchecked.Build()
+	rb.v.LastChecked = &v
 	return rb
 }
 
-func (rb *WatchStatusBuilder) LastMetCondition(lastmetcondition DateString) *WatchStatusBuilder {
-	rb.v.LastMetCondition = &lastmetcondition
+func (rb *WatchStatusBuilder) LastMetCondition(lastmetcondition *DateTimeBuilder) *WatchStatusBuilder {
+	v := lastmetcondition.Build()
+	rb.v.LastMetCondition = &v
 	return rb
 }
 

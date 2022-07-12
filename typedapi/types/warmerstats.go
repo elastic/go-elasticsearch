@@ -15,21 +15,19 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // WarmerStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_types/Stats.ts#L247-L252
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/Stats.ts#L252-L257
 type WarmerStats struct {
-	Current           int64   `json:"current"`
-	Total             int64   `json:"total"`
-	TotalTime         *string `json:"total_time,omitempty"`
-	TotalTimeInMillis int64   `json:"total_time_in_millis"`
+	Current           int64                   `json:"current"`
+	Total             int64                   `json:"total"`
+	TotalTime         *Duration               `json:"total_time,omitempty"`
+	TotalTimeInMillis DurationValueUnitMillis `json:"total_time_in_millis"`
 }
 
 // WarmerStatsBuilder holds WarmerStats struct and provides a builder API.
@@ -61,12 +59,14 @@ func (rb *WarmerStatsBuilder) Total(total int64) *WarmerStatsBuilder {
 	return rb
 }
 
-func (rb *WarmerStatsBuilder) TotalTime(totaltime string) *WarmerStatsBuilder {
-	rb.v.TotalTime = &totaltime
+func (rb *WarmerStatsBuilder) TotalTime(totaltime *DurationBuilder) *WarmerStatsBuilder {
+	v := totaltime.Build()
+	rb.v.TotalTime = &v
 	return rb
 }
 
-func (rb *WarmerStatsBuilder) TotalTimeInMillis(totaltimeinmillis int64) *WarmerStatsBuilder {
-	rb.v.TotalTimeInMillis = totaltimeinmillis
+func (rb *WarmerStatsBuilder) TotalTimeInMillis(totaltimeinmillis *DurationValueUnitMillisBuilder) *WarmerStatsBuilder {
+	v := totaltimeinmillis.Build()
+	rb.v.TotalTimeInMillis = v
 	return rb
 }

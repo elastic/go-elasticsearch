@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
@@ -30,7 +28,7 @@ import (
 
 // TermsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_types/aggregations/bucket.ts#L373-L390
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/aggregations/bucket.ts#L376-L393
 type TermsAggregation struct {
 	CollectMode           *termsaggregationcollectmode.TermsAggregationCollectMode     `json:"collect_mode,omitempty"`
 	Exclude               *TermsExclude                                                `json:"exclude,omitempty"`
@@ -44,7 +42,7 @@ type TermsAggregation struct {
 	MissingBucket         *bool                                                        `json:"missing_bucket,omitempty"`
 	MissingOrder          *missingorder.MissingOrder                                   `json:"missing_order,omitempty"`
 	Name                  *string                                                      `json:"name,omitempty"`
-	Order                 *TermsAggregationOrder                                       `json:"order,omitempty"`
+	Order                 *AggregateOrder                                              `json:"order,omitempty"`
 	Script                *Script                                                      `json:"script,omitempty"`
 	ShardSize             *int                                                         `json:"shard_size,omitempty"`
 	ShowTermDocCountError *bool                                                        `json:"show_term_doc_count_error,omitempty"`
@@ -135,7 +133,7 @@ func (rb *TermsAggregationBuilder) Name(name string) *TermsAggregationBuilder {
 	return rb
 }
 
-func (rb *TermsAggregationBuilder) Order(order *TermsAggregationOrderBuilder) *TermsAggregationBuilder {
+func (rb *TermsAggregationBuilder) Order(order *AggregateOrderBuilder) *TermsAggregationBuilder {
 	v := order.Build()
 	rb.v.Order = &v
 	return rb

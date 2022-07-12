@@ -15,34 +15,32 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
-// DateMathTime type alias.
+// EpochTimeUnitMillis type alias.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_types/Time.ts#L33-L33
-type DateMathTime string
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/Time.ts#L40-L40
+type EpochTimeUnitMillis UnitMillis
 
-// DateMathTimeBuilder holds DateMathTime struct and provides a builder API.
-type DateMathTimeBuilder struct {
-	v DateMathTime
+// EpochTimeUnitMillisBuilder holds EpochTimeUnitMillis struct and provides a builder API.
+type EpochTimeUnitMillisBuilder struct {
+	v EpochTimeUnitMillis
 }
 
-// NewDateMathTime provides a builder for the DateMathTime struct.
-func NewDateMathTimeBuilder() *DateMathTimeBuilder {
-	return &DateMathTimeBuilder{}
+// NewEpochTimeUnitMillis provides a builder for the EpochTimeUnitMillis struct.
+func NewEpochTimeUnitMillisBuilder() *EpochTimeUnitMillisBuilder {
+	return &EpochTimeUnitMillisBuilder{}
 }
 
-// Build finalize the chain and returns the DateMathTime struct
-func (b *DateMathTimeBuilder) Build() DateMathTime {
+// Build finalize the chain and returns the EpochTimeUnitMillis struct
+func (b *EpochTimeUnitMillisBuilder) Build() EpochTimeUnitMillis {
 	return b.v
 }
 
-func (b *DateMathTimeBuilder) DateMathTime(value DateMathTime) *DateMathTimeBuilder {
+func (b *EpochTimeUnitMillisBuilder) EpochTimeUnitMillis(value EpochTimeUnitMillis) *EpochTimeUnitMillisBuilder {
 	b.v = value
 	return b
 }

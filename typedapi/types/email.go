@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
@@ -28,7 +26,7 @@ import (
 
 // Email type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/watcher/_types/Actions.ts#L238-L250
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/watcher/_types/Actions.ts#L238-L250
 type Email struct {
 	Attachments map[string]EmailAttachmentContainer `json:"attachments,omitempty"`
 	Bcc         []string                            `json:"bcc,omitempty"`
@@ -38,7 +36,7 @@ type Email struct {
 	Id          *Id                                 `json:"id,omitempty"`
 	Priority    *emailpriority.EmailPriority        `json:"priority,omitempty"`
 	ReplyTo     []string                            `json:"reply_to,omitempty"`
-	SentDate    *DateString                         `json:"sent_date,omitempty"`
+	SentDate    *DateTime                           `json:"sent_date,omitempty"`
 	Subject     string                              `json:"subject"`
 	To          []string                            `json:"to"`
 }
@@ -109,8 +107,9 @@ func (rb *EmailBuilder) ReplyTo(reply_to ...string) *EmailBuilder {
 	return rb
 }
 
-func (rb *EmailBuilder) SentDate(sentdate DateString) *EmailBuilder {
-	rb.v.SentDate = &sentdate
+func (rb *EmailBuilder) SentDate(sentdate *DateTimeBuilder) *EmailBuilder {
+	v := sentdate.Build()
+	rb.v.SentDate = &v
 	return rb
 }
 

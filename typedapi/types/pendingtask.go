@@ -15,23 +15,21 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // PendingTask type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/cluster/pending_tasks/types.ts#L22-L29
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/cluster/pending_tasks/types.ts#L23-L30
 type PendingTask struct {
-	Executing         bool   `json:"executing"`
-	InsertOrder       int    `json:"insert_order"`
-	Priority          string `json:"priority"`
-	Source            string `json:"source"`
-	TimeInQueue       string `json:"time_in_queue"`
-	TimeInQueueMillis int    `json:"time_in_queue_millis"`
+	Executing         bool                    `json:"executing"`
+	InsertOrder       int                     `json:"insert_order"`
+	Priority          string                  `json:"priority"`
+	Source            string                  `json:"source"`
+	TimeInQueue       *Duration               `json:"time_in_queue,omitempty"`
+	TimeInQueueMillis DurationValueUnitMillis `json:"time_in_queue_millis"`
 }
 
 // PendingTaskBuilder holds PendingTask struct and provides a builder API.
@@ -73,12 +71,14 @@ func (rb *PendingTaskBuilder) Source(source string) *PendingTaskBuilder {
 	return rb
 }
 
-func (rb *PendingTaskBuilder) TimeInQueue(timeinqueue string) *PendingTaskBuilder {
-	rb.v.TimeInQueue = timeinqueue
+func (rb *PendingTaskBuilder) TimeInQueue(timeinqueue *DurationBuilder) *PendingTaskBuilder {
+	v := timeinqueue.Build()
+	rb.v.TimeInQueue = &v
 	return rb
 }
 
-func (rb *PendingTaskBuilder) TimeInQueueMillis(timeinqueuemillis int) *PendingTaskBuilder {
-	rb.v.TimeInQueueMillis = timeinqueuemillis
+func (rb *PendingTaskBuilder) TimeInQueueMillis(timeinqueuemillis *DurationValueUnitMillisBuilder) *PendingTaskBuilder {
+	v := timeinqueuemillis.Build()
+	rb.v.TimeInQueueMillis = v
 	return rb
 }

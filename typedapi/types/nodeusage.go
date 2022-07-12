@@ -15,21 +15,19 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // NodeUsage type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/nodes/usage/types.ts#L25-L30
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/nodes/usage/types.ts#L25-L30
 type NodeUsage struct {
 	Aggregations map[string]interface{} `json:"aggregations"`
 	RestActions  map[string]int         `json:"rest_actions"`
-	Since        EpochMillis            `json:"since"`
-	Timestamp    EpochMillis            `json:"timestamp"`
+	Since        EpochTimeUnitMillis    `json:"since"`
+	Timestamp    EpochTimeUnitMillis    `json:"timestamp"`
 }
 
 // NodeUsageBuilder holds NodeUsage struct and provides a builder API.
@@ -64,13 +62,13 @@ func (rb *NodeUsageBuilder) RestActions(value map[string]int) *NodeUsageBuilder 
 	return rb
 }
 
-func (rb *NodeUsageBuilder) Since(since *EpochMillisBuilder) *NodeUsageBuilder {
+func (rb *NodeUsageBuilder) Since(since *EpochTimeUnitMillisBuilder) *NodeUsageBuilder {
 	v := since.Build()
 	rb.v.Since = v
 	return rb
 }
 
-func (rb *NodeUsageBuilder) Timestamp(timestamp *EpochMillisBuilder) *NodeUsageBuilder {
+func (rb *NodeUsageBuilder) Timestamp(timestamp *EpochTimeUnitMillisBuilder) *NodeUsageBuilder {
 	v := timestamp.Build()
 	rb.v.Timestamp = v
 	return rb

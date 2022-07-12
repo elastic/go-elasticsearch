@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package updatejob
 
@@ -31,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package updatejob
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ml/update_job/MlUpdateJobRequest.ts#L33-L137
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ml/update_job/MlUpdateJobRequest.ts#L33-L137
 type Request struct {
 
 	// AllowLazyOpen Advanced configuration option. Specifies whether this job can open when
@@ -57,7 +55,7 @@ type Request struct {
 	// If the job is open when you make the update, you must stop the datafeed,
 	// close the job, then reopen the job and restart the datafeed for the
 	// changes to take effect.
-	BackgroundPersistInterval *types.Time `json:"background_persist_interval,omitempty"`
+	BackgroundPersistInterval *types.Duration `json:"background_persist_interval,omitempty"`
 
 	CategorizationFilters []string `json:"categorization_filters,omitempty"`
 
@@ -151,7 +149,7 @@ func (rb *RequestBuilder) AnalysisLimits(analysislimits *types.AnalysisMemoryLim
 	return rb
 }
 
-func (rb *RequestBuilder) BackgroundPersistInterval(backgroundpersistinterval *types.TimeBuilder) *RequestBuilder {
+func (rb *RequestBuilder) BackgroundPersistInterval(backgroundpersistinterval *types.DurationBuilder) *RequestBuilder {
 	v := backgroundpersistinterval.Build()
 	rb.v.BackgroundPersistInterval = &v
 	return rb

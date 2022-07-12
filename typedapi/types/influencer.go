@@ -15,20 +15,18 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // Influencer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ml/_types/Influencer.ts#L24-L76
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ml/_types/Influencer.ts#L31-L83
 type Influencer struct {
 	// BucketSpan The length of the bucket in seconds. This value matches the bucket span that
 	// is specified in the job.
-	BucketSpan int64 `json:"bucket_span"`
+	BucketSpan DurationValueUnitSeconds `json:"bucket_span"`
 	// Foo Additional influencer properties are added, depending on the fields being
 	// analyzed. For example, if it’s
 	// analyzing `user_name` as an influencer, a field `user_name` is added to the
@@ -64,7 +62,7 @@ type Influencer struct {
 	// ResultType Internal. This value is always set to `influencer`.
 	ResultType string `json:"result_type"`
 	// Timestamp The start time of the bucket for which these results were calculated.
-	Timestamp Time `json:"timestamp"`
+	Timestamp EpochTimeUnitMillis `json:"timestamp"`
 }
 
 // InfluencerBuilder holds Influencer struct and provides a builder API.
@@ -89,8 +87,9 @@ func (rb *InfluencerBuilder) Build() Influencer {
 // BucketSpan The length of the bucket in seconds. This value matches the bucket span that
 // is specified in the job.
 
-func (rb *InfluencerBuilder) BucketSpan(bucketspan int64) *InfluencerBuilder {
-	rb.v.BucketSpan = bucketspan
+func (rb *InfluencerBuilder) BucketSpan(bucketspan *DurationValueUnitSecondsBuilder) *InfluencerBuilder {
+	v := bucketspan.Build()
+	rb.v.BucketSpan = v
 	return rb
 }
 
@@ -175,7 +174,7 @@ func (rb *InfluencerBuilder) ResultType(resulttype string) *InfluencerBuilder {
 
 // Timestamp The start time of the bucket for which these results were calculated.
 
-func (rb *InfluencerBuilder) Timestamp(timestamp *TimeBuilder) *InfluencerBuilder {
+func (rb *InfluencerBuilder) Timestamp(timestamp *EpochTimeUnitMillisBuilder) *InfluencerBuilder {
 	v := timestamp.Build()
 	rb.v.Timestamp = v
 	return rb

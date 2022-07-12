@@ -15,41 +15,32 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
-// Time holds the union for the following types:
-//     int
-//     string
+// UnitMillis type alias.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_types/Time.ts#L65-L71
-type Time interface{}
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/Time.ts#L33-L34
+type UnitMillis int64
 
-// TimeBuilder holds Time struct and provides a builder API.
-type TimeBuilder struct {
-	v Time
+// UnitMillisBuilder holds UnitMillis struct and provides a builder API.
+type UnitMillisBuilder struct {
+	v UnitMillis
 }
 
-// NewTime provides a builder for the Time struct.
-func NewTimeBuilder() *TimeBuilder {
-	return &TimeBuilder{}
+// NewUnitMillis provides a builder for the UnitMillis struct.
+func NewUnitMillisBuilder() *UnitMillisBuilder {
+	return &UnitMillisBuilder{}
 }
 
-// Build finalize the chain and returns the Time struct
-func (u *TimeBuilder) Build() Time {
-	return u.v
+// Build finalize the chain and returns the UnitMillis struct
+func (b *UnitMillisBuilder) Build() UnitMillis {
+	return b.v
 }
 
-func (u *TimeBuilder) Int(int int) *TimeBuilder {
-	u.v = &int
-	return u
-}
-
-func (u *TimeBuilder) String(string string) *TimeBuilder {
-	u.v = &string
-	return u
+func (b *UnitMillisBuilder) UnitMillis(value UnitMillis) *UnitMillisBuilder {
+	b.v = value
+	return b
 }

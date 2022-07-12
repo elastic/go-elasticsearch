@@ -15,19 +15,17 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // ClusterRemoteSniffInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/cluster/remote_info/ClusterRemoteInfoResponse.ts#L31-L39
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/cluster/remote_info/ClusterRemoteInfoResponse.ts#L31-L39
 type ClusterRemoteSniffInfo struct {
 	Connected                bool     `json:"connected"`
-	InitialConnectTimeout    Time     `json:"initial_connect_timeout"`
+	InitialConnectTimeout    Duration `json:"initial_connect_timeout"`
 	MaxConnectionsPerCluster int      `json:"max_connections_per_cluster"`
 	Mode                     string   `json:"mode,omitempty"`
 	NumNodesConnected        int64    `json:"num_nodes_connected"`
@@ -61,7 +59,7 @@ func (rb *ClusterRemoteSniffInfoBuilder) Connected(connected bool) *ClusterRemot
 	return rb
 }
 
-func (rb *ClusterRemoteSniffInfoBuilder) InitialConnectTimeout(initialconnecttimeout *TimeBuilder) *ClusterRemoteSniffInfoBuilder {
+func (rb *ClusterRemoteSniffInfoBuilder) InitialConnectTimeout(initialconnecttimeout *DurationBuilder) *ClusterRemoteSniffInfoBuilder {
 	v := initialconnecttimeout.Build()
 	rb.v.InitialConnectTimeout = v
 	return rb

@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package puttransform
 
@@ -31,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package puttransform
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/transform/put_transform/PutTransformRequest.ts#L33-L122
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/transform/put_transform/PutTransformRequest.ts#L33-L122
 type Request struct {
 
 	// Description Free text description of the transform.
@@ -45,7 +43,7 @@ type Request struct {
 	// determines the retry interval in the event of transient failures while the
 	// transform is searching or indexing.
 	// The minimum value is `1s` and the maximum is `1h`.
-	Frequency *types.Time `json:"frequency,omitempty"`
+	Frequency *types.Duration `json:"frequency,omitempty"`
 
 	// Latest The latest method transforms the data by finding the latest document for each
 	// unique key.
@@ -115,7 +113,7 @@ func (rb *RequestBuilder) Dest(dest *types.DestinationBuilder) *RequestBuilder {
 	return rb
 }
 
-func (rb *RequestBuilder) Frequency(frequency *types.TimeBuilder) *RequestBuilder {
+func (rb *RequestBuilder) Frequency(frequency *types.DurationBuilder) *RequestBuilder {
 	v := frequency.Build()
 	rb.v.Frequency = &v
 	return rb

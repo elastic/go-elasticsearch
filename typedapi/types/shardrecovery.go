@@ -15,33 +15,31 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // ShardRecovery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/indices/recovery/types.ts#L110-L127
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/indices/recovery/types.ts#L118-L135
 type ShardRecovery struct {
-	Id                int64                `json:"id"`
-	Index             RecoveryIndexStatus  `json:"index"`
-	Primary           bool                 `json:"primary"`
-	Source            RecoveryOrigin       `json:"source"`
-	Stage             string               `json:"stage"`
-	Start             *RecoveryStartStatus `json:"start,omitempty"`
-	StartTime         *DateString          `json:"start_time,omitempty"`
-	StartTimeInMillis EpochMillis          `json:"start_time_in_millis"`
-	StopTime          *DateString          `json:"stop_time,omitempty"`
-	StopTimeInMillis  EpochMillis          `json:"stop_time_in_millis"`
-	Target            RecoveryOrigin       `json:"target"`
-	TotalTime         *DateString          `json:"total_time,omitempty"`
-	TotalTimeInMillis EpochMillis          `json:"total_time_in_millis"`
-	Translog          TranslogStatus       `json:"translog"`
-	Type              string               `json:"type"`
-	VerifyIndex       VerifyIndex          `json:"verify_index"`
+	Id                int64                   `json:"id"`
+	Index             RecoveryIndexStatus     `json:"index"`
+	Primary           bool                    `json:"primary"`
+	Source            RecoveryOrigin          `json:"source"`
+	Stage             string                  `json:"stage"`
+	Start             *RecoveryStartStatus    `json:"start,omitempty"`
+	StartTime         *DateTime               `json:"start_time,omitempty"`
+	StartTimeInMillis EpochTimeUnitMillis     `json:"start_time_in_millis"`
+	StopTime          *DateTime               `json:"stop_time,omitempty"`
+	StopTimeInMillis  *EpochTimeUnitMillis    `json:"stop_time_in_millis,omitempty"`
+	Target            RecoveryOrigin          `json:"target"`
+	TotalTime         *Duration               `json:"total_time,omitempty"`
+	TotalTimeInMillis DurationValueUnitMillis `json:"total_time_in_millis"`
+	Translog          TranslogStatus          `json:"translog"`
+	Type              string                  `json:"type"`
+	VerifyIndex       VerifyIndex             `json:"verify_index"`
 }
 
 // ShardRecoveryBuilder holds ShardRecovery struct and provides a builder API.
@@ -96,25 +94,27 @@ func (rb *ShardRecoveryBuilder) Start(start *RecoveryStartStatusBuilder) *ShardR
 	return rb
 }
 
-func (rb *ShardRecoveryBuilder) StartTime(starttime DateString) *ShardRecoveryBuilder {
-	rb.v.StartTime = &starttime
+func (rb *ShardRecoveryBuilder) StartTime(starttime *DateTimeBuilder) *ShardRecoveryBuilder {
+	v := starttime.Build()
+	rb.v.StartTime = &v
 	return rb
 }
 
-func (rb *ShardRecoveryBuilder) StartTimeInMillis(starttimeinmillis *EpochMillisBuilder) *ShardRecoveryBuilder {
+func (rb *ShardRecoveryBuilder) StartTimeInMillis(starttimeinmillis *EpochTimeUnitMillisBuilder) *ShardRecoveryBuilder {
 	v := starttimeinmillis.Build()
 	rb.v.StartTimeInMillis = v
 	return rb
 }
 
-func (rb *ShardRecoveryBuilder) StopTime(stoptime DateString) *ShardRecoveryBuilder {
-	rb.v.StopTime = &stoptime
+func (rb *ShardRecoveryBuilder) StopTime(stoptime *DateTimeBuilder) *ShardRecoveryBuilder {
+	v := stoptime.Build()
+	rb.v.StopTime = &v
 	return rb
 }
 
-func (rb *ShardRecoveryBuilder) StopTimeInMillis(stoptimeinmillis *EpochMillisBuilder) *ShardRecoveryBuilder {
+func (rb *ShardRecoveryBuilder) StopTimeInMillis(stoptimeinmillis *EpochTimeUnitMillisBuilder) *ShardRecoveryBuilder {
 	v := stoptimeinmillis.Build()
-	rb.v.StopTimeInMillis = v
+	rb.v.StopTimeInMillis = &v
 	return rb
 }
 
@@ -124,12 +124,13 @@ func (rb *ShardRecoveryBuilder) Target(target *RecoveryOriginBuilder) *ShardReco
 	return rb
 }
 
-func (rb *ShardRecoveryBuilder) TotalTime(totaltime DateString) *ShardRecoveryBuilder {
-	rb.v.TotalTime = &totaltime
+func (rb *ShardRecoveryBuilder) TotalTime(totaltime *DurationBuilder) *ShardRecoveryBuilder {
+	v := totaltime.Build()
+	rb.v.TotalTime = &v
 	return rb
 }
 
-func (rb *ShardRecoveryBuilder) TotalTimeInMillis(totaltimeinmillis *EpochMillisBuilder) *ShardRecoveryBuilder {
+func (rb *ShardRecoveryBuilder) TotalTimeInMillis(totaltimeinmillis *DurationValueUnitMillisBuilder) *ShardRecoveryBuilder {
 	v := totaltimeinmillis.Build()
 	rb.v.TotalTimeInMillis = v
 	return rb

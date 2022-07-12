@@ -15,19 +15,19 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // RunningStateSearchInterval type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ml/_types/Datafeed.ts#L153-L156
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ml/_types/Datafeed.ts#L164-L169
 type RunningStateSearchInterval struct {
-	EndMs   int64 `json:"end_ms"`
-	StartMs int64 `json:"start_ms"`
+	End     *Duration               `json:"end,omitempty"`
+	EndMs   DurationValueUnitMillis `json:"end_ms"`
+	Start   *Duration               `json:"start,omitempty"`
+	StartMs DurationValueUnitMillis `json:"start_ms"`
 }
 
 // RunningStateSearchIntervalBuilder holds RunningStateSearchInterval struct and provides a builder API.
@@ -49,12 +49,26 @@ func (rb *RunningStateSearchIntervalBuilder) Build() RunningStateSearchInterval 
 	return *rb.v
 }
 
-func (rb *RunningStateSearchIntervalBuilder) EndMs(endms int64) *RunningStateSearchIntervalBuilder {
-	rb.v.EndMs = endms
+func (rb *RunningStateSearchIntervalBuilder) End(end *DurationBuilder) *RunningStateSearchIntervalBuilder {
+	v := end.Build()
+	rb.v.End = &v
 	return rb
 }
 
-func (rb *RunningStateSearchIntervalBuilder) StartMs(startms int64) *RunningStateSearchIntervalBuilder {
-	rb.v.StartMs = startms
+func (rb *RunningStateSearchIntervalBuilder) EndMs(endms *DurationValueUnitMillisBuilder) *RunningStateSearchIntervalBuilder {
+	v := endms.Build()
+	rb.v.EndMs = v
+	return rb
+}
+
+func (rb *RunningStateSearchIntervalBuilder) Start(start *DurationBuilder) *RunningStateSearchIntervalBuilder {
+	v := start.Build()
+	rb.v.Start = &v
+	return rb
+}
+
+func (rb *RunningStateSearchIntervalBuilder) StartMs(startms *DurationValueUnitMillisBuilder) *RunningStateSearchIntervalBuilder {
+	v := startms.Build()
+	rb.v.StartMs = v
 	return rb
 }

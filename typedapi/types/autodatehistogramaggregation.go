@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
@@ -28,19 +26,19 @@ import (
 
 // AutoDateHistogramAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_types/aggregations/bucket.ts#L52-L62
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/aggregations/bucket.ts#L52-L62
 type AutoDateHistogramAggregation struct {
 	Buckets         *int                             `json:"buckets,omitempty"`
 	Field           *Field                           `json:"field,omitempty"`
 	Format          *string                          `json:"format,omitempty"`
 	Meta            *Metadata                        `json:"meta,omitempty"`
 	MinimumInterval *minimuminterval.MinimumInterval `json:"minimum_interval,omitempty"`
-	Missing         *DateString                      `json:"missing,omitempty"`
+	Missing         *DateTime                        `json:"missing,omitempty"`
 	Name            *string                          `json:"name,omitempty"`
 	Offset          *string                          `json:"offset,omitempty"`
 	Params          map[string]interface{}           `json:"params,omitempty"`
 	Script          *Script                          `json:"script,omitempty"`
-	TimeZone        *string                          `json:"time_zone,omitempty"`
+	TimeZone        *TimeZone                        `json:"time_zone,omitempty"`
 }
 
 // AutoDateHistogramAggregationBuilder holds AutoDateHistogramAggregation struct and provides a builder API.
@@ -90,8 +88,9 @@ func (rb *AutoDateHistogramAggregationBuilder) MinimumInterval(minimuminterval m
 	return rb
 }
 
-func (rb *AutoDateHistogramAggregationBuilder) Missing(missing DateString) *AutoDateHistogramAggregationBuilder {
-	rb.v.Missing = &missing
+func (rb *AutoDateHistogramAggregationBuilder) Missing(missing *DateTimeBuilder) *AutoDateHistogramAggregationBuilder {
+	v := missing.Build()
+	rb.v.Missing = &v
 	return rb
 }
 
@@ -116,7 +115,7 @@ func (rb *AutoDateHistogramAggregationBuilder) Script(script *ScriptBuilder) *Au
 	return rb
 }
 
-func (rb *AutoDateHistogramAggregationBuilder) TimeZone(timezone string) *AutoDateHistogramAggregationBuilder {
+func (rb *AutoDateHistogramAggregationBuilder) TimeZone(timezone TimeZone) *AutoDateHistogramAggregationBuilder {
 	rb.v.TimeZone = &timezone
 	return rb
 }

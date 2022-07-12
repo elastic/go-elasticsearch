@@ -15,21 +15,19 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // Collector type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_global/search/_types/profile.ts#L83-L88
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_global/search/_types/profile.ts#L84-L89
 type Collector struct {
-	Children    []Collector `json:"children,omitempty"`
-	Name        string      `json:"name"`
-	Reason      string      `json:"reason"`
-	TimeInNanos int64       `json:"time_in_nanos"`
+	Children    []Collector            `json:"children,omitempty"`
+	Name        string                 `json:"name"`
+	Reason      string                 `json:"reason"`
+	TimeInNanos DurationValueUnitNanos `json:"time_in_nanos"`
 }
 
 // CollectorBuilder holds Collector struct and provides a builder API.
@@ -70,7 +68,8 @@ func (rb *CollectorBuilder) Reason(reason string) *CollectorBuilder {
 	return rb
 }
 
-func (rb *CollectorBuilder) TimeInNanos(timeinnanos int64) *CollectorBuilder {
-	rb.v.TimeInNanos = timeinnanos
+func (rb *CollectorBuilder) TimeInNanos(timeinnanos *DurationValueUnitNanosBuilder) *CollectorBuilder {
+	v := timeinnanos.Build()
+	rb.v.TimeInNanos = v
 	return rb
 }

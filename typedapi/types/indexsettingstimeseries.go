@@ -15,19 +15,17 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // IndexSettingsTimeSeries type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/indices/_types/IndexSettings.ts#L313-L316
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/indices/_types/IndexSettings.ts#L318-L321
 type IndexSettingsTimeSeries struct {
-	EndTime   *DateOrEpochMillis `json:"end_time,omitempty"`
-	StartTime *DateOrEpochMillis `json:"start_time,omitempty"`
+	EndTime   *DateTime `json:"end_time,omitempty"`
+	StartTime *DateTime `json:"start_time,omitempty"`
 }
 
 // IndexSettingsTimeSeriesBuilder holds IndexSettingsTimeSeries struct and provides a builder API.
@@ -49,13 +47,13 @@ func (rb *IndexSettingsTimeSeriesBuilder) Build() IndexSettingsTimeSeries {
 	return *rb.v
 }
 
-func (rb *IndexSettingsTimeSeriesBuilder) EndTime(endtime *DateOrEpochMillisBuilder) *IndexSettingsTimeSeriesBuilder {
+func (rb *IndexSettingsTimeSeriesBuilder) EndTime(endtime *DateTimeBuilder) *IndexSettingsTimeSeriesBuilder {
 	v := endtime.Build()
 	rb.v.EndTime = &v
 	return rb
 }
 
-func (rb *IndexSettingsTimeSeriesBuilder) StartTime(starttime *DateOrEpochMillisBuilder) *IndexSettingsTimeSeriesBuilder {
+func (rb *IndexSettingsTimeSeriesBuilder) StartTime(starttime *DateTimeBuilder) *IndexSettingsTimeSeriesBuilder {
 	v := starttime.Build()
 	rb.v.StartTime = &v
 	return rb

@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
@@ -28,10 +26,10 @@ import (
 
 // AcknowledgeState type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/watcher/_types/Action.ts#L106-L109
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/watcher/_types/Action.ts#L112-L115
 type AcknowledgeState struct {
 	State     acknowledgementoptions.AcknowledgementOptions `json:"state"`
-	Timestamp DateString                                    `json:"timestamp"`
+	Timestamp DateTime                                      `json:"timestamp"`
 }
 
 // AcknowledgeStateBuilder holds AcknowledgeState struct and provides a builder API.
@@ -58,7 +56,8 @@ func (rb *AcknowledgeStateBuilder) State(state acknowledgementoptions.Acknowledg
 	return rb
 }
 
-func (rb *AcknowledgeStateBuilder) Timestamp(timestamp DateString) *AcknowledgeStateBuilder {
-	rb.v.Timestamp = timestamp
+func (rb *AcknowledgeStateBuilder) Timestamp(timestamp *DateTimeBuilder) *AcknowledgeStateBuilder {
+	v := timestamp.Build()
+	rb.v.Timestamp = v
 	return rb
 }

@@ -15,16 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // BucketInfluencer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ml/_types/Bucket.ts#L68-L112
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ml/_types/Bucket.ts#L80-L128
 type BucketInfluencer struct {
 	// AnomalyScore A normalized score between 0-100, which is calculated for each bucket
 	// influencer. This score might be updated as
@@ -32,7 +30,7 @@ type BucketInfluencer struct {
 	AnomalyScore float64 `json:"anomaly_score"`
 	// BucketSpan The length of the bucket in seconds. This value matches the bucket span that
 	// is specified in the job.
-	BucketSpan int64 `json:"bucket_span"`
+	BucketSpan DurationValueUnitSeconds `json:"bucket_span"`
 	// InfluencerFieldName The field name of the influencer.
 	InfluencerFieldName Field `json:"influencer_field_name"`
 	// InitialAnomalyScore The score between 0-100 for each bucket influencer. This score is the initial
@@ -55,7 +53,9 @@ type BucketInfluencer struct {
 	// ResultType Internal. This value is always set to `bucket_influencer`.
 	ResultType string `json:"result_type"`
 	// Timestamp The start time of the bucket for which these results were calculated.
-	Timestamp Time `json:"timestamp"`
+	Timestamp EpochTimeUnitMillis `json:"timestamp"`
+	// TimestampString The start time of the bucket for which these results were calculated.
+	TimestampString *DateTime `json:"timestamp_string,omitempty"`
 }
 
 // BucketInfluencerBuilder holds BucketInfluencer struct and provides a builder API.
@@ -89,8 +89,9 @@ func (rb *BucketInfluencerBuilder) AnomalyScore(anomalyscore float64) *BucketInf
 // BucketSpan The length of the bucket in seconds. This value matches the bucket span that
 // is specified in the job.
 
-func (rb *BucketInfluencerBuilder) BucketSpan(bucketspan int64) *BucketInfluencerBuilder {
-	rb.v.BucketSpan = bucketspan
+func (rb *BucketInfluencerBuilder) BucketSpan(bucketspan *DurationValueUnitSecondsBuilder) *BucketInfluencerBuilder {
+	v := bucketspan.Build()
+	rb.v.BucketSpan = v
 	return rb
 }
 
@@ -152,8 +153,16 @@ func (rb *BucketInfluencerBuilder) ResultType(resulttype string) *BucketInfluenc
 
 // Timestamp The start time of the bucket for which these results were calculated.
 
-func (rb *BucketInfluencerBuilder) Timestamp(timestamp *TimeBuilder) *BucketInfluencerBuilder {
+func (rb *BucketInfluencerBuilder) Timestamp(timestamp *EpochTimeUnitMillisBuilder) *BucketInfluencerBuilder {
 	v := timestamp.Build()
 	rb.v.Timestamp = v
+	return rb
+}
+
+// TimestampString The start time of the bucket for which these results were calculated.
+
+func (rb *BucketInfluencerBuilder) TimestampString(timestampstring *DateTimeBuilder) *BucketInfluencerBuilder {
+	v := timestampstring.Build()
+	rb.v.TimestampString = &v
 	return rb
 }

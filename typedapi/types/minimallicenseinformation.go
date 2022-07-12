@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
@@ -29,9 +27,9 @@ import (
 
 // MinimalLicenseInformation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/xpack/info/types.ts#L34-L40
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/xpack/info/types.ts#L34-L40
 type MinimalLicenseInformation struct {
-	ExpiryDateInMillis EpochMillis                 `json:"expiry_date_in_millis"`
+	ExpiryDateInMillis EpochTimeUnitMillis         `json:"expiry_date_in_millis"`
 	Mode               licensetype.LicenseType     `json:"mode"`
 	Status             licensestatus.LicenseStatus `json:"status"`
 	Type               licensetype.LicenseType     `json:"type"`
@@ -57,7 +55,7 @@ func (rb *MinimalLicenseInformationBuilder) Build() MinimalLicenseInformation {
 	return *rb.v
 }
 
-func (rb *MinimalLicenseInformationBuilder) ExpiryDateInMillis(expirydateinmillis *EpochMillisBuilder) *MinimalLicenseInformationBuilder {
+func (rb *MinimalLicenseInformationBuilder) ExpiryDateInMillis(expirydateinmillis *EpochTimeUnitMillisBuilder) *MinimalLicenseInformationBuilder {
 	v := expirydateinmillis.Build()
 	rb.v.ExpiryDateInMillis = v
 	return rb

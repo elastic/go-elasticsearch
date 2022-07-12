@@ -15,34 +15,40 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // TransformSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/transform/get_transform/types.ts#L31-L50
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/transform/get_transform/types.ts#L33-L61
 type TransformSummary struct {
-	CreateTime *EpochMillis `json:"create_time,omitempty"`
+	// Authorization The security privileges that the transform uses to run its queries. If
+	// Elastic Stack security features were disabled at the time of the most recent
+	// update to the transform, this property is omitted.
+	Authorization *TransformAuthorization `json:"authorization,omitempty"`
+	// CreateTime The time the transform was created.
+	CreateTime *EpochTimeUnitMillis `json:"create_time,omitempty"`
 	// Description Free text description of the transform.
 	Description *string `json:"description,omitempty"`
 	// Dest The destination for the transform.
 	Dest      Destination `json:"dest"`
-	Frequency *Time       `json:"frequency,omitempty"`
+	Frequency *Duration   `json:"frequency,omitempty"`
 	Id        Id          `json:"id"`
 	Latest    *Latest     `json:"latest,omitempty"`
 	Meta_     *Metadata   `json:"_meta,omitempty"`
 	// Pivot The pivot method transforms the data by aggregating and grouping it.
-	Pivot *Pivot `json:"pivot,omitempty"`
+	Pivot           *Pivot                    `json:"pivot,omitempty"`
+	RetentionPolicy *RetentionPolicyContainer `json:"retention_policy,omitempty"`
 	// Settings Defines optional transform settings.
 	Settings *Settings `json:"settings,omitempty"`
 	// Source The source of the data for the transform.
 	Source Source `json:"source"`
 	// Sync Defines the properties transforms require to run continuously.
-	Sync    *SyncContainer `json:"sync,omitempty"`
+	Sync *SyncContainer `json:"sync,omitempty"`
+	// Version The version of Elasticsearch that existed on the node when the transform was
+	// created.
 	Version *VersionString `json:"version,omitempty"`
 }
 
@@ -65,7 +71,19 @@ func (rb *TransformSummaryBuilder) Build() TransformSummary {
 	return *rb.v
 }
 
-func (rb *TransformSummaryBuilder) CreateTime(createtime *EpochMillisBuilder) *TransformSummaryBuilder {
+// Authorization The security privileges that the transform uses to run its queries. If
+// Elastic Stack security features were disabled at the time of the most recent
+// update to the transform, this property is omitted.
+
+func (rb *TransformSummaryBuilder) Authorization(authorization *TransformAuthorizationBuilder) *TransformSummaryBuilder {
+	v := authorization.Build()
+	rb.v.Authorization = &v
+	return rb
+}
+
+// CreateTime The time the transform was created.
+
+func (rb *TransformSummaryBuilder) CreateTime(createtime *EpochTimeUnitMillisBuilder) *TransformSummaryBuilder {
 	v := createtime.Build()
 	rb.v.CreateTime = &v
 	return rb
@@ -86,7 +104,7 @@ func (rb *TransformSummaryBuilder) Dest(dest *DestinationBuilder) *TransformSumm
 	return rb
 }
 
-func (rb *TransformSummaryBuilder) Frequency(frequency *TimeBuilder) *TransformSummaryBuilder {
+func (rb *TransformSummaryBuilder) Frequency(frequency *DurationBuilder) *TransformSummaryBuilder {
 	v := frequency.Build()
 	rb.v.Frequency = &v
 	return rb
@@ -117,6 +135,12 @@ func (rb *TransformSummaryBuilder) Pivot(pivot *PivotBuilder) *TransformSummaryB
 	return rb
 }
 
+func (rb *TransformSummaryBuilder) RetentionPolicy(retentionpolicy *RetentionPolicyContainerBuilder) *TransformSummaryBuilder {
+	v := retentionpolicy.Build()
+	rb.v.RetentionPolicy = &v
+	return rb
+}
+
 // Settings Defines optional transform settings.
 
 func (rb *TransformSummaryBuilder) Settings(settings *SettingsBuilder) *TransformSummaryBuilder {
@@ -140,6 +164,9 @@ func (rb *TransformSummaryBuilder) Sync(sync *SyncContainerBuilder) *TransformSu
 	rb.v.Sync = &v
 	return rb
 }
+
+// Version The version of Elasticsearch that existed on the node when the transform was
+// created.
 
 func (rb *TransformSummaryBuilder) Version(version VersionString) *TransformSummaryBuilder {
 	rb.v.Version = &version

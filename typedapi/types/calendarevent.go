@@ -15,16 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // CalendarEvent type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ml/_types/CalendarEvent.ts#L23-L33
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ml/_types/CalendarEvent.ts#L23-L33
 type CalendarEvent struct {
 	// CalendarId A string that uniquely identifies a calendar.
 	CalendarId *Id `json:"calendar_id,omitempty"`
@@ -32,11 +30,11 @@ type CalendarEvent struct {
 	Description string `json:"description"`
 	// EndTime The timestamp for the end of the scheduled event in milliseconds since the
 	// epoch or ISO 8601 format.
-	EndTime EpochMillis `json:"end_time"`
-	EventId *Id         `json:"event_id,omitempty"`
+	EndTime DateTime `json:"end_time"`
+	EventId *Id      `json:"event_id,omitempty"`
 	// StartTime The timestamp for the beginning of the scheduled event in milliseconds since
 	// the epoch or ISO 8601 format.
-	StartTime EpochMillis `json:"start_time"`
+	StartTime DateTime `json:"start_time"`
 }
 
 // CalendarEventBuilder holds CalendarEvent struct and provides a builder API.
@@ -75,7 +73,7 @@ func (rb *CalendarEventBuilder) Description(description string) *CalendarEventBu
 // EndTime The timestamp for the end of the scheduled event in milliseconds since the
 // epoch or ISO 8601 format.
 
-func (rb *CalendarEventBuilder) EndTime(endtime *EpochMillisBuilder) *CalendarEventBuilder {
+func (rb *CalendarEventBuilder) EndTime(endtime *DateTimeBuilder) *CalendarEventBuilder {
 	v := endtime.Build()
 	rb.v.EndTime = v
 	return rb
@@ -89,7 +87,7 @@ func (rb *CalendarEventBuilder) EventId(eventid Id) *CalendarEventBuilder {
 // StartTime The timestamp for the beginning of the scheduled event in milliseconds since
 // the epoch or ISO 8601 format.
 
-func (rb *CalendarEventBuilder) StartTime(starttime *EpochMillisBuilder) *CalendarEventBuilder {
+func (rb *CalendarEventBuilder) StartTime(starttime *DateTimeBuilder) *CalendarEventBuilder {
 	v := starttime.Build()
 	rb.v.StartTime = v
 	return rb

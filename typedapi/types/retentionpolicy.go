@@ -15,23 +15,21 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // RetentionPolicy type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/transform/_types/Transform.ts#L88-L96
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/transform/_types/Transform.ts#L88-L96
 type RetentionPolicy struct {
 	// Field The date field that is used to calculate the age of the document.
 	Field Field `json:"field"`
 	// MaxAge Specifies the maximum age of a document in the destination index. Documents
 	// that are older than the configured
 	// value are removed from the destination index.
-	MaxAge Time `json:"max_age"`
+	MaxAge Duration `json:"max_age"`
 }
 
 // RetentionPolicyBuilder holds RetentionPolicy struct and provides a builder API.
@@ -64,7 +62,7 @@ func (rb *RetentionPolicyBuilder) Field(field Field) *RetentionPolicyBuilder {
 // that are older than the configured
 // value are removed from the destination index.
 
-func (rb *RetentionPolicyBuilder) MaxAge(maxage *TimeBuilder) *RetentionPolicyBuilder {
+func (rb *RetentionPolicyBuilder) MaxAge(maxage *DurationBuilder) *RetentionPolicyBuilder {
 	v := maxage.Build()
 	rb.v.MaxAge = v
 	return rb

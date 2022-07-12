@@ -15,26 +15,24 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // Watch type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/watcher/_types/Watch.ts#L37-L47
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/watcher/_types/Watch.ts#L37-L47
 type Watch struct {
-	Actions                map[IndexName]Action `json:"actions"`
-	Condition              ConditionContainer   `json:"condition"`
-	Input                  InputContainer       `json:"input"`
-	Metadata               *Metadata            `json:"metadata,omitempty"`
-	Status                 *WatchStatus         `json:"status,omitempty"`
-	ThrottlePeriod         *string              `json:"throttle_period,omitempty"`
-	ThrottlePeriodInMillis *int64               `json:"throttle_period_in_millis,omitempty"`
-	Transform              *TransformContainer  `json:"transform,omitempty"`
-	Trigger                TriggerContainer     `json:"trigger"`
+	Actions                map[IndexName]Action     `json:"actions"`
+	Condition              ConditionContainer       `json:"condition"`
+	Input                  InputContainer           `json:"input"`
+	Metadata               *Metadata                `json:"metadata,omitempty"`
+	Status                 *WatchStatus             `json:"status,omitempty"`
+	ThrottlePeriod         *Duration                `json:"throttle_period,omitempty"`
+	ThrottlePeriodInMillis *DurationValueUnitMillis `json:"throttle_period_in_millis,omitempty"`
+	Transform              *TransformContainer      `json:"transform,omitempty"`
+	Trigger                TriggerContainer         `json:"trigger"`
 }
 
 // WatchBuilder holds Watch struct and provides a builder API.
@@ -91,13 +89,15 @@ func (rb *WatchBuilder) Status(status *WatchStatusBuilder) *WatchBuilder {
 	return rb
 }
 
-func (rb *WatchBuilder) ThrottlePeriod(throttleperiod string) *WatchBuilder {
-	rb.v.ThrottlePeriod = &throttleperiod
+func (rb *WatchBuilder) ThrottlePeriod(throttleperiod *DurationBuilder) *WatchBuilder {
+	v := throttleperiod.Build()
+	rb.v.ThrottlePeriod = &v
 	return rb
 }
 
-func (rb *WatchBuilder) ThrottlePeriodInMillis(throttleperiodinmillis int64) *WatchBuilder {
-	rb.v.ThrottlePeriodInMillis = &throttleperiodinmillis
+func (rb *WatchBuilder) ThrottlePeriodInMillis(throttleperiodinmillis *DurationValueUnitMillisBuilder) *WatchBuilder {
+	v := throttleperiodinmillis.Build()
+	rb.v.ThrottlePeriodInMillis = &v
 	return rb
 }
 

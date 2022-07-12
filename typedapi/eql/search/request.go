@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package search
 
@@ -32,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package search
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/eql/search/EqlSearchRequest.ts#L28-L115
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/eql/search/EqlSearchRequest.ts#L28-L115
 type Request struct {
 	CaseSensitive *bool `json:"case_sensitive,omitempty"`
 
@@ -50,7 +48,7 @@ type Request struct {
 	// runs.
 	Filter []types.QueryContainer `json:"filter,omitempty"`
 
-	KeepAlive *types.Time `json:"keep_alive,omitempty"`
+	KeepAlive *types.Duration `json:"keep_alive,omitempty"`
 
 	KeepOnCompletion *bool `json:"keep_on_completion,omitempty"`
 
@@ -71,7 +69,7 @@ type Request struct {
 	// TimestampField Field containing event timestamp. Default "@timestamp"
 	TimestampField *types.Field `json:"timestamp_field,omitempty"`
 
-	WaitForCompletionTimeout *types.Time `json:"wait_for_completion_timeout,omitempty"`
+	WaitForCompletionTimeout *types.Duration `json:"wait_for_completion_timeout,omitempty"`
 }
 
 // RequestBuilder is the builder API for the search.Request
@@ -129,7 +127,7 @@ func (rb *RequestBuilder) Filter(arg []types.QueryContainer) *RequestBuilder {
 	return rb
 }
 
-func (rb *RequestBuilder) KeepAlive(keepalive *types.TimeBuilder) *RequestBuilder {
+func (rb *RequestBuilder) KeepAlive(keepalive *types.DurationBuilder) *RequestBuilder {
 	v := keepalive.Build()
 	rb.v.KeepAlive = &v
 	return rb
@@ -171,7 +169,7 @@ func (rb *RequestBuilder) TimestampField(timestampfield types.Field) *RequestBui
 	return rb
 }
 
-func (rb *RequestBuilder) WaitForCompletionTimeout(waitforcompletiontimeout *types.TimeBuilder) *RequestBuilder {
+func (rb *RequestBuilder) WaitForCompletionTimeout(waitforcompletiontimeout *types.DurationBuilder) *RequestBuilder {
 	v := waitforcompletiontimeout.Build()
 	rb.v.WaitForCompletionTimeout = &v
 	return rb
