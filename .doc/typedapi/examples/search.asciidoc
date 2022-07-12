@@ -1,0 +1,52 @@
+[[search]]
+==== Search
+
+Building a search query can be done with structs or builder. As an example, let's search for a document with a field `name` with a value of `Foo` in the index named `index_name`.
+
+With a struct request:
+[source,go]
+-----
+res, err := es.Search().
+    Index("index_name"). // <1>
+    Request(&search.Request{ // <2>
+        Query: &types.QueryContainer{
+            Match: map[types.Field]types.MatchQuery{
+                "name": {Query: "Foo"}, // <3>
+            },
+        },
+    }).Do(context.Background()) // <4>
+-----
+<1> The targeted index for this search.
+<2> The request part of the search.
+<3> Match query specifies that `name` should match `Foo`.
+<4> The query is run with a `context.Background` and returns the response.
+
+The same query using the builder:
+[source,go]
+-----
+res, err := es.Search().
+	Index("index_name").
+	Request(search.NewRequestBuilder().
+		Query(types.NewQueryContainerBuilder().
+			Match(map[types.Field]types.MatchQueryBuilder{
+				"name": types.NewMatchQueryBuilder().
+					Query("Foo"),
+			})).
+		Build(),
+	).Do(context.Background())
+-----
+
+Both of the examples produce the following JSON:
+
+[source,json]
+-----
+{
+  "query": {
+    "match": {
+      "name": {
+        "query": "Foo"
+      }
+    }
+  }
+}
+-----

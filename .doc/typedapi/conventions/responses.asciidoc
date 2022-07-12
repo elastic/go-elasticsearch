@@ -1,0 +1,4 @@
+[[responses]]
+==== Responses
+
+While not part of the initial release responses will be added at a later date.

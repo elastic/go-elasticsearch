@@ -1,0 +1,18 @@
+[[conventions]]
+=== Conventions
+
+This section details the conventions upon which the typed client is built.
+
+* <<structure>>
+* <<naming>>
+* <<endpoints>>
+* <<requests>>
+* <<responses>>
+* <<types>>
+
+include::structure.asciidoc[]
+include::naming.asciidoc[]
+include::endpoints.asciidoc[]
+include::requests.asciidoc[]
+include::responses.asciidoc[]
+include::types.asciidoc[]

@@ -1,0 +1,33 @@
+[[indexing]]
+==== Indexing a document
+
+The standard way of indexing a document is to provide a `struct` to the `Request` method, the standard `json/encoder` will be run on your structure and the result will be sent to {es}.
+
+[source,go]
+-----
+document := struct {
+    Id    int    `json:"id"`
+    Name  string `json:"name"`
+	Price int    `json:"price"`
+}{
+    Id:    1,
+    Name:  "Foo",
+	Price: 10,
+}
+
+res, err := es.Index("index_name").
+    Request(document).
+    Do(context.Background())
+-----
+
+Alternatively, you can use the `Raw` method and provide the already serialized JSON:
+
+[source,go]
+-----
+res, err := es.Index("index_name").
+			Raw([]byte(`{
+			  "id": 1,
+			  "name": "Foo",
+			  "price": 10
+			}`)).Do(context.Background())
+-----
