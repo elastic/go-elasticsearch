@@ -54,6 +54,7 @@ var skipFiles = []string{
 	"field_caps/50_fieldtype_filter.yml", // Incompatible test, need handling for double escaping keys with dots
 	"search.aggregation/350_variable_width_histogram.yml",
 	"cluster.desired_nodes/10_basic.yml", // incompatible $ stash replacement
+	"api_key/12_grant.yml",               // incompatible $ stash replacement, need bearer token integration
 	"user_profile/10_basic.yml",          // internal
 	"health/10_basic.yml",                // internal
 	"health/20_component.yml",            // internal
