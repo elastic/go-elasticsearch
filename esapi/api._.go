@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.4.0 (4e18993): DO NOT EDIT
+// Code generated from specification version 8.4.0 (4cc8484): DO NOT EDIT
 
 package esapi
 
@@ -500,6 +500,7 @@ type Security struct {
 	SamlPrepareAuthentication   SecuritySamlPrepareAuthentication
 	SamlServiceProviderMetadata SecuritySamlServiceProviderMetadata
 	SuggestUserProfiles         SecuritySuggestUserProfiles
+	UpdateAPIKey                SecurityUpdateAPIKey
 	UpdateUserProfileData       SecurityUpdateUserProfileData
 }
 
@@ -963,6 +964,7 @@ func New(t Transport) *API {
 			SamlPrepareAuthentication:   newSecuritySamlPrepareAuthenticationFunc(t),
 			SamlServiceProviderMetadata: newSecuritySamlServiceProviderMetadataFunc(t),
 			SuggestUserProfiles:         newSecuritySuggestUserProfilesFunc(t),
+			UpdateAPIKey:                newSecurityUpdateAPIKeyFunc(t),
 			UpdateUserProfileData:       newSecurityUpdateUserProfileDataFunc(t),
 		},
 		SQL: &SQL{
