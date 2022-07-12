@@ -15,21 +15,19 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // DanglingIndex type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/dangling_indices/list_dangling_indices/ListDanglingIndicesResponse.ts#L29-L34
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/dangling_indices/list_dangling_indices/ListDanglingIndicesResponse.ts#L29-L34
 type DanglingIndex struct {
-	CreationDateMillis EpochMillis `json:"creation_date_millis"`
-	IndexName          string      `json:"index_name"`
-	IndexUuid          string      `json:"index_uuid"`
-	NodeIds            Ids         `json:"node_ids"`
+	CreationDateMillis EpochTimeUnitMillis `json:"creation_date_millis"`
+	IndexName          string              `json:"index_name"`
+	IndexUuid          string              `json:"index_uuid"`
+	NodeIds            Ids                 `json:"node_ids"`
 }
 
 // DanglingIndexBuilder holds DanglingIndex struct and provides a builder API.
@@ -51,7 +49,7 @@ func (rb *DanglingIndexBuilder) Build() DanglingIndex {
 	return *rb.v
 }
 
-func (rb *DanglingIndexBuilder) CreationDateMillis(creationdatemillis *EpochMillisBuilder) *DanglingIndexBuilder {
+func (rb *DanglingIndexBuilder) CreationDateMillis(creationdatemillis *EpochTimeUnitMillisBuilder) *DanglingIndexBuilder {
 	v := creationdatemillis.Build()
 	rb.v.CreationDateMillis = v
 	return rb

@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
@@ -29,7 +27,7 @@ import (
 
 // FlattenedProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_types/mapping/complex.ts#L25-L36
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/mapping/complex.ts#L25-L36
 type FlattenedProperty struct {
 	Boost                    *float64                       `json:"boost,omitempty"`
 	DepthLimit               *int                           `json:"depth_limit,omitempty"`

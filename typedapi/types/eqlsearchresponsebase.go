@@ -15,16 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // EqlSearchResponseBase type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/eql/_types/EqlSearchResponseBase.ts#L24-L49
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/eql/_types/EqlSearchResponseBase.ts#L25-L50
 type EqlSearchResponseBase struct {
 	// Hits Contains matching events and sequences. Also contains related metadata.
 	Hits EqlHits `json:"hits"`
@@ -37,7 +35,7 @@ type EqlSearchResponseBase struct {
 	// TimedOut If true, the request timed out before completion.
 	TimedOut *bool `json:"timed_out,omitempty"`
 	// Took Milliseconds it took Elasticsearch to execute the request.
-	Took *int `json:"took,omitempty"`
+	Took *DurationValueUnitMillis `json:"took,omitempty"`
 }
 
 // EqlSearchResponseBaseBuilder holds EqlSearchResponseBase struct and provides a builder API.
@@ -97,7 +95,8 @@ func (rb *EqlSearchResponseBaseBuilder) TimedOut(timedout bool) *EqlSearchRespon
 
 // Took Milliseconds it took Elasticsearch to execute the request.
 
-func (rb *EqlSearchResponseBaseBuilder) Took(took int) *EqlSearchResponseBaseBuilder {
-	rb.v.Took = &took
+func (rb *EqlSearchResponseBaseBuilder) Took(took *DurationValueUnitMillisBuilder) *EqlSearchResponseBaseBuilder {
+	v := took.Build()
+	rb.v.Took = &v
 	return rb
 }

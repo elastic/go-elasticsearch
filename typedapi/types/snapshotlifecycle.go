@@ -15,27 +15,25 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // SnapshotLifecycle type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/slm/_types/SnapshotLifecycle.ts#L32-L43
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/slm/_types/SnapshotLifecycle.ts#L38-L49
 type SnapshotLifecycle struct {
-	InProgress          *InProgress   `json:"in_progress,omitempty"`
-	LastFailure         *Invocation   `json:"last_failure,omitempty"`
-	LastSuccess         *Invocation   `json:"last_success,omitempty"`
-	ModifiedDate        *DateString   `json:"modified_date,omitempty"`
-	ModifiedDateMillis  EpochMillis   `json:"modified_date_millis"`
-	NextExecution       *DateString   `json:"next_execution,omitempty"`
-	NextExecutionMillis EpochMillis   `json:"next_execution_millis"`
-	Policy              Policy        `json:"policy"`
-	Stats               Statistics    `json:"stats"`
-	Version             VersionNumber `json:"version"`
+	InProgress          *InProgress         `json:"in_progress,omitempty"`
+	LastFailure         *Invocation         `json:"last_failure,omitempty"`
+	LastSuccess         *Invocation         `json:"last_success,omitempty"`
+	ModifiedDate        *DateTime           `json:"modified_date,omitempty"`
+	ModifiedDateMillis  EpochTimeUnitMillis `json:"modified_date_millis"`
+	NextExecution       *DateTime           `json:"next_execution,omitempty"`
+	NextExecutionMillis EpochTimeUnitMillis `json:"next_execution_millis"`
+	Policy              Policy              `json:"policy"`
+	Stats               Statistics          `json:"stats"`
+	Version             VersionNumber       `json:"version"`
 }
 
 // SnapshotLifecycleBuilder holds SnapshotLifecycle struct and provides a builder API.
@@ -75,23 +73,25 @@ func (rb *SnapshotLifecycleBuilder) LastSuccess(lastsuccess *InvocationBuilder) 
 	return rb
 }
 
-func (rb *SnapshotLifecycleBuilder) ModifiedDate(modifieddate DateString) *SnapshotLifecycleBuilder {
-	rb.v.ModifiedDate = &modifieddate
+func (rb *SnapshotLifecycleBuilder) ModifiedDate(modifieddate *DateTimeBuilder) *SnapshotLifecycleBuilder {
+	v := modifieddate.Build()
+	rb.v.ModifiedDate = &v
 	return rb
 }
 
-func (rb *SnapshotLifecycleBuilder) ModifiedDateMillis(modifieddatemillis *EpochMillisBuilder) *SnapshotLifecycleBuilder {
+func (rb *SnapshotLifecycleBuilder) ModifiedDateMillis(modifieddatemillis *EpochTimeUnitMillisBuilder) *SnapshotLifecycleBuilder {
 	v := modifieddatemillis.Build()
 	rb.v.ModifiedDateMillis = v
 	return rb
 }
 
-func (rb *SnapshotLifecycleBuilder) NextExecution(nextexecution DateString) *SnapshotLifecycleBuilder {
-	rb.v.NextExecution = &nextexecution
+func (rb *SnapshotLifecycleBuilder) NextExecution(nextexecution *DateTimeBuilder) *SnapshotLifecycleBuilder {
+	v := nextexecution.Build()
+	rb.v.NextExecution = &v
 	return rb
 }
 
-func (rb *SnapshotLifecycleBuilder) NextExecutionMillis(nextexecutionmillis *EpochMillisBuilder) *SnapshotLifecycleBuilder {
+func (rb *SnapshotLifecycleBuilder) NextExecutionMillis(nextexecutionmillis *EpochTimeUnitMillisBuilder) *SnapshotLifecycleBuilder {
 	v := nextexecutionmillis.Build()
 	rb.v.NextExecutionMillis = v
 	return rb

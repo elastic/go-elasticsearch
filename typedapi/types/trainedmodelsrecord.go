@@ -15,19 +15,17 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // TrainedModelsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/cat/ml_trained_models/types.ts#L23-L111
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/cat/ml_trained_models/types.ts#L23-L111
 type TrainedModelsRecord struct {
 	// CreateTime The time the model was created
-	CreateTime *DateString `json:"create_time,omitempty"`
+	CreateTime *DateTime `json:"create_time,omitempty"`
 	// CreatedBy who created the model
 	CreatedBy *string `json:"created_by,omitempty"`
 	// DataFrameAnalysis The analysis used by the data frame to build the model
@@ -85,8 +83,9 @@ func (rb *TrainedModelsRecordBuilder) Build() TrainedModelsRecord {
 
 // CreateTime The time the model was created
 
-func (rb *TrainedModelsRecordBuilder) CreateTime(createtime DateString) *TrainedModelsRecordBuilder {
-	rb.v.CreateTime = &createtime
+func (rb *TrainedModelsRecordBuilder) CreateTime(createtime *DateTimeBuilder) *TrainedModelsRecordBuilder {
+	v := createtime.Build()
+	rb.v.CreateTime = &v
 	return rb
 }
 

@@ -15,19 +15,17 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // FingerprintTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_types/analysis/token_filters.ts#L192-L196
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/analysis/token_filters.ts#L193-L197
 type FingerprintTokenFilter struct {
-	MaxOutputSize int            `json:"max_output_size"`
-	Separator     string         `json:"separator"`
+	MaxOutputSize *int           `json:"max_output_size,omitempty"`
+	Separator     *string        `json:"separator,omitempty"`
 	Type          string         `json:"type,omitempty"`
 	Version       *VersionString `json:"version,omitempty"`
 }
@@ -54,12 +52,12 @@ func (rb *FingerprintTokenFilterBuilder) Build() FingerprintTokenFilter {
 }
 
 func (rb *FingerprintTokenFilterBuilder) MaxOutputSize(maxoutputsize int) *FingerprintTokenFilterBuilder {
-	rb.v.MaxOutputSize = maxoutputsize
+	rb.v.MaxOutputSize = &maxoutputsize
 	return rb
 }
 
 func (rb *FingerprintTokenFilterBuilder) Separator(separator string) *FingerprintTokenFilterBuilder {
-	rb.v.Separator = separator
+	rb.v.Separator = &separator
 	return rb
 }
 

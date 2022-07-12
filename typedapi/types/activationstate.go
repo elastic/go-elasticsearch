@@ -15,19 +15,17 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // ActivationState type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/watcher/_types/Activation.ts#L24-L27
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/watcher/_types/Activation.ts#L24-L27
 type ActivationState struct {
-	Active    bool      `json:"active"`
-	Timestamp Timestamp `json:"timestamp"`
+	Active    bool     `json:"active"`
+	Timestamp DateTime `json:"timestamp"`
 }
 
 // ActivationStateBuilder holds ActivationState struct and provides a builder API.
@@ -54,7 +52,8 @@ func (rb *ActivationStateBuilder) Active(active bool) *ActivationStateBuilder {
 	return rb
 }
 
-func (rb *ActivationStateBuilder) Timestamp(timestamp Timestamp) *ActivationStateBuilder {
-	rb.v.Timestamp = timestamp
+func (rb *ActivationStateBuilder) Timestamp(timestamp *DateTimeBuilder) *ActivationStateBuilder {
+	v := timestamp.Build()
+	rb.v.Timestamp = v
 	return rb
 }

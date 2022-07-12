@@ -15,28 +15,28 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // ReindexStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_global/reindex_rethrottle/types.ts#L30-L42
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_global/reindex_rethrottle/types.ts#L37-L51
 type ReindexStatus struct {
-	Batches              int64   `json:"batches"`
-	Created              int64   `json:"created"`
-	Deleted              int64   `json:"deleted"`
-	Noops                int64   `json:"noops"`
-	RequestsPerSecond    float32 `json:"requests_per_second"`
-	Retries              Retries `json:"retries"`
-	ThrottledMillis      int64   `json:"throttled_millis"`
-	ThrottledUntilMillis int64   `json:"throttled_until_millis"`
-	Total                int64   `json:"total"`
-	Updated              int64   `json:"updated"`
-	VersionConflicts     int64   `json:"version_conflicts"`
+	Batches              int64                   `json:"batches"`
+	Created              int64                   `json:"created"`
+	Deleted              int64                   `json:"deleted"`
+	Noops                int64                   `json:"noops"`
+	RequestsPerSecond    float32                 `json:"requests_per_second"`
+	Retries              Retries                 `json:"retries"`
+	Throttled            *Duration               `json:"throttled,omitempty"`
+	ThrottledMillis      DurationValueUnitMillis `json:"throttled_millis"`
+	ThrottledUntil       *Duration               `json:"throttled_until,omitempty"`
+	ThrottledUntilMillis DurationValueUnitMillis `json:"throttled_until_millis"`
+	Total                int64                   `json:"total"`
+	Updated              int64                   `json:"updated"`
+	VersionConflicts     int64                   `json:"version_conflicts"`
 }
 
 // ReindexStatusBuilder holds ReindexStatus struct and provides a builder API.
@@ -89,13 +89,27 @@ func (rb *ReindexStatusBuilder) Retries(retries *RetriesBuilder) *ReindexStatusB
 	return rb
 }
 
-func (rb *ReindexStatusBuilder) ThrottledMillis(throttledmillis int64) *ReindexStatusBuilder {
-	rb.v.ThrottledMillis = throttledmillis
+func (rb *ReindexStatusBuilder) Throttled(throttled *DurationBuilder) *ReindexStatusBuilder {
+	v := throttled.Build()
+	rb.v.Throttled = &v
 	return rb
 }
 
-func (rb *ReindexStatusBuilder) ThrottledUntilMillis(throttleduntilmillis int64) *ReindexStatusBuilder {
-	rb.v.ThrottledUntilMillis = throttleduntilmillis
+func (rb *ReindexStatusBuilder) ThrottledMillis(throttledmillis *DurationValueUnitMillisBuilder) *ReindexStatusBuilder {
+	v := throttledmillis.Build()
+	rb.v.ThrottledMillis = v
+	return rb
+}
+
+func (rb *ReindexStatusBuilder) ThrottledUntil(throttleduntil *DurationBuilder) *ReindexStatusBuilder {
+	v := throttleduntil.Build()
+	rb.v.ThrottledUntil = &v
+	return rb
+}
+
+func (rb *ReindexStatusBuilder) ThrottledUntilMillis(throttleduntilmillis *DurationValueUnitMillisBuilder) *ReindexStatusBuilder {
+	v := throttleduntilmillis.Build()
+	rb.v.ThrottledUntilMillis = v
 	return rb
 }
 

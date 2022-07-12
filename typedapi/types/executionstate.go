@@ -15,20 +15,18 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // ExecutionState type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/watcher/_types/Action.ts#L111-L115
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/watcher/_types/Action.ts#L117-L121
 type ExecutionState struct {
-	Reason     *string    `json:"reason,omitempty"`
-	Successful bool       `json:"successful"`
-	Timestamp  DateString `json:"timestamp"`
+	Reason     *string  `json:"reason,omitempty"`
+	Successful bool     `json:"successful"`
+	Timestamp  DateTime `json:"timestamp"`
 }
 
 // ExecutionStateBuilder holds ExecutionState struct and provides a builder API.
@@ -60,7 +58,8 @@ func (rb *ExecutionStateBuilder) Successful(successful bool) *ExecutionStateBuil
 	return rb
 }
 
-func (rb *ExecutionStateBuilder) Timestamp(timestamp DateString) *ExecutionStateBuilder {
-	rb.v.Timestamp = timestamp
+func (rb *ExecutionStateBuilder) Timestamp(timestamp *DateTimeBuilder) *ExecutionStateBuilder {
+	v := timestamp.Build()
+	rb.v.Timestamp = v
 	return rb
 }

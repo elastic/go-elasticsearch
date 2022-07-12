@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
@@ -28,25 +26,25 @@ import (
 
 // DateHistogramAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_types/aggregations/bucket.ts#L90-L106
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/aggregations/bucket.ts#L90-L107
 type DateHistogramAggregation struct {
 	CalendarInterval *calendarinterval.CalendarInterval `json:"calendar_interval,omitempty"`
 	ExtendedBounds   *ExtendedBoundsFieldDateMath       `json:"extended_bounds,omitempty"`
 	Field            *Field                             `json:"field,omitempty"`
-	FixedInterval    *Time                              `json:"fixed_interval,omitempty"`
+	FixedInterval    *Duration                          `json:"fixed_interval,omitempty"`
 	Format           *string                            `json:"format,omitempty"`
 	HardBounds       *ExtendedBoundsFieldDateMath       `json:"hard_bounds,omitempty"`
-	Interval         *Time                              `json:"interval,omitempty"`
+	Interval         *Duration                          `json:"interval,omitempty"`
 	Keyed            *bool                              `json:"keyed,omitempty"`
 	Meta             *Metadata                          `json:"meta,omitempty"`
 	MinDocCount      *int                               `json:"min_doc_count,omitempty"`
-	Missing          *DateString                        `json:"missing,omitempty"`
+	Missing          *DateTime                          `json:"missing,omitempty"`
 	Name             *string                            `json:"name,omitempty"`
-	Offset           *Time                              `json:"offset,omitempty"`
-	Order            *HistogramOrder                    `json:"order,omitempty"`
+	Offset           *Duration                          `json:"offset,omitempty"`
+	Order            *AggregateOrder                    `json:"order,omitempty"`
 	Params           map[string]interface{}             `json:"params,omitempty"`
 	Script           *Script                            `json:"script,omitempty"`
-	TimeZone         *string                            `json:"time_zone,omitempty"`
+	TimeZone         *TimeZone                          `json:"time_zone,omitempty"`
 }
 
 // DateHistogramAggregationBuilder holds DateHistogramAggregation struct and provides a builder API.
@@ -86,7 +84,7 @@ func (rb *DateHistogramAggregationBuilder) Field(field Field) *DateHistogramAggr
 	return rb
 }
 
-func (rb *DateHistogramAggregationBuilder) FixedInterval(fixedinterval *TimeBuilder) *DateHistogramAggregationBuilder {
+func (rb *DateHistogramAggregationBuilder) FixedInterval(fixedinterval *DurationBuilder) *DateHistogramAggregationBuilder {
 	v := fixedinterval.Build()
 	rb.v.FixedInterval = &v
 	return rb
@@ -103,7 +101,7 @@ func (rb *DateHistogramAggregationBuilder) HardBounds(hardbounds *ExtendedBounds
 	return rb
 }
 
-func (rb *DateHistogramAggregationBuilder) Interval(interval *TimeBuilder) *DateHistogramAggregationBuilder {
+func (rb *DateHistogramAggregationBuilder) Interval(interval *DurationBuilder) *DateHistogramAggregationBuilder {
 	v := interval.Build()
 	rb.v.Interval = &v
 	return rb
@@ -125,8 +123,9 @@ func (rb *DateHistogramAggregationBuilder) MinDocCount(mindoccount int) *DateHis
 	return rb
 }
 
-func (rb *DateHistogramAggregationBuilder) Missing(missing DateString) *DateHistogramAggregationBuilder {
-	rb.v.Missing = &missing
+func (rb *DateHistogramAggregationBuilder) Missing(missing *DateTimeBuilder) *DateHistogramAggregationBuilder {
+	v := missing.Build()
+	rb.v.Missing = &v
 	return rb
 }
 
@@ -135,13 +134,13 @@ func (rb *DateHistogramAggregationBuilder) Name(name string) *DateHistogramAggre
 	return rb
 }
 
-func (rb *DateHistogramAggregationBuilder) Offset(offset *TimeBuilder) *DateHistogramAggregationBuilder {
+func (rb *DateHistogramAggregationBuilder) Offset(offset *DurationBuilder) *DateHistogramAggregationBuilder {
 	v := offset.Build()
 	rb.v.Offset = &v
 	return rb
 }
 
-func (rb *DateHistogramAggregationBuilder) Order(order *HistogramOrderBuilder) *DateHistogramAggregationBuilder {
+func (rb *DateHistogramAggregationBuilder) Order(order *AggregateOrderBuilder) *DateHistogramAggregationBuilder {
 	v := order.Build()
 	rb.v.Order = &v
 	return rb
@@ -158,7 +157,7 @@ func (rb *DateHistogramAggregationBuilder) Script(script *ScriptBuilder) *DateHi
 	return rb
 }
 
-func (rb *DateHistogramAggregationBuilder) TimeZone(timezone string) *DateHistogramAggregationBuilder {
+func (rb *DateHistogramAggregationBuilder) TimeZone(timezone TimeZone) *DateHistogramAggregationBuilder {
 	rb.v.TimeZone = &timezone
 	return rb
 }

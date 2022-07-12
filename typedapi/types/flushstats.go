@@ -15,21 +15,19 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // FlushStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_types/Stats.ts#L80-L85
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/Stats.ts#L81-L86
 type FlushStats struct {
-	Periodic          int64   `json:"periodic"`
-	Total             int64   `json:"total"`
-	TotalTime         *string `json:"total_time,omitempty"`
-	TotalTimeInMillis int64   `json:"total_time_in_millis"`
+	Periodic          int64                   `json:"periodic"`
+	Total             int64                   `json:"total"`
+	TotalTime         *Duration               `json:"total_time,omitempty"`
+	TotalTimeInMillis DurationValueUnitMillis `json:"total_time_in_millis"`
 }
 
 // FlushStatsBuilder holds FlushStats struct and provides a builder API.
@@ -61,12 +59,14 @@ func (rb *FlushStatsBuilder) Total(total int64) *FlushStatsBuilder {
 	return rb
 }
 
-func (rb *FlushStatsBuilder) TotalTime(totaltime string) *FlushStatsBuilder {
-	rb.v.TotalTime = &totaltime
+func (rb *FlushStatsBuilder) TotalTime(totaltime *DurationBuilder) *FlushStatsBuilder {
+	v := totaltime.Build()
+	rb.v.TotalTime = &v
 	return rb
 }
 
-func (rb *FlushStatsBuilder) TotalTimeInMillis(totaltimeinmillis int64) *FlushStatsBuilder {
-	rb.v.TotalTimeInMillis = totaltimeinmillis
+func (rb *FlushStatsBuilder) TotalTimeInMillis(totaltimeinmillis *DurationValueUnitMillisBuilder) *FlushStatsBuilder {
+	v := totaltimeinmillis.Build()
+	rb.v.TotalTimeInMillis = v
 	return rb
 }

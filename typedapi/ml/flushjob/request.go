@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package flushjob
 
@@ -31,23 +29,23 @@ import (
 
 // Request holds the request body struct for the package flushjob
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ml/flush_job/MlFlushJobRequest.ts#L24-L95
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ml/flush_job/MlFlushJobRequest.ts#L24-L99
 type Request struct {
 
 	// AdvanceTime Refer to the description for the `advance_time` query parameter.
-	AdvanceTime *types.DateString `json:"advance_time,omitempty"`
+	AdvanceTime *types.DateTime `json:"advance_time,omitempty"`
 
 	// CalcInterim Refer to the description for the `calc_interim` query parameter.
 	CalcInterim *bool `json:"calc_interim,omitempty"`
 
 	// End Refer to the description for the `end` query parameter.
-	End *types.DateString `json:"end,omitempty"`
+	End *types.DateTime `json:"end,omitempty"`
 
 	// SkipTime Refer to the description for the `skip_time` query parameter.
-	SkipTime *types.EpochMillis `json:"skip_time,omitempty"`
+	SkipTime *types.DateTime `json:"skip_time,omitempty"`
 
 	// Start Refer to the description for the `start` query parameter.
-	Start *types.DateString `json:"start,omitempty"`
+	Start *types.DateTime `json:"start,omitempty"`
 }
 
 // RequestBuilder is the builder API for the flushjob.Request
@@ -80,8 +78,9 @@ func (rb *RequestBuilder) Build() *Request {
 	return rb.v
 }
 
-func (rb *RequestBuilder) AdvanceTime(advancetime types.DateString) *RequestBuilder {
-	rb.v.AdvanceTime = &advancetime
+func (rb *RequestBuilder) AdvanceTime(advancetime *types.DateTimeBuilder) *RequestBuilder {
+	v := advancetime.Build()
+	rb.v.AdvanceTime = &v
 	return rb
 }
 
@@ -90,18 +89,20 @@ func (rb *RequestBuilder) CalcInterim(calcinterim bool) *RequestBuilder {
 	return rb
 }
 
-func (rb *RequestBuilder) End(end types.DateString) *RequestBuilder {
-	rb.v.End = &end
+func (rb *RequestBuilder) End(end *types.DateTimeBuilder) *RequestBuilder {
+	v := end.Build()
+	rb.v.End = &v
 	return rb
 }
 
-func (rb *RequestBuilder) SkipTime(skiptime *types.EpochMillisBuilder) *RequestBuilder {
+func (rb *RequestBuilder) SkipTime(skiptime *types.DateTimeBuilder) *RequestBuilder {
 	v := skiptime.Build()
 	rb.v.SkipTime = &v
 	return rb
 }
 
-func (rb *RequestBuilder) Start(start types.DateString) *RequestBuilder {
-	rb.v.Start = &start
+func (rb *RequestBuilder) Start(start *types.DateTimeBuilder) *RequestBuilder {
+	v := start.Build()
+	rb.v.Start = &v
 	return rb
 }

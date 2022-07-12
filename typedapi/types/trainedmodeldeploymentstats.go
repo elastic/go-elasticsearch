@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
@@ -28,7 +26,7 @@ import (
 
 // TrainedModelDeploymentStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ml/_types/TrainedModel.ts#L56-L90
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ml/_types/TrainedModel.ts#L62-L96
 type TrainedModelDeploymentStats struct {
 	// AllocationStatus The detailed allocation status for the deployment.
 	AllocationStatus TrainedModelDeploymentAllocationStatus `json:"allocation_status"`
@@ -54,7 +52,7 @@ type TrainedModelDeploymentStats struct {
 	// trained model deployment API.
 	RejectedExecutionCount int `json:"rejected_execution_count"`
 	// StartTime The epoch timestamp when the deployment started.
-	StartTime int64 `json:"start_time"`
+	StartTime EpochTimeUnitMillis `json:"start_time"`
 	// State The overall state of the deployment.
 	State deploymentstate.DeploymentState `json:"state"`
 	// ThreadsPerAllocation The number of threads used be each allocation during inference.
@@ -154,8 +152,9 @@ func (rb *TrainedModelDeploymentStatsBuilder) RejectedExecutionCount(rejectedexe
 
 // StartTime The epoch timestamp when the deployment started.
 
-func (rb *TrainedModelDeploymentStatsBuilder) StartTime(starttime int64) *TrainedModelDeploymentStatsBuilder {
-	rb.v.StartTime = starttime
+func (rb *TrainedModelDeploymentStatsBuilder) StartTime(starttime *EpochTimeUnitMillisBuilder) *TrainedModelDeploymentStatsBuilder {
+	v := starttime.Build()
+	rb.v.StartTime = v
 	return rb
 }
 

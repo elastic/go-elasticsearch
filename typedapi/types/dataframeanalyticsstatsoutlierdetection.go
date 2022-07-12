@@ -15,19 +15,17 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // DataframeAnalyticsStatsOutlierDetection type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ml/_types/DataframeAnalytics.ts#L384-L388
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ml/_types/DataframeAnalytics.ts#L389-L393
 type DataframeAnalyticsStatsOutlierDetection struct {
 	Parameters  OutlierDetectionParameters `json:"parameters"`
-	Timestamp   DateString                 `json:"timestamp"`
+	Timestamp   EpochTimeUnitMillis        `json:"timestamp"`
 	TimingStats TimingStats                `json:"timing_stats"`
 }
 
@@ -56,8 +54,9 @@ func (rb *DataframeAnalyticsStatsOutlierDetectionBuilder) Parameters(parameters 
 	return rb
 }
 
-func (rb *DataframeAnalyticsStatsOutlierDetectionBuilder) Timestamp(timestamp DateString) *DataframeAnalyticsStatsOutlierDetectionBuilder {
-	rb.v.Timestamp = timestamp
+func (rb *DataframeAnalyticsStatsOutlierDetectionBuilder) Timestamp(timestamp *EpochTimeUnitMillisBuilder) *DataframeAnalyticsStatsOutlierDetectionBuilder {
+	v := timestamp.Build()
+	rb.v.Timestamp = v
 	return rb
 }
 

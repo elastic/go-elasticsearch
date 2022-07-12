@@ -15,23 +15,21 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // NodeProcessInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/nodes/info/types.ts#L382-L389
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/nodes/info/types.ts#L383-L390
 type NodeProcessInfo struct {
 	// Id Process identifier (PID)
 	Id int64 `json:"id"`
 	// Mlockall Indicates if the process address space has been successfully locked in memory
 	Mlockall bool `json:"mlockall"`
 	// RefreshIntervalInMillis Refresh interval for the process statistics
-	RefreshIntervalInMillis int64 `json:"refresh_interval_in_millis"`
+	RefreshIntervalInMillis DurationValueUnitMillis `json:"refresh_interval_in_millis"`
 }
 
 // NodeProcessInfoBuilder holds NodeProcessInfo struct and provides a builder API.
@@ -69,7 +67,8 @@ func (rb *NodeProcessInfoBuilder) Mlockall(mlockall bool) *NodeProcessInfoBuilde
 
 // RefreshIntervalInMillis Refresh interval for the process statistics
 
-func (rb *NodeProcessInfoBuilder) RefreshIntervalInMillis(refreshintervalinmillis int64) *NodeProcessInfoBuilder {
-	rb.v.RefreshIntervalInMillis = refreshintervalinmillis
+func (rb *NodeProcessInfoBuilder) RefreshIntervalInMillis(refreshintervalinmillis *DurationValueUnitMillisBuilder) *NodeProcessInfoBuilder {
+	v := refreshintervalinmillis.Build()
+	rb.v.RefreshIntervalInMillis = v
 	return rb
 }

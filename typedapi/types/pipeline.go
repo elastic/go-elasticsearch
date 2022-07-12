@@ -15,19 +15,17 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // Pipeline type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/logstash/_types/Pipeline.ts#L37-L44
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/logstash/_types/Pipeline.ts#L37-L44
 type Pipeline struct {
 	Description      string           `json:"description"`
-	LastModified     Timestamp        `json:"last_modified"`
+	LastModified     DateTime         `json:"last_modified"`
 	Pipeline         string           `json:"pipeline"`
 	PipelineMetadata PipelineMetadata `json:"pipeline_metadata"`
 	PipelineSettings PipelineSettings `json:"pipeline_settings"`
@@ -58,8 +56,9 @@ func (rb *PipelineBuilder) Description(description string) *PipelineBuilder {
 	return rb
 }
 
-func (rb *PipelineBuilder) LastModified(lastmodified Timestamp) *PipelineBuilder {
-	rb.v.LastModified = lastmodified
+func (rb *PipelineBuilder) LastModified(lastmodified *DateTimeBuilder) *PipelineBuilder {
+	v := lastmodified.Build()
+	rb.v.LastModified = v
 	return rb
 }
 

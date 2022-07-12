@@ -15,34 +15,32 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
-// Timestamp type alias.
+// UnitFloatMillis type alias.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_types/Time.ts#L28-L28
-type Timestamp string
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/Time.ts#L37-L38
+type UnitFloatMillis float64
 
-// TimestampBuilder holds Timestamp struct and provides a builder API.
-type TimestampBuilder struct {
-	v Timestamp
+// UnitFloatMillisBuilder holds UnitFloatMillis struct and provides a builder API.
+type UnitFloatMillisBuilder struct {
+	v UnitFloatMillis
 }
 
-// NewTimestamp provides a builder for the Timestamp struct.
-func NewTimestampBuilder() *TimestampBuilder {
-	return &TimestampBuilder{}
+// NewUnitFloatMillis provides a builder for the UnitFloatMillis struct.
+func NewUnitFloatMillisBuilder() *UnitFloatMillisBuilder {
+	return &UnitFloatMillisBuilder{}
 }
 
-// Build finalize the chain and returns the Timestamp struct
-func (b *TimestampBuilder) Build() Timestamp {
+// Build finalize the chain and returns the UnitFloatMillis struct
+func (b *UnitFloatMillisBuilder) Build() UnitFloatMillis {
 	return b.v
 }
 
-func (b *TimestampBuilder) Timestamp(value Timestamp) *TimestampBuilder {
+func (b *UnitFloatMillisBuilder) UnitFloatMillis(value UnitFloatMillis) *UnitFloatMillisBuilder {
 	b.v = value
 	return b
 }

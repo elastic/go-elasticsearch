@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package follow
 
@@ -31,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package follow
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ccr/follow/CreateFollowIndexRequest.ts#L25-L52
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ccr/follow/CreateFollowIndexRequest.ts#L25-L52
 type Request struct {
 	LeaderIndex *types.IndexName `json:"leader_index,omitempty"`
 
@@ -43,7 +41,7 @@ type Request struct {
 
 	MaxReadRequestSize *string `json:"max_read_request_size,omitempty"`
 
-	MaxRetryDelay *types.Time `json:"max_retry_delay,omitempty"`
+	MaxRetryDelay *types.Duration `json:"max_retry_delay,omitempty"`
 
 	MaxWriteBufferCount *int64 `json:"max_write_buffer_count,omitempty"`
 
@@ -53,7 +51,7 @@ type Request struct {
 
 	MaxWriteRequestSize *string `json:"max_write_request_size,omitempty"`
 
-	ReadPollTimeout *types.Time `json:"read_poll_timeout,omitempty"`
+	ReadPollTimeout *types.Duration `json:"read_poll_timeout,omitempty"`
 
 	RemoteCluster *string `json:"remote_cluster,omitempty"`
 }
@@ -113,7 +111,7 @@ func (rb *RequestBuilder) MaxReadRequestSize(maxreadrequestsize string) *Request
 	return rb
 }
 
-func (rb *RequestBuilder) MaxRetryDelay(maxretrydelay *types.TimeBuilder) *RequestBuilder {
+func (rb *RequestBuilder) MaxRetryDelay(maxretrydelay *types.DurationBuilder) *RequestBuilder {
 	v := maxretrydelay.Build()
 	rb.v.MaxRetryDelay = &v
 	return rb
@@ -139,7 +137,7 @@ func (rb *RequestBuilder) MaxWriteRequestSize(maxwriterequestsize string) *Reque
 	return rb
 }
 
-func (rb *RequestBuilder) ReadPollTimeout(readpolltimeout *types.TimeBuilder) *RequestBuilder {
+func (rb *RequestBuilder) ReadPollTimeout(readpolltimeout *types.DurationBuilder) *RequestBuilder {
 	v := readpolltimeout.Build()
 	rb.v.ReadPollTimeout = &v
 	return rb

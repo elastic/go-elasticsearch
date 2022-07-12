@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
@@ -28,10 +26,10 @@ import (
 
 // DateDecayFunction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_types/query_dsl/compound.ts#L92-L94
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/query_dsl/compound.ts#L92-L94
 type DateDecayFunction struct {
-	DateDecayFunction map[Field]DecayPlacementDateMathTime `json:"DateDecayFunction,omitempty"`
-	MultiValueMode    *multivaluemode.MultiValueMode       `json:"multi_value_mode,omitempty"`
+	DateDecayFunction map[Field]DecayPlacementDateMathDuration `json:"DateDecayFunction,omitempty"`
+	MultiValueMode    *multivaluemode.MultiValueMode           `json:"multi_value_mode,omitempty"`
 }
 
 // DateDecayFunctionBuilder holds DateDecayFunction struct and provides a builder API.
@@ -43,7 +41,7 @@ type DateDecayFunctionBuilder struct {
 func NewDateDecayFunctionBuilder() *DateDecayFunctionBuilder {
 	r := DateDecayFunctionBuilder{
 		&DateDecayFunction{
-			DateDecayFunction: make(map[Field]DecayPlacementDateMathTime, 0),
+			DateDecayFunction: make(map[Field]DecayPlacementDateMathDuration, 0),
 		},
 	}
 
@@ -55,8 +53,8 @@ func (rb *DateDecayFunctionBuilder) Build() DateDecayFunction {
 	return *rb.v
 }
 
-func (rb *DateDecayFunctionBuilder) DateDecayFunction(values map[Field]*DecayPlacementDateMathTimeBuilder) *DateDecayFunctionBuilder {
-	tmp := make(map[Field]DecayPlacementDateMathTime, len(values))
+func (rb *DateDecayFunctionBuilder) DateDecayFunction(values map[Field]*DecayPlacementDateMathDurationBuilder) *DateDecayFunctionBuilder {
+	tmp := make(map[Field]DecayPlacementDateMathDuration, len(values))
 	for key, builder := range values {
 		tmp[key] = builder.Build()
 	}

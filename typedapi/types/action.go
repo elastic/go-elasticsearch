@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
@@ -28,22 +26,22 @@ import (
 
 // Action type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/watcher/_types/Action.ts#L35-L51
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/watcher/_types/Action.ts#L41-L57
 type Action struct {
-	ActionType             *actiontype.ActionType `json:"action_type,omitempty"`
-	Condition              *ConditionContainer    `json:"condition,omitempty"`
-	Email                  *EmailAction           `json:"email,omitempty"`
-	Foreach                *string                `json:"foreach,omitempty"`
-	Index                  *IndexAction           `json:"index,omitempty"`
-	Logging                *LoggingAction         `json:"logging,omitempty"`
-	MaxIterations          *int                   `json:"max_iterations,omitempty"`
-	Name                   *Name                  `json:"name,omitempty"`
-	Pagerduty              *PagerDutyAction       `json:"pagerduty,omitempty"`
-	Slack                  *SlackAction           `json:"slack,omitempty"`
-	ThrottlePeriod         *Time                  `json:"throttle_period,omitempty"`
-	ThrottlePeriodInMillis *EpochMillis           `json:"throttle_period_in_millis,omitempty"`
-	Transform              *TransformContainer    `json:"transform,omitempty"`
-	Webhook                *WebhookAction         `json:"webhook,omitempty"`
+	ActionType             *actiontype.ActionType   `json:"action_type,omitempty"`
+	Condition              *ConditionContainer      `json:"condition,omitempty"`
+	Email                  *EmailAction             `json:"email,omitempty"`
+	Foreach                *string                  `json:"foreach,omitempty"`
+	Index                  *IndexAction             `json:"index,omitempty"`
+	Logging                *LoggingAction           `json:"logging,omitempty"`
+	MaxIterations          *int                     `json:"max_iterations,omitempty"`
+	Name                   *Name                    `json:"name,omitempty"`
+	Pagerduty              *PagerDutyAction         `json:"pagerduty,omitempty"`
+	Slack                  *SlackAction             `json:"slack,omitempty"`
+	ThrottlePeriod         *Duration                `json:"throttle_period,omitempty"`
+	ThrottlePeriodInMillis *DurationValueUnitMillis `json:"throttle_period_in_millis,omitempty"`
+	Transform              *TransformContainer      `json:"transform,omitempty"`
+	Webhook                *WebhookAction           `json:"webhook,omitempty"`
 }
 
 // ActionBuilder holds Action struct and provides a builder API.
@@ -121,13 +119,13 @@ func (rb *ActionBuilder) Slack(slack *SlackActionBuilder) *ActionBuilder {
 	return rb
 }
 
-func (rb *ActionBuilder) ThrottlePeriod(throttleperiod *TimeBuilder) *ActionBuilder {
+func (rb *ActionBuilder) ThrottlePeriod(throttleperiod *DurationBuilder) *ActionBuilder {
 	v := throttleperiod.Build()
 	rb.v.ThrottlePeriod = &v
 	return rb
 }
 
-func (rb *ActionBuilder) ThrottlePeriodInMillis(throttleperiodinmillis *EpochMillisBuilder) *ActionBuilder {
+func (rb *ActionBuilder) ThrottlePeriodInMillis(throttleperiodinmillis *DurationValueUnitMillisBuilder) *ActionBuilder {
 	v := throttleperiodinmillis.Build()
 	rb.v.ThrottlePeriodInMillis = &v
 	return rb

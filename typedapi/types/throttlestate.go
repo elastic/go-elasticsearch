@@ -15,19 +15,17 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // ThrottleState type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/watcher/_types/Action.ts#L117-L120
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/watcher/_types/Action.ts#L123-L126
 type ThrottleState struct {
-	Reason    string     `json:"reason"`
-	Timestamp DateString `json:"timestamp"`
+	Reason    string   `json:"reason"`
+	Timestamp DateTime `json:"timestamp"`
 }
 
 // ThrottleStateBuilder holds ThrottleState struct and provides a builder API.
@@ -54,7 +52,8 @@ func (rb *ThrottleStateBuilder) Reason(reason string) *ThrottleStateBuilder {
 	return rb
 }
 
-func (rb *ThrottleStateBuilder) Timestamp(timestamp DateString) *ThrottleStateBuilder {
-	rb.v.Timestamp = timestamp
+func (rb *ThrottleStateBuilder) Timestamp(timestamp *DateTimeBuilder) *ThrottleStateBuilder {
+	v := timestamp.Build()
+	rb.v.Timestamp = v
 	return rb
 }

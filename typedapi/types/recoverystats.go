@@ -15,21 +15,19 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // RecoveryStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_types/Stats.ts#L160-L165
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/Stats.ts#L161-L166
 type RecoveryStats struct {
-	CurrentAsSource      int64   `json:"current_as_source"`
-	CurrentAsTarget      int64   `json:"current_as_target"`
-	ThrottleTime         *string `json:"throttle_time,omitempty"`
-	ThrottleTimeInMillis int64   `json:"throttle_time_in_millis"`
+	CurrentAsSource      int64                   `json:"current_as_source"`
+	CurrentAsTarget      int64                   `json:"current_as_target"`
+	ThrottleTime         *Duration               `json:"throttle_time,omitempty"`
+	ThrottleTimeInMillis DurationValueUnitMillis `json:"throttle_time_in_millis"`
 }
 
 // RecoveryStatsBuilder holds RecoveryStats struct and provides a builder API.
@@ -61,12 +59,14 @@ func (rb *RecoveryStatsBuilder) CurrentAsTarget(currentastarget int64) *Recovery
 	return rb
 }
 
-func (rb *RecoveryStatsBuilder) ThrottleTime(throttletime string) *RecoveryStatsBuilder {
-	rb.v.ThrottleTime = &throttletime
+func (rb *RecoveryStatsBuilder) ThrottleTime(throttletime *DurationBuilder) *RecoveryStatsBuilder {
+	v := throttletime.Build()
+	rb.v.ThrottleTime = &v
 	return rb
 }
 
-func (rb *RecoveryStatsBuilder) ThrottleTimeInMillis(throttletimeinmillis int64) *RecoveryStatsBuilder {
-	rb.v.ThrottleTimeInMillis = throttletimeinmillis
+func (rb *RecoveryStatsBuilder) ThrottleTimeInMillis(throttletimeinmillis *DurationValueUnitMillisBuilder) *RecoveryStatsBuilder {
+	v := throttletimeinmillis.Build()
+	rb.v.ThrottleTimeInMillis = v
 	return rb
 }

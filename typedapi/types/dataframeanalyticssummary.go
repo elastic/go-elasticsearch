@@ -15,21 +15,23 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // DataframeAnalyticsSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ml/_types/DataframeAnalytics.ts#L305-L317
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ml/_types/DataframeAnalytics.ts#L306-L322
 type DataframeAnalyticsSummary struct {
-	AllowLazyStart   *bool                            `json:"allow_lazy_start,omitempty"`
-	Analysis         DataframeAnalysisContainer       `json:"analysis"`
-	AnalyzedFields   *DataframeAnalysisAnalyzedFields `json:"analyzed_fields,omitempty"`
-	CreateTime       *int64                           `json:"create_time,omitempty"`
+	AllowLazyStart *bool                            `json:"allow_lazy_start,omitempty"`
+	Analysis       DataframeAnalysisContainer       `json:"analysis"`
+	AnalyzedFields *DataframeAnalysisAnalyzedFields `json:"analyzed_fields,omitempty"`
+	// Authorization The security privileges that the job uses to run its queries. If Elastic
+	// Stack security features were disabled at the time of the most recent update
+	// to the job, this property is omitted.
+	Authorization    *DataframeAnalyticsAuthorization `json:"authorization,omitempty"`
+	CreateTime       *EpochTimeUnitMillis             `json:"create_time,omitempty"`
 	Description      *string                          `json:"description,omitempty"`
 	Dest             DataframeAnalyticsDestination    `json:"dest"`
 	Id               Id                               `json:"id"`
@@ -75,8 +77,19 @@ func (rb *DataframeAnalyticsSummaryBuilder) AnalyzedFields(analyzedfields *Dataf
 	return rb
 }
 
-func (rb *DataframeAnalyticsSummaryBuilder) CreateTime(createtime int64) *DataframeAnalyticsSummaryBuilder {
-	rb.v.CreateTime = &createtime
+// Authorization The security privileges that the job uses to run its queries. If Elastic
+// Stack security features were disabled at the time of the most recent update
+// to the job, this property is omitted.
+
+func (rb *DataframeAnalyticsSummaryBuilder) Authorization(authorization *DataframeAnalyticsAuthorizationBuilder) *DataframeAnalyticsSummaryBuilder {
+	v := authorization.Build()
+	rb.v.Authorization = &v
+	return rb
+}
+
+func (rb *DataframeAnalyticsSummaryBuilder) CreateTime(createtime *EpochTimeUnitMillisBuilder) *DataframeAnalyticsSummaryBuilder {
+	v := createtime.Build()
+	rb.v.CreateTime = &v
 	return rb
 }
 

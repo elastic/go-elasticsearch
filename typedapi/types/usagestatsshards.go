@@ -15,21 +15,19 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // UsageStatsShards type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/indices/field_usage_stats/IndicesFieldUsageStatsResponse.ts#L42-L47
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/indices/field_usage_stats/IndicesFieldUsageStatsResponse.ts#L42-L47
 type UsageStatsShards struct {
-	Routing                 ShardRouting `json:"routing"`
-	Stats                   ShardsStats  `json:"stats"`
-	TrackingId              string       `json:"tracking_id"`
-	TrackingStartedAtMillis EpochMillis  `json:"tracking_started_at_millis"`
+	Routing                 ShardRouting        `json:"routing"`
+	Stats                   ShardsStats         `json:"stats"`
+	TrackingId              string              `json:"tracking_id"`
+	TrackingStartedAtMillis EpochTimeUnitMillis `json:"tracking_started_at_millis"`
 }
 
 // UsageStatsShardsBuilder holds UsageStatsShards struct and provides a builder API.
@@ -68,7 +66,7 @@ func (rb *UsageStatsShardsBuilder) TrackingId(trackingid string) *UsageStatsShar
 	return rb
 }
 
-func (rb *UsageStatsShardsBuilder) TrackingStartedAtMillis(trackingstartedatmillis *EpochMillisBuilder) *UsageStatsShardsBuilder {
+func (rb *UsageStatsShardsBuilder) TrackingStartedAtMillis(trackingstartedatmillis *EpochTimeUnitMillisBuilder) *UsageStatsShardsBuilder {
 	v := trackingstartedatmillis.Build()
 	rb.v.TrackingStartedAtMillis = v
 	return rb

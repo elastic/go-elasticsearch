@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 // Returns cluster-wide thread pool statistics per node.
 // By default the active, queue and rejected statistics are returned for all
@@ -37,6 +35,8 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/timeunit"
 )
 
 const (
@@ -196,8 +196,8 @@ func (r *ThreadPool) ThreadPoolPatterns(v string) *ThreadPool {
 
 // Time Unit used to display time values.
 // API name: time
-func (r *ThreadPool) Time(value string) *ThreadPool {
-	r.values.Set("time", value)
+func (r *ThreadPool) Time(enum timeunit.TimeUnit) *ThreadPool {
+	r.values.Set("time", enum.String())
 
 	return r
 }

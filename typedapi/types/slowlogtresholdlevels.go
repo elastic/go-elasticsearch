@@ -15,21 +15,19 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // SlowlogTresholdLevels type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/indices/_types/IndexSettings.ts#L484-L489
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/indices/_types/IndexSettings.ts#L489-L494
 type SlowlogTresholdLevels struct {
-	Debug *Time `json:"debug,omitempty"`
-	Info  *Time `json:"info,omitempty"`
-	Trace *Time `json:"trace,omitempty"`
-	Warn  *Time `json:"warn,omitempty"`
+	Debug *Duration `json:"debug,omitempty"`
+	Info  *Duration `json:"info,omitempty"`
+	Trace *Duration `json:"trace,omitempty"`
+	Warn  *Duration `json:"warn,omitempty"`
 }
 
 // SlowlogTresholdLevelsBuilder holds SlowlogTresholdLevels struct and provides a builder API.
@@ -51,25 +49,25 @@ func (rb *SlowlogTresholdLevelsBuilder) Build() SlowlogTresholdLevels {
 	return *rb.v
 }
 
-func (rb *SlowlogTresholdLevelsBuilder) Debug(debug *TimeBuilder) *SlowlogTresholdLevelsBuilder {
+func (rb *SlowlogTresholdLevelsBuilder) Debug(debug *DurationBuilder) *SlowlogTresholdLevelsBuilder {
 	v := debug.Build()
 	rb.v.Debug = &v
 	return rb
 }
 
-func (rb *SlowlogTresholdLevelsBuilder) Info(info *TimeBuilder) *SlowlogTresholdLevelsBuilder {
+func (rb *SlowlogTresholdLevelsBuilder) Info(info *DurationBuilder) *SlowlogTresholdLevelsBuilder {
 	v := info.Build()
 	rb.v.Info = &v
 	return rb
 }
 
-func (rb *SlowlogTresholdLevelsBuilder) Trace(trace *TimeBuilder) *SlowlogTresholdLevelsBuilder {
+func (rb *SlowlogTresholdLevelsBuilder) Trace(trace *DurationBuilder) *SlowlogTresholdLevelsBuilder {
 	v := trace.Build()
 	rb.v.Trace = &v
 	return rb
 }
 
-func (rb *SlowlogTresholdLevelsBuilder) Warn(warn *TimeBuilder) *SlowlogTresholdLevelsBuilder {
+func (rb *SlowlogTresholdLevelsBuilder) Warn(warn *DurationBuilder) *SlowlogTresholdLevelsBuilder {
 	v := warn.Build()
 	rb.v.Warn = &v
 	return rb

@@ -15,31 +15,33 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // SearchStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_types/Stats.ts#L184-L199
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/Stats.ts#L185-L204
 type SearchStats struct {
-	FetchCurrent        int64                  `json:"fetch_current"`
-	FetchTimeInMillis   int64                  `json:"fetch_time_in_millis"`
-	FetchTotal          int64                  `json:"fetch_total"`
-	Groups              map[string]SearchStats `json:"groups,omitempty"`
-	OpenContexts        *int64                 `json:"open_contexts,omitempty"`
-	QueryCurrent        int64                  `json:"query_current"`
-	QueryTimeInMillis   int64                  `json:"query_time_in_millis"`
-	QueryTotal          int64                  `json:"query_total"`
-	ScrollCurrent       int64                  `json:"scroll_current"`
-	ScrollTimeInMillis  int64                  `json:"scroll_time_in_millis"`
-	ScrollTotal         int64                  `json:"scroll_total"`
-	SuggestCurrent      int64                  `json:"suggest_current"`
-	SuggestTimeInMillis int64                  `json:"suggest_time_in_millis"`
-	SuggestTotal        int64                  `json:"suggest_total"`
+	FetchCurrent        int64                   `json:"fetch_current"`
+	FetchTime           *Duration               `json:"fetch_time,omitempty"`
+	FetchTimeInMillis   DurationValueUnitMillis `json:"fetch_time_in_millis"`
+	FetchTotal          int64                   `json:"fetch_total"`
+	Groups              map[string]SearchStats  `json:"groups,omitempty"`
+	OpenContexts        *int64                  `json:"open_contexts,omitempty"`
+	QueryCurrent        int64                   `json:"query_current"`
+	QueryTime           *Duration               `json:"query_time,omitempty"`
+	QueryTimeInMillis   DurationValueUnitMillis `json:"query_time_in_millis"`
+	QueryTotal          int64                   `json:"query_total"`
+	ScrollCurrent       int64                   `json:"scroll_current"`
+	ScrollTime          *Duration               `json:"scroll_time,omitempty"`
+	ScrollTimeInMillis  DurationValueUnitMillis `json:"scroll_time_in_millis"`
+	ScrollTotal         int64                   `json:"scroll_total"`
+	SuggestCurrent      int64                   `json:"suggest_current"`
+	SuggestTime         *Duration               `json:"suggest_time,omitempty"`
+	SuggestTimeInMillis DurationValueUnitMillis `json:"suggest_time_in_millis"`
+	SuggestTotal        int64                   `json:"suggest_total"`
 }
 
 // SearchStatsBuilder holds SearchStats struct and provides a builder API.
@@ -68,8 +70,15 @@ func (rb *SearchStatsBuilder) FetchCurrent(fetchcurrent int64) *SearchStatsBuild
 	return rb
 }
 
-func (rb *SearchStatsBuilder) FetchTimeInMillis(fetchtimeinmillis int64) *SearchStatsBuilder {
-	rb.v.FetchTimeInMillis = fetchtimeinmillis
+func (rb *SearchStatsBuilder) FetchTime(fetchtime *DurationBuilder) *SearchStatsBuilder {
+	v := fetchtime.Build()
+	rb.v.FetchTime = &v
+	return rb
+}
+
+func (rb *SearchStatsBuilder) FetchTimeInMillis(fetchtimeinmillis *DurationValueUnitMillisBuilder) *SearchStatsBuilder {
+	v := fetchtimeinmillis.Build()
+	rb.v.FetchTimeInMillis = v
 	return rb
 }
 
@@ -97,8 +106,15 @@ func (rb *SearchStatsBuilder) QueryCurrent(querycurrent int64) *SearchStatsBuild
 	return rb
 }
 
-func (rb *SearchStatsBuilder) QueryTimeInMillis(querytimeinmillis int64) *SearchStatsBuilder {
-	rb.v.QueryTimeInMillis = querytimeinmillis
+func (rb *SearchStatsBuilder) QueryTime(querytime *DurationBuilder) *SearchStatsBuilder {
+	v := querytime.Build()
+	rb.v.QueryTime = &v
+	return rb
+}
+
+func (rb *SearchStatsBuilder) QueryTimeInMillis(querytimeinmillis *DurationValueUnitMillisBuilder) *SearchStatsBuilder {
+	v := querytimeinmillis.Build()
+	rb.v.QueryTimeInMillis = v
 	return rb
 }
 
@@ -112,8 +128,15 @@ func (rb *SearchStatsBuilder) ScrollCurrent(scrollcurrent int64) *SearchStatsBui
 	return rb
 }
 
-func (rb *SearchStatsBuilder) ScrollTimeInMillis(scrolltimeinmillis int64) *SearchStatsBuilder {
-	rb.v.ScrollTimeInMillis = scrolltimeinmillis
+func (rb *SearchStatsBuilder) ScrollTime(scrolltime *DurationBuilder) *SearchStatsBuilder {
+	v := scrolltime.Build()
+	rb.v.ScrollTime = &v
+	return rb
+}
+
+func (rb *SearchStatsBuilder) ScrollTimeInMillis(scrolltimeinmillis *DurationValueUnitMillisBuilder) *SearchStatsBuilder {
+	v := scrolltimeinmillis.Build()
+	rb.v.ScrollTimeInMillis = v
 	return rb
 }
 
@@ -127,8 +150,15 @@ func (rb *SearchStatsBuilder) SuggestCurrent(suggestcurrent int64) *SearchStatsB
 	return rb
 }
 
-func (rb *SearchStatsBuilder) SuggestTimeInMillis(suggesttimeinmillis int64) *SearchStatsBuilder {
-	rb.v.SuggestTimeInMillis = suggesttimeinmillis
+func (rb *SearchStatsBuilder) SuggestTime(suggesttime *DurationBuilder) *SearchStatsBuilder {
+	v := suggesttime.Build()
+	rb.v.SuggestTime = &v
+	return rb
+}
+
+func (rb *SearchStatsBuilder) SuggestTimeInMillis(suggesttimeinmillis *DurationValueUnitMillisBuilder) *SearchStatsBuilder {
+	v := suggesttimeinmillis.Build()
+	rb.v.SuggestTimeInMillis = v
 	return rb
 }
 

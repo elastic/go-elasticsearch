@@ -15,18 +15,16 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // ElasticsearchVersionInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_types/Base.ts#L54-L64
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/Base.ts#L54-L64
 type ElasticsearchVersionInfo struct {
-	BuildDate                        DateString    `json:"build_date"`
+	BuildDate                        DateTime      `json:"build_date"`
 	BuildFlavor                      string        `json:"build_flavor"`
 	BuildHash                        string        `json:"build_hash"`
 	BuildSnapshot                    bool          `json:"build_snapshot"`
@@ -56,8 +54,9 @@ func (rb *ElasticsearchVersionInfoBuilder) Build() ElasticsearchVersionInfo {
 	return *rb.v
 }
 
-func (rb *ElasticsearchVersionInfoBuilder) BuildDate(builddate DateString) *ElasticsearchVersionInfoBuilder {
-	rb.v.BuildDate = builddate
+func (rb *ElasticsearchVersionInfoBuilder) BuildDate(builddate *DateTimeBuilder) *ElasticsearchVersionInfoBuilder {
+	v := builddate.Build()
+	rb.v.BuildDate = v
 	return rb
 }
 

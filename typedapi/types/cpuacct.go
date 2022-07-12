@@ -15,19 +15,17 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // CpuAcct type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/nodes/_types/Stats.ts#L187-L190
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/nodes/_types/Stats.ts#L188-L191
 type CpuAcct struct {
-	ControlGroup *string `json:"control_group,omitempty"`
-	UsageNanos   *int64  `json:"usage_nanos,omitempty"`
+	ControlGroup *string                 `json:"control_group,omitempty"`
+	UsageNanos   *DurationValueUnitNanos `json:"usage_nanos,omitempty"`
 }
 
 // CpuAcctBuilder holds CpuAcct struct and provides a builder API.
@@ -54,7 +52,8 @@ func (rb *CpuAcctBuilder) ControlGroup(controlgroup string) *CpuAcctBuilder {
 	return rb
 }
 
-func (rb *CpuAcctBuilder) UsageNanos(usagenanos int64) *CpuAcctBuilder {
-	rb.v.UsageNanos = &usagenanos
+func (rb *CpuAcctBuilder) UsageNanos(usagenanos *DurationValueUnitNanosBuilder) *CpuAcctBuilder {
+	v := usagenanos.Build()
+	rb.v.UsageNanos = &v
 	return rb
 }

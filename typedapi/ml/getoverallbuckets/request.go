@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package getoverallbuckets
 
@@ -31,17 +29,17 @@ import (
 
 // Request holds the request body struct for the package getoverallbuckets
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ml/get_overall_buckets/MlGetOverallBucketsRequest.ts#L25-L143
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ml/get_overall_buckets/MlGetOverallBucketsRequest.ts#L25-L143
 type Request struct {
 
 	// AllowNoMatch Refer to the description for the `allow_no_match` query parameter.
 	AllowNoMatch *bool `json:"allow_no_match,omitempty"`
 
 	// BucketSpan Refer to the description for the `bucket_span` query parameter.
-	BucketSpan *types.Time `json:"bucket_span,omitempty"`
+	BucketSpan *types.Duration `json:"bucket_span,omitempty"`
 
 	// End Refer to the description for the `end` query parameter.
-	End *types.Time `json:"end,omitempty"`
+	End *types.DateTime `json:"end,omitempty"`
 
 	// ExcludeInterim Refer to the description for the `exclude_interim` query parameter.
 	ExcludeInterim *bool `json:"exclude_interim,omitempty"`
@@ -50,7 +48,7 @@ type Request struct {
 	OverallScore string `json:"overall_score,omitempty"`
 
 	// Start Refer to the description for the `start` query parameter.
-	Start *types.Time `json:"start,omitempty"`
+	Start *types.DateTime `json:"start,omitempty"`
 
 	// TopN Refer to the description for the `top_n` query parameter.
 	TopN *int `json:"top_n,omitempty"`
@@ -91,13 +89,13 @@ func (rb *RequestBuilder) AllowNoMatch(allownomatch bool) *RequestBuilder {
 	return rb
 }
 
-func (rb *RequestBuilder) BucketSpan(bucketspan *types.TimeBuilder) *RequestBuilder {
+func (rb *RequestBuilder) BucketSpan(bucketspan *types.DurationBuilder) *RequestBuilder {
 	v := bucketspan.Build()
 	rb.v.BucketSpan = &v
 	return rb
 }
 
-func (rb *RequestBuilder) End(end *types.TimeBuilder) *RequestBuilder {
+func (rb *RequestBuilder) End(end *types.DateTimeBuilder) *RequestBuilder {
 	v := end.Build()
 	rb.v.End = &v
 	return rb
@@ -113,7 +111,7 @@ func (rb *RequestBuilder) OverallScore(arg string) *RequestBuilder {
 	return rb
 }
 
-func (rb *RequestBuilder) Start(start *types.TimeBuilder) *RequestBuilder {
+func (rb *RequestBuilder) Start(start *types.DateTimeBuilder) *RequestBuilder {
 	v := start.Build()
 	rb.v.Start = &v
 	return rb

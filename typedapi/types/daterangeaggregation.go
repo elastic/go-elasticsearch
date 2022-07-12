@@ -15,16 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // DateRangeAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_types/aggregations/bucket.ts#L127-L134
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/aggregations/bucket.ts#L128-L135
 type DateRangeAggregation struct {
 	Field    *Field                `json:"field,omitempty"`
 	Format   *string               `json:"format,omitempty"`
@@ -33,7 +31,7 @@ type DateRangeAggregation struct {
 	Missing  *Missing              `json:"missing,omitempty"`
 	Name     *string               `json:"name,omitempty"`
 	Ranges   []DateRangeExpression `json:"ranges,omitempty"`
-	TimeZone *string               `json:"time_zone,omitempty"`
+	TimeZone *TimeZone             `json:"time_zone,omitempty"`
 }
 
 // DateRangeAggregationBuilder holds DateRangeAggregation struct and provides a builder API.
@@ -96,7 +94,7 @@ func (rb *DateRangeAggregationBuilder) Ranges(ranges []DateRangeExpressionBuilde
 	return rb
 }
 
-func (rb *DateRangeAggregationBuilder) TimeZone(timezone string) *DateRangeAggregationBuilder {
+func (rb *DateRangeAggregationBuilder) TimeZone(timezone TimeZone) *DateRangeAggregationBuilder {
 	rb.v.TimeZone = &timezone
 	return rb
 }

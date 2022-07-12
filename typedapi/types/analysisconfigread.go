@@ -15,16 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // AnalysisConfigRead type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ml/_types/Analysis.ts#L79-L91
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ml/_types/Analysis.ts#L79-L91
 type AnalysisConfigRead struct {
 	// BucketSpan The size of the interval that the analysis is aggregated into, typically
 	// between `5m` and `1h`. This value should be either a whole number of days or
@@ -33,7 +31,7 @@ type AnalysisConfigRead struct {
 	// datafeed with aggregations, this value must also be divisible by the interval
 	// of the date histogram aggregation.
 	// * @server_default 5m
-	BucketSpan TimeSpan `json:"bucket_span"`
+	BucketSpan Duration `json:"bucket_span"`
 	// CategorizationAnalyzer If `categorization_field_name` is specified, you can also define the analyzer
 	// that is used to interpret the categorization field. This property cannot be
 	// used at the same time as `categorization_filters`. The categorization
@@ -76,13 +74,13 @@ type AnalysisConfigRead struct {
 	// you specify a non-zero value, it must be greater than or equal to one second.
 	// NOTE: Latency is applicable only when you send data by using the post data
 	// API.
-	Latency *Time `json:"latency,omitempty"`
+	Latency *Duration `json:"latency,omitempty"`
 	// ModelPruneWindow Advanced configuration option. Affects the pruning of models that have not
 	// been updated for the given time duration. The value must be set to a multiple
 	// of the `bucket_span`. If set too low, important information may be removed
 	// from the model. For jobs created in 8.1 and later, the default value is the
 	// greater of `30d` or 20 times `bucket_span`.
-	ModelPruneWindow *Time `json:"model_prune_window,omitempty"`
+	ModelPruneWindow *Duration `json:"model_prune_window,omitempty"`
 	// MultivariateByFields This functionality is reserved for internal use. It is not supported for use
 	// in customer environments and is not subject to the support SLA of official GA
 	// features. If set to `true`, the analysis will automatically find correlations
@@ -134,8 +132,9 @@ func (rb *AnalysisConfigReadBuilder) Build() AnalysisConfigRead {
 // of the date histogram aggregation.
 // * @server_default 5m
 
-func (rb *AnalysisConfigReadBuilder) BucketSpan(bucketspan TimeSpan) *AnalysisConfigReadBuilder {
-	rb.v.BucketSpan = bucketspan
+func (rb *AnalysisConfigReadBuilder) BucketSpan(bucketspan *DurationBuilder) *AnalysisConfigReadBuilder {
+	v := bucketspan.Build()
+	rb.v.BucketSpan = v
 	return rb
 }
 
@@ -212,7 +211,7 @@ func (rb *AnalysisConfigReadBuilder) Influencers(influencers ...Field) *Analysis
 // NOTE: Latency is applicable only when you send data by using the post data
 // API.
 
-func (rb *AnalysisConfigReadBuilder) Latency(latency *TimeBuilder) *AnalysisConfigReadBuilder {
+func (rb *AnalysisConfigReadBuilder) Latency(latency *DurationBuilder) *AnalysisConfigReadBuilder {
 	v := latency.Build()
 	rb.v.Latency = &v
 	return rb
@@ -224,7 +223,7 @@ func (rb *AnalysisConfigReadBuilder) Latency(latency *TimeBuilder) *AnalysisConf
 // from the model. For jobs created in 8.1 and later, the default value is the
 // greater of `30d` or 20 times `bucket_span`.
 
-func (rb *AnalysisConfigReadBuilder) ModelPruneWindow(modelprunewindow *TimeBuilder) *AnalysisConfigReadBuilder {
+func (rb *AnalysisConfigReadBuilder) ModelPruneWindow(modelprunewindow *DurationBuilder) *AnalysisConfigReadBuilder {
 	v := modelprunewindow.Build()
 	rb.v.ModelPruneWindow = &v
 	return rb

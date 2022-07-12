@@ -15,16 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // RecoveryRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/cat/recovery/types.ts#L23-L154
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/cat/recovery/types.ts#L24-L155
 type RecoveryRecord struct {
 	// Bytes number of bytes to recover
 	Bytes *string `json:"bytes,omitempty"`
@@ -57,19 +55,19 @@ type RecoveryRecord struct {
 	// Stage recovery stage
 	Stage *string `json:"stage,omitempty"`
 	// StartTime recovery start time
-	StartTime *string `json:"start_time,omitempty"`
+	StartTime *DateTime `json:"start_time,omitempty"`
 	// StartTimeMillis recovery start time in epoch milliseconds
-	StartTimeMillis *string `json:"start_time_millis,omitempty"`
+	StartTimeMillis *EpochTimeUnitMillis `json:"start_time_millis,omitempty"`
 	// StopTime recovery stop time
-	StopTime *string `json:"stop_time,omitempty"`
+	StopTime *DateTime `json:"stop_time,omitempty"`
 	// StopTimeMillis recovery stop time in epoch milliseconds
-	StopTimeMillis *string `json:"stop_time_millis,omitempty"`
+	StopTimeMillis *EpochTimeUnitMillis `json:"stop_time_millis,omitempty"`
 	// TargetHost target host
 	TargetHost *string `json:"target_host,omitempty"`
 	// TargetNode target node name
 	TargetNode *string `json:"target_node,omitempty"`
 	// Time recovery time
-	Time *string `json:"time,omitempty"`
+	Time *Duration `json:"time,omitempty"`
 	// TranslogOps number of translog ops to recover
 	TranslogOps *string `json:"translog_ops,omitempty"`
 	// TranslogOpsPercent percent of translog ops recovered
@@ -208,29 +206,33 @@ func (rb *RecoveryRecordBuilder) Stage(stage string) *RecoveryRecordBuilder {
 
 // StartTime recovery start time
 
-func (rb *RecoveryRecordBuilder) StartTime(starttime string) *RecoveryRecordBuilder {
-	rb.v.StartTime = &starttime
+func (rb *RecoveryRecordBuilder) StartTime(starttime *DateTimeBuilder) *RecoveryRecordBuilder {
+	v := starttime.Build()
+	rb.v.StartTime = &v
 	return rb
 }
 
 // StartTimeMillis recovery start time in epoch milliseconds
 
-func (rb *RecoveryRecordBuilder) StartTimeMillis(starttimemillis string) *RecoveryRecordBuilder {
-	rb.v.StartTimeMillis = &starttimemillis
+func (rb *RecoveryRecordBuilder) StartTimeMillis(starttimemillis *EpochTimeUnitMillisBuilder) *RecoveryRecordBuilder {
+	v := starttimemillis.Build()
+	rb.v.StartTimeMillis = &v
 	return rb
 }
 
 // StopTime recovery stop time
 
-func (rb *RecoveryRecordBuilder) StopTime(stoptime string) *RecoveryRecordBuilder {
-	rb.v.StopTime = &stoptime
+func (rb *RecoveryRecordBuilder) StopTime(stoptime *DateTimeBuilder) *RecoveryRecordBuilder {
+	v := stoptime.Build()
+	rb.v.StopTime = &v
 	return rb
 }
 
 // StopTimeMillis recovery stop time in epoch milliseconds
 
-func (rb *RecoveryRecordBuilder) StopTimeMillis(stoptimemillis string) *RecoveryRecordBuilder {
-	rb.v.StopTimeMillis = &stoptimemillis
+func (rb *RecoveryRecordBuilder) StopTimeMillis(stoptimemillis *EpochTimeUnitMillisBuilder) *RecoveryRecordBuilder {
+	v := stoptimemillis.Build()
+	rb.v.StopTimeMillis = &v
 	return rb
 }
 
@@ -250,8 +252,9 @@ func (rb *RecoveryRecordBuilder) TargetNode(targetnode string) *RecoveryRecordBu
 
 // Time recovery time
 
-func (rb *RecoveryRecordBuilder) Time(time string) *RecoveryRecordBuilder {
-	rb.v.Time = &time
+func (rb *RecoveryRecordBuilder) Time(time *DurationBuilder) *RecoveryRecordBuilder {
+	v := time.Build()
+	rb.v.Time = &v
 	return rb
 }
 

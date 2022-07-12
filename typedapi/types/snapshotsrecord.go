@@ -15,23 +15,21 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // SnapshotsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/cat/snapshots/types.ts#L22-L88
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/cat/snapshots/types.ts#L24-L90
 type SnapshotsRecord struct {
 	// Duration duration
-	Duration *Time `json:"duration,omitempty"`
+	Duration *Duration `json:"duration,omitempty"`
 	// EndEpoch end time in seconds since 1970-01-01 00:00:00
-	EndEpoch *EpochMillis `json:"end_epoch,omitempty"`
+	EndEpoch *StringifiedEpochTimeUnitSeconds `json:"end_epoch,omitempty"`
 	// EndTime end time in HH:MM:SS
-	EndTime *DateString `json:"end_time,omitempty"`
+	EndTime *TimeOfDay `json:"end_time,omitempty"`
 	// FailedShards number of failed shards
 	FailedShards *string `json:"failed_shards,omitempty"`
 	// Id unique snapshot
@@ -43,9 +41,9 @@ type SnapshotsRecord struct {
 	// Repository repository name
 	Repository *string `json:"repository,omitempty"`
 	// StartEpoch start time in seconds since 1970-01-01 00:00:00
-	StartEpoch *EpochMillis `json:"start_epoch,omitempty"`
+	StartEpoch *StringifiedEpochTimeUnitSeconds `json:"start_epoch,omitempty"`
 	// StartTime start time in HH:MM:SS
-	StartTime *DateString `json:"start_time,omitempty"`
+	StartTime *ScheduleTimeOfDay `json:"start_time,omitempty"`
 	// Status snapshot name
 	Status *string `json:"status,omitempty"`
 	// SuccessfulShards number of successful shards
@@ -75,7 +73,7 @@ func (rb *SnapshotsRecordBuilder) Build() SnapshotsRecord {
 
 // Duration duration
 
-func (rb *SnapshotsRecordBuilder) Duration(duration *TimeBuilder) *SnapshotsRecordBuilder {
+func (rb *SnapshotsRecordBuilder) Duration(duration *DurationBuilder) *SnapshotsRecordBuilder {
 	v := duration.Build()
 	rb.v.Duration = &v
 	return rb
@@ -83,7 +81,7 @@ func (rb *SnapshotsRecordBuilder) Duration(duration *TimeBuilder) *SnapshotsReco
 
 // EndEpoch end time in seconds since 1970-01-01 00:00:00
 
-func (rb *SnapshotsRecordBuilder) EndEpoch(endepoch *EpochMillisBuilder) *SnapshotsRecordBuilder {
+func (rb *SnapshotsRecordBuilder) EndEpoch(endepoch *StringifiedEpochTimeUnitSecondsBuilder) *SnapshotsRecordBuilder {
 	v := endepoch.Build()
 	rb.v.EndEpoch = &v
 	return rb
@@ -91,7 +89,7 @@ func (rb *SnapshotsRecordBuilder) EndEpoch(endepoch *EpochMillisBuilder) *Snapsh
 
 // EndTime end time in HH:MM:SS
 
-func (rb *SnapshotsRecordBuilder) EndTime(endtime DateString) *SnapshotsRecordBuilder {
+func (rb *SnapshotsRecordBuilder) EndTime(endtime TimeOfDay) *SnapshotsRecordBuilder {
 	rb.v.EndTime = &endtime
 	return rb
 }
@@ -133,7 +131,7 @@ func (rb *SnapshotsRecordBuilder) Repository(repository string) *SnapshotsRecord
 
 // StartEpoch start time in seconds since 1970-01-01 00:00:00
 
-func (rb *SnapshotsRecordBuilder) StartEpoch(startepoch *EpochMillisBuilder) *SnapshotsRecordBuilder {
+func (rb *SnapshotsRecordBuilder) StartEpoch(startepoch *StringifiedEpochTimeUnitSecondsBuilder) *SnapshotsRecordBuilder {
 	v := startepoch.Build()
 	rb.v.StartEpoch = &v
 	return rb
@@ -141,8 +139,9 @@ func (rb *SnapshotsRecordBuilder) StartEpoch(startepoch *EpochMillisBuilder) *Sn
 
 // StartTime start time in HH:MM:SS
 
-func (rb *SnapshotsRecordBuilder) StartTime(starttime DateString) *SnapshotsRecordBuilder {
-	rb.v.StartTime = &starttime
+func (rb *SnapshotsRecordBuilder) StartTime(starttime *ScheduleTimeOfDayBuilder) *SnapshotsRecordBuilder {
+	v := starttime.Build()
+	rb.v.StartTime = &v
 	return rb
 }
 

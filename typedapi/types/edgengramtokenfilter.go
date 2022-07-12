@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
@@ -28,10 +26,10 @@ import (
 
 // EdgeNGramTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_types/analysis/token_filters.ts#L78-L84
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/analysis/token_filters.ts#L78-L84
 type EdgeNGramTokenFilter struct {
-	MaxGram          int                          `json:"max_gram"`
-	MinGram          int                          `json:"min_gram"`
+	MaxGram          *int                         `json:"max_gram,omitempty"`
+	MinGram          *int                         `json:"min_gram,omitempty"`
 	PreserveOriginal *bool                        `json:"preserve_original,omitempty"`
 	Side             *edgengramside.EdgeNGramSide `json:"side,omitempty"`
 	Type             string                       `json:"type,omitempty"`
@@ -60,12 +58,12 @@ func (rb *EdgeNGramTokenFilterBuilder) Build() EdgeNGramTokenFilter {
 }
 
 func (rb *EdgeNGramTokenFilterBuilder) MaxGram(maxgram int) *EdgeNGramTokenFilterBuilder {
-	rb.v.MaxGram = maxgram
+	rb.v.MaxGram = &maxgram
 	return rb
 }
 
 func (rb *EdgeNGramTokenFilterBuilder) MinGram(mingram int) *EdgeNGramTokenFilterBuilder {
-	rb.v.MinGram = mingram
+	rb.v.MinGram = &mingram
 	return rb
 }
 

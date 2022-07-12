@@ -15,33 +15,31 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // MergesStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_types/Stats.ts#L117-L134
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/Stats.ts#L118-L135
 type MergesStats struct {
-	Current                    int64   `json:"current"`
-	CurrentDocs                int64   `json:"current_docs"`
-	CurrentSize                *string `json:"current_size,omitempty"`
-	CurrentSizeInBytes         int64   `json:"current_size_in_bytes"`
-	Total                      int64   `json:"total"`
-	TotalAutoThrottle          *string `json:"total_auto_throttle,omitempty"`
-	TotalAutoThrottleInBytes   int64   `json:"total_auto_throttle_in_bytes"`
-	TotalDocs                  int64   `json:"total_docs"`
-	TotalSize                  *string `json:"total_size,omitempty"`
-	TotalSizeInBytes           int64   `json:"total_size_in_bytes"`
-	TotalStoppedTime           *string `json:"total_stopped_time,omitempty"`
-	TotalStoppedTimeInMillis   int64   `json:"total_stopped_time_in_millis"`
-	TotalThrottledTime         *string `json:"total_throttled_time,omitempty"`
-	TotalThrottledTimeInMillis int64   `json:"total_throttled_time_in_millis"`
-	TotalTime                  *string `json:"total_time,omitempty"`
-	TotalTimeInMillis          int64   `json:"total_time_in_millis"`
+	Current                    int64                   `json:"current"`
+	CurrentDocs                int64                   `json:"current_docs"`
+	CurrentSize                *string                 `json:"current_size,omitempty"`
+	CurrentSizeInBytes         int64                   `json:"current_size_in_bytes"`
+	Total                      int64                   `json:"total"`
+	TotalAutoThrottle          *string                 `json:"total_auto_throttle,omitempty"`
+	TotalAutoThrottleInBytes   int64                   `json:"total_auto_throttle_in_bytes"`
+	TotalDocs                  int64                   `json:"total_docs"`
+	TotalSize                  *string                 `json:"total_size,omitempty"`
+	TotalSizeInBytes           int64                   `json:"total_size_in_bytes"`
+	TotalStoppedTime           *Duration               `json:"total_stopped_time,omitempty"`
+	TotalStoppedTimeInMillis   DurationValueUnitMillis `json:"total_stopped_time_in_millis"`
+	TotalThrottledTime         *Duration               `json:"total_throttled_time,omitempty"`
+	TotalThrottledTimeInMillis DurationValueUnitMillis `json:"total_throttled_time_in_millis"`
+	TotalTime                  *Duration               `json:"total_time,omitempty"`
+	TotalTimeInMillis          DurationValueUnitMillis `json:"total_time_in_millis"`
 }
 
 // MergesStatsBuilder holds MergesStats struct and provides a builder API.
@@ -113,32 +111,38 @@ func (rb *MergesStatsBuilder) TotalSizeInBytes(totalsizeinbytes int64) *MergesSt
 	return rb
 }
 
-func (rb *MergesStatsBuilder) TotalStoppedTime(totalstoppedtime string) *MergesStatsBuilder {
-	rb.v.TotalStoppedTime = &totalstoppedtime
+func (rb *MergesStatsBuilder) TotalStoppedTime(totalstoppedtime *DurationBuilder) *MergesStatsBuilder {
+	v := totalstoppedtime.Build()
+	rb.v.TotalStoppedTime = &v
 	return rb
 }
 
-func (rb *MergesStatsBuilder) TotalStoppedTimeInMillis(totalstoppedtimeinmillis int64) *MergesStatsBuilder {
-	rb.v.TotalStoppedTimeInMillis = totalstoppedtimeinmillis
+func (rb *MergesStatsBuilder) TotalStoppedTimeInMillis(totalstoppedtimeinmillis *DurationValueUnitMillisBuilder) *MergesStatsBuilder {
+	v := totalstoppedtimeinmillis.Build()
+	rb.v.TotalStoppedTimeInMillis = v
 	return rb
 }
 
-func (rb *MergesStatsBuilder) TotalThrottledTime(totalthrottledtime string) *MergesStatsBuilder {
-	rb.v.TotalThrottledTime = &totalthrottledtime
+func (rb *MergesStatsBuilder) TotalThrottledTime(totalthrottledtime *DurationBuilder) *MergesStatsBuilder {
+	v := totalthrottledtime.Build()
+	rb.v.TotalThrottledTime = &v
 	return rb
 }
 
-func (rb *MergesStatsBuilder) TotalThrottledTimeInMillis(totalthrottledtimeinmillis int64) *MergesStatsBuilder {
-	rb.v.TotalThrottledTimeInMillis = totalthrottledtimeinmillis
+func (rb *MergesStatsBuilder) TotalThrottledTimeInMillis(totalthrottledtimeinmillis *DurationValueUnitMillisBuilder) *MergesStatsBuilder {
+	v := totalthrottledtimeinmillis.Build()
+	rb.v.TotalThrottledTimeInMillis = v
 	return rb
 }
 
-func (rb *MergesStatsBuilder) TotalTime(totaltime string) *MergesStatsBuilder {
-	rb.v.TotalTime = &totaltime
+func (rb *MergesStatsBuilder) TotalTime(totaltime *DurationBuilder) *MergesStatsBuilder {
+	v := totaltime.Build()
+	rb.v.TotalTime = &v
 	return rb
 }
 
-func (rb *MergesStatsBuilder) TotalTimeInMillis(totaltimeinmillis int64) *MergesStatsBuilder {
-	rb.v.TotalTimeInMillis = totaltimeinmillis
+func (rb *MergesStatsBuilder) TotalTimeInMillis(totaltimeinmillis *DurationValueUnitMillisBuilder) *MergesStatsBuilder {
+	v := totaltimeinmillis.Build()
+	rb.v.TotalTimeInMillis = v
 	return rb
 }

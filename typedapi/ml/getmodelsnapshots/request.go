@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package getmodelsnapshots
 
@@ -31,14 +29,14 @@ import (
 
 // Request holds the request body struct for the package getmodelsnapshots
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ml/get_model_snapshots/MlGetModelSnapshotsRequest.ts#L26-L96
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ml/get_model_snapshots/MlGetModelSnapshotsRequest.ts#L26-L96
 type Request struct {
 
 	// Desc Refer to the description for the `desc` query parameter.
 	Desc *bool `json:"desc,omitempty"`
 
 	// End Refer to the description for the `end` query parameter.
-	End *types.Time `json:"end,omitempty"`
+	End *types.DateTime `json:"end,omitempty"`
 
 	Page *types.Page `json:"page,omitempty"`
 
@@ -46,7 +44,7 @@ type Request struct {
 	Sort *types.Field `json:"sort,omitempty"`
 
 	// Start Refer to the description for the `start` query parameter.
-	Start *types.Time `json:"start,omitempty"`
+	Start *types.DateTime `json:"start,omitempty"`
 }
 
 // RequestBuilder is the builder API for the getmodelsnapshots.Request
@@ -84,7 +82,7 @@ func (rb *RequestBuilder) Desc(desc bool) *RequestBuilder {
 	return rb
 }
 
-func (rb *RequestBuilder) End(end *types.TimeBuilder) *RequestBuilder {
+func (rb *RequestBuilder) End(end *types.DateTimeBuilder) *RequestBuilder {
 	v := end.Build()
 	rb.v.End = &v
 	return rb
@@ -101,7 +99,7 @@ func (rb *RequestBuilder) Sort(sort types.Field) *RequestBuilder {
 	return rb
 }
 
-func (rb *RequestBuilder) Start(start *types.TimeBuilder) *RequestBuilder {
+func (rb *RequestBuilder) Start(start *types.DateTimeBuilder) *RequestBuilder {
 	v := start.Build()
 	rb.v.Start = &v
 	return rb

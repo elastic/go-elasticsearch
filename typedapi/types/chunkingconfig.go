@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
@@ -28,7 +26,7 @@ import (
 
 // ChunkingConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ml/_types/Datafeed.ts#L164-L177
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ml/_types/Datafeed.ts#L177-L190
 type ChunkingConfig struct {
 	// Mode If the mode is `auto`, the chunk size is dynamically calculated;
 	// this is the recommended value when the datafeed does not use aggregations.
@@ -39,7 +37,7 @@ type ChunkingConfig struct {
 	Mode chunkingmode.ChunkingMode `json:"mode"`
 	// TimeSpan The time span that each search will be querying. This setting is applicable
 	// only when the `mode` is set to `manual`.
-	TimeSpan *Time `json:"time_span,omitempty"`
+	TimeSpan *Duration `json:"time_span,omitempty"`
 }
 
 // ChunkingConfigBuilder holds ChunkingConfig struct and provides a builder API.
@@ -76,7 +74,7 @@ func (rb *ChunkingConfigBuilder) Mode(mode chunkingmode.ChunkingMode) *ChunkingC
 // TimeSpan The time span that each search will be querying. This setting is applicable
 // only when the `mode` is set to `manual`.
 
-func (rb *ChunkingConfigBuilder) TimeSpan(timespan *TimeBuilder) *ChunkingConfigBuilder {
+func (rb *ChunkingConfigBuilder) TimeSpan(timespan *DurationBuilder) *ChunkingConfigBuilder {
 	v := timespan.Build()
 	rb.v.TimeSpan = &v
 	return rb

@@ -15,25 +15,23 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // JobTimingStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ml/_types/Job.ts#L104-L113
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ml/_types/Job.ts#L109-L118
 type JobTimingStats struct {
-	AverageBucketProcessingTimeMs                   *float64 `json:"average_bucket_processing_time_ms,omitempty"`
-	BucketCount                                     int64    `json:"bucket_count"`
-	ExponentialAverageBucketProcessingTimeMs        *float64 `json:"exponential_average_bucket_processing_time_ms,omitempty"`
-	ExponentialAverageBucketProcessingTimePerHourMs float64  `json:"exponential_average_bucket_processing_time_per_hour_ms"`
-	JobId                                           Id       `json:"job_id"`
-	MaximumBucketProcessingTimeMs                   *float64 `json:"maximum_bucket_processing_time_ms,omitempty"`
-	MinimumBucketProcessingTimeMs                   *float64 `json:"minimum_bucket_processing_time_ms,omitempty"`
-	TotalBucketProcessingTimeMs                     float64  `json:"total_bucket_processing_time_ms"`
+	AverageBucketProcessingTimeMs                   *DurationValueUnitFloatMillis `json:"average_bucket_processing_time_ms,omitempty"`
+	BucketCount                                     int64                         `json:"bucket_count"`
+	ExponentialAverageBucketProcessingTimeMs        *DurationValueUnitFloatMillis `json:"exponential_average_bucket_processing_time_ms,omitempty"`
+	ExponentialAverageBucketProcessingTimePerHourMs DurationValueUnitFloatMillis  `json:"exponential_average_bucket_processing_time_per_hour_ms"`
+	JobId                                           Id                            `json:"job_id"`
+	MaximumBucketProcessingTimeMs                   *DurationValueUnitFloatMillis `json:"maximum_bucket_processing_time_ms,omitempty"`
+	MinimumBucketProcessingTimeMs                   *DurationValueUnitFloatMillis `json:"minimum_bucket_processing_time_ms,omitempty"`
+	TotalBucketProcessingTimeMs                     DurationValueUnitFloatMillis  `json:"total_bucket_processing_time_ms"`
 }
 
 // JobTimingStatsBuilder holds JobTimingStats struct and provides a builder API.
@@ -55,8 +53,9 @@ func (rb *JobTimingStatsBuilder) Build() JobTimingStats {
 	return *rb.v
 }
 
-func (rb *JobTimingStatsBuilder) AverageBucketProcessingTimeMs(averagebucketprocessingtimems float64) *JobTimingStatsBuilder {
-	rb.v.AverageBucketProcessingTimeMs = &averagebucketprocessingtimems
+func (rb *JobTimingStatsBuilder) AverageBucketProcessingTimeMs(averagebucketprocessingtimems *DurationValueUnitFloatMillisBuilder) *JobTimingStatsBuilder {
+	v := averagebucketprocessingtimems.Build()
+	rb.v.AverageBucketProcessingTimeMs = &v
 	return rb
 }
 
@@ -65,13 +64,15 @@ func (rb *JobTimingStatsBuilder) BucketCount(bucketcount int64) *JobTimingStatsB
 	return rb
 }
 
-func (rb *JobTimingStatsBuilder) ExponentialAverageBucketProcessingTimeMs(exponentialaveragebucketprocessingtimems float64) *JobTimingStatsBuilder {
-	rb.v.ExponentialAverageBucketProcessingTimeMs = &exponentialaveragebucketprocessingtimems
+func (rb *JobTimingStatsBuilder) ExponentialAverageBucketProcessingTimeMs(exponentialaveragebucketprocessingtimems *DurationValueUnitFloatMillisBuilder) *JobTimingStatsBuilder {
+	v := exponentialaveragebucketprocessingtimems.Build()
+	rb.v.ExponentialAverageBucketProcessingTimeMs = &v
 	return rb
 }
 
-func (rb *JobTimingStatsBuilder) ExponentialAverageBucketProcessingTimePerHourMs(exponentialaveragebucketprocessingtimeperhourms float64) *JobTimingStatsBuilder {
-	rb.v.ExponentialAverageBucketProcessingTimePerHourMs = exponentialaveragebucketprocessingtimeperhourms
+func (rb *JobTimingStatsBuilder) ExponentialAverageBucketProcessingTimePerHourMs(exponentialaveragebucketprocessingtimeperhourms *DurationValueUnitFloatMillisBuilder) *JobTimingStatsBuilder {
+	v := exponentialaveragebucketprocessingtimeperhourms.Build()
+	rb.v.ExponentialAverageBucketProcessingTimePerHourMs = v
 	return rb
 }
 
@@ -80,17 +81,20 @@ func (rb *JobTimingStatsBuilder) JobId(jobid Id) *JobTimingStatsBuilder {
 	return rb
 }
 
-func (rb *JobTimingStatsBuilder) MaximumBucketProcessingTimeMs(maximumbucketprocessingtimems float64) *JobTimingStatsBuilder {
-	rb.v.MaximumBucketProcessingTimeMs = &maximumbucketprocessingtimems
+func (rb *JobTimingStatsBuilder) MaximumBucketProcessingTimeMs(maximumbucketprocessingtimems *DurationValueUnitFloatMillisBuilder) *JobTimingStatsBuilder {
+	v := maximumbucketprocessingtimems.Build()
+	rb.v.MaximumBucketProcessingTimeMs = &v
 	return rb
 }
 
-func (rb *JobTimingStatsBuilder) MinimumBucketProcessingTimeMs(minimumbucketprocessingtimems float64) *JobTimingStatsBuilder {
-	rb.v.MinimumBucketProcessingTimeMs = &minimumbucketprocessingtimems
+func (rb *JobTimingStatsBuilder) MinimumBucketProcessingTimeMs(minimumbucketprocessingtimems *DurationValueUnitFloatMillisBuilder) *JobTimingStatsBuilder {
+	v := minimumbucketprocessingtimems.Build()
+	rb.v.MinimumBucketProcessingTimeMs = &v
 	return rb
 }
 
-func (rb *JobTimingStatsBuilder) TotalBucketProcessingTimeMs(totalbucketprocessingtimems float64) *JobTimingStatsBuilder {
-	rb.v.TotalBucketProcessingTimeMs = totalbucketprocessingtimems
+func (rb *JobTimingStatsBuilder) TotalBucketProcessingTimeMs(totalbucketprocessingtimems *DurationValueUnitFloatMillisBuilder) *JobTimingStatsBuilder {
+	v := totalbucketprocessingtimems.Build()
+	rb.v.TotalBucketProcessingTimeMs = v
 	return rb
 }

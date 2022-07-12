@@ -15,21 +15,19 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // InProgress type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/slm/_types/SnapshotLifecycle.ts#L125-L130
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/slm/_types/SnapshotLifecycle.ts#L131-L136
 type InProgress struct {
-	Name            Name       `json:"name"`
-	StartTimeMillis DateString `json:"start_time_millis"`
-	State           string     `json:"state"`
-	Uuid            Uuid       `json:"uuid"`
+	Name            Name                `json:"name"`
+	StartTimeMillis EpochTimeUnitMillis `json:"start_time_millis"`
+	State           string              `json:"state"`
+	Uuid            Uuid                `json:"uuid"`
 }
 
 // InProgressBuilder holds InProgress struct and provides a builder API.
@@ -56,8 +54,9 @@ func (rb *InProgressBuilder) Name(name Name) *InProgressBuilder {
 	return rb
 }
 
-func (rb *InProgressBuilder) StartTimeMillis(starttimemillis DateString) *InProgressBuilder {
-	rb.v.StartTimeMillis = starttimemillis
+func (rb *InProgressBuilder) StartTimeMillis(starttimemillis *EpochTimeUnitMillisBuilder) *InProgressBuilder {
+	v := starttimemillis.Build()
+	rb.v.StartTimeMillis = v
 	return rb
 }
 

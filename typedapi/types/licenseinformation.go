@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
@@ -29,17 +27,17 @@ import (
 
 // LicenseInformation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/license/get/types.ts#L25-L38
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/license/get/types.ts#L25-L38
 type LicenseInformation struct {
-	ExpiryDate         *DateString                 `json:"expiry_date,omitempty"`
-	ExpiryDateInMillis *EpochMillis                `json:"expiry_date_in_millis,omitempty"`
-	IssueDate          DateString                  `json:"issue_date"`
-	IssueDateInMillis  EpochMillis                 `json:"issue_date_in_millis"`
+	ExpiryDate         *DateTime                   `json:"expiry_date,omitempty"`
+	ExpiryDateInMillis *EpochTimeUnitMillis        `json:"expiry_date_in_millis,omitempty"`
+	IssueDate          DateTime                    `json:"issue_date"`
+	IssueDateInMillis  EpochTimeUnitMillis         `json:"issue_date_in_millis"`
 	IssuedTo           string                      `json:"issued_to"`
 	Issuer             string                      `json:"issuer"`
 	MaxNodes           int64                       `json:"max_nodes,omitempty"`
 	MaxResourceUnits   int                         `json:"max_resource_units,omitempty"`
-	StartDateInMillis  EpochMillis                 `json:"start_date_in_millis"`
+	StartDateInMillis  EpochTimeUnitMillis         `json:"start_date_in_millis"`
 	Status             licensestatus.LicenseStatus `json:"status"`
 	Type               licensetype.LicenseType     `json:"type"`
 	Uid                Uuid                        `json:"uid"`
@@ -64,23 +62,25 @@ func (rb *LicenseInformationBuilder) Build() LicenseInformation {
 	return *rb.v
 }
 
-func (rb *LicenseInformationBuilder) ExpiryDate(expirydate DateString) *LicenseInformationBuilder {
-	rb.v.ExpiryDate = &expirydate
+func (rb *LicenseInformationBuilder) ExpiryDate(expirydate *DateTimeBuilder) *LicenseInformationBuilder {
+	v := expirydate.Build()
+	rb.v.ExpiryDate = &v
 	return rb
 }
 
-func (rb *LicenseInformationBuilder) ExpiryDateInMillis(expirydateinmillis *EpochMillisBuilder) *LicenseInformationBuilder {
+func (rb *LicenseInformationBuilder) ExpiryDateInMillis(expirydateinmillis *EpochTimeUnitMillisBuilder) *LicenseInformationBuilder {
 	v := expirydateinmillis.Build()
 	rb.v.ExpiryDateInMillis = &v
 	return rb
 }
 
-func (rb *LicenseInformationBuilder) IssueDate(issuedate DateString) *LicenseInformationBuilder {
-	rb.v.IssueDate = issuedate
+func (rb *LicenseInformationBuilder) IssueDate(issuedate *DateTimeBuilder) *LicenseInformationBuilder {
+	v := issuedate.Build()
+	rb.v.IssueDate = v
 	return rb
 }
 
-func (rb *LicenseInformationBuilder) IssueDateInMillis(issuedateinmillis *EpochMillisBuilder) *LicenseInformationBuilder {
+func (rb *LicenseInformationBuilder) IssueDateInMillis(issuedateinmillis *EpochTimeUnitMillisBuilder) *LicenseInformationBuilder {
 	v := issuedateinmillis.Build()
 	rb.v.IssueDateInMillis = v
 	return rb
@@ -106,7 +106,7 @@ func (rb *LicenseInformationBuilder) MaxResourceUnits(maxresourceunits int) *Lic
 	return rb
 }
 
-func (rb *LicenseInformationBuilder) StartDateInMillis(startdateinmillis *EpochMillisBuilder) *LicenseInformationBuilder {
+func (rb *LicenseInformationBuilder) StartDateInMillis(startdateinmillis *EpochTimeUnitMillisBuilder) *LicenseInformationBuilder {
 	v := startdateinmillis.Build()
 	rb.v.StartDateInMillis = v
 	return rb

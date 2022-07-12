@@ -15,34 +15,32 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
-// TimeSpan type alias.
+// UnitSeconds type alias.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_types/Time.ts#L29-L29
-type TimeSpan string
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/Time.ts#L29-L30
+type UnitSeconds int64
 
-// TimeSpanBuilder holds TimeSpan struct and provides a builder API.
-type TimeSpanBuilder struct {
-	v TimeSpan
+// UnitSecondsBuilder holds UnitSeconds struct and provides a builder API.
+type UnitSecondsBuilder struct {
+	v UnitSeconds
 }
 
-// NewTimeSpan provides a builder for the TimeSpan struct.
-func NewTimeSpanBuilder() *TimeSpanBuilder {
-	return &TimeSpanBuilder{}
+// NewUnitSeconds provides a builder for the UnitSeconds struct.
+func NewUnitSecondsBuilder() *UnitSecondsBuilder {
+	return &UnitSecondsBuilder{}
 }
 
-// Build finalize the chain and returns the TimeSpan struct
-func (b *TimeSpanBuilder) Build() TimeSpan {
+// Build finalize the chain and returns the UnitSeconds struct
+func (b *UnitSecondsBuilder) Build() UnitSeconds {
 	return b.v
 }
 
-func (b *TimeSpanBuilder) TimeSpan(value TimeSpan) *TimeSpanBuilder {
+func (b *UnitSecondsBuilder) UnitSeconds(value UnitSeconds) *UnitSecondsBuilder {
 	b.v = value
 	return b
 }

@@ -15,16 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // TranslogRetention type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/indices/_types/IndexSettings.ts#L368-L387
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/indices/_types/IndexSettings.ts#L373-L392
 type TranslogRetention struct {
 	// Age This controls the maximum duration for which translog files are kept by each
 	// shard. Keeping more
@@ -35,7 +33,7 @@ type TranslogRetention struct {
 	// is ignored, and should not be set, if soft deletes are enabled. Soft deletes
 	// are enabled by default in
 	// indices created in Elasticsearch versions 7.0.0 and later.
-	Age *Time `json:"age,omitempty"`
+	Age *Duration `json:"age,omitempty"`
 	// Size This controls the total size of translog files to keep for each shard.
 	// Keeping more translog files increases
 	// the chance of performing an operation based sync when recovering a replica.
@@ -77,7 +75,7 @@ func (rb *TranslogRetentionBuilder) Build() TranslogRetention {
 // are enabled by default in
 // indices created in Elasticsearch versions 7.0.0 and later.
 
-func (rb *TranslogRetentionBuilder) Age(age *TimeBuilder) *TranslogRetentionBuilder {
+func (rb *TranslogRetentionBuilder) Age(age *DurationBuilder) *TranslogRetentionBuilder {
 	v := age.Build()
 	rb.v.Age = &v
 	return rb

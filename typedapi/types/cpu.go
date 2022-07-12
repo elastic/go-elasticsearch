@@ -15,25 +15,23 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // Cpu type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/nodes/_types/Stats.ts#L211-L220
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/nodes/_types/Stats.ts#L212-L221
 type Cpu struct {
-	LoadAverage   map[string]float64 `json:"load_average,omitempty"`
-	Percent       *int               `json:"percent,omitempty"`
-	Sys           *string            `json:"sys,omitempty"`
-	SysInMillis   *int64             `json:"sys_in_millis,omitempty"`
-	Total         *string            `json:"total,omitempty"`
-	TotalInMillis *int64             `json:"total_in_millis,omitempty"`
-	User          *string            `json:"user,omitempty"`
-	UserInMillis  *int64             `json:"user_in_millis,omitempty"`
+	LoadAverage   map[string]float64       `json:"load_average,omitempty"`
+	Percent       *int                     `json:"percent,omitempty"`
+	Sys           *Duration                `json:"sys,omitempty"`
+	SysInMillis   *DurationValueUnitMillis `json:"sys_in_millis,omitempty"`
+	Total         *Duration                `json:"total,omitempty"`
+	TotalInMillis *DurationValueUnitMillis `json:"total_in_millis,omitempty"`
+	User          *Duration                `json:"user,omitempty"`
+	UserInMillis  *DurationValueUnitMillis `json:"user_in_millis,omitempty"`
 }
 
 // CpuBuilder holds Cpu struct and provides a builder API.
@@ -67,32 +65,38 @@ func (rb *CpuBuilder) Percent(percent int) *CpuBuilder {
 	return rb
 }
 
-func (rb *CpuBuilder) Sys(sys string) *CpuBuilder {
-	rb.v.Sys = &sys
+func (rb *CpuBuilder) Sys(sys *DurationBuilder) *CpuBuilder {
+	v := sys.Build()
+	rb.v.Sys = &v
 	return rb
 }
 
-func (rb *CpuBuilder) SysInMillis(sysinmillis int64) *CpuBuilder {
-	rb.v.SysInMillis = &sysinmillis
+func (rb *CpuBuilder) SysInMillis(sysinmillis *DurationValueUnitMillisBuilder) *CpuBuilder {
+	v := sysinmillis.Build()
+	rb.v.SysInMillis = &v
 	return rb
 }
 
-func (rb *CpuBuilder) Total(total string) *CpuBuilder {
-	rb.v.Total = &total
+func (rb *CpuBuilder) Total(total *DurationBuilder) *CpuBuilder {
+	v := total.Build()
+	rb.v.Total = &v
 	return rb
 }
 
-func (rb *CpuBuilder) TotalInMillis(totalinmillis int64) *CpuBuilder {
-	rb.v.TotalInMillis = &totalinmillis
+func (rb *CpuBuilder) TotalInMillis(totalinmillis *DurationValueUnitMillisBuilder) *CpuBuilder {
+	v := totalinmillis.Build()
+	rb.v.TotalInMillis = &v
 	return rb
 }
 
-func (rb *CpuBuilder) User(user string) *CpuBuilder {
-	rb.v.User = &user
+func (rb *CpuBuilder) User(user *DurationBuilder) *CpuBuilder {
+	v := user.Build()
+	rb.v.User = &v
 	return rb
 }
 
-func (rb *CpuBuilder) UserInMillis(userinmillis int64) *CpuBuilder {
-	rb.v.UserInMillis = &userinmillis
+func (rb *CpuBuilder) UserInMillis(userinmillis *DurationValueUnitMillisBuilder) *CpuBuilder {
+	v := userinmillis.Build()
+	rb.v.UserInMillis = &v
 	return rb
 }

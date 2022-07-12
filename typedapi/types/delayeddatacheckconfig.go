@@ -15,16 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // DelayedDataCheckConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ml/_types/Datafeed.ts#L108-L119
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ml/_types/Datafeed.ts#L119-L130
 type DelayedDataCheckConfig struct {
 	// CheckWindow The window of time that is searched for late data. This window of time ends
 	// with the latest finalized bucket.
@@ -32,7 +30,7 @@ type DelayedDataCheckConfig struct {
 	// calculated when the real-time datafeed runs.
 	// In particular, the default `check_window` span calculation is based on the
 	// maximum of `2h` or `8 * bucket_span`.
-	CheckWindow *Time `json:"check_window,omitempty"`
+	CheckWindow *Duration `json:"check_window,omitempty"`
 	// Enabled Specifies whether the datafeed periodically checks for delayed data.
 	Enabled bool `json:"enabled"`
 }
@@ -63,7 +61,7 @@ func (rb *DelayedDataCheckConfigBuilder) Build() DelayedDataCheckConfig {
 // In particular, the default `check_window` span calculation is based on the
 // maximum of `2h` or `8 * bucket_span`.
 
-func (rb *DelayedDataCheckConfigBuilder) CheckWindow(checkwindow *TimeBuilder) *DelayedDataCheckConfigBuilder {
+func (rb *DelayedDataCheckConfigBuilder) CheckWindow(checkwindow *DurationBuilder) *DelayedDataCheckConfigBuilder {
 	v := checkwindow.Build()
 	rb.v.CheckWindow = &v
 	return rb

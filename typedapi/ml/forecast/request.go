@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package forecast
 
@@ -31,14 +29,14 @@ import (
 
 // Request holds the request body struct for the package forecast
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ml/forecast/MlForecastJobRequest.ts#L24-L87
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ml/forecast/MlForecastJobRequest.ts#L24-L87
 type Request struct {
 
 	// Duration Refer to the description for the `duration` query parameter.
-	Duration *types.Time `json:"duration,omitempty"`
+	Duration *types.Duration `json:"duration,omitempty"`
 
 	// ExpiresIn Refer to the description for the `expires_in` query parameter.
-	ExpiresIn *types.Time `json:"expires_in,omitempty"`
+	ExpiresIn *types.Duration `json:"expires_in,omitempty"`
 
 	// MaxModelMemory Refer to the description for the `max_model_memory` query parameter.
 	MaxModelMemory *string `json:"max_model_memory,omitempty"`
@@ -74,13 +72,13 @@ func (rb *RequestBuilder) Build() *Request {
 	return rb.v
 }
 
-func (rb *RequestBuilder) Duration(duration *types.TimeBuilder) *RequestBuilder {
+func (rb *RequestBuilder) Duration(duration *types.DurationBuilder) *RequestBuilder {
 	v := duration.Build()
 	rb.v.Duration = &v
 	return rb
 }
 
-func (rb *RequestBuilder) ExpiresIn(expiresin *types.TimeBuilder) *RequestBuilder {
+func (rb *RequestBuilder) ExpiresIn(expiresin *types.DurationBuilder) *RequestBuilder {
 	v := expiresin.Build()
 	rb.v.ExpiresIn = &v
 	return rb

@@ -15,20 +15,29 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
+import (
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/termsaggregationcollectmode"
+)
+
 // MultiTermsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_types/aggregations/bucket.ts#L266-L268
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/aggregations/bucket.ts#L262-L271
 type MultiTermsAggregation struct {
-	Meta  *Metadata         `json:"meta,omitempty"`
-	Name  *string           `json:"name,omitempty"`
-	Terms []MultiTermLookup `json:"terms"`
+	CollectMode           *termsaggregationcollectmode.TermsAggregationCollectMode `json:"collect_mode,omitempty"`
+	Meta                  *Metadata                                                `json:"meta,omitempty"`
+	MinDocCount           *int64                                                   `json:"min_doc_count,omitempty"`
+	Name                  *string                                                  `json:"name,omitempty"`
+	Order                 *AggregateOrder                                          `json:"order,omitempty"`
+	ShardMinDocCount      *int64                                                   `json:"shard_min_doc_count,omitempty"`
+	ShardSize             *int                                                     `json:"shard_size,omitempty"`
+	ShowTermDocCountError *bool                                                    `json:"show_term_doc_count_error,omitempty"`
+	Size                  *int                                                     `json:"size,omitempty"`
+	Terms                 []MultiTermLookup                                        `json:"terms"`
 }
 
 // MultiTermsAggregationBuilder holds MultiTermsAggregation struct and provides a builder API.
@@ -50,14 +59,50 @@ func (rb *MultiTermsAggregationBuilder) Build() MultiTermsAggregation {
 	return *rb.v
 }
 
+func (rb *MultiTermsAggregationBuilder) CollectMode(collectmode termsaggregationcollectmode.TermsAggregationCollectMode) *MultiTermsAggregationBuilder {
+	rb.v.CollectMode = &collectmode
+	return rb
+}
+
 func (rb *MultiTermsAggregationBuilder) Meta(meta *MetadataBuilder) *MultiTermsAggregationBuilder {
 	v := meta.Build()
 	rb.v.Meta = &v
 	return rb
 }
 
+func (rb *MultiTermsAggregationBuilder) MinDocCount(mindoccount int64) *MultiTermsAggregationBuilder {
+	rb.v.MinDocCount = &mindoccount
+	return rb
+}
+
 func (rb *MultiTermsAggregationBuilder) Name(name string) *MultiTermsAggregationBuilder {
 	rb.v.Name = &name
+	return rb
+}
+
+func (rb *MultiTermsAggregationBuilder) Order(order *AggregateOrderBuilder) *MultiTermsAggregationBuilder {
+	v := order.Build()
+	rb.v.Order = &v
+	return rb
+}
+
+func (rb *MultiTermsAggregationBuilder) ShardMinDocCount(shardmindoccount int64) *MultiTermsAggregationBuilder {
+	rb.v.ShardMinDocCount = &shardmindoccount
+	return rb
+}
+
+func (rb *MultiTermsAggregationBuilder) ShardSize(shardsize int) *MultiTermsAggregationBuilder {
+	rb.v.ShardSize = &shardsize
+	return rb
+}
+
+func (rb *MultiTermsAggregationBuilder) ShowTermDocCountError(showtermdoccounterror bool) *MultiTermsAggregationBuilder {
+	rb.v.ShowTermDocCountError = &showtermdoccounterror
+	return rb
+}
+
+func (rb *MultiTermsAggregationBuilder) Size(size int) *MultiTermsAggregationBuilder {
+	rb.v.Size = &size
 	return rb
 }
 

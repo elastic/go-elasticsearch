@@ -15,24 +15,22 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // CertificateInformation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ssl/certificates/types.ts#L22-L30
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ssl/certificates/types.ts#L22-L30
 type CertificateInformation struct {
-	Alias         string     `json:"alias,omitempty"`
-	Expiry        DateString `json:"expiry"`
-	Format        string     `json:"format"`
-	HasPrivateKey bool       `json:"has_private_key"`
-	Path          string     `json:"path"`
-	SerialNumber  string     `json:"serial_number"`
-	SubjectDn     string     `json:"subject_dn"`
+	Alias         string   `json:"alias,omitempty"`
+	Expiry        DateTime `json:"expiry"`
+	Format        string   `json:"format"`
+	HasPrivateKey bool     `json:"has_private_key"`
+	Path          string   `json:"path"`
+	SerialNumber  string   `json:"serial_number"`
+	SubjectDn     string   `json:"subject_dn"`
 }
 
 // CertificateInformationBuilder holds CertificateInformation struct and provides a builder API.
@@ -59,8 +57,9 @@ func (rb *CertificateInformationBuilder) Alias(alias string) *CertificateInforma
 	return rb
 }
 
-func (rb *CertificateInformationBuilder) Expiry(expiry DateString) *CertificateInformationBuilder {
-	rb.v.Expiry = expiry
+func (rb *CertificateInformationBuilder) Expiry(expiry *DateTimeBuilder) *CertificateInformationBuilder {
+	v := expiry.Build()
+	rb.v.Expiry = v
 	return rb
 }
 

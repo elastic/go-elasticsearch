@@ -15,41 +15,40 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
-// EpochMillis holds the union for the following types:
-//     int64
+// DateTime holds the union for the following types:
+//     EpochTimeUnitMillis
 //     string
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_types/Time.ts#L30-L30
-type EpochMillis interface{}
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/Time.ts#L22-L27
+type DateTime interface{}
 
-// EpochMillisBuilder holds EpochMillis struct and provides a builder API.
-type EpochMillisBuilder struct {
-	v EpochMillis
+// DateTimeBuilder holds DateTime struct and provides a builder API.
+type DateTimeBuilder struct {
+	v DateTime
 }
 
-// NewEpochMillis provides a builder for the EpochMillis struct.
-func NewEpochMillisBuilder() *EpochMillisBuilder {
-	return &EpochMillisBuilder{}
+// NewDateTime provides a builder for the DateTime struct.
+func NewDateTimeBuilder() *DateTimeBuilder {
+	return &DateTimeBuilder{}
 }
 
-// Build finalize the chain and returns the EpochMillis struct
-func (u *EpochMillisBuilder) Build() EpochMillis {
+// Build finalize the chain and returns the DateTime struct
+func (u *DateTimeBuilder) Build() DateTime {
 	return u.v
 }
 
-func (u *EpochMillisBuilder) Int64(int64 int64) *EpochMillisBuilder {
-	u.v = &int64
+func (u *DateTimeBuilder) EpochTimeUnitMillis(epochtimeunitmillis *EpochTimeUnitMillisBuilder) *DateTimeBuilder {
+	v := epochtimeunitmillis.Build()
+	u.v = &v
 	return u
 }
 
-func (u *EpochMillisBuilder) String(string string) *EpochMillisBuilder {
+func (u *DateTimeBuilder) String(string string) *DateTimeBuilder {
 	u.v = &string
 	return u
 }

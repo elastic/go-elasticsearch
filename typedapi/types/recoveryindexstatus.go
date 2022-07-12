@@ -15,26 +15,24 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // RecoveryIndexStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/indices/recovery/types.ts#L58-L68
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/indices/recovery/types.ts#L64-L74
 type RecoveryIndexStatus struct {
-	Bytes                      *RecoveryBytes `json:"bytes,omitempty"`
-	Files                      RecoveryFiles  `json:"files"`
-	Size                       RecoveryBytes  `json:"size"`
-	SourceThrottleTime         *Time          `json:"source_throttle_time,omitempty"`
-	SourceThrottleTimeInMillis EpochMillis    `json:"source_throttle_time_in_millis"`
-	TargetThrottleTime         *Time          `json:"target_throttle_time,omitempty"`
-	TargetThrottleTimeInMillis EpochMillis    `json:"target_throttle_time_in_millis"`
-	TotalTime                  *Time          `json:"total_time,omitempty"`
-	TotalTimeInMillis          EpochMillis    `json:"total_time_in_millis"`
+	Bytes                      *RecoveryBytes          `json:"bytes,omitempty"`
+	Files                      RecoveryFiles           `json:"files"`
+	Size                       RecoveryBytes           `json:"size"`
+	SourceThrottleTime         *Duration               `json:"source_throttle_time,omitempty"`
+	SourceThrottleTimeInMillis DurationValueUnitMillis `json:"source_throttle_time_in_millis"`
+	TargetThrottleTime         *Duration               `json:"target_throttle_time,omitempty"`
+	TargetThrottleTimeInMillis DurationValueUnitMillis `json:"target_throttle_time_in_millis"`
+	TotalTime                  *Duration               `json:"total_time,omitempty"`
+	TotalTimeInMillis          DurationValueUnitMillis `json:"total_time_in_millis"`
 }
 
 // RecoveryIndexStatusBuilder holds RecoveryIndexStatus struct and provides a builder API.
@@ -74,37 +72,37 @@ func (rb *RecoveryIndexStatusBuilder) Size(size *RecoveryBytesBuilder) *Recovery
 	return rb
 }
 
-func (rb *RecoveryIndexStatusBuilder) SourceThrottleTime(sourcethrottletime *TimeBuilder) *RecoveryIndexStatusBuilder {
+func (rb *RecoveryIndexStatusBuilder) SourceThrottleTime(sourcethrottletime *DurationBuilder) *RecoveryIndexStatusBuilder {
 	v := sourcethrottletime.Build()
 	rb.v.SourceThrottleTime = &v
 	return rb
 }
 
-func (rb *RecoveryIndexStatusBuilder) SourceThrottleTimeInMillis(sourcethrottletimeinmillis *EpochMillisBuilder) *RecoveryIndexStatusBuilder {
+func (rb *RecoveryIndexStatusBuilder) SourceThrottleTimeInMillis(sourcethrottletimeinmillis *DurationValueUnitMillisBuilder) *RecoveryIndexStatusBuilder {
 	v := sourcethrottletimeinmillis.Build()
 	rb.v.SourceThrottleTimeInMillis = v
 	return rb
 }
 
-func (rb *RecoveryIndexStatusBuilder) TargetThrottleTime(targetthrottletime *TimeBuilder) *RecoveryIndexStatusBuilder {
+func (rb *RecoveryIndexStatusBuilder) TargetThrottleTime(targetthrottletime *DurationBuilder) *RecoveryIndexStatusBuilder {
 	v := targetthrottletime.Build()
 	rb.v.TargetThrottleTime = &v
 	return rb
 }
 
-func (rb *RecoveryIndexStatusBuilder) TargetThrottleTimeInMillis(targetthrottletimeinmillis *EpochMillisBuilder) *RecoveryIndexStatusBuilder {
+func (rb *RecoveryIndexStatusBuilder) TargetThrottleTimeInMillis(targetthrottletimeinmillis *DurationValueUnitMillisBuilder) *RecoveryIndexStatusBuilder {
 	v := targetthrottletimeinmillis.Build()
 	rb.v.TargetThrottleTimeInMillis = v
 	return rb
 }
 
-func (rb *RecoveryIndexStatusBuilder) TotalTime(totaltime *TimeBuilder) *RecoveryIndexStatusBuilder {
+func (rb *RecoveryIndexStatusBuilder) TotalTime(totaltime *DurationBuilder) *RecoveryIndexStatusBuilder {
 	v := totaltime.Build()
 	rb.v.TotalTime = &v
 	return rb
 }
 
-func (rb *RecoveryIndexStatusBuilder) TotalTimeInMillis(totaltimeinmillis *EpochMillisBuilder) *RecoveryIndexStatusBuilder {
+func (rb *RecoveryIndexStatusBuilder) TotalTimeInMillis(totaltimeinmillis *DurationValueUnitMillisBuilder) *RecoveryIndexStatusBuilder {
 	v := totaltimeinmillis.Build()
 	rb.v.TotalTimeInMillis = v
 	return rb

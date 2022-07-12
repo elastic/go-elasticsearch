@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
@@ -28,11 +26,11 @@ import (
 
 // TrainedModelConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ml/_types/TrainedModel.ts#L150-L182
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ml/_types/TrainedModel.ts#L156-L188
 type TrainedModelConfig struct {
 	CompressedDefinition *string `json:"compressed_definition,omitempty"`
 	// CreateTime The time when the trained model was created.
-	CreateTime *Time `json:"create_time,omitempty"`
+	CreateTime *DateTime `json:"create_time,omitempty"`
 	// CreatedBy Information on the creator of the trained model.
 	CreatedBy *string `json:"created_by,omitempty"`
 	// DefaultFieldMap Any field map described in the inference configuration takes precedence.
@@ -95,7 +93,7 @@ func (rb *TrainedModelConfigBuilder) CompressedDefinition(compresseddefinition s
 
 // CreateTime The time when the trained model was created.
 
-func (rb *TrainedModelConfigBuilder) CreateTime(createtime *TimeBuilder) *TrainedModelConfigBuilder {
+func (rb *TrainedModelConfigBuilder) CreateTime(createtime *DateTimeBuilder) *TrainedModelConfigBuilder {
 	v := createtime.Build()
 	rb.v.CreateTime = &v
 	return rb

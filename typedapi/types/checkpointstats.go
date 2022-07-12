@@ -15,23 +15,21 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // CheckpointStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/transform/get_transform_stats/types.ts#L62-L69
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/transform/get_transform_stats/types.ts#L68-L75
 type CheckpointStats struct {
-	Checkpoint           int64              `json:"checkpoint"`
-	CheckpointProgress   *TransformProgress `json:"checkpoint_progress,omitempty"`
-	TimeUpperBound       *DateString        `json:"time_upper_bound,omitempty"`
-	TimeUpperBoundMillis *EpochMillis       `json:"time_upper_bound_millis,omitempty"`
-	Timestamp            *DateString        `json:"timestamp,omitempty"`
-	TimestampMillis      *EpochMillis       `json:"timestamp_millis,omitempty"`
+	Checkpoint           int64                `json:"checkpoint"`
+	CheckpointProgress   *TransformProgress   `json:"checkpoint_progress,omitempty"`
+	TimeUpperBound       *DateTime            `json:"time_upper_bound,omitempty"`
+	TimeUpperBoundMillis *EpochTimeUnitMillis `json:"time_upper_bound_millis,omitempty"`
+	Timestamp            *DateTime            `json:"timestamp,omitempty"`
+	TimestampMillis      *EpochTimeUnitMillis `json:"timestamp_millis,omitempty"`
 }
 
 // CheckpointStatsBuilder holds CheckpointStats struct and provides a builder API.
@@ -64,23 +62,25 @@ func (rb *CheckpointStatsBuilder) CheckpointProgress(checkpointprogress *Transfo
 	return rb
 }
 
-func (rb *CheckpointStatsBuilder) TimeUpperBound(timeupperbound DateString) *CheckpointStatsBuilder {
-	rb.v.TimeUpperBound = &timeupperbound
+func (rb *CheckpointStatsBuilder) TimeUpperBound(timeupperbound *DateTimeBuilder) *CheckpointStatsBuilder {
+	v := timeupperbound.Build()
+	rb.v.TimeUpperBound = &v
 	return rb
 }
 
-func (rb *CheckpointStatsBuilder) TimeUpperBoundMillis(timeupperboundmillis *EpochMillisBuilder) *CheckpointStatsBuilder {
+func (rb *CheckpointStatsBuilder) TimeUpperBoundMillis(timeupperboundmillis *EpochTimeUnitMillisBuilder) *CheckpointStatsBuilder {
 	v := timeupperboundmillis.Build()
 	rb.v.TimeUpperBoundMillis = &v
 	return rb
 }
 
-func (rb *CheckpointStatsBuilder) Timestamp(timestamp DateString) *CheckpointStatsBuilder {
-	rb.v.Timestamp = &timestamp
+func (rb *CheckpointStatsBuilder) Timestamp(timestamp *DateTimeBuilder) *CheckpointStatsBuilder {
+	v := timestamp.Build()
+	rb.v.Timestamp = &v
 	return rb
 }
 
-func (rb *CheckpointStatsBuilder) TimestampMillis(timestampmillis *EpochMillisBuilder) *CheckpointStatsBuilder {
+func (rb *CheckpointStatsBuilder) TimestampMillis(timestampmillis *EpochTimeUnitMillisBuilder) *CheckpointStatsBuilder {
 	v := timestampmillis.Build()
 	rb.v.TimestampMillis = &v
 	return rb

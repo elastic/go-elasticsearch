@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
@@ -28,7 +26,7 @@ import (
 
 // DateProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_types/mapping/core.ts#L61-L71
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/mapping/core.ts#L61-L71
 type DateProperty struct {
 	Boost           *float64                       `json:"boost,omitempty"`
 	CopyTo          *Fields                        `json:"copy_to,omitempty"`
@@ -43,7 +41,7 @@ type DateProperty struct {
 	LocalMetadata   *Metadata                      `json:"local_metadata,omitempty"`
 	Locale          *string                        `json:"locale,omitempty"`
 	Meta            map[string]string              `json:"meta,omitempty"`
-	NullValue       *DateString                    `json:"null_value,omitempty"`
+	NullValue       *DateTime                      `json:"null_value,omitempty"`
 	PrecisionStep   *int                           `json:"precision_step,omitempty"`
 	Properties      map[PropertyName]Property      `json:"properties,omitempty"`
 	Similarity      *string                        `json:"similarity,omitempty"`
@@ -148,8 +146,9 @@ func (rb *DatePropertyBuilder) Meta(value map[string]string) *DatePropertyBuilde
 	return rb
 }
 
-func (rb *DatePropertyBuilder) NullValue(nullvalue DateString) *DatePropertyBuilder {
-	rb.v.NullValue = &nullvalue
+func (rb *DatePropertyBuilder) NullValue(nullvalue *DateTimeBuilder) *DatePropertyBuilder {
+	v := nullvalue.Build()
+	rb.v.NullValue = &v
 	return rb
 }
 

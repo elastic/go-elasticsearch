@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 // Analyzes the disk usage of each field of an index or data stream
 package diskusage
@@ -36,8 +34,6 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
-
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/timeunit"
 )
 
 const (
@@ -227,39 +223,11 @@ func (r *DiskUsage) IgnoreUnavailable(b bool) *DiskUsage {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node. If no response is
-// received before the timeout expires, the request fails and returns an error.
-// API name: master_timeout
-func (r *DiskUsage) MasterTimeout(enum timeunit.TimeUnit) *DiskUsage {
-	r.values.Set("master_timeout", enum.String())
-
-	return r
-}
-
-// Timeout Period to wait for a response. If no response is received before the timeout
-// expires, the request fails and returns an error.
-// API name: timeout
-func (r *DiskUsage) Timeout(enum timeunit.TimeUnit) *DiskUsage {
-	r.values.Set("timeout", enum.String())
-
-	return r
-}
-
 // RunExpensiveTasks Analyzing field disk usage is resource-intensive. To use the API, this
 // parameter must be set to true.
 // API name: run_expensive_tasks
 func (r *DiskUsage) RunExpensiveTasks(b bool) *DiskUsage {
 	r.values.Set("run_expensive_tasks", strconv.FormatBool(b))
-
-	return r
-}
-
-// WaitForActiveShards The number of shard copies that must be active before proceeding with the
-// operation. Set to all or any positive integer up to the total number of
-// shards in the index (number_of_replicas+1). Default: 1, the primary shard.
-// API name: wait_for_active_shards
-func (r *DiskUsage) WaitForActiveShards(value string) *DiskUsage {
-	r.values.Set("wait_for_active_shards", value)
 
 	return r
 }

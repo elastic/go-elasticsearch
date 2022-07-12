@@ -15,19 +15,17 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // TimeSync type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/transform/_types/Transform.ts#L165-L177
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/transform/_types/Transform.ts#L165-L177
 type TimeSync struct {
 	// Delay The time delay between the current time and the latest input data time.
-	Delay *Time `json:"delay,omitempty"`
+	Delay *Duration `json:"delay,omitempty"`
 	// Field The date field that is used to identify new documents in the source. In
 	// general, it’s a good idea to use a field
 	// that contains the ingest timestamp. If you use a different field, you might
@@ -57,7 +55,7 @@ func (rb *TimeSyncBuilder) Build() TimeSync {
 
 // Delay The time delay between the current time and the latest input data time.
 
-func (rb *TimeSyncBuilder) Delay(delay *TimeBuilder) *TimeSyncBuilder {
+func (rb *TimeSyncBuilder) Delay(delay *DurationBuilder) *TimeSyncBuilder {
 	v := delay.Build()
 	rb.v.Delay = &v
 	return rb

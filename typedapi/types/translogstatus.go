@@ -15,23 +15,21 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // TranslogStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/indices/recovery/types.ts#L94-L101
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/indices/recovery/types.ts#L102-L109
 type TranslogStatus struct {
-	Percent           Percentage  `json:"percent"`
-	Recovered         int64       `json:"recovered"`
-	Total             int64       `json:"total"`
-	TotalOnStart      int64       `json:"total_on_start"`
-	TotalTime         *string     `json:"total_time,omitempty"`
-	TotalTimeInMillis EpochMillis `json:"total_time_in_millis"`
+	Percent           Percentage              `json:"percent"`
+	Recovered         int64                   `json:"recovered"`
+	Total             int64                   `json:"total"`
+	TotalOnStart      int64                   `json:"total_on_start"`
+	TotalTime         *Duration               `json:"total_time,omitempty"`
+	TotalTimeInMillis DurationValueUnitMillis `json:"total_time_in_millis"`
 }
 
 // TranslogStatusBuilder holds TranslogStatus struct and provides a builder API.
@@ -74,12 +72,13 @@ func (rb *TranslogStatusBuilder) TotalOnStart(totalonstart int64) *TranslogStatu
 	return rb
 }
 
-func (rb *TranslogStatusBuilder) TotalTime(totaltime string) *TranslogStatusBuilder {
-	rb.v.TotalTime = &totaltime
+func (rb *TranslogStatusBuilder) TotalTime(totaltime *DurationBuilder) *TranslogStatusBuilder {
+	v := totaltime.Build()
+	rb.v.TotalTime = &v
 	return rb
 }
 
-func (rb *TranslogStatusBuilder) TotalTimeInMillis(totaltimeinmillis *EpochMillisBuilder) *TranslogStatusBuilder {
+func (rb *TranslogStatusBuilder) TotalTimeInMillis(totaltimeinmillis *DurationValueUnitMillisBuilder) *TranslogStatusBuilder {
 	v := totaltimeinmillis.Build()
 	rb.v.TotalTimeInMillis = v
 	return rb

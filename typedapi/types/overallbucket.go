@@ -15,20 +15,18 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // OverallBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ml/_types/Bucket.ts#L114-L127
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ml/_types/Bucket.ts#L130-L145
 type OverallBucket struct {
 	// BucketSpan The length of the bucket in seconds. Matches the job with the longest
 	// bucket_span value.
-	BucketSpan int64 `json:"bucket_span"`
+	BucketSpan DurationValueUnitSeconds `json:"bucket_span"`
 	// IsInterim If true, this is an interim result. In other words, the results are
 	// calculated based on partial input data.
 	IsInterim bool `json:"is_interim"`
@@ -39,7 +37,9 @@ type OverallBucket struct {
 	// ResultType Internal. This is always set to overall_bucket.
 	ResultType string `json:"result_type"`
 	// Timestamp The start time of the bucket for which these results were calculated.
-	Timestamp Time `json:"timestamp"`
+	Timestamp EpochTimeUnitMillis `json:"timestamp"`
+	// TimestampString The start time of the bucket for which these results were calculated.
+	TimestampString DateTime `json:"timestamp_string"`
 }
 
 // OverallBucketBuilder holds OverallBucket struct and provides a builder API.
@@ -64,8 +64,9 @@ func (rb *OverallBucketBuilder) Build() OverallBucket {
 // BucketSpan The length of the bucket in seconds. Matches the job with the longest
 // bucket_span value.
 
-func (rb *OverallBucketBuilder) BucketSpan(bucketspan int64) *OverallBucketBuilder {
-	rb.v.BucketSpan = bucketspan
+func (rb *OverallBucketBuilder) BucketSpan(bucketspan *DurationValueUnitSecondsBuilder) *OverallBucketBuilder {
+	v := bucketspan.Build()
+	rb.v.BucketSpan = v
 	return rb
 }
 
@@ -104,8 +105,16 @@ func (rb *OverallBucketBuilder) ResultType(resulttype string) *OverallBucketBuil
 
 // Timestamp The start time of the bucket for which these results were calculated.
 
-func (rb *OverallBucketBuilder) Timestamp(timestamp *TimeBuilder) *OverallBucketBuilder {
+func (rb *OverallBucketBuilder) Timestamp(timestamp *EpochTimeUnitMillisBuilder) *OverallBucketBuilder {
 	v := timestamp.Build()
 	rb.v.Timestamp = v
+	return rb
+}
+
+// TimestampString The start time of the bucket for which these results were calculated.
+
+func (rb *OverallBucketBuilder) TimestampString(timestampstring *DateTimeBuilder) *OverallBucketBuilder {
+	v := timestampstring.Build()
+	rb.v.TimestampString = v
 	return rb
 }

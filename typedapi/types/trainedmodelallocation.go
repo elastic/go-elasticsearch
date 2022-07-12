@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
@@ -28,14 +26,14 @@ import (
 
 // TrainedModelAllocation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ml/_types/TrainedModel.ts#L341-L355
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ml/_types/TrainedModel.ts#L347-L361
 type TrainedModelAllocation struct {
 	// AllocationState The overall allocation state.
 	AllocationState deploymentallocationstate.DeploymentAllocationState `json:"allocation_state"`
 	// RoutingTable The allocation state for each node.
 	RoutingTable map[string]TrainedModelAllocationRoutingTable `json:"routing_table"`
 	// StartTime The timestamp when the deployment started.
-	StartTime      DateString                           `json:"start_time"`
+	StartTime      DateTime                             `json:"start_time"`
 	TaskParameters TrainedModelAllocationTaskParameters `json:"task_parameters"`
 }
 
@@ -80,8 +78,9 @@ func (rb *TrainedModelAllocationBuilder) RoutingTable(values map[string]*Trained
 
 // StartTime The timestamp when the deployment started.
 
-func (rb *TrainedModelAllocationBuilder) StartTime(starttime DateString) *TrainedModelAllocationBuilder {
-	rb.v.StartTime = starttime
+func (rb *TrainedModelAllocationBuilder) StartTime(starttime *DateTimeBuilder) *TrainedModelAllocationBuilder {
+	v := starttime.Build()
+	rb.v.StartTime = v
 	return rb
 }
 

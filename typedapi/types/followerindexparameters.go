@@ -15,27 +15,25 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // FollowerIndexParameters type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ccr/follow_info/types.ts#L38-L49
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ccr/follow_info/types.ts#L38-L49
 type FollowerIndexParameters struct {
-	MaxOutstandingReadRequests    int    `json:"max_outstanding_read_requests"`
-	MaxOutstandingWriteRequests   int    `json:"max_outstanding_write_requests"`
-	MaxReadRequestOperationCount  int    `json:"max_read_request_operation_count"`
-	MaxReadRequestSize            string `json:"max_read_request_size"`
-	MaxRetryDelay                 Time   `json:"max_retry_delay"`
-	MaxWriteBufferCount           int    `json:"max_write_buffer_count"`
-	MaxWriteBufferSize            string `json:"max_write_buffer_size"`
-	MaxWriteRequestOperationCount int    `json:"max_write_request_operation_count"`
-	MaxWriteRequestSize           string `json:"max_write_request_size"`
-	ReadPollTimeout               Time   `json:"read_poll_timeout"`
+	MaxOutstandingReadRequests    int      `json:"max_outstanding_read_requests"`
+	MaxOutstandingWriteRequests   int      `json:"max_outstanding_write_requests"`
+	MaxReadRequestOperationCount  int      `json:"max_read_request_operation_count"`
+	MaxReadRequestSize            string   `json:"max_read_request_size"`
+	MaxRetryDelay                 Duration `json:"max_retry_delay"`
+	MaxWriteBufferCount           int      `json:"max_write_buffer_count"`
+	MaxWriteBufferSize            string   `json:"max_write_buffer_size"`
+	MaxWriteRequestOperationCount int      `json:"max_write_request_operation_count"`
+	MaxWriteRequestSize           string   `json:"max_write_request_size"`
+	ReadPollTimeout               Duration `json:"read_poll_timeout"`
 }
 
 // FollowerIndexParametersBuilder holds FollowerIndexParameters struct and provides a builder API.
@@ -77,7 +75,7 @@ func (rb *FollowerIndexParametersBuilder) MaxReadRequestSize(maxreadrequestsize 
 	return rb
 }
 
-func (rb *FollowerIndexParametersBuilder) MaxRetryDelay(maxretrydelay *TimeBuilder) *FollowerIndexParametersBuilder {
+func (rb *FollowerIndexParametersBuilder) MaxRetryDelay(maxretrydelay *DurationBuilder) *FollowerIndexParametersBuilder {
 	v := maxretrydelay.Build()
 	rb.v.MaxRetryDelay = v
 	return rb
@@ -103,7 +101,7 @@ func (rb *FollowerIndexParametersBuilder) MaxWriteRequestSize(maxwriterequestsiz
 	return rb
 }
 
-func (rb *FollowerIndexParametersBuilder) ReadPollTimeout(readpolltimeout *TimeBuilder) *FollowerIndexParametersBuilder {
+func (rb *FollowerIndexParametersBuilder) ReadPollTimeout(readpolltimeout *DurationBuilder) *FollowerIndexParametersBuilder {
 	v := readpolltimeout.Build()
 	rb.v.ReadPollTimeout = v
 	return rb

@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package createapikey
 
@@ -31,11 +29,11 @@ import (
 
 // Request holds the request body struct for the package createapikey
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/security/create_api_key/SecurityCreateApiKeyRequest.ts#L26-L51
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/security/create_api_key/SecurityCreateApiKeyRequest.ts#L26-L51
 type Request struct {
 
 	// Expiration Expiration time for the API key. By default, API keys never expire.
-	Expiration *types.Time `json:"expiration,omitempty"`
+	Expiration *types.Duration `json:"expiration,omitempty"`
 
 	// Metadata Arbitrary metadata that you want to associate with the API key. It supports
 	// nested data structure. Within the metadata object, keys beginning with _ are
@@ -88,7 +86,7 @@ func (rb *RequestBuilder) Build() *Request {
 	return rb.v
 }
 
-func (rb *RequestBuilder) Expiration(expiration *types.TimeBuilder) *RequestBuilder {
+func (rb *RequestBuilder) Expiration(expiration *types.DurationBuilder) *RequestBuilder {
 	v := expiration.Build()
 	rb.v.Expiration = &v
 	return rb

@@ -15,25 +15,23 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // ClusterRemoteProxyInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/cluster/remote_info/ClusterRemoteInfoResponse.ts#L41-L50
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/cluster/remote_info/ClusterRemoteInfoResponse.ts#L41-L50
 type ClusterRemoteProxyInfo struct {
-	Connected                 bool   `json:"connected"`
-	InitialConnectTimeout     Time   `json:"initial_connect_timeout"`
-	MaxProxySocketConnections int    `json:"max_proxy_socket_connections"`
-	Mode                      string `json:"mode,omitempty"`
-	NumProxySocketsConnected  int    `json:"num_proxy_sockets_connected"`
-	ProxyAddress              string `json:"proxy_address"`
-	ServerName                string `json:"server_name"`
-	SkipUnavailable           bool   `json:"skip_unavailable"`
+	Connected                 bool     `json:"connected"`
+	InitialConnectTimeout     Duration `json:"initial_connect_timeout"`
+	MaxProxySocketConnections int      `json:"max_proxy_socket_connections"`
+	Mode                      string   `json:"mode,omitempty"`
+	NumProxySocketsConnected  int      `json:"num_proxy_sockets_connected"`
+	ProxyAddress              string   `json:"proxy_address"`
+	ServerName                string   `json:"server_name"`
+	SkipUnavailable           bool     `json:"skip_unavailable"`
 }
 
 // ClusterRemoteProxyInfoBuilder holds ClusterRemoteProxyInfo struct and provides a builder API.
@@ -62,7 +60,7 @@ func (rb *ClusterRemoteProxyInfoBuilder) Connected(connected bool) *ClusterRemot
 	return rb
 }
 
-func (rb *ClusterRemoteProxyInfoBuilder) InitialConnectTimeout(initialconnecttimeout *TimeBuilder) *ClusterRemoteProxyInfoBuilder {
+func (rb *ClusterRemoteProxyInfoBuilder) InitialConnectTimeout(initialconnecttimeout *DurationBuilder) *ClusterRemoteProxyInfoBuilder {
 	v := initialconnecttimeout.Build()
 	rb.v.InitialConnectTimeout = v
 	return rb

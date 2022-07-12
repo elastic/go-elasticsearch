@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package scroll
 
@@ -31,11 +29,11 @@ import (
 
 // Request holds the request body struct for the package scroll
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_global/scroll/ScrollRequest.ts#L24-L59
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_global/scroll/ScrollRequest.ts#L24-L59
 type Request struct {
 
 	// Scroll Period to retain the search context for scrolling.
-	Scroll *types.Time `json:"scroll,omitempty"`
+	Scroll *types.Duration `json:"scroll,omitempty"`
 
 	// ScrollId Scroll ID of the search.
 	ScrollId types.ScrollId `json:"scroll_id"`
@@ -71,7 +69,7 @@ func (rb *RequestBuilder) Build() *Request {
 	return rb.v
 }
 
-func (rb *RequestBuilder) Scroll(scroll *types.TimeBuilder) *RequestBuilder {
+func (rb *RequestBuilder) Scroll(scroll *types.DurationBuilder) *RequestBuilder {
 	v := scroll.Build()
 	rb.v.Scroll = &v
 	return rb

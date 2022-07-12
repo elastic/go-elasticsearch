@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package putdatafeed
 
@@ -31,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package putdatafeed
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ml/put_datafeed/MlPutDatafeedRequest.ts#L37-L171
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ml/put_datafeed/MlPutDatafeedRequest.ts#L37-L171
 type Request struct {
 
 	// Aggregations If set, the datafeed performs aggregation searches.
@@ -69,7 +67,7 @@ type Request struct {
 	// results. If the datafeed uses
 	// aggregations, this value must be divisible by the interval of the date
 	// histogram aggregation.
-	Frequency *types.Time `json:"frequency,omitempty"`
+	Frequency *types.Duration `json:"frequency,omitempty"`
 
 	Headers *types.HttpHeaders `json:"headers,omitempty"`
 
@@ -108,7 +106,7 @@ type Request struct {
 	// value is randomly selected between `60s` and `120s`. This randomness improves
 	// the query performance
 	// when there are multiple jobs running on the same node.
-	QueryDelay *types.Time `json:"query_delay,omitempty"`
+	QueryDelay *types.Duration `json:"query_delay,omitempty"`
 
 	// RuntimeMappings Specifies runtime fields for the datafeed search.
 	RuntimeMappings *types.RuntimeFields `json:"runtime_mappings,omitempty"`
@@ -180,7 +178,7 @@ func (rb *RequestBuilder) DelayedDataCheckConfig(delayeddatacheckconfig *types.D
 	return rb
 }
 
-func (rb *RequestBuilder) Frequency(frequency *types.TimeBuilder) *RequestBuilder {
+func (rb *RequestBuilder) Frequency(frequency *types.DurationBuilder) *RequestBuilder {
 	v := frequency.Build()
 	rb.v.Frequency = &v
 	return rb
@@ -220,7 +218,7 @@ func (rb *RequestBuilder) Query(query *types.QueryContainerBuilder) *RequestBuil
 	return rb
 }
 
-func (rb *RequestBuilder) QueryDelay(querydelay *types.TimeBuilder) *RequestBuilder {
+func (rb *RequestBuilder) QueryDelay(querydelay *types.DurationBuilder) *RequestBuilder {
 	v := querydelay.Build()
 	rb.v.QueryDelay = &v
 	return rb

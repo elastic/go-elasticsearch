@@ -15,22 +15,20 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // RemoteSource type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_global/reindex/types.ts#L59-L66
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_global/reindex/types.ts#L59-L66
 type RemoteSource struct {
-	ConnectTimeout *Time             `json:"connect_timeout,omitempty"`
+	ConnectTimeout *Duration         `json:"connect_timeout,omitempty"`
 	Headers        map[string]string `json:"headers,omitempty"`
 	Host           Host              `json:"host"`
 	Password       *Password         `json:"password,omitempty"`
-	SocketTimeout  *Time             `json:"socket_timeout,omitempty"`
+	SocketTimeout  *Duration         `json:"socket_timeout,omitempty"`
 	Username       *Username         `json:"username,omitempty"`
 }
 
@@ -55,7 +53,7 @@ func (rb *RemoteSourceBuilder) Build() RemoteSource {
 	return *rb.v
 }
 
-func (rb *RemoteSourceBuilder) ConnectTimeout(connecttimeout *TimeBuilder) *RemoteSourceBuilder {
+func (rb *RemoteSourceBuilder) ConnectTimeout(connecttimeout *DurationBuilder) *RemoteSourceBuilder {
 	v := connecttimeout.Build()
 	rb.v.ConnectTimeout = &v
 	return rb
@@ -76,7 +74,7 @@ func (rb *RemoteSourceBuilder) Password(password Password) *RemoteSourceBuilder 
 	return rb
 }
 
-func (rb *RemoteSourceBuilder) SocketTimeout(sockettimeout *TimeBuilder) *RemoteSourceBuilder {
+func (rb *RemoteSourceBuilder) SocketTimeout(sockettimeout *DurationBuilder) *RemoteSourceBuilder {
 	v := sockettimeout.Build()
 	rb.v.SocketTimeout = &v
 	return rb

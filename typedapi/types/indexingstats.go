@@ -15,30 +15,28 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // IndexingStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_types/Stats.ts#L100-L115
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/Stats.ts#L101-L116
 type IndexingStats struct {
 	DeleteCurrent        int64                    `json:"delete_current"`
-	DeleteTime           *string                  `json:"delete_time,omitempty"`
-	DeleteTimeInMillis   int64                    `json:"delete_time_in_millis"`
+	DeleteTime           *Duration                `json:"delete_time,omitempty"`
+	DeleteTimeInMillis   DurationValueUnitMillis  `json:"delete_time_in_millis"`
 	DeleteTotal          int64                    `json:"delete_total"`
 	IndexCurrent         int64                    `json:"index_current"`
 	IndexFailed          int64                    `json:"index_failed"`
-	IndexTime            *string                  `json:"index_time,omitempty"`
-	IndexTimeInMillis    int64                    `json:"index_time_in_millis"`
+	IndexTime            *Duration                `json:"index_time,omitempty"`
+	IndexTimeInMillis    DurationValueUnitMillis  `json:"index_time_in_millis"`
 	IndexTotal           int64                    `json:"index_total"`
 	IsThrottled          bool                     `json:"is_throttled"`
 	NoopUpdateTotal      int64                    `json:"noop_update_total"`
-	ThrottleTime         *string                  `json:"throttle_time,omitempty"`
-	ThrottleTimeInMillis int64                    `json:"throttle_time_in_millis"`
+	ThrottleTime         *Duration                `json:"throttle_time,omitempty"`
+	ThrottleTimeInMillis DurationValueUnitMillis  `json:"throttle_time_in_millis"`
 	Types                map[string]IndexingStats `json:"types,omitempty"`
 }
 
@@ -68,13 +66,15 @@ func (rb *IndexingStatsBuilder) DeleteCurrent(deletecurrent int64) *IndexingStat
 	return rb
 }
 
-func (rb *IndexingStatsBuilder) DeleteTime(deletetime string) *IndexingStatsBuilder {
-	rb.v.DeleteTime = &deletetime
+func (rb *IndexingStatsBuilder) DeleteTime(deletetime *DurationBuilder) *IndexingStatsBuilder {
+	v := deletetime.Build()
+	rb.v.DeleteTime = &v
 	return rb
 }
 
-func (rb *IndexingStatsBuilder) DeleteTimeInMillis(deletetimeinmillis int64) *IndexingStatsBuilder {
-	rb.v.DeleteTimeInMillis = deletetimeinmillis
+func (rb *IndexingStatsBuilder) DeleteTimeInMillis(deletetimeinmillis *DurationValueUnitMillisBuilder) *IndexingStatsBuilder {
+	v := deletetimeinmillis.Build()
+	rb.v.DeleteTimeInMillis = v
 	return rb
 }
 
@@ -93,13 +93,15 @@ func (rb *IndexingStatsBuilder) IndexFailed(indexfailed int64) *IndexingStatsBui
 	return rb
 }
 
-func (rb *IndexingStatsBuilder) IndexTime(indextime string) *IndexingStatsBuilder {
-	rb.v.IndexTime = &indextime
+func (rb *IndexingStatsBuilder) IndexTime(indextime *DurationBuilder) *IndexingStatsBuilder {
+	v := indextime.Build()
+	rb.v.IndexTime = &v
 	return rb
 }
 
-func (rb *IndexingStatsBuilder) IndexTimeInMillis(indextimeinmillis int64) *IndexingStatsBuilder {
-	rb.v.IndexTimeInMillis = indextimeinmillis
+func (rb *IndexingStatsBuilder) IndexTimeInMillis(indextimeinmillis *DurationValueUnitMillisBuilder) *IndexingStatsBuilder {
+	v := indextimeinmillis.Build()
+	rb.v.IndexTimeInMillis = v
 	return rb
 }
 
@@ -118,13 +120,15 @@ func (rb *IndexingStatsBuilder) NoopUpdateTotal(noopupdatetotal int64) *Indexing
 	return rb
 }
 
-func (rb *IndexingStatsBuilder) ThrottleTime(throttletime string) *IndexingStatsBuilder {
-	rb.v.ThrottleTime = &throttletime
+func (rb *IndexingStatsBuilder) ThrottleTime(throttletime *DurationBuilder) *IndexingStatsBuilder {
+	v := throttletime.Build()
+	rb.v.ThrottleTime = &v
 	return rb
 }
 
-func (rb *IndexingStatsBuilder) ThrottleTimeInMillis(throttletimeinmillis int64) *IndexingStatsBuilder {
-	rb.v.ThrottleTimeInMillis = throttletimeinmillis
+func (rb *IndexingStatsBuilder) ThrottleTimeInMillis(throttletimeinmillis *DurationValueUnitMillisBuilder) *IndexingStatsBuilder {
+	v := throttletimeinmillis.Build()
+	rb.v.ThrottleTimeInMillis = v
 	return rb
 }
 

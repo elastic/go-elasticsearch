@@ -15,21 +15,20 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // ShardsStatsSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/snapshot/_types/SnapshotShardsStatus.ts#L28-L33
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/snapshot/_types/SnapshotShardsStatus.ts#L29-L35
 type ShardsStatsSummary struct {
-	Incremental       ShardsStatsSummaryItem `json:"incremental"`
-	StartTimeInMillis int64                  `json:"start_time_in_millis"`
-	TimeInMillis      int64                  `json:"time_in_millis"`
-	Total             ShardsStatsSummaryItem `json:"total"`
+	Incremental       ShardsStatsSummaryItem  `json:"incremental"`
+	StartTimeInMillis EpochTimeUnitMillis     `json:"start_time_in_millis"`
+	Time              *Duration               `json:"time,omitempty"`
+	TimeInMillis      DurationValueUnitMillis `json:"time_in_millis"`
+	Total             ShardsStatsSummaryItem  `json:"total"`
 }
 
 // ShardsStatsSummaryBuilder holds ShardsStatsSummary struct and provides a builder API.
@@ -57,13 +56,21 @@ func (rb *ShardsStatsSummaryBuilder) Incremental(incremental *ShardsStatsSummary
 	return rb
 }
 
-func (rb *ShardsStatsSummaryBuilder) StartTimeInMillis(starttimeinmillis int64) *ShardsStatsSummaryBuilder {
-	rb.v.StartTimeInMillis = starttimeinmillis
+func (rb *ShardsStatsSummaryBuilder) StartTimeInMillis(starttimeinmillis *EpochTimeUnitMillisBuilder) *ShardsStatsSummaryBuilder {
+	v := starttimeinmillis.Build()
+	rb.v.StartTimeInMillis = v
 	return rb
 }
 
-func (rb *ShardsStatsSummaryBuilder) TimeInMillis(timeinmillis int64) *ShardsStatsSummaryBuilder {
-	rb.v.TimeInMillis = timeinmillis
+func (rb *ShardsStatsSummaryBuilder) Time(time *DurationBuilder) *ShardsStatsSummaryBuilder {
+	v := time.Build()
+	rb.v.Time = &v
+	return rb
+}
+
+func (rb *ShardsStatsSummaryBuilder) TimeInMillis(timeinmillis *DurationValueUnitMillisBuilder) *ShardsStatsSummaryBuilder {
+	v := timeinmillis.Build()
+	rb.v.TimeInMillis = v
 	return rb
 }
 

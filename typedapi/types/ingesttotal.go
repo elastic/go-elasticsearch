@@ -15,22 +15,20 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // IngestTotal type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/nodes/_types/Stats.ts#L142-L148
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/nodes/_types/Stats.ts#L143-L149
 type IngestTotal struct {
 	Count        *int64                      `json:"count,omitempty"`
 	Current      *int64                      `json:"current,omitempty"`
 	Failed       *int64                      `json:"failed,omitempty"`
 	Processors   []map[string]KeyedProcessor `json:"processors,omitempty"`
-	TimeInMillis *int64                      `json:"time_in_millis,omitempty"`
+	TimeInMillis *DurationValueUnitMillis    `json:"time_in_millis,omitempty"`
 }
 
 // IngestTotalBuilder holds IngestTotal struct and provides a builder API.
@@ -72,7 +70,8 @@ func (rb *IngestTotalBuilder) Processors(value ...map[string]KeyedProcessor) *In
 	return rb
 }
 
-func (rb *IngestTotalBuilder) TimeInMillis(timeinmillis int64) *IngestTotalBuilder {
-	rb.v.TimeInMillis = &timeinmillis
+func (rb *IngestTotalBuilder) TimeInMillis(timeinmillis *DurationValueUnitMillisBuilder) *IngestTotalBuilder {
+	v := timeinmillis.Build()
+	rb.v.TimeInMillis = &v
 	return rb
 }

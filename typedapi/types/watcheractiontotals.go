@@ -15,19 +15,17 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // WatcherActionTotals type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/xpack/usage/types.ts#L400-L403
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/xpack/usage/types.ts#L401-L404
 type WatcherActionTotals struct {
-	Total         int64 `json:"total"`
-	TotalTimeInMs int64 `json:"total_time_in_ms"`
+	Total         Duration                `json:"total"`
+	TotalTimeInMs DurationValueUnitMillis `json:"total_time_in_ms"`
 }
 
 // WatcherActionTotalsBuilder holds WatcherActionTotals struct and provides a builder API.
@@ -49,12 +47,14 @@ func (rb *WatcherActionTotalsBuilder) Build() WatcherActionTotals {
 	return *rb.v
 }
 
-func (rb *WatcherActionTotalsBuilder) Total(total int64) *WatcherActionTotalsBuilder {
-	rb.v.Total = total
+func (rb *WatcherActionTotalsBuilder) Total(total *DurationBuilder) *WatcherActionTotalsBuilder {
+	v := total.Build()
+	rb.v.Total = v
 	return rb
 }
 
-func (rb *WatcherActionTotalsBuilder) TotalTimeInMs(totaltimeinms int64) *WatcherActionTotalsBuilder {
-	rb.v.TotalTimeInMs = totaltimeinms
+func (rb *WatcherActionTotalsBuilder) TotalTimeInMs(totaltimeinms *DurationValueUnitMillisBuilder) *WatcherActionTotalsBuilder {
+	v := totaltimeinms.Build()
+	rb.v.TotalTimeInMs = v
 	return rb
 }

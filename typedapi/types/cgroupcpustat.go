@@ -15,20 +15,18 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // CgroupCpuStat type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/nodes/_types/Stats.ts#L199-L203
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/nodes/_types/Stats.ts#L200-L204
 type CgroupCpuStat struct {
-	NumberOfElapsedPeriods *int64 `json:"number_of_elapsed_periods,omitempty"`
-	NumberOfTimesThrottled *int64 `json:"number_of_times_throttled,omitempty"`
-	TimeThrottledNanos     *int64 `json:"time_throttled_nanos,omitempty"`
+	NumberOfElapsedPeriods *int64                  `json:"number_of_elapsed_periods,omitempty"`
+	NumberOfTimesThrottled *int64                  `json:"number_of_times_throttled,omitempty"`
+	TimeThrottledNanos     *DurationValueUnitNanos `json:"time_throttled_nanos,omitempty"`
 }
 
 // CgroupCpuStatBuilder holds CgroupCpuStat struct and provides a builder API.
@@ -60,7 +58,8 @@ func (rb *CgroupCpuStatBuilder) NumberOfTimesThrottled(numberoftimesthrottled in
 	return rb
 }
 
-func (rb *CgroupCpuStatBuilder) TimeThrottledNanos(timethrottlednanos int64) *CgroupCpuStatBuilder {
-	rb.v.TimeThrottledNanos = &timethrottlednanos
+func (rb *CgroupCpuStatBuilder) TimeThrottledNanos(timethrottlednanos *DurationValueUnitNanosBuilder) *CgroupCpuStatBuilder {
+	v := timethrottlednanos.Build()
+	rb.v.TimeThrottledNanos = &v
 	return rb
 }

@@ -15,23 +15,21 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // DataframeAnalyticsStatsHyperparameters type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/ml/_types/DataframeAnalytics.ts#L375-L382
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ml/_types/DataframeAnalytics.ts#L380-L387
 type DataframeAnalyticsStatsHyperparameters struct {
 	Hyperparameters Hyperparameters `json:"hyperparameters"`
 	// Iteration The number of iterations on the analysis.
-	Iteration      int            `json:"iteration"`
-	Timestamp      DateString     `json:"timestamp"`
-	TimingStats    TimingStats    `json:"timing_stats"`
-	ValidationLoss ValidationLoss `json:"validation_loss"`
+	Iteration      int                 `json:"iteration"`
+	Timestamp      EpochTimeUnitMillis `json:"timestamp"`
+	TimingStats    TimingStats         `json:"timing_stats"`
+	ValidationLoss ValidationLoss      `json:"validation_loss"`
 }
 
 // DataframeAnalyticsStatsHyperparametersBuilder holds DataframeAnalyticsStatsHyperparameters struct and provides a builder API.
@@ -66,8 +64,9 @@ func (rb *DataframeAnalyticsStatsHyperparametersBuilder) Iteration(iteration int
 	return rb
 }
 
-func (rb *DataframeAnalyticsStatsHyperparametersBuilder) Timestamp(timestamp DateString) *DataframeAnalyticsStatsHyperparametersBuilder {
-	rb.v.Timestamp = timestamp
+func (rb *DataframeAnalyticsStatsHyperparametersBuilder) Timestamp(timestamp *EpochTimeUnitMillisBuilder) *DataframeAnalyticsStatsHyperparametersBuilder {
+	v := timestamp.Build()
+	rb.v.Timestamp = v
 	return rb
 }
 

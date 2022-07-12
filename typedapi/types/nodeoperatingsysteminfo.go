@@ -15,16 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // NodeOperatingSystemInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/nodes/info/types.ts#L363-L380
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/nodes/info/types.ts#L364-L381
 type NodeOperatingSystemInfo struct {
 	// AllocatedProcessors The number of processors actually used to calculate thread pool size. This
 	// number can be set with the node.processors setting of a node and defaults to
@@ -40,8 +38,8 @@ type NodeOperatingSystemInfo struct {
 	Name       Name `json:"name"`
 	PrettyName Name `json:"pretty_name"`
 	// RefreshIntervalInMillis Refresh interval for the OS statistics
-	RefreshIntervalInMillis int             `json:"refresh_interval_in_millis"`
-	Swap                    *NodeInfoMemory `json:"swap,omitempty"`
+	RefreshIntervalInMillis DurationValueUnitMillis `json:"refresh_interval_in_millis"`
+	Swap                    *NodeInfoMemory         `json:"swap,omitempty"`
 	// Version Version of the operating system
 	Version VersionString `json:"version"`
 }
@@ -114,8 +112,9 @@ func (rb *NodeOperatingSystemInfoBuilder) PrettyName(prettyname Name) *NodeOpera
 
 // RefreshIntervalInMillis Refresh interval for the OS statistics
 
-func (rb *NodeOperatingSystemInfoBuilder) RefreshIntervalInMillis(refreshintervalinmillis int) *NodeOperatingSystemInfoBuilder {
-	rb.v.RefreshIntervalInMillis = refreshintervalinmillis
+func (rb *NodeOperatingSystemInfoBuilder) RefreshIntervalInMillis(refreshintervalinmillis *DurationValueUnitMillisBuilder) *NodeOperatingSystemInfoBuilder {
+	v := refreshintervalinmillis.Build()
+	rb.v.RefreshIntervalInMillis = v
 	return rb
 }
 

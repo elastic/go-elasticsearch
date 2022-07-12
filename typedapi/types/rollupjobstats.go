@@ -15,29 +15,27 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // RollupJobStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/rollup/get_jobs/types.ts#L45-L58
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/rollup/get_jobs/types.ts#L45-L58
 type RollupJobStats struct {
-	DocumentsProcessed int64 `json:"documents_processed"`
-	IndexFailures      int64 `json:"index_failures"`
-	IndexTimeInMs      int64 `json:"index_time_in_ms"`
-	IndexTotal         int64 `json:"index_total"`
-	PagesProcessed     int64 `json:"pages_processed"`
-	ProcessingTimeInMs int64 `json:"processing_time_in_ms"`
-	ProcessingTotal    int64 `json:"processing_total"`
-	RollupsIndexed     int64 `json:"rollups_indexed"`
-	SearchFailures     int64 `json:"search_failures"`
-	SearchTimeInMs     int64 `json:"search_time_in_ms"`
-	SearchTotal        int64 `json:"search_total"`
-	TriggerCount       int64 `json:"trigger_count"`
+	DocumentsProcessed int64                   `json:"documents_processed"`
+	IndexFailures      int64                   `json:"index_failures"`
+	IndexTimeInMs      DurationValueUnitMillis `json:"index_time_in_ms"`
+	IndexTotal         int64                   `json:"index_total"`
+	PagesProcessed     int64                   `json:"pages_processed"`
+	ProcessingTimeInMs DurationValueUnitMillis `json:"processing_time_in_ms"`
+	ProcessingTotal    int64                   `json:"processing_total"`
+	RollupsIndexed     int64                   `json:"rollups_indexed"`
+	SearchFailures     int64                   `json:"search_failures"`
+	SearchTimeInMs     DurationValueUnitMillis `json:"search_time_in_ms"`
+	SearchTotal        int64                   `json:"search_total"`
+	TriggerCount       int64                   `json:"trigger_count"`
 }
 
 // RollupJobStatsBuilder holds RollupJobStats struct and provides a builder API.
@@ -69,8 +67,9 @@ func (rb *RollupJobStatsBuilder) IndexFailures(indexfailures int64) *RollupJobSt
 	return rb
 }
 
-func (rb *RollupJobStatsBuilder) IndexTimeInMs(indextimeinms int64) *RollupJobStatsBuilder {
-	rb.v.IndexTimeInMs = indextimeinms
+func (rb *RollupJobStatsBuilder) IndexTimeInMs(indextimeinms *DurationValueUnitMillisBuilder) *RollupJobStatsBuilder {
+	v := indextimeinms.Build()
+	rb.v.IndexTimeInMs = v
 	return rb
 }
 
@@ -84,8 +83,9 @@ func (rb *RollupJobStatsBuilder) PagesProcessed(pagesprocessed int64) *RollupJob
 	return rb
 }
 
-func (rb *RollupJobStatsBuilder) ProcessingTimeInMs(processingtimeinms int64) *RollupJobStatsBuilder {
-	rb.v.ProcessingTimeInMs = processingtimeinms
+func (rb *RollupJobStatsBuilder) ProcessingTimeInMs(processingtimeinms *DurationValueUnitMillisBuilder) *RollupJobStatsBuilder {
+	v := processingtimeinms.Build()
+	rb.v.ProcessingTimeInMs = v
 	return rb
 }
 
@@ -104,8 +104,9 @@ func (rb *RollupJobStatsBuilder) SearchFailures(searchfailures int64) *RollupJob
 	return rb
 }
 
-func (rb *RollupJobStatsBuilder) SearchTimeInMs(searchtimeinms int64) *RollupJobStatsBuilder {
-	rb.v.SearchTimeInMs = searchtimeinms
+func (rb *RollupJobStatsBuilder) SearchTimeInMs(searchtimeinms *DurationValueUnitMillisBuilder) *RollupJobStatsBuilder {
+	v := searchtimeinms.Build()
+	rb.v.SearchTimeInMs = v
 	return rb
 }
 

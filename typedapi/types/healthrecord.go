@@ -15,23 +15,21 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // HealthRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/cat/health/types.ts#L22-L93
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/cat/health/types.ts#L23-L94
 type HealthRecord struct {
 	// ActiveShardsPercent active number of shards in percent
 	ActiveShardsPercent *string `json:"active_shards_percent,omitempty"`
 	// Cluster cluster name
 	Cluster *string `json:"cluster,omitempty"`
-	// Epoch seconds since 1969-01-01 00:00:00
-	Epoch *EpochMillis `json:"epoch,omitempty"`
+	// Epoch seconds since 1970-01-01 00:00:00
+	Epoch *StringifiedEpochTimeUnitSeconds `json:"epoch,omitempty"`
 	// Init number of initializing nodes
 	Init *string `json:"init,omitempty"`
 	// MaxTaskWaitTime wait time of longest task pending
@@ -51,7 +49,7 @@ type HealthRecord struct {
 	// Status health status
 	Status *string `json:"status,omitempty"`
 	// Timestamp time in HH:MM:SS
-	Timestamp *DateString `json:"timestamp,omitempty"`
+	Timestamp *TimeOfDay `json:"timestamp,omitempty"`
 	// Unassign number of unassigned shards
 	Unassign *string `json:"unassign,omitempty"`
 }
@@ -89,9 +87,9 @@ func (rb *HealthRecordBuilder) Cluster(cluster string) *HealthRecordBuilder {
 	return rb
 }
 
-// Epoch seconds since 1969-01-01 00:00:00
+// Epoch seconds since 1970-01-01 00:00:00
 
-func (rb *HealthRecordBuilder) Epoch(epoch *EpochMillisBuilder) *HealthRecordBuilder {
+func (rb *HealthRecordBuilder) Epoch(epoch *StringifiedEpochTimeUnitSecondsBuilder) *HealthRecordBuilder {
 	v := epoch.Build()
 	rb.v.Epoch = &v
 	return rb
@@ -162,7 +160,7 @@ func (rb *HealthRecordBuilder) Status(status string) *HealthRecordBuilder {
 
 // Timestamp time in HH:MM:SS
 
-func (rb *HealthRecordBuilder) Timestamp(timestamp DateString) *HealthRecordBuilder {
+func (rb *HealthRecordBuilder) Timestamp(timestamp TimeOfDay) *HealthRecordBuilder {
 	rb.v.Timestamp = &timestamp
 	return rb
 }

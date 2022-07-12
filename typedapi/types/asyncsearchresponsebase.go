@@ -15,22 +15,22 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // AsyncSearchResponseBase type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/async_search/_types/AsyncSearchResponseBase.ts#L24-L30
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/async_search/_types/AsyncSearchResponseBase.ts#L24-L32
 type AsyncSearchResponseBase struct {
-	ExpirationTimeInMillis EpochMillis `json:"expiration_time_in_millis"`
-	Id                     *Id         `json:"id,omitempty"`
-	IsPartial              bool        `json:"is_partial"`
-	IsRunning              bool        `json:"is_running"`
-	StartTimeInMillis      EpochMillis `json:"start_time_in_millis"`
+	ExpirationTime         *DateTime           `json:"expiration_time,omitempty"`
+	ExpirationTimeInMillis EpochTimeUnitMillis `json:"expiration_time_in_millis"`
+	Id                     *Id                 `json:"id,omitempty"`
+	IsPartial              bool                `json:"is_partial"`
+	IsRunning              bool                `json:"is_running"`
+	StartTime              *DateTime           `json:"start_time,omitempty"`
+	StartTimeInMillis      EpochTimeUnitMillis `json:"start_time_in_millis"`
 }
 
 // AsyncSearchResponseBaseBuilder holds AsyncSearchResponseBase struct and provides a builder API.
@@ -52,7 +52,13 @@ func (rb *AsyncSearchResponseBaseBuilder) Build() AsyncSearchResponseBase {
 	return *rb.v
 }
 
-func (rb *AsyncSearchResponseBaseBuilder) ExpirationTimeInMillis(expirationtimeinmillis *EpochMillisBuilder) *AsyncSearchResponseBaseBuilder {
+func (rb *AsyncSearchResponseBaseBuilder) ExpirationTime(expirationtime *DateTimeBuilder) *AsyncSearchResponseBaseBuilder {
+	v := expirationtime.Build()
+	rb.v.ExpirationTime = &v
+	return rb
+}
+
+func (rb *AsyncSearchResponseBaseBuilder) ExpirationTimeInMillis(expirationtimeinmillis *EpochTimeUnitMillisBuilder) *AsyncSearchResponseBaseBuilder {
 	v := expirationtimeinmillis.Build()
 	rb.v.ExpirationTimeInMillis = v
 	return rb
@@ -73,7 +79,13 @@ func (rb *AsyncSearchResponseBaseBuilder) IsRunning(isrunning bool) *AsyncSearch
 	return rb
 }
 
-func (rb *AsyncSearchResponseBaseBuilder) StartTimeInMillis(starttimeinmillis *EpochMillisBuilder) *AsyncSearchResponseBaseBuilder {
+func (rb *AsyncSearchResponseBaseBuilder) StartTime(starttime *DateTimeBuilder) *AsyncSearchResponseBaseBuilder {
+	v := starttime.Build()
+	rb.v.StartTime = &v
+	return rb
+}
+
+func (rb *AsyncSearchResponseBaseBuilder) StartTimeInMillis(starttimeinmillis *EpochTimeUnitMillisBuilder) *AsyncSearchResponseBaseBuilder {
 	v := starttimeinmillis.Build()
 	rb.v.StartTimeInMillis = v
 	return rb

@@ -15,21 +15,19 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // HunspellTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/_types/analysis/token_filters.ts#L198-L204
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/analysis/token_filters.ts#L199-L205
 type HunspellTokenFilter struct {
-	Dedup       bool           `json:"dedup"`
-	Dictionary  string         `json:"dictionary"`
+	Dedup       *bool          `json:"dedup,omitempty"`
+	Dictionary  *string        `json:"dictionary,omitempty"`
 	Locale      string         `json:"locale"`
-	LongestOnly bool           `json:"longest_only"`
+	LongestOnly *bool          `json:"longest_only,omitempty"`
 	Type        string         `json:"type,omitempty"`
 	Version     *VersionString `json:"version,omitempty"`
 }
@@ -56,12 +54,12 @@ func (rb *HunspellTokenFilterBuilder) Build() HunspellTokenFilter {
 }
 
 func (rb *HunspellTokenFilterBuilder) Dedup(dedup bool) *HunspellTokenFilterBuilder {
-	rb.v.Dedup = dedup
+	rb.v.Dedup = &dedup
 	return rb
 }
 
 func (rb *HunspellTokenFilterBuilder) Dictionary(dictionary string) *HunspellTokenFilterBuilder {
-	rb.v.Dictionary = dictionary
+	rb.v.Dictionary = &dictionary
 	return rb
 }
 
@@ -71,7 +69,7 @@ func (rb *HunspellTokenFilterBuilder) Locale(locale string) *HunspellTokenFilter
 }
 
 func (rb *HunspellTokenFilterBuilder) LongestOnly(longestonly bool) *HunspellTokenFilterBuilder {
-	rb.v.LongestOnly = longestonly
+	rb.v.LongestOnly = &longestonly
 	return rb
 }
 

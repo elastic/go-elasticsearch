@@ -15,16 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/135ae054e304239743b5777ad8d41cb2c9091d35
-
+// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
 package types
 
 // AsyncSearch type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/135ae054e304239743b5777ad8d41cb2c9091d35/specification/async_search/_types/AsyncSearch.ts#L30-L45
+// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/async_search/_types/AsyncSearch.ts#L30-L45
 type AsyncSearch struct {
 	Aggregations    map[AggregateName]Aggregate  `json:"aggregations,omitempty"`
 	Clusters_       *ClusterStatistics           `json:"_clusters,omitempty"`
@@ -34,7 +32,7 @@ type AsyncSearch struct {
 	NumReducePhases *int64                       `json:"num_reduce_phases,omitempty"`
 	PitId           *Id                          `json:"pit_id,omitempty"`
 	Profile         *Profile                     `json:"profile,omitempty"`
-	ScrollId_       *Id                          `json:"_scroll_id,omitempty"`
+	ScrollId_       *ScrollId                    `json:"_scroll_id,omitempty"`
 	Shards_         ShardStatistics              `json:"_shards"`
 	Suggest         map[SuggestionName][]Suggest `json:"suggest,omitempty"`
 	TerminatedEarly *bool                        `json:"terminated_early,omitempty"`
@@ -112,7 +110,7 @@ func (rb *AsyncSearchBuilder) Profile(profile *ProfileBuilder) *AsyncSearchBuild
 	return rb
 }
 
-func (rb *AsyncSearchBuilder) ScrollId_(scrollid_ Id) *AsyncSearchBuilder {
+func (rb *AsyncSearchBuilder) ScrollId_(scrollid_ ScrollId) *AsyncSearchBuilder {
 	rb.v.ScrollId_ = &scrollid_
 	return rb
 }
