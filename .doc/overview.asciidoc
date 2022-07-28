@@ -5,7 +5,7 @@ This is the official Go client for {es}.
 
 Full documentation is hosted at 
 https://github.com/elastic/go-elasticsearch[GitHub]
-and https://godoc.org/github.com/elastic/go-elasticsearch[GoDoc]. This 
+and https://pkg.go.dev/github.com/elastic/go-elasticsearch[PkgGoDev]. This 
 documentation provides only an overview of features.
 
 [discrete]
