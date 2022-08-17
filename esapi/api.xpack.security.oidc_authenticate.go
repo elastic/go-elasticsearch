@@ -41,11 +41,9 @@ func newSecurityOidcAuthenticateFunc(t Transport) SecurityOidcAuthenticate {
 // SecurityOidcAuthenticate - Exchanges an OpenID Connection authentication response message for an Elasticsearch access token and refresh token pair
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-oidc-authenticate.html.
-//
 type SecurityOidcAuthenticate func(body io.Reader, o ...func(*SecurityOidcAuthenticateRequest)) (*Response, error)
 
 // SecurityOidcAuthenticateRequest configures the Security Oidc Authenticate API request.
-//
 type SecurityOidcAuthenticateRequest struct {
 	Body io.Reader
 
@@ -60,7 +58,6 @@ type SecurityOidcAuthenticateRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r SecurityOidcAuthenticateRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -140,7 +137,6 @@ func (r SecurityOidcAuthenticateRequest) Do(ctx context.Context, transport Trans
 }
 
 // WithContext sets the request context.
-//
 func (f SecurityOidcAuthenticate) WithContext(v context.Context) func(*SecurityOidcAuthenticateRequest) {
 	return func(r *SecurityOidcAuthenticateRequest) {
 		r.ctx = v
@@ -148,7 +144,6 @@ func (f SecurityOidcAuthenticate) WithContext(v context.Context) func(*SecurityO
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f SecurityOidcAuthenticate) WithPretty() func(*SecurityOidcAuthenticateRequest) {
 	return func(r *SecurityOidcAuthenticateRequest) {
 		r.Pretty = true
@@ -156,7 +151,6 @@ func (f SecurityOidcAuthenticate) WithPretty() func(*SecurityOidcAuthenticateReq
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f SecurityOidcAuthenticate) WithHuman() func(*SecurityOidcAuthenticateRequest) {
 	return func(r *SecurityOidcAuthenticateRequest) {
 		r.Human = true
@@ -164,7 +158,6 @@ func (f SecurityOidcAuthenticate) WithHuman() func(*SecurityOidcAuthenticateRequ
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f SecurityOidcAuthenticate) WithErrorTrace() func(*SecurityOidcAuthenticateRequest) {
 	return func(r *SecurityOidcAuthenticateRequest) {
 		r.ErrorTrace = true
@@ -172,7 +165,6 @@ func (f SecurityOidcAuthenticate) WithErrorTrace() func(*SecurityOidcAuthenticat
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f SecurityOidcAuthenticate) WithFilterPath(v ...string) func(*SecurityOidcAuthenticateRequest) {
 	return func(r *SecurityOidcAuthenticateRequest) {
 		r.FilterPath = v
@@ -180,7 +172,6 @@ func (f SecurityOidcAuthenticate) WithFilterPath(v ...string) func(*SecurityOidc
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f SecurityOidcAuthenticate) WithHeader(h map[string]string) func(*SecurityOidcAuthenticateRequest) {
 	return func(r *SecurityOidcAuthenticateRequest) {
 		if r.Header == nil {
@@ -193,7 +184,6 @@ func (f SecurityOidcAuthenticate) WithHeader(h map[string]string) func(*Security
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f SecurityOidcAuthenticate) WithOpaqueID(s string) func(*SecurityOidcAuthenticateRequest) {
 	return func(r *SecurityOidcAuthenticateRequest) {
 		if r.Header == nil {

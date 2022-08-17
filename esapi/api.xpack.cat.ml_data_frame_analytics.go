@@ -41,11 +41,9 @@ func newCatMLDataFrameAnalyticsFunc(t Transport) CatMLDataFrameAnalytics {
 // CatMLDataFrameAnalytics - Gets configuration and usage information about data frame analytics jobs.
 //
 // See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/cat-dfanalytics.html.
-//
 type CatMLDataFrameAnalytics func(o ...func(*CatMLDataFrameAnalyticsRequest)) (*Response, error)
 
 // CatMLDataFrameAnalyticsRequest configures the CatML Data Frame Analytics API request.
-//
 type CatMLDataFrameAnalyticsRequest struct {
 	DocumentID string
 
@@ -69,7 +67,6 @@ type CatMLDataFrameAnalyticsRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r CatMLDataFrameAnalyticsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -188,7 +185,6 @@ func (r CatMLDataFrameAnalyticsRequest) Do(ctx context.Context, transport Transp
 }
 
 // WithContext sets the request context.
-//
 func (f CatMLDataFrameAnalytics) WithContext(v context.Context) func(*CatMLDataFrameAnalyticsRequest) {
 	return func(r *CatMLDataFrameAnalyticsRequest) {
 		r.ctx = v
@@ -196,7 +192,6 @@ func (f CatMLDataFrameAnalytics) WithContext(v context.Context) func(*CatMLDataF
 }
 
 // WithDocumentID - the ID of the data frame analytics to fetch.
-//
 func (f CatMLDataFrameAnalytics) WithDocumentID(v string) func(*CatMLDataFrameAnalyticsRequest) {
 	return func(r *CatMLDataFrameAnalyticsRequest) {
 		r.DocumentID = v
@@ -204,7 +199,6 @@ func (f CatMLDataFrameAnalytics) WithDocumentID(v string) func(*CatMLDataFrameAn
 }
 
 // WithAllowNoMatch - whether to ignore if a wildcard expression matches no configs. (this includes `_all` string or when no configs have been specified).
-//
 func (f CatMLDataFrameAnalytics) WithAllowNoMatch(v bool) func(*CatMLDataFrameAnalyticsRequest) {
 	return func(r *CatMLDataFrameAnalyticsRequest) {
 		r.AllowNoMatch = &v
@@ -212,7 +206,6 @@ func (f CatMLDataFrameAnalytics) WithAllowNoMatch(v bool) func(*CatMLDataFrameAn
 }
 
 // WithBytes - the unit in which to display byte values.
-//
 func (f CatMLDataFrameAnalytics) WithBytes(v string) func(*CatMLDataFrameAnalyticsRequest) {
 	return func(r *CatMLDataFrameAnalyticsRequest) {
 		r.Bytes = v
@@ -220,7 +213,6 @@ func (f CatMLDataFrameAnalytics) WithBytes(v string) func(*CatMLDataFrameAnalyti
 }
 
 // WithFormat - a short version of the accept header, e.g. json, yaml.
-//
 func (f CatMLDataFrameAnalytics) WithFormat(v string) func(*CatMLDataFrameAnalyticsRequest) {
 	return func(r *CatMLDataFrameAnalyticsRequest) {
 		r.Format = v
@@ -228,7 +220,6 @@ func (f CatMLDataFrameAnalytics) WithFormat(v string) func(*CatMLDataFrameAnalyt
 }
 
 // WithH - comma-separated list of column names to display.
-//
 func (f CatMLDataFrameAnalytics) WithH(v ...string) func(*CatMLDataFrameAnalyticsRequest) {
 	return func(r *CatMLDataFrameAnalyticsRequest) {
 		r.H = v
@@ -236,7 +227,6 @@ func (f CatMLDataFrameAnalytics) WithH(v ...string) func(*CatMLDataFrameAnalytic
 }
 
 // WithHelp - return help information.
-//
 func (f CatMLDataFrameAnalytics) WithHelp(v bool) func(*CatMLDataFrameAnalyticsRequest) {
 	return func(r *CatMLDataFrameAnalyticsRequest) {
 		r.Help = &v
@@ -244,7 +234,6 @@ func (f CatMLDataFrameAnalytics) WithHelp(v bool) func(*CatMLDataFrameAnalyticsR
 }
 
 // WithS - comma-separated list of column names or column aliases to sort by.
-//
 func (f CatMLDataFrameAnalytics) WithS(v ...string) func(*CatMLDataFrameAnalyticsRequest) {
 	return func(r *CatMLDataFrameAnalyticsRequest) {
 		r.S = v
@@ -252,7 +241,6 @@ func (f CatMLDataFrameAnalytics) WithS(v ...string) func(*CatMLDataFrameAnalytic
 }
 
 // WithTime - the unit in which to display time values.
-//
 func (f CatMLDataFrameAnalytics) WithTime(v string) func(*CatMLDataFrameAnalyticsRequest) {
 	return func(r *CatMLDataFrameAnalyticsRequest) {
 		r.Time = v
@@ -260,7 +248,6 @@ func (f CatMLDataFrameAnalytics) WithTime(v string) func(*CatMLDataFrameAnalytic
 }
 
 // WithV - verbose mode. display column headers.
-//
 func (f CatMLDataFrameAnalytics) WithV(v bool) func(*CatMLDataFrameAnalyticsRequest) {
 	return func(r *CatMLDataFrameAnalyticsRequest) {
 		r.V = &v
@@ -268,7 +255,6 @@ func (f CatMLDataFrameAnalytics) WithV(v bool) func(*CatMLDataFrameAnalyticsRequ
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f CatMLDataFrameAnalytics) WithPretty() func(*CatMLDataFrameAnalyticsRequest) {
 	return func(r *CatMLDataFrameAnalyticsRequest) {
 		r.Pretty = true
@@ -276,7 +262,6 @@ func (f CatMLDataFrameAnalytics) WithPretty() func(*CatMLDataFrameAnalyticsReque
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f CatMLDataFrameAnalytics) WithHuman() func(*CatMLDataFrameAnalyticsRequest) {
 	return func(r *CatMLDataFrameAnalyticsRequest) {
 		r.Human = true
@@ -284,7 +269,6 @@ func (f CatMLDataFrameAnalytics) WithHuman() func(*CatMLDataFrameAnalyticsReques
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f CatMLDataFrameAnalytics) WithErrorTrace() func(*CatMLDataFrameAnalyticsRequest) {
 	return func(r *CatMLDataFrameAnalyticsRequest) {
 		r.ErrorTrace = true
@@ -292,7 +276,6 @@ func (f CatMLDataFrameAnalytics) WithErrorTrace() func(*CatMLDataFrameAnalyticsR
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f CatMLDataFrameAnalytics) WithFilterPath(v ...string) func(*CatMLDataFrameAnalyticsRequest) {
 	return func(r *CatMLDataFrameAnalyticsRequest) {
 		r.FilterPath = v
@@ -300,7 +283,6 @@ func (f CatMLDataFrameAnalytics) WithFilterPath(v ...string) func(*CatMLDataFram
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f CatMLDataFrameAnalytics) WithHeader(h map[string]string) func(*CatMLDataFrameAnalyticsRequest) {
 	return func(r *CatMLDataFrameAnalyticsRequest) {
 		if r.Header == nil {
@@ -313,7 +295,6 @@ func (f CatMLDataFrameAnalytics) WithHeader(h map[string]string) func(*CatMLData
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f CatMLDataFrameAnalytics) WithOpaqueID(s string) func(*CatMLDataFrameAnalyticsRequest) {
 	return func(r *CatMLDataFrameAnalyticsRequest) {
 		if r.Header == nil {

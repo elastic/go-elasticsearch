@@ -40,11 +40,9 @@ func newIndicesPromoteDataStreamFunc(t Transport) IndicesPromoteDataStream {
 // IndicesPromoteDataStream - Promotes a data stream from a replicated data stream managed by CCR to a regular data stream
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html.
-//
 type IndicesPromoteDataStream func(name string, o ...func(*IndicesPromoteDataStreamRequest)) (*Response, error)
 
 // IndicesPromoteDataStreamRequest configures the Indices Promote Data Stream API request.
-//
 type IndicesPromoteDataStreamRequest struct {
 	Name string
 
@@ -59,7 +57,6 @@ type IndicesPromoteDataStreamRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r IndicesPromoteDataStreamRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -140,7 +137,6 @@ func (r IndicesPromoteDataStreamRequest) Do(ctx context.Context, transport Trans
 }
 
 // WithContext sets the request context.
-//
 func (f IndicesPromoteDataStream) WithContext(v context.Context) func(*IndicesPromoteDataStreamRequest) {
 	return func(r *IndicesPromoteDataStreamRequest) {
 		r.ctx = v
@@ -148,7 +144,6 @@ func (f IndicesPromoteDataStream) WithContext(v context.Context) func(*IndicesPr
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f IndicesPromoteDataStream) WithPretty() func(*IndicesPromoteDataStreamRequest) {
 	return func(r *IndicesPromoteDataStreamRequest) {
 		r.Pretty = true
@@ -156,7 +151,6 @@ func (f IndicesPromoteDataStream) WithPretty() func(*IndicesPromoteDataStreamReq
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f IndicesPromoteDataStream) WithHuman() func(*IndicesPromoteDataStreamRequest) {
 	return func(r *IndicesPromoteDataStreamRequest) {
 		r.Human = true
@@ -164,7 +158,6 @@ func (f IndicesPromoteDataStream) WithHuman() func(*IndicesPromoteDataStreamRequ
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f IndicesPromoteDataStream) WithErrorTrace() func(*IndicesPromoteDataStreamRequest) {
 	return func(r *IndicesPromoteDataStreamRequest) {
 		r.ErrorTrace = true
@@ -172,7 +165,6 @@ func (f IndicesPromoteDataStream) WithErrorTrace() func(*IndicesPromoteDataStrea
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f IndicesPromoteDataStream) WithFilterPath(v ...string) func(*IndicesPromoteDataStreamRequest) {
 	return func(r *IndicesPromoteDataStreamRequest) {
 		r.FilterPath = v
@@ -180,7 +172,6 @@ func (f IndicesPromoteDataStream) WithFilterPath(v ...string) func(*IndicesPromo
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f IndicesPromoteDataStream) WithHeader(h map[string]string) func(*IndicesPromoteDataStreamRequest) {
 	return func(r *IndicesPromoteDataStreamRequest) {
 		if r.Header == nil {
@@ -193,7 +184,6 @@ func (f IndicesPromoteDataStream) WithHeader(h map[string]string) func(*IndicesP
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f IndicesPromoteDataStream) WithOpaqueID(s string) func(*IndicesPromoteDataStreamRequest) {
 	return func(r *IndicesPromoteDataStreamRequest) {
 		if r.Header == nil {

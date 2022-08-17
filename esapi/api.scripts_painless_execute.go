@@ -43,11 +43,9 @@ func newScriptsPainlessExecuteFunc(t Transport) ScriptsPainlessExecute {
 // This API is experimental.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/painless/master/painless-execute-api.html.
-//
 type ScriptsPainlessExecute func(o ...func(*ScriptsPainlessExecuteRequest)) (*Response, error)
 
 // ScriptsPainlessExecuteRequest configures the Scripts Painless Execute API request.
-//
 type ScriptsPainlessExecuteRequest struct {
 	Body io.Reader
 
@@ -62,7 +60,6 @@ type ScriptsPainlessExecuteRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r ScriptsPainlessExecuteRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -142,7 +139,6 @@ func (r ScriptsPainlessExecuteRequest) Do(ctx context.Context, transport Transpo
 }
 
 // WithContext sets the request context.
-//
 func (f ScriptsPainlessExecute) WithContext(v context.Context) func(*ScriptsPainlessExecuteRequest) {
 	return func(r *ScriptsPainlessExecuteRequest) {
 		r.ctx = v
@@ -150,7 +146,6 @@ func (f ScriptsPainlessExecute) WithContext(v context.Context) func(*ScriptsPain
 }
 
 // WithBody - The script to execute.
-//
 func (f ScriptsPainlessExecute) WithBody(v io.Reader) func(*ScriptsPainlessExecuteRequest) {
 	return func(r *ScriptsPainlessExecuteRequest) {
 		r.Body = v
@@ -158,7 +153,6 @@ func (f ScriptsPainlessExecute) WithBody(v io.Reader) func(*ScriptsPainlessExecu
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f ScriptsPainlessExecute) WithPretty() func(*ScriptsPainlessExecuteRequest) {
 	return func(r *ScriptsPainlessExecuteRequest) {
 		r.Pretty = true
@@ -166,7 +160,6 @@ func (f ScriptsPainlessExecute) WithPretty() func(*ScriptsPainlessExecuteRequest
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f ScriptsPainlessExecute) WithHuman() func(*ScriptsPainlessExecuteRequest) {
 	return func(r *ScriptsPainlessExecuteRequest) {
 		r.Human = true
@@ -174,7 +167,6 @@ func (f ScriptsPainlessExecute) WithHuman() func(*ScriptsPainlessExecuteRequest)
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f ScriptsPainlessExecute) WithErrorTrace() func(*ScriptsPainlessExecuteRequest) {
 	return func(r *ScriptsPainlessExecuteRequest) {
 		r.ErrorTrace = true
@@ -182,7 +174,6 @@ func (f ScriptsPainlessExecute) WithErrorTrace() func(*ScriptsPainlessExecuteReq
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f ScriptsPainlessExecute) WithFilterPath(v ...string) func(*ScriptsPainlessExecuteRequest) {
 	return func(r *ScriptsPainlessExecuteRequest) {
 		r.FilterPath = v
@@ -190,7 +181,6 @@ func (f ScriptsPainlessExecute) WithFilterPath(v ...string) func(*ScriptsPainles
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f ScriptsPainlessExecute) WithHeader(h map[string]string) func(*ScriptsPainlessExecuteRequest) {
 	return func(r *ScriptsPainlessExecuteRequest) {
 		if r.Header == nil {
@@ -203,7 +193,6 @@ func (f ScriptsPainlessExecute) WithHeader(h map[string]string) func(*ScriptsPai
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f ScriptsPainlessExecute) WithOpaqueID(s string) func(*ScriptsPainlessExecuteRequest) {
 	return func(r *ScriptsPainlessExecuteRequest) {
 		if r.Header == nil {

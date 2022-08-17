@@ -40,11 +40,9 @@ func newSecurityCreateServiceTokenFunc(t Transport) SecurityCreateServiceToken {
 // SecurityCreateServiceToken - Creates a service account token for access without requiring basic authentication.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-service-token.html.
-//
 type SecurityCreateServiceToken func(namespace string, service string, o ...func(*SecurityCreateServiceTokenRequest)) (*Response, error)
 
 // SecurityCreateServiceTokenRequest configures the Security Create Service Token API request.
-//
 type SecurityCreateServiceTokenRequest struct {
 	Name      string
 	Namespace string
@@ -63,7 +61,6 @@ type SecurityCreateServiceTokenRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r SecurityCreateServiceTokenRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -158,7 +155,6 @@ func (r SecurityCreateServiceTokenRequest) Do(ctx context.Context, transport Tra
 }
 
 // WithContext sets the request context.
-//
 func (f SecurityCreateServiceToken) WithContext(v context.Context) func(*SecurityCreateServiceTokenRequest) {
 	return func(r *SecurityCreateServiceTokenRequest) {
 		r.ctx = v
@@ -166,7 +162,6 @@ func (f SecurityCreateServiceToken) WithContext(v context.Context) func(*Securit
 }
 
 // WithName - an identifier for the token name.
-//
 func (f SecurityCreateServiceToken) WithName(v string) func(*SecurityCreateServiceTokenRequest) {
 	return func(r *SecurityCreateServiceTokenRequest) {
 		r.Name = v
@@ -174,7 +169,6 @@ func (f SecurityCreateServiceToken) WithName(v string) func(*SecurityCreateServi
 }
 
 // WithRefresh - if `true` then refresh the affected shards to make this operation visible to search, if `wait_for` (the default) then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes..
-//
 func (f SecurityCreateServiceToken) WithRefresh(v string) func(*SecurityCreateServiceTokenRequest) {
 	return func(r *SecurityCreateServiceTokenRequest) {
 		r.Refresh = v
@@ -182,7 +176,6 @@ func (f SecurityCreateServiceToken) WithRefresh(v string) func(*SecurityCreateSe
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f SecurityCreateServiceToken) WithPretty() func(*SecurityCreateServiceTokenRequest) {
 	return func(r *SecurityCreateServiceTokenRequest) {
 		r.Pretty = true
@@ -190,7 +183,6 @@ func (f SecurityCreateServiceToken) WithPretty() func(*SecurityCreateServiceToke
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f SecurityCreateServiceToken) WithHuman() func(*SecurityCreateServiceTokenRequest) {
 	return func(r *SecurityCreateServiceTokenRequest) {
 		r.Human = true
@@ -198,7 +190,6 @@ func (f SecurityCreateServiceToken) WithHuman() func(*SecurityCreateServiceToken
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f SecurityCreateServiceToken) WithErrorTrace() func(*SecurityCreateServiceTokenRequest) {
 	return func(r *SecurityCreateServiceTokenRequest) {
 		r.ErrorTrace = true
@@ -206,7 +197,6 @@ func (f SecurityCreateServiceToken) WithErrorTrace() func(*SecurityCreateService
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f SecurityCreateServiceToken) WithFilterPath(v ...string) func(*SecurityCreateServiceTokenRequest) {
 	return func(r *SecurityCreateServiceTokenRequest) {
 		r.FilterPath = v
@@ -214,7 +204,6 @@ func (f SecurityCreateServiceToken) WithFilterPath(v ...string) func(*SecurityCr
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f SecurityCreateServiceToken) WithHeader(h map[string]string) func(*SecurityCreateServiceTokenRequest) {
 	return func(r *SecurityCreateServiceTokenRequest) {
 		if r.Header == nil {
@@ -227,7 +216,6 @@ func (f SecurityCreateServiceToken) WithHeader(h map[string]string) func(*Securi
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f SecurityCreateServiceToken) WithOpaqueID(s string) func(*SecurityCreateServiceTokenRequest) {
 	return func(r *SecurityCreateServiceTokenRequest) {
 		if r.Header == nil {

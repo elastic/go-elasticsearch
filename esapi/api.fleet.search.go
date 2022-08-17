@@ -43,11 +43,9 @@ func newFleetSearchFunc(t Transport) FleetSearch {
 // FleetSearch search API where the search will only be executed after specified checkpoints are available due to a refresh. This API is designed for internal use by the fleet server project.
 //
 // This API is experimental.
-//
 type FleetSearch func(index string, o ...func(*FleetSearchRequest)) (*Response, error)
 
 // FleetSearchRequest configures the Fleet Search API request.
-//
 type FleetSearchRequest struct {
 	Index string
 
@@ -68,7 +66,6 @@ type FleetSearchRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r FleetSearchRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -165,7 +162,6 @@ func (r FleetSearchRequest) Do(ctx context.Context, transport Transport) (*Respo
 }
 
 // WithContext sets the request context.
-//
 func (f FleetSearch) WithContext(v context.Context) func(*FleetSearchRequest) {
 	return func(r *FleetSearchRequest) {
 		r.ctx = v
@@ -173,7 +169,6 @@ func (f FleetSearch) WithContext(v context.Context) func(*FleetSearchRequest) {
 }
 
 // WithBody - The search definition using the Query DSL.
-//
 func (f FleetSearch) WithBody(v io.Reader) func(*FleetSearchRequest) {
 	return func(r *FleetSearchRequest) {
 		r.Body = v
@@ -181,7 +176,6 @@ func (f FleetSearch) WithBody(v io.Reader) func(*FleetSearchRequest) {
 }
 
 // WithAllowPartialSearchResults - indicate if an error should be returned if there is a partial search failure or timeout.
-//
 func (f FleetSearch) WithAllowPartialSearchResults(v bool) func(*FleetSearchRequest) {
 	return func(r *FleetSearchRequest) {
 		r.AllowPartialSearchResults = &v
@@ -189,7 +183,6 @@ func (f FleetSearch) WithAllowPartialSearchResults(v bool) func(*FleetSearchRequ
 }
 
 // WithWaitForCheckpoints - comma separated list of checkpoints, one per shard.
-//
 func (f FleetSearch) WithWaitForCheckpoints(v ...string) func(*FleetSearchRequest) {
 	return func(r *FleetSearchRequest) {
 		r.WaitForCheckpoints = v
@@ -197,7 +190,6 @@ func (f FleetSearch) WithWaitForCheckpoints(v ...string) func(*FleetSearchReques
 }
 
 // WithWaitForCheckpointsTimeout - explicit wait_for_checkpoints timeout.
-//
 func (f FleetSearch) WithWaitForCheckpointsTimeout(v time.Duration) func(*FleetSearchRequest) {
 	return func(r *FleetSearchRequest) {
 		r.WaitForCheckpointsTimeout = v
@@ -205,7 +197,6 @@ func (f FleetSearch) WithWaitForCheckpointsTimeout(v time.Duration) func(*FleetS
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f FleetSearch) WithPretty() func(*FleetSearchRequest) {
 	return func(r *FleetSearchRequest) {
 		r.Pretty = true
@@ -213,7 +204,6 @@ func (f FleetSearch) WithPretty() func(*FleetSearchRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f FleetSearch) WithHuman() func(*FleetSearchRequest) {
 	return func(r *FleetSearchRequest) {
 		r.Human = true
@@ -221,7 +211,6 @@ func (f FleetSearch) WithHuman() func(*FleetSearchRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f FleetSearch) WithErrorTrace() func(*FleetSearchRequest) {
 	return func(r *FleetSearchRequest) {
 		r.ErrorTrace = true
@@ -229,7 +218,6 @@ func (f FleetSearch) WithErrorTrace() func(*FleetSearchRequest) {
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f FleetSearch) WithFilterPath(v ...string) func(*FleetSearchRequest) {
 	return func(r *FleetSearchRequest) {
 		r.FilterPath = v
@@ -237,7 +225,6 @@ func (f FleetSearch) WithFilterPath(v ...string) func(*FleetSearchRequest) {
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f FleetSearch) WithHeader(h map[string]string) func(*FleetSearchRequest) {
 	return func(r *FleetSearchRequest) {
 		if r.Header == nil {
@@ -250,7 +237,6 @@ func (f FleetSearch) WithHeader(h map[string]string) func(*FleetSearchRequest) {
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f FleetSearch) WithOpaqueID(s string) func(*FleetSearchRequest) {
 	return func(r *FleetSearchRequest) {
 		if r.Header == nil {

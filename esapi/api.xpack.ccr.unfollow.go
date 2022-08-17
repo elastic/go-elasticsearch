@@ -40,11 +40,9 @@ func newCCRUnfollowFunc(t Transport) CCRUnfollow {
 // CCRUnfollow - Stops the following task associated with a follower index and removes index metadata and settings associated with cross-cluster replication.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-unfollow.html.
-//
 type CCRUnfollow func(index string, o ...func(*CCRUnfollowRequest)) (*Response, error)
 
 // CCRUnfollowRequest configures the CCR Unfollow API request.
-//
 type CCRUnfollowRequest struct {
 	Index string
 
@@ -59,7 +57,6 @@ type CCRUnfollowRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r CCRUnfollowRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -140,7 +137,6 @@ func (r CCRUnfollowRequest) Do(ctx context.Context, transport Transport) (*Respo
 }
 
 // WithContext sets the request context.
-//
 func (f CCRUnfollow) WithContext(v context.Context) func(*CCRUnfollowRequest) {
 	return func(r *CCRUnfollowRequest) {
 		r.ctx = v
@@ -148,7 +144,6 @@ func (f CCRUnfollow) WithContext(v context.Context) func(*CCRUnfollowRequest) {
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f CCRUnfollow) WithPretty() func(*CCRUnfollowRequest) {
 	return func(r *CCRUnfollowRequest) {
 		r.Pretty = true
@@ -156,7 +151,6 @@ func (f CCRUnfollow) WithPretty() func(*CCRUnfollowRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f CCRUnfollow) WithHuman() func(*CCRUnfollowRequest) {
 	return func(r *CCRUnfollowRequest) {
 		r.Human = true
@@ -164,7 +158,6 @@ func (f CCRUnfollow) WithHuman() func(*CCRUnfollowRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f CCRUnfollow) WithErrorTrace() func(*CCRUnfollowRequest) {
 	return func(r *CCRUnfollowRequest) {
 		r.ErrorTrace = true
@@ -172,7 +165,6 @@ func (f CCRUnfollow) WithErrorTrace() func(*CCRUnfollowRequest) {
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f CCRUnfollow) WithFilterPath(v ...string) func(*CCRUnfollowRequest) {
 	return func(r *CCRUnfollowRequest) {
 		r.FilterPath = v
@@ -180,7 +172,6 @@ func (f CCRUnfollow) WithFilterPath(v ...string) func(*CCRUnfollowRequest) {
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f CCRUnfollow) WithHeader(h map[string]string) func(*CCRUnfollowRequest) {
 	return func(r *CCRUnfollowRequest) {
 		if r.Header == nil {
@@ -193,7 +184,6 @@ func (f CCRUnfollow) WithHeader(h map[string]string) func(*CCRUnfollowRequest) {
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f CCRUnfollow) WithOpaqueID(s string) func(*CCRUnfollowRequest) {
 	return func(r *CCRUnfollowRequest) {
 		if r.Header == nil {

@@ -40,11 +40,9 @@ func newSSLCertificatesFunc(t Transport) SSLCertificates {
 // SSLCertificates - Retrieves information about the X.509 certificates used to encrypt communications in the cluster.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-ssl.html.
-//
 type SSLCertificates func(o ...func(*SSLCertificatesRequest)) (*Response, error)
 
 // SSLCertificatesRequest configures the SSL Certificates API request.
-//
 type SSLCertificatesRequest struct {
 	Pretty     bool
 	Human      bool
@@ -57,7 +55,6 @@ type SSLCertificatesRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r SSLCertificatesRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -133,7 +130,6 @@ func (r SSLCertificatesRequest) Do(ctx context.Context, transport Transport) (*R
 }
 
 // WithContext sets the request context.
-//
 func (f SSLCertificates) WithContext(v context.Context) func(*SSLCertificatesRequest) {
 	return func(r *SSLCertificatesRequest) {
 		r.ctx = v
@@ -141,7 +137,6 @@ func (f SSLCertificates) WithContext(v context.Context) func(*SSLCertificatesReq
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f SSLCertificates) WithPretty() func(*SSLCertificatesRequest) {
 	return func(r *SSLCertificatesRequest) {
 		r.Pretty = true
@@ -149,7 +144,6 @@ func (f SSLCertificates) WithPretty() func(*SSLCertificatesRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f SSLCertificates) WithHuman() func(*SSLCertificatesRequest) {
 	return func(r *SSLCertificatesRequest) {
 		r.Human = true
@@ -157,7 +151,6 @@ func (f SSLCertificates) WithHuman() func(*SSLCertificatesRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f SSLCertificates) WithErrorTrace() func(*SSLCertificatesRequest) {
 	return func(r *SSLCertificatesRequest) {
 		r.ErrorTrace = true
@@ -165,7 +158,6 @@ func (f SSLCertificates) WithErrorTrace() func(*SSLCertificatesRequest) {
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f SSLCertificates) WithFilterPath(v ...string) func(*SSLCertificatesRequest) {
 	return func(r *SSLCertificatesRequest) {
 		r.FilterPath = v
@@ -173,7 +165,6 @@ func (f SSLCertificates) WithFilterPath(v ...string) func(*SSLCertificatesReques
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f SSLCertificates) WithHeader(h map[string]string) func(*SSLCertificatesRequest) {
 	return func(r *SSLCertificatesRequest) {
 		if r.Header == nil {
@@ -186,7 +177,6 @@ func (f SSLCertificates) WithHeader(h map[string]string) func(*SSLCertificatesRe
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f SSLCertificates) WithOpaqueID(s string) func(*SSLCertificatesRequest) {
 	return func(r *SSLCertificatesRequest) {
 		if r.Header == nil {

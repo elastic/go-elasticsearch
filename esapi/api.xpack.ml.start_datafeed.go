@@ -42,11 +42,9 @@ func newMLStartDatafeedFunc(t Transport) MLStartDatafeed {
 // MLStartDatafeed - Starts one or more datafeeds.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-start-datafeed.html.
-//
 type MLStartDatafeed func(datafeed_id string, o ...func(*MLStartDatafeedRequest)) (*Response, error)
 
 // MLStartDatafeedRequest configures the ML Start Datafeed API request.
-//
 type MLStartDatafeedRequest struct {
 	Body io.Reader
 
@@ -67,7 +65,6 @@ type MLStartDatafeedRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r MLStartDatafeedRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -166,7 +163,6 @@ func (r MLStartDatafeedRequest) Do(ctx context.Context, transport Transport) (*R
 }
 
 // WithContext sets the request context.
-//
 func (f MLStartDatafeed) WithContext(v context.Context) func(*MLStartDatafeedRequest) {
 	return func(r *MLStartDatafeedRequest) {
 		r.ctx = v
@@ -174,7 +170,6 @@ func (f MLStartDatafeed) WithContext(v context.Context) func(*MLStartDatafeedReq
 }
 
 // WithBody - The start datafeed parameters.
-//
 func (f MLStartDatafeed) WithBody(v io.Reader) func(*MLStartDatafeedRequest) {
 	return func(r *MLStartDatafeedRequest) {
 		r.Body = v
@@ -182,7 +177,6 @@ func (f MLStartDatafeed) WithBody(v io.Reader) func(*MLStartDatafeedRequest) {
 }
 
 // WithEnd - the end time when the datafeed should stop. when not set, the datafeed continues in real time.
-//
 func (f MLStartDatafeed) WithEnd(v string) func(*MLStartDatafeedRequest) {
 	return func(r *MLStartDatafeedRequest) {
 		r.End = v
@@ -190,7 +184,6 @@ func (f MLStartDatafeed) WithEnd(v string) func(*MLStartDatafeedRequest) {
 }
 
 // WithStart - the start time from where the datafeed should begin.
-//
 func (f MLStartDatafeed) WithStart(v string) func(*MLStartDatafeedRequest) {
 	return func(r *MLStartDatafeedRequest) {
 		r.Start = v
@@ -198,7 +191,6 @@ func (f MLStartDatafeed) WithStart(v string) func(*MLStartDatafeedRequest) {
 }
 
 // WithTimeout - controls the time to wait until a datafeed has started. default to 20 seconds.
-//
 func (f MLStartDatafeed) WithTimeout(v time.Duration) func(*MLStartDatafeedRequest) {
 	return func(r *MLStartDatafeedRequest) {
 		r.Timeout = v
@@ -206,7 +198,6 @@ func (f MLStartDatafeed) WithTimeout(v time.Duration) func(*MLStartDatafeedReque
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f MLStartDatafeed) WithPretty() func(*MLStartDatafeedRequest) {
 	return func(r *MLStartDatafeedRequest) {
 		r.Pretty = true
@@ -214,7 +205,6 @@ func (f MLStartDatafeed) WithPretty() func(*MLStartDatafeedRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f MLStartDatafeed) WithHuman() func(*MLStartDatafeedRequest) {
 	return func(r *MLStartDatafeedRequest) {
 		r.Human = true
@@ -222,7 +212,6 @@ func (f MLStartDatafeed) WithHuman() func(*MLStartDatafeedRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f MLStartDatafeed) WithErrorTrace() func(*MLStartDatafeedRequest) {
 	return func(r *MLStartDatafeedRequest) {
 		r.ErrorTrace = true
@@ -230,7 +219,6 @@ func (f MLStartDatafeed) WithErrorTrace() func(*MLStartDatafeedRequest) {
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f MLStartDatafeed) WithFilterPath(v ...string) func(*MLStartDatafeedRequest) {
 	return func(r *MLStartDatafeedRequest) {
 		r.FilterPath = v
@@ -238,7 +226,6 @@ func (f MLStartDatafeed) WithFilterPath(v ...string) func(*MLStartDatafeedReques
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f MLStartDatafeed) WithHeader(h map[string]string) func(*MLStartDatafeedRequest) {
 	return func(r *MLStartDatafeedRequest) {
 		if r.Header == nil {
@@ -251,7 +238,6 @@ func (f MLStartDatafeed) WithHeader(h map[string]string) func(*MLStartDatafeedRe
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f MLStartDatafeed) WithOpaqueID(s string) func(*MLStartDatafeedRequest) {
 	return func(r *MLStartDatafeedRequest) {
 		if r.Header == nil {

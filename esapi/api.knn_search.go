@@ -44,11 +44,9 @@ func newKnnSearchFunc(t Transport) KnnSearch {
 // This API is experimental.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-search.html.
-//
 type KnnSearch func(index []string, o ...func(*KnnSearchRequest)) (*Response, error)
 
 // KnnSearchRequest configures the Knn Search API request.
-//
 type KnnSearchRequest struct {
 	Index []string
 
@@ -67,7 +65,6 @@ type KnnSearchRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r KnnSearchRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -158,7 +155,6 @@ func (r KnnSearchRequest) Do(ctx context.Context, transport Transport) (*Respons
 }
 
 // WithContext sets the request context.
-//
 func (f KnnSearch) WithContext(v context.Context) func(*KnnSearchRequest) {
 	return func(r *KnnSearchRequest) {
 		r.ctx = v
@@ -166,7 +162,6 @@ func (f KnnSearch) WithContext(v context.Context) func(*KnnSearchRequest) {
 }
 
 // WithBody - The search definition.
-//
 func (f KnnSearch) WithBody(v io.Reader) func(*KnnSearchRequest) {
 	return func(r *KnnSearchRequest) {
 		r.Body = v
@@ -174,7 +169,6 @@ func (f KnnSearch) WithBody(v io.Reader) func(*KnnSearchRequest) {
 }
 
 // WithRouting - a list of specific routing values.
-//
 func (f KnnSearch) WithRouting(v ...string) func(*KnnSearchRequest) {
 	return func(r *KnnSearchRequest) {
 		r.Routing = v
@@ -182,7 +176,6 @@ func (f KnnSearch) WithRouting(v ...string) func(*KnnSearchRequest) {
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f KnnSearch) WithPretty() func(*KnnSearchRequest) {
 	return func(r *KnnSearchRequest) {
 		r.Pretty = true
@@ -190,7 +183,6 @@ func (f KnnSearch) WithPretty() func(*KnnSearchRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f KnnSearch) WithHuman() func(*KnnSearchRequest) {
 	return func(r *KnnSearchRequest) {
 		r.Human = true
@@ -198,7 +190,6 @@ func (f KnnSearch) WithHuman() func(*KnnSearchRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f KnnSearch) WithErrorTrace() func(*KnnSearchRequest) {
 	return func(r *KnnSearchRequest) {
 		r.ErrorTrace = true
@@ -206,7 +197,6 @@ func (f KnnSearch) WithErrorTrace() func(*KnnSearchRequest) {
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f KnnSearch) WithFilterPath(v ...string) func(*KnnSearchRequest) {
 	return func(r *KnnSearchRequest) {
 		r.FilterPath = v
@@ -214,7 +204,6 @@ func (f KnnSearch) WithFilterPath(v ...string) func(*KnnSearchRequest) {
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f KnnSearch) WithHeader(h map[string]string) func(*KnnSearchRequest) {
 	return func(r *KnnSearchRequest) {
 		if r.Header == nil {
@@ -227,7 +216,6 @@ func (f KnnSearch) WithHeader(h map[string]string) func(*KnnSearchRequest) {
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f KnnSearch) WithOpaqueID(s string) func(*KnnSearchRequest) {
 	return func(r *KnnSearchRequest) {
 		if r.Header == nil {

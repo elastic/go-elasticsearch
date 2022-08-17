@@ -41,11 +41,9 @@ func newLogstashPutPipelineFunc(t Transport) LogstashPutPipeline {
 // LogstashPutPipeline - Adds and updates Logstash Pipelines used for Central Management
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/logstash-api-put-pipeline.html.
-//
 type LogstashPutPipeline func(id string, body io.Reader, o ...func(*LogstashPutPipelineRequest)) (*Response, error)
 
 // LogstashPutPipelineRequest configures the Logstash Put Pipeline API request.
-//
 type LogstashPutPipelineRequest struct {
 	DocumentID string
 
@@ -62,7 +60,6 @@ type LogstashPutPipelineRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r LogstashPutPipelineRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -147,7 +144,6 @@ func (r LogstashPutPipelineRequest) Do(ctx context.Context, transport Transport)
 }
 
 // WithContext sets the request context.
-//
 func (f LogstashPutPipeline) WithContext(v context.Context) func(*LogstashPutPipelineRequest) {
 	return func(r *LogstashPutPipelineRequest) {
 		r.ctx = v
@@ -155,7 +151,6 @@ func (f LogstashPutPipeline) WithContext(v context.Context) func(*LogstashPutPip
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f LogstashPutPipeline) WithPretty() func(*LogstashPutPipelineRequest) {
 	return func(r *LogstashPutPipelineRequest) {
 		r.Pretty = true
@@ -163,7 +158,6 @@ func (f LogstashPutPipeline) WithPretty() func(*LogstashPutPipelineRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f LogstashPutPipeline) WithHuman() func(*LogstashPutPipelineRequest) {
 	return func(r *LogstashPutPipelineRequest) {
 		r.Human = true
@@ -171,7 +165,6 @@ func (f LogstashPutPipeline) WithHuman() func(*LogstashPutPipelineRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f LogstashPutPipeline) WithErrorTrace() func(*LogstashPutPipelineRequest) {
 	return func(r *LogstashPutPipelineRequest) {
 		r.ErrorTrace = true
@@ -179,7 +172,6 @@ func (f LogstashPutPipeline) WithErrorTrace() func(*LogstashPutPipelineRequest) 
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f LogstashPutPipeline) WithFilterPath(v ...string) func(*LogstashPutPipelineRequest) {
 	return func(r *LogstashPutPipelineRequest) {
 		r.FilterPath = v
@@ -187,7 +179,6 @@ func (f LogstashPutPipeline) WithFilterPath(v ...string) func(*LogstashPutPipeli
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f LogstashPutPipeline) WithHeader(h map[string]string) func(*LogstashPutPipelineRequest) {
 	return func(r *LogstashPutPipelineRequest) {
 		if r.Header == nil {
@@ -200,7 +191,6 @@ func (f LogstashPutPipeline) WithHeader(h map[string]string) func(*LogstashPutPi
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f LogstashPutPipeline) WithOpaqueID(s string) func(*LogstashPutPipelineRequest) {
 	return func(r *LogstashPutPipelineRequest) {
 		if r.Header == nil {

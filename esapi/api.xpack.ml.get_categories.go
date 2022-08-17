@@ -42,11 +42,9 @@ func newMLGetCategoriesFunc(t Transport) MLGetCategories {
 // MLGetCategories - Retrieves anomaly detection job results for one or more categories.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-category.html.
-//
 type MLGetCategories func(job_id string, o ...func(*MLGetCategoriesRequest)) (*Response, error)
 
 // MLGetCategoriesRequest configures the ML Get Categories API request.
-//
 type MLGetCategoriesRequest struct {
 	Body io.Reader
 
@@ -68,7 +66,6 @@ type MLGetCategoriesRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r MLGetCategoriesRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -175,7 +172,6 @@ func (r MLGetCategoriesRequest) Do(ctx context.Context, transport Transport) (*R
 }
 
 // WithContext sets the request context.
-//
 func (f MLGetCategories) WithContext(v context.Context) func(*MLGetCategoriesRequest) {
 	return func(r *MLGetCategoriesRequest) {
 		r.ctx = v
@@ -183,7 +179,6 @@ func (f MLGetCategories) WithContext(v context.Context) func(*MLGetCategoriesReq
 }
 
 // WithBody - Category selection details if not provided in URI.
-//
 func (f MLGetCategories) WithBody(v io.Reader) func(*MLGetCategoriesRequest) {
 	return func(r *MLGetCategoriesRequest) {
 		r.Body = v
@@ -191,7 +186,6 @@ func (f MLGetCategories) WithBody(v io.Reader) func(*MLGetCategoriesRequest) {
 }
 
 // WithCategoryID - the identifier of the category definition of interest.
-//
 func (f MLGetCategories) WithCategoryID(v int) func(*MLGetCategoriesRequest) {
 	return func(r *MLGetCategoriesRequest) {
 		r.CategoryID = &v
@@ -199,7 +193,6 @@ func (f MLGetCategories) WithCategoryID(v int) func(*MLGetCategoriesRequest) {
 }
 
 // WithFrom - skips a number of categories.
-//
 func (f MLGetCategories) WithFrom(v int) func(*MLGetCategoriesRequest) {
 	return func(r *MLGetCategoriesRequest) {
 		r.From = &v
@@ -207,7 +200,6 @@ func (f MLGetCategories) WithFrom(v int) func(*MLGetCategoriesRequest) {
 }
 
 // WithPartitionFieldValue - specifies the partition to retrieve categories for. this is optional, and should never be used for jobs where per-partition categorization is disabled..
-//
 func (f MLGetCategories) WithPartitionFieldValue(v string) func(*MLGetCategoriesRequest) {
 	return func(r *MLGetCategoriesRequest) {
 		r.PartitionFieldValue = v
@@ -215,7 +207,6 @@ func (f MLGetCategories) WithPartitionFieldValue(v string) func(*MLGetCategories
 }
 
 // WithSize - specifies a max number of categories to get.
-//
 func (f MLGetCategories) WithSize(v int) func(*MLGetCategoriesRequest) {
 	return func(r *MLGetCategoriesRequest) {
 		r.Size = &v
@@ -223,7 +214,6 @@ func (f MLGetCategories) WithSize(v int) func(*MLGetCategoriesRequest) {
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f MLGetCategories) WithPretty() func(*MLGetCategoriesRequest) {
 	return func(r *MLGetCategoriesRequest) {
 		r.Pretty = true
@@ -231,7 +221,6 @@ func (f MLGetCategories) WithPretty() func(*MLGetCategoriesRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f MLGetCategories) WithHuman() func(*MLGetCategoriesRequest) {
 	return func(r *MLGetCategoriesRequest) {
 		r.Human = true
@@ -239,7 +228,6 @@ func (f MLGetCategories) WithHuman() func(*MLGetCategoriesRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f MLGetCategories) WithErrorTrace() func(*MLGetCategoriesRequest) {
 	return func(r *MLGetCategoriesRequest) {
 		r.ErrorTrace = true
@@ -247,7 +235,6 @@ func (f MLGetCategories) WithErrorTrace() func(*MLGetCategoriesRequest) {
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f MLGetCategories) WithFilterPath(v ...string) func(*MLGetCategoriesRequest) {
 	return func(r *MLGetCategoriesRequest) {
 		r.FilterPath = v
@@ -255,7 +242,6 @@ func (f MLGetCategories) WithFilterPath(v ...string) func(*MLGetCategoriesReques
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f MLGetCategories) WithHeader(h map[string]string) func(*MLGetCategoriesRequest) {
 	return func(r *MLGetCategoriesRequest) {
 		if r.Header == nil {
@@ -268,7 +254,6 @@ func (f MLGetCategories) WithHeader(h map[string]string) func(*MLGetCategoriesRe
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f MLGetCategories) WithOpaqueID(s string) func(*MLGetCategoriesRequest) {
 	return func(r *MLGetCategoriesRequest) {
 		if r.Header == nil {

@@ -43,11 +43,9 @@ func newClusterPendingTasksFunc(t Transport) ClusterPendingTasks {
 // allocate or fail shard) which have not yet been executed.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-pending.html.
-//
 type ClusterPendingTasks func(o ...func(*ClusterPendingTasksRequest)) (*Response, error)
 
 // ClusterPendingTasksRequest configures the Cluster Pending Tasks API request.
-//
 type ClusterPendingTasksRequest struct {
 	Local         *bool
 	MasterTimeout time.Duration
@@ -63,7 +61,6 @@ type ClusterPendingTasksRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r ClusterPendingTasksRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -147,7 +144,6 @@ func (r ClusterPendingTasksRequest) Do(ctx context.Context, transport Transport)
 }
 
 // WithContext sets the request context.
-//
 func (f ClusterPendingTasks) WithContext(v context.Context) func(*ClusterPendingTasksRequest) {
 	return func(r *ClusterPendingTasksRequest) {
 		r.ctx = v
@@ -155,7 +151,6 @@ func (f ClusterPendingTasks) WithContext(v context.Context) func(*ClusterPending
 }
 
 // WithLocal - return local information, do not retrieve the state from master node (default: false).
-//
 func (f ClusterPendingTasks) WithLocal(v bool) func(*ClusterPendingTasksRequest) {
 	return func(r *ClusterPendingTasksRequest) {
 		r.Local = &v
@@ -163,7 +158,6 @@ func (f ClusterPendingTasks) WithLocal(v bool) func(*ClusterPendingTasksRequest)
 }
 
 // WithMasterTimeout - specify timeout for connection to master.
-//
 func (f ClusterPendingTasks) WithMasterTimeout(v time.Duration) func(*ClusterPendingTasksRequest) {
 	return func(r *ClusterPendingTasksRequest) {
 		r.MasterTimeout = v
@@ -171,7 +165,6 @@ func (f ClusterPendingTasks) WithMasterTimeout(v time.Duration) func(*ClusterPen
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f ClusterPendingTasks) WithPretty() func(*ClusterPendingTasksRequest) {
 	return func(r *ClusterPendingTasksRequest) {
 		r.Pretty = true
@@ -179,7 +172,6 @@ func (f ClusterPendingTasks) WithPretty() func(*ClusterPendingTasksRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f ClusterPendingTasks) WithHuman() func(*ClusterPendingTasksRequest) {
 	return func(r *ClusterPendingTasksRequest) {
 		r.Human = true
@@ -187,7 +179,6 @@ func (f ClusterPendingTasks) WithHuman() func(*ClusterPendingTasksRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f ClusterPendingTasks) WithErrorTrace() func(*ClusterPendingTasksRequest) {
 	return func(r *ClusterPendingTasksRequest) {
 		r.ErrorTrace = true
@@ -195,7 +186,6 @@ func (f ClusterPendingTasks) WithErrorTrace() func(*ClusterPendingTasksRequest) 
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f ClusterPendingTasks) WithFilterPath(v ...string) func(*ClusterPendingTasksRequest) {
 	return func(r *ClusterPendingTasksRequest) {
 		r.FilterPath = v
@@ -203,7 +193,6 @@ func (f ClusterPendingTasks) WithFilterPath(v ...string) func(*ClusterPendingTas
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f ClusterPendingTasks) WithHeader(h map[string]string) func(*ClusterPendingTasksRequest) {
 	return func(r *ClusterPendingTasksRequest) {
 		if r.Header == nil {
@@ -216,7 +205,6 @@ func (f ClusterPendingTasks) WithHeader(h map[string]string) func(*ClusterPendin
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f ClusterPendingTasks) WithOpaqueID(s string) func(*ClusterPendingTasksRequest) {
 	return func(r *ClusterPendingTasksRequest) {
 		if r.Header == nil {

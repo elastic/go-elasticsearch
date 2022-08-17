@@ -40,11 +40,9 @@ func newMigrationDeprecationsFunc(t Transport) MigrationDeprecations {
 // MigrationDeprecations - Retrieves information about different cluster, node, and index level settings that use deprecated features that will be removed or changed in the next major version.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/migration-api-deprecation.html.
-//
 type MigrationDeprecations func(o ...func(*MigrationDeprecationsRequest)) (*Response, error)
 
 // MigrationDeprecationsRequest configures the Migration Deprecations API request.
-//
 type MigrationDeprecationsRequest struct {
 	Index string
 
@@ -59,7 +57,6 @@ type MigrationDeprecationsRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r MigrationDeprecationsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -142,7 +139,6 @@ func (r MigrationDeprecationsRequest) Do(ctx context.Context, transport Transpor
 }
 
 // WithContext sets the request context.
-//
 func (f MigrationDeprecations) WithContext(v context.Context) func(*MigrationDeprecationsRequest) {
 	return func(r *MigrationDeprecationsRequest) {
 		r.ctx = v
@@ -150,7 +146,6 @@ func (f MigrationDeprecations) WithContext(v context.Context) func(*MigrationDep
 }
 
 // WithIndex - index pattern.
-//
 func (f MigrationDeprecations) WithIndex(v string) func(*MigrationDeprecationsRequest) {
 	return func(r *MigrationDeprecationsRequest) {
 		r.Index = v
@@ -158,7 +153,6 @@ func (f MigrationDeprecations) WithIndex(v string) func(*MigrationDeprecationsRe
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f MigrationDeprecations) WithPretty() func(*MigrationDeprecationsRequest) {
 	return func(r *MigrationDeprecationsRequest) {
 		r.Pretty = true
@@ -166,7 +160,6 @@ func (f MigrationDeprecations) WithPretty() func(*MigrationDeprecationsRequest) 
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f MigrationDeprecations) WithHuman() func(*MigrationDeprecationsRequest) {
 	return func(r *MigrationDeprecationsRequest) {
 		r.Human = true
@@ -174,7 +167,6 @@ func (f MigrationDeprecations) WithHuman() func(*MigrationDeprecationsRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f MigrationDeprecations) WithErrorTrace() func(*MigrationDeprecationsRequest) {
 	return func(r *MigrationDeprecationsRequest) {
 		r.ErrorTrace = true
@@ -182,7 +174,6 @@ func (f MigrationDeprecations) WithErrorTrace() func(*MigrationDeprecationsReque
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f MigrationDeprecations) WithFilterPath(v ...string) func(*MigrationDeprecationsRequest) {
 	return func(r *MigrationDeprecationsRequest) {
 		r.FilterPath = v
@@ -190,7 +181,6 @@ func (f MigrationDeprecations) WithFilterPath(v ...string) func(*MigrationDeprec
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f MigrationDeprecations) WithHeader(h map[string]string) func(*MigrationDeprecationsRequest) {
 	return func(r *MigrationDeprecationsRequest) {
 		if r.Header == nil {
@@ -203,7 +193,6 @@ func (f MigrationDeprecations) WithHeader(h map[string]string) func(*MigrationDe
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f MigrationDeprecations) WithOpaqueID(s string) func(*MigrationDeprecationsRequest) {
 	return func(r *MigrationDeprecationsRequest) {
 		if r.Header == nil {

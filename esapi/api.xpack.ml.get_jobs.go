@@ -41,11 +41,9 @@ func newMLGetJobsFunc(t Transport) MLGetJobs {
 // MLGetJobs - Retrieves configuration information for anomaly detection jobs.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-job.html.
-//
 type MLGetJobs func(o ...func(*MLGetJobsRequest)) (*Response, error)
 
 // MLGetJobsRequest configures the ML Get Jobs API request.
-//
 type MLGetJobsRequest struct {
 	JobID string
 
@@ -63,7 +61,6 @@ type MLGetJobsRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r MLGetJobsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -154,7 +151,6 @@ func (r MLGetJobsRequest) Do(ctx context.Context, transport Transport) (*Respons
 }
 
 // WithContext sets the request context.
-//
 func (f MLGetJobs) WithContext(v context.Context) func(*MLGetJobsRequest) {
 	return func(r *MLGetJobsRequest) {
 		r.ctx = v
@@ -162,7 +158,6 @@ func (f MLGetJobs) WithContext(v context.Context) func(*MLGetJobsRequest) {
 }
 
 // WithJobID - the ID of the jobs to fetch.
-//
 func (f MLGetJobs) WithJobID(v string) func(*MLGetJobsRequest) {
 	return func(r *MLGetJobsRequest) {
 		r.JobID = v
@@ -170,7 +165,6 @@ func (f MLGetJobs) WithJobID(v string) func(*MLGetJobsRequest) {
 }
 
 // WithAllowNoMatch - whether to ignore if a wildcard expression matches no jobs. (this includes `_all` string or when no jobs have been specified).
-//
 func (f MLGetJobs) WithAllowNoMatch(v bool) func(*MLGetJobsRequest) {
 	return func(r *MLGetJobsRequest) {
 		r.AllowNoMatch = &v
@@ -178,7 +172,6 @@ func (f MLGetJobs) WithAllowNoMatch(v bool) func(*MLGetJobsRequest) {
 }
 
 // WithExcludeGenerated - omits fields that are illegal to set on job put.
-//
 func (f MLGetJobs) WithExcludeGenerated(v bool) func(*MLGetJobsRequest) {
 	return func(r *MLGetJobsRequest) {
 		r.ExcludeGenerated = &v
@@ -186,7 +179,6 @@ func (f MLGetJobs) WithExcludeGenerated(v bool) func(*MLGetJobsRequest) {
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f MLGetJobs) WithPretty() func(*MLGetJobsRequest) {
 	return func(r *MLGetJobsRequest) {
 		r.Pretty = true
@@ -194,7 +186,6 @@ func (f MLGetJobs) WithPretty() func(*MLGetJobsRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f MLGetJobs) WithHuman() func(*MLGetJobsRequest) {
 	return func(r *MLGetJobsRequest) {
 		r.Human = true
@@ -202,7 +193,6 @@ func (f MLGetJobs) WithHuman() func(*MLGetJobsRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f MLGetJobs) WithErrorTrace() func(*MLGetJobsRequest) {
 	return func(r *MLGetJobsRequest) {
 		r.ErrorTrace = true
@@ -210,7 +200,6 @@ func (f MLGetJobs) WithErrorTrace() func(*MLGetJobsRequest) {
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f MLGetJobs) WithFilterPath(v ...string) func(*MLGetJobsRequest) {
 	return func(r *MLGetJobsRequest) {
 		r.FilterPath = v
@@ -218,7 +207,6 @@ func (f MLGetJobs) WithFilterPath(v ...string) func(*MLGetJobsRequest) {
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f MLGetJobs) WithHeader(h map[string]string) func(*MLGetJobsRequest) {
 	return func(r *MLGetJobsRequest) {
 		if r.Header == nil {
@@ -231,7 +219,6 @@ func (f MLGetJobs) WithHeader(h map[string]string) func(*MLGetJobsRequest) {
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f MLGetJobs) WithOpaqueID(s string) func(*MLGetJobsRequest) {
 	return func(r *MLGetJobsRequest) {
 		if r.Header == nil {

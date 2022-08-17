@@ -42,11 +42,9 @@ func newTransformUpgradeTransformsFunc(t Transport) TransformUpgradeTransforms {
 // TransformUpgradeTransforms - Upgrades all transforms.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/upgrade-transforms.html.
-//
 type TransformUpgradeTransforms func(o ...func(*TransformUpgradeTransformsRequest)) (*Response, error)
 
 // TransformUpgradeTransformsRequest configures the Transform Upgrade Transforms API request.
-//
 type TransformUpgradeTransformsRequest struct {
 	DryRun  *bool
 	Timeout time.Duration
@@ -62,7 +60,6 @@ type TransformUpgradeTransformsRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r TransformUpgradeTransformsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -146,7 +143,6 @@ func (r TransformUpgradeTransformsRequest) Do(ctx context.Context, transport Tra
 }
 
 // WithContext sets the request context.
-//
 func (f TransformUpgradeTransforms) WithContext(v context.Context) func(*TransformUpgradeTransformsRequest) {
 	return func(r *TransformUpgradeTransformsRequest) {
 		r.ctx = v
@@ -154,7 +150,6 @@ func (f TransformUpgradeTransforms) WithContext(v context.Context) func(*Transfo
 }
 
 // WithDryRun - whether to only check for updates but don't execute.
-//
 func (f TransformUpgradeTransforms) WithDryRun(v bool) func(*TransformUpgradeTransformsRequest) {
 	return func(r *TransformUpgradeTransformsRequest) {
 		r.DryRun = &v
@@ -162,7 +157,6 @@ func (f TransformUpgradeTransforms) WithDryRun(v bool) func(*TransformUpgradeTra
 }
 
 // WithTimeout - controls the time to wait for the upgrade.
-//
 func (f TransformUpgradeTransforms) WithTimeout(v time.Duration) func(*TransformUpgradeTransformsRequest) {
 	return func(r *TransformUpgradeTransformsRequest) {
 		r.Timeout = v
@@ -170,7 +164,6 @@ func (f TransformUpgradeTransforms) WithTimeout(v time.Duration) func(*Transform
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f TransformUpgradeTransforms) WithPretty() func(*TransformUpgradeTransformsRequest) {
 	return func(r *TransformUpgradeTransformsRequest) {
 		r.Pretty = true
@@ -178,7 +171,6 @@ func (f TransformUpgradeTransforms) WithPretty() func(*TransformUpgradeTransform
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f TransformUpgradeTransforms) WithHuman() func(*TransformUpgradeTransformsRequest) {
 	return func(r *TransformUpgradeTransformsRequest) {
 		r.Human = true
@@ -186,7 +178,6 @@ func (f TransformUpgradeTransforms) WithHuman() func(*TransformUpgradeTransforms
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f TransformUpgradeTransforms) WithErrorTrace() func(*TransformUpgradeTransformsRequest) {
 	return func(r *TransformUpgradeTransformsRequest) {
 		r.ErrorTrace = true
@@ -194,7 +185,6 @@ func (f TransformUpgradeTransforms) WithErrorTrace() func(*TransformUpgradeTrans
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f TransformUpgradeTransforms) WithFilterPath(v ...string) func(*TransformUpgradeTransformsRequest) {
 	return func(r *TransformUpgradeTransformsRequest) {
 		r.FilterPath = v
@@ -202,7 +192,6 @@ func (f TransformUpgradeTransforms) WithFilterPath(v ...string) func(*TransformU
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f TransformUpgradeTransforms) WithHeader(h map[string]string) func(*TransformUpgradeTransformsRequest) {
 	return func(r *TransformUpgradeTransformsRequest) {
 		if r.Header == nil {
@@ -215,7 +204,6 @@ func (f TransformUpgradeTransforms) WithHeader(h map[string]string) func(*Transf
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f TransformUpgradeTransforms) WithOpaqueID(s string) func(*TransformUpgradeTransformsRequest) {
 	return func(r *TransformUpgradeTransformsRequest) {
 		if r.Header == nil {

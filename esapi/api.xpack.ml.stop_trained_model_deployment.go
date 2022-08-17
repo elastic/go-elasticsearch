@@ -44,11 +44,9 @@ func newMLStopTrainedModelDeploymentFunc(t Transport) MLStopTrainedModelDeployme
 // This API is experimental.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/stop-trained-model-deployment.html.
-//
 type MLStopTrainedModelDeployment func(model_id string, o ...func(*MLStopTrainedModelDeploymentRequest)) (*Response, error)
 
 // MLStopTrainedModelDeploymentRequest configures the ML Stop Trained Model Deployment API request.
-//
 type MLStopTrainedModelDeploymentRequest struct {
 	Body io.Reader
 
@@ -68,7 +66,6 @@ type MLStopTrainedModelDeploymentRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r MLStopTrainedModelDeploymentRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -165,7 +162,6 @@ func (r MLStopTrainedModelDeploymentRequest) Do(ctx context.Context, transport T
 }
 
 // WithContext sets the request context.
-//
 func (f MLStopTrainedModelDeployment) WithContext(v context.Context) func(*MLStopTrainedModelDeploymentRequest) {
 	return func(r *MLStopTrainedModelDeploymentRequest) {
 		r.ctx = v
@@ -173,7 +169,6 @@ func (f MLStopTrainedModelDeployment) WithContext(v context.Context) func(*MLSto
 }
 
 // WithBody - The stop deployment parameters.
-//
 func (f MLStopTrainedModelDeployment) WithBody(v io.Reader) func(*MLStopTrainedModelDeploymentRequest) {
 	return func(r *MLStopTrainedModelDeploymentRequest) {
 		r.Body = v
@@ -181,7 +176,6 @@ func (f MLStopTrainedModelDeployment) WithBody(v io.Reader) func(*MLStopTrainedM
 }
 
 // WithAllowNoMatch - whether to ignore if a wildcard expression matches no deployments. (this includes `_all` string or when no deployments have been specified).
-//
 func (f MLStopTrainedModelDeployment) WithAllowNoMatch(v bool) func(*MLStopTrainedModelDeploymentRequest) {
 	return func(r *MLStopTrainedModelDeploymentRequest) {
 		r.AllowNoMatch = &v
@@ -189,7 +183,6 @@ func (f MLStopTrainedModelDeployment) WithAllowNoMatch(v bool) func(*MLStopTrain
 }
 
 // WithForce - true if the deployment should be forcefully stopped.
-//
 func (f MLStopTrainedModelDeployment) WithForce(v bool) func(*MLStopTrainedModelDeploymentRequest) {
 	return func(r *MLStopTrainedModelDeploymentRequest) {
 		r.Force = &v
@@ -197,7 +190,6 @@ func (f MLStopTrainedModelDeployment) WithForce(v bool) func(*MLStopTrainedModel
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f MLStopTrainedModelDeployment) WithPretty() func(*MLStopTrainedModelDeploymentRequest) {
 	return func(r *MLStopTrainedModelDeploymentRequest) {
 		r.Pretty = true
@@ -205,7 +197,6 @@ func (f MLStopTrainedModelDeployment) WithPretty() func(*MLStopTrainedModelDeplo
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f MLStopTrainedModelDeployment) WithHuman() func(*MLStopTrainedModelDeploymentRequest) {
 	return func(r *MLStopTrainedModelDeploymentRequest) {
 		r.Human = true
@@ -213,7 +204,6 @@ func (f MLStopTrainedModelDeployment) WithHuman() func(*MLStopTrainedModelDeploy
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f MLStopTrainedModelDeployment) WithErrorTrace() func(*MLStopTrainedModelDeploymentRequest) {
 	return func(r *MLStopTrainedModelDeploymentRequest) {
 		r.ErrorTrace = true
@@ -221,7 +211,6 @@ func (f MLStopTrainedModelDeployment) WithErrorTrace() func(*MLStopTrainedModelD
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f MLStopTrainedModelDeployment) WithFilterPath(v ...string) func(*MLStopTrainedModelDeploymentRequest) {
 	return func(r *MLStopTrainedModelDeploymentRequest) {
 		r.FilterPath = v
@@ -229,7 +218,6 @@ func (f MLStopTrainedModelDeployment) WithFilterPath(v ...string) func(*MLStopTr
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f MLStopTrainedModelDeployment) WithHeader(h map[string]string) func(*MLStopTrainedModelDeploymentRequest) {
 	return func(r *MLStopTrainedModelDeploymentRequest) {
 		if r.Header == nil {
@@ -242,7 +230,6 @@ func (f MLStopTrainedModelDeployment) WithHeader(h map[string]string) func(*MLSt
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f MLStopTrainedModelDeployment) WithOpaqueID(s string) func(*MLStopTrainedModelDeploymentRequest) {
 	return func(r *MLStopTrainedModelDeploymentRequest) {
 		if r.Header == nil {

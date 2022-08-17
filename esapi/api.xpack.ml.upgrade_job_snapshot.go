@@ -42,11 +42,9 @@ func newMLUpgradeJobSnapshotFunc(t Transport) MLUpgradeJobSnapshot {
 // MLUpgradeJobSnapshot - Upgrades a given job snapshot to the current major version.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-upgrade-job-model-snapshot.html.
-//
 type MLUpgradeJobSnapshot func(snapshot_id string, job_id string, o ...func(*MLUpgradeJobSnapshotRequest)) (*Response, error)
 
 // MLUpgradeJobSnapshotRequest configures the ML Upgrade Job Snapshot API request.
-//
 type MLUpgradeJobSnapshotRequest struct {
 	JobID      string
 	SnapshotID string
@@ -65,7 +63,6 @@ type MLUpgradeJobSnapshotRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r MLUpgradeJobSnapshotRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -160,7 +157,6 @@ func (r MLUpgradeJobSnapshotRequest) Do(ctx context.Context, transport Transport
 }
 
 // WithContext sets the request context.
-//
 func (f MLUpgradeJobSnapshot) WithContext(v context.Context) func(*MLUpgradeJobSnapshotRequest) {
 	return func(r *MLUpgradeJobSnapshotRequest) {
 		r.ctx = v
@@ -168,7 +164,6 @@ func (f MLUpgradeJobSnapshot) WithContext(v context.Context) func(*MLUpgradeJobS
 }
 
 // WithTimeout - how long should the api wait for the job to be opened and the old snapshot to be loaded..
-//
 func (f MLUpgradeJobSnapshot) WithTimeout(v time.Duration) func(*MLUpgradeJobSnapshotRequest) {
 	return func(r *MLUpgradeJobSnapshotRequest) {
 		r.Timeout = v
@@ -176,7 +171,6 @@ func (f MLUpgradeJobSnapshot) WithTimeout(v time.Duration) func(*MLUpgradeJobSna
 }
 
 // WithWaitForCompletion - should the request wait until the task is complete before responding to the caller. default is false..
-//
 func (f MLUpgradeJobSnapshot) WithWaitForCompletion(v bool) func(*MLUpgradeJobSnapshotRequest) {
 	return func(r *MLUpgradeJobSnapshotRequest) {
 		r.WaitForCompletion = &v
@@ -184,7 +178,6 @@ func (f MLUpgradeJobSnapshot) WithWaitForCompletion(v bool) func(*MLUpgradeJobSn
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f MLUpgradeJobSnapshot) WithPretty() func(*MLUpgradeJobSnapshotRequest) {
 	return func(r *MLUpgradeJobSnapshotRequest) {
 		r.Pretty = true
@@ -192,7 +185,6 @@ func (f MLUpgradeJobSnapshot) WithPretty() func(*MLUpgradeJobSnapshotRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f MLUpgradeJobSnapshot) WithHuman() func(*MLUpgradeJobSnapshotRequest) {
 	return func(r *MLUpgradeJobSnapshotRequest) {
 		r.Human = true
@@ -200,7 +192,6 @@ func (f MLUpgradeJobSnapshot) WithHuman() func(*MLUpgradeJobSnapshotRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f MLUpgradeJobSnapshot) WithErrorTrace() func(*MLUpgradeJobSnapshotRequest) {
 	return func(r *MLUpgradeJobSnapshotRequest) {
 		r.ErrorTrace = true
@@ -208,7 +199,6 @@ func (f MLUpgradeJobSnapshot) WithErrorTrace() func(*MLUpgradeJobSnapshotRequest
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f MLUpgradeJobSnapshot) WithFilterPath(v ...string) func(*MLUpgradeJobSnapshotRequest) {
 	return func(r *MLUpgradeJobSnapshotRequest) {
 		r.FilterPath = v
@@ -216,7 +206,6 @@ func (f MLUpgradeJobSnapshot) WithFilterPath(v ...string) func(*MLUpgradeJobSnap
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f MLUpgradeJobSnapshot) WithHeader(h map[string]string) func(*MLUpgradeJobSnapshotRequest) {
 	return func(r *MLUpgradeJobSnapshotRequest) {
 		if r.Header == nil {
@@ -229,7 +218,6 @@ func (f MLUpgradeJobSnapshot) WithHeader(h map[string]string) func(*MLUpgradeJob
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f MLUpgradeJobSnapshot) WithOpaqueID(s string) func(*MLUpgradeJobSnapshotRequest) {
 	return func(r *MLUpgradeJobSnapshotRequest) {
 		if r.Header == nil {

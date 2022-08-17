@@ -42,11 +42,9 @@ func newCatComponentTemplatesFunc(t Transport) CatComponentTemplates {
 // CatComponentTemplates returns information about existing component_templates templates.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-compoentn-templates.html.
-//
 type CatComponentTemplates func(o ...func(*CatComponentTemplatesRequest)) (*Response, error)
 
 // CatComponentTemplatesRequest configures the Cat Component Templates API request.
-//
 type CatComponentTemplatesRequest struct {
 	Name string
 
@@ -69,7 +67,6 @@ type CatComponentTemplatesRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r CatComponentTemplatesRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -180,7 +177,6 @@ func (r CatComponentTemplatesRequest) Do(ctx context.Context, transport Transpor
 }
 
 // WithContext sets the request context.
-//
 func (f CatComponentTemplates) WithContext(v context.Context) func(*CatComponentTemplatesRequest) {
 	return func(r *CatComponentTemplatesRequest) {
 		r.ctx = v
@@ -188,7 +184,6 @@ func (f CatComponentTemplates) WithContext(v context.Context) func(*CatComponent
 }
 
 // WithName - a pattern that returned component template names must match.
-//
 func (f CatComponentTemplates) WithName(v string) func(*CatComponentTemplatesRequest) {
 	return func(r *CatComponentTemplatesRequest) {
 		r.Name = v
@@ -196,7 +191,6 @@ func (f CatComponentTemplates) WithName(v string) func(*CatComponentTemplatesReq
 }
 
 // WithFormat - a short version of the accept header, e.g. json, yaml.
-//
 func (f CatComponentTemplates) WithFormat(v string) func(*CatComponentTemplatesRequest) {
 	return func(r *CatComponentTemplatesRequest) {
 		r.Format = v
@@ -204,7 +198,6 @@ func (f CatComponentTemplates) WithFormat(v string) func(*CatComponentTemplatesR
 }
 
 // WithH - comma-separated list of column names to display.
-//
 func (f CatComponentTemplates) WithH(v ...string) func(*CatComponentTemplatesRequest) {
 	return func(r *CatComponentTemplatesRequest) {
 		r.H = v
@@ -212,7 +205,6 @@ func (f CatComponentTemplates) WithH(v ...string) func(*CatComponentTemplatesReq
 }
 
 // WithHelp - return help information.
-//
 func (f CatComponentTemplates) WithHelp(v bool) func(*CatComponentTemplatesRequest) {
 	return func(r *CatComponentTemplatesRequest) {
 		r.Help = &v
@@ -220,7 +212,6 @@ func (f CatComponentTemplates) WithHelp(v bool) func(*CatComponentTemplatesReque
 }
 
 // WithLocal - return local information, do not retrieve the state from master node (default: false).
-//
 func (f CatComponentTemplates) WithLocal(v bool) func(*CatComponentTemplatesRequest) {
 	return func(r *CatComponentTemplatesRequest) {
 		r.Local = &v
@@ -228,7 +219,6 @@ func (f CatComponentTemplates) WithLocal(v bool) func(*CatComponentTemplatesRequ
 }
 
 // WithMasterTimeout - explicit operation timeout for connection to master node.
-//
 func (f CatComponentTemplates) WithMasterTimeout(v time.Duration) func(*CatComponentTemplatesRequest) {
 	return func(r *CatComponentTemplatesRequest) {
 		r.MasterTimeout = v
@@ -236,7 +226,6 @@ func (f CatComponentTemplates) WithMasterTimeout(v time.Duration) func(*CatCompo
 }
 
 // WithS - comma-separated list of column names or column aliases to sort by.
-//
 func (f CatComponentTemplates) WithS(v ...string) func(*CatComponentTemplatesRequest) {
 	return func(r *CatComponentTemplatesRequest) {
 		r.S = v
@@ -244,7 +233,6 @@ func (f CatComponentTemplates) WithS(v ...string) func(*CatComponentTemplatesReq
 }
 
 // WithV - verbose mode. display column headers.
-//
 func (f CatComponentTemplates) WithV(v bool) func(*CatComponentTemplatesRequest) {
 	return func(r *CatComponentTemplatesRequest) {
 		r.V = &v
@@ -252,7 +240,6 @@ func (f CatComponentTemplates) WithV(v bool) func(*CatComponentTemplatesRequest)
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f CatComponentTemplates) WithPretty() func(*CatComponentTemplatesRequest) {
 	return func(r *CatComponentTemplatesRequest) {
 		r.Pretty = true
@@ -260,7 +247,6 @@ func (f CatComponentTemplates) WithPretty() func(*CatComponentTemplatesRequest) 
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f CatComponentTemplates) WithHuman() func(*CatComponentTemplatesRequest) {
 	return func(r *CatComponentTemplatesRequest) {
 		r.Human = true
@@ -268,7 +254,6 @@ func (f CatComponentTemplates) WithHuman() func(*CatComponentTemplatesRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f CatComponentTemplates) WithErrorTrace() func(*CatComponentTemplatesRequest) {
 	return func(r *CatComponentTemplatesRequest) {
 		r.ErrorTrace = true
@@ -276,7 +261,6 @@ func (f CatComponentTemplates) WithErrorTrace() func(*CatComponentTemplatesReque
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f CatComponentTemplates) WithFilterPath(v ...string) func(*CatComponentTemplatesRequest) {
 	return func(r *CatComponentTemplatesRequest) {
 		r.FilterPath = v
@@ -284,7 +268,6 @@ func (f CatComponentTemplates) WithFilterPath(v ...string) func(*CatComponentTem
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f CatComponentTemplates) WithHeader(h map[string]string) func(*CatComponentTemplatesRequest) {
 	return func(r *CatComponentTemplatesRequest) {
 		if r.Header == nil {
@@ -297,7 +280,6 @@ func (f CatComponentTemplates) WithHeader(h map[string]string) func(*CatComponen
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f CatComponentTemplates) WithOpaqueID(s string) func(*CatComponentTemplatesRequest) {
 	return func(r *CatComponentTemplatesRequest) {
 		if r.Header == nil {

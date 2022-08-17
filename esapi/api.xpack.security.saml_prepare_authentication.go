@@ -41,11 +41,9 @@ func newSecuritySamlPrepareAuthenticationFunc(t Transport) SecuritySamlPrepareAu
 // SecuritySamlPrepareAuthentication - Creates a SAML authentication request
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-saml-prepare-authentication.html.
-//
 type SecuritySamlPrepareAuthentication func(body io.Reader, o ...func(*SecuritySamlPrepareAuthenticationRequest)) (*Response, error)
 
 // SecuritySamlPrepareAuthenticationRequest configures the Security Saml Prepare Authentication API request.
-//
 type SecuritySamlPrepareAuthenticationRequest struct {
 	Body io.Reader
 
@@ -60,7 +58,6 @@ type SecuritySamlPrepareAuthenticationRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r SecuritySamlPrepareAuthenticationRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -140,7 +137,6 @@ func (r SecuritySamlPrepareAuthenticationRequest) Do(ctx context.Context, transp
 }
 
 // WithContext sets the request context.
-//
 func (f SecuritySamlPrepareAuthentication) WithContext(v context.Context) func(*SecuritySamlPrepareAuthenticationRequest) {
 	return func(r *SecuritySamlPrepareAuthenticationRequest) {
 		r.ctx = v
@@ -148,7 +144,6 @@ func (f SecuritySamlPrepareAuthentication) WithContext(v context.Context) func(*
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f SecuritySamlPrepareAuthentication) WithPretty() func(*SecuritySamlPrepareAuthenticationRequest) {
 	return func(r *SecuritySamlPrepareAuthenticationRequest) {
 		r.Pretty = true
@@ -156,7 +151,6 @@ func (f SecuritySamlPrepareAuthentication) WithPretty() func(*SecuritySamlPrepar
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f SecuritySamlPrepareAuthentication) WithHuman() func(*SecuritySamlPrepareAuthenticationRequest) {
 	return func(r *SecuritySamlPrepareAuthenticationRequest) {
 		r.Human = true
@@ -164,7 +158,6 @@ func (f SecuritySamlPrepareAuthentication) WithHuman() func(*SecuritySamlPrepare
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f SecuritySamlPrepareAuthentication) WithErrorTrace() func(*SecuritySamlPrepareAuthenticationRequest) {
 	return func(r *SecuritySamlPrepareAuthenticationRequest) {
 		r.ErrorTrace = true
@@ -172,7 +165,6 @@ func (f SecuritySamlPrepareAuthentication) WithErrorTrace() func(*SecuritySamlPr
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f SecuritySamlPrepareAuthentication) WithFilterPath(v ...string) func(*SecuritySamlPrepareAuthenticationRequest) {
 	return func(r *SecuritySamlPrepareAuthenticationRequest) {
 		r.FilterPath = v
@@ -180,7 +172,6 @@ func (f SecuritySamlPrepareAuthentication) WithFilterPath(v ...string) func(*Sec
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f SecuritySamlPrepareAuthentication) WithHeader(h map[string]string) func(*SecuritySamlPrepareAuthenticationRequest) {
 	return func(r *SecuritySamlPrepareAuthenticationRequest) {
 		if r.Header == nil {
@@ -193,7 +184,6 @@ func (f SecuritySamlPrepareAuthentication) WithHeader(h map[string]string) func(
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f SecuritySamlPrepareAuthentication) WithOpaqueID(s string) func(*SecuritySamlPrepareAuthenticationRequest) {
 	return func(r *SecuritySamlPrepareAuthenticationRequest) {
 		if r.Header == nil {

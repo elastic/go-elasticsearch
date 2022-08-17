@@ -42,11 +42,9 @@ func newSnapshotCloneFunc(t Transport) SnapshotClone {
 // SnapshotClone clones indices from one snapshot into another snapshot in the same repository.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html.
-//
 type SnapshotClone func(repository string, snapshot string, body io.Reader, target_snapshot string, o ...func(*SnapshotCloneRequest)) (*Response, error)
 
 // SnapshotCloneRequest configures the Snapshot Clone API request.
-//
 type SnapshotCloneRequest struct {
 	Body io.Reader
 
@@ -67,7 +65,6 @@ type SnapshotCloneRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r SnapshotCloneRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -160,7 +157,6 @@ func (r SnapshotCloneRequest) Do(ctx context.Context, transport Transport) (*Res
 }
 
 // WithContext sets the request context.
-//
 func (f SnapshotClone) WithContext(v context.Context) func(*SnapshotCloneRequest) {
 	return func(r *SnapshotCloneRequest) {
 		r.ctx = v
@@ -168,7 +164,6 @@ func (f SnapshotClone) WithContext(v context.Context) func(*SnapshotCloneRequest
 }
 
 // WithMasterTimeout - explicit operation timeout for connection to master node.
-//
 func (f SnapshotClone) WithMasterTimeout(v time.Duration) func(*SnapshotCloneRequest) {
 	return func(r *SnapshotCloneRequest) {
 		r.MasterTimeout = v
@@ -176,7 +171,6 @@ func (f SnapshotClone) WithMasterTimeout(v time.Duration) func(*SnapshotCloneReq
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f SnapshotClone) WithPretty() func(*SnapshotCloneRequest) {
 	return func(r *SnapshotCloneRequest) {
 		r.Pretty = true
@@ -184,7 +178,6 @@ func (f SnapshotClone) WithPretty() func(*SnapshotCloneRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f SnapshotClone) WithHuman() func(*SnapshotCloneRequest) {
 	return func(r *SnapshotCloneRequest) {
 		r.Human = true
@@ -192,7 +185,6 @@ func (f SnapshotClone) WithHuman() func(*SnapshotCloneRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f SnapshotClone) WithErrorTrace() func(*SnapshotCloneRequest) {
 	return func(r *SnapshotCloneRequest) {
 		r.ErrorTrace = true
@@ -200,7 +192,6 @@ func (f SnapshotClone) WithErrorTrace() func(*SnapshotCloneRequest) {
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f SnapshotClone) WithFilterPath(v ...string) func(*SnapshotCloneRequest) {
 	return func(r *SnapshotCloneRequest) {
 		r.FilterPath = v
@@ -208,7 +199,6 @@ func (f SnapshotClone) WithFilterPath(v ...string) func(*SnapshotCloneRequest) {
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f SnapshotClone) WithHeader(h map[string]string) func(*SnapshotCloneRequest) {
 	return func(r *SnapshotCloneRequest) {
 		if r.Header == nil {
@@ -221,7 +211,6 @@ func (f SnapshotClone) WithHeader(h map[string]string) func(*SnapshotCloneReques
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f SnapshotClone) WithOpaqueID(s string) func(*SnapshotCloneRequest) {
 	return func(r *SnapshotCloneRequest) {
 		if r.Header == nil {

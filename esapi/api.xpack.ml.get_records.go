@@ -43,11 +43,9 @@ func newMLGetRecordsFunc(t Transport) MLGetRecords {
 // MLGetRecords - Retrieves anomaly records for an anomaly detection job.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-record.html.
-//
 type MLGetRecords func(job_id string, o ...func(*MLGetRecordsRequest)) (*Response, error)
 
 // MLGetRecordsRequest configures the ML Get Records API request.
-//
 type MLGetRecordsRequest struct {
 	Body io.Reader
 
@@ -73,7 +71,6 @@ type MLGetRecordsRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r MLGetRecordsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -194,7 +191,6 @@ func (r MLGetRecordsRequest) Do(ctx context.Context, transport Transport) (*Resp
 }
 
 // WithContext sets the request context.
-//
 func (f MLGetRecords) WithContext(v context.Context) func(*MLGetRecordsRequest) {
 	return func(r *MLGetRecordsRequest) {
 		r.ctx = v
@@ -202,7 +198,6 @@ func (f MLGetRecords) WithContext(v context.Context) func(*MLGetRecordsRequest) 
 }
 
 // WithBody - Record selection criteria.
-//
 func (f MLGetRecords) WithBody(v io.Reader) func(*MLGetRecordsRequest) {
 	return func(r *MLGetRecordsRequest) {
 		r.Body = v
@@ -210,7 +205,6 @@ func (f MLGetRecords) WithBody(v io.Reader) func(*MLGetRecordsRequest) {
 }
 
 // WithDesc - set the sort direction.
-//
 func (f MLGetRecords) WithDesc(v bool) func(*MLGetRecordsRequest) {
 	return func(r *MLGetRecordsRequest) {
 		r.Desc = &v
@@ -218,7 +212,6 @@ func (f MLGetRecords) WithDesc(v bool) func(*MLGetRecordsRequest) {
 }
 
 // WithEnd - end time filter for records.
-//
 func (f MLGetRecords) WithEnd(v string) func(*MLGetRecordsRequest) {
 	return func(r *MLGetRecordsRequest) {
 		r.End = v
@@ -226,7 +219,6 @@ func (f MLGetRecords) WithEnd(v string) func(*MLGetRecordsRequest) {
 }
 
 // WithExcludeInterim - exclude interim results.
-//
 func (f MLGetRecords) WithExcludeInterim(v bool) func(*MLGetRecordsRequest) {
 	return func(r *MLGetRecordsRequest) {
 		r.ExcludeInterim = &v
@@ -234,7 +226,6 @@ func (f MLGetRecords) WithExcludeInterim(v bool) func(*MLGetRecordsRequest) {
 }
 
 // WithFrom - skips a number of records.
-//
 func (f MLGetRecords) WithFrom(v int) func(*MLGetRecordsRequest) {
 	return func(r *MLGetRecordsRequest) {
 		r.From = &v
@@ -242,7 +233,6 @@ func (f MLGetRecords) WithFrom(v int) func(*MLGetRecordsRequest) {
 }
 
 // WithRecordScore - returns records with anomaly scores greater or equal than this value.
-//
 func (f MLGetRecords) WithRecordScore(v interface{}) func(*MLGetRecordsRequest) {
 	return func(r *MLGetRecordsRequest) {
 		r.RecordScore = v
@@ -250,7 +240,6 @@ func (f MLGetRecords) WithRecordScore(v interface{}) func(*MLGetRecordsRequest) 
 }
 
 // WithSize - specifies a max number of records to get.
-//
 func (f MLGetRecords) WithSize(v int) func(*MLGetRecordsRequest) {
 	return func(r *MLGetRecordsRequest) {
 		r.Size = &v
@@ -258,7 +247,6 @@ func (f MLGetRecords) WithSize(v int) func(*MLGetRecordsRequest) {
 }
 
 // WithSort - sort records by a particular field.
-//
 func (f MLGetRecords) WithSort(v string) func(*MLGetRecordsRequest) {
 	return func(r *MLGetRecordsRequest) {
 		r.Sort = v
@@ -266,7 +254,6 @@ func (f MLGetRecords) WithSort(v string) func(*MLGetRecordsRequest) {
 }
 
 // WithStart - start time filter for records.
-//
 func (f MLGetRecords) WithStart(v string) func(*MLGetRecordsRequest) {
 	return func(r *MLGetRecordsRequest) {
 		r.Start = v
@@ -274,7 +261,6 @@ func (f MLGetRecords) WithStart(v string) func(*MLGetRecordsRequest) {
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f MLGetRecords) WithPretty() func(*MLGetRecordsRequest) {
 	return func(r *MLGetRecordsRequest) {
 		r.Pretty = true
@@ -282,7 +268,6 @@ func (f MLGetRecords) WithPretty() func(*MLGetRecordsRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f MLGetRecords) WithHuman() func(*MLGetRecordsRequest) {
 	return func(r *MLGetRecordsRequest) {
 		r.Human = true
@@ -290,7 +275,6 @@ func (f MLGetRecords) WithHuman() func(*MLGetRecordsRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f MLGetRecords) WithErrorTrace() func(*MLGetRecordsRequest) {
 	return func(r *MLGetRecordsRequest) {
 		r.ErrorTrace = true
@@ -298,7 +282,6 @@ func (f MLGetRecords) WithErrorTrace() func(*MLGetRecordsRequest) {
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f MLGetRecords) WithFilterPath(v ...string) func(*MLGetRecordsRequest) {
 	return func(r *MLGetRecordsRequest) {
 		r.FilterPath = v
@@ -306,7 +289,6 @@ func (f MLGetRecords) WithFilterPath(v ...string) func(*MLGetRecordsRequest) {
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f MLGetRecords) WithHeader(h map[string]string) func(*MLGetRecordsRequest) {
 	return func(r *MLGetRecordsRequest) {
 		if r.Header == nil {
@@ -319,7 +301,6 @@ func (f MLGetRecords) WithHeader(h map[string]string) func(*MLGetRecordsRequest)
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f MLGetRecords) WithOpaqueID(s string) func(*MLGetRecordsRequest) {
 	return func(r *MLGetRecordsRequest) {
 		if r.Header == nil {

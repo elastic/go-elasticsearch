@@ -41,11 +41,9 @@ func newSecuritySamlLogoutFunc(t Transport) SecuritySamlLogout {
 // SecuritySamlLogout - Invalidates an access token and a refresh token that were generated via the SAML Authenticate API
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-saml-logout.html.
-//
 type SecuritySamlLogout func(body io.Reader, o ...func(*SecuritySamlLogoutRequest)) (*Response, error)
 
 // SecuritySamlLogoutRequest configures the Security Saml Logout API request.
-//
 type SecuritySamlLogoutRequest struct {
 	Body io.Reader
 
@@ -60,7 +58,6 @@ type SecuritySamlLogoutRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r SecuritySamlLogoutRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -140,7 +137,6 @@ func (r SecuritySamlLogoutRequest) Do(ctx context.Context, transport Transport) 
 }
 
 // WithContext sets the request context.
-//
 func (f SecuritySamlLogout) WithContext(v context.Context) func(*SecuritySamlLogoutRequest) {
 	return func(r *SecuritySamlLogoutRequest) {
 		r.ctx = v
@@ -148,7 +144,6 @@ func (f SecuritySamlLogout) WithContext(v context.Context) func(*SecuritySamlLog
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f SecuritySamlLogout) WithPretty() func(*SecuritySamlLogoutRequest) {
 	return func(r *SecuritySamlLogoutRequest) {
 		r.Pretty = true
@@ -156,7 +151,6 @@ func (f SecuritySamlLogout) WithPretty() func(*SecuritySamlLogoutRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f SecuritySamlLogout) WithHuman() func(*SecuritySamlLogoutRequest) {
 	return func(r *SecuritySamlLogoutRequest) {
 		r.Human = true
@@ -164,7 +158,6 @@ func (f SecuritySamlLogout) WithHuman() func(*SecuritySamlLogoutRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f SecuritySamlLogout) WithErrorTrace() func(*SecuritySamlLogoutRequest) {
 	return func(r *SecuritySamlLogoutRequest) {
 		r.ErrorTrace = true
@@ -172,7 +165,6 @@ func (f SecuritySamlLogout) WithErrorTrace() func(*SecuritySamlLogoutRequest) {
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f SecuritySamlLogout) WithFilterPath(v ...string) func(*SecuritySamlLogoutRequest) {
 	return func(r *SecuritySamlLogoutRequest) {
 		r.FilterPath = v
@@ -180,7 +172,6 @@ func (f SecuritySamlLogout) WithFilterPath(v ...string) func(*SecuritySamlLogout
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f SecuritySamlLogout) WithHeader(h map[string]string) func(*SecuritySamlLogoutRequest) {
 	return func(r *SecuritySamlLogoutRequest) {
 		if r.Header == nil {
@@ -193,7 +184,6 @@ func (f SecuritySamlLogout) WithHeader(h map[string]string) func(*SecuritySamlLo
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f SecuritySamlLogout) WithOpaqueID(s string) func(*SecuritySamlLogoutRequest) {
 	return func(r *SecuritySamlLogoutRequest) {
 		if r.Header == nil {

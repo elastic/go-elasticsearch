@@ -42,11 +42,9 @@ func newCatMasterFunc(t Transport) CatMaster {
 // CatMaster returns information about the master node.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-master.html.
-//
 type CatMaster func(o ...func(*CatMasterRequest)) (*Response, error)
 
 // CatMasterRequest configures the Cat Master API request.
-//
 type CatMasterRequest struct {
 	Format        string
 	H             []string
@@ -67,7 +65,6 @@ type CatMasterRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r CatMasterRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -171,7 +168,6 @@ func (r CatMasterRequest) Do(ctx context.Context, transport Transport) (*Respons
 }
 
 // WithContext sets the request context.
-//
 func (f CatMaster) WithContext(v context.Context) func(*CatMasterRequest) {
 	return func(r *CatMasterRequest) {
 		r.ctx = v
@@ -179,7 +175,6 @@ func (f CatMaster) WithContext(v context.Context) func(*CatMasterRequest) {
 }
 
 // WithFormat - a short version of the accept header, e.g. json, yaml.
-//
 func (f CatMaster) WithFormat(v string) func(*CatMasterRequest) {
 	return func(r *CatMasterRequest) {
 		r.Format = v
@@ -187,7 +182,6 @@ func (f CatMaster) WithFormat(v string) func(*CatMasterRequest) {
 }
 
 // WithH - comma-separated list of column names to display.
-//
 func (f CatMaster) WithH(v ...string) func(*CatMasterRequest) {
 	return func(r *CatMasterRequest) {
 		r.H = v
@@ -195,7 +189,6 @@ func (f CatMaster) WithH(v ...string) func(*CatMasterRequest) {
 }
 
 // WithHelp - return help information.
-//
 func (f CatMaster) WithHelp(v bool) func(*CatMasterRequest) {
 	return func(r *CatMasterRequest) {
 		r.Help = &v
@@ -203,7 +196,6 @@ func (f CatMaster) WithHelp(v bool) func(*CatMasterRequest) {
 }
 
 // WithLocal - return local information, do not retrieve the state from master node (default: false).
-//
 func (f CatMaster) WithLocal(v bool) func(*CatMasterRequest) {
 	return func(r *CatMasterRequest) {
 		r.Local = &v
@@ -211,7 +203,6 @@ func (f CatMaster) WithLocal(v bool) func(*CatMasterRequest) {
 }
 
 // WithMasterTimeout - explicit operation timeout for connection to master node.
-//
 func (f CatMaster) WithMasterTimeout(v time.Duration) func(*CatMasterRequest) {
 	return func(r *CatMasterRequest) {
 		r.MasterTimeout = v
@@ -219,7 +210,6 @@ func (f CatMaster) WithMasterTimeout(v time.Duration) func(*CatMasterRequest) {
 }
 
 // WithS - comma-separated list of column names or column aliases to sort by.
-//
 func (f CatMaster) WithS(v ...string) func(*CatMasterRequest) {
 	return func(r *CatMasterRequest) {
 		r.S = v
@@ -227,7 +217,6 @@ func (f CatMaster) WithS(v ...string) func(*CatMasterRequest) {
 }
 
 // WithV - verbose mode. display column headers.
-//
 func (f CatMaster) WithV(v bool) func(*CatMasterRequest) {
 	return func(r *CatMasterRequest) {
 		r.V = &v
@@ -235,7 +224,6 @@ func (f CatMaster) WithV(v bool) func(*CatMasterRequest) {
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f CatMaster) WithPretty() func(*CatMasterRequest) {
 	return func(r *CatMasterRequest) {
 		r.Pretty = true
@@ -243,7 +231,6 @@ func (f CatMaster) WithPretty() func(*CatMasterRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f CatMaster) WithHuman() func(*CatMasterRequest) {
 	return func(r *CatMasterRequest) {
 		r.Human = true
@@ -251,7 +238,6 @@ func (f CatMaster) WithHuman() func(*CatMasterRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f CatMaster) WithErrorTrace() func(*CatMasterRequest) {
 	return func(r *CatMasterRequest) {
 		r.ErrorTrace = true
@@ -259,7 +245,6 @@ func (f CatMaster) WithErrorTrace() func(*CatMasterRequest) {
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f CatMaster) WithFilterPath(v ...string) func(*CatMasterRequest) {
 	return func(r *CatMasterRequest) {
 		r.FilterPath = v
@@ -267,7 +252,6 @@ func (f CatMaster) WithFilterPath(v ...string) func(*CatMasterRequest) {
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f CatMaster) WithHeader(h map[string]string) func(*CatMasterRequest) {
 	return func(r *CatMasterRequest) {
 		if r.Header == nil {
@@ -280,7 +264,6 @@ func (f CatMaster) WithHeader(h map[string]string) func(*CatMasterRequest) {
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f CatMaster) WithOpaqueID(s string) func(*CatMasterRequest) {
 	return func(r *CatMasterRequest) {
 		if r.Header == nil {

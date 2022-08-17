@@ -43,11 +43,9 @@ func newTransformPutTransformFunc(t Transport) TransformPutTransform {
 // TransformPutTransform - Instantiates a transform.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/put-transform.html.
-//
 type TransformPutTransform func(body io.Reader, transform_id string, o ...func(*TransformPutTransformRequest)) (*Response, error)
 
 // TransformPutTransformRequest configures the Transform Put Transform API request.
-//
 type TransformPutTransformRequest struct {
 	Body io.Reader
 
@@ -67,7 +65,6 @@ type TransformPutTransformRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r TransformPutTransformRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -158,7 +155,6 @@ func (r TransformPutTransformRequest) Do(ctx context.Context, transport Transpor
 }
 
 // WithContext sets the request context.
-//
 func (f TransformPutTransform) WithContext(v context.Context) func(*TransformPutTransformRequest) {
 	return func(r *TransformPutTransformRequest) {
 		r.ctx = v
@@ -166,7 +162,6 @@ func (f TransformPutTransform) WithContext(v context.Context) func(*TransformPut
 }
 
 // WithDeferValidation - if validations should be deferred until transform starts, defaults to false..
-//
 func (f TransformPutTransform) WithDeferValidation(v bool) func(*TransformPutTransformRequest) {
 	return func(r *TransformPutTransformRequest) {
 		r.DeferValidation = &v
@@ -174,7 +169,6 @@ func (f TransformPutTransform) WithDeferValidation(v bool) func(*TransformPutTra
 }
 
 // WithTimeout - controls the time to wait for the transform to start.
-//
 func (f TransformPutTransform) WithTimeout(v time.Duration) func(*TransformPutTransformRequest) {
 	return func(r *TransformPutTransformRequest) {
 		r.Timeout = v
@@ -182,7 +176,6 @@ func (f TransformPutTransform) WithTimeout(v time.Duration) func(*TransformPutTr
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f TransformPutTransform) WithPretty() func(*TransformPutTransformRequest) {
 	return func(r *TransformPutTransformRequest) {
 		r.Pretty = true
@@ -190,7 +183,6 @@ func (f TransformPutTransform) WithPretty() func(*TransformPutTransformRequest) 
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f TransformPutTransform) WithHuman() func(*TransformPutTransformRequest) {
 	return func(r *TransformPutTransformRequest) {
 		r.Human = true
@@ -198,7 +190,6 @@ func (f TransformPutTransform) WithHuman() func(*TransformPutTransformRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f TransformPutTransform) WithErrorTrace() func(*TransformPutTransformRequest) {
 	return func(r *TransformPutTransformRequest) {
 		r.ErrorTrace = true
@@ -206,7 +197,6 @@ func (f TransformPutTransform) WithErrorTrace() func(*TransformPutTransformReque
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f TransformPutTransform) WithFilterPath(v ...string) func(*TransformPutTransformRequest) {
 	return func(r *TransformPutTransformRequest) {
 		r.FilterPath = v
@@ -214,7 +204,6 @@ func (f TransformPutTransform) WithFilterPath(v ...string) func(*TransformPutTra
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f TransformPutTransform) WithHeader(h map[string]string) func(*TransformPutTransformRequest) {
 	return func(r *TransformPutTransformRequest) {
 		if r.Header == nil {
@@ -227,7 +216,6 @@ func (f TransformPutTransform) WithHeader(h map[string]string) func(*TransformPu
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f TransformPutTransform) WithOpaqueID(s string) func(*TransformPutTransformRequest) {
 	return func(r *TransformPutTransformRequest) {
 		if r.Header == nil {

@@ -43,11 +43,9 @@ func newSecuritySuggestUserProfilesFunc(t Transport) SecuritySuggestUserProfiles
 // This API is experimental.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/security-api-suggest-user-profile.html.
-//
 type SecuritySuggestUserProfiles func(o ...func(*SecuritySuggestUserProfilesRequest)) (*Response, error)
 
 // SecuritySuggestUserProfilesRequest configures the Security Suggest User Profiles API request.
-//
 type SecuritySuggestUserProfilesRequest struct {
 	Body io.Reader
 
@@ -64,7 +62,6 @@ type SecuritySuggestUserProfilesRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r SecuritySuggestUserProfilesRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -148,7 +145,6 @@ func (r SecuritySuggestUserProfilesRequest) Do(ctx context.Context, transport Tr
 }
 
 // WithContext sets the request context.
-//
 func (f SecuritySuggestUserProfiles) WithContext(v context.Context) func(*SecuritySuggestUserProfilesRequest) {
 	return func(r *SecuritySuggestUserProfilesRequest) {
 		r.ctx = v
@@ -156,7 +152,6 @@ func (f SecuritySuggestUserProfiles) WithContext(v context.Context) func(*Securi
 }
 
 // WithBody - The suggestion definition for user profiles.
-//
 func (f SecuritySuggestUserProfiles) WithBody(v io.Reader) func(*SecuritySuggestUserProfilesRequest) {
 	return func(r *SecuritySuggestUserProfilesRequest) {
 		r.Body = v
@@ -164,7 +159,6 @@ func (f SecuritySuggestUserProfiles) WithBody(v io.Reader) func(*SecuritySuggest
 }
 
 // WithData - a list of keys for which the corresponding application data are retrieved..
-//
 func (f SecuritySuggestUserProfiles) WithData(v ...string) func(*SecuritySuggestUserProfilesRequest) {
 	return func(r *SecuritySuggestUserProfilesRequest) {
 		r.Data = v
@@ -172,7 +166,6 @@ func (f SecuritySuggestUserProfiles) WithData(v ...string) func(*SecuritySuggest
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f SecuritySuggestUserProfiles) WithPretty() func(*SecuritySuggestUserProfilesRequest) {
 	return func(r *SecuritySuggestUserProfilesRequest) {
 		r.Pretty = true
@@ -180,7 +173,6 @@ func (f SecuritySuggestUserProfiles) WithPretty() func(*SecuritySuggestUserProfi
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f SecuritySuggestUserProfiles) WithHuman() func(*SecuritySuggestUserProfilesRequest) {
 	return func(r *SecuritySuggestUserProfilesRequest) {
 		r.Human = true
@@ -188,7 +180,6 @@ func (f SecuritySuggestUserProfiles) WithHuman() func(*SecuritySuggestUserProfil
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f SecuritySuggestUserProfiles) WithErrorTrace() func(*SecuritySuggestUserProfilesRequest) {
 	return func(r *SecuritySuggestUserProfilesRequest) {
 		r.ErrorTrace = true
@@ -196,7 +187,6 @@ func (f SecuritySuggestUserProfiles) WithErrorTrace() func(*SecuritySuggestUserP
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f SecuritySuggestUserProfiles) WithFilterPath(v ...string) func(*SecuritySuggestUserProfilesRequest) {
 	return func(r *SecuritySuggestUserProfilesRequest) {
 		r.FilterPath = v
@@ -204,7 +194,6 @@ func (f SecuritySuggestUserProfiles) WithFilterPath(v ...string) func(*SecurityS
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f SecuritySuggestUserProfiles) WithHeader(h map[string]string) func(*SecuritySuggestUserProfilesRequest) {
 	return func(r *SecuritySuggestUserProfilesRequest) {
 		if r.Header == nil {
@@ -217,7 +206,6 @@ func (f SecuritySuggestUserProfiles) WithHeader(h map[string]string) func(*Secur
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f SecuritySuggestUserProfiles) WithOpaqueID(s string) func(*SecuritySuggestUserProfilesRequest) {
 	return func(r *SecuritySuggestUserProfilesRequest) {
 		if r.Header == nil {

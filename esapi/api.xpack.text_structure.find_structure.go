@@ -43,11 +43,9 @@ func newTextStructureFindStructureFunc(t Transport) TextStructureFindStructure {
 // TextStructureFindStructure - Finds the structure of a text file. The text file must contain data that is suitable to be ingested into Elasticsearch.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/find-structure.html.
-//
 type TextStructureFindStructure func(body io.Reader, o ...func(*TextStructureFindStructureRequest)) (*Response, error)
 
 // TextStructureFindStructureRequest configures the Text Structure Find Structure API request.
-//
 type TextStructureFindStructureRequest struct {
 	Body io.Reader
 
@@ -77,7 +75,6 @@ type TextStructureFindStructureRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r TextStructureFindStructureRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -213,7 +210,6 @@ func (r TextStructureFindStructureRequest) Do(ctx context.Context, transport Tra
 }
 
 // WithContext sets the request context.
-//
 func (f TextStructureFindStructure) WithContext(v context.Context) func(*TextStructureFindStructureRequest) {
 	return func(r *TextStructureFindStructureRequest) {
 		r.ctx = v
@@ -221,7 +217,6 @@ func (f TextStructureFindStructure) WithContext(v context.Context) func(*TextStr
 }
 
 // WithCharset - optional parameter to specify the character set of the file.
-//
 func (f TextStructureFindStructure) WithCharset(v string) func(*TextStructureFindStructureRequest) {
 	return func(r *TextStructureFindStructureRequest) {
 		r.Charset = v
@@ -229,7 +224,6 @@ func (f TextStructureFindStructure) WithCharset(v string) func(*TextStructureFin
 }
 
 // WithColumnNames - optional parameter containing a comma separated list of the column names for a delimited file.
-//
 func (f TextStructureFindStructure) WithColumnNames(v ...string) func(*TextStructureFindStructureRequest) {
 	return func(r *TextStructureFindStructureRequest) {
 		r.ColumnNames = v
@@ -237,7 +231,6 @@ func (f TextStructureFindStructure) WithColumnNames(v ...string) func(*TextStruc
 }
 
 // WithDelimiter - optional parameter to specify the delimiter character for a delimited file - must be a single character.
-//
 func (f TextStructureFindStructure) WithDelimiter(v string) func(*TextStructureFindStructureRequest) {
 	return func(r *TextStructureFindStructureRequest) {
 		r.Delimiter = v
@@ -245,7 +238,6 @@ func (f TextStructureFindStructure) WithDelimiter(v string) func(*TextStructureF
 }
 
 // WithExplain - whether to include a commentary on how the structure was derived.
-//
 func (f TextStructureFindStructure) WithExplain(v bool) func(*TextStructureFindStructureRequest) {
 	return func(r *TextStructureFindStructureRequest) {
 		r.Explain = &v
@@ -253,7 +245,6 @@ func (f TextStructureFindStructure) WithExplain(v bool) func(*TextStructureFindS
 }
 
 // WithFormat - optional parameter to specify the high level file format.
-//
 func (f TextStructureFindStructure) WithFormat(v string) func(*TextStructureFindStructureRequest) {
 	return func(r *TextStructureFindStructureRequest) {
 		r.Format = v
@@ -261,7 +252,6 @@ func (f TextStructureFindStructure) WithFormat(v string) func(*TextStructureFind
 }
 
 // WithGrokPattern - optional parameter to specify the grok pattern that should be used to extract fields from messages in a semi-structured text file.
-//
 func (f TextStructureFindStructure) WithGrokPattern(v string) func(*TextStructureFindStructureRequest) {
 	return func(r *TextStructureFindStructureRequest) {
 		r.GrokPattern = v
@@ -269,7 +259,6 @@ func (f TextStructureFindStructure) WithGrokPattern(v string) func(*TextStructur
 }
 
 // WithHasHeaderRow - optional parameter to specify whether a delimited file includes the column names in its first row.
-//
 func (f TextStructureFindStructure) WithHasHeaderRow(v bool) func(*TextStructureFindStructureRequest) {
 	return func(r *TextStructureFindStructureRequest) {
 		r.HasHeaderRow = &v
@@ -277,7 +266,6 @@ func (f TextStructureFindStructure) WithHasHeaderRow(v bool) func(*TextStructure
 }
 
 // WithLineMergeSizeLimit - maximum number of characters permitted in a single message when lines are merged to create messages..
-//
 func (f TextStructureFindStructure) WithLineMergeSizeLimit(v int) func(*TextStructureFindStructureRequest) {
 	return func(r *TextStructureFindStructureRequest) {
 		r.LineMergeSizeLimit = &v
@@ -285,7 +273,6 @@ func (f TextStructureFindStructure) WithLineMergeSizeLimit(v int) func(*TextStru
 }
 
 // WithLinesToSample - how many lines of the file should be included in the analysis.
-//
 func (f TextStructureFindStructure) WithLinesToSample(v int) func(*TextStructureFindStructureRequest) {
 	return func(r *TextStructureFindStructureRequest) {
 		r.LinesToSample = &v
@@ -293,7 +280,6 @@ func (f TextStructureFindStructure) WithLinesToSample(v int) func(*TextStructure
 }
 
 // WithQuote - optional parameter to specify the quote character for a delimited file - must be a single character.
-//
 func (f TextStructureFindStructure) WithQuote(v string) func(*TextStructureFindStructureRequest) {
 	return func(r *TextStructureFindStructureRequest) {
 		r.Quote = v
@@ -301,7 +287,6 @@ func (f TextStructureFindStructure) WithQuote(v string) func(*TextStructureFindS
 }
 
 // WithShouldTrimFields - optional parameter to specify whether the values between delimiters in a delimited file should have whitespace trimmed from them.
-//
 func (f TextStructureFindStructure) WithShouldTrimFields(v bool) func(*TextStructureFindStructureRequest) {
 	return func(r *TextStructureFindStructureRequest) {
 		r.ShouldTrimFields = &v
@@ -309,7 +294,6 @@ func (f TextStructureFindStructure) WithShouldTrimFields(v bool) func(*TextStruc
 }
 
 // WithTimeout - timeout after which the analysis will be aborted.
-//
 func (f TextStructureFindStructure) WithTimeout(v time.Duration) func(*TextStructureFindStructureRequest) {
 	return func(r *TextStructureFindStructureRequest) {
 		r.Timeout = v
@@ -317,7 +301,6 @@ func (f TextStructureFindStructure) WithTimeout(v time.Duration) func(*TextStruc
 }
 
 // WithTimestampField - optional parameter to specify the timestamp field in the file.
-//
 func (f TextStructureFindStructure) WithTimestampField(v string) func(*TextStructureFindStructureRequest) {
 	return func(r *TextStructureFindStructureRequest) {
 		r.TimestampField = v
@@ -325,7 +308,6 @@ func (f TextStructureFindStructure) WithTimestampField(v string) func(*TextStruc
 }
 
 // WithTimestampFormat - optional parameter to specify the timestamp format in the file - may be either a joda or java time format.
-//
 func (f TextStructureFindStructure) WithTimestampFormat(v string) func(*TextStructureFindStructureRequest) {
 	return func(r *TextStructureFindStructureRequest) {
 		r.TimestampFormat = v
@@ -333,7 +315,6 @@ func (f TextStructureFindStructure) WithTimestampFormat(v string) func(*TextStru
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f TextStructureFindStructure) WithPretty() func(*TextStructureFindStructureRequest) {
 	return func(r *TextStructureFindStructureRequest) {
 		r.Pretty = true
@@ -341,7 +322,6 @@ func (f TextStructureFindStructure) WithPretty() func(*TextStructureFindStructur
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f TextStructureFindStructure) WithHuman() func(*TextStructureFindStructureRequest) {
 	return func(r *TextStructureFindStructureRequest) {
 		r.Human = true
@@ -349,7 +329,6 @@ func (f TextStructureFindStructure) WithHuman() func(*TextStructureFindStructure
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f TextStructureFindStructure) WithErrorTrace() func(*TextStructureFindStructureRequest) {
 	return func(r *TextStructureFindStructureRequest) {
 		r.ErrorTrace = true
@@ -357,7 +336,6 @@ func (f TextStructureFindStructure) WithErrorTrace() func(*TextStructureFindStru
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f TextStructureFindStructure) WithFilterPath(v ...string) func(*TextStructureFindStructureRequest) {
 	return func(r *TextStructureFindStructureRequest) {
 		r.FilterPath = v
@@ -365,7 +343,6 @@ func (f TextStructureFindStructure) WithFilterPath(v ...string) func(*TextStruct
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f TextStructureFindStructure) WithHeader(h map[string]string) func(*TextStructureFindStructureRequest) {
 	return func(r *TextStructureFindStructureRequest) {
 		if r.Header == nil {
@@ -378,7 +355,6 @@ func (f TextStructureFindStructure) WithHeader(h map[string]string) func(*TextSt
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f TextStructureFindStructure) WithOpaqueID(s string) func(*TextStructureFindStructureRequest) {
 	return func(r *TextStructureFindStructureRequest) {
 		if r.Header == nil {

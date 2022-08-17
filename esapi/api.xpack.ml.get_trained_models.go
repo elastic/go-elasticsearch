@@ -41,11 +41,9 @@ func newMLGetTrainedModelsFunc(t Transport) MLGetTrainedModels {
 // MLGetTrainedModels - Retrieves configuration information for a trained inference model.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-trained-models.html.
-//
 type MLGetTrainedModels func(o ...func(*MLGetTrainedModelsRequest)) (*Response, error)
 
 // MLGetTrainedModelsRequest configures the ML Get Trained Models API request.
-//
 type MLGetTrainedModelsRequest struct {
 	ModelID string
 
@@ -69,7 +67,6 @@ type MLGetTrainedModelsRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r MLGetTrainedModelsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -184,7 +181,6 @@ func (r MLGetTrainedModelsRequest) Do(ctx context.Context, transport Transport) 
 }
 
 // WithContext sets the request context.
-//
 func (f MLGetTrainedModels) WithContext(v context.Context) func(*MLGetTrainedModelsRequest) {
 	return func(r *MLGetTrainedModelsRequest) {
 		r.ctx = v
@@ -192,7 +188,6 @@ func (f MLGetTrainedModels) WithContext(v context.Context) func(*MLGetTrainedMod
 }
 
 // WithModelID - the ID of the trained models to fetch.
-//
 func (f MLGetTrainedModels) WithModelID(v string) func(*MLGetTrainedModelsRequest) {
 	return func(r *MLGetTrainedModelsRequest) {
 		r.ModelID = v
@@ -200,7 +195,6 @@ func (f MLGetTrainedModels) WithModelID(v string) func(*MLGetTrainedModelsReques
 }
 
 // WithAllowNoMatch - whether to ignore if a wildcard expression matches no trained models. (this includes `_all` string or when no trained models have been specified).
-//
 func (f MLGetTrainedModels) WithAllowNoMatch(v bool) func(*MLGetTrainedModelsRequest) {
 	return func(r *MLGetTrainedModelsRequest) {
 		r.AllowNoMatch = &v
@@ -208,7 +202,6 @@ func (f MLGetTrainedModels) WithAllowNoMatch(v bool) func(*MLGetTrainedModelsReq
 }
 
 // WithDecompressDefinition - should the model definition be decompressed into valid json or returned in a custom compressed format. defaults to true..
-//
 func (f MLGetTrainedModels) WithDecompressDefinition(v bool) func(*MLGetTrainedModelsRequest) {
 	return func(r *MLGetTrainedModelsRequest) {
 		r.DecompressDefinition = &v
@@ -216,7 +209,6 @@ func (f MLGetTrainedModels) WithDecompressDefinition(v bool) func(*MLGetTrainedM
 }
 
 // WithExcludeGenerated - omits fields that are illegal to set on model put.
-//
 func (f MLGetTrainedModels) WithExcludeGenerated(v bool) func(*MLGetTrainedModelsRequest) {
 	return func(r *MLGetTrainedModelsRequest) {
 		r.ExcludeGenerated = &v
@@ -224,7 +216,6 @@ func (f MLGetTrainedModels) WithExcludeGenerated(v bool) func(*MLGetTrainedModel
 }
 
 // WithFrom - skips a number of trained models.
-//
 func (f MLGetTrainedModels) WithFrom(v int) func(*MLGetTrainedModelsRequest) {
 	return func(r *MLGetTrainedModelsRequest) {
 		r.From = &v
@@ -232,7 +223,6 @@ func (f MLGetTrainedModels) WithFrom(v int) func(*MLGetTrainedModelsRequest) {
 }
 
 // WithInclude - a comma-separate list of fields to optionally include. valid options are 'definition' and 'total_feature_importance'. default is none..
-//
 func (f MLGetTrainedModels) WithInclude(v string) func(*MLGetTrainedModelsRequest) {
 	return func(r *MLGetTrainedModelsRequest) {
 		r.Include = v
@@ -240,7 +230,6 @@ func (f MLGetTrainedModels) WithInclude(v string) func(*MLGetTrainedModelsReques
 }
 
 // WithIncludeModelDefinition - should the full model definition be included in the results. these definitions can be large. so be cautious when including them. defaults to false..
-//
 func (f MLGetTrainedModels) WithIncludeModelDefinition(v bool) func(*MLGetTrainedModelsRequest) {
 	return func(r *MLGetTrainedModelsRequest) {
 		r.IncludeModelDefinition = &v
@@ -248,7 +237,6 @@ func (f MLGetTrainedModels) WithIncludeModelDefinition(v bool) func(*MLGetTraine
 }
 
 // WithSize - specifies a max number of trained models to get.
-//
 func (f MLGetTrainedModels) WithSize(v int) func(*MLGetTrainedModelsRequest) {
 	return func(r *MLGetTrainedModelsRequest) {
 		r.Size = &v
@@ -256,7 +244,6 @@ func (f MLGetTrainedModels) WithSize(v int) func(*MLGetTrainedModelsRequest) {
 }
 
 // WithTags - a list of tags that the model must have..
-//
 func (f MLGetTrainedModels) WithTags(v ...string) func(*MLGetTrainedModelsRequest) {
 	return func(r *MLGetTrainedModelsRequest) {
 		r.Tags = v
@@ -264,7 +251,6 @@ func (f MLGetTrainedModels) WithTags(v ...string) func(*MLGetTrainedModelsReques
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f MLGetTrainedModels) WithPretty() func(*MLGetTrainedModelsRequest) {
 	return func(r *MLGetTrainedModelsRequest) {
 		r.Pretty = true
@@ -272,7 +258,6 @@ func (f MLGetTrainedModels) WithPretty() func(*MLGetTrainedModelsRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f MLGetTrainedModels) WithHuman() func(*MLGetTrainedModelsRequest) {
 	return func(r *MLGetTrainedModelsRequest) {
 		r.Human = true
@@ -280,7 +265,6 @@ func (f MLGetTrainedModels) WithHuman() func(*MLGetTrainedModelsRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f MLGetTrainedModels) WithErrorTrace() func(*MLGetTrainedModelsRequest) {
 	return func(r *MLGetTrainedModelsRequest) {
 		r.ErrorTrace = true
@@ -288,7 +272,6 @@ func (f MLGetTrainedModels) WithErrorTrace() func(*MLGetTrainedModelsRequest) {
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f MLGetTrainedModels) WithFilterPath(v ...string) func(*MLGetTrainedModelsRequest) {
 	return func(r *MLGetTrainedModelsRequest) {
 		r.FilterPath = v
@@ -296,7 +279,6 @@ func (f MLGetTrainedModels) WithFilterPath(v ...string) func(*MLGetTrainedModels
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f MLGetTrainedModels) WithHeader(h map[string]string) func(*MLGetTrainedModelsRequest) {
 	return func(r *MLGetTrainedModelsRequest) {
 		if r.Header == nil {
@@ -309,7 +291,6 @@ func (f MLGetTrainedModels) WithHeader(h map[string]string) func(*MLGetTrainedMo
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f MLGetTrainedModels) WithOpaqueID(s string) func(*MLGetTrainedModelsRequest) {
 	return func(r *MLGetTrainedModelsRequest) {
 		if r.Header == nil {

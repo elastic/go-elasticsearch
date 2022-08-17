@@ -42,11 +42,9 @@ func newRollupGetRollupCapsFunc(t Transport) RollupGetRollupCaps {
 // This API is experimental.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-get-rollup-caps.html.
-//
 type RollupGetRollupCaps func(o ...func(*RollupGetRollupCapsRequest)) (*Response, error)
 
 // RollupGetRollupCapsRequest configures the Rollup Get Rollup Caps API request.
-//
 type RollupGetRollupCapsRequest struct {
 	Index string
 
@@ -61,7 +59,6 @@ type RollupGetRollupCapsRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r RollupGetRollupCapsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -144,7 +141,6 @@ func (r RollupGetRollupCapsRequest) Do(ctx context.Context, transport Transport)
 }
 
 // WithContext sets the request context.
-//
 func (f RollupGetRollupCaps) WithContext(v context.Context) func(*RollupGetRollupCapsRequest) {
 	return func(r *RollupGetRollupCapsRequest) {
 		r.ctx = v
@@ -152,7 +148,6 @@ func (f RollupGetRollupCaps) WithContext(v context.Context) func(*RollupGetRollu
 }
 
 // WithIndex - the ID of the index to check rollup capabilities on, or left blank for all jobs.
-//
 func (f RollupGetRollupCaps) WithIndex(v string) func(*RollupGetRollupCapsRequest) {
 	return func(r *RollupGetRollupCapsRequest) {
 		r.Index = v
@@ -160,7 +155,6 @@ func (f RollupGetRollupCaps) WithIndex(v string) func(*RollupGetRollupCapsReques
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f RollupGetRollupCaps) WithPretty() func(*RollupGetRollupCapsRequest) {
 	return func(r *RollupGetRollupCapsRequest) {
 		r.Pretty = true
@@ -168,7 +162,6 @@ func (f RollupGetRollupCaps) WithPretty() func(*RollupGetRollupCapsRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f RollupGetRollupCaps) WithHuman() func(*RollupGetRollupCapsRequest) {
 	return func(r *RollupGetRollupCapsRequest) {
 		r.Human = true
@@ -176,7 +169,6 @@ func (f RollupGetRollupCaps) WithHuman() func(*RollupGetRollupCapsRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f RollupGetRollupCaps) WithErrorTrace() func(*RollupGetRollupCapsRequest) {
 	return func(r *RollupGetRollupCapsRequest) {
 		r.ErrorTrace = true
@@ -184,7 +176,6 @@ func (f RollupGetRollupCaps) WithErrorTrace() func(*RollupGetRollupCapsRequest) 
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f RollupGetRollupCaps) WithFilterPath(v ...string) func(*RollupGetRollupCapsRequest) {
 	return func(r *RollupGetRollupCapsRequest) {
 		r.FilterPath = v
@@ -192,7 +183,6 @@ func (f RollupGetRollupCaps) WithFilterPath(v ...string) func(*RollupGetRollupCa
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f RollupGetRollupCaps) WithHeader(h map[string]string) func(*RollupGetRollupCapsRequest) {
 	return func(r *RollupGetRollupCapsRequest) {
 		if r.Header == nil {
@@ -205,7 +195,6 @@ func (f RollupGetRollupCaps) WithHeader(h map[string]string) func(*RollupGetRoll
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f RollupGetRollupCaps) WithOpaqueID(s string) func(*RollupGetRollupCapsRequest) {
 	return func(r *RollupGetRollupCapsRequest) {
 		if r.Header == nil {

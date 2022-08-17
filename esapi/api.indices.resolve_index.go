@@ -41,11 +41,9 @@ func newIndicesResolveIndexFunc(t Transport) IndicesResolveIndex {
 // IndicesResolveIndex returns information about any matching indices, aliases, and data streams
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-resolve-index-api.html.
-//
 type IndicesResolveIndex func(name []string, o ...func(*IndicesResolveIndexRequest)) (*Response, error)
 
 // IndicesResolveIndexRequest configures the Indices Resolve Index API request.
-//
 type IndicesResolveIndexRequest struct {
 	Name []string
 
@@ -62,7 +60,6 @@ type IndicesResolveIndexRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r IndicesResolveIndexRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -151,7 +148,6 @@ func (r IndicesResolveIndexRequest) Do(ctx context.Context, transport Transport)
 }
 
 // WithContext sets the request context.
-//
 func (f IndicesResolveIndex) WithContext(v context.Context) func(*IndicesResolveIndexRequest) {
 	return func(r *IndicesResolveIndexRequest) {
 		r.ctx = v
@@ -159,7 +155,6 @@ func (f IndicesResolveIndex) WithContext(v context.Context) func(*IndicesResolve
 }
 
 // WithExpandWildcards - whether wildcard expressions should get expanded to open or closed indices (default: open).
-//
 func (f IndicesResolveIndex) WithExpandWildcards(v string) func(*IndicesResolveIndexRequest) {
 	return func(r *IndicesResolveIndexRequest) {
 		r.ExpandWildcards = v
@@ -167,7 +162,6 @@ func (f IndicesResolveIndex) WithExpandWildcards(v string) func(*IndicesResolveI
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f IndicesResolveIndex) WithPretty() func(*IndicesResolveIndexRequest) {
 	return func(r *IndicesResolveIndexRequest) {
 		r.Pretty = true
@@ -175,7 +169,6 @@ func (f IndicesResolveIndex) WithPretty() func(*IndicesResolveIndexRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f IndicesResolveIndex) WithHuman() func(*IndicesResolveIndexRequest) {
 	return func(r *IndicesResolveIndexRequest) {
 		r.Human = true
@@ -183,7 +176,6 @@ func (f IndicesResolveIndex) WithHuman() func(*IndicesResolveIndexRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f IndicesResolveIndex) WithErrorTrace() func(*IndicesResolveIndexRequest) {
 	return func(r *IndicesResolveIndexRequest) {
 		r.ErrorTrace = true
@@ -191,7 +183,6 @@ func (f IndicesResolveIndex) WithErrorTrace() func(*IndicesResolveIndexRequest) 
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f IndicesResolveIndex) WithFilterPath(v ...string) func(*IndicesResolveIndexRequest) {
 	return func(r *IndicesResolveIndexRequest) {
 		r.FilterPath = v
@@ -199,7 +190,6 @@ func (f IndicesResolveIndex) WithFilterPath(v ...string) func(*IndicesResolveInd
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f IndicesResolveIndex) WithHeader(h map[string]string) func(*IndicesResolveIndexRequest) {
 	return func(r *IndicesResolveIndexRequest) {
 		if r.Header == nil {
@@ -212,7 +202,6 @@ func (f IndicesResolveIndex) WithHeader(h map[string]string) func(*IndicesResolv
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f IndicesResolveIndex) WithOpaqueID(s string) func(*IndicesResolveIndexRequest) {
 	return func(r *IndicesResolveIndexRequest) {
 		if r.Header == nil {

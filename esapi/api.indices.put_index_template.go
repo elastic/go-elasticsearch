@@ -43,11 +43,9 @@ func newIndicesPutIndexTemplateFunc(t Transport) IndicesPutIndexTemplate {
 // IndicesPutIndexTemplate creates or updates an index template.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html.
-//
 type IndicesPutIndexTemplate func(name string, body io.Reader, o ...func(*IndicesPutIndexTemplateRequest)) (*Response, error)
 
 // IndicesPutIndexTemplateRequest configures the Indices Put Index Template API request.
-//
 type IndicesPutIndexTemplateRequest struct {
 	Body io.Reader
 
@@ -68,7 +66,6 @@ type IndicesPutIndexTemplateRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r IndicesPutIndexTemplateRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -163,7 +160,6 @@ func (r IndicesPutIndexTemplateRequest) Do(ctx context.Context, transport Transp
 }
 
 // WithContext sets the request context.
-//
 func (f IndicesPutIndexTemplate) WithContext(v context.Context) func(*IndicesPutIndexTemplateRequest) {
 	return func(r *IndicesPutIndexTemplateRequest) {
 		r.ctx = v
@@ -171,7 +167,6 @@ func (f IndicesPutIndexTemplate) WithContext(v context.Context) func(*IndicesPut
 }
 
 // WithCause - user defined reason for creating/updating the index template.
-//
 func (f IndicesPutIndexTemplate) WithCause(v string) func(*IndicesPutIndexTemplateRequest) {
 	return func(r *IndicesPutIndexTemplateRequest) {
 		r.Cause = v
@@ -179,7 +174,6 @@ func (f IndicesPutIndexTemplate) WithCause(v string) func(*IndicesPutIndexTempla
 }
 
 // WithCreate - whether the index template should only be added if new or can also replace an existing one.
-//
 func (f IndicesPutIndexTemplate) WithCreate(v bool) func(*IndicesPutIndexTemplateRequest) {
 	return func(r *IndicesPutIndexTemplateRequest) {
 		r.Create = &v
@@ -187,7 +181,6 @@ func (f IndicesPutIndexTemplate) WithCreate(v bool) func(*IndicesPutIndexTemplat
 }
 
 // WithMasterTimeout - specify timeout for connection to master.
-//
 func (f IndicesPutIndexTemplate) WithMasterTimeout(v time.Duration) func(*IndicesPutIndexTemplateRequest) {
 	return func(r *IndicesPutIndexTemplateRequest) {
 		r.MasterTimeout = v
@@ -195,7 +188,6 @@ func (f IndicesPutIndexTemplate) WithMasterTimeout(v time.Duration) func(*Indice
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f IndicesPutIndexTemplate) WithPretty() func(*IndicesPutIndexTemplateRequest) {
 	return func(r *IndicesPutIndexTemplateRequest) {
 		r.Pretty = true
@@ -203,7 +195,6 @@ func (f IndicesPutIndexTemplate) WithPretty() func(*IndicesPutIndexTemplateReque
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f IndicesPutIndexTemplate) WithHuman() func(*IndicesPutIndexTemplateRequest) {
 	return func(r *IndicesPutIndexTemplateRequest) {
 		r.Human = true
@@ -211,7 +202,6 @@ func (f IndicesPutIndexTemplate) WithHuman() func(*IndicesPutIndexTemplateReques
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f IndicesPutIndexTemplate) WithErrorTrace() func(*IndicesPutIndexTemplateRequest) {
 	return func(r *IndicesPutIndexTemplateRequest) {
 		r.ErrorTrace = true
@@ -219,7 +209,6 @@ func (f IndicesPutIndexTemplate) WithErrorTrace() func(*IndicesPutIndexTemplateR
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f IndicesPutIndexTemplate) WithFilterPath(v ...string) func(*IndicesPutIndexTemplateRequest) {
 	return func(r *IndicesPutIndexTemplateRequest) {
 		r.FilterPath = v
@@ -227,7 +216,6 @@ func (f IndicesPutIndexTemplate) WithFilterPath(v ...string) func(*IndicesPutInd
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f IndicesPutIndexTemplate) WithHeader(h map[string]string) func(*IndicesPutIndexTemplateRequest) {
 	return func(r *IndicesPutIndexTemplateRequest) {
 		if r.Header == nil {
@@ -240,7 +228,6 @@ func (f IndicesPutIndexTemplate) WithHeader(h map[string]string) func(*IndicesPu
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f IndicesPutIndexTemplate) WithOpaqueID(s string) func(*IndicesPutIndexTemplateRequest) {
 	return func(r *IndicesPutIndexTemplateRequest) {
 		if r.Header == nil {

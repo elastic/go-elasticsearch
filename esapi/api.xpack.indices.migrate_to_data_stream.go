@@ -40,11 +40,9 @@ func newIndicesMigrateToDataStreamFunc(t Transport) IndicesMigrateToDataStream {
 // IndicesMigrateToDataStream - Migrates an alias to a data stream
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html.
-//
 type IndicesMigrateToDataStream func(name string, o ...func(*IndicesMigrateToDataStreamRequest)) (*Response, error)
 
 // IndicesMigrateToDataStreamRequest configures the Indices Migrate To Data Stream API request.
-//
 type IndicesMigrateToDataStreamRequest struct {
 	Name string
 
@@ -59,7 +57,6 @@ type IndicesMigrateToDataStreamRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r IndicesMigrateToDataStreamRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -140,7 +137,6 @@ func (r IndicesMigrateToDataStreamRequest) Do(ctx context.Context, transport Tra
 }
 
 // WithContext sets the request context.
-//
 func (f IndicesMigrateToDataStream) WithContext(v context.Context) func(*IndicesMigrateToDataStreamRequest) {
 	return func(r *IndicesMigrateToDataStreamRequest) {
 		r.ctx = v
@@ -148,7 +144,6 @@ func (f IndicesMigrateToDataStream) WithContext(v context.Context) func(*Indices
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f IndicesMigrateToDataStream) WithPretty() func(*IndicesMigrateToDataStreamRequest) {
 	return func(r *IndicesMigrateToDataStreamRequest) {
 		r.Pretty = true
@@ -156,7 +151,6 @@ func (f IndicesMigrateToDataStream) WithPretty() func(*IndicesMigrateToDataStrea
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f IndicesMigrateToDataStream) WithHuman() func(*IndicesMigrateToDataStreamRequest) {
 	return func(r *IndicesMigrateToDataStreamRequest) {
 		r.Human = true
@@ -164,7 +158,6 @@ func (f IndicesMigrateToDataStream) WithHuman() func(*IndicesMigrateToDataStream
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f IndicesMigrateToDataStream) WithErrorTrace() func(*IndicesMigrateToDataStreamRequest) {
 	return func(r *IndicesMigrateToDataStreamRequest) {
 		r.ErrorTrace = true
@@ -172,7 +165,6 @@ func (f IndicesMigrateToDataStream) WithErrorTrace() func(*IndicesMigrateToDataS
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f IndicesMigrateToDataStream) WithFilterPath(v ...string) func(*IndicesMigrateToDataStreamRequest) {
 	return func(r *IndicesMigrateToDataStreamRequest) {
 		r.FilterPath = v
@@ -180,7 +172,6 @@ func (f IndicesMigrateToDataStream) WithFilterPath(v ...string) func(*IndicesMig
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f IndicesMigrateToDataStream) WithHeader(h map[string]string) func(*IndicesMigrateToDataStreamRequest) {
 	return func(r *IndicesMigrateToDataStreamRequest) {
 		if r.Header == nil {
@@ -193,7 +184,6 @@ func (f IndicesMigrateToDataStream) WithHeader(h map[string]string) func(*Indice
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f IndicesMigrateToDataStream) WithOpaqueID(s string) func(*IndicesMigrateToDataStreamRequest) {
 	return func(r *IndicesMigrateToDataStreamRequest) {
 		if r.Header == nil {

@@ -42,11 +42,9 @@ func newTermsEnumFunc(t Transport) TermsEnum {
 // TermsEnum the terms enum API  can be used to discover terms in the index that begin with the provided string. It is designed for low-latency look-ups used in auto-complete scenarios.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/search-terms-enum.html.
-//
 type TermsEnum func(index []string, o ...func(*TermsEnumRequest)) (*Response, error)
 
 // TermsEnumRequest configures the Terms Enum API request.
-//
 type TermsEnumRequest struct {
 	Index []string
 
@@ -63,7 +61,6 @@ type TermsEnumRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r TermsEnumRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -150,7 +147,6 @@ func (r TermsEnumRequest) Do(ctx context.Context, transport Transport) (*Respons
 }
 
 // WithContext sets the request context.
-//
 func (f TermsEnum) WithContext(v context.Context) func(*TermsEnumRequest) {
 	return func(r *TermsEnumRequest) {
 		r.ctx = v
@@ -158,7 +154,6 @@ func (f TermsEnum) WithContext(v context.Context) func(*TermsEnumRequest) {
 }
 
 // WithBody - field name, string which is the prefix expected in matching terms, timeout and size for max number of results.
-//
 func (f TermsEnum) WithBody(v io.Reader) func(*TermsEnumRequest) {
 	return func(r *TermsEnumRequest) {
 		r.Body = v
@@ -166,7 +161,6 @@ func (f TermsEnum) WithBody(v io.Reader) func(*TermsEnumRequest) {
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f TermsEnum) WithPretty() func(*TermsEnumRequest) {
 	return func(r *TermsEnumRequest) {
 		r.Pretty = true
@@ -174,7 +168,6 @@ func (f TermsEnum) WithPretty() func(*TermsEnumRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f TermsEnum) WithHuman() func(*TermsEnumRequest) {
 	return func(r *TermsEnumRequest) {
 		r.Human = true
@@ -182,7 +175,6 @@ func (f TermsEnum) WithHuman() func(*TermsEnumRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f TermsEnum) WithErrorTrace() func(*TermsEnumRequest) {
 	return func(r *TermsEnumRequest) {
 		r.ErrorTrace = true
@@ -190,7 +182,6 @@ func (f TermsEnum) WithErrorTrace() func(*TermsEnumRequest) {
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f TermsEnum) WithFilterPath(v ...string) func(*TermsEnumRequest) {
 	return func(r *TermsEnumRequest) {
 		r.FilterPath = v
@@ -198,7 +189,6 @@ func (f TermsEnum) WithFilterPath(v ...string) func(*TermsEnumRequest) {
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f TermsEnum) WithHeader(h map[string]string) func(*TermsEnumRequest) {
 	return func(r *TermsEnumRequest) {
 		if r.Header == nil {
@@ -211,7 +201,6 @@ func (f TermsEnum) WithHeader(h map[string]string) func(*TermsEnumRequest) {
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f TermsEnum) WithOpaqueID(s string) func(*TermsEnumRequest) {
 	return func(r *TermsEnumRequest) {
 		if r.Header == nil {

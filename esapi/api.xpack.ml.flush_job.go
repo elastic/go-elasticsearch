@@ -42,11 +42,9 @@ func newMLFlushJobFunc(t Transport) MLFlushJob {
 // MLFlushJob - Forces any buffered data to be processed by the job.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-flush-job.html.
-//
 type MLFlushJob func(job_id string, o ...func(*MLFlushJobRequest)) (*Response, error)
 
 // MLFlushJobRequest configures the ML Flush Job API request.
-//
 type MLFlushJobRequest struct {
 	Body io.Reader
 
@@ -69,7 +67,6 @@ type MLFlushJobRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r MLFlushJobRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -176,7 +173,6 @@ func (r MLFlushJobRequest) Do(ctx context.Context, transport Transport) (*Respon
 }
 
 // WithContext sets the request context.
-//
 func (f MLFlushJob) WithContext(v context.Context) func(*MLFlushJobRequest) {
 	return func(r *MLFlushJobRequest) {
 		r.ctx = v
@@ -184,7 +180,6 @@ func (f MLFlushJob) WithContext(v context.Context) func(*MLFlushJobRequest) {
 }
 
 // WithBody - Flush parameters.
-//
 func (f MLFlushJob) WithBody(v io.Reader) func(*MLFlushJobRequest) {
 	return func(r *MLFlushJobRequest) {
 		r.Body = v
@@ -192,7 +187,6 @@ func (f MLFlushJob) WithBody(v io.Reader) func(*MLFlushJobRequest) {
 }
 
 // WithAdvanceTime - advances time to the given value generating results and updating the model for the advanced interval.
-//
 func (f MLFlushJob) WithAdvanceTime(v string) func(*MLFlushJobRequest) {
 	return func(r *MLFlushJobRequest) {
 		r.AdvanceTime = v
@@ -200,7 +194,6 @@ func (f MLFlushJob) WithAdvanceTime(v string) func(*MLFlushJobRequest) {
 }
 
 // WithCalcInterim - calculates interim results for the most recent bucket or all buckets within the latency period.
-//
 func (f MLFlushJob) WithCalcInterim(v bool) func(*MLFlushJobRequest) {
 	return func(r *MLFlushJobRequest) {
 		r.CalcInterim = &v
@@ -208,7 +201,6 @@ func (f MLFlushJob) WithCalcInterim(v bool) func(*MLFlushJobRequest) {
 }
 
 // WithEnd - when used in conjunction with calc_interim, specifies the range of buckets on which to calculate interim results.
-//
 func (f MLFlushJob) WithEnd(v string) func(*MLFlushJobRequest) {
 	return func(r *MLFlushJobRequest) {
 		r.End = v
@@ -216,7 +208,6 @@ func (f MLFlushJob) WithEnd(v string) func(*MLFlushJobRequest) {
 }
 
 // WithSkipTime - skips time to the given value without generating results or updating the model for the skipped interval.
-//
 func (f MLFlushJob) WithSkipTime(v string) func(*MLFlushJobRequest) {
 	return func(r *MLFlushJobRequest) {
 		r.SkipTime = v
@@ -224,7 +215,6 @@ func (f MLFlushJob) WithSkipTime(v string) func(*MLFlushJobRequest) {
 }
 
 // WithStart - when used in conjunction with calc_interim, specifies the range of buckets on which to calculate interim results.
-//
 func (f MLFlushJob) WithStart(v string) func(*MLFlushJobRequest) {
 	return func(r *MLFlushJobRequest) {
 		r.Start = v
@@ -232,7 +222,6 @@ func (f MLFlushJob) WithStart(v string) func(*MLFlushJobRequest) {
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f MLFlushJob) WithPretty() func(*MLFlushJobRequest) {
 	return func(r *MLFlushJobRequest) {
 		r.Pretty = true
@@ -240,7 +229,6 @@ func (f MLFlushJob) WithPretty() func(*MLFlushJobRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f MLFlushJob) WithHuman() func(*MLFlushJobRequest) {
 	return func(r *MLFlushJobRequest) {
 		r.Human = true
@@ -248,7 +236,6 @@ func (f MLFlushJob) WithHuman() func(*MLFlushJobRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f MLFlushJob) WithErrorTrace() func(*MLFlushJobRequest) {
 	return func(r *MLFlushJobRequest) {
 		r.ErrorTrace = true
@@ -256,7 +243,6 @@ func (f MLFlushJob) WithErrorTrace() func(*MLFlushJobRequest) {
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f MLFlushJob) WithFilterPath(v ...string) func(*MLFlushJobRequest) {
 	return func(r *MLFlushJobRequest) {
 		r.FilterPath = v
@@ -264,7 +250,6 @@ func (f MLFlushJob) WithFilterPath(v ...string) func(*MLFlushJobRequest) {
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f MLFlushJob) WithHeader(h map[string]string) func(*MLFlushJobRequest) {
 	return func(r *MLFlushJobRequest) {
 		if r.Header == nil {
@@ -277,7 +262,6 @@ func (f MLFlushJob) WithHeader(h map[string]string) func(*MLFlushJobRequest) {
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f MLFlushJob) WithOpaqueID(s string) func(*MLFlushJobRequest) {
 	return func(r *MLFlushJobRequest) {
 		if r.Header == nil {

@@ -42,11 +42,9 @@ func newMLUpdateDatafeedFunc(t Transport) MLUpdateDatafeed {
 // MLUpdateDatafeed - Updates certain properties of a datafeed.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-update-datafeed.html.
-//
 type MLUpdateDatafeed func(body io.Reader, datafeed_id string, o ...func(*MLUpdateDatafeedRequest)) (*Response, error)
 
 // MLUpdateDatafeedRequest configures the ML Update Datafeed API request.
-//
 type MLUpdateDatafeedRequest struct {
 	Body io.Reader
 
@@ -68,7 +66,6 @@ type MLUpdateDatafeedRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r MLUpdateDatafeedRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -171,7 +168,6 @@ func (r MLUpdateDatafeedRequest) Do(ctx context.Context, transport Transport) (*
 }
 
 // WithContext sets the request context.
-//
 func (f MLUpdateDatafeed) WithContext(v context.Context) func(*MLUpdateDatafeedRequest) {
 	return func(r *MLUpdateDatafeedRequest) {
 		r.ctx = v
@@ -179,7 +175,6 @@ func (f MLUpdateDatafeed) WithContext(v context.Context) func(*MLUpdateDatafeedR
 }
 
 // WithAllowNoIndices - ignore if the source indices expressions resolves to no concrete indices (default: true).
-//
 func (f MLUpdateDatafeed) WithAllowNoIndices(v bool) func(*MLUpdateDatafeedRequest) {
 	return func(r *MLUpdateDatafeedRequest) {
 		r.AllowNoIndices = &v
@@ -187,7 +182,6 @@ func (f MLUpdateDatafeed) WithAllowNoIndices(v bool) func(*MLUpdateDatafeedReque
 }
 
 // WithExpandWildcards - whether source index expressions should get expanded to open or closed indices (default: open).
-//
 func (f MLUpdateDatafeed) WithExpandWildcards(v string) func(*MLUpdateDatafeedRequest) {
 	return func(r *MLUpdateDatafeedRequest) {
 		r.ExpandWildcards = v
@@ -195,7 +189,6 @@ func (f MLUpdateDatafeed) WithExpandWildcards(v string) func(*MLUpdateDatafeedRe
 }
 
 // WithIgnoreThrottled - ignore indices that are marked as throttled (default: true).
-//
 func (f MLUpdateDatafeed) WithIgnoreThrottled(v bool) func(*MLUpdateDatafeedRequest) {
 	return func(r *MLUpdateDatafeedRequest) {
 		r.IgnoreThrottled = &v
@@ -203,7 +196,6 @@ func (f MLUpdateDatafeed) WithIgnoreThrottled(v bool) func(*MLUpdateDatafeedRequ
 }
 
 // WithIgnoreUnavailable - ignore unavailable indexes (default: false).
-//
 func (f MLUpdateDatafeed) WithIgnoreUnavailable(v bool) func(*MLUpdateDatafeedRequest) {
 	return func(r *MLUpdateDatafeedRequest) {
 		r.IgnoreUnavailable = &v
@@ -211,7 +203,6 @@ func (f MLUpdateDatafeed) WithIgnoreUnavailable(v bool) func(*MLUpdateDatafeedRe
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f MLUpdateDatafeed) WithPretty() func(*MLUpdateDatafeedRequest) {
 	return func(r *MLUpdateDatafeedRequest) {
 		r.Pretty = true
@@ -219,7 +210,6 @@ func (f MLUpdateDatafeed) WithPretty() func(*MLUpdateDatafeedRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f MLUpdateDatafeed) WithHuman() func(*MLUpdateDatafeedRequest) {
 	return func(r *MLUpdateDatafeedRequest) {
 		r.Human = true
@@ -227,7 +217,6 @@ func (f MLUpdateDatafeed) WithHuman() func(*MLUpdateDatafeedRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f MLUpdateDatafeed) WithErrorTrace() func(*MLUpdateDatafeedRequest) {
 	return func(r *MLUpdateDatafeedRequest) {
 		r.ErrorTrace = true
@@ -235,7 +224,6 @@ func (f MLUpdateDatafeed) WithErrorTrace() func(*MLUpdateDatafeedRequest) {
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f MLUpdateDatafeed) WithFilterPath(v ...string) func(*MLUpdateDatafeedRequest) {
 	return func(r *MLUpdateDatafeedRequest) {
 		r.FilterPath = v
@@ -243,7 +231,6 @@ func (f MLUpdateDatafeed) WithFilterPath(v ...string) func(*MLUpdateDatafeedRequ
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f MLUpdateDatafeed) WithHeader(h map[string]string) func(*MLUpdateDatafeedRequest) {
 	return func(r *MLUpdateDatafeedRequest) {
 		if r.Header == nil {
@@ -256,7 +243,6 @@ func (f MLUpdateDatafeed) WithHeader(h map[string]string) func(*MLUpdateDatafeed
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f MLUpdateDatafeed) WithOpaqueID(s string) func(*MLUpdateDatafeedRequest) {
 	return func(r *MLUpdateDatafeedRequest) {
 		if r.Header == nil {

@@ -43,11 +43,9 @@ func newIndicesSimulateIndexTemplateFunc(t Transport) IndicesSimulateIndexTempla
 // IndicesSimulateIndexTemplate simulate matching the given index name against the index templates in the system
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html.
-//
 type IndicesSimulateIndexTemplate func(name string, o ...func(*IndicesSimulateIndexTemplateRequest)) (*Response, error)
 
 // IndicesSimulateIndexTemplateRequest configures the Indices Simulate Index Template API request.
-//
 type IndicesSimulateIndexTemplateRequest struct {
 	Body io.Reader
 
@@ -68,7 +66,6 @@ type IndicesSimulateIndexTemplateRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r IndicesSimulateIndexTemplateRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -165,7 +162,6 @@ func (r IndicesSimulateIndexTemplateRequest) Do(ctx context.Context, transport T
 }
 
 // WithContext sets the request context.
-//
 func (f IndicesSimulateIndexTemplate) WithContext(v context.Context) func(*IndicesSimulateIndexTemplateRequest) {
 	return func(r *IndicesSimulateIndexTemplateRequest) {
 		r.ctx = v
@@ -173,7 +169,6 @@ func (f IndicesSimulateIndexTemplate) WithContext(v context.Context) func(*Indic
 }
 
 // WithBody - New index template definition, which will be included in the simulation, as if it already exists in the system.
-//
 func (f IndicesSimulateIndexTemplate) WithBody(v io.Reader) func(*IndicesSimulateIndexTemplateRequest) {
 	return func(r *IndicesSimulateIndexTemplateRequest) {
 		r.Body = v
@@ -181,7 +176,6 @@ func (f IndicesSimulateIndexTemplate) WithBody(v io.Reader) func(*IndicesSimulat
 }
 
 // WithCause - user defined reason for dry-run creating the new template for simulation purposes.
-//
 func (f IndicesSimulateIndexTemplate) WithCause(v string) func(*IndicesSimulateIndexTemplateRequest) {
 	return func(r *IndicesSimulateIndexTemplateRequest) {
 		r.Cause = v
@@ -189,7 +183,6 @@ func (f IndicesSimulateIndexTemplate) WithCause(v string) func(*IndicesSimulateI
 }
 
 // WithCreate - whether the index template we optionally defined in the body should only be dry-run added if new or can also replace an existing one.
-//
 func (f IndicesSimulateIndexTemplate) WithCreate(v bool) func(*IndicesSimulateIndexTemplateRequest) {
 	return func(r *IndicesSimulateIndexTemplateRequest) {
 		r.Create = &v
@@ -197,7 +190,6 @@ func (f IndicesSimulateIndexTemplate) WithCreate(v bool) func(*IndicesSimulateIn
 }
 
 // WithMasterTimeout - specify timeout for connection to master.
-//
 func (f IndicesSimulateIndexTemplate) WithMasterTimeout(v time.Duration) func(*IndicesSimulateIndexTemplateRequest) {
 	return func(r *IndicesSimulateIndexTemplateRequest) {
 		r.MasterTimeout = v
@@ -205,7 +197,6 @@ func (f IndicesSimulateIndexTemplate) WithMasterTimeout(v time.Duration) func(*I
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f IndicesSimulateIndexTemplate) WithPretty() func(*IndicesSimulateIndexTemplateRequest) {
 	return func(r *IndicesSimulateIndexTemplateRequest) {
 		r.Pretty = true
@@ -213,7 +204,6 @@ func (f IndicesSimulateIndexTemplate) WithPretty() func(*IndicesSimulateIndexTem
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f IndicesSimulateIndexTemplate) WithHuman() func(*IndicesSimulateIndexTemplateRequest) {
 	return func(r *IndicesSimulateIndexTemplateRequest) {
 		r.Human = true
@@ -221,7 +211,6 @@ func (f IndicesSimulateIndexTemplate) WithHuman() func(*IndicesSimulateIndexTemp
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f IndicesSimulateIndexTemplate) WithErrorTrace() func(*IndicesSimulateIndexTemplateRequest) {
 	return func(r *IndicesSimulateIndexTemplateRequest) {
 		r.ErrorTrace = true
@@ -229,7 +218,6 @@ func (f IndicesSimulateIndexTemplate) WithErrorTrace() func(*IndicesSimulateInde
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f IndicesSimulateIndexTemplate) WithFilterPath(v ...string) func(*IndicesSimulateIndexTemplateRequest) {
 	return func(r *IndicesSimulateIndexTemplateRequest) {
 		r.FilterPath = v
@@ -237,7 +225,6 @@ func (f IndicesSimulateIndexTemplate) WithFilterPath(v ...string) func(*IndicesS
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f IndicesSimulateIndexTemplate) WithHeader(h map[string]string) func(*IndicesSimulateIndexTemplateRequest) {
 	return func(r *IndicesSimulateIndexTemplateRequest) {
 		if r.Header == nil {
@@ -250,7 +237,6 @@ func (f IndicesSimulateIndexTemplate) WithHeader(h map[string]string) func(*Indi
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f IndicesSimulateIndexTemplate) WithOpaqueID(s string) func(*IndicesSimulateIndexTemplateRequest) {
 	return func(r *IndicesSimulateIndexTemplateRequest) {
 		if r.Header == nil {

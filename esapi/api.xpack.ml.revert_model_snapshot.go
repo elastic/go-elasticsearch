@@ -42,11 +42,9 @@ func newMLRevertModelSnapshotFunc(t Transport) MLRevertModelSnapshot {
 // MLRevertModelSnapshot - Reverts to a specific snapshot.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-revert-snapshot.html.
-//
 type MLRevertModelSnapshot func(snapshot_id string, job_id string, o ...func(*MLRevertModelSnapshotRequest)) (*Response, error)
 
 // MLRevertModelSnapshotRequest configures the ML Revert Model Snapshot API request.
-//
 type MLRevertModelSnapshotRequest struct {
 	Body io.Reader
 
@@ -66,7 +64,6 @@ type MLRevertModelSnapshotRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r MLRevertModelSnapshotRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -161,7 +158,6 @@ func (r MLRevertModelSnapshotRequest) Do(ctx context.Context, transport Transpor
 }
 
 // WithContext sets the request context.
-//
 func (f MLRevertModelSnapshot) WithContext(v context.Context) func(*MLRevertModelSnapshotRequest) {
 	return func(r *MLRevertModelSnapshotRequest) {
 		r.ctx = v
@@ -169,7 +165,6 @@ func (f MLRevertModelSnapshot) WithContext(v context.Context) func(*MLRevertMode
 }
 
 // WithBody - Reversion options.
-//
 func (f MLRevertModelSnapshot) WithBody(v io.Reader) func(*MLRevertModelSnapshotRequest) {
 	return func(r *MLRevertModelSnapshotRequest) {
 		r.Body = v
@@ -177,7 +172,6 @@ func (f MLRevertModelSnapshot) WithBody(v io.Reader) func(*MLRevertModelSnapshot
 }
 
 // WithDeleteInterveningResults - should we reset the results back to the time of the snapshot?.
-//
 func (f MLRevertModelSnapshot) WithDeleteInterveningResults(v bool) func(*MLRevertModelSnapshotRequest) {
 	return func(r *MLRevertModelSnapshotRequest) {
 		r.DeleteInterveningResults = &v
@@ -185,7 +179,6 @@ func (f MLRevertModelSnapshot) WithDeleteInterveningResults(v bool) func(*MLReve
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f MLRevertModelSnapshot) WithPretty() func(*MLRevertModelSnapshotRequest) {
 	return func(r *MLRevertModelSnapshotRequest) {
 		r.Pretty = true
@@ -193,7 +186,6 @@ func (f MLRevertModelSnapshot) WithPretty() func(*MLRevertModelSnapshotRequest) 
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f MLRevertModelSnapshot) WithHuman() func(*MLRevertModelSnapshotRequest) {
 	return func(r *MLRevertModelSnapshotRequest) {
 		r.Human = true
@@ -201,7 +193,6 @@ func (f MLRevertModelSnapshot) WithHuman() func(*MLRevertModelSnapshotRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f MLRevertModelSnapshot) WithErrorTrace() func(*MLRevertModelSnapshotRequest) {
 	return func(r *MLRevertModelSnapshotRequest) {
 		r.ErrorTrace = true
@@ -209,7 +200,6 @@ func (f MLRevertModelSnapshot) WithErrorTrace() func(*MLRevertModelSnapshotReque
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f MLRevertModelSnapshot) WithFilterPath(v ...string) func(*MLRevertModelSnapshotRequest) {
 	return func(r *MLRevertModelSnapshotRequest) {
 		r.FilterPath = v
@@ -217,7 +207,6 @@ func (f MLRevertModelSnapshot) WithFilterPath(v ...string) func(*MLRevertModelSn
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f MLRevertModelSnapshot) WithHeader(h map[string]string) func(*MLRevertModelSnapshotRequest) {
 	return func(r *MLRevertModelSnapshotRequest) {
 		if r.Header == nil {
@@ -230,7 +219,6 @@ func (f MLRevertModelSnapshot) WithHeader(h map[string]string) func(*MLRevertMod
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f MLRevertModelSnapshot) WithOpaqueID(s string) func(*MLRevertModelSnapshotRequest) {
 	return func(r *MLRevertModelSnapshotRequest) {
 		if r.Header == nil {

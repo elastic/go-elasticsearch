@@ -40,11 +40,9 @@ func newLogstashGetPipelineFunc(t Transport) LogstashGetPipeline {
 // LogstashGetPipeline - Retrieves Logstash Pipelines used by Central Management
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/logstash-api-get-pipeline.html.
-//
 type LogstashGetPipeline func(id string, o ...func(*LogstashGetPipelineRequest)) (*Response, error)
 
 // LogstashGetPipelineRequest configures the Logstash Get Pipeline API request.
-//
 type LogstashGetPipelineRequest struct {
 	DocumentID string
 
@@ -59,7 +57,6 @@ type LogstashGetPipelineRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r LogstashGetPipelineRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -140,7 +137,6 @@ func (r LogstashGetPipelineRequest) Do(ctx context.Context, transport Transport)
 }
 
 // WithContext sets the request context.
-//
 func (f LogstashGetPipeline) WithContext(v context.Context) func(*LogstashGetPipelineRequest) {
 	return func(r *LogstashGetPipelineRequest) {
 		r.ctx = v
@@ -148,7 +144,6 @@ func (f LogstashGetPipeline) WithContext(v context.Context) func(*LogstashGetPip
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f LogstashGetPipeline) WithPretty() func(*LogstashGetPipelineRequest) {
 	return func(r *LogstashGetPipelineRequest) {
 		r.Pretty = true
@@ -156,7 +151,6 @@ func (f LogstashGetPipeline) WithPretty() func(*LogstashGetPipelineRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f LogstashGetPipeline) WithHuman() func(*LogstashGetPipelineRequest) {
 	return func(r *LogstashGetPipelineRequest) {
 		r.Human = true
@@ -164,7 +158,6 @@ func (f LogstashGetPipeline) WithHuman() func(*LogstashGetPipelineRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f LogstashGetPipeline) WithErrorTrace() func(*LogstashGetPipelineRequest) {
 	return func(r *LogstashGetPipelineRequest) {
 		r.ErrorTrace = true
@@ -172,7 +165,6 @@ func (f LogstashGetPipeline) WithErrorTrace() func(*LogstashGetPipelineRequest) 
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f LogstashGetPipeline) WithFilterPath(v ...string) func(*LogstashGetPipelineRequest) {
 	return func(r *LogstashGetPipelineRequest) {
 		r.FilterPath = v
@@ -180,7 +172,6 @@ func (f LogstashGetPipeline) WithFilterPath(v ...string) func(*LogstashGetPipeli
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f LogstashGetPipeline) WithHeader(h map[string]string) func(*LogstashGetPipelineRequest) {
 	return func(r *LogstashGetPipelineRequest) {
 		if r.Header == nil {
@@ -193,7 +184,6 @@ func (f LogstashGetPipeline) WithHeader(h map[string]string) func(*LogstashGetPi
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f LogstashGetPipeline) WithOpaqueID(s string) func(*LogstashGetPipelineRequest) {
 	return func(r *LogstashGetPipelineRequest) {
 		if r.Header == nil {

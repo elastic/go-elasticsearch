@@ -40,11 +40,9 @@ func newSecuritySamlServiceProviderMetadataFunc(t Transport) SecuritySamlService
 // SecuritySamlServiceProviderMetadata - Generates SAML metadata for the Elastic stack SAML 2.0 Service Provider
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-saml-sp-metadata.html.
-//
 type SecuritySamlServiceProviderMetadata func(realm_name string, o ...func(*SecuritySamlServiceProviderMetadataRequest)) (*Response, error)
 
 // SecuritySamlServiceProviderMetadataRequest configures the Security Saml Service Provider Metadata API request.
-//
 type SecuritySamlServiceProviderMetadataRequest struct {
 	RealmName string
 
@@ -59,7 +57,6 @@ type SecuritySamlServiceProviderMetadataRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r SecuritySamlServiceProviderMetadataRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -142,7 +139,6 @@ func (r SecuritySamlServiceProviderMetadataRequest) Do(ctx context.Context, tran
 }
 
 // WithContext sets the request context.
-//
 func (f SecuritySamlServiceProviderMetadata) WithContext(v context.Context) func(*SecuritySamlServiceProviderMetadataRequest) {
 	return func(r *SecuritySamlServiceProviderMetadataRequest) {
 		r.ctx = v
@@ -150,7 +146,6 @@ func (f SecuritySamlServiceProviderMetadata) WithContext(v context.Context) func
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f SecuritySamlServiceProviderMetadata) WithPretty() func(*SecuritySamlServiceProviderMetadataRequest) {
 	return func(r *SecuritySamlServiceProviderMetadataRequest) {
 		r.Pretty = true
@@ -158,7 +153,6 @@ func (f SecuritySamlServiceProviderMetadata) WithPretty() func(*SecuritySamlServ
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f SecuritySamlServiceProviderMetadata) WithHuman() func(*SecuritySamlServiceProviderMetadataRequest) {
 	return func(r *SecuritySamlServiceProviderMetadataRequest) {
 		r.Human = true
@@ -166,7 +160,6 @@ func (f SecuritySamlServiceProviderMetadata) WithHuman() func(*SecuritySamlServi
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f SecuritySamlServiceProviderMetadata) WithErrorTrace() func(*SecuritySamlServiceProviderMetadataRequest) {
 	return func(r *SecuritySamlServiceProviderMetadataRequest) {
 		r.ErrorTrace = true
@@ -174,7 +167,6 @@ func (f SecuritySamlServiceProviderMetadata) WithErrorTrace() func(*SecuritySaml
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f SecuritySamlServiceProviderMetadata) WithFilterPath(v ...string) func(*SecuritySamlServiceProviderMetadataRequest) {
 	return func(r *SecuritySamlServiceProviderMetadataRequest) {
 		r.FilterPath = v
@@ -182,7 +174,6 @@ func (f SecuritySamlServiceProviderMetadata) WithFilterPath(v ...string) func(*S
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f SecuritySamlServiceProviderMetadata) WithHeader(h map[string]string) func(*SecuritySamlServiceProviderMetadataRequest) {
 	return func(r *SecuritySamlServiceProviderMetadataRequest) {
 		if r.Header == nil {
@@ -195,7 +186,6 @@ func (f SecuritySamlServiceProviderMetadata) WithHeader(h map[string]string) fun
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f SecuritySamlServiceProviderMetadata) WithOpaqueID(s string) func(*SecuritySamlServiceProviderMetadataRequest) {
 	return func(r *SecuritySamlServiceProviderMetadataRequest) {
 		if r.Header == nil {

@@ -40,11 +40,9 @@ func newWatcherDeactivateWatchFunc(t Transport) WatcherDeactivateWatch {
 // WatcherDeactivateWatch - Deactivates a currently active watch.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-deactivate-watch.html.
-//
 type WatcherDeactivateWatch func(watch_id string, o ...func(*WatcherDeactivateWatchRequest)) (*Response, error)
 
 // WatcherDeactivateWatchRequest configures the Watcher Deactivate Watch API request.
-//
 type WatcherDeactivateWatchRequest struct {
 	WatchID string
 
@@ -59,7 +57,6 @@ type WatcherDeactivateWatchRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r WatcherDeactivateWatchRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -142,7 +139,6 @@ func (r WatcherDeactivateWatchRequest) Do(ctx context.Context, transport Transpo
 }
 
 // WithContext sets the request context.
-//
 func (f WatcherDeactivateWatch) WithContext(v context.Context) func(*WatcherDeactivateWatchRequest) {
 	return func(r *WatcherDeactivateWatchRequest) {
 		r.ctx = v
@@ -150,7 +146,6 @@ func (f WatcherDeactivateWatch) WithContext(v context.Context) func(*WatcherDeac
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f WatcherDeactivateWatch) WithPretty() func(*WatcherDeactivateWatchRequest) {
 	return func(r *WatcherDeactivateWatchRequest) {
 		r.Pretty = true
@@ -158,7 +153,6 @@ func (f WatcherDeactivateWatch) WithPretty() func(*WatcherDeactivateWatchRequest
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f WatcherDeactivateWatch) WithHuman() func(*WatcherDeactivateWatchRequest) {
 	return func(r *WatcherDeactivateWatchRequest) {
 		r.Human = true
@@ -166,7 +160,6 @@ func (f WatcherDeactivateWatch) WithHuman() func(*WatcherDeactivateWatchRequest)
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f WatcherDeactivateWatch) WithErrorTrace() func(*WatcherDeactivateWatchRequest) {
 	return func(r *WatcherDeactivateWatchRequest) {
 		r.ErrorTrace = true
@@ -174,7 +167,6 @@ func (f WatcherDeactivateWatch) WithErrorTrace() func(*WatcherDeactivateWatchReq
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f WatcherDeactivateWatch) WithFilterPath(v ...string) func(*WatcherDeactivateWatchRequest) {
 	return func(r *WatcherDeactivateWatchRequest) {
 		r.FilterPath = v
@@ -182,7 +174,6 @@ func (f WatcherDeactivateWatch) WithFilterPath(v ...string) func(*WatcherDeactiv
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f WatcherDeactivateWatch) WithHeader(h map[string]string) func(*WatcherDeactivateWatchRequest) {
 	return func(r *WatcherDeactivateWatchRequest) {
 		if r.Header == nil {
@@ -195,7 +186,6 @@ func (f WatcherDeactivateWatch) WithHeader(h map[string]string) func(*WatcherDea
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f WatcherDeactivateWatch) WithOpaqueID(s string) func(*WatcherDeactivateWatchRequest) {
 	return func(r *WatcherDeactivateWatchRequest) {
 		if r.Header == nil {

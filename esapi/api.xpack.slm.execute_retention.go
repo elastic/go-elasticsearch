@@ -40,11 +40,9 @@ func newSlmExecuteRetentionFunc(t Transport) SlmExecuteRetention {
 // SlmExecuteRetention - Deletes any snapshots that are expired according to the policy's retention rules.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-execute-retention.html.
-//
 type SlmExecuteRetention func(o ...func(*SlmExecuteRetentionRequest)) (*Response, error)
 
 // SlmExecuteRetentionRequest configures the Slm Execute Retention API request.
-//
 type SlmExecuteRetentionRequest struct {
 	Pretty     bool
 	Human      bool
@@ -57,7 +55,6 @@ type SlmExecuteRetentionRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r SlmExecuteRetentionRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -133,7 +130,6 @@ func (r SlmExecuteRetentionRequest) Do(ctx context.Context, transport Transport)
 }
 
 // WithContext sets the request context.
-//
 func (f SlmExecuteRetention) WithContext(v context.Context) func(*SlmExecuteRetentionRequest) {
 	return func(r *SlmExecuteRetentionRequest) {
 		r.ctx = v
@@ -141,7 +137,6 @@ func (f SlmExecuteRetention) WithContext(v context.Context) func(*SlmExecuteRete
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f SlmExecuteRetention) WithPretty() func(*SlmExecuteRetentionRequest) {
 	return func(r *SlmExecuteRetentionRequest) {
 		r.Pretty = true
@@ -149,7 +144,6 @@ func (f SlmExecuteRetention) WithPretty() func(*SlmExecuteRetentionRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f SlmExecuteRetention) WithHuman() func(*SlmExecuteRetentionRequest) {
 	return func(r *SlmExecuteRetentionRequest) {
 		r.Human = true
@@ -157,7 +151,6 @@ func (f SlmExecuteRetention) WithHuman() func(*SlmExecuteRetentionRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f SlmExecuteRetention) WithErrorTrace() func(*SlmExecuteRetentionRequest) {
 	return func(r *SlmExecuteRetentionRequest) {
 		r.ErrorTrace = true
@@ -165,7 +158,6 @@ func (f SlmExecuteRetention) WithErrorTrace() func(*SlmExecuteRetentionRequest) 
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f SlmExecuteRetention) WithFilterPath(v ...string) func(*SlmExecuteRetentionRequest) {
 	return func(r *SlmExecuteRetentionRequest) {
 		r.FilterPath = v
@@ -173,7 +165,6 @@ func (f SlmExecuteRetention) WithFilterPath(v ...string) func(*SlmExecuteRetenti
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f SlmExecuteRetention) WithHeader(h map[string]string) func(*SlmExecuteRetentionRequest) {
 	return func(r *SlmExecuteRetentionRequest) {
 		if r.Header == nil {
@@ -186,7 +177,6 @@ func (f SlmExecuteRetention) WithHeader(h map[string]string) func(*SlmExecuteRet
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f SlmExecuteRetention) WithOpaqueID(s string) func(*SlmExecuteRetentionRequest) {
 	return func(r *SlmExecuteRetentionRequest) {
 		if r.Header == nil {
