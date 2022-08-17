@@ -15,19 +15,22 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
+// https://github.com/elastic/elasticsearch-specification/tree/4316fc1aa18bb04678b156f23b22c9d3f996f9c9
+
 
 package types
 
 // CharFilterDefinition holds the union for the following types:
-//     HtmlStripCharFilter
-//     IcuNormalizationCharFilter
-//     KuromojiIterationMarkCharFilter
-//     MappingCharFilter
-//     PatternReplaceCharFilter
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/analysis/char_filters.ts#L32-L41
+//	HtmlStripCharFilter
+//	IcuNormalizationCharFilter
+//	KuromojiIterationMarkCharFilter
+//	MappingCharFilter
+//	PatternReplaceCharFilter
+//
+// https://github.com/elastic/elasticsearch-specification/blob/4316fc1aa18bb04678b156f23b22c9d3f996f9c9/specification/_types/analysis/char_filters.ts#L32-L41
 type CharFilterDefinition interface{}
 
 // CharFilterDefinitionBuilder holds CharFilterDefinition struct and provides a builder API.

@@ -15,20 +15,54 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
+// https://github.com/elastic/elasticsearch-specification/tree/4316fc1aa18bb04678b156f23b22c9d3f996f9c9
+
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // SortOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/sort.ts#L80-L89
+// https://github.com/elastic/elasticsearch-specification/blob/4316fc1aa18bb04678b156f23b22c9d3f996f9c9/specification/_types/sort.ts#L80-L89
 type SortOptions struct {
 	Doc_         *ScoreSort          `json:"_doc,omitempty"`
 	GeoDistance_ *GeoDistanceSort    `json:"_geo_distance,omitempty"`
 	Score_       *ScoreSort          `json:"_score,omitempty"`
 	Script_      *ScriptSort         `json:"_script,omitempty"`
-	SortOptions  map[Field]FieldSort `json:"SortOptions,omitempty"`
+	SortOptions  map[Field]FieldSort `json:"-"`
+}
+
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s SortOptions) MarshalJSON() ([]byte, error) {
+	type opt SortOptions
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]interface{}, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.SortOptions {
+		tmp[string(key)] = value
+	}
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
 }
 
 // SortOptionsBuilder holds SortOptions struct and provides a builder API.

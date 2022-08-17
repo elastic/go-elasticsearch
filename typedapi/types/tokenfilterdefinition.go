@@ -15,62 +15,65 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
+// https://github.com/elastic/elasticsearch-specification/tree/4316fc1aa18bb04678b156f23b22c9d3f996f9c9
+
 
 package types
 
 // TokenFilterDefinition holds the union for the following types:
-//     AsciiFoldingTokenFilter
-//     CommonGramsTokenFilter
-//     ConditionTokenFilter
-//     DelimitedPayloadTokenFilter
-//     DictionaryDecompounderTokenFilter
-//     EdgeNGramTokenFilter
-//     ElisionTokenFilter
-//     FingerprintTokenFilter
-//     HunspellTokenFilter
-//     HyphenationDecompounderTokenFilter
-//     IcuCollationTokenFilter
-//     IcuFoldingTokenFilter
-//     IcuNormalizationTokenFilter
-//     IcuTokenizer
-//     IcuTransformTokenFilter
-//     KStemTokenFilter
-//     KeepTypesTokenFilter
-//     KeepWordsTokenFilter
-//     KeywordMarkerTokenFilter
-//     KuromojiPartOfSpeechTokenFilter
-//     KuromojiReadingFormTokenFilter
-//     KuromojiStemmerTokenFilter
-//     LengthTokenFilter
-//     LimitTokenCountTokenFilter
-//     LowercaseTokenFilter
-//     MultiplexerTokenFilter
-//     NGramTokenFilter
-//     NoriPartOfSpeechTokenFilter
-//     PatternCaptureTokenFilter
-//     PatternReplaceTokenFilter
-//     PhoneticTokenFilter
-//     PorterStemTokenFilter
-//     PredicateTokenFilter
-//     RemoveDuplicatesTokenFilter
-//     ReverseTokenFilter
-//     ShingleTokenFilter
-//     SnowballTokenFilter
-//     StemmerOverrideTokenFilter
-//     StemmerTokenFilter
-//     StopTokenFilter
-//     SynonymGraphTokenFilter
-//     SynonymTokenFilter
-//     TrimTokenFilter
-//     TruncateTokenFilter
-//     UniqueTokenFilter
-//     UppercaseTokenFilter
-//     WordDelimiterGraphTokenFilter
-//     WordDelimiterTokenFilter
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/analysis/token_filters.ts#L346-L399
+//	AsciiFoldingTokenFilter
+//	CommonGramsTokenFilter
+//	ConditionTokenFilter
+//	DelimitedPayloadTokenFilter
+//	DictionaryDecompounderTokenFilter
+//	EdgeNGramTokenFilter
+//	ElisionTokenFilter
+//	FingerprintTokenFilter
+//	HunspellTokenFilter
+//	HyphenationDecompounderTokenFilter
+//	IcuCollationTokenFilter
+//	IcuFoldingTokenFilter
+//	IcuNormalizationTokenFilter
+//	IcuTokenizer
+//	IcuTransformTokenFilter
+//	KStemTokenFilter
+//	KeepTypesTokenFilter
+//	KeepWordsTokenFilter
+//	KeywordMarkerTokenFilter
+//	KuromojiPartOfSpeechTokenFilter
+//	KuromojiReadingFormTokenFilter
+//	KuromojiStemmerTokenFilter
+//	LengthTokenFilter
+//	LimitTokenCountTokenFilter
+//	LowercaseTokenFilter
+//	MultiplexerTokenFilter
+//	NGramTokenFilter
+//	NoriPartOfSpeechTokenFilter
+//	PatternCaptureTokenFilter
+//	PatternReplaceTokenFilter
+//	PhoneticTokenFilter
+//	PorterStemTokenFilter
+//	PredicateTokenFilter
+//	RemoveDuplicatesTokenFilter
+//	ReverseTokenFilter
+//	ShingleTokenFilter
+//	SnowballTokenFilter
+//	StemmerOverrideTokenFilter
+//	StemmerTokenFilter
+//	StopTokenFilter
+//	SynonymGraphTokenFilter
+//	SynonymTokenFilter
+//	TrimTokenFilter
+//	TruncateTokenFilter
+//	UniqueTokenFilter
+//	UppercaseTokenFilter
+//	WordDelimiterGraphTokenFilter
+//	WordDelimiterTokenFilter
+//
+// https://github.com/elastic/elasticsearch-specification/blob/4316fc1aa18bb04678b156f23b22c9d3f996f9c9/specification/_types/analysis/token_filters.ts#L346-L399
 type TokenFilterDefinition interface{}
 
 // TokenFilterDefinitionBuilder holds TokenFilterDefinition struct and provides a builder API.

@@ -15,18 +15,21 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
+// https://github.com/elastic/elasticsearch-specification/tree/4316fc1aa18bb04678b156f23b22c9d3f996f9c9
+
 
 package types
 
 // GeoLocation holds the union for the following types:
-//     []float64
-//     GeoHashLocation
-//     LatLonGeoLocation
-//     string
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/Geo.ts#L91-L105
+//	[]float64
+//	GeoHashLocation
+//	LatLonGeoLocation
+//	string
+//
+// https://github.com/elastic/elasticsearch-specification/blob/4316fc1aa18bb04678b156f23b22c9d3f996f9c9/specification/_types/Geo.ts#L91-L105
 type GeoLocation interface{}
 
 // GeoLocationBuilder holds GeoLocation struct and provides a builder API.

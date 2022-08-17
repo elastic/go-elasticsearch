@@ -15,14 +15,16 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
+// https://github.com/elastic/elasticsearch-specification/tree/4316fc1aa18bb04678b156f23b22c9d3f996f9c9
+
 
 package types
 
 // SnapshotInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/snapshot/_types/SnapshotInfo.ts#L41-L65
+// https://github.com/elastic/elasticsearch-specification/blob/4316fc1aa18bb04678b156f23b22c9d3f996f9c9/specification/snapshot/_types/SnapshotInfo.ts#L41-L65
 type SnapshotInfo struct {
 	DataStreams        []string                   `json:"data_streams"`
 	Duration           *Duration                  `json:"duration,omitempty"`
@@ -33,7 +35,7 @@ type SnapshotInfo struct {
 	FeatureStates      []InfoFeatureState         `json:"feature_states,omitempty"`
 	IncludeGlobalState *bool                      `json:"include_global_state,omitempty"`
 	IndexDetails       map[IndexName]IndexDetails `json:"index_details,omitempty"`
-	Indices            []IndexName                `json:"indices"`
+	Indices            []IndexName                `json:"indices,omitempty"`
 	Metadata           *Metadata                  `json:"metadata,omitempty"`
 	Reason             *string                    `json:"reason,omitempty"`
 	Repository         *Name                      `json:"repository,omitempty"`

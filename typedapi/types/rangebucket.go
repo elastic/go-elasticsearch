@@ -15,16 +15,22 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
+// https://github.com/elastic/elasticsearch-specification/tree/4316fc1aa18bb04678b156f23b22c9d3f996f9c9
+
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // RangeBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/aggregations/Aggregate.ts#L514-L521
+// https://github.com/elastic/elasticsearch-specification/blob/4316fc1aa18bb04678b156f23b22c9d3f996f9c9/specification/_types/aggregations/Aggregate.ts#L514-L521
 type RangeBucket struct {
-	Aggregations map[AggregateName]Aggregate `json:"aggregations,omitempty"`
+	Aggregations map[AggregateName]Aggregate `json:"-"`
 	DocCount     int64                       `json:"doc_count"`
 	From         *float64                    `json:"from,omitempty"`
 	FromAsString *string                     `json:"from_as_string,omitempty"`
@@ -32,6 +38,34 @@ type RangeBucket struct {
 	Key        *string  `json:"key,omitempty"`
 	To         *float64 `json:"to,omitempty"`
 	ToAsString *string  `json:"to_as_string,omitempty"`
+}
+
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s RangeBucket) MarshalJSON() ([]byte, error) {
+	type opt RangeBucket
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]interface{}, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.Aggregations {
+		tmp[string(key)] = value
+	}
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
 }
 
 // RangeBucketBuilder holds RangeBucket struct and provides a builder API.
