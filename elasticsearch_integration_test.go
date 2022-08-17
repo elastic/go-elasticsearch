@@ -21,6 +21,7 @@
 package elasticsearch_test
 
 import (
+	"bytes"
 	"context"
 	"crypto/tls"
 	"encoding/json"
@@ -29,6 +30,7 @@ import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/indices/create"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/refresh"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/sortorder"
 	"log"
 	"net"
 	"net/http"
@@ -493,6 +495,28 @@ func TestTypedClient(t *testing.T) {
 
 		if searchRequest.Query.Term["user.id"].Value.(string) != "kimchy" {
 			t.Fatalf("unexpected string in Query.Term.Value, expected kimchy, got: %s", searchRequest.Query.Term["user.id"].Value.(string))
+		}
+	})
+
+	t.Run("Sort serialisation", func(t *testing.T) {
+		qry := search.NewRequestBuilder().Sort(
+			types.NewSortBuilder().Sort(
+				[]types.SortCombinations{
+					types.NewSortCombinationsBuilder().
+						Field("@timestamp").
+						SortOptions(types.NewSortOptionsBuilder().
+							SortOptions(map[types.Field]*types.FieldSortBuilder{
+								"@timestamp": types.NewFieldSortBuilder().Format("strict_date_optional_time_nanos").Order(sortorder.Asc),
+							})).Build(),
+				})).Build()
+
+		data, err := json.Marshal(qry)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		if bytes.Compare(data, []byte(`{"sort":[{"@timestamp":{"format":"strict_date_optional_time_nanos","order":"asc"}}]}`)) != 0 {
+			t.Fatalf("invalid sort serialisation, got: %s", data)
 		}
 	})
 }
