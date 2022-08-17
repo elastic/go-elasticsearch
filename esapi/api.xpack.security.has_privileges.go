@@ -41,11 +41,9 @@ func newSecurityHasPrivilegesFunc(t Transport) SecurityHasPrivileges {
 // SecurityHasPrivileges - Determines whether the specified user has a specified list of privileges.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-has-privileges.html.
-//
 type SecurityHasPrivileges func(body io.Reader, o ...func(*SecurityHasPrivilegesRequest)) (*Response, error)
 
 // SecurityHasPrivilegesRequest configures the Security Has Privileges API request.
-//
 type SecurityHasPrivilegesRequest struct {
 	Body io.Reader
 
@@ -62,7 +60,6 @@ type SecurityHasPrivilegesRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r SecurityHasPrivilegesRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -151,7 +148,6 @@ func (r SecurityHasPrivilegesRequest) Do(ctx context.Context, transport Transpor
 }
 
 // WithContext sets the request context.
-//
 func (f SecurityHasPrivileges) WithContext(v context.Context) func(*SecurityHasPrivilegesRequest) {
 	return func(r *SecurityHasPrivilegesRequest) {
 		r.ctx = v
@@ -159,7 +155,6 @@ func (f SecurityHasPrivileges) WithContext(v context.Context) func(*SecurityHasP
 }
 
 // WithUser - username.
-//
 func (f SecurityHasPrivileges) WithUser(v string) func(*SecurityHasPrivilegesRequest) {
 	return func(r *SecurityHasPrivilegesRequest) {
 		r.User = v
@@ -167,7 +162,6 @@ func (f SecurityHasPrivileges) WithUser(v string) func(*SecurityHasPrivilegesReq
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f SecurityHasPrivileges) WithPretty() func(*SecurityHasPrivilegesRequest) {
 	return func(r *SecurityHasPrivilegesRequest) {
 		r.Pretty = true
@@ -175,7 +169,6 @@ func (f SecurityHasPrivileges) WithPretty() func(*SecurityHasPrivilegesRequest) 
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f SecurityHasPrivileges) WithHuman() func(*SecurityHasPrivilegesRequest) {
 	return func(r *SecurityHasPrivilegesRequest) {
 		r.Human = true
@@ -183,7 +176,6 @@ func (f SecurityHasPrivileges) WithHuman() func(*SecurityHasPrivilegesRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f SecurityHasPrivileges) WithErrorTrace() func(*SecurityHasPrivilegesRequest) {
 	return func(r *SecurityHasPrivilegesRequest) {
 		r.ErrorTrace = true
@@ -191,7 +183,6 @@ func (f SecurityHasPrivileges) WithErrorTrace() func(*SecurityHasPrivilegesReque
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f SecurityHasPrivileges) WithFilterPath(v ...string) func(*SecurityHasPrivilegesRequest) {
 	return func(r *SecurityHasPrivilegesRequest) {
 		r.FilterPath = v
@@ -199,7 +190,6 @@ func (f SecurityHasPrivileges) WithFilterPath(v ...string) func(*SecurityHasPriv
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f SecurityHasPrivileges) WithHeader(h map[string]string) func(*SecurityHasPrivilegesRequest) {
 	return func(r *SecurityHasPrivilegesRequest) {
 		if r.Header == nil {
@@ -212,7 +202,6 @@ func (f SecurityHasPrivileges) WithHeader(h map[string]string) func(*SecurityHas
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f SecurityHasPrivileges) WithOpaqueID(s string) func(*SecurityHasPrivilegesRequest) {
 	return func(r *SecurityHasPrivilegesRequest) {
 		if r.Header == nil {

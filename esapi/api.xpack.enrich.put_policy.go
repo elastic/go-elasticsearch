@@ -41,11 +41,9 @@ func newEnrichPutPolicyFunc(t Transport) EnrichPutPolicy {
 // EnrichPutPolicy - Creates a new enrich policy.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/put-enrich-policy-api.html.
-//
 type EnrichPutPolicy func(name string, body io.Reader, o ...func(*EnrichPutPolicyRequest)) (*Response, error)
 
 // EnrichPutPolicyRequest configures the Enrich Put Policy API request.
-//
 type EnrichPutPolicyRequest struct {
 	Body io.Reader
 
@@ -62,7 +60,6 @@ type EnrichPutPolicyRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r EnrichPutPolicyRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -147,7 +144,6 @@ func (r EnrichPutPolicyRequest) Do(ctx context.Context, transport Transport) (*R
 }
 
 // WithContext sets the request context.
-//
 func (f EnrichPutPolicy) WithContext(v context.Context) func(*EnrichPutPolicyRequest) {
 	return func(r *EnrichPutPolicyRequest) {
 		r.ctx = v
@@ -155,7 +151,6 @@ func (f EnrichPutPolicy) WithContext(v context.Context) func(*EnrichPutPolicyReq
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f EnrichPutPolicy) WithPretty() func(*EnrichPutPolicyRequest) {
 	return func(r *EnrichPutPolicyRequest) {
 		r.Pretty = true
@@ -163,7 +158,6 @@ func (f EnrichPutPolicy) WithPretty() func(*EnrichPutPolicyRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f EnrichPutPolicy) WithHuman() func(*EnrichPutPolicyRequest) {
 	return func(r *EnrichPutPolicyRequest) {
 		r.Human = true
@@ -171,7 +165,6 @@ func (f EnrichPutPolicy) WithHuman() func(*EnrichPutPolicyRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f EnrichPutPolicy) WithErrorTrace() func(*EnrichPutPolicyRequest) {
 	return func(r *EnrichPutPolicyRequest) {
 		r.ErrorTrace = true
@@ -179,7 +172,6 @@ func (f EnrichPutPolicy) WithErrorTrace() func(*EnrichPutPolicyRequest) {
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f EnrichPutPolicy) WithFilterPath(v ...string) func(*EnrichPutPolicyRequest) {
 	return func(r *EnrichPutPolicyRequest) {
 		r.FilterPath = v
@@ -187,7 +179,6 @@ func (f EnrichPutPolicy) WithFilterPath(v ...string) func(*EnrichPutPolicyReques
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f EnrichPutPolicy) WithHeader(h map[string]string) func(*EnrichPutPolicyRequest) {
 	return func(r *EnrichPutPolicyRequest) {
 		if r.Header == nil {
@@ -200,7 +191,6 @@ func (f EnrichPutPolicy) WithHeader(h map[string]string) func(*EnrichPutPolicyRe
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f EnrichPutPolicy) WithOpaqueID(s string) func(*EnrichPutPolicyRequest) {
 	return func(r *EnrichPutPolicyRequest) {
 		if r.Header == nil {

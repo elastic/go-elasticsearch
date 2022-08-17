@@ -41,11 +41,9 @@ func newSecurityClearCachedServiceTokensFunc(t Transport) SecurityClearCachedSer
 // SecurityClearCachedServiceTokens - Evicts tokens from the service account token caches.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-service-token-caches.html.
-//
 type SecurityClearCachedServiceTokens func(name []string, namespace string, service string, o ...func(*SecurityClearCachedServiceTokensRequest)) (*Response, error)
 
 // SecurityClearCachedServiceTokensRequest configures the Security Clear Cached Service Tokens API request.
-//
 type SecurityClearCachedServiceTokensRequest struct {
 	Name      []string
 	Namespace string
@@ -62,7 +60,6 @@ type SecurityClearCachedServiceTokensRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r SecurityClearCachedServiceTokensRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -157,7 +154,6 @@ func (r SecurityClearCachedServiceTokensRequest) Do(ctx context.Context, transpo
 }
 
 // WithContext sets the request context.
-//
 func (f SecurityClearCachedServiceTokens) WithContext(v context.Context) func(*SecurityClearCachedServiceTokensRequest) {
 	return func(r *SecurityClearCachedServiceTokensRequest) {
 		r.ctx = v
@@ -165,7 +161,6 @@ func (f SecurityClearCachedServiceTokens) WithContext(v context.Context) func(*S
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f SecurityClearCachedServiceTokens) WithPretty() func(*SecurityClearCachedServiceTokensRequest) {
 	return func(r *SecurityClearCachedServiceTokensRequest) {
 		r.Pretty = true
@@ -173,7 +168,6 @@ func (f SecurityClearCachedServiceTokens) WithPretty() func(*SecurityClearCached
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f SecurityClearCachedServiceTokens) WithHuman() func(*SecurityClearCachedServiceTokensRequest) {
 	return func(r *SecurityClearCachedServiceTokensRequest) {
 		r.Human = true
@@ -181,7 +175,6 @@ func (f SecurityClearCachedServiceTokens) WithHuman() func(*SecurityClearCachedS
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f SecurityClearCachedServiceTokens) WithErrorTrace() func(*SecurityClearCachedServiceTokensRequest) {
 	return func(r *SecurityClearCachedServiceTokensRequest) {
 		r.ErrorTrace = true
@@ -189,7 +182,6 @@ func (f SecurityClearCachedServiceTokens) WithErrorTrace() func(*SecurityClearCa
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f SecurityClearCachedServiceTokens) WithFilterPath(v ...string) func(*SecurityClearCachedServiceTokensRequest) {
 	return func(r *SecurityClearCachedServiceTokensRequest) {
 		r.FilterPath = v
@@ -197,7 +189,6 @@ func (f SecurityClearCachedServiceTokens) WithFilterPath(v ...string) func(*Secu
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f SecurityClearCachedServiceTokens) WithHeader(h map[string]string) func(*SecurityClearCachedServiceTokensRequest) {
 	return func(r *SecurityClearCachedServiceTokensRequest) {
 		if r.Header == nil {
@@ -210,7 +201,6 @@ func (f SecurityClearCachedServiceTokens) WithHeader(h map[string]string) func(*
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f SecurityClearCachedServiceTokens) WithOpaqueID(s string) func(*SecurityClearCachedServiceTokensRequest) {
 	return func(r *SecurityClearCachedServiceTokensRequest) {
 		if r.Header == nil {

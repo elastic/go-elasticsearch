@@ -41,11 +41,9 @@ func newSQLGetAsyncFunc(t Transport) SQLGetAsync {
 // SQLGetAsync - Returns the current status and available results for an async SQL search or stored synchronous SQL search
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-async-sql-search-api.html.
-//
 type SQLGetAsync func(id string, o ...func(*SQLGetAsyncRequest)) (*Response, error)
 
 // SQLGetAsyncRequest configures the SQL Get Async API request.
-//
 type SQLGetAsyncRequest struct {
 	DocumentID string
 
@@ -65,7 +63,6 @@ type SQLGetAsyncRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r SQLGetAsyncRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -162,7 +159,6 @@ func (r SQLGetAsyncRequest) Do(ctx context.Context, transport Transport) (*Respo
 }
 
 // WithContext sets the request context.
-//
 func (f SQLGetAsync) WithContext(v context.Context) func(*SQLGetAsyncRequest) {
 	return func(r *SQLGetAsyncRequest) {
 		r.ctx = v
@@ -170,7 +166,6 @@ func (f SQLGetAsync) WithContext(v context.Context) func(*SQLGetAsyncRequest) {
 }
 
 // WithDelimiter - separator for csv results.
-//
 func (f SQLGetAsync) WithDelimiter(v string) func(*SQLGetAsyncRequest) {
 	return func(r *SQLGetAsyncRequest) {
 		r.Delimiter = v
@@ -178,7 +173,6 @@ func (f SQLGetAsync) WithDelimiter(v string) func(*SQLGetAsyncRequest) {
 }
 
 // WithFormat - short version of the accept header, e.g. json, yaml.
-//
 func (f SQLGetAsync) WithFormat(v string) func(*SQLGetAsyncRequest) {
 	return func(r *SQLGetAsyncRequest) {
 		r.Format = v
@@ -186,7 +180,6 @@ func (f SQLGetAsync) WithFormat(v string) func(*SQLGetAsyncRequest) {
 }
 
 // WithKeepAlive - retention period for the search and its results.
-//
 func (f SQLGetAsync) WithKeepAlive(v time.Duration) func(*SQLGetAsyncRequest) {
 	return func(r *SQLGetAsyncRequest) {
 		r.KeepAlive = v
@@ -194,7 +187,6 @@ func (f SQLGetAsync) WithKeepAlive(v time.Duration) func(*SQLGetAsyncRequest) {
 }
 
 // WithWaitForCompletionTimeout - duration to wait for complete results.
-//
 func (f SQLGetAsync) WithWaitForCompletionTimeout(v time.Duration) func(*SQLGetAsyncRequest) {
 	return func(r *SQLGetAsyncRequest) {
 		r.WaitForCompletionTimeout = v
@@ -202,7 +194,6 @@ func (f SQLGetAsync) WithWaitForCompletionTimeout(v time.Duration) func(*SQLGetA
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f SQLGetAsync) WithPretty() func(*SQLGetAsyncRequest) {
 	return func(r *SQLGetAsyncRequest) {
 		r.Pretty = true
@@ -210,7 +201,6 @@ func (f SQLGetAsync) WithPretty() func(*SQLGetAsyncRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f SQLGetAsync) WithHuman() func(*SQLGetAsyncRequest) {
 	return func(r *SQLGetAsyncRequest) {
 		r.Human = true
@@ -218,7 +208,6 @@ func (f SQLGetAsync) WithHuman() func(*SQLGetAsyncRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f SQLGetAsync) WithErrorTrace() func(*SQLGetAsyncRequest) {
 	return func(r *SQLGetAsyncRequest) {
 		r.ErrorTrace = true
@@ -226,7 +215,6 @@ func (f SQLGetAsync) WithErrorTrace() func(*SQLGetAsyncRequest) {
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f SQLGetAsync) WithFilterPath(v ...string) func(*SQLGetAsyncRequest) {
 	return func(r *SQLGetAsyncRequest) {
 		r.FilterPath = v
@@ -234,7 +222,6 @@ func (f SQLGetAsync) WithFilterPath(v ...string) func(*SQLGetAsyncRequest) {
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f SQLGetAsync) WithHeader(h map[string]string) func(*SQLGetAsyncRequest) {
 	return func(r *SQLGetAsyncRequest) {
 		if r.Header == nil {
@@ -247,7 +234,6 @@ func (f SQLGetAsync) WithHeader(h map[string]string) func(*SQLGetAsyncRequest) {
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f SQLGetAsync) WithOpaqueID(s string) func(*SQLGetAsyncRequest) {
 	return func(r *SQLGetAsyncRequest) {
 		if r.Header == nil {

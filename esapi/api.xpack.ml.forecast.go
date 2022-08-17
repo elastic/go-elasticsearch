@@ -42,11 +42,9 @@ func newMLForecastFunc(t Transport) MLForecast {
 // MLForecast - Predicts the future behavior of a time series by using its historical behavior.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-forecast.html.
-//
 type MLForecast func(job_id string, o ...func(*MLForecastRequest)) (*Response, error)
 
 // MLForecastRequest configures the ML Forecast API request.
-//
 type MLForecastRequest struct {
 	Body io.Reader
 
@@ -67,7 +65,6 @@ type MLForecastRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r MLForecastRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -166,7 +163,6 @@ func (r MLForecastRequest) Do(ctx context.Context, transport Transport) (*Respon
 }
 
 // WithContext sets the request context.
-//
 func (f MLForecast) WithContext(v context.Context) func(*MLForecastRequest) {
 	return func(r *MLForecastRequest) {
 		r.ctx = v
@@ -174,7 +170,6 @@ func (f MLForecast) WithContext(v context.Context) func(*MLForecastRequest) {
 }
 
 // WithBody - Query parameters can be specified in the body.
-//
 func (f MLForecast) WithBody(v io.Reader) func(*MLForecastRequest) {
 	return func(r *MLForecastRequest) {
 		r.Body = v
@@ -182,7 +177,6 @@ func (f MLForecast) WithBody(v io.Reader) func(*MLForecastRequest) {
 }
 
 // WithDuration - the duration of the forecast.
-//
 func (f MLForecast) WithDuration(v time.Duration) func(*MLForecastRequest) {
 	return func(r *MLForecastRequest) {
 		r.Duration = v
@@ -190,7 +184,6 @@ func (f MLForecast) WithDuration(v time.Duration) func(*MLForecastRequest) {
 }
 
 // WithExpiresIn - the time interval after which the forecast expires. expired forecasts will be deleted at the first opportunity..
-//
 func (f MLForecast) WithExpiresIn(v time.Duration) func(*MLForecastRequest) {
 	return func(r *MLForecastRequest) {
 		r.ExpiresIn = v
@@ -198,7 +191,6 @@ func (f MLForecast) WithExpiresIn(v time.Duration) func(*MLForecastRequest) {
 }
 
 // WithMaxModelMemory - the max memory able to be used by the forecast. default is 20mb..
-//
 func (f MLForecast) WithMaxModelMemory(v string) func(*MLForecastRequest) {
 	return func(r *MLForecastRequest) {
 		r.MaxModelMemory = v
@@ -206,7 +198,6 @@ func (f MLForecast) WithMaxModelMemory(v string) func(*MLForecastRequest) {
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f MLForecast) WithPretty() func(*MLForecastRequest) {
 	return func(r *MLForecastRequest) {
 		r.Pretty = true
@@ -214,7 +205,6 @@ func (f MLForecast) WithPretty() func(*MLForecastRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f MLForecast) WithHuman() func(*MLForecastRequest) {
 	return func(r *MLForecastRequest) {
 		r.Human = true
@@ -222,7 +212,6 @@ func (f MLForecast) WithHuman() func(*MLForecastRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f MLForecast) WithErrorTrace() func(*MLForecastRequest) {
 	return func(r *MLForecastRequest) {
 		r.ErrorTrace = true
@@ -230,7 +219,6 @@ func (f MLForecast) WithErrorTrace() func(*MLForecastRequest) {
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f MLForecast) WithFilterPath(v ...string) func(*MLForecastRequest) {
 	return func(r *MLForecastRequest) {
 		r.FilterPath = v
@@ -238,7 +226,6 @@ func (f MLForecast) WithFilterPath(v ...string) func(*MLForecastRequest) {
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f MLForecast) WithHeader(h map[string]string) func(*MLForecastRequest) {
 	return func(r *MLForecastRequest) {
 		if r.Header == nil {
@@ -251,7 +238,6 @@ func (f MLForecast) WithHeader(h map[string]string) func(*MLForecastRequest) {
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f MLForecast) WithOpaqueID(s string) func(*MLForecastRequest) {
 	return func(r *MLForecastRequest) {
 		if r.Header == nil {

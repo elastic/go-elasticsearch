@@ -40,11 +40,9 @@ func newEnrichDeletePolicyFunc(t Transport) EnrichDeletePolicy {
 // EnrichDeletePolicy - Deletes an existing enrich policy and its enrich index.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-enrich-policy-api.html.
-//
 type EnrichDeletePolicy func(name string, o ...func(*EnrichDeletePolicyRequest)) (*Response, error)
 
 // EnrichDeletePolicyRequest configures the Enrich Delete Policy API request.
-//
 type EnrichDeletePolicyRequest struct {
 	Name string
 
@@ -59,7 +57,6 @@ type EnrichDeletePolicyRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r EnrichDeletePolicyRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -140,7 +137,6 @@ func (r EnrichDeletePolicyRequest) Do(ctx context.Context, transport Transport) 
 }
 
 // WithContext sets the request context.
-//
 func (f EnrichDeletePolicy) WithContext(v context.Context) func(*EnrichDeletePolicyRequest) {
 	return func(r *EnrichDeletePolicyRequest) {
 		r.ctx = v
@@ -148,7 +144,6 @@ func (f EnrichDeletePolicy) WithContext(v context.Context) func(*EnrichDeletePol
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f EnrichDeletePolicy) WithPretty() func(*EnrichDeletePolicyRequest) {
 	return func(r *EnrichDeletePolicyRequest) {
 		r.Pretty = true
@@ -156,7 +151,6 @@ func (f EnrichDeletePolicy) WithPretty() func(*EnrichDeletePolicyRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f EnrichDeletePolicy) WithHuman() func(*EnrichDeletePolicyRequest) {
 	return func(r *EnrichDeletePolicyRequest) {
 		r.Human = true
@@ -164,7 +158,6 @@ func (f EnrichDeletePolicy) WithHuman() func(*EnrichDeletePolicyRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f EnrichDeletePolicy) WithErrorTrace() func(*EnrichDeletePolicyRequest) {
 	return func(r *EnrichDeletePolicyRequest) {
 		r.ErrorTrace = true
@@ -172,7 +165,6 @@ func (f EnrichDeletePolicy) WithErrorTrace() func(*EnrichDeletePolicyRequest) {
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f EnrichDeletePolicy) WithFilterPath(v ...string) func(*EnrichDeletePolicyRequest) {
 	return func(r *EnrichDeletePolicyRequest) {
 		r.FilterPath = v
@@ -180,7 +172,6 @@ func (f EnrichDeletePolicy) WithFilterPath(v ...string) func(*EnrichDeletePolicy
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f EnrichDeletePolicy) WithHeader(h map[string]string) func(*EnrichDeletePolicyRequest) {
 	return func(r *EnrichDeletePolicyRequest) {
 		if r.Header == nil {
@@ -193,7 +184,6 @@ func (f EnrichDeletePolicy) WithHeader(h map[string]string) func(*EnrichDeletePo
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f EnrichDeletePolicy) WithOpaqueID(s string) func(*EnrichDeletePolicyRequest) {
 	return func(r *EnrichDeletePolicyRequest) {
 		if r.Header == nil {

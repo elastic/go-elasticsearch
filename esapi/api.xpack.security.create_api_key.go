@@ -41,11 +41,9 @@ func newSecurityCreateAPIKeyFunc(t Transport) SecurityCreateAPIKey {
 // SecurityCreateAPIKey - Creates an API key for access without requiring basic authentication.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-api-key.html.
-//
 type SecurityCreateAPIKey func(body io.Reader, o ...func(*SecurityCreateAPIKeyRequest)) (*Response, error)
 
 // SecurityCreateAPIKeyRequest configures the Security CreateAPI Key API request.
-//
 type SecurityCreateAPIKeyRequest struct {
 	Body io.Reader
 
@@ -62,7 +60,6 @@ type SecurityCreateAPIKeyRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r SecurityCreateAPIKeyRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -146,7 +143,6 @@ func (r SecurityCreateAPIKeyRequest) Do(ctx context.Context, transport Transport
 }
 
 // WithContext sets the request context.
-//
 func (f SecurityCreateAPIKey) WithContext(v context.Context) func(*SecurityCreateAPIKeyRequest) {
 	return func(r *SecurityCreateAPIKeyRequest) {
 		r.ctx = v
@@ -154,7 +150,6 @@ func (f SecurityCreateAPIKey) WithContext(v context.Context) func(*SecurityCreat
 }
 
 // WithRefresh - if `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes..
-//
 func (f SecurityCreateAPIKey) WithRefresh(v string) func(*SecurityCreateAPIKeyRequest) {
 	return func(r *SecurityCreateAPIKeyRequest) {
 		r.Refresh = v
@@ -162,7 +157,6 @@ func (f SecurityCreateAPIKey) WithRefresh(v string) func(*SecurityCreateAPIKeyRe
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f SecurityCreateAPIKey) WithPretty() func(*SecurityCreateAPIKeyRequest) {
 	return func(r *SecurityCreateAPIKeyRequest) {
 		r.Pretty = true
@@ -170,7 +164,6 @@ func (f SecurityCreateAPIKey) WithPretty() func(*SecurityCreateAPIKeyRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f SecurityCreateAPIKey) WithHuman() func(*SecurityCreateAPIKeyRequest) {
 	return func(r *SecurityCreateAPIKeyRequest) {
 		r.Human = true
@@ -178,7 +171,6 @@ func (f SecurityCreateAPIKey) WithHuman() func(*SecurityCreateAPIKeyRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f SecurityCreateAPIKey) WithErrorTrace() func(*SecurityCreateAPIKeyRequest) {
 	return func(r *SecurityCreateAPIKeyRequest) {
 		r.ErrorTrace = true
@@ -186,7 +178,6 @@ func (f SecurityCreateAPIKey) WithErrorTrace() func(*SecurityCreateAPIKeyRequest
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f SecurityCreateAPIKey) WithFilterPath(v ...string) func(*SecurityCreateAPIKeyRequest) {
 	return func(r *SecurityCreateAPIKeyRequest) {
 		r.FilterPath = v
@@ -194,7 +185,6 @@ func (f SecurityCreateAPIKey) WithFilterPath(v ...string) func(*SecurityCreateAP
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f SecurityCreateAPIKey) WithHeader(h map[string]string) func(*SecurityCreateAPIKeyRequest) {
 	return func(r *SecurityCreateAPIKeyRequest) {
 		if r.Header == nil {
@@ -207,7 +197,6 @@ func (f SecurityCreateAPIKey) WithHeader(h map[string]string) func(*SecurityCrea
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f SecurityCreateAPIKey) WithOpaqueID(s string) func(*SecurityCreateAPIKeyRequest) {
 	return func(r *SecurityCreateAPIKeyRequest) {
 		if r.Header == nil {

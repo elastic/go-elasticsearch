@@ -42,11 +42,9 @@ func newTransformPreviewTransformFunc(t Transport) TransformPreviewTransform {
 // TransformPreviewTransform - Previews a transform.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/preview-transform.html.
-//
 type TransformPreviewTransform func(o ...func(*TransformPreviewTransformRequest)) (*Response, error)
 
 // TransformPreviewTransformRequest configures the Transform Preview Transform API request.
-//
 type TransformPreviewTransformRequest struct {
 	Body io.Reader
 
@@ -65,7 +63,6 @@ type TransformPreviewTransformRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r TransformPreviewTransformRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -156,7 +153,6 @@ func (r TransformPreviewTransformRequest) Do(ctx context.Context, transport Tran
 }
 
 // WithContext sets the request context.
-//
 func (f TransformPreviewTransform) WithContext(v context.Context) func(*TransformPreviewTransformRequest) {
 	return func(r *TransformPreviewTransformRequest) {
 		r.ctx = v
@@ -164,7 +160,6 @@ func (f TransformPreviewTransform) WithContext(v context.Context) func(*Transfor
 }
 
 // WithBody - The definition for the transform to preview.
-//
 func (f TransformPreviewTransform) WithBody(v io.Reader) func(*TransformPreviewTransformRequest) {
 	return func(r *TransformPreviewTransformRequest) {
 		r.Body = v
@@ -172,7 +167,6 @@ func (f TransformPreviewTransform) WithBody(v io.Reader) func(*TransformPreviewT
 }
 
 // WithTransformID - the ID of the transform to preview..
-//
 func (f TransformPreviewTransform) WithTransformID(v string) func(*TransformPreviewTransformRequest) {
 	return func(r *TransformPreviewTransformRequest) {
 		r.TransformID = v
@@ -180,7 +174,6 @@ func (f TransformPreviewTransform) WithTransformID(v string) func(*TransformPrev
 }
 
 // WithTimeout - controls the time to wait for the preview.
-//
 func (f TransformPreviewTransform) WithTimeout(v time.Duration) func(*TransformPreviewTransformRequest) {
 	return func(r *TransformPreviewTransformRequest) {
 		r.Timeout = v
@@ -188,7 +181,6 @@ func (f TransformPreviewTransform) WithTimeout(v time.Duration) func(*TransformP
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f TransformPreviewTransform) WithPretty() func(*TransformPreviewTransformRequest) {
 	return func(r *TransformPreviewTransformRequest) {
 		r.Pretty = true
@@ -196,7 +188,6 @@ func (f TransformPreviewTransform) WithPretty() func(*TransformPreviewTransformR
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f TransformPreviewTransform) WithHuman() func(*TransformPreviewTransformRequest) {
 	return func(r *TransformPreviewTransformRequest) {
 		r.Human = true
@@ -204,7 +195,6 @@ func (f TransformPreviewTransform) WithHuman() func(*TransformPreviewTransformRe
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f TransformPreviewTransform) WithErrorTrace() func(*TransformPreviewTransformRequest) {
 	return func(r *TransformPreviewTransformRequest) {
 		r.ErrorTrace = true
@@ -212,7 +202,6 @@ func (f TransformPreviewTransform) WithErrorTrace() func(*TransformPreviewTransf
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f TransformPreviewTransform) WithFilterPath(v ...string) func(*TransformPreviewTransformRequest) {
 	return func(r *TransformPreviewTransformRequest) {
 		r.FilterPath = v
@@ -220,7 +209,6 @@ func (f TransformPreviewTransform) WithFilterPath(v ...string) func(*TransformPr
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f TransformPreviewTransform) WithHeader(h map[string]string) func(*TransformPreviewTransformRequest) {
 	return func(r *TransformPreviewTransformRequest) {
 		if r.Header == nil {
@@ -233,7 +221,6 @@ func (f TransformPreviewTransform) WithHeader(h map[string]string) func(*Transfo
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f TransformPreviewTransform) WithOpaqueID(s string) func(*TransformPreviewTransformRequest) {
 	return func(r *TransformPreviewTransformRequest) {
 		if r.Header == nil {

@@ -41,11 +41,9 @@ func newExistsFunc(t Transport) Exists {
 // Exists returns information about whether a document exists in an index.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-get.html.
-//
 type Exists func(index string, id string, o ...func(*ExistsRequest)) (*Response, error)
 
 // ExistsRequest configures the Exists API request.
-//
 type ExistsRequest struct {
 	Index      string
 	DocumentID string
@@ -72,7 +70,6 @@ type ExistsRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r ExistsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -193,7 +190,6 @@ func (r ExistsRequest) Do(ctx context.Context, transport Transport) (*Response, 
 }
 
 // WithContext sets the request context.
-//
 func (f Exists) WithContext(v context.Context) func(*ExistsRequest) {
 	return func(r *ExistsRequest) {
 		r.ctx = v
@@ -201,7 +197,6 @@ func (f Exists) WithContext(v context.Context) func(*ExistsRequest) {
 }
 
 // WithPreference - specify the node or shard the operation should be performed on (default: random).
-//
 func (f Exists) WithPreference(v string) func(*ExistsRequest) {
 	return func(r *ExistsRequest) {
 		r.Preference = v
@@ -209,7 +204,6 @@ func (f Exists) WithPreference(v string) func(*ExistsRequest) {
 }
 
 // WithRealtime - specify whether to perform the operation in realtime or search mode.
-//
 func (f Exists) WithRealtime(v bool) func(*ExistsRequest) {
 	return func(r *ExistsRequest) {
 		r.Realtime = &v
@@ -217,7 +211,6 @@ func (f Exists) WithRealtime(v bool) func(*ExistsRequest) {
 }
 
 // WithRefresh - refresh the shard containing the document before performing the operation.
-//
 func (f Exists) WithRefresh(v bool) func(*ExistsRequest) {
 	return func(r *ExistsRequest) {
 		r.Refresh = &v
@@ -225,7 +218,6 @@ func (f Exists) WithRefresh(v bool) func(*ExistsRequest) {
 }
 
 // WithRouting - specific routing value.
-//
 func (f Exists) WithRouting(v string) func(*ExistsRequest) {
 	return func(r *ExistsRequest) {
 		r.Routing = v
@@ -233,7 +225,6 @@ func (f Exists) WithRouting(v string) func(*ExistsRequest) {
 }
 
 // WithSource - true or false to return the _source field or not, or a list of fields to return.
-//
 func (f Exists) WithSource(v ...string) func(*ExistsRequest) {
 	return func(r *ExistsRequest) {
 		r.Source = v
@@ -241,7 +232,6 @@ func (f Exists) WithSource(v ...string) func(*ExistsRequest) {
 }
 
 // WithSourceExcludes - a list of fields to exclude from the returned _source field.
-//
 func (f Exists) WithSourceExcludes(v ...string) func(*ExistsRequest) {
 	return func(r *ExistsRequest) {
 		r.SourceExcludes = v
@@ -249,7 +239,6 @@ func (f Exists) WithSourceExcludes(v ...string) func(*ExistsRequest) {
 }
 
 // WithSourceIncludes - a list of fields to extract and return from the _source field.
-//
 func (f Exists) WithSourceIncludes(v ...string) func(*ExistsRequest) {
 	return func(r *ExistsRequest) {
 		r.SourceIncludes = v
@@ -257,7 +246,6 @@ func (f Exists) WithSourceIncludes(v ...string) func(*ExistsRequest) {
 }
 
 // WithStoredFields - a list of stored fields to return in the response.
-//
 func (f Exists) WithStoredFields(v ...string) func(*ExistsRequest) {
 	return func(r *ExistsRequest) {
 		r.StoredFields = v
@@ -265,7 +253,6 @@ func (f Exists) WithStoredFields(v ...string) func(*ExistsRequest) {
 }
 
 // WithVersion - explicit version number for concurrency control.
-//
 func (f Exists) WithVersion(v int) func(*ExistsRequest) {
 	return func(r *ExistsRequest) {
 		r.Version = &v
@@ -273,7 +260,6 @@ func (f Exists) WithVersion(v int) func(*ExistsRequest) {
 }
 
 // WithVersionType - specific version type.
-//
 func (f Exists) WithVersionType(v string) func(*ExistsRequest) {
 	return func(r *ExistsRequest) {
 		r.VersionType = v
@@ -281,7 +267,6 @@ func (f Exists) WithVersionType(v string) func(*ExistsRequest) {
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f Exists) WithPretty() func(*ExistsRequest) {
 	return func(r *ExistsRequest) {
 		r.Pretty = true
@@ -289,7 +274,6 @@ func (f Exists) WithPretty() func(*ExistsRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f Exists) WithHuman() func(*ExistsRequest) {
 	return func(r *ExistsRequest) {
 		r.Human = true
@@ -297,7 +281,6 @@ func (f Exists) WithHuman() func(*ExistsRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f Exists) WithErrorTrace() func(*ExistsRequest) {
 	return func(r *ExistsRequest) {
 		r.ErrorTrace = true
@@ -305,7 +288,6 @@ func (f Exists) WithErrorTrace() func(*ExistsRequest) {
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f Exists) WithFilterPath(v ...string) func(*ExistsRequest) {
 	return func(r *ExistsRequest) {
 		r.FilterPath = v
@@ -313,7 +295,6 @@ func (f Exists) WithFilterPath(v ...string) func(*ExistsRequest) {
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f Exists) WithHeader(h map[string]string) func(*ExistsRequest) {
 	return func(r *ExistsRequest) {
 		if r.Header == nil {
@@ -326,7 +307,6 @@ func (f Exists) WithHeader(h map[string]string) func(*ExistsRequest) {
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f Exists) WithOpaqueID(s string) func(*ExistsRequest) {
 	return func(r *ExistsRequest) {
 		if r.Header == nil {

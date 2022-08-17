@@ -45,11 +45,9 @@ func newMLPutTrainedModelDefinitionPartFunc(t Transport) MLPutTrainedModelDefini
 // This API is experimental.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/put-trained-model-definition-part.html.
-//
 type MLPutTrainedModelDefinitionPart func(body io.Reader, model_id string, part *int, o ...func(*MLPutTrainedModelDefinitionPartRequest)) (*Response, error)
 
 // MLPutTrainedModelDefinitionPartRequest configures the ML Put Trained Model Definition Part API request.
-//
 type MLPutTrainedModelDefinitionPartRequest struct {
 	Body io.Reader
 
@@ -67,7 +65,6 @@ type MLPutTrainedModelDefinitionPartRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r MLPutTrainedModelDefinitionPartRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -160,7 +157,6 @@ func (r MLPutTrainedModelDefinitionPartRequest) Do(ctx context.Context, transpor
 }
 
 // WithContext sets the request context.
-//
 func (f MLPutTrainedModelDefinitionPart) WithContext(v context.Context) func(*MLPutTrainedModelDefinitionPartRequest) {
 	return func(r *MLPutTrainedModelDefinitionPartRequest) {
 		r.ctx = v
@@ -168,7 +164,6 @@ func (f MLPutTrainedModelDefinitionPart) WithContext(v context.Context) func(*ML
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f MLPutTrainedModelDefinitionPart) WithPretty() func(*MLPutTrainedModelDefinitionPartRequest) {
 	return func(r *MLPutTrainedModelDefinitionPartRequest) {
 		r.Pretty = true
@@ -176,7 +171,6 @@ func (f MLPutTrainedModelDefinitionPart) WithPretty() func(*MLPutTrainedModelDef
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f MLPutTrainedModelDefinitionPart) WithHuman() func(*MLPutTrainedModelDefinitionPartRequest) {
 	return func(r *MLPutTrainedModelDefinitionPartRequest) {
 		r.Human = true
@@ -184,7 +178,6 @@ func (f MLPutTrainedModelDefinitionPart) WithHuman() func(*MLPutTrainedModelDefi
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f MLPutTrainedModelDefinitionPart) WithErrorTrace() func(*MLPutTrainedModelDefinitionPartRequest) {
 	return func(r *MLPutTrainedModelDefinitionPartRequest) {
 		r.ErrorTrace = true
@@ -192,7 +185,6 @@ func (f MLPutTrainedModelDefinitionPart) WithErrorTrace() func(*MLPutTrainedMode
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f MLPutTrainedModelDefinitionPart) WithFilterPath(v ...string) func(*MLPutTrainedModelDefinitionPartRequest) {
 	return func(r *MLPutTrainedModelDefinitionPartRequest) {
 		r.FilterPath = v
@@ -200,7 +192,6 @@ func (f MLPutTrainedModelDefinitionPart) WithFilterPath(v ...string) func(*MLPut
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f MLPutTrainedModelDefinitionPart) WithHeader(h map[string]string) func(*MLPutTrainedModelDefinitionPartRequest) {
 	return func(r *MLPutTrainedModelDefinitionPartRequest) {
 		if r.Header == nil {
@@ -213,7 +204,6 @@ func (f MLPutTrainedModelDefinitionPart) WithHeader(h map[string]string) func(*M
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f MLPutTrainedModelDefinitionPart) WithOpaqueID(s string) func(*MLPutTrainedModelDefinitionPartRequest) {
 	return func(r *MLPutTrainedModelDefinitionPartRequest) {
 		if r.Header == nil {

@@ -41,11 +41,9 @@ func newSecurityClearCachedPrivilegesFunc(t Transport) SecurityClearCachedPrivil
 // SecurityClearCachedPrivileges - Evicts application privileges from the native application privileges cache.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-privilege-cache.html.
-//
 type SecurityClearCachedPrivileges func(application []string, o ...func(*SecurityClearCachedPrivilegesRequest)) (*Response, error)
 
 // SecurityClearCachedPrivilegesRequest configures the Security Clear Cached Privileges API request.
-//
 type SecurityClearCachedPrivilegesRequest struct {
 	Application []string
 
@@ -60,7 +58,6 @@ type SecurityClearCachedPrivilegesRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r SecurityClearCachedPrivilegesRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -147,7 +144,6 @@ func (r SecurityClearCachedPrivilegesRequest) Do(ctx context.Context, transport 
 }
 
 // WithContext sets the request context.
-//
 func (f SecurityClearCachedPrivileges) WithContext(v context.Context) func(*SecurityClearCachedPrivilegesRequest) {
 	return func(r *SecurityClearCachedPrivilegesRequest) {
 		r.ctx = v
@@ -155,7 +151,6 @@ func (f SecurityClearCachedPrivileges) WithContext(v context.Context) func(*Secu
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f SecurityClearCachedPrivileges) WithPretty() func(*SecurityClearCachedPrivilegesRequest) {
 	return func(r *SecurityClearCachedPrivilegesRequest) {
 		r.Pretty = true
@@ -163,7 +158,6 @@ func (f SecurityClearCachedPrivileges) WithPretty() func(*SecurityClearCachedPri
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f SecurityClearCachedPrivileges) WithHuman() func(*SecurityClearCachedPrivilegesRequest) {
 	return func(r *SecurityClearCachedPrivilegesRequest) {
 		r.Human = true
@@ -171,7 +165,6 @@ func (f SecurityClearCachedPrivileges) WithHuman() func(*SecurityClearCachedPriv
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f SecurityClearCachedPrivileges) WithErrorTrace() func(*SecurityClearCachedPrivilegesRequest) {
 	return func(r *SecurityClearCachedPrivilegesRequest) {
 		r.ErrorTrace = true
@@ -179,7 +172,6 @@ func (f SecurityClearCachedPrivileges) WithErrorTrace() func(*SecurityClearCache
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f SecurityClearCachedPrivileges) WithFilterPath(v ...string) func(*SecurityClearCachedPrivilegesRequest) {
 	return func(r *SecurityClearCachedPrivilegesRequest) {
 		r.FilterPath = v
@@ -187,7 +179,6 @@ func (f SecurityClearCachedPrivileges) WithFilterPath(v ...string) func(*Securit
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f SecurityClearCachedPrivileges) WithHeader(h map[string]string) func(*SecurityClearCachedPrivilegesRequest) {
 	return func(r *SecurityClearCachedPrivilegesRequest) {
 		if r.Header == nil {
@@ -200,7 +191,6 @@ func (f SecurityClearCachedPrivileges) WithHeader(h map[string]string) func(*Sec
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f SecurityClearCachedPrivileges) WithOpaqueID(s string) func(*SecurityClearCachedPrivilegesRequest) {
 	return func(r *SecurityClearCachedPrivilegesRequest) {
 		if r.Header == nil {

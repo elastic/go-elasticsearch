@@ -40,11 +40,9 @@ func newILMRetryFunc(t Transport) ILMRetry {
 // ILMRetry - Retries executing the policy for an index that is in the ERROR step.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-retry-policy.html.
-//
 type ILMRetry func(index string, o ...func(*ILMRetryRequest)) (*Response, error)
 
 // ILMRetryRequest configures the ILM Retry API request.
-//
 type ILMRetryRequest struct {
 	Index string
 
@@ -59,7 +57,6 @@ type ILMRetryRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r ILMRetryRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -140,7 +137,6 @@ func (r ILMRetryRequest) Do(ctx context.Context, transport Transport) (*Response
 }
 
 // WithContext sets the request context.
-//
 func (f ILMRetry) WithContext(v context.Context) func(*ILMRetryRequest) {
 	return func(r *ILMRetryRequest) {
 		r.ctx = v
@@ -148,7 +144,6 @@ func (f ILMRetry) WithContext(v context.Context) func(*ILMRetryRequest) {
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f ILMRetry) WithPretty() func(*ILMRetryRequest) {
 	return func(r *ILMRetryRequest) {
 		r.Pretty = true
@@ -156,7 +151,6 @@ func (f ILMRetry) WithPretty() func(*ILMRetryRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f ILMRetry) WithHuman() func(*ILMRetryRequest) {
 	return func(r *ILMRetryRequest) {
 		r.Human = true
@@ -164,7 +158,6 @@ func (f ILMRetry) WithHuman() func(*ILMRetryRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f ILMRetry) WithErrorTrace() func(*ILMRetryRequest) {
 	return func(r *ILMRetryRequest) {
 		r.ErrorTrace = true
@@ -172,7 +165,6 @@ func (f ILMRetry) WithErrorTrace() func(*ILMRetryRequest) {
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f ILMRetry) WithFilterPath(v ...string) func(*ILMRetryRequest) {
 	return func(r *ILMRetryRequest) {
 		r.FilterPath = v
@@ -180,7 +172,6 @@ func (f ILMRetry) WithFilterPath(v ...string) func(*ILMRetryRequest) {
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f ILMRetry) WithHeader(h map[string]string) func(*ILMRetryRequest) {
 	return func(r *ILMRetryRequest) {
 		if r.Header == nil {
@@ -193,7 +184,6 @@ func (f ILMRetry) WithHeader(h map[string]string) func(*ILMRetryRequest) {
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f ILMRetry) WithOpaqueID(s string) func(*ILMRetryRequest) {
 	return func(r *ILMRetryRequest) {
 		if r.Header == nil {

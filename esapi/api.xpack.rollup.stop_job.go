@@ -44,11 +44,9 @@ func newRollupStopJobFunc(t Transport) RollupStopJob {
 // This API is experimental.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-stop-job.html.
-//
 type RollupStopJob func(id string, o ...func(*RollupStopJobRequest)) (*Response, error)
 
 // RollupStopJobRequest configures the Rollup Stop Job API request.
-//
 type RollupStopJobRequest struct {
 	JobID string
 
@@ -66,7 +64,6 @@ type RollupStopJobRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r RollupStopJobRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -157,7 +154,6 @@ func (r RollupStopJobRequest) Do(ctx context.Context, transport Transport) (*Res
 }
 
 // WithContext sets the request context.
-//
 func (f RollupStopJob) WithContext(v context.Context) func(*RollupStopJobRequest) {
 	return func(r *RollupStopJobRequest) {
 		r.ctx = v
@@ -165,7 +161,6 @@ func (f RollupStopJob) WithContext(v context.Context) func(*RollupStopJobRequest
 }
 
 // WithTimeout - block for (at maximum) the specified duration while waiting for the job to stop.  defaults to 30s..
-//
 func (f RollupStopJob) WithTimeout(v time.Duration) func(*RollupStopJobRequest) {
 	return func(r *RollupStopJobRequest) {
 		r.Timeout = v
@@ -173,7 +168,6 @@ func (f RollupStopJob) WithTimeout(v time.Duration) func(*RollupStopJobRequest) 
 }
 
 // WithWaitForCompletion - true if the api should block until the job has fully stopped, false if should be executed async. defaults to false..
-//
 func (f RollupStopJob) WithWaitForCompletion(v bool) func(*RollupStopJobRequest) {
 	return func(r *RollupStopJobRequest) {
 		r.WaitForCompletion = &v
@@ -181,7 +175,6 @@ func (f RollupStopJob) WithWaitForCompletion(v bool) func(*RollupStopJobRequest)
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f RollupStopJob) WithPretty() func(*RollupStopJobRequest) {
 	return func(r *RollupStopJobRequest) {
 		r.Pretty = true
@@ -189,7 +182,6 @@ func (f RollupStopJob) WithPretty() func(*RollupStopJobRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f RollupStopJob) WithHuman() func(*RollupStopJobRequest) {
 	return func(r *RollupStopJobRequest) {
 		r.Human = true
@@ -197,7 +189,6 @@ func (f RollupStopJob) WithHuman() func(*RollupStopJobRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f RollupStopJob) WithErrorTrace() func(*RollupStopJobRequest) {
 	return func(r *RollupStopJobRequest) {
 		r.ErrorTrace = true
@@ -205,7 +196,6 @@ func (f RollupStopJob) WithErrorTrace() func(*RollupStopJobRequest) {
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f RollupStopJob) WithFilterPath(v ...string) func(*RollupStopJobRequest) {
 	return func(r *RollupStopJobRequest) {
 		r.FilterPath = v
@@ -213,7 +203,6 @@ func (f RollupStopJob) WithFilterPath(v ...string) func(*RollupStopJobRequest) {
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f RollupStopJob) WithHeader(h map[string]string) func(*RollupStopJobRequest) {
 	return func(r *RollupStopJobRequest) {
 		if r.Header == nil {
@@ -226,7 +215,6 @@ func (f RollupStopJob) WithHeader(h map[string]string) func(*RollupStopJobReques
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f RollupStopJob) WithOpaqueID(s string) func(*RollupStopJobRequest) {
 	return func(r *RollupStopJobRequest) {
 		if r.Header == nil {

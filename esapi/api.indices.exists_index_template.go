@@ -42,11 +42,9 @@ func newIndicesExistsIndexTemplateFunc(t Transport) IndicesExistsIndexTemplate {
 // IndicesExistsIndexTemplate returns information about whether a particular index template exists.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html.
-//
 type IndicesExistsIndexTemplate func(name string, o ...func(*IndicesExistsIndexTemplateRequest)) (*Response, error)
 
 // IndicesExistsIndexTemplateRequest configures the Indices Exists Index Template API request.
-//
 type IndicesExistsIndexTemplateRequest struct {
 	Name string
 
@@ -65,7 +63,6 @@ type IndicesExistsIndexTemplateRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r IndicesExistsIndexTemplateRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -156,7 +153,6 @@ func (r IndicesExistsIndexTemplateRequest) Do(ctx context.Context, transport Tra
 }
 
 // WithContext sets the request context.
-//
 func (f IndicesExistsIndexTemplate) WithContext(v context.Context) func(*IndicesExistsIndexTemplateRequest) {
 	return func(r *IndicesExistsIndexTemplateRequest) {
 		r.ctx = v
@@ -164,7 +160,6 @@ func (f IndicesExistsIndexTemplate) WithContext(v context.Context) func(*Indices
 }
 
 // WithFlatSettings - return settings in flat format (default: false).
-//
 func (f IndicesExistsIndexTemplate) WithFlatSettings(v bool) func(*IndicesExistsIndexTemplateRequest) {
 	return func(r *IndicesExistsIndexTemplateRequest) {
 		r.FlatSettings = &v
@@ -172,7 +167,6 @@ func (f IndicesExistsIndexTemplate) WithFlatSettings(v bool) func(*IndicesExists
 }
 
 // WithLocal - return local information, do not retrieve the state from master node (default: false).
-//
 func (f IndicesExistsIndexTemplate) WithLocal(v bool) func(*IndicesExistsIndexTemplateRequest) {
 	return func(r *IndicesExistsIndexTemplateRequest) {
 		r.Local = &v
@@ -180,7 +174,6 @@ func (f IndicesExistsIndexTemplate) WithLocal(v bool) func(*IndicesExistsIndexTe
 }
 
 // WithMasterTimeout - explicit operation timeout for connection to master node.
-//
 func (f IndicesExistsIndexTemplate) WithMasterTimeout(v time.Duration) func(*IndicesExistsIndexTemplateRequest) {
 	return func(r *IndicesExistsIndexTemplateRequest) {
 		r.MasterTimeout = v
@@ -188,7 +181,6 @@ func (f IndicesExistsIndexTemplate) WithMasterTimeout(v time.Duration) func(*Ind
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f IndicesExistsIndexTemplate) WithPretty() func(*IndicesExistsIndexTemplateRequest) {
 	return func(r *IndicesExistsIndexTemplateRequest) {
 		r.Pretty = true
@@ -196,7 +188,6 @@ func (f IndicesExistsIndexTemplate) WithPretty() func(*IndicesExistsIndexTemplat
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f IndicesExistsIndexTemplate) WithHuman() func(*IndicesExistsIndexTemplateRequest) {
 	return func(r *IndicesExistsIndexTemplateRequest) {
 		r.Human = true
@@ -204,7 +195,6 @@ func (f IndicesExistsIndexTemplate) WithHuman() func(*IndicesExistsIndexTemplate
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f IndicesExistsIndexTemplate) WithErrorTrace() func(*IndicesExistsIndexTemplateRequest) {
 	return func(r *IndicesExistsIndexTemplateRequest) {
 		r.ErrorTrace = true
@@ -212,7 +202,6 @@ func (f IndicesExistsIndexTemplate) WithErrorTrace() func(*IndicesExistsIndexTem
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f IndicesExistsIndexTemplate) WithFilterPath(v ...string) func(*IndicesExistsIndexTemplateRequest) {
 	return func(r *IndicesExistsIndexTemplateRequest) {
 		r.FilterPath = v
@@ -220,7 +209,6 @@ func (f IndicesExistsIndexTemplate) WithFilterPath(v ...string) func(*IndicesExi
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f IndicesExistsIndexTemplate) WithHeader(h map[string]string) func(*IndicesExistsIndexTemplateRequest) {
 	return func(r *IndicesExistsIndexTemplateRequest) {
 		if r.Header == nil {
@@ -233,7 +221,6 @@ func (f IndicesExistsIndexTemplate) WithHeader(h map[string]string) func(*Indice
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f IndicesExistsIndexTemplate) WithOpaqueID(s string) func(*IndicesExistsIndexTemplateRequest) {
 	return func(r *IndicesExistsIndexTemplateRequest) {
 		if r.Header == nil {

@@ -43,11 +43,9 @@ func newMLDeleteExpiredDataFunc(t Transport) MLDeleteExpiredData {
 // MLDeleteExpiredData - Deletes expired and unused machine learning data.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-expired-data.html.
-//
 type MLDeleteExpiredData func(o ...func(*MLDeleteExpiredDataRequest)) (*Response, error)
 
 // MLDeleteExpiredDataRequest configures the ML Delete Expired Data API request.
-//
 type MLDeleteExpiredDataRequest struct {
 	Body io.Reader
 
@@ -67,7 +65,6 @@ type MLDeleteExpiredDataRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r MLDeleteExpiredDataRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -162,7 +159,6 @@ func (r MLDeleteExpiredDataRequest) Do(ctx context.Context, transport Transport)
 }
 
 // WithContext sets the request context.
-//
 func (f MLDeleteExpiredData) WithContext(v context.Context) func(*MLDeleteExpiredDataRequest) {
 	return func(r *MLDeleteExpiredDataRequest) {
 		r.ctx = v
@@ -170,7 +166,6 @@ func (f MLDeleteExpiredData) WithContext(v context.Context) func(*MLDeleteExpire
 }
 
 // WithBody - deleting expired data parameters.
-//
 func (f MLDeleteExpiredData) WithBody(v io.Reader) func(*MLDeleteExpiredDataRequest) {
 	return func(r *MLDeleteExpiredDataRequest) {
 		r.Body = v
@@ -178,7 +173,6 @@ func (f MLDeleteExpiredData) WithBody(v io.Reader) func(*MLDeleteExpiredDataRequ
 }
 
 // WithJobID - the ID of the job(s) to perform expired data hygiene for.
-//
 func (f MLDeleteExpiredData) WithJobID(v string) func(*MLDeleteExpiredDataRequest) {
 	return func(r *MLDeleteExpiredDataRequest) {
 		r.JobID = v
@@ -186,7 +180,6 @@ func (f MLDeleteExpiredData) WithJobID(v string) func(*MLDeleteExpiredDataReques
 }
 
 // WithRequestsPerSecond - the desired requests per second for the deletion processes..
-//
 func (f MLDeleteExpiredData) WithRequestsPerSecond(v int) func(*MLDeleteExpiredDataRequest) {
 	return func(r *MLDeleteExpiredDataRequest) {
 		r.RequestsPerSecond = &v
@@ -194,7 +187,6 @@ func (f MLDeleteExpiredData) WithRequestsPerSecond(v int) func(*MLDeleteExpiredD
 }
 
 // WithTimeout - how long can the underlying delete processes run until they are canceled.
-//
 func (f MLDeleteExpiredData) WithTimeout(v time.Duration) func(*MLDeleteExpiredDataRequest) {
 	return func(r *MLDeleteExpiredDataRequest) {
 		r.Timeout = v
@@ -202,7 +194,6 @@ func (f MLDeleteExpiredData) WithTimeout(v time.Duration) func(*MLDeleteExpiredD
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f MLDeleteExpiredData) WithPretty() func(*MLDeleteExpiredDataRequest) {
 	return func(r *MLDeleteExpiredDataRequest) {
 		r.Pretty = true
@@ -210,7 +201,6 @@ func (f MLDeleteExpiredData) WithPretty() func(*MLDeleteExpiredDataRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f MLDeleteExpiredData) WithHuman() func(*MLDeleteExpiredDataRequest) {
 	return func(r *MLDeleteExpiredDataRequest) {
 		r.Human = true
@@ -218,7 +208,6 @@ func (f MLDeleteExpiredData) WithHuman() func(*MLDeleteExpiredDataRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f MLDeleteExpiredData) WithErrorTrace() func(*MLDeleteExpiredDataRequest) {
 	return func(r *MLDeleteExpiredDataRequest) {
 		r.ErrorTrace = true
@@ -226,7 +215,6 @@ func (f MLDeleteExpiredData) WithErrorTrace() func(*MLDeleteExpiredDataRequest) 
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f MLDeleteExpiredData) WithFilterPath(v ...string) func(*MLDeleteExpiredDataRequest) {
 	return func(r *MLDeleteExpiredDataRequest) {
 		r.FilterPath = v
@@ -234,7 +222,6 @@ func (f MLDeleteExpiredData) WithFilterPath(v ...string) func(*MLDeleteExpiredDa
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f MLDeleteExpiredData) WithHeader(h map[string]string) func(*MLDeleteExpiredDataRequest) {
 	return func(r *MLDeleteExpiredDataRequest) {
 		if r.Header == nil {
@@ -247,7 +234,6 @@ func (f MLDeleteExpiredData) WithHeader(h map[string]string) func(*MLDeleteExpir
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f MLDeleteExpiredData) WithOpaqueID(s string) func(*MLDeleteExpiredDataRequest) {
 	return func(r *MLDeleteExpiredDataRequest) {
 		if r.Header == nil {

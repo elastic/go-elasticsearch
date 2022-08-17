@@ -41,11 +41,9 @@ func newSecurityClearAPIKeyCacheFunc(t Transport) SecurityClearAPIKeyCache {
 // SecurityClearAPIKeyCache - Clear a subset or all entries from the API key cache.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-api-key-cache.html.
-//
 type SecurityClearAPIKeyCache func(ids []string, o ...func(*SecurityClearAPIKeyCacheRequest)) (*Response, error)
 
 // SecurityClearAPIKeyCacheRequest configures the Security ClearAPI Key Cache API request.
-//
 type SecurityClearAPIKeyCacheRequest struct {
 	Ids []string
 
@@ -60,7 +58,6 @@ type SecurityClearAPIKeyCacheRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r SecurityClearAPIKeyCacheRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -147,7 +144,6 @@ func (r SecurityClearAPIKeyCacheRequest) Do(ctx context.Context, transport Trans
 }
 
 // WithContext sets the request context.
-//
 func (f SecurityClearAPIKeyCache) WithContext(v context.Context) func(*SecurityClearAPIKeyCacheRequest) {
 	return func(r *SecurityClearAPIKeyCacheRequest) {
 		r.ctx = v
@@ -155,7 +151,6 @@ func (f SecurityClearAPIKeyCache) WithContext(v context.Context) func(*SecurityC
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f SecurityClearAPIKeyCache) WithPretty() func(*SecurityClearAPIKeyCacheRequest) {
 	return func(r *SecurityClearAPIKeyCacheRequest) {
 		r.Pretty = true
@@ -163,7 +158,6 @@ func (f SecurityClearAPIKeyCache) WithPretty() func(*SecurityClearAPIKeyCacheReq
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f SecurityClearAPIKeyCache) WithHuman() func(*SecurityClearAPIKeyCacheRequest) {
 	return func(r *SecurityClearAPIKeyCacheRequest) {
 		r.Human = true
@@ -171,7 +165,6 @@ func (f SecurityClearAPIKeyCache) WithHuman() func(*SecurityClearAPIKeyCacheRequ
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f SecurityClearAPIKeyCache) WithErrorTrace() func(*SecurityClearAPIKeyCacheRequest) {
 	return func(r *SecurityClearAPIKeyCacheRequest) {
 		r.ErrorTrace = true
@@ -179,7 +172,6 @@ func (f SecurityClearAPIKeyCache) WithErrorTrace() func(*SecurityClearAPIKeyCach
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f SecurityClearAPIKeyCache) WithFilterPath(v ...string) func(*SecurityClearAPIKeyCacheRequest) {
 	return func(r *SecurityClearAPIKeyCacheRequest) {
 		r.FilterPath = v
@@ -187,7 +179,6 @@ func (f SecurityClearAPIKeyCache) WithFilterPath(v ...string) func(*SecurityClea
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f SecurityClearAPIKeyCache) WithHeader(h map[string]string) func(*SecurityClearAPIKeyCacheRequest) {
 	return func(r *SecurityClearAPIKeyCacheRequest) {
 		if r.Header == nil {
@@ -200,7 +191,6 @@ func (f SecurityClearAPIKeyCache) WithHeader(h map[string]string) func(*Security
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f SecurityClearAPIKeyCache) WithOpaqueID(s string) func(*SecurityClearAPIKeyCacheRequest) {
 	return func(r *SecurityClearAPIKeyCacheRequest) {
 		if r.Header == nil {

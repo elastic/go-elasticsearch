@@ -43,11 +43,9 @@ func newNodesGetRepositoriesMeteringInfoFunc(t Transport) NodesGetRepositoriesMe
 // This API is experimental.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-repositories-metering-api.html.
-//
 type NodesGetRepositoriesMeteringInfo func(node_id []string, o ...func(*NodesGetRepositoriesMeteringInfoRequest)) (*Response, error)
 
 // NodesGetRepositoriesMeteringInfoRequest configures the Nodes Get Repositories Metering Info API request.
-//
 type NodesGetRepositoriesMeteringInfoRequest struct {
 	NodeID []string
 
@@ -62,7 +60,6 @@ type NodesGetRepositoriesMeteringInfoRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r NodesGetRepositoriesMeteringInfoRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -147,7 +144,6 @@ func (r NodesGetRepositoriesMeteringInfoRequest) Do(ctx context.Context, transpo
 }
 
 // WithContext sets the request context.
-//
 func (f NodesGetRepositoriesMeteringInfo) WithContext(v context.Context) func(*NodesGetRepositoriesMeteringInfoRequest) {
 	return func(r *NodesGetRepositoriesMeteringInfoRequest) {
 		r.ctx = v
@@ -155,7 +151,6 @@ func (f NodesGetRepositoriesMeteringInfo) WithContext(v context.Context) func(*N
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f NodesGetRepositoriesMeteringInfo) WithPretty() func(*NodesGetRepositoriesMeteringInfoRequest) {
 	return func(r *NodesGetRepositoriesMeteringInfoRequest) {
 		r.Pretty = true
@@ -163,7 +158,6 @@ func (f NodesGetRepositoriesMeteringInfo) WithPretty() func(*NodesGetRepositorie
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f NodesGetRepositoriesMeteringInfo) WithHuman() func(*NodesGetRepositoriesMeteringInfoRequest) {
 	return func(r *NodesGetRepositoriesMeteringInfoRequest) {
 		r.Human = true
@@ -171,7 +165,6 @@ func (f NodesGetRepositoriesMeteringInfo) WithHuman() func(*NodesGetRepositories
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f NodesGetRepositoriesMeteringInfo) WithErrorTrace() func(*NodesGetRepositoriesMeteringInfoRequest) {
 	return func(r *NodesGetRepositoriesMeteringInfoRequest) {
 		r.ErrorTrace = true
@@ -179,7 +172,6 @@ func (f NodesGetRepositoriesMeteringInfo) WithErrorTrace() func(*NodesGetReposit
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f NodesGetRepositoriesMeteringInfo) WithFilterPath(v ...string) func(*NodesGetRepositoriesMeteringInfoRequest) {
 	return func(r *NodesGetRepositoriesMeteringInfoRequest) {
 		r.FilterPath = v
@@ -187,7 +179,6 @@ func (f NodesGetRepositoriesMeteringInfo) WithFilterPath(v ...string) func(*Node
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f NodesGetRepositoriesMeteringInfo) WithHeader(h map[string]string) func(*NodesGetRepositoriesMeteringInfoRequest) {
 	return func(r *NodesGetRepositoriesMeteringInfoRequest) {
 		if r.Header == nil {
@@ -200,7 +191,6 @@ func (f NodesGetRepositoriesMeteringInfo) WithHeader(h map[string]string) func(*
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f NodesGetRepositoriesMeteringInfo) WithOpaqueID(s string) func(*NodesGetRepositoriesMeteringInfoRequest) {
 	return func(r *NodesGetRepositoriesMeteringInfoRequest) {
 		if r.Header == nil {

@@ -42,11 +42,9 @@ func newRollupStartJobFunc(t Transport) RollupStartJob {
 // This API is experimental.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-start-job.html.
-//
 type RollupStartJob func(id string, o ...func(*RollupStartJobRequest)) (*Response, error)
 
 // RollupStartJobRequest configures the Rollup Start Job API request.
-//
 type RollupStartJobRequest struct {
 	JobID string
 
@@ -61,7 +59,6 @@ type RollupStartJobRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r RollupStartJobRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -144,7 +141,6 @@ func (r RollupStartJobRequest) Do(ctx context.Context, transport Transport) (*Re
 }
 
 // WithContext sets the request context.
-//
 func (f RollupStartJob) WithContext(v context.Context) func(*RollupStartJobRequest) {
 	return func(r *RollupStartJobRequest) {
 		r.ctx = v
@@ -152,7 +148,6 @@ func (f RollupStartJob) WithContext(v context.Context) func(*RollupStartJobReque
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f RollupStartJob) WithPretty() func(*RollupStartJobRequest) {
 	return func(r *RollupStartJobRequest) {
 		r.Pretty = true
@@ -160,7 +155,6 @@ func (f RollupStartJob) WithPretty() func(*RollupStartJobRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f RollupStartJob) WithHuman() func(*RollupStartJobRequest) {
 	return func(r *RollupStartJobRequest) {
 		r.Human = true
@@ -168,7 +162,6 @@ func (f RollupStartJob) WithHuman() func(*RollupStartJobRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f RollupStartJob) WithErrorTrace() func(*RollupStartJobRequest) {
 	return func(r *RollupStartJobRequest) {
 		r.ErrorTrace = true
@@ -176,7 +169,6 @@ func (f RollupStartJob) WithErrorTrace() func(*RollupStartJobRequest) {
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f RollupStartJob) WithFilterPath(v ...string) func(*RollupStartJobRequest) {
 	return func(r *RollupStartJobRequest) {
 		r.FilterPath = v
@@ -184,7 +176,6 @@ func (f RollupStartJob) WithFilterPath(v ...string) func(*RollupStartJobRequest)
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f RollupStartJob) WithHeader(h map[string]string) func(*RollupStartJobRequest) {
 	return func(r *RollupStartJobRequest) {
 		if r.Header == nil {
@@ -197,7 +188,6 @@ func (f RollupStartJob) WithHeader(h map[string]string) func(*RollupStartJobRequ
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f RollupStartJob) WithOpaqueID(s string) func(*RollupStartJobRequest) {
 	return func(r *RollupStartJobRequest) {
 		if r.Header == nil {

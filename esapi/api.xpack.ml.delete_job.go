@@ -41,11 +41,9 @@ func newMLDeleteJobFunc(t Transport) MLDeleteJob {
 // MLDeleteJob - Deletes an existing anomaly detection job.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-job.html.
-//
 type MLDeleteJob func(job_id string, o ...func(*MLDeleteJobRequest)) (*Response, error)
 
 // MLDeleteJobRequest configures the ML Delete Job API request.
-//
 type MLDeleteJobRequest struct {
 	JobID string
 
@@ -63,7 +61,6 @@ type MLDeleteJobRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r MLDeleteJobRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -152,7 +149,6 @@ func (r MLDeleteJobRequest) Do(ctx context.Context, transport Transport) (*Respo
 }
 
 // WithContext sets the request context.
-//
 func (f MLDeleteJob) WithContext(v context.Context) func(*MLDeleteJobRequest) {
 	return func(r *MLDeleteJobRequest) {
 		r.ctx = v
@@ -160,7 +156,6 @@ func (f MLDeleteJob) WithContext(v context.Context) func(*MLDeleteJobRequest) {
 }
 
 // WithForce - true if the job should be forcefully deleted.
-//
 func (f MLDeleteJob) WithForce(v bool) func(*MLDeleteJobRequest) {
 	return func(r *MLDeleteJobRequest) {
 		r.Force = &v
@@ -168,7 +163,6 @@ func (f MLDeleteJob) WithForce(v bool) func(*MLDeleteJobRequest) {
 }
 
 // WithWaitForCompletion - should this request wait until the operation has completed before returning.
-//
 func (f MLDeleteJob) WithWaitForCompletion(v bool) func(*MLDeleteJobRequest) {
 	return func(r *MLDeleteJobRequest) {
 		r.WaitForCompletion = &v
@@ -176,7 +170,6 @@ func (f MLDeleteJob) WithWaitForCompletion(v bool) func(*MLDeleteJobRequest) {
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f MLDeleteJob) WithPretty() func(*MLDeleteJobRequest) {
 	return func(r *MLDeleteJobRequest) {
 		r.Pretty = true
@@ -184,7 +177,6 @@ func (f MLDeleteJob) WithPretty() func(*MLDeleteJobRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f MLDeleteJob) WithHuman() func(*MLDeleteJobRequest) {
 	return func(r *MLDeleteJobRequest) {
 		r.Human = true
@@ -192,7 +184,6 @@ func (f MLDeleteJob) WithHuman() func(*MLDeleteJobRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f MLDeleteJob) WithErrorTrace() func(*MLDeleteJobRequest) {
 	return func(r *MLDeleteJobRequest) {
 		r.ErrorTrace = true
@@ -200,7 +191,6 @@ func (f MLDeleteJob) WithErrorTrace() func(*MLDeleteJobRequest) {
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f MLDeleteJob) WithFilterPath(v ...string) func(*MLDeleteJobRequest) {
 	return func(r *MLDeleteJobRequest) {
 		r.FilterPath = v
@@ -208,7 +198,6 @@ func (f MLDeleteJob) WithFilterPath(v ...string) func(*MLDeleteJobRequest) {
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f MLDeleteJob) WithHeader(h map[string]string) func(*MLDeleteJobRequest) {
 	return func(r *MLDeleteJobRequest) {
 		if r.Header == nil {
@@ -221,7 +210,6 @@ func (f MLDeleteJob) WithHeader(h map[string]string) func(*MLDeleteJobRequest) {
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f MLDeleteJob) WithOpaqueID(s string) func(*MLDeleteJobRequest) {
 	return func(r *MLDeleteJobRequest) {
 		if r.Header == nil {

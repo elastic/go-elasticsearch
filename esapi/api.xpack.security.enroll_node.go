@@ -40,11 +40,9 @@ func newSecurityEnrollNodeFunc(t Transport) SecurityEnrollNode {
 // SecurityEnrollNode - Allows a new node to enroll to an existing cluster with security enabled.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/security-api-node-enrollment.html.
-//
 type SecurityEnrollNode func(o ...func(*SecurityEnrollNodeRequest)) (*Response, error)
 
 // SecurityEnrollNodeRequest configures the Security Enroll Node API request.
-//
 type SecurityEnrollNodeRequest struct {
 	Pretty     bool
 	Human      bool
@@ -57,7 +55,6 @@ type SecurityEnrollNodeRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r SecurityEnrollNodeRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -133,7 +130,6 @@ func (r SecurityEnrollNodeRequest) Do(ctx context.Context, transport Transport) 
 }
 
 // WithContext sets the request context.
-//
 func (f SecurityEnrollNode) WithContext(v context.Context) func(*SecurityEnrollNodeRequest) {
 	return func(r *SecurityEnrollNodeRequest) {
 		r.ctx = v
@@ -141,7 +137,6 @@ func (f SecurityEnrollNode) WithContext(v context.Context) func(*SecurityEnrollN
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f SecurityEnrollNode) WithPretty() func(*SecurityEnrollNodeRequest) {
 	return func(r *SecurityEnrollNodeRequest) {
 		r.Pretty = true
@@ -149,7 +144,6 @@ func (f SecurityEnrollNode) WithPretty() func(*SecurityEnrollNodeRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f SecurityEnrollNode) WithHuman() func(*SecurityEnrollNodeRequest) {
 	return func(r *SecurityEnrollNodeRequest) {
 		r.Human = true
@@ -157,7 +151,6 @@ func (f SecurityEnrollNode) WithHuman() func(*SecurityEnrollNodeRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f SecurityEnrollNode) WithErrorTrace() func(*SecurityEnrollNodeRequest) {
 	return func(r *SecurityEnrollNodeRequest) {
 		r.ErrorTrace = true
@@ -165,7 +158,6 @@ func (f SecurityEnrollNode) WithErrorTrace() func(*SecurityEnrollNodeRequest) {
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f SecurityEnrollNode) WithFilterPath(v ...string) func(*SecurityEnrollNodeRequest) {
 	return func(r *SecurityEnrollNodeRequest) {
 		r.FilterPath = v
@@ -173,7 +165,6 @@ func (f SecurityEnrollNode) WithFilterPath(v ...string) func(*SecurityEnrollNode
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f SecurityEnrollNode) WithHeader(h map[string]string) func(*SecurityEnrollNodeRequest) {
 	return func(r *SecurityEnrollNodeRequest) {
 		if r.Header == nil {
@@ -186,7 +177,6 @@ func (f SecurityEnrollNode) WithHeader(h map[string]string) func(*SecurityEnroll
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f SecurityEnrollNode) WithOpaqueID(s string) func(*SecurityEnrollNodeRequest) {
 	return func(r *SecurityEnrollNodeRequest) {
 		if r.Header == nil {

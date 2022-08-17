@@ -41,11 +41,9 @@ func newTransformStartTransformFunc(t Transport) TransformStartTransform {
 // TransformStartTransform - Starts one or more transforms.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/start-transform.html.
-//
 type TransformStartTransform func(transform_id string, o ...func(*TransformStartTransformRequest)) (*Response, error)
 
 // TransformStartTransformRequest configures the Transform Start Transform API request.
-//
 type TransformStartTransformRequest struct {
 	TransformID string
 
@@ -62,7 +60,6 @@ type TransformStartTransformRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r TransformStartTransformRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -147,7 +144,6 @@ func (r TransformStartTransformRequest) Do(ctx context.Context, transport Transp
 }
 
 // WithContext sets the request context.
-//
 func (f TransformStartTransform) WithContext(v context.Context) func(*TransformStartTransformRequest) {
 	return func(r *TransformStartTransformRequest) {
 		r.ctx = v
@@ -155,7 +151,6 @@ func (f TransformStartTransform) WithContext(v context.Context) func(*TransformS
 }
 
 // WithTimeout - controls the time to wait for the transform to start.
-//
 func (f TransformStartTransform) WithTimeout(v time.Duration) func(*TransformStartTransformRequest) {
 	return func(r *TransformStartTransformRequest) {
 		r.Timeout = v
@@ -163,7 +158,6 @@ func (f TransformStartTransform) WithTimeout(v time.Duration) func(*TransformSta
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f TransformStartTransform) WithPretty() func(*TransformStartTransformRequest) {
 	return func(r *TransformStartTransformRequest) {
 		r.Pretty = true
@@ -171,7 +165,6 @@ func (f TransformStartTransform) WithPretty() func(*TransformStartTransformReque
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f TransformStartTransform) WithHuman() func(*TransformStartTransformRequest) {
 	return func(r *TransformStartTransformRequest) {
 		r.Human = true
@@ -179,7 +172,6 @@ func (f TransformStartTransform) WithHuman() func(*TransformStartTransformReques
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f TransformStartTransform) WithErrorTrace() func(*TransformStartTransformRequest) {
 	return func(r *TransformStartTransformRequest) {
 		r.ErrorTrace = true
@@ -187,7 +179,6 @@ func (f TransformStartTransform) WithErrorTrace() func(*TransformStartTransformR
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f TransformStartTransform) WithFilterPath(v ...string) func(*TransformStartTransformRequest) {
 	return func(r *TransformStartTransformRequest) {
 		r.FilterPath = v
@@ -195,7 +186,6 @@ func (f TransformStartTransform) WithFilterPath(v ...string) func(*TransformStar
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f TransformStartTransform) WithHeader(h map[string]string) func(*TransformStartTransformRequest) {
 	return func(r *TransformStartTransformRequest) {
 		if r.Header == nil {
@@ -208,7 +198,6 @@ func (f TransformStartTransform) WithHeader(h map[string]string) func(*Transform
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f TransformStartTransform) WithOpaqueID(s string) func(*TransformStartTransformRequest) {
 	return func(r *TransformStartTransformRequest) {
 		if r.Header == nil {

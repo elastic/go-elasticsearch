@@ -41,11 +41,9 @@ func newMLUpdateModelSnapshotFunc(t Transport) MLUpdateModelSnapshot {
 // MLUpdateModelSnapshot - Updates certain properties of a snapshot.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-update-snapshot.html.
-//
 type MLUpdateModelSnapshot func(snapshot_id string, job_id string, body io.Reader, o ...func(*MLUpdateModelSnapshotRequest)) (*Response, error)
 
 // MLUpdateModelSnapshotRequest configures the ML Update Model Snapshot API request.
-//
 type MLUpdateModelSnapshotRequest struct {
 	Body io.Reader
 
@@ -63,7 +61,6 @@ type MLUpdateModelSnapshotRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r MLUpdateModelSnapshotRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -154,7 +151,6 @@ func (r MLUpdateModelSnapshotRequest) Do(ctx context.Context, transport Transpor
 }
 
 // WithContext sets the request context.
-//
 func (f MLUpdateModelSnapshot) WithContext(v context.Context) func(*MLUpdateModelSnapshotRequest) {
 	return func(r *MLUpdateModelSnapshotRequest) {
 		r.ctx = v
@@ -162,7 +158,6 @@ func (f MLUpdateModelSnapshot) WithContext(v context.Context) func(*MLUpdateMode
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f MLUpdateModelSnapshot) WithPretty() func(*MLUpdateModelSnapshotRequest) {
 	return func(r *MLUpdateModelSnapshotRequest) {
 		r.Pretty = true
@@ -170,7 +165,6 @@ func (f MLUpdateModelSnapshot) WithPretty() func(*MLUpdateModelSnapshotRequest) 
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f MLUpdateModelSnapshot) WithHuman() func(*MLUpdateModelSnapshotRequest) {
 	return func(r *MLUpdateModelSnapshotRequest) {
 		r.Human = true
@@ -178,7 +172,6 @@ func (f MLUpdateModelSnapshot) WithHuman() func(*MLUpdateModelSnapshotRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f MLUpdateModelSnapshot) WithErrorTrace() func(*MLUpdateModelSnapshotRequest) {
 	return func(r *MLUpdateModelSnapshotRequest) {
 		r.ErrorTrace = true
@@ -186,7 +179,6 @@ func (f MLUpdateModelSnapshot) WithErrorTrace() func(*MLUpdateModelSnapshotReque
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f MLUpdateModelSnapshot) WithFilterPath(v ...string) func(*MLUpdateModelSnapshotRequest) {
 	return func(r *MLUpdateModelSnapshotRequest) {
 		r.FilterPath = v
@@ -194,7 +186,6 @@ func (f MLUpdateModelSnapshot) WithFilterPath(v ...string) func(*MLUpdateModelSn
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f MLUpdateModelSnapshot) WithHeader(h map[string]string) func(*MLUpdateModelSnapshotRequest) {
 	return func(r *MLUpdateModelSnapshotRequest) {
 		if r.Header == nil {
@@ -207,7 +198,6 @@ func (f MLUpdateModelSnapshot) WithHeader(h map[string]string) func(*MLUpdateMod
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f MLUpdateModelSnapshot) WithOpaqueID(s string) func(*MLUpdateModelSnapshotRequest) {
 	return func(r *MLUpdateModelSnapshotRequest) {
 		if r.Header == nil {

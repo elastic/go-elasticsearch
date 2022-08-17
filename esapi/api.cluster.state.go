@@ -42,11 +42,9 @@ func newClusterStateFunc(t Transport) ClusterState {
 // ClusterState returns a comprehensive information about the state of the cluster.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-state.html.
-//
 type ClusterState func(o ...func(*ClusterStateRequest)) (*Response, error)
 
 // ClusterStateRequest configures the Cluster State API request.
-//
 type ClusterStateRequest struct {
 	Index []string
 
@@ -72,7 +70,6 @@ type ClusterStateRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r ClusterStateRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -191,7 +188,6 @@ func (r ClusterStateRequest) Do(ctx context.Context, transport Transport) (*Resp
 }
 
 // WithContext sets the request context.
-//
 func (f ClusterState) WithContext(v context.Context) func(*ClusterStateRequest) {
 	return func(r *ClusterStateRequest) {
 		r.ctx = v
@@ -199,7 +195,6 @@ func (f ClusterState) WithContext(v context.Context) func(*ClusterStateRequest) 
 }
 
 // WithIndex - a list of index names; use _all to perform the operation on all indices.
-//
 func (f ClusterState) WithIndex(v ...string) func(*ClusterStateRequest) {
 	return func(r *ClusterStateRequest) {
 		r.Index = v
@@ -207,7 +202,6 @@ func (f ClusterState) WithIndex(v ...string) func(*ClusterStateRequest) {
 }
 
 // WithMetric - limit the information returned to the specified metrics.
-//
 func (f ClusterState) WithMetric(v ...string) func(*ClusterStateRequest) {
 	return func(r *ClusterStateRequest) {
 		r.Metric = v
@@ -215,7 +209,6 @@ func (f ClusterState) WithMetric(v ...string) func(*ClusterStateRequest) {
 }
 
 // WithAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (this includes `_all` string or when no indices have been specified).
-//
 func (f ClusterState) WithAllowNoIndices(v bool) func(*ClusterStateRequest) {
 	return func(r *ClusterStateRequest) {
 		r.AllowNoIndices = &v
@@ -223,7 +216,6 @@ func (f ClusterState) WithAllowNoIndices(v bool) func(*ClusterStateRequest) {
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-//
 func (f ClusterState) WithExpandWildcards(v string) func(*ClusterStateRequest) {
 	return func(r *ClusterStateRequest) {
 		r.ExpandWildcards = v
@@ -231,7 +223,6 @@ func (f ClusterState) WithExpandWildcards(v string) func(*ClusterStateRequest) {
 }
 
 // WithFlatSettings - return settings in flat format (default: false).
-//
 func (f ClusterState) WithFlatSettings(v bool) func(*ClusterStateRequest) {
 	return func(r *ClusterStateRequest) {
 		r.FlatSettings = &v
@@ -239,7 +230,6 @@ func (f ClusterState) WithFlatSettings(v bool) func(*ClusterStateRequest) {
 }
 
 // WithIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
-//
 func (f ClusterState) WithIgnoreUnavailable(v bool) func(*ClusterStateRequest) {
 	return func(r *ClusterStateRequest) {
 		r.IgnoreUnavailable = &v
@@ -247,7 +237,6 @@ func (f ClusterState) WithIgnoreUnavailable(v bool) func(*ClusterStateRequest) {
 }
 
 // WithLocal - return local information, do not retrieve the state from master node (default: false).
-//
 func (f ClusterState) WithLocal(v bool) func(*ClusterStateRequest) {
 	return func(r *ClusterStateRequest) {
 		r.Local = &v
@@ -255,7 +244,6 @@ func (f ClusterState) WithLocal(v bool) func(*ClusterStateRequest) {
 }
 
 // WithMasterTimeout - specify timeout for connection to master.
-//
 func (f ClusterState) WithMasterTimeout(v time.Duration) func(*ClusterStateRequest) {
 	return func(r *ClusterStateRequest) {
 		r.MasterTimeout = v
@@ -263,7 +251,6 @@ func (f ClusterState) WithMasterTimeout(v time.Duration) func(*ClusterStateReque
 }
 
 // WithWaitForMetadataVersion - wait for the metadata version to be equal or greater than the specified metadata version.
-//
 func (f ClusterState) WithWaitForMetadataVersion(v int) func(*ClusterStateRequest) {
 	return func(r *ClusterStateRequest) {
 		r.WaitForMetadataVersion = &v
@@ -271,7 +258,6 @@ func (f ClusterState) WithWaitForMetadataVersion(v int) func(*ClusterStateReques
 }
 
 // WithWaitForTimeout - the maximum time to wait for wait_for_metadata_version before timing out.
-//
 func (f ClusterState) WithWaitForTimeout(v time.Duration) func(*ClusterStateRequest) {
 	return func(r *ClusterStateRequest) {
 		r.WaitForTimeout = v
@@ -279,7 +265,6 @@ func (f ClusterState) WithWaitForTimeout(v time.Duration) func(*ClusterStateRequ
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f ClusterState) WithPretty() func(*ClusterStateRequest) {
 	return func(r *ClusterStateRequest) {
 		r.Pretty = true
@@ -287,7 +272,6 @@ func (f ClusterState) WithPretty() func(*ClusterStateRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f ClusterState) WithHuman() func(*ClusterStateRequest) {
 	return func(r *ClusterStateRequest) {
 		r.Human = true
@@ -295,7 +279,6 @@ func (f ClusterState) WithHuman() func(*ClusterStateRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f ClusterState) WithErrorTrace() func(*ClusterStateRequest) {
 	return func(r *ClusterStateRequest) {
 		r.ErrorTrace = true
@@ -303,7 +286,6 @@ func (f ClusterState) WithErrorTrace() func(*ClusterStateRequest) {
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f ClusterState) WithFilterPath(v ...string) func(*ClusterStateRequest) {
 	return func(r *ClusterStateRequest) {
 		r.FilterPath = v
@@ -311,7 +293,6 @@ func (f ClusterState) WithFilterPath(v ...string) func(*ClusterStateRequest) {
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f ClusterState) WithHeader(h map[string]string) func(*ClusterStateRequest) {
 	return func(r *ClusterStateRequest) {
 		if r.Header == nil {
@@ -324,7 +305,6 @@ func (f ClusterState) WithHeader(h map[string]string) func(*ClusterStateRequest)
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f ClusterState) WithOpaqueID(s string) func(*ClusterStateRequest) {
 	return func(r *ClusterStateRequest) {
 		if r.Header == nil {

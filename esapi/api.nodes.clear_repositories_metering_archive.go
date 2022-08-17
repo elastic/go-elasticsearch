@@ -44,11 +44,9 @@ func newNodesClearRepositoriesMeteringArchiveFunc(t Transport) NodesClearReposit
 // This API is experimental.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/clear-repositories-metering-archive-api.html.
-//
 type NodesClearRepositoriesMeteringArchive func(max_archive_version *int, node_id []string, o ...func(*NodesClearRepositoriesMeteringArchiveRequest)) (*Response, error)
 
 // NodesClearRepositoriesMeteringArchiveRequest configures the Nodes Clear Repositories Metering Archive API request.
-//
 type NodesClearRepositoriesMeteringArchiveRequest struct {
 	MaxArchiveVersion *int
 	NodeID            []string
@@ -64,7 +62,6 @@ type NodesClearRepositoriesMeteringArchiveRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r NodesClearRepositoriesMeteringArchiveRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -154,7 +151,6 @@ func (r NodesClearRepositoriesMeteringArchiveRequest) Do(ctx context.Context, tr
 }
 
 // WithContext sets the request context.
-//
 func (f NodesClearRepositoriesMeteringArchive) WithContext(v context.Context) func(*NodesClearRepositoriesMeteringArchiveRequest) {
 	return func(r *NodesClearRepositoriesMeteringArchiveRequest) {
 		r.ctx = v
@@ -162,7 +158,6 @@ func (f NodesClearRepositoriesMeteringArchive) WithContext(v context.Context) fu
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f NodesClearRepositoriesMeteringArchive) WithPretty() func(*NodesClearRepositoriesMeteringArchiveRequest) {
 	return func(r *NodesClearRepositoriesMeteringArchiveRequest) {
 		r.Pretty = true
@@ -170,7 +165,6 @@ func (f NodesClearRepositoriesMeteringArchive) WithPretty() func(*NodesClearRepo
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f NodesClearRepositoriesMeteringArchive) WithHuman() func(*NodesClearRepositoriesMeteringArchiveRequest) {
 	return func(r *NodesClearRepositoriesMeteringArchiveRequest) {
 		r.Human = true
@@ -178,7 +172,6 @@ func (f NodesClearRepositoriesMeteringArchive) WithHuman() func(*NodesClearRepos
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f NodesClearRepositoriesMeteringArchive) WithErrorTrace() func(*NodesClearRepositoriesMeteringArchiveRequest) {
 	return func(r *NodesClearRepositoriesMeteringArchiveRequest) {
 		r.ErrorTrace = true
@@ -186,7 +179,6 @@ func (f NodesClearRepositoriesMeteringArchive) WithErrorTrace() func(*NodesClear
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f NodesClearRepositoriesMeteringArchive) WithFilterPath(v ...string) func(*NodesClearRepositoriesMeteringArchiveRequest) {
 	return func(r *NodesClearRepositoriesMeteringArchiveRequest) {
 		r.FilterPath = v
@@ -194,7 +186,6 @@ func (f NodesClearRepositoriesMeteringArchive) WithFilterPath(v ...string) func(
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f NodesClearRepositoriesMeteringArchive) WithHeader(h map[string]string) func(*NodesClearRepositoriesMeteringArchiveRequest) {
 	return func(r *NodesClearRepositoriesMeteringArchiveRequest) {
 		if r.Header == nil {
@@ -207,7 +198,6 @@ func (f NodesClearRepositoriesMeteringArchive) WithHeader(h map[string]string) f
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f NodesClearRepositoriesMeteringArchive) WithOpaqueID(s string) func(*NodesClearRepositoriesMeteringArchiveRequest) {
 	return func(r *NodesClearRepositoriesMeteringArchiveRequest) {
 		if r.Header == nil {

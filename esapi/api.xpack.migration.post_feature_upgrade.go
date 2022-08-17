@@ -40,11 +40,9 @@ func newMigrationPostFeatureUpgradeFunc(t Transport) MigrationPostFeatureUpgrade
 // MigrationPostFeatureUpgrade - Begin upgrades for system features
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/migration-api-feature-upgrade.html.
-//
 type MigrationPostFeatureUpgrade func(o ...func(*MigrationPostFeatureUpgradeRequest)) (*Response, error)
 
 // MigrationPostFeatureUpgradeRequest configures the Migration Post Feature Upgrade API request.
-//
 type MigrationPostFeatureUpgradeRequest struct {
 	Pretty     bool
 	Human      bool
@@ -57,7 +55,6 @@ type MigrationPostFeatureUpgradeRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r MigrationPostFeatureUpgradeRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -133,7 +130,6 @@ func (r MigrationPostFeatureUpgradeRequest) Do(ctx context.Context, transport Tr
 }
 
 // WithContext sets the request context.
-//
 func (f MigrationPostFeatureUpgrade) WithContext(v context.Context) func(*MigrationPostFeatureUpgradeRequest) {
 	return func(r *MigrationPostFeatureUpgradeRequest) {
 		r.ctx = v
@@ -141,7 +137,6 @@ func (f MigrationPostFeatureUpgrade) WithContext(v context.Context) func(*Migrat
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f MigrationPostFeatureUpgrade) WithPretty() func(*MigrationPostFeatureUpgradeRequest) {
 	return func(r *MigrationPostFeatureUpgradeRequest) {
 		r.Pretty = true
@@ -149,7 +144,6 @@ func (f MigrationPostFeatureUpgrade) WithPretty() func(*MigrationPostFeatureUpgr
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f MigrationPostFeatureUpgrade) WithHuman() func(*MigrationPostFeatureUpgradeRequest) {
 	return func(r *MigrationPostFeatureUpgradeRequest) {
 		r.Human = true
@@ -157,7 +151,6 @@ func (f MigrationPostFeatureUpgrade) WithHuman() func(*MigrationPostFeatureUpgra
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f MigrationPostFeatureUpgrade) WithErrorTrace() func(*MigrationPostFeatureUpgradeRequest) {
 	return func(r *MigrationPostFeatureUpgradeRequest) {
 		r.ErrorTrace = true
@@ -165,7 +158,6 @@ func (f MigrationPostFeatureUpgrade) WithErrorTrace() func(*MigrationPostFeature
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f MigrationPostFeatureUpgrade) WithFilterPath(v ...string) func(*MigrationPostFeatureUpgradeRequest) {
 	return func(r *MigrationPostFeatureUpgradeRequest) {
 		r.FilterPath = v
@@ -173,7 +165,6 @@ func (f MigrationPostFeatureUpgrade) WithFilterPath(v ...string) func(*Migration
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f MigrationPostFeatureUpgrade) WithHeader(h map[string]string) func(*MigrationPostFeatureUpgradeRequest) {
 	return func(r *MigrationPostFeatureUpgradeRequest) {
 		if r.Header == nil {
@@ -186,7 +177,6 @@ func (f MigrationPostFeatureUpgrade) WithHeader(h map[string]string) func(*Migra
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f MigrationPostFeatureUpgrade) WithOpaqueID(s string) func(*MigrationPostFeatureUpgradeRequest) {
 	return func(r *MigrationPostFeatureUpgradeRequest) {
 		if r.Header == nil {

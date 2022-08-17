@@ -41,11 +41,9 @@ func newIndicesSegmentsFunc(t Transport) IndicesSegments {
 // IndicesSegments provides low-level information about segments in a Lucene index.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-segments.html.
-//
 type IndicesSegments func(o ...func(*IndicesSegmentsRequest)) (*Response, error)
 
 // IndicesSegmentsRequest configures the Indices Segments API request.
-//
 type IndicesSegmentsRequest struct {
 	Index []string
 
@@ -65,7 +63,6 @@ type IndicesSegmentsRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r IndicesSegmentsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -162,7 +159,6 @@ func (r IndicesSegmentsRequest) Do(ctx context.Context, transport Transport) (*R
 }
 
 // WithContext sets the request context.
-//
 func (f IndicesSegments) WithContext(v context.Context) func(*IndicesSegmentsRequest) {
 	return func(r *IndicesSegmentsRequest) {
 		r.ctx = v
@@ -170,7 +166,6 @@ func (f IndicesSegments) WithContext(v context.Context) func(*IndicesSegmentsReq
 }
 
 // WithIndex - a list of index names; use _all to perform the operation on all indices.
-//
 func (f IndicesSegments) WithIndex(v ...string) func(*IndicesSegmentsRequest) {
 	return func(r *IndicesSegmentsRequest) {
 		r.Index = v
@@ -178,7 +173,6 @@ func (f IndicesSegments) WithIndex(v ...string) func(*IndicesSegmentsRequest) {
 }
 
 // WithAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (this includes `_all` string or when no indices have been specified).
-//
 func (f IndicesSegments) WithAllowNoIndices(v bool) func(*IndicesSegmentsRequest) {
 	return func(r *IndicesSegmentsRequest) {
 		r.AllowNoIndices = &v
@@ -186,7 +180,6 @@ func (f IndicesSegments) WithAllowNoIndices(v bool) func(*IndicesSegmentsRequest
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-//
 func (f IndicesSegments) WithExpandWildcards(v string) func(*IndicesSegmentsRequest) {
 	return func(r *IndicesSegmentsRequest) {
 		r.ExpandWildcards = v
@@ -194,7 +187,6 @@ func (f IndicesSegments) WithExpandWildcards(v string) func(*IndicesSegmentsRequ
 }
 
 // WithIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
-//
 func (f IndicesSegments) WithIgnoreUnavailable(v bool) func(*IndicesSegmentsRequest) {
 	return func(r *IndicesSegmentsRequest) {
 		r.IgnoreUnavailable = &v
@@ -202,7 +194,6 @@ func (f IndicesSegments) WithIgnoreUnavailable(v bool) func(*IndicesSegmentsRequ
 }
 
 // WithVerbose - includes detailed memory usage by lucene..
-//
 func (f IndicesSegments) WithVerbose(v bool) func(*IndicesSegmentsRequest) {
 	return func(r *IndicesSegmentsRequest) {
 		r.Verbose = &v
@@ -210,7 +201,6 @@ func (f IndicesSegments) WithVerbose(v bool) func(*IndicesSegmentsRequest) {
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f IndicesSegments) WithPretty() func(*IndicesSegmentsRequest) {
 	return func(r *IndicesSegmentsRequest) {
 		r.Pretty = true
@@ -218,7 +208,6 @@ func (f IndicesSegments) WithPretty() func(*IndicesSegmentsRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f IndicesSegments) WithHuman() func(*IndicesSegmentsRequest) {
 	return func(r *IndicesSegmentsRequest) {
 		r.Human = true
@@ -226,7 +215,6 @@ func (f IndicesSegments) WithHuman() func(*IndicesSegmentsRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f IndicesSegments) WithErrorTrace() func(*IndicesSegmentsRequest) {
 	return func(r *IndicesSegmentsRequest) {
 		r.ErrorTrace = true
@@ -234,7 +222,6 @@ func (f IndicesSegments) WithErrorTrace() func(*IndicesSegmentsRequest) {
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f IndicesSegments) WithFilterPath(v ...string) func(*IndicesSegmentsRequest) {
 	return func(r *IndicesSegmentsRequest) {
 		r.FilterPath = v
@@ -242,7 +229,6 @@ func (f IndicesSegments) WithFilterPath(v ...string) func(*IndicesSegmentsReques
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f IndicesSegments) WithHeader(h map[string]string) func(*IndicesSegmentsRequest) {
 	return func(r *IndicesSegmentsRequest) {
 		if r.Header == nil {
@@ -255,7 +241,6 @@ func (f IndicesSegments) WithHeader(h map[string]string) func(*IndicesSegmentsRe
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f IndicesSegments) WithOpaqueID(s string) func(*IndicesSegmentsRequest) {
 	return func(r *IndicesSegmentsRequest) {
 		if r.Header == nil {

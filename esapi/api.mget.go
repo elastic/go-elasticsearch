@@ -42,11 +42,9 @@ func newMgetFunc(t Transport) Mget {
 // Mget allows to get multiple documents in one request.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-multi-get.html.
-//
 type Mget func(body io.Reader, o ...func(*MgetRequest)) (*Response, error)
 
 // MgetRequest configures the Mget API request.
-//
 type MgetRequest struct {
 	Index string
 
@@ -73,7 +71,6 @@ type MgetRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r MgetRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -194,7 +191,6 @@ func (r MgetRequest) Do(ctx context.Context, transport Transport) (*Response, er
 }
 
 // WithContext sets the request context.
-//
 func (f Mget) WithContext(v context.Context) func(*MgetRequest) {
 	return func(r *MgetRequest) {
 		r.ctx = v
@@ -202,7 +198,6 @@ func (f Mget) WithContext(v context.Context) func(*MgetRequest) {
 }
 
 // WithIndex - the name of the index.
-//
 func (f Mget) WithIndex(v string) func(*MgetRequest) {
 	return func(r *MgetRequest) {
 		r.Index = v
@@ -210,7 +205,6 @@ func (f Mget) WithIndex(v string) func(*MgetRequest) {
 }
 
 // WithForceSyntheticSource - should this request force synthetic _source? use this to test if the mapping supports synthetic _source and to get a sense of the worst case performance. fetches with this enabled will be slower the enabling synthetic source natively in the index..
-//
 func (f Mget) WithForceSyntheticSource(v bool) func(*MgetRequest) {
 	return func(r *MgetRequest) {
 		r.ForceSyntheticSource = &v
@@ -218,7 +212,6 @@ func (f Mget) WithForceSyntheticSource(v bool) func(*MgetRequest) {
 }
 
 // WithPreference - specify the node or shard the operation should be performed on (default: random).
-//
 func (f Mget) WithPreference(v string) func(*MgetRequest) {
 	return func(r *MgetRequest) {
 		r.Preference = v
@@ -226,7 +219,6 @@ func (f Mget) WithPreference(v string) func(*MgetRequest) {
 }
 
 // WithRealtime - specify whether to perform the operation in realtime or search mode.
-//
 func (f Mget) WithRealtime(v bool) func(*MgetRequest) {
 	return func(r *MgetRequest) {
 		r.Realtime = &v
@@ -234,7 +226,6 @@ func (f Mget) WithRealtime(v bool) func(*MgetRequest) {
 }
 
 // WithRefresh - refresh the shard containing the document before performing the operation.
-//
 func (f Mget) WithRefresh(v bool) func(*MgetRequest) {
 	return func(r *MgetRequest) {
 		r.Refresh = &v
@@ -242,7 +233,6 @@ func (f Mget) WithRefresh(v bool) func(*MgetRequest) {
 }
 
 // WithRouting - specific routing value.
-//
 func (f Mget) WithRouting(v string) func(*MgetRequest) {
 	return func(r *MgetRequest) {
 		r.Routing = v
@@ -250,7 +240,6 @@ func (f Mget) WithRouting(v string) func(*MgetRequest) {
 }
 
 // WithSource - true or false to return the _source field or not, or a list of fields to return.
-//
 func (f Mget) WithSource(v ...string) func(*MgetRequest) {
 	return func(r *MgetRequest) {
 		r.Source = v
@@ -258,7 +247,6 @@ func (f Mget) WithSource(v ...string) func(*MgetRequest) {
 }
 
 // WithSourceExcludes - a list of fields to exclude from the returned _source field.
-//
 func (f Mget) WithSourceExcludes(v ...string) func(*MgetRequest) {
 	return func(r *MgetRequest) {
 		r.SourceExcludes = v
@@ -266,7 +254,6 @@ func (f Mget) WithSourceExcludes(v ...string) func(*MgetRequest) {
 }
 
 // WithSourceIncludes - a list of fields to extract and return from the _source field.
-//
 func (f Mget) WithSourceIncludes(v ...string) func(*MgetRequest) {
 	return func(r *MgetRequest) {
 		r.SourceIncludes = v
@@ -274,7 +261,6 @@ func (f Mget) WithSourceIncludes(v ...string) func(*MgetRequest) {
 }
 
 // WithStoredFields - a list of stored fields to return in the response.
-//
 func (f Mget) WithStoredFields(v ...string) func(*MgetRequest) {
 	return func(r *MgetRequest) {
 		r.StoredFields = v
@@ -282,7 +268,6 @@ func (f Mget) WithStoredFields(v ...string) func(*MgetRequest) {
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f Mget) WithPretty() func(*MgetRequest) {
 	return func(r *MgetRequest) {
 		r.Pretty = true
@@ -290,7 +275,6 @@ func (f Mget) WithPretty() func(*MgetRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f Mget) WithHuman() func(*MgetRequest) {
 	return func(r *MgetRequest) {
 		r.Human = true
@@ -298,7 +282,6 @@ func (f Mget) WithHuman() func(*MgetRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f Mget) WithErrorTrace() func(*MgetRequest) {
 	return func(r *MgetRequest) {
 		r.ErrorTrace = true
@@ -306,7 +289,6 @@ func (f Mget) WithErrorTrace() func(*MgetRequest) {
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f Mget) WithFilterPath(v ...string) func(*MgetRequest) {
 	return func(r *MgetRequest) {
 		r.FilterPath = v
@@ -314,7 +296,6 @@ func (f Mget) WithFilterPath(v ...string) func(*MgetRequest) {
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f Mget) WithHeader(h map[string]string) func(*MgetRequest) {
 	return func(r *MgetRequest) {
 		if r.Header == nil {
@@ -327,7 +308,6 @@ func (f Mget) WithHeader(h map[string]string) func(*MgetRequest) {
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f Mget) WithOpaqueID(s string) func(*MgetRequest) {
 	return func(r *MgetRequest) {
 		if r.Header == nil {

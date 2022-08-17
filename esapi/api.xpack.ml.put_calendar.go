@@ -41,11 +41,9 @@ func newMLPutCalendarFunc(t Transport) MLPutCalendar {
 // MLPutCalendar - Instantiates a calendar.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-put-calendar.html.
-//
 type MLPutCalendar func(calendar_id string, o ...func(*MLPutCalendarRequest)) (*Response, error)
 
 // MLPutCalendarRequest configures the ML Put Calendar API request.
-//
 type MLPutCalendarRequest struct {
 	Body io.Reader
 
@@ -62,7 +60,6 @@ type MLPutCalendarRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r MLPutCalendarRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -147,7 +144,6 @@ func (r MLPutCalendarRequest) Do(ctx context.Context, transport Transport) (*Res
 }
 
 // WithContext sets the request context.
-//
 func (f MLPutCalendar) WithContext(v context.Context) func(*MLPutCalendarRequest) {
 	return func(r *MLPutCalendarRequest) {
 		r.ctx = v
@@ -155,7 +151,6 @@ func (f MLPutCalendar) WithContext(v context.Context) func(*MLPutCalendarRequest
 }
 
 // WithBody - The calendar details.
-//
 func (f MLPutCalendar) WithBody(v io.Reader) func(*MLPutCalendarRequest) {
 	return func(r *MLPutCalendarRequest) {
 		r.Body = v
@@ -163,7 +158,6 @@ func (f MLPutCalendar) WithBody(v io.Reader) func(*MLPutCalendarRequest) {
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f MLPutCalendar) WithPretty() func(*MLPutCalendarRequest) {
 	return func(r *MLPutCalendarRequest) {
 		r.Pretty = true
@@ -171,7 +165,6 @@ func (f MLPutCalendar) WithPretty() func(*MLPutCalendarRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f MLPutCalendar) WithHuman() func(*MLPutCalendarRequest) {
 	return func(r *MLPutCalendarRequest) {
 		r.Human = true
@@ -179,7 +172,6 @@ func (f MLPutCalendar) WithHuman() func(*MLPutCalendarRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f MLPutCalendar) WithErrorTrace() func(*MLPutCalendarRequest) {
 	return func(r *MLPutCalendarRequest) {
 		r.ErrorTrace = true
@@ -187,7 +179,6 @@ func (f MLPutCalendar) WithErrorTrace() func(*MLPutCalendarRequest) {
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f MLPutCalendar) WithFilterPath(v ...string) func(*MLPutCalendarRequest) {
 	return func(r *MLPutCalendarRequest) {
 		r.FilterPath = v
@@ -195,7 +186,6 @@ func (f MLPutCalendar) WithFilterPath(v ...string) func(*MLPutCalendarRequest) {
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f MLPutCalendar) WithHeader(h map[string]string) func(*MLPutCalendarRequest) {
 	return func(r *MLPutCalendarRequest) {
 		if r.Header == nil {
@@ -208,7 +198,6 @@ func (f MLPutCalendar) WithHeader(h map[string]string) func(*MLPutCalendarReques
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f MLPutCalendar) WithOpaqueID(s string) func(*MLPutCalendarRequest) {
 	return func(r *MLPutCalendarRequest) {
 		if r.Header == nil {

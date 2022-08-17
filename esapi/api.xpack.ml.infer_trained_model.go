@@ -44,11 +44,9 @@ func newMLInferTrainedModelFunc(t Transport) MLInferTrainedModel {
 // This API is experimental.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/infer-trained-model.html.
-//
 type MLInferTrainedModel func(body io.Reader, model_id string, o ...func(*MLInferTrainedModelRequest)) (*Response, error)
 
 // MLInferTrainedModelRequest configures the ML Infer Trained Model API request.
-//
 type MLInferTrainedModelRequest struct {
 	Body io.Reader
 
@@ -67,7 +65,6 @@ type MLInferTrainedModelRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r MLInferTrainedModelRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -160,7 +157,6 @@ func (r MLInferTrainedModelRequest) Do(ctx context.Context, transport Transport)
 }
 
 // WithContext sets the request context.
-//
 func (f MLInferTrainedModel) WithContext(v context.Context) func(*MLInferTrainedModelRequest) {
 	return func(r *MLInferTrainedModelRequest) {
 		r.ctx = v
@@ -168,7 +164,6 @@ func (f MLInferTrainedModel) WithContext(v context.Context) func(*MLInferTrained
 }
 
 // WithTimeout - controls the amount of time to wait for inference results..
-//
 func (f MLInferTrainedModel) WithTimeout(v time.Duration) func(*MLInferTrainedModelRequest) {
 	return func(r *MLInferTrainedModelRequest) {
 		r.Timeout = v
@@ -176,7 +171,6 @@ func (f MLInferTrainedModel) WithTimeout(v time.Duration) func(*MLInferTrainedMo
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f MLInferTrainedModel) WithPretty() func(*MLInferTrainedModelRequest) {
 	return func(r *MLInferTrainedModelRequest) {
 		r.Pretty = true
@@ -184,7 +178,6 @@ func (f MLInferTrainedModel) WithPretty() func(*MLInferTrainedModelRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f MLInferTrainedModel) WithHuman() func(*MLInferTrainedModelRequest) {
 	return func(r *MLInferTrainedModelRequest) {
 		r.Human = true
@@ -192,7 +185,6 @@ func (f MLInferTrainedModel) WithHuman() func(*MLInferTrainedModelRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f MLInferTrainedModel) WithErrorTrace() func(*MLInferTrainedModelRequest) {
 	return func(r *MLInferTrainedModelRequest) {
 		r.ErrorTrace = true
@@ -200,7 +192,6 @@ func (f MLInferTrainedModel) WithErrorTrace() func(*MLInferTrainedModelRequest) 
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f MLInferTrainedModel) WithFilterPath(v ...string) func(*MLInferTrainedModelRequest) {
 	return func(r *MLInferTrainedModelRequest) {
 		r.FilterPath = v
@@ -208,7 +199,6 @@ func (f MLInferTrainedModel) WithFilterPath(v ...string) func(*MLInferTrainedMod
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f MLInferTrainedModel) WithHeader(h map[string]string) func(*MLInferTrainedModelRequest) {
 	return func(r *MLInferTrainedModelRequest) {
 		if r.Header == nil {
@@ -221,7 +211,6 @@ func (f MLInferTrainedModel) WithHeader(h map[string]string) func(*MLInferTraine
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f MLInferTrainedModel) WithOpaqueID(s string) func(*MLInferTrainedModelRequest) {
 	return func(r *MLInferTrainedModelRequest) {
 		if r.Header == nil {

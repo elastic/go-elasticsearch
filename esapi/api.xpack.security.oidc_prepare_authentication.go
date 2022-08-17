@@ -41,11 +41,9 @@ func newSecurityOidcPrepareAuthenticationFunc(t Transport) SecurityOidcPrepareAu
 // SecurityOidcPrepareAuthentication - Creates an OAuth 2.0 authentication request as a URL string
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-oidc-prepare-authentication.html.
-//
 type SecurityOidcPrepareAuthentication func(body io.Reader, o ...func(*SecurityOidcPrepareAuthenticationRequest)) (*Response, error)
 
 // SecurityOidcPrepareAuthenticationRequest configures the Security Oidc Prepare Authentication API request.
-//
 type SecurityOidcPrepareAuthenticationRequest struct {
 	Body io.Reader
 
@@ -60,7 +58,6 @@ type SecurityOidcPrepareAuthenticationRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r SecurityOidcPrepareAuthenticationRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -140,7 +137,6 @@ func (r SecurityOidcPrepareAuthenticationRequest) Do(ctx context.Context, transp
 }
 
 // WithContext sets the request context.
-//
 func (f SecurityOidcPrepareAuthentication) WithContext(v context.Context) func(*SecurityOidcPrepareAuthenticationRequest) {
 	return func(r *SecurityOidcPrepareAuthenticationRequest) {
 		r.ctx = v
@@ -148,7 +144,6 @@ func (f SecurityOidcPrepareAuthentication) WithContext(v context.Context) func(*
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f SecurityOidcPrepareAuthentication) WithPretty() func(*SecurityOidcPrepareAuthenticationRequest) {
 	return func(r *SecurityOidcPrepareAuthenticationRequest) {
 		r.Pretty = true
@@ -156,7 +151,6 @@ func (f SecurityOidcPrepareAuthentication) WithPretty() func(*SecurityOidcPrepar
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f SecurityOidcPrepareAuthentication) WithHuman() func(*SecurityOidcPrepareAuthenticationRequest) {
 	return func(r *SecurityOidcPrepareAuthenticationRequest) {
 		r.Human = true
@@ -164,7 +158,6 @@ func (f SecurityOidcPrepareAuthentication) WithHuman() func(*SecurityOidcPrepare
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f SecurityOidcPrepareAuthentication) WithErrorTrace() func(*SecurityOidcPrepareAuthenticationRequest) {
 	return func(r *SecurityOidcPrepareAuthenticationRequest) {
 		r.ErrorTrace = true
@@ -172,7 +165,6 @@ func (f SecurityOidcPrepareAuthentication) WithErrorTrace() func(*SecurityOidcPr
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f SecurityOidcPrepareAuthentication) WithFilterPath(v ...string) func(*SecurityOidcPrepareAuthenticationRequest) {
 	return func(r *SecurityOidcPrepareAuthenticationRequest) {
 		r.FilterPath = v
@@ -180,7 +172,6 @@ func (f SecurityOidcPrepareAuthentication) WithFilterPath(v ...string) func(*Sec
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f SecurityOidcPrepareAuthentication) WithHeader(h map[string]string) func(*SecurityOidcPrepareAuthenticationRequest) {
 	return func(r *SecurityOidcPrepareAuthenticationRequest) {
 		if r.Header == nil {
@@ -193,7 +184,6 @@ func (f SecurityOidcPrepareAuthentication) WithHeader(h map[string]string) func(
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f SecurityOidcPrepareAuthentication) WithOpaqueID(s string) func(*SecurityOidcPrepareAuthenticationRequest) {
 	return func(r *SecurityOidcPrepareAuthenticationRequest) {
 		if r.Header == nil {

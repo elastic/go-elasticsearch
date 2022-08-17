@@ -42,11 +42,9 @@ func newTransformResetTransformFunc(t Transport) TransformResetTransform {
 // TransformResetTransform - Resets an existing transform.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/reset-transform.html.
-//
 type TransformResetTransform func(transform_id string, o ...func(*TransformResetTransformRequest)) (*Response, error)
 
 // TransformResetTransformRequest configures the Transform Reset Transform API request.
-//
 type TransformResetTransformRequest struct {
 	TransformID string
 
@@ -64,7 +62,6 @@ type TransformResetTransformRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r TransformResetTransformRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -153,7 +150,6 @@ func (r TransformResetTransformRequest) Do(ctx context.Context, transport Transp
 }
 
 // WithContext sets the request context.
-//
 func (f TransformResetTransform) WithContext(v context.Context) func(*TransformResetTransformRequest) {
 	return func(r *TransformResetTransformRequest) {
 		r.ctx = v
@@ -161,7 +157,6 @@ func (f TransformResetTransform) WithContext(v context.Context) func(*TransformR
 }
 
 // WithForce - when `true`, the transform is reset regardless of its current state. the default value is `false`, meaning that the transform must be `stopped` before it can be reset..
-//
 func (f TransformResetTransform) WithForce(v bool) func(*TransformResetTransformRequest) {
 	return func(r *TransformResetTransformRequest) {
 		r.Force = &v
@@ -169,7 +164,6 @@ func (f TransformResetTransform) WithForce(v bool) func(*TransformResetTransform
 }
 
 // WithTimeout - controls the time to wait for the transform to reset.
-//
 func (f TransformResetTransform) WithTimeout(v time.Duration) func(*TransformResetTransformRequest) {
 	return func(r *TransformResetTransformRequest) {
 		r.Timeout = v
@@ -177,7 +171,6 @@ func (f TransformResetTransform) WithTimeout(v time.Duration) func(*TransformRes
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f TransformResetTransform) WithPretty() func(*TransformResetTransformRequest) {
 	return func(r *TransformResetTransformRequest) {
 		r.Pretty = true
@@ -185,7 +178,6 @@ func (f TransformResetTransform) WithPretty() func(*TransformResetTransformReque
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f TransformResetTransform) WithHuman() func(*TransformResetTransformRequest) {
 	return func(r *TransformResetTransformRequest) {
 		r.Human = true
@@ -193,7 +185,6 @@ func (f TransformResetTransform) WithHuman() func(*TransformResetTransformReques
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f TransformResetTransform) WithErrorTrace() func(*TransformResetTransformRequest) {
 	return func(r *TransformResetTransformRequest) {
 		r.ErrorTrace = true
@@ -201,7 +192,6 @@ func (f TransformResetTransform) WithErrorTrace() func(*TransformResetTransformR
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f TransformResetTransform) WithFilterPath(v ...string) func(*TransformResetTransformRequest) {
 	return func(r *TransformResetTransformRequest) {
 		r.FilterPath = v
@@ -209,7 +199,6 @@ func (f TransformResetTransform) WithFilterPath(v ...string) func(*TransformRese
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f TransformResetTransform) WithHeader(h map[string]string) func(*TransformResetTransformRequest) {
 	return func(r *TransformResetTransformRequest) {
 		if r.Header == nil {
@@ -222,7 +211,6 @@ func (f TransformResetTransform) WithHeader(h map[string]string) func(*Transform
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f TransformResetTransform) WithOpaqueID(s string) func(*TransformResetTransformRequest) {
 	return func(r *TransformResetTransformRequest) {
 		if r.Header == nil {

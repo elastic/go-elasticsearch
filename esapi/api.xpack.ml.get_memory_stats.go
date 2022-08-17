@@ -41,11 +41,9 @@ func newMLGetMemoryStatsFunc(t Transport) MLGetMemoryStats {
 // MLGetMemoryStats - Returns information on how ML is using memory.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-ml-memory.html.
-//
 type MLGetMemoryStats func(o ...func(*MLGetMemoryStatsRequest)) (*Response, error)
 
 // MLGetMemoryStatsRequest configures the ML Get Memory Stats API request.
-//
 type MLGetMemoryStatsRequest struct {
 	NodeID string
 
@@ -63,7 +61,6 @@ type MLGetMemoryStatsRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r MLGetMemoryStatsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -156,7 +153,6 @@ func (r MLGetMemoryStatsRequest) Do(ctx context.Context, transport Transport) (*
 }
 
 // WithContext sets the request context.
-//
 func (f MLGetMemoryStats) WithContext(v context.Context) func(*MLGetMemoryStatsRequest) {
 	return func(r *MLGetMemoryStatsRequest) {
 		r.ctx = v
@@ -164,7 +160,6 @@ func (f MLGetMemoryStats) WithContext(v context.Context) func(*MLGetMemoryStatsR
 }
 
 // WithNodeID - specifies the node or nodes to retrieve stats for..
-//
 func (f MLGetMemoryStats) WithNodeID(v string) func(*MLGetMemoryStatsRequest) {
 	return func(r *MLGetMemoryStatsRequest) {
 		r.NodeID = v
@@ -172,7 +167,6 @@ func (f MLGetMemoryStats) WithNodeID(v string) func(*MLGetMemoryStatsRequest) {
 }
 
 // WithMasterTimeout - explicit operation timeout for connection to master node.
-//
 func (f MLGetMemoryStats) WithMasterTimeout(v time.Duration) func(*MLGetMemoryStatsRequest) {
 	return func(r *MLGetMemoryStatsRequest) {
 		r.MasterTimeout = v
@@ -180,7 +174,6 @@ func (f MLGetMemoryStats) WithMasterTimeout(v time.Duration) func(*MLGetMemorySt
 }
 
 // WithTimeout - explicit operation timeout.
-//
 func (f MLGetMemoryStats) WithTimeout(v time.Duration) func(*MLGetMemoryStatsRequest) {
 	return func(r *MLGetMemoryStatsRequest) {
 		r.Timeout = v
@@ -188,7 +181,6 @@ func (f MLGetMemoryStats) WithTimeout(v time.Duration) func(*MLGetMemoryStatsReq
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f MLGetMemoryStats) WithPretty() func(*MLGetMemoryStatsRequest) {
 	return func(r *MLGetMemoryStatsRequest) {
 		r.Pretty = true
@@ -196,7 +188,6 @@ func (f MLGetMemoryStats) WithPretty() func(*MLGetMemoryStatsRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f MLGetMemoryStats) WithHuman() func(*MLGetMemoryStatsRequest) {
 	return func(r *MLGetMemoryStatsRequest) {
 		r.Human = true
@@ -204,7 +195,6 @@ func (f MLGetMemoryStats) WithHuman() func(*MLGetMemoryStatsRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f MLGetMemoryStats) WithErrorTrace() func(*MLGetMemoryStatsRequest) {
 	return func(r *MLGetMemoryStatsRequest) {
 		r.ErrorTrace = true
@@ -212,7 +202,6 @@ func (f MLGetMemoryStats) WithErrorTrace() func(*MLGetMemoryStatsRequest) {
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f MLGetMemoryStats) WithFilterPath(v ...string) func(*MLGetMemoryStatsRequest) {
 	return func(r *MLGetMemoryStatsRequest) {
 		r.FilterPath = v
@@ -220,7 +209,6 @@ func (f MLGetMemoryStats) WithFilterPath(v ...string) func(*MLGetMemoryStatsRequ
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f MLGetMemoryStats) WithHeader(h map[string]string) func(*MLGetMemoryStatsRequest) {
 	return func(r *MLGetMemoryStatsRequest) {
 		if r.Header == nil {
@@ -233,7 +221,6 @@ func (f MLGetMemoryStats) WithHeader(h map[string]string) func(*MLGetMemoryStats
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f MLGetMemoryStats) WithOpaqueID(s string) func(*MLGetMemoryStatsRequest) {
 	return func(r *MLGetMemoryStatsRequest) {
 		if r.Header == nil {

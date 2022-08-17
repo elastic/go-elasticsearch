@@ -43,11 +43,9 @@ func newSnapshotRestoreFunc(t Transport) SnapshotRestore {
 // SnapshotRestore restores a snapshot.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html.
-//
 type SnapshotRestore func(repository string, snapshot string, o ...func(*SnapshotRestoreRequest)) (*Response, error)
 
 // SnapshotRestoreRequest configures the Snapshot Restore API request.
-//
 type SnapshotRestoreRequest struct {
 	Body io.Reader
 
@@ -68,7 +66,6 @@ type SnapshotRestoreRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r SnapshotRestoreRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -163,7 +160,6 @@ func (r SnapshotRestoreRequest) Do(ctx context.Context, transport Transport) (*R
 }
 
 // WithContext sets the request context.
-//
 func (f SnapshotRestore) WithContext(v context.Context) func(*SnapshotRestoreRequest) {
 	return func(r *SnapshotRestoreRequest) {
 		r.ctx = v
@@ -171,7 +167,6 @@ func (f SnapshotRestore) WithContext(v context.Context) func(*SnapshotRestoreReq
 }
 
 // WithBody - Details of what to restore.
-//
 func (f SnapshotRestore) WithBody(v io.Reader) func(*SnapshotRestoreRequest) {
 	return func(r *SnapshotRestoreRequest) {
 		r.Body = v
@@ -179,7 +174,6 @@ func (f SnapshotRestore) WithBody(v io.Reader) func(*SnapshotRestoreRequest) {
 }
 
 // WithMasterTimeout - explicit operation timeout for connection to master node.
-//
 func (f SnapshotRestore) WithMasterTimeout(v time.Duration) func(*SnapshotRestoreRequest) {
 	return func(r *SnapshotRestoreRequest) {
 		r.MasterTimeout = v
@@ -187,7 +181,6 @@ func (f SnapshotRestore) WithMasterTimeout(v time.Duration) func(*SnapshotRestor
 }
 
 // WithWaitForCompletion - should this request wait until the operation has completed before returning.
-//
 func (f SnapshotRestore) WithWaitForCompletion(v bool) func(*SnapshotRestoreRequest) {
 	return func(r *SnapshotRestoreRequest) {
 		r.WaitForCompletion = &v
@@ -195,7 +188,6 @@ func (f SnapshotRestore) WithWaitForCompletion(v bool) func(*SnapshotRestoreRequ
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f SnapshotRestore) WithPretty() func(*SnapshotRestoreRequest) {
 	return func(r *SnapshotRestoreRequest) {
 		r.Pretty = true
@@ -203,7 +195,6 @@ func (f SnapshotRestore) WithPretty() func(*SnapshotRestoreRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f SnapshotRestore) WithHuman() func(*SnapshotRestoreRequest) {
 	return func(r *SnapshotRestoreRequest) {
 		r.Human = true
@@ -211,7 +202,6 @@ func (f SnapshotRestore) WithHuman() func(*SnapshotRestoreRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f SnapshotRestore) WithErrorTrace() func(*SnapshotRestoreRequest) {
 	return func(r *SnapshotRestoreRequest) {
 		r.ErrorTrace = true
@@ -219,7 +209,6 @@ func (f SnapshotRestore) WithErrorTrace() func(*SnapshotRestoreRequest) {
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f SnapshotRestore) WithFilterPath(v ...string) func(*SnapshotRestoreRequest) {
 	return func(r *SnapshotRestoreRequest) {
 		r.FilterPath = v
@@ -227,7 +216,6 @@ func (f SnapshotRestore) WithFilterPath(v ...string) func(*SnapshotRestoreReques
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f SnapshotRestore) WithHeader(h map[string]string) func(*SnapshotRestoreRequest) {
 	return func(r *SnapshotRestoreRequest) {
 		if r.Header == nil {
@@ -240,7 +228,6 @@ func (f SnapshotRestore) WithHeader(h map[string]string) func(*SnapshotRestoreRe
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f SnapshotRestore) WithOpaqueID(s string) func(*SnapshotRestoreRequest) {
 	return func(r *SnapshotRestoreRequest) {
 		if r.Header == nil {
