@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.4.0: DO NOT EDIT
+// Code generated from specification version 8.5.0: DO NOT EDIT
 
 package esapi
 
@@ -41,11 +41,9 @@ func newGetFunc(t Transport) Get {
 // Get returns a document.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-get.html.
-//
 type Get func(index string, id string, o ...func(*GetRequest)) (*Response, error)
 
 // GetRequest configures the Get API request.
-//
 type GetRequest struct {
 	Index      string
 	DocumentID string
@@ -73,7 +71,6 @@ type GetRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r GetRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -198,7 +195,6 @@ func (r GetRequest) Do(ctx context.Context, transport Transport) (*Response, err
 }
 
 // WithContext sets the request context.
-//
 func (f Get) WithContext(v context.Context) func(*GetRequest) {
 	return func(r *GetRequest) {
 		r.ctx = v
@@ -206,7 +202,6 @@ func (f Get) WithContext(v context.Context) func(*GetRequest) {
 }
 
 // WithForceSyntheticSource - should this request force synthetic _source? use this to test if the mapping supports synthetic _source and to get a sense of the worst case performance. fetches with this enabled will be slower the enabling synthetic source natively in the index..
-//
 func (f Get) WithForceSyntheticSource(v bool) func(*GetRequest) {
 	return func(r *GetRequest) {
 		r.ForceSyntheticSource = &v
@@ -214,7 +209,6 @@ func (f Get) WithForceSyntheticSource(v bool) func(*GetRequest) {
 }
 
 // WithPreference - specify the node or shard the operation should be performed on (default: random).
-//
 func (f Get) WithPreference(v string) func(*GetRequest) {
 	return func(r *GetRequest) {
 		r.Preference = v
@@ -222,7 +216,6 @@ func (f Get) WithPreference(v string) func(*GetRequest) {
 }
 
 // WithRealtime - specify whether to perform the operation in realtime or search mode.
-//
 func (f Get) WithRealtime(v bool) func(*GetRequest) {
 	return func(r *GetRequest) {
 		r.Realtime = &v
@@ -230,7 +223,6 @@ func (f Get) WithRealtime(v bool) func(*GetRequest) {
 }
 
 // WithRefresh - refresh the shard containing the document before performing the operation.
-//
 func (f Get) WithRefresh(v bool) func(*GetRequest) {
 	return func(r *GetRequest) {
 		r.Refresh = &v
@@ -238,7 +230,6 @@ func (f Get) WithRefresh(v bool) func(*GetRequest) {
 }
 
 // WithRouting - specific routing value.
-//
 func (f Get) WithRouting(v string) func(*GetRequest) {
 	return func(r *GetRequest) {
 		r.Routing = v
@@ -246,7 +237,6 @@ func (f Get) WithRouting(v string) func(*GetRequest) {
 }
 
 // WithSource - true or false to return the _source field or not, or a list of fields to return.
-//
 func (f Get) WithSource(v ...string) func(*GetRequest) {
 	return func(r *GetRequest) {
 		r.Source = v
@@ -254,7 +244,6 @@ func (f Get) WithSource(v ...string) func(*GetRequest) {
 }
 
 // WithSourceExcludes - a list of fields to exclude from the returned _source field.
-//
 func (f Get) WithSourceExcludes(v ...string) func(*GetRequest) {
 	return func(r *GetRequest) {
 		r.SourceExcludes = v
@@ -262,7 +251,6 @@ func (f Get) WithSourceExcludes(v ...string) func(*GetRequest) {
 }
 
 // WithSourceIncludes - a list of fields to extract and return from the _source field.
-//
 func (f Get) WithSourceIncludes(v ...string) func(*GetRequest) {
 	return func(r *GetRequest) {
 		r.SourceIncludes = v
@@ -270,7 +258,6 @@ func (f Get) WithSourceIncludes(v ...string) func(*GetRequest) {
 }
 
 // WithStoredFields - a list of stored fields to return in the response.
-//
 func (f Get) WithStoredFields(v ...string) func(*GetRequest) {
 	return func(r *GetRequest) {
 		r.StoredFields = v
@@ -278,7 +265,6 @@ func (f Get) WithStoredFields(v ...string) func(*GetRequest) {
 }
 
 // WithVersion - explicit version number for concurrency control.
-//
 func (f Get) WithVersion(v int) func(*GetRequest) {
 	return func(r *GetRequest) {
 		r.Version = &v
@@ -286,7 +272,6 @@ func (f Get) WithVersion(v int) func(*GetRequest) {
 }
 
 // WithVersionType - specific version type.
-//
 func (f Get) WithVersionType(v string) func(*GetRequest) {
 	return func(r *GetRequest) {
 		r.VersionType = v
@@ -294,7 +279,6 @@ func (f Get) WithVersionType(v string) func(*GetRequest) {
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f Get) WithPretty() func(*GetRequest) {
 	return func(r *GetRequest) {
 		r.Pretty = true
@@ -302,7 +286,6 @@ func (f Get) WithPretty() func(*GetRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f Get) WithHuman() func(*GetRequest) {
 	return func(r *GetRequest) {
 		r.Human = true
@@ -310,7 +293,6 @@ func (f Get) WithHuman() func(*GetRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f Get) WithErrorTrace() func(*GetRequest) {
 	return func(r *GetRequest) {
 		r.ErrorTrace = true
@@ -318,7 +300,6 @@ func (f Get) WithErrorTrace() func(*GetRequest) {
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f Get) WithFilterPath(v ...string) func(*GetRequest) {
 	return func(r *GetRequest) {
 		r.FilterPath = v
@@ -326,7 +307,6 @@ func (f Get) WithFilterPath(v ...string) func(*GetRequest) {
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f Get) WithHeader(h map[string]string) func(*GetRequest) {
 	return func(r *GetRequest) {
 		if r.Header == nil {
@@ -339,7 +319,6 @@ func (f Get) WithHeader(h map[string]string) func(*GetRequest) {
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f Get) WithOpaqueID(s string) func(*GetRequest) {
 	return func(r *GetRequest) {
 		if r.Header == nil {

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.4.0: DO NOT EDIT
+// Code generated from specification version 8.5.0: DO NOT EDIT
 
 package esapi
 
@@ -41,11 +41,9 @@ func newSecurityUpdateAPIKeyFunc(t Transport) SecurityUpdateAPIKey {
 // SecurityUpdateAPIKey - Updates attributes of an existing API key.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-update-api-key.html.
-//
 type SecurityUpdateAPIKey func(id string, o ...func(*SecurityUpdateAPIKeyRequest)) (*Response, error)
 
 // SecurityUpdateAPIKeyRequest configures the Security UpdateAPI Key API request.
-//
 type SecurityUpdateAPIKeyRequest struct {
 	DocumentID string
 
@@ -62,7 +60,6 @@ type SecurityUpdateAPIKeyRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r SecurityUpdateAPIKeyRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -147,7 +144,6 @@ func (r SecurityUpdateAPIKeyRequest) Do(ctx context.Context, transport Transport
 }
 
 // WithContext sets the request context.
-//
 func (f SecurityUpdateAPIKey) WithContext(v context.Context) func(*SecurityUpdateAPIKeyRequest) {
 	return func(r *SecurityUpdateAPIKeyRequest) {
 		r.ctx = v
@@ -155,7 +151,6 @@ func (f SecurityUpdateAPIKey) WithContext(v context.Context) func(*SecurityUpdat
 }
 
 // WithBody - The API key request to update attributes of an API key..
-//
 func (f SecurityUpdateAPIKey) WithBody(v io.Reader) func(*SecurityUpdateAPIKeyRequest) {
 	return func(r *SecurityUpdateAPIKeyRequest) {
 		r.Body = v
@@ -163,7 +158,6 @@ func (f SecurityUpdateAPIKey) WithBody(v io.Reader) func(*SecurityUpdateAPIKeyRe
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f SecurityUpdateAPIKey) WithPretty() func(*SecurityUpdateAPIKeyRequest) {
 	return func(r *SecurityUpdateAPIKeyRequest) {
 		r.Pretty = true
@@ -171,7 +165,6 @@ func (f SecurityUpdateAPIKey) WithPretty() func(*SecurityUpdateAPIKeyRequest) {
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f SecurityUpdateAPIKey) WithHuman() func(*SecurityUpdateAPIKeyRequest) {
 	return func(r *SecurityUpdateAPIKeyRequest) {
 		r.Human = true
@@ -179,7 +172,6 @@ func (f SecurityUpdateAPIKey) WithHuman() func(*SecurityUpdateAPIKeyRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f SecurityUpdateAPIKey) WithErrorTrace() func(*SecurityUpdateAPIKeyRequest) {
 	return func(r *SecurityUpdateAPIKeyRequest) {
 		r.ErrorTrace = true
@@ -187,7 +179,6 @@ func (f SecurityUpdateAPIKey) WithErrorTrace() func(*SecurityUpdateAPIKeyRequest
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f SecurityUpdateAPIKey) WithFilterPath(v ...string) func(*SecurityUpdateAPIKeyRequest) {
 	return func(r *SecurityUpdateAPIKeyRequest) {
 		r.FilterPath = v
@@ -195,7 +186,6 @@ func (f SecurityUpdateAPIKey) WithFilterPath(v ...string) func(*SecurityUpdateAP
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f SecurityUpdateAPIKey) WithHeader(h map[string]string) func(*SecurityUpdateAPIKeyRequest) {
 	return func(r *SecurityUpdateAPIKeyRequest) {
 		if r.Header == nil {
@@ -208,7 +198,6 @@ func (f SecurityUpdateAPIKey) WithHeader(h map[string]string) func(*SecurityUpda
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f SecurityUpdateAPIKey) WithOpaqueID(s string) func(*SecurityUpdateAPIKeyRequest) {
 	return func(r *SecurityUpdateAPIKeyRequest) {
 		if r.Header == nil {
