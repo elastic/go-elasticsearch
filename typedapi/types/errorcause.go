@@ -15,17 +15,23 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
+// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // ErrorCause type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/Errors.ts#L25-L48
+// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/Errors.ts#L25-L48
 type ErrorCause struct {
 	CausedBy *ErrorCause            `json:"caused_by,omitempty"`
-	Metadata map[string]interface{} `json:"metadata,omitempty"`
+	Metadata map[string]interface{} `json:"-"`
 	// Reason A human-readable explanation of the error, in english
 	Reason    string       `json:"reason"`
 	RootCause []ErrorCause `json:"root_cause,omitempty"`
@@ -35,6 +41,34 @@ type ErrorCause struct {
 	Suppressed []ErrorCause `json:"suppressed,omitempty"`
 	// Type The type of error
 	Type string `json:"type"`
+}
+
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s ErrorCause) MarshalJSON() ([]byte, error) {
+	type opt ErrorCause
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]interface{}, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.Metadata {
+		tmp[string(key)] = value
+	}
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
 }
 
 // ErrorCauseBuilder holds ErrorCause struct and provides a builder API.

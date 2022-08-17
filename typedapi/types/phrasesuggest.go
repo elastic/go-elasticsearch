@@ -15,19 +15,21 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
+// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+
 
 package types
 
 // PhraseSuggest type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_global/search/_types/suggester.ts#L55-L60
+// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_global/search/_types/suggester.ts#L57-L62
 type PhraseSuggest struct {
-	Length  int                 `json:"length"`
-	Offset  int                 `json:"offset"`
-	Options PhraseSuggestOption `json:"options"`
-	Text    string              `json:"text"`
+	Length  int                   `json:"length"`
+	Offset  int                   `json:"offset"`
+	Options []PhraseSuggestOption `json:"options"`
+	Text    string                `json:"text"`
 }
 
 // PhraseSuggestBuilder holds PhraseSuggest struct and provides a builder API.
@@ -59,9 +61,8 @@ func (rb *PhraseSuggestBuilder) Offset(offset int) *PhraseSuggestBuilder {
 	return rb
 }
 
-func (rb *PhraseSuggestBuilder) Options(options *PhraseSuggestOptionBuilder) *PhraseSuggestBuilder {
-	v := options.Build()
-	rb.v.Options = v
+func (rb *PhraseSuggestBuilder) Options(arg []PhraseSuggestOption) *PhraseSuggestBuilder {
+	rb.v.Options = arg
 	return rb
 }
 

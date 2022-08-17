@@ -15,17 +15,51 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
+// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // AdjacencyMatrixBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/aggregations/Aggregate.ts#L556-L556
+// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/aggregations/Aggregate.ts#L556-L556
 type AdjacencyMatrixBucket struct {
-	Aggregations map[AggregateName]Aggregate `json:"aggregations,omitempty"`
+	Aggregations map[AggregateName]Aggregate `json:"-"`
 	DocCount     int64                       `json:"doc_count"`
+}
+
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s AdjacencyMatrixBucket) MarshalJSON() ([]byte, error) {
+	type opt AdjacencyMatrixBucket
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]interface{}, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.Aggregations {
+		tmp[string(key)] = value
+	}
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
 }
 
 // AdjacencyMatrixBucketBuilder holds AdjacencyMatrixBucket struct and provides a builder API.

@@ -15,8 +15,10 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
+// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+
 
 // Gets stats for anomaly detection job model snapshot upgrades that are in
 // progress.
@@ -62,15 +64,17 @@ type GetModelSnapshotUpgradeStats struct {
 }
 
 // NewGetModelSnapshotUpgradeStats type alias for index.
-type NewGetModelSnapshotUpgradeStats func(jobid string) *GetModelSnapshotUpgradeStats
+type NewGetModelSnapshotUpgradeStats func(jobid, snapshotid string) *GetModelSnapshotUpgradeStats
 
 // NewGetModelSnapshotUpgradeStatsFunc returns a new instance of GetModelSnapshotUpgradeStats with the provided transport.
 // Used in the index of the library this allows to retrieve every apis in once place.
 func NewGetModelSnapshotUpgradeStatsFunc(tp elastictransport.Interface) NewGetModelSnapshotUpgradeStats {
-	return func(jobid string) *GetModelSnapshotUpgradeStats {
+	return func(jobid, snapshotid string) *GetModelSnapshotUpgradeStats {
 		n := New(tp)
 
 		n.JobId(jobid)
+
+		n.SnapshotId(snapshotid)
 
 		return n
 	}
@@ -211,9 +215,9 @@ func (r *GetModelSnapshotUpgradeStats) SnapshotId(v string) *GetModelSnapshotUpg
 
 // AllowNoMatch Specifies what to do when the request:
 //
-//  -  Contains wildcard expressions and there are no jobs that match.
-//  -  Contains the _all string or no identifiers and there are no matches.
-//  -  Contains wildcard expressions and there are only partial matches.
+//   - Contains wildcard expressions and there are no jobs that match.
+//   - Contains the _all string or no identifiers and there are no matches.
+//   - Contains wildcard expressions and there are only partial matches.
 //
 // The default value is true, which returns an empty jobs array when there are
 // no matches and the subset of results

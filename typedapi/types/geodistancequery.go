@@ -15,26 +15,58 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
+// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+
 
 package types
 
 import (
+	"encoding/json"
+
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/geodistancetype"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/geovalidationmethod"
 )
 
 // GeoDistanceQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/query_dsl/geo.ts#L48-L57
+// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/query_dsl/geo.ts#L48-L57
 type GeoDistanceQuery struct {
 	Boost            *float32                                 `json:"boost,omitempty"`
 	Distance         *Distance                                `json:"distance,omitempty"`
 	DistanceType     *geodistancetype.GeoDistanceType         `json:"distance_type,omitempty"`
-	GeoDistanceQuery map[Field]GeoLocation                    `json:"GeoDistanceQuery,omitempty"`
+	GeoDistanceQuery map[Field]GeoLocation                    `json:"-"`
 	QueryName_       *string                                  `json:"_name,omitempty"`
 	ValidationMethod *geovalidationmethod.GeoValidationMethod `json:"validation_method,omitempty"`
+}
+
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s GeoDistanceQuery) MarshalJSON() ([]byte, error) {
+	type opt GeoDistanceQuery
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]interface{}, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.GeoDistanceQuery {
+		tmp[string(key)] = value
+	}
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
 }
 
 // GeoDistanceQueryBuilder holds GeoDistanceQuery struct and provides a builder API.

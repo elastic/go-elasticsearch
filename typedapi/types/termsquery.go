@@ -15,18 +15,52 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
+// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // TermsQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/query_dsl/term.ts#L132-L134
+// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/query_dsl/term.ts#L123-L125
 type TermsQuery struct {
 	Boost      *float32                  `json:"boost,omitempty"`
 	QueryName_ *string                   `json:"_name,omitempty"`
-	TermsQuery map[Field]TermsQueryField `json:"TermsQuery,omitempty"`
+	TermsQuery map[Field]TermsQueryField `json:"-"`
+}
+
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s TermsQuery) MarshalJSON() ([]byte, error) {
+	type opt TermsQuery
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]interface{}, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.TermsQuery {
+		tmp[string(key)] = value
+	}
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
 }
 
 // TermsQueryBuilder holds TermsQuery struct and provides a builder API.

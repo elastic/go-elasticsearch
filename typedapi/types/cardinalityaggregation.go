@@ -15,20 +15,27 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
+// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+
 
 package types
 
+import (
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/cardinalityexecutionmode"
+)
+
 // CardinalityAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/aggregations/metric.ts#L54-L57
+// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/aggregations/metric.ts#L62-L66
 type CardinalityAggregation struct {
-	Field              *Field   `json:"field,omitempty"`
-	Missing            *Missing `json:"missing,omitempty"`
-	PrecisionThreshold *int     `json:"precision_threshold,omitempty"`
-	Rehash             *bool    `json:"rehash,omitempty"`
-	Script             *Script  `json:"script,omitempty"`
+	ExecutionHint      *cardinalityexecutionmode.CardinalityExecutionMode `json:"execution_hint,omitempty"`
+	Field              *Field                                             `json:"field,omitempty"`
+	Missing            *Missing                                           `json:"missing,omitempty"`
+	PrecisionThreshold *int                                               `json:"precision_threshold,omitempty"`
+	Rehash             *bool                                              `json:"rehash,omitempty"`
+	Script             *Script                                            `json:"script,omitempty"`
 }
 
 // CardinalityAggregationBuilder holds CardinalityAggregation struct and provides a builder API.
@@ -48,6 +55,11 @@ func NewCardinalityAggregationBuilder() *CardinalityAggregationBuilder {
 // Build finalize the chain and returns the CardinalityAggregation struct
 func (rb *CardinalityAggregationBuilder) Build() CardinalityAggregation {
 	return *rb.v
+}
+
+func (rb *CardinalityAggregationBuilder) ExecutionHint(executionhint cardinalityexecutionmode.CardinalityExecutionMode) *CardinalityAggregationBuilder {
+	rb.v.ExecutionHint = &executionhint
+	return rb
 }
 
 func (rb *CardinalityAggregationBuilder) Field(field Field) *CardinalityAggregationBuilder {

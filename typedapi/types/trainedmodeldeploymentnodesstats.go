@@ -15,14 +15,16 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
+// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+
 
 package types
 
 // TrainedModelDeploymentNodesStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ml/_types/TrainedModel.ts#L127-L154
+// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/ml/_types/TrainedModel.ts#L127-L154
 type TrainedModelDeploymentNodesStats struct {
 	// AverageInferenceTimeMs The average time for each inference call to complete on this node.
 	AverageInferenceTimeMs DurationValueUnitFloatMillis `json:"average_inference_time_ms"`
@@ -43,7 +45,7 @@ type TrainedModelDeploymentNodesStats struct {
 	RejectionExecutionCount int `json:"rejection_execution_count"`
 	// RoutingState The current routing state and reason for the current routing state for this
 	// allocation.
-	RoutingState TrainedModelAllocationRoutingTable `json:"routing_state"`
+	RoutingState TrainedModelAssignmentRoutingTable `json:"routing_state"`
 	// StartTime The epoch timestamp when the allocation started.
 	StartTime EpochTimeUnitMillis `json:"start_time"`
 	// ThreadsPerAllocation The number of threads used by each allocation during inference.
@@ -133,7 +135,7 @@ func (rb *TrainedModelDeploymentNodesStatsBuilder) RejectionExecutionCount(rejec
 // RoutingState The current routing state and reason for the current routing state for this
 // allocation.
 
-func (rb *TrainedModelDeploymentNodesStatsBuilder) RoutingState(routingstate *TrainedModelAllocationRoutingTableBuilder) *TrainedModelDeploymentNodesStatsBuilder {
+func (rb *TrainedModelDeploymentNodesStatsBuilder) RoutingState(routingstate *TrainedModelAssignmentRoutingTableBuilder) *TrainedModelDeploymentNodesStatsBuilder {
 	v := routingstate.Build()
 	rb.v.RoutingState = v
 	return rb

@@ -15,18 +15,24 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
+// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // ExplainAnalyzeToken type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/indices/analyze/types.ts#L52-L64
+// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/indices/analyze/types.ts#L52-L64
 type ExplainAnalyzeToken struct {
 	Bytes               string                 `json:"bytes"`
 	EndOffset           int64                  `json:"end_offset"`
-	ExplainAnalyzeToken map[string]interface{} `json:"ExplainAnalyzeToken,omitempty"`
+	ExplainAnalyzeToken map[string]interface{} `json:"-"`
 	Keyword             *bool                  `json:"keyword,omitempty"`
 	Position            int64                  `json:"position"`
 	PositionLength      int64                  `json:"positionLength"`
@@ -34,6 +40,34 @@ type ExplainAnalyzeToken struct {
 	TermFrequency       int64                  `json:"termFrequency"`
 	Token               string                 `json:"token"`
 	Type                string                 `json:"type"`
+}
+
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s ExplainAnalyzeToken) MarshalJSON() ([]byte, error) {
+	type opt ExplainAnalyzeToken
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]interface{}, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.ExplainAnalyzeToken {
+		tmp[string(key)] = value
+	}
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
 }
 
 // ExplainAnalyzeTokenBuilder holds ExplainAnalyzeToken struct and provides a builder API.
