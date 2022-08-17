@@ -15,14 +15,16 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
+// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+
 
 package types
 
 // ExtendedStatsBucketAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/aggregations/Aggregate.ts#L285-L286
+// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/aggregations/Aggregate.ts#L285-L286
 type ExtendedStatsBucketAggregate struct {
 	Avg                        float64                          `json:"avg,omitempty"`
 	AvgAsString                *string                          `json:"avg_as_string,omitempty"`

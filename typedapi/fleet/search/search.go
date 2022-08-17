@@ -15,8 +15,10 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
+// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+
 
 // Search API where the search will only be executed after specified checkpoints
 // are available due to a refresh. This API is designed for internal use by the
@@ -83,8 +85,6 @@ func NewSearchFunc(tp elastictransport.Interface) NewSearch {
 // Search API where the search will only be executed after specified checkpoints
 // are available due to a refresh. This API is designed for internal use by the
 // fleet server project.
-//
-//
 func New(tp elastictransport.Interface) *Search {
 	r := &Search{
 		transport: tp,

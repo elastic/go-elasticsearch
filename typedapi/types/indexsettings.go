@@ -15,18 +15,22 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
+// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+
 
 package types
 
 import (
+	"encoding/json"
+
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/indexcheckonstartup"
 )
 
 // IndexSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/indices/_types/IndexSettings.ts#L69-L168
+// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/indices/_types/IndexSettings.ts#L69-L168
 type IndexSettings struct {
 	Analysis *IndexSettingsAnalysis `json:"analysis,omitempty"`
 	// Analyze Settings to define analyzers, tokenizers, token filters and character
@@ -45,7 +49,7 @@ type IndexSettings struct {
 	Hidden             string                                   `json:"hidden,omitempty"`
 	Highlight          *SettingsHighlight                       `json:"highlight,omitempty"`
 	Index              *IndexSettings                           `json:"index,omitempty"`
-	IndexSettings      map[string]interface{}                   `json:"IndexSettings,omitempty"`
+	IndexSettings      map[string]interface{}                   `json:"-"`
 	// IndexingPressure Configure indexing back pressure limits.
 	IndexingPressure              *IndexingPressure       `json:"indexing_pressure,omitempty"`
 	IndexingSlowlog               *SlowlogSettings        `json:"indexing.slowlog,omitempty"`
@@ -94,6 +98,34 @@ type IndexSettings struct {
 	Uuid                *Uuid                    `json:"uuid,omitempty"`
 	VerifiedBeforeClose string                   `json:"verified_before_close,omitempty"`
 	Version             *IndexVersioning         `json:"version,omitempty"`
+}
+
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s IndexSettings) MarshalJSON() ([]byte, error) {
+	type opt IndexSettings
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]interface{}, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.IndexSettings {
+		tmp[string(key)] = value
+	}
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
 }
 
 // IndexSettingsBuilder holds IndexSettings struct and provides a builder API.

@@ -15,14 +15,16 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
+// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+
 
 package types
 
 // QueryContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/query_dsl/abstractions.ts#L97-L164
+// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/query_dsl/abstractions.ts#L96-L162
 type QueryContainer struct {
 	Bool              *BoolQuery                       `json:"bool,omitempty"`
 	Boosting          *BoostingQuery                   `json:"boosting,omitempty"`
@@ -43,7 +45,6 @@ type QueryContainer struct {
 	HasParent         *HasParentQuery                  `json:"has_parent,omitempty"`
 	Ids               *IdsQuery                        `json:"ids,omitempty"`
 	Intervals         map[Field]IntervalsQuery         `json:"intervals,omitempty"`
-	Knn               *KnnQuery                        `json:"knn,omitempty"`
 	Match             map[Field]MatchQuery             `json:"match,omitempty"`
 	MatchAll          *MatchAllQuery                   `json:"match_all,omitempty"`
 	MatchBoolPrefix   map[Field]MatchBoolPrefixQuery   `json:"match_bool_prefix,omitempty"`
@@ -235,12 +236,6 @@ func (rb *QueryContainerBuilder) Intervals(values map[Field]*IntervalsQueryBuild
 		tmp[key] = builder.Build()
 	}
 	rb.v.Intervals = tmp
-	return rb
-}
-
-func (rb *QueryContainerBuilder) Knn(knn *KnnQueryBuilder) *QueryContainerBuilder {
-	v := knn.Build()
-	rb.v.Knn = &v
 	return rb
 }
 

@@ -15,22 +15,56 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
+// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // InlineGetDictUserDefined type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/common.ts#L279-L288
+// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/common.ts#L279-L288
 type InlineGetDictUserDefined struct {
 	Fields                   map[string]interface{} `json:"fields,omitempty"`
 	Found                    bool                   `json:"found"`
-	InlineGetDictUserDefined map[string]interface{} `json:"InlineGetDictUserDefined,omitempty"`
+	InlineGetDictUserDefined map[string]interface{} `json:"-"`
 	PrimaryTerm_             *int64                 `json:"_primary_term,omitempty"`
 	Routing_                 *Routing               `json:"_routing,omitempty"`
 	SeqNo_                   *SequenceNumber        `json:"_seq_no,omitempty"`
 	Source_                  map[string]interface{} `json:"_source"`
+}
+
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s InlineGetDictUserDefined) MarshalJSON() ([]byte, error) {
+	type opt InlineGetDictUserDefined
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]interface{}, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.InlineGetDictUserDefined {
+		tmp[string(key)] = value
+	}
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
 }
 
 // InlineGetDictUserDefinedBuilder holds InlineGetDictUserDefined struct and provides a builder API.

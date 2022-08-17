@@ -15,8 +15,10 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
+// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+
 
 package typedapi
 
@@ -316,6 +318,7 @@ import (
 	searchable_snapshots_stats "github.com/elastic/go-elasticsearch/v8/typedapi/searchablesnapshots/stats"
 	security_activate_user_profile "github.com/elastic/go-elasticsearch/v8/typedapi/security/activateuserprofile"
 	security_authenticate "github.com/elastic/go-elasticsearch/v8/typedapi/security/authenticate"
+	security_bulk_update_api_keys "github.com/elastic/go-elasticsearch/v8/typedapi/security/bulkupdateapikeys"
 	security_change_password "github.com/elastic/go-elasticsearch/v8/typedapi/security/changepassword"
 	security_clear_api_key_cache "github.com/elastic/go-elasticsearch/v8/typedapi/security/clearapikeycache"
 	security_clear_cached_privileges "github.com/elastic/go-elasticsearch/v8/typedapi/security/clearcachedprivileges"
@@ -366,6 +369,7 @@ import (
 	security_saml_prepare_authentication "github.com/elastic/go-elasticsearch/v8/typedapi/security/samlprepareauthentication"
 	security_saml_service_provider_metadata "github.com/elastic/go-elasticsearch/v8/typedapi/security/samlserviceprovidermetadata"
 	security_suggest_user_profiles "github.com/elastic/go-elasticsearch/v8/typedapi/security/suggestuserprofiles"
+	security_update_api_key "github.com/elastic/go-elasticsearch/v8/typedapi/security/updateapikey"
 	security_update_user_profile_data "github.com/elastic/go-elasticsearch/v8/typedapi/security/updateuserprofiledata"
 	shutdown_delete_node "github.com/elastic/go-elasticsearch/v8/typedapi/shutdown/deletenode"
 	shutdown_get_node "github.com/elastic/go-elasticsearch/v8/typedapi/shutdown/getnode"
@@ -1157,6 +1161,8 @@ type Security struct {
 	// Enables authentication as a user and retrieve information about the
 	// authenticated user.
 	Authenticate security_authenticate.NewAuthenticate
+	// Updates the attributes of multiple existing API keys.
+	BulkUpdateApiKeys security_bulk_update_api_keys.NewBulkUpdateApiKeys
 	// Changes the passwords of users in the native realm and built-in users.
 	ChangePassword security_change_password.NewChangePassword
 	// Clear a subset or all entries from the API key cache.
@@ -1219,7 +1225,7 @@ type Security struct {
 	GetUser security_get_user.NewGetUser
 	// Retrieves security privileges for the logged in user.
 	GetUserPrivileges security_get_user_privileges.NewGetUserPrivileges
-	// Retrieves user profile for the given unique ID.
+	// Retrieves user profiles for the given unique ID(s).
 	GetUserProfile security_get_user_profile.NewGetUserProfile
 	// Creates an API key on behalf of another user.
 	GrantApiKey security_grant_api_key.NewGrantApiKey
@@ -1267,6 +1273,8 @@ type Security struct {
 	SamlServiceProviderMetadata security_saml_service_provider_metadata.NewSamlServiceProviderMetadata
 	// Get suggestions for user profiles that match specified search criteria.
 	SuggestUserProfiles security_suggest_user_profiles.NewSuggestUserProfiles
+	// Updates attributes of an existing API key.
+	UpdateApiKey security_update_api_key.NewUpdateApiKey
 	// Update application specific data for the user profile of the given unique ID.
 	UpdateUserProfileData security_update_user_profile_data.NewUpdateUserProfileData
 }
@@ -1921,6 +1929,7 @@ func New(tp elastictransport.Interface) *API {
 		Security: Security{
 			ActivateUserProfile:         security_activate_user_profile.NewActivateUserProfileFunc(tp),
 			Authenticate:                security_authenticate.NewAuthenticateFunc(tp),
+			BulkUpdateApiKeys:           security_bulk_update_api_keys.NewBulkUpdateApiKeysFunc(tp),
 			ChangePassword:              security_change_password.NewChangePasswordFunc(tp),
 			ClearApiKeyCache:            security_clear_api_key_cache.NewClearApiKeyCacheFunc(tp),
 			ClearCachedPrivileges:       security_clear_cached_privileges.NewClearCachedPrivilegesFunc(tp),
@@ -1971,6 +1980,7 @@ func New(tp elastictransport.Interface) *API {
 			SamlPrepareAuthentication:   security_saml_prepare_authentication.NewSamlPrepareAuthenticationFunc(tp),
 			SamlServiceProviderMetadata: security_saml_service_provider_metadata.NewSamlServiceProviderMetadataFunc(tp),
 			SuggestUserProfiles:         security_suggest_user_profiles.NewSuggestUserProfilesFunc(tp),
+			UpdateApiKey:                security_update_api_key.NewUpdateApiKeyFunc(tp),
 			UpdateUserProfileData:       security_update_user_profile_data.NewUpdateUserProfileDataFunc(tp),
 		},
 

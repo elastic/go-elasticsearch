@@ -15,16 +15,19 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
+// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+
 
 package types
 
 // Normalizer holds the union for the following types:
-//     CustomNormalizer
-//     LowercaseNormalizer
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/analysis/normalizers.ts#L20-L24
+//	CustomNormalizer
+//	LowercaseNormalizer
+//
+// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/analysis/normalizers.ts#L20-L24
 type Normalizer interface{}
 
 // NormalizerBuilder holds Normalizer struct and provides a builder API.

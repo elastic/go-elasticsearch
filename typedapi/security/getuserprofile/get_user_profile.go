@@ -15,10 +15,12 @@
 // specific language governing permissions and limitations
 // under the License.
 
-// Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
 
-// Retrieves user profile for the given unique ID.
+// Code generated from the elasticsearch-specification DO NOT EDIT.
+// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+
+
+// Retrieves user profiles for the given unique ID(s).
 package getuserprofile
 
 import (
@@ -71,7 +73,7 @@ func NewGetUserProfileFunc(tp elastictransport.Interface) NewGetUserProfile {
 	}
 }
 
-// Retrieves user profile for the given unique ID.
+// Retrieves user profiles for the given unique ID(s).
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-user-profile.html
 func New(tp elastictransport.Interface) *GetUserProfile {

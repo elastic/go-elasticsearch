@@ -15,8 +15,10 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
+// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+
 
 package submit
 
@@ -29,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package submit
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/async_search/submit/AsyncSearchSubmitRequest.ts#L53-L244
+// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/async_search/submit/AsyncSearchSubmitRequest.ts#L54-L250
 type Request struct {
 	Aggregations map[string]types.AggregationContainer `json:"aggregations,omitempty"`
 
@@ -57,6 +59,9 @@ type Request struct {
 
 	// IndicesBoost Boosts the _score of documents from specified indices.
 	IndicesBoost []map[types.IndexName]float64 `json:"indices_boost,omitempty"`
+
+	// Knn Defines the approximate kNN search to run.
+	Knn *types.KnnQuery `json:"knn,omitempty"`
 
 	// MinScore Minimum _score for matching documents. Documents with a lower _score are
 	// not included in the search results.
@@ -229,6 +234,12 @@ func (rb *RequestBuilder) Highlight(highlight *types.HighlightBuilder) *RequestB
 
 func (rb *RequestBuilder) IndicesBoost(value ...map[types.IndexName]float64) *RequestBuilder {
 	rb.v.IndicesBoost = value
+	return rb
+}
+
+func (rb *RequestBuilder) Knn(knn *types.KnnQueryBuilder) *RequestBuilder {
+	v := knn.Build()
+	rb.v.Knn = &v
 	return rb
 }
 

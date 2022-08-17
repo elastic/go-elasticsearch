@@ -15,8 +15,10 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
+// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+
 
 // Start a trained model deployment.
 package starttrainedmodeldeployment
@@ -190,6 +192,18 @@ func (r *StartTrainedModelDeployment) Header(key, value string) *StartTrainedMod
 func (r *StartTrainedModelDeployment) ModelId(v string) *StartTrainedModelDeployment {
 	r.paramSet |= modelidMask
 	r.modelid = v
+
+	return r
+}
+
+// CacheSize The inference cache size (in memory outside the JVM heap) per node for the
+// model.
+// The default value is the same size as the `model_size_bytes`. To disable the
+// cache,
+// `0b` can be provided.
+// API name: cache_size
+func (r *StartTrainedModelDeployment) CacheSize(value string) *StartTrainedModelDeployment {
+	r.values.Set("cache_size", value)
 
 	return r
 }

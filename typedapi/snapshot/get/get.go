@@ -15,8 +15,10 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
+// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+
 
 // Returns information about a snapshot.
 package get
@@ -245,15 +247,15 @@ func (r *Get) IndexDetails(b bool) *Get {
 	return r
 }
 
-// API name: human
-func (r *Get) Human(b bool) *Get {
-	r.values.Set("human", strconv.FormatBool(b))
+// IndexNames If true, returns the name of each index in each snapshot.
+// API name: index_names
+func (r *Get) IndexNames(b bool) *Get {
+	r.values.Set("index_names", strconv.FormatBool(b))
 
 	return r
 }
 
-// IncludeRepository Whether to include the repository name in the snapshot info. Defaults to
-// true.
+// IncludeRepository If true, returns the repository name in each snapshot.
 // API name: include_repository
 func (r *Get) IncludeRepository(b bool) *Get {
 	r.values.Set("include_repository", strconv.FormatBool(b))
