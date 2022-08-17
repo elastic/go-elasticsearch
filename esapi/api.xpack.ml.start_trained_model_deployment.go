@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.4.0: DO NOT EDIT
+// Code generated from specification version 8.5.0: DO NOT EDIT
 
 package esapi
 
@@ -44,14 +44,13 @@ func newMLStartTrainedModelDeploymentFunc(t Transport) MLStartTrainedModelDeploy
 // This API is experimental.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/start-trained-model-deployment.html.
-//
 type MLStartTrainedModelDeployment func(model_id string, o ...func(*MLStartTrainedModelDeploymentRequest)) (*Response, error)
 
 // MLStartTrainedModelDeploymentRequest configures the ML Start Trained Model Deployment API request.
-//
 type MLStartTrainedModelDeploymentRequest struct {
 	ModelID string
 
+	CacheSize            string
 	NumberOfAllocations  *int
 	QueueCapacity        *int
 	ThreadsPerAllocation *int
@@ -69,7 +68,6 @@ type MLStartTrainedModelDeploymentRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r MLStartTrainedModelDeploymentRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -93,6 +91,10 @@ func (r MLStartTrainedModelDeploymentRequest) Do(ctx context.Context, transport 
 	path.WriteString("_start")
 
 	params = make(map[string]string)
+
+	if r.CacheSize != "" {
+		params["cache_size"] = r.CacheSize
+	}
 
 	if r.NumberOfAllocations != nil {
 		params["number_of_allocations"] = strconv.FormatInt(int64(*r.NumberOfAllocations), 10)
@@ -174,15 +176,20 @@ func (r MLStartTrainedModelDeploymentRequest) Do(ctx context.Context, transport 
 }
 
 // WithContext sets the request context.
-//
 func (f MLStartTrainedModelDeployment) WithContext(v context.Context) func(*MLStartTrainedModelDeploymentRequest) {
 	return func(r *MLStartTrainedModelDeploymentRequest) {
 		r.ctx = v
 	}
 }
 
+// WithCacheSize - a byte-size value for configuring the inference cache size. for example, 20mb..
+func (f MLStartTrainedModelDeployment) WithCacheSize(v string) func(*MLStartTrainedModelDeploymentRequest) {
+	return func(r *MLStartTrainedModelDeploymentRequest) {
+		r.CacheSize = v
+	}
+}
+
 // WithNumberOfAllocations - the number of model allocations on each node where the model is deployed..
-//
 func (f MLStartTrainedModelDeployment) WithNumberOfAllocations(v int) func(*MLStartTrainedModelDeploymentRequest) {
 	return func(r *MLStartTrainedModelDeploymentRequest) {
 		r.NumberOfAllocations = &v
@@ -190,7 +197,6 @@ func (f MLStartTrainedModelDeployment) WithNumberOfAllocations(v int) func(*MLSt
 }
 
 // WithQueueCapacity - controls how many inference requests are allowed in the queue at a time..
-//
 func (f MLStartTrainedModelDeployment) WithQueueCapacity(v int) func(*MLStartTrainedModelDeploymentRequest) {
 	return func(r *MLStartTrainedModelDeploymentRequest) {
 		r.QueueCapacity = &v
@@ -198,7 +204,6 @@ func (f MLStartTrainedModelDeployment) WithQueueCapacity(v int) func(*MLStartTra
 }
 
 // WithThreadsPerAllocation - the number of threads used by each model allocation during inference..
-//
 func (f MLStartTrainedModelDeployment) WithThreadsPerAllocation(v int) func(*MLStartTrainedModelDeploymentRequest) {
 	return func(r *MLStartTrainedModelDeploymentRequest) {
 		r.ThreadsPerAllocation = &v
@@ -206,7 +211,6 @@ func (f MLStartTrainedModelDeployment) WithThreadsPerAllocation(v int) func(*MLS
 }
 
 // WithTimeout - controls the amount of time to wait for the model to deploy..
-//
 func (f MLStartTrainedModelDeployment) WithTimeout(v time.Duration) func(*MLStartTrainedModelDeploymentRequest) {
 	return func(r *MLStartTrainedModelDeploymentRequest) {
 		r.Timeout = v
@@ -214,7 +218,6 @@ func (f MLStartTrainedModelDeployment) WithTimeout(v time.Duration) func(*MLStar
 }
 
 // WithWaitFor - the allocation status for which to wait.
-//
 func (f MLStartTrainedModelDeployment) WithWaitFor(v string) func(*MLStartTrainedModelDeploymentRequest) {
 	return func(r *MLStartTrainedModelDeploymentRequest) {
 		r.WaitFor = v
@@ -222,7 +225,6 @@ func (f MLStartTrainedModelDeployment) WithWaitFor(v string) func(*MLStartTraine
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f MLStartTrainedModelDeployment) WithPretty() func(*MLStartTrainedModelDeploymentRequest) {
 	return func(r *MLStartTrainedModelDeploymentRequest) {
 		r.Pretty = true
@@ -230,7 +232,6 @@ func (f MLStartTrainedModelDeployment) WithPretty() func(*MLStartTrainedModelDep
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f MLStartTrainedModelDeployment) WithHuman() func(*MLStartTrainedModelDeploymentRequest) {
 	return func(r *MLStartTrainedModelDeploymentRequest) {
 		r.Human = true
@@ -238,7 +239,6 @@ func (f MLStartTrainedModelDeployment) WithHuman() func(*MLStartTrainedModelDepl
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f MLStartTrainedModelDeployment) WithErrorTrace() func(*MLStartTrainedModelDeploymentRequest) {
 	return func(r *MLStartTrainedModelDeploymentRequest) {
 		r.ErrorTrace = true
@@ -246,7 +246,6 @@ func (f MLStartTrainedModelDeployment) WithErrorTrace() func(*MLStartTrainedMode
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f MLStartTrainedModelDeployment) WithFilterPath(v ...string) func(*MLStartTrainedModelDeploymentRequest) {
 	return func(r *MLStartTrainedModelDeploymentRequest) {
 		r.FilterPath = v
@@ -254,7 +253,6 @@ func (f MLStartTrainedModelDeployment) WithFilterPath(v ...string) func(*MLStart
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f MLStartTrainedModelDeployment) WithHeader(h map[string]string) func(*MLStartTrainedModelDeploymentRequest) {
 	return func(r *MLStartTrainedModelDeploymentRequest) {
 		if r.Header == nil {
@@ -267,7 +265,6 @@ func (f MLStartTrainedModelDeployment) WithHeader(h map[string]string) func(*MLS
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f MLStartTrainedModelDeployment) WithOpaqueID(s string) func(*MLStartTrainedModelDeploymentRequest) {
 	return func(r *MLStartTrainedModelDeploymentRequest) {
 		if r.Header == nil {

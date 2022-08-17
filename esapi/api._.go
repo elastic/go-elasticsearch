@@ -15,12 +15,11 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.4.0 (4cc8484): DO NOT EDIT
+// Code generated from specification version 8.5.0 (4d73957): DO NOT EDIT
 
 package esapi
 
 // API contains the Elasticsearch APIs
-//
 type API struct {
 	Cat         *Cat
 	Cluster     *Cluster
@@ -541,7 +540,6 @@ type XPack struct {
 }
 
 // New creates new API
-//
 func New(t Transport) *API {
 	return &API{
 		AutoscalingDeleteAutoscalingPolicy: newAutoscalingDeleteAutoscalingPolicyFunc(t),
