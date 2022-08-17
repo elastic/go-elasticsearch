@@ -15,8 +15,10 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
+// https://github.com/elastic/elasticsearch-specification/tree/4316fc1aa18bb04678b156f23b22c9d3f996f9c9
+
 
 package migratetodatatiers
 
@@ -27,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package migratetodatatiers
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/ilm/migrate_to_data_tiers/Request.ts#L22-L44
+// https://github.com/elastic/elasticsearch-specification/blob/4316fc1aa18bb04678b156f23b22c9d3f996f9c9/specification/ilm/migrate_to_data_tiers/Request.ts#L22-L44
 type Request struct {
 	LegacyTemplateToDelete *string `json:"legacy_template_to_delete,omitempty"`
 

@@ -15,8 +15,10 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
+// https://github.com/elastic/elasticsearch-specification/tree/4316fc1aa18bb04678b156f23b22c9d3f996f9c9
+
 
 package typedapi
 
@@ -366,6 +368,7 @@ import (
 	security_saml_prepare_authentication "github.com/elastic/go-elasticsearch/v8/typedapi/security/samlprepareauthentication"
 	security_saml_service_provider_metadata "github.com/elastic/go-elasticsearch/v8/typedapi/security/samlserviceprovidermetadata"
 	security_suggest_user_profiles "github.com/elastic/go-elasticsearch/v8/typedapi/security/suggestuserprofiles"
+	security_update_api_key "github.com/elastic/go-elasticsearch/v8/typedapi/security/updateapikey"
 	security_update_user_profile_data "github.com/elastic/go-elasticsearch/v8/typedapi/security/updateuserprofiledata"
 	shutdown_delete_node "github.com/elastic/go-elasticsearch/v8/typedapi/shutdown/deletenode"
 	shutdown_get_node "github.com/elastic/go-elasticsearch/v8/typedapi/shutdown/getnode"
@@ -1267,6 +1270,8 @@ type Security struct {
 	SamlServiceProviderMetadata security_saml_service_provider_metadata.NewSamlServiceProviderMetadata
 	// Get suggestions for user profiles that match specified search criteria.
 	SuggestUserProfiles security_suggest_user_profiles.NewSuggestUserProfiles
+	// Updates attributes of an existing API key.
+	UpdateApiKey security_update_api_key.NewUpdateApiKey
 	// Update application specific data for the user profile of the given unique ID.
 	UpdateUserProfileData security_update_user_profile_data.NewUpdateUserProfileData
 }
@@ -1971,6 +1976,7 @@ func New(tp elastictransport.Interface) *API {
 			SamlPrepareAuthentication:   security_saml_prepare_authentication.NewSamlPrepareAuthenticationFunc(tp),
 			SamlServiceProviderMetadata: security_saml_service_provider_metadata.NewSamlServiceProviderMetadataFunc(tp),
 			SuggestUserProfiles:         security_suggest_user_profiles.NewSuggestUserProfilesFunc(tp),
+			UpdateApiKey:                security_update_api_key.NewUpdateApiKeyFunc(tp),
 			UpdateUserProfileData:       security_update_user_profile_data.NewUpdateUserProfileDataFunc(tp),
 		},
 

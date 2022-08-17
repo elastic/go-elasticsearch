@@ -15,14 +15,16 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
+// https://github.com/elastic/elasticsearch-specification/tree/4316fc1aa18bb04678b156f23b22c9d3f996f9c9
+
 
 package types
 
 // IndexSettingsLifecycle type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/indices/_types/IndexSettings.ts#L267-L300
+// https://github.com/elastic/elasticsearch-specification/blob/4316fc1aa18bb04678b156f23b22c9d3f996f9c9/specification/indices/_types/IndexSettings.ts#L267-L300
 type IndexSettingsLifecycle struct {
 	// IndexingComplete Indicates whether or not the index has been rolled over. Automatically set to
 	// true when ILM completes the rollover action.

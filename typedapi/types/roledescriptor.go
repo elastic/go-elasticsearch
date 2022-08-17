@@ -15,19 +15,21 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
+// https://github.com/elastic/elasticsearch-specification/tree/4316fc1aa18bb04678b156f23b22c9d3f996f9c9
+
 
 package types
 
 // RoleDescriptor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/security/get_service_accounts/types.ts#L32-L41
+// https://github.com/elastic/elasticsearch-specification/blob/4316fc1aa18bb04678b156f23b22c9d3f996f9c9/specification/security/_types/RoleDescriptor.ts#L27-L36
 type RoleDescriptor struct {
 	Applications      []ApplicationPrivileges  `json:"applications,omitempty"`
-	Cluster           []string                 `json:"cluster"`
+	Cluster           []string                 `json:"cluster,omitempty"`
 	Global            []GlobalPrivilege        `json:"global,omitempty"`
-	Indices           []IndicesPrivileges      `json:"indices"`
+	Indices           []IndicesPrivileges      `json:"indices,omitempty"`
 	Metadata          *Metadata                `json:"metadata,omitempty"`
 	RunAs             []string                 `json:"run_as,omitempty"`
 	TransientMetadata *TransientMetadataConfig `json:"transient_metadata,omitempty"`

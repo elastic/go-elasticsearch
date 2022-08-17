@@ -15,28 +15,31 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
+// https://github.com/elastic/elasticsearch-specification/tree/4316fc1aa18bb04678b156f23b22c9d3f996f9c9
+
 
 package types
 
 // Analyzer holds the union for the following types:
-//     CustomAnalyzer
-//     DutchAnalyzer
-//     FingerprintAnalyzer
-//     IcuAnalyzer
-//     KeywordAnalyzer
-//     KuromojiAnalyzer
-//     LanguageAnalyzer
-//     NoriAnalyzer
-//     PatternAnalyzer
-//     SimpleAnalyzer
-//     SnowballAnalyzer
-//     StandardAnalyzer
-//     StopAnalyzer
-//     WhitespaceAnalyzer
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/analysis/analyzers.ts#L113-L131
+//	CustomAnalyzer
+//	DutchAnalyzer
+//	FingerprintAnalyzer
+//	IcuAnalyzer
+//	KeywordAnalyzer
+//	KuromojiAnalyzer
+//	LanguageAnalyzer
+//	NoriAnalyzer
+//	PatternAnalyzer
+//	SimpleAnalyzer
+//	SnowballAnalyzer
+//	StandardAnalyzer
+//	StopAnalyzer
+//	WhitespaceAnalyzer
+//
+// https://github.com/elastic/elasticsearch-specification/blob/4316fc1aa18bb04678b156f23b22c9d3f996f9c9/specification/_types/analysis/analyzers.ts#L113-L131
 type Analyzer interface{}
 
 // AnalyzerBuilder holds Analyzer struct and provides a builder API.

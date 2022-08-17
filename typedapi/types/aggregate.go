@@ -15,80 +15,83 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
+// https://github.com/elastic/elasticsearch-specification/tree/4316fc1aa18bb04678b156f23b22c9d3f996f9c9
+
 
 package types
 
 // Aggregate holds the union for the following types:
-//     AdjacencyMatrixAggregate
-//     AutoDateHistogramAggregate
-//     AvgAggregate
-//     BoxPlotAggregate
-//     BucketMetricValueAggregate
-//     CardinalityAggregate
-//     ChildrenAggregate
-//     CompositeAggregate
-//     CumulativeCardinalityAggregate
-//     DateHistogramAggregate
-//     DateRangeAggregate
-//     DerivativeAggregate
-//     DoubleTermsAggregate
-//     ExtendedStatsAggregate
-//     ExtendedStatsBucketAggregate
-//     FilterAggregate
-//     FiltersAggregate
-//     GeoBoundsAggregate
-//     GeoCentroidAggregate
-//     GeoDistanceAggregate
-//     GeoHashGridAggregate
-//     GeoLineAggregate
-//     GeoTileGridAggregate
-//     GlobalAggregate
-//     HdrPercentileRanksAggregate
-//     HdrPercentilesAggregate
-//     HistogramAggregate
-//     InferenceAggregate
-//     IpRangeAggregate
-//     LongRareTermsAggregate
-//     LongTermsAggregate
-//     MatrixStatsAggregate
-//     MaxAggregate
-//     MedianAbsoluteDeviationAggregate
-//     MinAggregate
-//     MissingAggregate
-//     MultiTermsAggregate
-//     NestedAggregate
-//     ParentAggregate
-//     PercentilesBucketAggregate
-//     RangeAggregate
-//     RateAggregate
-//     ReverseNestedAggregate
-//     SamplerAggregate
-//     ScriptedMetricAggregate
-//     SignificantLongTermsAggregate
-//     SignificantStringTermsAggregate
-//     SimpleValueAggregate
-//     StatsAggregate
-//     StatsBucketAggregate
-//     StringRareTermsAggregate
-//     StringStatsAggregate
-//     StringTermsAggregate
-//     SumAggregate
-//     TDigestPercentileRanksAggregate
-//     TDigestPercentilesAggregate
-//     TTestAggregate
-//     TopHitsAggregate
-//     TopMetricsAggregate
-//     UnmappedRareTermsAggregate
-//     UnmappedSamplerAggregate
-//     UnmappedSignificantTermsAggregate
-//     UnmappedTermsAggregate
-//     ValueCountAggregate
-//     VariableWidthHistogramAggregate
-//     WeightedAvgAggregate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/aggregations/Aggregate.ts#L30-L112
+//	AdjacencyMatrixAggregate
+//	AutoDateHistogramAggregate
+//	AvgAggregate
+//	BoxPlotAggregate
+//	BucketMetricValueAggregate
+//	CardinalityAggregate
+//	ChildrenAggregate
+//	CompositeAggregate
+//	CumulativeCardinalityAggregate
+//	DateHistogramAggregate
+//	DateRangeAggregate
+//	DerivativeAggregate
+//	DoubleTermsAggregate
+//	ExtendedStatsAggregate
+//	ExtendedStatsBucketAggregate
+//	FilterAggregate
+//	FiltersAggregate
+//	GeoBoundsAggregate
+//	GeoCentroidAggregate
+//	GeoDistanceAggregate
+//	GeoHashGridAggregate
+//	GeoLineAggregate
+//	GeoTileGridAggregate
+//	GlobalAggregate
+//	HdrPercentileRanksAggregate
+//	HdrPercentilesAggregate
+//	HistogramAggregate
+//	InferenceAggregate
+//	IpRangeAggregate
+//	LongRareTermsAggregate
+//	LongTermsAggregate
+//	MatrixStatsAggregate
+//	MaxAggregate
+//	MedianAbsoluteDeviationAggregate
+//	MinAggregate
+//	MissingAggregate
+//	MultiTermsAggregate
+//	NestedAggregate
+//	ParentAggregate
+//	PercentilesBucketAggregate
+//	RangeAggregate
+//	RateAggregate
+//	ReverseNestedAggregate
+//	SamplerAggregate
+//	ScriptedMetricAggregate
+//	SignificantLongTermsAggregate
+//	SignificantStringTermsAggregate
+//	SimpleValueAggregate
+//	StatsAggregate
+//	StatsBucketAggregate
+//	StringRareTermsAggregate
+//	StringStatsAggregate
+//	StringTermsAggregate
+//	SumAggregate
+//	TDigestPercentileRanksAggregate
+//	TDigestPercentilesAggregate
+//	TTestAggregate
+//	TopHitsAggregate
+//	TopMetricsAggregate
+//	UnmappedRareTermsAggregate
+//	UnmappedSamplerAggregate
+//	UnmappedSignificantTermsAggregate
+//	UnmappedTermsAggregate
+//	ValueCountAggregate
+//	VariableWidthHistogramAggregate
+//	WeightedAvgAggregate
+//
+// https://github.com/elastic/elasticsearch-specification/blob/4316fc1aa18bb04678b156f23b22c9d3f996f9c9/specification/_types/aggregations/Aggregate.ts#L30-L112
 type Aggregate interface{}
 
 // AggregateBuilder holds Aggregate struct and provides a builder API.

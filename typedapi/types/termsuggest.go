@@ -15,19 +15,21 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
+// https://github.com/elastic/elasticsearch-specification/tree/4316fc1aa18bb04678b156f23b22c9d3f996f9c9
+
 
 package types
 
 // TermSuggest type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_global/search/_types/suggester.ts#L62-L67
+// https://github.com/elastic/elasticsearch-specification/blob/4316fc1aa18bb04678b156f23b22c9d3f996f9c9/specification/_global/search/_types/suggester.ts#L64-L69
 type TermSuggest struct {
-	Length  int               `json:"length"`
-	Offset  int               `json:"offset"`
-	Options TermSuggestOption `json:"options"`
-	Text    string            `json:"text"`
+	Length  int                 `json:"length"`
+	Offset  int                 `json:"offset"`
+	Options []TermSuggestOption `json:"options"`
+	Text    string              `json:"text"`
 }
 
 // TermSuggestBuilder holds TermSuggest struct and provides a builder API.
@@ -59,9 +61,8 @@ func (rb *TermSuggestBuilder) Offset(offset int) *TermSuggestBuilder {
 	return rb
 }
 
-func (rb *TermSuggestBuilder) Options(options *TermSuggestOptionBuilder) *TermSuggestBuilder {
-	v := options.Build()
-	rb.v.Options = v
+func (rb *TermSuggestBuilder) Options(arg []TermSuggestOption) *TermSuggestBuilder {
+	rb.v.Options = arg
 	return rb
 }
 

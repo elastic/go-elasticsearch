@@ -15,8 +15,10 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
+// https://github.com/elastic/elasticsearch-specification/tree/4316fc1aa18bb04678b156f23b22c9d3f996f9c9
+
 
 package queryapikeys
 
@@ -29,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package queryapikeys
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/security/query_api_keys/QueryApiKeysRequest.ts#L25-L56
+// https://github.com/elastic/elasticsearch-specification/blob/4316fc1aa18bb04678b156f23b22c9d3f996f9c9/specification/security/query_api_keys/QueryApiKeysRequest.ts#L25-L56
 type Request struct {
 
 	// From Starting document offset. By default, you cannot page through more than

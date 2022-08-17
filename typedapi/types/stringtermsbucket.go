@@ -15,19 +15,53 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
+// https://github.com/elastic/elasticsearch-specification/tree/4316fc1aa18bb04678b156f23b22c9d3f996f9c9
+
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // StringTermsBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/_types/aggregations/Aggregate.ts#L382-L384
+// https://github.com/elastic/elasticsearch-specification/blob/4316fc1aa18bb04678b156f23b22c9d3f996f9c9/specification/_types/aggregations/Aggregate.ts#L382-L384
 type StringTermsBucket struct {
-	Aggregations  map[AggregateName]Aggregate `json:"aggregations,omitempty"`
+	Aggregations  map[AggregateName]Aggregate `json:"-"`
 	DocCount      int64                       `json:"doc_count"`
 	DocCountError *int64                      `json:"doc_count_error,omitempty"`
 	Key           string                      `json:"key"`
+}
+
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s StringTermsBucket) MarshalJSON() ([]byte, error) {
+	type opt StringTermsBucket
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]interface{}, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.Aggregations {
+		tmp[string(key)] = value
+	}
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
 }
 
 // StringTermsBucketBuilder holds StringTermsBucket struct and provides a builder API.

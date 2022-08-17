@@ -15,17 +15,51 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741
+// https://github.com/elastic/elasticsearch-specification/tree/4316fc1aa18bb04678b156f23b22c9d3f996f9c9
+
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // FieldsUsageBody type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1b56d7e58f5c59f05d1641c6d6a8117c5e01d741/specification/indices/field_usage_stats/IndicesFieldUsageStatsResponse.ts#L32-L36
+// https://github.com/elastic/elasticsearch-specification/blob/4316fc1aa18bb04678b156f23b22c9d3f996f9c9/specification/indices/field_usage_stats/IndicesFieldUsageStatsResponse.ts#L32-L36
 type FieldsUsageBody struct {
-	FieldsUsageBody map[IndexName]UsageStatsIndex `json:"FieldsUsageBody,omitempty"`
+	FieldsUsageBody map[IndexName]UsageStatsIndex `json:"-"`
 	Shards_         ShardStatistics               `json:"_shards"`
+}
+
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s FieldsUsageBody) MarshalJSON() ([]byte, error) {
+	type opt FieldsUsageBody
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]interface{}, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.FieldsUsageBody {
+		tmp[string(key)] = value
+	}
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
 }
 
 // FieldsUsageBodyBuilder holds FieldsUsageBody struct and provides a builder API.
