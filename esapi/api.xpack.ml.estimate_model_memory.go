@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 7.17.4: DO NOT EDIT
+// Code generated from specification version 7.17.6: DO NOT EDIT
 
 package esapi
 
@@ -41,11 +41,9 @@ func newMLEstimateModelMemoryFunc(t Transport) MLEstimateModelMemory {
 // MLEstimateModelMemory - Estimates the model memory
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-apis.html.
-//
 type MLEstimateModelMemory func(body io.Reader, o ...func(*MLEstimateModelMemoryRequest)) (*Response, error)
 
 // MLEstimateModelMemoryRequest configures the ML Estimate Model Memory API request.
-//
 type MLEstimateModelMemoryRequest struct {
 	Body io.Reader
 
@@ -60,7 +58,6 @@ type MLEstimateModelMemoryRequest struct {
 }
 
 // Do executes the request and returns response or error.
-//
 func (r MLEstimateModelMemoryRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
@@ -139,7 +136,6 @@ func (r MLEstimateModelMemoryRequest) Do(ctx context.Context, transport Transpor
 }
 
 // WithContext sets the request context.
-//
 func (f MLEstimateModelMemory) WithContext(v context.Context) func(*MLEstimateModelMemoryRequest) {
 	return func(r *MLEstimateModelMemoryRequest) {
 		r.ctx = v
@@ -147,7 +143,6 @@ func (f MLEstimateModelMemory) WithContext(v context.Context) func(*MLEstimateMo
 }
 
 // WithPretty makes the response body pretty-printed.
-//
 func (f MLEstimateModelMemory) WithPretty() func(*MLEstimateModelMemoryRequest) {
 	return func(r *MLEstimateModelMemoryRequest) {
 		r.Pretty = true
@@ -155,7 +150,6 @@ func (f MLEstimateModelMemory) WithPretty() func(*MLEstimateModelMemoryRequest) 
 }
 
 // WithHuman makes statistical values human-readable.
-//
 func (f MLEstimateModelMemory) WithHuman() func(*MLEstimateModelMemoryRequest) {
 	return func(r *MLEstimateModelMemoryRequest) {
 		r.Human = true
@@ -163,7 +157,6 @@ func (f MLEstimateModelMemory) WithHuman() func(*MLEstimateModelMemoryRequest) {
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-//
 func (f MLEstimateModelMemory) WithErrorTrace() func(*MLEstimateModelMemoryRequest) {
 	return func(r *MLEstimateModelMemoryRequest) {
 		r.ErrorTrace = true
@@ -171,7 +164,6 @@ func (f MLEstimateModelMemory) WithErrorTrace() func(*MLEstimateModelMemoryReque
 }
 
 // WithFilterPath filters the properties of the response body.
-//
 func (f MLEstimateModelMemory) WithFilterPath(v ...string) func(*MLEstimateModelMemoryRequest) {
 	return func(r *MLEstimateModelMemoryRequest) {
 		r.FilterPath = v
@@ -179,7 +171,6 @@ func (f MLEstimateModelMemory) WithFilterPath(v ...string) func(*MLEstimateModel
 }
 
 // WithHeader adds the headers to the HTTP request.
-//
 func (f MLEstimateModelMemory) WithHeader(h map[string]string) func(*MLEstimateModelMemoryRequest) {
 	return func(r *MLEstimateModelMemoryRequest) {
 		if r.Header == nil {
@@ -192,7 +183,6 @@ func (f MLEstimateModelMemory) WithHeader(h map[string]string) func(*MLEstimateM
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-//
 func (f MLEstimateModelMemory) WithOpaqueID(s string) func(*MLEstimateModelMemoryRequest) {
 	return func(r *MLEstimateModelMemoryRequest) {
 		if r.Header == nil {
