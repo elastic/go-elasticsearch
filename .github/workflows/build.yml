@@ -7,12 +7,12 @@ on:
     branches:
       - github-actions
       - main
-      - 8.2
+      - 8.5
       - 7.17
   pull_request:
     branches:
       - main
-      - 8.2
+      - 8.5
       - 7.17
 
 env:
