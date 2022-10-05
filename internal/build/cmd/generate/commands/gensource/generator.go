@@ -826,7 +826,7 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(ctx context.Context,
 	}` + "\n\n")
 
 	if g.Endpoint.Body != nil {
-		g.w(`if r.Body != nil {
+		g.w(`if r.Body != nil && req.Header.Get(headerContentType) == "" {
 		req.Header[headerContentType] = headerContentTypeJSON
 	}` + "\n\n")
 	}

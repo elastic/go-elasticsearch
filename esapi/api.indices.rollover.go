@@ -136,7 +136,7 @@ func (r IndicesRolloverRequest) Do(ctx context.Context, transport Transport) (*R
 		req.URL.RawQuery = q.Encode()
 	}
 
-	if r.Body != nil {
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
 		req.Header[headerContentType] = headerContentTypeJSON
 	}
 

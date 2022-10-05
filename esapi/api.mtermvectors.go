@@ -171,7 +171,7 @@ func (r MtermvectorsRequest) Do(ctx context.Context, transport Transport) (*Resp
 		req.URL.RawQuery = q.Encode()
 	}
 
-	if r.Body != nil {
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
 		req.Header[headerContentType] = headerContentTypeJSON
 	}
 

@@ -172,7 +172,7 @@ func (r ExplainRequest) Do(ctx context.Context, transport Transport) (*Response,
 		req.URL.RawQuery = q.Encode()
 	}
 
-	if r.Body != nil {
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
 		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
