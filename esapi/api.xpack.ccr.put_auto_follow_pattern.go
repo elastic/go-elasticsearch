@@ -109,7 +109,7 @@ func (r CCRPutAutoFollowPatternRequest) Do(ctx context.Context, transport Transp
 		req.URL.RawQuery = q.Encode()
 	}
 
-	if r.Body != nil {
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
 		req.Header[headerContentType] = headerContentTypeJSON
 	}
 

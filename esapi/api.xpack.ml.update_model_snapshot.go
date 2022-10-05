@@ -116,7 +116,7 @@ func (r MLUpdateModelSnapshotRequest) Do(ctx context.Context, transport Transpor
 		req.URL.RawQuery = q.Encode()
 	}
 
-	if r.Body != nil {
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
 		req.Header[headerContentType] = headerContentTypeJSON
 	}
 

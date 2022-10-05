@@ -130,7 +130,7 @@ func (r SecurityUpdateUserProfileDataRequest) Do(ctx context.Context, transport 
 		req.URL.RawQuery = q.Encode()
 	}
 
-	if r.Body != nil {
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
 		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
