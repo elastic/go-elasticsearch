@@ -119,7 +119,7 @@ func (r SecurityChangePasswordRequest) Do(ctx context.Context, transport Transpo
 		req.URL.RawQuery = q.Encode()
 	}
 
-	if r.Body != nil {
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
 		req.Header[headerContentType] = headerContentTypeJSON
 	}
 

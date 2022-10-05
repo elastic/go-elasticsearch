@@ -138,7 +138,7 @@ func (r MLFlushJobRequest) Do(ctx context.Context, transport Transport) (*Respon
 		req.URL.RawQuery = q.Encode()
 	}
 
-	if r.Body != nil {
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
 		req.Header[headerContentType] = headerContentTypeJSON
 	}
 

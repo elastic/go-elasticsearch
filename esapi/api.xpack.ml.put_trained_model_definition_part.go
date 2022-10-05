@@ -122,7 +122,7 @@ func (r MLPutTrainedModelDefinitionPartRequest) Do(ctx context.Context, transpor
 		req.URL.RawQuery = q.Encode()
 	}
 
-	if r.Body != nil {
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
 		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
