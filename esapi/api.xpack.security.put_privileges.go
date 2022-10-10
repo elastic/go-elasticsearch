@@ -108,7 +108,7 @@ func (r SecurityPutPrivilegesRequest) Do(ctx context.Context, transport Transpor
 		req.URL.RawQuery = q.Encode()
 	}
 
-	if r.Body != nil && req.Header.Get(headerContentType) == "" {
+	if r.Body != nil {
 		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
