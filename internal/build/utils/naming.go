@@ -35,7 +35,6 @@ var (
 )
 
 // APIToGo returns the Go version of API call, eg. cluster.health => ClusterHealth
-//
 func APIToGo(s string) string {
 	ep := strings.Split(s, ".")
 	ns := make([]string, len(ep))
@@ -51,7 +50,6 @@ func APIToGo(s string) string {
 }
 
 // NameToGo returns a Go version of name, eg. node_id => NodeID.
-//
 func NameToGo(s string, api ...string) string {
 	exceptions := map[string]string{
 		"index": "Index",
@@ -64,6 +62,7 @@ func NameToGo(s string, api ...string) string {
 		"ip":  "IP",
 		"id":  "ID",
 		"ttl": "TTL",
+		"uid": "UID",
 
 		"api":   "API",
 		"ccr":   "CCR",
@@ -128,7 +127,6 @@ func NameToGo(s string, api ...string) string {
 }
 
 // TypeToGo returns a Go version of type, eg. boolean => *bool.
-//
 func TypeToGo(s string, comment ...bool) string {
 	// If the string contains a pipe character, it's a polymorphic parameter,
 	// ie. it takes heterogeous values, such as "boolean" and "number"
