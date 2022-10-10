@@ -27,6 +27,7 @@ import (
 	"crypto/x509"
 	"encoding/base64"
 	"errors"
+	"github.com/elastic/go-elasticsearch/v8/esapi"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
@@ -864,4 +865,97 @@ func TestNewTypedClient(t *testing.T) {
 	if err != nil {
 		t.Fatalf("unexpected error: %s", err)
 	}
+}
+
+func TestContentTypeOverride(t *testing.T) {
+	t.Run("default JSON Content-Type", func(t *testing.T) {
+		contentType := "application/json"
+
+		tp, _ := elastictransport.New(elastictransport.Config{
+			URLs: []*url.URL{{Scheme: "http", Host: "foo"}},
+			Transport: &mockTransp{
+				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+					h := request.Header.Get("Content-Type")
+					if h != contentType {
+						t.Fatalf("unexpected content-type, wanted %s, got: %s", contentType, h)
+					}
+
+					return &http.Response{
+						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+						StatusCode: http.StatusOK,
+						Status:     "OK",
+						Body:       ioutil.NopCloser(strings.NewReader("")),
+					}, nil
+				},
+			},
+		})
+
+		c, _ := NewDefaultClient()
+		c.Transport = tp
+
+		_, _ = c.Search(c.Search.WithBody(strings.NewReader("")))
+	})
+	t.Run("overriden CBOR Content-Type functional options style", func(t *testing.T) {
+		contentType := "application/cbor"
+
+		tp, _ := elastictransport.New(elastictransport.Config{
+			URLs: []*url.URL{{Scheme: "http", Host: "foo"}},
+			Transport: &mockTransp{
+				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+					h := request.Header.Get("Content-Type")
+					if h != contentType {
+						t.Fatalf("unexpected content-type, wanted %s, got: %s", contentType, h)
+					}
+
+					return &http.Response{
+						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+						StatusCode: http.StatusOK,
+						Status:     "OK",
+						Body:       ioutil.NopCloser(strings.NewReader("")),
+					}, nil
+				},
+			},
+		})
+
+		c, _ := NewDefaultClient()
+		c.Transport = tp
+
+		_, _ = c.Search(
+			c.Search.WithHeader(map[string]string{
+				"Content-Type": contentType,
+			}),
+			c.Search.WithBody(strings.NewReader("")),
+		)
+	})
+	t.Run("overriden CBOR Content-Type direct call style", func(t *testing.T) {
+		contentType := "application/cbor"
+
+		tp, _ := elastictransport.New(elastictransport.Config{
+			URLs: []*url.URL{{Scheme: "http", Host: "foo"}},
+			Transport: &mockTransp{
+				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+					h := request.Header.Get("Content-Type")
+					if h != contentType {
+						t.Fatalf("unexpected content-type, wanted %s, got: %s", contentType, h)
+					}
+
+					return &http.Response{
+						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+						StatusCode: http.StatusOK,
+						Status:     "OK",
+						Body:       ioutil.NopCloser(strings.NewReader("")),
+					}, nil
+				},
+			},
+		})
+
+		c, _ := NewDefaultClient()
+		c.Transport = tp
+
+		search := esapi.SearchRequest{}
+		search.Body = strings.NewReader("")
+		search.Header = make(map[string][]string)
+		search.Header.Set("Content-Type", contentType)
+		search.Do(context.Background(), tp)
+	})
 }
