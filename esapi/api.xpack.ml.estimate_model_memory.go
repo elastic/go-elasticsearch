@@ -102,10 +102,6 @@ func (r MLEstimateModelMemoryRequest) Do(ctx context.Context, transport Transpor
 		req.URL.RawQuery = q.Encode()
 	}
 
-	if r.Body != nil {
-		req.Header[headerContentType] = headerContentTypeJSON
-	}
-
 	if len(r.Header) > 0 {
 		if len(req.Header) == 0 {
 			req.Header = r.Header
@@ -116,6 +112,10 @@ func (r MLEstimateModelMemoryRequest) Do(ctx context.Context, transport Transpor
 				}
 			}
 		}
+	}
+
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
+		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if ctx != nil {

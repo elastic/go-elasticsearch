@@ -41,8 +41,6 @@ func newSecurityUpdateUserProfileDataFunc(t Transport) SecurityUpdateUserProfile
 
 // SecurityUpdateUserProfileData - Update application specific data for the user profile of the given unique ID.
 //
-// This API is experimental.
-//
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-update-user-profile-data.html.
 type SecurityUpdateUserProfileData func(body io.Reader, uid string, o ...func(*SecurityUpdateUserProfileDataRequest)) (*Response, error)
 
@@ -130,10 +128,6 @@ func (r SecurityUpdateUserProfileDataRequest) Do(ctx context.Context, transport 
 		req.URL.RawQuery = q.Encode()
 	}
 
-	if r.Body != nil {
-		req.Header[headerContentType] = headerContentTypeJSON
-	}
-
 	if len(r.Header) > 0 {
 		if len(req.Header) == 0 {
 			req.Header = r.Header
@@ -144,6 +138,10 @@ func (r SecurityUpdateUserProfileDataRequest) Do(ctx context.Context, transport 
 				}
 			}
 		}
+	}
+
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
+		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if ctx != nil {

@@ -41,7 +41,7 @@ func newMLInferTrainedModelFunc(t Transport) MLInferTrainedModel {
 
 // MLInferTrainedModel - Evaluate a trained model.
 //
-// This API is experimental.
+// This API is beta.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/infer-trained-model.html.
 type MLInferTrainedModel func(body io.Reader, model_id string, o ...func(*MLInferTrainedModelRequest)) (*Response, error)
@@ -122,10 +122,6 @@ func (r MLInferTrainedModelRequest) Do(ctx context.Context, transport Transport)
 		req.URL.RawQuery = q.Encode()
 	}
 
-	if r.Body != nil {
-		req.Header[headerContentType] = headerContentTypeJSON
-	}
-
 	if len(r.Header) > 0 {
 		if len(req.Header) == 0 {
 			req.Header = r.Header
@@ -136,6 +132,10 @@ func (r MLInferTrainedModelRequest) Do(ctx context.Context, transport Transport)
 				}
 			}
 		}
+	}
+
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
+		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if ctx != nil {
