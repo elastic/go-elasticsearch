@@ -47,7 +47,7 @@ type SecurityGetUser func(o ...func(*SecurityGetUserRequest)) (*Response, error)
 type SecurityGetUserRequest struct {
 	Username []string
 
-	WithProfileUid *bool
+	WithProfileUID *bool
 
 	Pretty     bool
 	Human      bool
@@ -82,8 +82,8 @@ func (r SecurityGetUserRequest) Do(ctx context.Context, transport Transport) (*R
 
 	params = make(map[string]string)
 
-	if r.WithProfileUid != nil {
-		params["with_profile_uid"] = strconv.FormatBool(*r.WithProfileUid)
+	if r.WithProfileUID != nil {
+		params["with_profile_uid"] = strconv.FormatBool(*r.WithProfileUID)
 	}
 
 	if r.Pretty {
@@ -159,10 +159,10 @@ func (f SecurityGetUser) WithUsername(v ...string) func(*SecurityGetUserRequest)
 	}
 }
 
-// WithWithProfileUid - flag to retrieve profile uid (if exists) associated to the user.
-func (f SecurityGetUser) WithWithProfileUid(v bool) func(*SecurityGetUserRequest) {
+// WithWithProfileUID - flag to retrieve profile uid (if exists) associated to the user.
+func (f SecurityGetUser) WithWithProfileUID(v bool) func(*SecurityGetUserRequest) {
 	return func(r *SecurityGetUserRequest) {
-		r.WithProfileUid = &v
+		r.WithProfileUID = &v
 	}
 }
 
