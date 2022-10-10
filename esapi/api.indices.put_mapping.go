@@ -141,7 +141,7 @@ func (r IndicesPutMappingRequest) Do(ctx context.Context, transport Transport) (
 		req.URL.RawQuery = q.Encode()
 	}
 
-	if r.Body != nil && req.Header.Get(headerContentType) == "" {
+	if r.Body != nil {
 		req.Header[headerContentType] = headerContentTypeJSON
 	}
 

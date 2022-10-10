@@ -104,7 +104,7 @@ func (r SecurityHasPrivilegesUserProfileRequest) Do(ctx context.Context, transpo
 		req.URL.RawQuery = q.Encode()
 	}
 
-	if r.Body != nil && req.Header.Get(headerContentType) == "" {
+	if r.Body != nil {
 		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
