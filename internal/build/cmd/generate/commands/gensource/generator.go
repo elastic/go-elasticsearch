@@ -30,7 +30,6 @@ import (
 )
 
 // Generator represents the "gensource" generator.
-//
 type Generator struct {
 	b bytes.Buffer
 
@@ -38,7 +37,6 @@ type Generator struct {
 }
 
 // Output returns the generator output.
-//
 func (g *Generator) Output() (io.Reader, error) {
 	g.genHeader()
 	g.genConstructor()
@@ -52,7 +50,6 @@ func (g *Generator) Output() (io.Reader, error) {
 }
 
 // OutputFormatted returns a formatted generator output.
-//
 func (g *Generator) OutputFormatted() (io.Reader, error) {
 	out, err := g.Output()
 	if err != nil {
@@ -825,12 +822,6 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(ctx context.Context,
 		req.URL.RawQuery = q.Encode()
 	}` + "\n\n")
 
-	if g.Endpoint.Body != nil {
-		g.w(`if r.Body != nil && req.Header.Get(headerContentType) == "" {
-		req.Header[headerContentType] = headerContentTypeJSON
-	}` + "\n\n")
-	}
-
 	g.w(`if len(r.Header) > 0 {
 		if len(req.Header) == 0 {
 			req.Header = r.Header
@@ -842,6 +833,12 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(ctx context.Context,
 			}
 		}
 	}` + "\n\n")
+
+	if g.Endpoint.Body != nil {
+		g.w(`if r.Body != nil && req.Header.Get(headerContentType) == "" {
+		req.Header[headerContentType] = headerContentTypeJSON
+	}` + "\n\n")
+	}
 
 	g.w(`if ctx != nil {
 		req = req.WithContext(ctx)
