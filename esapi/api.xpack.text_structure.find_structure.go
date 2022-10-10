@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.5.0: DO NOT EDIT
+// Code generated from specification version 8.6.0: DO NOT EDIT
 
 package esapi
 
@@ -52,6 +52,7 @@ type TextStructureFindStructureRequest struct {
 	Charset            string
 	ColumnNames        []string
 	Delimiter          string
+	EcsCompatibility   string
 	Explain            *bool
 	Format             string
 	GrokPattern        string
@@ -100,6 +101,10 @@ func (r TextStructureFindStructureRequest) Do(ctx context.Context, transport Tra
 
 	if r.Delimiter != "" {
 		params["delimiter"] = r.Delimiter
+	}
+
+	if r.EcsCompatibility != "" {
+		params["ecs_compatibility"] = r.EcsCompatibility
 	}
 
 	if r.Explain != nil {
@@ -175,10 +180,6 @@ func (r TextStructureFindStructureRequest) Do(ctx context.Context, transport Tra
 		req.URL.RawQuery = q.Encode()
 	}
 
-	if r.Body != nil {
-		req.Header[headerContentType] = headerContentTypeJSON
-	}
-
 	if len(r.Header) > 0 {
 		if len(req.Header) == 0 {
 			req.Header = r.Header
@@ -189,6 +190,10 @@ func (r TextStructureFindStructureRequest) Do(ctx context.Context, transport Tra
 				}
 			}
 		}
+	}
+
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
+		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if ctx != nil {
@@ -234,6 +239,13 @@ func (f TextStructureFindStructure) WithColumnNames(v ...string) func(*TextStruc
 func (f TextStructureFindStructure) WithDelimiter(v string) func(*TextStructureFindStructureRequest) {
 	return func(r *TextStructureFindStructureRequest) {
 		r.Delimiter = v
+	}
+}
+
+// WithEcsCompatibility - optional parameter to specify the compatibility mode with ecs grok patterns - may be either 'v1' or 'disabled'.
+func (f TextStructureFindStructure) WithEcsCompatibility(v string) func(*TextStructureFindStructureRequest) {
+	return func(r *TextStructureFindStructureRequest) {
+		r.EcsCompatibility = v
 	}
 }
 

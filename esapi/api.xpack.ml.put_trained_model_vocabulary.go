@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.5.0: DO NOT EDIT
+// Code generated from specification version 8.6.0: DO NOT EDIT
 
 package esapi
 
@@ -40,7 +40,7 @@ func newMLPutTrainedModelVocabularyFunc(t Transport) MLPutTrainedModelVocabulary
 
 // MLPutTrainedModelVocabulary - Creates a trained model vocabulary
 //
-// This API is experimental.
+// This API is beta.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/put-trained-model-vocabulary.html.
 type MLPutTrainedModelVocabulary func(body io.Reader, model_id string, o ...func(*MLPutTrainedModelVocabularyRequest)) (*Response, error)
@@ -113,10 +113,6 @@ func (r MLPutTrainedModelVocabularyRequest) Do(ctx context.Context, transport Tr
 		req.URL.RawQuery = q.Encode()
 	}
 
-	if r.Body != nil {
-		req.Header[headerContentType] = headerContentTypeJSON
-	}
-
 	if len(r.Header) > 0 {
 		if len(req.Header) == 0 {
 			req.Header = r.Header
@@ -127,6 +123,10 @@ func (r MLPutTrainedModelVocabularyRequest) Do(ctx context.Context, transport Tr
 				}
 			}
 		}
+	}
+
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
+		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if ctx != nil {

@@ -15,13 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.5.0: DO NOT EDIT
+// Code generated from specification version 8.6.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -45,6 +46,8 @@ type SecurityGetUser func(o ...func(*SecurityGetUserRequest)) (*Response, error)
 // SecurityGetUserRequest configures the Security Get User API request.
 type SecurityGetUserRequest struct {
 	Username []string
+
+	WithProfileUid *bool
 
 	Pretty     bool
 	Human      bool
@@ -78,6 +81,10 @@ func (r SecurityGetUserRequest) Do(ctx context.Context, transport Transport) (*R
 	}
 
 	params = make(map[string]string)
+
+	if r.WithProfileUid != nil {
+		params["with_profile_uid"] = strconv.FormatBool(*r.WithProfileUid)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -149,6 +156,13 @@ func (f SecurityGetUser) WithContext(v context.Context) func(*SecurityGetUserReq
 func (f SecurityGetUser) WithUsername(v ...string) func(*SecurityGetUserRequest) {
 	return func(r *SecurityGetUserRequest) {
 		r.Username = v
+	}
+}
+
+// WithWithProfileUid - flag to retrieve profile uid (if exists) associated to the user.
+func (f SecurityGetUser) WithWithProfileUid(v bool) func(*SecurityGetUserRequest) {
+	return func(r *SecurityGetUserRequest) {
+		r.WithProfileUid = &v
 	}
 }
 

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.5.0: DO NOT EDIT
+// Code generated from specification version 8.6.0: DO NOT EDIT
 
 package esapi
 
@@ -39,8 +39,6 @@ func newSecuritySuggestUserProfilesFunc(t Transport) SecuritySuggestUserProfiles
 // ----- API Definition -------------------------------------------------------
 
 // SecuritySuggestUserProfiles - Get suggestions for user profiles that match specified search criteria.
-//
-// This API is experimental.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/security-api-suggest-user-profile.html.
 type SecuritySuggestUserProfiles func(o ...func(*SecuritySuggestUserProfilesRequest)) (*Response, error)
@@ -110,10 +108,6 @@ func (r SecuritySuggestUserProfilesRequest) Do(ctx context.Context, transport Tr
 		req.URL.RawQuery = q.Encode()
 	}
 
-	if r.Body != nil {
-		req.Header[headerContentType] = headerContentTypeJSON
-	}
-
 	if len(r.Header) > 0 {
 		if len(req.Header) == 0 {
 			req.Header = r.Header
@@ -124,6 +118,10 @@ func (r SecuritySuggestUserProfilesRequest) Do(ctx context.Context, transport Tr
 				}
 			}
 		}
+	}
+
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
+		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if ctx != nil {

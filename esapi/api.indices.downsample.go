@@ -21,13 +21,14 @@ package esapi
 
 import (
 	"context"
+	"io"
 	"net/http"
 	"strings"
 )
 
-func newSearchableSnapshotsStatsFunc(t Transport) SearchableSnapshotsStats {
-	return func(o ...func(*SearchableSnapshotsStatsRequest)) (*Response, error) {
-		var r = SearchableSnapshotsStatsRequest{}
+func newIndicesDownsampleFunc(t Transport) IndicesDownsample {
+	return func(index string, body io.Reader, target_index string, o ...func(*IndicesDownsampleRequest)) (*Response, error) {
+		var r = IndicesDownsampleRequest{Index: index, Body: body, TargetIndex: target_index}
 		for _, f := range o {
 			f(&r)
 		}
@@ -37,16 +38,20 @@ func newSearchableSnapshotsStatsFunc(t Transport) SearchableSnapshotsStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// SearchableSnapshotsStats - Retrieve shard-level statistics about searchable snapshots.
+// IndicesDownsample downsample an index
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/searchable-snapshots-apis.html.
-type SearchableSnapshotsStats func(o ...func(*SearchableSnapshotsStatsRequest)) (*Response, error)
+// This API is experimental.
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/xpack-rollup.html.
+type IndicesDownsample func(index string, body io.Reader, target_index string, o ...func(*IndicesDownsampleRequest)) (*Response, error)
 
-// SearchableSnapshotsStatsRequest configures the Searchable Snapshots Stats API request.
-type SearchableSnapshotsStatsRequest struct {
-	Index []string
+// IndicesDownsampleRequest configures the Indices Downsample API request.
+type IndicesDownsampleRequest struct {
+	Index string
 
-	Level string
+	Body io.Reader
+
+	TargetIndex string
 
 	Pretty     bool
 	Human      bool
@@ -59,31 +64,25 @@ type SearchableSnapshotsStatsRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r SearchableSnapshotsStatsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r IndicesDownsampleRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
-	path.Grow(7 + 1 + len(strings.Join(r.Index, ",")) + 1 + len("_searchable_snapshots") + 1 + len("stats"))
+	path.Grow(7 + 1 + len(r.Index) + 1 + len("_downsample") + 1 + len(r.TargetIndex))
 	path.WriteString("http://")
-	if len(r.Index) > 0 {
-		path.WriteString("/")
-		path.WriteString(strings.Join(r.Index, ","))
-	}
 	path.WriteString("/")
-	path.WriteString("_searchable_snapshots")
+	path.WriteString(r.Index)
 	path.WriteString("/")
-	path.WriteString("stats")
+	path.WriteString("_downsample")
+	path.WriteString("/")
+	path.WriteString(r.TargetIndex)
 
 	params = make(map[string]string)
-
-	if r.Level != "" {
-		params["level"] = r.Level
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -101,7 +100,7 @@ func (r SearchableSnapshotsStatsRequest) Do(ctx context.Context, transport Trans
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -126,6 +125,10 @@ func (r SearchableSnapshotsStatsRequest) Do(ctx context.Context, transport Trans
 		}
 	}
 
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
+		req.Header[headerContentType] = headerContentTypeJSON
+	}
+
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
@@ -145,57 +148,43 @@ func (r SearchableSnapshotsStatsRequest) Do(ctx context.Context, transport Trans
 }
 
 // WithContext sets the request context.
-func (f SearchableSnapshotsStats) WithContext(v context.Context) func(*SearchableSnapshotsStatsRequest) {
-	return func(r *SearchableSnapshotsStatsRequest) {
+func (f IndicesDownsample) WithContext(v context.Context) func(*IndicesDownsampleRequest) {
+	return func(r *IndicesDownsampleRequest) {
 		r.ctx = v
 	}
 }
 
-// WithIndex - a list of index names.
-func (f SearchableSnapshotsStats) WithIndex(v ...string) func(*SearchableSnapshotsStatsRequest) {
-	return func(r *SearchableSnapshotsStatsRequest) {
-		r.Index = v
-	}
-}
-
-// WithLevel - return stats aggregated at cluster, index or shard level.
-func (f SearchableSnapshotsStats) WithLevel(v string) func(*SearchableSnapshotsStatsRequest) {
-	return func(r *SearchableSnapshotsStatsRequest) {
-		r.Level = v
-	}
-}
-
 // WithPretty makes the response body pretty-printed.
-func (f SearchableSnapshotsStats) WithPretty() func(*SearchableSnapshotsStatsRequest) {
-	return func(r *SearchableSnapshotsStatsRequest) {
+func (f IndicesDownsample) WithPretty() func(*IndicesDownsampleRequest) {
+	return func(r *IndicesDownsampleRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f SearchableSnapshotsStats) WithHuman() func(*SearchableSnapshotsStatsRequest) {
-	return func(r *SearchableSnapshotsStatsRequest) {
+func (f IndicesDownsample) WithHuman() func(*IndicesDownsampleRequest) {
+	return func(r *IndicesDownsampleRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f SearchableSnapshotsStats) WithErrorTrace() func(*SearchableSnapshotsStatsRequest) {
-	return func(r *SearchableSnapshotsStatsRequest) {
+func (f IndicesDownsample) WithErrorTrace() func(*IndicesDownsampleRequest) {
+	return func(r *IndicesDownsampleRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f SearchableSnapshotsStats) WithFilterPath(v ...string) func(*SearchableSnapshotsStatsRequest) {
-	return func(r *SearchableSnapshotsStatsRequest) {
+func (f IndicesDownsample) WithFilterPath(v ...string) func(*IndicesDownsampleRequest) {
+	return func(r *IndicesDownsampleRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f SearchableSnapshotsStats) WithHeader(h map[string]string) func(*SearchableSnapshotsStatsRequest) {
-	return func(r *SearchableSnapshotsStatsRequest) {
+func (f IndicesDownsample) WithHeader(h map[string]string) func(*IndicesDownsampleRequest) {
+	return func(r *IndicesDownsampleRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -206,8 +195,8 @@ func (f SearchableSnapshotsStats) WithHeader(h map[string]string) func(*Searchab
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f SearchableSnapshotsStats) WithOpaqueID(s string) func(*SearchableSnapshotsStatsRequest) {
-	return func(r *SearchableSnapshotsStatsRequest) {
+func (f IndicesDownsample) WithOpaqueID(s string) func(*IndicesDownsampleRequest) {
+	return func(r *IndicesDownsampleRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

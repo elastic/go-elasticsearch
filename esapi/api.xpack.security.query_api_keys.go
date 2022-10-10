@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.5.0: DO NOT EDIT
+// Code generated from specification version 8.6.0: DO NOT EDIT
 
 package esapi
 
@@ -23,6 +23,7 @@ import (
 	"context"
 	"io"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -46,6 +47,8 @@ type SecurityQueryAPIKeys func(o ...func(*SecurityQueryAPIKeysRequest)) (*Respon
 // SecurityQueryAPIKeysRequest configures the Security QueryAPI Keys API request.
 type SecurityQueryAPIKeysRequest struct {
 	Body io.Reader
+
+	WithLimitedBy *bool
 
 	Pretty     bool
 	Human      bool
@@ -72,6 +75,10 @@ func (r SecurityQueryAPIKeysRequest) Do(ctx context.Context, transport Transport
 	path.WriteString("/_security/_query/api_key")
 
 	params = make(map[string]string)
+
+	if r.WithLimitedBy != nil {
+		params["with_limited_by"] = strconv.FormatBool(*r.WithLimitedBy)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -102,10 +109,6 @@ func (r SecurityQueryAPIKeysRequest) Do(ctx context.Context, transport Transport
 		req.URL.RawQuery = q.Encode()
 	}
 
-	if r.Body != nil {
-		req.Header[headerContentType] = headerContentTypeJSON
-	}
-
 	if len(r.Header) > 0 {
 		if len(req.Header) == 0 {
 			req.Header = r.Header
@@ -116,6 +119,10 @@ func (r SecurityQueryAPIKeysRequest) Do(ctx context.Context, transport Transport
 				}
 			}
 		}
+	}
+
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
+		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if ctx != nil {
@@ -147,6 +154,13 @@ func (f SecurityQueryAPIKeys) WithContext(v context.Context) func(*SecurityQuery
 func (f SecurityQueryAPIKeys) WithBody(v io.Reader) func(*SecurityQueryAPIKeysRequest) {
 	return func(r *SecurityQueryAPIKeysRequest) {
 		r.Body = v
+	}
+}
+
+// WithWithLimitedBy - flag to show the limited-by role descriptors of api keys.
+func (f SecurityQueryAPIKeys) WithWithLimitedBy(v bool) func(*SecurityQueryAPIKeysRequest) {
+	return func(r *SecurityQueryAPIKeysRequest) {
+		r.WithLimitedBy = &v
 	}
 }
 

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.5.0: DO NOT EDIT
+// Code generated from specification version 8.6.0: DO NOT EDIT
 
 package esapi
 
@@ -39,8 +39,6 @@ func newSecurityHasPrivilegesUserProfileFunc(t Transport) SecurityHasPrivilegesU
 // ----- API Definition -------------------------------------------------------
 
 // SecurityHasPrivilegesUserProfile - Determines whether the users associated with the specified profile IDs have all the requested privileges.
-//
-// This API is experimental.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-has-privileges-user-profile.html.
 type SecurityHasPrivilegesUserProfile func(body io.Reader, o ...func(*SecurityHasPrivilegesUserProfileRequest)) (*Response, error)
@@ -104,10 +102,6 @@ func (r SecurityHasPrivilegesUserProfileRequest) Do(ctx context.Context, transpo
 		req.URL.RawQuery = q.Encode()
 	}
 
-	if r.Body != nil {
-		req.Header[headerContentType] = headerContentTypeJSON
-	}
-
 	if len(r.Header) > 0 {
 		if len(req.Header) == 0 {
 			req.Header = r.Header
@@ -118,6 +112,10 @@ func (r SecurityHasPrivilegesUserProfileRequest) Do(ctx context.Context, transpo
 				}
 			}
 		}
+	}
+
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
+		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if ctx != nil {

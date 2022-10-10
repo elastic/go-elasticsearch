@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.5.0: DO NOT EDIT
+// Code generated from specification version 8.6.0: DO NOT EDIT
 
 package esapi
 
@@ -45,11 +45,12 @@ type SecurityGetAPIKey func(o ...func(*SecurityGetAPIKeyRequest)) (*Response, er
 
 // SecurityGetAPIKeyRequest configures the Security GetAPI Key API request.
 type SecurityGetAPIKeyRequest struct {
-	ID        string
-	Name      string
-	Owner     *bool
-	RealmName string
-	Username  string
+	ID            string
+	Name          string
+	Owner         *bool
+	RealmName     string
+	Username      string
+	WithLimitedBy *bool
 
 	Pretty     bool
 	Human      bool
@@ -95,6 +96,10 @@ func (r SecurityGetAPIKeyRequest) Do(ctx context.Context, transport Transport) (
 
 	if r.Username != "" {
 		params["username"] = r.Username
+	}
+
+	if r.WithLimitedBy != nil {
+		params["with_limited_by"] = strconv.FormatBool(*r.WithLimitedBy)
 	}
 
 	if r.Pretty {
@@ -195,6 +200,13 @@ func (f SecurityGetAPIKey) WithRealmName(v string) func(*SecurityGetAPIKeyReques
 func (f SecurityGetAPIKey) WithUsername(v string) func(*SecurityGetAPIKeyRequest) {
 	return func(r *SecurityGetAPIKeyRequest) {
 		r.Username = v
+	}
+}
+
+// WithWithLimitedBy - flag to show the limited-by role descriptors of api keys.
+func (f SecurityGetAPIKey) WithWithLimitedBy(v bool) func(*SecurityGetAPIKeyRequest) {
+	return func(r *SecurityGetAPIKeyRequest) {
+		r.WithLimitedBy = &v
 	}
 }
 
