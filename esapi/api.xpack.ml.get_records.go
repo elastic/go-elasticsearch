@@ -156,7 +156,7 @@ func (r MLGetRecordsRequest) Do(ctx context.Context, transport Transport) (*Resp
 		req.URL.RawQuery = q.Encode()
 	}
 
-	if r.Body != nil && req.Header.Get(headerContentType) == "" {
+	if r.Body != nil {
 		req.Header[headerContentType] = headerContentTypeJSON
 	}
 

@@ -111,7 +111,7 @@ func (r MLPutDataFrameAnalyticsRequest) Do(ctx context.Context, transport Transp
 		req.URL.RawQuery = q.Encode()
 	}
 
-	if r.Body != nil && req.Header.Get(headerContentType) == "" {
+	if r.Body != nil {
 		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
