@@ -40,8 +40,6 @@ func newSecurityActivateUserProfileFunc(t Transport) SecurityActivateUserProfile
 
 // SecurityActivateUserProfile - Creates or updates the user profile on behalf of another user.
 //
-// This API is experimental.
-//
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-activate-user-profile.html.
 type SecurityActivateUserProfile func(body io.Reader, o ...func(*SecurityActivateUserProfileRequest)) (*Response, error)
 
@@ -104,10 +102,6 @@ func (r SecurityActivateUserProfileRequest) Do(ctx context.Context, transport Tr
 		req.URL.RawQuery = q.Encode()
 	}
 
-	if r.Body != nil {
-		req.Header[headerContentType] = headerContentTypeJSON
-	}
-
 	if len(r.Header) > 0 {
 		if len(req.Header) == 0 {
 			req.Header = r.Header
@@ -118,6 +112,10 @@ func (r SecurityActivateUserProfileRequest) Do(ctx context.Context, transport Tr
 				}
 			}
 		}
+	}
+
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
+		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if ctx != nil {

@@ -26,9 +26,9 @@ import (
 	"strings"
 )
 
-func newRollupRollupFunc(t Transport) RollupRollup {
-	return func(index string, body io.Reader, rollup_index string, o ...func(*RollupRollupRequest)) (*Response, error) {
-		var r = RollupRollupRequest{Index: index, Body: body, RollupIndex: rollup_index}
+func newIndicesDownsampleFunc(t Transport) IndicesDownsample {
+	return func(index string, body io.Reader, target_index string, o ...func(*IndicesDownsampleRequest)) (*Response, error) {
+		var r = IndicesDownsampleRequest{Index: index, Body: body, TargetIndex: target_index}
 		for _, f := range o {
 			f(&r)
 		}
@@ -38,20 +38,20 @@ func newRollupRollupFunc(t Transport) RollupRollup {
 
 // ----- API Definition -------------------------------------------------------
 
-// RollupRollup - Rollup an index
+// IndicesDownsample downsample an index
 //
 // This API is experimental.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/xpack-rollup.html.
-type RollupRollup func(index string, body io.Reader, rollup_index string, o ...func(*RollupRollupRequest)) (*Response, error)
+type IndicesDownsample func(index string, body io.Reader, target_index string, o ...func(*IndicesDownsampleRequest)) (*Response, error)
 
-// RollupRollupRequest configures the Rollup Rollup API request.
-type RollupRollupRequest struct {
+// IndicesDownsampleRequest configures the Indices Downsample API request.
+type IndicesDownsampleRequest struct {
 	Index string
 
 	Body io.Reader
 
-	RollupIndex string
+	TargetIndex string
 
 	Pretty     bool
 	Human      bool
@@ -64,7 +64,7 @@ type RollupRollupRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r RollupRollupRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r IndicesDownsampleRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -73,14 +73,14 @@ func (r RollupRollupRequest) Do(ctx context.Context, transport Transport) (*Resp
 
 	method = "POST"
 
-	path.Grow(7 + 1 + len(r.Index) + 1 + len("_rollup") + 1 + len(r.RollupIndex))
+	path.Grow(7 + 1 + len(r.Index) + 1 + len("_downsample") + 1 + len(r.TargetIndex))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString(r.Index)
 	path.WriteString("/")
-	path.WriteString("_rollup")
+	path.WriteString("_downsample")
 	path.WriteString("/")
-	path.WriteString(r.RollupIndex)
+	path.WriteString(r.TargetIndex)
 
 	params = make(map[string]string)
 
@@ -113,10 +113,6 @@ func (r RollupRollupRequest) Do(ctx context.Context, transport Transport) (*Resp
 		req.URL.RawQuery = q.Encode()
 	}
 
-	if r.Body != nil {
-		req.Header[headerContentType] = headerContentTypeJSON
-	}
-
 	if len(r.Header) > 0 {
 		if len(req.Header) == 0 {
 			req.Header = r.Header
@@ -127,6 +123,10 @@ func (r RollupRollupRequest) Do(ctx context.Context, transport Transport) (*Resp
 				}
 			}
 		}
+	}
+
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
+		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if ctx != nil {
@@ -148,43 +148,43 @@ func (r RollupRollupRequest) Do(ctx context.Context, transport Transport) (*Resp
 }
 
 // WithContext sets the request context.
-func (f RollupRollup) WithContext(v context.Context) func(*RollupRollupRequest) {
-	return func(r *RollupRollupRequest) {
+func (f IndicesDownsample) WithContext(v context.Context) func(*IndicesDownsampleRequest) {
+	return func(r *IndicesDownsampleRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f RollupRollup) WithPretty() func(*RollupRollupRequest) {
-	return func(r *RollupRollupRequest) {
+func (f IndicesDownsample) WithPretty() func(*IndicesDownsampleRequest) {
+	return func(r *IndicesDownsampleRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f RollupRollup) WithHuman() func(*RollupRollupRequest) {
-	return func(r *RollupRollupRequest) {
+func (f IndicesDownsample) WithHuman() func(*IndicesDownsampleRequest) {
+	return func(r *IndicesDownsampleRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f RollupRollup) WithErrorTrace() func(*RollupRollupRequest) {
-	return func(r *RollupRollupRequest) {
+func (f IndicesDownsample) WithErrorTrace() func(*IndicesDownsampleRequest) {
+	return func(r *IndicesDownsampleRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f RollupRollup) WithFilterPath(v ...string) func(*RollupRollupRequest) {
-	return func(r *RollupRollupRequest) {
+func (f IndicesDownsample) WithFilterPath(v ...string) func(*IndicesDownsampleRequest) {
+	return func(r *IndicesDownsampleRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f RollupRollup) WithHeader(h map[string]string) func(*RollupRollupRequest) {
-	return func(r *RollupRollupRequest) {
+func (f IndicesDownsample) WithHeader(h map[string]string) func(*IndicesDownsampleRequest) {
+	return func(r *IndicesDownsampleRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -195,8 +195,8 @@ func (f RollupRollup) WithHeader(h map[string]string) func(*RollupRollupRequest)
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f RollupRollup) WithOpaqueID(s string) func(*RollupRollupRequest) {
-	return func(r *RollupRollupRequest) {
+func (f IndicesDownsample) WithOpaqueID(s string) func(*IndicesDownsampleRequest) {
+	return func(r *IndicesDownsampleRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

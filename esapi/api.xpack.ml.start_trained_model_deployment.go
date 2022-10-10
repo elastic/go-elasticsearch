@@ -41,7 +41,7 @@ func newMLStartTrainedModelDeploymentFunc(t Transport) MLStartTrainedModelDeploy
 
 // MLStartTrainedModelDeployment - Start a trained model deployment.
 //
-// This API is experimental.
+// This API is beta.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/start-trained-model-deployment.html.
 type MLStartTrainedModelDeployment func(model_id string, o ...func(*MLStartTrainedModelDeploymentRequest)) (*Response, error)
@@ -189,7 +189,7 @@ func (f MLStartTrainedModelDeployment) WithCacheSize(v string) func(*MLStartTrai
 	}
 }
 
-// WithNumberOfAllocations - the number of model allocations on each node where the model is deployed..
+// WithNumberOfAllocations - the total number of allocations this model is assigned across machine learning nodes..
 func (f MLStartTrainedModelDeployment) WithNumberOfAllocations(v int) func(*MLStartTrainedModelDeploymentRequest) {
 	return func(r *MLStartTrainedModelDeploymentRequest) {
 		r.NumberOfAllocations = &v

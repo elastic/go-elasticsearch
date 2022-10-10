@@ -21,14 +21,13 @@ package esapi
 
 import (
 	"context"
-	"io"
 	"net/http"
 	"strings"
 )
 
-func newRollupPutJobFunc(t Transport) RollupPutJob {
-	return func(id string, body io.Reader, o ...func(*RollupPutJobRequest)) (*Response, error) {
-		var r = RollupPutJobRequest{JobID: id, Body: body}
+func newMLClearTrainedModelDeploymentCacheFunc(t Transport) MLClearTrainedModelDeploymentCache {
+	return func(model_id string, o ...func(*MLClearTrainedModelDeploymentCacheRequest)) (*Response, error) {
+		var r = MLClearTrainedModelDeploymentCacheRequest{ModelID: model_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -38,18 +37,16 @@ func newRollupPutJobFunc(t Transport) RollupPutJob {
 
 // ----- API Definition -------------------------------------------------------
 
-// RollupPutJob - Creates a rollup job.
+// MLClearTrainedModelDeploymentCache - Clear the cached results from a trained model deployment
 //
-// This API is experimental.
+// This API is beta.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-put-job.html.
-type RollupPutJob func(id string, body io.Reader, o ...func(*RollupPutJobRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/clear-trained-model-deployment-cache.html.
+type MLClearTrainedModelDeploymentCache func(model_id string, o ...func(*MLClearTrainedModelDeploymentCacheRequest)) (*Response, error)
 
-// RollupPutJobRequest configures the Rollup Put Job API request.
-type RollupPutJobRequest struct {
-	JobID string
-
-	Body io.Reader
+// MLClearTrainedModelDeploymentCacheRequest configures the ML Clear Trained Model Deployment Cache API request.
+type MLClearTrainedModelDeploymentCacheRequest struct {
+	ModelID string
 
 	Pretty     bool
 	Human      bool
@@ -62,23 +59,29 @@ type RollupPutJobRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r RollupPutJobRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r MLClearTrainedModelDeploymentCacheRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "PUT"
+	method = "POST"
 
-	path.Grow(7 + 1 + len("_rollup") + 1 + len("job") + 1 + len(r.JobID))
+	path.Grow(7 + 1 + len("_ml") + 1 + len("trained_models") + 1 + len(r.ModelID) + 1 + len("deployment") + 1 + len("cache") + 1 + len("_clear"))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString("_rollup")
+	path.WriteString("_ml")
 	path.WriteString("/")
-	path.WriteString("job")
+	path.WriteString("trained_models")
 	path.WriteString("/")
-	path.WriteString(r.JobID)
+	path.WriteString(r.ModelID)
+	path.WriteString("/")
+	path.WriteString("deployment")
+	path.WriteString("/")
+	path.WriteString("cache")
+	path.WriteString("/")
+	path.WriteString("_clear")
 
 	params = make(map[string]string)
 
@@ -98,7 +101,7 @@ func (r RollupPutJobRequest) Do(ctx context.Context, transport Transport) (*Resp
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -123,10 +126,6 @@ func (r RollupPutJobRequest) Do(ctx context.Context, transport Transport) (*Resp
 		}
 	}
 
-	if r.Body != nil && req.Header.Get(headerContentType) == "" {
-		req.Header[headerContentType] = headerContentTypeJSON
-	}
-
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
@@ -146,43 +145,43 @@ func (r RollupPutJobRequest) Do(ctx context.Context, transport Transport) (*Resp
 }
 
 // WithContext sets the request context.
-func (f RollupPutJob) WithContext(v context.Context) func(*RollupPutJobRequest) {
-	return func(r *RollupPutJobRequest) {
+func (f MLClearTrainedModelDeploymentCache) WithContext(v context.Context) func(*MLClearTrainedModelDeploymentCacheRequest) {
+	return func(r *MLClearTrainedModelDeploymentCacheRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f RollupPutJob) WithPretty() func(*RollupPutJobRequest) {
-	return func(r *RollupPutJobRequest) {
+func (f MLClearTrainedModelDeploymentCache) WithPretty() func(*MLClearTrainedModelDeploymentCacheRequest) {
+	return func(r *MLClearTrainedModelDeploymentCacheRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f RollupPutJob) WithHuman() func(*RollupPutJobRequest) {
-	return func(r *RollupPutJobRequest) {
+func (f MLClearTrainedModelDeploymentCache) WithHuman() func(*MLClearTrainedModelDeploymentCacheRequest) {
+	return func(r *MLClearTrainedModelDeploymentCacheRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f RollupPutJob) WithErrorTrace() func(*RollupPutJobRequest) {
-	return func(r *RollupPutJobRequest) {
+func (f MLClearTrainedModelDeploymentCache) WithErrorTrace() func(*MLClearTrainedModelDeploymentCacheRequest) {
+	return func(r *MLClearTrainedModelDeploymentCacheRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f RollupPutJob) WithFilterPath(v ...string) func(*RollupPutJobRequest) {
-	return func(r *RollupPutJobRequest) {
+func (f MLClearTrainedModelDeploymentCache) WithFilterPath(v ...string) func(*MLClearTrainedModelDeploymentCacheRequest) {
+	return func(r *MLClearTrainedModelDeploymentCacheRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f RollupPutJob) WithHeader(h map[string]string) func(*RollupPutJobRequest) {
-	return func(r *RollupPutJobRequest) {
+func (f MLClearTrainedModelDeploymentCache) WithHeader(h map[string]string) func(*MLClearTrainedModelDeploymentCacheRequest) {
+	return func(r *MLClearTrainedModelDeploymentCacheRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -193,8 +192,8 @@ func (f RollupPutJob) WithHeader(h map[string]string) func(*RollupPutJobRequest)
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f RollupPutJob) WithOpaqueID(s string) func(*RollupPutJobRequest) {
-	return func(r *RollupPutJobRequest) {
+func (f MLClearTrainedModelDeploymentCache) WithOpaqueID(s string) func(*MLClearTrainedModelDeploymentCacheRequest) {
+	return func(r *MLClearTrainedModelDeploymentCacheRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

@@ -42,7 +42,7 @@ func newMLPutTrainedModelDefinitionPartFunc(t Transport) MLPutTrainedModelDefini
 
 // MLPutTrainedModelDefinitionPart - Creates part of a trained model definition
 //
-// This API is experimental.
+// This API is beta.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/put-trained-model-definition-part.html.
 type MLPutTrainedModelDefinitionPart func(body io.Reader, model_id string, part *int, o ...func(*MLPutTrainedModelDefinitionPartRequest)) (*Response, error)
@@ -122,10 +122,6 @@ func (r MLPutTrainedModelDefinitionPartRequest) Do(ctx context.Context, transpor
 		req.URL.RawQuery = q.Encode()
 	}
 
-	if r.Body != nil {
-		req.Header[headerContentType] = headerContentTypeJSON
-	}
-
 	if len(r.Header) > 0 {
 		if len(req.Header) == 0 {
 			req.Header = r.Header
@@ -136,6 +132,10 @@ func (r MLPutTrainedModelDefinitionPartRequest) Do(ctx context.Context, transpor
 				}
 			}
 		}
+	}
+
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
+		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
 	if ctx != nil {
