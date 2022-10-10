@@ -181,7 +181,7 @@ func (r CountRequest) Do(ctx context.Context, transport Transport) (*Response, e
 		req.URL.RawQuery = q.Encode()
 	}
 
-	if r.Body != nil && req.Header.Get(headerContentType) == "" {
+	if r.Body != nil {
 		req.Header[headerContentType] = headerContentTypeJSON
 	}
 
