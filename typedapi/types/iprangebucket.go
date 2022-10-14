@@ -17,22 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // IpRangeBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/aggregations/Aggregate.ts#L540-L543
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L544-L548
 type IpRangeBucket struct {
 	Aggregations map[AggregateName]Aggregate `json:"-"`
 	DocCount     int64                       `json:"doc_count"`
 	From         *string                     `json:"from,omitempty"`
+	Key          *string                     `json:"key,omitempty"`
 	To           *string                     `json:"to,omitempty"`
 }
 
@@ -53,7 +55,7 @@ func (s IpRangeBucket) MarshalJSON() ([]byte, error) {
 
 	// We inline the additional fields from the underlying map
 	for key, value := range s.Aggregations {
-		tmp[string(key)] = value
+		tmp[fmt.Sprintf("%s", key)] = value
 	}
 
 	data, err = json.Marshal(tmp)
@@ -101,6 +103,11 @@ func (rb *IpRangeBucketBuilder) DocCount(doccount int64) *IpRangeBucketBuilder {
 
 func (rb *IpRangeBucketBuilder) From(from string) *IpRangeBucketBuilder {
 	rb.v.From = &from
+	return rb
+}
+
+func (rb *IpRangeBucketBuilder) Key(key string) *IpRangeBucketBuilder {
+	rb.v.Key = &key
 	return rb
 }
 

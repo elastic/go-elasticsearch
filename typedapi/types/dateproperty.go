@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // DateProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/mapping/core.ts#L61-L71
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/mapping/core.ts#L61-L71
 type DateProperty struct {
 	Boost           *float64                       `json:"boost,omitempty"`
 	CopyTo          *Fields                        `json:"copy_to,omitempty"`
@@ -42,13 +42,14 @@ type DateProperty struct {
 	Index           *bool                          `json:"index,omitempty"`
 	LocalMetadata   *Metadata                      `json:"local_metadata,omitempty"`
 	Locale          *string                        `json:"locale,omitempty"`
-	Meta            map[string]string              `json:"meta,omitempty"`
-	NullValue       *DateTime                      `json:"null_value,omitempty"`
-	PrecisionStep   *int                           `json:"precision_step,omitempty"`
-	Properties      map[PropertyName]Property      `json:"properties,omitempty"`
-	Similarity      *string                        `json:"similarity,omitempty"`
-	Store           *bool                          `json:"store,omitempty"`
-	Type            string                         `json:"type,omitempty"`
+	// Meta Metadata about the field.
+	Meta          map[string]string         `json:"meta,omitempty"`
+	NullValue     *DateTime                 `json:"null_value,omitempty"`
+	PrecisionStep *int                      `json:"precision_step,omitempty"`
+	Properties    map[PropertyName]Property `json:"properties,omitempty"`
+	Similarity    *string                   `json:"similarity,omitempty"`
+	Store         *bool                     `json:"store,omitempty"`
+	Type          string                    `json:"type,omitempty"`
 }
 
 // DatePropertyBuilder holds DateProperty struct and provides a builder API.
@@ -142,6 +143,8 @@ func (rb *DatePropertyBuilder) Locale(locale string) *DatePropertyBuilder {
 	rb.v.Locale = &locale
 	return rb
 }
+
+// Meta Metadata about the field.
 
 func (rb *DatePropertyBuilder) Meta(value map[string]string) *DatePropertyBuilder {
 	rb.v.Meta = value

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package grantapikey
@@ -32,7 +32,7 @@ import (
 
 // Request holds the request body struct for the package grantapikey
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/security/grant_api_key/SecurityGrantApiKeyRequest.ts#L24-L37
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/security/grant_api_key/SecurityGrantApiKeyRequest.ts#L24-L38
 type Request struct {
 	AccessToken *string `json:"access_token,omitempty"`
 
@@ -41,6 +41,8 @@ type Request struct {
 	GrantType apikeygranttype.ApiKeyGrantType `json:"grant_type"`
 
 	Password *types.Password `json:"password,omitempty"`
+
+	RunAs *types.Username `json:"run_as,omitempty"`
 
 	Username *types.Username `json:"username,omitempty"`
 }
@@ -93,6 +95,11 @@ func (rb *RequestBuilder) GrantType(granttype apikeygranttype.ApiKeyGrantType) *
 
 func (rb *RequestBuilder) Password(password types.Password) *RequestBuilder {
 	rb.v.Password = &password
+	return rb
+}
+
+func (rb *RequestBuilder) RunAs(runas types.Username) *RequestBuilder {
+	rb.v.RunAs = &runas
 	return rb
 }
 

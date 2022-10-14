@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
@@ -28,16 +28,18 @@ import (
 
 // JoinProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/mapping/core.ts#L83-L86
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/mapping/core.ts#L83-L87
 type JoinProperty struct {
-	Dynamic       *dynamicmapping.DynamicMapping  `json:"dynamic,omitempty"`
-	Fields        map[PropertyName]Property       `json:"fields,omitempty"`
-	IgnoreAbove   *int                            `json:"ignore_above,omitempty"`
-	LocalMetadata *Metadata                       `json:"local_metadata,omitempty"`
-	Meta          map[string]string               `json:"meta,omitempty"`
-	Properties    map[PropertyName]Property       `json:"properties,omitempty"`
-	Relations     map[RelationName][]RelationName `json:"relations,omitempty"`
-	Type          string                          `json:"type,omitempty"`
+	Dynamic             *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
+	EagerGlobalOrdinals *bool                          `json:"eager_global_ordinals,omitempty"`
+	Fields              map[PropertyName]Property      `json:"fields,omitempty"`
+	IgnoreAbove         *int                           `json:"ignore_above,omitempty"`
+	LocalMetadata       *Metadata                      `json:"local_metadata,omitempty"`
+	// Meta Metadata about the field.
+	Meta       map[string]string               `json:"meta,omitempty"`
+	Properties map[PropertyName]Property       `json:"properties,omitempty"`
+	Relations  map[RelationName][]RelationName `json:"relations,omitempty"`
+	Type       string                          `json:"type,omitempty"`
 }
 
 // JoinPropertyBuilder holds JoinProperty struct and provides a builder API.
@@ -71,6 +73,11 @@ func (rb *JoinPropertyBuilder) Dynamic(dynamic dynamicmapping.DynamicMapping) *J
 	return rb
 }
 
+func (rb *JoinPropertyBuilder) EagerGlobalOrdinals(eagerglobalordinals bool) *JoinPropertyBuilder {
+	rb.v.EagerGlobalOrdinals = &eagerglobalordinals
+	return rb
+}
+
 func (rb *JoinPropertyBuilder) Fields(values map[PropertyName]*PropertyBuilder) *JoinPropertyBuilder {
 	tmp := make(map[PropertyName]Property, len(values))
 	for key, builder := range values {
@@ -90,6 +97,8 @@ func (rb *JoinPropertyBuilder) LocalMetadata(localmetadata *MetadataBuilder) *Jo
 	rb.v.LocalMetadata = &v
 	return rb
 }
+
+// Meta Metadata about the field.
 
 func (rb *JoinPropertyBuilder) Meta(value map[string]string) *JoinPropertyBuilder {
 	rb.v.Meta = value

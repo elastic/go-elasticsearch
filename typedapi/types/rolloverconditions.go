@@ -17,22 +17,27 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
 
 // RolloverConditions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/indices/rollover/types.ts#L24-L32
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/rollover/types.ts#L24-L37
 type RolloverConditions struct {
-	MaxAge                   *Duration                `json:"max_age,omitempty"`
-	MaxAgeMillis             *DurationValueUnitMillis `json:"max_age_millis,omitempty"`
-	MaxDocs                  *int64                   `json:"max_docs,omitempty"`
-	MaxPrimaryShardSize      *ByteSize                `json:"max_primary_shard_size,omitempty"`
-	MaxPrimaryShardSizeBytes *ByteSize                `json:"max_primary_shard_size_bytes,omitempty"`
-	MaxSize                  *string                  `json:"max_size,omitempty"`
-	MaxSizeBytes             *ByteSize                `json:"max_size_bytes,omitempty"`
+	MaxAge              *Duration                `json:"max_age,omitempty"`
+	MaxAgeMillis        *DurationValueUnitMillis `json:"max_age_millis,omitempty"`
+	MaxDocs             *int64                   `json:"max_docs,omitempty"`
+	MaxPrimaryShardDocs *int64                   `json:"max_primary_shard_docs,omitempty"`
+	MaxPrimaryShardSize *ByteSize                `json:"max_primary_shard_size,omitempty"`
+	MaxSize             *ByteSize                `json:"max_size,omitempty"`
+	MaxSizeBytes        *ByteSize                `json:"max_size_bytes,omitempty"`
+	MinAge              *Duration                `json:"min_age,omitempty"`
+	MinDocs             *int64                   `json:"min_docs,omitempty"`
+	MinPrimaryShardDocs *int64                   `json:"min_primary_shard_docs,omitempty"`
+	MinPrimaryShardSize *ByteSize                `json:"min_primary_shard_size,omitempty"`
+	MinSize             *ByteSize                `json:"min_size,omitempty"`
 }
 
 // RolloverConditionsBuilder holds RolloverConditions struct and provides a builder API.
@@ -71,25 +76,53 @@ func (rb *RolloverConditionsBuilder) MaxDocs(maxdocs int64) *RolloverConditionsB
 	return rb
 }
 
+func (rb *RolloverConditionsBuilder) MaxPrimaryShardDocs(maxprimarysharddocs int64) *RolloverConditionsBuilder {
+	rb.v.MaxPrimaryShardDocs = &maxprimarysharddocs
+	return rb
+}
+
 func (rb *RolloverConditionsBuilder) MaxPrimaryShardSize(maxprimaryshardsize *ByteSizeBuilder) *RolloverConditionsBuilder {
 	v := maxprimaryshardsize.Build()
 	rb.v.MaxPrimaryShardSize = &v
 	return rb
 }
 
-func (rb *RolloverConditionsBuilder) MaxPrimaryShardSizeBytes(maxprimaryshardsizebytes *ByteSizeBuilder) *RolloverConditionsBuilder {
-	v := maxprimaryshardsizebytes.Build()
-	rb.v.MaxPrimaryShardSizeBytes = &v
-	return rb
-}
-
-func (rb *RolloverConditionsBuilder) MaxSize(maxsize string) *RolloverConditionsBuilder {
-	rb.v.MaxSize = &maxsize
+func (rb *RolloverConditionsBuilder) MaxSize(maxsize *ByteSizeBuilder) *RolloverConditionsBuilder {
+	v := maxsize.Build()
+	rb.v.MaxSize = &v
 	return rb
 }
 
 func (rb *RolloverConditionsBuilder) MaxSizeBytes(maxsizebytes *ByteSizeBuilder) *RolloverConditionsBuilder {
 	v := maxsizebytes.Build()
 	rb.v.MaxSizeBytes = &v
+	return rb
+}
+
+func (rb *RolloverConditionsBuilder) MinAge(minage *DurationBuilder) *RolloverConditionsBuilder {
+	v := minage.Build()
+	rb.v.MinAge = &v
+	return rb
+}
+
+func (rb *RolloverConditionsBuilder) MinDocs(mindocs int64) *RolloverConditionsBuilder {
+	rb.v.MinDocs = &mindocs
+	return rb
+}
+
+func (rb *RolloverConditionsBuilder) MinPrimaryShardDocs(minprimarysharddocs int64) *RolloverConditionsBuilder {
+	rb.v.MinPrimaryShardDocs = &minprimarysharddocs
+	return rb
+}
+
+func (rb *RolloverConditionsBuilder) MinPrimaryShardSize(minprimaryshardsize *ByteSizeBuilder) *RolloverConditionsBuilder {
+	v := minprimaryshardsize.Build()
+	rb.v.MinPrimaryShardSize = &v
+	return rb
+}
+
+func (rb *RolloverConditionsBuilder) MinSize(minsize *ByteSizeBuilder) *RolloverConditionsBuilder {
+	v := minsize.Build()
+	rb.v.MinSize = &v
 	return rb
 }

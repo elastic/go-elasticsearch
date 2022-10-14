@@ -17,32 +17,43 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/onscripterror"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/timeseriesmetrictype"
 )
 
 // NumberPropertyBase type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/mapping/core.ts#L102-L106
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/mapping/core.ts#L106-L124
 type NumberPropertyBase struct {
-	CopyTo           *Fields                                    `json:"copy_to,omitempty"`
-	DocValues        *bool                                      `json:"doc_values,omitempty"`
-	Dynamic          *dynamicmapping.DynamicMapping             `json:"dynamic,omitempty"`
-	Fields           map[PropertyName]Property                  `json:"fields,omitempty"`
-	IgnoreAbove      *int                                       `json:"ignore_above,omitempty"`
-	IgnoreMalformed  *bool                                      `json:"ignore_malformed,omitempty"`
-	Index            *bool                                      `json:"index,omitempty"`
-	LocalMetadata    *Metadata                                  `json:"local_metadata,omitempty"`
-	Meta             map[string]string                          `json:"meta,omitempty"`
-	Properties       map[PropertyName]Property                  `json:"properties,omitempty"`
-	Similarity       *string                                    `json:"similarity,omitempty"`
-	Store            *bool                                      `json:"store,omitempty"`
+	Boost           *float64                       `json:"boost,omitempty"`
+	Coerce          *bool                          `json:"coerce,omitempty"`
+	CopyTo          *Fields                        `json:"copy_to,omitempty"`
+	DocValues       *bool                          `json:"doc_values,omitempty"`
+	Dynamic         *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
+	Fields          map[PropertyName]Property      `json:"fields,omitempty"`
+	IgnoreAbove     *int                           `json:"ignore_above,omitempty"`
+	IgnoreMalformed *bool                          `json:"ignore_malformed,omitempty"`
+	Index           *bool                          `json:"index,omitempty"`
+	LocalMetadata   *Metadata                      `json:"local_metadata,omitempty"`
+	// Meta Metadata about the field.
+	Meta          map[string]string            `json:"meta,omitempty"`
+	OnScriptError *onscripterror.OnScriptError `json:"on_script_error,omitempty"`
+	Properties    map[PropertyName]Property    `json:"properties,omitempty"`
+	Script        *Script                      `json:"script,omitempty"`
+	Similarity    *string                      `json:"similarity,omitempty"`
+	Store         *bool                        `json:"store,omitempty"`
+	// TimeSeriesDimension For internal use by Elastic only. Marks the field as a time series dimension.
+	// Defaults to false.
+	TimeSeriesDimension *bool `json:"time_series_dimension,omitempty"`
+	// TimeSeriesMetric For internal use by Elastic only. Marks the field as a time series dimension.
+	// Defaults to false.
 	TimeSeriesMetric *timeseriesmetrictype.TimeSeriesMetricType `json:"time_series_metric,omitempty"`
 }
 
@@ -67,6 +78,16 @@ func NewNumberPropertyBaseBuilder() *NumberPropertyBaseBuilder {
 // Build finalize the chain and returns the NumberPropertyBase struct
 func (rb *NumberPropertyBaseBuilder) Build() NumberPropertyBase {
 	return *rb.v
+}
+
+func (rb *NumberPropertyBaseBuilder) Boost(boost float64) *NumberPropertyBaseBuilder {
+	rb.v.Boost = &boost
+	return rb
+}
+
+func (rb *NumberPropertyBaseBuilder) Coerce(coerce bool) *NumberPropertyBaseBuilder {
+	rb.v.Coerce = &coerce
+	return rb
 }
 
 func (rb *NumberPropertyBaseBuilder) CopyTo(copyto *FieldsBuilder) *NumberPropertyBaseBuilder {
@@ -115,8 +136,15 @@ func (rb *NumberPropertyBaseBuilder) LocalMetadata(localmetadata *MetadataBuilde
 	return rb
 }
 
+// Meta Metadata about the field.
+
 func (rb *NumberPropertyBaseBuilder) Meta(value map[string]string) *NumberPropertyBaseBuilder {
 	rb.v.Meta = value
+	return rb
+}
+
+func (rb *NumberPropertyBaseBuilder) OnScriptError(onscripterror onscripterror.OnScriptError) *NumberPropertyBaseBuilder {
+	rb.v.OnScriptError = &onscripterror
 	return rb
 }
 
@@ -129,6 +157,12 @@ func (rb *NumberPropertyBaseBuilder) Properties(values map[PropertyName]*Propert
 	return rb
 }
 
+func (rb *NumberPropertyBaseBuilder) Script(script *ScriptBuilder) *NumberPropertyBaseBuilder {
+	v := script.Build()
+	rb.v.Script = &v
+	return rb
+}
+
 func (rb *NumberPropertyBaseBuilder) Similarity(similarity string) *NumberPropertyBaseBuilder {
 	rb.v.Similarity = &similarity
 	return rb
@@ -138,6 +172,17 @@ func (rb *NumberPropertyBaseBuilder) Store(store bool) *NumberPropertyBaseBuilde
 	rb.v.Store = &store
 	return rb
 }
+
+// TimeSeriesDimension For internal use by Elastic only. Marks the field as a time series dimension.
+// Defaults to false.
+
+func (rb *NumberPropertyBaseBuilder) TimeSeriesDimension(timeseriesdimension bool) *NumberPropertyBaseBuilder {
+	rb.v.TimeSeriesDimension = &timeseriesdimension
+	return rb
+}
+
+// TimeSeriesMetric For internal use by Elastic only. Marks the field as a time series dimension.
+// Defaults to false.
 
 func (rb *NumberPropertyBaseBuilder) TimeSeriesMetric(timeseriesmetric timeseriesmetrictype.TimeSeriesMetricType) *NumberPropertyBaseBuilder {
 	rb.v.TimeSeriesMetric = &timeseriesmetric

@@ -17,15 +17,16 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
 
 // MappingLimitSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/indices/_types/IndexSettings.ts#L402-L414
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/_types/IndexSettings.ts#L402-L415
 type MappingLimitSettings struct {
+	Coerce          *bool                                `json:"coerce,omitempty"`
 	Depth           *MappingLimitSettingsDepth           `json:"depth,omitempty"`
 	DimensionFields *MappingLimitSettingsDimensionFields `json:"dimension_fields,omitempty"`
 	FieldNameLength *MappingLimitSettingsFieldNameLength `json:"field_name_length,omitempty"`
@@ -52,6 +53,11 @@ func NewMappingLimitSettingsBuilder() *MappingLimitSettingsBuilder {
 // Build finalize the chain and returns the MappingLimitSettings struct
 func (rb *MappingLimitSettingsBuilder) Build() MappingLimitSettings {
 	return *rb.v
+}
+
+func (rb *MappingLimitSettingsBuilder) Coerce(coerce bool) *MappingLimitSettingsBuilder {
+	rb.v.Coerce = &coerce
+	return rb
 }
 
 func (rb *MappingLimitSettingsBuilder) Depth(depth *MappingLimitSettingsDepthBuilder) *MappingLimitSettingsBuilder {

@@ -17,16 +17,20 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
 
+import (
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/policytype"
+)
+
 // Summary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/enrich/_types/Policy.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/enrich/_types/Policy.ts#L23-L25
 type Summary struct {
-	Config Configuration `json:"config"`
+	Config map[policytype.PolicyType]Policy `json:"config"`
 }
 
 // SummaryBuilder holds Summary struct and provides a builder API.
@@ -37,7 +41,9 @@ type SummaryBuilder struct {
 // NewSummary provides a builder for the Summary struct.
 func NewSummaryBuilder() *SummaryBuilder {
 	r := SummaryBuilder{
-		&Summary{},
+		&Summary{
+			Config: make(map[policytype.PolicyType]Policy, 0),
+		},
 	}
 
 	return &r
@@ -48,8 +54,11 @@ func (rb *SummaryBuilder) Build() Summary {
 	return *rb.v
 }
 
-func (rb *SummaryBuilder) Config(config *ConfigurationBuilder) *SummaryBuilder {
-	v := config.Build()
-	rb.v.Config = v
+func (rb *SummaryBuilder) Config(values map[policytype.PolicyType]*PolicyBuilder) *SummaryBuilder {
+	tmp := make(map[policytype.PolicyType]Policy, len(values))
+	for key, builder := range values {
+		tmp[key] = builder.Build()
+	}
+	rb.v.Config = tmp
 	return rb
 }

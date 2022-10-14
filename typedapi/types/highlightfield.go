@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
@@ -32,8 +32,9 @@ import (
 
 // HighlightField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_global/search/_types/highlighting.ts#L87-L90
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_global/search/_types/highlighting.ts#L88-L92
 type HighlightField struct {
+	Analyzer              *Analyzer                                    `json:"analyzer,omitempty"`
 	BoundaryChars         *string                                      `json:"boundary_chars,omitempty"`
 	BoundaryMaxScan       *int                                         `json:"boundary_max_scan,omitempty"`
 	BoundaryScanner       *boundaryscanner.BoundaryScanner             `json:"boundary_scanner,omitempty"`
@@ -78,6 +79,12 @@ func NewHighlightFieldBuilder() *HighlightFieldBuilder {
 // Build finalize the chain and returns the HighlightField struct
 func (rb *HighlightFieldBuilder) Build() HighlightField {
 	return *rb.v
+}
+
+func (rb *HighlightFieldBuilder) Analyzer(analyzer *AnalyzerBuilder) *HighlightFieldBuilder {
+	v := analyzer.Build()
+	rb.v.Analyzer = &v
+	return rb
 }
 
 func (rb *HighlightFieldBuilder) BoundaryChars(boundarychars string) *HighlightFieldBuilder {

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
@@ -32,26 +32,27 @@ import (
 
 // DynamicProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/mapping/core.ts#L264-L295
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/mapping/core.ts#L275-L306
 type DynamicProperty struct {
-	Analyzer             *string                                    `json:"analyzer,omitempty"`
-	Boost                *float64                                   `json:"boost,omitempty"`
-	Coerce               *bool                                      `json:"coerce,omitempty"`
-	CopyTo               *Fields                                    `json:"copy_to,omitempty"`
-	DocValues            *bool                                      `json:"doc_values,omitempty"`
-	Dynamic              *dynamicmapping.DynamicMapping             `json:"dynamic,omitempty"`
-	EagerGlobalOrdinals  *bool                                      `json:"eager_global_ordinals,omitempty"`
-	Enabled              *bool                                      `json:"enabled,omitempty"`
-	Fields               map[PropertyName]Property                  `json:"fields,omitempty"`
-	Format               *string                                    `json:"format,omitempty"`
-	IgnoreAbove          *int                                       `json:"ignore_above,omitempty"`
-	IgnoreMalformed      *bool                                      `json:"ignore_malformed,omitempty"`
-	Index                *bool                                      `json:"index,omitempty"`
-	IndexOptions         *indexoptions.IndexOptions                 `json:"index_options,omitempty"`
-	IndexPhrases         *bool                                      `json:"index_phrases,omitempty"`
-	IndexPrefixes        *TextIndexPrefixes                         `json:"index_prefixes,omitempty"`
-	LocalMetadata        *Metadata                                  `json:"local_metadata,omitempty"`
-	Locale               *string                                    `json:"locale,omitempty"`
+	Analyzer            *string                        `json:"analyzer,omitempty"`
+	Boost               *float64                       `json:"boost,omitempty"`
+	Coerce              *bool                          `json:"coerce,omitempty"`
+	CopyTo              *Fields                        `json:"copy_to,omitempty"`
+	DocValues           *bool                          `json:"doc_values,omitempty"`
+	Dynamic             *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
+	EagerGlobalOrdinals *bool                          `json:"eager_global_ordinals,omitempty"`
+	Enabled             *bool                          `json:"enabled,omitempty"`
+	Fields              map[PropertyName]Property      `json:"fields,omitempty"`
+	Format              *string                        `json:"format,omitempty"`
+	IgnoreAbove         *int                           `json:"ignore_above,omitempty"`
+	IgnoreMalformed     *bool                          `json:"ignore_malformed,omitempty"`
+	Index               *bool                          `json:"index,omitempty"`
+	IndexOptions        *indexoptions.IndexOptions     `json:"index_options,omitempty"`
+	IndexPhrases        *bool                          `json:"index_phrases,omitempty"`
+	IndexPrefixes       *TextIndexPrefixes             `json:"index_prefixes,omitempty"`
+	LocalMetadata       *Metadata                      `json:"local_metadata,omitempty"`
+	Locale              *string                        `json:"locale,omitempty"`
+	// Meta Metadata about the field.
 	Meta                 map[string]string                          `json:"meta,omitempty"`
 	Norms                *bool                                      `json:"norms,omitempty"`
 	NullValue            *FieldValue                                `json:"null_value,omitempty"`
@@ -190,6 +191,8 @@ func (rb *DynamicPropertyBuilder) Locale(locale string) *DynamicPropertyBuilder 
 	rb.v.Locale = &locale
 	return rb
 }
+
+// Meta Metadata about the field.
 
 func (rb *DynamicPropertyBuilder) Meta(value map[string]string) *DynamicPropertyBuilder {
 	rb.v.Meta = value

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
@@ -29,7 +29,7 @@ import (
 
 // ShapeProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/mapping/geo.ts#L69-L81
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/mapping/geo.ts#L69-L81
 type ShapeProperty struct {
 	Coerce          *bool                          `json:"coerce,omitempty"`
 	CopyTo          *Fields                        `json:"copy_to,omitempty"`
@@ -40,12 +40,13 @@ type ShapeProperty struct {
 	IgnoreMalformed *bool                          `json:"ignore_malformed,omitempty"`
 	IgnoreZValue    *bool                          `json:"ignore_z_value,omitempty"`
 	LocalMetadata   *Metadata                      `json:"local_metadata,omitempty"`
-	Meta            map[string]string              `json:"meta,omitempty"`
-	Orientation     *geoorientation.GeoOrientation `json:"orientation,omitempty"`
-	Properties      map[PropertyName]Property      `json:"properties,omitempty"`
-	Similarity      *string                        `json:"similarity,omitempty"`
-	Store           *bool                          `json:"store,omitempty"`
-	Type            string                         `json:"type,omitempty"`
+	// Meta Metadata about the field.
+	Meta        map[string]string              `json:"meta,omitempty"`
+	Orientation *geoorientation.GeoOrientation `json:"orientation,omitempty"`
+	Properties  map[PropertyName]Property      `json:"properties,omitempty"`
+	Similarity  *string                        `json:"similarity,omitempty"`
+	Store       *bool                          `json:"store,omitempty"`
+	Type        string                         `json:"type,omitempty"`
 }
 
 // ShapePropertyBuilder holds ShapeProperty struct and provides a builder API.
@@ -123,6 +124,8 @@ func (rb *ShapePropertyBuilder) LocalMetadata(localmetadata *MetadataBuilder) *S
 	rb.v.LocalMetadata = &v
 	return rb
 }
+
+// Meta Metadata about the field.
 
 func (rb *ShapePropertyBuilder) Meta(value map[string]string) *ShapePropertyBuilder {
 	rb.v.Meta = value

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 // Package gappolicy
@@ -25,7 +25,7 @@ package gappolicy
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/aggregations/pipeline.ts#L52-L55
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/pipeline.ts#L52-L67
 type GapPolicy struct {
 	name string
 }
@@ -34,6 +34,8 @@ var (
 	Skip = GapPolicy{"skip"}
 
 	Insertzeros = GapPolicy{"insert_zeros"}
+
+	Keepvalues = GapPolicy{"keep_values"}
 )
 
 func (g GapPolicy) MarshalText() (text []byte, err error) {
@@ -47,6 +49,8 @@ func (g *GapPolicy) UnmarshalText(text []byte) error {
 		*g = Skip
 	case "insert_zeros":
 		*g = Insertzeros
+	case "keep_values":
+		*g = Keepvalues
 	default:
 		*g = GapPolicy{string(text)}
 	}

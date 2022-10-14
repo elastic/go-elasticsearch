@@ -17,19 +17,19 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
 
 // UnmappedTermsAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/aggregations/Aggregate.ts#L410-L416
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L414-L420
 type UnmappedTermsAggregate struct {
 	Buckets                 BucketsVoid `json:"buckets"`
 	DocCountErrorUpperBound *int64      `json:"doc_count_error_upper_bound,omitempty"`
 	Meta                    *Metadata   `json:"meta,omitempty"`
-	SumOtherDocCount        int64       `json:"sum_other_doc_count"`
+	SumOtherDocCount        *int64      `json:"sum_other_doc_count,omitempty"`
 }
 
 // UnmappedTermsAggregateBuilder holds UnmappedTermsAggregate struct and provides a builder API.
@@ -69,6 +69,6 @@ func (rb *UnmappedTermsAggregateBuilder) Meta(meta *MetadataBuilder) *UnmappedTe
 }
 
 func (rb *UnmappedTermsAggregateBuilder) SumOtherDocCount(sumotherdoccount int64) *UnmappedTermsAggregateBuilder {
-	rb.v.SumOtherDocCount = sumotherdoccount
+	rb.v.SumOtherDocCount = &sumotherdoccount
 	return rb
 }

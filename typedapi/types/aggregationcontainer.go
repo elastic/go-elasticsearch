@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
 
 // AggregationContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/aggregations/AggregationContainer.ts#L104-L207
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/AggregationContainer.ts#L105-L209
 type AggregationContainer struct {
 	AdjacencyMatrix *AdjacencyMatrixAggregation `json:"adjacency_matrix,omitempty"`
 	// Aggregations Sub-aggregations for this aggregation. Only applies to bucket aggregations.
@@ -62,6 +62,7 @@ type AggregationContainer struct {
 	Global                  *GlobalAggregation                  `json:"global,omitempty"`
 	Histogram               *HistogramAggregation               `json:"histogram,omitempty"`
 	Inference               *InferenceAggregation               `json:"inference,omitempty"`
+	IpPrefix                *IpPrefixAggregation                `json:"ip_prefix,omitempty"`
 	IpRange                 *IpRangeAggregation                 `json:"ip_range,omitempty"`
 	Line                    *GeoLineAggregation                 `json:"line,omitempty"`
 	MatrixStats             *MatrixStatsAggregation             `json:"matrix_stats,omitempty"`
@@ -338,6 +339,12 @@ func (rb *AggregationContainerBuilder) Histogram(histogram *HistogramAggregation
 func (rb *AggregationContainerBuilder) Inference(inference *InferenceAggregationBuilder) *AggregationContainerBuilder {
 	v := inference.Build()
 	rb.v.Inference = &v
+	return rb
+}
+
+func (rb *AggregationContainerBuilder) IpPrefix(ipprefix *IpPrefixAggregationBuilder) *AggregationContainerBuilder {
+	v := ipprefix.Build()
+	rb.v.IpPrefix = &v
 	return rb
 }
 

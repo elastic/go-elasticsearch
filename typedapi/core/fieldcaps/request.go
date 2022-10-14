@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package fieldcaps
@@ -31,8 +31,12 @@ import (
 
 // Request holds the request body struct for the package fieldcaps
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_global/field_caps/FieldCapabilitiesRequest.ts#L25-L90
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_global/field_caps/FieldCapabilitiesRequest.ts#L25-L95
 type Request struct {
+
+	// Fields List of fields to retrieve capabilities for. Wildcard (`*`) expressions are
+	// supported.
+	Fields *types.Fields `json:"fields,omitempty"`
 
 	// IndexFilter Allows to filter indices if the provided query rewrites to match_none on
 	// every shard.
@@ -73,6 +77,12 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 // Build finalize the chain and returns the Request struct.
 func (rb *RequestBuilder) Build() *Request {
 	return rb.v
+}
+
+func (rb *RequestBuilder) Fields(fields *types.FieldsBuilder) *RequestBuilder {
+	v := fields.Build()
+	rb.v.Fields = &v
+	return rb
 }
 
 func (rb *RequestBuilder) IndexFilter(indexfilter *types.QueryContainerBuilder) *RequestBuilder {

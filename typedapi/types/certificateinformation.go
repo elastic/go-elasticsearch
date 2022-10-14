@@ -17,19 +17,20 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
 
 // CertificateInformation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/ssl/certificates/types.ts#L22-L30
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ssl/certificates/types.ts#L22-L31
 type CertificateInformation struct {
 	Alias         string   `json:"alias,omitempty"`
 	Expiry        DateTime `json:"expiry"`
 	Format        string   `json:"format"`
 	HasPrivateKey bool     `json:"has_private_key"`
+	Issuer        *string  `json:"issuer,omitempty"`
 	Path          string   `json:"path"`
 	SerialNumber  string   `json:"serial_number"`
 	SubjectDn     string   `json:"subject_dn"`
@@ -72,6 +73,11 @@ func (rb *CertificateInformationBuilder) Format(format string) *CertificateInfor
 
 func (rb *CertificateInformationBuilder) HasPrivateKey(hasprivatekey bool) *CertificateInformationBuilder {
 	rb.v.HasPrivateKey = hasprivatekey
+	return rb
+}
+
+func (rb *CertificateInformationBuilder) Issuer(issuer string) *CertificateInformationBuilder {
+	rb.v.Issuer = &issuer
 	return rb
 }
 

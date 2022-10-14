@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // DoubleRangeProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/mapping/range.ts#L34-L36
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/mapping/range.ts#L34-L36
 type DoubleRangeProperty struct {
 	Boost         *float64                       `json:"boost,omitempty"`
 	Coerce        *bool                          `json:"coerce,omitempty"`
@@ -39,11 +39,12 @@ type DoubleRangeProperty struct {
 	IgnoreAbove   *int                           `json:"ignore_above,omitempty"`
 	Index         *bool                          `json:"index,omitempty"`
 	LocalMetadata *Metadata                      `json:"local_metadata,omitempty"`
-	Meta          map[string]string              `json:"meta,omitempty"`
-	Properties    map[PropertyName]Property      `json:"properties,omitempty"`
-	Similarity    *string                        `json:"similarity,omitempty"`
-	Store         *bool                          `json:"store,omitempty"`
-	Type          string                         `json:"type,omitempty"`
+	// Meta Metadata about the field.
+	Meta       map[string]string         `json:"meta,omitempty"`
+	Properties map[PropertyName]Property `json:"properties,omitempty"`
+	Similarity *string                   `json:"similarity,omitempty"`
+	Store      *bool                     `json:"store,omitempty"`
+	Type       string                    `json:"type,omitempty"`
 }
 
 // DoubleRangePropertyBuilder holds DoubleRangeProperty struct and provides a builder API.
@@ -121,6 +122,8 @@ func (rb *DoubleRangePropertyBuilder) LocalMetadata(localmetadata *MetadataBuild
 	rb.v.LocalMetadata = &v
 	return rb
 }
+
+// Meta Metadata about the field.
 
 func (rb *DoubleRangePropertyBuilder) Meta(value map[string]string) *DoubleRangePropertyBuilder {
 	rb.v.Meta = value

@@ -17,18 +17,18 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
 
 // AnalyzeToken type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/indices/analyze/types.ts#L37-L44
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/analyze/types.ts#L37-L44
 type AnalyzeToken struct {
 	EndOffset      int64  `json:"end_offset"`
 	Position       int64  `json:"position"`
-	PositionLength *int64 `json:"position_length,omitempty"`
+	PositionLength *int64 `json:"positionLength,omitempty"`
 	StartOffset    int64  `json:"start_offset"`
 	Token          string `json:"token"`
 	Type           string `json:"type"`

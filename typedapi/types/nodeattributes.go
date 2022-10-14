@@ -17,21 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
 
 // NodeAttributes type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/Node.ts#L41-L53
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/Node.ts#L41-L57
 type NodeAttributes struct {
 	// Attributes Lists node attributes.
 	Attributes map[string]string `json:"attributes"`
 	// EphemeralId The ephemeral ID of the node.
-	EphemeralId Id `json:"ephemeral_id"`
+	EphemeralId Id     `json:"ephemeral_id"`
+	ExternalId  string `json:"external_id"`
 	// Id The unique identifier of the node.
-	Id *Id `json:"id,omitempty"`
+	Id *NodeId `json:"id,omitempty"`
 	// Name The unique identifier of the node.
 	Name  NodeName   `json:"name"`
 	Roles *NodeRoles `json:"roles,omitempty"`
@@ -74,9 +75,14 @@ func (rb *NodeAttributesBuilder) EphemeralId(ephemeralid Id) *NodeAttributesBuil
 	return rb
 }
 
+func (rb *NodeAttributesBuilder) ExternalId(externalid string) *NodeAttributesBuilder {
+	rb.v.ExternalId = externalid
+	return rb
+}
+
 // Id The unique identifier of the node.
 
-func (rb *NodeAttributesBuilder) Id(id Id) *NodeAttributesBuilder {
+func (rb *NodeAttributesBuilder) Id(id NodeId) *NodeAttributesBuilder {
 	rb.v.Id = &id
 	return rb
 }

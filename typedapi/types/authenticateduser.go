@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
 
 // AuthenticatedUser type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/security/get_token/types.ts#L40-L45
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/security/get_token/types.ts#L40-L45
 type AuthenticatedUser struct {
 	AuthenticationProvider *AuthenticationProvider `json:"authentication_provider,omitempty"`
 	AuthenticationRealm    UserRealm               `json:"authentication_realm"`
@@ -34,6 +34,7 @@ type AuthenticatedUser struct {
 	FullName               Name                    `json:"full_name,omitempty"`
 	LookupRealm            UserRealm               `json:"lookup_realm"`
 	Metadata               Metadata                `json:"metadata"`
+	ProfileUid             *UserProfileId          `json:"profile_uid,omitempty"`
 	Roles                  []string                `json:"roles"`
 	Username               Username                `json:"username"`
 }
@@ -98,6 +99,11 @@ func (rb *AuthenticatedUserBuilder) LookupRealm(lookuprealm *UserRealmBuilder) *
 func (rb *AuthenticatedUserBuilder) Metadata(metadata *MetadataBuilder) *AuthenticatedUserBuilder {
 	v := metadata.Build()
 	rb.v.Metadata = v
+	return rb
+}
+
+func (rb *AuthenticatedUserBuilder) ProfileUid(profileuid UserProfileId) *AuthenticatedUserBuilder {
+	rb.v.ProfileUid = &profileuid
 	return rb
 }
 

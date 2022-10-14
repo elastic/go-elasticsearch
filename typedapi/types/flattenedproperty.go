@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
@@ -29,24 +29,25 @@ import (
 
 // FlattenedProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/mapping/complex.ts#L25-L36
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/mapping/complex.ts#L26-L37
 type FlattenedProperty struct {
-	Boost                    *float64                       `json:"boost,omitempty"`
-	DepthLimit               *int                           `json:"depth_limit,omitempty"`
-	DocValues                *bool                          `json:"doc_values,omitempty"`
-	Dynamic                  *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
-	EagerGlobalOrdinals      *bool                          `json:"eager_global_ordinals,omitempty"`
-	Fields                   map[PropertyName]Property      `json:"fields,omitempty"`
-	IgnoreAbove              *int                           `json:"ignore_above,omitempty"`
-	Index                    *bool                          `json:"index,omitempty"`
-	IndexOptions             *indexoptions.IndexOptions     `json:"index_options,omitempty"`
-	LocalMetadata            *Metadata                      `json:"local_metadata,omitempty"`
-	Meta                     map[string]string              `json:"meta,omitempty"`
-	NullValue                *string                        `json:"null_value,omitempty"`
-	Properties               map[PropertyName]Property      `json:"properties,omitempty"`
-	Similarity               *string                        `json:"similarity,omitempty"`
-	SplitQueriesOnWhitespace *bool                          `json:"split_queries_on_whitespace,omitempty"`
-	Type                     string                         `json:"type,omitempty"`
+	Boost               *float64                       `json:"boost,omitempty"`
+	DepthLimit          *int                           `json:"depth_limit,omitempty"`
+	DocValues           *bool                          `json:"doc_values,omitempty"`
+	Dynamic             *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
+	EagerGlobalOrdinals *bool                          `json:"eager_global_ordinals,omitempty"`
+	Fields              map[PropertyName]Property      `json:"fields,omitempty"`
+	IgnoreAbove         *int                           `json:"ignore_above,omitempty"`
+	Index               *bool                          `json:"index,omitempty"`
+	IndexOptions        *indexoptions.IndexOptions     `json:"index_options,omitempty"`
+	LocalMetadata       *Metadata                      `json:"local_metadata,omitempty"`
+	// Meta Metadata about the field.
+	Meta                     map[string]string         `json:"meta,omitempty"`
+	NullValue                *string                   `json:"null_value,omitempty"`
+	Properties               map[PropertyName]Property `json:"properties,omitempty"`
+	Similarity               *string                   `json:"similarity,omitempty"`
+	SplitQueriesOnWhitespace *bool                     `json:"split_queries_on_whitespace,omitempty"`
+	Type                     string                    `json:"type,omitempty"`
 }
 
 // FlattenedPropertyBuilder holds FlattenedProperty struct and provides a builder API.
@@ -128,6 +129,8 @@ func (rb *FlattenedPropertyBuilder) LocalMetadata(localmetadata *MetadataBuilder
 	rb.v.LocalMetadata = &v
 	return rb
 }
+
+// Meta Metadata about the field.
 
 func (rb *FlattenedPropertyBuilder) Meta(value map[string]string) *FlattenedPropertyBuilder {
 	rb.v.Meta = value

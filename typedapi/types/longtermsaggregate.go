@@ -17,19 +17,19 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
 
 // LongTermsAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/aggregations/Aggregate.ts#L386-L391
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L390-L395
 type LongTermsAggregate struct {
 	Buckets                 BucketsLongTermsBucket `json:"buckets"`
 	DocCountErrorUpperBound *int64                 `json:"doc_count_error_upper_bound,omitempty"`
 	Meta                    *Metadata              `json:"meta,omitempty"`
-	SumOtherDocCount        int64                  `json:"sum_other_doc_count"`
+	SumOtherDocCount        *int64                 `json:"sum_other_doc_count,omitempty"`
 }
 
 // LongTermsAggregateBuilder holds LongTermsAggregate struct and provides a builder API.
@@ -69,6 +69,6 @@ func (rb *LongTermsAggregateBuilder) Meta(meta *MetadataBuilder) *LongTermsAggre
 }
 
 func (rb *LongTermsAggregateBuilder) SumOtherDocCount(sumotherdoccount int64) *LongTermsAggregateBuilder {
-	rb.v.SumOtherDocCount = sumotherdoccount
+	rb.v.SumOtherDocCount = &sumotherdoccount
 	return rb
 }

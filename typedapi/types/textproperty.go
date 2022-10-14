@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
@@ -30,32 +30,33 @@ import (
 
 // TextProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/mapping/core.ts#L236-L252
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/mapping/core.ts#L247-L263
 type TextProperty struct {
-	Analyzer                 *string                            `json:"analyzer,omitempty"`
-	Boost                    *float64                           `json:"boost,omitempty"`
-	CopyTo                   *Fields                            `json:"copy_to,omitempty"`
-	Dynamic                  *dynamicmapping.DynamicMapping     `json:"dynamic,omitempty"`
-	EagerGlobalOrdinals      *bool                              `json:"eager_global_ordinals,omitempty"`
-	Fielddata                *bool                              `json:"fielddata,omitempty"`
-	FielddataFrequencyFilter *FielddataFrequencyFilter          `json:"fielddata_frequency_filter,omitempty"`
-	Fields                   map[PropertyName]Property          `json:"fields,omitempty"`
-	IgnoreAbove              *int                               `json:"ignore_above,omitempty"`
-	Index                    *bool                              `json:"index,omitempty"`
-	IndexOptions             *indexoptions.IndexOptions         `json:"index_options,omitempty"`
-	IndexPhrases             *bool                              `json:"index_phrases,omitempty"`
-	IndexPrefixes            *TextIndexPrefixes                 `json:"index_prefixes,omitempty"`
-	LocalMetadata            *Metadata                          `json:"local_metadata,omitempty"`
-	Meta                     map[string]string                  `json:"meta,omitempty"`
-	Norms                    *bool                              `json:"norms,omitempty"`
-	PositionIncrementGap     *int                               `json:"position_increment_gap,omitempty"`
-	Properties               map[PropertyName]Property          `json:"properties,omitempty"`
-	SearchAnalyzer           *string                            `json:"search_analyzer,omitempty"`
-	SearchQuoteAnalyzer      *string                            `json:"search_quote_analyzer,omitempty"`
-	Similarity               *string                            `json:"similarity,omitempty"`
-	Store                    *bool                              `json:"store,omitempty"`
-	TermVector               *termvectoroption.TermVectorOption `json:"term_vector,omitempty"`
-	Type                     string                             `json:"type,omitempty"`
+	Analyzer                 *string                        `json:"analyzer,omitempty"`
+	Boost                    *float64                       `json:"boost,omitempty"`
+	CopyTo                   *Fields                        `json:"copy_to,omitempty"`
+	Dynamic                  *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
+	EagerGlobalOrdinals      *bool                          `json:"eager_global_ordinals,omitempty"`
+	Fielddata                *bool                          `json:"fielddata,omitempty"`
+	FielddataFrequencyFilter *FielddataFrequencyFilter      `json:"fielddata_frequency_filter,omitempty"`
+	Fields                   map[PropertyName]Property      `json:"fields,omitempty"`
+	IgnoreAbove              *int                           `json:"ignore_above,omitempty"`
+	Index                    *bool                          `json:"index,omitempty"`
+	IndexOptions             *indexoptions.IndexOptions     `json:"index_options,omitempty"`
+	IndexPhrases             *bool                          `json:"index_phrases,omitempty"`
+	IndexPrefixes            *TextIndexPrefixes             `json:"index_prefixes,omitempty"`
+	LocalMetadata            *Metadata                      `json:"local_metadata,omitempty"`
+	// Meta Metadata about the field.
+	Meta                 map[string]string                  `json:"meta,omitempty"`
+	Norms                *bool                              `json:"norms,omitempty"`
+	PositionIncrementGap *int                               `json:"position_increment_gap,omitempty"`
+	Properties           map[PropertyName]Property          `json:"properties,omitempty"`
+	SearchAnalyzer       *string                            `json:"search_analyzer,omitempty"`
+	SearchQuoteAnalyzer  *string                            `json:"search_quote_analyzer,omitempty"`
+	Similarity           *string                            `json:"similarity,omitempty"`
+	Store                *bool                              `json:"store,omitempty"`
+	TermVector           *termvectoroption.TermVectorOption `json:"term_vector,omitempty"`
+	Type                 string                             `json:"type,omitempty"`
 }
 
 // TextPropertyBuilder holds TextProperty struct and provides a builder API.
@@ -160,6 +161,8 @@ func (rb *TextPropertyBuilder) LocalMetadata(localmetadata *MetadataBuilder) *Te
 	rb.v.LocalMetadata = &v
 	return rb
 }
+
+// Meta Metadata about the field.
 
 func (rb *TextPropertyBuilder) Meta(value map[string]string) *TextPropertyBuilder {
 	rb.v.Meta = value

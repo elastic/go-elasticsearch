@@ -17,24 +17,52 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/quantifier"
+	"encoding/json"
+	"fmt"
+
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/conditionop"
 )
 
 // ArrayCompareCondition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/watcher/_types/Conditions.ts#L25-L31
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/watcher/_types/Conditions.ts#L32-L36
 type ArrayCompareCondition struct {
-	ArrayPath  string                `json:"array_path"`
-	Comparison string                `json:"comparison"`
-	Path       string                `json:"path"`
-	Quantifier quantifier.Quantifier `json:"quantifier"`
-	Value      interface{}           `json:"value,omitempty"`
+	ArrayCompareCondition map[conditionop.ConditionOp]ArrayCompareOpParams `json:"-"`
+	Path                  string                                           `json:"path"`
+}
+
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s ArrayCompareCondition) MarshalJSON() ([]byte, error) {
+	type opt ArrayCompareCondition
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]interface{}, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.ArrayCompareCondition {
+		tmp[fmt.Sprintf("%s", key)] = value
+	}
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
 }
 
 // ArrayCompareConditionBuilder holds ArrayCompareCondition struct and provides a builder API.
@@ -45,7 +73,9 @@ type ArrayCompareConditionBuilder struct {
 // NewArrayCompareCondition provides a builder for the ArrayCompareCondition struct.
 func NewArrayCompareConditionBuilder() *ArrayCompareConditionBuilder {
 	r := ArrayCompareConditionBuilder{
-		&ArrayCompareCondition{},
+		&ArrayCompareCondition{
+			ArrayCompareCondition: make(map[conditionop.ConditionOp]ArrayCompareOpParams, 0),
+		},
 	}
 
 	return &r
@@ -56,27 +86,16 @@ func (rb *ArrayCompareConditionBuilder) Build() ArrayCompareCondition {
 	return *rb.v
 }
 
-func (rb *ArrayCompareConditionBuilder) ArrayPath(arraypath string) *ArrayCompareConditionBuilder {
-	rb.v.ArrayPath = arraypath
-	return rb
-}
-
-func (rb *ArrayCompareConditionBuilder) Comparison(comparison string) *ArrayCompareConditionBuilder {
-	rb.v.Comparison = comparison
+func (rb *ArrayCompareConditionBuilder) ArrayCompareCondition(values map[conditionop.ConditionOp]*ArrayCompareOpParamsBuilder) *ArrayCompareConditionBuilder {
+	tmp := make(map[conditionop.ConditionOp]ArrayCompareOpParams, len(values))
+	for key, builder := range values {
+		tmp[key] = builder.Build()
+	}
+	rb.v.ArrayCompareCondition = tmp
 	return rb
 }
 
 func (rb *ArrayCompareConditionBuilder) Path(path string) *ArrayCompareConditionBuilder {
 	rb.v.Path = path
-	return rb
-}
-
-func (rb *ArrayCompareConditionBuilder) Quantifier(quantifier quantifier.Quantifier) *ArrayCompareConditionBuilder {
-	rb.v.Quantifier = quantifier
-	return rb
-}
-
-func (rb *ArrayCompareConditionBuilder) Value(value interface{}) *ArrayCompareConditionBuilder {
-	rb.v.Value = value
 	return rb
 }

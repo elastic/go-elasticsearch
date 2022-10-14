@@ -17,18 +17,19 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
 
 // AggregationProfileDelegateDebugFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_global/search/_types/profile.ts#L69-L73
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_global/search/_types/profile.ts#L70-L75
 type AggregationProfileDelegateDebugFilter struct {
-	Query               *string `json:"query,omitempty"`
-	ResultsFromMetadata *int    `json:"results_from_metadata,omitempty"`
-	SpecializedFor      *string `json:"specialized_for,omitempty"`
+	Query                         *string `json:"query,omitempty"`
+	ResultsFromMetadata           *int    `json:"results_from_metadata,omitempty"`
+	SegmentsCountedInConstantTime *int    `json:"segments_counted_in_constant_time,omitempty"`
+	SpecializedFor                *string `json:"specialized_for,omitempty"`
 }
 
 // AggregationProfileDelegateDebugFilterBuilder holds AggregationProfileDelegateDebugFilter struct and provides a builder API.
@@ -57,6 +58,11 @@ func (rb *AggregationProfileDelegateDebugFilterBuilder) Query(query string) *Agg
 
 func (rb *AggregationProfileDelegateDebugFilterBuilder) ResultsFromMetadata(resultsfrommetadata int) *AggregationProfileDelegateDebugFilterBuilder {
 	rb.v.ResultsFromMetadata = &resultsfrommetadata
+	return rb
+}
+
+func (rb *AggregationProfileDelegateDebugFilterBuilder) SegmentsCountedInConstantTime(segmentscountedinconstanttime int) *AggregationProfileDelegateDebugFilterBuilder {
+	rb.v.SegmentsCountedInConstantTime = &segmentscountedinconstanttime
 	return rb
 }
 

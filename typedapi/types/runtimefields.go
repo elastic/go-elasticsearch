@@ -17,15 +17,15 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
 
 // RuntimeFields type alias.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/mapping/RuntimeFields.ts#L24-L24
-type RuntimeFields map[Field][]RuntimeField
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/mapping/RuntimeFields.ts#L24-L24
+type RuntimeFields map[Field]RuntimeField
 
 // RuntimeFieldsBuilder holds RuntimeFields struct and provides a builder API.
 type RuntimeFieldsBuilder struct {

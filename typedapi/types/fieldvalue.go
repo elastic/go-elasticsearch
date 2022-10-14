@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
@@ -27,9 +27,11 @@ package types
 //	bool
 //	float64
 //	int64
+//	nil
 //	string
+//	interface{}
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/common.ts#L25-L30
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/common.ts#L25-L37
 type FieldValue interface{}
 
 // FieldValueBuilder holds FieldValue struct and provides a builder API.
@@ -62,7 +64,17 @@ func (u *FieldValueBuilder) Int64(int64 int64) *FieldValueBuilder {
 	return u
 }
 
+func (u *FieldValueBuilder) Nil() *FieldValueBuilder {
+	u.v = nil
+	return u
+}
+
 func (u *FieldValueBuilder) String(string string) *FieldValueBuilder {
 	u.v = &string
+	return u
+}
+
+func (u *FieldValueBuilder) UserDefinedValue(userdefinedvalue interface{}) *FieldValueBuilder {
+	u.v = userdefinedvalue
 	return u
 }

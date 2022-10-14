@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package submit
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package submit
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/async_search/submit/AsyncSearchSubmitRequest.ts#L54-L250
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/async_search/submit/AsyncSearchSubmitRequest.ts#L55-L255
 type Request struct {
 	Aggregations map[string]types.AggregationContainer `json:"aggregations,omitempty"`
 
@@ -44,6 +44,9 @@ type Request struct {
 	// Explain If true, returns detailed information about score computation as part of a
 	// hit.
 	Explain *bool `json:"explain,omitempty"`
+
+	// Ext Configuration of search extensions defined by Elasticsearch plugins.
+	Ext map[string]interface{} `json:"ext,omitempty"`
 
 	// Fields Array of wildcard (*) patterns. The request returns values for field names
 	// matching these patterns in the hits.fields property of the response.
@@ -160,6 +163,7 @@ func NewRequestBuilder() *RequestBuilder {
 	r := RequestBuilder{
 		&Request{
 			Aggregations: make(map[string]types.AggregationContainer, 0),
+			Ext:          make(map[string]interface{}, 0),
 			ScriptFields: make(map[string]types.ScriptField, 0),
 		},
 	}
@@ -209,6 +213,11 @@ func (rb *RequestBuilder) DocvalueFields(docvalue_fields []types.FieldAndFormatB
 
 func (rb *RequestBuilder) Explain(explain bool) *RequestBuilder {
 	rb.v.Explain = &explain
+	return rb
+}
+
+func (rb *RequestBuilder) Ext(value map[string]interface{}) *RequestBuilder {
+	rb.v.Ext = value
 	return rb
 }
 

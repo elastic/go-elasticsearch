@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
@@ -28,12 +28,12 @@ import (
 
 // IcuTransformTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/analysis/icu-plugin.ts#L24-L28
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/icu-plugin.ts#L24-L28
 type IcuTransformTokenFilter struct {
-	Dir     icutransformdirection.IcuTransformDirection `json:"dir"`
-	Id      string                                      `json:"id"`
-	Type    string                                      `json:"type,omitempty"`
-	Version *VersionString                              `json:"version,omitempty"`
+	Dir     *icutransformdirection.IcuTransformDirection `json:"dir,omitempty"`
+	Id      string                                       `json:"id"`
+	Type    string                                       `json:"type,omitempty"`
+	Version *VersionString                               `json:"version,omitempty"`
 }
 
 // IcuTransformTokenFilterBuilder holds IcuTransformTokenFilter struct and provides a builder API.
@@ -58,7 +58,7 @@ func (rb *IcuTransformTokenFilterBuilder) Build() IcuTransformTokenFilter {
 }
 
 func (rb *IcuTransformTokenFilterBuilder) Dir(dir icutransformdirection.IcuTransformDirection) *IcuTransformTokenFilterBuilder {
-	rb.v.Dir = dir
+	rb.v.Dir = &dir
 	return rb
 }
 

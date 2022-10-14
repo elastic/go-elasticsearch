@@ -17,17 +17,19 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
 
 // UnmappedSignificantTermsAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/aggregations/Aggregate.ts#L580-L586
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L594-L600
 type UnmappedSignificantTermsAggregate struct {
-	Buckets BucketsVoid `json:"buckets"`
-	Meta    *Metadata   `json:"meta,omitempty"`
+	BgCount  *int64      `json:"bg_count,omitempty"`
+	Buckets  BucketsVoid `json:"buckets"`
+	DocCount *int64      `json:"doc_count,omitempty"`
+	Meta     *Metadata   `json:"meta,omitempty"`
 }
 
 // UnmappedSignificantTermsAggregateBuilder holds UnmappedSignificantTermsAggregate struct and provides a builder API.
@@ -49,9 +51,19 @@ func (rb *UnmappedSignificantTermsAggregateBuilder) Build() UnmappedSignificantT
 	return *rb.v
 }
 
+func (rb *UnmappedSignificantTermsAggregateBuilder) BgCount(bgcount int64) *UnmappedSignificantTermsAggregateBuilder {
+	rb.v.BgCount = &bgcount
+	return rb
+}
+
 func (rb *UnmappedSignificantTermsAggregateBuilder) Buckets(buckets *BucketsVoidBuilder) *UnmappedSignificantTermsAggregateBuilder {
 	v := buckets.Build()
 	rb.v.Buckets = v
+	return rb
+}
+
+func (rb *UnmappedSignificantTermsAggregateBuilder) DocCount(doccount int64) *UnmappedSignificantTermsAggregateBuilder {
+	rb.v.DocCount = &doccount
 	return rb
 }
 

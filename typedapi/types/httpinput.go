@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
@@ -28,10 +28,9 @@ import (
 
 // HttpInput type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/watcher/_types/Input.ts#L45-L50
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/watcher/_types/Input.ts#L44-L48
 type HttpInput struct {
 	Extract             []string                                 `json:"extract,omitempty"`
-	Http                *HttpInput                               `json:"http,omitempty"`
 	Request             *HttpInputRequestDefinition              `json:"request,omitempty"`
 	ResponseContentType *responsecontenttype.ResponseContentType `json:"response_content_type,omitempty"`
 }
@@ -57,12 +56,6 @@ func (rb *HttpInputBuilder) Build() HttpInput {
 
 func (rb *HttpInputBuilder) Extract(extract ...string) *HttpInputBuilder {
 	rb.v.Extract = extract
-	return rb
-}
-
-func (rb *HttpInputBuilder) Http(http *HttpInputBuilder) *HttpInputBuilder {
-	v := http.Build()
-	rb.v.Http = &v
 	return rb
 }
 

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
@@ -28,16 +28,17 @@ import (
 
 // RankFeatureProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/mapping/core.ts#L170-L173
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/mapping/core.ts#L181-L184
 type RankFeatureProperty struct {
-	Dynamic             *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
-	Fields              map[PropertyName]Property      `json:"fields,omitempty"`
-	IgnoreAbove         *int                           `json:"ignore_above,omitempty"`
-	LocalMetadata       *Metadata                      `json:"local_metadata,omitempty"`
-	Meta                map[string]string              `json:"meta,omitempty"`
-	PositiveScoreImpact *bool                          `json:"positive_score_impact,omitempty"`
-	Properties          map[PropertyName]Property      `json:"properties,omitempty"`
-	Type                string                         `json:"type,omitempty"`
+	Dynamic       *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
+	Fields        map[PropertyName]Property      `json:"fields,omitempty"`
+	IgnoreAbove   *int                           `json:"ignore_above,omitempty"`
+	LocalMetadata *Metadata                      `json:"local_metadata,omitempty"`
+	// Meta Metadata about the field.
+	Meta                map[string]string         `json:"meta,omitempty"`
+	PositiveScoreImpact *bool                     `json:"positive_score_impact,omitempty"`
+	Properties          map[PropertyName]Property `json:"properties,omitempty"`
+	Type                string                    `json:"type,omitempty"`
 }
 
 // RankFeaturePropertyBuilder holds RankFeatureProperty struct and provides a builder API.
@@ -89,6 +90,8 @@ func (rb *RankFeaturePropertyBuilder) LocalMetadata(localmetadata *MetadataBuild
 	rb.v.LocalMetadata = &v
 	return rb
 }
+
+// Meta Metadata about the field.
 
 func (rb *RankFeaturePropertyBuilder) Meta(value map[string]string) *RankFeaturePropertyBuilder {
 	rb.v.Meta = value

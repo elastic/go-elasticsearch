@@ -17,23 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // ErrorCause type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/Errors.ts#L25-L48
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/Errors.ts#L25-L48
 type ErrorCause struct {
 	CausedBy *ErrorCause            `json:"caused_by,omitempty"`
 	Metadata map[string]interface{} `json:"-"`
 	// Reason A human-readable explanation of the error, in english
-	Reason    string       `json:"reason"`
+	Reason    *string      `json:"reason,omitempty"`
 	RootCause []ErrorCause `json:"root_cause,omitempty"`
 	// StackTrace The server stack trace. Present only if the `error_trace=true` parameter was
 	// sent with the request.
@@ -60,7 +61,7 @@ func (s ErrorCause) MarshalJSON() ([]byte, error) {
 
 	// We inline the additional fields from the underlying map
 	for key, value := range s.Metadata {
-		tmp[string(key)] = value
+		tmp[fmt.Sprintf("%s", key)] = value
 	}
 
 	data, err = json.Marshal(tmp)
@@ -106,7 +107,7 @@ func (rb *ErrorCauseBuilder) Metadata(value map[string]interface{}) *ErrorCauseB
 // Reason A human-readable explanation of the error, in english
 
 func (rb *ErrorCauseBuilder) Reason(reason string) *ErrorCauseBuilder {
-	rb.v.Reason = reason
+	rb.v.Reason = &reason
 	return rb
 }
 

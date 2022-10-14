@@ -17,35 +17,45 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/onscripterror"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/timeseriesmetrictype"
 )
 
 // ScaledFloatNumberProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/mapping/core.ts#L159-L164
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/mapping/core.ts#L171-L175
 type ScaledFloatNumberProperty struct {
-	Coerce           *bool                                      `json:"coerce,omitempty"`
-	CopyTo           *Fields                                    `json:"copy_to,omitempty"`
-	DocValues        *bool                                      `json:"doc_values,omitempty"`
-	Dynamic          *dynamicmapping.DynamicMapping             `json:"dynamic,omitempty"`
-	Fields           map[PropertyName]Property                  `json:"fields,omitempty"`
-	IgnoreAbove      *int                                       `json:"ignore_above,omitempty"`
-	IgnoreMalformed  *bool                                      `json:"ignore_malformed,omitempty"`
-	Index            *bool                                      `json:"index,omitempty"`
-	LocalMetadata    *Metadata                                  `json:"local_metadata,omitempty"`
-	Meta             map[string]string                          `json:"meta,omitempty"`
-	NullValue        *float64                                   `json:"null_value,omitempty"`
-	Properties       map[PropertyName]Property                  `json:"properties,omitempty"`
-	ScalingFactor    *float64                                   `json:"scaling_factor,omitempty"`
-	Similarity       *string                                    `json:"similarity,omitempty"`
-	Store            *bool                                      `json:"store,omitempty"`
+	Boost           *float64                       `json:"boost,omitempty"`
+	Coerce          *bool                          `json:"coerce,omitempty"`
+	CopyTo          *Fields                        `json:"copy_to,omitempty"`
+	DocValues       *bool                          `json:"doc_values,omitempty"`
+	Dynamic         *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
+	Fields          map[PropertyName]Property      `json:"fields,omitempty"`
+	IgnoreAbove     *int                           `json:"ignore_above,omitempty"`
+	IgnoreMalformed *bool                          `json:"ignore_malformed,omitempty"`
+	Index           *bool                          `json:"index,omitempty"`
+	LocalMetadata   *Metadata                      `json:"local_metadata,omitempty"`
+	// Meta Metadata about the field.
+	Meta          map[string]string            `json:"meta,omitempty"`
+	NullValue     *float64                     `json:"null_value,omitempty"`
+	OnScriptError *onscripterror.OnScriptError `json:"on_script_error,omitempty"`
+	Properties    map[PropertyName]Property    `json:"properties,omitempty"`
+	ScalingFactor *float64                     `json:"scaling_factor,omitempty"`
+	Script        *Script                      `json:"script,omitempty"`
+	Similarity    *string                      `json:"similarity,omitempty"`
+	Store         *bool                        `json:"store,omitempty"`
+	// TimeSeriesDimension For internal use by Elastic only. Marks the field as a time series dimension.
+	// Defaults to false.
+	TimeSeriesDimension *bool `json:"time_series_dimension,omitempty"`
+	// TimeSeriesMetric For internal use by Elastic only. Marks the field as a time series dimension.
+	// Defaults to false.
 	TimeSeriesMetric *timeseriesmetrictype.TimeSeriesMetricType `json:"time_series_metric,omitempty"`
 	Type             string                                     `json:"type,omitempty"`
 }
@@ -73,6 +83,11 @@ func NewScaledFloatNumberPropertyBuilder() *ScaledFloatNumberPropertyBuilder {
 // Build finalize the chain and returns the ScaledFloatNumberProperty struct
 func (rb *ScaledFloatNumberPropertyBuilder) Build() ScaledFloatNumberProperty {
 	return *rb.v
+}
+
+func (rb *ScaledFloatNumberPropertyBuilder) Boost(boost float64) *ScaledFloatNumberPropertyBuilder {
+	rb.v.Boost = &boost
+	return rb
 }
 
 func (rb *ScaledFloatNumberPropertyBuilder) Coerce(coerce bool) *ScaledFloatNumberPropertyBuilder {
@@ -126,6 +141,8 @@ func (rb *ScaledFloatNumberPropertyBuilder) LocalMetadata(localmetadata *Metadat
 	return rb
 }
 
+// Meta Metadata about the field.
+
 func (rb *ScaledFloatNumberPropertyBuilder) Meta(value map[string]string) *ScaledFloatNumberPropertyBuilder {
 	rb.v.Meta = value
 	return rb
@@ -133,6 +150,11 @@ func (rb *ScaledFloatNumberPropertyBuilder) Meta(value map[string]string) *Scale
 
 func (rb *ScaledFloatNumberPropertyBuilder) NullValue(nullvalue float64) *ScaledFloatNumberPropertyBuilder {
 	rb.v.NullValue = &nullvalue
+	return rb
+}
+
+func (rb *ScaledFloatNumberPropertyBuilder) OnScriptError(onscripterror onscripterror.OnScriptError) *ScaledFloatNumberPropertyBuilder {
+	rb.v.OnScriptError = &onscripterror
 	return rb
 }
 
@@ -150,6 +172,12 @@ func (rb *ScaledFloatNumberPropertyBuilder) ScalingFactor(scalingfactor float64)
 	return rb
 }
 
+func (rb *ScaledFloatNumberPropertyBuilder) Script(script *ScriptBuilder) *ScaledFloatNumberPropertyBuilder {
+	v := script.Build()
+	rb.v.Script = &v
+	return rb
+}
+
 func (rb *ScaledFloatNumberPropertyBuilder) Similarity(similarity string) *ScaledFloatNumberPropertyBuilder {
 	rb.v.Similarity = &similarity
 	return rb
@@ -159,6 +187,17 @@ func (rb *ScaledFloatNumberPropertyBuilder) Store(store bool) *ScaledFloatNumber
 	rb.v.Store = &store
 	return rb
 }
+
+// TimeSeriesDimension For internal use by Elastic only. Marks the field as a time series dimension.
+// Defaults to false.
+
+func (rb *ScaledFloatNumberPropertyBuilder) TimeSeriesDimension(timeseriesdimension bool) *ScaledFloatNumberPropertyBuilder {
+	rb.v.TimeSeriesDimension = &timeseriesdimension
+	return rb
+}
+
+// TimeSeriesMetric For internal use by Elastic only. Marks the field as a time series dimension.
+// Defaults to false.
 
 func (rb *ScaledFloatNumberPropertyBuilder) TimeSeriesMetric(timeseriesmetric timeseriesmetrictype.TimeSeriesMetricType) *ScaledFloatNumberPropertyBuilder {
 	rb.v.TimeSeriesMetric = &timeseriesmetric

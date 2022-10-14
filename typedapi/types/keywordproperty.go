@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
@@ -29,28 +29,29 @@ import (
 
 // KeywordProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/mapping/core.ts#L88-L100
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/mapping/core.ts#L89-L104
 type KeywordProperty struct {
-	Boost                    *float64                       `json:"boost,omitempty"`
-	CopyTo                   *Fields                        `json:"copy_to,omitempty"`
-	DocValues                *bool                          `json:"doc_values,omitempty"`
-	Dynamic                  *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
-	EagerGlobalOrdinals      *bool                          `json:"eager_global_ordinals,omitempty"`
-	Fields                   map[PropertyName]Property      `json:"fields,omitempty"`
-	IgnoreAbove              *int                           `json:"ignore_above,omitempty"`
-	Index                    *bool                          `json:"index,omitempty"`
-	IndexOptions             *indexoptions.IndexOptions     `json:"index_options,omitempty"`
-	LocalMetadata            *Metadata                      `json:"local_metadata,omitempty"`
-	Meta                     map[string]string              `json:"meta,omitempty"`
-	Normalizer               *string                        `json:"normalizer,omitempty"`
-	Norms                    *bool                          `json:"norms,omitempty"`
-	NullValue                *string                        `json:"null_value,omitempty"`
-	Properties               map[PropertyName]Property      `json:"properties,omitempty"`
-	Similarity               *string                        `json:"similarity,omitempty"`
-	SplitQueriesOnWhitespace *bool                          `json:"split_queries_on_whitespace,omitempty"`
-	Store                    *bool                          `json:"store,omitempty"`
-	// TimeSeriesDimension [experimental] For internal use by Elastic only. Marks the field as a time
-	// series dimension. Defaults to false.
+	Boost               *float64                       `json:"boost,omitempty"`
+	CopyTo              *Fields                        `json:"copy_to,omitempty"`
+	DocValues           *bool                          `json:"doc_values,omitempty"`
+	Dynamic             *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
+	EagerGlobalOrdinals *bool                          `json:"eager_global_ordinals,omitempty"`
+	Fields              map[PropertyName]Property      `json:"fields,omitempty"`
+	IgnoreAbove         *int                           `json:"ignore_above,omitempty"`
+	Index               *bool                          `json:"index,omitempty"`
+	IndexOptions        *indexoptions.IndexOptions     `json:"index_options,omitempty"`
+	LocalMetadata       *Metadata                      `json:"local_metadata,omitempty"`
+	// Meta Metadata about the field.
+	Meta                     map[string]string         `json:"meta,omitempty"`
+	Normalizer               *string                   `json:"normalizer,omitempty"`
+	Norms                    *bool                     `json:"norms,omitempty"`
+	NullValue                *string                   `json:"null_value,omitempty"`
+	Properties               map[PropertyName]Property `json:"properties,omitempty"`
+	Similarity               *string                   `json:"similarity,omitempty"`
+	SplitQueriesOnWhitespace *bool                     `json:"split_queries_on_whitespace,omitempty"`
+	Store                    *bool                     `json:"store,omitempty"`
+	// TimeSeriesDimension For internal use by Elastic only. Marks the field as a time series dimension.
+	// Defaults to false.
 	TimeSeriesDimension *bool  `json:"time_series_dimension,omitempty"`
 	Type                string `json:"type,omitempty"`
 }
@@ -136,6 +137,8 @@ func (rb *KeywordPropertyBuilder) LocalMetadata(localmetadata *MetadataBuilder) 
 	return rb
 }
 
+// Meta Metadata about the field.
+
 func (rb *KeywordPropertyBuilder) Meta(value map[string]string) *KeywordPropertyBuilder {
 	rb.v.Meta = value
 	return rb
@@ -180,8 +183,8 @@ func (rb *KeywordPropertyBuilder) Store(store bool) *KeywordPropertyBuilder {
 	return rb
 }
 
-// TimeSeriesDimension [experimental] For internal use by Elastic only. Marks the field as a time
-// series dimension. Defaults to false.
+// TimeSeriesDimension For internal use by Elastic only. Marks the field as a time series dimension.
+// Defaults to false.
 
 func (rb *KeywordPropertyBuilder) TimeSeriesDimension(timeseriesdimension bool) *KeywordPropertyBuilder {
 	rb.v.TimeSeriesDimension = &timeseriesdimension

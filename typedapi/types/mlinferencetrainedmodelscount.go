@@ -17,18 +17,19 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
 
 // MlInferenceTrainedModelsCount type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/xpack/usage/types.ts#L229-L236
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/xpack/usage/types.ts#L230-L238
 type MlInferenceTrainedModelsCount struct {
 	Classification *int64 `json:"classification,omitempty"`
 	Ner            *int64 `json:"ner,omitempty"`
 	Other          int64  `json:"other"`
+	PassThrough    *int64 `json:"pass_through,omitempty"`
 	Prepackaged    int64  `json:"prepackaged"`
 	Regression     *int64 `json:"regression,omitempty"`
 	Total          int64  `json:"total"`
@@ -65,6 +66,11 @@ func (rb *MlInferenceTrainedModelsCountBuilder) Ner(ner int64) *MlInferenceTrain
 
 func (rb *MlInferenceTrainedModelsCountBuilder) Other(other int64) *MlInferenceTrainedModelsCountBuilder {
 	rb.v.Other = other
+	return rb
+}
+
+func (rb *MlInferenceTrainedModelsCountBuilder) PassThrough(passthrough int64) *MlInferenceTrainedModelsCountBuilder {
+	rb.v.PassThrough = &passthrough
 	return rb
 }
 

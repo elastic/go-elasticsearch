@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
@@ -52,6 +52,7 @@ package types
 //	HdrPercentilesAggregate
 //	HistogramAggregate
 //	InferenceAggregate
+//	IpPrefixAggregate
 //	IpRangeAggregate
 //	LongRareTermsAggregate
 //	LongTermsAggregate
@@ -91,7 +92,7 @@ package types
 //	VariableWidthHistogramAggregate
 //	WeightedAvgAggregate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/aggregations/Aggregate.ts#L30-L112
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L31-L114
 type Aggregate interface{}
 
 // AggregateBuilder holds Aggregate struct and provides a builder API.
@@ -273,6 +274,12 @@ func (u *AggregateBuilder) HistogramAggregate(histogramaggregate *HistogramAggre
 
 func (u *AggregateBuilder) InferenceAggregate(inferenceaggregate *InferenceAggregateBuilder) *AggregateBuilder {
 	v := inferenceaggregate.Build()
+	u.v = &v
+	return u
+}
+
+func (u *AggregateBuilder) IpPrefixAggregate(ipprefixaggregate *IpPrefixAggregateBuilder) *AggregateBuilder {
+	v := ipprefixaggregate.Build()
 	u.v = &v
 	return u
 }

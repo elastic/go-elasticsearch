@@ -17,16 +17,16 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
 
 // SettingsSimilarityBm25 type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/indices/_types/IndexSettings.ts#L180-L185
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/_types/IndexSettings.ts#L180-L185
 type SettingsSimilarityBm25 struct {
-	B                int     `json:"b"`
+	B                float64 `json:"b"`
 	DiscountOverlaps bool    `json:"discount_overlaps"`
 	K1               float64 `json:"k1"`
 	Type             string  `json:"type,omitempty"`
@@ -53,7 +53,7 @@ func (rb *SettingsSimilarityBm25Builder) Build() SettingsSimilarityBm25 {
 	return *rb.v
 }
 
-func (rb *SettingsSimilarityBm25Builder) B(b int) *SettingsSimilarityBm25Builder {
+func (rb *SettingsSimilarityBm25Builder) B(b float64) *SettingsSimilarityBm25Builder {
 	rb.v.B = b
 	return rb
 }

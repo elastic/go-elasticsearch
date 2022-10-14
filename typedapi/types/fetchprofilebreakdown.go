@@ -17,15 +17,17 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
 
 // FetchProfileBreakdown type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_global/search/_types/profile.ts#L146-L153
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_global/search/_types/profile.ts#L148-L157
 type FetchProfileBreakdown struct {
+	LoadSource            *int `json:"load_source,omitempty"`
+	LoadSourceCount       *int `json:"load_source_count,omitempty"`
 	LoadStoredFields      *int `json:"load_stored_fields,omitempty"`
 	LoadStoredFieldsCount *int `json:"load_stored_fields_count,omitempty"`
 	NextReader            *int `json:"next_reader,omitempty"`
@@ -51,6 +53,16 @@ func NewFetchProfileBreakdownBuilder() *FetchProfileBreakdownBuilder {
 // Build finalize the chain and returns the FetchProfileBreakdown struct
 func (rb *FetchProfileBreakdownBuilder) Build() FetchProfileBreakdown {
 	return *rb.v
+}
+
+func (rb *FetchProfileBreakdownBuilder) LoadSource(loadsource int) *FetchProfileBreakdownBuilder {
+	rb.v.LoadSource = &loadsource
+	return rb
+}
+
+func (rb *FetchProfileBreakdownBuilder) LoadSourceCount(loadsourcecount int) *FetchProfileBreakdownBuilder {
+	rb.v.LoadSourceCount = &loadsourcecount
+	return rb
 }
 
 func (rb *FetchProfileBreakdownBuilder) LoadStoredFields(loadstoredfields int) *FetchProfileBreakdownBuilder {

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 // Retrieves information about users in the native realm and built-in users.
@@ -32,6 +32,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
@@ -128,7 +129,11 @@ func (r *GetUser) HttpRequest(ctx context.Context) (*http.Request, error) {
 		req, err = http.NewRequest(method, r.path.String(), r.buf)
 	}
 
-	req.Header.Set("accept", "application/vnd.elasticsearch+json;compatible-with=8")
+	req.Header = r.headers.Clone()
+
+	if req.Header.Get("Accept") == "" {
+		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=8")
+	}
 
 	if err != nil {
 		return req, fmt.Errorf("could not build http.Request: %w", err)
@@ -187,6 +192,14 @@ func (r *GetUser) Header(key, value string) *GetUser {
 func (r *GetUser) Username(v ...string) *GetUser {
 	r.paramSet |= usernameMask
 	r.username = strings.Join(v, ",")
+
+	return r
+}
+
+// WithProfileUid If true will return the User Profile ID for a user, if any.
+// API name: with_profile_uid
+func (r *GetUser) WithProfileUid(b bool) *GetUser {
+	r.values.Set("with_profile_uid", strconv.FormatBool(b))
 
 	return r
 }

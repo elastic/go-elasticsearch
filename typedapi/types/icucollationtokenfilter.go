@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
@@ -31,21 +31,22 @@ import (
 
 // IcuCollationTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/analysis/icu-plugin.ts#L51-L64
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/icu-plugin.ts#L51-L65
 type IcuCollationTokenFilter struct {
-	Alternate              icucollationalternate.IcuCollationAlternate         `json:"alternate"`
-	CaseFirst              icucollationcasefirst.IcuCollationCaseFirst         `json:"caseFirst"`
-	CaseLevel              bool                                                `json:"caseLevel"`
-	Country                string                                              `json:"country"`
-	Decomposition          icucollationdecomposition.IcuCollationDecomposition `json:"decomposition"`
-	HiraganaQuaternaryMode bool                                                `json:"hiraganaQuaternaryMode"`
-	Language               string                                              `json:"language"`
-	Numeric                bool                                                `json:"numeric"`
-	Strength               icucollationstrength.IcuCollationStrength           `json:"strength"`
-	Type                   string                                              `json:"type,omitempty"`
-	VariableTop            *string                                             `json:"variableTop,omitempty"`
-	Variant                string                                              `json:"variant"`
-	Version                *VersionString                                      `json:"version,omitempty"`
+	Alternate              *icucollationalternate.IcuCollationAlternate         `json:"alternate,omitempty"`
+	CaseFirst              *icucollationcasefirst.IcuCollationCaseFirst         `json:"caseFirst,omitempty"`
+	CaseLevel              *bool                                                `json:"caseLevel,omitempty"`
+	Country                *string                                              `json:"country,omitempty"`
+	Decomposition          *icucollationdecomposition.IcuCollationDecomposition `json:"decomposition,omitempty"`
+	HiraganaQuaternaryMode *bool                                                `json:"hiraganaQuaternaryMode,omitempty"`
+	Language               *string                                              `json:"language,omitempty"`
+	Numeric                *bool                                                `json:"numeric,omitempty"`
+	Rules                  *string                                              `json:"rules,omitempty"`
+	Strength               *icucollationstrength.IcuCollationStrength           `json:"strength,omitempty"`
+	Type                   string                                               `json:"type,omitempty"`
+	VariableTop            *string                                              `json:"variableTop,omitempty"`
+	Variant                *string                                              `json:"variant,omitempty"`
+	Version                *VersionString                                       `json:"version,omitempty"`
 }
 
 // IcuCollationTokenFilterBuilder holds IcuCollationTokenFilter struct and provides a builder API.
@@ -70,47 +71,52 @@ func (rb *IcuCollationTokenFilterBuilder) Build() IcuCollationTokenFilter {
 }
 
 func (rb *IcuCollationTokenFilterBuilder) Alternate(alternate icucollationalternate.IcuCollationAlternate) *IcuCollationTokenFilterBuilder {
-	rb.v.Alternate = alternate
+	rb.v.Alternate = &alternate
 	return rb
 }
 
 func (rb *IcuCollationTokenFilterBuilder) CaseFirst(casefirst icucollationcasefirst.IcuCollationCaseFirst) *IcuCollationTokenFilterBuilder {
-	rb.v.CaseFirst = casefirst
+	rb.v.CaseFirst = &casefirst
 	return rb
 }
 
 func (rb *IcuCollationTokenFilterBuilder) CaseLevel(caselevel bool) *IcuCollationTokenFilterBuilder {
-	rb.v.CaseLevel = caselevel
+	rb.v.CaseLevel = &caselevel
 	return rb
 }
 
 func (rb *IcuCollationTokenFilterBuilder) Country(country string) *IcuCollationTokenFilterBuilder {
-	rb.v.Country = country
+	rb.v.Country = &country
 	return rb
 }
 
 func (rb *IcuCollationTokenFilterBuilder) Decomposition(decomposition icucollationdecomposition.IcuCollationDecomposition) *IcuCollationTokenFilterBuilder {
-	rb.v.Decomposition = decomposition
+	rb.v.Decomposition = &decomposition
 	return rb
 }
 
 func (rb *IcuCollationTokenFilterBuilder) HiraganaQuaternaryMode(hiraganaquaternarymode bool) *IcuCollationTokenFilterBuilder {
-	rb.v.HiraganaQuaternaryMode = hiraganaquaternarymode
+	rb.v.HiraganaQuaternaryMode = &hiraganaquaternarymode
 	return rb
 }
 
 func (rb *IcuCollationTokenFilterBuilder) Language(language string) *IcuCollationTokenFilterBuilder {
-	rb.v.Language = language
+	rb.v.Language = &language
 	return rb
 }
 
 func (rb *IcuCollationTokenFilterBuilder) Numeric(numeric bool) *IcuCollationTokenFilterBuilder {
-	rb.v.Numeric = numeric
+	rb.v.Numeric = &numeric
+	return rb
+}
+
+func (rb *IcuCollationTokenFilterBuilder) Rules(rules string) *IcuCollationTokenFilterBuilder {
+	rb.v.Rules = &rules
 	return rb
 }
 
 func (rb *IcuCollationTokenFilterBuilder) Strength(strength icucollationstrength.IcuCollationStrength) *IcuCollationTokenFilterBuilder {
-	rb.v.Strength = strength
+	rb.v.Strength = &strength
 	return rb
 }
 
@@ -120,7 +126,7 @@ func (rb *IcuCollationTokenFilterBuilder) VariableTop(variabletop string) *IcuCo
 }
 
 func (rb *IcuCollationTokenFilterBuilder) Variant(variant string) *IcuCollationTokenFilterBuilder {
-	rb.v.Variant = variant
+	rb.v.Variant = &variant
 	return rb
 }
 

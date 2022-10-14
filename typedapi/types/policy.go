@@ -17,19 +17,19 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
 
 
 package types
 
 // Policy type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/slm/_types/SnapshotLifecycle.ts#L76-L82
+// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/slm/_types/SnapshotLifecycle.ts#L76-L82
 type Policy struct {
-	Config     Configuration  `json:"config"`
+	Config     *Configuration `json:"config,omitempty"`
 	Name       Name           `json:"name"`
 	Repository string         `json:"repository"`
-	Retention  Retention      `json:"retention"`
+	Retention  *Retention     `json:"retention,omitempty"`
 	Schedule   CronExpression `json:"schedule"`
 }
 
@@ -54,7 +54,7 @@ func (rb *PolicyBuilder) Build() Policy {
 
 func (rb *PolicyBuilder) Config(config *ConfigurationBuilder) *PolicyBuilder {
 	v := config.Build()
-	rb.v.Config = v
+	rb.v.Config = &v
 	return rb
 }
 
@@ -70,7 +70,7 @@ func (rb *PolicyBuilder) Repository(repository string) *PolicyBuilder {
 
 func (rb *PolicyBuilder) Retention(retention *RetentionBuilder) *PolicyBuilder {
 	v := retention.Build()
-	rb.v.Retention = v
+	rb.v.Retention = &v
 	return rb
 }
 
