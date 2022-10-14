@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
 
 
 package types
 
 // PipelineSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/logstash/_types/Pipeline.ts#L28-L36
+// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/logstash/_types/Pipeline.ts#L28-L36
 type PipelineSettings struct {
 	PipelineBatchDelay    int    `json:"pipeline.batch.delay"`
 	PipelineBatchSize     int    `json:"pipeline.batch.size"`

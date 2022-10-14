@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
 
 
 package typedapi
@@ -168,6 +168,7 @@ import (
 	indices_delete_index_template "github.com/elastic/go-elasticsearch/v8/typedapi/indices/deleteindextemplate"
 	indices_delete_template "github.com/elastic/go-elasticsearch/v8/typedapi/indices/deletetemplate"
 	indices_disk_usage "github.com/elastic/go-elasticsearch/v8/typedapi/indices/diskusage"
+	indices_downsample "github.com/elastic/go-elasticsearch/v8/typedapi/indices/downsample"
 	indices_exists "github.com/elastic/go-elasticsearch/v8/typedapi/indices/exists"
 	indices_exists_alias "github.com/elastic/go-elasticsearch/v8/typedapi/indices/existsalias"
 	indices_exists_index_template "github.com/elastic/go-elasticsearch/v8/typedapi/indices/existsindextemplate"
@@ -226,6 +227,7 @@ import (
 	migration_deprecations "github.com/elastic/go-elasticsearch/v8/typedapi/migration/deprecations"
 	migration_get_feature_upgrade_status "github.com/elastic/go-elasticsearch/v8/typedapi/migration/getfeatureupgradestatus"
 	migration_post_feature_upgrade "github.com/elastic/go-elasticsearch/v8/typedapi/migration/postfeatureupgrade"
+	ml_clear_trained_model_deployment_cache "github.com/elastic/go-elasticsearch/v8/typedapi/ml/cleartrainedmodeldeploymentcache"
 	ml_close_job "github.com/elastic/go-elasticsearch/v8/typedapi/ml/closejob"
 	ml_delete_calendar "github.com/elastic/go-elasticsearch/v8/typedapi/ml/deletecalendar"
 	ml_delete_calendar_event "github.com/elastic/go-elasticsearch/v8/typedapi/ml/deletecalendarevent"
@@ -308,7 +310,6 @@ import (
 	rollup_get_rollup_caps "github.com/elastic/go-elasticsearch/v8/typedapi/rollup/getrollupcaps"
 	rollup_get_rollup_index_caps "github.com/elastic/go-elasticsearch/v8/typedapi/rollup/getrollupindexcaps"
 	rollup_put_job "github.com/elastic/go-elasticsearch/v8/typedapi/rollup/putjob"
-	rollup_rollup "github.com/elastic/go-elasticsearch/v8/typedapi/rollup/rollup"
 	rollup_rollup_search "github.com/elastic/go-elasticsearch/v8/typedapi/rollup/rollupsearch"
 	rollup_start_job "github.com/elastic/go-elasticsearch/v8/typedapi/rollup/startjob"
 	rollup_stop_job "github.com/elastic/go-elasticsearch/v8/typedapi/rollup/stopjob"
@@ -816,6 +817,8 @@ type Indices struct {
 	DeleteTemplate indices_delete_template.NewDeleteTemplate
 	// Analyzes the disk usage of each field of an index or data stream
 	DiskUsage indices_disk_usage.NewDiskUsage
+	// Downsample an index
+	Downsample indices_downsample.NewDownsample
 	// Returns information about whether a particular index exists.
 	Exists indices_exists.NewExists
 	// Returns information about whether a particular alias exists.
@@ -954,6 +957,8 @@ type Migration struct {
 }
 
 type Ml struct {
+	// Clear the cached results from a trained model deployment
+	ClearTrainedModelDeploymentCache ml_clear_trained_model_deployment_cache.NewClearTrainedModelDeploymentCache
 	// Closes one or more anomaly detection jobs. A job can be opened and closed
 	// multiple times throughout its lifecycle.
 	CloseJob ml_close_job.NewCloseJob
@@ -1134,8 +1139,6 @@ type Rollup struct {
 	GetRollupIndexCaps rollup_get_rollup_index_caps.NewGetRollupIndexCaps
 	// Creates a rollup job.
 	PutJob rollup_put_job.NewPutJob
-	// Rollup an index
-	Rollup rollup_rollup.NewRollup
 	// Enables searching rolled-up data using the standard query DSL.
 	RollupSearch rollup_rollup_search.NewRollupSearch
 	// Starts an existing, stopped rollup job.
@@ -1752,6 +1755,7 @@ func New(tp elastictransport.Interface) *API {
 			DeleteIndexTemplate:   indices_delete_index_template.NewDeleteIndexTemplateFunc(tp),
 			DeleteTemplate:        indices_delete_template.NewDeleteTemplateFunc(tp),
 			DiskUsage:             indices_disk_usage.NewDiskUsageFunc(tp),
+			Downsample:            indices_downsample.NewDownsampleFunc(tp),
 			Exists:                indices_exists.NewExistsFunc(tp),
 			ExistsAlias:           indices_exists_alias.NewExistsAliasFunc(tp),
 			ExistsIndexTemplate:   indices_exists_index_template.NewExistsIndexTemplateFunc(tp),
@@ -1825,76 +1829,77 @@ func New(tp elastictransport.Interface) *API {
 		},
 
 		Ml: Ml{
-			CloseJob:                      ml_close_job.NewCloseJobFunc(tp),
-			DeleteCalendar:                ml_delete_calendar.NewDeleteCalendarFunc(tp),
-			DeleteCalendarEvent:           ml_delete_calendar_event.NewDeleteCalendarEventFunc(tp),
-			DeleteCalendarJob:             ml_delete_calendar_job.NewDeleteCalendarJobFunc(tp),
-			DeleteDataFrameAnalytics:      ml_delete_data_frame_analytics.NewDeleteDataFrameAnalyticsFunc(tp),
-			DeleteDatafeed:                ml_delete_datafeed.NewDeleteDatafeedFunc(tp),
-			DeleteExpiredData:             ml_delete_expired_data.NewDeleteExpiredDataFunc(tp),
-			DeleteFilter:                  ml_delete_filter.NewDeleteFilterFunc(tp),
-			DeleteForecast:                ml_delete_forecast.NewDeleteForecastFunc(tp),
-			DeleteJob:                     ml_delete_job.NewDeleteJobFunc(tp),
-			DeleteModelSnapshot:           ml_delete_model_snapshot.NewDeleteModelSnapshotFunc(tp),
-			DeleteTrainedModel:            ml_delete_trained_model.NewDeleteTrainedModelFunc(tp),
-			DeleteTrainedModelAlias:       ml_delete_trained_model_alias.NewDeleteTrainedModelAliasFunc(tp),
-			EstimateModelMemory:           ml_estimate_model_memory.NewEstimateModelMemoryFunc(tp),
-			EvaluateDataFrame:             ml_evaluate_data_frame.NewEvaluateDataFrameFunc(tp),
-			ExplainDataFrameAnalytics:     ml_explain_data_frame_analytics.NewExplainDataFrameAnalyticsFunc(tp),
-			FlushJob:                      ml_flush_job.NewFlushJobFunc(tp),
-			Forecast:                      ml_forecast.NewForecastFunc(tp),
-			GetBuckets:                    ml_get_buckets.NewGetBucketsFunc(tp),
-			GetCalendarEvents:             ml_get_calendar_events.NewGetCalendarEventsFunc(tp),
-			GetCalendars:                  ml_get_calendars.NewGetCalendarsFunc(tp),
-			GetCategories:                 ml_get_categories.NewGetCategoriesFunc(tp),
-			GetDataFrameAnalytics:         ml_get_data_frame_analytics.NewGetDataFrameAnalyticsFunc(tp),
-			GetDataFrameAnalyticsStats:    ml_get_data_frame_analytics_stats.NewGetDataFrameAnalyticsStatsFunc(tp),
-			GetDatafeedStats:              ml_get_datafeed_stats.NewGetDatafeedStatsFunc(tp),
-			GetDatafeeds:                  ml_get_datafeeds.NewGetDatafeedsFunc(tp),
-			GetFilters:                    ml_get_filters.NewGetFiltersFunc(tp),
-			GetInfluencers:                ml_get_influencers.NewGetInfluencersFunc(tp),
-			GetJobStats:                   ml_get_job_stats.NewGetJobStatsFunc(tp),
-			GetJobs:                       ml_get_jobs.NewGetJobsFunc(tp),
-			GetMemoryStats:                ml_get_memory_stats.NewGetMemoryStatsFunc(tp),
-			GetModelSnapshotUpgradeStats:  ml_get_model_snapshot_upgrade_stats.NewGetModelSnapshotUpgradeStatsFunc(tp),
-			GetModelSnapshots:             ml_get_model_snapshots.NewGetModelSnapshotsFunc(tp),
-			GetOverallBuckets:             ml_get_overall_buckets.NewGetOverallBucketsFunc(tp),
-			GetRecords:                    ml_get_records.NewGetRecordsFunc(tp),
-			GetTrainedModels:              ml_get_trained_models.NewGetTrainedModelsFunc(tp),
-			GetTrainedModelsStats:         ml_get_trained_models_stats.NewGetTrainedModelsStatsFunc(tp),
-			InferTrainedModel:             ml_infer_trained_model.NewInferTrainedModelFunc(tp),
-			Info:                          ml_info.NewInfoFunc(tp),
-			OpenJob:                       ml_open_job.NewOpenJobFunc(tp),
-			PostCalendarEvents:            ml_post_calendar_events.NewPostCalendarEventsFunc(tp),
-			PreviewDataFrameAnalytics:     ml_preview_data_frame_analytics.NewPreviewDataFrameAnalyticsFunc(tp),
-			PreviewDatafeed:               ml_preview_datafeed.NewPreviewDatafeedFunc(tp),
-			PutCalendar:                   ml_put_calendar.NewPutCalendarFunc(tp),
-			PutCalendarJob:                ml_put_calendar_job.NewPutCalendarJobFunc(tp),
-			PutDataFrameAnalytics:         ml_put_data_frame_analytics.NewPutDataFrameAnalyticsFunc(tp),
-			PutDatafeed:                   ml_put_datafeed.NewPutDatafeedFunc(tp),
-			PutFilter:                     ml_put_filter.NewPutFilterFunc(tp),
-			PutJob:                        ml_put_job.NewPutJobFunc(tp),
-			PutTrainedModel:               ml_put_trained_model.NewPutTrainedModelFunc(tp),
-			PutTrainedModelAlias:          ml_put_trained_model_alias.NewPutTrainedModelAliasFunc(tp),
-			PutTrainedModelDefinitionPart: ml_put_trained_model_definition_part.NewPutTrainedModelDefinitionPartFunc(tp),
-			PutTrainedModelVocabulary:     ml_put_trained_model_vocabulary.NewPutTrainedModelVocabularyFunc(tp),
-			ResetJob:                      ml_reset_job.NewResetJobFunc(tp),
-			RevertModelSnapshot:           ml_revert_model_snapshot.NewRevertModelSnapshotFunc(tp),
-			SetUpgradeMode:                ml_set_upgrade_mode.NewSetUpgradeModeFunc(tp),
-			StartDataFrameAnalytics:       ml_start_data_frame_analytics.NewStartDataFrameAnalyticsFunc(tp),
-			StartDatafeed:                 ml_start_datafeed.NewStartDatafeedFunc(tp),
-			StartTrainedModelDeployment:   ml_start_trained_model_deployment.NewStartTrainedModelDeploymentFunc(tp),
-			StopDataFrameAnalytics:        ml_stop_data_frame_analytics.NewStopDataFrameAnalyticsFunc(tp),
-			StopDatafeed:                  ml_stop_datafeed.NewStopDatafeedFunc(tp),
-			StopTrainedModelDeployment:    ml_stop_trained_model_deployment.NewStopTrainedModelDeploymentFunc(tp),
-			UpdateDataFrameAnalytics:      ml_update_data_frame_analytics.NewUpdateDataFrameAnalyticsFunc(tp),
-			UpdateDatafeed:                ml_update_datafeed.NewUpdateDatafeedFunc(tp),
-			UpdateFilter:                  ml_update_filter.NewUpdateFilterFunc(tp),
-			UpdateJob:                     ml_update_job.NewUpdateJobFunc(tp),
-			UpdateModelSnapshot:           ml_update_model_snapshot.NewUpdateModelSnapshotFunc(tp),
-			UpgradeJobSnapshot:            ml_upgrade_job_snapshot.NewUpgradeJobSnapshotFunc(tp),
-			Validate:                      ml_validate.NewValidateFunc(tp),
-			ValidateDetector:              ml_validate_detector.NewValidateDetectorFunc(tp),
+			ClearTrainedModelDeploymentCache: ml_clear_trained_model_deployment_cache.NewClearTrainedModelDeploymentCacheFunc(tp),
+			CloseJob:                         ml_close_job.NewCloseJobFunc(tp),
+			DeleteCalendar:                   ml_delete_calendar.NewDeleteCalendarFunc(tp),
+			DeleteCalendarEvent:              ml_delete_calendar_event.NewDeleteCalendarEventFunc(tp),
+			DeleteCalendarJob:                ml_delete_calendar_job.NewDeleteCalendarJobFunc(tp),
+			DeleteDataFrameAnalytics:         ml_delete_data_frame_analytics.NewDeleteDataFrameAnalyticsFunc(tp),
+			DeleteDatafeed:                   ml_delete_datafeed.NewDeleteDatafeedFunc(tp),
+			DeleteExpiredData:                ml_delete_expired_data.NewDeleteExpiredDataFunc(tp),
+			DeleteFilter:                     ml_delete_filter.NewDeleteFilterFunc(tp),
+			DeleteForecast:                   ml_delete_forecast.NewDeleteForecastFunc(tp),
+			DeleteJob:                        ml_delete_job.NewDeleteJobFunc(tp),
+			DeleteModelSnapshot:              ml_delete_model_snapshot.NewDeleteModelSnapshotFunc(tp),
+			DeleteTrainedModel:               ml_delete_trained_model.NewDeleteTrainedModelFunc(tp),
+			DeleteTrainedModelAlias:          ml_delete_trained_model_alias.NewDeleteTrainedModelAliasFunc(tp),
+			EstimateModelMemory:              ml_estimate_model_memory.NewEstimateModelMemoryFunc(tp),
+			EvaluateDataFrame:                ml_evaluate_data_frame.NewEvaluateDataFrameFunc(tp),
+			ExplainDataFrameAnalytics:        ml_explain_data_frame_analytics.NewExplainDataFrameAnalyticsFunc(tp),
+			FlushJob:                         ml_flush_job.NewFlushJobFunc(tp),
+			Forecast:                         ml_forecast.NewForecastFunc(tp),
+			GetBuckets:                       ml_get_buckets.NewGetBucketsFunc(tp),
+			GetCalendarEvents:                ml_get_calendar_events.NewGetCalendarEventsFunc(tp),
+			GetCalendars:                     ml_get_calendars.NewGetCalendarsFunc(tp),
+			GetCategories:                    ml_get_categories.NewGetCategoriesFunc(tp),
+			GetDataFrameAnalytics:            ml_get_data_frame_analytics.NewGetDataFrameAnalyticsFunc(tp),
+			GetDataFrameAnalyticsStats:       ml_get_data_frame_analytics_stats.NewGetDataFrameAnalyticsStatsFunc(tp),
+			GetDatafeedStats:                 ml_get_datafeed_stats.NewGetDatafeedStatsFunc(tp),
+			GetDatafeeds:                     ml_get_datafeeds.NewGetDatafeedsFunc(tp),
+			GetFilters:                       ml_get_filters.NewGetFiltersFunc(tp),
+			GetInfluencers:                   ml_get_influencers.NewGetInfluencersFunc(tp),
+			GetJobStats:                      ml_get_job_stats.NewGetJobStatsFunc(tp),
+			GetJobs:                          ml_get_jobs.NewGetJobsFunc(tp),
+			GetMemoryStats:                   ml_get_memory_stats.NewGetMemoryStatsFunc(tp),
+			GetModelSnapshotUpgradeStats:     ml_get_model_snapshot_upgrade_stats.NewGetModelSnapshotUpgradeStatsFunc(tp),
+			GetModelSnapshots:                ml_get_model_snapshots.NewGetModelSnapshotsFunc(tp),
+			GetOverallBuckets:                ml_get_overall_buckets.NewGetOverallBucketsFunc(tp),
+			GetRecords:                       ml_get_records.NewGetRecordsFunc(tp),
+			GetTrainedModels:                 ml_get_trained_models.NewGetTrainedModelsFunc(tp),
+			GetTrainedModelsStats:            ml_get_trained_models_stats.NewGetTrainedModelsStatsFunc(tp),
+			InferTrainedModel:                ml_infer_trained_model.NewInferTrainedModelFunc(tp),
+			Info:                             ml_info.NewInfoFunc(tp),
+			OpenJob:                          ml_open_job.NewOpenJobFunc(tp),
+			PostCalendarEvents:               ml_post_calendar_events.NewPostCalendarEventsFunc(tp),
+			PreviewDataFrameAnalytics:        ml_preview_data_frame_analytics.NewPreviewDataFrameAnalyticsFunc(tp),
+			PreviewDatafeed:                  ml_preview_datafeed.NewPreviewDatafeedFunc(tp),
+			PutCalendar:                      ml_put_calendar.NewPutCalendarFunc(tp),
+			PutCalendarJob:                   ml_put_calendar_job.NewPutCalendarJobFunc(tp),
+			PutDataFrameAnalytics:            ml_put_data_frame_analytics.NewPutDataFrameAnalyticsFunc(tp),
+			PutDatafeed:                      ml_put_datafeed.NewPutDatafeedFunc(tp),
+			PutFilter:                        ml_put_filter.NewPutFilterFunc(tp),
+			PutJob:                           ml_put_job.NewPutJobFunc(tp),
+			PutTrainedModel:                  ml_put_trained_model.NewPutTrainedModelFunc(tp),
+			PutTrainedModelAlias:             ml_put_trained_model_alias.NewPutTrainedModelAliasFunc(tp),
+			PutTrainedModelDefinitionPart:    ml_put_trained_model_definition_part.NewPutTrainedModelDefinitionPartFunc(tp),
+			PutTrainedModelVocabulary:        ml_put_trained_model_vocabulary.NewPutTrainedModelVocabularyFunc(tp),
+			ResetJob:                         ml_reset_job.NewResetJobFunc(tp),
+			RevertModelSnapshot:              ml_revert_model_snapshot.NewRevertModelSnapshotFunc(tp),
+			SetUpgradeMode:                   ml_set_upgrade_mode.NewSetUpgradeModeFunc(tp),
+			StartDataFrameAnalytics:          ml_start_data_frame_analytics.NewStartDataFrameAnalyticsFunc(tp),
+			StartDatafeed:                    ml_start_datafeed.NewStartDatafeedFunc(tp),
+			StartTrainedModelDeployment:      ml_start_trained_model_deployment.NewStartTrainedModelDeploymentFunc(tp),
+			StopDataFrameAnalytics:           ml_stop_data_frame_analytics.NewStopDataFrameAnalyticsFunc(tp),
+			StopDatafeed:                     ml_stop_datafeed.NewStopDatafeedFunc(tp),
+			StopTrainedModelDeployment:       ml_stop_trained_model_deployment.NewStopTrainedModelDeploymentFunc(tp),
+			UpdateDataFrameAnalytics:         ml_update_data_frame_analytics.NewUpdateDataFrameAnalyticsFunc(tp),
+			UpdateDatafeed:                   ml_update_datafeed.NewUpdateDatafeedFunc(tp),
+			UpdateFilter:                     ml_update_filter.NewUpdateFilterFunc(tp),
+			UpdateJob:                        ml_update_job.NewUpdateJobFunc(tp),
+			UpdateModelSnapshot:              ml_update_model_snapshot.NewUpdateModelSnapshotFunc(tp),
+			UpgradeJobSnapshot:               ml_upgrade_job_snapshot.NewUpgradeJobSnapshotFunc(tp),
+			Validate:                         ml_validate.NewValidateFunc(tp),
+			ValidateDetector:                 ml_validate_detector.NewValidateDetectorFunc(tp),
 		},
 
 		Nodes: Nodes{
@@ -1913,7 +1918,6 @@ func New(tp elastictransport.Interface) *API {
 			GetRollupCaps:      rollup_get_rollup_caps.NewGetRollupCapsFunc(tp),
 			GetRollupIndexCaps: rollup_get_rollup_index_caps.NewGetRollupIndexCapsFunc(tp),
 			PutJob:             rollup_put_job.NewPutJobFunc(tp),
-			Rollup:             rollup_rollup.NewRollupFunc(tp),
 			RollupSearch:       rollup_rollup_search.NewRollupSearchFunc(tp),
 			StartJob:           rollup_start_job.NewStartJobFunc(tp),
 			StopJob:            rollup_stop_job.NewStopJobFunc(tp),

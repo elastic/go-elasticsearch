@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
 
 
 package types
 
 // EqlSearchResponseBase type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/eql/_types/EqlSearchResponseBase.ts#L25-L50
+// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/eql/_types/EqlSearchResponseBase.ts#L25-L50
 type EqlSearchResponseBase struct {
 	// Hits Contains matching events and sequences. Also contains related metadata.
 	Hits EqlHits `json:"hits"`

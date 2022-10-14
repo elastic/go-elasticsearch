@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
 
 
 package types
@@ -30,24 +30,31 @@ import (
 
 // ShortNumberProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/mapping/core.ts#L144-L147
+// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/mapping/core.ts#L156-L159
 type ShortNumberProperty struct {
-	Coerce           *bool                                      `json:"coerce,omitempty"`
-	CopyTo           *Fields                                    `json:"copy_to,omitempty"`
-	DocValues        *bool                                      `json:"doc_values,omitempty"`
-	Dynamic          *dynamicmapping.DynamicMapping             `json:"dynamic,omitempty"`
-	Fields           map[PropertyName]Property                  `json:"fields,omitempty"`
-	IgnoreAbove      *int                                       `json:"ignore_above,omitempty"`
-	IgnoreMalformed  *bool                                      `json:"ignore_malformed,omitempty"`
-	Index            *bool                                      `json:"index,omitempty"`
-	LocalMetadata    *Metadata                                  `json:"local_metadata,omitempty"`
-	Meta             map[string]string                          `json:"meta,omitempty"`
-	NullValue        *int                                       `json:"null_value,omitempty"`
-	OnScriptError    *onscripterror.OnScriptError               `json:"on_script_error,omitempty"`
-	Properties       map[PropertyName]Property                  `json:"properties,omitempty"`
-	Script           *Script                                    `json:"script,omitempty"`
-	Similarity       *string                                    `json:"similarity,omitempty"`
-	Store            *bool                                      `json:"store,omitempty"`
+	Boost           *float64                       `json:"boost,omitempty"`
+	Coerce          *bool                          `json:"coerce,omitempty"`
+	CopyTo          *Fields                        `json:"copy_to,omitempty"`
+	DocValues       *bool                          `json:"doc_values,omitempty"`
+	Dynamic         *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
+	Fields          map[PropertyName]Property      `json:"fields,omitempty"`
+	IgnoreAbove     *int                           `json:"ignore_above,omitempty"`
+	IgnoreMalformed *bool                          `json:"ignore_malformed,omitempty"`
+	Index           *bool                          `json:"index,omitempty"`
+	LocalMetadata   *Metadata                      `json:"local_metadata,omitempty"`
+	// Meta Metadata about the field.
+	Meta          map[string]string            `json:"meta,omitempty"`
+	NullValue     *int                         `json:"null_value,omitempty"`
+	OnScriptError *onscripterror.OnScriptError `json:"on_script_error,omitempty"`
+	Properties    map[PropertyName]Property    `json:"properties,omitempty"`
+	Script        *Script                      `json:"script,omitempty"`
+	Similarity    *string                      `json:"similarity,omitempty"`
+	Store         *bool                        `json:"store,omitempty"`
+	// TimeSeriesDimension For internal use by Elastic only. Marks the field as a time series dimension.
+	// Defaults to false.
+	TimeSeriesDimension *bool `json:"time_series_dimension,omitempty"`
+	// TimeSeriesMetric For internal use by Elastic only. Marks the field as a time series dimension.
+	// Defaults to false.
 	TimeSeriesMetric *timeseriesmetrictype.TimeSeriesMetricType `json:"time_series_metric,omitempty"`
 	Type             string                                     `json:"type,omitempty"`
 }
@@ -75,6 +82,11 @@ func NewShortNumberPropertyBuilder() *ShortNumberPropertyBuilder {
 // Build finalize the chain and returns the ShortNumberProperty struct
 func (rb *ShortNumberPropertyBuilder) Build() ShortNumberProperty {
 	return *rb.v
+}
+
+func (rb *ShortNumberPropertyBuilder) Boost(boost float64) *ShortNumberPropertyBuilder {
+	rb.v.Boost = &boost
+	return rb
 }
 
 func (rb *ShortNumberPropertyBuilder) Coerce(coerce bool) *ShortNumberPropertyBuilder {
@@ -128,6 +140,8 @@ func (rb *ShortNumberPropertyBuilder) LocalMetadata(localmetadata *MetadataBuild
 	return rb
 }
 
+// Meta Metadata about the field.
+
 func (rb *ShortNumberPropertyBuilder) Meta(value map[string]string) *ShortNumberPropertyBuilder {
 	rb.v.Meta = value
 	return rb
@@ -167,6 +181,17 @@ func (rb *ShortNumberPropertyBuilder) Store(store bool) *ShortNumberPropertyBuil
 	rb.v.Store = &store
 	return rb
 }
+
+// TimeSeriesDimension For internal use by Elastic only. Marks the field as a time series dimension.
+// Defaults to false.
+
+func (rb *ShortNumberPropertyBuilder) TimeSeriesDimension(timeseriesdimension bool) *ShortNumberPropertyBuilder {
+	rb.v.TimeSeriesDimension = &timeseriesdimension
+	return rb
+}
+
+// TimeSeriesMetric For internal use by Elastic only. Marks the field as a time series dimension.
+// Defaults to false.
 
 func (rb *ShortNumberPropertyBuilder) TimeSeriesMetric(timeseriesmetric timeseriesmetrictype.TimeSeriesMetricType) *ShortNumberPropertyBuilder {
 	rb.v.TimeSeriesMetric = &timeseriesmetric

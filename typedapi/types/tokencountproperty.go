@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // TokenCountProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/mapping/specialized.ts#L70-L77
+// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/mapping/specialized.ts#L78-L85
 type TokenCountProperty struct {
 	Analyzer                 *string                        `json:"analyzer,omitempty"`
 	Boost                    *float64                       `json:"boost,omitempty"`
@@ -40,12 +40,13 @@ type TokenCountProperty struct {
 	IgnoreAbove              *int                           `json:"ignore_above,omitempty"`
 	Index                    *bool                          `json:"index,omitempty"`
 	LocalMetadata            *Metadata                      `json:"local_metadata,omitempty"`
-	Meta                     map[string]string              `json:"meta,omitempty"`
-	NullValue                *float64                       `json:"null_value,omitempty"`
-	Properties               map[PropertyName]Property      `json:"properties,omitempty"`
-	Similarity               *string                        `json:"similarity,omitempty"`
-	Store                    *bool                          `json:"store,omitempty"`
-	Type                     string                         `json:"type,omitempty"`
+	// Meta Metadata about the field.
+	Meta       map[string]string         `json:"meta,omitempty"`
+	NullValue  *float64                  `json:"null_value,omitempty"`
+	Properties map[PropertyName]Property `json:"properties,omitempty"`
+	Similarity *string                   `json:"similarity,omitempty"`
+	Store      *bool                     `json:"store,omitempty"`
+	Type       string                    `json:"type,omitempty"`
 }
 
 // TokenCountPropertyBuilder holds TokenCountProperty struct and provides a builder API.
@@ -128,6 +129,8 @@ func (rb *TokenCountPropertyBuilder) LocalMetadata(localmetadata *MetadataBuilde
 	rb.v.LocalMetadata = &v
 	return rb
 }
+
+// Meta Metadata about the field.
 
 func (rb *TokenCountPropertyBuilder) Meta(value map[string]string) *TokenCountPropertyBuilder {
 	rb.v.Meta = value

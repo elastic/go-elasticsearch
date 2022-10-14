@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // BinaryProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/mapping/core.ts#L49-L51
+// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/mapping/core.ts#L49-L51
 type BinaryProperty struct {
 	CopyTo        *Fields                        `json:"copy_to,omitempty"`
 	DocValues     *bool                          `json:"doc_values,omitempty"`
@@ -36,11 +36,12 @@ type BinaryProperty struct {
 	Fields        map[PropertyName]Property      `json:"fields,omitempty"`
 	IgnoreAbove   *int                           `json:"ignore_above,omitempty"`
 	LocalMetadata *Metadata                      `json:"local_metadata,omitempty"`
-	Meta          map[string]string              `json:"meta,omitempty"`
-	Properties    map[PropertyName]Property      `json:"properties,omitempty"`
-	Similarity    *string                        `json:"similarity,omitempty"`
-	Store         *bool                          `json:"store,omitempty"`
-	Type          string                         `json:"type,omitempty"`
+	// Meta Metadata about the field.
+	Meta       map[string]string         `json:"meta,omitempty"`
+	Properties map[PropertyName]Property `json:"properties,omitempty"`
+	Similarity *string                   `json:"similarity,omitempty"`
+	Store      *bool                     `json:"store,omitempty"`
+	Type       string                    `json:"type,omitempty"`
 }
 
 // BinaryPropertyBuilder holds BinaryProperty struct and provides a builder API.
@@ -103,6 +104,8 @@ func (rb *BinaryPropertyBuilder) LocalMetadata(localmetadata *MetadataBuilder) *
 	rb.v.LocalMetadata = &v
 	return rb
 }
+
+// Meta Metadata about the field.
 
 func (rb *BinaryPropertyBuilder) Meta(value map[string]string) *BinaryPropertyBuilder {
 	rb.v.Meta = value

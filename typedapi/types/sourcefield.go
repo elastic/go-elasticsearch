@@ -17,20 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
 
 
 package types
 
+import (
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/sourcefieldmode"
+)
+
 // SourceField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/mapping/meta-fields.ts#L58-L64
+// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/mapping/meta-fields.ts#L58-L65
 type SourceField struct {
-	Compress          *bool    `json:"compress,omitempty"`
-	CompressThreshold *string  `json:"compress_threshold,omitempty"`
-	Enabled           *bool    `json:"enabled,omitempty"`
-	Excludes          []string `json:"excludes,omitempty"`
-	Includes          []string `json:"includes,omitempty"`
+	Compress          *bool                            `json:"compress,omitempty"`
+	CompressThreshold *string                          `json:"compress_threshold,omitempty"`
+	Enabled           *bool                            `json:"enabled,omitempty"`
+	Excludes          []string                         `json:"excludes,omitempty"`
+	Includes          []string                         `json:"includes,omitempty"`
+	Mode              *sourcefieldmode.SourceFieldMode `json:"mode,omitempty"`
 }
 
 // SourceFieldBuilder holds SourceField struct and provides a builder API.
@@ -74,5 +79,10 @@ func (rb *SourceFieldBuilder) Excludes(excludes ...string) *SourceFieldBuilder {
 
 func (rb *SourceFieldBuilder) Includes(includes ...string) *SourceFieldBuilder {
 	rb.v.Includes = includes
+	return rb
+}
+
+func (rb *SourceFieldBuilder) Mode(mode sourcefieldmode.SourceFieldMode) *SourceFieldBuilder {
+	rb.v.Mode = &mode
 	return rb
 }

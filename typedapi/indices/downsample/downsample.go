@@ -17,11 +17,11 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
 
 
-// Rollup an index
-package rollup
+// Downsample an index
+package downsample
 
 import (
 	gobytes "bytes"
@@ -34,18 +34,19 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 const (
 	indexMask = iota + 1
 
-	rollupindexMask
+	targetindexMask
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
 var ErrBuildPath = errors.New("cannot build path, check for missing path parameters")
 
-type Rollup struct {
+type Downsample struct {
 	transport elastictransport.Interface
 
 	headers http.Header
@@ -54,37 +55,37 @@ type Rollup struct {
 
 	buf *gobytes.Buffer
 
-	req interface{}
+	req *types.DownsampleConfig
 	raw json.RawMessage
 
 	paramSet int
 
 	index       string
-	rollupindex string
+	targetindex string
 }
 
-// NewRollup type alias for index.
-type NewRollup func(index, rollupindex string) *Rollup
+// NewDownsample type alias for index.
+type NewDownsample func(index, targetindex string) *Downsample
 
-// NewRollupFunc returns a new instance of Rollup with the provided transport.
+// NewDownsampleFunc returns a new instance of Downsample with the provided transport.
 // Used in the index of the library this allows to retrieve every apis in once place.
-func NewRollupFunc(tp elastictransport.Interface) NewRollup {
-	return func(index, rollupindex string) *Rollup {
+func NewDownsampleFunc(tp elastictransport.Interface) NewDownsample {
+	return func(index, targetindex string) *Downsample {
 		n := New(tp)
 
 		n.Index(index)
 
-		n.RollupIndex(rollupindex)
+		n.TargetIndex(targetindex)
 
 		return n
 	}
 }
 
-// Rollup an index
+// Downsample an index
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/xpack-rollup.html
-func New(tp elastictransport.Interface) *Rollup {
-	r := &Rollup{
+func New(tp elastictransport.Interface) *Downsample {
+	r := &Downsample{
 		transport: tp,
 		values:    make(url.Values),
 		headers:   make(http.Header),
@@ -96,14 +97,14 @@ func New(tp elastictransport.Interface) *Rollup {
 
 // Raw takes a json payload as input which is then passed to the http.Request
 // If specified Raw takes precedence on Request method.
-func (r *Rollup) Raw(raw json.RawMessage) *Rollup {
+func (r *Downsample) Raw(raw json.RawMessage) *Downsample {
 	r.raw = raw
 
 	return r
 }
 
 // Request allows to set the request property with the appropriate payload.
-func (r *Rollup) Request(req interface{}) *Rollup {
+func (r *Downsample) Request(req *types.DownsampleConfig) *Downsample {
 	r.req = req
 
 	return r
@@ -111,7 +112,7 @@ func (r *Rollup) Request(req interface{}) *Rollup {
 
 // HttpRequest returns the http.Request object built from the
 // given parameters.
-func (r *Rollup) HttpRequest(ctx context.Context) (*http.Request, error) {
+func (r *Downsample) HttpRequest(ctx context.Context) (*http.Request, error) {
 	var path strings.Builder
 	var method string
 	var req *http.Request
@@ -124,7 +125,7 @@ func (r *Rollup) HttpRequest(ctx context.Context) (*http.Request, error) {
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
-			return nil, fmt.Errorf("could not serialise request for Rollup: %w", err)
+			return nil, fmt.Errorf("could not serialise request for Downsample: %w", err)
 		}
 
 		r.buf.Write(data)
@@ -133,13 +134,13 @@ func (r *Rollup) HttpRequest(ctx context.Context) (*http.Request, error) {
 	r.path.Scheme = "http"
 
 	switch {
-	case r.paramSet == indexMask|rollupindexMask:
+	case r.paramSet == indexMask|targetindexMask:
 		path.WriteString("/")
 		path.WriteString(url.PathEscape(r.index))
 		path.WriteString("/")
-		path.WriteString("_rollup")
+		path.WriteString("_downsample")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.rollupindex))
+		path.WriteString(url.PathEscape(r.targetindex))
 
 		method = http.MethodPost
 	}
@@ -157,11 +158,17 @@ func (r *Rollup) HttpRequest(ctx context.Context) (*http.Request, error) {
 		req, err = http.NewRequest(method, r.path.String(), r.buf)
 	}
 
-	if r.buf.Len() > 0 {
-		req.Header.Set("content-type", "application/vnd.elasticsearch+json;compatible-with=8")
+	req.Header = r.headers.Clone()
+
+	if req.Header.Get("Content-Type") == "" {
+		if r.buf.Len() > 0 {
+			req.Header.Set("Content-Type", "application/vnd.elasticsearch+json;compatible-with=8")
+		}
 	}
 
-	req.Header.Set("accept", "application/vnd.elasticsearch+json;compatible-with=8")
+	if req.Header.Get("Accept") == "" {
+		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=8")
+	}
 
 	if err != nil {
 		return req, fmt.Errorf("could not build http.Request: %w", err)
@@ -171,7 +178,7 @@ func (r *Rollup) HttpRequest(ctx context.Context) (*http.Request, error) {
 }
 
 // Do runs the http.Request through the provided transport.
-func (r Rollup) Do(ctx context.Context) (*http.Response, error) {
+func (r Downsample) Do(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -179,33 +186,33 @@ func (r Rollup) Do(ctx context.Context) (*http.Response, error) {
 
 	res, err := r.transport.Perform(req)
 	if err != nil {
-		return nil, fmt.Errorf("an error happened during the Rollup query execution: %w", err)
+		return nil, fmt.Errorf("an error happened during the Downsample query execution: %w", err)
 	}
 
 	return res, nil
 }
 
-// Header set a key, value pair in the Rollup headers map.
-func (r *Rollup) Header(key, value string) *Rollup {
+// Header set a key, value pair in the Downsample headers map.
+func (r *Downsample) Header(key, value string) *Downsample {
 	r.headers.Set(key, value)
 
 	return r
 }
 
-// Index The index to roll up
+// Index The index to downsample
 // API Name: index
-func (r *Rollup) Index(v string) *Rollup {
+func (r *Downsample) Index(v string) *Downsample {
 	r.paramSet |= indexMask
 	r.index = v
 
 	return r
 }
 
-// RollupIndex The name of the rollup index to create
-// API Name: rollupindex
-func (r *Rollup) RollupIndex(v string) *Rollup {
-	r.paramSet |= rollupindexMask
-	r.rollupindex = v
+// TargetIndex The name of the target index to store downsampled data
+// API Name: targetindex
+func (r *Downsample) TargetIndex(v string) *Downsample {
+	r.paramSet |= targetindexMask
+	r.targetindex = v
 
 	return r
 }

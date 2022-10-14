@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
 
 
 // Package scriptsorttype
@@ -25,7 +25,7 @@ package scriptsorttype
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/sort.ts#L75-L78
+// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/sort.ts#L76-L80
 type ScriptSortType struct {
 	name string
 }
@@ -34,6 +34,8 @@ var (
 	String = ScriptSortType{"string"}
 
 	Number = ScriptSortType{"number"}
+
+	Version = ScriptSortType{"version"}
 )
 
 func (s ScriptSortType) MarshalText() (text []byte, err error) {
@@ -47,6 +49,8 @@ func (s *ScriptSortType) UnmarshalText(text []byte) error {
 		*s = String
 	case "number":
 		*s = Number
+	case "version":
+		*s = Version
 	default:
 		*s = ScriptSortType{string(text)}
 	}

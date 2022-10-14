@@ -17,18 +17,19 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
 
 
 package types
 
 // GeoLineAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/aggregations/Aggregate.ts#L735-L739
+// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L760-L767
 type GeoLineAggregate struct {
-	Geometry GeoLine   `json:"geometry"`
-	Meta     *Metadata `json:"meta,omitempty"`
-	Type     string    `json:"type"`
+	Geometry   GeoLine     `json:"geometry"`
+	Meta       *Metadata   `json:"meta,omitempty"`
+	Properties interface{} `json:"properties,omitempty"`
+	Type       string      `json:"type"`
 }
 
 // GeoLineAggregateBuilder holds GeoLineAggregate struct and provides a builder API.
@@ -59,6 +60,11 @@ func (rb *GeoLineAggregateBuilder) Geometry(geometry *GeoLineBuilder) *GeoLineAg
 func (rb *GeoLineAggregateBuilder) Meta(meta *MetadataBuilder) *GeoLineAggregateBuilder {
 	v := meta.Build()
 	rb.v.Meta = &v
+	return rb
+}
+
+func (rb *GeoLineAggregateBuilder) Properties(properties interface{}) *GeoLineAggregateBuilder {
+	rb.v.Properties = properties
 	return rb
 }
 

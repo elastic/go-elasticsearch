@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
 
 
 package types
 
 // Settings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/transform/_types/Transform.ts#L98-L133
+// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/transform/_types/Transform.ts#L98-L143
 type Settings struct {
 	// AlignCheckpoints Specifies whether the transform checkpoint ranges should be optimized for
 	// performance. Such optimization can align
@@ -53,6 +53,12 @@ type Settings struct {
 	// minimum value is `10` and the
 	// maximum is `65,536`.
 	MaxPageSearchSize *int `json:"max_page_search_size,omitempty"`
+	// Unattended If `true`, the transform runs in unattended mode. In unattended mode, the
+	// transform retries indefinitely in case
+	// of an error which means the transform never fails. Setting the number of
+	// retries other than infinite fails in
+	// validation.
+	Unattended *bool `json:"unattended,omitempty"`
 }
 
 // SettingsBuilder holds Settings struct and provides a builder API.
@@ -123,5 +129,16 @@ func (rb *SettingsBuilder) DocsPerSecond(docspersecond float32) *SettingsBuilder
 
 func (rb *SettingsBuilder) MaxPageSearchSize(maxpagesearchsize int) *SettingsBuilder {
 	rb.v.MaxPageSearchSize = &maxpagesearchsize
+	return rb
+}
+
+// Unattended If `true`, the transform runs in unattended mode. In unattended mode, the
+// transform retries indefinitely in case
+// of an error which means the transform never fails. Setting the number of
+// retries other than infinite fails in
+// validation.
+
+func (rb *SettingsBuilder) Unattended(unattended bool) *SettingsBuilder {
+	rb.v.Unattended = &unattended
 	return rb
 }

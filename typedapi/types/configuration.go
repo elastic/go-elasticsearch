@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
 
 
 package types
 
 // Configuration type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/slm/_types/SnapshotLifecycle.ts#L99-L129
+// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/slm/_types/SnapshotLifecycle.ts#L99-L129
 type Configuration struct {
 	// FeatureStates A list of feature states to be included in this snapshot. A list of features
 	// available for inclusion in the snapshot and their descriptions be can be
@@ -47,7 +47,7 @@ type Configuration struct {
 	// By default, a snapshot includes all data streams and indices in the cluster.
 	// If this argument is provided, the snapshot only includes the specified data
 	// streams and clusters.
-	Indices Indices `json:"indices"`
+	Indices *Indices `json:"indices,omitempty"`
 	// Metadata Attaches arbitrary metadata to the snapshot, such as a record of who took the
 	// snapshot, why it was taken, or any other useful data. Metadata must be less
 	// than 1024 bytes.
@@ -115,7 +115,7 @@ func (rb *ConfigurationBuilder) IncludeGlobalState(includeglobalstate bool) *Con
 
 func (rb *ConfigurationBuilder) Indices(indices *IndicesBuilder) *ConfigurationBuilder {
 	v := indices.Build()
-	rb.v.Indices = v
+	rb.v.Indices = &v
 	return rb
 }
 

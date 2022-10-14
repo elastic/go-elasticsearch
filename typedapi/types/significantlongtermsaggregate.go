@@ -17,17 +17,19 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
 
 
 package types
 
 // SignificantLongTermsAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/aggregations/Aggregate.ts#L558-L560
+// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L572-L574
 type SignificantLongTermsAggregate struct {
-	Buckets BucketsSignificantLongTermsBucket `json:"buckets"`
-	Meta    *Metadata                         `json:"meta,omitempty"`
+	BgCount  *int64                            `json:"bg_count,omitempty"`
+	Buckets  BucketsSignificantLongTermsBucket `json:"buckets"`
+	DocCount *int64                            `json:"doc_count,omitempty"`
+	Meta     *Metadata                         `json:"meta,omitempty"`
 }
 
 // SignificantLongTermsAggregateBuilder holds SignificantLongTermsAggregate struct and provides a builder API.
@@ -49,9 +51,19 @@ func (rb *SignificantLongTermsAggregateBuilder) Build() SignificantLongTermsAggr
 	return *rb.v
 }
 
+func (rb *SignificantLongTermsAggregateBuilder) BgCount(bgcount int64) *SignificantLongTermsAggregateBuilder {
+	rb.v.BgCount = &bgcount
+	return rb
+}
+
 func (rb *SignificantLongTermsAggregateBuilder) Buckets(buckets *BucketsSignificantLongTermsBucketBuilder) *SignificantLongTermsAggregateBuilder {
 	v := buckets.Build()
 	rb.v.Buckets = v
+	return rb
+}
+
+func (rb *SignificantLongTermsAggregateBuilder) DocCount(doccount int64) *SignificantLongTermsAggregateBuilder {
+	rb.v.DocCount = &doccount
 	return rb
 }
 

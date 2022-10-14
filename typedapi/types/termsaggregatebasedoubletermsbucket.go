@@ -17,19 +17,19 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
 
 
 package types
 
 // TermsAggregateBaseDoubleTermsBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/aggregations/Aggregate.ts#L364-L369
+// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L368-L373
 type TermsAggregateBaseDoubleTermsBucket struct {
 	Buckets                 BucketsDoubleTermsBucket `json:"buckets"`
 	DocCountErrorUpperBound *int64                   `json:"doc_count_error_upper_bound,omitempty"`
 	Meta                    *Metadata                `json:"meta,omitempty"`
-	SumOtherDocCount        int64                    `json:"sum_other_doc_count"`
+	SumOtherDocCount        *int64                   `json:"sum_other_doc_count,omitempty"`
 }
 
 // TermsAggregateBaseDoubleTermsBucketBuilder holds TermsAggregateBaseDoubleTermsBucket struct and provides a builder API.
@@ -69,6 +69,6 @@ func (rb *TermsAggregateBaseDoubleTermsBucketBuilder) Meta(meta *MetadataBuilder
 }
 
 func (rb *TermsAggregateBaseDoubleTermsBucketBuilder) SumOtherDocCount(sumotherdoccount int64) *TermsAggregateBaseDoubleTermsBucketBuilder {
-	rb.v.SumOtherDocCount = sumotherdoccount
+	rb.v.SumOtherDocCount = &sumotherdoccount
 	return rb
 }

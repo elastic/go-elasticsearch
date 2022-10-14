@@ -17,17 +17,17 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
 
 
 package types
 
 // SlicedScroll type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/SlicedScroll.ts#L23-L27
+// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/SlicedScroll.ts#L23-L27
 type SlicedScroll struct {
 	Field *Field `json:"field,omitempty"`
-	Id    int    `json:"id"`
+	Id    Id     `json:"id"`
 	Max   int    `json:"max"`
 }
 
@@ -55,7 +55,7 @@ func (rb *SlicedScrollBuilder) Field(field Field) *SlicedScrollBuilder {
 	return rb
 }
 
-func (rb *SlicedScrollBuilder) Id(id int) *SlicedScrollBuilder {
+func (rb *SlicedScrollBuilder) Id(id Id) *SlicedScrollBuilder {
 	rb.v.Id = id
 	return rb
 }

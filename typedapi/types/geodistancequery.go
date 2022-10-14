@@ -17,13 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
 
 
 package types
 
 import (
 	"encoding/json"
+	"fmt"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/geodistancetype"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/geovalidationmethod"
@@ -31,7 +32,7 @@ import (
 
 // GeoDistanceQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/query_dsl/geo.ts#L48-L57
+// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/geo.ts#L48-L57
 type GeoDistanceQuery struct {
 	Boost            *float32                                 `json:"boost,omitempty"`
 	Distance         *Distance                                `json:"distance,omitempty"`
@@ -58,7 +59,7 @@ func (s GeoDistanceQuery) MarshalJSON() ([]byte, error) {
 
 	// We inline the additional fields from the underlying map
 	for key, value := range s.GeoDistanceQuery {
-		tmp[string(key)] = value
+		tmp[fmt.Sprintf("%s", key)] = value
 	}
 
 	data, err = json.Marshal(tmp)

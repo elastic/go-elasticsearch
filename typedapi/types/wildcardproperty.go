@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // WildcardProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/mapping/core.ts#L258-L262
+// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/mapping/core.ts#L269-L273
 type WildcardProperty struct {
 	CopyTo        *Fields                        `json:"copy_to,omitempty"`
 	DocValues     *bool                          `json:"doc_values,omitempty"`
@@ -36,12 +36,13 @@ type WildcardProperty struct {
 	Fields        map[PropertyName]Property      `json:"fields,omitempty"`
 	IgnoreAbove   *int                           `json:"ignore_above,omitempty"`
 	LocalMetadata *Metadata                      `json:"local_metadata,omitempty"`
-	Meta          map[string]string              `json:"meta,omitempty"`
-	NullValue     *string                        `json:"null_value,omitempty"`
-	Properties    map[PropertyName]Property      `json:"properties,omitempty"`
-	Similarity    *string                        `json:"similarity,omitempty"`
-	Store         *bool                          `json:"store,omitempty"`
-	Type          string                         `json:"type,omitempty"`
+	// Meta Metadata about the field.
+	Meta       map[string]string         `json:"meta,omitempty"`
+	NullValue  *string                   `json:"null_value,omitempty"`
+	Properties map[PropertyName]Property `json:"properties,omitempty"`
+	Similarity *string                   `json:"similarity,omitempty"`
+	Store      *bool                     `json:"store,omitempty"`
+	Type       string                    `json:"type,omitempty"`
 }
 
 // WildcardPropertyBuilder holds WildcardProperty struct and provides a builder API.
@@ -104,6 +105,8 @@ func (rb *WildcardPropertyBuilder) LocalMetadata(localmetadata *MetadataBuilder)
 	rb.v.LocalMetadata = &v
 	return rb
 }
+
+// Meta Metadata about the field.
 
 func (rb *WildcardPropertyBuilder) Meta(value map[string]string) *WildcardPropertyBuilder {
 	rb.v.Meta = value

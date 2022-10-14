@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
 
 
 package types
 
 // ExtendedStatsAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/aggregations/Aggregate.ts#L267-L283
+// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L269-L287
 type ExtendedStatsAggregate struct {
 	Avg                        float64                          `json:"avg,omitempty"`
 	AvgAsString                *string                          `json:"avg_as_string,omitempty"`
@@ -38,6 +38,8 @@ type ExtendedStatsAggregate struct {
 	StdDeviationAsString       *string                          `json:"std_deviation_as_string,omitempty"`
 	StdDeviationBounds         *StandardDeviationBounds         `json:"std_deviation_bounds,omitempty"`
 	StdDeviationBoundsAsString *StandardDeviationBoundsAsString `json:"std_deviation_bounds_as_string,omitempty"`
+	StdDeviationPopulation     float64                          `json:"std_deviation_population,omitempty"`
+	StdDeviationSampling       float64                          `json:"std_deviation_sampling,omitempty"`
 	Sum                        float64                          `json:"sum"`
 	SumAsString                *string                          `json:"sum_as_string,omitempty"`
 	SumOfSquares               float64                          `json:"sum_of_squares,omitempty"`
@@ -129,6 +131,16 @@ func (rb *ExtendedStatsAggregateBuilder) StdDeviationBounds(stddeviationbounds *
 func (rb *ExtendedStatsAggregateBuilder) StdDeviationBoundsAsString(stddeviationboundsasstring *StandardDeviationBoundsAsStringBuilder) *ExtendedStatsAggregateBuilder {
 	v := stddeviationboundsasstring.Build()
 	rb.v.StdDeviationBoundsAsString = &v
+	return rb
+}
+
+func (rb *ExtendedStatsAggregateBuilder) StdDeviationPopulation(stddeviationpopulation float64) *ExtendedStatsAggregateBuilder {
+	rb.v.StdDeviationPopulation = stddeviationpopulation
+	return rb
+}
+
+func (rb *ExtendedStatsAggregateBuilder) StdDeviationSampling(stddeviationsampling float64) *ExtendedStatsAggregateBuilder {
+	rb.v.StdDeviationSampling = stddeviationsampling
 	return rb
 }
 

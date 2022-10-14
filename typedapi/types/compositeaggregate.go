@@ -17,16 +17,16 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
 
 
 package types
 
 // CompositeAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/aggregations/Aggregate.ts#L588-L592
+// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L602-L607
 type CompositeAggregate struct {
-	AfterKey map[string]interface{} `json:"after_key,omitempty"`
+	AfterKey *CompositeAggregateKey `json:"after_key,omitempty"`
 	Buckets  BucketsCompositeBucket `json:"buckets"`
 	Meta     *Metadata              `json:"meta,omitempty"`
 }
@@ -39,9 +39,7 @@ type CompositeAggregateBuilder struct {
 // NewCompositeAggregate provides a builder for the CompositeAggregate struct.
 func NewCompositeAggregateBuilder() *CompositeAggregateBuilder {
 	r := CompositeAggregateBuilder{
-		&CompositeAggregate{
-			AfterKey: make(map[string]interface{}, 0),
-		},
+		&CompositeAggregate{},
 	}
 
 	return &r
@@ -52,8 +50,9 @@ func (rb *CompositeAggregateBuilder) Build() CompositeAggregate {
 	return *rb.v
 }
 
-func (rb *CompositeAggregateBuilder) AfterKey(value map[string]interface{}) *CompositeAggregateBuilder {
-	rb.v.AfterKey = value
+func (rb *CompositeAggregateBuilder) AfterKey(afterkey *CompositeAggregateKeyBuilder) *CompositeAggregateBuilder {
+	v := afterkey.Build()
+	rb.v.AfterKey = &v
 	return rb
 }
 

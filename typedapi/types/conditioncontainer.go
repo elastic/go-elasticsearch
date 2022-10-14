@@ -17,20 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
 
 
 package types
 
+import (
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/conditionop"
+)
+
 // ConditionContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/watcher/_types/Conditions.ts#L51-L60
+// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/watcher/_types/Conditions.ts#L47-L59
 type ConditionContainer struct {
-	Always       *AlwaysCondition       `json:"always,omitempty"`
-	ArrayCompare *ArrayCompareCondition `json:"array_compare,omitempty"`
-	Compare      *CompareCondition      `json:"compare,omitempty"`
-	Never        *NeverCondition        `json:"never,omitempty"`
-	Script       *ScriptCondition       `json:"script,omitempty"`
+	Always       *AlwaysCondition                                  `json:"always,omitempty"`
+	ArrayCompare map[string]ArrayCompareCondition                  `json:"array_compare,omitempty"`
+	Compare      map[string]map[conditionop.ConditionOp]FieldValue `json:"compare,omitempty"`
+	Never        *NeverCondition                                   `json:"never,omitempty"`
+	Script       *ScriptCondition                                  `json:"script,omitempty"`
 }
 
 // ConditionContainerBuilder holds ConditionContainer struct and provides a builder API.
@@ -41,7 +45,10 @@ type ConditionContainerBuilder struct {
 // NewConditionContainer provides a builder for the ConditionContainer struct.
 func NewConditionContainerBuilder() *ConditionContainerBuilder {
 	r := ConditionContainerBuilder{
-		&ConditionContainer{},
+		&ConditionContainer{
+			ArrayCompare: make(map[string]ArrayCompareCondition, 0),
+			Compare:      make(map[string]map[conditionop.ConditionOp]FieldValue, 0),
+		},
 	}
 
 	return &r
@@ -58,15 +65,17 @@ func (rb *ConditionContainerBuilder) Always(always *AlwaysConditionBuilder) *Con
 	return rb
 }
 
-func (rb *ConditionContainerBuilder) ArrayCompare(arraycompare *ArrayCompareConditionBuilder) *ConditionContainerBuilder {
-	v := arraycompare.Build()
-	rb.v.ArrayCompare = &v
+func (rb *ConditionContainerBuilder) ArrayCompare(values map[string]*ArrayCompareConditionBuilder) *ConditionContainerBuilder {
+	tmp := make(map[string]ArrayCompareCondition, len(values))
+	for key, builder := range values {
+		tmp[key] = builder.Build()
+	}
+	rb.v.ArrayCompare = tmp
 	return rb
 }
 
-func (rb *ConditionContainerBuilder) Compare(compare *CompareConditionBuilder) *ConditionContainerBuilder {
-	v := compare.Build()
-	rb.v.Compare = &v
+func (rb *ConditionContainerBuilder) Compare(value map[string]map[conditionop.ConditionOp]FieldValue) *ConditionContainerBuilder {
+	rb.v.Compare = value
 	return rb
 }
 

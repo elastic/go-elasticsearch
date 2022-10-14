@@ -17,21 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
 
 
 package types
 
 // User type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/security/_types/User.ts#L22-L29
+// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/security/_types/User.ts#L23-L31
 type User struct {
-	Email    string   `json:"email,omitempty"`
-	Enabled  bool     `json:"enabled"`
-	FullName Name     `json:"full_name,omitempty"`
-	Metadata Metadata `json:"metadata"`
-	Roles    []string `json:"roles"`
-	Username Username `json:"username"`
+	Email      string         `json:"email,omitempty"`
+	Enabled    bool           `json:"enabled"`
+	FullName   Name           `json:"full_name,omitempty"`
+	Metadata   Metadata       `json:"metadata"`
+	ProfileUid *UserProfileId `json:"profile_uid,omitempty"`
+	Roles      []string       `json:"roles"`
+	Username   Username       `json:"username"`
 }
 
 // UserBuilder holds User struct and provides a builder API.
@@ -71,6 +72,11 @@ func (rb *UserBuilder) FullName(fullname Name) *UserBuilder {
 func (rb *UserBuilder) Metadata(metadata *MetadataBuilder) *UserBuilder {
 	v := metadata.Build()
 	rb.v.Metadata = v
+	return rb
+}
+
+func (rb *UserBuilder) ProfileUid(profileuid UserProfileId) *UserBuilder {
+	rb.v.ProfileUid = &profileuid
 	return rb
 }
 

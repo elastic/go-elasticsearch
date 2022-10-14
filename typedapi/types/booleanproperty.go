@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // BooleanProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/mapping/core.ts#L53-L59
+// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/mapping/core.ts#L53-L59
 type BooleanProperty struct {
 	Boost         *float64                       `json:"boost,omitempty"`
 	CopyTo        *Fields                        `json:"copy_to,omitempty"`
@@ -39,12 +39,13 @@ type BooleanProperty struct {
 	IgnoreAbove   *int                           `json:"ignore_above,omitempty"`
 	Index         *bool                          `json:"index,omitempty"`
 	LocalMetadata *Metadata                      `json:"local_metadata,omitempty"`
-	Meta          map[string]string              `json:"meta,omitempty"`
-	NullValue     *bool                          `json:"null_value,omitempty"`
-	Properties    map[PropertyName]Property      `json:"properties,omitempty"`
-	Similarity    *string                        `json:"similarity,omitempty"`
-	Store         *bool                          `json:"store,omitempty"`
-	Type          string                         `json:"type,omitempty"`
+	// Meta Metadata about the field.
+	Meta       map[string]string         `json:"meta,omitempty"`
+	NullValue  *bool                     `json:"null_value,omitempty"`
+	Properties map[PropertyName]Property `json:"properties,omitempty"`
+	Similarity *string                   `json:"similarity,omitempty"`
+	Store      *bool                     `json:"store,omitempty"`
+	Type       string                    `json:"type,omitempty"`
 }
 
 // BooleanPropertyBuilder holds BooleanProperty struct and provides a builder API.
@@ -123,6 +124,8 @@ func (rb *BooleanPropertyBuilder) LocalMetadata(localmetadata *MetadataBuilder) 
 	rb.v.LocalMetadata = &v
 	return rb
 }
+
+// Meta Metadata about the field.
 
 func (rb *BooleanPropertyBuilder) Meta(value map[string]string) *BooleanPropertyBuilder {
 	rb.v.Meta = value

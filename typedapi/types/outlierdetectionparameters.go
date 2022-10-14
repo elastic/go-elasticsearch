@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
 
 
 package types
 
 // OutlierDetectionParameters type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/ml/_types/DataframeAnalytics.ts#L412-L419
+// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/_types/DataframeAnalytics.ts#L412-L419
 type OutlierDetectionParameters struct {
 	ComputeFeatureInfluence   *bool    `json:"compute_feature_influence,omitempty"`
 	FeatureInfluenceThreshold *float64 `json:"feature_influence_threshold,omitempty"`

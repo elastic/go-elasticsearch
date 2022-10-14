@@ -17,18 +17,20 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
 
 
 package types
 
 // TermSuggestOption type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_global/search/_types/suggester.ts#L92-L96
+// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/search/_types/suggester.ts#L93-L99
 type TermSuggestOption struct {
-	Freq  int64   `json:"freq"`
-	Score float64 `json:"score"`
-	Text  string  `json:"text"`
+	CollateMatch *bool   `json:"collate_match,omitempty"`
+	Freq         int64   `json:"freq"`
+	Highlighted  *string `json:"highlighted,omitempty"`
+	Score        float64 `json:"score"`
+	Text         string  `json:"text"`
 }
 
 // TermSuggestOptionBuilder holds TermSuggestOption struct and provides a builder API.
@@ -50,8 +52,18 @@ func (rb *TermSuggestOptionBuilder) Build() TermSuggestOption {
 	return *rb.v
 }
 
+func (rb *TermSuggestOptionBuilder) CollateMatch(collatematch bool) *TermSuggestOptionBuilder {
+	rb.v.CollateMatch = &collatematch
+	return rb
+}
+
 func (rb *TermSuggestOptionBuilder) Freq(freq int64) *TermSuggestOptionBuilder {
 	rb.v.Freq = freq
+	return rb
+}
+
+func (rb *TermSuggestOptionBuilder) Highlighted(highlighted string) *TermSuggestOptionBuilder {
+	rb.v.Highlighted = &highlighted
 	return rb
 }
 

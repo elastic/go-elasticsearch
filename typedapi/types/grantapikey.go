@@ -17,18 +17,19 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
 
 
 package types
 
 // GrantApiKey type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/security/grant_api_key/types.ts#L25-L29
+// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/security/grant_api_key/types.ts#L25-L32
 type GrantApiKey struct {
-	Expiration      *Duration                `json:"expiration,omitempty"`
-	Name            Name                     `json:"name"`
-	RoleDescriptors []map[string]interface{} `json:"role_descriptors,omitempty"`
+	Expiration      *DurationLarge              `json:"expiration,omitempty"`
+	Metadata        *Metadata                   `json:"metadata,omitempty"`
+	Name            Name                        `json:"name"`
+	RoleDescriptors []map[string]RoleDescriptor `json:"role_descriptors,omitempty"`
 }
 
 // GrantApiKeyBuilder holds GrantApiKey struct and provides a builder API.
@@ -50,9 +51,14 @@ func (rb *GrantApiKeyBuilder) Build() GrantApiKey {
 	return *rb.v
 }
 
-func (rb *GrantApiKeyBuilder) Expiration(expiration *DurationBuilder) *GrantApiKeyBuilder {
-	v := expiration.Build()
-	rb.v.Expiration = &v
+func (rb *GrantApiKeyBuilder) Expiration(expiration DurationLarge) *GrantApiKeyBuilder {
+	rb.v.Expiration = &expiration
+	return rb
+}
+
+func (rb *GrantApiKeyBuilder) Metadata(metadata *MetadataBuilder) *GrantApiKeyBuilder {
+	v := metadata.Build()
+	rb.v.Metadata = &v
 	return rb
 }
 
@@ -61,7 +67,7 @@ func (rb *GrantApiKeyBuilder) Name(name Name) *GrantApiKeyBuilder {
 	return rb
 }
 
-func (rb *GrantApiKeyBuilder) RoleDescriptors(value ...map[string]interface{}) *GrantApiKeyBuilder {
-	rb.v.RoleDescriptors = value
+func (rb *GrantApiKeyBuilder) RoleDescriptors(arg []map[string]RoleDescriptor) *GrantApiKeyBuilder {
+	rb.v.RoleDescriptors = arg
 	return rb
 }

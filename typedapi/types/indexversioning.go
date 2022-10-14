@@ -17,17 +17,17 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
 
 
 package types
 
 // IndexVersioning type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/indices/_types/IndexSettings.ts#L262-L265
+// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/_types/IndexSettings.ts#L262-L265
 type IndexVersioning struct {
-	Created       VersionString  `json:"created"`
-	CreatedString *VersionString `json:"created_string,omitempty"`
+	Created       *VersionString `json:"created,omitempty"`
+	CreatedString *string        `json:"created_string,omitempty"`
 }
 
 // IndexVersioningBuilder holds IndexVersioning struct and provides a builder API.
@@ -50,11 +50,11 @@ func (rb *IndexVersioningBuilder) Build() IndexVersioning {
 }
 
 func (rb *IndexVersioningBuilder) Created(created VersionString) *IndexVersioningBuilder {
-	rb.v.Created = created
+	rb.v.Created = &created
 	return rb
 }
 
-func (rb *IndexVersioningBuilder) CreatedString(createdstring VersionString) *IndexVersioningBuilder {
+func (rb *IndexVersioningBuilder) CreatedString(createdstring string) *IndexVersioningBuilder {
 	rb.v.CreatedString = &createdstring
 	return rb
 }

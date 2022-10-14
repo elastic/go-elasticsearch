@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // GeoPointProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/mapping/geo.ts#L23-L28
+// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/mapping/geo.ts#L23-L28
 type GeoPointProperty struct {
 	CopyTo          *Fields                        `json:"copy_to,omitempty"`
 	DocValues       *bool                          `json:"doc_values,omitempty"`
@@ -38,12 +38,13 @@ type GeoPointProperty struct {
 	IgnoreMalformed *bool                          `json:"ignore_malformed,omitempty"`
 	IgnoreZValue    *bool                          `json:"ignore_z_value,omitempty"`
 	LocalMetadata   *Metadata                      `json:"local_metadata,omitempty"`
-	Meta            map[string]string              `json:"meta,omitempty"`
-	NullValue       *GeoLocation                   `json:"null_value,omitempty"`
-	Properties      map[PropertyName]Property      `json:"properties,omitempty"`
-	Similarity      *string                        `json:"similarity,omitempty"`
-	Store           *bool                          `json:"store,omitempty"`
-	Type            string                         `json:"type,omitempty"`
+	// Meta Metadata about the field.
+	Meta       map[string]string         `json:"meta,omitempty"`
+	NullValue  *GeoLocation              `json:"null_value,omitempty"`
+	Properties map[PropertyName]Property `json:"properties,omitempty"`
+	Similarity *string                   `json:"similarity,omitempty"`
+	Store      *bool                     `json:"store,omitempty"`
+	Type       string                    `json:"type,omitempty"`
 }
 
 // GeoPointPropertyBuilder holds GeoPointProperty struct and provides a builder API.
@@ -116,6 +117,8 @@ func (rb *GeoPointPropertyBuilder) LocalMetadata(localmetadata *MetadataBuilder)
 	rb.v.LocalMetadata = &v
 	return rb
 }
+
+// Meta Metadata about the field.
 
 func (rb *GeoPointPropertyBuilder) Meta(value map[string]string) *GeoPointPropertyBuilder {
 	rb.v.Meta = value

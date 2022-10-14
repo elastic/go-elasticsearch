@@ -17,22 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
 
 
 package types
 
 // MachineLearning type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/xpack/usage/types.ts#L360-L368
+// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/xpack/usage/types.ts#L354-L361
 type MachineLearning struct {
 	Available              bool                     `json:"available"`
 	DataFrameAnalyticsJobs MlDataFrameAnalyticsJobs `json:"data_frame_analytics_jobs"`
 	Datafeeds              map[string]Datafeed      `json:"datafeeds"`
 	Enabled                bool                     `json:"enabled"`
 	Inference              MlInference              `json:"inference"`
-	Jobs                   Jobs                     `json:"jobs"`
-	NodeCount              int                      `json:"node_count"`
+	// Jobs Job usage statistics. The `_all` entry is always present and gathers
+	// statistics for all jobs.
+	Jobs      map[string]JobUsage `json:"jobs"`
+	NodeCount int                 `json:"node_count"`
 }
 
 // MachineLearningBuilder holds MachineLearning struct and provides a builder API.
@@ -45,6 +47,7 @@ func NewMachineLearningBuilder() *MachineLearningBuilder {
 	r := MachineLearningBuilder{
 		&MachineLearning{
 			Datafeeds: make(map[string]Datafeed, 0),
+			Jobs:      make(map[string]JobUsage, 0),
 		},
 	}
 
@@ -87,9 +90,15 @@ func (rb *MachineLearningBuilder) Inference(inference *MlInferenceBuilder) *Mach
 	return rb
 }
 
-func (rb *MachineLearningBuilder) Jobs(jobs *JobsBuilder) *MachineLearningBuilder {
-	v := jobs.Build()
-	rb.v.Jobs = v
+// Jobs Job usage statistics. The `_all` entry is always present and gathers
+// statistics for all jobs.
+
+func (rb *MachineLearningBuilder) Jobs(values map[string]*JobUsageBuilder) *MachineLearningBuilder {
+	tmp := make(map[string]JobUsage, len(values))
+	for key, builder := range values {
+		tmp[key] = builder.Build()
+	}
+	rb.v.Jobs = tmp
 	return rb
 }
 

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // PointProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/mapping/geo.ts#L62-L67
+// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/mapping/geo.ts#L62-L67
 type PointProperty struct {
 	CopyTo          *Fields                        `json:"copy_to,omitempty"`
 	DocValues       *bool                          `json:"doc_values,omitempty"`
@@ -38,12 +38,13 @@ type PointProperty struct {
 	IgnoreMalformed *bool                          `json:"ignore_malformed,omitempty"`
 	IgnoreZValue    *bool                          `json:"ignore_z_value,omitempty"`
 	LocalMetadata   *Metadata                      `json:"local_metadata,omitempty"`
-	Meta            map[string]string              `json:"meta,omitempty"`
-	NullValue       *string                        `json:"null_value,omitempty"`
-	Properties      map[PropertyName]Property      `json:"properties,omitempty"`
-	Similarity      *string                        `json:"similarity,omitempty"`
-	Store           *bool                          `json:"store,omitempty"`
-	Type            string                         `json:"type,omitempty"`
+	// Meta Metadata about the field.
+	Meta       map[string]string         `json:"meta,omitempty"`
+	NullValue  *string                   `json:"null_value,omitempty"`
+	Properties map[PropertyName]Property `json:"properties,omitempty"`
+	Similarity *string                   `json:"similarity,omitempty"`
+	Store      *bool                     `json:"store,omitempty"`
+	Type       string                    `json:"type,omitempty"`
 }
 
 // PointPropertyBuilder holds PointProperty struct and provides a builder API.
@@ -116,6 +117,8 @@ func (rb *PointPropertyBuilder) LocalMetadata(localmetadata *MetadataBuilder) *P
 	rb.v.LocalMetadata = &v
 	return rb
 }
+
+// Meta Metadata about the field.
 
 func (rb *PointPropertyBuilder) Meta(value map[string]string) *PointPropertyBuilder {
 	rb.v.Meta = value

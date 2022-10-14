@@ -17,17 +17,19 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
 
 
 package types
 
 // SignificantStringTermsAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/aggregations/Aggregate.ts#L572-L574
+// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L586-L588
 type SignificantStringTermsAggregate struct {
-	Buckets BucketsSignificantStringTermsBucket `json:"buckets"`
-	Meta    *Metadata                           `json:"meta,omitempty"`
+	BgCount  *int64                              `json:"bg_count,omitempty"`
+	Buckets  BucketsSignificantStringTermsBucket `json:"buckets"`
+	DocCount *int64                              `json:"doc_count,omitempty"`
+	Meta     *Metadata                           `json:"meta,omitempty"`
 }
 
 // SignificantStringTermsAggregateBuilder holds SignificantStringTermsAggregate struct and provides a builder API.
@@ -49,9 +51,19 @@ func (rb *SignificantStringTermsAggregateBuilder) Build() SignificantStringTerms
 	return *rb.v
 }
 
+func (rb *SignificantStringTermsAggregateBuilder) BgCount(bgcount int64) *SignificantStringTermsAggregateBuilder {
+	rb.v.BgCount = &bgcount
+	return rb
+}
+
 func (rb *SignificantStringTermsAggregateBuilder) Buckets(buckets *BucketsSignificantStringTermsBucketBuilder) *SignificantStringTermsAggregateBuilder {
 	v := buckets.Build()
 	rb.v.Buckets = v
+	return rb
+}
+
+func (rb *SignificantStringTermsAggregateBuilder) DocCount(doccount int64) *SignificantStringTermsAggregateBuilder {
+	rb.v.DocCount = &doccount
 	return rb
 }
 

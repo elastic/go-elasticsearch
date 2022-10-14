@@ -17,16 +17,16 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
 
 
 package types
 
 // CompositeAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_types/aggregations/bucket.ts#L77-L81
+// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/bucket.ts#L79-L84
 type CompositeAggregation struct {
-	After   map[string]string                       `json:"after,omitempty"`
+	After   *CompositeAggregateKey                  `json:"after,omitempty"`
 	Meta    *Metadata                               `json:"meta,omitempty"`
 	Name    *string                                 `json:"name,omitempty"`
 	Size    *int                                    `json:"size,omitempty"`
@@ -41,9 +41,7 @@ type CompositeAggregationBuilder struct {
 // NewCompositeAggregation provides a builder for the CompositeAggregation struct.
 func NewCompositeAggregationBuilder() *CompositeAggregationBuilder {
 	r := CompositeAggregationBuilder{
-		&CompositeAggregation{
-			After: make(map[string]string, 0),
-		},
+		&CompositeAggregation{},
 	}
 
 	return &r
@@ -54,8 +52,9 @@ func (rb *CompositeAggregationBuilder) Build() CompositeAggregation {
 	return *rb.v
 }
 
-func (rb *CompositeAggregationBuilder) After(value map[string]string) *CompositeAggregationBuilder {
-	rb.v.After = value
+func (rb *CompositeAggregationBuilder) After(after *CompositeAggregateKeyBuilder) *CompositeAggregationBuilder {
+	v := after.Build()
+	rb.v.After = &v
 	return rb
 }
 

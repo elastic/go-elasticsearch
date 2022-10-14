@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
 
 
 package types
@@ -27,7 +27,7 @@ package types
 //	HourAndMinute
 //	string
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/watcher/_types/Schedule.ts#L103-L108
+// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/watcher/_types/Schedule.ts#L103-L108
 type ScheduleTimeOfDay interface{}
 
 // ScheduleTimeOfDayBuilder holds ScheduleTimeOfDay struct and provides a builder API.

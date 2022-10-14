@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
 
 
 package types
 
 // AggregationProfileDebug type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/_global/search/_types/profile.ts#L39-L67
+// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/search/_types/profile.ts#L39-L68
 type AggregationProfileDebug struct {
 	BuiltBuckets                      *int                                    `json:"built_buckets,omitempty"`
 	CharsFetched                      *int                                    `json:"chars_fetched,omitempty"`
@@ -39,6 +39,7 @@ type AggregationProfileDebug struct {
 	ExtractNs                         *int                                    `json:"extract_ns,omitempty"`
 	Filters                           []AggregationProfileDelegateDebugFilter `json:"filters,omitempty"`
 	HasFilter                         *bool                                   `json:"has_filter,omitempty"`
+	MapReducer                        *string                                 `json:"map_reducer,omitempty"`
 	NumericCollectorsUsed             *int                                    `json:"numeric_collectors_used,omitempty"`
 	OrdinalsCollectorsOverheadTooHigh *int                                    `json:"ordinals_collectors_overhead_too_high,omitempty"`
 	OrdinalsCollectorsUsed            *int                                    `json:"ordinals_collectors_used,omitempty"`
@@ -141,6 +142,11 @@ func (rb *AggregationProfileDebugBuilder) Filters(filters []AggregationProfileDe
 
 func (rb *AggregationProfileDebugBuilder) HasFilter(hasfilter bool) *AggregationProfileDebugBuilder {
 	rb.v.HasFilter = &hasfilter
+	return rb
+}
+
+func (rb *AggregationProfileDebugBuilder) MapReducer(mapreducer string) *AggregationProfileDebugBuilder {
+	rb.v.MapReducer = &mapreducer
 	return rb
 }
 

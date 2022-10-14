@@ -17,17 +17,18 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e0ea3dc890d394d682096cc862b3bd879d9422e9
+// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
 
 
 package types
 
 // ParentTaskInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e0ea3dc890d394d682096cc862b3bd879d9422e9/specification/tasks/_types/TaskListResponseBase.ts#L45-L47
+// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/tasks/_types/TaskListResponseBase.ts#L45-L47
 type ParentTaskInfo struct {
 	Action             string                 `json:"action"`
 	Cancellable        bool                   `json:"cancellable"`
+	Cancelled          *bool                  `json:"cancelled,omitempty"`
 	Children           []TaskInfo             `json:"children,omitempty"`
 	Description        *string                `json:"description,omitempty"`
 	Headers            map[string]string      `json:"headers"`
@@ -69,6 +70,11 @@ func (rb *ParentTaskInfoBuilder) Action(action string) *ParentTaskInfoBuilder {
 
 func (rb *ParentTaskInfoBuilder) Cancellable(cancellable bool) *ParentTaskInfoBuilder {
 	rb.v.Cancellable = cancellable
+	return rb
+}
+
+func (rb *ParentTaskInfoBuilder) Cancelled(cancelled bool) *ParentTaskInfoBuilder {
+	rb.v.Cancelled = &cancelled
 	return rb
 }
 
