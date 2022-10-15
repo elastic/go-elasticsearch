@@ -292,7 +292,7 @@ func main() {
   query := map[string]interface{}{
     "query": map[string]interface{}{
       "match": map[string]interface{}{
-        "title": "test",
+        "Title": "test",
       },
     },
   }
