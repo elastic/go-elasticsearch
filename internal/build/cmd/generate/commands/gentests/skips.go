@@ -53,13 +53,15 @@ var skipFiles = []string{
 	"eql/10_basic.yml",
 	"field_caps/50_fieldtype_filter.yml", // Incompatible test, need handling for double escaping keys with dots
 	"search.aggregation/350_variable_width_histogram.yml",
-	"cluster.desired_nodes/10_basic.yml", // incompatible $ stash replacement
-	"api_key/12_grant.yml",               // incompatible $ stash replacement, need bearer token integration
-	"user_profile/10_basic.yml",          // internal
-	"health/10_basic.yml",                // internal
-	"health/20_component.yml",            // internal
-	"health/30_feature.yml",              // internal
-	"health/40_useractions.yml",          // internal
+	"cluster.desired_nodes/10_basic.yml",   // incompatible $ stash replacement
+	"api_key/12_grant.yml",                 // incompatible $ stash replacement, need bearer token integration
+	"user_profile/10_basic.yml",            // internal
+	"health/10_basic.yml",                  // internal
+	"health/20_component.yml",              // internal
+	"health/30_feature.yml",                // internal
+	"health/40_useractions.yml",            // internal
+	"health/40_diagnosis.yml",              // internal
+	"cluster.desired_nodes/20_dry_run.yml", // internal
 }
 
 // TODO: Comments into descriptions for `Skip()`
@@ -304,6 +306,9 @@ ml/delete_model_snapshot.yml:
 ml/get_datafeed_stats.yml:
 ml/get_model_snapshots.yml:
 
+# resource_already_exists_exception for model, need improved teardown for models
+ml/semantic_search.yml:
+
 # TEMPORARY: Missing 'body: { indices: "test_index" }' payload, TODO: PR
 snapshot/10_basic.yml:
   - Create a source only snapshot and then restore it
@@ -419,6 +424,12 @@ service_accounts/10_basic.yml:
 # Replace stash token in payload not yet implemented
 api_key/20_query.yml:
   - Test query api key
+api_key/30_update.yml:
+  - Test bulk update api keys
+  - Test bulk update api key without explicit field updates
+  - Test bulk update api key with empty request fields
+api_key/40_view_role_descriptors.yml:
+  - Test API key role descriptors in Get and Query responses
 
 change_password/10_basic.yml:
   - Test changing users password with prehashed password
@@ -430,4 +441,14 @@ token/10_basic.yml:
 # Replacement with pattern matching fails
 user_profile/40_has_privileges.yml:
   - Test profile has privileges api
+
+# Bad type matching
+aggregate-metrics/100_synthetic_source.yml:
+  - constant_keyword
+analytics/histogram.yml:
+  - histogram with synthetic source
+
+# incompatible storage
+searchable_snapshots/20_synthetic_source.yml:
+  - Tests searchable snapshots usage stats
 `
