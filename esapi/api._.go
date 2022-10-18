@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.6.0 (41ede4e): DO NOT EDIT
+// Code generated from specification version 8.6.0 (890479c): DO NOT EDIT
 
 package esapi
 
@@ -110,6 +110,7 @@ type API struct {
 	SearchableSnapshotsClearCache      SearchableSnapshotsClearCache
 	SearchableSnapshotsMount           SearchableSnapshotsMount
 	SearchableSnapshotsStats           SearchableSnapshotsStats
+	SemanticSearch                     SemanticSearch
 	ShutdownDeleteNode                 ShutdownDeleteNode
 	ShutdownGetNode                    ShutdownGetNode
 	ShutdownPutNode                    ShutdownPutNode
@@ -424,6 +425,7 @@ type ML struct {
 	UpdateFilter                     MLUpdateFilter
 	UpdateJob                        MLUpdateJob
 	UpdateModelSnapshot              MLUpdateModelSnapshot
+	UpdateTrainedModelDeployment     MLUpdateTrainedModelDeployment
 	UpgradeJobSnapshot               MLUpgradeJobSnapshot
 	ValidateDetector                 MLValidateDetector
 	Validate                         MLValidate
@@ -611,6 +613,7 @@ func New(t Transport) *API {
 		SearchableSnapshotsClearCache:      newSearchableSnapshotsClearCacheFunc(t),
 		SearchableSnapshotsMount:           newSearchableSnapshotsMountFunc(t),
 		SearchableSnapshotsStats:           newSearchableSnapshotsStatsFunc(t),
+		SemanticSearch:                     newSemanticSearchFunc(t),
 		ShutdownDeleteNode:                 newShutdownDeleteNodeFunc(t),
 		ShutdownGetNode:                    newShutdownGetNodeFunc(t),
 		ShutdownPutNode:                    newShutdownPutNodeFunc(t),
@@ -895,6 +898,7 @@ func New(t Transport) *API {
 			UpdateFilter:                     newMLUpdateFilterFunc(t),
 			UpdateJob:                        newMLUpdateJobFunc(t),
 			UpdateModelSnapshot:              newMLUpdateModelSnapshotFunc(t),
+			UpdateTrainedModelDeployment:     newMLUpdateTrainedModelDeploymentFunc(t),
 			UpgradeJobSnapshot:               newMLUpgradeJobSnapshotFunc(t),
 			ValidateDetector:                 newMLValidateDetectorFunc(t),
 			Validate:                         newMLValidateFunc(t),
