@@ -1,6 +1,6 @@
 ---
 - job:
-    name: elastic+go-elasticsearch+8.
+    name: elastic+go-elasticsearch+8.5
     display-name: 'elastic / go-elasticsearch # 8.5'
     description: Testing the go-elasticsearch 8.5 branch.
     junit_results: "*-junit.xml"
