@@ -15,12 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 
+//go:build !integration
 // +build !integration
 
 package elasticsearch
 
 import (
 	"bytes"
+	"context"
 	"crypto/tls"
 	"crypto/x509"
 	"encoding/base64"
@@ -35,6 +37,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/elastic/go-elasticsearch/v7/esapi"
 	"github.com/elastic/go-elasticsearch/v7/estransport"
 )
 
@@ -474,7 +477,7 @@ func TestGenuineCheckInfo(t *testing.T) {
 		name    string
 		info    info
 		wantErr bool
-		err 	error
+		err     error
 	}{
 		{
 			name: "Genuine Elasticsearch 7.14.0",
@@ -486,7 +489,7 @@ func TestGenuineCheckInfo(t *testing.T) {
 				Tagline: "You Know, for Search",
 			},
 			wantErr: false,
-			err: nil,
+			err:     nil,
 		},
 		{
 			name: "Genuine Elasticsearch 6.15.1",
@@ -498,7 +501,7 @@ func TestGenuineCheckInfo(t *testing.T) {
 				Tagline: "You Know, for Search",
 			},
 			wantErr: false,
-			err: nil,
+			err:     nil,
 		},
 		{
 			name: "Not so genuine Elasticsearch 7 major",
@@ -510,7 +513,7 @@ func TestGenuineCheckInfo(t *testing.T) {
 				Tagline: "You Know, for Search",
 			},
 			wantErr: true,
-			err: errors.New(unknownProduct),
+			err:     errors.New(unknownProduct),
 		},
 		{
 			name: "Not so genuine Elasticsearch 6 major",
@@ -522,7 +525,7 @@ func TestGenuineCheckInfo(t *testing.T) {
 				Tagline: "You Know, for Fun",
 			},
 			wantErr: true,
-			err: errors.New(unknownProduct),
+			err:     errors.New(unknownProduct),
 		},
 		{
 			name: "Way older Elasticsearch major",
@@ -534,7 +537,7 @@ func TestGenuineCheckInfo(t *testing.T) {
 				Tagline: "You Know, for Fun",
 			},
 			wantErr: true,
-			err: errors.New(unknownProduct),
+			err:     errors.New(unknownProduct),
 		},
 		{
 			name: "Elasticsearch oss",
@@ -546,7 +549,7 @@ func TestGenuineCheckInfo(t *testing.T) {
 				Tagline: "You Know, for Search",
 			},
 			wantErr: true,
-			err: errors.New(unsupportedProduct),
+			err:     errors.New(unsupportedProduct),
 		},
 	}
 	for _, tt := range tests {
@@ -632,7 +635,7 @@ func TestResponseCheckOnly(t *testing.T) {
 			useResponseCheckOnly: true,
 			response: &http.Response{
 				StatusCode: http.StatusOK,
-				Body: ioutil.NopCloser(strings.NewReader("{}")),
+				Body:       ioutil.NopCloser(strings.NewReader("{}")),
 			},
 			wantErr: true,
 		},
@@ -646,42 +649,42 @@ func TestResponseCheckOnly(t *testing.T) {
 		{
 			name:                 "Valid request, 500 response",
 			useResponseCheckOnly: false,
-			response:             &http.Response{
+			response: &http.Response{
 				StatusCode: http.StatusInternalServerError,
-				Body: ioutil.NopCloser(strings.NewReader("")),
+				Body:       ioutil.NopCloser(strings.NewReader("")),
 			},
-			requestErr:           nil,
-			wantErr:              true,
+			requestErr: nil,
+			wantErr:    true,
 		},
 		{
 			name:                 "Valid request, 404 response",
 			useResponseCheckOnly: false,
-			response:             &http.Response{
+			response: &http.Response{
 				StatusCode: http.StatusNotFound,
-				Body: ioutil.NopCloser(strings.NewReader("")),
+				Body:       ioutil.NopCloser(strings.NewReader("")),
 			},
-			requestErr:           nil,
-			wantErr:              true,
+			requestErr: nil,
+			wantErr:    true,
 		},
 		{
 			name:                 "Valid request, 403 response",
 			useResponseCheckOnly: false,
-			response:             &http.Response{
+			response: &http.Response{
 				StatusCode: http.StatusForbidden,
-				Body: ioutil.NopCloser(strings.NewReader("")),
+				Body:       ioutil.NopCloser(strings.NewReader("")),
 			},
-			requestErr:           nil,
-			wantErr:              false,
+			requestErr: nil,
+			wantErr:    false,
 		},
 		{
 			name:                 "Valid request, 401 response",
 			useResponseCheckOnly: false,
-			response:             &http.Response{
+			response: &http.Response{
 				StatusCode: http.StatusUnauthorized,
-				Body: ioutil.NopCloser(strings.NewReader("")),
+				Body:       ioutil.NopCloser(strings.NewReader("")),
 			},
-			requestErr:           nil,
-			wantErr:              false,
+			requestErr: nil,
+			wantErr:    false,
 		},
 	}
 	for _, tt := range tests {
@@ -699,7 +702,6 @@ func TestResponseCheckOnly(t *testing.T) {
 		})
 	}
 }
-
 
 func TestProductCheckError(t *testing.T) {
 	var requestPaths []string
@@ -736,7 +738,6 @@ func TestProductCheckError(t *testing.T) {
 		t.Fatalf("product check should be valid, got : %v", c.productCheckSuccess)
 	}
 }
-
 
 func TestCompatibilityHeader(t *testing.T) {
 	client, err := NewClient(Config{
@@ -778,8 +779,6 @@ func TestCompatibilityHeader(t *testing.T) {
 		client.Search.WithBody(strings.NewReader("{}")),
 	)
 }
-
-
 
 func TestFingerprint(t *testing.T) {
 	body := []byte(`{"body": true"}"`)
@@ -844,7 +843,7 @@ tuSVaQmm5eqgaAxMamBXSyw1lir07byemyuEDg0mJ1rNUGsAY8P+LWr579gvKMme
 	defer server.Close()
 
 	config := Config{
-		Addresses: []string{server.URL},
+		Addresses:    []string{server.URL},
 		DisableRetry: true,
 	}
 
@@ -872,4 +871,103 @@ tuSVaQmm5eqgaAxMamBXSyw1lir07byemyuEDg0mJ1rNUGsAY8P+LWr579gvKMme
 	if !bytes.Equal(data, body) {
 		t.Fatalf("unexpected payload returned: expected: %s, got: %s", body, data)
 	}
+}
+
+func TestContentTypeOverride(t *testing.T) {
+	t.Run("default JSON Content-Type", func(t *testing.T) {
+		contentType := "application/json"
+
+		tp, _ := estransport.New(estransport.Config{
+			URLs: []*url.URL{{Scheme: "http", Host: "foo"}},
+			Transport: &mockTransp{
+				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+					if request.URL.Path != "/" {
+						h := request.Header.Get("Content-Type")
+						if h != contentType {
+							t.Fatalf("unexpected content-type, wanted %s, got: %s", contentType, h)
+						}
+					}
+
+					return &http.Response{
+						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+						StatusCode: http.StatusOK,
+						Status:     "OK",
+						Body:       ioutil.NopCloser(strings.NewReader("")),
+					}, nil
+				},
+			},
+		})
+
+		c, _ := NewDefaultClient()
+		c.Transport = tp
+
+		_, _ = c.Search(c.Search.WithBody(strings.NewReader("")))
+	})
+	t.Run("overriden CBOR Content-Type functional options style", func(t *testing.T) {
+		contentType := "application/cbor"
+
+		tp, _ := estransport.New(estransport.Config{
+			URLs: []*url.URL{{Scheme: "http", Host: "foo"}},
+			Transport: &mockTransp{
+				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+					if request.URL.Path != "/" {
+						h := request.Header.Get("Content-Type")
+						if h != contentType {
+							t.Fatalf("unexpected content-type, wanted %s, got: %s", contentType, h)
+						}
+					}
+
+					return &http.Response{
+						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+						StatusCode: http.StatusOK,
+						Status:     "OK",
+						Body:       ioutil.NopCloser(strings.NewReader("")),
+					}, nil
+				},
+			},
+		})
+
+		c, _ := NewDefaultClient()
+		c.Transport = tp
+
+		_, _ = c.Search(
+			c.Search.WithHeader(map[string]string{
+				"Content-Type": contentType,
+			}),
+			c.Search.WithBody(strings.NewReader("")),
+		)
+	})
+	t.Run("overriden CBOR Content-Type direct call style", func(t *testing.T) {
+		contentType := "application/cbor"
+
+		tp, _ := estransport.New(estransport.Config{
+			URLs: []*url.URL{{Scheme: "http", Host: "foo"}},
+			Transport: &mockTransp{
+				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+					if request.URL.Path != "/" {
+						h := request.Header.Get("Content-Type")
+						if h != contentType {
+							t.Fatalf("unexpected content-type, wanted %s, got: %s", contentType, h)
+						}
+					}
+
+					return &http.Response{
+						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+						StatusCode: http.StatusOK,
+						Status:     "OK",
+						Body:       ioutil.NopCloser(strings.NewReader("")),
+					}, nil
+				},
+			},
+		})
+
+		c, _ := NewDefaultClient()
+		c.Transport = tp
+
+		search := esapi.SearchRequest{}
+		search.Body = strings.NewReader("")
+		search.Header = make(map[string][]string)
+		search.Header.Set("Content-Type", contentType)
+		search.Do(context.Background(), tp)
+	})
 }
