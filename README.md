@@ -150,7 +150,7 @@ cfg := elasticsearch.Config{
 }
 ```
 
-To set a fingerprint to validate the HTTPS connectionm use the `CertificateFingerprint` configuration option.
+To set a fingerprint to validate the HTTPS connection use the `CertificateFingerprint` configuration option.
 
 ```golang
 cfg := elasticsearch.Config{
