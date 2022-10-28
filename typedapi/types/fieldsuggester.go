@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FieldSuggester type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/search/_types/suggester.ts#L106-L120
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/suggester.ts#L106-L120
 type FieldSuggester struct {
 	Completion *CompletionSuggester `json:"completion,omitempty"`
 	Phrase     *PhraseSuggester     `json:"phrase,omitempty"`
@@ -34,54 +34,9 @@ type FieldSuggester struct {
 	Text       *string              `json:"text,omitempty"`
 }
 
-// FieldSuggesterBuilder holds FieldSuggester struct and provides a builder API.
-type FieldSuggesterBuilder struct {
-	v *FieldSuggester
-}
+// NewFieldSuggester returns a FieldSuggester.
+func NewFieldSuggester() *FieldSuggester {
+	r := &FieldSuggester{}
 
-// NewFieldSuggester provides a builder for the FieldSuggester struct.
-func NewFieldSuggesterBuilder() *FieldSuggesterBuilder {
-	r := FieldSuggesterBuilder{
-		&FieldSuggester{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FieldSuggester struct
-func (rb *FieldSuggesterBuilder) Build() FieldSuggester {
-	return *rb.v
-}
-
-func (rb *FieldSuggesterBuilder) Completion(completion *CompletionSuggesterBuilder) *FieldSuggesterBuilder {
-	v := completion.Build()
-	rb.v.Completion = &v
-	return rb
-}
-
-func (rb *FieldSuggesterBuilder) Phrase(phrase *PhraseSuggesterBuilder) *FieldSuggesterBuilder {
-	v := phrase.Build()
-	rb.v.Phrase = &v
-	return rb
-}
-
-func (rb *FieldSuggesterBuilder) Prefix(prefix string) *FieldSuggesterBuilder {
-	rb.v.Prefix = &prefix
-	return rb
-}
-
-func (rb *FieldSuggesterBuilder) Regex(regex string) *FieldSuggesterBuilder {
-	rb.v.Regex = &regex
-	return rb
-}
-
-func (rb *FieldSuggesterBuilder) Term(term *TermSuggesterBuilder) *FieldSuggesterBuilder {
-	v := term.Build()
-	rb.v.Term = &v
-	return rb
-}
-
-func (rb *FieldSuggesterBuilder) Text(text string) *FieldSuggesterBuilder {
-	rb.v.Text = &text
-	return rb
+	return r
 }

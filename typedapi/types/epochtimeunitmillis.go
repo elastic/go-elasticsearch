@@ -17,32 +17,12 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // EpochTimeUnitMillis type alias.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/Time.ts#L40-L40
-type EpochTimeUnitMillis UnitMillis
-
-// EpochTimeUnitMillisBuilder holds EpochTimeUnitMillis struct and provides a builder API.
-type EpochTimeUnitMillisBuilder struct {
-	v EpochTimeUnitMillis
-}
-
-// NewEpochTimeUnitMillis provides a builder for the EpochTimeUnitMillis struct.
-func NewEpochTimeUnitMillisBuilder() *EpochTimeUnitMillisBuilder {
-	return &EpochTimeUnitMillisBuilder{}
-}
-
-// Build finalize the chain and returns the EpochTimeUnitMillis struct
-func (b *EpochTimeUnitMillisBuilder) Build() EpochTimeUnitMillis {
-	return b.v
-}
-
-func (b *EpochTimeUnitMillisBuilder) EpochTimeUnitMillis(value EpochTimeUnitMillis) *EpochTimeUnitMillisBuilder {
-	b.v = value
-	return b
-}
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Time.ts#L40-L40
+type EpochTimeUnitMillis int64

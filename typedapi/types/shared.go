@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Shared type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/searchable_snapshots/cache_stats/Response.ts#L34-L43
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/searchable_snapshots/cache_stats/Response.ts#L34-L43
 type Shared struct {
 	BytesReadInBytes    ByteSize `json:"bytes_read_in_bytes"`
 	BytesWrittenInBytes ByteSize `json:"bytes_written_in_bytes"`
@@ -36,65 +36,9 @@ type Shared struct {
 	Writes              int64    `json:"writes"`
 }
 
-// SharedBuilder holds Shared struct and provides a builder API.
-type SharedBuilder struct {
-	v *Shared
-}
+// NewShared returns a Shared.
+func NewShared() *Shared {
+	r := &Shared{}
 
-// NewShared provides a builder for the Shared struct.
-func NewSharedBuilder() *SharedBuilder {
-	r := SharedBuilder{
-		&Shared{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Shared struct
-func (rb *SharedBuilder) Build() Shared {
-	return *rb.v
-}
-
-func (rb *SharedBuilder) BytesReadInBytes(bytesreadinbytes *ByteSizeBuilder) *SharedBuilder {
-	v := bytesreadinbytes.Build()
-	rb.v.BytesReadInBytes = v
-	return rb
-}
-
-func (rb *SharedBuilder) BytesWrittenInBytes(byteswritteninbytes *ByteSizeBuilder) *SharedBuilder {
-	v := byteswritteninbytes.Build()
-	rb.v.BytesWrittenInBytes = v
-	return rb
-}
-
-func (rb *SharedBuilder) Evictions(evictions int64) *SharedBuilder {
-	rb.v.Evictions = evictions
-	return rb
-}
-
-func (rb *SharedBuilder) NumRegions(numregions int) *SharedBuilder {
-	rb.v.NumRegions = numregions
-	return rb
-}
-
-func (rb *SharedBuilder) Reads(reads int64) *SharedBuilder {
-	rb.v.Reads = reads
-	return rb
-}
-
-func (rb *SharedBuilder) RegionSizeInBytes(regionsizeinbytes *ByteSizeBuilder) *SharedBuilder {
-	v := regionsizeinbytes.Build()
-	rb.v.RegionSizeInBytes = v
-	return rb
-}
-
-func (rb *SharedBuilder) SizeInBytes(sizeinbytes *ByteSizeBuilder) *SharedBuilder {
-	v := sizeinbytes.Build()
-	rb.v.SizeInBytes = v
-	return rb
-}
-
-func (rb *SharedBuilder) Writes(writes int64) *SharedBuilder {
-	rb.v.Writes = writes
-	return rb
+	return r
 }

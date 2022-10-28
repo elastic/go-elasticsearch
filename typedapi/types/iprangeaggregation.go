@@ -17,61 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IpRangeAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/bucket.ts#L249-L252
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/bucket.ts#L249-L252
 type IpRangeAggregation struct {
-	Field  *Field                    `json:"field,omitempty"`
-	Meta   *Metadata                 `json:"meta,omitempty"`
+	Field  *string                   `json:"field,omitempty"`
+	Meta   map[string]interface{}    `json:"meta,omitempty"`
 	Name   *string                   `json:"name,omitempty"`
 	Ranges []IpRangeAggregationRange `json:"ranges,omitempty"`
 }
 
-// IpRangeAggregationBuilder holds IpRangeAggregation struct and provides a builder API.
-type IpRangeAggregationBuilder struct {
-	v *IpRangeAggregation
-}
+// NewIpRangeAggregation returns a IpRangeAggregation.
+func NewIpRangeAggregation() *IpRangeAggregation {
+	r := &IpRangeAggregation{}
 
-// NewIpRangeAggregation provides a builder for the IpRangeAggregation struct.
-func NewIpRangeAggregationBuilder() *IpRangeAggregationBuilder {
-	r := IpRangeAggregationBuilder{
-		&IpRangeAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IpRangeAggregation struct
-func (rb *IpRangeAggregationBuilder) Build() IpRangeAggregation {
-	return *rb.v
-}
-
-func (rb *IpRangeAggregationBuilder) Field(field Field) *IpRangeAggregationBuilder {
-	rb.v.Field = &field
-	return rb
-}
-
-func (rb *IpRangeAggregationBuilder) Meta(meta *MetadataBuilder) *IpRangeAggregationBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *IpRangeAggregationBuilder) Name(name string) *IpRangeAggregationBuilder {
-	rb.v.Name = &name
-	return rb
-}
-
-func (rb *IpRangeAggregationBuilder) Ranges(ranges []IpRangeAggregationRangeBuilder) *IpRangeAggregationBuilder {
-	tmp := make([]IpRangeAggregationRange, len(ranges))
-	for _, value := range ranges {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Ranges = tmp
-	return rb
+	return r
 }

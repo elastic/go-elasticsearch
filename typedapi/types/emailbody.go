@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // EmailBody type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/watcher/_types/Actions.ts#L192-L195
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Actions.ts#L192-L195
 type EmailBody struct {
 	Html *string `json:"html,omitempty"`
 	Text *string `json:"text,omitempty"`
 }
 
-// EmailBodyBuilder holds EmailBody struct and provides a builder API.
-type EmailBodyBuilder struct {
-	v *EmailBody
-}
+// NewEmailBody returns a EmailBody.
+func NewEmailBody() *EmailBody {
+	r := &EmailBody{}
 
-// NewEmailBody provides a builder for the EmailBody struct.
-func NewEmailBodyBuilder() *EmailBodyBuilder {
-	r := EmailBodyBuilder{
-		&EmailBody{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the EmailBody struct
-func (rb *EmailBodyBuilder) Build() EmailBody {
-	return *rb.v
-}
-
-func (rb *EmailBodyBuilder) Html(html string) *EmailBodyBuilder {
-	rb.v.Html = &html
-	return rb
-}
-
-func (rb *EmailBodyBuilder) Text(text string) *EmailBodyBuilder {
-	rb.v.Text = &text
-	return rb
+	return r
 }

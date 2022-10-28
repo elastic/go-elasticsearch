@@ -17,66 +17,28 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // UserProfile type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/security/_types/UserProfile.ts#L42-L48
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/_types/UserProfile.ts#L42-L48
 type UserProfile struct {
 	Data    map[string]interface{} `json:"data"`
 	Enabled *bool                  `json:"enabled,omitempty"`
 	Labels  map[string]interface{} `json:"labels"`
-	Uid     UserProfileId          `json:"uid"`
+	Uid     string                 `json:"uid"`
 	User    UserProfileUser        `json:"user"`
 }
 
-// UserProfileBuilder holds UserProfile struct and provides a builder API.
-type UserProfileBuilder struct {
-	v *UserProfile
-}
-
-// NewUserProfile provides a builder for the UserProfile struct.
-func NewUserProfileBuilder() *UserProfileBuilder {
-	r := UserProfileBuilder{
-		&UserProfile{
-			Data:   make(map[string]interface{}, 0),
-			Labels: make(map[string]interface{}, 0),
-		},
+// NewUserProfile returns a UserProfile.
+func NewUserProfile() *UserProfile {
+	r := &UserProfile{
+		Data:   make(map[string]interface{}, 0),
+		Labels: make(map[string]interface{}, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the UserProfile struct
-func (rb *UserProfileBuilder) Build() UserProfile {
-	return *rb.v
-}
-
-func (rb *UserProfileBuilder) Data(value map[string]interface{}) *UserProfileBuilder {
-	rb.v.Data = value
-	return rb
-}
-
-func (rb *UserProfileBuilder) Enabled(enabled bool) *UserProfileBuilder {
-	rb.v.Enabled = &enabled
-	return rb
-}
-
-func (rb *UserProfileBuilder) Labels(value map[string]interface{}) *UserProfileBuilder {
-	rb.v.Labels = value
-	return rb
-}
-
-func (rb *UserProfileBuilder) Uid(uid UserProfileId) *UserProfileBuilder {
-	rb.v.Uid = uid
-	return rb
-}
-
-func (rb *UserProfileBuilder) User(user *UserProfileUserBuilder) *UserProfileBuilder {
-	v := user.Build()
-	rb.v.User = v
-	return rb
+	return r
 }

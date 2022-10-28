@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,10 +29,10 @@ import (
 
 // FieldsUsageBody type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/field_usage_stats/IndicesFieldUsageStatsResponse.ts#L32-L36
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/field_usage_stats/IndicesFieldUsageStatsResponse.ts#L32-L36
 type FieldsUsageBody struct {
-	FieldsUsageBody map[IndexName]UsageStatsIndex `json:"-"`
-	Shards_         ShardStatistics               `json:"_shards"`
+	FieldsUsageBody map[string]UsageStatsIndex `json:"-"`
+	Shards_         ShardStatistics            `json:"_shards"`
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -63,38 +63,11 @@ func (s FieldsUsageBody) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// FieldsUsageBodyBuilder holds FieldsUsageBody struct and provides a builder API.
-type FieldsUsageBodyBuilder struct {
-	v *FieldsUsageBody
-}
-
-// NewFieldsUsageBody provides a builder for the FieldsUsageBody struct.
-func NewFieldsUsageBodyBuilder() *FieldsUsageBodyBuilder {
-	r := FieldsUsageBodyBuilder{
-		&FieldsUsageBody{
-			FieldsUsageBody: make(map[IndexName]UsageStatsIndex, 0),
-		},
+// NewFieldsUsageBody returns a FieldsUsageBody.
+func NewFieldsUsageBody() *FieldsUsageBody {
+	r := &FieldsUsageBody{
+		FieldsUsageBody: make(map[string]UsageStatsIndex, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the FieldsUsageBody struct
-func (rb *FieldsUsageBodyBuilder) Build() FieldsUsageBody {
-	return *rb.v
-}
-
-func (rb *FieldsUsageBodyBuilder) FieldsUsageBody(values map[IndexName]*UsageStatsIndexBuilder) *FieldsUsageBodyBuilder {
-	tmp := make(map[IndexName]UsageStatsIndex, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.FieldsUsageBody = tmp
-	return rb
-}
-
-func (rb *FieldsUsageBodyBuilder) Shards_(shards_ *ShardStatisticsBuilder) *FieldsUsageBodyBuilder {
-	v := shards_.Build()
-	rb.v.Shards_ = v
-	return rb
+	return r
 }

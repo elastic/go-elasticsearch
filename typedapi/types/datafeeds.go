@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Datafeeds type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/info/types.ts#L40-L42
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/info/types.ts#L40-L42
 type Datafeeds struct {
 	ScrollSize int `json:"scroll_size"`
 }
 
-// DatafeedsBuilder holds Datafeeds struct and provides a builder API.
-type DatafeedsBuilder struct {
-	v *Datafeeds
-}
+// NewDatafeeds returns a Datafeeds.
+func NewDatafeeds() *Datafeeds {
+	r := &Datafeeds{}
 
-// NewDatafeeds provides a builder for the Datafeeds struct.
-func NewDatafeedsBuilder() *DatafeedsBuilder {
-	r := DatafeedsBuilder{
-		&Datafeeds{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Datafeeds struct
-func (rb *DatafeedsBuilder) Build() Datafeeds {
-	return *rb.v
-}
-
-func (rb *DatafeedsBuilder) ScrollSize(scrollsize int) *DatafeedsBuilder {
-	rb.v.ScrollSize = scrollsize
-	return rb
+	return r
 }

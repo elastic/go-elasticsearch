@@ -17,51 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ReverseNestedAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/bucket.ts#L313-L315
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/bucket.ts#L313-L315
 type ReverseNestedAggregation struct {
-	Meta *Metadata `json:"meta,omitempty"`
-	Name *string   `json:"name,omitempty"`
-	Path *Field    `json:"path,omitempty"`
+	Meta map[string]interface{} `json:"meta,omitempty"`
+	Name *string                `json:"name,omitempty"`
+	Path *string                `json:"path,omitempty"`
 }
 
-// ReverseNestedAggregationBuilder holds ReverseNestedAggregation struct and provides a builder API.
-type ReverseNestedAggregationBuilder struct {
-	v *ReverseNestedAggregation
-}
+// NewReverseNestedAggregation returns a ReverseNestedAggregation.
+func NewReverseNestedAggregation() *ReverseNestedAggregation {
+	r := &ReverseNestedAggregation{}
 
-// NewReverseNestedAggregation provides a builder for the ReverseNestedAggregation struct.
-func NewReverseNestedAggregationBuilder() *ReverseNestedAggregationBuilder {
-	r := ReverseNestedAggregationBuilder{
-		&ReverseNestedAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ReverseNestedAggregation struct
-func (rb *ReverseNestedAggregationBuilder) Build() ReverseNestedAggregation {
-	return *rb.v
-}
-
-func (rb *ReverseNestedAggregationBuilder) Meta(meta *MetadataBuilder) *ReverseNestedAggregationBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *ReverseNestedAggregationBuilder) Name(name string) *ReverseNestedAggregationBuilder {
-	rb.v.Name = &name
-	return rb
-}
-
-func (rb *ReverseNestedAggregationBuilder) Path(path Field) *ReverseNestedAggregationBuilder {
-	rb.v.Path = &path
-	return rb
+	return r
 }

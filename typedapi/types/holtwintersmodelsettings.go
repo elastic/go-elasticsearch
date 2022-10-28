@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // HoltWintersModelSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/pipeline.ts#L235-L242
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/pipeline.ts#L235-L242
 type HoltWintersModelSettings struct {
 	Alpha  *float32                         `json:"alpha,omitempty"`
 	Beta   *float32                         `json:"beta,omitempty"`
@@ -38,51 +38,9 @@ type HoltWintersModelSettings struct {
 	Type   *holtwinterstype.HoltWintersType `json:"type,omitempty"`
 }
 
-// HoltWintersModelSettingsBuilder holds HoltWintersModelSettings struct and provides a builder API.
-type HoltWintersModelSettingsBuilder struct {
-	v *HoltWintersModelSettings
-}
+// NewHoltWintersModelSettings returns a HoltWintersModelSettings.
+func NewHoltWintersModelSettings() *HoltWintersModelSettings {
+	r := &HoltWintersModelSettings{}
 
-// NewHoltWintersModelSettings provides a builder for the HoltWintersModelSettings struct.
-func NewHoltWintersModelSettingsBuilder() *HoltWintersModelSettingsBuilder {
-	r := HoltWintersModelSettingsBuilder{
-		&HoltWintersModelSettings{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the HoltWintersModelSettings struct
-func (rb *HoltWintersModelSettingsBuilder) Build() HoltWintersModelSettings {
-	return *rb.v
-}
-
-func (rb *HoltWintersModelSettingsBuilder) Alpha(alpha float32) *HoltWintersModelSettingsBuilder {
-	rb.v.Alpha = &alpha
-	return rb
-}
-
-func (rb *HoltWintersModelSettingsBuilder) Beta(beta float32) *HoltWintersModelSettingsBuilder {
-	rb.v.Beta = &beta
-	return rb
-}
-
-func (rb *HoltWintersModelSettingsBuilder) Gamma(gamma float32) *HoltWintersModelSettingsBuilder {
-	rb.v.Gamma = &gamma
-	return rb
-}
-
-func (rb *HoltWintersModelSettingsBuilder) Pad(pad bool) *HoltWintersModelSettingsBuilder {
-	rb.v.Pad = &pad
-	return rb
-}
-
-func (rb *HoltWintersModelSettingsBuilder) Period(period int) *HoltWintersModelSettingsBuilder {
-	rb.v.Period = &period
-	return rb
-}
-
-func (rb *HoltWintersModelSettingsBuilder) Type_(type_ holtwinterstype.HoltWintersType) *HoltWintersModelSettingsBuilder {
-	rb.v.Type = &type_
-	return rb
+	return r
 }

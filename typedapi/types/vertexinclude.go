@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // VertexInclude type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/graph/_types/Vertex.ts#L39-L42
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/graph/_types/Vertex.ts#L39-L42
 type VertexInclude struct {
 	Boost float64 `json:"boost"`
 	Term  string  `json:"term"`
 }
 
-// VertexIncludeBuilder holds VertexInclude struct and provides a builder API.
-type VertexIncludeBuilder struct {
-	v *VertexInclude
-}
+// NewVertexInclude returns a VertexInclude.
+func NewVertexInclude() *VertexInclude {
+	r := &VertexInclude{}
 
-// NewVertexInclude provides a builder for the VertexInclude struct.
-func NewVertexIncludeBuilder() *VertexIncludeBuilder {
-	r := VertexIncludeBuilder{
-		&VertexInclude{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the VertexInclude struct
-func (rb *VertexIncludeBuilder) Build() VertexInclude {
-	return *rb.v
-}
-
-func (rb *VertexIncludeBuilder) Boost(boost float64) *VertexIncludeBuilder {
-	rb.v.Boost = boost
-	return rb
-}
-
-func (rb *VertexIncludeBuilder) Term(term string) *VertexIncludeBuilder {
-	rb.v.Term = term
-	return rb
+	return r
 }

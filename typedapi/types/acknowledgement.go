@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Acknowledgement type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/license/post/types.ts#L20-L23
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/license/post/types.ts#L20-L23
 type Acknowledgement struct {
 	License []string `json:"license"`
 	Message string   `json:"message"`
 }
 
-// AcknowledgementBuilder holds Acknowledgement struct and provides a builder API.
-type AcknowledgementBuilder struct {
-	v *Acknowledgement
-}
+// NewAcknowledgement returns a Acknowledgement.
+func NewAcknowledgement() *Acknowledgement {
+	r := &Acknowledgement{}
 
-// NewAcknowledgement provides a builder for the Acknowledgement struct.
-func NewAcknowledgementBuilder() *AcknowledgementBuilder {
-	r := AcknowledgementBuilder{
-		&Acknowledgement{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Acknowledgement struct
-func (rb *AcknowledgementBuilder) Build() Acknowledgement {
-	return *rb.v
-}
-
-func (rb *AcknowledgementBuilder) License(license ...string) *AcknowledgementBuilder {
-	rb.v.License = license
-	return rb
-}
-
-func (rb *AcknowledgementBuilder) Message(message string) *AcknowledgementBuilder {
-	rb.v.Message = message
-	return rb
+	return r
 }

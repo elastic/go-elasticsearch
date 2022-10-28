@@ -17,16 +17,17 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SetSecurityUserProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ingest/_types/Processors.ts#L325-L328
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ingest/_types/Processors.ts#L338-L341
 type SetSecurityUserProcessor struct {
-	Field         Field                `json:"field"`
+	Description   *string              `json:"description,omitempty"`
+	Field         string               `json:"field"`
 	If            *string              `json:"if,omitempty"`
 	IgnoreFailure *bool                `json:"ignore_failure,omitempty"`
 	OnFailure     []ProcessorContainer `json:"on_failure,omitempty"`
@@ -34,55 +35,9 @@ type SetSecurityUserProcessor struct {
 	Tag           *string              `json:"tag,omitempty"`
 }
 
-// SetSecurityUserProcessorBuilder holds SetSecurityUserProcessor struct and provides a builder API.
-type SetSecurityUserProcessorBuilder struct {
-	v *SetSecurityUserProcessor
-}
+// NewSetSecurityUserProcessor returns a SetSecurityUserProcessor.
+func NewSetSecurityUserProcessor() *SetSecurityUserProcessor {
+	r := &SetSecurityUserProcessor{}
 
-// NewSetSecurityUserProcessor provides a builder for the SetSecurityUserProcessor struct.
-func NewSetSecurityUserProcessorBuilder() *SetSecurityUserProcessorBuilder {
-	r := SetSecurityUserProcessorBuilder{
-		&SetSecurityUserProcessor{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SetSecurityUserProcessor struct
-func (rb *SetSecurityUserProcessorBuilder) Build() SetSecurityUserProcessor {
-	return *rb.v
-}
-
-func (rb *SetSecurityUserProcessorBuilder) Field(field Field) *SetSecurityUserProcessorBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *SetSecurityUserProcessorBuilder) If_(if_ string) *SetSecurityUserProcessorBuilder {
-	rb.v.If = &if_
-	return rb
-}
-
-func (rb *SetSecurityUserProcessorBuilder) IgnoreFailure(ignorefailure bool) *SetSecurityUserProcessorBuilder {
-	rb.v.IgnoreFailure = &ignorefailure
-	return rb
-}
-
-func (rb *SetSecurityUserProcessorBuilder) OnFailure(on_failure []ProcessorContainerBuilder) *SetSecurityUserProcessorBuilder {
-	tmp := make([]ProcessorContainer, len(on_failure))
-	for _, value := range on_failure {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.OnFailure = tmp
-	return rb
-}
-
-func (rb *SetSecurityUserProcessorBuilder) Properties(properties ...string) *SetSecurityUserProcessorBuilder {
-	rb.v.Properties = properties
-	return rb
-}
-
-func (rb *SetSecurityUserProcessorBuilder) Tag(tag string) *SetSecurityUserProcessorBuilder {
-	rb.v.Tag = &tag
-	return rb
+	return r
 }

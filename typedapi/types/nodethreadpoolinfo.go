@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeThreadPoolInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/info/types.ts#L286-L293
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/info/types.ts#L286-L293
 type NodeThreadPoolInfo struct {
 	Core      *int      `json:"core,omitempty"`
 	KeepAlive *Duration `json:"keep_alive,omitempty"`
@@ -34,52 +34,9 @@ type NodeThreadPoolInfo struct {
 	Type      string    `json:"type"`
 }
 
-// NodeThreadPoolInfoBuilder holds NodeThreadPoolInfo struct and provides a builder API.
-type NodeThreadPoolInfoBuilder struct {
-	v *NodeThreadPoolInfo
-}
+// NewNodeThreadPoolInfo returns a NodeThreadPoolInfo.
+func NewNodeThreadPoolInfo() *NodeThreadPoolInfo {
+	r := &NodeThreadPoolInfo{}
 
-// NewNodeThreadPoolInfo provides a builder for the NodeThreadPoolInfo struct.
-func NewNodeThreadPoolInfoBuilder() *NodeThreadPoolInfoBuilder {
-	r := NodeThreadPoolInfoBuilder{
-		&NodeThreadPoolInfo{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodeThreadPoolInfo struct
-func (rb *NodeThreadPoolInfoBuilder) Build() NodeThreadPoolInfo {
-	return *rb.v
-}
-
-func (rb *NodeThreadPoolInfoBuilder) Core(core int) *NodeThreadPoolInfoBuilder {
-	rb.v.Core = &core
-	return rb
-}
-
-func (rb *NodeThreadPoolInfoBuilder) KeepAlive(keepalive *DurationBuilder) *NodeThreadPoolInfoBuilder {
-	v := keepalive.Build()
-	rb.v.KeepAlive = &v
-	return rb
-}
-
-func (rb *NodeThreadPoolInfoBuilder) Max(max int) *NodeThreadPoolInfoBuilder {
-	rb.v.Max = &max
-	return rb
-}
-
-func (rb *NodeThreadPoolInfoBuilder) QueueSize(queuesize int) *NodeThreadPoolInfoBuilder {
-	rb.v.QueueSize = queuesize
-	return rb
-}
-
-func (rb *NodeThreadPoolInfoBuilder) Size(size int) *NodeThreadPoolInfoBuilder {
-	rb.v.Size = &size
-	return rb
-}
-
-func (rb *NodeThreadPoolInfoBuilder) Type_(type_ string) *NodeThreadPoolInfoBuilder {
-	rb.v.Type = type_
-	return rb
+	return r
 }

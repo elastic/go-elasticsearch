@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ShardProfile type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/search/_types/profile.ts#L132-L137
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/profile.ts#L132-L137
 type ShardProfile struct {
 	Aggregations []AggregationProfile `json:"aggregations"`
 	Fetch        *FetchProfile        `json:"fetch,omitempty"`
@@ -32,50 +32,9 @@ type ShardProfile struct {
 	Searches     []SearchProfile      `json:"searches"`
 }
 
-// ShardProfileBuilder holds ShardProfile struct and provides a builder API.
-type ShardProfileBuilder struct {
-	v *ShardProfile
-}
+// NewShardProfile returns a ShardProfile.
+func NewShardProfile() *ShardProfile {
+	r := &ShardProfile{}
 
-// NewShardProfile provides a builder for the ShardProfile struct.
-func NewShardProfileBuilder() *ShardProfileBuilder {
-	r := ShardProfileBuilder{
-		&ShardProfile{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ShardProfile struct
-func (rb *ShardProfileBuilder) Build() ShardProfile {
-	return *rb.v
-}
-
-func (rb *ShardProfileBuilder) Aggregations(aggregations []AggregationProfileBuilder) *ShardProfileBuilder {
-	tmp := make([]AggregationProfile, len(aggregations))
-	for _, value := range aggregations {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Aggregations = tmp
-	return rb
-}
-
-func (rb *ShardProfileBuilder) Fetch(fetch *FetchProfileBuilder) *ShardProfileBuilder {
-	v := fetch.Build()
-	rb.v.Fetch = &v
-	return rb
-}
-
-func (rb *ShardProfileBuilder) Id(id string) *ShardProfileBuilder {
-	rb.v.Id = id
-	return rb
-}
-
-func (rb *ShardProfileBuilder) Searches(searches []SearchProfileBuilder) *ShardProfileBuilder {
-	tmp := make([]SearchProfile, len(searches))
-	for _, value := range searches {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Searches = tmp
-	return rb
+	return r
 }

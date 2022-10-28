@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -31,10 +31,10 @@ import (
 
 // GeoDecayFunction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/compound.ts#L96-L98
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/compound.ts#L96-L98
 type GeoDecayFunction struct {
-	GeoDecayFunction map[Field]DecayPlacementGeoLocationDistance `json:"-"`
-	MultiValueMode   *multivaluemode.MultiValueMode              `json:"multi_value_mode,omitempty"`
+	GeoDecayFunction map[string]DecayPlacementGeoLocationDistance `json:"-"`
+	MultiValueMode   *multivaluemode.MultiValueMode               `json:"multi_value_mode,omitempty"`
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -65,37 +65,11 @@ func (s GeoDecayFunction) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// GeoDecayFunctionBuilder holds GeoDecayFunction struct and provides a builder API.
-type GeoDecayFunctionBuilder struct {
-	v *GeoDecayFunction
-}
-
-// NewGeoDecayFunction provides a builder for the GeoDecayFunction struct.
-func NewGeoDecayFunctionBuilder() *GeoDecayFunctionBuilder {
-	r := GeoDecayFunctionBuilder{
-		&GeoDecayFunction{
-			GeoDecayFunction: make(map[Field]DecayPlacementGeoLocationDistance, 0),
-		},
+// NewGeoDecayFunction returns a GeoDecayFunction.
+func NewGeoDecayFunction() *GeoDecayFunction {
+	r := &GeoDecayFunction{
+		GeoDecayFunction: make(map[string]DecayPlacementGeoLocationDistance, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the GeoDecayFunction struct
-func (rb *GeoDecayFunctionBuilder) Build() GeoDecayFunction {
-	return *rb.v
-}
-
-func (rb *GeoDecayFunctionBuilder) GeoDecayFunction(values map[Field]*DecayPlacementGeoLocationDistanceBuilder) *GeoDecayFunctionBuilder {
-	tmp := make(map[Field]DecayPlacementGeoLocationDistance, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.GeoDecayFunction = tmp
-	return rb
-}
-
-func (rb *GeoDecayFunctionBuilder) MultiValueMode(multivaluemode multivaluemode.MultiValueMode) *GeoDecayFunctionBuilder {
-	rb.v.MultiValueMode = &multivaluemode
-	return rb
+	return r
 }

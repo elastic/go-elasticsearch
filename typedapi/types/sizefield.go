@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SizeField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/mapping/meta-fields.ts#L54-L56
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/meta-fields.ts#L54-L56
 type SizeField struct {
 	Enabled bool `json:"enabled"`
 }
 
-// SizeFieldBuilder holds SizeField struct and provides a builder API.
-type SizeFieldBuilder struct {
-	v *SizeField
-}
+// NewSizeField returns a SizeField.
+func NewSizeField() *SizeField {
+	r := &SizeField{}
 
-// NewSizeField provides a builder for the SizeField struct.
-func NewSizeFieldBuilder() *SizeFieldBuilder {
-	r := SizeFieldBuilder{
-		&SizeField{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SizeField struct
-func (rb *SizeFieldBuilder) Build() SizeField {
-	return *rb.v
-}
-
-func (rb *SizeFieldBuilder) Enabled(enabled bool) *SizeFieldBuilder {
-	rb.v.Enabled = enabled
-	return rb
+	return r
 }

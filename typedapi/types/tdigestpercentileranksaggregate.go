@@ -17,46 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TDigestPercentileRanksAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L166-L167
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L174-L175
 type TDigestPercentileRanksAggregate struct {
-	Meta   *Metadata   `json:"meta,omitempty"`
-	Values Percentiles `json:"values"`
+	Meta   map[string]interface{} `json:"meta,omitempty"`
+	Values Percentiles            `json:"values"`
 }
 
-// TDigestPercentileRanksAggregateBuilder holds TDigestPercentileRanksAggregate struct and provides a builder API.
-type TDigestPercentileRanksAggregateBuilder struct {
-	v *TDigestPercentileRanksAggregate
-}
+// NewTDigestPercentileRanksAggregate returns a TDigestPercentileRanksAggregate.
+func NewTDigestPercentileRanksAggregate() *TDigestPercentileRanksAggregate {
+	r := &TDigestPercentileRanksAggregate{}
 
-// NewTDigestPercentileRanksAggregate provides a builder for the TDigestPercentileRanksAggregate struct.
-func NewTDigestPercentileRanksAggregateBuilder() *TDigestPercentileRanksAggregateBuilder {
-	r := TDigestPercentileRanksAggregateBuilder{
-		&TDigestPercentileRanksAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TDigestPercentileRanksAggregate struct
-func (rb *TDigestPercentileRanksAggregateBuilder) Build() TDigestPercentileRanksAggregate {
-	return *rb.v
-}
-
-func (rb *TDigestPercentileRanksAggregateBuilder) Meta(meta *MetadataBuilder) *TDigestPercentileRanksAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *TDigestPercentileRanksAggregateBuilder) Values(values *PercentilesBuilder) *TDigestPercentileRanksAggregateBuilder {
-	v := values.Build()
-	rb.v.Values = v
-	return rb
+	return r
 }

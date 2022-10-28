@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ActionStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/watcher/_types/Action.ts#L128-L133
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Action.ts#L128-L133
 type ActionStatus struct {
 	Ack                     AcknowledgeState `json:"ack"`
 	LastExecution           *ExecutionState  `json:"last_execution,omitempty"`
@@ -32,45 +32,9 @@ type ActionStatus struct {
 	LastThrottle            *ThrottleState   `json:"last_throttle,omitempty"`
 }
 
-// ActionStatusBuilder holds ActionStatus struct and provides a builder API.
-type ActionStatusBuilder struct {
-	v *ActionStatus
-}
+// NewActionStatus returns a ActionStatus.
+func NewActionStatus() *ActionStatus {
+	r := &ActionStatus{}
 
-// NewActionStatus provides a builder for the ActionStatus struct.
-func NewActionStatusBuilder() *ActionStatusBuilder {
-	r := ActionStatusBuilder{
-		&ActionStatus{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ActionStatus struct
-func (rb *ActionStatusBuilder) Build() ActionStatus {
-	return *rb.v
-}
-
-func (rb *ActionStatusBuilder) Ack(ack *AcknowledgeStateBuilder) *ActionStatusBuilder {
-	v := ack.Build()
-	rb.v.Ack = v
-	return rb
-}
-
-func (rb *ActionStatusBuilder) LastExecution(lastexecution *ExecutionStateBuilder) *ActionStatusBuilder {
-	v := lastexecution.Build()
-	rb.v.LastExecution = &v
-	return rb
-}
-
-func (rb *ActionStatusBuilder) LastSuccessfulExecution(lastsuccessfulexecution *ExecutionStateBuilder) *ActionStatusBuilder {
-	v := lastsuccessfulexecution.Build()
-	rb.v.LastSuccessfulExecution = &v
-	return rb
-}
-
-func (rb *ActionStatusBuilder) LastThrottle(lastthrottle *ThrottleStateBuilder) *ActionStatusBuilder {
-	v := lastthrottle.Build()
-	rb.v.LastThrottle = &v
-	return rb
+	return r
 }

@@ -17,56 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FieldTypes type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/cluster/stats/types.ts#L101-L107
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/stats/types.ts#L101-L107
 type FieldTypes struct {
-	Count       int  `json:"count"`
-	IndexCount  int  `json:"index_count"`
-	Name        Name `json:"name"`
-	ScriptCount *int `json:"script_count,omitempty"`
+	Count       int    `json:"count"`
+	IndexCount  int    `json:"index_count"`
+	Name        string `json:"name"`
+	ScriptCount *int   `json:"script_count,omitempty"`
 }
 
-// FieldTypesBuilder holds FieldTypes struct and provides a builder API.
-type FieldTypesBuilder struct {
-	v *FieldTypes
-}
+// NewFieldTypes returns a FieldTypes.
+func NewFieldTypes() *FieldTypes {
+	r := &FieldTypes{}
 
-// NewFieldTypes provides a builder for the FieldTypes struct.
-func NewFieldTypesBuilder() *FieldTypesBuilder {
-	r := FieldTypesBuilder{
-		&FieldTypes{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FieldTypes struct
-func (rb *FieldTypesBuilder) Build() FieldTypes {
-	return *rb.v
-}
-
-func (rb *FieldTypesBuilder) Count(count int) *FieldTypesBuilder {
-	rb.v.Count = count
-	return rb
-}
-
-func (rb *FieldTypesBuilder) IndexCount(indexcount int) *FieldTypesBuilder {
-	rb.v.IndexCount = indexcount
-	return rb
-}
-
-func (rb *FieldTypesBuilder) Name(name Name) *FieldTypesBuilder {
-	rb.v.Name = name
-	return rb
-}
-
-func (rb *FieldTypesBuilder) ScriptCount(scriptcount int) *FieldTypesBuilder {
-	rb.v.ScriptCount = &scriptcount
-	return rb
+	return r
 }

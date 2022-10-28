@@ -17,46 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Ssl type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/xpack/usage/types.ts#L373-L376
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L373-L376
 type Ssl struct {
 	Http      FeatureToggle `json:"http"`
 	Transport FeatureToggle `json:"transport"`
 }
 
-// SslBuilder holds Ssl struct and provides a builder API.
-type SslBuilder struct {
-	v *Ssl
-}
+// NewSsl returns a Ssl.
+func NewSsl() *Ssl {
+	r := &Ssl{}
 
-// NewSsl provides a builder for the Ssl struct.
-func NewSslBuilder() *SslBuilder {
-	r := SslBuilder{
-		&Ssl{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Ssl struct
-func (rb *SslBuilder) Build() Ssl {
-	return *rb.v
-}
-
-func (rb *SslBuilder) Http(http *FeatureToggleBuilder) *SslBuilder {
-	v := http.Build()
-	rb.v.Http = v
-	return rb
-}
-
-func (rb *SslBuilder) Transport(transport *FeatureToggleBuilder) *SslBuilder {
-	v := transport.Build()
-	rb.v.Transport = v
-	return rb
+	return r
 }

@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CharFilterDetail type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/analyze/types.ts#L46-L49
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/analyze/types.ts#L46-L49
 type CharFilterDetail struct {
 	FilteredText []string `json:"filtered_text"`
 	Name         string   `json:"name"`
 }
 
-// CharFilterDetailBuilder holds CharFilterDetail struct and provides a builder API.
-type CharFilterDetailBuilder struct {
-	v *CharFilterDetail
-}
+// NewCharFilterDetail returns a CharFilterDetail.
+func NewCharFilterDetail() *CharFilterDetail {
+	r := &CharFilterDetail{}
 
-// NewCharFilterDetail provides a builder for the CharFilterDetail struct.
-func NewCharFilterDetailBuilder() *CharFilterDetailBuilder {
-	r := CharFilterDetailBuilder{
-		&CharFilterDetail{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the CharFilterDetail struct
-func (rb *CharFilterDetailBuilder) Build() CharFilterDetail {
-	return *rb.v
-}
-
-func (rb *CharFilterDetailBuilder) FilteredText(filtered_text ...string) *CharFilterDetailBuilder {
-	rb.v.FilteredText = filtered_text
-	return rb
-}
-
-func (rb *CharFilterDetailBuilder) Name(name string) *CharFilterDetailBuilder {
-	rb.v.Name = name
-	return rb
+	return r
 }

@@ -17,53 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Preprocessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/put_trained_model/types.ts#L31-L36
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/put_trained_model/types.ts#L31-L36
 type Preprocessor struct {
 	FrequencyEncoding  *FrequencyEncodingPreprocessor  `json:"frequency_encoding,omitempty"`
 	OneHotEncoding     *OneHotEncodingPreprocessor     `json:"one_hot_encoding,omitempty"`
 	TargetMeanEncoding *TargetMeanEncodingPreprocessor `json:"target_mean_encoding,omitempty"`
 }
 
-// PreprocessorBuilder holds Preprocessor struct and provides a builder API.
-type PreprocessorBuilder struct {
-	v *Preprocessor
-}
+// NewPreprocessor returns a Preprocessor.
+func NewPreprocessor() *Preprocessor {
+	r := &Preprocessor{}
 
-// NewPreprocessor provides a builder for the Preprocessor struct.
-func NewPreprocessorBuilder() *PreprocessorBuilder {
-	r := PreprocessorBuilder{
-		&Preprocessor{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Preprocessor struct
-func (rb *PreprocessorBuilder) Build() Preprocessor {
-	return *rb.v
-}
-
-func (rb *PreprocessorBuilder) FrequencyEncoding(frequencyencoding *FrequencyEncodingPreprocessorBuilder) *PreprocessorBuilder {
-	v := frequencyencoding.Build()
-	rb.v.FrequencyEncoding = &v
-	return rb
-}
-
-func (rb *PreprocessorBuilder) OneHotEncoding(onehotencoding *OneHotEncodingPreprocessorBuilder) *PreprocessorBuilder {
-	v := onehotencoding.Build()
-	rb.v.OneHotEncoding = &v
-	return rb
-}
-
-func (rb *PreprocessorBuilder) TargetMeanEncoding(targetmeanencoding *TargetMeanEncodingPreprocessorBuilder) *PreprocessorBuilder {
-	v := targetmeanencoding.Build()
-	rb.v.TargetMeanEncoding = &v
-	return rb
+	return r
 }

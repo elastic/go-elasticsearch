@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Checkpointing type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/transform/get_transform_stats/types.ts#L77-L84
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/transform/get_transform_stats/types.ts#L77-L84
 type Checkpointing struct {
 	ChangesLastDetectedAt         *int64           `json:"changes_last_detected_at,omitempty"`
 	ChangesLastDetectedAtDateTime *DateTime        `json:"changes_last_detected_at_date_time,omitempty"`
@@ -34,54 +34,9 @@ type Checkpointing struct {
 	OperationsBehind              *int64           `json:"operations_behind,omitempty"`
 }
 
-// CheckpointingBuilder holds Checkpointing struct and provides a builder API.
-type CheckpointingBuilder struct {
-	v *Checkpointing
-}
+// NewCheckpointing returns a Checkpointing.
+func NewCheckpointing() *Checkpointing {
+	r := &Checkpointing{}
 
-// NewCheckpointing provides a builder for the Checkpointing struct.
-func NewCheckpointingBuilder() *CheckpointingBuilder {
-	r := CheckpointingBuilder{
-		&Checkpointing{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Checkpointing struct
-func (rb *CheckpointingBuilder) Build() Checkpointing {
-	return *rb.v
-}
-
-func (rb *CheckpointingBuilder) ChangesLastDetectedAt(changeslastdetectedat int64) *CheckpointingBuilder {
-	rb.v.ChangesLastDetectedAt = &changeslastdetectedat
-	return rb
-}
-
-func (rb *CheckpointingBuilder) ChangesLastDetectedAtDateTime(changeslastdetectedatdatetime *DateTimeBuilder) *CheckpointingBuilder {
-	v := changeslastdetectedatdatetime.Build()
-	rb.v.ChangesLastDetectedAtDateTime = &v
-	return rb
-}
-
-func (rb *CheckpointingBuilder) Last(last *CheckpointStatsBuilder) *CheckpointingBuilder {
-	v := last.Build()
-	rb.v.Last = v
-	return rb
-}
-
-func (rb *CheckpointingBuilder) LastSearchTime(lastsearchtime int64) *CheckpointingBuilder {
-	rb.v.LastSearchTime = &lastsearchtime
-	return rb
-}
-
-func (rb *CheckpointingBuilder) Next(next *CheckpointStatsBuilder) *CheckpointingBuilder {
-	v := next.Build()
-	rb.v.Next = &v
-	return rb
-}
-
-func (rb *CheckpointingBuilder) OperationsBehind(operationsbehind int64) *CheckpointingBuilder {
-	rb.v.OperationsBehind = &operationsbehind
-	return rb
+	return r
 }

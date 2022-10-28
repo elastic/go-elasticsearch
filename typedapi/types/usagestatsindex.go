@@ -17,42 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // UsageStatsIndex type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/field_usage_stats/IndicesFieldUsageStatsResponse.ts#L38-L40
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/field_usage_stats/IndicesFieldUsageStatsResponse.ts#L38-L40
 type UsageStatsIndex struct {
 	Shards []UsageStatsShards `json:"shards"`
 }
 
-// UsageStatsIndexBuilder holds UsageStatsIndex struct and provides a builder API.
-type UsageStatsIndexBuilder struct {
-	v *UsageStatsIndex
-}
+// NewUsageStatsIndex returns a UsageStatsIndex.
+func NewUsageStatsIndex() *UsageStatsIndex {
+	r := &UsageStatsIndex{}
 
-// NewUsageStatsIndex provides a builder for the UsageStatsIndex struct.
-func NewUsageStatsIndexBuilder() *UsageStatsIndexBuilder {
-	r := UsageStatsIndexBuilder{
-		&UsageStatsIndex{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the UsageStatsIndex struct
-func (rb *UsageStatsIndexBuilder) Build() UsageStatsIndex {
-	return *rb.v
-}
-
-func (rb *UsageStatsIndexBuilder) Shards(shards []UsageStatsShardsBuilder) *UsageStatsIndexBuilder {
-	tmp := make([]UsageStatsShards, len(shards))
-	for _, value := range shards {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Shards = tmp
-	return rb
+	return r
 }

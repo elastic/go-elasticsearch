@@ -17,72 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // WatchStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/watcher/_types/Watch.ts#L49-L56
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Watch.ts#L49-L56
 type WatchStatus struct {
-	Actions          Actions         `json:"actions"`
-	ExecutionState   *string         `json:"execution_state,omitempty"`
-	LastChecked      *DateTime       `json:"last_checked,omitempty"`
-	LastMetCondition *DateTime       `json:"last_met_condition,omitempty"`
-	State            ActivationState `json:"state"`
-	Version          VersionNumber   `json:"version"`
+	Actions          WatcherStatusActions `json:"actions"`
+	ExecutionState   *string              `json:"execution_state,omitempty"`
+	LastChecked      *DateTime            `json:"last_checked,omitempty"`
+	LastMetCondition *DateTime            `json:"last_met_condition,omitempty"`
+	State            ActivationState      `json:"state"`
+	Version          int64                `json:"version"`
 }
 
-// WatchStatusBuilder holds WatchStatus struct and provides a builder API.
-type WatchStatusBuilder struct {
-	v *WatchStatus
-}
+// NewWatchStatus returns a WatchStatus.
+func NewWatchStatus() *WatchStatus {
+	r := &WatchStatus{}
 
-// NewWatchStatus provides a builder for the WatchStatus struct.
-func NewWatchStatusBuilder() *WatchStatusBuilder {
-	r := WatchStatusBuilder{
-		&WatchStatus{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the WatchStatus struct
-func (rb *WatchStatusBuilder) Build() WatchStatus {
-	return *rb.v
-}
-
-func (rb *WatchStatusBuilder) Actions(actions *ActionsBuilder) *WatchStatusBuilder {
-	v := actions.Build()
-	rb.v.Actions = v
-	return rb
-}
-
-func (rb *WatchStatusBuilder) ExecutionState(executionstate string) *WatchStatusBuilder {
-	rb.v.ExecutionState = &executionstate
-	return rb
-}
-
-func (rb *WatchStatusBuilder) LastChecked(lastchecked *DateTimeBuilder) *WatchStatusBuilder {
-	v := lastchecked.Build()
-	rb.v.LastChecked = &v
-	return rb
-}
-
-func (rb *WatchStatusBuilder) LastMetCondition(lastmetcondition *DateTimeBuilder) *WatchStatusBuilder {
-	v := lastmetcondition.Build()
-	rb.v.LastMetCondition = &v
-	return rb
-}
-
-func (rb *WatchStatusBuilder) State(state *ActivationStateBuilder) *WatchStatusBuilder {
-	v := state.Build()
-	rb.v.State = v
-	return rb
-}
-
-func (rb *WatchStatusBuilder) Version(version VersionNumber) *WatchStatusBuilder {
-	rb.v.Version = version
-	return rb
+	return r
 }

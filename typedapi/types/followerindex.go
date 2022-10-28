@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,56 +28,18 @@ import (
 
 // FollowerIndex type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ccr/follow_info/types.ts#L22-L28
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ccr/follow_info/types.ts#L22-L28
 type FollowerIndex struct {
-	FollowerIndex IndexName                               `json:"follower_index"`
-	LeaderIndex   IndexName                               `json:"leader_index"`
+	FollowerIndex string                                  `json:"follower_index"`
+	LeaderIndex   string                                  `json:"leader_index"`
 	Parameters    *FollowerIndexParameters                `json:"parameters,omitempty"`
-	RemoteCluster Name                                    `json:"remote_cluster"`
+	RemoteCluster string                                  `json:"remote_cluster"`
 	Status        followerindexstatus.FollowerIndexStatus `json:"status"`
 }
 
-// FollowerIndexBuilder holds FollowerIndex struct and provides a builder API.
-type FollowerIndexBuilder struct {
-	v *FollowerIndex
-}
+// NewFollowerIndex returns a FollowerIndex.
+func NewFollowerIndex() *FollowerIndex {
+	r := &FollowerIndex{}
 
-// NewFollowerIndex provides a builder for the FollowerIndex struct.
-func NewFollowerIndexBuilder() *FollowerIndexBuilder {
-	r := FollowerIndexBuilder{
-		&FollowerIndex{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FollowerIndex struct
-func (rb *FollowerIndexBuilder) Build() FollowerIndex {
-	return *rb.v
-}
-
-func (rb *FollowerIndexBuilder) FollowerIndex(followerindex IndexName) *FollowerIndexBuilder {
-	rb.v.FollowerIndex = followerindex
-	return rb
-}
-
-func (rb *FollowerIndexBuilder) LeaderIndex(leaderindex IndexName) *FollowerIndexBuilder {
-	rb.v.LeaderIndex = leaderindex
-	return rb
-}
-
-func (rb *FollowerIndexBuilder) Parameters(parameters *FollowerIndexParametersBuilder) *FollowerIndexBuilder {
-	v := parameters.Build()
-	rb.v.Parameters = &v
-	return rb
-}
-
-func (rb *FollowerIndexBuilder) RemoteCluster(remotecluster Name) *FollowerIndexBuilder {
-	rb.v.RemoteCluster = remotecluster
-	return rb
-}
-
-func (rb *FollowerIndexBuilder) Status(status followerindexstatus.FollowerIndexStatus) *FollowerIndexBuilder {
-	rb.v.Status = status
-	return rb
+	return r
 }

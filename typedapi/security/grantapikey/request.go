@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package grantapikey
@@ -32,36 +32,24 @@ import (
 
 // Request holds the request body struct for the package grantapikey
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/security/grant_api_key/SecurityGrantApiKeyRequest.ts#L24-L38
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/grant_api_key/SecurityGrantApiKeyRequest.ts#L24-L38
 type Request struct {
-	AccessToken *string `json:"access_token,omitempty"`
-
-	ApiKey types.GrantApiKey `json:"api_key"`
-
-	GrantType apikeygranttype.ApiKeyGrantType `json:"grant_type"`
-
-	Password *types.Password `json:"password,omitempty"`
-
-	RunAs *types.Username `json:"run_as,omitempty"`
-
-	Username *types.Username `json:"username,omitempty"`
+	AccessToken *string                         `json:"access_token,omitempty"`
+	ApiKey      types.GrantApiKey               `json:"api_key"`
+	GrantType   apikeygranttype.ApiKeyGrantType `json:"grant_type"`
+	Password    *string                         `json:"password,omitempty"`
+	RunAs       *string                         `json:"run_as,omitempty"`
+	Username    *string                         `json:"username,omitempty"`
 }
 
-// RequestBuilder is the builder API for the grantapikey.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -70,40 +58,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) AccessToken(accesstoken string) *RequestBuilder {
-	rb.v.AccessToken = &accesstoken
-	return rb
-}
-
-func (rb *RequestBuilder) ApiKey(apikey *types.GrantApiKeyBuilder) *RequestBuilder {
-	v := apikey.Build()
-	rb.v.ApiKey = v
-	return rb
-}
-
-func (rb *RequestBuilder) GrantType(granttype apikeygranttype.ApiKeyGrantType) *RequestBuilder {
-	rb.v.GrantType = granttype
-	return rb
-}
-
-func (rb *RequestBuilder) Password(password types.Password) *RequestBuilder {
-	rb.v.Password = &password
-	return rb
-}
-
-func (rb *RequestBuilder) RunAs(runas types.Username) *RequestBuilder {
-	rb.v.RunAs = &runas
-	return rb
-}
-
-func (rb *RequestBuilder) Username(username types.Username) *RequestBuilder {
-	rb.v.Username = &username
-	return rb
 }

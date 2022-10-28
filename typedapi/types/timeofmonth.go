@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TimeOfMonth type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/watcher/_types/Schedule.ts#L115-L118
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Schedule.ts#L115-L118
 type TimeOfMonth struct {
 	At []string `json:"at"`
 	On []int    `json:"on"`
 }
 
-// TimeOfMonthBuilder holds TimeOfMonth struct and provides a builder API.
-type TimeOfMonthBuilder struct {
-	v *TimeOfMonth
-}
+// NewTimeOfMonth returns a TimeOfMonth.
+func NewTimeOfMonth() *TimeOfMonth {
+	r := &TimeOfMonth{}
 
-// NewTimeOfMonth provides a builder for the TimeOfMonth struct.
-func NewTimeOfMonthBuilder() *TimeOfMonthBuilder {
-	r := TimeOfMonthBuilder{
-		&TimeOfMonth{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TimeOfMonth struct
-func (rb *TimeOfMonthBuilder) Build() TimeOfMonth {
-	return *rb.v
-}
-
-func (rb *TimeOfMonthBuilder) At(at ...string) *TimeOfMonthBuilder {
-	rb.v.At = at
-	return rb
-}
-
-func (rb *TimeOfMonthBuilder) On(on ...int) *TimeOfMonthBuilder {
-	rb.v.On = on
-	return rb
+	return r
 }

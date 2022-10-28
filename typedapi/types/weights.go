@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Weights type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/put_trained_model/types.ts#L108-L110
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/put_trained_model/types.ts#L108-L110
 type Weights struct {
 	Weights float64 `json:"weights"`
 }
 
-// WeightsBuilder holds Weights struct and provides a builder API.
-type WeightsBuilder struct {
-	v *Weights
-}
+// NewWeights returns a Weights.
+func NewWeights() *Weights {
+	r := &Weights{}
 
-// NewWeights provides a builder for the Weights struct.
-func NewWeightsBuilder() *WeightsBuilder {
-	r := WeightsBuilder{
-		&Weights{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Weights struct
-func (rb *WeightsBuilder) Build() Weights {
-	return *rb.v
-}
-
-func (rb *WeightsBuilder) Weights(weights float64) *WeightsBuilder {
-	rb.v.Weights = weights
-	return rb
+	return r
 }

@@ -17,60 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RecoveryStartStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/recovery/types.ts#L91-L96
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/recovery/types.ts#L91-L96
 type RecoveryStartStatus struct {
-	CheckIndexTime         *Duration               `json:"check_index_time,omitempty"`
-	CheckIndexTimeInMillis DurationValueUnitMillis `json:"check_index_time_in_millis"`
-	TotalTime              *Duration               `json:"total_time,omitempty"`
-	TotalTimeInMillis      DurationValueUnitMillis `json:"total_time_in_millis"`
+	CheckIndexTime         *Duration `json:"check_index_time,omitempty"`
+	CheckIndexTimeInMillis int64     `json:"check_index_time_in_millis"`
+	TotalTime              *Duration `json:"total_time,omitempty"`
+	TotalTimeInMillis      int64     `json:"total_time_in_millis"`
 }
 
-// RecoveryStartStatusBuilder holds RecoveryStartStatus struct and provides a builder API.
-type RecoveryStartStatusBuilder struct {
-	v *RecoveryStartStatus
-}
+// NewRecoveryStartStatus returns a RecoveryStartStatus.
+func NewRecoveryStartStatus() *RecoveryStartStatus {
+	r := &RecoveryStartStatus{}
 
-// NewRecoveryStartStatus provides a builder for the RecoveryStartStatus struct.
-func NewRecoveryStartStatusBuilder() *RecoveryStartStatusBuilder {
-	r := RecoveryStartStatusBuilder{
-		&RecoveryStartStatus{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RecoveryStartStatus struct
-func (rb *RecoveryStartStatusBuilder) Build() RecoveryStartStatus {
-	return *rb.v
-}
-
-func (rb *RecoveryStartStatusBuilder) CheckIndexTime(checkindextime *DurationBuilder) *RecoveryStartStatusBuilder {
-	v := checkindextime.Build()
-	rb.v.CheckIndexTime = &v
-	return rb
-}
-
-func (rb *RecoveryStartStatusBuilder) CheckIndexTimeInMillis(checkindextimeinmillis *DurationValueUnitMillisBuilder) *RecoveryStartStatusBuilder {
-	v := checkindextimeinmillis.Build()
-	rb.v.CheckIndexTimeInMillis = v
-	return rb
-}
-
-func (rb *RecoveryStartStatusBuilder) TotalTime(totaltime *DurationBuilder) *RecoveryStartStatusBuilder {
-	v := totaltime.Build()
-	rb.v.TotalTime = &v
-	return rb
-}
-
-func (rb *RecoveryStartStatusBuilder) TotalTimeInMillis(totaltimeinmillis *DurationValueUnitMillisBuilder) *RecoveryStartStatusBuilder {
-	v := totaltimeinmillis.Build()
-	rb.v.TotalTimeInMillis = v
-	return rb
+	return r
 }

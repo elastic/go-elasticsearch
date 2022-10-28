@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IpRangeAggregationRange type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/bucket.ts#L254-L258
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/bucket.ts#L254-L258
 type IpRangeAggregationRange struct {
 	From string  `json:"from,omitempty"`
 	Mask *string `json:"mask,omitempty"`
 	To   string  `json:"to,omitempty"`
 }
 
-// IpRangeAggregationRangeBuilder holds IpRangeAggregationRange struct and provides a builder API.
-type IpRangeAggregationRangeBuilder struct {
-	v *IpRangeAggregationRange
-}
+// NewIpRangeAggregationRange returns a IpRangeAggregationRange.
+func NewIpRangeAggregationRange() *IpRangeAggregationRange {
+	r := &IpRangeAggregationRange{}
 
-// NewIpRangeAggregationRange provides a builder for the IpRangeAggregationRange struct.
-func NewIpRangeAggregationRangeBuilder() *IpRangeAggregationRangeBuilder {
-	r := IpRangeAggregationRangeBuilder{
-		&IpRangeAggregationRange{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IpRangeAggregationRange struct
-func (rb *IpRangeAggregationRangeBuilder) Build() IpRangeAggregationRange {
-	return *rb.v
-}
-
-func (rb *IpRangeAggregationRangeBuilder) From(from string) *IpRangeAggregationRangeBuilder {
-	rb.v.From = from
-	return rb
-}
-
-func (rb *IpRangeAggregationRangeBuilder) Mask(mask string) *IpRangeAggregationRangeBuilder {
-	rb.v.Mask = &mask
-	return rb
-}
-
-func (rb *IpRangeAggregationRangeBuilder) To(to string) *IpRangeAggregationRangeBuilder {
-	rb.v.To = to
-	return rb
+	return r
 }

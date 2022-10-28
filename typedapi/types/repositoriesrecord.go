@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RepositoriesRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/cat/repositories/types.ts#L20-L31
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cat/repositories/types.ts#L20-L31
 type RepositoriesRecord struct {
 	// Id unique repository id
 	Id *string `json:"id,omitempty"`
@@ -32,35 +32,9 @@ type RepositoriesRecord struct {
 	Type *string `json:"type,omitempty"`
 }
 
-// RepositoriesRecordBuilder holds RepositoriesRecord struct and provides a builder API.
-type RepositoriesRecordBuilder struct {
-	v *RepositoriesRecord
-}
+// NewRepositoriesRecord returns a RepositoriesRecord.
+func NewRepositoriesRecord() *RepositoriesRecord {
+	r := &RepositoriesRecord{}
 
-// NewRepositoriesRecord provides a builder for the RepositoriesRecord struct.
-func NewRepositoriesRecordBuilder() *RepositoriesRecordBuilder {
-	r := RepositoriesRecordBuilder{
-		&RepositoriesRecord{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RepositoriesRecord struct
-func (rb *RepositoriesRecordBuilder) Build() RepositoriesRecord {
-	return *rb.v
-}
-
-// Id unique repository id
-
-func (rb *RepositoriesRecordBuilder) Id(id string) *RepositoriesRecordBuilder {
-	rb.v.Id = &id
-	return rb
-}
-
-// Type repository type
-
-func (rb *RepositoriesRecordBuilder) Type_(type_ string) *RepositoriesRecordBuilder {
-	rb.v.Type = &type_
-	return rb
+	return r
 }

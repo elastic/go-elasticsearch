@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // InferenceClassImportance type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L660-L663
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L675-L678
 type InferenceClassImportance struct {
 	ClassName  string  `json:"class_name"`
 	Importance float64 `json:"importance"`
 }
 
-// InferenceClassImportanceBuilder holds InferenceClassImportance struct and provides a builder API.
-type InferenceClassImportanceBuilder struct {
-	v *InferenceClassImportance
-}
+// NewInferenceClassImportance returns a InferenceClassImportance.
+func NewInferenceClassImportance() *InferenceClassImportance {
+	r := &InferenceClassImportance{}
 
-// NewInferenceClassImportance provides a builder for the InferenceClassImportance struct.
-func NewInferenceClassImportanceBuilder() *InferenceClassImportanceBuilder {
-	r := InferenceClassImportanceBuilder{
-		&InferenceClassImportance{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the InferenceClassImportance struct
-func (rb *InferenceClassImportanceBuilder) Build() InferenceClassImportance {
-	return *rb.v
-}
-
-func (rb *InferenceClassImportanceBuilder) ClassName(classname string) *InferenceClassImportanceBuilder {
-	rb.v.ClassName = classname
-	return rb
-}
-
-func (rb *InferenceClassImportanceBuilder) Importance(importance float64) *InferenceClassImportanceBuilder {
-	rb.v.Importance = importance
-	return rb
+	return r
 }

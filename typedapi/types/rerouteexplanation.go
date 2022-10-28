@@ -17,55 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RerouteExplanation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/cluster/reroute/types.ts#L92-L96
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/reroute/types.ts#L92-L96
 type RerouteExplanation struct {
 	Command    string            `json:"command"`
 	Decisions  []RerouteDecision `json:"decisions"`
 	Parameters RerouteParameters `json:"parameters"`
 }
 
-// RerouteExplanationBuilder holds RerouteExplanation struct and provides a builder API.
-type RerouteExplanationBuilder struct {
-	v *RerouteExplanation
-}
+// NewRerouteExplanation returns a RerouteExplanation.
+func NewRerouteExplanation() *RerouteExplanation {
+	r := &RerouteExplanation{}
 
-// NewRerouteExplanation provides a builder for the RerouteExplanation struct.
-func NewRerouteExplanationBuilder() *RerouteExplanationBuilder {
-	r := RerouteExplanationBuilder{
-		&RerouteExplanation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RerouteExplanation struct
-func (rb *RerouteExplanationBuilder) Build() RerouteExplanation {
-	return *rb.v
-}
-
-func (rb *RerouteExplanationBuilder) Command(command string) *RerouteExplanationBuilder {
-	rb.v.Command = command
-	return rb
-}
-
-func (rb *RerouteExplanationBuilder) Decisions(decisions []RerouteDecisionBuilder) *RerouteExplanationBuilder {
-	tmp := make([]RerouteDecision, len(decisions))
-	for _, value := range decisions {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Decisions = tmp
-	return rb
-}
-
-func (rb *RerouteExplanationBuilder) Parameters(parameters *RerouteParametersBuilder) *RerouteExplanationBuilder {
-	v := parameters.Build()
-	rb.v.Parameters = v
-	return rb
+	return r
 }

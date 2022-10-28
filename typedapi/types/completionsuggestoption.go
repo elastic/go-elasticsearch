@@ -17,95 +17,33 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CompletionSuggestOption type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/search/_types/suggester.ts#L73-L84
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/suggester.ts#L73-L84
 type CompletionSuggestOption struct {
 	CollateMatch *bool                  `json:"collate_match,omitempty"`
 	Contexts     map[string][]Context   `json:"contexts,omitempty"`
 	Fields       map[string]interface{} `json:"fields,omitempty"`
 	Id_          *string                `json:"_id,omitempty"`
-	Index_       *IndexName             `json:"_index,omitempty"`
-	Routing_     *Routing               `json:"_routing,omitempty"`
+	Index_       *string                `json:"_index,omitempty"`
+	Routing_     *string                `json:"_routing,omitempty"`
 	Score        *float64               `json:"score,omitempty"`
 	Score_       *float64               `json:"_score,omitempty"`
 	Source_      interface{}            `json:"_source,omitempty"`
 	Text         string                 `json:"text"`
 }
 
-// CompletionSuggestOptionBuilder holds CompletionSuggestOption struct and provides a builder API.
-type CompletionSuggestOptionBuilder struct {
-	v *CompletionSuggestOption
-}
-
-// NewCompletionSuggestOption provides a builder for the CompletionSuggestOption struct.
-func NewCompletionSuggestOptionBuilder() *CompletionSuggestOptionBuilder {
-	r := CompletionSuggestOptionBuilder{
-		&CompletionSuggestOption{
-			Contexts: make(map[string][]Context, 0),
-			Fields:   make(map[string]interface{}, 0),
-		},
+// NewCompletionSuggestOption returns a CompletionSuggestOption.
+func NewCompletionSuggestOption() *CompletionSuggestOption {
+	r := &CompletionSuggestOption{
+		Contexts: make(map[string][]Context, 0),
+		Fields:   make(map[string]interface{}, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the CompletionSuggestOption struct
-func (rb *CompletionSuggestOptionBuilder) Build() CompletionSuggestOption {
-	return *rb.v
-}
-
-func (rb *CompletionSuggestOptionBuilder) CollateMatch(collatematch bool) *CompletionSuggestOptionBuilder {
-	rb.v.CollateMatch = &collatematch
-	return rb
-}
-
-func (rb *CompletionSuggestOptionBuilder) Contexts(value map[string][]Context) *CompletionSuggestOptionBuilder {
-	rb.v.Contexts = value
-	return rb
-}
-
-func (rb *CompletionSuggestOptionBuilder) Fields(value map[string]interface{}) *CompletionSuggestOptionBuilder {
-	rb.v.Fields = value
-	return rb
-}
-
-func (rb *CompletionSuggestOptionBuilder) Id_(id_ string) *CompletionSuggestOptionBuilder {
-	rb.v.Id_ = &id_
-	return rb
-}
-
-func (rb *CompletionSuggestOptionBuilder) Index_(index_ IndexName) *CompletionSuggestOptionBuilder {
-	rb.v.Index_ = &index_
-	return rb
-}
-
-func (rb *CompletionSuggestOptionBuilder) Routing_(routing_ Routing) *CompletionSuggestOptionBuilder {
-	rb.v.Routing_ = &routing_
-	return rb
-}
-
-func (rb *CompletionSuggestOptionBuilder) Score(score float64) *CompletionSuggestOptionBuilder {
-	rb.v.Score = &score
-	return rb
-}
-
-func (rb *CompletionSuggestOptionBuilder) Score_(score_ float64) *CompletionSuggestOptionBuilder {
-	rb.v.Score_ = &score_
-	return rb
-}
-
-func (rb *CompletionSuggestOptionBuilder) Source_(source_ interface{}) *CompletionSuggestOptionBuilder {
-	rb.v.Source_ = source_
-	return rb
-}
-
-func (rb *CompletionSuggestOptionBuilder) Text(text string) *CompletionSuggestOptionBuilder {
-	rb.v.Text = text
-	return rb
+	return r
 }

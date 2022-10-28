@@ -17,44 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IndexAliases type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/get_alias/IndicesGetAliasResponse.ts#L36-L38
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/get_alias/IndicesGetAliasResponse.ts#L36-L38
 type IndexAliases struct {
 	Aliases map[string]AliasDefinition `json:"aliases"`
 }
 
-// IndexAliasesBuilder holds IndexAliases struct and provides a builder API.
-type IndexAliasesBuilder struct {
-	v *IndexAliases
-}
-
-// NewIndexAliases provides a builder for the IndexAliases struct.
-func NewIndexAliasesBuilder() *IndexAliasesBuilder {
-	r := IndexAliasesBuilder{
-		&IndexAliases{
-			Aliases: make(map[string]AliasDefinition, 0),
-		},
+// NewIndexAliases returns a IndexAliases.
+func NewIndexAliases() *IndexAliases {
+	r := &IndexAliases{
+		Aliases: make(map[string]AliasDefinition, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the IndexAliases struct
-func (rb *IndexAliasesBuilder) Build() IndexAliases {
-	return *rb.v
-}
-
-func (rb *IndexAliasesBuilder) Aliases(values map[string]*AliasDefinitionBuilder) *IndexAliasesBuilder {
-	tmp := make(map[string]AliasDefinition, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Aliases = tmp
-	return rb
+	return r
 }

@@ -17,47 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ClusterNetworkTypes type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/cluster/stats/types.ts#L171-L174
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/stats/types.ts#L171-L174
 type ClusterNetworkTypes struct {
 	HttpTypes      map[string]int `json:"http_types"`
 	TransportTypes map[string]int `json:"transport_types"`
 }
 
-// ClusterNetworkTypesBuilder holds ClusterNetworkTypes struct and provides a builder API.
-type ClusterNetworkTypesBuilder struct {
-	v *ClusterNetworkTypes
-}
-
-// NewClusterNetworkTypes provides a builder for the ClusterNetworkTypes struct.
-func NewClusterNetworkTypesBuilder() *ClusterNetworkTypesBuilder {
-	r := ClusterNetworkTypesBuilder{
-		&ClusterNetworkTypes{
-			HttpTypes:      make(map[string]int, 0),
-			TransportTypes: make(map[string]int, 0),
-		},
+// NewClusterNetworkTypes returns a ClusterNetworkTypes.
+func NewClusterNetworkTypes() *ClusterNetworkTypes {
+	r := &ClusterNetworkTypes{
+		HttpTypes:      make(map[string]int, 0),
+		TransportTypes: make(map[string]int, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the ClusterNetworkTypes struct
-func (rb *ClusterNetworkTypesBuilder) Build() ClusterNetworkTypes {
-	return *rb.v
-}
-
-func (rb *ClusterNetworkTypesBuilder) HttpTypes(value map[string]int) *ClusterNetworkTypesBuilder {
-	rb.v.HttpTypes = value
-	return rb
-}
-
-func (rb *ClusterNetworkTypesBuilder) TransportTypes(value map[string]int) *ClusterNetworkTypesBuilder {
-	rb.v.TransportTypes = value
-	return rb
+	return r
 }

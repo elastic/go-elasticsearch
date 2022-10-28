@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package infertrainedmodel
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package infertrainedmodel
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/infer_trained_model/MlInferTrainedModelRequest.ts#L27-L59
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/infer_trained_model/MlInferTrainedModelRequest.ts#L27-L59
 type Request struct {
 
 	// Docs An array of objects to pass to the model for inference. The objects should
@@ -40,26 +40,18 @@ type Request struct {
 	// `text_field`.
 	// Currently, for NLP models, only a single value is allowed.
 	Docs []map[string]interface{} `json:"docs"`
-
 	// InferenceConfig The inference configuration updates to apply on the API call
 	InferenceConfig *types.InferenceConfigUpdateContainer `json:"inference_config,omitempty"`
 }
 
-// RequestBuilder is the builder API for the infertrainedmodel.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -68,20 +60,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) Docs(value ...map[string]interface{}) *RequestBuilder {
-	rb.v.Docs = value
-	return rb
-}
-
-func (rb *RequestBuilder) InferenceConfig(inferenceconfig *types.InferenceConfigUpdateContainerBuilder) *RequestBuilder {
-	v := inferenceconfig.Build()
-	rb.v.InferenceConfig = &v
-	return rb
 }

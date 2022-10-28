@@ -17,52 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ComponentTemplateNode type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/cluster/_types/ComponentTemplate.ts#L31-L36
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/_types/ComponentTemplate.ts#L31-L36
 type ComponentTemplateNode struct {
-	Meta_    *Metadata                `json:"_meta,omitempty"`
+	Meta_    map[string]interface{}   `json:"_meta,omitempty"`
 	Template ComponentTemplateSummary `json:"template"`
-	Version  *VersionNumber           `json:"version,omitempty"`
+	Version  *int64                   `json:"version,omitempty"`
 }
 
-// ComponentTemplateNodeBuilder holds ComponentTemplateNode struct and provides a builder API.
-type ComponentTemplateNodeBuilder struct {
-	v *ComponentTemplateNode
-}
+// NewComponentTemplateNode returns a ComponentTemplateNode.
+func NewComponentTemplateNode() *ComponentTemplateNode {
+	r := &ComponentTemplateNode{}
 
-// NewComponentTemplateNode provides a builder for the ComponentTemplateNode struct.
-func NewComponentTemplateNodeBuilder() *ComponentTemplateNodeBuilder {
-	r := ComponentTemplateNodeBuilder{
-		&ComponentTemplateNode{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ComponentTemplateNode struct
-func (rb *ComponentTemplateNodeBuilder) Build() ComponentTemplateNode {
-	return *rb.v
-}
-
-func (rb *ComponentTemplateNodeBuilder) Meta_(meta_ *MetadataBuilder) *ComponentTemplateNodeBuilder {
-	v := meta_.Build()
-	rb.v.Meta_ = &v
-	return rb
-}
-
-func (rb *ComponentTemplateNodeBuilder) Template(template *ComponentTemplateSummaryBuilder) *ComponentTemplateNodeBuilder {
-	v := template.Build()
-	rb.v.Template = v
-	return rb
-}
-
-func (rb *ComponentTemplateNodeBuilder) Version(version VersionNumber) *ComponentTemplateNodeBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

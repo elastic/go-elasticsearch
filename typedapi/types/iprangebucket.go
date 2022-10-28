@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,13 +29,13 @@ import (
 
 // IpRangeBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L544-L548
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L559-L563
 type IpRangeBucket struct {
-	Aggregations map[AggregateName]Aggregate `json:"-"`
-	DocCount     int64                       `json:"doc_count"`
-	From         *string                     `json:"from,omitempty"`
-	Key          *string                     `json:"key,omitempty"`
-	To           *string                     `json:"to,omitempty"`
+	Aggregations map[string]Aggregate `json:"-"`
+	DocCount     int64                `json:"doc_count"`
+	From         *string              `json:"from,omitempty"`
+	Key          *string              `json:"key,omitempty"`
+	To           *string              `json:"to,omitempty"`
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -66,52 +66,11 @@ func (s IpRangeBucket) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// IpRangeBucketBuilder holds IpRangeBucket struct and provides a builder API.
-type IpRangeBucketBuilder struct {
-	v *IpRangeBucket
-}
-
-// NewIpRangeBucket provides a builder for the IpRangeBucket struct.
-func NewIpRangeBucketBuilder() *IpRangeBucketBuilder {
-	r := IpRangeBucketBuilder{
-		&IpRangeBucket{
-			Aggregations: make(map[AggregateName]Aggregate, 0),
-		},
+// NewIpRangeBucket returns a IpRangeBucket.
+func NewIpRangeBucket() *IpRangeBucket {
+	r := &IpRangeBucket{
+		Aggregations: make(map[string]Aggregate, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the IpRangeBucket struct
-func (rb *IpRangeBucketBuilder) Build() IpRangeBucket {
-	return *rb.v
-}
-
-func (rb *IpRangeBucketBuilder) Aggregations(values map[AggregateName]*AggregateBuilder) *IpRangeBucketBuilder {
-	tmp := make(map[AggregateName]Aggregate, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Aggregations = tmp
-	return rb
-}
-
-func (rb *IpRangeBucketBuilder) DocCount(doccount int64) *IpRangeBucketBuilder {
-	rb.v.DocCount = doccount
-	return rb
-}
-
-func (rb *IpRangeBucketBuilder) From(from string) *IpRangeBucketBuilder {
-	rb.v.From = &from
-	return rb
-}
-
-func (rb *IpRangeBucketBuilder) Key(key string) *IpRangeBucketBuilder {
-	rb.v.Key = &key
-	return rb
-}
-
-func (rb *IpRangeBucketBuilder) To(to string) *IpRangeBucketBuilder {
-	rb.v.To = &to
-	return rb
+	return r
 }

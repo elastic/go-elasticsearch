@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MappingLimitSettingsTotalFields type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/_types/IndexSettings.ts#L417-L425
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/IndexSettings.ts#L417-L425
 type MappingLimitSettingsTotalFields struct {
 	// Limit The maximum number of fields in an index. Field and object mappings, as well
 	// as field aliases count towards this limit.
@@ -35,33 +35,9 @@ type MappingLimitSettingsTotalFields struct {
 	Limit *int `json:"limit,omitempty"`
 }
 
-// MappingLimitSettingsTotalFieldsBuilder holds MappingLimitSettingsTotalFields struct and provides a builder API.
-type MappingLimitSettingsTotalFieldsBuilder struct {
-	v *MappingLimitSettingsTotalFields
-}
+// NewMappingLimitSettingsTotalFields returns a MappingLimitSettingsTotalFields.
+func NewMappingLimitSettingsTotalFields() *MappingLimitSettingsTotalFields {
+	r := &MappingLimitSettingsTotalFields{}
 
-// NewMappingLimitSettingsTotalFields provides a builder for the MappingLimitSettingsTotalFields struct.
-func NewMappingLimitSettingsTotalFieldsBuilder() *MappingLimitSettingsTotalFieldsBuilder {
-	r := MappingLimitSettingsTotalFieldsBuilder{
-		&MappingLimitSettingsTotalFields{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MappingLimitSettingsTotalFields struct
-func (rb *MappingLimitSettingsTotalFieldsBuilder) Build() MappingLimitSettingsTotalFields {
-	return *rb.v
-}
-
-// Limit The maximum number of fields in an index. Field and object mappings, as well
-// as field aliases count towards this limit.
-// The limit is in place to prevent mappings and searches from becoming too
-// large. Higher values can lead to performance
-// degradations and memory issues, especially in clusters with a high load or
-// few resources.
-
-func (rb *MappingLimitSettingsTotalFieldsBuilder) Limit(limit int) *MappingLimitSettingsTotalFieldsBuilder {
-	rb.v.Limit = &limit
-	return rb
+	return r
 }

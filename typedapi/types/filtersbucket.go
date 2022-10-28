@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,10 +29,10 @@ import (
 
 // FiltersBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L555-L555
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L570-L570
 type FiltersBucket struct {
-	Aggregations map[AggregateName]Aggregate `json:"-"`
-	DocCount     int64                       `json:"doc_count"`
+	Aggregations map[string]Aggregate `json:"-"`
+	DocCount     int64                `json:"doc_count"`
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -63,37 +63,11 @@ func (s FiltersBucket) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// FiltersBucketBuilder holds FiltersBucket struct and provides a builder API.
-type FiltersBucketBuilder struct {
-	v *FiltersBucket
-}
-
-// NewFiltersBucket provides a builder for the FiltersBucket struct.
-func NewFiltersBucketBuilder() *FiltersBucketBuilder {
-	r := FiltersBucketBuilder{
-		&FiltersBucket{
-			Aggregations: make(map[AggregateName]Aggregate, 0),
-		},
+// NewFiltersBucket returns a FiltersBucket.
+func NewFiltersBucket() *FiltersBucket {
+	r := &FiltersBucket{
+		Aggregations: make(map[string]Aggregate, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the FiltersBucket struct
-func (rb *FiltersBucketBuilder) Build() FiltersBucket {
-	return *rb.v
-}
-
-func (rb *FiltersBucketBuilder) Aggregations(values map[AggregateName]*AggregateBuilder) *FiltersBucketBuilder {
-	tmp := make(map[AggregateName]Aggregate, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Aggregations = tmp
-	return rb
-}
-
-func (rb *FiltersBucketBuilder) DocCount(doccount int64) *FiltersBucketBuilder {
-	rb.v.DocCount = doccount
-	return rb
+	return r
 }

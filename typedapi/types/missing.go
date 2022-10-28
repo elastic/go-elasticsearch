@@ -17,52 +17,17 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Missing holds the union for the following types:
 //
-//	bool
-//	float64
-//	int
 //	string
+//	int
+//	float64
+//	bool
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/AggregationContainer.ts#L211-L211
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/AggregationContainer.ts#L211-L211
 type Missing interface{}
-
-// MissingBuilder holds Missing struct and provides a builder API.
-type MissingBuilder struct {
-	v Missing
-}
-
-// NewMissing provides a builder for the Missing struct.
-func NewMissingBuilder() *MissingBuilder {
-	return &MissingBuilder{}
-}
-
-// Build finalize the chain and returns the Missing struct
-func (u *MissingBuilder) Build() Missing {
-	return u.v
-}
-
-func (u *MissingBuilder) Bool(bool bool) *MissingBuilder {
-	u.v = &bool
-	return u
-}
-
-func (u *MissingBuilder) Float64(float64 float64) *MissingBuilder {
-	u.v = &float64
-	return u
-}
-
-func (u *MissingBuilder) Int(int int) *MissingBuilder {
-	u.v = &int
-	return u
-}
-
-func (u *MissingBuilder) String(string string) *MissingBuilder {
-	u.v = &string
-	return u
-}

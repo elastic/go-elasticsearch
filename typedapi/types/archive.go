@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Archive type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/xpack/usage/types.ts#L44-L46
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L44-L46
 type Archive struct {
 	Available    bool  `json:"available"`
 	Enabled      bool  `json:"enabled"`
 	IndicesCount int64 `json:"indices_count"`
 }
 
-// ArchiveBuilder holds Archive struct and provides a builder API.
-type ArchiveBuilder struct {
-	v *Archive
-}
+// NewArchive returns a Archive.
+func NewArchive() *Archive {
+	r := &Archive{}
 
-// NewArchive provides a builder for the Archive struct.
-func NewArchiveBuilder() *ArchiveBuilder {
-	r := ArchiveBuilder{
-		&Archive{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Archive struct
-func (rb *ArchiveBuilder) Build() Archive {
-	return *rb.v
-}
-
-func (rb *ArchiveBuilder) Available(available bool) *ArchiveBuilder {
-	rb.v.Available = available
-	return rb
-}
-
-func (rb *ArchiveBuilder) Enabled(enabled bool) *ArchiveBuilder {
-	rb.v.Enabled = enabled
-	return rb
-}
-
-func (rb *ArchiveBuilder) IndicesCount(indicescount int64) *ArchiveBuilder {
-	rb.v.IndicesCount = indicescount
-	return rb
+	return r
 }

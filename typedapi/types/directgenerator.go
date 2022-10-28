@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,9 +28,9 @@ import (
 
 // DirectGenerator type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/search/_types/suggester.ts#L166-L178
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/suggester.ts#L166-L178
 type DirectGenerator struct {
-	Field          Field                    `json:"field"`
+	Field          string                   `json:"field"`
 	MaxEdits       *int                     `json:"max_edits,omitempty"`
 	MaxInspections *float32                 `json:"max_inspections,omitempty"`
 	MaxTermFreq    *float32                 `json:"max_term_freq,omitempty"`
@@ -43,76 +43,9 @@ type DirectGenerator struct {
 	SuggestMode    *suggestmode.SuggestMode `json:"suggest_mode,omitempty"`
 }
 
-// DirectGeneratorBuilder holds DirectGenerator struct and provides a builder API.
-type DirectGeneratorBuilder struct {
-	v *DirectGenerator
-}
+// NewDirectGenerator returns a DirectGenerator.
+func NewDirectGenerator() *DirectGenerator {
+	r := &DirectGenerator{}
 
-// NewDirectGenerator provides a builder for the DirectGenerator struct.
-func NewDirectGeneratorBuilder() *DirectGeneratorBuilder {
-	r := DirectGeneratorBuilder{
-		&DirectGenerator{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DirectGenerator struct
-func (rb *DirectGeneratorBuilder) Build() DirectGenerator {
-	return *rb.v
-}
-
-func (rb *DirectGeneratorBuilder) Field(field Field) *DirectGeneratorBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *DirectGeneratorBuilder) MaxEdits(maxedits int) *DirectGeneratorBuilder {
-	rb.v.MaxEdits = &maxedits
-	return rb
-}
-
-func (rb *DirectGeneratorBuilder) MaxInspections(maxinspections float32) *DirectGeneratorBuilder {
-	rb.v.MaxInspections = &maxinspections
-	return rb
-}
-
-func (rb *DirectGeneratorBuilder) MaxTermFreq(maxtermfreq float32) *DirectGeneratorBuilder {
-	rb.v.MaxTermFreq = &maxtermfreq
-	return rb
-}
-
-func (rb *DirectGeneratorBuilder) MinDocFreq(mindocfreq float32) *DirectGeneratorBuilder {
-	rb.v.MinDocFreq = &mindocfreq
-	return rb
-}
-
-func (rb *DirectGeneratorBuilder) MinWordLength(minwordlength int) *DirectGeneratorBuilder {
-	rb.v.MinWordLength = &minwordlength
-	return rb
-}
-
-func (rb *DirectGeneratorBuilder) PostFilter(postfilter string) *DirectGeneratorBuilder {
-	rb.v.PostFilter = &postfilter
-	return rb
-}
-
-func (rb *DirectGeneratorBuilder) PreFilter(prefilter string) *DirectGeneratorBuilder {
-	rb.v.PreFilter = &prefilter
-	return rb
-}
-
-func (rb *DirectGeneratorBuilder) PrefixLength(prefixlength int) *DirectGeneratorBuilder {
-	rb.v.PrefixLength = &prefixlength
-	return rb
-}
-
-func (rb *DirectGeneratorBuilder) Size(size int) *DirectGeneratorBuilder {
-	rb.v.Size = &size
-	return rb
-}
-
-func (rb *DirectGeneratorBuilder) SuggestMode(suggestmode suggestmode.SuggestMode) *DirectGeneratorBuilder {
-	rb.v.SuggestMode = &suggestmode
-	return rb
+	return r
 }

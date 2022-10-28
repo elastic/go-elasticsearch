@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // MatchPhraseQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/fulltext.ts#L173-L180
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/fulltext.ts#L173-L180
 type MatchPhraseQuery struct {
 	Analyzer       *string                        `json:"analyzer,omitempty"`
 	Boost          *float32                       `json:"boost,omitempty"`
@@ -38,51 +38,9 @@ type MatchPhraseQuery struct {
 	ZeroTermsQuery *zerotermsquery.ZeroTermsQuery `json:"zero_terms_query,omitempty"`
 }
 
-// MatchPhraseQueryBuilder holds MatchPhraseQuery struct and provides a builder API.
-type MatchPhraseQueryBuilder struct {
-	v *MatchPhraseQuery
-}
+// NewMatchPhraseQuery returns a MatchPhraseQuery.
+func NewMatchPhraseQuery() *MatchPhraseQuery {
+	r := &MatchPhraseQuery{}
 
-// NewMatchPhraseQuery provides a builder for the MatchPhraseQuery struct.
-func NewMatchPhraseQueryBuilder() *MatchPhraseQueryBuilder {
-	r := MatchPhraseQueryBuilder{
-		&MatchPhraseQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MatchPhraseQuery struct
-func (rb *MatchPhraseQueryBuilder) Build() MatchPhraseQuery {
-	return *rb.v
-}
-
-func (rb *MatchPhraseQueryBuilder) Analyzer(analyzer string) *MatchPhraseQueryBuilder {
-	rb.v.Analyzer = &analyzer
-	return rb
-}
-
-func (rb *MatchPhraseQueryBuilder) Boost(boost float32) *MatchPhraseQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *MatchPhraseQueryBuilder) Query(query string) *MatchPhraseQueryBuilder {
-	rb.v.Query = query
-	return rb
-}
-
-func (rb *MatchPhraseQueryBuilder) QueryName_(queryname_ string) *MatchPhraseQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
-}
-
-func (rb *MatchPhraseQueryBuilder) Slop(slop int) *MatchPhraseQueryBuilder {
-	rb.v.Slop = &slop
-	return rb
-}
-
-func (rb *MatchPhraseQueryBuilder) ZeroTermsQuery(zerotermsquery zerotermsquery.ZeroTermsQuery) *MatchPhraseQueryBuilder {
-	rb.v.ZeroTermsQuery = &zerotermsquery
-	return rb
+	return r
 }

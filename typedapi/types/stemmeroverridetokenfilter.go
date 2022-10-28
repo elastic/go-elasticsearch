@@ -17,53 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // StemmerOverrideTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/analysis/token_filters.ts#L313-L317
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/token_filters.ts#L313-L317
 type StemmerOverrideTokenFilter struct {
-	Rules     []string       `json:"rules,omitempty"`
-	RulesPath *string        `json:"rules_path,omitempty"`
-	Type      string         `json:"type,omitempty"`
-	Version   *VersionString `json:"version,omitempty"`
+	Rules     []string `json:"rules,omitempty"`
+	RulesPath *string  `json:"rules_path,omitempty"`
+	Type      string   `json:"type,omitempty"`
+	Version   *string  `json:"version,omitempty"`
 }
 
-// StemmerOverrideTokenFilterBuilder holds StemmerOverrideTokenFilter struct and provides a builder API.
-type StemmerOverrideTokenFilterBuilder struct {
-	v *StemmerOverrideTokenFilter
-}
+// NewStemmerOverrideTokenFilter returns a StemmerOverrideTokenFilter.
+func NewStemmerOverrideTokenFilter() *StemmerOverrideTokenFilter {
+	r := &StemmerOverrideTokenFilter{}
 
-// NewStemmerOverrideTokenFilter provides a builder for the StemmerOverrideTokenFilter struct.
-func NewStemmerOverrideTokenFilterBuilder() *StemmerOverrideTokenFilterBuilder {
-	r := StemmerOverrideTokenFilterBuilder{
-		&StemmerOverrideTokenFilter{},
-	}
+	r.Type = "stemmer_override"
 
-	r.v.Type = "stemmer_override"
-
-	return &r
-}
-
-// Build finalize the chain and returns the StemmerOverrideTokenFilter struct
-func (rb *StemmerOverrideTokenFilterBuilder) Build() StemmerOverrideTokenFilter {
-	return *rb.v
-}
-
-func (rb *StemmerOverrideTokenFilterBuilder) Rules(rules ...string) *StemmerOverrideTokenFilterBuilder {
-	rb.v.Rules = rules
-	return rb
-}
-
-func (rb *StemmerOverrideTokenFilterBuilder) RulesPath(rulespath string) *StemmerOverrideTokenFilterBuilder {
-	rb.v.RulesPath = &rulespath
-	return rb
-}
-
-func (rb *StemmerOverrideTokenFilterBuilder) Version(version VersionString) *StemmerOverrideTokenFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

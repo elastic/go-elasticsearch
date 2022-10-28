@@ -17,53 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CharGroupTokenizer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/analysis/tokenizers.ts#L55-L59
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/tokenizers.ts#L55-L59
 type CharGroupTokenizer struct {
-	MaxTokenLength  *int           `json:"max_token_length,omitempty"`
-	TokenizeOnChars []string       `json:"tokenize_on_chars"`
-	Type            string         `json:"type,omitempty"`
-	Version         *VersionString `json:"version,omitempty"`
+	MaxTokenLength  *int     `json:"max_token_length,omitempty"`
+	TokenizeOnChars []string `json:"tokenize_on_chars"`
+	Type            string   `json:"type,omitempty"`
+	Version         *string  `json:"version,omitempty"`
 }
 
-// CharGroupTokenizerBuilder holds CharGroupTokenizer struct and provides a builder API.
-type CharGroupTokenizerBuilder struct {
-	v *CharGroupTokenizer
-}
+// NewCharGroupTokenizer returns a CharGroupTokenizer.
+func NewCharGroupTokenizer() *CharGroupTokenizer {
+	r := &CharGroupTokenizer{}
 
-// NewCharGroupTokenizer provides a builder for the CharGroupTokenizer struct.
-func NewCharGroupTokenizerBuilder() *CharGroupTokenizerBuilder {
-	r := CharGroupTokenizerBuilder{
-		&CharGroupTokenizer{},
-	}
+	r.Type = "char_group"
 
-	r.v.Type = "char_group"
-
-	return &r
-}
-
-// Build finalize the chain and returns the CharGroupTokenizer struct
-func (rb *CharGroupTokenizerBuilder) Build() CharGroupTokenizer {
-	return *rb.v
-}
-
-func (rb *CharGroupTokenizerBuilder) MaxTokenLength(maxtokenlength int) *CharGroupTokenizerBuilder {
-	rb.v.MaxTokenLength = &maxtokenlength
-	return rb
-}
-
-func (rb *CharGroupTokenizerBuilder) TokenizeOnChars(tokenize_on_chars ...string) *CharGroupTokenizerBuilder {
-	rb.v.TokenizeOnChars = tokenize_on_chars
-	return rb
-}
-
-func (rb *CharGroupTokenizerBuilder) Version(version VersionString) *CharGroupTokenizerBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // QueryBreakdown type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/search/_types/profile.ts#L97-L116
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/profile.ts#L97-L116
 type QueryBreakdown struct {
 	Advance                     int64 `json:"advance"`
 	AdvanceCount                int64 `json:"advance_count"`
@@ -46,111 +46,9 @@ type QueryBreakdown struct {
 	ShallowAdvanceCount         int64 `json:"shallow_advance_count"`
 }
 
-// QueryBreakdownBuilder holds QueryBreakdown struct and provides a builder API.
-type QueryBreakdownBuilder struct {
-	v *QueryBreakdown
-}
+// NewQueryBreakdown returns a QueryBreakdown.
+func NewQueryBreakdown() *QueryBreakdown {
+	r := &QueryBreakdown{}
 
-// NewQueryBreakdown provides a builder for the QueryBreakdown struct.
-func NewQueryBreakdownBuilder() *QueryBreakdownBuilder {
-	r := QueryBreakdownBuilder{
-		&QueryBreakdown{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the QueryBreakdown struct
-func (rb *QueryBreakdownBuilder) Build() QueryBreakdown {
-	return *rb.v
-}
-
-func (rb *QueryBreakdownBuilder) Advance(advance int64) *QueryBreakdownBuilder {
-	rb.v.Advance = advance
-	return rb
-}
-
-func (rb *QueryBreakdownBuilder) AdvanceCount(advancecount int64) *QueryBreakdownBuilder {
-	rb.v.AdvanceCount = advancecount
-	return rb
-}
-
-func (rb *QueryBreakdownBuilder) BuildScorer(buildscorer int64) *QueryBreakdownBuilder {
-	rb.v.BuildScorer = buildscorer
-	return rb
-}
-
-func (rb *QueryBreakdownBuilder) BuildScorerCount(buildscorercount int64) *QueryBreakdownBuilder {
-	rb.v.BuildScorerCount = buildscorercount
-	return rb
-}
-
-func (rb *QueryBreakdownBuilder) ComputeMaxScore(computemaxscore int64) *QueryBreakdownBuilder {
-	rb.v.ComputeMaxScore = computemaxscore
-	return rb
-}
-
-func (rb *QueryBreakdownBuilder) ComputeMaxScoreCount(computemaxscorecount int64) *QueryBreakdownBuilder {
-	rb.v.ComputeMaxScoreCount = computemaxscorecount
-	return rb
-}
-
-func (rb *QueryBreakdownBuilder) CreateWeight(createweight int64) *QueryBreakdownBuilder {
-	rb.v.CreateWeight = createweight
-	return rb
-}
-
-func (rb *QueryBreakdownBuilder) CreateWeightCount(createweightcount int64) *QueryBreakdownBuilder {
-	rb.v.CreateWeightCount = createweightcount
-	return rb
-}
-
-func (rb *QueryBreakdownBuilder) Match(match int64) *QueryBreakdownBuilder {
-	rb.v.Match = match
-	return rb
-}
-
-func (rb *QueryBreakdownBuilder) MatchCount(matchcount int64) *QueryBreakdownBuilder {
-	rb.v.MatchCount = matchcount
-	return rb
-}
-
-func (rb *QueryBreakdownBuilder) NextDoc(nextdoc int64) *QueryBreakdownBuilder {
-	rb.v.NextDoc = nextdoc
-	return rb
-}
-
-func (rb *QueryBreakdownBuilder) NextDocCount(nextdoccount int64) *QueryBreakdownBuilder {
-	rb.v.NextDocCount = nextdoccount
-	return rb
-}
-
-func (rb *QueryBreakdownBuilder) Score(score int64) *QueryBreakdownBuilder {
-	rb.v.Score = score
-	return rb
-}
-
-func (rb *QueryBreakdownBuilder) ScoreCount(scorecount int64) *QueryBreakdownBuilder {
-	rb.v.ScoreCount = scorecount
-	return rb
-}
-
-func (rb *QueryBreakdownBuilder) SetMinCompetitiveScore(setmincompetitivescore int64) *QueryBreakdownBuilder {
-	rb.v.SetMinCompetitiveScore = setmincompetitivescore
-	return rb
-}
-
-func (rb *QueryBreakdownBuilder) SetMinCompetitiveScoreCount(setmincompetitivescorecount int64) *QueryBreakdownBuilder {
-	rb.v.SetMinCompetitiveScoreCount = setmincompetitivescorecount
-	return rb
-}
-
-func (rb *QueryBreakdownBuilder) ShallowAdvance(shallowadvance int64) *QueryBreakdownBuilder {
-	rb.v.ShallowAdvance = shallowadvance
-	return rb
-}
-
-func (rb *QueryBreakdownBuilder) ShallowAdvanceCount(shallowadvancecount int64) *QueryBreakdownBuilder {
-	rb.v.ShallowAdvanceCount = shallowadvancecount
-	return rb
+	return r
 }

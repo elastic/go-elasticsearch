@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IndexDetails type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/snapshot/_types/SnapshotIndexDetails.ts#L23-L28
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/snapshot/_types/SnapshotIndexDetails.ts#L23-L28
 type IndexDetails struct {
 	MaxSegmentsPerShard int64     `json:"max_segments_per_shard"`
 	ShardCount          int       `json:"shard_count"`
@@ -32,42 +32,9 @@ type IndexDetails struct {
 	SizeInBytes         int64     `json:"size_in_bytes"`
 }
 
-// IndexDetailsBuilder holds IndexDetails struct and provides a builder API.
-type IndexDetailsBuilder struct {
-	v *IndexDetails
-}
+// NewIndexDetails returns a IndexDetails.
+func NewIndexDetails() *IndexDetails {
+	r := &IndexDetails{}
 
-// NewIndexDetails provides a builder for the IndexDetails struct.
-func NewIndexDetailsBuilder() *IndexDetailsBuilder {
-	r := IndexDetailsBuilder{
-		&IndexDetails{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IndexDetails struct
-func (rb *IndexDetailsBuilder) Build() IndexDetails {
-	return *rb.v
-}
-
-func (rb *IndexDetailsBuilder) MaxSegmentsPerShard(maxsegmentspershard int64) *IndexDetailsBuilder {
-	rb.v.MaxSegmentsPerShard = maxsegmentspershard
-	return rb
-}
-
-func (rb *IndexDetailsBuilder) ShardCount(shardcount int) *IndexDetailsBuilder {
-	rb.v.ShardCount = shardcount
-	return rb
-}
-
-func (rb *IndexDetailsBuilder) Size(size *ByteSizeBuilder) *IndexDetailsBuilder {
-	v := size.Build()
-	rb.v.Size = &v
-	return rb
-}
-
-func (rb *IndexDetailsBuilder) SizeInBytes(sizeinbytes int64) *IndexDetailsBuilder {
-	rb.v.SizeInBytes = sizeinbytes
-	return rb
+	return r
 }

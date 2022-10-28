@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package forecast
@@ -31,34 +31,25 @@ import (
 
 // Request holds the request body struct for the package forecast
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/forecast/MlForecastJobRequest.ts#L24-L87
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/forecast/MlForecastJobRequest.ts#L24-L87
 type Request struct {
 
 	// Duration Refer to the description for the `duration` query parameter.
 	Duration *types.Duration `json:"duration,omitempty"`
-
 	// ExpiresIn Refer to the description for the `expires_in` query parameter.
 	ExpiresIn *types.Duration `json:"expires_in,omitempty"`
-
 	// MaxModelMemory Refer to the description for the `max_model_memory` query parameter.
 	MaxModelMemory *string `json:"max_model_memory,omitempty"`
 }
 
-// RequestBuilder is the builder API for the forecast.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -67,26 +58,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) Duration(duration *types.DurationBuilder) *RequestBuilder {
-	v := duration.Build()
-	rb.v.Duration = &v
-	return rb
-}
-
-func (rb *RequestBuilder) ExpiresIn(expiresin *types.DurationBuilder) *RequestBuilder {
-	v := expiresin.Build()
-	rb.v.ExpiresIn = &v
-	return rb
-}
-
-func (rb *RequestBuilder) MaxModelMemory(maxmodelmemory string) *RequestBuilder {
-	rb.v.MaxModelMemory = &maxmodelmemory
-	return rb
 }

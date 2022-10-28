@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -25,55 +25,22 @@ package types
 // CharFilterDefinition holds the union for the following types:
 //
 //	HtmlStripCharFilter
-//	IcuNormalizationCharFilter
-//	KuromojiIterationMarkCharFilter
 //	MappingCharFilter
 //	PatternReplaceCharFilter
+//	IcuNormalizationCharFilter
+//	KuromojiIterationMarkCharFilter
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/analysis/char_filters.ts#L32-L41
-type CharFilterDefinition interface{}
-
-// CharFilterDefinitionBuilder holds CharFilterDefinition struct and provides a builder API.
-type CharFilterDefinitionBuilder struct {
-	v CharFilterDefinition
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/char_filters.ts#L32-L41
+type CharFilterDefinition interface {
+	isCharFilterDefinition()
 }
 
-// NewCharFilterDefinition provides a builder for the CharFilterDefinition struct.
-func NewCharFilterDefinitionBuilder() *CharFilterDefinitionBuilder {
-	return &CharFilterDefinitionBuilder{}
-}
+func (i HtmlStripCharFilter) isCharFilterDefinition() {}
 
-// Build finalize the chain and returns the CharFilterDefinition struct
-func (u *CharFilterDefinitionBuilder) Build() CharFilterDefinition {
-	return u.v
-}
+func (i MappingCharFilter) isCharFilterDefinition() {}
 
-func (u *CharFilterDefinitionBuilder) HtmlStripCharFilter(htmlstripcharfilter *HtmlStripCharFilterBuilder) *CharFilterDefinitionBuilder {
-	v := htmlstripcharfilter.Build()
-	u.v = &v
-	return u
-}
+func (i PatternReplaceCharFilter) isCharFilterDefinition() {}
 
-func (u *CharFilterDefinitionBuilder) IcuNormalizationCharFilter(icunormalizationcharfilter *IcuNormalizationCharFilterBuilder) *CharFilterDefinitionBuilder {
-	v := icunormalizationcharfilter.Build()
-	u.v = &v
-	return u
-}
+func (i IcuNormalizationCharFilter) isCharFilterDefinition() {}
 
-func (u *CharFilterDefinitionBuilder) KuromojiIterationMarkCharFilter(kuromojiiterationmarkcharfilter *KuromojiIterationMarkCharFilterBuilder) *CharFilterDefinitionBuilder {
-	v := kuromojiiterationmarkcharfilter.Build()
-	u.v = &v
-	return u
-}
-
-func (u *CharFilterDefinitionBuilder) MappingCharFilter(mappingcharfilter *MappingCharFilterBuilder) *CharFilterDefinitionBuilder {
-	v := mappingcharfilter.Build()
-	u.v = &v
-	return u
-}
-
-func (u *CharFilterDefinitionBuilder) PatternReplaceCharFilter(patternreplacecharfilter *PatternReplaceCharFilterBuilder) *CharFilterDefinitionBuilder {
-	v := patternreplacecharfilter.Build()
-	u.v = &v
-	return u
-}
+func (i KuromojiIterationMarkCharFilter) isCharFilterDefinition() {}

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,52 +28,20 @@ import (
 
 // NoriAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/analysis/analyzers.ts#L66-L72
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/analyzers.ts#L66-L72
 type NoriAnalyzer struct {
 	DecompoundMode *noridecompoundmode.NoriDecompoundMode `json:"decompound_mode,omitempty"`
 	Stoptags       []string                               `json:"stoptags,omitempty"`
 	Type           string                                 `json:"type,omitempty"`
 	UserDictionary *string                                `json:"user_dictionary,omitempty"`
-	Version        *VersionString                         `json:"version,omitempty"`
+	Version        *string                                `json:"version,omitempty"`
 }
 
-// NoriAnalyzerBuilder holds NoriAnalyzer struct and provides a builder API.
-type NoriAnalyzerBuilder struct {
-	v *NoriAnalyzer
-}
+// NewNoriAnalyzer returns a NoriAnalyzer.
+func NewNoriAnalyzer() *NoriAnalyzer {
+	r := &NoriAnalyzer{}
 
-// NewNoriAnalyzer provides a builder for the NoriAnalyzer struct.
-func NewNoriAnalyzerBuilder() *NoriAnalyzerBuilder {
-	r := NoriAnalyzerBuilder{
-		&NoriAnalyzer{},
-	}
+	r.Type = "nori"
 
-	r.v.Type = "nori"
-
-	return &r
-}
-
-// Build finalize the chain and returns the NoriAnalyzer struct
-func (rb *NoriAnalyzerBuilder) Build() NoriAnalyzer {
-	return *rb.v
-}
-
-func (rb *NoriAnalyzerBuilder) DecompoundMode(decompoundmode noridecompoundmode.NoriDecompoundMode) *NoriAnalyzerBuilder {
-	rb.v.DecompoundMode = &decompoundmode
-	return rb
-}
-
-func (rb *NoriAnalyzerBuilder) Stoptags(stoptags ...string) *NoriAnalyzerBuilder {
-	rb.v.Stoptags = stoptags
-	return rb
-}
-
-func (rb *NoriAnalyzerBuilder) UserDictionary(userdictionary string) *NoriAnalyzerBuilder {
-	rb.v.UserDictionary = &userdictionary
-	return rb
-}
-
-func (rb *NoriAnalyzerBuilder) Version(version VersionString) *NoriAnalyzerBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

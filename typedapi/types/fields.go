@@ -17,32 +17,12 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Fields type alias.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/common.ts#L120-L120
-type Fields []Field
-
-// FieldsBuilder holds Fields struct and provides a builder API.
-type FieldsBuilder struct {
-	v Fields
-}
-
-// NewFields provides a builder for the Fields struct.
-func NewFieldsBuilder() *FieldsBuilder {
-	return &FieldsBuilder{}
-}
-
-// Build finalize the chain and returns the Fields struct
-func (b *FieldsBuilder) Build() Fields {
-	return b.v
-}
-
-func (b *FieldsBuilder) Fields(value Fields) *FieldsBuilder {
-	b.v = value
-	return b
-}
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/common.ts#L120-L120
+type Fields []string

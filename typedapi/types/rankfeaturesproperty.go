@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,80 +28,27 @@ import (
 
 // RankFeaturesProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/mapping/core.ts#L186-L188
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/core.ts#L186-L188
 type RankFeaturesProperty struct {
 	Dynamic       *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
-	Fields        map[PropertyName]Property      `json:"fields,omitempty"`
+	Fields        map[string]Property            `json:"fields,omitempty"`
 	IgnoreAbove   *int                           `json:"ignore_above,omitempty"`
-	LocalMetadata *Metadata                      `json:"local_metadata,omitempty"`
+	LocalMetadata map[string]interface{}         `json:"local_metadata,omitempty"`
 	// Meta Metadata about the field.
-	Meta       map[string]string         `json:"meta,omitempty"`
-	Properties map[PropertyName]Property `json:"properties,omitempty"`
-	Type       string                    `json:"type,omitempty"`
+	Meta       map[string]string   `json:"meta,omitempty"`
+	Properties map[string]Property `json:"properties,omitempty"`
+	Type       string              `json:"type,omitempty"`
 }
 
-// RankFeaturesPropertyBuilder holds RankFeaturesProperty struct and provides a builder API.
-type RankFeaturesPropertyBuilder struct {
-	v *RankFeaturesProperty
-}
-
-// NewRankFeaturesProperty provides a builder for the RankFeaturesProperty struct.
-func NewRankFeaturesPropertyBuilder() *RankFeaturesPropertyBuilder {
-	r := RankFeaturesPropertyBuilder{
-		&RankFeaturesProperty{
-			Fields:     make(map[PropertyName]Property, 0),
-			Meta:       make(map[string]string, 0),
-			Properties: make(map[PropertyName]Property, 0),
-		},
+// NewRankFeaturesProperty returns a RankFeaturesProperty.
+func NewRankFeaturesProperty() *RankFeaturesProperty {
+	r := &RankFeaturesProperty{
+		Fields:     make(map[string]Property, 0),
+		Meta:       make(map[string]string, 0),
+		Properties: make(map[string]Property, 0),
 	}
 
-	r.v.Type = "rank_features"
+	r.Type = "rank_features"
 
-	return &r
-}
-
-// Build finalize the chain and returns the RankFeaturesProperty struct
-func (rb *RankFeaturesPropertyBuilder) Build() RankFeaturesProperty {
-	return *rb.v
-}
-
-func (rb *RankFeaturesPropertyBuilder) Dynamic(dynamic dynamicmapping.DynamicMapping) *RankFeaturesPropertyBuilder {
-	rb.v.Dynamic = &dynamic
-	return rb
-}
-
-func (rb *RankFeaturesPropertyBuilder) Fields(values map[PropertyName]*PropertyBuilder) *RankFeaturesPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Fields = tmp
-	return rb
-}
-
-func (rb *RankFeaturesPropertyBuilder) IgnoreAbove(ignoreabove int) *RankFeaturesPropertyBuilder {
-	rb.v.IgnoreAbove = &ignoreabove
-	return rb
-}
-
-func (rb *RankFeaturesPropertyBuilder) LocalMetadata(localmetadata *MetadataBuilder) *RankFeaturesPropertyBuilder {
-	v := localmetadata.Build()
-	rb.v.LocalMetadata = &v
-	return rb
-}
-
-// Meta Metadata about the field.
-
-func (rb *RankFeaturesPropertyBuilder) Meta(value map[string]string) *RankFeaturesPropertyBuilder {
-	rb.v.Meta = value
-	return rb
-}
-
-func (rb *RankFeaturesPropertyBuilder) Properties(values map[PropertyName]*PropertyBuilder) *RankFeaturesPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Properties = tmp
-	return rb
+	return r
 }

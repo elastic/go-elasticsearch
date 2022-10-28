@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeInfoPath type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/info/types.ts#L154-L159
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/info/types.ts#L154-L159
 type NodeInfoPath struct {
 	Data []string `json:"data,omitempty"`
 	Home string   `json:"home"`
@@ -32,41 +32,9 @@ type NodeInfoPath struct {
 	Repo []string `json:"repo"`
 }
 
-// NodeInfoPathBuilder holds NodeInfoPath struct and provides a builder API.
-type NodeInfoPathBuilder struct {
-	v *NodeInfoPath
-}
+// NewNodeInfoPath returns a NodeInfoPath.
+func NewNodeInfoPath() *NodeInfoPath {
+	r := &NodeInfoPath{}
 
-// NewNodeInfoPath provides a builder for the NodeInfoPath struct.
-func NewNodeInfoPathBuilder() *NodeInfoPathBuilder {
-	r := NodeInfoPathBuilder{
-		&NodeInfoPath{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodeInfoPath struct
-func (rb *NodeInfoPathBuilder) Build() NodeInfoPath {
-	return *rb.v
-}
-
-func (rb *NodeInfoPathBuilder) Data(data ...string) *NodeInfoPathBuilder {
-	rb.v.Data = data
-	return rb
-}
-
-func (rb *NodeInfoPathBuilder) Home(home string) *NodeInfoPathBuilder {
-	rb.v.Home = home
-	return rb
-}
-
-func (rb *NodeInfoPathBuilder) Logs(logs string) *NodeInfoPathBuilder {
-	rb.v.Logs = logs
-	return rb
-}
-
-func (rb *NodeInfoPathBuilder) Repo(repo ...string) *NodeInfoPathBuilder {
-	rb.v.Repo = repo
-	return rb
+	return r
 }

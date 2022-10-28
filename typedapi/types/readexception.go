@@ -17,51 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ReadException type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ccr/_types/FollowIndexStats.ts#L71-L75
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ccr/_types/FollowIndexStats.ts#L71-L75
 type ReadException struct {
-	Exception ErrorCause     `json:"exception"`
-	FromSeqNo SequenceNumber `json:"from_seq_no"`
-	Retries   int            `json:"retries"`
+	Exception ErrorCause `json:"exception"`
+	FromSeqNo int64      `json:"from_seq_no"`
+	Retries   int        `json:"retries"`
 }
 
-// ReadExceptionBuilder holds ReadException struct and provides a builder API.
-type ReadExceptionBuilder struct {
-	v *ReadException
-}
+// NewReadException returns a ReadException.
+func NewReadException() *ReadException {
+	r := &ReadException{}
 
-// NewReadException provides a builder for the ReadException struct.
-func NewReadExceptionBuilder() *ReadExceptionBuilder {
-	r := ReadExceptionBuilder{
-		&ReadException{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ReadException struct
-func (rb *ReadExceptionBuilder) Build() ReadException {
-	return *rb.v
-}
-
-func (rb *ReadExceptionBuilder) Exception(exception *ErrorCauseBuilder) *ReadExceptionBuilder {
-	v := exception.Build()
-	rb.v.Exception = v
-	return rb
-}
-
-func (rb *ReadExceptionBuilder) FromSeqNo(fromseqno SequenceNumber) *ReadExceptionBuilder {
-	rb.v.FromSeqNo = fromseqno
-	return rb
-}
-
-func (rb *ReadExceptionBuilder) Retries(retries int) *ReadExceptionBuilder {
-	rb.v.Retries = retries
-	return rb
+	return r
 }

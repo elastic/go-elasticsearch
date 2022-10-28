@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AllField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/mapping/meta-fields.ts#L29-L40
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/meta-fields.ts#L29-L40
 type AllField struct {
 	Analyzer                 string `json:"analyzer"`
 	Enabled                  bool   `json:"enabled"`
@@ -38,71 +38,9 @@ type AllField struct {
 	StoreTermVectors         bool   `json:"store_term_vectors"`
 }
 
-// AllFieldBuilder holds AllField struct and provides a builder API.
-type AllFieldBuilder struct {
-	v *AllField
-}
+// NewAllField returns a AllField.
+func NewAllField() *AllField {
+	r := &AllField{}
 
-// NewAllField provides a builder for the AllField struct.
-func NewAllFieldBuilder() *AllFieldBuilder {
-	r := AllFieldBuilder{
-		&AllField{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the AllField struct
-func (rb *AllFieldBuilder) Build() AllField {
-	return *rb.v
-}
-
-func (rb *AllFieldBuilder) Analyzer(analyzer string) *AllFieldBuilder {
-	rb.v.Analyzer = analyzer
-	return rb
-}
-
-func (rb *AllFieldBuilder) Enabled(enabled bool) *AllFieldBuilder {
-	rb.v.Enabled = enabled
-	return rb
-}
-
-func (rb *AllFieldBuilder) OmitNorms(omitnorms bool) *AllFieldBuilder {
-	rb.v.OmitNorms = omitnorms
-	return rb
-}
-
-func (rb *AllFieldBuilder) SearchAnalyzer(searchanalyzer string) *AllFieldBuilder {
-	rb.v.SearchAnalyzer = searchanalyzer
-	return rb
-}
-
-func (rb *AllFieldBuilder) Similarity(similarity string) *AllFieldBuilder {
-	rb.v.Similarity = similarity
-	return rb
-}
-
-func (rb *AllFieldBuilder) Store(store bool) *AllFieldBuilder {
-	rb.v.Store = store
-	return rb
-}
-
-func (rb *AllFieldBuilder) StoreTermVectorOffsets(storetermvectoroffsets bool) *AllFieldBuilder {
-	rb.v.StoreTermVectorOffsets = storetermvectoroffsets
-	return rb
-}
-
-func (rb *AllFieldBuilder) StoreTermVectorPayloads(storetermvectorpayloads bool) *AllFieldBuilder {
-	rb.v.StoreTermVectorPayloads = storetermvectorpayloads
-	return rb
-}
-
-func (rb *AllFieldBuilder) StoreTermVectorPositions(storetermvectorpositions bool) *AllFieldBuilder {
-	rb.v.StoreTermVectorPositions = storetermvectorpositions
-	return rb
-}
-
-func (rb *AllFieldBuilder) StoreTermVectors(storetermvectors bool) *AllFieldBuilder {
-	rb.v.StoreTermVectors = storetermvectors
-	return rb
+	return r
 }

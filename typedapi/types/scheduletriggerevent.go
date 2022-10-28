@@ -17,46 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ScheduleTriggerEvent type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/watcher/_types/Schedule.ts#L98-L101
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Schedule.ts#L98-L101
 type ScheduleTriggerEvent struct {
 	ScheduledTime DateTime  `json:"scheduled_time"`
 	TriggeredTime *DateTime `json:"triggered_time,omitempty"`
 }
 
-// ScheduleTriggerEventBuilder holds ScheduleTriggerEvent struct and provides a builder API.
-type ScheduleTriggerEventBuilder struct {
-	v *ScheduleTriggerEvent
-}
+// NewScheduleTriggerEvent returns a ScheduleTriggerEvent.
+func NewScheduleTriggerEvent() *ScheduleTriggerEvent {
+	r := &ScheduleTriggerEvent{}
 
-// NewScheduleTriggerEvent provides a builder for the ScheduleTriggerEvent struct.
-func NewScheduleTriggerEventBuilder() *ScheduleTriggerEventBuilder {
-	r := ScheduleTriggerEventBuilder{
-		&ScheduleTriggerEvent{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ScheduleTriggerEvent struct
-func (rb *ScheduleTriggerEventBuilder) Build() ScheduleTriggerEvent {
-	return *rb.v
-}
-
-func (rb *ScheduleTriggerEventBuilder) ScheduledTime(scheduledtime *DateTimeBuilder) *ScheduleTriggerEventBuilder {
-	v := scheduledtime.Build()
-	rb.v.ScheduledTime = v
-	return rb
-}
-
-func (rb *ScheduleTriggerEventBuilder) TriggeredTime(triggeredtime *DateTimeBuilder) *ScheduleTriggerEventBuilder {
-	v := triggeredtime.Build()
-	rb.v.TriggeredTime = &v
-	return rb
+	return r
 }

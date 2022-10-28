@@ -17,45 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RankEvalHitItem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/rank_eval/types.ts#L136-L139
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/rank_eval/types.ts#L136-L139
 type RankEvalHitItem struct {
 	Hit    RankEvalHit `json:"hit"`
 	Rating float64     `json:"rating,omitempty"`
 }
 
-// RankEvalHitItemBuilder holds RankEvalHitItem struct and provides a builder API.
-type RankEvalHitItemBuilder struct {
-	v *RankEvalHitItem
-}
+// NewRankEvalHitItem returns a RankEvalHitItem.
+func NewRankEvalHitItem() *RankEvalHitItem {
+	r := &RankEvalHitItem{}
 
-// NewRankEvalHitItem provides a builder for the RankEvalHitItem struct.
-func NewRankEvalHitItemBuilder() *RankEvalHitItemBuilder {
-	r := RankEvalHitItemBuilder{
-		&RankEvalHitItem{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RankEvalHitItem struct
-func (rb *RankEvalHitItemBuilder) Build() RankEvalHitItem {
-	return *rb.v
-}
-
-func (rb *RankEvalHitItemBuilder) Hit(hit *RankEvalHitBuilder) *RankEvalHitItemBuilder {
-	v := hit.Build()
-	rb.v.Hit = v
-	return rb
-}
-
-func (rb *RankEvalHitItemBuilder) Rating(rating float64) *RankEvalHitItemBuilder {
-	rb.v.Rating = rating
-	return rb
+	return r
 }

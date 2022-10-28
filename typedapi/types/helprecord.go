@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // HelpRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/cat/help/types.ts#L20-L22
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cat/help/types.ts#L20-L22
 type HelpRecord struct {
 	Endpoint string `json:"endpoint"`
 }
 
-// HelpRecordBuilder holds HelpRecord struct and provides a builder API.
-type HelpRecordBuilder struct {
-	v *HelpRecord
-}
+// NewHelpRecord returns a HelpRecord.
+func NewHelpRecord() *HelpRecord {
+	r := &HelpRecord{}
 
-// NewHelpRecord provides a builder for the HelpRecord struct.
-func NewHelpRecordBuilder() *HelpRecordBuilder {
-	r := HelpRecordBuilder{
-		&HelpRecord{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the HelpRecord struct
-func (rb *HelpRecordBuilder) Build() HelpRecord {
-	return *rb.v
-}
-
-func (rb *HelpRecordBuilder) Endpoint(endpoint string) *HelpRecordBuilder {
-	rb.v.Endpoint = endpoint
-	return rb
+	return r
 }

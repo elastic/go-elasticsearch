@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,86 +28,28 @@ import (
 
 // HistogramProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/mapping/specialized.ts#L54-L57
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/specialized.ts#L54-L57
 type HistogramProperty struct {
 	Dynamic         *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
-	Fields          map[PropertyName]Property      `json:"fields,omitempty"`
+	Fields          map[string]Property            `json:"fields,omitempty"`
 	IgnoreAbove     *int                           `json:"ignore_above,omitempty"`
 	IgnoreMalformed *bool                          `json:"ignore_malformed,omitempty"`
-	LocalMetadata   *Metadata                      `json:"local_metadata,omitempty"`
+	LocalMetadata   map[string]interface{}         `json:"local_metadata,omitempty"`
 	// Meta Metadata about the field.
-	Meta       map[string]string         `json:"meta,omitempty"`
-	Properties map[PropertyName]Property `json:"properties,omitempty"`
-	Type       string                    `json:"type,omitempty"`
+	Meta       map[string]string   `json:"meta,omitempty"`
+	Properties map[string]Property `json:"properties,omitempty"`
+	Type       string              `json:"type,omitempty"`
 }
 
-// HistogramPropertyBuilder holds HistogramProperty struct and provides a builder API.
-type HistogramPropertyBuilder struct {
-	v *HistogramProperty
-}
-
-// NewHistogramProperty provides a builder for the HistogramProperty struct.
-func NewHistogramPropertyBuilder() *HistogramPropertyBuilder {
-	r := HistogramPropertyBuilder{
-		&HistogramProperty{
-			Fields:     make(map[PropertyName]Property, 0),
-			Meta:       make(map[string]string, 0),
-			Properties: make(map[PropertyName]Property, 0),
-		},
+// NewHistogramProperty returns a HistogramProperty.
+func NewHistogramProperty() *HistogramProperty {
+	r := &HistogramProperty{
+		Fields:     make(map[string]Property, 0),
+		Meta:       make(map[string]string, 0),
+		Properties: make(map[string]Property, 0),
 	}
 
-	r.v.Type = "histogram"
+	r.Type = "histogram"
 
-	return &r
-}
-
-// Build finalize the chain and returns the HistogramProperty struct
-func (rb *HistogramPropertyBuilder) Build() HistogramProperty {
-	return *rb.v
-}
-
-func (rb *HistogramPropertyBuilder) Dynamic(dynamic dynamicmapping.DynamicMapping) *HistogramPropertyBuilder {
-	rb.v.Dynamic = &dynamic
-	return rb
-}
-
-func (rb *HistogramPropertyBuilder) Fields(values map[PropertyName]*PropertyBuilder) *HistogramPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Fields = tmp
-	return rb
-}
-
-func (rb *HistogramPropertyBuilder) IgnoreAbove(ignoreabove int) *HistogramPropertyBuilder {
-	rb.v.IgnoreAbove = &ignoreabove
-	return rb
-}
-
-func (rb *HistogramPropertyBuilder) IgnoreMalformed(ignoremalformed bool) *HistogramPropertyBuilder {
-	rb.v.IgnoreMalformed = &ignoremalformed
-	return rb
-}
-
-func (rb *HistogramPropertyBuilder) LocalMetadata(localmetadata *MetadataBuilder) *HistogramPropertyBuilder {
-	v := localmetadata.Build()
-	rb.v.LocalMetadata = &v
-	return rb
-}
-
-// Meta Metadata about the field.
-
-func (rb *HistogramPropertyBuilder) Meta(value map[string]string) *HistogramPropertyBuilder {
-	rb.v.Meta = value
-	return rb
-}
-
-func (rb *HistogramPropertyBuilder) Properties(values map[PropertyName]*PropertyBuilder) *HistogramPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Properties = tmp
-	return rb
+	return r
 }

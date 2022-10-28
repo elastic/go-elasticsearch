@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AnomalyDetectors type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/info/types.ts#L44-L50
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/info/types.ts#L44-L50
 type AnomalyDetectors struct {
 	CategorizationAnalyzer               CategorizationAnalyzer `json:"categorization_analyzer"`
 	CategorizationExamplesLimit          int                    `json:"categorization_examples_limit"`
@@ -33,47 +33,9 @@ type AnomalyDetectors struct {
 	ModelSnapshotRetentionDays           int                    `json:"model_snapshot_retention_days"`
 }
 
-// AnomalyDetectorsBuilder holds AnomalyDetectors struct and provides a builder API.
-type AnomalyDetectorsBuilder struct {
-	v *AnomalyDetectors
-}
+// NewAnomalyDetectors returns a AnomalyDetectors.
+func NewAnomalyDetectors() *AnomalyDetectors {
+	r := &AnomalyDetectors{}
 
-// NewAnomalyDetectors provides a builder for the AnomalyDetectors struct.
-func NewAnomalyDetectorsBuilder() *AnomalyDetectorsBuilder {
-	r := AnomalyDetectorsBuilder{
-		&AnomalyDetectors{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the AnomalyDetectors struct
-func (rb *AnomalyDetectorsBuilder) Build() AnomalyDetectors {
-	return *rb.v
-}
-
-func (rb *AnomalyDetectorsBuilder) CategorizationAnalyzer(categorizationanalyzer *CategorizationAnalyzerBuilder) *AnomalyDetectorsBuilder {
-	v := categorizationanalyzer.Build()
-	rb.v.CategorizationAnalyzer = v
-	return rb
-}
-
-func (rb *AnomalyDetectorsBuilder) CategorizationExamplesLimit(categorizationexampleslimit int) *AnomalyDetectorsBuilder {
-	rb.v.CategorizationExamplesLimit = categorizationexampleslimit
-	return rb
-}
-
-func (rb *AnomalyDetectorsBuilder) DailyModelSnapshotRetentionAfterDays(dailymodelsnapshotretentionafterdays int) *AnomalyDetectorsBuilder {
-	rb.v.DailyModelSnapshotRetentionAfterDays = dailymodelsnapshotretentionafterdays
-	return rb
-}
-
-func (rb *AnomalyDetectorsBuilder) ModelMemoryLimit(modelmemorylimit string) *AnomalyDetectorsBuilder {
-	rb.v.ModelMemoryLimit = modelmemorylimit
-	return rb
-}
-
-func (rb *AnomalyDetectorsBuilder) ModelSnapshotRetentionDays(modelsnapshotretentiondays int) *AnomalyDetectorsBuilder {
-	rb.v.ModelSnapshotRetentionDays = modelsnapshotretentiondays
-	return rb
+	return r
 }

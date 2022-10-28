@@ -17,51 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MigrationFeatureIndexInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/migration/get_feature_upgrade_status/GetFeatureUpgradeStatusResponse.ts#L44-L48
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/migration/get_feature_upgrade_status/GetFeatureUpgradeStatusResponse.ts#L44-L48
 type MigrationFeatureIndexInfo struct {
-	FailureCause *ErrorCause   `json:"failure_cause,omitempty"`
-	Index        IndexName     `json:"index"`
-	Version      VersionString `json:"version"`
+	FailureCause *ErrorCause `json:"failure_cause,omitempty"`
+	Index        string      `json:"index"`
+	Version      string      `json:"version"`
 }
 
-// MigrationFeatureIndexInfoBuilder holds MigrationFeatureIndexInfo struct and provides a builder API.
-type MigrationFeatureIndexInfoBuilder struct {
-	v *MigrationFeatureIndexInfo
-}
+// NewMigrationFeatureIndexInfo returns a MigrationFeatureIndexInfo.
+func NewMigrationFeatureIndexInfo() *MigrationFeatureIndexInfo {
+	r := &MigrationFeatureIndexInfo{}
 
-// NewMigrationFeatureIndexInfo provides a builder for the MigrationFeatureIndexInfo struct.
-func NewMigrationFeatureIndexInfoBuilder() *MigrationFeatureIndexInfoBuilder {
-	r := MigrationFeatureIndexInfoBuilder{
-		&MigrationFeatureIndexInfo{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MigrationFeatureIndexInfo struct
-func (rb *MigrationFeatureIndexInfoBuilder) Build() MigrationFeatureIndexInfo {
-	return *rb.v
-}
-
-func (rb *MigrationFeatureIndexInfoBuilder) FailureCause(failurecause *ErrorCauseBuilder) *MigrationFeatureIndexInfoBuilder {
-	v := failurecause.Build()
-	rb.v.FailureCause = &v
-	return rb
-}
-
-func (rb *MigrationFeatureIndexInfoBuilder) Index(index IndexName) *MigrationFeatureIndexInfoBuilder {
-	rb.v.Index = index
-	return rb
-}
-
-func (rb *MigrationFeatureIndexInfoBuilder) Version(version VersionString) *MigrationFeatureIndexInfoBuilder {
-	rb.v.Version = version
-	return rb
+	return r
 }

@@ -17,50 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FieldMapping type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/mapping/meta-fields.ts#L24-L27
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/meta-fields.ts#L24-L27
 type FieldMapping struct {
-	FullName string             `json:"full_name"`
-	Mapping  map[Field]Property `json:"mapping"`
+	FullName string              `json:"full_name"`
+	Mapping  map[string]Property `json:"mapping"`
 }
 
-// FieldMappingBuilder holds FieldMapping struct and provides a builder API.
-type FieldMappingBuilder struct {
-	v *FieldMapping
-}
-
-// NewFieldMapping provides a builder for the FieldMapping struct.
-func NewFieldMappingBuilder() *FieldMappingBuilder {
-	r := FieldMappingBuilder{
-		&FieldMapping{
-			Mapping: make(map[Field]Property, 0),
-		},
+// NewFieldMapping returns a FieldMapping.
+func NewFieldMapping() *FieldMapping {
+	r := &FieldMapping{
+		Mapping: make(map[string]Property, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the FieldMapping struct
-func (rb *FieldMappingBuilder) Build() FieldMapping {
-	return *rb.v
-}
-
-func (rb *FieldMappingBuilder) FullName(fullname string) *FieldMappingBuilder {
-	rb.v.FullName = fullname
-	return rb
-}
-
-func (rb *FieldMappingBuilder) Mapping(values map[Field]*PropertyBuilder) *FieldMappingBuilder {
-	tmp := make(map[Field]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Mapping = tmp
-	return rb
+	return r
 }

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IndexTemplateDataStreamConfiguration type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/_types/IndexTemplate.ts#L39-L50
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/IndexTemplate.ts#L39-L50
 type IndexTemplateDataStreamConfiguration struct {
 	// AllowCustomRouting If true, the data stream supports custom routing.
 	AllowCustomRouting *bool `json:"allow_custom_routing,omitempty"`
@@ -32,35 +32,9 @@ type IndexTemplateDataStreamConfiguration struct {
 	Hidden *bool `json:"hidden,omitempty"`
 }
 
-// IndexTemplateDataStreamConfigurationBuilder holds IndexTemplateDataStreamConfiguration struct and provides a builder API.
-type IndexTemplateDataStreamConfigurationBuilder struct {
-	v *IndexTemplateDataStreamConfiguration
-}
+// NewIndexTemplateDataStreamConfiguration returns a IndexTemplateDataStreamConfiguration.
+func NewIndexTemplateDataStreamConfiguration() *IndexTemplateDataStreamConfiguration {
+	r := &IndexTemplateDataStreamConfiguration{}
 
-// NewIndexTemplateDataStreamConfiguration provides a builder for the IndexTemplateDataStreamConfiguration struct.
-func NewIndexTemplateDataStreamConfigurationBuilder() *IndexTemplateDataStreamConfigurationBuilder {
-	r := IndexTemplateDataStreamConfigurationBuilder{
-		&IndexTemplateDataStreamConfiguration{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IndexTemplateDataStreamConfiguration struct
-func (rb *IndexTemplateDataStreamConfigurationBuilder) Build() IndexTemplateDataStreamConfiguration {
-	return *rb.v
-}
-
-// AllowCustomRouting If true, the data stream supports custom routing.
-
-func (rb *IndexTemplateDataStreamConfigurationBuilder) AllowCustomRouting(allowcustomrouting bool) *IndexTemplateDataStreamConfigurationBuilder {
-	rb.v.AllowCustomRouting = &allowcustomrouting
-	return rb
-}
-
-// Hidden If true, the data stream is hidden.
-
-func (rb *IndexTemplateDataStreamConfigurationBuilder) Hidden(hidden bool) *IndexTemplateDataStreamConfigurationBuilder {
-	rb.v.Hidden = &hidden
-	return rb
+	return r
 }

@@ -17,58 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DanglingIndex type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/dangling_indices/list_dangling_indices/ListDanglingIndicesResponse.ts#L29-L34
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/dangling_indices/list_dangling_indices/ListDanglingIndicesResponse.ts#L29-L34
 type DanglingIndex struct {
-	CreationDateMillis EpochTimeUnitMillis `json:"creation_date_millis"`
-	IndexName          string              `json:"index_name"`
-	IndexUuid          string              `json:"index_uuid"`
-	NodeIds            Ids                 `json:"node_ids"`
+	CreationDateMillis int64    `json:"creation_date_millis"`
+	IndexName          string   `json:"index_name"`
+	IndexUuid          string   `json:"index_uuid"`
+	NodeIds            []string `json:"node_ids"`
 }
 
-// DanglingIndexBuilder holds DanglingIndex struct and provides a builder API.
-type DanglingIndexBuilder struct {
-	v *DanglingIndex
-}
+// NewDanglingIndex returns a DanglingIndex.
+func NewDanglingIndex() *DanglingIndex {
+	r := &DanglingIndex{}
 
-// NewDanglingIndex provides a builder for the DanglingIndex struct.
-func NewDanglingIndexBuilder() *DanglingIndexBuilder {
-	r := DanglingIndexBuilder{
-		&DanglingIndex{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DanglingIndex struct
-func (rb *DanglingIndexBuilder) Build() DanglingIndex {
-	return *rb.v
-}
-
-func (rb *DanglingIndexBuilder) CreationDateMillis(creationdatemillis *EpochTimeUnitMillisBuilder) *DanglingIndexBuilder {
-	v := creationdatemillis.Build()
-	rb.v.CreationDateMillis = v
-	return rb
-}
-
-func (rb *DanglingIndexBuilder) IndexName(indexname string) *DanglingIndexBuilder {
-	rb.v.IndexName = indexname
-	return rb
-}
-
-func (rb *DanglingIndexBuilder) IndexUuid(indexuuid string) *DanglingIndexBuilder {
-	rb.v.IndexUuid = indexuuid
-	return rb
-}
-
-func (rb *DanglingIndexBuilder) NodeIds(nodeids *IdsBuilder) *DanglingIndexBuilder {
-	v := nodeids.Build()
-	rb.v.NodeIds = v
-	return rb
+	return r
 }

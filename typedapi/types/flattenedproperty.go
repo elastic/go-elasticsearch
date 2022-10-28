@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,134 +29,36 @@ import (
 
 // FlattenedProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/mapping/complex.ts#L26-L37
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/complex.ts#L26-L37
 type FlattenedProperty struct {
 	Boost               *float64                       `json:"boost,omitempty"`
 	DepthLimit          *int                           `json:"depth_limit,omitempty"`
 	DocValues           *bool                          `json:"doc_values,omitempty"`
 	Dynamic             *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
 	EagerGlobalOrdinals *bool                          `json:"eager_global_ordinals,omitempty"`
-	Fields              map[PropertyName]Property      `json:"fields,omitempty"`
+	Fields              map[string]Property            `json:"fields,omitempty"`
 	IgnoreAbove         *int                           `json:"ignore_above,omitempty"`
 	Index               *bool                          `json:"index,omitempty"`
 	IndexOptions        *indexoptions.IndexOptions     `json:"index_options,omitempty"`
-	LocalMetadata       *Metadata                      `json:"local_metadata,omitempty"`
+	LocalMetadata       map[string]interface{}         `json:"local_metadata,omitempty"`
 	// Meta Metadata about the field.
-	Meta                     map[string]string         `json:"meta,omitempty"`
-	NullValue                *string                   `json:"null_value,omitempty"`
-	Properties               map[PropertyName]Property `json:"properties,omitempty"`
-	Similarity               *string                   `json:"similarity,omitempty"`
-	SplitQueriesOnWhitespace *bool                     `json:"split_queries_on_whitespace,omitempty"`
-	Type                     string                    `json:"type,omitempty"`
+	Meta                     map[string]string   `json:"meta,omitempty"`
+	NullValue                *string             `json:"null_value,omitempty"`
+	Properties               map[string]Property `json:"properties,omitempty"`
+	Similarity               *string             `json:"similarity,omitempty"`
+	SplitQueriesOnWhitespace *bool               `json:"split_queries_on_whitespace,omitempty"`
+	Type                     string              `json:"type,omitempty"`
 }
 
-// FlattenedPropertyBuilder holds FlattenedProperty struct and provides a builder API.
-type FlattenedPropertyBuilder struct {
-	v *FlattenedProperty
-}
-
-// NewFlattenedProperty provides a builder for the FlattenedProperty struct.
-func NewFlattenedPropertyBuilder() *FlattenedPropertyBuilder {
-	r := FlattenedPropertyBuilder{
-		&FlattenedProperty{
-			Fields:     make(map[PropertyName]Property, 0),
-			Meta:       make(map[string]string, 0),
-			Properties: make(map[PropertyName]Property, 0),
-		},
+// NewFlattenedProperty returns a FlattenedProperty.
+func NewFlattenedProperty() *FlattenedProperty {
+	r := &FlattenedProperty{
+		Fields:     make(map[string]Property, 0),
+		Meta:       make(map[string]string, 0),
+		Properties: make(map[string]Property, 0),
 	}
 
-	r.v.Type = "flattened"
+	r.Type = "flattened"
 
-	return &r
-}
-
-// Build finalize the chain and returns the FlattenedProperty struct
-func (rb *FlattenedPropertyBuilder) Build() FlattenedProperty {
-	return *rb.v
-}
-
-func (rb *FlattenedPropertyBuilder) Boost(boost float64) *FlattenedPropertyBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *FlattenedPropertyBuilder) DepthLimit(depthlimit int) *FlattenedPropertyBuilder {
-	rb.v.DepthLimit = &depthlimit
-	return rb
-}
-
-func (rb *FlattenedPropertyBuilder) DocValues(docvalues bool) *FlattenedPropertyBuilder {
-	rb.v.DocValues = &docvalues
-	return rb
-}
-
-func (rb *FlattenedPropertyBuilder) Dynamic(dynamic dynamicmapping.DynamicMapping) *FlattenedPropertyBuilder {
-	rb.v.Dynamic = &dynamic
-	return rb
-}
-
-func (rb *FlattenedPropertyBuilder) EagerGlobalOrdinals(eagerglobalordinals bool) *FlattenedPropertyBuilder {
-	rb.v.EagerGlobalOrdinals = &eagerglobalordinals
-	return rb
-}
-
-func (rb *FlattenedPropertyBuilder) Fields(values map[PropertyName]*PropertyBuilder) *FlattenedPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Fields = tmp
-	return rb
-}
-
-func (rb *FlattenedPropertyBuilder) IgnoreAbove(ignoreabove int) *FlattenedPropertyBuilder {
-	rb.v.IgnoreAbove = &ignoreabove
-	return rb
-}
-
-func (rb *FlattenedPropertyBuilder) Index(index bool) *FlattenedPropertyBuilder {
-	rb.v.Index = &index
-	return rb
-}
-
-func (rb *FlattenedPropertyBuilder) IndexOptions(indexoptions indexoptions.IndexOptions) *FlattenedPropertyBuilder {
-	rb.v.IndexOptions = &indexoptions
-	return rb
-}
-
-func (rb *FlattenedPropertyBuilder) LocalMetadata(localmetadata *MetadataBuilder) *FlattenedPropertyBuilder {
-	v := localmetadata.Build()
-	rb.v.LocalMetadata = &v
-	return rb
-}
-
-// Meta Metadata about the field.
-
-func (rb *FlattenedPropertyBuilder) Meta(value map[string]string) *FlattenedPropertyBuilder {
-	rb.v.Meta = value
-	return rb
-}
-
-func (rb *FlattenedPropertyBuilder) NullValue(nullvalue string) *FlattenedPropertyBuilder {
-	rb.v.NullValue = &nullvalue
-	return rb
-}
-
-func (rb *FlattenedPropertyBuilder) Properties(values map[PropertyName]*PropertyBuilder) *FlattenedPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Properties = tmp
-	return rb
-}
-
-func (rb *FlattenedPropertyBuilder) Similarity(similarity string) *FlattenedPropertyBuilder {
-	rb.v.Similarity = &similarity
-	return rb
-}
-
-func (rb *FlattenedPropertyBuilder) SplitQueriesOnWhitespace(splitqueriesonwhitespace bool) *FlattenedPropertyBuilder {
-	rb.v.SplitQueriesOnWhitespace = &splitqueriesonwhitespace
-	return rb
+	return r
 }

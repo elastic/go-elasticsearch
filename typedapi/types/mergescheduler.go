@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MergeScheduler type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/_types/IndexSettings.ts#L327-L330
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/IndexSettings.ts#L327-L330
 type MergeScheduler struct {
 	MaxMergeCount  *int `json:"max_merge_count,omitempty"`
 	MaxThreadCount *int `json:"max_thread_count,omitempty"`
 }
 
-// MergeSchedulerBuilder holds MergeScheduler struct and provides a builder API.
-type MergeSchedulerBuilder struct {
-	v *MergeScheduler
-}
+// NewMergeScheduler returns a MergeScheduler.
+func NewMergeScheduler() *MergeScheduler {
+	r := &MergeScheduler{}
 
-// NewMergeScheduler provides a builder for the MergeScheduler struct.
-func NewMergeSchedulerBuilder() *MergeSchedulerBuilder {
-	r := MergeSchedulerBuilder{
-		&MergeScheduler{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MergeScheduler struct
-func (rb *MergeSchedulerBuilder) Build() MergeScheduler {
-	return *rb.v
-}
-
-func (rb *MergeSchedulerBuilder) MaxMergeCount(maxmergecount int) *MergeSchedulerBuilder {
-	rb.v.MaxMergeCount = &maxmergecount
-	return rb
-}
-
-func (rb *MergeSchedulerBuilder) MaxThreadCount(maxthreadcount int) *MergeSchedulerBuilder {
-	rb.v.MaxThreadCount = &maxthreadcount
-	return rb
+	return r
 }

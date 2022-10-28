@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,9 +29,9 @@ import (
 
 // RateAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/metric.ts#L127-L130
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/metric.ts#L127-L130
 type RateAggregation struct {
-	Field   *Field                             `json:"field,omitempty"`
+	Field   *string                            `json:"field,omitempty"`
 	Format  *string                            `json:"format,omitempty"`
 	Missing *Missing                           `json:"missing,omitempty"`
 	Mode    *ratemode.RateMode                 `json:"mode,omitempty"`
@@ -39,53 +39,9 @@ type RateAggregation struct {
 	Unit    *calendarinterval.CalendarInterval `json:"unit,omitempty"`
 }
 
-// RateAggregationBuilder holds RateAggregation struct and provides a builder API.
-type RateAggregationBuilder struct {
-	v *RateAggregation
-}
+// NewRateAggregation returns a RateAggregation.
+func NewRateAggregation() *RateAggregation {
+	r := &RateAggregation{}
 
-// NewRateAggregation provides a builder for the RateAggregation struct.
-func NewRateAggregationBuilder() *RateAggregationBuilder {
-	r := RateAggregationBuilder{
-		&RateAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RateAggregation struct
-func (rb *RateAggregationBuilder) Build() RateAggregation {
-	return *rb.v
-}
-
-func (rb *RateAggregationBuilder) Field(field Field) *RateAggregationBuilder {
-	rb.v.Field = &field
-	return rb
-}
-
-func (rb *RateAggregationBuilder) Format(format string) *RateAggregationBuilder {
-	rb.v.Format = &format
-	return rb
-}
-
-func (rb *RateAggregationBuilder) Missing(missing *MissingBuilder) *RateAggregationBuilder {
-	v := missing.Build()
-	rb.v.Missing = &v
-	return rb
-}
-
-func (rb *RateAggregationBuilder) Mode(mode ratemode.RateMode) *RateAggregationBuilder {
-	rb.v.Mode = &mode
-	return rb
-}
-
-func (rb *RateAggregationBuilder) Script(script *ScriptBuilder) *RateAggregationBuilder {
-	v := script.Build()
-	rb.v.Script = &v
-	return rb
-}
-
-func (rb *RateAggregationBuilder) Unit(unit calendarinterval.CalendarInterval) *RateAggregationBuilder {
-	rb.v.Unit = &unit
-	return rb
+	return r
 }

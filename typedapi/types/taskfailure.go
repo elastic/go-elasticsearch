@@ -17,57 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TaskFailure type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/Errors.ts#L66-L71
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Errors.ts#L66-L71
 type TaskFailure struct {
-	NodeId NodeId     `json:"node_id"`
+	NodeId string     `json:"node_id"`
 	Reason ErrorCause `json:"reason"`
 	Status string     `json:"status"`
 	TaskId int64      `json:"task_id"`
 }
 
-// TaskFailureBuilder holds TaskFailure struct and provides a builder API.
-type TaskFailureBuilder struct {
-	v *TaskFailure
-}
+// NewTaskFailure returns a TaskFailure.
+func NewTaskFailure() *TaskFailure {
+	r := &TaskFailure{}
 
-// NewTaskFailure provides a builder for the TaskFailure struct.
-func NewTaskFailureBuilder() *TaskFailureBuilder {
-	r := TaskFailureBuilder{
-		&TaskFailure{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TaskFailure struct
-func (rb *TaskFailureBuilder) Build() TaskFailure {
-	return *rb.v
-}
-
-func (rb *TaskFailureBuilder) NodeId(nodeid NodeId) *TaskFailureBuilder {
-	rb.v.NodeId = nodeid
-	return rb
-}
-
-func (rb *TaskFailureBuilder) Reason(reason *ErrorCauseBuilder) *TaskFailureBuilder {
-	v := reason.Build()
-	rb.v.Reason = v
-	return rb
-}
-
-func (rb *TaskFailureBuilder) Status(status string) *TaskFailureBuilder {
-	rb.v.Status = status
-	return rb
-}
-
-func (rb *TaskFailureBuilder) TaskId(taskid int64) *TaskFailureBuilder {
-	rb.v.TaskId = taskid
-	return rb
+	return r
 }

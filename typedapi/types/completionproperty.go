@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,145 +28,37 @@ import (
 
 // CompletionProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/mapping/specialized.ts#L27-L35
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/specialized.ts#L27-L35
 type CompletionProperty struct {
 	Analyzer       *string                        `json:"analyzer,omitempty"`
 	Contexts       []SuggestContext               `json:"contexts,omitempty"`
-	CopyTo         *Fields                        `json:"copy_to,omitempty"`
+	CopyTo         []string                       `json:"copy_to,omitempty"`
 	DocValues      *bool                          `json:"doc_values,omitempty"`
 	Dynamic        *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
-	Fields         map[PropertyName]Property      `json:"fields,omitempty"`
+	Fields         map[string]Property            `json:"fields,omitempty"`
 	IgnoreAbove    *int                           `json:"ignore_above,omitempty"`
-	LocalMetadata  *Metadata                      `json:"local_metadata,omitempty"`
+	LocalMetadata  map[string]interface{}         `json:"local_metadata,omitempty"`
 	MaxInputLength *int                           `json:"max_input_length,omitempty"`
 	// Meta Metadata about the field.
-	Meta                       map[string]string         `json:"meta,omitempty"`
-	PreservePositionIncrements *bool                     `json:"preserve_position_increments,omitempty"`
-	PreserveSeparators         *bool                     `json:"preserve_separators,omitempty"`
-	Properties                 map[PropertyName]Property `json:"properties,omitempty"`
-	SearchAnalyzer             *string                   `json:"search_analyzer,omitempty"`
-	Similarity                 *string                   `json:"similarity,omitempty"`
-	Store                      *bool                     `json:"store,omitempty"`
-	Type                       string                    `json:"type,omitempty"`
+	Meta                       map[string]string   `json:"meta,omitempty"`
+	PreservePositionIncrements *bool               `json:"preserve_position_increments,omitempty"`
+	PreserveSeparators         *bool               `json:"preserve_separators,omitempty"`
+	Properties                 map[string]Property `json:"properties,omitempty"`
+	SearchAnalyzer             *string             `json:"search_analyzer,omitempty"`
+	Similarity                 *string             `json:"similarity,omitempty"`
+	Store                      *bool               `json:"store,omitempty"`
+	Type                       string              `json:"type,omitempty"`
 }
 
-// CompletionPropertyBuilder holds CompletionProperty struct and provides a builder API.
-type CompletionPropertyBuilder struct {
-	v *CompletionProperty
-}
-
-// NewCompletionProperty provides a builder for the CompletionProperty struct.
-func NewCompletionPropertyBuilder() *CompletionPropertyBuilder {
-	r := CompletionPropertyBuilder{
-		&CompletionProperty{
-			Fields:     make(map[PropertyName]Property, 0),
-			Meta:       make(map[string]string, 0),
-			Properties: make(map[PropertyName]Property, 0),
-		},
+// NewCompletionProperty returns a CompletionProperty.
+func NewCompletionProperty() *CompletionProperty {
+	r := &CompletionProperty{
+		Fields:     make(map[string]Property, 0),
+		Meta:       make(map[string]string, 0),
+		Properties: make(map[string]Property, 0),
 	}
 
-	r.v.Type = "completion"
+	r.Type = "completion"
 
-	return &r
-}
-
-// Build finalize the chain and returns the CompletionProperty struct
-func (rb *CompletionPropertyBuilder) Build() CompletionProperty {
-	return *rb.v
-}
-
-func (rb *CompletionPropertyBuilder) Analyzer(analyzer string) *CompletionPropertyBuilder {
-	rb.v.Analyzer = &analyzer
-	return rb
-}
-
-func (rb *CompletionPropertyBuilder) Contexts(contexts []SuggestContextBuilder) *CompletionPropertyBuilder {
-	tmp := make([]SuggestContext, len(contexts))
-	for _, value := range contexts {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Contexts = tmp
-	return rb
-}
-
-func (rb *CompletionPropertyBuilder) CopyTo(copyto *FieldsBuilder) *CompletionPropertyBuilder {
-	v := copyto.Build()
-	rb.v.CopyTo = &v
-	return rb
-}
-
-func (rb *CompletionPropertyBuilder) DocValues(docvalues bool) *CompletionPropertyBuilder {
-	rb.v.DocValues = &docvalues
-	return rb
-}
-
-func (rb *CompletionPropertyBuilder) Dynamic(dynamic dynamicmapping.DynamicMapping) *CompletionPropertyBuilder {
-	rb.v.Dynamic = &dynamic
-	return rb
-}
-
-func (rb *CompletionPropertyBuilder) Fields(values map[PropertyName]*PropertyBuilder) *CompletionPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Fields = tmp
-	return rb
-}
-
-func (rb *CompletionPropertyBuilder) IgnoreAbove(ignoreabove int) *CompletionPropertyBuilder {
-	rb.v.IgnoreAbove = &ignoreabove
-	return rb
-}
-
-func (rb *CompletionPropertyBuilder) LocalMetadata(localmetadata *MetadataBuilder) *CompletionPropertyBuilder {
-	v := localmetadata.Build()
-	rb.v.LocalMetadata = &v
-	return rb
-}
-
-func (rb *CompletionPropertyBuilder) MaxInputLength(maxinputlength int) *CompletionPropertyBuilder {
-	rb.v.MaxInputLength = &maxinputlength
-	return rb
-}
-
-// Meta Metadata about the field.
-
-func (rb *CompletionPropertyBuilder) Meta(value map[string]string) *CompletionPropertyBuilder {
-	rb.v.Meta = value
-	return rb
-}
-
-func (rb *CompletionPropertyBuilder) PreservePositionIncrements(preservepositionincrements bool) *CompletionPropertyBuilder {
-	rb.v.PreservePositionIncrements = &preservepositionincrements
-	return rb
-}
-
-func (rb *CompletionPropertyBuilder) PreserveSeparators(preserveseparators bool) *CompletionPropertyBuilder {
-	rb.v.PreserveSeparators = &preserveseparators
-	return rb
-}
-
-func (rb *CompletionPropertyBuilder) Properties(values map[PropertyName]*PropertyBuilder) *CompletionPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Properties = tmp
-	return rb
-}
-
-func (rb *CompletionPropertyBuilder) SearchAnalyzer(searchanalyzer string) *CompletionPropertyBuilder {
-	rb.v.SearchAnalyzer = &searchanalyzer
-	return rb
-}
-
-func (rb *CompletionPropertyBuilder) Similarity(similarity string) *CompletionPropertyBuilder {
-	rb.v.Similarity = &similarity
-	return rb
-}
-
-func (rb *CompletionPropertyBuilder) Store(store bool) *CompletionPropertyBuilder {
-	rb.v.Store = &store
-	return rb
+	return r
 }

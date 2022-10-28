@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package deletebyquery
@@ -31,30 +31,21 @@ import (
 
 // Request holds the request body struct for the package deletebyquery
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/delete_by_query/DeleteByQueryRequest.ts#L36-L81
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/delete_by_query/DeleteByQueryRequest.ts#L36-L81
 type Request struct {
-	MaxDocs *int64 `json:"max_docs,omitempty"`
-
-	Query *types.QueryContainer `json:"query,omitempty"`
-
-	Slice *types.SlicedScroll `json:"slice,omitempty"`
+	MaxDocs *int64              `json:"max_docs,omitempty"`
+	Query   *types.Query        `json:"query,omitempty"`
+	Slice   *types.SlicedScroll `json:"slice,omitempty"`
 }
 
-// RequestBuilder is the builder API for the deletebyquery.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -63,26 +54,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) MaxDocs(maxdocs int64) *RequestBuilder {
-	rb.v.MaxDocs = &maxdocs
-	return rb
-}
-
-func (rb *RequestBuilder) Query(query *types.QueryContainerBuilder) *RequestBuilder {
-	v := query.Build()
-	rb.v.Query = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Slice(slice *types.SlicedScrollBuilder) *RequestBuilder {
-	v := slice.Build()
-	rb.v.Slice = &v
-	return rb
 }

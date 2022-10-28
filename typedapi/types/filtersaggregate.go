@@ -17,46 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FiltersAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L552-L553
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L567-L568
 type FiltersAggregate struct {
-	Buckets BucketsFiltersBucket `json:"buckets"`
-	Meta    *Metadata            `json:"meta,omitempty"`
+	Buckets BucketsFiltersBucket   `json:"buckets"`
+	Meta    map[string]interface{} `json:"meta,omitempty"`
 }
 
-// FiltersAggregateBuilder holds FiltersAggregate struct and provides a builder API.
-type FiltersAggregateBuilder struct {
-	v *FiltersAggregate
-}
+// NewFiltersAggregate returns a FiltersAggregate.
+func NewFiltersAggregate() *FiltersAggregate {
+	r := &FiltersAggregate{}
 
-// NewFiltersAggregate provides a builder for the FiltersAggregate struct.
-func NewFiltersAggregateBuilder() *FiltersAggregateBuilder {
-	r := FiltersAggregateBuilder{
-		&FiltersAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FiltersAggregate struct
-func (rb *FiltersAggregateBuilder) Build() FiltersAggregate {
-	return *rb.v
-}
-
-func (rb *FiltersAggregateBuilder) Buckets(buckets *BucketsFiltersBucketBuilder) *FiltersAggregateBuilder {
-	v := buckets.Build()
-	rb.v.Buckets = v
-	return rb
-}
-
-func (rb *FiltersAggregateBuilder) Meta(meta *MetadataBuilder) *FiltersAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
+	return r
 }

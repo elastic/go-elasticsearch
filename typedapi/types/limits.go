@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Limits type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/info/types.ts#L34-L38
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/info/types.ts#L34-L38
 type Limits struct {
 	EffectiveMaxModelMemoryLimit string  `json:"effective_max_model_memory_limit"`
 	MaxModelMemoryLimit          *string `json:"max_model_memory_limit,omitempty"`
 	TotalMlMemory                string  `json:"total_ml_memory"`
 }
 
-// LimitsBuilder holds Limits struct and provides a builder API.
-type LimitsBuilder struct {
-	v *Limits
-}
+// NewLimits returns a Limits.
+func NewLimits() *Limits {
+	r := &Limits{}
 
-// NewLimits provides a builder for the Limits struct.
-func NewLimitsBuilder() *LimitsBuilder {
-	r := LimitsBuilder{
-		&Limits{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Limits struct
-func (rb *LimitsBuilder) Build() Limits {
-	return *rb.v
-}
-
-func (rb *LimitsBuilder) EffectiveMaxModelMemoryLimit(effectivemaxmodelmemorylimit string) *LimitsBuilder {
-	rb.v.EffectiveMaxModelMemoryLimit = effectivemaxmodelmemorylimit
-	return rb
-}
-
-func (rb *LimitsBuilder) MaxModelMemoryLimit(maxmodelmemorylimit string) *LimitsBuilder {
-	rb.v.MaxModelMemoryLimit = &maxmodelmemorylimit
-	return rb
-}
-
-func (rb *LimitsBuilder) TotalMlMemory(totalmlmemory string) *LimitsBuilder {
-	rb.v.TotalMlMemory = totalmlmemory
-	return rb
+	return r
 }

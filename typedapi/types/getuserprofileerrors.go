@@ -17,50 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // GetUserProfileErrors type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/security/get_user_profile/types.ts#L25-L28
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/get_user_profile/types.ts#L25-L28
 type GetUserProfileErrors struct {
-	Count   int64                        `json:"count"`
-	Details map[UserProfileId]ErrorCause `json:"details"`
+	Count   int64                 `json:"count"`
+	Details map[string]ErrorCause `json:"details"`
 }
 
-// GetUserProfileErrorsBuilder holds GetUserProfileErrors struct and provides a builder API.
-type GetUserProfileErrorsBuilder struct {
-	v *GetUserProfileErrors
-}
-
-// NewGetUserProfileErrors provides a builder for the GetUserProfileErrors struct.
-func NewGetUserProfileErrorsBuilder() *GetUserProfileErrorsBuilder {
-	r := GetUserProfileErrorsBuilder{
-		&GetUserProfileErrors{
-			Details: make(map[UserProfileId]ErrorCause, 0),
-		},
+// NewGetUserProfileErrors returns a GetUserProfileErrors.
+func NewGetUserProfileErrors() *GetUserProfileErrors {
+	r := &GetUserProfileErrors{
+		Details: make(map[string]ErrorCause, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the GetUserProfileErrors struct
-func (rb *GetUserProfileErrorsBuilder) Build() GetUserProfileErrors {
-	return *rb.v
-}
-
-func (rb *GetUserProfileErrorsBuilder) Count(count int64) *GetUserProfileErrorsBuilder {
-	rb.v.Count = count
-	return rb
-}
-
-func (rb *GetUserProfileErrorsBuilder) Details(values map[UserProfileId]*ErrorCauseBuilder) *GetUserProfileErrorsBuilder {
-	tmp := make(map[UserProfileId]ErrorCause, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Details = tmp
-	return rb
+	return r
 }

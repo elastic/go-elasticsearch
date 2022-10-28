@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeEvaluationRegressionMetrics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/_types/DataframeEvaluation.ts#L92-L110
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/DataframeEvaluation.ts#L92-L110
 type DataframeEvaluationRegressionMetrics struct {
 	// Huber Pseudo Huber loss function.
 	Huber *DataframeEvaluationRegressionMetricsHuber `json:"huber,omitempty"`
@@ -39,57 +39,12 @@ type DataframeEvaluationRegressionMetrics struct {
 	RSquared map[string]interface{} `json:"r_squared,omitempty"`
 }
 
-// DataframeEvaluationRegressionMetricsBuilder holds DataframeEvaluationRegressionMetrics struct and provides a builder API.
-type DataframeEvaluationRegressionMetricsBuilder struct {
-	v *DataframeEvaluationRegressionMetrics
-}
-
-// NewDataframeEvaluationRegressionMetrics provides a builder for the DataframeEvaluationRegressionMetrics struct.
-func NewDataframeEvaluationRegressionMetricsBuilder() *DataframeEvaluationRegressionMetricsBuilder {
-	r := DataframeEvaluationRegressionMetricsBuilder{
-		&DataframeEvaluationRegressionMetrics{
-			Mse:      make(map[string]interface{}, 0),
-			RSquared: make(map[string]interface{}, 0),
-		},
+// NewDataframeEvaluationRegressionMetrics returns a DataframeEvaluationRegressionMetrics.
+func NewDataframeEvaluationRegressionMetrics() *DataframeEvaluationRegressionMetrics {
+	r := &DataframeEvaluationRegressionMetrics{
+		Mse:      make(map[string]interface{}, 0),
+		RSquared: make(map[string]interface{}, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeEvaluationRegressionMetrics struct
-func (rb *DataframeEvaluationRegressionMetricsBuilder) Build() DataframeEvaluationRegressionMetrics {
-	return *rb.v
-}
-
-// Huber Pseudo Huber loss function.
-
-func (rb *DataframeEvaluationRegressionMetricsBuilder) Huber(huber *DataframeEvaluationRegressionMetricsHuberBuilder) *DataframeEvaluationRegressionMetricsBuilder {
-	v := huber.Build()
-	rb.v.Huber = &v
-	return rb
-}
-
-// Mse Average squared difference between the predicted values and the actual
-// (ground truth) value. For more information, read this wiki article.
-
-func (rb *DataframeEvaluationRegressionMetricsBuilder) Mse(value map[string]interface{}) *DataframeEvaluationRegressionMetricsBuilder {
-	rb.v.Mse = value
-	return rb
-}
-
-// Msle Average squared difference between the logarithm of the predicted values and
-// the logarithm of the actual (ground truth) value.
-
-func (rb *DataframeEvaluationRegressionMetricsBuilder) Msle(msle *DataframeEvaluationRegressionMetricsMsleBuilder) *DataframeEvaluationRegressionMetricsBuilder {
-	v := msle.Build()
-	rb.v.Msle = &v
-	return rb
-}
-
-// RSquared Proportion of the variance in the dependent variable that is predictable from
-// the independent variables.
-
-func (rb *DataframeEvaluationRegressionMetricsBuilder) RSquared(value map[string]interface{}) *DataframeEvaluationRegressionMetricsBuilder {
-	rb.v.RSquared = value
-	return rb
+	return r
 }

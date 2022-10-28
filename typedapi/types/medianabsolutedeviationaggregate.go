@@ -17,16 +17,16 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MedianAbsoluteDeviationAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L185-L186
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L193-L194
 type MedianAbsoluteDeviationAggregate struct {
-	Meta *Metadata `json:"meta,omitempty"`
+	Meta map[string]interface{} `json:"meta,omitempty"`
 	// Value The metric value. A missing value generally means that there was no data to
 	// aggregate,
 	// unless specified otherwise.
@@ -34,41 +34,9 @@ type MedianAbsoluteDeviationAggregate struct {
 	ValueAsString *string `json:"value_as_string,omitempty"`
 }
 
-// MedianAbsoluteDeviationAggregateBuilder holds MedianAbsoluteDeviationAggregate struct and provides a builder API.
-type MedianAbsoluteDeviationAggregateBuilder struct {
-	v *MedianAbsoluteDeviationAggregate
-}
+// NewMedianAbsoluteDeviationAggregate returns a MedianAbsoluteDeviationAggregate.
+func NewMedianAbsoluteDeviationAggregate() *MedianAbsoluteDeviationAggregate {
+	r := &MedianAbsoluteDeviationAggregate{}
 
-// NewMedianAbsoluteDeviationAggregate provides a builder for the MedianAbsoluteDeviationAggregate struct.
-func NewMedianAbsoluteDeviationAggregateBuilder() *MedianAbsoluteDeviationAggregateBuilder {
-	r := MedianAbsoluteDeviationAggregateBuilder{
-		&MedianAbsoluteDeviationAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MedianAbsoluteDeviationAggregate struct
-func (rb *MedianAbsoluteDeviationAggregateBuilder) Build() MedianAbsoluteDeviationAggregate {
-	return *rb.v
-}
-
-func (rb *MedianAbsoluteDeviationAggregateBuilder) Meta(meta *MetadataBuilder) *MedianAbsoluteDeviationAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-// Value The metric value. A missing value generally means that there was no data to
-// aggregate,
-// unless specified otherwise.
-
-func (rb *MedianAbsoluteDeviationAggregateBuilder) Value(value float64) *MedianAbsoluteDeviationAggregateBuilder {
-	rb.v.Value = value
-	return rb
-}
-
-func (rb *MedianAbsoluteDeviationAggregateBuilder) ValueAsString(valueasstring string) *MedianAbsoluteDeviationAggregateBuilder {
-	rb.v.ValueAsString = &valueasstring
-	return rb
+	return r
 }

@@ -17,78 +17,34 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
+import (
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/jsonprocessorconflictstrategy"
+)
+
 // JsonProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ingest/_types/Processors.ts#L271-L275
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ingest/_types/Processors.ts#L271-L277
 type JsonProcessor struct {
-	AddToRoot     bool                 `json:"add_to_root"`
-	Field         Field                `json:"field"`
-	If            *string              `json:"if,omitempty"`
-	IgnoreFailure *bool                `json:"ignore_failure,omitempty"`
-	OnFailure     []ProcessorContainer `json:"on_failure,omitempty"`
-	Tag           *string              `json:"tag,omitempty"`
-	TargetField   Field                `json:"target_field"`
+	AddToRoot                 *bool                                                        `json:"add_to_root,omitempty"`
+	AddToRootConflictStrategy *jsonprocessorconflictstrategy.JsonProcessorConflictStrategy `json:"add_to_root_conflict_strategy,omitempty"`
+	AllowDuplicateKeys        *bool                                                        `json:"allow_duplicate_keys,omitempty"`
+	Description               *string                                                      `json:"description,omitempty"`
+	Field                     string                                                       `json:"field"`
+	If                        *string                                                      `json:"if,omitempty"`
+	IgnoreFailure             *bool                                                        `json:"ignore_failure,omitempty"`
+	OnFailure                 []ProcessorContainer                                         `json:"on_failure,omitempty"`
+	Tag                       *string                                                      `json:"tag,omitempty"`
+	TargetField               *string                                                      `json:"target_field,omitempty"`
 }
 
-// JsonProcessorBuilder holds JsonProcessor struct and provides a builder API.
-type JsonProcessorBuilder struct {
-	v *JsonProcessor
-}
+// NewJsonProcessor returns a JsonProcessor.
+func NewJsonProcessor() *JsonProcessor {
+	r := &JsonProcessor{}
 
-// NewJsonProcessor provides a builder for the JsonProcessor struct.
-func NewJsonProcessorBuilder() *JsonProcessorBuilder {
-	r := JsonProcessorBuilder{
-		&JsonProcessor{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the JsonProcessor struct
-func (rb *JsonProcessorBuilder) Build() JsonProcessor {
-	return *rb.v
-}
-
-func (rb *JsonProcessorBuilder) AddToRoot(addtoroot bool) *JsonProcessorBuilder {
-	rb.v.AddToRoot = addtoroot
-	return rb
-}
-
-func (rb *JsonProcessorBuilder) Field(field Field) *JsonProcessorBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *JsonProcessorBuilder) If_(if_ string) *JsonProcessorBuilder {
-	rb.v.If = &if_
-	return rb
-}
-
-func (rb *JsonProcessorBuilder) IgnoreFailure(ignorefailure bool) *JsonProcessorBuilder {
-	rb.v.IgnoreFailure = &ignorefailure
-	return rb
-}
-
-func (rb *JsonProcessorBuilder) OnFailure(on_failure []ProcessorContainerBuilder) *JsonProcessorBuilder {
-	tmp := make([]ProcessorContainer, len(on_failure))
-	for _, value := range on_failure {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.OnFailure = tmp
-	return rb
-}
-
-func (rb *JsonProcessorBuilder) Tag(tag string) *JsonProcessorBuilder {
-	rb.v.Tag = &tag
-	return rb
-}
-
-func (rb *JsonProcessorBuilder) TargetField(targetfield Field) *JsonProcessorBuilder {
-	rb.v.TargetField = targetfield
-	return rb
+	return r
 }

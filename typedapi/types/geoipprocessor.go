@@ -17,96 +17,31 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // GeoIpProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ingest/_types/Processors.ts#L105-L112
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ingest/_types/Processors.ts#L106-L113
 type GeoIpProcessor struct {
-	DatabaseFile  string               `json:"database_file"`
-	Field         Field                `json:"field"`
-	FirstOnly     bool                 `json:"first_only"`
+	DatabaseFile  *string              `json:"database_file,omitempty"`
+	Description   *string              `json:"description,omitempty"`
+	Field         string               `json:"field"`
+	FirstOnly     *bool                `json:"first_only,omitempty"`
 	If            *string              `json:"if,omitempty"`
 	IgnoreFailure *bool                `json:"ignore_failure,omitempty"`
-	IgnoreMissing bool                 `json:"ignore_missing"`
+	IgnoreMissing *bool                `json:"ignore_missing,omitempty"`
 	OnFailure     []ProcessorContainer `json:"on_failure,omitempty"`
-	Properties    []string             `json:"properties"`
+	Properties    []string             `json:"properties,omitempty"`
 	Tag           *string              `json:"tag,omitempty"`
-	TargetField   Field                `json:"target_field"`
+	TargetField   *string              `json:"target_field,omitempty"`
 }
 
-// GeoIpProcessorBuilder holds GeoIpProcessor struct and provides a builder API.
-type GeoIpProcessorBuilder struct {
-	v *GeoIpProcessor
-}
+// NewGeoIpProcessor returns a GeoIpProcessor.
+func NewGeoIpProcessor() *GeoIpProcessor {
+	r := &GeoIpProcessor{}
 
-// NewGeoIpProcessor provides a builder for the GeoIpProcessor struct.
-func NewGeoIpProcessorBuilder() *GeoIpProcessorBuilder {
-	r := GeoIpProcessorBuilder{
-		&GeoIpProcessor{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the GeoIpProcessor struct
-func (rb *GeoIpProcessorBuilder) Build() GeoIpProcessor {
-	return *rb.v
-}
-
-func (rb *GeoIpProcessorBuilder) DatabaseFile(databasefile string) *GeoIpProcessorBuilder {
-	rb.v.DatabaseFile = databasefile
-	return rb
-}
-
-func (rb *GeoIpProcessorBuilder) Field(field Field) *GeoIpProcessorBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *GeoIpProcessorBuilder) FirstOnly(firstonly bool) *GeoIpProcessorBuilder {
-	rb.v.FirstOnly = firstonly
-	return rb
-}
-
-func (rb *GeoIpProcessorBuilder) If_(if_ string) *GeoIpProcessorBuilder {
-	rb.v.If = &if_
-	return rb
-}
-
-func (rb *GeoIpProcessorBuilder) IgnoreFailure(ignorefailure bool) *GeoIpProcessorBuilder {
-	rb.v.IgnoreFailure = &ignorefailure
-	return rb
-}
-
-func (rb *GeoIpProcessorBuilder) IgnoreMissing(ignoremissing bool) *GeoIpProcessorBuilder {
-	rb.v.IgnoreMissing = ignoremissing
-	return rb
-}
-
-func (rb *GeoIpProcessorBuilder) OnFailure(on_failure []ProcessorContainerBuilder) *GeoIpProcessorBuilder {
-	tmp := make([]ProcessorContainer, len(on_failure))
-	for _, value := range on_failure {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.OnFailure = tmp
-	return rb
-}
-
-func (rb *GeoIpProcessorBuilder) Properties(properties ...string) *GeoIpProcessorBuilder {
-	rb.v.Properties = properties
-	return rb
-}
-
-func (rb *GeoIpProcessorBuilder) Tag(tag string) *GeoIpProcessorBuilder {
-	rb.v.Tag = &tag
-	return rb
-}
-
-func (rb *GeoIpProcessorBuilder) TargetField(targetfield Field) *GeoIpProcessorBuilder {
-	rb.v.TargetField = targetfield
-	return rb
+	return r
 }

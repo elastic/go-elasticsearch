@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,14 +29,14 @@ import (
 
 // InlineGet type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/common.ts#L286-L295
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/common.ts#L286-L295
 type InlineGet struct {
 	Fields       map[string]interface{} `json:"fields,omitempty"`
 	Found        bool                   `json:"found"`
 	Metadata     map[string]interface{} `json:"-"`
 	PrimaryTerm_ *int64                 `json:"_primary_term,omitempty"`
-	Routing_     *Routing               `json:"_routing,omitempty"`
-	SeqNo_       *SequenceNumber        `json:"_seq_no,omitempty"`
+	Routing_     *string                `json:"_routing,omitempty"`
+	SeqNo_       *int64                 `json:"_seq_no,omitempty"`
 	Source_      interface{}            `json:"_source,omitempty"`
 }
 
@@ -68,59 +68,12 @@ func (s InlineGet) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// InlineGetBuilder holds InlineGet struct and provides a builder API.
-type InlineGetBuilder struct {
-	v *InlineGet
-}
-
-// NewInlineGet provides a builder for the InlineGet struct.
-func NewInlineGetBuilder() *InlineGetBuilder {
-	r := InlineGetBuilder{
-		&InlineGet{
-			Fields:   make(map[string]interface{}, 0),
-			Metadata: make(map[string]interface{}, 0),
-		},
+// NewInlineGet returns a InlineGet.
+func NewInlineGet() *InlineGet {
+	r := &InlineGet{
+		Fields:   make(map[string]interface{}, 0),
+		Metadata: make(map[string]interface{}, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the InlineGet struct
-func (rb *InlineGetBuilder) Build() InlineGet {
-	return *rb.v
-}
-
-func (rb *InlineGetBuilder) Fields(value map[string]interface{}) *InlineGetBuilder {
-	rb.v.Fields = value
-	return rb
-}
-
-func (rb *InlineGetBuilder) Found(found bool) *InlineGetBuilder {
-	rb.v.Found = found
-	return rb
-}
-
-func (rb *InlineGetBuilder) Metadata(value map[string]interface{}) *InlineGetBuilder {
-	rb.v.Metadata = value
-	return rb
-}
-
-func (rb *InlineGetBuilder) PrimaryTerm_(primaryterm_ int64) *InlineGetBuilder {
-	rb.v.PrimaryTerm_ = &primaryterm_
-	return rb
-}
-
-func (rb *InlineGetBuilder) Routing_(routing_ Routing) *InlineGetBuilder {
-	rb.v.Routing_ = &routing_
-	return rb
-}
-
-func (rb *InlineGetBuilder) SeqNo_(seqno_ SequenceNumber) *InlineGetBuilder {
-	rb.v.SeqNo_ = &seqno_
-	return rb
-}
-
-func (rb *InlineGetBuilder) Source_(source_ interface{}) *InlineGetBuilder {
-	rb.v.Source_ = source_
-	return rb
+	return r
 }

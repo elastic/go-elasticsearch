@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeInfoSettingsHttpType type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/info/types.ts#L188-L191
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/info/types.ts#L188-L191
 type NodeInfoSettingsHttpType struct {
 	Default string `json:"default"`
 }
 
-// NodeInfoSettingsHttpTypeBuilder holds NodeInfoSettingsHttpType struct and provides a builder API.
-type NodeInfoSettingsHttpTypeBuilder struct {
-	v *NodeInfoSettingsHttpType
-}
+// NewNodeInfoSettingsHttpType returns a NodeInfoSettingsHttpType.
+func NewNodeInfoSettingsHttpType() *NodeInfoSettingsHttpType {
+	r := &NodeInfoSettingsHttpType{}
 
-// NewNodeInfoSettingsHttpType provides a builder for the NodeInfoSettingsHttpType struct.
-func NewNodeInfoSettingsHttpTypeBuilder() *NodeInfoSettingsHttpTypeBuilder {
-	r := NodeInfoSettingsHttpTypeBuilder{
-		&NodeInfoSettingsHttpType{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodeInfoSettingsHttpType struct
-func (rb *NodeInfoSettingsHttpTypeBuilder) Build() NodeInfoSettingsHttpType {
-	return *rb.v
-}
-
-func (rb *NodeInfoSettingsHttpTypeBuilder) Default_(default_ string) *NodeInfoSettingsHttpTypeBuilder {
-	rb.v.Default = default_
-	return rb
+	return r
 }

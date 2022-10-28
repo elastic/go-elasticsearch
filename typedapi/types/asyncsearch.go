@@ -17,128 +17,38 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AsyncSearch type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/async_search/_types/AsyncSearch.ts#L30-L45
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/async_search/_types/AsyncSearch.ts#L30-L45
 type AsyncSearch struct {
-	Aggregations    map[AggregateName]Aggregate  `json:"aggregations,omitempty"`
-	Clusters_       *ClusterStatistics           `json:"_clusters,omitempty"`
-	Fields          map[string]interface{}       `json:"fields,omitempty"`
-	Hits            HitsMetadata                 `json:"hits"`
-	MaxScore        *float64                     `json:"max_score,omitempty"`
-	NumReducePhases *int64                       `json:"num_reduce_phases,omitempty"`
-	PitId           *Id                          `json:"pit_id,omitempty"`
-	Profile         *Profile                     `json:"profile,omitempty"`
-	ScrollId_       *ScrollId                    `json:"_scroll_id,omitempty"`
-	Shards_         ShardStatistics              `json:"_shards"`
-	Suggest         map[SuggestionName][]Suggest `json:"suggest,omitempty"`
-	TerminatedEarly *bool                        `json:"terminated_early,omitempty"`
-	TimedOut        bool                         `json:"timed_out"`
-	Took            int64                        `json:"took"`
+	Aggregations    map[string]Aggregate   `json:"aggregations,omitempty"`
+	Clusters_       *ClusterStatistics     `json:"_clusters,omitempty"`
+	Fields          map[string]interface{} `json:"fields,omitempty"`
+	Hits            HitsMetadata           `json:"hits"`
+	MaxScore        *float64               `json:"max_score,omitempty"`
+	NumReducePhases *int64                 `json:"num_reduce_phases,omitempty"`
+	PitId           *string                `json:"pit_id,omitempty"`
+	Profile         *Profile               `json:"profile,omitempty"`
+	ScrollId_       *string                `json:"_scroll_id,omitempty"`
+	Shards_         ShardStatistics        `json:"_shards"`
+	Suggest         map[string][]Suggest   `json:"suggest,omitempty"`
+	TerminatedEarly *bool                  `json:"terminated_early,omitempty"`
+	TimedOut        bool                   `json:"timed_out"`
+	Took            int64                  `json:"took"`
 }
 
-// AsyncSearchBuilder holds AsyncSearch struct and provides a builder API.
-type AsyncSearchBuilder struct {
-	v *AsyncSearch
-}
-
-// NewAsyncSearch provides a builder for the AsyncSearch struct.
-func NewAsyncSearchBuilder() *AsyncSearchBuilder {
-	r := AsyncSearchBuilder{
-		&AsyncSearch{
-			Aggregations: make(map[AggregateName]Aggregate, 0),
-			Fields:       make(map[string]interface{}, 0),
-			Suggest:      make(map[SuggestionName][]Suggest, 0),
-		},
+// NewAsyncSearch returns a AsyncSearch.
+func NewAsyncSearch() *AsyncSearch {
+	r := &AsyncSearch{
+		Aggregations: make(map[string]Aggregate, 0),
+		Fields:       make(map[string]interface{}, 0),
+		Suggest:      make(map[string][]Suggest, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the AsyncSearch struct
-func (rb *AsyncSearchBuilder) Build() AsyncSearch {
-	return *rb.v
-}
-
-func (rb *AsyncSearchBuilder) Aggregations(values map[AggregateName]*AggregateBuilder) *AsyncSearchBuilder {
-	tmp := make(map[AggregateName]Aggregate, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Aggregations = tmp
-	return rb
-}
-
-func (rb *AsyncSearchBuilder) Clusters_(clusters_ *ClusterStatisticsBuilder) *AsyncSearchBuilder {
-	v := clusters_.Build()
-	rb.v.Clusters_ = &v
-	return rb
-}
-
-func (rb *AsyncSearchBuilder) Fields(value map[string]interface{}) *AsyncSearchBuilder {
-	rb.v.Fields = value
-	return rb
-}
-
-func (rb *AsyncSearchBuilder) Hits(hits *HitsMetadataBuilder) *AsyncSearchBuilder {
-	v := hits.Build()
-	rb.v.Hits = v
-	return rb
-}
-
-func (rb *AsyncSearchBuilder) MaxScore(maxscore float64) *AsyncSearchBuilder {
-	rb.v.MaxScore = &maxscore
-	return rb
-}
-
-func (rb *AsyncSearchBuilder) NumReducePhases(numreducephases int64) *AsyncSearchBuilder {
-	rb.v.NumReducePhases = &numreducephases
-	return rb
-}
-
-func (rb *AsyncSearchBuilder) PitId(pitid Id) *AsyncSearchBuilder {
-	rb.v.PitId = &pitid
-	return rb
-}
-
-func (rb *AsyncSearchBuilder) Profile(profile *ProfileBuilder) *AsyncSearchBuilder {
-	v := profile.Build()
-	rb.v.Profile = &v
-	return rb
-}
-
-func (rb *AsyncSearchBuilder) ScrollId_(scrollid_ ScrollId) *AsyncSearchBuilder {
-	rb.v.ScrollId_ = &scrollid_
-	return rb
-}
-
-func (rb *AsyncSearchBuilder) Shards_(shards_ *ShardStatisticsBuilder) *AsyncSearchBuilder {
-	v := shards_.Build()
-	rb.v.Shards_ = v
-	return rb
-}
-
-func (rb *AsyncSearchBuilder) Suggest(value map[SuggestionName][]Suggest) *AsyncSearchBuilder {
-	rb.v.Suggest = value
-	return rb
-}
-
-func (rb *AsyncSearchBuilder) TerminatedEarly(terminatedearly bool) *AsyncSearchBuilder {
-	rb.v.TerminatedEarly = &terminatedearly
-	return rb
-}
-
-func (rb *AsyncSearchBuilder) TimedOut(timedout bool) *AsyncSearchBuilder {
-	rb.v.TimedOut = timedout
-	return rb
-}
-
-func (rb *AsyncSearchBuilder) Took(took int64) *AsyncSearchBuilder {
-	rb.v.Took = took
-	return rb
+	return r
 }

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SoftDeletes type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/_types/IndexSettings.ts#L50-L63
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/IndexSettings.ts#L50-L63
 type SoftDeletes struct {
 	// Enabled Indicates whether soft deletes are enabled on the index.
 	Enabled *bool `json:"enabled,omitempty"`
@@ -38,42 +38,9 @@ type SoftDeletes struct {
 	RetentionLease *RetentionLease `json:"retention_lease,omitempty"`
 }
 
-// SoftDeletesBuilder holds SoftDeletes struct and provides a builder API.
-type SoftDeletesBuilder struct {
-	v *SoftDeletes
-}
+// NewSoftDeletes returns a SoftDeletes.
+func NewSoftDeletes() *SoftDeletes {
+	r := &SoftDeletes{}
 
-// NewSoftDeletes provides a builder for the SoftDeletes struct.
-func NewSoftDeletesBuilder() *SoftDeletesBuilder {
-	r := SoftDeletesBuilder{
-		&SoftDeletes{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SoftDeletes struct
-func (rb *SoftDeletesBuilder) Build() SoftDeletes {
-	return *rb.v
-}
-
-// Enabled Indicates whether soft deletes are enabled on the index.
-
-func (rb *SoftDeletesBuilder) Enabled(enabled bool) *SoftDeletesBuilder {
-	rb.v.Enabled = &enabled
-	return rb
-}
-
-// RetentionLease The maximum period to retain a shard history retention lease before it is
-// considered expired.
-// Shard history retention leases ensure that soft deletes are retained during
-// merges on the Lucene
-// index. If a soft delete is merged away before it can be replicated to a
-// follower the following
-// process will fail due to incomplete history on the leader.
-
-func (rb *SoftDeletesBuilder) RetentionLease(retentionlease *RetentionLeaseBuilder) *SoftDeletesBuilder {
-	v := retentionlease.Build()
-	rb.v.RetentionLease = &v
-	return rb
+	return r
 }

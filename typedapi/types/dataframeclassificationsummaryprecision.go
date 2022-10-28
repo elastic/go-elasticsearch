@@ -17,48 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeClassificationSummaryPrecision type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/evaluate_data_frame/types.ts#L60-L63
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/evaluate_data_frame/types.ts#L60-L63
 type DataframeClassificationSummaryPrecision struct {
 	AvgPrecision float64                    `json:"avg_precision"`
 	Classes      []DataframeEvaluationClass `json:"classes"`
 }
 
-// DataframeClassificationSummaryPrecisionBuilder holds DataframeClassificationSummaryPrecision struct and provides a builder API.
-type DataframeClassificationSummaryPrecisionBuilder struct {
-	v *DataframeClassificationSummaryPrecision
-}
+// NewDataframeClassificationSummaryPrecision returns a DataframeClassificationSummaryPrecision.
+func NewDataframeClassificationSummaryPrecision() *DataframeClassificationSummaryPrecision {
+	r := &DataframeClassificationSummaryPrecision{}
 
-// NewDataframeClassificationSummaryPrecision provides a builder for the DataframeClassificationSummaryPrecision struct.
-func NewDataframeClassificationSummaryPrecisionBuilder() *DataframeClassificationSummaryPrecisionBuilder {
-	r := DataframeClassificationSummaryPrecisionBuilder{
-		&DataframeClassificationSummaryPrecision{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeClassificationSummaryPrecision struct
-func (rb *DataframeClassificationSummaryPrecisionBuilder) Build() DataframeClassificationSummaryPrecision {
-	return *rb.v
-}
-
-func (rb *DataframeClassificationSummaryPrecisionBuilder) AvgPrecision(avgprecision float64) *DataframeClassificationSummaryPrecisionBuilder {
-	rb.v.AvgPrecision = avgprecision
-	return rb
-}
-
-func (rb *DataframeClassificationSummaryPrecisionBuilder) Classes(classes []DataframeEvaluationClassBuilder) *DataframeClassificationSummaryPrecisionBuilder {
-	tmp := make([]DataframeEvaluationClass, len(classes))
-	for _, value := range classes {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Classes = tmp
-	return rb
+	return r
 }

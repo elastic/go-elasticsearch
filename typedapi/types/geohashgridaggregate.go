@@ -17,46 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // GeoHashGridAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L497-L499
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L505-L507
 type GeoHashGridAggregate struct {
 	Buckets BucketsGeoHashGridBucket `json:"buckets"`
-	Meta    *Metadata                `json:"meta,omitempty"`
+	Meta    map[string]interface{}   `json:"meta,omitempty"`
 }
 
-// GeoHashGridAggregateBuilder holds GeoHashGridAggregate struct and provides a builder API.
-type GeoHashGridAggregateBuilder struct {
-	v *GeoHashGridAggregate
-}
+// NewGeoHashGridAggregate returns a GeoHashGridAggregate.
+func NewGeoHashGridAggregate() *GeoHashGridAggregate {
+	r := &GeoHashGridAggregate{}
 
-// NewGeoHashGridAggregate provides a builder for the GeoHashGridAggregate struct.
-func NewGeoHashGridAggregateBuilder() *GeoHashGridAggregateBuilder {
-	r := GeoHashGridAggregateBuilder{
-		&GeoHashGridAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the GeoHashGridAggregate struct
-func (rb *GeoHashGridAggregateBuilder) Build() GeoHashGridAggregate {
-	return *rb.v
-}
-
-func (rb *GeoHashGridAggregateBuilder) Buckets(buckets *BucketsGeoHashGridBucketBuilder) *GeoHashGridAggregateBuilder {
-	v := buckets.Build()
-	rb.v.Buckets = v
-	return rb
-}
-
-func (rb *GeoHashGridAggregateBuilder) Meta(meta *MetadataBuilder) *GeoHashGridAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
+	return r
 }

@@ -17,45 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // PointInTimeReference type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/search/_types/PointInTimeReference.ts#L23-L26
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/PointInTimeReference.ts#L23-L26
 type PointInTimeReference struct {
-	Id        Id        `json:"id"`
+	Id        string    `json:"id"`
 	KeepAlive *Duration `json:"keep_alive,omitempty"`
 }
 
-// PointInTimeReferenceBuilder holds PointInTimeReference struct and provides a builder API.
-type PointInTimeReferenceBuilder struct {
-	v *PointInTimeReference
-}
+// NewPointInTimeReference returns a PointInTimeReference.
+func NewPointInTimeReference() *PointInTimeReference {
+	r := &PointInTimeReference{}
 
-// NewPointInTimeReference provides a builder for the PointInTimeReference struct.
-func NewPointInTimeReferenceBuilder() *PointInTimeReferenceBuilder {
-	r := PointInTimeReferenceBuilder{
-		&PointInTimeReference{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the PointInTimeReference struct
-func (rb *PointInTimeReferenceBuilder) Build() PointInTimeReference {
-	return *rb.v
-}
-
-func (rb *PointInTimeReferenceBuilder) Id(id Id) *PointInTimeReferenceBuilder {
-	rb.v.Id = id
-	return rb
-}
-
-func (rb *PointInTimeReferenceBuilder) KeepAlive(keepalive *DurationBuilder) *PointInTimeReferenceBuilder {
-	v := keepalive.Build()
-	rb.v.KeepAlive = &v
-	return rb
+	return r
 }

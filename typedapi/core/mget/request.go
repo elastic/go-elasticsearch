@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package mget
@@ -31,33 +31,25 @@ import (
 
 // Request holds the request body struct for the package mget
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/mget/MultiGetRequest.ts#L25-L91
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/mget/MultiGetRequest.ts#L25-L91
 type Request struct {
 
 	// Docs The documents you want to retrieve. Required if no index is specified in the
 	// request URI.
-	Docs []types.Operation `json:"docs,omitempty"`
-
+	Docs []types.MgetOperation `json:"docs,omitempty"`
 	// Ids The IDs of the documents you want to retrieve. Allowed when the index is
 	// specified in the request URI.
-	Ids *types.Ids `json:"ids,omitempty"`
+	Ids []string `json:"ids,omitempty"`
 }
 
-// RequestBuilder is the builder API for the mget.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -66,24 +58,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) Docs(docs []types.OperationBuilder) *RequestBuilder {
-	tmp := make([]types.Operation, len(docs))
-	for _, value := range docs {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Docs = tmp
-	return rb
-}
-
-func (rb *RequestBuilder) Ids(ids *types.IdsBuilder) *RequestBuilder {
-	v := ids.Build()
-	rb.v.Ids = &v
-	return rb
 }

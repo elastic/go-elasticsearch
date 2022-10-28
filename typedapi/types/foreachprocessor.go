@@ -17,16 +17,17 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ForeachProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ingest/_types/Processors.ts#L215-L219
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ingest/_types/Processors.ts#L215-L219
 type ForeachProcessor struct {
-	Field         Field                `json:"field"`
+	Description   *string              `json:"description,omitempty"`
+	Field         string               `json:"field"`
 	If            *string              `json:"if,omitempty"`
 	IgnoreFailure *bool                `json:"ignore_failure,omitempty"`
 	IgnoreMissing *bool                `json:"ignore_missing,omitempty"`
@@ -35,61 +36,9 @@ type ForeachProcessor struct {
 	Tag           *string              `json:"tag,omitempty"`
 }
 
-// ForeachProcessorBuilder holds ForeachProcessor struct and provides a builder API.
-type ForeachProcessorBuilder struct {
-	v *ForeachProcessor
-}
+// NewForeachProcessor returns a ForeachProcessor.
+func NewForeachProcessor() *ForeachProcessor {
+	r := &ForeachProcessor{}
 
-// NewForeachProcessor provides a builder for the ForeachProcessor struct.
-func NewForeachProcessorBuilder() *ForeachProcessorBuilder {
-	r := ForeachProcessorBuilder{
-		&ForeachProcessor{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ForeachProcessor struct
-func (rb *ForeachProcessorBuilder) Build() ForeachProcessor {
-	return *rb.v
-}
-
-func (rb *ForeachProcessorBuilder) Field(field Field) *ForeachProcessorBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *ForeachProcessorBuilder) If_(if_ string) *ForeachProcessorBuilder {
-	rb.v.If = &if_
-	return rb
-}
-
-func (rb *ForeachProcessorBuilder) IgnoreFailure(ignorefailure bool) *ForeachProcessorBuilder {
-	rb.v.IgnoreFailure = &ignorefailure
-	return rb
-}
-
-func (rb *ForeachProcessorBuilder) IgnoreMissing(ignoremissing bool) *ForeachProcessorBuilder {
-	rb.v.IgnoreMissing = &ignoremissing
-	return rb
-}
-
-func (rb *ForeachProcessorBuilder) OnFailure(on_failure []ProcessorContainerBuilder) *ForeachProcessorBuilder {
-	tmp := make([]ProcessorContainer, len(on_failure))
-	for _, value := range on_failure {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.OnFailure = tmp
-	return rb
-}
-
-func (rb *ForeachProcessorBuilder) Processor(processor *ProcessorContainerBuilder) *ForeachProcessorBuilder {
-	v := processor.Build()
-	rb.v.Processor = &v
-	return rb
-}
-
-func (rb *ForeachProcessorBuilder) Tag(tag string) *ForeachProcessorBuilder {
-	rb.v.Tag = &tag
-	return rb
+	return r
 }

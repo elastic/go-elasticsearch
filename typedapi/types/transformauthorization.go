@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TransformAuthorization type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/_types/Authorization.ts#L59-L71
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/Authorization.ts#L59-L71
 type TransformAuthorization struct {
 	// ApiKey If an API key was used for the most recent update to the transform, its name
 	// and identifier are listed in the response.
@@ -37,46 +37,9 @@ type TransformAuthorization struct {
 	ServiceAccount *string `json:"service_account,omitempty"`
 }
 
-// TransformAuthorizationBuilder holds TransformAuthorization struct and provides a builder API.
-type TransformAuthorizationBuilder struct {
-	v *TransformAuthorization
-}
+// NewTransformAuthorization returns a TransformAuthorization.
+func NewTransformAuthorization() *TransformAuthorization {
+	r := &TransformAuthorization{}
 
-// NewTransformAuthorization provides a builder for the TransformAuthorization struct.
-func NewTransformAuthorizationBuilder() *TransformAuthorizationBuilder {
-	r := TransformAuthorizationBuilder{
-		&TransformAuthorization{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TransformAuthorization struct
-func (rb *TransformAuthorizationBuilder) Build() TransformAuthorization {
-	return *rb.v
-}
-
-// ApiKey If an API key was used for the most recent update to the transform, its name
-// and identifier are listed in the response.
-
-func (rb *TransformAuthorizationBuilder) ApiKey(apikey *ApiKeyAuthorizationBuilder) *TransformAuthorizationBuilder {
-	v := apikey.Build()
-	rb.v.ApiKey = &v
-	return rb
-}
-
-// Roles If a user ID was used for the most recent update to the transform, its roles
-// at the time of the update are listed in the response.
-
-func (rb *TransformAuthorizationBuilder) Roles(roles ...string) *TransformAuthorizationBuilder {
-	rb.v.Roles = roles
-	return rb
-}
-
-// ServiceAccount If a service account was used for the most recent update to the transform,
-// the account name is listed in the response.
-
-func (rb *TransformAuthorizationBuilder) ServiceAccount(serviceaccount string) *TransformAuthorizationBuilder {
-	rb.v.ServiceAccount = &serviceaccount
-	return rb
+	return r
 }

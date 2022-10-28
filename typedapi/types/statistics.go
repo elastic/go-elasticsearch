@@ -17,94 +17,30 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Statistics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/slm/_types/SnapshotLifecycle.ts#L51-L74
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/slm/_types/SnapshotLifecycle.ts#L51-L74
 type Statistics struct {
-	Policy                        *Id                      `json:"policy,omitempty"`
-	RetentionDeletionTime         *Duration                `json:"retention_deletion_time,omitempty"`
-	RetentionDeletionTimeMillis   *DurationValueUnitMillis `json:"retention_deletion_time_millis,omitempty"`
-	RetentionFailed               *int64                   `json:"retention_failed,omitempty"`
-	RetentionRuns                 *int64                   `json:"retention_runs,omitempty"`
-	RetentionTimedOut             *int64                   `json:"retention_timed_out,omitempty"`
-	TotalSnapshotDeletionFailures *int64                   `json:"total_snapshot_deletion_failures,omitempty"`
-	TotalSnapshotsDeleted         *int64                   `json:"total_snapshots_deleted,omitempty"`
-	TotalSnapshotsFailed          *int64                   `json:"total_snapshots_failed,omitempty"`
-	TotalSnapshotsTaken           *int64                   `json:"total_snapshots_taken,omitempty"`
+	Policy                        *string   `json:"policy,omitempty"`
+	RetentionDeletionTime         *Duration `json:"retention_deletion_time,omitempty"`
+	RetentionDeletionTimeMillis   *int64    `json:"retention_deletion_time_millis,omitempty"`
+	RetentionFailed               *int64    `json:"retention_failed,omitempty"`
+	RetentionRuns                 *int64    `json:"retention_runs,omitempty"`
+	RetentionTimedOut             *int64    `json:"retention_timed_out,omitempty"`
+	TotalSnapshotDeletionFailures *int64    `json:"total_snapshot_deletion_failures,omitempty"`
+	TotalSnapshotsDeleted         *int64    `json:"total_snapshots_deleted,omitempty"`
+	TotalSnapshotsFailed          *int64    `json:"total_snapshots_failed,omitempty"`
+	TotalSnapshotsTaken           *int64    `json:"total_snapshots_taken,omitempty"`
 }
 
-// StatisticsBuilder holds Statistics struct and provides a builder API.
-type StatisticsBuilder struct {
-	v *Statistics
-}
+// NewStatistics returns a Statistics.
+func NewStatistics() *Statistics {
+	r := &Statistics{}
 
-// NewStatistics provides a builder for the Statistics struct.
-func NewStatisticsBuilder() *StatisticsBuilder {
-	r := StatisticsBuilder{
-		&Statistics{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Statistics struct
-func (rb *StatisticsBuilder) Build() Statistics {
-	return *rb.v
-}
-
-func (rb *StatisticsBuilder) Policy(policy Id) *StatisticsBuilder {
-	rb.v.Policy = &policy
-	return rb
-}
-
-func (rb *StatisticsBuilder) RetentionDeletionTime(retentiondeletiontime *DurationBuilder) *StatisticsBuilder {
-	v := retentiondeletiontime.Build()
-	rb.v.RetentionDeletionTime = &v
-	return rb
-}
-
-func (rb *StatisticsBuilder) RetentionDeletionTimeMillis(retentiondeletiontimemillis *DurationValueUnitMillisBuilder) *StatisticsBuilder {
-	v := retentiondeletiontimemillis.Build()
-	rb.v.RetentionDeletionTimeMillis = &v
-	return rb
-}
-
-func (rb *StatisticsBuilder) RetentionFailed(retentionfailed int64) *StatisticsBuilder {
-	rb.v.RetentionFailed = &retentionfailed
-	return rb
-}
-
-func (rb *StatisticsBuilder) RetentionRuns(retentionruns int64) *StatisticsBuilder {
-	rb.v.RetentionRuns = &retentionruns
-	return rb
-}
-
-func (rb *StatisticsBuilder) RetentionTimedOut(retentiontimedout int64) *StatisticsBuilder {
-	rb.v.RetentionTimedOut = &retentiontimedout
-	return rb
-}
-
-func (rb *StatisticsBuilder) TotalSnapshotDeletionFailures(totalsnapshotdeletionfailures int64) *StatisticsBuilder {
-	rb.v.TotalSnapshotDeletionFailures = &totalsnapshotdeletionfailures
-	return rb
-}
-
-func (rb *StatisticsBuilder) TotalSnapshotsDeleted(totalsnapshotsdeleted int64) *StatisticsBuilder {
-	rb.v.TotalSnapshotsDeleted = &totalsnapshotsdeleted
-	return rb
-}
-
-func (rb *StatisticsBuilder) TotalSnapshotsFailed(totalsnapshotsfailed int64) *StatisticsBuilder {
-	rb.v.TotalSnapshotsFailed = &totalsnapshotsfailed
-	return rb
-}
-
-func (rb *StatisticsBuilder) TotalSnapshotsTaken(totalsnapshotstaken int64) *StatisticsBuilder {
-	rb.v.TotalSnapshotsTaken = &totalsnapshotstaken
-	return rb
+	return r
 }

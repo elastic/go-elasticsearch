@@ -17,54 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeAnalyticsDestination type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/_types/DataframeAnalytics.ts#L77-L82
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/DataframeAnalytics.ts#L77-L82
 type DataframeAnalyticsDestination struct {
 	// Index Defines the destination index to store the results of the data frame
 	// analytics job.
-	Index IndexName `json:"index"`
+	Index string `json:"index"`
 	// ResultsField Defines the name of the field in which to store the results of the analysis.
 	// Defaults to `ml`.
-	ResultsField *Field `json:"results_field,omitempty"`
+	ResultsField *string `json:"results_field,omitempty"`
 }
 
-// DataframeAnalyticsDestinationBuilder holds DataframeAnalyticsDestination struct and provides a builder API.
-type DataframeAnalyticsDestinationBuilder struct {
-	v *DataframeAnalyticsDestination
-}
+// NewDataframeAnalyticsDestination returns a DataframeAnalyticsDestination.
+func NewDataframeAnalyticsDestination() *DataframeAnalyticsDestination {
+	r := &DataframeAnalyticsDestination{}
 
-// NewDataframeAnalyticsDestination provides a builder for the DataframeAnalyticsDestination struct.
-func NewDataframeAnalyticsDestinationBuilder() *DataframeAnalyticsDestinationBuilder {
-	r := DataframeAnalyticsDestinationBuilder{
-		&DataframeAnalyticsDestination{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeAnalyticsDestination struct
-func (rb *DataframeAnalyticsDestinationBuilder) Build() DataframeAnalyticsDestination {
-	return *rb.v
-}
-
-// Index Defines the destination index to store the results of the data frame
-// analytics job.
-
-func (rb *DataframeAnalyticsDestinationBuilder) Index(index IndexName) *DataframeAnalyticsDestinationBuilder {
-	rb.v.Index = index
-	return rb
-}
-
-// ResultsField Defines the name of the field in which to store the results of the analysis.
-// Defaults to `ml`.
-
-func (rb *DataframeAnalyticsDestinationBuilder) ResultsField(resultsfield Field) *DataframeAnalyticsDestinationBuilder {
-	rb.v.ResultsField = &resultsfield
-	return rb
+	return r
 }

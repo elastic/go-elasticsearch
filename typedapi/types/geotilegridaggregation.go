@@ -17,76 +17,27 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // GeoTileGridAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/bucket.ts#L192-L198
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/bucket.ts#L192-L198
 type GeoTileGridAggregation struct {
-	Bounds    *GeoBounds        `json:"bounds,omitempty"`
-	Field     *Field            `json:"field,omitempty"`
-	Meta      *Metadata         `json:"meta,omitempty"`
-	Name      *string           `json:"name,omitempty"`
-	Precision *GeoTilePrecision `json:"precision,omitempty"`
-	ShardSize *int              `json:"shard_size,omitempty"`
-	Size      *int              `json:"size,omitempty"`
+	Bounds    *GeoBounds             `json:"bounds,omitempty"`
+	Field     *string                `json:"field,omitempty"`
+	Meta      map[string]interface{} `json:"meta,omitempty"`
+	Name      *string                `json:"name,omitempty"`
+	Precision *int                   `json:"precision,omitempty"`
+	ShardSize *int                   `json:"shard_size,omitempty"`
+	Size      *int                   `json:"size,omitempty"`
 }
 
-// GeoTileGridAggregationBuilder holds GeoTileGridAggregation struct and provides a builder API.
-type GeoTileGridAggregationBuilder struct {
-	v *GeoTileGridAggregation
-}
+// NewGeoTileGridAggregation returns a GeoTileGridAggregation.
+func NewGeoTileGridAggregation() *GeoTileGridAggregation {
+	r := &GeoTileGridAggregation{}
 
-// NewGeoTileGridAggregation provides a builder for the GeoTileGridAggregation struct.
-func NewGeoTileGridAggregationBuilder() *GeoTileGridAggregationBuilder {
-	r := GeoTileGridAggregationBuilder{
-		&GeoTileGridAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the GeoTileGridAggregation struct
-func (rb *GeoTileGridAggregationBuilder) Build() GeoTileGridAggregation {
-	return *rb.v
-}
-
-func (rb *GeoTileGridAggregationBuilder) Bounds(bounds *GeoBoundsBuilder) *GeoTileGridAggregationBuilder {
-	v := bounds.Build()
-	rb.v.Bounds = &v
-	return rb
-}
-
-func (rb *GeoTileGridAggregationBuilder) Field(field Field) *GeoTileGridAggregationBuilder {
-	rb.v.Field = &field
-	return rb
-}
-
-func (rb *GeoTileGridAggregationBuilder) Meta(meta *MetadataBuilder) *GeoTileGridAggregationBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *GeoTileGridAggregationBuilder) Name(name string) *GeoTileGridAggregationBuilder {
-	rb.v.Name = &name
-	return rb
-}
-
-func (rb *GeoTileGridAggregationBuilder) Precision(precision GeoTilePrecision) *GeoTileGridAggregationBuilder {
-	rb.v.Precision = &precision
-	return rb
-}
-
-func (rb *GeoTileGridAggregationBuilder) ShardSize(shardsize int) *GeoTileGridAggregationBuilder {
-	rb.v.ShardSize = &shardsize
-	return rb
-}
-
-func (rb *GeoTileGridAggregationBuilder) Size(size int) *GeoTileGridAggregationBuilder {
-	rb.v.Size = &size
-	return rb
+	return r
 }

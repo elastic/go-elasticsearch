@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -32,12 +32,12 @@ import (
 
 // GeoDistanceQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/geo.ts#L48-L57
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/geo.ts#L48-L57
 type GeoDistanceQuery struct {
 	Boost            *float32                                 `json:"boost,omitempty"`
-	Distance         *Distance                                `json:"distance,omitempty"`
+	Distance         *string                                  `json:"distance,omitempty"`
 	DistanceType     *geodistancetype.GeoDistanceType         `json:"distance_type,omitempty"`
-	GeoDistanceQuery map[Field]GeoLocation                    `json:"-"`
+	GeoDistanceQuery map[string]GeoLocation                   `json:"-"`
 	QueryName_       *string                                  `json:"_name,omitempty"`
 	ValidationMethod *geovalidationmethod.GeoValidationMethod `json:"validation_method,omitempty"`
 }
@@ -70,57 +70,11 @@ func (s GeoDistanceQuery) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// GeoDistanceQueryBuilder holds GeoDistanceQuery struct and provides a builder API.
-type GeoDistanceQueryBuilder struct {
-	v *GeoDistanceQuery
-}
-
-// NewGeoDistanceQuery provides a builder for the GeoDistanceQuery struct.
-func NewGeoDistanceQueryBuilder() *GeoDistanceQueryBuilder {
-	r := GeoDistanceQueryBuilder{
-		&GeoDistanceQuery{
-			GeoDistanceQuery: make(map[Field]GeoLocation, 0),
-		},
+// NewGeoDistanceQuery returns a GeoDistanceQuery.
+func NewGeoDistanceQuery() *GeoDistanceQuery {
+	r := &GeoDistanceQuery{
+		GeoDistanceQuery: make(map[string]GeoLocation, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the GeoDistanceQuery struct
-func (rb *GeoDistanceQueryBuilder) Build() GeoDistanceQuery {
-	return *rb.v
-}
-
-func (rb *GeoDistanceQueryBuilder) Boost(boost float32) *GeoDistanceQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *GeoDistanceQueryBuilder) Distance(distance Distance) *GeoDistanceQueryBuilder {
-	rb.v.Distance = &distance
-	return rb
-}
-
-func (rb *GeoDistanceQueryBuilder) DistanceType(distancetype geodistancetype.GeoDistanceType) *GeoDistanceQueryBuilder {
-	rb.v.DistanceType = &distancetype
-	return rb
-}
-
-func (rb *GeoDistanceQueryBuilder) GeoDistanceQuery(values map[Field]*GeoLocationBuilder) *GeoDistanceQueryBuilder {
-	tmp := make(map[Field]GeoLocation, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.GeoDistanceQuery = tmp
-	return rb
-}
-
-func (rb *GeoDistanceQueryBuilder) QueryName_(queryname_ string) *GeoDistanceQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
-}
-
-func (rb *GeoDistanceQueryBuilder) ValidationMethod(validationmethod geovalidationmethod.GeoValidationMethod) *GeoDistanceQueryBuilder {
-	rb.v.ValidationMethod = &validationmethod
-	return rb
+	return r
 }

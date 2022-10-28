@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AutoscalingResources type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/autoscaling/get_autoscaling_capacity/GetAutoscalingCapacityResponse.ts#L43-L46
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/autoscaling/get_autoscaling_capacity/GetAutoscalingCapacityResponse.ts#L43-L46
 type AutoscalingResources struct {
 	Memory  int `json:"memory"`
 	Storage int `json:"storage"`
 }
 
-// AutoscalingResourcesBuilder holds AutoscalingResources struct and provides a builder API.
-type AutoscalingResourcesBuilder struct {
-	v *AutoscalingResources
-}
+// NewAutoscalingResources returns a AutoscalingResources.
+func NewAutoscalingResources() *AutoscalingResources {
+	r := &AutoscalingResources{}
 
-// NewAutoscalingResources provides a builder for the AutoscalingResources struct.
-func NewAutoscalingResourcesBuilder() *AutoscalingResourcesBuilder {
-	r := AutoscalingResourcesBuilder{
-		&AutoscalingResources{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the AutoscalingResources struct
-func (rb *AutoscalingResourcesBuilder) Build() AutoscalingResources {
-	return *rb.v
-}
-
-func (rb *AutoscalingResourcesBuilder) Memory(memory int) *AutoscalingResourcesBuilder {
-	rb.v.Memory = memory
-	return rb
-}
-
-func (rb *AutoscalingResourcesBuilder) Storage(storage int) *AutoscalingResourcesBuilder {
-	rb.v.Storage = storage
-	return rb
+	return r
 }

@@ -17,64 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ScriptScoreQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/specialized.ts#L168-L172
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/specialized.ts#L168-L172
 type ScriptScoreQuery struct {
-	Boost      *float32        `json:"boost,omitempty"`
-	MinScore   *float32        `json:"min_score,omitempty"`
-	Query      *QueryContainer `json:"query,omitempty"`
-	QueryName_ *string         `json:"_name,omitempty"`
-	Script     Script          `json:"script"`
+	Boost      *float32 `json:"boost,omitempty"`
+	MinScore   *float32 `json:"min_score,omitempty"`
+	Query      *Query   `json:"query,omitempty"`
+	QueryName_ *string  `json:"_name,omitempty"`
+	Script     Script   `json:"script"`
 }
 
-// ScriptScoreQueryBuilder holds ScriptScoreQuery struct and provides a builder API.
-type ScriptScoreQueryBuilder struct {
-	v *ScriptScoreQuery
-}
+// NewScriptScoreQuery returns a ScriptScoreQuery.
+func NewScriptScoreQuery() *ScriptScoreQuery {
+	r := &ScriptScoreQuery{}
 
-// NewScriptScoreQuery provides a builder for the ScriptScoreQuery struct.
-func NewScriptScoreQueryBuilder() *ScriptScoreQueryBuilder {
-	r := ScriptScoreQueryBuilder{
-		&ScriptScoreQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ScriptScoreQuery struct
-func (rb *ScriptScoreQueryBuilder) Build() ScriptScoreQuery {
-	return *rb.v
-}
-
-func (rb *ScriptScoreQueryBuilder) Boost(boost float32) *ScriptScoreQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *ScriptScoreQueryBuilder) MinScore(minscore float32) *ScriptScoreQueryBuilder {
-	rb.v.MinScore = &minscore
-	return rb
-}
-
-func (rb *ScriptScoreQueryBuilder) Query(query *QueryContainerBuilder) *ScriptScoreQueryBuilder {
-	v := query.Build()
-	rb.v.Query = &v
-	return rb
-}
-
-func (rb *ScriptScoreQueryBuilder) QueryName_(queryname_ string) *ScriptScoreQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
-}
-
-func (rb *ScriptScoreQueryBuilder) Script(script *ScriptBuilder) *ScriptScoreQueryBuilder {
-	v := script.Build()
-	rb.v.Script = v
-	return rb
+	return r
 }

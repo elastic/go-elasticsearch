@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SpanFirstQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/span.ts#L35-L38
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/span.ts#L35-L38
 type SpanFirstQuery struct {
 	Boost      *float32   `json:"boost,omitempty"`
 	End        int        `json:"end"`
@@ -32,42 +32,9 @@ type SpanFirstQuery struct {
 	QueryName_ *string    `json:"_name,omitempty"`
 }
 
-// SpanFirstQueryBuilder holds SpanFirstQuery struct and provides a builder API.
-type SpanFirstQueryBuilder struct {
-	v *SpanFirstQuery
-}
+// NewSpanFirstQuery returns a SpanFirstQuery.
+func NewSpanFirstQuery() *SpanFirstQuery {
+	r := &SpanFirstQuery{}
 
-// NewSpanFirstQuery provides a builder for the SpanFirstQuery struct.
-func NewSpanFirstQueryBuilder() *SpanFirstQueryBuilder {
-	r := SpanFirstQueryBuilder{
-		&SpanFirstQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SpanFirstQuery struct
-func (rb *SpanFirstQueryBuilder) Build() SpanFirstQuery {
-	return *rb.v
-}
-
-func (rb *SpanFirstQueryBuilder) Boost(boost float32) *SpanFirstQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *SpanFirstQueryBuilder) End(end int) *SpanFirstQueryBuilder {
-	rb.v.End = end
-	return rb
-}
-
-func (rb *SpanFirstQueryBuilder) Match(match *SpanQueryBuilder) *SpanFirstQueryBuilder {
-	v := match.Build()
-	rb.v.Match = &v
-	return rb
-}
-
-func (rb *SpanFirstQueryBuilder) QueryName_(queryname_ string) *SpanFirstQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
+	return r
 }

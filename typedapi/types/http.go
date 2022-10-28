@@ -17,54 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Http type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/_types/Stats.ts#L260-L264
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L260-L264
 type Http struct {
 	Clients     []Client `json:"clients,omitempty"`
 	CurrentOpen *int     `json:"current_open,omitempty"`
 	TotalOpened *int64   `json:"total_opened,omitempty"`
 }
 
-// HttpBuilder holds Http struct and provides a builder API.
-type HttpBuilder struct {
-	v *Http
-}
+// NewHttp returns a Http.
+func NewHttp() *Http {
+	r := &Http{}
 
-// NewHttp provides a builder for the Http struct.
-func NewHttpBuilder() *HttpBuilder {
-	r := HttpBuilder{
-		&Http{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Http struct
-func (rb *HttpBuilder) Build() Http {
-	return *rb.v
-}
-
-func (rb *HttpBuilder) Clients(clients []ClientBuilder) *HttpBuilder {
-	tmp := make([]Client, len(clients))
-	for _, value := range clients {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Clients = tmp
-	return rb
-}
-
-func (rb *HttpBuilder) CurrentOpen(currentopen int) *HttpBuilder {
-	rb.v.CurrentOpen = &currentopen
-	return rb
-}
-
-func (rb *HttpBuilder) TotalOpened(totalopened int64) *HttpBuilder {
-	rb.v.TotalOpened = &totalopened
-	return rb
+	return r
 }

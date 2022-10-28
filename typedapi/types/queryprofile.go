@@ -17,68 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // QueryProfile type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/search/_types/profile.ts#L118-L124
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/profile.ts#L118-L124
 type QueryProfile struct {
-	Breakdown   QueryBreakdown         `json:"breakdown"`
-	Children    []QueryProfile         `json:"children,omitempty"`
-	Description string                 `json:"description"`
-	TimeInNanos DurationValueUnitNanos `json:"time_in_nanos"`
-	Type        string                 `json:"type"`
+	Breakdown   QueryBreakdown `json:"breakdown"`
+	Children    []QueryProfile `json:"children,omitempty"`
+	Description string         `json:"description"`
+	TimeInNanos int64          `json:"time_in_nanos"`
+	Type        string         `json:"type"`
 }
 
-// QueryProfileBuilder holds QueryProfile struct and provides a builder API.
-type QueryProfileBuilder struct {
-	v *QueryProfile
-}
+// NewQueryProfile returns a QueryProfile.
+func NewQueryProfile() *QueryProfile {
+	r := &QueryProfile{}
 
-// NewQueryProfile provides a builder for the QueryProfile struct.
-func NewQueryProfileBuilder() *QueryProfileBuilder {
-	r := QueryProfileBuilder{
-		&QueryProfile{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the QueryProfile struct
-func (rb *QueryProfileBuilder) Build() QueryProfile {
-	return *rb.v
-}
-
-func (rb *QueryProfileBuilder) Breakdown(breakdown *QueryBreakdownBuilder) *QueryProfileBuilder {
-	v := breakdown.Build()
-	rb.v.Breakdown = v
-	return rb
-}
-
-func (rb *QueryProfileBuilder) Children(children []QueryProfileBuilder) *QueryProfileBuilder {
-	tmp := make([]QueryProfile, len(children))
-	for _, value := range children {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Children = tmp
-	return rb
-}
-
-func (rb *QueryProfileBuilder) Description(description string) *QueryProfileBuilder {
-	rb.v.Description = description
-	return rb
-}
-
-func (rb *QueryProfileBuilder) TimeInNanos(timeinnanos *DurationValueUnitNanosBuilder) *QueryProfileBuilder {
-	v := timeinnanos.Build()
-	rb.v.TimeInNanos = v
-	return rb
-}
-
-func (rb *QueryProfileBuilder) Type_(type_ string) *QueryProfileBuilder {
-	rb.v.Type = type_
-	return rb
+	return r
 }

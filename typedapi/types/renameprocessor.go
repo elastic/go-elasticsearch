@@ -17,78 +17,28 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RenameProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ingest/_types/Processors.ts#L306-L310
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ingest/_types/Processors.ts#L316-L320
 type RenameProcessor struct {
-	Field         Field                `json:"field"`
+	Description   *string              `json:"description,omitempty"`
+	Field         string               `json:"field"`
 	If            *string              `json:"if,omitempty"`
 	IgnoreFailure *bool                `json:"ignore_failure,omitempty"`
 	IgnoreMissing *bool                `json:"ignore_missing,omitempty"`
 	OnFailure     []ProcessorContainer `json:"on_failure,omitempty"`
 	Tag           *string              `json:"tag,omitempty"`
-	TargetField   Field                `json:"target_field"`
+	TargetField   string               `json:"target_field"`
 }
 
-// RenameProcessorBuilder holds RenameProcessor struct and provides a builder API.
-type RenameProcessorBuilder struct {
-	v *RenameProcessor
-}
+// NewRenameProcessor returns a RenameProcessor.
+func NewRenameProcessor() *RenameProcessor {
+	r := &RenameProcessor{}
 
-// NewRenameProcessor provides a builder for the RenameProcessor struct.
-func NewRenameProcessorBuilder() *RenameProcessorBuilder {
-	r := RenameProcessorBuilder{
-		&RenameProcessor{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RenameProcessor struct
-func (rb *RenameProcessorBuilder) Build() RenameProcessor {
-	return *rb.v
-}
-
-func (rb *RenameProcessorBuilder) Field(field Field) *RenameProcessorBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *RenameProcessorBuilder) If_(if_ string) *RenameProcessorBuilder {
-	rb.v.If = &if_
-	return rb
-}
-
-func (rb *RenameProcessorBuilder) IgnoreFailure(ignorefailure bool) *RenameProcessorBuilder {
-	rb.v.IgnoreFailure = &ignorefailure
-	return rb
-}
-
-func (rb *RenameProcessorBuilder) IgnoreMissing(ignoremissing bool) *RenameProcessorBuilder {
-	rb.v.IgnoreMissing = &ignoremissing
-	return rb
-}
-
-func (rb *RenameProcessorBuilder) OnFailure(on_failure []ProcessorContainerBuilder) *RenameProcessorBuilder {
-	tmp := make([]ProcessorContainer, len(on_failure))
-	for _, value := range on_failure {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.OnFailure = tmp
-	return rb
-}
-
-func (rb *RenameProcessorBuilder) Tag(tag string) *RenameProcessorBuilder {
-	rb.v.Tag = &tag
-	return rb
-}
-
-func (rb *RenameProcessorBuilder) TargetField(targetfield Field) *RenameProcessorBuilder {
-	rb.v.TargetField = targetfield
-	return rb
+	return r
 }

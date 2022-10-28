@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // HttpInputProxy type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/watcher/_types/Input.ts#L67-L70
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Input.ts#L67-L70
 type HttpInputProxy struct {
-	Host Host `json:"host"`
-	Port uint `json:"port"`
+	Host string `json:"host"`
+	Port uint   `json:"port"`
 }
 
-// HttpInputProxyBuilder holds HttpInputProxy struct and provides a builder API.
-type HttpInputProxyBuilder struct {
-	v *HttpInputProxy
-}
+// NewHttpInputProxy returns a HttpInputProxy.
+func NewHttpInputProxy() *HttpInputProxy {
+	r := &HttpInputProxy{}
 
-// NewHttpInputProxy provides a builder for the HttpInputProxy struct.
-func NewHttpInputProxyBuilder() *HttpInputProxyBuilder {
-	r := HttpInputProxyBuilder{
-		&HttpInputProxy{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the HttpInputProxy struct
-func (rb *HttpInputProxyBuilder) Build() HttpInputProxy {
-	return *rb.v
-}
-
-func (rb *HttpInputProxyBuilder) Host(host Host) *HttpInputProxyBuilder {
-	rb.v.Host = host
-	return rb
-}
-
-func (rb *HttpInputProxyBuilder) Port(port uint) *HttpInputProxyBuilder {
-	rb.v.Port = port
-	return rb
+	return r
 }

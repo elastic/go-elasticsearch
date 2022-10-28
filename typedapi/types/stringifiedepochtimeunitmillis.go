@@ -17,41 +17,15 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // StringifiedEpochTimeUnitMillis holds the union for the following types:
 //
-//	EpochTimeUnitMillis
+//	int64
 //	string
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_spec_utils/Stringified.ts#L20-L27
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_spec_utils/Stringified.ts#L20-L27
 type StringifiedEpochTimeUnitMillis interface{}
-
-// StringifiedEpochTimeUnitMillisBuilder holds StringifiedEpochTimeUnitMillis struct and provides a builder API.
-type StringifiedEpochTimeUnitMillisBuilder struct {
-	v StringifiedEpochTimeUnitMillis
-}
-
-// NewStringifiedEpochTimeUnitMillis provides a builder for the StringifiedEpochTimeUnitMillis struct.
-func NewStringifiedEpochTimeUnitMillisBuilder() *StringifiedEpochTimeUnitMillisBuilder {
-	return &StringifiedEpochTimeUnitMillisBuilder{}
-}
-
-// Build finalize the chain and returns the StringifiedEpochTimeUnitMillis struct
-func (u *StringifiedEpochTimeUnitMillisBuilder) Build() StringifiedEpochTimeUnitMillis {
-	return u.v
-}
-
-func (u *StringifiedEpochTimeUnitMillisBuilder) EpochTimeUnitMillis(epochtimeunitmillis *EpochTimeUnitMillisBuilder) *StringifiedEpochTimeUnitMillisBuilder {
-	v := epochtimeunitmillis.Build()
-	u.v = &v
-	return u
-}
-
-func (u *StringifiedEpochTimeUnitMillisBuilder) String(string string) *StringifiedEpochTimeUnitMillisBuilder {
-	u.v = &string
-	return u
-}

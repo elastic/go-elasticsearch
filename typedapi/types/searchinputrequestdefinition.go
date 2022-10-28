@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,64 +28,19 @@ import (
 
 // SearchInputRequestDefinition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/watcher/_types/Input.ts#L118-L125
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Input.ts#L118-L125
 type SearchInputRequestDefinition struct {
 	Body               *SearchInputRequestBody    `json:"body,omitempty"`
-	Indices            []IndexName                `json:"indices,omitempty"`
+	Indices            []string                   `json:"indices,omitempty"`
 	IndicesOptions     *IndicesOptions            `json:"indices_options,omitempty"`
 	RestTotalHitsAsInt *bool                      `json:"rest_total_hits_as_int,omitempty"`
 	SearchType         *searchtype.SearchType     `json:"search_type,omitempty"`
 	Template           *SearchTemplateRequestBody `json:"template,omitempty"`
 }
 
-// SearchInputRequestDefinitionBuilder holds SearchInputRequestDefinition struct and provides a builder API.
-type SearchInputRequestDefinitionBuilder struct {
-	v *SearchInputRequestDefinition
-}
+// NewSearchInputRequestDefinition returns a SearchInputRequestDefinition.
+func NewSearchInputRequestDefinition() *SearchInputRequestDefinition {
+	r := &SearchInputRequestDefinition{}
 
-// NewSearchInputRequestDefinition provides a builder for the SearchInputRequestDefinition struct.
-func NewSearchInputRequestDefinitionBuilder() *SearchInputRequestDefinitionBuilder {
-	r := SearchInputRequestDefinitionBuilder{
-		&SearchInputRequestDefinition{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SearchInputRequestDefinition struct
-func (rb *SearchInputRequestDefinitionBuilder) Build() SearchInputRequestDefinition {
-	return *rb.v
-}
-
-func (rb *SearchInputRequestDefinitionBuilder) Body(body *SearchInputRequestBodyBuilder) *SearchInputRequestDefinitionBuilder {
-	v := body.Build()
-	rb.v.Body = &v
-	return rb
-}
-
-func (rb *SearchInputRequestDefinitionBuilder) Indices(indices ...IndexName) *SearchInputRequestDefinitionBuilder {
-	rb.v.Indices = indices
-	return rb
-}
-
-func (rb *SearchInputRequestDefinitionBuilder) IndicesOptions(indicesoptions *IndicesOptionsBuilder) *SearchInputRequestDefinitionBuilder {
-	v := indicesoptions.Build()
-	rb.v.IndicesOptions = &v
-	return rb
-}
-
-func (rb *SearchInputRequestDefinitionBuilder) RestTotalHitsAsInt(resttotalhitsasint bool) *SearchInputRequestDefinitionBuilder {
-	rb.v.RestTotalHitsAsInt = &resttotalhitsasint
-	return rb
-}
-
-func (rb *SearchInputRequestDefinitionBuilder) SearchType(searchtype searchtype.SearchType) *SearchInputRequestDefinitionBuilder {
-	rb.v.SearchType = &searchtype
-	return rb
-}
-
-func (rb *SearchInputRequestDefinitionBuilder) Template(template *SearchTemplateRequestBodyBuilder) *SearchInputRequestDefinitionBuilder {
-	v := template.Build()
-	rb.v.Template = &v
-	return rb
+	return r
 }

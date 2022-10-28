@@ -17,68 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RerouteParameters type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/cluster/reroute/types.ts#L98-L105
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/reroute/types.ts#L98-L105
 type RerouteParameters struct {
-	AllowPrimary bool      `json:"allow_primary"`
-	FromNode     *NodeName `json:"from_node,omitempty"`
-	Index        IndexName `json:"index"`
-	Node         NodeName  `json:"node"`
-	Shard        int       `json:"shard"`
-	ToNode       *NodeName `json:"to_node,omitempty"`
+	AllowPrimary bool    `json:"allow_primary"`
+	FromNode     *string `json:"from_node,omitempty"`
+	Index        string  `json:"index"`
+	Node         string  `json:"node"`
+	Shard        int     `json:"shard"`
+	ToNode       *string `json:"to_node,omitempty"`
 }
 
-// RerouteParametersBuilder holds RerouteParameters struct and provides a builder API.
-type RerouteParametersBuilder struct {
-	v *RerouteParameters
-}
+// NewRerouteParameters returns a RerouteParameters.
+func NewRerouteParameters() *RerouteParameters {
+	r := &RerouteParameters{}
 
-// NewRerouteParameters provides a builder for the RerouteParameters struct.
-func NewRerouteParametersBuilder() *RerouteParametersBuilder {
-	r := RerouteParametersBuilder{
-		&RerouteParameters{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RerouteParameters struct
-func (rb *RerouteParametersBuilder) Build() RerouteParameters {
-	return *rb.v
-}
-
-func (rb *RerouteParametersBuilder) AllowPrimary(allowprimary bool) *RerouteParametersBuilder {
-	rb.v.AllowPrimary = allowprimary
-	return rb
-}
-
-func (rb *RerouteParametersBuilder) FromNode(fromnode NodeName) *RerouteParametersBuilder {
-	rb.v.FromNode = &fromnode
-	return rb
-}
-
-func (rb *RerouteParametersBuilder) Index(index IndexName) *RerouteParametersBuilder {
-	rb.v.Index = index
-	return rb
-}
-
-func (rb *RerouteParametersBuilder) Node(node NodeName) *RerouteParametersBuilder {
-	rb.v.Node = node
-	return rb
-}
-
-func (rb *RerouteParametersBuilder) Shard(shard int) *RerouteParametersBuilder {
-	rb.v.Shard = shard
-	return rb
-}
-
-func (rb *RerouteParametersBuilder) ToNode(tonode NodeName) *RerouteParametersBuilder {
-	rb.v.ToNode = &tonode
-	return rb
+	return r
 }

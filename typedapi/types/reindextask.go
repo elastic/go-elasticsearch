@@ -17,96 +17,30 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ReindexTask type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/reindex_rethrottle/types.ts#L53-L64
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/reindex_rethrottle/types.ts#L53-L64
 type ReindexTask struct {
-	Action             string                 `json:"action"`
-	Cancellable        bool                   `json:"cancellable"`
-	Description        string                 `json:"description"`
-	Headers            HttpHeaders            `json:"headers"`
-	Id                 int64                  `json:"id"`
-	Node               Name                   `json:"node"`
-	RunningTimeInNanos DurationValueUnitNanos `json:"running_time_in_nanos"`
-	StartTimeInMillis  EpochTimeUnitMillis    `json:"start_time_in_millis"`
-	Status             ReindexStatus          `json:"status"`
-	Type               string                 `json:"type"`
+	Action             string              `json:"action"`
+	Cancellable        bool                `json:"cancellable"`
+	Description        string              `json:"description"`
+	Headers            map[string][]string `json:"headers"`
+	Id                 int64               `json:"id"`
+	Node               string              `json:"node"`
+	RunningTimeInNanos int64               `json:"running_time_in_nanos"`
+	StartTimeInMillis  int64               `json:"start_time_in_millis"`
+	Status             ReindexStatus       `json:"status"`
+	Type               string              `json:"type"`
 }
 
-// ReindexTaskBuilder holds ReindexTask struct and provides a builder API.
-type ReindexTaskBuilder struct {
-	v *ReindexTask
-}
+// NewReindexTask returns a ReindexTask.
+func NewReindexTask() *ReindexTask {
+	r := &ReindexTask{}
 
-// NewReindexTask provides a builder for the ReindexTask struct.
-func NewReindexTaskBuilder() *ReindexTaskBuilder {
-	r := ReindexTaskBuilder{
-		&ReindexTask{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ReindexTask struct
-func (rb *ReindexTaskBuilder) Build() ReindexTask {
-	return *rb.v
-}
-
-func (rb *ReindexTaskBuilder) Action(action string) *ReindexTaskBuilder {
-	rb.v.Action = action
-	return rb
-}
-
-func (rb *ReindexTaskBuilder) Cancellable(cancellable bool) *ReindexTaskBuilder {
-	rb.v.Cancellable = cancellable
-	return rb
-}
-
-func (rb *ReindexTaskBuilder) Description(description string) *ReindexTaskBuilder {
-	rb.v.Description = description
-	return rb
-}
-
-func (rb *ReindexTaskBuilder) Headers(headers *HttpHeadersBuilder) *ReindexTaskBuilder {
-	v := headers.Build()
-	rb.v.Headers = v
-	return rb
-}
-
-func (rb *ReindexTaskBuilder) Id(id int64) *ReindexTaskBuilder {
-	rb.v.Id = id
-	return rb
-}
-
-func (rb *ReindexTaskBuilder) Node(node Name) *ReindexTaskBuilder {
-	rb.v.Node = node
-	return rb
-}
-
-func (rb *ReindexTaskBuilder) RunningTimeInNanos(runningtimeinnanos *DurationValueUnitNanosBuilder) *ReindexTaskBuilder {
-	v := runningtimeinnanos.Build()
-	rb.v.RunningTimeInNanos = v
-	return rb
-}
-
-func (rb *ReindexTaskBuilder) StartTimeInMillis(starttimeinmillis *EpochTimeUnitMillisBuilder) *ReindexTaskBuilder {
-	v := starttimeinmillis.Build()
-	rb.v.StartTimeInMillis = v
-	return rb
-}
-
-func (rb *ReindexTaskBuilder) Status(status *ReindexStatusBuilder) *ReindexTaskBuilder {
-	v := status.Build()
-	rb.v.Status = v
-	return rb
-}
-
-func (rb *ReindexTaskBuilder) Type_(type_ string) *ReindexTaskBuilder {
-	rb.v.Type = type_
-	return rb
+	return r
 }

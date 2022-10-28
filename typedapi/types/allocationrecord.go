@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AllocationRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/cat/allocation/types.ts#L24-L69
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cat/allocation/types.ts#L24-L69
 type AllocationRecord struct {
 	// DiskAvail disk available
 	DiskAvail ByteSize `json:"disk.avail,omitempty"`
@@ -37,93 +37,18 @@ type AllocationRecord struct {
 	// DiskUsed disk used (total, not just ES)
 	DiskUsed ByteSize `json:"disk.used,omitempty"`
 	// Host host of node
-	Host Host `json:"host,omitempty"`
+	Host string `json:"host,omitempty"`
 	// Ip ip of node
-	Ip Ip `json:"ip,omitempty"`
+	Ip string `json:"ip,omitempty"`
 	// Node name of node
 	Node *string `json:"node,omitempty"`
 	// Shards number of shards on node
 	Shards *string `json:"shards,omitempty"`
 }
 
-// AllocationRecordBuilder holds AllocationRecord struct and provides a builder API.
-type AllocationRecordBuilder struct {
-	v *AllocationRecord
-}
+// NewAllocationRecord returns a AllocationRecord.
+func NewAllocationRecord() *AllocationRecord {
+	r := &AllocationRecord{}
 
-// NewAllocationRecord provides a builder for the AllocationRecord struct.
-func NewAllocationRecordBuilder() *AllocationRecordBuilder {
-	r := AllocationRecordBuilder{
-		&AllocationRecord{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the AllocationRecord struct
-func (rb *AllocationRecordBuilder) Build() AllocationRecord {
-	return *rb.v
-}
-
-// DiskAvail disk available
-
-func (rb *AllocationRecordBuilder) DiskAvail(diskavail ByteSize) *AllocationRecordBuilder {
-	rb.v.DiskAvail = diskavail
-	return rb
-}
-
-// DiskIndices disk used by ES indices
-
-func (rb *AllocationRecordBuilder) DiskIndices(diskindices ByteSize) *AllocationRecordBuilder {
-	rb.v.DiskIndices = diskindices
-	return rb
-}
-
-// DiskPercent percent disk used
-
-func (rb *AllocationRecordBuilder) DiskPercent(diskpercent Percentage) *AllocationRecordBuilder {
-	rb.v.DiskPercent = diskpercent
-	return rb
-}
-
-// DiskTotal total capacity of all volumes
-
-func (rb *AllocationRecordBuilder) DiskTotal(disktotal ByteSize) *AllocationRecordBuilder {
-	rb.v.DiskTotal = disktotal
-	return rb
-}
-
-// DiskUsed disk used (total, not just ES)
-
-func (rb *AllocationRecordBuilder) DiskUsed(diskused ByteSize) *AllocationRecordBuilder {
-	rb.v.DiskUsed = diskused
-	return rb
-}
-
-// Host host of node
-
-func (rb *AllocationRecordBuilder) Host(host Host) *AllocationRecordBuilder {
-	rb.v.Host = host
-	return rb
-}
-
-// Ip ip of node
-
-func (rb *AllocationRecordBuilder) Ip(ip Ip) *AllocationRecordBuilder {
-	rb.v.Ip = ip
-	return rb
-}
-
-// Node name of node
-
-func (rb *AllocationRecordBuilder) Node(node string) *AllocationRecordBuilder {
-	rb.v.Node = &node
-	return rb
-}
-
-// Shards number of shards on node
-
-func (rb *AllocationRecordBuilder) Shards(shards string) *AllocationRecordBuilder {
-	rb.v.Shards = &shards
-	return rb
+	return r
 }

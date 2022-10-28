@@ -17,69 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Alias type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/_types/Alias.ts#L23-L30
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/Alias.ts#L23-L30
 type Alias struct {
-	Filter        *QueryContainer `json:"filter,omitempty"`
-	IndexRouting  *Routing        `json:"index_routing,omitempty"`
-	IsHidden      *bool           `json:"is_hidden,omitempty"`
-	IsWriteIndex  *bool           `json:"is_write_index,omitempty"`
-	Routing       *Routing        `json:"routing,omitempty"`
-	SearchRouting *Routing        `json:"search_routing,omitempty"`
+	Filter        *Query  `json:"filter,omitempty"`
+	IndexRouting  *string `json:"index_routing,omitempty"`
+	IsHidden      *bool   `json:"is_hidden,omitempty"`
+	IsWriteIndex  *bool   `json:"is_write_index,omitempty"`
+	Routing       *string `json:"routing,omitempty"`
+	SearchRouting *string `json:"search_routing,omitempty"`
 }
 
-// AliasBuilder holds Alias struct and provides a builder API.
-type AliasBuilder struct {
-	v *Alias
-}
+// NewAlias returns a Alias.
+func NewAlias() *Alias {
+	r := &Alias{}
 
-// NewAlias provides a builder for the Alias struct.
-func NewAliasBuilder() *AliasBuilder {
-	r := AliasBuilder{
-		&Alias{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Alias struct
-func (rb *AliasBuilder) Build() Alias {
-	return *rb.v
-}
-
-func (rb *AliasBuilder) Filter(filter *QueryContainerBuilder) *AliasBuilder {
-	v := filter.Build()
-	rb.v.Filter = &v
-	return rb
-}
-
-func (rb *AliasBuilder) IndexRouting(indexrouting Routing) *AliasBuilder {
-	rb.v.IndexRouting = &indexrouting
-	return rb
-}
-
-func (rb *AliasBuilder) IsHidden(ishidden bool) *AliasBuilder {
-	rb.v.IsHidden = &ishidden
-	return rb
-}
-
-func (rb *AliasBuilder) IsWriteIndex(iswriteindex bool) *AliasBuilder {
-	rb.v.IsWriteIndex = &iswriteindex
-	return rb
-}
-
-func (rb *AliasBuilder) Routing(routing Routing) *AliasBuilder {
-	rb.v.Routing = &routing
-	return rb
-}
-
-func (rb *AliasBuilder) SearchRouting(searchrouting Routing) *AliasBuilder {
-	rb.v.SearchRouting = &searchrouting
-	return rb
+	return r
 }

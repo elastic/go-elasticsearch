@@ -17,71 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TopMetricsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/metric.ts#L186-L190
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/metric.ts#L186-L190
 type TopMetricsAggregation struct {
-	Field   *Field            `json:"field,omitempty"`
-	Metrics []TopMetricsValue `json:"metrics,omitempty"`
-	Missing *Missing          `json:"missing,omitempty"`
-	Script  *Script           `json:"script,omitempty"`
-	Size    *int              `json:"size,omitempty"`
-	Sort    *Sort             `json:"sort,omitempty"`
+	Field   *string            `json:"field,omitempty"`
+	Metrics []TopMetricsValue  `json:"metrics,omitempty"`
+	Missing *Missing           `json:"missing,omitempty"`
+	Script  *Script            `json:"script,omitempty"`
+	Size    *int               `json:"size,omitempty"`
+	Sort    []SortCombinations `json:"sort,omitempty"`
 }
 
-// TopMetricsAggregationBuilder holds TopMetricsAggregation struct and provides a builder API.
-type TopMetricsAggregationBuilder struct {
-	v *TopMetricsAggregation
-}
+// NewTopMetricsAggregation returns a TopMetricsAggregation.
+func NewTopMetricsAggregation() *TopMetricsAggregation {
+	r := &TopMetricsAggregation{}
 
-// NewTopMetricsAggregation provides a builder for the TopMetricsAggregation struct.
-func NewTopMetricsAggregationBuilder() *TopMetricsAggregationBuilder {
-	r := TopMetricsAggregationBuilder{
-		&TopMetricsAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TopMetricsAggregation struct
-func (rb *TopMetricsAggregationBuilder) Build() TopMetricsAggregation {
-	return *rb.v
-}
-
-func (rb *TopMetricsAggregationBuilder) Field(field Field) *TopMetricsAggregationBuilder {
-	rb.v.Field = &field
-	return rb
-}
-
-func (rb *TopMetricsAggregationBuilder) Metrics(arg []TopMetricsValue) *TopMetricsAggregationBuilder {
-	rb.v.Metrics = arg
-	return rb
-}
-
-func (rb *TopMetricsAggregationBuilder) Missing(missing *MissingBuilder) *TopMetricsAggregationBuilder {
-	v := missing.Build()
-	rb.v.Missing = &v
-	return rb
-}
-
-func (rb *TopMetricsAggregationBuilder) Script(script *ScriptBuilder) *TopMetricsAggregationBuilder {
-	v := script.Build()
-	rb.v.Script = &v
-	return rb
-}
-
-func (rb *TopMetricsAggregationBuilder) Size(size int) *TopMetricsAggregationBuilder {
-	rb.v.Size = &size
-	return rb
-}
-
-func (rb *TopMetricsAggregationBuilder) Sort(sort *SortBuilder) *TopMetricsAggregationBuilder {
-	v := sort.Build()
-	rb.v.Sort = &v
-	return rb
+	return r
 }

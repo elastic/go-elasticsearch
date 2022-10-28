@@ -17,47 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // KuromojiReadingFormTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/analysis/kuromoji-plugin.ts#L42-L45
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/kuromoji-plugin.ts#L42-L45
 type KuromojiReadingFormTokenFilter struct {
-	Type      string         `json:"type,omitempty"`
-	UseRomaji bool           `json:"use_romaji"`
-	Version   *VersionString `json:"version,omitempty"`
+	Type      string  `json:"type,omitempty"`
+	UseRomaji bool    `json:"use_romaji"`
+	Version   *string `json:"version,omitempty"`
 }
 
-// KuromojiReadingFormTokenFilterBuilder holds KuromojiReadingFormTokenFilter struct and provides a builder API.
-type KuromojiReadingFormTokenFilterBuilder struct {
-	v *KuromojiReadingFormTokenFilter
-}
+// NewKuromojiReadingFormTokenFilter returns a KuromojiReadingFormTokenFilter.
+func NewKuromojiReadingFormTokenFilter() *KuromojiReadingFormTokenFilter {
+	r := &KuromojiReadingFormTokenFilter{}
 
-// NewKuromojiReadingFormTokenFilter provides a builder for the KuromojiReadingFormTokenFilter struct.
-func NewKuromojiReadingFormTokenFilterBuilder() *KuromojiReadingFormTokenFilterBuilder {
-	r := KuromojiReadingFormTokenFilterBuilder{
-		&KuromojiReadingFormTokenFilter{},
-	}
+	r.Type = "kuromoji_readingform"
 
-	r.v.Type = "kuromoji_readingform"
-
-	return &r
-}
-
-// Build finalize the chain and returns the KuromojiReadingFormTokenFilter struct
-func (rb *KuromojiReadingFormTokenFilterBuilder) Build() KuromojiReadingFormTokenFilter {
-	return *rb.v
-}
-
-func (rb *KuromojiReadingFormTokenFilterBuilder) UseRomaji(useromaji bool) *KuromojiReadingFormTokenFilterBuilder {
-	rb.v.UseRomaji = useromaji
-	return rb
-}
-
-func (rb *KuromojiReadingFormTokenFilterBuilder) Version(version VersionString) *KuromojiReadingFormTokenFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

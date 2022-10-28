@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -31,10 +31,10 @@ import (
 
 // DateDecayFunction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/compound.ts#L92-L94
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/compound.ts#L92-L94
 type DateDecayFunction struct {
-	DateDecayFunction map[Field]DecayPlacementDateMathDuration `json:"-"`
-	MultiValueMode    *multivaluemode.MultiValueMode           `json:"multi_value_mode,omitempty"`
+	DateDecayFunction map[string]DecayPlacementDateMathDuration `json:"-"`
+	MultiValueMode    *multivaluemode.MultiValueMode            `json:"multi_value_mode,omitempty"`
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -65,37 +65,11 @@ func (s DateDecayFunction) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// DateDecayFunctionBuilder holds DateDecayFunction struct and provides a builder API.
-type DateDecayFunctionBuilder struct {
-	v *DateDecayFunction
-}
-
-// NewDateDecayFunction provides a builder for the DateDecayFunction struct.
-func NewDateDecayFunctionBuilder() *DateDecayFunctionBuilder {
-	r := DateDecayFunctionBuilder{
-		&DateDecayFunction{
-			DateDecayFunction: make(map[Field]DecayPlacementDateMathDuration, 0),
-		},
+// NewDateDecayFunction returns a DateDecayFunction.
+func NewDateDecayFunction() *DateDecayFunction {
+	r := &DateDecayFunction{
+		DateDecayFunction: make(map[string]DecayPlacementDateMathDuration, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the DateDecayFunction struct
-func (rb *DateDecayFunctionBuilder) Build() DateDecayFunction {
-	return *rb.v
-}
-
-func (rb *DateDecayFunctionBuilder) DateDecayFunction(values map[Field]*DecayPlacementDateMathDurationBuilder) *DateDecayFunctionBuilder {
-	tmp := make(map[Field]DecayPlacementDateMathDuration, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.DateDecayFunction = tmp
-	return rb
-}
-
-func (rb *DateDecayFunctionBuilder) MultiValueMode(multivaluemode multivaluemode.MultiValueMode) *DateDecayFunctionBuilder {
-	rb.v.MultiValueMode = &multivaluemode
-	return rb
+	return r
 }

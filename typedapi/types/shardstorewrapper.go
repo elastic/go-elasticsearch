@@ -17,42 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ShardStoreWrapper type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/shard_stores/types.ts#L51-L53
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/shard_stores/types.ts#L51-L53
 type ShardStoreWrapper struct {
 	Stores []ShardStore `json:"stores"`
 }
 
-// ShardStoreWrapperBuilder holds ShardStoreWrapper struct and provides a builder API.
-type ShardStoreWrapperBuilder struct {
-	v *ShardStoreWrapper
-}
+// NewShardStoreWrapper returns a ShardStoreWrapper.
+func NewShardStoreWrapper() *ShardStoreWrapper {
+	r := &ShardStoreWrapper{}
 
-// NewShardStoreWrapper provides a builder for the ShardStoreWrapper struct.
-func NewShardStoreWrapperBuilder() *ShardStoreWrapperBuilder {
-	r := ShardStoreWrapperBuilder{
-		&ShardStoreWrapper{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ShardStoreWrapper struct
-func (rb *ShardStoreWrapperBuilder) Build() ShardStoreWrapper {
-	return *rb.v
-}
-
-func (rb *ShardStoreWrapperBuilder) Stores(stores []ShardStoreBuilder) *ShardStoreWrapperBuilder {
-	tmp := make([]ShardStore, len(stores))
-	for _, value := range stores {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Stores = tmp
-	return rb
+	return r
 }

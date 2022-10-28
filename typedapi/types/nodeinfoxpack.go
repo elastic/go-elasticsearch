@@ -17,54 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeInfoXpack type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/info/types.ts#L228-L232
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/info/types.ts#L228-L232
 type NodeInfoXpack struct {
 	License      *NodeInfoXpackLicense  `json:"license,omitempty"`
 	Notification map[string]interface{} `json:"notification,omitempty"`
 	Security     NodeInfoXpackSecurity  `json:"security"`
 }
 
-// NodeInfoXpackBuilder holds NodeInfoXpack struct and provides a builder API.
-type NodeInfoXpackBuilder struct {
-	v *NodeInfoXpack
-}
-
-// NewNodeInfoXpack provides a builder for the NodeInfoXpack struct.
-func NewNodeInfoXpackBuilder() *NodeInfoXpackBuilder {
-	r := NodeInfoXpackBuilder{
-		&NodeInfoXpack{
-			Notification: make(map[string]interface{}, 0),
-		},
+// NewNodeInfoXpack returns a NodeInfoXpack.
+func NewNodeInfoXpack() *NodeInfoXpack {
+	r := &NodeInfoXpack{
+		Notification: make(map[string]interface{}, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the NodeInfoXpack struct
-func (rb *NodeInfoXpackBuilder) Build() NodeInfoXpack {
-	return *rb.v
-}
-
-func (rb *NodeInfoXpackBuilder) License(license *NodeInfoXpackLicenseBuilder) *NodeInfoXpackBuilder {
-	v := license.Build()
-	rb.v.License = &v
-	return rb
-}
-
-func (rb *NodeInfoXpackBuilder) Notification(value map[string]interface{}) *NodeInfoXpackBuilder {
-	rb.v.Notification = value
-	return rb
-}
-
-func (rb *NodeInfoXpackBuilder) Security(security *NodeInfoXpackSecurityBuilder) *NodeInfoXpackBuilder {
-	v := security.Build()
-	rb.v.Security = v
-	return rb
+	return r
 }

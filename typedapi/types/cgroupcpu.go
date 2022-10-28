@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CgroupCpu type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/_types/Stats.ts#L193-L198
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L193-L198
 type CgroupCpu struct {
 	CfsPeriodMicros *int           `json:"cfs_period_micros,omitempty"`
 	CfsQuotaMicros  *int           `json:"cfs_quota_micros,omitempty"`
@@ -32,42 +32,9 @@ type CgroupCpu struct {
 	Stat            *CgroupCpuStat `json:"stat,omitempty"`
 }
 
-// CgroupCpuBuilder holds CgroupCpu struct and provides a builder API.
-type CgroupCpuBuilder struct {
-	v *CgroupCpu
-}
+// NewCgroupCpu returns a CgroupCpu.
+func NewCgroupCpu() *CgroupCpu {
+	r := &CgroupCpu{}
 
-// NewCgroupCpu provides a builder for the CgroupCpu struct.
-func NewCgroupCpuBuilder() *CgroupCpuBuilder {
-	r := CgroupCpuBuilder{
-		&CgroupCpu{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the CgroupCpu struct
-func (rb *CgroupCpuBuilder) Build() CgroupCpu {
-	return *rb.v
-}
-
-func (rb *CgroupCpuBuilder) CfsPeriodMicros(cfsperiodmicros int) *CgroupCpuBuilder {
-	rb.v.CfsPeriodMicros = &cfsperiodmicros
-	return rb
-}
-
-func (rb *CgroupCpuBuilder) CfsQuotaMicros(cfsquotamicros int) *CgroupCpuBuilder {
-	rb.v.CfsQuotaMicros = &cfsquotamicros
-	return rb
-}
-
-func (rb *CgroupCpuBuilder) ControlGroup(controlgroup string) *CgroupCpuBuilder {
-	rb.v.ControlGroup = &controlgroup
-	return rb
-}
-
-func (rb *CgroupCpuBuilder) Stat(stat *CgroupCpuStatBuilder) *CgroupCpuBuilder {
-	v := stat.Build()
-	rb.v.Stat = &v
-	return rb
+	return r
 }

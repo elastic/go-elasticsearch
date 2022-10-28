@@ -17,53 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Configurations type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ilm/_types/Phase.ts#L46-L50
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ilm/_types/Phase.ts#L46-L50
 type Configurations struct {
 	Forcemerge *ForceMergeConfiguration `json:"forcemerge,omitempty"`
 	Rollover   *RolloverConditions      `json:"rollover,omitempty"`
 	Shrink     *ShrinkConfiguration     `json:"shrink,omitempty"`
 }
 
-// ConfigurationsBuilder holds Configurations struct and provides a builder API.
-type ConfigurationsBuilder struct {
-	v *Configurations
-}
+// NewConfigurations returns a Configurations.
+func NewConfigurations() *Configurations {
+	r := &Configurations{}
 
-// NewConfigurations provides a builder for the Configurations struct.
-func NewConfigurationsBuilder() *ConfigurationsBuilder {
-	r := ConfigurationsBuilder{
-		&Configurations{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Configurations struct
-func (rb *ConfigurationsBuilder) Build() Configurations {
-	return *rb.v
-}
-
-func (rb *ConfigurationsBuilder) Forcemerge(forcemerge *ForceMergeConfigurationBuilder) *ConfigurationsBuilder {
-	v := forcemerge.Build()
-	rb.v.Forcemerge = &v
-	return rb
-}
-
-func (rb *ConfigurationsBuilder) Rollover(rollover *RolloverConditionsBuilder) *ConfigurationsBuilder {
-	v := rollover.Build()
-	rb.v.Rollover = &v
-	return rb
-}
-
-func (rb *ConfigurationsBuilder) Shrink(shrink *ShrinkConfigurationBuilder) *ConfigurationsBuilder {
-	v := shrink.Build()
-	rb.v.Shrink = &v
-	return rb
+	return r
 }

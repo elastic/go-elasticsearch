@@ -17,54 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // StopAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/analysis/analyzers.ts#L101-L106
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/analyzers.ts#L101-L106
 type StopAnalyzer struct {
-	Stopwords     *StopWords     `json:"stopwords,omitempty"`
-	StopwordsPath *string        `json:"stopwords_path,omitempty"`
-	Type          string         `json:"type,omitempty"`
-	Version       *VersionString `json:"version,omitempty"`
+	Stopwords     []string `json:"stopwords,omitempty"`
+	StopwordsPath *string  `json:"stopwords_path,omitempty"`
+	Type          string   `json:"type,omitempty"`
+	Version       *string  `json:"version,omitempty"`
 }
 
-// StopAnalyzerBuilder holds StopAnalyzer struct and provides a builder API.
-type StopAnalyzerBuilder struct {
-	v *StopAnalyzer
-}
+// NewStopAnalyzer returns a StopAnalyzer.
+func NewStopAnalyzer() *StopAnalyzer {
+	r := &StopAnalyzer{}
 
-// NewStopAnalyzer provides a builder for the StopAnalyzer struct.
-func NewStopAnalyzerBuilder() *StopAnalyzerBuilder {
-	r := StopAnalyzerBuilder{
-		&StopAnalyzer{},
-	}
+	r.Type = "stop"
 
-	r.v.Type = "stop"
-
-	return &r
-}
-
-// Build finalize the chain and returns the StopAnalyzer struct
-func (rb *StopAnalyzerBuilder) Build() StopAnalyzer {
-	return *rb.v
-}
-
-func (rb *StopAnalyzerBuilder) Stopwords(stopwords *StopWordsBuilder) *StopAnalyzerBuilder {
-	v := stopwords.Build()
-	rb.v.Stopwords = &v
-	return rb
-}
-
-func (rb *StopAnalyzerBuilder) StopwordsPath(stopwordspath string) *StopAnalyzerBuilder {
-	rb.v.StopwordsPath = &stopwordspath
-	return rb
-}
-
-func (rb *StopAnalyzerBuilder) Version(version VersionString) *StopAnalyzerBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

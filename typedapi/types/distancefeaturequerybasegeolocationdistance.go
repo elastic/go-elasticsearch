@@ -17,63 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DistanceFeatureQueryBaseGeoLocationDistance type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/specialized.ts#L40-L44
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/specialized.ts#L40-L44
 type DistanceFeatureQueryBaseGeoLocationDistance struct {
 	Boost      *float32    `json:"boost,omitempty"`
-	Field      Field       `json:"field"`
+	Field      string      `json:"field"`
 	Origin     GeoLocation `json:"origin"`
-	Pivot      Distance    `json:"pivot"`
+	Pivot      string      `json:"pivot"`
 	QueryName_ *string     `json:"_name,omitempty"`
 }
 
-// DistanceFeatureQueryBaseGeoLocationDistanceBuilder holds DistanceFeatureQueryBaseGeoLocationDistance struct and provides a builder API.
-type DistanceFeatureQueryBaseGeoLocationDistanceBuilder struct {
-	v *DistanceFeatureQueryBaseGeoLocationDistance
-}
+// NewDistanceFeatureQueryBaseGeoLocationDistance returns a DistanceFeatureQueryBaseGeoLocationDistance.
+func NewDistanceFeatureQueryBaseGeoLocationDistance() *DistanceFeatureQueryBaseGeoLocationDistance {
+	r := &DistanceFeatureQueryBaseGeoLocationDistance{}
 
-// NewDistanceFeatureQueryBaseGeoLocationDistance provides a builder for the DistanceFeatureQueryBaseGeoLocationDistance struct.
-func NewDistanceFeatureQueryBaseGeoLocationDistanceBuilder() *DistanceFeatureQueryBaseGeoLocationDistanceBuilder {
-	r := DistanceFeatureQueryBaseGeoLocationDistanceBuilder{
-		&DistanceFeatureQueryBaseGeoLocationDistance{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DistanceFeatureQueryBaseGeoLocationDistance struct
-func (rb *DistanceFeatureQueryBaseGeoLocationDistanceBuilder) Build() DistanceFeatureQueryBaseGeoLocationDistance {
-	return *rb.v
-}
-
-func (rb *DistanceFeatureQueryBaseGeoLocationDistanceBuilder) Boost(boost float32) *DistanceFeatureQueryBaseGeoLocationDistanceBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *DistanceFeatureQueryBaseGeoLocationDistanceBuilder) Field(field Field) *DistanceFeatureQueryBaseGeoLocationDistanceBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *DistanceFeatureQueryBaseGeoLocationDistanceBuilder) Origin(origin *GeoLocationBuilder) *DistanceFeatureQueryBaseGeoLocationDistanceBuilder {
-	v := origin.Build()
-	rb.v.Origin = v
-	return rb
-}
-
-func (rb *DistanceFeatureQueryBaseGeoLocationDistanceBuilder) Pivot(pivot Distance) *DistanceFeatureQueryBaseGeoLocationDistanceBuilder {
-	rb.v.Pivot = pivot
-	return rb
-}
-
-func (rb *DistanceFeatureQueryBaseGeoLocationDistanceBuilder) QueryName_(queryname_ string) *DistanceFeatureQueryBaseGeoLocationDistanceBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
+	return r
 }

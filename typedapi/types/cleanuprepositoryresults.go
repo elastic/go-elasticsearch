@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CleanupRepositoryResults type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/snapshot/cleanup_repository/SnapshotCleanupRepositoryResponse.ts#L29-L34
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/snapshot/cleanup_repository/SnapshotCleanupRepositoryResponse.ts#L29-L34
 type CleanupRepositoryResults struct {
 	// DeletedBlobs Number of binary large objects (blobs) removed during cleanup.
 	DeletedBlobs int64 `json:"deleted_blobs"`
@@ -32,35 +32,9 @@ type CleanupRepositoryResults struct {
 	DeletedBytes int64 `json:"deleted_bytes"`
 }
 
-// CleanupRepositoryResultsBuilder holds CleanupRepositoryResults struct and provides a builder API.
-type CleanupRepositoryResultsBuilder struct {
-	v *CleanupRepositoryResults
-}
+// NewCleanupRepositoryResults returns a CleanupRepositoryResults.
+func NewCleanupRepositoryResults() *CleanupRepositoryResults {
+	r := &CleanupRepositoryResults{}
 
-// NewCleanupRepositoryResults provides a builder for the CleanupRepositoryResults struct.
-func NewCleanupRepositoryResultsBuilder() *CleanupRepositoryResultsBuilder {
-	r := CleanupRepositoryResultsBuilder{
-		&CleanupRepositoryResults{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the CleanupRepositoryResults struct
-func (rb *CleanupRepositoryResultsBuilder) Build() CleanupRepositoryResults {
-	return *rb.v
-}
-
-// DeletedBlobs Number of binary large objects (blobs) removed during cleanup.
-
-func (rb *CleanupRepositoryResultsBuilder) DeletedBlobs(deletedblobs int64) *CleanupRepositoryResultsBuilder {
-	rb.v.DeletedBlobs = deletedblobs
-	return rb
-}
-
-// DeletedBytes Number of bytes freed by cleanup operations.
-
-func (rb *CleanupRepositoryResultsBuilder) DeletedBytes(deletedbytes int64) *CleanupRepositoryResultsBuilder {
-	rb.v.DeletedBytes = deletedbytes
-	return rb
+	return r
 }

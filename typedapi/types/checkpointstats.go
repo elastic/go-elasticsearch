@@ -17,73 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CheckpointStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/transform/get_transform_stats/types.ts#L68-L75
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/transform/get_transform_stats/types.ts#L68-L75
 type CheckpointStats struct {
-	Checkpoint           int64                `json:"checkpoint"`
-	CheckpointProgress   *TransformProgress   `json:"checkpoint_progress,omitempty"`
-	TimeUpperBound       *DateTime            `json:"time_upper_bound,omitempty"`
-	TimeUpperBoundMillis *EpochTimeUnitMillis `json:"time_upper_bound_millis,omitempty"`
-	Timestamp            *DateTime            `json:"timestamp,omitempty"`
-	TimestampMillis      *EpochTimeUnitMillis `json:"timestamp_millis,omitempty"`
+	Checkpoint           int64              `json:"checkpoint"`
+	CheckpointProgress   *TransformProgress `json:"checkpoint_progress,omitempty"`
+	TimeUpperBound       *DateTime          `json:"time_upper_bound,omitempty"`
+	TimeUpperBoundMillis *int64             `json:"time_upper_bound_millis,omitempty"`
+	Timestamp            *DateTime          `json:"timestamp,omitempty"`
+	TimestampMillis      *int64             `json:"timestamp_millis,omitempty"`
 }
 
-// CheckpointStatsBuilder holds CheckpointStats struct and provides a builder API.
-type CheckpointStatsBuilder struct {
-	v *CheckpointStats
-}
+// NewCheckpointStats returns a CheckpointStats.
+func NewCheckpointStats() *CheckpointStats {
+	r := &CheckpointStats{}
 
-// NewCheckpointStats provides a builder for the CheckpointStats struct.
-func NewCheckpointStatsBuilder() *CheckpointStatsBuilder {
-	r := CheckpointStatsBuilder{
-		&CheckpointStats{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the CheckpointStats struct
-func (rb *CheckpointStatsBuilder) Build() CheckpointStats {
-	return *rb.v
-}
-
-func (rb *CheckpointStatsBuilder) Checkpoint(checkpoint int64) *CheckpointStatsBuilder {
-	rb.v.Checkpoint = checkpoint
-	return rb
-}
-
-func (rb *CheckpointStatsBuilder) CheckpointProgress(checkpointprogress *TransformProgressBuilder) *CheckpointStatsBuilder {
-	v := checkpointprogress.Build()
-	rb.v.CheckpointProgress = &v
-	return rb
-}
-
-func (rb *CheckpointStatsBuilder) TimeUpperBound(timeupperbound *DateTimeBuilder) *CheckpointStatsBuilder {
-	v := timeupperbound.Build()
-	rb.v.TimeUpperBound = &v
-	return rb
-}
-
-func (rb *CheckpointStatsBuilder) TimeUpperBoundMillis(timeupperboundmillis *EpochTimeUnitMillisBuilder) *CheckpointStatsBuilder {
-	v := timeupperboundmillis.Build()
-	rb.v.TimeUpperBoundMillis = &v
-	return rb
-}
-
-func (rb *CheckpointStatsBuilder) Timestamp(timestamp *DateTimeBuilder) *CheckpointStatsBuilder {
-	v := timestamp.Build()
-	rb.v.Timestamp = &v
-	return rb
-}
-
-func (rb *CheckpointStatsBuilder) TimestampMillis(timestampmillis *EpochTimeUnitMillisBuilder) *CheckpointStatsBuilder {
-	v := timestampmillis.Build()
-	rb.v.TimestampMillis = &v
-	return rb
+	return r
 }

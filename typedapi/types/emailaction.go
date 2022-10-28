@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,14 +28,14 @@ import (
 
 // EmailAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/watcher/_types/Actions.ts#L252-L252
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Actions.ts#L252-L252
 type EmailAction struct {
 	Attachments map[string]EmailAttachmentContainer `json:"attachments,omitempty"`
 	Bcc         []string                            `json:"bcc,omitempty"`
 	Body        *EmailBody                          `json:"body,omitempty"`
 	Cc          []string                            `json:"cc,omitempty"`
 	From        *string                             `json:"from,omitempty"`
-	Id          *Id                                 `json:"id,omitempty"`
+	Id          *string                             `json:"id,omitempty"`
 	Priority    *emailpriority.EmailPriority        `json:"priority,omitempty"`
 	ReplyTo     []string                            `json:"reply_to,omitempty"`
 	SentDate    *DateTime                           `json:"sent_date,omitempty"`
@@ -43,84 +43,11 @@ type EmailAction struct {
 	To          []string                            `json:"to"`
 }
 
-// EmailActionBuilder holds EmailAction struct and provides a builder API.
-type EmailActionBuilder struct {
-	v *EmailAction
-}
-
-// NewEmailAction provides a builder for the EmailAction struct.
-func NewEmailActionBuilder() *EmailActionBuilder {
-	r := EmailActionBuilder{
-		&EmailAction{
-			Attachments: make(map[string]EmailAttachmentContainer, 0),
-		},
+// NewEmailAction returns a EmailAction.
+func NewEmailAction() *EmailAction {
+	r := &EmailAction{
+		Attachments: make(map[string]EmailAttachmentContainer, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the EmailAction struct
-func (rb *EmailActionBuilder) Build() EmailAction {
-	return *rb.v
-}
-
-func (rb *EmailActionBuilder) Attachments(values map[string]*EmailAttachmentContainerBuilder) *EmailActionBuilder {
-	tmp := make(map[string]EmailAttachmentContainer, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Attachments = tmp
-	return rb
-}
-
-func (rb *EmailActionBuilder) Bcc(bcc ...string) *EmailActionBuilder {
-	rb.v.Bcc = bcc
-	return rb
-}
-
-func (rb *EmailActionBuilder) Body(body *EmailBodyBuilder) *EmailActionBuilder {
-	v := body.Build()
-	rb.v.Body = &v
-	return rb
-}
-
-func (rb *EmailActionBuilder) Cc(cc ...string) *EmailActionBuilder {
-	rb.v.Cc = cc
-	return rb
-}
-
-func (rb *EmailActionBuilder) From(from string) *EmailActionBuilder {
-	rb.v.From = &from
-	return rb
-}
-
-func (rb *EmailActionBuilder) Id(id Id) *EmailActionBuilder {
-	rb.v.Id = &id
-	return rb
-}
-
-func (rb *EmailActionBuilder) Priority(priority emailpriority.EmailPriority) *EmailActionBuilder {
-	rb.v.Priority = &priority
-	return rb
-}
-
-func (rb *EmailActionBuilder) ReplyTo(reply_to ...string) *EmailActionBuilder {
-	rb.v.ReplyTo = reply_to
-	return rb
-}
-
-func (rb *EmailActionBuilder) SentDate(sentdate *DateTimeBuilder) *EmailActionBuilder {
-	v := sentdate.Build()
-	rb.v.SentDate = &v
-	return rb
-}
-
-func (rb *EmailActionBuilder) Subject(subject string) *EmailActionBuilder {
-	rb.v.Subject = subject
-	return rb
-}
-
-func (rb *EmailActionBuilder) To(to ...string) *EmailActionBuilder {
-	rb.v.To = to
-	return rb
+	return r
 }

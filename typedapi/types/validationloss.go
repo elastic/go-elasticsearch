@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ValidationLoss type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/_types/DataframeAnalytics.ts#L428-L433
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/DataframeAnalytics.ts#L428-L433
 type ValidationLoss struct {
 	// FoldValues Validation loss values for every added decision tree during the forest
 	// growing procedure.
@@ -33,36 +33,9 @@ type ValidationLoss struct {
 	LossType string `json:"loss_type"`
 }
 
-// ValidationLossBuilder holds ValidationLoss struct and provides a builder API.
-type ValidationLossBuilder struct {
-	v *ValidationLoss
-}
+// NewValidationLoss returns a ValidationLoss.
+func NewValidationLoss() *ValidationLoss {
+	r := &ValidationLoss{}
 
-// NewValidationLoss provides a builder for the ValidationLoss struct.
-func NewValidationLossBuilder() *ValidationLossBuilder {
-	r := ValidationLossBuilder{
-		&ValidationLoss{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ValidationLoss struct
-func (rb *ValidationLossBuilder) Build() ValidationLoss {
-	return *rb.v
-}
-
-// FoldValues Validation loss values for every added decision tree during the forest
-// growing procedure.
-
-func (rb *ValidationLossBuilder) FoldValues(fold_values ...string) *ValidationLossBuilder {
-	rb.v.FoldValues = fold_values
-	return rb
-}
-
-// LossType The type of the loss metric. For example, binomial_logistic.
-
-func (rb *ValidationLossBuilder) LossType(losstype string) *ValidationLossBuilder {
-	rb.v.LossType = losstype
-	return rb
+	return r
 }

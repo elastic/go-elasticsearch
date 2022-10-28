@@ -17,16 +17,17 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // GsubProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ingest/_types/Processors.ts#L229-L235
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ingest/_types/Processors.ts#L229-L235
 type GsubProcessor struct {
-	Field         Field                `json:"field"`
+	Description   *string              `json:"description,omitempty"`
+	Field         string               `json:"field"`
 	If            *string              `json:"if,omitempty"`
 	IgnoreFailure *bool                `json:"ignore_failure,omitempty"`
 	IgnoreMissing *bool                `json:"ignore_missing,omitempty"`
@@ -34,73 +35,12 @@ type GsubProcessor struct {
 	Pattern       string               `json:"pattern"`
 	Replacement   string               `json:"replacement"`
 	Tag           *string              `json:"tag,omitempty"`
-	TargetField   *Field               `json:"target_field,omitempty"`
+	TargetField   *string              `json:"target_field,omitempty"`
 }
 
-// GsubProcessorBuilder holds GsubProcessor struct and provides a builder API.
-type GsubProcessorBuilder struct {
-	v *GsubProcessor
-}
+// NewGsubProcessor returns a GsubProcessor.
+func NewGsubProcessor() *GsubProcessor {
+	r := &GsubProcessor{}
 
-// NewGsubProcessor provides a builder for the GsubProcessor struct.
-func NewGsubProcessorBuilder() *GsubProcessorBuilder {
-	r := GsubProcessorBuilder{
-		&GsubProcessor{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the GsubProcessor struct
-func (rb *GsubProcessorBuilder) Build() GsubProcessor {
-	return *rb.v
-}
-
-func (rb *GsubProcessorBuilder) Field(field Field) *GsubProcessorBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *GsubProcessorBuilder) If_(if_ string) *GsubProcessorBuilder {
-	rb.v.If = &if_
-	return rb
-}
-
-func (rb *GsubProcessorBuilder) IgnoreFailure(ignorefailure bool) *GsubProcessorBuilder {
-	rb.v.IgnoreFailure = &ignorefailure
-	return rb
-}
-
-func (rb *GsubProcessorBuilder) IgnoreMissing(ignoremissing bool) *GsubProcessorBuilder {
-	rb.v.IgnoreMissing = &ignoremissing
-	return rb
-}
-
-func (rb *GsubProcessorBuilder) OnFailure(on_failure []ProcessorContainerBuilder) *GsubProcessorBuilder {
-	tmp := make([]ProcessorContainer, len(on_failure))
-	for _, value := range on_failure {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.OnFailure = tmp
-	return rb
-}
-
-func (rb *GsubProcessorBuilder) Pattern(pattern string) *GsubProcessorBuilder {
-	rb.v.Pattern = pattern
-	return rb
-}
-
-func (rb *GsubProcessorBuilder) Replacement(replacement string) *GsubProcessorBuilder {
-	rb.v.Replacement = replacement
-	return rb
-}
-
-func (rb *GsubProcessorBuilder) Tag(tag string) *GsubProcessorBuilder {
-	rb.v.Tag = &tag
-	return rb
-}
-
-func (rb *GsubProcessorBuilder) TargetField(targetfield Field) *GsubProcessorBuilder {
-	rb.v.TargetField = &targetfield
-	return rb
+	return r
 }

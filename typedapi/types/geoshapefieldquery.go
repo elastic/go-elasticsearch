@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,45 +28,16 @@ import (
 
 // GeoShapeFieldQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/geo.ts#L78-L82
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/geo.ts#L78-L82
 type GeoShapeFieldQuery struct {
 	IndexedShape *FieldLookup                       `json:"indexed_shape,omitempty"`
 	Relation     *geoshaperelation.GeoShapeRelation `json:"relation,omitempty"`
-	Shape        *GeoShape                          `json:"shape,omitempty"`
+	Shape        interface{}                        `json:"shape,omitempty"`
 }
 
-// GeoShapeFieldQueryBuilder holds GeoShapeFieldQuery struct and provides a builder API.
-type GeoShapeFieldQueryBuilder struct {
-	v *GeoShapeFieldQuery
-}
+// NewGeoShapeFieldQuery returns a GeoShapeFieldQuery.
+func NewGeoShapeFieldQuery() *GeoShapeFieldQuery {
+	r := &GeoShapeFieldQuery{}
 
-// NewGeoShapeFieldQuery provides a builder for the GeoShapeFieldQuery struct.
-func NewGeoShapeFieldQueryBuilder() *GeoShapeFieldQueryBuilder {
-	r := GeoShapeFieldQueryBuilder{
-		&GeoShapeFieldQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the GeoShapeFieldQuery struct
-func (rb *GeoShapeFieldQueryBuilder) Build() GeoShapeFieldQuery {
-	return *rb.v
-}
-
-func (rb *GeoShapeFieldQueryBuilder) IndexedShape(indexedshape *FieldLookupBuilder) *GeoShapeFieldQueryBuilder {
-	v := indexedshape.Build()
-	rb.v.IndexedShape = &v
-	return rb
-}
-
-func (rb *GeoShapeFieldQueryBuilder) Relation(relation geoshaperelation.GeoShapeRelation) *GeoShapeFieldQueryBuilder {
-	rb.v.Relation = &relation
-	return rb
-}
-
-func (rb *GeoShapeFieldQueryBuilder) Shape(shape *GeoShapeBuilder) *GeoShapeFieldQueryBuilder {
-	v := shape.Build()
-	rb.v.Shape = &v
-	return rb
+	return r
 }

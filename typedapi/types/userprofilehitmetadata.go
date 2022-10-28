@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // UserProfileHitMetadata type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/security/_types/UserProfile.ts#L28-L31
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/_types/UserProfile.ts#L28-L31
 type UserProfileHitMetadata struct {
-	PrimaryTerm_ int64          `json:"_primary_term"`
-	SeqNo_       SequenceNumber `json:"_seq_no"`
+	PrimaryTerm_ int64 `json:"_primary_term"`
+	SeqNo_       int64 `json:"_seq_no"`
 }
 
-// UserProfileHitMetadataBuilder holds UserProfileHitMetadata struct and provides a builder API.
-type UserProfileHitMetadataBuilder struct {
-	v *UserProfileHitMetadata
-}
+// NewUserProfileHitMetadata returns a UserProfileHitMetadata.
+func NewUserProfileHitMetadata() *UserProfileHitMetadata {
+	r := &UserProfileHitMetadata{}
 
-// NewUserProfileHitMetadata provides a builder for the UserProfileHitMetadata struct.
-func NewUserProfileHitMetadataBuilder() *UserProfileHitMetadataBuilder {
-	r := UserProfileHitMetadataBuilder{
-		&UserProfileHitMetadata{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the UserProfileHitMetadata struct
-func (rb *UserProfileHitMetadataBuilder) Build() UserProfileHitMetadata {
-	return *rb.v
-}
-
-func (rb *UserProfileHitMetadataBuilder) PrimaryTerm_(primaryterm_ int64) *UserProfileHitMetadataBuilder {
-	rb.v.PrimaryTerm_ = primaryterm_
-	return rb
-}
-
-func (rb *UserProfileHitMetadataBuilder) SeqNo_(seqno_ SequenceNumber) *UserProfileHitMetadataBuilder {
-	rb.v.SeqNo_ = seqno_
-	return rb
+	return r
 }

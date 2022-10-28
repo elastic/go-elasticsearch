@@ -17,56 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CommandCancelAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/cluster/reroute/types.ts#L45-L50
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/reroute/types.ts#L45-L50
 type CommandCancelAction struct {
-	AllowPrimary *bool     `json:"allow_primary,omitempty"`
-	Index        IndexName `json:"index"`
-	Node         string    `json:"node"`
-	Shard        int       `json:"shard"`
+	AllowPrimary *bool  `json:"allow_primary,omitempty"`
+	Index        string `json:"index"`
+	Node         string `json:"node"`
+	Shard        int    `json:"shard"`
 }
 
-// CommandCancelActionBuilder holds CommandCancelAction struct and provides a builder API.
-type CommandCancelActionBuilder struct {
-	v *CommandCancelAction
-}
+// NewCommandCancelAction returns a CommandCancelAction.
+func NewCommandCancelAction() *CommandCancelAction {
+	r := &CommandCancelAction{}
 
-// NewCommandCancelAction provides a builder for the CommandCancelAction struct.
-func NewCommandCancelActionBuilder() *CommandCancelActionBuilder {
-	r := CommandCancelActionBuilder{
-		&CommandCancelAction{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the CommandCancelAction struct
-func (rb *CommandCancelActionBuilder) Build() CommandCancelAction {
-	return *rb.v
-}
-
-func (rb *CommandCancelActionBuilder) AllowPrimary(allowprimary bool) *CommandCancelActionBuilder {
-	rb.v.AllowPrimary = &allowprimary
-	return rb
-}
-
-func (rb *CommandCancelActionBuilder) Index(index IndexName) *CommandCancelActionBuilder {
-	rb.v.Index = index
-	return rb
-}
-
-func (rb *CommandCancelActionBuilder) Node(node string) *CommandCancelActionBuilder {
-	rb.v.Node = node
-	return rb
-}
-
-func (rb *CommandCancelActionBuilder) Shard(shard int) *CommandCancelActionBuilder {
-	rb.v.Shard = shard
-	return rb
+	return r
 }

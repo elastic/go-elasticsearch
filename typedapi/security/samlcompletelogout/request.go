@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package samlcompletelogout
@@ -25,48 +25,36 @@ package samlcompletelogout
 import (
 	"encoding/json"
 	"fmt"
-
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // Request holds the request body struct for the package samlcompletelogout
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/security/saml_complete_logout/Request.ts#L23-L40
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/saml_complete_logout/Request.ts#L23-L40
 type Request struct {
 
 	// Content If the SAML IdP sends the logout response with the HTTP-Post binding, this
 	// field must be set to the value of the SAMLResponse form parameter from the
 	// logout response.
 	Content *string `json:"content,omitempty"`
-
 	// Ids A json array with all the valid SAML Request Ids that the caller of the API
 	// has for the current user.
-	Ids types.Ids `json:"ids"`
-
+	Ids []string `json:"ids"`
 	// QueryString If the SAML IdP sends the logout response with the HTTP-Redirect binding,
 	// this field must be set to the query string of the redirect URI.
 	QueryString *string `json:"query_string,omitempty"`
-
 	// Realm The name of the SAML realm in Elasticsearch for which the configuration is
 	// used to verify the logout response.
 	Realm string `json:"realm"`
 }
 
-// RequestBuilder is the builder API for the samlcompletelogout.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -75,30 +63,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) Content(content string) *RequestBuilder {
-	rb.v.Content = &content
-	return rb
-}
-
-func (rb *RequestBuilder) Ids(ids *types.IdsBuilder) *RequestBuilder {
-	v := ids.Build()
-	rb.v.Ids = v
-	return rb
-}
-
-func (rb *RequestBuilder) QueryString(querystring string) *RequestBuilder {
-	rb.v.QueryString = &querystring
-	return rb
-}
-
-func (rb *RequestBuilder) Realm(realm string) *RequestBuilder {
-	rb.v.Realm = realm
-	return rb
 }

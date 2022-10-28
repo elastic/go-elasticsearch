@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TotalUserProfiles type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/security/suggest_user_profiles/Response.ts#L24-L27
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/suggest_user_profiles/Response.ts#L24-L27
 type TotalUserProfiles struct {
-	Relation RelationName `json:"relation"`
-	Value    int64        `json:"value"`
+	Relation string `json:"relation"`
+	Value    int64  `json:"value"`
 }
 
-// TotalUserProfilesBuilder holds TotalUserProfiles struct and provides a builder API.
-type TotalUserProfilesBuilder struct {
-	v *TotalUserProfiles
-}
+// NewTotalUserProfiles returns a TotalUserProfiles.
+func NewTotalUserProfiles() *TotalUserProfiles {
+	r := &TotalUserProfiles{}
 
-// NewTotalUserProfiles provides a builder for the TotalUserProfiles struct.
-func NewTotalUserProfilesBuilder() *TotalUserProfilesBuilder {
-	r := TotalUserProfilesBuilder{
-		&TotalUserProfiles{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TotalUserProfiles struct
-func (rb *TotalUserProfilesBuilder) Build() TotalUserProfiles {
-	return *rb.v
-}
-
-func (rb *TotalUserProfilesBuilder) Relation(relation RelationName) *TotalUserProfilesBuilder {
-	rb.v.Relation = relation
-	return rb
-}
-
-func (rb *TotalUserProfilesBuilder) Value(value int64) *TotalUserProfilesBuilder {
-	rb.v.Value = value
-	return rb
+	return r
 }

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // JobUsage type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/xpack/usage/types.ts#L346-L352
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L346-L352
 type JobUsage struct {
 	Count     int              `json:"count"`
 	CreatedBy map[string]int64 `json:"created_by"`
@@ -33,51 +33,11 @@ type JobUsage struct {
 	ModelSize JobStatistics    `json:"model_size"`
 }
 
-// JobUsageBuilder holds JobUsage struct and provides a builder API.
-type JobUsageBuilder struct {
-	v *JobUsage
-}
-
-// NewJobUsage provides a builder for the JobUsage struct.
-func NewJobUsageBuilder() *JobUsageBuilder {
-	r := JobUsageBuilder{
-		&JobUsage{
-			CreatedBy: make(map[string]int64, 0),
-		},
+// NewJobUsage returns a JobUsage.
+func NewJobUsage() *JobUsage {
+	r := &JobUsage{
+		CreatedBy: make(map[string]int64, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the JobUsage struct
-func (rb *JobUsageBuilder) Build() JobUsage {
-	return *rb.v
-}
-
-func (rb *JobUsageBuilder) Count(count int) *JobUsageBuilder {
-	rb.v.Count = count
-	return rb
-}
-
-func (rb *JobUsageBuilder) CreatedBy(value map[string]int64) *JobUsageBuilder {
-	rb.v.CreatedBy = value
-	return rb
-}
-
-func (rb *JobUsageBuilder) Detectors(detectors *JobStatisticsBuilder) *JobUsageBuilder {
-	v := detectors.Build()
-	rb.v.Detectors = v
-	return rb
-}
-
-func (rb *JobUsageBuilder) Forecasts(forecasts *MlJobForecastsBuilder) *JobUsageBuilder {
-	v := forecasts.Build()
-	rb.v.Forecasts = v
-	return rb
-}
-
-func (rb *JobUsageBuilder) ModelSize(modelsize *JobStatisticsBuilder) *JobUsageBuilder {
-	v := modelsize.Build()
-	rb.v.ModelSize = v
-	return rb
+	return r
 }

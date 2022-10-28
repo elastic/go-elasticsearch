@@ -17,46 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DateRangeAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L527-L532
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L542-L547
 type DateRangeAggregate struct {
-	Buckets BucketsRangeBucket `json:"buckets"`
-	Meta    *Metadata          `json:"meta,omitempty"`
+	Buckets BucketsRangeBucket     `json:"buckets"`
+	Meta    map[string]interface{} `json:"meta,omitempty"`
 }
 
-// DateRangeAggregateBuilder holds DateRangeAggregate struct and provides a builder API.
-type DateRangeAggregateBuilder struct {
-	v *DateRangeAggregate
-}
+// NewDateRangeAggregate returns a DateRangeAggregate.
+func NewDateRangeAggregate() *DateRangeAggregate {
+	r := &DateRangeAggregate{}
 
-// NewDateRangeAggregate provides a builder for the DateRangeAggregate struct.
-func NewDateRangeAggregateBuilder() *DateRangeAggregateBuilder {
-	r := DateRangeAggregateBuilder{
-		&DateRangeAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DateRangeAggregate struct
-func (rb *DateRangeAggregateBuilder) Build() DateRangeAggregate {
-	return *rb.v
-}
-
-func (rb *DateRangeAggregateBuilder) Buckets(buckets *BucketsRangeBucketBuilder) *DateRangeAggregateBuilder {
-	v := buckets.Build()
-	rb.v.Buckets = v
-	return rb
-}
-
-func (rb *DateRangeAggregateBuilder) Meta(meta *MetadataBuilder) *DateRangeAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
+	return r
 }

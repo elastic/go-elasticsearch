@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,37 +28,15 @@ import (
 
 // TimeOfWeek type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/watcher/_types/Schedule.ts#L120-L123
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Schedule.ts#L120-L123
 type TimeOfWeek struct {
 	At []string  `json:"at"`
 	On []day.Day `json:"on"`
 }
 
-// TimeOfWeekBuilder holds TimeOfWeek struct and provides a builder API.
-type TimeOfWeekBuilder struct {
-	v *TimeOfWeek
-}
+// NewTimeOfWeek returns a TimeOfWeek.
+func NewTimeOfWeek() *TimeOfWeek {
+	r := &TimeOfWeek{}
 
-// NewTimeOfWeek provides a builder for the TimeOfWeek struct.
-func NewTimeOfWeekBuilder() *TimeOfWeekBuilder {
-	r := TimeOfWeekBuilder{
-		&TimeOfWeek{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TimeOfWeek struct
-func (rb *TimeOfWeekBuilder) Build() TimeOfWeek {
-	return *rb.v
-}
-
-func (rb *TimeOfWeekBuilder) At(at ...string) *TimeOfWeekBuilder {
-	rb.v.At = at
-	return rb
-}
-
-func (rb *TimeOfWeekBuilder) On(on ...day.Day) *TimeOfWeekBuilder {
-	rb.v.On = on
-	return rb
+	return r
 }

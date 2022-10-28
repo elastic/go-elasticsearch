@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TrainedModelTree type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/put_trained_model/types.ts#L74-L79
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/put_trained_model/types.ts#L74-L79
 type TrainedModelTree struct {
 	ClassificationLabels []string               `json:"classification_labels,omitempty"`
 	FeatureNames         []string               `json:"feature_names"`
@@ -32,45 +32,9 @@ type TrainedModelTree struct {
 	TreeStructure        []TrainedModelTreeNode `json:"tree_structure"`
 }
 
-// TrainedModelTreeBuilder holds TrainedModelTree struct and provides a builder API.
-type TrainedModelTreeBuilder struct {
-	v *TrainedModelTree
-}
+// NewTrainedModelTree returns a TrainedModelTree.
+func NewTrainedModelTree() *TrainedModelTree {
+	r := &TrainedModelTree{}
 
-// NewTrainedModelTree provides a builder for the TrainedModelTree struct.
-func NewTrainedModelTreeBuilder() *TrainedModelTreeBuilder {
-	r := TrainedModelTreeBuilder{
-		&TrainedModelTree{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TrainedModelTree struct
-func (rb *TrainedModelTreeBuilder) Build() TrainedModelTree {
-	return *rb.v
-}
-
-func (rb *TrainedModelTreeBuilder) ClassificationLabels(classification_labels ...string) *TrainedModelTreeBuilder {
-	rb.v.ClassificationLabels = classification_labels
-	return rb
-}
-
-func (rb *TrainedModelTreeBuilder) FeatureNames(feature_names ...string) *TrainedModelTreeBuilder {
-	rb.v.FeatureNames = feature_names
-	return rb
-}
-
-func (rb *TrainedModelTreeBuilder) TargetType(targettype string) *TrainedModelTreeBuilder {
-	rb.v.TargetType = &targettype
-	return rb
-}
-
-func (rb *TrainedModelTreeBuilder) TreeStructure(tree_structure []TrainedModelTreeNodeBuilder) *TrainedModelTreeBuilder {
-	tmp := make([]TrainedModelTreeNode, len(tree_structure))
-	for _, value := range tree_structure {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.TreeStructure = tmp
-	return rb
+	return r
 }

@@ -17,44 +17,15 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
-import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/sortorder"
-)
-
 // AggregateOrder holds the union for the following types:
 //
-//	map[Field]sortorder.SortOrder
-//	[]map[Field]sortorder.SortOrder
+//	map[string]sortorder.SortOrder
+//	[]map[string]sortorder.SortOrder
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/bucket.ts#L402-L404
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/bucket.ts#L402-L404
 type AggregateOrder interface{}
-
-// AggregateOrderBuilder holds AggregateOrder struct and provides a builder API.
-type AggregateOrderBuilder struct {
-	v AggregateOrder
-}
-
-// NewAggregateOrder provides a builder for the AggregateOrder struct.
-func NewAggregateOrderBuilder() *AggregateOrderBuilder {
-	return &AggregateOrderBuilder{}
-}
-
-// Build finalize the chain and returns the AggregateOrder struct
-func (u *AggregateOrderBuilder) Build() AggregateOrder {
-	return u.v
-}
-
-func (u *AggregateOrderBuilder) Map(value map[Field]sortorder.SortOrder) *AggregateOrderBuilder {
-	u.v = value
-	return u
-}
-
-func (u *AggregateOrderBuilder) SortOrders(value ...map[Field]sortorder.SortOrder) *AggregateOrderBuilder {
-	u.v = value
-	return u
-}

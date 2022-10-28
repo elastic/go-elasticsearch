@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,34 +28,17 @@ import (
 
 // SettingsSimilarityDfi type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/_types/IndexSettings.ts#L187-L190
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/IndexSettings.ts#L187-L190
 type SettingsSimilarityDfi struct {
 	IndependenceMeasure dfiindependencemeasure.DFIIndependenceMeasure `json:"independence_measure"`
 	Type                string                                        `json:"type,omitempty"`
 }
 
-// SettingsSimilarityDfiBuilder holds SettingsSimilarityDfi struct and provides a builder API.
-type SettingsSimilarityDfiBuilder struct {
-	v *SettingsSimilarityDfi
-}
+// NewSettingsSimilarityDfi returns a SettingsSimilarityDfi.
+func NewSettingsSimilarityDfi() *SettingsSimilarityDfi {
+	r := &SettingsSimilarityDfi{}
 
-// NewSettingsSimilarityDfi provides a builder for the SettingsSimilarityDfi struct.
-func NewSettingsSimilarityDfiBuilder() *SettingsSimilarityDfiBuilder {
-	r := SettingsSimilarityDfiBuilder{
-		&SettingsSimilarityDfi{},
-	}
+	r.Type = "DFI"
 
-	r.v.Type = "DFI"
-
-	return &r
-}
-
-// Build finalize the chain and returns the SettingsSimilarityDfi struct
-func (rb *SettingsSimilarityDfiBuilder) Build() SettingsSimilarityDfi {
-	return *rb.v
-}
-
-func (rb *SettingsSimilarityDfiBuilder) IndependenceMeasure(independencemeasure dfiindependencemeasure.DFIIndependenceMeasure) *SettingsSimilarityDfiBuilder {
-	rb.v.IndependenceMeasure = independencemeasure
-	return rb
+	return r
 }

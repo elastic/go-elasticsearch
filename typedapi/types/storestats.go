@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // StoreStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/Stats.ts#L233-L240
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Stats.ts#L233-L240
 type StoreStats struct {
 	Reserved                *ByteSize `json:"reserved,omitempty"`
 	ReservedInBytes         int       `json:"reserved_in_bytes"`
@@ -34,54 +34,9 @@ type StoreStats struct {
 	TotalDataSetSizeInBytes *int      `json:"total_data_set_size_in_bytes,omitempty"`
 }
 
-// StoreStatsBuilder holds StoreStats struct and provides a builder API.
-type StoreStatsBuilder struct {
-	v *StoreStats
-}
+// NewStoreStats returns a StoreStats.
+func NewStoreStats() *StoreStats {
+	r := &StoreStats{}
 
-// NewStoreStats provides a builder for the StoreStats struct.
-func NewStoreStatsBuilder() *StoreStatsBuilder {
-	r := StoreStatsBuilder{
-		&StoreStats{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the StoreStats struct
-func (rb *StoreStatsBuilder) Build() StoreStats {
-	return *rb.v
-}
-
-func (rb *StoreStatsBuilder) Reserved(reserved *ByteSizeBuilder) *StoreStatsBuilder {
-	v := reserved.Build()
-	rb.v.Reserved = &v
-	return rb
-}
-
-func (rb *StoreStatsBuilder) ReservedInBytes(reservedinbytes int) *StoreStatsBuilder {
-	rb.v.ReservedInBytes = reservedinbytes
-	return rb
-}
-
-func (rb *StoreStatsBuilder) Size(size *ByteSizeBuilder) *StoreStatsBuilder {
-	v := size.Build()
-	rb.v.Size = &v
-	return rb
-}
-
-func (rb *StoreStatsBuilder) SizeInBytes(sizeinbytes int) *StoreStatsBuilder {
-	rb.v.SizeInBytes = sizeinbytes
-	return rb
-}
-
-func (rb *StoreStatsBuilder) TotalDataSetSize(totaldatasetsize *ByteSizeBuilder) *StoreStatsBuilder {
-	v := totaldatasetsize.Build()
-	rb.v.TotalDataSetSize = &v
-	return rb
-}
-
-func (rb *StoreStatsBuilder) TotalDataSetSizeInBytes(totaldatasetsizeinbytes int) *StoreStatsBuilder {
-	rb.v.TotalDataSetSizeInBytes = &totaldatasetsizeinbytes
-	return rb
+	return r
 }

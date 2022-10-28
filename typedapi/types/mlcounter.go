@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MlCounter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/xpack/usage/types.ts#L240-L242
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L240-L242
 type MlCounter struct {
 	Count int64 `json:"count"`
 }
 
-// MlCounterBuilder holds MlCounter struct and provides a builder API.
-type MlCounterBuilder struct {
-	v *MlCounter
-}
+// NewMlCounter returns a MlCounter.
+func NewMlCounter() *MlCounter {
+	r := &MlCounter{}
 
-// NewMlCounter provides a builder for the MlCounter struct.
-func NewMlCounterBuilder() *MlCounterBuilder {
-	r := MlCounterBuilder{
-		&MlCounter{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MlCounter struct
-func (rb *MlCounterBuilder) Build() MlCounter {
-	return *rb.v
-}
-
-func (rb *MlCounterBuilder) Count(count int64) *MlCounterBuilder {
-	rb.v.Count = count
-	return rb
+	return r
 }

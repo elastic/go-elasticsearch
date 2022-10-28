@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SlicedScroll type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/SlicedScroll.ts#L23-L27
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/SlicedScroll.ts#L23-L27
 type SlicedScroll struct {
-	Field *Field `json:"field,omitempty"`
-	Id    Id     `json:"id"`
-	Max   int    `json:"max"`
+	Field *string `json:"field,omitempty"`
+	Id    string  `json:"id"`
+	Max   int     `json:"max"`
 }
 
-// SlicedScrollBuilder holds SlicedScroll struct and provides a builder API.
-type SlicedScrollBuilder struct {
-	v *SlicedScroll
-}
+// NewSlicedScroll returns a SlicedScroll.
+func NewSlicedScroll() *SlicedScroll {
+	r := &SlicedScroll{}
 
-// NewSlicedScroll provides a builder for the SlicedScroll struct.
-func NewSlicedScrollBuilder() *SlicedScrollBuilder {
-	r := SlicedScrollBuilder{
-		&SlicedScroll{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SlicedScroll struct
-func (rb *SlicedScrollBuilder) Build() SlicedScroll {
-	return *rb.v
-}
-
-func (rb *SlicedScrollBuilder) Field(field Field) *SlicedScrollBuilder {
-	rb.v.Field = &field
-	return rb
-}
-
-func (rb *SlicedScrollBuilder) Id(id Id) *SlicedScrollBuilder {
-	rb.v.Id = id
-	return rb
-}
-
-func (rb *SlicedScrollBuilder) Max(max int) *SlicedScrollBuilder {
-	rb.v.Max = max
-	return rb
+	return r
 }

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Retention type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/slm/_types/SnapshotLifecycle.ts#L84-L97
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/slm/_types/SnapshotLifecycle.ts#L84-L97
 type Retention struct {
 	// ExpireAfter Time period after which a snapshot is considered expired and eligible for
 	// deletion. SLM deletes expired snapshots based on the slm.retention_schedule.
@@ -37,46 +37,9 @@ type Retention struct {
 	MinCount int `json:"min_count"`
 }
 
-// RetentionBuilder holds Retention struct and provides a builder API.
-type RetentionBuilder struct {
-	v *Retention
-}
+// NewRetention returns a Retention.
+func NewRetention() *Retention {
+	r := &Retention{}
 
-// NewRetention provides a builder for the Retention struct.
-func NewRetentionBuilder() *RetentionBuilder {
-	r := RetentionBuilder{
-		&Retention{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Retention struct
-func (rb *RetentionBuilder) Build() Retention {
-	return *rb.v
-}
-
-// ExpireAfter Time period after which a snapshot is considered expired and eligible for
-// deletion. SLM deletes expired snapshots based on the slm.retention_schedule.
-
-func (rb *RetentionBuilder) ExpireAfter(expireafter *DurationBuilder) *RetentionBuilder {
-	v := expireafter.Build()
-	rb.v.ExpireAfter = v
-	return rb
-}
-
-// MaxCount Maximum number of snapshots to retain, even if the snapshots have not yet
-// expired. If the number of snapshots in the repository exceeds this limit, the
-// policy retains the most recent snapshots and deletes older snapshots.
-
-func (rb *RetentionBuilder) MaxCount(maxcount int) *RetentionBuilder {
-	rb.v.MaxCount = maxcount
-	return rb
-}
-
-// MinCount Minimum number of snapshots to retain, even if the snapshots have expired.
-
-func (rb *RetentionBuilder) MinCount(mincount int) *RetentionBuilder {
-	rb.v.MinCount = mincount
-	return rb
+	return r
 }

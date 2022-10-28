@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ClusterNodeCount type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/cluster/stats/types.ts#L176-L192
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/stats/types.ts#L176-L192
 type ClusterNodeCount struct {
 	CoordinatingOnly    int  `json:"coordinating_only"`
 	Data                int  `json:"data"`
@@ -42,91 +42,9 @@ type ClusterNodeCount struct {
 	VotingOnly          int  `json:"voting_only"`
 }
 
-// ClusterNodeCountBuilder holds ClusterNodeCount struct and provides a builder API.
-type ClusterNodeCountBuilder struct {
-	v *ClusterNodeCount
-}
+// NewClusterNodeCount returns a ClusterNodeCount.
+func NewClusterNodeCount() *ClusterNodeCount {
+	r := &ClusterNodeCount{}
 
-// NewClusterNodeCount provides a builder for the ClusterNodeCount struct.
-func NewClusterNodeCountBuilder() *ClusterNodeCountBuilder {
-	r := ClusterNodeCountBuilder{
-		&ClusterNodeCount{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ClusterNodeCount struct
-func (rb *ClusterNodeCountBuilder) Build() ClusterNodeCount {
-	return *rb.v
-}
-
-func (rb *ClusterNodeCountBuilder) CoordinatingOnly(coordinatingonly int) *ClusterNodeCountBuilder {
-	rb.v.CoordinatingOnly = coordinatingonly
-	return rb
-}
-
-func (rb *ClusterNodeCountBuilder) Data(data int) *ClusterNodeCountBuilder {
-	rb.v.Data = data
-	return rb
-}
-
-func (rb *ClusterNodeCountBuilder) DataCold(datacold int) *ClusterNodeCountBuilder {
-	rb.v.DataCold = datacold
-	return rb
-}
-
-func (rb *ClusterNodeCountBuilder) DataContent(datacontent int) *ClusterNodeCountBuilder {
-	rb.v.DataContent = datacontent
-	return rb
-}
-
-func (rb *ClusterNodeCountBuilder) DataFrozen(datafrozen int) *ClusterNodeCountBuilder {
-	rb.v.DataFrozen = &datafrozen
-	return rb
-}
-
-func (rb *ClusterNodeCountBuilder) DataHot(datahot int) *ClusterNodeCountBuilder {
-	rb.v.DataHot = datahot
-	return rb
-}
-
-func (rb *ClusterNodeCountBuilder) DataWarm(datawarm int) *ClusterNodeCountBuilder {
-	rb.v.DataWarm = datawarm
-	return rb
-}
-
-func (rb *ClusterNodeCountBuilder) Ingest(ingest int) *ClusterNodeCountBuilder {
-	rb.v.Ingest = ingest
-	return rb
-}
-
-func (rb *ClusterNodeCountBuilder) Master(master int) *ClusterNodeCountBuilder {
-	rb.v.Master = master
-	return rb
-}
-
-func (rb *ClusterNodeCountBuilder) Ml(ml int) *ClusterNodeCountBuilder {
-	rb.v.Ml = ml
-	return rb
-}
-
-func (rb *ClusterNodeCountBuilder) RemoteClusterClient(remoteclusterclient int) *ClusterNodeCountBuilder {
-	rb.v.RemoteClusterClient = remoteclusterclient
-	return rb
-}
-
-func (rb *ClusterNodeCountBuilder) Total(total int) *ClusterNodeCountBuilder {
-	rb.v.Total = total
-	return rb
-}
-
-func (rb *ClusterNodeCountBuilder) Transform(transform int) *ClusterNodeCountBuilder {
-	rb.v.Transform = transform
-	return rb
-}
-
-func (rb *ClusterNodeCountBuilder) VotingOnly(votingonly int) *ClusterNodeCountBuilder {
-	rb.v.VotingOnly = votingonly
-	return rb
+	return r
 }

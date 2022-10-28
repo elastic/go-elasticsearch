@@ -17,53 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CompositeAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L602-L607
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L617-L622
 type CompositeAggregate struct {
-	AfterKey *CompositeAggregateKey `json:"after_key,omitempty"`
+	AfterKey map[string]FieldValue  `json:"after_key,omitempty"`
 	Buckets  BucketsCompositeBucket `json:"buckets"`
-	Meta     *Metadata              `json:"meta,omitempty"`
+	Meta     map[string]interface{} `json:"meta,omitempty"`
 }
 
-// CompositeAggregateBuilder holds CompositeAggregate struct and provides a builder API.
-type CompositeAggregateBuilder struct {
-	v *CompositeAggregate
-}
+// NewCompositeAggregate returns a CompositeAggregate.
+func NewCompositeAggregate() *CompositeAggregate {
+	r := &CompositeAggregate{}
 
-// NewCompositeAggregate provides a builder for the CompositeAggregate struct.
-func NewCompositeAggregateBuilder() *CompositeAggregateBuilder {
-	r := CompositeAggregateBuilder{
-		&CompositeAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the CompositeAggregate struct
-func (rb *CompositeAggregateBuilder) Build() CompositeAggregate {
-	return *rb.v
-}
-
-func (rb *CompositeAggregateBuilder) AfterKey(afterkey *CompositeAggregateKeyBuilder) *CompositeAggregateBuilder {
-	v := afterkey.Build()
-	rb.v.AfterKey = &v
-	return rb
-}
-
-func (rb *CompositeAggregateBuilder) Buckets(buckets *BucketsCompositeBucketBuilder) *CompositeAggregateBuilder {
-	v := buckets.Build()
-	rb.v.Buckets = v
-	return rb
-}
-
-func (rb *CompositeAggregateBuilder) Meta(meta *MetadataBuilder) *CompositeAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
+	return r
 }

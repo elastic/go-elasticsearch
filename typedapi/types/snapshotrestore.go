@@ -17,51 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SnapshotRestore type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/snapshot/restore/SnapshotRestoreResponse.ts#L27-L31
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/snapshot/restore/SnapshotRestoreResponse.ts#L27-L31
 type SnapshotRestore struct {
-	Indices  []IndexName     `json:"indices"`
+	Indices  []string        `json:"indices"`
 	Shards   ShardStatistics `json:"shards"`
 	Snapshot string          `json:"snapshot"`
 }
 
-// SnapshotRestoreBuilder holds SnapshotRestore struct and provides a builder API.
-type SnapshotRestoreBuilder struct {
-	v *SnapshotRestore
-}
+// NewSnapshotRestore returns a SnapshotRestore.
+func NewSnapshotRestore() *SnapshotRestore {
+	r := &SnapshotRestore{}
 
-// NewSnapshotRestore provides a builder for the SnapshotRestore struct.
-func NewSnapshotRestoreBuilder() *SnapshotRestoreBuilder {
-	r := SnapshotRestoreBuilder{
-		&SnapshotRestore{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SnapshotRestore struct
-func (rb *SnapshotRestoreBuilder) Build() SnapshotRestore {
-	return *rb.v
-}
-
-func (rb *SnapshotRestoreBuilder) Indices(indices ...IndexName) *SnapshotRestoreBuilder {
-	rb.v.Indices = indices
-	return rb
-}
-
-func (rb *SnapshotRestoreBuilder) Shards(shards *ShardStatisticsBuilder) *SnapshotRestoreBuilder {
-	v := shards.Build()
-	rb.v.Shards = v
-	return rb
-}
-
-func (rb *SnapshotRestoreBuilder) Snapshot(snapshot string) *SnapshotRestoreBuilder {
-	rb.v.Snapshot = snapshot
-	return rb
+	return r
 }

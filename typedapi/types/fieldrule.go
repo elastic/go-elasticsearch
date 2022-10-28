@@ -17,65 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FieldRule type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/security/_types/RoleMappingRule.ts#L33-L42
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/_types/RoleMappingRule.ts#L33-L42
 type FieldRule struct {
-	Dn       *Names      `json:"dn,omitempty"`
-	Groups   *Names      `json:"groups,omitempty"`
-	Metadata interface{} `json:"metadata,omitempty"`
-	Realm    *Realm      `json:"realm,omitempty"`
-	Username *Name       `json:"username,omitempty"`
+	Dn       []string       `json:"dn,omitempty"`
+	Groups   []string       `json:"groups,omitempty"`
+	Metadata interface{}    `json:"metadata,omitempty"`
+	Realm    *SecurityRealm `json:"realm,omitempty"`
+	Username *string        `json:"username,omitempty"`
 }
 
-// FieldRuleBuilder holds FieldRule struct and provides a builder API.
-type FieldRuleBuilder struct {
-	v *FieldRule
-}
+// NewFieldRule returns a FieldRule.
+func NewFieldRule() *FieldRule {
+	r := &FieldRule{}
 
-// NewFieldRule provides a builder for the FieldRule struct.
-func NewFieldRuleBuilder() *FieldRuleBuilder {
-	r := FieldRuleBuilder{
-		&FieldRule{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FieldRule struct
-func (rb *FieldRuleBuilder) Build() FieldRule {
-	return *rb.v
-}
-
-func (rb *FieldRuleBuilder) Dn(dn *NamesBuilder) *FieldRuleBuilder {
-	v := dn.Build()
-	rb.v.Dn = &v
-	return rb
-}
-
-func (rb *FieldRuleBuilder) Groups(groups *NamesBuilder) *FieldRuleBuilder {
-	v := groups.Build()
-	rb.v.Groups = &v
-	return rb
-}
-
-func (rb *FieldRuleBuilder) Metadata(metadata interface{}) *FieldRuleBuilder {
-	rb.v.Metadata = metadata
-	return rb
-}
-
-func (rb *FieldRuleBuilder) Realm(realm *RealmBuilder) *FieldRuleBuilder {
-	v := realm.Build()
-	rb.v.Realm = &v
-	return rb
-}
-
-func (rb *FieldRuleBuilder) Username(username Name) *FieldRuleBuilder {
-	rb.v.Username = &username
-	return rb
+	return r
 }

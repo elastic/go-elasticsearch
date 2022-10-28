@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TargetMeanEncodingPreprocessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/put_trained_model/types.ts#L49-L54
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/put_trained_model/types.ts#L49-L54
 type TargetMeanEncodingPreprocessor struct {
 	DefaultValue float64            `json:"default_value"`
 	FeatureName  string             `json:"feature_name"`
@@ -32,43 +32,11 @@ type TargetMeanEncodingPreprocessor struct {
 	TargetMap    map[string]float64 `json:"target_map"`
 }
 
-// TargetMeanEncodingPreprocessorBuilder holds TargetMeanEncodingPreprocessor struct and provides a builder API.
-type TargetMeanEncodingPreprocessorBuilder struct {
-	v *TargetMeanEncodingPreprocessor
-}
-
-// NewTargetMeanEncodingPreprocessor provides a builder for the TargetMeanEncodingPreprocessor struct.
-func NewTargetMeanEncodingPreprocessorBuilder() *TargetMeanEncodingPreprocessorBuilder {
-	r := TargetMeanEncodingPreprocessorBuilder{
-		&TargetMeanEncodingPreprocessor{
-			TargetMap: make(map[string]float64, 0),
-		},
+// NewTargetMeanEncodingPreprocessor returns a TargetMeanEncodingPreprocessor.
+func NewTargetMeanEncodingPreprocessor() *TargetMeanEncodingPreprocessor {
+	r := &TargetMeanEncodingPreprocessor{
+		TargetMap: make(map[string]float64, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the TargetMeanEncodingPreprocessor struct
-func (rb *TargetMeanEncodingPreprocessorBuilder) Build() TargetMeanEncodingPreprocessor {
-	return *rb.v
-}
-
-func (rb *TargetMeanEncodingPreprocessorBuilder) DefaultValue(defaultvalue float64) *TargetMeanEncodingPreprocessorBuilder {
-	rb.v.DefaultValue = defaultvalue
-	return rb
-}
-
-func (rb *TargetMeanEncodingPreprocessorBuilder) FeatureName(featurename string) *TargetMeanEncodingPreprocessorBuilder {
-	rb.v.FeatureName = featurename
-	return rb
-}
-
-func (rb *TargetMeanEncodingPreprocessorBuilder) Field(field string) *TargetMeanEncodingPreprocessorBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *TargetMeanEncodingPreprocessorBuilder) TargetMap(value map[string]float64) *TargetMeanEncodingPreprocessorBuilder {
-	rb.v.TargetMap = value
-	return rb
+	return r
 }

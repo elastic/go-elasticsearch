@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package mount
@@ -25,40 +25,28 @@ package mount
 import (
 	"encoding/json"
 	"fmt"
-
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // Request holds the request body struct for the package mount
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/searchable_snapshots/mount/SearchableSnapshotsMountRequest.ts#L26-L50
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/searchable_snapshots/mount/SearchableSnapshotsMountRequest.ts#L26-L50
 type Request struct {
-	IgnoreIndexSettings []string `json:"ignore_index_settings,omitempty"`
-
-	Index types.IndexName `json:"index"`
-
-	IndexSettings map[string]interface{} `json:"index_settings,omitempty"`
-
-	RenamedIndex *types.IndexName `json:"renamed_index,omitempty"`
+	IgnoreIndexSettings []string               `json:"ignore_index_settings,omitempty"`
+	Index               string                 `json:"index"`
+	IndexSettings       map[string]interface{} `json:"index_settings,omitempty"`
+	RenamedIndex        *string                `json:"renamed_index,omitempty"`
 }
 
-// RequestBuilder is the builder API for the mount.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{
-			IndexSettings: make(map[string]interface{}, 0),
-		},
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{
+		IndexSettings: make(map[string]interface{}, 0),
 	}
-	return &r
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -67,29 +55,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) IgnoreIndexSettings(ignore_index_settings ...string) *RequestBuilder {
-	rb.v.IgnoreIndexSettings = ignore_index_settings
-	return rb
-}
-
-func (rb *RequestBuilder) Index(index types.IndexName) *RequestBuilder {
-	rb.v.Index = index
-	return rb
-}
-
-func (rb *RequestBuilder) IndexSettings(value map[string]interface{}) *RequestBuilder {
-	rb.v.IndexSettings = value
-	return rb
-}
-
-func (rb *RequestBuilder) RenamedIndex(renamedindex types.IndexName) *RequestBuilder {
-	rb.v.RenamedIndex = &renamedindex
-	return rb
 }

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -27,38 +27,5 @@ package types
 //	map[string]RangeBucket
 //	[]RangeBucket
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L307-L316
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L315-L324
 type BucketsRangeBucket interface{}
-
-// BucketsRangeBucketBuilder holds BucketsRangeBucket struct and provides a builder API.
-type BucketsRangeBucketBuilder struct {
-	v BucketsRangeBucket
-}
-
-// NewBucketsRangeBucket provides a builder for the BucketsRangeBucket struct.
-func NewBucketsRangeBucketBuilder() *BucketsRangeBucketBuilder {
-	return &BucketsRangeBucketBuilder{}
-}
-
-// Build finalize the chain and returns the BucketsRangeBucket struct
-func (u *BucketsRangeBucketBuilder) Build() BucketsRangeBucket {
-	return u.v
-}
-
-func (u *BucketsRangeBucketBuilder) Map(values map[string]*RangeBucketBuilder) *BucketsRangeBucketBuilder {
-	tmp := make(map[string]RangeBucket, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	u.v = tmp
-	return u
-}
-
-func (u *BucketsRangeBucketBuilder) RangeBuckets(rangebuckets []RangeBucketBuilder) *BucketsRangeBucketBuilder {
-	tmp := make([]RangeBucket, len(rangebuckets))
-	for _, value := range rangebuckets {
-		tmp = append(tmp, value.Build())
-	}
-	u.v = tmp
-	return u
-}

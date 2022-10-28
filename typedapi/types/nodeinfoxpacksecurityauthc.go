@@ -17,46 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeInfoXpackSecurityAuthc type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/info/types.ts#L245-L248
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/info/types.ts#L245-L248
 type NodeInfoXpackSecurityAuthc struct {
 	Realms NodeInfoXpackSecurityAuthcRealms `json:"realms"`
 	Token  NodeInfoXpackSecurityAuthcToken  `json:"token"`
 }
 
-// NodeInfoXpackSecurityAuthcBuilder holds NodeInfoXpackSecurityAuthc struct and provides a builder API.
-type NodeInfoXpackSecurityAuthcBuilder struct {
-	v *NodeInfoXpackSecurityAuthc
-}
+// NewNodeInfoXpackSecurityAuthc returns a NodeInfoXpackSecurityAuthc.
+func NewNodeInfoXpackSecurityAuthc() *NodeInfoXpackSecurityAuthc {
+	r := &NodeInfoXpackSecurityAuthc{}
 
-// NewNodeInfoXpackSecurityAuthc provides a builder for the NodeInfoXpackSecurityAuthc struct.
-func NewNodeInfoXpackSecurityAuthcBuilder() *NodeInfoXpackSecurityAuthcBuilder {
-	r := NodeInfoXpackSecurityAuthcBuilder{
-		&NodeInfoXpackSecurityAuthc{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodeInfoXpackSecurityAuthc struct
-func (rb *NodeInfoXpackSecurityAuthcBuilder) Build() NodeInfoXpackSecurityAuthc {
-	return *rb.v
-}
-
-func (rb *NodeInfoXpackSecurityAuthcBuilder) Realms(realms *NodeInfoXpackSecurityAuthcRealmsBuilder) *NodeInfoXpackSecurityAuthcBuilder {
-	v := realms.Build()
-	rb.v.Realms = v
-	return rb
-}
-
-func (rb *NodeInfoXpackSecurityAuthcBuilder) Token(token *NodeInfoXpackSecurityAuthcTokenBuilder) *NodeInfoXpackSecurityAuthcBuilder {
-	v := token.Build()
-	rb.v.Token = v
-	return rb
+	return r
 }

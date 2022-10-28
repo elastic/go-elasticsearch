@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // LoggingAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/watcher/_types/Actions.ts#L281-L285
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Actions.ts#L281-L285
 type LoggingAction struct {
 	Category *string `json:"category,omitempty"`
 	Level    *string `json:"level,omitempty"`
 	Text     string  `json:"text"`
 }
 
-// LoggingActionBuilder holds LoggingAction struct and provides a builder API.
-type LoggingActionBuilder struct {
-	v *LoggingAction
-}
+// NewLoggingAction returns a LoggingAction.
+func NewLoggingAction() *LoggingAction {
+	r := &LoggingAction{}
 
-// NewLoggingAction provides a builder for the LoggingAction struct.
-func NewLoggingActionBuilder() *LoggingActionBuilder {
-	r := LoggingActionBuilder{
-		&LoggingAction{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the LoggingAction struct
-func (rb *LoggingActionBuilder) Build() LoggingAction {
-	return *rb.v
-}
-
-func (rb *LoggingActionBuilder) Category(category string) *LoggingActionBuilder {
-	rb.v.Category = &category
-	return rb
-}
-
-func (rb *LoggingActionBuilder) Level(level string) *LoggingActionBuilder {
-	rb.v.Level = &level
-	return rb
-}
-
-func (rb *LoggingActionBuilder) Text(text string) *LoggingActionBuilder {
-	rb.v.Text = text
-	return rb
+	return r
 }

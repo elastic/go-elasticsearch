@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RankEvalMetricExpectedReciprocalRank type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/rank_eval/types.ts#L79-L88
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/rank_eval/types.ts#L79-L88
 type RankEvalMetricExpectedReciprocalRank struct {
 	// K Sets the maximum number of documents retrieved per query. This value will act
 	// in place of the usual size parameter in the query.
@@ -33,36 +33,9 @@ type RankEvalMetricExpectedReciprocalRank struct {
 	MaximumRelevance int `json:"maximum_relevance"`
 }
 
-// RankEvalMetricExpectedReciprocalRankBuilder holds RankEvalMetricExpectedReciprocalRank struct and provides a builder API.
-type RankEvalMetricExpectedReciprocalRankBuilder struct {
-	v *RankEvalMetricExpectedReciprocalRank
-}
+// NewRankEvalMetricExpectedReciprocalRank returns a RankEvalMetricExpectedReciprocalRank.
+func NewRankEvalMetricExpectedReciprocalRank() *RankEvalMetricExpectedReciprocalRank {
+	r := &RankEvalMetricExpectedReciprocalRank{}
 
-// NewRankEvalMetricExpectedReciprocalRank provides a builder for the RankEvalMetricExpectedReciprocalRank struct.
-func NewRankEvalMetricExpectedReciprocalRankBuilder() *RankEvalMetricExpectedReciprocalRankBuilder {
-	r := RankEvalMetricExpectedReciprocalRankBuilder{
-		&RankEvalMetricExpectedReciprocalRank{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RankEvalMetricExpectedReciprocalRank struct
-func (rb *RankEvalMetricExpectedReciprocalRankBuilder) Build() RankEvalMetricExpectedReciprocalRank {
-	return *rb.v
-}
-
-// K Sets the maximum number of documents retrieved per query. This value will act
-// in place of the usual size parameter in the query.
-
-func (rb *RankEvalMetricExpectedReciprocalRankBuilder) K(k int) *RankEvalMetricExpectedReciprocalRankBuilder {
-	rb.v.K = &k
-	return rb
-}
-
-// MaximumRelevance The highest relevance grade used in the user-supplied relevance judgments.
-
-func (rb *RankEvalMetricExpectedReciprocalRankBuilder) MaximumRelevance(maximumrelevance int) *RankEvalMetricExpectedReciprocalRankBuilder {
-	rb.v.MaximumRelevance = maximumrelevance
-	return rb
+	return r
 }

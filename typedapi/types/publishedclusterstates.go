@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // PublishedClusterStates type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/_types/Stats.ts#L114-L118
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L114-L118
 type PublishedClusterStates struct {
 	CompatibleDiffs   *int64 `json:"compatible_diffs,omitempty"`
 	FullStates        *int64 `json:"full_states,omitempty"`
 	IncompatibleDiffs *int64 `json:"incompatible_diffs,omitempty"`
 }
 
-// PublishedClusterStatesBuilder holds PublishedClusterStates struct and provides a builder API.
-type PublishedClusterStatesBuilder struct {
-	v *PublishedClusterStates
-}
+// NewPublishedClusterStates returns a PublishedClusterStates.
+func NewPublishedClusterStates() *PublishedClusterStates {
+	r := &PublishedClusterStates{}
 
-// NewPublishedClusterStates provides a builder for the PublishedClusterStates struct.
-func NewPublishedClusterStatesBuilder() *PublishedClusterStatesBuilder {
-	r := PublishedClusterStatesBuilder{
-		&PublishedClusterStates{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the PublishedClusterStates struct
-func (rb *PublishedClusterStatesBuilder) Build() PublishedClusterStates {
-	return *rb.v
-}
-
-func (rb *PublishedClusterStatesBuilder) CompatibleDiffs(compatiblediffs int64) *PublishedClusterStatesBuilder {
-	rb.v.CompatibleDiffs = &compatiblediffs
-	return rb
-}
-
-func (rb *PublishedClusterStatesBuilder) FullStates(fullstates int64) *PublishedClusterStatesBuilder {
-	rb.v.FullStates = &fullstates
-	return rb
-}
-
-func (rb *PublishedClusterStatesBuilder) IncompatibleDiffs(incompatiblediffs int64) *PublishedClusterStatesBuilder {
-	rb.v.IncompatibleDiffs = &incompatiblediffs
-	return rb
+	return r
 }

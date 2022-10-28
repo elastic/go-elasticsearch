@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // NlpRobertaTokenizationConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/_types/inference.ts#L145-L172
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/inference.ts#L145-L172
 type NlpRobertaTokenizationConfig struct {
 	// AddPrefixSpace Should the tokenizer prefix input with a space character
 	AddPrefixSpace *bool `json:"add_prefix_space,omitempty"`
@@ -44,58 +44,9 @@ type NlpRobertaTokenizationConfig struct {
 	WithSpecialTokens *bool `json:"with_special_tokens,omitempty"`
 }
 
-// NlpRobertaTokenizationConfigBuilder holds NlpRobertaTokenizationConfig struct and provides a builder API.
-type NlpRobertaTokenizationConfigBuilder struct {
-	v *NlpRobertaTokenizationConfig
-}
+// NewNlpRobertaTokenizationConfig returns a NlpRobertaTokenizationConfig.
+func NewNlpRobertaTokenizationConfig() *NlpRobertaTokenizationConfig {
+	r := &NlpRobertaTokenizationConfig{}
 
-// NewNlpRobertaTokenizationConfig provides a builder for the NlpRobertaTokenizationConfig struct.
-func NewNlpRobertaTokenizationConfigBuilder() *NlpRobertaTokenizationConfigBuilder {
-	r := NlpRobertaTokenizationConfigBuilder{
-		&NlpRobertaTokenizationConfig{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NlpRobertaTokenizationConfig struct
-func (rb *NlpRobertaTokenizationConfigBuilder) Build() NlpRobertaTokenizationConfig {
-	return *rb.v
-}
-
-// AddPrefixSpace Should the tokenizer prefix input with a space character
-
-func (rb *NlpRobertaTokenizationConfigBuilder) AddPrefixSpace(addprefixspace bool) *NlpRobertaTokenizationConfigBuilder {
-	rb.v.AddPrefixSpace = &addprefixspace
-	return rb
-}
-
-// MaxSequenceLength Maximum input sequence length for the model
-
-func (rb *NlpRobertaTokenizationConfigBuilder) MaxSequenceLength(maxsequencelength int) *NlpRobertaTokenizationConfigBuilder {
-	rb.v.MaxSequenceLength = &maxsequencelength
-	return rb
-}
-
-// Span Tokenization spanning options. Special value of -1 indicates no spanning
-// takes place
-
-func (rb *NlpRobertaTokenizationConfigBuilder) Span(span int) *NlpRobertaTokenizationConfigBuilder {
-	rb.v.Span = &span
-	return rb
-}
-
-// Truncate Should tokenization input be automatically truncated before sending to the
-// model for inference
-
-func (rb *NlpRobertaTokenizationConfigBuilder) Truncate(truncate tokenizationtruncate.TokenizationTruncate) *NlpRobertaTokenizationConfigBuilder {
-	rb.v.Truncate = &truncate
-	return rb
-}
-
-// WithSpecialTokens Is tokenization completed with special tokens
-
-func (rb *NlpRobertaTokenizationConfigBuilder) WithSpecialTokens(withspecialtokens bool) *NlpRobertaTokenizationConfigBuilder {
-	rb.v.WithSpecialTokens = &withspecialtokens
-	return rb
+	return r
 }

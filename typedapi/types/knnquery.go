@@ -17,21 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // KnnQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/Knn.ts#L24-L37
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Knn.ts#L24-L37
 type KnnQuery struct {
 	// Boost Boost value to apply to kNN scores
 	Boost *float32 `json:"boost,omitempty"`
 	// Field The name of the vector field to search against
-	Field Field `json:"field"`
+	Field string `json:"field"`
 	// Filter Filters for the kNN search query
-	Filter []QueryContainer `json:"filter,omitempty"`
+	Filter []Query `json:"filter,omitempty"`
 	// K The final number of nearest neighbors to return as top hits
 	K int64 `json:"k"`
 	// NumCandidates The number of nearest neighbor candidates to consider per shard
@@ -40,62 +40,9 @@ type KnnQuery struct {
 	QueryVector []float64 `json:"query_vector"`
 }
 
-// KnnQueryBuilder holds KnnQuery struct and provides a builder API.
-type KnnQueryBuilder struct {
-	v *KnnQuery
-}
+// NewKnnQuery returns a KnnQuery.
+func NewKnnQuery() *KnnQuery {
+	r := &KnnQuery{}
 
-// NewKnnQuery provides a builder for the KnnQuery struct.
-func NewKnnQueryBuilder() *KnnQueryBuilder {
-	r := KnnQueryBuilder{
-		&KnnQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the KnnQuery struct
-func (rb *KnnQueryBuilder) Build() KnnQuery {
-	return *rb.v
-}
-
-// Boost Boost value to apply to kNN scores
-
-func (rb *KnnQueryBuilder) Boost(boost float32) *KnnQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-// Field The name of the vector field to search against
-
-func (rb *KnnQueryBuilder) Field(field Field) *KnnQueryBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-// Filter Filters for the kNN search query
-func (rb *KnnQueryBuilder) Filter(arg []QueryContainer) *KnnQueryBuilder {
-	rb.v.Filter = arg
-	return rb
-}
-
-// K The final number of nearest neighbors to return as top hits
-
-func (rb *KnnQueryBuilder) K(k int64) *KnnQueryBuilder {
-	rb.v.K = k
-	return rb
-}
-
-// NumCandidates The number of nearest neighbor candidates to consider per shard
-
-func (rb *KnnQueryBuilder) NumCandidates(numcandidates int64) *KnnQueryBuilder {
-	rb.v.NumCandidates = numcandidates
-	return rb
-}
-
-// QueryVector The query vector
-
-func (rb *KnnQueryBuilder) QueryVector(query_vector ...float64) *KnnQueryBuilder {
-	rb.v.QueryVector = query_vector
-	return rb
+	return r
 }

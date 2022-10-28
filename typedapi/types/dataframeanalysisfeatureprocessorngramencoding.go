@@ -17,20 +17,20 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeAnalysisFeatureProcessorNGramEncoding type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/_types/DataframeAnalytics.ts#L274-L286
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/DataframeAnalytics.ts#L274-L286
 type DataframeAnalysisFeatureProcessorNGramEncoding struct {
 	Custom *bool `json:"custom,omitempty"`
 	// FeaturePrefix The feature name prefix. Defaults to ngram_<start>_<length>.
 	FeaturePrefix *string `json:"feature_prefix,omitempty"`
 	// Field The name of the text field to encode.
-	Field Field `json:"field"`
+	Field string `json:"field"`
 	// Length Specifies the length of the n-gram substring. Defaults to 50. Must be greater
 	// than 0.
 	Length *int `json:"length,omitempty"`
@@ -42,64 +42,9 @@ type DataframeAnalysisFeatureProcessorNGramEncoding struct {
 	Start *int `json:"start,omitempty"`
 }
 
-// DataframeAnalysisFeatureProcessorNGramEncodingBuilder holds DataframeAnalysisFeatureProcessorNGramEncoding struct and provides a builder API.
-type DataframeAnalysisFeatureProcessorNGramEncodingBuilder struct {
-	v *DataframeAnalysisFeatureProcessorNGramEncoding
-}
+// NewDataframeAnalysisFeatureProcessorNGramEncoding returns a DataframeAnalysisFeatureProcessorNGramEncoding.
+func NewDataframeAnalysisFeatureProcessorNGramEncoding() *DataframeAnalysisFeatureProcessorNGramEncoding {
+	r := &DataframeAnalysisFeatureProcessorNGramEncoding{}
 
-// NewDataframeAnalysisFeatureProcessorNGramEncoding provides a builder for the DataframeAnalysisFeatureProcessorNGramEncoding struct.
-func NewDataframeAnalysisFeatureProcessorNGramEncodingBuilder() *DataframeAnalysisFeatureProcessorNGramEncodingBuilder {
-	r := DataframeAnalysisFeatureProcessorNGramEncodingBuilder{
-		&DataframeAnalysisFeatureProcessorNGramEncoding{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeAnalysisFeatureProcessorNGramEncoding struct
-func (rb *DataframeAnalysisFeatureProcessorNGramEncodingBuilder) Build() DataframeAnalysisFeatureProcessorNGramEncoding {
-	return *rb.v
-}
-
-func (rb *DataframeAnalysisFeatureProcessorNGramEncodingBuilder) Custom(custom bool) *DataframeAnalysisFeatureProcessorNGramEncodingBuilder {
-	rb.v.Custom = &custom
-	return rb
-}
-
-// FeaturePrefix The feature name prefix. Defaults to ngram_<start>_<length>.
-
-func (rb *DataframeAnalysisFeatureProcessorNGramEncodingBuilder) FeaturePrefix(featureprefix string) *DataframeAnalysisFeatureProcessorNGramEncodingBuilder {
-	rb.v.FeaturePrefix = &featureprefix
-	return rb
-}
-
-// Field The name of the text field to encode.
-
-func (rb *DataframeAnalysisFeatureProcessorNGramEncodingBuilder) Field(field Field) *DataframeAnalysisFeatureProcessorNGramEncodingBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-// Length Specifies the length of the n-gram substring. Defaults to 50. Must be greater
-// than 0.
-
-func (rb *DataframeAnalysisFeatureProcessorNGramEncodingBuilder) Length(length int) *DataframeAnalysisFeatureProcessorNGramEncodingBuilder {
-	rb.v.Length = &length
-	return rb
-}
-
-// NGrams Specifies which n-grams to gather. It’s an array of integer values where the
-// minimum value is 1, and a maximum value is 5.
-
-func (rb *DataframeAnalysisFeatureProcessorNGramEncodingBuilder) NGrams(n_grams ...int) *DataframeAnalysisFeatureProcessorNGramEncodingBuilder {
-	rb.v.NGrams = n_grams
-	return rb
-}
-
-// Start Specifies the zero-indexed start of the n-gram substring. Negative values are
-// allowed for encoding n-grams of string suffixes. Defaults to 0.
-
-func (rb *DataframeAnalysisFeatureProcessorNGramEncodingBuilder) Start(start int) *DataframeAnalysisFeatureProcessorNGramEncodingBuilder {
-	rb.v.Start = &start
-	return rb
+	return r
 }

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AggregationProfileDebug type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/search/_types/profile.ts#L39-L68
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/profile.ts#L39-L68
 type AggregationProfileDebug struct {
 	BuiltBuckets                      *int                                    `json:"built_buckets,omitempty"`
 	CharsFetched                      *int                                    `json:"chars_fetched,omitempty"`
@@ -56,166 +56,9 @@ type AggregationProfileDebug struct {
 	ValuesFetched                     *int                                    `json:"values_fetched,omitempty"`
 }
 
-// AggregationProfileDebugBuilder holds AggregationProfileDebug struct and provides a builder API.
-type AggregationProfileDebugBuilder struct {
-	v *AggregationProfileDebug
-}
+// NewAggregationProfileDebug returns a AggregationProfileDebug.
+func NewAggregationProfileDebug() *AggregationProfileDebug {
+	r := &AggregationProfileDebug{}
 
-// NewAggregationProfileDebug provides a builder for the AggregationProfileDebug struct.
-func NewAggregationProfileDebugBuilder() *AggregationProfileDebugBuilder {
-	r := AggregationProfileDebugBuilder{
-		&AggregationProfileDebug{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the AggregationProfileDebug struct
-func (rb *AggregationProfileDebugBuilder) Build() AggregationProfileDebug {
-	return *rb.v
-}
-
-func (rb *AggregationProfileDebugBuilder) BuiltBuckets(builtbuckets int) *AggregationProfileDebugBuilder {
-	rb.v.BuiltBuckets = &builtbuckets
-	return rb
-}
-
-func (rb *AggregationProfileDebugBuilder) CharsFetched(charsfetched int) *AggregationProfileDebugBuilder {
-	rb.v.CharsFetched = &charsfetched
-	return rb
-}
-
-func (rb *AggregationProfileDebugBuilder) CollectAnalyzedCount(collectanalyzedcount int) *AggregationProfileDebugBuilder {
-	rb.v.CollectAnalyzedCount = &collectanalyzedcount
-	return rb
-}
-
-func (rb *AggregationProfileDebugBuilder) CollectAnalyzedNs(collectanalyzedns int) *AggregationProfileDebugBuilder {
-	rb.v.CollectAnalyzedNs = &collectanalyzedns
-	return rb
-}
-
-func (rb *AggregationProfileDebugBuilder) CollectionStrategy(collectionstrategy string) *AggregationProfileDebugBuilder {
-	rb.v.CollectionStrategy = &collectionstrategy
-	return rb
-}
-
-func (rb *AggregationProfileDebugBuilder) DeferredAggregators(deferred_aggregators ...string) *AggregationProfileDebugBuilder {
-	rb.v.DeferredAggregators = deferred_aggregators
-	return rb
-}
-
-func (rb *AggregationProfileDebugBuilder) Delegate(delegate string) *AggregationProfileDebugBuilder {
-	rb.v.Delegate = &delegate
-	return rb
-}
-
-func (rb *AggregationProfileDebugBuilder) DelegateDebug(delegatedebug *AggregationProfileDebugBuilder) *AggregationProfileDebugBuilder {
-	v := delegatedebug.Build()
-	rb.v.DelegateDebug = &v
-	return rb
-}
-
-func (rb *AggregationProfileDebugBuilder) EmptyCollectorsUsed(emptycollectorsused int) *AggregationProfileDebugBuilder {
-	rb.v.EmptyCollectorsUsed = &emptycollectorsused
-	return rb
-}
-
-func (rb *AggregationProfileDebugBuilder) ExtractCount(extractcount int) *AggregationProfileDebugBuilder {
-	rb.v.ExtractCount = &extractcount
-	return rb
-}
-
-func (rb *AggregationProfileDebugBuilder) ExtractNs(extractns int) *AggregationProfileDebugBuilder {
-	rb.v.ExtractNs = &extractns
-	return rb
-}
-
-func (rb *AggregationProfileDebugBuilder) Filters(filters []AggregationProfileDelegateDebugFilterBuilder) *AggregationProfileDebugBuilder {
-	tmp := make([]AggregationProfileDelegateDebugFilter, len(filters))
-	for _, value := range filters {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Filters = tmp
-	return rb
-}
-
-func (rb *AggregationProfileDebugBuilder) HasFilter(hasfilter bool) *AggregationProfileDebugBuilder {
-	rb.v.HasFilter = &hasfilter
-	return rb
-}
-
-func (rb *AggregationProfileDebugBuilder) MapReducer(mapreducer string) *AggregationProfileDebugBuilder {
-	rb.v.MapReducer = &mapreducer
-	return rb
-}
-
-func (rb *AggregationProfileDebugBuilder) NumericCollectorsUsed(numericcollectorsused int) *AggregationProfileDebugBuilder {
-	rb.v.NumericCollectorsUsed = &numericcollectorsused
-	return rb
-}
-
-func (rb *AggregationProfileDebugBuilder) OrdinalsCollectorsOverheadTooHigh(ordinalscollectorsoverheadtoohigh int) *AggregationProfileDebugBuilder {
-	rb.v.OrdinalsCollectorsOverheadTooHigh = &ordinalscollectorsoverheadtoohigh
-	return rb
-}
-
-func (rb *AggregationProfileDebugBuilder) OrdinalsCollectorsUsed(ordinalscollectorsused int) *AggregationProfileDebugBuilder {
-	rb.v.OrdinalsCollectorsUsed = &ordinalscollectorsused
-	return rb
-}
-
-func (rb *AggregationProfileDebugBuilder) ResultStrategy(resultstrategy string) *AggregationProfileDebugBuilder {
-	rb.v.ResultStrategy = &resultstrategy
-	return rb
-}
-
-func (rb *AggregationProfileDebugBuilder) SegmentsCollected(segmentscollected int) *AggregationProfileDebugBuilder {
-	rb.v.SegmentsCollected = &segmentscollected
-	return rb
-}
-
-func (rb *AggregationProfileDebugBuilder) SegmentsCounted(segmentscounted int) *AggregationProfileDebugBuilder {
-	rb.v.SegmentsCounted = &segmentscounted
-	return rb
-}
-
-func (rb *AggregationProfileDebugBuilder) SegmentsWithDeletedDocs(segmentswithdeleteddocs int) *AggregationProfileDebugBuilder {
-	rb.v.SegmentsWithDeletedDocs = &segmentswithdeleteddocs
-	return rb
-}
-
-func (rb *AggregationProfileDebugBuilder) SegmentsWithDocCountField(segmentswithdoccountfield int) *AggregationProfileDebugBuilder {
-	rb.v.SegmentsWithDocCountField = &segmentswithdoccountfield
-	return rb
-}
-
-func (rb *AggregationProfileDebugBuilder) SegmentsWithMultiValuedOrds(segmentswithmultivaluedords int) *AggregationProfileDebugBuilder {
-	rb.v.SegmentsWithMultiValuedOrds = &segmentswithmultivaluedords
-	return rb
-}
-
-func (rb *AggregationProfileDebugBuilder) SegmentsWithSingleValuedOrds(segmentswithsinglevaluedords int) *AggregationProfileDebugBuilder {
-	rb.v.SegmentsWithSingleValuedOrds = &segmentswithsinglevaluedords
-	return rb
-}
-
-func (rb *AggregationProfileDebugBuilder) StringHashingCollectorsUsed(stringhashingcollectorsused int) *AggregationProfileDebugBuilder {
-	rb.v.StringHashingCollectorsUsed = &stringhashingcollectorsused
-	return rb
-}
-
-func (rb *AggregationProfileDebugBuilder) SurvivingBuckets(survivingbuckets int) *AggregationProfileDebugBuilder {
-	rb.v.SurvivingBuckets = &survivingbuckets
-	return rb
-}
-
-func (rb *AggregationProfileDebugBuilder) TotalBuckets(totalbuckets int) *AggregationProfileDebugBuilder {
-	rb.v.TotalBuckets = &totalbuckets
-	return rb
-}
-
-func (rb *AggregationProfileDebugBuilder) ValuesFetched(valuesfetched int) *AggregationProfileDebugBuilder {
-	rb.v.ValuesFetched = &valuesfetched
-	return rb
+	return r
 }

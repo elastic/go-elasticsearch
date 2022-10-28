@@ -17,59 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // UsageStatsShards type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/field_usage_stats/IndicesFieldUsageStatsResponse.ts#L42-L47
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/field_usage_stats/IndicesFieldUsageStatsResponse.ts#L42-L47
 type UsageStatsShards struct {
-	Routing                 ShardRouting        `json:"routing"`
-	Stats                   ShardsStats         `json:"stats"`
-	TrackingId              string              `json:"tracking_id"`
-	TrackingStartedAtMillis EpochTimeUnitMillis `json:"tracking_started_at_millis"`
+	Routing                 ShardRouting       `json:"routing"`
+	Stats                   IndicesShardsStats `json:"stats"`
+	TrackingId              string             `json:"tracking_id"`
+	TrackingStartedAtMillis int64              `json:"tracking_started_at_millis"`
 }
 
-// UsageStatsShardsBuilder holds UsageStatsShards struct and provides a builder API.
-type UsageStatsShardsBuilder struct {
-	v *UsageStatsShards
-}
+// NewUsageStatsShards returns a UsageStatsShards.
+func NewUsageStatsShards() *UsageStatsShards {
+	r := &UsageStatsShards{}
 
-// NewUsageStatsShards provides a builder for the UsageStatsShards struct.
-func NewUsageStatsShardsBuilder() *UsageStatsShardsBuilder {
-	r := UsageStatsShardsBuilder{
-		&UsageStatsShards{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the UsageStatsShards struct
-func (rb *UsageStatsShardsBuilder) Build() UsageStatsShards {
-	return *rb.v
-}
-
-func (rb *UsageStatsShardsBuilder) Routing(routing *ShardRoutingBuilder) *UsageStatsShardsBuilder {
-	v := routing.Build()
-	rb.v.Routing = v
-	return rb
-}
-
-func (rb *UsageStatsShardsBuilder) Stats(stats *ShardsStatsBuilder) *UsageStatsShardsBuilder {
-	v := stats.Build()
-	rb.v.Stats = v
-	return rb
-}
-
-func (rb *UsageStatsShardsBuilder) TrackingId(trackingid string) *UsageStatsShardsBuilder {
-	rb.v.TrackingId = trackingid
-	return rb
-}
-
-func (rb *UsageStatsShardsBuilder) TrackingStartedAtMillis(trackingstartedatmillis *EpochTimeUnitMillisBuilder) *UsageStatsShardsBuilder {
-	v := trackingstartedatmillis.Build()
-	rb.v.TrackingStartedAtMillis = v
-	return rb
+	return r
 }

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // HitsSequence type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/eql/_types/EqlHits.ts#L51-L59
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/eql/_types/EqlHits.ts#L51-L59
 type HitsSequence struct {
 	// Events Contains events matching the query. Each object represents a matching event.
 	Events []HitsEvent `json:"events"`
@@ -33,40 +33,9 @@ type HitsSequence struct {
 	JoinKeys []interface{} `json:"join_keys"`
 }
 
-// HitsSequenceBuilder holds HitsSequence struct and provides a builder API.
-type HitsSequenceBuilder struct {
-	v *HitsSequence
-}
+// NewHitsSequence returns a HitsSequence.
+func NewHitsSequence() *HitsSequence {
+	r := &HitsSequence{}
 
-// NewHitsSequence provides a builder for the HitsSequence struct.
-func NewHitsSequenceBuilder() *HitsSequenceBuilder {
-	r := HitsSequenceBuilder{
-		&HitsSequence{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the HitsSequence struct
-func (rb *HitsSequenceBuilder) Build() HitsSequence {
-	return *rb.v
-}
-
-// Events Contains events matching the query. Each object represents a matching event.
-
-func (rb *HitsSequenceBuilder) Events(events []HitsEventBuilder) *HitsSequenceBuilder {
-	tmp := make([]HitsEvent, len(events))
-	for _, value := range events {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Events = tmp
-	return rb
-}
-
-// JoinKeys Shared field values used to constrain matches in the sequence. These are
-// defined using the by keyword in the EQL query syntax.
-
-func (rb *HitsSequenceBuilder) JoinKeys(join_keys ...interface{}) *HitsSequenceBuilder {
-	rb.v.JoinKeys = join_keys
-	return rb
+	return r
 }

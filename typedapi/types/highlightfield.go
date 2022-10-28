@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -32,7 +32,7 @@ import (
 
 // HighlightField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/search/_types/highlighting.ts#L88-L92
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/highlighting.ts#L88-L92
 type HighlightField struct {
 	Analyzer              *Analyzer                                    `json:"analyzer,omitempty"`
 	BoundaryChars         *string                                      `json:"boundary_chars,omitempty"`
@@ -44,8 +44,8 @@ type HighlightField struct {
 	FragmentSize          *int                                         `json:"fragment_size,omitempty"`
 	Fragmenter            *highlighterfragmenter.HighlighterFragmenter `json:"fragmenter,omitempty"`
 	HighlightFilter       *bool                                        `json:"highlight_filter,omitempty"`
-	HighlightQuery        *QueryContainer                              `json:"highlight_query,omitempty"`
-	MatchedFields         *Fields                                      `json:"matched_fields,omitempty"`
+	HighlightQuery        *Query                                       `json:"highlight_query,omitempty"`
+	MatchedFields         []string                                     `json:"matched_fields,omitempty"`
 	MaxAnalyzedOffset     *int                                         `json:"max_analyzed_offset,omitempty"`
 	MaxFragmentLength     *int                                         `json:"max_fragment_length,omitempty"`
 	NoMatchSize           *int                                         `json:"no_match_size,omitempty"`
@@ -60,146 +60,11 @@ type HighlightField struct {
 	Type                  *highlightertype.HighlighterType             `json:"type,omitempty"`
 }
 
-// HighlightFieldBuilder holds HighlightField struct and provides a builder API.
-type HighlightFieldBuilder struct {
-	v *HighlightField
-}
-
-// NewHighlightField provides a builder for the HighlightField struct.
-func NewHighlightFieldBuilder() *HighlightFieldBuilder {
-	r := HighlightFieldBuilder{
-		&HighlightField{
-			Options: make(map[string]interface{}, 0),
-		},
+// NewHighlightField returns a HighlightField.
+func NewHighlightField() *HighlightField {
+	r := &HighlightField{
+		Options: make(map[string]interface{}, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the HighlightField struct
-func (rb *HighlightFieldBuilder) Build() HighlightField {
-	return *rb.v
-}
-
-func (rb *HighlightFieldBuilder) Analyzer(analyzer *AnalyzerBuilder) *HighlightFieldBuilder {
-	v := analyzer.Build()
-	rb.v.Analyzer = &v
-	return rb
-}
-
-func (rb *HighlightFieldBuilder) BoundaryChars(boundarychars string) *HighlightFieldBuilder {
-	rb.v.BoundaryChars = &boundarychars
-	return rb
-}
-
-func (rb *HighlightFieldBuilder) BoundaryMaxScan(boundarymaxscan int) *HighlightFieldBuilder {
-	rb.v.BoundaryMaxScan = &boundarymaxscan
-	return rb
-}
-
-func (rb *HighlightFieldBuilder) BoundaryScanner(boundaryscanner boundaryscanner.BoundaryScanner) *HighlightFieldBuilder {
-	rb.v.BoundaryScanner = &boundaryscanner
-	return rb
-}
-
-func (rb *HighlightFieldBuilder) BoundaryScannerLocale(boundaryscannerlocale string) *HighlightFieldBuilder {
-	rb.v.BoundaryScannerLocale = &boundaryscannerlocale
-	return rb
-}
-
-func (rb *HighlightFieldBuilder) ForceSource(forcesource bool) *HighlightFieldBuilder {
-	rb.v.ForceSource = &forcesource
-	return rb
-}
-
-func (rb *HighlightFieldBuilder) FragmentOffset(fragmentoffset int) *HighlightFieldBuilder {
-	rb.v.FragmentOffset = &fragmentoffset
-	return rb
-}
-
-func (rb *HighlightFieldBuilder) FragmentSize(fragmentsize int) *HighlightFieldBuilder {
-	rb.v.FragmentSize = &fragmentsize
-	return rb
-}
-
-func (rb *HighlightFieldBuilder) Fragmenter(fragmenter highlighterfragmenter.HighlighterFragmenter) *HighlightFieldBuilder {
-	rb.v.Fragmenter = &fragmenter
-	return rb
-}
-
-func (rb *HighlightFieldBuilder) HighlightFilter(highlightfilter bool) *HighlightFieldBuilder {
-	rb.v.HighlightFilter = &highlightfilter
-	return rb
-}
-
-func (rb *HighlightFieldBuilder) HighlightQuery(highlightquery *QueryContainerBuilder) *HighlightFieldBuilder {
-	v := highlightquery.Build()
-	rb.v.HighlightQuery = &v
-	return rb
-}
-
-func (rb *HighlightFieldBuilder) MatchedFields(matchedfields *FieldsBuilder) *HighlightFieldBuilder {
-	v := matchedfields.Build()
-	rb.v.MatchedFields = &v
-	return rb
-}
-
-func (rb *HighlightFieldBuilder) MaxAnalyzedOffset(maxanalyzedoffset int) *HighlightFieldBuilder {
-	rb.v.MaxAnalyzedOffset = &maxanalyzedoffset
-	return rb
-}
-
-func (rb *HighlightFieldBuilder) MaxFragmentLength(maxfragmentlength int) *HighlightFieldBuilder {
-	rb.v.MaxFragmentLength = &maxfragmentlength
-	return rb
-}
-
-func (rb *HighlightFieldBuilder) NoMatchSize(nomatchsize int) *HighlightFieldBuilder {
-	rb.v.NoMatchSize = &nomatchsize
-	return rb
-}
-
-func (rb *HighlightFieldBuilder) NumberOfFragments(numberoffragments int) *HighlightFieldBuilder {
-	rb.v.NumberOfFragments = &numberoffragments
-	return rb
-}
-
-func (rb *HighlightFieldBuilder) Options(value map[string]interface{}) *HighlightFieldBuilder {
-	rb.v.Options = value
-	return rb
-}
-
-func (rb *HighlightFieldBuilder) Order(order highlighterorder.HighlighterOrder) *HighlightFieldBuilder {
-	rb.v.Order = &order
-	return rb
-}
-
-func (rb *HighlightFieldBuilder) PhraseLimit(phraselimit int) *HighlightFieldBuilder {
-	rb.v.PhraseLimit = &phraselimit
-	return rb
-}
-
-func (rb *HighlightFieldBuilder) PostTags(post_tags ...string) *HighlightFieldBuilder {
-	rb.v.PostTags = post_tags
-	return rb
-}
-
-func (rb *HighlightFieldBuilder) PreTags(pre_tags ...string) *HighlightFieldBuilder {
-	rb.v.PreTags = pre_tags
-	return rb
-}
-
-func (rb *HighlightFieldBuilder) RequireFieldMatch(requirefieldmatch bool) *HighlightFieldBuilder {
-	rb.v.RequireFieldMatch = &requirefieldmatch
-	return rb
-}
-
-func (rb *HighlightFieldBuilder) TagsSchema(tagsschema highlightertagsschema.HighlighterTagsSchema) *HighlightFieldBuilder {
-	rb.v.TagsSchema = &tagsschema
-	return rb
-}
-
-func (rb *HighlightFieldBuilder) Type_(type_ highlightertype.HighlighterType) *HighlightFieldBuilder {
-	rb.v.Type = &type_
-	return rb
+	return r
 }

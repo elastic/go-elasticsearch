@@ -17,45 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RankEvalQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/rank_eval/types.ts#L111-L114
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/rank_eval/types.ts#L111-L114
 type RankEvalQuery struct {
-	Query QueryContainer `json:"query"`
-	Size  *int           `json:"size,omitempty"`
+	Query Query `json:"query"`
+	Size  *int  `json:"size,omitempty"`
 }
 
-// RankEvalQueryBuilder holds RankEvalQuery struct and provides a builder API.
-type RankEvalQueryBuilder struct {
-	v *RankEvalQuery
-}
+// NewRankEvalQuery returns a RankEvalQuery.
+func NewRankEvalQuery() *RankEvalQuery {
+	r := &RankEvalQuery{}
 
-// NewRankEvalQuery provides a builder for the RankEvalQuery struct.
-func NewRankEvalQueryBuilder() *RankEvalQueryBuilder {
-	r := RankEvalQueryBuilder{
-		&RankEvalQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RankEvalQuery struct
-func (rb *RankEvalQueryBuilder) Build() RankEvalQuery {
-	return *rb.v
-}
-
-func (rb *RankEvalQueryBuilder) Query(query *QueryContainerBuilder) *RankEvalQueryBuilder {
-	v := query.Build()
-	rb.v.Query = v
-	return rb
-}
-
-func (rb *RankEvalQueryBuilder) Size(size int) *RankEvalQueryBuilder {
-	rb.v.Size = &size
-	return rb
+	return r
 }

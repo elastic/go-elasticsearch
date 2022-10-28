@@ -17,52 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FieldTypesMappings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/cluster/stats/types.ts#L96-L99
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/stats/types.ts#L96-L99
 type FieldTypesMappings struct {
-	FieldTypes        []FieldTypes        `json:"field_types"`
-	RuntimeFieldTypes []RuntimeFieldTypes `json:"runtime_field_types,omitempty"`
+	FieldTypes        []FieldTypes               `json:"field_types"`
+	RuntimeFieldTypes []ClusterRuntimeFieldTypes `json:"runtime_field_types,omitempty"`
 }
 
-// FieldTypesMappingsBuilder holds FieldTypesMappings struct and provides a builder API.
-type FieldTypesMappingsBuilder struct {
-	v *FieldTypesMappings
-}
+// NewFieldTypesMappings returns a FieldTypesMappings.
+func NewFieldTypesMappings() *FieldTypesMappings {
+	r := &FieldTypesMappings{}
 
-// NewFieldTypesMappings provides a builder for the FieldTypesMappings struct.
-func NewFieldTypesMappingsBuilder() *FieldTypesMappingsBuilder {
-	r := FieldTypesMappingsBuilder{
-		&FieldTypesMappings{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FieldTypesMappings struct
-func (rb *FieldTypesMappingsBuilder) Build() FieldTypesMappings {
-	return *rb.v
-}
-
-func (rb *FieldTypesMappingsBuilder) FieldTypes(field_types []FieldTypesBuilder) *FieldTypesMappingsBuilder {
-	tmp := make([]FieldTypes, len(field_types))
-	for _, value := range field_types {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.FieldTypes = tmp
-	return rb
-}
-
-func (rb *FieldTypesMappingsBuilder) RuntimeFieldTypes(runtime_field_types []RuntimeFieldTypesBuilder) *FieldTypesMappingsBuilder {
-	tmp := make([]RuntimeFieldTypes, len(runtime_field_types))
-	for _, value := range runtime_field_types {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.RuntimeFieldTypes = tmp
-	return rb
+	return r
 }

@@ -17,42 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ClusterRemoteInfo holds the union for the following types:
 //
-//	ClusterRemoteProxyInfo
 //	ClusterRemoteSniffInfo
+//	ClusterRemoteProxyInfo
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/cluster/remote_info/ClusterRemoteInfoResponse.ts#L28-L29
-type ClusterRemoteInfo interface{}
-
-// ClusterRemoteInfoBuilder holds ClusterRemoteInfo struct and provides a builder API.
-type ClusterRemoteInfoBuilder struct {
-	v ClusterRemoteInfo
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/remote_info/ClusterRemoteInfoResponse.ts#L28-L29
+type ClusterRemoteInfo interface {
+	isClusterRemoteInfo()
 }
 
-// NewClusterRemoteInfo provides a builder for the ClusterRemoteInfo struct.
-func NewClusterRemoteInfoBuilder() *ClusterRemoteInfoBuilder {
-	return &ClusterRemoteInfoBuilder{}
-}
+func (i ClusterRemoteSniffInfo) isClusterRemoteInfo() {}
 
-// Build finalize the chain and returns the ClusterRemoteInfo struct
-func (u *ClusterRemoteInfoBuilder) Build() ClusterRemoteInfo {
-	return u.v
-}
-
-func (u *ClusterRemoteInfoBuilder) ClusterRemoteProxyInfo(clusterremoteproxyinfo *ClusterRemoteProxyInfoBuilder) *ClusterRemoteInfoBuilder {
-	v := clusterremoteproxyinfo.Build()
-	u.v = &v
-	return u
-}
-
-func (u *ClusterRemoteInfoBuilder) ClusterRemoteSniffInfo(clusterremotesniffinfo *ClusterRemoteSniffInfoBuilder) *ClusterRemoteInfoBuilder {
-	v := clusterremotesniffinfo.Build()
-	u.v = &v
-	return u
-}
+func (i ClusterRemoteProxyInfo) isClusterRemoteInfo() {}

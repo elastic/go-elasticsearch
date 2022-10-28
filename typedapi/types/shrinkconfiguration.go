@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ShrinkConfiguration type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ilm/_types/Phase.ts#L56-L58
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ilm/_types/Phase.ts#L56-L58
 type ShrinkConfiguration struct {
 	NumberOfShards int `json:"number_of_shards"`
 }
 
-// ShrinkConfigurationBuilder holds ShrinkConfiguration struct and provides a builder API.
-type ShrinkConfigurationBuilder struct {
-	v *ShrinkConfiguration
-}
+// NewShrinkConfiguration returns a ShrinkConfiguration.
+func NewShrinkConfiguration() *ShrinkConfiguration {
+	r := &ShrinkConfiguration{}
 
-// NewShrinkConfiguration provides a builder for the ShrinkConfiguration struct.
-func NewShrinkConfigurationBuilder() *ShrinkConfigurationBuilder {
-	r := ShrinkConfigurationBuilder{
-		&ShrinkConfiguration{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ShrinkConfiguration struct
-func (rb *ShrinkConfigurationBuilder) Build() ShrinkConfiguration {
-	return *rb.v
-}
-
-func (rb *ShrinkConfigurationBuilder) NumberOfShards(numberofshards int) *ShrinkConfigurationBuilder {
-	rb.v.NumberOfShards = numberofshards
-	return rb
+	return r
 }

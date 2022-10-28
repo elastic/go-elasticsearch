@@ -17,98 +17,31 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // PercolateQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/specialized.ts#L110-L120
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/specialized.ts#L110-L120
 type PercolateQuery struct {
-	Boost      *float32       `json:"boost,omitempty"`
-	Document   interface{}    `json:"document,omitempty"`
-	Documents  []interface{}  `json:"documents,omitempty"`
-	Field      Field          `json:"field"`
-	Id         *Id            `json:"id,omitempty"`
-	Index      *IndexName     `json:"index,omitempty"`
-	Name       *string        `json:"name,omitempty"`
-	Preference *string        `json:"preference,omitempty"`
-	QueryName_ *string        `json:"_name,omitempty"`
-	Routing    *Routing       `json:"routing,omitempty"`
-	Version    *VersionNumber `json:"version,omitempty"`
+	Boost      *float32      `json:"boost,omitempty"`
+	Document   interface{}   `json:"document,omitempty"`
+	Documents  []interface{} `json:"documents,omitempty"`
+	Field      string        `json:"field"`
+	Id         *string       `json:"id,omitempty"`
+	Index      *string       `json:"index,omitempty"`
+	Name       *string       `json:"name,omitempty"`
+	Preference *string       `json:"preference,omitempty"`
+	QueryName_ *string       `json:"_name,omitempty"`
+	Routing    *string       `json:"routing,omitempty"`
+	Version    *int64        `json:"version,omitempty"`
 }
 
-// PercolateQueryBuilder holds PercolateQuery struct and provides a builder API.
-type PercolateQueryBuilder struct {
-	v *PercolateQuery
-}
+// NewPercolateQuery returns a PercolateQuery.
+func NewPercolateQuery() *PercolateQuery {
+	r := &PercolateQuery{}
 
-// NewPercolateQuery provides a builder for the PercolateQuery struct.
-func NewPercolateQueryBuilder() *PercolateQueryBuilder {
-	r := PercolateQueryBuilder{
-		&PercolateQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the PercolateQuery struct
-func (rb *PercolateQueryBuilder) Build() PercolateQuery {
-	return *rb.v
-}
-
-func (rb *PercolateQueryBuilder) Boost(boost float32) *PercolateQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *PercolateQueryBuilder) Document(document interface{}) *PercolateQueryBuilder {
-	rb.v.Document = document
-	return rb
-}
-
-func (rb *PercolateQueryBuilder) Documents(documents ...interface{}) *PercolateQueryBuilder {
-	rb.v.Documents = documents
-	return rb
-}
-
-func (rb *PercolateQueryBuilder) Field(field Field) *PercolateQueryBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *PercolateQueryBuilder) Id(id Id) *PercolateQueryBuilder {
-	rb.v.Id = &id
-	return rb
-}
-
-func (rb *PercolateQueryBuilder) Index(index IndexName) *PercolateQueryBuilder {
-	rb.v.Index = &index
-	return rb
-}
-
-func (rb *PercolateQueryBuilder) Name(name string) *PercolateQueryBuilder {
-	rb.v.Name = &name
-	return rb
-}
-
-func (rb *PercolateQueryBuilder) Preference(preference string) *PercolateQueryBuilder {
-	rb.v.Preference = &preference
-	return rb
-}
-
-func (rb *PercolateQueryBuilder) QueryName_(queryname_ string) *PercolateQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
-}
-
-func (rb *PercolateQueryBuilder) Routing(routing Routing) *PercolateQueryBuilder {
-	rb.v.Routing = &routing
-	return rb
-}
-
-func (rb *PercolateQueryBuilder) Version(version VersionNumber) *PercolateQueryBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

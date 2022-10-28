@@ -17,46 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // WatcherWatchTrigger type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/xpack/usage/types.ts#L389-L392
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L389-L392
 type WatcherWatchTrigger struct {
 	All_     Counter                      `json:"_all"`
 	Schedule *WatcherWatchTriggerSchedule `json:"schedule,omitempty"`
 }
 
-// WatcherWatchTriggerBuilder holds WatcherWatchTrigger struct and provides a builder API.
-type WatcherWatchTriggerBuilder struct {
-	v *WatcherWatchTrigger
-}
+// NewWatcherWatchTrigger returns a WatcherWatchTrigger.
+func NewWatcherWatchTrigger() *WatcherWatchTrigger {
+	r := &WatcherWatchTrigger{}
 
-// NewWatcherWatchTrigger provides a builder for the WatcherWatchTrigger struct.
-func NewWatcherWatchTriggerBuilder() *WatcherWatchTriggerBuilder {
-	r := WatcherWatchTriggerBuilder{
-		&WatcherWatchTrigger{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the WatcherWatchTrigger struct
-func (rb *WatcherWatchTriggerBuilder) Build() WatcherWatchTrigger {
-	return *rb.v
-}
-
-func (rb *WatcherWatchTriggerBuilder) All_(all_ *CounterBuilder) *WatcherWatchTriggerBuilder {
-	v := all_.Build()
-	rb.v.All_ = v
-	return rb
-}
-
-func (rb *WatcherWatchTriggerBuilder) Schedule(schedule *WatcherWatchTriggerScheduleBuilder) *WatcherWatchTriggerBuilder {
-	v := schedule.Build()
-	rb.v.Schedule = &v
-	return rb
+	return r
 }

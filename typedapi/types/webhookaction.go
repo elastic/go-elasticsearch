@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,13 +29,13 @@ import (
 
 // WebhookAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/watcher/_types/Actions.ts#L293-L293
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Actions.ts#L293-L293
 type WebhookAction struct {
 	Auth              *HttpInputAuthentication           `json:"auth,omitempty"`
 	Body              *string                            `json:"body,omitempty"`
 	ConnectionTimeout *Duration                          `json:"connection_timeout,omitempty"`
 	Headers           map[string]string                  `json:"headers,omitempty"`
-	Host              *Host                              `json:"host,omitempty"`
+	Host              *string                            `json:"host,omitempty"`
 	Method            *httpinputmethod.HttpInputMethod   `json:"method,omitempty"`
 	Params            map[string]string                  `json:"params,omitempty"`
 	Path              *string                            `json:"path,omitempty"`
@@ -46,93 +46,12 @@ type WebhookAction struct {
 	Url               *string                            `json:"url,omitempty"`
 }
 
-// WebhookActionBuilder holds WebhookAction struct and provides a builder API.
-type WebhookActionBuilder struct {
-	v *WebhookAction
-}
-
-// NewWebhookAction provides a builder for the WebhookAction struct.
-func NewWebhookActionBuilder() *WebhookActionBuilder {
-	r := WebhookActionBuilder{
-		&WebhookAction{
-			Headers: make(map[string]string, 0),
-			Params:  make(map[string]string, 0),
-		},
+// NewWebhookAction returns a WebhookAction.
+func NewWebhookAction() *WebhookAction {
+	r := &WebhookAction{
+		Headers: make(map[string]string, 0),
+		Params:  make(map[string]string, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the WebhookAction struct
-func (rb *WebhookActionBuilder) Build() WebhookAction {
-	return *rb.v
-}
-
-func (rb *WebhookActionBuilder) Auth(auth *HttpInputAuthenticationBuilder) *WebhookActionBuilder {
-	v := auth.Build()
-	rb.v.Auth = &v
-	return rb
-}
-
-func (rb *WebhookActionBuilder) Body(body string) *WebhookActionBuilder {
-	rb.v.Body = &body
-	return rb
-}
-
-func (rb *WebhookActionBuilder) ConnectionTimeout(connectiontimeout *DurationBuilder) *WebhookActionBuilder {
-	v := connectiontimeout.Build()
-	rb.v.ConnectionTimeout = &v
-	return rb
-}
-
-func (rb *WebhookActionBuilder) Headers(value map[string]string) *WebhookActionBuilder {
-	rb.v.Headers = value
-	return rb
-}
-
-func (rb *WebhookActionBuilder) Host(host Host) *WebhookActionBuilder {
-	rb.v.Host = &host
-	return rb
-}
-
-func (rb *WebhookActionBuilder) Method(method httpinputmethod.HttpInputMethod) *WebhookActionBuilder {
-	rb.v.Method = &method
-	return rb
-}
-
-func (rb *WebhookActionBuilder) Params(value map[string]string) *WebhookActionBuilder {
-	rb.v.Params = value
-	return rb
-}
-
-func (rb *WebhookActionBuilder) Path(path string) *WebhookActionBuilder {
-	rb.v.Path = &path
-	return rb
-}
-
-func (rb *WebhookActionBuilder) Port(port uint) *WebhookActionBuilder {
-	rb.v.Port = &port
-	return rb
-}
-
-func (rb *WebhookActionBuilder) Proxy(proxy *HttpInputProxyBuilder) *WebhookActionBuilder {
-	v := proxy.Build()
-	rb.v.Proxy = &v
-	return rb
-}
-
-func (rb *WebhookActionBuilder) ReadTimeout(readtimeout *DurationBuilder) *WebhookActionBuilder {
-	v := readtimeout.Build()
-	rb.v.ReadTimeout = &v
-	return rb
-}
-
-func (rb *WebhookActionBuilder) Scheme(scheme connectionscheme.ConnectionScheme) *WebhookActionBuilder {
-	rb.v.Scheme = &scheme
-	return rb
-}
-
-func (rb *WebhookActionBuilder) Url(url string) *WebhookActionBuilder {
-	rb.v.Url = &url
-	return rb
+	return r
 }

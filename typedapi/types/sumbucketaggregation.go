@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,60 +28,19 @@ import (
 
 // SumBucketAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/pipeline.ts#L286-L286
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/pipeline.ts#L286-L286
 type SumBucketAggregation struct {
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
-	BucketsPath *BucketsPath         `json:"buckets_path,omitempty"`
-	Format      *string              `json:"format,omitempty"`
-	GapPolicy   *gappolicy.GapPolicy `json:"gap_policy,omitempty"`
-	Meta        *Metadata            `json:"meta,omitempty"`
-	Name        *string              `json:"name,omitempty"`
+	BucketsPath *string                `json:"buckets_path,omitempty"`
+	Format      *string                `json:"format,omitempty"`
+	GapPolicy   *gappolicy.GapPolicy   `json:"gap_policy,omitempty"`
+	Meta        map[string]interface{} `json:"meta,omitempty"`
+	Name        *string                `json:"name,omitempty"`
 }
 
-// SumBucketAggregationBuilder holds SumBucketAggregation struct and provides a builder API.
-type SumBucketAggregationBuilder struct {
-	v *SumBucketAggregation
-}
+// NewSumBucketAggregation returns a SumBucketAggregation.
+func NewSumBucketAggregation() *SumBucketAggregation {
+	r := &SumBucketAggregation{}
 
-// NewSumBucketAggregation provides a builder for the SumBucketAggregation struct.
-func NewSumBucketAggregationBuilder() *SumBucketAggregationBuilder {
-	r := SumBucketAggregationBuilder{
-		&SumBucketAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SumBucketAggregation struct
-func (rb *SumBucketAggregationBuilder) Build() SumBucketAggregation {
-	return *rb.v
-}
-
-// BucketsPath Path to the buckets that contain one set of values to correlate.
-
-func (rb *SumBucketAggregationBuilder) BucketsPath(bucketspath *BucketsPathBuilder) *SumBucketAggregationBuilder {
-	v := bucketspath.Build()
-	rb.v.BucketsPath = &v
-	return rb
-}
-
-func (rb *SumBucketAggregationBuilder) Format(format string) *SumBucketAggregationBuilder {
-	rb.v.Format = &format
-	return rb
-}
-
-func (rb *SumBucketAggregationBuilder) GapPolicy(gappolicy gappolicy.GapPolicy) *SumBucketAggregationBuilder {
-	rb.v.GapPolicy = &gappolicy
-	return rb
-}
-
-func (rb *SumBucketAggregationBuilder) Meta(meta *MetadataBuilder) *SumBucketAggregationBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *SumBucketAggregationBuilder) Name(name string) *SumBucketAggregationBuilder {
-	rb.v.Name = &name
-	return rb
+	return r
 }

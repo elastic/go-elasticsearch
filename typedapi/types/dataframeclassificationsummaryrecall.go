@@ -17,48 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeClassificationSummaryRecall type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/evaluate_data_frame/types.ts#L65-L68
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/evaluate_data_frame/types.ts#L65-L68
 type DataframeClassificationSummaryRecall struct {
 	AvgRecall float64                    `json:"avg_recall"`
 	Classes   []DataframeEvaluationClass `json:"classes"`
 }
 
-// DataframeClassificationSummaryRecallBuilder holds DataframeClassificationSummaryRecall struct and provides a builder API.
-type DataframeClassificationSummaryRecallBuilder struct {
-	v *DataframeClassificationSummaryRecall
-}
+// NewDataframeClassificationSummaryRecall returns a DataframeClassificationSummaryRecall.
+func NewDataframeClassificationSummaryRecall() *DataframeClassificationSummaryRecall {
+	r := &DataframeClassificationSummaryRecall{}
 
-// NewDataframeClassificationSummaryRecall provides a builder for the DataframeClassificationSummaryRecall struct.
-func NewDataframeClassificationSummaryRecallBuilder() *DataframeClassificationSummaryRecallBuilder {
-	r := DataframeClassificationSummaryRecallBuilder{
-		&DataframeClassificationSummaryRecall{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeClassificationSummaryRecall struct
-func (rb *DataframeClassificationSummaryRecallBuilder) Build() DataframeClassificationSummaryRecall {
-	return *rb.v
-}
-
-func (rb *DataframeClassificationSummaryRecallBuilder) AvgRecall(avgrecall float64) *DataframeClassificationSummaryRecallBuilder {
-	rb.v.AvgRecall = avgrecall
-	return rb
-}
-
-func (rb *DataframeClassificationSummaryRecallBuilder) Classes(classes []DataframeEvaluationClassBuilder) *DataframeClassificationSummaryRecallBuilder {
-	tmp := make([]DataframeEvaluationClass, len(classes))
-	for _, value := range classes {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Classes = tmp
-	return rb
+	return r
 }

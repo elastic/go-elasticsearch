@@ -17,57 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // GrantApiKey type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/security/grant_api_key/types.ts#L25-L32
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/grant_api_key/types.ts#L25-L32
 type GrantApiKey struct {
-	Expiration      *DurationLarge              `json:"expiration,omitempty"`
-	Metadata        *Metadata                   `json:"metadata,omitempty"`
-	Name            Name                        `json:"name"`
+	Expiration      *string                     `json:"expiration,omitempty"`
+	Metadata        map[string]interface{}      `json:"metadata,omitempty"`
+	Name            string                      `json:"name"`
 	RoleDescriptors []map[string]RoleDescriptor `json:"role_descriptors,omitempty"`
 }
 
-// GrantApiKeyBuilder holds GrantApiKey struct and provides a builder API.
-type GrantApiKeyBuilder struct {
-	v *GrantApiKey
-}
+// NewGrantApiKey returns a GrantApiKey.
+func NewGrantApiKey() *GrantApiKey {
+	r := &GrantApiKey{}
 
-// NewGrantApiKey provides a builder for the GrantApiKey struct.
-func NewGrantApiKeyBuilder() *GrantApiKeyBuilder {
-	r := GrantApiKeyBuilder{
-		&GrantApiKey{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the GrantApiKey struct
-func (rb *GrantApiKeyBuilder) Build() GrantApiKey {
-	return *rb.v
-}
-
-func (rb *GrantApiKeyBuilder) Expiration(expiration DurationLarge) *GrantApiKeyBuilder {
-	rb.v.Expiration = &expiration
-	return rb
-}
-
-func (rb *GrantApiKeyBuilder) Metadata(metadata *MetadataBuilder) *GrantApiKeyBuilder {
-	v := metadata.Build()
-	rb.v.Metadata = &v
-	return rb
-}
-
-func (rb *GrantApiKeyBuilder) Name(name Name) *GrantApiKeyBuilder {
-	rb.v.Name = name
-	return rb
-}
-
-func (rb *GrantApiKeyBuilder) RoleDescriptors(arg []map[string]RoleDescriptor) *GrantApiKeyBuilder {
-	rb.v.RoleDescriptors = arg
-	return rb
+	return r
 }

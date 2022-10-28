@@ -17,53 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SmoothingModelContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/search/_types/suggester.ts#L224-L231
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/suggester.ts#L224-L231
 type SmoothingModelContainer struct {
 	Laplace             *LaplaceSmoothingModel             `json:"laplace,omitempty"`
 	LinearInterpolation *LinearInterpolationSmoothingModel `json:"linear_interpolation,omitempty"`
 	StupidBackoff       *StupidBackoffSmoothingModel       `json:"stupid_backoff,omitempty"`
 }
 
-// SmoothingModelContainerBuilder holds SmoothingModelContainer struct and provides a builder API.
-type SmoothingModelContainerBuilder struct {
-	v *SmoothingModelContainer
-}
+// NewSmoothingModelContainer returns a SmoothingModelContainer.
+func NewSmoothingModelContainer() *SmoothingModelContainer {
+	r := &SmoothingModelContainer{}
 
-// NewSmoothingModelContainer provides a builder for the SmoothingModelContainer struct.
-func NewSmoothingModelContainerBuilder() *SmoothingModelContainerBuilder {
-	r := SmoothingModelContainerBuilder{
-		&SmoothingModelContainer{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SmoothingModelContainer struct
-func (rb *SmoothingModelContainerBuilder) Build() SmoothingModelContainer {
-	return *rb.v
-}
-
-func (rb *SmoothingModelContainerBuilder) Laplace(laplace *LaplaceSmoothingModelBuilder) *SmoothingModelContainerBuilder {
-	v := laplace.Build()
-	rb.v.Laplace = &v
-	return rb
-}
-
-func (rb *SmoothingModelContainerBuilder) LinearInterpolation(linearinterpolation *LinearInterpolationSmoothingModelBuilder) *SmoothingModelContainerBuilder {
-	v := linearinterpolation.Build()
-	rb.v.LinearInterpolation = &v
-	return rb
-}
-
-func (rb *SmoothingModelContainerBuilder) StupidBackoff(stupidbackoff *StupidBackoffSmoothingModelBuilder) *SmoothingModelContainerBuilder {
-	v := stupidbackoff.Build()
-	rb.v.StupidBackoff = &v
-	return rb
+	return r
 }

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Process type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/_types/Stats.ts#L375-L381
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L375-L381
 type Process struct {
 	Cpu                 *Cpu         `json:"cpu,omitempty"`
 	MaxFileDescriptors  *int         `json:"max_file_descriptors,omitempty"`
@@ -33,48 +33,9 @@ type Process struct {
 	Timestamp           *int64       `json:"timestamp,omitempty"`
 }
 
-// ProcessBuilder holds Process struct and provides a builder API.
-type ProcessBuilder struct {
-	v *Process
-}
+// NewProcess returns a Process.
+func NewProcess() *Process {
+	r := &Process{}
 
-// NewProcess provides a builder for the Process struct.
-func NewProcessBuilder() *ProcessBuilder {
-	r := ProcessBuilder{
-		&Process{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Process struct
-func (rb *ProcessBuilder) Build() Process {
-	return *rb.v
-}
-
-func (rb *ProcessBuilder) Cpu(cpu *CpuBuilder) *ProcessBuilder {
-	v := cpu.Build()
-	rb.v.Cpu = &v
-	return rb
-}
-
-func (rb *ProcessBuilder) MaxFileDescriptors(maxfiledescriptors int) *ProcessBuilder {
-	rb.v.MaxFileDescriptors = &maxfiledescriptors
-	return rb
-}
-
-func (rb *ProcessBuilder) Mem(mem *MemoryStatsBuilder) *ProcessBuilder {
-	v := mem.Build()
-	rb.v.Mem = &v
-	return rb
-}
-
-func (rb *ProcessBuilder) OpenFileDescriptors(openfiledescriptors int) *ProcessBuilder {
-	rb.v.OpenFileDescriptors = &openfiledescriptors
-	return rb
-}
-
-func (rb *ProcessBuilder) Timestamp(timestamp int64) *ProcessBuilder {
-	rb.v.Timestamp = &timestamp
-	return rb
+	return r
 }

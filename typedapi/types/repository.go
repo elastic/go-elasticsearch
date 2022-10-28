@@ -17,51 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Repository type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/snapshot/_types/SnapshotRepository.ts#L23-L27
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/snapshot/_types/SnapshotRepository.ts#L23-L27
 type Repository struct {
 	Settings RepositorySettings `json:"settings"`
 	Type     string             `json:"type"`
-	Uuid     *Uuid              `json:"uuid,omitempty"`
+	Uuid     *string            `json:"uuid,omitempty"`
 }
 
-// RepositoryBuilder holds Repository struct and provides a builder API.
-type RepositoryBuilder struct {
-	v *Repository
-}
+// NewRepository returns a Repository.
+func NewRepository() *Repository {
+	r := &Repository{}
 
-// NewRepository provides a builder for the Repository struct.
-func NewRepositoryBuilder() *RepositoryBuilder {
-	r := RepositoryBuilder{
-		&Repository{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Repository struct
-func (rb *RepositoryBuilder) Build() Repository {
-	return *rb.v
-}
-
-func (rb *RepositoryBuilder) Settings(settings *RepositorySettingsBuilder) *RepositoryBuilder {
-	v := settings.Build()
-	rb.v.Settings = v
-	return rb
-}
-
-func (rb *RepositoryBuilder) Type_(type_ string) *RepositoryBuilder {
-	rb.v.Type = type_
-	return rb
-}
-
-func (rb *RepositoryBuilder) Uuid(uuid Uuid) *RepositoryBuilder {
-	rb.v.Uuid = &uuid
-	return rb
+	return r
 }

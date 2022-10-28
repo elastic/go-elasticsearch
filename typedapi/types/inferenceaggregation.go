@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,73 +28,21 @@ import (
 
 // InferenceAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/pipeline.ts#L171-L174
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/pipeline.ts#L171-L174
 type InferenceAggregation struct {
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
-	BucketsPath     *BucketsPath              `json:"buckets_path,omitempty"`
+	BucketsPath     *string                   `json:"buckets_path,omitempty"`
 	Format          *string                   `json:"format,omitempty"`
 	GapPolicy       *gappolicy.GapPolicy      `json:"gap_policy,omitempty"`
 	InferenceConfig *InferenceConfigContainer `json:"inference_config,omitempty"`
-	Meta            *Metadata                 `json:"meta,omitempty"`
-	ModelId         Name                      `json:"model_id"`
+	Meta            map[string]interface{}    `json:"meta,omitempty"`
+	ModelId         string                    `json:"model_id"`
 	Name            *string                   `json:"name,omitempty"`
 }
 
-// InferenceAggregationBuilder holds InferenceAggregation struct and provides a builder API.
-type InferenceAggregationBuilder struct {
-	v *InferenceAggregation
-}
+// NewInferenceAggregation returns a InferenceAggregation.
+func NewInferenceAggregation() *InferenceAggregation {
+	r := &InferenceAggregation{}
 
-// NewInferenceAggregation provides a builder for the InferenceAggregation struct.
-func NewInferenceAggregationBuilder() *InferenceAggregationBuilder {
-	r := InferenceAggregationBuilder{
-		&InferenceAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the InferenceAggregation struct
-func (rb *InferenceAggregationBuilder) Build() InferenceAggregation {
-	return *rb.v
-}
-
-// BucketsPath Path to the buckets that contain one set of values to correlate.
-
-func (rb *InferenceAggregationBuilder) BucketsPath(bucketspath *BucketsPathBuilder) *InferenceAggregationBuilder {
-	v := bucketspath.Build()
-	rb.v.BucketsPath = &v
-	return rb
-}
-
-func (rb *InferenceAggregationBuilder) Format(format string) *InferenceAggregationBuilder {
-	rb.v.Format = &format
-	return rb
-}
-
-func (rb *InferenceAggregationBuilder) GapPolicy(gappolicy gappolicy.GapPolicy) *InferenceAggregationBuilder {
-	rb.v.GapPolicy = &gappolicy
-	return rb
-}
-
-func (rb *InferenceAggregationBuilder) InferenceConfig(inferenceconfig *InferenceConfigContainerBuilder) *InferenceAggregationBuilder {
-	v := inferenceconfig.Build()
-	rb.v.InferenceConfig = &v
-	return rb
-}
-
-func (rb *InferenceAggregationBuilder) Meta(meta *MetadataBuilder) *InferenceAggregationBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *InferenceAggregationBuilder) ModelId(modelid Name) *InferenceAggregationBuilder {
-	rb.v.ModelId = modelid
-	return rb
-}
-
-func (rb *InferenceAggregationBuilder) Name(name string) *InferenceAggregationBuilder {
-	rb.v.Name = &name
-	return rb
+	return r
 }

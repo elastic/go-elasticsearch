@@ -17,78 +17,28 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // UrlDecodeProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ingest/_types/Processors.ts#L361-L365
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ingest/_types/Processors.ts#L374-L378
 type UrlDecodeProcessor struct {
-	Field         Field                `json:"field"`
+	Description   *string              `json:"description,omitempty"`
+	Field         string               `json:"field"`
 	If            *string              `json:"if,omitempty"`
 	IgnoreFailure *bool                `json:"ignore_failure,omitempty"`
 	IgnoreMissing *bool                `json:"ignore_missing,omitempty"`
 	OnFailure     []ProcessorContainer `json:"on_failure,omitempty"`
 	Tag           *string              `json:"tag,omitempty"`
-	TargetField   *Field               `json:"target_field,omitempty"`
+	TargetField   *string              `json:"target_field,omitempty"`
 }
 
-// UrlDecodeProcessorBuilder holds UrlDecodeProcessor struct and provides a builder API.
-type UrlDecodeProcessorBuilder struct {
-	v *UrlDecodeProcessor
-}
+// NewUrlDecodeProcessor returns a UrlDecodeProcessor.
+func NewUrlDecodeProcessor() *UrlDecodeProcessor {
+	r := &UrlDecodeProcessor{}
 
-// NewUrlDecodeProcessor provides a builder for the UrlDecodeProcessor struct.
-func NewUrlDecodeProcessorBuilder() *UrlDecodeProcessorBuilder {
-	r := UrlDecodeProcessorBuilder{
-		&UrlDecodeProcessor{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the UrlDecodeProcessor struct
-func (rb *UrlDecodeProcessorBuilder) Build() UrlDecodeProcessor {
-	return *rb.v
-}
-
-func (rb *UrlDecodeProcessorBuilder) Field(field Field) *UrlDecodeProcessorBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *UrlDecodeProcessorBuilder) If_(if_ string) *UrlDecodeProcessorBuilder {
-	rb.v.If = &if_
-	return rb
-}
-
-func (rb *UrlDecodeProcessorBuilder) IgnoreFailure(ignorefailure bool) *UrlDecodeProcessorBuilder {
-	rb.v.IgnoreFailure = &ignorefailure
-	return rb
-}
-
-func (rb *UrlDecodeProcessorBuilder) IgnoreMissing(ignoremissing bool) *UrlDecodeProcessorBuilder {
-	rb.v.IgnoreMissing = &ignoremissing
-	return rb
-}
-
-func (rb *UrlDecodeProcessorBuilder) OnFailure(on_failure []ProcessorContainerBuilder) *UrlDecodeProcessorBuilder {
-	tmp := make([]ProcessorContainer, len(on_failure))
-	for _, value := range on_failure {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.OnFailure = tmp
-	return rb
-}
-
-func (rb *UrlDecodeProcessorBuilder) Tag(tag string) *UrlDecodeProcessorBuilder {
-	rb.v.Tag = &tag
-	return rb
-}
-
-func (rb *UrlDecodeProcessorBuilder) TargetField(targetfield Field) *UrlDecodeProcessorBuilder {
-	rb.v.TargetField = &targetfield
-	return rb
+	return r
 }

@@ -17,42 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeInfoIngest type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/info/types.ts#L216-L218
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/info/types.ts#L216-L218
 type NodeInfoIngest struct {
 	Processors []NodeInfoIngestProcessor `json:"processors"`
 }
 
-// NodeInfoIngestBuilder holds NodeInfoIngest struct and provides a builder API.
-type NodeInfoIngestBuilder struct {
-	v *NodeInfoIngest
-}
+// NewNodeInfoIngest returns a NodeInfoIngest.
+func NewNodeInfoIngest() *NodeInfoIngest {
+	r := &NodeInfoIngest{}
 
-// NewNodeInfoIngest provides a builder for the NodeInfoIngest struct.
-func NewNodeInfoIngestBuilder() *NodeInfoIngestBuilder {
-	r := NodeInfoIngestBuilder{
-		&NodeInfoIngest{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodeInfoIngest struct
-func (rb *NodeInfoIngestBuilder) Build() NodeInfoIngest {
-	return *rb.v
-}
-
-func (rb *NodeInfoIngestBuilder) Processors(processors []NodeInfoIngestProcessorBuilder) *NodeInfoIngestBuilder {
-	tmp := make([]NodeInfoIngestProcessor, len(processors))
-	for _, value := range processors {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Processors = tmp
-	return rb
+	return r
 }

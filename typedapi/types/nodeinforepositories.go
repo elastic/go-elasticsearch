@@ -17,39 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeInfoRepositories type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/info/types.ts#L161-L163
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/info/types.ts#L161-L163
 type NodeInfoRepositories struct {
 	Url NodeInfoRepositoriesUrl `json:"url"`
 }
 
-// NodeInfoRepositoriesBuilder holds NodeInfoRepositories struct and provides a builder API.
-type NodeInfoRepositoriesBuilder struct {
-	v *NodeInfoRepositories
-}
+// NewNodeInfoRepositories returns a NodeInfoRepositories.
+func NewNodeInfoRepositories() *NodeInfoRepositories {
+	r := &NodeInfoRepositories{}
 
-// NewNodeInfoRepositories provides a builder for the NodeInfoRepositories struct.
-func NewNodeInfoRepositoriesBuilder() *NodeInfoRepositoriesBuilder {
-	r := NodeInfoRepositoriesBuilder{
-		&NodeInfoRepositories{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodeInfoRepositories struct
-func (rb *NodeInfoRepositoriesBuilder) Build() NodeInfoRepositories {
-	return *rb.v
-}
-
-func (rb *NodeInfoRepositoriesBuilder) Url(url *NodeInfoRepositoriesUrlBuilder) *NodeInfoRepositoriesBuilder {
-	v := url.Build()
-	rb.v.Url = v
-	return rb
+	return r
 }

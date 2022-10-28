@@ -17,41 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RemoveDuplicatesTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/analysis/token_filters.ts#L300-L302
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/token_filters.ts#L300-L302
 type RemoveDuplicatesTokenFilter struct {
-	Type    string         `json:"type,omitempty"`
-	Version *VersionString `json:"version,omitempty"`
+	Type    string  `json:"type,omitempty"`
+	Version *string `json:"version,omitempty"`
 }
 
-// RemoveDuplicatesTokenFilterBuilder holds RemoveDuplicatesTokenFilter struct and provides a builder API.
-type RemoveDuplicatesTokenFilterBuilder struct {
-	v *RemoveDuplicatesTokenFilter
-}
+// NewRemoveDuplicatesTokenFilter returns a RemoveDuplicatesTokenFilter.
+func NewRemoveDuplicatesTokenFilter() *RemoveDuplicatesTokenFilter {
+	r := &RemoveDuplicatesTokenFilter{}
 
-// NewRemoveDuplicatesTokenFilter provides a builder for the RemoveDuplicatesTokenFilter struct.
-func NewRemoveDuplicatesTokenFilterBuilder() *RemoveDuplicatesTokenFilterBuilder {
-	r := RemoveDuplicatesTokenFilterBuilder{
-		&RemoveDuplicatesTokenFilter{},
-	}
+	r.Type = "remove_duplicates"
 
-	r.v.Type = "remove_duplicates"
-
-	return &r
-}
-
-// Build finalize the chain and returns the RemoveDuplicatesTokenFilter struct
-func (rb *RemoveDuplicatesTokenFilterBuilder) Build() RemoveDuplicatesTokenFilter {
-	return *rb.v
-}
-
-func (rb *RemoveDuplicatesTokenFilterBuilder) Version(version VersionString) *RemoveDuplicatesTokenFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

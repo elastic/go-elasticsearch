@@ -17,51 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RollupJobSummaryField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/rollup/get_rollup_index_caps/types.ts#L35-L39
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/rollup/get_rollup_index_caps/types.ts#L35-L39
 type RollupJobSummaryField struct {
 	Agg              string    `json:"agg"`
 	CalendarInterval *Duration `json:"calendar_interval,omitempty"`
-	TimeZone         *TimeZone `json:"time_zone,omitempty"`
+	TimeZone         *string   `json:"time_zone,omitempty"`
 }
 
-// RollupJobSummaryFieldBuilder holds RollupJobSummaryField struct and provides a builder API.
-type RollupJobSummaryFieldBuilder struct {
-	v *RollupJobSummaryField
-}
+// NewRollupJobSummaryField returns a RollupJobSummaryField.
+func NewRollupJobSummaryField() *RollupJobSummaryField {
+	r := &RollupJobSummaryField{}
 
-// NewRollupJobSummaryField provides a builder for the RollupJobSummaryField struct.
-func NewRollupJobSummaryFieldBuilder() *RollupJobSummaryFieldBuilder {
-	r := RollupJobSummaryFieldBuilder{
-		&RollupJobSummaryField{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RollupJobSummaryField struct
-func (rb *RollupJobSummaryFieldBuilder) Build() RollupJobSummaryField {
-	return *rb.v
-}
-
-func (rb *RollupJobSummaryFieldBuilder) Agg(agg string) *RollupJobSummaryFieldBuilder {
-	rb.v.Agg = agg
-	return rb
-}
-
-func (rb *RollupJobSummaryFieldBuilder) CalendarInterval(calendarinterval *DurationBuilder) *RollupJobSummaryFieldBuilder {
-	v := calendarinterval.Build()
-	rb.v.CalendarInterval = &v
-	return rb
-}
-
-func (rb *RollupJobSummaryFieldBuilder) TimeZone(timezone TimeZone) *RollupJobSummaryFieldBuilder {
-	rb.v.TimeZone = &timezone
-	return rb
+	return r
 }

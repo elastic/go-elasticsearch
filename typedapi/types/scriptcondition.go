@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ScriptCondition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/watcher/_types/Conditions.ts#L76-L84
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Conditions.ts#L76-L84
 type ScriptCondition struct {
 	Id     *string                `json:"id,omitempty"`
 	Lang   *string                `json:"lang,omitempty"`
@@ -32,43 +32,11 @@ type ScriptCondition struct {
 	Source *string                `json:"source,omitempty"`
 }
 
-// ScriptConditionBuilder holds ScriptCondition struct and provides a builder API.
-type ScriptConditionBuilder struct {
-	v *ScriptCondition
-}
-
-// NewScriptCondition provides a builder for the ScriptCondition struct.
-func NewScriptConditionBuilder() *ScriptConditionBuilder {
-	r := ScriptConditionBuilder{
-		&ScriptCondition{
-			Params: make(map[string]interface{}, 0),
-		},
+// NewScriptCondition returns a ScriptCondition.
+func NewScriptCondition() *ScriptCondition {
+	r := &ScriptCondition{
+		Params: make(map[string]interface{}, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the ScriptCondition struct
-func (rb *ScriptConditionBuilder) Build() ScriptCondition {
-	return *rb.v
-}
-
-func (rb *ScriptConditionBuilder) Id(id string) *ScriptConditionBuilder {
-	rb.v.Id = &id
-	return rb
-}
-
-func (rb *ScriptConditionBuilder) Lang(lang string) *ScriptConditionBuilder {
-	rb.v.Lang = &lang
-	return rb
-}
-
-func (rb *ScriptConditionBuilder) Params(value map[string]interface{}) *ScriptConditionBuilder {
-	rb.v.Params = value
-	return rb
-}
-
-func (rb *ScriptConditionBuilder) Source(source string) *ScriptConditionBuilder {
-	rb.v.Source = &source
-	return rb
+	return r
 }

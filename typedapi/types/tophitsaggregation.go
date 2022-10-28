@@ -17,18 +17,18 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TopHitsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/metric.ts#L171-L184
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/metric.ts#L171-L184
 type TopHitsAggregation struct {
-	DocvalueFields   *Fields                `json:"docvalue_fields,omitempty"`
+	DocvalueFields   []string               `json:"docvalue_fields,omitempty"`
 	Explain          *bool                  `json:"explain,omitempty"`
-	Field            *Field                 `json:"field,omitempty"`
+	Field            *string                `json:"field,omitempty"`
 	From             *int                   `json:"from,omitempty"`
 	Highlight        *Highlight             `json:"highlight,omitempty"`
 	Missing          *Missing               `json:"missing,omitempty"`
@@ -36,116 +36,18 @@ type TopHitsAggregation struct {
 	ScriptFields     map[string]ScriptField `json:"script_fields,omitempty"`
 	SeqNoPrimaryTerm *bool                  `json:"seq_no_primary_term,omitempty"`
 	Size             *int                   `json:"size,omitempty"`
-	Sort             *Sort                  `json:"sort,omitempty"`
+	Sort             []SortCombinations     `json:"sort,omitempty"`
 	Source_          *SourceConfig          `json:"_source,omitempty"`
-	StoredFields     *Fields                `json:"stored_fields,omitempty"`
+	StoredFields     []string               `json:"stored_fields,omitempty"`
 	TrackScores      *bool                  `json:"track_scores,omitempty"`
 	Version          *bool                  `json:"version,omitempty"`
 }
 
-// TopHitsAggregationBuilder holds TopHitsAggregation struct and provides a builder API.
-type TopHitsAggregationBuilder struct {
-	v *TopHitsAggregation
-}
-
-// NewTopHitsAggregation provides a builder for the TopHitsAggregation struct.
-func NewTopHitsAggregationBuilder() *TopHitsAggregationBuilder {
-	r := TopHitsAggregationBuilder{
-		&TopHitsAggregation{
-			ScriptFields: make(map[string]ScriptField, 0),
-		},
+// NewTopHitsAggregation returns a TopHitsAggregation.
+func NewTopHitsAggregation() *TopHitsAggregation {
+	r := &TopHitsAggregation{
+		ScriptFields: make(map[string]ScriptField, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the TopHitsAggregation struct
-func (rb *TopHitsAggregationBuilder) Build() TopHitsAggregation {
-	return *rb.v
-}
-
-func (rb *TopHitsAggregationBuilder) DocvalueFields(docvaluefields *FieldsBuilder) *TopHitsAggregationBuilder {
-	v := docvaluefields.Build()
-	rb.v.DocvalueFields = &v
-	return rb
-}
-
-func (rb *TopHitsAggregationBuilder) Explain(explain bool) *TopHitsAggregationBuilder {
-	rb.v.Explain = &explain
-	return rb
-}
-
-func (rb *TopHitsAggregationBuilder) Field(field Field) *TopHitsAggregationBuilder {
-	rb.v.Field = &field
-	return rb
-}
-
-func (rb *TopHitsAggregationBuilder) From(from int) *TopHitsAggregationBuilder {
-	rb.v.From = &from
-	return rb
-}
-
-func (rb *TopHitsAggregationBuilder) Highlight(highlight *HighlightBuilder) *TopHitsAggregationBuilder {
-	v := highlight.Build()
-	rb.v.Highlight = &v
-	return rb
-}
-
-func (rb *TopHitsAggregationBuilder) Missing(missing *MissingBuilder) *TopHitsAggregationBuilder {
-	v := missing.Build()
-	rb.v.Missing = &v
-	return rb
-}
-
-func (rb *TopHitsAggregationBuilder) Script(script *ScriptBuilder) *TopHitsAggregationBuilder {
-	v := script.Build()
-	rb.v.Script = &v
-	return rb
-}
-
-func (rb *TopHitsAggregationBuilder) ScriptFields(values map[string]*ScriptFieldBuilder) *TopHitsAggregationBuilder {
-	tmp := make(map[string]ScriptField, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.ScriptFields = tmp
-	return rb
-}
-
-func (rb *TopHitsAggregationBuilder) SeqNoPrimaryTerm(seqnoprimaryterm bool) *TopHitsAggregationBuilder {
-	rb.v.SeqNoPrimaryTerm = &seqnoprimaryterm
-	return rb
-}
-
-func (rb *TopHitsAggregationBuilder) Size(size int) *TopHitsAggregationBuilder {
-	rb.v.Size = &size
-	return rb
-}
-
-func (rb *TopHitsAggregationBuilder) Sort(sort *SortBuilder) *TopHitsAggregationBuilder {
-	v := sort.Build()
-	rb.v.Sort = &v
-	return rb
-}
-
-func (rb *TopHitsAggregationBuilder) Source_(source_ *SourceConfigBuilder) *TopHitsAggregationBuilder {
-	v := source_.Build()
-	rb.v.Source_ = &v
-	return rb
-}
-
-func (rb *TopHitsAggregationBuilder) StoredFields(storedfields *FieldsBuilder) *TopHitsAggregationBuilder {
-	v := storedfields.Build()
-	rb.v.StoredFields = &v
-	return rb
-}
-
-func (rb *TopHitsAggregationBuilder) TrackScores(trackscores bool) *TopHitsAggregationBuilder {
-	rb.v.TrackScores = &trackscores
-	return rb
-}
-
-func (rb *TopHitsAggregationBuilder) Version(version bool) *TopHitsAggregationBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // PassThroughInferenceOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/_types/inference.ts#L209-L215
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/inference.ts#L209-L215
 type PassThroughInferenceOptions struct {
 	// ResultsField The field that is added to incoming documents to contain the inference
 	// prediction. Defaults to predicted_value.
@@ -33,37 +33,9 @@ type PassThroughInferenceOptions struct {
 	Tokenization *TokenizationConfigContainer `json:"tokenization,omitempty"`
 }
 
-// PassThroughInferenceOptionsBuilder holds PassThroughInferenceOptions struct and provides a builder API.
-type PassThroughInferenceOptionsBuilder struct {
-	v *PassThroughInferenceOptions
-}
+// NewPassThroughInferenceOptions returns a PassThroughInferenceOptions.
+func NewPassThroughInferenceOptions() *PassThroughInferenceOptions {
+	r := &PassThroughInferenceOptions{}
 
-// NewPassThroughInferenceOptions provides a builder for the PassThroughInferenceOptions struct.
-func NewPassThroughInferenceOptionsBuilder() *PassThroughInferenceOptionsBuilder {
-	r := PassThroughInferenceOptionsBuilder{
-		&PassThroughInferenceOptions{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the PassThroughInferenceOptions struct
-func (rb *PassThroughInferenceOptionsBuilder) Build() PassThroughInferenceOptions {
-	return *rb.v
-}
-
-// ResultsField The field that is added to incoming documents to contain the inference
-// prediction. Defaults to predicted_value.
-
-func (rb *PassThroughInferenceOptionsBuilder) ResultsField(resultsfield string) *PassThroughInferenceOptionsBuilder {
-	rb.v.ResultsField = &resultsfield
-	return rb
-}
-
-// Tokenization The tokenization options
-
-func (rb *PassThroughInferenceOptionsBuilder) Tokenization(tokenization *TokenizationConfigContainerBuilder) *PassThroughInferenceOptionsBuilder {
-	v := tokenization.Build()
-	rb.v.Tokenization = &v
-	return rb
+	return r
 }

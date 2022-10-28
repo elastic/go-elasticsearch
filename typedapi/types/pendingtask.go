@@ -17,70 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // PendingTask type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/cluster/pending_tasks/types.ts#L23-L30
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/pending_tasks/types.ts#L23-L30
 type PendingTask struct {
-	Executing         bool                    `json:"executing"`
-	InsertOrder       int                     `json:"insert_order"`
-	Priority          string                  `json:"priority"`
-	Source            string                  `json:"source"`
-	TimeInQueue       *Duration               `json:"time_in_queue,omitempty"`
-	TimeInQueueMillis DurationValueUnitMillis `json:"time_in_queue_millis"`
+	Executing         bool      `json:"executing"`
+	InsertOrder       int       `json:"insert_order"`
+	Priority          string    `json:"priority"`
+	Source            string    `json:"source"`
+	TimeInQueue       *Duration `json:"time_in_queue,omitempty"`
+	TimeInQueueMillis int64     `json:"time_in_queue_millis"`
 }
 
-// PendingTaskBuilder holds PendingTask struct and provides a builder API.
-type PendingTaskBuilder struct {
-	v *PendingTask
-}
+// NewPendingTask returns a PendingTask.
+func NewPendingTask() *PendingTask {
+	r := &PendingTask{}
 
-// NewPendingTask provides a builder for the PendingTask struct.
-func NewPendingTaskBuilder() *PendingTaskBuilder {
-	r := PendingTaskBuilder{
-		&PendingTask{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the PendingTask struct
-func (rb *PendingTaskBuilder) Build() PendingTask {
-	return *rb.v
-}
-
-func (rb *PendingTaskBuilder) Executing(executing bool) *PendingTaskBuilder {
-	rb.v.Executing = executing
-	return rb
-}
-
-func (rb *PendingTaskBuilder) InsertOrder(insertorder int) *PendingTaskBuilder {
-	rb.v.InsertOrder = insertorder
-	return rb
-}
-
-func (rb *PendingTaskBuilder) Priority(priority string) *PendingTaskBuilder {
-	rb.v.Priority = priority
-	return rb
-}
-
-func (rb *PendingTaskBuilder) Source(source string) *PendingTaskBuilder {
-	rb.v.Source = source
-	return rb
-}
-
-func (rb *PendingTaskBuilder) TimeInQueue(timeinqueue *DurationBuilder) *PendingTaskBuilder {
-	v := timeinqueue.Build()
-	rb.v.TimeInQueue = &v
-	return rb
-}
-
-func (rb *PendingTaskBuilder) TimeInQueueMillis(timeinqueuemillis *DurationValueUnitMillisBuilder) *PendingTaskBuilder {
-	v := timeinqueuemillis.Build()
-	rb.v.TimeInQueueMillis = v
-	return rb
+	return r
 }

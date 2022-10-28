@@ -17,51 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AutoscalingDecider type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/autoscaling/get_autoscaling_capacity/GetAutoscalingCapacityResponse.ts#L52-L56
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/autoscaling/get_autoscaling_capacity/GetAutoscalingCapacityResponse.ts#L52-L56
 type AutoscalingDecider struct {
 	ReasonDetails    interface{}         `json:"reason_details,omitempty"`
 	ReasonSummary    *string             `json:"reason_summary,omitempty"`
 	RequiredCapacity AutoscalingCapacity `json:"required_capacity"`
 }
 
-// AutoscalingDeciderBuilder holds AutoscalingDecider struct and provides a builder API.
-type AutoscalingDeciderBuilder struct {
-	v *AutoscalingDecider
-}
+// NewAutoscalingDecider returns a AutoscalingDecider.
+func NewAutoscalingDecider() *AutoscalingDecider {
+	r := &AutoscalingDecider{}
 
-// NewAutoscalingDecider provides a builder for the AutoscalingDecider struct.
-func NewAutoscalingDeciderBuilder() *AutoscalingDeciderBuilder {
-	r := AutoscalingDeciderBuilder{
-		&AutoscalingDecider{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the AutoscalingDecider struct
-func (rb *AutoscalingDeciderBuilder) Build() AutoscalingDecider {
-	return *rb.v
-}
-
-func (rb *AutoscalingDeciderBuilder) ReasonDetails(reasondetails interface{}) *AutoscalingDeciderBuilder {
-	rb.v.ReasonDetails = reasondetails
-	return rb
-}
-
-func (rb *AutoscalingDeciderBuilder) ReasonSummary(reasonsummary string) *AutoscalingDeciderBuilder {
-	rb.v.ReasonSummary = &reasonsummary
-	return rb
-}
-
-func (rb *AutoscalingDeciderBuilder) RequiredCapacity(requiredcapacity *AutoscalingCapacityBuilder) *AutoscalingDeciderBuilder {
-	v := requiredcapacity.Build()
-	rb.v.RequiredCapacity = v
-	return rb
+	return r
 }

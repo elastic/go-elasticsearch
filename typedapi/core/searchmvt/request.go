@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package searchmvt
@@ -32,7 +32,7 @@ import (
 
 // Request holds the request body struct for the package searchmvt
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/search_mvt/SearchMvtRequest.ts#L33-L164
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search_mvt/SearchMvtRequest.ts#L33-L164
 type Request struct {
 
 	// Aggs Sub-aggregations for the geotile_grid.
@@ -43,31 +43,26 @@ type Request struct {
 	// - max
 	// - min
 	// - sum
-	Aggs map[string]types.AggregationContainer `json:"aggs,omitempty"`
-
+	Aggs map[string]types.Aggregations `json:"aggs,omitempty"`
 	// ExactBounds If false, the meta layer’s feature is the bounding box of the tile.
 	// If true, the meta layer’s feature is a bounding box resulting from a
 	// geo_bounds aggregation. The aggregation runs on <field> values that intersect
 	// the <zoom>/<x>/<y> tile with wrap_longitude set to false. The resulting
 	// bounding box may be larger than the vector tile.
 	ExactBounds *bool `json:"exact_bounds,omitempty"`
-
 	// Extent Size, in pixels, of a side of the tile. Vector tiles are square with equal
 	// sides.
 	Extent *int `json:"extent,omitempty"`
-
 	// Fields Fields to return in the `hits` layer. Supports wildcards (`*`).
 	// This parameter does not support fields with array values. Fields with array
 	// values may return inconsistent results.
-	Fields *types.Fields `json:"fields,omitempty"`
-
+	Fields []string `json:"fields,omitempty"`
 	// GridPrecision Additional zoom levels available through the aggs layer. For example, if
 	// <zoom> is 7
 	// and grid_precision is 8, you can zoom in up to level 15. Accepts 0-8. If 0,
 	// results
 	// don’t include the aggs layer.
 	GridPrecision *int `json:"grid_precision,omitempty"`
-
 	// GridType Determines the geometry type for features in the aggs layer. In the aggs
 	// layer,
 	// each feature represents a geotile_grid cell. If 'grid' each feature is a
@@ -76,23 +71,18 @@ type Request struct {
 	// centroid
 	// of the cell.
 	GridType *gridtype.GridType `json:"grid_type,omitempty"`
-
 	// Query Query DSL used to filter documents for the search.
-	Query *types.QueryContainer `json:"query,omitempty"`
-
+	Query *types.Query `json:"query,omitempty"`
 	// RuntimeMappings Defines one or more runtime fields in the search request. These fields take
 	// precedence over mapped fields with the same name.
-	RuntimeMappings *types.RuntimeFields `json:"runtime_mappings,omitempty"`
-
+	RuntimeMappings map[string]types.RuntimeField `json:"runtime_mappings,omitempty"`
 	// Size Maximum number of features to return in the hits layer. Accepts 0-10000.
 	// If 0, results don’t include the hits layer.
 	Size *int `json:"size,omitempty"`
-
 	// Sort Sorts features in the hits layer. By default, the API calculates a bounding
 	// box for each feature. It sorts features based on this box’s diagonal length,
 	// from longest to shortest.
-	Sort *types.Sort `json:"sort,omitempty"`
-
+	Sort []types.SortCombinations `json:"sort,omitempty"`
 	// TrackTotalHits Number of hits matching the query to count accurately. If `true`, the exact
 	// number
 	// of hits is returned at the cost of some performance. If `false`, the response
@@ -101,23 +91,16 @@ type Request struct {
 	TrackTotalHits *types.TrackHits `json:"track_total_hits,omitempty"`
 }
 
-// RequestBuilder is the builder API for the searchmvt.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{
-			Aggs: make(map[string]types.AggregationContainer, 0),
-		},
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{
+		Aggs: make(map[string]types.Aggregations, 0),
 	}
-	return &r
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -126,73 +109,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) Aggs(values map[string]*types.AggregationContainerBuilder) *RequestBuilder {
-	tmp := make(map[string]types.AggregationContainer, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Aggs = tmp
-	return rb
-}
-
-func (rb *RequestBuilder) ExactBounds(exactbounds bool) *RequestBuilder {
-	rb.v.ExactBounds = &exactbounds
-	return rb
-}
-
-func (rb *RequestBuilder) Extent(extent int) *RequestBuilder {
-	rb.v.Extent = &extent
-	return rb
-}
-
-func (rb *RequestBuilder) Fields(fields *types.FieldsBuilder) *RequestBuilder {
-	v := fields.Build()
-	rb.v.Fields = &v
-	return rb
-}
-
-func (rb *RequestBuilder) GridPrecision(gridprecision int) *RequestBuilder {
-	rb.v.GridPrecision = &gridprecision
-	return rb
-}
-
-func (rb *RequestBuilder) GridType(gridtype gridtype.GridType) *RequestBuilder {
-	rb.v.GridType = &gridtype
-	return rb
-}
-
-func (rb *RequestBuilder) Query(query *types.QueryContainerBuilder) *RequestBuilder {
-	v := query.Build()
-	rb.v.Query = &v
-	return rb
-}
-
-func (rb *RequestBuilder) RuntimeMappings(runtimemappings *types.RuntimeFieldsBuilder) *RequestBuilder {
-	v := runtimemappings.Build()
-	rb.v.RuntimeMappings = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Size(size int) *RequestBuilder {
-	rb.v.Size = &size
-	return rb
-}
-
-func (rb *RequestBuilder) Sort(sort *types.SortBuilder) *RequestBuilder {
-	v := sort.Build()
-	rb.v.Sort = &v
-	return rb
-}
-
-func (rb *RequestBuilder) TrackTotalHits(tracktotalhits *types.TrackHitsBuilder) *RequestBuilder {
-	v := tracktotalhits.Build()
-	rb.v.TrackTotalHits = &v
-	return rb
 }

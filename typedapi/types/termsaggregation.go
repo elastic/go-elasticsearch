@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -30,15 +30,15 @@ import (
 
 // TermsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/bucket.ts#L379-L396
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/bucket.ts#L379-L396
 type TermsAggregation struct {
 	CollectMode           *termsaggregationcollectmode.TermsAggregationCollectMode     `json:"collect_mode,omitempty"`
-	Exclude               *TermsExclude                                                `json:"exclude,omitempty"`
+	Exclude               []string                                                     `json:"exclude,omitempty"`
 	ExecutionHint         *termsaggregationexecutionhint.TermsAggregationExecutionHint `json:"execution_hint,omitempty"`
-	Field                 *Field                                                       `json:"field,omitempty"`
+	Field                 *string                                                      `json:"field,omitempty"`
 	Format                *string                                                      `json:"format,omitempty"`
 	Include               *TermsInclude                                                `json:"include,omitempty"`
-	Meta                  *Metadata                                                    `json:"meta,omitempty"`
+	Meta                  map[string]interface{}                                       `json:"meta,omitempty"`
 	MinDocCount           *int                                                         `json:"min_doc_count,omitempty"`
 	Missing               *Missing                                                     `json:"missing,omitempty"`
 	MissingBucket         *bool                                                        `json:"missing_bucket,omitempty"`
@@ -52,117 +52,9 @@ type TermsAggregation struct {
 	ValueType             *string                                                      `json:"value_type,omitempty"`
 }
 
-// TermsAggregationBuilder holds TermsAggregation struct and provides a builder API.
-type TermsAggregationBuilder struct {
-	v *TermsAggregation
-}
+// NewTermsAggregation returns a TermsAggregation.
+func NewTermsAggregation() *TermsAggregation {
+	r := &TermsAggregation{}
 
-// NewTermsAggregation provides a builder for the TermsAggregation struct.
-func NewTermsAggregationBuilder() *TermsAggregationBuilder {
-	r := TermsAggregationBuilder{
-		&TermsAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TermsAggregation struct
-func (rb *TermsAggregationBuilder) Build() TermsAggregation {
-	return *rb.v
-}
-
-func (rb *TermsAggregationBuilder) CollectMode(collectmode termsaggregationcollectmode.TermsAggregationCollectMode) *TermsAggregationBuilder {
-	rb.v.CollectMode = &collectmode
-	return rb
-}
-
-func (rb *TermsAggregationBuilder) Exclude(exclude *TermsExcludeBuilder) *TermsAggregationBuilder {
-	v := exclude.Build()
-	rb.v.Exclude = &v
-	return rb
-}
-
-func (rb *TermsAggregationBuilder) ExecutionHint(executionhint termsaggregationexecutionhint.TermsAggregationExecutionHint) *TermsAggregationBuilder {
-	rb.v.ExecutionHint = &executionhint
-	return rb
-}
-
-func (rb *TermsAggregationBuilder) Field(field Field) *TermsAggregationBuilder {
-	rb.v.Field = &field
-	return rb
-}
-
-func (rb *TermsAggregationBuilder) Format(format string) *TermsAggregationBuilder {
-	rb.v.Format = &format
-	return rb
-}
-
-func (rb *TermsAggregationBuilder) Include(include *TermsIncludeBuilder) *TermsAggregationBuilder {
-	v := include.Build()
-	rb.v.Include = &v
-	return rb
-}
-
-func (rb *TermsAggregationBuilder) Meta(meta *MetadataBuilder) *TermsAggregationBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *TermsAggregationBuilder) MinDocCount(mindoccount int) *TermsAggregationBuilder {
-	rb.v.MinDocCount = &mindoccount
-	return rb
-}
-
-func (rb *TermsAggregationBuilder) Missing(missing *MissingBuilder) *TermsAggregationBuilder {
-	v := missing.Build()
-	rb.v.Missing = &v
-	return rb
-}
-
-func (rb *TermsAggregationBuilder) MissingBucket(missingbucket bool) *TermsAggregationBuilder {
-	rb.v.MissingBucket = &missingbucket
-	return rb
-}
-
-func (rb *TermsAggregationBuilder) MissingOrder(missingorder missingorder.MissingOrder) *TermsAggregationBuilder {
-	rb.v.MissingOrder = &missingorder
-	return rb
-}
-
-func (rb *TermsAggregationBuilder) Name(name string) *TermsAggregationBuilder {
-	rb.v.Name = &name
-	return rb
-}
-
-func (rb *TermsAggregationBuilder) Order(order *AggregateOrderBuilder) *TermsAggregationBuilder {
-	v := order.Build()
-	rb.v.Order = &v
-	return rb
-}
-
-func (rb *TermsAggregationBuilder) Script(script *ScriptBuilder) *TermsAggregationBuilder {
-	v := script.Build()
-	rb.v.Script = &v
-	return rb
-}
-
-func (rb *TermsAggregationBuilder) ShardSize(shardsize int) *TermsAggregationBuilder {
-	rb.v.ShardSize = &shardsize
-	return rb
-}
-
-func (rb *TermsAggregationBuilder) ShowTermDocCountError(showtermdoccounterror bool) *TermsAggregationBuilder {
-	rb.v.ShowTermDocCountError = &showtermdoccounterror
-	return rb
-}
-
-func (rb *TermsAggregationBuilder) Size(size int) *TermsAggregationBuilder {
-	rb.v.Size = &size
-	return rb
-}
-
-func (rb *TermsAggregationBuilder) ValueType(valuetype string) *TermsAggregationBuilder {
-	rb.v.ValueType = &valuetype
-	return rb
+	return r
 }

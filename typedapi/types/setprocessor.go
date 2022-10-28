@@ -17,78 +17,31 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SetProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ingest/_types/Processors.ts#L319-L323
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ingest/_types/Processors.ts#L329-L336
 type SetProcessor struct {
-	Field         Field                `json:"field"`
-	If            *string              `json:"if,omitempty"`
-	IgnoreFailure *bool                `json:"ignore_failure,omitempty"`
-	OnFailure     []ProcessorContainer `json:"on_failure,omitempty"`
-	Override      *bool                `json:"override,omitempty"`
-	Tag           *string              `json:"tag,omitempty"`
-	Value         interface{}          `json:"value,omitempty"`
+	CopyFrom         *string              `json:"copy_from,omitempty"`
+	Description      *string              `json:"description,omitempty"`
+	Field            string               `json:"field"`
+	If               *string              `json:"if,omitempty"`
+	IgnoreEmptyValue *bool                `json:"ignore_empty_value,omitempty"`
+	IgnoreFailure    *bool                `json:"ignore_failure,omitempty"`
+	MediaType        *string              `json:"media_type,omitempty"`
+	OnFailure        []ProcessorContainer `json:"on_failure,omitempty"`
+	Override         *bool                `json:"override,omitempty"`
+	Tag              *string              `json:"tag,omitempty"`
+	Value            interface{}          `json:"value,omitempty"`
 }
 
-// SetProcessorBuilder holds SetProcessor struct and provides a builder API.
-type SetProcessorBuilder struct {
-	v *SetProcessor
-}
+// NewSetProcessor returns a SetProcessor.
+func NewSetProcessor() *SetProcessor {
+	r := &SetProcessor{}
 
-// NewSetProcessor provides a builder for the SetProcessor struct.
-func NewSetProcessorBuilder() *SetProcessorBuilder {
-	r := SetProcessorBuilder{
-		&SetProcessor{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SetProcessor struct
-func (rb *SetProcessorBuilder) Build() SetProcessor {
-	return *rb.v
-}
-
-func (rb *SetProcessorBuilder) Field(field Field) *SetProcessorBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *SetProcessorBuilder) If_(if_ string) *SetProcessorBuilder {
-	rb.v.If = &if_
-	return rb
-}
-
-func (rb *SetProcessorBuilder) IgnoreFailure(ignorefailure bool) *SetProcessorBuilder {
-	rb.v.IgnoreFailure = &ignorefailure
-	return rb
-}
-
-func (rb *SetProcessorBuilder) OnFailure(on_failure []ProcessorContainerBuilder) *SetProcessorBuilder {
-	tmp := make([]ProcessorContainer, len(on_failure))
-	for _, value := range on_failure {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.OnFailure = tmp
-	return rb
-}
-
-func (rb *SetProcessorBuilder) Override(override bool) *SetProcessorBuilder {
-	rb.v.Override = &override
-	return rb
-}
-
-func (rb *SetProcessorBuilder) Tag(tag string) *SetProcessorBuilder {
-	rb.v.Tag = &tag
-	return rb
-}
-
-func (rb *SetProcessorBuilder) Value(value interface{}) *SetProcessorBuilder {
-	rb.v.Value = value
-	return rb
+	return r
 }

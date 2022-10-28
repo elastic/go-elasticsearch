@@ -17,51 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TermVector type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/termvectors/types.ts#L23-L26
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/termvectors/types.ts#L23-L26
 type TermVector struct {
 	FieldStatistics FieldStatistics `json:"field_statistics"`
 	Terms           map[string]Term `json:"terms"`
 }
 
-// TermVectorBuilder holds TermVector struct and provides a builder API.
-type TermVectorBuilder struct {
-	v *TermVector
-}
-
-// NewTermVector provides a builder for the TermVector struct.
-func NewTermVectorBuilder() *TermVectorBuilder {
-	r := TermVectorBuilder{
-		&TermVector{
-			Terms: make(map[string]Term, 0),
-		},
+// NewTermVector returns a TermVector.
+func NewTermVector() *TermVector {
+	r := &TermVector{
+		Terms: make(map[string]Term, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the TermVector struct
-func (rb *TermVectorBuilder) Build() TermVector {
-	return *rb.v
-}
-
-func (rb *TermVectorBuilder) FieldStatistics(fieldstatistics *FieldStatisticsBuilder) *TermVectorBuilder {
-	v := fieldstatistics.Build()
-	rb.v.FieldStatistics = v
-	return rb
-}
-
-func (rb *TermVectorBuilder) Terms(values map[string]*TermBuilder) *TermVectorBuilder {
-	tmp := make(map[string]Term, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Terms = tmp
-	return rb
+	return r
 }

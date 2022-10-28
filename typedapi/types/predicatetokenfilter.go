@@ -17,48 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // PredicateTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/analysis/token_filters.ts#L295-L298
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/token_filters.ts#L295-L298
 type PredicateTokenFilter struct {
-	Script  Script         `json:"script"`
-	Type    string         `json:"type,omitempty"`
-	Version *VersionString `json:"version,omitempty"`
+	Script  Script  `json:"script"`
+	Type    string  `json:"type,omitempty"`
+	Version *string `json:"version,omitempty"`
 }
 
-// PredicateTokenFilterBuilder holds PredicateTokenFilter struct and provides a builder API.
-type PredicateTokenFilterBuilder struct {
-	v *PredicateTokenFilter
-}
+// NewPredicateTokenFilter returns a PredicateTokenFilter.
+func NewPredicateTokenFilter() *PredicateTokenFilter {
+	r := &PredicateTokenFilter{}
 
-// NewPredicateTokenFilter provides a builder for the PredicateTokenFilter struct.
-func NewPredicateTokenFilterBuilder() *PredicateTokenFilterBuilder {
-	r := PredicateTokenFilterBuilder{
-		&PredicateTokenFilter{},
-	}
+	r.Type = "predicate_token_filter"
 
-	r.v.Type = "predicate_token_filter"
-
-	return &r
-}
-
-// Build finalize the chain and returns the PredicateTokenFilter struct
-func (rb *PredicateTokenFilterBuilder) Build() PredicateTokenFilter {
-	return *rb.v
-}
-
-func (rb *PredicateTokenFilterBuilder) Script(script *ScriptBuilder) *PredicateTokenFilterBuilder {
-	v := script.Build()
-	rb.v.Script = v
-	return rb
-}
-
-func (rb *PredicateTokenFilterBuilder) Version(version VersionString) *PredicateTokenFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

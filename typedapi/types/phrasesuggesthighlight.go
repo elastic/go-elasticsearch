@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // PhraseSuggestHighlight type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/search/_types/suggester.ts#L207-L210
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/suggester.ts#L207-L210
 type PhraseSuggestHighlight struct {
 	PostTag string `json:"post_tag"`
 	PreTag  string `json:"pre_tag"`
 }
 
-// PhraseSuggestHighlightBuilder holds PhraseSuggestHighlight struct and provides a builder API.
-type PhraseSuggestHighlightBuilder struct {
-	v *PhraseSuggestHighlight
-}
+// NewPhraseSuggestHighlight returns a PhraseSuggestHighlight.
+func NewPhraseSuggestHighlight() *PhraseSuggestHighlight {
+	r := &PhraseSuggestHighlight{}
 
-// NewPhraseSuggestHighlight provides a builder for the PhraseSuggestHighlight struct.
-func NewPhraseSuggestHighlightBuilder() *PhraseSuggestHighlightBuilder {
-	r := PhraseSuggestHighlightBuilder{
-		&PhraseSuggestHighlight{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the PhraseSuggestHighlight struct
-func (rb *PhraseSuggestHighlightBuilder) Build() PhraseSuggestHighlight {
-	return *rb.v
-}
-
-func (rb *PhraseSuggestHighlightBuilder) PostTag(posttag string) *PhraseSuggestHighlightBuilder {
-	rb.v.PostTag = posttag
-	return rb
-}
-
-func (rb *PhraseSuggestHighlightBuilder) PreTag(pretag string) *PhraseSuggestHighlightBuilder {
-	rb.v.PreTag = pretag
-	return rb
+	return r
 }

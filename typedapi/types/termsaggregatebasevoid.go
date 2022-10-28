@@ -17,58 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TermsAggregateBaseVoid type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L368-L373
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L376-L381
 type TermsAggregateBaseVoid struct {
-	Buckets                 BucketsVoid `json:"buckets"`
-	DocCountErrorUpperBound *int64      `json:"doc_count_error_upper_bound,omitempty"`
-	Meta                    *Metadata   `json:"meta,omitempty"`
-	SumOtherDocCount        *int64      `json:"sum_other_doc_count,omitempty"`
+	Buckets                 BucketsVoid            `json:"buckets"`
+	DocCountErrorUpperBound *int64                 `json:"doc_count_error_upper_bound,omitempty"`
+	Meta                    map[string]interface{} `json:"meta,omitempty"`
+	SumOtherDocCount        *int64                 `json:"sum_other_doc_count,omitempty"`
 }
 
-// TermsAggregateBaseVoidBuilder holds TermsAggregateBaseVoid struct and provides a builder API.
-type TermsAggregateBaseVoidBuilder struct {
-	v *TermsAggregateBaseVoid
-}
+// NewTermsAggregateBaseVoid returns a TermsAggregateBaseVoid.
+func NewTermsAggregateBaseVoid() *TermsAggregateBaseVoid {
+	r := &TermsAggregateBaseVoid{}
 
-// NewTermsAggregateBaseVoid provides a builder for the TermsAggregateBaseVoid struct.
-func NewTermsAggregateBaseVoidBuilder() *TermsAggregateBaseVoidBuilder {
-	r := TermsAggregateBaseVoidBuilder{
-		&TermsAggregateBaseVoid{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TermsAggregateBaseVoid struct
-func (rb *TermsAggregateBaseVoidBuilder) Build() TermsAggregateBaseVoid {
-	return *rb.v
-}
-
-func (rb *TermsAggregateBaseVoidBuilder) Buckets(buckets *BucketsVoidBuilder) *TermsAggregateBaseVoidBuilder {
-	v := buckets.Build()
-	rb.v.Buckets = v
-	return rb
-}
-
-func (rb *TermsAggregateBaseVoidBuilder) DocCountErrorUpperBound(doccounterrorupperbound int64) *TermsAggregateBaseVoidBuilder {
-	rb.v.DocCountErrorUpperBound = &doccounterrorupperbound
-	return rb
-}
-
-func (rb *TermsAggregateBaseVoidBuilder) Meta(meta *MetadataBuilder) *TermsAggregateBaseVoidBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *TermsAggregateBaseVoidBuilder) SumOtherDocCount(sumotherdoccount int64) *TermsAggregateBaseVoidBuilder {
-	rb.v.SumOtherDocCount = &sumotherdoccount
-	return rb
+	return r
 }

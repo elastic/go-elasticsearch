@@ -17,136 +17,35 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ClusterStateUpdate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/_types/Stats.ts#L120-L136
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L120-L136
 type ClusterStateUpdate struct {
-	CommitTime                    *Duration                `json:"commit_time,omitempty"`
-	CommitTimeMillis              *DurationValueUnitMillis `json:"commit_time_millis,omitempty"`
-	CompletionTime                *Duration                `json:"completion_time,omitempty"`
-	CompletionTimeMillis          *DurationValueUnitMillis `json:"completion_time_millis,omitempty"`
-	ComputationTime               *Duration                `json:"computation_time,omitempty"`
-	ComputationTimeMillis         *DurationValueUnitMillis `json:"computation_time_millis,omitempty"`
-	ContextConstructionTime       *Duration                `json:"context_construction_time,omitempty"`
-	ContextConstructionTimeMillis *DurationValueUnitMillis `json:"context_construction_time_millis,omitempty"`
-	Count                         int64                    `json:"count"`
-	MasterApplyTime               *Duration                `json:"master_apply_time,omitempty"`
-	MasterApplyTimeMillis         *DurationValueUnitMillis `json:"master_apply_time_millis,omitempty"`
-	NotificationTime              *Duration                `json:"notification_time,omitempty"`
-	NotificationTimeMillis        *DurationValueUnitMillis `json:"notification_time_millis,omitempty"`
-	PublicationTime               *Duration                `json:"publication_time,omitempty"`
-	PublicationTimeMillis         *DurationValueUnitMillis `json:"publication_time_millis,omitempty"`
+	CommitTime                    *Duration `json:"commit_time,omitempty"`
+	CommitTimeMillis              *int64    `json:"commit_time_millis,omitempty"`
+	CompletionTime                *Duration `json:"completion_time,omitempty"`
+	CompletionTimeMillis          *int64    `json:"completion_time_millis,omitempty"`
+	ComputationTime               *Duration `json:"computation_time,omitempty"`
+	ComputationTimeMillis         *int64    `json:"computation_time_millis,omitempty"`
+	ContextConstructionTime       *Duration `json:"context_construction_time,omitempty"`
+	ContextConstructionTimeMillis *int64    `json:"context_construction_time_millis,omitempty"`
+	Count                         int64     `json:"count"`
+	MasterApplyTime               *Duration `json:"master_apply_time,omitempty"`
+	MasterApplyTimeMillis         *int64    `json:"master_apply_time_millis,omitempty"`
+	NotificationTime              *Duration `json:"notification_time,omitempty"`
+	NotificationTimeMillis        *int64    `json:"notification_time_millis,omitempty"`
+	PublicationTime               *Duration `json:"publication_time,omitempty"`
+	PublicationTimeMillis         *int64    `json:"publication_time_millis,omitempty"`
 }
 
-// ClusterStateUpdateBuilder holds ClusterStateUpdate struct and provides a builder API.
-type ClusterStateUpdateBuilder struct {
-	v *ClusterStateUpdate
-}
+// NewClusterStateUpdate returns a ClusterStateUpdate.
+func NewClusterStateUpdate() *ClusterStateUpdate {
+	r := &ClusterStateUpdate{}
 
-// NewClusterStateUpdate provides a builder for the ClusterStateUpdate struct.
-func NewClusterStateUpdateBuilder() *ClusterStateUpdateBuilder {
-	r := ClusterStateUpdateBuilder{
-		&ClusterStateUpdate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ClusterStateUpdate struct
-func (rb *ClusterStateUpdateBuilder) Build() ClusterStateUpdate {
-	return *rb.v
-}
-
-func (rb *ClusterStateUpdateBuilder) CommitTime(committime *DurationBuilder) *ClusterStateUpdateBuilder {
-	v := committime.Build()
-	rb.v.CommitTime = &v
-	return rb
-}
-
-func (rb *ClusterStateUpdateBuilder) CommitTimeMillis(committimemillis *DurationValueUnitMillisBuilder) *ClusterStateUpdateBuilder {
-	v := committimemillis.Build()
-	rb.v.CommitTimeMillis = &v
-	return rb
-}
-
-func (rb *ClusterStateUpdateBuilder) CompletionTime(completiontime *DurationBuilder) *ClusterStateUpdateBuilder {
-	v := completiontime.Build()
-	rb.v.CompletionTime = &v
-	return rb
-}
-
-func (rb *ClusterStateUpdateBuilder) CompletionTimeMillis(completiontimemillis *DurationValueUnitMillisBuilder) *ClusterStateUpdateBuilder {
-	v := completiontimemillis.Build()
-	rb.v.CompletionTimeMillis = &v
-	return rb
-}
-
-func (rb *ClusterStateUpdateBuilder) ComputationTime(computationtime *DurationBuilder) *ClusterStateUpdateBuilder {
-	v := computationtime.Build()
-	rb.v.ComputationTime = &v
-	return rb
-}
-
-func (rb *ClusterStateUpdateBuilder) ComputationTimeMillis(computationtimemillis *DurationValueUnitMillisBuilder) *ClusterStateUpdateBuilder {
-	v := computationtimemillis.Build()
-	rb.v.ComputationTimeMillis = &v
-	return rb
-}
-
-func (rb *ClusterStateUpdateBuilder) ContextConstructionTime(contextconstructiontime *DurationBuilder) *ClusterStateUpdateBuilder {
-	v := contextconstructiontime.Build()
-	rb.v.ContextConstructionTime = &v
-	return rb
-}
-
-func (rb *ClusterStateUpdateBuilder) ContextConstructionTimeMillis(contextconstructiontimemillis *DurationValueUnitMillisBuilder) *ClusterStateUpdateBuilder {
-	v := contextconstructiontimemillis.Build()
-	rb.v.ContextConstructionTimeMillis = &v
-	return rb
-}
-
-func (rb *ClusterStateUpdateBuilder) Count(count int64) *ClusterStateUpdateBuilder {
-	rb.v.Count = count
-	return rb
-}
-
-func (rb *ClusterStateUpdateBuilder) MasterApplyTime(masterapplytime *DurationBuilder) *ClusterStateUpdateBuilder {
-	v := masterapplytime.Build()
-	rb.v.MasterApplyTime = &v
-	return rb
-}
-
-func (rb *ClusterStateUpdateBuilder) MasterApplyTimeMillis(masterapplytimemillis *DurationValueUnitMillisBuilder) *ClusterStateUpdateBuilder {
-	v := masterapplytimemillis.Build()
-	rb.v.MasterApplyTimeMillis = &v
-	return rb
-}
-
-func (rb *ClusterStateUpdateBuilder) NotificationTime(notificationtime *DurationBuilder) *ClusterStateUpdateBuilder {
-	v := notificationtime.Build()
-	rb.v.NotificationTime = &v
-	return rb
-}
-
-func (rb *ClusterStateUpdateBuilder) NotificationTimeMillis(notificationtimemillis *DurationValueUnitMillisBuilder) *ClusterStateUpdateBuilder {
-	v := notificationtimemillis.Build()
-	rb.v.NotificationTimeMillis = &v
-	return rb
-}
-
-func (rb *ClusterStateUpdateBuilder) PublicationTime(publicationtime *DurationBuilder) *ClusterStateUpdateBuilder {
-	v := publicationtime.Build()
-	rb.v.PublicationTime = &v
-	return rb
-}
-
-func (rb *ClusterStateUpdateBuilder) PublicationTimeMillis(publicationtimemillis *DurationValueUnitMillisBuilder) *ClusterStateUpdateBuilder {
-	v := publicationtimemillis.Build()
-	rb.v.PublicationTimeMillis = &v
-	return rb
+	return r
 }

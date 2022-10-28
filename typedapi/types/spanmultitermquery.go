@@ -17,56 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SpanMultiTermQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/span.ts#L44-L47
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/span.ts#L44-L47
 type SpanMultiTermQuery struct {
 	Boost *float32 `json:"boost,omitempty"`
 	// Match Should be a multi term query (one of wildcard, fuzzy, prefix, range or regexp
 	// query)
-	Match      *QueryContainer `json:"match,omitempty"`
-	QueryName_ *string         `json:"_name,omitempty"`
+	Match      *Query  `json:"match,omitempty"`
+	QueryName_ *string `json:"_name,omitempty"`
 }
 
-// SpanMultiTermQueryBuilder holds SpanMultiTermQuery struct and provides a builder API.
-type SpanMultiTermQueryBuilder struct {
-	v *SpanMultiTermQuery
-}
+// NewSpanMultiTermQuery returns a SpanMultiTermQuery.
+func NewSpanMultiTermQuery() *SpanMultiTermQuery {
+	r := &SpanMultiTermQuery{}
 
-// NewSpanMultiTermQuery provides a builder for the SpanMultiTermQuery struct.
-func NewSpanMultiTermQueryBuilder() *SpanMultiTermQueryBuilder {
-	r := SpanMultiTermQueryBuilder{
-		&SpanMultiTermQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SpanMultiTermQuery struct
-func (rb *SpanMultiTermQueryBuilder) Build() SpanMultiTermQuery {
-	return *rb.v
-}
-
-func (rb *SpanMultiTermQueryBuilder) Boost(boost float32) *SpanMultiTermQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-// Match Should be a multi term query (one of wildcard, fuzzy, prefix, range or regexp
-// query)
-
-func (rb *SpanMultiTermQueryBuilder) Match(match *QueryContainerBuilder) *SpanMultiTermQueryBuilder {
-	v := match.Build()
-	rb.v.Match = &v
-	return rb
-}
-
-func (rb *SpanMultiTermQueryBuilder) QueryName_(queryname_ string) *SpanMultiTermQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
+	return r
 }

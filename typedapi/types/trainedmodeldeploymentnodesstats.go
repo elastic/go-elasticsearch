@@ -17,17 +17,17 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TrainedModelDeploymentNodesStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/_types/TrainedModel.ts#L127-L154
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/TrainedModel.ts#L127-L154
 type TrainedModelDeploymentNodesStats struct {
 	// AverageInferenceTimeMs The average time for each inference call to complete on this node.
-	AverageInferenceTimeMs DurationValueUnitFloatMillis `json:"average_inference_time_ms"`
+	AverageInferenceTimeMs float64 `json:"average_inference_time_ms"`
 	// ErrorCount The number of errors when evaluating the trained model.
 	ErrorCount int `json:"error_count"`
 	// InferenceCount The total number of inference calls made against this node for this model.
@@ -47,118 +47,16 @@ type TrainedModelDeploymentNodesStats struct {
 	// allocation.
 	RoutingState TrainedModelAssignmentRoutingTable `json:"routing_state"`
 	// StartTime The epoch timestamp when the allocation started.
-	StartTime EpochTimeUnitMillis `json:"start_time"`
+	StartTime int64 `json:"start_time"`
 	// ThreadsPerAllocation The number of threads used by each allocation during inference.
 	ThreadsPerAllocation int `json:"threads_per_allocation"`
 	// TimeoutCount The number of inference requests that timed out before being processed.
 	TimeoutCount int `json:"timeout_count"`
 }
 
-// TrainedModelDeploymentNodesStatsBuilder holds TrainedModelDeploymentNodesStats struct and provides a builder API.
-type TrainedModelDeploymentNodesStatsBuilder struct {
-	v *TrainedModelDeploymentNodesStats
-}
+// NewTrainedModelDeploymentNodesStats returns a TrainedModelDeploymentNodesStats.
+func NewTrainedModelDeploymentNodesStats() *TrainedModelDeploymentNodesStats {
+	r := &TrainedModelDeploymentNodesStats{}
 
-// NewTrainedModelDeploymentNodesStats provides a builder for the TrainedModelDeploymentNodesStats struct.
-func NewTrainedModelDeploymentNodesStatsBuilder() *TrainedModelDeploymentNodesStatsBuilder {
-	r := TrainedModelDeploymentNodesStatsBuilder{
-		&TrainedModelDeploymentNodesStats{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TrainedModelDeploymentNodesStats struct
-func (rb *TrainedModelDeploymentNodesStatsBuilder) Build() TrainedModelDeploymentNodesStats {
-	return *rb.v
-}
-
-// AverageInferenceTimeMs The average time for each inference call to complete on this node.
-
-func (rb *TrainedModelDeploymentNodesStatsBuilder) AverageInferenceTimeMs(averageinferencetimems *DurationValueUnitFloatMillisBuilder) *TrainedModelDeploymentNodesStatsBuilder {
-	v := averageinferencetimems.Build()
-	rb.v.AverageInferenceTimeMs = v
-	return rb
-}
-
-// ErrorCount The number of errors when evaluating the trained model.
-
-func (rb *TrainedModelDeploymentNodesStatsBuilder) ErrorCount(errorcount int) *TrainedModelDeploymentNodesStatsBuilder {
-	rb.v.ErrorCount = errorcount
-	return rb
-}
-
-// InferenceCount The total number of inference calls made against this node for this model.
-
-func (rb *TrainedModelDeploymentNodesStatsBuilder) InferenceCount(inferencecount int) *TrainedModelDeploymentNodesStatsBuilder {
-	rb.v.InferenceCount = inferencecount
-	return rb
-}
-
-// LastAccess The epoch time stamp of the last inference call for the model on this node.
-
-func (rb *TrainedModelDeploymentNodesStatsBuilder) LastAccess(lastaccess int64) *TrainedModelDeploymentNodesStatsBuilder {
-	rb.v.LastAccess = lastaccess
-	return rb
-}
-
-// Node Information pertaining to the node.
-
-func (rb *TrainedModelDeploymentNodesStatsBuilder) Node(node *DiscoveryNodeBuilder) *TrainedModelDeploymentNodesStatsBuilder {
-	v := node.Build()
-	rb.v.Node = v
-	return rb
-}
-
-// NumberOfAllocations The number of allocations assigned to this node.
-
-func (rb *TrainedModelDeploymentNodesStatsBuilder) NumberOfAllocations(numberofallocations int) *TrainedModelDeploymentNodesStatsBuilder {
-	rb.v.NumberOfAllocations = numberofallocations
-	return rb
-}
-
-// NumberOfPendingRequests The number of inference requests queued to be processed.
-
-func (rb *TrainedModelDeploymentNodesStatsBuilder) NumberOfPendingRequests(numberofpendingrequests int) *TrainedModelDeploymentNodesStatsBuilder {
-	rb.v.NumberOfPendingRequests = numberofpendingrequests
-	return rb
-}
-
-// RejectionExecutionCount The number of inference requests that were not processed because the queue
-// was full.
-
-func (rb *TrainedModelDeploymentNodesStatsBuilder) RejectionExecutionCount(rejectionexecutioncount int) *TrainedModelDeploymentNodesStatsBuilder {
-	rb.v.RejectionExecutionCount = rejectionexecutioncount
-	return rb
-}
-
-// RoutingState The current routing state and reason for the current routing state for this
-// allocation.
-
-func (rb *TrainedModelDeploymentNodesStatsBuilder) RoutingState(routingstate *TrainedModelAssignmentRoutingTableBuilder) *TrainedModelDeploymentNodesStatsBuilder {
-	v := routingstate.Build()
-	rb.v.RoutingState = v
-	return rb
-}
-
-// StartTime The epoch timestamp when the allocation started.
-
-func (rb *TrainedModelDeploymentNodesStatsBuilder) StartTime(starttime *EpochTimeUnitMillisBuilder) *TrainedModelDeploymentNodesStatsBuilder {
-	v := starttime.Build()
-	rb.v.StartTime = v
-	return rb
-}
-
-// ThreadsPerAllocation The number of threads used by each allocation during inference.
-
-func (rb *TrainedModelDeploymentNodesStatsBuilder) ThreadsPerAllocation(threadsperallocation int) *TrainedModelDeploymentNodesStatsBuilder {
-	rb.v.ThreadsPerAllocation = threadsperallocation
-	return rb
-}
-
-// TimeoutCount The number of inference requests that timed out before being processed.
-
-func (rb *TrainedModelDeploymentNodesStatsBuilder) TimeoutCount(timeoutcount int) *TrainedModelDeploymentNodesStatsBuilder {
-	rb.v.TimeoutCount = timeoutcount
-	return rb
+	return r
 }

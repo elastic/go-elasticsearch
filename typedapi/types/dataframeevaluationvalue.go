@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeEvaluationValue type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/evaluate_data_frame/types.ts#L46-L48
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/evaluate_data_frame/types.ts#L46-L48
 type DataframeEvaluationValue struct {
 	Value float64 `json:"value"`
 }
 
-// DataframeEvaluationValueBuilder holds DataframeEvaluationValue struct and provides a builder API.
-type DataframeEvaluationValueBuilder struct {
-	v *DataframeEvaluationValue
-}
+// NewDataframeEvaluationValue returns a DataframeEvaluationValue.
+func NewDataframeEvaluationValue() *DataframeEvaluationValue {
+	r := &DataframeEvaluationValue{}
 
-// NewDataframeEvaluationValue provides a builder for the DataframeEvaluationValue struct.
-func NewDataframeEvaluationValueBuilder() *DataframeEvaluationValueBuilder {
-	r := DataframeEvaluationValueBuilder{
-		&DataframeEvaluationValue{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeEvaluationValue struct
-func (rb *DataframeEvaluationValueBuilder) Build() DataframeEvaluationValue {
-	return *rb.v
-}
-
-func (rb *DataframeEvaluationValueBuilder) Value(value float64) *DataframeEvaluationValueBuilder {
-	rb.v.Value = value
-	return rb
+	return r
 }

@@ -17,41 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // KeywordAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/analysis/analyzers.ts#L47-L50
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/analyzers.ts#L47-L50
 type KeywordAnalyzer struct {
-	Type    string         `json:"type,omitempty"`
-	Version *VersionString `json:"version,omitempty"`
+	Type    string  `json:"type,omitempty"`
+	Version *string `json:"version,omitempty"`
 }
 
-// KeywordAnalyzerBuilder holds KeywordAnalyzer struct and provides a builder API.
-type KeywordAnalyzerBuilder struct {
-	v *KeywordAnalyzer
-}
+// NewKeywordAnalyzer returns a KeywordAnalyzer.
+func NewKeywordAnalyzer() *KeywordAnalyzer {
+	r := &KeywordAnalyzer{}
 
-// NewKeywordAnalyzer provides a builder for the KeywordAnalyzer struct.
-func NewKeywordAnalyzerBuilder() *KeywordAnalyzerBuilder {
-	r := KeywordAnalyzerBuilder{
-		&KeywordAnalyzer{},
-	}
+	r.Type = "keyword"
 
-	r.v.Type = "keyword"
-
-	return &r
-}
-
-// Build finalize the chain and returns the KeywordAnalyzer struct
-func (rb *KeywordAnalyzerBuilder) Build() KeywordAnalyzer {
-	return *rb.v
-}
-
-func (rb *KeywordAnalyzerBuilder) Version(version VersionString) *KeywordAnalyzerBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

@@ -17,71 +17,29 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // PathHierarchyTokenizer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/analysis/tokenizers.ts#L88-L95
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/tokenizers.ts#L88-L95
 type PathHierarchyTokenizer struct {
-	BufferSize  int            `json:"buffer_size"`
-	Delimiter   string         `json:"delimiter"`
-	Replacement string         `json:"replacement"`
-	Reverse     bool           `json:"reverse"`
-	Skip        int            `json:"skip"`
-	Type        string         `json:"type,omitempty"`
-	Version     *VersionString `json:"version,omitempty"`
+	BufferSize  int     `json:"buffer_size"`
+	Delimiter   string  `json:"delimiter"`
+	Replacement string  `json:"replacement"`
+	Reverse     bool    `json:"reverse"`
+	Skip        int     `json:"skip"`
+	Type        string  `json:"type,omitempty"`
+	Version     *string `json:"version,omitempty"`
 }
 
-// PathHierarchyTokenizerBuilder holds PathHierarchyTokenizer struct and provides a builder API.
-type PathHierarchyTokenizerBuilder struct {
-	v *PathHierarchyTokenizer
-}
+// NewPathHierarchyTokenizer returns a PathHierarchyTokenizer.
+func NewPathHierarchyTokenizer() *PathHierarchyTokenizer {
+	r := &PathHierarchyTokenizer{}
 
-// NewPathHierarchyTokenizer provides a builder for the PathHierarchyTokenizer struct.
-func NewPathHierarchyTokenizerBuilder() *PathHierarchyTokenizerBuilder {
-	r := PathHierarchyTokenizerBuilder{
-		&PathHierarchyTokenizer{},
-	}
+	r.Type = "path_hierarchy"
 
-	r.v.Type = "path_hierarchy"
-
-	return &r
-}
-
-// Build finalize the chain and returns the PathHierarchyTokenizer struct
-func (rb *PathHierarchyTokenizerBuilder) Build() PathHierarchyTokenizer {
-	return *rb.v
-}
-
-func (rb *PathHierarchyTokenizerBuilder) BufferSize(buffersize int) *PathHierarchyTokenizerBuilder {
-	rb.v.BufferSize = buffersize
-	return rb
-}
-
-func (rb *PathHierarchyTokenizerBuilder) Delimiter(delimiter string) *PathHierarchyTokenizerBuilder {
-	rb.v.Delimiter = delimiter
-	return rb
-}
-
-func (rb *PathHierarchyTokenizerBuilder) Replacement(replacement string) *PathHierarchyTokenizerBuilder {
-	rb.v.Replacement = replacement
-	return rb
-}
-
-func (rb *PathHierarchyTokenizerBuilder) Reverse(reverse bool) *PathHierarchyTokenizerBuilder {
-	rb.v.Reverse = reverse
-	return rb
-}
-
-func (rb *PathHierarchyTokenizerBuilder) Skip(skip int) *PathHierarchyTokenizerBuilder {
-	rb.v.Skip = skip
-	return rb
-}
-
-func (rb *PathHierarchyTokenizerBuilder) Version(version VersionString) *PathHierarchyTokenizerBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

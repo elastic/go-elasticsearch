@@ -17,55 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // BucketPathAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/pipeline.ts#L31-L37
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/pipeline.ts#L31-L37
 type BucketPathAggregation struct {
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
-	BucketsPath *BucketsPath `json:"buckets_path,omitempty"`
-	Meta        *Metadata    `json:"meta,omitempty"`
-	Name        *string      `json:"name,omitempty"`
+	BucketsPath *string                `json:"buckets_path,omitempty"`
+	Meta        map[string]interface{} `json:"meta,omitempty"`
+	Name        *string                `json:"name,omitempty"`
 }
 
-// BucketPathAggregationBuilder holds BucketPathAggregation struct and provides a builder API.
-type BucketPathAggregationBuilder struct {
-	v *BucketPathAggregation
-}
+// NewBucketPathAggregation returns a BucketPathAggregation.
+func NewBucketPathAggregation() *BucketPathAggregation {
+	r := &BucketPathAggregation{}
 
-// NewBucketPathAggregation provides a builder for the BucketPathAggregation struct.
-func NewBucketPathAggregationBuilder() *BucketPathAggregationBuilder {
-	r := BucketPathAggregationBuilder{
-		&BucketPathAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the BucketPathAggregation struct
-func (rb *BucketPathAggregationBuilder) Build() BucketPathAggregation {
-	return *rb.v
-}
-
-// BucketsPath Path to the buckets that contain one set of values to correlate.
-
-func (rb *BucketPathAggregationBuilder) BucketsPath(bucketspath *BucketsPathBuilder) *BucketPathAggregationBuilder {
-	v := bucketspath.Build()
-	rb.v.BucketsPath = &v
-	return rb
-}
-
-func (rb *BucketPathAggregationBuilder) Meta(meta *MetadataBuilder) *BucketPathAggregationBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *BucketPathAggregationBuilder) Name(name string) *BucketPathAggregationBuilder {
-	rb.v.Name = &name
-	return rb
+	return r
 }

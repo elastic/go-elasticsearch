@@ -17,43 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeEvaluationRegressionMetricsMsle type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/_types/DataframeEvaluation.ts#L112-L115
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/DataframeEvaluation.ts#L112-L115
 type DataframeEvaluationRegressionMetricsMsle struct {
 	// Offset Defines the transition point at which you switch from minimizing quadratic
 	// error to minimizing quadratic log error. Defaults to 1.
 	Offset *float64 `json:"offset,omitempty"`
 }
 
-// DataframeEvaluationRegressionMetricsMsleBuilder holds DataframeEvaluationRegressionMetricsMsle struct and provides a builder API.
-type DataframeEvaluationRegressionMetricsMsleBuilder struct {
-	v *DataframeEvaluationRegressionMetricsMsle
-}
+// NewDataframeEvaluationRegressionMetricsMsle returns a DataframeEvaluationRegressionMetricsMsle.
+func NewDataframeEvaluationRegressionMetricsMsle() *DataframeEvaluationRegressionMetricsMsle {
+	r := &DataframeEvaluationRegressionMetricsMsle{}
 
-// NewDataframeEvaluationRegressionMetricsMsle provides a builder for the DataframeEvaluationRegressionMetricsMsle struct.
-func NewDataframeEvaluationRegressionMetricsMsleBuilder() *DataframeEvaluationRegressionMetricsMsleBuilder {
-	r := DataframeEvaluationRegressionMetricsMsleBuilder{
-		&DataframeEvaluationRegressionMetricsMsle{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeEvaluationRegressionMetricsMsle struct
-func (rb *DataframeEvaluationRegressionMetricsMsleBuilder) Build() DataframeEvaluationRegressionMetricsMsle {
-	return *rb.v
-}
-
-// Offset Defines the transition point at which you switch from minimizing quadratic
-// error to minimizing quadratic log error. Defaults to 1.
-
-func (rb *DataframeEvaluationRegressionMetricsMsleBuilder) Offset(offset float64) *DataframeEvaluationRegressionMetricsMsleBuilder {
-	rb.v.Offset = &offset
-	return rb
+	return r
 }

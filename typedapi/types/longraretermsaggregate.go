@@ -17,46 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // LongRareTermsAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L422-L427
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L430-L435
 type LongRareTermsAggregate struct {
 	Buckets BucketsLongRareTermsBucket `json:"buckets"`
-	Meta    *Metadata                  `json:"meta,omitempty"`
+	Meta    map[string]interface{}     `json:"meta,omitempty"`
 }
 
-// LongRareTermsAggregateBuilder holds LongRareTermsAggregate struct and provides a builder API.
-type LongRareTermsAggregateBuilder struct {
-	v *LongRareTermsAggregate
-}
+// NewLongRareTermsAggregate returns a LongRareTermsAggregate.
+func NewLongRareTermsAggregate() *LongRareTermsAggregate {
+	r := &LongRareTermsAggregate{}
 
-// NewLongRareTermsAggregate provides a builder for the LongRareTermsAggregate struct.
-func NewLongRareTermsAggregateBuilder() *LongRareTermsAggregateBuilder {
-	r := LongRareTermsAggregateBuilder{
-		&LongRareTermsAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the LongRareTermsAggregate struct
-func (rb *LongRareTermsAggregateBuilder) Build() LongRareTermsAggregate {
-	return *rb.v
-}
-
-func (rb *LongRareTermsAggregateBuilder) Buckets(buckets *BucketsLongRareTermsBucketBuilder) *LongRareTermsAggregateBuilder {
-	v := buckets.Build()
-	rb.v.Buckets = v
-	return rb
-}
-
-func (rb *LongRareTermsAggregateBuilder) Meta(meta *MetadataBuilder) *LongRareTermsAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
+	return r
 }

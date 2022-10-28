@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // JvmThreads type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/_types/Stats.ts#L346-L349
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L346-L349
 type JvmThreads struct {
 	Count     *int64 `json:"count,omitempty"`
 	PeakCount *int64 `json:"peak_count,omitempty"`
 }
 
-// JvmThreadsBuilder holds JvmThreads struct and provides a builder API.
-type JvmThreadsBuilder struct {
-	v *JvmThreads
-}
+// NewJvmThreads returns a JvmThreads.
+func NewJvmThreads() *JvmThreads {
+	r := &JvmThreads{}
 
-// NewJvmThreads provides a builder for the JvmThreads struct.
-func NewJvmThreadsBuilder() *JvmThreadsBuilder {
-	r := JvmThreadsBuilder{
-		&JvmThreads{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the JvmThreads struct
-func (rb *JvmThreadsBuilder) Build() JvmThreads {
-	return *rb.v
-}
-
-func (rb *JvmThreadsBuilder) Count(count int64) *JvmThreadsBuilder {
-	rb.v.Count = &count
-	return rb
-}
-
-func (rb *JvmThreadsBuilder) PeakCount(peakcount int64) *JvmThreadsBuilder {
-	rb.v.PeakCount = &peakcount
-	return rb
+	return r
 }

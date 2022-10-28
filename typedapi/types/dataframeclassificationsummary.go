@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeClassificationSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/evaluate_data_frame/types.ts#L31-L37
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/evaluate_data_frame/types.ts#L31-L37
 type DataframeClassificationSummary struct {
 	Accuracy                  *DataframeClassificationSummaryAccuracy                  `json:"accuracy,omitempty"`
 	AucRoc                    *DataframeEvaluationSummaryAucRoc                        `json:"auc_roc,omitempty"`
@@ -33,51 +33,9 @@ type DataframeClassificationSummary struct {
 	Recall                    *DataframeClassificationSummaryRecall                    `json:"recall,omitempty"`
 }
 
-// DataframeClassificationSummaryBuilder holds DataframeClassificationSummary struct and provides a builder API.
-type DataframeClassificationSummaryBuilder struct {
-	v *DataframeClassificationSummary
-}
+// NewDataframeClassificationSummary returns a DataframeClassificationSummary.
+func NewDataframeClassificationSummary() *DataframeClassificationSummary {
+	r := &DataframeClassificationSummary{}
 
-// NewDataframeClassificationSummary provides a builder for the DataframeClassificationSummary struct.
-func NewDataframeClassificationSummaryBuilder() *DataframeClassificationSummaryBuilder {
-	r := DataframeClassificationSummaryBuilder{
-		&DataframeClassificationSummary{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeClassificationSummary struct
-func (rb *DataframeClassificationSummaryBuilder) Build() DataframeClassificationSummary {
-	return *rb.v
-}
-
-func (rb *DataframeClassificationSummaryBuilder) Accuracy(accuracy *DataframeClassificationSummaryAccuracyBuilder) *DataframeClassificationSummaryBuilder {
-	v := accuracy.Build()
-	rb.v.Accuracy = &v
-	return rb
-}
-
-func (rb *DataframeClassificationSummaryBuilder) AucRoc(aucroc *DataframeEvaluationSummaryAucRocBuilder) *DataframeClassificationSummaryBuilder {
-	v := aucroc.Build()
-	rb.v.AucRoc = &v
-	return rb
-}
-
-func (rb *DataframeClassificationSummaryBuilder) MulticlassConfusionMatrix(multiclassconfusionmatrix *DataframeClassificationSummaryMulticlassConfusionMatrixBuilder) *DataframeClassificationSummaryBuilder {
-	v := multiclassconfusionmatrix.Build()
-	rb.v.MulticlassConfusionMatrix = &v
-	return rb
-}
-
-func (rb *DataframeClassificationSummaryBuilder) Precision(precision *DataframeClassificationSummaryPrecisionBuilder) *DataframeClassificationSummaryBuilder {
-	v := precision.Build()
-	rb.v.Precision = &v
-	return rb
-}
-
-func (rb *DataframeClassificationSummaryBuilder) Recall(recall *DataframeClassificationSummaryRecallBuilder) *DataframeClassificationSummaryBuilder {
-	v := recall.Build()
-	rb.v.Recall = &v
-	return rb
+	return r
 }

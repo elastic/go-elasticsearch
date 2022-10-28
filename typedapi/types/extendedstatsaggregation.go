@@ -17,64 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ExtendedStatsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/metric.ts#L68-L70
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/metric.ts#L68-L70
 type ExtendedStatsAggregation struct {
-	Field   *Field   `json:"field,omitempty"`
+	Field   *string  `json:"field,omitempty"`
 	Format  *string  `json:"format,omitempty"`
 	Missing *Missing `json:"missing,omitempty"`
 	Script  *Script  `json:"script,omitempty"`
 	Sigma   *float64 `json:"sigma,omitempty"`
 }
 
-// ExtendedStatsAggregationBuilder holds ExtendedStatsAggregation struct and provides a builder API.
-type ExtendedStatsAggregationBuilder struct {
-	v *ExtendedStatsAggregation
-}
+// NewExtendedStatsAggregation returns a ExtendedStatsAggregation.
+func NewExtendedStatsAggregation() *ExtendedStatsAggregation {
+	r := &ExtendedStatsAggregation{}
 
-// NewExtendedStatsAggregation provides a builder for the ExtendedStatsAggregation struct.
-func NewExtendedStatsAggregationBuilder() *ExtendedStatsAggregationBuilder {
-	r := ExtendedStatsAggregationBuilder{
-		&ExtendedStatsAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ExtendedStatsAggregation struct
-func (rb *ExtendedStatsAggregationBuilder) Build() ExtendedStatsAggregation {
-	return *rb.v
-}
-
-func (rb *ExtendedStatsAggregationBuilder) Field(field Field) *ExtendedStatsAggregationBuilder {
-	rb.v.Field = &field
-	return rb
-}
-
-func (rb *ExtendedStatsAggregationBuilder) Format(format string) *ExtendedStatsAggregationBuilder {
-	rb.v.Format = &format
-	return rb
-}
-
-func (rb *ExtendedStatsAggregationBuilder) Missing(missing *MissingBuilder) *ExtendedStatsAggregationBuilder {
-	v := missing.Build()
-	rb.v.Missing = &v
-	return rb
-}
-
-func (rb *ExtendedStatsAggregationBuilder) Script(script *ScriptBuilder) *ExtendedStatsAggregationBuilder {
-	v := script.Build()
-	rb.v.Script = &v
-	return rb
-}
-
-func (rb *ExtendedStatsAggregationBuilder) Sigma(sigma float64) *ExtendedStatsAggregationBuilder {
-	rb.v.Sigma = &sigma
-	return rb
+	return r
 }

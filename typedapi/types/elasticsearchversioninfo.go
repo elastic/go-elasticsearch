@@ -17,87 +17,29 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ElasticsearchVersionInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/Base.ts#L54-L64
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Base.ts#L54-L64
 type ElasticsearchVersionInfo struct {
-	BuildDate                        DateTime      `json:"build_date"`
-	BuildFlavor                      string        `json:"build_flavor"`
-	BuildHash                        string        `json:"build_hash"`
-	BuildSnapshot                    bool          `json:"build_snapshot"`
-	BuildType                        string        `json:"build_type"`
-	Int                              string        `json:"number"`
-	LuceneVersion                    VersionString `json:"lucene_version"`
-	MinimumIndexCompatibilityVersion VersionString `json:"minimum_index_compatibility_version"`
-	MinimumWireCompatibilityVersion  VersionString `json:"minimum_wire_compatibility_version"`
+	BuildDate                        DateTime `json:"build_date"`
+	BuildFlavor                      string   `json:"build_flavor"`
+	BuildHash                        string   `json:"build_hash"`
+	BuildSnapshot                    bool     `json:"build_snapshot"`
+	BuildType                        string   `json:"build_type"`
+	Int                              string   `json:"number"`
+	LuceneVersion                    string   `json:"lucene_version"`
+	MinimumIndexCompatibilityVersion string   `json:"minimum_index_compatibility_version"`
+	MinimumWireCompatibilityVersion  string   `json:"minimum_wire_compatibility_version"`
 }
 
-// ElasticsearchVersionInfoBuilder holds ElasticsearchVersionInfo struct and provides a builder API.
-type ElasticsearchVersionInfoBuilder struct {
-	v *ElasticsearchVersionInfo
-}
+// NewElasticsearchVersionInfo returns a ElasticsearchVersionInfo.
+func NewElasticsearchVersionInfo() *ElasticsearchVersionInfo {
+	r := &ElasticsearchVersionInfo{}
 
-// NewElasticsearchVersionInfo provides a builder for the ElasticsearchVersionInfo struct.
-func NewElasticsearchVersionInfoBuilder() *ElasticsearchVersionInfoBuilder {
-	r := ElasticsearchVersionInfoBuilder{
-		&ElasticsearchVersionInfo{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ElasticsearchVersionInfo struct
-func (rb *ElasticsearchVersionInfoBuilder) Build() ElasticsearchVersionInfo {
-	return *rb.v
-}
-
-func (rb *ElasticsearchVersionInfoBuilder) BuildDate(builddate *DateTimeBuilder) *ElasticsearchVersionInfoBuilder {
-	v := builddate.Build()
-	rb.v.BuildDate = v
-	return rb
-}
-
-func (rb *ElasticsearchVersionInfoBuilder) BuildFlavor(buildflavor string) *ElasticsearchVersionInfoBuilder {
-	rb.v.BuildFlavor = buildflavor
-	return rb
-}
-
-func (rb *ElasticsearchVersionInfoBuilder) BuildHash(buildhash string) *ElasticsearchVersionInfoBuilder {
-	rb.v.BuildHash = buildhash
-	return rb
-}
-
-func (rb *ElasticsearchVersionInfoBuilder) BuildSnapshot(buildsnapshot bool) *ElasticsearchVersionInfoBuilder {
-	rb.v.BuildSnapshot = buildsnapshot
-	return rb
-}
-
-func (rb *ElasticsearchVersionInfoBuilder) BuildType(buildtype string) *ElasticsearchVersionInfoBuilder {
-	rb.v.BuildType = buildtype
-	return rb
-}
-
-func (rb *ElasticsearchVersionInfoBuilder) Int(int string) *ElasticsearchVersionInfoBuilder {
-	rb.v.Int = int
-	return rb
-}
-
-func (rb *ElasticsearchVersionInfoBuilder) LuceneVersion(luceneversion VersionString) *ElasticsearchVersionInfoBuilder {
-	rb.v.LuceneVersion = luceneversion
-	return rb
-}
-
-func (rb *ElasticsearchVersionInfoBuilder) MinimumIndexCompatibilityVersion(minimumindexcompatibilityversion VersionString) *ElasticsearchVersionInfoBuilder {
-	rb.v.MinimumIndexCompatibilityVersion = minimumindexcompatibilityversion
-	return rb
-}
-
-func (rb *ElasticsearchVersionInfoBuilder) MinimumWireCompatibilityVersion(minimumwirecompatibilityversion VersionString) *ElasticsearchVersionInfoBuilder {
-	rb.v.MinimumWireCompatibilityVersion = minimumwirecompatibilityversion
-	return rb
+	return r
 }

@@ -17,52 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MountedSnapshot type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/searchable_snapshots/mount/types.ts#L23-L27
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/searchable_snapshots/mount/types.ts#L23-L27
 type MountedSnapshot struct {
-	Indices  Indices         `json:"indices"`
+	Indices  []string        `json:"indices"`
 	Shards   ShardStatistics `json:"shards"`
-	Snapshot Name            `json:"snapshot"`
+	Snapshot string          `json:"snapshot"`
 }
 
-// MountedSnapshotBuilder holds MountedSnapshot struct and provides a builder API.
-type MountedSnapshotBuilder struct {
-	v *MountedSnapshot
-}
+// NewMountedSnapshot returns a MountedSnapshot.
+func NewMountedSnapshot() *MountedSnapshot {
+	r := &MountedSnapshot{}
 
-// NewMountedSnapshot provides a builder for the MountedSnapshot struct.
-func NewMountedSnapshotBuilder() *MountedSnapshotBuilder {
-	r := MountedSnapshotBuilder{
-		&MountedSnapshot{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MountedSnapshot struct
-func (rb *MountedSnapshotBuilder) Build() MountedSnapshot {
-	return *rb.v
-}
-
-func (rb *MountedSnapshotBuilder) Indices(indices *IndicesBuilder) *MountedSnapshotBuilder {
-	v := indices.Build()
-	rb.v.Indices = v
-	return rb
-}
-
-func (rb *MountedSnapshotBuilder) Shards(shards *ShardStatisticsBuilder) *MountedSnapshotBuilder {
-	v := shards.Build()
-	rb.v.Shards = v
-	return rb
-}
-
-func (rb *MountedSnapshotBuilder) Snapshot(snapshot Name) *MountedSnapshotBuilder {
-	rb.v.Snapshot = snapshot
-	return rb
+	return r
 }

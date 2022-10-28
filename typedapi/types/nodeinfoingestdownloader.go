@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeInfoIngestDownloader type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/info/types.ts#L127-L129
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/info/types.ts#L127-L129
 type NodeInfoIngestDownloader struct {
 	Enabled string `json:"enabled"`
 }
 
-// NodeInfoIngestDownloaderBuilder holds NodeInfoIngestDownloader struct and provides a builder API.
-type NodeInfoIngestDownloaderBuilder struct {
-	v *NodeInfoIngestDownloader
-}
+// NewNodeInfoIngestDownloader returns a NodeInfoIngestDownloader.
+func NewNodeInfoIngestDownloader() *NodeInfoIngestDownloader {
+	r := &NodeInfoIngestDownloader{}
 
-// NewNodeInfoIngestDownloader provides a builder for the NodeInfoIngestDownloader struct.
-func NewNodeInfoIngestDownloaderBuilder() *NodeInfoIngestDownloaderBuilder {
-	r := NodeInfoIngestDownloaderBuilder{
-		&NodeInfoIngestDownloader{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodeInfoIngestDownloader struct
-func (rb *NodeInfoIngestDownloaderBuilder) Build() NodeInfoIngestDownloader {
-	return *rb.v
-}
-
-func (rb *NodeInfoIngestDownloaderBuilder) Enabled(enabled string) *NodeInfoIngestDownloaderBuilder {
-	rb.v.Enabled = enabled
-	return rb
+	return r
 }

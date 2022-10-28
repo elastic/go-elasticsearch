@@ -17,46 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TopRightBottomLeftGeoBounds type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/Geo.ts#L147-L150
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Geo.ts#L150-L153
 type TopRightBottomLeftGeoBounds struct {
 	BottomLeft GeoLocation `json:"bottom_left"`
 	TopRight   GeoLocation `json:"top_right"`
 }
 
-// TopRightBottomLeftGeoBoundsBuilder holds TopRightBottomLeftGeoBounds struct and provides a builder API.
-type TopRightBottomLeftGeoBoundsBuilder struct {
-	v *TopRightBottomLeftGeoBounds
-}
+// NewTopRightBottomLeftGeoBounds returns a TopRightBottomLeftGeoBounds.
+func NewTopRightBottomLeftGeoBounds() *TopRightBottomLeftGeoBounds {
+	r := &TopRightBottomLeftGeoBounds{}
 
-// NewTopRightBottomLeftGeoBounds provides a builder for the TopRightBottomLeftGeoBounds struct.
-func NewTopRightBottomLeftGeoBoundsBuilder() *TopRightBottomLeftGeoBoundsBuilder {
-	r := TopRightBottomLeftGeoBoundsBuilder{
-		&TopRightBottomLeftGeoBounds{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TopRightBottomLeftGeoBounds struct
-func (rb *TopRightBottomLeftGeoBoundsBuilder) Build() TopRightBottomLeftGeoBounds {
-	return *rb.v
-}
-
-func (rb *TopRightBottomLeftGeoBoundsBuilder) BottomLeft(bottomleft *GeoLocationBuilder) *TopRightBottomLeftGeoBoundsBuilder {
-	v := bottomleft.Build()
-	rb.v.BottomLeft = v
-	return rb
-}
-
-func (rb *TopRightBottomLeftGeoBoundsBuilder) TopRight(topright *GeoLocationBuilder) *TopRightBottomLeftGeoBoundsBuilder {
-	v := topright.Build()
-	rb.v.TopRight = v
-	return rb
+	return r
 }

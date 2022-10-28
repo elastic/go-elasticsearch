@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,12 +29,12 @@ import (
 
 // LongRareTermsBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L429-L432
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L437-L440
 type LongRareTermsBucket struct {
-	Aggregations map[AggregateName]Aggregate `json:"-"`
-	DocCount     int64                       `json:"doc_count"`
-	Key          int64                       `json:"key"`
-	KeyAsString  *string                     `json:"key_as_string,omitempty"`
+	Aggregations map[string]Aggregate `json:"-"`
+	DocCount     int64                `json:"doc_count"`
+	Key          int64                `json:"key"`
+	KeyAsString  *string              `json:"key_as_string,omitempty"`
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -65,47 +65,11 @@ func (s LongRareTermsBucket) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// LongRareTermsBucketBuilder holds LongRareTermsBucket struct and provides a builder API.
-type LongRareTermsBucketBuilder struct {
-	v *LongRareTermsBucket
-}
-
-// NewLongRareTermsBucket provides a builder for the LongRareTermsBucket struct.
-func NewLongRareTermsBucketBuilder() *LongRareTermsBucketBuilder {
-	r := LongRareTermsBucketBuilder{
-		&LongRareTermsBucket{
-			Aggregations: make(map[AggregateName]Aggregate, 0),
-		},
+// NewLongRareTermsBucket returns a LongRareTermsBucket.
+func NewLongRareTermsBucket() *LongRareTermsBucket {
+	r := &LongRareTermsBucket{
+		Aggregations: make(map[string]Aggregate, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the LongRareTermsBucket struct
-func (rb *LongRareTermsBucketBuilder) Build() LongRareTermsBucket {
-	return *rb.v
-}
-
-func (rb *LongRareTermsBucketBuilder) Aggregations(values map[AggregateName]*AggregateBuilder) *LongRareTermsBucketBuilder {
-	tmp := make(map[AggregateName]Aggregate, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Aggregations = tmp
-	return rb
-}
-
-func (rb *LongRareTermsBucketBuilder) DocCount(doccount int64) *LongRareTermsBucketBuilder {
-	rb.v.DocCount = doccount
-	return rb
-}
-
-func (rb *LongRareTermsBucketBuilder) Key(key int64) *LongRareTermsBucketBuilder {
-	rb.v.Key = key
-	return rb
-}
-
-func (rb *LongRareTermsBucketBuilder) KeyAsString(keyasstring string) *LongRareTermsBucketBuilder {
-	rb.v.KeyAsString = &keyasstring
-	return rb
+	return r
 }

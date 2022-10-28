@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,56 +28,18 @@ import (
 
 // ModelSnapshotUpgrade type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/_types/Model.ts#L48-L54
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/Model.ts#L48-L54
 type ModelSnapshotUpgrade struct {
 	AssignmentExplanation string                                    `json:"assignment_explanation"`
-	JobId                 Id                                        `json:"job_id"`
+	JobId                 string                                    `json:"job_id"`
 	Node                  DiscoveryNode                             `json:"node"`
-	SnapshotId            Id                                        `json:"snapshot_id"`
+	SnapshotId            string                                    `json:"snapshot_id"`
 	State                 snapshotupgradestate.SnapshotUpgradeState `json:"state"`
 }
 
-// ModelSnapshotUpgradeBuilder holds ModelSnapshotUpgrade struct and provides a builder API.
-type ModelSnapshotUpgradeBuilder struct {
-	v *ModelSnapshotUpgrade
-}
+// NewModelSnapshotUpgrade returns a ModelSnapshotUpgrade.
+func NewModelSnapshotUpgrade() *ModelSnapshotUpgrade {
+	r := &ModelSnapshotUpgrade{}
 
-// NewModelSnapshotUpgrade provides a builder for the ModelSnapshotUpgrade struct.
-func NewModelSnapshotUpgradeBuilder() *ModelSnapshotUpgradeBuilder {
-	r := ModelSnapshotUpgradeBuilder{
-		&ModelSnapshotUpgrade{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ModelSnapshotUpgrade struct
-func (rb *ModelSnapshotUpgradeBuilder) Build() ModelSnapshotUpgrade {
-	return *rb.v
-}
-
-func (rb *ModelSnapshotUpgradeBuilder) AssignmentExplanation(assignmentexplanation string) *ModelSnapshotUpgradeBuilder {
-	rb.v.AssignmentExplanation = assignmentexplanation
-	return rb
-}
-
-func (rb *ModelSnapshotUpgradeBuilder) JobId(jobid Id) *ModelSnapshotUpgradeBuilder {
-	rb.v.JobId = jobid
-	return rb
-}
-
-func (rb *ModelSnapshotUpgradeBuilder) Node(node *DiscoveryNodeBuilder) *ModelSnapshotUpgradeBuilder {
-	v := node.Build()
-	rb.v.Node = v
-	return rb
-}
-
-func (rb *ModelSnapshotUpgradeBuilder) SnapshotId(snapshotid Id) *ModelSnapshotUpgradeBuilder {
-	rb.v.SnapshotId = snapshotid
-	return rb
-}
-
-func (rb *ModelSnapshotUpgradeBuilder) State(state snapshotupgradestate.SnapshotUpgradeState) *ModelSnapshotUpgradeBuilder {
-	rb.v.State = state
-	return rb
+	return r
 }

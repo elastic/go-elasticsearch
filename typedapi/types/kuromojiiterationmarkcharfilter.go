@@ -17,53 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // KuromojiIterationMarkCharFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/analysis/kuromoji-plugin.ts#L31-L35
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/kuromoji-plugin.ts#L31-L35
 type KuromojiIterationMarkCharFilter struct {
-	NormalizeKana  bool           `json:"normalize_kana"`
-	NormalizeKanji bool           `json:"normalize_kanji"`
-	Type           string         `json:"type,omitempty"`
-	Version        *VersionString `json:"version,omitempty"`
+	NormalizeKana  bool    `json:"normalize_kana"`
+	NormalizeKanji bool    `json:"normalize_kanji"`
+	Type           string  `json:"type,omitempty"`
+	Version        *string `json:"version,omitempty"`
 }
 
-// KuromojiIterationMarkCharFilterBuilder holds KuromojiIterationMarkCharFilter struct and provides a builder API.
-type KuromojiIterationMarkCharFilterBuilder struct {
-	v *KuromojiIterationMarkCharFilter
-}
+// NewKuromojiIterationMarkCharFilter returns a KuromojiIterationMarkCharFilter.
+func NewKuromojiIterationMarkCharFilter() *KuromojiIterationMarkCharFilter {
+	r := &KuromojiIterationMarkCharFilter{}
 
-// NewKuromojiIterationMarkCharFilter provides a builder for the KuromojiIterationMarkCharFilter struct.
-func NewKuromojiIterationMarkCharFilterBuilder() *KuromojiIterationMarkCharFilterBuilder {
-	r := KuromojiIterationMarkCharFilterBuilder{
-		&KuromojiIterationMarkCharFilter{},
-	}
+	r.Type = "kuromoji_iteration_mark"
 
-	r.v.Type = "kuromoji_iteration_mark"
-
-	return &r
-}
-
-// Build finalize the chain and returns the KuromojiIterationMarkCharFilter struct
-func (rb *KuromojiIterationMarkCharFilterBuilder) Build() KuromojiIterationMarkCharFilter {
-	return *rb.v
-}
-
-func (rb *KuromojiIterationMarkCharFilterBuilder) NormalizeKana(normalizekana bool) *KuromojiIterationMarkCharFilterBuilder {
-	rb.v.NormalizeKana = normalizekana
-	return rb
-}
-
-func (rb *KuromojiIterationMarkCharFilterBuilder) NormalizeKanji(normalizekanji bool) *KuromojiIterationMarkCharFilterBuilder {
-	rb.v.NormalizeKanji = normalizekanji
-	return rb
-}
-
-func (rb *KuromojiIterationMarkCharFilterBuilder) Version(version VersionString) *KuromojiIterationMarkCharFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

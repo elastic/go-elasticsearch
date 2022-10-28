@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 // Adds and updates Logstash Pipelines used for Central Management
@@ -53,7 +53,7 @@ type PutPipeline struct {
 
 	buf *gobytes.Buffer
 
-	req *types.Pipeline
+	req *types.LogstashPipeline
 	raw json.RawMessage
 
 	paramSet int
@@ -99,7 +99,7 @@ func (r *PutPipeline) Raw(raw json.RawMessage) *PutPipeline {
 }
 
 // Request allows to set the request property with the appropriate payload.
-func (r *PutPipeline) Request(req *types.Pipeline) *PutPipeline {
+func (r *PutPipeline) Request(req *types.LogstashPipeline) *PutPipeline {
 	r.req = req
 
 	return r

@@ -17,86 +17,28 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RollupJobConfiguration type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/rollup/get_jobs/types.ts#L34-L43
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/rollup/get_jobs/types.ts#L34-L43
 type RollupJobConfiguration struct {
 	Cron         string        `json:"cron"`
 	Groups       Groupings     `json:"groups"`
-	Id           Id            `json:"id"`
+	Id           string        `json:"id"`
 	IndexPattern string        `json:"index_pattern"`
 	Metrics      []FieldMetric `json:"metrics"`
 	PageSize     int64         `json:"page_size"`
-	RollupIndex  IndexName     `json:"rollup_index"`
+	RollupIndex  string        `json:"rollup_index"`
 	Timeout      Duration      `json:"timeout"`
 }
 
-// RollupJobConfigurationBuilder holds RollupJobConfiguration struct and provides a builder API.
-type RollupJobConfigurationBuilder struct {
-	v *RollupJobConfiguration
-}
+// NewRollupJobConfiguration returns a RollupJobConfiguration.
+func NewRollupJobConfiguration() *RollupJobConfiguration {
+	r := &RollupJobConfiguration{}
 
-// NewRollupJobConfiguration provides a builder for the RollupJobConfiguration struct.
-func NewRollupJobConfigurationBuilder() *RollupJobConfigurationBuilder {
-	r := RollupJobConfigurationBuilder{
-		&RollupJobConfiguration{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RollupJobConfiguration struct
-func (rb *RollupJobConfigurationBuilder) Build() RollupJobConfiguration {
-	return *rb.v
-}
-
-func (rb *RollupJobConfigurationBuilder) Cron(cron string) *RollupJobConfigurationBuilder {
-	rb.v.Cron = cron
-	return rb
-}
-
-func (rb *RollupJobConfigurationBuilder) Groups(groups *GroupingsBuilder) *RollupJobConfigurationBuilder {
-	v := groups.Build()
-	rb.v.Groups = v
-	return rb
-}
-
-func (rb *RollupJobConfigurationBuilder) Id(id Id) *RollupJobConfigurationBuilder {
-	rb.v.Id = id
-	return rb
-}
-
-func (rb *RollupJobConfigurationBuilder) IndexPattern(indexpattern string) *RollupJobConfigurationBuilder {
-	rb.v.IndexPattern = indexpattern
-	return rb
-}
-
-func (rb *RollupJobConfigurationBuilder) Metrics(metrics []FieldMetricBuilder) *RollupJobConfigurationBuilder {
-	tmp := make([]FieldMetric, len(metrics))
-	for _, value := range metrics {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Metrics = tmp
-	return rb
-}
-
-func (rb *RollupJobConfigurationBuilder) PageSize(pagesize int64) *RollupJobConfigurationBuilder {
-	rb.v.PageSize = pagesize
-	return rb
-}
-
-func (rb *RollupJobConfigurationBuilder) RollupIndex(rollupindex IndexName) *RollupJobConfigurationBuilder {
-	rb.v.RollupIndex = rollupindex
-	return rb
-}
-
-func (rb *RollupJobConfigurationBuilder) Timeout(timeout *DurationBuilder) *RollupJobConfigurationBuilder {
-	v := timeout.Build()
-	rb.v.Timeout = v
-	return rb
+	return r
 }

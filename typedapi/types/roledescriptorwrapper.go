@@ -17,39 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RoleDescriptorWrapper type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/security/get_service_accounts/types.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/get_service_accounts/types.ts#L22-L24
 type RoleDescriptorWrapper struct {
 	RoleDescriptor RoleDescriptorRead `json:"role_descriptor"`
 }
 
-// RoleDescriptorWrapperBuilder holds RoleDescriptorWrapper struct and provides a builder API.
-type RoleDescriptorWrapperBuilder struct {
-	v *RoleDescriptorWrapper
-}
+// NewRoleDescriptorWrapper returns a RoleDescriptorWrapper.
+func NewRoleDescriptorWrapper() *RoleDescriptorWrapper {
+	r := &RoleDescriptorWrapper{}
 
-// NewRoleDescriptorWrapper provides a builder for the RoleDescriptorWrapper struct.
-func NewRoleDescriptorWrapperBuilder() *RoleDescriptorWrapperBuilder {
-	r := RoleDescriptorWrapperBuilder{
-		&RoleDescriptorWrapper{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RoleDescriptorWrapper struct
-func (rb *RoleDescriptorWrapperBuilder) Build() RoleDescriptorWrapper {
-	return *rb.v
-}
-
-func (rb *RoleDescriptorWrapperBuilder) RoleDescriptor(roledescriptor *RoleDescriptorReadBuilder) *RoleDescriptorWrapperBuilder {
-	v := roledescriptor.Build()
-	rb.v.RoleDescriptor = v
-	return rb
+	return r
 }

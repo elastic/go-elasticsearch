@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TermSuggestOption type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/search/_types/suggester.ts#L93-L99
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/suggester.ts#L93-L99
 type TermSuggestOption struct {
 	CollateMatch *bool   `json:"collate_match,omitempty"`
 	Freq         int64   `json:"freq"`
@@ -33,46 +33,9 @@ type TermSuggestOption struct {
 	Text         string  `json:"text"`
 }
 
-// TermSuggestOptionBuilder holds TermSuggestOption struct and provides a builder API.
-type TermSuggestOptionBuilder struct {
-	v *TermSuggestOption
-}
+// NewTermSuggestOption returns a TermSuggestOption.
+func NewTermSuggestOption() *TermSuggestOption {
+	r := &TermSuggestOption{}
 
-// NewTermSuggestOption provides a builder for the TermSuggestOption struct.
-func NewTermSuggestOptionBuilder() *TermSuggestOptionBuilder {
-	r := TermSuggestOptionBuilder{
-		&TermSuggestOption{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TermSuggestOption struct
-func (rb *TermSuggestOptionBuilder) Build() TermSuggestOption {
-	return *rb.v
-}
-
-func (rb *TermSuggestOptionBuilder) CollateMatch(collatematch bool) *TermSuggestOptionBuilder {
-	rb.v.CollateMatch = &collatematch
-	return rb
-}
-
-func (rb *TermSuggestOptionBuilder) Freq(freq int64) *TermSuggestOptionBuilder {
-	rb.v.Freq = freq
-	return rb
-}
-
-func (rb *TermSuggestOptionBuilder) Highlighted(highlighted string) *TermSuggestOptionBuilder {
-	rb.v.Highlighted = &highlighted
-	return rb
-}
-
-func (rb *TermSuggestOptionBuilder) Score(score float64) *TermSuggestOptionBuilder {
-	rb.v.Score = score
-	return rb
-}
-
-func (rb *TermSuggestOptionBuilder) Text(text string) *TermSuggestOptionBuilder {
-	rb.v.Text = text
-	return rb
+	return r
 }

@@ -17,46 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ExtendedBoundsFieldDateMath type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/bucket.ts#L230-L233
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/bucket.ts#L230-L233
 type ExtendedBoundsFieldDateMath struct {
 	Max FieldDateMath `json:"max"`
 	Min FieldDateMath `json:"min"`
 }
 
-// ExtendedBoundsFieldDateMathBuilder holds ExtendedBoundsFieldDateMath struct and provides a builder API.
-type ExtendedBoundsFieldDateMathBuilder struct {
-	v *ExtendedBoundsFieldDateMath
-}
+// NewExtendedBoundsFieldDateMath returns a ExtendedBoundsFieldDateMath.
+func NewExtendedBoundsFieldDateMath() *ExtendedBoundsFieldDateMath {
+	r := &ExtendedBoundsFieldDateMath{}
 
-// NewExtendedBoundsFieldDateMath provides a builder for the ExtendedBoundsFieldDateMath struct.
-func NewExtendedBoundsFieldDateMathBuilder() *ExtendedBoundsFieldDateMathBuilder {
-	r := ExtendedBoundsFieldDateMathBuilder{
-		&ExtendedBoundsFieldDateMath{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ExtendedBoundsFieldDateMath struct
-func (rb *ExtendedBoundsFieldDateMathBuilder) Build() ExtendedBoundsFieldDateMath {
-	return *rb.v
-}
-
-func (rb *ExtendedBoundsFieldDateMathBuilder) Max(max *FieldDateMathBuilder) *ExtendedBoundsFieldDateMathBuilder {
-	v := max.Build()
-	rb.v.Max = v
-	return rb
-}
-
-func (rb *ExtendedBoundsFieldDateMathBuilder) Min(min *FieldDateMathBuilder) *ExtendedBoundsFieldDateMathBuilder {
-	v := min.Build()
-	rb.v.Min = v
-	return rb
+	return r
 }

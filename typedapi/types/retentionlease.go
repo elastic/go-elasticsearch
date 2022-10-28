@@ -17,39 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RetentionLease type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/_types/IndexSettings.ts#L65-L67
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/IndexSettings.ts#L65-L67
 type RetentionLease struct {
 	Period Duration `json:"period"`
 }
 
-// RetentionLeaseBuilder holds RetentionLease struct and provides a builder API.
-type RetentionLeaseBuilder struct {
-	v *RetentionLease
-}
+// NewRetentionLease returns a RetentionLease.
+func NewRetentionLease() *RetentionLease {
+	r := &RetentionLease{}
 
-// NewRetentionLease provides a builder for the RetentionLease struct.
-func NewRetentionLeaseBuilder() *RetentionLeaseBuilder {
-	r := RetentionLeaseBuilder{
-		&RetentionLease{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RetentionLease struct
-func (rb *RetentionLeaseBuilder) Build() RetentionLease {
-	return *rb.v
-}
-
-func (rb *RetentionLeaseBuilder) Period(period *DurationBuilder) *RetentionLeaseBuilder {
-	v := period.Build()
-	rb.v.Period = v
-	return rb
+	return r
 }

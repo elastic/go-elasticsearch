@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // InvertedIndex type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/field_usage_stats/IndicesFieldUsageStatsResponse.ts#L65-L73
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/field_usage_stats/IndicesFieldUsageStatsResponse.ts#L65-L73
 type InvertedIndex struct {
 	Offsets         uint `json:"offsets"`
 	Payloads        uint `json:"payloads"`
@@ -35,56 +35,9 @@ type InvertedIndex struct {
 	Terms           uint `json:"terms"`
 }
 
-// InvertedIndexBuilder holds InvertedIndex struct and provides a builder API.
-type InvertedIndexBuilder struct {
-	v *InvertedIndex
-}
+// NewInvertedIndex returns a InvertedIndex.
+func NewInvertedIndex() *InvertedIndex {
+	r := &InvertedIndex{}
 
-// NewInvertedIndex provides a builder for the InvertedIndex struct.
-func NewInvertedIndexBuilder() *InvertedIndexBuilder {
-	r := InvertedIndexBuilder{
-		&InvertedIndex{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the InvertedIndex struct
-func (rb *InvertedIndexBuilder) Build() InvertedIndex {
-	return *rb.v
-}
-
-func (rb *InvertedIndexBuilder) Offsets(offsets uint) *InvertedIndexBuilder {
-	rb.v.Offsets = offsets
-	return rb
-}
-
-func (rb *InvertedIndexBuilder) Payloads(payloads uint) *InvertedIndexBuilder {
-	rb.v.Payloads = payloads
-	return rb
-}
-
-func (rb *InvertedIndexBuilder) Positions(positions uint) *InvertedIndexBuilder {
-	rb.v.Positions = positions
-	return rb
-}
-
-func (rb *InvertedIndexBuilder) Postings(postings uint) *InvertedIndexBuilder {
-	rb.v.Postings = postings
-	return rb
-}
-
-func (rb *InvertedIndexBuilder) Proximity(proximity uint) *InvertedIndexBuilder {
-	rb.v.Proximity = proximity
-	return rb
-}
-
-func (rb *InvertedIndexBuilder) TermFrequencies(termfrequencies uint) *InvertedIndexBuilder {
-	rb.v.TermFrequencies = termfrequencies
-	return rb
-}
-
-func (rb *InvertedIndexBuilder) Terms(terms uint) *InvertedIndexBuilder {
-	rb.v.Terms = terms
-	return rb
+	return r
 }

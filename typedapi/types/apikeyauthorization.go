@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ApiKeyAuthorization type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/_types/Authorization.ts#L20-L29
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/Authorization.ts#L20-L29
 type ApiKeyAuthorization struct {
 	// Id The identifier for the API key.
 	Id string `json:"id"`
@@ -32,35 +32,9 @@ type ApiKeyAuthorization struct {
 	Name string `json:"name"`
 }
 
-// ApiKeyAuthorizationBuilder holds ApiKeyAuthorization struct and provides a builder API.
-type ApiKeyAuthorizationBuilder struct {
-	v *ApiKeyAuthorization
-}
+// NewApiKeyAuthorization returns a ApiKeyAuthorization.
+func NewApiKeyAuthorization() *ApiKeyAuthorization {
+	r := &ApiKeyAuthorization{}
 
-// NewApiKeyAuthorization provides a builder for the ApiKeyAuthorization struct.
-func NewApiKeyAuthorizationBuilder() *ApiKeyAuthorizationBuilder {
-	r := ApiKeyAuthorizationBuilder{
-		&ApiKeyAuthorization{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ApiKeyAuthorization struct
-func (rb *ApiKeyAuthorizationBuilder) Build() ApiKeyAuthorization {
-	return *rb.v
-}
-
-// Id The identifier for the API key.
-
-func (rb *ApiKeyAuthorizationBuilder) Id(id string) *ApiKeyAuthorizationBuilder {
-	rb.v.Id = id
-	return rb
-}
-
-// Name The name of the API key.
-
-func (rb *ApiKeyAuthorizationBuilder) Name(name string) *ApiKeyAuthorizationBuilder {
-	rb.v.Name = name
-	return rb
+	return r
 }

@@ -17,63 +17,27 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CommandAllocatePrimaryAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/cluster/reroute/types.ts#L78-L84
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/reroute/types.ts#L78-L84
 type CommandAllocatePrimaryAction struct {
 	// AcceptDataLoss If a node which has a copy of the data rejoins the cluster later on, that
 	// data will be deleted. To ensure that these implications are well-understood,
 	// this command requires the flag accept_data_loss to be explicitly set to true
-	AcceptDataLoss bool      `json:"accept_data_loss"`
-	Index          IndexName `json:"index"`
-	Node           string    `json:"node"`
-	Shard          int       `json:"shard"`
+	AcceptDataLoss bool   `json:"accept_data_loss"`
+	Index          string `json:"index"`
+	Node           string `json:"node"`
+	Shard          int    `json:"shard"`
 }
 
-// CommandAllocatePrimaryActionBuilder holds CommandAllocatePrimaryAction struct and provides a builder API.
-type CommandAllocatePrimaryActionBuilder struct {
-	v *CommandAllocatePrimaryAction
-}
+// NewCommandAllocatePrimaryAction returns a CommandAllocatePrimaryAction.
+func NewCommandAllocatePrimaryAction() *CommandAllocatePrimaryAction {
+	r := &CommandAllocatePrimaryAction{}
 
-// NewCommandAllocatePrimaryAction provides a builder for the CommandAllocatePrimaryAction struct.
-func NewCommandAllocatePrimaryActionBuilder() *CommandAllocatePrimaryActionBuilder {
-	r := CommandAllocatePrimaryActionBuilder{
-		&CommandAllocatePrimaryAction{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the CommandAllocatePrimaryAction struct
-func (rb *CommandAllocatePrimaryActionBuilder) Build() CommandAllocatePrimaryAction {
-	return *rb.v
-}
-
-// AcceptDataLoss If a node which has a copy of the data rejoins the cluster later on, that
-// data will be deleted. To ensure that these implications are well-understood,
-// this command requires the flag accept_data_loss to be explicitly set to true
-
-func (rb *CommandAllocatePrimaryActionBuilder) AcceptDataLoss(acceptdataloss bool) *CommandAllocatePrimaryActionBuilder {
-	rb.v.AcceptDataLoss = acceptdataloss
-	return rb
-}
-
-func (rb *CommandAllocatePrimaryActionBuilder) Index(index IndexName) *CommandAllocatePrimaryActionBuilder {
-	rb.v.Index = index
-	return rb
-}
-
-func (rb *CommandAllocatePrimaryActionBuilder) Node(node string) *CommandAllocatePrimaryActionBuilder {
-	rb.v.Node = node
-	return rb
-}
-
-func (rb *CommandAllocatePrimaryActionBuilder) Shard(shard int) *CommandAllocatePrimaryActionBuilder {
-	rb.v.Shard = shard
-	return rb
+	return r
 }

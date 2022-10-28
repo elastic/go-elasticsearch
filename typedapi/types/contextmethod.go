@@ -17,54 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ContextMethod type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/get_script_context/types.ts#L27-L31
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/get_script_context/types.ts#L27-L31
 type ContextMethod struct {
-	Name       Name                 `json:"name"`
+	Name       string               `json:"name"`
 	Params     []ContextMethodParam `json:"params"`
 	ReturnType string               `json:"return_type"`
 }
 
-// ContextMethodBuilder holds ContextMethod struct and provides a builder API.
-type ContextMethodBuilder struct {
-	v *ContextMethod
-}
+// NewContextMethod returns a ContextMethod.
+func NewContextMethod() *ContextMethod {
+	r := &ContextMethod{}
 
-// NewContextMethod provides a builder for the ContextMethod struct.
-func NewContextMethodBuilder() *ContextMethodBuilder {
-	r := ContextMethodBuilder{
-		&ContextMethod{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ContextMethod struct
-func (rb *ContextMethodBuilder) Build() ContextMethod {
-	return *rb.v
-}
-
-func (rb *ContextMethodBuilder) Name(name Name) *ContextMethodBuilder {
-	rb.v.Name = name
-	return rb
-}
-
-func (rb *ContextMethodBuilder) Params(params []ContextMethodParamBuilder) *ContextMethodBuilder {
-	tmp := make([]ContextMethodParam, len(params))
-	for _, value := range params {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Params = tmp
-	return rb
-}
-
-func (rb *ContextMethodBuilder) ReturnType(returntype string) *ContextMethodBuilder {
-	rb.v.ReturnType = returntype
-	return rb
+	return r
 }

@@ -17,57 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Feature type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/xpack/info/types.ts#L74-L79
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/features/_types/Feature.ts#L20-L23
 type Feature struct {
-	Available      bool                   `json:"available"`
-	Description    *string                `json:"description,omitempty"`
-	Enabled        bool                   `json:"enabled"`
-	NativeCodeInfo *NativeCodeInformation `json:"native_code_info,omitempty"`
+	Description string `json:"description"`
+	Name        string `json:"name"`
 }
 
-// FeatureBuilder holds Feature struct and provides a builder API.
-type FeatureBuilder struct {
-	v *Feature
-}
+// NewFeature returns a Feature.
+func NewFeature() *Feature {
+	r := &Feature{}
 
-// NewFeature provides a builder for the Feature struct.
-func NewFeatureBuilder() *FeatureBuilder {
-	r := FeatureBuilder{
-		&Feature{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Feature struct
-func (rb *FeatureBuilder) Build() Feature {
-	return *rb.v
-}
-
-func (rb *FeatureBuilder) Available(available bool) *FeatureBuilder {
-	rb.v.Available = available
-	return rb
-}
-
-func (rb *FeatureBuilder) Description(description string) *FeatureBuilder {
-	rb.v.Description = &description
-	return rb
-}
-
-func (rb *FeatureBuilder) Enabled(enabled bool) *FeatureBuilder {
-	rb.v.Enabled = enabled
-	return rb
-}
-
-func (rb *FeatureBuilder) NativeCodeInfo(nativecodeinfo *NativeCodeInformationBuilder) *FeatureBuilder {
-	v := nativecodeinfo.Build()
-	rb.v.NativeCodeInfo = &v
-	return rb
+	return r
 }

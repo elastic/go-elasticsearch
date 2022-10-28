@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RecoveryBytes type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/recovery/types.ts#L38-L48
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/recovery/types.ts#L38-L48
 type RecoveryBytes struct {
 	Percent                      Percentage `json:"percent"`
 	Recovered                    *ByteSize  `json:"recovered,omitempty"`
@@ -37,75 +37,9 @@ type RecoveryBytes struct {
 	TotalInBytes                 ByteSize   `json:"total_in_bytes"`
 }
 
-// RecoveryBytesBuilder holds RecoveryBytes struct and provides a builder API.
-type RecoveryBytesBuilder struct {
-	v *RecoveryBytes
-}
+// NewRecoveryBytes returns a RecoveryBytes.
+func NewRecoveryBytes() *RecoveryBytes {
+	r := &RecoveryBytes{}
 
-// NewRecoveryBytes provides a builder for the RecoveryBytes struct.
-func NewRecoveryBytesBuilder() *RecoveryBytesBuilder {
-	r := RecoveryBytesBuilder{
-		&RecoveryBytes{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RecoveryBytes struct
-func (rb *RecoveryBytesBuilder) Build() RecoveryBytes {
-	return *rb.v
-}
-
-func (rb *RecoveryBytesBuilder) Percent(percent *PercentageBuilder) *RecoveryBytesBuilder {
-	v := percent.Build()
-	rb.v.Percent = v
-	return rb
-}
-
-func (rb *RecoveryBytesBuilder) Recovered(recovered *ByteSizeBuilder) *RecoveryBytesBuilder {
-	v := recovered.Build()
-	rb.v.Recovered = &v
-	return rb
-}
-
-func (rb *RecoveryBytesBuilder) RecoveredFromSnapshot(recoveredfromsnapshot *ByteSizeBuilder) *RecoveryBytesBuilder {
-	v := recoveredfromsnapshot.Build()
-	rb.v.RecoveredFromSnapshot = &v
-	return rb
-}
-
-func (rb *RecoveryBytesBuilder) RecoveredFromSnapshotInBytes(recoveredfromsnapshotinbytes *ByteSizeBuilder) *RecoveryBytesBuilder {
-	v := recoveredfromsnapshotinbytes.Build()
-	rb.v.RecoveredFromSnapshotInBytes = &v
-	return rb
-}
-
-func (rb *RecoveryBytesBuilder) RecoveredInBytes(recoveredinbytes *ByteSizeBuilder) *RecoveryBytesBuilder {
-	v := recoveredinbytes.Build()
-	rb.v.RecoveredInBytes = v
-	return rb
-}
-
-func (rb *RecoveryBytesBuilder) Reused(reused *ByteSizeBuilder) *RecoveryBytesBuilder {
-	v := reused.Build()
-	rb.v.Reused = &v
-	return rb
-}
-
-func (rb *RecoveryBytesBuilder) ReusedInBytes(reusedinbytes *ByteSizeBuilder) *RecoveryBytesBuilder {
-	v := reusedinbytes.Build()
-	rb.v.ReusedInBytes = v
-	return rb
-}
-
-func (rb *RecoveryBytesBuilder) Total(total *ByteSizeBuilder) *RecoveryBytesBuilder {
-	v := total.Build()
-	rb.v.Total = &v
-	return rb
-}
-
-func (rb *RecoveryBytesBuilder) TotalInBytes(totalinbytes *ByteSizeBuilder) *RecoveryBytesBuilder {
-	v := totalinbytes.Build()
-	rb.v.TotalInBytes = v
-	return rb
+	return r
 }

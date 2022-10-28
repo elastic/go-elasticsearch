@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeInfoXpackLicenseType type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/info/types.ts#L269-L271
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/info/types.ts#L269-L271
 type NodeInfoXpackLicenseType struct {
 	Type string `json:"type"`
 }
 
-// NodeInfoXpackLicenseTypeBuilder holds NodeInfoXpackLicenseType struct and provides a builder API.
-type NodeInfoXpackLicenseTypeBuilder struct {
-	v *NodeInfoXpackLicenseType
-}
+// NewNodeInfoXpackLicenseType returns a NodeInfoXpackLicenseType.
+func NewNodeInfoXpackLicenseType() *NodeInfoXpackLicenseType {
+	r := &NodeInfoXpackLicenseType{}
 
-// NewNodeInfoXpackLicenseType provides a builder for the NodeInfoXpackLicenseType struct.
-func NewNodeInfoXpackLicenseTypeBuilder() *NodeInfoXpackLicenseTypeBuilder {
-	r := NodeInfoXpackLicenseTypeBuilder{
-		&NodeInfoXpackLicenseType{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodeInfoXpackLicenseType struct
-func (rb *NodeInfoXpackLicenseTypeBuilder) Build() NodeInfoXpackLicenseType {
-	return *rb.v
-}
-
-func (rb *NodeInfoXpackLicenseTypeBuilder) Type_(type_ string) *NodeInfoXpackLicenseTypeBuilder {
-	rb.v.Type = type_
-	return rb
+	return r
 }

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,9 +28,10 @@ import (
 
 // EnrichProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ingest/_types/Processors.ts#L201-L209
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ingest/_types/Processors.ts#L201-L209
 type EnrichProcessor struct {
-	Field         Field                              `json:"field"`
+	Description   *string                            `json:"description,omitempty"`
+	Field         string                             `json:"field"`
 	If            *string                            `json:"if,omitempty"`
 	IgnoreFailure *bool                              `json:"ignore_failure,omitempty"`
 	IgnoreMissing *bool                              `json:"ignore_missing,omitempty"`
@@ -40,83 +41,12 @@ type EnrichProcessor struct {
 	PolicyName    string                             `json:"policy_name"`
 	ShapeRelation *geoshaperelation.GeoShapeRelation `json:"shape_relation,omitempty"`
 	Tag           *string                            `json:"tag,omitempty"`
-	TargetField   Field                              `json:"target_field"`
+	TargetField   string                             `json:"target_field"`
 }
 
-// EnrichProcessorBuilder holds EnrichProcessor struct and provides a builder API.
-type EnrichProcessorBuilder struct {
-	v *EnrichProcessor
-}
+// NewEnrichProcessor returns a EnrichProcessor.
+func NewEnrichProcessor() *EnrichProcessor {
+	r := &EnrichProcessor{}
 
-// NewEnrichProcessor provides a builder for the EnrichProcessor struct.
-func NewEnrichProcessorBuilder() *EnrichProcessorBuilder {
-	r := EnrichProcessorBuilder{
-		&EnrichProcessor{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the EnrichProcessor struct
-func (rb *EnrichProcessorBuilder) Build() EnrichProcessor {
-	return *rb.v
-}
-
-func (rb *EnrichProcessorBuilder) Field(field Field) *EnrichProcessorBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *EnrichProcessorBuilder) If_(if_ string) *EnrichProcessorBuilder {
-	rb.v.If = &if_
-	return rb
-}
-
-func (rb *EnrichProcessorBuilder) IgnoreFailure(ignorefailure bool) *EnrichProcessorBuilder {
-	rb.v.IgnoreFailure = &ignorefailure
-	return rb
-}
-
-func (rb *EnrichProcessorBuilder) IgnoreMissing(ignoremissing bool) *EnrichProcessorBuilder {
-	rb.v.IgnoreMissing = &ignoremissing
-	return rb
-}
-
-func (rb *EnrichProcessorBuilder) MaxMatches(maxmatches int) *EnrichProcessorBuilder {
-	rb.v.MaxMatches = &maxmatches
-	return rb
-}
-
-func (rb *EnrichProcessorBuilder) OnFailure(on_failure []ProcessorContainerBuilder) *EnrichProcessorBuilder {
-	tmp := make([]ProcessorContainer, len(on_failure))
-	for _, value := range on_failure {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.OnFailure = tmp
-	return rb
-}
-
-func (rb *EnrichProcessorBuilder) Override(override bool) *EnrichProcessorBuilder {
-	rb.v.Override = &override
-	return rb
-}
-
-func (rb *EnrichProcessorBuilder) PolicyName(policyname string) *EnrichProcessorBuilder {
-	rb.v.PolicyName = policyname
-	return rb
-}
-
-func (rb *EnrichProcessorBuilder) ShapeRelation(shaperelation geoshaperelation.GeoShapeRelation) *EnrichProcessorBuilder {
-	rb.v.ShapeRelation = &shaperelation
-	return rb
-}
-
-func (rb *EnrichProcessorBuilder) Tag(tag string) *EnrichProcessorBuilder {
-	rb.v.Tag = &tag
-	return rb
-}
-
-func (rb *EnrichProcessorBuilder) TargetField(targetfield Field) *EnrichProcessorBuilder {
-	rb.v.TargetField = targetfield
-	return rb
+	return r
 }

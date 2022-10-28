@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,59 +28,20 @@ import (
 
 // MatrixStatsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/matrix.ts#L31-L33
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/matrix.ts#L31-L33
 type MatrixStatsAggregation struct {
-	Fields  *Fields            `json:"fields,omitempty"`
-	Meta    *Metadata          `json:"meta,omitempty"`
-	Missing map[Field]float64  `json:"missing,omitempty"`
-	Mode    *sortmode.SortMode `json:"mode,omitempty"`
-	Name    *string            `json:"name,omitempty"`
+	Fields  []string               `json:"fields,omitempty"`
+	Meta    map[string]interface{} `json:"meta,omitempty"`
+	Missing map[string]float64     `json:"missing,omitempty"`
+	Mode    *sortmode.SortMode     `json:"mode,omitempty"`
+	Name    *string                `json:"name,omitempty"`
 }
 
-// MatrixStatsAggregationBuilder holds MatrixStatsAggregation struct and provides a builder API.
-type MatrixStatsAggregationBuilder struct {
-	v *MatrixStatsAggregation
-}
-
-// NewMatrixStatsAggregation provides a builder for the MatrixStatsAggregation struct.
-func NewMatrixStatsAggregationBuilder() *MatrixStatsAggregationBuilder {
-	r := MatrixStatsAggregationBuilder{
-		&MatrixStatsAggregation{
-			Missing: make(map[Field]float64, 0),
-		},
+// NewMatrixStatsAggregation returns a MatrixStatsAggregation.
+func NewMatrixStatsAggregation() *MatrixStatsAggregation {
+	r := &MatrixStatsAggregation{
+		Missing: make(map[string]float64, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the MatrixStatsAggregation struct
-func (rb *MatrixStatsAggregationBuilder) Build() MatrixStatsAggregation {
-	return *rb.v
-}
-
-func (rb *MatrixStatsAggregationBuilder) Fields(fields *FieldsBuilder) *MatrixStatsAggregationBuilder {
-	v := fields.Build()
-	rb.v.Fields = &v
-	return rb
-}
-
-func (rb *MatrixStatsAggregationBuilder) Meta(meta *MetadataBuilder) *MatrixStatsAggregationBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *MatrixStatsAggregationBuilder) Missing(value map[Field]float64) *MatrixStatsAggregationBuilder {
-	rb.v.Missing = value
-	return rb
-}
-
-func (rb *MatrixStatsAggregationBuilder) Mode(mode sortmode.SortMode) *MatrixStatsAggregationBuilder {
-	rb.v.Mode = &mode
-	return rb
-}
-
-func (rb *MatrixStatsAggregationBuilder) Name(name string) *MatrixStatsAggregationBuilder {
-	rb.v.Name = &name
-	return rb
+	return r
 }

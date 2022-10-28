@@ -17,51 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AutoFollowedCluster type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ccr/stats/types.ts.ts#L27-L31
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ccr/stats/types.ts.ts#L27-L31
 type AutoFollowedCluster struct {
-	ClusterName              Name                    `json:"cluster_name"`
-	LastSeenMetadataVersion  VersionNumber           `json:"last_seen_metadata_version"`
-	TimeSinceLastCheckMillis DurationValueUnitMillis `json:"time_since_last_check_millis"`
+	ClusterName              string `json:"cluster_name"`
+	LastSeenMetadataVersion  int64  `json:"last_seen_metadata_version"`
+	TimeSinceLastCheckMillis int64  `json:"time_since_last_check_millis"`
 }
 
-// AutoFollowedClusterBuilder holds AutoFollowedCluster struct and provides a builder API.
-type AutoFollowedClusterBuilder struct {
-	v *AutoFollowedCluster
-}
+// NewAutoFollowedCluster returns a AutoFollowedCluster.
+func NewAutoFollowedCluster() *AutoFollowedCluster {
+	r := &AutoFollowedCluster{}
 
-// NewAutoFollowedCluster provides a builder for the AutoFollowedCluster struct.
-func NewAutoFollowedClusterBuilder() *AutoFollowedClusterBuilder {
-	r := AutoFollowedClusterBuilder{
-		&AutoFollowedCluster{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the AutoFollowedCluster struct
-func (rb *AutoFollowedClusterBuilder) Build() AutoFollowedCluster {
-	return *rb.v
-}
-
-func (rb *AutoFollowedClusterBuilder) ClusterName(clustername Name) *AutoFollowedClusterBuilder {
-	rb.v.ClusterName = clustername
-	return rb
-}
-
-func (rb *AutoFollowedClusterBuilder) LastSeenMetadataVersion(lastseenmetadataversion VersionNumber) *AutoFollowedClusterBuilder {
-	rb.v.LastSeenMetadataVersion = lastseenmetadataversion
-	return rb
-}
-
-func (rb *AutoFollowedClusterBuilder) TimeSinceLastCheckMillis(timesincelastcheckmillis *DurationValueUnitMillisBuilder) *AutoFollowedClusterBuilder {
-	v := timesincelastcheckmillis.Build()
-	rb.v.TimeSinceLastCheckMillis = v
-	return rb
+	return r
 }

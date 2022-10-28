@@ -17,48 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeClassificationSummaryMulticlassConfusionMatrix type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/evaluate_data_frame/types.ts#L79-L82
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/evaluate_data_frame/types.ts#L79-L82
 type DataframeClassificationSummaryMulticlassConfusionMatrix struct {
 	ConfusionMatrix       []ConfusionMatrixItem `json:"confusion_matrix"`
 	OtherActualClassCount int                   `json:"other_actual_class_count"`
 }
 
-// DataframeClassificationSummaryMulticlassConfusionMatrixBuilder holds DataframeClassificationSummaryMulticlassConfusionMatrix struct and provides a builder API.
-type DataframeClassificationSummaryMulticlassConfusionMatrixBuilder struct {
-	v *DataframeClassificationSummaryMulticlassConfusionMatrix
-}
+// NewDataframeClassificationSummaryMulticlassConfusionMatrix returns a DataframeClassificationSummaryMulticlassConfusionMatrix.
+func NewDataframeClassificationSummaryMulticlassConfusionMatrix() *DataframeClassificationSummaryMulticlassConfusionMatrix {
+	r := &DataframeClassificationSummaryMulticlassConfusionMatrix{}
 
-// NewDataframeClassificationSummaryMulticlassConfusionMatrix provides a builder for the DataframeClassificationSummaryMulticlassConfusionMatrix struct.
-func NewDataframeClassificationSummaryMulticlassConfusionMatrixBuilder() *DataframeClassificationSummaryMulticlassConfusionMatrixBuilder {
-	r := DataframeClassificationSummaryMulticlassConfusionMatrixBuilder{
-		&DataframeClassificationSummaryMulticlassConfusionMatrix{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeClassificationSummaryMulticlassConfusionMatrix struct
-func (rb *DataframeClassificationSummaryMulticlassConfusionMatrixBuilder) Build() DataframeClassificationSummaryMulticlassConfusionMatrix {
-	return *rb.v
-}
-
-func (rb *DataframeClassificationSummaryMulticlassConfusionMatrixBuilder) ConfusionMatrix(confusion_matrix []ConfusionMatrixItemBuilder) *DataframeClassificationSummaryMulticlassConfusionMatrixBuilder {
-	tmp := make([]ConfusionMatrixItem, len(confusion_matrix))
-	for _, value := range confusion_matrix {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.ConfusionMatrix = tmp
-	return rb
-}
-
-func (rb *DataframeClassificationSummaryMulticlassConfusionMatrixBuilder) OtherActualClassCount(otheractualclasscount int) *DataframeClassificationSummaryMulticlassConfusionMatrixBuilder {
-	rb.v.OtherActualClassCount = otheractualclasscount
-	return rb
+	return r
 }

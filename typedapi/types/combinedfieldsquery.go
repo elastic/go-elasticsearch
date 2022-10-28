@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,11 +29,11 @@ import (
 
 // CombinedFieldsQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/abstractions.ts#L181-L195
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/abstractions.ts#L181-L195
 type CombinedFieldsQuery struct {
 	AutoGenerateSynonymsPhraseQuery *bool                                            `json:"auto_generate_synonyms_phrase_query,omitempty"`
 	Boost                           *float32                                         `json:"boost,omitempty"`
-	Fields                          []Field                                          `json:"fields"`
+	Fields                          []string                                         `json:"fields"`
 	MinimumShouldMatch              *MinimumShouldMatch                              `json:"minimum_should_match,omitempty"`
 	Operator                        *combinedfieldsoperator.CombinedFieldsOperator   `json:"operator,omitempty"`
 	Query                           string                                           `json:"query"`
@@ -41,62 +41,9 @@ type CombinedFieldsQuery struct {
 	ZeroTermsQuery                  *combinedfieldszeroterms.CombinedFieldsZeroTerms `json:"zero_terms_query,omitempty"`
 }
 
-// CombinedFieldsQueryBuilder holds CombinedFieldsQuery struct and provides a builder API.
-type CombinedFieldsQueryBuilder struct {
-	v *CombinedFieldsQuery
-}
+// NewCombinedFieldsQuery returns a CombinedFieldsQuery.
+func NewCombinedFieldsQuery() *CombinedFieldsQuery {
+	r := &CombinedFieldsQuery{}
 
-// NewCombinedFieldsQuery provides a builder for the CombinedFieldsQuery struct.
-func NewCombinedFieldsQueryBuilder() *CombinedFieldsQueryBuilder {
-	r := CombinedFieldsQueryBuilder{
-		&CombinedFieldsQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the CombinedFieldsQuery struct
-func (rb *CombinedFieldsQueryBuilder) Build() CombinedFieldsQuery {
-	return *rb.v
-}
-
-func (rb *CombinedFieldsQueryBuilder) AutoGenerateSynonymsPhraseQuery(autogeneratesynonymsphrasequery bool) *CombinedFieldsQueryBuilder {
-	rb.v.AutoGenerateSynonymsPhraseQuery = &autogeneratesynonymsphrasequery
-	return rb
-}
-
-func (rb *CombinedFieldsQueryBuilder) Boost(boost float32) *CombinedFieldsQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *CombinedFieldsQueryBuilder) Fields(fields ...Field) *CombinedFieldsQueryBuilder {
-	rb.v.Fields = fields
-	return rb
-}
-
-func (rb *CombinedFieldsQueryBuilder) MinimumShouldMatch(minimumshouldmatch *MinimumShouldMatchBuilder) *CombinedFieldsQueryBuilder {
-	v := minimumshouldmatch.Build()
-	rb.v.MinimumShouldMatch = &v
-	return rb
-}
-
-func (rb *CombinedFieldsQueryBuilder) Operator(operator combinedfieldsoperator.CombinedFieldsOperator) *CombinedFieldsQueryBuilder {
-	rb.v.Operator = &operator
-	return rb
-}
-
-func (rb *CombinedFieldsQueryBuilder) Query(query string) *CombinedFieldsQueryBuilder {
-	rb.v.Query = query
-	return rb
-}
-
-func (rb *CombinedFieldsQueryBuilder) QueryName_(queryname_ string) *CombinedFieldsQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
-}
-
-func (rb *CombinedFieldsQueryBuilder) ZeroTermsQuery(zerotermsquery combinedfieldszeroterms.CombinedFieldsZeroTerms) *CombinedFieldsQueryBuilder {
-	rb.v.ZeroTermsQuery = &zerotermsquery
-	return rb
+	return r
 }

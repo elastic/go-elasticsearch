@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MappingLimitSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/_types/IndexSettings.ts#L402-L415
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/IndexSettings.ts#L402-L415
 type MappingLimitSettings struct {
 	Coerce          *bool                                `json:"coerce,omitempty"`
 	Depth           *MappingLimitSettingsDepth           `json:"depth,omitempty"`
@@ -36,67 +36,9 @@ type MappingLimitSettings struct {
 	TotalFields     *MappingLimitSettingsTotalFields     `json:"total_fields,omitempty"`
 }
 
-// MappingLimitSettingsBuilder holds MappingLimitSettings struct and provides a builder API.
-type MappingLimitSettingsBuilder struct {
-	v *MappingLimitSettings
-}
+// NewMappingLimitSettings returns a MappingLimitSettings.
+func NewMappingLimitSettings() *MappingLimitSettings {
+	r := &MappingLimitSettings{}
 
-// NewMappingLimitSettings provides a builder for the MappingLimitSettings struct.
-func NewMappingLimitSettingsBuilder() *MappingLimitSettingsBuilder {
-	r := MappingLimitSettingsBuilder{
-		&MappingLimitSettings{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MappingLimitSettings struct
-func (rb *MappingLimitSettingsBuilder) Build() MappingLimitSettings {
-	return *rb.v
-}
-
-func (rb *MappingLimitSettingsBuilder) Coerce(coerce bool) *MappingLimitSettingsBuilder {
-	rb.v.Coerce = &coerce
-	return rb
-}
-
-func (rb *MappingLimitSettingsBuilder) Depth(depth *MappingLimitSettingsDepthBuilder) *MappingLimitSettingsBuilder {
-	v := depth.Build()
-	rb.v.Depth = &v
-	return rb
-}
-
-func (rb *MappingLimitSettingsBuilder) DimensionFields(dimensionfields *MappingLimitSettingsDimensionFieldsBuilder) *MappingLimitSettingsBuilder {
-	v := dimensionfields.Build()
-	rb.v.DimensionFields = &v
-	return rb
-}
-
-func (rb *MappingLimitSettingsBuilder) FieldNameLength(fieldnamelength *MappingLimitSettingsFieldNameLengthBuilder) *MappingLimitSettingsBuilder {
-	v := fieldnamelength.Build()
-	rb.v.FieldNameLength = &v
-	return rb
-}
-
-func (rb *MappingLimitSettingsBuilder) IgnoreMalformed(ignoremalformed bool) *MappingLimitSettingsBuilder {
-	rb.v.IgnoreMalformed = &ignoremalformed
-	return rb
-}
-
-func (rb *MappingLimitSettingsBuilder) NestedFields(nestedfields *MappingLimitSettingsNestedFieldsBuilder) *MappingLimitSettingsBuilder {
-	v := nestedfields.Build()
-	rb.v.NestedFields = &v
-	return rb
-}
-
-func (rb *MappingLimitSettingsBuilder) NestedObjects(nestedobjects *MappingLimitSettingsNestedObjectsBuilder) *MappingLimitSettingsBuilder {
-	v := nestedobjects.Build()
-	rb.v.NestedObjects = &v
-	return rb
-}
-
-func (rb *MappingLimitSettingsBuilder) TotalFields(totalfields *MappingLimitSettingsTotalFieldsBuilder) *MappingLimitSettingsBuilder {
-	v := totalfields.Build()
-	rb.v.TotalFields = &v
-	return rb
+	return r
 }

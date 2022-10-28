@@ -17,46 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MultiBucketAggregateBaseLongRareTermsBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L318-L320
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L326-L328
 type MultiBucketAggregateBaseLongRareTermsBucket struct {
 	Buckets BucketsLongRareTermsBucket `json:"buckets"`
-	Meta    *Metadata                  `json:"meta,omitempty"`
+	Meta    map[string]interface{}     `json:"meta,omitempty"`
 }
 
-// MultiBucketAggregateBaseLongRareTermsBucketBuilder holds MultiBucketAggregateBaseLongRareTermsBucket struct and provides a builder API.
-type MultiBucketAggregateBaseLongRareTermsBucketBuilder struct {
-	v *MultiBucketAggregateBaseLongRareTermsBucket
-}
+// NewMultiBucketAggregateBaseLongRareTermsBucket returns a MultiBucketAggregateBaseLongRareTermsBucket.
+func NewMultiBucketAggregateBaseLongRareTermsBucket() *MultiBucketAggregateBaseLongRareTermsBucket {
+	r := &MultiBucketAggregateBaseLongRareTermsBucket{}
 
-// NewMultiBucketAggregateBaseLongRareTermsBucket provides a builder for the MultiBucketAggregateBaseLongRareTermsBucket struct.
-func NewMultiBucketAggregateBaseLongRareTermsBucketBuilder() *MultiBucketAggregateBaseLongRareTermsBucketBuilder {
-	r := MultiBucketAggregateBaseLongRareTermsBucketBuilder{
-		&MultiBucketAggregateBaseLongRareTermsBucket{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MultiBucketAggregateBaseLongRareTermsBucket struct
-func (rb *MultiBucketAggregateBaseLongRareTermsBucketBuilder) Build() MultiBucketAggregateBaseLongRareTermsBucket {
-	return *rb.v
-}
-
-func (rb *MultiBucketAggregateBaseLongRareTermsBucketBuilder) Buckets(buckets *BucketsLongRareTermsBucketBuilder) *MultiBucketAggregateBaseLongRareTermsBucketBuilder {
-	v := buckets.Build()
-	rb.v.Buckets = v
-	return rb
-}
-
-func (rb *MultiBucketAggregateBaseLongRareTermsBucketBuilder) Meta(meta *MetadataBuilder) *MultiBucketAggregateBaseLongRareTermsBucketBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
+	return r
 }

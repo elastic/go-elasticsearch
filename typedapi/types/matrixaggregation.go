@@ -17,60 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MatrixAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/matrix.ts#L26-L29
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/matrix.ts#L26-L29
 type MatrixAggregation struct {
-	Fields  *Fields           `json:"fields,omitempty"`
-	Meta    *Metadata         `json:"meta,omitempty"`
-	Missing map[Field]float64 `json:"missing,omitempty"`
-	Name    *string           `json:"name,omitempty"`
+	Fields  []string               `json:"fields,omitempty"`
+	Meta    map[string]interface{} `json:"meta,omitempty"`
+	Missing map[string]float64     `json:"missing,omitempty"`
+	Name    *string                `json:"name,omitempty"`
 }
 
-// MatrixAggregationBuilder holds MatrixAggregation struct and provides a builder API.
-type MatrixAggregationBuilder struct {
-	v *MatrixAggregation
-}
-
-// NewMatrixAggregation provides a builder for the MatrixAggregation struct.
-func NewMatrixAggregationBuilder() *MatrixAggregationBuilder {
-	r := MatrixAggregationBuilder{
-		&MatrixAggregation{
-			Missing: make(map[Field]float64, 0),
-		},
+// NewMatrixAggregation returns a MatrixAggregation.
+func NewMatrixAggregation() *MatrixAggregation {
+	r := &MatrixAggregation{
+		Missing: make(map[string]float64, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the MatrixAggregation struct
-func (rb *MatrixAggregationBuilder) Build() MatrixAggregation {
-	return *rb.v
-}
-
-func (rb *MatrixAggregationBuilder) Fields(fields *FieldsBuilder) *MatrixAggregationBuilder {
-	v := fields.Build()
-	rb.v.Fields = &v
-	return rb
-}
-
-func (rb *MatrixAggregationBuilder) Meta(meta *MetadataBuilder) *MatrixAggregationBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *MatrixAggregationBuilder) Missing(value map[Field]float64) *MatrixAggregationBuilder {
-	rb.v.Missing = value
-	return rb
-}
-
-func (rb *MatrixAggregationBuilder) Name(name string) *MatrixAggregationBuilder {
-	rb.v.Name = &name
-	return rb
+	return r
 }

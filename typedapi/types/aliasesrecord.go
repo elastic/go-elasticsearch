@@ -17,21 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AliasesRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/cat/aliases/types.ts#L22-L53
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cat/aliases/types.ts#L22-L53
 type AliasesRecord struct {
 	// Alias alias name
 	Alias *string `json:"alias,omitempty"`
 	// Filter filter
 	Filter *string `json:"filter,omitempty"`
 	// Index index alias points to
-	Index *IndexName `json:"index,omitempty"`
+	Index *string `json:"index,omitempty"`
 	// IsWriteIndex write index
 	IsWriteIndex *string `json:"is_write_index,omitempty"`
 	// RoutingIndex index routing
@@ -40,63 +40,9 @@ type AliasesRecord struct {
 	RoutingSearch *string `json:"routing.search,omitempty"`
 }
 
-// AliasesRecordBuilder holds AliasesRecord struct and provides a builder API.
-type AliasesRecordBuilder struct {
-	v *AliasesRecord
-}
+// NewAliasesRecord returns a AliasesRecord.
+func NewAliasesRecord() *AliasesRecord {
+	r := &AliasesRecord{}
 
-// NewAliasesRecord provides a builder for the AliasesRecord struct.
-func NewAliasesRecordBuilder() *AliasesRecordBuilder {
-	r := AliasesRecordBuilder{
-		&AliasesRecord{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the AliasesRecord struct
-func (rb *AliasesRecordBuilder) Build() AliasesRecord {
-	return *rb.v
-}
-
-// Alias alias name
-
-func (rb *AliasesRecordBuilder) Alias(alias string) *AliasesRecordBuilder {
-	rb.v.Alias = &alias
-	return rb
-}
-
-// Filter filter
-
-func (rb *AliasesRecordBuilder) Filter(filter string) *AliasesRecordBuilder {
-	rb.v.Filter = &filter
-	return rb
-}
-
-// Index index alias points to
-
-func (rb *AliasesRecordBuilder) Index(index IndexName) *AliasesRecordBuilder {
-	rb.v.Index = &index
-	return rb
-}
-
-// IsWriteIndex write index
-
-func (rb *AliasesRecordBuilder) IsWriteIndex(iswriteindex string) *AliasesRecordBuilder {
-	rb.v.IsWriteIndex = &iswriteindex
-	return rb
-}
-
-// RoutingIndex index routing
-
-func (rb *AliasesRecordBuilder) RoutingIndex(routingindex string) *AliasesRecordBuilder {
-	rb.v.RoutingIndex = &routingindex
-	return rb
-}
-
-// RoutingSearch search routing
-
-func (rb *AliasesRecordBuilder) RoutingSearch(routingsearch string) *AliasesRecordBuilder {
-	rb.v.RoutingSearch = &routingsearch
-	return rb
+	return r
 }

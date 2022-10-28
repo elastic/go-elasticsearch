@@ -17,52 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FrequencyEncodingPreprocessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/put_trained_model/types.ts#L38-L42
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/put_trained_model/types.ts#L38-L42
 type FrequencyEncodingPreprocessor struct {
 	FeatureName  string             `json:"feature_name"`
 	Field        string             `json:"field"`
 	FrequencyMap map[string]float64 `json:"frequency_map"`
 }
 
-// FrequencyEncodingPreprocessorBuilder holds FrequencyEncodingPreprocessor struct and provides a builder API.
-type FrequencyEncodingPreprocessorBuilder struct {
-	v *FrequencyEncodingPreprocessor
-}
-
-// NewFrequencyEncodingPreprocessor provides a builder for the FrequencyEncodingPreprocessor struct.
-func NewFrequencyEncodingPreprocessorBuilder() *FrequencyEncodingPreprocessorBuilder {
-	r := FrequencyEncodingPreprocessorBuilder{
-		&FrequencyEncodingPreprocessor{
-			FrequencyMap: make(map[string]float64, 0),
-		},
+// NewFrequencyEncodingPreprocessor returns a FrequencyEncodingPreprocessor.
+func NewFrequencyEncodingPreprocessor() *FrequencyEncodingPreprocessor {
+	r := &FrequencyEncodingPreprocessor{
+		FrequencyMap: make(map[string]float64, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the FrequencyEncodingPreprocessor struct
-func (rb *FrequencyEncodingPreprocessorBuilder) Build() FrequencyEncodingPreprocessor {
-	return *rb.v
-}
-
-func (rb *FrequencyEncodingPreprocessorBuilder) FeatureName(featurename string) *FrequencyEncodingPreprocessorBuilder {
-	rb.v.FeatureName = featurename
-	return rb
-}
-
-func (rb *FrequencyEncodingPreprocessorBuilder) Field(field string) *FrequencyEncodingPreprocessorBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *FrequencyEncodingPreprocessorBuilder) FrequencyMap(value map[string]float64) *FrequencyEncodingPreprocessorBuilder {
-	rb.v.FrequencyMap = value
-	return rb
+	return r
 }

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // IndexHealthStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/cluster/health/types.ts#L24-L34
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/health/types.ts#L24-L34
 type IndexHealthStats struct {
 	ActivePrimaryShards int                         `json:"active_primary_shards"`
 	ActiveShards        int                         `json:"active_shards"`
@@ -41,72 +41,11 @@ type IndexHealthStats struct {
 	UnassignedShards    int                         `json:"unassigned_shards"`
 }
 
-// IndexHealthStatsBuilder holds IndexHealthStats struct and provides a builder API.
-type IndexHealthStatsBuilder struct {
-	v *IndexHealthStats
-}
-
-// NewIndexHealthStats provides a builder for the IndexHealthStats struct.
-func NewIndexHealthStatsBuilder() *IndexHealthStatsBuilder {
-	r := IndexHealthStatsBuilder{
-		&IndexHealthStats{
-			Shards: make(map[string]ShardHealthStats, 0),
-		},
+// NewIndexHealthStats returns a IndexHealthStats.
+func NewIndexHealthStats() *IndexHealthStats {
+	r := &IndexHealthStats{
+		Shards: make(map[string]ShardHealthStats, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the IndexHealthStats struct
-func (rb *IndexHealthStatsBuilder) Build() IndexHealthStats {
-	return *rb.v
-}
-
-func (rb *IndexHealthStatsBuilder) ActivePrimaryShards(activeprimaryshards int) *IndexHealthStatsBuilder {
-	rb.v.ActivePrimaryShards = activeprimaryshards
-	return rb
-}
-
-func (rb *IndexHealthStatsBuilder) ActiveShards(activeshards int) *IndexHealthStatsBuilder {
-	rb.v.ActiveShards = activeshards
-	return rb
-}
-
-func (rb *IndexHealthStatsBuilder) InitializingShards(initializingshards int) *IndexHealthStatsBuilder {
-	rb.v.InitializingShards = initializingshards
-	return rb
-}
-
-func (rb *IndexHealthStatsBuilder) NumberOfReplicas(numberofreplicas int) *IndexHealthStatsBuilder {
-	rb.v.NumberOfReplicas = numberofreplicas
-	return rb
-}
-
-func (rb *IndexHealthStatsBuilder) NumberOfShards(numberofshards int) *IndexHealthStatsBuilder {
-	rb.v.NumberOfShards = numberofshards
-	return rb
-}
-
-func (rb *IndexHealthStatsBuilder) RelocatingShards(relocatingshards int) *IndexHealthStatsBuilder {
-	rb.v.RelocatingShards = relocatingshards
-	return rb
-}
-
-func (rb *IndexHealthStatsBuilder) Shards(values map[string]*ShardHealthStatsBuilder) *IndexHealthStatsBuilder {
-	tmp := make(map[string]ShardHealthStats, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Shards = tmp
-	return rb
-}
-
-func (rb *IndexHealthStatsBuilder) Status(status healthstatus.HealthStatus) *IndexHealthStatsBuilder {
-	rb.v.Status = status
-	return rb
-}
-
-func (rb *IndexHealthStatsBuilder) UnassignedShards(unassignedshards int) *IndexHealthStatsBuilder {
-	rb.v.UnassignedShards = unassignedshards
-	return rb
+	return r
 }

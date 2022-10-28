@@ -17,63 +17,27 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Sql type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/xpack/usage/types.ts#L368-L371
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L368-L371
 type Sql struct {
-	Available bool             `json:"available"`
-	Enabled   bool             `json:"enabled"`
-	Features  map[string]int   `json:"features"`
-	Queries   map[string]Query `json:"queries"`
+	Available bool                  `json:"available"`
+	Enabled   bool                  `json:"enabled"`
+	Features  map[string]int        `json:"features"`
+	Queries   map[string]XpackQuery `json:"queries"`
 }
 
-// SqlBuilder holds Sql struct and provides a builder API.
-type SqlBuilder struct {
-	v *Sql
-}
-
-// NewSql provides a builder for the Sql struct.
-func NewSqlBuilder() *SqlBuilder {
-	r := SqlBuilder{
-		&Sql{
-			Features: make(map[string]int, 0),
-			Queries:  make(map[string]Query, 0),
-		},
+// NewSql returns a Sql.
+func NewSql() *Sql {
+	r := &Sql{
+		Features: make(map[string]int, 0),
+		Queries:  make(map[string]XpackQuery, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the Sql struct
-func (rb *SqlBuilder) Build() Sql {
-	return *rb.v
-}
-
-func (rb *SqlBuilder) Available(available bool) *SqlBuilder {
-	rb.v.Available = available
-	return rb
-}
-
-func (rb *SqlBuilder) Enabled(enabled bool) *SqlBuilder {
-	rb.v.Enabled = enabled
-	return rb
-}
-
-func (rb *SqlBuilder) Features(value map[string]int) *SqlBuilder {
-	rb.v.Features = value
-	return rb
-}
-
-func (rb *SqlBuilder) Queries(values map[string]*QueryBuilder) *SqlBuilder {
-	tmp := make(map[string]Query, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Queries = tmp
-	return rb
+	return r
 }

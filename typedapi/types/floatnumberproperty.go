@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -30,23 +30,23 @@ import (
 
 // FloatNumberProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/mapping/core.ts#L131-L134
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/core.ts#L131-L134
 type FloatNumberProperty struct {
 	Boost           *float64                       `json:"boost,omitempty"`
 	Coerce          *bool                          `json:"coerce,omitempty"`
-	CopyTo          *Fields                        `json:"copy_to,omitempty"`
+	CopyTo          []string                       `json:"copy_to,omitempty"`
 	DocValues       *bool                          `json:"doc_values,omitempty"`
 	Dynamic         *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
-	Fields          map[PropertyName]Property      `json:"fields,omitempty"`
+	Fields          map[string]Property            `json:"fields,omitempty"`
 	IgnoreAbove     *int                           `json:"ignore_above,omitempty"`
 	IgnoreMalformed *bool                          `json:"ignore_malformed,omitempty"`
 	Index           *bool                          `json:"index,omitempty"`
-	LocalMetadata   *Metadata                      `json:"local_metadata,omitempty"`
+	LocalMetadata   map[string]interface{}         `json:"local_metadata,omitempty"`
 	// Meta Metadata about the field.
 	Meta          map[string]string            `json:"meta,omitempty"`
 	NullValue     *float32                     `json:"null_value,omitempty"`
 	OnScriptError *onscripterror.OnScriptError `json:"on_script_error,omitempty"`
-	Properties    map[PropertyName]Property    `json:"properties,omitempty"`
+	Properties    map[string]Property          `json:"properties,omitempty"`
 	Script        *Script                      `json:"script,omitempty"`
 	Similarity    *string                      `json:"similarity,omitempty"`
 	Store         *bool                        `json:"store,omitempty"`
@@ -59,141 +59,15 @@ type FloatNumberProperty struct {
 	Type             string                                     `json:"type,omitempty"`
 }
 
-// FloatNumberPropertyBuilder holds FloatNumberProperty struct and provides a builder API.
-type FloatNumberPropertyBuilder struct {
-	v *FloatNumberProperty
-}
-
-// NewFloatNumberProperty provides a builder for the FloatNumberProperty struct.
-func NewFloatNumberPropertyBuilder() *FloatNumberPropertyBuilder {
-	r := FloatNumberPropertyBuilder{
-		&FloatNumberProperty{
-			Fields:     make(map[PropertyName]Property, 0),
-			Meta:       make(map[string]string, 0),
-			Properties: make(map[PropertyName]Property, 0),
-		},
+// NewFloatNumberProperty returns a FloatNumberProperty.
+func NewFloatNumberProperty() *FloatNumberProperty {
+	r := &FloatNumberProperty{
+		Fields:     make(map[string]Property, 0),
+		Meta:       make(map[string]string, 0),
+		Properties: make(map[string]Property, 0),
 	}
 
-	r.v.Type = "float"
+	r.Type = "float"
 
-	return &r
-}
-
-// Build finalize the chain and returns the FloatNumberProperty struct
-func (rb *FloatNumberPropertyBuilder) Build() FloatNumberProperty {
-	return *rb.v
-}
-
-func (rb *FloatNumberPropertyBuilder) Boost(boost float64) *FloatNumberPropertyBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *FloatNumberPropertyBuilder) Coerce(coerce bool) *FloatNumberPropertyBuilder {
-	rb.v.Coerce = &coerce
-	return rb
-}
-
-func (rb *FloatNumberPropertyBuilder) CopyTo(copyto *FieldsBuilder) *FloatNumberPropertyBuilder {
-	v := copyto.Build()
-	rb.v.CopyTo = &v
-	return rb
-}
-
-func (rb *FloatNumberPropertyBuilder) DocValues(docvalues bool) *FloatNumberPropertyBuilder {
-	rb.v.DocValues = &docvalues
-	return rb
-}
-
-func (rb *FloatNumberPropertyBuilder) Dynamic(dynamic dynamicmapping.DynamicMapping) *FloatNumberPropertyBuilder {
-	rb.v.Dynamic = &dynamic
-	return rb
-}
-
-func (rb *FloatNumberPropertyBuilder) Fields(values map[PropertyName]*PropertyBuilder) *FloatNumberPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Fields = tmp
-	return rb
-}
-
-func (rb *FloatNumberPropertyBuilder) IgnoreAbove(ignoreabove int) *FloatNumberPropertyBuilder {
-	rb.v.IgnoreAbove = &ignoreabove
-	return rb
-}
-
-func (rb *FloatNumberPropertyBuilder) IgnoreMalformed(ignoremalformed bool) *FloatNumberPropertyBuilder {
-	rb.v.IgnoreMalformed = &ignoremalformed
-	return rb
-}
-
-func (rb *FloatNumberPropertyBuilder) Index(index bool) *FloatNumberPropertyBuilder {
-	rb.v.Index = &index
-	return rb
-}
-
-func (rb *FloatNumberPropertyBuilder) LocalMetadata(localmetadata *MetadataBuilder) *FloatNumberPropertyBuilder {
-	v := localmetadata.Build()
-	rb.v.LocalMetadata = &v
-	return rb
-}
-
-// Meta Metadata about the field.
-
-func (rb *FloatNumberPropertyBuilder) Meta(value map[string]string) *FloatNumberPropertyBuilder {
-	rb.v.Meta = value
-	return rb
-}
-
-func (rb *FloatNumberPropertyBuilder) NullValue(nullvalue float32) *FloatNumberPropertyBuilder {
-	rb.v.NullValue = &nullvalue
-	return rb
-}
-
-func (rb *FloatNumberPropertyBuilder) OnScriptError(onscripterror onscripterror.OnScriptError) *FloatNumberPropertyBuilder {
-	rb.v.OnScriptError = &onscripterror
-	return rb
-}
-
-func (rb *FloatNumberPropertyBuilder) Properties(values map[PropertyName]*PropertyBuilder) *FloatNumberPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Properties = tmp
-	return rb
-}
-
-func (rb *FloatNumberPropertyBuilder) Script(script *ScriptBuilder) *FloatNumberPropertyBuilder {
-	v := script.Build()
-	rb.v.Script = &v
-	return rb
-}
-
-func (rb *FloatNumberPropertyBuilder) Similarity(similarity string) *FloatNumberPropertyBuilder {
-	rb.v.Similarity = &similarity
-	return rb
-}
-
-func (rb *FloatNumberPropertyBuilder) Store(store bool) *FloatNumberPropertyBuilder {
-	rb.v.Store = &store
-	return rb
-}
-
-// TimeSeriesDimension For internal use by Elastic only. Marks the field as a time series dimension.
-// Defaults to false.
-
-func (rb *FloatNumberPropertyBuilder) TimeSeriesDimension(timeseriesdimension bool) *FloatNumberPropertyBuilder {
-	rb.v.TimeSeriesDimension = &timeseriesdimension
-	return rb
-}
-
-// TimeSeriesMetric For internal use by Elastic only. Marks the field as a time series dimension.
-// Defaults to false.
-
-func (rb *FloatNumberPropertyBuilder) TimeSeriesMetric(timeseriesmetric timeseriesmetrictype.TimeSeriesMetricType) *FloatNumberPropertyBuilder {
-	rb.v.TimeSeriesMetric = &timeseriesmetric
-	return rb
+	return r
 }

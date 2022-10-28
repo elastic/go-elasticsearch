@@ -17,45 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Rescore type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/search/_types/rescoring.ts#L23-L26
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/rescoring.ts#L23-L26
 type Rescore struct {
 	Query      RescoreQuery `json:"query"`
 	WindowSize *int         `json:"window_size,omitempty"`
 }
 
-// RescoreBuilder holds Rescore struct and provides a builder API.
-type RescoreBuilder struct {
-	v *Rescore
-}
+// NewRescore returns a Rescore.
+func NewRescore() *Rescore {
+	r := &Rescore{}
 
-// NewRescore provides a builder for the Rescore struct.
-func NewRescoreBuilder() *RescoreBuilder {
-	r := RescoreBuilder{
-		&Rescore{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Rescore struct
-func (rb *RescoreBuilder) Build() Rescore {
-	return *rb.v
-}
-
-func (rb *RescoreBuilder) Query(query *RescoreQueryBuilder) *RescoreBuilder {
-	v := query.Build()
-	rb.v.Query = v
-	return rb
-}
-
-func (rb *RescoreBuilder) WindowSize(windowsize int) *RescoreBuilder {
-	rb.v.WindowSize = &windowsize
-	return rb
+	return r
 }

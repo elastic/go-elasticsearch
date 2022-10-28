@@ -17,16 +17,16 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MinAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L188-L189
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L196-L197
 type MinAggregate struct {
-	Meta *Metadata `json:"meta,omitempty"`
+	Meta map[string]interface{} `json:"meta,omitempty"`
 	// Value The metric value. A missing value generally means that there was no data to
 	// aggregate,
 	// unless specified otherwise.
@@ -34,41 +34,9 @@ type MinAggregate struct {
 	ValueAsString *string `json:"value_as_string,omitempty"`
 }
 
-// MinAggregateBuilder holds MinAggregate struct and provides a builder API.
-type MinAggregateBuilder struct {
-	v *MinAggregate
-}
+// NewMinAggregate returns a MinAggregate.
+func NewMinAggregate() *MinAggregate {
+	r := &MinAggregate{}
 
-// NewMinAggregate provides a builder for the MinAggregate struct.
-func NewMinAggregateBuilder() *MinAggregateBuilder {
-	r := MinAggregateBuilder{
-		&MinAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MinAggregate struct
-func (rb *MinAggregateBuilder) Build() MinAggregate {
-	return *rb.v
-}
-
-func (rb *MinAggregateBuilder) Meta(meta *MetadataBuilder) *MinAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-// Value The metric value. A missing value generally means that there was no data to
-// aggregate,
-// unless specified otherwise.
-
-func (rb *MinAggregateBuilder) Value(value float64) *MinAggregateBuilder {
-	rb.v.Value = value
-	return rb
-}
-
-func (rb *MinAggregateBuilder) ValueAsString(valueasstring string) *MinAggregateBuilder {
-	rb.v.ValueAsString = &valueasstring
-	return rb
+	return r
 }

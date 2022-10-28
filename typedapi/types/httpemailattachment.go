@@ -17,51 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // HttpEmailAttachment type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/watcher/_types/Actions.ts#L218-L222
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Actions.ts#L218-L222
 type HttpEmailAttachment struct {
 	ContentType *string                     `json:"content_type,omitempty"`
 	Inline      *bool                       `json:"inline,omitempty"`
 	Request     *HttpInputRequestDefinition `json:"request,omitempty"`
 }
 
-// HttpEmailAttachmentBuilder holds HttpEmailAttachment struct and provides a builder API.
-type HttpEmailAttachmentBuilder struct {
-	v *HttpEmailAttachment
-}
+// NewHttpEmailAttachment returns a HttpEmailAttachment.
+func NewHttpEmailAttachment() *HttpEmailAttachment {
+	r := &HttpEmailAttachment{}
 
-// NewHttpEmailAttachment provides a builder for the HttpEmailAttachment struct.
-func NewHttpEmailAttachmentBuilder() *HttpEmailAttachmentBuilder {
-	r := HttpEmailAttachmentBuilder{
-		&HttpEmailAttachment{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the HttpEmailAttachment struct
-func (rb *HttpEmailAttachmentBuilder) Build() HttpEmailAttachment {
-	return *rb.v
-}
-
-func (rb *HttpEmailAttachmentBuilder) ContentType(contenttype string) *HttpEmailAttachmentBuilder {
-	rb.v.ContentType = &contenttype
-	return rb
-}
-
-func (rb *HttpEmailAttachmentBuilder) Inline(inline bool) *HttpEmailAttachmentBuilder {
-	rb.v.Inline = &inline
-	return rb
-}
-
-func (rb *HttpEmailAttachmentBuilder) Request(request *HttpInputRequestDefinitionBuilder) *HttpEmailAttachmentBuilder {
-	v := request.Build()
-	rb.v.Request = &v
-	return rb
+	return r
 }

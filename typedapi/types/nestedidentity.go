@@ -17,51 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NestedIdentity type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/search/_types/hits.ts#L88-L92
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/hits.ts#L88-L92
 type NestedIdentity struct {
-	Field   Field           `json:"field"`
+	Field   string          `json:"field"`
 	Nested_ *NestedIdentity `json:"_nested,omitempty"`
 	Offset  int             `json:"offset"`
 }
 
-// NestedIdentityBuilder holds NestedIdentity struct and provides a builder API.
-type NestedIdentityBuilder struct {
-	v *NestedIdentity
-}
+// NewNestedIdentity returns a NestedIdentity.
+func NewNestedIdentity() *NestedIdentity {
+	r := &NestedIdentity{}
 
-// NewNestedIdentity provides a builder for the NestedIdentity struct.
-func NewNestedIdentityBuilder() *NestedIdentityBuilder {
-	r := NestedIdentityBuilder{
-		&NestedIdentity{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NestedIdentity struct
-func (rb *NestedIdentityBuilder) Build() NestedIdentity {
-	return *rb.v
-}
-
-func (rb *NestedIdentityBuilder) Field(field Field) *NestedIdentityBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *NestedIdentityBuilder) Nested_(nested_ *NestedIdentityBuilder) *NestedIdentityBuilder {
-	v := nested_.Build()
-	rb.v.Nested_ = &v
-	return rb
-}
-
-func (rb *NestedIdentityBuilder) Offset(offset int) *NestedIdentityBuilder {
-	rb.v.Offset = offset
-	return rb
+	return r
 }

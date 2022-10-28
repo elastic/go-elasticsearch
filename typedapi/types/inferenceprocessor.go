@@ -17,87 +17,31 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // InferenceProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ingest/_types/Processors.ts#L237-L242
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ingest/_types/Processors.ts#L237-L242
 type InferenceProcessor struct {
-	FieldMap        map[Field]interface{} `json:"field_map,omitempty"`
-	If              *string               `json:"if,omitempty"`
-	IgnoreFailure   *bool                 `json:"ignore_failure,omitempty"`
-	InferenceConfig *InferenceConfig      `json:"inference_config,omitempty"`
-	ModelId         Id                    `json:"model_id"`
-	OnFailure       []ProcessorContainer  `json:"on_failure,omitempty"`
-	Tag             *string               `json:"tag,omitempty"`
-	TargetField     Field                 `json:"target_field"`
+	Description     *string                `json:"description,omitempty"`
+	FieldMap        map[string]interface{} `json:"field_map,omitempty"`
+	If              *string                `json:"if,omitempty"`
+	IgnoreFailure   *bool                  `json:"ignore_failure,omitempty"`
+	InferenceConfig *InferenceConfig       `json:"inference_config,omitempty"`
+	ModelId         string                 `json:"model_id"`
+	OnFailure       []ProcessorContainer   `json:"on_failure,omitempty"`
+	Tag             *string                `json:"tag,omitempty"`
+	TargetField     *string                `json:"target_field,omitempty"`
 }
 
-// InferenceProcessorBuilder holds InferenceProcessor struct and provides a builder API.
-type InferenceProcessorBuilder struct {
-	v *InferenceProcessor
-}
-
-// NewInferenceProcessor provides a builder for the InferenceProcessor struct.
-func NewInferenceProcessorBuilder() *InferenceProcessorBuilder {
-	r := InferenceProcessorBuilder{
-		&InferenceProcessor{
-			FieldMap: make(map[Field]interface{}, 0),
-		},
+// NewInferenceProcessor returns a InferenceProcessor.
+func NewInferenceProcessor() *InferenceProcessor {
+	r := &InferenceProcessor{
+		FieldMap: make(map[string]interface{}, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the InferenceProcessor struct
-func (rb *InferenceProcessorBuilder) Build() InferenceProcessor {
-	return *rb.v
-}
-
-func (rb *InferenceProcessorBuilder) FieldMap(value map[Field]interface{}) *InferenceProcessorBuilder {
-	rb.v.FieldMap = value
-	return rb
-}
-
-func (rb *InferenceProcessorBuilder) If_(if_ string) *InferenceProcessorBuilder {
-	rb.v.If = &if_
-	return rb
-}
-
-func (rb *InferenceProcessorBuilder) IgnoreFailure(ignorefailure bool) *InferenceProcessorBuilder {
-	rb.v.IgnoreFailure = &ignorefailure
-	return rb
-}
-
-func (rb *InferenceProcessorBuilder) InferenceConfig(inferenceconfig *InferenceConfigBuilder) *InferenceProcessorBuilder {
-	v := inferenceconfig.Build()
-	rb.v.InferenceConfig = &v
-	return rb
-}
-
-func (rb *InferenceProcessorBuilder) ModelId(modelid Id) *InferenceProcessorBuilder {
-	rb.v.ModelId = modelid
-	return rb
-}
-
-func (rb *InferenceProcessorBuilder) OnFailure(on_failure []ProcessorContainerBuilder) *InferenceProcessorBuilder {
-	tmp := make([]ProcessorContainer, len(on_failure))
-	for _, value := range on_failure {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.OnFailure = tmp
-	return rb
-}
-
-func (rb *InferenceProcessorBuilder) Tag(tag string) *InferenceProcessorBuilder {
-	rb.v.Tag = &tag
-	return rb
-}
-
-func (rb *InferenceProcessorBuilder) TargetField(targetfield Field) *InferenceProcessorBuilder {
-	rb.v.TargetField = targetfield
-	return rb
+	return r
 }

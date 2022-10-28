@@ -17,55 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MatrixStatsAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L733-L737
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L748-L752
 type MatrixStatsAggregate struct {
-	DocCount int64               `json:"doc_count"`
-	Fields   []MatrixStatsFields `json:"fields"`
-	Meta     *Metadata           `json:"meta,omitempty"`
+	DocCount int64                  `json:"doc_count"`
+	Fields   []MatrixStatsFields    `json:"fields"`
+	Meta     map[string]interface{} `json:"meta,omitempty"`
 }
 
-// MatrixStatsAggregateBuilder holds MatrixStatsAggregate struct and provides a builder API.
-type MatrixStatsAggregateBuilder struct {
-	v *MatrixStatsAggregate
-}
+// NewMatrixStatsAggregate returns a MatrixStatsAggregate.
+func NewMatrixStatsAggregate() *MatrixStatsAggregate {
+	r := &MatrixStatsAggregate{}
 
-// NewMatrixStatsAggregate provides a builder for the MatrixStatsAggregate struct.
-func NewMatrixStatsAggregateBuilder() *MatrixStatsAggregateBuilder {
-	r := MatrixStatsAggregateBuilder{
-		&MatrixStatsAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MatrixStatsAggregate struct
-func (rb *MatrixStatsAggregateBuilder) Build() MatrixStatsAggregate {
-	return *rb.v
-}
-
-func (rb *MatrixStatsAggregateBuilder) DocCount(doccount int64) *MatrixStatsAggregateBuilder {
-	rb.v.DocCount = doccount
-	return rb
-}
-
-func (rb *MatrixStatsAggregateBuilder) Fields(fields []MatrixStatsFieldsBuilder) *MatrixStatsAggregateBuilder {
-	tmp := make([]MatrixStatsFields, len(fields))
-	for _, value := range fields {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Fields = tmp
-	return rb
-}
-
-func (rb *MatrixStatsAggregateBuilder) Meta(meta *MetadataBuilder) *MatrixStatsAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
+	return r
 }

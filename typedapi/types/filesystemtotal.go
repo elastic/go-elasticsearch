@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FileSystemTotal type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/_types/Stats.ts#L301-L308
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L301-L308
 type FileSystemTotal struct {
 	Available        *string `json:"available,omitempty"`
 	AvailableInBytes *int64  `json:"available_in_bytes,omitempty"`
@@ -34,51 +34,9 @@ type FileSystemTotal struct {
 	TotalInBytes     *int64  `json:"total_in_bytes,omitempty"`
 }
 
-// FileSystemTotalBuilder holds FileSystemTotal struct and provides a builder API.
-type FileSystemTotalBuilder struct {
-	v *FileSystemTotal
-}
+// NewFileSystemTotal returns a FileSystemTotal.
+func NewFileSystemTotal() *FileSystemTotal {
+	r := &FileSystemTotal{}
 
-// NewFileSystemTotal provides a builder for the FileSystemTotal struct.
-func NewFileSystemTotalBuilder() *FileSystemTotalBuilder {
-	r := FileSystemTotalBuilder{
-		&FileSystemTotal{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FileSystemTotal struct
-func (rb *FileSystemTotalBuilder) Build() FileSystemTotal {
-	return *rb.v
-}
-
-func (rb *FileSystemTotalBuilder) Available(available string) *FileSystemTotalBuilder {
-	rb.v.Available = &available
-	return rb
-}
-
-func (rb *FileSystemTotalBuilder) AvailableInBytes(availableinbytes int64) *FileSystemTotalBuilder {
-	rb.v.AvailableInBytes = &availableinbytes
-	return rb
-}
-
-func (rb *FileSystemTotalBuilder) Free(free string) *FileSystemTotalBuilder {
-	rb.v.Free = &free
-	return rb
-}
-
-func (rb *FileSystemTotalBuilder) FreeInBytes(freeinbytes int64) *FileSystemTotalBuilder {
-	rb.v.FreeInBytes = &freeinbytes
-	return rb
-}
-
-func (rb *FileSystemTotalBuilder) Total(total string) *FileSystemTotalBuilder {
-	rb.v.Total = &total
-	return rb
-}
-
-func (rb *FileSystemTotalBuilder) TotalInBytes(totalinbytes int64) *FileSystemTotalBuilder {
-	rb.v.TotalInBytes = &totalinbytes
-	return rb
+	return r
 }

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,63 +28,19 @@ import (
 
 // CardinalityAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/metric.ts#L62-L66
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/metric.ts#L62-L66
 type CardinalityAggregation struct {
 	ExecutionHint      *cardinalityexecutionmode.CardinalityExecutionMode `json:"execution_hint,omitempty"`
-	Field              *Field                                             `json:"field,omitempty"`
+	Field              *string                                            `json:"field,omitempty"`
 	Missing            *Missing                                           `json:"missing,omitempty"`
 	PrecisionThreshold *int                                               `json:"precision_threshold,omitempty"`
 	Rehash             *bool                                              `json:"rehash,omitempty"`
 	Script             *Script                                            `json:"script,omitempty"`
 }
 
-// CardinalityAggregationBuilder holds CardinalityAggregation struct and provides a builder API.
-type CardinalityAggregationBuilder struct {
-	v *CardinalityAggregation
-}
+// NewCardinalityAggregation returns a CardinalityAggregation.
+func NewCardinalityAggregation() *CardinalityAggregation {
+	r := &CardinalityAggregation{}
 
-// NewCardinalityAggregation provides a builder for the CardinalityAggregation struct.
-func NewCardinalityAggregationBuilder() *CardinalityAggregationBuilder {
-	r := CardinalityAggregationBuilder{
-		&CardinalityAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the CardinalityAggregation struct
-func (rb *CardinalityAggregationBuilder) Build() CardinalityAggregation {
-	return *rb.v
-}
-
-func (rb *CardinalityAggregationBuilder) ExecutionHint(executionhint cardinalityexecutionmode.CardinalityExecutionMode) *CardinalityAggregationBuilder {
-	rb.v.ExecutionHint = &executionhint
-	return rb
-}
-
-func (rb *CardinalityAggregationBuilder) Field(field Field) *CardinalityAggregationBuilder {
-	rb.v.Field = &field
-	return rb
-}
-
-func (rb *CardinalityAggregationBuilder) Missing(missing *MissingBuilder) *CardinalityAggregationBuilder {
-	v := missing.Build()
-	rb.v.Missing = &v
-	return rb
-}
-
-func (rb *CardinalityAggregationBuilder) PrecisionThreshold(precisionthreshold int) *CardinalityAggregationBuilder {
-	rb.v.PrecisionThreshold = &precisionthreshold
-	return rb
-}
-
-func (rb *CardinalityAggregationBuilder) Rehash(rehash bool) *CardinalityAggregationBuilder {
-	rb.v.Rehash = &rehash
-	return rb
-}
-
-func (rb *CardinalityAggregationBuilder) Script(script *ScriptBuilder) *CardinalityAggregationBuilder {
-	v := script.Build()
-	rb.v.Script = &v
-	return rb
+	return r
 }

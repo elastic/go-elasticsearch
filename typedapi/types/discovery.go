@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Discovery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/_types/Stats.ts#L76-L82
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L76-L82
 type Discovery struct {
 	ClusterApplierStats     *ClusterAppliedStats          `json:"cluster_applier_stats,omitempty"`
 	ClusterStateQueue       *ClusterStateQueue            `json:"cluster_state_queue,omitempty"`
@@ -33,56 +33,11 @@ type Discovery struct {
 	SerializedClusterStates *SerializedClusterState       `json:"serialized_cluster_states,omitempty"`
 }
 
-// DiscoveryBuilder holds Discovery struct and provides a builder API.
-type DiscoveryBuilder struct {
-	v *Discovery
-}
-
-// NewDiscovery provides a builder for the Discovery struct.
-func NewDiscoveryBuilder() *DiscoveryBuilder {
-	r := DiscoveryBuilder{
-		&Discovery{
-			ClusterStateUpdate: make(map[string]ClusterStateUpdate, 0),
-		},
+// NewDiscovery returns a Discovery.
+func NewDiscovery() *Discovery {
+	r := &Discovery{
+		ClusterStateUpdate: make(map[string]ClusterStateUpdate, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the Discovery struct
-func (rb *DiscoveryBuilder) Build() Discovery {
-	return *rb.v
-}
-
-func (rb *DiscoveryBuilder) ClusterApplierStats(clusterapplierstats *ClusterAppliedStatsBuilder) *DiscoveryBuilder {
-	v := clusterapplierstats.Build()
-	rb.v.ClusterApplierStats = &v
-	return rb
-}
-
-func (rb *DiscoveryBuilder) ClusterStateQueue(clusterstatequeue *ClusterStateQueueBuilder) *DiscoveryBuilder {
-	v := clusterstatequeue.Build()
-	rb.v.ClusterStateQueue = &v
-	return rb
-}
-
-func (rb *DiscoveryBuilder) ClusterStateUpdate(values map[string]*ClusterStateUpdateBuilder) *DiscoveryBuilder {
-	tmp := make(map[string]ClusterStateUpdate, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.ClusterStateUpdate = tmp
-	return rb
-}
-
-func (rb *DiscoveryBuilder) PublishedClusterStates(publishedclusterstates *PublishedClusterStatesBuilder) *DiscoveryBuilder {
-	v := publishedclusterstates.Build()
-	rb.v.PublishedClusterStates = &v
-	return rb
-}
-
-func (rb *DiscoveryBuilder) SerializedClusterStates(serializedclusterstates *SerializedClusterStateBuilder) *DiscoveryBuilder {
-	v := serializedclusterstates.Build()
-	rb.v.SerializedClusterStates = &v
-	return rb
+	return r
 }

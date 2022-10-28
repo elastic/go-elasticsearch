@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,62 +29,19 @@ import (
 
 // IndexAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/watcher/_types/Actions.ts#L256-L265
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Actions.ts#L256-L265
 type IndexAction struct {
-	DocId              *Id              `json:"doc_id,omitempty"`
-	ExecutionTimeField *Field           `json:"execution_time_field,omitempty"`
-	Index              IndexName        `json:"index"`
+	DocId              *string          `json:"doc_id,omitempty"`
+	ExecutionTimeField *string          `json:"execution_time_field,omitempty"`
+	Index              string           `json:"index"`
 	OpType             *optype.OpType   `json:"op_type,omitempty"`
 	Refresh            *refresh.Refresh `json:"refresh,omitempty"`
 	Timeout            *Duration        `json:"timeout,omitempty"`
 }
 
-// IndexActionBuilder holds IndexAction struct and provides a builder API.
-type IndexActionBuilder struct {
-	v *IndexAction
-}
+// NewIndexAction returns a IndexAction.
+func NewIndexAction() *IndexAction {
+	r := &IndexAction{}
 
-// NewIndexAction provides a builder for the IndexAction struct.
-func NewIndexActionBuilder() *IndexActionBuilder {
-	r := IndexActionBuilder{
-		&IndexAction{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IndexAction struct
-func (rb *IndexActionBuilder) Build() IndexAction {
-	return *rb.v
-}
-
-func (rb *IndexActionBuilder) DocId(docid Id) *IndexActionBuilder {
-	rb.v.DocId = &docid
-	return rb
-}
-
-func (rb *IndexActionBuilder) ExecutionTimeField(executiontimefield Field) *IndexActionBuilder {
-	rb.v.ExecutionTimeField = &executiontimefield
-	return rb
-}
-
-func (rb *IndexActionBuilder) Index(index IndexName) *IndexActionBuilder {
-	rb.v.Index = index
-	return rb
-}
-
-func (rb *IndexActionBuilder) OpType(optype optype.OpType) *IndexActionBuilder {
-	rb.v.OpType = &optype
-	return rb
-}
-
-func (rb *IndexActionBuilder) Refresh(refresh refresh.Refresh) *IndexActionBuilder {
-	rb.v.Refresh = &refresh
-	return rb
-}
-
-func (rb *IndexActionBuilder) Timeout(timeout *DurationBuilder) *IndexActionBuilder {
-	v := timeout.Build()
-	rb.v.Timeout = &v
-	return rb
+	return r
 }

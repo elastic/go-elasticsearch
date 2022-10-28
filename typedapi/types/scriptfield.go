@@ -17,45 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ScriptField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/Scripting.ts#L59-L62
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Scripting.ts#L59-L62
 type ScriptField struct {
 	IgnoreFailure *bool  `json:"ignore_failure,omitempty"`
 	Script        Script `json:"script"`
 }
 
-// ScriptFieldBuilder holds ScriptField struct and provides a builder API.
-type ScriptFieldBuilder struct {
-	v *ScriptField
-}
+// NewScriptField returns a ScriptField.
+func NewScriptField() *ScriptField {
+	r := &ScriptField{}
 
-// NewScriptField provides a builder for the ScriptField struct.
-func NewScriptFieldBuilder() *ScriptFieldBuilder {
-	r := ScriptFieldBuilder{
-		&ScriptField{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ScriptField struct
-func (rb *ScriptFieldBuilder) Build() ScriptField {
-	return *rb.v
-}
-
-func (rb *ScriptFieldBuilder) IgnoreFailure(ignorefailure bool) *ScriptFieldBuilder {
-	rb.v.IgnoreFailure = &ignorefailure
-	return rb
-}
-
-func (rb *ScriptFieldBuilder) Script(script *ScriptBuilder) *ScriptFieldBuilder {
-	v := script.Build()
-	rb.v.Script = v
-	return rb
+	return r
 }

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,69 +28,20 @@ import (
 
 // NestedQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/joining.ts#L63-L71
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/joining.ts#L63-L71
 type NestedQuery struct {
 	Boost          *float32                       `json:"boost,omitempty"`
 	IgnoreUnmapped *bool                          `json:"ignore_unmapped,omitempty"`
 	InnerHits      *InnerHits                     `json:"inner_hits,omitempty"`
-	Path           Field                          `json:"path"`
-	Query          *QueryContainer                `json:"query,omitempty"`
+	Path           string                         `json:"path"`
+	Query          *Query                         `json:"query,omitempty"`
 	QueryName_     *string                        `json:"_name,omitempty"`
 	ScoreMode      *childscoremode.ChildScoreMode `json:"score_mode,omitempty"`
 }
 
-// NestedQueryBuilder holds NestedQuery struct and provides a builder API.
-type NestedQueryBuilder struct {
-	v *NestedQuery
-}
+// NewNestedQuery returns a NestedQuery.
+func NewNestedQuery() *NestedQuery {
+	r := &NestedQuery{}
 
-// NewNestedQuery provides a builder for the NestedQuery struct.
-func NewNestedQueryBuilder() *NestedQueryBuilder {
-	r := NestedQueryBuilder{
-		&NestedQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NestedQuery struct
-func (rb *NestedQueryBuilder) Build() NestedQuery {
-	return *rb.v
-}
-
-func (rb *NestedQueryBuilder) Boost(boost float32) *NestedQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *NestedQueryBuilder) IgnoreUnmapped(ignoreunmapped bool) *NestedQueryBuilder {
-	rb.v.IgnoreUnmapped = &ignoreunmapped
-	return rb
-}
-
-func (rb *NestedQueryBuilder) InnerHits(innerhits *InnerHitsBuilder) *NestedQueryBuilder {
-	v := innerhits.Build()
-	rb.v.InnerHits = &v
-	return rb
-}
-
-func (rb *NestedQueryBuilder) Path(path Field) *NestedQueryBuilder {
-	rb.v.Path = path
-	return rb
-}
-
-func (rb *NestedQueryBuilder) Query(query *QueryContainerBuilder) *NestedQueryBuilder {
-	v := query.Build()
-	rb.v.Query = &v
-	return rb
-}
-
-func (rb *NestedQueryBuilder) QueryName_(queryname_ string) *NestedQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
-}
-
-func (rb *NestedQueryBuilder) ScoreMode(scoremode childscoremode.ChildScoreMode) *NestedQueryBuilder {
-	rb.v.ScoreMode = &scoremode
-	return rb
+	return r
 }

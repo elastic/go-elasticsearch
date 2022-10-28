@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ShardsSegment type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/segments/types.ts#L47-L52
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/segments/types.ts#L47-L52
 type ShardsSegment struct {
 	NumCommittedSegments int                 `json:"num_committed_segments"`
 	NumSearchSegments    int                 `json:"num_search_segments"`
@@ -32,48 +32,11 @@ type ShardsSegment struct {
 	Segments             map[string]Segment  `json:"segments"`
 }
 
-// ShardsSegmentBuilder holds ShardsSegment struct and provides a builder API.
-type ShardsSegmentBuilder struct {
-	v *ShardsSegment
-}
-
-// NewShardsSegment provides a builder for the ShardsSegment struct.
-func NewShardsSegmentBuilder() *ShardsSegmentBuilder {
-	r := ShardsSegmentBuilder{
-		&ShardsSegment{
-			Segments: make(map[string]Segment, 0),
-		},
+// NewShardsSegment returns a ShardsSegment.
+func NewShardsSegment() *ShardsSegment {
+	r := &ShardsSegment{
+		Segments: make(map[string]Segment, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the ShardsSegment struct
-func (rb *ShardsSegmentBuilder) Build() ShardsSegment {
-	return *rb.v
-}
-
-func (rb *ShardsSegmentBuilder) NumCommittedSegments(numcommittedsegments int) *ShardsSegmentBuilder {
-	rb.v.NumCommittedSegments = numcommittedsegments
-	return rb
-}
-
-func (rb *ShardsSegmentBuilder) NumSearchSegments(numsearchsegments int) *ShardsSegmentBuilder {
-	rb.v.NumSearchSegments = numsearchsegments
-	return rb
-}
-
-func (rb *ShardsSegmentBuilder) Routing(routing *ShardSegmentRoutingBuilder) *ShardsSegmentBuilder {
-	v := routing.Build()
-	rb.v.Routing = v
-	return rb
-}
-
-func (rb *ShardsSegmentBuilder) Segments(values map[string]*SegmentBuilder) *ShardsSegmentBuilder {
-	tmp := make(map[string]Segment, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Segments = tmp
-	return rb
+	return r
 }

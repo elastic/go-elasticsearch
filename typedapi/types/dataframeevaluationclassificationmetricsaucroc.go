@@ -17,58 +17,28 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeEvaluationClassificationMetricsAucRoc type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/_types/DataframeEvaluation.ts#L85-L90
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/DataframeEvaluation.ts#L85-L90
 type DataframeEvaluationClassificationMetricsAucRoc struct {
 	// ClassName Name of the only class that is treated as positive during AUC ROC
 	// calculation. Other classes are treated as negative ("one-vs-all" strategy).
 	// All the evaluated documents must have class_name in the list of their top
 	// classes.
-	ClassName *Name `json:"class_name,omitempty"`
+	ClassName *string `json:"class_name,omitempty"`
 	// IncludeCurve Whether or not the curve should be returned in addition to the score. Default
 	// value is false.
 	IncludeCurve *bool `json:"include_curve,omitempty"`
 }
 
-// DataframeEvaluationClassificationMetricsAucRocBuilder holds DataframeEvaluationClassificationMetricsAucRoc struct and provides a builder API.
-type DataframeEvaluationClassificationMetricsAucRocBuilder struct {
-	v *DataframeEvaluationClassificationMetricsAucRoc
-}
+// NewDataframeEvaluationClassificationMetricsAucRoc returns a DataframeEvaluationClassificationMetricsAucRoc.
+func NewDataframeEvaluationClassificationMetricsAucRoc() *DataframeEvaluationClassificationMetricsAucRoc {
+	r := &DataframeEvaluationClassificationMetricsAucRoc{}
 
-// NewDataframeEvaluationClassificationMetricsAucRoc provides a builder for the DataframeEvaluationClassificationMetricsAucRoc struct.
-func NewDataframeEvaluationClassificationMetricsAucRocBuilder() *DataframeEvaluationClassificationMetricsAucRocBuilder {
-	r := DataframeEvaluationClassificationMetricsAucRocBuilder{
-		&DataframeEvaluationClassificationMetricsAucRoc{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeEvaluationClassificationMetricsAucRoc struct
-func (rb *DataframeEvaluationClassificationMetricsAucRocBuilder) Build() DataframeEvaluationClassificationMetricsAucRoc {
-	return *rb.v
-}
-
-// ClassName Name of the only class that is treated as positive during AUC ROC
-// calculation. Other classes are treated as negative ("one-vs-all" strategy).
-// All the evaluated documents must have class_name in the list of their top
-// classes.
-
-func (rb *DataframeEvaluationClassificationMetricsAucRocBuilder) ClassName(classname Name) *DataframeEvaluationClassificationMetricsAucRocBuilder {
-	rb.v.ClassName = &classname
-	return rb
-}
-
-// IncludeCurve Whether or not the curve should be returned in addition to the score. Default
-// value is false.
-
-func (rb *DataframeEvaluationClassificationMetricsAucRocBuilder) IncludeCurve(includecurve bool) *DataframeEvaluationClassificationMetricsAucRocBuilder {
-	rb.v.IncludeCurve = &includecurve
-	return rb
+	return r
 }

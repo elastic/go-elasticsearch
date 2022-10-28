@@ -17,58 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MaxAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/metric.ts#L97-L97
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/metric.ts#L97-L97
 type MaxAggregation struct {
-	Field   *Field   `json:"field,omitempty"`
+	Field   *string  `json:"field,omitempty"`
 	Format  *string  `json:"format,omitempty"`
 	Missing *Missing `json:"missing,omitempty"`
 	Script  *Script  `json:"script,omitempty"`
 }
 
-// MaxAggregationBuilder holds MaxAggregation struct and provides a builder API.
-type MaxAggregationBuilder struct {
-	v *MaxAggregation
-}
+// NewMaxAggregation returns a MaxAggregation.
+func NewMaxAggregation() *MaxAggregation {
+	r := &MaxAggregation{}
 
-// NewMaxAggregation provides a builder for the MaxAggregation struct.
-func NewMaxAggregationBuilder() *MaxAggregationBuilder {
-	r := MaxAggregationBuilder{
-		&MaxAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MaxAggregation struct
-func (rb *MaxAggregationBuilder) Build() MaxAggregation {
-	return *rb.v
-}
-
-func (rb *MaxAggregationBuilder) Field(field Field) *MaxAggregationBuilder {
-	rb.v.Field = &field
-	return rb
-}
-
-func (rb *MaxAggregationBuilder) Format(format string) *MaxAggregationBuilder {
-	rb.v.Format = &format
-	return rb
-}
-
-func (rb *MaxAggregationBuilder) Missing(missing *MissingBuilder) *MaxAggregationBuilder {
-	v := missing.Build()
-	rb.v.Missing = &v
-	return rb
-}
-
-func (rb *MaxAggregationBuilder) Script(script *ScriptBuilder) *MaxAggregationBuilder {
-	v := script.Build()
-	rb.v.Script = &v
-	return rb
+	return r
 }

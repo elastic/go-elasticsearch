@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,12 +29,12 @@ import (
 
 // GeoShapeQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/geo.ts#L86-L91
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/geo.ts#L86-L91
 type GeoShapeQuery struct {
-	Boost          *float32                     `json:"boost,omitempty"`
-	GeoShapeQuery  map[Field]GeoShapeFieldQuery `json:"-"`
-	IgnoreUnmapped *bool                        `json:"ignore_unmapped,omitempty"`
-	QueryName_     *string                      `json:"_name,omitempty"`
+	Boost          *float32                      `json:"boost,omitempty"`
+	GeoShapeQuery  map[string]GeoShapeFieldQuery `json:"-"`
+	IgnoreUnmapped *bool                         `json:"ignore_unmapped,omitempty"`
+	QueryName_     *string                       `json:"_name,omitempty"`
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -65,47 +65,11 @@ func (s GeoShapeQuery) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// GeoShapeQueryBuilder holds GeoShapeQuery struct and provides a builder API.
-type GeoShapeQueryBuilder struct {
-	v *GeoShapeQuery
-}
-
-// NewGeoShapeQuery provides a builder for the GeoShapeQuery struct.
-func NewGeoShapeQueryBuilder() *GeoShapeQueryBuilder {
-	r := GeoShapeQueryBuilder{
-		&GeoShapeQuery{
-			GeoShapeQuery: make(map[Field]GeoShapeFieldQuery, 0),
-		},
+// NewGeoShapeQuery returns a GeoShapeQuery.
+func NewGeoShapeQuery() *GeoShapeQuery {
+	r := &GeoShapeQuery{
+		GeoShapeQuery: make(map[string]GeoShapeFieldQuery, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the GeoShapeQuery struct
-func (rb *GeoShapeQueryBuilder) Build() GeoShapeQuery {
-	return *rb.v
-}
-
-func (rb *GeoShapeQueryBuilder) Boost(boost float32) *GeoShapeQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *GeoShapeQueryBuilder) GeoShapeQuery(values map[Field]*GeoShapeFieldQueryBuilder) *GeoShapeQueryBuilder {
-	tmp := make(map[Field]GeoShapeFieldQuery, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.GeoShapeQuery = tmp
-	return rb
-}
-
-func (rb *GeoShapeQueryBuilder) IgnoreUnmapped(ignoreunmapped bool) *GeoShapeQueryBuilder {
-	rb.v.IgnoreUnmapped = &ignoreunmapped
-	return rb
-}
-
-func (rb *GeoShapeQueryBuilder) QueryName_(queryname_ string) *GeoShapeQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
+	return r
 }

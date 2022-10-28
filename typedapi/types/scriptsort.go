@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -30,7 +30,7 @@ import (
 
 // ScriptSort type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/sort.ts#L68-L74
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/sort.ts#L68-L74
 type ScriptSort struct {
 	Mode   *sortmode.SortMode             `json:"mode,omitempty"`
 	Nested *NestedSortValue               `json:"nested,omitempty"`
@@ -39,48 +39,9 @@ type ScriptSort struct {
 	Type   *scriptsorttype.ScriptSortType `json:"type,omitempty"`
 }
 
-// ScriptSortBuilder holds ScriptSort struct and provides a builder API.
-type ScriptSortBuilder struct {
-	v *ScriptSort
-}
+// NewScriptSort returns a ScriptSort.
+func NewScriptSort() *ScriptSort {
+	r := &ScriptSort{}
 
-// NewScriptSort provides a builder for the ScriptSort struct.
-func NewScriptSortBuilder() *ScriptSortBuilder {
-	r := ScriptSortBuilder{
-		&ScriptSort{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ScriptSort struct
-func (rb *ScriptSortBuilder) Build() ScriptSort {
-	return *rb.v
-}
-
-func (rb *ScriptSortBuilder) Mode(mode sortmode.SortMode) *ScriptSortBuilder {
-	rb.v.Mode = &mode
-	return rb
-}
-
-func (rb *ScriptSortBuilder) Nested(nested *NestedSortValueBuilder) *ScriptSortBuilder {
-	v := nested.Build()
-	rb.v.Nested = &v
-	return rb
-}
-
-func (rb *ScriptSortBuilder) Order(order sortorder.SortOrder) *ScriptSortBuilder {
-	rb.v.Order = &order
-	return rb
-}
-
-func (rb *ScriptSortBuilder) Script(script *ScriptBuilder) *ScriptSortBuilder {
-	v := script.Build()
-	rb.v.Script = v
-	return rb
-}
-
-func (rb *ScriptSortBuilder) Type_(type_ scriptsorttype.ScriptSortType) *ScriptSortBuilder {
-	rb.v.Type = &type_
-	return rb
+	return r
 }

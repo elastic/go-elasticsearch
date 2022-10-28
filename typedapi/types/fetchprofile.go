@@ -17,75 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FetchProfile type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/search/_types/profile.ts#L139-L146
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/profile.ts#L139-L146
 type FetchProfile struct {
-	Breakdown   FetchProfileBreakdown  `json:"breakdown"`
-	Children    []FetchProfile         `json:"children,omitempty"`
-	Debug       *FetchProfileDebug     `json:"debug,omitempty"`
-	Description string                 `json:"description"`
-	TimeInNanos DurationValueUnitNanos `json:"time_in_nanos"`
-	Type        string                 `json:"type"`
+	Breakdown   FetchProfileBreakdown `json:"breakdown"`
+	Children    []FetchProfile        `json:"children,omitempty"`
+	Debug       *FetchProfileDebug    `json:"debug,omitempty"`
+	Description string                `json:"description"`
+	TimeInNanos int64                 `json:"time_in_nanos"`
+	Type        string                `json:"type"`
 }
 
-// FetchProfileBuilder holds FetchProfile struct and provides a builder API.
-type FetchProfileBuilder struct {
-	v *FetchProfile
-}
+// NewFetchProfile returns a FetchProfile.
+func NewFetchProfile() *FetchProfile {
+	r := &FetchProfile{}
 
-// NewFetchProfile provides a builder for the FetchProfile struct.
-func NewFetchProfileBuilder() *FetchProfileBuilder {
-	r := FetchProfileBuilder{
-		&FetchProfile{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FetchProfile struct
-func (rb *FetchProfileBuilder) Build() FetchProfile {
-	return *rb.v
-}
-
-func (rb *FetchProfileBuilder) Breakdown(breakdown *FetchProfileBreakdownBuilder) *FetchProfileBuilder {
-	v := breakdown.Build()
-	rb.v.Breakdown = v
-	return rb
-}
-
-func (rb *FetchProfileBuilder) Children(children []FetchProfileBuilder) *FetchProfileBuilder {
-	tmp := make([]FetchProfile, len(children))
-	for _, value := range children {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Children = tmp
-	return rb
-}
-
-func (rb *FetchProfileBuilder) Debug(debug *FetchProfileDebugBuilder) *FetchProfileBuilder {
-	v := debug.Build()
-	rb.v.Debug = &v
-	return rb
-}
-
-func (rb *FetchProfileBuilder) Description(description string) *FetchProfileBuilder {
-	rb.v.Description = description
-	return rb
-}
-
-func (rb *FetchProfileBuilder) TimeInNanos(timeinnanos *DurationValueUnitNanosBuilder) *FetchProfileBuilder {
-	v := timeinnanos.Build()
-	rb.v.TimeInNanos = v
-	return rb
-}
-
-func (rb *FetchProfileBuilder) Type_(type_ string) *FetchProfileBuilder {
-	rb.v.Type = type_
-	return rb
+	return r
 }

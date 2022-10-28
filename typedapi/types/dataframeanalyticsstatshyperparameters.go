@@ -17,69 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeAnalyticsStatsHyperparameters type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/_types/DataframeAnalytics.ts#L380-L387
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/DataframeAnalytics.ts#L380-L387
 type DataframeAnalyticsStatsHyperparameters struct {
 	Hyperparameters Hyperparameters `json:"hyperparameters"`
 	// Iteration The number of iterations on the analysis.
-	Iteration      int                 `json:"iteration"`
-	Timestamp      EpochTimeUnitMillis `json:"timestamp"`
-	TimingStats    TimingStats         `json:"timing_stats"`
-	ValidationLoss ValidationLoss      `json:"validation_loss"`
+	Iteration      int            `json:"iteration"`
+	Timestamp      int64          `json:"timestamp"`
+	TimingStats    TimingStats    `json:"timing_stats"`
+	ValidationLoss ValidationLoss `json:"validation_loss"`
 }
 
-// DataframeAnalyticsStatsHyperparametersBuilder holds DataframeAnalyticsStatsHyperparameters struct and provides a builder API.
-type DataframeAnalyticsStatsHyperparametersBuilder struct {
-	v *DataframeAnalyticsStatsHyperparameters
-}
+// NewDataframeAnalyticsStatsHyperparameters returns a DataframeAnalyticsStatsHyperparameters.
+func NewDataframeAnalyticsStatsHyperparameters() *DataframeAnalyticsStatsHyperparameters {
+	r := &DataframeAnalyticsStatsHyperparameters{}
 
-// NewDataframeAnalyticsStatsHyperparameters provides a builder for the DataframeAnalyticsStatsHyperparameters struct.
-func NewDataframeAnalyticsStatsHyperparametersBuilder() *DataframeAnalyticsStatsHyperparametersBuilder {
-	r := DataframeAnalyticsStatsHyperparametersBuilder{
-		&DataframeAnalyticsStatsHyperparameters{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeAnalyticsStatsHyperparameters struct
-func (rb *DataframeAnalyticsStatsHyperparametersBuilder) Build() DataframeAnalyticsStatsHyperparameters {
-	return *rb.v
-}
-
-func (rb *DataframeAnalyticsStatsHyperparametersBuilder) Hyperparameters(hyperparameters *HyperparametersBuilder) *DataframeAnalyticsStatsHyperparametersBuilder {
-	v := hyperparameters.Build()
-	rb.v.Hyperparameters = v
-	return rb
-}
-
-// Iteration The number of iterations on the analysis.
-
-func (rb *DataframeAnalyticsStatsHyperparametersBuilder) Iteration(iteration int) *DataframeAnalyticsStatsHyperparametersBuilder {
-	rb.v.Iteration = iteration
-	return rb
-}
-
-func (rb *DataframeAnalyticsStatsHyperparametersBuilder) Timestamp(timestamp *EpochTimeUnitMillisBuilder) *DataframeAnalyticsStatsHyperparametersBuilder {
-	v := timestamp.Build()
-	rb.v.Timestamp = v
-	return rb
-}
-
-func (rb *DataframeAnalyticsStatsHyperparametersBuilder) TimingStats(timingstats *TimingStatsBuilder) *DataframeAnalyticsStatsHyperparametersBuilder {
-	v := timingstats.Build()
-	rb.v.TimingStats = v
-	return rb
-}
-
-func (rb *DataframeAnalyticsStatsHyperparametersBuilder) ValidationLoss(validationloss *ValidationLossBuilder) *DataframeAnalyticsStatsHyperparametersBuilder {
-	v := validationloss.Build()
-	rb.v.ValidationLoss = v
-	return rb
+	return r
 }

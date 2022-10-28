@@ -17,50 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Latest type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/transform/_types/Transform.ts#L47-L52
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/transform/_types/Transform.ts#L47-L52
 type Latest struct {
 	// Sort Specifies the date field that is used to identify the latest documents.
-	Sort Field `json:"sort"`
+	Sort string `json:"sort"`
 	// UniqueKey Specifies an array of one or more fields that are used to group the data.
-	UniqueKey []Field `json:"unique_key"`
+	UniqueKey []string `json:"unique_key"`
 }
 
-// LatestBuilder holds Latest struct and provides a builder API.
-type LatestBuilder struct {
-	v *Latest
-}
+// NewLatest returns a Latest.
+func NewLatest() *Latest {
+	r := &Latest{}
 
-// NewLatest provides a builder for the Latest struct.
-func NewLatestBuilder() *LatestBuilder {
-	r := LatestBuilder{
-		&Latest{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Latest struct
-func (rb *LatestBuilder) Build() Latest {
-	return *rb.v
-}
-
-// Sort Specifies the date field that is used to identify the latest documents.
-
-func (rb *LatestBuilder) Sort(sort Field) *LatestBuilder {
-	rb.v.Sort = sort
-	return rb
-}
-
-// UniqueKey Specifies an array of one or more fields that are used to group the data.
-
-func (rb *LatestBuilder) UniqueKey(unique_key ...Field) *LatestBuilder {
-	rb.v.UniqueKey = unique_key
-	return rb
+	return r
 }

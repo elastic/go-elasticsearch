@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // PipelineMetadata type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/logstash/_types/Pipeline.ts#L23-L26
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/logstash/_types/Pipeline.ts#L23-L26
 type PipelineMetadata struct {
 	Type    string `json:"type"`
 	Version string `json:"version"`
 }
 
-// PipelineMetadataBuilder holds PipelineMetadata struct and provides a builder API.
-type PipelineMetadataBuilder struct {
-	v *PipelineMetadata
-}
+// NewPipelineMetadata returns a PipelineMetadata.
+func NewPipelineMetadata() *PipelineMetadata {
+	r := &PipelineMetadata{}
 
-// NewPipelineMetadata provides a builder for the PipelineMetadata struct.
-func NewPipelineMetadataBuilder() *PipelineMetadataBuilder {
-	r := PipelineMetadataBuilder{
-		&PipelineMetadata{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the PipelineMetadata struct
-func (rb *PipelineMetadataBuilder) Build() PipelineMetadata {
-	return *rb.v
-}
-
-func (rb *PipelineMetadataBuilder) Type_(type_ string) *PipelineMetadataBuilder {
-	rb.v.Type = type_
-	return rb
-}
-
-func (rb *PipelineMetadataBuilder) Version(version string) *PipelineMetadataBuilder {
-	rb.v.Version = version
-	return rb
+	return r
 }

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -30,15 +30,15 @@ import (
 
 // MultiMatchQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/fulltext.ts#L191-L217
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/fulltext.ts#L191-L217
 type MultiMatchQuery struct {
 	Analyzer                        *string                        `json:"analyzer,omitempty"`
 	AutoGenerateSynonymsPhraseQuery *bool                          `json:"auto_generate_synonyms_phrase_query,omitempty"`
 	Boost                           *float32                       `json:"boost,omitempty"`
 	CutoffFrequency                 *float64                       `json:"cutoff_frequency,omitempty"`
-	Fields                          *Fields                        `json:"fields,omitempty"`
+	Fields                          []string                       `json:"fields,omitempty"`
 	Fuzziness                       *Fuzziness                     `json:"fuzziness,omitempty"`
-	FuzzyRewrite                    *MultiTermQueryRewrite         `json:"fuzzy_rewrite,omitempty"`
+	FuzzyRewrite                    *string                        `json:"fuzzy_rewrite,omitempty"`
 	FuzzyTranspositions             *bool                          `json:"fuzzy_transpositions,omitempty"`
 	Lenient                         *bool                          `json:"lenient,omitempty"`
 	MaxExpansions                   *int                           `json:"max_expansions,omitempty"`
@@ -53,119 +53,9 @@ type MultiMatchQuery struct {
 	ZeroTermsQuery                  *zerotermsquery.ZeroTermsQuery `json:"zero_terms_query,omitempty"`
 }
 
-// MultiMatchQueryBuilder holds MultiMatchQuery struct and provides a builder API.
-type MultiMatchQueryBuilder struct {
-	v *MultiMatchQuery
-}
+// NewMultiMatchQuery returns a MultiMatchQuery.
+func NewMultiMatchQuery() *MultiMatchQuery {
+	r := &MultiMatchQuery{}
 
-// NewMultiMatchQuery provides a builder for the MultiMatchQuery struct.
-func NewMultiMatchQueryBuilder() *MultiMatchQueryBuilder {
-	r := MultiMatchQueryBuilder{
-		&MultiMatchQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MultiMatchQuery struct
-func (rb *MultiMatchQueryBuilder) Build() MultiMatchQuery {
-	return *rb.v
-}
-
-func (rb *MultiMatchQueryBuilder) Analyzer(analyzer string) *MultiMatchQueryBuilder {
-	rb.v.Analyzer = &analyzer
-	return rb
-}
-
-func (rb *MultiMatchQueryBuilder) AutoGenerateSynonymsPhraseQuery(autogeneratesynonymsphrasequery bool) *MultiMatchQueryBuilder {
-	rb.v.AutoGenerateSynonymsPhraseQuery = &autogeneratesynonymsphrasequery
-	return rb
-}
-
-func (rb *MultiMatchQueryBuilder) Boost(boost float32) *MultiMatchQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *MultiMatchQueryBuilder) CutoffFrequency(cutofffrequency float64) *MultiMatchQueryBuilder {
-	rb.v.CutoffFrequency = &cutofffrequency
-	return rb
-}
-
-func (rb *MultiMatchQueryBuilder) Fields(fields *FieldsBuilder) *MultiMatchQueryBuilder {
-	v := fields.Build()
-	rb.v.Fields = &v
-	return rb
-}
-
-func (rb *MultiMatchQueryBuilder) Fuzziness(fuzziness *FuzzinessBuilder) *MultiMatchQueryBuilder {
-	v := fuzziness.Build()
-	rb.v.Fuzziness = &v
-	return rb
-}
-
-func (rb *MultiMatchQueryBuilder) FuzzyRewrite(fuzzyrewrite MultiTermQueryRewrite) *MultiMatchQueryBuilder {
-	rb.v.FuzzyRewrite = &fuzzyrewrite
-	return rb
-}
-
-func (rb *MultiMatchQueryBuilder) FuzzyTranspositions(fuzzytranspositions bool) *MultiMatchQueryBuilder {
-	rb.v.FuzzyTranspositions = &fuzzytranspositions
-	return rb
-}
-
-func (rb *MultiMatchQueryBuilder) Lenient(lenient bool) *MultiMatchQueryBuilder {
-	rb.v.Lenient = &lenient
-	return rb
-}
-
-func (rb *MultiMatchQueryBuilder) MaxExpansions(maxexpansions int) *MultiMatchQueryBuilder {
-	rb.v.MaxExpansions = &maxexpansions
-	return rb
-}
-
-func (rb *MultiMatchQueryBuilder) MinimumShouldMatch(minimumshouldmatch *MinimumShouldMatchBuilder) *MultiMatchQueryBuilder {
-	v := minimumshouldmatch.Build()
-	rb.v.MinimumShouldMatch = &v
-	return rb
-}
-
-func (rb *MultiMatchQueryBuilder) Operator(operator operator.Operator) *MultiMatchQueryBuilder {
-	rb.v.Operator = &operator
-	return rb
-}
-
-func (rb *MultiMatchQueryBuilder) PrefixLength(prefixlength int) *MultiMatchQueryBuilder {
-	rb.v.PrefixLength = &prefixlength
-	return rb
-}
-
-func (rb *MultiMatchQueryBuilder) Query(query string) *MultiMatchQueryBuilder {
-	rb.v.Query = query
-	return rb
-}
-
-func (rb *MultiMatchQueryBuilder) QueryName_(queryname_ string) *MultiMatchQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
-}
-
-func (rb *MultiMatchQueryBuilder) Slop(slop int) *MultiMatchQueryBuilder {
-	rb.v.Slop = &slop
-	return rb
-}
-
-func (rb *MultiMatchQueryBuilder) TieBreaker(tiebreaker float64) *MultiMatchQueryBuilder {
-	rb.v.TieBreaker = &tiebreaker
-	return rb
-}
-
-func (rb *MultiMatchQueryBuilder) Type_(type_ textquerytype.TextQueryType) *MultiMatchQueryBuilder {
-	rb.v.Type = &type_
-	return rb
-}
-
-func (rb *MultiMatchQueryBuilder) ZeroTermsQuery(zerotermsquery zerotermsquery.ZeroTermsQuery) *MultiMatchQueryBuilder {
-	rb.v.ZeroTermsQuery = &zerotermsquery
-	return rb
+	return r
 }

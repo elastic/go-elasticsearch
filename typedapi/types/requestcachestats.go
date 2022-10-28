@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RequestCacheStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/Stats.ts#L177-L183
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Stats.ts#L177-L183
 type RequestCacheStats struct {
 	Evictions         int64   `json:"evictions"`
 	HitCount          int64   `json:"hit_count"`
@@ -33,46 +33,9 @@ type RequestCacheStats struct {
 	MissCount         int64   `json:"miss_count"`
 }
 
-// RequestCacheStatsBuilder holds RequestCacheStats struct and provides a builder API.
-type RequestCacheStatsBuilder struct {
-	v *RequestCacheStats
-}
+// NewRequestCacheStats returns a RequestCacheStats.
+func NewRequestCacheStats() *RequestCacheStats {
+	r := &RequestCacheStats{}
 
-// NewRequestCacheStats provides a builder for the RequestCacheStats struct.
-func NewRequestCacheStatsBuilder() *RequestCacheStatsBuilder {
-	r := RequestCacheStatsBuilder{
-		&RequestCacheStats{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RequestCacheStats struct
-func (rb *RequestCacheStatsBuilder) Build() RequestCacheStats {
-	return *rb.v
-}
-
-func (rb *RequestCacheStatsBuilder) Evictions(evictions int64) *RequestCacheStatsBuilder {
-	rb.v.Evictions = evictions
-	return rb
-}
-
-func (rb *RequestCacheStatsBuilder) HitCount(hitcount int64) *RequestCacheStatsBuilder {
-	rb.v.HitCount = hitcount
-	return rb
-}
-
-func (rb *RequestCacheStatsBuilder) MemorySize(memorysize string) *RequestCacheStatsBuilder {
-	rb.v.MemorySize = &memorysize
-	return rb
-}
-
-func (rb *RequestCacheStatsBuilder) MemorySizeInBytes(memorysizeinbytes int64) *RequestCacheStatsBuilder {
-	rb.v.MemorySizeInBytes = memorysizeinbytes
-	return rb
-}
-
-func (rb *RequestCacheStatsBuilder) MissCount(misscount int64) *RequestCacheStatsBuilder {
-	rb.v.MissCount = misscount
-	return rb
+	return r
 }

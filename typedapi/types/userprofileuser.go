@@ -17,68 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // UserProfileUser type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/security/_types/UserProfile.ts#L33-L40
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/_types/UserProfile.ts#L33-L40
 type UserProfileUser struct {
 	Email       string   `json:"email,omitempty"`
-	FullName    Name     `json:"full_name,omitempty"`
-	RealmDomain *Name    `json:"realm_domain,omitempty"`
-	RealmName   Name     `json:"realm_name"`
+	FullName    string   `json:"full_name,omitempty"`
+	RealmDomain *string  `json:"realm_domain,omitempty"`
+	RealmName   string   `json:"realm_name"`
 	Roles       []string `json:"roles"`
-	Username    Username `json:"username"`
+	Username    string   `json:"username"`
 }
 
-// UserProfileUserBuilder holds UserProfileUser struct and provides a builder API.
-type UserProfileUserBuilder struct {
-	v *UserProfileUser
-}
+// NewUserProfileUser returns a UserProfileUser.
+func NewUserProfileUser() *UserProfileUser {
+	r := &UserProfileUser{}
 
-// NewUserProfileUser provides a builder for the UserProfileUser struct.
-func NewUserProfileUserBuilder() *UserProfileUserBuilder {
-	r := UserProfileUserBuilder{
-		&UserProfileUser{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the UserProfileUser struct
-func (rb *UserProfileUserBuilder) Build() UserProfileUser {
-	return *rb.v
-}
-
-func (rb *UserProfileUserBuilder) Email(email string) *UserProfileUserBuilder {
-	rb.v.Email = email
-	return rb
-}
-
-func (rb *UserProfileUserBuilder) FullName(fullname Name) *UserProfileUserBuilder {
-	rb.v.FullName = fullname
-	return rb
-}
-
-func (rb *UserProfileUserBuilder) RealmDomain(realmdomain Name) *UserProfileUserBuilder {
-	rb.v.RealmDomain = &realmdomain
-	return rb
-}
-
-func (rb *UserProfileUserBuilder) RealmName(realmname Name) *UserProfileUserBuilder {
-	rb.v.RealmName = realmname
-	return rb
-}
-
-func (rb *UserProfileUserBuilder) Roles(roles ...string) *UserProfileUserBuilder {
-	rb.v.Roles = roles
-	return rb
-}
-
-func (rb *UserProfileUserBuilder) Username(username Username) *UserProfileUserBuilder {
-	rb.v.Username = username
-	return rb
+	return r
 }

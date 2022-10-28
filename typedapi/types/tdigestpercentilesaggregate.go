@@ -17,46 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TDigestPercentilesAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L163-L164
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L171-L172
 type TDigestPercentilesAggregate struct {
-	Meta   *Metadata   `json:"meta,omitempty"`
-	Values Percentiles `json:"values"`
+	Meta   map[string]interface{} `json:"meta,omitempty"`
+	Values Percentiles            `json:"values"`
 }
 
-// TDigestPercentilesAggregateBuilder holds TDigestPercentilesAggregate struct and provides a builder API.
-type TDigestPercentilesAggregateBuilder struct {
-	v *TDigestPercentilesAggregate
-}
+// NewTDigestPercentilesAggregate returns a TDigestPercentilesAggregate.
+func NewTDigestPercentilesAggregate() *TDigestPercentilesAggregate {
+	r := &TDigestPercentilesAggregate{}
 
-// NewTDigestPercentilesAggregate provides a builder for the TDigestPercentilesAggregate struct.
-func NewTDigestPercentilesAggregateBuilder() *TDigestPercentilesAggregateBuilder {
-	r := TDigestPercentilesAggregateBuilder{
-		&TDigestPercentilesAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TDigestPercentilesAggregate struct
-func (rb *TDigestPercentilesAggregateBuilder) Build() TDigestPercentilesAggregate {
-	return *rb.v
-}
-
-func (rb *TDigestPercentilesAggregateBuilder) Meta(meta *MetadataBuilder) *TDigestPercentilesAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *TDigestPercentilesAggregateBuilder) Values(values *PercentilesBuilder) *TDigestPercentilesAggregateBuilder {
-	v := values.Build()
-	rb.v.Values = v
-	return rb
+	return r
 }

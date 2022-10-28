@@ -17,41 +17,15 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Like holds the union for the following types:
 //
-//	LikeDocument
 //	string
+//	LikeDocument
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/specialized.ts#L103-L108
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/specialized.ts#L103-L108
 type Like interface{}
-
-// LikeBuilder holds Like struct and provides a builder API.
-type LikeBuilder struct {
-	v Like
-}
-
-// NewLike provides a builder for the Like struct.
-func NewLikeBuilder() *LikeBuilder {
-	return &LikeBuilder{}
-}
-
-// Build finalize the chain and returns the Like struct
-func (u *LikeBuilder) Build() Like {
-	return u.v
-}
-
-func (u *LikeBuilder) LikeDocument(likedocument *LikeDocumentBuilder) *LikeBuilder {
-	v := likedocument.Build()
-	u.v = &v
-	return u
-}
-
-func (u *LikeBuilder) String(string string) *LikeBuilder {
-	u.v = &string
-	return u
-}

@@ -17,63 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // BulkIndexByScrollFailure type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/Errors.ts#L58-L64
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Errors.ts#L58-L64
 type BulkIndexByScrollFailure struct {
 	Cause  ErrorCause `json:"cause"`
-	Id     Id         `json:"id"`
-	Index  IndexName  `json:"index"`
+	Id     string     `json:"id"`
+	Index  string     `json:"index"`
 	Status int        `json:"status"`
 	Type   string     `json:"type"`
 }
 
-// BulkIndexByScrollFailureBuilder holds BulkIndexByScrollFailure struct and provides a builder API.
-type BulkIndexByScrollFailureBuilder struct {
-	v *BulkIndexByScrollFailure
-}
+// NewBulkIndexByScrollFailure returns a BulkIndexByScrollFailure.
+func NewBulkIndexByScrollFailure() *BulkIndexByScrollFailure {
+	r := &BulkIndexByScrollFailure{}
 
-// NewBulkIndexByScrollFailure provides a builder for the BulkIndexByScrollFailure struct.
-func NewBulkIndexByScrollFailureBuilder() *BulkIndexByScrollFailureBuilder {
-	r := BulkIndexByScrollFailureBuilder{
-		&BulkIndexByScrollFailure{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the BulkIndexByScrollFailure struct
-func (rb *BulkIndexByScrollFailureBuilder) Build() BulkIndexByScrollFailure {
-	return *rb.v
-}
-
-func (rb *BulkIndexByScrollFailureBuilder) Cause(cause *ErrorCauseBuilder) *BulkIndexByScrollFailureBuilder {
-	v := cause.Build()
-	rb.v.Cause = v
-	return rb
-}
-
-func (rb *BulkIndexByScrollFailureBuilder) Id(id Id) *BulkIndexByScrollFailureBuilder {
-	rb.v.Id = id
-	return rb
-}
-
-func (rb *BulkIndexByScrollFailureBuilder) Index(index IndexName) *BulkIndexByScrollFailureBuilder {
-	rb.v.Index = index
-	return rb
-}
-
-func (rb *BulkIndexByScrollFailureBuilder) Status(status int) *BulkIndexByScrollFailureBuilder {
-	rb.v.Status = status
-	return rb
-}
-
-func (rb *BulkIndexByScrollFailureBuilder) Type_(type_ string) *BulkIndexByScrollFailureBuilder {
-	rb.v.Type = type_
-	return rb
+	return r
 }

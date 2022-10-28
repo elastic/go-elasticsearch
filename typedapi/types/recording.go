@@ -17,58 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Recording type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/_types/Stats.ts#L88-L93
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L88-L93
 type Recording struct {
-	CumulativeExecutionCount      *int64                   `json:"cumulative_execution_count,omitempty"`
-	CumulativeExecutionTime       *Duration                `json:"cumulative_execution_time,omitempty"`
-	CumulativeExecutionTimeMillis *DurationValueUnitMillis `json:"cumulative_execution_time_millis,omitempty"`
-	Name                          *string                  `json:"name,omitempty"`
+	CumulativeExecutionCount      *int64    `json:"cumulative_execution_count,omitempty"`
+	CumulativeExecutionTime       *Duration `json:"cumulative_execution_time,omitempty"`
+	CumulativeExecutionTimeMillis *int64    `json:"cumulative_execution_time_millis,omitempty"`
+	Name                          *string   `json:"name,omitempty"`
 }
 
-// RecordingBuilder holds Recording struct and provides a builder API.
-type RecordingBuilder struct {
-	v *Recording
-}
+// NewRecording returns a Recording.
+func NewRecording() *Recording {
+	r := &Recording{}
 
-// NewRecording provides a builder for the Recording struct.
-func NewRecordingBuilder() *RecordingBuilder {
-	r := RecordingBuilder{
-		&Recording{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Recording struct
-func (rb *RecordingBuilder) Build() Recording {
-	return *rb.v
-}
-
-func (rb *RecordingBuilder) CumulativeExecutionCount(cumulativeexecutioncount int64) *RecordingBuilder {
-	rb.v.CumulativeExecutionCount = &cumulativeexecutioncount
-	return rb
-}
-
-func (rb *RecordingBuilder) CumulativeExecutionTime(cumulativeexecutiontime *DurationBuilder) *RecordingBuilder {
-	v := cumulativeexecutiontime.Build()
-	rb.v.CumulativeExecutionTime = &v
-	return rb
-}
-
-func (rb *RecordingBuilder) CumulativeExecutionTimeMillis(cumulativeexecutiontimemillis *DurationValueUnitMillisBuilder) *RecordingBuilder {
-	v := cumulativeexecutiontimemillis.Build()
-	rb.v.CumulativeExecutionTimeMillis = &v
-	return rb
-}
-
-func (rb *RecordingBuilder) Name(name string) *RecordingBuilder {
-	rb.v.Name = &name
-	return rb
+	return r
 }

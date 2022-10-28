@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CompositeAggregationSource type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/bucket.ts#L86-L91
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/bucket.ts#L86-L91
 type CompositeAggregationSource struct {
 	DateHistogram *DateHistogramAggregation `json:"date_histogram,omitempty"`
 	GeotileGrid   *GeoTileGridAggregation   `json:"geotile_grid,omitempty"`
@@ -32,45 +32,9 @@ type CompositeAggregationSource struct {
 	Terms         *TermsAggregation         `json:"terms,omitempty"`
 }
 
-// CompositeAggregationSourceBuilder holds CompositeAggregationSource struct and provides a builder API.
-type CompositeAggregationSourceBuilder struct {
-	v *CompositeAggregationSource
-}
+// NewCompositeAggregationSource returns a CompositeAggregationSource.
+func NewCompositeAggregationSource() *CompositeAggregationSource {
+	r := &CompositeAggregationSource{}
 
-// NewCompositeAggregationSource provides a builder for the CompositeAggregationSource struct.
-func NewCompositeAggregationSourceBuilder() *CompositeAggregationSourceBuilder {
-	r := CompositeAggregationSourceBuilder{
-		&CompositeAggregationSource{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the CompositeAggregationSource struct
-func (rb *CompositeAggregationSourceBuilder) Build() CompositeAggregationSource {
-	return *rb.v
-}
-
-func (rb *CompositeAggregationSourceBuilder) DateHistogram(datehistogram *DateHistogramAggregationBuilder) *CompositeAggregationSourceBuilder {
-	v := datehistogram.Build()
-	rb.v.DateHistogram = &v
-	return rb
-}
-
-func (rb *CompositeAggregationSourceBuilder) GeotileGrid(geotilegrid *GeoTileGridAggregationBuilder) *CompositeAggregationSourceBuilder {
-	v := geotilegrid.Build()
-	rb.v.GeotileGrid = &v
-	return rb
-}
-
-func (rb *CompositeAggregationSourceBuilder) Histogram(histogram *HistogramAggregationBuilder) *CompositeAggregationSourceBuilder {
-	v := histogram.Build()
-	rb.v.Histogram = &v
-	return rb
-}
-
-func (rb *CompositeAggregationSourceBuilder) Terms(terms *TermsAggregationBuilder) *CompositeAggregationSourceBuilder {
-	v := terms.Build()
-	rb.v.Terms = &v
-	return rb
+	return r
 }

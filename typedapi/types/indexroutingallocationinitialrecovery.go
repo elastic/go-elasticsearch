@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IndexRoutingAllocationInitialRecovery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/_types/IndexRouting.ts#L57-L59
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/IndexRouting.ts#L57-L59
 type IndexRoutingAllocationInitialRecovery struct {
-	Id_ *Id `json:"_id,omitempty"`
+	Id_ *string `json:"_id,omitempty"`
 }
 
-// IndexRoutingAllocationInitialRecoveryBuilder holds IndexRoutingAllocationInitialRecovery struct and provides a builder API.
-type IndexRoutingAllocationInitialRecoveryBuilder struct {
-	v *IndexRoutingAllocationInitialRecovery
-}
+// NewIndexRoutingAllocationInitialRecovery returns a IndexRoutingAllocationInitialRecovery.
+func NewIndexRoutingAllocationInitialRecovery() *IndexRoutingAllocationInitialRecovery {
+	r := &IndexRoutingAllocationInitialRecovery{}
 
-// NewIndexRoutingAllocationInitialRecovery provides a builder for the IndexRoutingAllocationInitialRecovery struct.
-func NewIndexRoutingAllocationInitialRecoveryBuilder() *IndexRoutingAllocationInitialRecoveryBuilder {
-	r := IndexRoutingAllocationInitialRecoveryBuilder{
-		&IndexRoutingAllocationInitialRecovery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IndexRoutingAllocationInitialRecovery struct
-func (rb *IndexRoutingAllocationInitialRecoveryBuilder) Build() IndexRoutingAllocationInitialRecovery {
-	return *rb.v
-}
-
-func (rb *IndexRoutingAllocationInitialRecoveryBuilder) Id_(id_ Id) *IndexRoutingAllocationInitialRecoveryBuilder {
-	rb.v.Id_ = &id_
-	return rb
+	return r
 }

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TextEmbeddingInferenceUpdateOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/_types/inference.ts#L351-L355
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/inference.ts#L351-L355
 type TextEmbeddingInferenceUpdateOptions struct {
 	// ResultsField The field that is added to incoming documents to contain the inference
 	// prediction. Defaults to predicted_value.
@@ -32,35 +32,9 @@ type TextEmbeddingInferenceUpdateOptions struct {
 	Tokenization *NlpTokenizationUpdateOptions `json:"tokenization,omitempty"`
 }
 
-// TextEmbeddingInferenceUpdateOptionsBuilder holds TextEmbeddingInferenceUpdateOptions struct and provides a builder API.
-type TextEmbeddingInferenceUpdateOptionsBuilder struct {
-	v *TextEmbeddingInferenceUpdateOptions
-}
+// NewTextEmbeddingInferenceUpdateOptions returns a TextEmbeddingInferenceUpdateOptions.
+func NewTextEmbeddingInferenceUpdateOptions() *TextEmbeddingInferenceUpdateOptions {
+	r := &TextEmbeddingInferenceUpdateOptions{}
 
-// NewTextEmbeddingInferenceUpdateOptions provides a builder for the TextEmbeddingInferenceUpdateOptions struct.
-func NewTextEmbeddingInferenceUpdateOptionsBuilder() *TextEmbeddingInferenceUpdateOptionsBuilder {
-	r := TextEmbeddingInferenceUpdateOptionsBuilder{
-		&TextEmbeddingInferenceUpdateOptions{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TextEmbeddingInferenceUpdateOptions struct
-func (rb *TextEmbeddingInferenceUpdateOptionsBuilder) Build() TextEmbeddingInferenceUpdateOptions {
-	return *rb.v
-}
-
-// ResultsField The field that is added to incoming documents to contain the inference
-// prediction. Defaults to predicted_value.
-
-func (rb *TextEmbeddingInferenceUpdateOptionsBuilder) ResultsField(resultsfield string) *TextEmbeddingInferenceUpdateOptionsBuilder {
-	rb.v.ResultsField = &resultsfield
-	return rb
-}
-
-func (rb *TextEmbeddingInferenceUpdateOptionsBuilder) Tokenization(tokenization *NlpTokenizationUpdateOptionsBuilder) *TextEmbeddingInferenceUpdateOptionsBuilder {
-	v := tokenization.Build()
-	rb.v.Tokenization = &v
-	return rb
+	return r
 }

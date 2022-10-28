@@ -17,52 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeInfoSettingsTransport type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/info/types.ts#L197-L201
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/info/types.ts#L197-L201
 type NodeInfoSettingsTransport struct {
 	Features    *NodeInfoSettingsTransportFeatures `json:"features,omitempty"`
 	Type        NodeInfoSettingsTransportType      `json:"type"`
 	TypeDefault *string                            `json:"type.default,omitempty"`
 }
 
-// NodeInfoSettingsTransportBuilder holds NodeInfoSettingsTransport struct and provides a builder API.
-type NodeInfoSettingsTransportBuilder struct {
-	v *NodeInfoSettingsTransport
-}
+// NewNodeInfoSettingsTransport returns a NodeInfoSettingsTransport.
+func NewNodeInfoSettingsTransport() *NodeInfoSettingsTransport {
+	r := &NodeInfoSettingsTransport{}
 
-// NewNodeInfoSettingsTransport provides a builder for the NodeInfoSettingsTransport struct.
-func NewNodeInfoSettingsTransportBuilder() *NodeInfoSettingsTransportBuilder {
-	r := NodeInfoSettingsTransportBuilder{
-		&NodeInfoSettingsTransport{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodeInfoSettingsTransport struct
-func (rb *NodeInfoSettingsTransportBuilder) Build() NodeInfoSettingsTransport {
-	return *rb.v
-}
-
-func (rb *NodeInfoSettingsTransportBuilder) Features(features *NodeInfoSettingsTransportFeaturesBuilder) *NodeInfoSettingsTransportBuilder {
-	v := features.Build()
-	rb.v.Features = &v
-	return rb
-}
-
-func (rb *NodeInfoSettingsTransportBuilder) Type_(type_ *NodeInfoSettingsTransportTypeBuilder) *NodeInfoSettingsTransportBuilder {
-	v := type_.Build()
-	rb.v.Type = v
-	return rb
-}
-
-func (rb *NodeInfoSettingsTransportBuilder) TypeDefault(typedefault string) *NodeInfoSettingsTransportBuilder {
-	rb.v.TypeDefault = &typedefault
-	return rb
+	return r
 }

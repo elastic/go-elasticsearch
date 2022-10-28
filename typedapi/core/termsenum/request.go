@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package termsenum
@@ -31,51 +31,38 @@ import (
 
 // Request holds the request body struct for the package termsenum
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/terms_enum/TermsEnumRequest.ts#L26-L65
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/terms_enum/TermsEnumRequest.ts#L26-L65
 type Request struct {
 
 	// CaseInsensitive When true the provided search string is matched against index terms without
 	// case sensitivity.
 	CaseInsensitive *bool `json:"case_insensitive,omitempty"`
-
 	// Field The string to match at the start of indexed terms. If not provided, all terms
 	// in the field are considered.
-	Field types.Field `json:"field"`
-
+	Field string `json:"field"`
 	// IndexFilter Allows to filter an index shard if the provided query rewrites to match_none.
-	IndexFilter *types.QueryContainer `json:"index_filter,omitempty"`
-
-	SearchAfter *string `json:"search_after,omitempty"`
-
+	IndexFilter *types.Query `json:"index_filter,omitempty"`
+	SearchAfter *string      `json:"search_after,omitempty"`
 	// Size How many matching terms to return.
 	Size *int `json:"size,omitempty"`
-
 	// String The string after which terms in the index should be returned. Allows for a
 	// form of pagination if the last result from one request is passed as the
 	// search_after parameter for a subsequent request.
 	String *string `json:"string,omitempty"`
-
 	// Timeout The maximum length of time to spend collecting results. Defaults to "1s" (one
 	// second). If the timeout is exceeded the complete flag set to false in the
 	// response and the results may be partial or empty.
 	Timeout *types.Duration `json:"timeout,omitempty"`
 }
 
-// RequestBuilder is the builder API for the termsenum.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -84,46 +71,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) CaseInsensitive(caseinsensitive bool) *RequestBuilder {
-	rb.v.CaseInsensitive = &caseinsensitive
-	return rb
-}
-
-func (rb *RequestBuilder) Field(field types.Field) *RequestBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *RequestBuilder) IndexFilter(indexfilter *types.QueryContainerBuilder) *RequestBuilder {
-	v := indexfilter.Build()
-	rb.v.IndexFilter = &v
-	return rb
-}
-
-func (rb *RequestBuilder) SearchAfter(searchafter string) *RequestBuilder {
-	rb.v.SearchAfter = &searchafter
-	return rb
-}
-
-func (rb *RequestBuilder) Size(size int) *RequestBuilder {
-	rb.v.Size = &size
-	return rb
-}
-
-func (rb *RequestBuilder) String(string string) *RequestBuilder {
-	rb.v.String = &string
-	return rb
-}
-
-func (rb *RequestBuilder) Timeout(timeout *types.DurationBuilder) *RequestBuilder {
-	v := timeout.Build()
-	rb.v.Timeout = &v
-	return rb
 }

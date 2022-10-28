@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RankEvalMetricDiscountedCumulativeGain type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/rank_eval/types.ts#L66-L77
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/rank_eval/types.ts#L66-L77
 type RankEvalMetricDiscountedCumulativeGain struct {
 	// K Sets the maximum number of documents retrieved per query. This value will act
 	// in place of the usual size parameter in the query.
@@ -33,36 +33,9 @@ type RankEvalMetricDiscountedCumulativeGain struct {
 	Normalize *bool `json:"normalize,omitempty"`
 }
 
-// RankEvalMetricDiscountedCumulativeGainBuilder holds RankEvalMetricDiscountedCumulativeGain struct and provides a builder API.
-type RankEvalMetricDiscountedCumulativeGainBuilder struct {
-	v *RankEvalMetricDiscountedCumulativeGain
-}
+// NewRankEvalMetricDiscountedCumulativeGain returns a RankEvalMetricDiscountedCumulativeGain.
+func NewRankEvalMetricDiscountedCumulativeGain() *RankEvalMetricDiscountedCumulativeGain {
+	r := &RankEvalMetricDiscountedCumulativeGain{}
 
-// NewRankEvalMetricDiscountedCumulativeGain provides a builder for the RankEvalMetricDiscountedCumulativeGain struct.
-func NewRankEvalMetricDiscountedCumulativeGainBuilder() *RankEvalMetricDiscountedCumulativeGainBuilder {
-	r := RankEvalMetricDiscountedCumulativeGainBuilder{
-		&RankEvalMetricDiscountedCumulativeGain{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RankEvalMetricDiscountedCumulativeGain struct
-func (rb *RankEvalMetricDiscountedCumulativeGainBuilder) Build() RankEvalMetricDiscountedCumulativeGain {
-	return *rb.v
-}
-
-// K Sets the maximum number of documents retrieved per query. This value will act
-// in place of the usual size parameter in the query.
-
-func (rb *RankEvalMetricDiscountedCumulativeGainBuilder) K(k int) *RankEvalMetricDiscountedCumulativeGainBuilder {
-	rb.v.K = &k
-	return rb
-}
-
-// Normalize If set to true, this metric will calculate the Normalized DCG.
-
-func (rb *RankEvalMetricDiscountedCumulativeGainBuilder) Normalize(normalize bool) *RankEvalMetricDiscountedCumulativeGainBuilder {
-	rb.v.Normalize = &normalize
-	return rb
+	return r
 }

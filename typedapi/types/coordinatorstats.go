@@ -17,62 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CoordinatorStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/enrich/stats/types.ts#L29-L35
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/enrich/stats/types.ts#L29-L35
 type CoordinatorStats struct {
-	ExecutedSearchesTotal int64 `json:"executed_searches_total"`
-	NodeId                Id    `json:"node_id"`
-	QueueSize             int   `json:"queue_size"`
-	RemoteRequestsCurrent int   `json:"remote_requests_current"`
-	RemoteRequestsTotal   int64 `json:"remote_requests_total"`
+	ExecutedSearchesTotal int64  `json:"executed_searches_total"`
+	NodeId                string `json:"node_id"`
+	QueueSize             int    `json:"queue_size"`
+	RemoteRequestsCurrent int    `json:"remote_requests_current"`
+	RemoteRequestsTotal   int64  `json:"remote_requests_total"`
 }
 
-// CoordinatorStatsBuilder holds CoordinatorStats struct and provides a builder API.
-type CoordinatorStatsBuilder struct {
-	v *CoordinatorStats
-}
+// NewCoordinatorStats returns a CoordinatorStats.
+func NewCoordinatorStats() *CoordinatorStats {
+	r := &CoordinatorStats{}
 
-// NewCoordinatorStats provides a builder for the CoordinatorStats struct.
-func NewCoordinatorStatsBuilder() *CoordinatorStatsBuilder {
-	r := CoordinatorStatsBuilder{
-		&CoordinatorStats{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the CoordinatorStats struct
-func (rb *CoordinatorStatsBuilder) Build() CoordinatorStats {
-	return *rb.v
-}
-
-func (rb *CoordinatorStatsBuilder) ExecutedSearchesTotal(executedsearchestotal int64) *CoordinatorStatsBuilder {
-	rb.v.ExecutedSearchesTotal = executedsearchestotal
-	return rb
-}
-
-func (rb *CoordinatorStatsBuilder) NodeId(nodeid Id) *CoordinatorStatsBuilder {
-	rb.v.NodeId = nodeid
-	return rb
-}
-
-func (rb *CoordinatorStatsBuilder) QueueSize(queuesize int) *CoordinatorStatsBuilder {
-	rb.v.QueueSize = queuesize
-	return rb
-}
-
-func (rb *CoordinatorStatsBuilder) RemoteRequestsCurrent(remoterequestscurrent int) *CoordinatorStatsBuilder {
-	rb.v.RemoteRequestsCurrent = remoterequestscurrent
-	return rb
-}
-
-func (rb *CoordinatorStatsBuilder) RemoteRequestsTotal(remoterequeststotal int64) *CoordinatorStatsBuilder {
-	rb.v.RemoteRequestsTotal = remoterequeststotal
-	return rb
+	return r
 }

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,59 +28,21 @@ import (
 
 // LanguageAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/analysis/analyzers.ts#L52-L59
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/analyzers.ts#L52-L59
 type LanguageAnalyzer struct {
 	Language      language.Language `json:"language"`
 	StemExclusion []string          `json:"stem_exclusion"`
-	Stopwords     *StopWords        `json:"stopwords,omitempty"`
+	Stopwords     []string          `json:"stopwords,omitempty"`
 	StopwordsPath *string           `json:"stopwords_path,omitempty"`
 	Type          string            `json:"type,omitempty"`
-	Version       *VersionString    `json:"version,omitempty"`
+	Version       *string           `json:"version,omitempty"`
 }
 
-// LanguageAnalyzerBuilder holds LanguageAnalyzer struct and provides a builder API.
-type LanguageAnalyzerBuilder struct {
-	v *LanguageAnalyzer
-}
+// NewLanguageAnalyzer returns a LanguageAnalyzer.
+func NewLanguageAnalyzer() *LanguageAnalyzer {
+	r := &LanguageAnalyzer{}
 
-// NewLanguageAnalyzer provides a builder for the LanguageAnalyzer struct.
-func NewLanguageAnalyzerBuilder() *LanguageAnalyzerBuilder {
-	r := LanguageAnalyzerBuilder{
-		&LanguageAnalyzer{},
-	}
+	r.Type = "language"
 
-	r.v.Type = "language"
-
-	return &r
-}
-
-// Build finalize the chain and returns the LanguageAnalyzer struct
-func (rb *LanguageAnalyzerBuilder) Build() LanguageAnalyzer {
-	return *rb.v
-}
-
-func (rb *LanguageAnalyzerBuilder) Language(language language.Language) *LanguageAnalyzerBuilder {
-	rb.v.Language = language
-	return rb
-}
-
-func (rb *LanguageAnalyzerBuilder) StemExclusion(stem_exclusion ...string) *LanguageAnalyzerBuilder {
-	rb.v.StemExclusion = stem_exclusion
-	return rb
-}
-
-func (rb *LanguageAnalyzerBuilder) Stopwords(stopwords *StopWordsBuilder) *LanguageAnalyzerBuilder {
-	v := stopwords.Build()
-	rb.v.Stopwords = &v
-	return rb
-}
-
-func (rb *LanguageAnalyzerBuilder) StopwordsPath(stopwordspath string) *LanguageAnalyzerBuilder {
-	rb.v.StopwordsPath = &stopwordspath
-	return rb
-}
-
-func (rb *LanguageAnalyzerBuilder) Version(version VersionString) *LanguageAnalyzerBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

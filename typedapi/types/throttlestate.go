@@ -17,45 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ThrottleState type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/watcher/_types/Action.ts#L123-L126
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Action.ts#L123-L126
 type ThrottleState struct {
 	Reason    string   `json:"reason"`
 	Timestamp DateTime `json:"timestamp"`
 }
 
-// ThrottleStateBuilder holds ThrottleState struct and provides a builder API.
-type ThrottleStateBuilder struct {
-	v *ThrottleState
-}
+// NewThrottleState returns a ThrottleState.
+func NewThrottleState() *ThrottleState {
+	r := &ThrottleState{}
 
-// NewThrottleState provides a builder for the ThrottleState struct.
-func NewThrottleStateBuilder() *ThrottleStateBuilder {
-	r := ThrottleStateBuilder{
-		&ThrottleState{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ThrottleState struct
-func (rb *ThrottleStateBuilder) Build() ThrottleState {
-	return *rb.v
-}
-
-func (rb *ThrottleStateBuilder) Reason(reason string) *ThrottleStateBuilder {
-	rb.v.Reason = reason
-	return rb
-}
-
-func (rb *ThrottleStateBuilder) Timestamp(timestamp *DateTimeBuilder) *ThrottleStateBuilder {
-	v := timestamp.Build()
-	rb.v.Timestamp = v
-	return rb
+	return r
 }

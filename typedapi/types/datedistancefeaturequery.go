@@ -17,63 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DateDistanceFeatureQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/specialized.ts#L51-L54
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/specialized.ts#L51-L54
 type DateDistanceFeatureQuery struct {
 	Boost      *float32 `json:"boost,omitempty"`
-	Field      Field    `json:"field"`
-	Origin     DateMath `json:"origin"`
+	Field      string   `json:"field"`
+	Origin     string   `json:"origin"`
 	Pivot      Duration `json:"pivot"`
 	QueryName_ *string  `json:"_name,omitempty"`
 }
 
-// DateDistanceFeatureQueryBuilder holds DateDistanceFeatureQuery struct and provides a builder API.
-type DateDistanceFeatureQueryBuilder struct {
-	v *DateDistanceFeatureQuery
-}
+// NewDateDistanceFeatureQuery returns a DateDistanceFeatureQuery.
+func NewDateDistanceFeatureQuery() *DateDistanceFeatureQuery {
+	r := &DateDistanceFeatureQuery{}
 
-// NewDateDistanceFeatureQuery provides a builder for the DateDistanceFeatureQuery struct.
-func NewDateDistanceFeatureQueryBuilder() *DateDistanceFeatureQueryBuilder {
-	r := DateDistanceFeatureQueryBuilder{
-		&DateDistanceFeatureQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DateDistanceFeatureQuery struct
-func (rb *DateDistanceFeatureQueryBuilder) Build() DateDistanceFeatureQuery {
-	return *rb.v
-}
-
-func (rb *DateDistanceFeatureQueryBuilder) Boost(boost float32) *DateDistanceFeatureQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *DateDistanceFeatureQueryBuilder) Field(field Field) *DateDistanceFeatureQueryBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *DateDistanceFeatureQueryBuilder) Origin(origin DateMath) *DateDistanceFeatureQueryBuilder {
-	rb.v.Origin = origin
-	return rb
-}
-
-func (rb *DateDistanceFeatureQueryBuilder) Pivot(pivot *DurationBuilder) *DateDistanceFeatureQueryBuilder {
-	v := pivot.Build()
-	rb.v.Pivot = v
-	return rb
-}
-
-func (rb *DateDistanceFeatureQueryBuilder) QueryName_(queryname_ string) *DateDistanceFeatureQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
+	return r
 }

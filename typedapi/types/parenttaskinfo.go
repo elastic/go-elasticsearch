@@ -17,127 +17,36 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ParentTaskInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/tasks/_types/TaskListResponseBase.ts#L45-L47
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/tasks/_types/TaskListResponseBase.ts#L45-L47
 type ParentTaskInfo struct {
-	Action             string                 `json:"action"`
-	Cancellable        bool                   `json:"cancellable"`
-	Cancelled          *bool                  `json:"cancelled,omitempty"`
-	Children           []TaskInfo             `json:"children,omitempty"`
-	Description        *string                `json:"description,omitempty"`
-	Headers            map[string]string      `json:"headers"`
-	Id                 int64                  `json:"id"`
-	Node               NodeId                 `json:"node"`
-	ParentTaskId       *TaskId                `json:"parent_task_id,omitempty"`
-	RunningTime        *Duration              `json:"running_time,omitempty"`
-	RunningTimeInNanos DurationValueUnitNanos `json:"running_time_in_nanos"`
-	StartTimeInMillis  EpochTimeUnitMillis    `json:"start_time_in_millis"`
-	Status             *TaskStatus            `json:"status,omitempty"`
-	Type               string                 `json:"type"`
+	Action             string            `json:"action"`
+	Cancellable        bool              `json:"cancellable"`
+	Cancelled          *bool             `json:"cancelled,omitempty"`
+	Children           []TaskInfo        `json:"children,omitempty"`
+	Description        *string           `json:"description,omitempty"`
+	Headers            map[string]string `json:"headers"`
+	Id                 int64             `json:"id"`
+	Node               string            `json:"node"`
+	ParentTaskId       *TaskId           `json:"parent_task_id,omitempty"`
+	RunningTime        *Duration         `json:"running_time,omitempty"`
+	RunningTimeInNanos int64             `json:"running_time_in_nanos"`
+	StartTimeInMillis  int64             `json:"start_time_in_millis"`
+	Status             *TaskStatus       `json:"status,omitempty"`
+	Type               string            `json:"type"`
 }
 
-// ParentTaskInfoBuilder holds ParentTaskInfo struct and provides a builder API.
-type ParentTaskInfoBuilder struct {
-	v *ParentTaskInfo
-}
-
-// NewParentTaskInfo provides a builder for the ParentTaskInfo struct.
-func NewParentTaskInfoBuilder() *ParentTaskInfoBuilder {
-	r := ParentTaskInfoBuilder{
-		&ParentTaskInfo{
-			Headers: make(map[string]string, 0),
-		},
+// NewParentTaskInfo returns a ParentTaskInfo.
+func NewParentTaskInfo() *ParentTaskInfo {
+	r := &ParentTaskInfo{
+		Headers: make(map[string]string, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the ParentTaskInfo struct
-func (rb *ParentTaskInfoBuilder) Build() ParentTaskInfo {
-	return *rb.v
-}
-
-func (rb *ParentTaskInfoBuilder) Action(action string) *ParentTaskInfoBuilder {
-	rb.v.Action = action
-	return rb
-}
-
-func (rb *ParentTaskInfoBuilder) Cancellable(cancellable bool) *ParentTaskInfoBuilder {
-	rb.v.Cancellable = cancellable
-	return rb
-}
-
-func (rb *ParentTaskInfoBuilder) Cancelled(cancelled bool) *ParentTaskInfoBuilder {
-	rb.v.Cancelled = &cancelled
-	return rb
-}
-
-func (rb *ParentTaskInfoBuilder) Children(children []TaskInfoBuilder) *ParentTaskInfoBuilder {
-	tmp := make([]TaskInfo, len(children))
-	for _, value := range children {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Children = tmp
-	return rb
-}
-
-func (rb *ParentTaskInfoBuilder) Description(description string) *ParentTaskInfoBuilder {
-	rb.v.Description = &description
-	return rb
-}
-
-func (rb *ParentTaskInfoBuilder) Headers(value map[string]string) *ParentTaskInfoBuilder {
-	rb.v.Headers = value
-	return rb
-}
-
-func (rb *ParentTaskInfoBuilder) Id(id int64) *ParentTaskInfoBuilder {
-	rb.v.Id = id
-	return rb
-}
-
-func (rb *ParentTaskInfoBuilder) Node(node NodeId) *ParentTaskInfoBuilder {
-	rb.v.Node = node
-	return rb
-}
-
-func (rb *ParentTaskInfoBuilder) ParentTaskId(parenttaskid *TaskIdBuilder) *ParentTaskInfoBuilder {
-	v := parenttaskid.Build()
-	rb.v.ParentTaskId = &v
-	return rb
-}
-
-func (rb *ParentTaskInfoBuilder) RunningTime(runningtime *DurationBuilder) *ParentTaskInfoBuilder {
-	v := runningtime.Build()
-	rb.v.RunningTime = &v
-	return rb
-}
-
-func (rb *ParentTaskInfoBuilder) RunningTimeInNanos(runningtimeinnanos *DurationValueUnitNanosBuilder) *ParentTaskInfoBuilder {
-	v := runningtimeinnanos.Build()
-	rb.v.RunningTimeInNanos = v
-	return rb
-}
-
-func (rb *ParentTaskInfoBuilder) StartTimeInMillis(starttimeinmillis *EpochTimeUnitMillisBuilder) *ParentTaskInfoBuilder {
-	v := starttimeinmillis.Build()
-	rb.v.StartTimeInMillis = v
-	return rb
-}
-
-func (rb *ParentTaskInfoBuilder) Status(status *TaskStatusBuilder) *ParentTaskInfoBuilder {
-	v := status.Build()
-	rb.v.Status = &v
-	return rb
-}
-
-func (rb *ParentTaskInfoBuilder) Type_(type_ string) *ParentTaskInfoBuilder {
-	rb.v.Type = type_
-	return rb
+	return r
 }

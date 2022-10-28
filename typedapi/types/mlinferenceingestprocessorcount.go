@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MlInferenceIngestProcessorCount type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/xpack/usage/types.ts#L224-L228
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L224-L228
 type MlInferenceIngestProcessorCount struct {
 	Max int64 `json:"max"`
 	Min int64 `json:"min"`
 	Sum int64 `json:"sum"`
 }
 
-// MlInferenceIngestProcessorCountBuilder holds MlInferenceIngestProcessorCount struct and provides a builder API.
-type MlInferenceIngestProcessorCountBuilder struct {
-	v *MlInferenceIngestProcessorCount
-}
+// NewMlInferenceIngestProcessorCount returns a MlInferenceIngestProcessorCount.
+func NewMlInferenceIngestProcessorCount() *MlInferenceIngestProcessorCount {
+	r := &MlInferenceIngestProcessorCount{}
 
-// NewMlInferenceIngestProcessorCount provides a builder for the MlInferenceIngestProcessorCount struct.
-func NewMlInferenceIngestProcessorCountBuilder() *MlInferenceIngestProcessorCountBuilder {
-	r := MlInferenceIngestProcessorCountBuilder{
-		&MlInferenceIngestProcessorCount{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MlInferenceIngestProcessorCount struct
-func (rb *MlInferenceIngestProcessorCountBuilder) Build() MlInferenceIngestProcessorCount {
-	return *rb.v
-}
-
-func (rb *MlInferenceIngestProcessorCountBuilder) Max(max int64) *MlInferenceIngestProcessorCountBuilder {
-	rb.v.Max = max
-	return rb
-}
-
-func (rb *MlInferenceIngestProcessorCountBuilder) Min(min int64) *MlInferenceIngestProcessorCountBuilder {
-	rb.v.Min = min
-	return rb
-}
-
-func (rb *MlInferenceIngestProcessorCountBuilder) Sum(sum int64) *MlInferenceIngestProcessorCountBuilder {
-	rb.v.Sum = sum
-	return rb
+	return r
 }

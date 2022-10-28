@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package putjob
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package putjob
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/put_job/MlPutJobRequest.ts#L30-L111
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/put_job/MlPutJobRequest.ts#L30-L111
 type Request struct {
 
 	// AllowLazyOpen Advanced configuration option. Specifies whether this job can open when there
@@ -43,17 +43,14 @@ type Request struct {
 	// anomaly detection jobs API does not return an error and the job waits in the
 	// opening state until sufficient machine learning node capacity is available.
 	AllowLazyOpen *bool `json:"allow_lazy_open,omitempty"`
-
 	// AnalysisConfig Specifies how to analyze the data. After you create a job, you cannot change
 	// the analysis configuration; all the properties are informational.
 	AnalysisConfig types.AnalysisConfig `json:"analysis_config"`
-
 	// AnalysisLimits Limits can be applied for the resources required to hold the mathematical
 	// models in memory. These limits are approximate and can be set per job. They
 	// do not control the memory used by other processes, for example the
 	// Elasticsearch Java processes.
 	AnalysisLimits *types.AnalysisLimits `json:"analysis_limits,omitempty"`
-
 	// BackgroundPersistInterval Advanced configuration option. The time between each periodic persistence of
 	// the model. The default value is a randomized value between 3 to 4 hours,
 	// which avoids all jobs persisting at exactly the same time. The smallest
@@ -61,36 +58,29 @@ type Request struct {
 	// could take 10-20 minutes, so do not set the `background_persist_interval`
 	// value too low.
 	BackgroundPersistInterval *types.Duration `json:"background_persist_interval,omitempty"`
-
 	// CustomSettings Advanced configuration option. Contains custom meta data about the job.
-	CustomSettings *types.CustomSettings `json:"custom_settings,omitempty"`
-
+	CustomSettings interface{} `json:"custom_settings,omitempty"`
 	// DailyModelSnapshotRetentionAfterDays Advanced configuration option, which affects the automatic removal of old
 	// model snapshots for this job. It specifies a period of time (in days) after
 	// which only the first snapshot per day is retained. This period is relative to
 	// the timestamp of the most recent snapshot for this job. Valid values range
 	// from 0 to `model_snapshot_retention_days`.
 	DailyModelSnapshotRetentionAfterDays *int64 `json:"daily_model_snapshot_retention_after_days,omitempty"`
-
 	// DataDescription Defines the format of the input data when you send data to the job by using
 	// the post data API. Note that when configure a datafeed, these properties are
 	// automatically set. When data is received via the post data API, it is not
 	// stored in Elasticsearch. Only the results for anomaly detection are retained.
 	DataDescription types.DataDescription `json:"data_description"`
-
 	// DatafeedConfig Defines a datafeed for the anomaly detection job. If Elasticsearch security
 	// features are enabled, your datafeed remembers which roles the user who
 	// created it had at the time of creation and runs the query using those same
 	// roles. If you provide secondary authorization headers, those credentials are
 	// used instead.
 	DatafeedConfig *types.DatafeedConfig `json:"datafeed_config,omitempty"`
-
 	// Description A description of the job.
 	Description *string `json:"description,omitempty"`
-
 	// Groups A list of job groups. A job can belong to no groups or many.
 	Groups []string `json:"groups,omitempty"`
-
 	// ModelPlotConfig This advanced configuration option stores model information along with the
 	// results. It provides a more detailed view into anomaly detection. If you
 	// enable model plot it can add considerable overhead to the performance of the
@@ -101,23 +91,19 @@ type Request struct {
 	// the model plot. Model plot config can be configured when the job is created
 	// or updated later. It must be disabled if performance issues are experienced.
 	ModelPlotConfig *types.ModelPlotConfig `json:"model_plot_config,omitempty"`
-
 	// ModelSnapshotRetentionDays Advanced configuration option, which affects the automatic removal of old
 	// model snapshots for this job. It specifies the maximum period of time (in
 	// days) that snapshots are retained. This period is relative to the timestamp
 	// of the most recent snapshot for this job. By default, snapshots ten days
 	// older than the newest snapshot are deleted.
 	ModelSnapshotRetentionDays *int64 `json:"model_snapshot_retention_days,omitempty"`
-
 	// RenormalizationWindowDays Advanced configuration option. The period over which adjustments to the score
 	// are applied, as new data is seen. The default value is the longer of 30 days
 	// or 100 bucket spans.
 	RenormalizationWindowDays *int64 `json:"renormalization_window_days,omitempty"`
-
 	// ResultsIndexName A text string that affects the name of the machine learning results index. By
 	// default, the job generates an index named `.ml-anomalies-shared`.
-	ResultsIndexName *types.IndexName `json:"results_index_name,omitempty"`
-
+	ResultsIndexName *string `json:"results_index_name,omitempty"`
 	// ResultsRetentionDays Advanced configuration option. The period of time (in days) that results are
 	// retained. Age is calculated relative to the timestamp of the latest bucket
 	// result. If this property has a non-null value, once per day at 00:30 (server
@@ -129,21 +115,14 @@ type Request struct {
 	ResultsRetentionDays *int64 `json:"results_retention_days,omitempty"`
 }
 
-// RequestBuilder is the builder API for the putjob.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -152,91 +131,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) AllowLazyOpen(allowlazyopen bool) *RequestBuilder {
-	rb.v.AllowLazyOpen = &allowlazyopen
-	return rb
-}
-
-func (rb *RequestBuilder) AnalysisConfig(analysisconfig *types.AnalysisConfigBuilder) *RequestBuilder {
-	v := analysisconfig.Build()
-	rb.v.AnalysisConfig = v
-	return rb
-}
-
-func (rb *RequestBuilder) AnalysisLimits(analysislimits *types.AnalysisLimitsBuilder) *RequestBuilder {
-	v := analysislimits.Build()
-	rb.v.AnalysisLimits = &v
-	return rb
-}
-
-func (rb *RequestBuilder) BackgroundPersistInterval(backgroundpersistinterval *types.DurationBuilder) *RequestBuilder {
-	v := backgroundpersistinterval.Build()
-	rb.v.BackgroundPersistInterval = &v
-	return rb
-}
-
-func (rb *RequestBuilder) CustomSettings(customsettings *types.CustomSettingsBuilder) *RequestBuilder {
-	v := customsettings.Build()
-	rb.v.CustomSettings = &v
-	return rb
-}
-
-func (rb *RequestBuilder) DailyModelSnapshotRetentionAfterDays(dailymodelsnapshotretentionafterdays int64) *RequestBuilder {
-	rb.v.DailyModelSnapshotRetentionAfterDays = &dailymodelsnapshotretentionafterdays
-	return rb
-}
-
-func (rb *RequestBuilder) DataDescription(datadescription *types.DataDescriptionBuilder) *RequestBuilder {
-	v := datadescription.Build()
-	rb.v.DataDescription = v
-	return rb
-}
-
-func (rb *RequestBuilder) DatafeedConfig(datafeedconfig *types.DatafeedConfigBuilder) *RequestBuilder {
-	v := datafeedconfig.Build()
-	rb.v.DatafeedConfig = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Description(description string) *RequestBuilder {
-	rb.v.Description = &description
-	return rb
-}
-
-func (rb *RequestBuilder) Groups(groups ...string) *RequestBuilder {
-	rb.v.Groups = groups
-	return rb
-}
-
-func (rb *RequestBuilder) ModelPlotConfig(modelplotconfig *types.ModelPlotConfigBuilder) *RequestBuilder {
-	v := modelplotconfig.Build()
-	rb.v.ModelPlotConfig = &v
-	return rb
-}
-
-func (rb *RequestBuilder) ModelSnapshotRetentionDays(modelsnapshotretentiondays int64) *RequestBuilder {
-	rb.v.ModelSnapshotRetentionDays = &modelsnapshotretentiondays
-	return rb
-}
-
-func (rb *RequestBuilder) RenormalizationWindowDays(renormalizationwindowdays int64) *RequestBuilder {
-	rb.v.RenormalizationWindowDays = &renormalizationwindowdays
-	return rb
-}
-
-func (rb *RequestBuilder) ResultsIndexName(resultsindexname types.IndexName) *RequestBuilder {
-	rb.v.ResultsIndexName = &resultsindexname
-	return rb
-}
-
-func (rb *RequestBuilder) ResultsRetentionDays(resultsretentiondays int64) *RequestBuilder {
-	rb.v.ResultsRetentionDays = &resultsretentiondays
-	return rb
 }

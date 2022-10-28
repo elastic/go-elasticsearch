@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TypeQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/term.ts#L145-L147
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/term.ts#L145-L147
 type TypeQuery struct {
 	Boost      *float32 `json:"boost,omitempty"`
 	QueryName_ *string  `json:"_name,omitempty"`
 	Value      string   `json:"value"`
 }
 
-// TypeQueryBuilder holds TypeQuery struct and provides a builder API.
-type TypeQueryBuilder struct {
-	v *TypeQuery
-}
+// NewTypeQuery returns a TypeQuery.
+func NewTypeQuery() *TypeQuery {
+	r := &TypeQuery{}
 
-// NewTypeQuery provides a builder for the TypeQuery struct.
-func NewTypeQueryBuilder() *TypeQueryBuilder {
-	r := TypeQueryBuilder{
-		&TypeQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TypeQuery struct
-func (rb *TypeQueryBuilder) Build() TypeQuery {
-	return *rb.v
-}
-
-func (rb *TypeQueryBuilder) Boost(boost float32) *TypeQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *TypeQueryBuilder) QueryName_(queryname_ string) *TypeQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
-}
-
-func (rb *TypeQueryBuilder) Value(value string) *TypeQueryBuilder {
-	rb.v.Value = value
-	return rb
+	return r
 }

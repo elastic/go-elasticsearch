@@ -17,32 +17,12 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SortResults type alias.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/sort.ts#L101-L101
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/sort.ts#L101-L101
 type SortResults []FieldValue
-
-// SortResultsBuilder holds SortResults struct and provides a builder API.
-type SortResultsBuilder struct {
-	v SortResults
-}
-
-// NewSortResults provides a builder for the SortResults struct.
-func NewSortResultsBuilder() *SortResultsBuilder {
-	return &SortResultsBuilder{}
-}
-
-// Build finalize the chain and returns the SortResults struct
-func (b *SortResultsBuilder) Build() SortResults {
-	return b.v
-}
-
-func (b *SortResultsBuilder) SortResults(value SortResults) *SortResultsBuilder {
-	b.v = value
-	return b
-}

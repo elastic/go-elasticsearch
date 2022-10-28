@@ -17,45 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IlmPolicyStatistics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/xpack/usage/types.ts#L149-L152
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L149-L152
 type IlmPolicyStatistics struct {
 	IndicesManaged int    `json:"indices_managed"`
 	Phases         Phases `json:"phases"`
 }
 
-// IlmPolicyStatisticsBuilder holds IlmPolicyStatistics struct and provides a builder API.
-type IlmPolicyStatisticsBuilder struct {
-	v *IlmPolicyStatistics
-}
+// NewIlmPolicyStatistics returns a IlmPolicyStatistics.
+func NewIlmPolicyStatistics() *IlmPolicyStatistics {
+	r := &IlmPolicyStatistics{}
 
-// NewIlmPolicyStatistics provides a builder for the IlmPolicyStatistics struct.
-func NewIlmPolicyStatisticsBuilder() *IlmPolicyStatisticsBuilder {
-	r := IlmPolicyStatisticsBuilder{
-		&IlmPolicyStatistics{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IlmPolicyStatistics struct
-func (rb *IlmPolicyStatisticsBuilder) Build() IlmPolicyStatistics {
-	return *rb.v
-}
-
-func (rb *IlmPolicyStatisticsBuilder) IndicesManaged(indicesmanaged int) *IlmPolicyStatisticsBuilder {
-	rb.v.IndicesManaged = indicesmanaged
-	return rb
-}
-
-func (rb *IlmPolicyStatisticsBuilder) Phases(phases *PhasesBuilder) *IlmPolicyStatisticsBuilder {
-	v := phases.Build()
-	rb.v.Phases = v
-	return rb
+	return r
 }

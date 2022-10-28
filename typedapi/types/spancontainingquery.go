@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SpanContainingQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/span.ts#L25-L28
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/span.ts#L25-L28
 type SpanContainingQuery struct {
 	Big        *SpanQuery `json:"big,omitempty"`
 	Boost      *float32   `json:"boost,omitempty"`
@@ -32,43 +32,9 @@ type SpanContainingQuery struct {
 	QueryName_ *string    `json:"_name,omitempty"`
 }
 
-// SpanContainingQueryBuilder holds SpanContainingQuery struct and provides a builder API.
-type SpanContainingQueryBuilder struct {
-	v *SpanContainingQuery
-}
+// NewSpanContainingQuery returns a SpanContainingQuery.
+func NewSpanContainingQuery() *SpanContainingQuery {
+	r := &SpanContainingQuery{}
 
-// NewSpanContainingQuery provides a builder for the SpanContainingQuery struct.
-func NewSpanContainingQueryBuilder() *SpanContainingQueryBuilder {
-	r := SpanContainingQueryBuilder{
-		&SpanContainingQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SpanContainingQuery struct
-func (rb *SpanContainingQueryBuilder) Build() SpanContainingQuery {
-	return *rb.v
-}
-
-func (rb *SpanContainingQueryBuilder) Big(big *SpanQueryBuilder) *SpanContainingQueryBuilder {
-	v := big.Build()
-	rb.v.Big = &v
-	return rb
-}
-
-func (rb *SpanContainingQueryBuilder) Boost(boost float32) *SpanContainingQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *SpanContainingQueryBuilder) Little(little *SpanQueryBuilder) *SpanContainingQueryBuilder {
-	v := little.Build()
-	rb.v.Little = &v
-	return rb
-}
-
-func (rb *SpanContainingQueryBuilder) QueryName_(queryname_ string) *SpanContainingQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
+	return r
 }

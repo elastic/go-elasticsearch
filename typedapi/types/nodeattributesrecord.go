@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeAttributesRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/cat/nodeattrs/types.ts#L20-L55
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cat/nodeattrs/types.ts#L20-L55
 type NodeAttributesRecord struct {
 	// Attr attribute description
 	Attr *string `json:"attr,omitempty"`
@@ -44,77 +44,9 @@ type NodeAttributesRecord struct {
 	Value *string `json:"value,omitempty"`
 }
 
-// NodeAttributesRecordBuilder holds NodeAttributesRecord struct and provides a builder API.
-type NodeAttributesRecordBuilder struct {
-	v *NodeAttributesRecord
-}
+// NewNodeAttributesRecord returns a NodeAttributesRecord.
+func NewNodeAttributesRecord() *NodeAttributesRecord {
+	r := &NodeAttributesRecord{}
 
-// NewNodeAttributesRecord provides a builder for the NodeAttributesRecord struct.
-func NewNodeAttributesRecordBuilder() *NodeAttributesRecordBuilder {
-	r := NodeAttributesRecordBuilder{
-		&NodeAttributesRecord{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodeAttributesRecord struct
-func (rb *NodeAttributesRecordBuilder) Build() NodeAttributesRecord {
-	return *rb.v
-}
-
-// Attr attribute description
-
-func (rb *NodeAttributesRecordBuilder) Attr(attr string) *NodeAttributesRecordBuilder {
-	rb.v.Attr = &attr
-	return rb
-}
-
-// Host host name
-
-func (rb *NodeAttributesRecordBuilder) Host(host string) *NodeAttributesRecordBuilder {
-	rb.v.Host = &host
-	return rb
-}
-
-// Id unique node id
-
-func (rb *NodeAttributesRecordBuilder) Id(id string) *NodeAttributesRecordBuilder {
-	rb.v.Id = &id
-	return rb
-}
-
-// Ip ip address
-
-func (rb *NodeAttributesRecordBuilder) Ip(ip string) *NodeAttributesRecordBuilder {
-	rb.v.Ip = &ip
-	return rb
-}
-
-// Node node name
-
-func (rb *NodeAttributesRecordBuilder) Node(node string) *NodeAttributesRecordBuilder {
-	rb.v.Node = &node
-	return rb
-}
-
-// Pid process id
-
-func (rb *NodeAttributesRecordBuilder) Pid(pid string) *NodeAttributesRecordBuilder {
-	rb.v.Pid = &pid
-	return rb
-}
-
-// Port bound transport port
-
-func (rb *NodeAttributesRecordBuilder) Port(port string) *NodeAttributesRecordBuilder {
-	rb.v.Port = &port
-	return rb
-}
-
-// Value attribute value
-
-func (rb *NodeAttributesRecordBuilder) Value(value string) *NodeAttributesRecordBuilder {
-	rb.v.Value = &value
-	return rb
+	return r
 }

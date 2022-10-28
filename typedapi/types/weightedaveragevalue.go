@@ -17,51 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // WeightedAverageValue type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/metric.ts#L218-L222
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/metric.ts#L218-L222
 type WeightedAverageValue struct {
-	Field   *Field   `json:"field,omitempty"`
+	Field   *string  `json:"field,omitempty"`
 	Missing *float64 `json:"missing,omitempty"`
 	Script  *Script  `json:"script,omitempty"`
 }
 
-// WeightedAverageValueBuilder holds WeightedAverageValue struct and provides a builder API.
-type WeightedAverageValueBuilder struct {
-	v *WeightedAverageValue
-}
+// NewWeightedAverageValue returns a WeightedAverageValue.
+func NewWeightedAverageValue() *WeightedAverageValue {
+	r := &WeightedAverageValue{}
 
-// NewWeightedAverageValue provides a builder for the WeightedAverageValue struct.
-func NewWeightedAverageValueBuilder() *WeightedAverageValueBuilder {
-	r := WeightedAverageValueBuilder{
-		&WeightedAverageValue{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the WeightedAverageValue struct
-func (rb *WeightedAverageValueBuilder) Build() WeightedAverageValue {
-	return *rb.v
-}
-
-func (rb *WeightedAverageValueBuilder) Field(field Field) *WeightedAverageValueBuilder {
-	rb.v.Field = &field
-	return rb
-}
-
-func (rb *WeightedAverageValueBuilder) Missing(missing float64) *WeightedAverageValueBuilder {
-	rb.v.Missing = &missing
-	return rb
-}
-
-func (rb *WeightedAverageValueBuilder) Script(script *ScriptBuilder) *WeightedAverageValueBuilder {
-	v := script.Build()
-	rb.v.Script = &v
-	return rb
+	return r
 }

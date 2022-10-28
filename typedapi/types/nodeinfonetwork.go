@@ -17,45 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeInfoNetwork type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/info/types.ts#L320-L323
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/info/types.ts#L320-L323
 type NodeInfoNetwork struct {
 	PrimaryInterface NodeInfoNetworkInterface `json:"primary_interface"`
 	RefreshInterval  int                      `json:"refresh_interval"`
 }
 
-// NodeInfoNetworkBuilder holds NodeInfoNetwork struct and provides a builder API.
-type NodeInfoNetworkBuilder struct {
-	v *NodeInfoNetwork
-}
+// NewNodeInfoNetwork returns a NodeInfoNetwork.
+func NewNodeInfoNetwork() *NodeInfoNetwork {
+	r := &NodeInfoNetwork{}
 
-// NewNodeInfoNetwork provides a builder for the NodeInfoNetwork struct.
-func NewNodeInfoNetworkBuilder() *NodeInfoNetworkBuilder {
-	r := NodeInfoNetworkBuilder{
-		&NodeInfoNetwork{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodeInfoNetwork struct
-func (rb *NodeInfoNetworkBuilder) Build() NodeInfoNetwork {
-	return *rb.v
-}
-
-func (rb *NodeInfoNetworkBuilder) PrimaryInterface(primaryinterface *NodeInfoNetworkInterfaceBuilder) *NodeInfoNetworkBuilder {
-	v := primaryinterface.Build()
-	rb.v.PrimaryInterface = v
-	return rb
-}
-
-func (rb *NodeInfoNetworkBuilder) RefreshInterval(refreshinterval int) *NodeInfoNetworkBuilder {
-	rb.v.RefreshInterval = refreshinterval
-	return rb
+	return r
 }

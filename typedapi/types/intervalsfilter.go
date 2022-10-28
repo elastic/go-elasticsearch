@@ -17,95 +17,29 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IntervalsFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/fulltext.ts#L74-L86
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/fulltext.ts#L74-L86
 type IntervalsFilter struct {
-	After          *IntervalsContainer `json:"after,omitempty"`
-	Before         *IntervalsContainer `json:"before,omitempty"`
-	ContainedBy    *IntervalsContainer `json:"contained_by,omitempty"`
-	Containing     *IntervalsContainer `json:"containing,omitempty"`
-	NotContainedBy *IntervalsContainer `json:"not_contained_by,omitempty"`
-	NotContaining  *IntervalsContainer `json:"not_containing,omitempty"`
-	NotOverlapping *IntervalsContainer `json:"not_overlapping,omitempty"`
-	Overlapping    *IntervalsContainer `json:"overlapping,omitempty"`
-	Script         *Script             `json:"script,omitempty"`
+	After          *Intervals `json:"after,omitempty"`
+	Before         *Intervals `json:"before,omitempty"`
+	ContainedBy    *Intervals `json:"contained_by,omitempty"`
+	Containing     *Intervals `json:"containing,omitempty"`
+	NotContainedBy *Intervals `json:"not_contained_by,omitempty"`
+	NotContaining  *Intervals `json:"not_containing,omitempty"`
+	NotOverlapping *Intervals `json:"not_overlapping,omitempty"`
+	Overlapping    *Intervals `json:"overlapping,omitempty"`
+	Script         *Script    `json:"script,omitempty"`
 }
 
-// IntervalsFilterBuilder holds IntervalsFilter struct and provides a builder API.
-type IntervalsFilterBuilder struct {
-	v *IntervalsFilter
-}
+// NewIntervalsFilter returns a IntervalsFilter.
+func NewIntervalsFilter() *IntervalsFilter {
+	r := &IntervalsFilter{}
 
-// NewIntervalsFilter provides a builder for the IntervalsFilter struct.
-func NewIntervalsFilterBuilder() *IntervalsFilterBuilder {
-	r := IntervalsFilterBuilder{
-		&IntervalsFilter{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IntervalsFilter struct
-func (rb *IntervalsFilterBuilder) Build() IntervalsFilter {
-	return *rb.v
-}
-
-func (rb *IntervalsFilterBuilder) After(after *IntervalsContainerBuilder) *IntervalsFilterBuilder {
-	v := after.Build()
-	rb.v.After = &v
-	return rb
-}
-
-func (rb *IntervalsFilterBuilder) Before(before *IntervalsContainerBuilder) *IntervalsFilterBuilder {
-	v := before.Build()
-	rb.v.Before = &v
-	return rb
-}
-
-func (rb *IntervalsFilterBuilder) ContainedBy(containedby *IntervalsContainerBuilder) *IntervalsFilterBuilder {
-	v := containedby.Build()
-	rb.v.ContainedBy = &v
-	return rb
-}
-
-func (rb *IntervalsFilterBuilder) Containing(containing *IntervalsContainerBuilder) *IntervalsFilterBuilder {
-	v := containing.Build()
-	rb.v.Containing = &v
-	return rb
-}
-
-func (rb *IntervalsFilterBuilder) NotContainedBy(notcontainedby *IntervalsContainerBuilder) *IntervalsFilterBuilder {
-	v := notcontainedby.Build()
-	rb.v.NotContainedBy = &v
-	return rb
-}
-
-func (rb *IntervalsFilterBuilder) NotContaining(notcontaining *IntervalsContainerBuilder) *IntervalsFilterBuilder {
-	v := notcontaining.Build()
-	rb.v.NotContaining = &v
-	return rb
-}
-
-func (rb *IntervalsFilterBuilder) NotOverlapping(notoverlapping *IntervalsContainerBuilder) *IntervalsFilterBuilder {
-	v := notoverlapping.Build()
-	rb.v.NotOverlapping = &v
-	return rb
-}
-
-func (rb *IntervalsFilterBuilder) Overlapping(overlapping *IntervalsContainerBuilder) *IntervalsFilterBuilder {
-	v := overlapping.Build()
-	rb.v.Overlapping = &v
-	return rb
-}
-
-func (rb *IntervalsFilterBuilder) Script(script *ScriptBuilder) *IntervalsFilterBuilder {
-	v := script.Build()
-	rb.v.Script = &v
-	return rb
+	return r
 }

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SerializedClusterStateDetail type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/_types/Stats.ts#L100-L106
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L100-L106
 type SerializedClusterStateDetail struct {
 	CompressedSize          *string `json:"compressed_size,omitempty"`
 	CompressedSizeInBytes   *int64  `json:"compressed_size_in_bytes,omitempty"`
@@ -33,46 +33,9 @@ type SerializedClusterStateDetail struct {
 	UncompressedSizeInBytes *int64  `json:"uncompressed_size_in_bytes,omitempty"`
 }
 
-// SerializedClusterStateDetailBuilder holds SerializedClusterStateDetail struct and provides a builder API.
-type SerializedClusterStateDetailBuilder struct {
-	v *SerializedClusterStateDetail
-}
+// NewSerializedClusterStateDetail returns a SerializedClusterStateDetail.
+func NewSerializedClusterStateDetail() *SerializedClusterStateDetail {
+	r := &SerializedClusterStateDetail{}
 
-// NewSerializedClusterStateDetail provides a builder for the SerializedClusterStateDetail struct.
-func NewSerializedClusterStateDetailBuilder() *SerializedClusterStateDetailBuilder {
-	r := SerializedClusterStateDetailBuilder{
-		&SerializedClusterStateDetail{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SerializedClusterStateDetail struct
-func (rb *SerializedClusterStateDetailBuilder) Build() SerializedClusterStateDetail {
-	return *rb.v
-}
-
-func (rb *SerializedClusterStateDetailBuilder) CompressedSize(compressedsize string) *SerializedClusterStateDetailBuilder {
-	rb.v.CompressedSize = &compressedsize
-	return rb
-}
-
-func (rb *SerializedClusterStateDetailBuilder) CompressedSizeInBytes(compressedsizeinbytes int64) *SerializedClusterStateDetailBuilder {
-	rb.v.CompressedSizeInBytes = &compressedsizeinbytes
-	return rb
-}
-
-func (rb *SerializedClusterStateDetailBuilder) Count(count int64) *SerializedClusterStateDetailBuilder {
-	rb.v.Count = &count
-	return rb
-}
-
-func (rb *SerializedClusterStateDetailBuilder) UncompressedSize(uncompressedsize string) *SerializedClusterStateDetailBuilder {
-	rb.v.UncompressedSize = &uncompressedsize
-	return rb
-}
-
-func (rb *SerializedClusterStateDetailBuilder) UncompressedSizeInBytes(uncompressedsizeinbytes int64) *SerializedClusterStateDetailBuilder {
-	rb.v.UncompressedSizeInBytes = &uncompressedsizeinbytes
-	return rb
+	return r
 }

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package putcomponenttemplate
@@ -31,38 +31,26 @@ import (
 
 // Request holds the request body struct for the package putcomponenttemplate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/cluster/put_component_template/ClusterPutComponentTemplateRequest.ts#L29-L54
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/put_component_template/ClusterPutComponentTemplateRequest.ts#L29-L54
 type Request struct {
-	Aliases map[string]types.AliasDefinition `json:"aliases,omitempty"`
-
-	Mappings *types.TypeMapping `json:"mappings,omitempty"`
-
-	Meta_ *types.Metadata `json:"_meta,omitempty"`
-
-	Settings *types.IndexSettings `json:"settings,omitempty"`
-
-	Template types.IndexState `json:"template"`
-
-	Version *types.VersionNumber `json:"version,omitempty"`
+	Aliases  map[string]types.AliasDefinition `json:"aliases,omitempty"`
+	Mappings *types.TypeMapping               `json:"mappings,omitempty"`
+	Meta_    map[string]interface{}           `json:"_meta,omitempty"`
+	Settings *types.IndexSettings             `json:"settings,omitempty"`
+	Template types.IndexState                 `json:"template"`
+	Version  *int64                           `json:"version,omitempty"`
 }
 
-// RequestBuilder is the builder API for the putcomponenttemplate.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{
-			Aliases: make(map[string]types.AliasDefinition, 0),
-		},
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{
+		Aliases: make(map[string]types.AliasDefinition, 0),
 	}
-	return &r
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -71,47 +59,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) Aliases(values map[string]*types.AliasDefinitionBuilder) *RequestBuilder {
-	tmp := make(map[string]types.AliasDefinition, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Aliases = tmp
-	return rb
-}
-
-func (rb *RequestBuilder) Mappings(mappings *types.TypeMappingBuilder) *RequestBuilder {
-	v := mappings.Build()
-	rb.v.Mappings = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Meta_(meta_ *types.MetadataBuilder) *RequestBuilder {
-	v := meta_.Build()
-	rb.v.Meta_ = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Settings(settings *types.IndexSettingsBuilder) *RequestBuilder {
-	v := settings.Build()
-	rb.v.Settings = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Template(template *types.IndexStateBuilder) *RequestBuilder {
-	v := template.Build()
-	rb.v.Template = v
-	return rb
-}
-
-func (rb *RequestBuilder) Version(version types.VersionNumber) *RequestBuilder {
-	rb.v.Version = &version
-	return rb
 }

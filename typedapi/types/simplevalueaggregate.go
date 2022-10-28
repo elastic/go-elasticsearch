@@ -17,16 +17,16 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SimpleValueAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L215-L216
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L223-L224
 type SimpleValueAggregate struct {
-	Meta *Metadata `json:"meta,omitempty"`
+	Meta map[string]interface{} `json:"meta,omitempty"`
 	// Value The metric value. A missing value generally means that there was no data to
 	// aggregate,
 	// unless specified otherwise.
@@ -34,41 +34,9 @@ type SimpleValueAggregate struct {
 	ValueAsString *string `json:"value_as_string,omitempty"`
 }
 
-// SimpleValueAggregateBuilder holds SimpleValueAggregate struct and provides a builder API.
-type SimpleValueAggregateBuilder struct {
-	v *SimpleValueAggregate
-}
+// NewSimpleValueAggregate returns a SimpleValueAggregate.
+func NewSimpleValueAggregate() *SimpleValueAggregate {
+	r := &SimpleValueAggregate{}
 
-// NewSimpleValueAggregate provides a builder for the SimpleValueAggregate struct.
-func NewSimpleValueAggregateBuilder() *SimpleValueAggregateBuilder {
-	r := SimpleValueAggregateBuilder{
-		&SimpleValueAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SimpleValueAggregate struct
-func (rb *SimpleValueAggregateBuilder) Build() SimpleValueAggregate {
-	return *rb.v
-}
-
-func (rb *SimpleValueAggregateBuilder) Meta(meta *MetadataBuilder) *SimpleValueAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-// Value The metric value. A missing value generally means that there was no data to
-// aggregate,
-// unless specified otherwise.
-
-func (rb *SimpleValueAggregateBuilder) Value(value float64) *SimpleValueAggregateBuilder {
-	rb.v.Value = value
-	return rb
-}
-
-func (rb *SimpleValueAggregateBuilder) ValueAsString(valueasstring string) *SimpleValueAggregateBuilder {
-	rb.v.ValueAsString = &valueasstring
-	return rb
+	return r
 }
