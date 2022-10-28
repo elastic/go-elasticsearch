@@ -498,7 +498,7 @@ func TestTypedClient(t *testing.T) {
 
 	t.Run("Sort serialisation", func(t *testing.T) {
 		qry := search.Request{
-			Sort: &types.Sort{
+			Sort: []types.SortCombinations{
 				types.SortOptions{SortOptions: map[string]types.FieldSort{
 					"@timestamp": {Format: some.String("strict_date_optional_time_nanos"), Order: &sortorder.Asc},
 				}},
