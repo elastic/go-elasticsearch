@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SecurityRolesFile type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/xpack/usage/types.ts#L303-L307
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L303-L307
 type SecurityRolesFile struct {
 	Dls  bool  `json:"dls"`
 	Fls  bool  `json:"fls"`
 	Size int64 `json:"size"`
 }
 
-// SecurityRolesFileBuilder holds SecurityRolesFile struct and provides a builder API.
-type SecurityRolesFileBuilder struct {
-	v *SecurityRolesFile
-}
+// NewSecurityRolesFile returns a SecurityRolesFile.
+func NewSecurityRolesFile() *SecurityRolesFile {
+	r := &SecurityRolesFile{}
 
-// NewSecurityRolesFile provides a builder for the SecurityRolesFile struct.
-func NewSecurityRolesFileBuilder() *SecurityRolesFileBuilder {
-	r := SecurityRolesFileBuilder{
-		&SecurityRolesFile{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SecurityRolesFile struct
-func (rb *SecurityRolesFileBuilder) Build() SecurityRolesFile {
-	return *rb.v
-}
-
-func (rb *SecurityRolesFileBuilder) Dls(dls bool) *SecurityRolesFileBuilder {
-	rb.v.Dls = dls
-	return rb
-}
-
-func (rb *SecurityRolesFileBuilder) Fls(fls bool) *SecurityRolesFileBuilder {
-	rb.v.Fls = fls
-	return rb
-}
-
-func (rb *SecurityRolesFileBuilder) Size(size int64) *SecurityRolesFileBuilder {
-	rb.v.Size = size
-	return rb
+	return r
 }

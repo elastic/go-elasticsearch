@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Page type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/Page.ts#L22-L33
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/Page.ts#L22-L33
 type Page struct {
 	// From Skips the specified number of items.
 	From *int `json:"from,omitempty"`
@@ -32,35 +32,9 @@ type Page struct {
 	Size *int `json:"size,omitempty"`
 }
 
-// PageBuilder holds Page struct and provides a builder API.
-type PageBuilder struct {
-	v *Page
-}
+// NewPage returns a Page.
+func NewPage() *Page {
+	r := &Page{}
 
-// NewPage provides a builder for the Page struct.
-func NewPageBuilder() *PageBuilder {
-	r := PageBuilder{
-		&Page{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Page struct
-func (rb *PageBuilder) Build() Page {
-	return *rb.v
-}
-
-// From Skips the specified number of items.
-
-func (rb *PageBuilder) From(from int) *PageBuilder {
-	rb.v.From = &from
-	return rb
-}
-
-// Size Specifies the maximum number of items to obtain.
-
-func (rb *PageBuilder) Size(size int) *PageBuilder {
-	rb.v.Size = &size
-	return rb
+	return r
 }

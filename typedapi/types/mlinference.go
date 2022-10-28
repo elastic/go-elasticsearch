@@ -17,58 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MlInference type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/xpack/usage/types.ts#L190-L195
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L190-L195
 type MlInference struct {
 	Deployments      *MlInferenceDeployments               `json:"deployments,omitempty"`
 	IngestProcessors map[string]MlInferenceIngestProcessor `json:"ingest_processors"`
 	TrainedModels    MlInferenceTrainedModels              `json:"trained_models"`
 }
 
-// MlInferenceBuilder holds MlInference struct and provides a builder API.
-type MlInferenceBuilder struct {
-	v *MlInference
-}
-
-// NewMlInference provides a builder for the MlInference struct.
-func NewMlInferenceBuilder() *MlInferenceBuilder {
-	r := MlInferenceBuilder{
-		&MlInference{
-			IngestProcessors: make(map[string]MlInferenceIngestProcessor, 0),
-		},
+// NewMlInference returns a MlInference.
+func NewMlInference() *MlInference {
+	r := &MlInference{
+		IngestProcessors: make(map[string]MlInferenceIngestProcessor, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the MlInference struct
-func (rb *MlInferenceBuilder) Build() MlInference {
-	return *rb.v
-}
-
-func (rb *MlInferenceBuilder) Deployments(deployments *MlInferenceDeploymentsBuilder) *MlInferenceBuilder {
-	v := deployments.Build()
-	rb.v.Deployments = &v
-	return rb
-}
-
-func (rb *MlInferenceBuilder) IngestProcessors(values map[string]*MlInferenceIngestProcessorBuilder) *MlInferenceBuilder {
-	tmp := make(map[string]MlInferenceIngestProcessor, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.IngestProcessors = tmp
-	return rb
-}
-
-func (rb *MlInferenceBuilder) TrainedModels(trainedmodels *MlInferenceTrainedModelsBuilder) *MlInferenceBuilder {
-	v := trainedmodels.Build()
-	rb.v.TrainedModels = v
-	return rb
+	return r
 }

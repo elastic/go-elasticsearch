@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 // Retrieves information about the index's current lifecycle state, such as the
@@ -193,7 +193,9 @@ func (r *ExplainLifecycle) Index(v string) *ExplainLifecycle {
 	return r
 }
 
-// OnlyErrors Filters the returned indices to only indices that are managed by ILM.
+// OnlyErrors Filters the returned indices to only indices that are managed by ILM and are
+// in an error state, either due to an encountering an error while executing the
+// policy, or attempting to use a policy that does not exist.
 // API name: only_errors
 func (r *ExplainLifecycle) OnlyErrors(b bool) *ExplainLifecycle {
 	r.values.Set("only_errors", strconv.FormatBool(b))
@@ -201,9 +203,7 @@ func (r *ExplainLifecycle) OnlyErrors(b bool) *ExplainLifecycle {
 	return r
 }
 
-// OnlyManaged Filters the returned indices to only indices that are managed by ILM and are
-// in an error state, either due to an encountering an error while executing the
-// policy, or attempting to use a policy that does not exist.
+// OnlyManaged Filters the returned indices to only indices that are managed by ILM.
 // API name: only_managed
 func (r *ExplainLifecycle) OnlyManaged(b bool) *ExplainLifecycle {
 	r.values.Set("only_managed", strconv.FormatBool(b))

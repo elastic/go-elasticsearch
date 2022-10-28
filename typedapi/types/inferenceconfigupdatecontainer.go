@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // InferenceConfigUpdateContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/inference.ts#L259-L279
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/inference.ts#L259-L279
 type InferenceConfigUpdateContainer struct {
 	// Classification Classification configuration for inference.
 	Classification *ClassificationInferenceOptions `json:"classification,omitempty"`
@@ -46,93 +46,9 @@ type InferenceConfigUpdateContainer struct {
 	ZeroShotClassification *ZeroShotClassificationInferenceUpdateOptions `json:"zero_shot_classification,omitempty"`
 }
 
-// InferenceConfigUpdateContainerBuilder holds InferenceConfigUpdateContainer struct and provides a builder API.
-type InferenceConfigUpdateContainerBuilder struct {
-	v *InferenceConfigUpdateContainer
-}
+// NewInferenceConfigUpdateContainer returns a InferenceConfigUpdateContainer.
+func NewInferenceConfigUpdateContainer() *InferenceConfigUpdateContainer {
+	r := &InferenceConfigUpdateContainer{}
 
-// NewInferenceConfigUpdateContainer provides a builder for the InferenceConfigUpdateContainer struct.
-func NewInferenceConfigUpdateContainerBuilder() *InferenceConfigUpdateContainerBuilder {
-	r := InferenceConfigUpdateContainerBuilder{
-		&InferenceConfigUpdateContainer{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the InferenceConfigUpdateContainer struct
-func (rb *InferenceConfigUpdateContainerBuilder) Build() InferenceConfigUpdateContainer {
-	return *rb.v
-}
-
-// Classification Classification configuration for inference.
-
-func (rb *InferenceConfigUpdateContainerBuilder) Classification(classification *ClassificationInferenceOptionsBuilder) *InferenceConfigUpdateContainerBuilder {
-	v := classification.Build()
-	rb.v.Classification = &v
-	return rb
-}
-
-// FillMask Fill mask configuration for inference.
-
-func (rb *InferenceConfigUpdateContainerBuilder) FillMask(fillmask *FillMaskInferenceUpdateOptionsBuilder) *InferenceConfigUpdateContainerBuilder {
-	v := fillmask.Build()
-	rb.v.FillMask = &v
-	return rb
-}
-
-// Ner Named entity recognition configuration for inference.
-
-func (rb *InferenceConfigUpdateContainerBuilder) Ner(ner *NerInferenceUpdateOptionsBuilder) *InferenceConfigUpdateContainerBuilder {
-	v := ner.Build()
-	rb.v.Ner = &v
-	return rb
-}
-
-// PassThrough Pass through configuration for inference.
-
-func (rb *InferenceConfigUpdateContainerBuilder) PassThrough(passthrough *PassThroughInferenceUpdateOptionsBuilder) *InferenceConfigUpdateContainerBuilder {
-	v := passthrough.Build()
-	rb.v.PassThrough = &v
-	return rb
-}
-
-// QuestionAnswering Question answering configuration for inference
-
-func (rb *InferenceConfigUpdateContainerBuilder) QuestionAnswering(questionanswering *QuestionAnsweringInferenceUpdateOptionsBuilder) *InferenceConfigUpdateContainerBuilder {
-	v := questionanswering.Build()
-	rb.v.QuestionAnswering = &v
-	return rb
-}
-
-// Regression Regression configuration for inference.
-
-func (rb *InferenceConfigUpdateContainerBuilder) Regression(regression *RegressionInferenceOptionsBuilder) *InferenceConfigUpdateContainerBuilder {
-	v := regression.Build()
-	rb.v.Regression = &v
-	return rb
-}
-
-// TextClassification Text classification configuration for inference.
-
-func (rb *InferenceConfigUpdateContainerBuilder) TextClassification(textclassification *TextClassificationInferenceUpdateOptionsBuilder) *InferenceConfigUpdateContainerBuilder {
-	v := textclassification.Build()
-	rb.v.TextClassification = &v
-	return rb
-}
-
-// TextEmbedding Text embedding configuration for inference.
-
-func (rb *InferenceConfigUpdateContainerBuilder) TextEmbedding(textembedding *TextEmbeddingInferenceUpdateOptionsBuilder) *InferenceConfigUpdateContainerBuilder {
-	v := textembedding.Build()
-	rb.v.TextEmbedding = &v
-	return rb
-}
-
-// ZeroShotClassification Zeroshot classification configuration for inference.
-
-func (rb *InferenceConfigUpdateContainerBuilder) ZeroShotClassification(zeroshotclassification *ZeroShotClassificationInferenceUpdateOptionsBuilder) *InferenceConfigUpdateContainerBuilder {
-	v := zeroshotclassification.Build()
-	rb.v.ZeroShotClassification = &v
-	return rb
+	return r
 }

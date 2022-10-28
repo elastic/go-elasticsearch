@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,13 +29,13 @@ import (
 
 // MultiTermsBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L456-L460
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L464-L468
 type MultiTermsBucket struct {
-	Aggregations            map[AggregateName]Aggregate `json:"-"`
-	DocCount                int64                       `json:"doc_count"`
-	DocCountErrorUpperBound *int64                      `json:"doc_count_error_upper_bound,omitempty"`
-	Key                     []FieldValue                `json:"key"`
-	KeyAsString             *string                     `json:"key_as_string,omitempty"`
+	Aggregations            map[string]Aggregate `json:"-"`
+	DocCount                int64                `json:"doc_count"`
+	DocCountErrorUpperBound *int64               `json:"doc_count_error_upper_bound,omitempty"`
+	Key                     []FieldValue         `json:"key"`
+	KeyAsString             *string              `json:"key_as_string,omitempty"`
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -66,52 +66,11 @@ func (s MultiTermsBucket) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// MultiTermsBucketBuilder holds MultiTermsBucket struct and provides a builder API.
-type MultiTermsBucketBuilder struct {
-	v *MultiTermsBucket
-}
-
-// NewMultiTermsBucket provides a builder for the MultiTermsBucket struct.
-func NewMultiTermsBucketBuilder() *MultiTermsBucketBuilder {
-	r := MultiTermsBucketBuilder{
-		&MultiTermsBucket{
-			Aggregations: make(map[AggregateName]Aggregate, 0),
-		},
+// NewMultiTermsBucket returns a MultiTermsBucket.
+func NewMultiTermsBucket() *MultiTermsBucket {
+	r := &MultiTermsBucket{
+		Aggregations: make(map[string]Aggregate, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the MultiTermsBucket struct
-func (rb *MultiTermsBucketBuilder) Build() MultiTermsBucket {
-	return *rb.v
-}
-
-func (rb *MultiTermsBucketBuilder) Aggregations(values map[AggregateName]*AggregateBuilder) *MultiTermsBucketBuilder {
-	tmp := make(map[AggregateName]Aggregate, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Aggregations = tmp
-	return rb
-}
-
-func (rb *MultiTermsBucketBuilder) DocCount(doccount int64) *MultiTermsBucketBuilder {
-	rb.v.DocCount = doccount
-	return rb
-}
-
-func (rb *MultiTermsBucketBuilder) DocCountErrorUpperBound(doccounterrorupperbound int64) *MultiTermsBucketBuilder {
-	rb.v.DocCountErrorUpperBound = &doccounterrorupperbound
-	return rb
-}
-
-func (rb *MultiTermsBucketBuilder) Key(key ...FieldValue) *MultiTermsBucketBuilder {
-	rb.v.Key = key
-	return rb
-}
-
-func (rb *MultiTermsBucketBuilder) KeyAsString(keyasstring string) *MultiTermsBucketBuilder {
-	rb.v.KeyAsString = &keyasstring
-	return rb
+	return r
 }

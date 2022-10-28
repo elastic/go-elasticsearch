@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,77 +28,22 @@ import (
 
 // ConvertProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ingest/_types/Processors.ts#L146-L151
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ingest/_types/Processors.ts#L147-L152
 type ConvertProcessor struct {
-	Field         Field                   `json:"field"`
+	Description   *string                 `json:"description,omitempty"`
+	Field         string                  `json:"field"`
 	If            *string                 `json:"if,omitempty"`
 	IgnoreFailure *bool                   `json:"ignore_failure,omitempty"`
 	IgnoreMissing *bool                   `json:"ignore_missing,omitempty"`
 	OnFailure     []ProcessorContainer    `json:"on_failure,omitempty"`
 	Tag           *string                 `json:"tag,omitempty"`
-	TargetField   Field                   `json:"target_field"`
+	TargetField   *string                 `json:"target_field,omitempty"`
 	Type          converttype.ConvertType `json:"type"`
 }
 
-// ConvertProcessorBuilder holds ConvertProcessor struct and provides a builder API.
-type ConvertProcessorBuilder struct {
-	v *ConvertProcessor
-}
+// NewConvertProcessor returns a ConvertProcessor.
+func NewConvertProcessor() *ConvertProcessor {
+	r := &ConvertProcessor{}
 
-// NewConvertProcessor provides a builder for the ConvertProcessor struct.
-func NewConvertProcessorBuilder() *ConvertProcessorBuilder {
-	r := ConvertProcessorBuilder{
-		&ConvertProcessor{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ConvertProcessor struct
-func (rb *ConvertProcessorBuilder) Build() ConvertProcessor {
-	return *rb.v
-}
-
-func (rb *ConvertProcessorBuilder) Field(field Field) *ConvertProcessorBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *ConvertProcessorBuilder) If_(if_ string) *ConvertProcessorBuilder {
-	rb.v.If = &if_
-	return rb
-}
-
-func (rb *ConvertProcessorBuilder) IgnoreFailure(ignorefailure bool) *ConvertProcessorBuilder {
-	rb.v.IgnoreFailure = &ignorefailure
-	return rb
-}
-
-func (rb *ConvertProcessorBuilder) IgnoreMissing(ignoremissing bool) *ConvertProcessorBuilder {
-	rb.v.IgnoreMissing = &ignoremissing
-	return rb
-}
-
-func (rb *ConvertProcessorBuilder) OnFailure(on_failure []ProcessorContainerBuilder) *ConvertProcessorBuilder {
-	tmp := make([]ProcessorContainer, len(on_failure))
-	for _, value := range on_failure {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.OnFailure = tmp
-	return rb
-}
-
-func (rb *ConvertProcessorBuilder) Tag(tag string) *ConvertProcessorBuilder {
-	rb.v.Tag = &tag
-	return rb
-}
-
-func (rb *ConvertProcessorBuilder) TargetField(targetfield Field) *ConvertProcessorBuilder {
-	rb.v.TargetField = targetfield
-	return rb
-}
-
-func (rb *ConvertProcessorBuilder) Type_(type_ converttype.ConvertType) *ConvertProcessorBuilder {
-	rb.v.Type = type_
-	return rb
+	return r
 }

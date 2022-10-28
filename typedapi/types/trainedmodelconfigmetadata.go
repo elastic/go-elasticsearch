@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TrainedModelConfigMetadata type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/TrainedModel.ts#L195-L203
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/TrainedModel.ts#L195-L203
 type TrainedModelConfigMetadata struct {
 	// FeatureImportanceBaseline An object that contains the baseline for feature importance values. For
 	// regression analysis, it is a single value. For classification analysis, there
@@ -41,63 +41,11 @@ type TrainedModelConfigMetadata struct {
 	TotalFeatureImportance []TotalFeatureImportance `json:"total_feature_importance,omitempty"`
 }
 
-// TrainedModelConfigMetadataBuilder holds TrainedModelConfigMetadata struct and provides a builder API.
-type TrainedModelConfigMetadataBuilder struct {
-	v *TrainedModelConfigMetadata
-}
-
-// NewTrainedModelConfigMetadata provides a builder for the TrainedModelConfigMetadata struct.
-func NewTrainedModelConfigMetadataBuilder() *TrainedModelConfigMetadataBuilder {
-	r := TrainedModelConfigMetadataBuilder{
-		&TrainedModelConfigMetadata{
-			FeatureImportanceBaseline: make(map[string]string, 0),
-		},
+// NewTrainedModelConfigMetadata returns a TrainedModelConfigMetadata.
+func NewTrainedModelConfigMetadata() *TrainedModelConfigMetadata {
+	r := &TrainedModelConfigMetadata{
+		FeatureImportanceBaseline: make(map[string]string, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the TrainedModelConfigMetadata struct
-func (rb *TrainedModelConfigMetadataBuilder) Build() TrainedModelConfigMetadata {
-	return *rb.v
-}
-
-// FeatureImportanceBaseline An object that contains the baseline for feature importance values. For
-// regression analysis, it is a single value. For classification analysis, there
-// is a value for each class.
-
-func (rb *TrainedModelConfigMetadataBuilder) FeatureImportanceBaseline(value map[string]string) *TrainedModelConfigMetadataBuilder {
-	rb.v.FeatureImportanceBaseline = value
-	return rb
-}
-
-// Hyperparameters List of the available hyperparameters optimized during the
-// fine_parameter_tuning phase as well as specified by the user.
-
-func (rb *TrainedModelConfigMetadataBuilder) Hyperparameters(hyperparameters []HyperparameterBuilder) *TrainedModelConfigMetadataBuilder {
-	tmp := make([]Hyperparameter, len(hyperparameters))
-	for _, value := range hyperparameters {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Hyperparameters = tmp
-	return rb
-}
-
-func (rb *TrainedModelConfigMetadataBuilder) ModelAliases(model_aliases ...string) *TrainedModelConfigMetadataBuilder {
-	rb.v.ModelAliases = model_aliases
-	return rb
-}
-
-// TotalFeatureImportance An array of the total feature importance for each feature used from the
-// training data set. This array of objects is returned if data frame analytics
-// trained the model and the request includes total_feature_importance in the
-// include request parameter.
-
-func (rb *TrainedModelConfigMetadataBuilder) TotalFeatureImportance(total_feature_importance []TotalFeatureImportanceBuilder) *TrainedModelConfigMetadataBuilder {
-	tmp := make([]TotalFeatureImportance, len(total_feature_importance))
-	for _, value := range total_feature_importance {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.TotalFeatureImportance = tmp
-	return rb
+	return r
 }

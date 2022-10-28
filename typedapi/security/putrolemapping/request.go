@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package putrolemapping
@@ -31,34 +31,23 @@ import (
 
 // Request holds the request body struct for the package putrolemapping
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/security/put_role_mapping/SecurityPutRoleMappingRequest.ts#L24-L43
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/put_role_mapping/SecurityPutRoleMappingRequest.ts#L24-L43
 type Request struct {
-	Enabled *bool `json:"enabled,omitempty"`
-
-	Metadata *types.Metadata `json:"metadata,omitempty"`
-
-	Roles []string `json:"roles,omitempty"`
-
-	Rules *types.RoleMappingRule `json:"rules,omitempty"`
-
-	RunAs []string `json:"run_as,omitempty"`
+	Enabled  *bool                  `json:"enabled,omitempty"`
+	Metadata map[string]interface{} `json:"metadata,omitempty"`
+	Roles    []string               `json:"roles,omitempty"`
+	Rules    *types.RoleMappingRule `json:"rules,omitempty"`
+	RunAs    []string               `json:"run_as,omitempty"`
 }
 
-// RequestBuilder is the builder API for the putrolemapping.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -67,36 +56,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) Enabled(enabled bool) *RequestBuilder {
-	rb.v.Enabled = &enabled
-	return rb
-}
-
-func (rb *RequestBuilder) Metadata(metadata *types.MetadataBuilder) *RequestBuilder {
-	v := metadata.Build()
-	rb.v.Metadata = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Roles(roles ...string) *RequestBuilder {
-	rb.v.Roles = roles
-	return rb
-}
-
-func (rb *RequestBuilder) Rules(rules *types.RoleMappingRuleBuilder) *RequestBuilder {
-	v := rules.Build()
-	rb.v.Rules = &v
-	return rb
-}
-
-func (rb *RequestBuilder) RunAs(run_as ...string) *RequestBuilder {
-	rb.v.RunAs = run_as
-	return rb
 }

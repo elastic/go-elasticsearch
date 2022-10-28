@@ -17,58 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NestedSortValue type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/sort.ts#L30-L35
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/sort.ts#L30-L35
 type NestedSortValue struct {
-	Filter      *QueryContainer  `json:"filter,omitempty"`
+	Filter      *Query           `json:"filter,omitempty"`
 	MaxChildren *int             `json:"max_children,omitempty"`
 	Nested      *NestedSortValue `json:"nested,omitempty"`
-	Path        Field            `json:"path"`
+	Path        string           `json:"path"`
 }
 
-// NestedSortValueBuilder holds NestedSortValue struct and provides a builder API.
-type NestedSortValueBuilder struct {
-	v *NestedSortValue
-}
+// NewNestedSortValue returns a NestedSortValue.
+func NewNestedSortValue() *NestedSortValue {
+	r := &NestedSortValue{}
 
-// NewNestedSortValue provides a builder for the NestedSortValue struct.
-func NewNestedSortValueBuilder() *NestedSortValueBuilder {
-	r := NestedSortValueBuilder{
-		&NestedSortValue{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NestedSortValue struct
-func (rb *NestedSortValueBuilder) Build() NestedSortValue {
-	return *rb.v
-}
-
-func (rb *NestedSortValueBuilder) Filter(filter *QueryContainerBuilder) *NestedSortValueBuilder {
-	v := filter.Build()
-	rb.v.Filter = &v
-	return rb
-}
-
-func (rb *NestedSortValueBuilder) MaxChildren(maxchildren int) *NestedSortValueBuilder {
-	rb.v.MaxChildren = &maxchildren
-	return rb
-}
-
-func (rb *NestedSortValueBuilder) Nested(nested *NestedSortValueBuilder) *NestedSortValueBuilder {
-	v := nested.Build()
-	rb.v.Nested = &v
-	return rb
-}
-
-func (rb *NestedSortValueBuilder) Path(path Field) *NestedSortValueBuilder {
-	rb.v.Path = path
-	return rb
+	return r
 }

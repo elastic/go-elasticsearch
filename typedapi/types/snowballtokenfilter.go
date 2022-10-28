@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,40 +28,18 @@ import (
 
 // SnowballTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/token_filters.ts#L308-L311
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/token_filters.ts#L308-L311
 type SnowballTokenFilter struct {
 	Language snowballlanguage.SnowballLanguage `json:"language"`
 	Type     string                            `json:"type,omitempty"`
-	Version  *VersionString                    `json:"version,omitempty"`
+	Version  *string                           `json:"version,omitempty"`
 }
 
-// SnowballTokenFilterBuilder holds SnowballTokenFilter struct and provides a builder API.
-type SnowballTokenFilterBuilder struct {
-	v *SnowballTokenFilter
-}
+// NewSnowballTokenFilter returns a SnowballTokenFilter.
+func NewSnowballTokenFilter() *SnowballTokenFilter {
+	r := &SnowballTokenFilter{}
 
-// NewSnowballTokenFilter provides a builder for the SnowballTokenFilter struct.
-func NewSnowballTokenFilterBuilder() *SnowballTokenFilterBuilder {
-	r := SnowballTokenFilterBuilder{
-		&SnowballTokenFilter{},
-	}
+	r.Type = "snowball"
 
-	r.v.Type = "snowball"
-
-	return &r
-}
-
-// Build finalize the chain and returns the SnowballTokenFilter struct
-func (rb *SnowballTokenFilterBuilder) Build() SnowballTokenFilter {
-	return *rb.v
-}
-
-func (rb *SnowballTokenFilterBuilder) Language(language snowballlanguage.SnowballLanguage) *SnowballTokenFilterBuilder {
-	rb.v.Language = language
-	return rb
-}
-
-func (rb *SnowballTokenFilterBuilder) Version(version VersionString) *SnowballTokenFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

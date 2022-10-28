@@ -17,32 +17,20 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // PercentageScoreHeuristic type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/bucket.ts#L335-L335
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/bucket.ts#L335-L335
 type PercentageScoreHeuristic struct {
 }
 
-// PercentageScoreHeuristicBuilder holds PercentageScoreHeuristic struct and provides a builder API.
-type PercentageScoreHeuristicBuilder struct {
-	v *PercentageScoreHeuristic
-}
+// NewPercentageScoreHeuristic returns a PercentageScoreHeuristic.
+func NewPercentageScoreHeuristic() *PercentageScoreHeuristic {
+	r := &PercentageScoreHeuristic{}
 
-// NewPercentageScoreHeuristic provides a builder for the PercentageScoreHeuristic struct.
-func NewPercentageScoreHeuristicBuilder() *PercentageScoreHeuristicBuilder {
-	r := PercentageScoreHeuristicBuilder{
-		&PercentageScoreHeuristic{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the PercentageScoreHeuristic struct
-func (rb *PercentageScoreHeuristicBuilder) Build() PercentageScoreHeuristic {
-	return *rb.v
+	return r
 }

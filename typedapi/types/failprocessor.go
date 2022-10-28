@@ -17,15 +17,16 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FailProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ingest/_types/Processors.ts#L211-L213
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ingest/_types/Processors.ts#L211-L213
 type FailProcessor struct {
+	Description   *string              `json:"description,omitempty"`
 	If            *string              `json:"if,omitempty"`
 	IgnoreFailure *bool                `json:"ignore_failure,omitempty"`
 	Message       string               `json:"message"`
@@ -33,50 +34,9 @@ type FailProcessor struct {
 	Tag           *string              `json:"tag,omitempty"`
 }
 
-// FailProcessorBuilder holds FailProcessor struct and provides a builder API.
-type FailProcessorBuilder struct {
-	v *FailProcessor
-}
+// NewFailProcessor returns a FailProcessor.
+func NewFailProcessor() *FailProcessor {
+	r := &FailProcessor{}
 
-// NewFailProcessor provides a builder for the FailProcessor struct.
-func NewFailProcessorBuilder() *FailProcessorBuilder {
-	r := FailProcessorBuilder{
-		&FailProcessor{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FailProcessor struct
-func (rb *FailProcessorBuilder) Build() FailProcessor {
-	return *rb.v
-}
-
-func (rb *FailProcessorBuilder) If_(if_ string) *FailProcessorBuilder {
-	rb.v.If = &if_
-	return rb
-}
-
-func (rb *FailProcessorBuilder) IgnoreFailure(ignorefailure bool) *FailProcessorBuilder {
-	rb.v.IgnoreFailure = &ignorefailure
-	return rb
-}
-
-func (rb *FailProcessorBuilder) Message(message string) *FailProcessorBuilder {
-	rb.v.Message = message
-	return rb
-}
-
-func (rb *FailProcessorBuilder) OnFailure(on_failure []ProcessorContainerBuilder) *FailProcessorBuilder {
-	tmp := make([]ProcessorContainer, len(on_failure))
-	for _, value := range on_failure {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.OnFailure = tmp
-	return rb
-}
-
-func (rb *FailProcessorBuilder) Tag(tag string) *FailProcessorBuilder {
-	rb.v.Tag = &tag
-	return rb
+	return r
 }

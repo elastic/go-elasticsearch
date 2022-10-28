@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -31,10 +31,10 @@ import (
 
 // GeoPolygonQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/query_dsl/geo.ts#L63-L71
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/geo.ts#L63-L71
 type GeoPolygonQuery struct {
 	Boost            *float32                                 `json:"boost,omitempty"`
-	GeoPolygonQuery  map[Field]GeoPolygonPoints               `json:"-"`
+	GeoPolygonQuery  map[string]GeoPolygonPoints              `json:"-"`
 	IgnoreUnmapped   *bool                                    `json:"ignore_unmapped,omitempty"`
 	QueryName_       *string                                  `json:"_name,omitempty"`
 	ValidationMethod *geovalidationmethod.GeoValidationMethod `json:"validation_method,omitempty"`
@@ -68,52 +68,11 @@ func (s GeoPolygonQuery) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// GeoPolygonQueryBuilder holds GeoPolygonQuery struct and provides a builder API.
-type GeoPolygonQueryBuilder struct {
-	v *GeoPolygonQuery
-}
-
-// NewGeoPolygonQuery provides a builder for the GeoPolygonQuery struct.
-func NewGeoPolygonQueryBuilder() *GeoPolygonQueryBuilder {
-	r := GeoPolygonQueryBuilder{
-		&GeoPolygonQuery{
-			GeoPolygonQuery: make(map[Field]GeoPolygonPoints, 0),
-		},
+// NewGeoPolygonQuery returns a GeoPolygonQuery.
+func NewGeoPolygonQuery() *GeoPolygonQuery {
+	r := &GeoPolygonQuery{
+		GeoPolygonQuery: make(map[string]GeoPolygonPoints, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the GeoPolygonQuery struct
-func (rb *GeoPolygonQueryBuilder) Build() GeoPolygonQuery {
-	return *rb.v
-}
-
-func (rb *GeoPolygonQueryBuilder) Boost(boost float32) *GeoPolygonQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *GeoPolygonQueryBuilder) GeoPolygonQuery(values map[Field]*GeoPolygonPointsBuilder) *GeoPolygonQueryBuilder {
-	tmp := make(map[Field]GeoPolygonPoints, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.GeoPolygonQuery = tmp
-	return rb
-}
-
-func (rb *GeoPolygonQueryBuilder) IgnoreUnmapped(ignoreunmapped bool) *GeoPolygonQueryBuilder {
-	rb.v.IgnoreUnmapped = &ignoreunmapped
-	return rb
-}
-
-func (rb *GeoPolygonQueryBuilder) QueryName_(queryname_ string) *GeoPolygonQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
-}
-
-func (rb *GeoPolygonQueryBuilder) ValidationMethod(validationmethod geovalidationmethod.GeoValidationMethod) *GeoPolygonQueryBuilder {
-	rb.v.ValidationMethod = &validationmethod
-	return rb
+	return r
 }

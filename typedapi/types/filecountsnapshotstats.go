@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FileCountSnapshotStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/snapshot/_types/FileCountSnapshotStats.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/snapshot/_types/FileCountSnapshotStats.ts#L22-L25
 type FileCountSnapshotStats struct {
 	FileCount   int   `json:"file_count"`
 	SizeInBytes int64 `json:"size_in_bytes"`
 }
 
-// FileCountSnapshotStatsBuilder holds FileCountSnapshotStats struct and provides a builder API.
-type FileCountSnapshotStatsBuilder struct {
-	v *FileCountSnapshotStats
-}
+// NewFileCountSnapshotStats returns a FileCountSnapshotStats.
+func NewFileCountSnapshotStats() *FileCountSnapshotStats {
+	r := &FileCountSnapshotStats{}
 
-// NewFileCountSnapshotStats provides a builder for the FileCountSnapshotStats struct.
-func NewFileCountSnapshotStatsBuilder() *FileCountSnapshotStatsBuilder {
-	r := FileCountSnapshotStatsBuilder{
-		&FileCountSnapshotStats{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FileCountSnapshotStats struct
-func (rb *FileCountSnapshotStatsBuilder) Build() FileCountSnapshotStats {
-	return *rb.v
-}
-
-func (rb *FileCountSnapshotStatsBuilder) FileCount(filecount int) *FileCountSnapshotStatsBuilder {
-	rb.v.FileCount = filecount
-	return rb
-}
-
-func (rb *FileCountSnapshotStatsBuilder) SizeInBytes(sizeinbytes int64) *FileCountSnapshotStatsBuilder {
-	rb.v.SizeInBytes = sizeinbytes
-	return rb
+	return r
 }

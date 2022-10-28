@@ -17,52 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Lifecycle type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ilm/get_lifecycle/types.ts#L24-L28
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ilm/get_lifecycle/types.ts#L24-L28
 type Lifecycle struct {
-	ModifiedDate DateTime      `json:"modified_date"`
-	Policy       Policy        `json:"policy"`
-	Version      VersionNumber `json:"version"`
+	ModifiedDate DateTime  `json:"modified_date"`
+	Policy       IlmPolicy `json:"policy"`
+	Version      int64     `json:"version"`
 }
 
-// LifecycleBuilder holds Lifecycle struct and provides a builder API.
-type LifecycleBuilder struct {
-	v *Lifecycle
-}
+// NewLifecycle returns a Lifecycle.
+func NewLifecycle() *Lifecycle {
+	r := &Lifecycle{}
 
-// NewLifecycle provides a builder for the Lifecycle struct.
-func NewLifecycleBuilder() *LifecycleBuilder {
-	r := LifecycleBuilder{
-		&Lifecycle{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Lifecycle struct
-func (rb *LifecycleBuilder) Build() Lifecycle {
-	return *rb.v
-}
-
-func (rb *LifecycleBuilder) ModifiedDate(modifieddate *DateTimeBuilder) *LifecycleBuilder {
-	v := modifieddate.Build()
-	rb.v.ModifiedDate = v
-	return rb
-}
-
-func (rb *LifecycleBuilder) Policy(policy *PolicyBuilder) *LifecycleBuilder {
-	v := policy.Build()
-	rb.v.Policy = v
-	return rb
-}
-
-func (rb *LifecycleBuilder) Version(version VersionNumber) *LifecycleBuilder {
-	rb.v.Version = version
-	return rb
+	return r
 }

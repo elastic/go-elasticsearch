@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,11 +29,11 @@ import (
 
 // CompositeBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L609-L611
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L624-L626
 type CompositeBucket struct {
-	Aggregations map[AggregateName]Aggregate `json:"-"`
-	DocCount     int64                       `json:"doc_count"`
-	Key          CompositeAggregateKey       `json:"key"`
+	Aggregations map[string]Aggregate  `json:"-"`
+	DocCount     int64                 `json:"doc_count"`
+	Key          map[string]FieldValue `json:"key"`
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -64,43 +64,11 @@ func (s CompositeBucket) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// CompositeBucketBuilder holds CompositeBucket struct and provides a builder API.
-type CompositeBucketBuilder struct {
-	v *CompositeBucket
-}
-
-// NewCompositeBucket provides a builder for the CompositeBucket struct.
-func NewCompositeBucketBuilder() *CompositeBucketBuilder {
-	r := CompositeBucketBuilder{
-		&CompositeBucket{
-			Aggregations: make(map[AggregateName]Aggregate, 0),
-		},
+// NewCompositeBucket returns a CompositeBucket.
+func NewCompositeBucket() *CompositeBucket {
+	r := &CompositeBucket{
+		Aggregations: make(map[string]Aggregate, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the CompositeBucket struct
-func (rb *CompositeBucketBuilder) Build() CompositeBucket {
-	return *rb.v
-}
-
-func (rb *CompositeBucketBuilder) Aggregations(values map[AggregateName]*AggregateBuilder) *CompositeBucketBuilder {
-	tmp := make(map[AggregateName]Aggregate, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Aggregations = tmp
-	return rb
-}
-
-func (rb *CompositeBucketBuilder) DocCount(doccount int64) *CompositeBucketBuilder {
-	rb.v.DocCount = doccount
-	return rb
-}
-
-func (rb *CompositeBucketBuilder) Key(key *CompositeAggregateKeyBuilder) *CompositeBucketBuilder {
-	v := key.Build()
-	rb.v.Key = v
-	return rb
+	return r
 }

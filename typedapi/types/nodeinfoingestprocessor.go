@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeInfoIngestProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/info/types.ts#L220-L222
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/info/types.ts#L220-L222
 type NodeInfoIngestProcessor struct {
 	Type string `json:"type"`
 }
 
-// NodeInfoIngestProcessorBuilder holds NodeInfoIngestProcessor struct and provides a builder API.
-type NodeInfoIngestProcessorBuilder struct {
-	v *NodeInfoIngestProcessor
-}
+// NewNodeInfoIngestProcessor returns a NodeInfoIngestProcessor.
+func NewNodeInfoIngestProcessor() *NodeInfoIngestProcessor {
+	r := &NodeInfoIngestProcessor{}
 
-// NewNodeInfoIngestProcessor provides a builder for the NodeInfoIngestProcessor struct.
-func NewNodeInfoIngestProcessorBuilder() *NodeInfoIngestProcessorBuilder {
-	r := NodeInfoIngestProcessorBuilder{
-		&NodeInfoIngestProcessor{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodeInfoIngestProcessor struct
-func (rb *NodeInfoIngestProcessorBuilder) Build() NodeInfoIngestProcessor {
-	return *rb.v
-}
-
-func (rb *NodeInfoIngestProcessorBuilder) Type_(type_ string) *NodeInfoIngestProcessorBuilder {
-	rb.v.Type = type_
-	return rb
+	return r
 }

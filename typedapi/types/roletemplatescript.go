@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -27,32 +27,11 @@ package types
 //	RoleTemplateInlineScript
 //	StoredScriptId
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/security/_types/Privileges.ts#L135-L136
-type RoleTemplateScript interface{}
-
-// RoleTemplateScriptBuilder holds RoleTemplateScript struct and provides a builder API.
-type RoleTemplateScriptBuilder struct {
-	v RoleTemplateScript
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/_types/Privileges.ts#L162-L163
+type RoleTemplateScript interface {
+	isRoleTemplateScript()
 }
 
-// NewRoleTemplateScript provides a builder for the RoleTemplateScript struct.
-func NewRoleTemplateScriptBuilder() *RoleTemplateScriptBuilder {
-	return &RoleTemplateScriptBuilder{}
-}
+func (i RoleTemplateInlineScript) isRoleTemplateScript() {}
 
-// Build finalize the chain and returns the RoleTemplateScript struct
-func (u *RoleTemplateScriptBuilder) Build() RoleTemplateScript {
-	return u.v
-}
-
-func (u *RoleTemplateScriptBuilder) RoleTemplateInlineScript(roletemplateinlinescript *RoleTemplateInlineScriptBuilder) *RoleTemplateScriptBuilder {
-	v := roletemplateinlinescript.Build()
-	u.v = &v
-	return u
-}
-
-func (u *RoleTemplateScriptBuilder) StoredScriptId(storedscriptid *StoredScriptIdBuilder) *RoleTemplateScriptBuilder {
-	v := storedscriptid.Build()
-	u.v = &v
-	return u
-}
+func (i StoredScriptId) isRoleTemplateScript() {}

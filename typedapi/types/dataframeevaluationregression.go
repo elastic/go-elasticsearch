@@ -17,68 +17,30 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeEvaluationRegression type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/DataframeEvaluation.ts#L55-L62
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/DataframeEvaluation.ts#L55-L62
 type DataframeEvaluationRegression struct {
 	// ActualField The field of the index which contains the ground truth. The data type of this
 	// field must be numerical.
-	ActualField Field `json:"actual_field"`
+	ActualField string `json:"actual_field"`
 	// Metrics Specifies the metrics that are used for the evaluation. For more information
 	// on mse, msle, and huber, consult the Jupyter notebook on regression loss
 	// functions.
 	Metrics *DataframeEvaluationRegressionMetrics `json:"metrics,omitempty"`
 	// PredictedField The field in the index that contains the predicted value, in other words the
 	// results of the regression analysis.
-	PredictedField Field `json:"predicted_field"`
+	PredictedField string `json:"predicted_field"`
 }
 
-// DataframeEvaluationRegressionBuilder holds DataframeEvaluationRegression struct and provides a builder API.
-type DataframeEvaluationRegressionBuilder struct {
-	v *DataframeEvaluationRegression
-}
+// NewDataframeEvaluationRegression returns a DataframeEvaluationRegression.
+func NewDataframeEvaluationRegression() *DataframeEvaluationRegression {
+	r := &DataframeEvaluationRegression{}
 
-// NewDataframeEvaluationRegression provides a builder for the DataframeEvaluationRegression struct.
-func NewDataframeEvaluationRegressionBuilder() *DataframeEvaluationRegressionBuilder {
-	r := DataframeEvaluationRegressionBuilder{
-		&DataframeEvaluationRegression{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeEvaluationRegression struct
-func (rb *DataframeEvaluationRegressionBuilder) Build() DataframeEvaluationRegression {
-	return *rb.v
-}
-
-// ActualField The field of the index which contains the ground truth. The data type of this
-// field must be numerical.
-
-func (rb *DataframeEvaluationRegressionBuilder) ActualField(actualfield Field) *DataframeEvaluationRegressionBuilder {
-	rb.v.ActualField = actualfield
-	return rb
-}
-
-// Metrics Specifies the metrics that are used for the evaluation. For more information
-// on mse, msle, and huber, consult the Jupyter notebook on regression loss
-// functions.
-
-func (rb *DataframeEvaluationRegressionBuilder) Metrics(metrics *DataframeEvaluationRegressionMetricsBuilder) *DataframeEvaluationRegressionBuilder {
-	v := metrics.Build()
-	rb.v.Metrics = &v
-	return rb
-}
-
-// PredictedField The field in the index that contains the predicted value, in other words the
-// results of the regression analysis.
-
-func (rb *DataframeEvaluationRegressionBuilder) PredictedField(predictedfield Field) *DataframeEvaluationRegressionBuilder {
-	rb.v.PredictedField = predictedfield
-	return rb
+	return r
 }

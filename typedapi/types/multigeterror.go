@@ -17,51 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MultiGetError type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_global/mget/types.ts#L62-L66
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/mget/types.ts#L62-L66
 type MultiGetError struct {
 	Error  ErrorCause `json:"error"`
-	Id_    Id         `json:"_id"`
-	Index_ IndexName  `json:"_index"`
+	Id_    string     `json:"_id"`
+	Index_ string     `json:"_index"`
 }
 
-// MultiGetErrorBuilder holds MultiGetError struct and provides a builder API.
-type MultiGetErrorBuilder struct {
-	v *MultiGetError
-}
+// NewMultiGetError returns a MultiGetError.
+func NewMultiGetError() *MultiGetError {
+	r := &MultiGetError{}
 
-// NewMultiGetError provides a builder for the MultiGetError struct.
-func NewMultiGetErrorBuilder() *MultiGetErrorBuilder {
-	r := MultiGetErrorBuilder{
-		&MultiGetError{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MultiGetError struct
-func (rb *MultiGetErrorBuilder) Build() MultiGetError {
-	return *rb.v
-}
-
-func (rb *MultiGetErrorBuilder) Error(error *ErrorCauseBuilder) *MultiGetErrorBuilder {
-	v := error.Build()
-	rb.v.Error = v
-	return rb
-}
-
-func (rb *MultiGetErrorBuilder) Id_(id_ Id) *MultiGetErrorBuilder {
-	rb.v.Id_ = id_
-	return rb
-}
-
-func (rb *MultiGetErrorBuilder) Index_(index_ IndexName) *MultiGetErrorBuilder {
-	rb.v.Index_ = index_
-	return rb
+	return r
 }

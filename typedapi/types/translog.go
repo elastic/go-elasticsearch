@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // Translog type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/_types/IndexSettings.ts#L332-L354
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/IndexSettings.ts#L332-L354
 type Translog struct {
 	// Durability Whether or not to `fsync` and commit the translog after every index, delete,
 	// update, or bulk request.
@@ -51,62 +51,9 @@ type Translog struct {
 	SyncInterval *Duration `json:"sync_interval,omitempty"`
 }
 
-// TranslogBuilder holds Translog struct and provides a builder API.
-type TranslogBuilder struct {
-	v *Translog
-}
+// NewTranslog returns a Translog.
+func NewTranslog() *Translog {
+	r := &Translog{}
 
-// NewTranslog provides a builder for the Translog struct.
-func NewTranslogBuilder() *TranslogBuilder {
-	r := TranslogBuilder{
-		&Translog{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Translog struct
-func (rb *TranslogBuilder) Build() Translog {
-	return *rb.v
-}
-
-// Durability Whether or not to `fsync` and commit the translog after every index, delete,
-// update, or bulk request.
-
-func (rb *TranslogBuilder) Durability(durability translogdurability.TranslogDurability) *TranslogBuilder {
-	rb.v.Durability = &durability
-	return rb
-}
-
-// FlushThresholdSize The translog stores all operations that are not yet safely persisted in
-// Lucene (i.e., are not
-// part of a Lucene commit point). Although these operations are available for
-// reads, they will need
-// to be replayed if the shard was stopped and had to be recovered. This setting
-// controls the
-// maximum total size of these operations, to prevent recoveries from taking too
-// long. Once the
-// maximum size has been reached a flush will happen, generating a new Lucene
-// commit point.
-
-func (rb *TranslogBuilder) FlushThresholdSize(flushthresholdsize *ByteSizeBuilder) *TranslogBuilder {
-	v := flushthresholdsize.Build()
-	rb.v.FlushThresholdSize = &v
-	return rb
-}
-
-func (rb *TranslogBuilder) Retention(retention *TranslogRetentionBuilder) *TranslogBuilder {
-	v := retention.Build()
-	rb.v.Retention = &v
-	return rb
-}
-
-// SyncInterval How often the translog is fsynced to disk and committed, regardless of write
-// operations.
-// Values less than 100ms are not allowed.
-
-func (rb *TranslogBuilder) SyncInterval(syncinterval *DurationBuilder) *TranslogBuilder {
-	v := syncinterval.Build()
-	rb.v.SyncInterval = &v
-	return rb
+	return r
 }

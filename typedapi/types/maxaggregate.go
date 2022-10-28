@@ -17,16 +17,16 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MaxAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L191-L192
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L199-L200
 type MaxAggregate struct {
-	Meta *Metadata `json:"meta,omitempty"`
+	Meta map[string]interface{} `json:"meta,omitempty"`
 	// Value The metric value. A missing value generally means that there was no data to
 	// aggregate,
 	// unless specified otherwise.
@@ -34,41 +34,9 @@ type MaxAggregate struct {
 	ValueAsString *string `json:"value_as_string,omitempty"`
 }
 
-// MaxAggregateBuilder holds MaxAggregate struct and provides a builder API.
-type MaxAggregateBuilder struct {
-	v *MaxAggregate
-}
+// NewMaxAggregate returns a MaxAggregate.
+func NewMaxAggregate() *MaxAggregate {
+	r := &MaxAggregate{}
 
-// NewMaxAggregate provides a builder for the MaxAggregate struct.
-func NewMaxAggregateBuilder() *MaxAggregateBuilder {
-	r := MaxAggregateBuilder{
-		&MaxAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MaxAggregate struct
-func (rb *MaxAggregateBuilder) Build() MaxAggregate {
-	return *rb.v
-}
-
-func (rb *MaxAggregateBuilder) Meta(meta *MetadataBuilder) *MaxAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-// Value The metric value. A missing value generally means that there was no data to
-// aggregate,
-// unless specified otherwise.
-
-func (rb *MaxAggregateBuilder) Value(value float64) *MaxAggregateBuilder {
-	rb.v.Value = value
-	return rb
-}
-
-func (rb *MaxAggregateBuilder) ValueAsString(valueasstring string) *MaxAggregateBuilder {
-	rb.v.ValueAsString = &valueasstring
-	return rb
+	return r
 }

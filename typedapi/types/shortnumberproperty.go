@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -30,23 +30,23 @@ import (
 
 // ShortNumberProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/mapping/core.ts#L156-L159
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/core.ts#L156-L159
 type ShortNumberProperty struct {
 	Boost           *float64                       `json:"boost,omitempty"`
 	Coerce          *bool                          `json:"coerce,omitempty"`
-	CopyTo          *Fields                        `json:"copy_to,omitempty"`
+	CopyTo          []string                       `json:"copy_to,omitempty"`
 	DocValues       *bool                          `json:"doc_values,omitempty"`
 	Dynamic         *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
-	Fields          map[PropertyName]Property      `json:"fields,omitempty"`
+	Fields          map[string]Property            `json:"fields,omitempty"`
 	IgnoreAbove     *int                           `json:"ignore_above,omitempty"`
 	IgnoreMalformed *bool                          `json:"ignore_malformed,omitempty"`
 	Index           *bool                          `json:"index,omitempty"`
-	LocalMetadata   *Metadata                      `json:"local_metadata,omitempty"`
+	LocalMetadata   map[string]interface{}         `json:"local_metadata,omitempty"`
 	// Meta Metadata about the field.
 	Meta          map[string]string            `json:"meta,omitempty"`
 	NullValue     *int                         `json:"null_value,omitempty"`
 	OnScriptError *onscripterror.OnScriptError `json:"on_script_error,omitempty"`
-	Properties    map[PropertyName]Property    `json:"properties,omitempty"`
+	Properties    map[string]Property          `json:"properties,omitempty"`
 	Script        *Script                      `json:"script,omitempty"`
 	Similarity    *string                      `json:"similarity,omitempty"`
 	Store         *bool                        `json:"store,omitempty"`
@@ -59,141 +59,15 @@ type ShortNumberProperty struct {
 	Type             string                                     `json:"type,omitempty"`
 }
 
-// ShortNumberPropertyBuilder holds ShortNumberProperty struct and provides a builder API.
-type ShortNumberPropertyBuilder struct {
-	v *ShortNumberProperty
-}
-
-// NewShortNumberProperty provides a builder for the ShortNumberProperty struct.
-func NewShortNumberPropertyBuilder() *ShortNumberPropertyBuilder {
-	r := ShortNumberPropertyBuilder{
-		&ShortNumberProperty{
-			Fields:     make(map[PropertyName]Property, 0),
-			Meta:       make(map[string]string, 0),
-			Properties: make(map[PropertyName]Property, 0),
-		},
+// NewShortNumberProperty returns a ShortNumberProperty.
+func NewShortNumberProperty() *ShortNumberProperty {
+	r := &ShortNumberProperty{
+		Fields:     make(map[string]Property, 0),
+		Meta:       make(map[string]string, 0),
+		Properties: make(map[string]Property, 0),
 	}
 
-	r.v.Type = "short"
+	r.Type = "short"
 
-	return &r
-}
-
-// Build finalize the chain and returns the ShortNumberProperty struct
-func (rb *ShortNumberPropertyBuilder) Build() ShortNumberProperty {
-	return *rb.v
-}
-
-func (rb *ShortNumberPropertyBuilder) Boost(boost float64) *ShortNumberPropertyBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *ShortNumberPropertyBuilder) Coerce(coerce bool) *ShortNumberPropertyBuilder {
-	rb.v.Coerce = &coerce
-	return rb
-}
-
-func (rb *ShortNumberPropertyBuilder) CopyTo(copyto *FieldsBuilder) *ShortNumberPropertyBuilder {
-	v := copyto.Build()
-	rb.v.CopyTo = &v
-	return rb
-}
-
-func (rb *ShortNumberPropertyBuilder) DocValues(docvalues bool) *ShortNumberPropertyBuilder {
-	rb.v.DocValues = &docvalues
-	return rb
-}
-
-func (rb *ShortNumberPropertyBuilder) Dynamic(dynamic dynamicmapping.DynamicMapping) *ShortNumberPropertyBuilder {
-	rb.v.Dynamic = &dynamic
-	return rb
-}
-
-func (rb *ShortNumberPropertyBuilder) Fields(values map[PropertyName]*PropertyBuilder) *ShortNumberPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Fields = tmp
-	return rb
-}
-
-func (rb *ShortNumberPropertyBuilder) IgnoreAbove(ignoreabove int) *ShortNumberPropertyBuilder {
-	rb.v.IgnoreAbove = &ignoreabove
-	return rb
-}
-
-func (rb *ShortNumberPropertyBuilder) IgnoreMalformed(ignoremalformed bool) *ShortNumberPropertyBuilder {
-	rb.v.IgnoreMalformed = &ignoremalformed
-	return rb
-}
-
-func (rb *ShortNumberPropertyBuilder) Index(index bool) *ShortNumberPropertyBuilder {
-	rb.v.Index = &index
-	return rb
-}
-
-func (rb *ShortNumberPropertyBuilder) LocalMetadata(localmetadata *MetadataBuilder) *ShortNumberPropertyBuilder {
-	v := localmetadata.Build()
-	rb.v.LocalMetadata = &v
-	return rb
-}
-
-// Meta Metadata about the field.
-
-func (rb *ShortNumberPropertyBuilder) Meta(value map[string]string) *ShortNumberPropertyBuilder {
-	rb.v.Meta = value
-	return rb
-}
-
-func (rb *ShortNumberPropertyBuilder) NullValue(nullvalue int) *ShortNumberPropertyBuilder {
-	rb.v.NullValue = &nullvalue
-	return rb
-}
-
-func (rb *ShortNumberPropertyBuilder) OnScriptError(onscripterror onscripterror.OnScriptError) *ShortNumberPropertyBuilder {
-	rb.v.OnScriptError = &onscripterror
-	return rb
-}
-
-func (rb *ShortNumberPropertyBuilder) Properties(values map[PropertyName]*PropertyBuilder) *ShortNumberPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Properties = tmp
-	return rb
-}
-
-func (rb *ShortNumberPropertyBuilder) Script(script *ScriptBuilder) *ShortNumberPropertyBuilder {
-	v := script.Build()
-	rb.v.Script = &v
-	return rb
-}
-
-func (rb *ShortNumberPropertyBuilder) Similarity(similarity string) *ShortNumberPropertyBuilder {
-	rb.v.Similarity = &similarity
-	return rb
-}
-
-func (rb *ShortNumberPropertyBuilder) Store(store bool) *ShortNumberPropertyBuilder {
-	rb.v.Store = &store
-	return rb
-}
-
-// TimeSeriesDimension For internal use by Elastic only. Marks the field as a time series dimension.
-// Defaults to false.
-
-func (rb *ShortNumberPropertyBuilder) TimeSeriesDimension(timeseriesdimension bool) *ShortNumberPropertyBuilder {
-	rb.v.TimeSeriesDimension = &timeseriesdimension
-	return rb
-}
-
-// TimeSeriesMetric For internal use by Elastic only. Marks the field as a time series dimension.
-// Defaults to false.
-
-func (rb *ShortNumberPropertyBuilder) TimeSeriesMetric(timeseriesmetric timeseriesmetrictype.TimeSeriesMetricType) *ShortNumberPropertyBuilder {
-	rb.v.TimeSeriesMetric = &timeseriesmetric
-	return rb
+	return r
 }

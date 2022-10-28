@@ -17,39 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Node type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/searchable_snapshots/cache_stats/Response.ts#L30-L32
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/searchable_snapshots/cache_stats/Response.ts#L30-L32
 type Node struct {
 	SharedCache Shared `json:"shared_cache"`
 }
 
-// NodeBuilder holds Node struct and provides a builder API.
-type NodeBuilder struct {
-	v *Node
-}
+// NewNode returns a Node.
+func NewNode() *Node {
+	r := &Node{}
 
-// NewNode provides a builder for the Node struct.
-func NewNodeBuilder() *NodeBuilder {
-	r := NodeBuilder{
-		&Node{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Node struct
-func (rb *NodeBuilder) Build() Node {
-	return *rb.v
-}
-
-func (rb *NodeBuilder) SharedCache(sharedcache *SharedBuilder) *NodeBuilder {
-	v := sharedcache.Build()
-	rb.v.SharedCache = v
-	return rb
+	return r
 }

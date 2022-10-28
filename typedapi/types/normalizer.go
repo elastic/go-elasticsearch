@@ -17,42 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Normalizer holds the union for the following types:
 //
-//	CustomNormalizer
 //	LowercaseNormalizer
+//	CustomNormalizer
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/normalizers.ts#L20-L24
-type Normalizer interface{}
-
-// NormalizerBuilder holds Normalizer struct and provides a builder API.
-type NormalizerBuilder struct {
-	v Normalizer
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/normalizers.ts#L20-L24
+type Normalizer interface {
+	isNormalizer()
 }
 
-// NewNormalizer provides a builder for the Normalizer struct.
-func NewNormalizerBuilder() *NormalizerBuilder {
-	return &NormalizerBuilder{}
-}
+func (i LowercaseNormalizer) isNormalizer() {}
 
-// Build finalize the chain and returns the Normalizer struct
-func (u *NormalizerBuilder) Build() Normalizer {
-	return u.v
-}
-
-func (u *NormalizerBuilder) CustomNormalizer(customnormalizer *CustomNormalizerBuilder) *NormalizerBuilder {
-	v := customnormalizer.Build()
-	u.v = &v
-	return u
-}
-
-func (u *NormalizerBuilder) LowercaseNormalizer(lowercasenormalizer *LowercaseNormalizerBuilder) *NormalizerBuilder {
-	v := lowercasenormalizer.Build()
-	u.v = &v
-	return u
-}
+func (i CustomNormalizer) isNormalizer() {}

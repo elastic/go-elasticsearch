@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,12 +29,12 @@ import (
 
 // DateHistogramBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L342-L345
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L350-L353
 type DateHistogramBucket struct {
-	Aggregations map[AggregateName]Aggregate `json:"-"`
-	DocCount     int64                       `json:"doc_count"`
-	Key          EpochTimeUnitMillis         `json:"key"`
-	KeyAsString  *string                     `json:"key_as_string,omitempty"`
+	Aggregations map[string]Aggregate `json:"-"`
+	DocCount     int64                `json:"doc_count"`
+	Key          int64                `json:"key"`
+	KeyAsString  *string              `json:"key_as_string,omitempty"`
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -65,48 +65,11 @@ func (s DateHistogramBucket) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// DateHistogramBucketBuilder holds DateHistogramBucket struct and provides a builder API.
-type DateHistogramBucketBuilder struct {
-	v *DateHistogramBucket
-}
-
-// NewDateHistogramBucket provides a builder for the DateHistogramBucket struct.
-func NewDateHistogramBucketBuilder() *DateHistogramBucketBuilder {
-	r := DateHistogramBucketBuilder{
-		&DateHistogramBucket{
-			Aggregations: make(map[AggregateName]Aggregate, 0),
-		},
+// NewDateHistogramBucket returns a DateHistogramBucket.
+func NewDateHistogramBucket() *DateHistogramBucket {
+	r := &DateHistogramBucket{
+		Aggregations: make(map[string]Aggregate, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the DateHistogramBucket struct
-func (rb *DateHistogramBucketBuilder) Build() DateHistogramBucket {
-	return *rb.v
-}
-
-func (rb *DateHistogramBucketBuilder) Aggregations(values map[AggregateName]*AggregateBuilder) *DateHistogramBucketBuilder {
-	tmp := make(map[AggregateName]Aggregate, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Aggregations = tmp
-	return rb
-}
-
-func (rb *DateHistogramBucketBuilder) DocCount(doccount int64) *DateHistogramBucketBuilder {
-	rb.v.DocCount = doccount
-	return rb
-}
-
-func (rb *DateHistogramBucketBuilder) Key(key *EpochTimeUnitMillisBuilder) *DateHistogramBucketBuilder {
-	v := key.Build()
-	rb.v.Key = v
-	return rb
-}
-
-func (rb *DateHistogramBucketBuilder) KeyAsString(keyasstring string) *DateHistogramBucketBuilder {
-	rb.v.KeyAsString = &keyasstring
-	return rb
+	return r
 }

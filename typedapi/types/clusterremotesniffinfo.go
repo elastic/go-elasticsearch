@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ClusterRemoteSniffInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/cluster/remote_info/ClusterRemoteInfoResponse.ts#L31-L39
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/remote_info/ClusterRemoteInfoResponse.ts#L31-L39
 type ClusterRemoteSniffInfo struct {
 	Connected                bool     `json:"connected"`
 	InitialConnectTimeout    Duration `json:"initial_connect_timeout"`
@@ -35,54 +35,11 @@ type ClusterRemoteSniffInfo struct {
 	SkipUnavailable          bool     `json:"skip_unavailable"`
 }
 
-// ClusterRemoteSniffInfoBuilder holds ClusterRemoteSniffInfo struct and provides a builder API.
-type ClusterRemoteSniffInfoBuilder struct {
-	v *ClusterRemoteSniffInfo
-}
+// NewClusterRemoteSniffInfo returns a ClusterRemoteSniffInfo.
+func NewClusterRemoteSniffInfo() *ClusterRemoteSniffInfo {
+	r := &ClusterRemoteSniffInfo{}
 
-// NewClusterRemoteSniffInfo provides a builder for the ClusterRemoteSniffInfo struct.
-func NewClusterRemoteSniffInfoBuilder() *ClusterRemoteSniffInfoBuilder {
-	r := ClusterRemoteSniffInfoBuilder{
-		&ClusterRemoteSniffInfo{},
-	}
+	r.Mode = "sniff"
 
-	r.v.Mode = "sniff"
-
-	return &r
-}
-
-// Build finalize the chain and returns the ClusterRemoteSniffInfo struct
-func (rb *ClusterRemoteSniffInfoBuilder) Build() ClusterRemoteSniffInfo {
-	return *rb.v
-}
-
-func (rb *ClusterRemoteSniffInfoBuilder) Connected(connected bool) *ClusterRemoteSniffInfoBuilder {
-	rb.v.Connected = connected
-	return rb
-}
-
-func (rb *ClusterRemoteSniffInfoBuilder) InitialConnectTimeout(initialconnecttimeout *DurationBuilder) *ClusterRemoteSniffInfoBuilder {
-	v := initialconnecttimeout.Build()
-	rb.v.InitialConnectTimeout = v
-	return rb
-}
-
-func (rb *ClusterRemoteSniffInfoBuilder) MaxConnectionsPerCluster(maxconnectionspercluster int) *ClusterRemoteSniffInfoBuilder {
-	rb.v.MaxConnectionsPerCluster = maxconnectionspercluster
-	return rb
-}
-
-func (rb *ClusterRemoteSniffInfoBuilder) NumNodesConnected(numnodesconnected int64) *ClusterRemoteSniffInfoBuilder {
-	rb.v.NumNodesConnected = numnodesconnected
-	return rb
-}
-
-func (rb *ClusterRemoteSniffInfoBuilder) Seeds(seeds ...string) *ClusterRemoteSniffInfoBuilder {
-	rb.v.Seeds = seeds
-	return rb
-}
-
-func (rb *ClusterRemoteSniffInfoBuilder) SkipUnavailable(skipunavailable bool) *ClusterRemoteSniffInfoBuilder {
-	rb.v.SkipUnavailable = skipunavailable
-	return rb
+	return r
 }

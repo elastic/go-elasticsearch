@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package getrecords
@@ -31,45 +31,32 @@ import (
 
 // Request holds the request body struct for the package getrecords
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/get_records/MlGetAnomalyRecordsRequest.ts#L26-L127
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/get_records/MlGetAnomalyRecordsRequest.ts#L26-L127
 type Request struct {
 
 	// Desc Refer to the description for the `desc` query parameter.
 	Desc *bool `json:"desc,omitempty"`
-
 	// End Refer to the description for the `end` query parameter.
 	End *types.DateTime `json:"end,omitempty"`
-
 	// ExcludeInterim Refer to the description for the `exclude_interim` query parameter.
-	ExcludeInterim *bool `json:"exclude_interim,omitempty"`
-
-	Page *types.Page `json:"page,omitempty"`
-
+	ExcludeInterim *bool       `json:"exclude_interim,omitempty"`
+	Page           *types.Page `json:"page,omitempty"`
 	// RecordScore Refer to the description for the `record_score` query parameter.
 	RecordScore *float64 `json:"record_score,omitempty"`
-
 	// Sort Refer to the description for the `sort` query parameter.
-	Sort *types.Field `json:"sort,omitempty"`
-
+	Sort *string `json:"sort,omitempty"`
 	// Start Refer to the description for the `start` query parameter.
 	Start *types.DateTime `json:"start,omitempty"`
 }
 
-// RequestBuilder is the builder API for the getrecords.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -78,47 +65,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) Desc(desc bool) *RequestBuilder {
-	rb.v.Desc = &desc
-	return rb
-}
-
-func (rb *RequestBuilder) End(end *types.DateTimeBuilder) *RequestBuilder {
-	v := end.Build()
-	rb.v.End = &v
-	return rb
-}
-
-func (rb *RequestBuilder) ExcludeInterim(excludeinterim bool) *RequestBuilder {
-	rb.v.ExcludeInterim = &excludeinterim
-	return rb
-}
-
-func (rb *RequestBuilder) Page(page *types.PageBuilder) *RequestBuilder {
-	v := page.Build()
-	rb.v.Page = &v
-	return rb
-}
-
-func (rb *RequestBuilder) RecordScore(recordscore float64) *RequestBuilder {
-	rb.v.RecordScore = &recordscore
-	return rb
-}
-
-func (rb *RequestBuilder) Sort(sort types.Field) *RequestBuilder {
-	rb.v.Sort = &sort
-	return rb
-}
-
-func (rb *RequestBuilder) Start(start *types.DateTimeBuilder) *RequestBuilder {
-	v := start.Build()
-	rb.v.Start = &v
-	return rb
 }

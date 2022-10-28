@@ -17,56 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ShardLease type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/stats/types.ts#L121-L126
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/stats/types.ts#L121-L126
 type ShardLease struct {
-	Id             Id             `json:"id"`
-	RetainingSeqNo SequenceNumber `json:"retaining_seq_no"`
-	Source         string         `json:"source"`
-	Timestamp      int64          `json:"timestamp"`
+	Id             string `json:"id"`
+	RetainingSeqNo int64  `json:"retaining_seq_no"`
+	Source         string `json:"source"`
+	Timestamp      int64  `json:"timestamp"`
 }
 
-// ShardLeaseBuilder holds ShardLease struct and provides a builder API.
-type ShardLeaseBuilder struct {
-	v *ShardLease
-}
+// NewShardLease returns a ShardLease.
+func NewShardLease() *ShardLease {
+	r := &ShardLease{}
 
-// NewShardLease provides a builder for the ShardLease struct.
-func NewShardLeaseBuilder() *ShardLeaseBuilder {
-	r := ShardLeaseBuilder{
-		&ShardLease{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ShardLease struct
-func (rb *ShardLeaseBuilder) Build() ShardLease {
-	return *rb.v
-}
-
-func (rb *ShardLeaseBuilder) Id(id Id) *ShardLeaseBuilder {
-	rb.v.Id = id
-	return rb
-}
-
-func (rb *ShardLeaseBuilder) RetainingSeqNo(retainingseqno SequenceNumber) *ShardLeaseBuilder {
-	rb.v.RetainingSeqNo = retainingseqno
-	return rb
-}
-
-func (rb *ShardLeaseBuilder) Source(source string) *ShardLeaseBuilder {
-	rb.v.Source = source
-	return rb
-}
-
-func (rb *ShardLeaseBuilder) Timestamp(timestamp int64) *ShardLeaseBuilder {
-	rb.v.Timestamp = timestamp
-	return rb
+	return r
 }

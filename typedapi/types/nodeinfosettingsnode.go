@@ -17,52 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeInfoSettingsNode type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/info/types.ts#L148-L152
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/info/types.ts#L148-L152
 type NodeInfoSettingsNode struct {
 	Attr                 map[string]interface{} `json:"attr"`
 	MaxLocalStorageNodes *string                `json:"max_local_storage_nodes,omitempty"`
-	Name                 Name                   `json:"name"`
+	Name                 string                 `json:"name"`
 }
 
-// NodeInfoSettingsNodeBuilder holds NodeInfoSettingsNode struct and provides a builder API.
-type NodeInfoSettingsNodeBuilder struct {
-	v *NodeInfoSettingsNode
-}
-
-// NewNodeInfoSettingsNode provides a builder for the NodeInfoSettingsNode struct.
-func NewNodeInfoSettingsNodeBuilder() *NodeInfoSettingsNodeBuilder {
-	r := NodeInfoSettingsNodeBuilder{
-		&NodeInfoSettingsNode{
-			Attr: make(map[string]interface{}, 0),
-		},
+// NewNodeInfoSettingsNode returns a NodeInfoSettingsNode.
+func NewNodeInfoSettingsNode() *NodeInfoSettingsNode {
+	r := &NodeInfoSettingsNode{
+		Attr: make(map[string]interface{}, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the NodeInfoSettingsNode struct
-func (rb *NodeInfoSettingsNodeBuilder) Build() NodeInfoSettingsNode {
-	return *rb.v
-}
-
-func (rb *NodeInfoSettingsNodeBuilder) Attr(value map[string]interface{}) *NodeInfoSettingsNodeBuilder {
-	rb.v.Attr = value
-	return rb
-}
-
-func (rb *NodeInfoSettingsNodeBuilder) MaxLocalStorageNodes(maxlocalstoragenodes string) *NodeInfoSettingsNodeBuilder {
-	rb.v.MaxLocalStorageNodes = &maxlocalstoragenodes
-	return rb
-}
-
-func (rb *NodeInfoSettingsNodeBuilder) Name(name Name) *NodeInfoSettingsNodeBuilder {
-	rb.v.Name = name
-	return rb
+	return r
 }

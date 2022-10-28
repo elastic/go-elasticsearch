@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AllocationStore type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/cluster/allocation_explain/types.ts#L39-L46
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/allocation_explain/types.ts#L39-L46
 type AllocationStore struct {
 	AllocationId        string `json:"allocation_id"`
 	Found               bool   `json:"found"`
@@ -34,51 +34,9 @@ type AllocationStore struct {
 	StoreException      string `json:"store_exception"`
 }
 
-// AllocationStoreBuilder holds AllocationStore struct and provides a builder API.
-type AllocationStoreBuilder struct {
-	v *AllocationStore
-}
+// NewAllocationStore returns a AllocationStore.
+func NewAllocationStore() *AllocationStore {
+	r := &AllocationStore{}
 
-// NewAllocationStore provides a builder for the AllocationStore struct.
-func NewAllocationStoreBuilder() *AllocationStoreBuilder {
-	r := AllocationStoreBuilder{
-		&AllocationStore{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the AllocationStore struct
-func (rb *AllocationStoreBuilder) Build() AllocationStore {
-	return *rb.v
-}
-
-func (rb *AllocationStoreBuilder) AllocationId(allocationid string) *AllocationStoreBuilder {
-	rb.v.AllocationId = allocationid
-	return rb
-}
-
-func (rb *AllocationStoreBuilder) Found(found bool) *AllocationStoreBuilder {
-	rb.v.Found = found
-	return rb
-}
-
-func (rb *AllocationStoreBuilder) InSync(insync bool) *AllocationStoreBuilder {
-	rb.v.InSync = insync
-	return rb
-}
-
-func (rb *AllocationStoreBuilder) MatchingSizeInBytes(matchingsizeinbytes int64) *AllocationStoreBuilder {
-	rb.v.MatchingSizeInBytes = matchingsizeinbytes
-	return rb
-}
-
-func (rb *AllocationStoreBuilder) MatchingSyncId(matchingsyncid bool) *AllocationStoreBuilder {
-	rb.v.MatchingSyncId = matchingsyncid
-	return rb
-}
-
-func (rb *AllocationStoreBuilder) StoreException(storeexception string) *AllocationStoreBuilder {
-	rb.v.StoreException = storeexception
-	return rb
+	return r
 }

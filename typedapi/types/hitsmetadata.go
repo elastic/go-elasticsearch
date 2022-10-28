@@ -17,58 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // HitsMetadata type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_global/search/_types/hits.ts#L66-L72
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/hits.ts#L66-L72
 type HitsMetadata struct {
 	Hits     []Hit   `json:"hits"`
 	MaxScore float64 `json:"max_score,omitempty"`
 	// Total Total hit count information, present only if `track_total_hits` wasn't
 	// `false` in the search request.
-	Total int64 `json:"total,omitempty"`
+	Total TotalHits `json:"total,omitempty"`
 }
 
-// HitsMetadataBuilder holds HitsMetadata struct and provides a builder API.
-type HitsMetadataBuilder struct {
-	v *HitsMetadata
-}
+// NewHitsMetadata returns a HitsMetadata.
+func NewHitsMetadata() *HitsMetadata {
+	r := &HitsMetadata{}
 
-// NewHitsMetadata provides a builder for the HitsMetadata struct.
-func NewHitsMetadataBuilder() *HitsMetadataBuilder {
-	r := HitsMetadataBuilder{
-		&HitsMetadata{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the HitsMetadata struct
-func (rb *HitsMetadataBuilder) Build() HitsMetadata {
-	return *rb.v
-}
-
-func (rb *HitsMetadataBuilder) Hits(hits []HitBuilder) *HitsMetadataBuilder {
-	tmp := make([]Hit, len(hits))
-	for _, value := range hits {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Hits = tmp
-	return rb
-}
-
-func (rb *HitsMetadataBuilder) MaxScore(maxscore float64) *HitsMetadataBuilder {
-	rb.v.MaxScore = maxscore
-	return rb
-}
-
-// Total Total hit count information, present only if `track_total_hits` wasn't
-// `false` in the search request.
-func (rb *HitsMetadataBuilder) Total(arg int64) *HitsMetadataBuilder {
-	rb.v.Total = arg
-	return rb
+	return r
 }

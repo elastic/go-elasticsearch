@@ -17,51 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Analytics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/xpack/usage/types.ts#L315-L317
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L315-L317
 type Analytics struct {
 	Available bool                `json:"available"`
 	Enabled   bool                `json:"enabled"`
 	Stats     AnalyticsStatistics `json:"stats"`
 }
 
-// AnalyticsBuilder holds Analytics struct and provides a builder API.
-type AnalyticsBuilder struct {
-	v *Analytics
-}
+// NewAnalytics returns a Analytics.
+func NewAnalytics() *Analytics {
+	r := &Analytics{}
 
-// NewAnalytics provides a builder for the Analytics struct.
-func NewAnalyticsBuilder() *AnalyticsBuilder {
-	r := AnalyticsBuilder{
-		&Analytics{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Analytics struct
-func (rb *AnalyticsBuilder) Build() Analytics {
-	return *rb.v
-}
-
-func (rb *AnalyticsBuilder) Available(available bool) *AnalyticsBuilder {
-	rb.v.Available = available
-	return rb
-}
-
-func (rb *AnalyticsBuilder) Enabled(enabled bool) *AnalyticsBuilder {
-	rb.v.Enabled = enabled
-	return rb
-}
-
-func (rb *AnalyticsBuilder) Stats(stats *AnalyticsStatisticsBuilder) *AnalyticsBuilder {
-	v := stats.Build()
-	rb.v.Stats = v
-	return rb
+	return r
 }

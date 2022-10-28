@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // LatLonGeoLocation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/Geo.ts#L107-L110
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Geo.ts#L110-L113
 type LatLonGeoLocation struct {
 	Lat float64 `json:"lat"`
 	Lon float64 `json:"lon"`
 }
 
-// LatLonGeoLocationBuilder holds LatLonGeoLocation struct and provides a builder API.
-type LatLonGeoLocationBuilder struct {
-	v *LatLonGeoLocation
-}
+// NewLatLonGeoLocation returns a LatLonGeoLocation.
+func NewLatLonGeoLocation() *LatLonGeoLocation {
+	r := &LatLonGeoLocation{}
 
-// NewLatLonGeoLocation provides a builder for the LatLonGeoLocation struct.
-func NewLatLonGeoLocationBuilder() *LatLonGeoLocationBuilder {
-	r := LatLonGeoLocationBuilder{
-		&LatLonGeoLocation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the LatLonGeoLocation struct
-func (rb *LatLonGeoLocationBuilder) Build() LatLonGeoLocation {
-	return *rb.v
-}
-
-func (rb *LatLonGeoLocationBuilder) Lat(lat float64) *LatLonGeoLocationBuilder {
-	rb.v.Lat = lat
-	return rb
-}
-
-func (rb *LatLonGeoLocationBuilder) Lon(lon float64) *LatLonGeoLocationBuilder {
-	rb.v.Lon = lon
-	return rb
+	return r
 }

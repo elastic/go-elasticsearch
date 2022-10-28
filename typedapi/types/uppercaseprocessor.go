@@ -17,78 +17,28 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // UppercaseProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ingest/_types/Processors.ts#L355-L359
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ingest/_types/Processors.ts#L368-L372
 type UppercaseProcessor struct {
-	Field         Field                `json:"field"`
+	Description   *string              `json:"description,omitempty"`
+	Field         string               `json:"field"`
 	If            *string              `json:"if,omitempty"`
 	IgnoreFailure *bool                `json:"ignore_failure,omitempty"`
 	IgnoreMissing *bool                `json:"ignore_missing,omitempty"`
 	OnFailure     []ProcessorContainer `json:"on_failure,omitempty"`
 	Tag           *string              `json:"tag,omitempty"`
-	TargetField   *Field               `json:"target_field,omitempty"`
+	TargetField   *string              `json:"target_field,omitempty"`
 }
 
-// UppercaseProcessorBuilder holds UppercaseProcessor struct and provides a builder API.
-type UppercaseProcessorBuilder struct {
-	v *UppercaseProcessor
-}
+// NewUppercaseProcessor returns a UppercaseProcessor.
+func NewUppercaseProcessor() *UppercaseProcessor {
+	r := &UppercaseProcessor{}
 
-// NewUppercaseProcessor provides a builder for the UppercaseProcessor struct.
-func NewUppercaseProcessorBuilder() *UppercaseProcessorBuilder {
-	r := UppercaseProcessorBuilder{
-		&UppercaseProcessor{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the UppercaseProcessor struct
-func (rb *UppercaseProcessorBuilder) Build() UppercaseProcessor {
-	return *rb.v
-}
-
-func (rb *UppercaseProcessorBuilder) Field(field Field) *UppercaseProcessorBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *UppercaseProcessorBuilder) If_(if_ string) *UppercaseProcessorBuilder {
-	rb.v.If = &if_
-	return rb
-}
-
-func (rb *UppercaseProcessorBuilder) IgnoreFailure(ignorefailure bool) *UppercaseProcessorBuilder {
-	rb.v.IgnoreFailure = &ignorefailure
-	return rb
-}
-
-func (rb *UppercaseProcessorBuilder) IgnoreMissing(ignoremissing bool) *UppercaseProcessorBuilder {
-	rb.v.IgnoreMissing = &ignoremissing
-	return rb
-}
-
-func (rb *UppercaseProcessorBuilder) OnFailure(on_failure []ProcessorContainerBuilder) *UppercaseProcessorBuilder {
-	tmp := make([]ProcessorContainer, len(on_failure))
-	for _, value := range on_failure {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.OnFailure = tmp
-	return rb
-}
-
-func (rb *UppercaseProcessorBuilder) Tag(tag string) *UppercaseProcessorBuilder {
-	rb.v.Tag = &tag
-	return rb
-}
-
-func (rb *UppercaseProcessorBuilder) TargetField(targetfield Field) *UppercaseProcessorBuilder {
-	rb.v.TargetField = &targetfield
-	return rb
+	return r
 }

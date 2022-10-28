@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ClusterStatistics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/Stats.ts#L27-L31
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Stats.ts#L27-L31
 type ClusterStatistics struct {
 	Skipped    int `json:"skipped"`
 	Successful int `json:"successful"`
 	Total      int `json:"total"`
 }
 
-// ClusterStatisticsBuilder holds ClusterStatistics struct and provides a builder API.
-type ClusterStatisticsBuilder struct {
-	v *ClusterStatistics
-}
+// NewClusterStatistics returns a ClusterStatistics.
+func NewClusterStatistics() *ClusterStatistics {
+	r := &ClusterStatistics{}
 
-// NewClusterStatistics provides a builder for the ClusterStatistics struct.
-func NewClusterStatisticsBuilder() *ClusterStatisticsBuilder {
-	r := ClusterStatisticsBuilder{
-		&ClusterStatistics{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ClusterStatistics struct
-func (rb *ClusterStatisticsBuilder) Build() ClusterStatistics {
-	return *rb.v
-}
-
-func (rb *ClusterStatisticsBuilder) Skipped(skipped int) *ClusterStatisticsBuilder {
-	rb.v.Skipped = skipped
-	return rb
-}
-
-func (rb *ClusterStatisticsBuilder) Successful(successful int) *ClusterStatisticsBuilder {
-	rb.v.Successful = successful
-	return rb
-}
-
-func (rb *ClusterStatisticsBuilder) Total(total int) *ClusterStatisticsBuilder {
-	rb.v.Total = total
-	return rb
+	return r
 }

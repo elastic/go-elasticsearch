@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ShardsStatsSummaryItem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/snapshot/_types/SnapshotShardsStatus.ts#L37-L40
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/snapshot/_types/SnapshotShardsStatus.ts#L37-L40
 type ShardsStatsSummaryItem struct {
 	FileCount   int64 `json:"file_count"`
 	SizeInBytes int64 `json:"size_in_bytes"`
 }
 
-// ShardsStatsSummaryItemBuilder holds ShardsStatsSummaryItem struct and provides a builder API.
-type ShardsStatsSummaryItemBuilder struct {
-	v *ShardsStatsSummaryItem
-}
+// NewShardsStatsSummaryItem returns a ShardsStatsSummaryItem.
+func NewShardsStatsSummaryItem() *ShardsStatsSummaryItem {
+	r := &ShardsStatsSummaryItem{}
 
-// NewShardsStatsSummaryItem provides a builder for the ShardsStatsSummaryItem struct.
-func NewShardsStatsSummaryItemBuilder() *ShardsStatsSummaryItemBuilder {
-	r := ShardsStatsSummaryItemBuilder{
-		&ShardsStatsSummaryItem{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ShardsStatsSummaryItem struct
-func (rb *ShardsStatsSummaryItemBuilder) Build() ShardsStatsSummaryItem {
-	return *rb.v
-}
-
-func (rb *ShardsStatsSummaryItemBuilder) FileCount(filecount int64) *ShardsStatsSummaryItemBuilder {
-	rb.v.FileCount = filecount
-	return rb
-}
-
-func (rb *ShardsStatsSummaryItemBuilder) SizeInBytes(sizeinbytes int64) *ShardsStatsSummaryItemBuilder {
-	rb.v.SizeInBytes = sizeinbytes
-	return rb
+	return r
 }

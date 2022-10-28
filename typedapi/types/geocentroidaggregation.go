@@ -17,65 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // GeoCentroidAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/metric.ts#L76-L79
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/metric.ts#L76-L79
 type GeoCentroidAggregation struct {
 	Count    *int64       `json:"count,omitempty"`
-	Field    *Field       `json:"field,omitempty"`
+	Field    *string      `json:"field,omitempty"`
 	Location *GeoLocation `json:"location,omitempty"`
 	Missing  *Missing     `json:"missing,omitempty"`
 	Script   *Script      `json:"script,omitempty"`
 }
 
-// GeoCentroidAggregationBuilder holds GeoCentroidAggregation struct and provides a builder API.
-type GeoCentroidAggregationBuilder struct {
-	v *GeoCentroidAggregation
-}
+// NewGeoCentroidAggregation returns a GeoCentroidAggregation.
+func NewGeoCentroidAggregation() *GeoCentroidAggregation {
+	r := &GeoCentroidAggregation{}
 
-// NewGeoCentroidAggregation provides a builder for the GeoCentroidAggregation struct.
-func NewGeoCentroidAggregationBuilder() *GeoCentroidAggregationBuilder {
-	r := GeoCentroidAggregationBuilder{
-		&GeoCentroidAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the GeoCentroidAggregation struct
-func (rb *GeoCentroidAggregationBuilder) Build() GeoCentroidAggregation {
-	return *rb.v
-}
-
-func (rb *GeoCentroidAggregationBuilder) Count(count int64) *GeoCentroidAggregationBuilder {
-	rb.v.Count = &count
-	return rb
-}
-
-func (rb *GeoCentroidAggregationBuilder) Field(field Field) *GeoCentroidAggregationBuilder {
-	rb.v.Field = &field
-	return rb
-}
-
-func (rb *GeoCentroidAggregationBuilder) Location(location *GeoLocationBuilder) *GeoCentroidAggregationBuilder {
-	v := location.Build()
-	rb.v.Location = &v
-	return rb
-}
-
-func (rb *GeoCentroidAggregationBuilder) Missing(missing *MissingBuilder) *GeoCentroidAggregationBuilder {
-	v := missing.Build()
-	rb.v.Missing = &v
-	return rb
-}
-
-func (rb *GeoCentroidAggregationBuilder) Script(script *ScriptBuilder) *GeoCentroidAggregationBuilder {
-	v := script.Build()
-	rb.v.Script = &v
-	return rb
+	return r
 }

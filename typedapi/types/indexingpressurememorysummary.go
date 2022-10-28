@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IndexingPressureMemorySummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/cluster/stats/types.ts#L302-L311
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/stats/types.ts#L302-L311
 type IndexingPressureMemorySummary struct {
 	AllInBytes                            int64  `json:"all_in_bytes"`
 	CombinedCoordinatingAndPrimaryInBytes int64  `json:"combined_coordinating_and_primary_in_bytes"`
@@ -36,61 +36,9 @@ type IndexingPressureMemorySummary struct {
 	ReplicaRejections                     *int64 `json:"replica_rejections,omitempty"`
 }
 
-// IndexingPressureMemorySummaryBuilder holds IndexingPressureMemorySummary struct and provides a builder API.
-type IndexingPressureMemorySummaryBuilder struct {
-	v *IndexingPressureMemorySummary
-}
+// NewIndexingPressureMemorySummary returns a IndexingPressureMemorySummary.
+func NewIndexingPressureMemorySummary() *IndexingPressureMemorySummary {
+	r := &IndexingPressureMemorySummary{}
 
-// NewIndexingPressureMemorySummary provides a builder for the IndexingPressureMemorySummary struct.
-func NewIndexingPressureMemorySummaryBuilder() *IndexingPressureMemorySummaryBuilder {
-	r := IndexingPressureMemorySummaryBuilder{
-		&IndexingPressureMemorySummary{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IndexingPressureMemorySummary struct
-func (rb *IndexingPressureMemorySummaryBuilder) Build() IndexingPressureMemorySummary {
-	return *rb.v
-}
-
-func (rb *IndexingPressureMemorySummaryBuilder) AllInBytes(allinbytes int64) *IndexingPressureMemorySummaryBuilder {
-	rb.v.AllInBytes = allinbytes
-	return rb
-}
-
-func (rb *IndexingPressureMemorySummaryBuilder) CombinedCoordinatingAndPrimaryInBytes(combinedcoordinatingandprimaryinbytes int64) *IndexingPressureMemorySummaryBuilder {
-	rb.v.CombinedCoordinatingAndPrimaryInBytes = combinedcoordinatingandprimaryinbytes
-	return rb
-}
-
-func (rb *IndexingPressureMemorySummaryBuilder) CoordinatingInBytes(coordinatinginbytes int64) *IndexingPressureMemorySummaryBuilder {
-	rb.v.CoordinatingInBytes = coordinatinginbytes
-	return rb
-}
-
-func (rb *IndexingPressureMemorySummaryBuilder) CoordinatingRejections(coordinatingrejections int64) *IndexingPressureMemorySummaryBuilder {
-	rb.v.CoordinatingRejections = &coordinatingrejections
-	return rb
-}
-
-func (rb *IndexingPressureMemorySummaryBuilder) PrimaryInBytes(primaryinbytes int64) *IndexingPressureMemorySummaryBuilder {
-	rb.v.PrimaryInBytes = primaryinbytes
-	return rb
-}
-
-func (rb *IndexingPressureMemorySummaryBuilder) PrimaryRejections(primaryrejections int64) *IndexingPressureMemorySummaryBuilder {
-	rb.v.PrimaryRejections = &primaryrejections
-	return rb
-}
-
-func (rb *IndexingPressureMemorySummaryBuilder) ReplicaInBytes(replicainbytes int64) *IndexingPressureMemorySummaryBuilder {
-	rb.v.ReplicaInBytes = replicainbytes
-	return rb
-}
-
-func (rb *IndexingPressureMemorySummaryBuilder) ReplicaRejections(replicarejections int64) *IndexingPressureMemorySummaryBuilder {
-	rb.v.ReplicaRejections = &replicarejections
-	return rb
+	return r
 }

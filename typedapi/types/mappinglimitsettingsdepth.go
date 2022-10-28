@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MappingLimitSettingsDepth type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/_types/IndexSettings.ts#L427-L434
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/IndexSettings.ts#L427-L434
 type MappingLimitSettingsDepth struct {
 	// Limit The maximum depth for a field, which is measured as the number of inner
 	// objects. For instance, if all fields are defined
@@ -33,31 +33,9 @@ type MappingLimitSettingsDepth struct {
 	Limit *int `json:"limit,omitempty"`
 }
 
-// MappingLimitSettingsDepthBuilder holds MappingLimitSettingsDepth struct and provides a builder API.
-type MappingLimitSettingsDepthBuilder struct {
-	v *MappingLimitSettingsDepth
-}
+// NewMappingLimitSettingsDepth returns a MappingLimitSettingsDepth.
+func NewMappingLimitSettingsDepth() *MappingLimitSettingsDepth {
+	r := &MappingLimitSettingsDepth{}
 
-// NewMappingLimitSettingsDepth provides a builder for the MappingLimitSettingsDepth struct.
-func NewMappingLimitSettingsDepthBuilder() *MappingLimitSettingsDepthBuilder {
-	r := MappingLimitSettingsDepthBuilder{
-		&MappingLimitSettingsDepth{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MappingLimitSettingsDepth struct
-func (rb *MappingLimitSettingsDepthBuilder) Build() MappingLimitSettingsDepth {
-	return *rb.v
-}
-
-// Limit The maximum depth for a field, which is measured as the number of inner
-// objects. For instance, if all fields are defined
-// at the root object level, then the depth is 1. If there is one object
-// mapping, then the depth is 2, etc.
-
-func (rb *MappingLimitSettingsDepthBuilder) Limit(limit int) *MappingLimitSettingsDepthBuilder {
-	rb.v.Limit = &limit
-	return rb
+	return r
 }

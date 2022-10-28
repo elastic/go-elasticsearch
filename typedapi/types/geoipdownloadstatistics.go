@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // GeoIpDownloadStatistics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ingest/geo_ip_stats/types.ts#L24-L35
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ingest/geo_ip_stats/types.ts#L24-L35
 type GeoIpDownloadStatistics struct {
 	// DatabaseCount Current number of databases available for use.
 	DatabaseCount int `json:"database_count"`
@@ -35,60 +35,12 @@ type GeoIpDownloadStatistics struct {
 	// SuccessfulDownloads Total number of successful database downloads.
 	SuccessfulDownloads int `json:"successful_downloads"`
 	// TotalDownloadTime Total milliseconds spent downloading databases.
-	TotalDownloadTime DurationValueUnitMillis `json:"total_download_time"`
+	TotalDownloadTime int64 `json:"total_download_time"`
 }
 
-// GeoIpDownloadStatisticsBuilder holds GeoIpDownloadStatistics struct and provides a builder API.
-type GeoIpDownloadStatisticsBuilder struct {
-	v *GeoIpDownloadStatistics
-}
+// NewGeoIpDownloadStatistics returns a GeoIpDownloadStatistics.
+func NewGeoIpDownloadStatistics() *GeoIpDownloadStatistics {
+	r := &GeoIpDownloadStatistics{}
 
-// NewGeoIpDownloadStatistics provides a builder for the GeoIpDownloadStatistics struct.
-func NewGeoIpDownloadStatisticsBuilder() *GeoIpDownloadStatisticsBuilder {
-	r := GeoIpDownloadStatisticsBuilder{
-		&GeoIpDownloadStatistics{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the GeoIpDownloadStatistics struct
-func (rb *GeoIpDownloadStatisticsBuilder) Build() GeoIpDownloadStatistics {
-	return *rb.v
-}
-
-// DatabaseCount Current number of databases available for use.
-
-func (rb *GeoIpDownloadStatisticsBuilder) DatabaseCount(databasecount int) *GeoIpDownloadStatisticsBuilder {
-	rb.v.DatabaseCount = databasecount
-	return rb
-}
-
-// FailedDownloads Total number of failed database downloads.
-
-func (rb *GeoIpDownloadStatisticsBuilder) FailedDownloads(faileddownloads int) *GeoIpDownloadStatisticsBuilder {
-	rb.v.FailedDownloads = faileddownloads
-	return rb
-}
-
-// SkippedUpdates Total number of database updates skipped.
-
-func (rb *GeoIpDownloadStatisticsBuilder) SkippedUpdates(skippedupdates int) *GeoIpDownloadStatisticsBuilder {
-	rb.v.SkippedUpdates = skippedupdates
-	return rb
-}
-
-// SuccessfulDownloads Total number of successful database downloads.
-
-func (rb *GeoIpDownloadStatisticsBuilder) SuccessfulDownloads(successfuldownloads int) *GeoIpDownloadStatisticsBuilder {
-	rb.v.SuccessfulDownloads = successfuldownloads
-	return rb
-}
-
-// TotalDownloadTime Total milliseconds spent downloading databases.
-
-func (rb *GeoIpDownloadStatisticsBuilder) TotalDownloadTime(totaldownloadtime *DurationValueUnitMillisBuilder) *GeoIpDownloadStatisticsBuilder {
-	v := totaldownloadtime.Build()
-	rb.v.TotalDownloadTime = v
-	return rb
+	return r
 }

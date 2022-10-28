@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ConfusionMatrixThreshold type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/evaluate_data_frame/types.ts#L96-L117
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/evaluate_data_frame/types.ts#L96-L117
 type ConfusionMatrixThreshold struct {
 	// FalseNegative False Negative
 	FalseNegative int `json:"fn"`
@@ -36,49 +36,9 @@ type ConfusionMatrixThreshold struct {
 	TruePositive int `json:"tp"`
 }
 
-// ConfusionMatrixThresholdBuilder holds ConfusionMatrixThreshold struct and provides a builder API.
-type ConfusionMatrixThresholdBuilder struct {
-	v *ConfusionMatrixThreshold
-}
+// NewConfusionMatrixThreshold returns a ConfusionMatrixThreshold.
+func NewConfusionMatrixThreshold() *ConfusionMatrixThreshold {
+	r := &ConfusionMatrixThreshold{}
 
-// NewConfusionMatrixThreshold provides a builder for the ConfusionMatrixThreshold struct.
-func NewConfusionMatrixThresholdBuilder() *ConfusionMatrixThresholdBuilder {
-	r := ConfusionMatrixThresholdBuilder{
-		&ConfusionMatrixThreshold{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ConfusionMatrixThreshold struct
-func (rb *ConfusionMatrixThresholdBuilder) Build() ConfusionMatrixThreshold {
-	return *rb.v
-}
-
-// FalseNegative False Negative
-
-func (rb *ConfusionMatrixThresholdBuilder) FalseNegative(falsenegative int) *ConfusionMatrixThresholdBuilder {
-	rb.v.FalseNegative = falsenegative
-	return rb
-}
-
-// FalsePositive False Positive
-
-func (rb *ConfusionMatrixThresholdBuilder) FalsePositive(falsepositive int) *ConfusionMatrixThresholdBuilder {
-	rb.v.FalsePositive = falsepositive
-	return rb
-}
-
-// TrueNegative True Negative
-
-func (rb *ConfusionMatrixThresholdBuilder) TrueNegative(truenegative int) *ConfusionMatrixThresholdBuilder {
-	rb.v.TrueNegative = truenegative
-	return rb
-}
-
-// TruePositive True Positive
-
-func (rb *ConfusionMatrixThresholdBuilder) TruePositive(truepositive int) *ConfusionMatrixThresholdBuilder {
-	rb.v.TruePositive = truepositive
-	return rb
+	return r
 }

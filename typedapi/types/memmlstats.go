@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MemMlStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/get_memory_stats/types.ts#L90-L111
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/get_memory_stats/types.ts#L90-L111
 type MemMlStats struct {
 	// AnomalyDetectors Amount of native memory set aside for anomaly detection jobs.
 	AnomalyDetectors *ByteSize `json:"anomaly_detectors,omitempty"`
@@ -54,102 +54,9 @@ type MemMlStats struct {
 	NativeInferenceInBytes int `json:"native_inference_in_bytes"`
 }
 
-// MemMlStatsBuilder holds MemMlStats struct and provides a builder API.
-type MemMlStatsBuilder struct {
-	v *MemMlStats
-}
+// NewMemMlStats returns a MemMlStats.
+func NewMemMlStats() *MemMlStats {
+	r := &MemMlStats{}
 
-// NewMemMlStats provides a builder for the MemMlStats struct.
-func NewMemMlStatsBuilder() *MemMlStatsBuilder {
-	r := MemMlStatsBuilder{
-		&MemMlStats{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MemMlStats struct
-func (rb *MemMlStatsBuilder) Build() MemMlStats {
-	return *rb.v
-}
-
-// AnomalyDetectors Amount of native memory set aside for anomaly detection jobs.
-
-func (rb *MemMlStatsBuilder) AnomalyDetectors(anomalydetectors *ByteSizeBuilder) *MemMlStatsBuilder {
-	v := anomalydetectors.Build()
-	rb.v.AnomalyDetectors = &v
-	return rb
-}
-
-// AnomalyDetectorsInBytes Amount of native memory, in bytes, set aside for anomaly detection jobs.
-
-func (rb *MemMlStatsBuilder) AnomalyDetectorsInBytes(anomalydetectorsinbytes int) *MemMlStatsBuilder {
-	rb.v.AnomalyDetectorsInBytes = anomalydetectorsinbytes
-	return rb
-}
-
-// DataFrameAnalytics Amount of native memory set aside for data frame analytics jobs.
-
-func (rb *MemMlStatsBuilder) DataFrameAnalytics(dataframeanalytics *ByteSizeBuilder) *MemMlStatsBuilder {
-	v := dataframeanalytics.Build()
-	rb.v.DataFrameAnalytics = &v
-	return rb
-}
-
-// DataFrameAnalyticsInBytes Amount of native memory, in bytes, set aside for data frame analytics jobs.
-
-func (rb *MemMlStatsBuilder) DataFrameAnalyticsInBytes(dataframeanalyticsinbytes int) *MemMlStatsBuilder {
-	rb.v.DataFrameAnalyticsInBytes = dataframeanalyticsinbytes
-	return rb
-}
-
-// Max Maximum amount of native memory (separate to the JVM heap) that may be used
-// by machine learning native processes.
-
-func (rb *MemMlStatsBuilder) Max(max *ByteSizeBuilder) *MemMlStatsBuilder {
-	v := max.Build()
-	rb.v.Max = &v
-	return rb
-}
-
-// MaxInBytes Maximum amount of native memory (separate to the JVM heap), in bytes, that
-// may be used by machine learning native processes.
-
-func (rb *MemMlStatsBuilder) MaxInBytes(maxinbytes int) *MemMlStatsBuilder {
-	rb.v.MaxInBytes = maxinbytes
-	return rb
-}
-
-// NativeCodeOverhead Amount of native memory set aside for loading machine learning native code
-// shared libraries.
-
-func (rb *MemMlStatsBuilder) NativeCodeOverhead(nativecodeoverhead *ByteSizeBuilder) *MemMlStatsBuilder {
-	v := nativecodeoverhead.Build()
-	rb.v.NativeCodeOverhead = &v
-	return rb
-}
-
-// NativeCodeOverheadInBytes Amount of native memory, in bytes, set aside for loading machine learning
-// native code shared libraries.
-
-func (rb *MemMlStatsBuilder) NativeCodeOverheadInBytes(nativecodeoverheadinbytes int) *MemMlStatsBuilder {
-	rb.v.NativeCodeOverheadInBytes = nativecodeoverheadinbytes
-	return rb
-}
-
-// NativeInference Amount of native memory set aside for trained models that have a PyTorch
-// model_type.
-
-func (rb *MemMlStatsBuilder) NativeInference(nativeinference *ByteSizeBuilder) *MemMlStatsBuilder {
-	v := nativeinference.Build()
-	rb.v.NativeInference = &v
-	return rb
-}
-
-// NativeInferenceInBytes Amount of native memory, in bytes, set aside for trained models that have a
-// PyTorch model_type.
-
-func (rb *MemMlStatsBuilder) NativeInferenceInBytes(nativeinferenceinbytes int) *MemMlStatsBuilder {
-	rb.v.NativeInferenceInBytes = nativeinferenceinbytes
-	return rb
+	return r
 }

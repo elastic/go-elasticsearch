@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package previewtransform
@@ -31,59 +31,44 @@ import (
 
 // Request holds the request body struct for the package previewtransform
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/transform/preview_transform/PreviewTransformRequest.ts#L33-L107
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/transform/preview_transform/PreviewTransformRequest.ts#L33-L107
 type Request struct {
 
 	// Description Free text description of the transform.
 	Description *string `json:"description,omitempty"`
-
 	// Dest The destination for the transform.
-	Dest *types.Destination `json:"dest,omitempty"`
-
+	Dest *types.TransformDestination `json:"dest,omitempty"`
 	// Frequency The interval between checks for changes in the source indices when the
 	// transform is running continuously. Also determines the retry interval in
 	// the event of transient failures while the transform is searching or
 	// indexing. The minimum value is 1s and the maximum is 1h.
 	Frequency *types.Duration `json:"frequency,omitempty"`
-
 	// Latest The latest method transforms the data by finding the latest document for
 	// each unique key.
 	Latest *types.Latest `json:"latest,omitempty"`
-
 	// Pivot The pivot method transforms the data by aggregating and grouping it.
 	// These objects define the group by fields and the aggregation to reduce
 	// the data.
 	Pivot *types.Pivot `json:"pivot,omitempty"`
-
 	// RetentionPolicy Defines a retention policy for the transform. Data that meets the defined
 	// criteria is deleted from the destination index.
 	RetentionPolicy *types.RetentionPolicyContainer `json:"retention_policy,omitempty"`
-
 	// Settings Defines optional transform settings.
 	Settings *types.Settings `json:"settings,omitempty"`
-
 	// Source The source of the data for the transform.
-	Source *types.Source `json:"source,omitempty"`
-
+	Source *types.TransformSource `json:"source,omitempty"`
 	// Sync Defines the properties transforms require to run continuously.
 	Sync *types.SyncContainer `json:"sync,omitempty"`
 }
 
-// RequestBuilder is the builder API for the previewtransform.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -92,62 +77,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) Description(description string) *RequestBuilder {
-	rb.v.Description = &description
-	return rb
-}
-
-func (rb *RequestBuilder) Dest(dest *types.DestinationBuilder) *RequestBuilder {
-	v := dest.Build()
-	rb.v.Dest = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Frequency(frequency *types.DurationBuilder) *RequestBuilder {
-	v := frequency.Build()
-	rb.v.Frequency = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Latest(latest *types.LatestBuilder) *RequestBuilder {
-	v := latest.Build()
-	rb.v.Latest = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Pivot(pivot *types.PivotBuilder) *RequestBuilder {
-	v := pivot.Build()
-	rb.v.Pivot = &v
-	return rb
-}
-
-func (rb *RequestBuilder) RetentionPolicy(retentionpolicy *types.RetentionPolicyContainerBuilder) *RequestBuilder {
-	v := retentionpolicy.Build()
-	rb.v.RetentionPolicy = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Settings(settings *types.SettingsBuilder) *RequestBuilder {
-	v := settings.Build()
-	rb.v.Settings = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Source(source *types.SourceBuilder) *RequestBuilder {
-	v := source.Build()
-	rb.v.Source = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Sync(sync *types.SyncContainerBuilder) *RequestBuilder {
-	v := sync.Build()
-	rb.v.Sync = &v
-	return rb
 }

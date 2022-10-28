@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MatchNoneQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/query_dsl/MatchNoneQuery.ts#L22-L22
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/MatchNoneQuery.ts#L22-L22
 type MatchNoneQuery struct {
 	Boost      *float32 `json:"boost,omitempty"`
 	QueryName_ *string  `json:"_name,omitempty"`
 }
 
-// MatchNoneQueryBuilder holds MatchNoneQuery struct and provides a builder API.
-type MatchNoneQueryBuilder struct {
-	v *MatchNoneQuery
-}
+// NewMatchNoneQuery returns a MatchNoneQuery.
+func NewMatchNoneQuery() *MatchNoneQuery {
+	r := &MatchNoneQuery{}
 
-// NewMatchNoneQuery provides a builder for the MatchNoneQuery struct.
-func NewMatchNoneQueryBuilder() *MatchNoneQueryBuilder {
-	r := MatchNoneQueryBuilder{
-		&MatchNoneQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MatchNoneQuery struct
-func (rb *MatchNoneQueryBuilder) Build() MatchNoneQuery {
-	return *rb.v
-}
-
-func (rb *MatchNoneQueryBuilder) Boost(boost float32) *MatchNoneQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *MatchNoneQueryBuilder) QueryName_(queryname_ string) *MatchNoneQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
+	return r
 }

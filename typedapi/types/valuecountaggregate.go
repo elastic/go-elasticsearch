@@ -17,16 +17,16 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ValueCountAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L209-L213
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L217-L221
 type ValueCountAggregate struct {
-	Meta *Metadata `json:"meta,omitempty"`
+	Meta map[string]interface{} `json:"meta,omitempty"`
 	// Value The metric value. A missing value generally means that there was no data to
 	// aggregate,
 	// unless specified otherwise.
@@ -34,41 +34,9 @@ type ValueCountAggregate struct {
 	ValueAsString *string `json:"value_as_string,omitempty"`
 }
 
-// ValueCountAggregateBuilder holds ValueCountAggregate struct and provides a builder API.
-type ValueCountAggregateBuilder struct {
-	v *ValueCountAggregate
-}
+// NewValueCountAggregate returns a ValueCountAggregate.
+func NewValueCountAggregate() *ValueCountAggregate {
+	r := &ValueCountAggregate{}
 
-// NewValueCountAggregate provides a builder for the ValueCountAggregate struct.
-func NewValueCountAggregateBuilder() *ValueCountAggregateBuilder {
-	r := ValueCountAggregateBuilder{
-		&ValueCountAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ValueCountAggregate struct
-func (rb *ValueCountAggregateBuilder) Build() ValueCountAggregate {
-	return *rb.v
-}
-
-func (rb *ValueCountAggregateBuilder) Meta(meta *MetadataBuilder) *ValueCountAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-// Value The metric value. A missing value generally means that there was no data to
-// aggregate,
-// unless specified otherwise.
-
-func (rb *ValueCountAggregateBuilder) Value(value float64) *ValueCountAggregateBuilder {
-	rb.v.Value = value
-	return rb
-}
-
-func (rb *ValueCountAggregateBuilder) ValueAsString(valueasstring string) *ValueCountAggregateBuilder {
-	rb.v.ValueAsString = &valueasstring
-	return rb
+	return r
 }

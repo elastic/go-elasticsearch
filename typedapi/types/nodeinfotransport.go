@@ -17,52 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeInfoTransport type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/info/types.ts#L342-L346
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/info/types.ts#L342-L346
 type NodeInfoTransport struct {
 	BoundAddress   []string          `json:"bound_address"`
 	Profiles       map[string]string `json:"profiles"`
 	PublishAddress string            `json:"publish_address"`
 }
 
-// NodeInfoTransportBuilder holds NodeInfoTransport struct and provides a builder API.
-type NodeInfoTransportBuilder struct {
-	v *NodeInfoTransport
-}
-
-// NewNodeInfoTransport provides a builder for the NodeInfoTransport struct.
-func NewNodeInfoTransportBuilder() *NodeInfoTransportBuilder {
-	r := NodeInfoTransportBuilder{
-		&NodeInfoTransport{
-			Profiles: make(map[string]string, 0),
-		},
+// NewNodeInfoTransport returns a NodeInfoTransport.
+func NewNodeInfoTransport() *NodeInfoTransport {
+	r := &NodeInfoTransport{
+		Profiles: make(map[string]string, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the NodeInfoTransport struct
-func (rb *NodeInfoTransportBuilder) Build() NodeInfoTransport {
-	return *rb.v
-}
-
-func (rb *NodeInfoTransportBuilder) BoundAddress(bound_address ...string) *NodeInfoTransportBuilder {
-	rb.v.BoundAddress = bound_address
-	return rb
-}
-
-func (rb *NodeInfoTransportBuilder) Profiles(value map[string]string) *NodeInfoTransportBuilder {
-	rb.v.Profiles = value
-	return rb
-}
-
-func (rb *NodeInfoTransportBuilder) PublishAddress(publishaddress string) *NodeInfoTransportBuilder {
-	rb.v.PublishAddress = publishaddress
-	return rb
+	return r
 }

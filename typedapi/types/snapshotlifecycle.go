@@ -17,101 +17,30 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SnapshotLifecycle type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/slm/_types/SnapshotLifecycle.ts#L38-L49
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/slm/_types/SnapshotLifecycle.ts#L38-L49
 type SnapshotLifecycle struct {
-	InProgress          *InProgress         `json:"in_progress,omitempty"`
-	LastFailure         *Invocation         `json:"last_failure,omitempty"`
-	LastSuccess         *Invocation         `json:"last_success,omitempty"`
-	ModifiedDate        *DateTime           `json:"modified_date,omitempty"`
-	ModifiedDateMillis  EpochTimeUnitMillis `json:"modified_date_millis"`
-	NextExecution       *DateTime           `json:"next_execution,omitempty"`
-	NextExecutionMillis EpochTimeUnitMillis `json:"next_execution_millis"`
-	Policy              Policy              `json:"policy"`
-	Stats               Statistics          `json:"stats"`
-	Version             VersionNumber       `json:"version"`
+	InProgress          *InProgress `json:"in_progress,omitempty"`
+	LastFailure         *Invocation `json:"last_failure,omitempty"`
+	LastSuccess         *Invocation `json:"last_success,omitempty"`
+	ModifiedDate        *DateTime   `json:"modified_date,omitempty"`
+	ModifiedDateMillis  int64       `json:"modified_date_millis"`
+	NextExecution       *DateTime   `json:"next_execution,omitempty"`
+	NextExecutionMillis int64       `json:"next_execution_millis"`
+	Policy              SLMPolicy   `json:"policy"`
+	Stats               Statistics  `json:"stats"`
+	Version             int64       `json:"version"`
 }
 
-// SnapshotLifecycleBuilder holds SnapshotLifecycle struct and provides a builder API.
-type SnapshotLifecycleBuilder struct {
-	v *SnapshotLifecycle
-}
+// NewSnapshotLifecycle returns a SnapshotLifecycle.
+func NewSnapshotLifecycle() *SnapshotLifecycle {
+	r := &SnapshotLifecycle{}
 
-// NewSnapshotLifecycle provides a builder for the SnapshotLifecycle struct.
-func NewSnapshotLifecycleBuilder() *SnapshotLifecycleBuilder {
-	r := SnapshotLifecycleBuilder{
-		&SnapshotLifecycle{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SnapshotLifecycle struct
-func (rb *SnapshotLifecycleBuilder) Build() SnapshotLifecycle {
-	return *rb.v
-}
-
-func (rb *SnapshotLifecycleBuilder) InProgress(inprogress *InProgressBuilder) *SnapshotLifecycleBuilder {
-	v := inprogress.Build()
-	rb.v.InProgress = &v
-	return rb
-}
-
-func (rb *SnapshotLifecycleBuilder) LastFailure(lastfailure *InvocationBuilder) *SnapshotLifecycleBuilder {
-	v := lastfailure.Build()
-	rb.v.LastFailure = &v
-	return rb
-}
-
-func (rb *SnapshotLifecycleBuilder) LastSuccess(lastsuccess *InvocationBuilder) *SnapshotLifecycleBuilder {
-	v := lastsuccess.Build()
-	rb.v.LastSuccess = &v
-	return rb
-}
-
-func (rb *SnapshotLifecycleBuilder) ModifiedDate(modifieddate *DateTimeBuilder) *SnapshotLifecycleBuilder {
-	v := modifieddate.Build()
-	rb.v.ModifiedDate = &v
-	return rb
-}
-
-func (rb *SnapshotLifecycleBuilder) ModifiedDateMillis(modifieddatemillis *EpochTimeUnitMillisBuilder) *SnapshotLifecycleBuilder {
-	v := modifieddatemillis.Build()
-	rb.v.ModifiedDateMillis = v
-	return rb
-}
-
-func (rb *SnapshotLifecycleBuilder) NextExecution(nextexecution *DateTimeBuilder) *SnapshotLifecycleBuilder {
-	v := nextexecution.Build()
-	rb.v.NextExecution = &v
-	return rb
-}
-
-func (rb *SnapshotLifecycleBuilder) NextExecutionMillis(nextexecutionmillis *EpochTimeUnitMillisBuilder) *SnapshotLifecycleBuilder {
-	v := nextexecutionmillis.Build()
-	rb.v.NextExecutionMillis = v
-	return rb
-}
-
-func (rb *SnapshotLifecycleBuilder) Policy(policy *PolicyBuilder) *SnapshotLifecycleBuilder {
-	v := policy.Build()
-	rb.v.Policy = v
-	return rb
-}
-
-func (rb *SnapshotLifecycleBuilder) Stats(stats *StatisticsBuilder) *SnapshotLifecycleBuilder {
-	v := stats.Build()
-	rb.v.Stats = v
-	return rb
-}
-
-func (rb *SnapshotLifecycleBuilder) Version(version VersionNumber) *SnapshotLifecycleBuilder {
-	rb.v.Version = version
-	return rb
+	return r
 }

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FielddataRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/cat/fielddata/types.ts#L20-L48
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cat/fielddata/types.ts#L20-L48
 type FielddataRecord struct {
 	// Field field name
 	Field *string `json:"field,omitempty"`
@@ -40,63 +40,9 @@ type FielddataRecord struct {
 	Size *string `json:"size,omitempty"`
 }
 
-// FielddataRecordBuilder holds FielddataRecord struct and provides a builder API.
-type FielddataRecordBuilder struct {
-	v *FielddataRecord
-}
+// NewFielddataRecord returns a FielddataRecord.
+func NewFielddataRecord() *FielddataRecord {
+	r := &FielddataRecord{}
 
-// NewFielddataRecord provides a builder for the FielddataRecord struct.
-func NewFielddataRecordBuilder() *FielddataRecordBuilder {
-	r := FielddataRecordBuilder{
-		&FielddataRecord{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FielddataRecord struct
-func (rb *FielddataRecordBuilder) Build() FielddataRecord {
-	return *rb.v
-}
-
-// Field field name
-
-func (rb *FielddataRecordBuilder) Field(field string) *FielddataRecordBuilder {
-	rb.v.Field = &field
-	return rb
-}
-
-// Host host name
-
-func (rb *FielddataRecordBuilder) Host(host string) *FielddataRecordBuilder {
-	rb.v.Host = &host
-	return rb
-}
-
-// Id node id
-
-func (rb *FielddataRecordBuilder) Id(id string) *FielddataRecordBuilder {
-	rb.v.Id = &id
-	return rb
-}
-
-// Ip ip address
-
-func (rb *FielddataRecordBuilder) Ip(ip string) *FielddataRecordBuilder {
-	rb.v.Ip = &ip
-	return rb
-}
-
-// Node node name
-
-func (rb *FielddataRecordBuilder) Node(node string) *FielddataRecordBuilder {
-	rb.v.Node = &node
-	return rb
-}
-
-// Size field data usage
-
-func (rb *FielddataRecordBuilder) Size(size string) *FielddataRecordBuilder {
-	rb.v.Size = &size
-	return rb
+	return r
 }

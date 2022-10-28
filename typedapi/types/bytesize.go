@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -27,30 +27,5 @@ package types
 //	int64
 //	string
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/common.ts#L88-L89
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/common.ts#L88-L89
 type ByteSize interface{}
-
-// ByteSizeBuilder holds ByteSize struct and provides a builder API.
-type ByteSizeBuilder struct {
-	v ByteSize
-}
-
-// NewByteSize provides a builder for the ByteSize struct.
-func NewByteSizeBuilder() *ByteSizeBuilder {
-	return &ByteSizeBuilder{}
-}
-
-// Build finalize the chain and returns the ByteSize struct
-func (u *ByteSizeBuilder) Build() ByteSize {
-	return u.v
-}
-
-func (u *ByteSizeBuilder) Int64(int64 int64) *ByteSizeBuilder {
-	u.v = &int64
-	return u
-}
-
-func (u *ByteSizeBuilder) String(string string) *ByteSizeBuilder {
-	u.v = &string
-	return u
-}

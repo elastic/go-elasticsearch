@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,25 +28,5 @@ import (
 
 // ExpandWildcards type alias.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/common.ts#L197-L197
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/common.ts#L197-L197
 type ExpandWildcards []expandwildcard.ExpandWildcard
-
-// ExpandWildcardsBuilder holds ExpandWildcards struct and provides a builder API.
-type ExpandWildcardsBuilder struct {
-	v ExpandWildcards
-}
-
-// NewExpandWildcards provides a builder for the ExpandWildcards struct.
-func NewExpandWildcardsBuilder() *ExpandWildcardsBuilder {
-	return &ExpandWildcardsBuilder{}
-}
-
-// Build finalize the chain and returns the ExpandWildcards struct
-func (b *ExpandWildcardsBuilder) Build() ExpandWildcards {
-	return b.v
-}
-
-func (b *ExpandWildcardsBuilder) ExpandWildcards(value ExpandWildcards) *ExpandWildcardsBuilder {
-	b.v = value
-	return b
-}

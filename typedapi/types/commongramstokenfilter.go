@@ -17,65 +17,28 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CommonGramsTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/token_filters.ts#L172-L178
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/token_filters.ts#L172-L178
 type CommonGramsTokenFilter struct {
-	CommonWords     []string       `json:"common_words,omitempty"`
-	CommonWordsPath *string        `json:"common_words_path,omitempty"`
-	IgnoreCase      *bool          `json:"ignore_case,omitempty"`
-	QueryMode       *bool          `json:"query_mode,omitempty"`
-	Type            string         `json:"type,omitempty"`
-	Version         *VersionString `json:"version,omitempty"`
+	CommonWords     []string `json:"common_words,omitempty"`
+	CommonWordsPath *string  `json:"common_words_path,omitempty"`
+	IgnoreCase      *bool    `json:"ignore_case,omitempty"`
+	QueryMode       *bool    `json:"query_mode,omitempty"`
+	Type            string   `json:"type,omitempty"`
+	Version         *string  `json:"version,omitempty"`
 }
 
-// CommonGramsTokenFilterBuilder holds CommonGramsTokenFilter struct and provides a builder API.
-type CommonGramsTokenFilterBuilder struct {
-	v *CommonGramsTokenFilter
-}
+// NewCommonGramsTokenFilter returns a CommonGramsTokenFilter.
+func NewCommonGramsTokenFilter() *CommonGramsTokenFilter {
+	r := &CommonGramsTokenFilter{}
 
-// NewCommonGramsTokenFilter provides a builder for the CommonGramsTokenFilter struct.
-func NewCommonGramsTokenFilterBuilder() *CommonGramsTokenFilterBuilder {
-	r := CommonGramsTokenFilterBuilder{
-		&CommonGramsTokenFilter{},
-	}
+	r.Type = "common_grams"
 
-	r.v.Type = "common_grams"
-
-	return &r
-}
-
-// Build finalize the chain and returns the CommonGramsTokenFilter struct
-func (rb *CommonGramsTokenFilterBuilder) Build() CommonGramsTokenFilter {
-	return *rb.v
-}
-
-func (rb *CommonGramsTokenFilterBuilder) CommonWords(common_words ...string) *CommonGramsTokenFilterBuilder {
-	rb.v.CommonWords = common_words
-	return rb
-}
-
-func (rb *CommonGramsTokenFilterBuilder) CommonWordsPath(commonwordspath string) *CommonGramsTokenFilterBuilder {
-	rb.v.CommonWordsPath = &commonwordspath
-	return rb
-}
-
-func (rb *CommonGramsTokenFilterBuilder) IgnoreCase(ignorecase bool) *CommonGramsTokenFilterBuilder {
-	rb.v.IgnoreCase = &ignorecase
-	return rb
-}
-
-func (rb *CommonGramsTokenFilterBuilder) QueryMode(querymode bool) *CommonGramsTokenFilterBuilder {
-	rb.v.QueryMode = &querymode
-	return rb
-}
-
-func (rb *CommonGramsTokenFilterBuilder) Version(version VersionString) *CommonGramsTokenFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

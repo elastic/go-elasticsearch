@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SpanNotQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/query_dsl/span.ts#L55-L63
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/span.ts#L55-L63
 type SpanNotQuery struct {
 	Boost      *float32   `json:"boost,omitempty"`
 	Dist       *int       `json:"dist,omitempty"`
@@ -35,58 +35,9 @@ type SpanNotQuery struct {
 	QueryName_ *string    `json:"_name,omitempty"`
 }
 
-// SpanNotQueryBuilder holds SpanNotQuery struct and provides a builder API.
-type SpanNotQueryBuilder struct {
-	v *SpanNotQuery
-}
+// NewSpanNotQuery returns a SpanNotQuery.
+func NewSpanNotQuery() *SpanNotQuery {
+	r := &SpanNotQuery{}
 
-// NewSpanNotQuery provides a builder for the SpanNotQuery struct.
-func NewSpanNotQueryBuilder() *SpanNotQueryBuilder {
-	r := SpanNotQueryBuilder{
-		&SpanNotQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SpanNotQuery struct
-func (rb *SpanNotQueryBuilder) Build() SpanNotQuery {
-	return *rb.v
-}
-
-func (rb *SpanNotQueryBuilder) Boost(boost float32) *SpanNotQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *SpanNotQueryBuilder) Dist(dist int) *SpanNotQueryBuilder {
-	rb.v.Dist = &dist
-	return rb
-}
-
-func (rb *SpanNotQueryBuilder) Exclude(exclude *SpanQueryBuilder) *SpanNotQueryBuilder {
-	v := exclude.Build()
-	rb.v.Exclude = &v
-	return rb
-}
-
-func (rb *SpanNotQueryBuilder) Include(include *SpanQueryBuilder) *SpanNotQueryBuilder {
-	v := include.Build()
-	rb.v.Include = &v
-	return rb
-}
-
-func (rb *SpanNotQueryBuilder) Post(post int) *SpanNotQueryBuilder {
-	rb.v.Post = &post
-	return rb
-}
-
-func (rb *SpanNotQueryBuilder) Pre(pre int) *SpanNotQueryBuilder {
-	rb.v.Pre = &pre
-	return rb
-}
-
-func (rb *SpanNotQueryBuilder) QueryName_(queryname_ string) *SpanNotQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
+	return r
 }

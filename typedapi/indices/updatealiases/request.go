@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package updatealiases
@@ -31,26 +31,19 @@ import (
 
 // Request holds the request body struct for the package updatealiases
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/update_aliases/IndicesUpdateAliasesRequest.ts#L24-L37
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/update_aliases/IndicesUpdateAliasesRequest.ts#L24-L37
 type Request struct {
-	Actions []types.Action `json:"actions,omitempty"`
+	Actions []types.IndicesAction `json:"actions,omitempty"`
 }
 
-// RequestBuilder is the builder API for the updatealiases.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -59,18 +52,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) Actions(actions []types.ActionBuilder) *RequestBuilder {
-	tmp := make([]types.Action, len(actions))
-	for _, value := range actions {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Actions = tmp
-	return rb
 }

@@ -17,32 +17,12 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Metadata type alias.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/common.ts#L91-L91
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/common.ts#L91-L91
 type Metadata map[string]interface{}
-
-// MetadataBuilder holds Metadata struct and provides a builder API.
-type MetadataBuilder struct {
-	v Metadata
-}
-
-// NewMetadata provides a builder for the Metadata struct.
-func NewMetadataBuilder() *MetadataBuilder {
-	return &MetadataBuilder{}
-}
-
-// Build finalize the chain and returns the Metadata struct
-func (b *MetadataBuilder) Build() Metadata {
-	return b.v
-}
-
-func (b *MetadataBuilder) Metadata(value Metadata) *MetadataBuilder {
-	b.v = value
-	return b
-}

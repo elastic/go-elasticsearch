@@ -17,48 +17,15 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // BucketsGeoHashGridBucket holds the union for the following types:
 //
-//	[]GeoHashGridBucket
 //	map[string]GeoHashGridBucket
+//	[]GeoHashGridBucket
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L307-L316
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L315-L324
 type BucketsGeoHashGridBucket interface{}
-
-// BucketsGeoHashGridBucketBuilder holds BucketsGeoHashGridBucket struct and provides a builder API.
-type BucketsGeoHashGridBucketBuilder struct {
-	v BucketsGeoHashGridBucket
-}
-
-// NewBucketsGeoHashGridBucket provides a builder for the BucketsGeoHashGridBucket struct.
-func NewBucketsGeoHashGridBucketBuilder() *BucketsGeoHashGridBucketBuilder {
-	return &BucketsGeoHashGridBucketBuilder{}
-}
-
-// Build finalize the chain and returns the BucketsGeoHashGridBucket struct
-func (u *BucketsGeoHashGridBucketBuilder) Build() BucketsGeoHashGridBucket {
-	return u.v
-}
-
-func (u *BucketsGeoHashGridBucketBuilder) GeoHashGridBuckets(geohashgridbuckets []GeoHashGridBucketBuilder) *BucketsGeoHashGridBucketBuilder {
-	tmp := make([]GeoHashGridBucket, len(geohashgridbuckets))
-	for _, value := range geohashgridbuckets {
-		tmp = append(tmp, value.Build())
-	}
-	u.v = tmp
-	return u
-}
-
-func (u *BucketsGeoHashGridBucketBuilder) Map(values map[string]*GeoHashGridBucketBuilder) *BucketsGeoHashGridBucketBuilder {
-	tmp := make(map[string]GeoHashGridBucket, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	u.v = tmp
-	return u
-}

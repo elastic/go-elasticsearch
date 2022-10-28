@@ -17,46 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // GeoBoundsAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L294-L297
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L302-L305
 type GeoBoundsAggregate struct {
-	Bounds *GeoBounds `json:"bounds,omitempty"`
-	Meta   *Metadata  `json:"meta,omitempty"`
+	Bounds *GeoBounds             `json:"bounds,omitempty"`
+	Meta   map[string]interface{} `json:"meta,omitempty"`
 }
 
-// GeoBoundsAggregateBuilder holds GeoBoundsAggregate struct and provides a builder API.
-type GeoBoundsAggregateBuilder struct {
-	v *GeoBoundsAggregate
-}
+// NewGeoBoundsAggregate returns a GeoBoundsAggregate.
+func NewGeoBoundsAggregate() *GeoBoundsAggregate {
+	r := &GeoBoundsAggregate{}
 
-// NewGeoBoundsAggregate provides a builder for the GeoBoundsAggregate struct.
-func NewGeoBoundsAggregateBuilder() *GeoBoundsAggregateBuilder {
-	r := GeoBoundsAggregateBuilder{
-		&GeoBoundsAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the GeoBoundsAggregate struct
-func (rb *GeoBoundsAggregateBuilder) Build() GeoBoundsAggregate {
-	return *rb.v
-}
-
-func (rb *GeoBoundsAggregateBuilder) Bounds(bounds *GeoBoundsBuilder) *GeoBoundsAggregateBuilder {
-	v := bounds.Build()
-	rb.v.Bounds = &v
-	return rb
-}
-
-func (rb *GeoBoundsAggregateBuilder) Meta(meta *MetadataBuilder) *GeoBoundsAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
+	return r
 }

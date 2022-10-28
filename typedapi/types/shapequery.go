@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,12 +29,12 @@ import (
 
 // ShapeQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/query_dsl/specialized.ts#L176-L181
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/specialized.ts#L176-L181
 type ShapeQuery struct {
-	Boost          *float32                  `json:"boost,omitempty"`
-	IgnoreUnmapped *bool                     `json:"ignore_unmapped,omitempty"`
-	QueryName_     *string                   `json:"_name,omitempty"`
-	ShapeQuery     map[Field]ShapeFieldQuery `json:"-"`
+	Boost          *float32                   `json:"boost,omitempty"`
+	IgnoreUnmapped *bool                      `json:"ignore_unmapped,omitempty"`
+	QueryName_     *string                    `json:"_name,omitempty"`
+	ShapeQuery     map[string]ShapeFieldQuery `json:"-"`
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -65,47 +65,11 @@ func (s ShapeQuery) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// ShapeQueryBuilder holds ShapeQuery struct and provides a builder API.
-type ShapeQueryBuilder struct {
-	v *ShapeQuery
-}
-
-// NewShapeQuery provides a builder for the ShapeQuery struct.
-func NewShapeQueryBuilder() *ShapeQueryBuilder {
-	r := ShapeQueryBuilder{
-		&ShapeQuery{
-			ShapeQuery: make(map[Field]ShapeFieldQuery, 0),
-		},
+// NewShapeQuery returns a ShapeQuery.
+func NewShapeQuery() *ShapeQuery {
+	r := &ShapeQuery{
+		ShapeQuery: make(map[string]ShapeFieldQuery, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the ShapeQuery struct
-func (rb *ShapeQueryBuilder) Build() ShapeQuery {
-	return *rb.v
-}
-
-func (rb *ShapeQueryBuilder) Boost(boost float32) *ShapeQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *ShapeQueryBuilder) IgnoreUnmapped(ignoreunmapped bool) *ShapeQueryBuilder {
-	rb.v.IgnoreUnmapped = &ignoreunmapped
-	return rb
-}
-
-func (rb *ShapeQueryBuilder) QueryName_(queryname_ string) *ShapeQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
-}
-
-func (rb *ShapeQueryBuilder) ShapeQuery(values map[Field]*ShapeFieldQueryBuilder) *ShapeQueryBuilder {
-	tmp := make(map[Field]ShapeFieldQuery, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.ShapeQuery = tmp
-	return rb
+	return r
 }

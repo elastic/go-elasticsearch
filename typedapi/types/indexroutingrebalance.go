@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,31 +28,14 @@ import (
 
 // IndexRoutingRebalance type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/_types/IndexRouting.ts#L34-L36
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/IndexRouting.ts#L34-L36
 type IndexRoutingRebalance struct {
 	Enable indexroutingrebalanceoptions.IndexRoutingRebalanceOptions `json:"enable"`
 }
 
-// IndexRoutingRebalanceBuilder holds IndexRoutingRebalance struct and provides a builder API.
-type IndexRoutingRebalanceBuilder struct {
-	v *IndexRoutingRebalance
-}
+// NewIndexRoutingRebalance returns a IndexRoutingRebalance.
+func NewIndexRoutingRebalance() *IndexRoutingRebalance {
+	r := &IndexRoutingRebalance{}
 
-// NewIndexRoutingRebalance provides a builder for the IndexRoutingRebalance struct.
-func NewIndexRoutingRebalanceBuilder() *IndexRoutingRebalanceBuilder {
-	r := IndexRoutingRebalanceBuilder{
-		&IndexRoutingRebalance{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IndexRoutingRebalance struct
-func (rb *IndexRoutingRebalanceBuilder) Build() IndexRoutingRebalance {
-	return *rb.v
-}
-
-func (rb *IndexRoutingRebalanceBuilder) Enable(enable indexroutingrebalanceoptions.IndexRoutingRebalanceOptions) *IndexRoutingRebalanceBuilder {
-	rb.v.Enable = enable
-	return rb
+	return r
 }

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // NumberRangeQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/query_dsl/term.ts#L83-L90
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/term.ts#L83-L90
 type NumberRangeQuery struct {
 	Boost      *float32                     `json:"boost,omitempty"`
 	From       float64                      `json:"from,omitempty"`
@@ -41,66 +41,9 @@ type NumberRangeQuery struct {
 	To         float64                      `json:"to,omitempty"`
 }
 
-// NumberRangeQueryBuilder holds NumberRangeQuery struct and provides a builder API.
-type NumberRangeQueryBuilder struct {
-	v *NumberRangeQuery
-}
+// NewNumberRangeQuery returns a NumberRangeQuery.
+func NewNumberRangeQuery() *NumberRangeQuery {
+	r := &NumberRangeQuery{}
 
-// NewNumberRangeQuery provides a builder for the NumberRangeQuery struct.
-func NewNumberRangeQueryBuilder() *NumberRangeQueryBuilder {
-	r := NumberRangeQueryBuilder{
-		&NumberRangeQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NumberRangeQuery struct
-func (rb *NumberRangeQueryBuilder) Build() NumberRangeQuery {
-	return *rb.v
-}
-
-func (rb *NumberRangeQueryBuilder) Boost(boost float32) *NumberRangeQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *NumberRangeQueryBuilder) From(from float64) *NumberRangeQueryBuilder {
-	rb.v.From = from
-	return rb
-}
-
-func (rb *NumberRangeQueryBuilder) Gt(gt float64) *NumberRangeQueryBuilder {
-	rb.v.Gt = &gt
-	return rb
-}
-
-func (rb *NumberRangeQueryBuilder) Gte(gte float64) *NumberRangeQueryBuilder {
-	rb.v.Gte = &gte
-	return rb
-}
-
-func (rb *NumberRangeQueryBuilder) Lt(lt float64) *NumberRangeQueryBuilder {
-	rb.v.Lt = &lt
-	return rb
-}
-
-func (rb *NumberRangeQueryBuilder) Lte(lte float64) *NumberRangeQueryBuilder {
-	rb.v.Lte = &lte
-	return rb
-}
-
-func (rb *NumberRangeQueryBuilder) QueryName_(queryname_ string) *NumberRangeQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
-}
-
-func (rb *NumberRangeQueryBuilder) Relation(relation rangerelation.RangeRelation) *NumberRangeQueryBuilder {
-	rb.v.Relation = &relation
-	return rb
-}
-
-func (rb *NumberRangeQueryBuilder) To(to float64) *NumberRangeQueryBuilder {
-	rb.v.To = to
-	return rb
+	return r
 }

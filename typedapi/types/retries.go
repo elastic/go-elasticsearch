@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Retries type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/Retries.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Retries.ts#L22-L25
 type Retries struct {
 	Bulk   int64 `json:"bulk"`
 	Search int64 `json:"search"`
 }
 
-// RetriesBuilder holds Retries struct and provides a builder API.
-type RetriesBuilder struct {
-	v *Retries
-}
+// NewRetries returns a Retries.
+func NewRetries() *Retries {
+	r := &Retries{}
 
-// NewRetries provides a builder for the Retries struct.
-func NewRetriesBuilder() *RetriesBuilder {
-	r := RetriesBuilder{
-		&Retries{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Retries struct
-func (rb *RetriesBuilder) Build() Retries {
-	return *rb.v
-}
-
-func (rb *RetriesBuilder) Bulk(bulk int64) *RetriesBuilder {
-	rb.v.Bulk = bulk
-	return rb
-}
-
-func (rb *RetriesBuilder) Search(search int64) *RetriesBuilder {
-	rb.v.Search = search
-	return rb
+	return r
 }

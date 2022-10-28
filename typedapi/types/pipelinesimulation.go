@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // PipelineSimulation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ingest/simulate/types.ts#L33-L39
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ingest/simulate/types.ts#L33-L39
 type PipelineSimulation struct {
 	Doc              *DocumentSimulation                      `json:"doc,omitempty"`
 	ProcessorResults []PipelineSimulation                     `json:"processor_results,omitempty"`
@@ -37,51 +37,9 @@ type PipelineSimulation struct {
 	Tag              *string                                  `json:"tag,omitempty"`
 }
 
-// PipelineSimulationBuilder holds PipelineSimulation struct and provides a builder API.
-type PipelineSimulationBuilder struct {
-	v *PipelineSimulation
-}
+// NewPipelineSimulation returns a PipelineSimulation.
+func NewPipelineSimulation() *PipelineSimulation {
+	r := &PipelineSimulation{}
 
-// NewPipelineSimulation provides a builder for the PipelineSimulation struct.
-func NewPipelineSimulationBuilder() *PipelineSimulationBuilder {
-	r := PipelineSimulationBuilder{
-		&PipelineSimulation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the PipelineSimulation struct
-func (rb *PipelineSimulationBuilder) Build() PipelineSimulation {
-	return *rb.v
-}
-
-func (rb *PipelineSimulationBuilder) Doc(doc *DocumentSimulationBuilder) *PipelineSimulationBuilder {
-	v := doc.Build()
-	rb.v.Doc = &v
-	return rb
-}
-
-func (rb *PipelineSimulationBuilder) ProcessorResults(processor_results []PipelineSimulationBuilder) *PipelineSimulationBuilder {
-	tmp := make([]PipelineSimulation, len(processor_results))
-	for _, value := range processor_results {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.ProcessorResults = tmp
-	return rb
-}
-
-func (rb *PipelineSimulationBuilder) ProcessorType(processortype string) *PipelineSimulationBuilder {
-	rb.v.ProcessorType = &processortype
-	return rb
-}
-
-func (rb *PipelineSimulationBuilder) Status(status actionstatusoptions.ActionStatusOptions) *PipelineSimulationBuilder {
-	rb.v.Status = &status
-	return rb
-}
-
-func (rb *PipelineSimulationBuilder) Tag(tag string) *PipelineSimulationBuilder {
-	rb.v.Tag = &tag
-	return rb
+	return r
 }

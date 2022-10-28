@@ -17,54 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // InferenceFeatureImportance type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L654-L658
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L669-L673
 type InferenceFeatureImportance struct {
 	Classes     []InferenceClassImportance `json:"classes,omitempty"`
 	FeatureName string                     `json:"feature_name"`
 	Importance  *float64                   `json:"importance,omitempty"`
 }
 
-// InferenceFeatureImportanceBuilder holds InferenceFeatureImportance struct and provides a builder API.
-type InferenceFeatureImportanceBuilder struct {
-	v *InferenceFeatureImportance
-}
+// NewInferenceFeatureImportance returns a InferenceFeatureImportance.
+func NewInferenceFeatureImportance() *InferenceFeatureImportance {
+	r := &InferenceFeatureImportance{}
 
-// NewInferenceFeatureImportance provides a builder for the InferenceFeatureImportance struct.
-func NewInferenceFeatureImportanceBuilder() *InferenceFeatureImportanceBuilder {
-	r := InferenceFeatureImportanceBuilder{
-		&InferenceFeatureImportance{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the InferenceFeatureImportance struct
-func (rb *InferenceFeatureImportanceBuilder) Build() InferenceFeatureImportance {
-	return *rb.v
-}
-
-func (rb *InferenceFeatureImportanceBuilder) Classes(classes []InferenceClassImportanceBuilder) *InferenceFeatureImportanceBuilder {
-	tmp := make([]InferenceClassImportance, len(classes))
-	for _, value := range classes {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Classes = tmp
-	return rb
-}
-
-func (rb *InferenceFeatureImportanceBuilder) FeatureName(featurename string) *InferenceFeatureImportanceBuilder {
-	rb.v.FeatureName = featurename
-	return rb
-}
-
-func (rb *InferenceFeatureImportanceBuilder) Importance(importance float64) *InferenceFeatureImportanceBuilder {
-	rb.v.Importance = &importance
-	return rb
+	return r
 }

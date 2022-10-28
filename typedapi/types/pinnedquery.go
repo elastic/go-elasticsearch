@@ -17,67 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // PinnedQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/query_dsl/specialized.ts#L122-L130
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/specialized.ts#L122-L130
 type PinnedQuery struct {
-	Boost      *float32        `json:"boost,omitempty"`
-	Docs       []PinnedDoc     `json:"docs,omitempty"`
-	Ids        []Id            `json:"ids,omitempty"`
-	Organic    *QueryContainer `json:"organic,omitempty"`
-	QueryName_ *string         `json:"_name,omitempty"`
+	Boost      *float32    `json:"boost,omitempty"`
+	Docs       []PinnedDoc `json:"docs,omitempty"`
+	Ids        []string    `json:"ids,omitempty"`
+	Organic    *Query      `json:"organic,omitempty"`
+	QueryName_ *string     `json:"_name,omitempty"`
 }
 
-// PinnedQueryBuilder holds PinnedQuery struct and provides a builder API.
-type PinnedQueryBuilder struct {
-	v *PinnedQuery
-}
+// NewPinnedQuery returns a PinnedQuery.
+func NewPinnedQuery() *PinnedQuery {
+	r := &PinnedQuery{}
 
-// NewPinnedQuery provides a builder for the PinnedQuery struct.
-func NewPinnedQueryBuilder() *PinnedQueryBuilder {
-	r := PinnedQueryBuilder{
-		&PinnedQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the PinnedQuery struct
-func (rb *PinnedQueryBuilder) Build() PinnedQuery {
-	return *rb.v
-}
-
-func (rb *PinnedQueryBuilder) Boost(boost float32) *PinnedQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *PinnedQueryBuilder) Docs(docs []PinnedDocBuilder) *PinnedQueryBuilder {
-	tmp := make([]PinnedDoc, len(docs))
-	for _, value := range docs {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Docs = tmp
-	return rb
-}
-
-func (rb *PinnedQueryBuilder) Ids(ids ...Id) *PinnedQueryBuilder {
-	rb.v.Ids = ids
-	return rb
-}
-
-func (rb *PinnedQueryBuilder) Organic(organic *QueryContainerBuilder) *PinnedQueryBuilder {
-	v := organic.Build()
-	rb.v.Organic = &v
-	return rb
-}
-
-func (rb *PinnedQueryBuilder) QueryName_(queryname_ string) *PinnedQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
+	return r
 }

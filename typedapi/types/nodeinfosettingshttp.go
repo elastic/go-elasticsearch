@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeInfoSettingsHttp type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/info/types.ts#L181-L186
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/info/types.ts#L181-L186
 type NodeInfoSettingsHttp struct {
 	Compression string                   `json:"compression,omitempty"`
 	Port        string                   `json:"port,omitempty"`
@@ -32,42 +32,9 @@ type NodeInfoSettingsHttp struct {
 	TypeDefault *string                  `json:"type.default,omitempty"`
 }
 
-// NodeInfoSettingsHttpBuilder holds NodeInfoSettingsHttp struct and provides a builder API.
-type NodeInfoSettingsHttpBuilder struct {
-	v *NodeInfoSettingsHttp
-}
+// NewNodeInfoSettingsHttp returns a NodeInfoSettingsHttp.
+func NewNodeInfoSettingsHttp() *NodeInfoSettingsHttp {
+	r := &NodeInfoSettingsHttp{}
 
-// NewNodeInfoSettingsHttp provides a builder for the NodeInfoSettingsHttp struct.
-func NewNodeInfoSettingsHttpBuilder() *NodeInfoSettingsHttpBuilder {
-	r := NodeInfoSettingsHttpBuilder{
-		&NodeInfoSettingsHttp{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodeInfoSettingsHttp struct
-func (rb *NodeInfoSettingsHttpBuilder) Build() NodeInfoSettingsHttp {
-	return *rb.v
-}
-
-func (rb *NodeInfoSettingsHttpBuilder) Compression(arg string) *NodeInfoSettingsHttpBuilder {
-	rb.v.Compression = arg
-	return rb
-}
-
-func (rb *NodeInfoSettingsHttpBuilder) Port(arg string) *NodeInfoSettingsHttpBuilder {
-	rb.v.Port = arg
-	return rb
-}
-
-func (rb *NodeInfoSettingsHttpBuilder) Type_(type_ *NodeInfoSettingsHttpTypeBuilder) *NodeInfoSettingsHttpBuilder {
-	v := type_.Build()
-	rb.v.Type = v
-	return rb
-}
-
-func (rb *NodeInfoSettingsHttpBuilder) TypeDefault(typedefault string) *NodeInfoSettingsHttpBuilder {
-	rb.v.TypeDefault = &typedefault
-	return rb
+	return r
 }

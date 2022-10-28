@@ -17,115 +17,33 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // HistogramAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/bucket.ts#L235-L247
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/bucket.ts#L235-L247
 type HistogramAggregation struct {
-	ExtendedBounds *ExtendedBoundsdouble `json:"extended_bounds,omitempty"`
-	Field          *Field                `json:"field,omitempty"`
-	Format         *string               `json:"format,omitempty"`
-	HardBounds     *ExtendedBoundsdouble `json:"hard_bounds,omitempty"`
-	Interval       *float64              `json:"interval,omitempty"`
-	Keyed          *bool                 `json:"keyed,omitempty"`
-	Meta           *Metadata             `json:"meta,omitempty"`
-	MinDocCount    *int                  `json:"min_doc_count,omitempty"`
-	Missing        *float64              `json:"missing,omitempty"`
-	Name           *string               `json:"name,omitempty"`
-	Offset         *float64              `json:"offset,omitempty"`
-	Order          *AggregateOrder       `json:"order,omitempty"`
-	Script         *Script               `json:"script,omitempty"`
+	ExtendedBounds *ExtendedBoundsdouble  `json:"extended_bounds,omitempty"`
+	Field          *string                `json:"field,omitempty"`
+	Format         *string                `json:"format,omitempty"`
+	HardBounds     *ExtendedBoundsdouble  `json:"hard_bounds,omitempty"`
+	Interval       *float64               `json:"interval,omitempty"`
+	Keyed          *bool                  `json:"keyed,omitempty"`
+	Meta           map[string]interface{} `json:"meta,omitempty"`
+	MinDocCount    *int                   `json:"min_doc_count,omitempty"`
+	Missing        *float64               `json:"missing,omitempty"`
+	Name           *string                `json:"name,omitempty"`
+	Offset         *float64               `json:"offset,omitempty"`
+	Order          *AggregateOrder        `json:"order,omitempty"`
+	Script         *Script                `json:"script,omitempty"`
 }
 
-// HistogramAggregationBuilder holds HistogramAggregation struct and provides a builder API.
-type HistogramAggregationBuilder struct {
-	v *HistogramAggregation
-}
+// NewHistogramAggregation returns a HistogramAggregation.
+func NewHistogramAggregation() *HistogramAggregation {
+	r := &HistogramAggregation{}
 
-// NewHistogramAggregation provides a builder for the HistogramAggregation struct.
-func NewHistogramAggregationBuilder() *HistogramAggregationBuilder {
-	r := HistogramAggregationBuilder{
-		&HistogramAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the HistogramAggregation struct
-func (rb *HistogramAggregationBuilder) Build() HistogramAggregation {
-	return *rb.v
-}
-
-func (rb *HistogramAggregationBuilder) ExtendedBounds(extendedbounds *ExtendedBoundsdoubleBuilder) *HistogramAggregationBuilder {
-	v := extendedbounds.Build()
-	rb.v.ExtendedBounds = &v
-	return rb
-}
-
-func (rb *HistogramAggregationBuilder) Field(field Field) *HistogramAggregationBuilder {
-	rb.v.Field = &field
-	return rb
-}
-
-func (rb *HistogramAggregationBuilder) Format(format string) *HistogramAggregationBuilder {
-	rb.v.Format = &format
-	return rb
-}
-
-func (rb *HistogramAggregationBuilder) HardBounds(hardbounds *ExtendedBoundsdoubleBuilder) *HistogramAggregationBuilder {
-	v := hardbounds.Build()
-	rb.v.HardBounds = &v
-	return rb
-}
-
-func (rb *HistogramAggregationBuilder) Interval(interval float64) *HistogramAggregationBuilder {
-	rb.v.Interval = &interval
-	return rb
-}
-
-func (rb *HistogramAggregationBuilder) Keyed(keyed bool) *HistogramAggregationBuilder {
-	rb.v.Keyed = &keyed
-	return rb
-}
-
-func (rb *HistogramAggregationBuilder) Meta(meta *MetadataBuilder) *HistogramAggregationBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *HistogramAggregationBuilder) MinDocCount(mindoccount int) *HistogramAggregationBuilder {
-	rb.v.MinDocCount = &mindoccount
-	return rb
-}
-
-func (rb *HistogramAggregationBuilder) Missing(missing float64) *HistogramAggregationBuilder {
-	rb.v.Missing = &missing
-	return rb
-}
-
-func (rb *HistogramAggregationBuilder) Name(name string) *HistogramAggregationBuilder {
-	rb.v.Name = &name
-	return rb
-}
-
-func (rb *HistogramAggregationBuilder) Offset(offset float64) *HistogramAggregationBuilder {
-	rb.v.Offset = &offset
-	return rb
-}
-
-func (rb *HistogramAggregationBuilder) Order(order *AggregateOrderBuilder) *HistogramAggregationBuilder {
-	v := order.Build()
-	rb.v.Order = &v
-	return rb
-}
-
-func (rb *HistogramAggregationBuilder) Script(script *ScriptBuilder) *HistogramAggregationBuilder {
-	v := script.Build()
-	rb.v.Script = &v
-	return rb
+	return r
 }

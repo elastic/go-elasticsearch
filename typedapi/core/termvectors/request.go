@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package termvectors
@@ -31,32 +31,23 @@ import (
 
 // Request holds the request body struct for the package termvectors
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_global/termvectors/TermVectorsRequest.ts#L33-L61
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/termvectors/TermVectorsRequest.ts#L33-L61
 type Request struct {
-	Doc interface{} `json:"doc,omitempty"`
-
-	Filter *types.Filter `json:"filter,omitempty"`
-
-	PerFieldAnalyzer map[types.Field]string `json:"per_field_analyzer,omitempty"`
+	Doc              interface{}              `json:"doc,omitempty"`
+	Filter           *types.TermVectorsFilter `json:"filter,omitempty"`
+	PerFieldAnalyzer map[string]string        `json:"per_field_analyzer,omitempty"`
 }
 
-// RequestBuilder is the builder API for the termvectors.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{
-			PerFieldAnalyzer: make(map[types.Field]string, 0),
-		},
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{
+		PerFieldAnalyzer: make(map[string]string, 0),
 	}
-	return &r
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -65,25 +56,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) Doc(doc interface{}) *RequestBuilder {
-	rb.v.Doc = doc
-	return rb
-}
-
-func (rb *RequestBuilder) Filter(filter *types.FilterBuilder) *RequestBuilder {
-	v := filter.Build()
-	rb.v.Filter = &v
-	return rb
-}
-
-func (rb *RequestBuilder) PerFieldAnalyzer(value map[types.Field]string) *RequestBuilder {
-	rb.v.PerFieldAnalyzer = value
-	return rb
 }

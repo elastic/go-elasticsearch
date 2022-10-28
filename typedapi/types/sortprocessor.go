@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,71 +28,21 @@ import (
 
 // SortProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ingest/_types/Processors.ts#L335-L339
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ingest/_types/Processors.ts#L348-L352
 type SortProcessor struct {
-	Field         Field                `json:"field"`
+	Description   *string              `json:"description,omitempty"`
+	Field         string               `json:"field"`
 	If            *string              `json:"if,omitempty"`
 	IgnoreFailure *bool                `json:"ignore_failure,omitempty"`
 	OnFailure     []ProcessorContainer `json:"on_failure,omitempty"`
-	Order         sortorder.SortOrder  `json:"order"`
+	Order         *sortorder.SortOrder `json:"order,omitempty"`
 	Tag           *string              `json:"tag,omitempty"`
-	TargetField   Field                `json:"target_field"`
+	TargetField   *string              `json:"target_field,omitempty"`
 }
 
-// SortProcessorBuilder holds SortProcessor struct and provides a builder API.
-type SortProcessorBuilder struct {
-	v *SortProcessor
-}
+// NewSortProcessor returns a SortProcessor.
+func NewSortProcessor() *SortProcessor {
+	r := &SortProcessor{}
 
-// NewSortProcessor provides a builder for the SortProcessor struct.
-func NewSortProcessorBuilder() *SortProcessorBuilder {
-	r := SortProcessorBuilder{
-		&SortProcessor{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SortProcessor struct
-func (rb *SortProcessorBuilder) Build() SortProcessor {
-	return *rb.v
-}
-
-func (rb *SortProcessorBuilder) Field(field Field) *SortProcessorBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *SortProcessorBuilder) If_(if_ string) *SortProcessorBuilder {
-	rb.v.If = &if_
-	return rb
-}
-
-func (rb *SortProcessorBuilder) IgnoreFailure(ignorefailure bool) *SortProcessorBuilder {
-	rb.v.IgnoreFailure = &ignorefailure
-	return rb
-}
-
-func (rb *SortProcessorBuilder) OnFailure(on_failure []ProcessorContainerBuilder) *SortProcessorBuilder {
-	tmp := make([]ProcessorContainer, len(on_failure))
-	for _, value := range on_failure {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.OnFailure = tmp
-	return rb
-}
-
-func (rb *SortProcessorBuilder) Order(order sortorder.SortOrder) *SortProcessorBuilder {
-	rb.v.Order = order
-	return rb
-}
-
-func (rb *SortProcessorBuilder) Tag(tag string) *SortProcessorBuilder {
-	rb.v.Tag = &tag
-	return rb
-}
-
-func (rb *SortProcessorBuilder) TargetField(targetfield Field) *SortProcessorBuilder {
-	rb.v.TargetField = targetfield
-	return rb
+	return r
 }

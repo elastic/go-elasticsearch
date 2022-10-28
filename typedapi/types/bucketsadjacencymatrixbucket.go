@@ -17,48 +17,15 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // BucketsAdjacencyMatrixBucket holds the union for the following types:
 //
-//	[]AdjacencyMatrixBucket
 //	map[string]AdjacencyMatrixBucket
+//	[]AdjacencyMatrixBucket
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L307-L316
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L315-L324
 type BucketsAdjacencyMatrixBucket interface{}
-
-// BucketsAdjacencyMatrixBucketBuilder holds BucketsAdjacencyMatrixBucket struct and provides a builder API.
-type BucketsAdjacencyMatrixBucketBuilder struct {
-	v BucketsAdjacencyMatrixBucket
-}
-
-// NewBucketsAdjacencyMatrixBucket provides a builder for the BucketsAdjacencyMatrixBucket struct.
-func NewBucketsAdjacencyMatrixBucketBuilder() *BucketsAdjacencyMatrixBucketBuilder {
-	return &BucketsAdjacencyMatrixBucketBuilder{}
-}
-
-// Build finalize the chain and returns the BucketsAdjacencyMatrixBucket struct
-func (u *BucketsAdjacencyMatrixBucketBuilder) Build() BucketsAdjacencyMatrixBucket {
-	return u.v
-}
-
-func (u *BucketsAdjacencyMatrixBucketBuilder) AdjacencyMatrixBuckets(adjacencymatrixbuckets []AdjacencyMatrixBucketBuilder) *BucketsAdjacencyMatrixBucketBuilder {
-	tmp := make([]AdjacencyMatrixBucket, len(adjacencymatrixbuckets))
-	for _, value := range adjacencymatrixbuckets {
-		tmp = append(tmp, value.Build())
-	}
-	u.v = tmp
-	return u
-}
-
-func (u *BucketsAdjacencyMatrixBucketBuilder) Map(values map[string]*AdjacencyMatrixBucketBuilder) *BucketsAdjacencyMatrixBucketBuilder {
-	tmp := make(map[string]AdjacencyMatrixBucket, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	u.v = tmp
-	return u
-}

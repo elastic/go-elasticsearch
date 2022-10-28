@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,38 +28,15 @@ import (
 
 // AcknowledgeState type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/watcher/_types/Action.ts#L112-L115
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Action.ts#L112-L115
 type AcknowledgeState struct {
 	State     acknowledgementoptions.AcknowledgementOptions `json:"state"`
 	Timestamp DateTime                                      `json:"timestamp"`
 }
 
-// AcknowledgeStateBuilder holds AcknowledgeState struct and provides a builder API.
-type AcknowledgeStateBuilder struct {
-	v *AcknowledgeState
-}
+// NewAcknowledgeState returns a AcknowledgeState.
+func NewAcknowledgeState() *AcknowledgeState {
+	r := &AcknowledgeState{}
 
-// NewAcknowledgeState provides a builder for the AcknowledgeState struct.
-func NewAcknowledgeStateBuilder() *AcknowledgeStateBuilder {
-	r := AcknowledgeStateBuilder{
-		&AcknowledgeState{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the AcknowledgeState struct
-func (rb *AcknowledgeStateBuilder) Build() AcknowledgeState {
-	return *rb.v
-}
-
-func (rb *AcknowledgeStateBuilder) State(state acknowledgementoptions.AcknowledgementOptions) *AcknowledgeStateBuilder {
-	rb.v.State = state
-	return rb
-}
-
-func (rb *AcknowledgeStateBuilder) Timestamp(timestamp *DateTimeBuilder) *AcknowledgeStateBuilder {
-	v := timestamp.Build()
-	rb.v.Timestamp = v
-	return rb
+	return r
 }

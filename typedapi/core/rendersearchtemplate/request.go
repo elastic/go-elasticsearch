@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package rendersearchtemplate
@@ -29,32 +29,23 @@ import (
 
 // Request holds the request body struct for the package rendersearchtemplate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_global/render_search_template/RenderSearchTemplateRequest.ts#L25-L39
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/render_search_template/RenderSearchTemplateRequest.ts#L25-L39
 type Request struct {
-	File *string `json:"file,omitempty"`
-
+	File   *string                `json:"file,omitempty"`
 	Params map[string]interface{} `json:"params,omitempty"`
-
-	Source *string `json:"source,omitempty"`
+	Source *string                `json:"source,omitempty"`
 }
 
-// RequestBuilder is the builder API for the rendersearchtemplate.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{
-			Params: make(map[string]interface{}, 0),
-		},
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{
+		Params: make(map[string]interface{}, 0),
 	}
-	return &r
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -63,24 +54,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) File(file string) *RequestBuilder {
-	rb.v.File = &file
-	return rb
-}
-
-func (rb *RequestBuilder) Params(value map[string]interface{}) *RequestBuilder {
-	rb.v.Params = value
-	return rb
-}
-
-func (rb *RequestBuilder) Source(source string) *RequestBuilder {
-	rb.v.Source = &source
-	return rb
 }

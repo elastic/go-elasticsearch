@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DatafeedAuthorization type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/Authorization.ts#L31-L43
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/Authorization.ts#L31-L43
 type DatafeedAuthorization struct {
 	// ApiKey If an API key was used for the most recent update to the datafeed, its name
 	// and identifier are listed in the response.
@@ -37,46 +37,9 @@ type DatafeedAuthorization struct {
 	ServiceAccount *string `json:"service_account,omitempty"`
 }
 
-// DatafeedAuthorizationBuilder holds DatafeedAuthorization struct and provides a builder API.
-type DatafeedAuthorizationBuilder struct {
-	v *DatafeedAuthorization
-}
+// NewDatafeedAuthorization returns a DatafeedAuthorization.
+func NewDatafeedAuthorization() *DatafeedAuthorization {
+	r := &DatafeedAuthorization{}
 
-// NewDatafeedAuthorization provides a builder for the DatafeedAuthorization struct.
-func NewDatafeedAuthorizationBuilder() *DatafeedAuthorizationBuilder {
-	r := DatafeedAuthorizationBuilder{
-		&DatafeedAuthorization{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DatafeedAuthorization struct
-func (rb *DatafeedAuthorizationBuilder) Build() DatafeedAuthorization {
-	return *rb.v
-}
-
-// ApiKey If an API key was used for the most recent update to the datafeed, its name
-// and identifier are listed in the response.
-
-func (rb *DatafeedAuthorizationBuilder) ApiKey(apikey *ApiKeyAuthorizationBuilder) *DatafeedAuthorizationBuilder {
-	v := apikey.Build()
-	rb.v.ApiKey = &v
-	return rb
-}
-
-// Roles If a user ID was used for the most recent update to the datafeed, its roles
-// at the time of the update are listed in the response.
-
-func (rb *DatafeedAuthorizationBuilder) Roles(roles ...string) *DatafeedAuthorizationBuilder {
-	rb.v.Roles = roles
-	return rb
-}
-
-// ServiceAccount If a service account was used for the most recent update to the datafeed, the
-// account name is listed in the response.
-
-func (rb *DatafeedAuthorizationBuilder) ServiceAccount(serviceaccount string) *DatafeedAuthorizationBuilder {
-	rb.v.ServiceAccount = &serviceaccount
-	return rb
+	return r
 }

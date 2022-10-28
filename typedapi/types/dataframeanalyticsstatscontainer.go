@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeAnalyticsStatsContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/DataframeAnalytics.ts#L370-L378
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/DataframeAnalytics.ts#L370-L378
 type DataframeAnalyticsStatsContainer struct {
 	// ClassificationStats An object containing information about the classification analysis job.
 	ClassificationStats *DataframeAnalyticsStatsHyperparameters `json:"classification_stats,omitempty"`
@@ -34,45 +34,9 @@ type DataframeAnalyticsStatsContainer struct {
 	RegressionStats *DataframeAnalyticsStatsHyperparameters `json:"regression_stats,omitempty"`
 }
 
-// DataframeAnalyticsStatsContainerBuilder holds DataframeAnalyticsStatsContainer struct and provides a builder API.
-type DataframeAnalyticsStatsContainerBuilder struct {
-	v *DataframeAnalyticsStatsContainer
-}
+// NewDataframeAnalyticsStatsContainer returns a DataframeAnalyticsStatsContainer.
+func NewDataframeAnalyticsStatsContainer() *DataframeAnalyticsStatsContainer {
+	r := &DataframeAnalyticsStatsContainer{}
 
-// NewDataframeAnalyticsStatsContainer provides a builder for the DataframeAnalyticsStatsContainer struct.
-func NewDataframeAnalyticsStatsContainerBuilder() *DataframeAnalyticsStatsContainerBuilder {
-	r := DataframeAnalyticsStatsContainerBuilder{
-		&DataframeAnalyticsStatsContainer{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeAnalyticsStatsContainer struct
-func (rb *DataframeAnalyticsStatsContainerBuilder) Build() DataframeAnalyticsStatsContainer {
-	return *rb.v
-}
-
-// ClassificationStats An object containing information about the classification analysis job.
-
-func (rb *DataframeAnalyticsStatsContainerBuilder) ClassificationStats(classificationstats *DataframeAnalyticsStatsHyperparametersBuilder) *DataframeAnalyticsStatsContainerBuilder {
-	v := classificationstats.Build()
-	rb.v.ClassificationStats = &v
-	return rb
-}
-
-// OutlierDetectionStats An object containing information about the outlier detection job.
-
-func (rb *DataframeAnalyticsStatsContainerBuilder) OutlierDetectionStats(outlierdetectionstats *DataframeAnalyticsStatsOutlierDetectionBuilder) *DataframeAnalyticsStatsContainerBuilder {
-	v := outlierdetectionstats.Build()
-	rb.v.OutlierDetectionStats = &v
-	return rb
-}
-
-// RegressionStats An object containing information about the regression analysis.
-
-func (rb *DataframeAnalyticsStatsContainerBuilder) RegressionStats(regressionstats *DataframeAnalyticsStatsHyperparametersBuilder) *DataframeAnalyticsStatsContainerBuilder {
-	v := regressionstats.Build()
-	rb.v.RegressionStats = &v
-	return rb
+	return r
 }

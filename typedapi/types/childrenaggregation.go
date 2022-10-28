@@ -17,51 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ChildrenAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/bucket.ts#L73-L75
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/bucket.ts#L73-L75
 type ChildrenAggregation struct {
-	Meta *Metadata     `json:"meta,omitempty"`
-	Name *string       `json:"name,omitempty"`
-	Type *RelationName `json:"type,omitempty"`
+	Meta map[string]interface{} `json:"meta,omitempty"`
+	Name *string                `json:"name,omitempty"`
+	Type *string                `json:"type,omitempty"`
 }
 
-// ChildrenAggregationBuilder holds ChildrenAggregation struct and provides a builder API.
-type ChildrenAggregationBuilder struct {
-	v *ChildrenAggregation
-}
+// NewChildrenAggregation returns a ChildrenAggregation.
+func NewChildrenAggregation() *ChildrenAggregation {
+	r := &ChildrenAggregation{}
 
-// NewChildrenAggregation provides a builder for the ChildrenAggregation struct.
-func NewChildrenAggregationBuilder() *ChildrenAggregationBuilder {
-	r := ChildrenAggregationBuilder{
-		&ChildrenAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ChildrenAggregation struct
-func (rb *ChildrenAggregationBuilder) Build() ChildrenAggregation {
-	return *rb.v
-}
-
-func (rb *ChildrenAggregationBuilder) Meta(meta *MetadataBuilder) *ChildrenAggregationBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *ChildrenAggregationBuilder) Name(name string) *ChildrenAggregationBuilder {
-	rb.v.Name = &name
-	return rb
-}
-
-func (rb *ChildrenAggregationBuilder) Type_(type_ RelationName) *ChildrenAggregationBuilder {
-	rb.v.Type = &type_
-	return rb
+	return r
 }

@@ -17,46 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MultiBucketAggregateBaseVoid type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L318-L320
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L326-L328
 type MultiBucketAggregateBaseVoid struct {
-	Buckets BucketsVoid `json:"buckets"`
-	Meta    *Metadata   `json:"meta,omitempty"`
+	Buckets BucketsVoid            `json:"buckets"`
+	Meta    map[string]interface{} `json:"meta,omitempty"`
 }
 
-// MultiBucketAggregateBaseVoidBuilder holds MultiBucketAggregateBaseVoid struct and provides a builder API.
-type MultiBucketAggregateBaseVoidBuilder struct {
-	v *MultiBucketAggregateBaseVoid
-}
+// NewMultiBucketAggregateBaseVoid returns a MultiBucketAggregateBaseVoid.
+func NewMultiBucketAggregateBaseVoid() *MultiBucketAggregateBaseVoid {
+	r := &MultiBucketAggregateBaseVoid{}
 
-// NewMultiBucketAggregateBaseVoid provides a builder for the MultiBucketAggregateBaseVoid struct.
-func NewMultiBucketAggregateBaseVoidBuilder() *MultiBucketAggregateBaseVoidBuilder {
-	r := MultiBucketAggregateBaseVoidBuilder{
-		&MultiBucketAggregateBaseVoid{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MultiBucketAggregateBaseVoid struct
-func (rb *MultiBucketAggregateBaseVoidBuilder) Build() MultiBucketAggregateBaseVoid {
-	return *rb.v
-}
-
-func (rb *MultiBucketAggregateBaseVoidBuilder) Buckets(buckets *BucketsVoidBuilder) *MultiBucketAggregateBaseVoidBuilder {
-	v := buckets.Build()
-	rb.v.Buckets = v
-	return rb
-}
-
-func (rb *MultiBucketAggregateBaseVoidBuilder) Meta(meta *MetadataBuilder) *MultiBucketAggregateBaseVoidBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
+	return r
 }

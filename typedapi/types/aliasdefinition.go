@@ -17,69 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AliasDefinition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/_types/AliasDefinition.ts#L22-L30
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/AliasDefinition.ts#L22-L30
 type AliasDefinition struct {
-	Filter        *QueryContainer `json:"filter,omitempty"`
-	IndexRouting  *string         `json:"index_routing,omitempty"`
-	IsHidden      *bool           `json:"is_hidden,omitempty"`
-	IsWriteIndex  *bool           `json:"is_write_index,omitempty"`
-	Routing       *string         `json:"routing,omitempty"`
-	SearchRouting *string         `json:"search_routing,omitempty"`
+	Filter        *Query  `json:"filter,omitempty"`
+	IndexRouting  *string `json:"index_routing,omitempty"`
+	IsHidden      *bool   `json:"is_hidden,omitempty"`
+	IsWriteIndex  *bool   `json:"is_write_index,omitempty"`
+	Routing       *string `json:"routing,omitempty"`
+	SearchRouting *string `json:"search_routing,omitempty"`
 }
 
-// AliasDefinitionBuilder holds AliasDefinition struct and provides a builder API.
-type AliasDefinitionBuilder struct {
-	v *AliasDefinition
-}
+// NewAliasDefinition returns a AliasDefinition.
+func NewAliasDefinition() *AliasDefinition {
+	r := &AliasDefinition{}
 
-// NewAliasDefinition provides a builder for the AliasDefinition struct.
-func NewAliasDefinitionBuilder() *AliasDefinitionBuilder {
-	r := AliasDefinitionBuilder{
-		&AliasDefinition{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the AliasDefinition struct
-func (rb *AliasDefinitionBuilder) Build() AliasDefinition {
-	return *rb.v
-}
-
-func (rb *AliasDefinitionBuilder) Filter(filter *QueryContainerBuilder) *AliasDefinitionBuilder {
-	v := filter.Build()
-	rb.v.Filter = &v
-	return rb
-}
-
-func (rb *AliasDefinitionBuilder) IndexRouting(indexrouting string) *AliasDefinitionBuilder {
-	rb.v.IndexRouting = &indexrouting
-	return rb
-}
-
-func (rb *AliasDefinitionBuilder) IsHidden(ishidden bool) *AliasDefinitionBuilder {
-	rb.v.IsHidden = &ishidden
-	return rb
-}
-
-func (rb *AliasDefinitionBuilder) IsWriteIndex(iswriteindex bool) *AliasDefinitionBuilder {
-	rb.v.IsWriteIndex = &iswriteindex
-	return rb
-}
-
-func (rb *AliasDefinitionBuilder) Routing(routing string) *AliasDefinitionBuilder {
-	rb.v.Routing = &routing
-	return rb
-}
-
-func (rb *AliasDefinitionBuilder) SearchRouting(searchrouting string) *AliasDefinitionBuilder {
-	rb.v.SearchRouting = &searchrouting
-	return rb
+	return r
 }

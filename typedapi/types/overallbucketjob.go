@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // OverallBucketJob type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/Bucket.ts#L146-L149
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/Bucket.ts#L146-L149
 type OverallBucketJob struct {
-	JobId           Id      `json:"job_id"`
+	JobId           string  `json:"job_id"`
 	MaxAnomalyScore float64 `json:"max_anomaly_score"`
 }
 
-// OverallBucketJobBuilder holds OverallBucketJob struct and provides a builder API.
-type OverallBucketJobBuilder struct {
-	v *OverallBucketJob
-}
+// NewOverallBucketJob returns a OverallBucketJob.
+func NewOverallBucketJob() *OverallBucketJob {
+	r := &OverallBucketJob{}
 
-// NewOverallBucketJob provides a builder for the OverallBucketJob struct.
-func NewOverallBucketJobBuilder() *OverallBucketJobBuilder {
-	r := OverallBucketJobBuilder{
-		&OverallBucketJob{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the OverallBucketJob struct
-func (rb *OverallBucketJobBuilder) Build() OverallBucketJob {
-	return *rb.v
-}
-
-func (rb *OverallBucketJobBuilder) JobId(jobid Id) *OverallBucketJobBuilder {
-	rb.v.JobId = jobid
-	return rb
-}
-
-func (rb *OverallBucketJobBuilder) MaxAnomalyScore(maxanomalyscore float64) *OverallBucketJobBuilder {
-	rb.v.MaxAnomalyScore = maxanomalyscore
-	return rb
+	return r
 }

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -30,135 +30,36 @@ import (
 
 // GeoShapeProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/mapping/geo.ts#L37-L50
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/geo.ts#L37-L50
 type GeoShapeProperty struct {
 	Coerce          *bool                          `json:"coerce,omitempty"`
-	CopyTo          *Fields                        `json:"copy_to,omitempty"`
+	CopyTo          []string                       `json:"copy_to,omitempty"`
 	DocValues       *bool                          `json:"doc_values,omitempty"`
 	Dynamic         *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
-	Fields          map[PropertyName]Property      `json:"fields,omitempty"`
+	Fields          map[string]Property            `json:"fields,omitempty"`
 	IgnoreAbove     *int                           `json:"ignore_above,omitempty"`
 	IgnoreMalformed *bool                          `json:"ignore_malformed,omitempty"`
 	IgnoreZValue    *bool                          `json:"ignore_z_value,omitempty"`
-	LocalMetadata   *Metadata                      `json:"local_metadata,omitempty"`
+	LocalMetadata   map[string]interface{}         `json:"local_metadata,omitempty"`
 	// Meta Metadata about the field.
 	Meta        map[string]string              `json:"meta,omitempty"`
 	Orientation *geoorientation.GeoOrientation `json:"orientation,omitempty"`
-	Properties  map[PropertyName]Property      `json:"properties,omitempty"`
+	Properties  map[string]Property            `json:"properties,omitempty"`
 	Similarity  *string                        `json:"similarity,omitempty"`
 	Store       *bool                          `json:"store,omitempty"`
 	Strategy    *geostrategy.GeoStrategy       `json:"strategy,omitempty"`
 	Type        string                         `json:"type,omitempty"`
 }
 
-// GeoShapePropertyBuilder holds GeoShapeProperty struct and provides a builder API.
-type GeoShapePropertyBuilder struct {
-	v *GeoShapeProperty
-}
-
-// NewGeoShapeProperty provides a builder for the GeoShapeProperty struct.
-func NewGeoShapePropertyBuilder() *GeoShapePropertyBuilder {
-	r := GeoShapePropertyBuilder{
-		&GeoShapeProperty{
-			Fields:     make(map[PropertyName]Property, 0),
-			Meta:       make(map[string]string, 0),
-			Properties: make(map[PropertyName]Property, 0),
-		},
+// NewGeoShapeProperty returns a GeoShapeProperty.
+func NewGeoShapeProperty() *GeoShapeProperty {
+	r := &GeoShapeProperty{
+		Fields:     make(map[string]Property, 0),
+		Meta:       make(map[string]string, 0),
+		Properties: make(map[string]Property, 0),
 	}
 
-	r.v.Type = "geo_shape"
+	r.Type = "geo_shape"
 
-	return &r
-}
-
-// Build finalize the chain and returns the GeoShapeProperty struct
-func (rb *GeoShapePropertyBuilder) Build() GeoShapeProperty {
-	return *rb.v
-}
-
-func (rb *GeoShapePropertyBuilder) Coerce(coerce bool) *GeoShapePropertyBuilder {
-	rb.v.Coerce = &coerce
-	return rb
-}
-
-func (rb *GeoShapePropertyBuilder) CopyTo(copyto *FieldsBuilder) *GeoShapePropertyBuilder {
-	v := copyto.Build()
-	rb.v.CopyTo = &v
-	return rb
-}
-
-func (rb *GeoShapePropertyBuilder) DocValues(docvalues bool) *GeoShapePropertyBuilder {
-	rb.v.DocValues = &docvalues
-	return rb
-}
-
-func (rb *GeoShapePropertyBuilder) Dynamic(dynamic dynamicmapping.DynamicMapping) *GeoShapePropertyBuilder {
-	rb.v.Dynamic = &dynamic
-	return rb
-}
-
-func (rb *GeoShapePropertyBuilder) Fields(values map[PropertyName]*PropertyBuilder) *GeoShapePropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Fields = tmp
-	return rb
-}
-
-func (rb *GeoShapePropertyBuilder) IgnoreAbove(ignoreabove int) *GeoShapePropertyBuilder {
-	rb.v.IgnoreAbove = &ignoreabove
-	return rb
-}
-
-func (rb *GeoShapePropertyBuilder) IgnoreMalformed(ignoremalformed bool) *GeoShapePropertyBuilder {
-	rb.v.IgnoreMalformed = &ignoremalformed
-	return rb
-}
-
-func (rb *GeoShapePropertyBuilder) IgnoreZValue(ignorezvalue bool) *GeoShapePropertyBuilder {
-	rb.v.IgnoreZValue = &ignorezvalue
-	return rb
-}
-
-func (rb *GeoShapePropertyBuilder) LocalMetadata(localmetadata *MetadataBuilder) *GeoShapePropertyBuilder {
-	v := localmetadata.Build()
-	rb.v.LocalMetadata = &v
-	return rb
-}
-
-// Meta Metadata about the field.
-
-func (rb *GeoShapePropertyBuilder) Meta(value map[string]string) *GeoShapePropertyBuilder {
-	rb.v.Meta = value
-	return rb
-}
-
-func (rb *GeoShapePropertyBuilder) Orientation(orientation geoorientation.GeoOrientation) *GeoShapePropertyBuilder {
-	rb.v.Orientation = &orientation
-	return rb
-}
-
-func (rb *GeoShapePropertyBuilder) Properties(values map[PropertyName]*PropertyBuilder) *GeoShapePropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Properties = tmp
-	return rb
-}
-
-func (rb *GeoShapePropertyBuilder) Similarity(similarity string) *GeoShapePropertyBuilder {
-	rb.v.Similarity = &similarity
-	return rb
-}
-
-func (rb *GeoShapePropertyBuilder) Store(store bool) *GeoShapePropertyBuilder {
-	rb.v.Store = &store
-	return rb
-}
-
-func (rb *GeoShapePropertyBuilder) Strategy(strategy geostrategy.GeoStrategy) *GeoShapePropertyBuilder {
-	rb.v.Strategy = &strategy
-	return rb
+	return r
 }

@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AuthenticationProvider type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/security/get_token/types.ts#L35-L38
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/get_token/types.ts#L35-L38
 type AuthenticationProvider struct {
-	Name Name   `json:"name"`
+	Name string `json:"name"`
 	Type string `json:"type"`
 }
 
-// AuthenticationProviderBuilder holds AuthenticationProvider struct and provides a builder API.
-type AuthenticationProviderBuilder struct {
-	v *AuthenticationProvider
-}
+// NewAuthenticationProvider returns a AuthenticationProvider.
+func NewAuthenticationProvider() *AuthenticationProvider {
+	r := &AuthenticationProvider{}
 
-// NewAuthenticationProvider provides a builder for the AuthenticationProvider struct.
-func NewAuthenticationProviderBuilder() *AuthenticationProviderBuilder {
-	r := AuthenticationProviderBuilder{
-		&AuthenticationProvider{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the AuthenticationProvider struct
-func (rb *AuthenticationProviderBuilder) Build() AuthenticationProvider {
-	return *rb.v
-}
-
-func (rb *AuthenticationProviderBuilder) Name(name Name) *AuthenticationProviderBuilder {
-	rb.v.Name = name
-	return rb
-}
-
-func (rb *AuthenticationProviderBuilder) Type_(type_ string) *AuthenticationProviderBuilder {
-	rb.v.Type = type_
-	return rb
+	return r
 }

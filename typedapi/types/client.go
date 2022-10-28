@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Client type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/_types/Stats.ts#L266-L278
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L266-L278
 type Client struct {
 	Agent                 *string `json:"agent,omitempty"`
 	ClosedTimeMillis      *int64  `json:"closed_time_millis,omitempty"`
@@ -39,76 +39,9 @@ type Client struct {
 	XOpaqueId             *string `json:"x_opaque_id,omitempty"`
 }
 
-// ClientBuilder holds Client struct and provides a builder API.
-type ClientBuilder struct {
-	v *Client
-}
+// NewClient returns a Client.
+func NewClient() *Client {
+	r := &Client{}
 
-// NewClient provides a builder for the Client struct.
-func NewClientBuilder() *ClientBuilder {
-	r := ClientBuilder{
-		&Client{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Client struct
-func (rb *ClientBuilder) Build() Client {
-	return *rb.v
-}
-
-func (rb *ClientBuilder) Agent(agent string) *ClientBuilder {
-	rb.v.Agent = &agent
-	return rb
-}
-
-func (rb *ClientBuilder) ClosedTimeMillis(closedtimemillis int64) *ClientBuilder {
-	rb.v.ClosedTimeMillis = &closedtimemillis
-	return rb
-}
-
-func (rb *ClientBuilder) Id(id int64) *ClientBuilder {
-	rb.v.Id = &id
-	return rb
-}
-
-func (rb *ClientBuilder) LastRequestTimeMillis(lastrequesttimemillis int64) *ClientBuilder {
-	rb.v.LastRequestTimeMillis = &lastrequesttimemillis
-	return rb
-}
-
-func (rb *ClientBuilder) LastUri(lasturi string) *ClientBuilder {
-	rb.v.LastUri = &lasturi
-	return rb
-}
-
-func (rb *ClientBuilder) LocalAddress(localaddress string) *ClientBuilder {
-	rb.v.LocalAddress = &localaddress
-	return rb
-}
-
-func (rb *ClientBuilder) OpenedTimeMillis(openedtimemillis int64) *ClientBuilder {
-	rb.v.OpenedTimeMillis = &openedtimemillis
-	return rb
-}
-
-func (rb *ClientBuilder) RemoteAddress(remoteaddress string) *ClientBuilder {
-	rb.v.RemoteAddress = &remoteaddress
-	return rb
-}
-
-func (rb *ClientBuilder) RequestCount(requestcount int64) *ClientBuilder {
-	rb.v.RequestCount = &requestcount
-	return rb
-}
-
-func (rb *ClientBuilder) RequestSizeBytes(requestsizebytes int64) *ClientBuilder {
-	rb.v.RequestSizeBytes = &requestsizebytes
-	return rb
-}
-
-func (rb *ClientBuilder) XOpaqueId(xopaqueid string) *ClientBuilder {
-	rb.v.XOpaqueId = &xopaqueid
-	return rb
+	return r
 }

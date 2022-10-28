@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SettingsSimilarityBm25 type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/_types/IndexSettings.ts#L180-L185
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/IndexSettings.ts#L180-L185
 type SettingsSimilarityBm25 struct {
 	B                float64 `json:"b"`
 	DiscountOverlaps bool    `json:"discount_overlaps"`
@@ -32,38 +32,11 @@ type SettingsSimilarityBm25 struct {
 	Type             string  `json:"type,omitempty"`
 }
 
-// SettingsSimilarityBm25Builder holds SettingsSimilarityBm25 struct and provides a builder API.
-type SettingsSimilarityBm25Builder struct {
-	v *SettingsSimilarityBm25
-}
+// NewSettingsSimilarityBm25 returns a SettingsSimilarityBm25.
+func NewSettingsSimilarityBm25() *SettingsSimilarityBm25 {
+	r := &SettingsSimilarityBm25{}
 
-// NewSettingsSimilarityBm25 provides a builder for the SettingsSimilarityBm25 struct.
-func NewSettingsSimilarityBm25Builder() *SettingsSimilarityBm25Builder {
-	r := SettingsSimilarityBm25Builder{
-		&SettingsSimilarityBm25{},
-	}
+	r.Type = "BM25"
 
-	r.v.Type = "BM25"
-
-	return &r
-}
-
-// Build finalize the chain and returns the SettingsSimilarityBm25 struct
-func (rb *SettingsSimilarityBm25Builder) Build() SettingsSimilarityBm25 {
-	return *rb.v
-}
-
-func (rb *SettingsSimilarityBm25Builder) B(b float64) *SettingsSimilarityBm25Builder {
-	rb.v.B = b
-	return rb
-}
-
-func (rb *SettingsSimilarityBm25Builder) DiscountOverlaps(discountoverlaps bool) *SettingsSimilarityBm25Builder {
-	rb.v.DiscountOverlaps = discountoverlaps
-	return rb
-}
-
-func (rb *SettingsSimilarityBm25Builder) K1(k1 float64) *SettingsSimilarityBm25Builder {
-	rb.v.K1 = k1
-	return rb
+	return r
 }

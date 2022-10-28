@@ -17,40 +17,15 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // StringifiedVersionNumber holds the union for the following types:
 //
+//	int64
 //	string
-//	VersionNumber
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_spec_utils/Stringified.ts#L20-L27
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_spec_utils/Stringified.ts#L20-L27
 type StringifiedVersionNumber interface{}
-
-// StringifiedVersionNumberBuilder holds StringifiedVersionNumber struct and provides a builder API.
-type StringifiedVersionNumberBuilder struct {
-	v StringifiedVersionNumber
-}
-
-// NewStringifiedVersionNumber provides a builder for the StringifiedVersionNumber struct.
-func NewStringifiedVersionNumberBuilder() *StringifiedVersionNumberBuilder {
-	return &StringifiedVersionNumberBuilder{}
-}
-
-// Build finalize the chain and returns the StringifiedVersionNumber struct
-func (u *StringifiedVersionNumberBuilder) Build() StringifiedVersionNumber {
-	return u.v
-}
-
-func (u *StringifiedVersionNumberBuilder) String(string string) *StringifiedVersionNumberBuilder {
-	u.v = &string
-	return u
-}
-
-func (u *StringifiedVersionNumberBuilder) VersionNumber(versionnumber VersionNumber) *StringifiedVersionNumberBuilder {
-	u.v = &versionnumber
-	return u
-}

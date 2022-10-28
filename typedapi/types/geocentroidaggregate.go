@@ -17,52 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // GeoCentroidAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L299-L303
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L307-L311
 type GeoCentroidAggregate struct {
-	Count    int64        `json:"count"`
-	Location *GeoLocation `json:"location,omitempty"`
-	Meta     *Metadata    `json:"meta,omitempty"`
+	Count    int64                  `json:"count"`
+	Location *GeoLocation           `json:"location,omitempty"`
+	Meta     map[string]interface{} `json:"meta,omitempty"`
 }
 
-// GeoCentroidAggregateBuilder holds GeoCentroidAggregate struct and provides a builder API.
-type GeoCentroidAggregateBuilder struct {
-	v *GeoCentroidAggregate
-}
+// NewGeoCentroidAggregate returns a GeoCentroidAggregate.
+func NewGeoCentroidAggregate() *GeoCentroidAggregate {
+	r := &GeoCentroidAggregate{}
 
-// NewGeoCentroidAggregate provides a builder for the GeoCentroidAggregate struct.
-func NewGeoCentroidAggregateBuilder() *GeoCentroidAggregateBuilder {
-	r := GeoCentroidAggregateBuilder{
-		&GeoCentroidAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the GeoCentroidAggregate struct
-func (rb *GeoCentroidAggregateBuilder) Build() GeoCentroidAggregate {
-	return *rb.v
-}
-
-func (rb *GeoCentroidAggregateBuilder) Count(count int64) *GeoCentroidAggregateBuilder {
-	rb.v.Count = count
-	return rb
-}
-
-func (rb *GeoCentroidAggregateBuilder) Location(location *GeoLocationBuilder) *GeoCentroidAggregateBuilder {
-	v := location.Build()
-	rb.v.Location = &v
-	return rb
-}
-
-func (rb *GeoCentroidAggregateBuilder) Meta(meta *MetadataBuilder) *GeoCentroidAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
+	return r
 }

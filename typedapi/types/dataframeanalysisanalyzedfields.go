@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeAnalysisAnalyzedFields type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/DataframeAnalytics.ts#L238-L244
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/DataframeAnalytics.ts#L238-L244
 type DataframeAnalysisAnalyzedFields struct {
 	// Excludes An array of strings that defines the fields that will be included in the
 	// analysis.
@@ -35,38 +35,9 @@ type DataframeAnalysisAnalyzedFields struct {
 	Includes []string `json:"includes"`
 }
 
-// DataframeAnalysisAnalyzedFieldsBuilder holds DataframeAnalysisAnalyzedFields struct and provides a builder API.
-type DataframeAnalysisAnalyzedFieldsBuilder struct {
-	v *DataframeAnalysisAnalyzedFields
-}
+// NewDataframeAnalysisAnalyzedFields returns a DataframeAnalysisAnalyzedFields.
+func NewDataframeAnalysisAnalyzedFields() *DataframeAnalysisAnalyzedFields {
+	r := &DataframeAnalysisAnalyzedFields{}
 
-// NewDataframeAnalysisAnalyzedFields provides a builder for the DataframeAnalysisAnalyzedFields struct.
-func NewDataframeAnalysisAnalyzedFieldsBuilder() *DataframeAnalysisAnalyzedFieldsBuilder {
-	r := DataframeAnalysisAnalyzedFieldsBuilder{
-		&DataframeAnalysisAnalyzedFields{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeAnalysisAnalyzedFields struct
-func (rb *DataframeAnalysisAnalyzedFieldsBuilder) Build() DataframeAnalysisAnalyzedFields {
-	return *rb.v
-}
-
-// Excludes An array of strings that defines the fields that will be included in the
-// analysis.
-
-func (rb *DataframeAnalysisAnalyzedFieldsBuilder) Excludes(excludes ...string) *DataframeAnalysisAnalyzedFieldsBuilder {
-	rb.v.Excludes = excludes
-	return rb
-}
-
-// Includes An array of strings that defines the fields that will be excluded from the
-// analysis. You do not need to add fields with unsupported data types to
-// excludes, these fields are excluded from the analysis automatically.
-
-func (rb *DataframeAnalysisAnalyzedFieldsBuilder) Includes(includes ...string) *DataframeAnalysisAnalyzedFieldsBuilder {
-	rb.v.Includes = includes
-	return rb
+	return r
 }

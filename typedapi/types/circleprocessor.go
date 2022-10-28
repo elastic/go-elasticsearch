@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,83 +28,23 @@ import (
 
 // CircleProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ingest/_types/Processors.ts#L128-L134
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ingest/_types/Processors.ts#L129-L135
 type CircleProcessor struct {
+	Description   *string              `json:"description,omitempty"`
 	ErrorDistance float64              `json:"error_distance"`
-	Field         Field                `json:"field"`
+	Field         string               `json:"field"`
 	If            *string              `json:"if,omitempty"`
 	IgnoreFailure *bool                `json:"ignore_failure,omitempty"`
-	IgnoreMissing bool                 `json:"ignore_missing"`
+	IgnoreMissing *bool                `json:"ignore_missing,omitempty"`
 	OnFailure     []ProcessorContainer `json:"on_failure,omitempty"`
 	ShapeType     shapetype.ShapeType  `json:"shape_type"`
 	Tag           *string              `json:"tag,omitempty"`
-	TargetField   Field                `json:"target_field"`
+	TargetField   *string              `json:"target_field,omitempty"`
 }
 
-// CircleProcessorBuilder holds CircleProcessor struct and provides a builder API.
-type CircleProcessorBuilder struct {
-	v *CircleProcessor
-}
+// NewCircleProcessor returns a CircleProcessor.
+func NewCircleProcessor() *CircleProcessor {
+	r := &CircleProcessor{}
 
-// NewCircleProcessor provides a builder for the CircleProcessor struct.
-func NewCircleProcessorBuilder() *CircleProcessorBuilder {
-	r := CircleProcessorBuilder{
-		&CircleProcessor{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the CircleProcessor struct
-func (rb *CircleProcessorBuilder) Build() CircleProcessor {
-	return *rb.v
-}
-
-func (rb *CircleProcessorBuilder) ErrorDistance(errordistance float64) *CircleProcessorBuilder {
-	rb.v.ErrorDistance = errordistance
-	return rb
-}
-
-func (rb *CircleProcessorBuilder) Field(field Field) *CircleProcessorBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *CircleProcessorBuilder) If_(if_ string) *CircleProcessorBuilder {
-	rb.v.If = &if_
-	return rb
-}
-
-func (rb *CircleProcessorBuilder) IgnoreFailure(ignorefailure bool) *CircleProcessorBuilder {
-	rb.v.IgnoreFailure = &ignorefailure
-	return rb
-}
-
-func (rb *CircleProcessorBuilder) IgnoreMissing(ignoremissing bool) *CircleProcessorBuilder {
-	rb.v.IgnoreMissing = ignoremissing
-	return rb
-}
-
-func (rb *CircleProcessorBuilder) OnFailure(on_failure []ProcessorContainerBuilder) *CircleProcessorBuilder {
-	tmp := make([]ProcessorContainer, len(on_failure))
-	for _, value := range on_failure {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.OnFailure = tmp
-	return rb
-}
-
-func (rb *CircleProcessorBuilder) ShapeType(shapetype shapetype.ShapeType) *CircleProcessorBuilder {
-	rb.v.ShapeType = shapetype
-	return rb
-}
-
-func (rb *CircleProcessorBuilder) Tag(tag string) *CircleProcessorBuilder {
-	rb.v.Tag = &tag
-	return rb
-}
-
-func (rb *CircleProcessorBuilder) TargetField(targetfield Field) *CircleProcessorBuilder {
-	rb.v.TargetField = targetfield
-	return rb
+	return r
 }

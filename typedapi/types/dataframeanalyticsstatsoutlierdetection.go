@@ -17,53 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeAnalyticsStatsOutlierDetection type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/DataframeAnalytics.ts#L389-L393
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/DataframeAnalytics.ts#L389-L393
 type DataframeAnalyticsStatsOutlierDetection struct {
 	Parameters  OutlierDetectionParameters `json:"parameters"`
-	Timestamp   EpochTimeUnitMillis        `json:"timestamp"`
+	Timestamp   int64                      `json:"timestamp"`
 	TimingStats TimingStats                `json:"timing_stats"`
 }
 
-// DataframeAnalyticsStatsOutlierDetectionBuilder holds DataframeAnalyticsStatsOutlierDetection struct and provides a builder API.
-type DataframeAnalyticsStatsOutlierDetectionBuilder struct {
-	v *DataframeAnalyticsStatsOutlierDetection
-}
+// NewDataframeAnalyticsStatsOutlierDetection returns a DataframeAnalyticsStatsOutlierDetection.
+func NewDataframeAnalyticsStatsOutlierDetection() *DataframeAnalyticsStatsOutlierDetection {
+	r := &DataframeAnalyticsStatsOutlierDetection{}
 
-// NewDataframeAnalyticsStatsOutlierDetection provides a builder for the DataframeAnalyticsStatsOutlierDetection struct.
-func NewDataframeAnalyticsStatsOutlierDetectionBuilder() *DataframeAnalyticsStatsOutlierDetectionBuilder {
-	r := DataframeAnalyticsStatsOutlierDetectionBuilder{
-		&DataframeAnalyticsStatsOutlierDetection{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeAnalyticsStatsOutlierDetection struct
-func (rb *DataframeAnalyticsStatsOutlierDetectionBuilder) Build() DataframeAnalyticsStatsOutlierDetection {
-	return *rb.v
-}
-
-func (rb *DataframeAnalyticsStatsOutlierDetectionBuilder) Parameters(parameters *OutlierDetectionParametersBuilder) *DataframeAnalyticsStatsOutlierDetectionBuilder {
-	v := parameters.Build()
-	rb.v.Parameters = v
-	return rb
-}
-
-func (rb *DataframeAnalyticsStatsOutlierDetectionBuilder) Timestamp(timestamp *EpochTimeUnitMillisBuilder) *DataframeAnalyticsStatsOutlierDetectionBuilder {
-	v := timestamp.Build()
-	rb.v.Timestamp = v
-	return rb
-}
-
-func (rb *DataframeAnalyticsStatsOutlierDetectionBuilder) TimingStats(timingstats *TimingStatsBuilder) *DataframeAnalyticsStatsOutlierDetectionBuilder {
-	v := timingstats.Build()
-	rb.v.TimingStats = v
-	return rb
+	return r
 }

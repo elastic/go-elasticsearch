@@ -17,60 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DisMaxQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/query_dsl/compound.ts#L46-L50
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/compound.ts#L46-L50
 type DisMaxQuery struct {
-	Boost      *float32         `json:"boost,omitempty"`
-	Queries    []QueryContainer `json:"queries"`
-	QueryName_ *string          `json:"_name,omitempty"`
-	TieBreaker *float64         `json:"tie_breaker,omitempty"`
+	Boost      *float32 `json:"boost,omitempty"`
+	Queries    []Query  `json:"queries"`
+	QueryName_ *string  `json:"_name,omitempty"`
+	TieBreaker *float64 `json:"tie_breaker,omitempty"`
 }
 
-// DisMaxQueryBuilder holds DisMaxQuery struct and provides a builder API.
-type DisMaxQueryBuilder struct {
-	v *DisMaxQuery
-}
+// NewDisMaxQuery returns a DisMaxQuery.
+func NewDisMaxQuery() *DisMaxQuery {
+	r := &DisMaxQuery{}
 
-// NewDisMaxQuery provides a builder for the DisMaxQuery struct.
-func NewDisMaxQueryBuilder() *DisMaxQueryBuilder {
-	r := DisMaxQueryBuilder{
-		&DisMaxQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DisMaxQuery struct
-func (rb *DisMaxQueryBuilder) Build() DisMaxQuery {
-	return *rb.v
-}
-
-func (rb *DisMaxQueryBuilder) Boost(boost float32) *DisMaxQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *DisMaxQueryBuilder) Queries(queries []QueryContainerBuilder) *DisMaxQueryBuilder {
-	tmp := make([]QueryContainer, len(queries))
-	for _, value := range queries {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Queries = tmp
-	return rb
-}
-
-func (rb *DisMaxQueryBuilder) QueryName_(queryname_ string) *DisMaxQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
-}
-
-func (rb *DisMaxQueryBuilder) TieBreaker(tiebreaker float64) *DisMaxQueryBuilder {
-	rb.v.TieBreaker = &tiebreaker
-	return rb
+	return r
 }

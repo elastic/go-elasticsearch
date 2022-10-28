@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeInfoXpackSecurity type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/info/types.ts#L234-L239
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/info/types.ts#L234-L239
 type NodeInfoXpackSecurity struct {
 	Authc     *NodeInfoXpackSecurityAuthc `json:"authc,omitempty"`
 	Enabled   string                      `json:"enabled"`
@@ -32,44 +32,9 @@ type NodeInfoXpackSecurity struct {
 	Transport *NodeInfoXpackSecuritySsl   `json:"transport,omitempty"`
 }
 
-// NodeInfoXpackSecurityBuilder holds NodeInfoXpackSecurity struct and provides a builder API.
-type NodeInfoXpackSecurityBuilder struct {
-	v *NodeInfoXpackSecurity
-}
+// NewNodeInfoXpackSecurity returns a NodeInfoXpackSecurity.
+func NewNodeInfoXpackSecurity() *NodeInfoXpackSecurity {
+	r := &NodeInfoXpackSecurity{}
 
-// NewNodeInfoXpackSecurity provides a builder for the NodeInfoXpackSecurity struct.
-func NewNodeInfoXpackSecurityBuilder() *NodeInfoXpackSecurityBuilder {
-	r := NodeInfoXpackSecurityBuilder{
-		&NodeInfoXpackSecurity{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodeInfoXpackSecurity struct
-func (rb *NodeInfoXpackSecurityBuilder) Build() NodeInfoXpackSecurity {
-	return *rb.v
-}
-
-func (rb *NodeInfoXpackSecurityBuilder) Authc(authc *NodeInfoXpackSecurityAuthcBuilder) *NodeInfoXpackSecurityBuilder {
-	v := authc.Build()
-	rb.v.Authc = &v
-	return rb
-}
-
-func (rb *NodeInfoXpackSecurityBuilder) Enabled(enabled string) *NodeInfoXpackSecurityBuilder {
-	rb.v.Enabled = enabled
-	return rb
-}
-
-func (rb *NodeInfoXpackSecurityBuilder) Http(http *NodeInfoXpackSecuritySslBuilder) *NodeInfoXpackSecurityBuilder {
-	v := http.Build()
-	rb.v.Http = v
-	return rb
-}
-
-func (rb *NodeInfoXpackSecurityBuilder) Transport(transport *NodeInfoXpackSecuritySslBuilder) *NodeInfoXpackSecurityBuilder {
-	v := transport.Build()
-	rb.v.Transport = &v
-	return rb
+	return r
 }

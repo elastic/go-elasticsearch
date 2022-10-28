@@ -17,67 +17,29 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // HitsEvent type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/eql/_types/EqlHits.ts#L41-L49
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/eql/_types/EqlHits.ts#L41-L49
 type HitsEvent struct {
-	Fields map[Field][]interface{} `json:"fields,omitempty"`
+	Fields map[string][]interface{} `json:"fields,omitempty"`
 	// Id_ Unique identifier for the event. This ID is only unique within the index.
-	Id_ Id `json:"_id"`
+	Id_ string `json:"_id"`
 	// Index_ Name of the index containing the event.
-	Index_ IndexName `json:"_index"`
+	Index_ string `json:"_index"`
 	// Source_ Original JSON body passed for the event at index time.
 	Source_ interface{} `json:"_source,omitempty"`
 }
 
-// HitsEventBuilder holds HitsEvent struct and provides a builder API.
-type HitsEventBuilder struct {
-	v *HitsEvent
-}
-
-// NewHitsEvent provides a builder for the HitsEvent struct.
-func NewHitsEventBuilder() *HitsEventBuilder {
-	r := HitsEventBuilder{
-		&HitsEvent{
-			Fields: make(map[Field][]interface{}, 0),
-		},
+// NewHitsEvent returns a HitsEvent.
+func NewHitsEvent() *HitsEvent {
+	r := &HitsEvent{
+		Fields: make(map[string][]interface{}, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the HitsEvent struct
-func (rb *HitsEventBuilder) Build() HitsEvent {
-	return *rb.v
-}
-
-func (rb *HitsEventBuilder) Fields(value map[Field][]interface{}) *HitsEventBuilder {
-	rb.v.Fields = value
-	return rb
-}
-
-// Id_ Unique identifier for the event. This ID is only unique within the index.
-
-func (rb *HitsEventBuilder) Id_(id_ Id) *HitsEventBuilder {
-	rb.v.Id_ = id_
-	return rb
-}
-
-// Index_ Name of the index containing the event.
-
-func (rb *HitsEventBuilder) Index_(index_ IndexName) *HitsEventBuilder {
-	rb.v.Index_ = index_
-	return rb
-}
-
-// Source_ Original JSON body passed for the event at index time.
-
-func (rb *HitsEventBuilder) Source_(source_ interface{}) *HitsEventBuilder {
-	rb.v.Source_ = source_
-	return rb
+	return r
 }

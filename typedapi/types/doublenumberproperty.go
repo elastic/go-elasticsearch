@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -30,23 +30,23 @@ import (
 
 // DoubleNumberProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/mapping/core.ts#L141-L144
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/core.ts#L141-L144
 type DoubleNumberProperty struct {
 	Boost           *float64                       `json:"boost,omitempty"`
 	Coerce          *bool                          `json:"coerce,omitempty"`
-	CopyTo          *Fields                        `json:"copy_to,omitempty"`
+	CopyTo          []string                       `json:"copy_to,omitempty"`
 	DocValues       *bool                          `json:"doc_values,omitempty"`
 	Dynamic         *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
-	Fields          map[PropertyName]Property      `json:"fields,omitempty"`
+	Fields          map[string]Property            `json:"fields,omitempty"`
 	IgnoreAbove     *int                           `json:"ignore_above,omitempty"`
 	IgnoreMalformed *bool                          `json:"ignore_malformed,omitempty"`
 	Index           *bool                          `json:"index,omitempty"`
-	LocalMetadata   *Metadata                      `json:"local_metadata,omitempty"`
+	LocalMetadata   map[string]interface{}         `json:"local_metadata,omitempty"`
 	// Meta Metadata about the field.
 	Meta          map[string]string            `json:"meta,omitempty"`
 	NullValue     *float64                     `json:"null_value,omitempty"`
 	OnScriptError *onscripterror.OnScriptError `json:"on_script_error,omitempty"`
-	Properties    map[PropertyName]Property    `json:"properties,omitempty"`
+	Properties    map[string]Property          `json:"properties,omitempty"`
 	Script        *Script                      `json:"script,omitempty"`
 	Similarity    *string                      `json:"similarity,omitempty"`
 	Store         *bool                        `json:"store,omitempty"`
@@ -59,141 +59,15 @@ type DoubleNumberProperty struct {
 	Type             string                                     `json:"type,omitempty"`
 }
 
-// DoubleNumberPropertyBuilder holds DoubleNumberProperty struct and provides a builder API.
-type DoubleNumberPropertyBuilder struct {
-	v *DoubleNumberProperty
-}
-
-// NewDoubleNumberProperty provides a builder for the DoubleNumberProperty struct.
-func NewDoubleNumberPropertyBuilder() *DoubleNumberPropertyBuilder {
-	r := DoubleNumberPropertyBuilder{
-		&DoubleNumberProperty{
-			Fields:     make(map[PropertyName]Property, 0),
-			Meta:       make(map[string]string, 0),
-			Properties: make(map[PropertyName]Property, 0),
-		},
+// NewDoubleNumberProperty returns a DoubleNumberProperty.
+func NewDoubleNumberProperty() *DoubleNumberProperty {
+	r := &DoubleNumberProperty{
+		Fields:     make(map[string]Property, 0),
+		Meta:       make(map[string]string, 0),
+		Properties: make(map[string]Property, 0),
 	}
 
-	r.v.Type = "double"
+	r.Type = "double"
 
-	return &r
-}
-
-// Build finalize the chain and returns the DoubleNumberProperty struct
-func (rb *DoubleNumberPropertyBuilder) Build() DoubleNumberProperty {
-	return *rb.v
-}
-
-func (rb *DoubleNumberPropertyBuilder) Boost(boost float64) *DoubleNumberPropertyBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *DoubleNumberPropertyBuilder) Coerce(coerce bool) *DoubleNumberPropertyBuilder {
-	rb.v.Coerce = &coerce
-	return rb
-}
-
-func (rb *DoubleNumberPropertyBuilder) CopyTo(copyto *FieldsBuilder) *DoubleNumberPropertyBuilder {
-	v := copyto.Build()
-	rb.v.CopyTo = &v
-	return rb
-}
-
-func (rb *DoubleNumberPropertyBuilder) DocValues(docvalues bool) *DoubleNumberPropertyBuilder {
-	rb.v.DocValues = &docvalues
-	return rb
-}
-
-func (rb *DoubleNumberPropertyBuilder) Dynamic(dynamic dynamicmapping.DynamicMapping) *DoubleNumberPropertyBuilder {
-	rb.v.Dynamic = &dynamic
-	return rb
-}
-
-func (rb *DoubleNumberPropertyBuilder) Fields(values map[PropertyName]*PropertyBuilder) *DoubleNumberPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Fields = tmp
-	return rb
-}
-
-func (rb *DoubleNumberPropertyBuilder) IgnoreAbove(ignoreabove int) *DoubleNumberPropertyBuilder {
-	rb.v.IgnoreAbove = &ignoreabove
-	return rb
-}
-
-func (rb *DoubleNumberPropertyBuilder) IgnoreMalformed(ignoremalformed bool) *DoubleNumberPropertyBuilder {
-	rb.v.IgnoreMalformed = &ignoremalformed
-	return rb
-}
-
-func (rb *DoubleNumberPropertyBuilder) Index(index bool) *DoubleNumberPropertyBuilder {
-	rb.v.Index = &index
-	return rb
-}
-
-func (rb *DoubleNumberPropertyBuilder) LocalMetadata(localmetadata *MetadataBuilder) *DoubleNumberPropertyBuilder {
-	v := localmetadata.Build()
-	rb.v.LocalMetadata = &v
-	return rb
-}
-
-// Meta Metadata about the field.
-
-func (rb *DoubleNumberPropertyBuilder) Meta(value map[string]string) *DoubleNumberPropertyBuilder {
-	rb.v.Meta = value
-	return rb
-}
-
-func (rb *DoubleNumberPropertyBuilder) NullValue(nullvalue float64) *DoubleNumberPropertyBuilder {
-	rb.v.NullValue = &nullvalue
-	return rb
-}
-
-func (rb *DoubleNumberPropertyBuilder) OnScriptError(onscripterror onscripterror.OnScriptError) *DoubleNumberPropertyBuilder {
-	rb.v.OnScriptError = &onscripterror
-	return rb
-}
-
-func (rb *DoubleNumberPropertyBuilder) Properties(values map[PropertyName]*PropertyBuilder) *DoubleNumberPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Properties = tmp
-	return rb
-}
-
-func (rb *DoubleNumberPropertyBuilder) Script(script *ScriptBuilder) *DoubleNumberPropertyBuilder {
-	v := script.Build()
-	rb.v.Script = &v
-	return rb
-}
-
-func (rb *DoubleNumberPropertyBuilder) Similarity(similarity string) *DoubleNumberPropertyBuilder {
-	rb.v.Similarity = &similarity
-	return rb
-}
-
-func (rb *DoubleNumberPropertyBuilder) Store(store bool) *DoubleNumberPropertyBuilder {
-	rb.v.Store = &store
-	return rb
-}
-
-// TimeSeriesDimension For internal use by Elastic only. Marks the field as a time series dimension.
-// Defaults to false.
-
-func (rb *DoubleNumberPropertyBuilder) TimeSeriesDimension(timeseriesdimension bool) *DoubleNumberPropertyBuilder {
-	rb.v.TimeSeriesDimension = &timeseriesdimension
-	return rb
-}
-
-// TimeSeriesMetric For internal use by Elastic only. Marks the field as a time series dimension.
-// Defaults to false.
-
-func (rb *DoubleNumberPropertyBuilder) TimeSeriesMetric(timeseriesmetric timeseriesmetrictype.TimeSeriesMetricType) *DoubleNumberPropertyBuilder {
-	rb.v.TimeSeriesMetric = &timeseriesmetric
-	return rb
+	return r
 }

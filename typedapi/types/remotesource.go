@@ -17,72 +17,28 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RemoteSource type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_global/reindex/types.ts#L59-L66
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/reindex/types.ts#L59-L66
 type RemoteSource struct {
 	ConnectTimeout *Duration         `json:"connect_timeout,omitempty"`
 	Headers        map[string]string `json:"headers,omitempty"`
-	Host           Host              `json:"host"`
-	Password       *Password         `json:"password,omitempty"`
+	Host           string            `json:"host"`
+	Password       *string           `json:"password,omitempty"`
 	SocketTimeout  *Duration         `json:"socket_timeout,omitempty"`
-	Username       *Username         `json:"username,omitempty"`
+	Username       *string           `json:"username,omitempty"`
 }
 
-// RemoteSourceBuilder holds RemoteSource struct and provides a builder API.
-type RemoteSourceBuilder struct {
-	v *RemoteSource
-}
-
-// NewRemoteSource provides a builder for the RemoteSource struct.
-func NewRemoteSourceBuilder() *RemoteSourceBuilder {
-	r := RemoteSourceBuilder{
-		&RemoteSource{
-			Headers: make(map[string]string, 0),
-		},
+// NewRemoteSource returns a RemoteSource.
+func NewRemoteSource() *RemoteSource {
+	r := &RemoteSource{
+		Headers: make(map[string]string, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the RemoteSource struct
-func (rb *RemoteSourceBuilder) Build() RemoteSource {
-	return *rb.v
-}
-
-func (rb *RemoteSourceBuilder) ConnectTimeout(connecttimeout *DurationBuilder) *RemoteSourceBuilder {
-	v := connecttimeout.Build()
-	rb.v.ConnectTimeout = &v
-	return rb
-}
-
-func (rb *RemoteSourceBuilder) Headers(value map[string]string) *RemoteSourceBuilder {
-	rb.v.Headers = value
-	return rb
-}
-
-func (rb *RemoteSourceBuilder) Host(host Host) *RemoteSourceBuilder {
-	rb.v.Host = host
-	return rb
-}
-
-func (rb *RemoteSourceBuilder) Password(password Password) *RemoteSourceBuilder {
-	rb.v.Password = &password
-	return rb
-}
-
-func (rb *RemoteSourceBuilder) SocketTimeout(sockettimeout *DurationBuilder) *RemoteSourceBuilder {
-	v := sockettimeout.Build()
-	rb.v.SocketTimeout = &v
-	return rb
-}
-
-func (rb *RemoteSourceBuilder) Username(username Username) *RemoteSourceBuilder {
-	rb.v.Username = &username
-	return rb
+	return r
 }

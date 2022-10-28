@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -27,30 +27,5 @@ package types
 //	int
 //	string
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/common.ts#L143-L147
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/common.ts#L143-L147
 type MinimumShouldMatch interface{}
-
-// MinimumShouldMatchBuilder holds MinimumShouldMatch struct and provides a builder API.
-type MinimumShouldMatchBuilder struct {
-	v MinimumShouldMatch
-}
-
-// NewMinimumShouldMatch provides a builder for the MinimumShouldMatch struct.
-func NewMinimumShouldMatchBuilder() *MinimumShouldMatchBuilder {
-	return &MinimumShouldMatchBuilder{}
-}
-
-// Build finalize the chain and returns the MinimumShouldMatch struct
-func (u *MinimumShouldMatchBuilder) Build() MinimumShouldMatch {
-	return u.v
-}
-
-func (u *MinimumShouldMatchBuilder) Int(int int) *MinimumShouldMatchBuilder {
-	u.v = &int
-	return u
-}
-
-func (u *MinimumShouldMatchBuilder) String(string string) *MinimumShouldMatchBuilder {
-	u.v = &string
-	return u
-}

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeAnalyticsStatsDataCounts type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/DataframeAnalytics.ts#L361-L368
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/DataframeAnalytics.ts#L361-L368
 type DataframeAnalyticsStatsDataCounts struct {
 	// SkippedDocsCount The number of documents that are skipped during the analysis because they
 	// contained values that are not supported by the analysis. For example, outlier
@@ -39,47 +39,9 @@ type DataframeAnalyticsStatsDataCounts struct {
 	TrainingDocsCount int `json:"training_docs_count"`
 }
 
-// DataframeAnalyticsStatsDataCountsBuilder holds DataframeAnalyticsStatsDataCounts struct and provides a builder API.
-type DataframeAnalyticsStatsDataCountsBuilder struct {
-	v *DataframeAnalyticsStatsDataCounts
-}
+// NewDataframeAnalyticsStatsDataCounts returns a DataframeAnalyticsStatsDataCounts.
+func NewDataframeAnalyticsStatsDataCounts() *DataframeAnalyticsStatsDataCounts {
+	r := &DataframeAnalyticsStatsDataCounts{}
 
-// NewDataframeAnalyticsStatsDataCounts provides a builder for the DataframeAnalyticsStatsDataCounts struct.
-func NewDataframeAnalyticsStatsDataCountsBuilder() *DataframeAnalyticsStatsDataCountsBuilder {
-	r := DataframeAnalyticsStatsDataCountsBuilder{
-		&DataframeAnalyticsStatsDataCounts{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeAnalyticsStatsDataCounts struct
-func (rb *DataframeAnalyticsStatsDataCountsBuilder) Build() DataframeAnalyticsStatsDataCounts {
-	return *rb.v
-}
-
-// SkippedDocsCount The number of documents that are skipped during the analysis because they
-// contained values that are not supported by the analysis. For example, outlier
-// detection does not support missing fields so it skips documents with missing
-// fields. Likewise, all types of analysis skip documents that contain arrays
-// with more than one element.
-
-func (rb *DataframeAnalyticsStatsDataCountsBuilder) SkippedDocsCount(skippeddocscount int) *DataframeAnalyticsStatsDataCountsBuilder {
-	rb.v.SkippedDocsCount = skippeddocscount
-	return rb
-}
-
-// TestDocsCount The number of documents that are not used for training the model and can be
-// used for testing.
-
-func (rb *DataframeAnalyticsStatsDataCountsBuilder) TestDocsCount(testdocscount int) *DataframeAnalyticsStatsDataCountsBuilder {
-	rb.v.TestDocsCount = testdocscount
-	return rb
-}
-
-// TrainingDocsCount The number of documents that are used for training the model.
-
-func (rb *DataframeAnalyticsStatsDataCountsBuilder) TrainingDocsCount(trainingdocscount int) *DataframeAnalyticsStatsDataCountsBuilder {
-	rb.v.TrainingDocsCount = trainingdocscount
-	return rb
+	return r
 }

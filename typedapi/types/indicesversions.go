@@ -17,56 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IndicesVersions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/cluster/stats/types.ts#L137-L142
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/stats/types.ts#L137-L142
 type IndicesVersions struct {
-	IndexCount        int           `json:"index_count"`
-	PrimaryShardCount int           `json:"primary_shard_count"`
-	TotalPrimaryBytes int64         `json:"total_primary_bytes"`
-	Version           VersionString `json:"version"`
+	IndexCount        int    `json:"index_count"`
+	PrimaryShardCount int    `json:"primary_shard_count"`
+	TotalPrimaryBytes int64  `json:"total_primary_bytes"`
+	Version           string `json:"version"`
 }
 
-// IndicesVersionsBuilder holds IndicesVersions struct and provides a builder API.
-type IndicesVersionsBuilder struct {
-	v *IndicesVersions
-}
+// NewIndicesVersions returns a IndicesVersions.
+func NewIndicesVersions() *IndicesVersions {
+	r := &IndicesVersions{}
 
-// NewIndicesVersions provides a builder for the IndicesVersions struct.
-func NewIndicesVersionsBuilder() *IndicesVersionsBuilder {
-	r := IndicesVersionsBuilder{
-		&IndicesVersions{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IndicesVersions struct
-func (rb *IndicesVersionsBuilder) Build() IndicesVersions {
-	return *rb.v
-}
-
-func (rb *IndicesVersionsBuilder) IndexCount(indexcount int) *IndicesVersionsBuilder {
-	rb.v.IndexCount = indexcount
-	return rb
-}
-
-func (rb *IndicesVersionsBuilder) PrimaryShardCount(primaryshardcount int) *IndicesVersionsBuilder {
-	rb.v.PrimaryShardCount = primaryshardcount
-	return rb
-}
-
-func (rb *IndicesVersionsBuilder) TotalPrimaryBytes(totalprimarybytes int64) *IndicesVersionsBuilder {
-	rb.v.TotalPrimaryBytes = totalprimarybytes
-	return rb
-}
-
-func (rb *IndicesVersionsBuilder) Version(version VersionString) *IndicesVersionsBuilder {
-	rb.v.Version = version
-	return rb
+	return r
 }

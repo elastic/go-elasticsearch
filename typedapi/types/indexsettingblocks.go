@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IndexSettingBlocks type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/_types/IndexSettings.ts#L245-L251
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/IndexSettings.ts#L245-L251
 type IndexSettingBlocks struct {
 	Metadata            *bool  `json:"metadata,omitempty"`
 	Read                *bool  `json:"read,omitempty"`
@@ -33,46 +33,9 @@ type IndexSettingBlocks struct {
 	Write               string `json:"write,omitempty"`
 }
 
-// IndexSettingBlocksBuilder holds IndexSettingBlocks struct and provides a builder API.
-type IndexSettingBlocksBuilder struct {
-	v *IndexSettingBlocks
-}
+// NewIndexSettingBlocks returns a IndexSettingBlocks.
+func NewIndexSettingBlocks() *IndexSettingBlocks {
+	r := &IndexSettingBlocks{}
 
-// NewIndexSettingBlocks provides a builder for the IndexSettingBlocks struct.
-func NewIndexSettingBlocksBuilder() *IndexSettingBlocksBuilder {
-	r := IndexSettingBlocksBuilder{
-		&IndexSettingBlocks{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IndexSettingBlocks struct
-func (rb *IndexSettingBlocksBuilder) Build() IndexSettingBlocks {
-	return *rb.v
-}
-
-func (rb *IndexSettingBlocksBuilder) Metadata(metadata bool) *IndexSettingBlocksBuilder {
-	rb.v.Metadata = &metadata
-	return rb
-}
-
-func (rb *IndexSettingBlocksBuilder) Read(read bool) *IndexSettingBlocksBuilder {
-	rb.v.Read = &read
-	return rb
-}
-
-func (rb *IndexSettingBlocksBuilder) ReadOnly(readonly bool) *IndexSettingBlocksBuilder {
-	rb.v.ReadOnly = &readonly
-	return rb
-}
-
-func (rb *IndexSettingBlocksBuilder) ReadOnlyAllowDelete(readonlyallowdelete bool) *IndexSettingBlocksBuilder {
-	rb.v.ReadOnlyAllowDelete = &readonlyallowdelete
-	return rb
-}
-
-func (rb *IndexSettingBlocksBuilder) Write(arg string) *IndexSettingBlocksBuilder {
-	rb.v.Write = arg
-	return rb
+	return r
 }

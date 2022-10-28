@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,31 +28,14 @@ import (
 
 // ShardMigrationStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/shutdown/get_node/ShutdownGetNodeResponse.ts#L52-L54
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/shutdown/get_node/ShutdownGetNodeResponse.ts#L52-L54
 type ShardMigrationStatus struct {
 	Status shutdownstatus.ShutdownStatus `json:"status"`
 }
 
-// ShardMigrationStatusBuilder holds ShardMigrationStatus struct and provides a builder API.
-type ShardMigrationStatusBuilder struct {
-	v *ShardMigrationStatus
-}
+// NewShardMigrationStatus returns a ShardMigrationStatus.
+func NewShardMigrationStatus() *ShardMigrationStatus {
+	r := &ShardMigrationStatus{}
 
-// NewShardMigrationStatus provides a builder for the ShardMigrationStatus struct.
-func NewShardMigrationStatusBuilder() *ShardMigrationStatusBuilder {
-	r := ShardMigrationStatusBuilder{
-		&ShardMigrationStatus{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ShardMigrationStatus struct
-func (rb *ShardMigrationStatusBuilder) Build() ShardMigrationStatus {
-	return *rb.v
-}
-
-func (rb *ShardMigrationStatusBuilder) Status(status shutdownstatus.ShutdownStatus) *ShardMigrationStatusBuilder {
-	rb.v.Status = status
-	return rb
+	return r
 }

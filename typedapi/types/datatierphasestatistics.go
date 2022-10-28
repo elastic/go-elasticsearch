@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataTierPhaseStatistics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/xpack/usage/types.ts#L82-L93
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L82-L93
 type DataTierPhaseStatistics struct {
 	DocCount                    int64 `json:"doc_count"`
 	IndexCount                  int64 `json:"index_count"`
@@ -38,71 +38,9 @@ type DataTierPhaseStatistics struct {
 	TotalSizeBytes              int64 `json:"total_size_bytes"`
 }
 
-// DataTierPhaseStatisticsBuilder holds DataTierPhaseStatistics struct and provides a builder API.
-type DataTierPhaseStatisticsBuilder struct {
-	v *DataTierPhaseStatistics
-}
+// NewDataTierPhaseStatistics returns a DataTierPhaseStatistics.
+func NewDataTierPhaseStatistics() *DataTierPhaseStatistics {
+	r := &DataTierPhaseStatistics{}
 
-// NewDataTierPhaseStatistics provides a builder for the DataTierPhaseStatistics struct.
-func NewDataTierPhaseStatisticsBuilder() *DataTierPhaseStatisticsBuilder {
-	r := DataTierPhaseStatisticsBuilder{
-		&DataTierPhaseStatistics{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataTierPhaseStatistics struct
-func (rb *DataTierPhaseStatisticsBuilder) Build() DataTierPhaseStatistics {
-	return *rb.v
-}
-
-func (rb *DataTierPhaseStatisticsBuilder) DocCount(doccount int64) *DataTierPhaseStatisticsBuilder {
-	rb.v.DocCount = doccount
-	return rb
-}
-
-func (rb *DataTierPhaseStatisticsBuilder) IndexCount(indexcount int64) *DataTierPhaseStatisticsBuilder {
-	rb.v.IndexCount = indexcount
-	return rb
-}
-
-func (rb *DataTierPhaseStatisticsBuilder) NodeCount(nodecount int64) *DataTierPhaseStatisticsBuilder {
-	rb.v.NodeCount = nodecount
-	return rb
-}
-
-func (rb *DataTierPhaseStatisticsBuilder) PrimaryShardCount(primaryshardcount int64) *DataTierPhaseStatisticsBuilder {
-	rb.v.PrimaryShardCount = primaryshardcount
-	return rb
-}
-
-func (rb *DataTierPhaseStatisticsBuilder) PrimaryShardSizeAvgBytes(primaryshardsizeavgbytes int64) *DataTierPhaseStatisticsBuilder {
-	rb.v.PrimaryShardSizeAvgBytes = primaryshardsizeavgbytes
-	return rb
-}
-
-func (rb *DataTierPhaseStatisticsBuilder) PrimaryShardSizeMadBytes(primaryshardsizemadbytes int64) *DataTierPhaseStatisticsBuilder {
-	rb.v.PrimaryShardSizeMadBytes = primaryshardsizemadbytes
-	return rb
-}
-
-func (rb *DataTierPhaseStatisticsBuilder) PrimaryShardSizeMedianBytes(primaryshardsizemedianbytes int64) *DataTierPhaseStatisticsBuilder {
-	rb.v.PrimaryShardSizeMedianBytes = primaryshardsizemedianbytes
-	return rb
-}
-
-func (rb *DataTierPhaseStatisticsBuilder) PrimarySizeBytes(primarysizebytes int64) *DataTierPhaseStatisticsBuilder {
-	rb.v.PrimarySizeBytes = primarysizebytes
-	return rb
-}
-
-func (rb *DataTierPhaseStatisticsBuilder) TotalShardCount(totalshardcount int64) *DataTierPhaseStatisticsBuilder {
-	rb.v.TotalShardCount = totalshardcount
-	return rb
-}
-
-func (rb *DataTierPhaseStatisticsBuilder) TotalSizeBytes(totalsizebytes int64) *DataTierPhaseStatisticsBuilder {
-	rb.v.TotalSizeBytes = totalsizebytes
-	return rb
+	return r
 }

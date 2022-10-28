@@ -17,41 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ReverseTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/token_filters.ts#L304-L306
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/token_filters.ts#L304-L306
 type ReverseTokenFilter struct {
-	Type    string         `json:"type,omitempty"`
-	Version *VersionString `json:"version,omitempty"`
+	Type    string  `json:"type,omitempty"`
+	Version *string `json:"version,omitempty"`
 }
 
-// ReverseTokenFilterBuilder holds ReverseTokenFilter struct and provides a builder API.
-type ReverseTokenFilterBuilder struct {
-	v *ReverseTokenFilter
-}
+// NewReverseTokenFilter returns a ReverseTokenFilter.
+func NewReverseTokenFilter() *ReverseTokenFilter {
+	r := &ReverseTokenFilter{}
 
-// NewReverseTokenFilter provides a builder for the ReverseTokenFilter struct.
-func NewReverseTokenFilterBuilder() *ReverseTokenFilterBuilder {
-	r := ReverseTokenFilterBuilder{
-		&ReverseTokenFilter{},
-	}
+	r.Type = "reverse"
 
-	r.v.Type = "reverse"
-
-	return &r
-}
-
-// Build finalize the chain and returns the ReverseTokenFilter struct
-func (rb *ReverseTokenFilterBuilder) Build() ReverseTokenFilter {
-	return *rb.v
-}
-
-func (rb *ReverseTokenFilterBuilder) Version(version VersionString) *ReverseTokenFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

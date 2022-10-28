@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,88 +28,26 @@ import (
 
 // SimpleMovingAverageAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/pipeline.ts#L207-L210
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/pipeline.ts#L207-L210
 type SimpleMovingAverageAggregation struct {
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
-	BucketsPath *BucketsPath         `json:"buckets_path,omitempty"`
-	Format      *string              `json:"format,omitempty"`
-	GapPolicy   *gappolicy.GapPolicy `json:"gap_policy,omitempty"`
-	Meta        *Metadata            `json:"meta,omitempty"`
-	Minimize    *bool                `json:"minimize,omitempty"`
-	Model       string               `json:"model,omitempty"`
-	Name        *string              `json:"name,omitempty"`
-	Predict     *int                 `json:"predict,omitempty"`
-	Settings    EmptyObject          `json:"settings"`
-	Window      *int                 `json:"window,omitempty"`
+	BucketsPath *string                `json:"buckets_path,omitempty"`
+	Format      *string                `json:"format,omitempty"`
+	GapPolicy   *gappolicy.GapPolicy   `json:"gap_policy,omitempty"`
+	Meta        map[string]interface{} `json:"meta,omitempty"`
+	Minimize    *bool                  `json:"minimize,omitempty"`
+	Model       string                 `json:"model,omitempty"`
+	Name        *string                `json:"name,omitempty"`
+	Predict     *int                   `json:"predict,omitempty"`
+	Settings    EmptyObject            `json:"settings"`
+	Window      *int                   `json:"window,omitempty"`
 }
 
-// SimpleMovingAverageAggregationBuilder holds SimpleMovingAverageAggregation struct and provides a builder API.
-type SimpleMovingAverageAggregationBuilder struct {
-	v *SimpleMovingAverageAggregation
-}
+// NewSimpleMovingAverageAggregation returns a SimpleMovingAverageAggregation.
+func NewSimpleMovingAverageAggregation() *SimpleMovingAverageAggregation {
+	r := &SimpleMovingAverageAggregation{}
 
-// NewSimpleMovingAverageAggregation provides a builder for the SimpleMovingAverageAggregation struct.
-func NewSimpleMovingAverageAggregationBuilder() *SimpleMovingAverageAggregationBuilder {
-	r := SimpleMovingAverageAggregationBuilder{
-		&SimpleMovingAverageAggregation{},
-	}
+	r.Model = "simple"
 
-	r.v.Model = "simple"
-
-	return &r
-}
-
-// Build finalize the chain and returns the SimpleMovingAverageAggregation struct
-func (rb *SimpleMovingAverageAggregationBuilder) Build() SimpleMovingAverageAggregation {
-	return *rb.v
-}
-
-// BucketsPath Path to the buckets that contain one set of values to correlate.
-
-func (rb *SimpleMovingAverageAggregationBuilder) BucketsPath(bucketspath *BucketsPathBuilder) *SimpleMovingAverageAggregationBuilder {
-	v := bucketspath.Build()
-	rb.v.BucketsPath = &v
-	return rb
-}
-
-func (rb *SimpleMovingAverageAggregationBuilder) Format(format string) *SimpleMovingAverageAggregationBuilder {
-	rb.v.Format = &format
-	return rb
-}
-
-func (rb *SimpleMovingAverageAggregationBuilder) GapPolicy(gappolicy gappolicy.GapPolicy) *SimpleMovingAverageAggregationBuilder {
-	rb.v.GapPolicy = &gappolicy
-	return rb
-}
-
-func (rb *SimpleMovingAverageAggregationBuilder) Meta(meta *MetadataBuilder) *SimpleMovingAverageAggregationBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *SimpleMovingAverageAggregationBuilder) Minimize(minimize bool) *SimpleMovingAverageAggregationBuilder {
-	rb.v.Minimize = &minimize
-	return rb
-}
-
-func (rb *SimpleMovingAverageAggregationBuilder) Name(name string) *SimpleMovingAverageAggregationBuilder {
-	rb.v.Name = &name
-	return rb
-}
-
-func (rb *SimpleMovingAverageAggregationBuilder) Predict(predict int) *SimpleMovingAverageAggregationBuilder {
-	rb.v.Predict = &predict
-	return rb
-}
-
-func (rb *SimpleMovingAverageAggregationBuilder) Settings(settings *EmptyObjectBuilder) *SimpleMovingAverageAggregationBuilder {
-	v := settings.Build()
-	rb.v.Settings = v
-	return rb
-}
-
-func (rb *SimpleMovingAverageAggregationBuilder) Window(window int) *SimpleMovingAverageAggregationBuilder {
-	rb.v.Window = &window
-	return rb
+	return r
 }

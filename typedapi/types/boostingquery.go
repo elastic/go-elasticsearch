@@ -17,64 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // BoostingQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/query_dsl/compound.ts#L36-L40
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/compound.ts#L36-L40
 type BoostingQuery struct {
-	Boost         *float32        `json:"boost,omitempty"`
-	Negative      *QueryContainer `json:"negative,omitempty"`
-	NegativeBoost float64         `json:"negative_boost"`
-	Positive      *QueryContainer `json:"positive,omitempty"`
-	QueryName_    *string         `json:"_name,omitempty"`
+	Boost         *float32 `json:"boost,omitempty"`
+	Negative      *Query   `json:"negative,omitempty"`
+	NegativeBoost float64  `json:"negative_boost"`
+	Positive      *Query   `json:"positive,omitempty"`
+	QueryName_    *string  `json:"_name,omitempty"`
 }
 
-// BoostingQueryBuilder holds BoostingQuery struct and provides a builder API.
-type BoostingQueryBuilder struct {
-	v *BoostingQuery
-}
+// NewBoostingQuery returns a BoostingQuery.
+func NewBoostingQuery() *BoostingQuery {
+	r := &BoostingQuery{}
 
-// NewBoostingQuery provides a builder for the BoostingQuery struct.
-func NewBoostingQueryBuilder() *BoostingQueryBuilder {
-	r := BoostingQueryBuilder{
-		&BoostingQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the BoostingQuery struct
-func (rb *BoostingQueryBuilder) Build() BoostingQuery {
-	return *rb.v
-}
-
-func (rb *BoostingQueryBuilder) Boost(boost float32) *BoostingQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *BoostingQueryBuilder) Negative(negative *QueryContainerBuilder) *BoostingQueryBuilder {
-	v := negative.Build()
-	rb.v.Negative = &v
-	return rb
-}
-
-func (rb *BoostingQueryBuilder) NegativeBoost(negativeboost float64) *BoostingQueryBuilder {
-	rb.v.NegativeBoost = negativeboost
-	return rb
-}
-
-func (rb *BoostingQueryBuilder) Positive(positive *QueryContainerBuilder) *BoostingQueryBuilder {
-	v := positive.Build()
-	rb.v.Positive = &v
-	return rb
-}
-
-func (rb *BoostingQueryBuilder) QueryName_(queryname_ string) *BoostingQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
+	return r
 }

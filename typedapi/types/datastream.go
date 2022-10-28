@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,103 +28,25 @@ import (
 
 // DataStream type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/_types/DataStream.ts#L31-L46
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/DataStream.ts#L31-L46
 type DataStream struct {
 	AllowCustomRouting *bool                     `json:"allow_custom_routing,omitempty"`
 	Generation         int                       `json:"generation"`
 	Hidden             bool                      `json:"hidden"`
-	IlmPolicy          *Name                     `json:"ilm_policy,omitempty"`
+	IlmPolicy          *string                   `json:"ilm_policy,omitempty"`
 	Indices            []DataStreamIndex         `json:"indices"`
-	Meta_              *Metadata                 `json:"_meta,omitempty"`
-	Name               DataStreamName            `json:"name"`
+	Meta_              map[string]interface{}    `json:"_meta,omitempty"`
+	Name               string                    `json:"name"`
 	Replicated         *bool                     `json:"replicated,omitempty"`
 	Status             healthstatus.HealthStatus `json:"status"`
 	System             *bool                     `json:"system,omitempty"`
-	Template           Name                      `json:"template"`
+	Template           string                    `json:"template"`
 	TimestampField     DataStreamTimestampField  `json:"timestamp_field"`
 }
 
-// DataStreamBuilder holds DataStream struct and provides a builder API.
-type DataStreamBuilder struct {
-	v *DataStream
-}
+// NewDataStream returns a DataStream.
+func NewDataStream() *DataStream {
+	r := &DataStream{}
 
-// NewDataStream provides a builder for the DataStream struct.
-func NewDataStreamBuilder() *DataStreamBuilder {
-	r := DataStreamBuilder{
-		&DataStream{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataStream struct
-func (rb *DataStreamBuilder) Build() DataStream {
-	return *rb.v
-}
-
-func (rb *DataStreamBuilder) AllowCustomRouting(allowcustomrouting bool) *DataStreamBuilder {
-	rb.v.AllowCustomRouting = &allowcustomrouting
-	return rb
-}
-
-func (rb *DataStreamBuilder) Generation(generation int) *DataStreamBuilder {
-	rb.v.Generation = generation
-	return rb
-}
-
-func (rb *DataStreamBuilder) Hidden(hidden bool) *DataStreamBuilder {
-	rb.v.Hidden = hidden
-	return rb
-}
-
-func (rb *DataStreamBuilder) IlmPolicy(ilmpolicy Name) *DataStreamBuilder {
-	rb.v.IlmPolicy = &ilmpolicy
-	return rb
-}
-
-func (rb *DataStreamBuilder) Indices(indices []DataStreamIndexBuilder) *DataStreamBuilder {
-	tmp := make([]DataStreamIndex, len(indices))
-	for _, value := range indices {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Indices = tmp
-	return rb
-}
-
-func (rb *DataStreamBuilder) Meta_(meta_ *MetadataBuilder) *DataStreamBuilder {
-	v := meta_.Build()
-	rb.v.Meta_ = &v
-	return rb
-}
-
-func (rb *DataStreamBuilder) Name(name DataStreamName) *DataStreamBuilder {
-	rb.v.Name = name
-	return rb
-}
-
-func (rb *DataStreamBuilder) Replicated(replicated bool) *DataStreamBuilder {
-	rb.v.Replicated = &replicated
-	return rb
-}
-
-func (rb *DataStreamBuilder) Status(status healthstatus.HealthStatus) *DataStreamBuilder {
-	rb.v.Status = status
-	return rb
-}
-
-func (rb *DataStreamBuilder) System(system bool) *DataStreamBuilder {
-	rb.v.System = &system
-	return rb
-}
-
-func (rb *DataStreamBuilder) Template(template Name) *DataStreamBuilder {
-	rb.v.Template = template
-	return rb
-}
-
-func (rb *DataStreamBuilder) TimestampField(timestampfield *DataStreamTimestampFieldBuilder) *DataStreamBuilder {
-	v := timestampfield.Build()
-	rb.v.TimestampField = v
-	return rb
+	return r
 }

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // Storage type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/_types/IndexSettings.ts#L497-L506
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/IndexSettings.ts#L497-L506
 type Storage struct {
 	// AllowMmap You can restrict the use of the mmapfs and the related hybridfs store type
 	// via the setting node.store.allow_mmap.
@@ -41,39 +41,9 @@ type Storage struct {
 	Type      storagetype.StorageType `json:"type"`
 }
 
-// StorageBuilder holds Storage struct and provides a builder API.
-type StorageBuilder struct {
-	v *Storage
-}
+// NewStorage returns a Storage.
+func NewStorage() *Storage {
+	r := &Storage{}
 
-// NewStorage provides a builder for the Storage struct.
-func NewStorageBuilder() *StorageBuilder {
-	r := StorageBuilder{
-		&Storage{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Storage struct
-func (rb *StorageBuilder) Build() Storage {
-	return *rb.v
-}
-
-// AllowMmap You can restrict the use of the mmapfs and the related hybridfs store type
-// via the setting node.store.allow_mmap.
-// This is a boolean setting indicating whether or not memory-mapping is
-// allowed. The default is to allow it. This
-// setting is useful, for example, if you are in an environment where you can
-// not control the ability to create a lot
-// of memory maps so you need disable the ability to use memory-mapping.
-
-func (rb *StorageBuilder) AllowMmap(allowmmap bool) *StorageBuilder {
-	rb.v.AllowMmap = &allowmmap
-	return rb
-}
-
-func (rb *StorageBuilder) Type_(type_ storagetype.StorageType) *StorageBuilder {
-	rb.v.Type = type_
-	return rb
+	return r
 }

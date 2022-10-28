@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -31,7 +31,7 @@ import (
 
 // FieldSort type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/sort.ts#L44-L53
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/sort.ts#L44-L53
 type FieldSort struct {
 	Format       *string                                    `json:"format,omitempty"`
 	Missing      *Missing                                   `json:"missing,omitempty"`
@@ -42,58 +42,9 @@ type FieldSort struct {
 	UnmappedType *fieldtype.FieldType                       `json:"unmapped_type,omitempty"`
 }
 
-// FieldSortBuilder holds FieldSort struct and provides a builder API.
-type FieldSortBuilder struct {
-	v *FieldSort
-}
+// NewFieldSort returns a FieldSort.
+func NewFieldSort() *FieldSort {
+	r := &FieldSort{}
 
-// NewFieldSort provides a builder for the FieldSort struct.
-func NewFieldSortBuilder() *FieldSortBuilder {
-	r := FieldSortBuilder{
-		&FieldSort{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FieldSort struct
-func (rb *FieldSortBuilder) Build() FieldSort {
-	return *rb.v
-}
-
-func (rb *FieldSortBuilder) Format(format string) *FieldSortBuilder {
-	rb.v.Format = &format
-	return rb
-}
-
-func (rb *FieldSortBuilder) Missing(missing *MissingBuilder) *FieldSortBuilder {
-	v := missing.Build()
-	rb.v.Missing = &v
-	return rb
-}
-
-func (rb *FieldSortBuilder) Mode(mode sortmode.SortMode) *FieldSortBuilder {
-	rb.v.Mode = &mode
-	return rb
-}
-
-func (rb *FieldSortBuilder) Nested(nested *NestedSortValueBuilder) *FieldSortBuilder {
-	v := nested.Build()
-	rb.v.Nested = &v
-	return rb
-}
-
-func (rb *FieldSortBuilder) NumericType(numerictype fieldsortnumerictype.FieldSortNumericType) *FieldSortBuilder {
-	rb.v.NumericType = &numerictype
-	return rb
-}
-
-func (rb *FieldSortBuilder) Order(order sortorder.SortOrder) *FieldSortBuilder {
-	rb.v.Order = &order
-	return rb
-}
-
-func (rb *FieldSortBuilder) UnmappedType(unmappedtype fieldtype.FieldType) *FieldSortBuilder {
-	rb.v.UnmappedType = &unmappedtype
-	return rb
+	return r
 }

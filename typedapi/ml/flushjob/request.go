@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package flushjob
@@ -31,40 +31,29 @@ import (
 
 // Request holds the request body struct for the package flushjob
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/flush_job/MlFlushJobRequest.ts#L24-L99
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/flush_job/MlFlushJobRequest.ts#L24-L99
 type Request struct {
 
 	// AdvanceTime Refer to the description for the `advance_time` query parameter.
 	AdvanceTime *types.DateTime `json:"advance_time,omitempty"`
-
 	// CalcInterim Refer to the description for the `calc_interim` query parameter.
 	CalcInterim *bool `json:"calc_interim,omitempty"`
-
 	// End Refer to the description for the `end` query parameter.
 	End *types.DateTime `json:"end,omitempty"`
-
 	// SkipTime Refer to the description for the `skip_time` query parameter.
 	SkipTime *types.DateTime `json:"skip_time,omitempty"`
-
 	// Start Refer to the description for the `start` query parameter.
 	Start *types.DateTime `json:"start,omitempty"`
 }
 
-// RequestBuilder is the builder API for the flushjob.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -73,38 +62,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) AdvanceTime(advancetime *types.DateTimeBuilder) *RequestBuilder {
-	v := advancetime.Build()
-	rb.v.AdvanceTime = &v
-	return rb
-}
-
-func (rb *RequestBuilder) CalcInterim(calcinterim bool) *RequestBuilder {
-	rb.v.CalcInterim = &calcinterim
-	return rb
-}
-
-func (rb *RequestBuilder) End(end *types.DateTimeBuilder) *RequestBuilder {
-	v := end.Build()
-	rb.v.End = &v
-	return rb
-}
-
-func (rb *RequestBuilder) SkipTime(skiptime *types.DateTimeBuilder) *RequestBuilder {
-	v := skiptime.Build()
-	rb.v.SkipTime = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Start(start *types.DateTimeBuilder) *RequestBuilder {
-	v := start.Build()
-	rb.v.Start = &v
-	return rb
 }

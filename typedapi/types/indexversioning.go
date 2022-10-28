@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IndexVersioning type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/_types/IndexSettings.ts#L262-L265
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/IndexSettings.ts#L262-L265
 type IndexVersioning struct {
-	Created       *VersionString `json:"created,omitempty"`
-	CreatedString *string        `json:"created_string,omitempty"`
+	Created       *string `json:"created,omitempty"`
+	CreatedString *string `json:"created_string,omitempty"`
 }
 
-// IndexVersioningBuilder holds IndexVersioning struct and provides a builder API.
-type IndexVersioningBuilder struct {
-	v *IndexVersioning
-}
+// NewIndexVersioning returns a IndexVersioning.
+func NewIndexVersioning() *IndexVersioning {
+	r := &IndexVersioning{}
 
-// NewIndexVersioning provides a builder for the IndexVersioning struct.
-func NewIndexVersioningBuilder() *IndexVersioningBuilder {
-	r := IndexVersioningBuilder{
-		&IndexVersioning{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IndexVersioning struct
-func (rb *IndexVersioningBuilder) Build() IndexVersioning {
-	return *rb.v
-}
-
-func (rb *IndexVersioningBuilder) Created(created VersionString) *IndexVersioningBuilder {
-	rb.v.Created = &created
-	return rb
-}
-
-func (rb *IndexVersioningBuilder) CreatedString(createdstring string) *IndexVersioningBuilder {
-	rb.v.CreatedString = &createdstring
-	return rb
+	return r
 }

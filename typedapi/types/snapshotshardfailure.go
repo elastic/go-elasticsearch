@@ -17,62 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SnapshotShardFailure type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/snapshot/_types/SnapshotShardFailure.ts#L22-L28
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/snapshot/_types/SnapshotShardFailure.ts#L22-L28
 type SnapshotShardFailure struct {
-	Index   IndexName `json:"index"`
-	NodeId  Id        `json:"node_id"`
-	Reason  string    `json:"reason"`
-	ShardId Id        `json:"shard_id"`
-	Status  string    `json:"status"`
+	Index   string `json:"index"`
+	NodeId  string `json:"node_id"`
+	Reason  string `json:"reason"`
+	ShardId string `json:"shard_id"`
+	Status  string `json:"status"`
 }
 
-// SnapshotShardFailureBuilder holds SnapshotShardFailure struct and provides a builder API.
-type SnapshotShardFailureBuilder struct {
-	v *SnapshotShardFailure
-}
+// NewSnapshotShardFailure returns a SnapshotShardFailure.
+func NewSnapshotShardFailure() *SnapshotShardFailure {
+	r := &SnapshotShardFailure{}
 
-// NewSnapshotShardFailure provides a builder for the SnapshotShardFailure struct.
-func NewSnapshotShardFailureBuilder() *SnapshotShardFailureBuilder {
-	r := SnapshotShardFailureBuilder{
-		&SnapshotShardFailure{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SnapshotShardFailure struct
-func (rb *SnapshotShardFailureBuilder) Build() SnapshotShardFailure {
-	return *rb.v
-}
-
-func (rb *SnapshotShardFailureBuilder) Index(index IndexName) *SnapshotShardFailureBuilder {
-	rb.v.Index = index
-	return rb
-}
-
-func (rb *SnapshotShardFailureBuilder) NodeId(nodeid Id) *SnapshotShardFailureBuilder {
-	rb.v.NodeId = nodeid
-	return rb
-}
-
-func (rb *SnapshotShardFailureBuilder) Reason(reason string) *SnapshotShardFailureBuilder {
-	rb.v.Reason = reason
-	return rb
-}
-
-func (rb *SnapshotShardFailureBuilder) ShardId(shardid Id) *SnapshotShardFailureBuilder {
-	rb.v.ShardId = shardid
-	return rb
-}
-
-func (rb *SnapshotShardFailureBuilder) Status(status string) *SnapshotShardFailureBuilder {
-	rb.v.Status = status
-	return rb
+	return r
 }

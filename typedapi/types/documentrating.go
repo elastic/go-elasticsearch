@@ -17,61 +17,27 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DocumentRating type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_global/rank_eval/types.ts#L116-L123
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/rank_eval/types.ts#L116-L123
 type DocumentRating struct {
 	// Id_ The document ID.
-	Id_ Id `json:"_id"`
+	Id_ string `json:"_id"`
 	// Index_ The document’s index. For data streams, this should be the document’s backing
 	// index.
-	Index_ IndexName `json:"_index"`
+	Index_ string `json:"_index"`
 	// Rating The document’s relevance with regard to this search request.
 	Rating int `json:"rating"`
 }
 
-// DocumentRatingBuilder holds DocumentRating struct and provides a builder API.
-type DocumentRatingBuilder struct {
-	v *DocumentRating
-}
+// NewDocumentRating returns a DocumentRating.
+func NewDocumentRating() *DocumentRating {
+	r := &DocumentRating{}
 
-// NewDocumentRating provides a builder for the DocumentRating struct.
-func NewDocumentRatingBuilder() *DocumentRatingBuilder {
-	r := DocumentRatingBuilder{
-		&DocumentRating{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DocumentRating struct
-func (rb *DocumentRatingBuilder) Build() DocumentRating {
-	return *rb.v
-}
-
-// Id_ The document ID.
-
-func (rb *DocumentRatingBuilder) Id_(id_ Id) *DocumentRatingBuilder {
-	rb.v.Id_ = id_
-	return rb
-}
-
-// Index_ The document’s index. For data streams, this should be the document’s backing
-// index.
-
-func (rb *DocumentRatingBuilder) Index_(index_ IndexName) *DocumentRatingBuilder {
-	rb.v.Index_ = index_
-	return rb
-}
-
-// Rating The document’s relevance with regard to this search request.
-
-func (rb *DocumentRatingBuilder) Rating(rating int) *DocumentRatingBuilder {
-	rb.v.Rating = rating
-	return rb
+	return r
 }

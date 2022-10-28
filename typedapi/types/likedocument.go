@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,75 +28,23 @@ import (
 
 // LikeDocument type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/query_dsl/specialized.ts#L91-L101
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/specialized.ts#L91-L101
 type LikeDocument struct {
 	Doc              interface{}              `json:"doc,omitempty"`
-	Fields           []Field                  `json:"fields,omitempty"`
-	Id_              *Id                      `json:"_id,omitempty"`
-	Index_           *IndexName               `json:"_index,omitempty"`
-	PerFieldAnalyzer map[Field]string         `json:"per_field_analyzer,omitempty"`
-	Routing          *Routing                 `json:"routing,omitempty"`
-	Version          *VersionNumber           `json:"version,omitempty"`
+	Fields           []string                 `json:"fields,omitempty"`
+	Id_              *string                  `json:"_id,omitempty"`
+	Index_           *string                  `json:"_index,omitempty"`
+	PerFieldAnalyzer map[string]string        `json:"per_field_analyzer,omitempty"`
+	Routing          *string                  `json:"routing,omitempty"`
+	Version          *int64                   `json:"version,omitempty"`
 	VersionType      *versiontype.VersionType `json:"version_type,omitempty"`
 }
 
-// LikeDocumentBuilder holds LikeDocument struct and provides a builder API.
-type LikeDocumentBuilder struct {
-	v *LikeDocument
-}
-
-// NewLikeDocument provides a builder for the LikeDocument struct.
-func NewLikeDocumentBuilder() *LikeDocumentBuilder {
-	r := LikeDocumentBuilder{
-		&LikeDocument{
-			PerFieldAnalyzer: make(map[Field]string, 0),
-		},
+// NewLikeDocument returns a LikeDocument.
+func NewLikeDocument() *LikeDocument {
+	r := &LikeDocument{
+		PerFieldAnalyzer: make(map[string]string, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the LikeDocument struct
-func (rb *LikeDocumentBuilder) Build() LikeDocument {
-	return *rb.v
-}
-
-func (rb *LikeDocumentBuilder) Doc(doc interface{}) *LikeDocumentBuilder {
-	rb.v.Doc = doc
-	return rb
-}
-
-func (rb *LikeDocumentBuilder) Fields(fields ...Field) *LikeDocumentBuilder {
-	rb.v.Fields = fields
-	return rb
-}
-
-func (rb *LikeDocumentBuilder) Id_(id_ Id) *LikeDocumentBuilder {
-	rb.v.Id_ = &id_
-	return rb
-}
-
-func (rb *LikeDocumentBuilder) Index_(index_ IndexName) *LikeDocumentBuilder {
-	rb.v.Index_ = &index_
-	return rb
-}
-
-func (rb *LikeDocumentBuilder) PerFieldAnalyzer(value map[Field]string) *LikeDocumentBuilder {
-	rb.v.PerFieldAnalyzer = value
-	return rb
-}
-
-func (rb *LikeDocumentBuilder) Routing(routing Routing) *LikeDocumentBuilder {
-	rb.v.Routing = &routing
-	return rb
-}
-
-func (rb *LikeDocumentBuilder) Version(version VersionNumber) *LikeDocumentBuilder {
-	rb.v.Version = &version
-	return rb
-}
-
-func (rb *LikeDocumentBuilder) VersionType(versiontype versiontype.VersionType) *LikeDocumentBuilder {
-	rb.v.VersionType = &versiontype
-	return rb
+	return r
 }

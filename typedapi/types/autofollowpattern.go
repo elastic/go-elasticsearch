@@ -17,45 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AutoFollowPattern type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ccr/get_auto_follow_pattern/types.ts#L23-L26
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ccr/get_auto_follow_pattern/types.ts#L23-L26
 type AutoFollowPattern struct {
-	Name    Name                     `json:"name"`
+	Name    string                   `json:"name"`
 	Pattern AutoFollowPatternSummary `json:"pattern"`
 }
 
-// AutoFollowPatternBuilder holds AutoFollowPattern struct and provides a builder API.
-type AutoFollowPatternBuilder struct {
-	v *AutoFollowPattern
-}
+// NewAutoFollowPattern returns a AutoFollowPattern.
+func NewAutoFollowPattern() *AutoFollowPattern {
+	r := &AutoFollowPattern{}
 
-// NewAutoFollowPattern provides a builder for the AutoFollowPattern struct.
-func NewAutoFollowPatternBuilder() *AutoFollowPatternBuilder {
-	r := AutoFollowPatternBuilder{
-		&AutoFollowPattern{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the AutoFollowPattern struct
-func (rb *AutoFollowPatternBuilder) Build() AutoFollowPattern {
-	return *rb.v
-}
-
-func (rb *AutoFollowPatternBuilder) Name(name Name) *AutoFollowPatternBuilder {
-	rb.v.Name = name
-	return rb
-}
-
-func (rb *AutoFollowPatternBuilder) Pattern(pattern *AutoFollowPatternSummaryBuilder) *AutoFollowPatternBuilder {
-	v := pattern.Build()
-	rb.v.Pattern = v
-	return rb
+	return r
 }

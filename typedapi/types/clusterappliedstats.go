@@ -17,42 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ClusterAppliedStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/_types/Stats.ts#L84-L86
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L84-L86
 type ClusterAppliedStats struct {
 	Recordings []Recording `json:"recordings,omitempty"`
 }
 
-// ClusterAppliedStatsBuilder holds ClusterAppliedStats struct and provides a builder API.
-type ClusterAppliedStatsBuilder struct {
-	v *ClusterAppliedStats
-}
+// NewClusterAppliedStats returns a ClusterAppliedStats.
+func NewClusterAppliedStats() *ClusterAppliedStats {
+	r := &ClusterAppliedStats{}
 
-// NewClusterAppliedStats provides a builder for the ClusterAppliedStats struct.
-func NewClusterAppliedStatsBuilder() *ClusterAppliedStatsBuilder {
-	r := ClusterAppliedStatsBuilder{
-		&ClusterAppliedStats{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ClusterAppliedStats struct
-func (rb *ClusterAppliedStatsBuilder) Build() ClusterAppliedStats {
-	return *rb.v
-}
-
-func (rb *ClusterAppliedStatsBuilder) Recordings(recordings []RecordingBuilder) *ClusterAppliedStatsBuilder {
-	tmp := make([]Recording, len(recordings))
-	for _, value := range recordings {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Recordings = tmp
-	return rb
+	return r
 }

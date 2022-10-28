@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package putlifecycle
@@ -31,45 +31,34 @@ import (
 
 // Request holds the request body struct for the package putlifecycle
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/slm/put_lifecycle/PutSnapshotLifecycleRequest.ts#L26-L72
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/slm/put_lifecycle/PutSnapshotLifecycleRequest.ts#L26-L72
 type Request struct {
 
 	// Config Configuration for each snapshot created by the policy.
 	Config *types.Configuration `json:"config,omitempty"`
-
 	// Name Name automatically assigned to each snapshot created by the policy. Date math
 	// is supported. To prevent conflicting snapshot names, a UUID is automatically
 	// appended to each snapshot name.
-	Name *types.Name `json:"name,omitempty"`
-
+	Name *string `json:"name,omitempty"`
 	// Repository Repository used to store snapshots created by this policy. This repository
 	// must exist prior to the policy’s creation. You can create a repository using
 	// the snapshot repository API.
 	Repository *string `json:"repository,omitempty"`
-
 	// Retention Retention rules used to retain and delete snapshots created by the policy.
 	Retention *types.Retention `json:"retention,omitempty"`
-
 	// Schedule Periodic or absolute schedule at which the policy creates snapshots. SLM
 	// applies schedule changes immediately.
-	Schedule *types.CronExpression `json:"schedule,omitempty"`
+	Schedule *string `json:"schedule,omitempty"`
 }
 
-// RequestBuilder is the builder API for the putlifecycle.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -78,36 +67,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) Config(config *types.ConfigurationBuilder) *RequestBuilder {
-	v := config.Build()
-	rb.v.Config = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Name(name types.Name) *RequestBuilder {
-	rb.v.Name = &name
-	return rb
-}
-
-func (rb *RequestBuilder) Repository(repository string) *RequestBuilder {
-	rb.v.Repository = &repository
-	return rb
-}
-
-func (rb *RequestBuilder) Retention(retention *types.RetentionBuilder) *RequestBuilder {
-	v := retention.Build()
-	rb.v.Retention = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Schedule(schedule types.CronExpression) *RequestBuilder {
-	rb.v.Schedule = &schedule
-	return rb
 }

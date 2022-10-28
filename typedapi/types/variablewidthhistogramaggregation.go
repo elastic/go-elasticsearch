@@ -17,56 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // VariableWidthHistogramAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/bucket.ts#L429-L434
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/bucket.ts#L429-L434
 type VariableWidthHistogramAggregation struct {
-	Buckets       *int   `json:"buckets,omitempty"`
-	Field         *Field `json:"field,omitempty"`
-	InitialBuffer *int   `json:"initial_buffer,omitempty"`
-	ShardSize     *int   `json:"shard_size,omitempty"`
+	Buckets       *int    `json:"buckets,omitempty"`
+	Field         *string `json:"field,omitempty"`
+	InitialBuffer *int    `json:"initial_buffer,omitempty"`
+	ShardSize     *int    `json:"shard_size,omitempty"`
 }
 
-// VariableWidthHistogramAggregationBuilder holds VariableWidthHistogramAggregation struct and provides a builder API.
-type VariableWidthHistogramAggregationBuilder struct {
-	v *VariableWidthHistogramAggregation
-}
+// NewVariableWidthHistogramAggregation returns a VariableWidthHistogramAggregation.
+func NewVariableWidthHistogramAggregation() *VariableWidthHistogramAggregation {
+	r := &VariableWidthHistogramAggregation{}
 
-// NewVariableWidthHistogramAggregation provides a builder for the VariableWidthHistogramAggregation struct.
-func NewVariableWidthHistogramAggregationBuilder() *VariableWidthHistogramAggregationBuilder {
-	r := VariableWidthHistogramAggregationBuilder{
-		&VariableWidthHistogramAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the VariableWidthHistogramAggregation struct
-func (rb *VariableWidthHistogramAggregationBuilder) Build() VariableWidthHistogramAggregation {
-	return *rb.v
-}
-
-func (rb *VariableWidthHistogramAggregationBuilder) Buckets(buckets int) *VariableWidthHistogramAggregationBuilder {
-	rb.v.Buckets = &buckets
-	return rb
-}
-
-func (rb *VariableWidthHistogramAggregationBuilder) Field(field Field) *VariableWidthHistogramAggregationBuilder {
-	rb.v.Field = &field
-	return rb
-}
-
-func (rb *VariableWidthHistogramAggregationBuilder) InitialBuffer(initialbuffer int) *VariableWidthHistogramAggregationBuilder {
-	rb.v.InitialBuffer = &initialbuffer
-	return rb
-}
-
-func (rb *VariableWidthHistogramAggregationBuilder) ShardSize(shardsize int) *VariableWidthHistogramAggregationBuilder {
-	rb.v.ShardSize = &shardsize
-	return rb
+	return r
 }

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MlInferenceTrainedModelsCount type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/xpack/usage/types.ts#L230-L238
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L230-L238
 type MlInferenceTrainedModelsCount struct {
 	Classification *int64 `json:"classification,omitempty"`
 	Ner            *int64 `json:"ner,omitempty"`
@@ -35,56 +35,9 @@ type MlInferenceTrainedModelsCount struct {
 	Total          int64  `json:"total"`
 }
 
-// MlInferenceTrainedModelsCountBuilder holds MlInferenceTrainedModelsCount struct and provides a builder API.
-type MlInferenceTrainedModelsCountBuilder struct {
-	v *MlInferenceTrainedModelsCount
-}
+// NewMlInferenceTrainedModelsCount returns a MlInferenceTrainedModelsCount.
+func NewMlInferenceTrainedModelsCount() *MlInferenceTrainedModelsCount {
+	r := &MlInferenceTrainedModelsCount{}
 
-// NewMlInferenceTrainedModelsCount provides a builder for the MlInferenceTrainedModelsCount struct.
-func NewMlInferenceTrainedModelsCountBuilder() *MlInferenceTrainedModelsCountBuilder {
-	r := MlInferenceTrainedModelsCountBuilder{
-		&MlInferenceTrainedModelsCount{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MlInferenceTrainedModelsCount struct
-func (rb *MlInferenceTrainedModelsCountBuilder) Build() MlInferenceTrainedModelsCount {
-	return *rb.v
-}
-
-func (rb *MlInferenceTrainedModelsCountBuilder) Classification(classification int64) *MlInferenceTrainedModelsCountBuilder {
-	rb.v.Classification = &classification
-	return rb
-}
-
-func (rb *MlInferenceTrainedModelsCountBuilder) Ner(ner int64) *MlInferenceTrainedModelsCountBuilder {
-	rb.v.Ner = &ner
-	return rb
-}
-
-func (rb *MlInferenceTrainedModelsCountBuilder) Other(other int64) *MlInferenceTrainedModelsCountBuilder {
-	rb.v.Other = other
-	return rb
-}
-
-func (rb *MlInferenceTrainedModelsCountBuilder) PassThrough(passthrough int64) *MlInferenceTrainedModelsCountBuilder {
-	rb.v.PassThrough = &passthrough
-	return rb
-}
-
-func (rb *MlInferenceTrainedModelsCountBuilder) Prepackaged(prepackaged int64) *MlInferenceTrainedModelsCountBuilder {
-	rb.v.Prepackaged = prepackaged
-	return rb
-}
-
-func (rb *MlInferenceTrainedModelsCountBuilder) Regression(regression int64) *MlInferenceTrainedModelsCountBuilder {
-	rb.v.Regression = &regression
-	return rb
-}
-
-func (rb *MlInferenceTrainedModelsCountBuilder) Total(total int64) *MlInferenceTrainedModelsCountBuilder {
-	rb.v.Total = total
-	return rb
+	return r
 }

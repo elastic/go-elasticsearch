@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,14 +29,14 @@ import (
 
 // IpPrefixBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L616-L621
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L631-L636
 type IpPrefixBucket struct {
-	Aggregations map[AggregateName]Aggregate `json:"-"`
-	DocCount     int64                       `json:"doc_count"`
-	IsIpv6       bool                        `json:"is_ipv6"`
-	Key          string                      `json:"key"`
-	Netmask      *string                     `json:"netmask,omitempty"`
-	PrefixLength int                         `json:"prefix_length"`
+	Aggregations map[string]Aggregate `json:"-"`
+	DocCount     int64                `json:"doc_count"`
+	IsIpv6       bool                 `json:"is_ipv6"`
+	Key          string               `json:"key"`
+	Netmask      *string              `json:"netmask,omitempty"`
+	PrefixLength int                  `json:"prefix_length"`
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -67,57 +67,11 @@ func (s IpPrefixBucket) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// IpPrefixBucketBuilder holds IpPrefixBucket struct and provides a builder API.
-type IpPrefixBucketBuilder struct {
-	v *IpPrefixBucket
-}
-
-// NewIpPrefixBucket provides a builder for the IpPrefixBucket struct.
-func NewIpPrefixBucketBuilder() *IpPrefixBucketBuilder {
-	r := IpPrefixBucketBuilder{
-		&IpPrefixBucket{
-			Aggregations: make(map[AggregateName]Aggregate, 0),
-		},
+// NewIpPrefixBucket returns a IpPrefixBucket.
+func NewIpPrefixBucket() *IpPrefixBucket {
+	r := &IpPrefixBucket{
+		Aggregations: make(map[string]Aggregate, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the IpPrefixBucket struct
-func (rb *IpPrefixBucketBuilder) Build() IpPrefixBucket {
-	return *rb.v
-}
-
-func (rb *IpPrefixBucketBuilder) Aggregations(values map[AggregateName]*AggregateBuilder) *IpPrefixBucketBuilder {
-	tmp := make(map[AggregateName]Aggregate, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Aggregations = tmp
-	return rb
-}
-
-func (rb *IpPrefixBucketBuilder) DocCount(doccount int64) *IpPrefixBucketBuilder {
-	rb.v.DocCount = doccount
-	return rb
-}
-
-func (rb *IpPrefixBucketBuilder) IsIpv6(isipv6 bool) *IpPrefixBucketBuilder {
-	rb.v.IsIpv6 = isipv6
-	return rb
-}
-
-func (rb *IpPrefixBucketBuilder) Key(key string) *IpPrefixBucketBuilder {
-	rb.v.Key = key
-	return rb
-}
-
-func (rb *IpPrefixBucketBuilder) Netmask(netmask string) *IpPrefixBucketBuilder {
-	rb.v.Netmask = &netmask
-	return rb
-}
-
-func (rb *IpPrefixBucketBuilder) PrefixLength(prefixlength int) *IpPrefixBucketBuilder {
-	rb.v.PrefixLength = prefixlength
-	return rb
+	return r
 }

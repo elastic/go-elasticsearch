@@ -17,49 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TopMetricsAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L700-L703
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L715-L718
 type TopMetricsAggregate struct {
-	Meta *Metadata    `json:"meta,omitempty"`
-	Top  []TopMetrics `json:"top"`
+	Meta map[string]interface{} `json:"meta,omitempty"`
+	Top  []TopMetrics           `json:"top"`
 }
 
-// TopMetricsAggregateBuilder holds TopMetricsAggregate struct and provides a builder API.
-type TopMetricsAggregateBuilder struct {
-	v *TopMetricsAggregate
-}
+// NewTopMetricsAggregate returns a TopMetricsAggregate.
+func NewTopMetricsAggregate() *TopMetricsAggregate {
+	r := &TopMetricsAggregate{}
 
-// NewTopMetricsAggregate provides a builder for the TopMetricsAggregate struct.
-func NewTopMetricsAggregateBuilder() *TopMetricsAggregateBuilder {
-	r := TopMetricsAggregateBuilder{
-		&TopMetricsAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TopMetricsAggregate struct
-func (rb *TopMetricsAggregateBuilder) Build() TopMetricsAggregate {
-	return *rb.v
-}
-
-func (rb *TopMetricsAggregateBuilder) Meta(meta *MetadataBuilder) *TopMetricsAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *TopMetricsAggregateBuilder) Top(top []TopMetricsBuilder) *TopMetricsAggregateBuilder {
-	tmp := make([]TopMetrics, len(top))
-	for _, value := range top {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Top = tmp
-	return rb
+	return r
 }

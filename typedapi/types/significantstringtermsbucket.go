@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,13 +29,13 @@ import (
 
 // SignificantStringTermsBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L590-L592
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L605-L607
 type SignificantStringTermsBucket struct {
-	Aggregations map[AggregateName]Aggregate `json:"-"`
-	BgCount      int64                       `json:"bg_count"`
-	DocCount     int64                       `json:"doc_count"`
-	Key          string                      `json:"key"`
-	Score        float64                     `json:"score"`
+	Aggregations map[string]Aggregate `json:"-"`
+	BgCount      int64                `json:"bg_count"`
+	DocCount     int64                `json:"doc_count"`
+	Key          string               `json:"key"`
+	Score        float64              `json:"score"`
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -66,52 +66,11 @@ func (s SignificantStringTermsBucket) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// SignificantStringTermsBucketBuilder holds SignificantStringTermsBucket struct and provides a builder API.
-type SignificantStringTermsBucketBuilder struct {
-	v *SignificantStringTermsBucket
-}
-
-// NewSignificantStringTermsBucket provides a builder for the SignificantStringTermsBucket struct.
-func NewSignificantStringTermsBucketBuilder() *SignificantStringTermsBucketBuilder {
-	r := SignificantStringTermsBucketBuilder{
-		&SignificantStringTermsBucket{
-			Aggregations: make(map[AggregateName]Aggregate, 0),
-		},
+// NewSignificantStringTermsBucket returns a SignificantStringTermsBucket.
+func NewSignificantStringTermsBucket() *SignificantStringTermsBucket {
+	r := &SignificantStringTermsBucket{
+		Aggregations: make(map[string]Aggregate, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the SignificantStringTermsBucket struct
-func (rb *SignificantStringTermsBucketBuilder) Build() SignificantStringTermsBucket {
-	return *rb.v
-}
-
-func (rb *SignificantStringTermsBucketBuilder) Aggregations(values map[AggregateName]*AggregateBuilder) *SignificantStringTermsBucketBuilder {
-	tmp := make(map[AggregateName]Aggregate, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Aggregations = tmp
-	return rb
-}
-
-func (rb *SignificantStringTermsBucketBuilder) BgCount(bgcount int64) *SignificantStringTermsBucketBuilder {
-	rb.v.BgCount = bgcount
-	return rb
-}
-
-func (rb *SignificantStringTermsBucketBuilder) DocCount(doccount int64) *SignificantStringTermsBucketBuilder {
-	rb.v.DocCount = doccount
-	return rb
-}
-
-func (rb *SignificantStringTermsBucketBuilder) Key(key string) *SignificantStringTermsBucketBuilder {
-	rb.v.Key = key
-	return rb
-}
-
-func (rb *SignificantStringTermsBucketBuilder) Score(score float64) *SignificantStringTermsBucketBuilder {
-	rb.v.Score = score
-	return rb
+	return r
 }

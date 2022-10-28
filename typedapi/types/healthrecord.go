@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // HealthRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/cat/health/types.ts#L23-L94
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cat/health/types.ts#L23-L94
 type HealthRecord struct {
 	// ActiveShardsPercent active number of shards in percent
 	ActiveShardsPercent *string `json:"active_shards_percent,omitempty"`
@@ -51,125 +51,14 @@ type HealthRecord struct {
 	// Status health status
 	Status *string `json:"status,omitempty"`
 	// Timestamp time in HH:MM:SS
-	Timestamp *TimeOfDay `json:"timestamp,omitempty"`
+	Timestamp *string `json:"timestamp,omitempty"`
 	// Unassign number of unassigned shards
 	Unassign *string `json:"unassign,omitempty"`
 }
 
-// HealthRecordBuilder holds HealthRecord struct and provides a builder API.
-type HealthRecordBuilder struct {
-	v *HealthRecord
-}
+// NewHealthRecord returns a HealthRecord.
+func NewHealthRecord() *HealthRecord {
+	r := &HealthRecord{}
 
-// NewHealthRecord provides a builder for the HealthRecord struct.
-func NewHealthRecordBuilder() *HealthRecordBuilder {
-	r := HealthRecordBuilder{
-		&HealthRecord{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the HealthRecord struct
-func (rb *HealthRecordBuilder) Build() HealthRecord {
-	return *rb.v
-}
-
-// ActiveShardsPercent active number of shards in percent
-
-func (rb *HealthRecordBuilder) ActiveShardsPercent(activeshardspercent string) *HealthRecordBuilder {
-	rb.v.ActiveShardsPercent = &activeshardspercent
-	return rb
-}
-
-// Cluster cluster name
-
-func (rb *HealthRecordBuilder) Cluster(cluster string) *HealthRecordBuilder {
-	rb.v.Cluster = &cluster
-	return rb
-}
-
-// Epoch seconds since 1970-01-01 00:00:00
-
-func (rb *HealthRecordBuilder) Epoch(epoch *StringifiedEpochTimeUnitSecondsBuilder) *HealthRecordBuilder {
-	v := epoch.Build()
-	rb.v.Epoch = &v
-	return rb
-}
-
-// Init number of initializing nodes
-
-func (rb *HealthRecordBuilder) Init(init string) *HealthRecordBuilder {
-	rb.v.Init = &init
-	return rb
-}
-
-// MaxTaskWaitTime wait time of longest task pending
-
-func (rb *HealthRecordBuilder) MaxTaskWaitTime(maxtaskwaittime string) *HealthRecordBuilder {
-	rb.v.MaxTaskWaitTime = &maxtaskwaittime
-	return rb
-}
-
-// NodeData number of nodes that can store data
-
-func (rb *HealthRecordBuilder) NodeData(nodedata string) *HealthRecordBuilder {
-	rb.v.NodeData = &nodedata
-	return rb
-}
-
-// NodeTotal total number of nodes
-
-func (rb *HealthRecordBuilder) NodeTotal(nodetotal string) *HealthRecordBuilder {
-	rb.v.NodeTotal = &nodetotal
-	return rb
-}
-
-// PendingTasks number of pending tasks
-
-func (rb *HealthRecordBuilder) PendingTasks(pendingtasks string) *HealthRecordBuilder {
-	rb.v.PendingTasks = &pendingtasks
-	return rb
-}
-
-// Pri number of primary shards
-
-func (rb *HealthRecordBuilder) Pri(pri string) *HealthRecordBuilder {
-	rb.v.Pri = &pri
-	return rb
-}
-
-// Relo number of relocating nodes
-
-func (rb *HealthRecordBuilder) Relo(relo string) *HealthRecordBuilder {
-	rb.v.Relo = &relo
-	return rb
-}
-
-// Shards total number of shards
-
-func (rb *HealthRecordBuilder) Shards(shards string) *HealthRecordBuilder {
-	rb.v.Shards = &shards
-	return rb
-}
-
-// Status health status
-
-func (rb *HealthRecordBuilder) Status(status string) *HealthRecordBuilder {
-	rb.v.Status = &status
-	return rb
-}
-
-// Timestamp time in HH:MM:SS
-
-func (rb *HealthRecordBuilder) Timestamp(timestamp TimeOfDay) *HealthRecordBuilder {
-	rb.v.Timestamp = &timestamp
-	return rb
-}
-
-// Unassign number of unassigned shards
-
-func (rb *HealthRecordBuilder) Unassign(unassign string) *HealthRecordBuilder {
-	rb.v.Unassign = &unassign
-	return rb
+	return r
 }

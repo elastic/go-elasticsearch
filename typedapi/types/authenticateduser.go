@@ -17,102 +17,31 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AuthenticatedUser type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/security/get_token/types.ts#L40-L45
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/get_token/types.ts#L40-L45
 type AuthenticatedUser struct {
 	AuthenticationProvider *AuthenticationProvider `json:"authentication_provider,omitempty"`
 	AuthenticationRealm    UserRealm               `json:"authentication_realm"`
 	AuthenticationType     string                  `json:"authentication_type"`
 	Email                  string                  `json:"email,omitempty"`
 	Enabled                bool                    `json:"enabled"`
-	FullName               Name                    `json:"full_name,omitempty"`
+	FullName               string                  `json:"full_name,omitempty"`
 	LookupRealm            UserRealm               `json:"lookup_realm"`
-	Metadata               Metadata                `json:"metadata"`
-	ProfileUid             *UserProfileId          `json:"profile_uid,omitempty"`
+	Metadata               map[string]interface{}  `json:"metadata"`
+	ProfileUid             *string                 `json:"profile_uid,omitempty"`
 	Roles                  []string                `json:"roles"`
-	Username               Username                `json:"username"`
+	Username               string                  `json:"username"`
 }
 
-// AuthenticatedUserBuilder holds AuthenticatedUser struct and provides a builder API.
-type AuthenticatedUserBuilder struct {
-	v *AuthenticatedUser
-}
+// NewAuthenticatedUser returns a AuthenticatedUser.
+func NewAuthenticatedUser() *AuthenticatedUser {
+	r := &AuthenticatedUser{}
 
-// NewAuthenticatedUser provides a builder for the AuthenticatedUser struct.
-func NewAuthenticatedUserBuilder() *AuthenticatedUserBuilder {
-	r := AuthenticatedUserBuilder{
-		&AuthenticatedUser{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the AuthenticatedUser struct
-func (rb *AuthenticatedUserBuilder) Build() AuthenticatedUser {
-	return *rb.v
-}
-
-func (rb *AuthenticatedUserBuilder) AuthenticationProvider(authenticationprovider *AuthenticationProviderBuilder) *AuthenticatedUserBuilder {
-	v := authenticationprovider.Build()
-	rb.v.AuthenticationProvider = &v
-	return rb
-}
-
-func (rb *AuthenticatedUserBuilder) AuthenticationRealm(authenticationrealm *UserRealmBuilder) *AuthenticatedUserBuilder {
-	v := authenticationrealm.Build()
-	rb.v.AuthenticationRealm = v
-	return rb
-}
-
-func (rb *AuthenticatedUserBuilder) AuthenticationType(authenticationtype string) *AuthenticatedUserBuilder {
-	rb.v.AuthenticationType = authenticationtype
-	return rb
-}
-
-func (rb *AuthenticatedUserBuilder) Email(email string) *AuthenticatedUserBuilder {
-	rb.v.Email = email
-	return rb
-}
-
-func (rb *AuthenticatedUserBuilder) Enabled(enabled bool) *AuthenticatedUserBuilder {
-	rb.v.Enabled = enabled
-	return rb
-}
-
-func (rb *AuthenticatedUserBuilder) FullName(fullname Name) *AuthenticatedUserBuilder {
-	rb.v.FullName = fullname
-	return rb
-}
-
-func (rb *AuthenticatedUserBuilder) LookupRealm(lookuprealm *UserRealmBuilder) *AuthenticatedUserBuilder {
-	v := lookuprealm.Build()
-	rb.v.LookupRealm = v
-	return rb
-}
-
-func (rb *AuthenticatedUserBuilder) Metadata(metadata *MetadataBuilder) *AuthenticatedUserBuilder {
-	v := metadata.Build()
-	rb.v.Metadata = v
-	return rb
-}
-
-func (rb *AuthenticatedUserBuilder) ProfileUid(profileuid UserProfileId) *AuthenticatedUserBuilder {
-	rb.v.ProfileUid = &profileuid
-	return rb
-}
-
-func (rb *AuthenticatedUserBuilder) Roles(roles ...string) *AuthenticatedUserBuilder {
-	rb.v.Roles = roles
-	return rb
-}
-
-func (rb *AuthenticatedUserBuilder) Username(username Username) *AuthenticatedUserBuilder {
-	rb.v.Username = username
-	return rb
+	return r
 }

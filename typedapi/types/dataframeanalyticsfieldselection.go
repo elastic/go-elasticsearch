@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeAnalyticsFieldSelection type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/DataframeAnalytics.ts#L55-L68
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/DataframeAnalytics.ts#L55-L68
 type DataframeAnalyticsFieldSelection struct {
 	// FeatureType The feature type of this field for the analysis. May be categorical or
 	// numerical.
@@ -36,69 +36,14 @@ type DataframeAnalyticsFieldSelection struct {
 	// MappingTypes The mapping types of the field.
 	MappingTypes []string `json:"mapping_types"`
 	// Name The field name.
-	Name Field `json:"name"`
+	Name string `json:"name"`
 	// Reason The reason a field is not selected to be included in the analysis.
 	Reason *string `json:"reason,omitempty"`
 }
 
-// DataframeAnalyticsFieldSelectionBuilder holds DataframeAnalyticsFieldSelection struct and provides a builder API.
-type DataframeAnalyticsFieldSelectionBuilder struct {
-	v *DataframeAnalyticsFieldSelection
-}
+// NewDataframeAnalyticsFieldSelection returns a DataframeAnalyticsFieldSelection.
+func NewDataframeAnalyticsFieldSelection() *DataframeAnalyticsFieldSelection {
+	r := &DataframeAnalyticsFieldSelection{}
 
-// NewDataframeAnalyticsFieldSelection provides a builder for the DataframeAnalyticsFieldSelection struct.
-func NewDataframeAnalyticsFieldSelectionBuilder() *DataframeAnalyticsFieldSelectionBuilder {
-	r := DataframeAnalyticsFieldSelectionBuilder{
-		&DataframeAnalyticsFieldSelection{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeAnalyticsFieldSelection struct
-func (rb *DataframeAnalyticsFieldSelectionBuilder) Build() DataframeAnalyticsFieldSelection {
-	return *rb.v
-}
-
-// FeatureType The feature type of this field for the analysis. May be categorical or
-// numerical.
-
-func (rb *DataframeAnalyticsFieldSelectionBuilder) FeatureType(featuretype string) *DataframeAnalyticsFieldSelectionBuilder {
-	rb.v.FeatureType = &featuretype
-	return rb
-}
-
-// IsIncluded Whether the field is selected to be included in the analysis.
-
-func (rb *DataframeAnalyticsFieldSelectionBuilder) IsIncluded(isincluded bool) *DataframeAnalyticsFieldSelectionBuilder {
-	rb.v.IsIncluded = isincluded
-	return rb
-}
-
-// IsRequired Whether the field is required.
-
-func (rb *DataframeAnalyticsFieldSelectionBuilder) IsRequired(isrequired bool) *DataframeAnalyticsFieldSelectionBuilder {
-	rb.v.IsRequired = isrequired
-	return rb
-}
-
-// MappingTypes The mapping types of the field.
-
-func (rb *DataframeAnalyticsFieldSelectionBuilder) MappingTypes(mapping_types ...string) *DataframeAnalyticsFieldSelectionBuilder {
-	rb.v.MappingTypes = mapping_types
-	return rb
-}
-
-// Name The field name.
-
-func (rb *DataframeAnalyticsFieldSelectionBuilder) Name(name Field) *DataframeAnalyticsFieldSelectionBuilder {
-	rb.v.Name = name
-	return rb
-}
-
-// Reason The reason a field is not selected to be included in the analysis.
-
-func (rb *DataframeAnalyticsFieldSelectionBuilder) Reason(reason string) *DataframeAnalyticsFieldSelectionBuilder {
-	rb.v.Reason = &reason
-	return rb
+	return r
 }

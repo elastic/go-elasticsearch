@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Phases type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ilm/_types/Phase.ts#L35-L40
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ilm/_types/Phase.ts#L35-L40
 type Phases struct {
 	Cold   *Phase `json:"cold,omitempty"`
 	Delete *Phase `json:"delete,omitempty"`
@@ -32,45 +32,9 @@ type Phases struct {
 	Warm   *Phase `json:"warm,omitempty"`
 }
 
-// PhasesBuilder holds Phases struct and provides a builder API.
-type PhasesBuilder struct {
-	v *Phases
-}
+// NewPhases returns a Phases.
+func NewPhases() *Phases {
+	r := &Phases{}
 
-// NewPhases provides a builder for the Phases struct.
-func NewPhasesBuilder() *PhasesBuilder {
-	r := PhasesBuilder{
-		&Phases{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Phases struct
-func (rb *PhasesBuilder) Build() Phases {
-	return *rb.v
-}
-
-func (rb *PhasesBuilder) Cold(cold *PhaseBuilder) *PhasesBuilder {
-	v := cold.Build()
-	rb.v.Cold = &v
-	return rb
-}
-
-func (rb *PhasesBuilder) Delete(delete *PhaseBuilder) *PhasesBuilder {
-	v := delete.Build()
-	rb.v.Delete = &v
-	return rb
-}
-
-func (rb *PhasesBuilder) Hot(hot *PhaseBuilder) *PhasesBuilder {
-	v := hot.Build()
-	rb.v.Hot = &v
-	return rb
-}
-
-func (rb *PhasesBuilder) Warm(warm *PhaseBuilder) *PhasesBuilder {
-	v := warm.Build()
-	rb.v.Warm = &v
-	return rb
+	return r
 }

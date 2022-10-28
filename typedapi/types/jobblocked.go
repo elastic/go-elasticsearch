@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,38 +28,15 @@ import (
 
 // JobBlocked type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/Job.ts#L169-L172
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/Job.ts#L169-L172
 type JobBlocked struct {
 	Reason jobblockedreason.JobBlockedReason `json:"reason"`
 	TaskId *TaskId                           `json:"task_id,omitempty"`
 }
 
-// JobBlockedBuilder holds JobBlocked struct and provides a builder API.
-type JobBlockedBuilder struct {
-	v *JobBlocked
-}
+// NewJobBlocked returns a JobBlocked.
+func NewJobBlocked() *JobBlocked {
+	r := &JobBlocked{}
 
-// NewJobBlocked provides a builder for the JobBlocked struct.
-func NewJobBlockedBuilder() *JobBlockedBuilder {
-	r := JobBlockedBuilder{
-		&JobBlocked{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the JobBlocked struct
-func (rb *JobBlockedBuilder) Build() JobBlocked {
-	return *rb.v
-}
-
-func (rb *JobBlockedBuilder) Reason(reason jobblockedreason.JobBlockedReason) *JobBlockedBuilder {
-	rb.v.Reason = reason
-	return rb
-}
-
-func (rb *JobBlockedBuilder) TaskId(taskid *TaskIdBuilder) *JobBlockedBuilder {
-	v := taskid.Build()
-	rb.v.TaskId = &v
-	return rb
+	return r
 }

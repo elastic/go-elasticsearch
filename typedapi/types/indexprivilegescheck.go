@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // IndexPrivilegesCheck type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/security/has_privileges/types.ts#L33-L44
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/has_privileges/types.ts#L33-L44
 type IndexPrivilegesCheck struct {
 	// AllowRestrictedIndices This needs to be set to true (default is false) if using wildcards or regexps
 	// for patterns that cover restricted indices.
@@ -40,55 +40,14 @@ type IndexPrivilegesCheck struct {
 	// allow_restricted_indices.
 	AllowRestrictedIndices *bool `json:"allow_restricted_indices,omitempty"`
 	// Names A list of indices.
-	Names Indices `json:"names"`
+	Names []string `json:"names"`
 	// Privileges A list of the privileges that you want to check for the specified indices.
 	Privileges []indexprivilege.IndexPrivilege `json:"privileges"`
 }
 
-// IndexPrivilegesCheckBuilder holds IndexPrivilegesCheck struct and provides a builder API.
-type IndexPrivilegesCheckBuilder struct {
-	v *IndexPrivilegesCheck
-}
+// NewIndexPrivilegesCheck returns a IndexPrivilegesCheck.
+func NewIndexPrivilegesCheck() *IndexPrivilegesCheck {
+	r := &IndexPrivilegesCheck{}
 
-// NewIndexPrivilegesCheck provides a builder for the IndexPrivilegesCheck struct.
-func NewIndexPrivilegesCheckBuilder() *IndexPrivilegesCheckBuilder {
-	r := IndexPrivilegesCheckBuilder{
-		&IndexPrivilegesCheck{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IndexPrivilegesCheck struct
-func (rb *IndexPrivilegesCheckBuilder) Build() IndexPrivilegesCheck {
-	return *rb.v
-}
-
-// AllowRestrictedIndices This needs to be set to true (default is false) if using wildcards or regexps
-// for patterns that cover restricted indices.
-// Implicitly, restricted indices do not match index patterns because restricted
-// indices usually have limited privileges and including them in pattern tests
-// would render most such tests false.
-// If restricted indices are explicitly included in the names list, privileges
-// will be checked against them regardless of the value of
-// allow_restricted_indices.
-
-func (rb *IndexPrivilegesCheckBuilder) AllowRestrictedIndices(allowrestrictedindices bool) *IndexPrivilegesCheckBuilder {
-	rb.v.AllowRestrictedIndices = &allowrestrictedindices
-	return rb
-}
-
-// Names A list of indices.
-
-func (rb *IndexPrivilegesCheckBuilder) Names(names *IndicesBuilder) *IndexPrivilegesCheckBuilder {
-	v := names.Build()
-	rb.v.Names = v
-	return rb
-}
-
-// Privileges A list of the privileges that you want to check for the specified indices.
-
-func (rb *IndexPrivilegesCheckBuilder) Privileges(privileges ...indexprivilege.IndexPrivilege) *IndexPrivilegesCheckBuilder {
-	rb.v.Privileges = privileges
-	return rb
+	return r
 }

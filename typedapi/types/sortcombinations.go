@@ -17,41 +17,15 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SortCombinations holds the union for the following types:
 //
-//	Field
+//	string
 //	SortOptions
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/sort.ts#L93-L97
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/sort.ts#L93-L97
 type SortCombinations interface{}
-
-// SortCombinationsBuilder holds SortCombinations struct and provides a builder API.
-type SortCombinationsBuilder struct {
-	v SortCombinations
-}
-
-// NewSortCombinations provides a builder for the SortCombinations struct.
-func NewSortCombinationsBuilder() *SortCombinationsBuilder {
-	return &SortCombinationsBuilder{}
-}
-
-// Build finalize the chain and returns the SortCombinations struct
-func (u *SortCombinationsBuilder) Build() SortCombinations {
-	return u.v
-}
-
-func (u *SortCombinationsBuilder) Field(field Field) *SortCombinationsBuilder {
-	u.v = &field
-	return u
-}
-
-func (u *SortCombinationsBuilder) SortOptions(sortoptions *SortOptionsBuilder) *SortCombinationsBuilder {
-	v := sortoptions.Build()
-	u.v = &v
-	return u
-}

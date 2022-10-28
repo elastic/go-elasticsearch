@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MultiTermLookup type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/bucket.ts#L276-L278
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/bucket.ts#L276-L278
 type MultiTermLookup struct {
-	Field Field `json:"field"`
+	Field string `json:"field"`
 }
 
-// MultiTermLookupBuilder holds MultiTermLookup struct and provides a builder API.
-type MultiTermLookupBuilder struct {
-	v *MultiTermLookup
-}
+// NewMultiTermLookup returns a MultiTermLookup.
+func NewMultiTermLookup() *MultiTermLookup {
+	r := &MultiTermLookup{}
 
-// NewMultiTermLookup provides a builder for the MultiTermLookup struct.
-func NewMultiTermLookupBuilder() *MultiTermLookupBuilder {
-	r := MultiTermLookupBuilder{
-		&MultiTermLookup{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MultiTermLookup struct
-func (rb *MultiTermLookupBuilder) Build() MultiTermLookup {
-	return *rb.v
-}
-
-func (rb *MultiTermLookupBuilder) Field(field Field) *MultiTermLookupBuilder {
-	rb.v.Field = field
-	return rb
+	return r
 }

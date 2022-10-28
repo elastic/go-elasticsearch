@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -27,31 +27,5 @@ package types
 //	string
 //	TokenizerDefinition
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/tokenizers.ts#L119-L121
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/tokenizers.ts#L119-L121
 type Tokenizer interface{}
-
-// TokenizerBuilder holds Tokenizer struct and provides a builder API.
-type TokenizerBuilder struct {
-	v Tokenizer
-}
-
-// NewTokenizer provides a builder for the Tokenizer struct.
-func NewTokenizerBuilder() *TokenizerBuilder {
-	return &TokenizerBuilder{}
-}
-
-// Build finalize the chain and returns the Tokenizer struct
-func (u *TokenizerBuilder) Build() Tokenizer {
-	return u.v
-}
-
-func (u *TokenizerBuilder) String(string string) *TokenizerBuilder {
-	u.v = &string
-	return u
-}
-
-func (u *TokenizerBuilder) TokenizerDefinition(tokenizerdefinition *TokenizerDefinitionBuilder) *TokenizerBuilder {
-	v := tokenizerdefinition.Build()
-	u.v = &v
-	return u
-}

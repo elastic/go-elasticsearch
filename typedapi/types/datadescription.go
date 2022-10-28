@@ -17,20 +17,20 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataDescription type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/Job.ts#L151-L167
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/Job.ts#L151-L167
 type DataDescription struct {
 	FieldDelimiter *string `json:"field_delimiter,omitempty"`
 	// Format Only JSON format is supported at this time.
 	Format *string `json:"format,omitempty"`
 	// TimeField The name of the field that contains the timestamp.
-	TimeField *Field `json:"time_field,omitempty"`
+	TimeField *string `json:"time_field,omitempty"`
 	// TimeFormat The time format, which can be `epoch`, `epoch_ms`, or a custom pattern. The
 	// value `epoch` refers to UNIX or Epoch time (the number of seconds since 1 Jan
 	// 1970). The value `epoch_ms` indicates that time is measured in milliseconds
@@ -43,55 +43,9 @@ type DataDescription struct {
 	TimeFormat *string `json:"time_format,omitempty"`
 }
 
-// DataDescriptionBuilder holds DataDescription struct and provides a builder API.
-type DataDescriptionBuilder struct {
-	v *DataDescription
-}
+// NewDataDescription returns a DataDescription.
+func NewDataDescription() *DataDescription {
+	r := &DataDescription{}
 
-// NewDataDescription provides a builder for the DataDescription struct.
-func NewDataDescriptionBuilder() *DataDescriptionBuilder {
-	r := DataDescriptionBuilder{
-		&DataDescription{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataDescription struct
-func (rb *DataDescriptionBuilder) Build() DataDescription {
-	return *rb.v
-}
-
-func (rb *DataDescriptionBuilder) FieldDelimiter(fielddelimiter string) *DataDescriptionBuilder {
-	rb.v.FieldDelimiter = &fielddelimiter
-	return rb
-}
-
-// Format Only JSON format is supported at this time.
-
-func (rb *DataDescriptionBuilder) Format(format string) *DataDescriptionBuilder {
-	rb.v.Format = &format
-	return rb
-}
-
-// TimeField The name of the field that contains the timestamp.
-
-func (rb *DataDescriptionBuilder) TimeField(timefield Field) *DataDescriptionBuilder {
-	rb.v.TimeField = &timefield
-	return rb
-}
-
-// TimeFormat The time format, which can be `epoch`, `epoch_ms`, or a custom pattern. The
-// value `epoch` refers to UNIX or Epoch time (the number of seconds since 1 Jan
-// 1970). The value `epoch_ms` indicates that time is measured in milliseconds
-// since the epoch. The `epoch` and `epoch_ms` time formats accept either
-// integer or real values. Custom patterns must conform to the Java
-// DateTimeFormatter class. When you use date-time formatting patterns, it is
-// recommended that you provide the full date, time and time zone. For example:
-// `yyyy-MM-dd'T'HH:mm:ssX`. If the pattern that you specify is not sufficient
-// to produce a complete timestamp, job creation fails.
-
-func (rb *DataDescriptionBuilder) TimeFormat(timeformat string) *DataDescriptionBuilder {
-	rb.v.TimeFormat = &timeformat
-	return rb
+	return r
 }

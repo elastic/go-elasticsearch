@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Command type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/cluster/reroute/types.ts#L22-L43
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/reroute/types.ts#L22-L43
 type Command struct {
 	// AllocateEmptyPrimary Allocate an empty primary shard to a node. Accepts the index and shard for
 	// index name and shard number, and node to allocate the shard to. Using this
@@ -62,85 +62,9 @@ type Command struct {
 	Move *CommandMoveAction `json:"move,omitempty"`
 }
 
-// CommandBuilder holds Command struct and provides a builder API.
-type CommandBuilder struct {
-	v *Command
-}
+// NewCommand returns a Command.
+func NewCommand() *Command {
+	r := &Command{}
 
-// NewCommand provides a builder for the Command struct.
-func NewCommandBuilder() *CommandBuilder {
-	r := CommandBuilder{
-		&Command{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Command struct
-func (rb *CommandBuilder) Build() Command {
-	return *rb.v
-}
-
-// AllocateEmptyPrimary Allocate an empty primary shard to a node. Accepts the index and shard for
-// index name and shard number, and node to allocate the shard to. Using this
-// command leads to a complete loss of all data that was indexed into this
-// shard, if it was previously started. If a node which has a copy of the data
-// rejoins the cluster later on, that data will be deleted. To ensure that these
-// implications are well-understood, this command requires the flag
-// accept_data_loss to be explicitly set to true.
-
-func (rb *CommandBuilder) AllocateEmptyPrimary(allocateemptyprimary *CommandAllocatePrimaryActionBuilder) *CommandBuilder {
-	v := allocateemptyprimary.Build()
-	rb.v.AllocateEmptyPrimary = &v
-	return rb
-}
-
-// AllocateReplica Allocate an unassigned replica shard to a node. Accepts index and shard for
-// index name and shard number, and node to allocate the shard to. Takes
-// allocation deciders into account.
-
-func (rb *CommandBuilder) AllocateReplica(allocatereplica *CommandAllocateReplicaActionBuilder) *CommandBuilder {
-	v := allocatereplica.Build()
-	rb.v.AllocateReplica = &v
-	return rb
-}
-
-// AllocateStalePrimary Allocate a primary shard to a node that holds a stale copy. Accepts the index
-// and shard for index name and shard number, and node to allocate the shard to.
-// Using this command may lead to data loss for the provided shard id. If a node
-// which has the good copy of the data rejoins the cluster later on, that data
-// will be deleted or overwritten with the data of the stale copy that was
-// forcefully allocated with this command. To ensure that these implications are
-// well-understood, this command requires the flag accept_data_loss to be
-// explicitly set to true.
-
-func (rb *CommandBuilder) AllocateStalePrimary(allocatestaleprimary *CommandAllocatePrimaryActionBuilder) *CommandBuilder {
-	v := allocatestaleprimary.Build()
-	rb.v.AllocateStalePrimary = &v
-	return rb
-}
-
-// Cancel Cancel allocation of a shard (or recovery). Accepts index and shard for index
-// name and shard number, and node for the node to cancel the shard allocation
-// on. This can be used to force resynchronization of existing replicas from the
-// primary shard by cancelling them and allowing them to be reinitialized
-// through the standard recovery process. By default only replica shard
-// allocations can be cancelled. If it is necessary to cancel the allocation of
-// a primary shard then the allow_primary flag must also be included in the
-// request.
-
-func (rb *CommandBuilder) Cancel(cancel *CommandCancelActionBuilder) *CommandBuilder {
-	v := cancel.Build()
-	rb.v.Cancel = &v
-	return rb
-}
-
-// Move Move a started shard from one node to another node. Accepts index and shard
-// for index name and shard number, from_node for the node to move the shard
-// from, and to_node for the node to move the shard to.
-
-func (rb *CommandBuilder) Move(move *CommandMoveActionBuilder) *CommandBuilder {
-	v := move.Build()
-	rb.v.Move = &v
-	return rb
+	return r
 }

@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // PhraseSuggestCollateQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_global/search/_types/suggester.ts#L186-L189
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/suggester.ts#L186-L189
 type PhraseSuggestCollateQuery struct {
-	Id     *Id     `json:"id,omitempty"`
+	Id     *string `json:"id,omitempty"`
 	Source *string `json:"source,omitempty"`
 }
 
-// PhraseSuggestCollateQueryBuilder holds PhraseSuggestCollateQuery struct and provides a builder API.
-type PhraseSuggestCollateQueryBuilder struct {
-	v *PhraseSuggestCollateQuery
-}
+// NewPhraseSuggestCollateQuery returns a PhraseSuggestCollateQuery.
+func NewPhraseSuggestCollateQuery() *PhraseSuggestCollateQuery {
+	r := &PhraseSuggestCollateQuery{}
 
-// NewPhraseSuggestCollateQuery provides a builder for the PhraseSuggestCollateQuery struct.
-func NewPhraseSuggestCollateQueryBuilder() *PhraseSuggestCollateQueryBuilder {
-	r := PhraseSuggestCollateQueryBuilder{
-		&PhraseSuggestCollateQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the PhraseSuggestCollateQuery struct
-func (rb *PhraseSuggestCollateQueryBuilder) Build() PhraseSuggestCollateQuery {
-	return *rb.v
-}
-
-func (rb *PhraseSuggestCollateQueryBuilder) Id(id Id) *PhraseSuggestCollateQueryBuilder {
-	rb.v.Id = &id
-	return rb
-}
-
-func (rb *PhraseSuggestCollateQueryBuilder) Source(source string) *PhraseSuggestCollateQueryBuilder {
-	rb.v.Source = &source
-	return rb
+	return r
 }

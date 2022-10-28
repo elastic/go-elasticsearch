@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ZeroShotClassificationInferenceUpdateOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/inference.ts#L333-L342
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/inference.ts#L333-L342
 type ZeroShotClassificationInferenceUpdateOptions struct {
 	// Labels The labels to predict.
 	Labels []string `json:"labels"`
@@ -38,52 +38,9 @@ type ZeroShotClassificationInferenceUpdateOptions struct {
 	Tokenization *NlpTokenizationUpdateOptions `json:"tokenization,omitempty"`
 }
 
-// ZeroShotClassificationInferenceUpdateOptionsBuilder holds ZeroShotClassificationInferenceUpdateOptions struct and provides a builder API.
-type ZeroShotClassificationInferenceUpdateOptionsBuilder struct {
-	v *ZeroShotClassificationInferenceUpdateOptions
-}
+// NewZeroShotClassificationInferenceUpdateOptions returns a ZeroShotClassificationInferenceUpdateOptions.
+func NewZeroShotClassificationInferenceUpdateOptions() *ZeroShotClassificationInferenceUpdateOptions {
+	r := &ZeroShotClassificationInferenceUpdateOptions{}
 
-// NewZeroShotClassificationInferenceUpdateOptions provides a builder for the ZeroShotClassificationInferenceUpdateOptions struct.
-func NewZeroShotClassificationInferenceUpdateOptionsBuilder() *ZeroShotClassificationInferenceUpdateOptionsBuilder {
-	r := ZeroShotClassificationInferenceUpdateOptionsBuilder{
-		&ZeroShotClassificationInferenceUpdateOptions{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ZeroShotClassificationInferenceUpdateOptions struct
-func (rb *ZeroShotClassificationInferenceUpdateOptionsBuilder) Build() ZeroShotClassificationInferenceUpdateOptions {
-	return *rb.v
-}
-
-// Labels The labels to predict.
-
-func (rb *ZeroShotClassificationInferenceUpdateOptionsBuilder) Labels(labels ...string) *ZeroShotClassificationInferenceUpdateOptionsBuilder {
-	rb.v.Labels = labels
-	return rb
-}
-
-// MultiLabel Update the configured multi label option. Indicates if more than one true
-// label exists. Defaults to the configured value.
-
-func (rb *ZeroShotClassificationInferenceUpdateOptionsBuilder) MultiLabel(multilabel bool) *ZeroShotClassificationInferenceUpdateOptionsBuilder {
-	rb.v.MultiLabel = &multilabel
-	return rb
-}
-
-// ResultsField The field that is added to incoming documents to contain the inference
-// prediction. Defaults to predicted_value.
-
-func (rb *ZeroShotClassificationInferenceUpdateOptionsBuilder) ResultsField(resultsfield string) *ZeroShotClassificationInferenceUpdateOptionsBuilder {
-	rb.v.ResultsField = &resultsfield
-	return rb
-}
-
-// Tokenization The tokenization options to update when inferring
-
-func (rb *ZeroShotClassificationInferenceUpdateOptionsBuilder) Tokenization(tokenization *NlpTokenizationUpdateOptionsBuilder) *ZeroShotClassificationInferenceUpdateOptionsBuilder {
-	v := tokenization.Build()
-	rb.v.Tokenization = &v
-	return rb
+	return r
 }

@@ -17,64 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CompositeAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/bucket.ts#L79-L84
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/bucket.ts#L79-L84
 type CompositeAggregation struct {
-	After   *CompositeAggregateKey                  `json:"after,omitempty"`
-	Meta    *Metadata                               `json:"meta,omitempty"`
+	After   map[string]FieldValue                   `json:"after,omitempty"`
+	Meta    map[string]interface{}                  `json:"meta,omitempty"`
 	Name    *string                                 `json:"name,omitempty"`
 	Size    *int                                    `json:"size,omitempty"`
 	Sources []map[string]CompositeAggregationSource `json:"sources,omitempty"`
 }
 
-// CompositeAggregationBuilder holds CompositeAggregation struct and provides a builder API.
-type CompositeAggregationBuilder struct {
-	v *CompositeAggregation
-}
+// NewCompositeAggregation returns a CompositeAggregation.
+func NewCompositeAggregation() *CompositeAggregation {
+	r := &CompositeAggregation{}
 
-// NewCompositeAggregation provides a builder for the CompositeAggregation struct.
-func NewCompositeAggregationBuilder() *CompositeAggregationBuilder {
-	r := CompositeAggregationBuilder{
-		&CompositeAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the CompositeAggregation struct
-func (rb *CompositeAggregationBuilder) Build() CompositeAggregation {
-	return *rb.v
-}
-
-func (rb *CompositeAggregationBuilder) After(after *CompositeAggregateKeyBuilder) *CompositeAggregationBuilder {
-	v := after.Build()
-	rb.v.After = &v
-	return rb
-}
-
-func (rb *CompositeAggregationBuilder) Meta(meta *MetadataBuilder) *CompositeAggregationBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *CompositeAggregationBuilder) Name(name string) *CompositeAggregationBuilder {
-	rb.v.Name = &name
-	return rb
-}
-
-func (rb *CompositeAggregationBuilder) Size(size int) *CompositeAggregationBuilder {
-	rb.v.Size = &size
-	return rb
-}
-
-func (rb *CompositeAggregationBuilder) Sources(value ...map[string]CompositeAggregationSource) *CompositeAggregationBuilder {
-	rb.v.Sources = value
-	return rb
+	return r
 }

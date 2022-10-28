@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -27,31 +27,5 @@ package types
 //	[]FieldValue
 //	TermsLookup
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/query_dsl/term.ts#L127-L130
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/term.ts#L127-L130
 type TermsQueryField interface{}
-
-// TermsQueryFieldBuilder holds TermsQueryField struct and provides a builder API.
-type TermsQueryFieldBuilder struct {
-	v TermsQueryField
-}
-
-// NewTermsQueryField provides a builder for the TermsQueryField struct.
-func NewTermsQueryFieldBuilder() *TermsQueryFieldBuilder {
-	return &TermsQueryFieldBuilder{}
-}
-
-// Build finalize the chain and returns the TermsQueryField struct
-func (u *TermsQueryFieldBuilder) Build() TermsQueryField {
-	return u.v
-}
-
-func (u *TermsQueryFieldBuilder) FieldValues(fieldvalues ...FieldValue) *TermsQueryFieldBuilder {
-	u.v = fieldvalues
-	return u
-}
-
-func (u *TermsQueryFieldBuilder) TermsLookup(termslookup *TermsLookupBuilder) *TermsQueryFieldBuilder {
-	v := termslookup.Build()
-	u.v = &v
-	return u
-}

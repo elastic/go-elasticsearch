@@ -17,79 +17,30 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // UserProfileWithMetadata type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/security/_types/UserProfile.ts#L50-L53
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/_types/UserProfile.ts#L50-L53
 type UserProfileWithMetadata struct {
 	Data             map[string]interface{} `json:"data"`
 	Doc_             UserProfileHitMetadata `json:"_doc"`
 	Enabled          *bool                  `json:"enabled,omitempty"`
 	Labels           map[string]interface{} `json:"labels"`
 	LastSynchronized int64                  `json:"last_synchronized"`
-	Uid              UserProfileId          `json:"uid"`
+	Uid              string                 `json:"uid"`
 	User             UserProfileUser        `json:"user"`
 }
 
-// UserProfileWithMetadataBuilder holds UserProfileWithMetadata struct and provides a builder API.
-type UserProfileWithMetadataBuilder struct {
-	v *UserProfileWithMetadata
-}
-
-// NewUserProfileWithMetadata provides a builder for the UserProfileWithMetadata struct.
-func NewUserProfileWithMetadataBuilder() *UserProfileWithMetadataBuilder {
-	r := UserProfileWithMetadataBuilder{
-		&UserProfileWithMetadata{
-			Data:   make(map[string]interface{}, 0),
-			Labels: make(map[string]interface{}, 0),
-		},
+// NewUserProfileWithMetadata returns a UserProfileWithMetadata.
+func NewUserProfileWithMetadata() *UserProfileWithMetadata {
+	r := &UserProfileWithMetadata{
+		Data:   make(map[string]interface{}, 0),
+		Labels: make(map[string]interface{}, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the UserProfileWithMetadata struct
-func (rb *UserProfileWithMetadataBuilder) Build() UserProfileWithMetadata {
-	return *rb.v
-}
-
-func (rb *UserProfileWithMetadataBuilder) Data(value map[string]interface{}) *UserProfileWithMetadataBuilder {
-	rb.v.Data = value
-	return rb
-}
-
-func (rb *UserProfileWithMetadataBuilder) Doc_(doc_ *UserProfileHitMetadataBuilder) *UserProfileWithMetadataBuilder {
-	v := doc_.Build()
-	rb.v.Doc_ = v
-	return rb
-}
-
-func (rb *UserProfileWithMetadataBuilder) Enabled(enabled bool) *UserProfileWithMetadataBuilder {
-	rb.v.Enabled = &enabled
-	return rb
-}
-
-func (rb *UserProfileWithMetadataBuilder) Labels(value map[string]interface{}) *UserProfileWithMetadataBuilder {
-	rb.v.Labels = value
-	return rb
-}
-
-func (rb *UserProfileWithMetadataBuilder) LastSynchronized(lastsynchronized int64) *UserProfileWithMetadataBuilder {
-	rb.v.LastSynchronized = lastsynchronized
-	return rb
-}
-
-func (rb *UserProfileWithMetadataBuilder) Uid(uid UserProfileId) *UserProfileWithMetadataBuilder {
-	rb.v.Uid = uid
-	return rb
-}
-
-func (rb *UserProfileWithMetadataBuilder) User(user *UserProfileUserBuilder) *UserProfileWithMetadataBuilder {
-	v := user.Build()
-	rb.v.User = v
-	return rb
+	return r
 }

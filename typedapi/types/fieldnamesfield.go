@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FieldNamesField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/mapping/meta-fields.ts#L42-L44
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/meta-fields.ts#L42-L44
 type FieldNamesField struct {
 	Enabled bool `json:"enabled"`
 }
 
-// FieldNamesFieldBuilder holds FieldNamesField struct and provides a builder API.
-type FieldNamesFieldBuilder struct {
-	v *FieldNamesField
-}
+// NewFieldNamesField returns a FieldNamesField.
+func NewFieldNamesField() *FieldNamesField {
+	r := &FieldNamesField{}
 
-// NewFieldNamesField provides a builder for the FieldNamesField struct.
-func NewFieldNamesFieldBuilder() *FieldNamesFieldBuilder {
-	r := FieldNamesFieldBuilder{
-		&FieldNamesField{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FieldNamesField struct
-func (rb *FieldNamesFieldBuilder) Build() FieldNamesField {
-	return *rb.v
-}
-
-func (rb *FieldNamesFieldBuilder) Enabled(enabled bool) *FieldNamesFieldBuilder {
-	rb.v.Enabled = enabled
-	return rb
+	return r
 }

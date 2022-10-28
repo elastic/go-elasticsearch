@@ -17,52 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DateRangeExpression type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/bucket.ts#L149-L153
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/bucket.ts#L149-L153
 type DateRangeExpression struct {
 	From *FieldDateMath `json:"from,omitempty"`
 	Key  *string        `json:"key,omitempty"`
 	To   *FieldDateMath `json:"to,omitempty"`
 }
 
-// DateRangeExpressionBuilder holds DateRangeExpression struct and provides a builder API.
-type DateRangeExpressionBuilder struct {
-	v *DateRangeExpression
-}
+// NewDateRangeExpression returns a DateRangeExpression.
+func NewDateRangeExpression() *DateRangeExpression {
+	r := &DateRangeExpression{}
 
-// NewDateRangeExpression provides a builder for the DateRangeExpression struct.
-func NewDateRangeExpressionBuilder() *DateRangeExpressionBuilder {
-	r := DateRangeExpressionBuilder{
-		&DateRangeExpression{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DateRangeExpression struct
-func (rb *DateRangeExpressionBuilder) Build() DateRangeExpression {
-	return *rb.v
-}
-
-func (rb *DateRangeExpressionBuilder) From(from *FieldDateMathBuilder) *DateRangeExpressionBuilder {
-	v := from.Build()
-	rb.v.From = &v
-	return rb
-}
-
-func (rb *DateRangeExpressionBuilder) Key(key string) *DateRangeExpressionBuilder {
-	rb.v.Key = &key
-	return rb
-}
-
-func (rb *DateRangeExpressionBuilder) To(to *FieldDateMathBuilder) *DateRangeExpressionBuilder {
-	v := to.Build()
-	rb.v.To = &v
-	return rb
+	return r
 }

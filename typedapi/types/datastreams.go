@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataStreams type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/xpack/usage/types.ts#L77-L80
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L77-L80
 type DataStreams struct {
 	Available    bool  `json:"available"`
 	DataStreams  int64 `json:"data_streams"`
@@ -32,41 +32,9 @@ type DataStreams struct {
 	IndicesCount int64 `json:"indices_count"`
 }
 
-// DataStreamsBuilder holds DataStreams struct and provides a builder API.
-type DataStreamsBuilder struct {
-	v *DataStreams
-}
+// NewDataStreams returns a DataStreams.
+func NewDataStreams() *DataStreams {
+	r := &DataStreams{}
 
-// NewDataStreams provides a builder for the DataStreams struct.
-func NewDataStreamsBuilder() *DataStreamsBuilder {
-	r := DataStreamsBuilder{
-		&DataStreams{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataStreams struct
-func (rb *DataStreamsBuilder) Build() DataStreams {
-	return *rb.v
-}
-
-func (rb *DataStreamsBuilder) Available(available bool) *DataStreamsBuilder {
-	rb.v.Available = available
-	return rb
-}
-
-func (rb *DataStreamsBuilder) DataStreams(datastreams int64) *DataStreamsBuilder {
-	rb.v.DataStreams = datastreams
-	return rb
-}
-
-func (rb *DataStreamsBuilder) Enabled(enabled bool) *DataStreamsBuilder {
-	rb.v.Enabled = enabled
-	return rb
-}
-
-func (rb *DataStreamsBuilder) IndicesCount(indicescount int64) *DataStreamsBuilder {
-	rb.v.IndicesCount = indicescount
-	return rb
+	return r
 }

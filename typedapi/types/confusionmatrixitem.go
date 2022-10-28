@@ -17,60 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ConfusionMatrixItem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/evaluate_data_frame/types.ts#L84-L89
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/evaluate_data_frame/types.ts#L84-L89
 type ConfusionMatrixItem struct {
-	ActualClass                 Name                        `json:"actual_class"`
+	ActualClass                 string                      `json:"actual_class"`
 	ActualClassDocCount         int                         `json:"actual_class_doc_count"`
 	OtherPredictedClassDocCount int                         `json:"other_predicted_class_doc_count"`
 	PredictedClasses            []ConfusionMatrixPrediction `json:"predicted_classes"`
 }
 
-// ConfusionMatrixItemBuilder holds ConfusionMatrixItem struct and provides a builder API.
-type ConfusionMatrixItemBuilder struct {
-	v *ConfusionMatrixItem
-}
+// NewConfusionMatrixItem returns a ConfusionMatrixItem.
+func NewConfusionMatrixItem() *ConfusionMatrixItem {
+	r := &ConfusionMatrixItem{}
 
-// NewConfusionMatrixItem provides a builder for the ConfusionMatrixItem struct.
-func NewConfusionMatrixItemBuilder() *ConfusionMatrixItemBuilder {
-	r := ConfusionMatrixItemBuilder{
-		&ConfusionMatrixItem{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ConfusionMatrixItem struct
-func (rb *ConfusionMatrixItemBuilder) Build() ConfusionMatrixItem {
-	return *rb.v
-}
-
-func (rb *ConfusionMatrixItemBuilder) ActualClass(actualclass Name) *ConfusionMatrixItemBuilder {
-	rb.v.ActualClass = actualclass
-	return rb
-}
-
-func (rb *ConfusionMatrixItemBuilder) ActualClassDocCount(actualclassdoccount int) *ConfusionMatrixItemBuilder {
-	rb.v.ActualClassDocCount = actualclassdoccount
-	return rb
-}
-
-func (rb *ConfusionMatrixItemBuilder) OtherPredictedClassDocCount(otherpredictedclassdoccount int) *ConfusionMatrixItemBuilder {
-	rb.v.OtherPredictedClassDocCount = otherpredictedclassdoccount
-	return rb
-}
-
-func (rb *ConfusionMatrixItemBuilder) PredictedClasses(predicted_classes []ConfusionMatrixPredictionBuilder) *ConfusionMatrixItemBuilder {
-	tmp := make([]ConfusionMatrixPrediction, len(predicted_classes))
-	for _, value := range predicted_classes {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.PredictedClasses = tmp
-	return rb
+	return r
 }

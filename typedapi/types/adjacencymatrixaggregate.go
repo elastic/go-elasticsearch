@@ -17,46 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AdjacencyMatrixAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L557-L559
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L572-L574
 type AdjacencyMatrixAggregate struct {
 	Buckets BucketsAdjacencyMatrixBucket `json:"buckets"`
-	Meta    *Metadata                    `json:"meta,omitempty"`
+	Meta    map[string]interface{}       `json:"meta,omitempty"`
 }
 
-// AdjacencyMatrixAggregateBuilder holds AdjacencyMatrixAggregate struct and provides a builder API.
-type AdjacencyMatrixAggregateBuilder struct {
-	v *AdjacencyMatrixAggregate
-}
+// NewAdjacencyMatrixAggregate returns a AdjacencyMatrixAggregate.
+func NewAdjacencyMatrixAggregate() *AdjacencyMatrixAggregate {
+	r := &AdjacencyMatrixAggregate{}
 
-// NewAdjacencyMatrixAggregate provides a builder for the AdjacencyMatrixAggregate struct.
-func NewAdjacencyMatrixAggregateBuilder() *AdjacencyMatrixAggregateBuilder {
-	r := AdjacencyMatrixAggregateBuilder{
-		&AdjacencyMatrixAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the AdjacencyMatrixAggregate struct
-func (rb *AdjacencyMatrixAggregateBuilder) Build() AdjacencyMatrixAggregate {
-	return *rb.v
-}
-
-func (rb *AdjacencyMatrixAggregateBuilder) Buckets(buckets *BucketsAdjacencyMatrixBucketBuilder) *AdjacencyMatrixAggregateBuilder {
-	v := buckets.Build()
-	rb.v.Buckets = v
-	return rb
-}
-
-func (rb *AdjacencyMatrixAggregateBuilder) Meta(meta *MetadataBuilder) *AdjacencyMatrixAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
+	return r
 }

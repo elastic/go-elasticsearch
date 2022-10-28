@@ -17,48 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Ilm type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/xpack/usage/types.ts#L154-L157
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L154-L157
 type Ilm struct {
 	PolicyCount int                   `json:"policy_count"`
 	PolicyStats []IlmPolicyStatistics `json:"policy_stats"`
 }
 
-// IlmBuilder holds Ilm struct and provides a builder API.
-type IlmBuilder struct {
-	v *Ilm
-}
+// NewIlm returns a Ilm.
+func NewIlm() *Ilm {
+	r := &Ilm{}
 
-// NewIlm provides a builder for the Ilm struct.
-func NewIlmBuilder() *IlmBuilder {
-	r := IlmBuilder{
-		&Ilm{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Ilm struct
-func (rb *IlmBuilder) Build() Ilm {
-	return *rb.v
-}
-
-func (rb *IlmBuilder) PolicyCount(policycount int) *IlmBuilder {
-	rb.v.PolicyCount = policycount
-	return rb
-}
-
-func (rb *IlmBuilder) PolicyStats(policy_stats []IlmPolicyStatisticsBuilder) *IlmBuilder {
-	tmp := make([]IlmPolicyStatistics, len(policy_stats))
-	for _, value := range policy_stats {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.PolicyStats = tmp
-	return rb
+	return r
 }

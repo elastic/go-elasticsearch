@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // GeoLinePoint type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/metric.ts#L93-L95
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/metric.ts#L93-L95
 type GeoLinePoint struct {
-	Field Field `json:"field"`
+	Field string `json:"field"`
 }
 
-// GeoLinePointBuilder holds GeoLinePoint struct and provides a builder API.
-type GeoLinePointBuilder struct {
-	v *GeoLinePoint
-}
+// NewGeoLinePoint returns a GeoLinePoint.
+func NewGeoLinePoint() *GeoLinePoint {
+	r := &GeoLinePoint{}
 
-// NewGeoLinePoint provides a builder for the GeoLinePoint struct.
-func NewGeoLinePointBuilder() *GeoLinePointBuilder {
-	r := GeoLinePointBuilder{
-		&GeoLinePoint{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the GeoLinePoint struct
-func (rb *GeoLinePointBuilder) Build() GeoLinePoint {
-	return *rb.v
-}
-
-func (rb *GeoLinePointBuilder) Field(field Field) *GeoLinePointBuilder {
-	rb.v.Field = field
-	return rb
+	return r
 }

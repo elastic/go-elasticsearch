@@ -17,45 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SlackResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/watcher/_types/Actions.ts#L96-L99
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Actions.ts#L96-L99
 type SlackResult struct {
 	Account *string      `json:"account,omitempty"`
 	Message SlackMessage `json:"message"`
 }
 
-// SlackResultBuilder holds SlackResult struct and provides a builder API.
-type SlackResultBuilder struct {
-	v *SlackResult
-}
+// NewSlackResult returns a SlackResult.
+func NewSlackResult() *SlackResult {
+	r := &SlackResult{}
 
-// NewSlackResult provides a builder for the SlackResult struct.
-func NewSlackResultBuilder() *SlackResultBuilder {
-	r := SlackResultBuilder{
-		&SlackResult{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SlackResult struct
-func (rb *SlackResultBuilder) Build() SlackResult {
-	return *rb.v
-}
-
-func (rb *SlackResultBuilder) Account(account string) *SlackResultBuilder {
-	rb.v.Account = &account
-	return rb
-}
-
-func (rb *SlackResultBuilder) Message(message *SlackMessageBuilder) *SlackResultBuilder {
-	v := message.Build()
-	rb.v.Message = v
-	return rb
+	return r
 }

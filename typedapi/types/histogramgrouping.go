@@ -17,45 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // HistogramGrouping type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/rollup/_types/Groupings.ts#L44-L47
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/rollup/_types/Groupings.ts#L44-L47
 type HistogramGrouping struct {
-	Fields   Fields `json:"fields"`
-	Interval int64  `json:"interval"`
+	Fields   []string `json:"fields"`
+	Interval int64    `json:"interval"`
 }
 
-// HistogramGroupingBuilder holds HistogramGrouping struct and provides a builder API.
-type HistogramGroupingBuilder struct {
-	v *HistogramGrouping
-}
+// NewHistogramGrouping returns a HistogramGrouping.
+func NewHistogramGrouping() *HistogramGrouping {
+	r := &HistogramGrouping{}
 
-// NewHistogramGrouping provides a builder for the HistogramGrouping struct.
-func NewHistogramGroupingBuilder() *HistogramGroupingBuilder {
-	r := HistogramGroupingBuilder{
-		&HistogramGrouping{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the HistogramGrouping struct
-func (rb *HistogramGroupingBuilder) Build() HistogramGrouping {
-	return *rb.v
-}
-
-func (rb *HistogramGroupingBuilder) Fields(fields *FieldsBuilder) *HistogramGroupingBuilder {
-	v := fields.Build()
-	rb.v.Fields = v
-	return rb
-}
-
-func (rb *HistogramGroupingBuilder) Interval(interval int64) *HistogramGroupingBuilder {
-	rb.v.Interval = interval
-	return rb
+	return r
 }

@@ -17,62 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ParentIdQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/query_dsl/joining.ts#L73-L78
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/joining.ts#L73-L78
 type ParentIdQuery struct {
-	Boost          *float32      `json:"boost,omitempty"`
-	Id             *Id           `json:"id,omitempty"`
-	IgnoreUnmapped *bool         `json:"ignore_unmapped,omitempty"`
-	QueryName_     *string       `json:"_name,omitempty"`
-	Type           *RelationName `json:"type,omitempty"`
+	Boost          *float32 `json:"boost,omitempty"`
+	Id             *string  `json:"id,omitempty"`
+	IgnoreUnmapped *bool    `json:"ignore_unmapped,omitempty"`
+	QueryName_     *string  `json:"_name,omitempty"`
+	Type           *string  `json:"type,omitempty"`
 }
 
-// ParentIdQueryBuilder holds ParentIdQuery struct and provides a builder API.
-type ParentIdQueryBuilder struct {
-	v *ParentIdQuery
-}
+// NewParentIdQuery returns a ParentIdQuery.
+func NewParentIdQuery() *ParentIdQuery {
+	r := &ParentIdQuery{}
 
-// NewParentIdQuery provides a builder for the ParentIdQuery struct.
-func NewParentIdQueryBuilder() *ParentIdQueryBuilder {
-	r := ParentIdQueryBuilder{
-		&ParentIdQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ParentIdQuery struct
-func (rb *ParentIdQueryBuilder) Build() ParentIdQuery {
-	return *rb.v
-}
-
-func (rb *ParentIdQueryBuilder) Boost(boost float32) *ParentIdQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *ParentIdQueryBuilder) Id(id Id) *ParentIdQueryBuilder {
-	rb.v.Id = &id
-	return rb
-}
-
-func (rb *ParentIdQueryBuilder) IgnoreUnmapped(ignoreunmapped bool) *ParentIdQueryBuilder {
-	rb.v.IgnoreUnmapped = &ignoreunmapped
-	return rb
-}
-
-func (rb *ParentIdQueryBuilder) QueryName_(queryname_ string) *ParentIdQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
-}
-
-func (rb *ParentIdQueryBuilder) Type_(type_ RelationName) *ParentIdQueryBuilder {
-	rb.v.Type = &type_
-	return rb
+	return r
 }

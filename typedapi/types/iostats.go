@@ -17,49 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IoStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/_types/Stats.ts#L287-L290
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L287-L290
 type IoStats struct {
 	Devices []IoStatDevice `json:"devices,omitempty"`
 	Total   *IoStatDevice  `json:"total,omitempty"`
 }
 
-// IoStatsBuilder holds IoStats struct and provides a builder API.
-type IoStatsBuilder struct {
-	v *IoStats
-}
+// NewIoStats returns a IoStats.
+func NewIoStats() *IoStats {
+	r := &IoStats{}
 
-// NewIoStats provides a builder for the IoStats struct.
-func NewIoStatsBuilder() *IoStatsBuilder {
-	r := IoStatsBuilder{
-		&IoStats{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IoStats struct
-func (rb *IoStatsBuilder) Build() IoStats {
-	return *rb.v
-}
-
-func (rb *IoStatsBuilder) Devices(devices []IoStatDeviceBuilder) *IoStatsBuilder {
-	tmp := make([]IoStatDevice, len(devices))
-	for _, value := range devices {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Devices = tmp
-	return rb
-}
-
-func (rb *IoStatsBuilder) Total(total *IoStatDeviceBuilder) *IoStatsBuilder {
-	v := total.Build()
-	rb.v.Total = &v
-	return rb
+	return r
 }

@@ -17,42 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RetentionPolicyContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/transform/_types/Transform.ts#L80-L86
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/transform/_types/Transform.ts#L80-L86
 type RetentionPolicyContainer struct {
 	// Time Specifies that the transform uses a time field to set the retention policy.
 	Time *RetentionPolicy `json:"time,omitempty"`
 }
 
-// RetentionPolicyContainerBuilder holds RetentionPolicyContainer struct and provides a builder API.
-type RetentionPolicyContainerBuilder struct {
-	v *RetentionPolicyContainer
-}
+// NewRetentionPolicyContainer returns a RetentionPolicyContainer.
+func NewRetentionPolicyContainer() *RetentionPolicyContainer {
+	r := &RetentionPolicyContainer{}
 
-// NewRetentionPolicyContainer provides a builder for the RetentionPolicyContainer struct.
-func NewRetentionPolicyContainerBuilder() *RetentionPolicyContainerBuilder {
-	r := RetentionPolicyContainerBuilder{
-		&RetentionPolicyContainer{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RetentionPolicyContainer struct
-func (rb *RetentionPolicyContainerBuilder) Build() RetentionPolicyContainer {
-	return *rb.v
-}
-
-// Time Specifies that the transform uses a time field to set the retention policy.
-
-func (rb *RetentionPolicyContainerBuilder) Time(time *RetentionPolicyBuilder) *RetentionPolicyContainerBuilder {
-	v := time.Build()
-	rb.v.Time = &v
-	return rb
+	return r
 }

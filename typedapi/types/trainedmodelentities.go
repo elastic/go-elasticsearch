@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TrainedModelEntities type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/inference.ts#L386-L392
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/inference.ts#L386-L392
 type TrainedModelEntities struct {
 	ClassName        string  `json:"class_name"`
 	ClassProbability float64 `json:"class_probability"`
@@ -33,46 +33,9 @@ type TrainedModelEntities struct {
 	StartPos         int     `json:"start_pos"`
 }
 
-// TrainedModelEntitiesBuilder holds TrainedModelEntities struct and provides a builder API.
-type TrainedModelEntitiesBuilder struct {
-	v *TrainedModelEntities
-}
+// NewTrainedModelEntities returns a TrainedModelEntities.
+func NewTrainedModelEntities() *TrainedModelEntities {
+	r := &TrainedModelEntities{}
 
-// NewTrainedModelEntities provides a builder for the TrainedModelEntities struct.
-func NewTrainedModelEntitiesBuilder() *TrainedModelEntitiesBuilder {
-	r := TrainedModelEntitiesBuilder{
-		&TrainedModelEntities{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TrainedModelEntities struct
-func (rb *TrainedModelEntitiesBuilder) Build() TrainedModelEntities {
-	return *rb.v
-}
-
-func (rb *TrainedModelEntitiesBuilder) ClassName(classname string) *TrainedModelEntitiesBuilder {
-	rb.v.ClassName = classname
-	return rb
-}
-
-func (rb *TrainedModelEntitiesBuilder) ClassProbability(classprobability float64) *TrainedModelEntitiesBuilder {
-	rb.v.ClassProbability = classprobability
-	return rb
-}
-
-func (rb *TrainedModelEntitiesBuilder) EndPos(endpos int) *TrainedModelEntitiesBuilder {
-	rb.v.EndPos = endpos
-	return rb
-}
-
-func (rb *TrainedModelEntitiesBuilder) Entity(entity string) *TrainedModelEntitiesBuilder {
-	rb.v.Entity = entity
-	return rb
-}
-
-func (rb *TrainedModelEntitiesBuilder) StartPos(startpos int) *TrainedModelEntitiesBuilder {
-	rb.v.StartPos = startpos
-	return rb
+	return r
 }

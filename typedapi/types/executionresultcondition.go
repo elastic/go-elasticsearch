@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,43 +29,16 @@ import (
 
 // ExecutionResultCondition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/watcher/_types/Execution.ts#L68-L72
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Execution.ts#L68-L72
 type ExecutionResultCondition struct {
 	Met    bool                                    `json:"met"`
 	Status actionstatusoptions.ActionStatusOptions `json:"status"`
 	Type   conditiontype.ConditionType             `json:"type"`
 }
 
-// ExecutionResultConditionBuilder holds ExecutionResultCondition struct and provides a builder API.
-type ExecutionResultConditionBuilder struct {
-	v *ExecutionResultCondition
-}
+// NewExecutionResultCondition returns a ExecutionResultCondition.
+func NewExecutionResultCondition() *ExecutionResultCondition {
+	r := &ExecutionResultCondition{}
 
-// NewExecutionResultCondition provides a builder for the ExecutionResultCondition struct.
-func NewExecutionResultConditionBuilder() *ExecutionResultConditionBuilder {
-	r := ExecutionResultConditionBuilder{
-		&ExecutionResultCondition{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ExecutionResultCondition struct
-func (rb *ExecutionResultConditionBuilder) Build() ExecutionResultCondition {
-	return *rb.v
-}
-
-func (rb *ExecutionResultConditionBuilder) Met(met bool) *ExecutionResultConditionBuilder {
-	rb.v.Met = met
-	return rb
-}
-
-func (rb *ExecutionResultConditionBuilder) Status(status actionstatusoptions.ActionStatusOptions) *ExecutionResultConditionBuilder {
-	rb.v.Status = status
-	return rb
-}
-
-func (rb *ExecutionResultConditionBuilder) Type_(type_ conditiontype.ConditionType) *ExecutionResultConditionBuilder {
-	rb.v.Type = type_
-	return rb
+	return r
 }

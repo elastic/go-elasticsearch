@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FillMaskInferenceUpdateOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/inference.ts#L364-L371
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/inference.ts#L364-L371
 type FillMaskInferenceUpdateOptions struct {
 	// NumTopClasses Specifies the number of top class predictions to return. Defaults to 0.
 	NumTopClasses *int `json:"num_top_classes,omitempty"`
@@ -35,44 +35,9 @@ type FillMaskInferenceUpdateOptions struct {
 	Tokenization *NlpTokenizationUpdateOptions `json:"tokenization,omitempty"`
 }
 
-// FillMaskInferenceUpdateOptionsBuilder holds FillMaskInferenceUpdateOptions struct and provides a builder API.
-type FillMaskInferenceUpdateOptionsBuilder struct {
-	v *FillMaskInferenceUpdateOptions
-}
+// NewFillMaskInferenceUpdateOptions returns a FillMaskInferenceUpdateOptions.
+func NewFillMaskInferenceUpdateOptions() *FillMaskInferenceUpdateOptions {
+	r := &FillMaskInferenceUpdateOptions{}
 
-// NewFillMaskInferenceUpdateOptions provides a builder for the FillMaskInferenceUpdateOptions struct.
-func NewFillMaskInferenceUpdateOptionsBuilder() *FillMaskInferenceUpdateOptionsBuilder {
-	r := FillMaskInferenceUpdateOptionsBuilder{
-		&FillMaskInferenceUpdateOptions{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FillMaskInferenceUpdateOptions struct
-func (rb *FillMaskInferenceUpdateOptionsBuilder) Build() FillMaskInferenceUpdateOptions {
-	return *rb.v
-}
-
-// NumTopClasses Specifies the number of top class predictions to return. Defaults to 0.
-
-func (rb *FillMaskInferenceUpdateOptionsBuilder) NumTopClasses(numtopclasses int) *FillMaskInferenceUpdateOptionsBuilder {
-	rb.v.NumTopClasses = &numtopclasses
-	return rb
-}
-
-// ResultsField The field that is added to incoming documents to contain the inference
-// prediction. Defaults to predicted_value.
-
-func (rb *FillMaskInferenceUpdateOptionsBuilder) ResultsField(resultsfield string) *FillMaskInferenceUpdateOptionsBuilder {
-	rb.v.ResultsField = &resultsfield
-	return rb
-}
-
-// Tokenization The tokenization options to update when inferring
-
-func (rb *FillMaskInferenceUpdateOptionsBuilder) Tokenization(tokenization *NlpTokenizationUpdateOptionsBuilder) *FillMaskInferenceUpdateOptionsBuilder {
-	v := tokenization.Build()
-	rb.v.Tokenization = &v
-	return rb
+	return r
 }

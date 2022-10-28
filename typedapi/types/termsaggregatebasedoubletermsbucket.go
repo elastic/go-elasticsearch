@@ -17,58 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TermsAggregateBaseDoubleTermsBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L368-L373
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L376-L381
 type TermsAggregateBaseDoubleTermsBucket struct {
 	Buckets                 BucketsDoubleTermsBucket `json:"buckets"`
 	DocCountErrorUpperBound *int64                   `json:"doc_count_error_upper_bound,omitempty"`
-	Meta                    *Metadata                `json:"meta,omitempty"`
+	Meta                    map[string]interface{}   `json:"meta,omitempty"`
 	SumOtherDocCount        *int64                   `json:"sum_other_doc_count,omitempty"`
 }
 
-// TermsAggregateBaseDoubleTermsBucketBuilder holds TermsAggregateBaseDoubleTermsBucket struct and provides a builder API.
-type TermsAggregateBaseDoubleTermsBucketBuilder struct {
-	v *TermsAggregateBaseDoubleTermsBucket
-}
+// NewTermsAggregateBaseDoubleTermsBucket returns a TermsAggregateBaseDoubleTermsBucket.
+func NewTermsAggregateBaseDoubleTermsBucket() *TermsAggregateBaseDoubleTermsBucket {
+	r := &TermsAggregateBaseDoubleTermsBucket{}
 
-// NewTermsAggregateBaseDoubleTermsBucket provides a builder for the TermsAggregateBaseDoubleTermsBucket struct.
-func NewTermsAggregateBaseDoubleTermsBucketBuilder() *TermsAggregateBaseDoubleTermsBucketBuilder {
-	r := TermsAggregateBaseDoubleTermsBucketBuilder{
-		&TermsAggregateBaseDoubleTermsBucket{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TermsAggregateBaseDoubleTermsBucket struct
-func (rb *TermsAggregateBaseDoubleTermsBucketBuilder) Build() TermsAggregateBaseDoubleTermsBucket {
-	return *rb.v
-}
-
-func (rb *TermsAggregateBaseDoubleTermsBucketBuilder) Buckets(buckets *BucketsDoubleTermsBucketBuilder) *TermsAggregateBaseDoubleTermsBucketBuilder {
-	v := buckets.Build()
-	rb.v.Buckets = v
-	return rb
-}
-
-func (rb *TermsAggregateBaseDoubleTermsBucketBuilder) DocCountErrorUpperBound(doccounterrorupperbound int64) *TermsAggregateBaseDoubleTermsBucketBuilder {
-	rb.v.DocCountErrorUpperBound = &doccounterrorupperbound
-	return rb
-}
-
-func (rb *TermsAggregateBaseDoubleTermsBucketBuilder) Meta(meta *MetadataBuilder) *TermsAggregateBaseDoubleTermsBucketBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *TermsAggregateBaseDoubleTermsBucketBuilder) SumOtherDocCount(sumotherdoccount int64) *TermsAggregateBaseDoubleTermsBucketBuilder {
-	rb.v.SumOtherDocCount = &sumotherdoccount
-	return rb
+	return r
 }

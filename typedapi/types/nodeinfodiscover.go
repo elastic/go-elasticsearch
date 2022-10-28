@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeInfoDiscover type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/info/types.ts#L169-L171
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/info/types.ts#L169-L171
 type NodeInfoDiscover struct {
 	SeedHosts string `json:"seed_hosts"`
 }
 
-// NodeInfoDiscoverBuilder holds NodeInfoDiscover struct and provides a builder API.
-type NodeInfoDiscoverBuilder struct {
-	v *NodeInfoDiscover
-}
+// NewNodeInfoDiscover returns a NodeInfoDiscover.
+func NewNodeInfoDiscover() *NodeInfoDiscover {
+	r := &NodeInfoDiscover{}
 
-// NewNodeInfoDiscover provides a builder for the NodeInfoDiscover struct.
-func NewNodeInfoDiscoverBuilder() *NodeInfoDiscoverBuilder {
-	r := NodeInfoDiscoverBuilder{
-		&NodeInfoDiscover{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodeInfoDiscover struct
-func (rb *NodeInfoDiscoverBuilder) Build() NodeInfoDiscover {
-	return *rb.v
-}
-
-func (rb *NodeInfoDiscoverBuilder) SeedHosts(seedhosts string) *NodeInfoDiscoverBuilder {
-	rb.v.SeedHosts = seedhosts
-	return rb
+	return r
 }

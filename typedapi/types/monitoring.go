@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Monitoring type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/xpack/usage/types.ts#L363-L366
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L363-L366
 type Monitoring struct {
 	Available         bool             `json:"available"`
 	CollectionEnabled bool             `json:"collection_enabled"`
@@ -32,43 +32,11 @@ type Monitoring struct {
 	EnabledExporters  map[string]int64 `json:"enabled_exporters"`
 }
 
-// MonitoringBuilder holds Monitoring struct and provides a builder API.
-type MonitoringBuilder struct {
-	v *Monitoring
-}
-
-// NewMonitoring provides a builder for the Monitoring struct.
-func NewMonitoringBuilder() *MonitoringBuilder {
-	r := MonitoringBuilder{
-		&Monitoring{
-			EnabledExporters: make(map[string]int64, 0),
-		},
+// NewMonitoring returns a Monitoring.
+func NewMonitoring() *Monitoring {
+	r := &Monitoring{
+		EnabledExporters: make(map[string]int64, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the Monitoring struct
-func (rb *MonitoringBuilder) Build() Monitoring {
-	return *rb.v
-}
-
-func (rb *MonitoringBuilder) Available(available bool) *MonitoringBuilder {
-	rb.v.Available = available
-	return rb
-}
-
-func (rb *MonitoringBuilder) CollectionEnabled(collectionenabled bool) *MonitoringBuilder {
-	rb.v.CollectionEnabled = collectionenabled
-	return rb
-}
-
-func (rb *MonitoringBuilder) Enabled(enabled bool) *MonitoringBuilder {
-	rb.v.Enabled = enabled
-	return rb
-}
-
-func (rb *MonitoringBuilder) EnabledExporters(value map[string]int64) *MonitoringBuilder {
-	rb.v.EnabledExporters = value
-	return rb
+	return r
 }

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package restore
@@ -31,42 +31,27 @@ import (
 
 // Request holds the request body struct for the package restore
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/snapshot/restore/SnapshotRestoreRequest.ts#L25-L50
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/snapshot/restore/SnapshotRestoreRequest.ts#L25-L50
 type Request struct {
-	IgnoreIndexSettings []string `json:"ignore_index_settings,omitempty"`
-
-	IgnoreUnavailable *bool `json:"ignore_unavailable,omitempty"`
-
-	IncludeAliases *bool `json:"include_aliases,omitempty"`
-
-	IncludeGlobalState *bool `json:"include_global_state,omitempty"`
-
-	IndexSettings *types.IndexSettings `json:"index_settings,omitempty"`
-
-	Indices *types.Indices `json:"indices,omitempty"`
-
-	Partial *bool `json:"partial,omitempty"`
-
-	RenamePattern *string `json:"rename_pattern,omitempty"`
-
-	RenameReplacement *string `json:"rename_replacement,omitempty"`
+	IgnoreIndexSettings []string             `json:"ignore_index_settings,omitempty"`
+	IgnoreUnavailable   *bool                `json:"ignore_unavailable,omitempty"`
+	IncludeAliases      *bool                `json:"include_aliases,omitempty"`
+	IncludeGlobalState  *bool                `json:"include_global_state,omitempty"`
+	IndexSettings       *types.IndexSettings `json:"index_settings,omitempty"`
+	Indices             []string             `json:"indices,omitempty"`
+	Partial             *bool                `json:"partial,omitempty"`
+	RenamePattern       *string              `json:"rename_pattern,omitempty"`
+	RenameReplacement   *string              `json:"rename_replacement,omitempty"`
 }
 
-// RequestBuilder is the builder API for the restore.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -75,56 +60,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) IgnoreIndexSettings(ignore_index_settings ...string) *RequestBuilder {
-	rb.v.IgnoreIndexSettings = ignore_index_settings
-	return rb
-}
-
-func (rb *RequestBuilder) IgnoreUnavailable(ignoreunavailable bool) *RequestBuilder {
-	rb.v.IgnoreUnavailable = &ignoreunavailable
-	return rb
-}
-
-func (rb *RequestBuilder) IncludeAliases(includealiases bool) *RequestBuilder {
-	rb.v.IncludeAliases = &includealiases
-	return rb
-}
-
-func (rb *RequestBuilder) IncludeGlobalState(includeglobalstate bool) *RequestBuilder {
-	rb.v.IncludeGlobalState = &includeglobalstate
-	return rb
-}
-
-func (rb *RequestBuilder) IndexSettings(indexsettings *types.IndexSettingsBuilder) *RequestBuilder {
-	v := indexsettings.Build()
-	rb.v.IndexSettings = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Indices(indices *types.IndicesBuilder) *RequestBuilder {
-	v := indices.Build()
-	rb.v.Indices = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Partial(partial bool) *RequestBuilder {
-	rb.v.Partial = &partial
-	return rb
-}
-
-func (rb *RequestBuilder) RenamePattern(renamepattern string) *RequestBuilder {
-	rb.v.RenamePattern = &renamepattern
-	return rb
-}
-
-func (rb *RequestBuilder) RenameReplacement(renamereplacement string) *RequestBuilder {
-	rb.v.RenameReplacement = &renamereplacement
-	return rb
 }

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,7 +29,7 @@ import (
 
 // ExplainAnalyzeToken type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/analyze/types.ts#L52-L64
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/analyze/types.ts#L52-L64
 type ExplainAnalyzeToken struct {
 	Bytes               string                 `json:"bytes"`
 	EndOffset           int64                  `json:"end_offset"`
@@ -71,73 +71,11 @@ func (s ExplainAnalyzeToken) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// ExplainAnalyzeTokenBuilder holds ExplainAnalyzeToken struct and provides a builder API.
-type ExplainAnalyzeTokenBuilder struct {
-	v *ExplainAnalyzeToken
-}
-
-// NewExplainAnalyzeToken provides a builder for the ExplainAnalyzeToken struct.
-func NewExplainAnalyzeTokenBuilder() *ExplainAnalyzeTokenBuilder {
-	r := ExplainAnalyzeTokenBuilder{
-		&ExplainAnalyzeToken{
-			ExplainAnalyzeToken: make(map[string]interface{}, 0),
-		},
+// NewExplainAnalyzeToken returns a ExplainAnalyzeToken.
+func NewExplainAnalyzeToken() *ExplainAnalyzeToken {
+	r := &ExplainAnalyzeToken{
+		ExplainAnalyzeToken: make(map[string]interface{}, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the ExplainAnalyzeToken struct
-func (rb *ExplainAnalyzeTokenBuilder) Build() ExplainAnalyzeToken {
-	return *rb.v
-}
-
-func (rb *ExplainAnalyzeTokenBuilder) Bytes(bytes string) *ExplainAnalyzeTokenBuilder {
-	rb.v.Bytes = bytes
-	return rb
-}
-
-func (rb *ExplainAnalyzeTokenBuilder) EndOffset(endoffset int64) *ExplainAnalyzeTokenBuilder {
-	rb.v.EndOffset = endoffset
-	return rb
-}
-
-func (rb *ExplainAnalyzeTokenBuilder) ExplainAnalyzeToken(value map[string]interface{}) *ExplainAnalyzeTokenBuilder {
-	rb.v.ExplainAnalyzeToken = value
-	return rb
-}
-
-func (rb *ExplainAnalyzeTokenBuilder) Keyword(keyword bool) *ExplainAnalyzeTokenBuilder {
-	rb.v.Keyword = &keyword
-	return rb
-}
-
-func (rb *ExplainAnalyzeTokenBuilder) Position(position int64) *ExplainAnalyzeTokenBuilder {
-	rb.v.Position = position
-	return rb
-}
-
-func (rb *ExplainAnalyzeTokenBuilder) PositionLength(positionlength int64) *ExplainAnalyzeTokenBuilder {
-	rb.v.PositionLength = positionlength
-	return rb
-}
-
-func (rb *ExplainAnalyzeTokenBuilder) StartOffset(startoffset int64) *ExplainAnalyzeTokenBuilder {
-	rb.v.StartOffset = startoffset
-	return rb
-}
-
-func (rb *ExplainAnalyzeTokenBuilder) TermFrequency(termfrequency int64) *ExplainAnalyzeTokenBuilder {
-	rb.v.TermFrequency = termfrequency
-	return rb
-}
-
-func (rb *ExplainAnalyzeTokenBuilder) Token(token string) *ExplainAnalyzeTokenBuilder {
-	rb.v.Token = token
-	return rb
-}
-
-func (rb *ExplainAnalyzeTokenBuilder) Type_(type_ string) *ExplainAnalyzeTokenBuilder {
-	rb.v.Type = type_
-	return rb
+	return r
 }

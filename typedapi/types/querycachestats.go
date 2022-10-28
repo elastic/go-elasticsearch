@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // QueryCacheStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/Stats.ts#L150-L159
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Stats.ts#L150-L159
 type QueryCacheStats struct {
 	CacheCount        int       `json:"cache_count"`
 	CacheSize         int       `json:"cache_size"`
@@ -36,62 +36,9 @@ type QueryCacheStats struct {
 	TotalCount        int       `json:"total_count"`
 }
 
-// QueryCacheStatsBuilder holds QueryCacheStats struct and provides a builder API.
-type QueryCacheStatsBuilder struct {
-	v *QueryCacheStats
-}
+// NewQueryCacheStats returns a QueryCacheStats.
+func NewQueryCacheStats() *QueryCacheStats {
+	r := &QueryCacheStats{}
 
-// NewQueryCacheStats provides a builder for the QueryCacheStats struct.
-func NewQueryCacheStatsBuilder() *QueryCacheStatsBuilder {
-	r := QueryCacheStatsBuilder{
-		&QueryCacheStats{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the QueryCacheStats struct
-func (rb *QueryCacheStatsBuilder) Build() QueryCacheStats {
-	return *rb.v
-}
-
-func (rb *QueryCacheStatsBuilder) CacheCount(cachecount int) *QueryCacheStatsBuilder {
-	rb.v.CacheCount = cachecount
-	return rb
-}
-
-func (rb *QueryCacheStatsBuilder) CacheSize(cachesize int) *QueryCacheStatsBuilder {
-	rb.v.CacheSize = cachesize
-	return rb
-}
-
-func (rb *QueryCacheStatsBuilder) Evictions(evictions int) *QueryCacheStatsBuilder {
-	rb.v.Evictions = evictions
-	return rb
-}
-
-func (rb *QueryCacheStatsBuilder) HitCount(hitcount int) *QueryCacheStatsBuilder {
-	rb.v.HitCount = hitcount
-	return rb
-}
-
-func (rb *QueryCacheStatsBuilder) MemorySize(memorysize *ByteSizeBuilder) *QueryCacheStatsBuilder {
-	v := memorysize.Build()
-	rb.v.MemorySize = &v
-	return rb
-}
-
-func (rb *QueryCacheStatsBuilder) MemorySizeInBytes(memorysizeinbytes int) *QueryCacheStatsBuilder {
-	rb.v.MemorySizeInBytes = memorysizeinbytes
-	return rb
-}
-
-func (rb *QueryCacheStatsBuilder) MissCount(misscount int) *QueryCacheStatsBuilder {
-	rb.v.MissCount = misscount
-	return rb
-}
-
-func (rb *QueryCacheStatsBuilder) TotalCount(totalcount int) *QueryCacheStatsBuilder {
-	rb.v.TotalCount = totalcount
-	return rb
+	return r
 }

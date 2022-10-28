@@ -17,63 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RemoveAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/update_aliases/types.ts#L46-L53
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/update_aliases/types.ts#L46-L53
 type RemoveAction struct {
-	Alias     *IndexAlias  `json:"alias,omitempty"`
-	Aliases   []IndexAlias `json:"aliases,omitempty"`
-	Index     *IndexName   `json:"index,omitempty"`
-	Indices   *Indices     `json:"indices,omitempty"`
-	MustExist *bool        `json:"must_exist,omitempty"`
+	Alias     *string  `json:"alias,omitempty"`
+	Aliases   []string `json:"aliases,omitempty"`
+	Index     *string  `json:"index,omitempty"`
+	Indices   []string `json:"indices,omitempty"`
+	MustExist *bool    `json:"must_exist,omitempty"`
 }
 
-// RemoveActionBuilder holds RemoveAction struct and provides a builder API.
-type RemoveActionBuilder struct {
-	v *RemoveAction
-}
+// NewRemoveAction returns a RemoveAction.
+func NewRemoveAction() *RemoveAction {
+	r := &RemoveAction{}
 
-// NewRemoveAction provides a builder for the RemoveAction struct.
-func NewRemoveActionBuilder() *RemoveActionBuilder {
-	r := RemoveActionBuilder{
-		&RemoveAction{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RemoveAction struct
-func (rb *RemoveActionBuilder) Build() RemoveAction {
-	return *rb.v
-}
-
-func (rb *RemoveActionBuilder) Alias(alias IndexAlias) *RemoveActionBuilder {
-	rb.v.Alias = &alias
-	return rb
-}
-
-func (rb *RemoveActionBuilder) Aliases(arg []IndexAlias) *RemoveActionBuilder {
-	rb.v.Aliases = arg
-	return rb
-}
-
-func (rb *RemoveActionBuilder) Index(index IndexName) *RemoveActionBuilder {
-	rb.v.Index = &index
-	return rb
-}
-
-func (rb *RemoveActionBuilder) Indices(indices *IndicesBuilder) *RemoveActionBuilder {
-	v := indices.Build()
-	rb.v.Indices = &v
-	return rb
-}
-
-func (rb *RemoveActionBuilder) MustExist(mustexist bool) *RemoveActionBuilder {
-	rb.v.MustExist = &mustexist
-	return rb
+	return r
 }

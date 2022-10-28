@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,11 +29,11 @@ import (
 
 // TermsQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/query_dsl/term.ts#L123-L125
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/term.ts#L123-L125
 type TermsQuery struct {
-	Boost      *float32                  `json:"boost,omitempty"`
-	QueryName_ *string                   `json:"_name,omitempty"`
-	TermsQuery map[Field]TermsQueryField `json:"-"`
+	Boost      *float32                   `json:"boost,omitempty"`
+	QueryName_ *string                    `json:"_name,omitempty"`
+	TermsQuery map[string]TermsQueryField `json:"-"`
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -64,42 +64,11 @@ func (s TermsQuery) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// TermsQueryBuilder holds TermsQuery struct and provides a builder API.
-type TermsQueryBuilder struct {
-	v *TermsQuery
-}
-
-// NewTermsQuery provides a builder for the TermsQuery struct.
-func NewTermsQueryBuilder() *TermsQueryBuilder {
-	r := TermsQueryBuilder{
-		&TermsQuery{
-			TermsQuery: make(map[Field]TermsQueryField, 0),
-		},
+// NewTermsQuery returns a TermsQuery.
+func NewTermsQuery() *TermsQuery {
+	r := &TermsQuery{
+		TermsQuery: make(map[string]TermsQueryField, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the TermsQuery struct
-func (rb *TermsQueryBuilder) Build() TermsQuery {
-	return *rb.v
-}
-
-func (rb *TermsQueryBuilder) Boost(boost float32) *TermsQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *TermsQueryBuilder) QueryName_(queryname_ string) *TermsQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
-}
-
-func (rb *TermsQueryBuilder) TermsQuery(values map[Field]*TermsQueryFieldBuilder) *TermsQueryBuilder {
-	tmp := make(map[Field]TermsQueryField, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.TermsQuery = tmp
-	return rb
+	return r
 }

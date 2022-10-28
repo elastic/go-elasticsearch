@@ -17,46 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // StoredScriptId type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/Scripting.ts#L52-L54
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Scripting.ts#L52-L54
 type StoredScriptId struct {
-	Id     Id                     `json:"id"`
+	Id     string                 `json:"id"`
 	Params map[string]interface{} `json:"params,omitempty"`
 }
 
-// StoredScriptIdBuilder holds StoredScriptId struct and provides a builder API.
-type StoredScriptIdBuilder struct {
-	v *StoredScriptId
-}
-
-// NewStoredScriptId provides a builder for the StoredScriptId struct.
-func NewStoredScriptIdBuilder() *StoredScriptIdBuilder {
-	r := StoredScriptIdBuilder{
-		&StoredScriptId{
-			Params: make(map[string]interface{}, 0),
-		},
+// NewStoredScriptId returns a StoredScriptId.
+func NewStoredScriptId() *StoredScriptId {
+	r := &StoredScriptId{
+		Params: make(map[string]interface{}, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the StoredScriptId struct
-func (rb *StoredScriptIdBuilder) Build() StoredScriptId {
-	return *rb.v
-}
-
-func (rb *StoredScriptIdBuilder) Id(id Id) *StoredScriptIdBuilder {
-	rb.v.Id = id
-	return rb
-}
-
-func (rb *StoredScriptIdBuilder) Params(value map[string]interface{}) *StoredScriptIdBuilder {
-	rb.v.Params = value
-	return rb
+	return r
 }

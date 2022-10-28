@@ -17,63 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IngestTotal type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/_types/Stats.ts#L143-L149
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L143-L149
 type IngestTotal struct {
 	Count        *int64                      `json:"count,omitempty"`
 	Current      *int64                      `json:"current,omitempty"`
 	Failed       *int64                      `json:"failed,omitempty"`
 	Processors   []map[string]KeyedProcessor `json:"processors,omitempty"`
-	TimeInMillis *DurationValueUnitMillis    `json:"time_in_millis,omitempty"`
+	TimeInMillis *int64                      `json:"time_in_millis,omitempty"`
 }
 
-// IngestTotalBuilder holds IngestTotal struct and provides a builder API.
-type IngestTotalBuilder struct {
-	v *IngestTotal
-}
+// NewIngestTotal returns a IngestTotal.
+func NewIngestTotal() *IngestTotal {
+	r := &IngestTotal{}
 
-// NewIngestTotal provides a builder for the IngestTotal struct.
-func NewIngestTotalBuilder() *IngestTotalBuilder {
-	r := IngestTotalBuilder{
-		&IngestTotal{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IngestTotal struct
-func (rb *IngestTotalBuilder) Build() IngestTotal {
-	return *rb.v
-}
-
-func (rb *IngestTotalBuilder) Count(count int64) *IngestTotalBuilder {
-	rb.v.Count = &count
-	return rb
-}
-
-func (rb *IngestTotalBuilder) Current(current int64) *IngestTotalBuilder {
-	rb.v.Current = &current
-	return rb
-}
-
-func (rb *IngestTotalBuilder) Failed(failed int64) *IngestTotalBuilder {
-	rb.v.Failed = &failed
-	return rb
-}
-
-func (rb *IngestTotalBuilder) Processors(value ...map[string]KeyedProcessor) *IngestTotalBuilder {
-	rb.v.Processors = value
-	return rb
-}
-
-func (rb *IngestTotalBuilder) TimeInMillis(timeinmillis *DurationValueUnitMillisBuilder) *IngestTotalBuilder {
-	v := timeinmillis.Build()
-	rb.v.TimeInMillis = &v
-	return rb
+	return r
 }

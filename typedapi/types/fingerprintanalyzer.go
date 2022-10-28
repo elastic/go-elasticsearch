@@ -17,72 +17,29 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FingerprintAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/analyzers.ts#L37-L45
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/analyzers.ts#L37-L45
 type FingerprintAnalyzer struct {
-	MaxOutputSize    int            `json:"max_output_size"`
-	PreserveOriginal bool           `json:"preserve_original"`
-	Separator        string         `json:"separator"`
-	Stopwords        *StopWords     `json:"stopwords,omitempty"`
-	StopwordsPath    *string        `json:"stopwords_path,omitempty"`
-	Type             string         `json:"type,omitempty"`
-	Version          *VersionString `json:"version,omitempty"`
+	MaxOutputSize    int      `json:"max_output_size"`
+	PreserveOriginal bool     `json:"preserve_original"`
+	Separator        string   `json:"separator"`
+	Stopwords        []string `json:"stopwords,omitempty"`
+	StopwordsPath    *string  `json:"stopwords_path,omitempty"`
+	Type             string   `json:"type,omitempty"`
+	Version          *string  `json:"version,omitempty"`
 }
 
-// FingerprintAnalyzerBuilder holds FingerprintAnalyzer struct and provides a builder API.
-type FingerprintAnalyzerBuilder struct {
-	v *FingerprintAnalyzer
-}
+// NewFingerprintAnalyzer returns a FingerprintAnalyzer.
+func NewFingerprintAnalyzer() *FingerprintAnalyzer {
+	r := &FingerprintAnalyzer{}
 
-// NewFingerprintAnalyzer provides a builder for the FingerprintAnalyzer struct.
-func NewFingerprintAnalyzerBuilder() *FingerprintAnalyzerBuilder {
-	r := FingerprintAnalyzerBuilder{
-		&FingerprintAnalyzer{},
-	}
+	r.Type = "fingerprint"
 
-	r.v.Type = "fingerprint"
-
-	return &r
-}
-
-// Build finalize the chain and returns the FingerprintAnalyzer struct
-func (rb *FingerprintAnalyzerBuilder) Build() FingerprintAnalyzer {
-	return *rb.v
-}
-
-func (rb *FingerprintAnalyzerBuilder) MaxOutputSize(maxoutputsize int) *FingerprintAnalyzerBuilder {
-	rb.v.MaxOutputSize = maxoutputsize
-	return rb
-}
-
-func (rb *FingerprintAnalyzerBuilder) PreserveOriginal(preserveoriginal bool) *FingerprintAnalyzerBuilder {
-	rb.v.PreserveOriginal = preserveoriginal
-	return rb
-}
-
-func (rb *FingerprintAnalyzerBuilder) Separator(separator string) *FingerprintAnalyzerBuilder {
-	rb.v.Separator = separator
-	return rb
-}
-
-func (rb *FingerprintAnalyzerBuilder) Stopwords(stopwords *StopWordsBuilder) *FingerprintAnalyzerBuilder {
-	v := stopwords.Build()
-	rb.v.Stopwords = &v
-	return rb
-}
-
-func (rb *FingerprintAnalyzerBuilder) StopwordsPath(stopwordspath string) *FingerprintAnalyzerBuilder {
-	rb.v.StopwordsPath = &stopwordspath
-	return rb
-}
-
-func (rb *FingerprintAnalyzerBuilder) Version(version VersionString) *FingerprintAnalyzerBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

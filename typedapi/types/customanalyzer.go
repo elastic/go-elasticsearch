@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CustomAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/analyzers.ts#L28-L35
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/analyzers.ts#L28-L35
 type CustomAnalyzer struct {
 	CharFilter           []string `json:"char_filter,omitempty"`
 	Filter               []string `json:"filter,omitempty"`
@@ -34,48 +34,11 @@ type CustomAnalyzer struct {
 	Type                 string   `json:"type,omitempty"`
 }
 
-// CustomAnalyzerBuilder holds CustomAnalyzer struct and provides a builder API.
-type CustomAnalyzerBuilder struct {
-	v *CustomAnalyzer
-}
+// NewCustomAnalyzer returns a CustomAnalyzer.
+func NewCustomAnalyzer() *CustomAnalyzer {
+	r := &CustomAnalyzer{}
 
-// NewCustomAnalyzer provides a builder for the CustomAnalyzer struct.
-func NewCustomAnalyzerBuilder() *CustomAnalyzerBuilder {
-	r := CustomAnalyzerBuilder{
-		&CustomAnalyzer{},
-	}
+	r.Type = "custom"
 
-	r.v.Type = "custom"
-
-	return &r
-}
-
-// Build finalize the chain and returns the CustomAnalyzer struct
-func (rb *CustomAnalyzerBuilder) Build() CustomAnalyzer {
-	return *rb.v
-}
-
-func (rb *CustomAnalyzerBuilder) CharFilter(char_filter ...string) *CustomAnalyzerBuilder {
-	rb.v.CharFilter = char_filter
-	return rb
-}
-
-func (rb *CustomAnalyzerBuilder) Filter(filter ...string) *CustomAnalyzerBuilder {
-	rb.v.Filter = filter
-	return rb
-}
-
-func (rb *CustomAnalyzerBuilder) PositionIncrementGap(positionincrementgap int) *CustomAnalyzerBuilder {
-	rb.v.PositionIncrementGap = &positionincrementgap
-	return rb
-}
-
-func (rb *CustomAnalyzerBuilder) PositionOffsetGap(positionoffsetgap int) *CustomAnalyzerBuilder {
-	rb.v.PositionOffsetGap = &positionoffsetgap
-	return rb
-}
-
-func (rb *CustomAnalyzerBuilder) Tokenizer(tokenizer string) *CustomAnalyzerBuilder {
-	rb.v.Tokenizer = tokenizer
-	return rb
+	return r
 }

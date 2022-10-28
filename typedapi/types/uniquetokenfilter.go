@@ -17,47 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // UniqueTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/token_filters.ts#L333-L336
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/token_filters.ts#L333-L336
 type UniqueTokenFilter struct {
-	OnlyOnSamePosition *bool          `json:"only_on_same_position,omitempty"`
-	Type               string         `json:"type,omitempty"`
-	Version            *VersionString `json:"version,omitempty"`
+	OnlyOnSamePosition *bool   `json:"only_on_same_position,omitempty"`
+	Type               string  `json:"type,omitempty"`
+	Version            *string `json:"version,omitempty"`
 }
 
-// UniqueTokenFilterBuilder holds UniqueTokenFilter struct and provides a builder API.
-type UniqueTokenFilterBuilder struct {
-	v *UniqueTokenFilter
-}
+// NewUniqueTokenFilter returns a UniqueTokenFilter.
+func NewUniqueTokenFilter() *UniqueTokenFilter {
+	r := &UniqueTokenFilter{}
 
-// NewUniqueTokenFilter provides a builder for the UniqueTokenFilter struct.
-func NewUniqueTokenFilterBuilder() *UniqueTokenFilterBuilder {
-	r := UniqueTokenFilterBuilder{
-		&UniqueTokenFilter{},
-	}
+	r.Type = "unique"
 
-	r.v.Type = "unique"
-
-	return &r
-}
-
-// Build finalize the chain and returns the UniqueTokenFilter struct
-func (rb *UniqueTokenFilterBuilder) Build() UniqueTokenFilter {
-	return *rb.v
-}
-
-func (rb *UniqueTokenFilterBuilder) OnlyOnSamePosition(onlyonsameposition bool) *UniqueTokenFilterBuilder {
-	rb.v.OnlyOnSamePosition = &onlyonsameposition
-	return rb
-}
-
-func (rb *UniqueTokenFilterBuilder) Version(version VersionString) *UniqueTokenFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

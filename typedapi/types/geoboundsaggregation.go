@@ -17,58 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // GeoBoundsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/metric.ts#L72-L74
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/metric.ts#L72-L74
 type GeoBoundsAggregation struct {
-	Field         *Field   `json:"field,omitempty"`
+	Field         *string  `json:"field,omitempty"`
 	Missing       *Missing `json:"missing,omitempty"`
 	Script        *Script  `json:"script,omitempty"`
 	WrapLongitude *bool    `json:"wrap_longitude,omitempty"`
 }
 
-// GeoBoundsAggregationBuilder holds GeoBoundsAggregation struct and provides a builder API.
-type GeoBoundsAggregationBuilder struct {
-	v *GeoBoundsAggregation
-}
+// NewGeoBoundsAggregation returns a GeoBoundsAggregation.
+func NewGeoBoundsAggregation() *GeoBoundsAggregation {
+	r := &GeoBoundsAggregation{}
 
-// NewGeoBoundsAggregation provides a builder for the GeoBoundsAggregation struct.
-func NewGeoBoundsAggregationBuilder() *GeoBoundsAggregationBuilder {
-	r := GeoBoundsAggregationBuilder{
-		&GeoBoundsAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the GeoBoundsAggregation struct
-func (rb *GeoBoundsAggregationBuilder) Build() GeoBoundsAggregation {
-	return *rb.v
-}
-
-func (rb *GeoBoundsAggregationBuilder) Field(field Field) *GeoBoundsAggregationBuilder {
-	rb.v.Field = &field
-	return rb
-}
-
-func (rb *GeoBoundsAggregationBuilder) Missing(missing *MissingBuilder) *GeoBoundsAggregationBuilder {
-	v := missing.Build()
-	rb.v.Missing = &v
-	return rb
-}
-
-func (rb *GeoBoundsAggregationBuilder) Script(script *ScriptBuilder) *GeoBoundsAggregationBuilder {
-	v := script.Build()
-	rb.v.Script = &v
-	return rb
-}
-
-func (rb *GeoBoundsAggregationBuilder) WrapLongitude(wraplongitude bool) *GeoBoundsAggregationBuilder {
-	rb.v.WrapLongitude = &wraplongitude
-	return rb
+	return r
 }

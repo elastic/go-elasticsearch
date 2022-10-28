@@ -17,52 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SearchInput type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/watcher/_types/Input.ts#L112-L116
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Input.ts#L112-L116
 type SearchInput struct {
 	Extract []string                     `json:"extract,omitempty"`
 	Request SearchInputRequestDefinition `json:"request"`
 	Timeout *Duration                    `json:"timeout,omitempty"`
 }
 
-// SearchInputBuilder holds SearchInput struct and provides a builder API.
-type SearchInputBuilder struct {
-	v *SearchInput
-}
+// NewSearchInput returns a SearchInput.
+func NewSearchInput() *SearchInput {
+	r := &SearchInput{}
 
-// NewSearchInput provides a builder for the SearchInput struct.
-func NewSearchInputBuilder() *SearchInputBuilder {
-	r := SearchInputBuilder{
-		&SearchInput{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SearchInput struct
-func (rb *SearchInputBuilder) Build() SearchInput {
-	return *rb.v
-}
-
-func (rb *SearchInputBuilder) Extract(extract ...string) *SearchInputBuilder {
-	rb.v.Extract = extract
-	return rb
-}
-
-func (rb *SearchInputBuilder) Request(request *SearchInputRequestDefinitionBuilder) *SearchInputBuilder {
-	v := request.Build()
-	rb.v.Request = v
-	return rb
-}
-
-func (rb *SearchInputBuilder) Timeout(timeout *DurationBuilder) *SearchInputBuilder {
-	v := timeout.Build()
-	rb.v.Timeout = &v
-	return rb
+	return r
 }

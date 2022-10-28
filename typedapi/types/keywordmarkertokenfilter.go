@@ -17,65 +17,28 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // KeywordMarkerTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/token_filters.ts#L230-L236
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/token_filters.ts#L230-L236
 type KeywordMarkerTokenFilter struct {
-	IgnoreCase      *bool          `json:"ignore_case,omitempty"`
-	Keywords        []string       `json:"keywords,omitempty"`
-	KeywordsPath    *string        `json:"keywords_path,omitempty"`
-	KeywordsPattern *string        `json:"keywords_pattern,omitempty"`
-	Type            string         `json:"type,omitempty"`
-	Version         *VersionString `json:"version,omitempty"`
+	IgnoreCase      *bool    `json:"ignore_case,omitempty"`
+	Keywords        []string `json:"keywords,omitempty"`
+	KeywordsPath    *string  `json:"keywords_path,omitempty"`
+	KeywordsPattern *string  `json:"keywords_pattern,omitempty"`
+	Type            string   `json:"type,omitempty"`
+	Version         *string  `json:"version,omitempty"`
 }
 
-// KeywordMarkerTokenFilterBuilder holds KeywordMarkerTokenFilter struct and provides a builder API.
-type KeywordMarkerTokenFilterBuilder struct {
-	v *KeywordMarkerTokenFilter
-}
+// NewKeywordMarkerTokenFilter returns a KeywordMarkerTokenFilter.
+func NewKeywordMarkerTokenFilter() *KeywordMarkerTokenFilter {
+	r := &KeywordMarkerTokenFilter{}
 
-// NewKeywordMarkerTokenFilter provides a builder for the KeywordMarkerTokenFilter struct.
-func NewKeywordMarkerTokenFilterBuilder() *KeywordMarkerTokenFilterBuilder {
-	r := KeywordMarkerTokenFilterBuilder{
-		&KeywordMarkerTokenFilter{},
-	}
+	r.Type = "keyword_marker"
 
-	r.v.Type = "keyword_marker"
-
-	return &r
-}
-
-// Build finalize the chain and returns the KeywordMarkerTokenFilter struct
-func (rb *KeywordMarkerTokenFilterBuilder) Build() KeywordMarkerTokenFilter {
-	return *rb.v
-}
-
-func (rb *KeywordMarkerTokenFilterBuilder) IgnoreCase(ignorecase bool) *KeywordMarkerTokenFilterBuilder {
-	rb.v.IgnoreCase = &ignorecase
-	return rb
-}
-
-func (rb *KeywordMarkerTokenFilterBuilder) Keywords(keywords ...string) *KeywordMarkerTokenFilterBuilder {
-	rb.v.Keywords = keywords
-	return rb
-}
-
-func (rb *KeywordMarkerTokenFilterBuilder) KeywordsPath(keywordspath string) *KeywordMarkerTokenFilterBuilder {
-	rb.v.KeywordsPath = &keywordspath
-	return rb
-}
-
-func (rb *KeywordMarkerTokenFilterBuilder) KeywordsPattern(keywordspattern string) *KeywordMarkerTokenFilterBuilder {
-	rb.v.KeywordsPattern = &keywordspattern
-	return rb
-}
-
-func (rb *KeywordMarkerTokenFilterBuilder) Version(version VersionString) *KeywordMarkerTokenFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

@@ -17,60 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // VerifyIndex type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/recovery/types.ts#L111-L116
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/recovery/types.ts#L111-L116
 type VerifyIndex struct {
-	CheckIndexTime         *Duration               `json:"check_index_time,omitempty"`
-	CheckIndexTimeInMillis DurationValueUnitMillis `json:"check_index_time_in_millis"`
-	TotalTime              *Duration               `json:"total_time,omitempty"`
-	TotalTimeInMillis      DurationValueUnitMillis `json:"total_time_in_millis"`
+	CheckIndexTime         *Duration `json:"check_index_time,omitempty"`
+	CheckIndexTimeInMillis int64     `json:"check_index_time_in_millis"`
+	TotalTime              *Duration `json:"total_time,omitempty"`
+	TotalTimeInMillis      int64     `json:"total_time_in_millis"`
 }
 
-// VerifyIndexBuilder holds VerifyIndex struct and provides a builder API.
-type VerifyIndexBuilder struct {
-	v *VerifyIndex
-}
+// NewVerifyIndex returns a VerifyIndex.
+func NewVerifyIndex() *VerifyIndex {
+	r := &VerifyIndex{}
 
-// NewVerifyIndex provides a builder for the VerifyIndex struct.
-func NewVerifyIndexBuilder() *VerifyIndexBuilder {
-	r := VerifyIndexBuilder{
-		&VerifyIndex{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the VerifyIndex struct
-func (rb *VerifyIndexBuilder) Build() VerifyIndex {
-	return *rb.v
-}
-
-func (rb *VerifyIndexBuilder) CheckIndexTime(checkindextime *DurationBuilder) *VerifyIndexBuilder {
-	v := checkindextime.Build()
-	rb.v.CheckIndexTime = &v
-	return rb
-}
-
-func (rb *VerifyIndexBuilder) CheckIndexTimeInMillis(checkindextimeinmillis *DurationValueUnitMillisBuilder) *VerifyIndexBuilder {
-	v := checkindextimeinmillis.Build()
-	rb.v.CheckIndexTimeInMillis = v
-	return rb
-}
-
-func (rb *VerifyIndexBuilder) TotalTime(totaltime *DurationBuilder) *VerifyIndexBuilder {
-	v := totaltime.Build()
-	rb.v.TotalTime = &v
-	return rb
-}
-
-func (rb *VerifyIndexBuilder) TotalTimeInMillis(totaltimeinmillis *DurationValueUnitMillisBuilder) *VerifyIndexBuilder {
-	v := totaltimeinmillis.Build()
-	rb.v.TotalTimeInMillis = v
-	return rb
+	return r
 }

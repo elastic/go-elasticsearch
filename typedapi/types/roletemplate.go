@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,38 +28,15 @@ import (
 
 // RoleTemplate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/security/get_role/types.ts#L47-L50
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/get_role/types.ts#L47-L50
 type RoleTemplate struct {
 	Format   *templateformat.TemplateFormat `json:"format,omitempty"`
 	Template Script                         `json:"template"`
 }
 
-// RoleTemplateBuilder holds RoleTemplate struct and provides a builder API.
-type RoleTemplateBuilder struct {
-	v *RoleTemplate
-}
+// NewRoleTemplate returns a RoleTemplate.
+func NewRoleTemplate() *RoleTemplate {
+	r := &RoleTemplate{}
 
-// NewRoleTemplate provides a builder for the RoleTemplate struct.
-func NewRoleTemplateBuilder() *RoleTemplateBuilder {
-	r := RoleTemplateBuilder{
-		&RoleTemplate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RoleTemplate struct
-func (rb *RoleTemplateBuilder) Build() RoleTemplate {
-	return *rb.v
-}
-
-func (rb *RoleTemplateBuilder) Format(format templateformat.TemplateFormat) *RoleTemplateBuilder {
-	rb.v.Format = &format
-	return rb
-}
-
-func (rb *RoleTemplateBuilder) Template(template *ScriptBuilder) *RoleTemplateBuilder {
-	v := template.Build()
-	rb.v.Template = v
-	return rb
+	return r
 }

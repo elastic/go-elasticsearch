@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // JvmStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/get_memory_stats/types.ts#L50-L63
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/get_memory_stats/types.ts#L50-L63
 type JvmStats struct {
 	// HeapMax Maximum amount of memory available for use by the heap.
 	HeapMax *ByteSize `json:"heap_max,omitempty"`
@@ -42,68 +42,9 @@ type JvmStats struct {
 	JavaInferenceMaxInBytes int `json:"java_inference_max_in_bytes"`
 }
 
-// JvmStatsBuilder holds JvmStats struct and provides a builder API.
-type JvmStatsBuilder struct {
-	v *JvmStats
-}
+// NewJvmStats returns a JvmStats.
+func NewJvmStats() *JvmStats {
+	r := &JvmStats{}
 
-// NewJvmStats provides a builder for the JvmStats struct.
-func NewJvmStatsBuilder() *JvmStatsBuilder {
-	r := JvmStatsBuilder{
-		&JvmStats{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the JvmStats struct
-func (rb *JvmStatsBuilder) Build() JvmStats {
-	return *rb.v
-}
-
-// HeapMax Maximum amount of memory available for use by the heap.
-
-func (rb *JvmStatsBuilder) HeapMax(heapmax *ByteSizeBuilder) *JvmStatsBuilder {
-	v := heapmax.Build()
-	rb.v.HeapMax = &v
-	return rb
-}
-
-// HeapMaxInBytes Maximum amount of memory, in bytes, available for use by the heap.
-
-func (rb *JvmStatsBuilder) HeapMaxInBytes(heapmaxinbytes int) *JvmStatsBuilder {
-	rb.v.HeapMaxInBytes = heapmaxinbytes
-	return rb
-}
-
-// JavaInference Amount of Java heap currently being used for caching inference models.
-
-func (rb *JvmStatsBuilder) JavaInference(javainference *ByteSizeBuilder) *JvmStatsBuilder {
-	v := javainference.Build()
-	rb.v.JavaInference = &v
-	return rb
-}
-
-// JavaInferenceInBytes Amount of Java heap, in bytes, currently being used for caching inference
-// models.
-
-func (rb *JvmStatsBuilder) JavaInferenceInBytes(javainferenceinbytes int) *JvmStatsBuilder {
-	rb.v.JavaInferenceInBytes = javainferenceinbytes
-	return rb
-}
-
-// JavaInferenceMax Maximum amount of Java heap to be used for caching inference models.
-
-func (rb *JvmStatsBuilder) JavaInferenceMax(javainferencemax *ByteSizeBuilder) *JvmStatsBuilder {
-	v := javainferencemax.Build()
-	rb.v.JavaInferenceMax = &v
-	return rb
-}
-
-// JavaInferenceMaxInBytes Maximum amount of Java heap, in bytes, to be used for caching inference
-// models.
-
-func (rb *JvmStatsBuilder) JavaInferenceMaxInBytes(javainferencemaxinbytes int) *JvmStatsBuilder {
-	rb.v.JavaInferenceMaxInBytes = javainferencemaxinbytes
-	return rb
+	return r
 }

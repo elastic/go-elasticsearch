@@ -17,64 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ClusterProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/cluster/stats/types.ts#L262-L268
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/stats/types.ts#L262-L268
 type ClusterProcessor struct {
-	Count        int64                   `json:"count"`
-	Current      int64                   `json:"current"`
-	Failed       int64                   `json:"failed"`
-	Time         *Duration               `json:"time,omitempty"`
-	TimeInMillis DurationValueUnitMillis `json:"time_in_millis"`
+	Count        int64     `json:"count"`
+	Current      int64     `json:"current"`
+	Failed       int64     `json:"failed"`
+	Time         *Duration `json:"time,omitempty"`
+	TimeInMillis int64     `json:"time_in_millis"`
 }
 
-// ClusterProcessorBuilder holds ClusterProcessor struct and provides a builder API.
-type ClusterProcessorBuilder struct {
-	v *ClusterProcessor
-}
+// NewClusterProcessor returns a ClusterProcessor.
+func NewClusterProcessor() *ClusterProcessor {
+	r := &ClusterProcessor{}
 
-// NewClusterProcessor provides a builder for the ClusterProcessor struct.
-func NewClusterProcessorBuilder() *ClusterProcessorBuilder {
-	r := ClusterProcessorBuilder{
-		&ClusterProcessor{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ClusterProcessor struct
-func (rb *ClusterProcessorBuilder) Build() ClusterProcessor {
-	return *rb.v
-}
-
-func (rb *ClusterProcessorBuilder) Count(count int64) *ClusterProcessorBuilder {
-	rb.v.Count = count
-	return rb
-}
-
-func (rb *ClusterProcessorBuilder) Current(current int64) *ClusterProcessorBuilder {
-	rb.v.Current = current
-	return rb
-}
-
-func (rb *ClusterProcessorBuilder) Failed(failed int64) *ClusterProcessorBuilder {
-	rb.v.Failed = failed
-	return rb
-}
-
-func (rb *ClusterProcessorBuilder) Time(time *DurationBuilder) *ClusterProcessorBuilder {
-	v := time.Build()
-	rb.v.Time = &v
-	return rb
-}
-
-func (rb *ClusterProcessorBuilder) TimeInMillis(timeinmillis *DurationValueUnitMillisBuilder) *ClusterProcessorBuilder {
-	v := timeinmillis.Build()
-	rb.v.TimeInMillis = v
-	return rb
+	return r
 }

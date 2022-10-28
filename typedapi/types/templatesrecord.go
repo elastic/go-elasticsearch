@@ -17,77 +17,30 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TemplatesRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/cat/templates/types.ts#L22-L48
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cat/templates/types.ts#L22-L48
 type TemplatesRecord struct {
 	// ComposedOf component templates comprising index template
 	ComposedOf *string `json:"composed_of,omitempty"`
 	// IndexPatterns template index patterns
 	IndexPatterns *string `json:"index_patterns,omitempty"`
 	// Name template name
-	Name *Name `json:"name,omitempty"`
+	Name *string `json:"name,omitempty"`
 	// Order template application order/priority number
 	Order *string `json:"order,omitempty"`
 	// Version version
-	Version VersionString `json:"version,omitempty"`
+	Version string `json:"version,omitempty"`
 }
 
-// TemplatesRecordBuilder holds TemplatesRecord struct and provides a builder API.
-type TemplatesRecordBuilder struct {
-	v *TemplatesRecord
-}
+// NewTemplatesRecord returns a TemplatesRecord.
+func NewTemplatesRecord() *TemplatesRecord {
+	r := &TemplatesRecord{}
 
-// NewTemplatesRecord provides a builder for the TemplatesRecord struct.
-func NewTemplatesRecordBuilder() *TemplatesRecordBuilder {
-	r := TemplatesRecordBuilder{
-		&TemplatesRecord{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TemplatesRecord struct
-func (rb *TemplatesRecordBuilder) Build() TemplatesRecord {
-	return *rb.v
-}
-
-// ComposedOf component templates comprising index template
-
-func (rb *TemplatesRecordBuilder) ComposedOf(composedof string) *TemplatesRecordBuilder {
-	rb.v.ComposedOf = &composedof
-	return rb
-}
-
-// IndexPatterns template index patterns
-
-func (rb *TemplatesRecordBuilder) IndexPatterns(indexpatterns string) *TemplatesRecordBuilder {
-	rb.v.IndexPatterns = &indexpatterns
-	return rb
-}
-
-// Name template name
-
-func (rb *TemplatesRecordBuilder) Name(name Name) *TemplatesRecordBuilder {
-	rb.v.Name = &name
-	return rb
-}
-
-// Order template application order/priority number
-
-func (rb *TemplatesRecordBuilder) Order(order string) *TemplatesRecordBuilder {
-	rb.v.Order = &order
-	return rb
-}
-
-// Version version
-
-func (rb *TemplatesRecordBuilder) Version(version VersionString) *TemplatesRecordBuilder {
-	rb.v.Version = version
-	return rb
+	return r
 }

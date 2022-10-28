@@ -17,92 +17,32 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // GrokProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ingest/_types/Processors.ts#L221-L227
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ingest/_types/Processors.ts#L221-L227
 type GrokProcessor struct {
-	Field              Field                `json:"field"`
+	Description        *string              `json:"description,omitempty"`
+	Field              string               `json:"field"`
 	If                 *string              `json:"if,omitempty"`
 	IgnoreFailure      *bool                `json:"ignore_failure,omitempty"`
 	IgnoreMissing      *bool                `json:"ignore_missing,omitempty"`
 	OnFailure          []ProcessorContainer `json:"on_failure,omitempty"`
-	PatternDefinitions map[string]string    `json:"pattern_definitions"`
+	PatternDefinitions map[string]string    `json:"pattern_definitions,omitempty"`
 	Patterns           []string             `json:"patterns"`
 	Tag                *string              `json:"tag,omitempty"`
 	TraceMatch         *bool                `json:"trace_match,omitempty"`
 }
 
-// GrokProcessorBuilder holds GrokProcessor struct and provides a builder API.
-type GrokProcessorBuilder struct {
-	v *GrokProcessor
-}
-
-// NewGrokProcessor provides a builder for the GrokProcessor struct.
-func NewGrokProcessorBuilder() *GrokProcessorBuilder {
-	r := GrokProcessorBuilder{
-		&GrokProcessor{
-			PatternDefinitions: make(map[string]string, 0),
-		},
+// NewGrokProcessor returns a GrokProcessor.
+func NewGrokProcessor() *GrokProcessor {
+	r := &GrokProcessor{
+		PatternDefinitions: make(map[string]string, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the GrokProcessor struct
-func (rb *GrokProcessorBuilder) Build() GrokProcessor {
-	return *rb.v
-}
-
-func (rb *GrokProcessorBuilder) Field(field Field) *GrokProcessorBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *GrokProcessorBuilder) If_(if_ string) *GrokProcessorBuilder {
-	rb.v.If = &if_
-	return rb
-}
-
-func (rb *GrokProcessorBuilder) IgnoreFailure(ignorefailure bool) *GrokProcessorBuilder {
-	rb.v.IgnoreFailure = &ignorefailure
-	return rb
-}
-
-func (rb *GrokProcessorBuilder) IgnoreMissing(ignoremissing bool) *GrokProcessorBuilder {
-	rb.v.IgnoreMissing = &ignoremissing
-	return rb
-}
-
-func (rb *GrokProcessorBuilder) OnFailure(on_failure []ProcessorContainerBuilder) *GrokProcessorBuilder {
-	tmp := make([]ProcessorContainer, len(on_failure))
-	for _, value := range on_failure {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.OnFailure = tmp
-	return rb
-}
-
-func (rb *GrokProcessorBuilder) PatternDefinitions(value map[string]string) *GrokProcessorBuilder {
-	rb.v.PatternDefinitions = value
-	return rb
-}
-
-func (rb *GrokProcessorBuilder) Patterns(patterns ...string) *GrokProcessorBuilder {
-	rb.v.Patterns = patterns
-	return rb
-}
-
-func (rb *GrokProcessorBuilder) Tag(tag string) *GrokProcessorBuilder {
-	rb.v.Tag = &tag
-	return rb
-}
-
-func (rb *GrokProcessorBuilder) TraceMatch(tracematch bool) *GrokProcessorBuilder {
-	rb.v.TraceMatch = &tracematch
-	return rb
+	return r
 }

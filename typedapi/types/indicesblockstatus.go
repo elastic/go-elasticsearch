@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IndicesBlockStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/add_block/IndicesAddBlockResponse.ts#L30-L33
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/add_block/IndicesAddBlockResponse.ts#L30-L33
 type IndicesBlockStatus struct {
-	Blocked bool      `json:"blocked"`
-	Name    IndexName `json:"name"`
+	Blocked bool   `json:"blocked"`
+	Name    string `json:"name"`
 }
 
-// IndicesBlockStatusBuilder holds IndicesBlockStatus struct and provides a builder API.
-type IndicesBlockStatusBuilder struct {
-	v *IndicesBlockStatus
-}
+// NewIndicesBlockStatus returns a IndicesBlockStatus.
+func NewIndicesBlockStatus() *IndicesBlockStatus {
+	r := &IndicesBlockStatus{}
 
-// NewIndicesBlockStatus provides a builder for the IndicesBlockStatus struct.
-func NewIndicesBlockStatusBuilder() *IndicesBlockStatusBuilder {
-	r := IndicesBlockStatusBuilder{
-		&IndicesBlockStatus{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IndicesBlockStatus struct
-func (rb *IndicesBlockStatusBuilder) Build() IndicesBlockStatus {
-	return *rb.v
-}
-
-func (rb *IndicesBlockStatusBuilder) Blocked(blocked bool) *IndicesBlockStatusBuilder {
-	rb.v.Blocked = blocked
-	return rb
-}
-
-func (rb *IndicesBlockStatusBuilder) Name(name IndexName) *IndicesBlockStatusBuilder {
-	rb.v.Name = name
-	return rb
+	return r
 }

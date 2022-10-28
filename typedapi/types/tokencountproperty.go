@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,135 +28,36 @@ import (
 
 // TokenCountProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/mapping/specialized.ts#L78-L85
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/specialized.ts#L78-L85
 type TokenCountProperty struct {
 	Analyzer                 *string                        `json:"analyzer,omitempty"`
 	Boost                    *float64                       `json:"boost,omitempty"`
-	CopyTo                   *Fields                        `json:"copy_to,omitempty"`
+	CopyTo                   []string                       `json:"copy_to,omitempty"`
 	DocValues                *bool                          `json:"doc_values,omitempty"`
 	Dynamic                  *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
 	EnablePositionIncrements *bool                          `json:"enable_position_increments,omitempty"`
-	Fields                   map[PropertyName]Property      `json:"fields,omitempty"`
+	Fields                   map[string]Property            `json:"fields,omitempty"`
 	IgnoreAbove              *int                           `json:"ignore_above,omitempty"`
 	Index                    *bool                          `json:"index,omitempty"`
-	LocalMetadata            *Metadata                      `json:"local_metadata,omitempty"`
+	LocalMetadata            map[string]interface{}         `json:"local_metadata,omitempty"`
 	// Meta Metadata about the field.
-	Meta       map[string]string         `json:"meta,omitempty"`
-	NullValue  *float64                  `json:"null_value,omitempty"`
-	Properties map[PropertyName]Property `json:"properties,omitempty"`
-	Similarity *string                   `json:"similarity,omitempty"`
-	Store      *bool                     `json:"store,omitempty"`
-	Type       string                    `json:"type,omitempty"`
+	Meta       map[string]string   `json:"meta,omitempty"`
+	NullValue  *float64            `json:"null_value,omitempty"`
+	Properties map[string]Property `json:"properties,omitempty"`
+	Similarity *string             `json:"similarity,omitempty"`
+	Store      *bool               `json:"store,omitempty"`
+	Type       string              `json:"type,omitempty"`
 }
 
-// TokenCountPropertyBuilder holds TokenCountProperty struct and provides a builder API.
-type TokenCountPropertyBuilder struct {
-	v *TokenCountProperty
-}
-
-// NewTokenCountProperty provides a builder for the TokenCountProperty struct.
-func NewTokenCountPropertyBuilder() *TokenCountPropertyBuilder {
-	r := TokenCountPropertyBuilder{
-		&TokenCountProperty{
-			Fields:     make(map[PropertyName]Property, 0),
-			Meta:       make(map[string]string, 0),
-			Properties: make(map[PropertyName]Property, 0),
-		},
+// NewTokenCountProperty returns a TokenCountProperty.
+func NewTokenCountProperty() *TokenCountProperty {
+	r := &TokenCountProperty{
+		Fields:     make(map[string]Property, 0),
+		Meta:       make(map[string]string, 0),
+		Properties: make(map[string]Property, 0),
 	}
 
-	r.v.Type = "token_count"
+	r.Type = "token_count"
 
-	return &r
-}
-
-// Build finalize the chain and returns the TokenCountProperty struct
-func (rb *TokenCountPropertyBuilder) Build() TokenCountProperty {
-	return *rb.v
-}
-
-func (rb *TokenCountPropertyBuilder) Analyzer(analyzer string) *TokenCountPropertyBuilder {
-	rb.v.Analyzer = &analyzer
-	return rb
-}
-
-func (rb *TokenCountPropertyBuilder) Boost(boost float64) *TokenCountPropertyBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *TokenCountPropertyBuilder) CopyTo(copyto *FieldsBuilder) *TokenCountPropertyBuilder {
-	v := copyto.Build()
-	rb.v.CopyTo = &v
-	return rb
-}
-
-func (rb *TokenCountPropertyBuilder) DocValues(docvalues bool) *TokenCountPropertyBuilder {
-	rb.v.DocValues = &docvalues
-	return rb
-}
-
-func (rb *TokenCountPropertyBuilder) Dynamic(dynamic dynamicmapping.DynamicMapping) *TokenCountPropertyBuilder {
-	rb.v.Dynamic = &dynamic
-	return rb
-}
-
-func (rb *TokenCountPropertyBuilder) EnablePositionIncrements(enablepositionincrements bool) *TokenCountPropertyBuilder {
-	rb.v.EnablePositionIncrements = &enablepositionincrements
-	return rb
-}
-
-func (rb *TokenCountPropertyBuilder) Fields(values map[PropertyName]*PropertyBuilder) *TokenCountPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Fields = tmp
-	return rb
-}
-
-func (rb *TokenCountPropertyBuilder) IgnoreAbove(ignoreabove int) *TokenCountPropertyBuilder {
-	rb.v.IgnoreAbove = &ignoreabove
-	return rb
-}
-
-func (rb *TokenCountPropertyBuilder) Index(index bool) *TokenCountPropertyBuilder {
-	rb.v.Index = &index
-	return rb
-}
-
-func (rb *TokenCountPropertyBuilder) LocalMetadata(localmetadata *MetadataBuilder) *TokenCountPropertyBuilder {
-	v := localmetadata.Build()
-	rb.v.LocalMetadata = &v
-	return rb
-}
-
-// Meta Metadata about the field.
-
-func (rb *TokenCountPropertyBuilder) Meta(value map[string]string) *TokenCountPropertyBuilder {
-	rb.v.Meta = value
-	return rb
-}
-
-func (rb *TokenCountPropertyBuilder) NullValue(nullvalue float64) *TokenCountPropertyBuilder {
-	rb.v.NullValue = &nullvalue
-	return rb
-}
-
-func (rb *TokenCountPropertyBuilder) Properties(values map[PropertyName]*PropertyBuilder) *TokenCountPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Properties = tmp
-	return rb
-}
-
-func (rb *TokenCountPropertyBuilder) Similarity(similarity string) *TokenCountPropertyBuilder {
-	rb.v.Similarity = &similarity
-	return rb
-}
-
-func (rb *TokenCountPropertyBuilder) Store(store bool) *TokenCountPropertyBuilder {
-	rb.v.Store = &store
-	return rb
+	return r
 }

@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Flattened type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/xpack/usage/types.ts#L338-L340
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L338-L340
 type Flattened struct {
 	Available  bool `json:"available"`
 	Enabled    bool `json:"enabled"`
 	FieldCount int  `json:"field_count"`
 }
 
-// FlattenedBuilder holds Flattened struct and provides a builder API.
-type FlattenedBuilder struct {
-	v *Flattened
-}
+// NewFlattened returns a Flattened.
+func NewFlattened() *Flattened {
+	r := &Flattened{}
 
-// NewFlattened provides a builder for the Flattened struct.
-func NewFlattenedBuilder() *FlattenedBuilder {
-	r := FlattenedBuilder{
-		&Flattened{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Flattened struct
-func (rb *FlattenedBuilder) Build() Flattened {
-	return *rb.v
-}
-
-func (rb *FlattenedBuilder) Available(available bool) *FlattenedBuilder {
-	rb.v.Available = available
-	return rb
-}
-
-func (rb *FlattenedBuilder) Enabled(enabled bool) *FlattenedBuilder {
-	rb.v.Enabled = enabled
-	return rb
-}
-
-func (rb *FlattenedBuilder) FieldCount(fieldcount int) *FlattenedBuilder {
-	rb.v.FieldCount = fieldcount
-	return rb
+	return r
 }

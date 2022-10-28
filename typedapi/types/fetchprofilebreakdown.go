@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FetchProfileBreakdown type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_global/search/_types/profile.ts#L148-L157
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/profile.ts#L148-L157
 type FetchProfileBreakdown struct {
 	LoadSource            *int `json:"load_source,omitempty"`
 	LoadSourceCount       *int `json:"load_source_count,omitempty"`
@@ -36,61 +36,9 @@ type FetchProfileBreakdown struct {
 	ProcessCount          *int `json:"process_count,omitempty"`
 }
 
-// FetchProfileBreakdownBuilder holds FetchProfileBreakdown struct and provides a builder API.
-type FetchProfileBreakdownBuilder struct {
-	v *FetchProfileBreakdown
-}
+// NewFetchProfileBreakdown returns a FetchProfileBreakdown.
+func NewFetchProfileBreakdown() *FetchProfileBreakdown {
+	r := &FetchProfileBreakdown{}
 
-// NewFetchProfileBreakdown provides a builder for the FetchProfileBreakdown struct.
-func NewFetchProfileBreakdownBuilder() *FetchProfileBreakdownBuilder {
-	r := FetchProfileBreakdownBuilder{
-		&FetchProfileBreakdown{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FetchProfileBreakdown struct
-func (rb *FetchProfileBreakdownBuilder) Build() FetchProfileBreakdown {
-	return *rb.v
-}
-
-func (rb *FetchProfileBreakdownBuilder) LoadSource(loadsource int) *FetchProfileBreakdownBuilder {
-	rb.v.LoadSource = &loadsource
-	return rb
-}
-
-func (rb *FetchProfileBreakdownBuilder) LoadSourceCount(loadsourcecount int) *FetchProfileBreakdownBuilder {
-	rb.v.LoadSourceCount = &loadsourcecount
-	return rb
-}
-
-func (rb *FetchProfileBreakdownBuilder) LoadStoredFields(loadstoredfields int) *FetchProfileBreakdownBuilder {
-	rb.v.LoadStoredFields = &loadstoredfields
-	return rb
-}
-
-func (rb *FetchProfileBreakdownBuilder) LoadStoredFieldsCount(loadstoredfieldscount int) *FetchProfileBreakdownBuilder {
-	rb.v.LoadStoredFieldsCount = &loadstoredfieldscount
-	return rb
-}
-
-func (rb *FetchProfileBreakdownBuilder) NextReader(nextreader int) *FetchProfileBreakdownBuilder {
-	rb.v.NextReader = &nextreader
-	return rb
-}
-
-func (rb *FetchProfileBreakdownBuilder) NextReaderCount(nextreadercount int) *FetchProfileBreakdownBuilder {
-	rb.v.NextReaderCount = &nextreadercount
-	return rb
-}
-
-func (rb *FetchProfileBreakdownBuilder) Process(process int) *FetchProfileBreakdownBuilder {
-	rb.v.Process = &process
-	return rb
-}
-
-func (rb *FetchProfileBreakdownBuilder) ProcessCount(processcount int) *FetchProfileBreakdownBuilder {
-	rb.v.ProcessCount = &processcount
-	return rb
+	return r
 }

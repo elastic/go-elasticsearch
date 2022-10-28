@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -27,32 +27,11 @@ package types
 //	LifecycleExplainManaged
 //	LifecycleExplainUnmanaged
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ilm/explain_lifecycle/types.ts#L59-L62
-type LifecycleExplain interface{}
-
-// LifecycleExplainBuilder holds LifecycleExplain struct and provides a builder API.
-type LifecycleExplainBuilder struct {
-	v LifecycleExplain
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ilm/explain_lifecycle/types.ts#L59-L62
+type LifecycleExplain interface {
+	isLifecycleExplain()
 }
 
-// NewLifecycleExplain provides a builder for the LifecycleExplain struct.
-func NewLifecycleExplainBuilder() *LifecycleExplainBuilder {
-	return &LifecycleExplainBuilder{}
-}
+func (i LifecycleExplainManaged) isLifecycleExplain() {}
 
-// Build finalize the chain and returns the LifecycleExplain struct
-func (u *LifecycleExplainBuilder) Build() LifecycleExplain {
-	return u.v
-}
-
-func (u *LifecycleExplainBuilder) LifecycleExplainManaged(lifecycleexplainmanaged *LifecycleExplainManagedBuilder) *LifecycleExplainBuilder {
-	v := lifecycleexplainmanaged.Build()
-	u.v = &v
-	return u
-}
-
-func (u *LifecycleExplainBuilder) LifecycleExplainUnmanaged(lifecycleexplainunmanaged *LifecycleExplainUnmanagedBuilder) *LifecycleExplainBuilder {
-	v := lifecycleexplainunmanaged.Build()
-	u.v = &v
-	return u
-}
+func (i LifecycleExplainUnmanaged) isLifecycleExplain() {}

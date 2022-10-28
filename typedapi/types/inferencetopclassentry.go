@@ -17,51 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // InferenceTopClassEntry type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L648-L652
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L663-L667
 type InferenceTopClassEntry struct {
 	ClassName        FieldValue `json:"class_name"`
 	ClassProbability float64    `json:"class_probability"`
 	ClassScore       float64    `json:"class_score"`
 }
 
-// InferenceTopClassEntryBuilder holds InferenceTopClassEntry struct and provides a builder API.
-type InferenceTopClassEntryBuilder struct {
-	v *InferenceTopClassEntry
-}
+// NewInferenceTopClassEntry returns a InferenceTopClassEntry.
+func NewInferenceTopClassEntry() *InferenceTopClassEntry {
+	r := &InferenceTopClassEntry{}
 
-// NewInferenceTopClassEntry provides a builder for the InferenceTopClassEntry struct.
-func NewInferenceTopClassEntryBuilder() *InferenceTopClassEntryBuilder {
-	r := InferenceTopClassEntryBuilder{
-		&InferenceTopClassEntry{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the InferenceTopClassEntry struct
-func (rb *InferenceTopClassEntryBuilder) Build() InferenceTopClassEntry {
-	return *rb.v
-}
-
-func (rb *InferenceTopClassEntryBuilder) ClassName(classname *FieldValueBuilder) *InferenceTopClassEntryBuilder {
-	v := classname.Build()
-	rb.v.ClassName = v
-	return rb
-}
-
-func (rb *InferenceTopClassEntryBuilder) ClassProbability(classprobability float64) *InferenceTopClassEntryBuilder {
-	rb.v.ClassProbability = classprobability
-	return rb
-}
-
-func (rb *InferenceTopClassEntryBuilder) ClassScore(classscore float64) *InferenceTopClassEntryBuilder {
-	rb.v.ClassScore = classscore
-	return rb
+	return r
 }

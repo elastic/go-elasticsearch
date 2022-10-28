@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Transport type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/_types/Stats.ts#L413-L424
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L413-L424
 type Transport struct {
 	InboundHandlingTimeHistogram  []TransportHistogram `json:"inbound_handling_time_histogram,omitempty"`
 	OutboundHandlingTimeHistogram []TransportHistogram `json:"outbound_handling_time_histogram,omitempty"`
@@ -38,79 +38,9 @@ type Transport struct {
 	TxSizeInBytes                 *int64               `json:"tx_size_in_bytes,omitempty"`
 }
 
-// TransportBuilder holds Transport struct and provides a builder API.
-type TransportBuilder struct {
-	v *Transport
-}
+// NewTransport returns a Transport.
+func NewTransport() *Transport {
+	r := &Transport{}
 
-// NewTransport provides a builder for the Transport struct.
-func NewTransportBuilder() *TransportBuilder {
-	r := TransportBuilder{
-		&Transport{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Transport struct
-func (rb *TransportBuilder) Build() Transport {
-	return *rb.v
-}
-
-func (rb *TransportBuilder) InboundHandlingTimeHistogram(inbound_handling_time_histogram []TransportHistogramBuilder) *TransportBuilder {
-	tmp := make([]TransportHistogram, len(inbound_handling_time_histogram))
-	for _, value := range inbound_handling_time_histogram {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.InboundHandlingTimeHistogram = tmp
-	return rb
-}
-
-func (rb *TransportBuilder) OutboundHandlingTimeHistogram(outbound_handling_time_histogram []TransportHistogramBuilder) *TransportBuilder {
-	tmp := make([]TransportHistogram, len(outbound_handling_time_histogram))
-	for _, value := range outbound_handling_time_histogram {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.OutboundHandlingTimeHistogram = tmp
-	return rb
-}
-
-func (rb *TransportBuilder) RxCount(rxcount int64) *TransportBuilder {
-	rb.v.RxCount = &rxcount
-	return rb
-}
-
-func (rb *TransportBuilder) RxSize(rxsize string) *TransportBuilder {
-	rb.v.RxSize = &rxsize
-	return rb
-}
-
-func (rb *TransportBuilder) RxSizeInBytes(rxsizeinbytes int64) *TransportBuilder {
-	rb.v.RxSizeInBytes = &rxsizeinbytes
-	return rb
-}
-
-func (rb *TransportBuilder) ServerOpen(serveropen int) *TransportBuilder {
-	rb.v.ServerOpen = &serveropen
-	return rb
-}
-
-func (rb *TransportBuilder) TotalOutboundConnections(totaloutboundconnections int64) *TransportBuilder {
-	rb.v.TotalOutboundConnections = &totaloutboundconnections
-	return rb
-}
-
-func (rb *TransportBuilder) TxCount(txcount int64) *TransportBuilder {
-	rb.v.TxCount = &txcount
-	return rb
-}
-
-func (rb *TransportBuilder) TxSize(txsize string) *TransportBuilder {
-	rb.v.TxSize = &txsize
-	return rb
-}
-
-func (rb *TransportBuilder) TxSizeInBytes(txsizeinbytes int64) *TransportBuilder {
-	rb.v.TxSizeInBytes = &txsizeinbytes
-	return rb
+	return r
 }

@@ -17,54 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SpanOrQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/query_dsl/span.ts#L65-L67
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/span.ts#L65-L67
 type SpanOrQuery struct {
 	Boost      *float32    `json:"boost,omitempty"`
 	Clauses    []SpanQuery `json:"clauses"`
 	QueryName_ *string     `json:"_name,omitempty"`
 }
 
-// SpanOrQueryBuilder holds SpanOrQuery struct and provides a builder API.
-type SpanOrQueryBuilder struct {
-	v *SpanOrQuery
-}
+// NewSpanOrQuery returns a SpanOrQuery.
+func NewSpanOrQuery() *SpanOrQuery {
+	r := &SpanOrQuery{}
 
-// NewSpanOrQuery provides a builder for the SpanOrQuery struct.
-func NewSpanOrQueryBuilder() *SpanOrQueryBuilder {
-	r := SpanOrQueryBuilder{
-		&SpanOrQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SpanOrQuery struct
-func (rb *SpanOrQueryBuilder) Build() SpanOrQuery {
-	return *rb.v
-}
-
-func (rb *SpanOrQueryBuilder) Boost(boost float32) *SpanOrQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *SpanOrQueryBuilder) Clauses(clauses []SpanQueryBuilder) *SpanOrQueryBuilder {
-	tmp := make([]SpanQuery, len(clauses))
-	for _, value := range clauses {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Clauses = tmp
-	return rb
-}
-
-func (rb *SpanOrQueryBuilder) QueryName_(queryname_ string) *SpanOrQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
+	return r
 }

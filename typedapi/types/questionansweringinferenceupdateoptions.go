@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // QuestionAnsweringInferenceUpdateOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/inference.ts#L373-L384
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/inference.ts#L373-L384
 type QuestionAnsweringInferenceUpdateOptions struct {
 	// MaxAnswerLength The maximum answer length to consider for extraction
 	MaxAnswerLength *int `json:"max_answer_length,omitempty"`
@@ -39,58 +39,9 @@ type QuestionAnsweringInferenceUpdateOptions struct {
 	Tokenization *NlpTokenizationUpdateOptions `json:"tokenization,omitempty"`
 }
 
-// QuestionAnsweringInferenceUpdateOptionsBuilder holds QuestionAnsweringInferenceUpdateOptions struct and provides a builder API.
-type QuestionAnsweringInferenceUpdateOptionsBuilder struct {
-	v *QuestionAnsweringInferenceUpdateOptions
-}
+// NewQuestionAnsweringInferenceUpdateOptions returns a QuestionAnsweringInferenceUpdateOptions.
+func NewQuestionAnsweringInferenceUpdateOptions() *QuestionAnsweringInferenceUpdateOptions {
+	r := &QuestionAnsweringInferenceUpdateOptions{}
 
-// NewQuestionAnsweringInferenceUpdateOptions provides a builder for the QuestionAnsweringInferenceUpdateOptions struct.
-func NewQuestionAnsweringInferenceUpdateOptionsBuilder() *QuestionAnsweringInferenceUpdateOptionsBuilder {
-	r := QuestionAnsweringInferenceUpdateOptionsBuilder{
-		&QuestionAnsweringInferenceUpdateOptions{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the QuestionAnsweringInferenceUpdateOptions struct
-func (rb *QuestionAnsweringInferenceUpdateOptionsBuilder) Build() QuestionAnsweringInferenceUpdateOptions {
-	return *rb.v
-}
-
-// MaxAnswerLength The maximum answer length to consider for extraction
-
-func (rb *QuestionAnsweringInferenceUpdateOptionsBuilder) MaxAnswerLength(maxanswerlength int) *QuestionAnsweringInferenceUpdateOptionsBuilder {
-	rb.v.MaxAnswerLength = &maxanswerlength
-	return rb
-}
-
-// NumTopClasses Specifies the number of top class predictions to return. Defaults to 0.
-
-func (rb *QuestionAnsweringInferenceUpdateOptionsBuilder) NumTopClasses(numtopclasses int) *QuestionAnsweringInferenceUpdateOptionsBuilder {
-	rb.v.NumTopClasses = &numtopclasses
-	return rb
-}
-
-// Question The question to answer given the inference context
-
-func (rb *QuestionAnsweringInferenceUpdateOptionsBuilder) Question(question string) *QuestionAnsweringInferenceUpdateOptionsBuilder {
-	rb.v.Question = question
-	return rb
-}
-
-// ResultsField The field that is added to incoming documents to contain the inference
-// prediction. Defaults to predicted_value.
-
-func (rb *QuestionAnsweringInferenceUpdateOptionsBuilder) ResultsField(resultsfield string) *QuestionAnsweringInferenceUpdateOptionsBuilder {
-	rb.v.ResultsField = &resultsfield
-	return rb
-}
-
-// Tokenization The tokenization options to update when inferring
-
-func (rb *QuestionAnsweringInferenceUpdateOptionsBuilder) Tokenization(tokenization *NlpTokenizationUpdateOptionsBuilder) *QuestionAnsweringInferenceUpdateOptionsBuilder {
-	v := tokenization.Build()
-	rb.v.Tokenization = &v
-	return rb
+	return r
 }

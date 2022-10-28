@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CategorizationAnalyzerDefinition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/Analysis.ts#L127-L140
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/Analysis.ts#L127-L140
 type CategorizationAnalyzerDefinition struct {
 	// CharFilter One or more character filters. In addition to the built-in character filters,
 	// other plugins can provide more character filters. If this property is not
@@ -54,63 +54,9 @@ type CategorizationAnalyzerDefinition struct {
 	Tokenizer *Tokenizer `json:"tokenizer,omitempty"`
 }
 
-// CategorizationAnalyzerDefinitionBuilder holds CategorizationAnalyzerDefinition struct and provides a builder API.
-type CategorizationAnalyzerDefinitionBuilder struct {
-	v *CategorizationAnalyzerDefinition
-}
+// NewCategorizationAnalyzerDefinition returns a CategorizationAnalyzerDefinition.
+func NewCategorizationAnalyzerDefinition() *CategorizationAnalyzerDefinition {
+	r := &CategorizationAnalyzerDefinition{}
 
-// NewCategorizationAnalyzerDefinition provides a builder for the CategorizationAnalyzerDefinition struct.
-func NewCategorizationAnalyzerDefinitionBuilder() *CategorizationAnalyzerDefinitionBuilder {
-	r := CategorizationAnalyzerDefinitionBuilder{
-		&CategorizationAnalyzerDefinition{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the CategorizationAnalyzerDefinition struct
-func (rb *CategorizationAnalyzerDefinitionBuilder) Build() CategorizationAnalyzerDefinition {
-	return *rb.v
-}
-
-// CharFilter One or more character filters. In addition to the built-in character filters,
-// other plugins can provide more character filters. If this property is not
-// specified, no character filters are applied prior to categorization. If you
-// are customizing some other aspect of the analyzer and you need to achieve the
-// equivalent of `categorization_filters` (which are not permitted when some
-// other aspect of the analyzer is customized), add them here as pattern replace
-// character filters.
-
-func (rb *CategorizationAnalyzerDefinitionBuilder) CharFilter(char_filter ...CharFilter) *CategorizationAnalyzerDefinitionBuilder {
-	rb.v.CharFilter = char_filter
-	return rb
-}
-
-// Filter One or more token filters. In addition to the built-in token filters, other
-// plugins can provide more token filters. If this property is not specified, no
-// token filters are applied prior to categorization.
-
-func (rb *CategorizationAnalyzerDefinitionBuilder) Filter(filter ...TokenFilter) *CategorizationAnalyzerDefinitionBuilder {
-	rb.v.Filter = filter
-	return rb
-}
-
-// Tokenizer The name or definition of the tokenizer to use after character filters are
-// applied. This property is compulsory if `categorization_analyzer` is
-// specified as an object. Machine learning provides a tokenizer called
-// `ml_standard` that tokenizes in a way that has been determined to produce
-// good categorization results on a variety of log file formats for logs in
-// English. If you want to use that tokenizer but change the character or token
-// filters, specify "tokenizer": "ml_standard" in your
-// `categorization_analyzer`. Additionally, the `ml_classic` tokenizer is
-// available, which tokenizes in the same way as the non-customizable tokenizer
-// in old versions of the product (before 6.2). `ml_classic` was the default
-// categorization tokenizer in versions 6.2 to 7.13, so if you need
-// categorization identical to the default for jobs created in these versions,
-// specify "tokenizer": "ml_classic" in your `categorization_analyzer`.
-
-func (rb *CategorizationAnalyzerDefinitionBuilder) Tokenizer(tokenizer *TokenizerBuilder) *CategorizationAnalyzerDefinitionBuilder {
-	v := tokenizer.Build()
-	rb.v.Tokenizer = &v
-	return rb
+	return r
 }

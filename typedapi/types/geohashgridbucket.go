@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,11 +29,11 @@ import (
 
 // GeoHashGridBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L501-L503
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L509-L511
 type GeoHashGridBucket struct {
-	Aggregations map[AggregateName]Aggregate `json:"-"`
-	DocCount     int64                       `json:"doc_count"`
-	Key          GeoHash                     `json:"key"`
+	Aggregations map[string]Aggregate `json:"-"`
+	DocCount     int64                `json:"doc_count"`
+	Key          string               `json:"key"`
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -64,42 +64,11 @@ func (s GeoHashGridBucket) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// GeoHashGridBucketBuilder holds GeoHashGridBucket struct and provides a builder API.
-type GeoHashGridBucketBuilder struct {
-	v *GeoHashGridBucket
-}
-
-// NewGeoHashGridBucket provides a builder for the GeoHashGridBucket struct.
-func NewGeoHashGridBucketBuilder() *GeoHashGridBucketBuilder {
-	r := GeoHashGridBucketBuilder{
-		&GeoHashGridBucket{
-			Aggregations: make(map[AggregateName]Aggregate, 0),
-		},
+// NewGeoHashGridBucket returns a GeoHashGridBucket.
+func NewGeoHashGridBucket() *GeoHashGridBucket {
+	r := &GeoHashGridBucket{
+		Aggregations: make(map[string]Aggregate, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the GeoHashGridBucket struct
-func (rb *GeoHashGridBucketBuilder) Build() GeoHashGridBucket {
-	return *rb.v
-}
-
-func (rb *GeoHashGridBucketBuilder) Aggregations(values map[AggregateName]*AggregateBuilder) *GeoHashGridBucketBuilder {
-	tmp := make(map[AggregateName]Aggregate, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Aggregations = tmp
-	return rb
-}
-
-func (rb *GeoHashGridBucketBuilder) DocCount(doccount int64) *GeoHashGridBucketBuilder {
-	rb.v.DocCount = doccount
-	return rb
-}
-
-func (rb *GeoHashGridBucketBuilder) Key(key GeoHash) *GeoHashGridBucketBuilder {
-	rb.v.Key = key
-	return rb
+	return r
 }

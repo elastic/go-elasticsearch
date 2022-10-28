@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,11 +29,11 @@ import (
 
 // InferenceAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L635-L646
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L650-L661
 type InferenceAggregate struct {
 	Data              map[string]interface{}       `json:"-"`
 	FeatureImportance []InferenceFeatureImportance `json:"feature_importance,omitempty"`
-	Meta              *Metadata                    `json:"meta,omitempty"`
+	Meta              map[string]interface{}       `json:"meta,omitempty"`
 	TopClasses        []InferenceTopClassEntry     `json:"top_classes,omitempty"`
 	Value             *FieldValue                  `json:"value,omitempty"`
 	Warning           *string                      `json:"warning,omitempty"`
@@ -67,63 +67,11 @@ func (s InferenceAggregate) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// InferenceAggregateBuilder holds InferenceAggregate struct and provides a builder API.
-type InferenceAggregateBuilder struct {
-	v *InferenceAggregate
-}
-
-// NewInferenceAggregate provides a builder for the InferenceAggregate struct.
-func NewInferenceAggregateBuilder() *InferenceAggregateBuilder {
-	r := InferenceAggregateBuilder{
-		&InferenceAggregate{
-			Data: make(map[string]interface{}, 0),
-		},
+// NewInferenceAggregate returns a InferenceAggregate.
+func NewInferenceAggregate() *InferenceAggregate {
+	r := &InferenceAggregate{
+		Data: make(map[string]interface{}, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the InferenceAggregate struct
-func (rb *InferenceAggregateBuilder) Build() InferenceAggregate {
-	return *rb.v
-}
-
-func (rb *InferenceAggregateBuilder) Data(value map[string]interface{}) *InferenceAggregateBuilder {
-	rb.v.Data = value
-	return rb
-}
-
-func (rb *InferenceAggregateBuilder) FeatureImportance(feature_importance []InferenceFeatureImportanceBuilder) *InferenceAggregateBuilder {
-	tmp := make([]InferenceFeatureImportance, len(feature_importance))
-	for _, value := range feature_importance {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.FeatureImportance = tmp
-	return rb
-}
-
-func (rb *InferenceAggregateBuilder) Meta(meta *MetadataBuilder) *InferenceAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *InferenceAggregateBuilder) TopClasses(top_classes []InferenceTopClassEntryBuilder) *InferenceAggregateBuilder {
-	tmp := make([]InferenceTopClassEntry, len(top_classes))
-	for _, value := range top_classes {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.TopClasses = tmp
-	return rb
-}
-
-func (rb *InferenceAggregateBuilder) Value(value *FieldValueBuilder) *InferenceAggregateBuilder {
-	v := value.Build()
-	rb.v.Value = &v
-	return rb
-}
-
-func (rb *InferenceAggregateBuilder) Warning(warning string) *InferenceAggregateBuilder {
-	rb.v.Warning = &warning
-	return rb
+	return r
 }

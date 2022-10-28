@@ -17,50 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeAnalysisFeatureProcessorOneHotEncoding type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/DataframeAnalytics.ts#L288-L293
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/DataframeAnalytics.ts#L288-L293
 type DataframeAnalysisFeatureProcessorOneHotEncoding struct {
 	// Field The name of the field to encode.
-	Field Field `json:"field"`
+	Field string `json:"field"`
 	// HotMap The one hot map mapping the field value with the column name.
 	HotMap string `json:"hot_map"`
 }
 
-// DataframeAnalysisFeatureProcessorOneHotEncodingBuilder holds DataframeAnalysisFeatureProcessorOneHotEncoding struct and provides a builder API.
-type DataframeAnalysisFeatureProcessorOneHotEncodingBuilder struct {
-	v *DataframeAnalysisFeatureProcessorOneHotEncoding
-}
+// NewDataframeAnalysisFeatureProcessorOneHotEncoding returns a DataframeAnalysisFeatureProcessorOneHotEncoding.
+func NewDataframeAnalysisFeatureProcessorOneHotEncoding() *DataframeAnalysisFeatureProcessorOneHotEncoding {
+	r := &DataframeAnalysisFeatureProcessorOneHotEncoding{}
 
-// NewDataframeAnalysisFeatureProcessorOneHotEncoding provides a builder for the DataframeAnalysisFeatureProcessorOneHotEncoding struct.
-func NewDataframeAnalysisFeatureProcessorOneHotEncodingBuilder() *DataframeAnalysisFeatureProcessorOneHotEncodingBuilder {
-	r := DataframeAnalysisFeatureProcessorOneHotEncodingBuilder{
-		&DataframeAnalysisFeatureProcessorOneHotEncoding{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeAnalysisFeatureProcessorOneHotEncoding struct
-func (rb *DataframeAnalysisFeatureProcessorOneHotEncodingBuilder) Build() DataframeAnalysisFeatureProcessorOneHotEncoding {
-	return *rb.v
-}
-
-// Field The name of the field to encode.
-
-func (rb *DataframeAnalysisFeatureProcessorOneHotEncodingBuilder) Field(field Field) *DataframeAnalysisFeatureProcessorOneHotEncodingBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-// HotMap The one hot map mapping the field value with the column name.
-
-func (rb *DataframeAnalysisFeatureProcessorOneHotEncodingBuilder) HotMap(hotmap string) *DataframeAnalysisFeatureProcessorOneHotEncodingBuilder {
-	rb.v.HotMap = hotmap
-	return rb
+	return r
 }

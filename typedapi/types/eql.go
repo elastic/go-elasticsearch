@@ -17,63 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Eql type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/xpack/usage/types.ts#L333-L336
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L333-L336
 type Eql struct {
-	Available bool             `json:"available"`
-	Enabled   bool             `json:"enabled"`
-	Features  EqlFeatures      `json:"features"`
-	Queries   map[string]Query `json:"queries"`
+	Available bool                  `json:"available"`
+	Enabled   bool                  `json:"enabled"`
+	Features  EqlFeatures           `json:"features"`
+	Queries   map[string]XpackQuery `json:"queries"`
 }
 
-// EqlBuilder holds Eql struct and provides a builder API.
-type EqlBuilder struct {
-	v *Eql
-}
-
-// NewEql provides a builder for the Eql struct.
-func NewEqlBuilder() *EqlBuilder {
-	r := EqlBuilder{
-		&Eql{
-			Queries: make(map[string]Query, 0),
-		},
+// NewEql returns a Eql.
+func NewEql() *Eql {
+	r := &Eql{
+		Queries: make(map[string]XpackQuery, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the Eql struct
-func (rb *EqlBuilder) Build() Eql {
-	return *rb.v
-}
-
-func (rb *EqlBuilder) Available(available bool) *EqlBuilder {
-	rb.v.Available = available
-	return rb
-}
-
-func (rb *EqlBuilder) Enabled(enabled bool) *EqlBuilder {
-	rb.v.Enabled = enabled
-	return rb
-}
-
-func (rb *EqlBuilder) Features(features *EqlFeaturesBuilder) *EqlBuilder {
-	v := features.Build()
-	rb.v.Features = v
-	return rb
-}
-
-func (rb *EqlBuilder) Queries(values map[string]*QueryBuilder) *EqlBuilder {
-	tmp := make(map[string]Query, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Queries = tmp
-	return rb
+	return r
 }

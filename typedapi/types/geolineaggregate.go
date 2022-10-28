@@ -17,58 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // GeoLineAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L760-L767
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L775-L782
 type GeoLineAggregate struct {
-	Geometry   GeoLine     `json:"geometry"`
-	Meta       *Metadata   `json:"meta,omitempty"`
-	Properties interface{} `json:"properties,omitempty"`
-	Type       string      `json:"type"`
+	Geometry   GeoLine                `json:"geometry"`
+	Meta       map[string]interface{} `json:"meta,omitempty"`
+	Properties interface{}            `json:"properties,omitempty"`
+	Type       string                 `json:"type"`
 }
 
-// GeoLineAggregateBuilder holds GeoLineAggregate struct and provides a builder API.
-type GeoLineAggregateBuilder struct {
-	v *GeoLineAggregate
-}
+// NewGeoLineAggregate returns a GeoLineAggregate.
+func NewGeoLineAggregate() *GeoLineAggregate {
+	r := &GeoLineAggregate{}
 
-// NewGeoLineAggregate provides a builder for the GeoLineAggregate struct.
-func NewGeoLineAggregateBuilder() *GeoLineAggregateBuilder {
-	r := GeoLineAggregateBuilder{
-		&GeoLineAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the GeoLineAggregate struct
-func (rb *GeoLineAggregateBuilder) Build() GeoLineAggregate {
-	return *rb.v
-}
-
-func (rb *GeoLineAggregateBuilder) Geometry(geometry *GeoLineBuilder) *GeoLineAggregateBuilder {
-	v := geometry.Build()
-	rb.v.Geometry = v
-	return rb
-}
-
-func (rb *GeoLineAggregateBuilder) Meta(meta *MetadataBuilder) *GeoLineAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *GeoLineAggregateBuilder) Properties(properties interface{}) *GeoLineAggregateBuilder {
-	rb.v.Properties = properties
-	return rb
-}
-
-func (rb *GeoLineAggregateBuilder) Type_(type_ string) *GeoLineAggregateBuilder {
-	rb.v.Type = type_
-	return rb
+	return r
 }

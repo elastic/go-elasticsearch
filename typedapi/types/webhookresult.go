@@ -17,46 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // WebhookResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/watcher/_types/Actions.ts#L295-L298
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Actions.ts#L295-L298
 type WebhookResult struct {
 	Request  HttpInputRequestResult   `json:"request"`
 	Response *HttpInputResponseResult `json:"response,omitempty"`
 }
 
-// WebhookResultBuilder holds WebhookResult struct and provides a builder API.
-type WebhookResultBuilder struct {
-	v *WebhookResult
-}
+// NewWebhookResult returns a WebhookResult.
+func NewWebhookResult() *WebhookResult {
+	r := &WebhookResult{}
 
-// NewWebhookResult provides a builder for the WebhookResult struct.
-func NewWebhookResultBuilder() *WebhookResultBuilder {
-	r := WebhookResultBuilder{
-		&WebhookResult{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the WebhookResult struct
-func (rb *WebhookResultBuilder) Build() WebhookResult {
-	return *rb.v
-}
-
-func (rb *WebhookResultBuilder) Request(request *HttpInputRequestResultBuilder) *WebhookResultBuilder {
-	v := request.Build()
-	rb.v.Request = v
-	return rb
-}
-
-func (rb *WebhookResultBuilder) Response(response *HttpInputResponseResultBuilder) *WebhookResultBuilder {
-	v := response.Build()
-	rb.v.Response = &v
-	return rb
+	return r
 }

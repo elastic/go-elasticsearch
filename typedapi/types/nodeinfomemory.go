@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeInfoMemory type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/info/types.ts#L315-L318
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/info/types.ts#L315-L318
 type NodeInfoMemory struct {
 	Total        string `json:"total"`
 	TotalInBytes int64  `json:"total_in_bytes"`
 }
 
-// NodeInfoMemoryBuilder holds NodeInfoMemory struct and provides a builder API.
-type NodeInfoMemoryBuilder struct {
-	v *NodeInfoMemory
-}
+// NewNodeInfoMemory returns a NodeInfoMemory.
+func NewNodeInfoMemory() *NodeInfoMemory {
+	r := &NodeInfoMemory{}
 
-// NewNodeInfoMemory provides a builder for the NodeInfoMemory struct.
-func NewNodeInfoMemoryBuilder() *NodeInfoMemoryBuilder {
-	r := NodeInfoMemoryBuilder{
-		&NodeInfoMemory{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodeInfoMemory struct
-func (rb *NodeInfoMemoryBuilder) Build() NodeInfoMemory {
-	return *rb.v
-}
-
-func (rb *NodeInfoMemoryBuilder) Total(total string) *NodeInfoMemoryBuilder {
-	rb.v.Total = total
-	return rb
-}
-
-func (rb *NodeInfoMemoryBuilder) TotalInBytes(totalinbytes int64) *NodeInfoMemoryBuilder {
-	rb.v.TotalInBytes = totalinbytes
-	return rb
+	return r
 }

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ModelPlotConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/ModelPlot.ts#L23-L40
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/ModelPlot.ts#L23-L40
 type ModelPlotConfig struct {
 	// AnnotationsEnabled If true, enables calculation and storage of the model change annotations for
 	// each entity that is being analyzed.
@@ -36,50 +36,12 @@ type ModelPlotConfig struct {
 	// values. If terms are not specified or it is an empty string, no filtering is
 	// applied. Wildcards are not supported. Only the specified terms can be viewed
 	// when using the Single Metric Viewer.
-	Terms *Field `json:"terms,omitempty"`
+	Terms *string `json:"terms,omitempty"`
 }
 
-// ModelPlotConfigBuilder holds ModelPlotConfig struct and provides a builder API.
-type ModelPlotConfigBuilder struct {
-	v *ModelPlotConfig
-}
+// NewModelPlotConfig returns a ModelPlotConfig.
+func NewModelPlotConfig() *ModelPlotConfig {
+	r := &ModelPlotConfig{}
 
-// NewModelPlotConfig provides a builder for the ModelPlotConfig struct.
-func NewModelPlotConfigBuilder() *ModelPlotConfigBuilder {
-	r := ModelPlotConfigBuilder{
-		&ModelPlotConfig{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ModelPlotConfig struct
-func (rb *ModelPlotConfigBuilder) Build() ModelPlotConfig {
-	return *rb.v
-}
-
-// AnnotationsEnabled If true, enables calculation and storage of the model change annotations for
-// each entity that is being analyzed.
-
-func (rb *ModelPlotConfigBuilder) AnnotationsEnabled(annotationsenabled bool) *ModelPlotConfigBuilder {
-	rb.v.AnnotationsEnabled = &annotationsenabled
-	return rb
-}
-
-// Enabled If true, enables calculation and storage of the model bounds for each entity
-// that is being analyzed.
-
-func (rb *ModelPlotConfigBuilder) Enabled(enabled bool) *ModelPlotConfigBuilder {
-	rb.v.Enabled = &enabled
-	return rb
-}
-
-// Terms Limits data collection to this comma separated list of partition or by field
-// values. If terms are not specified or it is an empty string, no filtering is
-// applied. Wildcards are not supported. Only the specified terms can be viewed
-// when using the Single Metric Viewer.
-
-func (rb *ModelPlotConfigBuilder) Terms(terms Field) *ModelPlotConfigBuilder {
-	rb.v.Terms = &terms
-	return rb
+	return r
 }

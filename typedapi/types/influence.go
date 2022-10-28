@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Influence type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/Anomaly.ts#L66-L69
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/Anomaly.ts#L66-L69
 type Influence struct {
 	InfluencerFieldName   string   `json:"influencer_field_name"`
 	InfluencerFieldValues []string `json:"influencer_field_values"`
 }
 
-// InfluenceBuilder holds Influence struct and provides a builder API.
-type InfluenceBuilder struct {
-	v *Influence
-}
+// NewInfluence returns a Influence.
+func NewInfluence() *Influence {
+	r := &Influence{}
 
-// NewInfluence provides a builder for the Influence struct.
-func NewInfluenceBuilder() *InfluenceBuilder {
-	r := InfluenceBuilder{
-		&Influence{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Influence struct
-func (rb *InfluenceBuilder) Build() Influence {
-	return *rb.v
-}
-
-func (rb *InfluenceBuilder) InfluencerFieldName(influencerfieldname string) *InfluenceBuilder {
-	rb.v.InfluencerFieldName = influencerfieldname
-	return rb
-}
-
-func (rb *InfluenceBuilder) InfluencerFieldValues(influencer_field_values ...string) *InfluenceBuilder {
-	rb.v.InfluencerFieldValues = influencer_field_values
-	return rb
+	return r
 }

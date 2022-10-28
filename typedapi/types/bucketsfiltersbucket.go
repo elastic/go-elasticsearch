@@ -17,48 +17,15 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // BucketsFiltersBucket holds the union for the following types:
 //
-//	[]FiltersBucket
 //	map[string]FiltersBucket
+//	[]FiltersBucket
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L307-L316
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L315-L324
 type BucketsFiltersBucket interface{}
-
-// BucketsFiltersBucketBuilder holds BucketsFiltersBucket struct and provides a builder API.
-type BucketsFiltersBucketBuilder struct {
-	v BucketsFiltersBucket
-}
-
-// NewBucketsFiltersBucket provides a builder for the BucketsFiltersBucket struct.
-func NewBucketsFiltersBucketBuilder() *BucketsFiltersBucketBuilder {
-	return &BucketsFiltersBucketBuilder{}
-}
-
-// Build finalize the chain and returns the BucketsFiltersBucket struct
-func (u *BucketsFiltersBucketBuilder) Build() BucketsFiltersBucket {
-	return u.v
-}
-
-func (u *BucketsFiltersBucketBuilder) FiltersBuckets(filtersbuckets []FiltersBucketBuilder) *BucketsFiltersBucketBuilder {
-	tmp := make([]FiltersBucket, len(filtersbuckets))
-	for _, value := range filtersbuckets {
-		tmp = append(tmp, value.Build())
-	}
-	u.v = tmp
-	return u
-}
-
-func (u *BucketsFiltersBucketBuilder) Map(values map[string]*FiltersBucketBuilder) *BucketsFiltersBucketBuilder {
-	tmp := make(map[string]FiltersBucket, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	u.v = tmp
-	return u
-}

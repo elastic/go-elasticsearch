@@ -17,51 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RateAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L717-L721
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L732-L736
 type RateAggregate struct {
-	Meta          *Metadata `json:"meta,omitempty"`
-	Value         float64   `json:"value"`
-	ValueAsString *string   `json:"value_as_string,omitempty"`
+	Meta          map[string]interface{} `json:"meta,omitempty"`
+	Value         float64                `json:"value"`
+	ValueAsString *string                `json:"value_as_string,omitempty"`
 }
 
-// RateAggregateBuilder holds RateAggregate struct and provides a builder API.
-type RateAggregateBuilder struct {
-	v *RateAggregate
-}
+// NewRateAggregate returns a RateAggregate.
+func NewRateAggregate() *RateAggregate {
+	r := &RateAggregate{}
 
-// NewRateAggregate provides a builder for the RateAggregate struct.
-func NewRateAggregateBuilder() *RateAggregateBuilder {
-	r := RateAggregateBuilder{
-		&RateAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RateAggregate struct
-func (rb *RateAggregateBuilder) Build() RateAggregate {
-	return *rb.v
-}
-
-func (rb *RateAggregateBuilder) Meta(meta *MetadataBuilder) *RateAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *RateAggregateBuilder) Value(value float64) *RateAggregateBuilder {
-	rb.v.Value = value
-	return rb
-}
-
-func (rb *RateAggregateBuilder) ValueAsString(valueasstring string) *RateAggregateBuilder {
-	rb.v.ValueAsString = &valueasstring
-	return rb
+	return r
 }

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RankEvalMetricRatingTreshold type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_global/rank_eval/types.ts#L34-L40
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/rank_eval/types.ts#L34-L40
 type RankEvalMetricRatingTreshold struct {
 	// K Sets the maximum number of documents retrieved per query. This value will act
 	// in place of the usual size parameter in the query.
@@ -34,37 +34,9 @@ type RankEvalMetricRatingTreshold struct {
 	RelevantRatingThreshold *int `json:"relevant_rating_threshold,omitempty"`
 }
 
-// RankEvalMetricRatingTresholdBuilder holds RankEvalMetricRatingTreshold struct and provides a builder API.
-type RankEvalMetricRatingTresholdBuilder struct {
-	v *RankEvalMetricRatingTreshold
-}
+// NewRankEvalMetricRatingTreshold returns a RankEvalMetricRatingTreshold.
+func NewRankEvalMetricRatingTreshold() *RankEvalMetricRatingTreshold {
+	r := &RankEvalMetricRatingTreshold{}
 
-// NewRankEvalMetricRatingTreshold provides a builder for the RankEvalMetricRatingTreshold struct.
-func NewRankEvalMetricRatingTresholdBuilder() *RankEvalMetricRatingTresholdBuilder {
-	r := RankEvalMetricRatingTresholdBuilder{
-		&RankEvalMetricRatingTreshold{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RankEvalMetricRatingTreshold struct
-func (rb *RankEvalMetricRatingTresholdBuilder) Build() RankEvalMetricRatingTreshold {
-	return *rb.v
-}
-
-// K Sets the maximum number of documents retrieved per query. This value will act
-// in place of the usual size parameter in the query.
-
-func (rb *RankEvalMetricRatingTresholdBuilder) K(k int) *RankEvalMetricRatingTresholdBuilder {
-	rb.v.K = &k
-	return rb
-}
-
-// RelevantRatingThreshold Sets the rating threshold above which documents are considered to be
-// "relevant".
-
-func (rb *RankEvalMetricRatingTresholdBuilder) RelevantRatingThreshold(relevantratingthreshold int) *RankEvalMetricRatingTresholdBuilder {
-	rb.v.RelevantRatingThreshold = &relevantratingthreshold
-	return rb
+	return r
 }

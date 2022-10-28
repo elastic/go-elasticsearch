@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IndexField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/mapping/meta-fields.ts#L46-L48
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/meta-fields.ts#L46-L48
 type IndexField struct {
 	Enabled bool `json:"enabled"`
 }
 
-// IndexFieldBuilder holds IndexField struct and provides a builder API.
-type IndexFieldBuilder struct {
-	v *IndexField
-}
+// NewIndexField returns a IndexField.
+func NewIndexField() *IndexField {
+	r := &IndexField{}
 
-// NewIndexField provides a builder for the IndexField struct.
-func NewIndexFieldBuilder() *IndexFieldBuilder {
-	r := IndexFieldBuilder{
-		&IndexField{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IndexField struct
-func (rb *IndexFieldBuilder) Build() IndexField {
-	return *rb.v
-}
-
-func (rb *IndexFieldBuilder) Enabled(enabled bool) *IndexFieldBuilder {
-	rb.v.Enabled = enabled
-	return rb
+	return r
 }

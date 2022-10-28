@@ -17,84 +17,28 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IndexTemplate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/_types/IndexTemplate.ts#L27-L37
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/IndexTemplate.ts#L27-L37
 type IndexTemplate struct {
 	AllowAutoCreate *bool                                 `json:"allow_auto_create,omitempty"`
-	ComposedOf      []Name                                `json:"composed_of"`
+	ComposedOf      []string                              `json:"composed_of"`
 	DataStream      *IndexTemplateDataStreamConfiguration `json:"data_stream,omitempty"`
-	IndexPatterns   Names                                 `json:"index_patterns"`
-	Meta_           *Metadata                             `json:"_meta,omitempty"`
+	IndexPatterns   []string                              `json:"index_patterns"`
+	Meta_           map[string]interface{}                `json:"_meta,omitempty"`
 	Priority        *int64                                `json:"priority,omitempty"`
 	Template        *IndexTemplateSummary                 `json:"template,omitempty"`
-	Version         *VersionNumber                        `json:"version,omitempty"`
+	Version         *int64                                `json:"version,omitempty"`
 }
 
-// IndexTemplateBuilder holds IndexTemplate struct and provides a builder API.
-type IndexTemplateBuilder struct {
-	v *IndexTemplate
-}
+// NewIndexTemplate returns a IndexTemplate.
+func NewIndexTemplate() *IndexTemplate {
+	r := &IndexTemplate{}
 
-// NewIndexTemplate provides a builder for the IndexTemplate struct.
-func NewIndexTemplateBuilder() *IndexTemplateBuilder {
-	r := IndexTemplateBuilder{
-		&IndexTemplate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IndexTemplate struct
-func (rb *IndexTemplateBuilder) Build() IndexTemplate {
-	return *rb.v
-}
-
-func (rb *IndexTemplateBuilder) AllowAutoCreate(allowautocreate bool) *IndexTemplateBuilder {
-	rb.v.AllowAutoCreate = &allowautocreate
-	return rb
-}
-
-func (rb *IndexTemplateBuilder) ComposedOf(composed_of ...Name) *IndexTemplateBuilder {
-	rb.v.ComposedOf = composed_of
-	return rb
-}
-
-func (rb *IndexTemplateBuilder) DataStream(datastream *IndexTemplateDataStreamConfigurationBuilder) *IndexTemplateBuilder {
-	v := datastream.Build()
-	rb.v.DataStream = &v
-	return rb
-}
-
-func (rb *IndexTemplateBuilder) IndexPatterns(indexpatterns *NamesBuilder) *IndexTemplateBuilder {
-	v := indexpatterns.Build()
-	rb.v.IndexPatterns = v
-	return rb
-}
-
-func (rb *IndexTemplateBuilder) Meta_(meta_ *MetadataBuilder) *IndexTemplateBuilder {
-	v := meta_.Build()
-	rb.v.Meta_ = &v
-	return rb
-}
-
-func (rb *IndexTemplateBuilder) Priority(priority int64) *IndexTemplateBuilder {
-	rb.v.Priority = &priority
-	return rb
-}
-
-func (rb *IndexTemplateBuilder) Template(template *IndexTemplateSummaryBuilder) *IndexTemplateBuilder {
-	v := template.Build()
-	rb.v.Template = &v
-	return rb
-}
-
-func (rb *IndexTemplateBuilder) Version(version VersionNumber) *IndexTemplateBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

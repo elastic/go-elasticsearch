@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,105 +28,31 @@ import (
 
 // ObjectProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/mapping/complex.ts#L46-L49
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/complex.ts#L46-L49
 type ObjectProperty struct {
-	CopyTo        *Fields                        `json:"copy_to,omitempty"`
+	CopyTo        []string                       `json:"copy_to,omitempty"`
 	Dynamic       *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
 	Enabled       *bool                          `json:"enabled,omitempty"`
-	Fields        map[PropertyName]Property      `json:"fields,omitempty"`
+	Fields        map[string]Property            `json:"fields,omitempty"`
 	IgnoreAbove   *int                           `json:"ignore_above,omitempty"`
-	LocalMetadata *Metadata                      `json:"local_metadata,omitempty"`
+	LocalMetadata map[string]interface{}         `json:"local_metadata,omitempty"`
 	// Meta Metadata about the field.
-	Meta       map[string]string         `json:"meta,omitempty"`
-	Properties map[PropertyName]Property `json:"properties,omitempty"`
-	Similarity *string                   `json:"similarity,omitempty"`
-	Store      *bool                     `json:"store,omitempty"`
-	Type       string                    `json:"type,omitempty"`
+	Meta       map[string]string   `json:"meta,omitempty"`
+	Properties map[string]Property `json:"properties,omitempty"`
+	Similarity *string             `json:"similarity,omitempty"`
+	Store      *bool               `json:"store,omitempty"`
+	Type       string              `json:"type,omitempty"`
 }
 
-// ObjectPropertyBuilder holds ObjectProperty struct and provides a builder API.
-type ObjectPropertyBuilder struct {
-	v *ObjectProperty
-}
-
-// NewObjectProperty provides a builder for the ObjectProperty struct.
-func NewObjectPropertyBuilder() *ObjectPropertyBuilder {
-	r := ObjectPropertyBuilder{
-		&ObjectProperty{
-			Fields:     make(map[PropertyName]Property, 0),
-			Meta:       make(map[string]string, 0),
-			Properties: make(map[PropertyName]Property, 0),
-		},
+// NewObjectProperty returns a ObjectProperty.
+func NewObjectProperty() *ObjectProperty {
+	r := &ObjectProperty{
+		Fields:     make(map[string]Property, 0),
+		Meta:       make(map[string]string, 0),
+		Properties: make(map[string]Property, 0),
 	}
 
-	r.v.Type = "object"
+	r.Type = "object"
 
-	return &r
-}
-
-// Build finalize the chain and returns the ObjectProperty struct
-func (rb *ObjectPropertyBuilder) Build() ObjectProperty {
-	return *rb.v
-}
-
-func (rb *ObjectPropertyBuilder) CopyTo(copyto *FieldsBuilder) *ObjectPropertyBuilder {
-	v := copyto.Build()
-	rb.v.CopyTo = &v
-	return rb
-}
-
-func (rb *ObjectPropertyBuilder) Dynamic(dynamic dynamicmapping.DynamicMapping) *ObjectPropertyBuilder {
-	rb.v.Dynamic = &dynamic
-	return rb
-}
-
-func (rb *ObjectPropertyBuilder) Enabled(enabled bool) *ObjectPropertyBuilder {
-	rb.v.Enabled = &enabled
-	return rb
-}
-
-func (rb *ObjectPropertyBuilder) Fields(values map[PropertyName]*PropertyBuilder) *ObjectPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Fields = tmp
-	return rb
-}
-
-func (rb *ObjectPropertyBuilder) IgnoreAbove(ignoreabove int) *ObjectPropertyBuilder {
-	rb.v.IgnoreAbove = &ignoreabove
-	return rb
-}
-
-func (rb *ObjectPropertyBuilder) LocalMetadata(localmetadata *MetadataBuilder) *ObjectPropertyBuilder {
-	v := localmetadata.Build()
-	rb.v.LocalMetadata = &v
-	return rb
-}
-
-// Meta Metadata about the field.
-
-func (rb *ObjectPropertyBuilder) Meta(value map[string]string) *ObjectPropertyBuilder {
-	rb.v.Meta = value
-	return rb
-}
-
-func (rb *ObjectPropertyBuilder) Properties(values map[PropertyName]*PropertyBuilder) *ObjectPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Properties = tmp
-	return rb
-}
-
-func (rb *ObjectPropertyBuilder) Similarity(similarity string) *ObjectPropertyBuilder {
-	rb.v.Similarity = &similarity
-	return rb
-}
-
-func (rb *ObjectPropertyBuilder) Store(store bool) *ObjectPropertyBuilder {
-	rb.v.Store = &store
-	return rb
+	return r
 }

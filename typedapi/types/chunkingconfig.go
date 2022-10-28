@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // ChunkingConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/Datafeed.ts#L177-L190
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/Datafeed.ts#L177-L190
 type ChunkingConfig struct {
 	// Mode If the mode is `auto`, the chunk size is dynamically calculated;
 	// this is the recommended value when the datafeed does not use aggregations.
@@ -42,42 +42,9 @@ type ChunkingConfig struct {
 	TimeSpan *Duration `json:"time_span,omitempty"`
 }
 
-// ChunkingConfigBuilder holds ChunkingConfig struct and provides a builder API.
-type ChunkingConfigBuilder struct {
-	v *ChunkingConfig
-}
+// NewChunkingConfig returns a ChunkingConfig.
+func NewChunkingConfig() *ChunkingConfig {
+	r := &ChunkingConfig{}
 
-// NewChunkingConfig provides a builder for the ChunkingConfig struct.
-func NewChunkingConfigBuilder() *ChunkingConfigBuilder {
-	r := ChunkingConfigBuilder{
-		&ChunkingConfig{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ChunkingConfig struct
-func (rb *ChunkingConfigBuilder) Build() ChunkingConfig {
-	return *rb.v
-}
-
-// Mode If the mode is `auto`, the chunk size is dynamically calculated;
-// this is the recommended value when the datafeed does not use aggregations.
-// If the mode is `manual`, chunking is applied according to the specified
-// `time_span`;
-// use this mode when the datafeed uses aggregations. If the mode is `off`, no
-// chunking is applied.
-
-func (rb *ChunkingConfigBuilder) Mode(mode chunkingmode.ChunkingMode) *ChunkingConfigBuilder {
-	rb.v.Mode = mode
-	return rb
-}
-
-// TimeSpan The time span that each search will be querying. This setting is applicable
-// only when the `mode` is set to `manual`.
-
-func (rb *ChunkingConfigBuilder) TimeSpan(timespan *DurationBuilder) *ChunkingConfigBuilder {
-	v := timespan.Build()
-	rb.v.TimeSpan = &v
-	return rb
+	return r
 }

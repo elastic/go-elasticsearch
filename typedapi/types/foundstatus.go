@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FoundStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/security/delete_privileges/types.ts#L20-L22
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/delete_privileges/types.ts#L20-L22
 type FoundStatus struct {
 	Found bool `json:"found"`
 }
 
-// FoundStatusBuilder holds FoundStatus struct and provides a builder API.
-type FoundStatusBuilder struct {
-	v *FoundStatus
-}
+// NewFoundStatus returns a FoundStatus.
+func NewFoundStatus() *FoundStatus {
+	r := &FoundStatus{}
 
-// NewFoundStatus provides a builder for the FoundStatus struct.
-func NewFoundStatusBuilder() *FoundStatusBuilder {
-	r := FoundStatusBuilder{
-		&FoundStatus{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FoundStatus struct
-func (rb *FoundStatusBuilder) Build() FoundStatus {
-	return *rb.v
-}
-
-func (rb *FoundStatusBuilder) Found(found bool) *FoundStatusBuilder {
-	rb.v.Found = found
-	return rb
+	return r
 }

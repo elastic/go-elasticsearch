@@ -17,60 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CountRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/cat/count/types.ts#L23-L39
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cat/count/types.ts#L23-L39
 type CountRecord struct {
 	// Count the document count
 	Count *string `json:"count,omitempty"`
 	// Epoch seconds since 1970-01-01 00:00:00
 	Epoch *StringifiedEpochTimeUnitSeconds `json:"epoch,omitempty"`
 	// Timestamp time in HH:MM:SS
-	Timestamp *TimeOfDay `json:"timestamp,omitempty"`
+	Timestamp *string `json:"timestamp,omitempty"`
 }
 
-// CountRecordBuilder holds CountRecord struct and provides a builder API.
-type CountRecordBuilder struct {
-	v *CountRecord
-}
+// NewCountRecord returns a CountRecord.
+func NewCountRecord() *CountRecord {
+	r := &CountRecord{}
 
-// NewCountRecord provides a builder for the CountRecord struct.
-func NewCountRecordBuilder() *CountRecordBuilder {
-	r := CountRecordBuilder{
-		&CountRecord{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the CountRecord struct
-func (rb *CountRecordBuilder) Build() CountRecord {
-	return *rb.v
-}
-
-// Count the document count
-
-func (rb *CountRecordBuilder) Count(count string) *CountRecordBuilder {
-	rb.v.Count = &count
-	return rb
-}
-
-// Epoch seconds since 1970-01-01 00:00:00
-
-func (rb *CountRecordBuilder) Epoch(epoch *StringifiedEpochTimeUnitSecondsBuilder) *CountRecordBuilder {
-	v := epoch.Build()
-	rb.v.Epoch = &v
-	return rb
-}
-
-// Timestamp time in HH:MM:SS
-
-func (rb *CountRecordBuilder) Timestamp(timestamp TimeOfDay) *CountRecordBuilder {
-	rb.v.Timestamp = &timestamp
-	return rb
+	return r
 }

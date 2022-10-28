@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodePackagingType type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/cluster/stats/types.ts#L276-L280
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/stats/types.ts#L276-L280
 type NodePackagingType struct {
 	Count  int    `json:"count"`
 	Flavor string `json:"flavor"`
 	Type   string `json:"type"`
 }
 
-// NodePackagingTypeBuilder holds NodePackagingType struct and provides a builder API.
-type NodePackagingTypeBuilder struct {
-	v *NodePackagingType
-}
+// NewNodePackagingType returns a NodePackagingType.
+func NewNodePackagingType() *NodePackagingType {
+	r := &NodePackagingType{}
 
-// NewNodePackagingType provides a builder for the NodePackagingType struct.
-func NewNodePackagingTypeBuilder() *NodePackagingTypeBuilder {
-	r := NodePackagingTypeBuilder{
-		&NodePackagingType{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodePackagingType struct
-func (rb *NodePackagingTypeBuilder) Build() NodePackagingType {
-	return *rb.v
-}
-
-func (rb *NodePackagingTypeBuilder) Count(count int) *NodePackagingTypeBuilder {
-	rb.v.Count = count
-	return rb
-}
-
-func (rb *NodePackagingTypeBuilder) Flavor(flavor string) *NodePackagingTypeBuilder {
-	rb.v.Flavor = flavor
-	return rb
-}
-
-func (rb *NodePackagingTypeBuilder) Type_(type_ string) *NodePackagingTypeBuilder {
-	rb.v.Type = type_
-	return rb
+	return r
 }

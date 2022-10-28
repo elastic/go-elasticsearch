@@ -17,46 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FieldSecurity type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/security/_types/FieldSecurity.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/_types/FieldSecurity.ts#L22-L25
 type FieldSecurity struct {
-	Except *Fields `json:"except,omitempty"`
-	Grant  Fields  `json:"grant"`
+	Except []string `json:"except,omitempty"`
+	Grant  []string `json:"grant,omitempty"`
 }
 
-// FieldSecurityBuilder holds FieldSecurity struct and provides a builder API.
-type FieldSecurityBuilder struct {
-	v *FieldSecurity
-}
+// NewFieldSecurity returns a FieldSecurity.
+func NewFieldSecurity() *FieldSecurity {
+	r := &FieldSecurity{}
 
-// NewFieldSecurity provides a builder for the FieldSecurity struct.
-func NewFieldSecurityBuilder() *FieldSecurityBuilder {
-	r := FieldSecurityBuilder{
-		&FieldSecurity{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FieldSecurity struct
-func (rb *FieldSecurityBuilder) Build() FieldSecurity {
-	return *rb.v
-}
-
-func (rb *FieldSecurityBuilder) Except(except *FieldsBuilder) *FieldSecurityBuilder {
-	v := except.Build()
-	rb.v.Except = &v
-	return rb
-}
-
-func (rb *FieldSecurityBuilder) Grant(grant *FieldsBuilder) *FieldSecurityBuilder {
-	v := grant.Build()
-	rb.v.Grant = v
-	return rb
+	return r
 }

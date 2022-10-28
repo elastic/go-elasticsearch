@@ -17,42 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FollowStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ccr/stats/types.ts.ts#L41-L43
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ccr/stats/types.ts.ts#L41-L43
 type FollowStats struct {
 	Indices []FollowIndexStats `json:"indices"`
 }
 
-// FollowStatsBuilder holds FollowStats struct and provides a builder API.
-type FollowStatsBuilder struct {
-	v *FollowStats
-}
+// NewFollowStats returns a FollowStats.
+func NewFollowStats() *FollowStats {
+	r := &FollowStats{}
 
-// NewFollowStats provides a builder for the FollowStats struct.
-func NewFollowStatsBuilder() *FollowStatsBuilder {
-	r := FollowStatsBuilder{
-		&FollowStats{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FollowStats struct
-func (rb *FollowStatsBuilder) Build() FollowStats {
-	return *rb.v
-}
-
-func (rb *FollowStatsBuilder) Indices(indices []FollowIndexStatsBuilder) *FollowStatsBuilder {
-	tmp := make([]FollowIndexStats, len(indices))
-	for _, value := range indices {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Indices = tmp
-	return rb
+	return r
 }

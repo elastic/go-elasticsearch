@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeEvaluationClass type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/evaluate_data_frame/types.ts#L75-L77
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/evaluate_data_frame/types.ts#L75-L77
 type DataframeEvaluationClass struct {
-	ClassName Name    `json:"class_name"`
+	ClassName string  `json:"class_name"`
 	Value     float64 `json:"value"`
 }
 
-// DataframeEvaluationClassBuilder holds DataframeEvaluationClass struct and provides a builder API.
-type DataframeEvaluationClassBuilder struct {
-	v *DataframeEvaluationClass
-}
+// NewDataframeEvaluationClass returns a DataframeEvaluationClass.
+func NewDataframeEvaluationClass() *DataframeEvaluationClass {
+	r := &DataframeEvaluationClass{}
 
-// NewDataframeEvaluationClass provides a builder for the DataframeEvaluationClass struct.
-func NewDataframeEvaluationClassBuilder() *DataframeEvaluationClassBuilder {
-	r := DataframeEvaluationClassBuilder{
-		&DataframeEvaluationClass{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeEvaluationClass struct
-func (rb *DataframeEvaluationClassBuilder) Build() DataframeEvaluationClass {
-	return *rb.v
-}
-
-func (rb *DataframeEvaluationClassBuilder) ClassName(classname Name) *DataframeEvaluationClassBuilder {
-	rb.v.ClassName = classname
-	return rb
-}
-
-func (rb *DataframeEvaluationClassBuilder) Value(value float64) *DataframeEvaluationClassBuilder {
-	rb.v.Value = value
-	return rb
+	return r
 }

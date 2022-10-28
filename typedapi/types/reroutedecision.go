@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RerouteDecision type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/cluster/reroute/types.ts#L86-L90
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/reroute/types.ts#L86-L90
 type RerouteDecision struct {
 	Decider     string `json:"decider"`
 	Decision    string `json:"decision"`
 	Explanation string `json:"explanation"`
 }
 
-// RerouteDecisionBuilder holds RerouteDecision struct and provides a builder API.
-type RerouteDecisionBuilder struct {
-	v *RerouteDecision
-}
+// NewRerouteDecision returns a RerouteDecision.
+func NewRerouteDecision() *RerouteDecision {
+	r := &RerouteDecision{}
 
-// NewRerouteDecision provides a builder for the RerouteDecision struct.
-func NewRerouteDecisionBuilder() *RerouteDecisionBuilder {
-	r := RerouteDecisionBuilder{
-		&RerouteDecision{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RerouteDecision struct
-func (rb *RerouteDecisionBuilder) Build() RerouteDecision {
-	return *rb.v
-}
-
-func (rb *RerouteDecisionBuilder) Decider(decider string) *RerouteDecisionBuilder {
-	rb.v.Decider = decider
-	return rb
-}
-
-func (rb *RerouteDecisionBuilder) Decision(decision string) *RerouteDecisionBuilder {
-	rb.v.Decision = decision
-	return rb
-}
-
-func (rb *RerouteDecisionBuilder) Explanation(explanation string) *RerouteDecisionBuilder {
-	rb.v.Explanation = explanation
-	return rb
+	return r
 }

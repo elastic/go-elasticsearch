@@ -17,89 +17,33 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AutoFollowPatternSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ccr/get_auto_follow_pattern/types.ts#L28-L51
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ccr/get_auto_follow_pattern/types.ts#L28-L51
 type AutoFollowPatternSummary struct {
 	Active bool `json:"active"`
 	// FollowIndexPattern The name of follower index.
-	FollowIndexPattern *IndexPattern `json:"follow_index_pattern,omitempty"`
+	FollowIndexPattern *string `json:"follow_index_pattern,omitempty"`
 	// LeaderIndexExclusionPatterns An array of simple index patterns that can be used to exclude indices from
 	// being auto-followed.
-	LeaderIndexExclusionPatterns IndexPatterns `json:"leader_index_exclusion_patterns"`
+	LeaderIndexExclusionPatterns []string `json:"leader_index_exclusion_patterns"`
 	// LeaderIndexPatterns An array of simple index patterns to match against indices in the remote
 	// cluster specified by the remote_cluster field.
-	LeaderIndexPatterns IndexPatterns `json:"leader_index_patterns"`
+	LeaderIndexPatterns []string `json:"leader_index_patterns"`
 	// MaxOutstandingReadRequests The maximum number of outstanding reads requests from the remote cluster.
 	MaxOutstandingReadRequests int `json:"max_outstanding_read_requests"`
 	// RemoteCluster The remote cluster containing the leader indices to match against.
 	RemoteCluster string `json:"remote_cluster"`
 }
 
-// AutoFollowPatternSummaryBuilder holds AutoFollowPatternSummary struct and provides a builder API.
-type AutoFollowPatternSummaryBuilder struct {
-	v *AutoFollowPatternSummary
-}
+// NewAutoFollowPatternSummary returns a AutoFollowPatternSummary.
+func NewAutoFollowPatternSummary() *AutoFollowPatternSummary {
+	r := &AutoFollowPatternSummary{}
 
-// NewAutoFollowPatternSummary provides a builder for the AutoFollowPatternSummary struct.
-func NewAutoFollowPatternSummaryBuilder() *AutoFollowPatternSummaryBuilder {
-	r := AutoFollowPatternSummaryBuilder{
-		&AutoFollowPatternSummary{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the AutoFollowPatternSummary struct
-func (rb *AutoFollowPatternSummaryBuilder) Build() AutoFollowPatternSummary {
-	return *rb.v
-}
-
-func (rb *AutoFollowPatternSummaryBuilder) Active(active bool) *AutoFollowPatternSummaryBuilder {
-	rb.v.Active = active
-	return rb
-}
-
-// FollowIndexPattern The name of follower index.
-
-func (rb *AutoFollowPatternSummaryBuilder) FollowIndexPattern(followindexpattern IndexPattern) *AutoFollowPatternSummaryBuilder {
-	rb.v.FollowIndexPattern = &followindexpattern
-	return rb
-}
-
-// LeaderIndexExclusionPatterns An array of simple index patterns that can be used to exclude indices from
-// being auto-followed.
-
-func (rb *AutoFollowPatternSummaryBuilder) LeaderIndexExclusionPatterns(leaderindexexclusionpatterns *IndexPatternsBuilder) *AutoFollowPatternSummaryBuilder {
-	v := leaderindexexclusionpatterns.Build()
-	rb.v.LeaderIndexExclusionPatterns = v
-	return rb
-}
-
-// LeaderIndexPatterns An array of simple index patterns to match against indices in the remote
-// cluster specified by the remote_cluster field.
-
-func (rb *AutoFollowPatternSummaryBuilder) LeaderIndexPatterns(leaderindexpatterns *IndexPatternsBuilder) *AutoFollowPatternSummaryBuilder {
-	v := leaderindexpatterns.Build()
-	rb.v.LeaderIndexPatterns = v
-	return rb
-}
-
-// MaxOutstandingReadRequests The maximum number of outstanding reads requests from the remote cluster.
-
-func (rb *AutoFollowPatternSummaryBuilder) MaxOutstandingReadRequests(maxoutstandingreadrequests int) *AutoFollowPatternSummaryBuilder {
-	rb.v.MaxOutstandingReadRequests = maxoutstandingreadrequests
-	return rb
-}
-
-// RemoteCluster The remote cluster containing the leader indices to match against.
-
-func (rb *AutoFollowPatternSummaryBuilder) RemoteCluster(remotecluster string) *AutoFollowPatternSummaryBuilder {
-	rb.v.RemoteCluster = remotecluster
-	return rb
+	return r
 }

@@ -17,45 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // BuildInformation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/xpack/info/types.ts#L24-L27
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/info/types.ts#L24-L27
 type BuildInformation struct {
 	Date DateTime `json:"date"`
 	Hash string   `json:"hash"`
 }
 
-// BuildInformationBuilder holds BuildInformation struct and provides a builder API.
-type BuildInformationBuilder struct {
-	v *BuildInformation
-}
+// NewBuildInformation returns a BuildInformation.
+func NewBuildInformation() *BuildInformation {
+	r := &BuildInformation{}
 
-// NewBuildInformation provides a builder for the BuildInformation struct.
-func NewBuildInformationBuilder() *BuildInformationBuilder {
-	r := BuildInformationBuilder{
-		&BuildInformation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the BuildInformation struct
-func (rb *BuildInformationBuilder) Build() BuildInformation {
-	return *rb.v
-}
-
-func (rb *BuildInformationBuilder) Date(date *DateTimeBuilder) *BuildInformationBuilder {
-	v := date.Build()
-	rb.v.Date = v
-	return rb
-}
-
-func (rb *BuildInformationBuilder) Hash(hash string) *BuildInformationBuilder {
-	rb.v.Hash = hash
-	return rb
+	return r
 }

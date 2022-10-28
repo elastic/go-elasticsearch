@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TextClassificationInferenceUpdateOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/inference.ts#L322-L331
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/inference.ts#L322-L331
 type TextClassificationInferenceUpdateOptions struct {
 	// ClassificationLabels Classification labels to apply other than the stored labels. Must have the
 	// same deminsions as the default configured labels
@@ -38,52 +38,9 @@ type TextClassificationInferenceUpdateOptions struct {
 	Tokenization *NlpTokenizationUpdateOptions `json:"tokenization,omitempty"`
 }
 
-// TextClassificationInferenceUpdateOptionsBuilder holds TextClassificationInferenceUpdateOptions struct and provides a builder API.
-type TextClassificationInferenceUpdateOptionsBuilder struct {
-	v *TextClassificationInferenceUpdateOptions
-}
+// NewTextClassificationInferenceUpdateOptions returns a TextClassificationInferenceUpdateOptions.
+func NewTextClassificationInferenceUpdateOptions() *TextClassificationInferenceUpdateOptions {
+	r := &TextClassificationInferenceUpdateOptions{}
 
-// NewTextClassificationInferenceUpdateOptions provides a builder for the TextClassificationInferenceUpdateOptions struct.
-func NewTextClassificationInferenceUpdateOptionsBuilder() *TextClassificationInferenceUpdateOptionsBuilder {
-	r := TextClassificationInferenceUpdateOptionsBuilder{
-		&TextClassificationInferenceUpdateOptions{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TextClassificationInferenceUpdateOptions struct
-func (rb *TextClassificationInferenceUpdateOptionsBuilder) Build() TextClassificationInferenceUpdateOptions {
-	return *rb.v
-}
-
-// ClassificationLabels Classification labels to apply other than the stored labels. Must have the
-// same deminsions as the default configured labels
-
-func (rb *TextClassificationInferenceUpdateOptionsBuilder) ClassificationLabels(classification_labels ...string) *TextClassificationInferenceUpdateOptionsBuilder {
-	rb.v.ClassificationLabels = classification_labels
-	return rb
-}
-
-// NumTopClasses Specifies the number of top class predictions to return. Defaults to 0.
-
-func (rb *TextClassificationInferenceUpdateOptionsBuilder) NumTopClasses(numtopclasses int) *TextClassificationInferenceUpdateOptionsBuilder {
-	rb.v.NumTopClasses = &numtopclasses
-	return rb
-}
-
-// ResultsField The field that is added to incoming documents to contain the inference
-// prediction. Defaults to predicted_value.
-
-func (rb *TextClassificationInferenceUpdateOptionsBuilder) ResultsField(resultsfield string) *TextClassificationInferenceUpdateOptionsBuilder {
-	rb.v.ResultsField = &resultsfield
-	return rb
-}
-
-// Tokenization The tokenization options to update when inferring
-
-func (rb *TextClassificationInferenceUpdateOptionsBuilder) Tokenization(tokenization *NlpTokenizationUpdateOptionsBuilder) *TextClassificationInferenceUpdateOptionsBuilder {
-	v := tokenization.Build()
-	rb.v.Tokenization = &v
-	return rb
+	return r
 }

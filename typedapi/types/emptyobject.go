@@ -17,32 +17,20 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // EmptyObject type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/common.ts#L140-L141
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/common.ts#L140-L141
 type EmptyObject struct {
 }
 
-// EmptyObjectBuilder holds EmptyObject struct and provides a builder API.
-type EmptyObjectBuilder struct {
-	v *EmptyObject
-}
+// NewEmptyObject returns a EmptyObject.
+func NewEmptyObject() *EmptyObject {
+	r := &EmptyObject{}
 
-// NewEmptyObject provides a builder for the EmptyObject struct.
-func NewEmptyObjectBuilder() *EmptyObjectBuilder {
-	r := EmptyObjectBuilder{
-		&EmptyObject{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the EmptyObject struct
-func (rb *EmptyObjectBuilder) Build() EmptyObject {
-	return *rb.v
+	return r
 }

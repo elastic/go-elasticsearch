@@ -17,112 +17,33 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeJvmInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/info/types.ts#L348-L362
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/info/types.ts#L348-L362
 type NodeJvmInfo struct {
-	BundledJdk                            bool                `json:"bundled_jdk"`
-	GcCollectors                          []string            `json:"gc_collectors"`
-	InputArguments                        []string            `json:"input_arguments"`
-	Mem                                   NodeInfoJvmMemory   `json:"mem"`
-	MemoryPools                           []string            `json:"memory_pools"`
-	Pid                                   int                 `json:"pid"`
-	StartTimeInMillis                     EpochTimeUnitMillis `json:"start_time_in_millis"`
-	UsingBundledJdk                       bool                `json:"using_bundled_jdk"`
-	UsingCompressedOrdinaryObjectPointers string              `json:"using_compressed_ordinary_object_pointers,omitempty"`
-	Version                               VersionString       `json:"version"`
-	VmName                                Name                `json:"vm_name"`
-	VmVendor                              string              `json:"vm_vendor"`
-	VmVersion                             VersionString       `json:"vm_version"`
+	BundledJdk                            bool              `json:"bundled_jdk"`
+	GcCollectors                          []string          `json:"gc_collectors"`
+	InputArguments                        []string          `json:"input_arguments"`
+	Mem                                   NodeInfoJvmMemory `json:"mem"`
+	MemoryPools                           []string          `json:"memory_pools"`
+	Pid                                   int               `json:"pid"`
+	StartTimeInMillis                     int64             `json:"start_time_in_millis"`
+	UsingBundledJdk                       bool              `json:"using_bundled_jdk"`
+	UsingCompressedOrdinaryObjectPointers string            `json:"using_compressed_ordinary_object_pointers,omitempty"`
+	Version                               string            `json:"version"`
+	VmName                                string            `json:"vm_name"`
+	VmVendor                              string            `json:"vm_vendor"`
+	VmVersion                             string            `json:"vm_version"`
 }
 
-// NodeJvmInfoBuilder holds NodeJvmInfo struct and provides a builder API.
-type NodeJvmInfoBuilder struct {
-	v *NodeJvmInfo
-}
+// NewNodeJvmInfo returns a NodeJvmInfo.
+func NewNodeJvmInfo() *NodeJvmInfo {
+	r := &NodeJvmInfo{}
 
-// NewNodeJvmInfo provides a builder for the NodeJvmInfo struct.
-func NewNodeJvmInfoBuilder() *NodeJvmInfoBuilder {
-	r := NodeJvmInfoBuilder{
-		&NodeJvmInfo{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodeJvmInfo struct
-func (rb *NodeJvmInfoBuilder) Build() NodeJvmInfo {
-	return *rb.v
-}
-
-func (rb *NodeJvmInfoBuilder) BundledJdk(bundledjdk bool) *NodeJvmInfoBuilder {
-	rb.v.BundledJdk = bundledjdk
-	return rb
-}
-
-func (rb *NodeJvmInfoBuilder) GcCollectors(gc_collectors ...string) *NodeJvmInfoBuilder {
-	rb.v.GcCollectors = gc_collectors
-	return rb
-}
-
-func (rb *NodeJvmInfoBuilder) InputArguments(input_arguments ...string) *NodeJvmInfoBuilder {
-	rb.v.InputArguments = input_arguments
-	return rb
-}
-
-func (rb *NodeJvmInfoBuilder) Mem(mem *NodeInfoJvmMemoryBuilder) *NodeJvmInfoBuilder {
-	v := mem.Build()
-	rb.v.Mem = v
-	return rb
-}
-
-func (rb *NodeJvmInfoBuilder) MemoryPools(memory_pools ...string) *NodeJvmInfoBuilder {
-	rb.v.MemoryPools = memory_pools
-	return rb
-}
-
-func (rb *NodeJvmInfoBuilder) Pid(pid int) *NodeJvmInfoBuilder {
-	rb.v.Pid = pid
-	return rb
-}
-
-func (rb *NodeJvmInfoBuilder) StartTimeInMillis(starttimeinmillis *EpochTimeUnitMillisBuilder) *NodeJvmInfoBuilder {
-	v := starttimeinmillis.Build()
-	rb.v.StartTimeInMillis = v
-	return rb
-}
-
-func (rb *NodeJvmInfoBuilder) UsingBundledJdk(usingbundledjdk bool) *NodeJvmInfoBuilder {
-	rb.v.UsingBundledJdk = usingbundledjdk
-	return rb
-}
-
-func (rb *NodeJvmInfoBuilder) UsingCompressedOrdinaryObjectPointers(arg string) *NodeJvmInfoBuilder {
-	rb.v.UsingCompressedOrdinaryObjectPointers = arg
-	return rb
-}
-
-func (rb *NodeJvmInfoBuilder) Version(version VersionString) *NodeJvmInfoBuilder {
-	rb.v.Version = version
-	return rb
-}
-
-func (rb *NodeJvmInfoBuilder) VmName(vmname Name) *NodeJvmInfoBuilder {
-	rb.v.VmName = vmname
-	return rb
-}
-
-func (rb *NodeJvmInfoBuilder) VmVendor(vmvendor string) *NodeJvmInfoBuilder {
-	rb.v.VmVendor = vmvendor
-	return rb
-}
-
-func (rb *NodeJvmInfoBuilder) VmVersion(vmversion VersionString) *NodeJvmInfoBuilder {
-	rb.v.VmVersion = vmversion
-	return rb
+	return r
 }

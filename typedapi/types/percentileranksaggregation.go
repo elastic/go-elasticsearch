@@ -17,16 +17,16 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // PercentileRanksAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/metric.ts#L105-L110
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/metric.ts#L105-L110
 type PercentileRanksAggregation struct {
-	Field   *Field     `json:"field,omitempty"`
+	Field   *string    `json:"field,omitempty"`
 	Format  *string    `json:"format,omitempty"`
 	Hdr     *HdrMethod `json:"hdr,omitempty"`
 	Keyed   *bool      `json:"keyed,omitempty"`
@@ -36,65 +36,9 @@ type PercentileRanksAggregation struct {
 	Values  []float64  `json:"values,omitempty"`
 }
 
-// PercentileRanksAggregationBuilder holds PercentileRanksAggregation struct and provides a builder API.
-type PercentileRanksAggregationBuilder struct {
-	v *PercentileRanksAggregation
-}
+// NewPercentileRanksAggregation returns a PercentileRanksAggregation.
+func NewPercentileRanksAggregation() *PercentileRanksAggregation {
+	r := &PercentileRanksAggregation{}
 
-// NewPercentileRanksAggregation provides a builder for the PercentileRanksAggregation struct.
-func NewPercentileRanksAggregationBuilder() *PercentileRanksAggregationBuilder {
-	r := PercentileRanksAggregationBuilder{
-		&PercentileRanksAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the PercentileRanksAggregation struct
-func (rb *PercentileRanksAggregationBuilder) Build() PercentileRanksAggregation {
-	return *rb.v
-}
-
-func (rb *PercentileRanksAggregationBuilder) Field(field Field) *PercentileRanksAggregationBuilder {
-	rb.v.Field = &field
-	return rb
-}
-
-func (rb *PercentileRanksAggregationBuilder) Format(format string) *PercentileRanksAggregationBuilder {
-	rb.v.Format = &format
-	return rb
-}
-
-func (rb *PercentileRanksAggregationBuilder) Hdr(hdr *HdrMethodBuilder) *PercentileRanksAggregationBuilder {
-	v := hdr.Build()
-	rb.v.Hdr = &v
-	return rb
-}
-
-func (rb *PercentileRanksAggregationBuilder) Keyed(keyed bool) *PercentileRanksAggregationBuilder {
-	rb.v.Keyed = &keyed
-	return rb
-}
-
-func (rb *PercentileRanksAggregationBuilder) Missing(missing *MissingBuilder) *PercentileRanksAggregationBuilder {
-	v := missing.Build()
-	rb.v.Missing = &v
-	return rb
-}
-
-func (rb *PercentileRanksAggregationBuilder) Script(script *ScriptBuilder) *PercentileRanksAggregationBuilder {
-	v := script.Build()
-	rb.v.Script = &v
-	return rb
-}
-
-func (rb *PercentileRanksAggregationBuilder) Tdigest(tdigest *TDigestBuilder) *PercentileRanksAggregationBuilder {
-	v := tdigest.Build()
-	rb.v.Tdigest = &v
-	return rb
-}
-
-func (rb *PercentileRanksAggregationBuilder) Values(values []float64) *PercentileRanksAggregationBuilder {
-	rb.v.Values = values
-	return rb
+	return r
 }

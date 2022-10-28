@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RepositorySettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/snapshot/_types/SnapshotRepository.ts#L29-L38
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/snapshot/_types/SnapshotRepository.ts#L29-L38
 type RepositorySettings struct {
 	ChunkSize         *string `json:"chunk_size,omitempty"`
 	Compress          string  `json:"compress,omitempty"`
@@ -33,46 +33,9 @@ type RepositorySettings struct {
 	ReadOnly          string  `json:"read_only,omitempty"`
 }
 
-// RepositorySettingsBuilder holds RepositorySettings struct and provides a builder API.
-type RepositorySettingsBuilder struct {
-	v *RepositorySettings
-}
+// NewRepositorySettings returns a RepositorySettings.
+func NewRepositorySettings() *RepositorySettings {
+	r := &RepositorySettings{}
 
-// NewRepositorySettings provides a builder for the RepositorySettings struct.
-func NewRepositorySettingsBuilder() *RepositorySettingsBuilder {
-	r := RepositorySettingsBuilder{
-		&RepositorySettings{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RepositorySettings struct
-func (rb *RepositorySettingsBuilder) Build() RepositorySettings {
-	return *rb.v
-}
-
-func (rb *RepositorySettingsBuilder) ChunkSize(chunksize string) *RepositorySettingsBuilder {
-	rb.v.ChunkSize = &chunksize
-	return rb
-}
-
-func (rb *RepositorySettingsBuilder) Compress(arg string) *RepositorySettingsBuilder {
-	rb.v.Compress = arg
-	return rb
-}
-
-func (rb *RepositorySettingsBuilder) ConcurrentStreams(arg string) *RepositorySettingsBuilder {
-	rb.v.ConcurrentStreams = arg
-	return rb
-}
-
-func (rb *RepositorySettingsBuilder) Location(location string) *RepositorySettingsBuilder {
-	rb.v.Location = location
-	return rb
-}
-
-func (rb *RepositorySettingsBuilder) ReadOnly(arg string) *RepositorySettingsBuilder {
-	rb.v.ReadOnly = arg
-	return rb
+	return r
 }

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,18 +28,18 @@ import (
 
 // SignificantTextAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/bucket.ts#L359-L377
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/bucket.ts#L359-L377
 type SignificantTextAggregation struct {
-	BackgroundFilter    *QueryContainer                                              `json:"background_filter,omitempty"`
+	BackgroundFilter    *Query                                                       `json:"background_filter,omitempty"`
 	ChiSquare           *ChiSquareHeuristic                                          `json:"chi_square,omitempty"`
-	Exclude             *TermsExclude                                                `json:"exclude,omitempty"`
+	Exclude             []string                                                     `json:"exclude,omitempty"`
 	ExecutionHint       *termsaggregationexecutionhint.TermsAggregationExecutionHint `json:"execution_hint,omitempty"`
-	Field               *Field                                                       `json:"field,omitempty"`
+	Field               *string                                                      `json:"field,omitempty"`
 	FilterDuplicateText *bool                                                        `json:"filter_duplicate_text,omitempty"`
 	Gnd                 *GoogleNormalizedDistanceHeuristic                           `json:"gnd,omitempty"`
 	Include             []string                                                     `json:"include,omitempty"`
 	Jlh                 *EmptyObject                                                 `json:"jlh,omitempty"`
-	Meta                *Metadata                                                    `json:"meta,omitempty"`
+	Meta                map[string]interface{}                                       `json:"meta,omitempty"`
 	MinDocCount         *int64                                                       `json:"min_doc_count,omitempty"`
 	MutualInformation   *MutualInformationHeuristic                                  `json:"mutual_information,omitempty"`
 	Name                *string                                                      `json:"name,omitempty"`
@@ -48,129 +48,12 @@ type SignificantTextAggregation struct {
 	ShardMinDocCount    *int64                                                       `json:"shard_min_doc_count,omitempty"`
 	ShardSize           *int                                                         `json:"shard_size,omitempty"`
 	Size                *int                                                         `json:"size,omitempty"`
-	SourceFields        *Fields                                                      `json:"source_fields,omitempty"`
+	SourceFields        []string                                                     `json:"source_fields,omitempty"`
 }
 
-// SignificantTextAggregationBuilder holds SignificantTextAggregation struct and provides a builder API.
-type SignificantTextAggregationBuilder struct {
-	v *SignificantTextAggregation
-}
+// NewSignificantTextAggregation returns a SignificantTextAggregation.
+func NewSignificantTextAggregation() *SignificantTextAggregation {
+	r := &SignificantTextAggregation{}
 
-// NewSignificantTextAggregation provides a builder for the SignificantTextAggregation struct.
-func NewSignificantTextAggregationBuilder() *SignificantTextAggregationBuilder {
-	r := SignificantTextAggregationBuilder{
-		&SignificantTextAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SignificantTextAggregation struct
-func (rb *SignificantTextAggregationBuilder) Build() SignificantTextAggregation {
-	return *rb.v
-}
-
-func (rb *SignificantTextAggregationBuilder) BackgroundFilter(backgroundfilter *QueryContainerBuilder) *SignificantTextAggregationBuilder {
-	v := backgroundfilter.Build()
-	rb.v.BackgroundFilter = &v
-	return rb
-}
-
-func (rb *SignificantTextAggregationBuilder) ChiSquare(chisquare *ChiSquareHeuristicBuilder) *SignificantTextAggregationBuilder {
-	v := chisquare.Build()
-	rb.v.ChiSquare = &v
-	return rb
-}
-
-func (rb *SignificantTextAggregationBuilder) Exclude(exclude *TermsExcludeBuilder) *SignificantTextAggregationBuilder {
-	v := exclude.Build()
-	rb.v.Exclude = &v
-	return rb
-}
-
-func (rb *SignificantTextAggregationBuilder) ExecutionHint(executionhint termsaggregationexecutionhint.TermsAggregationExecutionHint) *SignificantTextAggregationBuilder {
-	rb.v.ExecutionHint = &executionhint
-	return rb
-}
-
-func (rb *SignificantTextAggregationBuilder) Field(field Field) *SignificantTextAggregationBuilder {
-	rb.v.Field = &field
-	return rb
-}
-
-func (rb *SignificantTextAggregationBuilder) FilterDuplicateText(filterduplicatetext bool) *SignificantTextAggregationBuilder {
-	rb.v.FilterDuplicateText = &filterduplicatetext
-	return rb
-}
-
-func (rb *SignificantTextAggregationBuilder) Gnd(gnd *GoogleNormalizedDistanceHeuristicBuilder) *SignificantTextAggregationBuilder {
-	v := gnd.Build()
-	rb.v.Gnd = &v
-	return rb
-}
-
-func (rb *SignificantTextAggregationBuilder) Include(arg []string) *SignificantTextAggregationBuilder {
-	rb.v.Include = arg
-	return rb
-}
-
-func (rb *SignificantTextAggregationBuilder) Jlh(jlh *EmptyObjectBuilder) *SignificantTextAggregationBuilder {
-	v := jlh.Build()
-	rb.v.Jlh = &v
-	return rb
-}
-
-func (rb *SignificantTextAggregationBuilder) Meta(meta *MetadataBuilder) *SignificantTextAggregationBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *SignificantTextAggregationBuilder) MinDocCount(mindoccount int64) *SignificantTextAggregationBuilder {
-	rb.v.MinDocCount = &mindoccount
-	return rb
-}
-
-func (rb *SignificantTextAggregationBuilder) MutualInformation(mutualinformation *MutualInformationHeuristicBuilder) *SignificantTextAggregationBuilder {
-	v := mutualinformation.Build()
-	rb.v.MutualInformation = &v
-	return rb
-}
-
-func (rb *SignificantTextAggregationBuilder) Name(name string) *SignificantTextAggregationBuilder {
-	rb.v.Name = &name
-	return rb
-}
-
-func (rb *SignificantTextAggregationBuilder) Percentage(percentage *PercentageScoreHeuristicBuilder) *SignificantTextAggregationBuilder {
-	v := percentage.Build()
-	rb.v.Percentage = &v
-	return rb
-}
-
-func (rb *SignificantTextAggregationBuilder) ScriptHeuristic(scriptheuristic *ScriptedHeuristicBuilder) *SignificantTextAggregationBuilder {
-	v := scriptheuristic.Build()
-	rb.v.ScriptHeuristic = &v
-	return rb
-}
-
-func (rb *SignificantTextAggregationBuilder) ShardMinDocCount(shardmindoccount int64) *SignificantTextAggregationBuilder {
-	rb.v.ShardMinDocCount = &shardmindoccount
-	return rb
-}
-
-func (rb *SignificantTextAggregationBuilder) ShardSize(shardsize int) *SignificantTextAggregationBuilder {
-	rb.v.ShardSize = &shardsize
-	return rb
-}
-
-func (rb *SignificantTextAggregationBuilder) Size(size int) *SignificantTextAggregationBuilder {
-	rb.v.Size = &size
-	return rb
-}
-
-func (rb *SignificantTextAggregationBuilder) SourceFields(sourcefields *FieldsBuilder) *SignificantTextAggregationBuilder {
-	v := sourcefields.Build()
-	rb.v.SourceFields = &v
-	return rb
+	return r
 }

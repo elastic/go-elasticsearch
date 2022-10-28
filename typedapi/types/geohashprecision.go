@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -27,30 +27,5 @@ package types
 //	int
 //	string
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/Geo.ts#L76-L80
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Geo.ts#L76-L80
 type GeoHashPrecision interface{}
-
-// GeoHashPrecisionBuilder holds GeoHashPrecision struct and provides a builder API.
-type GeoHashPrecisionBuilder struct {
-	v GeoHashPrecision
-}
-
-// NewGeoHashPrecision provides a builder for the GeoHashPrecision struct.
-func NewGeoHashPrecisionBuilder() *GeoHashPrecisionBuilder {
-	return &GeoHashPrecisionBuilder{}
-}
-
-// Build finalize the chain and returns the GeoHashPrecision struct
-func (u *GeoHashPrecisionBuilder) Build() GeoHashPrecision {
-	return u.v
-}
-
-func (u *GeoHashPrecisionBuilder) Int(int int) *GeoHashPrecisionBuilder {
-	u.v = &int
-	return u
-}
-
-func (u *GeoHashPrecisionBuilder) String(string string) *GeoHashPrecisionBuilder {
-	u.v = &string
-	return u
-}

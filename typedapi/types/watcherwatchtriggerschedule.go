@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // WatcherWatchTriggerSchedule type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/xpack/usage/types.ts#L448-L451
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L448-L451
 type WatcherWatchTriggerSchedule struct {
 	Active int64   `json:"active"`
 	All_   Counter `json:"_all"`
@@ -32,43 +32,9 @@ type WatcherWatchTriggerSchedule struct {
 	Total  int64   `json:"total"`
 }
 
-// WatcherWatchTriggerScheduleBuilder holds WatcherWatchTriggerSchedule struct and provides a builder API.
-type WatcherWatchTriggerScheduleBuilder struct {
-	v *WatcherWatchTriggerSchedule
-}
+// NewWatcherWatchTriggerSchedule returns a WatcherWatchTriggerSchedule.
+func NewWatcherWatchTriggerSchedule() *WatcherWatchTriggerSchedule {
+	r := &WatcherWatchTriggerSchedule{}
 
-// NewWatcherWatchTriggerSchedule provides a builder for the WatcherWatchTriggerSchedule struct.
-func NewWatcherWatchTriggerScheduleBuilder() *WatcherWatchTriggerScheduleBuilder {
-	r := WatcherWatchTriggerScheduleBuilder{
-		&WatcherWatchTriggerSchedule{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the WatcherWatchTriggerSchedule struct
-func (rb *WatcherWatchTriggerScheduleBuilder) Build() WatcherWatchTriggerSchedule {
-	return *rb.v
-}
-
-func (rb *WatcherWatchTriggerScheduleBuilder) Active(active int64) *WatcherWatchTriggerScheduleBuilder {
-	rb.v.Active = active
-	return rb
-}
-
-func (rb *WatcherWatchTriggerScheduleBuilder) All_(all_ *CounterBuilder) *WatcherWatchTriggerScheduleBuilder {
-	v := all_.Build()
-	rb.v.All_ = v
-	return rb
-}
-
-func (rb *WatcherWatchTriggerScheduleBuilder) Cron(cron *CounterBuilder) *WatcherWatchTriggerScheduleBuilder {
-	v := cron.Build()
-	rb.v.Cron = v
-	return rb
-}
-
-func (rb *WatcherWatchTriggerScheduleBuilder) Total(total int64) *WatcherWatchTriggerScheduleBuilder {
-	rb.v.Total = total
-	return rb
+	return r
 }

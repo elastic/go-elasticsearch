@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Vector type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/xpack/usage/types.ts#L436-L440
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L436-L440
 type Vector struct {
 	Available               bool `json:"available"`
 	DenseVectorDimsAvgCount int  `json:"dense_vector_dims_avg_count"`
@@ -33,46 +33,9 @@ type Vector struct {
 	SparseVectorFieldsCount *int `json:"sparse_vector_fields_count,omitempty"`
 }
 
-// VectorBuilder holds Vector struct and provides a builder API.
-type VectorBuilder struct {
-	v *Vector
-}
+// NewVector returns a Vector.
+func NewVector() *Vector {
+	r := &Vector{}
 
-// NewVector provides a builder for the Vector struct.
-func NewVectorBuilder() *VectorBuilder {
-	r := VectorBuilder{
-		&Vector{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Vector struct
-func (rb *VectorBuilder) Build() Vector {
-	return *rb.v
-}
-
-func (rb *VectorBuilder) Available(available bool) *VectorBuilder {
-	rb.v.Available = available
-	return rb
-}
-
-func (rb *VectorBuilder) DenseVectorDimsAvgCount(densevectordimsavgcount int) *VectorBuilder {
-	rb.v.DenseVectorDimsAvgCount = densevectordimsavgcount
-	return rb
-}
-
-func (rb *VectorBuilder) DenseVectorFieldsCount(densevectorfieldscount int) *VectorBuilder {
-	rb.v.DenseVectorFieldsCount = densevectorfieldscount
-	return rb
-}
-
-func (rb *VectorBuilder) Enabled(enabled bool) *VectorBuilder {
-	rb.v.Enabled = enabled
-	return rb
-}
-
-func (rb *VectorBuilder) SparseVectorFieldsCount(sparsevectorfieldscount int) *VectorBuilder {
-	rb.v.SparseVectorFieldsCount = &sparsevectorfieldscount
-	return rb
+	return r
 }

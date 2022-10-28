@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TermsPartition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/bucket.ts#L424-L427
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/bucket.ts#L424-L427
 type TermsPartition struct {
 	NumPartitions int64 `json:"num_partitions"`
 	Partition     int64 `json:"partition"`
 }
 
-// TermsPartitionBuilder holds TermsPartition struct and provides a builder API.
-type TermsPartitionBuilder struct {
-	v *TermsPartition
-}
+// NewTermsPartition returns a TermsPartition.
+func NewTermsPartition() *TermsPartition {
+	r := &TermsPartition{}
 
-// NewTermsPartition provides a builder for the TermsPartition struct.
-func NewTermsPartitionBuilder() *TermsPartitionBuilder {
-	r := TermsPartitionBuilder{
-		&TermsPartition{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TermsPartition struct
-func (rb *TermsPartitionBuilder) Build() TermsPartition {
-	return *rb.v
-}
-
-func (rb *TermsPartitionBuilder) NumPartitions(numpartitions int64) *TermsPartitionBuilder {
-	rb.v.NumPartitions = numpartitions
-	return rb
-}
-
-func (rb *TermsPartitionBuilder) Partition(partition int64) *TermsPartitionBuilder {
-	rb.v.Partition = partition
-	return rb
+	return r
 }

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package gettoken
@@ -26,42 +26,29 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/accesstokengranttype"
 )
 
 // Request holds the request body struct for the package gettoken
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/security/get_token/GetUserAccessTokenRequest.ts#L25-L39
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/get_token/GetUserAccessTokenRequest.ts#L25-L39
 type Request struct {
-	GrantType *accesstokengranttype.AccessTokenGrantType `json:"grant_type,omitempty"`
-
-	KerberosTicket *string `json:"kerberos_ticket,omitempty"`
-
-	Password *types.Password `json:"password,omitempty"`
-
-	RefreshToken *string `json:"refresh_token,omitempty"`
-
-	Scope *string `json:"scope,omitempty"`
-
-	Username *types.Username `json:"username,omitempty"`
+	GrantType      *accesstokengranttype.AccessTokenGrantType `json:"grant_type,omitempty"`
+	KerberosTicket *string                                    `json:"kerberos_ticket,omitempty"`
+	Password       *string                                    `json:"password,omitempty"`
+	RefreshToken   *string                                    `json:"refresh_token,omitempty"`
+	Scope          *string                                    `json:"scope,omitempty"`
+	Username       *string                                    `json:"username,omitempty"`
 }
 
-// RequestBuilder is the builder API for the gettoken.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -70,39 +57,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) GrantType(granttype accesstokengranttype.AccessTokenGrantType) *RequestBuilder {
-	rb.v.GrantType = &granttype
-	return rb
-}
-
-func (rb *RequestBuilder) KerberosTicket(kerberosticket string) *RequestBuilder {
-	rb.v.KerberosTicket = &kerberosticket
-	return rb
-}
-
-func (rb *RequestBuilder) Password(password types.Password) *RequestBuilder {
-	rb.v.Password = &password
-	return rb
-}
-
-func (rb *RequestBuilder) RefreshToken(refreshtoken string) *RequestBuilder {
-	rb.v.RefreshToken = &refreshtoken
-	return rb
-}
-
-func (rb *RequestBuilder) Scope(scope string) *RequestBuilder {
-	rb.v.Scope = &scope
-	return rb
-}
-
-func (rb *RequestBuilder) Username(username types.Username) *RequestBuilder {
-	rb.v.Username = &username
-	return rb
 }

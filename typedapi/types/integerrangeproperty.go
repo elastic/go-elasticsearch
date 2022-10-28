@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,123 +28,34 @@ import (
 
 // IntegerRangeProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/mapping/range.ts#L42-L44
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/range.ts#L42-L44
 type IntegerRangeProperty struct {
 	Boost         *float64                       `json:"boost,omitempty"`
 	Coerce        *bool                          `json:"coerce,omitempty"`
-	CopyTo        *Fields                        `json:"copy_to,omitempty"`
+	CopyTo        []string                       `json:"copy_to,omitempty"`
 	DocValues     *bool                          `json:"doc_values,omitempty"`
 	Dynamic       *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
-	Fields        map[PropertyName]Property      `json:"fields,omitempty"`
+	Fields        map[string]Property            `json:"fields,omitempty"`
 	IgnoreAbove   *int                           `json:"ignore_above,omitempty"`
 	Index         *bool                          `json:"index,omitempty"`
-	LocalMetadata *Metadata                      `json:"local_metadata,omitempty"`
+	LocalMetadata map[string]interface{}         `json:"local_metadata,omitempty"`
 	// Meta Metadata about the field.
-	Meta       map[string]string         `json:"meta,omitempty"`
-	Properties map[PropertyName]Property `json:"properties,omitempty"`
-	Similarity *string                   `json:"similarity,omitempty"`
-	Store      *bool                     `json:"store,omitempty"`
-	Type       string                    `json:"type,omitempty"`
+	Meta       map[string]string   `json:"meta,omitempty"`
+	Properties map[string]Property `json:"properties,omitempty"`
+	Similarity *string             `json:"similarity,omitempty"`
+	Store      *bool               `json:"store,omitempty"`
+	Type       string              `json:"type,omitempty"`
 }
 
-// IntegerRangePropertyBuilder holds IntegerRangeProperty struct and provides a builder API.
-type IntegerRangePropertyBuilder struct {
-	v *IntegerRangeProperty
-}
-
-// NewIntegerRangeProperty provides a builder for the IntegerRangeProperty struct.
-func NewIntegerRangePropertyBuilder() *IntegerRangePropertyBuilder {
-	r := IntegerRangePropertyBuilder{
-		&IntegerRangeProperty{
-			Fields:     make(map[PropertyName]Property, 0),
-			Meta:       make(map[string]string, 0),
-			Properties: make(map[PropertyName]Property, 0),
-		},
+// NewIntegerRangeProperty returns a IntegerRangeProperty.
+func NewIntegerRangeProperty() *IntegerRangeProperty {
+	r := &IntegerRangeProperty{
+		Fields:     make(map[string]Property, 0),
+		Meta:       make(map[string]string, 0),
+		Properties: make(map[string]Property, 0),
 	}
 
-	r.v.Type = "integer_range"
+	r.Type = "integer_range"
 
-	return &r
-}
-
-// Build finalize the chain and returns the IntegerRangeProperty struct
-func (rb *IntegerRangePropertyBuilder) Build() IntegerRangeProperty {
-	return *rb.v
-}
-
-func (rb *IntegerRangePropertyBuilder) Boost(boost float64) *IntegerRangePropertyBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *IntegerRangePropertyBuilder) Coerce(coerce bool) *IntegerRangePropertyBuilder {
-	rb.v.Coerce = &coerce
-	return rb
-}
-
-func (rb *IntegerRangePropertyBuilder) CopyTo(copyto *FieldsBuilder) *IntegerRangePropertyBuilder {
-	v := copyto.Build()
-	rb.v.CopyTo = &v
-	return rb
-}
-
-func (rb *IntegerRangePropertyBuilder) DocValues(docvalues bool) *IntegerRangePropertyBuilder {
-	rb.v.DocValues = &docvalues
-	return rb
-}
-
-func (rb *IntegerRangePropertyBuilder) Dynamic(dynamic dynamicmapping.DynamicMapping) *IntegerRangePropertyBuilder {
-	rb.v.Dynamic = &dynamic
-	return rb
-}
-
-func (rb *IntegerRangePropertyBuilder) Fields(values map[PropertyName]*PropertyBuilder) *IntegerRangePropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Fields = tmp
-	return rb
-}
-
-func (rb *IntegerRangePropertyBuilder) IgnoreAbove(ignoreabove int) *IntegerRangePropertyBuilder {
-	rb.v.IgnoreAbove = &ignoreabove
-	return rb
-}
-
-func (rb *IntegerRangePropertyBuilder) Index(index bool) *IntegerRangePropertyBuilder {
-	rb.v.Index = &index
-	return rb
-}
-
-func (rb *IntegerRangePropertyBuilder) LocalMetadata(localmetadata *MetadataBuilder) *IntegerRangePropertyBuilder {
-	v := localmetadata.Build()
-	rb.v.LocalMetadata = &v
-	return rb
-}
-
-// Meta Metadata about the field.
-
-func (rb *IntegerRangePropertyBuilder) Meta(value map[string]string) *IntegerRangePropertyBuilder {
-	rb.v.Meta = value
-	return rb
-}
-
-func (rb *IntegerRangePropertyBuilder) Properties(values map[PropertyName]*PropertyBuilder) *IntegerRangePropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Properties = tmp
-	return rb
-}
-
-func (rb *IntegerRangePropertyBuilder) Similarity(similarity string) *IntegerRangePropertyBuilder {
-	rb.v.Similarity = &similarity
-	return rb
-}
-
-func (rb *IntegerRangePropertyBuilder) Store(store bool) *IntegerRangePropertyBuilder {
-	rb.v.Store = &store
-	return rb
+	return r
 }

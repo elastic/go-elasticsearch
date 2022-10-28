@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TotalFeatureImportanceStatistics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/TrainedModel.ts#L237-L244
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/TrainedModel.ts#L237-L244
 type TotalFeatureImportanceStatistics struct {
 	// Max The maximum importance value across all the training data for this feature.
 	Max int `json:"max"`
@@ -36,44 +36,9 @@ type TotalFeatureImportanceStatistics struct {
 	Min int `json:"min"`
 }
 
-// TotalFeatureImportanceStatisticsBuilder holds TotalFeatureImportanceStatistics struct and provides a builder API.
-type TotalFeatureImportanceStatisticsBuilder struct {
-	v *TotalFeatureImportanceStatistics
-}
+// NewTotalFeatureImportanceStatistics returns a TotalFeatureImportanceStatistics.
+func NewTotalFeatureImportanceStatistics() *TotalFeatureImportanceStatistics {
+	r := &TotalFeatureImportanceStatistics{}
 
-// NewTotalFeatureImportanceStatistics provides a builder for the TotalFeatureImportanceStatistics struct.
-func NewTotalFeatureImportanceStatisticsBuilder() *TotalFeatureImportanceStatisticsBuilder {
-	r := TotalFeatureImportanceStatisticsBuilder{
-		&TotalFeatureImportanceStatistics{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TotalFeatureImportanceStatistics struct
-func (rb *TotalFeatureImportanceStatisticsBuilder) Build() TotalFeatureImportanceStatistics {
-	return *rb.v
-}
-
-// Max The maximum importance value across all the training data for this feature.
-
-func (rb *TotalFeatureImportanceStatisticsBuilder) Max(max int) *TotalFeatureImportanceStatisticsBuilder {
-	rb.v.Max = max
-	return rb
-}
-
-// MeanMagnitude The average magnitude of this feature across all the training data. This
-// value is the average of the absolute values of the importance for this
-// feature.
-
-func (rb *TotalFeatureImportanceStatisticsBuilder) MeanMagnitude(meanmagnitude float64) *TotalFeatureImportanceStatisticsBuilder {
-	rb.v.MeanMagnitude = meanmagnitude
-	return rb
-}
-
-// Min The minimum importance value across all the training data for this feature.
-
-func (rb *TotalFeatureImportanceStatisticsBuilder) Min(min int) *TotalFeatureImportanceStatisticsBuilder {
-	rb.v.Min = min
-	return rb
+	return r
 }

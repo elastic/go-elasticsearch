@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // PhraseSuggest type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_global/search/_types/suggester.ts#L57-L62
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/suggester.ts#L57-L62
 type PhraseSuggest struct {
 	Length  int                   `json:"length"`
 	Offset  int                   `json:"offset"`
@@ -32,41 +32,9 @@ type PhraseSuggest struct {
 	Text    string                `json:"text"`
 }
 
-// PhraseSuggestBuilder holds PhraseSuggest struct and provides a builder API.
-type PhraseSuggestBuilder struct {
-	v *PhraseSuggest
-}
+// NewPhraseSuggest returns a PhraseSuggest.
+func NewPhraseSuggest() *PhraseSuggest {
+	r := &PhraseSuggest{}
 
-// NewPhraseSuggest provides a builder for the PhraseSuggest struct.
-func NewPhraseSuggestBuilder() *PhraseSuggestBuilder {
-	r := PhraseSuggestBuilder{
-		&PhraseSuggest{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the PhraseSuggest struct
-func (rb *PhraseSuggestBuilder) Build() PhraseSuggest {
-	return *rb.v
-}
-
-func (rb *PhraseSuggestBuilder) Length(length int) *PhraseSuggestBuilder {
-	rb.v.Length = length
-	return rb
-}
-
-func (rb *PhraseSuggestBuilder) Offset(offset int) *PhraseSuggestBuilder {
-	rb.v.Offset = offset
-	return rb
-}
-
-func (rb *PhraseSuggestBuilder) Options(arg []PhraseSuggestOption) *PhraseSuggestBuilder {
-	rb.v.Options = arg
-	return rb
-}
-
-func (rb *PhraseSuggestBuilder) Text(text string) *PhraseSuggestBuilder {
-	rb.v.Text = text
-	return rb
+	return r
 }

@@ -28,6 +28,7 @@ import (
 	"fmt"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/core/search"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/indices/create"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/some"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/refresh"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/sortorder"
@@ -339,9 +340,9 @@ func TestTypedClient(t *testing.T) {
 			res, err := es.Indices.Create(indexName).
 				Request(&create.Request{
 					Mappings: &types.TypeMapping{
-						Properties: map[types.PropertyName]types.Property{
-							"price": types.NewIntegerNumberPropertyBuilder().Build(),
-							"name":  types.NewKeywordPropertyBuilder().Build(),
+						Properties: map[string]types.Property{
+							"price": types.NewIntegerNumberProperty(),
+							"name":  types.NewKeywordProperty(),
 						},
 					},
 				}).
@@ -401,8 +402,8 @@ func TestTypedClient(t *testing.T) {
 		res, err := es.Search().
 			Index(indexName).
 			Request(&search.Request{
-				Query: &types.QueryContainer{
-					Match: map[types.Field]types.MatchQuery{
+				Query: &types.Query{
+					Match: map[string]types.MatchQuery{
 						"name": {Query: "Foo"},
 					},
 				},
@@ -446,18 +447,15 @@ func TestTypedClient(t *testing.T) {
 
 		pa := PriceAggregation{}
 
-		size := 0
-		field := types.Field("price")
-
 		totalPricesAgg, err := es.Search().
 			Index(indexName).
 			Request(
 				&search.Request{
-					Size: &size,
-					Aggregations: map[string]types.AggregationContainer{
+					Size: some.Int(0),
+					Aggregations: map[string]types.Aggregations{
 						"total_prices": {
 							Sum: &types.SumAggregation{
-								Field: &field,
+								Field: some.String("price"),
 							},
 						},
 					},
@@ -479,7 +477,7 @@ func TestTypedClient(t *testing.T) {
 	})
 
 	t.Run("Term query from JSON", func(t *testing.T) {
-		searchRequest, err := search.NewRequestBuilder().FromJSON(`{
+		searchRequest, err := search.NewRequest().FromJSON(`{
 		  "query": {
 			"term": {
 			  "user.id": {
@@ -499,16 +497,13 @@ func TestTypedClient(t *testing.T) {
 	})
 
 	t.Run("Sort serialisation", func(t *testing.T) {
-		qry := search.NewRequestBuilder().Sort(
-			types.NewSortBuilder().Sort(
-				[]types.SortCombinations{
-					types.NewSortCombinationsBuilder().
-						Field("@timestamp").
-						SortOptions(types.NewSortOptionsBuilder().
-							SortOptions(map[types.Field]*types.FieldSortBuilder{
-								"@timestamp": types.NewFieldSortBuilder().Format("strict_date_optional_time_nanos").Order(sortorder.Asc),
-							})).Build(),
-				})).Build()
+		qry := search.Request{
+			Sort: []types.SortCombinations{
+				types.SortOptions{SortOptions: map[string]types.FieldSort{
+					"@timestamp": {Format: some.String("strict_date_optional_time_nanos"), Order: &sortorder.Asc},
+				}},
+			},
+		}
 
 		data, err := json.Marshal(qry)
 		if err != nil {

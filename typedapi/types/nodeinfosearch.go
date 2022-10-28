@@ -17,39 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeInfoSearch type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/info/types.ts#L278-L280
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/info/types.ts#L278-L280
 type NodeInfoSearch struct {
 	Remote NodeInfoSearchRemote `json:"remote"`
 }
 
-// NodeInfoSearchBuilder holds NodeInfoSearch struct and provides a builder API.
-type NodeInfoSearchBuilder struct {
-	v *NodeInfoSearch
-}
+// NewNodeInfoSearch returns a NodeInfoSearch.
+func NewNodeInfoSearch() *NodeInfoSearch {
+	r := &NodeInfoSearch{}
 
-// NewNodeInfoSearch provides a builder for the NodeInfoSearch struct.
-func NewNodeInfoSearchBuilder() *NodeInfoSearchBuilder {
-	r := NodeInfoSearchBuilder{
-		&NodeInfoSearch{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodeInfoSearch struct
-func (rb *NodeInfoSearchBuilder) Build() NodeInfoSearch {
-	return *rb.v
-}
-
-func (rb *NodeInfoSearchBuilder) Remote(remote *NodeInfoSearchRemoteBuilder) *NodeInfoSearchBuilder {
-	v := remote.Build()
-	rb.v.Remote = v
-	return rb
+	return r
 }

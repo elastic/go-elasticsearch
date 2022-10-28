@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,37 +28,15 @@ import (
 
 // LanguageContext type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_global/get_script_languages/types.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/get_script_languages/types.ts#L22-L25
 type LanguageContext struct {
 	Contexts []string                      `json:"contexts"`
 	Language scriptlanguage.ScriptLanguage `json:"language"`
 }
 
-// LanguageContextBuilder holds LanguageContext struct and provides a builder API.
-type LanguageContextBuilder struct {
-	v *LanguageContext
-}
+// NewLanguageContext returns a LanguageContext.
+func NewLanguageContext() *LanguageContext {
+	r := &LanguageContext{}
 
-// NewLanguageContext provides a builder for the LanguageContext struct.
-func NewLanguageContextBuilder() *LanguageContextBuilder {
-	r := LanguageContextBuilder{
-		&LanguageContext{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the LanguageContext struct
-func (rb *LanguageContextBuilder) Build() LanguageContext {
-	return *rb.v
-}
-
-func (rb *LanguageContextBuilder) Contexts(contexts ...string) *LanguageContextBuilder {
-	rb.v.Contexts = contexts
-	return rb
-}
-
-func (rb *LanguageContextBuilder) Language(language scriptlanguage.ScriptLanguage) *LanguageContextBuilder {
-	rb.v.Language = language
-	return rb
+	return r
 }

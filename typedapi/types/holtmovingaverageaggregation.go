@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,13 +28,13 @@ import (
 
 // HoltMovingAverageAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/pipeline.ts#L217-L220
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/pipeline.ts#L217-L220
 type HoltMovingAverageAggregation struct {
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
-	BucketsPath *BucketsPath            `json:"buckets_path,omitempty"`
+	BucketsPath *string                 `json:"buckets_path,omitempty"`
 	Format      *string                 `json:"format,omitempty"`
 	GapPolicy   *gappolicy.GapPolicy    `json:"gap_policy,omitempty"`
-	Meta        *Metadata               `json:"meta,omitempty"`
+	Meta        map[string]interface{}  `json:"meta,omitempty"`
 	Minimize    *bool                   `json:"minimize,omitempty"`
 	Model       string                  `json:"model,omitempty"`
 	Name        *string                 `json:"name,omitempty"`
@@ -43,73 +43,11 @@ type HoltMovingAverageAggregation struct {
 	Window      *int                    `json:"window,omitempty"`
 }
 
-// HoltMovingAverageAggregationBuilder holds HoltMovingAverageAggregation struct and provides a builder API.
-type HoltMovingAverageAggregationBuilder struct {
-	v *HoltMovingAverageAggregation
-}
+// NewHoltMovingAverageAggregation returns a HoltMovingAverageAggregation.
+func NewHoltMovingAverageAggregation() *HoltMovingAverageAggregation {
+	r := &HoltMovingAverageAggregation{}
 
-// NewHoltMovingAverageAggregation provides a builder for the HoltMovingAverageAggregation struct.
-func NewHoltMovingAverageAggregationBuilder() *HoltMovingAverageAggregationBuilder {
-	r := HoltMovingAverageAggregationBuilder{
-		&HoltMovingAverageAggregation{},
-	}
+	r.Model = "holt"
 
-	r.v.Model = "holt"
-
-	return &r
-}
-
-// Build finalize the chain and returns the HoltMovingAverageAggregation struct
-func (rb *HoltMovingAverageAggregationBuilder) Build() HoltMovingAverageAggregation {
-	return *rb.v
-}
-
-// BucketsPath Path to the buckets that contain one set of values to correlate.
-
-func (rb *HoltMovingAverageAggregationBuilder) BucketsPath(bucketspath *BucketsPathBuilder) *HoltMovingAverageAggregationBuilder {
-	v := bucketspath.Build()
-	rb.v.BucketsPath = &v
-	return rb
-}
-
-func (rb *HoltMovingAverageAggregationBuilder) Format(format string) *HoltMovingAverageAggregationBuilder {
-	rb.v.Format = &format
-	return rb
-}
-
-func (rb *HoltMovingAverageAggregationBuilder) GapPolicy(gappolicy gappolicy.GapPolicy) *HoltMovingAverageAggregationBuilder {
-	rb.v.GapPolicy = &gappolicy
-	return rb
-}
-
-func (rb *HoltMovingAverageAggregationBuilder) Meta(meta *MetadataBuilder) *HoltMovingAverageAggregationBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *HoltMovingAverageAggregationBuilder) Minimize(minimize bool) *HoltMovingAverageAggregationBuilder {
-	rb.v.Minimize = &minimize
-	return rb
-}
-
-func (rb *HoltMovingAverageAggregationBuilder) Name(name string) *HoltMovingAverageAggregationBuilder {
-	rb.v.Name = &name
-	return rb
-}
-
-func (rb *HoltMovingAverageAggregationBuilder) Predict(predict int) *HoltMovingAverageAggregationBuilder {
-	rb.v.Predict = &predict
-	return rb
-}
-
-func (rb *HoltMovingAverageAggregationBuilder) Settings(settings *HoltLinearModelSettingsBuilder) *HoltMovingAverageAggregationBuilder {
-	v := settings.Build()
-	rb.v.Settings = v
-	return rb
-}
-
-func (rb *HoltMovingAverageAggregationBuilder) Window(window int) *HoltMovingAverageAggregationBuilder {
-	rb.v.Window = &window
-	return rb
+	return r
 }

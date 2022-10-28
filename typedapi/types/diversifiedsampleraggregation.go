@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,69 +28,20 @@ import (
 
 // DiversifiedSamplerAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/bucket.ts#L155-L161
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/bucket.ts#L155-L161
 type DiversifiedSamplerAggregation struct {
 	ExecutionHint   *sampleraggregationexecutionhint.SamplerAggregationExecutionHint `json:"execution_hint,omitempty"`
-	Field           *Field                                                           `json:"field,omitempty"`
+	Field           *string                                                          `json:"field,omitempty"`
 	MaxDocsPerValue *int                                                             `json:"max_docs_per_value,omitempty"`
-	Meta            *Metadata                                                        `json:"meta,omitempty"`
+	Meta            map[string]interface{}                                           `json:"meta,omitempty"`
 	Name            *string                                                          `json:"name,omitempty"`
 	Script          *Script                                                          `json:"script,omitempty"`
 	ShardSize       *int                                                             `json:"shard_size,omitempty"`
 }
 
-// DiversifiedSamplerAggregationBuilder holds DiversifiedSamplerAggregation struct and provides a builder API.
-type DiversifiedSamplerAggregationBuilder struct {
-	v *DiversifiedSamplerAggregation
-}
+// NewDiversifiedSamplerAggregation returns a DiversifiedSamplerAggregation.
+func NewDiversifiedSamplerAggregation() *DiversifiedSamplerAggregation {
+	r := &DiversifiedSamplerAggregation{}
 
-// NewDiversifiedSamplerAggregation provides a builder for the DiversifiedSamplerAggregation struct.
-func NewDiversifiedSamplerAggregationBuilder() *DiversifiedSamplerAggregationBuilder {
-	r := DiversifiedSamplerAggregationBuilder{
-		&DiversifiedSamplerAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DiversifiedSamplerAggregation struct
-func (rb *DiversifiedSamplerAggregationBuilder) Build() DiversifiedSamplerAggregation {
-	return *rb.v
-}
-
-func (rb *DiversifiedSamplerAggregationBuilder) ExecutionHint(executionhint sampleraggregationexecutionhint.SamplerAggregationExecutionHint) *DiversifiedSamplerAggregationBuilder {
-	rb.v.ExecutionHint = &executionhint
-	return rb
-}
-
-func (rb *DiversifiedSamplerAggregationBuilder) Field(field Field) *DiversifiedSamplerAggregationBuilder {
-	rb.v.Field = &field
-	return rb
-}
-
-func (rb *DiversifiedSamplerAggregationBuilder) MaxDocsPerValue(maxdocspervalue int) *DiversifiedSamplerAggregationBuilder {
-	rb.v.MaxDocsPerValue = &maxdocspervalue
-	return rb
-}
-
-func (rb *DiversifiedSamplerAggregationBuilder) Meta(meta *MetadataBuilder) *DiversifiedSamplerAggregationBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *DiversifiedSamplerAggregationBuilder) Name(name string) *DiversifiedSamplerAggregationBuilder {
-	rb.v.Name = &name
-	return rb
-}
-
-func (rb *DiversifiedSamplerAggregationBuilder) Script(script *ScriptBuilder) *DiversifiedSamplerAggregationBuilder {
-	v := script.Build()
-	rb.v.Script = &v
-	return rb
-}
-
-func (rb *DiversifiedSamplerAggregationBuilder) ShardSize(shardsize int) *DiversifiedSamplerAggregationBuilder {
-	rb.v.ShardSize = &shardsize
-	return rb
+	return r
 }

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // EqlFeatures type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/xpack/usage/types.ts#L95-L103
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L95-L103
 type EqlFeatures struct {
 	Event     uint                 `json:"event"`
 	Join      uint                 `json:"join"`
@@ -35,60 +35,9 @@ type EqlFeatures struct {
 	Sequences EqlFeaturesSequences `json:"sequences"`
 }
 
-// EqlFeaturesBuilder holds EqlFeatures struct and provides a builder API.
-type EqlFeaturesBuilder struct {
-	v *EqlFeatures
-}
+// NewEqlFeatures returns a EqlFeatures.
+func NewEqlFeatures() *EqlFeatures {
+	r := &EqlFeatures{}
 
-// NewEqlFeatures provides a builder for the EqlFeatures struct.
-func NewEqlFeaturesBuilder() *EqlFeaturesBuilder {
-	r := EqlFeaturesBuilder{
-		&EqlFeatures{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the EqlFeatures struct
-func (rb *EqlFeaturesBuilder) Build() EqlFeatures {
-	return *rb.v
-}
-
-func (rb *EqlFeaturesBuilder) Event(event uint) *EqlFeaturesBuilder {
-	rb.v.Event = event
-	return rb
-}
-
-func (rb *EqlFeaturesBuilder) Join(join uint) *EqlFeaturesBuilder {
-	rb.v.Join = join
-	return rb
-}
-
-func (rb *EqlFeaturesBuilder) Joins(joins *EqlFeaturesJoinBuilder) *EqlFeaturesBuilder {
-	v := joins.Build()
-	rb.v.Joins = v
-	return rb
-}
-
-func (rb *EqlFeaturesBuilder) Keys(keys *EqlFeaturesKeysBuilder) *EqlFeaturesBuilder {
-	v := keys.Build()
-	rb.v.Keys = v
-	return rb
-}
-
-func (rb *EqlFeaturesBuilder) Pipes(pipes *EqlFeaturesPipesBuilder) *EqlFeaturesBuilder {
-	v := pipes.Build()
-	rb.v.Pipes = v
-	return rb
-}
-
-func (rb *EqlFeaturesBuilder) Sequence(sequence uint) *EqlFeaturesBuilder {
-	rb.v.Sequence = sequence
-	return rb
-}
-
-func (rb *EqlFeaturesBuilder) Sequences(sequences *EqlFeaturesSequencesBuilder) *EqlFeaturesBuilder {
-	v := sequences.Build()
-	rb.v.Sequences = v
-	return rb
+	return r
 }

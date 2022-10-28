@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeOperatingSystemInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/info/types.ts#L364-L381
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/info/types.ts#L364-L381
 type NodeOperatingSystemInfo struct {
 	// AllocatedProcessors The number of processors actually used to calculate thread pool size. This
 	// number can be set with the node.processors setting of a node and defaults to
@@ -37,98 +37,18 @@ type NodeOperatingSystemInfo struct {
 	Cpu                 *NodeInfoOSCPU  `json:"cpu,omitempty"`
 	Mem                 *NodeInfoMemory `json:"mem,omitempty"`
 	// Name Name of the operating system (ex: Linux, Windows, Mac OS X)
-	Name       Name `json:"name"`
-	PrettyName Name `json:"pretty_name"`
+	Name       string `json:"name"`
+	PrettyName string `json:"pretty_name"`
 	// RefreshIntervalInMillis Refresh interval for the OS statistics
-	RefreshIntervalInMillis DurationValueUnitMillis `json:"refresh_interval_in_millis"`
-	Swap                    *NodeInfoMemory         `json:"swap,omitempty"`
+	RefreshIntervalInMillis int64           `json:"refresh_interval_in_millis"`
+	Swap                    *NodeInfoMemory `json:"swap,omitempty"`
 	// Version Version of the operating system
-	Version VersionString `json:"version"`
+	Version string `json:"version"`
 }
 
-// NodeOperatingSystemInfoBuilder holds NodeOperatingSystemInfo struct and provides a builder API.
-type NodeOperatingSystemInfoBuilder struct {
-	v *NodeOperatingSystemInfo
-}
+// NewNodeOperatingSystemInfo returns a NodeOperatingSystemInfo.
+func NewNodeOperatingSystemInfo() *NodeOperatingSystemInfo {
+	r := &NodeOperatingSystemInfo{}
 
-// NewNodeOperatingSystemInfo provides a builder for the NodeOperatingSystemInfo struct.
-func NewNodeOperatingSystemInfoBuilder() *NodeOperatingSystemInfoBuilder {
-	r := NodeOperatingSystemInfoBuilder{
-		&NodeOperatingSystemInfo{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodeOperatingSystemInfo struct
-func (rb *NodeOperatingSystemInfoBuilder) Build() NodeOperatingSystemInfo {
-	return *rb.v
-}
-
-// AllocatedProcessors The number of processors actually used to calculate thread pool size. This
-// number can be set with the node.processors setting of a node and defaults to
-// the number of processors reported by the OS.
-
-func (rb *NodeOperatingSystemInfoBuilder) AllocatedProcessors(allocatedprocessors int) *NodeOperatingSystemInfoBuilder {
-	rb.v.AllocatedProcessors = &allocatedprocessors
-	return rb
-}
-
-// Arch Name of the JVM architecture (ex: amd64, x86)
-
-func (rb *NodeOperatingSystemInfoBuilder) Arch(arch string) *NodeOperatingSystemInfoBuilder {
-	rb.v.Arch = arch
-	return rb
-}
-
-// AvailableProcessors Number of processors available to the Java virtual machine
-
-func (rb *NodeOperatingSystemInfoBuilder) AvailableProcessors(availableprocessors int) *NodeOperatingSystemInfoBuilder {
-	rb.v.AvailableProcessors = availableprocessors
-	return rb
-}
-
-func (rb *NodeOperatingSystemInfoBuilder) Cpu(cpu *NodeInfoOSCPUBuilder) *NodeOperatingSystemInfoBuilder {
-	v := cpu.Build()
-	rb.v.Cpu = &v
-	return rb
-}
-
-func (rb *NodeOperatingSystemInfoBuilder) Mem(mem *NodeInfoMemoryBuilder) *NodeOperatingSystemInfoBuilder {
-	v := mem.Build()
-	rb.v.Mem = &v
-	return rb
-}
-
-// Name Name of the operating system (ex: Linux, Windows, Mac OS X)
-
-func (rb *NodeOperatingSystemInfoBuilder) Name(name Name) *NodeOperatingSystemInfoBuilder {
-	rb.v.Name = name
-	return rb
-}
-
-func (rb *NodeOperatingSystemInfoBuilder) PrettyName(prettyname Name) *NodeOperatingSystemInfoBuilder {
-	rb.v.PrettyName = prettyname
-	return rb
-}
-
-// RefreshIntervalInMillis Refresh interval for the OS statistics
-
-func (rb *NodeOperatingSystemInfoBuilder) RefreshIntervalInMillis(refreshintervalinmillis *DurationValueUnitMillisBuilder) *NodeOperatingSystemInfoBuilder {
-	v := refreshintervalinmillis.Build()
-	rb.v.RefreshIntervalInMillis = v
-	return rb
-}
-
-func (rb *NodeOperatingSystemInfoBuilder) Swap(swap *NodeInfoMemoryBuilder) *NodeOperatingSystemInfoBuilder {
-	v := swap.Build()
-	rb.v.Swap = &v
-	return rb
-}
-
-// Version Version of the operating system
-
-func (rb *NodeOperatingSystemInfoBuilder) Version(version VersionString) *NodeOperatingSystemInfoBuilder {
-	rb.v.Version = version
-	return rb
+	return r
 }

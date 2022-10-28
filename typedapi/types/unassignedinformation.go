@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // UnassignedInformation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/cluster/allocation_explain/types.ts#L117-L125
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/allocation_explain/types.ts#L117-L125
 type UnassignedInformation struct {
 	AllocationStatus         *string                                                 `json:"allocation_status,omitempty"`
 	At                       DateTime                                                `json:"at"`
@@ -39,57 +39,9 @@ type UnassignedInformation struct {
 	Reason                   unassignedinformationreason.UnassignedInformationReason `json:"reason"`
 }
 
-// UnassignedInformationBuilder holds UnassignedInformation struct and provides a builder API.
-type UnassignedInformationBuilder struct {
-	v *UnassignedInformation
-}
+// NewUnassignedInformation returns a UnassignedInformation.
+func NewUnassignedInformation() *UnassignedInformation {
+	r := &UnassignedInformation{}
 
-// NewUnassignedInformation provides a builder for the UnassignedInformation struct.
-func NewUnassignedInformationBuilder() *UnassignedInformationBuilder {
-	r := UnassignedInformationBuilder{
-		&UnassignedInformation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the UnassignedInformation struct
-func (rb *UnassignedInformationBuilder) Build() UnassignedInformation {
-	return *rb.v
-}
-
-func (rb *UnassignedInformationBuilder) AllocationStatus(allocationstatus string) *UnassignedInformationBuilder {
-	rb.v.AllocationStatus = &allocationstatus
-	return rb
-}
-
-func (rb *UnassignedInformationBuilder) At(at *DateTimeBuilder) *UnassignedInformationBuilder {
-	v := at.Build()
-	rb.v.At = v
-	return rb
-}
-
-func (rb *UnassignedInformationBuilder) Delayed(delayed bool) *UnassignedInformationBuilder {
-	rb.v.Delayed = &delayed
-	return rb
-}
-
-func (rb *UnassignedInformationBuilder) Details(details string) *UnassignedInformationBuilder {
-	rb.v.Details = &details
-	return rb
-}
-
-func (rb *UnassignedInformationBuilder) FailedAllocationAttempts(failedallocationattempts int) *UnassignedInformationBuilder {
-	rb.v.FailedAllocationAttempts = &failedallocationattempts
-	return rb
-}
-
-func (rb *UnassignedInformationBuilder) LastAllocationStatus(lastallocationstatus string) *UnassignedInformationBuilder {
-	rb.v.LastAllocationStatus = &lastallocationstatus
-	return rb
-}
-
-func (rb *UnassignedInformationBuilder) Reason(reason unassignedinformationreason.UnassignedInformationReason) *UnassignedInformationBuilder {
-	rb.v.Reason = reason
-	return rb
+	return r
 }

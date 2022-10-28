@@ -17,46 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MultiBucketAggregateBaseDoubleTermsBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L318-L320
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L326-L328
 type MultiBucketAggregateBaseDoubleTermsBucket struct {
 	Buckets BucketsDoubleTermsBucket `json:"buckets"`
-	Meta    *Metadata                `json:"meta,omitempty"`
+	Meta    map[string]interface{}   `json:"meta,omitempty"`
 }
 
-// MultiBucketAggregateBaseDoubleTermsBucketBuilder holds MultiBucketAggregateBaseDoubleTermsBucket struct and provides a builder API.
-type MultiBucketAggregateBaseDoubleTermsBucketBuilder struct {
-	v *MultiBucketAggregateBaseDoubleTermsBucket
-}
+// NewMultiBucketAggregateBaseDoubleTermsBucket returns a MultiBucketAggregateBaseDoubleTermsBucket.
+func NewMultiBucketAggregateBaseDoubleTermsBucket() *MultiBucketAggregateBaseDoubleTermsBucket {
+	r := &MultiBucketAggregateBaseDoubleTermsBucket{}
 
-// NewMultiBucketAggregateBaseDoubleTermsBucket provides a builder for the MultiBucketAggregateBaseDoubleTermsBucket struct.
-func NewMultiBucketAggregateBaseDoubleTermsBucketBuilder() *MultiBucketAggregateBaseDoubleTermsBucketBuilder {
-	r := MultiBucketAggregateBaseDoubleTermsBucketBuilder{
-		&MultiBucketAggregateBaseDoubleTermsBucket{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MultiBucketAggregateBaseDoubleTermsBucket struct
-func (rb *MultiBucketAggregateBaseDoubleTermsBucketBuilder) Build() MultiBucketAggregateBaseDoubleTermsBucket {
-	return *rb.v
-}
-
-func (rb *MultiBucketAggregateBaseDoubleTermsBucketBuilder) Buckets(buckets *BucketsDoubleTermsBucketBuilder) *MultiBucketAggregateBaseDoubleTermsBucketBuilder {
-	v := buckets.Build()
-	rb.v.Buckets = v
-	return rb
-}
-
-func (rb *MultiBucketAggregateBaseDoubleTermsBucketBuilder) Meta(meta *MetadataBuilder) *MultiBucketAggregateBaseDoubleTermsBucketBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
+	return r
 }

@@ -17,58 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MinAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/metric.ts#L103-L103
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/metric.ts#L103-L103
 type MinAggregation struct {
-	Field   *Field   `json:"field,omitempty"`
+	Field   *string  `json:"field,omitempty"`
 	Format  *string  `json:"format,omitempty"`
 	Missing *Missing `json:"missing,omitempty"`
 	Script  *Script  `json:"script,omitempty"`
 }
 
-// MinAggregationBuilder holds MinAggregation struct and provides a builder API.
-type MinAggregationBuilder struct {
-	v *MinAggregation
-}
+// NewMinAggregation returns a MinAggregation.
+func NewMinAggregation() *MinAggregation {
+	r := &MinAggregation{}
 
-// NewMinAggregation provides a builder for the MinAggregation struct.
-func NewMinAggregationBuilder() *MinAggregationBuilder {
-	r := MinAggregationBuilder{
-		&MinAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MinAggregation struct
-func (rb *MinAggregationBuilder) Build() MinAggregation {
-	return *rb.v
-}
-
-func (rb *MinAggregationBuilder) Field(field Field) *MinAggregationBuilder {
-	rb.v.Field = &field
-	return rb
-}
-
-func (rb *MinAggregationBuilder) Format(format string) *MinAggregationBuilder {
-	rb.v.Format = &format
-	return rb
-}
-
-func (rb *MinAggregationBuilder) Missing(missing *MissingBuilder) *MinAggregationBuilder {
-	v := missing.Build()
-	rb.v.Missing = &v
-	return rb
-}
-
-func (rb *MinAggregationBuilder) Script(script *ScriptBuilder) *MinAggregationBuilder {
-	v := script.Build()
-	rb.v.Script = &v
-	return rb
+	return r
 }

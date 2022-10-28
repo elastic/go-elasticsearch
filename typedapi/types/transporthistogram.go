@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TransportHistogram type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/_types/Stats.ts#L426-L430
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L426-L430
 type TransportHistogram struct {
 	Count    *int64 `json:"count,omitempty"`
 	GeMillis *int64 `json:"ge_millis,omitempty"`
 	LtMillis *int64 `json:"lt_millis,omitempty"`
 }
 
-// TransportHistogramBuilder holds TransportHistogram struct and provides a builder API.
-type TransportHistogramBuilder struct {
-	v *TransportHistogram
-}
+// NewTransportHistogram returns a TransportHistogram.
+func NewTransportHistogram() *TransportHistogram {
+	r := &TransportHistogram{}
 
-// NewTransportHistogram provides a builder for the TransportHistogram struct.
-func NewTransportHistogramBuilder() *TransportHistogramBuilder {
-	r := TransportHistogramBuilder{
-		&TransportHistogram{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TransportHistogram struct
-func (rb *TransportHistogramBuilder) Build() TransportHistogram {
-	return *rb.v
-}
-
-func (rb *TransportHistogramBuilder) Count(count int64) *TransportHistogramBuilder {
-	rb.v.Count = &count
-	return rb
-}
-
-func (rb *TransportHistogramBuilder) GeMillis(gemillis int64) *TransportHistogramBuilder {
-	rb.v.GeMillis = &gemillis
-	return rb
-}
-
-func (rb *TransportHistogramBuilder) LtMillis(ltmillis int64) *TransportHistogramBuilder {
-	rb.v.LtMillis = &ltmillis
-	return rb
+	return r
 }

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // PivotGroupByContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/transform/_types/Transform.ts#L70-L78
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/transform/_types/Transform.ts#L70-L78
 type PivotGroupByContainer struct {
 	DateHistogram *DateHistogramAggregation `json:"date_histogram,omitempty"`
 	GeotileGrid   *GeoTileGridAggregation   `json:"geotile_grid,omitempty"`
@@ -32,45 +32,9 @@ type PivotGroupByContainer struct {
 	Terms         *TermsAggregation         `json:"terms,omitempty"`
 }
 
-// PivotGroupByContainerBuilder holds PivotGroupByContainer struct and provides a builder API.
-type PivotGroupByContainerBuilder struct {
-	v *PivotGroupByContainer
-}
+// NewPivotGroupByContainer returns a PivotGroupByContainer.
+func NewPivotGroupByContainer() *PivotGroupByContainer {
+	r := &PivotGroupByContainer{}
 
-// NewPivotGroupByContainer provides a builder for the PivotGroupByContainer struct.
-func NewPivotGroupByContainerBuilder() *PivotGroupByContainerBuilder {
-	r := PivotGroupByContainerBuilder{
-		&PivotGroupByContainer{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the PivotGroupByContainer struct
-func (rb *PivotGroupByContainerBuilder) Build() PivotGroupByContainer {
-	return *rb.v
-}
-
-func (rb *PivotGroupByContainerBuilder) DateHistogram(datehistogram *DateHistogramAggregationBuilder) *PivotGroupByContainerBuilder {
-	v := datehistogram.Build()
-	rb.v.DateHistogram = &v
-	return rb
-}
-
-func (rb *PivotGroupByContainerBuilder) GeotileGrid(geotilegrid *GeoTileGridAggregationBuilder) *PivotGroupByContainerBuilder {
-	v := geotilegrid.Build()
-	rb.v.GeotileGrid = &v
-	return rb
-}
-
-func (rb *PivotGroupByContainerBuilder) Histogram(histogram *HistogramAggregationBuilder) *PivotGroupByContainerBuilder {
-	v := histogram.Build()
-	rb.v.Histogram = &v
-	return rb
-}
-
-func (rb *PivotGroupByContainerBuilder) Terms(terms *TermsAggregationBuilder) *PivotGroupByContainerBuilder {
-	v := terms.Build()
-	rb.v.Terms = &v
-	return rb
+	return r
 }

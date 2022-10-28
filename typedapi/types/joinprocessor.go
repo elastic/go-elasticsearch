@@ -17,78 +17,28 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // JoinProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ingest/_types/Processors.ts#L265-L269
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ingest/_types/Processors.ts#L265-L269
 type JoinProcessor struct {
-	Field         Field                `json:"field"`
+	Description   *string              `json:"description,omitempty"`
+	Field         string               `json:"field"`
 	If            *string              `json:"if,omitempty"`
 	IgnoreFailure *bool                `json:"ignore_failure,omitempty"`
 	OnFailure     []ProcessorContainer `json:"on_failure,omitempty"`
 	Separator     string               `json:"separator"`
 	Tag           *string              `json:"tag,omitempty"`
-	TargetField   *Field               `json:"target_field,omitempty"`
+	TargetField   *string              `json:"target_field,omitempty"`
 }
 
-// JoinProcessorBuilder holds JoinProcessor struct and provides a builder API.
-type JoinProcessorBuilder struct {
-	v *JoinProcessor
-}
+// NewJoinProcessor returns a JoinProcessor.
+func NewJoinProcessor() *JoinProcessor {
+	r := &JoinProcessor{}
 
-// NewJoinProcessor provides a builder for the JoinProcessor struct.
-func NewJoinProcessorBuilder() *JoinProcessorBuilder {
-	r := JoinProcessorBuilder{
-		&JoinProcessor{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the JoinProcessor struct
-func (rb *JoinProcessorBuilder) Build() JoinProcessor {
-	return *rb.v
-}
-
-func (rb *JoinProcessorBuilder) Field(field Field) *JoinProcessorBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *JoinProcessorBuilder) If_(if_ string) *JoinProcessorBuilder {
-	rb.v.If = &if_
-	return rb
-}
-
-func (rb *JoinProcessorBuilder) IgnoreFailure(ignorefailure bool) *JoinProcessorBuilder {
-	rb.v.IgnoreFailure = &ignorefailure
-	return rb
-}
-
-func (rb *JoinProcessorBuilder) OnFailure(on_failure []ProcessorContainerBuilder) *JoinProcessorBuilder {
-	tmp := make([]ProcessorContainer, len(on_failure))
-	for _, value := range on_failure {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.OnFailure = tmp
-	return rb
-}
-
-func (rb *JoinProcessorBuilder) Separator(separator string) *JoinProcessorBuilder {
-	rb.v.Separator = separator
-	return rb
-}
-
-func (rb *JoinProcessorBuilder) Tag(tag string) *JoinProcessorBuilder {
-	rb.v.Tag = &tag
-	return rb
-}
-
-func (rb *JoinProcessorBuilder) TargetField(targetfield Field) *JoinProcessorBuilder {
-	rb.v.TargetField = &targetfield
-	return rb
+	return r
 }

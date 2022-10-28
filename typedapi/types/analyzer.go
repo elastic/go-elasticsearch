@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -25,118 +25,49 @@ package types
 // Analyzer holds the union for the following types:
 //
 //	CustomAnalyzer
-//	DutchAnalyzer
 //	FingerprintAnalyzer
-//	IcuAnalyzer
 //	KeywordAnalyzer
-//	KuromojiAnalyzer
 //	LanguageAnalyzer
 //	NoriAnalyzer
 //	PatternAnalyzer
 //	SimpleAnalyzer
-//	SnowballAnalyzer
 //	StandardAnalyzer
 //	StopAnalyzer
 //	WhitespaceAnalyzer
+//	IcuAnalyzer
+//	KuromojiAnalyzer
+//	SnowballAnalyzer
+//	DutchAnalyzer
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/analyzers.ts#L113-L131
-type Analyzer interface{}
-
-// AnalyzerBuilder holds Analyzer struct and provides a builder API.
-type AnalyzerBuilder struct {
-	v Analyzer
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/analyzers.ts#L113-L131
+type Analyzer interface {
+	isAnalyzer()
 }
 
-// NewAnalyzer provides a builder for the Analyzer struct.
-func NewAnalyzerBuilder() *AnalyzerBuilder {
-	return &AnalyzerBuilder{}
-}
+func (i CustomAnalyzer) isAnalyzer() {}
 
-// Build finalize the chain and returns the Analyzer struct
-func (u *AnalyzerBuilder) Build() Analyzer {
-	return u.v
-}
+func (i FingerprintAnalyzer) isAnalyzer() {}
 
-func (u *AnalyzerBuilder) CustomAnalyzer(customanalyzer *CustomAnalyzerBuilder) *AnalyzerBuilder {
-	v := customanalyzer.Build()
-	u.v = &v
-	return u
-}
+func (i KeywordAnalyzer) isAnalyzer() {}
 
-func (u *AnalyzerBuilder) DutchAnalyzer(dutchanalyzer *DutchAnalyzerBuilder) *AnalyzerBuilder {
-	v := dutchanalyzer.Build()
-	u.v = &v
-	return u
-}
+func (i LanguageAnalyzer) isAnalyzer() {}
 
-func (u *AnalyzerBuilder) FingerprintAnalyzer(fingerprintanalyzer *FingerprintAnalyzerBuilder) *AnalyzerBuilder {
-	v := fingerprintanalyzer.Build()
-	u.v = &v
-	return u
-}
+func (i NoriAnalyzer) isAnalyzer() {}
 
-func (u *AnalyzerBuilder) IcuAnalyzer(icuanalyzer *IcuAnalyzerBuilder) *AnalyzerBuilder {
-	v := icuanalyzer.Build()
-	u.v = &v
-	return u
-}
+func (i PatternAnalyzer) isAnalyzer() {}
 
-func (u *AnalyzerBuilder) KeywordAnalyzer(keywordanalyzer *KeywordAnalyzerBuilder) *AnalyzerBuilder {
-	v := keywordanalyzer.Build()
-	u.v = &v
-	return u
-}
+func (i SimpleAnalyzer) isAnalyzer() {}
 
-func (u *AnalyzerBuilder) KuromojiAnalyzer(kuromojianalyzer *KuromojiAnalyzerBuilder) *AnalyzerBuilder {
-	v := kuromojianalyzer.Build()
-	u.v = &v
-	return u
-}
+func (i StandardAnalyzer) isAnalyzer() {}
 
-func (u *AnalyzerBuilder) LanguageAnalyzer(languageanalyzer *LanguageAnalyzerBuilder) *AnalyzerBuilder {
-	v := languageanalyzer.Build()
-	u.v = &v
-	return u
-}
+func (i StopAnalyzer) isAnalyzer() {}
 
-func (u *AnalyzerBuilder) NoriAnalyzer(norianalyzer *NoriAnalyzerBuilder) *AnalyzerBuilder {
-	v := norianalyzer.Build()
-	u.v = &v
-	return u
-}
+func (i WhitespaceAnalyzer) isAnalyzer() {}
 
-func (u *AnalyzerBuilder) PatternAnalyzer(patternanalyzer *PatternAnalyzerBuilder) *AnalyzerBuilder {
-	v := patternanalyzer.Build()
-	u.v = &v
-	return u
-}
+func (i IcuAnalyzer) isAnalyzer() {}
 
-func (u *AnalyzerBuilder) SimpleAnalyzer(simpleanalyzer *SimpleAnalyzerBuilder) *AnalyzerBuilder {
-	v := simpleanalyzer.Build()
-	u.v = &v
-	return u
-}
+func (i KuromojiAnalyzer) isAnalyzer() {}
 
-func (u *AnalyzerBuilder) SnowballAnalyzer(snowballanalyzer *SnowballAnalyzerBuilder) *AnalyzerBuilder {
-	v := snowballanalyzer.Build()
-	u.v = &v
-	return u
-}
+func (i SnowballAnalyzer) isAnalyzer() {}
 
-func (u *AnalyzerBuilder) StandardAnalyzer(standardanalyzer *StandardAnalyzerBuilder) *AnalyzerBuilder {
-	v := standardanalyzer.Build()
-	u.v = &v
-	return u
-}
-
-func (u *AnalyzerBuilder) StopAnalyzer(stopanalyzer *StopAnalyzerBuilder) *AnalyzerBuilder {
-	v := stopanalyzer.Build()
-	u.v = &v
-	return u
-}
-
-func (u *AnalyzerBuilder) WhitespaceAnalyzer(whitespaceanalyzer *WhitespaceAnalyzerBuilder) *AnalyzerBuilder {
-	v := whitespaceanalyzer.Build()
-	u.v = &v
-	return u
-}
+func (i DutchAnalyzer) isAnalyzer() {}

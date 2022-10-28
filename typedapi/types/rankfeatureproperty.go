@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,86 +28,28 @@ import (
 
 // RankFeatureProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/mapping/core.ts#L181-L184
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/core.ts#L181-L184
 type RankFeatureProperty struct {
 	Dynamic       *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
-	Fields        map[PropertyName]Property      `json:"fields,omitempty"`
+	Fields        map[string]Property            `json:"fields,omitempty"`
 	IgnoreAbove   *int                           `json:"ignore_above,omitempty"`
-	LocalMetadata *Metadata                      `json:"local_metadata,omitempty"`
+	LocalMetadata map[string]interface{}         `json:"local_metadata,omitempty"`
 	// Meta Metadata about the field.
-	Meta                map[string]string         `json:"meta,omitempty"`
-	PositiveScoreImpact *bool                     `json:"positive_score_impact,omitempty"`
-	Properties          map[PropertyName]Property `json:"properties,omitempty"`
-	Type                string                    `json:"type,omitempty"`
+	Meta                map[string]string   `json:"meta,omitempty"`
+	PositiveScoreImpact *bool               `json:"positive_score_impact,omitempty"`
+	Properties          map[string]Property `json:"properties,omitempty"`
+	Type                string              `json:"type,omitempty"`
 }
 
-// RankFeaturePropertyBuilder holds RankFeatureProperty struct and provides a builder API.
-type RankFeaturePropertyBuilder struct {
-	v *RankFeatureProperty
-}
-
-// NewRankFeatureProperty provides a builder for the RankFeatureProperty struct.
-func NewRankFeaturePropertyBuilder() *RankFeaturePropertyBuilder {
-	r := RankFeaturePropertyBuilder{
-		&RankFeatureProperty{
-			Fields:     make(map[PropertyName]Property, 0),
-			Meta:       make(map[string]string, 0),
-			Properties: make(map[PropertyName]Property, 0),
-		},
+// NewRankFeatureProperty returns a RankFeatureProperty.
+func NewRankFeatureProperty() *RankFeatureProperty {
+	r := &RankFeatureProperty{
+		Fields:     make(map[string]Property, 0),
+		Meta:       make(map[string]string, 0),
+		Properties: make(map[string]Property, 0),
 	}
 
-	r.v.Type = "rank_feature"
+	r.Type = "rank_feature"
 
-	return &r
-}
-
-// Build finalize the chain and returns the RankFeatureProperty struct
-func (rb *RankFeaturePropertyBuilder) Build() RankFeatureProperty {
-	return *rb.v
-}
-
-func (rb *RankFeaturePropertyBuilder) Dynamic(dynamic dynamicmapping.DynamicMapping) *RankFeaturePropertyBuilder {
-	rb.v.Dynamic = &dynamic
-	return rb
-}
-
-func (rb *RankFeaturePropertyBuilder) Fields(values map[PropertyName]*PropertyBuilder) *RankFeaturePropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Fields = tmp
-	return rb
-}
-
-func (rb *RankFeaturePropertyBuilder) IgnoreAbove(ignoreabove int) *RankFeaturePropertyBuilder {
-	rb.v.IgnoreAbove = &ignoreabove
-	return rb
-}
-
-func (rb *RankFeaturePropertyBuilder) LocalMetadata(localmetadata *MetadataBuilder) *RankFeaturePropertyBuilder {
-	v := localmetadata.Build()
-	rb.v.LocalMetadata = &v
-	return rb
-}
-
-// Meta Metadata about the field.
-
-func (rb *RankFeaturePropertyBuilder) Meta(value map[string]string) *RankFeaturePropertyBuilder {
-	rb.v.Meta = value
-	return rb
-}
-
-func (rb *RankFeaturePropertyBuilder) PositiveScoreImpact(positivescoreimpact bool) *RankFeaturePropertyBuilder {
-	rb.v.PositiveScoreImpact = &positivescoreimpact
-	return rb
-}
-
-func (rb *RankFeaturePropertyBuilder) Properties(values map[PropertyName]*PropertyBuilder) *RankFeaturePropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Properties = tmp
-	return rb
+	return r
 }

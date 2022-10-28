@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SettingsQueryString type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/_types/IndexSettings.ts#L241-L243
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/IndexSettings.ts#L241-L243
 type SettingsQueryString struct {
 	Lenient bool `json:"lenient"`
 }
 
-// SettingsQueryStringBuilder holds SettingsQueryString struct and provides a builder API.
-type SettingsQueryStringBuilder struct {
-	v *SettingsQueryString
-}
+// NewSettingsQueryString returns a SettingsQueryString.
+func NewSettingsQueryString() *SettingsQueryString {
+	r := &SettingsQueryString{}
 
-// NewSettingsQueryString provides a builder for the SettingsQueryString struct.
-func NewSettingsQueryStringBuilder() *SettingsQueryStringBuilder {
-	r := SettingsQueryStringBuilder{
-		&SettingsQueryString{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SettingsQueryString struct
-func (rb *SettingsQueryStringBuilder) Build() SettingsQueryString {
-	return *rb.v
-}
-
-func (rb *SettingsQueryStringBuilder) Lenient(lenient bool) *SettingsQueryStringBuilder {
-	rb.v.Lenient = lenient
-	return rb
+	return r
 }

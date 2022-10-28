@@ -17,46 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MultiBucketAggregateBaseIpRangeBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L318-L320
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L326-L328
 type MultiBucketAggregateBaseIpRangeBucket struct {
-	Buckets BucketsIpRangeBucket `json:"buckets"`
-	Meta    *Metadata            `json:"meta,omitempty"`
+	Buckets BucketsIpRangeBucket   `json:"buckets"`
+	Meta    map[string]interface{} `json:"meta,omitempty"`
 }
 
-// MultiBucketAggregateBaseIpRangeBucketBuilder holds MultiBucketAggregateBaseIpRangeBucket struct and provides a builder API.
-type MultiBucketAggregateBaseIpRangeBucketBuilder struct {
-	v *MultiBucketAggregateBaseIpRangeBucket
-}
+// NewMultiBucketAggregateBaseIpRangeBucket returns a MultiBucketAggregateBaseIpRangeBucket.
+func NewMultiBucketAggregateBaseIpRangeBucket() *MultiBucketAggregateBaseIpRangeBucket {
+	r := &MultiBucketAggregateBaseIpRangeBucket{}
 
-// NewMultiBucketAggregateBaseIpRangeBucket provides a builder for the MultiBucketAggregateBaseIpRangeBucket struct.
-func NewMultiBucketAggregateBaseIpRangeBucketBuilder() *MultiBucketAggregateBaseIpRangeBucketBuilder {
-	r := MultiBucketAggregateBaseIpRangeBucketBuilder{
-		&MultiBucketAggregateBaseIpRangeBucket{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MultiBucketAggregateBaseIpRangeBucket struct
-func (rb *MultiBucketAggregateBaseIpRangeBucketBuilder) Build() MultiBucketAggregateBaseIpRangeBucket {
-	return *rb.v
-}
-
-func (rb *MultiBucketAggregateBaseIpRangeBucketBuilder) Buckets(buckets *BucketsIpRangeBucketBuilder) *MultiBucketAggregateBaseIpRangeBucketBuilder {
-	v := buckets.Build()
-	rb.v.Buckets = v
-	return rb
-}
-
-func (rb *MultiBucketAggregateBaseIpRangeBucketBuilder) Meta(meta *MetadataBuilder) *MultiBucketAggregateBaseIpRangeBucketBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
+	return r
 }

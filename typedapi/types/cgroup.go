@@ -17,53 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Cgroup type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/_types/Stats.ts#L182-L186
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L182-L186
 type Cgroup struct {
 	Cpu     *CgroupCpu    `json:"cpu,omitempty"`
 	Cpuacct *CpuAcct      `json:"cpuacct,omitempty"`
 	Memory  *CgroupMemory `json:"memory,omitempty"`
 }
 
-// CgroupBuilder holds Cgroup struct and provides a builder API.
-type CgroupBuilder struct {
-	v *Cgroup
-}
+// NewCgroup returns a Cgroup.
+func NewCgroup() *Cgroup {
+	r := &Cgroup{}
 
-// NewCgroup provides a builder for the Cgroup struct.
-func NewCgroupBuilder() *CgroupBuilder {
-	r := CgroupBuilder{
-		&Cgroup{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Cgroup struct
-func (rb *CgroupBuilder) Build() Cgroup {
-	return *rb.v
-}
-
-func (rb *CgroupBuilder) Cpu(cpu *CgroupCpuBuilder) *CgroupBuilder {
-	v := cpu.Build()
-	rb.v.Cpu = &v
-	return rb
-}
-
-func (rb *CgroupBuilder) Cpuacct(cpuacct *CpuAcctBuilder) *CgroupBuilder {
-	v := cpuacct.Build()
-	rb.v.Cpuacct = &v
-	return rb
-}
-
-func (rb *CgroupBuilder) Memory(memory *CgroupMemoryBuilder) *CgroupBuilder {
-	v := memory.Build()
-	rb.v.Memory = &v
-	return rb
+	return r
 }

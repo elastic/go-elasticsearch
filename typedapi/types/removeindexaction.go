@@ -17,51 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RemoveIndexAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/update_aliases/types.ts#L55-L60
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/update_aliases/types.ts#L55-L60
 type RemoveIndexAction struct {
-	Index     *IndexName `json:"index,omitempty"`
-	Indices   *Indices   `json:"indices,omitempty"`
-	MustExist *bool      `json:"must_exist,omitempty"`
+	Index     *string  `json:"index,omitempty"`
+	Indices   []string `json:"indices,omitempty"`
+	MustExist *bool    `json:"must_exist,omitempty"`
 }
 
-// RemoveIndexActionBuilder holds RemoveIndexAction struct and provides a builder API.
-type RemoveIndexActionBuilder struct {
-	v *RemoveIndexAction
-}
+// NewRemoveIndexAction returns a RemoveIndexAction.
+func NewRemoveIndexAction() *RemoveIndexAction {
+	r := &RemoveIndexAction{}
 
-// NewRemoveIndexAction provides a builder for the RemoveIndexAction struct.
-func NewRemoveIndexActionBuilder() *RemoveIndexActionBuilder {
-	r := RemoveIndexActionBuilder{
-		&RemoveIndexAction{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RemoveIndexAction struct
-func (rb *RemoveIndexActionBuilder) Build() RemoveIndexAction {
-	return *rb.v
-}
-
-func (rb *RemoveIndexActionBuilder) Index(index IndexName) *RemoveIndexActionBuilder {
-	rb.v.Index = &index
-	return rb
-}
-
-func (rb *RemoveIndexActionBuilder) Indices(indices *IndicesBuilder) *RemoveIndexActionBuilder {
-	v := indices.Build()
-	rb.v.Indices = &v
-	return rb
-}
-
-func (rb *RemoveIndexActionBuilder) MustExist(mustexist bool) *RemoveIndexActionBuilder {
-	rb.v.MustExist = &mustexist
-	return rb
+	return r
 }

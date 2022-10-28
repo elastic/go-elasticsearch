@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DocStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/Stats.ts#L64-L67
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Stats.ts#L64-L67
 type DocStats struct {
 	Count   int64  `json:"count"`
 	Deleted *int64 `json:"deleted,omitempty"`
 }
 
-// DocStatsBuilder holds DocStats struct and provides a builder API.
-type DocStatsBuilder struct {
-	v *DocStats
-}
+// NewDocStats returns a DocStats.
+func NewDocStats() *DocStats {
+	r := &DocStats{}
 
-// NewDocStats provides a builder for the DocStats struct.
-func NewDocStatsBuilder() *DocStatsBuilder {
-	r := DocStatsBuilder{
-		&DocStats{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DocStats struct
-func (rb *DocStatsBuilder) Build() DocStats {
-	return *rb.v
-}
-
-func (rb *DocStatsBuilder) Count(count int64) *DocStatsBuilder {
-	rb.v.Count = count
-	return rb
-}
-
-func (rb *DocStatsBuilder) Deleted(deleted int64) *DocStatsBuilder {
-	rb.v.Deleted = &deleted
-	return rb
+	return r
 }

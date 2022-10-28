@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // JobStatistics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/Job.ts#L44-L49
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/Job.ts#L44-L49
 type JobStatistics struct {
 	Avg   float64 `json:"avg"`
 	Max   float64 `json:"max"`
@@ -32,41 +32,9 @@ type JobStatistics struct {
 	Total float64 `json:"total"`
 }
 
-// JobStatisticsBuilder holds JobStatistics struct and provides a builder API.
-type JobStatisticsBuilder struct {
-	v *JobStatistics
-}
+// NewJobStatistics returns a JobStatistics.
+func NewJobStatistics() *JobStatistics {
+	r := &JobStatistics{}
 
-// NewJobStatistics provides a builder for the JobStatistics struct.
-func NewJobStatisticsBuilder() *JobStatisticsBuilder {
-	r := JobStatisticsBuilder{
-		&JobStatistics{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the JobStatistics struct
-func (rb *JobStatisticsBuilder) Build() JobStatistics {
-	return *rb.v
-}
-
-func (rb *JobStatisticsBuilder) Avg(avg float64) *JobStatisticsBuilder {
-	rb.v.Avg = avg
-	return rb
-}
-
-func (rb *JobStatisticsBuilder) Max(max float64) *JobStatisticsBuilder {
-	rb.v.Max = max
-	return rb
-}
-
-func (rb *JobStatisticsBuilder) Min(min float64) *JobStatisticsBuilder {
-	rb.v.Min = min
-	return rb
-}
-
-func (rb *JobStatisticsBuilder) Total(total float64) *JobStatisticsBuilder {
-	rb.v.Total = total
-	return rb
+	return r
 }

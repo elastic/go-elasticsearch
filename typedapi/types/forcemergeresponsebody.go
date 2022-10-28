@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ForceMergeResponseBody type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/forcemerge/_types/response.ts#L22-L28
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/forcemerge/_types/response.ts#L22-L28
 type ForceMergeResponseBody struct {
 	Shards_ ShardStatistics `json:"_shards"`
 	// Task task contains a task id returned when wait_for_completion=false,
@@ -32,35 +32,9 @@ type ForceMergeResponseBody struct {
 	Task *string `json:"task,omitempty"`
 }
 
-// ForceMergeResponseBodyBuilder holds ForceMergeResponseBody struct and provides a builder API.
-type ForceMergeResponseBodyBuilder struct {
-	v *ForceMergeResponseBody
-}
+// NewForceMergeResponseBody returns a ForceMergeResponseBody.
+func NewForceMergeResponseBody() *ForceMergeResponseBody {
+	r := &ForceMergeResponseBody{}
 
-// NewForceMergeResponseBody provides a builder for the ForceMergeResponseBody struct.
-func NewForceMergeResponseBodyBuilder() *ForceMergeResponseBodyBuilder {
-	r := ForceMergeResponseBodyBuilder{
-		&ForceMergeResponseBody{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ForceMergeResponseBody struct
-func (rb *ForceMergeResponseBodyBuilder) Build() ForceMergeResponseBody {
-	return *rb.v
-}
-
-func (rb *ForceMergeResponseBodyBuilder) Shards_(shards_ *ShardStatisticsBuilder) *ForceMergeResponseBodyBuilder {
-	v := shards_.Build()
-	rb.v.Shards_ = v
-	return rb
-}
-
-// Task task contains a task id returned when wait_for_completion=false,
-// you can use the task_id to get the status of the task at _tasks/<task_id>
-
-func (rb *ForceMergeResponseBodyBuilder) Task(task string) *ForceMergeResponseBodyBuilder {
-	rb.v.Task = &task
-	return rb
+	return r
 }

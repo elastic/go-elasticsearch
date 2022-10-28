@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RepositoryLocation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/_types/RepositoryMeteringInformation.ts#L68-L74
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/RepositoryMeteringInformation.ts#L68-L74
 type RepositoryLocation struct {
 	BasePath string `json:"base_path"`
 	// Bucket Bucket name (GCP, S3)
@@ -33,40 +33,9 @@ type RepositoryLocation struct {
 	Container *string `json:"container,omitempty"`
 }
 
-// RepositoryLocationBuilder holds RepositoryLocation struct and provides a builder API.
-type RepositoryLocationBuilder struct {
-	v *RepositoryLocation
-}
+// NewRepositoryLocation returns a RepositoryLocation.
+func NewRepositoryLocation() *RepositoryLocation {
+	r := &RepositoryLocation{}
 
-// NewRepositoryLocation provides a builder for the RepositoryLocation struct.
-func NewRepositoryLocationBuilder() *RepositoryLocationBuilder {
-	r := RepositoryLocationBuilder{
-		&RepositoryLocation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RepositoryLocation struct
-func (rb *RepositoryLocationBuilder) Build() RepositoryLocation {
-	return *rb.v
-}
-
-func (rb *RepositoryLocationBuilder) BasePath(basepath string) *RepositoryLocationBuilder {
-	rb.v.BasePath = basepath
-	return rb
-}
-
-// Bucket Bucket name (GCP, S3)
-
-func (rb *RepositoryLocationBuilder) Bucket(bucket string) *RepositoryLocationBuilder {
-	rb.v.Bucket = &bucket
-	return rb
-}
-
-// Container Container name (Azure)
-
-func (rb *RepositoryLocationBuilder) Container(container string) *RepositoryLocationBuilder {
-	rb.v.Container = &container
-	return rb
+	return r
 }

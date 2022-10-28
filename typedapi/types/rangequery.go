@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -27,32 +27,11 @@ package types
 //	DateRangeQuery
 //	NumberRangeQuery
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/query_dsl/term.ts#L92-L94
-type RangeQuery interface{}
-
-// RangeQueryBuilder holds RangeQuery struct and provides a builder API.
-type RangeQueryBuilder struct {
-	v RangeQuery
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/term.ts#L92-L94
+type RangeQuery interface {
+	isRangeQuery()
 }
 
-// NewRangeQuery provides a builder for the RangeQuery struct.
-func NewRangeQueryBuilder() *RangeQueryBuilder {
-	return &RangeQueryBuilder{}
-}
+func (i DateRangeQuery) isRangeQuery() {}
 
-// Build finalize the chain and returns the RangeQuery struct
-func (u *RangeQueryBuilder) Build() RangeQuery {
-	return u.v
-}
-
-func (u *RangeQueryBuilder) DateRangeQuery(daterangequery *DateRangeQueryBuilder) *RangeQueryBuilder {
-	v := daterangequery.Build()
-	u.v = &v
-	return u
-}
-
-func (u *RangeQueryBuilder) NumberRangeQuery(numberrangequery *NumberRangeQueryBuilder) *RangeQueryBuilder {
-	v := numberrangequery.Build()
-	u.v = &v
-	return u
-}
+func (i NumberRangeQuery) isRangeQuery() {}

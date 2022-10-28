@@ -17,44 +17,15 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
-
-import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/slicescalculation"
-)
 
 // Slices holds the union for the following types:
 //
 //	int
 //	slicescalculation.SlicesCalculation
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/common.ts#L326-L331
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/common.ts#L326-L331
 type Slices interface{}
-
-// SlicesBuilder holds Slices struct and provides a builder API.
-type SlicesBuilder struct {
-	v Slices
-}
-
-// NewSlices provides a builder for the Slices struct.
-func NewSlicesBuilder() *SlicesBuilder {
-	return &SlicesBuilder{}
-}
-
-// Build finalize the chain and returns the Slices struct
-func (u *SlicesBuilder) Build() Slices {
-	return u.v
-}
-
-func (u *SlicesBuilder) Int(int int) *SlicesBuilder {
-	u.v = &int
-	return u
-}
-
-func (u *SlicesBuilder) SlicesCalculation(slicescalculation slicescalculation.SlicesCalculation) *SlicesBuilder {
-	u.v = &slicescalculation
-	return u
-}

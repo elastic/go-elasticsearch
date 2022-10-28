@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // DetectionRule type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/Rule.ts#L25-L39
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/Rule.ts#L25-L39
 type DetectionRule struct {
 	// Actions The set of actions to be triggered when the rule applies. If more than one
 	// action is specified the effects of all actions are combined.
@@ -41,61 +41,14 @@ type DetectionRule struct {
 	// scope or at least one condition. By default, the scope includes all series.
 	// Scoping is allowed for any of the fields that are also specified in
 	// `by_field_name`, `over_field_name`, or `partition_field_name`.
-	Scope map[Field]FilterRef `json:"scope,omitempty"`
+	Scope map[string]FilterRef `json:"scope,omitempty"`
 }
 
-// DetectionRuleBuilder holds DetectionRule struct and provides a builder API.
-type DetectionRuleBuilder struct {
-	v *DetectionRule
-}
-
-// NewDetectionRule provides a builder for the DetectionRule struct.
-func NewDetectionRuleBuilder() *DetectionRuleBuilder {
-	r := DetectionRuleBuilder{
-		&DetectionRule{
-			Scope: make(map[Field]FilterRef, 0),
-		},
+// NewDetectionRule returns a DetectionRule.
+func NewDetectionRule() *DetectionRule {
+	r := &DetectionRule{
+		Scope: make(map[string]FilterRef, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the DetectionRule struct
-func (rb *DetectionRuleBuilder) Build() DetectionRule {
-	return *rb.v
-}
-
-// Actions The set of actions to be triggered when the rule applies. If more than one
-// action is specified the effects of all actions are combined.
-
-func (rb *DetectionRuleBuilder) Actions(actions ...ruleaction.RuleAction) *DetectionRuleBuilder {
-	rb.v.Actions = actions
-	return rb
-}
-
-// Conditions An array of numeric conditions when the rule applies. A rule must either have
-// a non-empty scope or at least one condition. Multiple conditions are combined
-// together with a logical AND.
-
-func (rb *DetectionRuleBuilder) Conditions(conditions []RuleConditionBuilder) *DetectionRuleBuilder {
-	tmp := make([]RuleCondition, len(conditions))
-	for _, value := range conditions {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Conditions = tmp
-	return rb
-}
-
-// Scope A scope of series where the rule applies. A rule must either have a non-empty
-// scope or at least one condition. By default, the scope includes all series.
-// Scoping is allowed for any of the fields that are also specified in
-// `by_field_name`, `over_field_name`, or `partition_field_name`.
-
-func (rb *DetectionRuleBuilder) Scope(values map[Field]*FilterRefBuilder) *DetectionRuleBuilder {
-	tmp := make(map[Field]FilterRef, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Scope = tmp
-	return rb
+	return r
 }

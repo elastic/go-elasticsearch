@@ -17,75 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AggregationProfile type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_global/search/_types/profile.ts#L77-L84
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/profile.ts#L77-L84
 type AggregationProfile struct {
 	Breakdown   AggregationBreakdown     `json:"breakdown"`
 	Children    []AggregationProfile     `json:"children,omitempty"`
 	Debug       *AggregationProfileDebug `json:"debug,omitempty"`
 	Description string                   `json:"description"`
-	TimeInNanos DurationValueUnitNanos   `json:"time_in_nanos"`
+	TimeInNanos int64                    `json:"time_in_nanos"`
 	Type        string                   `json:"type"`
 }
 
-// AggregationProfileBuilder holds AggregationProfile struct and provides a builder API.
-type AggregationProfileBuilder struct {
-	v *AggregationProfile
-}
+// NewAggregationProfile returns a AggregationProfile.
+func NewAggregationProfile() *AggregationProfile {
+	r := &AggregationProfile{}
 
-// NewAggregationProfile provides a builder for the AggregationProfile struct.
-func NewAggregationProfileBuilder() *AggregationProfileBuilder {
-	r := AggregationProfileBuilder{
-		&AggregationProfile{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the AggregationProfile struct
-func (rb *AggregationProfileBuilder) Build() AggregationProfile {
-	return *rb.v
-}
-
-func (rb *AggregationProfileBuilder) Breakdown(breakdown *AggregationBreakdownBuilder) *AggregationProfileBuilder {
-	v := breakdown.Build()
-	rb.v.Breakdown = v
-	return rb
-}
-
-func (rb *AggregationProfileBuilder) Children(children []AggregationProfileBuilder) *AggregationProfileBuilder {
-	tmp := make([]AggregationProfile, len(children))
-	for _, value := range children {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Children = tmp
-	return rb
-}
-
-func (rb *AggregationProfileBuilder) Debug(debug *AggregationProfileDebugBuilder) *AggregationProfileBuilder {
-	v := debug.Build()
-	rb.v.Debug = &v
-	return rb
-}
-
-func (rb *AggregationProfileBuilder) Description(description string) *AggregationProfileBuilder {
-	rb.v.Description = description
-	return rb
-}
-
-func (rb *AggregationProfileBuilder) TimeInNanos(timeinnanos *DurationValueUnitNanosBuilder) *AggregationProfileBuilder {
-	v := timeinnanos.Build()
-	rb.v.TimeInNanos = v
-	return rb
-}
-
-func (rb *AggregationProfileBuilder) Type_(type_ string) *AggregationProfileBuilder {
-	rb.v.Type = type_
-	return rb
+	return r
 }

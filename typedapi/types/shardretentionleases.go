@@ -17,54 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ShardRetentionLeases type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/stats/types.ts#L144-L148
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/stats/types.ts#L144-L148
 type ShardRetentionLeases struct {
-	Leases      []ShardLease  `json:"leases"`
-	PrimaryTerm int64         `json:"primary_term"`
-	Version     VersionNumber `json:"version"`
+	Leases      []ShardLease `json:"leases"`
+	PrimaryTerm int64        `json:"primary_term"`
+	Version     int64        `json:"version"`
 }
 
-// ShardRetentionLeasesBuilder holds ShardRetentionLeases struct and provides a builder API.
-type ShardRetentionLeasesBuilder struct {
-	v *ShardRetentionLeases
-}
+// NewShardRetentionLeases returns a ShardRetentionLeases.
+func NewShardRetentionLeases() *ShardRetentionLeases {
+	r := &ShardRetentionLeases{}
 
-// NewShardRetentionLeases provides a builder for the ShardRetentionLeases struct.
-func NewShardRetentionLeasesBuilder() *ShardRetentionLeasesBuilder {
-	r := ShardRetentionLeasesBuilder{
-		&ShardRetentionLeases{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ShardRetentionLeases struct
-func (rb *ShardRetentionLeasesBuilder) Build() ShardRetentionLeases {
-	return *rb.v
-}
-
-func (rb *ShardRetentionLeasesBuilder) Leases(leases []ShardLeaseBuilder) *ShardRetentionLeasesBuilder {
-	tmp := make([]ShardLease, len(leases))
-	for _, value := range leases {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Leases = tmp
-	return rb
-}
-
-func (rb *ShardRetentionLeasesBuilder) PrimaryTerm(primaryterm int64) *ShardRetentionLeasesBuilder {
-	rb.v.PrimaryTerm = primaryterm
-	return rb
-}
-
-func (rb *ShardRetentionLeasesBuilder) Version(version VersionNumber) *ShardRetentionLeasesBuilder {
-	rb.v.Version = version
-	return rb
+	return r
 }

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // MatchPhrasePrefixQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/query_dsl/fulltext.ts#L182-L189
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/fulltext.ts#L182-L189
 type MatchPhrasePrefixQuery struct {
 	Analyzer       *string                        `json:"analyzer,omitempty"`
 	Boost          *float32                       `json:"boost,omitempty"`
@@ -39,56 +39,9 @@ type MatchPhrasePrefixQuery struct {
 	ZeroTermsQuery *zerotermsquery.ZeroTermsQuery `json:"zero_terms_query,omitempty"`
 }
 
-// MatchPhrasePrefixQueryBuilder holds MatchPhrasePrefixQuery struct and provides a builder API.
-type MatchPhrasePrefixQueryBuilder struct {
-	v *MatchPhrasePrefixQuery
-}
+// NewMatchPhrasePrefixQuery returns a MatchPhrasePrefixQuery.
+func NewMatchPhrasePrefixQuery() *MatchPhrasePrefixQuery {
+	r := &MatchPhrasePrefixQuery{}
 
-// NewMatchPhrasePrefixQuery provides a builder for the MatchPhrasePrefixQuery struct.
-func NewMatchPhrasePrefixQueryBuilder() *MatchPhrasePrefixQueryBuilder {
-	r := MatchPhrasePrefixQueryBuilder{
-		&MatchPhrasePrefixQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MatchPhrasePrefixQuery struct
-func (rb *MatchPhrasePrefixQueryBuilder) Build() MatchPhrasePrefixQuery {
-	return *rb.v
-}
-
-func (rb *MatchPhrasePrefixQueryBuilder) Analyzer(analyzer string) *MatchPhrasePrefixQueryBuilder {
-	rb.v.Analyzer = &analyzer
-	return rb
-}
-
-func (rb *MatchPhrasePrefixQueryBuilder) Boost(boost float32) *MatchPhrasePrefixQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *MatchPhrasePrefixQueryBuilder) MaxExpansions(maxexpansions int) *MatchPhrasePrefixQueryBuilder {
-	rb.v.MaxExpansions = &maxexpansions
-	return rb
-}
-
-func (rb *MatchPhrasePrefixQueryBuilder) Query(query string) *MatchPhrasePrefixQueryBuilder {
-	rb.v.Query = query
-	return rb
-}
-
-func (rb *MatchPhrasePrefixQueryBuilder) QueryName_(queryname_ string) *MatchPhrasePrefixQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
-}
-
-func (rb *MatchPhrasePrefixQueryBuilder) Slop(slop int) *MatchPhrasePrefixQueryBuilder {
-	rb.v.Slop = &slop
-	return rb
-}
-
-func (rb *MatchPhrasePrefixQueryBuilder) ZeroTermsQuery(zerotermsquery zerotermsquery.ZeroTermsQuery) *MatchPhrasePrefixQueryBuilder {
-	rb.v.ZeroTermsQuery = &zerotermsquery
-	return rb
+	return r
 }

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // ShardRouting type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/stats/types.ts#L150-L155
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/stats/types.ts#L150-L155
 type ShardRouting struct {
 	Node           string                              `json:"node"`
 	Primary        bool                                `json:"primary"`
@@ -36,41 +36,9 @@ type ShardRouting struct {
 	State          shardroutingstate.ShardRoutingState `json:"state"`
 }
 
-// ShardRoutingBuilder holds ShardRouting struct and provides a builder API.
-type ShardRoutingBuilder struct {
-	v *ShardRouting
-}
+// NewShardRouting returns a ShardRouting.
+func NewShardRouting() *ShardRouting {
+	r := &ShardRouting{}
 
-// NewShardRouting provides a builder for the ShardRouting struct.
-func NewShardRoutingBuilder() *ShardRoutingBuilder {
-	r := ShardRoutingBuilder{
-		&ShardRouting{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ShardRouting struct
-func (rb *ShardRoutingBuilder) Build() ShardRouting {
-	return *rb.v
-}
-
-func (rb *ShardRoutingBuilder) Node(node string) *ShardRoutingBuilder {
-	rb.v.Node = node
-	return rb
-}
-
-func (rb *ShardRoutingBuilder) Primary(primary bool) *ShardRoutingBuilder {
-	rb.v.Primary = primary
-	return rb
-}
-
-func (rb *ShardRoutingBuilder) RelocatingNode(relocatingnode string) *ShardRoutingBuilder {
-	rb.v.RelocatingNode = relocatingnode
-	return rb
-}
-
-func (rb *ShardRoutingBuilder) State(state shardroutingstate.ShardRoutingState) *ShardRoutingBuilder {
-	rb.v.State = state
-	return rb
+	return r
 }

@@ -17,49 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AutoscalingPolicy type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/autoscaling/_types/AutoscalingPolicy.ts#L23-L27
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/autoscaling/_types/AutoscalingPolicy.ts#L23-L27
 type AutoscalingPolicy struct {
 	// Deciders Decider settings
 	Deciders map[string]interface{} `json:"deciders"`
 	Roles    []string               `json:"roles"`
 }
 
-// AutoscalingPolicyBuilder holds AutoscalingPolicy struct and provides a builder API.
-type AutoscalingPolicyBuilder struct {
-	v *AutoscalingPolicy
-}
-
-// NewAutoscalingPolicy provides a builder for the AutoscalingPolicy struct.
-func NewAutoscalingPolicyBuilder() *AutoscalingPolicyBuilder {
-	r := AutoscalingPolicyBuilder{
-		&AutoscalingPolicy{
-			Deciders: make(map[string]interface{}, 0),
-		},
+// NewAutoscalingPolicy returns a AutoscalingPolicy.
+func NewAutoscalingPolicy() *AutoscalingPolicy {
+	r := &AutoscalingPolicy{
+		Deciders: make(map[string]interface{}, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the AutoscalingPolicy struct
-func (rb *AutoscalingPolicyBuilder) Build() AutoscalingPolicy {
-	return *rb.v
-}
-
-// Deciders Decider settings
-
-func (rb *AutoscalingPolicyBuilder) Deciders(value map[string]interface{}) *AutoscalingPolicyBuilder {
-	rb.v.Deciders = value
-	return rb
-}
-
-func (rb *AutoscalingPolicyBuilder) Roles(roles ...string) *AutoscalingPolicyBuilder {
-	rb.v.Roles = roles
-	return rb
+	return r
 }

@@ -17,56 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // HotThread type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/hot_threads/types.ts#L23-L28
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/hot_threads/types.ts#L23-L28
 type HotThread struct {
-	Hosts    []Host   `json:"hosts"`
-	NodeId   Id       `json:"node_id"`
-	NodeName Name     `json:"node_name"`
+	Hosts    []string `json:"hosts"`
+	NodeId   string   `json:"node_id"`
+	NodeName string   `json:"node_name"`
 	Threads  []string `json:"threads"`
 }
 
-// HotThreadBuilder holds HotThread struct and provides a builder API.
-type HotThreadBuilder struct {
-	v *HotThread
-}
+// NewHotThread returns a HotThread.
+func NewHotThread() *HotThread {
+	r := &HotThread{}
 
-// NewHotThread provides a builder for the HotThread struct.
-func NewHotThreadBuilder() *HotThreadBuilder {
-	r := HotThreadBuilder{
-		&HotThread{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the HotThread struct
-func (rb *HotThreadBuilder) Build() HotThread {
-	return *rb.v
-}
-
-func (rb *HotThreadBuilder) Hosts(hosts ...Host) *HotThreadBuilder {
-	rb.v.Hosts = hosts
-	return rb
-}
-
-func (rb *HotThreadBuilder) NodeId(nodeid Id) *HotThreadBuilder {
-	rb.v.NodeId = nodeid
-	return rb
-}
-
-func (rb *HotThreadBuilder) NodeName(nodename Name) *HotThreadBuilder {
-	rb.v.NodeName = nodename
-	return rb
-}
-
-func (rb *HotThreadBuilder) Threads(threads ...string) *HotThreadBuilder {
-	rb.v.Threads = threads
-	return rb
+	return r
 }

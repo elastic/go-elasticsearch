@@ -17,56 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TermsLookup type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/query_dsl/term.ts#L132-L137
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/term.ts#L132-L137
 type TermsLookup struct {
-	Id      Id        `json:"id"`
-	Index   IndexName `json:"index"`
-	Path    Field     `json:"path"`
-	Routing *Routing  `json:"routing,omitempty"`
+	Id      string  `json:"id"`
+	Index   string  `json:"index"`
+	Path    string  `json:"path"`
+	Routing *string `json:"routing,omitempty"`
 }
 
-// TermsLookupBuilder holds TermsLookup struct and provides a builder API.
-type TermsLookupBuilder struct {
-	v *TermsLookup
-}
+// NewTermsLookup returns a TermsLookup.
+func NewTermsLookup() *TermsLookup {
+	r := &TermsLookup{}
 
-// NewTermsLookup provides a builder for the TermsLookup struct.
-func NewTermsLookupBuilder() *TermsLookupBuilder {
-	r := TermsLookupBuilder{
-		&TermsLookup{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TermsLookup struct
-func (rb *TermsLookupBuilder) Build() TermsLookup {
-	return *rb.v
-}
-
-func (rb *TermsLookupBuilder) Id(id Id) *TermsLookupBuilder {
-	rb.v.Id = id
-	return rb
-}
-
-func (rb *TermsLookupBuilder) Index(index IndexName) *TermsLookupBuilder {
-	rb.v.Index = index
-	return rb
-}
-
-func (rb *TermsLookupBuilder) Path(path Field) *TermsLookupBuilder {
-	rb.v.Path = path
-	return rb
-}
-
-func (rb *TermsLookupBuilder) Routing(routing Routing) *TermsLookupBuilder {
-	rb.v.Routing = &routing
-	return rb
+	return r
 }

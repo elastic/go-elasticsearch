@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataStreamIndex type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/_types/DataStream.ts#L52-L55
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/DataStream.ts#L52-L55
 type DataStreamIndex struct {
-	IndexName IndexName `json:"index_name"`
-	IndexUuid Uuid      `json:"index_uuid"`
+	IndexName string `json:"index_name"`
+	IndexUuid string `json:"index_uuid"`
 }
 
-// DataStreamIndexBuilder holds DataStreamIndex struct and provides a builder API.
-type DataStreamIndexBuilder struct {
-	v *DataStreamIndex
-}
+// NewDataStreamIndex returns a DataStreamIndex.
+func NewDataStreamIndex() *DataStreamIndex {
+	r := &DataStreamIndex{}
 
-// NewDataStreamIndex provides a builder for the DataStreamIndex struct.
-func NewDataStreamIndexBuilder() *DataStreamIndexBuilder {
-	r := DataStreamIndexBuilder{
-		&DataStreamIndex{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataStreamIndex struct
-func (rb *DataStreamIndexBuilder) Build() DataStreamIndex {
-	return *rb.v
-}
-
-func (rb *DataStreamIndexBuilder) IndexName(indexname IndexName) *DataStreamIndexBuilder {
-	rb.v.IndexName = indexname
-	return rb
-}
-
-func (rb *DataStreamIndexBuilder) IndexUuid(indexuuid Uuid) *DataStreamIndexBuilder {
-	rb.v.IndexUuid = indexuuid
-	return rb
+	return r
 }

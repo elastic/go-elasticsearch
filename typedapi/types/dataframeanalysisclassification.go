@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeAnalysisClassification type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/DataframeAnalytics.ts#L227-L236
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/DataframeAnalytics.ts#L227-L236
 type DataframeAnalysisClassification struct {
 	// Alpha Advanced configuration option. Machine learning uses loss guided tree
 	// growing, which means that the decision trees grow where the regularized loss
@@ -124,7 +124,7 @@ type DataframeAnalysisClassification struct {
 	NumTopFeatureImportanceValues *int `json:"num_top_feature_importance_values,omitempty"`
 	// PredictionFieldName Defines the name of the prediction field in the results. Defaults to
 	// `<dependent_variable>_prediction`.
-	PredictionFieldName *Field `json:"prediction_field_name,omitempty"`
+	PredictionFieldName *string `json:"prediction_field_name,omitempty"`
 	// RandomizeSeed Defines the seed for the random generator that is used to pick training data.
 	// By default, it is randomly generated. Set it to a specific value to use the
 	// same training data each time you start a job (assuming other related
@@ -150,247 +150,9 @@ type DataframeAnalysisClassification struct {
 	TrainingPercent *Percentage `json:"training_percent,omitempty"`
 }
 
-// DataframeAnalysisClassificationBuilder holds DataframeAnalysisClassification struct and provides a builder API.
-type DataframeAnalysisClassificationBuilder struct {
-	v *DataframeAnalysisClassification
-}
+// NewDataframeAnalysisClassification returns a DataframeAnalysisClassification.
+func NewDataframeAnalysisClassification() *DataframeAnalysisClassification {
+	r := &DataframeAnalysisClassification{}
 
-// NewDataframeAnalysisClassification provides a builder for the DataframeAnalysisClassification struct.
-func NewDataframeAnalysisClassificationBuilder() *DataframeAnalysisClassificationBuilder {
-	r := DataframeAnalysisClassificationBuilder{
-		&DataframeAnalysisClassification{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeAnalysisClassification struct
-func (rb *DataframeAnalysisClassificationBuilder) Build() DataframeAnalysisClassification {
-	return *rb.v
-}
-
-// Alpha Advanced configuration option. Machine learning uses loss guided tree
-// growing, which means that the decision trees grow where the regularized loss
-// decreases most quickly. This parameter affects loss calculations by acting as
-// a multiplier of the tree depth. Higher alpha values result in shallower trees
-// and faster training times. By default, this value is calculated during
-// hyperparameter optimization. It must be greater than or equal to zero.
-
-func (rb *DataframeAnalysisClassificationBuilder) Alpha(alpha float64) *DataframeAnalysisClassificationBuilder {
-	rb.v.Alpha = &alpha
-	return rb
-}
-
-func (rb *DataframeAnalysisClassificationBuilder) ClassAssignmentObjective(classassignmentobjective string) *DataframeAnalysisClassificationBuilder {
-	rb.v.ClassAssignmentObjective = &classassignmentobjective
-	return rb
-}
-
-// DependentVariable Defines which field of the document is to be predicted. It must match one of
-// the fields in the index being used to train. If this field is missing from a
-// document, then that document will not be used for training, but a prediction
-// with the trained model will be generated for it. It is also known as
-// continuous target variable.
-// For classification analysis, the data type of the field must be numeric
-// (`integer`, `short`, `long`, `byte`), categorical (`ip` or `keyword`), or
-// `boolean`. There must be no more than 30 different values in this field.
-// For regression analysis, the data type of the field must be numeric.
-
-func (rb *DataframeAnalysisClassificationBuilder) DependentVariable(dependentvariable string) *DataframeAnalysisClassificationBuilder {
-	rb.v.DependentVariable = dependentvariable
-	return rb
-}
-
-// DownsampleFactor Advanced configuration option. Controls the fraction of data that is used to
-// compute the derivatives of the loss function for tree training. A small value
-// results in the use of a small fraction of the data. If this value is set to
-// be less than 1, accuracy typically improves. However, too small a value may
-// result in poor convergence for the ensemble and so require more trees. By
-// default, this value is calculated during hyperparameter optimization. It must
-// be greater than zero and less than or equal to 1.
-
-func (rb *DataframeAnalysisClassificationBuilder) DownsampleFactor(downsamplefactor float64) *DataframeAnalysisClassificationBuilder {
-	rb.v.DownsampleFactor = &downsamplefactor
-	return rb
-}
-
-// EarlyStoppingEnabled Advanced configuration option. Specifies whether the training process should
-// finish if it is not finding any better performing models. If disabled, the
-// training process can take significantly longer and the chance of finding a
-// better performing model is unremarkable.
-
-func (rb *DataframeAnalysisClassificationBuilder) EarlyStoppingEnabled(earlystoppingenabled bool) *DataframeAnalysisClassificationBuilder {
-	rb.v.EarlyStoppingEnabled = &earlystoppingenabled
-	return rb
-}
-
-// Eta Advanced configuration option. The shrinkage applied to the weights. Smaller
-// values result in larger forests which have a better generalization error.
-// However, larger forests cause slower training. By default, this value is
-// calculated during hyperparameter optimization. It must be a value between
-// 0.001 and 1.
-
-func (rb *DataframeAnalysisClassificationBuilder) Eta(eta float64) *DataframeAnalysisClassificationBuilder {
-	rb.v.Eta = &eta
-	return rb
-}
-
-// EtaGrowthRatePerTree Advanced configuration option. Specifies the rate at which `eta` increases
-// for each new tree that is added to the forest. For example, a rate of 1.05
-// increases `eta` by 5% for each extra tree. By default, this value is
-// calculated during hyperparameter optimization. It must be between 0.5 and 2.
-
-func (rb *DataframeAnalysisClassificationBuilder) EtaGrowthRatePerTree(etagrowthratepertree float64) *DataframeAnalysisClassificationBuilder {
-	rb.v.EtaGrowthRatePerTree = &etagrowthratepertree
-	return rb
-}
-
-// FeatureBagFraction Advanced configuration option. Defines the fraction of features that will be
-// used when selecting a random bag for each candidate split. By default, this
-// value is calculated during hyperparameter optimization.
-
-func (rb *DataframeAnalysisClassificationBuilder) FeatureBagFraction(featurebagfraction float64) *DataframeAnalysisClassificationBuilder {
-	rb.v.FeatureBagFraction = &featurebagfraction
-	return rb
-}
-
-// FeatureProcessors Advanced configuration option. A collection of feature preprocessors that
-// modify one or more included fields. The analysis uses the resulting one or
-// more features instead of the original document field. However, these features
-// are ephemeral; they are not stored in the destination index. Multiple
-// `feature_processors` entries can refer to the same document fields. Automatic
-// categorical feature encoding still occurs for the fields that are unprocessed
-// by a custom processor or that have categorical values. Use this property only
-// if you want to override the automatic feature encoding of the specified
-// fields.
-
-func (rb *DataframeAnalysisClassificationBuilder) FeatureProcessors(feature_processors []DataframeAnalysisFeatureProcessorBuilder) *DataframeAnalysisClassificationBuilder {
-	tmp := make([]DataframeAnalysisFeatureProcessor, len(feature_processors))
-	for _, value := range feature_processors {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.FeatureProcessors = tmp
-	return rb
-}
-
-// Gamma Advanced configuration option. Regularization parameter to prevent
-// overfitting on the training data set. Multiplies a linear penalty associated
-// with the size of individual trees in the forest. A high gamma value causes
-// training to prefer small trees. A small gamma value results in larger
-// individual trees and slower training. By default, this value is calculated
-// during hyperparameter optimization. It must be a nonnegative value.
-
-func (rb *DataframeAnalysisClassificationBuilder) Gamma(gamma float64) *DataframeAnalysisClassificationBuilder {
-	rb.v.Gamma = &gamma
-	return rb
-}
-
-// Lambda Advanced configuration option. Regularization parameter to prevent
-// overfitting on the training data set. Multiplies an L2 regularization term
-// which applies to leaf weights of the individual trees in the forest. A high
-// lambda value causes training to favor small leaf weights. This behavior makes
-// the prediction function smoother at the expense of potentially not being able
-// to capture relevant relationships between the features and the dependent
-// variable. A small lambda value results in large individual trees and slower
-// training. By default, this value is calculated during hyperparameter
-// optimization. It must be a nonnegative value.
-
-func (rb *DataframeAnalysisClassificationBuilder) Lambda(lambda float64) *DataframeAnalysisClassificationBuilder {
-	rb.v.Lambda = &lambda
-	return rb
-}
-
-// MaxOptimizationRoundsPerHyperparameter Advanced configuration option. A multiplier responsible for determining the
-// maximum number of hyperparameter optimization steps in the Bayesian
-// optimization procedure. The maximum number of steps is determined based on
-// the number of undefined hyperparameters times the maximum optimization rounds
-// per hyperparameter. By default, this value is calculated during
-// hyperparameter optimization.
-
-func (rb *DataframeAnalysisClassificationBuilder) MaxOptimizationRoundsPerHyperparameter(maxoptimizationroundsperhyperparameter int) *DataframeAnalysisClassificationBuilder {
-	rb.v.MaxOptimizationRoundsPerHyperparameter = &maxoptimizationroundsperhyperparameter
-	return rb
-}
-
-// MaxTrees Advanced configuration option. Defines the maximum number of decision trees
-// in the forest. The maximum value is 2000. By default, this value is
-// calculated during hyperparameter optimization.
-
-func (rb *DataframeAnalysisClassificationBuilder) MaxTrees(maxtrees int) *DataframeAnalysisClassificationBuilder {
-	rb.v.MaxTrees = &maxtrees
-	return rb
-}
-
-// NumTopClasses Defines the number of categories for which the predicted probabilities are
-// reported. It must be non-negative or -1. If it is -1 or greater than the
-// total number of categories, probabilities are reported for all categories; if
-// you have a large number of categories, there could be a significant effect on
-// the size of your destination index. NOTE: To use the AUC ROC evaluation
-// method, `num_top_classes` must be set to -1 or a value greater than or equal
-// to the total number of categories.
-
-func (rb *DataframeAnalysisClassificationBuilder) NumTopClasses(numtopclasses int) *DataframeAnalysisClassificationBuilder {
-	rb.v.NumTopClasses = &numtopclasses
-	return rb
-}
-
-// NumTopFeatureImportanceValues Advanced configuration option. Specifies the maximum number of feature
-// importance values per document to return. By default, no feature importance
-// calculation occurs.
-
-func (rb *DataframeAnalysisClassificationBuilder) NumTopFeatureImportanceValues(numtopfeatureimportancevalues int) *DataframeAnalysisClassificationBuilder {
-	rb.v.NumTopFeatureImportanceValues = &numtopfeatureimportancevalues
-	return rb
-}
-
-// PredictionFieldName Defines the name of the prediction field in the results. Defaults to
-// `<dependent_variable>_prediction`.
-
-func (rb *DataframeAnalysisClassificationBuilder) PredictionFieldName(predictionfieldname Field) *DataframeAnalysisClassificationBuilder {
-	rb.v.PredictionFieldName = &predictionfieldname
-	return rb
-}
-
-// RandomizeSeed Defines the seed for the random generator that is used to pick training data.
-// By default, it is randomly generated. Set it to a specific value to use the
-// same training data each time you start a job (assuming other related
-// parameters such as `source` and `analyzed_fields` are the same).
-
-func (rb *DataframeAnalysisClassificationBuilder) RandomizeSeed(randomizeseed float64) *DataframeAnalysisClassificationBuilder {
-	rb.v.RandomizeSeed = &randomizeseed
-	return rb
-}
-
-// SoftTreeDepthLimit Advanced configuration option. Machine learning uses loss guided tree
-// growing, which means that the decision trees grow where the regularized loss
-// decreases most quickly. This soft limit combines with the
-// `soft_tree_depth_tolerance` to penalize trees that exceed the specified
-// depth; the regularized loss increases quickly beyond this depth. By default,
-// this value is calculated during hyperparameter optimization. It must be
-// greater than or equal to 0.
-
-func (rb *DataframeAnalysisClassificationBuilder) SoftTreeDepthLimit(softtreedepthlimit int) *DataframeAnalysisClassificationBuilder {
-	rb.v.SoftTreeDepthLimit = &softtreedepthlimit
-	return rb
-}
-
-// SoftTreeDepthTolerance Advanced configuration option. This option controls how quickly the
-// regularized loss increases when the tree depth exceeds
-// `soft_tree_depth_limit`. By default, this value is calculated during
-// hyperparameter optimization. It must be greater than or equal to 0.01.
-
-func (rb *DataframeAnalysisClassificationBuilder) SoftTreeDepthTolerance(softtreedepthtolerance float64) *DataframeAnalysisClassificationBuilder {
-	rb.v.SoftTreeDepthTolerance = &softtreedepthtolerance
-	return rb
-}
-
-// TrainingPercent Defines what percentage of the eligible documents that will be used for
-// training. Documents that are ignored by the analysis (for example those that
-// contain arrays with more than one value) won’t be included in the calculation
-// for used percentage.
-
-func (rb *DataframeAnalysisClassificationBuilder) TrainingPercent(trainingpercent *PercentageBuilder) *DataframeAnalysisClassificationBuilder {
-	v := trainingpercent.Build()
-	rb.v.TrainingPercent = &v
-	return rb
+	return r
 }

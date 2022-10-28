@@ -17,100 +17,31 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AddAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/update_aliases/types.ts#L30-L44
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/update_aliases/types.ts#L30-L44
 type AddAction struct {
-	Alias         *IndexAlias     `json:"alias,omitempty"`
-	Aliases       []IndexAlias    `json:"aliases,omitempty"`
-	Filter        *QueryContainer `json:"filter,omitempty"`
-	Index         *IndexName      `json:"index,omitempty"`
-	IndexRouting  *Routing        `json:"index_routing,omitempty"`
-	Indices       *Indices        `json:"indices,omitempty"`
-	IsHidden      *bool           `json:"is_hidden,omitempty"`
-	IsWriteIndex  *bool           `json:"is_write_index,omitempty"`
-	MustExist     *bool           `json:"must_exist,omitempty"`
-	Routing       *Routing        `json:"routing,omitempty"`
-	SearchRouting *Routing        `json:"search_routing,omitempty"`
+	Alias         *string  `json:"alias,omitempty"`
+	Aliases       []string `json:"aliases,omitempty"`
+	Filter        *Query   `json:"filter,omitempty"`
+	Index         *string  `json:"index,omitempty"`
+	IndexRouting  *string  `json:"index_routing,omitempty"`
+	Indices       []string `json:"indices,omitempty"`
+	IsHidden      *bool    `json:"is_hidden,omitempty"`
+	IsWriteIndex  *bool    `json:"is_write_index,omitempty"`
+	MustExist     *bool    `json:"must_exist,omitempty"`
+	Routing       *string  `json:"routing,omitempty"`
+	SearchRouting *string  `json:"search_routing,omitempty"`
 }
 
-// AddActionBuilder holds AddAction struct and provides a builder API.
-type AddActionBuilder struct {
-	v *AddAction
-}
+// NewAddAction returns a AddAction.
+func NewAddAction() *AddAction {
+	r := &AddAction{}
 
-// NewAddAction provides a builder for the AddAction struct.
-func NewAddActionBuilder() *AddActionBuilder {
-	r := AddActionBuilder{
-		&AddAction{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the AddAction struct
-func (rb *AddActionBuilder) Build() AddAction {
-	return *rb.v
-}
-
-func (rb *AddActionBuilder) Alias(alias IndexAlias) *AddActionBuilder {
-	rb.v.Alias = &alias
-	return rb
-}
-
-func (rb *AddActionBuilder) Aliases(arg []IndexAlias) *AddActionBuilder {
-	rb.v.Aliases = arg
-	return rb
-}
-
-func (rb *AddActionBuilder) Filter(filter *QueryContainerBuilder) *AddActionBuilder {
-	v := filter.Build()
-	rb.v.Filter = &v
-	return rb
-}
-
-func (rb *AddActionBuilder) Index(index IndexName) *AddActionBuilder {
-	rb.v.Index = &index
-	return rb
-}
-
-func (rb *AddActionBuilder) IndexRouting(indexrouting Routing) *AddActionBuilder {
-	rb.v.IndexRouting = &indexrouting
-	return rb
-}
-
-func (rb *AddActionBuilder) Indices(indices *IndicesBuilder) *AddActionBuilder {
-	v := indices.Build()
-	rb.v.Indices = &v
-	return rb
-}
-
-func (rb *AddActionBuilder) IsHidden(ishidden bool) *AddActionBuilder {
-	rb.v.IsHidden = &ishidden
-	return rb
-}
-
-func (rb *AddActionBuilder) IsWriteIndex(iswriteindex bool) *AddActionBuilder {
-	rb.v.IsWriteIndex = &iswriteindex
-	return rb
-}
-
-func (rb *AddActionBuilder) MustExist(mustexist bool) *AddActionBuilder {
-	rb.v.MustExist = &mustexist
-	return rb
-}
-
-func (rb *AddActionBuilder) Routing(routing Routing) *AddActionBuilder {
-	rb.v.Routing = &routing
-	return rb
-}
-
-func (rb *AddActionBuilder) SearchRouting(searchrouting Routing) *AddActionBuilder {
-	rb.v.SearchRouting = &searchrouting
-	return rb
+	return r
 }

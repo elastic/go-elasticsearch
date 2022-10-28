@@ -17,41 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // WhitespaceAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/analyzers.ts#L108-L111
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/analyzers.ts#L108-L111
 type WhitespaceAnalyzer struct {
-	Type    string         `json:"type,omitempty"`
-	Version *VersionString `json:"version,omitempty"`
+	Type    string  `json:"type,omitempty"`
+	Version *string `json:"version,omitempty"`
 }
 
-// WhitespaceAnalyzerBuilder holds WhitespaceAnalyzer struct and provides a builder API.
-type WhitespaceAnalyzerBuilder struct {
-	v *WhitespaceAnalyzer
-}
+// NewWhitespaceAnalyzer returns a WhitespaceAnalyzer.
+func NewWhitespaceAnalyzer() *WhitespaceAnalyzer {
+	r := &WhitespaceAnalyzer{}
 
-// NewWhitespaceAnalyzer provides a builder for the WhitespaceAnalyzer struct.
-func NewWhitespaceAnalyzerBuilder() *WhitespaceAnalyzerBuilder {
-	r := WhitespaceAnalyzerBuilder{
-		&WhitespaceAnalyzer{},
-	}
+	r.Type = "whitespace"
 
-	r.v.Type = "whitespace"
-
-	return &r
-}
-
-// Build finalize the chain and returns the WhitespaceAnalyzer struct
-func (rb *WhitespaceAnalyzerBuilder) Build() WhitespaceAnalyzer {
-	return *rb.v
-}
-
-func (rb *WhitespaceAnalyzerBuilder) Version(version VersionString) *WhitespaceAnalyzerBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeInfoSettingsTransportType type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/info/types.ts#L203-L206
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/info/types.ts#L203-L206
 type NodeInfoSettingsTransportType struct {
 	Default string `json:"default"`
 }
 
-// NodeInfoSettingsTransportTypeBuilder holds NodeInfoSettingsTransportType struct and provides a builder API.
-type NodeInfoSettingsTransportTypeBuilder struct {
-	v *NodeInfoSettingsTransportType
-}
+// NewNodeInfoSettingsTransportType returns a NodeInfoSettingsTransportType.
+func NewNodeInfoSettingsTransportType() *NodeInfoSettingsTransportType {
+	r := &NodeInfoSettingsTransportType{}
 
-// NewNodeInfoSettingsTransportType provides a builder for the NodeInfoSettingsTransportType struct.
-func NewNodeInfoSettingsTransportTypeBuilder() *NodeInfoSettingsTransportTypeBuilder {
-	r := NodeInfoSettingsTransportTypeBuilder{
-		&NodeInfoSettingsTransportType{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodeInfoSettingsTransportType struct
-func (rb *NodeInfoSettingsTransportTypeBuilder) Build() NodeInfoSettingsTransportType {
-	return *rb.v
-}
-
-func (rb *NodeInfoSettingsTransportTypeBuilder) Default_(default_ string) *NodeInfoSettingsTransportTypeBuilder {
-	rb.v.Default = default_
-	return rb
+	return r
 }

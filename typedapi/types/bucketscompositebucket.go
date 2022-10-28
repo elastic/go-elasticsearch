@@ -17,48 +17,15 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // BucketsCompositeBucket holds the union for the following types:
 //
-//	[]CompositeBucket
 //	map[string]CompositeBucket
+//	[]CompositeBucket
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L307-L316
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L315-L324
 type BucketsCompositeBucket interface{}
-
-// BucketsCompositeBucketBuilder holds BucketsCompositeBucket struct and provides a builder API.
-type BucketsCompositeBucketBuilder struct {
-	v BucketsCompositeBucket
-}
-
-// NewBucketsCompositeBucket provides a builder for the BucketsCompositeBucket struct.
-func NewBucketsCompositeBucketBuilder() *BucketsCompositeBucketBuilder {
-	return &BucketsCompositeBucketBuilder{}
-}
-
-// Build finalize the chain and returns the BucketsCompositeBucket struct
-func (u *BucketsCompositeBucketBuilder) Build() BucketsCompositeBucket {
-	return u.v
-}
-
-func (u *BucketsCompositeBucketBuilder) CompositeBuckets(compositebuckets []CompositeBucketBuilder) *BucketsCompositeBucketBuilder {
-	tmp := make([]CompositeBucket, len(compositebuckets))
-	for _, value := range compositebuckets {
-		tmp = append(tmp, value.Build())
-	}
-	u.v = tmp
-	return u
-}
-
-func (u *BucketsCompositeBucketBuilder) Map(values map[string]*CompositeBucketBuilder) *BucketsCompositeBucketBuilder {
-	tmp := make(map[string]CompositeBucket, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	u.v = tmp
-	return u
-}

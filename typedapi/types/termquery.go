@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TermQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/query_dsl/term.ts#L116-L121
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/term.ts#L116-L121
 type TermQuery struct {
 	Boost           *float32   `json:"boost,omitempty"`
 	CaseInsensitive *bool      `json:"case_insensitive,omitempty"`
@@ -32,42 +32,9 @@ type TermQuery struct {
 	Value           FieldValue `json:"value"`
 }
 
-// TermQueryBuilder holds TermQuery struct and provides a builder API.
-type TermQueryBuilder struct {
-	v *TermQuery
-}
+// NewTermQuery returns a TermQuery.
+func NewTermQuery() *TermQuery {
+	r := &TermQuery{}
 
-// NewTermQuery provides a builder for the TermQuery struct.
-func NewTermQueryBuilder() *TermQueryBuilder {
-	r := TermQueryBuilder{
-		&TermQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TermQuery struct
-func (rb *TermQueryBuilder) Build() TermQuery {
-	return *rb.v
-}
-
-func (rb *TermQueryBuilder) Boost(boost float32) *TermQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *TermQueryBuilder) CaseInsensitive(caseinsensitive bool) *TermQueryBuilder {
-	rb.v.CaseInsensitive = &caseinsensitive
-	return rb
-}
-
-func (rb *TermQueryBuilder) QueryName_(queryname_ string) *TermQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
-}
-
-func (rb *TermQueryBuilder) Value(value *FieldValueBuilder) *TermQueryBuilder {
-	v := value.Build()
-	rb.v.Value = v
-	return rb
+	return r
 }

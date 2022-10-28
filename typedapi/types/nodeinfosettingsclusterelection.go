@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeInfoSettingsClusterElection type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/info/types.ts#L144-L146
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/info/types.ts#L144-L146
 type NodeInfoSettingsClusterElection struct {
-	Strategy Name `json:"strategy"`
+	Strategy string `json:"strategy"`
 }
 
-// NodeInfoSettingsClusterElectionBuilder holds NodeInfoSettingsClusterElection struct and provides a builder API.
-type NodeInfoSettingsClusterElectionBuilder struct {
-	v *NodeInfoSettingsClusterElection
-}
+// NewNodeInfoSettingsClusterElection returns a NodeInfoSettingsClusterElection.
+func NewNodeInfoSettingsClusterElection() *NodeInfoSettingsClusterElection {
+	r := &NodeInfoSettingsClusterElection{}
 
-// NewNodeInfoSettingsClusterElection provides a builder for the NodeInfoSettingsClusterElection struct.
-func NewNodeInfoSettingsClusterElectionBuilder() *NodeInfoSettingsClusterElectionBuilder {
-	r := NodeInfoSettingsClusterElectionBuilder{
-		&NodeInfoSettingsClusterElection{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodeInfoSettingsClusterElection struct
-func (rb *NodeInfoSettingsClusterElectionBuilder) Build() NodeInfoSettingsClusterElection {
-	return *rb.v
-}
-
-func (rb *NodeInfoSettingsClusterElectionBuilder) Strategy(strategy Name) *NodeInfoSettingsClusterElectionBuilder {
-	rb.v.Strategy = strategy
-	return rb
+	return r
 }

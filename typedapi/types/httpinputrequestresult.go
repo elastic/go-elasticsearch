@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,13 +29,13 @@ import (
 
 // HttpInputRequestResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/watcher/_types/Actions.ts#L300-L300
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Actions.ts#L300-L300
 type HttpInputRequestResult struct {
 	Auth              *HttpInputAuthentication           `json:"auth,omitempty"`
 	Body              *string                            `json:"body,omitempty"`
 	ConnectionTimeout *Duration                          `json:"connection_timeout,omitempty"`
 	Headers           map[string]string                  `json:"headers,omitempty"`
-	Host              *Host                              `json:"host,omitempty"`
+	Host              *string                            `json:"host,omitempty"`
 	Method            *httpinputmethod.HttpInputMethod   `json:"method,omitempty"`
 	Params            map[string]string                  `json:"params,omitempty"`
 	Path              *string                            `json:"path,omitempty"`
@@ -46,93 +46,12 @@ type HttpInputRequestResult struct {
 	Url               *string                            `json:"url,omitempty"`
 }
 
-// HttpInputRequestResultBuilder holds HttpInputRequestResult struct and provides a builder API.
-type HttpInputRequestResultBuilder struct {
-	v *HttpInputRequestResult
-}
-
-// NewHttpInputRequestResult provides a builder for the HttpInputRequestResult struct.
-func NewHttpInputRequestResultBuilder() *HttpInputRequestResultBuilder {
-	r := HttpInputRequestResultBuilder{
-		&HttpInputRequestResult{
-			Headers: make(map[string]string, 0),
-			Params:  make(map[string]string, 0),
-		},
+// NewHttpInputRequestResult returns a HttpInputRequestResult.
+func NewHttpInputRequestResult() *HttpInputRequestResult {
+	r := &HttpInputRequestResult{
+		Headers: make(map[string]string, 0),
+		Params:  make(map[string]string, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the HttpInputRequestResult struct
-func (rb *HttpInputRequestResultBuilder) Build() HttpInputRequestResult {
-	return *rb.v
-}
-
-func (rb *HttpInputRequestResultBuilder) Auth(auth *HttpInputAuthenticationBuilder) *HttpInputRequestResultBuilder {
-	v := auth.Build()
-	rb.v.Auth = &v
-	return rb
-}
-
-func (rb *HttpInputRequestResultBuilder) Body(body string) *HttpInputRequestResultBuilder {
-	rb.v.Body = &body
-	return rb
-}
-
-func (rb *HttpInputRequestResultBuilder) ConnectionTimeout(connectiontimeout *DurationBuilder) *HttpInputRequestResultBuilder {
-	v := connectiontimeout.Build()
-	rb.v.ConnectionTimeout = &v
-	return rb
-}
-
-func (rb *HttpInputRequestResultBuilder) Headers(value map[string]string) *HttpInputRequestResultBuilder {
-	rb.v.Headers = value
-	return rb
-}
-
-func (rb *HttpInputRequestResultBuilder) Host(host Host) *HttpInputRequestResultBuilder {
-	rb.v.Host = &host
-	return rb
-}
-
-func (rb *HttpInputRequestResultBuilder) Method(method httpinputmethod.HttpInputMethod) *HttpInputRequestResultBuilder {
-	rb.v.Method = &method
-	return rb
-}
-
-func (rb *HttpInputRequestResultBuilder) Params(value map[string]string) *HttpInputRequestResultBuilder {
-	rb.v.Params = value
-	return rb
-}
-
-func (rb *HttpInputRequestResultBuilder) Path(path string) *HttpInputRequestResultBuilder {
-	rb.v.Path = &path
-	return rb
-}
-
-func (rb *HttpInputRequestResultBuilder) Port(port uint) *HttpInputRequestResultBuilder {
-	rb.v.Port = &port
-	return rb
-}
-
-func (rb *HttpInputRequestResultBuilder) Proxy(proxy *HttpInputProxyBuilder) *HttpInputRequestResultBuilder {
-	v := proxy.Build()
-	rb.v.Proxy = &v
-	return rb
-}
-
-func (rb *HttpInputRequestResultBuilder) ReadTimeout(readtimeout *DurationBuilder) *HttpInputRequestResultBuilder {
-	v := readtimeout.Build()
-	rb.v.ReadTimeout = &v
-	return rb
-}
-
-func (rb *HttpInputRequestResultBuilder) Scheme(scheme connectionscheme.ConnectionScheme) *HttpInputRequestResultBuilder {
-	rb.v.Scheme = &scheme
-	return rb
-}
-
-func (rb *HttpInputRequestResultBuilder) Url(url string) *HttpInputRequestResultBuilder {
-	rb.v.Url = &url
-	return rb
+	return r
 }

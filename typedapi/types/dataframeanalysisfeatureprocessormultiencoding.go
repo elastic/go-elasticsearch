@@ -17,41 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeAnalysisFeatureProcessorMultiEncoding type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/DataframeAnalytics.ts#L269-L272
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/DataframeAnalytics.ts#L269-L272
 type DataframeAnalysisFeatureProcessorMultiEncoding struct {
 	// Processors The ordered array of custom processors to execute. Must be more than 1.
 	Processors []int `json:"processors"`
 }
 
-// DataframeAnalysisFeatureProcessorMultiEncodingBuilder holds DataframeAnalysisFeatureProcessorMultiEncoding struct and provides a builder API.
-type DataframeAnalysisFeatureProcessorMultiEncodingBuilder struct {
-	v *DataframeAnalysisFeatureProcessorMultiEncoding
-}
+// NewDataframeAnalysisFeatureProcessorMultiEncoding returns a DataframeAnalysisFeatureProcessorMultiEncoding.
+func NewDataframeAnalysisFeatureProcessorMultiEncoding() *DataframeAnalysisFeatureProcessorMultiEncoding {
+	r := &DataframeAnalysisFeatureProcessorMultiEncoding{}
 
-// NewDataframeAnalysisFeatureProcessorMultiEncoding provides a builder for the DataframeAnalysisFeatureProcessorMultiEncoding struct.
-func NewDataframeAnalysisFeatureProcessorMultiEncodingBuilder() *DataframeAnalysisFeatureProcessorMultiEncodingBuilder {
-	r := DataframeAnalysisFeatureProcessorMultiEncodingBuilder{
-		&DataframeAnalysisFeatureProcessorMultiEncoding{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeAnalysisFeatureProcessorMultiEncoding struct
-func (rb *DataframeAnalysisFeatureProcessorMultiEncodingBuilder) Build() DataframeAnalysisFeatureProcessorMultiEncoding {
-	return *rb.v
-}
-
-// Processors The ordered array of custom processors to execute. Must be more than 1.
-
-func (rb *DataframeAnalysisFeatureProcessorMultiEncodingBuilder) Processors(processors ...int) *DataframeAnalysisFeatureProcessorMultiEncodingBuilder {
-	rb.v.Processors = processors
-	return rb
+	return r
 }

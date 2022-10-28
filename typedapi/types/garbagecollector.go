@@ -17,44 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // GarbageCollector type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/_types/Stats.ts#L357-L359
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L357-L359
 type GarbageCollector struct {
 	Collectors map[string]GarbageCollectorTotal `json:"collectors,omitempty"`
 }
 
-// GarbageCollectorBuilder holds GarbageCollector struct and provides a builder API.
-type GarbageCollectorBuilder struct {
-	v *GarbageCollector
-}
-
-// NewGarbageCollector provides a builder for the GarbageCollector struct.
-func NewGarbageCollectorBuilder() *GarbageCollectorBuilder {
-	r := GarbageCollectorBuilder{
-		&GarbageCollector{
-			Collectors: make(map[string]GarbageCollectorTotal, 0),
-		},
+// NewGarbageCollector returns a GarbageCollector.
+func NewGarbageCollector() *GarbageCollector {
+	r := &GarbageCollector{
+		Collectors: make(map[string]GarbageCollectorTotal, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the GarbageCollector struct
-func (rb *GarbageCollectorBuilder) Build() GarbageCollector {
-	return *rb.v
-}
-
-func (rb *GarbageCollectorBuilder) Collectors(values map[string]*GarbageCollectorTotalBuilder) *GarbageCollectorBuilder {
-	tmp := make(map[string]GarbageCollectorTotal, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Collectors = tmp
-	return rb
+	return r
 }

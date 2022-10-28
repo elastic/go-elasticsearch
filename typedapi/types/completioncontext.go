@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CompletionContext type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_global/search/_types/suggester.ts#L155-L162
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/suggester.ts#L155-L162
 type CompletionContext struct {
 	Boost      *float64           `json:"boost,omitempty"`
 	Context    Context            `json:"context"`
@@ -33,48 +33,9 @@ type CompletionContext struct {
 	Prefix     *bool              `json:"prefix,omitempty"`
 }
 
-// CompletionContextBuilder holds CompletionContext struct and provides a builder API.
-type CompletionContextBuilder struct {
-	v *CompletionContext
-}
+// NewCompletionContext returns a CompletionContext.
+func NewCompletionContext() *CompletionContext {
+	r := &CompletionContext{}
 
-// NewCompletionContext provides a builder for the CompletionContext struct.
-func NewCompletionContextBuilder() *CompletionContextBuilder {
-	r := CompletionContextBuilder{
-		&CompletionContext{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the CompletionContext struct
-func (rb *CompletionContextBuilder) Build() CompletionContext {
-	return *rb.v
-}
-
-func (rb *CompletionContextBuilder) Boost(boost float64) *CompletionContextBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *CompletionContextBuilder) Context(context *ContextBuilder) *CompletionContextBuilder {
-	v := context.Build()
-	rb.v.Context = v
-	return rb
-}
-
-func (rb *CompletionContextBuilder) Neighbours(neighbours ...GeoHashPrecision) *CompletionContextBuilder {
-	rb.v.Neighbours = neighbours
-	return rb
-}
-
-func (rb *CompletionContextBuilder) Precision(precision *GeoHashPrecisionBuilder) *CompletionContextBuilder {
-	v := precision.Build()
-	rb.v.Precision = &v
-	return rb
-}
-
-func (rb *CompletionContextBuilder) Prefix(prefix bool) *CompletionContextBuilder {
-	rb.v.Prefix = &prefix
-	return rb
+	return r
 }

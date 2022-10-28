@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,88 +28,23 @@ import (
 
 // License type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/license/_types/License.ts#L42-L53
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/license/_types/License.ts#L42-L53
 type License struct {
-	ExpiryDateInMillis EpochTimeUnitMillis     `json:"expiry_date_in_millis"`
-	IssueDateInMillis  EpochTimeUnitMillis     `json:"issue_date_in_millis"`
+	ExpiryDateInMillis int64                   `json:"expiry_date_in_millis"`
+	IssueDateInMillis  int64                   `json:"issue_date_in_millis"`
 	IssuedTo           string                  `json:"issued_to"`
 	Issuer             string                  `json:"issuer"`
 	MaxNodes           int64                   `json:"max_nodes,omitempty"`
 	MaxResourceUnits   *int64                  `json:"max_resource_units,omitempty"`
 	Signature          string                  `json:"signature"`
-	StartDateInMillis  *EpochTimeUnitMillis    `json:"start_date_in_millis,omitempty"`
+	StartDateInMillis  *int64                  `json:"start_date_in_millis,omitempty"`
 	Type               licensetype.LicenseType `json:"type"`
 	Uid                string                  `json:"uid"`
 }
 
-// LicenseBuilder holds License struct and provides a builder API.
-type LicenseBuilder struct {
-	v *License
-}
+// NewLicense returns a License.
+func NewLicense() *License {
+	r := &License{}
 
-// NewLicense provides a builder for the License struct.
-func NewLicenseBuilder() *LicenseBuilder {
-	r := LicenseBuilder{
-		&License{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the License struct
-func (rb *LicenseBuilder) Build() License {
-	return *rb.v
-}
-
-func (rb *LicenseBuilder) ExpiryDateInMillis(expirydateinmillis *EpochTimeUnitMillisBuilder) *LicenseBuilder {
-	v := expirydateinmillis.Build()
-	rb.v.ExpiryDateInMillis = v
-	return rb
-}
-
-func (rb *LicenseBuilder) IssueDateInMillis(issuedateinmillis *EpochTimeUnitMillisBuilder) *LicenseBuilder {
-	v := issuedateinmillis.Build()
-	rb.v.IssueDateInMillis = v
-	return rb
-}
-
-func (rb *LicenseBuilder) IssuedTo(issuedto string) *LicenseBuilder {
-	rb.v.IssuedTo = issuedto
-	return rb
-}
-
-func (rb *LicenseBuilder) Issuer(issuer string) *LicenseBuilder {
-	rb.v.Issuer = issuer
-	return rb
-}
-
-func (rb *LicenseBuilder) MaxNodes(maxnodes int64) *LicenseBuilder {
-	rb.v.MaxNodes = maxnodes
-	return rb
-}
-
-func (rb *LicenseBuilder) MaxResourceUnits(maxresourceunits int64) *LicenseBuilder {
-	rb.v.MaxResourceUnits = &maxresourceunits
-	return rb
-}
-
-func (rb *LicenseBuilder) Signature(signature string) *LicenseBuilder {
-	rb.v.Signature = signature
-	return rb
-}
-
-func (rb *LicenseBuilder) StartDateInMillis(startdateinmillis *EpochTimeUnitMillisBuilder) *LicenseBuilder {
-	v := startdateinmillis.Build()
-	rb.v.StartDateInMillis = &v
-	return rb
-}
-
-func (rb *LicenseBuilder) Type_(type_ licensetype.LicenseType) *LicenseBuilder {
-	rb.v.Type = type_
-	return rb
-}
-
-func (rb *LicenseBuilder) Uid(uid string) *LicenseBuilder {
-	rb.v.Uid = uid
-	return rb
+	return r
 }

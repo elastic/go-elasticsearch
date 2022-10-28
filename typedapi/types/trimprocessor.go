@@ -17,78 +17,28 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TrimProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ingest/_types/Processors.ts#L349-L353
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ingest/_types/Processors.ts#L362-L366
 type TrimProcessor struct {
-	Field         Field                `json:"field"`
+	Description   *string              `json:"description,omitempty"`
+	Field         string               `json:"field"`
 	If            *string              `json:"if,omitempty"`
 	IgnoreFailure *bool                `json:"ignore_failure,omitempty"`
 	IgnoreMissing *bool                `json:"ignore_missing,omitempty"`
 	OnFailure     []ProcessorContainer `json:"on_failure,omitempty"`
 	Tag           *string              `json:"tag,omitempty"`
-	TargetField   *Field               `json:"target_field,omitempty"`
+	TargetField   *string              `json:"target_field,omitempty"`
 }
 
-// TrimProcessorBuilder holds TrimProcessor struct and provides a builder API.
-type TrimProcessorBuilder struct {
-	v *TrimProcessor
-}
+// NewTrimProcessor returns a TrimProcessor.
+func NewTrimProcessor() *TrimProcessor {
+	r := &TrimProcessor{}
 
-// NewTrimProcessor provides a builder for the TrimProcessor struct.
-func NewTrimProcessorBuilder() *TrimProcessorBuilder {
-	r := TrimProcessorBuilder{
-		&TrimProcessor{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TrimProcessor struct
-func (rb *TrimProcessorBuilder) Build() TrimProcessor {
-	return *rb.v
-}
-
-func (rb *TrimProcessorBuilder) Field(field Field) *TrimProcessorBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *TrimProcessorBuilder) If_(if_ string) *TrimProcessorBuilder {
-	rb.v.If = &if_
-	return rb
-}
-
-func (rb *TrimProcessorBuilder) IgnoreFailure(ignorefailure bool) *TrimProcessorBuilder {
-	rb.v.IgnoreFailure = &ignorefailure
-	return rb
-}
-
-func (rb *TrimProcessorBuilder) IgnoreMissing(ignoremissing bool) *TrimProcessorBuilder {
-	rb.v.IgnoreMissing = &ignoremissing
-	return rb
-}
-
-func (rb *TrimProcessorBuilder) OnFailure(on_failure []ProcessorContainerBuilder) *TrimProcessorBuilder {
-	tmp := make([]ProcessorContainer, len(on_failure))
-	for _, value := range on_failure {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.OnFailure = tmp
-	return rb
-}
-
-func (rb *TrimProcessorBuilder) Tag(tag string) *TrimProcessorBuilder {
-	rb.v.Tag = &tag
-	return rb
-}
-
-func (rb *TrimProcessorBuilder) TargetField(targetfield Field) *TrimProcessorBuilder {
-	rb.v.TargetField = &targetfield
-	return rb
+	return r
 }

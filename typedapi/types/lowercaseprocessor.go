@@ -17,78 +17,28 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // LowercaseProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ingest/_types/Processors.ts#L291-L295
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ingest/_types/Processors.ts#L300-L304
 type LowercaseProcessor struct {
-	Field         Field                `json:"field"`
+	Description   *string              `json:"description,omitempty"`
+	Field         string               `json:"field"`
 	If            *string              `json:"if,omitempty"`
 	IgnoreFailure *bool                `json:"ignore_failure,omitempty"`
 	IgnoreMissing *bool                `json:"ignore_missing,omitempty"`
 	OnFailure     []ProcessorContainer `json:"on_failure,omitempty"`
 	Tag           *string              `json:"tag,omitempty"`
-	TargetField   *Field               `json:"target_field,omitempty"`
+	TargetField   *string              `json:"target_field,omitempty"`
 }
 
-// LowercaseProcessorBuilder holds LowercaseProcessor struct and provides a builder API.
-type LowercaseProcessorBuilder struct {
-	v *LowercaseProcessor
-}
+// NewLowercaseProcessor returns a LowercaseProcessor.
+func NewLowercaseProcessor() *LowercaseProcessor {
+	r := &LowercaseProcessor{}
 
-// NewLowercaseProcessor provides a builder for the LowercaseProcessor struct.
-func NewLowercaseProcessorBuilder() *LowercaseProcessorBuilder {
-	r := LowercaseProcessorBuilder{
-		&LowercaseProcessor{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the LowercaseProcessor struct
-func (rb *LowercaseProcessorBuilder) Build() LowercaseProcessor {
-	return *rb.v
-}
-
-func (rb *LowercaseProcessorBuilder) Field(field Field) *LowercaseProcessorBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *LowercaseProcessorBuilder) If_(if_ string) *LowercaseProcessorBuilder {
-	rb.v.If = &if_
-	return rb
-}
-
-func (rb *LowercaseProcessorBuilder) IgnoreFailure(ignorefailure bool) *LowercaseProcessorBuilder {
-	rb.v.IgnoreFailure = &ignorefailure
-	return rb
-}
-
-func (rb *LowercaseProcessorBuilder) IgnoreMissing(ignoremissing bool) *LowercaseProcessorBuilder {
-	rb.v.IgnoreMissing = &ignoremissing
-	return rb
-}
-
-func (rb *LowercaseProcessorBuilder) OnFailure(on_failure []ProcessorContainerBuilder) *LowercaseProcessorBuilder {
-	tmp := make([]ProcessorContainer, len(on_failure))
-	for _, value := range on_failure {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.OnFailure = tmp
-	return rb
-}
-
-func (rb *LowercaseProcessorBuilder) Tag(tag string) *LowercaseProcessorBuilder {
-	rb.v.Tag = &tag
-	return rb
-}
-
-func (rb *LowercaseProcessorBuilder) TargetField(targetfield Field) *LowercaseProcessorBuilder {
-	rb.v.TargetField = &targetfield
-	return rb
+	return r
 }

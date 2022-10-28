@@ -17,48 +17,15 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // BucketsDoubleTermsBucket holds the union for the following types:
 //
-//	[]DoubleTermsBucket
 //	map[string]DoubleTermsBucket
+//	[]DoubleTermsBucket
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L307-L316
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L315-L324
 type BucketsDoubleTermsBucket interface{}
-
-// BucketsDoubleTermsBucketBuilder holds BucketsDoubleTermsBucket struct and provides a builder API.
-type BucketsDoubleTermsBucketBuilder struct {
-	v BucketsDoubleTermsBucket
-}
-
-// NewBucketsDoubleTermsBucket provides a builder for the BucketsDoubleTermsBucket struct.
-func NewBucketsDoubleTermsBucketBuilder() *BucketsDoubleTermsBucketBuilder {
-	return &BucketsDoubleTermsBucketBuilder{}
-}
-
-// Build finalize the chain and returns the BucketsDoubleTermsBucket struct
-func (u *BucketsDoubleTermsBucketBuilder) Build() BucketsDoubleTermsBucket {
-	return u.v
-}
-
-func (u *BucketsDoubleTermsBucketBuilder) DoubleTermsBuckets(doubletermsbuckets []DoubleTermsBucketBuilder) *BucketsDoubleTermsBucketBuilder {
-	tmp := make([]DoubleTermsBucket, len(doubletermsbuckets))
-	for _, value := range doubletermsbuckets {
-		tmp = append(tmp, value.Build())
-	}
-	u.v = tmp
-	return u
-}
-
-func (u *BucketsDoubleTermsBucketBuilder) Map(values map[string]*DoubleTermsBucketBuilder) *BucketsDoubleTermsBucketBuilder {
-	tmp := make(map[string]DoubleTermsBucket, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	u.v = tmp
-	return u
-}

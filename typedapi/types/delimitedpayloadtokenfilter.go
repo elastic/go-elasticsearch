@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,46 +28,19 @@ import (
 
 // DelimitedPayloadTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/token_filters.ts#L67-L71
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/token_filters.ts#L67-L71
 type DelimitedPayloadTokenFilter struct {
 	Delimiter *string                                            `json:"delimiter,omitempty"`
 	Encoding  *delimitedpayloadencoding.DelimitedPayloadEncoding `json:"encoding,omitempty"`
 	Type      string                                             `json:"type,omitempty"`
-	Version   *VersionString                                     `json:"version,omitempty"`
+	Version   *string                                            `json:"version,omitempty"`
 }
 
-// DelimitedPayloadTokenFilterBuilder holds DelimitedPayloadTokenFilter struct and provides a builder API.
-type DelimitedPayloadTokenFilterBuilder struct {
-	v *DelimitedPayloadTokenFilter
-}
+// NewDelimitedPayloadTokenFilter returns a DelimitedPayloadTokenFilter.
+func NewDelimitedPayloadTokenFilter() *DelimitedPayloadTokenFilter {
+	r := &DelimitedPayloadTokenFilter{}
 
-// NewDelimitedPayloadTokenFilter provides a builder for the DelimitedPayloadTokenFilter struct.
-func NewDelimitedPayloadTokenFilterBuilder() *DelimitedPayloadTokenFilterBuilder {
-	r := DelimitedPayloadTokenFilterBuilder{
-		&DelimitedPayloadTokenFilter{},
-	}
+	r.Type = "delimited_payload"
 
-	r.v.Type = "delimited_payload"
-
-	return &r
-}
-
-// Build finalize the chain and returns the DelimitedPayloadTokenFilter struct
-func (rb *DelimitedPayloadTokenFilterBuilder) Build() DelimitedPayloadTokenFilter {
-	return *rb.v
-}
-
-func (rb *DelimitedPayloadTokenFilterBuilder) Delimiter(delimiter string) *DelimitedPayloadTokenFilterBuilder {
-	rb.v.Delimiter = &delimiter
-	return rb
-}
-
-func (rb *DelimitedPayloadTokenFilterBuilder) Encoding(encoding delimitedpayloadencoding.DelimitedPayloadEncoding) *DelimitedPayloadTokenFilterBuilder {
-	rb.v.Encoding = &encoding
-	return rb
-}
-
-func (rb *DelimitedPayloadTokenFilterBuilder) Version(version VersionString) *DelimitedPayloadTokenFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

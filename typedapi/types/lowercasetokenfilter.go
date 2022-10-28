@@ -17,47 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // LowercaseTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/token_filters.ts#L254-L257
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/token_filters.ts#L254-L257
 type LowercaseTokenFilter struct {
-	Language *string        `json:"language,omitempty"`
-	Type     string         `json:"type,omitempty"`
-	Version  *VersionString `json:"version,omitempty"`
+	Language *string `json:"language,omitempty"`
+	Type     string  `json:"type,omitempty"`
+	Version  *string `json:"version,omitempty"`
 }
 
-// LowercaseTokenFilterBuilder holds LowercaseTokenFilter struct and provides a builder API.
-type LowercaseTokenFilterBuilder struct {
-	v *LowercaseTokenFilter
-}
+// NewLowercaseTokenFilter returns a LowercaseTokenFilter.
+func NewLowercaseTokenFilter() *LowercaseTokenFilter {
+	r := &LowercaseTokenFilter{}
 
-// NewLowercaseTokenFilter provides a builder for the LowercaseTokenFilter struct.
-func NewLowercaseTokenFilterBuilder() *LowercaseTokenFilterBuilder {
-	r := LowercaseTokenFilterBuilder{
-		&LowercaseTokenFilter{},
-	}
+	r.Type = "lowercase"
 
-	r.v.Type = "lowercase"
-
-	return &r
-}
-
-// Build finalize the chain and returns the LowercaseTokenFilter struct
-func (rb *LowercaseTokenFilterBuilder) Build() LowercaseTokenFilter {
-	return *rb.v
-}
-
-func (rb *LowercaseTokenFilterBuilder) Language(language string) *LowercaseTokenFilterBuilder {
-	rb.v.Language = &language
-	return rb
-}
-
-func (rb *LowercaseTokenFilterBuilder) Version(version VersionString) *LowercaseTokenFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

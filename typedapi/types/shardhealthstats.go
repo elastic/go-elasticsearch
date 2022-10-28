@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // ShardHealthStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/cluster/health/types.ts#L36-L43
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/health/types.ts#L36-L43
 type ShardHealthStats struct {
 	ActiveShards       int                       `json:"active_shards"`
 	InitializingShards int                       `json:"initializing_shards"`
@@ -38,51 +38,9 @@ type ShardHealthStats struct {
 	UnassignedShards   int                       `json:"unassigned_shards"`
 }
 
-// ShardHealthStatsBuilder holds ShardHealthStats struct and provides a builder API.
-type ShardHealthStatsBuilder struct {
-	v *ShardHealthStats
-}
+// NewShardHealthStats returns a ShardHealthStats.
+func NewShardHealthStats() *ShardHealthStats {
+	r := &ShardHealthStats{}
 
-// NewShardHealthStats provides a builder for the ShardHealthStats struct.
-func NewShardHealthStatsBuilder() *ShardHealthStatsBuilder {
-	r := ShardHealthStatsBuilder{
-		&ShardHealthStats{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ShardHealthStats struct
-func (rb *ShardHealthStatsBuilder) Build() ShardHealthStats {
-	return *rb.v
-}
-
-func (rb *ShardHealthStatsBuilder) ActiveShards(activeshards int) *ShardHealthStatsBuilder {
-	rb.v.ActiveShards = activeshards
-	return rb
-}
-
-func (rb *ShardHealthStatsBuilder) InitializingShards(initializingshards int) *ShardHealthStatsBuilder {
-	rb.v.InitializingShards = initializingshards
-	return rb
-}
-
-func (rb *ShardHealthStatsBuilder) PrimaryActive(primaryactive bool) *ShardHealthStatsBuilder {
-	rb.v.PrimaryActive = primaryactive
-	return rb
-}
-
-func (rb *ShardHealthStatsBuilder) RelocatingShards(relocatingshards int) *ShardHealthStatsBuilder {
-	rb.v.RelocatingShards = relocatingshards
-	return rb
-}
-
-func (rb *ShardHealthStatsBuilder) Status(status healthstatus.HealthStatus) *ShardHealthStatsBuilder {
-	rb.v.Status = status
-	return rb
-}
-
-func (rb *ShardHealthStatsBuilder) UnassignedShards(unassignedshards int) *ShardHealthStatsBuilder {
-	rb.v.UnassignedShards = unassignedshards
-	return rb
+	return r
 }

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // PipelineSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/logstash/_types/Pipeline.ts#L28-L36
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/logstash/_types/Pipeline.ts#L28-L36
 type PipelineSettings struct {
 	PipelineBatchDelay    int    `json:"pipeline.batch.delay"`
 	PipelineBatchSize     int    `json:"pipeline.batch.size"`
@@ -35,56 +35,9 @@ type PipelineSettings struct {
 	QueueType             string `json:"queue.type"`
 }
 
-// PipelineSettingsBuilder holds PipelineSettings struct and provides a builder API.
-type PipelineSettingsBuilder struct {
-	v *PipelineSettings
-}
+// NewPipelineSettings returns a PipelineSettings.
+func NewPipelineSettings() *PipelineSettings {
+	r := &PipelineSettings{}
 
-// NewPipelineSettings provides a builder for the PipelineSettings struct.
-func NewPipelineSettingsBuilder() *PipelineSettingsBuilder {
-	r := PipelineSettingsBuilder{
-		&PipelineSettings{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the PipelineSettings struct
-func (rb *PipelineSettingsBuilder) Build() PipelineSettings {
-	return *rb.v
-}
-
-func (rb *PipelineSettingsBuilder) PipelineBatchDelay(pipelinebatchdelay int) *PipelineSettingsBuilder {
-	rb.v.PipelineBatchDelay = pipelinebatchdelay
-	return rb
-}
-
-func (rb *PipelineSettingsBuilder) PipelineBatchSize(pipelinebatchsize int) *PipelineSettingsBuilder {
-	rb.v.PipelineBatchSize = pipelinebatchsize
-	return rb
-}
-
-func (rb *PipelineSettingsBuilder) PipelineWorkers(pipelineworkers int) *PipelineSettingsBuilder {
-	rb.v.PipelineWorkers = pipelineworkers
-	return rb
-}
-
-func (rb *PipelineSettingsBuilder) QueueCheckpointWrites(queuecheckpointwrites int) *PipelineSettingsBuilder {
-	rb.v.QueueCheckpointWrites = queuecheckpointwrites
-	return rb
-}
-
-func (rb *PipelineSettingsBuilder) QueueMaxBytesNumber(queuemaxbytesnumber int) *PipelineSettingsBuilder {
-	rb.v.QueueMaxBytesNumber = queuemaxbytesnumber
-	return rb
-}
-
-func (rb *PipelineSettingsBuilder) QueueMaxBytesUnits(queuemaxbytesunits string) *PipelineSettingsBuilder {
-	rb.v.QueueMaxBytesUnits = queuemaxbytesunits
-	return rb
-}
-
-func (rb *PipelineSettingsBuilder) QueueType(queuetype string) *PipelineSettingsBuilder {
-	rb.v.QueueType = queuetype
-	return rb
+	return r
 }

@@ -17,58 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // BoxplotAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/metric.ts#L50-L52
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/metric.ts#L50-L52
 type BoxplotAggregation struct {
 	Compression *float64 `json:"compression,omitempty"`
-	Field       *Field   `json:"field,omitempty"`
+	Field       *string  `json:"field,omitempty"`
 	Missing     *Missing `json:"missing,omitempty"`
 	Script      *Script  `json:"script,omitempty"`
 }
 
-// BoxplotAggregationBuilder holds BoxplotAggregation struct and provides a builder API.
-type BoxplotAggregationBuilder struct {
-	v *BoxplotAggregation
-}
+// NewBoxplotAggregation returns a BoxplotAggregation.
+func NewBoxplotAggregation() *BoxplotAggregation {
+	r := &BoxplotAggregation{}
 
-// NewBoxplotAggregation provides a builder for the BoxplotAggregation struct.
-func NewBoxplotAggregationBuilder() *BoxplotAggregationBuilder {
-	r := BoxplotAggregationBuilder{
-		&BoxplotAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the BoxplotAggregation struct
-func (rb *BoxplotAggregationBuilder) Build() BoxplotAggregation {
-	return *rb.v
-}
-
-func (rb *BoxplotAggregationBuilder) Compression(compression float64) *BoxplotAggregationBuilder {
-	rb.v.Compression = &compression
-	return rb
-}
-
-func (rb *BoxplotAggregationBuilder) Field(field Field) *BoxplotAggregationBuilder {
-	rb.v.Field = &field
-	return rb
-}
-
-func (rb *BoxplotAggregationBuilder) Missing(missing *MissingBuilder) *BoxplotAggregationBuilder {
-	v := missing.Build()
-	rb.v.Missing = &v
-	return rb
-}
-
-func (rb *BoxplotAggregationBuilder) Script(script *ScriptBuilder) *BoxplotAggregationBuilder {
-	v := script.Build()
-	rb.v.Script = &v
-	return rb
+	return r
 }

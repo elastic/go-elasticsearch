@@ -17,58 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TermsAggregateBaseStringTermsBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L368-L373
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L376-L381
 type TermsAggregateBaseStringTermsBucket struct {
 	Buckets                 BucketsStringTermsBucket `json:"buckets"`
 	DocCountErrorUpperBound *int64                   `json:"doc_count_error_upper_bound,omitempty"`
-	Meta                    *Metadata                `json:"meta,omitempty"`
+	Meta                    map[string]interface{}   `json:"meta,omitempty"`
 	SumOtherDocCount        *int64                   `json:"sum_other_doc_count,omitempty"`
 }
 
-// TermsAggregateBaseStringTermsBucketBuilder holds TermsAggregateBaseStringTermsBucket struct and provides a builder API.
-type TermsAggregateBaseStringTermsBucketBuilder struct {
-	v *TermsAggregateBaseStringTermsBucket
-}
+// NewTermsAggregateBaseStringTermsBucket returns a TermsAggregateBaseStringTermsBucket.
+func NewTermsAggregateBaseStringTermsBucket() *TermsAggregateBaseStringTermsBucket {
+	r := &TermsAggregateBaseStringTermsBucket{}
 
-// NewTermsAggregateBaseStringTermsBucket provides a builder for the TermsAggregateBaseStringTermsBucket struct.
-func NewTermsAggregateBaseStringTermsBucketBuilder() *TermsAggregateBaseStringTermsBucketBuilder {
-	r := TermsAggregateBaseStringTermsBucketBuilder{
-		&TermsAggregateBaseStringTermsBucket{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TermsAggregateBaseStringTermsBucket struct
-func (rb *TermsAggregateBaseStringTermsBucketBuilder) Build() TermsAggregateBaseStringTermsBucket {
-	return *rb.v
-}
-
-func (rb *TermsAggregateBaseStringTermsBucketBuilder) Buckets(buckets *BucketsStringTermsBucketBuilder) *TermsAggregateBaseStringTermsBucketBuilder {
-	v := buckets.Build()
-	rb.v.Buckets = v
-	return rb
-}
-
-func (rb *TermsAggregateBaseStringTermsBucketBuilder) DocCountErrorUpperBound(doccounterrorupperbound int64) *TermsAggregateBaseStringTermsBucketBuilder {
-	rb.v.DocCountErrorUpperBound = &doccounterrorupperbound
-	return rb
-}
-
-func (rb *TermsAggregateBaseStringTermsBucketBuilder) Meta(meta *MetadataBuilder) *TermsAggregateBaseStringTermsBucketBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *TermsAggregateBaseStringTermsBucketBuilder) SumOtherDocCount(sumotherdoccount int64) *TermsAggregateBaseStringTermsBucketBuilder {
-	rb.v.SumOtherDocCount = &sumotherdoccount
-	return rb
+	return r
 }

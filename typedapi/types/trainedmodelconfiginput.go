@@ -17,41 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TrainedModelConfigInput type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/TrainedModel.ts#L190-L193
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/TrainedModel.ts#L190-L193
 type TrainedModelConfigInput struct {
 	// FieldNames An array of input field names for the model.
-	FieldNames []Field `json:"field_names"`
+	FieldNames []string `json:"field_names"`
 }
 
-// TrainedModelConfigInputBuilder holds TrainedModelConfigInput struct and provides a builder API.
-type TrainedModelConfigInputBuilder struct {
-	v *TrainedModelConfigInput
-}
+// NewTrainedModelConfigInput returns a TrainedModelConfigInput.
+func NewTrainedModelConfigInput() *TrainedModelConfigInput {
+	r := &TrainedModelConfigInput{}
 
-// NewTrainedModelConfigInput provides a builder for the TrainedModelConfigInput struct.
-func NewTrainedModelConfigInputBuilder() *TrainedModelConfigInputBuilder {
-	r := TrainedModelConfigInputBuilder{
-		&TrainedModelConfigInput{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TrainedModelConfigInput struct
-func (rb *TrainedModelConfigInputBuilder) Build() TrainedModelConfigInput {
-	return *rb.v
-}
-
-// FieldNames An array of input field names for the model.
-
-func (rb *TrainedModelConfigInputBuilder) FieldNames(field_names ...Field) *TrainedModelConfigInputBuilder {
-	rb.v.FieldNames = field_names
-	return rb
+	return r
 }

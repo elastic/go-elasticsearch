@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // PinnedDoc type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/query_dsl/specialized.ts#L132-L135
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/specialized.ts#L132-L135
 type PinnedDoc struct {
-	Id_    Id        `json:"_id"`
-	Index_ IndexName `json:"_index"`
+	Id_    string `json:"_id"`
+	Index_ string `json:"_index"`
 }
 
-// PinnedDocBuilder holds PinnedDoc struct and provides a builder API.
-type PinnedDocBuilder struct {
-	v *PinnedDoc
-}
+// NewPinnedDoc returns a PinnedDoc.
+func NewPinnedDoc() *PinnedDoc {
+	r := &PinnedDoc{}
 
-// NewPinnedDoc provides a builder for the PinnedDoc struct.
-func NewPinnedDocBuilder() *PinnedDocBuilder {
-	r := PinnedDocBuilder{
-		&PinnedDoc{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the PinnedDoc struct
-func (rb *PinnedDocBuilder) Build() PinnedDoc {
-	return *rb.v
-}
-
-func (rb *PinnedDocBuilder) Id_(id_ Id) *PinnedDocBuilder {
-	rb.v.Id_ = id_
-	return rb
-}
-
-func (rb *PinnedDocBuilder) Index_(index_ IndexName) *PinnedDocBuilder {
-	rb.v.Index_ = index_
-	return rb
+	return r
 }

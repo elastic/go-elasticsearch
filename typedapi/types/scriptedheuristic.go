@@ -17,39 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ScriptedHeuristic type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/bucket.ts#L337-L339
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/bucket.ts#L337-L339
 type ScriptedHeuristic struct {
 	Script Script `json:"script"`
 }
 
-// ScriptedHeuristicBuilder holds ScriptedHeuristic struct and provides a builder API.
-type ScriptedHeuristicBuilder struct {
-	v *ScriptedHeuristic
-}
+// NewScriptedHeuristic returns a ScriptedHeuristic.
+func NewScriptedHeuristic() *ScriptedHeuristic {
+	r := &ScriptedHeuristic{}
 
-// NewScriptedHeuristic provides a builder for the ScriptedHeuristic struct.
-func NewScriptedHeuristicBuilder() *ScriptedHeuristicBuilder {
-	r := ScriptedHeuristicBuilder{
-		&ScriptedHeuristic{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ScriptedHeuristic struct
-func (rb *ScriptedHeuristicBuilder) Build() ScriptedHeuristic {
-	return *rb.v
-}
-
-func (rb *ScriptedHeuristicBuilder) Script(script *ScriptBuilder) *ScriptedHeuristicBuilder {
-	v := script.Build()
-	rb.v.Script = v
-	return rb
+	return r
 }

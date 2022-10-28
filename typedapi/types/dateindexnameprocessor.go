@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DateIndexNameProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ingest/_types/Processors.ts#L164-L177
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ingest/_types/Processors.ts#L164-L177
 type DateIndexNameProcessor struct {
 	DateFormats []string `json:"date_formats"`
 	// DateRounding How to round the date when formatting the date into the index name. Valid
@@ -33,97 +33,21 @@ type DateIndexNameProcessor struct {
 	// `s` (second).
 	// Supports template snippets.
 	DateRounding    string               `json:"date_rounding"`
-	Field           Field                `json:"field"`
+	Description     *string              `json:"description,omitempty"`
+	Field           string               `json:"field"`
 	If              *string              `json:"if,omitempty"`
 	IgnoreFailure   *bool                `json:"ignore_failure,omitempty"`
-	IndexNameFormat string               `json:"index_name_format"`
-	IndexNamePrefix string               `json:"index_name_prefix"`
-	Locale          string               `json:"locale"`
+	IndexNameFormat *string              `json:"index_name_format,omitempty"`
+	IndexNamePrefix *string              `json:"index_name_prefix,omitempty"`
+	Locale          *string              `json:"locale,omitempty"`
 	OnFailure       []ProcessorContainer `json:"on_failure,omitempty"`
 	Tag             *string              `json:"tag,omitempty"`
-	Timezone        string               `json:"timezone"`
+	Timezone        *string              `json:"timezone,omitempty"`
 }
 
-// DateIndexNameProcessorBuilder holds DateIndexNameProcessor struct and provides a builder API.
-type DateIndexNameProcessorBuilder struct {
-	v *DateIndexNameProcessor
-}
+// NewDateIndexNameProcessor returns a DateIndexNameProcessor.
+func NewDateIndexNameProcessor() *DateIndexNameProcessor {
+	r := &DateIndexNameProcessor{}
 
-// NewDateIndexNameProcessor provides a builder for the DateIndexNameProcessor struct.
-func NewDateIndexNameProcessorBuilder() *DateIndexNameProcessorBuilder {
-	r := DateIndexNameProcessorBuilder{
-		&DateIndexNameProcessor{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DateIndexNameProcessor struct
-func (rb *DateIndexNameProcessorBuilder) Build() DateIndexNameProcessor {
-	return *rb.v
-}
-
-func (rb *DateIndexNameProcessorBuilder) DateFormats(date_formats ...string) *DateIndexNameProcessorBuilder {
-	rb.v.DateFormats = date_formats
-	return rb
-}
-
-// DateRounding How to round the date when formatting the date into the index name. Valid
-// values are:
-// `y` (year), `M` (month), `w` (week), `d` (day), `h` (hour), `m` (minute) and
-// `s` (second).
-// Supports template snippets.
-
-func (rb *DateIndexNameProcessorBuilder) DateRounding(daterounding string) *DateIndexNameProcessorBuilder {
-	rb.v.DateRounding = daterounding
-	return rb
-}
-
-func (rb *DateIndexNameProcessorBuilder) Field(field Field) *DateIndexNameProcessorBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *DateIndexNameProcessorBuilder) If_(if_ string) *DateIndexNameProcessorBuilder {
-	rb.v.If = &if_
-	return rb
-}
-
-func (rb *DateIndexNameProcessorBuilder) IgnoreFailure(ignorefailure bool) *DateIndexNameProcessorBuilder {
-	rb.v.IgnoreFailure = &ignorefailure
-	return rb
-}
-
-func (rb *DateIndexNameProcessorBuilder) IndexNameFormat(indexnameformat string) *DateIndexNameProcessorBuilder {
-	rb.v.IndexNameFormat = indexnameformat
-	return rb
-}
-
-func (rb *DateIndexNameProcessorBuilder) IndexNamePrefix(indexnameprefix string) *DateIndexNameProcessorBuilder {
-	rb.v.IndexNamePrefix = indexnameprefix
-	return rb
-}
-
-func (rb *DateIndexNameProcessorBuilder) Locale(locale string) *DateIndexNameProcessorBuilder {
-	rb.v.Locale = locale
-	return rb
-}
-
-func (rb *DateIndexNameProcessorBuilder) OnFailure(on_failure []ProcessorContainerBuilder) *DateIndexNameProcessorBuilder {
-	tmp := make([]ProcessorContainer, len(on_failure))
-	for _, value := range on_failure {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.OnFailure = tmp
-	return rb
-}
-
-func (rb *DateIndexNameProcessorBuilder) Tag(tag string) *DateIndexNameProcessorBuilder {
-	rb.v.Tag = &tag
-	return rb
-}
-
-func (rb *DateIndexNameProcessorBuilder) Timezone(timezone string) *DateIndexNameProcessorBuilder {
-	rb.v.Timezone = timezone
-	return rb
+	return r
 }

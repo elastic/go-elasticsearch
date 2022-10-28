@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NerInferenceOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/inference.ts#L225-L233
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/inference.ts#L225-L233
 type NerInferenceOptions struct {
 	// ClassificationLabels The token classification labels. Must be IOB formatted tags
 	ClassificationLabels []string `json:"classification_labels,omitempty"`
@@ -35,44 +35,9 @@ type NerInferenceOptions struct {
 	Tokenization *TokenizationConfigContainer `json:"tokenization,omitempty"`
 }
 
-// NerInferenceOptionsBuilder holds NerInferenceOptions struct and provides a builder API.
-type NerInferenceOptionsBuilder struct {
-	v *NerInferenceOptions
-}
+// NewNerInferenceOptions returns a NerInferenceOptions.
+func NewNerInferenceOptions() *NerInferenceOptions {
+	r := &NerInferenceOptions{}
 
-// NewNerInferenceOptions provides a builder for the NerInferenceOptions struct.
-func NewNerInferenceOptionsBuilder() *NerInferenceOptionsBuilder {
-	r := NerInferenceOptionsBuilder{
-		&NerInferenceOptions{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NerInferenceOptions struct
-func (rb *NerInferenceOptionsBuilder) Build() NerInferenceOptions {
-	return *rb.v
-}
-
-// ClassificationLabels The token classification labels. Must be IOB formatted tags
-
-func (rb *NerInferenceOptionsBuilder) ClassificationLabels(classification_labels ...string) *NerInferenceOptionsBuilder {
-	rb.v.ClassificationLabels = classification_labels
-	return rb
-}
-
-// ResultsField The field that is added to incoming documents to contain the inference
-// prediction. Defaults to predicted_value.
-
-func (rb *NerInferenceOptionsBuilder) ResultsField(resultsfield string) *NerInferenceOptionsBuilder {
-	rb.v.ResultsField = &resultsfield
-	return rb
-}
-
-// Tokenization The tokenization options
-
-func (rb *NerInferenceOptionsBuilder) Tokenization(tokenization *TokenizationConfigContainerBuilder) *NerInferenceOptionsBuilder {
-	v := tokenization.Build()
-	rb.v.Tokenization = &v
-	return rb
+	return r
 }

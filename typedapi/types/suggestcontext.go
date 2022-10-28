@@ -17,56 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SuggestContext type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/mapping/specialized.ts#L37-L42
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/specialized.ts#L37-L42
 type SuggestContext struct {
-	Name      Name   `json:"name"`
-	Path      *Field `json:"path,omitempty"`
-	Precision string `json:"precision,omitempty"`
-	Type      string `json:"type"`
+	Name      string  `json:"name"`
+	Path      *string `json:"path,omitempty"`
+	Precision string  `json:"precision,omitempty"`
+	Type      string  `json:"type"`
 }
 
-// SuggestContextBuilder holds SuggestContext struct and provides a builder API.
-type SuggestContextBuilder struct {
-	v *SuggestContext
-}
+// NewSuggestContext returns a SuggestContext.
+func NewSuggestContext() *SuggestContext {
+	r := &SuggestContext{}
 
-// NewSuggestContext provides a builder for the SuggestContext struct.
-func NewSuggestContextBuilder() *SuggestContextBuilder {
-	r := SuggestContextBuilder{
-		&SuggestContext{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SuggestContext struct
-func (rb *SuggestContextBuilder) Build() SuggestContext {
-	return *rb.v
-}
-
-func (rb *SuggestContextBuilder) Name(name Name) *SuggestContextBuilder {
-	rb.v.Name = name
-	return rb
-}
-
-func (rb *SuggestContextBuilder) Path(path Field) *SuggestContextBuilder {
-	rb.v.Path = &path
-	return rb
-}
-
-func (rb *SuggestContextBuilder) Precision(arg string) *SuggestContextBuilder {
-	rb.v.Precision = arg
-	return rb
-}
-
-func (rb *SuggestContextBuilder) Type_(type_ string) *SuggestContextBuilder {
-	rb.v.Type = type_
-	return rb
+	return r
 }

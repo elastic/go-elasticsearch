@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -34,10 +34,10 @@ import (
 
 // GeoDistanceSort type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/sort.ts#L58-L66
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/sort.ts#L58-L66
 type GeoDistanceSort struct {
 	DistanceType    *geodistancetype.GeoDistanceType `json:"distance_type,omitempty"`
-	GeoDistanceSort map[Field][]GeoLocation          `json:"-"`
+	GeoDistanceSort map[string][]GeoLocation         `json:"-"`
 	IgnoreUnmapped  *bool                            `json:"ignore_unmapped,omitempty"`
 	Mode            *sortmode.SortMode               `json:"mode,omitempty"`
 	Order           *sortorder.SortOrder             `json:"order,omitempty"`
@@ -72,53 +72,11 @@ func (s GeoDistanceSort) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// GeoDistanceSortBuilder holds GeoDistanceSort struct and provides a builder API.
-type GeoDistanceSortBuilder struct {
-	v *GeoDistanceSort
-}
-
-// NewGeoDistanceSort provides a builder for the GeoDistanceSort struct.
-func NewGeoDistanceSortBuilder() *GeoDistanceSortBuilder {
-	r := GeoDistanceSortBuilder{
-		&GeoDistanceSort{
-			GeoDistanceSort: make(map[Field][]GeoLocation, 0),
-		},
+// NewGeoDistanceSort returns a GeoDistanceSort.
+func NewGeoDistanceSort() *GeoDistanceSort {
+	r := &GeoDistanceSort{
+		GeoDistanceSort: make(map[string][]GeoLocation, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the GeoDistanceSort struct
-func (rb *GeoDistanceSortBuilder) Build() GeoDistanceSort {
-	return *rb.v
-}
-
-func (rb *GeoDistanceSortBuilder) DistanceType(distancetype geodistancetype.GeoDistanceType) *GeoDistanceSortBuilder {
-	rb.v.DistanceType = &distancetype
-	return rb
-}
-
-func (rb *GeoDistanceSortBuilder) GeoDistanceSort(value map[Field][]GeoLocation) *GeoDistanceSortBuilder {
-	rb.v.GeoDistanceSort = value
-	return rb
-}
-
-func (rb *GeoDistanceSortBuilder) IgnoreUnmapped(ignoreunmapped bool) *GeoDistanceSortBuilder {
-	rb.v.IgnoreUnmapped = &ignoreunmapped
-	return rb
-}
-
-func (rb *GeoDistanceSortBuilder) Mode(mode sortmode.SortMode) *GeoDistanceSortBuilder {
-	rb.v.Mode = &mode
-	return rb
-}
-
-func (rb *GeoDistanceSortBuilder) Order(order sortorder.SortOrder) *GeoDistanceSortBuilder {
-	rb.v.Order = &order
-	return rb
-}
-
-func (rb *GeoDistanceSortBuilder) Unit(unit distanceunit.DistanceUnit) *GeoDistanceSortBuilder {
-	rb.v.Unit = &unit
-	return rb
+	return r
 }

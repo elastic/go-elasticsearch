@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,47 +28,19 @@ import (
 
 // SnowballAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/analyzers.ts#L88-L93
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/analyzers.ts#L88-L93
 type SnowballAnalyzer struct {
 	Language  snowballlanguage.SnowballLanguage `json:"language"`
-	Stopwords *StopWords                        `json:"stopwords,omitempty"`
+	Stopwords []string                          `json:"stopwords,omitempty"`
 	Type      string                            `json:"type,omitempty"`
-	Version   *VersionString                    `json:"version,omitempty"`
+	Version   *string                           `json:"version,omitempty"`
 }
 
-// SnowballAnalyzerBuilder holds SnowballAnalyzer struct and provides a builder API.
-type SnowballAnalyzerBuilder struct {
-	v *SnowballAnalyzer
-}
+// NewSnowballAnalyzer returns a SnowballAnalyzer.
+func NewSnowballAnalyzer() *SnowballAnalyzer {
+	r := &SnowballAnalyzer{}
 
-// NewSnowballAnalyzer provides a builder for the SnowballAnalyzer struct.
-func NewSnowballAnalyzerBuilder() *SnowballAnalyzerBuilder {
-	r := SnowballAnalyzerBuilder{
-		&SnowballAnalyzer{},
-	}
+	r.Type = "snowball"
 
-	r.v.Type = "snowball"
-
-	return &r
-}
-
-// Build finalize the chain and returns the SnowballAnalyzer struct
-func (rb *SnowballAnalyzerBuilder) Build() SnowballAnalyzer {
-	return *rb.v
-}
-
-func (rb *SnowballAnalyzerBuilder) Language(language snowballlanguage.SnowballLanguage) *SnowballAnalyzerBuilder {
-	rb.v.Language = language
-	return rb
-}
-
-func (rb *SnowballAnalyzerBuilder) Stopwords(stopwords *StopWordsBuilder) *SnowballAnalyzerBuilder {
-	v := stopwords.Build()
-	rb.v.Stopwords = &v
-	return rb
-}
-
-func (rb *SnowballAnalyzerBuilder) Version(version VersionString) *SnowballAnalyzerBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

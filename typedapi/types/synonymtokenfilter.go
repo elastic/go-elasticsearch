@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // SynonymTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/token_filters.ts#L120-L129
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/token_filters.ts#L120-L129
 type SynonymTokenFilter struct {
 	Expand       *bool                        `json:"expand,omitempty"`
 	Format       *synonymformat.SynonymFormat `json:"format,omitempty"`
@@ -38,66 +38,14 @@ type SynonymTokenFilter struct {
 	Tokenizer    *string                      `json:"tokenizer,omitempty"`
 	Type         string                       `json:"type,omitempty"`
 	Updateable   *bool                        `json:"updateable,omitempty"`
-	Version      *VersionString               `json:"version,omitempty"`
+	Version      *string                      `json:"version,omitempty"`
 }
 
-// SynonymTokenFilterBuilder holds SynonymTokenFilter struct and provides a builder API.
-type SynonymTokenFilterBuilder struct {
-	v *SynonymTokenFilter
-}
+// NewSynonymTokenFilter returns a SynonymTokenFilter.
+func NewSynonymTokenFilter() *SynonymTokenFilter {
+	r := &SynonymTokenFilter{}
 
-// NewSynonymTokenFilter provides a builder for the SynonymTokenFilter struct.
-func NewSynonymTokenFilterBuilder() *SynonymTokenFilterBuilder {
-	r := SynonymTokenFilterBuilder{
-		&SynonymTokenFilter{},
-	}
+	r.Type = "synonym"
 
-	r.v.Type = "synonym"
-
-	return &r
-}
-
-// Build finalize the chain and returns the SynonymTokenFilter struct
-func (rb *SynonymTokenFilterBuilder) Build() SynonymTokenFilter {
-	return *rb.v
-}
-
-func (rb *SynonymTokenFilterBuilder) Expand(expand bool) *SynonymTokenFilterBuilder {
-	rb.v.Expand = &expand
-	return rb
-}
-
-func (rb *SynonymTokenFilterBuilder) Format(format synonymformat.SynonymFormat) *SynonymTokenFilterBuilder {
-	rb.v.Format = &format
-	return rb
-}
-
-func (rb *SynonymTokenFilterBuilder) Lenient(lenient bool) *SynonymTokenFilterBuilder {
-	rb.v.Lenient = &lenient
-	return rb
-}
-
-func (rb *SynonymTokenFilterBuilder) Synonyms(synonyms ...string) *SynonymTokenFilterBuilder {
-	rb.v.Synonyms = synonyms
-	return rb
-}
-
-func (rb *SynonymTokenFilterBuilder) SynonymsPath(synonymspath string) *SynonymTokenFilterBuilder {
-	rb.v.SynonymsPath = &synonymspath
-	return rb
-}
-
-func (rb *SynonymTokenFilterBuilder) Tokenizer(tokenizer string) *SynonymTokenFilterBuilder {
-	rb.v.Tokenizer = &tokenizer
-	return rb
-}
-
-func (rb *SynonymTokenFilterBuilder) Updateable(updateable bool) *SynonymTokenFilterBuilder {
-	rb.v.Updateable = &updateable
-	return rb
-}
-
-func (rb *SynonymTokenFilterBuilder) Version(version VersionString) *SynonymTokenFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

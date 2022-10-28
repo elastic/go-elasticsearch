@@ -17,51 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ExecutionState type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/watcher/_types/Action.ts#L117-L121
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Action.ts#L117-L121
 type ExecutionState struct {
 	Reason     *string  `json:"reason,omitempty"`
 	Successful bool     `json:"successful"`
 	Timestamp  DateTime `json:"timestamp"`
 }
 
-// ExecutionStateBuilder holds ExecutionState struct and provides a builder API.
-type ExecutionStateBuilder struct {
-	v *ExecutionState
-}
+// NewExecutionState returns a ExecutionState.
+func NewExecutionState() *ExecutionState {
+	r := &ExecutionState{}
 
-// NewExecutionState provides a builder for the ExecutionState struct.
-func NewExecutionStateBuilder() *ExecutionStateBuilder {
-	r := ExecutionStateBuilder{
-		&ExecutionState{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ExecutionState struct
-func (rb *ExecutionStateBuilder) Build() ExecutionState {
-	return *rb.v
-}
-
-func (rb *ExecutionStateBuilder) Reason(reason string) *ExecutionStateBuilder {
-	rb.v.Reason = &reason
-	return rb
-}
-
-func (rb *ExecutionStateBuilder) Successful(successful bool) *ExecutionStateBuilder {
-	rb.v.Successful = successful
-	return rb
-}
-
-func (rb *ExecutionStateBuilder) Timestamp(timestamp *DateTimeBuilder) *ExecutionStateBuilder {
-	v := timestamp.Build()
-	rb.v.Timestamp = v
-	return rb
+	return r
 }

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,13 +29,13 @@ import (
 
 // DoubleTermsBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L409-L412
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L417-L420
 type DoubleTermsBucket struct {
-	Aggregations  map[AggregateName]Aggregate `json:"-"`
-	DocCount      int64                       `json:"doc_count"`
-	DocCountError *int64                      `json:"doc_count_error,omitempty"`
-	Key           float64                     `json:"key"`
-	KeyAsString   *string                     `json:"key_as_string,omitempty"`
+	Aggregations  map[string]Aggregate `json:"-"`
+	DocCount      int64                `json:"doc_count"`
+	DocCountError *int64               `json:"doc_count_error,omitempty"`
+	Key           float64              `json:"key"`
+	KeyAsString   *string              `json:"key_as_string,omitempty"`
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -66,52 +66,11 @@ func (s DoubleTermsBucket) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// DoubleTermsBucketBuilder holds DoubleTermsBucket struct and provides a builder API.
-type DoubleTermsBucketBuilder struct {
-	v *DoubleTermsBucket
-}
-
-// NewDoubleTermsBucket provides a builder for the DoubleTermsBucket struct.
-func NewDoubleTermsBucketBuilder() *DoubleTermsBucketBuilder {
-	r := DoubleTermsBucketBuilder{
-		&DoubleTermsBucket{
-			Aggregations: make(map[AggregateName]Aggregate, 0),
-		},
+// NewDoubleTermsBucket returns a DoubleTermsBucket.
+func NewDoubleTermsBucket() *DoubleTermsBucket {
+	r := &DoubleTermsBucket{
+		Aggregations: make(map[string]Aggregate, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the DoubleTermsBucket struct
-func (rb *DoubleTermsBucketBuilder) Build() DoubleTermsBucket {
-	return *rb.v
-}
-
-func (rb *DoubleTermsBucketBuilder) Aggregations(values map[AggregateName]*AggregateBuilder) *DoubleTermsBucketBuilder {
-	tmp := make(map[AggregateName]Aggregate, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Aggregations = tmp
-	return rb
-}
-
-func (rb *DoubleTermsBucketBuilder) DocCount(doccount int64) *DoubleTermsBucketBuilder {
-	rb.v.DocCount = doccount
-	return rb
-}
-
-func (rb *DoubleTermsBucketBuilder) DocCountError(doccounterror int64) *DoubleTermsBucketBuilder {
-	rb.v.DocCountError = &doccounterror
-	return rb
-}
-
-func (rb *DoubleTermsBucketBuilder) Key(key float64) *DoubleTermsBucketBuilder {
-	rb.v.Key = key
-	return rb
-}
-
-func (rb *DoubleTermsBucketBuilder) KeyAsString(keyasstring string) *DoubleTermsBucketBuilder {
-	rb.v.KeyAsString = &keyasstring
-	return rb
+	return r
 }
