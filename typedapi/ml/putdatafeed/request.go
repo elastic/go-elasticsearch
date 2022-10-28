@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package putdatafeed
@@ -31,14 +31,13 @@ import (
 
 // Request holds the request body struct for the package putdatafeed
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/put_datafeed/MlPutDatafeedRequest.ts#L37-L171
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/put_datafeed/MlPutDatafeedRequest.ts#L37-L171
 type Request struct {
 
 	// Aggregations If set, the datafeed performs aggregation searches.
 	// Support for aggregations is limited and should be used only with low
 	// cardinality data.
-	Aggregations map[string]types.AggregationContainer `json:"aggregations,omitempty"`
-
+	Aggregations map[string]types.Aggregations `json:"aggregations,omitempty"`
 	// ChunkingConfig Datafeeds might be required to search over long time periods, for several
 	// months or years.
 	// This search is split into time chunks in order to ensure the load on
@@ -47,7 +46,6 @@ type Request struct {
 	// calculated;
 	// it is an advanced configuration option.
 	ChunkingConfig *types.ChunkingConfig `json:"chunking_config,omitempty"`
-
 	// DelayedDataCheckConfig Specifies whether the datafeed checks for missing data and the size of the
 	// window.
 	// The datafeed can optionally search over indices that have already been read
@@ -58,7 +56,6 @@ type Request struct {
 	// has passed that moment in time.
 	// This check runs only on real-time datafeeds.
 	DelayedDataCheckConfig *types.DelayedDataCheckConfig `json:"delayed_data_check_config,omitempty"`
-
 	// Frequency The interval at which scheduled queries are made while the datafeed runs in
 	// real time.
 	// The default value is either the bucket span for short bucket spans, or, for
@@ -69,21 +66,16 @@ type Request struct {
 	// results. If the datafeed uses
 	// aggregations, this value must be divisible by the interval of the date
 	// histogram aggregation.
-	Frequency *types.Duration `json:"frequency,omitempty"`
-
-	Headers *types.HttpHeaders `json:"headers,omitempty"`
-
+	Frequency *types.Duration     `json:"frequency,omitempty"`
+	Headers   map[string][]string `json:"headers,omitempty"`
 	// Indices An array of index names. Wildcards are supported. If any of the indices are
 	// in remote clusters, the machine
 	// learning nodes must have the `remote_cluster_client` role.
-	Indices *types.Indices `json:"indices,omitempty"`
-
+	Indices []string `json:"indices,omitempty"`
 	// IndicesOptions Specifies index expansion options that are used during search
 	IndicesOptions *types.IndicesOptions `json:"indices_options,omitempty"`
-
 	// JobId Identifier for the anomaly detection job.
-	JobId *types.Id `json:"job_id,omitempty"`
-
+	JobId *string `json:"job_id,omitempty"`
 	// MaxEmptySearches If a real-time datafeed has never seen any data (including during any initial
 	// training period), it automatically
 	// stops and closes the associated job after this many real-time searches return
@@ -93,14 +85,12 @@ type Request struct {
 	// end time that sees no data remains started until it is explicitly stopped. By
 	// default, it is not set.
 	MaxEmptySearches *int `json:"max_empty_searches,omitempty"`
-
 	// Query The Elasticsearch query domain-specific language (DSL). This value
 	// corresponds to the query object in an
 	// Elasticsearch search POST body. All the options that are supported by
 	// Elasticsearch can be used, as this
 	// object is passed verbatim to Elasticsearch.
-	Query *types.QueryContainer `json:"query,omitempty"`
-
+	Query *types.Query `json:"query,omitempty"`
 	// QueryDelay The number of seconds behind real time that data is queried. For example, if
 	// data from 10:04 a.m. might
 	// not be searchable in Elasticsearch until 10:06 a.m., set this property to 120
@@ -109,16 +99,13 @@ type Request struct {
 	// the query performance
 	// when there are multiple jobs running on the same node.
 	QueryDelay *types.Duration `json:"query_delay,omitempty"`
-
 	// RuntimeMappings Specifies runtime fields for the datafeed search.
-	RuntimeMappings *types.RuntimeFields `json:"runtime_mappings,omitempty"`
-
+	RuntimeMappings map[string]types.RuntimeField `json:"runtime_mappings,omitempty"`
 	// ScriptFields Specifies scripts that evaluate custom expressions and returns script fields
 	// to the datafeed.
 	// The detector configuration objects in a job can contain functions that use
 	// these script fields.
 	ScriptFields map[string]types.ScriptField `json:"script_fields,omitempty"`
-
 	// ScrollSize The size parameter that is used in Elasticsearch searches when the datafeed
 	// does not use aggregations.
 	// The maximum value is the value of `index.max_result_window`, which is 10,000
@@ -126,24 +113,17 @@ type Request struct {
 	ScrollSize *int `json:"scroll_size,omitempty"`
 }
 
-// RequestBuilder is the builder API for the putdatafeed.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{
-			Aggregations: make(map[string]types.AggregationContainer, 0),
-			ScriptFields: make(map[string]types.ScriptField, 0),
-		},
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{
+		Aggregations: make(map[string]types.Aggregations, 0),
+		ScriptFields: make(map[string]types.ScriptField, 0),
 	}
-	return &r
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -152,96 +132,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) Aggregations(values map[string]*types.AggregationContainerBuilder) *RequestBuilder {
-	tmp := make(map[string]types.AggregationContainer, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Aggregations = tmp
-	return rb
-}
-
-func (rb *RequestBuilder) ChunkingConfig(chunkingconfig *types.ChunkingConfigBuilder) *RequestBuilder {
-	v := chunkingconfig.Build()
-	rb.v.ChunkingConfig = &v
-	return rb
-}
-
-func (rb *RequestBuilder) DelayedDataCheckConfig(delayeddatacheckconfig *types.DelayedDataCheckConfigBuilder) *RequestBuilder {
-	v := delayeddatacheckconfig.Build()
-	rb.v.DelayedDataCheckConfig = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Frequency(frequency *types.DurationBuilder) *RequestBuilder {
-	v := frequency.Build()
-	rb.v.Frequency = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Headers(headers *types.HttpHeadersBuilder) *RequestBuilder {
-	v := headers.Build()
-	rb.v.Headers = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Indices(indices *types.IndicesBuilder) *RequestBuilder {
-	v := indices.Build()
-	rb.v.Indices = &v
-	return rb
-}
-
-func (rb *RequestBuilder) IndicesOptions(indicesoptions *types.IndicesOptionsBuilder) *RequestBuilder {
-	v := indicesoptions.Build()
-	rb.v.IndicesOptions = &v
-	return rb
-}
-
-func (rb *RequestBuilder) JobId(jobid types.Id) *RequestBuilder {
-	rb.v.JobId = &jobid
-	return rb
-}
-
-func (rb *RequestBuilder) MaxEmptySearches(maxemptysearches int) *RequestBuilder {
-	rb.v.MaxEmptySearches = &maxemptysearches
-	return rb
-}
-
-func (rb *RequestBuilder) Query(query *types.QueryContainerBuilder) *RequestBuilder {
-	v := query.Build()
-	rb.v.Query = &v
-	return rb
-}
-
-func (rb *RequestBuilder) QueryDelay(querydelay *types.DurationBuilder) *RequestBuilder {
-	v := querydelay.Build()
-	rb.v.QueryDelay = &v
-	return rb
-}
-
-func (rb *RequestBuilder) RuntimeMappings(runtimemappings *types.RuntimeFieldsBuilder) *RequestBuilder {
-	v := runtimemappings.Build()
-	rb.v.RuntimeMappings = &v
-	return rb
-}
-
-func (rb *RequestBuilder) ScriptFields(values map[string]*types.ScriptFieldBuilder) *RequestBuilder {
-	tmp := make(map[string]types.ScriptField, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.ScriptFields = tmp
-	return rb
-}
-
-func (rb *RequestBuilder) ScrollSize(scrollsize int) *RequestBuilder {
-	rb.v.ScrollSize = &scrollsize
-	return rb
 }

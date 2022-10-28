@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package updatebyquery
@@ -32,34 +32,23 @@ import (
 
 // Request holds the request body struct for the package updatebyquery
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_global/update_by_query/UpdateByQueryRequest.ts#L37-L85
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/update_by_query/UpdateByQueryRequest.ts#L37-L85
 type Request struct {
 	Conflicts *conflicts.Conflicts `json:"conflicts,omitempty"`
-
-	MaxDocs *int64 `json:"max_docs,omitempty"`
-
-	Query *types.QueryContainer `json:"query,omitempty"`
-
-	Script *types.Script `json:"script,omitempty"`
-
-	Slice *types.SlicedScroll `json:"slice,omitempty"`
+	MaxDocs   *int64               `json:"max_docs,omitempty"`
+	Query     *types.Query         `json:"query,omitempty"`
+	Script    *types.Script        `json:"script,omitempty"`
+	Slice     *types.SlicedScroll  `json:"slice,omitempty"`
 }
 
-// RequestBuilder is the builder API for the updatebyquery.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -68,37 +57,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) Conflicts(conflicts conflicts.Conflicts) *RequestBuilder {
-	rb.v.Conflicts = &conflicts
-	return rb
-}
-
-func (rb *RequestBuilder) MaxDocs(maxdocs int64) *RequestBuilder {
-	rb.v.MaxDocs = &maxdocs
-	return rb
-}
-
-func (rb *RequestBuilder) Query(query *types.QueryContainerBuilder) *RequestBuilder {
-	v := query.Build()
-	rb.v.Query = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Script(script *types.ScriptBuilder) *RequestBuilder {
-	v := script.Build()
-	rb.v.Script = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Slice(slice *types.SlicedScrollBuilder) *RequestBuilder {
-	v := slice.Build()
-	rb.v.Slice = &v
-	return rb
 }

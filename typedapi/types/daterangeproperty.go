@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,129 +28,35 @@ import (
 
 // DateRangeProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/mapping/range.ts#L29-L32
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/range.ts#L29-L32
 type DateRangeProperty struct {
 	Boost         *float64                       `json:"boost,omitempty"`
 	Coerce        *bool                          `json:"coerce,omitempty"`
-	CopyTo        *Fields                        `json:"copy_to,omitempty"`
+	CopyTo        []string                       `json:"copy_to,omitempty"`
 	DocValues     *bool                          `json:"doc_values,omitempty"`
 	Dynamic       *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
-	Fields        map[PropertyName]Property      `json:"fields,omitempty"`
+	Fields        map[string]Property            `json:"fields,omitempty"`
 	Format        *string                        `json:"format,omitempty"`
 	IgnoreAbove   *int                           `json:"ignore_above,omitempty"`
 	Index         *bool                          `json:"index,omitempty"`
-	LocalMetadata *Metadata                      `json:"local_metadata,omitempty"`
+	LocalMetadata map[string]interface{}         `json:"local_metadata,omitempty"`
 	// Meta Metadata about the field.
-	Meta       map[string]string         `json:"meta,omitempty"`
-	Properties map[PropertyName]Property `json:"properties,omitempty"`
-	Similarity *string                   `json:"similarity,omitempty"`
-	Store      *bool                     `json:"store,omitempty"`
-	Type       string                    `json:"type,omitempty"`
+	Meta       map[string]string   `json:"meta,omitempty"`
+	Properties map[string]Property `json:"properties,omitempty"`
+	Similarity *string             `json:"similarity,omitempty"`
+	Store      *bool               `json:"store,omitempty"`
+	Type       string              `json:"type,omitempty"`
 }
 
-// DateRangePropertyBuilder holds DateRangeProperty struct and provides a builder API.
-type DateRangePropertyBuilder struct {
-	v *DateRangeProperty
-}
-
-// NewDateRangeProperty provides a builder for the DateRangeProperty struct.
-func NewDateRangePropertyBuilder() *DateRangePropertyBuilder {
-	r := DateRangePropertyBuilder{
-		&DateRangeProperty{
-			Fields:     make(map[PropertyName]Property, 0),
-			Meta:       make(map[string]string, 0),
-			Properties: make(map[PropertyName]Property, 0),
-		},
+// NewDateRangeProperty returns a DateRangeProperty.
+func NewDateRangeProperty() *DateRangeProperty {
+	r := &DateRangeProperty{
+		Fields:     make(map[string]Property, 0),
+		Meta:       make(map[string]string, 0),
+		Properties: make(map[string]Property, 0),
 	}
 
-	r.v.Type = "date_range"
+	r.Type = "date_range"
 
-	return &r
-}
-
-// Build finalize the chain and returns the DateRangeProperty struct
-func (rb *DateRangePropertyBuilder) Build() DateRangeProperty {
-	return *rb.v
-}
-
-func (rb *DateRangePropertyBuilder) Boost(boost float64) *DateRangePropertyBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *DateRangePropertyBuilder) Coerce(coerce bool) *DateRangePropertyBuilder {
-	rb.v.Coerce = &coerce
-	return rb
-}
-
-func (rb *DateRangePropertyBuilder) CopyTo(copyto *FieldsBuilder) *DateRangePropertyBuilder {
-	v := copyto.Build()
-	rb.v.CopyTo = &v
-	return rb
-}
-
-func (rb *DateRangePropertyBuilder) DocValues(docvalues bool) *DateRangePropertyBuilder {
-	rb.v.DocValues = &docvalues
-	return rb
-}
-
-func (rb *DateRangePropertyBuilder) Dynamic(dynamic dynamicmapping.DynamicMapping) *DateRangePropertyBuilder {
-	rb.v.Dynamic = &dynamic
-	return rb
-}
-
-func (rb *DateRangePropertyBuilder) Fields(values map[PropertyName]*PropertyBuilder) *DateRangePropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Fields = tmp
-	return rb
-}
-
-func (rb *DateRangePropertyBuilder) Format(format string) *DateRangePropertyBuilder {
-	rb.v.Format = &format
-	return rb
-}
-
-func (rb *DateRangePropertyBuilder) IgnoreAbove(ignoreabove int) *DateRangePropertyBuilder {
-	rb.v.IgnoreAbove = &ignoreabove
-	return rb
-}
-
-func (rb *DateRangePropertyBuilder) Index(index bool) *DateRangePropertyBuilder {
-	rb.v.Index = &index
-	return rb
-}
-
-func (rb *DateRangePropertyBuilder) LocalMetadata(localmetadata *MetadataBuilder) *DateRangePropertyBuilder {
-	v := localmetadata.Build()
-	rb.v.LocalMetadata = &v
-	return rb
-}
-
-// Meta Metadata about the field.
-
-func (rb *DateRangePropertyBuilder) Meta(value map[string]string) *DateRangePropertyBuilder {
-	rb.v.Meta = value
-	return rb
-}
-
-func (rb *DateRangePropertyBuilder) Properties(values map[PropertyName]*PropertyBuilder) *DateRangePropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Properties = tmp
-	return rb
-}
-
-func (rb *DateRangePropertyBuilder) Similarity(similarity string) *DateRangePropertyBuilder {
-	rb.v.Similarity = &similarity
-	return rb
-}
-
-func (rb *DateRangePropertyBuilder) Store(store bool) *DateRangePropertyBuilder {
-	rb.v.Store = &store
-	return rb
+	return r
 }

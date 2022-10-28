@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,45 +28,18 @@ import (
 
 // StoredScript type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/Scripting.ts#L35-L39
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Scripting.ts#L35-L39
 type StoredScript struct {
 	Lang    scriptlanguage.ScriptLanguage `json:"lang"`
 	Options map[string]string             `json:"options,omitempty"`
 	Source  string                        `json:"source"`
 }
 
-// StoredScriptBuilder holds StoredScript struct and provides a builder API.
-type StoredScriptBuilder struct {
-	v *StoredScript
-}
-
-// NewStoredScript provides a builder for the StoredScript struct.
-func NewStoredScriptBuilder() *StoredScriptBuilder {
-	r := StoredScriptBuilder{
-		&StoredScript{
-			Options: make(map[string]string, 0),
-		},
+// NewStoredScript returns a StoredScript.
+func NewStoredScript() *StoredScript {
+	r := &StoredScript{
+		Options: make(map[string]string, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the StoredScript struct
-func (rb *StoredScriptBuilder) Build() StoredScript {
-	return *rb.v
-}
-
-func (rb *StoredScriptBuilder) Lang(lang scriptlanguage.ScriptLanguage) *StoredScriptBuilder {
-	rb.v.Lang = lang
-	return rb
-}
-
-func (rb *StoredScriptBuilder) Options(value map[string]string) *StoredScriptBuilder {
-	rb.v.Options = value
-	return rb
-}
-
-func (rb *StoredScriptBuilder) Source(source string) *StoredScriptBuilder {
-	rb.v.Source = source
-	return rb
+	return r
 }

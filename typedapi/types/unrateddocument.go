@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // UnratedDocument type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_global/rank_eval/types.ts#L147-L150
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/rank_eval/types.ts#L147-L150
 type UnratedDocument struct {
-	Id_    Id        `json:"_id"`
-	Index_ IndexName `json:"_index"`
+	Id_    string `json:"_id"`
+	Index_ string `json:"_index"`
 }
 
-// UnratedDocumentBuilder holds UnratedDocument struct and provides a builder API.
-type UnratedDocumentBuilder struct {
-	v *UnratedDocument
-}
+// NewUnratedDocument returns a UnratedDocument.
+func NewUnratedDocument() *UnratedDocument {
+	r := &UnratedDocument{}
 
-// NewUnratedDocument provides a builder for the UnratedDocument struct.
-func NewUnratedDocumentBuilder() *UnratedDocumentBuilder {
-	r := UnratedDocumentBuilder{
-		&UnratedDocument{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the UnratedDocument struct
-func (rb *UnratedDocumentBuilder) Build() UnratedDocument {
-	return *rb.v
-}
-
-func (rb *UnratedDocumentBuilder) Id_(id_ Id) *UnratedDocumentBuilder {
-	rb.v.Id_ = id_
-	return rb
-}
-
-func (rb *UnratedDocumentBuilder) Index_(index_ IndexName) *UnratedDocumentBuilder {
-	rb.v.Index_ = index_
-	return rb
+	return r
 }

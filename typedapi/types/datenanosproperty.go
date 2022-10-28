@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,142 +28,37 @@ import (
 
 // DateNanosProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/mapping/core.ts#L73-L81
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/core.ts#L73-L81
 type DateNanosProperty struct {
 	Boost           *float64                       `json:"boost,omitempty"`
-	CopyTo          *Fields                        `json:"copy_to,omitempty"`
+	CopyTo          []string                       `json:"copy_to,omitempty"`
 	DocValues       *bool                          `json:"doc_values,omitempty"`
 	Dynamic         *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
-	Fields          map[PropertyName]Property      `json:"fields,omitempty"`
+	Fields          map[string]Property            `json:"fields,omitempty"`
 	Format          *string                        `json:"format,omitempty"`
 	IgnoreAbove     *int                           `json:"ignore_above,omitempty"`
 	IgnoreMalformed *bool                          `json:"ignore_malformed,omitempty"`
 	Index           *bool                          `json:"index,omitempty"`
-	LocalMetadata   *Metadata                      `json:"local_metadata,omitempty"`
+	LocalMetadata   map[string]interface{}         `json:"local_metadata,omitempty"`
 	// Meta Metadata about the field.
-	Meta          map[string]string         `json:"meta,omitempty"`
-	NullValue     *DateTime                 `json:"null_value,omitempty"`
-	PrecisionStep *int                      `json:"precision_step,omitempty"`
-	Properties    map[PropertyName]Property `json:"properties,omitempty"`
-	Similarity    *string                   `json:"similarity,omitempty"`
-	Store         *bool                     `json:"store,omitempty"`
-	Type          string                    `json:"type,omitempty"`
+	Meta          map[string]string   `json:"meta,omitempty"`
+	NullValue     *DateTime           `json:"null_value,omitempty"`
+	PrecisionStep *int                `json:"precision_step,omitempty"`
+	Properties    map[string]Property `json:"properties,omitempty"`
+	Similarity    *string             `json:"similarity,omitempty"`
+	Store         *bool               `json:"store,omitempty"`
+	Type          string              `json:"type,omitempty"`
 }
 
-// DateNanosPropertyBuilder holds DateNanosProperty struct and provides a builder API.
-type DateNanosPropertyBuilder struct {
-	v *DateNanosProperty
-}
-
-// NewDateNanosProperty provides a builder for the DateNanosProperty struct.
-func NewDateNanosPropertyBuilder() *DateNanosPropertyBuilder {
-	r := DateNanosPropertyBuilder{
-		&DateNanosProperty{
-			Fields:     make(map[PropertyName]Property, 0),
-			Meta:       make(map[string]string, 0),
-			Properties: make(map[PropertyName]Property, 0),
-		},
+// NewDateNanosProperty returns a DateNanosProperty.
+func NewDateNanosProperty() *DateNanosProperty {
+	r := &DateNanosProperty{
+		Fields:     make(map[string]Property, 0),
+		Meta:       make(map[string]string, 0),
+		Properties: make(map[string]Property, 0),
 	}
 
-	r.v.Type = "date_nanos"
+	r.Type = "date_nanos"
 
-	return &r
-}
-
-// Build finalize the chain and returns the DateNanosProperty struct
-func (rb *DateNanosPropertyBuilder) Build() DateNanosProperty {
-	return *rb.v
-}
-
-func (rb *DateNanosPropertyBuilder) Boost(boost float64) *DateNanosPropertyBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *DateNanosPropertyBuilder) CopyTo(copyto *FieldsBuilder) *DateNanosPropertyBuilder {
-	v := copyto.Build()
-	rb.v.CopyTo = &v
-	return rb
-}
-
-func (rb *DateNanosPropertyBuilder) DocValues(docvalues bool) *DateNanosPropertyBuilder {
-	rb.v.DocValues = &docvalues
-	return rb
-}
-
-func (rb *DateNanosPropertyBuilder) Dynamic(dynamic dynamicmapping.DynamicMapping) *DateNanosPropertyBuilder {
-	rb.v.Dynamic = &dynamic
-	return rb
-}
-
-func (rb *DateNanosPropertyBuilder) Fields(values map[PropertyName]*PropertyBuilder) *DateNanosPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Fields = tmp
-	return rb
-}
-
-func (rb *DateNanosPropertyBuilder) Format(format string) *DateNanosPropertyBuilder {
-	rb.v.Format = &format
-	return rb
-}
-
-func (rb *DateNanosPropertyBuilder) IgnoreAbove(ignoreabove int) *DateNanosPropertyBuilder {
-	rb.v.IgnoreAbove = &ignoreabove
-	return rb
-}
-
-func (rb *DateNanosPropertyBuilder) IgnoreMalformed(ignoremalformed bool) *DateNanosPropertyBuilder {
-	rb.v.IgnoreMalformed = &ignoremalformed
-	return rb
-}
-
-func (rb *DateNanosPropertyBuilder) Index(index bool) *DateNanosPropertyBuilder {
-	rb.v.Index = &index
-	return rb
-}
-
-func (rb *DateNanosPropertyBuilder) LocalMetadata(localmetadata *MetadataBuilder) *DateNanosPropertyBuilder {
-	v := localmetadata.Build()
-	rb.v.LocalMetadata = &v
-	return rb
-}
-
-// Meta Metadata about the field.
-
-func (rb *DateNanosPropertyBuilder) Meta(value map[string]string) *DateNanosPropertyBuilder {
-	rb.v.Meta = value
-	return rb
-}
-
-func (rb *DateNanosPropertyBuilder) NullValue(nullvalue *DateTimeBuilder) *DateNanosPropertyBuilder {
-	v := nullvalue.Build()
-	rb.v.NullValue = &v
-	return rb
-}
-
-func (rb *DateNanosPropertyBuilder) PrecisionStep(precisionstep int) *DateNanosPropertyBuilder {
-	rb.v.PrecisionStep = &precisionstep
-	return rb
-}
-
-func (rb *DateNanosPropertyBuilder) Properties(values map[PropertyName]*PropertyBuilder) *DateNanosPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Properties = tmp
-	return rb
-}
-
-func (rb *DateNanosPropertyBuilder) Similarity(similarity string) *DateNanosPropertyBuilder {
-	rb.v.Similarity = &similarity
-	return rb
-}
-
-func (rb *DateNanosPropertyBuilder) Store(store bool) *DateNanosPropertyBuilder {
-	rb.v.Store = &store
-	return rb
+	return r
 }

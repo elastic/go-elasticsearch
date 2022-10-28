@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -30,23 +30,23 @@ import (
 
 // UnsignedLongNumberProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/mapping/core.ts#L166-L169
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/core.ts#L166-L169
 type UnsignedLongNumberProperty struct {
 	Boost           *float64                       `json:"boost,omitempty"`
 	Coerce          *bool                          `json:"coerce,omitempty"`
-	CopyTo          *Fields                        `json:"copy_to,omitempty"`
+	CopyTo          []string                       `json:"copy_to,omitempty"`
 	DocValues       *bool                          `json:"doc_values,omitempty"`
 	Dynamic         *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
-	Fields          map[PropertyName]Property      `json:"fields,omitempty"`
+	Fields          map[string]Property            `json:"fields,omitempty"`
 	IgnoreAbove     *int                           `json:"ignore_above,omitempty"`
 	IgnoreMalformed *bool                          `json:"ignore_malformed,omitempty"`
 	Index           *bool                          `json:"index,omitempty"`
-	LocalMetadata   *Metadata                      `json:"local_metadata,omitempty"`
+	LocalMetadata   map[string]interface{}         `json:"local_metadata,omitempty"`
 	// Meta Metadata about the field.
 	Meta          map[string]string            `json:"meta,omitempty"`
 	NullValue     *uint64                      `json:"null_value,omitempty"`
 	OnScriptError *onscripterror.OnScriptError `json:"on_script_error,omitempty"`
-	Properties    map[PropertyName]Property    `json:"properties,omitempty"`
+	Properties    map[string]Property          `json:"properties,omitempty"`
 	Script        *Script                      `json:"script,omitempty"`
 	Similarity    *string                      `json:"similarity,omitempty"`
 	Store         *bool                        `json:"store,omitempty"`
@@ -59,141 +59,15 @@ type UnsignedLongNumberProperty struct {
 	Type             string                                     `json:"type,omitempty"`
 }
 
-// UnsignedLongNumberPropertyBuilder holds UnsignedLongNumberProperty struct and provides a builder API.
-type UnsignedLongNumberPropertyBuilder struct {
-	v *UnsignedLongNumberProperty
-}
-
-// NewUnsignedLongNumberProperty provides a builder for the UnsignedLongNumberProperty struct.
-func NewUnsignedLongNumberPropertyBuilder() *UnsignedLongNumberPropertyBuilder {
-	r := UnsignedLongNumberPropertyBuilder{
-		&UnsignedLongNumberProperty{
-			Fields:     make(map[PropertyName]Property, 0),
-			Meta:       make(map[string]string, 0),
-			Properties: make(map[PropertyName]Property, 0),
-		},
+// NewUnsignedLongNumberProperty returns a UnsignedLongNumberProperty.
+func NewUnsignedLongNumberProperty() *UnsignedLongNumberProperty {
+	r := &UnsignedLongNumberProperty{
+		Fields:     make(map[string]Property, 0),
+		Meta:       make(map[string]string, 0),
+		Properties: make(map[string]Property, 0),
 	}
 
-	r.v.Type = "unsigned_long"
+	r.Type = "unsigned_long"
 
-	return &r
-}
-
-// Build finalize the chain and returns the UnsignedLongNumberProperty struct
-func (rb *UnsignedLongNumberPropertyBuilder) Build() UnsignedLongNumberProperty {
-	return *rb.v
-}
-
-func (rb *UnsignedLongNumberPropertyBuilder) Boost(boost float64) *UnsignedLongNumberPropertyBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *UnsignedLongNumberPropertyBuilder) Coerce(coerce bool) *UnsignedLongNumberPropertyBuilder {
-	rb.v.Coerce = &coerce
-	return rb
-}
-
-func (rb *UnsignedLongNumberPropertyBuilder) CopyTo(copyto *FieldsBuilder) *UnsignedLongNumberPropertyBuilder {
-	v := copyto.Build()
-	rb.v.CopyTo = &v
-	return rb
-}
-
-func (rb *UnsignedLongNumberPropertyBuilder) DocValues(docvalues bool) *UnsignedLongNumberPropertyBuilder {
-	rb.v.DocValues = &docvalues
-	return rb
-}
-
-func (rb *UnsignedLongNumberPropertyBuilder) Dynamic(dynamic dynamicmapping.DynamicMapping) *UnsignedLongNumberPropertyBuilder {
-	rb.v.Dynamic = &dynamic
-	return rb
-}
-
-func (rb *UnsignedLongNumberPropertyBuilder) Fields(values map[PropertyName]*PropertyBuilder) *UnsignedLongNumberPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Fields = tmp
-	return rb
-}
-
-func (rb *UnsignedLongNumberPropertyBuilder) IgnoreAbove(ignoreabove int) *UnsignedLongNumberPropertyBuilder {
-	rb.v.IgnoreAbove = &ignoreabove
-	return rb
-}
-
-func (rb *UnsignedLongNumberPropertyBuilder) IgnoreMalformed(ignoremalformed bool) *UnsignedLongNumberPropertyBuilder {
-	rb.v.IgnoreMalformed = &ignoremalformed
-	return rb
-}
-
-func (rb *UnsignedLongNumberPropertyBuilder) Index(index bool) *UnsignedLongNumberPropertyBuilder {
-	rb.v.Index = &index
-	return rb
-}
-
-func (rb *UnsignedLongNumberPropertyBuilder) LocalMetadata(localmetadata *MetadataBuilder) *UnsignedLongNumberPropertyBuilder {
-	v := localmetadata.Build()
-	rb.v.LocalMetadata = &v
-	return rb
-}
-
-// Meta Metadata about the field.
-
-func (rb *UnsignedLongNumberPropertyBuilder) Meta(value map[string]string) *UnsignedLongNumberPropertyBuilder {
-	rb.v.Meta = value
-	return rb
-}
-
-func (rb *UnsignedLongNumberPropertyBuilder) NullValue(nullvalue uint64) *UnsignedLongNumberPropertyBuilder {
-	rb.v.NullValue = &nullvalue
-	return rb
-}
-
-func (rb *UnsignedLongNumberPropertyBuilder) OnScriptError(onscripterror onscripterror.OnScriptError) *UnsignedLongNumberPropertyBuilder {
-	rb.v.OnScriptError = &onscripterror
-	return rb
-}
-
-func (rb *UnsignedLongNumberPropertyBuilder) Properties(values map[PropertyName]*PropertyBuilder) *UnsignedLongNumberPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Properties = tmp
-	return rb
-}
-
-func (rb *UnsignedLongNumberPropertyBuilder) Script(script *ScriptBuilder) *UnsignedLongNumberPropertyBuilder {
-	v := script.Build()
-	rb.v.Script = &v
-	return rb
-}
-
-func (rb *UnsignedLongNumberPropertyBuilder) Similarity(similarity string) *UnsignedLongNumberPropertyBuilder {
-	rb.v.Similarity = &similarity
-	return rb
-}
-
-func (rb *UnsignedLongNumberPropertyBuilder) Store(store bool) *UnsignedLongNumberPropertyBuilder {
-	rb.v.Store = &store
-	return rb
-}
-
-// TimeSeriesDimension For internal use by Elastic only. Marks the field as a time series dimension.
-// Defaults to false.
-
-func (rb *UnsignedLongNumberPropertyBuilder) TimeSeriesDimension(timeseriesdimension bool) *UnsignedLongNumberPropertyBuilder {
-	rb.v.TimeSeriesDimension = &timeseriesdimension
-	return rb
-}
-
-// TimeSeriesMetric For internal use by Elastic only. Marks the field as a time series dimension.
-// Defaults to false.
-
-func (rb *UnsignedLongNumberPropertyBuilder) TimeSeriesMetric(timeseriesmetric timeseriesmetrictype.TimeSeriesMetricType) *UnsignedLongNumberPropertyBuilder {
-	rb.v.TimeSeriesMetric = &timeseriesmetric
-	return rb
+	return r
 }

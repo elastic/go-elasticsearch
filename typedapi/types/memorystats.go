@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MemoryStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/_types/Stats.ts#L242-L253
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L242-L253
 type MemoryStats struct {
 	AdjustedTotalInBytes *int64  `json:"adjusted_total_in_bytes,omitempty"`
 	FreeInBytes          *int64  `json:"free_in_bytes,omitempty"`
@@ -38,71 +38,9 @@ type MemoryStats struct {
 	UsedInBytes          *int64  `json:"used_in_bytes,omitempty"`
 }
 
-// MemoryStatsBuilder holds MemoryStats struct and provides a builder API.
-type MemoryStatsBuilder struct {
-	v *MemoryStats
-}
+// NewMemoryStats returns a MemoryStats.
+func NewMemoryStats() *MemoryStats {
+	r := &MemoryStats{}
 
-// NewMemoryStats provides a builder for the MemoryStats struct.
-func NewMemoryStatsBuilder() *MemoryStatsBuilder {
-	r := MemoryStatsBuilder{
-		&MemoryStats{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MemoryStats struct
-func (rb *MemoryStatsBuilder) Build() MemoryStats {
-	return *rb.v
-}
-
-func (rb *MemoryStatsBuilder) AdjustedTotalInBytes(adjustedtotalinbytes int64) *MemoryStatsBuilder {
-	rb.v.AdjustedTotalInBytes = &adjustedtotalinbytes
-	return rb
-}
-
-func (rb *MemoryStatsBuilder) FreeInBytes(freeinbytes int64) *MemoryStatsBuilder {
-	rb.v.FreeInBytes = &freeinbytes
-	return rb
-}
-
-func (rb *MemoryStatsBuilder) Resident(resident string) *MemoryStatsBuilder {
-	rb.v.Resident = &resident
-	return rb
-}
-
-func (rb *MemoryStatsBuilder) ResidentInBytes(residentinbytes int64) *MemoryStatsBuilder {
-	rb.v.ResidentInBytes = &residentinbytes
-	return rb
-}
-
-func (rb *MemoryStatsBuilder) Share(share string) *MemoryStatsBuilder {
-	rb.v.Share = &share
-	return rb
-}
-
-func (rb *MemoryStatsBuilder) ShareInBytes(shareinbytes int64) *MemoryStatsBuilder {
-	rb.v.ShareInBytes = &shareinbytes
-	return rb
-}
-
-func (rb *MemoryStatsBuilder) TotalInBytes(totalinbytes int64) *MemoryStatsBuilder {
-	rb.v.TotalInBytes = &totalinbytes
-	return rb
-}
-
-func (rb *MemoryStatsBuilder) TotalVirtual(totalvirtual string) *MemoryStatsBuilder {
-	rb.v.TotalVirtual = &totalvirtual
-	return rb
-}
-
-func (rb *MemoryStatsBuilder) TotalVirtualInBytes(totalvirtualinbytes int64) *MemoryStatsBuilder {
-	rb.v.TotalVirtualInBytes = &totalvirtualinbytes
-	return rb
-}
-
-func (rb *MemoryStatsBuilder) UsedInBytes(usedinbytes int64) *MemoryStatsBuilder {
-	rb.v.UsedInBytes = &usedinbytes
-	return rb
+	return r
 }

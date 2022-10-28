@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package explore
@@ -31,32 +31,22 @@ import (
 
 // Request holds the request body struct for the package explore
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/graph/explore/GraphExploreRequest.ts#L28-L47
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/graph/explore/GraphExploreRequest.ts#L28-L47
 type Request struct {
-	Connections *types.Hop `json:"connections,omitempty"`
-
-	Controls *types.ExploreControls `json:"controls,omitempty"`
-
-	Query *types.QueryContainer `json:"query,omitempty"`
-
-	Vertices []types.VertexDefinition `json:"vertices,omitempty"`
+	Connections *types.Hop               `json:"connections,omitempty"`
+	Controls    *types.ExploreControls   `json:"controls,omitempty"`
+	Query       *types.Query             `json:"query,omitempty"`
+	Vertices    []types.VertexDefinition `json:"vertices,omitempty"`
 }
 
-// RequestBuilder is the builder API for the explore.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -65,36 +55,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) Connections(connections *types.HopBuilder) *RequestBuilder {
-	v := connections.Build()
-	rb.v.Connections = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Controls(controls *types.ExploreControlsBuilder) *RequestBuilder {
-	v := controls.Build()
-	rb.v.Controls = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Query(query *types.QueryContainerBuilder) *RequestBuilder {
-	v := query.Build()
-	rb.v.Query = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Vertices(vertices []types.VertexDefinitionBuilder) *RequestBuilder {
-	tmp := make([]types.VertexDefinition, len(vertices))
-	for _, value := range vertices {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Vertices = tmp
-	return rb
 }

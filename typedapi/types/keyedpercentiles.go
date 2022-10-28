@@ -17,32 +17,12 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // KeyedPercentiles type alias.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L149-L149
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L157-L157
 type KeyedPercentiles map[string]string
-
-// KeyedPercentilesBuilder holds KeyedPercentiles struct and provides a builder API.
-type KeyedPercentilesBuilder struct {
-	v KeyedPercentiles
-}
-
-// NewKeyedPercentiles provides a builder for the KeyedPercentiles struct.
-func NewKeyedPercentilesBuilder() *KeyedPercentilesBuilder {
-	return &KeyedPercentilesBuilder{}
-}
-
-// Build finalize the chain and returns the KeyedPercentiles struct
-func (b *KeyedPercentilesBuilder) Build() KeyedPercentiles {
-	return b.v
-}
-
-func (b *KeyedPercentilesBuilder) KeyedPercentiles(value KeyedPercentiles) *KeyedPercentilesBuilder {
-	b.v = value
-	return b
-}

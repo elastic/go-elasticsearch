@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Breaker type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/_types/Stats.ts#L173-L180
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L173-L180
 type Breaker struct {
 	EstimatedSize        *string  `json:"estimated_size,omitempty"`
 	EstimatedSizeInBytes *int64   `json:"estimated_size_in_bytes,omitempty"`
@@ -34,51 +34,9 @@ type Breaker struct {
 	Tripped              *float32 `json:"tripped,omitempty"`
 }
 
-// BreakerBuilder holds Breaker struct and provides a builder API.
-type BreakerBuilder struct {
-	v *Breaker
-}
+// NewBreaker returns a Breaker.
+func NewBreaker() *Breaker {
+	r := &Breaker{}
 
-// NewBreaker provides a builder for the Breaker struct.
-func NewBreakerBuilder() *BreakerBuilder {
-	r := BreakerBuilder{
-		&Breaker{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Breaker struct
-func (rb *BreakerBuilder) Build() Breaker {
-	return *rb.v
-}
-
-func (rb *BreakerBuilder) EstimatedSize(estimatedsize string) *BreakerBuilder {
-	rb.v.EstimatedSize = &estimatedsize
-	return rb
-}
-
-func (rb *BreakerBuilder) EstimatedSizeInBytes(estimatedsizeinbytes int64) *BreakerBuilder {
-	rb.v.EstimatedSizeInBytes = &estimatedsizeinbytes
-	return rb
-}
-
-func (rb *BreakerBuilder) LimitSize(limitsize string) *BreakerBuilder {
-	rb.v.LimitSize = &limitsize
-	return rb
-}
-
-func (rb *BreakerBuilder) LimitSizeInBytes(limitsizeinbytes int64) *BreakerBuilder {
-	rb.v.LimitSizeInBytes = &limitsizeinbytes
-	return rb
-}
-
-func (rb *BreakerBuilder) Overhead(overhead float32) *BreakerBuilder {
-	rb.v.Overhead = &overhead
-	return rb
-}
-
-func (rb *BreakerBuilder) Tripped(tripped float32) *BreakerBuilder {
-	rb.v.Tripped = &tripped
-	return rb
+	return r
 }

@@ -17,71 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TranslogStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/recovery/types.ts#L102-L109
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/recovery/types.ts#L102-L109
 type TranslogStatus struct {
-	Percent           Percentage              `json:"percent"`
-	Recovered         int64                   `json:"recovered"`
-	Total             int64                   `json:"total"`
-	TotalOnStart      int64                   `json:"total_on_start"`
-	TotalTime         *Duration               `json:"total_time,omitempty"`
-	TotalTimeInMillis DurationValueUnitMillis `json:"total_time_in_millis"`
+	Percent           Percentage `json:"percent"`
+	Recovered         int64      `json:"recovered"`
+	Total             int64      `json:"total"`
+	TotalOnStart      int64      `json:"total_on_start"`
+	TotalTime         *Duration  `json:"total_time,omitempty"`
+	TotalTimeInMillis int64      `json:"total_time_in_millis"`
 }
 
-// TranslogStatusBuilder holds TranslogStatus struct and provides a builder API.
-type TranslogStatusBuilder struct {
-	v *TranslogStatus
-}
+// NewTranslogStatus returns a TranslogStatus.
+func NewTranslogStatus() *TranslogStatus {
+	r := &TranslogStatus{}
 
-// NewTranslogStatus provides a builder for the TranslogStatus struct.
-func NewTranslogStatusBuilder() *TranslogStatusBuilder {
-	r := TranslogStatusBuilder{
-		&TranslogStatus{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TranslogStatus struct
-func (rb *TranslogStatusBuilder) Build() TranslogStatus {
-	return *rb.v
-}
-
-func (rb *TranslogStatusBuilder) Percent(percent *PercentageBuilder) *TranslogStatusBuilder {
-	v := percent.Build()
-	rb.v.Percent = v
-	return rb
-}
-
-func (rb *TranslogStatusBuilder) Recovered(recovered int64) *TranslogStatusBuilder {
-	rb.v.Recovered = recovered
-	return rb
-}
-
-func (rb *TranslogStatusBuilder) Total(total int64) *TranslogStatusBuilder {
-	rb.v.Total = total
-	return rb
-}
-
-func (rb *TranslogStatusBuilder) TotalOnStart(totalonstart int64) *TranslogStatusBuilder {
-	rb.v.TotalOnStart = totalonstart
-	return rb
-}
-
-func (rb *TranslogStatusBuilder) TotalTime(totaltime *DurationBuilder) *TranslogStatusBuilder {
-	v := totaltime.Build()
-	rb.v.TotalTime = &v
-	return rb
-}
-
-func (rb *TranslogStatusBuilder) TotalTimeInMillis(totaltimeinmillis *DurationValueUnitMillisBuilder) *TranslogStatusBuilder {
-	v := totaltimeinmillis.Build()
-	rb.v.TotalTimeInMillis = v
-	return rb
+	return r
 }

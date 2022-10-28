@@ -17,46 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SettingsSearch type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/_types/IndexSettings.ts#L231-L234
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/IndexSettings.ts#L231-L234
 type SettingsSearch struct {
 	Idle    *SearchIdle      `json:"idle,omitempty"`
 	Slowlog *SlowlogSettings `json:"slowlog,omitempty"`
 }
 
-// SettingsSearchBuilder holds SettingsSearch struct and provides a builder API.
-type SettingsSearchBuilder struct {
-	v *SettingsSearch
-}
+// NewSettingsSearch returns a SettingsSearch.
+func NewSettingsSearch() *SettingsSearch {
+	r := &SettingsSearch{}
 
-// NewSettingsSearch provides a builder for the SettingsSearch struct.
-func NewSettingsSearchBuilder() *SettingsSearchBuilder {
-	r := SettingsSearchBuilder{
-		&SettingsSearch{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SettingsSearch struct
-func (rb *SettingsSearchBuilder) Build() SettingsSearch {
-	return *rb.v
-}
-
-func (rb *SettingsSearchBuilder) Idle(idle *SearchIdleBuilder) *SettingsSearchBuilder {
-	v := idle.Build()
-	rb.v.Idle = &v
-	return rb
-}
-
-func (rb *SettingsSearchBuilder) Slowlog(slowlog *SlowlogSettingsBuilder) *SettingsSearchBuilder {
-	v := slowlog.Build()
-	rb.v.Slowlog = &v
-	return rb
+	return r
 }

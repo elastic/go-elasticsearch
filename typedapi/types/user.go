@@ -17,75 +17,27 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // User type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/security/_types/User.ts#L23-L31
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/_types/User.ts#L23-L31
 type User struct {
-	Email      string         `json:"email,omitempty"`
-	Enabled    bool           `json:"enabled"`
-	FullName   Name           `json:"full_name,omitempty"`
-	Metadata   Metadata       `json:"metadata"`
-	ProfileUid *UserProfileId `json:"profile_uid,omitempty"`
-	Roles      []string       `json:"roles"`
-	Username   Username       `json:"username"`
+	Email      string                 `json:"email,omitempty"`
+	Enabled    bool                   `json:"enabled"`
+	FullName   string                 `json:"full_name,omitempty"`
+	Metadata   map[string]interface{} `json:"metadata"`
+	ProfileUid *string                `json:"profile_uid,omitempty"`
+	Roles      []string               `json:"roles"`
+	Username   string                 `json:"username"`
 }
 
-// UserBuilder holds User struct and provides a builder API.
-type UserBuilder struct {
-	v *User
-}
+// NewUser returns a User.
+func NewUser() *User {
+	r := &User{}
 
-// NewUser provides a builder for the User struct.
-func NewUserBuilder() *UserBuilder {
-	r := UserBuilder{
-		&User{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the User struct
-func (rb *UserBuilder) Build() User {
-	return *rb.v
-}
-
-func (rb *UserBuilder) Email(email string) *UserBuilder {
-	rb.v.Email = email
-	return rb
-}
-
-func (rb *UserBuilder) Enabled(enabled bool) *UserBuilder {
-	rb.v.Enabled = enabled
-	return rb
-}
-
-func (rb *UserBuilder) FullName(fullname Name) *UserBuilder {
-	rb.v.FullName = fullname
-	return rb
-}
-
-func (rb *UserBuilder) Metadata(metadata *MetadataBuilder) *UserBuilder {
-	v := metadata.Build()
-	rb.v.Metadata = v
-	return rb
-}
-
-func (rb *UserBuilder) ProfileUid(profileuid UserProfileId) *UserBuilder {
-	rb.v.ProfileUid = &profileuid
-	return rb
-}
-
-func (rb *UserBuilder) Roles(roles ...string) *UserBuilder {
-	rb.v.Roles = roles
-	return rb
-}
-
-func (rb *UserBuilder) Username(username Username) *UserBuilder {
-	rb.v.Username = username
-	return rb
+	return r
 }

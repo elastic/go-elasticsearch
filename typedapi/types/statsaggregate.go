@@ -17,93 +17,30 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // StatsAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L231-L246
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L239-L254
 type StatsAggregate struct {
-	Avg         float64   `json:"avg,omitempty"`
-	AvgAsString *string   `json:"avg_as_string,omitempty"`
-	Count       int64     `json:"count"`
-	Max         float64   `json:"max,omitempty"`
-	MaxAsString *string   `json:"max_as_string,omitempty"`
-	Meta        *Metadata `json:"meta,omitempty"`
-	Min         float64   `json:"min,omitempty"`
-	MinAsString *string   `json:"min_as_string,omitempty"`
-	Sum         float64   `json:"sum"`
-	SumAsString *string   `json:"sum_as_string,omitempty"`
+	Avg         float64                `json:"avg,omitempty"`
+	AvgAsString *string                `json:"avg_as_string,omitempty"`
+	Count       int64                  `json:"count"`
+	Max         float64                `json:"max,omitempty"`
+	MaxAsString *string                `json:"max_as_string,omitempty"`
+	Meta        map[string]interface{} `json:"meta,omitempty"`
+	Min         float64                `json:"min,omitempty"`
+	MinAsString *string                `json:"min_as_string,omitempty"`
+	Sum         float64                `json:"sum"`
+	SumAsString *string                `json:"sum_as_string,omitempty"`
 }
 
-// StatsAggregateBuilder holds StatsAggregate struct and provides a builder API.
-type StatsAggregateBuilder struct {
-	v *StatsAggregate
-}
+// NewStatsAggregate returns a StatsAggregate.
+func NewStatsAggregate() *StatsAggregate {
+	r := &StatsAggregate{}
 
-// NewStatsAggregate provides a builder for the StatsAggregate struct.
-func NewStatsAggregateBuilder() *StatsAggregateBuilder {
-	r := StatsAggregateBuilder{
-		&StatsAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the StatsAggregate struct
-func (rb *StatsAggregateBuilder) Build() StatsAggregate {
-	return *rb.v
-}
-
-func (rb *StatsAggregateBuilder) Avg(avg float64) *StatsAggregateBuilder {
-	rb.v.Avg = avg
-	return rb
-}
-
-func (rb *StatsAggregateBuilder) AvgAsString(avgasstring string) *StatsAggregateBuilder {
-	rb.v.AvgAsString = &avgasstring
-	return rb
-}
-
-func (rb *StatsAggregateBuilder) Count(count int64) *StatsAggregateBuilder {
-	rb.v.Count = count
-	return rb
-}
-
-func (rb *StatsAggregateBuilder) Max(max float64) *StatsAggregateBuilder {
-	rb.v.Max = max
-	return rb
-}
-
-func (rb *StatsAggregateBuilder) MaxAsString(maxasstring string) *StatsAggregateBuilder {
-	rb.v.MaxAsString = &maxasstring
-	return rb
-}
-
-func (rb *StatsAggregateBuilder) Meta(meta *MetadataBuilder) *StatsAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *StatsAggregateBuilder) Min(min float64) *StatsAggregateBuilder {
-	rb.v.Min = min
-	return rb
-}
-
-func (rb *StatsAggregateBuilder) MinAsString(minasstring string) *StatsAggregateBuilder {
-	rb.v.MinAsString = &minasstring
-	return rb
-}
-
-func (rb *StatsAggregateBuilder) Sum(sum float64) *StatsAggregateBuilder {
-	rb.v.Sum = sum
-	return rb
-}
-
-func (rb *StatsAggregateBuilder) SumAsString(sumasstring string) *StatsAggregateBuilder {
-	rb.v.SumAsString = &sumasstring
-	return rb
+	return r
 }

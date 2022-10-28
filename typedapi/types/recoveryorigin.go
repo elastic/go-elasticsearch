@@ -17,104 +17,32 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RecoveryOrigin type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/recovery/types.ts#L76-L89
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/recovery/types.ts#L76-L89
 type RecoveryOrigin struct {
-	BootstrapNewHistoryUuid *bool             `json:"bootstrap_new_history_uuid,omitempty"`
-	Host                    *Host             `json:"host,omitempty"`
-	Hostname                *string           `json:"hostname,omitempty"`
-	Id                      *Id               `json:"id,omitempty"`
-	Index                   *IndexName        `json:"index,omitempty"`
-	Ip                      *Ip               `json:"ip,omitempty"`
-	Name                    *Name             `json:"name,omitempty"`
-	Repository              *Name             `json:"repository,omitempty"`
-	RestoreUUID             *Uuid             `json:"restoreUUID,omitempty"`
-	Snapshot                *Name             `json:"snapshot,omitempty"`
-	TransportAddress        *TransportAddress `json:"transport_address,omitempty"`
-	Version                 *VersionString    `json:"version,omitempty"`
+	BootstrapNewHistoryUuid *bool   `json:"bootstrap_new_history_uuid,omitempty"`
+	Host                    *string `json:"host,omitempty"`
+	Hostname                *string `json:"hostname,omitempty"`
+	Id                      *string `json:"id,omitempty"`
+	Index                   *string `json:"index,omitempty"`
+	Ip                      *string `json:"ip,omitempty"`
+	Name                    *string `json:"name,omitempty"`
+	Repository              *string `json:"repository,omitempty"`
+	RestoreUUID             *string `json:"restoreUUID,omitempty"`
+	Snapshot                *string `json:"snapshot,omitempty"`
+	TransportAddress        *string `json:"transport_address,omitempty"`
+	Version                 *string `json:"version,omitempty"`
 }
 
-// RecoveryOriginBuilder holds RecoveryOrigin struct and provides a builder API.
-type RecoveryOriginBuilder struct {
-	v *RecoveryOrigin
-}
+// NewRecoveryOrigin returns a RecoveryOrigin.
+func NewRecoveryOrigin() *RecoveryOrigin {
+	r := &RecoveryOrigin{}
 
-// NewRecoveryOrigin provides a builder for the RecoveryOrigin struct.
-func NewRecoveryOriginBuilder() *RecoveryOriginBuilder {
-	r := RecoveryOriginBuilder{
-		&RecoveryOrigin{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RecoveryOrigin struct
-func (rb *RecoveryOriginBuilder) Build() RecoveryOrigin {
-	return *rb.v
-}
-
-func (rb *RecoveryOriginBuilder) BootstrapNewHistoryUuid(bootstrapnewhistoryuuid bool) *RecoveryOriginBuilder {
-	rb.v.BootstrapNewHistoryUuid = &bootstrapnewhistoryuuid
-	return rb
-}
-
-func (rb *RecoveryOriginBuilder) Host(host Host) *RecoveryOriginBuilder {
-	rb.v.Host = &host
-	return rb
-}
-
-func (rb *RecoveryOriginBuilder) Hostname(hostname string) *RecoveryOriginBuilder {
-	rb.v.Hostname = &hostname
-	return rb
-}
-
-func (rb *RecoveryOriginBuilder) Id(id Id) *RecoveryOriginBuilder {
-	rb.v.Id = &id
-	return rb
-}
-
-func (rb *RecoveryOriginBuilder) Index(index IndexName) *RecoveryOriginBuilder {
-	rb.v.Index = &index
-	return rb
-}
-
-func (rb *RecoveryOriginBuilder) Ip(ip Ip) *RecoveryOriginBuilder {
-	rb.v.Ip = &ip
-	return rb
-}
-
-func (rb *RecoveryOriginBuilder) Name(name Name) *RecoveryOriginBuilder {
-	rb.v.Name = &name
-	return rb
-}
-
-func (rb *RecoveryOriginBuilder) Repository(repository Name) *RecoveryOriginBuilder {
-	rb.v.Repository = &repository
-	return rb
-}
-
-func (rb *RecoveryOriginBuilder) RestoreUUID(restoreuuid Uuid) *RecoveryOriginBuilder {
-	rb.v.RestoreUUID = &restoreuuid
-	return rb
-}
-
-func (rb *RecoveryOriginBuilder) Snapshot(snapshot Name) *RecoveryOriginBuilder {
-	rb.v.Snapshot = &snapshot
-	return rb
-}
-
-func (rb *RecoveryOriginBuilder) TransportAddress(transportaddress TransportAddress) *RecoveryOriginBuilder {
-	rb.v.TransportAddress = &transportaddress
-	return rb
-}
-
-func (rb *RecoveryOriginBuilder) Version(version VersionString) *RecoveryOriginBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

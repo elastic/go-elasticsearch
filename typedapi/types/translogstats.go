@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TranslogStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/Stats.ts#L242-L250
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Stats.ts#L242-L250
 type TranslogStats struct {
 	EarliestLastModifiedAge int64   `json:"earliest_last_modified_age"`
 	Operations              int64   `json:"operations"`
@@ -35,56 +35,9 @@ type TranslogStats struct {
 	UncommittedSizeInBytes  int64   `json:"uncommitted_size_in_bytes"`
 }
 
-// TranslogStatsBuilder holds TranslogStats struct and provides a builder API.
-type TranslogStatsBuilder struct {
-	v *TranslogStats
-}
+// NewTranslogStats returns a TranslogStats.
+func NewTranslogStats() *TranslogStats {
+	r := &TranslogStats{}
 
-// NewTranslogStats provides a builder for the TranslogStats struct.
-func NewTranslogStatsBuilder() *TranslogStatsBuilder {
-	r := TranslogStatsBuilder{
-		&TranslogStats{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TranslogStats struct
-func (rb *TranslogStatsBuilder) Build() TranslogStats {
-	return *rb.v
-}
-
-func (rb *TranslogStatsBuilder) EarliestLastModifiedAge(earliestlastmodifiedage int64) *TranslogStatsBuilder {
-	rb.v.EarliestLastModifiedAge = earliestlastmodifiedage
-	return rb
-}
-
-func (rb *TranslogStatsBuilder) Operations(operations int64) *TranslogStatsBuilder {
-	rb.v.Operations = operations
-	return rb
-}
-
-func (rb *TranslogStatsBuilder) Size(size string) *TranslogStatsBuilder {
-	rb.v.Size = &size
-	return rb
-}
-
-func (rb *TranslogStatsBuilder) SizeInBytes(sizeinbytes int64) *TranslogStatsBuilder {
-	rb.v.SizeInBytes = sizeinbytes
-	return rb
-}
-
-func (rb *TranslogStatsBuilder) UncommittedOperations(uncommittedoperations int) *TranslogStatsBuilder {
-	rb.v.UncommittedOperations = uncommittedoperations
-	return rb
-}
-
-func (rb *TranslogStatsBuilder) UncommittedSize(uncommittedsize string) *TranslogStatsBuilder {
-	rb.v.UncommittedSize = &uncommittedsize
-	return rb
-}
-
-func (rb *TranslogStatsBuilder) UncommittedSizeInBytes(uncommittedsizeinbytes int64) *TranslogStatsBuilder {
-	rb.v.UncommittedSizeInBytes = uncommittedsizeinbytes
-	return rb
+	return r
 }

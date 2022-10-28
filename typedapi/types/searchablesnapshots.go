@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SearchableSnapshots type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/xpack/usage/types.ts#L410-L414
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L410-L414
 type SearchableSnapshots struct {
 	Available               bool `json:"available"`
 	Enabled                 bool `json:"enabled"`
@@ -33,46 +33,9 @@ type SearchableSnapshots struct {
 	SharedCacheIndicesCount *int `json:"shared_cache_indices_count,omitempty"`
 }
 
-// SearchableSnapshotsBuilder holds SearchableSnapshots struct and provides a builder API.
-type SearchableSnapshotsBuilder struct {
-	v *SearchableSnapshots
-}
+// NewSearchableSnapshots returns a SearchableSnapshots.
+func NewSearchableSnapshots() *SearchableSnapshots {
+	r := &SearchableSnapshots{}
 
-// NewSearchableSnapshots provides a builder for the SearchableSnapshots struct.
-func NewSearchableSnapshotsBuilder() *SearchableSnapshotsBuilder {
-	r := SearchableSnapshotsBuilder{
-		&SearchableSnapshots{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SearchableSnapshots struct
-func (rb *SearchableSnapshotsBuilder) Build() SearchableSnapshots {
-	return *rb.v
-}
-
-func (rb *SearchableSnapshotsBuilder) Available(available bool) *SearchableSnapshotsBuilder {
-	rb.v.Available = available
-	return rb
-}
-
-func (rb *SearchableSnapshotsBuilder) Enabled(enabled bool) *SearchableSnapshotsBuilder {
-	rb.v.Enabled = enabled
-	return rb
-}
-
-func (rb *SearchableSnapshotsBuilder) FullCopyIndicesCount(fullcopyindicescount int) *SearchableSnapshotsBuilder {
-	rb.v.FullCopyIndicesCount = &fullcopyindicescount
-	return rb
-}
-
-func (rb *SearchableSnapshotsBuilder) IndicesCount(indicescount int) *SearchableSnapshotsBuilder {
-	rb.v.IndicesCount = indicescount
-	return rb
-}
-
-func (rb *SearchableSnapshotsBuilder) SharedCacheIndicesCount(sharedcacheindicescount int) *SearchableSnapshotsBuilder {
-	rb.v.SharedCacheIndicesCount = &sharedcacheindicescount
-	return rb
+	return r
 }

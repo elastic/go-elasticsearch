@@ -17,50 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // HasPrivilegesUserProfileErrors type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/security/has_privileges_user_profile/types.ts#L39-L42
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/has_privileges_user_profile/types.ts#L39-L42
 type HasPrivilegesUserProfileErrors struct {
-	Count   int64                        `json:"count"`
-	Details map[UserProfileId]ErrorCause `json:"details"`
+	Count   int64                 `json:"count"`
+	Details map[string]ErrorCause `json:"details"`
 }
 
-// HasPrivilegesUserProfileErrorsBuilder holds HasPrivilegesUserProfileErrors struct and provides a builder API.
-type HasPrivilegesUserProfileErrorsBuilder struct {
-	v *HasPrivilegesUserProfileErrors
-}
-
-// NewHasPrivilegesUserProfileErrors provides a builder for the HasPrivilegesUserProfileErrors struct.
-func NewHasPrivilegesUserProfileErrorsBuilder() *HasPrivilegesUserProfileErrorsBuilder {
-	r := HasPrivilegesUserProfileErrorsBuilder{
-		&HasPrivilegesUserProfileErrors{
-			Details: make(map[UserProfileId]ErrorCause, 0),
-		},
+// NewHasPrivilegesUserProfileErrors returns a HasPrivilegesUserProfileErrors.
+func NewHasPrivilegesUserProfileErrors() *HasPrivilegesUserProfileErrors {
+	r := &HasPrivilegesUserProfileErrors{
+		Details: make(map[string]ErrorCause, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the HasPrivilegesUserProfileErrors struct
-func (rb *HasPrivilegesUserProfileErrorsBuilder) Build() HasPrivilegesUserProfileErrors {
-	return *rb.v
-}
-
-func (rb *HasPrivilegesUserProfileErrorsBuilder) Count(count int64) *HasPrivilegesUserProfileErrorsBuilder {
-	rb.v.Count = count
-	return rb
-}
-
-func (rb *HasPrivilegesUserProfileErrorsBuilder) Details(values map[UserProfileId]*ErrorCauseBuilder) *HasPrivilegesUserProfileErrorsBuilder {
-	tmp := make(map[UserProfileId]ErrorCause, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Details = tmp
-	return rb
+	return r
 }

@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ClusterOperatingSystemArchitecture type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/cluster/stats/types.ts#L223-L226
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/stats/types.ts#L223-L226
 type ClusterOperatingSystemArchitecture struct {
 	Arch  string `json:"arch"`
 	Count int    `json:"count"`
 }
 
-// ClusterOperatingSystemArchitectureBuilder holds ClusterOperatingSystemArchitecture struct and provides a builder API.
-type ClusterOperatingSystemArchitectureBuilder struct {
-	v *ClusterOperatingSystemArchitecture
-}
+// NewClusterOperatingSystemArchitecture returns a ClusterOperatingSystemArchitecture.
+func NewClusterOperatingSystemArchitecture() *ClusterOperatingSystemArchitecture {
+	r := &ClusterOperatingSystemArchitecture{}
 
-// NewClusterOperatingSystemArchitecture provides a builder for the ClusterOperatingSystemArchitecture struct.
-func NewClusterOperatingSystemArchitectureBuilder() *ClusterOperatingSystemArchitectureBuilder {
-	r := ClusterOperatingSystemArchitectureBuilder{
-		&ClusterOperatingSystemArchitecture{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ClusterOperatingSystemArchitecture struct
-func (rb *ClusterOperatingSystemArchitectureBuilder) Build() ClusterOperatingSystemArchitecture {
-	return *rb.v
-}
-
-func (rb *ClusterOperatingSystemArchitectureBuilder) Arch(arch string) *ClusterOperatingSystemArchitectureBuilder {
-	rb.v.Arch = arch
-	return rb
-}
-
-func (rb *ClusterOperatingSystemArchitectureBuilder) Count(count int) *ClusterOperatingSystemArchitectureBuilder {
-	rb.v.Count = count
-	return rb
+	return r
 }

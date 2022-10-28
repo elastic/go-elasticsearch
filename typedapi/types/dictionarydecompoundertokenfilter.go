@@ -17,83 +17,31 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DictionaryDecompounderTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/token_filters.ts#L53-L55
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/token_filters.ts#L53-L55
 type DictionaryDecompounderTokenFilter struct {
-	HyphenationPatternsPath *string        `json:"hyphenation_patterns_path,omitempty"`
-	MaxSubwordSize          *int           `json:"max_subword_size,omitempty"`
-	MinSubwordSize          *int           `json:"min_subword_size,omitempty"`
-	MinWordSize             *int           `json:"min_word_size,omitempty"`
-	OnlyLongestMatch        *bool          `json:"only_longest_match,omitempty"`
-	Type                    string         `json:"type,omitempty"`
-	Version                 *VersionString `json:"version,omitempty"`
-	WordList                []string       `json:"word_list,omitempty"`
-	WordListPath            *string        `json:"word_list_path,omitempty"`
+	HyphenationPatternsPath *string  `json:"hyphenation_patterns_path,omitempty"`
+	MaxSubwordSize          *int     `json:"max_subword_size,omitempty"`
+	MinSubwordSize          *int     `json:"min_subword_size,omitempty"`
+	MinWordSize             *int     `json:"min_word_size,omitempty"`
+	OnlyLongestMatch        *bool    `json:"only_longest_match,omitempty"`
+	Type                    string   `json:"type,omitempty"`
+	Version                 *string  `json:"version,omitempty"`
+	WordList                []string `json:"word_list,omitempty"`
+	WordListPath            *string  `json:"word_list_path,omitempty"`
 }
 
-// DictionaryDecompounderTokenFilterBuilder holds DictionaryDecompounderTokenFilter struct and provides a builder API.
-type DictionaryDecompounderTokenFilterBuilder struct {
-	v *DictionaryDecompounderTokenFilter
-}
+// NewDictionaryDecompounderTokenFilter returns a DictionaryDecompounderTokenFilter.
+func NewDictionaryDecompounderTokenFilter() *DictionaryDecompounderTokenFilter {
+	r := &DictionaryDecompounderTokenFilter{}
 
-// NewDictionaryDecompounderTokenFilter provides a builder for the DictionaryDecompounderTokenFilter struct.
-func NewDictionaryDecompounderTokenFilterBuilder() *DictionaryDecompounderTokenFilterBuilder {
-	r := DictionaryDecompounderTokenFilterBuilder{
-		&DictionaryDecompounderTokenFilter{},
-	}
+	r.Type = "dictionary_decompounder"
 
-	r.v.Type = "dictionary_decompounder"
-
-	return &r
-}
-
-// Build finalize the chain and returns the DictionaryDecompounderTokenFilter struct
-func (rb *DictionaryDecompounderTokenFilterBuilder) Build() DictionaryDecompounderTokenFilter {
-	return *rb.v
-}
-
-func (rb *DictionaryDecompounderTokenFilterBuilder) HyphenationPatternsPath(hyphenationpatternspath string) *DictionaryDecompounderTokenFilterBuilder {
-	rb.v.HyphenationPatternsPath = &hyphenationpatternspath
-	return rb
-}
-
-func (rb *DictionaryDecompounderTokenFilterBuilder) MaxSubwordSize(maxsubwordsize int) *DictionaryDecompounderTokenFilterBuilder {
-	rb.v.MaxSubwordSize = &maxsubwordsize
-	return rb
-}
-
-func (rb *DictionaryDecompounderTokenFilterBuilder) MinSubwordSize(minsubwordsize int) *DictionaryDecompounderTokenFilterBuilder {
-	rb.v.MinSubwordSize = &minsubwordsize
-	return rb
-}
-
-func (rb *DictionaryDecompounderTokenFilterBuilder) MinWordSize(minwordsize int) *DictionaryDecompounderTokenFilterBuilder {
-	rb.v.MinWordSize = &minwordsize
-	return rb
-}
-
-func (rb *DictionaryDecompounderTokenFilterBuilder) OnlyLongestMatch(onlylongestmatch bool) *DictionaryDecompounderTokenFilterBuilder {
-	rb.v.OnlyLongestMatch = &onlylongestmatch
-	return rb
-}
-
-func (rb *DictionaryDecompounderTokenFilterBuilder) Version(version VersionString) *DictionaryDecompounderTokenFilterBuilder {
-	rb.v.Version = &version
-	return rb
-}
-
-func (rb *DictionaryDecompounderTokenFilterBuilder) WordList(word_list ...string) *DictionaryDecompounderTokenFilterBuilder {
-	rb.v.WordList = word_list
-	return rb
-}
-
-func (rb *DictionaryDecompounderTokenFilterBuilder) WordListPath(wordlistpath string) *DictionaryDecompounderTokenFilterBuilder {
-	rb.v.WordListPath = &wordlistpath
-	return rb
+	return r
 }

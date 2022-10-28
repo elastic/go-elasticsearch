@@ -17,60 +17,28 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeAnalysisFeatureProcessorFrequencyEncoding type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/DataframeAnalytics.ts#L260-L267
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/DataframeAnalytics.ts#L260-L267
 type DataframeAnalysisFeatureProcessorFrequencyEncoding struct {
 	// FeatureName The resulting feature name.
-	FeatureName Name  `json:"feature_name"`
-	Field       Field `json:"field"`
+	FeatureName string `json:"feature_name"`
+	Field       string `json:"field"`
 	// FrequencyMap The resulting frequency map for the field value. If the field value is
 	// missing from the frequency_map, the resulting value is 0.
 	FrequencyMap map[string]float64 `json:"frequency_map"`
 }
 
-// DataframeAnalysisFeatureProcessorFrequencyEncodingBuilder holds DataframeAnalysisFeatureProcessorFrequencyEncoding struct and provides a builder API.
-type DataframeAnalysisFeatureProcessorFrequencyEncodingBuilder struct {
-	v *DataframeAnalysisFeatureProcessorFrequencyEncoding
-}
-
-// NewDataframeAnalysisFeatureProcessorFrequencyEncoding provides a builder for the DataframeAnalysisFeatureProcessorFrequencyEncoding struct.
-func NewDataframeAnalysisFeatureProcessorFrequencyEncodingBuilder() *DataframeAnalysisFeatureProcessorFrequencyEncodingBuilder {
-	r := DataframeAnalysisFeatureProcessorFrequencyEncodingBuilder{
-		&DataframeAnalysisFeatureProcessorFrequencyEncoding{
-			FrequencyMap: make(map[string]float64, 0),
-		},
+// NewDataframeAnalysisFeatureProcessorFrequencyEncoding returns a DataframeAnalysisFeatureProcessorFrequencyEncoding.
+func NewDataframeAnalysisFeatureProcessorFrequencyEncoding() *DataframeAnalysisFeatureProcessorFrequencyEncoding {
+	r := &DataframeAnalysisFeatureProcessorFrequencyEncoding{
+		FrequencyMap: make(map[string]float64, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeAnalysisFeatureProcessorFrequencyEncoding struct
-func (rb *DataframeAnalysisFeatureProcessorFrequencyEncodingBuilder) Build() DataframeAnalysisFeatureProcessorFrequencyEncoding {
-	return *rb.v
-}
-
-// FeatureName The resulting feature name.
-
-func (rb *DataframeAnalysisFeatureProcessorFrequencyEncodingBuilder) FeatureName(featurename Name) *DataframeAnalysisFeatureProcessorFrequencyEncodingBuilder {
-	rb.v.FeatureName = featurename
-	return rb
-}
-
-func (rb *DataframeAnalysisFeatureProcessorFrequencyEncodingBuilder) Field(field Field) *DataframeAnalysisFeatureProcessorFrequencyEncodingBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-// FrequencyMap The resulting frequency map for the field value. If the field value is
-// missing from the frequency_map, the resulting value is 0.
-
-func (rb *DataframeAnalysisFeatureProcessorFrequencyEncodingBuilder) FrequencyMap(value map[string]float64) *DataframeAnalysisFeatureProcessorFrequencyEncodingBuilder {
-	rb.v.FrequencyMap = value
-	return rb
+	return r
 }

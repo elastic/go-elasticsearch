@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Pool type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/_types/Stats.ts#L339-L344
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L339-L344
 type Pool struct {
 	MaxInBytes      *int64 `json:"max_in_bytes,omitempty"`
 	PeakMaxInBytes  *int64 `json:"peak_max_in_bytes,omitempty"`
@@ -32,41 +32,9 @@ type Pool struct {
 	UsedInBytes     *int64 `json:"used_in_bytes,omitempty"`
 }
 
-// PoolBuilder holds Pool struct and provides a builder API.
-type PoolBuilder struct {
-	v *Pool
-}
+// NewPool returns a Pool.
+func NewPool() *Pool {
+	r := &Pool{}
 
-// NewPool provides a builder for the Pool struct.
-func NewPoolBuilder() *PoolBuilder {
-	r := PoolBuilder{
-		&Pool{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Pool struct
-func (rb *PoolBuilder) Build() Pool {
-	return *rb.v
-}
-
-func (rb *PoolBuilder) MaxInBytes(maxinbytes int64) *PoolBuilder {
-	rb.v.MaxInBytes = &maxinbytes
-	return rb
-}
-
-func (rb *PoolBuilder) PeakMaxInBytes(peakmaxinbytes int64) *PoolBuilder {
-	rb.v.PeakMaxInBytes = &peakmaxinbytes
-	return rb
-}
-
-func (rb *PoolBuilder) PeakUsedInBytes(peakusedinbytes int64) *PoolBuilder {
-	rb.v.PeakUsedInBytes = &peakusedinbytes
-	return rb
-}
-
-func (rb *PoolBuilder) UsedInBytes(usedinbytes int64) *PoolBuilder {
-	rb.v.UsedInBytes = &usedinbytes
-	return rb
+	return r
 }

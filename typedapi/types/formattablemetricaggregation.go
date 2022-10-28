@@ -17,58 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FormattableMetricAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/metric.ts#L44-L46
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/metric.ts#L44-L46
 type FormattableMetricAggregation struct {
-	Field   *Field   `json:"field,omitempty"`
+	Field   *string  `json:"field,omitempty"`
 	Format  *string  `json:"format,omitempty"`
 	Missing *Missing `json:"missing,omitempty"`
 	Script  *Script  `json:"script,omitempty"`
 }
 
-// FormattableMetricAggregationBuilder holds FormattableMetricAggregation struct and provides a builder API.
-type FormattableMetricAggregationBuilder struct {
-	v *FormattableMetricAggregation
-}
+// NewFormattableMetricAggregation returns a FormattableMetricAggregation.
+func NewFormattableMetricAggregation() *FormattableMetricAggregation {
+	r := &FormattableMetricAggregation{}
 
-// NewFormattableMetricAggregation provides a builder for the FormattableMetricAggregation struct.
-func NewFormattableMetricAggregationBuilder() *FormattableMetricAggregationBuilder {
-	r := FormattableMetricAggregationBuilder{
-		&FormattableMetricAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FormattableMetricAggregation struct
-func (rb *FormattableMetricAggregationBuilder) Build() FormattableMetricAggregation {
-	return *rb.v
-}
-
-func (rb *FormattableMetricAggregationBuilder) Field(field Field) *FormattableMetricAggregationBuilder {
-	rb.v.Field = &field
-	return rb
-}
-
-func (rb *FormattableMetricAggregationBuilder) Format(format string) *FormattableMetricAggregationBuilder {
-	rb.v.Format = &format
-	return rb
-}
-
-func (rb *FormattableMetricAggregationBuilder) Missing(missing *MissingBuilder) *FormattableMetricAggregationBuilder {
-	v := missing.Build()
-	rb.v.Missing = &v
-	return rb
-}
-
-func (rb *FormattableMetricAggregationBuilder) Script(script *ScriptBuilder) *FormattableMetricAggregationBuilder {
-	v := script.Build()
-	rb.v.Script = &v
-	return rb
+	return r
 }

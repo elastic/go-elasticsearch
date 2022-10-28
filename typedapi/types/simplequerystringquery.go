@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,14 +28,14 @@ import (
 
 // SimpleQueryStringQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/query_dsl/fulltext.ts#L294-L312
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/fulltext.ts#L294-L312
 type SimpleQueryStringQuery struct {
 	AnalyzeWildcard                 *bool                   `json:"analyze_wildcard,omitempty"`
 	Analyzer                        *string                 `json:"analyzer,omitempty"`
 	AutoGenerateSynonymsPhraseQuery *bool                   `json:"auto_generate_synonyms_phrase_query,omitempty"`
 	Boost                           *float32                `json:"boost,omitempty"`
 	DefaultOperator                 *operator.Operator      `json:"default_operator,omitempty"`
-	Fields                          []Field                 `json:"fields,omitempty"`
+	Fields                          []string                `json:"fields,omitempty"`
 	Flags                           *SimpleQueryStringFlags `json:"flags,omitempty"`
 	FuzzyMaxExpansions              *int                    `json:"fuzzy_max_expansions,omitempty"`
 	FuzzyPrefixLength               *int                    `json:"fuzzy_prefix_length,omitempty"`
@@ -47,98 +47,9 @@ type SimpleQueryStringQuery struct {
 	QuoteFieldSuffix                *string                 `json:"quote_field_suffix,omitempty"`
 }
 
-// SimpleQueryStringQueryBuilder holds SimpleQueryStringQuery struct and provides a builder API.
-type SimpleQueryStringQueryBuilder struct {
-	v *SimpleQueryStringQuery
-}
+// NewSimpleQueryStringQuery returns a SimpleQueryStringQuery.
+func NewSimpleQueryStringQuery() *SimpleQueryStringQuery {
+	r := &SimpleQueryStringQuery{}
 
-// NewSimpleQueryStringQuery provides a builder for the SimpleQueryStringQuery struct.
-func NewSimpleQueryStringQueryBuilder() *SimpleQueryStringQueryBuilder {
-	r := SimpleQueryStringQueryBuilder{
-		&SimpleQueryStringQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SimpleQueryStringQuery struct
-func (rb *SimpleQueryStringQueryBuilder) Build() SimpleQueryStringQuery {
-	return *rb.v
-}
-
-func (rb *SimpleQueryStringQueryBuilder) AnalyzeWildcard(analyzewildcard bool) *SimpleQueryStringQueryBuilder {
-	rb.v.AnalyzeWildcard = &analyzewildcard
-	return rb
-}
-
-func (rb *SimpleQueryStringQueryBuilder) Analyzer(analyzer string) *SimpleQueryStringQueryBuilder {
-	rb.v.Analyzer = &analyzer
-	return rb
-}
-
-func (rb *SimpleQueryStringQueryBuilder) AutoGenerateSynonymsPhraseQuery(autogeneratesynonymsphrasequery bool) *SimpleQueryStringQueryBuilder {
-	rb.v.AutoGenerateSynonymsPhraseQuery = &autogeneratesynonymsphrasequery
-	return rb
-}
-
-func (rb *SimpleQueryStringQueryBuilder) Boost(boost float32) *SimpleQueryStringQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *SimpleQueryStringQueryBuilder) DefaultOperator(defaultoperator operator.Operator) *SimpleQueryStringQueryBuilder {
-	rb.v.DefaultOperator = &defaultoperator
-	return rb
-}
-
-func (rb *SimpleQueryStringQueryBuilder) Fields(fields ...Field) *SimpleQueryStringQueryBuilder {
-	rb.v.Fields = fields
-	return rb
-}
-
-func (rb *SimpleQueryStringQueryBuilder) Flags(flags *SimpleQueryStringFlagsBuilder) *SimpleQueryStringQueryBuilder {
-	v := flags.Build()
-	rb.v.Flags = &v
-	return rb
-}
-
-func (rb *SimpleQueryStringQueryBuilder) FuzzyMaxExpansions(fuzzymaxexpansions int) *SimpleQueryStringQueryBuilder {
-	rb.v.FuzzyMaxExpansions = &fuzzymaxexpansions
-	return rb
-}
-
-func (rb *SimpleQueryStringQueryBuilder) FuzzyPrefixLength(fuzzyprefixlength int) *SimpleQueryStringQueryBuilder {
-	rb.v.FuzzyPrefixLength = &fuzzyprefixlength
-	return rb
-}
-
-func (rb *SimpleQueryStringQueryBuilder) FuzzyTranspositions(fuzzytranspositions bool) *SimpleQueryStringQueryBuilder {
-	rb.v.FuzzyTranspositions = &fuzzytranspositions
-	return rb
-}
-
-func (rb *SimpleQueryStringQueryBuilder) Lenient(lenient bool) *SimpleQueryStringQueryBuilder {
-	rb.v.Lenient = &lenient
-	return rb
-}
-
-func (rb *SimpleQueryStringQueryBuilder) MinimumShouldMatch(minimumshouldmatch *MinimumShouldMatchBuilder) *SimpleQueryStringQueryBuilder {
-	v := minimumshouldmatch.Build()
-	rb.v.MinimumShouldMatch = &v
-	return rb
-}
-
-func (rb *SimpleQueryStringQueryBuilder) Query(query string) *SimpleQueryStringQueryBuilder {
-	rb.v.Query = query
-	return rb
-}
-
-func (rb *SimpleQueryStringQueryBuilder) QueryName_(queryname_ string) *SimpleQueryStringQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
-}
-
-func (rb *SimpleQueryStringQueryBuilder) QuoteFieldSuffix(quotefieldsuffix string) *SimpleQueryStringQueryBuilder {
-	rb.v.QuoteFieldSuffix = &quotefieldsuffix
-	return rb
+	return r
 }

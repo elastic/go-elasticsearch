@@ -17,80 +17,31 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CalendarEvent type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/CalendarEvent.ts#L23-L33
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/CalendarEvent.ts#L23-L33
 type CalendarEvent struct {
 	// CalendarId A string that uniquely identifies a calendar.
-	CalendarId *Id `json:"calendar_id,omitempty"`
+	CalendarId *string `json:"calendar_id,omitempty"`
 	// Description A description of the scheduled event.
 	Description string `json:"description"`
 	// EndTime The timestamp for the end of the scheduled event in milliseconds since the
 	// epoch or ISO 8601 format.
 	EndTime DateTime `json:"end_time"`
-	EventId *Id      `json:"event_id,omitempty"`
+	EventId *string  `json:"event_id,omitempty"`
 	// StartTime The timestamp for the beginning of the scheduled event in milliseconds since
 	// the epoch or ISO 8601 format.
 	StartTime DateTime `json:"start_time"`
 }
 
-// CalendarEventBuilder holds CalendarEvent struct and provides a builder API.
-type CalendarEventBuilder struct {
-	v *CalendarEvent
-}
+// NewCalendarEvent returns a CalendarEvent.
+func NewCalendarEvent() *CalendarEvent {
+	r := &CalendarEvent{}
 
-// NewCalendarEvent provides a builder for the CalendarEvent struct.
-func NewCalendarEventBuilder() *CalendarEventBuilder {
-	r := CalendarEventBuilder{
-		&CalendarEvent{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the CalendarEvent struct
-func (rb *CalendarEventBuilder) Build() CalendarEvent {
-	return *rb.v
-}
-
-// CalendarId A string that uniquely identifies a calendar.
-
-func (rb *CalendarEventBuilder) CalendarId(calendarid Id) *CalendarEventBuilder {
-	rb.v.CalendarId = &calendarid
-	return rb
-}
-
-// Description A description of the scheduled event.
-
-func (rb *CalendarEventBuilder) Description(description string) *CalendarEventBuilder {
-	rb.v.Description = description
-	return rb
-}
-
-// EndTime The timestamp for the end of the scheduled event in milliseconds since the
-// epoch or ISO 8601 format.
-
-func (rb *CalendarEventBuilder) EndTime(endtime *DateTimeBuilder) *CalendarEventBuilder {
-	v := endtime.Build()
-	rb.v.EndTime = v
-	return rb
-}
-
-func (rb *CalendarEventBuilder) EventId(eventid Id) *CalendarEventBuilder {
-	rb.v.EventId = &eventid
-	return rb
-}
-
-// StartTime The timestamp for the beginning of the scheduled event in milliseconds since
-// the epoch or ISO 8601 format.
-
-func (rb *CalendarEventBuilder) StartTime(starttime *DateTimeBuilder) *CalendarEventBuilder {
-	v := starttime.Build()
-	rb.v.StartTime = v
-	return rb
+	return r
 }

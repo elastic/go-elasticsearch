@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,60 +28,19 @@ import (
 
 // AverageBucketAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/pipeline.ts#L69-L69
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/pipeline.ts#L69-L69
 type AverageBucketAggregation struct {
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
-	BucketsPath *BucketsPath         `json:"buckets_path,omitempty"`
-	Format      *string              `json:"format,omitempty"`
-	GapPolicy   *gappolicy.GapPolicy `json:"gap_policy,omitempty"`
-	Meta        *Metadata            `json:"meta,omitempty"`
-	Name        *string              `json:"name,omitempty"`
+	BucketsPath *string                `json:"buckets_path,omitempty"`
+	Format      *string                `json:"format,omitempty"`
+	GapPolicy   *gappolicy.GapPolicy   `json:"gap_policy,omitempty"`
+	Meta        map[string]interface{} `json:"meta,omitempty"`
+	Name        *string                `json:"name,omitempty"`
 }
 
-// AverageBucketAggregationBuilder holds AverageBucketAggregation struct and provides a builder API.
-type AverageBucketAggregationBuilder struct {
-	v *AverageBucketAggregation
-}
+// NewAverageBucketAggregation returns a AverageBucketAggregation.
+func NewAverageBucketAggregation() *AverageBucketAggregation {
+	r := &AverageBucketAggregation{}
 
-// NewAverageBucketAggregation provides a builder for the AverageBucketAggregation struct.
-func NewAverageBucketAggregationBuilder() *AverageBucketAggregationBuilder {
-	r := AverageBucketAggregationBuilder{
-		&AverageBucketAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the AverageBucketAggregation struct
-func (rb *AverageBucketAggregationBuilder) Build() AverageBucketAggregation {
-	return *rb.v
-}
-
-// BucketsPath Path to the buckets that contain one set of values to correlate.
-
-func (rb *AverageBucketAggregationBuilder) BucketsPath(bucketspath *BucketsPathBuilder) *AverageBucketAggregationBuilder {
-	v := bucketspath.Build()
-	rb.v.BucketsPath = &v
-	return rb
-}
-
-func (rb *AverageBucketAggregationBuilder) Format(format string) *AverageBucketAggregationBuilder {
-	rb.v.Format = &format
-	return rb
-}
-
-func (rb *AverageBucketAggregationBuilder) GapPolicy(gappolicy gappolicy.GapPolicy) *AverageBucketAggregationBuilder {
-	rb.v.GapPolicy = &gappolicy
-	return rb
-}
-
-func (rb *AverageBucketAggregationBuilder) Meta(meta *MetadataBuilder) *AverageBucketAggregationBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *AverageBucketAggregationBuilder) Name(name string) *AverageBucketAggregationBuilder {
-	rb.v.Name = &name
-	return rb
+	return r
 }

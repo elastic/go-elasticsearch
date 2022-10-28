@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // WrapperQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/query_dsl/abstractions.ts#L197-L200
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/abstractions.ts#L197-L200
 type WrapperQuery struct {
 	Boost *float32 `json:"boost,omitempty"`
 	// Query A base64 encoded query. The binary data format can be any of JSON, YAML, CBOR
@@ -33,39 +33,9 @@ type WrapperQuery struct {
 	QueryName_ *string `json:"_name,omitempty"`
 }
 
-// WrapperQueryBuilder holds WrapperQuery struct and provides a builder API.
-type WrapperQueryBuilder struct {
-	v *WrapperQuery
-}
+// NewWrapperQuery returns a WrapperQuery.
+func NewWrapperQuery() *WrapperQuery {
+	r := &WrapperQuery{}
 
-// NewWrapperQuery provides a builder for the WrapperQuery struct.
-func NewWrapperQueryBuilder() *WrapperQueryBuilder {
-	r := WrapperQueryBuilder{
-		&WrapperQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the WrapperQuery struct
-func (rb *WrapperQueryBuilder) Build() WrapperQuery {
-	return *rb.v
-}
-
-func (rb *WrapperQueryBuilder) Boost(boost float32) *WrapperQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-// Query A base64 encoded query. The binary data format can be any of JSON, YAML, CBOR
-// or SMILE encodings
-
-func (rb *WrapperQueryBuilder) Query(query string) *WrapperQueryBuilder {
-	rb.v.Query = query
-	return rb
-}
-
-func (rb *WrapperQueryBuilder) QueryName_(queryname_ string) *WrapperQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
+	return r
 }

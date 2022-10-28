@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // UserRealm type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/security/get_token/types.ts#L30-L33
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/get_token/types.ts#L30-L33
 type UserRealm struct {
-	Name Name   `json:"name"`
+	Name string `json:"name"`
 	Type string `json:"type"`
 }
 
-// UserRealmBuilder holds UserRealm struct and provides a builder API.
-type UserRealmBuilder struct {
-	v *UserRealm
-}
+// NewUserRealm returns a UserRealm.
+func NewUserRealm() *UserRealm {
+	r := &UserRealm{}
 
-// NewUserRealm provides a builder for the UserRealm struct.
-func NewUserRealmBuilder() *UserRealmBuilder {
-	r := UserRealmBuilder{
-		&UserRealm{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the UserRealm struct
-func (rb *UserRealmBuilder) Build() UserRealm {
-	return *rb.v
-}
-
-func (rb *UserRealmBuilder) Name(name Name) *UserRealmBuilder {
-	rb.v.Name = name
-	return rb
-}
-
-func (rb *UserRealmBuilder) Type_(type_ string) *UserRealmBuilder {
-	rb.v.Type = type_
-	return rb
+	return r
 }

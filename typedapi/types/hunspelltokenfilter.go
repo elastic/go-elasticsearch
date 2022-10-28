@@ -17,65 +17,28 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // HunspellTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/token_filters.ts#L199-L205
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/token_filters.ts#L199-L205
 type HunspellTokenFilter struct {
-	Dedup       *bool          `json:"dedup,omitempty"`
-	Dictionary  *string        `json:"dictionary,omitempty"`
-	Locale      string         `json:"locale"`
-	LongestOnly *bool          `json:"longest_only,omitempty"`
-	Type        string         `json:"type,omitempty"`
-	Version     *VersionString `json:"version,omitempty"`
+	Dedup       *bool   `json:"dedup,omitempty"`
+	Dictionary  *string `json:"dictionary,omitempty"`
+	Locale      string  `json:"locale"`
+	LongestOnly *bool   `json:"longest_only,omitempty"`
+	Type        string  `json:"type,omitempty"`
+	Version     *string `json:"version,omitempty"`
 }
 
-// HunspellTokenFilterBuilder holds HunspellTokenFilter struct and provides a builder API.
-type HunspellTokenFilterBuilder struct {
-	v *HunspellTokenFilter
-}
+// NewHunspellTokenFilter returns a HunspellTokenFilter.
+func NewHunspellTokenFilter() *HunspellTokenFilter {
+	r := &HunspellTokenFilter{}
 
-// NewHunspellTokenFilter provides a builder for the HunspellTokenFilter struct.
-func NewHunspellTokenFilterBuilder() *HunspellTokenFilterBuilder {
-	r := HunspellTokenFilterBuilder{
-		&HunspellTokenFilter{},
-	}
+	r.Type = "hunspell"
 
-	r.v.Type = "hunspell"
-
-	return &r
-}
-
-// Build finalize the chain and returns the HunspellTokenFilter struct
-func (rb *HunspellTokenFilterBuilder) Build() HunspellTokenFilter {
-	return *rb.v
-}
-
-func (rb *HunspellTokenFilterBuilder) Dedup(dedup bool) *HunspellTokenFilterBuilder {
-	rb.v.Dedup = &dedup
-	return rb
-}
-
-func (rb *HunspellTokenFilterBuilder) Dictionary(dictionary string) *HunspellTokenFilterBuilder {
-	rb.v.Dictionary = &dictionary
-	return rb
-}
-
-func (rb *HunspellTokenFilterBuilder) Locale(locale string) *HunspellTokenFilterBuilder {
-	rb.v.Locale = locale
-	return rb
-}
-
-func (rb *HunspellTokenFilterBuilder) LongestOnly(longestonly bool) *HunspellTokenFilterBuilder {
-	rb.v.LongestOnly = &longestonly
-	return rb
-}
-
-func (rb *HunspellTokenFilterBuilder) Version(version VersionString) *HunspellTokenFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

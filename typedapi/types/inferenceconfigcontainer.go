@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // InferenceConfigContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/pipeline.ts#L176-L182
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/pipeline.ts#L176-L182
 type InferenceConfigContainer struct {
 	// Classification Classification configuration for inference.
 	Classification *ClassificationInferenceOptions `json:"classification,omitempty"`
@@ -32,37 +32,9 @@ type InferenceConfigContainer struct {
 	Regression *RegressionInferenceOptions `json:"regression,omitempty"`
 }
 
-// InferenceConfigContainerBuilder holds InferenceConfigContainer struct and provides a builder API.
-type InferenceConfigContainerBuilder struct {
-	v *InferenceConfigContainer
-}
+// NewInferenceConfigContainer returns a InferenceConfigContainer.
+func NewInferenceConfigContainer() *InferenceConfigContainer {
+	r := &InferenceConfigContainer{}
 
-// NewInferenceConfigContainer provides a builder for the InferenceConfigContainer struct.
-func NewInferenceConfigContainerBuilder() *InferenceConfigContainerBuilder {
-	r := InferenceConfigContainerBuilder{
-		&InferenceConfigContainer{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the InferenceConfigContainer struct
-func (rb *InferenceConfigContainerBuilder) Build() InferenceConfigContainer {
-	return *rb.v
-}
-
-// Classification Classification configuration for inference.
-
-func (rb *InferenceConfigContainerBuilder) Classification(classification *ClassificationInferenceOptionsBuilder) *InferenceConfigContainerBuilder {
-	v := classification.Build()
-	rb.v.Classification = &v
-	return rb
-}
-
-// Regression Regression configuration for inference.
-
-func (rb *InferenceConfigContainerBuilder) Regression(regression *RegressionInferenceOptionsBuilder) *InferenceConfigContainerBuilder {
-	v := regression.Build()
-	rb.v.Regression = &v
-	return rb
+	return r
 }

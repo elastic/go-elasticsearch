@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TopMetricsValue type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/metric.ts#L192-L194
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/metric.ts#L192-L194
 type TopMetricsValue struct {
-	Field Field `json:"field"`
+	Field string `json:"field"`
 }
 
-// TopMetricsValueBuilder holds TopMetricsValue struct and provides a builder API.
-type TopMetricsValueBuilder struct {
-	v *TopMetricsValue
-}
+// NewTopMetricsValue returns a TopMetricsValue.
+func NewTopMetricsValue() *TopMetricsValue {
+	r := &TopMetricsValue{}
 
-// NewTopMetricsValue provides a builder for the TopMetricsValue struct.
-func NewTopMetricsValueBuilder() *TopMetricsValueBuilder {
-	r := TopMetricsValueBuilder{
-		&TopMetricsValue{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TopMetricsValue struct
-func (rb *TopMetricsValueBuilder) Build() TopMetricsValue {
-	return *rb.v
-}
-
-func (rb *TopMetricsValueBuilder) Field(field Field) *TopMetricsValueBuilder {
-	rb.v.Field = field
-	return rb
+	return r
 }

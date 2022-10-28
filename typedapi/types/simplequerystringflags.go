@@ -17,44 +17,15 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
-
-import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/simplequerystringflag"
-)
 
 // SimpleQueryStringFlags holds the union for the following types:
 //
 //	simplequerystringflag.SimpleQueryStringFlag
 //	string
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/query_dsl/fulltext.ts#L271-L276
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/fulltext.ts#L271-L276
 type SimpleQueryStringFlags interface{}
-
-// SimpleQueryStringFlagsBuilder holds SimpleQueryStringFlags struct and provides a builder API.
-type SimpleQueryStringFlagsBuilder struct {
-	v SimpleQueryStringFlags
-}
-
-// NewSimpleQueryStringFlags provides a builder for the SimpleQueryStringFlags struct.
-func NewSimpleQueryStringFlagsBuilder() *SimpleQueryStringFlagsBuilder {
-	return &SimpleQueryStringFlagsBuilder{}
-}
-
-// Build finalize the chain and returns the SimpleQueryStringFlags struct
-func (u *SimpleQueryStringFlagsBuilder) Build() SimpleQueryStringFlags {
-	return u.v
-}
-
-func (u *SimpleQueryStringFlagsBuilder) SimpleQueryStringFlag(simplequerystringflag simplequerystringflag.SimpleQueryStringFlag) *SimpleQueryStringFlagsBuilder {
-	u.v = &simplequerystringflag
-	return u
-}
-
-func (u *SimpleQueryStringFlagsBuilder) String(string string) *SimpleQueryStringFlagsBuilder {
-	u.v = &string
-	return u
-}

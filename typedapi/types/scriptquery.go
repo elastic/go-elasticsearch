@@ -17,51 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ScriptQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/query_dsl/specialized.ts#L164-L166
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/specialized.ts#L164-L166
 type ScriptQuery struct {
 	Boost      *float32 `json:"boost,omitempty"`
 	QueryName_ *string  `json:"_name,omitempty"`
 	Script     Script   `json:"script"`
 }
 
-// ScriptQueryBuilder holds ScriptQuery struct and provides a builder API.
-type ScriptQueryBuilder struct {
-	v *ScriptQuery
-}
+// NewScriptQuery returns a ScriptQuery.
+func NewScriptQuery() *ScriptQuery {
+	r := &ScriptQuery{}
 
-// NewScriptQuery provides a builder for the ScriptQuery struct.
-func NewScriptQueryBuilder() *ScriptQueryBuilder {
-	r := ScriptQueryBuilder{
-		&ScriptQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ScriptQuery struct
-func (rb *ScriptQueryBuilder) Build() ScriptQuery {
-	return *rb.v
-}
-
-func (rb *ScriptQueryBuilder) Boost(boost float32) *ScriptQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *ScriptQueryBuilder) QueryName_(queryname_ string) *ScriptQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
-}
-
-func (rb *ScriptQueryBuilder) Script(script *ScriptBuilder) *ScriptQueryBuilder {
-	v := script.Build()
-	rb.v.Script = v
-	return rb
+	return r
 }

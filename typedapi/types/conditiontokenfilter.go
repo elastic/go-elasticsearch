@@ -17,54 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ConditionTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/token_filters.ts#L180-L184
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/token_filters.ts#L180-L184
 type ConditionTokenFilter struct {
-	Filter  []string       `json:"filter"`
-	Script  Script         `json:"script"`
-	Type    string         `json:"type,omitempty"`
-	Version *VersionString `json:"version,omitempty"`
+	Filter  []string `json:"filter"`
+	Script  Script   `json:"script"`
+	Type    string   `json:"type,omitempty"`
+	Version *string  `json:"version,omitempty"`
 }
 
-// ConditionTokenFilterBuilder holds ConditionTokenFilter struct and provides a builder API.
-type ConditionTokenFilterBuilder struct {
-	v *ConditionTokenFilter
-}
+// NewConditionTokenFilter returns a ConditionTokenFilter.
+func NewConditionTokenFilter() *ConditionTokenFilter {
+	r := &ConditionTokenFilter{}
 
-// NewConditionTokenFilter provides a builder for the ConditionTokenFilter struct.
-func NewConditionTokenFilterBuilder() *ConditionTokenFilterBuilder {
-	r := ConditionTokenFilterBuilder{
-		&ConditionTokenFilter{},
-	}
+	r.Type = "condition"
 
-	r.v.Type = "condition"
-
-	return &r
-}
-
-// Build finalize the chain and returns the ConditionTokenFilter struct
-func (rb *ConditionTokenFilterBuilder) Build() ConditionTokenFilter {
-	return *rb.v
-}
-
-func (rb *ConditionTokenFilterBuilder) Filter(filter ...string) *ConditionTokenFilterBuilder {
-	rb.v.Filter = filter
-	return rb
-}
-
-func (rb *ConditionTokenFilterBuilder) Script(script *ScriptBuilder) *ConditionTokenFilterBuilder {
-	v := script.Build()
-	rb.v.Script = v
-	return rb
-}
-
-func (rb *ConditionTokenFilterBuilder) Version(version VersionString) *ConditionTokenFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

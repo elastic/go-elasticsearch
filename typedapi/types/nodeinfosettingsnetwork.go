@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeInfoSettingsNetwork type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/info/types.ts#L212-L214
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/info/types.ts#L212-L214
 type NodeInfoSettingsNetwork struct {
-	Host Host `json:"host"`
+	Host string `json:"host"`
 }
 
-// NodeInfoSettingsNetworkBuilder holds NodeInfoSettingsNetwork struct and provides a builder API.
-type NodeInfoSettingsNetworkBuilder struct {
-	v *NodeInfoSettingsNetwork
-}
+// NewNodeInfoSettingsNetwork returns a NodeInfoSettingsNetwork.
+func NewNodeInfoSettingsNetwork() *NodeInfoSettingsNetwork {
+	r := &NodeInfoSettingsNetwork{}
 
-// NewNodeInfoSettingsNetwork provides a builder for the NodeInfoSettingsNetwork struct.
-func NewNodeInfoSettingsNetworkBuilder() *NodeInfoSettingsNetworkBuilder {
-	r := NodeInfoSettingsNetworkBuilder{
-		&NodeInfoSettingsNetwork{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodeInfoSettingsNetwork struct
-func (rb *NodeInfoSettingsNetworkBuilder) Build() NodeInfoSettingsNetwork {
-	return *rb.v
-}
-
-func (rb *NodeInfoSettingsNetworkBuilder) Host(host Host) *NodeInfoSettingsNetworkBuilder {
-	rb.v.Host = host
-	return rb
+	return r
 }

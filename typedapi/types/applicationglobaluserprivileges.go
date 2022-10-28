@@ -17,39 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ApplicationGlobalUserPrivileges type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/security/_types/Privileges.ts#L164-L166
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/_types/Privileges.ts#L191-L193
 type ApplicationGlobalUserPrivileges struct {
 	Manage ManageUserPrivileges `json:"manage"`
 }
 
-// ApplicationGlobalUserPrivilegesBuilder holds ApplicationGlobalUserPrivileges struct and provides a builder API.
-type ApplicationGlobalUserPrivilegesBuilder struct {
-	v *ApplicationGlobalUserPrivileges
-}
+// NewApplicationGlobalUserPrivileges returns a ApplicationGlobalUserPrivileges.
+func NewApplicationGlobalUserPrivileges() *ApplicationGlobalUserPrivileges {
+	r := &ApplicationGlobalUserPrivileges{}
 
-// NewApplicationGlobalUserPrivileges provides a builder for the ApplicationGlobalUserPrivileges struct.
-func NewApplicationGlobalUserPrivilegesBuilder() *ApplicationGlobalUserPrivilegesBuilder {
-	r := ApplicationGlobalUserPrivilegesBuilder{
-		&ApplicationGlobalUserPrivileges{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ApplicationGlobalUserPrivileges struct
-func (rb *ApplicationGlobalUserPrivilegesBuilder) Build() ApplicationGlobalUserPrivileges {
-	return *rb.v
-}
-
-func (rb *ApplicationGlobalUserPrivilegesBuilder) Manage(manage *ManageUserPrivilegesBuilder) *ApplicationGlobalUserPrivilegesBuilder {
-	v := manage.Build()
-	rb.v.Manage = v
-	return rb
+	return r
 }

@@ -17,82 +17,32 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
+import "github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/noderole"
+
 // ReindexNode type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_global/reindex_rethrottle/types.ts#L33-L35
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/reindex_rethrottle/types.ts#L33-L35
 type ReindexNode struct {
 	Attributes       map[string]string      `json:"attributes"`
-	Host             Host                   `json:"host"`
-	Ip               Ip                     `json:"ip"`
-	Name             Name                   `json:"name"`
-	Roles            *NodeRoles             `json:"roles,omitempty"`
+	Host             string                 `json:"host"`
+	Ip               string                 `json:"ip"`
+	Name             string                 `json:"name"`
+	Roles            []noderole.NodeRole    `json:"roles,omitempty"`
 	Tasks            map[TaskId]ReindexTask `json:"tasks"`
-	TransportAddress TransportAddress       `json:"transport_address"`
+	TransportAddress string                 `json:"transport_address"`
 }
 
-// ReindexNodeBuilder holds ReindexNode struct and provides a builder API.
-type ReindexNodeBuilder struct {
-	v *ReindexNode
-}
-
-// NewReindexNode provides a builder for the ReindexNode struct.
-func NewReindexNodeBuilder() *ReindexNodeBuilder {
-	r := ReindexNodeBuilder{
-		&ReindexNode{
-			Attributes: make(map[string]string, 0),
-			Tasks:      make(map[TaskId]ReindexTask, 0),
-		},
+// NewReindexNode returns a ReindexNode.
+func NewReindexNode() *ReindexNode {
+	r := &ReindexNode{
+		Attributes: make(map[string]string, 0),
+		Tasks:      make(map[TaskId]ReindexTask, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the ReindexNode struct
-func (rb *ReindexNodeBuilder) Build() ReindexNode {
-	return *rb.v
-}
-
-func (rb *ReindexNodeBuilder) Attributes(value map[string]string) *ReindexNodeBuilder {
-	rb.v.Attributes = value
-	return rb
-}
-
-func (rb *ReindexNodeBuilder) Host(host Host) *ReindexNodeBuilder {
-	rb.v.Host = host
-	return rb
-}
-
-func (rb *ReindexNodeBuilder) Ip(ip Ip) *ReindexNodeBuilder {
-	rb.v.Ip = ip
-	return rb
-}
-
-func (rb *ReindexNodeBuilder) Name(name Name) *ReindexNodeBuilder {
-	rb.v.Name = name
-	return rb
-}
-
-func (rb *ReindexNodeBuilder) Roles(roles *NodeRolesBuilder) *ReindexNodeBuilder {
-	v := roles.Build()
-	rb.v.Roles = &v
-	return rb
-}
-
-func (rb *ReindexNodeBuilder) Tasks(values map[TaskId]*ReindexTaskBuilder) *ReindexNodeBuilder {
-	tmp := make(map[TaskId]ReindexTask, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Tasks = tmp
-	return rb
-}
-
-func (rb *ReindexNodeBuilder) TransportAddress(transportaddress TransportAddress) *ReindexNodeBuilder {
-	rb.v.TransportAddress = transportaddress
-	return rb
+	return r
 }

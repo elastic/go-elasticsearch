@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,7 +29,7 @@ import (
 
 // ErrorCause type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/Errors.ts#L25-L48
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Errors.ts#L25-L48
 type ErrorCause struct {
 	CausedBy *ErrorCause            `json:"caused_by,omitempty"`
 	Metadata map[string]interface{} `json:"-"`
@@ -72,74 +72,11 @@ func (s ErrorCause) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// ErrorCauseBuilder holds ErrorCause struct and provides a builder API.
-type ErrorCauseBuilder struct {
-	v *ErrorCause
-}
-
-// NewErrorCause provides a builder for the ErrorCause struct.
-func NewErrorCauseBuilder() *ErrorCauseBuilder {
-	r := ErrorCauseBuilder{
-		&ErrorCause{
-			Metadata: make(map[string]interface{}, 0),
-		},
+// NewErrorCause returns a ErrorCause.
+func NewErrorCause() *ErrorCause {
+	r := &ErrorCause{
+		Metadata: make(map[string]interface{}, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the ErrorCause struct
-func (rb *ErrorCauseBuilder) Build() ErrorCause {
-	return *rb.v
-}
-
-func (rb *ErrorCauseBuilder) CausedBy(causedby *ErrorCauseBuilder) *ErrorCauseBuilder {
-	v := causedby.Build()
-	rb.v.CausedBy = &v
-	return rb
-}
-
-func (rb *ErrorCauseBuilder) Metadata(value map[string]interface{}) *ErrorCauseBuilder {
-	rb.v.Metadata = value
-	return rb
-}
-
-// Reason A human-readable explanation of the error, in english
-
-func (rb *ErrorCauseBuilder) Reason(reason string) *ErrorCauseBuilder {
-	rb.v.Reason = &reason
-	return rb
-}
-
-func (rb *ErrorCauseBuilder) RootCause(root_cause []ErrorCauseBuilder) *ErrorCauseBuilder {
-	tmp := make([]ErrorCause, len(root_cause))
-	for _, value := range root_cause {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.RootCause = tmp
-	return rb
-}
-
-// StackTrace The server stack trace. Present only if the `error_trace=true` parameter was
-// sent with the request.
-
-func (rb *ErrorCauseBuilder) StackTrace(stacktrace string) *ErrorCauseBuilder {
-	rb.v.StackTrace = &stacktrace
-	return rb
-}
-
-func (rb *ErrorCauseBuilder) Suppressed(suppressed []ErrorCauseBuilder) *ErrorCauseBuilder {
-	tmp := make([]ErrorCause, len(suppressed))
-	for _, value := range suppressed {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Suppressed = tmp
-	return rb
-}
-
-// Type The type of error
-
-func (rb *ErrorCauseBuilder) Type_(type_ string) *ErrorCauseBuilder {
-	rb.v.Type = type_
-	return rb
+	return r
 }

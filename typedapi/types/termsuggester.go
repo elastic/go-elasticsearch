@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -30,10 +30,10 @@ import (
 
 // TermSuggester type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_global/search/_types/suggester.ts#L252-L265
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/suggester.ts#L252-L265
 type TermSuggester struct {
 	Analyzer       *string                        `json:"analyzer,omitempty"`
-	Field          Field                          `json:"field"`
+	Field          string                         `json:"field"`
 	LowercaseTerms *bool                          `json:"lowercase_terms,omitempty"`
 	MaxEdits       *int                           `json:"max_edits,omitempty"`
 	MaxInspections *int                           `json:"max_inspections,omitempty"`
@@ -49,96 +49,9 @@ type TermSuggester struct {
 	Text           *string                        `json:"text,omitempty"`
 }
 
-// TermSuggesterBuilder holds TermSuggester struct and provides a builder API.
-type TermSuggesterBuilder struct {
-	v *TermSuggester
-}
+// NewTermSuggester returns a TermSuggester.
+func NewTermSuggester() *TermSuggester {
+	r := &TermSuggester{}
 
-// NewTermSuggester provides a builder for the TermSuggester struct.
-func NewTermSuggesterBuilder() *TermSuggesterBuilder {
-	r := TermSuggesterBuilder{
-		&TermSuggester{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TermSuggester struct
-func (rb *TermSuggesterBuilder) Build() TermSuggester {
-	return *rb.v
-}
-
-func (rb *TermSuggesterBuilder) Analyzer(analyzer string) *TermSuggesterBuilder {
-	rb.v.Analyzer = &analyzer
-	return rb
-}
-
-func (rb *TermSuggesterBuilder) Field(field Field) *TermSuggesterBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *TermSuggesterBuilder) LowercaseTerms(lowercaseterms bool) *TermSuggesterBuilder {
-	rb.v.LowercaseTerms = &lowercaseterms
-	return rb
-}
-
-func (rb *TermSuggesterBuilder) MaxEdits(maxedits int) *TermSuggesterBuilder {
-	rb.v.MaxEdits = &maxedits
-	return rb
-}
-
-func (rb *TermSuggesterBuilder) MaxInspections(maxinspections int) *TermSuggesterBuilder {
-	rb.v.MaxInspections = &maxinspections
-	return rb
-}
-
-func (rb *TermSuggesterBuilder) MaxTermFreq(maxtermfreq float32) *TermSuggesterBuilder {
-	rb.v.MaxTermFreq = &maxtermfreq
-	return rb
-}
-
-func (rb *TermSuggesterBuilder) MinDocFreq(mindocfreq float32) *TermSuggesterBuilder {
-	rb.v.MinDocFreq = &mindocfreq
-	return rb
-}
-
-func (rb *TermSuggesterBuilder) MinWordLength(minwordlength int) *TermSuggesterBuilder {
-	rb.v.MinWordLength = &minwordlength
-	return rb
-}
-
-func (rb *TermSuggesterBuilder) PrefixLength(prefixlength int) *TermSuggesterBuilder {
-	rb.v.PrefixLength = &prefixlength
-	return rb
-}
-
-func (rb *TermSuggesterBuilder) ShardSize(shardsize int) *TermSuggesterBuilder {
-	rb.v.ShardSize = &shardsize
-	return rb
-}
-
-func (rb *TermSuggesterBuilder) Size(size int) *TermSuggesterBuilder {
-	rb.v.Size = &size
-	return rb
-}
-
-func (rb *TermSuggesterBuilder) Sort(sort suggestsort.SuggestSort) *TermSuggesterBuilder {
-	rb.v.Sort = &sort
-	return rb
-}
-
-func (rb *TermSuggesterBuilder) StringDistance(stringdistance stringdistance.StringDistance) *TermSuggesterBuilder {
-	rb.v.StringDistance = &stringdistance
-	return rb
-}
-
-func (rb *TermSuggesterBuilder) SuggestMode(suggestmode suggestmode.SuggestMode) *TermSuggesterBuilder {
-	rb.v.SuggestMode = &suggestmode
-	return rb
-}
-
-func (rb *TermSuggesterBuilder) Text(text string) *TermSuggesterBuilder {
-	rb.v.Text = &text
-	return rb
+	return r
 }

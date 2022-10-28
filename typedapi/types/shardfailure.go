@@ -17,63 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ShardFailure type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/Errors.ts#L50-L56
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Errors.ts#L50-L56
 type ShardFailure struct {
-	Index  *IndexName `json:"index,omitempty"`
+	Index  *string    `json:"index,omitempty"`
 	Node   *string    `json:"node,omitempty"`
 	Reason ErrorCause `json:"reason"`
 	Shard  int        `json:"shard"`
 	Status *string    `json:"status,omitempty"`
 }
 
-// ShardFailureBuilder holds ShardFailure struct and provides a builder API.
-type ShardFailureBuilder struct {
-	v *ShardFailure
-}
+// NewShardFailure returns a ShardFailure.
+func NewShardFailure() *ShardFailure {
+	r := &ShardFailure{}
 
-// NewShardFailure provides a builder for the ShardFailure struct.
-func NewShardFailureBuilder() *ShardFailureBuilder {
-	r := ShardFailureBuilder{
-		&ShardFailure{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ShardFailure struct
-func (rb *ShardFailureBuilder) Build() ShardFailure {
-	return *rb.v
-}
-
-func (rb *ShardFailureBuilder) Index(index IndexName) *ShardFailureBuilder {
-	rb.v.Index = &index
-	return rb
-}
-
-func (rb *ShardFailureBuilder) Node(node string) *ShardFailureBuilder {
-	rb.v.Node = &node
-	return rb
-}
-
-func (rb *ShardFailureBuilder) Reason(reason *ErrorCauseBuilder) *ShardFailureBuilder {
-	v := reason.Build()
-	rb.v.Reason = v
-	return rb
-}
-
-func (rb *ShardFailureBuilder) Shard(shard int) *ShardFailureBuilder {
-	rb.v.Shard = shard
-	return rb
-}
-
-func (rb *ShardFailureBuilder) Status(status string) *ShardFailureBuilder {
-	rb.v.Status = &status
-	return rb
+	return r
 }

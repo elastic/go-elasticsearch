@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,80 +28,27 @@ import (
 
 // PercolatorProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/mapping/core.ts#L177-L179
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/core.ts#L177-L179
 type PercolatorProperty struct {
 	Dynamic       *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
-	Fields        map[PropertyName]Property      `json:"fields,omitempty"`
+	Fields        map[string]Property            `json:"fields,omitempty"`
 	IgnoreAbove   *int                           `json:"ignore_above,omitempty"`
-	LocalMetadata *Metadata                      `json:"local_metadata,omitempty"`
+	LocalMetadata map[string]interface{}         `json:"local_metadata,omitempty"`
 	// Meta Metadata about the field.
-	Meta       map[string]string         `json:"meta,omitempty"`
-	Properties map[PropertyName]Property `json:"properties,omitempty"`
-	Type       string                    `json:"type,omitempty"`
+	Meta       map[string]string   `json:"meta,omitempty"`
+	Properties map[string]Property `json:"properties,omitempty"`
+	Type       string              `json:"type,omitempty"`
 }
 
-// PercolatorPropertyBuilder holds PercolatorProperty struct and provides a builder API.
-type PercolatorPropertyBuilder struct {
-	v *PercolatorProperty
-}
-
-// NewPercolatorProperty provides a builder for the PercolatorProperty struct.
-func NewPercolatorPropertyBuilder() *PercolatorPropertyBuilder {
-	r := PercolatorPropertyBuilder{
-		&PercolatorProperty{
-			Fields:     make(map[PropertyName]Property, 0),
-			Meta:       make(map[string]string, 0),
-			Properties: make(map[PropertyName]Property, 0),
-		},
+// NewPercolatorProperty returns a PercolatorProperty.
+func NewPercolatorProperty() *PercolatorProperty {
+	r := &PercolatorProperty{
+		Fields:     make(map[string]Property, 0),
+		Meta:       make(map[string]string, 0),
+		Properties: make(map[string]Property, 0),
 	}
 
-	r.v.Type = "percolator"
+	r.Type = "percolator"
 
-	return &r
-}
-
-// Build finalize the chain and returns the PercolatorProperty struct
-func (rb *PercolatorPropertyBuilder) Build() PercolatorProperty {
-	return *rb.v
-}
-
-func (rb *PercolatorPropertyBuilder) Dynamic(dynamic dynamicmapping.DynamicMapping) *PercolatorPropertyBuilder {
-	rb.v.Dynamic = &dynamic
-	return rb
-}
-
-func (rb *PercolatorPropertyBuilder) Fields(values map[PropertyName]*PropertyBuilder) *PercolatorPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Fields = tmp
-	return rb
-}
-
-func (rb *PercolatorPropertyBuilder) IgnoreAbove(ignoreabove int) *PercolatorPropertyBuilder {
-	rb.v.IgnoreAbove = &ignoreabove
-	return rb
-}
-
-func (rb *PercolatorPropertyBuilder) LocalMetadata(localmetadata *MetadataBuilder) *PercolatorPropertyBuilder {
-	v := localmetadata.Build()
-	rb.v.LocalMetadata = &v
-	return rb
-}
-
-// Meta Metadata about the field.
-
-func (rb *PercolatorPropertyBuilder) Meta(value map[string]string) *PercolatorPropertyBuilder {
-	rb.v.Meta = value
-	return rb
-}
-
-func (rb *PercolatorPropertyBuilder) Properties(values map[PropertyName]*PropertyBuilder) *PercolatorPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Properties = tmp
-	return rb
+	return r
 }

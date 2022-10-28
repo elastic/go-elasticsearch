@@ -17,63 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // GeoDistanceFeatureQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/query_dsl/specialized.ts#L46-L49
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/specialized.ts#L46-L49
 type GeoDistanceFeatureQuery struct {
 	Boost      *float32    `json:"boost,omitempty"`
-	Field      Field       `json:"field"`
+	Field      string      `json:"field"`
 	Origin     GeoLocation `json:"origin"`
-	Pivot      Distance    `json:"pivot"`
+	Pivot      string      `json:"pivot"`
 	QueryName_ *string     `json:"_name,omitempty"`
 }
 
-// GeoDistanceFeatureQueryBuilder holds GeoDistanceFeatureQuery struct and provides a builder API.
-type GeoDistanceFeatureQueryBuilder struct {
-	v *GeoDistanceFeatureQuery
-}
+// NewGeoDistanceFeatureQuery returns a GeoDistanceFeatureQuery.
+func NewGeoDistanceFeatureQuery() *GeoDistanceFeatureQuery {
+	r := &GeoDistanceFeatureQuery{}
 
-// NewGeoDistanceFeatureQuery provides a builder for the GeoDistanceFeatureQuery struct.
-func NewGeoDistanceFeatureQueryBuilder() *GeoDistanceFeatureQueryBuilder {
-	r := GeoDistanceFeatureQueryBuilder{
-		&GeoDistanceFeatureQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the GeoDistanceFeatureQuery struct
-func (rb *GeoDistanceFeatureQueryBuilder) Build() GeoDistanceFeatureQuery {
-	return *rb.v
-}
-
-func (rb *GeoDistanceFeatureQueryBuilder) Boost(boost float32) *GeoDistanceFeatureQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *GeoDistanceFeatureQueryBuilder) Field(field Field) *GeoDistanceFeatureQueryBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *GeoDistanceFeatureQueryBuilder) Origin(origin *GeoLocationBuilder) *GeoDistanceFeatureQueryBuilder {
-	v := origin.Build()
-	rb.v.Origin = v
-	return rb
-}
-
-func (rb *GeoDistanceFeatureQueryBuilder) Pivot(pivot Distance) *GeoDistanceFeatureQueryBuilder {
-	rb.v.Pivot = pivot
-	return rb
-}
-
-func (rb *GeoDistanceFeatureQueryBuilder) QueryName_(queryname_ string) *GeoDistanceFeatureQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
+	return r
 }

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IndexSettingsLifecycleStep type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/_types/IndexSettings.ts#L302-L308
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/IndexSettings.ts#L302-L308
 type IndexSettingsLifecycleStep struct {
 	// WaitTimeThreshold Time to wait for the cluster to resolve allocation issues during an ILM
 	// shrink action. Must be greater than 1h (1 hour).
@@ -32,31 +32,9 @@ type IndexSettingsLifecycleStep struct {
 	WaitTimeThreshold *Duration `json:"wait_time_threshold,omitempty"`
 }
 
-// IndexSettingsLifecycleStepBuilder holds IndexSettingsLifecycleStep struct and provides a builder API.
-type IndexSettingsLifecycleStepBuilder struct {
-	v *IndexSettingsLifecycleStep
-}
+// NewIndexSettingsLifecycleStep returns a IndexSettingsLifecycleStep.
+func NewIndexSettingsLifecycleStep() *IndexSettingsLifecycleStep {
+	r := &IndexSettingsLifecycleStep{}
 
-// NewIndexSettingsLifecycleStep provides a builder for the IndexSettingsLifecycleStep struct.
-func NewIndexSettingsLifecycleStepBuilder() *IndexSettingsLifecycleStepBuilder {
-	r := IndexSettingsLifecycleStepBuilder{
-		&IndexSettingsLifecycleStep{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IndexSettingsLifecycleStep struct
-func (rb *IndexSettingsLifecycleStepBuilder) Build() IndexSettingsLifecycleStep {
-	return *rb.v
-}
-
-// WaitTimeThreshold Time to wait for the cluster to resolve allocation issues during an ILM
-// shrink action. Must be greater than 1h (1 hour).
-// See Shard allocation for shrink.
-
-func (rb *IndexSettingsLifecycleStepBuilder) WaitTimeThreshold(waittimethreshold *DurationBuilder) *IndexSettingsLifecycleStepBuilder {
-	v := waittimethreshold.Build()
-	rb.v.WaitTimeThreshold = &v
-	return rb
+	return r
 }

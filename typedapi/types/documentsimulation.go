@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -31,12 +31,12 @@ import (
 
 // DocumentSimulation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ingest/simulate/types.ts#L47-L60
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ingest/simulate/types.ts#L47-L60
 type DocumentSimulation struct {
 	DocumentSimulation map[string]string         `json:"-"`
-	Id_                Id                        `json:"_id"`
-	Index_             IndexName                 `json:"_index"`
-	Ingest_            Ingest                    `json:"_ingest"`
+	Id_                string                    `json:"_id"`
+	Index_             string                    `json:"_index"`
+	Ingest_            SimulateIngest            `json:"_ingest"`
 	Routing_           *string                   `json:"_routing,omitempty"`
 	Source_            map[string]interface{}    `json:"_source"`
 	VersionType_       *versiontype.VersionType  `json:"_version_type,omitempty"`
@@ -71,66 +71,12 @@ func (s DocumentSimulation) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// DocumentSimulationBuilder holds DocumentSimulation struct and provides a builder API.
-type DocumentSimulationBuilder struct {
-	v *DocumentSimulation
-}
-
-// NewDocumentSimulation provides a builder for the DocumentSimulation struct.
-func NewDocumentSimulationBuilder() *DocumentSimulationBuilder {
-	r := DocumentSimulationBuilder{
-		&DocumentSimulation{
-			DocumentSimulation: make(map[string]string, 0),
-			Source_:            make(map[string]interface{}, 0),
-		},
+// NewDocumentSimulation returns a DocumentSimulation.
+func NewDocumentSimulation() *DocumentSimulation {
+	r := &DocumentSimulation{
+		DocumentSimulation: make(map[string]string, 0),
+		Source_:            make(map[string]interface{}, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the DocumentSimulation struct
-func (rb *DocumentSimulationBuilder) Build() DocumentSimulation {
-	return *rb.v
-}
-
-func (rb *DocumentSimulationBuilder) DocumentSimulation(value map[string]string) *DocumentSimulationBuilder {
-	rb.v.DocumentSimulation = value
-	return rb
-}
-
-func (rb *DocumentSimulationBuilder) Id_(id_ Id) *DocumentSimulationBuilder {
-	rb.v.Id_ = id_
-	return rb
-}
-
-func (rb *DocumentSimulationBuilder) Index_(index_ IndexName) *DocumentSimulationBuilder {
-	rb.v.Index_ = index_
-	return rb
-}
-
-func (rb *DocumentSimulationBuilder) Ingest_(ingest_ *IngestBuilder) *DocumentSimulationBuilder {
-	v := ingest_.Build()
-	rb.v.Ingest_ = v
-	return rb
-}
-
-func (rb *DocumentSimulationBuilder) Routing_(routing_ string) *DocumentSimulationBuilder {
-	rb.v.Routing_ = &routing_
-	return rb
-}
-
-func (rb *DocumentSimulationBuilder) Source_(value map[string]interface{}) *DocumentSimulationBuilder {
-	rb.v.Source_ = value
-	return rb
-}
-
-func (rb *DocumentSimulationBuilder) VersionType_(versiontype_ versiontype.VersionType) *DocumentSimulationBuilder {
-	rb.v.VersionType_ = &versiontype_
-	return rb
-}
-
-func (rb *DocumentSimulationBuilder) Version_(version_ *StringifiedVersionNumberBuilder) *DocumentSimulationBuilder {
-	v := version_.Build()
-	rb.v.Version_ = &v
-	return rb
+	return r
 }

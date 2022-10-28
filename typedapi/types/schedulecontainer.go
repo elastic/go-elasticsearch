@@ -17,16 +17,16 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ScheduleContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/watcher/_types/Schedule.ts#L85-L96
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Schedule.ts#L85-L96
 type ScheduleContainer struct {
-	Cron     *CronExpression `json:"cron,omitempty"`
+	Cron     *string         `json:"cron,omitempty"`
 	Daily    *DailySchedule  `json:"daily,omitempty"`
 	Hourly   *HourlySchedule `json:"hourly,omitempty"`
 	Interval *Duration       `json:"interval,omitempty"`
@@ -35,59 +35,9 @@ type ScheduleContainer struct {
 	Yearly   []TimeOfYear    `json:"yearly,omitempty"`
 }
 
-// ScheduleContainerBuilder holds ScheduleContainer struct and provides a builder API.
-type ScheduleContainerBuilder struct {
-	v *ScheduleContainer
-}
+// NewScheduleContainer returns a ScheduleContainer.
+func NewScheduleContainer() *ScheduleContainer {
+	r := &ScheduleContainer{}
 
-// NewScheduleContainer provides a builder for the ScheduleContainer struct.
-func NewScheduleContainerBuilder() *ScheduleContainerBuilder {
-	r := ScheduleContainerBuilder{
-		&ScheduleContainer{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ScheduleContainer struct
-func (rb *ScheduleContainerBuilder) Build() ScheduleContainer {
-	return *rb.v
-}
-
-func (rb *ScheduleContainerBuilder) Cron(cron CronExpression) *ScheduleContainerBuilder {
-	rb.v.Cron = &cron
-	return rb
-}
-
-func (rb *ScheduleContainerBuilder) Daily(daily *DailyScheduleBuilder) *ScheduleContainerBuilder {
-	v := daily.Build()
-	rb.v.Daily = &v
-	return rb
-}
-
-func (rb *ScheduleContainerBuilder) Hourly(hourly *HourlyScheduleBuilder) *ScheduleContainerBuilder {
-	v := hourly.Build()
-	rb.v.Hourly = &v
-	return rb
-}
-
-func (rb *ScheduleContainerBuilder) Interval(interval *DurationBuilder) *ScheduleContainerBuilder {
-	v := interval.Build()
-	rb.v.Interval = &v
-	return rb
-}
-
-func (rb *ScheduleContainerBuilder) Monthly(arg []TimeOfMonth) *ScheduleContainerBuilder {
-	rb.v.Monthly = arg
-	return rb
-}
-
-func (rb *ScheduleContainerBuilder) Weekly(arg []TimeOfWeek) *ScheduleContainerBuilder {
-	rb.v.Weekly = arg
-	return rb
-}
-
-func (rb *ScheduleContainerBuilder) Yearly(arg []TimeOfYear) *ScheduleContainerBuilder {
-	rb.v.Yearly = arg
-	return rb
+	return r
 }

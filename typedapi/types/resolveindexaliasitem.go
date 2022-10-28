@@ -17,45 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ResolveIndexAliasItem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/resolve_index/ResolveIndexResponse.ts#L37-L40
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/resolve_index/ResolveIndexResponse.ts#L37-L40
 type ResolveIndexAliasItem struct {
-	Indices Indices `json:"indices"`
-	Name    Name    `json:"name"`
+	Indices []string `json:"indices"`
+	Name    string   `json:"name"`
 }
 
-// ResolveIndexAliasItemBuilder holds ResolveIndexAliasItem struct and provides a builder API.
-type ResolveIndexAliasItemBuilder struct {
-	v *ResolveIndexAliasItem
-}
+// NewResolveIndexAliasItem returns a ResolveIndexAliasItem.
+func NewResolveIndexAliasItem() *ResolveIndexAliasItem {
+	r := &ResolveIndexAliasItem{}
 
-// NewResolveIndexAliasItem provides a builder for the ResolveIndexAliasItem struct.
-func NewResolveIndexAliasItemBuilder() *ResolveIndexAliasItemBuilder {
-	r := ResolveIndexAliasItemBuilder{
-		&ResolveIndexAliasItem{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ResolveIndexAliasItem struct
-func (rb *ResolveIndexAliasItemBuilder) Build() ResolveIndexAliasItem {
-	return *rb.v
-}
-
-func (rb *ResolveIndexAliasItemBuilder) Indices(indices *IndicesBuilder) *ResolveIndexAliasItemBuilder {
-	v := indices.Build()
-	rb.v.Indices = v
-	return rb
-}
-
-func (rb *ResolveIndexAliasItemBuilder) Name(name Name) *ResolveIndexAliasItemBuilder {
-	rb.v.Name = name
-	return rb
+	return r
 }

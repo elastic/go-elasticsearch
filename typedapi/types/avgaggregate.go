@@ -17,16 +17,16 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AvgAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L200-L201
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L208-L209
 type AvgAggregate struct {
-	Meta *Metadata `json:"meta,omitempty"`
+	Meta map[string]interface{} `json:"meta,omitempty"`
 	// Value The metric value. A missing value generally means that there was no data to
 	// aggregate,
 	// unless specified otherwise.
@@ -34,41 +34,9 @@ type AvgAggregate struct {
 	ValueAsString *string `json:"value_as_string,omitempty"`
 }
 
-// AvgAggregateBuilder holds AvgAggregate struct and provides a builder API.
-type AvgAggregateBuilder struct {
-	v *AvgAggregate
-}
+// NewAvgAggregate returns a AvgAggregate.
+func NewAvgAggregate() *AvgAggregate {
+	r := &AvgAggregate{}
 
-// NewAvgAggregate provides a builder for the AvgAggregate struct.
-func NewAvgAggregateBuilder() *AvgAggregateBuilder {
-	r := AvgAggregateBuilder{
-		&AvgAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the AvgAggregate struct
-func (rb *AvgAggregateBuilder) Build() AvgAggregate {
-	return *rb.v
-}
-
-func (rb *AvgAggregateBuilder) Meta(meta *MetadataBuilder) *AvgAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-// Value The metric value. A missing value generally means that there was no data to
-// aggregate,
-// unless specified otherwise.
-
-func (rb *AvgAggregateBuilder) Value(value float64) *AvgAggregateBuilder {
-	rb.v.Value = value
-	return rb
-}
-
-func (rb *AvgAggregateBuilder) ValueAsString(valueasstring string) *AvgAggregateBuilder {
-	rb.v.ValueAsString = &valueasstring
-	return rb
+	return r
 }

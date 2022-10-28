@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ZeroShotClassificationInferenceOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/inference.ts#L186-L207
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/inference.ts#L186-L207
 type ZeroShotClassificationInferenceOptions struct {
 	// ClassificationLabels The zero shot classification labels indicating entailment, neutral, and
 	// contradiction
@@ -43,67 +43,9 @@ type ZeroShotClassificationInferenceOptions struct {
 	Tokenization *TokenizationConfigContainer `json:"tokenization,omitempty"`
 }
 
-// ZeroShotClassificationInferenceOptionsBuilder holds ZeroShotClassificationInferenceOptions struct and provides a builder API.
-type ZeroShotClassificationInferenceOptionsBuilder struct {
-	v *ZeroShotClassificationInferenceOptions
-}
+// NewZeroShotClassificationInferenceOptions returns a ZeroShotClassificationInferenceOptions.
+func NewZeroShotClassificationInferenceOptions() *ZeroShotClassificationInferenceOptions {
+	r := &ZeroShotClassificationInferenceOptions{}
 
-// NewZeroShotClassificationInferenceOptions provides a builder for the ZeroShotClassificationInferenceOptions struct.
-func NewZeroShotClassificationInferenceOptionsBuilder() *ZeroShotClassificationInferenceOptionsBuilder {
-	r := ZeroShotClassificationInferenceOptionsBuilder{
-		&ZeroShotClassificationInferenceOptions{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ZeroShotClassificationInferenceOptions struct
-func (rb *ZeroShotClassificationInferenceOptionsBuilder) Build() ZeroShotClassificationInferenceOptions {
-	return *rb.v
-}
-
-// ClassificationLabels The zero shot classification labels indicating entailment, neutral, and
-// contradiction
-// Must contain exactly and only entailment, neutral, and contradiction
-
-func (rb *ZeroShotClassificationInferenceOptionsBuilder) ClassificationLabels(classification_labels ...string) *ZeroShotClassificationInferenceOptionsBuilder {
-	rb.v.ClassificationLabels = classification_labels
-	return rb
-}
-
-// HypothesisTemplate Hypothesis template used when tokenizing labels for prediction
-
-func (rb *ZeroShotClassificationInferenceOptionsBuilder) HypothesisTemplate(hypothesistemplate string) *ZeroShotClassificationInferenceOptionsBuilder {
-	rb.v.HypothesisTemplate = &hypothesistemplate
-	return rb
-}
-
-// Labels The labels to predict.
-
-func (rb *ZeroShotClassificationInferenceOptionsBuilder) Labels(labels ...string) *ZeroShotClassificationInferenceOptionsBuilder {
-	rb.v.Labels = labels
-	return rb
-}
-
-// MultiLabel Indicates if more than one true label exists.
-
-func (rb *ZeroShotClassificationInferenceOptionsBuilder) MultiLabel(multilabel bool) *ZeroShotClassificationInferenceOptionsBuilder {
-	rb.v.MultiLabel = &multilabel
-	return rb
-}
-
-// ResultsField The field that is added to incoming documents to contain the inference
-// prediction. Defaults to predicted_value.
-
-func (rb *ZeroShotClassificationInferenceOptionsBuilder) ResultsField(resultsfield string) *ZeroShotClassificationInferenceOptionsBuilder {
-	rb.v.ResultsField = &resultsfield
-	return rb
-}
-
-// Tokenization The tokenization options to update when inferring
-
-func (rb *ZeroShotClassificationInferenceOptionsBuilder) Tokenization(tokenization *TokenizationConfigContainerBuilder) *ZeroShotClassificationInferenceOptionsBuilder {
-	v := tokenization.Build()
-	rb.v.Tokenization = &v
-	return rb
+	return r
 }

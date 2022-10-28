@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -31,10 +31,10 @@ import (
 
 // NumericDecayFunction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/query_dsl/compound.ts#L88-L90
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/compound.ts#L88-L90
 type NumericDecayFunction struct {
-	MultiValueMode       *multivaluemode.MultiValueMode       `json:"multi_value_mode,omitempty"`
-	NumericDecayFunction map[Field]DecayPlacementdoubledouble `json:"-"`
+	MultiValueMode       *multivaluemode.MultiValueMode        `json:"multi_value_mode,omitempty"`
+	NumericDecayFunction map[string]DecayPlacementdoubledouble `json:"-"`
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -65,37 +65,11 @@ func (s NumericDecayFunction) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// NumericDecayFunctionBuilder holds NumericDecayFunction struct and provides a builder API.
-type NumericDecayFunctionBuilder struct {
-	v *NumericDecayFunction
-}
-
-// NewNumericDecayFunction provides a builder for the NumericDecayFunction struct.
-func NewNumericDecayFunctionBuilder() *NumericDecayFunctionBuilder {
-	r := NumericDecayFunctionBuilder{
-		&NumericDecayFunction{
-			NumericDecayFunction: make(map[Field]DecayPlacementdoubledouble, 0),
-		},
+// NewNumericDecayFunction returns a NumericDecayFunction.
+func NewNumericDecayFunction() *NumericDecayFunction {
+	r := &NumericDecayFunction{
+		NumericDecayFunction: make(map[string]DecayPlacementdoubledouble, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the NumericDecayFunction struct
-func (rb *NumericDecayFunctionBuilder) Build() NumericDecayFunction {
-	return *rb.v
-}
-
-func (rb *NumericDecayFunctionBuilder) MultiValueMode(multivaluemode multivaluemode.MultiValueMode) *NumericDecayFunctionBuilder {
-	rb.v.MultiValueMode = &multivaluemode
-	return rb
-}
-
-func (rb *NumericDecayFunctionBuilder) NumericDecayFunction(values map[Field]*DecayPlacementdoubledoubleBuilder) *NumericDecayFunctionBuilder {
-	tmp := make(map[Field]DecayPlacementdoubledouble, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.NumericDecayFunction = tmp
-	return rb
+	return r
 }

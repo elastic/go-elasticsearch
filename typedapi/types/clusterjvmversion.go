@@ -17,74 +17,27 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ClusterJvmVersion type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/cluster/stats/types.ts#L161-L169
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/stats/types.ts#L161-L169
 type ClusterJvmVersion struct {
-	BundledJdk      bool          `json:"bundled_jdk"`
-	Count           int           `json:"count"`
-	UsingBundledJdk bool          `json:"using_bundled_jdk"`
-	Version         VersionString `json:"version"`
-	VmName          string        `json:"vm_name"`
-	VmVendor        string        `json:"vm_vendor"`
-	VmVersion       VersionString `json:"vm_version"`
+	BundledJdk      bool   `json:"bundled_jdk"`
+	Count           int    `json:"count"`
+	UsingBundledJdk bool   `json:"using_bundled_jdk"`
+	Version         string `json:"version"`
+	VmName          string `json:"vm_name"`
+	VmVendor        string `json:"vm_vendor"`
+	VmVersion       string `json:"vm_version"`
 }
 
-// ClusterJvmVersionBuilder holds ClusterJvmVersion struct and provides a builder API.
-type ClusterJvmVersionBuilder struct {
-	v *ClusterJvmVersion
-}
+// NewClusterJvmVersion returns a ClusterJvmVersion.
+func NewClusterJvmVersion() *ClusterJvmVersion {
+	r := &ClusterJvmVersion{}
 
-// NewClusterJvmVersion provides a builder for the ClusterJvmVersion struct.
-func NewClusterJvmVersionBuilder() *ClusterJvmVersionBuilder {
-	r := ClusterJvmVersionBuilder{
-		&ClusterJvmVersion{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ClusterJvmVersion struct
-func (rb *ClusterJvmVersionBuilder) Build() ClusterJvmVersion {
-	return *rb.v
-}
-
-func (rb *ClusterJvmVersionBuilder) BundledJdk(bundledjdk bool) *ClusterJvmVersionBuilder {
-	rb.v.BundledJdk = bundledjdk
-	return rb
-}
-
-func (rb *ClusterJvmVersionBuilder) Count(count int) *ClusterJvmVersionBuilder {
-	rb.v.Count = count
-	return rb
-}
-
-func (rb *ClusterJvmVersionBuilder) UsingBundledJdk(usingbundledjdk bool) *ClusterJvmVersionBuilder {
-	rb.v.UsingBundledJdk = usingbundledjdk
-	return rb
-}
-
-func (rb *ClusterJvmVersionBuilder) Version(version VersionString) *ClusterJvmVersionBuilder {
-	rb.v.Version = version
-	return rb
-}
-
-func (rb *ClusterJvmVersionBuilder) VmName(vmname string) *ClusterJvmVersionBuilder {
-	rb.v.VmName = vmname
-	return rb
-}
-
-func (rb *ClusterJvmVersionBuilder) VmVendor(vmvendor string) *ClusterJvmVersionBuilder {
-	rb.v.VmVendor = vmvendor
-	return rb
-}
-
-func (rb *ClusterJvmVersionBuilder) VmVersion(vmversion VersionString) *ClusterJvmVersionBuilder {
-	rb.v.VmVersion = vmversion
-	return rb
+	return r
 }

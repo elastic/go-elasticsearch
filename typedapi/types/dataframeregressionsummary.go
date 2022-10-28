@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeRegressionSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/evaluate_data_frame/types.ts#L39-L44
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/evaluate_data_frame/types.ts#L39-L44
 type DataframeRegressionSummary struct {
 	Huber    *DataframeEvaluationValue `json:"huber,omitempty"`
 	Mse      *DataframeEvaluationValue `json:"mse,omitempty"`
@@ -32,45 +32,9 @@ type DataframeRegressionSummary struct {
 	RSquared *DataframeEvaluationValue `json:"r_squared,omitempty"`
 }
 
-// DataframeRegressionSummaryBuilder holds DataframeRegressionSummary struct and provides a builder API.
-type DataframeRegressionSummaryBuilder struct {
-	v *DataframeRegressionSummary
-}
+// NewDataframeRegressionSummary returns a DataframeRegressionSummary.
+func NewDataframeRegressionSummary() *DataframeRegressionSummary {
+	r := &DataframeRegressionSummary{}
 
-// NewDataframeRegressionSummary provides a builder for the DataframeRegressionSummary struct.
-func NewDataframeRegressionSummaryBuilder() *DataframeRegressionSummaryBuilder {
-	r := DataframeRegressionSummaryBuilder{
-		&DataframeRegressionSummary{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeRegressionSummary struct
-func (rb *DataframeRegressionSummaryBuilder) Build() DataframeRegressionSummary {
-	return *rb.v
-}
-
-func (rb *DataframeRegressionSummaryBuilder) Huber(huber *DataframeEvaluationValueBuilder) *DataframeRegressionSummaryBuilder {
-	v := huber.Build()
-	rb.v.Huber = &v
-	return rb
-}
-
-func (rb *DataframeRegressionSummaryBuilder) Mse(mse *DataframeEvaluationValueBuilder) *DataframeRegressionSummaryBuilder {
-	v := mse.Build()
-	rb.v.Mse = &v
-	return rb
-}
-
-func (rb *DataframeRegressionSummaryBuilder) Msle(msle *DataframeEvaluationValueBuilder) *DataframeRegressionSummaryBuilder {
-	v := msle.Build()
-	rb.v.Msle = &v
-	return rb
-}
-
-func (rb *DataframeRegressionSummaryBuilder) RSquared(rsquared *DataframeEvaluationValueBuilder) *DataframeRegressionSummaryBuilder {
-	v := rsquared.Build()
-	rb.v.RSquared = &v
-	return rb
+	return r
 }

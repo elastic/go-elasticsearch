@@ -17,14 +17,16 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
+import "github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
+
 // IndicesOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/common.ts#L297-L324
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/common.ts#L297-L324
 type IndicesOptions struct {
 	// AllowNoIndices If false, the request returns an error if any wildcard expression, index
 	// alias, or `_all` value targets only
@@ -38,66 +40,16 @@ type IndicesOptions struct {
 	// determines whether wildcard expressions match hidden data streams. Supports
 	// comma-separated values,
 	// such as `open,hidden`.
-	ExpandWildcards *ExpandWildcards `json:"expand_wildcards,omitempty"`
+	ExpandWildcards []expandwildcard.ExpandWildcard `json:"expand_wildcards,omitempty"`
 	// IgnoreThrottled If true, concrete, expanded or aliased indices are ignored when frozen.
 	IgnoreThrottled *bool `json:"ignore_throttled,omitempty"`
 	// IgnoreUnavailable If true, missing or closed indices are not included in the response.
 	IgnoreUnavailable *bool `json:"ignore_unavailable,omitempty"`
 }
 
-// IndicesOptionsBuilder holds IndicesOptions struct and provides a builder API.
-type IndicesOptionsBuilder struct {
-	v *IndicesOptions
-}
+// NewIndicesOptions returns a IndicesOptions.
+func NewIndicesOptions() *IndicesOptions {
+	r := &IndicesOptions{}
 
-// NewIndicesOptions provides a builder for the IndicesOptions struct.
-func NewIndicesOptionsBuilder() *IndicesOptionsBuilder {
-	r := IndicesOptionsBuilder{
-		&IndicesOptions{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IndicesOptions struct
-func (rb *IndicesOptionsBuilder) Build() IndicesOptions {
-	return *rb.v
-}
-
-// AllowNoIndices If false, the request returns an error if any wildcard expression, index
-// alias, or `_all` value targets only
-// missing or closed indices. This behavior applies even if the request targets
-// other open indices. For example,
-// a request targeting `foo*,bar*` returns an error if an index starts with
-// `foo` but no index starts with `bar`.
-
-func (rb *IndicesOptionsBuilder) AllowNoIndices(allownoindices bool) *IndicesOptionsBuilder {
-	rb.v.AllowNoIndices = &allownoindices
-	return rb
-}
-
-// ExpandWildcards Type of index that wildcard patterns can match. If the request can target
-// data streams, this argument
-// determines whether wildcard expressions match hidden data streams. Supports
-// comma-separated values,
-// such as `open,hidden`.
-
-func (rb *IndicesOptionsBuilder) ExpandWildcards(expandwildcards *ExpandWildcardsBuilder) *IndicesOptionsBuilder {
-	v := expandwildcards.Build()
-	rb.v.ExpandWildcards = &v
-	return rb
-}
-
-// IgnoreThrottled If true, concrete, expanded or aliased indices are ignored when frozen.
-
-func (rb *IndicesOptionsBuilder) IgnoreThrottled(ignorethrottled bool) *IndicesOptionsBuilder {
-	rb.v.IgnoreThrottled = &ignorethrottled
-	return rb
-}
-
-// IgnoreUnavailable If true, missing or closed indices are not included in the response.
-
-func (rb *IndicesOptionsBuilder) IgnoreUnavailable(ignoreunavailable bool) *IndicesOptionsBuilder {
-	rb.v.IgnoreUnavailable = &ignoreunavailable
-	return rb
+	return r
 }

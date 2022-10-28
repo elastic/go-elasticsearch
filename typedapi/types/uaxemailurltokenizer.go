@@ -17,47 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // UaxEmailUrlTokenizer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/tokenizers.ts#L109-L112
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/tokenizers.ts#L109-L112
 type UaxEmailUrlTokenizer struct {
-	MaxTokenLength *int           `json:"max_token_length,omitempty"`
-	Type           string         `json:"type,omitempty"`
-	Version        *VersionString `json:"version,omitempty"`
+	MaxTokenLength *int    `json:"max_token_length,omitempty"`
+	Type           string  `json:"type,omitempty"`
+	Version        *string `json:"version,omitempty"`
 }
 
-// UaxEmailUrlTokenizerBuilder holds UaxEmailUrlTokenizer struct and provides a builder API.
-type UaxEmailUrlTokenizerBuilder struct {
-	v *UaxEmailUrlTokenizer
-}
+// NewUaxEmailUrlTokenizer returns a UaxEmailUrlTokenizer.
+func NewUaxEmailUrlTokenizer() *UaxEmailUrlTokenizer {
+	r := &UaxEmailUrlTokenizer{}
 
-// NewUaxEmailUrlTokenizer provides a builder for the UaxEmailUrlTokenizer struct.
-func NewUaxEmailUrlTokenizerBuilder() *UaxEmailUrlTokenizerBuilder {
-	r := UaxEmailUrlTokenizerBuilder{
-		&UaxEmailUrlTokenizer{},
-	}
+	r.Type = "uax_url_email"
 
-	r.v.Type = "uax_url_email"
-
-	return &r
-}
-
-// Build finalize the chain and returns the UaxEmailUrlTokenizer struct
-func (rb *UaxEmailUrlTokenizerBuilder) Build() UaxEmailUrlTokenizer {
-	return *rb.v
-}
-
-func (rb *UaxEmailUrlTokenizerBuilder) MaxTokenLength(maxtokenlength int) *UaxEmailUrlTokenizerBuilder {
-	rb.v.MaxTokenLength = &maxtokenlength
-	return rb
-}
-
-func (rb *UaxEmailUrlTokenizerBuilder) Version(version VersionString) *UaxEmailUrlTokenizerBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeAnalysisOutlierDetection type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/DataframeAnalytics.ts#L103-L132
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/DataframeAnalytics.ts#L103-L132
 type DataframeAnalysisOutlierDetection struct {
 	// ComputeFeatureInfluence Specifies whether the feature influence calculation is enabled.
 	ComputeFeatureInfluence *bool `json:"compute_feature_influence,omitempty"`
@@ -52,75 +52,9 @@ type DataframeAnalysisOutlierDetection struct {
 	StandardizationEnabled *bool `json:"standardization_enabled,omitempty"`
 }
 
-// DataframeAnalysisOutlierDetectionBuilder holds DataframeAnalysisOutlierDetection struct and provides a builder API.
-type DataframeAnalysisOutlierDetectionBuilder struct {
-	v *DataframeAnalysisOutlierDetection
-}
+// NewDataframeAnalysisOutlierDetection returns a DataframeAnalysisOutlierDetection.
+func NewDataframeAnalysisOutlierDetection() *DataframeAnalysisOutlierDetection {
+	r := &DataframeAnalysisOutlierDetection{}
 
-// NewDataframeAnalysisOutlierDetection provides a builder for the DataframeAnalysisOutlierDetection struct.
-func NewDataframeAnalysisOutlierDetectionBuilder() *DataframeAnalysisOutlierDetectionBuilder {
-	r := DataframeAnalysisOutlierDetectionBuilder{
-		&DataframeAnalysisOutlierDetection{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeAnalysisOutlierDetection struct
-func (rb *DataframeAnalysisOutlierDetectionBuilder) Build() DataframeAnalysisOutlierDetection {
-	return *rb.v
-}
-
-// ComputeFeatureInfluence Specifies whether the feature influence calculation is enabled.
-
-func (rb *DataframeAnalysisOutlierDetectionBuilder) ComputeFeatureInfluence(computefeatureinfluence bool) *DataframeAnalysisOutlierDetectionBuilder {
-	rb.v.ComputeFeatureInfluence = &computefeatureinfluence
-	return rb
-}
-
-// FeatureInfluenceThreshold The minimum outlier score that a document needs to have in order to calculate
-// its feature influence score. Value range: 0-1.
-
-func (rb *DataframeAnalysisOutlierDetectionBuilder) FeatureInfluenceThreshold(featureinfluencethreshold float64) *DataframeAnalysisOutlierDetectionBuilder {
-	rb.v.FeatureInfluenceThreshold = &featureinfluencethreshold
-	return rb
-}
-
-// Method The method that outlier detection uses. Available methods are `lof`, `ldof`,
-// `distance_kth_nn`, `distance_knn`, and `ensemble`. The default value is
-// ensemble, which means that outlier detection uses an ensemble of different
-// methods and normalises and combines their individual outlier scores to obtain
-// the overall outlier score.
-
-func (rb *DataframeAnalysisOutlierDetectionBuilder) Method(method string) *DataframeAnalysisOutlierDetectionBuilder {
-	rb.v.Method = &method
-	return rb
-}
-
-// NNeighbors Defines the value for how many nearest neighbors each method of outlier
-// detection uses to calculate its outlier score. When the value is not set,
-// different values are used for different ensemble members. This default
-// behavior helps improve the diversity in the ensemble; only override it if you
-// are confident that the value you choose is appropriate for the data set.
-
-func (rb *DataframeAnalysisOutlierDetectionBuilder) NNeighbors(nneighbors int) *DataframeAnalysisOutlierDetectionBuilder {
-	rb.v.NNeighbors = &nneighbors
-	return rb
-}
-
-// OutlierFraction The proportion of the data set that is assumed to be outlying prior to
-// outlier detection. For example, 0.05 means it is assumed that 5% of values
-// are real outliers and 95% are inliers.
-
-func (rb *DataframeAnalysisOutlierDetectionBuilder) OutlierFraction(outlierfraction float64) *DataframeAnalysisOutlierDetectionBuilder {
-	rb.v.OutlierFraction = &outlierfraction
-	return rb
-}
-
-// StandardizationEnabled If true, the following operation is performed on the columns before computing
-// outlier scores: `(x_i - mean(x_i)) / sd(x_i)`.
-
-func (rb *DataframeAnalysisOutlierDetectionBuilder) StandardizationEnabled(standardizationenabled bool) *DataframeAnalysisOutlierDetectionBuilder {
-	rb.v.StandardizationEnabled = &standardizationenabled
-	return rb
+	return r
 }

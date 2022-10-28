@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // EqlHits type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/eql/_types/EqlHits.ts#L25-L39
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/eql/_types/EqlHits.ts#L25-L39
 type EqlHits struct {
 	// Events Contains events matching the query. Each object represents a matching event.
 	Events []HitsEvent `json:"events,omitempty"`
@@ -36,53 +36,9 @@ type EqlHits struct {
 	Total *TotalHits `json:"total,omitempty"`
 }
 
-// EqlHitsBuilder holds EqlHits struct and provides a builder API.
-type EqlHitsBuilder struct {
-	v *EqlHits
-}
+// NewEqlHits returns a EqlHits.
+func NewEqlHits() *EqlHits {
+	r := &EqlHits{}
 
-// NewEqlHits provides a builder for the EqlHits struct.
-func NewEqlHitsBuilder() *EqlHitsBuilder {
-	r := EqlHitsBuilder{
-		&EqlHits{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the EqlHits struct
-func (rb *EqlHitsBuilder) Build() EqlHits {
-	return *rb.v
-}
-
-// Events Contains events matching the query. Each object represents a matching event.
-
-func (rb *EqlHitsBuilder) Events(events []HitsEventBuilder) *EqlHitsBuilder {
-	tmp := make([]HitsEvent, len(events))
-	for _, value := range events {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Events = tmp
-	return rb
-}
-
-// Sequences Contains event sequences matching the query. Each object represents a
-// matching sequence. This parameter is only returned for EQL queries containing
-// a sequence.
-
-func (rb *EqlHitsBuilder) Sequences(sequences []HitsSequenceBuilder) *EqlHitsBuilder {
-	tmp := make([]HitsSequence, len(sequences))
-	for _, value := range sequences {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Sequences = tmp
-	return rb
-}
-
-// Total Metadata about the number of matching events or sequences.
-
-func (rb *EqlHitsBuilder) Total(total *TotalHitsBuilder) *EqlHitsBuilder {
-	v := total.Build()
-	rb.v.Total = &v
-	return rb
+	return r
 }

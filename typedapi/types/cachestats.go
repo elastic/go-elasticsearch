@@ -17,62 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CacheStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/enrich/stats/types.ts#L37-L43
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/enrich/stats/types.ts#L37-L43
 type CacheStats struct {
-	Count     int `json:"count"`
-	Evictions int `json:"evictions"`
-	Hits      int `json:"hits"`
-	Misses    int `json:"misses"`
-	NodeId    Id  `json:"node_id"`
+	Count     int    `json:"count"`
+	Evictions int    `json:"evictions"`
+	Hits      int    `json:"hits"`
+	Misses    int    `json:"misses"`
+	NodeId    string `json:"node_id"`
 }
 
-// CacheStatsBuilder holds CacheStats struct and provides a builder API.
-type CacheStatsBuilder struct {
-	v *CacheStats
-}
+// NewCacheStats returns a CacheStats.
+func NewCacheStats() *CacheStats {
+	r := &CacheStats{}
 
-// NewCacheStats provides a builder for the CacheStats struct.
-func NewCacheStatsBuilder() *CacheStatsBuilder {
-	r := CacheStatsBuilder{
-		&CacheStats{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the CacheStats struct
-func (rb *CacheStatsBuilder) Build() CacheStats {
-	return *rb.v
-}
-
-func (rb *CacheStatsBuilder) Count(count int) *CacheStatsBuilder {
-	rb.v.Count = count
-	return rb
-}
-
-func (rb *CacheStatsBuilder) Evictions(evictions int) *CacheStatsBuilder {
-	rb.v.Evictions = evictions
-	return rb
-}
-
-func (rb *CacheStatsBuilder) Hits(hits int) *CacheStatsBuilder {
-	rb.v.Hits = hits
-	return rb
-}
-
-func (rb *CacheStatsBuilder) Misses(misses int) *CacheStatsBuilder {
-	rb.v.Misses = misses
-	return rb
-}
-
-func (rb *CacheStatsBuilder) NodeId(nodeid Id) *CacheStatsBuilder {
-	rb.v.NodeId = nodeid
-	return rb
+	return r
 }

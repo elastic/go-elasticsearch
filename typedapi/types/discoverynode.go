@@ -17,64 +17,27 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DiscoveryNode type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/DiscoveryNode.ts#L24-L30
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/DiscoveryNode.ts#L24-L30
 type DiscoveryNode struct {
 	Attributes       map[string]string `json:"attributes"`
-	EphemeralId      Id                `json:"ephemeral_id"`
-	Id               Id                `json:"id"`
-	Name             Name              `json:"name"`
-	TransportAddress TransportAddress  `json:"transport_address"`
+	EphemeralId      string            `json:"ephemeral_id"`
+	Id               string            `json:"id"`
+	Name             string            `json:"name"`
+	TransportAddress string            `json:"transport_address"`
 }
 
-// DiscoveryNodeBuilder holds DiscoveryNode struct and provides a builder API.
-type DiscoveryNodeBuilder struct {
-	v *DiscoveryNode
-}
-
-// NewDiscoveryNode provides a builder for the DiscoveryNode struct.
-func NewDiscoveryNodeBuilder() *DiscoveryNodeBuilder {
-	r := DiscoveryNodeBuilder{
-		&DiscoveryNode{
-			Attributes: make(map[string]string, 0),
-		},
+// NewDiscoveryNode returns a DiscoveryNode.
+func NewDiscoveryNode() *DiscoveryNode {
+	r := &DiscoveryNode{
+		Attributes: make(map[string]string, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the DiscoveryNode struct
-func (rb *DiscoveryNodeBuilder) Build() DiscoveryNode {
-	return *rb.v
-}
-
-func (rb *DiscoveryNodeBuilder) Attributes(value map[string]string) *DiscoveryNodeBuilder {
-	rb.v.Attributes = value
-	return rb
-}
-
-func (rb *DiscoveryNodeBuilder) EphemeralId(ephemeralid Id) *DiscoveryNodeBuilder {
-	rb.v.EphemeralId = ephemeralid
-	return rb
-}
-
-func (rb *DiscoveryNodeBuilder) Id(id Id) *DiscoveryNodeBuilder {
-	rb.v.Id = id
-	return rb
-}
-
-func (rb *DiscoveryNodeBuilder) Name(name Name) *DiscoveryNodeBuilder {
-	rb.v.Name = name
-	return rb
-}
-
-func (rb *DiscoveryNodeBuilder) TransportAddress(transportaddress TransportAddress) *DiscoveryNodeBuilder {
-	rb.v.TransportAddress = transportaddress
-	return rb
+	return r
 }

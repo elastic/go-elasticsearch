@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -30,23 +30,23 @@ import (
 
 // LongNumberProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/mapping/core.ts#L151-L154
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/core.ts#L151-L154
 type LongNumberProperty struct {
 	Boost           *float64                       `json:"boost,omitempty"`
 	Coerce          *bool                          `json:"coerce,omitempty"`
-	CopyTo          *Fields                        `json:"copy_to,omitempty"`
+	CopyTo          []string                       `json:"copy_to,omitempty"`
 	DocValues       *bool                          `json:"doc_values,omitempty"`
 	Dynamic         *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
-	Fields          map[PropertyName]Property      `json:"fields,omitempty"`
+	Fields          map[string]Property            `json:"fields,omitempty"`
 	IgnoreAbove     *int                           `json:"ignore_above,omitempty"`
 	IgnoreMalformed *bool                          `json:"ignore_malformed,omitempty"`
 	Index           *bool                          `json:"index,omitempty"`
-	LocalMetadata   *Metadata                      `json:"local_metadata,omitempty"`
+	LocalMetadata   map[string]interface{}         `json:"local_metadata,omitempty"`
 	// Meta Metadata about the field.
 	Meta          map[string]string            `json:"meta,omitempty"`
 	NullValue     *int64                       `json:"null_value,omitempty"`
 	OnScriptError *onscripterror.OnScriptError `json:"on_script_error,omitempty"`
-	Properties    map[PropertyName]Property    `json:"properties,omitempty"`
+	Properties    map[string]Property          `json:"properties,omitempty"`
 	Script        *Script                      `json:"script,omitempty"`
 	Similarity    *string                      `json:"similarity,omitempty"`
 	Store         *bool                        `json:"store,omitempty"`
@@ -59,141 +59,15 @@ type LongNumberProperty struct {
 	Type             string                                     `json:"type,omitempty"`
 }
 
-// LongNumberPropertyBuilder holds LongNumberProperty struct and provides a builder API.
-type LongNumberPropertyBuilder struct {
-	v *LongNumberProperty
-}
-
-// NewLongNumberProperty provides a builder for the LongNumberProperty struct.
-func NewLongNumberPropertyBuilder() *LongNumberPropertyBuilder {
-	r := LongNumberPropertyBuilder{
-		&LongNumberProperty{
-			Fields:     make(map[PropertyName]Property, 0),
-			Meta:       make(map[string]string, 0),
-			Properties: make(map[PropertyName]Property, 0),
-		},
+// NewLongNumberProperty returns a LongNumberProperty.
+func NewLongNumberProperty() *LongNumberProperty {
+	r := &LongNumberProperty{
+		Fields:     make(map[string]Property, 0),
+		Meta:       make(map[string]string, 0),
+		Properties: make(map[string]Property, 0),
 	}
 
-	r.v.Type = "long"
+	r.Type = "long"
 
-	return &r
-}
-
-// Build finalize the chain and returns the LongNumberProperty struct
-func (rb *LongNumberPropertyBuilder) Build() LongNumberProperty {
-	return *rb.v
-}
-
-func (rb *LongNumberPropertyBuilder) Boost(boost float64) *LongNumberPropertyBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *LongNumberPropertyBuilder) Coerce(coerce bool) *LongNumberPropertyBuilder {
-	rb.v.Coerce = &coerce
-	return rb
-}
-
-func (rb *LongNumberPropertyBuilder) CopyTo(copyto *FieldsBuilder) *LongNumberPropertyBuilder {
-	v := copyto.Build()
-	rb.v.CopyTo = &v
-	return rb
-}
-
-func (rb *LongNumberPropertyBuilder) DocValues(docvalues bool) *LongNumberPropertyBuilder {
-	rb.v.DocValues = &docvalues
-	return rb
-}
-
-func (rb *LongNumberPropertyBuilder) Dynamic(dynamic dynamicmapping.DynamicMapping) *LongNumberPropertyBuilder {
-	rb.v.Dynamic = &dynamic
-	return rb
-}
-
-func (rb *LongNumberPropertyBuilder) Fields(values map[PropertyName]*PropertyBuilder) *LongNumberPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Fields = tmp
-	return rb
-}
-
-func (rb *LongNumberPropertyBuilder) IgnoreAbove(ignoreabove int) *LongNumberPropertyBuilder {
-	rb.v.IgnoreAbove = &ignoreabove
-	return rb
-}
-
-func (rb *LongNumberPropertyBuilder) IgnoreMalformed(ignoremalformed bool) *LongNumberPropertyBuilder {
-	rb.v.IgnoreMalformed = &ignoremalformed
-	return rb
-}
-
-func (rb *LongNumberPropertyBuilder) Index(index bool) *LongNumberPropertyBuilder {
-	rb.v.Index = &index
-	return rb
-}
-
-func (rb *LongNumberPropertyBuilder) LocalMetadata(localmetadata *MetadataBuilder) *LongNumberPropertyBuilder {
-	v := localmetadata.Build()
-	rb.v.LocalMetadata = &v
-	return rb
-}
-
-// Meta Metadata about the field.
-
-func (rb *LongNumberPropertyBuilder) Meta(value map[string]string) *LongNumberPropertyBuilder {
-	rb.v.Meta = value
-	return rb
-}
-
-func (rb *LongNumberPropertyBuilder) NullValue(nullvalue int64) *LongNumberPropertyBuilder {
-	rb.v.NullValue = &nullvalue
-	return rb
-}
-
-func (rb *LongNumberPropertyBuilder) OnScriptError(onscripterror onscripterror.OnScriptError) *LongNumberPropertyBuilder {
-	rb.v.OnScriptError = &onscripterror
-	return rb
-}
-
-func (rb *LongNumberPropertyBuilder) Properties(values map[PropertyName]*PropertyBuilder) *LongNumberPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Properties = tmp
-	return rb
-}
-
-func (rb *LongNumberPropertyBuilder) Script(script *ScriptBuilder) *LongNumberPropertyBuilder {
-	v := script.Build()
-	rb.v.Script = &v
-	return rb
-}
-
-func (rb *LongNumberPropertyBuilder) Similarity(similarity string) *LongNumberPropertyBuilder {
-	rb.v.Similarity = &similarity
-	return rb
-}
-
-func (rb *LongNumberPropertyBuilder) Store(store bool) *LongNumberPropertyBuilder {
-	rb.v.Store = &store
-	return rb
-}
-
-// TimeSeriesDimension For internal use by Elastic only. Marks the field as a time series dimension.
-// Defaults to false.
-
-func (rb *LongNumberPropertyBuilder) TimeSeriesDimension(timeseriesdimension bool) *LongNumberPropertyBuilder {
-	rb.v.TimeSeriesDimension = &timeseriesdimension
-	return rb
-}
-
-// TimeSeriesMetric For internal use by Elastic only. Marks the field as a time series dimension.
-// Defaults to false.
-
-func (rb *LongNumberPropertyBuilder) TimeSeriesMetric(timeseriesmetric timeseriesmetrictype.TimeSeriesMetricType) *LongNumberPropertyBuilder {
-	rb.v.TimeSeriesMetric = &timeseriesmetric
-	return rb
+	return r
 }

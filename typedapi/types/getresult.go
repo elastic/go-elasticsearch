@@ -17,88 +17,31 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // GetResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_global/get/types.ts#L25-L35
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/get/types.ts#L25-L35
 type GetResult struct {
 	Fields       map[string]interface{} `json:"fields,omitempty"`
 	Found        bool                   `json:"found"`
-	Id_          Id                     `json:"_id"`
-	Index_       IndexName              `json:"_index"`
+	Id_          string                 `json:"_id"`
+	Index_       string                 `json:"_index"`
 	PrimaryTerm_ *int64                 `json:"_primary_term,omitempty"`
 	Routing_     *string                `json:"_routing,omitempty"`
-	SeqNo_       *SequenceNumber        `json:"_seq_no,omitempty"`
+	SeqNo_       *int64                 `json:"_seq_no,omitempty"`
 	Source_      interface{}            `json:"_source,omitempty"`
-	Version_     *VersionNumber         `json:"_version,omitempty"`
+	Version_     *int64                 `json:"_version,omitempty"`
 }
 
-// GetResultBuilder holds GetResult struct and provides a builder API.
-type GetResultBuilder struct {
-	v *GetResult
-}
-
-// NewGetResult provides a builder for the GetResult struct.
-func NewGetResultBuilder() *GetResultBuilder {
-	r := GetResultBuilder{
-		&GetResult{
-			Fields: make(map[string]interface{}, 0),
-		},
+// NewGetResult returns a GetResult.
+func NewGetResult() *GetResult {
+	r := &GetResult{
+		Fields: make(map[string]interface{}, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the GetResult struct
-func (rb *GetResultBuilder) Build() GetResult {
-	return *rb.v
-}
-
-func (rb *GetResultBuilder) Fields(value map[string]interface{}) *GetResultBuilder {
-	rb.v.Fields = value
-	return rb
-}
-
-func (rb *GetResultBuilder) Found(found bool) *GetResultBuilder {
-	rb.v.Found = found
-	return rb
-}
-
-func (rb *GetResultBuilder) Id_(id_ Id) *GetResultBuilder {
-	rb.v.Id_ = id_
-	return rb
-}
-
-func (rb *GetResultBuilder) Index_(index_ IndexName) *GetResultBuilder {
-	rb.v.Index_ = index_
-	return rb
-}
-
-func (rb *GetResultBuilder) PrimaryTerm_(primaryterm_ int64) *GetResultBuilder {
-	rb.v.PrimaryTerm_ = &primaryterm_
-	return rb
-}
-
-func (rb *GetResultBuilder) Routing_(routing_ string) *GetResultBuilder {
-	rb.v.Routing_ = &routing_
-	return rb
-}
-
-func (rb *GetResultBuilder) SeqNo_(seqno_ SequenceNumber) *GetResultBuilder {
-	rb.v.SeqNo_ = &seqno_
-	return rb
-}
-
-func (rb *GetResultBuilder) Source_(source_ interface{}) *GetResultBuilder {
-	rb.v.Source_ = source_
-	return rb
-}
-
-func (rb *GetResultBuilder) Version_(version_ VersionNumber) *GetResultBuilder {
-	rb.v.Version_ = &version_
-	return rb
+	return r
 }

@@ -17,81 +17,29 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TermVectorsResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_global/mtermvectors/types.ts#L51-L59
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/mtermvectors/types.ts#L51-L59
 type TermVectorsResult struct {
-	Error       *ErrorCause          `json:"error,omitempty"`
-	Found       *bool                `json:"found,omitempty"`
-	Id_         Id                   `json:"_id"`
-	Index_      IndexName            `json:"_index"`
-	TermVectors map[Field]TermVector `json:"term_vectors,omitempty"`
-	Took        *int64               `json:"took,omitempty"`
-	Version_    *VersionNumber       `json:"_version,omitempty"`
+	Error       *ErrorCause           `json:"error,omitempty"`
+	Found       *bool                 `json:"found,omitempty"`
+	Id_         string                `json:"_id"`
+	Index_      string                `json:"_index"`
+	TermVectors map[string]TermVector `json:"term_vectors,omitempty"`
+	Took        *int64                `json:"took,omitempty"`
+	Version_    *int64                `json:"_version,omitempty"`
 }
 
-// TermVectorsResultBuilder holds TermVectorsResult struct and provides a builder API.
-type TermVectorsResultBuilder struct {
-	v *TermVectorsResult
-}
-
-// NewTermVectorsResult provides a builder for the TermVectorsResult struct.
-func NewTermVectorsResultBuilder() *TermVectorsResultBuilder {
-	r := TermVectorsResultBuilder{
-		&TermVectorsResult{
-			TermVectors: make(map[Field]TermVector, 0),
-		},
+// NewTermVectorsResult returns a TermVectorsResult.
+func NewTermVectorsResult() *TermVectorsResult {
+	r := &TermVectorsResult{
+		TermVectors: make(map[string]TermVector, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the TermVectorsResult struct
-func (rb *TermVectorsResultBuilder) Build() TermVectorsResult {
-	return *rb.v
-}
-
-func (rb *TermVectorsResultBuilder) Error(error *ErrorCauseBuilder) *TermVectorsResultBuilder {
-	v := error.Build()
-	rb.v.Error = &v
-	return rb
-}
-
-func (rb *TermVectorsResultBuilder) Found(found bool) *TermVectorsResultBuilder {
-	rb.v.Found = &found
-	return rb
-}
-
-func (rb *TermVectorsResultBuilder) Id_(id_ Id) *TermVectorsResultBuilder {
-	rb.v.Id_ = id_
-	return rb
-}
-
-func (rb *TermVectorsResultBuilder) Index_(index_ IndexName) *TermVectorsResultBuilder {
-	rb.v.Index_ = index_
-	return rb
-}
-
-func (rb *TermVectorsResultBuilder) TermVectors(values map[Field]*TermVectorBuilder) *TermVectorsResultBuilder {
-	tmp := make(map[Field]TermVector, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.TermVectors = tmp
-	return rb
-}
-
-func (rb *TermVectorsResultBuilder) Took(took int64) *TermVectorsResultBuilder {
-	rb.v.Took = &took
-	return rb
-}
-
-func (rb *TermVectorsResultBuilder) Version_(version_ VersionNumber) *TermVectorsResultBuilder {
-	rb.v.Version_ = &version_
-	return rb
+	return r
 }

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NerInferenceUpdateOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/inference.ts#L357-L362
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/inference.ts#L357-L362
 type NerInferenceUpdateOptions struct {
 	// ResultsField The field that is added to incoming documents to contain the inference
 	// prediction. Defaults to predicted_value.
@@ -33,37 +33,9 @@ type NerInferenceUpdateOptions struct {
 	Tokenization *NlpTokenizationUpdateOptions `json:"tokenization,omitempty"`
 }
 
-// NerInferenceUpdateOptionsBuilder holds NerInferenceUpdateOptions struct and provides a builder API.
-type NerInferenceUpdateOptionsBuilder struct {
-	v *NerInferenceUpdateOptions
-}
+// NewNerInferenceUpdateOptions returns a NerInferenceUpdateOptions.
+func NewNerInferenceUpdateOptions() *NerInferenceUpdateOptions {
+	r := &NerInferenceUpdateOptions{}
 
-// NewNerInferenceUpdateOptions provides a builder for the NerInferenceUpdateOptions struct.
-func NewNerInferenceUpdateOptionsBuilder() *NerInferenceUpdateOptionsBuilder {
-	r := NerInferenceUpdateOptionsBuilder{
-		&NerInferenceUpdateOptions{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NerInferenceUpdateOptions struct
-func (rb *NerInferenceUpdateOptionsBuilder) Build() NerInferenceUpdateOptions {
-	return *rb.v
-}
-
-// ResultsField The field that is added to incoming documents to contain the inference
-// prediction. Defaults to predicted_value.
-
-func (rb *NerInferenceUpdateOptionsBuilder) ResultsField(resultsfield string) *NerInferenceUpdateOptionsBuilder {
-	rb.v.ResultsField = &resultsfield
-	return rb
-}
-
-// Tokenization The tokenization options to update when inferring
-
-func (rb *NerInferenceUpdateOptionsBuilder) Tokenization(tokenization *NlpTokenizationUpdateOptionsBuilder) *NerInferenceUpdateOptionsBuilder {
-	v := tokenization.Build()
-	rb.v.Tokenization = &v
-	return rb
+	return r
 }

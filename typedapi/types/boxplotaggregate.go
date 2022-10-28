@@ -17,123 +17,35 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // BoxPlotAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L682-L698
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L697-L713
 type BoxPlotAggregate struct {
-	Lower         float64   `json:"lower"`
-	LowerAsString *string   `json:"lower_as_string,omitempty"`
-	Max           float64   `json:"max"`
-	MaxAsString   *string   `json:"max_as_string,omitempty"`
-	Meta          *Metadata `json:"meta,omitempty"`
-	Min           float64   `json:"min"`
-	MinAsString   *string   `json:"min_as_string,omitempty"`
-	Q1            float64   `json:"q1"`
-	Q1AsString    *string   `json:"q1_as_string,omitempty"`
-	Q2            float64   `json:"q2"`
-	Q2AsString    *string   `json:"q2_as_string,omitempty"`
-	Q3            float64   `json:"q3"`
-	Q3AsString    *string   `json:"q3_as_string,omitempty"`
-	Upper         float64   `json:"upper"`
-	UpperAsString *string   `json:"upper_as_string,omitempty"`
+	Lower         float64                `json:"lower"`
+	LowerAsString *string                `json:"lower_as_string,omitempty"`
+	Max           float64                `json:"max"`
+	MaxAsString   *string                `json:"max_as_string,omitempty"`
+	Meta          map[string]interface{} `json:"meta,omitempty"`
+	Min           float64                `json:"min"`
+	MinAsString   *string                `json:"min_as_string,omitempty"`
+	Q1            float64                `json:"q1"`
+	Q1AsString    *string                `json:"q1_as_string,omitempty"`
+	Q2            float64                `json:"q2"`
+	Q2AsString    *string                `json:"q2_as_string,omitempty"`
+	Q3            float64                `json:"q3"`
+	Q3AsString    *string                `json:"q3_as_string,omitempty"`
+	Upper         float64                `json:"upper"`
+	UpperAsString *string                `json:"upper_as_string,omitempty"`
 }
 
-// BoxPlotAggregateBuilder holds BoxPlotAggregate struct and provides a builder API.
-type BoxPlotAggregateBuilder struct {
-	v *BoxPlotAggregate
-}
+// NewBoxPlotAggregate returns a BoxPlotAggregate.
+func NewBoxPlotAggregate() *BoxPlotAggregate {
+	r := &BoxPlotAggregate{}
 
-// NewBoxPlotAggregate provides a builder for the BoxPlotAggregate struct.
-func NewBoxPlotAggregateBuilder() *BoxPlotAggregateBuilder {
-	r := BoxPlotAggregateBuilder{
-		&BoxPlotAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the BoxPlotAggregate struct
-func (rb *BoxPlotAggregateBuilder) Build() BoxPlotAggregate {
-	return *rb.v
-}
-
-func (rb *BoxPlotAggregateBuilder) Lower(lower float64) *BoxPlotAggregateBuilder {
-	rb.v.Lower = lower
-	return rb
-}
-
-func (rb *BoxPlotAggregateBuilder) LowerAsString(lowerasstring string) *BoxPlotAggregateBuilder {
-	rb.v.LowerAsString = &lowerasstring
-	return rb
-}
-
-func (rb *BoxPlotAggregateBuilder) Max(max float64) *BoxPlotAggregateBuilder {
-	rb.v.Max = max
-	return rb
-}
-
-func (rb *BoxPlotAggregateBuilder) MaxAsString(maxasstring string) *BoxPlotAggregateBuilder {
-	rb.v.MaxAsString = &maxasstring
-	return rb
-}
-
-func (rb *BoxPlotAggregateBuilder) Meta(meta *MetadataBuilder) *BoxPlotAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *BoxPlotAggregateBuilder) Min(min float64) *BoxPlotAggregateBuilder {
-	rb.v.Min = min
-	return rb
-}
-
-func (rb *BoxPlotAggregateBuilder) MinAsString(minasstring string) *BoxPlotAggregateBuilder {
-	rb.v.MinAsString = &minasstring
-	return rb
-}
-
-func (rb *BoxPlotAggregateBuilder) Q1(q1 float64) *BoxPlotAggregateBuilder {
-	rb.v.Q1 = q1
-	return rb
-}
-
-func (rb *BoxPlotAggregateBuilder) Q1AsString(q1asstring string) *BoxPlotAggregateBuilder {
-	rb.v.Q1AsString = &q1asstring
-	return rb
-}
-
-func (rb *BoxPlotAggregateBuilder) Q2(q2 float64) *BoxPlotAggregateBuilder {
-	rb.v.Q2 = q2
-	return rb
-}
-
-func (rb *BoxPlotAggregateBuilder) Q2AsString(q2asstring string) *BoxPlotAggregateBuilder {
-	rb.v.Q2AsString = &q2asstring
-	return rb
-}
-
-func (rb *BoxPlotAggregateBuilder) Q3(q3 float64) *BoxPlotAggregateBuilder {
-	rb.v.Q3 = q3
-	return rb
-}
-
-func (rb *BoxPlotAggregateBuilder) Q3AsString(q3asstring string) *BoxPlotAggregateBuilder {
-	rb.v.Q3AsString = &q3asstring
-	return rb
-}
-
-func (rb *BoxPlotAggregateBuilder) Upper(upper float64) *BoxPlotAggregateBuilder {
-	rb.v.Upper = upper
-	return rb
-}
-
-func (rb *BoxPlotAggregateBuilder) UpperAsString(upperasstring string) *BoxPlotAggregateBuilder {
-	rb.v.UpperAsString = &upperasstring
-	return rb
+	return r
 }

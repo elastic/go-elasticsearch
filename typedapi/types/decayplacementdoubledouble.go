@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DecayPlacementdoubledouble type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/query_dsl/compound.ts#L77-L82
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/compound.ts#L77-L82
 type DecayPlacementdoubledouble struct {
 	Decay  *float64 `json:"decay,omitempty"`
 	Offset *float64 `json:"offset,omitempty"`
@@ -32,41 +32,9 @@ type DecayPlacementdoubledouble struct {
 	Scale  *float64 `json:"scale,omitempty"`
 }
 
-// DecayPlacementdoubledoubleBuilder holds DecayPlacementdoubledouble struct and provides a builder API.
-type DecayPlacementdoubledoubleBuilder struct {
-	v *DecayPlacementdoubledouble
-}
+// NewDecayPlacementdoubledouble returns a DecayPlacementdoubledouble.
+func NewDecayPlacementdoubledouble() *DecayPlacementdoubledouble {
+	r := &DecayPlacementdoubledouble{}
 
-// NewDecayPlacementdoubledouble provides a builder for the DecayPlacementdoubledouble struct.
-func NewDecayPlacementdoubledoubleBuilder() *DecayPlacementdoubledoubleBuilder {
-	r := DecayPlacementdoubledoubleBuilder{
-		&DecayPlacementdoubledouble{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DecayPlacementdoubledouble struct
-func (rb *DecayPlacementdoubledoubleBuilder) Build() DecayPlacementdoubledouble {
-	return *rb.v
-}
-
-func (rb *DecayPlacementdoubledoubleBuilder) Decay(decay float64) *DecayPlacementdoubledoubleBuilder {
-	rb.v.Decay = &decay
-	return rb
-}
-
-func (rb *DecayPlacementdoubledoubleBuilder) Offset(offset float64) *DecayPlacementdoubledoubleBuilder {
-	rb.v.Offset = &offset
-	return rb
-}
-
-func (rb *DecayPlacementdoubledoubleBuilder) Origin(origin float64) *DecayPlacementdoubledoubleBuilder {
-	rb.v.Origin = &origin
-	return rb
-}
-
-func (rb *DecayPlacementdoubledoubleBuilder) Scale(scale float64) *DecayPlacementdoubledoubleBuilder {
-	rb.v.Scale = &scale
-	return rb
+	return r
 }

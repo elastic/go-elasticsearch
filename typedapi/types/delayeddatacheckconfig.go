@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DelayedDataCheckConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/Datafeed.ts#L119-L130
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/Datafeed.ts#L119-L130
 type DelayedDataCheckConfig struct {
 	// CheckWindow The window of time that is searched for late data. This window of time ends
 	// with the latest finalized bucket.
@@ -37,41 +37,9 @@ type DelayedDataCheckConfig struct {
 	Enabled bool `json:"enabled"`
 }
 
-// DelayedDataCheckConfigBuilder holds DelayedDataCheckConfig struct and provides a builder API.
-type DelayedDataCheckConfigBuilder struct {
-	v *DelayedDataCheckConfig
-}
+// NewDelayedDataCheckConfig returns a DelayedDataCheckConfig.
+func NewDelayedDataCheckConfig() *DelayedDataCheckConfig {
+	r := &DelayedDataCheckConfig{}
 
-// NewDelayedDataCheckConfig provides a builder for the DelayedDataCheckConfig struct.
-func NewDelayedDataCheckConfigBuilder() *DelayedDataCheckConfigBuilder {
-	r := DelayedDataCheckConfigBuilder{
-		&DelayedDataCheckConfig{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DelayedDataCheckConfig struct
-func (rb *DelayedDataCheckConfigBuilder) Build() DelayedDataCheckConfig {
-	return *rb.v
-}
-
-// CheckWindow The window of time that is searched for late data. This window of time ends
-// with the latest finalized bucket.
-// It defaults to null, which causes an appropriate `check_window` to be
-// calculated when the real-time datafeed runs.
-// In particular, the default `check_window` span calculation is based on the
-// maximum of `2h` or `8 * bucket_span`.
-
-func (rb *DelayedDataCheckConfigBuilder) CheckWindow(checkwindow *DurationBuilder) *DelayedDataCheckConfigBuilder {
-	v := checkwindow.Build()
-	rb.v.CheckWindow = &v
-	return rb
-}
-
-// Enabled Specifies whether the datafeed periodically checks for delayed data.
-
-func (rb *DelayedDataCheckConfigBuilder) Enabled(enabled bool) *DelayedDataCheckConfigBuilder {
-	rb.v.Enabled = enabled
-	return rb
+	return r
 }

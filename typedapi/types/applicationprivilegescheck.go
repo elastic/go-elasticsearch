@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ApplicationPrivilegesCheck type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/security/has_privileges/types.ts#L24-L31
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/has_privileges/types.ts#L24-L31
 type ApplicationPrivilegesCheck struct {
 	// Application The name of the application.
 	Application string `json:"application"`
@@ -36,44 +36,9 @@ type ApplicationPrivilegesCheck struct {
 	Resources []string `json:"resources"`
 }
 
-// ApplicationPrivilegesCheckBuilder holds ApplicationPrivilegesCheck struct and provides a builder API.
-type ApplicationPrivilegesCheckBuilder struct {
-	v *ApplicationPrivilegesCheck
-}
+// NewApplicationPrivilegesCheck returns a ApplicationPrivilegesCheck.
+func NewApplicationPrivilegesCheck() *ApplicationPrivilegesCheck {
+	r := &ApplicationPrivilegesCheck{}
 
-// NewApplicationPrivilegesCheck provides a builder for the ApplicationPrivilegesCheck struct.
-func NewApplicationPrivilegesCheckBuilder() *ApplicationPrivilegesCheckBuilder {
-	r := ApplicationPrivilegesCheckBuilder{
-		&ApplicationPrivilegesCheck{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ApplicationPrivilegesCheck struct
-func (rb *ApplicationPrivilegesCheckBuilder) Build() ApplicationPrivilegesCheck {
-	return *rb.v
-}
-
-// Application The name of the application.
-
-func (rb *ApplicationPrivilegesCheckBuilder) Application(application string) *ApplicationPrivilegesCheckBuilder {
-	rb.v.Application = application
-	return rb
-}
-
-// Privileges A list of the privileges that you want to check for the specified resources.
-// May be either application privilege names, or the names of actions that are
-// granted by those privileges
-
-func (rb *ApplicationPrivilegesCheckBuilder) Privileges(privileges ...string) *ApplicationPrivilegesCheckBuilder {
-	rb.v.Privileges = privileges
-	return rb
-}
-
-// Resources A list of resource names against which the privileges should be checked
-
-func (rb *ApplicationPrivilegesCheckBuilder) Resources(resources ...string) *ApplicationPrivilegesCheckBuilder {
-	rb.v.Resources = resources
-	return rb
+	return r
 }

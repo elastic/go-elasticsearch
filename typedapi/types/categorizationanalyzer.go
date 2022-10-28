@@ -17,41 +17,15 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CategorizationAnalyzer holds the union for the following types:
 //
-//	CategorizationAnalyzerDefinition
 //	string
+//	CategorizationAnalyzerDefinition
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/Analysis.ts#L124-L125
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/Analysis.ts#L124-L125
 type CategorizationAnalyzer interface{}
-
-// CategorizationAnalyzerBuilder holds CategorizationAnalyzer struct and provides a builder API.
-type CategorizationAnalyzerBuilder struct {
-	v CategorizationAnalyzer
-}
-
-// NewCategorizationAnalyzer provides a builder for the CategorizationAnalyzer struct.
-func NewCategorizationAnalyzerBuilder() *CategorizationAnalyzerBuilder {
-	return &CategorizationAnalyzerBuilder{}
-}
-
-// Build finalize the chain and returns the CategorizationAnalyzer struct
-func (u *CategorizationAnalyzerBuilder) Build() CategorizationAnalyzer {
-	return u.v
-}
-
-func (u *CategorizationAnalyzerBuilder) CategorizationAnalyzerDefinition(categorizationanalyzerdefinition *CategorizationAnalyzerDefinitionBuilder) *CategorizationAnalyzerBuilder {
-	v := categorizationanalyzerdefinition.Build()
-	u.v = &v
-	return u
-}
-
-func (u *CategorizationAnalyzerBuilder) String(string string) *CategorizationAnalyzerBuilder {
-	u.v = &string
-	return u
-}

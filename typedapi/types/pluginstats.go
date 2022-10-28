@@ -17,92 +17,30 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // PluginStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/Stats.ts#L137-L148
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Stats.ts#L137-L148
 type PluginStats struct {
-	Classname            string        `json:"classname"`
-	Description          string        `json:"description"`
-	ElasticsearchVersion VersionString `json:"elasticsearch_version"`
-	ExtendedPlugins      []string      `json:"extended_plugins"`
-	HasNativeController  bool          `json:"has_native_controller"`
-	JavaVersion          VersionString `json:"java_version"`
-	Licensed             bool          `json:"licensed"`
-	Name                 Name          `json:"name"`
-	Type                 string        `json:"type"`
-	Version              VersionString `json:"version"`
+	Classname            string   `json:"classname"`
+	Description          string   `json:"description"`
+	ElasticsearchVersion string   `json:"elasticsearch_version"`
+	ExtendedPlugins      []string `json:"extended_plugins"`
+	HasNativeController  bool     `json:"has_native_controller"`
+	JavaVersion          string   `json:"java_version"`
+	Licensed             bool     `json:"licensed"`
+	Name                 string   `json:"name"`
+	Type                 string   `json:"type"`
+	Version              string   `json:"version"`
 }
 
-// PluginStatsBuilder holds PluginStats struct and provides a builder API.
-type PluginStatsBuilder struct {
-	v *PluginStats
-}
+// NewPluginStats returns a PluginStats.
+func NewPluginStats() *PluginStats {
+	r := &PluginStats{}
 
-// NewPluginStats provides a builder for the PluginStats struct.
-func NewPluginStatsBuilder() *PluginStatsBuilder {
-	r := PluginStatsBuilder{
-		&PluginStats{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the PluginStats struct
-func (rb *PluginStatsBuilder) Build() PluginStats {
-	return *rb.v
-}
-
-func (rb *PluginStatsBuilder) Classname(classname string) *PluginStatsBuilder {
-	rb.v.Classname = classname
-	return rb
-}
-
-func (rb *PluginStatsBuilder) Description(description string) *PluginStatsBuilder {
-	rb.v.Description = description
-	return rb
-}
-
-func (rb *PluginStatsBuilder) ElasticsearchVersion(elasticsearchversion VersionString) *PluginStatsBuilder {
-	rb.v.ElasticsearchVersion = elasticsearchversion
-	return rb
-}
-
-func (rb *PluginStatsBuilder) ExtendedPlugins(extended_plugins ...string) *PluginStatsBuilder {
-	rb.v.ExtendedPlugins = extended_plugins
-	return rb
-}
-
-func (rb *PluginStatsBuilder) HasNativeController(hasnativecontroller bool) *PluginStatsBuilder {
-	rb.v.HasNativeController = hasnativecontroller
-	return rb
-}
-
-func (rb *PluginStatsBuilder) JavaVersion(javaversion VersionString) *PluginStatsBuilder {
-	rb.v.JavaVersion = javaversion
-	return rb
-}
-
-func (rb *PluginStatsBuilder) Licensed(licensed bool) *PluginStatsBuilder {
-	rb.v.Licensed = licensed
-	return rb
-}
-
-func (rb *PluginStatsBuilder) Name(name Name) *PluginStatsBuilder {
-	rb.v.Name = name
-	return rb
-}
-
-func (rb *PluginStatsBuilder) Type_(type_ string) *PluginStatsBuilder {
-	rb.v.Type = type_
-	return rb
-}
-
-func (rb *PluginStatsBuilder) Version(version VersionString) *PluginStatsBuilder {
-	rb.v.Version = version
-	return rb
+	return r
 }

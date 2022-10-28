@@ -17,58 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // UnmappedSignificantTermsAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L594-L600
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L609-L615
 type UnmappedSignificantTermsAggregate struct {
-	BgCount  *int64      `json:"bg_count,omitempty"`
-	Buckets  BucketsVoid `json:"buckets"`
-	DocCount *int64      `json:"doc_count,omitempty"`
-	Meta     *Metadata   `json:"meta,omitempty"`
+	BgCount  *int64                 `json:"bg_count,omitempty"`
+	Buckets  BucketsVoid            `json:"buckets"`
+	DocCount *int64                 `json:"doc_count,omitempty"`
+	Meta     map[string]interface{} `json:"meta,omitempty"`
 }
 
-// UnmappedSignificantTermsAggregateBuilder holds UnmappedSignificantTermsAggregate struct and provides a builder API.
-type UnmappedSignificantTermsAggregateBuilder struct {
-	v *UnmappedSignificantTermsAggregate
-}
+// NewUnmappedSignificantTermsAggregate returns a UnmappedSignificantTermsAggregate.
+func NewUnmappedSignificantTermsAggregate() *UnmappedSignificantTermsAggregate {
+	r := &UnmappedSignificantTermsAggregate{}
 
-// NewUnmappedSignificantTermsAggregate provides a builder for the UnmappedSignificantTermsAggregate struct.
-func NewUnmappedSignificantTermsAggregateBuilder() *UnmappedSignificantTermsAggregateBuilder {
-	r := UnmappedSignificantTermsAggregateBuilder{
-		&UnmappedSignificantTermsAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the UnmappedSignificantTermsAggregate struct
-func (rb *UnmappedSignificantTermsAggregateBuilder) Build() UnmappedSignificantTermsAggregate {
-	return *rb.v
-}
-
-func (rb *UnmappedSignificantTermsAggregateBuilder) BgCount(bgcount int64) *UnmappedSignificantTermsAggregateBuilder {
-	rb.v.BgCount = &bgcount
-	return rb
-}
-
-func (rb *UnmappedSignificantTermsAggregateBuilder) Buckets(buckets *BucketsVoidBuilder) *UnmappedSignificantTermsAggregateBuilder {
-	v := buckets.Build()
-	rb.v.Buckets = v
-	return rb
-}
-
-func (rb *UnmappedSignificantTermsAggregateBuilder) DocCount(doccount int64) *UnmappedSignificantTermsAggregateBuilder {
-	rb.v.DocCount = &doccount
-	return rb
-}
-
-func (rb *UnmappedSignificantTermsAggregateBuilder) Meta(meta *MetadataBuilder) *UnmappedSignificantTermsAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
+	return r
 }

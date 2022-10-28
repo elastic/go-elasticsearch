@@ -17,106 +17,33 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ApiKey type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/security/_types/ApiKey.ts#L27-L41
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/_types/ApiKey.ts#L27-L41
 type ApiKey struct {
 	Creation        *int64                      `json:"creation,omitempty"`
 	Expiration      *int64                      `json:"expiration,omitempty"`
-	Id              Id                          `json:"id"`
+	Id              string                      `json:"id"`
 	Invalidated     *bool                       `json:"invalidated,omitempty"`
 	LimitedBy       []map[string]RoleDescriptor `json:"limited_by,omitempty"`
-	Metadata        *Metadata                   `json:"metadata,omitempty"`
-	Name            Name                        `json:"name"`
+	Metadata        map[string]interface{}      `json:"metadata,omitempty"`
+	Name            string                      `json:"name"`
 	Realm           *string                     `json:"realm,omitempty"`
 	RoleDescriptors map[string]RoleDescriptor   `json:"role_descriptors,omitempty"`
-	Sort_           *SortResults                `json:"_sort,omitempty"`
-	Username        *Username                   `json:"username,omitempty"`
+	Sort_           []FieldValue                `json:"_sort,omitempty"`
+	Username        *string                     `json:"username,omitempty"`
 }
 
-// ApiKeyBuilder holds ApiKey struct and provides a builder API.
-type ApiKeyBuilder struct {
-	v *ApiKey
-}
-
-// NewApiKey provides a builder for the ApiKey struct.
-func NewApiKeyBuilder() *ApiKeyBuilder {
-	r := ApiKeyBuilder{
-		&ApiKey{
-			RoleDescriptors: make(map[string]RoleDescriptor, 0),
-		},
+// NewApiKey returns a ApiKey.
+func NewApiKey() *ApiKey {
+	r := &ApiKey{
+		RoleDescriptors: make(map[string]RoleDescriptor, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the ApiKey struct
-func (rb *ApiKeyBuilder) Build() ApiKey {
-	return *rb.v
-}
-
-func (rb *ApiKeyBuilder) Creation(creation int64) *ApiKeyBuilder {
-	rb.v.Creation = &creation
-	return rb
-}
-
-func (rb *ApiKeyBuilder) Expiration(expiration int64) *ApiKeyBuilder {
-	rb.v.Expiration = &expiration
-	return rb
-}
-
-func (rb *ApiKeyBuilder) Id(id Id) *ApiKeyBuilder {
-	rb.v.Id = id
-	return rb
-}
-
-func (rb *ApiKeyBuilder) Invalidated(invalidated bool) *ApiKeyBuilder {
-	rb.v.Invalidated = &invalidated
-	return rb
-}
-
-func (rb *ApiKeyBuilder) LimitedBy(value ...map[string]RoleDescriptor) *ApiKeyBuilder {
-	rb.v.LimitedBy = value
-	return rb
-}
-
-func (rb *ApiKeyBuilder) Metadata(metadata *MetadataBuilder) *ApiKeyBuilder {
-	v := metadata.Build()
-	rb.v.Metadata = &v
-	return rb
-}
-
-func (rb *ApiKeyBuilder) Name(name Name) *ApiKeyBuilder {
-	rb.v.Name = name
-	return rb
-}
-
-func (rb *ApiKeyBuilder) Realm(realm string) *ApiKeyBuilder {
-	rb.v.Realm = &realm
-	return rb
-}
-
-func (rb *ApiKeyBuilder) RoleDescriptors(values map[string]*RoleDescriptorBuilder) *ApiKeyBuilder {
-	tmp := make(map[string]RoleDescriptor, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.RoleDescriptors = tmp
-	return rb
-}
-
-func (rb *ApiKeyBuilder) Sort_(sort_ *SortResultsBuilder) *ApiKeyBuilder {
-	v := sort_.Build()
-	rb.v.Sort_ = &v
-	return rb
-}
-
-func (rb *ApiKeyBuilder) Username(username Username) *ApiKeyBuilder {
-	rb.v.Username = &username
-	return rb
+	return r
 }

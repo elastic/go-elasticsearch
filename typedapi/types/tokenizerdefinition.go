@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -26,117 +26,48 @@ package types
 //
 //	CharGroupTokenizer
 //	EdgeNGramTokenizer
-//	IcuTokenizer
 //	KeywordTokenizer
-//	KuromojiTokenizer
 //	LetterTokenizer
 //	LowercaseTokenizer
 //	NGramTokenizer
 //	NoriTokenizer
 //	PathHierarchyTokenizer
-//	PatternTokenizer
 //	StandardTokenizer
 //	UaxEmailUrlTokenizer
 //	WhitespaceTokenizer
+//	KuromojiTokenizer
+//	PatternTokenizer
+//	IcuTokenizer
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/tokenizers.ts#L123-L141
-type TokenizerDefinition interface{}
-
-// TokenizerDefinitionBuilder holds TokenizerDefinition struct and provides a builder API.
-type TokenizerDefinitionBuilder struct {
-	v TokenizerDefinition
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/tokenizers.ts#L123-L141
+type TokenizerDefinition interface {
+	isTokenizerDefinition()
 }
 
-// NewTokenizerDefinition provides a builder for the TokenizerDefinition struct.
-func NewTokenizerDefinitionBuilder() *TokenizerDefinitionBuilder {
-	return &TokenizerDefinitionBuilder{}
-}
+func (i CharGroupTokenizer) isTokenizerDefinition() {}
 
-// Build finalize the chain and returns the TokenizerDefinition struct
-func (u *TokenizerDefinitionBuilder) Build() TokenizerDefinition {
-	return u.v
-}
+func (i EdgeNGramTokenizer) isTokenizerDefinition() {}
 
-func (u *TokenizerDefinitionBuilder) CharGroupTokenizer(chargrouptokenizer *CharGroupTokenizerBuilder) *TokenizerDefinitionBuilder {
-	v := chargrouptokenizer.Build()
-	u.v = &v
-	return u
-}
+func (i KeywordTokenizer) isTokenizerDefinition() {}
 
-func (u *TokenizerDefinitionBuilder) EdgeNGramTokenizer(edgengramtokenizer *EdgeNGramTokenizerBuilder) *TokenizerDefinitionBuilder {
-	v := edgengramtokenizer.Build()
-	u.v = &v
-	return u
-}
+func (i LetterTokenizer) isTokenizerDefinition() {}
 
-func (u *TokenizerDefinitionBuilder) IcuTokenizer(icutokenizer *IcuTokenizerBuilder) *TokenizerDefinitionBuilder {
-	v := icutokenizer.Build()
-	u.v = &v
-	return u
-}
+func (i LowercaseTokenizer) isTokenizerDefinition() {}
 
-func (u *TokenizerDefinitionBuilder) KeywordTokenizer(keywordtokenizer *KeywordTokenizerBuilder) *TokenizerDefinitionBuilder {
-	v := keywordtokenizer.Build()
-	u.v = &v
-	return u
-}
+func (i NGramTokenizer) isTokenizerDefinition() {}
 
-func (u *TokenizerDefinitionBuilder) KuromojiTokenizer(kuromojitokenizer *KuromojiTokenizerBuilder) *TokenizerDefinitionBuilder {
-	v := kuromojitokenizer.Build()
-	u.v = &v
-	return u
-}
+func (i NoriTokenizer) isTokenizerDefinition() {}
 
-func (u *TokenizerDefinitionBuilder) LetterTokenizer(lettertokenizer *LetterTokenizerBuilder) *TokenizerDefinitionBuilder {
-	v := lettertokenizer.Build()
-	u.v = &v
-	return u
-}
+func (i PathHierarchyTokenizer) isTokenizerDefinition() {}
 
-func (u *TokenizerDefinitionBuilder) LowercaseTokenizer(lowercasetokenizer *LowercaseTokenizerBuilder) *TokenizerDefinitionBuilder {
-	v := lowercasetokenizer.Build()
-	u.v = &v
-	return u
-}
+func (i StandardTokenizer) isTokenizerDefinition() {}
 
-func (u *TokenizerDefinitionBuilder) NGramTokenizer(ngramtokenizer *NGramTokenizerBuilder) *TokenizerDefinitionBuilder {
-	v := ngramtokenizer.Build()
-	u.v = &v
-	return u
-}
+func (i UaxEmailUrlTokenizer) isTokenizerDefinition() {}
 
-func (u *TokenizerDefinitionBuilder) NoriTokenizer(noritokenizer *NoriTokenizerBuilder) *TokenizerDefinitionBuilder {
-	v := noritokenizer.Build()
-	u.v = &v
-	return u
-}
+func (i WhitespaceTokenizer) isTokenizerDefinition() {}
 
-func (u *TokenizerDefinitionBuilder) PathHierarchyTokenizer(pathhierarchytokenizer *PathHierarchyTokenizerBuilder) *TokenizerDefinitionBuilder {
-	v := pathhierarchytokenizer.Build()
-	u.v = &v
-	return u
-}
+func (i KuromojiTokenizer) isTokenizerDefinition() {}
 
-func (u *TokenizerDefinitionBuilder) PatternTokenizer(patterntokenizer *PatternTokenizerBuilder) *TokenizerDefinitionBuilder {
-	v := patterntokenizer.Build()
-	u.v = &v
-	return u
-}
+func (i PatternTokenizer) isTokenizerDefinition() {}
 
-func (u *TokenizerDefinitionBuilder) StandardTokenizer(standardtokenizer *StandardTokenizerBuilder) *TokenizerDefinitionBuilder {
-	v := standardtokenizer.Build()
-	u.v = &v
-	return u
-}
-
-func (u *TokenizerDefinitionBuilder) UaxEmailUrlTokenizer(uaxemailurltokenizer *UaxEmailUrlTokenizerBuilder) *TokenizerDefinitionBuilder {
-	v := uaxemailurltokenizer.Build()
-	u.v = &v
-	return u
-}
-
-func (u *TokenizerDefinitionBuilder) WhitespaceTokenizer(whitespacetokenizer *WhitespaceTokenizerBuilder) *TokenizerDefinitionBuilder {
-	v := whitespacetokenizer.Build()
-	u.v = &v
-	return u
-}
+func (i IcuTokenizer) isTokenizerDefinition() {}

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // TrainedModelDeploymentAllocationStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/TrainedModel.ts#L370-L377
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/TrainedModel.ts#L370-L377
 type TrainedModelDeploymentAllocationStatus struct {
 	// AllocationCount The current number of nodes where the model is allocated.
 	AllocationCount int `json:"allocation_count"`
@@ -38,42 +38,9 @@ type TrainedModelDeploymentAllocationStatus struct {
 	TargetAllocationCount int `json:"target_allocation_count"`
 }
 
-// TrainedModelDeploymentAllocationStatusBuilder holds TrainedModelDeploymentAllocationStatus struct and provides a builder API.
-type TrainedModelDeploymentAllocationStatusBuilder struct {
-	v *TrainedModelDeploymentAllocationStatus
-}
+// NewTrainedModelDeploymentAllocationStatus returns a TrainedModelDeploymentAllocationStatus.
+func NewTrainedModelDeploymentAllocationStatus() *TrainedModelDeploymentAllocationStatus {
+	r := &TrainedModelDeploymentAllocationStatus{}
 
-// NewTrainedModelDeploymentAllocationStatus provides a builder for the TrainedModelDeploymentAllocationStatus struct.
-func NewTrainedModelDeploymentAllocationStatusBuilder() *TrainedModelDeploymentAllocationStatusBuilder {
-	r := TrainedModelDeploymentAllocationStatusBuilder{
-		&TrainedModelDeploymentAllocationStatus{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TrainedModelDeploymentAllocationStatus struct
-func (rb *TrainedModelDeploymentAllocationStatusBuilder) Build() TrainedModelDeploymentAllocationStatus {
-	return *rb.v
-}
-
-// AllocationCount The current number of nodes where the model is allocated.
-
-func (rb *TrainedModelDeploymentAllocationStatusBuilder) AllocationCount(allocationcount int) *TrainedModelDeploymentAllocationStatusBuilder {
-	rb.v.AllocationCount = allocationcount
-	return rb
-}
-
-// State The detailed allocation state related to the nodes.
-
-func (rb *TrainedModelDeploymentAllocationStatusBuilder) State(state deploymentallocationstate.DeploymentAllocationState) *TrainedModelDeploymentAllocationStatusBuilder {
-	rb.v.State = state
-	return rb
-}
-
-// TargetAllocationCount The desired number of nodes for model allocation.
-
-func (rb *TrainedModelDeploymentAllocationStatusBuilder) TargetAllocationCount(targetallocationcount int) *TrainedModelDeploymentAllocationStatusBuilder {
-	rb.v.TargetAllocationCount = targetallocationcount
-	return rb
+	return r
 }

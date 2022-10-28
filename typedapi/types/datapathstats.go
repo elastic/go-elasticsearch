@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataPathStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/_types/Stats.ts#L223-L240
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L223-L240
 type DataPathStats struct {
 	Available            *string `json:"available,omitempty"`
 	AvailableInBytes     *int64  `json:"available_in_bytes,omitempty"`
@@ -44,101 +44,9 @@ type DataPathStats struct {
 	Type                 *string `json:"type,omitempty"`
 }
 
-// DataPathStatsBuilder holds DataPathStats struct and provides a builder API.
-type DataPathStatsBuilder struct {
-	v *DataPathStats
-}
+// NewDataPathStats returns a DataPathStats.
+func NewDataPathStats() *DataPathStats {
+	r := &DataPathStats{}
 
-// NewDataPathStats provides a builder for the DataPathStats struct.
-func NewDataPathStatsBuilder() *DataPathStatsBuilder {
-	r := DataPathStatsBuilder{
-		&DataPathStats{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataPathStats struct
-func (rb *DataPathStatsBuilder) Build() DataPathStats {
-	return *rb.v
-}
-
-func (rb *DataPathStatsBuilder) Available(available string) *DataPathStatsBuilder {
-	rb.v.Available = &available
-	return rb
-}
-
-func (rb *DataPathStatsBuilder) AvailableInBytes(availableinbytes int64) *DataPathStatsBuilder {
-	rb.v.AvailableInBytes = &availableinbytes
-	return rb
-}
-
-func (rb *DataPathStatsBuilder) DiskQueue(diskqueue string) *DataPathStatsBuilder {
-	rb.v.DiskQueue = &diskqueue
-	return rb
-}
-
-func (rb *DataPathStatsBuilder) DiskReadSize(diskreadsize string) *DataPathStatsBuilder {
-	rb.v.DiskReadSize = &diskreadsize
-	return rb
-}
-
-func (rb *DataPathStatsBuilder) DiskReadSizeInBytes(diskreadsizeinbytes int64) *DataPathStatsBuilder {
-	rb.v.DiskReadSizeInBytes = &diskreadsizeinbytes
-	return rb
-}
-
-func (rb *DataPathStatsBuilder) DiskReads(diskreads int64) *DataPathStatsBuilder {
-	rb.v.DiskReads = &diskreads
-	return rb
-}
-
-func (rb *DataPathStatsBuilder) DiskWriteSize(diskwritesize string) *DataPathStatsBuilder {
-	rb.v.DiskWriteSize = &diskwritesize
-	return rb
-}
-
-func (rb *DataPathStatsBuilder) DiskWriteSizeInBytes(diskwritesizeinbytes int64) *DataPathStatsBuilder {
-	rb.v.DiskWriteSizeInBytes = &diskwritesizeinbytes
-	return rb
-}
-
-func (rb *DataPathStatsBuilder) DiskWrites(diskwrites int64) *DataPathStatsBuilder {
-	rb.v.DiskWrites = &diskwrites
-	return rb
-}
-
-func (rb *DataPathStatsBuilder) Free(free string) *DataPathStatsBuilder {
-	rb.v.Free = &free
-	return rb
-}
-
-func (rb *DataPathStatsBuilder) FreeInBytes(freeinbytes int64) *DataPathStatsBuilder {
-	rb.v.FreeInBytes = &freeinbytes
-	return rb
-}
-
-func (rb *DataPathStatsBuilder) Mount(mount string) *DataPathStatsBuilder {
-	rb.v.Mount = &mount
-	return rb
-}
-
-func (rb *DataPathStatsBuilder) Path(path string) *DataPathStatsBuilder {
-	rb.v.Path = &path
-	return rb
-}
-
-func (rb *DataPathStatsBuilder) Total(total string) *DataPathStatsBuilder {
-	rb.v.Total = &total
-	return rb
-}
-
-func (rb *DataPathStatsBuilder) TotalInBytes(totalinbytes int64) *DataPathStatsBuilder {
-	rb.v.TotalInBytes = &totalinbytes
-	return rb
-}
-
-func (rb *DataPathStatsBuilder) Type_(type_ string) *DataPathStatsBuilder {
-	rb.v.Type = &type_
-	return rb
+	return r
 }

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeAnalyticsStatsMemoryUsage type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/DataframeAnalytics.ts#L350-L359
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/DataframeAnalytics.ts#L350-L359
 type DataframeAnalyticsStatsMemoryUsage struct {
 	// MemoryReestimateBytes This value is present when the status is hard_limit and it is a new estimate
 	// of how much memory the job needs.
@@ -34,54 +34,12 @@ type DataframeAnalyticsStatsMemoryUsage struct {
 	// Status The memory usage status.
 	Status string `json:"status"`
 	// Timestamp The timestamp when memory usage was calculated.
-	Timestamp *EpochTimeUnitMillis `json:"timestamp,omitempty"`
+	Timestamp *int64 `json:"timestamp,omitempty"`
 }
 
-// DataframeAnalyticsStatsMemoryUsageBuilder holds DataframeAnalyticsStatsMemoryUsage struct and provides a builder API.
-type DataframeAnalyticsStatsMemoryUsageBuilder struct {
-	v *DataframeAnalyticsStatsMemoryUsage
-}
+// NewDataframeAnalyticsStatsMemoryUsage returns a DataframeAnalyticsStatsMemoryUsage.
+func NewDataframeAnalyticsStatsMemoryUsage() *DataframeAnalyticsStatsMemoryUsage {
+	r := &DataframeAnalyticsStatsMemoryUsage{}
 
-// NewDataframeAnalyticsStatsMemoryUsage provides a builder for the DataframeAnalyticsStatsMemoryUsage struct.
-func NewDataframeAnalyticsStatsMemoryUsageBuilder() *DataframeAnalyticsStatsMemoryUsageBuilder {
-	r := DataframeAnalyticsStatsMemoryUsageBuilder{
-		&DataframeAnalyticsStatsMemoryUsage{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeAnalyticsStatsMemoryUsage struct
-func (rb *DataframeAnalyticsStatsMemoryUsageBuilder) Build() DataframeAnalyticsStatsMemoryUsage {
-	return *rb.v
-}
-
-// MemoryReestimateBytes This value is present when the status is hard_limit and it is a new estimate
-// of how much memory the job needs.
-
-func (rb *DataframeAnalyticsStatsMemoryUsageBuilder) MemoryReestimateBytes(memoryreestimatebytes int64) *DataframeAnalyticsStatsMemoryUsageBuilder {
-	rb.v.MemoryReestimateBytes = &memoryreestimatebytes
-	return rb
-}
-
-// PeakUsageBytes The number of bytes used at the highest peak of memory usage.
-
-func (rb *DataframeAnalyticsStatsMemoryUsageBuilder) PeakUsageBytes(peakusagebytes int64) *DataframeAnalyticsStatsMemoryUsageBuilder {
-	rb.v.PeakUsageBytes = peakusagebytes
-	return rb
-}
-
-// Status The memory usage status.
-
-func (rb *DataframeAnalyticsStatsMemoryUsageBuilder) Status(status string) *DataframeAnalyticsStatsMemoryUsageBuilder {
-	rb.v.Status = status
-	return rb
-}
-
-// Timestamp The timestamp when memory usage was calculated.
-
-func (rb *DataframeAnalyticsStatsMemoryUsageBuilder) Timestamp(timestamp *EpochTimeUnitMillisBuilder) *DataframeAnalyticsStatsMemoryUsageBuilder {
-	v := timestamp.Build()
-	rb.v.Timestamp = &v
-	return rb
+	return r
 }

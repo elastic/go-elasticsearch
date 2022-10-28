@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,14 +29,14 @@ import (
 
 // SignificantLongTermsBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L581-L584
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L596-L599
 type SignificantLongTermsBucket struct {
-	Aggregations map[AggregateName]Aggregate `json:"-"`
-	BgCount      int64                       `json:"bg_count"`
-	DocCount     int64                       `json:"doc_count"`
-	Key          int64                       `json:"key"`
-	KeyAsString  *string                     `json:"key_as_string,omitempty"`
-	Score        float64                     `json:"score"`
+	Aggregations map[string]Aggregate `json:"-"`
+	BgCount      int64                `json:"bg_count"`
+	DocCount     int64                `json:"doc_count"`
+	Key          int64                `json:"key"`
+	KeyAsString  *string              `json:"key_as_string,omitempty"`
+	Score        float64              `json:"score"`
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -67,57 +67,11 @@ func (s SignificantLongTermsBucket) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// SignificantLongTermsBucketBuilder holds SignificantLongTermsBucket struct and provides a builder API.
-type SignificantLongTermsBucketBuilder struct {
-	v *SignificantLongTermsBucket
-}
-
-// NewSignificantLongTermsBucket provides a builder for the SignificantLongTermsBucket struct.
-func NewSignificantLongTermsBucketBuilder() *SignificantLongTermsBucketBuilder {
-	r := SignificantLongTermsBucketBuilder{
-		&SignificantLongTermsBucket{
-			Aggregations: make(map[AggregateName]Aggregate, 0),
-		},
+// NewSignificantLongTermsBucket returns a SignificantLongTermsBucket.
+func NewSignificantLongTermsBucket() *SignificantLongTermsBucket {
+	r := &SignificantLongTermsBucket{
+		Aggregations: make(map[string]Aggregate, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the SignificantLongTermsBucket struct
-func (rb *SignificantLongTermsBucketBuilder) Build() SignificantLongTermsBucket {
-	return *rb.v
-}
-
-func (rb *SignificantLongTermsBucketBuilder) Aggregations(values map[AggregateName]*AggregateBuilder) *SignificantLongTermsBucketBuilder {
-	tmp := make(map[AggregateName]Aggregate, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Aggregations = tmp
-	return rb
-}
-
-func (rb *SignificantLongTermsBucketBuilder) BgCount(bgcount int64) *SignificantLongTermsBucketBuilder {
-	rb.v.BgCount = bgcount
-	return rb
-}
-
-func (rb *SignificantLongTermsBucketBuilder) DocCount(doccount int64) *SignificantLongTermsBucketBuilder {
-	rb.v.DocCount = doccount
-	return rb
-}
-
-func (rb *SignificantLongTermsBucketBuilder) Key(key int64) *SignificantLongTermsBucketBuilder {
-	rb.v.Key = key
-	return rb
-}
-
-func (rb *SignificantLongTermsBucketBuilder) KeyAsString(keyasstring string) *SignificantLongTermsBucketBuilder {
-	rb.v.KeyAsString = &keyasstring
-	return rb
-}
-
-func (rb *SignificantLongTermsBucketBuilder) Score(score float64) *SignificantLongTermsBucketBuilder {
-	rb.v.Score = score
-	return rb
+	return r
 }

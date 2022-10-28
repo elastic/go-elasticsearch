@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Settings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/transform/_types/Transform.ts#L98-L143
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/transform/_types/Transform.ts#L98-L143
 type Settings struct {
 	// AlignCheckpoints Specifies whether the transform checkpoint ranges should be optimized for
 	// performance. Such optimization can align
@@ -61,84 +61,9 @@ type Settings struct {
 	Unattended *bool `json:"unattended,omitempty"`
 }
 
-// SettingsBuilder holds Settings struct and provides a builder API.
-type SettingsBuilder struct {
-	v *Settings
-}
+// NewSettings returns a Settings.
+func NewSettings() *Settings {
+	r := &Settings{}
 
-// NewSettings provides a builder for the Settings struct.
-func NewSettingsBuilder() *SettingsBuilder {
-	r := SettingsBuilder{
-		&Settings{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Settings struct
-func (rb *SettingsBuilder) Build() Settings {
-	return *rb.v
-}
-
-// AlignCheckpoints Specifies whether the transform checkpoint ranges should be optimized for
-// performance. Such optimization can align
-// checkpoint ranges with the date histogram interval when date histogram is
-// specified as a group source in the
-// transform config. As a result, less document updates in the destination index
-// will be performed thus improving
-// overall performance.
-
-func (rb *SettingsBuilder) AlignCheckpoints(aligncheckpoints bool) *SettingsBuilder {
-	rb.v.AlignCheckpoints = &aligncheckpoints
-	return rb
-}
-
-// DatesAsEpochMillis Defines if dates in the ouput should be written as ISO formatted string or as
-// millis since epoch. epoch_millis was
-// the default for transforms created before version 7.11. For compatible output
-// set this value to `true`.
-
-func (rb *SettingsBuilder) DatesAsEpochMillis(datesasepochmillis bool) *SettingsBuilder {
-	rb.v.DatesAsEpochMillis = &datesasepochmillis
-	return rb
-}
-
-// DeduceMappings Specifies whether the transform should deduce the destination index mappings
-// from the transform configuration.
-
-func (rb *SettingsBuilder) DeduceMappings(deducemappings bool) *SettingsBuilder {
-	rb.v.DeduceMappings = &deducemappings
-	return rb
-}
-
-// DocsPerSecond Specifies a limit on the number of input documents per second. This setting
-// throttles the transform by adding a
-// wait time between search requests. The default value is null, which disables
-// throttling.
-
-func (rb *SettingsBuilder) DocsPerSecond(docspersecond float32) *SettingsBuilder {
-	rb.v.DocsPerSecond = &docspersecond
-	return rb
-}
-
-// MaxPageSearchSize Defines the initial page size to use for the composite aggregation for each
-// checkpoint. If circuit breaker
-// exceptions occur, the page size is dynamically adjusted to a lower value. The
-// minimum value is `10` and the
-// maximum is `65,536`.
-
-func (rb *SettingsBuilder) MaxPageSearchSize(maxpagesearchsize int) *SettingsBuilder {
-	rb.v.MaxPageSearchSize = &maxpagesearchsize
-	return rb
-}
-
-// Unattended If `true`, the transform runs in unattended mode. In unattended mode, the
-// transform retries indefinitely in case
-// of an error which means the transform never fails. Setting the number of
-// retries other than infinite fails in
-// validation.
-
-func (rb *SettingsBuilder) Unattended(unattended bool) *SettingsBuilder {
-	rb.v.Unattended = &unattended
-	return rb
+	return r
 }

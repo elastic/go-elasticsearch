@@ -17,51 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // EmailResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/watcher/_types/Actions.ts#L205-L209
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Actions.ts#L205-L209
 type EmailResult struct {
 	Account *string `json:"account,omitempty"`
 	Message Email   `json:"message"`
 	Reason  *string `json:"reason,omitempty"`
 }
 
-// EmailResultBuilder holds EmailResult struct and provides a builder API.
-type EmailResultBuilder struct {
-	v *EmailResult
-}
+// NewEmailResult returns a EmailResult.
+func NewEmailResult() *EmailResult {
+	r := &EmailResult{}
 
-// NewEmailResult provides a builder for the EmailResult struct.
-func NewEmailResultBuilder() *EmailResultBuilder {
-	r := EmailResultBuilder{
-		&EmailResult{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the EmailResult struct
-func (rb *EmailResultBuilder) Build() EmailResult {
-	return *rb.v
-}
-
-func (rb *EmailResultBuilder) Account(account string) *EmailResultBuilder {
-	rb.v.Account = &account
-	return rb
-}
-
-func (rb *EmailResultBuilder) Message(message *EmailBuilder) *EmailResultBuilder {
-	v := message.Build()
-	rb.v.Message = v
-	return rb
-}
-
-func (rb *EmailResultBuilder) Reason(reason string) *EmailResultBuilder {
-	rb.v.Reason = &reason
-	return rb
+	return r
 }

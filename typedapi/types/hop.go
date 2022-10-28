@@ -17,56 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Hop type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/graph/_types/Hop.ts#L23-L27
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/graph/_types/Hop.ts#L23-L27
 type Hop struct {
 	Connections *Hop               `json:"connections,omitempty"`
-	Query       QueryContainer     `json:"query"`
+	Query       Query              `json:"query"`
 	Vertices    []VertexDefinition `json:"vertices"`
 }
 
-// HopBuilder holds Hop struct and provides a builder API.
-type HopBuilder struct {
-	v *Hop
-}
+// NewHop returns a Hop.
+func NewHop() *Hop {
+	r := &Hop{}
 
-// NewHop provides a builder for the Hop struct.
-func NewHopBuilder() *HopBuilder {
-	r := HopBuilder{
-		&Hop{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Hop struct
-func (rb *HopBuilder) Build() Hop {
-	return *rb.v
-}
-
-func (rb *HopBuilder) Connections(connections *HopBuilder) *HopBuilder {
-	v := connections.Build()
-	rb.v.Connections = &v
-	return rb
-}
-
-func (rb *HopBuilder) Query(query *QueryContainerBuilder) *HopBuilder {
-	v := query.Build()
-	rb.v.Query = v
-	return rb
-}
-
-func (rb *HopBuilder) Vertices(vertices []VertexDefinitionBuilder) *HopBuilder {
-	tmp := make([]VertexDefinition, len(vertices))
-	for _, value := range vertices {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Vertices = tmp
-	return rb
+	return r
 }

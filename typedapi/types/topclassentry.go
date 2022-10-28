@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TopClassEntry type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/inference.ts#L393-L397
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/inference.ts#L393-L397
 type TopClassEntry struct {
 	ClassName        string  `json:"class_name"`
 	ClassProbability float64 `json:"class_probability"`
 	ClassScore       float64 `json:"class_score"`
 }
 
-// TopClassEntryBuilder holds TopClassEntry struct and provides a builder API.
-type TopClassEntryBuilder struct {
-	v *TopClassEntry
-}
+// NewTopClassEntry returns a TopClassEntry.
+func NewTopClassEntry() *TopClassEntry {
+	r := &TopClassEntry{}
 
-// NewTopClassEntry provides a builder for the TopClassEntry struct.
-func NewTopClassEntryBuilder() *TopClassEntryBuilder {
-	r := TopClassEntryBuilder{
-		&TopClassEntry{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TopClassEntry struct
-func (rb *TopClassEntryBuilder) Build() TopClassEntry {
-	return *rb.v
-}
-
-func (rb *TopClassEntryBuilder) ClassName(classname string) *TopClassEntryBuilder {
-	rb.v.ClassName = classname
-	return rb
-}
-
-func (rb *TopClassEntryBuilder) ClassProbability(classprobability float64) *TopClassEntryBuilder {
-	rb.v.ClassProbability = classprobability
-	return rb
-}
-
-func (rb *TopClassEntryBuilder) ClassScore(classscore float64) *TopClassEntryBuilder {
-	rb.v.ClassScore = classscore
-	return rb
+	return r
 }

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 // Searches a vector tile for geospatial values. Returns results as a binary
@@ -187,8 +187,12 @@ func (r *SearchMvt) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	if req.Header.Get("Content-Type") == "" {
 		if r.buf.Len() > 0 {
-			req.Header.Set("Content-Type", "application/vnd.elasticsearch+json;compatible-with=8")
+			req.Header.Set("Content-Type", "application/json")
 		}
+	}
+
+	if req.Header.Get("Accept") == "" {
+		req.Header.Set("Accept", "application/vnd.mapbox-vector-tile")
 	}
 
 	if err != nil {

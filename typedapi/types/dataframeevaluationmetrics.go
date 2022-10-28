@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeEvaluationMetrics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/DataframeEvaluation.ts#L64-L71
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/DataframeEvaluation.ts#L64-L71
 type DataframeEvaluationMetrics struct {
 	// AucRoc The AUC ROC (area under the curve of the receiver operating characteristic)
 	// score and optionally the curve. It is calculated for a specific class
@@ -36,48 +36,12 @@ type DataframeEvaluationMetrics struct {
 	Recall map[string]interface{} `json:"recall,omitempty"`
 }
 
-// DataframeEvaluationMetricsBuilder holds DataframeEvaluationMetrics struct and provides a builder API.
-type DataframeEvaluationMetricsBuilder struct {
-	v *DataframeEvaluationMetrics
-}
-
-// NewDataframeEvaluationMetrics provides a builder for the DataframeEvaluationMetrics struct.
-func NewDataframeEvaluationMetricsBuilder() *DataframeEvaluationMetricsBuilder {
-	r := DataframeEvaluationMetricsBuilder{
-		&DataframeEvaluationMetrics{
-			Precision: make(map[string]interface{}, 0),
-			Recall:    make(map[string]interface{}, 0),
-		},
+// NewDataframeEvaluationMetrics returns a DataframeEvaluationMetrics.
+func NewDataframeEvaluationMetrics() *DataframeEvaluationMetrics {
+	r := &DataframeEvaluationMetrics{
+		Precision: make(map[string]interface{}, 0),
+		Recall:    make(map[string]interface{}, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeEvaluationMetrics struct
-func (rb *DataframeEvaluationMetricsBuilder) Build() DataframeEvaluationMetrics {
-	return *rb.v
-}
-
-// AucRoc The AUC ROC (area under the curve of the receiver operating characteristic)
-// score and optionally the curve. It is calculated for a specific class
-// (provided as "class_name") treated as positive.
-
-func (rb *DataframeEvaluationMetricsBuilder) AucRoc(aucroc *DataframeEvaluationClassificationMetricsAucRocBuilder) *DataframeEvaluationMetricsBuilder {
-	v := aucroc.Build()
-	rb.v.AucRoc = &v
-	return rb
-}
-
-// Precision Precision of predictions (per-class and average).
-
-func (rb *DataframeEvaluationMetricsBuilder) Precision(value map[string]interface{}) *DataframeEvaluationMetricsBuilder {
-	rb.v.Precision = value
-	return rb
-}
-
-// Recall Recall of predictions (per-class and average).
-
-func (rb *DataframeEvaluationMetricsBuilder) Recall(value map[string]interface{}) *DataframeEvaluationMetricsBuilder {
-	rb.v.Recall = value
-	return rb
+	return r
 }

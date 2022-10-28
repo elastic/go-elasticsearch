@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,14 +28,14 @@ import (
 
 // Email type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/watcher/_types/Actions.ts#L238-L250
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Actions.ts#L238-L250
 type Email struct {
 	Attachments map[string]EmailAttachmentContainer `json:"attachments,omitempty"`
 	Bcc         []string                            `json:"bcc,omitempty"`
 	Body        *EmailBody                          `json:"body,omitempty"`
 	Cc          []string                            `json:"cc,omitempty"`
 	From        *string                             `json:"from,omitempty"`
-	Id          *Id                                 `json:"id,omitempty"`
+	Id          *string                             `json:"id,omitempty"`
 	Priority    *emailpriority.EmailPriority        `json:"priority,omitempty"`
 	ReplyTo     []string                            `json:"reply_to,omitempty"`
 	SentDate    *DateTime                           `json:"sent_date,omitempty"`
@@ -43,84 +43,11 @@ type Email struct {
 	To          []string                            `json:"to"`
 }
 
-// EmailBuilder holds Email struct and provides a builder API.
-type EmailBuilder struct {
-	v *Email
-}
-
-// NewEmail provides a builder for the Email struct.
-func NewEmailBuilder() *EmailBuilder {
-	r := EmailBuilder{
-		&Email{
-			Attachments: make(map[string]EmailAttachmentContainer, 0),
-		},
+// NewEmail returns a Email.
+func NewEmail() *Email {
+	r := &Email{
+		Attachments: make(map[string]EmailAttachmentContainer, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the Email struct
-func (rb *EmailBuilder) Build() Email {
-	return *rb.v
-}
-
-func (rb *EmailBuilder) Attachments(values map[string]*EmailAttachmentContainerBuilder) *EmailBuilder {
-	tmp := make(map[string]EmailAttachmentContainer, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Attachments = tmp
-	return rb
-}
-
-func (rb *EmailBuilder) Bcc(bcc ...string) *EmailBuilder {
-	rb.v.Bcc = bcc
-	return rb
-}
-
-func (rb *EmailBuilder) Body(body *EmailBodyBuilder) *EmailBuilder {
-	v := body.Build()
-	rb.v.Body = &v
-	return rb
-}
-
-func (rb *EmailBuilder) Cc(cc ...string) *EmailBuilder {
-	rb.v.Cc = cc
-	return rb
-}
-
-func (rb *EmailBuilder) From(from string) *EmailBuilder {
-	rb.v.From = &from
-	return rb
-}
-
-func (rb *EmailBuilder) Id(id Id) *EmailBuilder {
-	rb.v.Id = &id
-	return rb
-}
-
-func (rb *EmailBuilder) Priority(priority emailpriority.EmailPriority) *EmailBuilder {
-	rb.v.Priority = &priority
-	return rb
-}
-
-func (rb *EmailBuilder) ReplyTo(reply_to ...string) *EmailBuilder {
-	rb.v.ReplyTo = reply_to
-	return rb
-}
-
-func (rb *EmailBuilder) SentDate(sentdate *DateTimeBuilder) *EmailBuilder {
-	v := sentdate.Build()
-	rb.v.SentDate = &v
-	return rb
-}
-
-func (rb *EmailBuilder) Subject(subject string) *EmailBuilder {
-	rb.v.Subject = subject
-	return rb
-}
-
-func (rb *EmailBuilder) To(to ...string) *EmailBuilder {
-	rb.v.To = to
-	return rb
+	return r
 }

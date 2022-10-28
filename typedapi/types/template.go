@@ -17,58 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Template type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/simulate_template/IndicesSimulateTemplateResponse.ts#L33-L37
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/simulate_template/IndicesSimulateTemplateResponse.ts#L33-L37
 type Template struct {
-	Aliases  map[IndexName]Alias `json:"aliases"`
-	Mappings TypeMapping         `json:"mappings"`
-	Settings IndexSettings       `json:"settings"`
+	Aliases  map[string]Alias `json:"aliases"`
+	Mappings TypeMapping      `json:"mappings"`
+	Settings IndexSettings    `json:"settings"`
 }
 
-// TemplateBuilder holds Template struct and provides a builder API.
-type TemplateBuilder struct {
-	v *Template
-}
-
-// NewTemplate provides a builder for the Template struct.
-func NewTemplateBuilder() *TemplateBuilder {
-	r := TemplateBuilder{
-		&Template{
-			Aliases: make(map[IndexName]Alias, 0),
-		},
+// NewTemplate returns a Template.
+func NewTemplate() *Template {
+	r := &Template{
+		Aliases: make(map[string]Alias, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the Template struct
-func (rb *TemplateBuilder) Build() Template {
-	return *rb.v
-}
-
-func (rb *TemplateBuilder) Aliases(values map[IndexName]*AliasBuilder) *TemplateBuilder {
-	tmp := make(map[IndexName]Alias, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Aliases = tmp
-	return rb
-}
-
-func (rb *TemplateBuilder) Mappings(mappings *TypeMappingBuilder) *TemplateBuilder {
-	v := mappings.Build()
-	rb.v.Mappings = v
-	return rb
-}
-
-func (rb *TemplateBuilder) Settings(settings *IndexSettingsBuilder) *TemplateBuilder {
-	v := settings.Build()
-	rb.v.Settings = v
-	return rb
+	return r
 }

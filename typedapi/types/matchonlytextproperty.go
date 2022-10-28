@@ -17,78 +17,36 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MatchOnlyTextProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/mapping/core.ts#L208-L233
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/core.ts#L208-L233
 type MatchOnlyTextProperty struct {
 	// CopyTo Allows you to copy the values of multiple fields into a group
 	// field, which can then be queried as a single field.
-	CopyTo *Fields `json:"copy_to,omitempty"`
+	CopyTo []string `json:"copy_to,omitempty"`
 	// Fields Multi-fields allow the same string value to be indexed in multiple ways for
 	// different purposes, such as one
 	// field for search and a multi-field for sorting and aggregations, or the same
 	// string value analyzed by different analyzers.
-	Fields map[PropertyName]Property `json:"fields,omitempty"`
+	Fields map[string]Property `json:"fields,omitempty"`
 	// Meta Metadata about the field.
 	Meta map[string]string `json:"meta,omitempty"`
 	Type string            `json:"type,omitempty"`
 }
 
-// MatchOnlyTextPropertyBuilder holds MatchOnlyTextProperty struct and provides a builder API.
-type MatchOnlyTextPropertyBuilder struct {
-	v *MatchOnlyTextProperty
-}
-
-// NewMatchOnlyTextProperty provides a builder for the MatchOnlyTextProperty struct.
-func NewMatchOnlyTextPropertyBuilder() *MatchOnlyTextPropertyBuilder {
-	r := MatchOnlyTextPropertyBuilder{
-		&MatchOnlyTextProperty{
-			Fields: make(map[PropertyName]Property, 0),
-			Meta:   make(map[string]string, 0),
-		},
+// NewMatchOnlyTextProperty returns a MatchOnlyTextProperty.
+func NewMatchOnlyTextProperty() *MatchOnlyTextProperty {
+	r := &MatchOnlyTextProperty{
+		Fields: make(map[string]Property, 0),
+		Meta:   make(map[string]string, 0),
 	}
 
-	r.v.Type = "match_only_text"
+	r.Type = "match_only_text"
 
-	return &r
-}
-
-// Build finalize the chain and returns the MatchOnlyTextProperty struct
-func (rb *MatchOnlyTextPropertyBuilder) Build() MatchOnlyTextProperty {
-	return *rb.v
-}
-
-// CopyTo Allows you to copy the values of multiple fields into a group
-// field, which can then be queried as a single field.
-
-func (rb *MatchOnlyTextPropertyBuilder) CopyTo(copyto *FieldsBuilder) *MatchOnlyTextPropertyBuilder {
-	v := copyto.Build()
-	rb.v.CopyTo = &v
-	return rb
-}
-
-// Fields Multi-fields allow the same string value to be indexed in multiple ways for
-// different purposes, such as one
-// field for search and a multi-field for sorting and aggregations, or the same
-// string value analyzed by different analyzers.
-
-func (rb *MatchOnlyTextPropertyBuilder) Fields(values map[PropertyName]*PropertyBuilder) *MatchOnlyTextPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Fields = tmp
-	return rb
-}
-
-// Meta Metadata about the field.
-
-func (rb *MatchOnlyTextPropertyBuilder) Meta(value map[string]string) *MatchOnlyTextPropertyBuilder {
-	rb.v.Meta = value
-	return rb
+	return r
 }

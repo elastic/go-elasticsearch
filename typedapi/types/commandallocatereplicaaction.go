@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CommandAllocateReplicaAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/cluster/reroute/types.ts#L69-L76
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/reroute/types.ts#L69-L76
 type CommandAllocateReplicaAction struct {
-	Index IndexName `json:"index"`
-	Node  string    `json:"node"`
-	Shard int       `json:"shard"`
+	Index string `json:"index"`
+	Node  string `json:"node"`
+	Shard int    `json:"shard"`
 }
 
-// CommandAllocateReplicaActionBuilder holds CommandAllocateReplicaAction struct and provides a builder API.
-type CommandAllocateReplicaActionBuilder struct {
-	v *CommandAllocateReplicaAction
-}
+// NewCommandAllocateReplicaAction returns a CommandAllocateReplicaAction.
+func NewCommandAllocateReplicaAction() *CommandAllocateReplicaAction {
+	r := &CommandAllocateReplicaAction{}
 
-// NewCommandAllocateReplicaAction provides a builder for the CommandAllocateReplicaAction struct.
-func NewCommandAllocateReplicaActionBuilder() *CommandAllocateReplicaActionBuilder {
-	r := CommandAllocateReplicaActionBuilder{
-		&CommandAllocateReplicaAction{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the CommandAllocateReplicaAction struct
-func (rb *CommandAllocateReplicaActionBuilder) Build() CommandAllocateReplicaAction {
-	return *rb.v
-}
-
-func (rb *CommandAllocateReplicaActionBuilder) Index(index IndexName) *CommandAllocateReplicaActionBuilder {
-	rb.v.Index = index
-	return rb
-}
-
-func (rb *CommandAllocateReplicaActionBuilder) Node(node string) *CommandAllocateReplicaActionBuilder {
-	rb.v.Node = node
-	return rb
-}
-
-func (rb *CommandAllocateReplicaActionBuilder) Shard(shard int) *CommandAllocateReplicaActionBuilder {
-	rb.v.Shard = shard
-	return rb
+	return r
 }

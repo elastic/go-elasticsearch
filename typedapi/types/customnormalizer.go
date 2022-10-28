@@ -17,47 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CustomNormalizer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/normalizers.ts#L30-L34
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/normalizers.ts#L30-L34
 type CustomNormalizer struct {
 	CharFilter []string `json:"char_filter,omitempty"`
 	Filter     []string `json:"filter,omitempty"`
 	Type       string   `json:"type,omitempty"`
 }
 
-// CustomNormalizerBuilder holds CustomNormalizer struct and provides a builder API.
-type CustomNormalizerBuilder struct {
-	v *CustomNormalizer
-}
+// NewCustomNormalizer returns a CustomNormalizer.
+func NewCustomNormalizer() *CustomNormalizer {
+	r := &CustomNormalizer{}
 
-// NewCustomNormalizer provides a builder for the CustomNormalizer struct.
-func NewCustomNormalizerBuilder() *CustomNormalizerBuilder {
-	r := CustomNormalizerBuilder{
-		&CustomNormalizer{},
-	}
+	r.Type = "custom"
 
-	r.v.Type = "custom"
-
-	return &r
-}
-
-// Build finalize the chain and returns the CustomNormalizer struct
-func (rb *CustomNormalizerBuilder) Build() CustomNormalizer {
-	return *rb.v
-}
-
-func (rb *CustomNormalizerBuilder) CharFilter(char_filter ...string) *CustomNormalizerBuilder {
-	rb.v.CharFilter = char_filter
-	return rb
-}
-
-func (rb *CustomNormalizerBuilder) Filter(filter ...string) *CustomNormalizerBuilder {
-	rb.v.Filter = filter
-	return rb
+	return r
 }

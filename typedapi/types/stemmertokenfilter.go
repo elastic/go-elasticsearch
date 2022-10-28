@@ -17,47 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // StemmerTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/token_filters.ts#L319-L322
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/token_filters.ts#L319-L322
 type StemmerTokenFilter struct {
-	Language string         `json:"language"`
-	Type     string         `json:"type,omitempty"`
-	Version  *VersionString `json:"version,omitempty"`
+	Language string  `json:"language"`
+	Type     string  `json:"type,omitempty"`
+	Version  *string `json:"version,omitempty"`
 }
 
-// StemmerTokenFilterBuilder holds StemmerTokenFilter struct and provides a builder API.
-type StemmerTokenFilterBuilder struct {
-	v *StemmerTokenFilter
-}
+// NewStemmerTokenFilter returns a StemmerTokenFilter.
+func NewStemmerTokenFilter() *StemmerTokenFilter {
+	r := &StemmerTokenFilter{}
 
-// NewStemmerTokenFilter provides a builder for the StemmerTokenFilter struct.
-func NewStemmerTokenFilterBuilder() *StemmerTokenFilterBuilder {
-	r := StemmerTokenFilterBuilder{
-		&StemmerTokenFilter{},
-	}
+	r.Type = "stemmer"
 
-	r.v.Type = "stemmer"
-
-	return &r
-}
-
-// Build finalize the chain and returns the StemmerTokenFilter struct
-func (rb *StemmerTokenFilterBuilder) Build() StemmerTokenFilter {
-	return *rb.v
-}
-
-func (rb *StemmerTokenFilterBuilder) Language(language string) *StemmerTokenFilterBuilder {
-	rb.v.Language = language
-	return rb
-}
-
-func (rb *StemmerTokenFilterBuilder) Version(version VersionString) *StemmerTokenFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

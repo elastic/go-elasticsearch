@@ -17,60 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeProcessInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/info/types.ts#L383-L390
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/info/types.ts#L383-L390
 type NodeProcessInfo struct {
 	// Id Process identifier (PID)
 	Id int64 `json:"id"`
 	// Mlockall Indicates if the process address space has been successfully locked in memory
 	Mlockall bool `json:"mlockall"`
 	// RefreshIntervalInMillis Refresh interval for the process statistics
-	RefreshIntervalInMillis DurationValueUnitMillis `json:"refresh_interval_in_millis"`
+	RefreshIntervalInMillis int64 `json:"refresh_interval_in_millis"`
 }
 
-// NodeProcessInfoBuilder holds NodeProcessInfo struct and provides a builder API.
-type NodeProcessInfoBuilder struct {
-	v *NodeProcessInfo
-}
+// NewNodeProcessInfo returns a NodeProcessInfo.
+func NewNodeProcessInfo() *NodeProcessInfo {
+	r := &NodeProcessInfo{}
 
-// NewNodeProcessInfo provides a builder for the NodeProcessInfo struct.
-func NewNodeProcessInfoBuilder() *NodeProcessInfoBuilder {
-	r := NodeProcessInfoBuilder{
-		&NodeProcessInfo{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodeProcessInfo struct
-func (rb *NodeProcessInfoBuilder) Build() NodeProcessInfo {
-	return *rb.v
-}
-
-// Id Process identifier (PID)
-
-func (rb *NodeProcessInfoBuilder) Id(id int64) *NodeProcessInfoBuilder {
-	rb.v.Id = id
-	return rb
-}
-
-// Mlockall Indicates if the process address space has been successfully locked in memory
-
-func (rb *NodeProcessInfoBuilder) Mlockall(mlockall bool) *NodeProcessInfoBuilder {
-	rb.v.Mlockall = mlockall
-	return rb
-}
-
-// RefreshIntervalInMillis Refresh interval for the process statistics
-
-func (rb *NodeProcessInfoBuilder) RefreshIntervalInMillis(refreshintervalinmillis *DurationValueUnitMillisBuilder) *NodeProcessInfoBuilder {
-	v := refreshintervalinmillis.Build()
-	rb.v.RefreshIntervalInMillis = v
-	return rb
+	return r
 }

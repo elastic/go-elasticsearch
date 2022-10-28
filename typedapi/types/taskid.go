@@ -17,40 +17,15 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TaskId holds the union for the following types:
 //
-//	int
 //	string
+//	int
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/common.ts#L113-L113
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/common.ts#L113-L113
 type TaskId interface{}
-
-// TaskIdBuilder holds TaskId struct and provides a builder API.
-type TaskIdBuilder struct {
-	v TaskId
-}
-
-// NewTaskId provides a builder for the TaskId struct.
-func NewTaskIdBuilder() *TaskIdBuilder {
-	return &TaskIdBuilder{}
-}
-
-// Build finalize the chain and returns the TaskId struct
-func (u *TaskIdBuilder) Build() TaskId {
-	return u.v
-}
-
-func (u *TaskIdBuilder) Int(int int) *TaskIdBuilder {
-	u.v = &int
-	return u
-}
-
-func (u *TaskIdBuilder) String(string string) *TaskIdBuilder {
-	u.v = &string
-	return u
-}

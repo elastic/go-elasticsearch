@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,83 +28,25 @@ import (
 
 // NodeShard type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/Node.ts#L59-L69
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Node.ts#L59-L69
 type NodeShard struct {
-	AllocationId   map[string]Id                       `json:"allocation_id,omitempty"`
-	Index          IndexName                           `json:"index"`
-	Node           *NodeName                           `json:"node,omitempty"`
+	AllocationId   map[string]string                   `json:"allocation_id,omitempty"`
+	Index          string                              `json:"index"`
+	Node           *string                             `json:"node,omitempty"`
 	Primary        bool                                `json:"primary"`
-	RecoverySource map[string]Id                       `json:"recovery_source,omitempty"`
-	RelocatingNode NodeId                              `json:"relocating_node,omitempty"`
+	RecoverySource map[string]string                   `json:"recovery_source,omitempty"`
+	RelocatingNode string                              `json:"relocating_node,omitempty"`
 	Shard          int                                 `json:"shard"`
 	State          shardroutingstate.ShardRoutingState `json:"state"`
 	UnassignedInfo *UnassignedInformation              `json:"unassigned_info,omitempty"`
 }
 
-// NodeShardBuilder holds NodeShard struct and provides a builder API.
-type NodeShardBuilder struct {
-	v *NodeShard
-}
-
-// NewNodeShard provides a builder for the NodeShard struct.
-func NewNodeShardBuilder() *NodeShardBuilder {
-	r := NodeShardBuilder{
-		&NodeShard{
-			AllocationId:   make(map[string]Id, 0),
-			RecoverySource: make(map[string]Id, 0),
-		},
+// NewNodeShard returns a NodeShard.
+func NewNodeShard() *NodeShard {
+	r := &NodeShard{
+		AllocationId:   make(map[string]string, 0),
+		RecoverySource: make(map[string]string, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the NodeShard struct
-func (rb *NodeShardBuilder) Build() NodeShard {
-	return *rb.v
-}
-
-func (rb *NodeShardBuilder) AllocationId(value map[string]Id) *NodeShardBuilder {
-	rb.v.AllocationId = value
-	return rb
-}
-
-func (rb *NodeShardBuilder) Index(index IndexName) *NodeShardBuilder {
-	rb.v.Index = index
-	return rb
-}
-
-func (rb *NodeShardBuilder) Node(node NodeName) *NodeShardBuilder {
-	rb.v.Node = &node
-	return rb
-}
-
-func (rb *NodeShardBuilder) Primary(primary bool) *NodeShardBuilder {
-	rb.v.Primary = primary
-	return rb
-}
-
-func (rb *NodeShardBuilder) RecoverySource(value map[string]Id) *NodeShardBuilder {
-	rb.v.RecoverySource = value
-	return rb
-}
-
-func (rb *NodeShardBuilder) RelocatingNode(relocatingnode NodeId) *NodeShardBuilder {
-	rb.v.RelocatingNode = relocatingnode
-	return rb
-}
-
-func (rb *NodeShardBuilder) Shard(shard int) *NodeShardBuilder {
-	rb.v.Shard = shard
-	return rb
-}
-
-func (rb *NodeShardBuilder) State(state shardroutingstate.ShardRoutingState) *NodeShardBuilder {
-	rb.v.State = state
-	return rb
-}
-
-func (rb *NodeShardBuilder) UnassignedInfo(unassignedinfo *UnassignedInformationBuilder) *NodeShardBuilder {
-	v := unassignedinfo.Build()
-	rb.v.UnassignedInfo = &v
-	return rb
+	return r
 }

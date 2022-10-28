@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ClusterProcessOpenFileDescriptors type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/cluster/stats/types.ts#L256-L260
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/stats/types.ts#L256-L260
 type ClusterProcessOpenFileDescriptors struct {
 	Avg int64 `json:"avg"`
 	Max int64 `json:"max"`
 	Min int64 `json:"min"`
 }
 
-// ClusterProcessOpenFileDescriptorsBuilder holds ClusterProcessOpenFileDescriptors struct and provides a builder API.
-type ClusterProcessOpenFileDescriptorsBuilder struct {
-	v *ClusterProcessOpenFileDescriptors
-}
+// NewClusterProcessOpenFileDescriptors returns a ClusterProcessOpenFileDescriptors.
+func NewClusterProcessOpenFileDescriptors() *ClusterProcessOpenFileDescriptors {
+	r := &ClusterProcessOpenFileDescriptors{}
 
-// NewClusterProcessOpenFileDescriptors provides a builder for the ClusterProcessOpenFileDescriptors struct.
-func NewClusterProcessOpenFileDescriptorsBuilder() *ClusterProcessOpenFileDescriptorsBuilder {
-	r := ClusterProcessOpenFileDescriptorsBuilder{
-		&ClusterProcessOpenFileDescriptors{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ClusterProcessOpenFileDescriptors struct
-func (rb *ClusterProcessOpenFileDescriptorsBuilder) Build() ClusterProcessOpenFileDescriptors {
-	return *rb.v
-}
-
-func (rb *ClusterProcessOpenFileDescriptorsBuilder) Avg(avg int64) *ClusterProcessOpenFileDescriptorsBuilder {
-	rb.v.Avg = avg
-	return rb
-}
-
-func (rb *ClusterProcessOpenFileDescriptorsBuilder) Max(max int64) *ClusterProcessOpenFileDescriptorsBuilder {
-	rb.v.Max = max
-	return rb
-}
-
-func (rb *ClusterProcessOpenFileDescriptorsBuilder) Min(min int64) *ClusterProcessOpenFileDescriptorsBuilder {
-	rb.v.Min = min
-	return rb
+	return r
 }

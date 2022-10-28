@@ -17,77 +17,27 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // GeoHashGridAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/bucket.ts#L184-L190
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/bucket.ts#L184-L190
 type GeoHashGridAggregation struct {
-	Bounds    *GeoBounds        `json:"bounds,omitempty"`
-	Field     *Field            `json:"field,omitempty"`
-	Meta      *Metadata         `json:"meta,omitempty"`
-	Name      *string           `json:"name,omitempty"`
-	Precision *GeoHashPrecision `json:"precision,omitempty"`
-	ShardSize *int              `json:"shard_size,omitempty"`
-	Size      *int              `json:"size,omitempty"`
+	Bounds    *GeoBounds             `json:"bounds,omitempty"`
+	Field     *string                `json:"field,omitempty"`
+	Meta      map[string]interface{} `json:"meta,omitempty"`
+	Name      *string                `json:"name,omitempty"`
+	Precision *GeoHashPrecision      `json:"precision,omitempty"`
+	ShardSize *int                   `json:"shard_size,omitempty"`
+	Size      *int                   `json:"size,omitempty"`
 }
 
-// GeoHashGridAggregationBuilder holds GeoHashGridAggregation struct and provides a builder API.
-type GeoHashGridAggregationBuilder struct {
-	v *GeoHashGridAggregation
-}
+// NewGeoHashGridAggregation returns a GeoHashGridAggregation.
+func NewGeoHashGridAggregation() *GeoHashGridAggregation {
+	r := &GeoHashGridAggregation{}
 
-// NewGeoHashGridAggregation provides a builder for the GeoHashGridAggregation struct.
-func NewGeoHashGridAggregationBuilder() *GeoHashGridAggregationBuilder {
-	r := GeoHashGridAggregationBuilder{
-		&GeoHashGridAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the GeoHashGridAggregation struct
-func (rb *GeoHashGridAggregationBuilder) Build() GeoHashGridAggregation {
-	return *rb.v
-}
-
-func (rb *GeoHashGridAggregationBuilder) Bounds(bounds *GeoBoundsBuilder) *GeoHashGridAggregationBuilder {
-	v := bounds.Build()
-	rb.v.Bounds = &v
-	return rb
-}
-
-func (rb *GeoHashGridAggregationBuilder) Field(field Field) *GeoHashGridAggregationBuilder {
-	rb.v.Field = &field
-	return rb
-}
-
-func (rb *GeoHashGridAggregationBuilder) Meta(meta *MetadataBuilder) *GeoHashGridAggregationBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *GeoHashGridAggregationBuilder) Name(name string) *GeoHashGridAggregationBuilder {
-	rb.v.Name = &name
-	return rb
-}
-
-func (rb *GeoHashGridAggregationBuilder) Precision(precision *GeoHashPrecisionBuilder) *GeoHashGridAggregationBuilder {
-	v := precision.Build()
-	rb.v.Precision = &v
-	return rb
-}
-
-func (rb *GeoHashGridAggregationBuilder) ShardSize(shardsize int) *GeoHashGridAggregationBuilder {
-	rb.v.ShardSize = &shardsize
-	return rb
-}
-
-func (rb *GeoHashGridAggregationBuilder) Size(size int) *GeoHashGridAggregationBuilder {
-	rb.v.Size = &size
-	return rb
+	return r
 }

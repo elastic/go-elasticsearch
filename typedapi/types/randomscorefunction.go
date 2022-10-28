@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RandomScoreFunction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/query_dsl/compound.ts#L65-L68
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/compound.ts#L65-L68
 type RandomScoreFunction struct {
-	Field *Field `json:"field,omitempty"`
-	Seed  string `json:"seed,omitempty"`
+	Field *string `json:"field,omitempty"`
+	Seed  string  `json:"seed,omitempty"`
 }
 
-// RandomScoreFunctionBuilder holds RandomScoreFunction struct and provides a builder API.
-type RandomScoreFunctionBuilder struct {
-	v *RandomScoreFunction
-}
+// NewRandomScoreFunction returns a RandomScoreFunction.
+func NewRandomScoreFunction() *RandomScoreFunction {
+	r := &RandomScoreFunction{}
 
-// NewRandomScoreFunction provides a builder for the RandomScoreFunction struct.
-func NewRandomScoreFunctionBuilder() *RandomScoreFunctionBuilder {
-	r := RandomScoreFunctionBuilder{
-		&RandomScoreFunction{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RandomScoreFunction struct
-func (rb *RandomScoreFunctionBuilder) Build() RandomScoreFunction {
-	return *rb.v
-}
-
-func (rb *RandomScoreFunctionBuilder) Field(field Field) *RandomScoreFunctionBuilder {
-	rb.v.Field = &field
-	return rb
-}
-
-func (rb *RandomScoreFunctionBuilder) Seed(arg string) *RandomScoreFunctionBuilder {
-	rb.v.Seed = arg
-	return rb
+	return r
 }

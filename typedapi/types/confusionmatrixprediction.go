@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ConfusionMatrixPrediction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/evaluate_data_frame/types.ts#L91-L94
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/evaluate_data_frame/types.ts#L91-L94
 type ConfusionMatrixPrediction struct {
-	Count          int  `json:"count"`
-	PredictedClass Name `json:"predicted_class"`
+	Count          int    `json:"count"`
+	PredictedClass string `json:"predicted_class"`
 }
 
-// ConfusionMatrixPredictionBuilder holds ConfusionMatrixPrediction struct and provides a builder API.
-type ConfusionMatrixPredictionBuilder struct {
-	v *ConfusionMatrixPrediction
-}
+// NewConfusionMatrixPrediction returns a ConfusionMatrixPrediction.
+func NewConfusionMatrixPrediction() *ConfusionMatrixPrediction {
+	r := &ConfusionMatrixPrediction{}
 
-// NewConfusionMatrixPrediction provides a builder for the ConfusionMatrixPrediction struct.
-func NewConfusionMatrixPredictionBuilder() *ConfusionMatrixPredictionBuilder {
-	r := ConfusionMatrixPredictionBuilder{
-		&ConfusionMatrixPrediction{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ConfusionMatrixPrediction struct
-func (rb *ConfusionMatrixPredictionBuilder) Build() ConfusionMatrixPrediction {
-	return *rb.v
-}
-
-func (rb *ConfusionMatrixPredictionBuilder) Count(count int) *ConfusionMatrixPredictionBuilder {
-	rb.v.Count = count
-	return rb
-}
-
-func (rb *ConfusionMatrixPredictionBuilder) PredictedClass(predictedclass Name) *ConfusionMatrixPredictionBuilder {
-	rb.v.PredictedClass = predictedclass
-	return rb
+	return r
 }

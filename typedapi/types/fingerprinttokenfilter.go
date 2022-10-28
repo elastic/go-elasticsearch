@@ -17,53 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FingerprintTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/token_filters.ts#L193-L197
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/token_filters.ts#L193-L197
 type FingerprintTokenFilter struct {
-	MaxOutputSize *int           `json:"max_output_size,omitempty"`
-	Separator     *string        `json:"separator,omitempty"`
-	Type          string         `json:"type,omitempty"`
-	Version       *VersionString `json:"version,omitempty"`
+	MaxOutputSize *int    `json:"max_output_size,omitempty"`
+	Separator     *string `json:"separator,omitempty"`
+	Type          string  `json:"type,omitempty"`
+	Version       *string `json:"version,omitempty"`
 }
 
-// FingerprintTokenFilterBuilder holds FingerprintTokenFilter struct and provides a builder API.
-type FingerprintTokenFilterBuilder struct {
-	v *FingerprintTokenFilter
-}
+// NewFingerprintTokenFilter returns a FingerprintTokenFilter.
+func NewFingerprintTokenFilter() *FingerprintTokenFilter {
+	r := &FingerprintTokenFilter{}
 
-// NewFingerprintTokenFilter provides a builder for the FingerprintTokenFilter struct.
-func NewFingerprintTokenFilterBuilder() *FingerprintTokenFilterBuilder {
-	r := FingerprintTokenFilterBuilder{
-		&FingerprintTokenFilter{},
-	}
+	r.Type = "fingerprint"
 
-	r.v.Type = "fingerprint"
-
-	return &r
-}
-
-// Build finalize the chain and returns the FingerprintTokenFilter struct
-func (rb *FingerprintTokenFilterBuilder) Build() FingerprintTokenFilter {
-	return *rb.v
-}
-
-func (rb *FingerprintTokenFilterBuilder) MaxOutputSize(maxoutputsize int) *FingerprintTokenFilterBuilder {
-	rb.v.MaxOutputSize = &maxoutputsize
-	return rb
-}
-
-func (rb *FingerprintTokenFilterBuilder) Separator(separator string) *FingerprintTokenFilterBuilder {
-	rb.v.Separator = &separator
-	return rb
-}
-
-func (rb *FingerprintTokenFilterBuilder) Version(version VersionString) *FingerprintTokenFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

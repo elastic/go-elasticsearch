@@ -17,52 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TriggerEventResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/watcher/_types/Trigger.ts#L39-L43
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Trigger.ts#L39-L43
 type TriggerEventResult struct {
 	Manual        TriggerEventContainer `json:"manual"`
 	TriggeredTime DateTime              `json:"triggered_time"`
 	Type          string                `json:"type"`
 }
 
-// TriggerEventResultBuilder holds TriggerEventResult struct and provides a builder API.
-type TriggerEventResultBuilder struct {
-	v *TriggerEventResult
-}
+// NewTriggerEventResult returns a TriggerEventResult.
+func NewTriggerEventResult() *TriggerEventResult {
+	r := &TriggerEventResult{}
 
-// NewTriggerEventResult provides a builder for the TriggerEventResult struct.
-func NewTriggerEventResultBuilder() *TriggerEventResultBuilder {
-	r := TriggerEventResultBuilder{
-		&TriggerEventResult{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TriggerEventResult struct
-func (rb *TriggerEventResultBuilder) Build() TriggerEventResult {
-	return *rb.v
-}
-
-func (rb *TriggerEventResultBuilder) Manual(manual *TriggerEventContainerBuilder) *TriggerEventResultBuilder {
-	v := manual.Build()
-	rb.v.Manual = v
-	return rb
-}
-
-func (rb *TriggerEventResultBuilder) TriggeredTime(triggeredtime *DateTimeBuilder) *TriggerEventResultBuilder {
-	v := triggeredtime.Build()
-	rb.v.TriggeredTime = v
-	return rb
-}
-
-func (rb *TriggerEventResultBuilder) Type_(type_ string) *TriggerEventResultBuilder {
-	rb.v.Type = type_
-	return rb
+	return r
 }

@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ReloadDetails type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/reload_search_analyzers/types.ts#L20-L24
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/reload_search_analyzers/types.ts#L20-L24
 type ReloadDetails struct {
 	Index             string   `json:"index"`
 	ReloadedAnalyzers []string `json:"reloaded_analyzers"`
 	ReloadedNodeIds   []string `json:"reloaded_node_ids"`
 }
 
-// ReloadDetailsBuilder holds ReloadDetails struct and provides a builder API.
-type ReloadDetailsBuilder struct {
-	v *ReloadDetails
-}
+// NewReloadDetails returns a ReloadDetails.
+func NewReloadDetails() *ReloadDetails {
+	r := &ReloadDetails{}
 
-// NewReloadDetails provides a builder for the ReloadDetails struct.
-func NewReloadDetailsBuilder() *ReloadDetailsBuilder {
-	r := ReloadDetailsBuilder{
-		&ReloadDetails{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ReloadDetails struct
-func (rb *ReloadDetailsBuilder) Build() ReloadDetails {
-	return *rb.v
-}
-
-func (rb *ReloadDetailsBuilder) Index(index string) *ReloadDetailsBuilder {
-	rb.v.Index = index
-	return rb
-}
-
-func (rb *ReloadDetailsBuilder) ReloadedAnalyzers(reloaded_analyzers ...string) *ReloadDetailsBuilder {
-	rb.v.ReloadedAnalyzers = reloaded_analyzers
-	return rb
-}
-
-func (rb *ReloadDetailsBuilder) ReloadedNodeIds(reloaded_node_ids ...string) *ReloadDetailsBuilder {
-	rb.v.ReloadedNodeIds = reloaded_node_ids
-	return rb
+	return r
 }

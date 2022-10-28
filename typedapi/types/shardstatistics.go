@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ShardStatistics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/Stats.ts#L33-L39
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Stats.ts#L33-L39
 type ShardStatistics struct {
 	Failed     uint           `json:"failed"`
 	Failures   []ShardFailure `json:"failures,omitempty"`
@@ -33,50 +33,9 @@ type ShardStatistics struct {
 	Total      uint           `json:"total"`
 }
 
-// ShardStatisticsBuilder holds ShardStatistics struct and provides a builder API.
-type ShardStatisticsBuilder struct {
-	v *ShardStatistics
-}
+// NewShardStatistics returns a ShardStatistics.
+func NewShardStatistics() *ShardStatistics {
+	r := &ShardStatistics{}
 
-// NewShardStatistics provides a builder for the ShardStatistics struct.
-func NewShardStatisticsBuilder() *ShardStatisticsBuilder {
-	r := ShardStatisticsBuilder{
-		&ShardStatistics{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ShardStatistics struct
-func (rb *ShardStatisticsBuilder) Build() ShardStatistics {
-	return *rb.v
-}
-
-func (rb *ShardStatisticsBuilder) Failed(failed uint) *ShardStatisticsBuilder {
-	rb.v.Failed = failed
-	return rb
-}
-
-func (rb *ShardStatisticsBuilder) Failures(failures []ShardFailureBuilder) *ShardStatisticsBuilder {
-	tmp := make([]ShardFailure, len(failures))
-	for _, value := range failures {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Failures = tmp
-	return rb
-}
-
-func (rb *ShardStatisticsBuilder) Skipped(skipped uint) *ShardStatisticsBuilder {
-	rb.v.Skipped = &skipped
-	return rb
-}
-
-func (rb *ShardStatisticsBuilder) Successful(successful uint) *ShardStatisticsBuilder {
-	rb.v.Successful = successful
-	return rb
-}
-
-func (rb *ShardStatisticsBuilder) Total(total uint) *ShardStatisticsBuilder {
-	rb.v.Total = total
-	return rb
+	return r
 }

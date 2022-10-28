@@ -17,98 +17,30 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // GetStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/Stats.ts#L88-L99
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Stats.ts#L88-L99
 type GetStats struct {
-	Current             int64                   `json:"current"`
-	ExistsTime          *Duration               `json:"exists_time,omitempty"`
-	ExistsTimeInMillis  DurationValueUnitMillis `json:"exists_time_in_millis"`
-	ExistsTotal         int64                   `json:"exists_total"`
-	MissingTime         *Duration               `json:"missing_time,omitempty"`
-	MissingTimeInMillis DurationValueUnitMillis `json:"missing_time_in_millis"`
-	MissingTotal        int64                   `json:"missing_total"`
-	Time                *Duration               `json:"time,omitempty"`
-	TimeInMillis        DurationValueUnitMillis `json:"time_in_millis"`
-	Total               int64                   `json:"total"`
+	Current             int64     `json:"current"`
+	ExistsTime          *Duration `json:"exists_time,omitempty"`
+	ExistsTimeInMillis  int64     `json:"exists_time_in_millis"`
+	ExistsTotal         int64     `json:"exists_total"`
+	MissingTime         *Duration `json:"missing_time,omitempty"`
+	MissingTimeInMillis int64     `json:"missing_time_in_millis"`
+	MissingTotal        int64     `json:"missing_total"`
+	Time                *Duration `json:"time,omitempty"`
+	TimeInMillis        int64     `json:"time_in_millis"`
+	Total               int64     `json:"total"`
 }
 
-// GetStatsBuilder holds GetStats struct and provides a builder API.
-type GetStatsBuilder struct {
-	v *GetStats
-}
+// NewGetStats returns a GetStats.
+func NewGetStats() *GetStats {
+	r := &GetStats{}
 
-// NewGetStats provides a builder for the GetStats struct.
-func NewGetStatsBuilder() *GetStatsBuilder {
-	r := GetStatsBuilder{
-		&GetStats{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the GetStats struct
-func (rb *GetStatsBuilder) Build() GetStats {
-	return *rb.v
-}
-
-func (rb *GetStatsBuilder) Current(current int64) *GetStatsBuilder {
-	rb.v.Current = current
-	return rb
-}
-
-func (rb *GetStatsBuilder) ExistsTime(existstime *DurationBuilder) *GetStatsBuilder {
-	v := existstime.Build()
-	rb.v.ExistsTime = &v
-	return rb
-}
-
-func (rb *GetStatsBuilder) ExistsTimeInMillis(existstimeinmillis *DurationValueUnitMillisBuilder) *GetStatsBuilder {
-	v := existstimeinmillis.Build()
-	rb.v.ExistsTimeInMillis = v
-	return rb
-}
-
-func (rb *GetStatsBuilder) ExistsTotal(existstotal int64) *GetStatsBuilder {
-	rb.v.ExistsTotal = existstotal
-	return rb
-}
-
-func (rb *GetStatsBuilder) MissingTime(missingtime *DurationBuilder) *GetStatsBuilder {
-	v := missingtime.Build()
-	rb.v.MissingTime = &v
-	return rb
-}
-
-func (rb *GetStatsBuilder) MissingTimeInMillis(missingtimeinmillis *DurationValueUnitMillisBuilder) *GetStatsBuilder {
-	v := missingtimeinmillis.Build()
-	rb.v.MissingTimeInMillis = v
-	return rb
-}
-
-func (rb *GetStatsBuilder) MissingTotal(missingtotal int64) *GetStatsBuilder {
-	rb.v.MissingTotal = missingtotal
-	return rb
-}
-
-func (rb *GetStatsBuilder) Time(time *DurationBuilder) *GetStatsBuilder {
-	v := time.Build()
-	rb.v.Time = &v
-	return rb
-}
-
-func (rb *GetStatsBuilder) TimeInMillis(timeinmillis *DurationValueUnitMillisBuilder) *GetStatsBuilder {
-	v := timeinmillis.Build()
-	rb.v.TimeInMillis = v
-	return rb
-}
-
-func (rb *GetStatsBuilder) Total(total int64) *GetStatsBuilder {
-	rb.v.Total = total
-	return rb
+	return r
 }

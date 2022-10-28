@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package estimatemodelmemory
@@ -31,20 +31,18 @@ import (
 
 // Request holds the request body struct for the package estimatemodelmemory
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/estimate_model_memory/MlEstimateModelMemoryRequest.ts#L26-L61
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/estimate_model_memory/MlEstimateModelMemoryRequest.ts#L26-L61
 type Request struct {
 
 	// AnalysisConfig For a list of the properties that you can specify in the
 	// `analysis_config` component of the body of this API.
 	AnalysisConfig *types.AnalysisConfig `json:"analysis_config,omitempty"`
-
 	// MaxBucketCardinality Estimates of the highest cardinality in a single bucket that is observed
 	// for influencer fields over the time period that the job analyzes data.
 	// To produce a good answer, values must be provided for all influencer
 	// fields. Providing values for fields that are not listed as `influencers`
 	// has no effect on the estimation.
-	MaxBucketCardinality map[types.Field]int64 `json:"max_bucket_cardinality,omitempty"`
-
+	MaxBucketCardinality map[string]int64 `json:"max_bucket_cardinality,omitempty"`
 	// OverallCardinality Estimates of the cardinality that is observed for fields over the whole
 	// time period that the job analyzes data. To produce a good answer, values
 	// must be provided for fields referenced in the `by_field_name`,
@@ -52,27 +50,20 @@ type Request struct {
 	// values for other fields has no effect on the estimation. It can be
 	// omitted from the request if no detectors have a `by_field_name`,
 	// `over_field_name` or `partition_field_name`.
-	OverallCardinality map[types.Field]int64 `json:"overall_cardinality,omitempty"`
+	OverallCardinality map[string]int64 `json:"overall_cardinality,omitempty"`
 }
 
-// RequestBuilder is the builder API for the estimatemodelmemory.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{
-			MaxBucketCardinality: make(map[types.Field]int64, 0),
-			OverallCardinality:   make(map[types.Field]int64, 0),
-		},
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{
+		MaxBucketCardinality: make(map[string]int64, 0),
+		OverallCardinality:   make(map[string]int64, 0),
 	}
-	return &r
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -81,25 +72,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) AnalysisConfig(analysisconfig *types.AnalysisConfigBuilder) *RequestBuilder {
-	v := analysisconfig.Build()
-	rb.v.AnalysisConfig = &v
-	return rb
-}
-
-func (rb *RequestBuilder) MaxBucketCardinality(value map[types.Field]int64) *RequestBuilder {
-	rb.v.MaxBucketCardinality = value
-	return rb
-}
-
-func (rb *RequestBuilder) OverallCardinality(value map[types.Field]int64) *RequestBuilder {
-	rb.v.OverallCardinality = value
-	return rb
 }

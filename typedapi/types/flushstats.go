@@ -17,58 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FlushStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/Stats.ts#L81-L86
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Stats.ts#L81-L86
 type FlushStats struct {
-	Periodic          int64                   `json:"periodic"`
-	Total             int64                   `json:"total"`
-	TotalTime         *Duration               `json:"total_time,omitempty"`
-	TotalTimeInMillis DurationValueUnitMillis `json:"total_time_in_millis"`
+	Periodic          int64     `json:"periodic"`
+	Total             int64     `json:"total"`
+	TotalTime         *Duration `json:"total_time,omitempty"`
+	TotalTimeInMillis int64     `json:"total_time_in_millis"`
 }
 
-// FlushStatsBuilder holds FlushStats struct and provides a builder API.
-type FlushStatsBuilder struct {
-	v *FlushStats
-}
+// NewFlushStats returns a FlushStats.
+func NewFlushStats() *FlushStats {
+	r := &FlushStats{}
 
-// NewFlushStats provides a builder for the FlushStats struct.
-func NewFlushStatsBuilder() *FlushStatsBuilder {
-	r := FlushStatsBuilder{
-		&FlushStats{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FlushStats struct
-func (rb *FlushStatsBuilder) Build() FlushStats {
-	return *rb.v
-}
-
-func (rb *FlushStatsBuilder) Periodic(periodic int64) *FlushStatsBuilder {
-	rb.v.Periodic = periodic
-	return rb
-}
-
-func (rb *FlushStatsBuilder) Total(total int64) *FlushStatsBuilder {
-	rb.v.Total = total
-	return rb
-}
-
-func (rb *FlushStatsBuilder) TotalTime(totaltime *DurationBuilder) *FlushStatsBuilder {
-	v := totaltime.Build()
-	rb.v.TotalTime = &v
-	return rb
-}
-
-func (rb *FlushStatsBuilder) TotalTimeInMillis(totaltimeinmillis *DurationValueUnitMillisBuilder) *FlushStatsBuilder {
-	v := totaltimeinmillis.Build()
-	rb.v.TotalTimeInMillis = v
-	return rb
+	return r
 }

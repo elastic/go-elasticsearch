@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -30,7 +30,7 @@ import (
 
 // SettingsSimilarityDfr type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/_types/IndexSettings.ts#L192-L197
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/IndexSettings.ts#L192-L197
 type SettingsSimilarityDfr struct {
 	AfterEffect   dfraftereffect.DFRAfterEffect `json:"after_effect"`
 	BasicModel    dfrbasicmodel.DFRBasicModel   `json:"basic_model"`
@@ -38,38 +38,11 @@ type SettingsSimilarityDfr struct {
 	Type          string                        `json:"type,omitempty"`
 }
 
-// SettingsSimilarityDfrBuilder holds SettingsSimilarityDfr struct and provides a builder API.
-type SettingsSimilarityDfrBuilder struct {
-	v *SettingsSimilarityDfr
-}
+// NewSettingsSimilarityDfr returns a SettingsSimilarityDfr.
+func NewSettingsSimilarityDfr() *SettingsSimilarityDfr {
+	r := &SettingsSimilarityDfr{}
 
-// NewSettingsSimilarityDfr provides a builder for the SettingsSimilarityDfr struct.
-func NewSettingsSimilarityDfrBuilder() *SettingsSimilarityDfrBuilder {
-	r := SettingsSimilarityDfrBuilder{
-		&SettingsSimilarityDfr{},
-	}
+	r.Type = "DFR"
 
-	r.v.Type = "DFR"
-
-	return &r
-}
-
-// Build finalize the chain and returns the SettingsSimilarityDfr struct
-func (rb *SettingsSimilarityDfrBuilder) Build() SettingsSimilarityDfr {
-	return *rb.v
-}
-
-func (rb *SettingsSimilarityDfrBuilder) AfterEffect(aftereffect dfraftereffect.DFRAfterEffect) *SettingsSimilarityDfrBuilder {
-	rb.v.AfterEffect = aftereffect
-	return rb
-}
-
-func (rb *SettingsSimilarityDfrBuilder) BasicModel(basicmodel dfrbasicmodel.DFRBasicModel) *SettingsSimilarityDfrBuilder {
-	rb.v.BasicModel = basicmodel
-	return rb
-}
-
-func (rb *SettingsSimilarityDfrBuilder) Normalization(normalization normalization.Normalization) *SettingsSimilarityDfrBuilder {
-	rb.v.Normalization = normalization
-	return rb
+	return r
 }

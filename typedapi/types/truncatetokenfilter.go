@@ -17,47 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TruncateTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/token_filters.ts#L328-L331
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/token_filters.ts#L328-L331
 type TruncateTokenFilter struct {
-	Length  *int           `json:"length,omitempty"`
-	Type    string         `json:"type,omitempty"`
-	Version *VersionString `json:"version,omitempty"`
+	Length  *int    `json:"length,omitempty"`
+	Type    string  `json:"type,omitempty"`
+	Version *string `json:"version,omitempty"`
 }
 
-// TruncateTokenFilterBuilder holds TruncateTokenFilter struct and provides a builder API.
-type TruncateTokenFilterBuilder struct {
-	v *TruncateTokenFilter
-}
+// NewTruncateTokenFilter returns a TruncateTokenFilter.
+func NewTruncateTokenFilter() *TruncateTokenFilter {
+	r := &TruncateTokenFilter{}
 
-// NewTruncateTokenFilter provides a builder for the TruncateTokenFilter struct.
-func NewTruncateTokenFilterBuilder() *TruncateTokenFilterBuilder {
-	r := TruncateTokenFilterBuilder{
-		&TruncateTokenFilter{},
-	}
+	r.Type = "truncate"
 
-	r.v.Type = "truncate"
-
-	return &r
-}
-
-// Build finalize the chain and returns the TruncateTokenFilter struct
-func (rb *TruncateTokenFilterBuilder) Build() TruncateTokenFilter {
-	return *rb.v
-}
-
-func (rb *TruncateTokenFilterBuilder) Length(length int) *TruncateTokenFilterBuilder {
-	rb.v.Length = &length
-	return rb
-}
-
-func (rb *TruncateTokenFilterBuilder) Version(version VersionString) *TruncateTokenFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

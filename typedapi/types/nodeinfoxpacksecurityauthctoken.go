@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeInfoXpackSecurityAuthcToken type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/info/types.ts#L256-L258
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/info/types.ts#L256-L258
 type NodeInfoXpackSecurityAuthcToken struct {
 	Enabled string `json:"enabled"`
 }
 
-// NodeInfoXpackSecurityAuthcTokenBuilder holds NodeInfoXpackSecurityAuthcToken struct and provides a builder API.
-type NodeInfoXpackSecurityAuthcTokenBuilder struct {
-	v *NodeInfoXpackSecurityAuthcToken
-}
+// NewNodeInfoXpackSecurityAuthcToken returns a NodeInfoXpackSecurityAuthcToken.
+func NewNodeInfoXpackSecurityAuthcToken() *NodeInfoXpackSecurityAuthcToken {
+	r := &NodeInfoXpackSecurityAuthcToken{}
 
-// NewNodeInfoXpackSecurityAuthcToken provides a builder for the NodeInfoXpackSecurityAuthcToken struct.
-func NewNodeInfoXpackSecurityAuthcTokenBuilder() *NodeInfoXpackSecurityAuthcTokenBuilder {
-	r := NodeInfoXpackSecurityAuthcTokenBuilder{
-		&NodeInfoXpackSecurityAuthcToken{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodeInfoXpackSecurityAuthcToken struct
-func (rb *NodeInfoXpackSecurityAuthcTokenBuilder) Build() NodeInfoXpackSecurityAuthcToken {
-	return *rb.v
-}
-
-func (rb *NodeInfoXpackSecurityAuthcTokenBuilder) Enabled(enabled string) *NodeInfoXpackSecurityAuthcTokenBuilder {
-	rb.v.Enabled = enabled
-	return rb
+	return r
 }

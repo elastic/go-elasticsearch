@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // StepKey type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ilm/move_to_step/types.ts#L20-L24
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ilm/move_to_step/types.ts#L20-L24
 type StepKey struct {
 	Action string `json:"action"`
 	Name   string `json:"name"`
 	Phase  string `json:"phase"`
 }
 
-// StepKeyBuilder holds StepKey struct and provides a builder API.
-type StepKeyBuilder struct {
-	v *StepKey
-}
+// NewStepKey returns a StepKey.
+func NewStepKey() *StepKey {
+	r := &StepKey{}
 
-// NewStepKey provides a builder for the StepKey struct.
-func NewStepKeyBuilder() *StepKeyBuilder {
-	r := StepKeyBuilder{
-		&StepKey{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the StepKey struct
-func (rb *StepKeyBuilder) Build() StepKey {
-	return *rb.v
-}
-
-func (rb *StepKeyBuilder) Action(action string) *StepKeyBuilder {
-	rb.v.Action = action
-	return rb
-}
-
-func (rb *StepKeyBuilder) Name(name string) *StepKeyBuilder {
-	rb.v.Name = name
-	return rb
-}
-
-func (rb *StepKeyBuilder) Phase(phase string) *StepKeyBuilder {
-	rb.v.Phase = phase
-	return rb
+	return r
 }

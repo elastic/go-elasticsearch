@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // OutlierDetectionParameters type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/DataframeAnalytics.ts#L412-L419
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/DataframeAnalytics.ts#L412-L419
 type OutlierDetectionParameters struct {
 	ComputeFeatureInfluence   *bool    `json:"compute_feature_influence,omitempty"`
 	FeatureInfluenceThreshold *float64 `json:"feature_influence_threshold,omitempty"`
@@ -34,51 +34,9 @@ type OutlierDetectionParameters struct {
 	StandardizationEnabled    *bool    `json:"standardization_enabled,omitempty"`
 }
 
-// OutlierDetectionParametersBuilder holds OutlierDetectionParameters struct and provides a builder API.
-type OutlierDetectionParametersBuilder struct {
-	v *OutlierDetectionParameters
-}
+// NewOutlierDetectionParameters returns a OutlierDetectionParameters.
+func NewOutlierDetectionParameters() *OutlierDetectionParameters {
+	r := &OutlierDetectionParameters{}
 
-// NewOutlierDetectionParameters provides a builder for the OutlierDetectionParameters struct.
-func NewOutlierDetectionParametersBuilder() *OutlierDetectionParametersBuilder {
-	r := OutlierDetectionParametersBuilder{
-		&OutlierDetectionParameters{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the OutlierDetectionParameters struct
-func (rb *OutlierDetectionParametersBuilder) Build() OutlierDetectionParameters {
-	return *rb.v
-}
-
-func (rb *OutlierDetectionParametersBuilder) ComputeFeatureInfluence(computefeatureinfluence bool) *OutlierDetectionParametersBuilder {
-	rb.v.ComputeFeatureInfluence = &computefeatureinfluence
-	return rb
-}
-
-func (rb *OutlierDetectionParametersBuilder) FeatureInfluenceThreshold(featureinfluencethreshold float64) *OutlierDetectionParametersBuilder {
-	rb.v.FeatureInfluenceThreshold = &featureinfluencethreshold
-	return rb
-}
-
-func (rb *OutlierDetectionParametersBuilder) Method(method string) *OutlierDetectionParametersBuilder {
-	rb.v.Method = &method
-	return rb
-}
-
-func (rb *OutlierDetectionParametersBuilder) NNeighbors(nneighbors int) *OutlierDetectionParametersBuilder {
-	rb.v.NNeighbors = &nneighbors
-	return rb
-}
-
-func (rb *OutlierDetectionParametersBuilder) OutlierFraction(outlierfraction float64) *OutlierDetectionParametersBuilder {
-	rb.v.OutlierFraction = &outlierfraction
-	return rb
-}
-
-func (rb *OutlierDetectionParametersBuilder) StandardizationEnabled(standardizationenabled bool) *OutlierDetectionParametersBuilder {
-	rb.v.StandardizationEnabled = &standardizationenabled
-	return rb
+	return r
 }

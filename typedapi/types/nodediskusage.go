@@ -17,52 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeDiskUsage type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/cluster/allocation_explain/types.ts#L56-L60
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/allocation_explain/types.ts#L56-L60
 type NodeDiskUsage struct {
 	LeastAvailable DiskUsage `json:"least_available"`
 	MostAvailable  DiskUsage `json:"most_available"`
-	NodeName       Name      `json:"node_name"`
+	NodeName       string    `json:"node_name"`
 }
 
-// NodeDiskUsageBuilder holds NodeDiskUsage struct and provides a builder API.
-type NodeDiskUsageBuilder struct {
-	v *NodeDiskUsage
-}
+// NewNodeDiskUsage returns a NodeDiskUsage.
+func NewNodeDiskUsage() *NodeDiskUsage {
+	r := &NodeDiskUsage{}
 
-// NewNodeDiskUsage provides a builder for the NodeDiskUsage struct.
-func NewNodeDiskUsageBuilder() *NodeDiskUsageBuilder {
-	r := NodeDiskUsageBuilder{
-		&NodeDiskUsage{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodeDiskUsage struct
-func (rb *NodeDiskUsageBuilder) Build() NodeDiskUsage {
-	return *rb.v
-}
-
-func (rb *NodeDiskUsageBuilder) LeastAvailable(leastavailable *DiskUsageBuilder) *NodeDiskUsageBuilder {
-	v := leastavailable.Build()
-	rb.v.LeastAvailable = v
-	return rb
-}
-
-func (rb *NodeDiskUsageBuilder) MostAvailable(mostavailable *DiskUsageBuilder) *NodeDiskUsageBuilder {
-	v := mostavailable.Build()
-	rb.v.MostAvailable = v
-	return rb
-}
-
-func (rb *NodeDiskUsageBuilder) NodeName(nodename Name) *NodeDiskUsageBuilder {
-	rb.v.NodeName = nodename
-	return rb
+	return r
 }

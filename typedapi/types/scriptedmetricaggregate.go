@@ -17,45 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ScriptedMetricAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L625-L628
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L640-L643
 type ScriptedMetricAggregate struct {
-	Meta  *Metadata   `json:"meta,omitempty"`
-	Value interface{} `json:"value,omitempty"`
+	Meta  map[string]interface{} `json:"meta,omitempty"`
+	Value interface{}            `json:"value,omitempty"`
 }
 
-// ScriptedMetricAggregateBuilder holds ScriptedMetricAggregate struct and provides a builder API.
-type ScriptedMetricAggregateBuilder struct {
-	v *ScriptedMetricAggregate
-}
+// NewScriptedMetricAggregate returns a ScriptedMetricAggregate.
+func NewScriptedMetricAggregate() *ScriptedMetricAggregate {
+	r := &ScriptedMetricAggregate{}
 
-// NewScriptedMetricAggregate provides a builder for the ScriptedMetricAggregate struct.
-func NewScriptedMetricAggregateBuilder() *ScriptedMetricAggregateBuilder {
-	r := ScriptedMetricAggregateBuilder{
-		&ScriptedMetricAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ScriptedMetricAggregate struct
-func (rb *ScriptedMetricAggregateBuilder) Build() ScriptedMetricAggregate {
-	return *rb.v
-}
-
-func (rb *ScriptedMetricAggregateBuilder) Meta(meta *MetadataBuilder) *ScriptedMetricAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *ScriptedMetricAggregateBuilder) Value(value interface{}) *ScriptedMetricAggregateBuilder {
-	rb.v.Value = value
-	return rb
+	return r
 }

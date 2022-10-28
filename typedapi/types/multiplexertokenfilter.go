@@ -17,53 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MultiplexerTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/token_filters.ts#L259-L263
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/token_filters.ts#L259-L263
 type MultiplexerTokenFilter struct {
-	Filters          []string       `json:"filters"`
-	PreserveOriginal *bool          `json:"preserve_original,omitempty"`
-	Type             string         `json:"type,omitempty"`
-	Version          *VersionString `json:"version,omitempty"`
+	Filters          []string `json:"filters"`
+	PreserveOriginal *bool    `json:"preserve_original,omitempty"`
+	Type             string   `json:"type,omitempty"`
+	Version          *string  `json:"version,omitempty"`
 }
 
-// MultiplexerTokenFilterBuilder holds MultiplexerTokenFilter struct and provides a builder API.
-type MultiplexerTokenFilterBuilder struct {
-	v *MultiplexerTokenFilter
-}
+// NewMultiplexerTokenFilter returns a MultiplexerTokenFilter.
+func NewMultiplexerTokenFilter() *MultiplexerTokenFilter {
+	r := &MultiplexerTokenFilter{}
 
-// NewMultiplexerTokenFilter provides a builder for the MultiplexerTokenFilter struct.
-func NewMultiplexerTokenFilterBuilder() *MultiplexerTokenFilterBuilder {
-	r := MultiplexerTokenFilterBuilder{
-		&MultiplexerTokenFilter{},
-	}
+	r.Type = "multiplexer"
 
-	r.v.Type = "multiplexer"
-
-	return &r
-}
-
-// Build finalize the chain and returns the MultiplexerTokenFilter struct
-func (rb *MultiplexerTokenFilterBuilder) Build() MultiplexerTokenFilter {
-	return *rb.v
-}
-
-func (rb *MultiplexerTokenFilterBuilder) Filters(filters ...string) *MultiplexerTokenFilterBuilder {
-	rb.v.Filters = filters
-	return rb
-}
-
-func (rb *MultiplexerTokenFilterBuilder) PreserveOriginal(preserveoriginal bool) *MultiplexerTokenFilterBuilder {
-	rb.v.PreserveOriginal = &preserveoriginal
-	return rb
-}
-
-func (rb *MultiplexerTokenFilterBuilder) Version(version VersionString) *MultiplexerTokenFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

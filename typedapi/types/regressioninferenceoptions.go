@@ -17,52 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RegressionInferenceOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/inference.ts#L69-L78
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/inference.ts#L69-L78
 type RegressionInferenceOptions struct {
 	// NumTopFeatureImportanceValues Specifies the maximum number of feature importance values per document.
 	NumTopFeatureImportanceValues *int `json:"num_top_feature_importance_values,omitempty"`
 	// ResultsField The field that is added to incoming documents to contain the inference
 	// prediction. Defaults to predicted_value.
-	ResultsField *Field `json:"results_field,omitempty"`
+	ResultsField *string `json:"results_field,omitempty"`
 }
 
-// RegressionInferenceOptionsBuilder holds RegressionInferenceOptions struct and provides a builder API.
-type RegressionInferenceOptionsBuilder struct {
-	v *RegressionInferenceOptions
-}
+// NewRegressionInferenceOptions returns a RegressionInferenceOptions.
+func NewRegressionInferenceOptions() *RegressionInferenceOptions {
+	r := &RegressionInferenceOptions{}
 
-// NewRegressionInferenceOptions provides a builder for the RegressionInferenceOptions struct.
-func NewRegressionInferenceOptionsBuilder() *RegressionInferenceOptionsBuilder {
-	r := RegressionInferenceOptionsBuilder{
-		&RegressionInferenceOptions{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RegressionInferenceOptions struct
-func (rb *RegressionInferenceOptionsBuilder) Build() RegressionInferenceOptions {
-	return *rb.v
-}
-
-// NumTopFeatureImportanceValues Specifies the maximum number of feature importance values per document.
-
-func (rb *RegressionInferenceOptionsBuilder) NumTopFeatureImportanceValues(numtopfeatureimportancevalues int) *RegressionInferenceOptionsBuilder {
-	rb.v.NumTopFeatureImportanceValues = &numtopfeatureimportancevalues
-	return rb
-}
-
-// ResultsField The field that is added to incoming documents to contain the inference
-// prediction. Defaults to predicted_value.
-
-func (rb *RegressionInferenceOptionsBuilder) ResultsField(resultsfield Field) *RegressionInferenceOptionsBuilder {
-	rb.v.ResultsField = &resultsfield
-	return rb
+	return r
 }

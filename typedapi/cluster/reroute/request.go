@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package reroute
@@ -31,28 +31,21 @@ import (
 
 // Request holds the request body struct for the package reroute
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/cluster/reroute/ClusterRerouteRequest.ts#L25-L70
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/reroute/ClusterRerouteRequest.ts#L25-L70
 type Request struct {
 
 	// Commands Defines the commands to perform.
 	Commands []types.Command `json:"commands,omitempty"`
 }
 
-// RequestBuilder is the builder API for the reroute.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -61,18 +54,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) Commands(commands []types.CommandBuilder) *RequestBuilder {
-	tmp := make([]types.Command, len(commands))
-	for _, value := range commands {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Commands = tmp
-	return rb
 }

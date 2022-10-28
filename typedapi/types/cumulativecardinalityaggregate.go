@@ -17,51 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CumulativeCardinalityAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L723-L731
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L738-L746
 type CumulativeCardinalityAggregate struct {
-	Meta          *Metadata `json:"meta,omitempty"`
-	Value         int64     `json:"value"`
-	ValueAsString *string   `json:"value_as_string,omitempty"`
+	Meta          map[string]interface{} `json:"meta,omitempty"`
+	Value         int64                  `json:"value"`
+	ValueAsString *string                `json:"value_as_string,omitempty"`
 }
 
-// CumulativeCardinalityAggregateBuilder holds CumulativeCardinalityAggregate struct and provides a builder API.
-type CumulativeCardinalityAggregateBuilder struct {
-	v *CumulativeCardinalityAggregate
-}
+// NewCumulativeCardinalityAggregate returns a CumulativeCardinalityAggregate.
+func NewCumulativeCardinalityAggregate() *CumulativeCardinalityAggregate {
+	r := &CumulativeCardinalityAggregate{}
 
-// NewCumulativeCardinalityAggregate provides a builder for the CumulativeCardinalityAggregate struct.
-func NewCumulativeCardinalityAggregateBuilder() *CumulativeCardinalityAggregateBuilder {
-	r := CumulativeCardinalityAggregateBuilder{
-		&CumulativeCardinalityAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the CumulativeCardinalityAggregate struct
-func (rb *CumulativeCardinalityAggregateBuilder) Build() CumulativeCardinalityAggregate {
-	return *rb.v
-}
-
-func (rb *CumulativeCardinalityAggregateBuilder) Meta(meta *MetadataBuilder) *CumulativeCardinalityAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *CumulativeCardinalityAggregateBuilder) Value(value int64) *CumulativeCardinalityAggregateBuilder {
-	rb.v.Value = value
-	return rb
-}
-
-func (rb *CumulativeCardinalityAggregateBuilder) ValueAsString(valueasstring string) *CumulativeCardinalityAggregateBuilder {
-	rb.v.ValueAsString = &valueasstring
-	return rb
+	return r
 }

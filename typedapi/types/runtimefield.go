@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,44 +28,16 @@ import (
 
 // RuntimeField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/mapping/RuntimeFields.ts#L26-L30
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/RuntimeFields.ts#L26-L30
 type RuntimeField struct {
 	Format *string                           `json:"format,omitempty"`
 	Script *Script                           `json:"script,omitempty"`
 	Type   runtimefieldtype.RuntimeFieldType `json:"type"`
 }
 
-// RuntimeFieldBuilder holds RuntimeField struct and provides a builder API.
-type RuntimeFieldBuilder struct {
-	v *RuntimeField
-}
+// NewRuntimeField returns a RuntimeField.
+func NewRuntimeField() *RuntimeField {
+	r := &RuntimeField{}
 
-// NewRuntimeField provides a builder for the RuntimeField struct.
-func NewRuntimeFieldBuilder() *RuntimeFieldBuilder {
-	r := RuntimeFieldBuilder{
-		&RuntimeField{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RuntimeField struct
-func (rb *RuntimeFieldBuilder) Build() RuntimeField {
-	return *rb.v
-}
-
-func (rb *RuntimeFieldBuilder) Format(format string) *RuntimeFieldBuilder {
-	rb.v.Format = &format
-	return rb
-}
-
-func (rb *RuntimeFieldBuilder) Script(script *ScriptBuilder) *RuntimeFieldBuilder {
-	v := script.Build()
-	rb.v.Script = &v
-	return rb
-}
-
-func (rb *RuntimeFieldBuilder) Type_(type_ runtimefieldtype.RuntimeFieldType) *RuntimeFieldBuilder {
-	rb.v.Type = type_
-	return rb
+	return r
 }

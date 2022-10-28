@@ -17,32 +17,12 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ResourcePrivileges type alias.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/security/has_privileges/types.ts#L47-L47
-type ResourcePrivileges map[Name]Privileges
-
-// ResourcePrivilegesBuilder holds ResourcePrivileges struct and provides a builder API.
-type ResourcePrivilegesBuilder struct {
-	v ResourcePrivileges
-}
-
-// NewResourcePrivileges provides a builder for the ResourcePrivileges struct.
-func NewResourcePrivilegesBuilder() *ResourcePrivilegesBuilder {
-	return &ResourcePrivilegesBuilder{}
-}
-
-// Build finalize the chain and returns the ResourcePrivileges struct
-func (b *ResourcePrivilegesBuilder) Build() ResourcePrivileges {
-	return b.v
-}
-
-func (b *ResourcePrivilegesBuilder) ResourcePrivileges(value ResourcePrivileges) *ResourcePrivilegesBuilder {
-	b.v = value
-	return b
-}
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/has_privileges/types.ts#L47-L47
+type ResourcePrivileges map[string]map[string]bool

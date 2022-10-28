@@ -17,39 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TrainedModelLocation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/TrainedModel.ts#L395-L397
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/TrainedModel.ts#L395-L397
 type TrainedModelLocation struct {
 	Index TrainedModelLocationIndex `json:"index"`
 }
 
-// TrainedModelLocationBuilder holds TrainedModelLocation struct and provides a builder API.
-type TrainedModelLocationBuilder struct {
-	v *TrainedModelLocation
-}
+// NewTrainedModelLocation returns a TrainedModelLocation.
+func NewTrainedModelLocation() *TrainedModelLocation {
+	r := &TrainedModelLocation{}
 
-// NewTrainedModelLocation provides a builder for the TrainedModelLocation struct.
-func NewTrainedModelLocationBuilder() *TrainedModelLocationBuilder {
-	r := TrainedModelLocationBuilder{
-		&TrainedModelLocation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TrainedModelLocation struct
-func (rb *TrainedModelLocationBuilder) Build() TrainedModelLocation {
-	return *rb.v
-}
-
-func (rb *TrainedModelLocationBuilder) Index(index *TrainedModelLocationIndexBuilder) *TrainedModelLocationBuilder {
-	v := index.Build()
-	rb.v.Index = v
-	return rb
+	return r
 }

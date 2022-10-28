@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,25 +28,5 @@ import (
 
 // NodeRoles type alias.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/Node.ts#L91-L94
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Node.ts#L91-L94
 type NodeRoles []noderole.NodeRole
-
-// NodeRolesBuilder holds NodeRoles struct and provides a builder API.
-type NodeRolesBuilder struct {
-	v NodeRoles
-}
-
-// NewNodeRoles provides a builder for the NodeRoles struct.
-func NewNodeRolesBuilder() *NodeRolesBuilder {
-	return &NodeRolesBuilder{}
-}
-
-// Build finalize the chain and returns the NodeRoles struct
-func (b *NodeRolesBuilder) Build() NodeRoles {
-	return b.v
-}
-
-func (b *NodeRolesBuilder) NodeRoles(value NodeRoles) *NodeRolesBuilder {
-	b.v = value
-	return b
-}

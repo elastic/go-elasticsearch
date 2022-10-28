@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,45 +28,18 @@ import (
 
 // FilterRef type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/Filter.ts#L31-L41
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/Filter.ts#L31-L41
 type FilterRef struct {
 	// FilterId The identifier for the filter.
-	FilterId Id `json:"filter_id"`
+	FilterId string `json:"filter_id"`
 	// FilterType If set to `include`, the rule applies for values in the filter. If set to
 	// `exclude`, the rule applies for values not in the filter.
 	FilterType *filtertype.FilterType `json:"filter_type,omitempty"`
 }
 
-// FilterRefBuilder holds FilterRef struct and provides a builder API.
-type FilterRefBuilder struct {
-	v *FilterRef
-}
+// NewFilterRef returns a FilterRef.
+func NewFilterRef() *FilterRef {
+	r := &FilterRef{}
 
-// NewFilterRef provides a builder for the FilterRef struct.
-func NewFilterRefBuilder() *FilterRefBuilder {
-	r := FilterRefBuilder{
-		&FilterRef{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FilterRef struct
-func (rb *FilterRefBuilder) Build() FilterRef {
-	return *rb.v
-}
-
-// FilterId The identifier for the filter.
-
-func (rb *FilterRefBuilder) FilterId(filterid Id) *FilterRefBuilder {
-	rb.v.FilterId = filterid
-	return rb
-}
-
-// FilterType If set to `include`, the rule applies for values in the filter. If set to
-// `exclude`, the rule applies for values not in the filter.
-
-func (rb *FilterRefBuilder) FilterType(filtertype filtertype.FilterType) *FilterRefBuilder {
-	rb.v.FilterType = &filtertype
-	return rb
+	return r
 }

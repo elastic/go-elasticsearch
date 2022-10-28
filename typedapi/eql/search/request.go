@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package search
@@ -32,63 +32,43 @@ import (
 
 // Request holds the request body struct for the package search
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/eql/search/EqlSearchRequest.ts#L28-L115
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/eql/search/EqlSearchRequest.ts#L28-L115
 type Request struct {
 	CaseSensitive *bool `json:"case_sensitive,omitempty"`
-
 	// EventCategoryField Field containing the event classification, such as process, file, or network.
-	EventCategoryField *types.Field `json:"event_category_field,omitempty"`
-
+	EventCategoryField *string `json:"event_category_field,omitempty"`
 	// FetchSize Maximum number of events to search at a time for sequence queries.
 	FetchSize *uint `json:"fetch_size,omitempty"`
-
 	// Fields Array of wildcard (*) patterns. The response returns values for field names
 	// matching these patterns in the fields property of each hit.
 	Fields []types.FieldAndFormat `json:"fields,omitempty"`
-
 	// Filter Query, written in Query DSL, used to filter the events on which the EQL query
 	// runs.
-	Filter []types.QueryContainer `json:"filter,omitempty"`
-
-	KeepAlive *types.Duration `json:"keep_alive,omitempty"`
-
-	KeepOnCompletion *bool `json:"keep_on_completion,omitempty"`
-
+	Filter           []types.Query   `json:"filter,omitempty"`
+	KeepAlive        *types.Duration `json:"keep_alive,omitempty"`
+	KeepOnCompletion *bool           `json:"keep_on_completion,omitempty"`
 	// Query EQL query you wish to run.
-	Query string `json:"query"`
-
-	ResultPosition *resultposition.ResultPosition `json:"result_position,omitempty"`
-
-	RuntimeMappings *types.RuntimeFields `json:"runtime_mappings,omitempty"`
-
+	Query           string                         `json:"query"`
+	ResultPosition  *resultposition.ResultPosition `json:"result_position,omitempty"`
+	RuntimeMappings map[string]types.RuntimeField  `json:"runtime_mappings,omitempty"`
 	// Size For basic queries, the maximum number of matching events to return. Defaults
 	// to 10
 	Size *uint `json:"size,omitempty"`
-
 	// TiebreakerField Field used to sort hits with the same timestamp in ascending order
-	TiebreakerField *types.Field `json:"tiebreaker_field,omitempty"`
-
+	TiebreakerField *string `json:"tiebreaker_field,omitempty"`
 	// TimestampField Field containing event timestamp. Default "@timestamp"
-	TimestampField *types.Field `json:"timestamp_field,omitempty"`
-
+	TimestampField           *string         `json:"timestamp_field,omitempty"`
 	WaitForCompletionTimeout *types.Duration `json:"wait_for_completion_timeout,omitempty"`
 }
 
-// RequestBuilder is the builder API for the search.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -97,82 +77,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) CaseSensitive(casesensitive bool) *RequestBuilder {
-	rb.v.CaseSensitive = &casesensitive
-	return rb
-}
-
-func (rb *RequestBuilder) EventCategoryField(eventcategoryfield types.Field) *RequestBuilder {
-	rb.v.EventCategoryField = &eventcategoryfield
-	return rb
-}
-
-func (rb *RequestBuilder) FetchSize(fetchsize uint) *RequestBuilder {
-	rb.v.FetchSize = &fetchsize
-	return rb
-}
-
-func (rb *RequestBuilder) Fields(arg []types.FieldAndFormat) *RequestBuilder {
-	rb.v.Fields = arg
-	return rb
-}
-
-func (rb *RequestBuilder) Filter(arg []types.QueryContainer) *RequestBuilder {
-	rb.v.Filter = arg
-	return rb
-}
-
-func (rb *RequestBuilder) KeepAlive(keepalive *types.DurationBuilder) *RequestBuilder {
-	v := keepalive.Build()
-	rb.v.KeepAlive = &v
-	return rb
-}
-
-func (rb *RequestBuilder) KeepOnCompletion(keeponcompletion bool) *RequestBuilder {
-	rb.v.KeepOnCompletion = &keeponcompletion
-	return rb
-}
-
-func (rb *RequestBuilder) Query(query string) *RequestBuilder {
-	rb.v.Query = query
-	return rb
-}
-
-func (rb *RequestBuilder) ResultPosition(resultposition resultposition.ResultPosition) *RequestBuilder {
-	rb.v.ResultPosition = &resultposition
-	return rb
-}
-
-func (rb *RequestBuilder) RuntimeMappings(runtimemappings *types.RuntimeFieldsBuilder) *RequestBuilder {
-	v := runtimemappings.Build()
-	rb.v.RuntimeMappings = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Size(size uint) *RequestBuilder {
-	rb.v.Size = &size
-	return rb
-}
-
-func (rb *RequestBuilder) TiebreakerField(tiebreakerfield types.Field) *RequestBuilder {
-	rb.v.TiebreakerField = &tiebreakerfield
-	return rb
-}
-
-func (rb *RequestBuilder) TimestampField(timestampfield types.Field) *RequestBuilder {
-	rb.v.TimestampField = &timestampfield
-	return rb
-}
-
-func (rb *RequestBuilder) WaitForCompletionTimeout(waitforcompletiontimeout *types.DurationBuilder) *RequestBuilder {
-	v := waitforcompletiontimeout.Build()
-	rb.v.WaitForCompletionTimeout = &v
-	return rb
 }

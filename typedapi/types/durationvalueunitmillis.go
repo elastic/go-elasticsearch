@@ -17,32 +17,12 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DurationValueUnitMillis type alias.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/Time.ts#L67-L67
-type DurationValueUnitMillis UnitMillis
-
-// DurationValueUnitMillisBuilder holds DurationValueUnitMillis struct and provides a builder API.
-type DurationValueUnitMillisBuilder struct {
-	v DurationValueUnitMillis
-}
-
-// NewDurationValueUnitMillis provides a builder for the DurationValueUnitMillis struct.
-func NewDurationValueUnitMillisBuilder() *DurationValueUnitMillisBuilder {
-	return &DurationValueUnitMillisBuilder{}
-}
-
-// Build finalize the chain and returns the DurationValueUnitMillis struct
-func (b *DurationValueUnitMillisBuilder) Build() DurationValueUnitMillis {
-	return b.v
-}
-
-func (b *DurationValueUnitMillisBuilder) DurationValueUnitMillis(value DurationValueUnitMillis) *DurationValueUnitMillisBuilder {
-	b.v = value
-	return b
-}
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Time.ts#L67-L67
+type DurationValueUnitMillis int64

@@ -17,83 +17,30 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CompletionSuggester type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_global/search/_types/suggester.ts#L130-L136
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/suggester.ts#L130-L136
 type CompletionSuggester struct {
-	Analyzer       *string                       `json:"analyzer,omitempty"`
-	Contexts       map[Field][]CompletionContext `json:"contexts,omitempty"`
-	Field          Field                         `json:"field"`
-	Fuzzy          *SuggestFuzziness             `json:"fuzzy,omitempty"`
-	Prefix         *string                       `json:"prefix,omitempty"`
-	Regex          *string                       `json:"regex,omitempty"`
-	Size           *int                          `json:"size,omitempty"`
-	SkipDuplicates *bool                         `json:"skip_duplicates,omitempty"`
+	Analyzer       *string                        `json:"analyzer,omitempty"`
+	Contexts       map[string][]CompletionContext `json:"contexts,omitempty"`
+	Field          string                         `json:"field"`
+	Fuzzy          *SuggestFuzziness              `json:"fuzzy,omitempty"`
+	Prefix         *string                        `json:"prefix,omitempty"`
+	Regex          *string                        `json:"regex,omitempty"`
+	Size           *int                           `json:"size,omitempty"`
+	SkipDuplicates *bool                          `json:"skip_duplicates,omitempty"`
 }
 
-// CompletionSuggesterBuilder holds CompletionSuggester struct and provides a builder API.
-type CompletionSuggesterBuilder struct {
-	v *CompletionSuggester
-}
-
-// NewCompletionSuggester provides a builder for the CompletionSuggester struct.
-func NewCompletionSuggesterBuilder() *CompletionSuggesterBuilder {
-	r := CompletionSuggesterBuilder{
-		&CompletionSuggester{
-			Contexts: make(map[Field][]CompletionContext, 0),
-		},
+// NewCompletionSuggester returns a CompletionSuggester.
+func NewCompletionSuggester() *CompletionSuggester {
+	r := &CompletionSuggester{
+		Contexts: make(map[string][]CompletionContext, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the CompletionSuggester struct
-func (rb *CompletionSuggesterBuilder) Build() CompletionSuggester {
-	return *rb.v
-}
-
-func (rb *CompletionSuggesterBuilder) Analyzer(analyzer string) *CompletionSuggesterBuilder {
-	rb.v.Analyzer = &analyzer
-	return rb
-}
-
-func (rb *CompletionSuggesterBuilder) Contexts(value map[Field][]CompletionContext) *CompletionSuggesterBuilder {
-	rb.v.Contexts = value
-	return rb
-}
-
-func (rb *CompletionSuggesterBuilder) Field(field Field) *CompletionSuggesterBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *CompletionSuggesterBuilder) Fuzzy(fuzzy *SuggestFuzzinessBuilder) *CompletionSuggesterBuilder {
-	v := fuzzy.Build()
-	rb.v.Fuzzy = &v
-	return rb
-}
-
-func (rb *CompletionSuggesterBuilder) Prefix(prefix string) *CompletionSuggesterBuilder {
-	rb.v.Prefix = &prefix
-	return rb
-}
-
-func (rb *CompletionSuggesterBuilder) Regex(regex string) *CompletionSuggesterBuilder {
-	rb.v.Regex = &regex
-	return rb
-}
-
-func (rb *CompletionSuggesterBuilder) Size(size int) *CompletionSuggesterBuilder {
-	rb.v.Size = &size
-	return rb
-}
-
-func (rb *CompletionSuggesterBuilder) SkipDuplicates(skipduplicates bool) *CompletionSuggesterBuilder {
-	rb.v.SkipDuplicates = &skipduplicates
-	return rb
+	return r
 }

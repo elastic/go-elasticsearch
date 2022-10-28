@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,129 +29,35 @@ import (
 
 // ShapeProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/mapping/geo.ts#L69-L81
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/geo.ts#L69-L81
 type ShapeProperty struct {
 	Coerce          *bool                          `json:"coerce,omitempty"`
-	CopyTo          *Fields                        `json:"copy_to,omitempty"`
+	CopyTo          []string                       `json:"copy_to,omitempty"`
 	DocValues       *bool                          `json:"doc_values,omitempty"`
 	Dynamic         *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
-	Fields          map[PropertyName]Property      `json:"fields,omitempty"`
+	Fields          map[string]Property            `json:"fields,omitempty"`
 	IgnoreAbove     *int                           `json:"ignore_above,omitempty"`
 	IgnoreMalformed *bool                          `json:"ignore_malformed,omitempty"`
 	IgnoreZValue    *bool                          `json:"ignore_z_value,omitempty"`
-	LocalMetadata   *Metadata                      `json:"local_metadata,omitempty"`
+	LocalMetadata   map[string]interface{}         `json:"local_metadata,omitempty"`
 	// Meta Metadata about the field.
 	Meta        map[string]string              `json:"meta,omitempty"`
 	Orientation *geoorientation.GeoOrientation `json:"orientation,omitempty"`
-	Properties  map[PropertyName]Property      `json:"properties,omitempty"`
+	Properties  map[string]Property            `json:"properties,omitempty"`
 	Similarity  *string                        `json:"similarity,omitempty"`
 	Store       *bool                          `json:"store,omitempty"`
 	Type        string                         `json:"type,omitempty"`
 }
 
-// ShapePropertyBuilder holds ShapeProperty struct and provides a builder API.
-type ShapePropertyBuilder struct {
-	v *ShapeProperty
-}
-
-// NewShapeProperty provides a builder for the ShapeProperty struct.
-func NewShapePropertyBuilder() *ShapePropertyBuilder {
-	r := ShapePropertyBuilder{
-		&ShapeProperty{
-			Fields:     make(map[PropertyName]Property, 0),
-			Meta:       make(map[string]string, 0),
-			Properties: make(map[PropertyName]Property, 0),
-		},
+// NewShapeProperty returns a ShapeProperty.
+func NewShapeProperty() *ShapeProperty {
+	r := &ShapeProperty{
+		Fields:     make(map[string]Property, 0),
+		Meta:       make(map[string]string, 0),
+		Properties: make(map[string]Property, 0),
 	}
 
-	r.v.Type = "shape"
+	r.Type = "shape"
 
-	return &r
-}
-
-// Build finalize the chain and returns the ShapeProperty struct
-func (rb *ShapePropertyBuilder) Build() ShapeProperty {
-	return *rb.v
-}
-
-func (rb *ShapePropertyBuilder) Coerce(coerce bool) *ShapePropertyBuilder {
-	rb.v.Coerce = &coerce
-	return rb
-}
-
-func (rb *ShapePropertyBuilder) CopyTo(copyto *FieldsBuilder) *ShapePropertyBuilder {
-	v := copyto.Build()
-	rb.v.CopyTo = &v
-	return rb
-}
-
-func (rb *ShapePropertyBuilder) DocValues(docvalues bool) *ShapePropertyBuilder {
-	rb.v.DocValues = &docvalues
-	return rb
-}
-
-func (rb *ShapePropertyBuilder) Dynamic(dynamic dynamicmapping.DynamicMapping) *ShapePropertyBuilder {
-	rb.v.Dynamic = &dynamic
-	return rb
-}
-
-func (rb *ShapePropertyBuilder) Fields(values map[PropertyName]*PropertyBuilder) *ShapePropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Fields = tmp
-	return rb
-}
-
-func (rb *ShapePropertyBuilder) IgnoreAbove(ignoreabove int) *ShapePropertyBuilder {
-	rb.v.IgnoreAbove = &ignoreabove
-	return rb
-}
-
-func (rb *ShapePropertyBuilder) IgnoreMalformed(ignoremalformed bool) *ShapePropertyBuilder {
-	rb.v.IgnoreMalformed = &ignoremalformed
-	return rb
-}
-
-func (rb *ShapePropertyBuilder) IgnoreZValue(ignorezvalue bool) *ShapePropertyBuilder {
-	rb.v.IgnoreZValue = &ignorezvalue
-	return rb
-}
-
-func (rb *ShapePropertyBuilder) LocalMetadata(localmetadata *MetadataBuilder) *ShapePropertyBuilder {
-	v := localmetadata.Build()
-	rb.v.LocalMetadata = &v
-	return rb
-}
-
-// Meta Metadata about the field.
-
-func (rb *ShapePropertyBuilder) Meta(value map[string]string) *ShapePropertyBuilder {
-	rb.v.Meta = value
-	return rb
-}
-
-func (rb *ShapePropertyBuilder) Orientation(orientation geoorientation.GeoOrientation) *ShapePropertyBuilder {
-	rb.v.Orientation = &orientation
-	return rb
-}
-
-func (rb *ShapePropertyBuilder) Properties(values map[PropertyName]*PropertyBuilder) *ShapePropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Properties = tmp
-	return rb
-}
-
-func (rb *ShapePropertyBuilder) Similarity(similarity string) *ShapePropertyBuilder {
-	rb.v.Similarity = &similarity
-	return rb
-}
-
-func (rb *ShapePropertyBuilder) Store(store bool) *ShapePropertyBuilder {
-	rb.v.Store = &store
-	return rb
+	return r
 }

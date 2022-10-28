@@ -17,32 +17,12 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Metrics type alias.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/common.ts#L70-L70
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/common.ts#L70-L70
 type Metrics []string
-
-// MetricsBuilder holds Metrics struct and provides a builder API.
-type MetricsBuilder struct {
-	v Metrics
-}
-
-// NewMetrics provides a builder for the Metrics struct.
-func NewMetricsBuilder() *MetricsBuilder {
-	return &MetricsBuilder{}
-}
-
-// Build finalize the chain and returns the Metrics struct
-func (b *MetricsBuilder) Build() Metrics {
-	return b.v
-}
-
-func (b *MetricsBuilder) Metrics(value Metrics) *MetricsBuilder {
-	b.v = value
-	return b
-}

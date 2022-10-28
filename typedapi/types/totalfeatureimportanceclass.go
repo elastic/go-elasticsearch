@@ -17,56 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TotalFeatureImportanceClass type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/TrainedModel.ts#L230-L235
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/TrainedModel.ts#L230-L235
 type TotalFeatureImportanceClass struct {
 	// ClassName The target class value. Could be a string, boolean, or number.
-	ClassName Name `json:"class_name"`
+	ClassName string `json:"class_name"`
 	// Importance A collection of feature importance statistics related to the training data
 	// set for this particular feature.
 	Importance []TotalFeatureImportanceStatistics `json:"importance"`
 }
 
-// TotalFeatureImportanceClassBuilder holds TotalFeatureImportanceClass struct and provides a builder API.
-type TotalFeatureImportanceClassBuilder struct {
-	v *TotalFeatureImportanceClass
-}
+// NewTotalFeatureImportanceClass returns a TotalFeatureImportanceClass.
+func NewTotalFeatureImportanceClass() *TotalFeatureImportanceClass {
+	r := &TotalFeatureImportanceClass{}
 
-// NewTotalFeatureImportanceClass provides a builder for the TotalFeatureImportanceClass struct.
-func NewTotalFeatureImportanceClassBuilder() *TotalFeatureImportanceClassBuilder {
-	r := TotalFeatureImportanceClassBuilder{
-		&TotalFeatureImportanceClass{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TotalFeatureImportanceClass struct
-func (rb *TotalFeatureImportanceClassBuilder) Build() TotalFeatureImportanceClass {
-	return *rb.v
-}
-
-// ClassName The target class value. Could be a string, boolean, or number.
-
-func (rb *TotalFeatureImportanceClassBuilder) ClassName(classname Name) *TotalFeatureImportanceClassBuilder {
-	rb.v.ClassName = classname
-	return rb
-}
-
-// Importance A collection of feature importance statistics related to the training data
-// set for this particular feature.
-
-func (rb *TotalFeatureImportanceClassBuilder) Importance(importance []TotalFeatureImportanceStatisticsBuilder) *TotalFeatureImportanceClassBuilder {
-	tmp := make([]TotalFeatureImportanceStatistics, len(importance))
-	for _, value := range importance {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Importance = tmp
-	return rb
+	return r
 }

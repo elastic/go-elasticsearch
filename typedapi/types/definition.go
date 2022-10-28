@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Definition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/put_trained_model/types.ts#L24-L29
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/put_trained_model/types.ts#L24-L29
 type Definition struct {
 	// Preprocessors Collection of preprocessors
 	Preprocessors []Preprocessor `json:"preprocessors,omitempty"`
@@ -32,40 +32,9 @@ type Definition struct {
 	TrainedModel TrainedModel `json:"trained_model"`
 }
 
-// DefinitionBuilder holds Definition struct and provides a builder API.
-type DefinitionBuilder struct {
-	v *Definition
-}
+// NewDefinition returns a Definition.
+func NewDefinition() *Definition {
+	r := &Definition{}
 
-// NewDefinition provides a builder for the Definition struct.
-func NewDefinitionBuilder() *DefinitionBuilder {
-	r := DefinitionBuilder{
-		&Definition{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Definition struct
-func (rb *DefinitionBuilder) Build() Definition {
-	return *rb.v
-}
-
-// Preprocessors Collection of preprocessors
-
-func (rb *DefinitionBuilder) Preprocessors(preprocessors []PreprocessorBuilder) *DefinitionBuilder {
-	tmp := make([]Preprocessor, len(preprocessors))
-	for _, value := range preprocessors {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Preprocessors = tmp
-	return rb
-}
-
-// TrainedModel The definition of the trained model.
-
-func (rb *DefinitionBuilder) TrainedModel(trainedmodel *TrainedModelBuilder) *DefinitionBuilder {
-	v := trainedmodel.Build()
-	rb.v.TrainedModel = v
-	return rb
+	return r
 }

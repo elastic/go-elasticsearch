@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,44 +28,16 @@ import (
 
 // HttpInput type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/watcher/_types/Input.ts#L44-L48
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Input.ts#L44-L48
 type HttpInput struct {
 	Extract             []string                                 `json:"extract,omitempty"`
 	Request             *HttpInputRequestDefinition              `json:"request,omitempty"`
 	ResponseContentType *responsecontenttype.ResponseContentType `json:"response_content_type,omitempty"`
 }
 
-// HttpInputBuilder holds HttpInput struct and provides a builder API.
-type HttpInputBuilder struct {
-	v *HttpInput
-}
+// NewHttpInput returns a HttpInput.
+func NewHttpInput() *HttpInput {
+	r := &HttpInput{}
 
-// NewHttpInput provides a builder for the HttpInput struct.
-func NewHttpInputBuilder() *HttpInputBuilder {
-	r := HttpInputBuilder{
-		&HttpInput{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the HttpInput struct
-func (rb *HttpInputBuilder) Build() HttpInput {
-	return *rb.v
-}
-
-func (rb *HttpInputBuilder) Extract(extract ...string) *HttpInputBuilder {
-	rb.v.Extract = extract
-	return rb
-}
-
-func (rb *HttpInputBuilder) Request(request *HttpInputRequestDefinitionBuilder) *HttpInputBuilder {
-	v := request.Build()
-	rb.v.Request = &v
-	return rb
-}
-
-func (rb *HttpInputBuilder) ResponseContentType(responsecontenttype responsecontenttype.ResponseContentType) *HttpInputBuilder {
-	rb.v.ResponseContentType = &responsecontenttype
-	return rb
+	return r
 }

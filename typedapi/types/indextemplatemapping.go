@@ -17,58 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IndexTemplateMapping type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/put_index_template/IndicesPutIndexTemplateRequest.ts#L60-L64
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/put_index_template/IndicesPutIndexTemplateRequest.ts#L60-L64
 type IndexTemplateMapping struct {
-	Aliases  map[IndexName]Alias `json:"aliases,omitempty"`
-	Mappings *TypeMapping        `json:"mappings,omitempty"`
-	Settings *IndexSettings      `json:"settings,omitempty"`
+	Aliases  map[string]Alias `json:"aliases,omitempty"`
+	Mappings *TypeMapping     `json:"mappings,omitempty"`
+	Settings *IndexSettings   `json:"settings,omitempty"`
 }
 
-// IndexTemplateMappingBuilder holds IndexTemplateMapping struct and provides a builder API.
-type IndexTemplateMappingBuilder struct {
-	v *IndexTemplateMapping
-}
-
-// NewIndexTemplateMapping provides a builder for the IndexTemplateMapping struct.
-func NewIndexTemplateMappingBuilder() *IndexTemplateMappingBuilder {
-	r := IndexTemplateMappingBuilder{
-		&IndexTemplateMapping{
-			Aliases: make(map[IndexName]Alias, 0),
-		},
+// NewIndexTemplateMapping returns a IndexTemplateMapping.
+func NewIndexTemplateMapping() *IndexTemplateMapping {
+	r := &IndexTemplateMapping{
+		Aliases: make(map[string]Alias, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the IndexTemplateMapping struct
-func (rb *IndexTemplateMappingBuilder) Build() IndexTemplateMapping {
-	return *rb.v
-}
-
-func (rb *IndexTemplateMappingBuilder) Aliases(values map[IndexName]*AliasBuilder) *IndexTemplateMappingBuilder {
-	tmp := make(map[IndexName]Alias, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Aliases = tmp
-	return rb
-}
-
-func (rb *IndexTemplateMappingBuilder) Mappings(mappings *TypeMappingBuilder) *IndexTemplateMappingBuilder {
-	v := mappings.Build()
-	rb.v.Mappings = &v
-	return rb
-}
-
-func (rb *IndexTemplateMappingBuilder) Settings(settings *IndexSettingsBuilder) *IndexTemplateMappingBuilder {
-	v := settings.Build()
-	rb.v.Settings = &v
-	return rb
+	return r
 }

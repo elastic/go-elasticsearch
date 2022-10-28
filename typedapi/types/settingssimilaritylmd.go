@@ -17,41 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SettingsSimilarityLmd type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/_types/IndexSettings.ts#L206-L209
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/IndexSettings.ts#L206-L209
 type SettingsSimilarityLmd struct {
 	Mu   int    `json:"mu"`
 	Type string `json:"type,omitempty"`
 }
 
-// SettingsSimilarityLmdBuilder holds SettingsSimilarityLmd struct and provides a builder API.
-type SettingsSimilarityLmdBuilder struct {
-	v *SettingsSimilarityLmd
-}
+// NewSettingsSimilarityLmd returns a SettingsSimilarityLmd.
+func NewSettingsSimilarityLmd() *SettingsSimilarityLmd {
+	r := &SettingsSimilarityLmd{}
 
-// NewSettingsSimilarityLmd provides a builder for the SettingsSimilarityLmd struct.
-func NewSettingsSimilarityLmdBuilder() *SettingsSimilarityLmdBuilder {
-	r := SettingsSimilarityLmdBuilder{
-		&SettingsSimilarityLmd{},
-	}
+	r.Type = "LMDirichlet"
 
-	r.v.Type = "LMDirichlet"
-
-	return &r
-}
-
-// Build finalize the chain and returns the SettingsSimilarityLmd struct
-func (rb *SettingsSimilarityLmdBuilder) Build() SettingsSimilarityLmd {
-	return *rb.v
-}
-
-func (rb *SettingsSimilarityLmdBuilder) Mu(mu int) *SettingsSimilarityLmdBuilder {
-	rb.v.Mu = mu
-	return rb
+	return r
 }

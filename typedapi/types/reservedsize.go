@@ -17,56 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ReservedSize type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/cluster/allocation_explain/types.ts#L71-L76
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/allocation_explain/types.ts#L71-L76
 type ReservedSize struct {
-	NodeId Id       `json:"node_id"`
+	NodeId string   `json:"node_id"`
 	Path   string   `json:"path"`
 	Shards []string `json:"shards"`
 	Total  int64    `json:"total"`
 }
 
-// ReservedSizeBuilder holds ReservedSize struct and provides a builder API.
-type ReservedSizeBuilder struct {
-	v *ReservedSize
-}
+// NewReservedSize returns a ReservedSize.
+func NewReservedSize() *ReservedSize {
+	r := &ReservedSize{}
 
-// NewReservedSize provides a builder for the ReservedSize struct.
-func NewReservedSizeBuilder() *ReservedSizeBuilder {
-	r := ReservedSizeBuilder{
-		&ReservedSize{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ReservedSize struct
-func (rb *ReservedSizeBuilder) Build() ReservedSize {
-	return *rb.v
-}
-
-func (rb *ReservedSizeBuilder) NodeId(nodeid Id) *ReservedSizeBuilder {
-	rb.v.NodeId = nodeid
-	return rb
-}
-
-func (rb *ReservedSizeBuilder) Path(path string) *ReservedSizeBuilder {
-	rb.v.Path = path
-	return rb
-}
-
-func (rb *ReservedSizeBuilder) Shards(shards ...string) *ReservedSizeBuilder {
-	rb.v.Shards = shards
-	return rb
-}
-
-func (rb *ReservedSizeBuilder) Total(total int64) *ReservedSizeBuilder {
-	rb.v.Total = total
-	return rb
+	return r
 }

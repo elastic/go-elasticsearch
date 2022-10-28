@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,76 +28,23 @@ import (
 
 // ShardStore type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/shard_stores/types.ts#L29-L38
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/shard_stores/types.ts#L29-L38
 type ShardStore struct {
 	Allocation       shardstoreallocation.ShardStoreAllocation `json:"allocation"`
-	AllocationId     Id                                        `json:"allocation_id"`
+	AllocationId     string                                    `json:"allocation_id"`
 	Attributes       map[string]interface{}                    `json:"attributes"`
-	Id               Id                                        `json:"id"`
-	LegacyVersion    VersionNumber                             `json:"legacy_version"`
-	Name             Name                                      `json:"name"`
+	Id               string                                    `json:"id"`
+	LegacyVersion    int64                                     `json:"legacy_version"`
+	Name             string                                    `json:"name"`
 	StoreException   ShardStoreException                       `json:"store_exception"`
-	TransportAddress TransportAddress                          `json:"transport_address"`
+	TransportAddress string                                    `json:"transport_address"`
 }
 
-// ShardStoreBuilder holds ShardStore struct and provides a builder API.
-type ShardStoreBuilder struct {
-	v *ShardStore
-}
-
-// NewShardStore provides a builder for the ShardStore struct.
-func NewShardStoreBuilder() *ShardStoreBuilder {
-	r := ShardStoreBuilder{
-		&ShardStore{
-			Attributes: make(map[string]interface{}, 0),
-		},
+// NewShardStore returns a ShardStore.
+func NewShardStore() *ShardStore {
+	r := &ShardStore{
+		Attributes: make(map[string]interface{}, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the ShardStore struct
-func (rb *ShardStoreBuilder) Build() ShardStore {
-	return *rb.v
-}
-
-func (rb *ShardStoreBuilder) Allocation(allocation shardstoreallocation.ShardStoreAllocation) *ShardStoreBuilder {
-	rb.v.Allocation = allocation
-	return rb
-}
-
-func (rb *ShardStoreBuilder) AllocationId(allocationid Id) *ShardStoreBuilder {
-	rb.v.AllocationId = allocationid
-	return rb
-}
-
-func (rb *ShardStoreBuilder) Attributes(value map[string]interface{}) *ShardStoreBuilder {
-	rb.v.Attributes = value
-	return rb
-}
-
-func (rb *ShardStoreBuilder) Id(id Id) *ShardStoreBuilder {
-	rb.v.Id = id
-	return rb
-}
-
-func (rb *ShardStoreBuilder) LegacyVersion(legacyversion VersionNumber) *ShardStoreBuilder {
-	rb.v.LegacyVersion = legacyversion
-	return rb
-}
-
-func (rb *ShardStoreBuilder) Name(name Name) *ShardStoreBuilder {
-	rb.v.Name = name
-	return rb
-}
-
-func (rb *ShardStoreBuilder) StoreException(storeexception *ShardStoreExceptionBuilder) *ShardStoreBuilder {
-	v := storeexception.Build()
-	rb.v.StoreException = v
-	return rb
-}
-
-func (rb *ShardStoreBuilder) TransportAddress(transportaddress TransportAddress) *ShardStoreBuilder {
-	rb.v.TransportAddress = transportaddress
-	return rb
+	return r
 }

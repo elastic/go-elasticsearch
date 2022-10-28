@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IndexRoutingAllocationInclude type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/_types/IndexRouting.ts#L52-L55
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/IndexRouting.ts#L52-L55
 type IndexRoutingAllocationInclude struct {
-	Id_             *Id     `json:"_id,omitempty"`
+	Id_             *string `json:"_id,omitempty"`
 	TierPreference_ *string `json:"_tier_preference,omitempty"`
 }
 
-// IndexRoutingAllocationIncludeBuilder holds IndexRoutingAllocationInclude struct and provides a builder API.
-type IndexRoutingAllocationIncludeBuilder struct {
-	v *IndexRoutingAllocationInclude
-}
+// NewIndexRoutingAllocationInclude returns a IndexRoutingAllocationInclude.
+func NewIndexRoutingAllocationInclude() *IndexRoutingAllocationInclude {
+	r := &IndexRoutingAllocationInclude{}
 
-// NewIndexRoutingAllocationInclude provides a builder for the IndexRoutingAllocationInclude struct.
-func NewIndexRoutingAllocationIncludeBuilder() *IndexRoutingAllocationIncludeBuilder {
-	r := IndexRoutingAllocationIncludeBuilder{
-		&IndexRoutingAllocationInclude{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IndexRoutingAllocationInclude struct
-func (rb *IndexRoutingAllocationIncludeBuilder) Build() IndexRoutingAllocationInclude {
-	return *rb.v
-}
-
-func (rb *IndexRoutingAllocationIncludeBuilder) Id_(id_ Id) *IndexRoutingAllocationIncludeBuilder {
-	rb.v.Id_ = &id_
-	return rb
-}
-
-func (rb *IndexRoutingAllocationIncludeBuilder) TierPreference_(tierpreference_ string) *IndexRoutingAllocationIncludeBuilder {
-	rb.v.TierPreference_ = &tierpreference_
-	return rb
+	return r
 }

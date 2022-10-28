@@ -17,47 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NoriPartOfSpeechTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/token_filters.ts#L272-L275
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/token_filters.ts#L272-L275
 type NoriPartOfSpeechTokenFilter struct {
-	Stoptags []string       `json:"stoptags,omitempty"`
-	Type     string         `json:"type,omitempty"`
-	Version  *VersionString `json:"version,omitempty"`
+	Stoptags []string `json:"stoptags,omitempty"`
+	Type     string   `json:"type,omitempty"`
+	Version  *string  `json:"version,omitempty"`
 }
 
-// NoriPartOfSpeechTokenFilterBuilder holds NoriPartOfSpeechTokenFilter struct and provides a builder API.
-type NoriPartOfSpeechTokenFilterBuilder struct {
-	v *NoriPartOfSpeechTokenFilter
-}
+// NewNoriPartOfSpeechTokenFilter returns a NoriPartOfSpeechTokenFilter.
+func NewNoriPartOfSpeechTokenFilter() *NoriPartOfSpeechTokenFilter {
+	r := &NoriPartOfSpeechTokenFilter{}
 
-// NewNoriPartOfSpeechTokenFilter provides a builder for the NoriPartOfSpeechTokenFilter struct.
-func NewNoriPartOfSpeechTokenFilterBuilder() *NoriPartOfSpeechTokenFilterBuilder {
-	r := NoriPartOfSpeechTokenFilterBuilder{
-		&NoriPartOfSpeechTokenFilter{},
-	}
+	r.Type = "nori_part_of_speech"
 
-	r.v.Type = "nori_part_of_speech"
-
-	return &r
-}
-
-// Build finalize the chain and returns the NoriPartOfSpeechTokenFilter struct
-func (rb *NoriPartOfSpeechTokenFilterBuilder) Build() NoriPartOfSpeechTokenFilter {
-	return *rb.v
-}
-
-func (rb *NoriPartOfSpeechTokenFilterBuilder) Stoptags(stoptags ...string) *NoriPartOfSpeechTokenFilterBuilder {
-	rb.v.Stoptags = stoptags
-	return rb
-}
-
-func (rb *NoriPartOfSpeechTokenFilterBuilder) Version(version VersionString) *NoriPartOfSpeechTokenFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

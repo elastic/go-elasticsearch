@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AnalyticsStatistics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/xpack/usage/types.ts#L57-L67
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L57-L67
 type AnalyticsStatistics struct {
 	BoxplotUsage               int64  `json:"boxplot_usage"`
 	CumulativeCardinalityUsage int64  `json:"cumulative_cardinality_usage"`
@@ -37,66 +37,9 @@ type AnalyticsStatistics struct {
 	TopMetricsUsage            int64  `json:"top_metrics_usage"`
 }
 
-// AnalyticsStatisticsBuilder holds AnalyticsStatistics struct and provides a builder API.
-type AnalyticsStatisticsBuilder struct {
-	v *AnalyticsStatistics
-}
+// NewAnalyticsStatistics returns a AnalyticsStatistics.
+func NewAnalyticsStatistics() *AnalyticsStatistics {
+	r := &AnalyticsStatistics{}
 
-// NewAnalyticsStatistics provides a builder for the AnalyticsStatistics struct.
-func NewAnalyticsStatisticsBuilder() *AnalyticsStatisticsBuilder {
-	r := AnalyticsStatisticsBuilder{
-		&AnalyticsStatistics{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the AnalyticsStatistics struct
-func (rb *AnalyticsStatisticsBuilder) Build() AnalyticsStatistics {
-	return *rb.v
-}
-
-func (rb *AnalyticsStatisticsBuilder) BoxplotUsage(boxplotusage int64) *AnalyticsStatisticsBuilder {
-	rb.v.BoxplotUsage = boxplotusage
-	return rb
-}
-
-func (rb *AnalyticsStatisticsBuilder) CumulativeCardinalityUsage(cumulativecardinalityusage int64) *AnalyticsStatisticsBuilder {
-	rb.v.CumulativeCardinalityUsage = cumulativecardinalityusage
-	return rb
-}
-
-func (rb *AnalyticsStatisticsBuilder) MovingPercentilesUsage(movingpercentilesusage int64) *AnalyticsStatisticsBuilder {
-	rb.v.MovingPercentilesUsage = movingpercentilesusage
-	return rb
-}
-
-func (rb *AnalyticsStatisticsBuilder) MultiTermsUsage(multitermsusage int64) *AnalyticsStatisticsBuilder {
-	rb.v.MultiTermsUsage = &multitermsusage
-	return rb
-}
-
-func (rb *AnalyticsStatisticsBuilder) NormalizeUsage(normalizeusage int64) *AnalyticsStatisticsBuilder {
-	rb.v.NormalizeUsage = normalizeusage
-	return rb
-}
-
-func (rb *AnalyticsStatisticsBuilder) RateUsage(rateusage int64) *AnalyticsStatisticsBuilder {
-	rb.v.RateUsage = rateusage
-	return rb
-}
-
-func (rb *AnalyticsStatisticsBuilder) StringStatsUsage(stringstatsusage int64) *AnalyticsStatisticsBuilder {
-	rb.v.StringStatsUsage = stringstatsusage
-	return rb
-}
-
-func (rb *AnalyticsStatisticsBuilder) TTestUsage(ttestusage int64) *AnalyticsStatisticsBuilder {
-	rb.v.TTestUsage = ttestusage
-	return rb
-}
-
-func (rb *AnalyticsStatisticsBuilder) TopMetricsUsage(topmetricsusage int64) *AnalyticsStatisticsBuilder {
-	rb.v.TopMetricsUsage = topmetricsusage
-	return rb
+	return r
 }

@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MlInferenceDeploymentsTimeMs type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/xpack/usage/types.ts#L220-L222
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L220-L222
 type MlInferenceDeploymentsTimeMs struct {
 	Avg float64 `json:"avg"`
 }
 
-// MlInferenceDeploymentsTimeMsBuilder holds MlInferenceDeploymentsTimeMs struct and provides a builder API.
-type MlInferenceDeploymentsTimeMsBuilder struct {
-	v *MlInferenceDeploymentsTimeMs
-}
+// NewMlInferenceDeploymentsTimeMs returns a MlInferenceDeploymentsTimeMs.
+func NewMlInferenceDeploymentsTimeMs() *MlInferenceDeploymentsTimeMs {
+	r := &MlInferenceDeploymentsTimeMs{}
 
-// NewMlInferenceDeploymentsTimeMs provides a builder for the MlInferenceDeploymentsTimeMs struct.
-func NewMlInferenceDeploymentsTimeMsBuilder() *MlInferenceDeploymentsTimeMsBuilder {
-	r := MlInferenceDeploymentsTimeMsBuilder{
-		&MlInferenceDeploymentsTimeMs{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MlInferenceDeploymentsTimeMs struct
-func (rb *MlInferenceDeploymentsTimeMsBuilder) Build() MlInferenceDeploymentsTimeMs {
-	return *rb.v
-}
-
-func (rb *MlInferenceDeploymentsTimeMsBuilder) Avg(avg float64) *MlInferenceDeploymentsTimeMsBuilder {
-	rb.v.Avg = avg
-	return rb
+	return r
 }

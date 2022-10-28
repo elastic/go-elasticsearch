@@ -17,42 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IndexCapabilities type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/rollup/get_rollup_index_caps/types.ts#L24-L26
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/rollup/get_rollup_index_caps/types.ts#L24-L26
 type IndexCapabilities struct {
 	RollupJobs []RollupJobSummary `json:"rollup_jobs"`
 }
 
-// IndexCapabilitiesBuilder holds IndexCapabilities struct and provides a builder API.
-type IndexCapabilitiesBuilder struct {
-	v *IndexCapabilities
-}
+// NewIndexCapabilities returns a IndexCapabilities.
+func NewIndexCapabilities() *IndexCapabilities {
+	r := &IndexCapabilities{}
 
-// NewIndexCapabilities provides a builder for the IndexCapabilities struct.
-func NewIndexCapabilitiesBuilder() *IndexCapabilitiesBuilder {
-	r := IndexCapabilitiesBuilder{
-		&IndexCapabilities{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IndexCapabilities struct
-func (rb *IndexCapabilitiesBuilder) Build() IndexCapabilities {
-	return *rb.v
-}
-
-func (rb *IndexCapabilitiesBuilder) RollupJobs(rollup_jobs []RollupJobSummaryBuilder) *IndexCapabilitiesBuilder {
-	tmp := make([]RollupJobSummary, len(rollup_jobs))
-	for _, value := range rollup_jobs {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.RollupJobs = tmp
-	return rb
+	return r
 }

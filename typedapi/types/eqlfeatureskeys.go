@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // EqlFeaturesKeys type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/xpack/usage/types.ts#L113-L119
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L113-L119
 type EqlFeaturesKeys struct {
 	JoinKeysFiveOrMore uint `json:"join_keys_five_or_more"`
 	JoinKeysFour       uint `json:"join_keys_four"`
@@ -33,46 +33,9 @@ type EqlFeaturesKeys struct {
 	JoinKeysTwo        uint `json:"join_keys_two"`
 }
 
-// EqlFeaturesKeysBuilder holds EqlFeaturesKeys struct and provides a builder API.
-type EqlFeaturesKeysBuilder struct {
-	v *EqlFeaturesKeys
-}
+// NewEqlFeaturesKeys returns a EqlFeaturesKeys.
+func NewEqlFeaturesKeys() *EqlFeaturesKeys {
+	r := &EqlFeaturesKeys{}
 
-// NewEqlFeaturesKeys provides a builder for the EqlFeaturesKeys struct.
-func NewEqlFeaturesKeysBuilder() *EqlFeaturesKeysBuilder {
-	r := EqlFeaturesKeysBuilder{
-		&EqlFeaturesKeys{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the EqlFeaturesKeys struct
-func (rb *EqlFeaturesKeysBuilder) Build() EqlFeaturesKeys {
-	return *rb.v
-}
-
-func (rb *EqlFeaturesKeysBuilder) JoinKeysFiveOrMore(joinkeysfiveormore uint) *EqlFeaturesKeysBuilder {
-	rb.v.JoinKeysFiveOrMore = joinkeysfiveormore
-	return rb
-}
-
-func (rb *EqlFeaturesKeysBuilder) JoinKeysFour(joinkeysfour uint) *EqlFeaturesKeysBuilder {
-	rb.v.JoinKeysFour = joinkeysfour
-	return rb
-}
-
-func (rb *EqlFeaturesKeysBuilder) JoinKeysOne(joinkeysone uint) *EqlFeaturesKeysBuilder {
-	rb.v.JoinKeysOne = joinkeysone
-	return rb
-}
-
-func (rb *EqlFeaturesKeysBuilder) JoinKeysThree(joinkeysthree uint) *EqlFeaturesKeysBuilder {
-	rb.v.JoinKeysThree = joinkeysthree
-	return rb
-}
-
-func (rb *EqlFeaturesKeysBuilder) JoinKeysTwo(joinkeystwo uint) *EqlFeaturesKeysBuilder {
-	rb.v.JoinKeysTwo = joinkeystwo
-	return rb
+	return r
 }

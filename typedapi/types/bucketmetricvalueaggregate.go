@@ -17,17 +17,17 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // BucketMetricValueAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L224-L227
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L232-L235
 type BucketMetricValueAggregate struct {
-	Keys []string  `json:"keys"`
-	Meta *Metadata `json:"meta,omitempty"`
+	Keys []string               `json:"keys"`
+	Meta map[string]interface{} `json:"meta,omitempty"`
 	// Value The metric value. A missing value generally means that there was no data to
 	// aggregate,
 	// unless specified otherwise.
@@ -35,46 +35,9 @@ type BucketMetricValueAggregate struct {
 	ValueAsString *string `json:"value_as_string,omitempty"`
 }
 
-// BucketMetricValueAggregateBuilder holds BucketMetricValueAggregate struct and provides a builder API.
-type BucketMetricValueAggregateBuilder struct {
-	v *BucketMetricValueAggregate
-}
+// NewBucketMetricValueAggregate returns a BucketMetricValueAggregate.
+func NewBucketMetricValueAggregate() *BucketMetricValueAggregate {
+	r := &BucketMetricValueAggregate{}
 
-// NewBucketMetricValueAggregate provides a builder for the BucketMetricValueAggregate struct.
-func NewBucketMetricValueAggregateBuilder() *BucketMetricValueAggregateBuilder {
-	r := BucketMetricValueAggregateBuilder{
-		&BucketMetricValueAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the BucketMetricValueAggregate struct
-func (rb *BucketMetricValueAggregateBuilder) Build() BucketMetricValueAggregate {
-	return *rb.v
-}
-
-func (rb *BucketMetricValueAggregateBuilder) Keys(keys ...string) *BucketMetricValueAggregateBuilder {
-	rb.v.Keys = keys
-	return rb
-}
-
-func (rb *BucketMetricValueAggregateBuilder) Meta(meta *MetadataBuilder) *BucketMetricValueAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-// Value The metric value. A missing value generally means that there was no data to
-// aggregate,
-// unless specified otherwise.
-
-func (rb *BucketMetricValueAggregateBuilder) Value(value float64) *BucketMetricValueAggregateBuilder {
-	rb.v.Value = value
-	return rb
-}
-
-func (rb *BucketMetricValueAggregateBuilder) ValueAsString(valueasstring string) *BucketMetricValueAggregateBuilder {
-	rb.v.ValueAsString = &valueasstring
-	return rb
+	return r
 }

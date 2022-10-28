@@ -17,54 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ExplanationDetail type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_global/explain/types.ts#L28-L32
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/explain/types.ts#L28-L32
 type ExplanationDetail struct {
 	Description string              `json:"description"`
 	Details     []ExplanationDetail `json:"details,omitempty"`
 	Value       float32             `json:"value"`
 }
 
-// ExplanationDetailBuilder holds ExplanationDetail struct and provides a builder API.
-type ExplanationDetailBuilder struct {
-	v *ExplanationDetail
-}
+// NewExplanationDetail returns a ExplanationDetail.
+func NewExplanationDetail() *ExplanationDetail {
+	r := &ExplanationDetail{}
 
-// NewExplanationDetail provides a builder for the ExplanationDetail struct.
-func NewExplanationDetailBuilder() *ExplanationDetailBuilder {
-	r := ExplanationDetailBuilder{
-		&ExplanationDetail{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ExplanationDetail struct
-func (rb *ExplanationDetailBuilder) Build() ExplanationDetail {
-	return *rb.v
-}
-
-func (rb *ExplanationDetailBuilder) Description(description string) *ExplanationDetailBuilder {
-	rb.v.Description = description
-	return rb
-}
-
-func (rb *ExplanationDetailBuilder) Details(details []ExplanationDetailBuilder) *ExplanationDetailBuilder {
-	tmp := make([]ExplanationDetail, len(details))
-	for _, value := range details {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Details = tmp
-	return rb
-}
-
-func (rb *ExplanationDetailBuilder) Value(value float32) *ExplanationDetailBuilder {
-	rb.v.Value = value
-	return rb
+	return r
 }

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // DatafeedsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/cat/ml_datafeeds/types.ts#L22-L83
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cat/ml_datafeeds/types.ts#L22-L83
 type DatafeedsRecord struct {
 	// AssignmentExplanation why the datafeed is or is not assigned to a node
 	AssignmentExplanation *string `json:"assignment_explanation,omitempty"`
@@ -56,105 +56,9 @@ type DatafeedsRecord struct {
 	State *datafeedstate.DatafeedState `json:"state,omitempty"`
 }
 
-// DatafeedsRecordBuilder holds DatafeedsRecord struct and provides a builder API.
-type DatafeedsRecordBuilder struct {
-	v *DatafeedsRecord
-}
+// NewDatafeedsRecord returns a DatafeedsRecord.
+func NewDatafeedsRecord() *DatafeedsRecord {
+	r := &DatafeedsRecord{}
 
-// NewDatafeedsRecord provides a builder for the DatafeedsRecord struct.
-func NewDatafeedsRecordBuilder() *DatafeedsRecordBuilder {
-	r := DatafeedsRecordBuilder{
-		&DatafeedsRecord{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DatafeedsRecord struct
-func (rb *DatafeedsRecordBuilder) Build() DatafeedsRecord {
-	return *rb.v
-}
-
-// AssignmentExplanation why the datafeed is or is not assigned to a node
-
-func (rb *DatafeedsRecordBuilder) AssignmentExplanation(assignmentexplanation string) *DatafeedsRecordBuilder {
-	rb.v.AssignmentExplanation = &assignmentexplanation
-	return rb
-}
-
-// BucketsCount bucket count
-
-func (rb *DatafeedsRecordBuilder) BucketsCount(bucketscount string) *DatafeedsRecordBuilder {
-	rb.v.BucketsCount = &bucketscount
-	return rb
-}
-
-// Id the datafeed_id
-
-func (rb *DatafeedsRecordBuilder) Id(id string) *DatafeedsRecordBuilder {
-	rb.v.Id = &id
-	return rb
-}
-
-// NodeAddress network address of the assigned node
-
-func (rb *DatafeedsRecordBuilder) NodeAddress(nodeaddress string) *DatafeedsRecordBuilder {
-	rb.v.NodeAddress = &nodeaddress
-	return rb
-}
-
-// NodeEphemeralId ephemeral id of the assigned node
-
-func (rb *DatafeedsRecordBuilder) NodeEphemeralId(nodeephemeralid string) *DatafeedsRecordBuilder {
-	rb.v.NodeEphemeralId = &nodeephemeralid
-	return rb
-}
-
-// NodeId id of the assigned node
-
-func (rb *DatafeedsRecordBuilder) NodeId(nodeid string) *DatafeedsRecordBuilder {
-	rb.v.NodeId = &nodeid
-	return rb
-}
-
-// NodeName name of the assigned node
-
-func (rb *DatafeedsRecordBuilder) NodeName(nodename string) *DatafeedsRecordBuilder {
-	rb.v.NodeName = &nodename
-	return rb
-}
-
-// SearchBucketAvg the average search time per bucket (millisecond)
-
-func (rb *DatafeedsRecordBuilder) SearchBucketAvg(searchbucketavg string) *DatafeedsRecordBuilder {
-	rb.v.SearchBucketAvg = &searchbucketavg
-	return rb
-}
-
-// SearchCount number of searches ran by the datafeed
-
-func (rb *DatafeedsRecordBuilder) SearchCount(searchcount string) *DatafeedsRecordBuilder {
-	rb.v.SearchCount = &searchcount
-	return rb
-}
-
-// SearchExpAvgHour the exponential average search time per hour (millisecond)
-
-func (rb *DatafeedsRecordBuilder) SearchExpAvgHour(searchexpavghour string) *DatafeedsRecordBuilder {
-	rb.v.SearchExpAvgHour = &searchexpavghour
-	return rb
-}
-
-// SearchTime the total search time
-
-func (rb *DatafeedsRecordBuilder) SearchTime(searchtime string) *DatafeedsRecordBuilder {
-	rb.v.SearchTime = &searchtime
-	return rb
-}
-
-// State the datafeed state
-
-func (rb *DatafeedsRecordBuilder) State(state datafeedstate.DatafeedState) *DatafeedsRecordBuilder {
-	rb.v.State = &state
-	return rb
+	return r
 }

@@ -17,57 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Processor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/_types/Stats.ts#L156-L161
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L156-L161
 type Processor struct {
-	Count        *int64                   `json:"count,omitempty"`
-	Current      *int64                   `json:"current,omitempty"`
-	Failed       *int64                   `json:"failed,omitempty"`
-	TimeInMillis *DurationValueUnitMillis `json:"time_in_millis,omitempty"`
+	Count        *int64 `json:"count,omitempty"`
+	Current      *int64 `json:"current,omitempty"`
+	Failed       *int64 `json:"failed,omitempty"`
+	TimeInMillis *int64 `json:"time_in_millis,omitempty"`
 }
 
-// ProcessorBuilder holds Processor struct and provides a builder API.
-type ProcessorBuilder struct {
-	v *Processor
-}
+// NewProcessor returns a Processor.
+func NewProcessor() *Processor {
+	r := &Processor{}
 
-// NewProcessor provides a builder for the Processor struct.
-func NewProcessorBuilder() *ProcessorBuilder {
-	r := ProcessorBuilder{
-		&Processor{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Processor struct
-func (rb *ProcessorBuilder) Build() Processor {
-	return *rb.v
-}
-
-func (rb *ProcessorBuilder) Count(count int64) *ProcessorBuilder {
-	rb.v.Count = &count
-	return rb
-}
-
-func (rb *ProcessorBuilder) Current(current int64) *ProcessorBuilder {
-	rb.v.Current = &current
-	return rb
-}
-
-func (rb *ProcessorBuilder) Failed(failed int64) *ProcessorBuilder {
-	rb.v.Failed = &failed
-	return rb
-}
-
-func (rb *ProcessorBuilder) TimeInMillis(timeinmillis *DurationValueUnitMillisBuilder) *ProcessorBuilder {
-	v := timeinmillis.Build()
-	rb.v.TimeInMillis = &v
-	return rb
+	return r
 }

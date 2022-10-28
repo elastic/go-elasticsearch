@@ -17,45 +17,15 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Percentiles holds the union for the following types:
 //
+//	map[string]string
 //	[]ArrayPercentilesItem
-//	KeyedPercentiles
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L141-L142
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L149-L150
 type Percentiles interface{}
-
-// PercentilesBuilder holds Percentiles struct and provides a builder API.
-type PercentilesBuilder struct {
-	v Percentiles
-}
-
-// NewPercentiles provides a builder for the Percentiles struct.
-func NewPercentilesBuilder() *PercentilesBuilder {
-	return &PercentilesBuilder{}
-}
-
-// Build finalize the chain and returns the Percentiles struct
-func (u *PercentilesBuilder) Build() Percentiles {
-	return u.v
-}
-
-func (u *PercentilesBuilder) ArrayPercentilesItems(arraypercentilesitems []ArrayPercentilesItemBuilder) *PercentilesBuilder {
-	tmp := make([]ArrayPercentilesItem, len(arraypercentilesitems))
-	for _, value := range arraypercentilesitems {
-		tmp = append(tmp, value.Build())
-	}
-	u.v = tmp
-	return u
-}
-
-func (u *PercentilesBuilder) KeyedPercentiles(keyedpercentiles *KeyedPercentilesBuilder) *PercentilesBuilder {
-	v := keyedpercentiles.Build()
-	u.v = &v
-	return u
-}

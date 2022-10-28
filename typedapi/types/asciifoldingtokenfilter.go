@@ -17,47 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AsciiFoldingTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/token_filters.ts#L167-L170
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/token_filters.ts#L167-L170
 type AsciiFoldingTokenFilter struct {
-	PreserveOriginal *bool          `json:"preserve_original,omitempty"`
-	Type             string         `json:"type,omitempty"`
-	Version          *VersionString `json:"version,omitempty"`
+	PreserveOriginal *bool   `json:"preserve_original,omitempty"`
+	Type             string  `json:"type,omitempty"`
+	Version          *string `json:"version,omitempty"`
 }
 
-// AsciiFoldingTokenFilterBuilder holds AsciiFoldingTokenFilter struct and provides a builder API.
-type AsciiFoldingTokenFilterBuilder struct {
-	v *AsciiFoldingTokenFilter
-}
+// NewAsciiFoldingTokenFilter returns a AsciiFoldingTokenFilter.
+func NewAsciiFoldingTokenFilter() *AsciiFoldingTokenFilter {
+	r := &AsciiFoldingTokenFilter{}
 
-// NewAsciiFoldingTokenFilter provides a builder for the AsciiFoldingTokenFilter struct.
-func NewAsciiFoldingTokenFilterBuilder() *AsciiFoldingTokenFilterBuilder {
-	r := AsciiFoldingTokenFilterBuilder{
-		&AsciiFoldingTokenFilter{},
-	}
+	r.Type = "asciifolding"
 
-	r.v.Type = "asciifolding"
-
-	return &r
-}
-
-// Build finalize the chain and returns the AsciiFoldingTokenFilter struct
-func (rb *AsciiFoldingTokenFilterBuilder) Build() AsciiFoldingTokenFilter {
-	return *rb.v
-}
-
-func (rb *AsciiFoldingTokenFilterBuilder) PreserveOriginal(preserveoriginal bool) *AsciiFoldingTokenFilterBuilder {
-	rb.v.PreserveOriginal = &preserveoriginal
-	return rb
-}
-
-func (rb *AsciiFoldingTokenFilterBuilder) Version(version VersionString) *AsciiFoldingTokenFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

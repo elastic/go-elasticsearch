@@ -17,46 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // OneHotEncodingPreprocessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/put_trained_model/types.ts#L44-L47
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/put_trained_model/types.ts#L44-L47
 type OneHotEncodingPreprocessor struct {
 	Field  string            `json:"field"`
 	HotMap map[string]string `json:"hot_map"`
 }
 
-// OneHotEncodingPreprocessorBuilder holds OneHotEncodingPreprocessor struct and provides a builder API.
-type OneHotEncodingPreprocessorBuilder struct {
-	v *OneHotEncodingPreprocessor
-}
-
-// NewOneHotEncodingPreprocessor provides a builder for the OneHotEncodingPreprocessor struct.
-func NewOneHotEncodingPreprocessorBuilder() *OneHotEncodingPreprocessorBuilder {
-	r := OneHotEncodingPreprocessorBuilder{
-		&OneHotEncodingPreprocessor{
-			HotMap: make(map[string]string, 0),
-		},
+// NewOneHotEncodingPreprocessor returns a OneHotEncodingPreprocessor.
+func NewOneHotEncodingPreprocessor() *OneHotEncodingPreprocessor {
+	r := &OneHotEncodingPreprocessor{
+		HotMap: make(map[string]string, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the OneHotEncodingPreprocessor struct
-func (rb *OneHotEncodingPreprocessorBuilder) Build() OneHotEncodingPreprocessor {
-	return *rb.v
-}
-
-func (rb *OneHotEncodingPreprocessorBuilder) Field(field string) *OneHotEncodingPreprocessorBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *OneHotEncodingPreprocessorBuilder) HotMap(value map[string]string) *OneHotEncodingPreprocessorBuilder {
-	rb.v.HotMap = value
-	return rb
+	return r
 }

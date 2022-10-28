@@ -17,58 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SearchProfile type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_global/search/_types/profile.ts#L126-L130
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/profile.ts#L126-L130
 type SearchProfile struct {
 	Collector   []Collector    `json:"collector"`
 	Query       []QueryProfile `json:"query"`
 	RewriteTime int64          `json:"rewrite_time"`
 }
 
-// SearchProfileBuilder holds SearchProfile struct and provides a builder API.
-type SearchProfileBuilder struct {
-	v *SearchProfile
-}
+// NewSearchProfile returns a SearchProfile.
+func NewSearchProfile() *SearchProfile {
+	r := &SearchProfile{}
 
-// NewSearchProfile provides a builder for the SearchProfile struct.
-func NewSearchProfileBuilder() *SearchProfileBuilder {
-	r := SearchProfileBuilder{
-		&SearchProfile{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SearchProfile struct
-func (rb *SearchProfileBuilder) Build() SearchProfile {
-	return *rb.v
-}
-
-func (rb *SearchProfileBuilder) Collector(collector []CollectorBuilder) *SearchProfileBuilder {
-	tmp := make([]Collector, len(collector))
-	for _, value := range collector {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Collector = tmp
-	return rb
-}
-
-func (rb *SearchProfileBuilder) Query(query []QueryProfileBuilder) *SearchProfileBuilder {
-	tmp := make([]QueryProfile, len(query))
-	for _, value := range query {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Query = tmp
-	return rb
-}
-
-func (rb *SearchProfileBuilder) RewriteTime(rewritetime int64) *SearchProfileBuilder {
-	rb.v.RewriteTime = rewritetime
-	return rb
+	return r
 }

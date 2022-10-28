@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package simulateindextemplate
@@ -31,40 +31,26 @@ import (
 
 // Request holds the request body struct for the package simulateindextemplate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/simulate_index_template/IndicesSimulateIndexTemplateRequest.ts#L33-L71
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/simulate_index_template/IndicesSimulateIndexTemplateRequest.ts#L33-L71
 type Request struct {
-	AllowAutoCreate *bool `json:"allow_auto_create,omitempty"`
-
-	ComposedOf []types.Name `json:"composed_of,omitempty"`
-
-	DataStream *types.DataStreamVisibility `json:"data_stream,omitempty"`
-
-	IndexPatterns *types.Indices `json:"index_patterns,omitempty"`
-
-	Meta_ *types.Metadata `json:"_meta,omitempty"`
-
-	Priority *int `json:"priority,omitempty"`
-
-	Template *types.IndexTemplateMapping `json:"template,omitempty"`
-
-	Version *types.VersionNumber `json:"version,omitempty"`
+	AllowAutoCreate *bool                       `json:"allow_auto_create,omitempty"`
+	ComposedOf      []string                    `json:"composed_of,omitempty"`
+	DataStream      *types.DataStreamVisibility `json:"data_stream,omitempty"`
+	IndexPatterns   []string                    `json:"index_patterns,omitempty"`
+	Meta_           map[string]interface{}      `json:"_meta,omitempty"`
+	Priority        *int                        `json:"priority,omitempty"`
+	Template        *types.IndexTemplateMapping `json:"template,omitempty"`
+	Version         *int64                      `json:"version,omitempty"`
 }
 
-// RequestBuilder is the builder API for the simulateindextemplate.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -73,53 +59,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) AllowAutoCreate(allowautocreate bool) *RequestBuilder {
-	rb.v.AllowAutoCreate = &allowautocreate
-	return rb
-}
-
-func (rb *RequestBuilder) ComposedOf(composed_of ...types.Name) *RequestBuilder {
-	rb.v.ComposedOf = composed_of
-	return rb
-}
-
-func (rb *RequestBuilder) DataStream(datastream *types.DataStreamVisibilityBuilder) *RequestBuilder {
-	v := datastream.Build()
-	rb.v.DataStream = &v
-	return rb
-}
-
-func (rb *RequestBuilder) IndexPatterns(indexpatterns *types.IndicesBuilder) *RequestBuilder {
-	v := indexpatterns.Build()
-	rb.v.IndexPatterns = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Meta_(meta_ *types.MetadataBuilder) *RequestBuilder {
-	v := meta_.Build()
-	rb.v.Meta_ = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Priority(priority int) *RequestBuilder {
-	rb.v.Priority = &priority
-	return rb
-}
-
-func (rb *RequestBuilder) Template(template *types.IndexTemplateMappingBuilder) *RequestBuilder {
-	v := template.Build()
-	rb.v.Template = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Version(version types.VersionNumber) *RequestBuilder {
-	rb.v.Version = &version
-	return rb
 }

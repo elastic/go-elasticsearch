@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,13 +28,13 @@ import (
 
 // HoltWintersMovingAverageAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/pipeline.ts#L222-L225
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/pipeline.ts#L222-L225
 type HoltWintersMovingAverageAggregation struct {
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
-	BucketsPath *BucketsPath             `json:"buckets_path,omitempty"`
+	BucketsPath *string                  `json:"buckets_path,omitempty"`
 	Format      *string                  `json:"format,omitempty"`
 	GapPolicy   *gappolicy.GapPolicy     `json:"gap_policy,omitempty"`
-	Meta        *Metadata                `json:"meta,omitempty"`
+	Meta        map[string]interface{}   `json:"meta,omitempty"`
 	Minimize    *bool                    `json:"minimize,omitempty"`
 	Model       string                   `json:"model,omitempty"`
 	Name        *string                  `json:"name,omitempty"`
@@ -43,73 +43,11 @@ type HoltWintersMovingAverageAggregation struct {
 	Window      *int                     `json:"window,omitempty"`
 }
 
-// HoltWintersMovingAverageAggregationBuilder holds HoltWintersMovingAverageAggregation struct and provides a builder API.
-type HoltWintersMovingAverageAggregationBuilder struct {
-	v *HoltWintersMovingAverageAggregation
-}
+// NewHoltWintersMovingAverageAggregation returns a HoltWintersMovingAverageAggregation.
+func NewHoltWintersMovingAverageAggregation() *HoltWintersMovingAverageAggregation {
+	r := &HoltWintersMovingAverageAggregation{}
 
-// NewHoltWintersMovingAverageAggregation provides a builder for the HoltWintersMovingAverageAggregation struct.
-func NewHoltWintersMovingAverageAggregationBuilder() *HoltWintersMovingAverageAggregationBuilder {
-	r := HoltWintersMovingAverageAggregationBuilder{
-		&HoltWintersMovingAverageAggregation{},
-	}
+	r.Model = "holt_winters"
 
-	r.v.Model = "holt_winters"
-
-	return &r
-}
-
-// Build finalize the chain and returns the HoltWintersMovingAverageAggregation struct
-func (rb *HoltWintersMovingAverageAggregationBuilder) Build() HoltWintersMovingAverageAggregation {
-	return *rb.v
-}
-
-// BucketsPath Path to the buckets that contain one set of values to correlate.
-
-func (rb *HoltWintersMovingAverageAggregationBuilder) BucketsPath(bucketspath *BucketsPathBuilder) *HoltWintersMovingAverageAggregationBuilder {
-	v := bucketspath.Build()
-	rb.v.BucketsPath = &v
-	return rb
-}
-
-func (rb *HoltWintersMovingAverageAggregationBuilder) Format(format string) *HoltWintersMovingAverageAggregationBuilder {
-	rb.v.Format = &format
-	return rb
-}
-
-func (rb *HoltWintersMovingAverageAggregationBuilder) GapPolicy(gappolicy gappolicy.GapPolicy) *HoltWintersMovingAverageAggregationBuilder {
-	rb.v.GapPolicy = &gappolicy
-	return rb
-}
-
-func (rb *HoltWintersMovingAverageAggregationBuilder) Meta(meta *MetadataBuilder) *HoltWintersMovingAverageAggregationBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *HoltWintersMovingAverageAggregationBuilder) Minimize(minimize bool) *HoltWintersMovingAverageAggregationBuilder {
-	rb.v.Minimize = &minimize
-	return rb
-}
-
-func (rb *HoltWintersMovingAverageAggregationBuilder) Name(name string) *HoltWintersMovingAverageAggregationBuilder {
-	rb.v.Name = &name
-	return rb
-}
-
-func (rb *HoltWintersMovingAverageAggregationBuilder) Predict(predict int) *HoltWintersMovingAverageAggregationBuilder {
-	rb.v.Predict = &predict
-	return rb
-}
-
-func (rb *HoltWintersMovingAverageAggregationBuilder) Settings(settings *HoltWintersModelSettingsBuilder) *HoltWintersMovingAverageAggregationBuilder {
-	v := settings.Build()
-	rb.v.Settings = v
-	return rb
-}
-
-func (rb *HoltWintersMovingAverageAggregationBuilder) Window(window int) *HoltWintersMovingAverageAggregationBuilder {
-	rb.v.Window = &window
-	return rb
+	return r
 }

@@ -17,51 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // HttpInputResponseResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/watcher/_types/Actions.ts#L302-L306
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Actions.ts#L302-L306
 type HttpInputResponseResult struct {
-	Body    string      `json:"body"`
-	Headers HttpHeaders `json:"headers"`
-	Status  int         `json:"status"`
+	Body    string              `json:"body"`
+	Headers map[string][]string `json:"headers"`
+	Status  int                 `json:"status"`
 }
 
-// HttpInputResponseResultBuilder holds HttpInputResponseResult struct and provides a builder API.
-type HttpInputResponseResultBuilder struct {
-	v *HttpInputResponseResult
-}
+// NewHttpInputResponseResult returns a HttpInputResponseResult.
+func NewHttpInputResponseResult() *HttpInputResponseResult {
+	r := &HttpInputResponseResult{}
 
-// NewHttpInputResponseResult provides a builder for the HttpInputResponseResult struct.
-func NewHttpInputResponseResultBuilder() *HttpInputResponseResultBuilder {
-	r := HttpInputResponseResultBuilder{
-		&HttpInputResponseResult{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the HttpInputResponseResult struct
-func (rb *HttpInputResponseResultBuilder) Build() HttpInputResponseResult {
-	return *rb.v
-}
-
-func (rb *HttpInputResponseResultBuilder) Body(body string) *HttpInputResponseResultBuilder {
-	rb.v.Body = body
-	return rb
-}
-
-func (rb *HttpInputResponseResultBuilder) Headers(headers *HttpHeadersBuilder) *HttpInputResponseResultBuilder {
-	v := headers.Build()
-	rb.v.Headers = v
-	return rb
-}
-
-func (rb *HttpInputResponseResultBuilder) Status(status int) *HttpInputResponseResultBuilder {
-	rb.v.Status = status
-	return rb
+	return r
 }

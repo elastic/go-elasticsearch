@@ -17,71 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DatafeedTimingStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/Datafeed.ts#L149-L156
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/Datafeed.ts#L149-L156
 type DatafeedTimingStats struct {
-	AverageSearchTimePerBucketMs          *DurationValueUnitFloatMillis `json:"average_search_time_per_bucket_ms,omitempty"`
-	BucketCount                           int64                         `json:"bucket_count"`
-	ExponentialAverageSearchTimePerHourMs DurationValueUnitFloatMillis  `json:"exponential_average_search_time_per_hour_ms"`
-	JobId                                 Id                            `json:"job_id"`
-	SearchCount                           int64                         `json:"search_count"`
-	TotalSearchTimeMs                     DurationValueUnitFloatMillis  `json:"total_search_time_ms"`
+	AverageSearchTimePerBucketMs          *float64 `json:"average_search_time_per_bucket_ms,omitempty"`
+	BucketCount                           int64    `json:"bucket_count"`
+	ExponentialAverageSearchTimePerHourMs float64  `json:"exponential_average_search_time_per_hour_ms"`
+	JobId                                 string   `json:"job_id"`
+	SearchCount                           int64    `json:"search_count"`
+	TotalSearchTimeMs                     float64  `json:"total_search_time_ms"`
 }
 
-// DatafeedTimingStatsBuilder holds DatafeedTimingStats struct and provides a builder API.
-type DatafeedTimingStatsBuilder struct {
-	v *DatafeedTimingStats
-}
+// NewDatafeedTimingStats returns a DatafeedTimingStats.
+func NewDatafeedTimingStats() *DatafeedTimingStats {
+	r := &DatafeedTimingStats{}
 
-// NewDatafeedTimingStats provides a builder for the DatafeedTimingStats struct.
-func NewDatafeedTimingStatsBuilder() *DatafeedTimingStatsBuilder {
-	r := DatafeedTimingStatsBuilder{
-		&DatafeedTimingStats{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DatafeedTimingStats struct
-func (rb *DatafeedTimingStatsBuilder) Build() DatafeedTimingStats {
-	return *rb.v
-}
-
-func (rb *DatafeedTimingStatsBuilder) AverageSearchTimePerBucketMs(averagesearchtimeperbucketms *DurationValueUnitFloatMillisBuilder) *DatafeedTimingStatsBuilder {
-	v := averagesearchtimeperbucketms.Build()
-	rb.v.AverageSearchTimePerBucketMs = &v
-	return rb
-}
-
-func (rb *DatafeedTimingStatsBuilder) BucketCount(bucketcount int64) *DatafeedTimingStatsBuilder {
-	rb.v.BucketCount = bucketcount
-	return rb
-}
-
-func (rb *DatafeedTimingStatsBuilder) ExponentialAverageSearchTimePerHourMs(exponentialaveragesearchtimeperhourms *DurationValueUnitFloatMillisBuilder) *DatafeedTimingStatsBuilder {
-	v := exponentialaveragesearchtimeperhourms.Build()
-	rb.v.ExponentialAverageSearchTimePerHourMs = v
-	return rb
-}
-
-func (rb *DatafeedTimingStatsBuilder) JobId(jobid Id) *DatafeedTimingStatsBuilder {
-	rb.v.JobId = jobid
-	return rb
-}
-
-func (rb *DatafeedTimingStatsBuilder) SearchCount(searchcount int64) *DatafeedTimingStatsBuilder {
-	rb.v.SearchCount = searchcount
-	return rb
-}
-
-func (rb *DatafeedTimingStatsBuilder) TotalSearchTimeMs(totalsearchtimems *DurationValueUnitFloatMillisBuilder) *DatafeedTimingStatsBuilder {
-	v := totalsearchtimems.Build()
-	rb.v.TotalSearchTimeMs = v
-	return rb
+	return r
 }

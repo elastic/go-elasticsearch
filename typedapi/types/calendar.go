@@ -17,59 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Calendar type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/get_calendars/types.ts#L22-L29
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/get_calendars/types.ts#L22-L29
 type Calendar struct {
 	// CalendarId A string that uniquely identifies a calendar.
-	CalendarId Id `json:"calendar_id"`
+	CalendarId string `json:"calendar_id"`
 	// Description A description of the calendar.
 	Description *string `json:"description,omitempty"`
 	// JobIds An array of anomaly detection job identifiers.
-	JobIds []Id `json:"job_ids"`
+	JobIds []string `json:"job_ids"`
 }
 
-// CalendarBuilder holds Calendar struct and provides a builder API.
-type CalendarBuilder struct {
-	v *Calendar
-}
+// NewCalendar returns a Calendar.
+func NewCalendar() *Calendar {
+	r := &Calendar{}
 
-// NewCalendar provides a builder for the Calendar struct.
-func NewCalendarBuilder() *CalendarBuilder {
-	r := CalendarBuilder{
-		&Calendar{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Calendar struct
-func (rb *CalendarBuilder) Build() Calendar {
-	return *rb.v
-}
-
-// CalendarId A string that uniquely identifies a calendar.
-
-func (rb *CalendarBuilder) CalendarId(calendarid Id) *CalendarBuilder {
-	rb.v.CalendarId = calendarid
-	return rb
-}
-
-// Description A description of the calendar.
-
-func (rb *CalendarBuilder) Description(description string) *CalendarBuilder {
-	rb.v.Description = &description
-	return rb
-}
-
-// JobIds An array of anomaly detection job identifiers.
-
-func (rb *CalendarBuilder) JobIds(job_ids ...Id) *CalendarBuilder {
-	rb.v.JobIds = job_ids
-	return rb
+	return r
 }

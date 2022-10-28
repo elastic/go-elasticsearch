@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package updatejob
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package updatejob
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/update_job/MlUpdateJobRequest.ts#L33-L137
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/update_job/MlUpdateJobRequest.ts#L33-L137
 type Request struct {
 
 	// AllowLazyOpen Advanced configuration option. Specifies whether this job can open when
@@ -43,10 +43,8 @@ type Request struct {
 	// option is set to `true`, the open anomaly detection jobs API does not
 	// return an error and the job waits in the opening state until sufficient
 	// machine learning node capacity is available.
-	AllowLazyOpen *bool `json:"allow_lazy_open,omitempty"`
-
+	AllowLazyOpen  *bool                      `json:"allow_lazy_open,omitempty"`
 	AnalysisLimits *types.AnalysisMemoryLimit `json:"analysis_limits,omitempty"`
-
 	// BackgroundPersistInterval Advanced configuration option. The time between each periodic persistence
 	// of the model.
 	// The default value is a randomized value between 3 to 4 hours, which
@@ -58,14 +56,11 @@ type Request struct {
 	// close the job, then reopen the job and restart the datafeed for the
 	// changes to take effect.
 	BackgroundPersistInterval *types.Duration `json:"background_persist_interval,omitempty"`
-
-	CategorizationFilters []string `json:"categorization_filters,omitempty"`
-
+	CategorizationFilters     []string        `json:"categorization_filters,omitempty"`
 	// CustomSettings Advanced configuration option. Contains custom meta data about the job.
 	// For example, it can contain custom URL information as shown in Adding
 	// custom URLs to machine learning results.
 	CustomSettings map[string]interface{} `json:"custom_settings,omitempty"`
-
 	// DailyModelSnapshotRetentionAfterDays Advanced configuration option, which affects the automatic removal of old
 	// model snapshots for this job. It specifies a period of time (in days)
 	// after which only the first snapshot per day is retained. This period is
@@ -74,31 +69,23 @@ type Request struct {
 	// before version 7.8.0, the default value matches
 	// `model_snapshot_retention_days`.
 	DailyModelSnapshotRetentionAfterDays *int64 `json:"daily_model_snapshot_retention_after_days,omitempty"`
-
 	// Description A description of the job.
 	Description *string `json:"description,omitempty"`
-
 	// Detectors An array of detector update objects.
 	Detectors []types.Detector `json:"detectors,omitempty"`
-
 	// Groups A list of job groups. A job can belong to no groups or many.
-	Groups []string `json:"groups,omitempty"`
-
+	Groups          []string               `json:"groups,omitempty"`
 	ModelPlotConfig *types.ModelPlotConfig `json:"model_plot_config,omitempty"`
-
 	// ModelSnapshotRetentionDays Advanced configuration option, which affects the automatic removal of old
 	// model snapshots for this job. It specifies the maximum period of time (in
 	// days) that snapshots are retained. This period is relative to the
 	// timestamp of the most recent snapshot for this job.
 	ModelSnapshotRetentionDays *int64 `json:"model_snapshot_retention_days,omitempty"`
-
 	// PerPartitionCategorization Settings related to how categorization interacts with partition fields.
 	PerPartitionCategorization *types.PerPartitionCategorization `json:"per_partition_categorization,omitempty"`
-
 	// RenormalizationWindowDays Advanced configuration option. The period over which adjustments to the
 	// score are applied, as new data is seen.
 	RenormalizationWindowDays *int64 `json:"renormalization_window_days,omitempty"`
-
 	// ResultsRetentionDays Advanced configuration option. The period of time (in days) that results
 	// are retained. Age is calculated relative to the timestamp of the latest
 	// bucket result. If this property has a non-null value, once per day at
@@ -108,23 +95,16 @@ type Request struct {
 	ResultsRetentionDays *int64 `json:"results_retention_days,omitempty"`
 }
 
-// RequestBuilder is the builder API for the updatejob.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{
-			CustomSettings: make(map[string]interface{}, 0),
-		},
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{
+		CustomSettings: make(map[string]interface{}, 0),
 	}
-	return &r
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -133,87 +113,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) AllowLazyOpen(allowlazyopen bool) *RequestBuilder {
-	rb.v.AllowLazyOpen = &allowlazyopen
-	return rb
-}
-
-func (rb *RequestBuilder) AnalysisLimits(analysislimits *types.AnalysisMemoryLimitBuilder) *RequestBuilder {
-	v := analysislimits.Build()
-	rb.v.AnalysisLimits = &v
-	return rb
-}
-
-func (rb *RequestBuilder) BackgroundPersistInterval(backgroundpersistinterval *types.DurationBuilder) *RequestBuilder {
-	v := backgroundpersistinterval.Build()
-	rb.v.BackgroundPersistInterval = &v
-	return rb
-}
-
-func (rb *RequestBuilder) CategorizationFilters(categorization_filters ...string) *RequestBuilder {
-	rb.v.CategorizationFilters = categorization_filters
-	return rb
-}
-
-func (rb *RequestBuilder) CustomSettings(value map[string]interface{}) *RequestBuilder {
-	rb.v.CustomSettings = value
-	return rb
-}
-
-func (rb *RequestBuilder) DailyModelSnapshotRetentionAfterDays(dailymodelsnapshotretentionafterdays int64) *RequestBuilder {
-	rb.v.DailyModelSnapshotRetentionAfterDays = &dailymodelsnapshotretentionafterdays
-	return rb
-}
-
-func (rb *RequestBuilder) Description(description string) *RequestBuilder {
-	rb.v.Description = &description
-	return rb
-}
-
-func (rb *RequestBuilder) Detectors(detectors []types.DetectorBuilder) *RequestBuilder {
-	tmp := make([]types.Detector, len(detectors))
-	for _, value := range detectors {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Detectors = tmp
-	return rb
-}
-
-func (rb *RequestBuilder) Groups(groups ...string) *RequestBuilder {
-	rb.v.Groups = groups
-	return rb
-}
-
-func (rb *RequestBuilder) ModelPlotConfig(modelplotconfig *types.ModelPlotConfigBuilder) *RequestBuilder {
-	v := modelplotconfig.Build()
-	rb.v.ModelPlotConfig = &v
-	return rb
-}
-
-func (rb *RequestBuilder) ModelSnapshotRetentionDays(modelsnapshotretentiondays int64) *RequestBuilder {
-	rb.v.ModelSnapshotRetentionDays = &modelsnapshotretentiondays
-	return rb
-}
-
-func (rb *RequestBuilder) PerPartitionCategorization(perpartitioncategorization *types.PerPartitionCategorizationBuilder) *RequestBuilder {
-	v := perpartitioncategorization.Build()
-	rb.v.PerPartitionCategorization = &v
-	return rb
-}
-
-func (rb *RequestBuilder) RenormalizationWindowDays(renormalizationwindowdays int64) *RequestBuilder {
-	rb.v.RenormalizationWindowDays = &renormalizationwindowdays
-	return rb
-}
-
-func (rb *RequestBuilder) ResultsRetentionDays(resultsretentiondays int64) *RequestBuilder {
-	rb.v.ResultsRetentionDays = &resultsretentiondays
-	return rb
 }

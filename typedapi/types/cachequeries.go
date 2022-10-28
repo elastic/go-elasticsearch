@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CacheQueries type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/_types/IndexSettings.ts#L398-L400
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/IndexSettings.ts#L398-L400
 type CacheQueries struct {
 	Enabled bool `json:"enabled"`
 }
 
-// CacheQueriesBuilder holds CacheQueries struct and provides a builder API.
-type CacheQueriesBuilder struct {
-	v *CacheQueries
-}
+// NewCacheQueries returns a CacheQueries.
+func NewCacheQueries() *CacheQueries {
+	r := &CacheQueries{}
 
-// NewCacheQueries provides a builder for the CacheQueries struct.
-func NewCacheQueriesBuilder() *CacheQueriesBuilder {
-	r := CacheQueriesBuilder{
-		&CacheQueries{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the CacheQueries struct
-func (rb *CacheQueriesBuilder) Build() CacheQueries {
-	return *rb.v
-}
-
-func (rb *CacheQueriesBuilder) Enabled(enabled bool) *CacheQueriesBuilder {
-	rb.v.Enabled = enabled
-	return rb
+	return r
 }

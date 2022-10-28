@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,11 +29,11 @@ import (
 
 // StringRareTermsBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L440-L442
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L448-L450
 type StringRareTermsBucket struct {
-	Aggregations map[AggregateName]Aggregate `json:"-"`
-	DocCount     int64                       `json:"doc_count"`
-	Key          string                      `json:"key"`
+	Aggregations map[string]Aggregate `json:"-"`
+	DocCount     int64                `json:"doc_count"`
+	Key          string               `json:"key"`
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -64,42 +64,11 @@ func (s StringRareTermsBucket) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// StringRareTermsBucketBuilder holds StringRareTermsBucket struct and provides a builder API.
-type StringRareTermsBucketBuilder struct {
-	v *StringRareTermsBucket
-}
-
-// NewStringRareTermsBucket provides a builder for the StringRareTermsBucket struct.
-func NewStringRareTermsBucketBuilder() *StringRareTermsBucketBuilder {
-	r := StringRareTermsBucketBuilder{
-		&StringRareTermsBucket{
-			Aggregations: make(map[AggregateName]Aggregate, 0),
-		},
+// NewStringRareTermsBucket returns a StringRareTermsBucket.
+func NewStringRareTermsBucket() *StringRareTermsBucket {
+	r := &StringRareTermsBucket{
+		Aggregations: make(map[string]Aggregate, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the StringRareTermsBucket struct
-func (rb *StringRareTermsBucketBuilder) Build() StringRareTermsBucket {
-	return *rb.v
-}
-
-func (rb *StringRareTermsBucketBuilder) Aggregations(values map[AggregateName]*AggregateBuilder) *StringRareTermsBucketBuilder {
-	tmp := make(map[AggregateName]Aggregate, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Aggregations = tmp
-	return rb
-}
-
-func (rb *StringRareTermsBucketBuilder) DocCount(doccount int64) *StringRareTermsBucketBuilder {
-	rb.v.DocCount = doccount
-	return rb
-}
-
-func (rb *StringRareTermsBucketBuilder) Key(key string) *StringRareTermsBucketBuilder {
-	rb.v.Key = key
-	return rb
+	return r
 }

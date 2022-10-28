@@ -17,35 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // LowercaseNormalizer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/normalizers.ts#L26-L28
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/normalizers.ts#L26-L28
 type LowercaseNormalizer struct {
 	Type string `json:"type,omitempty"`
 }
 
-// LowercaseNormalizerBuilder holds LowercaseNormalizer struct and provides a builder API.
-type LowercaseNormalizerBuilder struct {
-	v *LowercaseNormalizer
-}
+// NewLowercaseNormalizer returns a LowercaseNormalizer.
+func NewLowercaseNormalizer() *LowercaseNormalizer {
+	r := &LowercaseNormalizer{}
 
-// NewLowercaseNormalizer provides a builder for the LowercaseNormalizer struct.
-func NewLowercaseNormalizerBuilder() *LowercaseNormalizerBuilder {
-	r := LowercaseNormalizerBuilder{
-		&LowercaseNormalizer{},
-	}
+	r.Type = "lowercase"
 
-	r.v.Type = "lowercase"
-
-	return &r
-}
-
-// Build finalize the chain and returns the LowercaseNormalizer struct
-func (rb *LowercaseNormalizerBuilder) Build() LowercaseNormalizer {
-	return *rb.v
+	return r
 }

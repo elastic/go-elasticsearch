@@ -17,32 +17,20 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RankFeatureFunctionLinear type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/query_dsl/specialized.ts#L139-L139
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/specialized.ts#L139-L139
 type RankFeatureFunctionLinear struct {
 }
 
-// RankFeatureFunctionLinearBuilder holds RankFeatureFunctionLinear struct and provides a builder API.
-type RankFeatureFunctionLinearBuilder struct {
-	v *RankFeatureFunctionLinear
-}
+// NewRankFeatureFunctionLinear returns a RankFeatureFunctionLinear.
+func NewRankFeatureFunctionLinear() *RankFeatureFunctionLinear {
+	r := &RankFeatureFunctionLinear{}
 
-// NewRankFeatureFunctionLinear provides a builder for the RankFeatureFunctionLinear struct.
-func NewRankFeatureFunctionLinearBuilder() *RankFeatureFunctionLinearBuilder {
-	r := RankFeatureFunctionLinearBuilder{
-		&RankFeatureFunctionLinear{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RankFeatureFunctionLinear struct
-func (rb *RankFeatureFunctionLinearBuilder) Build() RankFeatureFunctionLinear {
-	return *rb.v
+	return r
 }

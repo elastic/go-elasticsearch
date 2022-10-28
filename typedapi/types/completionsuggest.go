@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CompletionSuggest type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_global/search/_types/suggester.ts#L48-L55
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/suggester.ts#L48-L55
 type CompletionSuggest struct {
 	Length  int                       `json:"length"`
 	Offset  int                       `json:"offset"`
@@ -32,41 +32,9 @@ type CompletionSuggest struct {
 	Text    string                    `json:"text"`
 }
 
-// CompletionSuggestBuilder holds CompletionSuggest struct and provides a builder API.
-type CompletionSuggestBuilder struct {
-	v *CompletionSuggest
-}
+// NewCompletionSuggest returns a CompletionSuggest.
+func NewCompletionSuggest() *CompletionSuggest {
+	r := &CompletionSuggest{}
 
-// NewCompletionSuggest provides a builder for the CompletionSuggest struct.
-func NewCompletionSuggestBuilder() *CompletionSuggestBuilder {
-	r := CompletionSuggestBuilder{
-		&CompletionSuggest{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the CompletionSuggest struct
-func (rb *CompletionSuggestBuilder) Build() CompletionSuggest {
-	return *rb.v
-}
-
-func (rb *CompletionSuggestBuilder) Length(length int) *CompletionSuggestBuilder {
-	rb.v.Length = length
-	return rb
-}
-
-func (rb *CompletionSuggestBuilder) Offset(offset int) *CompletionSuggestBuilder {
-	rb.v.Offset = offset
-	return rb
-}
-
-func (rb *CompletionSuggestBuilder) Options(arg []CompletionSuggestOption) *CompletionSuggestBuilder {
-	rb.v.Options = arg
-	return rb
-}
-
-func (rb *CompletionSuggestBuilder) Text(text string) *CompletionSuggestBuilder {
-	rb.v.Text = text
-	return rb
+	return r
 }

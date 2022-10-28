@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package validate
@@ -31,42 +31,27 @@ import (
 
 // Request holds the request body struct for the package validate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/validate/MlValidateJobRequest.ts#L27-L45
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/validate/MlValidateJobRequest.ts#L27-L45
 type Request struct {
-	AnalysisConfig *types.AnalysisConfig `json:"analysis_config,omitempty"`
-
-	AnalysisLimits *types.AnalysisLimits `json:"analysis_limits,omitempty"`
-
-	DataDescription *types.DataDescription `json:"data_description,omitempty"`
-
-	Description *string `json:"description,omitempty"`
-
-	JobId *types.Id `json:"job_id,omitempty"`
-
-	ModelPlot *types.ModelPlotConfig `json:"model_plot,omitempty"`
-
-	ModelSnapshotId *types.Id `json:"model_snapshot_id,omitempty"`
-
-	ModelSnapshotRetentionDays *int64 `json:"model_snapshot_retention_days,omitempty"`
-
-	ResultsIndexName *types.IndexName `json:"results_index_name,omitempty"`
+	AnalysisConfig             *types.AnalysisConfig  `json:"analysis_config,omitempty"`
+	AnalysisLimits             *types.AnalysisLimits  `json:"analysis_limits,omitempty"`
+	DataDescription            *types.DataDescription `json:"data_description,omitempty"`
+	Description                *string                `json:"description,omitempty"`
+	JobId                      *string                `json:"job_id,omitempty"`
+	ModelPlot                  *types.ModelPlotConfig `json:"model_plot,omitempty"`
+	ModelSnapshotId            *string                `json:"model_snapshot_id,omitempty"`
+	ModelSnapshotRetentionDays *int64                 `json:"model_snapshot_retention_days,omitempty"`
+	ResultsIndexName           *string                `json:"results_index_name,omitempty"`
 }
 
-// RequestBuilder is the builder API for the validate.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -75,58 +60,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) AnalysisConfig(analysisconfig *types.AnalysisConfigBuilder) *RequestBuilder {
-	v := analysisconfig.Build()
-	rb.v.AnalysisConfig = &v
-	return rb
-}
-
-func (rb *RequestBuilder) AnalysisLimits(analysislimits *types.AnalysisLimitsBuilder) *RequestBuilder {
-	v := analysislimits.Build()
-	rb.v.AnalysisLimits = &v
-	return rb
-}
-
-func (rb *RequestBuilder) DataDescription(datadescription *types.DataDescriptionBuilder) *RequestBuilder {
-	v := datadescription.Build()
-	rb.v.DataDescription = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Description(description string) *RequestBuilder {
-	rb.v.Description = &description
-	return rb
-}
-
-func (rb *RequestBuilder) JobId(jobid types.Id) *RequestBuilder {
-	rb.v.JobId = &jobid
-	return rb
-}
-
-func (rb *RequestBuilder) ModelPlot(modelplot *types.ModelPlotConfigBuilder) *RequestBuilder {
-	v := modelplot.Build()
-	rb.v.ModelPlot = &v
-	return rb
-}
-
-func (rb *RequestBuilder) ModelSnapshotId(modelsnapshotid types.Id) *RequestBuilder {
-	rb.v.ModelSnapshotId = &modelsnapshotid
-	return rb
-}
-
-func (rb *RequestBuilder) ModelSnapshotRetentionDays(modelsnapshotretentiondays int64) *RequestBuilder {
-	rb.v.ModelSnapshotRetentionDays = &modelsnapshotretentiondays
-	return rb
-}
-
-func (rb *RequestBuilder) ResultsIndexName(resultsindexname types.IndexName) *RequestBuilder {
-	rb.v.ResultsIndexName = &resultsindexname
-	return rb
 }

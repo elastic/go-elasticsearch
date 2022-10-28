@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,56 +29,18 @@ import (
 
 // MinimalLicenseInformation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/xpack/info/types.ts#L34-L40
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/info/types.ts#L34-L40
 type MinimalLicenseInformation struct {
-	ExpiryDateInMillis EpochTimeUnitMillis         `json:"expiry_date_in_millis"`
+	ExpiryDateInMillis int64                       `json:"expiry_date_in_millis"`
 	Mode               licensetype.LicenseType     `json:"mode"`
 	Status             licensestatus.LicenseStatus `json:"status"`
 	Type               licensetype.LicenseType     `json:"type"`
 	Uid                string                      `json:"uid"`
 }
 
-// MinimalLicenseInformationBuilder holds MinimalLicenseInformation struct and provides a builder API.
-type MinimalLicenseInformationBuilder struct {
-	v *MinimalLicenseInformation
-}
+// NewMinimalLicenseInformation returns a MinimalLicenseInformation.
+func NewMinimalLicenseInformation() *MinimalLicenseInformation {
+	r := &MinimalLicenseInformation{}
 
-// NewMinimalLicenseInformation provides a builder for the MinimalLicenseInformation struct.
-func NewMinimalLicenseInformationBuilder() *MinimalLicenseInformationBuilder {
-	r := MinimalLicenseInformationBuilder{
-		&MinimalLicenseInformation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MinimalLicenseInformation struct
-func (rb *MinimalLicenseInformationBuilder) Build() MinimalLicenseInformation {
-	return *rb.v
-}
-
-func (rb *MinimalLicenseInformationBuilder) ExpiryDateInMillis(expirydateinmillis *EpochTimeUnitMillisBuilder) *MinimalLicenseInformationBuilder {
-	v := expirydateinmillis.Build()
-	rb.v.ExpiryDateInMillis = v
-	return rb
-}
-
-func (rb *MinimalLicenseInformationBuilder) Mode(mode licensetype.LicenseType) *MinimalLicenseInformationBuilder {
-	rb.v.Mode = mode
-	return rb
-}
-
-func (rb *MinimalLicenseInformationBuilder) Status(status licensestatus.LicenseStatus) *MinimalLicenseInformationBuilder {
-	rb.v.Status = status
-	return rb
-}
-
-func (rb *MinimalLicenseInformationBuilder) Type_(type_ licensetype.LicenseType) *MinimalLicenseInformationBuilder {
-	rb.v.Type = type_
-	return rb
-}
-
-func (rb *MinimalLicenseInformationBuilder) Uid(uid string) *MinimalLicenseInformationBuilder {
-	rb.v.Uid = uid
-	return rb
+	return r
 }

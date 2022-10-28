@@ -17,53 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Groupings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/rollup/_types/Groupings.ts#L24-L28
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/rollup/_types/Groupings.ts#L24-L28
 type Groupings struct {
 	DateHistogram *DateHistogramGrouping `json:"date_histogram,omitempty"`
 	Histogram     *HistogramGrouping     `json:"histogram,omitempty"`
 	Terms         *TermsGrouping         `json:"terms,omitempty"`
 }
 
-// GroupingsBuilder holds Groupings struct and provides a builder API.
-type GroupingsBuilder struct {
-	v *Groupings
-}
+// NewGroupings returns a Groupings.
+func NewGroupings() *Groupings {
+	r := &Groupings{}
 
-// NewGroupings provides a builder for the Groupings struct.
-func NewGroupingsBuilder() *GroupingsBuilder {
-	r := GroupingsBuilder{
-		&Groupings{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Groupings struct
-func (rb *GroupingsBuilder) Build() Groupings {
-	return *rb.v
-}
-
-func (rb *GroupingsBuilder) DateHistogram(datehistogram *DateHistogramGroupingBuilder) *GroupingsBuilder {
-	v := datehistogram.Build()
-	rb.v.DateHistogram = &v
-	return rb
-}
-
-func (rb *GroupingsBuilder) Histogram(histogram *HistogramGroupingBuilder) *GroupingsBuilder {
-	v := histogram.Build()
-	rb.v.Histogram = &v
-	return rb
-}
-
-func (rb *GroupingsBuilder) Terms(terms *TermsGroupingBuilder) *GroupingsBuilder {
-	v := terms.Build()
-	rb.v.Terms = &v
-	return rb
+	return r
 }

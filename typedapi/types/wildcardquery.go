@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // WildcardQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/query_dsl/term.ts#L149-L162
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/term.ts#L149-L162
 type WildcardQuery struct {
 	Boost *float32 `json:"boost,omitempty"`
 	// CaseInsensitive Allows case insensitive matching of the pattern with the indexed field values
@@ -33,7 +33,7 @@ type WildcardQuery struct {
 	CaseInsensitive *bool   `json:"case_insensitive,omitempty"`
 	QueryName_      *string `json:"_name,omitempty"`
 	// Rewrite Method used to rewrite the query
-	Rewrite *MultiTermQueryRewrite `json:"rewrite,omitempty"`
+	Rewrite *string `json:"rewrite,omitempty"`
 	// Value Wildcard pattern for terms you wish to find in the provided field. Required,
 	// when wildcard is not set.
 	Value *string `json:"value,omitempty"`
@@ -42,63 +42,9 @@ type WildcardQuery struct {
 	Wildcard *string `json:"wildcard,omitempty"`
 }
 
-// WildcardQueryBuilder holds WildcardQuery struct and provides a builder API.
-type WildcardQueryBuilder struct {
-	v *WildcardQuery
-}
+// NewWildcardQuery returns a WildcardQuery.
+func NewWildcardQuery() *WildcardQuery {
+	r := &WildcardQuery{}
 
-// NewWildcardQuery provides a builder for the WildcardQuery struct.
-func NewWildcardQueryBuilder() *WildcardQueryBuilder {
-	r := WildcardQueryBuilder{
-		&WildcardQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the WildcardQuery struct
-func (rb *WildcardQueryBuilder) Build() WildcardQuery {
-	return *rb.v
-}
-
-func (rb *WildcardQueryBuilder) Boost(boost float32) *WildcardQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-// CaseInsensitive Allows case insensitive matching of the pattern with the indexed field values
-// when set to true. Default is false which means the case sensitivity of
-// matching depends on the underlying field’s mapping.
-
-func (rb *WildcardQueryBuilder) CaseInsensitive(caseinsensitive bool) *WildcardQueryBuilder {
-	rb.v.CaseInsensitive = &caseinsensitive
-	return rb
-}
-
-func (rb *WildcardQueryBuilder) QueryName_(queryname_ string) *WildcardQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
-}
-
-// Rewrite Method used to rewrite the query
-
-func (rb *WildcardQueryBuilder) Rewrite(rewrite MultiTermQueryRewrite) *WildcardQueryBuilder {
-	rb.v.Rewrite = &rewrite
-	return rb
-}
-
-// Value Wildcard pattern for terms you wish to find in the provided field. Required,
-// when wildcard is not set.
-
-func (rb *WildcardQueryBuilder) Value(value string) *WildcardQueryBuilder {
-	rb.v.Value = &value
-	return rb
-}
-
-// Wildcard Wildcard pattern for terms you wish to find in the provided field. Required,
-// when value is not set.
-
-func (rb *WildcardQueryBuilder) Wildcard(wildcard string) *WildcardQueryBuilder {
-	rb.v.Wildcard = &wildcard
-	return rb
+	return r
 }

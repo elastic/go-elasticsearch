@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RoleTemplateQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/security/_types/Privileges.ts#L116-L126
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/_types/Privileges.ts#L140-L150
 type RoleTemplateQuery struct {
 	// Template When you create a role, you can specify a query that defines the document
 	// level security permissions. You can optionally
@@ -37,36 +37,9 @@ type RoleTemplateQuery struct {
 	Template *RoleTemplateScript `json:"template,omitempty"`
 }
 
-// RoleTemplateQueryBuilder holds RoleTemplateQuery struct and provides a builder API.
-type RoleTemplateQueryBuilder struct {
-	v *RoleTemplateQuery
-}
+// NewRoleTemplateQuery returns a RoleTemplateQuery.
+func NewRoleTemplateQuery() *RoleTemplateQuery {
+	r := &RoleTemplateQuery{}
 
-// NewRoleTemplateQuery provides a builder for the RoleTemplateQuery struct.
-func NewRoleTemplateQueryBuilder() *RoleTemplateQueryBuilder {
-	r := RoleTemplateQueryBuilder{
-		&RoleTemplateQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RoleTemplateQuery struct
-func (rb *RoleTemplateQueryBuilder) Build() RoleTemplateQuery {
-	return *rb.v
-}
-
-// Template When you create a role, you can specify a query that defines the document
-// level security permissions. You can optionally
-// use Mustache templates in the role query to insert the username of the
-// current authenticated user into the role.
-// Like other places in Elasticsearch that support templating or scripting, you
-// can specify inline, stored, or file-based
-// templates and define custom parameters. You access the details for the
-// current authenticated user through the _user parameter.
-
-func (rb *RoleTemplateQueryBuilder) Template(template *RoleTemplateScriptBuilder) *RoleTemplateQueryBuilder {
-	v := template.Build()
-	rb.v.Template = &v
-	return rb
+	return r
 }

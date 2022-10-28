@@ -17,62 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // InferenceConfigClassification type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ingest/_types/Processors.ts#L257-L263
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ingest/_types/Processors.ts#L257-L263
 type InferenceConfigClassification struct {
 	NumTopClasses                 *int    `json:"num_top_classes,omitempty"`
 	NumTopFeatureImportanceValues *int    `json:"num_top_feature_importance_values,omitempty"`
 	PredictionFieldType           *string `json:"prediction_field_type,omitempty"`
-	ResultsField                  *Field  `json:"results_field,omitempty"`
-	TopClassesResultsField        *Field  `json:"top_classes_results_field,omitempty"`
+	ResultsField                  *string `json:"results_field,omitempty"`
+	TopClassesResultsField        *string `json:"top_classes_results_field,omitempty"`
 }
 
-// InferenceConfigClassificationBuilder holds InferenceConfigClassification struct and provides a builder API.
-type InferenceConfigClassificationBuilder struct {
-	v *InferenceConfigClassification
-}
+// NewInferenceConfigClassification returns a InferenceConfigClassification.
+func NewInferenceConfigClassification() *InferenceConfigClassification {
+	r := &InferenceConfigClassification{}
 
-// NewInferenceConfigClassification provides a builder for the InferenceConfigClassification struct.
-func NewInferenceConfigClassificationBuilder() *InferenceConfigClassificationBuilder {
-	r := InferenceConfigClassificationBuilder{
-		&InferenceConfigClassification{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the InferenceConfigClassification struct
-func (rb *InferenceConfigClassificationBuilder) Build() InferenceConfigClassification {
-	return *rb.v
-}
-
-func (rb *InferenceConfigClassificationBuilder) NumTopClasses(numtopclasses int) *InferenceConfigClassificationBuilder {
-	rb.v.NumTopClasses = &numtopclasses
-	return rb
-}
-
-func (rb *InferenceConfigClassificationBuilder) NumTopFeatureImportanceValues(numtopfeatureimportancevalues int) *InferenceConfigClassificationBuilder {
-	rb.v.NumTopFeatureImportanceValues = &numtopfeatureimportancevalues
-	return rb
-}
-
-func (rb *InferenceConfigClassificationBuilder) PredictionFieldType(predictionfieldtype string) *InferenceConfigClassificationBuilder {
-	rb.v.PredictionFieldType = &predictionfieldtype
-	return rb
-}
-
-func (rb *InferenceConfigClassificationBuilder) ResultsField(resultsfield Field) *InferenceConfigClassificationBuilder {
-	rb.v.ResultsField = &resultsfield
-	return rb
-}
-
-func (rb *InferenceConfigClassificationBuilder) TopClassesResultsField(topclassesresultsfield Field) *InferenceConfigClassificationBuilder {
-	rb.v.TopClassesResultsField = &topclassesresultsfield
-	return rb
+	return r
 }

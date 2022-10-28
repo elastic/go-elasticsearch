@@ -17,58 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RollupCapabilitySummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/rollup/get_rollup_caps/types.ts#L28-L33
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/rollup/get_rollup_caps/types.ts#L28-L33
 type RollupCapabilitySummary struct {
-	Fields       map[Field]map[string]interface{} `json:"fields"`
-	IndexPattern string                           `json:"index_pattern"`
-	JobId        string                           `json:"job_id"`
-	RollupIndex  string                           `json:"rollup_index"`
+	Fields       map[string]map[string]interface{} `json:"fields"`
+	IndexPattern string                            `json:"index_pattern"`
+	JobId        string                            `json:"job_id"`
+	RollupIndex  string                            `json:"rollup_index"`
 }
 
-// RollupCapabilitySummaryBuilder holds RollupCapabilitySummary struct and provides a builder API.
-type RollupCapabilitySummaryBuilder struct {
-	v *RollupCapabilitySummary
-}
-
-// NewRollupCapabilitySummary provides a builder for the RollupCapabilitySummary struct.
-func NewRollupCapabilitySummaryBuilder() *RollupCapabilitySummaryBuilder {
-	r := RollupCapabilitySummaryBuilder{
-		&RollupCapabilitySummary{
-			Fields: make(map[Field]map[string]interface{}, 0),
-		},
+// NewRollupCapabilitySummary returns a RollupCapabilitySummary.
+func NewRollupCapabilitySummary() *RollupCapabilitySummary {
+	r := &RollupCapabilitySummary{
+		Fields: make(map[string]map[string]interface{}, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the RollupCapabilitySummary struct
-func (rb *RollupCapabilitySummaryBuilder) Build() RollupCapabilitySummary {
-	return *rb.v
-}
-
-func (rb *RollupCapabilitySummaryBuilder) Fields(value map[Field]map[string]interface{}) *RollupCapabilitySummaryBuilder {
-	rb.v.Fields = value
-	return rb
-}
-
-func (rb *RollupCapabilitySummaryBuilder) IndexPattern(indexpattern string) *RollupCapabilitySummaryBuilder {
-	rb.v.IndexPattern = indexpattern
-	return rb
-}
-
-func (rb *RollupCapabilitySummaryBuilder) JobId(jobid string) *RollupCapabilitySummaryBuilder {
-	rb.v.JobId = jobid
-	return rb
-}
-
-func (rb *RollupCapabilitySummaryBuilder) RollupIndex(rollupindex string) *RollupCapabilitySummaryBuilder {
-	rb.v.RollupIndex = rollupindex
-	return rb
+	return r
 }

@@ -17,21 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SnapshotsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/cat/snapshots/types.ts#L24-L90
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cat/snapshots/types.ts#L24-L90
 type SnapshotsRecord struct {
 	// Duration duration
 	Duration *Duration `json:"duration,omitempty"`
 	// EndEpoch end time in seconds since 1970-01-01 00:00:00
 	EndEpoch *StringifiedEpochTimeUnitSeconds `json:"end_epoch,omitempty"`
 	// EndTime end time in HH:MM:SS
-	EndTime *TimeOfDay `json:"end_time,omitempty"`
+	EndTime *string `json:"end_time,omitempty"`
 	// FailedShards number of failed shards
 	FailedShards *string `json:"failed_shards,omitempty"`
 	// Id unique snapshot
@@ -54,116 +54,9 @@ type SnapshotsRecord struct {
 	TotalShards *string `json:"total_shards,omitempty"`
 }
 
-// SnapshotsRecordBuilder holds SnapshotsRecord struct and provides a builder API.
-type SnapshotsRecordBuilder struct {
-	v *SnapshotsRecord
-}
+// NewSnapshotsRecord returns a SnapshotsRecord.
+func NewSnapshotsRecord() *SnapshotsRecord {
+	r := &SnapshotsRecord{}
 
-// NewSnapshotsRecord provides a builder for the SnapshotsRecord struct.
-func NewSnapshotsRecordBuilder() *SnapshotsRecordBuilder {
-	r := SnapshotsRecordBuilder{
-		&SnapshotsRecord{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SnapshotsRecord struct
-func (rb *SnapshotsRecordBuilder) Build() SnapshotsRecord {
-	return *rb.v
-}
-
-// Duration duration
-
-func (rb *SnapshotsRecordBuilder) Duration(duration *DurationBuilder) *SnapshotsRecordBuilder {
-	v := duration.Build()
-	rb.v.Duration = &v
-	return rb
-}
-
-// EndEpoch end time in seconds since 1970-01-01 00:00:00
-
-func (rb *SnapshotsRecordBuilder) EndEpoch(endepoch *StringifiedEpochTimeUnitSecondsBuilder) *SnapshotsRecordBuilder {
-	v := endepoch.Build()
-	rb.v.EndEpoch = &v
-	return rb
-}
-
-// EndTime end time in HH:MM:SS
-
-func (rb *SnapshotsRecordBuilder) EndTime(endtime TimeOfDay) *SnapshotsRecordBuilder {
-	rb.v.EndTime = &endtime
-	return rb
-}
-
-// FailedShards number of failed shards
-
-func (rb *SnapshotsRecordBuilder) FailedShards(failedshards string) *SnapshotsRecordBuilder {
-	rb.v.FailedShards = &failedshards
-	return rb
-}
-
-// Id unique snapshot
-
-func (rb *SnapshotsRecordBuilder) Id(id string) *SnapshotsRecordBuilder {
-	rb.v.Id = &id
-	return rb
-}
-
-// Indices number of indices
-
-func (rb *SnapshotsRecordBuilder) Indices(indices string) *SnapshotsRecordBuilder {
-	rb.v.Indices = &indices
-	return rb
-}
-
-// Reason reason for failures
-
-func (rb *SnapshotsRecordBuilder) Reason(reason string) *SnapshotsRecordBuilder {
-	rb.v.Reason = &reason
-	return rb
-}
-
-// Repository repository name
-
-func (rb *SnapshotsRecordBuilder) Repository(repository string) *SnapshotsRecordBuilder {
-	rb.v.Repository = &repository
-	return rb
-}
-
-// StartEpoch start time in seconds since 1970-01-01 00:00:00
-
-func (rb *SnapshotsRecordBuilder) StartEpoch(startepoch *StringifiedEpochTimeUnitSecondsBuilder) *SnapshotsRecordBuilder {
-	v := startepoch.Build()
-	rb.v.StartEpoch = &v
-	return rb
-}
-
-// StartTime start time in HH:MM:SS
-
-func (rb *SnapshotsRecordBuilder) StartTime(starttime *ScheduleTimeOfDayBuilder) *SnapshotsRecordBuilder {
-	v := starttime.Build()
-	rb.v.StartTime = &v
-	return rb
-}
-
-// Status snapshot name
-
-func (rb *SnapshotsRecordBuilder) Status(status string) *SnapshotsRecordBuilder {
-	rb.v.Status = &status
-	return rb
-}
-
-// SuccessfulShards number of successful shards
-
-func (rb *SnapshotsRecordBuilder) SuccessfulShards(successfulshards string) *SnapshotsRecordBuilder {
-	rb.v.SuccessfulShards = &successfulshards
-	return rb
-}
-
-// TotalShards number of total shards
-
-func (rb *SnapshotsRecordBuilder) TotalShards(totalshards string) *SnapshotsRecordBuilder {
-	rb.v.TotalShards = &totalshards
-	return rb
+	return r
 }

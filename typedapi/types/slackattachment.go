@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SlackAttachment type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/watcher/_types/Actions.ts#L101-L117
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Actions.ts#L101-L117
 type SlackAttachment struct {
 	AuthorIcon *string                `json:"author_icon,omitempty"`
 	AuthorLink *string                `json:"author_link,omitempty"`
@@ -40,104 +40,12 @@ type SlackAttachment struct {
 	ThumbUrl   *string                `json:"thumb_url,omitempty"`
 	Title      string                 `json:"title"`
 	TitleLink  *string                `json:"title_link,omitempty"`
-	Ts         *EpochTimeUnitSeconds  `json:"ts,omitempty"`
+	Ts         *int64                 `json:"ts,omitempty"`
 }
 
-// SlackAttachmentBuilder holds SlackAttachment struct and provides a builder API.
-type SlackAttachmentBuilder struct {
-	v *SlackAttachment
-}
+// NewSlackAttachment returns a SlackAttachment.
+func NewSlackAttachment() *SlackAttachment {
+	r := &SlackAttachment{}
 
-// NewSlackAttachment provides a builder for the SlackAttachment struct.
-func NewSlackAttachmentBuilder() *SlackAttachmentBuilder {
-	r := SlackAttachmentBuilder{
-		&SlackAttachment{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SlackAttachment struct
-func (rb *SlackAttachmentBuilder) Build() SlackAttachment {
-	return *rb.v
-}
-
-func (rb *SlackAttachmentBuilder) AuthorIcon(authoricon string) *SlackAttachmentBuilder {
-	rb.v.AuthorIcon = &authoricon
-	return rb
-}
-
-func (rb *SlackAttachmentBuilder) AuthorLink(authorlink string) *SlackAttachmentBuilder {
-	rb.v.AuthorLink = &authorlink
-	return rb
-}
-
-func (rb *SlackAttachmentBuilder) AuthorName(authorname string) *SlackAttachmentBuilder {
-	rb.v.AuthorName = authorname
-	return rb
-}
-
-func (rb *SlackAttachmentBuilder) Color(color string) *SlackAttachmentBuilder {
-	rb.v.Color = &color
-	return rb
-}
-
-func (rb *SlackAttachmentBuilder) Fallback(fallback string) *SlackAttachmentBuilder {
-	rb.v.Fallback = &fallback
-	return rb
-}
-
-func (rb *SlackAttachmentBuilder) Fields(fields []SlackAttachmentFieldBuilder) *SlackAttachmentBuilder {
-	tmp := make([]SlackAttachmentField, len(fields))
-	for _, value := range fields {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Fields = tmp
-	return rb
-}
-
-func (rb *SlackAttachmentBuilder) Footer(footer string) *SlackAttachmentBuilder {
-	rb.v.Footer = &footer
-	return rb
-}
-
-func (rb *SlackAttachmentBuilder) FooterIcon(footericon string) *SlackAttachmentBuilder {
-	rb.v.FooterIcon = &footericon
-	return rb
-}
-
-func (rb *SlackAttachmentBuilder) ImageUrl(imageurl string) *SlackAttachmentBuilder {
-	rb.v.ImageUrl = &imageurl
-	return rb
-}
-
-func (rb *SlackAttachmentBuilder) Pretext(pretext string) *SlackAttachmentBuilder {
-	rb.v.Pretext = &pretext
-	return rb
-}
-
-func (rb *SlackAttachmentBuilder) Text(text string) *SlackAttachmentBuilder {
-	rb.v.Text = &text
-	return rb
-}
-
-func (rb *SlackAttachmentBuilder) ThumbUrl(thumburl string) *SlackAttachmentBuilder {
-	rb.v.ThumbUrl = &thumburl
-	return rb
-}
-
-func (rb *SlackAttachmentBuilder) Title(title string) *SlackAttachmentBuilder {
-	rb.v.Title = title
-	return rb
-}
-
-func (rb *SlackAttachmentBuilder) TitleLink(titlelink string) *SlackAttachmentBuilder {
-	rb.v.TitleLink = &titlelink
-	return rb
-}
-
-func (rb *SlackAttachmentBuilder) Ts(ts *EpochTimeUnitSecondsBuilder) *SlackAttachmentBuilder {
-	v := ts.Build()
-	rb.v.Ts = &v
-	return rb
+	return r
 }

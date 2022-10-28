@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Document type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ingest/simulate/types.ts#L41-L45
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ingest/simulate/types.ts#L41-L45
 type Document struct {
-	Id_     *Id         `json:"_id,omitempty"`
-	Index_  *IndexName  `json:"_index,omitempty"`
+	Id_     *string     `json:"_id,omitempty"`
+	Index_  *string     `json:"_index,omitempty"`
 	Source_ interface{} `json:"_source,omitempty"`
 }
 
-// DocumentBuilder holds Document struct and provides a builder API.
-type DocumentBuilder struct {
-	v *Document
-}
+// NewDocument returns a Document.
+func NewDocument() *Document {
+	r := &Document{}
 
-// NewDocument provides a builder for the Document struct.
-func NewDocumentBuilder() *DocumentBuilder {
-	r := DocumentBuilder{
-		&Document{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Document struct
-func (rb *DocumentBuilder) Build() Document {
-	return *rb.v
-}
-
-func (rb *DocumentBuilder) Id_(id_ Id) *DocumentBuilder {
-	rb.v.Id_ = &id_
-	return rb
-}
-
-func (rb *DocumentBuilder) Index_(index_ IndexName) *DocumentBuilder {
-	rb.v.Index_ = &index_
-	return rb
-}
-
-func (rb *DocumentBuilder) Source_(source_ interface{}) *DocumentBuilder {
-	rb.v.Source_ = source_
-	return rb
+	return r
 }

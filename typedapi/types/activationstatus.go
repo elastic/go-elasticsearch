@@ -17,52 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ActivationStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/watcher/_types/Activation.ts#L29-L33
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Activation.ts#L29-L33
 type ActivationStatus struct {
-	Actions Actions         `json:"actions"`
-	State   ActivationState `json:"state"`
-	Version VersionNumber   `json:"version"`
+	Actions WatcherStatusActions `json:"actions"`
+	State   ActivationState      `json:"state"`
+	Version int64                `json:"version"`
 }
 
-// ActivationStatusBuilder holds ActivationStatus struct and provides a builder API.
-type ActivationStatusBuilder struct {
-	v *ActivationStatus
-}
+// NewActivationStatus returns a ActivationStatus.
+func NewActivationStatus() *ActivationStatus {
+	r := &ActivationStatus{}
 
-// NewActivationStatus provides a builder for the ActivationStatus struct.
-func NewActivationStatusBuilder() *ActivationStatusBuilder {
-	r := ActivationStatusBuilder{
-		&ActivationStatus{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ActivationStatus struct
-func (rb *ActivationStatusBuilder) Build() ActivationStatus {
-	return *rb.v
-}
-
-func (rb *ActivationStatusBuilder) Actions(actions *ActionsBuilder) *ActivationStatusBuilder {
-	v := actions.Build()
-	rb.v.Actions = v
-	return rb
-}
-
-func (rb *ActivationStatusBuilder) State(state *ActivationStateBuilder) *ActivationStatusBuilder {
-	v := state.Build()
-	rb.v.State = v
-	return rb
-}
-
-func (rb *ActivationStatusBuilder) Version(version VersionNumber) *ActivationStatusBuilder {
-	rb.v.Version = version
-	return rb
+	return r
 }

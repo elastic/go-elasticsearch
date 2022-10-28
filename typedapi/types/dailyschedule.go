@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DailySchedule type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/watcher/_types/Schedule.ts#L33-L35
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Schedule.ts#L33-L35
 type DailySchedule struct {
 	At []ScheduleTimeOfDay `json:"at"`
 }
 
-// DailyScheduleBuilder holds DailySchedule struct and provides a builder API.
-type DailyScheduleBuilder struct {
-	v *DailySchedule
-}
+// NewDailySchedule returns a DailySchedule.
+func NewDailySchedule() *DailySchedule {
+	r := &DailySchedule{}
 
-// NewDailySchedule provides a builder for the DailySchedule struct.
-func NewDailyScheduleBuilder() *DailyScheduleBuilder {
-	r := DailyScheduleBuilder{
-		&DailySchedule{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DailySchedule struct
-func (rb *DailyScheduleBuilder) Build() DailySchedule {
-	return *rb.v
-}
-
-func (rb *DailyScheduleBuilder) At(at ...ScheduleTimeOfDay) *DailyScheduleBuilder {
-	rb.v.At = at
-	return rb
+	return r
 }

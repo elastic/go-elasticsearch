@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,45 +28,16 @@ import (
 
 // ShapeFieldQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/query_dsl/specialized.ts#L183-L187
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/specialized.ts#L183-L187
 type ShapeFieldQuery struct {
 	IndexedShape *FieldLookup                       `json:"indexed_shape,omitempty"`
 	Relation     *geoshaperelation.GeoShapeRelation `json:"relation,omitempty"`
-	Shape        *GeoShape                          `json:"shape,omitempty"`
+	Shape        interface{}                        `json:"shape,omitempty"`
 }
 
-// ShapeFieldQueryBuilder holds ShapeFieldQuery struct and provides a builder API.
-type ShapeFieldQueryBuilder struct {
-	v *ShapeFieldQuery
-}
+// NewShapeFieldQuery returns a ShapeFieldQuery.
+func NewShapeFieldQuery() *ShapeFieldQuery {
+	r := &ShapeFieldQuery{}
 
-// NewShapeFieldQuery provides a builder for the ShapeFieldQuery struct.
-func NewShapeFieldQueryBuilder() *ShapeFieldQueryBuilder {
-	r := ShapeFieldQueryBuilder{
-		&ShapeFieldQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ShapeFieldQuery struct
-func (rb *ShapeFieldQueryBuilder) Build() ShapeFieldQuery {
-	return *rb.v
-}
-
-func (rb *ShapeFieldQueryBuilder) IndexedShape(indexedshape *FieldLookupBuilder) *ShapeFieldQueryBuilder {
-	v := indexedshape.Build()
-	rb.v.IndexedShape = &v
-	return rb
-}
-
-func (rb *ShapeFieldQueryBuilder) Relation(relation geoshaperelation.GeoShapeRelation) *ShapeFieldQueryBuilder {
-	rb.v.Relation = &relation
-	return rb
-}
-
-func (rb *ShapeFieldQueryBuilder) Shape(shape *GeoShapeBuilder) *ShapeFieldQueryBuilder {
-	v := shape.Build()
-	rb.v.Shape = &v
-	return rb
+	return r
 }

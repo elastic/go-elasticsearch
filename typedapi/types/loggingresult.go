@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // LoggingResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/watcher/_types/Actions.ts#L287-L289
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Actions.ts#L287-L289
 type LoggingResult struct {
 	LoggedText string `json:"logged_text"`
 }
 
-// LoggingResultBuilder holds LoggingResult struct and provides a builder API.
-type LoggingResultBuilder struct {
-	v *LoggingResult
-}
+// NewLoggingResult returns a LoggingResult.
+func NewLoggingResult() *LoggingResult {
+	r := &LoggingResult{}
 
-// NewLoggingResult provides a builder for the LoggingResult struct.
-func NewLoggingResultBuilder() *LoggingResultBuilder {
-	r := LoggingResultBuilder{
-		&LoggingResult{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the LoggingResult struct
-func (rb *LoggingResultBuilder) Build() LoggingResult {
-	return *rb.v
-}
-
-func (rb *LoggingResultBuilder) LoggedText(loggedtext string) *LoggingResultBuilder {
-	rb.v.LoggedText = loggedtext
-	return rb
+	return r
 }

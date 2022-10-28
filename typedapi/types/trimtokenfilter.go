@@ -17,41 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TrimTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/token_filters.ts#L324-L326
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/token_filters.ts#L324-L326
 type TrimTokenFilter struct {
-	Type    string         `json:"type,omitempty"`
-	Version *VersionString `json:"version,omitempty"`
+	Type    string  `json:"type,omitempty"`
+	Version *string `json:"version,omitempty"`
 }
 
-// TrimTokenFilterBuilder holds TrimTokenFilter struct and provides a builder API.
-type TrimTokenFilterBuilder struct {
-	v *TrimTokenFilter
-}
+// NewTrimTokenFilter returns a TrimTokenFilter.
+func NewTrimTokenFilter() *TrimTokenFilter {
+	r := &TrimTokenFilter{}
 
-// NewTrimTokenFilter provides a builder for the TrimTokenFilter struct.
-func NewTrimTokenFilterBuilder() *TrimTokenFilterBuilder {
-	r := TrimTokenFilterBuilder{
-		&TrimTokenFilter{},
-	}
+	r.Type = "trim"
 
-	r.v.Type = "trim"
-
-	return &r
-}
-
-// Build finalize the chain and returns the TrimTokenFilter struct
-func (rb *TrimTokenFilterBuilder) Build() TrimTokenFilter {
-	return *rb.v
-}
-
-func (rb *TrimTokenFilterBuilder) Version(version VersionString) *TrimTokenFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

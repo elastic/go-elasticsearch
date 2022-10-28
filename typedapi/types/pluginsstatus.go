@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,31 +28,14 @@ import (
 
 // PluginsStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/shutdown/get_node/ShutdownGetNodeResponse.ts#L60-L62
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/shutdown/get_node/ShutdownGetNodeResponse.ts#L60-L62
 type PluginsStatus struct {
 	Status shutdownstatus.ShutdownStatus `json:"status"`
 }
 
-// PluginsStatusBuilder holds PluginsStatus struct and provides a builder API.
-type PluginsStatusBuilder struct {
-	v *PluginsStatus
-}
+// NewPluginsStatus returns a PluginsStatus.
+func NewPluginsStatus() *PluginsStatus {
+	r := &PluginsStatus{}
 
-// NewPluginsStatus provides a builder for the PluginsStatus struct.
-func NewPluginsStatusBuilder() *PluginsStatusBuilder {
-	r := PluginsStatusBuilder{
-		&PluginsStatus{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the PluginsStatus struct
-func (rb *PluginsStatusBuilder) Build() PluginsStatus {
-	return *rb.v
-}
-
-func (rb *PluginsStatusBuilder) Status(status shutdownstatus.ShutdownStatus) *PluginsStatusBuilder {
-	rb.v.Status = status
-	return rb
+	return r
 }

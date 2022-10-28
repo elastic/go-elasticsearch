@@ -17,58 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RecoveryStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/Stats.ts#L161-L166
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Stats.ts#L161-L166
 type RecoveryStats struct {
-	CurrentAsSource      int64                   `json:"current_as_source"`
-	CurrentAsTarget      int64                   `json:"current_as_target"`
-	ThrottleTime         *Duration               `json:"throttle_time,omitempty"`
-	ThrottleTimeInMillis DurationValueUnitMillis `json:"throttle_time_in_millis"`
+	CurrentAsSource      int64     `json:"current_as_source"`
+	CurrentAsTarget      int64     `json:"current_as_target"`
+	ThrottleTime         *Duration `json:"throttle_time,omitempty"`
+	ThrottleTimeInMillis int64     `json:"throttle_time_in_millis"`
 }
 
-// RecoveryStatsBuilder holds RecoveryStats struct and provides a builder API.
-type RecoveryStatsBuilder struct {
-	v *RecoveryStats
-}
+// NewRecoveryStats returns a RecoveryStats.
+func NewRecoveryStats() *RecoveryStats {
+	r := &RecoveryStats{}
 
-// NewRecoveryStats provides a builder for the RecoveryStats struct.
-func NewRecoveryStatsBuilder() *RecoveryStatsBuilder {
-	r := RecoveryStatsBuilder{
-		&RecoveryStats{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RecoveryStats struct
-func (rb *RecoveryStatsBuilder) Build() RecoveryStats {
-	return *rb.v
-}
-
-func (rb *RecoveryStatsBuilder) CurrentAsSource(currentassource int64) *RecoveryStatsBuilder {
-	rb.v.CurrentAsSource = currentassource
-	return rb
-}
-
-func (rb *RecoveryStatsBuilder) CurrentAsTarget(currentastarget int64) *RecoveryStatsBuilder {
-	rb.v.CurrentAsTarget = currentastarget
-	return rb
-}
-
-func (rb *RecoveryStatsBuilder) ThrottleTime(throttletime *DurationBuilder) *RecoveryStatsBuilder {
-	v := throttletime.Build()
-	rb.v.ThrottleTime = &v
-	return rb
-}
-
-func (rb *RecoveryStatsBuilder) ThrottleTimeInMillis(throttletimeinmillis *DurationValueUnitMillisBuilder) *RecoveryStatsBuilder {
-	v := throttletimeinmillis.Build()
-	rb.v.ThrottleTimeInMillis = v
-	return rb
+	return r
 }

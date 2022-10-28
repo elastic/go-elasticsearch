@@ -17,66 +17,28 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // PatternAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/analyzers.ts#L74-L81
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/analyzers.ts#L74-L81
 type PatternAnalyzer struct {
-	Flags     *string        `json:"flags,omitempty"`
-	Lowercase *bool          `json:"lowercase,omitempty"`
-	Pattern   string         `json:"pattern"`
-	Stopwords *StopWords     `json:"stopwords,omitempty"`
-	Type      string         `json:"type,omitempty"`
-	Version   *VersionString `json:"version,omitempty"`
+	Flags     *string  `json:"flags,omitempty"`
+	Lowercase *bool    `json:"lowercase,omitempty"`
+	Pattern   string   `json:"pattern"`
+	Stopwords []string `json:"stopwords,omitempty"`
+	Type      string   `json:"type,omitempty"`
+	Version   *string  `json:"version,omitempty"`
 }
 
-// PatternAnalyzerBuilder holds PatternAnalyzer struct and provides a builder API.
-type PatternAnalyzerBuilder struct {
-	v *PatternAnalyzer
-}
+// NewPatternAnalyzer returns a PatternAnalyzer.
+func NewPatternAnalyzer() *PatternAnalyzer {
+	r := &PatternAnalyzer{}
 
-// NewPatternAnalyzer provides a builder for the PatternAnalyzer struct.
-func NewPatternAnalyzerBuilder() *PatternAnalyzerBuilder {
-	r := PatternAnalyzerBuilder{
-		&PatternAnalyzer{},
-	}
+	r.Type = "pattern"
 
-	r.v.Type = "pattern"
-
-	return &r
-}
-
-// Build finalize the chain and returns the PatternAnalyzer struct
-func (rb *PatternAnalyzerBuilder) Build() PatternAnalyzer {
-	return *rb.v
-}
-
-func (rb *PatternAnalyzerBuilder) Flags(flags string) *PatternAnalyzerBuilder {
-	rb.v.Flags = &flags
-	return rb
-}
-
-func (rb *PatternAnalyzerBuilder) Lowercase(lowercase bool) *PatternAnalyzerBuilder {
-	rb.v.Lowercase = &lowercase
-	return rb
-}
-
-func (rb *PatternAnalyzerBuilder) Pattern(pattern string) *PatternAnalyzerBuilder {
-	rb.v.Pattern = pattern
-	return rb
-}
-
-func (rb *PatternAnalyzerBuilder) Stopwords(stopwords *StopWordsBuilder) *PatternAnalyzerBuilder {
-	v := stopwords.Build()
-	rb.v.Stopwords = &v
-	return rb
-}
-
-func (rb *PatternAnalyzerBuilder) Version(version VersionString) *PatternAnalyzerBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

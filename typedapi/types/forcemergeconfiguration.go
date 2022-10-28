@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ForceMergeConfiguration type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ilm/_types/Phase.ts#L52-L54
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ilm/_types/Phase.ts#L52-L54
 type ForceMergeConfiguration struct {
 	MaxNumSegments int `json:"max_num_segments"`
 }
 
-// ForceMergeConfigurationBuilder holds ForceMergeConfiguration struct and provides a builder API.
-type ForceMergeConfigurationBuilder struct {
-	v *ForceMergeConfiguration
-}
+// NewForceMergeConfiguration returns a ForceMergeConfiguration.
+func NewForceMergeConfiguration() *ForceMergeConfiguration {
+	r := &ForceMergeConfiguration{}
 
-// NewForceMergeConfiguration provides a builder for the ForceMergeConfiguration struct.
-func NewForceMergeConfigurationBuilder() *ForceMergeConfigurationBuilder {
-	r := ForceMergeConfigurationBuilder{
-		&ForceMergeConfiguration{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ForceMergeConfiguration struct
-func (rb *ForceMergeConfigurationBuilder) Build() ForceMergeConfiguration {
-	return *rb.v
-}
-
-func (rb *ForceMergeConfigurationBuilder) MaxNumSegments(maxnumsegments int) *ForceMergeConfigurationBuilder {
-	rb.v.MaxNumSegments = maxnumsegments
-	return rb
+	return r
 }

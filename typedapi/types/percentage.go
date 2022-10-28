@@ -17,40 +17,15 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Percentage holds the union for the following types:
 //
-//	float32
 //	string
+//	float32
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/Numeric.ts#L28-L28
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Numeric.ts#L28-L28
 type Percentage interface{}
-
-// PercentageBuilder holds Percentage struct and provides a builder API.
-type PercentageBuilder struct {
-	v Percentage
-}
-
-// NewPercentage provides a builder for the Percentage struct.
-func NewPercentageBuilder() *PercentageBuilder {
-	return &PercentageBuilder{}
-}
-
-// Build finalize the chain and returns the Percentage struct
-func (u *PercentageBuilder) Build() Percentage {
-	return u.v
-}
-
-func (u *PercentageBuilder) Float32(float32 float32) *PercentageBuilder {
-	u.v = &float32
-	return u
-}
-
-func (u *PercentageBuilder) String(string string) *PercentageBuilder {
-	u.v = &string
-	return u
-}

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package fieldcaps
@@ -31,39 +31,30 @@ import (
 
 // Request holds the request body struct for the package fieldcaps
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_global/field_caps/FieldCapabilitiesRequest.ts#L25-L95
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/field_caps/FieldCapabilitiesRequest.ts#L25-L95
 type Request struct {
 
 	// Fields List of fields to retrieve capabilities for. Wildcard (`*`) expressions are
 	// supported.
-	Fields *types.Fields `json:"fields,omitempty"`
-
+	Fields []string `json:"fields,omitempty"`
 	// IndexFilter Allows to filter indices if the provided query rewrites to match_none on
 	// every shard.
-	IndexFilter *types.QueryContainer `json:"index_filter,omitempty"`
-
+	IndexFilter *types.Query `json:"index_filter,omitempty"`
 	// RuntimeMappings Defines ad-hoc runtime fields in the request similar to the way it is done in
 	// search requests.
 	// These fields exist only as part of the query and take precedence over fields
 	// defined with the same name in the index mappings.
-	RuntimeMappings *types.RuntimeFields `json:"runtime_mappings,omitempty"`
+	RuntimeMappings map[string]types.RuntimeField `json:"runtime_mappings,omitempty"`
 }
 
-// RequestBuilder is the builder API for the fieldcaps.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -72,27 +63,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) Fields(fields *types.FieldsBuilder) *RequestBuilder {
-	v := fields.Build()
-	rb.v.Fields = &v
-	return rb
-}
-
-func (rb *RequestBuilder) IndexFilter(indexfilter *types.QueryContainerBuilder) *RequestBuilder {
-	v := indexfilter.Build()
-	rb.v.IndexFilter = &v
-	return rb
-}
-
-func (rb *RequestBuilder) RuntimeMappings(runtimemappings *types.RuntimeFieldsBuilder) *RequestBuilder {
-	v := runtimemappings.Build()
-	rb.v.RuntimeMappings = &v
-	return rb
 }

@@ -17,74 +17,28 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IndexState type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/_types/IndexState.ts#L26-L33
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/IndexState.ts#L26-L33
 type IndexState struct {
-	Aliases    map[IndexName]Alias `json:"aliases,omitempty"`
-	DataStream *DataStreamName     `json:"data_stream,omitempty"`
+	Aliases    map[string]Alias `json:"aliases,omitempty"`
+	DataStream *string          `json:"data_stream,omitempty"`
 	// Defaults Default settings, included when the request's `include_default` is `true`.
 	Defaults *IndexSettings `json:"defaults,omitempty"`
 	Mappings *TypeMapping   `json:"mappings,omitempty"`
 	Settings *IndexSettings `json:"settings,omitempty"`
 }
 
-// IndexStateBuilder holds IndexState struct and provides a builder API.
-type IndexStateBuilder struct {
-	v *IndexState
-}
-
-// NewIndexState provides a builder for the IndexState struct.
-func NewIndexStateBuilder() *IndexStateBuilder {
-	r := IndexStateBuilder{
-		&IndexState{
-			Aliases: make(map[IndexName]Alias, 0),
-		},
+// NewIndexState returns a IndexState.
+func NewIndexState() *IndexState {
+	r := &IndexState{
+		Aliases: make(map[string]Alias, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the IndexState struct
-func (rb *IndexStateBuilder) Build() IndexState {
-	return *rb.v
-}
-
-func (rb *IndexStateBuilder) Aliases(values map[IndexName]*AliasBuilder) *IndexStateBuilder {
-	tmp := make(map[IndexName]Alias, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Aliases = tmp
-	return rb
-}
-
-func (rb *IndexStateBuilder) DataStream(datastream DataStreamName) *IndexStateBuilder {
-	rb.v.DataStream = &datastream
-	return rb
-}
-
-// Defaults Default settings, included when the request's `include_default` is `true`.
-
-func (rb *IndexStateBuilder) Defaults(defaults *IndexSettingsBuilder) *IndexStateBuilder {
-	v := defaults.Build()
-	rb.v.Defaults = &v
-	return rb
-}
-
-func (rb *IndexStateBuilder) Mappings(mappings *TypeMappingBuilder) *IndexStateBuilder {
-	v := mappings.Build()
-	rb.v.Mappings = &v
-	return rb
-}
-
-func (rb *IndexStateBuilder) Settings(settings *IndexSettingsBuilder) *IndexStateBuilder {
-	v := settings.Build()
-	rb.v.Settings = &v
-	return rb
+	return r
 }

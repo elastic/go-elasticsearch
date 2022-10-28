@@ -17,86 +17,32 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // PluginsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/cat/plugins/types.ts#L22-L52
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cat/plugins/types.ts#L22-L52
 type PluginsRecord struct {
 	// Component component
 	Component *string `json:"component,omitempty"`
 	// Description plugin details
 	Description *string `json:"description,omitempty"`
 	// Id unique node id
-	Id *NodeId `json:"id,omitempty"`
+	Id *string `json:"id,omitempty"`
 	// Name node name
-	Name *Name `json:"name,omitempty"`
+	Name *string `json:"name,omitempty"`
 	// Type plugin type
 	Type *string `json:"type,omitempty"`
 	// Version component version
-	Version *VersionString `json:"version,omitempty"`
+	Version *string `json:"version,omitempty"`
 }
 
-// PluginsRecordBuilder holds PluginsRecord struct and provides a builder API.
-type PluginsRecordBuilder struct {
-	v *PluginsRecord
-}
+// NewPluginsRecord returns a PluginsRecord.
+func NewPluginsRecord() *PluginsRecord {
+	r := &PluginsRecord{}
 
-// NewPluginsRecord provides a builder for the PluginsRecord struct.
-func NewPluginsRecordBuilder() *PluginsRecordBuilder {
-	r := PluginsRecordBuilder{
-		&PluginsRecord{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the PluginsRecord struct
-func (rb *PluginsRecordBuilder) Build() PluginsRecord {
-	return *rb.v
-}
-
-// Component component
-
-func (rb *PluginsRecordBuilder) Component(component string) *PluginsRecordBuilder {
-	rb.v.Component = &component
-	return rb
-}
-
-// Description plugin details
-
-func (rb *PluginsRecordBuilder) Description(description string) *PluginsRecordBuilder {
-	rb.v.Description = &description
-	return rb
-}
-
-// Id unique node id
-
-func (rb *PluginsRecordBuilder) Id(id NodeId) *PluginsRecordBuilder {
-	rb.v.Id = &id
-	return rb
-}
-
-// Name node name
-
-func (rb *PluginsRecordBuilder) Name(name Name) *PluginsRecordBuilder {
-	rb.v.Name = &name
-	return rb
-}
-
-// Type plugin type
-
-func (rb *PluginsRecordBuilder) Type_(type_ string) *PluginsRecordBuilder {
-	rb.v.Type = &type_
-	return rb
-}
-
-// Version component version
-
-func (rb *PluginsRecordBuilder) Version(version VersionString) *PluginsRecordBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

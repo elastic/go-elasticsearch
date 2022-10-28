@@ -17,66 +17,27 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // PipelineProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ingest/_types/Processors.ts#L297-L299
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ingest/_types/Processors.ts#L306-L309
 type PipelineProcessor struct {
-	If            *string              `json:"if,omitempty"`
-	IgnoreFailure *bool                `json:"ignore_failure,omitempty"`
-	Name          Name                 `json:"name"`
-	OnFailure     []ProcessorContainer `json:"on_failure,omitempty"`
-	Tag           *string              `json:"tag,omitempty"`
+	Description           *string              `json:"description,omitempty"`
+	If                    *string              `json:"if,omitempty"`
+	IgnoreFailure         *bool                `json:"ignore_failure,omitempty"`
+	IgnoreMissingPipeline *bool                `json:"ignore_missing_pipeline,omitempty"`
+	Name                  string               `json:"name"`
+	OnFailure             []ProcessorContainer `json:"on_failure,omitempty"`
+	Tag                   *string              `json:"tag,omitempty"`
 }
 
-// PipelineProcessorBuilder holds PipelineProcessor struct and provides a builder API.
-type PipelineProcessorBuilder struct {
-	v *PipelineProcessor
-}
+// NewPipelineProcessor returns a PipelineProcessor.
+func NewPipelineProcessor() *PipelineProcessor {
+	r := &PipelineProcessor{}
 
-// NewPipelineProcessor provides a builder for the PipelineProcessor struct.
-func NewPipelineProcessorBuilder() *PipelineProcessorBuilder {
-	r := PipelineProcessorBuilder{
-		&PipelineProcessor{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the PipelineProcessor struct
-func (rb *PipelineProcessorBuilder) Build() PipelineProcessor {
-	return *rb.v
-}
-
-func (rb *PipelineProcessorBuilder) If_(if_ string) *PipelineProcessorBuilder {
-	rb.v.If = &if_
-	return rb
-}
-
-func (rb *PipelineProcessorBuilder) IgnoreFailure(ignorefailure bool) *PipelineProcessorBuilder {
-	rb.v.IgnoreFailure = &ignorefailure
-	return rb
-}
-
-func (rb *PipelineProcessorBuilder) Name(name Name) *PipelineProcessorBuilder {
-	rb.v.Name = name
-	return rb
-}
-
-func (rb *PipelineProcessorBuilder) OnFailure(on_failure []ProcessorContainerBuilder) *PipelineProcessorBuilder {
-	tmp := make([]ProcessorContainer, len(on_failure))
-	for _, value := range on_failure {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.OnFailure = tmp
-	return rb
-}
-
-func (rb *PipelineProcessorBuilder) Tag(tag string) *PipelineProcessorBuilder {
-	rb.v.Tag = &tag
-	return rb
+	return r
 }

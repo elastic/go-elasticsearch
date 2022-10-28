@@ -17,75 +17,27 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // BoolQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/query_dsl/compound.ts#L28-L34
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/compound.ts#L28-L34
 type BoolQuery struct {
 	Boost              *float32            `json:"boost,omitempty"`
-	Filter             []QueryContainer    `json:"filter,omitempty"`
+	Filter             []Query             `json:"filter,omitempty"`
 	MinimumShouldMatch *MinimumShouldMatch `json:"minimum_should_match,omitempty"`
-	Must               []QueryContainer    `json:"must,omitempty"`
-	MustNot            []QueryContainer    `json:"must_not,omitempty"`
+	Must               []Query             `json:"must,omitempty"`
+	MustNot            []Query             `json:"must_not,omitempty"`
 	QueryName_         *string             `json:"_name,omitempty"`
-	Should             []QueryContainer    `json:"should,omitempty"`
+	Should             []Query             `json:"should,omitempty"`
 }
 
-// BoolQueryBuilder holds BoolQuery struct and provides a builder API.
-type BoolQueryBuilder struct {
-	v *BoolQuery
-}
+// NewBoolQuery returns a BoolQuery.
+func NewBoolQuery() *BoolQuery {
+	r := &BoolQuery{}
 
-// NewBoolQuery provides a builder for the BoolQuery struct.
-func NewBoolQueryBuilder() *BoolQueryBuilder {
-	r := BoolQueryBuilder{
-		&BoolQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the BoolQuery struct
-func (rb *BoolQueryBuilder) Build() BoolQuery {
-	return *rb.v
-}
-
-func (rb *BoolQueryBuilder) Boost(boost float32) *BoolQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *BoolQueryBuilder) Filter(arg []QueryContainer) *BoolQueryBuilder {
-	rb.v.Filter = arg
-	return rb
-}
-
-func (rb *BoolQueryBuilder) MinimumShouldMatch(minimumshouldmatch *MinimumShouldMatchBuilder) *BoolQueryBuilder {
-	v := minimumshouldmatch.Build()
-	rb.v.MinimumShouldMatch = &v
-	return rb
-}
-
-func (rb *BoolQueryBuilder) Must(arg []QueryContainer) *BoolQueryBuilder {
-	rb.v.Must = arg
-	return rb
-}
-
-func (rb *BoolQueryBuilder) MustNot(arg []QueryContainer) *BoolQueryBuilder {
-	rb.v.MustNot = arg
-	return rb
-}
-
-func (rb *BoolQueryBuilder) QueryName_(queryname_ string) *BoolQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
-}
-
-func (rb *BoolQueryBuilder) Should(arg []QueryContainer) *BoolQueryBuilder {
-	rb.v.Should = arg
-	return rb
+	return r
 }

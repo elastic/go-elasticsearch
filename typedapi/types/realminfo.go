@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RealmInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/security/_types/RealmInfo.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/_types/RealmInfo.ts#L22-L25
 type RealmInfo struct {
-	Name Name   `json:"name"`
+	Name string `json:"name"`
 	Type string `json:"type"`
 }
 
-// RealmInfoBuilder holds RealmInfo struct and provides a builder API.
-type RealmInfoBuilder struct {
-	v *RealmInfo
-}
+// NewRealmInfo returns a RealmInfo.
+func NewRealmInfo() *RealmInfo {
+	r := &RealmInfo{}
 
-// NewRealmInfo provides a builder for the RealmInfo struct.
-func NewRealmInfoBuilder() *RealmInfoBuilder {
-	r := RealmInfoBuilder{
-		&RealmInfo{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RealmInfo struct
-func (rb *RealmInfoBuilder) Build() RealmInfo {
-	return *rb.v
-}
-
-func (rb *RealmInfoBuilder) Name(name Name) *RealmInfoBuilder {
-	rb.v.Name = name
-	return rb
-}
-
-func (rb *RealmInfoBuilder) Type_(type_ string) *RealmInfoBuilder {
-	rb.v.Type = type_
-	return rb
+	return r
 }

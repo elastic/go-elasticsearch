@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // EqlFeaturesJoin type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/xpack/usage/types.ts#L105-L111
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L105-L111
 type EqlFeaturesJoin struct {
 	JoinQueriesFiveOrMore uint `json:"join_queries_five_or_more"`
 	JoinQueriesFour       uint `json:"join_queries_four"`
@@ -33,46 +33,9 @@ type EqlFeaturesJoin struct {
 	JoinUntil             uint `json:"join_until"`
 }
 
-// EqlFeaturesJoinBuilder holds EqlFeaturesJoin struct and provides a builder API.
-type EqlFeaturesJoinBuilder struct {
-	v *EqlFeaturesJoin
-}
+// NewEqlFeaturesJoin returns a EqlFeaturesJoin.
+func NewEqlFeaturesJoin() *EqlFeaturesJoin {
+	r := &EqlFeaturesJoin{}
 
-// NewEqlFeaturesJoin provides a builder for the EqlFeaturesJoin struct.
-func NewEqlFeaturesJoinBuilder() *EqlFeaturesJoinBuilder {
-	r := EqlFeaturesJoinBuilder{
-		&EqlFeaturesJoin{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the EqlFeaturesJoin struct
-func (rb *EqlFeaturesJoinBuilder) Build() EqlFeaturesJoin {
-	return *rb.v
-}
-
-func (rb *EqlFeaturesJoinBuilder) JoinQueriesFiveOrMore(joinqueriesfiveormore uint) *EqlFeaturesJoinBuilder {
-	rb.v.JoinQueriesFiveOrMore = joinqueriesfiveormore
-	return rb
-}
-
-func (rb *EqlFeaturesJoinBuilder) JoinQueriesFour(joinqueriesfour uint) *EqlFeaturesJoinBuilder {
-	rb.v.JoinQueriesFour = joinqueriesfour
-	return rb
-}
-
-func (rb *EqlFeaturesJoinBuilder) JoinQueriesThree(joinqueriesthree uint) *EqlFeaturesJoinBuilder {
-	rb.v.JoinQueriesThree = joinqueriesthree
-	return rb
-}
-
-func (rb *EqlFeaturesJoinBuilder) JoinQueriesTwo(joinqueriestwo uint) *EqlFeaturesJoinBuilder {
-	rb.v.JoinQueriesTwo = joinqueriestwo
-	return rb
-}
-
-func (rb *EqlFeaturesJoinBuilder) JoinUntil(joinuntil uint) *EqlFeaturesJoinBuilder {
-	rb.v.JoinUntil = joinuntil
-	return rb
+	return r
 }

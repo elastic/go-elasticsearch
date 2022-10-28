@@ -17,51 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DatafeedRunningState type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/Datafeed.ts#L158-L162
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/Datafeed.ts#L158-L162
 type DatafeedRunningState struct {
 	RealTimeConfigured bool                        `json:"real_time_configured"`
 	RealTimeRunning    bool                        `json:"real_time_running"`
 	SearchInterval     *RunningStateSearchInterval `json:"search_interval,omitempty"`
 }
 
-// DatafeedRunningStateBuilder holds DatafeedRunningState struct and provides a builder API.
-type DatafeedRunningStateBuilder struct {
-	v *DatafeedRunningState
-}
+// NewDatafeedRunningState returns a DatafeedRunningState.
+func NewDatafeedRunningState() *DatafeedRunningState {
+	r := &DatafeedRunningState{}
 
-// NewDatafeedRunningState provides a builder for the DatafeedRunningState struct.
-func NewDatafeedRunningStateBuilder() *DatafeedRunningStateBuilder {
-	r := DatafeedRunningStateBuilder{
-		&DatafeedRunningState{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DatafeedRunningState struct
-func (rb *DatafeedRunningStateBuilder) Build() DatafeedRunningState {
-	return *rb.v
-}
-
-func (rb *DatafeedRunningStateBuilder) RealTimeConfigured(realtimeconfigured bool) *DatafeedRunningStateBuilder {
-	rb.v.RealTimeConfigured = realtimeconfigured
-	return rb
-}
-
-func (rb *DatafeedRunningStateBuilder) RealTimeRunning(realtimerunning bool) *DatafeedRunningStateBuilder {
-	rb.v.RealTimeRunning = realtimerunning
-	return rb
-}
-
-func (rb *DatafeedRunningStateBuilder) SearchInterval(searchinterval *RunningStateSearchIntervalBuilder) *DatafeedRunningStateBuilder {
-	v := searchinterval.Build()
-	rb.v.SearchInterval = &v
-	return rb
+	return r
 }

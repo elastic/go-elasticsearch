@@ -17,56 +17,28 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Hint type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/security/suggest_user_profiles/types.ts#L23-L34
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/suggest_user_profiles/types.ts#L23-L34
 type Hint struct {
 	// Labels A single key-value pair to match against the labels section
 	// of a profile. A profile is considered matching if it matches
 	// at least one of the strings.
 	Labels map[string][]string `json:"labels,omitempty"`
 	// Uids A list of Profile UIDs to match against.
-	Uids []UserProfileId `json:"uids,omitempty"`
+	Uids []string `json:"uids,omitempty"`
 }
 
-// HintBuilder holds Hint struct and provides a builder API.
-type HintBuilder struct {
-	v *Hint
-}
-
-// NewHint provides a builder for the Hint struct.
-func NewHintBuilder() *HintBuilder {
-	r := HintBuilder{
-		&Hint{
-			Labels: make(map[string][]string, 0),
-		},
+// NewHint returns a Hint.
+func NewHint() *Hint {
+	r := &Hint{
+		Labels: make(map[string][]string, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the Hint struct
-func (rb *HintBuilder) Build() Hint {
-	return *rb.v
-}
-
-// Labels A single key-value pair to match against the labels section
-// of a profile. A profile is considered matching if it matches
-// at least one of the strings.
-
-func (rb *HintBuilder) Labels(value map[string][]string) *HintBuilder {
-	rb.v.Labels = value
-	return rb
-}
-
-// Uids A list of Profile UIDs to match against.
-
-func (rb *HintBuilder) Uids(uids ...UserProfileId) *HintBuilder {
-	rb.v.Uids = uids
-	return rb
+	return r
 }

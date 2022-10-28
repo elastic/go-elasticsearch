@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package analyze
@@ -31,42 +31,27 @@ import (
 
 // Request holds the request body struct for the package analyze
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/analyze/IndicesAnalyzeRequest.ts#L27-L47
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/analyze/IndicesAnalyzeRequest.ts#L27-L47
 type Request struct {
-	Analyzer *string `json:"analyzer,omitempty"`
-
-	Attributes []string `json:"attributes,omitempty"`
-
-	CharFilter []types.CharFilter `json:"char_filter,omitempty"`
-
-	Explain *bool `json:"explain,omitempty"`
-
-	Field *types.Field `json:"field,omitempty"`
-
-	Filter []types.TokenFilter `json:"filter,omitempty"`
-
-	Normalizer *string `json:"normalizer,omitempty"`
-
-	Text *types.TextToAnalyze `json:"text,omitempty"`
-
-	Tokenizer *types.Tokenizer `json:"tokenizer,omitempty"`
+	Analyzer   *string             `json:"analyzer,omitempty"`
+	Attributes []string            `json:"attributes,omitempty"`
+	CharFilter []types.CharFilter  `json:"char_filter,omitempty"`
+	Explain    *bool               `json:"explain,omitempty"`
+	Field      *string             `json:"field,omitempty"`
+	Filter     []types.TokenFilter `json:"filter,omitempty"`
+	Normalizer *string             `json:"normalizer,omitempty"`
+	Text       []string            `json:"text,omitempty"`
+	Tokenizer  *types.Tokenizer    `json:"tokenizer,omitempty"`
 }
 
-// RequestBuilder is the builder API for the analyze.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -75,56 +60,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) Analyzer(analyzer string) *RequestBuilder {
-	rb.v.Analyzer = &analyzer
-	return rb
-}
-
-func (rb *RequestBuilder) Attributes(attributes ...string) *RequestBuilder {
-	rb.v.Attributes = attributes
-	return rb
-}
-
-func (rb *RequestBuilder) CharFilter(char_filter ...types.CharFilter) *RequestBuilder {
-	rb.v.CharFilter = char_filter
-	return rb
-}
-
-func (rb *RequestBuilder) Explain(explain bool) *RequestBuilder {
-	rb.v.Explain = &explain
-	return rb
-}
-
-func (rb *RequestBuilder) Field(field types.Field) *RequestBuilder {
-	rb.v.Field = &field
-	return rb
-}
-
-func (rb *RequestBuilder) Filter(filter ...types.TokenFilter) *RequestBuilder {
-	rb.v.Filter = filter
-	return rb
-}
-
-func (rb *RequestBuilder) Normalizer(normalizer string) *RequestBuilder {
-	rb.v.Normalizer = &normalizer
-	return rb
-}
-
-func (rb *RequestBuilder) Text(text *types.TextToAnalyzeBuilder) *RequestBuilder {
-	v := text.Build()
-	rb.v.Text = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Tokenizer(tokenizer *types.TokenizerBuilder) *RequestBuilder {
-	v := tokenizer.Build()
-	rb.v.Tokenizer = &v
-	return rb
 }

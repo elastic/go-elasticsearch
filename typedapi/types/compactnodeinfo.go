@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CompactNodeInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/snapshot/verify_repository/SnapshotVerifyRepositoryResponse.ts#L27-L29
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/snapshot/verify_repository/SnapshotVerifyRepositoryResponse.ts#L27-L29
 type CompactNodeInfo struct {
-	Name Name `json:"name"`
+	Name string `json:"name"`
 }
 
-// CompactNodeInfoBuilder holds CompactNodeInfo struct and provides a builder API.
-type CompactNodeInfoBuilder struct {
-	v *CompactNodeInfo
-}
+// NewCompactNodeInfo returns a CompactNodeInfo.
+func NewCompactNodeInfo() *CompactNodeInfo {
+	r := &CompactNodeInfo{}
 
-// NewCompactNodeInfo provides a builder for the CompactNodeInfo struct.
-func NewCompactNodeInfoBuilder() *CompactNodeInfoBuilder {
-	r := CompactNodeInfoBuilder{
-		&CompactNodeInfo{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the CompactNodeInfo struct
-func (rb *CompactNodeInfoBuilder) Build() CompactNodeInfo {
-	return *rb.v
-}
-
-func (rb *CompactNodeInfoBuilder) Name(name Name) *CompactNodeInfoBuilder {
-	rb.v.Name = name
-	return rb
+	return r
 }

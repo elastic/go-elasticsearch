@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -30,23 +30,23 @@ import (
 
 // HalfFloatNumberProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/mapping/core.ts#L136-L139
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/core.ts#L136-L139
 type HalfFloatNumberProperty struct {
 	Boost           *float64                       `json:"boost,omitempty"`
 	Coerce          *bool                          `json:"coerce,omitempty"`
-	CopyTo          *Fields                        `json:"copy_to,omitempty"`
+	CopyTo          []string                       `json:"copy_to,omitempty"`
 	DocValues       *bool                          `json:"doc_values,omitempty"`
 	Dynamic         *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
-	Fields          map[PropertyName]Property      `json:"fields,omitempty"`
+	Fields          map[string]Property            `json:"fields,omitempty"`
 	IgnoreAbove     *int                           `json:"ignore_above,omitempty"`
 	IgnoreMalformed *bool                          `json:"ignore_malformed,omitempty"`
 	Index           *bool                          `json:"index,omitempty"`
-	LocalMetadata   *Metadata                      `json:"local_metadata,omitempty"`
+	LocalMetadata   map[string]interface{}         `json:"local_metadata,omitempty"`
 	// Meta Metadata about the field.
 	Meta          map[string]string            `json:"meta,omitempty"`
 	NullValue     *float32                     `json:"null_value,omitempty"`
 	OnScriptError *onscripterror.OnScriptError `json:"on_script_error,omitempty"`
-	Properties    map[PropertyName]Property    `json:"properties,omitempty"`
+	Properties    map[string]Property          `json:"properties,omitempty"`
 	Script        *Script                      `json:"script,omitempty"`
 	Similarity    *string                      `json:"similarity,omitempty"`
 	Store         *bool                        `json:"store,omitempty"`
@@ -59,141 +59,15 @@ type HalfFloatNumberProperty struct {
 	Type             string                                     `json:"type,omitempty"`
 }
 
-// HalfFloatNumberPropertyBuilder holds HalfFloatNumberProperty struct and provides a builder API.
-type HalfFloatNumberPropertyBuilder struct {
-	v *HalfFloatNumberProperty
-}
-
-// NewHalfFloatNumberProperty provides a builder for the HalfFloatNumberProperty struct.
-func NewHalfFloatNumberPropertyBuilder() *HalfFloatNumberPropertyBuilder {
-	r := HalfFloatNumberPropertyBuilder{
-		&HalfFloatNumberProperty{
-			Fields:     make(map[PropertyName]Property, 0),
-			Meta:       make(map[string]string, 0),
-			Properties: make(map[PropertyName]Property, 0),
-		},
+// NewHalfFloatNumberProperty returns a HalfFloatNumberProperty.
+func NewHalfFloatNumberProperty() *HalfFloatNumberProperty {
+	r := &HalfFloatNumberProperty{
+		Fields:     make(map[string]Property, 0),
+		Meta:       make(map[string]string, 0),
+		Properties: make(map[string]Property, 0),
 	}
 
-	r.v.Type = "half_float"
+	r.Type = "half_float"
 
-	return &r
-}
-
-// Build finalize the chain and returns the HalfFloatNumberProperty struct
-func (rb *HalfFloatNumberPropertyBuilder) Build() HalfFloatNumberProperty {
-	return *rb.v
-}
-
-func (rb *HalfFloatNumberPropertyBuilder) Boost(boost float64) *HalfFloatNumberPropertyBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *HalfFloatNumberPropertyBuilder) Coerce(coerce bool) *HalfFloatNumberPropertyBuilder {
-	rb.v.Coerce = &coerce
-	return rb
-}
-
-func (rb *HalfFloatNumberPropertyBuilder) CopyTo(copyto *FieldsBuilder) *HalfFloatNumberPropertyBuilder {
-	v := copyto.Build()
-	rb.v.CopyTo = &v
-	return rb
-}
-
-func (rb *HalfFloatNumberPropertyBuilder) DocValues(docvalues bool) *HalfFloatNumberPropertyBuilder {
-	rb.v.DocValues = &docvalues
-	return rb
-}
-
-func (rb *HalfFloatNumberPropertyBuilder) Dynamic(dynamic dynamicmapping.DynamicMapping) *HalfFloatNumberPropertyBuilder {
-	rb.v.Dynamic = &dynamic
-	return rb
-}
-
-func (rb *HalfFloatNumberPropertyBuilder) Fields(values map[PropertyName]*PropertyBuilder) *HalfFloatNumberPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Fields = tmp
-	return rb
-}
-
-func (rb *HalfFloatNumberPropertyBuilder) IgnoreAbove(ignoreabove int) *HalfFloatNumberPropertyBuilder {
-	rb.v.IgnoreAbove = &ignoreabove
-	return rb
-}
-
-func (rb *HalfFloatNumberPropertyBuilder) IgnoreMalformed(ignoremalformed bool) *HalfFloatNumberPropertyBuilder {
-	rb.v.IgnoreMalformed = &ignoremalformed
-	return rb
-}
-
-func (rb *HalfFloatNumberPropertyBuilder) Index(index bool) *HalfFloatNumberPropertyBuilder {
-	rb.v.Index = &index
-	return rb
-}
-
-func (rb *HalfFloatNumberPropertyBuilder) LocalMetadata(localmetadata *MetadataBuilder) *HalfFloatNumberPropertyBuilder {
-	v := localmetadata.Build()
-	rb.v.LocalMetadata = &v
-	return rb
-}
-
-// Meta Metadata about the field.
-
-func (rb *HalfFloatNumberPropertyBuilder) Meta(value map[string]string) *HalfFloatNumberPropertyBuilder {
-	rb.v.Meta = value
-	return rb
-}
-
-func (rb *HalfFloatNumberPropertyBuilder) NullValue(nullvalue float32) *HalfFloatNumberPropertyBuilder {
-	rb.v.NullValue = &nullvalue
-	return rb
-}
-
-func (rb *HalfFloatNumberPropertyBuilder) OnScriptError(onscripterror onscripterror.OnScriptError) *HalfFloatNumberPropertyBuilder {
-	rb.v.OnScriptError = &onscripterror
-	return rb
-}
-
-func (rb *HalfFloatNumberPropertyBuilder) Properties(values map[PropertyName]*PropertyBuilder) *HalfFloatNumberPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Properties = tmp
-	return rb
-}
-
-func (rb *HalfFloatNumberPropertyBuilder) Script(script *ScriptBuilder) *HalfFloatNumberPropertyBuilder {
-	v := script.Build()
-	rb.v.Script = &v
-	return rb
-}
-
-func (rb *HalfFloatNumberPropertyBuilder) Similarity(similarity string) *HalfFloatNumberPropertyBuilder {
-	rb.v.Similarity = &similarity
-	return rb
-}
-
-func (rb *HalfFloatNumberPropertyBuilder) Store(store bool) *HalfFloatNumberPropertyBuilder {
-	rb.v.Store = &store
-	return rb
-}
-
-// TimeSeriesDimension For internal use by Elastic only. Marks the field as a time series dimension.
-// Defaults to false.
-
-func (rb *HalfFloatNumberPropertyBuilder) TimeSeriesDimension(timeseriesdimension bool) *HalfFloatNumberPropertyBuilder {
-	rb.v.TimeSeriesDimension = &timeseriesdimension
-	return rb
-}
-
-// TimeSeriesMetric For internal use by Elastic only. Marks the field as a time series dimension.
-// Defaults to false.
-
-func (rb *HalfFloatNumberPropertyBuilder) TimeSeriesMetric(timeseriesmetric timeseriesmetrictype.TimeSeriesMetricType) *HalfFloatNumberPropertyBuilder {
-	rb.v.TimeSeriesMetric = &timeseriesmetric
-	return rb
+	return r
 }

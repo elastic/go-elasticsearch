@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,43 +28,16 @@ import (
 
 // AllocationDecision type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/cluster/allocation_explain/types.ts#L26-L30
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/allocation_explain/types.ts#L26-L30
 type AllocationDecision struct {
 	Decider     string                                              `json:"decider"`
 	Decision    allocationexplaindecision.AllocationExplainDecision `json:"decision"`
 	Explanation string                                              `json:"explanation"`
 }
 
-// AllocationDecisionBuilder holds AllocationDecision struct and provides a builder API.
-type AllocationDecisionBuilder struct {
-	v *AllocationDecision
-}
+// NewAllocationDecision returns a AllocationDecision.
+func NewAllocationDecision() *AllocationDecision {
+	r := &AllocationDecision{}
 
-// NewAllocationDecision provides a builder for the AllocationDecision struct.
-func NewAllocationDecisionBuilder() *AllocationDecisionBuilder {
-	r := AllocationDecisionBuilder{
-		&AllocationDecision{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the AllocationDecision struct
-func (rb *AllocationDecisionBuilder) Build() AllocationDecision {
-	return *rb.v
-}
-
-func (rb *AllocationDecisionBuilder) Decider(decider string) *AllocationDecisionBuilder {
-	rb.v.Decider = decider
-	return rb
-}
-
-func (rb *AllocationDecisionBuilder) Decision(decision allocationexplaindecision.AllocationExplainDecision) *AllocationDecisionBuilder {
-	rb.v.Decision = decision
-	return rb
-}
-
-func (rb *AllocationDecisionBuilder) Explanation(explanation string) *AllocationDecisionBuilder {
-	rb.v.Explanation = explanation
-	return rb
+	return r
 }

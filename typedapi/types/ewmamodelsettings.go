@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // EwmaModelSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/pipeline.ts#L227-L229
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/pipeline.ts#L227-L229
 type EwmaModelSettings struct {
 	Alpha *float32 `json:"alpha,omitempty"`
 }
 
-// EwmaModelSettingsBuilder holds EwmaModelSettings struct and provides a builder API.
-type EwmaModelSettingsBuilder struct {
-	v *EwmaModelSettings
-}
+// NewEwmaModelSettings returns a EwmaModelSettings.
+func NewEwmaModelSettings() *EwmaModelSettings {
+	r := &EwmaModelSettings{}
 
-// NewEwmaModelSettings provides a builder for the EwmaModelSettings struct.
-func NewEwmaModelSettingsBuilder() *EwmaModelSettingsBuilder {
-	r := EwmaModelSettingsBuilder{
-		&EwmaModelSettings{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the EwmaModelSettings struct
-func (rb *EwmaModelSettingsBuilder) Build() EwmaModelSettings {
-	return *rb.v
-}
-
-func (rb *EwmaModelSettingsBuilder) Alpha(alpha float32) *EwmaModelSettingsBuilder {
-	rb.v.Alpha = &alpha
-	return rb
+	return r
 }

@@ -17,65 +17,28 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // PatternReplaceTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/token_filters.ts#L283-L289
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/token_filters.ts#L283-L289
 type PatternReplaceTokenFilter struct {
-	All         *bool          `json:"all,omitempty"`
-	Flags       *string        `json:"flags,omitempty"`
-	Pattern     string         `json:"pattern"`
-	Replacement *string        `json:"replacement,omitempty"`
-	Type        string         `json:"type,omitempty"`
-	Version     *VersionString `json:"version,omitempty"`
+	All         *bool   `json:"all,omitempty"`
+	Flags       *string `json:"flags,omitempty"`
+	Pattern     string  `json:"pattern"`
+	Replacement *string `json:"replacement,omitempty"`
+	Type        string  `json:"type,omitempty"`
+	Version     *string `json:"version,omitempty"`
 }
 
-// PatternReplaceTokenFilterBuilder holds PatternReplaceTokenFilter struct and provides a builder API.
-type PatternReplaceTokenFilterBuilder struct {
-	v *PatternReplaceTokenFilter
-}
+// NewPatternReplaceTokenFilter returns a PatternReplaceTokenFilter.
+func NewPatternReplaceTokenFilter() *PatternReplaceTokenFilter {
+	r := &PatternReplaceTokenFilter{}
 
-// NewPatternReplaceTokenFilter provides a builder for the PatternReplaceTokenFilter struct.
-func NewPatternReplaceTokenFilterBuilder() *PatternReplaceTokenFilterBuilder {
-	r := PatternReplaceTokenFilterBuilder{
-		&PatternReplaceTokenFilter{},
-	}
+	r.Type = "pattern_replace"
 
-	r.v.Type = "pattern_replace"
-
-	return &r
-}
-
-// Build finalize the chain and returns the PatternReplaceTokenFilter struct
-func (rb *PatternReplaceTokenFilterBuilder) Build() PatternReplaceTokenFilter {
-	return *rb.v
-}
-
-func (rb *PatternReplaceTokenFilterBuilder) All(all bool) *PatternReplaceTokenFilterBuilder {
-	rb.v.All = &all
-	return rb
-}
-
-func (rb *PatternReplaceTokenFilterBuilder) Flags(flags string) *PatternReplaceTokenFilterBuilder {
-	rb.v.Flags = &flags
-	return rb
-}
-
-func (rb *PatternReplaceTokenFilterBuilder) Pattern(pattern string) *PatternReplaceTokenFilterBuilder {
-	rb.v.Pattern = pattern
-	return rb
-}
-
-func (rb *PatternReplaceTokenFilterBuilder) Replacement(replacement string) *PatternReplaceTokenFilterBuilder {
-	rb.v.Replacement = &replacement
-	return rb
-}
-
-func (rb *PatternReplaceTokenFilterBuilder) Version(version VersionString) *PatternReplaceTokenFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

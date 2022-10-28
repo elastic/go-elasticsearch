@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // GeoLineAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/metric.ts#L81-L87
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/metric.ts#L81-L87
 type GeoLineAggregation struct {
 	IncludeSort *bool                `json:"include_sort,omitempty"`
 	Point       GeoLinePoint         `json:"point"`
@@ -37,48 +37,9 @@ type GeoLineAggregation struct {
 	SortOrder   *sortorder.SortOrder `json:"sort_order,omitempty"`
 }
 
-// GeoLineAggregationBuilder holds GeoLineAggregation struct and provides a builder API.
-type GeoLineAggregationBuilder struct {
-	v *GeoLineAggregation
-}
+// NewGeoLineAggregation returns a GeoLineAggregation.
+func NewGeoLineAggregation() *GeoLineAggregation {
+	r := &GeoLineAggregation{}
 
-// NewGeoLineAggregation provides a builder for the GeoLineAggregation struct.
-func NewGeoLineAggregationBuilder() *GeoLineAggregationBuilder {
-	r := GeoLineAggregationBuilder{
-		&GeoLineAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the GeoLineAggregation struct
-func (rb *GeoLineAggregationBuilder) Build() GeoLineAggregation {
-	return *rb.v
-}
-
-func (rb *GeoLineAggregationBuilder) IncludeSort(includesort bool) *GeoLineAggregationBuilder {
-	rb.v.IncludeSort = &includesort
-	return rb
-}
-
-func (rb *GeoLineAggregationBuilder) Point(point *GeoLinePointBuilder) *GeoLineAggregationBuilder {
-	v := point.Build()
-	rb.v.Point = v
-	return rb
-}
-
-func (rb *GeoLineAggregationBuilder) Size(size int) *GeoLineAggregationBuilder {
-	rb.v.Size = &size
-	return rb
-}
-
-func (rb *GeoLineAggregationBuilder) Sort(sort *GeoLineSortBuilder) *GeoLineAggregationBuilder {
-	v := sort.Build()
-	rb.v.Sort = v
-	return rb
-}
-
-func (rb *GeoLineAggregationBuilder) SortOrder(sortorder sortorder.SortOrder) *GeoLineAggregationBuilder {
-	rb.v.SortOrder = &sortorder
-	return rb
+	return r
 }

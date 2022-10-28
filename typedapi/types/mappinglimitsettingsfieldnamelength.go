@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MappingLimitSettingsFieldNameLength type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/_types/IndexSettings.ts#L455-L462
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/IndexSettings.ts#L455-L462
 type MappingLimitSettingsFieldNameLength struct {
 	// Limit Setting for the maximum length of a field name. This setting isn’t really
 	// something that addresses mappings explosion but
@@ -35,33 +35,9 @@ type MappingLimitSettingsFieldNameLength struct {
 	Limit *int64 `json:"limit,omitempty"`
 }
 
-// MappingLimitSettingsFieldNameLengthBuilder holds MappingLimitSettingsFieldNameLength struct and provides a builder API.
-type MappingLimitSettingsFieldNameLengthBuilder struct {
-	v *MappingLimitSettingsFieldNameLength
-}
+// NewMappingLimitSettingsFieldNameLength returns a MappingLimitSettingsFieldNameLength.
+func NewMappingLimitSettingsFieldNameLength() *MappingLimitSettingsFieldNameLength {
+	r := &MappingLimitSettingsFieldNameLength{}
 
-// NewMappingLimitSettingsFieldNameLength provides a builder for the MappingLimitSettingsFieldNameLength struct.
-func NewMappingLimitSettingsFieldNameLengthBuilder() *MappingLimitSettingsFieldNameLengthBuilder {
-	r := MappingLimitSettingsFieldNameLengthBuilder{
-		&MappingLimitSettingsFieldNameLength{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MappingLimitSettingsFieldNameLength struct
-func (rb *MappingLimitSettingsFieldNameLengthBuilder) Build() MappingLimitSettingsFieldNameLength {
-	return *rb.v
-}
-
-// Limit Setting for the maximum length of a field name. This setting isn’t really
-// something that addresses mappings explosion but
-// might still be useful if you want to limit the field length. It usually
-// shouldn’t be necessary to set this setting. The
-// default is okay unless a user starts to add a huge number of fields with
-// really long names. Default is `Long.MAX_VALUE` (no limit).
-
-func (rb *MappingLimitSettingsFieldNameLengthBuilder) Limit(limit int64) *MappingLimitSettingsFieldNameLengthBuilder {
-	rb.v.Limit = &limit
-	return rb
+	return r
 }

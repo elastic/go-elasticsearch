@@ -17,54 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // PipelineConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ingest/_types/Pipeline.ts#L44-L48
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ingest/_types/Pipeline.ts#L44-L48
 type PipelineConfig struct {
 	Description *string              `json:"description,omitempty"`
 	Processors  []ProcessorContainer `json:"processors"`
-	Version     *VersionNumber       `json:"version,omitempty"`
+	Version     *int64               `json:"version,omitempty"`
 }
 
-// PipelineConfigBuilder holds PipelineConfig struct and provides a builder API.
-type PipelineConfigBuilder struct {
-	v *PipelineConfig
-}
+// NewPipelineConfig returns a PipelineConfig.
+func NewPipelineConfig() *PipelineConfig {
+	r := &PipelineConfig{}
 
-// NewPipelineConfig provides a builder for the PipelineConfig struct.
-func NewPipelineConfigBuilder() *PipelineConfigBuilder {
-	r := PipelineConfigBuilder{
-		&PipelineConfig{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the PipelineConfig struct
-func (rb *PipelineConfigBuilder) Build() PipelineConfig {
-	return *rb.v
-}
-
-func (rb *PipelineConfigBuilder) Description(description string) *PipelineConfigBuilder {
-	rb.v.Description = &description
-	return rb
-}
-
-func (rb *PipelineConfigBuilder) Processors(processors []ProcessorContainerBuilder) *PipelineConfigBuilder {
-	tmp := make([]ProcessorContainer, len(processors))
-	for _, value := range processors {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Processors = tmp
-	return rb
-}
-
-func (rb *PipelineConfigBuilder) Version(version VersionNumber) *PipelineConfigBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

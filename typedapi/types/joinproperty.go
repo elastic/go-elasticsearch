@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,93 +28,30 @@ import (
 
 // JoinProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/mapping/core.ts#L83-L87
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/core.ts#L83-L87
 type JoinProperty struct {
 	Dynamic             *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
 	EagerGlobalOrdinals *bool                          `json:"eager_global_ordinals,omitempty"`
-	Fields              map[PropertyName]Property      `json:"fields,omitempty"`
+	Fields              map[string]Property            `json:"fields,omitempty"`
 	IgnoreAbove         *int                           `json:"ignore_above,omitempty"`
-	LocalMetadata       *Metadata                      `json:"local_metadata,omitempty"`
+	LocalMetadata       map[string]interface{}         `json:"local_metadata,omitempty"`
 	// Meta Metadata about the field.
-	Meta       map[string]string               `json:"meta,omitempty"`
-	Properties map[PropertyName]Property       `json:"properties,omitempty"`
-	Relations  map[RelationName][]RelationName `json:"relations,omitempty"`
-	Type       string                          `json:"type,omitempty"`
+	Meta       map[string]string   `json:"meta,omitempty"`
+	Properties map[string]Property `json:"properties,omitempty"`
+	Relations  map[string][]string `json:"relations,omitempty"`
+	Type       string              `json:"type,omitempty"`
 }
 
-// JoinPropertyBuilder holds JoinProperty struct and provides a builder API.
-type JoinPropertyBuilder struct {
-	v *JoinProperty
-}
-
-// NewJoinProperty provides a builder for the JoinProperty struct.
-func NewJoinPropertyBuilder() *JoinPropertyBuilder {
-	r := JoinPropertyBuilder{
-		&JoinProperty{
-			Fields:     make(map[PropertyName]Property, 0),
-			Meta:       make(map[string]string, 0),
-			Properties: make(map[PropertyName]Property, 0),
-			Relations:  make(map[RelationName][]RelationName, 0),
-		},
+// NewJoinProperty returns a JoinProperty.
+func NewJoinProperty() *JoinProperty {
+	r := &JoinProperty{
+		Fields:     make(map[string]Property, 0),
+		Meta:       make(map[string]string, 0),
+		Properties: make(map[string]Property, 0),
+		Relations:  make(map[string][]string, 0),
 	}
 
-	r.v.Type = "join"
+	r.Type = "join"
 
-	return &r
-}
-
-// Build finalize the chain and returns the JoinProperty struct
-func (rb *JoinPropertyBuilder) Build() JoinProperty {
-	return *rb.v
-}
-
-func (rb *JoinPropertyBuilder) Dynamic(dynamic dynamicmapping.DynamicMapping) *JoinPropertyBuilder {
-	rb.v.Dynamic = &dynamic
-	return rb
-}
-
-func (rb *JoinPropertyBuilder) EagerGlobalOrdinals(eagerglobalordinals bool) *JoinPropertyBuilder {
-	rb.v.EagerGlobalOrdinals = &eagerglobalordinals
-	return rb
-}
-
-func (rb *JoinPropertyBuilder) Fields(values map[PropertyName]*PropertyBuilder) *JoinPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Fields = tmp
-	return rb
-}
-
-func (rb *JoinPropertyBuilder) IgnoreAbove(ignoreabove int) *JoinPropertyBuilder {
-	rb.v.IgnoreAbove = &ignoreabove
-	return rb
-}
-
-func (rb *JoinPropertyBuilder) LocalMetadata(localmetadata *MetadataBuilder) *JoinPropertyBuilder {
-	v := localmetadata.Build()
-	rb.v.LocalMetadata = &v
-	return rb
-}
-
-// Meta Metadata about the field.
-
-func (rb *JoinPropertyBuilder) Meta(value map[string]string) *JoinPropertyBuilder {
-	rb.v.Meta = value
-	return rb
-}
-
-func (rb *JoinPropertyBuilder) Properties(values map[PropertyName]*PropertyBuilder) *JoinPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Properties = tmp
-	return rb
-}
-
-func (rb *JoinPropertyBuilder) Relations(value map[RelationName][]RelationName) *JoinPropertyBuilder {
-	rb.v.Relations = value
-	return rb
+	return r
 }

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ClusterRemoteProxyInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/cluster/remote_info/ClusterRemoteInfoResponse.ts#L41-L50
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/remote_info/ClusterRemoteInfoResponse.ts#L41-L50
 type ClusterRemoteProxyInfo struct {
 	Connected                 bool     `json:"connected"`
 	InitialConnectTimeout     Duration `json:"initial_connect_timeout"`
@@ -36,59 +36,11 @@ type ClusterRemoteProxyInfo struct {
 	SkipUnavailable           bool     `json:"skip_unavailable"`
 }
 
-// ClusterRemoteProxyInfoBuilder holds ClusterRemoteProxyInfo struct and provides a builder API.
-type ClusterRemoteProxyInfoBuilder struct {
-	v *ClusterRemoteProxyInfo
-}
+// NewClusterRemoteProxyInfo returns a ClusterRemoteProxyInfo.
+func NewClusterRemoteProxyInfo() *ClusterRemoteProxyInfo {
+	r := &ClusterRemoteProxyInfo{}
 
-// NewClusterRemoteProxyInfo provides a builder for the ClusterRemoteProxyInfo struct.
-func NewClusterRemoteProxyInfoBuilder() *ClusterRemoteProxyInfoBuilder {
-	r := ClusterRemoteProxyInfoBuilder{
-		&ClusterRemoteProxyInfo{},
-	}
+	r.Mode = "proxy"
 
-	r.v.Mode = "proxy"
-
-	return &r
-}
-
-// Build finalize the chain and returns the ClusterRemoteProxyInfo struct
-func (rb *ClusterRemoteProxyInfoBuilder) Build() ClusterRemoteProxyInfo {
-	return *rb.v
-}
-
-func (rb *ClusterRemoteProxyInfoBuilder) Connected(connected bool) *ClusterRemoteProxyInfoBuilder {
-	rb.v.Connected = connected
-	return rb
-}
-
-func (rb *ClusterRemoteProxyInfoBuilder) InitialConnectTimeout(initialconnecttimeout *DurationBuilder) *ClusterRemoteProxyInfoBuilder {
-	v := initialconnecttimeout.Build()
-	rb.v.InitialConnectTimeout = v
-	return rb
-}
-
-func (rb *ClusterRemoteProxyInfoBuilder) MaxProxySocketConnections(maxproxysocketconnections int) *ClusterRemoteProxyInfoBuilder {
-	rb.v.MaxProxySocketConnections = maxproxysocketconnections
-	return rb
-}
-
-func (rb *ClusterRemoteProxyInfoBuilder) NumProxySocketsConnected(numproxysocketsconnected int) *ClusterRemoteProxyInfoBuilder {
-	rb.v.NumProxySocketsConnected = numproxysocketsconnected
-	return rb
-}
-
-func (rb *ClusterRemoteProxyInfoBuilder) ProxyAddress(proxyaddress string) *ClusterRemoteProxyInfoBuilder {
-	rb.v.ProxyAddress = proxyaddress
-	return rb
-}
-
-func (rb *ClusterRemoteProxyInfoBuilder) ServerName(servername string) *ClusterRemoteProxyInfoBuilder {
-	rb.v.ServerName = servername
-	return rb
-}
-
-func (rb *ClusterRemoteProxyInfoBuilder) SkipUnavailable(skipunavailable bool) *ClusterRemoteProxyInfoBuilder {
-	rb.v.SkipUnavailable = skipunavailable
-	return rb
+	return r
 }

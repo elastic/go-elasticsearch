@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeInfoScript type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/info/types.ts#L273-L276
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/info/types.ts#L273-L276
 type NodeInfoScript struct {
 	AllowedTypes               string `json:"allowed_types"`
 	DisableMaxCompilationsRate string `json:"disable_max_compilations_rate"`
 }
 
-// NodeInfoScriptBuilder holds NodeInfoScript struct and provides a builder API.
-type NodeInfoScriptBuilder struct {
-	v *NodeInfoScript
-}
+// NewNodeInfoScript returns a NodeInfoScript.
+func NewNodeInfoScript() *NodeInfoScript {
+	r := &NodeInfoScript{}
 
-// NewNodeInfoScript provides a builder for the NodeInfoScript struct.
-func NewNodeInfoScriptBuilder() *NodeInfoScriptBuilder {
-	r := NodeInfoScriptBuilder{
-		&NodeInfoScript{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodeInfoScript struct
-func (rb *NodeInfoScriptBuilder) Build() NodeInfoScript {
-	return *rb.v
-}
-
-func (rb *NodeInfoScriptBuilder) AllowedTypes(allowedtypes string) *NodeInfoScriptBuilder {
-	rb.v.AllowedTypes = allowedtypes
-	return rb
-}
-
-func (rb *NodeInfoScriptBuilder) DisableMaxCompilationsRate(disablemaxcompilationsrate string) *NodeInfoScriptBuilder {
-	rb.v.DisableMaxCompilationsRate = disablemaxcompilationsrate
-	return rb
+	return r
 }

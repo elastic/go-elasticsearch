@@ -17,57 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // InProgress type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/slm/_types/SnapshotLifecycle.ts#L131-L136
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/slm/_types/SnapshotLifecycle.ts#L131-L136
 type InProgress struct {
-	Name            Name                `json:"name"`
-	StartTimeMillis EpochTimeUnitMillis `json:"start_time_millis"`
-	State           string              `json:"state"`
-	Uuid            Uuid                `json:"uuid"`
+	Name            string `json:"name"`
+	StartTimeMillis int64  `json:"start_time_millis"`
+	State           string `json:"state"`
+	Uuid            string `json:"uuid"`
 }
 
-// InProgressBuilder holds InProgress struct and provides a builder API.
-type InProgressBuilder struct {
-	v *InProgress
-}
+// NewInProgress returns a InProgress.
+func NewInProgress() *InProgress {
+	r := &InProgress{}
 
-// NewInProgress provides a builder for the InProgress struct.
-func NewInProgressBuilder() *InProgressBuilder {
-	r := InProgressBuilder{
-		&InProgress{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the InProgress struct
-func (rb *InProgressBuilder) Build() InProgress {
-	return *rb.v
-}
-
-func (rb *InProgressBuilder) Name(name Name) *InProgressBuilder {
-	rb.v.Name = name
-	return rb
-}
-
-func (rb *InProgressBuilder) StartTimeMillis(starttimemillis *EpochTimeUnitMillisBuilder) *InProgressBuilder {
-	v := starttimemillis.Build()
-	rb.v.StartTimeMillis = v
-	return rb
-}
-
-func (rb *InProgressBuilder) State(state string) *InProgressBuilder {
-	rb.v.State = state
-	return rb
-}
-
-func (rb *InProgressBuilder) Uuid(uuid Uuid) *InProgressBuilder {
-	rb.v.Uuid = uuid
-	return rb
+	return r
 }

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package samlinvalidate
@@ -29,14 +29,13 @@ import (
 
 // Request holds the request body struct for the package samlinvalidate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/security/saml_invalidate/Request.ts#L22-L43
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/saml_invalidate/Request.ts#L22-L43
 type Request struct {
 
 	// Acs The Assertion Consumer Service URL that matches the one of the SAML realm in
 	// Elasticsearch that should be used. You must specify either this parameter or
 	// the realm parameter.
 	Acs *string `json:"acs,omitempty"`
-
 	// QueryString The query part of the URL that the user was redirected to by the SAML IdP to
 	// initiate the Single Logout.
 	// This query should include a single parameter named SAMLRequest that contains
@@ -50,27 +49,19 @@ type Request struct {
 	// The client application must not attempt to parse or process the string in any
 	// way.
 	QueryString string `json:"query_string"`
-
 	// Realm The name of the SAML realm in Elasticsearch the configuration. You must
 	// specify either this parameter or the acs parameter.
 	Realm *string `json:"realm,omitempty"`
 }
 
-// RequestBuilder is the builder API for the samlinvalidate.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -79,24 +70,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) Acs(acs string) *RequestBuilder {
-	rb.v.Acs = &acs
-	return rb
-}
-
-func (rb *RequestBuilder) QueryString(querystring string) *RequestBuilder {
-	rb.v.QueryString = querystring
-	return rb
-}
-
-func (rb *RequestBuilder) Realm(realm string) *RequestBuilder {
-	rb.v.Realm = &realm
-	return rb
 }

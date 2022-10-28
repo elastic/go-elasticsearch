@@ -17,62 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ClusterJvm type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/cluster/stats/types.ts#L149-L154
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/stats/types.ts#L149-L154
 type ClusterJvm struct {
-	MaxUptimeInMillis DurationValueUnitMillis `json:"max_uptime_in_millis"`
-	Mem               ClusterJvmMemory        `json:"mem"`
-	Threads           int64                   `json:"threads"`
-	Versions          []ClusterJvmVersion     `json:"versions"`
+	MaxUptimeInMillis int64               `json:"max_uptime_in_millis"`
+	Mem               ClusterJvmMemory    `json:"mem"`
+	Threads           int64               `json:"threads"`
+	Versions          []ClusterJvmVersion `json:"versions"`
 }
 
-// ClusterJvmBuilder holds ClusterJvm struct and provides a builder API.
-type ClusterJvmBuilder struct {
-	v *ClusterJvm
-}
+// NewClusterJvm returns a ClusterJvm.
+func NewClusterJvm() *ClusterJvm {
+	r := &ClusterJvm{}
 
-// NewClusterJvm provides a builder for the ClusterJvm struct.
-func NewClusterJvmBuilder() *ClusterJvmBuilder {
-	r := ClusterJvmBuilder{
-		&ClusterJvm{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ClusterJvm struct
-func (rb *ClusterJvmBuilder) Build() ClusterJvm {
-	return *rb.v
-}
-
-func (rb *ClusterJvmBuilder) MaxUptimeInMillis(maxuptimeinmillis *DurationValueUnitMillisBuilder) *ClusterJvmBuilder {
-	v := maxuptimeinmillis.Build()
-	rb.v.MaxUptimeInMillis = v
-	return rb
-}
-
-func (rb *ClusterJvmBuilder) Mem(mem *ClusterJvmMemoryBuilder) *ClusterJvmBuilder {
-	v := mem.Build()
-	rb.v.Mem = v
-	return rb
-}
-
-func (rb *ClusterJvmBuilder) Threads(threads int64) *ClusterJvmBuilder {
-	rb.v.Threads = threads
-	return rb
-}
-
-func (rb *ClusterJvmBuilder) Versions(versions []ClusterJvmVersionBuilder) *ClusterJvmBuilder {
-	tmp := make([]ClusterJvmVersion, len(versions))
-	for _, value := range versions {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Versions = tmp
-	return rb
+	return r
 }

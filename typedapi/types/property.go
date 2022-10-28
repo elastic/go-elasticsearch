@@ -17,350 +17,153 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Property holds the union for the following types:
 //
-//	AggregateMetricDoubleProperty
 //	BinaryProperty
 //	BooleanProperty
-//	ByteNumberProperty
-//	CompletionProperty
-//	ConstantKeywordProperty
-//	DateNanosProperty
-//	DateProperty
-//	DateRangeProperty
-//	DenseVectorProperty
-//	DoubleNumberProperty
-//	DoubleRangeProperty
 //	DynamicProperty
-//	FieldAliasProperty
-//	FlattenedProperty
-//	FloatNumberProperty
-//	FloatRangeProperty
-//	GeoPointProperty
-//	GeoShapeProperty
-//	HalfFloatNumberProperty
-//	HistogramProperty
-//	IntegerNumberProperty
-//	IntegerRangeProperty
-//	IpProperty
-//	IpRangeProperty
 //	JoinProperty
 //	KeywordProperty
-//	LongNumberProperty
-//	LongRangeProperty
 //	MatchOnlyTextProperty
-//	Murmur3HashProperty
-//	NestedProperty
-//	ObjectProperty
 //	PercolatorProperty
-//	PointProperty
 //	RankFeatureProperty
 //	RankFeaturesProperty
-//	ScaledFloatNumberProperty
 //	SearchAsYouTypeProperty
-//	ShapeProperty
-//	ShortNumberProperty
 //	TextProperty
-//	TokenCountProperty
-//	UnsignedLongNumberProperty
 //	VersionProperty
 //	WildcardProperty
+//	DateNanosProperty
+//	DateProperty
+//	AggregateMetricDoubleProperty
+//	DenseVectorProperty
+//	FlattenedProperty
+//	NestedProperty
+//	ObjectProperty
+//	CompletionProperty
+//	ConstantKeywordProperty
+//	FieldAliasProperty
+//	HistogramProperty
+//	IpProperty
+//	Murmur3HashProperty
+//	TokenCountProperty
+//	GeoPointProperty
+//	GeoShapeProperty
+//	PointProperty
+//	ShapeProperty
+//	ByteNumberProperty
+//	DoubleNumberProperty
+//	FloatNumberProperty
+//	HalfFloatNumberProperty
+//	IntegerNumberProperty
+//	LongNumberProperty
+//	ScaledFloatNumberProperty
+//	ShortNumberProperty
+//	UnsignedLongNumberProperty
+//	DateRangeProperty
+//	DoubleRangeProperty
+//	FloatRangeProperty
+//	IntegerRangeProperty
+//	IpRangeProperty
+//	LongRangeProperty
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/mapping/Property.ts#L94-L157
-type Property interface{}
-
-// PropertyBuilder holds Property struct and provides a builder API.
-type PropertyBuilder struct {
-	v Property
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/Property.ts#L94-L157
+type Property interface {
+	isProperty()
 }
 
-// NewProperty provides a builder for the Property struct.
-func NewPropertyBuilder() *PropertyBuilder {
-	return &PropertyBuilder{}
-}
+func (i BinaryProperty) isProperty() {}
 
-// Build finalize the chain and returns the Property struct
-func (u *PropertyBuilder) Build() Property {
-	return u.v
-}
+func (i BooleanProperty) isProperty() {}
 
-func (u *PropertyBuilder) AggregateMetricDoubleProperty(aggregatemetricdoubleproperty *AggregateMetricDoublePropertyBuilder) *PropertyBuilder {
-	v := aggregatemetricdoubleproperty.Build()
-	u.v = &v
-	return u
-}
+func (i DynamicProperty) isProperty() {}
 
-func (u *PropertyBuilder) BinaryProperty(binaryproperty *BinaryPropertyBuilder) *PropertyBuilder {
-	v := binaryproperty.Build()
-	u.v = &v
-	return u
-}
+func (i JoinProperty) isProperty() {}
 
-func (u *PropertyBuilder) BooleanProperty(booleanproperty *BooleanPropertyBuilder) *PropertyBuilder {
-	v := booleanproperty.Build()
-	u.v = &v
-	return u
-}
+func (i KeywordProperty) isProperty() {}
 
-func (u *PropertyBuilder) ByteNumberProperty(bytenumberproperty *ByteNumberPropertyBuilder) *PropertyBuilder {
-	v := bytenumberproperty.Build()
-	u.v = &v
-	return u
-}
+func (i MatchOnlyTextProperty) isProperty() {}
 
-func (u *PropertyBuilder) CompletionProperty(completionproperty *CompletionPropertyBuilder) *PropertyBuilder {
-	v := completionproperty.Build()
-	u.v = &v
-	return u
-}
+func (i PercolatorProperty) isProperty() {}
 
-func (u *PropertyBuilder) ConstantKeywordProperty(constantkeywordproperty *ConstantKeywordPropertyBuilder) *PropertyBuilder {
-	v := constantkeywordproperty.Build()
-	u.v = &v
-	return u
-}
+func (i RankFeatureProperty) isProperty() {}
 
-func (u *PropertyBuilder) DateNanosProperty(datenanosproperty *DateNanosPropertyBuilder) *PropertyBuilder {
-	v := datenanosproperty.Build()
-	u.v = &v
-	return u
-}
+func (i RankFeaturesProperty) isProperty() {}
 
-func (u *PropertyBuilder) DateProperty(dateproperty *DatePropertyBuilder) *PropertyBuilder {
-	v := dateproperty.Build()
-	u.v = &v
-	return u
-}
+func (i SearchAsYouTypeProperty) isProperty() {}
 
-func (u *PropertyBuilder) DateRangeProperty(daterangeproperty *DateRangePropertyBuilder) *PropertyBuilder {
-	v := daterangeproperty.Build()
-	u.v = &v
-	return u
-}
+func (i TextProperty) isProperty() {}
 
-func (u *PropertyBuilder) DenseVectorProperty(densevectorproperty *DenseVectorPropertyBuilder) *PropertyBuilder {
-	v := densevectorproperty.Build()
-	u.v = &v
-	return u
-}
+func (i VersionProperty) isProperty() {}
 
-func (u *PropertyBuilder) DoubleNumberProperty(doublenumberproperty *DoubleNumberPropertyBuilder) *PropertyBuilder {
-	v := doublenumberproperty.Build()
-	u.v = &v
-	return u
-}
+func (i WildcardProperty) isProperty() {}
 
-func (u *PropertyBuilder) DoubleRangeProperty(doublerangeproperty *DoubleRangePropertyBuilder) *PropertyBuilder {
-	v := doublerangeproperty.Build()
-	u.v = &v
-	return u
-}
+func (i DateNanosProperty) isProperty() {}
 
-func (u *PropertyBuilder) DynamicProperty(dynamicproperty *DynamicPropertyBuilder) *PropertyBuilder {
-	v := dynamicproperty.Build()
-	u.v = &v
-	return u
-}
+func (i DateProperty) isProperty() {}
 
-func (u *PropertyBuilder) FieldAliasProperty(fieldaliasproperty *FieldAliasPropertyBuilder) *PropertyBuilder {
-	v := fieldaliasproperty.Build()
-	u.v = &v
-	return u
-}
+func (i AggregateMetricDoubleProperty) isProperty() {}
 
-func (u *PropertyBuilder) FlattenedProperty(flattenedproperty *FlattenedPropertyBuilder) *PropertyBuilder {
-	v := flattenedproperty.Build()
-	u.v = &v
-	return u
-}
+func (i DenseVectorProperty) isProperty() {}
 
-func (u *PropertyBuilder) FloatNumberProperty(floatnumberproperty *FloatNumberPropertyBuilder) *PropertyBuilder {
-	v := floatnumberproperty.Build()
-	u.v = &v
-	return u
-}
+func (i FlattenedProperty) isProperty() {}
 
-func (u *PropertyBuilder) FloatRangeProperty(floatrangeproperty *FloatRangePropertyBuilder) *PropertyBuilder {
-	v := floatrangeproperty.Build()
-	u.v = &v
-	return u
-}
+func (i NestedProperty) isProperty() {}
 
-func (u *PropertyBuilder) GeoPointProperty(geopointproperty *GeoPointPropertyBuilder) *PropertyBuilder {
-	v := geopointproperty.Build()
-	u.v = &v
-	return u
-}
+func (i ObjectProperty) isProperty() {}
 
-func (u *PropertyBuilder) GeoShapeProperty(geoshapeproperty *GeoShapePropertyBuilder) *PropertyBuilder {
-	v := geoshapeproperty.Build()
-	u.v = &v
-	return u
-}
+func (i CompletionProperty) isProperty() {}
 
-func (u *PropertyBuilder) HalfFloatNumberProperty(halffloatnumberproperty *HalfFloatNumberPropertyBuilder) *PropertyBuilder {
-	v := halffloatnumberproperty.Build()
-	u.v = &v
-	return u
-}
+func (i ConstantKeywordProperty) isProperty() {}
 
-func (u *PropertyBuilder) HistogramProperty(histogramproperty *HistogramPropertyBuilder) *PropertyBuilder {
-	v := histogramproperty.Build()
-	u.v = &v
-	return u
-}
+func (i FieldAliasProperty) isProperty() {}
 
-func (u *PropertyBuilder) IntegerNumberProperty(integernumberproperty *IntegerNumberPropertyBuilder) *PropertyBuilder {
-	v := integernumberproperty.Build()
-	u.v = &v
-	return u
-}
+func (i HistogramProperty) isProperty() {}
 
-func (u *PropertyBuilder) IntegerRangeProperty(integerrangeproperty *IntegerRangePropertyBuilder) *PropertyBuilder {
-	v := integerrangeproperty.Build()
-	u.v = &v
-	return u
-}
+func (i IpProperty) isProperty() {}
 
-func (u *PropertyBuilder) IpProperty(ipproperty *IpPropertyBuilder) *PropertyBuilder {
-	v := ipproperty.Build()
-	u.v = &v
-	return u
-}
+func (i Murmur3HashProperty) isProperty() {}
 
-func (u *PropertyBuilder) IpRangeProperty(iprangeproperty *IpRangePropertyBuilder) *PropertyBuilder {
-	v := iprangeproperty.Build()
-	u.v = &v
-	return u
-}
+func (i TokenCountProperty) isProperty() {}
 
-func (u *PropertyBuilder) JoinProperty(joinproperty *JoinPropertyBuilder) *PropertyBuilder {
-	v := joinproperty.Build()
-	u.v = &v
-	return u
-}
+func (i GeoPointProperty) isProperty() {}
 
-func (u *PropertyBuilder) KeywordProperty(keywordproperty *KeywordPropertyBuilder) *PropertyBuilder {
-	v := keywordproperty.Build()
-	u.v = &v
-	return u
-}
+func (i GeoShapeProperty) isProperty() {}
 
-func (u *PropertyBuilder) LongNumberProperty(longnumberproperty *LongNumberPropertyBuilder) *PropertyBuilder {
-	v := longnumberproperty.Build()
-	u.v = &v
-	return u
-}
+func (i PointProperty) isProperty() {}
 
-func (u *PropertyBuilder) LongRangeProperty(longrangeproperty *LongRangePropertyBuilder) *PropertyBuilder {
-	v := longrangeproperty.Build()
-	u.v = &v
-	return u
-}
+func (i ShapeProperty) isProperty() {}
 
-func (u *PropertyBuilder) MatchOnlyTextProperty(matchonlytextproperty *MatchOnlyTextPropertyBuilder) *PropertyBuilder {
-	v := matchonlytextproperty.Build()
-	u.v = &v
-	return u
-}
+func (i ByteNumberProperty) isProperty() {}
 
-func (u *PropertyBuilder) Murmur3HashProperty(murmur3hashproperty *Murmur3HashPropertyBuilder) *PropertyBuilder {
-	v := murmur3hashproperty.Build()
-	u.v = &v
-	return u
-}
+func (i DoubleNumberProperty) isProperty() {}
 
-func (u *PropertyBuilder) NestedProperty(nestedproperty *NestedPropertyBuilder) *PropertyBuilder {
-	v := nestedproperty.Build()
-	u.v = &v
-	return u
-}
+func (i FloatNumberProperty) isProperty() {}
 
-func (u *PropertyBuilder) ObjectProperty(objectproperty *ObjectPropertyBuilder) *PropertyBuilder {
-	v := objectproperty.Build()
-	u.v = &v
-	return u
-}
+func (i HalfFloatNumberProperty) isProperty() {}
 
-func (u *PropertyBuilder) PercolatorProperty(percolatorproperty *PercolatorPropertyBuilder) *PropertyBuilder {
-	v := percolatorproperty.Build()
-	u.v = &v
-	return u
-}
+func (i IntegerNumberProperty) isProperty() {}
 
-func (u *PropertyBuilder) PointProperty(pointproperty *PointPropertyBuilder) *PropertyBuilder {
-	v := pointproperty.Build()
-	u.v = &v
-	return u
-}
+func (i LongNumberProperty) isProperty() {}
 
-func (u *PropertyBuilder) RankFeatureProperty(rankfeatureproperty *RankFeaturePropertyBuilder) *PropertyBuilder {
-	v := rankfeatureproperty.Build()
-	u.v = &v
-	return u
-}
+func (i ScaledFloatNumberProperty) isProperty() {}
 
-func (u *PropertyBuilder) RankFeaturesProperty(rankfeaturesproperty *RankFeaturesPropertyBuilder) *PropertyBuilder {
-	v := rankfeaturesproperty.Build()
-	u.v = &v
-	return u
-}
+func (i ShortNumberProperty) isProperty() {}
 
-func (u *PropertyBuilder) ScaledFloatNumberProperty(scaledfloatnumberproperty *ScaledFloatNumberPropertyBuilder) *PropertyBuilder {
-	v := scaledfloatnumberproperty.Build()
-	u.v = &v
-	return u
-}
+func (i UnsignedLongNumberProperty) isProperty() {}
 
-func (u *PropertyBuilder) SearchAsYouTypeProperty(searchasyoutypeproperty *SearchAsYouTypePropertyBuilder) *PropertyBuilder {
-	v := searchasyoutypeproperty.Build()
-	u.v = &v
-	return u
-}
+func (i DateRangeProperty) isProperty() {}
 
-func (u *PropertyBuilder) ShapeProperty(shapeproperty *ShapePropertyBuilder) *PropertyBuilder {
-	v := shapeproperty.Build()
-	u.v = &v
-	return u
-}
+func (i DoubleRangeProperty) isProperty() {}
 
-func (u *PropertyBuilder) ShortNumberProperty(shortnumberproperty *ShortNumberPropertyBuilder) *PropertyBuilder {
-	v := shortnumberproperty.Build()
-	u.v = &v
-	return u
-}
+func (i FloatRangeProperty) isProperty() {}
 
-func (u *PropertyBuilder) TextProperty(textproperty *TextPropertyBuilder) *PropertyBuilder {
-	v := textproperty.Build()
-	u.v = &v
-	return u
-}
+func (i IntegerRangeProperty) isProperty() {}
 
-func (u *PropertyBuilder) TokenCountProperty(tokencountproperty *TokenCountPropertyBuilder) *PropertyBuilder {
-	v := tokencountproperty.Build()
-	u.v = &v
-	return u
-}
+func (i IpRangeProperty) isProperty() {}
 
-func (u *PropertyBuilder) UnsignedLongNumberProperty(unsignedlongnumberproperty *UnsignedLongNumberPropertyBuilder) *PropertyBuilder {
-	v := unsignedlongnumberproperty.Build()
-	u.v = &v
-	return u
-}
-
-func (u *PropertyBuilder) VersionProperty(versionproperty *VersionPropertyBuilder) *PropertyBuilder {
-	v := versionproperty.Build()
-	u.v = &v
-	return u
-}
-
-func (u *PropertyBuilder) WildcardProperty(wildcardproperty *WildcardPropertyBuilder) *PropertyBuilder {
-	v := wildcardproperty.Build()
-	u.v = &v
-	return u
-}
+func (i LongRangeProperty) isProperty() {}

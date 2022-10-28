@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,22 +29,22 @@ import (
 
 // IpProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/mapping/specialized.ts#L59-L72
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/specialized.ts#L59-L72
 type IpProperty struct {
 	Boost           *float64                       `json:"boost,omitempty"`
-	CopyTo          *Fields                        `json:"copy_to,omitempty"`
+	CopyTo          []string                       `json:"copy_to,omitempty"`
 	DocValues       *bool                          `json:"doc_values,omitempty"`
 	Dynamic         *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
-	Fields          map[PropertyName]Property      `json:"fields,omitempty"`
+	Fields          map[string]Property            `json:"fields,omitempty"`
 	IgnoreAbove     *int                           `json:"ignore_above,omitempty"`
 	IgnoreMalformed *bool                          `json:"ignore_malformed,omitempty"`
 	Index           *bool                          `json:"index,omitempty"`
-	LocalMetadata   *Metadata                      `json:"local_metadata,omitempty"`
+	LocalMetadata   map[string]interface{}         `json:"local_metadata,omitempty"`
 	// Meta Metadata about the field.
 	Meta          map[string]string            `json:"meta,omitempty"`
 	NullValue     *string                      `json:"null_value,omitempty"`
 	OnScriptError *onscripterror.OnScriptError `json:"on_script_error,omitempty"`
-	Properties    map[PropertyName]Property    `json:"properties,omitempty"`
+	Properties    map[string]Property          `json:"properties,omitempty"`
 	Script        *Script                      `json:"script,omitempty"`
 	Similarity    *string                      `json:"similarity,omitempty"`
 	Store         *bool                        `json:"store,omitempty"`
@@ -54,128 +54,15 @@ type IpProperty struct {
 	Type                string `json:"type,omitempty"`
 }
 
-// IpPropertyBuilder holds IpProperty struct and provides a builder API.
-type IpPropertyBuilder struct {
-	v *IpProperty
-}
-
-// NewIpProperty provides a builder for the IpProperty struct.
-func NewIpPropertyBuilder() *IpPropertyBuilder {
-	r := IpPropertyBuilder{
-		&IpProperty{
-			Fields:     make(map[PropertyName]Property, 0),
-			Meta:       make(map[string]string, 0),
-			Properties: make(map[PropertyName]Property, 0),
-		},
+// NewIpProperty returns a IpProperty.
+func NewIpProperty() *IpProperty {
+	r := &IpProperty{
+		Fields:     make(map[string]Property, 0),
+		Meta:       make(map[string]string, 0),
+		Properties: make(map[string]Property, 0),
 	}
 
-	r.v.Type = "ip"
+	r.Type = "ip"
 
-	return &r
-}
-
-// Build finalize the chain and returns the IpProperty struct
-func (rb *IpPropertyBuilder) Build() IpProperty {
-	return *rb.v
-}
-
-func (rb *IpPropertyBuilder) Boost(boost float64) *IpPropertyBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *IpPropertyBuilder) CopyTo(copyto *FieldsBuilder) *IpPropertyBuilder {
-	v := copyto.Build()
-	rb.v.CopyTo = &v
-	return rb
-}
-
-func (rb *IpPropertyBuilder) DocValues(docvalues bool) *IpPropertyBuilder {
-	rb.v.DocValues = &docvalues
-	return rb
-}
-
-func (rb *IpPropertyBuilder) Dynamic(dynamic dynamicmapping.DynamicMapping) *IpPropertyBuilder {
-	rb.v.Dynamic = &dynamic
-	return rb
-}
-
-func (rb *IpPropertyBuilder) Fields(values map[PropertyName]*PropertyBuilder) *IpPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Fields = tmp
-	return rb
-}
-
-func (rb *IpPropertyBuilder) IgnoreAbove(ignoreabove int) *IpPropertyBuilder {
-	rb.v.IgnoreAbove = &ignoreabove
-	return rb
-}
-
-func (rb *IpPropertyBuilder) IgnoreMalformed(ignoremalformed bool) *IpPropertyBuilder {
-	rb.v.IgnoreMalformed = &ignoremalformed
-	return rb
-}
-
-func (rb *IpPropertyBuilder) Index(index bool) *IpPropertyBuilder {
-	rb.v.Index = &index
-	return rb
-}
-
-func (rb *IpPropertyBuilder) LocalMetadata(localmetadata *MetadataBuilder) *IpPropertyBuilder {
-	v := localmetadata.Build()
-	rb.v.LocalMetadata = &v
-	return rb
-}
-
-// Meta Metadata about the field.
-
-func (rb *IpPropertyBuilder) Meta(value map[string]string) *IpPropertyBuilder {
-	rb.v.Meta = value
-	return rb
-}
-
-func (rb *IpPropertyBuilder) NullValue(nullvalue string) *IpPropertyBuilder {
-	rb.v.NullValue = &nullvalue
-	return rb
-}
-
-func (rb *IpPropertyBuilder) OnScriptError(onscripterror onscripterror.OnScriptError) *IpPropertyBuilder {
-	rb.v.OnScriptError = &onscripterror
-	return rb
-}
-
-func (rb *IpPropertyBuilder) Properties(values map[PropertyName]*PropertyBuilder) *IpPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Properties = tmp
-	return rb
-}
-
-func (rb *IpPropertyBuilder) Script(script *ScriptBuilder) *IpPropertyBuilder {
-	v := script.Build()
-	rb.v.Script = &v
-	return rb
-}
-
-func (rb *IpPropertyBuilder) Similarity(similarity string) *IpPropertyBuilder {
-	rb.v.Similarity = &similarity
-	return rb
-}
-
-func (rb *IpPropertyBuilder) Store(store bool) *IpPropertyBuilder {
-	rb.v.Store = &store
-	return rb
-}
-
-// TimeSeriesDimension For internal use by Elastic only. Marks the field as a time series dimension.
-// Defaults to false.
-
-func (rb *IpPropertyBuilder) TimeSeriesDimension(timeseriesdimension bool) *IpPropertyBuilder {
-	rb.v.TimeSeriesDimension = &timeseriesdimension
-	return rb
+	return r
 }

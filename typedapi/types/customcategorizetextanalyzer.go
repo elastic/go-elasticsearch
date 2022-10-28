@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CustomCategorizeTextAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/bucket.ts#L507-L511
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/bucket.ts#L507-L511
 type CustomCategorizeTextAnalyzer struct {
 	CharFilter []string `json:"char_filter,omitempty"`
 	Filter     []string `json:"filter,omitempty"`
 	Tokenizer  *string  `json:"tokenizer,omitempty"`
 }
 
-// CustomCategorizeTextAnalyzerBuilder holds CustomCategorizeTextAnalyzer struct and provides a builder API.
-type CustomCategorizeTextAnalyzerBuilder struct {
-	v *CustomCategorizeTextAnalyzer
-}
+// NewCustomCategorizeTextAnalyzer returns a CustomCategorizeTextAnalyzer.
+func NewCustomCategorizeTextAnalyzer() *CustomCategorizeTextAnalyzer {
+	r := &CustomCategorizeTextAnalyzer{}
 
-// NewCustomCategorizeTextAnalyzer provides a builder for the CustomCategorizeTextAnalyzer struct.
-func NewCustomCategorizeTextAnalyzerBuilder() *CustomCategorizeTextAnalyzerBuilder {
-	r := CustomCategorizeTextAnalyzerBuilder{
-		&CustomCategorizeTextAnalyzer{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the CustomCategorizeTextAnalyzer struct
-func (rb *CustomCategorizeTextAnalyzerBuilder) Build() CustomCategorizeTextAnalyzer {
-	return *rb.v
-}
-
-func (rb *CustomCategorizeTextAnalyzerBuilder) CharFilter(char_filter ...string) *CustomCategorizeTextAnalyzerBuilder {
-	rb.v.CharFilter = char_filter
-	return rb
-}
-
-func (rb *CustomCategorizeTextAnalyzerBuilder) Filter(filter ...string) *CustomCategorizeTextAnalyzerBuilder {
-	rb.v.Filter = filter
-	return rb
-}
-
-func (rb *CustomCategorizeTextAnalyzerBuilder) Tokenizer(tokenizer string) *CustomCategorizeTextAnalyzerBuilder {
-	rb.v.Tokenizer = &tokenizer
-	return rb
+	return r
 }

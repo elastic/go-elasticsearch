@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ApplicationPrivileges type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/security/_types/Privileges.ts#L26-L39
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/_types/Privileges.ts#L26-L39
 type ApplicationPrivileges struct {
 	// Application The name of the application to which this entry applies.
 	Application string `json:"application"`
@@ -35,43 +35,9 @@ type ApplicationPrivileges struct {
 	Resources []string `json:"resources"`
 }
 
-// ApplicationPrivilegesBuilder holds ApplicationPrivileges struct and provides a builder API.
-type ApplicationPrivilegesBuilder struct {
-	v *ApplicationPrivileges
-}
+// NewApplicationPrivileges returns a ApplicationPrivileges.
+func NewApplicationPrivileges() *ApplicationPrivileges {
+	r := &ApplicationPrivileges{}
 
-// NewApplicationPrivileges provides a builder for the ApplicationPrivileges struct.
-func NewApplicationPrivilegesBuilder() *ApplicationPrivilegesBuilder {
-	r := ApplicationPrivilegesBuilder{
-		&ApplicationPrivileges{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ApplicationPrivileges struct
-func (rb *ApplicationPrivilegesBuilder) Build() ApplicationPrivileges {
-	return *rb.v
-}
-
-// Application The name of the application to which this entry applies.
-
-func (rb *ApplicationPrivilegesBuilder) Application(application string) *ApplicationPrivilegesBuilder {
-	rb.v.Application = application
-	return rb
-}
-
-// Privileges A list of strings, where each element is the name of an application privilege
-// or action.
-
-func (rb *ApplicationPrivilegesBuilder) Privileges(privileges ...string) *ApplicationPrivilegesBuilder {
-	rb.v.Privileges = privileges
-	return rb
-}
-
-// Resources A list resources to which the privileges are applied.
-
-func (rb *ApplicationPrivilegesBuilder) Resources(resources ...string) *ApplicationPrivilegesBuilder {
-	rb.v.Resources = resources
-	return rb
+	return r
 }

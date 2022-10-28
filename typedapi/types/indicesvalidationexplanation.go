@@ -17,56 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IndicesValidationExplanation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/validate_query/IndicesValidateQueryResponse.ts#L32-L37
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/validate_query/IndicesValidateQueryResponse.ts#L32-L37
 type IndicesValidationExplanation struct {
-	Error       *string   `json:"error,omitempty"`
-	Explanation *string   `json:"explanation,omitempty"`
-	Index       IndexName `json:"index"`
-	Valid       bool      `json:"valid"`
+	Error       *string `json:"error,omitempty"`
+	Explanation *string `json:"explanation,omitempty"`
+	Index       string  `json:"index"`
+	Valid       bool    `json:"valid"`
 }
 
-// IndicesValidationExplanationBuilder holds IndicesValidationExplanation struct and provides a builder API.
-type IndicesValidationExplanationBuilder struct {
-	v *IndicesValidationExplanation
-}
+// NewIndicesValidationExplanation returns a IndicesValidationExplanation.
+func NewIndicesValidationExplanation() *IndicesValidationExplanation {
+	r := &IndicesValidationExplanation{}
 
-// NewIndicesValidationExplanation provides a builder for the IndicesValidationExplanation struct.
-func NewIndicesValidationExplanationBuilder() *IndicesValidationExplanationBuilder {
-	r := IndicesValidationExplanationBuilder{
-		&IndicesValidationExplanation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IndicesValidationExplanation struct
-func (rb *IndicesValidationExplanationBuilder) Build() IndicesValidationExplanation {
-	return *rb.v
-}
-
-func (rb *IndicesValidationExplanationBuilder) Error(error string) *IndicesValidationExplanationBuilder {
-	rb.v.Error = &error
-	return rb
-}
-
-func (rb *IndicesValidationExplanationBuilder) Explanation(explanation string) *IndicesValidationExplanationBuilder {
-	rb.v.Explanation = &explanation
-	return rb
-}
-
-func (rb *IndicesValidationExplanationBuilder) Index(index IndexName) *IndicesValidationExplanationBuilder {
-	rb.v.Index = index
-	return rb
-}
-
-func (rb *IndicesValidationExplanationBuilder) Valid(valid bool) *IndicesValidationExplanationBuilder {
-	rb.v.Valid = valid
-	return rb
+	return r
 }

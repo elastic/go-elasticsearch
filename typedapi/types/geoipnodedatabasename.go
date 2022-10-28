@@ -17,41 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // GeoIpNodeDatabaseName type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ingest/geo_ip_stats/types.ts#L45-L48
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ingest/geo_ip_stats/types.ts#L45-L48
 type GeoIpNodeDatabaseName struct {
 	// Name Name of the database.
-	Name Name `json:"name"`
+	Name string `json:"name"`
 }
 
-// GeoIpNodeDatabaseNameBuilder holds GeoIpNodeDatabaseName struct and provides a builder API.
-type GeoIpNodeDatabaseNameBuilder struct {
-	v *GeoIpNodeDatabaseName
-}
+// NewGeoIpNodeDatabaseName returns a GeoIpNodeDatabaseName.
+func NewGeoIpNodeDatabaseName() *GeoIpNodeDatabaseName {
+	r := &GeoIpNodeDatabaseName{}
 
-// NewGeoIpNodeDatabaseName provides a builder for the GeoIpNodeDatabaseName struct.
-func NewGeoIpNodeDatabaseNameBuilder() *GeoIpNodeDatabaseNameBuilder {
-	r := GeoIpNodeDatabaseNameBuilder{
-		&GeoIpNodeDatabaseName{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the GeoIpNodeDatabaseName struct
-func (rb *GeoIpNodeDatabaseNameBuilder) Build() GeoIpNodeDatabaseName {
-	return *rb.v
-}
-
-// Name Name of the database.
-
-func (rb *GeoIpNodeDatabaseNameBuilder) Name(name Name) *GeoIpNodeDatabaseNameBuilder {
-	rb.v.Name = name
-	return rb
+	return r
 }

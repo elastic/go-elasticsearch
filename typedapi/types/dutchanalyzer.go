@@ -17,42 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DutchAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/analyzers.ts#L61-L64
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/analyzers.ts#L61-L64
 type DutchAnalyzer struct {
-	Stopwords *StopWords `json:"stopwords,omitempty"`
-	Type      string     `json:"type,omitempty"`
+	Stopwords []string `json:"stopwords,omitempty"`
+	Type      string   `json:"type,omitempty"`
 }
 
-// DutchAnalyzerBuilder holds DutchAnalyzer struct and provides a builder API.
-type DutchAnalyzerBuilder struct {
-	v *DutchAnalyzer
-}
+// NewDutchAnalyzer returns a DutchAnalyzer.
+func NewDutchAnalyzer() *DutchAnalyzer {
+	r := &DutchAnalyzer{}
 
-// NewDutchAnalyzer provides a builder for the DutchAnalyzer struct.
-func NewDutchAnalyzerBuilder() *DutchAnalyzerBuilder {
-	r := DutchAnalyzerBuilder{
-		&DutchAnalyzer{},
-	}
+	r.Type = "dutch"
 
-	r.v.Type = "dutch"
-
-	return &r
-}
-
-// Build finalize the chain and returns the DutchAnalyzer struct
-func (rb *DutchAnalyzerBuilder) Build() DutchAnalyzer {
-	return *rb.v
-}
-
-func (rb *DutchAnalyzerBuilder) Stopwords(stopwords *StopWordsBuilder) *DutchAnalyzerBuilder {
-	v := stopwords.Build()
-	rb.v.Stopwords = &v
-	return rb
+	return r
 }

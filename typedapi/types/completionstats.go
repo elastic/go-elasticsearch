@@ -17,57 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CompletionStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/Stats.ts#L53-L57
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Stats.ts#L53-L57
 type CompletionStats struct {
-	Fields      map[Field]FieldSizeUsage `json:"fields,omitempty"`
-	Size        *ByteSize                `json:"size,omitempty"`
-	SizeInBytes int64                    `json:"size_in_bytes"`
+	Fields      map[string]FieldSizeUsage `json:"fields,omitempty"`
+	Size        *ByteSize                 `json:"size,omitempty"`
+	SizeInBytes int64                     `json:"size_in_bytes"`
 }
 
-// CompletionStatsBuilder holds CompletionStats struct and provides a builder API.
-type CompletionStatsBuilder struct {
-	v *CompletionStats
-}
-
-// NewCompletionStats provides a builder for the CompletionStats struct.
-func NewCompletionStatsBuilder() *CompletionStatsBuilder {
-	r := CompletionStatsBuilder{
-		&CompletionStats{
-			Fields: make(map[Field]FieldSizeUsage, 0),
-		},
+// NewCompletionStats returns a CompletionStats.
+func NewCompletionStats() *CompletionStats {
+	r := &CompletionStats{
+		Fields: make(map[string]FieldSizeUsage, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the CompletionStats struct
-func (rb *CompletionStatsBuilder) Build() CompletionStats {
-	return *rb.v
-}
-
-func (rb *CompletionStatsBuilder) Fields(values map[Field]*FieldSizeUsageBuilder) *CompletionStatsBuilder {
-	tmp := make(map[Field]FieldSizeUsage, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Fields = tmp
-	return rb
-}
-
-func (rb *CompletionStatsBuilder) Size(size *ByteSizeBuilder) *CompletionStatsBuilder {
-	v := size.Build()
-	rb.v.Size = &v
-	return rb
-}
-
-func (rb *CompletionStatsBuilder) SizeInBytes(sizeinbytes int64) *CompletionStatsBuilder {
-	rb.v.SizeInBytes = sizeinbytes
-	return rb
+	return r
 }

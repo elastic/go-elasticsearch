@@ -17,62 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CommandMoveAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/cluster/reroute/types.ts#L60-L67
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/reroute/types.ts#L60-L67
 type CommandMoveAction struct {
 	// FromNode The node to move the shard from
-	FromNode string    `json:"from_node"`
-	Index    IndexName `json:"index"`
-	Shard    int       `json:"shard"`
+	FromNode string `json:"from_node"`
+	Index    string `json:"index"`
+	Shard    int    `json:"shard"`
 	// ToNode The node to move the shard to
 	ToNode string `json:"to_node"`
 }
 
-// CommandMoveActionBuilder holds CommandMoveAction struct and provides a builder API.
-type CommandMoveActionBuilder struct {
-	v *CommandMoveAction
-}
+// NewCommandMoveAction returns a CommandMoveAction.
+func NewCommandMoveAction() *CommandMoveAction {
+	r := &CommandMoveAction{}
 
-// NewCommandMoveAction provides a builder for the CommandMoveAction struct.
-func NewCommandMoveActionBuilder() *CommandMoveActionBuilder {
-	r := CommandMoveActionBuilder{
-		&CommandMoveAction{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the CommandMoveAction struct
-func (rb *CommandMoveActionBuilder) Build() CommandMoveAction {
-	return *rb.v
-}
-
-// FromNode The node to move the shard from
-
-func (rb *CommandMoveActionBuilder) FromNode(fromnode string) *CommandMoveActionBuilder {
-	rb.v.FromNode = fromnode
-	return rb
-}
-
-func (rb *CommandMoveActionBuilder) Index(index IndexName) *CommandMoveActionBuilder {
-	rb.v.Index = index
-	return rb
-}
-
-func (rb *CommandMoveActionBuilder) Shard(shard int) *CommandMoveActionBuilder {
-	rb.v.Shard = shard
-	return rb
-}
-
-// ToNode The node to move the shard to
-
-func (rb *CommandMoveActionBuilder) ToNode(tonode string) *CommandMoveActionBuilder {
-	rb.v.ToNode = tonode
-	return rb
+	return r
 }

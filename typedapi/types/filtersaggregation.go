@@ -17,70 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FiltersAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/bucket.ts#L169-L174
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/bucket.ts#L169-L174
 type FiltersAggregation struct {
-	Filters        *BucketsQueryContainer `json:"filters,omitempty"`
+	Filters        *BucketsQuery          `json:"filters,omitempty"`
 	Keyed          *bool                  `json:"keyed,omitempty"`
-	Meta           *Metadata              `json:"meta,omitempty"`
+	Meta           map[string]interface{} `json:"meta,omitempty"`
 	Name           *string                `json:"name,omitempty"`
 	OtherBucket    *bool                  `json:"other_bucket,omitempty"`
 	OtherBucketKey *string                `json:"other_bucket_key,omitempty"`
 }
 
-// FiltersAggregationBuilder holds FiltersAggregation struct and provides a builder API.
-type FiltersAggregationBuilder struct {
-	v *FiltersAggregation
-}
+// NewFiltersAggregation returns a FiltersAggregation.
+func NewFiltersAggregation() *FiltersAggregation {
+	r := &FiltersAggregation{}
 
-// NewFiltersAggregation provides a builder for the FiltersAggregation struct.
-func NewFiltersAggregationBuilder() *FiltersAggregationBuilder {
-	r := FiltersAggregationBuilder{
-		&FiltersAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FiltersAggregation struct
-func (rb *FiltersAggregationBuilder) Build() FiltersAggregation {
-	return *rb.v
-}
-
-func (rb *FiltersAggregationBuilder) Filters(filters *BucketsQueryContainerBuilder) *FiltersAggregationBuilder {
-	v := filters.Build()
-	rb.v.Filters = &v
-	return rb
-}
-
-func (rb *FiltersAggregationBuilder) Keyed(keyed bool) *FiltersAggregationBuilder {
-	rb.v.Keyed = &keyed
-	return rb
-}
-
-func (rb *FiltersAggregationBuilder) Meta(meta *MetadataBuilder) *FiltersAggregationBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *FiltersAggregationBuilder) Name(name string) *FiltersAggregationBuilder {
-	rb.v.Name = &name
-	return rb
-}
-
-func (rb *FiltersAggregationBuilder) OtherBucket(otherbucket bool) *FiltersAggregationBuilder {
-	rb.v.OtherBucket = &otherbucket
-	return rb
-}
-
-func (rb *FiltersAggregationBuilder) OtherBucketKey(otherbucketkey string) *FiltersAggregationBuilder {
-	rb.v.OtherBucketKey = &otherbucketkey
-	return rb
+	return r
 }

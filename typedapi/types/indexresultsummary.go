@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,55 +28,18 @@ import (
 
 // IndexResultSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/watcher/_types/Actions.ts#L271-L277
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Actions.ts#L271-L277
 type IndexResultSummary struct {
 	Created bool          `json:"created"`
-	Id      Id            `json:"id"`
-	Index   IndexName     `json:"index"`
+	Id      string        `json:"id"`
+	Index   string        `json:"index"`
 	Result  result.Result `json:"result"`
-	Version VersionNumber `json:"version"`
+	Version int64         `json:"version"`
 }
 
-// IndexResultSummaryBuilder holds IndexResultSummary struct and provides a builder API.
-type IndexResultSummaryBuilder struct {
-	v *IndexResultSummary
-}
+// NewIndexResultSummary returns a IndexResultSummary.
+func NewIndexResultSummary() *IndexResultSummary {
+	r := &IndexResultSummary{}
 
-// NewIndexResultSummary provides a builder for the IndexResultSummary struct.
-func NewIndexResultSummaryBuilder() *IndexResultSummaryBuilder {
-	r := IndexResultSummaryBuilder{
-		&IndexResultSummary{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IndexResultSummary struct
-func (rb *IndexResultSummaryBuilder) Build() IndexResultSummary {
-	return *rb.v
-}
-
-func (rb *IndexResultSummaryBuilder) Created(created bool) *IndexResultSummaryBuilder {
-	rb.v.Created = created
-	return rb
-}
-
-func (rb *IndexResultSummaryBuilder) Id(id Id) *IndexResultSummaryBuilder {
-	rb.v.Id = id
-	return rb
-}
-
-func (rb *IndexResultSummaryBuilder) Index(index IndexName) *IndexResultSummaryBuilder {
-	rb.v.Index = index
-	return rb
-}
-
-func (rb *IndexResultSummaryBuilder) Result(result result.Result) *IndexResultSummaryBuilder {
-	rb.v.Result = result
-	return rb
-}
-
-func (rb *IndexResultSummaryBuilder) Version(version VersionNumber) *IndexResultSummaryBuilder {
-	rb.v.Version = version
-	return rb
+	return r
 }

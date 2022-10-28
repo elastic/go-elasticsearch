@@ -17,32 +17,20 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AlwaysCondition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/watcher/_types/Conditions.ts#L25-L25
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Conditions.ts#L25-L25
 type AlwaysCondition struct {
 }
 
-// AlwaysConditionBuilder holds AlwaysCondition struct and provides a builder API.
-type AlwaysConditionBuilder struct {
-	v *AlwaysCondition
-}
+// NewAlwaysCondition returns a AlwaysCondition.
+func NewAlwaysCondition() *AlwaysCondition {
+	r := &AlwaysCondition{}
 
-// NewAlwaysCondition provides a builder for the AlwaysCondition struct.
-func NewAlwaysConditionBuilder() *AlwaysConditionBuilder {
-	r := AlwaysConditionBuilder{
-		&AlwaysCondition{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the AlwaysCondition struct
-func (rb *AlwaysConditionBuilder) Build() AlwaysCondition {
-	return *rb.v
+	return r
 }

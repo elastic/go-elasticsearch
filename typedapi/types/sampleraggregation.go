@@ -17,51 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SamplerAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/bucket.ts#L317-L319
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/bucket.ts#L317-L319
 type SamplerAggregation struct {
-	Meta      *Metadata `json:"meta,omitempty"`
-	Name      *string   `json:"name,omitempty"`
-	ShardSize *int      `json:"shard_size,omitempty"`
+	Meta      map[string]interface{} `json:"meta,omitempty"`
+	Name      *string                `json:"name,omitempty"`
+	ShardSize *int                   `json:"shard_size,omitempty"`
 }
 
-// SamplerAggregationBuilder holds SamplerAggregation struct and provides a builder API.
-type SamplerAggregationBuilder struct {
-	v *SamplerAggregation
-}
+// NewSamplerAggregation returns a SamplerAggregation.
+func NewSamplerAggregation() *SamplerAggregation {
+	r := &SamplerAggregation{}
 
-// NewSamplerAggregation provides a builder for the SamplerAggregation struct.
-func NewSamplerAggregationBuilder() *SamplerAggregationBuilder {
-	r := SamplerAggregationBuilder{
-		&SamplerAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SamplerAggregation struct
-func (rb *SamplerAggregationBuilder) Build() SamplerAggregation {
-	return *rb.v
-}
-
-func (rb *SamplerAggregationBuilder) Meta(meta *MetadataBuilder) *SamplerAggregationBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *SamplerAggregationBuilder) Name(name string) *SamplerAggregationBuilder {
-	rb.v.Name = &name
-	return rb
-}
-
-func (rb *SamplerAggregationBuilder) ShardSize(shardsize int) *SamplerAggregationBuilder {
-	rb.v.ShardSize = &shardsize
-	return rb
+	return r
 }

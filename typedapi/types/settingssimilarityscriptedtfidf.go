@@ -17,42 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SettingsSimilarityScriptedTfidf type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/_types/IndexSettings.ts#L216-L219
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/IndexSettings.ts#L216-L219
 type SettingsSimilarityScriptedTfidf struct {
 	Script Script `json:"script"`
 	Type   string `json:"type,omitempty"`
 }
 
-// SettingsSimilarityScriptedTfidfBuilder holds SettingsSimilarityScriptedTfidf struct and provides a builder API.
-type SettingsSimilarityScriptedTfidfBuilder struct {
-	v *SettingsSimilarityScriptedTfidf
-}
+// NewSettingsSimilarityScriptedTfidf returns a SettingsSimilarityScriptedTfidf.
+func NewSettingsSimilarityScriptedTfidf() *SettingsSimilarityScriptedTfidf {
+	r := &SettingsSimilarityScriptedTfidf{}
 
-// NewSettingsSimilarityScriptedTfidf provides a builder for the SettingsSimilarityScriptedTfidf struct.
-func NewSettingsSimilarityScriptedTfidfBuilder() *SettingsSimilarityScriptedTfidfBuilder {
-	r := SettingsSimilarityScriptedTfidfBuilder{
-		&SettingsSimilarityScriptedTfidf{},
-	}
+	r.Type = "scripted"
 
-	r.v.Type = "scripted"
-
-	return &r
-}
-
-// Build finalize the chain and returns the SettingsSimilarityScriptedTfidf struct
-func (rb *SettingsSimilarityScriptedTfidfBuilder) Build() SettingsSimilarityScriptedTfidf {
-	return *rb.v
-}
-
-func (rb *SettingsSimilarityScriptedTfidfBuilder) Script(script *ScriptBuilder) *SettingsSimilarityScriptedTfidfBuilder {
-	v := script.Build()
-	rb.v.Script = v
-	return rb
+	return r
 }

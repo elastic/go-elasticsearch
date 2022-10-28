@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SuggestFuzziness type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_global/search/_types/suggester.ts#L138-L144
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/suggester.ts#L138-L144
 type SuggestFuzziness struct {
 	Fuzziness      *Fuzziness `json:"fuzziness,omitempty"`
 	MinLength      *int       `json:"min_length,omitempty"`
@@ -33,47 +33,9 @@ type SuggestFuzziness struct {
 	UnicodeAware   *bool      `json:"unicode_aware,omitempty"`
 }
 
-// SuggestFuzzinessBuilder holds SuggestFuzziness struct and provides a builder API.
-type SuggestFuzzinessBuilder struct {
-	v *SuggestFuzziness
-}
+// NewSuggestFuzziness returns a SuggestFuzziness.
+func NewSuggestFuzziness() *SuggestFuzziness {
+	r := &SuggestFuzziness{}
 
-// NewSuggestFuzziness provides a builder for the SuggestFuzziness struct.
-func NewSuggestFuzzinessBuilder() *SuggestFuzzinessBuilder {
-	r := SuggestFuzzinessBuilder{
-		&SuggestFuzziness{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SuggestFuzziness struct
-func (rb *SuggestFuzzinessBuilder) Build() SuggestFuzziness {
-	return *rb.v
-}
-
-func (rb *SuggestFuzzinessBuilder) Fuzziness(fuzziness *FuzzinessBuilder) *SuggestFuzzinessBuilder {
-	v := fuzziness.Build()
-	rb.v.Fuzziness = &v
-	return rb
-}
-
-func (rb *SuggestFuzzinessBuilder) MinLength(minlength int) *SuggestFuzzinessBuilder {
-	rb.v.MinLength = &minlength
-	return rb
-}
-
-func (rb *SuggestFuzzinessBuilder) PrefixLength(prefixlength int) *SuggestFuzzinessBuilder {
-	rb.v.PrefixLength = &prefixlength
-	return rb
-}
-
-func (rb *SuggestFuzzinessBuilder) Transpositions(transpositions bool) *SuggestFuzzinessBuilder {
-	rb.v.Transpositions = &transpositions
-	return rb
-}
-
-func (rb *SuggestFuzzinessBuilder) UnicodeAware(unicodeaware bool) *SuggestFuzzinessBuilder {
-	rb.v.UnicodeAware = &unicodeaware
-	return rb
+	return r
 }

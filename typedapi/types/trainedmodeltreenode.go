@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TrainedModelTreeNode type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/put_trained_model/types.ts#L81-L91
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/put_trained_model/types.ts#L81-L91
 type TrainedModelTreeNode struct {
 	DecisionType *string  `json:"decision_type,omitempty"`
 	DefaultLeft  *bool    `json:"default_left,omitempty"`
@@ -37,66 +37,9 @@ type TrainedModelTreeNode struct {
 	Threshold    *float64 `json:"threshold,omitempty"`
 }
 
-// TrainedModelTreeNodeBuilder holds TrainedModelTreeNode struct and provides a builder API.
-type TrainedModelTreeNodeBuilder struct {
-	v *TrainedModelTreeNode
-}
+// NewTrainedModelTreeNode returns a TrainedModelTreeNode.
+func NewTrainedModelTreeNode() *TrainedModelTreeNode {
+	r := &TrainedModelTreeNode{}
 
-// NewTrainedModelTreeNode provides a builder for the TrainedModelTreeNode struct.
-func NewTrainedModelTreeNodeBuilder() *TrainedModelTreeNodeBuilder {
-	r := TrainedModelTreeNodeBuilder{
-		&TrainedModelTreeNode{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TrainedModelTreeNode struct
-func (rb *TrainedModelTreeNodeBuilder) Build() TrainedModelTreeNode {
-	return *rb.v
-}
-
-func (rb *TrainedModelTreeNodeBuilder) DecisionType(decisiontype string) *TrainedModelTreeNodeBuilder {
-	rb.v.DecisionType = &decisiontype
-	return rb
-}
-
-func (rb *TrainedModelTreeNodeBuilder) DefaultLeft(defaultleft bool) *TrainedModelTreeNodeBuilder {
-	rb.v.DefaultLeft = &defaultleft
-	return rb
-}
-
-func (rb *TrainedModelTreeNodeBuilder) LeafValue(leafvalue float64) *TrainedModelTreeNodeBuilder {
-	rb.v.LeafValue = &leafvalue
-	return rb
-}
-
-func (rb *TrainedModelTreeNodeBuilder) LeftChild(leftchild int) *TrainedModelTreeNodeBuilder {
-	rb.v.LeftChild = &leftchild
-	return rb
-}
-
-func (rb *TrainedModelTreeNodeBuilder) NodeIndex(nodeindex int) *TrainedModelTreeNodeBuilder {
-	rb.v.NodeIndex = nodeindex
-	return rb
-}
-
-func (rb *TrainedModelTreeNodeBuilder) RightChild(rightchild int) *TrainedModelTreeNodeBuilder {
-	rb.v.RightChild = &rightchild
-	return rb
-}
-
-func (rb *TrainedModelTreeNodeBuilder) SplitFeature(splitfeature int) *TrainedModelTreeNodeBuilder {
-	rb.v.SplitFeature = &splitfeature
-	return rb
-}
-
-func (rb *TrainedModelTreeNodeBuilder) SplitGain(splitgain int) *TrainedModelTreeNodeBuilder {
-	rb.v.SplitGain = &splitgain
-	return rb
-}
-
-func (rb *TrainedModelTreeNodeBuilder) Threshold(threshold float64) *TrainedModelTreeNodeBuilder {
-	rb.v.Threshold = &threshold
-	return rb
+	return r
 }

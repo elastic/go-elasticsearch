@@ -17,45 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CpuAcct type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/_types/Stats.ts#L188-L191
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L188-L191
 type CpuAcct struct {
-	ControlGroup *string                 `json:"control_group,omitempty"`
-	UsageNanos   *DurationValueUnitNanos `json:"usage_nanos,omitempty"`
+	ControlGroup *string `json:"control_group,omitempty"`
+	UsageNanos   *int64  `json:"usage_nanos,omitempty"`
 }
 
-// CpuAcctBuilder holds CpuAcct struct and provides a builder API.
-type CpuAcctBuilder struct {
-	v *CpuAcct
-}
+// NewCpuAcct returns a CpuAcct.
+func NewCpuAcct() *CpuAcct {
+	r := &CpuAcct{}
 
-// NewCpuAcct provides a builder for the CpuAcct struct.
-func NewCpuAcctBuilder() *CpuAcctBuilder {
-	r := CpuAcctBuilder{
-		&CpuAcct{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the CpuAcct struct
-func (rb *CpuAcctBuilder) Build() CpuAcct {
-	return *rb.v
-}
-
-func (rb *CpuAcctBuilder) ControlGroup(controlgroup string) *CpuAcctBuilder {
-	rb.v.ControlGroup = &controlgroup
-	return rb
-}
-
-func (rb *CpuAcctBuilder) UsageNanos(usagenanos *DurationValueUnitNanosBuilder) *CpuAcctBuilder {
-	v := usagenanos.Build()
-	rb.v.UsageNanos = &v
-	return rb
+	return r
 }

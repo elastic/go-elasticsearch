@@ -17,46 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TopHitsAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L630-L633
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L645-L648
 type TopHitsAggregate struct {
-	Hits HitsMetadata `json:"hits"`
-	Meta *Metadata    `json:"meta,omitempty"`
+	Hits HitsMetadata           `json:"hits"`
+	Meta map[string]interface{} `json:"meta,omitempty"`
 }
 
-// TopHitsAggregateBuilder holds TopHitsAggregate struct and provides a builder API.
-type TopHitsAggregateBuilder struct {
-	v *TopHitsAggregate
-}
+// NewTopHitsAggregate returns a TopHitsAggregate.
+func NewTopHitsAggregate() *TopHitsAggregate {
+	r := &TopHitsAggregate{}
 
-// NewTopHitsAggregate provides a builder for the TopHitsAggregate struct.
-func NewTopHitsAggregateBuilder() *TopHitsAggregateBuilder {
-	r := TopHitsAggregateBuilder{
-		&TopHitsAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TopHitsAggregate struct
-func (rb *TopHitsAggregateBuilder) Build() TopHitsAggregate {
-	return *rb.v
-}
-
-func (rb *TopHitsAggregateBuilder) Hits(hits *HitsMetadataBuilder) *TopHitsAggregateBuilder {
-	v := hits.Build()
-	rb.v.Hits = v
-	return rb
-}
-
-func (rb *TopHitsAggregateBuilder) Meta(meta *MetadataBuilder) *TopHitsAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
+	return r
 }

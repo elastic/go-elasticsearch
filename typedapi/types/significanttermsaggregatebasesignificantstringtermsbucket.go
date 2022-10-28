@@ -17,58 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SignificantTermsAggregateBaseSignificantStringTermsBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L565-L570
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L580-L585
 type SignificantTermsAggregateBaseSignificantStringTermsBucket struct {
 	BgCount  *int64                              `json:"bg_count,omitempty"`
 	Buckets  BucketsSignificantStringTermsBucket `json:"buckets"`
 	DocCount *int64                              `json:"doc_count,omitempty"`
-	Meta     *Metadata                           `json:"meta,omitempty"`
+	Meta     map[string]interface{}              `json:"meta,omitempty"`
 }
 
-// SignificantTermsAggregateBaseSignificantStringTermsBucketBuilder holds SignificantTermsAggregateBaseSignificantStringTermsBucket struct and provides a builder API.
-type SignificantTermsAggregateBaseSignificantStringTermsBucketBuilder struct {
-	v *SignificantTermsAggregateBaseSignificantStringTermsBucket
-}
+// NewSignificantTermsAggregateBaseSignificantStringTermsBucket returns a SignificantTermsAggregateBaseSignificantStringTermsBucket.
+func NewSignificantTermsAggregateBaseSignificantStringTermsBucket() *SignificantTermsAggregateBaseSignificantStringTermsBucket {
+	r := &SignificantTermsAggregateBaseSignificantStringTermsBucket{}
 
-// NewSignificantTermsAggregateBaseSignificantStringTermsBucket provides a builder for the SignificantTermsAggregateBaseSignificantStringTermsBucket struct.
-func NewSignificantTermsAggregateBaseSignificantStringTermsBucketBuilder() *SignificantTermsAggregateBaseSignificantStringTermsBucketBuilder {
-	r := SignificantTermsAggregateBaseSignificantStringTermsBucketBuilder{
-		&SignificantTermsAggregateBaseSignificantStringTermsBucket{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SignificantTermsAggregateBaseSignificantStringTermsBucket struct
-func (rb *SignificantTermsAggregateBaseSignificantStringTermsBucketBuilder) Build() SignificantTermsAggregateBaseSignificantStringTermsBucket {
-	return *rb.v
-}
-
-func (rb *SignificantTermsAggregateBaseSignificantStringTermsBucketBuilder) BgCount(bgcount int64) *SignificantTermsAggregateBaseSignificantStringTermsBucketBuilder {
-	rb.v.BgCount = &bgcount
-	return rb
-}
-
-func (rb *SignificantTermsAggregateBaseSignificantStringTermsBucketBuilder) Buckets(buckets *BucketsSignificantStringTermsBucketBuilder) *SignificantTermsAggregateBaseSignificantStringTermsBucketBuilder {
-	v := buckets.Build()
-	rb.v.Buckets = v
-	return rb
-}
-
-func (rb *SignificantTermsAggregateBaseSignificantStringTermsBucketBuilder) DocCount(doccount int64) *SignificantTermsAggregateBaseSignificantStringTermsBucketBuilder {
-	rb.v.DocCount = &doccount
-	return rb
-}
-
-func (rb *SignificantTermsAggregateBaseSignificantStringTermsBucketBuilder) Meta(meta *MetadataBuilder) *SignificantTermsAggregateBaseSignificantStringTermsBucketBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
+	return r
 }

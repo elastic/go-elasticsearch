@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,11 +29,11 @@ import (
 
 // AdjacencyMatrixBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L561-L563
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L576-L578
 type AdjacencyMatrixBucket struct {
-	Aggregations map[AggregateName]Aggregate `json:"-"`
-	DocCount     int64                       `json:"doc_count"`
-	Key          string                      `json:"key"`
+	Aggregations map[string]Aggregate `json:"-"`
+	DocCount     int64                `json:"doc_count"`
+	Key          string               `json:"key"`
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -64,42 +64,11 @@ func (s AdjacencyMatrixBucket) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// AdjacencyMatrixBucketBuilder holds AdjacencyMatrixBucket struct and provides a builder API.
-type AdjacencyMatrixBucketBuilder struct {
-	v *AdjacencyMatrixBucket
-}
-
-// NewAdjacencyMatrixBucket provides a builder for the AdjacencyMatrixBucket struct.
-func NewAdjacencyMatrixBucketBuilder() *AdjacencyMatrixBucketBuilder {
-	r := AdjacencyMatrixBucketBuilder{
-		&AdjacencyMatrixBucket{
-			Aggregations: make(map[AggregateName]Aggregate, 0),
-		},
+// NewAdjacencyMatrixBucket returns a AdjacencyMatrixBucket.
+func NewAdjacencyMatrixBucket() *AdjacencyMatrixBucket {
+	r := &AdjacencyMatrixBucket{
+		Aggregations: make(map[string]Aggregate, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the AdjacencyMatrixBucket struct
-func (rb *AdjacencyMatrixBucketBuilder) Build() AdjacencyMatrixBucket {
-	return *rb.v
-}
-
-func (rb *AdjacencyMatrixBucketBuilder) Aggregations(values map[AggregateName]*AggregateBuilder) *AdjacencyMatrixBucketBuilder {
-	tmp := make(map[AggregateName]Aggregate, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Aggregations = tmp
-	return rb
-}
-
-func (rb *AdjacencyMatrixBucketBuilder) DocCount(doccount int64) *AdjacencyMatrixBucketBuilder {
-	rb.v.DocCount = doccount
-	return rb
-}
-
-func (rb *AdjacencyMatrixBucketBuilder) Key(key string) *AdjacencyMatrixBucketBuilder {
-	rb.v.Key = key
-	return rb
+	return r
 }

@@ -17,45 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Invocation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/slm/_types/SnapshotLifecycle.ts#L138-L141
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/slm/_types/SnapshotLifecycle.ts#L138-L141
 type Invocation struct {
-	SnapshotName Name     `json:"snapshot_name"`
+	SnapshotName string   `json:"snapshot_name"`
 	Time         DateTime `json:"time"`
 }
 
-// InvocationBuilder holds Invocation struct and provides a builder API.
-type InvocationBuilder struct {
-	v *Invocation
-}
+// NewInvocation returns a Invocation.
+func NewInvocation() *Invocation {
+	r := &Invocation{}
 
-// NewInvocation provides a builder for the Invocation struct.
-func NewInvocationBuilder() *InvocationBuilder {
-	r := InvocationBuilder{
-		&Invocation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Invocation struct
-func (rb *InvocationBuilder) Build() Invocation {
-	return *rb.v
-}
-
-func (rb *InvocationBuilder) SnapshotName(snapshotname Name) *InvocationBuilder {
-	rb.v.SnapshotName = snapshotname
-	return rb
-}
-
-func (rb *InvocationBuilder) Time(time *DateTimeBuilder) *InvocationBuilder {
-	v := time.Build()
-	rb.v.Time = v
-	return rb
+	return r
 }

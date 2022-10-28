@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RealmCache type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/xpack/usage/types.ts#L251-L253
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L251-L253
 type RealmCache struct {
 	Size int64 `json:"size"`
 }
 
-// RealmCacheBuilder holds RealmCache struct and provides a builder API.
-type RealmCacheBuilder struct {
-	v *RealmCache
-}
+// NewRealmCache returns a RealmCache.
+func NewRealmCache() *RealmCache {
+	r := &RealmCache{}
 
-// NewRealmCache provides a builder for the RealmCache struct.
-func NewRealmCacheBuilder() *RealmCacheBuilder {
-	r := RealmCacheBuilder{
-		&RealmCache{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RealmCache struct
-func (rb *RealmCacheBuilder) Build() RealmCache {
-	return *rb.v
-}
-
-func (rb *RealmCacheBuilder) Size(size int64) *RealmCacheBuilder {
-	rb.v.Size = size
-	return rb
+	return r
 }

@@ -17,46 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RangeAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L515-L516
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L530-L531
 type RangeAggregate struct {
-	Buckets BucketsRangeBucket `json:"buckets"`
-	Meta    *Metadata          `json:"meta,omitempty"`
+	Buckets BucketsRangeBucket     `json:"buckets"`
+	Meta    map[string]interface{} `json:"meta,omitempty"`
 }
 
-// RangeAggregateBuilder holds RangeAggregate struct and provides a builder API.
-type RangeAggregateBuilder struct {
-	v *RangeAggregate
-}
+// NewRangeAggregate returns a RangeAggregate.
+func NewRangeAggregate() *RangeAggregate {
+	r := &RangeAggregate{}
 
-// NewRangeAggregate provides a builder for the RangeAggregate struct.
-func NewRangeAggregateBuilder() *RangeAggregateBuilder {
-	r := RangeAggregateBuilder{
-		&RangeAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RangeAggregate struct
-func (rb *RangeAggregateBuilder) Build() RangeAggregate {
-	return *rb.v
-}
-
-func (rb *RangeAggregateBuilder) Buckets(buckets *BucketsRangeBucketBuilder) *RangeAggregateBuilder {
-	v := buckets.Build()
-	rb.v.Buckets = v
-	return rb
-}
-
-func (rb *RangeAggregateBuilder) Meta(meta *MetadataBuilder) *RangeAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
+	return r
 }

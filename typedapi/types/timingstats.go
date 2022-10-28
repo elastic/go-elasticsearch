@@ -17,52 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TimingStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/DataframeAnalytics.ts#L421-L426
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/DataframeAnalytics.ts#L421-L426
 type TimingStats struct {
 	// ElapsedTime Runtime of the analysis in milliseconds.
-	ElapsedTime DurationValueUnitMillis `json:"elapsed_time"`
+	ElapsedTime int64 `json:"elapsed_time"`
 	// IterationTime Runtime of the latest iteration of the analysis in milliseconds.
-	IterationTime *DurationValueUnitMillis `json:"iteration_time,omitempty"`
+	IterationTime *int64 `json:"iteration_time,omitempty"`
 }
 
-// TimingStatsBuilder holds TimingStats struct and provides a builder API.
-type TimingStatsBuilder struct {
-	v *TimingStats
-}
+// NewTimingStats returns a TimingStats.
+func NewTimingStats() *TimingStats {
+	r := &TimingStats{}
 
-// NewTimingStats provides a builder for the TimingStats struct.
-func NewTimingStatsBuilder() *TimingStatsBuilder {
-	r := TimingStatsBuilder{
-		&TimingStats{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TimingStats struct
-func (rb *TimingStatsBuilder) Build() TimingStats {
-	return *rb.v
-}
-
-// ElapsedTime Runtime of the analysis in milliseconds.
-
-func (rb *TimingStatsBuilder) ElapsedTime(elapsedtime *DurationValueUnitMillisBuilder) *TimingStatsBuilder {
-	v := elapsedtime.Build()
-	rb.v.ElapsedTime = v
-	return rb
-}
-
-// IterationTime Runtime of the latest iteration of the analysis in milliseconds.
-
-func (rb *TimingStatsBuilder) IterationTime(iterationtime *DurationValueUnitMillisBuilder) *TimingStatsBuilder {
-	v := iterationtime.Build()
-	rb.v.IterationTime = &v
-	return rb
+	return r
 }

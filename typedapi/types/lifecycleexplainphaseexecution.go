@@ -17,51 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // LifecycleExplainPhaseExecution type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ilm/explain_lifecycle/types.ts#L64-L68
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ilm/explain_lifecycle/types.ts#L64-L68
 type LifecycleExplainPhaseExecution struct {
-	ModifiedDateInMillis EpochTimeUnitMillis `json:"modified_date_in_millis"`
-	Policy               Name                `json:"policy"`
-	Version              VersionNumber       `json:"version"`
+	ModifiedDateInMillis int64  `json:"modified_date_in_millis"`
+	Policy               string `json:"policy"`
+	Version              int64  `json:"version"`
 }
 
-// LifecycleExplainPhaseExecutionBuilder holds LifecycleExplainPhaseExecution struct and provides a builder API.
-type LifecycleExplainPhaseExecutionBuilder struct {
-	v *LifecycleExplainPhaseExecution
-}
+// NewLifecycleExplainPhaseExecution returns a LifecycleExplainPhaseExecution.
+func NewLifecycleExplainPhaseExecution() *LifecycleExplainPhaseExecution {
+	r := &LifecycleExplainPhaseExecution{}
 
-// NewLifecycleExplainPhaseExecution provides a builder for the LifecycleExplainPhaseExecution struct.
-func NewLifecycleExplainPhaseExecutionBuilder() *LifecycleExplainPhaseExecutionBuilder {
-	r := LifecycleExplainPhaseExecutionBuilder{
-		&LifecycleExplainPhaseExecution{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the LifecycleExplainPhaseExecution struct
-func (rb *LifecycleExplainPhaseExecutionBuilder) Build() LifecycleExplainPhaseExecution {
-	return *rb.v
-}
-
-func (rb *LifecycleExplainPhaseExecutionBuilder) ModifiedDateInMillis(modifieddateinmillis *EpochTimeUnitMillisBuilder) *LifecycleExplainPhaseExecutionBuilder {
-	v := modifieddateinmillis.Build()
-	rb.v.ModifiedDateInMillis = v
-	return rb
-}
-
-func (rb *LifecycleExplainPhaseExecutionBuilder) Policy(policy Name) *LifecycleExplainPhaseExecutionBuilder {
-	rb.v.Policy = policy
-	return rb
-}
-
-func (rb *LifecycleExplainPhaseExecutionBuilder) Version(version VersionNumber) *LifecycleExplainPhaseExecutionBuilder {
-	rb.v.Version = version
-	return rb
+	return r
 }

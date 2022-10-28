@@ -17,84 +17,27 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RoleDescriptorRead type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/security/_types/RoleDescriptor.ts#L38-L47
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/_types/RoleDescriptor.ts#L38-L47
 type RoleDescriptorRead struct {
 	Applications      []ApplicationPrivileges  `json:"applications,omitempty"`
 	Cluster           []string                 `json:"cluster"`
 	Global            []GlobalPrivilege        `json:"global,omitempty"`
 	Indices           []IndicesPrivileges      `json:"indices"`
-	Metadata          *Metadata                `json:"metadata,omitempty"`
+	Metadata          map[string]interface{}   `json:"metadata,omitempty"`
 	RunAs             []string                 `json:"run_as,omitempty"`
 	TransientMetadata *TransientMetadataConfig `json:"transient_metadata,omitempty"`
 }
 
-// RoleDescriptorReadBuilder holds RoleDescriptorRead struct and provides a builder API.
-type RoleDescriptorReadBuilder struct {
-	v *RoleDescriptorRead
-}
+// NewRoleDescriptorRead returns a RoleDescriptorRead.
+func NewRoleDescriptorRead() *RoleDescriptorRead {
+	r := &RoleDescriptorRead{}
 
-// NewRoleDescriptorRead provides a builder for the RoleDescriptorRead struct.
-func NewRoleDescriptorReadBuilder() *RoleDescriptorReadBuilder {
-	r := RoleDescriptorReadBuilder{
-		&RoleDescriptorRead{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RoleDescriptorRead struct
-func (rb *RoleDescriptorReadBuilder) Build() RoleDescriptorRead {
-	return *rb.v
-}
-
-func (rb *RoleDescriptorReadBuilder) Applications(applications []ApplicationPrivilegesBuilder) *RoleDescriptorReadBuilder {
-	tmp := make([]ApplicationPrivileges, len(applications))
-	for _, value := range applications {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Applications = tmp
-	return rb
-}
-
-func (rb *RoleDescriptorReadBuilder) Cluster(cluster ...string) *RoleDescriptorReadBuilder {
-	rb.v.Cluster = cluster
-	return rb
-}
-
-func (rb *RoleDescriptorReadBuilder) Global(arg []GlobalPrivilege) *RoleDescriptorReadBuilder {
-	rb.v.Global = arg
-	return rb
-}
-
-func (rb *RoleDescriptorReadBuilder) Indices(indices []IndicesPrivilegesBuilder) *RoleDescriptorReadBuilder {
-	tmp := make([]IndicesPrivileges, len(indices))
-	for _, value := range indices {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Indices = tmp
-	return rb
-}
-
-func (rb *RoleDescriptorReadBuilder) Metadata(metadata *MetadataBuilder) *RoleDescriptorReadBuilder {
-	v := metadata.Build()
-	rb.v.Metadata = &v
-	return rb
-}
-
-func (rb *RoleDescriptorReadBuilder) RunAs(run_as ...string) *RoleDescriptorReadBuilder {
-	rb.v.RunAs = run_as
-	return rb
-}
-
-func (rb *RoleDescriptorReadBuilder) TransientMetadata(transientmetadata *TransientMetadataConfigBuilder) *RoleDescriptorReadBuilder {
-	v := transientmetadata.Build()
-	rb.v.TransientMetadata = &v
-	return rb
+	return r
 }

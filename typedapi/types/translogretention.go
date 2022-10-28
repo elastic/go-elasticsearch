@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TranslogRetention type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/_types/IndexSettings.ts#L373-L392
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/IndexSettings.ts#L373-L392
 type TranslogRetention struct {
 	// Age This controls the maximum duration for which translog files are kept by each
 	// shard. Keeping more
@@ -48,53 +48,9 @@ type TranslogRetention struct {
 	Size *ByteSize `json:"size,omitempty"`
 }
 
-// TranslogRetentionBuilder holds TranslogRetention struct and provides a builder API.
-type TranslogRetentionBuilder struct {
-	v *TranslogRetention
-}
+// NewTranslogRetention returns a TranslogRetention.
+func NewTranslogRetention() *TranslogRetention {
+	r := &TranslogRetention{}
 
-// NewTranslogRetention provides a builder for the TranslogRetention struct.
-func NewTranslogRetentionBuilder() *TranslogRetentionBuilder {
-	r := TranslogRetentionBuilder{
-		&TranslogRetention{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TranslogRetention struct
-func (rb *TranslogRetentionBuilder) Build() TranslogRetention {
-	return *rb.v
-}
-
-// Age This controls the maximum duration for which translog files are kept by each
-// shard. Keeping more
-// translog files increases the chance of performing an operation based sync
-// when recovering replicas. If
-// the translog files are not sufficient, replica recovery will fall back to a
-// file based sync. This setting
-// is ignored, and should not be set, if soft deletes are enabled. Soft deletes
-// are enabled by default in
-// indices created in Elasticsearch versions 7.0.0 and later.
-
-func (rb *TranslogRetentionBuilder) Age(age *DurationBuilder) *TranslogRetentionBuilder {
-	v := age.Build()
-	rb.v.Age = &v
-	return rb
-}
-
-// Size This controls the total size of translog files to keep for each shard.
-// Keeping more translog files increases
-// the chance of performing an operation based sync when recovering a replica.
-// If the translog files are not
-// sufficient, replica recovery will fall back to a file based sync. This
-// setting is ignored, and should not be
-// set, if soft deletes are enabled. Soft deletes are enabled by default in
-// indices created in Elasticsearch
-// versions 7.0.0 and later.
-
-func (rb *TranslogRetentionBuilder) Size(size *ByteSizeBuilder) *TranslogRetentionBuilder {
-	v := size.Build()
-	rb.v.Size = &v
-	return rb
+	return r
 }

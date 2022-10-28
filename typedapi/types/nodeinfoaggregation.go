@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeInfoAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/info/types.ts#L224-L226
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/info/types.ts#L224-L226
 type NodeInfoAggregation struct {
 	Types []string `json:"types"`
 }
 
-// NodeInfoAggregationBuilder holds NodeInfoAggregation struct and provides a builder API.
-type NodeInfoAggregationBuilder struct {
-	v *NodeInfoAggregation
-}
+// NewNodeInfoAggregation returns a NodeInfoAggregation.
+func NewNodeInfoAggregation() *NodeInfoAggregation {
+	r := &NodeInfoAggregation{}
 
-// NewNodeInfoAggregation provides a builder for the NodeInfoAggregation struct.
-func NewNodeInfoAggregationBuilder() *NodeInfoAggregationBuilder {
-	r := NodeInfoAggregationBuilder{
-		&NodeInfoAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodeInfoAggregation struct
-func (rb *NodeInfoAggregationBuilder) Build() NodeInfoAggregation {
-	return *rb.v
-}
-
-func (rb *NodeInfoAggregationBuilder) Types(types ...string) *NodeInfoAggregationBuilder {
-	rb.v.Types = types
-	return rb
+	return r
 }

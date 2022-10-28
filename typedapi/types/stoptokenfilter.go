@@ -17,66 +17,28 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // StopTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/token_filters.ts#L96-L102
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/token_filters.ts#L96-L102
 type StopTokenFilter struct {
-	IgnoreCase     *bool          `json:"ignore_case,omitempty"`
-	RemoveTrailing *bool          `json:"remove_trailing,omitempty"`
-	Stopwords      *StopWords     `json:"stopwords,omitempty"`
-	StopwordsPath  *string        `json:"stopwords_path,omitempty"`
-	Type           string         `json:"type,omitempty"`
-	Version        *VersionString `json:"version,omitempty"`
+	IgnoreCase     *bool    `json:"ignore_case,omitempty"`
+	RemoveTrailing *bool    `json:"remove_trailing,omitempty"`
+	Stopwords      []string `json:"stopwords,omitempty"`
+	StopwordsPath  *string  `json:"stopwords_path,omitempty"`
+	Type           string   `json:"type,omitempty"`
+	Version        *string  `json:"version,omitempty"`
 }
 
-// StopTokenFilterBuilder holds StopTokenFilter struct and provides a builder API.
-type StopTokenFilterBuilder struct {
-	v *StopTokenFilter
-}
+// NewStopTokenFilter returns a StopTokenFilter.
+func NewStopTokenFilter() *StopTokenFilter {
+	r := &StopTokenFilter{}
 
-// NewStopTokenFilter provides a builder for the StopTokenFilter struct.
-func NewStopTokenFilterBuilder() *StopTokenFilterBuilder {
-	r := StopTokenFilterBuilder{
-		&StopTokenFilter{},
-	}
+	r.Type = "stop"
 
-	r.v.Type = "stop"
-
-	return &r
-}
-
-// Build finalize the chain and returns the StopTokenFilter struct
-func (rb *StopTokenFilterBuilder) Build() StopTokenFilter {
-	return *rb.v
-}
-
-func (rb *StopTokenFilterBuilder) IgnoreCase(ignorecase bool) *StopTokenFilterBuilder {
-	rb.v.IgnoreCase = &ignorecase
-	return rb
-}
-
-func (rb *StopTokenFilterBuilder) RemoveTrailing(removetrailing bool) *StopTokenFilterBuilder {
-	rb.v.RemoveTrailing = &removetrailing
-	return rb
-}
-
-func (rb *StopTokenFilterBuilder) Stopwords(stopwords *StopWordsBuilder) *StopTokenFilterBuilder {
-	v := stopwords.Build()
-	rb.v.Stopwords = &v
-	return rb
-}
-
-func (rb *StopTokenFilterBuilder) StopwordsPath(stopwordspath string) *StopTokenFilterBuilder {
-	rb.v.StopwordsPath = &stopwordspath
-	return rb
-}
-
-func (rb *StopTokenFilterBuilder) Version(version VersionString) *StopTokenFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

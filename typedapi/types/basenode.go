@@ -17,71 +17,30 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
+import "github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/noderole"
+
 // BaseNode type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_spec_utils/BaseNode.ts#L25-L32
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_spec_utils/BaseNode.ts#L25-L32
 type BaseNode struct {
-	Attributes       map[string]string `json:"attributes"`
-	Host             Host              `json:"host"`
-	Ip               Ip                `json:"ip"`
-	Name             Name              `json:"name"`
-	Roles            *NodeRoles        `json:"roles,omitempty"`
-	TransportAddress TransportAddress  `json:"transport_address"`
+	Attributes       map[string]string   `json:"attributes"`
+	Host             string              `json:"host"`
+	Ip               string              `json:"ip"`
+	Name             string              `json:"name"`
+	Roles            []noderole.NodeRole `json:"roles,omitempty"`
+	TransportAddress string              `json:"transport_address"`
 }
 
-// BaseNodeBuilder holds BaseNode struct and provides a builder API.
-type BaseNodeBuilder struct {
-	v *BaseNode
-}
-
-// NewBaseNode provides a builder for the BaseNode struct.
-func NewBaseNodeBuilder() *BaseNodeBuilder {
-	r := BaseNodeBuilder{
-		&BaseNode{
-			Attributes: make(map[string]string, 0),
-		},
+// NewBaseNode returns a BaseNode.
+func NewBaseNode() *BaseNode {
+	r := &BaseNode{
+		Attributes: make(map[string]string, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the BaseNode struct
-func (rb *BaseNodeBuilder) Build() BaseNode {
-	return *rb.v
-}
-
-func (rb *BaseNodeBuilder) Attributes(value map[string]string) *BaseNodeBuilder {
-	rb.v.Attributes = value
-	return rb
-}
-
-func (rb *BaseNodeBuilder) Host(host Host) *BaseNodeBuilder {
-	rb.v.Host = host
-	return rb
-}
-
-func (rb *BaseNodeBuilder) Ip(ip Ip) *BaseNodeBuilder {
-	rb.v.Ip = ip
-	return rb
-}
-
-func (rb *BaseNodeBuilder) Name(name Name) *BaseNodeBuilder {
-	rb.v.Name = name
-	return rb
-}
-
-func (rb *BaseNodeBuilder) Roles(roles *NodeRolesBuilder) *BaseNodeBuilder {
-	v := roles.Build()
-	rb.v.Roles = &v
-	return rb
-}
-
-func (rb *BaseNodeBuilder) TransportAddress(transportaddress TransportAddress) *BaseNodeBuilder {
-	rb.v.TransportAddress = transportaddress
-	return rb
+	return r
 }

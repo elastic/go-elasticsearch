@@ -17,58 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // StatsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/metric.ts#L145-L145
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/metric.ts#L145-L145
 type StatsAggregation struct {
-	Field   *Field   `json:"field,omitempty"`
+	Field   *string  `json:"field,omitempty"`
 	Format  *string  `json:"format,omitempty"`
 	Missing *Missing `json:"missing,omitempty"`
 	Script  *Script  `json:"script,omitempty"`
 }
 
-// StatsAggregationBuilder holds StatsAggregation struct and provides a builder API.
-type StatsAggregationBuilder struct {
-	v *StatsAggregation
-}
+// NewStatsAggregation returns a StatsAggregation.
+func NewStatsAggregation() *StatsAggregation {
+	r := &StatsAggregation{}
 
-// NewStatsAggregation provides a builder for the StatsAggregation struct.
-func NewStatsAggregationBuilder() *StatsAggregationBuilder {
-	r := StatsAggregationBuilder{
-		&StatsAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the StatsAggregation struct
-func (rb *StatsAggregationBuilder) Build() StatsAggregation {
-	return *rb.v
-}
-
-func (rb *StatsAggregationBuilder) Field(field Field) *StatsAggregationBuilder {
-	rb.v.Field = &field
-	return rb
-}
-
-func (rb *StatsAggregationBuilder) Format(format string) *StatsAggregationBuilder {
-	rb.v.Format = &format
-	return rb
-}
-
-func (rb *StatsAggregationBuilder) Missing(missing *MissingBuilder) *StatsAggregationBuilder {
-	v := missing.Build()
-	rb.v.Missing = &v
-	return rb
-}
-
-func (rb *StatsAggregationBuilder) Script(script *ScriptBuilder) *StatsAggregationBuilder {
-	v := script.Build()
-	rb.v.Script = &v
-	return rb
+	return r
 }

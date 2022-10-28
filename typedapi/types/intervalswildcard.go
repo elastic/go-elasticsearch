@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IntervalsWildcard type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/query_dsl/fulltext.ts#L127-L131
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/fulltext.ts#L127-L131
 type IntervalsWildcard struct {
 	Analyzer *string `json:"analyzer,omitempty"`
 	Pattern  string  `json:"pattern"`
-	UseField *Field  `json:"use_field,omitempty"`
+	UseField *string `json:"use_field,omitempty"`
 }
 
-// IntervalsWildcardBuilder holds IntervalsWildcard struct and provides a builder API.
-type IntervalsWildcardBuilder struct {
-	v *IntervalsWildcard
-}
+// NewIntervalsWildcard returns a IntervalsWildcard.
+func NewIntervalsWildcard() *IntervalsWildcard {
+	r := &IntervalsWildcard{}
 
-// NewIntervalsWildcard provides a builder for the IntervalsWildcard struct.
-func NewIntervalsWildcardBuilder() *IntervalsWildcardBuilder {
-	r := IntervalsWildcardBuilder{
-		&IntervalsWildcard{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IntervalsWildcard struct
-func (rb *IntervalsWildcardBuilder) Build() IntervalsWildcard {
-	return *rb.v
-}
-
-func (rb *IntervalsWildcardBuilder) Analyzer(analyzer string) *IntervalsWildcardBuilder {
-	rb.v.Analyzer = &analyzer
-	return rb
-}
-
-func (rb *IntervalsWildcardBuilder) Pattern(pattern string) *IntervalsWildcardBuilder {
-	rb.v.Pattern = pattern
-	return rb
-}
-
-func (rb *IntervalsWildcardBuilder) UseField(usefield Field) *IntervalsWildcardBuilder {
-	rb.v.UseField = &usefield
-	return rb
+	return r
 }

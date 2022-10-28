@@ -17,40 +17,15 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Fuzziness holds the union for the following types:
 //
-//	int
 //	string
+//	int
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/common.ts#L114-L114
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/common.ts#L114-L114
 type Fuzziness interface{}
-
-// FuzzinessBuilder holds Fuzziness struct and provides a builder API.
-type FuzzinessBuilder struct {
-	v Fuzziness
-}
-
-// NewFuzziness provides a builder for the Fuzziness struct.
-func NewFuzzinessBuilder() *FuzzinessBuilder {
-	return &FuzzinessBuilder{}
-}
-
-// Build finalize the chain and returns the Fuzziness struct
-func (u *FuzzinessBuilder) Build() Fuzziness {
-	return u.v
-}
-
-func (u *FuzzinessBuilder) Int(int int) *FuzzinessBuilder {
-	u.v = &int
-	return u
-}
-
-func (u *FuzzinessBuilder) String(string string) *FuzzinessBuilder {
-	u.v = &string
-	return u
-}

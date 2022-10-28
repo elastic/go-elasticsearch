@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IntervalsQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/query_dsl/fulltext.ts#L116-L125
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/fulltext.ts#L116-L125
 type IntervalsQuery struct {
 	AllOf      *IntervalsAllOf    `json:"all_of,omitempty"`
 	AnyOf      *IntervalsAnyOf    `json:"any_of,omitempty"`
@@ -36,67 +36,9 @@ type IntervalsQuery struct {
 	Wildcard   *IntervalsWildcard `json:"wildcard,omitempty"`
 }
 
-// IntervalsQueryBuilder holds IntervalsQuery struct and provides a builder API.
-type IntervalsQueryBuilder struct {
-	v *IntervalsQuery
-}
+// NewIntervalsQuery returns a IntervalsQuery.
+func NewIntervalsQuery() *IntervalsQuery {
+	r := &IntervalsQuery{}
 
-// NewIntervalsQuery provides a builder for the IntervalsQuery struct.
-func NewIntervalsQueryBuilder() *IntervalsQueryBuilder {
-	r := IntervalsQueryBuilder{
-		&IntervalsQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IntervalsQuery struct
-func (rb *IntervalsQueryBuilder) Build() IntervalsQuery {
-	return *rb.v
-}
-
-func (rb *IntervalsQueryBuilder) AllOf(allof *IntervalsAllOfBuilder) *IntervalsQueryBuilder {
-	v := allof.Build()
-	rb.v.AllOf = &v
-	return rb
-}
-
-func (rb *IntervalsQueryBuilder) AnyOf(anyof *IntervalsAnyOfBuilder) *IntervalsQueryBuilder {
-	v := anyof.Build()
-	rb.v.AnyOf = &v
-	return rb
-}
-
-func (rb *IntervalsQueryBuilder) Boost(boost float32) *IntervalsQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *IntervalsQueryBuilder) Fuzzy(fuzzy *IntervalsFuzzyBuilder) *IntervalsQueryBuilder {
-	v := fuzzy.Build()
-	rb.v.Fuzzy = &v
-	return rb
-}
-
-func (rb *IntervalsQueryBuilder) Match(match *IntervalsMatchBuilder) *IntervalsQueryBuilder {
-	v := match.Build()
-	rb.v.Match = &v
-	return rb
-}
-
-func (rb *IntervalsQueryBuilder) Prefix(prefix *IntervalsPrefixBuilder) *IntervalsQueryBuilder {
-	v := prefix.Build()
-	rb.v.Prefix = &v
-	return rb
-}
-
-func (rb *IntervalsQueryBuilder) QueryName_(queryname_ string) *IntervalsQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
-}
-
-func (rb *IntervalsQueryBuilder) Wildcard(wildcard *IntervalsWildcardBuilder) *IntervalsQueryBuilder {
-	v := wildcard.Build()
-	rb.v.Wildcard = &v
-	return rb
+	return r
 }

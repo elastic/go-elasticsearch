@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RequestCounts type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/_types/RepositoryMeteringInformation.ts#L76-L103
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/RepositoryMeteringInformation.ts#L76-L103
 type RequestCounts struct {
 	// GetBlob Number of Get Blob requests (Azure)
 	GetBlob *int64 `json:"GetBlob,omitempty"`
@@ -55,103 +55,9 @@ type RequestCounts struct {
 	PutObject *int64 `json:"PutObject,omitempty"`
 }
 
-// RequestCountsBuilder holds RequestCounts struct and provides a builder API.
-type RequestCountsBuilder struct {
-	v *RequestCounts
-}
+// NewRequestCounts returns a RequestCounts.
+func NewRequestCounts() *RequestCounts {
+	r := &RequestCounts{}
 
-// NewRequestCounts provides a builder for the RequestCounts struct.
-func NewRequestCountsBuilder() *RequestCountsBuilder {
-	r := RequestCountsBuilder{
-		&RequestCounts{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RequestCounts struct
-func (rb *RequestCountsBuilder) Build() RequestCounts {
-	return *rb.v
-}
-
-// GetBlob Number of Get Blob requests (Azure)
-
-func (rb *RequestCountsBuilder) GetBlob(getblob int64) *RequestCountsBuilder {
-	rb.v.GetBlob = &getblob
-	return rb
-}
-
-// GetBlobProperties Number of Get Blob Properties requests (Azure)
-
-func (rb *RequestCountsBuilder) GetBlobProperties(getblobproperties int64) *RequestCountsBuilder {
-	rb.v.GetBlobProperties = &getblobproperties
-	return rb
-}
-
-// GetObject Number of get object requests (GCP, S3)
-
-func (rb *RequestCountsBuilder) GetObject(getobject int64) *RequestCountsBuilder {
-	rb.v.GetObject = &getobject
-	return rb
-}
-
-// InsertObject Number of insert object requests, including simple, multipart and resumable
-// uploads. Resumable uploads
-// can perform multiple http requests to insert a single object but they are
-// considered as a single request
-// since they are billed as an individual operation. (GCP)
-
-func (rb *RequestCountsBuilder) InsertObject(insertobject int64) *RequestCountsBuilder {
-	rb.v.InsertObject = &insertobject
-	return rb
-}
-
-// ListBlobs Number of List Blobs requests (Azure)
-
-func (rb *RequestCountsBuilder) ListBlobs(listblobs int64) *RequestCountsBuilder {
-	rb.v.ListBlobs = &listblobs
-	return rb
-}
-
-// ListObjects Number of list objects requests (GCP, S3)
-
-func (rb *RequestCountsBuilder) ListObjects(listobjects int64) *RequestCountsBuilder {
-	rb.v.ListObjects = &listobjects
-	return rb
-}
-
-// PutBlob Number of Put Blob requests (Azure)
-
-func (rb *RequestCountsBuilder) PutBlob(putblob int64) *RequestCountsBuilder {
-	rb.v.PutBlob = &putblob
-	return rb
-}
-
-// PutBlock Number of Put Block (Azure)
-
-func (rb *RequestCountsBuilder) PutBlock(putblock int64) *RequestCountsBuilder {
-	rb.v.PutBlock = &putblock
-	return rb
-}
-
-// PutBlockList Number of Put Block List requests
-
-func (rb *RequestCountsBuilder) PutBlockList(putblocklist int64) *RequestCountsBuilder {
-	rb.v.PutBlockList = &putblocklist
-	return rb
-}
-
-// PutMultipartObject Number of Multipart requests, including CreateMultipartUpload, UploadPart and
-// CompleteMultipartUpload requests (S3)
-
-func (rb *RequestCountsBuilder) PutMultipartObject(putmultipartobject int64) *RequestCountsBuilder {
-	rb.v.PutMultipartObject = &putmultipartobject
-	return rb
-}
-
-// PutObject Number of PutObject requests (S3)
-
-func (rb *RequestCountsBuilder) PutObject(putobject int64) *RequestCountsBuilder {
-	rb.v.PutObject = &putobject
-	return rb
+	return r
 }

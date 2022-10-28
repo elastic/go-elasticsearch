@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeAnalyticsSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/DataframeAnalytics.ts#L306-L322
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/DataframeAnalytics.ts#L306-L322
 type DataframeAnalyticsSummary struct {
 	AllowLazyStart *bool                            `json:"allow_lazy_start,omitempty"`
 	Analysis       DataframeAnalysisContainer       `json:"analysis"`
@@ -33,101 +33,19 @@ type DataframeAnalyticsSummary struct {
 	// Stack security features were disabled at the time of the most recent update
 	// to the job, this property is omitted.
 	Authorization    *DataframeAnalyticsAuthorization `json:"authorization,omitempty"`
-	CreateTime       *EpochTimeUnitMillis             `json:"create_time,omitempty"`
+	CreateTime       *int64                           `json:"create_time,omitempty"`
 	Description      *string                          `json:"description,omitempty"`
 	Dest             DataframeAnalyticsDestination    `json:"dest"`
-	Id               Id                               `json:"id"`
+	Id               string                           `json:"id"`
 	MaxNumThreads    *int                             `json:"max_num_threads,omitempty"`
 	ModelMemoryLimit *string                          `json:"model_memory_limit,omitempty"`
 	Source           DataframeAnalyticsSource         `json:"source"`
-	Version          *VersionString                   `json:"version,omitempty"`
+	Version          *string                          `json:"version,omitempty"`
 }
 
-// DataframeAnalyticsSummaryBuilder holds DataframeAnalyticsSummary struct and provides a builder API.
-type DataframeAnalyticsSummaryBuilder struct {
-	v *DataframeAnalyticsSummary
-}
+// NewDataframeAnalyticsSummary returns a DataframeAnalyticsSummary.
+func NewDataframeAnalyticsSummary() *DataframeAnalyticsSummary {
+	r := &DataframeAnalyticsSummary{}
 
-// NewDataframeAnalyticsSummary provides a builder for the DataframeAnalyticsSummary struct.
-func NewDataframeAnalyticsSummaryBuilder() *DataframeAnalyticsSummaryBuilder {
-	r := DataframeAnalyticsSummaryBuilder{
-		&DataframeAnalyticsSummary{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeAnalyticsSummary struct
-func (rb *DataframeAnalyticsSummaryBuilder) Build() DataframeAnalyticsSummary {
-	return *rb.v
-}
-
-func (rb *DataframeAnalyticsSummaryBuilder) AllowLazyStart(allowlazystart bool) *DataframeAnalyticsSummaryBuilder {
-	rb.v.AllowLazyStart = &allowlazystart
-	return rb
-}
-
-func (rb *DataframeAnalyticsSummaryBuilder) Analysis(analysis *DataframeAnalysisContainerBuilder) *DataframeAnalyticsSummaryBuilder {
-	v := analysis.Build()
-	rb.v.Analysis = v
-	return rb
-}
-
-func (rb *DataframeAnalyticsSummaryBuilder) AnalyzedFields(analyzedfields *DataframeAnalysisAnalyzedFieldsBuilder) *DataframeAnalyticsSummaryBuilder {
-	v := analyzedfields.Build()
-	rb.v.AnalyzedFields = &v
-	return rb
-}
-
-// Authorization The security privileges that the job uses to run its queries. If Elastic
-// Stack security features were disabled at the time of the most recent update
-// to the job, this property is omitted.
-
-func (rb *DataframeAnalyticsSummaryBuilder) Authorization(authorization *DataframeAnalyticsAuthorizationBuilder) *DataframeAnalyticsSummaryBuilder {
-	v := authorization.Build()
-	rb.v.Authorization = &v
-	return rb
-}
-
-func (rb *DataframeAnalyticsSummaryBuilder) CreateTime(createtime *EpochTimeUnitMillisBuilder) *DataframeAnalyticsSummaryBuilder {
-	v := createtime.Build()
-	rb.v.CreateTime = &v
-	return rb
-}
-
-func (rb *DataframeAnalyticsSummaryBuilder) Description(description string) *DataframeAnalyticsSummaryBuilder {
-	rb.v.Description = &description
-	return rb
-}
-
-func (rb *DataframeAnalyticsSummaryBuilder) Dest(dest *DataframeAnalyticsDestinationBuilder) *DataframeAnalyticsSummaryBuilder {
-	v := dest.Build()
-	rb.v.Dest = v
-	return rb
-}
-
-func (rb *DataframeAnalyticsSummaryBuilder) Id(id Id) *DataframeAnalyticsSummaryBuilder {
-	rb.v.Id = id
-	return rb
-}
-
-func (rb *DataframeAnalyticsSummaryBuilder) MaxNumThreads(maxnumthreads int) *DataframeAnalyticsSummaryBuilder {
-	rb.v.MaxNumThreads = &maxnumthreads
-	return rb
-}
-
-func (rb *DataframeAnalyticsSummaryBuilder) ModelMemoryLimit(modelmemorylimit string) *DataframeAnalyticsSummaryBuilder {
-	rb.v.ModelMemoryLimit = &modelmemorylimit
-	return rb
-}
-
-func (rb *DataframeAnalyticsSummaryBuilder) Source(source *DataframeAnalyticsSourceBuilder) *DataframeAnalyticsSummaryBuilder {
-	v := source.Build()
-	rb.v.Source = v
-	return rb
-}
-
-func (rb *DataframeAnalyticsSummaryBuilder) Version(version VersionString) *DataframeAnalyticsSummaryBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,25 +28,5 @@ import (
 
 // CatTransformColumns type alias.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/cat/_types/CatBase.ts#L845-L845
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cat/_types/CatBase.ts#L845-L845
 type CatTransformColumns []cattransformcolumn.CatTransformColumn
-
-// CatTransformColumnsBuilder holds CatTransformColumns struct and provides a builder API.
-type CatTransformColumnsBuilder struct {
-	v CatTransformColumns
-}
-
-// NewCatTransformColumns provides a builder for the CatTransformColumns struct.
-func NewCatTransformColumnsBuilder() *CatTransformColumnsBuilder {
-	return &CatTransformColumnsBuilder{}
-}
-
-// Build finalize the chain and returns the CatTransformColumns struct
-func (b *CatTransformColumnsBuilder) Build() CatTransformColumns {
-	return b.v
-}
-
-func (b *CatTransformColumnsBuilder) CatTransformColumns(value CatTransformColumns) *CatTransformColumnsBuilder {
-	b.v = value
-	return b
-}

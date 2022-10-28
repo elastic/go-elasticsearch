@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,11 +29,11 @@ import (
 
 // GeoTileGridBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L509-L511
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L517-L519
 type GeoTileGridBucket struct {
-	Aggregations map[AggregateName]Aggregate `json:"-"`
-	DocCount     int64                       `json:"doc_count"`
-	Key          GeoTile                     `json:"key"`
+	Aggregations map[string]Aggregate `json:"-"`
+	DocCount     int64                `json:"doc_count"`
+	Key          string               `json:"key"`
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -64,42 +64,11 @@ func (s GeoTileGridBucket) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// GeoTileGridBucketBuilder holds GeoTileGridBucket struct and provides a builder API.
-type GeoTileGridBucketBuilder struct {
-	v *GeoTileGridBucket
-}
-
-// NewGeoTileGridBucket provides a builder for the GeoTileGridBucket struct.
-func NewGeoTileGridBucketBuilder() *GeoTileGridBucketBuilder {
-	r := GeoTileGridBucketBuilder{
-		&GeoTileGridBucket{
-			Aggregations: make(map[AggregateName]Aggregate, 0),
-		},
+// NewGeoTileGridBucket returns a GeoTileGridBucket.
+func NewGeoTileGridBucket() *GeoTileGridBucket {
+	r := &GeoTileGridBucket{
+		Aggregations: make(map[string]Aggregate, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the GeoTileGridBucket struct
-func (rb *GeoTileGridBucketBuilder) Build() GeoTileGridBucket {
-	return *rb.v
-}
-
-func (rb *GeoTileGridBucketBuilder) Aggregations(values map[AggregateName]*AggregateBuilder) *GeoTileGridBucketBuilder {
-	tmp := make(map[AggregateName]Aggregate, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Aggregations = tmp
-	return rb
-}
-
-func (rb *GeoTileGridBucketBuilder) DocCount(doccount int64) *GeoTileGridBucketBuilder {
-	rb.v.DocCount = doccount
-	return rb
-}
-
-func (rb *GeoTileGridBucketBuilder) Key(key GeoTile) *GeoTileGridBucketBuilder {
-	rb.v.Key = key
-	return rb
+	return r
 }

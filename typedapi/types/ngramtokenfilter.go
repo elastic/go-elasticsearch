@@ -17,59 +17,27 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NGramTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/analysis/token_filters.ts#L265-L270
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/token_filters.ts#L265-L270
 type NGramTokenFilter struct {
-	MaxGram          *int           `json:"max_gram,omitempty"`
-	MinGram          *int           `json:"min_gram,omitempty"`
-	PreserveOriginal *bool          `json:"preserve_original,omitempty"`
-	Type             string         `json:"type,omitempty"`
-	Version          *VersionString `json:"version,omitempty"`
+	MaxGram          *int    `json:"max_gram,omitempty"`
+	MinGram          *int    `json:"min_gram,omitempty"`
+	PreserveOriginal *bool   `json:"preserve_original,omitempty"`
+	Type             string  `json:"type,omitempty"`
+	Version          *string `json:"version,omitempty"`
 }
 
-// NGramTokenFilterBuilder holds NGramTokenFilter struct and provides a builder API.
-type NGramTokenFilterBuilder struct {
-	v *NGramTokenFilter
-}
+// NewNGramTokenFilter returns a NGramTokenFilter.
+func NewNGramTokenFilter() *NGramTokenFilter {
+	r := &NGramTokenFilter{}
 
-// NewNGramTokenFilter provides a builder for the NGramTokenFilter struct.
-func NewNGramTokenFilterBuilder() *NGramTokenFilterBuilder {
-	r := NGramTokenFilterBuilder{
-		&NGramTokenFilter{},
-	}
+	r.Type = "ngram"
 
-	r.v.Type = "ngram"
-
-	return &r
-}
-
-// Build finalize the chain and returns the NGramTokenFilter struct
-func (rb *NGramTokenFilterBuilder) Build() NGramTokenFilter {
-	return *rb.v
-}
-
-func (rb *NGramTokenFilterBuilder) MaxGram(maxgram int) *NGramTokenFilterBuilder {
-	rb.v.MaxGram = &maxgram
-	return rb
-}
-
-func (rb *NGramTokenFilterBuilder) MinGram(mingram int) *NGramTokenFilterBuilder {
-	rb.v.MinGram = &mingram
-	return rb
-}
-
-func (rb *NGramTokenFilterBuilder) PreserveOriginal(preserveoriginal bool) *NGramTokenFilterBuilder {
-	rb.v.PreserveOriginal = &preserveoriginal
-	return rb
-}
-
-func (rb *NGramTokenFilterBuilder) Version(version VersionString) *NGramTokenFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,11 +29,11 @@ import (
 
 // SamplerAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L489-L490
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L497-L498
 type SamplerAggregate struct {
-	Aggregations map[AggregateName]Aggregate `json:"-"`
-	DocCount     int64                       `json:"doc_count"`
-	Meta         *Metadata                   `json:"meta,omitempty"`
+	Aggregations map[string]Aggregate   `json:"-"`
+	DocCount     int64                  `json:"doc_count"`
+	Meta         map[string]interface{} `json:"meta,omitempty"`
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -64,43 +64,11 @@ func (s SamplerAggregate) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// SamplerAggregateBuilder holds SamplerAggregate struct and provides a builder API.
-type SamplerAggregateBuilder struct {
-	v *SamplerAggregate
-}
-
-// NewSamplerAggregate provides a builder for the SamplerAggregate struct.
-func NewSamplerAggregateBuilder() *SamplerAggregateBuilder {
-	r := SamplerAggregateBuilder{
-		&SamplerAggregate{
-			Aggregations: make(map[AggregateName]Aggregate, 0),
-		},
+// NewSamplerAggregate returns a SamplerAggregate.
+func NewSamplerAggregate() *SamplerAggregate {
+	r := &SamplerAggregate{
+		Aggregations: make(map[string]Aggregate, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the SamplerAggregate struct
-func (rb *SamplerAggregateBuilder) Build() SamplerAggregate {
-	return *rb.v
-}
-
-func (rb *SamplerAggregateBuilder) Aggregations(values map[AggregateName]*AggregateBuilder) *SamplerAggregateBuilder {
-	tmp := make(map[AggregateName]Aggregate, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Aggregations = tmp
-	return rb
-}
-
-func (rb *SamplerAggregateBuilder) DocCount(doccount int64) *SamplerAggregateBuilder {
-	rb.v.DocCount = doccount
-	return rb
-}
-
-func (rb *SamplerAggregateBuilder) Meta(meta *MetadataBuilder) *SamplerAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
+	return r
 }

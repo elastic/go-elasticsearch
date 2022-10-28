@@ -17,53 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RollupJob type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/rollup/get_jobs/types.ts#L28-L32
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/rollup/get_jobs/types.ts#L28-L32
 type RollupJob struct {
 	Config RollupJobConfiguration `json:"config"`
 	Stats  RollupJobStats         `json:"stats"`
 	Status RollupJobStatus        `json:"status"`
 }
 
-// RollupJobBuilder holds RollupJob struct and provides a builder API.
-type RollupJobBuilder struct {
-	v *RollupJob
-}
+// NewRollupJob returns a RollupJob.
+func NewRollupJob() *RollupJob {
+	r := &RollupJob{}
 
-// NewRollupJob provides a builder for the RollupJob struct.
-func NewRollupJobBuilder() *RollupJobBuilder {
-	r := RollupJobBuilder{
-		&RollupJob{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RollupJob struct
-func (rb *RollupJobBuilder) Build() RollupJob {
-	return *rb.v
-}
-
-func (rb *RollupJobBuilder) Config(config *RollupJobConfigurationBuilder) *RollupJobBuilder {
-	v := config.Build()
-	rb.v.Config = v
-	return rb
-}
-
-func (rb *RollupJobBuilder) Stats(stats *RollupJobStatsBuilder) *RollupJobBuilder {
-	v := stats.Build()
-	rb.v.Stats = v
-	return rb
-}
-
-func (rb *RollupJobBuilder) Status(status *RollupJobStatusBuilder) *RollupJobBuilder {
-	v := status.Build()
-	rb.v.Status = v
-	return rb
+	return r
 }

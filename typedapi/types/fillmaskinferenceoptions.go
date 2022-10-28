@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FillMaskInferenceOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/inference.ts#L235-L243
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/inference.ts#L235-L243
 type FillMaskInferenceOptions struct {
 	// NumTopClasses Specifies the number of top class predictions to return. Defaults to 0.
 	NumTopClasses *int `json:"num_top_classes,omitempty"`
@@ -35,44 +35,9 @@ type FillMaskInferenceOptions struct {
 	Tokenization *TokenizationConfigContainer `json:"tokenization,omitempty"`
 }
 
-// FillMaskInferenceOptionsBuilder holds FillMaskInferenceOptions struct and provides a builder API.
-type FillMaskInferenceOptionsBuilder struct {
-	v *FillMaskInferenceOptions
-}
+// NewFillMaskInferenceOptions returns a FillMaskInferenceOptions.
+func NewFillMaskInferenceOptions() *FillMaskInferenceOptions {
+	r := &FillMaskInferenceOptions{}
 
-// NewFillMaskInferenceOptions provides a builder for the FillMaskInferenceOptions struct.
-func NewFillMaskInferenceOptionsBuilder() *FillMaskInferenceOptionsBuilder {
-	r := FillMaskInferenceOptionsBuilder{
-		&FillMaskInferenceOptions{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FillMaskInferenceOptions struct
-func (rb *FillMaskInferenceOptionsBuilder) Build() FillMaskInferenceOptions {
-	return *rb.v
-}
-
-// NumTopClasses Specifies the number of top class predictions to return. Defaults to 0.
-
-func (rb *FillMaskInferenceOptionsBuilder) NumTopClasses(numtopclasses int) *FillMaskInferenceOptionsBuilder {
-	rb.v.NumTopClasses = &numtopclasses
-	return rb
-}
-
-// ResultsField The field that is added to incoming documents to contain the inference
-// prediction. Defaults to predicted_value.
-
-func (rb *FillMaskInferenceOptionsBuilder) ResultsField(resultsfield string) *FillMaskInferenceOptionsBuilder {
-	rb.v.ResultsField = &resultsfield
-	return rb
-}
-
-// Tokenization The tokenization options to update when inferring
-
-func (rb *FillMaskInferenceOptionsBuilder) Tokenization(tokenization *TokenizationConfigContainerBuilder) *FillMaskInferenceOptionsBuilder {
-	v := tokenization.Build()
-	rb.v.Tokenization = &v
-	return rb
+	return r
 }

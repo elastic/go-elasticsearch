@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TrainedModel type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/put_trained_model/types.ts#L60-L72
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/put_trained_model/types.ts#L60-L72
 type TrainedModel struct {
 	// Ensemble The definition for an ensemble model
 	Ensemble *Ensemble `json:"ensemble,omitempty"`
@@ -38,49 +38,9 @@ type TrainedModel struct {
 	TreeNode *TrainedModelTreeNode `json:"tree_node,omitempty"`
 }
 
-// TrainedModelBuilder holds TrainedModel struct and provides a builder API.
-type TrainedModelBuilder struct {
-	v *TrainedModel
-}
+// NewTrainedModel returns a TrainedModel.
+func NewTrainedModel() *TrainedModel {
+	r := &TrainedModel{}
 
-// NewTrainedModel provides a builder for the TrainedModel struct.
-func NewTrainedModelBuilder() *TrainedModelBuilder {
-	r := TrainedModelBuilder{
-		&TrainedModel{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TrainedModel struct
-func (rb *TrainedModelBuilder) Build() TrainedModel {
-	return *rb.v
-}
-
-// Ensemble The definition for an ensemble model
-
-func (rb *TrainedModelBuilder) Ensemble(ensemble *EnsembleBuilder) *TrainedModelBuilder {
-	v := ensemble.Build()
-	rb.v.Ensemble = &v
-	return rb
-}
-
-// Tree The definition for a binary decision tree.
-
-func (rb *TrainedModelBuilder) Tree(tree *TrainedModelTreeBuilder) *TrainedModelBuilder {
-	v := tree.Build()
-	rb.v.Tree = &v
-	return rb
-}
-
-// TreeNode The definition of a node in a tree.
-// There are two major types of nodes: leaf nodes and not-leaf nodes.
-// - Leaf nodes only need node_index and leaf_value defined.
-// - All other nodes need split_feature, left_child, right_child, threshold,
-// decision_type, and default_left defined.
-
-func (rb *TrainedModelBuilder) TreeNode(treenode *TrainedModelTreeNodeBuilder) *TrainedModelBuilder {
-	v := treenode.Build()
-	rb.v.TreeNode = &v
-	return rb
+	return r
 }

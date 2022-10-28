@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,38 +28,15 @@ import (
 
 // SnapshotShardsStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/snapshot/_types/SnapshotShardsStatus.ts#L24-L27
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/snapshot/_types/SnapshotShardsStatus.ts#L24-L27
 type SnapshotShardsStatus struct {
 	Stage shardsstatsstage.ShardsStatsStage `json:"stage"`
 	Stats ShardsStatsSummary                `json:"stats"`
 }
 
-// SnapshotShardsStatusBuilder holds SnapshotShardsStatus struct and provides a builder API.
-type SnapshotShardsStatusBuilder struct {
-	v *SnapshotShardsStatus
-}
+// NewSnapshotShardsStatus returns a SnapshotShardsStatus.
+func NewSnapshotShardsStatus() *SnapshotShardsStatus {
+	r := &SnapshotShardsStatus{}
 
-// NewSnapshotShardsStatus provides a builder for the SnapshotShardsStatus struct.
-func NewSnapshotShardsStatusBuilder() *SnapshotShardsStatusBuilder {
-	r := SnapshotShardsStatusBuilder{
-		&SnapshotShardsStatus{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SnapshotShardsStatus struct
-func (rb *SnapshotShardsStatusBuilder) Build() SnapshotShardsStatus {
-	return *rb.v
-}
-
-func (rb *SnapshotShardsStatusBuilder) Stage(stage shardsstatsstage.ShardsStatsStage) *SnapshotShardsStatusBuilder {
-	rb.v.Stage = stage
-	return rb
-}
-
-func (rb *SnapshotShardsStatusBuilder) Stats(stats *ShardsStatsSummaryBuilder) *SnapshotShardsStatusBuilder {
-	v := stats.Build()
-	rb.v.Stats = v
-	return rb
+	return r
 }

@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FrozenIndices type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/xpack/usage/types.ts#L342-L344
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L342-L344
 type FrozenIndices struct {
 	Available    bool  `json:"available"`
 	Enabled      bool  `json:"enabled"`
 	IndicesCount int64 `json:"indices_count"`
 }
 
-// FrozenIndicesBuilder holds FrozenIndices struct and provides a builder API.
-type FrozenIndicesBuilder struct {
-	v *FrozenIndices
-}
+// NewFrozenIndices returns a FrozenIndices.
+func NewFrozenIndices() *FrozenIndices {
+	r := &FrozenIndices{}
 
-// NewFrozenIndices provides a builder for the FrozenIndices struct.
-func NewFrozenIndicesBuilder() *FrozenIndicesBuilder {
-	r := FrozenIndicesBuilder{
-		&FrozenIndices{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FrozenIndices struct
-func (rb *FrozenIndicesBuilder) Build() FrozenIndices {
-	return *rb.v
-}
-
-func (rb *FrozenIndicesBuilder) Available(available bool) *FrozenIndicesBuilder {
-	rb.v.Available = available
-	return rb
-}
-
-func (rb *FrozenIndicesBuilder) Enabled(enabled bool) *FrozenIndicesBuilder {
-	rb.v.Enabled = enabled
-	return rb
-}
-
-func (rb *FrozenIndicesBuilder) IndicesCount(indicescount int64) *FrozenIndicesBuilder {
-	rb.v.IndicesCount = indicescount
-	return rb
+	return r
 }

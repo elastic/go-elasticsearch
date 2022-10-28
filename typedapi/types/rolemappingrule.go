@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RoleMappingRule type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/security/_types/RoleMappingRule.ts#L23-L31
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/_types/RoleMappingRule.ts#L23-L31
 type RoleMappingRule struct {
 	All    []RoleMappingRule `json:"all,omitempty"`
 	Any    []RoleMappingRule `json:"any,omitempty"`
@@ -32,51 +32,9 @@ type RoleMappingRule struct {
 	Field  *FieldRule        `json:"field,omitempty"`
 }
 
-// RoleMappingRuleBuilder holds RoleMappingRule struct and provides a builder API.
-type RoleMappingRuleBuilder struct {
-	v *RoleMappingRule
-}
+// NewRoleMappingRule returns a RoleMappingRule.
+func NewRoleMappingRule() *RoleMappingRule {
+	r := &RoleMappingRule{}
 
-// NewRoleMappingRule provides a builder for the RoleMappingRule struct.
-func NewRoleMappingRuleBuilder() *RoleMappingRuleBuilder {
-	r := RoleMappingRuleBuilder{
-		&RoleMappingRule{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RoleMappingRule struct
-func (rb *RoleMappingRuleBuilder) Build() RoleMappingRule {
-	return *rb.v
-}
-
-func (rb *RoleMappingRuleBuilder) All(all []RoleMappingRuleBuilder) *RoleMappingRuleBuilder {
-	tmp := make([]RoleMappingRule, len(all))
-	for _, value := range all {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.All = tmp
-	return rb
-}
-
-func (rb *RoleMappingRuleBuilder) Any(any []RoleMappingRuleBuilder) *RoleMappingRuleBuilder {
-	tmp := make([]RoleMappingRule, len(any))
-	for _, value := range any {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Any = tmp
-	return rb
-}
-
-func (rb *RoleMappingRuleBuilder) Except(except *RoleMappingRuleBuilder) *RoleMappingRuleBuilder {
-	v := except.Build()
-	rb.v.Except = &v
-	return rb
-}
-
-func (rb *RoleMappingRuleBuilder) Field(field *FieldRuleBuilder) *RoleMappingRuleBuilder {
-	v := field.Build()
-	rb.v.Field = &v
-	return rb
+	return r
 }

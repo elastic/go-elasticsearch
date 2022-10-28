@@ -17,61 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IntervalsAllOf type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/query_dsl/fulltext.ts#L49-L56
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/fulltext.ts#L49-L56
 type IntervalsAllOf struct {
-	Filter    *IntervalsFilter     `json:"filter,omitempty"`
-	Intervals []IntervalsContainer `json:"intervals"`
-	MaxGaps   *int                 `json:"max_gaps,omitempty"`
-	Ordered   *bool                `json:"ordered,omitempty"`
+	Filter    *IntervalsFilter `json:"filter,omitempty"`
+	Intervals []Intervals      `json:"intervals"`
+	MaxGaps   *int             `json:"max_gaps,omitempty"`
+	Ordered   *bool            `json:"ordered,omitempty"`
 }
 
-// IntervalsAllOfBuilder holds IntervalsAllOf struct and provides a builder API.
-type IntervalsAllOfBuilder struct {
-	v *IntervalsAllOf
-}
+// NewIntervalsAllOf returns a IntervalsAllOf.
+func NewIntervalsAllOf() *IntervalsAllOf {
+	r := &IntervalsAllOf{}
 
-// NewIntervalsAllOf provides a builder for the IntervalsAllOf struct.
-func NewIntervalsAllOfBuilder() *IntervalsAllOfBuilder {
-	r := IntervalsAllOfBuilder{
-		&IntervalsAllOf{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IntervalsAllOf struct
-func (rb *IntervalsAllOfBuilder) Build() IntervalsAllOf {
-	return *rb.v
-}
-
-func (rb *IntervalsAllOfBuilder) Filter(filter *IntervalsFilterBuilder) *IntervalsAllOfBuilder {
-	v := filter.Build()
-	rb.v.Filter = &v
-	return rb
-}
-
-func (rb *IntervalsAllOfBuilder) Intervals(intervals []IntervalsContainerBuilder) *IntervalsAllOfBuilder {
-	tmp := make([]IntervalsContainer, len(intervals))
-	for _, value := range intervals {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Intervals = tmp
-	return rb
-}
-
-func (rb *IntervalsAllOfBuilder) MaxGaps(maxgaps int) *IntervalsAllOfBuilder {
-	rb.v.MaxGaps = &maxgaps
-	return rb
-}
-
-func (rb *IntervalsAllOfBuilder) Ordered(ordered bool) *IntervalsAllOfBuilder {
-	rb.v.Ordered = &ordered
-	return rb
+	return r
 }

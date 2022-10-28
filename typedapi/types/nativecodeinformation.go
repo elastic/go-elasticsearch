@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NativeCodeInformation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/xpack/info/types.ts#L29-L32
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/info/types.ts#L29-L32
 type NativeCodeInformation struct {
-	BuildHash string        `json:"build_hash"`
-	Version   VersionString `json:"version"`
+	BuildHash string `json:"build_hash"`
+	Version   string `json:"version"`
 }
 
-// NativeCodeInformationBuilder holds NativeCodeInformation struct and provides a builder API.
-type NativeCodeInformationBuilder struct {
-	v *NativeCodeInformation
-}
+// NewNativeCodeInformation returns a NativeCodeInformation.
+func NewNativeCodeInformation() *NativeCodeInformation {
+	r := &NativeCodeInformation{}
 
-// NewNativeCodeInformation provides a builder for the NativeCodeInformation struct.
-func NewNativeCodeInformationBuilder() *NativeCodeInformationBuilder {
-	r := NativeCodeInformationBuilder{
-		&NativeCodeInformation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NativeCodeInformation struct
-func (rb *NativeCodeInformationBuilder) Build() NativeCodeInformation {
-	return *rb.v
-}
-
-func (rb *NativeCodeInformationBuilder) BuildHash(buildhash string) *NativeCodeInformationBuilder {
-	rb.v.BuildHash = buildhash
-	return rb
-}
-
-func (rb *NativeCodeInformationBuilder) Version(version VersionString) *NativeCodeInformationBuilder {
-	rb.v.Version = version
-	return rb
+	return r
 }

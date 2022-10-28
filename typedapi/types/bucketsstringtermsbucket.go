@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -27,38 +27,5 @@ package types
 //	map[string]StringTermsBucket
 //	[]StringTermsBucket
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L307-L316
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L315-L324
 type BucketsStringTermsBucket interface{}
-
-// BucketsStringTermsBucketBuilder holds BucketsStringTermsBucket struct and provides a builder API.
-type BucketsStringTermsBucketBuilder struct {
-	v BucketsStringTermsBucket
-}
-
-// NewBucketsStringTermsBucket provides a builder for the BucketsStringTermsBucket struct.
-func NewBucketsStringTermsBucketBuilder() *BucketsStringTermsBucketBuilder {
-	return &BucketsStringTermsBucketBuilder{}
-}
-
-// Build finalize the chain and returns the BucketsStringTermsBucket struct
-func (u *BucketsStringTermsBucketBuilder) Build() BucketsStringTermsBucket {
-	return u.v
-}
-
-func (u *BucketsStringTermsBucketBuilder) Map(values map[string]*StringTermsBucketBuilder) *BucketsStringTermsBucketBuilder {
-	tmp := make(map[string]StringTermsBucket, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	u.v = tmp
-	return u
-}
-
-func (u *BucketsStringTermsBucketBuilder) StringTermsBuckets(stringtermsbuckets []StringTermsBucketBuilder) *BucketsStringTermsBucketBuilder {
-	tmp := make([]StringTermsBucket, len(stringtermsbuckets))
-	for _, value := range stringtermsbuckets {
-		tmp = append(tmp, value.Build())
-	}
-	u.v = tmp
-	return u
-}

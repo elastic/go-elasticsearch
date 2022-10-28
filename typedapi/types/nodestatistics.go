@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeStatistics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/Node.ts#L28-L39
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Node.ts#L28-L39
 type NodeStatistics struct {
 	// Failed Number of nodes that rejected the request or failed to respond. If this value
 	// is not 0, a reason for the rejection or failure is included in the response.
@@ -36,52 +36,9 @@ type NodeStatistics struct {
 	Total int `json:"total"`
 }
 
-// NodeStatisticsBuilder holds NodeStatistics struct and provides a builder API.
-type NodeStatisticsBuilder struct {
-	v *NodeStatistics
-}
+// NewNodeStatistics returns a NodeStatistics.
+func NewNodeStatistics() *NodeStatistics {
+	r := &NodeStatistics{}
 
-// NewNodeStatistics provides a builder for the NodeStatistics struct.
-func NewNodeStatisticsBuilder() *NodeStatisticsBuilder {
-	r := NodeStatisticsBuilder{
-		&NodeStatistics{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodeStatistics struct
-func (rb *NodeStatisticsBuilder) Build() NodeStatistics {
-	return *rb.v
-}
-
-// Failed Number of nodes that rejected the request or failed to respond. If this value
-// is not 0, a reason for the rejection or failure is included in the response.
-
-func (rb *NodeStatisticsBuilder) Failed(failed int) *NodeStatisticsBuilder {
-	rb.v.Failed = failed
-	return rb
-}
-
-func (rb *NodeStatisticsBuilder) Failures(failures []ErrorCauseBuilder) *NodeStatisticsBuilder {
-	tmp := make([]ErrorCause, len(failures))
-	for _, value := range failures {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Failures = tmp
-	return rb
-}
-
-// Successful Number of nodes that responded successfully to the request.
-
-func (rb *NodeStatisticsBuilder) Successful(successful int) *NodeStatisticsBuilder {
-	rb.v.Successful = successful
-	return rb
-}
-
-// Total Total number of nodes selected by the request.
-
-func (rb *NodeStatisticsBuilder) Total(total int) *NodeStatisticsBuilder {
-	rb.v.Total = total
-	return rb
+	return r
 }

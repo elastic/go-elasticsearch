@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // GeoHashLocation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/Geo.ts#L112-L114
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Geo.ts#L115-L117
 type GeoHashLocation struct {
-	Geohash GeoHash `json:"geohash"`
+	Geohash string `json:"geohash"`
 }
 
-// GeoHashLocationBuilder holds GeoHashLocation struct and provides a builder API.
-type GeoHashLocationBuilder struct {
-	v *GeoHashLocation
-}
+// NewGeoHashLocation returns a GeoHashLocation.
+func NewGeoHashLocation() *GeoHashLocation {
+	r := &GeoHashLocation{}
 
-// NewGeoHashLocation provides a builder for the GeoHashLocation struct.
-func NewGeoHashLocationBuilder() *GeoHashLocationBuilder {
-	r := GeoHashLocationBuilder{
-		&GeoHashLocation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the GeoHashLocation struct
-func (rb *GeoHashLocationBuilder) Build() GeoHashLocation {
-	return *rb.v
-}
-
-func (rb *GeoHashLocationBuilder) Geohash(geohash GeoHash) *GeoHashLocationBuilder {
-	rb.v.Geohash = geohash
-	return rb
+	return r
 }

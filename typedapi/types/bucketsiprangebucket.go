@@ -17,48 +17,15 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // BucketsIpRangeBucket holds the union for the following types:
 //
-//	[]IpRangeBucket
 //	map[string]IpRangeBucket
+//	[]IpRangeBucket
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L307-L316
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L315-L324
 type BucketsIpRangeBucket interface{}
-
-// BucketsIpRangeBucketBuilder holds BucketsIpRangeBucket struct and provides a builder API.
-type BucketsIpRangeBucketBuilder struct {
-	v BucketsIpRangeBucket
-}
-
-// NewBucketsIpRangeBucket provides a builder for the BucketsIpRangeBucket struct.
-func NewBucketsIpRangeBucketBuilder() *BucketsIpRangeBucketBuilder {
-	return &BucketsIpRangeBucketBuilder{}
-}
-
-// Build finalize the chain and returns the BucketsIpRangeBucket struct
-func (u *BucketsIpRangeBucketBuilder) Build() BucketsIpRangeBucket {
-	return u.v
-}
-
-func (u *BucketsIpRangeBucketBuilder) IpRangeBuckets(iprangebuckets []IpRangeBucketBuilder) *BucketsIpRangeBucketBuilder {
-	tmp := make([]IpRangeBucket, len(iprangebuckets))
-	for _, value := range iprangebuckets {
-		tmp = append(tmp, value.Build())
-	}
-	u.v = tmp
-	return u
-}
-
-func (u *BucketsIpRangeBucketBuilder) Map(values map[string]*IpRangeBucketBuilder) *BucketsIpRangeBucketBuilder {
-	tmp := make(map[string]IpRangeBucket, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	u.v = tmp
-	return u
-}

@@ -17,45 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // InfoFeatureState type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/snapshot/_types/SnapshotInfoFeatureState.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/snapshot/_types/SnapshotInfoFeatureState.ts#L22-L25
 type InfoFeatureState struct {
-	FeatureName string  `json:"feature_name"`
-	Indices     Indices `json:"indices"`
+	FeatureName string   `json:"feature_name"`
+	Indices     []string `json:"indices"`
 }
 
-// InfoFeatureStateBuilder holds InfoFeatureState struct and provides a builder API.
-type InfoFeatureStateBuilder struct {
-	v *InfoFeatureState
-}
+// NewInfoFeatureState returns a InfoFeatureState.
+func NewInfoFeatureState() *InfoFeatureState {
+	r := &InfoFeatureState{}
 
-// NewInfoFeatureState provides a builder for the InfoFeatureState struct.
-func NewInfoFeatureStateBuilder() *InfoFeatureStateBuilder {
-	r := InfoFeatureStateBuilder{
-		&InfoFeatureState{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the InfoFeatureState struct
-func (rb *InfoFeatureStateBuilder) Build() InfoFeatureState {
-	return *rb.v
-}
-
-func (rb *InfoFeatureStateBuilder) FeatureName(featurename string) *InfoFeatureStateBuilder {
-	rb.v.FeatureName = featurename
-	return rb
-}
-
-func (rb *InfoFeatureStateBuilder) Indices(indices *IndicesBuilder) *InfoFeatureStateBuilder {
-	v := indices.Build()
-	rb.v.Indices = v
-	return rb
+	return r
 }

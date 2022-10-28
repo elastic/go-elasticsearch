@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // OperatingSystemMemoryInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/cluster/stats/types.ts#L282-L290
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/stats/types.ts#L282-L290
 type OperatingSystemMemoryInfo struct {
 	AdjustedTotalInBytes *int64 `json:"adjusted_total_in_bytes,omitempty"`
 	FreeInBytes          int64  `json:"free_in_bytes"`
@@ -34,51 +34,9 @@ type OperatingSystemMemoryInfo struct {
 	UsedPercent          int    `json:"used_percent"`
 }
 
-// OperatingSystemMemoryInfoBuilder holds OperatingSystemMemoryInfo struct and provides a builder API.
-type OperatingSystemMemoryInfoBuilder struct {
-	v *OperatingSystemMemoryInfo
-}
+// NewOperatingSystemMemoryInfo returns a OperatingSystemMemoryInfo.
+func NewOperatingSystemMemoryInfo() *OperatingSystemMemoryInfo {
+	r := &OperatingSystemMemoryInfo{}
 
-// NewOperatingSystemMemoryInfo provides a builder for the OperatingSystemMemoryInfo struct.
-func NewOperatingSystemMemoryInfoBuilder() *OperatingSystemMemoryInfoBuilder {
-	r := OperatingSystemMemoryInfoBuilder{
-		&OperatingSystemMemoryInfo{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the OperatingSystemMemoryInfo struct
-func (rb *OperatingSystemMemoryInfoBuilder) Build() OperatingSystemMemoryInfo {
-	return *rb.v
-}
-
-func (rb *OperatingSystemMemoryInfoBuilder) AdjustedTotalInBytes(adjustedtotalinbytes int64) *OperatingSystemMemoryInfoBuilder {
-	rb.v.AdjustedTotalInBytes = &adjustedtotalinbytes
-	return rb
-}
-
-func (rb *OperatingSystemMemoryInfoBuilder) FreeInBytes(freeinbytes int64) *OperatingSystemMemoryInfoBuilder {
-	rb.v.FreeInBytes = freeinbytes
-	return rb
-}
-
-func (rb *OperatingSystemMemoryInfoBuilder) FreePercent(freepercent int) *OperatingSystemMemoryInfoBuilder {
-	rb.v.FreePercent = freepercent
-	return rb
-}
-
-func (rb *OperatingSystemMemoryInfoBuilder) TotalInBytes(totalinbytes int64) *OperatingSystemMemoryInfoBuilder {
-	rb.v.TotalInBytes = totalinbytes
-	return rb
-}
-
-func (rb *OperatingSystemMemoryInfoBuilder) UsedInBytes(usedinbytes int64) *OperatingSystemMemoryInfoBuilder {
-	rb.v.UsedInBytes = usedinbytes
-	return rb
-}
-
-func (rb *OperatingSystemMemoryInfoBuilder) UsedPercent(usedpercent int) *OperatingSystemMemoryInfoBuilder {
-	rb.v.UsedPercent = usedpercent
-	return rb
+	return r
 }

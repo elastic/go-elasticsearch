@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,44 +29,15 @@ package types
 //	TopRightBottomLeftGeoBounds
 //	WktGeoBounds
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/Geo.ts#L116-L129
-type GeoBounds interface{}
-
-// GeoBoundsBuilder holds GeoBounds struct and provides a builder API.
-type GeoBoundsBuilder struct {
-	v GeoBounds
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Geo.ts#L119-L132
+type GeoBounds interface {
+	isGeoBounds()
 }
 
-// NewGeoBounds provides a builder for the GeoBounds struct.
-func NewGeoBoundsBuilder() *GeoBoundsBuilder {
-	return &GeoBoundsBuilder{}
-}
+func (i CoordsGeoBounds) isGeoBounds() {}
 
-// Build finalize the chain and returns the GeoBounds struct
-func (u *GeoBoundsBuilder) Build() GeoBounds {
-	return u.v
-}
+func (i TopLeftBottomRightGeoBounds) isGeoBounds() {}
 
-func (u *GeoBoundsBuilder) CoordsGeoBounds(coordsgeobounds *CoordsGeoBoundsBuilder) *GeoBoundsBuilder {
-	v := coordsgeobounds.Build()
-	u.v = &v
-	return u
-}
+func (i TopRightBottomLeftGeoBounds) isGeoBounds() {}
 
-func (u *GeoBoundsBuilder) TopLeftBottomRightGeoBounds(topleftbottomrightgeobounds *TopLeftBottomRightGeoBoundsBuilder) *GeoBoundsBuilder {
-	v := topleftbottomrightgeobounds.Build()
-	u.v = &v
-	return u
-}
-
-func (u *GeoBoundsBuilder) TopRightBottomLeftGeoBounds(toprightbottomleftgeobounds *TopRightBottomLeftGeoBoundsBuilder) *GeoBoundsBuilder {
-	v := toprightbottomleftgeobounds.Build()
-	u.v = &v
-	return u
-}
-
-func (u *GeoBoundsBuilder) WktGeoBounds(wktgeobounds *WktGeoBoundsBuilder) *GeoBoundsBuilder {
-	v := wktgeobounds.Build()
-	u.v = &v
-	return u
-}
+func (i WktGeoBounds) isGeoBounds() {}

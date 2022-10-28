@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package samlauthenticate
@@ -25,43 +25,32 @@ package samlauthenticate
 import (
 	"encoding/json"
 	"fmt"
-
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // Request holds the request body struct for the package samlauthenticate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/security/saml_authenticate/Request.ts#L23-L38
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/saml_authenticate/Request.ts#L23-L38
 type Request struct {
 
 	// Content The SAML response as it was sent by the user’s browser, usually a Base64
 	// encoded XML document.
 	Content string `json:"content"`
-
 	// Ids A json array with all the valid SAML Request Ids that the caller of the API
 	// has for the current user.
-	Ids types.Ids `json:"ids"`
-
+	Ids []string `json:"ids"`
 	// Realm The name of the realm that should authenticate the SAML response. Useful in
 	// cases where many SAML realms are defined.
 	Realm *string `json:"realm,omitempty"`
 }
 
-// RequestBuilder is the builder API for the samlauthenticate.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -70,25 +59,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) Content(content string) *RequestBuilder {
-	rb.v.Content = content
-	return rb
-}
-
-func (rb *RequestBuilder) Ids(ids *types.IdsBuilder) *RequestBuilder {
-	v := ids.Build()
-	rb.v.Ids = v
-	return rb
-}
-
-func (rb *RequestBuilder) Realm(realm string) *RequestBuilder {
-	rb.v.Realm = &realm
-	return rb
 }

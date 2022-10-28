@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RecoveryFiles type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/recovery/types.ts#L56-L62
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/recovery/types.ts#L56-L62
 type RecoveryFiles struct {
 	Details   []FileDetails `json:"details,omitempty"`
 	Percent   Percentage    `json:"percent"`
@@ -33,51 +33,9 @@ type RecoveryFiles struct {
 	Total     int64         `json:"total"`
 }
 
-// RecoveryFilesBuilder holds RecoveryFiles struct and provides a builder API.
-type RecoveryFilesBuilder struct {
-	v *RecoveryFiles
-}
+// NewRecoveryFiles returns a RecoveryFiles.
+func NewRecoveryFiles() *RecoveryFiles {
+	r := &RecoveryFiles{}
 
-// NewRecoveryFiles provides a builder for the RecoveryFiles struct.
-func NewRecoveryFilesBuilder() *RecoveryFilesBuilder {
-	r := RecoveryFilesBuilder{
-		&RecoveryFiles{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RecoveryFiles struct
-func (rb *RecoveryFilesBuilder) Build() RecoveryFiles {
-	return *rb.v
-}
-
-func (rb *RecoveryFilesBuilder) Details(details []FileDetailsBuilder) *RecoveryFilesBuilder {
-	tmp := make([]FileDetails, len(details))
-	for _, value := range details {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Details = tmp
-	return rb
-}
-
-func (rb *RecoveryFilesBuilder) Percent(percent *PercentageBuilder) *RecoveryFilesBuilder {
-	v := percent.Build()
-	rb.v.Percent = v
-	return rb
-}
-
-func (rb *RecoveryFilesBuilder) Recovered(recovered int64) *RecoveryFilesBuilder {
-	rb.v.Recovered = recovered
-	return rb
-}
-
-func (rb *RecoveryFilesBuilder) Reused(reused int64) *RecoveryFilesBuilder {
-	rb.v.Reused = reused
-	return rb
-}
-
-func (rb *RecoveryFilesBuilder) Total(total int64) *RecoveryFilesBuilder {
-	rb.v.Total = total
-	return rb
+	return r
 }

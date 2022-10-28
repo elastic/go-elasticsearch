@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FieldStatistics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_global/termvectors/types.ts#L28-L32
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/termvectors/types.ts#L28-L32
 type FieldStatistics struct {
 	DocCount   int   `json:"doc_count"`
 	SumDocFreq int64 `json:"sum_doc_freq"`
 	SumTtf     int64 `json:"sum_ttf"`
 }
 
-// FieldStatisticsBuilder holds FieldStatistics struct and provides a builder API.
-type FieldStatisticsBuilder struct {
-	v *FieldStatistics
-}
+// NewFieldStatistics returns a FieldStatistics.
+func NewFieldStatistics() *FieldStatistics {
+	r := &FieldStatistics{}
 
-// NewFieldStatistics provides a builder for the FieldStatistics struct.
-func NewFieldStatisticsBuilder() *FieldStatisticsBuilder {
-	r := FieldStatisticsBuilder{
-		&FieldStatistics{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FieldStatistics struct
-func (rb *FieldStatisticsBuilder) Build() FieldStatistics {
-	return *rb.v
-}
-
-func (rb *FieldStatisticsBuilder) DocCount(doccount int) *FieldStatisticsBuilder {
-	rb.v.DocCount = doccount
-	return rb
-}
-
-func (rb *FieldStatisticsBuilder) SumDocFreq(sumdocfreq int64) *FieldStatisticsBuilder {
-	rb.v.SumDocFreq = sumdocfreq
-	return rb
-}
-
-func (rb *FieldStatisticsBuilder) SumTtf(sumttf int64) *FieldStatisticsBuilder {
-	rb.v.SumTtf = sumttf
-	return rb
+	return r
 }

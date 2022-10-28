@@ -17,17 +17,17 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RankEvalRequestItem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_global/rank_eval/types.ts#L98-L109
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/rank_eval/types.ts#L98-L109
 type RankEvalRequestItem struct {
 	// Id The search request’s ID, used to group result details later.
-	Id Id `json:"id"`
+	Id string `json:"id"`
 	// Params The search template parameters.
 	Params map[string]interface{} `json:"params,omitempty"`
 	// Ratings List of document ratings
@@ -35,66 +35,14 @@ type RankEvalRequestItem struct {
 	// Request The query being evaluated.
 	Request *RankEvalQuery `json:"request,omitempty"`
 	// TemplateId The search template Id
-	TemplateId *Id `json:"template_id,omitempty"`
+	TemplateId *string `json:"template_id,omitempty"`
 }
 
-// RankEvalRequestItemBuilder holds RankEvalRequestItem struct and provides a builder API.
-type RankEvalRequestItemBuilder struct {
-	v *RankEvalRequestItem
-}
-
-// NewRankEvalRequestItem provides a builder for the RankEvalRequestItem struct.
-func NewRankEvalRequestItemBuilder() *RankEvalRequestItemBuilder {
-	r := RankEvalRequestItemBuilder{
-		&RankEvalRequestItem{
-			Params: make(map[string]interface{}, 0),
-		},
+// NewRankEvalRequestItem returns a RankEvalRequestItem.
+func NewRankEvalRequestItem() *RankEvalRequestItem {
+	r := &RankEvalRequestItem{
+		Params: make(map[string]interface{}, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the RankEvalRequestItem struct
-func (rb *RankEvalRequestItemBuilder) Build() RankEvalRequestItem {
-	return *rb.v
-}
-
-// Id The search request’s ID, used to group result details later.
-
-func (rb *RankEvalRequestItemBuilder) Id(id Id) *RankEvalRequestItemBuilder {
-	rb.v.Id = id
-	return rb
-}
-
-// Params The search template parameters.
-
-func (rb *RankEvalRequestItemBuilder) Params(value map[string]interface{}) *RankEvalRequestItemBuilder {
-	rb.v.Params = value
-	return rb
-}
-
-// Ratings List of document ratings
-
-func (rb *RankEvalRequestItemBuilder) Ratings(ratings []DocumentRatingBuilder) *RankEvalRequestItemBuilder {
-	tmp := make([]DocumentRating, len(ratings))
-	for _, value := range ratings {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Ratings = tmp
-	return rb
-}
-
-// Request The query being evaluated.
-
-func (rb *RankEvalRequestItemBuilder) Request(request *RankEvalQueryBuilder) *RankEvalRequestItemBuilder {
-	v := request.Build()
-	rb.v.Request = &v
-	return rb
-}
-
-// TemplateId The search template Id
-
-func (rb *RankEvalRequestItemBuilder) TemplateId(templateid Id) *RankEvalRequestItemBuilder {
-	rb.v.TemplateId = &templateid
-	return rb
+	return r
 }

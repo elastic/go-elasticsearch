@@ -17,63 +17,30 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MovingAverageAggregation holds the union for the following types:
 //
+//	LinearMovingAverageAggregation
+//	SimpleMovingAverageAggregation
 //	EwmaMovingAverageAggregation
 //	HoltMovingAverageAggregation
 //	HoltWintersMovingAverageAggregation
-//	LinearMovingAverageAggregation
-//	SimpleMovingAverageAggregation
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/pipeline.ts#L188-L194
-type MovingAverageAggregation interface{}
-
-// MovingAverageAggregationBuilder holds MovingAverageAggregation struct and provides a builder API.
-type MovingAverageAggregationBuilder struct {
-	v MovingAverageAggregation
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/pipeline.ts#L188-L194
+type MovingAverageAggregation interface {
+	isMovingAverageAggregation()
 }
 
-// NewMovingAverageAggregation provides a builder for the MovingAverageAggregation struct.
-func NewMovingAverageAggregationBuilder() *MovingAverageAggregationBuilder {
-	return &MovingAverageAggregationBuilder{}
-}
+func (i LinearMovingAverageAggregation) isMovingAverageAggregation() {}
 
-// Build finalize the chain and returns the MovingAverageAggregation struct
-func (u *MovingAverageAggregationBuilder) Build() MovingAverageAggregation {
-	return u.v
-}
+func (i SimpleMovingAverageAggregation) isMovingAverageAggregation() {}
 
-func (u *MovingAverageAggregationBuilder) EwmaMovingAverageAggregation(ewmamovingaverageaggregation *EwmaMovingAverageAggregationBuilder) *MovingAverageAggregationBuilder {
-	v := ewmamovingaverageaggregation.Build()
-	u.v = &v
-	return u
-}
+func (i EwmaMovingAverageAggregation) isMovingAverageAggregation() {}
 
-func (u *MovingAverageAggregationBuilder) HoltMovingAverageAggregation(holtmovingaverageaggregation *HoltMovingAverageAggregationBuilder) *MovingAverageAggregationBuilder {
-	v := holtmovingaverageaggregation.Build()
-	u.v = &v
-	return u
-}
+func (i HoltMovingAverageAggregation) isMovingAverageAggregation() {}
 
-func (u *MovingAverageAggregationBuilder) HoltWintersMovingAverageAggregation(holtwintersmovingaverageaggregation *HoltWintersMovingAverageAggregationBuilder) *MovingAverageAggregationBuilder {
-	v := holtwintersmovingaverageaggregation.Build()
-	u.v = &v
-	return u
-}
-
-func (u *MovingAverageAggregationBuilder) LinearMovingAverageAggregation(linearmovingaverageaggregation *LinearMovingAverageAggregationBuilder) *MovingAverageAggregationBuilder {
-	v := linearmovingaverageaggregation.Build()
-	u.v = &v
-	return u
-}
-
-func (u *MovingAverageAggregationBuilder) SimpleMovingAverageAggregation(simplemovingaverageaggregation *SimpleMovingAverageAggregationBuilder) *MovingAverageAggregationBuilder {
-	v := simplemovingaverageaggregation.Build()
-	u.v = &v
-	return u
-}
+func (i HoltWintersMovingAverageAggregation) isMovingAverageAggregation() {}

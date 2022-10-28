@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,86 +28,28 @@ import (
 
 // ConstantKeywordProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/mapping/specialized.ts#L44-L47
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/specialized.ts#L44-L47
 type ConstantKeywordProperty struct {
 	Dynamic       *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
-	Fields        map[PropertyName]Property      `json:"fields,omitempty"`
+	Fields        map[string]Property            `json:"fields,omitempty"`
 	IgnoreAbove   *int                           `json:"ignore_above,omitempty"`
-	LocalMetadata *Metadata                      `json:"local_metadata,omitempty"`
+	LocalMetadata map[string]interface{}         `json:"local_metadata,omitempty"`
 	// Meta Metadata about the field.
-	Meta       map[string]string         `json:"meta,omitempty"`
-	Properties map[PropertyName]Property `json:"properties,omitempty"`
-	Type       string                    `json:"type,omitempty"`
-	Value      interface{}               `json:"value,omitempty"`
+	Meta       map[string]string   `json:"meta,omitempty"`
+	Properties map[string]Property `json:"properties,omitempty"`
+	Type       string              `json:"type,omitempty"`
+	Value      interface{}         `json:"value,omitempty"`
 }
 
-// ConstantKeywordPropertyBuilder holds ConstantKeywordProperty struct and provides a builder API.
-type ConstantKeywordPropertyBuilder struct {
-	v *ConstantKeywordProperty
-}
-
-// NewConstantKeywordProperty provides a builder for the ConstantKeywordProperty struct.
-func NewConstantKeywordPropertyBuilder() *ConstantKeywordPropertyBuilder {
-	r := ConstantKeywordPropertyBuilder{
-		&ConstantKeywordProperty{
-			Fields:     make(map[PropertyName]Property, 0),
-			Meta:       make(map[string]string, 0),
-			Properties: make(map[PropertyName]Property, 0),
-		},
+// NewConstantKeywordProperty returns a ConstantKeywordProperty.
+func NewConstantKeywordProperty() *ConstantKeywordProperty {
+	r := &ConstantKeywordProperty{
+		Fields:     make(map[string]Property, 0),
+		Meta:       make(map[string]string, 0),
+		Properties: make(map[string]Property, 0),
 	}
 
-	r.v.Type = "constant_keyword"
+	r.Type = "constant_keyword"
 
-	return &r
-}
-
-// Build finalize the chain and returns the ConstantKeywordProperty struct
-func (rb *ConstantKeywordPropertyBuilder) Build() ConstantKeywordProperty {
-	return *rb.v
-}
-
-func (rb *ConstantKeywordPropertyBuilder) Dynamic(dynamic dynamicmapping.DynamicMapping) *ConstantKeywordPropertyBuilder {
-	rb.v.Dynamic = &dynamic
-	return rb
-}
-
-func (rb *ConstantKeywordPropertyBuilder) Fields(values map[PropertyName]*PropertyBuilder) *ConstantKeywordPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Fields = tmp
-	return rb
-}
-
-func (rb *ConstantKeywordPropertyBuilder) IgnoreAbove(ignoreabove int) *ConstantKeywordPropertyBuilder {
-	rb.v.IgnoreAbove = &ignoreabove
-	return rb
-}
-
-func (rb *ConstantKeywordPropertyBuilder) LocalMetadata(localmetadata *MetadataBuilder) *ConstantKeywordPropertyBuilder {
-	v := localmetadata.Build()
-	rb.v.LocalMetadata = &v
-	return rb
-}
-
-// Meta Metadata about the field.
-
-func (rb *ConstantKeywordPropertyBuilder) Meta(value map[string]string) *ConstantKeywordPropertyBuilder {
-	rb.v.Meta = value
-	return rb
-}
-
-func (rb *ConstantKeywordPropertyBuilder) Properties(values map[PropertyName]*PropertyBuilder) *ConstantKeywordPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Properties = tmp
-	return rb
-}
-
-func (rb *ConstantKeywordPropertyBuilder) Value(value interface{}) *ConstantKeywordPropertyBuilder {
-	rb.v.Value = value
-	return rb
+	return r
 }

@@ -17,95 +17,35 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Memory type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/get_memory_stats/types.ts#L25-L48
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/get_memory_stats/types.ts#L25-L48
 type Memory struct {
 	Attributes  map[string]string `json:"attributes"`
-	EphemeralId Id                `json:"ephemeral_id"`
+	EphemeralId string            `json:"ephemeral_id"`
 	// Jvm Contains Java Virtual Machine (JVM) statistics for the node.
 	Jvm JvmStats `json:"jvm"`
 	// Mem Contains statistics about memory usage for the node.
 	Mem MemStats `json:"mem"`
 	// Name Human-readable identifier for the node. Based on the Node name setting
 	// setting.
-	Name Name `json:"name"`
+	Name string `json:"name"`
 	// Roles Roles assigned to the node.
 	Roles []string `json:"roles"`
 	// TransportAddress The host and port where transport HTTP connections are accepted.
-	TransportAddress TransportAddress `json:"transport_address"`
+	TransportAddress string `json:"transport_address"`
 }
 
-// MemoryBuilder holds Memory struct and provides a builder API.
-type MemoryBuilder struct {
-	v *Memory
-}
-
-// NewMemory provides a builder for the Memory struct.
-func NewMemoryBuilder() *MemoryBuilder {
-	r := MemoryBuilder{
-		&Memory{
-			Attributes: make(map[string]string, 0),
-		},
+// NewMemory returns a Memory.
+func NewMemory() *Memory {
+	r := &Memory{
+		Attributes: make(map[string]string, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the Memory struct
-func (rb *MemoryBuilder) Build() Memory {
-	return *rb.v
-}
-
-func (rb *MemoryBuilder) Attributes(value map[string]string) *MemoryBuilder {
-	rb.v.Attributes = value
-	return rb
-}
-
-func (rb *MemoryBuilder) EphemeralId(ephemeralid Id) *MemoryBuilder {
-	rb.v.EphemeralId = ephemeralid
-	return rb
-}
-
-// Jvm Contains Java Virtual Machine (JVM) statistics for the node.
-
-func (rb *MemoryBuilder) Jvm(jvm *JvmStatsBuilder) *MemoryBuilder {
-	v := jvm.Build()
-	rb.v.Jvm = v
-	return rb
-}
-
-// Mem Contains statistics about memory usage for the node.
-
-func (rb *MemoryBuilder) Mem(mem *MemStatsBuilder) *MemoryBuilder {
-	v := mem.Build()
-	rb.v.Mem = v
-	return rb
-}
-
-// Name Human-readable identifier for the node. Based on the Node name setting
-// setting.
-
-func (rb *MemoryBuilder) Name(name Name) *MemoryBuilder {
-	rb.v.Name = name
-	return rb
-}
-
-// Roles Roles assigned to the node.
-
-func (rb *MemoryBuilder) Roles(roles ...string) *MemoryBuilder {
-	rb.v.Roles = roles
-	return rb
-}
-
-// TransportAddress The host and port where transport HTTP connections are accepted.
-
-func (rb *MemoryBuilder) TransportAddress(transportaddress TransportAddress) *MemoryBuilder {
-	rb.v.TransportAddress = transportaddress
-	return rb
+	return r
 }

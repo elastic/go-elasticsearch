@@ -17,50 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CloseIndexResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/close/CloseIndexResponse.ts#L32-L35
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/close/CloseIndexResponse.ts#L32-L35
 type CloseIndexResult struct {
 	Closed bool                        `json:"closed"`
 	Shards map[string]CloseShardResult `json:"shards,omitempty"`
 }
 
-// CloseIndexResultBuilder holds CloseIndexResult struct and provides a builder API.
-type CloseIndexResultBuilder struct {
-	v *CloseIndexResult
-}
-
-// NewCloseIndexResult provides a builder for the CloseIndexResult struct.
-func NewCloseIndexResultBuilder() *CloseIndexResultBuilder {
-	r := CloseIndexResultBuilder{
-		&CloseIndexResult{
-			Shards: make(map[string]CloseShardResult, 0),
-		},
+// NewCloseIndexResult returns a CloseIndexResult.
+func NewCloseIndexResult() *CloseIndexResult {
+	r := &CloseIndexResult{
+		Shards: make(map[string]CloseShardResult, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the CloseIndexResult struct
-func (rb *CloseIndexResultBuilder) Build() CloseIndexResult {
-	return *rb.v
-}
-
-func (rb *CloseIndexResultBuilder) Closed(closed bool) *CloseIndexResultBuilder {
-	rb.v.Closed = closed
-	return rb
-}
-
-func (rb *CloseIndexResultBuilder) Shards(values map[string]*CloseShardResultBuilder) *CloseIndexResultBuilder {
-	tmp := make(map[string]CloseShardResult, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Shards = tmp
-	return rb
+	return r
 }

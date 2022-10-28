@@ -17,64 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // QueryWatch type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/watcher/_types/Watch.ts#L58-L64
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Watch.ts#L58-L64
 type QueryWatch struct {
-	Id_          Id              `json:"_id"`
-	PrimaryTerm_ *int            `json:"_primary_term,omitempty"`
-	SeqNo_       *SequenceNumber `json:"_seq_no,omitempty"`
-	Status       *WatchStatus    `json:"status,omitempty"`
-	Watch        *Watch          `json:"watch,omitempty"`
+	Id_          string       `json:"_id"`
+	PrimaryTerm_ *int         `json:"_primary_term,omitempty"`
+	SeqNo_       *int64       `json:"_seq_no,omitempty"`
+	Status       *WatchStatus `json:"status,omitempty"`
+	Watch        *Watch       `json:"watch,omitempty"`
 }
 
-// QueryWatchBuilder holds QueryWatch struct and provides a builder API.
-type QueryWatchBuilder struct {
-	v *QueryWatch
-}
+// NewQueryWatch returns a QueryWatch.
+func NewQueryWatch() *QueryWatch {
+	r := &QueryWatch{}
 
-// NewQueryWatch provides a builder for the QueryWatch struct.
-func NewQueryWatchBuilder() *QueryWatchBuilder {
-	r := QueryWatchBuilder{
-		&QueryWatch{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the QueryWatch struct
-func (rb *QueryWatchBuilder) Build() QueryWatch {
-	return *rb.v
-}
-
-func (rb *QueryWatchBuilder) Id_(id_ Id) *QueryWatchBuilder {
-	rb.v.Id_ = id_
-	return rb
-}
-
-func (rb *QueryWatchBuilder) PrimaryTerm_(primaryterm_ int) *QueryWatchBuilder {
-	rb.v.PrimaryTerm_ = &primaryterm_
-	return rb
-}
-
-func (rb *QueryWatchBuilder) SeqNo_(seqno_ SequenceNumber) *QueryWatchBuilder {
-	rb.v.SeqNo_ = &seqno_
-	return rb
-}
-
-func (rb *QueryWatchBuilder) Status(status *WatchStatusBuilder) *QueryWatchBuilder {
-	v := status.Build()
-	rb.v.Status = &v
-	return rb
-}
-
-func (rb *QueryWatchBuilder) Watch(watch *WatchBuilder) *QueryWatchBuilder {
-	v := watch.Build()
-	rb.v.Watch = &v
-	return rb
+	return r
 }

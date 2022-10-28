@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TransformProgress type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/transform/get_transform_stats/types.ts#L40-L46
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/transform/get_transform_stats/types.ts#L40-L46
 type TransformProgress struct {
 	DocsIndexed     int64   `json:"docs_indexed"`
 	DocsProcessed   int64   `json:"docs_processed"`
@@ -33,46 +33,9 @@ type TransformProgress struct {
 	TotalDocs       int64   `json:"total_docs"`
 }
 
-// TransformProgressBuilder holds TransformProgress struct and provides a builder API.
-type TransformProgressBuilder struct {
-	v *TransformProgress
-}
+// NewTransformProgress returns a TransformProgress.
+func NewTransformProgress() *TransformProgress {
+	r := &TransformProgress{}
 
-// NewTransformProgress provides a builder for the TransformProgress struct.
-func NewTransformProgressBuilder() *TransformProgressBuilder {
-	r := TransformProgressBuilder{
-		&TransformProgress{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TransformProgress struct
-func (rb *TransformProgressBuilder) Build() TransformProgress {
-	return *rb.v
-}
-
-func (rb *TransformProgressBuilder) DocsIndexed(docsindexed int64) *TransformProgressBuilder {
-	rb.v.DocsIndexed = docsindexed
-	return rb
-}
-
-func (rb *TransformProgressBuilder) DocsProcessed(docsprocessed int64) *TransformProgressBuilder {
-	rb.v.DocsProcessed = docsprocessed
-	return rb
-}
-
-func (rb *TransformProgressBuilder) DocsRemaining(docsremaining int64) *TransformProgressBuilder {
-	rb.v.DocsRemaining = docsremaining
-	return rb
-}
-
-func (rb *TransformProgressBuilder) PercentComplete(percentcomplete float64) *TransformProgressBuilder {
-	rb.v.PercentComplete = percentcomplete
-	return rb
-}
-
-func (rb *TransformProgressBuilder) TotalDocs(totaldocs int64) *TransformProgressBuilder {
-	rb.v.TotalDocs = totaldocs
-	return rb
+	return r
 }

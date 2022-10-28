@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package puttrainedmodel
@@ -32,59 +32,44 @@ import (
 
 // Request holds the request body struct for the package puttrainedmodel
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/put_trained_model/MlPutTrainedModelRequest.ts#L28-L94
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/put_trained_model/MlPutTrainedModelRequest.ts#L28-L94
 type Request struct {
 
 	// CompressedDefinition The compressed (GZipped and Base64 encoded) inference definition of the
 	// model. If compressed_definition is specified, then definition cannot be
 	// specified.
 	CompressedDefinition *string `json:"compressed_definition,omitempty"`
-
 	// Definition The inference definition for the model. If definition is specified, then
 	// compressed_definition cannot be specified.
 	Definition *types.Definition `json:"definition,omitempty"`
-
 	// Description A human-readable description of the inference trained model.
 	Description *string `json:"description,omitempty"`
-
 	// InferenceConfig The default configuration for inference. This can be either a regression
 	// or classification configuration. It must match the underlying
 	// definition.trained_model's target_type.
 	InferenceConfig types.InferenceConfigCreateContainer `json:"inference_config"`
-
 	// Input The input field names for the model definition.
 	Input types.Input `json:"input"`
-
 	// Metadata An object map that contains metadata about the model.
 	Metadata interface{} `json:"metadata,omitempty"`
-
 	// ModelSizeBytes The estimated memory usage in bytes to keep the trained model in memory.
 	// This property is supported only if defer_definition_decompression is true
 	// or the model definition is not supplied.
 	ModelSizeBytes *int64 `json:"model_size_bytes,omitempty"`
-
 	// ModelType The model type.
 	ModelType *trainedmodeltype.TrainedModelType `json:"model_type,omitempty"`
-
 	// Tags An array of tags to organize the model.
 	Tags []string `json:"tags,omitempty"`
 }
 
-// RequestBuilder is the builder API for the puttrainedmodel.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -93,57 +78,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) CompressedDefinition(compresseddefinition string) *RequestBuilder {
-	rb.v.CompressedDefinition = &compresseddefinition
-	return rb
-}
-
-func (rb *RequestBuilder) Definition(definition *types.DefinitionBuilder) *RequestBuilder {
-	v := definition.Build()
-	rb.v.Definition = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Description(description string) *RequestBuilder {
-	rb.v.Description = &description
-	return rb
-}
-
-func (rb *RequestBuilder) InferenceConfig(inferenceconfig *types.InferenceConfigCreateContainerBuilder) *RequestBuilder {
-	v := inferenceconfig.Build()
-	rb.v.InferenceConfig = v
-	return rb
-}
-
-func (rb *RequestBuilder) Input(input *types.InputBuilder) *RequestBuilder {
-	v := input.Build()
-	rb.v.Input = v
-	return rb
-}
-
-func (rb *RequestBuilder) Metadata(metadata interface{}) *RequestBuilder {
-	rb.v.Metadata = metadata
-	return rb
-}
-
-func (rb *RequestBuilder) ModelSizeBytes(modelsizebytes int64) *RequestBuilder {
-	rb.v.ModelSizeBytes = &modelsizebytes
-	return rb
-}
-
-func (rb *RequestBuilder) ModelType(modeltype trainedmodeltype.TrainedModelType) *RequestBuilder {
-	rb.v.ModelType = &modeltype
-	return rb
-}
-
-func (rb *RequestBuilder) Tags(tags ...string) *RequestBuilder {
-	rb.v.Tags = tags
-	return rb
 }

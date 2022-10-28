@@ -17,58 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MissingAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/bucket.ts#L260-L263
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/bucket.ts#L260-L263
 type MissingAggregation struct {
-	Field   *Field    `json:"field,omitempty"`
-	Meta    *Metadata `json:"meta,omitempty"`
-	Missing *Missing  `json:"missing,omitempty"`
-	Name    *string   `json:"name,omitempty"`
+	Field   *string                `json:"field,omitempty"`
+	Meta    map[string]interface{} `json:"meta,omitempty"`
+	Missing *Missing               `json:"missing,omitempty"`
+	Name    *string                `json:"name,omitempty"`
 }
 
-// MissingAggregationBuilder holds MissingAggregation struct and provides a builder API.
-type MissingAggregationBuilder struct {
-	v *MissingAggregation
-}
+// NewMissingAggregation returns a MissingAggregation.
+func NewMissingAggregation() *MissingAggregation {
+	r := &MissingAggregation{}
 
-// NewMissingAggregation provides a builder for the MissingAggregation struct.
-func NewMissingAggregationBuilder() *MissingAggregationBuilder {
-	r := MissingAggregationBuilder{
-		&MissingAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MissingAggregation struct
-func (rb *MissingAggregationBuilder) Build() MissingAggregation {
-	return *rb.v
-}
-
-func (rb *MissingAggregationBuilder) Field(field Field) *MissingAggregationBuilder {
-	rb.v.Field = &field
-	return rb
-}
-
-func (rb *MissingAggregationBuilder) Meta(meta *MetadataBuilder) *MissingAggregationBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *MissingAggregationBuilder) Missing(missing *MissingBuilder) *MissingAggregationBuilder {
-	v := missing.Build()
-	rb.v.Missing = &v
-	return rb
-}
-
-func (rb *MissingAggregationBuilder) Name(name string) *MissingAggregationBuilder {
-	rb.v.Name = &name
-	return rb
+	return r
 }

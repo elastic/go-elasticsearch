@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ClusterShardMetrics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/cluster/stats/types.ts#L270-L274
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/stats/types.ts#L270-L274
 type ClusterShardMetrics struct {
 	Avg float64 `json:"avg"`
 	Max float64 `json:"max"`
 	Min float64 `json:"min"`
 }
 
-// ClusterShardMetricsBuilder holds ClusterShardMetrics struct and provides a builder API.
-type ClusterShardMetricsBuilder struct {
-	v *ClusterShardMetrics
-}
+// NewClusterShardMetrics returns a ClusterShardMetrics.
+func NewClusterShardMetrics() *ClusterShardMetrics {
+	r := &ClusterShardMetrics{}
 
-// NewClusterShardMetrics provides a builder for the ClusterShardMetrics struct.
-func NewClusterShardMetricsBuilder() *ClusterShardMetricsBuilder {
-	r := ClusterShardMetricsBuilder{
-		&ClusterShardMetrics{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ClusterShardMetrics struct
-func (rb *ClusterShardMetricsBuilder) Build() ClusterShardMetrics {
-	return *rb.v
-}
-
-func (rb *ClusterShardMetricsBuilder) Avg(avg float64) *ClusterShardMetricsBuilder {
-	rb.v.Avg = avg
-	return rb
-}
-
-func (rb *ClusterShardMetricsBuilder) Max(max float64) *ClusterShardMetricsBuilder {
-	rb.v.Max = max
-	return rb
-}
-
-func (rb *ClusterShardMetricsBuilder) Min(min float64) *ClusterShardMetricsBuilder {
-	rb.v.Min = min
-	return rb
+	return r
 }

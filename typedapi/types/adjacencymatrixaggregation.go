@@ -17,57 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AdjacencyMatrixAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/bucket.ts#L48-L50
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/bucket.ts#L48-L50
 type AdjacencyMatrixAggregation struct {
-	Filters map[string]QueryContainer `json:"filters,omitempty"`
-	Meta    *Metadata                 `json:"meta,omitempty"`
-	Name    *string                   `json:"name,omitempty"`
+	Filters map[string]Query       `json:"filters,omitempty"`
+	Meta    map[string]interface{} `json:"meta,omitempty"`
+	Name    *string                `json:"name,omitempty"`
 }
 
-// AdjacencyMatrixAggregationBuilder holds AdjacencyMatrixAggregation struct and provides a builder API.
-type AdjacencyMatrixAggregationBuilder struct {
-	v *AdjacencyMatrixAggregation
-}
-
-// NewAdjacencyMatrixAggregation provides a builder for the AdjacencyMatrixAggregation struct.
-func NewAdjacencyMatrixAggregationBuilder() *AdjacencyMatrixAggregationBuilder {
-	r := AdjacencyMatrixAggregationBuilder{
-		&AdjacencyMatrixAggregation{
-			Filters: make(map[string]QueryContainer, 0),
-		},
+// NewAdjacencyMatrixAggregation returns a AdjacencyMatrixAggregation.
+func NewAdjacencyMatrixAggregation() *AdjacencyMatrixAggregation {
+	r := &AdjacencyMatrixAggregation{
+		Filters: make(map[string]Query, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the AdjacencyMatrixAggregation struct
-func (rb *AdjacencyMatrixAggregationBuilder) Build() AdjacencyMatrixAggregation {
-	return *rb.v
-}
-
-func (rb *AdjacencyMatrixAggregationBuilder) Filters(values map[string]*QueryContainerBuilder) *AdjacencyMatrixAggregationBuilder {
-	tmp := make(map[string]QueryContainer, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Filters = tmp
-	return rb
-}
-
-func (rb *AdjacencyMatrixAggregationBuilder) Meta(meta *MetadataBuilder) *AdjacencyMatrixAggregationBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *AdjacencyMatrixAggregationBuilder) Name(name string) *AdjacencyMatrixAggregationBuilder {
-	rb.v.Name = &name
-	return rb
+	return r
 }

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SegmentsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/cat/segments/types.ts#L22-L96
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cat/segments/types.ts#L22-L96
 type SegmentsRecord struct {
 	// Committed is segment committed
 	Committed *string `json:"committed,omitempty"`
@@ -37,9 +37,9 @@ type SegmentsRecord struct {
 	// Generation segment generation
 	Generation *string `json:"generation,omitempty"`
 	// Id unique id of node where it lives
-	Id *NodeId `json:"id,omitempty"`
+	Id *string `json:"id,omitempty"`
 	// Index index name
-	Index *IndexName `json:"index,omitempty"`
+	Index *string `json:"index,omitempty"`
 	// Ip ip of node where it lives
 	Ip *string `json:"ip,omitempty"`
 	// Prirep primary or replica
@@ -55,131 +55,12 @@ type SegmentsRecord struct {
 	// SizeMemory segment memory in bytes
 	SizeMemory *ByteSize `json:"size.memory,omitempty"`
 	// Version version
-	Version *VersionString `json:"version,omitempty"`
+	Version *string `json:"version,omitempty"`
 }
 
-// SegmentsRecordBuilder holds SegmentsRecord struct and provides a builder API.
-type SegmentsRecordBuilder struct {
-	v *SegmentsRecord
-}
+// NewSegmentsRecord returns a SegmentsRecord.
+func NewSegmentsRecord() *SegmentsRecord {
+	r := &SegmentsRecord{}
 
-// NewSegmentsRecord provides a builder for the SegmentsRecord struct.
-func NewSegmentsRecordBuilder() *SegmentsRecordBuilder {
-	r := SegmentsRecordBuilder{
-		&SegmentsRecord{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SegmentsRecord struct
-func (rb *SegmentsRecordBuilder) Build() SegmentsRecord {
-	return *rb.v
-}
-
-// Committed is segment committed
-
-func (rb *SegmentsRecordBuilder) Committed(committed string) *SegmentsRecordBuilder {
-	rb.v.Committed = &committed
-	return rb
-}
-
-// Compound is segment compound
-
-func (rb *SegmentsRecordBuilder) Compound(compound string) *SegmentsRecordBuilder {
-	rb.v.Compound = &compound
-	return rb
-}
-
-// DocsCount number of docs in segment
-
-func (rb *SegmentsRecordBuilder) DocsCount(docscount string) *SegmentsRecordBuilder {
-	rb.v.DocsCount = &docscount
-	return rb
-}
-
-// DocsDeleted number of deleted docs in segment
-
-func (rb *SegmentsRecordBuilder) DocsDeleted(docsdeleted string) *SegmentsRecordBuilder {
-	rb.v.DocsDeleted = &docsdeleted
-	return rb
-}
-
-// Generation segment generation
-
-func (rb *SegmentsRecordBuilder) Generation(generation string) *SegmentsRecordBuilder {
-	rb.v.Generation = &generation
-	return rb
-}
-
-// Id unique id of node where it lives
-
-func (rb *SegmentsRecordBuilder) Id(id NodeId) *SegmentsRecordBuilder {
-	rb.v.Id = &id
-	return rb
-}
-
-// Index index name
-
-func (rb *SegmentsRecordBuilder) Index(index IndexName) *SegmentsRecordBuilder {
-	rb.v.Index = &index
-	return rb
-}
-
-// Ip ip of node where it lives
-
-func (rb *SegmentsRecordBuilder) Ip(ip string) *SegmentsRecordBuilder {
-	rb.v.Ip = &ip
-	return rb
-}
-
-// Prirep primary or replica
-
-func (rb *SegmentsRecordBuilder) Prirep(prirep string) *SegmentsRecordBuilder {
-	rb.v.Prirep = &prirep
-	return rb
-}
-
-// Searchable is segment searched
-
-func (rb *SegmentsRecordBuilder) Searchable(searchable string) *SegmentsRecordBuilder {
-	rb.v.Searchable = &searchable
-	return rb
-}
-
-// Segment segment name
-
-func (rb *SegmentsRecordBuilder) Segment(segment string) *SegmentsRecordBuilder {
-	rb.v.Segment = &segment
-	return rb
-}
-
-// Shard shard name
-
-func (rb *SegmentsRecordBuilder) Shard(shard string) *SegmentsRecordBuilder {
-	rb.v.Shard = &shard
-	return rb
-}
-
-// Size segment size in bytes
-
-func (rb *SegmentsRecordBuilder) Size(size *ByteSizeBuilder) *SegmentsRecordBuilder {
-	v := size.Build()
-	rb.v.Size = &v
-	return rb
-}
-
-// SizeMemory segment memory in bytes
-
-func (rb *SegmentsRecordBuilder) SizeMemory(sizememory *ByteSizeBuilder) *SegmentsRecordBuilder {
-	v := sizememory.Build()
-	rb.v.SizeMemory = &v
-	return rb
-}
-
-// Version version
-
-func (rb *SegmentsRecordBuilder) Version(version VersionString) *SegmentsRecordBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

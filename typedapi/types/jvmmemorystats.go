@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // JvmMemoryStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/_types/Stats.ts#L329-L337
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L329-L337
 type JvmMemoryStats struct {
 	HeapCommittedInBytes    *int64          `json:"heap_committed_in_bytes,omitempty"`
 	HeapMaxInBytes          *int64          `json:"heap_max_in_bytes,omitempty"`
@@ -35,62 +35,11 @@ type JvmMemoryStats struct {
 	Pools                   map[string]Pool `json:"pools,omitempty"`
 }
 
-// JvmMemoryStatsBuilder holds JvmMemoryStats struct and provides a builder API.
-type JvmMemoryStatsBuilder struct {
-	v *JvmMemoryStats
-}
-
-// NewJvmMemoryStats provides a builder for the JvmMemoryStats struct.
-func NewJvmMemoryStatsBuilder() *JvmMemoryStatsBuilder {
-	r := JvmMemoryStatsBuilder{
-		&JvmMemoryStats{
-			Pools: make(map[string]Pool, 0),
-		},
+// NewJvmMemoryStats returns a JvmMemoryStats.
+func NewJvmMemoryStats() *JvmMemoryStats {
+	r := &JvmMemoryStats{
+		Pools: make(map[string]Pool, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the JvmMemoryStats struct
-func (rb *JvmMemoryStatsBuilder) Build() JvmMemoryStats {
-	return *rb.v
-}
-
-func (rb *JvmMemoryStatsBuilder) HeapCommittedInBytes(heapcommittedinbytes int64) *JvmMemoryStatsBuilder {
-	rb.v.HeapCommittedInBytes = &heapcommittedinbytes
-	return rb
-}
-
-func (rb *JvmMemoryStatsBuilder) HeapMaxInBytes(heapmaxinbytes int64) *JvmMemoryStatsBuilder {
-	rb.v.HeapMaxInBytes = &heapmaxinbytes
-	return rb
-}
-
-func (rb *JvmMemoryStatsBuilder) HeapUsedInBytes(heapusedinbytes int64) *JvmMemoryStatsBuilder {
-	rb.v.HeapUsedInBytes = &heapusedinbytes
-	return rb
-}
-
-func (rb *JvmMemoryStatsBuilder) HeapUsedPercent(heapusedpercent int64) *JvmMemoryStatsBuilder {
-	rb.v.HeapUsedPercent = &heapusedpercent
-	return rb
-}
-
-func (rb *JvmMemoryStatsBuilder) NonHeapCommittedInBytes(nonheapcommittedinbytes int64) *JvmMemoryStatsBuilder {
-	rb.v.NonHeapCommittedInBytes = &nonheapcommittedinbytes
-	return rb
-}
-
-func (rb *JvmMemoryStatsBuilder) NonHeapUsedInBytes(nonheapusedinbytes int64) *JvmMemoryStatsBuilder {
-	rb.v.NonHeapUsedInBytes = &nonheapusedinbytes
-	return rb
-}
-
-func (rb *JvmMemoryStatsBuilder) Pools(values map[string]*PoolBuilder) *JvmMemoryStatsBuilder {
-	tmp := make(map[string]Pool, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Pools = tmp
-	return rb
+	return r
 }

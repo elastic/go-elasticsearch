@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Hyperparameters type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/DataframeAnalytics.ts#L395-L410
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/DataframeAnalytics.ts#L395-L410
 type Hyperparameters struct {
 	Alpha                                  *float64 `json:"alpha,omitempty"`
 	DownsampleFactor                       *float64 `json:"downsample_factor,omitempty"`
@@ -42,91 +42,9 @@ type Hyperparameters struct {
 	SoftTreeDepthTolerance                 *float64 `json:"soft_tree_depth_tolerance,omitempty"`
 }
 
-// HyperparametersBuilder holds Hyperparameters struct and provides a builder API.
-type HyperparametersBuilder struct {
-	v *Hyperparameters
-}
+// NewHyperparameters returns a Hyperparameters.
+func NewHyperparameters() *Hyperparameters {
+	r := &Hyperparameters{}
 
-// NewHyperparameters provides a builder for the Hyperparameters struct.
-func NewHyperparametersBuilder() *HyperparametersBuilder {
-	r := HyperparametersBuilder{
-		&Hyperparameters{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Hyperparameters struct
-func (rb *HyperparametersBuilder) Build() Hyperparameters {
-	return *rb.v
-}
-
-func (rb *HyperparametersBuilder) Alpha(alpha float64) *HyperparametersBuilder {
-	rb.v.Alpha = &alpha
-	return rb
-}
-
-func (rb *HyperparametersBuilder) DownsampleFactor(downsamplefactor float64) *HyperparametersBuilder {
-	rb.v.DownsampleFactor = &downsamplefactor
-	return rb
-}
-
-func (rb *HyperparametersBuilder) Eta(eta float64) *HyperparametersBuilder {
-	rb.v.Eta = &eta
-	return rb
-}
-
-func (rb *HyperparametersBuilder) EtaGrowthRatePerTree(etagrowthratepertree float64) *HyperparametersBuilder {
-	rb.v.EtaGrowthRatePerTree = &etagrowthratepertree
-	return rb
-}
-
-func (rb *HyperparametersBuilder) FeatureBagFraction(featurebagfraction float64) *HyperparametersBuilder {
-	rb.v.FeatureBagFraction = &featurebagfraction
-	return rb
-}
-
-func (rb *HyperparametersBuilder) Gamma(gamma float64) *HyperparametersBuilder {
-	rb.v.Gamma = &gamma
-	return rb
-}
-
-func (rb *HyperparametersBuilder) Lambda(lambda float64) *HyperparametersBuilder {
-	rb.v.Lambda = &lambda
-	return rb
-}
-
-func (rb *HyperparametersBuilder) MaxAttemptsToAddTree(maxattemptstoaddtree int) *HyperparametersBuilder {
-	rb.v.MaxAttemptsToAddTree = &maxattemptstoaddtree
-	return rb
-}
-
-func (rb *HyperparametersBuilder) MaxOptimizationRoundsPerHyperparameter(maxoptimizationroundsperhyperparameter int) *HyperparametersBuilder {
-	rb.v.MaxOptimizationRoundsPerHyperparameter = &maxoptimizationroundsperhyperparameter
-	return rb
-}
-
-func (rb *HyperparametersBuilder) MaxTrees(maxtrees int) *HyperparametersBuilder {
-	rb.v.MaxTrees = &maxtrees
-	return rb
-}
-
-func (rb *HyperparametersBuilder) NumFolds(numfolds int) *HyperparametersBuilder {
-	rb.v.NumFolds = &numfolds
-	return rb
-}
-
-func (rb *HyperparametersBuilder) NumSplitsPerFeature(numsplitsperfeature int) *HyperparametersBuilder {
-	rb.v.NumSplitsPerFeature = &numsplitsperfeature
-	return rb
-}
-
-func (rb *HyperparametersBuilder) SoftTreeDepthLimit(softtreedepthlimit int) *HyperparametersBuilder {
-	rb.v.SoftTreeDepthLimit = &softtreedepthlimit
-	return rb
-}
-
-func (rb *HyperparametersBuilder) SoftTreeDepthTolerance(softtreedepthtolerance float64) *HyperparametersBuilder {
-	rb.v.SoftTreeDepthTolerance = &softtreedepthtolerance
-	return rb
+	return r
 }

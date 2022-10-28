@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ScriptCache type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/_types/Stats.ts#L406-L411
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L406-L411
 type ScriptCache struct {
 	CacheEvictions            *int64  `json:"cache_evictions,omitempty"`
 	CompilationLimitTriggered *int64  `json:"compilation_limit_triggered,omitempty"`
@@ -32,41 +32,9 @@ type ScriptCache struct {
 	Context                   *string `json:"context,omitempty"`
 }
 
-// ScriptCacheBuilder holds ScriptCache struct and provides a builder API.
-type ScriptCacheBuilder struct {
-	v *ScriptCache
-}
+// NewScriptCache returns a ScriptCache.
+func NewScriptCache() *ScriptCache {
+	r := &ScriptCache{}
 
-// NewScriptCache provides a builder for the ScriptCache struct.
-func NewScriptCacheBuilder() *ScriptCacheBuilder {
-	r := ScriptCacheBuilder{
-		&ScriptCache{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ScriptCache struct
-func (rb *ScriptCacheBuilder) Build() ScriptCache {
-	return *rb.v
-}
-
-func (rb *ScriptCacheBuilder) CacheEvictions(cacheevictions int64) *ScriptCacheBuilder {
-	rb.v.CacheEvictions = &cacheevictions
-	return rb
-}
-
-func (rb *ScriptCacheBuilder) CompilationLimitTriggered(compilationlimittriggered int64) *ScriptCacheBuilder {
-	rb.v.CompilationLimitTriggered = &compilationlimittriggered
-	return rb
-}
-
-func (rb *ScriptCacheBuilder) Compilations(compilations int64) *ScriptCacheBuilder {
-	rb.v.Compilations = &compilations
-	return rb
-}
-
-func (rb *ScriptCacheBuilder) Context(context string) *ScriptCacheBuilder {
-	rb.v.Context = &context
-	return rb
+	return r
 }

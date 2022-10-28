@@ -17,41 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // LifecycleExplainUnmanaged type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ilm/explain_lifecycle/types.ts#L54-L57
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ilm/explain_lifecycle/types.ts#L54-L57
 type LifecycleExplainUnmanaged struct {
-	Index   IndexName `json:"index"`
-	Managed string    `json:"managed,omitempty"`
+	Index   string `json:"index"`
+	Managed string `json:"managed,omitempty"`
 }
 
-// LifecycleExplainUnmanagedBuilder holds LifecycleExplainUnmanaged struct and provides a builder API.
-type LifecycleExplainUnmanagedBuilder struct {
-	v *LifecycleExplainUnmanaged
-}
+// NewLifecycleExplainUnmanaged returns a LifecycleExplainUnmanaged.
+func NewLifecycleExplainUnmanaged() *LifecycleExplainUnmanaged {
+	r := &LifecycleExplainUnmanaged{}
 
-// NewLifecycleExplainUnmanaged provides a builder for the LifecycleExplainUnmanaged struct.
-func NewLifecycleExplainUnmanagedBuilder() *LifecycleExplainUnmanagedBuilder {
-	r := LifecycleExplainUnmanagedBuilder{
-		&LifecycleExplainUnmanaged{},
-	}
+	r.Managed = "false"
 
-	r.v.Managed = "false"
-
-	return &r
-}
-
-// Build finalize the chain and returns the LifecycleExplainUnmanaged struct
-func (rb *LifecycleExplainUnmanagedBuilder) Build() LifecycleExplainUnmanaged {
-	return *rb.v
-}
-
-func (rb *LifecycleExplainUnmanagedBuilder) Index(index IndexName) *LifecycleExplainUnmanagedBuilder {
-	rb.v.Index = index
-	return rb
+	return r
 }

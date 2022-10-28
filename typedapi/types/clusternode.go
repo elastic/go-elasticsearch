@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ClusterNode type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/security/_types/ClusterNode.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/_types/ClusterNode.ts#L22-L24
 type ClusterNode struct {
-	Name Name `json:"name"`
+	Name string `json:"name"`
 }
 
-// ClusterNodeBuilder holds ClusterNode struct and provides a builder API.
-type ClusterNodeBuilder struct {
-	v *ClusterNode
-}
+// NewClusterNode returns a ClusterNode.
+func NewClusterNode() *ClusterNode {
+	r := &ClusterNode{}
 
-// NewClusterNode provides a builder for the ClusterNode struct.
-func NewClusterNodeBuilder() *ClusterNodeBuilder {
-	r := ClusterNodeBuilder{
-		&ClusterNode{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ClusterNode struct
-func (rb *ClusterNodeBuilder) Build() ClusterNode {
-	return *rb.v
-}
-
-func (rb *ClusterNodeBuilder) Name(name Name) *ClusterNodeBuilder {
-	rb.v.Name = name
-	return rb
+	return r
 }

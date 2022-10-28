@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,37 +28,15 @@ import (
 
 // TotalHits type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_global/search/_types/hits.ts#L94-L97
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/hits.ts#L94-L97
 type TotalHits struct {
 	Relation totalhitsrelation.TotalHitsRelation `json:"relation"`
 	Value    int64                               `json:"value"`
 }
 
-// TotalHitsBuilder holds TotalHits struct and provides a builder API.
-type TotalHitsBuilder struct {
-	v *TotalHits
-}
+// NewTotalHits returns a TotalHits.
+func NewTotalHits() *TotalHits {
+	r := &TotalHits{}
 
-// NewTotalHits provides a builder for the TotalHits struct.
-func NewTotalHitsBuilder() *TotalHitsBuilder {
-	r := TotalHitsBuilder{
-		&TotalHits{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TotalHits struct
-func (rb *TotalHitsBuilder) Build() TotalHits {
-	return *rb.v
-}
-
-func (rb *TotalHitsBuilder) Relation(relation totalhitsrelation.TotalHitsRelation) *TotalHitsBuilder {
-	rb.v.Relation = relation
-	return rb
-}
-
-func (rb *TotalHitsBuilder) Value(value int64) *TotalHitsBuilder {
-	rb.v.Value = value
-	return rb
+	return r
 }

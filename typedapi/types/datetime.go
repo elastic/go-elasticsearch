@@ -17,41 +17,15 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DateTime holds the union for the following types:
 //
-//	EpochTimeUnitMillis
 //	string
+//	int64
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/Time.ts#L22-L27
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Time.ts#L22-L27
 type DateTime interface{}
-
-// DateTimeBuilder holds DateTime struct and provides a builder API.
-type DateTimeBuilder struct {
-	v DateTime
-}
-
-// NewDateTime provides a builder for the DateTime struct.
-func NewDateTimeBuilder() *DateTimeBuilder {
-	return &DateTimeBuilder{}
-}
-
-// Build finalize the chain and returns the DateTime struct
-func (u *DateTimeBuilder) Build() DateTime {
-	return u.v
-}
-
-func (u *DateTimeBuilder) EpochTimeUnitMillis(epochtimeunitmillis *EpochTimeUnitMillisBuilder) *DateTimeBuilder {
-	v := epochtimeunitmillis.Build()
-	u.v = &v
-	return u
-}
-
-func (u *DateTimeBuilder) String(string string) *DateTimeBuilder {
-	u.v = &string
-	return u
-}

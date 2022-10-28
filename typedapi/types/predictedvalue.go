@@ -17,52 +17,17 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // PredictedValue holds the union for the following types:
 //
-//	bool
-//	float64
-//	int
 //	string
+//	float64
+//	bool
+//	int
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ml/_types/inference.ts#L410-L410
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/inference.ts#L410-L410
 type PredictedValue interface{}
-
-// PredictedValueBuilder holds PredictedValue struct and provides a builder API.
-type PredictedValueBuilder struct {
-	v PredictedValue
-}
-
-// NewPredictedValue provides a builder for the PredictedValue struct.
-func NewPredictedValueBuilder() *PredictedValueBuilder {
-	return &PredictedValueBuilder{}
-}
-
-// Build finalize the chain and returns the PredictedValue struct
-func (u *PredictedValueBuilder) Build() PredictedValue {
-	return u.v
-}
-
-func (u *PredictedValueBuilder) Bool(bool bool) *PredictedValueBuilder {
-	u.v = &bool
-	return u
-}
-
-func (u *PredictedValueBuilder) Float64(float64 float64) *PredictedValueBuilder {
-	u.v = &float64
-	return u
-}
-
-func (u *PredictedValueBuilder) Int(int int) *PredictedValueBuilder {
-	u.v = &int
-	return u
-}
-
-func (u *PredictedValueBuilder) String(string string) *PredictedValueBuilder {
-	u.v = &string
-	return u
-}

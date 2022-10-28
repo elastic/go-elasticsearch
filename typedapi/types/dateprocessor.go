@@ -17,90 +17,30 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DateProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/ingest/_types/Processors.ts#L179-L185
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ingest/_types/Processors.ts#L179-L185
 type DateProcessor struct {
-	Field         Field                `json:"field"`
+	Description   *string              `json:"description,omitempty"`
+	Field         string               `json:"field"`
 	Formats       []string             `json:"formats"`
 	If            *string              `json:"if,omitempty"`
 	IgnoreFailure *bool                `json:"ignore_failure,omitempty"`
 	Locale        *string              `json:"locale,omitempty"`
 	OnFailure     []ProcessorContainer `json:"on_failure,omitempty"`
 	Tag           *string              `json:"tag,omitempty"`
-	TargetField   *Field               `json:"target_field,omitempty"`
+	TargetField   *string              `json:"target_field,omitempty"`
 	Timezone      *string              `json:"timezone,omitempty"`
 }
 
-// DateProcessorBuilder holds DateProcessor struct and provides a builder API.
-type DateProcessorBuilder struct {
-	v *DateProcessor
-}
+// NewDateProcessor returns a DateProcessor.
+func NewDateProcessor() *DateProcessor {
+	r := &DateProcessor{}
 
-// NewDateProcessor provides a builder for the DateProcessor struct.
-func NewDateProcessorBuilder() *DateProcessorBuilder {
-	r := DateProcessorBuilder{
-		&DateProcessor{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DateProcessor struct
-func (rb *DateProcessorBuilder) Build() DateProcessor {
-	return *rb.v
-}
-
-func (rb *DateProcessorBuilder) Field(field Field) *DateProcessorBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *DateProcessorBuilder) Formats(formats ...string) *DateProcessorBuilder {
-	rb.v.Formats = formats
-	return rb
-}
-
-func (rb *DateProcessorBuilder) If_(if_ string) *DateProcessorBuilder {
-	rb.v.If = &if_
-	return rb
-}
-
-func (rb *DateProcessorBuilder) IgnoreFailure(ignorefailure bool) *DateProcessorBuilder {
-	rb.v.IgnoreFailure = &ignorefailure
-	return rb
-}
-
-func (rb *DateProcessorBuilder) Locale(locale string) *DateProcessorBuilder {
-	rb.v.Locale = &locale
-	return rb
-}
-
-func (rb *DateProcessorBuilder) OnFailure(on_failure []ProcessorContainerBuilder) *DateProcessorBuilder {
-	tmp := make([]ProcessorContainer, len(on_failure))
-	for _, value := range on_failure {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.OnFailure = tmp
-	return rb
-}
-
-func (rb *DateProcessorBuilder) Tag(tag string) *DateProcessorBuilder {
-	rb.v.Tag = &tag
-	return rb
-}
-
-func (rb *DateProcessorBuilder) TargetField(targetfield Field) *DateProcessorBuilder {
-	rb.v.TargetField = &targetfield
-	return rb
-}
-
-func (rb *DateProcessorBuilder) Timezone(timezone string) *DateProcessorBuilder {
-	rb.v.Timezone = &timezone
-	return rb
+	return r
 }

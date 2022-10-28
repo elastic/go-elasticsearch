@@ -17,46 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SerializedClusterState type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/_types/Stats.ts#L95-L98
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L95-L98
 type SerializedClusterState struct {
 	Diffs      *SerializedClusterStateDetail `json:"diffs,omitempty"`
 	FullStates *SerializedClusterStateDetail `json:"full_states,omitempty"`
 }
 
-// SerializedClusterStateBuilder holds SerializedClusterState struct and provides a builder API.
-type SerializedClusterStateBuilder struct {
-	v *SerializedClusterState
-}
+// NewSerializedClusterState returns a SerializedClusterState.
+func NewSerializedClusterState() *SerializedClusterState {
+	r := &SerializedClusterState{}
 
-// NewSerializedClusterState provides a builder for the SerializedClusterState struct.
-func NewSerializedClusterStateBuilder() *SerializedClusterStateBuilder {
-	r := SerializedClusterStateBuilder{
-		&SerializedClusterState{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SerializedClusterState struct
-func (rb *SerializedClusterStateBuilder) Build() SerializedClusterState {
-	return *rb.v
-}
-
-func (rb *SerializedClusterStateBuilder) Diffs(diffs *SerializedClusterStateDetailBuilder) *SerializedClusterStateBuilder {
-	v := diffs.Build()
-	rb.v.Diffs = &v
-	return rb
-}
-
-func (rb *SerializedClusterStateBuilder) FullStates(fullstates *SerializedClusterStateDetailBuilder) *SerializedClusterStateBuilder {
-	v := fullstates.Build()
-	rb.v.FullStates = &v
-	return rb
+	return r
 }

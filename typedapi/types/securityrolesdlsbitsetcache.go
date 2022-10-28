@@ -17,51 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SecurityRolesDlsBitSetCache type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/xpack/usage/types.ts#L297-L301
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L297-L301
 type SecurityRolesDlsBitSetCache struct {
 	Count         int       `json:"count"`
 	Memory        *ByteSize `json:"memory,omitempty"`
 	MemoryInBytes uint64    `json:"memory_in_bytes"`
 }
 
-// SecurityRolesDlsBitSetCacheBuilder holds SecurityRolesDlsBitSetCache struct and provides a builder API.
-type SecurityRolesDlsBitSetCacheBuilder struct {
-	v *SecurityRolesDlsBitSetCache
-}
+// NewSecurityRolesDlsBitSetCache returns a SecurityRolesDlsBitSetCache.
+func NewSecurityRolesDlsBitSetCache() *SecurityRolesDlsBitSetCache {
+	r := &SecurityRolesDlsBitSetCache{}
 
-// NewSecurityRolesDlsBitSetCache provides a builder for the SecurityRolesDlsBitSetCache struct.
-func NewSecurityRolesDlsBitSetCacheBuilder() *SecurityRolesDlsBitSetCacheBuilder {
-	r := SecurityRolesDlsBitSetCacheBuilder{
-		&SecurityRolesDlsBitSetCache{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SecurityRolesDlsBitSetCache struct
-func (rb *SecurityRolesDlsBitSetCacheBuilder) Build() SecurityRolesDlsBitSetCache {
-	return *rb.v
-}
-
-func (rb *SecurityRolesDlsBitSetCacheBuilder) Count(count int) *SecurityRolesDlsBitSetCacheBuilder {
-	rb.v.Count = count
-	return rb
-}
-
-func (rb *SecurityRolesDlsBitSetCacheBuilder) Memory(memory *ByteSizeBuilder) *SecurityRolesDlsBitSetCacheBuilder {
-	v := memory.Build()
-	rb.v.Memory = &v
-	return rb
-}
-
-func (rb *SecurityRolesDlsBitSetCacheBuilder) MemoryInBytes(memoryinbytes uint64) *SecurityRolesDlsBitSetCacheBuilder {
-	rb.v.MemoryInBytes = memoryinbytes
-	return rb
+	return r
 }

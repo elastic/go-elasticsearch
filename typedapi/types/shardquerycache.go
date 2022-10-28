@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ShardQueryCache type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/stats/types.ts#L134-L142
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/stats/types.ts#L134-L142
 type ShardQueryCache struct {
 	CacheCount        int64 `json:"cache_count"`
 	CacheSize         int64 `json:"cache_size"`
@@ -35,56 +35,9 @@ type ShardQueryCache struct {
 	TotalCount        int64 `json:"total_count"`
 }
 
-// ShardQueryCacheBuilder holds ShardQueryCache struct and provides a builder API.
-type ShardQueryCacheBuilder struct {
-	v *ShardQueryCache
-}
+// NewShardQueryCache returns a ShardQueryCache.
+func NewShardQueryCache() *ShardQueryCache {
+	r := &ShardQueryCache{}
 
-// NewShardQueryCache provides a builder for the ShardQueryCache struct.
-func NewShardQueryCacheBuilder() *ShardQueryCacheBuilder {
-	r := ShardQueryCacheBuilder{
-		&ShardQueryCache{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ShardQueryCache struct
-func (rb *ShardQueryCacheBuilder) Build() ShardQueryCache {
-	return *rb.v
-}
-
-func (rb *ShardQueryCacheBuilder) CacheCount(cachecount int64) *ShardQueryCacheBuilder {
-	rb.v.CacheCount = cachecount
-	return rb
-}
-
-func (rb *ShardQueryCacheBuilder) CacheSize(cachesize int64) *ShardQueryCacheBuilder {
-	rb.v.CacheSize = cachesize
-	return rb
-}
-
-func (rb *ShardQueryCacheBuilder) Evictions(evictions int64) *ShardQueryCacheBuilder {
-	rb.v.Evictions = evictions
-	return rb
-}
-
-func (rb *ShardQueryCacheBuilder) HitCount(hitcount int64) *ShardQueryCacheBuilder {
-	rb.v.HitCount = hitcount
-	return rb
-}
-
-func (rb *ShardQueryCacheBuilder) MemorySizeInBytes(memorysizeinbytes int64) *ShardQueryCacheBuilder {
-	rb.v.MemorySizeInBytes = memorysizeinbytes
-	return rb
-}
-
-func (rb *ShardQueryCacheBuilder) MissCount(misscount int64) *ShardQueryCacheBuilder {
-	rb.v.MissCount = misscount
-	return rb
-}
-
-func (rb *ShardQueryCacheBuilder) TotalCount(totalcount int64) *ShardQueryCacheBuilder {
-	rb.v.TotalCount = totalcount
-	return rb
+	return r
 }

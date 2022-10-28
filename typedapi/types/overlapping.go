@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Overlapping type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/indices/simulate_template/IndicesSimulateTemplateResponse.ts#L39-L42
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/simulate_template/IndicesSimulateTemplateResponse.ts#L39-L42
 type Overlapping struct {
 	IndexPatterns []string `json:"index_patterns"`
-	Name          Name     `json:"name"`
+	Name          string   `json:"name"`
 }
 
-// OverlappingBuilder holds Overlapping struct and provides a builder API.
-type OverlappingBuilder struct {
-	v *Overlapping
-}
+// NewOverlapping returns a Overlapping.
+func NewOverlapping() *Overlapping {
+	r := &Overlapping{}
 
-// NewOverlapping provides a builder for the Overlapping struct.
-func NewOverlappingBuilder() *OverlappingBuilder {
-	r := OverlappingBuilder{
-		&Overlapping{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Overlapping struct
-func (rb *OverlappingBuilder) Build() Overlapping {
-	return *rb.v
-}
-
-func (rb *OverlappingBuilder) IndexPatterns(index_patterns ...string) *OverlappingBuilder {
-	rb.v.IndexPatterns = index_patterns
-	return rb
-}
-
-func (rb *OverlappingBuilder) Name(name Name) *OverlappingBuilder {
-	rb.v.Name = name
-	return rb
+	return r
 }

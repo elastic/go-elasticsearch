@@ -17,45 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ExecutingPolicy type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/enrich/stats/types.ts#L24-L27
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/enrich/stats/types.ts#L24-L27
 type ExecutingPolicy struct {
-	Name Name     `json:"name"`
+	Name string   `json:"name"`
 	Task TaskInfo `json:"task"`
 }
 
-// ExecutingPolicyBuilder holds ExecutingPolicy struct and provides a builder API.
-type ExecutingPolicyBuilder struct {
-	v *ExecutingPolicy
-}
+// NewExecutingPolicy returns a ExecutingPolicy.
+func NewExecutingPolicy() *ExecutingPolicy {
+	r := &ExecutingPolicy{}
 
-// NewExecutingPolicy provides a builder for the ExecutingPolicy struct.
-func NewExecutingPolicyBuilder() *ExecutingPolicyBuilder {
-	r := ExecutingPolicyBuilder{
-		&ExecutingPolicy{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ExecutingPolicy struct
-func (rb *ExecutingPolicyBuilder) Build() ExecutingPolicy {
-	return *rb.v
-}
-
-func (rb *ExecutingPolicyBuilder) Name(name Name) *ExecutingPolicyBuilder {
-	rb.v.Name = name
-	return rb
-}
-
-func (rb *ExecutingPolicyBuilder) Task(task *TaskInfoBuilder) *ExecutingPolicyBuilder {
-	v := task.Build()
-	rb.v.Task = v
-	return rb
+	return r
 }

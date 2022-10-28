@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CgroupMemory type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/nodes/_types/Stats.ts#L206-L210
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L206-L210
 type CgroupMemory struct {
 	ControlGroup *string `json:"control_group,omitempty"`
 	LimitInBytes *string `json:"limit_in_bytes,omitempty"`
 	UsageInBytes *string `json:"usage_in_bytes,omitempty"`
 }
 
-// CgroupMemoryBuilder holds CgroupMemory struct and provides a builder API.
-type CgroupMemoryBuilder struct {
-	v *CgroupMemory
-}
+// NewCgroupMemory returns a CgroupMemory.
+func NewCgroupMemory() *CgroupMemory {
+	r := &CgroupMemory{}
 
-// NewCgroupMemory provides a builder for the CgroupMemory struct.
-func NewCgroupMemoryBuilder() *CgroupMemoryBuilder {
-	r := CgroupMemoryBuilder{
-		&CgroupMemory{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the CgroupMemory struct
-func (rb *CgroupMemoryBuilder) Build() CgroupMemory {
-	return *rb.v
-}
-
-func (rb *CgroupMemoryBuilder) ControlGroup(controlgroup string) *CgroupMemoryBuilder {
-	rb.v.ControlGroup = &controlgroup
-	return rb
-}
-
-func (rb *CgroupMemoryBuilder) LimitInBytes(limitinbytes string) *CgroupMemoryBuilder {
-	rb.v.LimitInBytes = &limitinbytes
-	return rb
-}
-
-func (rb *CgroupMemoryBuilder) UsageInBytes(usageinbytes string) *CgroupMemoryBuilder {
-	rb.v.UsageInBytes = &usageinbytes
-	return rb
+	return r
 }

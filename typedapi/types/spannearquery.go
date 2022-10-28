@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SpanNearQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/query_dsl/span.ts#L49-L53
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/span.ts#L49-L53
 type SpanNearQuery struct {
 	Boost      *float32    `json:"boost,omitempty"`
 	Clauses    []SpanQuery `json:"clauses"`
@@ -33,50 +33,9 @@ type SpanNearQuery struct {
 	Slop       *int        `json:"slop,omitempty"`
 }
 
-// SpanNearQueryBuilder holds SpanNearQuery struct and provides a builder API.
-type SpanNearQueryBuilder struct {
-	v *SpanNearQuery
-}
+// NewSpanNearQuery returns a SpanNearQuery.
+func NewSpanNearQuery() *SpanNearQuery {
+	r := &SpanNearQuery{}
 
-// NewSpanNearQuery provides a builder for the SpanNearQuery struct.
-func NewSpanNearQueryBuilder() *SpanNearQueryBuilder {
-	r := SpanNearQueryBuilder{
-		&SpanNearQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SpanNearQuery struct
-func (rb *SpanNearQueryBuilder) Build() SpanNearQuery {
-	return *rb.v
-}
-
-func (rb *SpanNearQueryBuilder) Boost(boost float32) *SpanNearQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *SpanNearQueryBuilder) Clauses(clauses []SpanQueryBuilder) *SpanNearQueryBuilder {
-	tmp := make([]SpanQuery, len(clauses))
-	for _, value := range clauses {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Clauses = tmp
-	return rb
-}
-
-func (rb *SpanNearQueryBuilder) InOrder(inorder bool) *SpanNearQueryBuilder {
-	rb.v.InOrder = &inorder
-	return rb
-}
-
-func (rb *SpanNearQueryBuilder) QueryName_(queryname_ string) *SpanNearQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
-}
-
-func (rb *SpanNearQueryBuilder) Slop(slop int) *SpanNearQueryBuilder {
-	rb.v.Slop = &slop
-	return rb
+	return r
 }

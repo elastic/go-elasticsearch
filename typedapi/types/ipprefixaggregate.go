@@ -17,46 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9b556a1c9fd30159115d6c15226d0cac53a1d1a7
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IpPrefixAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9b556a1c9fd30159115d6c15226d0cac53a1d1a7/specification/_types/aggregations/Aggregate.ts#L613-L614
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L628-L629
 type IpPrefixAggregate struct {
-	Buckets BucketsIpPrefixBucket `json:"buckets"`
-	Meta    *Metadata             `json:"meta,omitempty"`
+	Buckets BucketsIpPrefixBucket  `json:"buckets"`
+	Meta    map[string]interface{} `json:"meta,omitempty"`
 }
 
-// IpPrefixAggregateBuilder holds IpPrefixAggregate struct and provides a builder API.
-type IpPrefixAggregateBuilder struct {
-	v *IpPrefixAggregate
-}
+// NewIpPrefixAggregate returns a IpPrefixAggregate.
+func NewIpPrefixAggregate() *IpPrefixAggregate {
+	r := &IpPrefixAggregate{}
 
-// NewIpPrefixAggregate provides a builder for the IpPrefixAggregate struct.
-func NewIpPrefixAggregateBuilder() *IpPrefixAggregateBuilder {
-	r := IpPrefixAggregateBuilder{
-		&IpPrefixAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IpPrefixAggregate struct
-func (rb *IpPrefixAggregateBuilder) Build() IpPrefixAggregate {
-	return *rb.v
-}
-
-func (rb *IpPrefixAggregateBuilder) Buckets(buckets *BucketsIpPrefixBucketBuilder) *IpPrefixAggregateBuilder {
-	v := buckets.Build()
-	rb.v.Buckets = v
-	return rb
-}
-
-func (rb *IpPrefixAggregateBuilder) Meta(meta *MetadataBuilder) *IpPrefixAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
+	return r
 }
